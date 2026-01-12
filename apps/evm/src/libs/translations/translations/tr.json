@@ -1,664 +1,664 @@
 {
   "account": {
-    "circularGradient": "TRANSLATION NEEDED",
+    "circularGradient": "Dairesel gradyan",
     "marketBreakdown": {
       "tables": {
-        "borrowTableTitle": "TRANSLATION NEEDED",
+        "borrowTableTitle": "Borçlanılan",
         "eModeHeader": {
-          "illustrationAltText": "TRANSLATION NEEDED",
-          "title": "TRANSLATION NEEDED"
+          "illustrationAltText": "E-modu illüstrasyonu",
+          "title": "E-modu: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
-        "supplyTableTitle": "TRANSLATION NEEDED",
-        "tabletBorrowTabTitle": "TRANSLATION NEEDED",
-        "tabletSupplyTabTitle": "TRANSLATION NEEDED",
-        "tabletTitle": "TRANSLATION NEEDED"
+        "supplyTableTitle": "Sağlanan",
+        "tabletBorrowTabTitle": "Borçlanılan",
+        "tabletSupplyTabTitle": "Sağlanan",
+        "tabletTitle": "Varlıklar"
       }
     },
     "performanceChart": {
-      "absolutePerformance": "TRANSLATION NEEDED",
+      "absolutePerformance": "Mutlak performans",
       "errorState": {
-        "failedToFetchMessage": "TRANSLATION NEEDED",
-        "refetchButtonLabel": "TRANSLATION NEEDED"
+        "failedToFetchMessage": "Hesap geçmişi alınamadı",
+        "refetchButtonLabel": "Yeniden dene"
       },
       "netWorth": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED",
-        "tooltipWithVai": "TRANSLATION NEEDED"
+        "label": "Net değer",
+        "tooltip": "Vault stake'i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Vault stake'i, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "periodOption": {
-        "oneYear": "TRANSLATION NEEDED",
-        "sixMonths": "TRANSLATION NEEDED",
-        "thirtyDays": "TRANSLATION NEEDED"
+        "oneYear": "1Y",
+        "sixMonths": "6A",
+        "thirtyDays": "30G"
       },
-      "placeholderText": "TRANSLATION NEEDED",
-      "todaysChange": "TRANSLATION NEEDED"
+      "placeholderText": "Rapor oluşturuluyor, bu işlem bir dakikaya kadar sürebilir",
+      "todaysChange": "Bugünün değişimi"
     },
     "placeholder": {
-      "buttonLabel": "TRANSLATION NEEDED"
+      "buttonLabel": "Göz at"
     },
     "pools": {
       "placeholder": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Havuz pozisyonlarınız burada görünecek",
+        "title": "Henüz sağlama veya borçlanma pozisyonu yok"
       }
     },
     "poolsBreakdown": {
-      "poolTagTooltip": "TRANSLATION NEEDED"
+      "poolTagTooltip": "Kullanılan borç limiti: {{borrowLimitUsedPercentage}}"
     },
     "primeBanner": {
       "button": {
-        "becomePrime": "TRANSLATION NEEDED",
-        "stakeXvs": "TRANSLATION NEEDED"
+        "becomePrime": "Prime tokenını talep et",
+        "stakeXvs": "XVS stake et"
       },
-      "primeLogoAltText": "TRANSLATION NEEDED",
+      "primeLogoAltText": "Prime logosu",
       "text": {
-        "apyBoost": "TRANSLATION NEEDED",
-        "becomePrime": "TRANSLATION NEEDED"
+        "apyBoost": "Prime ile kazancınızı <GreenText>{{boost}}</GreenText> kadar artırın",
+        "becomePrime": "Artık Prime kullanıcısı olabilirsiniz"
       }
     },
     "settings": {
       "gaslessTransactions": {
-        "switchLabel": "TRANSLATION NEEDED"
+        "switchLabel": "{{chainName}} üzerinde gas'siz işlemleri etkinleştir"
       }
     },
     "summary": {
       "cellGroup": {
-        "dailyEarnings": "TRANSLATION NEEDED",
-        "healthFactor": "TRANSLATION NEEDED",
-        "healthFactorTooltip": "TRANSLATION NEEDED",
-        "mintedVai": "TRANSLATION NEEDED",
-        "netApy": "TRANSLATION NEEDED",
-        "netApyTooltip": "TRANSLATION NEEDED",
-        "netApyWithVaultStakeTooltip": "TRANSLATION NEEDED",
-        "totalBorrow": "TRANSLATION NEEDED",
-        "totalSupply": "TRANSLATION NEEDED",
-        "totalVaultStake": "TRANSLATION NEEDED"
+        "dailyEarnings": "Günlük kazanç",
+        "healthFactor": "Sağlık faktörü",
+        "healthFactorTooltip": "Likidasyon < 1.0",
+        "mintedVai": "Basılmış VAI",
+        "netApy": "Net APY",
+        "netApyTooltip": "Yıllık faiz olarak alınan toplam sağlama bakiyenizin yüzdesi",
+        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam sağlama bakiyeniz ve vault stake'inizin yüzdesi",
+        "totalBorrow": "Toplam borç",
+        "totalSupply": "Toplam sağlama",
+        "totalVaultStake": "Toplam vault stake"
       },
-      "title": "TRANSLATION NEEDED"
+      "title": "Özet"
     },
     "tabs": {
-      "pools": "TRANSLATION NEEDED",
-      "settings": "TRANSLATION NEEDED",
-      "transactions": "TRANSLATION NEEDED",
-      "vaults": "TRANSLATION NEEDED"
+      "pools": "Havuzlar",
+      "settings": "Ayarlar",
+      "transactions": "İşlemler",
+      "vaults": "Vaultlar"
     },
     "transactions": {
       "placeholder": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "İşlemleriniz burada görünecek",
+        "title": "Henüz işlem yok"
       },
       "selects": {
         "source": {
-          "all": "TRANSLATION NEEDED"
+          "all": "Tüm piyasalar"
         },
         "txType": {
-          "all": "TRANSLATION NEEDED",
-          "approve": "TRANSLATION NEEDED",
-          "borrow": "TRANSLATION NEEDED",
-          "enterMarket": "TRANSLATION NEEDED",
-          "exitMarket": "TRANSLATION NEEDED",
-          "mint": "TRANSLATION NEEDED",
-          "redeem": "TRANSLATION NEEDED",
-          "repay": "TRANSLATION NEEDED"
+          "all": "Tüm işlemler",
+          "approve": "Onay",
+          "borrow": "Borç al",
+          "enterMarket": "Teminat etkin",
+          "exitMarket": "Teminat devre dışı",
+          "mint": "Sağla",
+          "redeem": "Çek",
+          "repay": "Geri ödeme"
         }
       },
-      "today": "TRANSLATION NEEDED",
+      "today": "Bugün",
       "txText": {
-        "approve": "TRANSLATION NEEDED",
-        "enterMarket": "TRANSLATION NEEDED",
-        "exitMarket": "TRANSLATION NEEDED"
+        "approve": "{{tokenAmount}} harcaması onaylandı",
+        "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
+        "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
       },
       "txType": {
-        "approve": "TRANSLATION NEEDED",
-        "borrow": "TRANSLATION NEEDED",
-        "enterMarket": "TRANSLATION NEEDED",
-        "exitMarket": "TRANSLATION NEEDED",
-        "mint": "TRANSLATION NEEDED",
-        "redeem": "TRANSLATION NEEDED",
-        "repay": "TRANSLATION NEEDED"
+        "approve": "Onay",
+        "borrow": "Borç al",
+        "enterMarket": "Teminat etkin",
+        "exitMarket": "Teminat devre dışı",
+        "mint": "Sağla",
+        "redeem": "Çek",
+        "repay": "Geri ödeme"
       },
-      "view": "TRANSLATION NEEDED",
-      "yesterday": "TRANSLATION NEEDED"
+      "view": "Görüntüle",
+      "yesterday": "Dün"
     },
     "vaults": {
       "placeholder": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Vault pozisyonlarınız burada görünecek",
+        "title": "Henüz stake pozisyonu yok"
       }
     }
   },
   "accountData": {
     "balanceUpdate": {
-      "borrowBalance": "TRANSLATION NEEDED",
-      "supplyBalance": "TRANSLATION NEEDED"
+      "borrowBalance": "Borç bakiyesi",
+      "supplyBalance": "Sağlama bakiyesi"
     },
     "dailyEarnings": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Günlük kazanç"
     },
     "healthFactor": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "Sağlık faktörü",
+      "tooltip": "Likidasyon < 1.0"
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "TRANSLATION NEEDED",
-    "borrowLimitUsed": "TRANSLATION NEEDED",
-    "limit": "TRANSLATION NEEDED",
-    "tooltip": "TRANSLATION NEEDED"
+    "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
+    "borrowLimitUsed": "Kullanılan borç limiti:",
+    "limit": "Limit:",
+    "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Güvenli borç limiti:<LineBreak/>{{safeBorrowLimit}} (borç limitinizin {{safeBorrowLimitPercentage}}%'i)"
   },
   "adBanner": {
-    "learnMore": "TRANSLATION NEEDED",
-    "startNow": "TRANSLATION NEEDED"
+    "learnMore": "Daha fazla bilgi",
+    "startNow": "Şimdi başla"
   },
   "announcements": {
     "bethUpdate": {
-      "description": "TRANSLATION NEEDED"
+      "description": "Binance, 2023-04-26 tarihinde BETH çekimlerini durdurdu. Kullanıcıların Venus üzerindeki BETH maruziyetini azaltmasını öneriyoruz. Borç alma duraklatıldı. BETH'yi zincir üzerinde 1:1 oranında WBETH'ye dönüştürün <Link>buradan</Link>."
     },
     "sxpDisabling": {
-      "description": "TRANSLATION NEEDED"
+      "description": "Gauntlet önerisi doğrultusunda, SXP'nin yeni bir zincire taşınmasına ilişkin endişeler ve SXP likiditesinde beklenen düşüş nedeniyle SXP için borç alma ve sağlama duraklatıldı."
     },
     "trxMigration": {
-      "description": "TRANSLATION NEEDED"
+      "description": "Venus, yeni TRX tokenını yeni bir piyasada destekliyor. Eski TRX tokenı için borç alma ve sağlama duraklatıldı. Daha fazla bilgi için <Link>Binance'in resmi duyurusuna</Link> bakın."
     },
     "tusdMigration": {
-      "description": "TRANSLATION NEEDED"
+      "description": "Venus, yeni TUSD tokenını yeni bir piyasada destekliyor. Eski TUSD tokenı için borç alma ve sağlama duraklatıldı. Daha fazla bilgi için <Link>Binance'in resmi duyurusuna</Link> bakın."
     }
   },
   "approveDelegateSteps": {
     "approveDelegateButton": {
-      "text": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "text": "Delege sözleşmesini onayla",
+      "tooltip": "Bu işlemi sizin adınıza gerçekleştirmek için delege sözleşmesini onaylamamız gerekiyor."
     },
-    "step1": "TRANSLATION NEEDED"
+    "step1": "Adım 1"
   },
   "approveTokenSteps": {
     "approveTokenButton": {
-      "text": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "text": "{{tokenSymbol}} onayla",
+      "tooltip": "Venus protokolüyle kullanmak istediğiniz herhangi bir token için harcama onayı gerekiyor."
     },
-    "step1": "TRANSLATION NEEDED",
-    "step2": "TRANSLATION NEEDED"
+    "step1": "Adım 1",
+    "step2": "Adım 2"
   },
   "appVersionChecker": {
-    "newVersionMessage": "TRANSLATION NEEDED"
+    "newVersionMessage": "Venus'un yeni bir sürümü mevcut. Hemen kullanmak için sayfayı yenileyin."
   },
   "apy": {
     "boost": {
-      "iconAlt": "TRANSLATION NEEDED",
+      "iconAlt": "Boost edilmiş piyasa ikonu",
       "tooltip": {
         "borrowApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Venus Protokolünden bu varlığı borç alırken biriken faiz.",
+          "name": "Borç APY"
         },
-        "defaultMerklRewardName": "TRANSLATION NEEDED",
-        "externalRewardDescription": "TRANSLATION NEEDED",
+        "defaultMerklRewardName": "Merkl ödülleri",
+        "externalRewardDescription": "Bu dış programdaki ödüller <AppLink>resmi uygulaması</AppLink> üzerinden talep edilebilir. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
         "intrinsicApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Dayanak varlığın kendi doğal getirisi — ör. staking ödülleri. Bu getiri dış kaynaklardan gelir ve Venus Protokolü tarafından garanti edilmez.",
+          "name": "İçsel APY"
         },
         "offChainApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Airdrop veya promosyon kampanyaları gibi üçüncü taraflarca yönetilen zincir dışı faaliyetlerden ek getiri. Bu getiri Venus Protokolü tarafından garanti edilmez.",
+          "name": "Zincir dışı APY"
         },
         "pointDistribution": {
-          "learnMore": "TRANSLATION NEEDED"
+          "learnMore": "Daha fazla bilgi"
         },
         "primeDistribution": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Venus Prime, özel kullanıcılara artırılmış ödüller sunar. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+          "name": "Prime APY"
         },
         "supplyApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Varlığınızı Venus Protokolüne sağlayarak elde edilen toplam getiri.",
+          "name": "Sağlama APY"
         },
         "xvsDistribution": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Dağıtım ödülleri merkeziyetsiz Venus topluluğu tarafından başlatılır ve uygulanır. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+          "name": "XVS dağıtımı"
         }
       }
     },
     "primeBadge": {
-      "logoAlt": "TRANSLATION NEEDED",
+      "logoAlt": "Prime logosu",
       "tooltip": {
-        "calculatorLink": "TRANSLATION NEEDED",
-        "primeBorrowSimulation": "TRANSLATION NEEDED",
-        "primeDocLink": "TRANSLATION NEEDED",
-        "primeMarket": "TRANSLATION NEEDED",
-        "primeSupplySimulation": "TRANSLATION NEEDED"
+        "calculatorLink": "Prime ödüllerinizi hesaplayın",
+        "primeBorrowSimulation": "Prime ile APY, kullanıcıların medyan {{borrowBalance}} borcuna ve {{xvsStaked}} vault stake'ine göre artırılır.",
+        "primeDocLink": "Daha fazla bilgi",
+        "primeMarket": "Prime ile APY artırılır.",
+        "primeSupplySimulation": "Prime ile APY, kullanıcıların medyan {{supplyBalance}} sağlamasına ve {{xvsStaked}} vault stake'ine göre artırılır."
       }
     }
   },
   "apyBreakdown": {
-    "borrowApy": "TRANSLATION NEEDED",
-    "distributionApy": "TRANSLATION NEEDED",
-    "distributionTooltip": "TRANSLATION NEEDED",
-    "externalDistributionApy": "TRANSLATION NEEDED",
-    "intrinsicApy": "TRANSLATION NEEDED",
-    "intrinsicApyTooltip": "TRANSLATION NEEDED",
+    "borrowApy": "Borç APY",
+    "distributionApy": "Dağıtım APY",
+    "distributionTooltip": "Dağıtım ödülleri merkeziyetsiz Venus topluluğu tarafından başlatılır ve uygulanır. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+    "externalDistributionApy": "{{description}} APY",
+    "intrinsicApy": "İçsel APY",
+    "intrinsicApyTooltip": "Varlığın kendisinden doğrudan kazanılan APY (ör. staking veya dış ödüller), Venus borç verme getirilerinden bağımsızdır. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
     "netApy": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "Net APY",
+      "tooltip": "İlgili tüm piyasaların APY'lerinin toplamı"
     },
-    "offChainApy": "TRANSLATION NEEDED",
-    "offChainApyTooltip": "TRANSLATION NEEDED",
-    "primeApy": "TRANSLATION NEEDED",
-    "supplyApy": "TRANSLATION NEEDED",
+    "offChainApy": "Zincir dışı APY",
+    "offChainApyTooltip": "Airdrop veya promosyon kampanyaları gibi üçüncü taraflarca yönetilen zincir dışı faaliyetlerden ek getiri. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
+    "primeApy": "Prime APY",
+    "supplyApy": "Sağlama APY",
     "totalApy": {
-      "borrowApyTooltip": "TRANSLATION NEEDED",
-      "label": "TRANSLATION NEEDED",
-      "supplyApyTooltip": "TRANSLATION NEEDED"
+      "borrowApyTooltip": "Borç APY - Dağıtım APY'leri",
+      "label": "Toplam APY",
+      "supplyApyTooltip": "Sağlama APY + Dağıtım APY'leri"
     }
   },
   "apyChart": {
     "tooltipItemLabels": {
-      "borrowApy": "TRANSLATION NEEDED",
-      "date": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "totalBorrow": "TRANSLATION NEEDED",
-      "totalSupply": "TRANSLATION NEEDED"
+      "borrowApy": "Borç APY",
+      "date": "Tarih",
+      "supplyApy": "Sağlama APY",
+      "totalBorrow": "Toplam borç",
+      "totalSupply": "Toplam sağlama"
     }
   },
   "asset": {
     "eModeInfo": {
-      "title": "TRANSLATION NEEDED"
+      "title": "E-modu bilgisi"
     },
     "marketInfo": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Piyasa bilgisi"
     }
   },
   "assetAccessor": {
     "disabledActionNotice": {
-      "boost": "TRANSLATION NEEDED",
-      "borrow": "TRANSLATION NEEDED",
-      "repay": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "withdraw": "TRANSLATION NEEDED"
+      "boost": "Bu piyasada boost devre dışı",
+      "borrow": "Bu piyasada borç alma devre dışı",
+      "repay": "Bu piyasada geri ödeme devre dışı",
+      "supply": "Bu piyasada sağlama devre dışı",
+      "withdraw": "Bu piyasada çekim devre dışı"
     },
     "eModeBlockedActionNotice": {
-      "borrow": "TRANSLATION NEEDED"
+      "borrow": "E-modu ayarlarınız bu piyasadan borç almanıza izin vermiyor. <Link>E-modunu yönet</Link>"
     }
   },
   "assetWarning": {
-    "borrowDescription": "TRANSLATION NEEDED",
-    "modalTitle": "TRANSLATION NEEDED",
-    "supplyDescription": "TRANSLATION NEEDED"
+    "borrowDescription": "{{poolName}} havuzundaki teminatlı sağlamanıza göre {{tokenSymbol}} borç alabilirsiniz. <Button>Tüm tokenları göster</Button>",
+    "modalTitle": "{{ poolName }} tokenları",
+    "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} sağlamak, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },
   "binanceWalletBanner": {
-    "bgIllustrationAltText": "TRANSLATION NEEDED",
-    "binanceLogoAltText": "TRANSLATION NEEDED",
-    "description": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "bgIllustrationAltText": "Arka plan illüstrasyonu",
+    "binanceLogoAltText": "Binance logosu",
+    "description": "USDT borç alın ve <Bold>$400,000</Bold> ödülü paylaşın!",
+    "title": "Venus, Binance Wallet Earn'da yayında."
   },
   "boostBanner": {
-    "description": "TRANSLATION NEEDED",
-    "rocketAltText": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "description": "Tek tık kaldıraçla getirinizi <White>5 kata kadar</White> artırın.",
+    "rocketAltText": "Roket illüstrasyonu",
+    "title": "Boost artık kullanılabilir!"
   },
   "breadcrumbs": {
-    "bridge": "TRANSLATION NEEDED",
-    "dashboard": "TRANSLATION NEEDED",
-    "governance": "TRANSLATION NEEDED",
-    "isolatedPools": "TRANSLATION NEEDED",
-    "leaderboard": "TRANSLATION NEEDED",
-    "markets": "TRANSLATION NEEDED",
-    "primeCalculator": "TRANSLATION NEEDED",
-    "proposal": "TRANSLATION NEEDED",
-    "staking": "TRANSLATION NEEDED",
-    "swap": "TRANSLATION NEEDED",
-    "vai": "TRANSLATION NEEDED"
+    "bridge": "Köprü",
+    "dashboard": "Gösterge paneli",
+    "governance": "Yönetişim",
+    "isolatedPools": "İzole havuzlar",
+    "leaderboard": "Liderlik tablosu",
+    "markets": "Piyasalar",
+    "primeCalculator": "Prime hesaplayıcı",
+    "proposal": "Teklif #{{proposalId}}",
+    "staking": "Staking",
+    "swap": "Takas",
+    "vai": "VAI"
   },
   "bridgePage": {
     "amountInput": {
-      "label": "TRANSLATION NEEDED",
-      "maxButtonLabel": "TRANSLATION NEEDED"
+      "label": "Miktar",
+      "maxButtonLabel": "MAKS"
     },
     "bridgeGasFee": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "Köprü gas ücreti",
+      "tooltip": "Aktarımı hedef zincire göndermenin gas maliyetini karşılamak için kullanılır"
     },
     "errors": {
       "dailyTransactionLimitExceeded": {
-        "message": "TRANSLATION NEEDED",
-        "submitButton": "TRANSLATION NEEDED"
+        "message": "24 saatlik limit nedeniyle hedef zincirde {{readableAmountTokens}} ({{readableAmountUsd}}) üzeri köprülenemez. Bu limit {{ date, dd MMM yyyy h:mm a }} tarihinde sıfırlanacak",
+        "submitButton": "Girilen miktar günlük limitin üzerinde"
       },
-      "doesNotHaveEnoughNativeFunds": "TRANSLATION NEEDED",
-      "doesNotHaveEnoughXvs": "TRANSLATION NEEDED",
+      "doesNotHaveEnoughNativeFunds": "Yetersiz {{tokenSymbol}} bakiyesi",
+      "doesNotHaveEnoughXvs": "Yetersiz {{tokenSymbol}} bakiyesi",
       "mintCapReached": {
-        "message": "TRANSLATION NEEDED",
-        "submitButton": "TRANSLATION NEEDED"
+        "message": "Köprü mint limiti nedeniyle {{readableAmountTokens}} üzeri köprülenemez",
+        "submitButton": "Köprü mint limiti aşıldı"
       },
       "singleTransactionLimitExceeded": {
-        "message": "TRANSLATION NEEDED",
-        "submitButton": "TRANSLATION NEEDED"
+        "message": "Hedef zincirde tek işlemde {{readableAmountTokens}} ({{readableAmountUsd}}) üzeri köprülenemez",
+        "submitButton": "Girilen miktar limitin üzerinde"
       }
     },
     "footer": {
-      "bridgeDocLink": "TRANSLATION NEEDED",
-      "poweredBy": "TRANSLATION NEEDED"
+      "bridgeDocLink": "Köprü nasıl kullanılır",
+      "poweredBy": "Sağlayan"
     },
     "fromChainSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Kaynak"
     },
     "submitButton": {
       "label": {
-        "enterValidAmount": "TRANSLATION NEEDED",
-        "submit": "TRANSLATION NEEDED"
+        "enterValidAmount": "Geçerli miktar girin",
+        "submit": "Onayla"
       }
     },
     "toChainSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Hedef"
     },
     "walletBalance": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Cüzdan bakiyesi"
     }
   },
   "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
+    "iconAlt": "Yakılmış BNB ikonu"
   },
   "chainExplorerLink": {
-    "content": "TRANSLATION NEEDED"
+    "content": "{{domainName}} üzerinde görüntüle"
   },
   "chip": {
     "proposalType": {
-      "critical": "TRANSLATION NEEDED",
-      "fastTrack": "TRANSLATION NEEDED"
+      "critical": "Kritik",
+      "fastTrack": "Hızlı"
     }
   },
   "claimReward": {
     "modal": {
       "claimButton": {
-        "disabledLabel": "TRANSLATION NEEDED",
-        "enabledLabel": "TRANSLATION NEEDED"
+        "disabledLabel": "Ödül toplamak için grupları seçin",
+        "enabledLabel": "Talep et"
       },
-      "claimOn": "TRANSLATION NEEDED",
-      "externalRewards": "TRANSLATION NEEDED",
+      "claimOn": "{{appName}} üzerinde talep et",
+      "externalRewards": "Harici ödüller",
       "primeGroup": {
-        "disabledContractWarningMessage": "TRANSLATION NEEDED",
-        "name": "TRANSLATION NEEDED"
+        "disabledContractWarningMessage": "Prime sözleşmesi şu anda duraklatılmıştır. Prime'dan faizler birikmeye devam eder ancak sözleşme tekrar açılana kadar talep edilemez.",
+        "name": "Prime"
       },
-      "rewards": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
+      "rewards": "Ödüller",
+      "title": "Ödülleri talep et ({{chainName}})",
       "vaultGroup": {
-        "disabledContractWarningMessage": "TRANSLATION NEEDED",
-        "name": "TRANSLATION NEEDED"
+        "disabledContractWarningMessage": "Bu vault şu anda duraklatılmıştır. Faiz oranları birikmeye devam eder ancak vault tekrar açılana kadar talep edilemez.",
+        "name": "{{stakedTokenSymbol}} vault"
       },
       "vestingVaultGroup": {
-        "name": "TRANSLATION NEEDED"
+        "name": "{{stakedTokenSymbol}} vesting vault"
       }
     }
   },
   "connectButton": {
-    "connect": "TRANSLATION NEEDED",
-    "disconnect": "TRANSLATION NEEDED"
+    "connect": "Cüzdan bağla",
+    "disconnect": "Bağlantıyı kes"
   },
   "connectWallet": {
-    "connectButton": "TRANSLATION NEEDED"
+    "connectButton": "Cüzdan bağla"
   },
   "eModeBanner": {
-    "exploreButtonLabel": "TRANSLATION NEEDED",
-    "illustrationAltText": "TRANSLATION NEEDED",
-    "manageEModeButtonLabel": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "exploreButtonLabel": "Keşfet",
+    "illustrationAltText": "E-modu illüstrasyonu",
+    "manageEModeButtonLabel": "E-modunu yönet",
+    "title": "E-Modu ile borçlanma gücünüzü artırın"
   },
   "errors": {
-    "couldNotRetrieveSigner": "TRANSLATION NEEDED",
-    "couldNotSwitchChain": "TRANSLATION NEEDED",
-    "missingAbstainDescription": "TRANSLATION NEEDED",
-    "missingAgainstDescription": "TRANSLATION NEEDED",
-    "missingDescription": "TRANSLATION NEEDED",
-    "missingForDescription": "TRANSLATION NEEDED",
-    "missingParamForSignature": "TRANSLATION NEEDED",
-    "missingSafeWalletApiUrl": "TRANSLATION NEEDED",
-    "missingTargetForSignature": "TRANSLATION NEEDED",
-    "missingTitle": "TRANSLATION NEEDED",
-    "noMetaKey": "TRANSLATION NEEDED",
-    "noParamsKey": "TRANSLATION NEEDED",
-    "noSignaturesKey": "TRANSLATION NEEDED",
-    "noSwapQuoteFound": "TRANSLATION NEEDED",
-    "noTargetsKey": "TRANSLATION NEEDED",
-    "noTypeKey": "TRANSLATION NEEDED",
-    "proposalNotFound": "TRANSLATION NEEDED",
-    "somethingWentWrong": "TRANSLATION NEEDED",
-    "somethingWentWrongRetrievingTransactions": "TRANSLATION NEEDED",
-    "somethingWentWrongRetrievingVoterAccounts": "TRANSLATION NEEDED",
-    "somethingWentWrongRetrievingVoterDetails": "TRANSLATION NEEDED",
-    "somethingWentWrongRetrievingVoterHistory": "TRANSLATION NEEDED",
-    "undefinedAccountErrorMessage": "TRANSLATION NEEDED",
-    "validationError": "TRANSLATION NEEDED",
-    "walletNotConnected": "TRANSLATION NEEDED"
+    "couldNotRetrieveSigner": "İmzalayıcı alınamadı, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
+    "couldNotSwitchChain": "Zincir değiştirilemedi, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
+    "missingAbstainDescription": "Teklifin 'çekimser' oy açıklaması olmalı",
+    "missingAgainstDescription": "Teklifin 'karşı' oy açıklaması olmalı",
+    "missingDescription": "Dosyada teklif açıklaması yok",
+    "missingForDescription": "Teklifin 'lehte' oy açıklaması olmalı",
+    "missingParamForSignature": "Fonksiyon için karşılık gelen parametre yok",
+    "missingSafeWalletApiUrl": "Yanlış yapılandırma nedeniyle Safe işlemi alınamadı",
+    "missingTargetForSignature": "Fonksiyon için karşılık gelen hedef yok",
+    "missingTitle": "Teklifin başlığı olmalı",
+    "noMetaKey": "Dosyada meta veri bilgisi yok",
+    "noParamsKey": "Dosyada parametre listesi yok",
+    "noSignaturesKey": "Dosyada çağrı imzaları yok",
+    "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güncelleyin.",
+    "noTargetsKey": "Dosyada hedef listesi yok",
+    "noTypeKey": "Dosyada teklifin türü belirtilmemiş",
+    "proposalNotFound": "Teklif bulunamadı",
+    "somethingWentWrong": "Bir şeyler ters gitti",
+    "somethingWentWrongRetrievingTransactions": "İşlemleri alırken bir sorun oluştu",
+    "somethingWentWrongRetrievingVoterAccounts": "Oy veren hesaplar alınırken bir sorun oluştu",
+    "somethingWentWrongRetrievingVoterDetails": "Oy veren detayları alınırken bir sorun oluştu",
+    "somethingWentWrongRetrievingVoterHistory": "Oy geçmişi alınırken bir sorun oluştu",
+    "undefinedAccountErrorMessage": "Hesap tanımsız",
+    "validationError": "İçe aktarılan teklif doğrulanamadı:",
+    "walletNotConnected": "Cüzdan bağlı değil"
   },
   "errorState": {
-    "defaultMessage": "TRANSLATION NEEDED"
+    "defaultMessage": "Bir hata oluştu"
   },
   "footer": {
     "links": {
-      "documentation": "TRANSLATION NEEDED",
-      "privacyPolicy": "TRANSLATION NEEDED",
-      "termsOfUse": "TRANSLATION NEEDED"
+      "documentation": "Dokümantasyon",
+      "privacyPolicy": "Gizlilik politikası",
+      "termsOfUse": "Kullanım şartları"
     }
   },
   "gaslessTransactions": {
-    "chainLabel": "TRANSLATION NEEDED",
+    "chainLabel": "Ücretsiz",
     "errorModal": {
-      "cancel": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "resendButtonLabel": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "cancel": "İptal",
+      "description": "Bu işlemi gas ücretini kendiniz ödeyerek yine de gönderebilirsiniz",
+      "resendButtonLabel": "Gas ile yeniden gönder",
+      "title": "Gas'siz işlemler şu anda mevcut değil"
     },
     "tooltip": {
-      "disabled": "TRANSLATION NEEDED",
-      "enabled": "TRANSLATION NEEDED"
+      "disabled": "Bu ağ, ücret gerektirmeyen gas'siz işlemleri destekler, ancak bu özellik ayarlarınızda şu anda devre dışı. Daha fazla bilgi <Link>burada</Link>",
+      "enabled": "Bu ağdaki işlemler gas'sizdir, ücret gerekmez. Daha fazla bilgi <Link>burada</Link>"
     }
   },
   "healthFactor": {
     "label": {
-      "healthy": "TRANSLATION NEEDED",
-      "liquidation": "TRANSLATION NEEDED",
-      "moderate": "TRANSLATION NEEDED",
-      "risky": "TRANSLATION NEEDED"
+      "healthy": "Sağlıklı",
+      "liquidation": "Likidasyon",
+      "moderate": "Orta",
+      "risky": "Riskli"
     }
   },
   "importPositionsModal": {
     "aave": {
-      "logoAlt": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "logoAlt": "Aave logosu",
+      "title": "Aave"
     },
-    "emptyState": "TRANSLATION NEEDED",
+    "emptyState": "İçe aktarılacak harici pozisyon yok",
     "gasLess": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "Ücretsiz",
+      "tooltip": "Pozisyonlarınızı Venus'e taşımak için yapılan işlemler Venus Protokolü tarafından sponsorlanır"
     },
     "infoSection": {
       "1": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Gerçek getiriyi artırılmış APY oranlarıyla sunan tek yer.",
+        "title": "Daha iyi getiriler"
       },
       "2": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Tutarlı büyümeyle DeFi'nin en fazla değer yaratan platformuna katılın.",
+        "title": "En sermaye verimli"
       },
       "3": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Borç verme alanında en çok denetlenen ve sahada test edilmiş sözleşmeler.",
+        "title": "Üst düzey güvenlik"
       },
-      "title": "TRANSLATION NEEDED"
+      "title": "Neden Venus?"
     },
-    "limitNotice": "TRANSLATION NEEDED",
+    "limitNotice": "Şu anda yalnızca <Number>{{min}}</Number> ile <Number>{{max}}</Number> arasındaki değere sahip pozisyonlar Venus'e aktarılabilir.",
     "position": {
       "currentApy": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Mevcut APY"
       },
-      "importButtonLabel": "TRANSLATION NEEDED",
-      "missedYearlyGains": "TRANSLATION NEEDED",
+      "importButtonLabel": "İçe aktar",
+      "missedYearlyGains": "Yılda <Number><Gains /> / yıl</Number> kaybediyorsunuz",
       "newApy": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Venus APY"
       }
     },
-    "title": "TRANSLATION NEEDED"
+    "title": "Venus'e aktarın ve daha fazla kazanın"
   },
   "interactive": {
     "addToWallet": {
-      "modalTitle": "TRANSLATION NEEDED"
+      "modalTitle": "Cüzdana token ekle"
     },
     "copy": {
       "address": {
-        "modalTitle": "TRANSLATION NEEDED",
-        "name": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "modalTitle": "Token adresini kopyala",
+        "name": "Adres",
+        "tooltip": "Adresi kopyala"
       }
     },
-    "copyToClipboard": "TRANSLATION NEEDED",
+    "copyToClipboard": "{{name}} panoya kopyalandı",
     "goTo": {
-      "modalTitle": "TRANSLATION NEEDED"
+      "modalTitle": "Token sözleşmesine git"
     }
   },
   "interestRateChart": {
-    "currentUtilizationRateLabelValue": "TRANSLATION NEEDED",
+    "currentUtilizationRateLabelValue": "Mevcut ({{percentage}})",
     "tooltipItemLabels": {
-      "borrowApy": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "utilizationRate": "TRANSLATION NEEDED"
+      "borrowApy": "Borç APY",
+      "supplyApy": "Sağlama APY",
+      "utilizationRate": "Kullanım oranı"
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "TRANSLATION NEEDED",
-    "illustrationAltText": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "description": "Ödüllerinizi talep edin ve pozisyonlarınızı kapatın",
+    "illustrationAltText": "İllüstrasyon",
+    "title": "İzole havuzlar aşamalı olarak kapatılıyor"
   },
   "layout": {
     "chainSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Zincir seç"
     },
     "header": {
-      "liquidity": "TRANSLATION NEEDED",
+      "liquidity": "Likidite",
       "maxLtv": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Maks LTV",
+        "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
       },
-      "price": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "utilizationRate": "TRANSLATION NEEDED"
+      "price": "Fiyat",
+      "supply": "Sağlama",
+      "utilizationRate": "Kullanım oranı"
     },
     "menu": {
       "dashboard": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Gösterge paneli"
       },
-      "label": "TRANSLATION NEEDED",
+      "label": "Menü",
       "markets": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Piyasalar"
       },
       "others": {
         "bridge": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Köprü"
         },
         "governance": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Yönetişim"
         },
         "isolatedPools": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "İzole havuzlar"
         },
-        "label": "TRANSLATION NEEDED",
+        "label": "Diğerleri",
         "port": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Port"
         },
         "swap": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Takas"
         },
         "vai": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "VAI"
         }
       },
       "settings": {
         "gasLessTransactions": {
-          "label": "TRANSLATION NEEDED"
+          "label": "{{chainName}} üzerinde gas'siz işlemleri etkinleştir"
         },
         "language": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Dil (beta)"
         }
       },
       "staking": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Staking"
       },
       "subMenuItem": {
         "button": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Başlayın"
         }
       },
-      "venusLogoAlt": "TRANSLATION NEEDED"
+      "venusLogoAlt": "Venus logosu"
     },
     "settingsModal": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Ayarlar"
     },
-    "testEnvWarning": "TRANSLATION NEEDED"
+    "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>"
   },
   "layouts": {
     "menu": {
       "markets": {
         "venusCore": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Venus Core"
         },
         "venusX": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Venus X"
         }
       }
     }
   },
   "markdownEditor": {
-    "markdownTabLabel": "TRANSLATION NEEDED",
-    "placeholder": "TRANSLATION NEEDED",
-    "previewTabLabel": "TRANSLATION NEEDED"
+    "markdownTabLabel": "Yaz",
+    "placeholder": "Önizlenecek bir şey yok",
+    "previewTabLabel": "Önizleme"
   },
   "market": {
     "borrowCapThreshold": {
-      "title": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "title": "Toplam borç",
+      "tooltip": "Borç alınabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})<br />Borç limiti: {{capTokens}}"
     },
     "borrowInfo": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Borç bilgisi"
     },
     "interestRateModel": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Faiz Oranı Modeli"
     },
     "legends": {
-      "borrowApy": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "utilizationRate": "TRANSLATION NEEDED"
+      "borrowApy": "Borç APY",
+      "supplyApy": "Sağlama APY",
+      "utilizationRate": "Kullanım oranı"
     },
     "marketInfo": {
       "stats": {
-        "borrowerCountLabel": "TRANSLATION NEEDED",
-        "dailyBorrowingInterestsLabel": "TRANSLATION NEEDED",
-        "dailyDistribution": "TRANSLATION NEEDED",
-        "dailySupplyingInterestsLabel": "TRANSLATION NEEDED",
-        "exchangeRateLabel": "TRANSLATION NEEDED",
-        "exchangeRateValue": "TRANSLATION NEEDED",
-        "reserveFactorLabel": "TRANSLATION NEEDED",
-        "supplierCountLabel": "TRANSLATION NEEDED"
+        "borrowerCountLabel": "Borç alan sayısı",
+        "dailyBorrowingInterestsLabel": "Günlük borç faizi",
+        "dailyDistribution": "Günlük {{tokenSymbol}} dağıtımı",
+        "dailySupplyingInterestsLabel": "Günlük sağlama faizi",
+        "exchangeRateLabel": "Döviz kuru",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "reserveFactorLabel": "Rezerv faktörü",
+        "supplierCountLabel": "Sağlayan sayısı"
       }
     },
     "periodOption": {
-      "oneYear": "TRANSLATION NEEDED",
-      "sixMonths": "TRANSLATION NEEDED",
-      "thirtyDays": "TRANSLATION NEEDED"
+      "oneYear": "1Y",
+      "sixMonths": "6A",
+      "thirtyDays": "30G"
     },
     "stats": {
-      "apy": "TRANSLATION NEEDED",
-      "averageApy": "TRANSLATION NEEDED",
-      "liquidationPenalty": "TRANSLATION NEEDED",
-      "liquidationThreshold": "TRANSLATION NEEDED"
+      "apy": "Mevcut APY",
+      "averageApy": "Ortalama APY",
+      "liquidationPenalty": "Likidasyon cezası",
+      "liquidationThreshold": "Likidasyon eşiği"
     },
     "supplyCapThreshold": {
-      "title": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "title": "Toplam sağlama",
+      "tooltip": "Sağlanabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})"
     },
     "supplyInfo": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Sağlama bilgisi"
     }
   },
   "markets": {
@@ -666,940 +666,944 @@
       "group": {
         "cannotDisable": {
           "tooltip": {
-            "blockingPositions": "TRANSLATION NEEDED",
-            "notEnoughCollateral": "TRANSLATION NEEDED"
+            "blockingPositions": "Bu e-modu grubunu devre dışı bırakamazsınız çünkü havuzdan borç alınamayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+            "notEnoughCollateral": "Bu e-modu grubunu devre dışı bırakamazsınız çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamaz"
           }
         },
         "cannotEnable": {
           "modal": {
-            "description": "TRANSLATION NEEDED",
-            "repayButtonLabel": "TRANSLATION NEEDED",
-            "title": "TRANSLATION NEEDED"
+            "description": "<WhiteText>{{ eModeGroupName }}</WhiteText> E-modu grubunu etkinleştirmek için aşağıdaki borç pozisyonlarını kapatmanız gerekir:",
+            "repayButtonLabel": "Geri öde",
+            "title": "Pozisyonlarınız"
           },
           "tooltip": {
-            "blockingPositions": "TRANSLATION NEEDED",
-            "notEnoughCollateral": "TRANSLATION NEEDED"
+            "blockingPositions": "Bu e-modu grubunu etkinleştiremezsiniz çünkü bu gruba ait olmayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+            "notEnoughCollateral": "Bu e-modu grubunu etkinleştiremezsiniz çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamaz"
           }
         },
-        "disableButtonLabel": "TRANSLATION NEEDED",
-        "disabledNotice": "TRANSLATION NEEDED",
-        "enableButtonLabel": "TRANSLATION NEEDED",
-        "healthFactor": "TRANSLATION NEEDED",
-        "switchButtonLabel": "TRANSLATION NEEDED"
+        "disableButtonLabel": "Devre dışı bırak",
+        "disabledNotice": "Bu E-Modu grubu artık desteklenmiyor. Hesabınız varsayılan parametrelere geri döndü. Lütfen başka bir E-modu grubuna geçin veya devre dışı bırakın.",
+        "enableButtonLabel": "Etkinleştir",
+        "healthFactor": "Sağlık faktörü:",
+        "switchButtonLabel": "Değiştir"
       },
-      "notice": "TRANSLATION NEEDED",
+      "notice": "E-Modu etkinleştirmek borçlanma gücünüzü maksimize eder, ancak borçlanma seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
       "search": {
-        "placeholder": "TRANSLATION NEEDED"
+        "placeholder": "Varlık veya grup ara"
       },
       "table": {
         "card": {
           "header": {
-            "borrowable": "TRANSLATION NEEDED",
-            "collateral": "TRANSLATION NEEDED"
+            "borrowable": "Borç alınabilir",
+            "collateral": "Teminat"
           },
           "rows": {
-            "liquidationPenalty": "TRANSLATION NEEDED",
-            "liquidationThreshold": "TRANSLATION NEEDED",
-            "maxLtv": "TRANSLATION NEEDED"
+            "liquidationPenalty": "Likidasyon cezası",
+            "liquidationThreshold": "Likidasyon eşiği",
+            "maxLtv": "Maks LTV"
           }
         },
         "columns": {
-          "asset": "TRANSLATION NEEDED",
-          "collateral": "TRANSLATION NEEDED",
-          "isBorrowable": "TRANSLATION NEEDED",
-          "liquidationPenalty": "TRANSLATION NEEDED",
-          "liquidationThreshold": "TRANSLATION NEEDED",
-          "maxLtv": "TRANSLATION NEEDED",
-          "penalty": "TRANSLATION NEEDED",
-          "threshold": "TRANSLATION NEEDED"
+          "asset": "Varlık",
+          "collateral": "Teminat",
+          "isBorrowable": "Borç alınabilir",
+          "liquidationPenalty": "Likidasyon cezası",
+          "liquidationThreshold": "Likidasyon eşiği",
+          "maxLtv": "Maks LTV",
+          "penalty": "Ceza",
+          "threshold": "Eşik"
         },
-        "mobileSelectLabel": "TRANSLATION NEEDED"
+        "mobileSelectLabel": "Sırala:"
       }
     },
     "errors": {
-      "accountError": "TRANSLATION NEEDED",
-      "collateralDisableError": "TRANSLATION NEEDED",
-      "collateralEnableError": "TRANSLATION NEEDED",
-      "collateralRequired": "TRANSLATION NEEDED"
+      "accountError": "Hesap gerekli - Lütfen cüzdanınızı bağlayın.",
+      "collateralDisableError": "Teminat Devre Dışı Hatası - {{assetName}} teminatını devre dışı bırakırken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "collateralEnableError": "Teminat Etkinleştirme Hatası - {{assetName}} teminatını etkinleştirirken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "collateralRequired": "Teminat gerekli - Lütfen tüm borç alınan varlıkları geri ödeyin veya diğer varlıkları teminat olarak ayarlayın."
     },
     "isolatedEModeGroupTooltip": {
-      "content": "TRANSLATION NEEDED",
-      "label": "TRANSLATION NEEDED"
+      "content": "{{ eModeGroupName }} grubundaki varlıklara yalnızca sağlama yaparak borçlanma gücünüz artar",
+      "label": "İzole"
     },
     "tabs": {
       "assets": {
-        "title": "TRANSLATION NEEDED"
+        "title": "Varlıklar"
       },
       "eMode": {
-        "illustrationAltText": "TRANSLATION NEEDED",
+        "illustrationAltText": "Şimşek illüstrasyonu",
         "liquidationPenalty": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Likidasyon cezası"
         },
         "liquidationThreshold": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Likidasyon eşiği"
         },
         "maxLtv": {
-          "label": "TRANSLATION NEEDED",
-          "tooltip": "TRANSLATION NEEDED"
+          "label": "Maks LTV",
+          "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
         },
-        "title": "TRANSLATION NEEDED"
+        "title": "E-modu"
       }
     }
   },
   "marketTable": {
     "assetColumn": {
-      "eMode": "TRANSLATION NEEDED",
-      "pausedAssetTooltip": "TRANSLATION NEEDED"
+      "eMode": "Bu piyasa {{eModeGroupName}} E-modu grubunun bir parçasıdır",
+      "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve sağlama devre dışı bırakıldı."
     },
     "columnKeys": {
-      "asset": "TRANSLATION NEEDED",
-      "borrowApy": "TRANSLATION NEEDED",
-      "borrowBalance": "TRANSLATION NEEDED",
-      "collateral": "TRANSLATION NEEDED",
-      "labeledBorrowApy": "TRANSLATION NEEDED",
-      "labeledSupplyApy": "TRANSLATION NEEDED",
-      "liquidity": "TRANSLATION NEEDED",
-      "price": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "supplyBalance": "TRANSLATION NEEDED",
-      "userBorrowBalance": "TRANSLATION NEEDED",
-      "userBorrowLimitSharePercentage": "TRANSLATION NEEDED",
-      "userSupplyBalance": "TRANSLATION NEEDED",
-      "userWalletBalance": "TRANSLATION NEEDED"
+      "asset": "Varlık",
+      "borrowApy": "APY <InfoIcon />",
+      "borrowBalance": "Toplam borç",
+      "collateral": "Teminat",
+      "labeledBorrowApy": "Borç APY <InfoIcon />",
+      "labeledSupplyApy": "Sağlama APY <InfoIcon />",
+      "liquidity": "Likidite",
+      "price": "Fiyat",
+      "supplyApy": "APY <InfoIcon />",
+      "supplyBalance": "Toplam sağlama",
+      "userBorrowBalance": "Bakiye",
+      "userBorrowLimitSharePercentage": "Limitin %'i",
+      "userSupplyBalance": "Bakiye",
+      "userWalletBalance": "Cüzdan"
     },
     "columnSelectOptionLabel": {
-      "asset": "TRANSLATION NEEDED",
-      "borrowApy": "TRANSLATION NEEDED",
-      "borrowBalance": "TRANSLATION NEEDED",
-      "collateral": "TRANSLATION NEEDED",
-      "labeledBorrowApy": "TRANSLATION NEEDED",
-      "labeledSupplyApy": "TRANSLATION NEEDED",
-      "liquidity": "TRANSLATION NEEDED",
-      "price": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "supplyBalance": "TRANSLATION NEEDED",
-      "userBorrowBalance": "TRANSLATION NEEDED",
-      "userBorrowLimitSharePercentage": "TRANSLATION NEEDED",
-      "userSupplyBalance": "TRANSLATION NEEDED",
-      "userWalletBalance": "TRANSLATION NEEDED"
+      "asset": "Varlık",
+      "borrowApy": "Borç APY",
+      "borrowBalance": "Toplam borç",
+      "collateral": "Teminat",
+      "labeledBorrowApy": "Borç APY",
+      "labeledSupplyApy": "Sağlama APY / LTV",
+      "liquidity": "Likidite",
+      "price": "Fiyat",
+      "supplyApy": "Sağlama APY / LTV",
+      "supplyBalance": "Toplam sağlama",
+      "userBorrowBalance": "Borç bakiyesi",
+      "userBorrowLimitSharePercentage": "Limitin %'i",
+      "userSupplyBalance": "Sağlama bakiyesi",
+      "userWalletBalance": "Cüzdan bakiyesi"
     },
     "columnTooltips": {
-      "borrowApy": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED"
+      "borrowApy": "Pozitif borç APY faiz ödeyeceğiniz, negatif ise faiz kazanacağınız anlamına gelir",
+      "supplyApy": "Pozitif sağlama APY faiz kazanacağınız, negatif ise faiz ödeyeceğiniz anlamına gelir"
     },
     "pausedAssetsPlaceholder": {
-      "description": "TRANSLATION NEEDED",
-      "imgAlt": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "description": "Görmek için \"Durdurulan Varlıklar\" anahtarını etkinleştirin.",
+      "imgAlt": "Duraklatma ikonu",
+      "title": "Bu havuzdaki tüm varlıklar duraklatıldı"
     },
     "pausedAssetsToggle": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Durdurulan varlıklar"
     },
     "searchInput": {
-      "placeholder": "TRANSLATION NEEDED"
+      "placeholder": "Varlık ara"
     },
     "userAssetsOnlyToggle": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Yalnızca varlıklarım"
     },
     "userEModeAssetsOnlyToggle": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Yalnızca E-modu varlıkları"
     }
   },
   "operationForm": {
     "acknowledgements": {
       "highPriceImpact": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Yüksek fiyat etkisini kabul ediyorum",
+        "tooltip": "Bu işlemin fiyat etkisinin {{priceImpactPercentage}}% üzerinde olması bekleniyor"
       },
       "riskyOperation": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "İlgili riskleri kabul ediyorum",
+        "tooltip": "Bu işlemden sonra sağlık faktörünüz düşük olacak ve likidasyon riski artacaktır"
       }
     },
-    "availableAmount": "TRANSLATION NEEDED",
-    "boostTabAltText": "TRANSLATION NEEDED",
-    "boostTabTitle": "TRANSLATION NEEDED",
-    "borrow": "TRANSLATION NEEDED",
-    "borrowTabTitle": "TRANSLATION NEEDED",
-    "collateral": "TRANSLATION NEEDED",
+    "availableAmount": "Kullanılabilir",
+    "boostTabAltText": "Roket ikonu",
+    "boostTabTitle": "Boost",
+    "borrow": "Borç al",
+    "borrowTabTitle": "Borç al",
+    "collateral": "Teminat",
     "collateralField": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Teminat"
     },
     "error": {
-      "borrowCapReached": "TRANSLATION NEEDED",
-      "higherThanAvailableAmount": "TRANSLATION NEEDED",
-      "higherThanAvailableLiquidity": "TRANSLATION NEEDED",
-      "higherThanBorrowBalance": "TRANSLATION NEEDED",
-      "higherThanBorrowCap": "TRANSLATION NEEDED",
-      "higherThanRepayBalance": "TRANSLATION NEEDED",
-      "higherThanSupplyCap": "TRANSLATION NEEDED",
-      "higherThanWalletBalance": "TRANSLATION NEEDED",
-      "higherThanWalletSpendingLimit": "TRANSLATION NEEDED",
-      "insufficientSwapLiquidity": "TRANSLATION NEEDED",
-      "noCollateral": "TRANSLATION NEEDED",
-      "noSwapQuoteFound": "TRANSLATION NEEDED",
-      "priceImpactTooHigh": "TRANSLATION NEEDED",
-      "supplyCapReached": "TRANSLATION NEEDED",
-      "tooRisky": "TRANSLATION NEEDED",
-      "unwrappingUnsupported": "TRANSLATION NEEDED",
-      "wrappingUnsupported": "TRANSLATION NEEDED"
+      "borrowCapReached": "Bu havuz için {{assetBorrowCap}} borç limiti aşıldı. Krediler geri ödenene veya borç limiti artırılana kadar bu piyasadan borç alamazsınız.",
+      "higherThanAvailableAmount": "Girilen miktar kullanılabilir miktardan fazla",
+      "higherThanAvailableLiquidity": "Yetersiz varlık likiditesi",
+      "higherThanBorrowBalance": "Girilen miktar borç bakiyesinden fazla",
+      "higherThanBorrowCap": "Bu piyasanın borç limiti {{assetBorrowCap}} olarak ayarlı ve şu anda {{assetBorrowBalance}} borç alınmış olduğundan, bu havuzdan {{userMaxBorrowAmount}} üzeri borç alamazsınız.",
+      "higherThanRepayBalance": "Girilen miktar geri ödeme bakiyesinden fazla",
+      "higherThanSupplyCap": "Bu piyasanın sağlama limiti {{assetSupplyCap}} olarak ayarlı ve şu anda {{assetSupplyBalance}} sağlanmış olduğundan, bu havuza {{userMaxSupplyAmount}} üzeri sağlayamazsınız.",
+      "higherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
+      "higherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için harcama limitini iptal edin ve yeni bir limit ayarlayın.",
+      "insufficientSwapLiquidity": "Bu takas için PancakeSwap'te yeterli likidite yok",
+      "noCollateral": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce tokenları sağlayıp teminat olarak etkinleştirmelisiniz",
+      "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güncelleyin.",
+      "priceImpactTooHigh": "Fiyat etkisi çok yüksek",
+      "supplyCapReached": "Bu havuz için {{assetSupplyCap}} sağlama limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
+      "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur",
+      "unwrappingUnsupported": "Unwrap desteklenmiyor",
+      "wrappingUnsupported": "Wrap desteklenmiyor"
     },
     "receiveNativeToken": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "{{tokenSymbol}} al",
+      "tooltip": "Borç alınan {{wrappedNativeTokenSymbol}}'i {{nativeTokenSymbol}}'e dönüştür"
     },
     "repaidField": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Ödenecek borç"
     },
     "repay": {
-      "fullRepaymentWarning": "TRANSLATION NEEDED",
-      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+      "fullRepaymentWarning": "Yeni biriken faizleri karşılamak için işlem değeri mevcut borç tutarından biraz daha yüksek olabilir",
+      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
     },
     "repayTab": {
-      "collateralTabTitle": "TRANSLATION NEEDED",
-      "noCollateralWarning": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
-      "walletBalanceTabTitle": "TRANSLATION NEEDED"
+      "collateralTabTitle": "Teminat",
+      "noCollateralWarning": "Geri ödeme için hiç teminatınız yok.",
+      "title": "Geri öde",
+      "walletBalanceTabTitle": "Cüzdan"
     },
-    "rightMaxButtonLabel": "TRANSLATION NEEDED",
+    "rightMaxButtonLabel": "MAKS",
     "riskSlider": {
-      "highRisk": "TRANSLATION NEEDED",
-      "lowRisk": "TRANSLATION NEEDED"
+      "highRisk": "Yüksek risk",
+      "lowRisk": "Düşük risk"
     },
-    "safeMaxButtonLabel": "TRANSLATION NEEDED",
+    "safeMaxButtonLabel": "GÜVENLİ MAKS",
     "submitButtonLabel": {
-      "boost": "TRANSLATION NEEDED",
-      "borrow": "TRANSLATION NEEDED",
-      "enterValidAmount": "TRANSLATION NEEDED",
-      "repay": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "withdraw": "TRANSLATION NEEDED"
+      "boost": "Boost",
+      "borrow": "Borç al",
+      "enterValidAmount": "Geçerli miktar girin",
+      "repay": "Geri öde",
+      "supply": "Sağla",
+      "withdraw": "Çek"
     },
-    "supply": "TRANSLATION NEEDED",
-    "supplyTabTitle": "TRANSLATION NEEDED",
+    "supply": "Sağla",
+    "supplyTabTitle": "Sağla",
     "swapDetails": {
       "label": {
-        "repay": "TRANSLATION NEEDED",
-        "supply": "TRANSLATION NEEDED"
+        "repay": "Geri ödeyeceksiniz",
+        "supply": "Sağlayacaksınız"
       },
       "value": {
-        "estimatedAmount": "TRANSLATION NEEDED",
-        "exactAmount": "TRANSLATION NEEDED"
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
       }
     },
     "swapSummary": {
-      "repay": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED"
+      "repay": "{{fromTokenAmount}} kullanarak {{toTokenAmount}} geri ödeyeceksiniz",
+      "supply": "{{fromTokenAmount}} kullanarak {{toTokenAmount}} sağlayacaksınız"
     },
-    "walletBalance": "TRANSLATION NEEDED",
+    "walletBalance": "Cüzdan bakiyesi",
     "warning": {
-      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
     },
-    "withdrawTabTitle": "TRANSLATION NEEDED"
+    "withdrawTabTitle": "Çek"
   },
   "pagination": {
-    "itemOf": "TRANSLATION NEEDED",
-    "itemsOf": "TRANSLATION NEEDED"
+    "itemOf": "{{itemsCount}} öğeden {{currentPageLastIndex}}",
+    "itemsOf": "{{itemsCount}} öğeden {{firstItemNumber}} - {{currentPageLastIndex}}"
   },
   "poolsStats": {
     "cell": {
-      "assetsLabel": "TRANSLATION NEEDED",
-      "availableLiquidityLabel": "TRANSLATION NEEDED",
-      "dailyXvsDistributionLabel": "TRANSLATION NEEDED",
-      "totalBorrowLabel": "TRANSLATION NEEDED",
-      "totalSupplyLabel": "TRANSLATION NEEDED",
-      "treasuryLabel": "TRANSLATION NEEDED"
+      "assetsLabel": "Varlıklar",
+      "availableLiquidityLabel": "Kullanılabilir likidite",
+      "dailyXvsDistributionLabel": "Günlük XVS dağıtımı",
+      "totalBorrowLabel": "Toplam borç",
+      "totalSupplyLabel": "Toplam sağlama",
+      "treasuryLabel": "Hazine"
     }
   },
   "primeButton": {
-    "primeLogoAlt": "TRANSLATION NEEDED"
+    "primeLogoAlt": "Venus Prime logosu"
   },
   "primeCalculator": {
     "borrowedTokens": {
       "infos": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Uygun borç alınan {{tokenSymbol}}",
+        "tooltip": "Borç limiti: {{borrowCapTokens}} ({{borrowCapUsd}})",
+        "tooltip_empty": "Borç limiti: -"
       },
       "textField": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Borç alınan {{tokenSymbol}}"
       }
     },
     "rewardDetails": {
-      "fromBorrowedTokens": "TRANSLATION NEEDED",
-      "fromSuppliedTokens": "TRANSLATION NEEDED",
+      "fromBorrowedTokens": "Borç alınan {{tokenSymbol}}'den",
+      "fromSuppliedTokens": "Sağlanan {{tokenSymbol}}'den",
       "primeBorrowApy": {
-        "title": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "title": "Prime borç APY",
+        "tooltip": "Piyasa borç APY'sine eklenecek Prime artırımı. <Link>Daha fazla bilgi</Link>"
       },
       "primeSupplyApy": {
-        "title": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "title": "Prime sağlama APY",
+        "tooltip": "Piyasa sağlama APY'sine eklenecek Prime artırımı. <Link>Daha fazla bilgi</Link>"
       },
-      "title": "TRANSLATION NEEDED",
+      "title": "Ödül detayları",
       "totalDailyRewards": {
-        "title": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "title": "Toplam günlük ödüller",
+        "tooltip": "Prime kullanıcılarına bir günde dağıtılan tüm ödüllerin miktarı"
       },
-      "yourDailyRewards": "TRANSLATION NEEDED"
+      "yourDailyRewards": "Günlük ödülleriniz"
     },
     "stakedTokens": {
       "infos": {
-        "error": "TRANSLATION NEEDED",
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "error": "Prime ödüllerine uygun olmak için en az {{minimumXvsStaked}} XVS stake edilmelidir.",
+        "label": "Uygun stake edilmiş XVS",
+        "tooltip": "Prime ödülleriniz için en fazla {{maximumXvsStaked}} dikkate alınır"
       },
       "textField": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Stake edilmiş XVS"
       }
     },
     "suppliedTokens": {
       "infos": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Uygun sağlanan {{tokenSymbol}}",
+        "tooltip": "Sağlama limiti: {{supplyCapTokens}} ({{supplyCapUsd}})",
+        "tooltip_empty": "Sağlama limiti: -"
       },
       "textField": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Sağlanan {{tokenSymbol}}"
       }
     },
     "tokenSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Token"
     },
-    "topMessage": "TRANSLATION NEEDED"
+    "topMessage": "Prime hesaplayıcıyı, pozisyonlarınıza göre Prime tokenı tutmaktan alacağınız ödülleri tahmin etmek için kullanabilirsiniz. <Link>Daha fazla bilgi</Link>"
   },
   "primeStatusBanner": {
-    "becomePrimeTitle": "TRANSLATION NEEDED",
-    "claimButtonLabel": "TRANSLATION NEEDED",
+    "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",
+    "claimButtonLabel": "Prime tokenını talep et",
     "description": {
-      "primeCalculator": "TRANSLATION NEEDED",
-      "primeDoc": "TRANSLATION NEEDED"
+      "primeCalculator": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> stake edin ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Prime ödüllerinizi hesaplayın</Link>",
+      "primeDoc": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> stake edin ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Daha fazla bilgi</Link>"
     },
     "noPrimeTokenWarning": {
-      "text": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "text": "Tüm Prime tokenları talep edildi",
+      "tooltip": "{{primeTokenLimit}} Prime tokenının tamamı şu anda talep edildi. Sahipleri uygunluk kriterlerini karşılamazsa veya daha fazla eklersek bazıları kullanılabilir hale gelebilir."
     },
     "progressBar": {
-      "ariaLabel": "TRANSLATION NEEDED",
-      "label": "TRANSLATION NEEDED"
+      "ariaLabel": "Mevcut Prime ilerlemeniz",
+      "label": "Stake edildi: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
-    "promotionalTitle": "TRANSLATION NEEDED",
-    "stakeButtonLabel": "TRANSLATION NEEDED",
-    "tokensLeft": "TRANSLATION NEEDED",
-    "tokensLeft_one": "TRANSLATION NEEDED",
-    "tokensLeft_many": "TRANSLATION NEEDED",
-    "waitForPrimeTitle": "TRANSLATION NEEDED"
+    "promotionalTitle": "Kazancınızı <GreenText>{{percentage}}</GreenText> kadar artırın",
+    "stakeButtonLabel": "XVS stake et",
+    "tokensLeft": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
+    "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
+    "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
+    "waitForPrimeTitle": "Prime ödüllerini talep edebilmeniz için {{claimWaitingPeriod}}",
+    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> Prime token kaldı"
   },
   "probableBanner": {
-    "description": "TRANSLATION NEEDED",
-    "probableAltText": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "description": "probable.markets'te inancınızı artırın",
+    "probableAltText": "Probable illüstrasyonu",
+    "title": "Bir şeye inanıyor musunuz?"
   },
   "proposalList": {
     "selectOptions": {
       "all": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Tümü"
       }
     }
   },
   "proposalState": {
-    "active": "TRANSLATION NEEDED",
-    "bridged": "TRANSLATION NEEDED",
-    "canceled": "TRANSLATION NEEDED",
-    "defeated": "TRANSLATION NEEDED",
-    "executed": "TRANSLATION NEEDED",
-    "expired": "TRANSLATION NEEDED",
-    "failed": "TRANSLATION NEEDED",
-    "pending": "TRANSLATION NEEDED",
-    "queued": "TRANSLATION NEEDED",
-    "succeeded": "TRANSLATION NEEDED"
+    "active": "Aktif",
+    "bridged": "Köprülenmiş",
+    "canceled": "İptal edildi",
+    "defeated": "Reddedildi",
+    "executed": "Yürütüldü",
+    "expired": "Süresi doldu",
+    "failed": "Başarısız",
+    "pending": "Beklemede",
+    "queued": "Kuyrukta",
+    "succeeded": "Başarılı"
   },
   "select": {
-    "defaultLabel": "TRANSLATION NEEDED"
+    "defaultLabel": "Seçenek seçin"
   },
   "selectTokenTextField": {
     "searchInput": {
-      "placeholder": "TRANSLATION NEEDED"
+      "placeholder": "Varlık ara"
     }
   },
   "spendingLimit": {
-    "label": "TRANSLATION NEEDED",
-    "labelTooltip": "TRANSLATION NEEDED",
-    "revokeButtonTooltip": "TRANSLATION NEEDED"
+    "label": "Harcama limiti",
+    "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin.",
+    "revokeButtonTooltip": "Harcama limitini iptal et"
   },
   "stakeModal": {
-    "availableTokensLabel": "TRANSLATION NEEDED",
-    "connectWalletMessage": "TRANSLATION NEEDED",
-    "submitButtonDisabledLabel": "TRANSLATION NEEDED",
-    "submitButtonLabel": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
+    "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
+    "submitButtonDisabledLabel": "Stake etmek için geçerli bir miktar girin",
+    "submitButtonLabel": "Stake et",
+    "title": "{{tokenSymbol}} stake et"
   },
   "swap": {
     "errors": {
-      "amountAboveWalletSpendingLimit": "TRANSLATION NEEDED",
-      "incorrectSwapInput": "TRANSLATION NEEDED"
+      "amountAboveWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için limiti iptal edip yeni bir limit belirleyin.",
+      "incorrectSwapInput": "Takas için yanlış giriş sağlandı"
     },
     "swapDetails": {
       "label": {
-        "exchangeRate": "TRANSLATION NEEDED",
-        "maximumSold": "TRANSLATION NEEDED",
-        "minimumReceived": "TRANSLATION NEEDED",
-        "priceImpact": "TRANSLATION NEEDED",
-        "slippageTolerance": "TRANSLATION NEEDED"
+        "exchangeRate": "Döviz kuru",
+        "maximumSold": "Maksimum satılan",
+        "minimumReceived": "Minimum alınan",
+        "priceImpact": "Fiyat etkisi",
+        "slippageTolerance": "Kayma toleransı"
       },
       "tooltip": {
-        "priceImpact": "TRANSLATION NEEDED"
+        "priceImpact": "İşlem büyüklüğü nedeniyle piyasa fiyatı ile tahmini fiyat arasındaki fark."
       },
       "value": {
-        "exactAmount": "TRANSLATION NEEDED",
-        "exchangeRate": "TRANSLATION NEEDED",
-        "priceImpact": "TRANSLATION NEEDED"
+        "exactAmount": "{{ value }}",
+        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+        "priceImpact": "{{ priceImpact }}"
       }
     },
     "warning": {
-      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
     }
   },
   "swapDetails": {
     "priceImpact": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Fiyat etkisi"
     },
     "slippageTolerance": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Kayma toleransı"
     },
     "slippageToleranceModal": {
-      "description": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "description": "Yüksek kayma toleransı ayarlamak işlemlerin başarılı olmasına yardımcı olabilir, ancak iyi bir fiyat alamayabilirsiniz. Dikkatli kullanın.",
+      "title": "Kayma toleransı"
     }
   },
   "swapPage": {
-    "connectWalletToSwap": "TRANSLATION NEEDED",
+    "connectWalletToSwap": "Token takası için cüzdanınızı bağlayın",
     "fromTokenAmountField": {
-      "label": "TRANSLATION NEEDED",
-      "max": "TRANSLATION NEEDED"
+      "label": "Gönderen",
+      "max": "Maks"
     },
     "submitButton": {
       "disabledLabels": {
-        "insufficientLiquidity": "TRANSLATION NEEDED",
-        "insufficientUserBalance": "TRANSLATION NEEDED",
-        "invalidFromTokenAmount": "TRANSLATION NEEDED",
-        "priceImpactHigherThanMaximumTolerated": "TRANSLATION NEEDED",
-        "processing": "TRANSLATION NEEDED",
-        "spendingLimitTooLow": "TRANSLATION NEEDED",
-        "unwrappingUnsupported": "TRANSLATION NEEDED",
-        "wrappingUnsupported": "TRANSLATION NEEDED"
+        "insufficientLiquidity": "Bu takas için yeterli likidite yok",
+        "insufficientUserBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
+        "invalidFromTokenAmount": "Takas için geçerli bir miktar girin",
+        "priceImpactHigherThanMaximumTolerated": "Fiyat etkisi çok yüksek",
+        "processing": "İşleniyor",
+        "spendingLimitTooLow": "Harcama limiti çok düşük",
+        "unwrappingUnsupported": "Unwrap desteklenmiyor",
+        "wrappingUnsupported": "Wrap desteklenmiyor"
       },
       "enabledLabels": {
-        "swap": "TRANSLATION NEEDED",
-        "swapWithHighPriceImpact": "TRANSLATION NEEDED"
+        "swap": "Takas",
+        "swapWithHighPriceImpact": "Yüksek fiyat etkisiyle takas"
       }
     },
     "toTokenAmountField": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Alıcı"
     },
-    "walletBalance": "TRANSLATION NEEDED"
+    "walletBalance": "Cüzdan bakiyesi"
   },
   "switchChain": {
-    "switchButton": "TRANSLATION NEEDED"
+    "switchButton": "{{chainName}} zincirine geç"
   },
   "switchChainNotice": {
-    "buttonLabel": "TRANSLATION NEEDED",
-    "description": "TRANSLATION NEEDED"
+    "buttonLabel": "{{chainName}} zincirine geç",
+    "description": "Teminatları etkinleştirmek veya devre dışı bırakmak için cüzdanınızı {{chainName}} zincirine geçirmeniz gerekir"
   },
   "table": {
     "cardsSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Sırala"
     }
   },
   "transactionErrors": {
-    "acceptAdminPendingAdminCheck": "TRANSLATION NEEDED",
-    "acceptPendingImplementationAddressCheck": "TRANSLATION NEEDED",
-    "accrueInterestAccumulatedInterestCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestBorrowRateCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestNewBorrowIndexCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestNewTotalBorrowsCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestNewTotalReservesCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestSimpleInterestFactorCalculationFailed": "TRANSLATION NEEDED",
-    "addReservesAccrueInterestFailed": "TRANSLATION NEEDED",
-    "addReservesFreshCheck": "TRANSLATION NEEDED",
-    "addReservesTransferInNotPossible": "TRANSLATION NEEDED",
-    "badInput": "TRANSLATION NEEDED",
-    "borrowAccrueInterestFailed": "TRANSLATION NEEDED",
-    "borrowAccumulatedBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "borrowCashNotAvailable": "TRANSLATION NEEDED",
-    "borrowComptrollerRejection": "TRANSLATION NEEDED",
-    "borrowFreshnessCheck": "TRANSLATION NEEDED",
-    "borrowMarketNotListed": "TRANSLATION NEEDED",
-    "borrowNewAccountBorrowBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "borrowNewTotalBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "comptrollerCalculationError": "TRANSLATION NEEDED",
-    "comptrollerMismatch": "TRANSLATION NEEDED",
-    "comptrollerRejection": "TRANSLATION NEEDED",
-    "exitMarketBalanceOwed": "TRANSLATION NEEDED",
-    "exitMarketRejection": "TRANSLATION NEEDED",
-    "gasEstimationFailed": "TRANSLATION NEEDED",
-    "gaslessTransactionNotAvailable": "TRANSLATION NEEDED",
-    "insufficientBalanceForVai": "TRANSLATION NEEDED",
-    "insufficientLiquidity": "TRANSLATION NEEDED",
-    "insufficientShortfall": "TRANSLATION NEEDED",
-    "interestRateModelError": "TRANSLATION NEEDED",
-    "invalidAccountPair": "TRANSLATION NEEDED",
-    "invalidCloseAmountRequested": "TRANSLATION NEEDED",
-    "invalidCloseFactor": "TRANSLATION NEEDED",
-    "invalidCollateralFactor": "TRANSLATION NEEDED",
-    "invalidLiquidationIncentive": "TRANSLATION NEEDED",
-    "liquidateAccrueBorrowInterestFailed": "TRANSLATION NEEDED",
-    "liquidateAccrueCollateralInterestFailed": "TRANSLATION NEEDED",
-    "liquidateCloseAmountIsUintMax": "TRANSLATION NEEDED",
-    "liquidateCloseAmountIsZero": "TRANSLATION NEEDED",
-    "liquidateCollateralFreshnessCheck": "TRANSLATION NEEDED",
-    "liquidateComptrollerCalculateAmountSeizeFailed": "TRANSLATION NEEDED",
-    "liquidateComptrollerRejection": "TRANSLATION NEEDED",
-    "liquidateFreshnessCheck": "TRANSLATION NEEDED",
-    "liquidateSeizeBalanceDecrementFailed": "TRANSLATION NEEDED",
-    "liquidateSeizeBalanceIncrementFailed": "TRANSLATION NEEDED",
-    "liquidateSeizeBorrowFreshFailed": "TRANSLATION NEEDED",
-    "liquidateSeizeComptrollerRejection": "TRANSLATION NEEDED",
-    "liquidateSeizeIsBorrower": "TRANSLATION NEEDED",
-    "liquidateSeizeLiquidatorIsBorrower": "TRANSLATION NEEDED",
-    "liquidateSeizeTooMuch": "TRANSLATION NEEDED",
-    "marketAlreadyListed": "TRANSLATION NEEDED",
-    "marketNotEntered": "TRANSLATION NEEDED",
-    "marketNotFresh": "TRANSLATION NEEDED",
-    "marketNotListed": "TRANSLATION NEEDED",
-    "mathError": "TRANSLATION NEEDED",
-    "mintAccrueInterestFailed": "TRANSLATION NEEDED",
-    "mintComptrollerRejection": "TRANSLATION NEEDED",
-    "mintExchangeRateReadFailed": "TRANSLATION NEEDED",
-    "mintFeeCalculationFailed": "TRANSLATION NEEDED",
-    "mintFreshnessCheck": "TRANSLATION NEEDED",
-    "mintNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "mintNewTotalSupplyCalculationFailed": "TRANSLATION NEEDED",
-    "mintTransferInFailed": "TRANSLATION NEEDED",
-    "mintTransferNotPossible": "TRANSLATION NEEDED",
-    "noError": "TRANSLATION NEEDED",
-    "nonzeroBorrowBalance": "TRANSLATION NEEDED",
-    "priceError": "TRANSLATION NEEDED",
-    "redeemAccrueInterestFailed": "TRANSLATION NEEDED",
-    "redeemComptrollerRejection": "TRANSLATION NEEDED",
-    "redeemExchangeAmountCalculatioFailed": "TRANSLATION NEEDED",
-    "redeemExchangeRateReadFailed": "TRANSLATION NEEDED",
-    "redeemExchangeTokensCalculationFailed": "TRANSLATION NEEDED",
-    "redeemFeeCalculationFailed": "TRANSLATION NEEDED",
-    "redeemFreshnessCheck": "TRANSLATION NEEDED",
-    "redeemNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "redeemNewTotalSupplyCalculationFailed": "TRANSLATION NEEDED",
-    "redeemTransferOutNotPossible": "TRANSLATION NEEDED",
-    "reduceReservesAccrueInterestFailed": "TRANSLATION NEEDED",
-    "reduceReservesAdminCheck": "TRANSLATION NEEDED",
-    "reduceReservesCashNotAvailable": "TRANSLATION NEEDED",
-    "reduceReservesFreshCheck": "TRANSLATION NEEDED",
-    "reduceReservesValidation": "TRANSLATION NEEDED",
-    "rejection": "TRANSLATION NEEDED",
-    "repayBehalfAccrueInterestFailed": "TRANSLATION NEEDED",
-    "repayBorrowAccrueInterestFailed": "TRANSLATION NEEDED",
-    "repayBorrowAccumulatedBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "repayBorrowComptrollerRejection": "TRANSLATION NEEDED",
-    "repayBorrowFreshnessCheck": "TRANSLATION NEEDED",
-    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "repayBorrowTransferInNotPossible": "TRANSLATION NEEDED",
-    "repayBorrowTransferNotPossible": "TRANSLATION NEEDED",
-    "repayVaiComptrollerRejection": "TRANSLATION NEEDED",
-    "repayVaiFreshnessCheck": "TRANSLATION NEEDED",
-    "setCloseFactorOwnerCheck": "TRANSLATION NEEDED",
-    "setCloseFactorValidation": "TRANSLATION NEEDED",
-    "setCollateralFactorNoExists": "TRANSLATION NEEDED",
-    "setCollateralFactorOwnerCheck": "TRANSLATION NEEDED",
-    "setCollateralFactorValidation": "TRANSLATION NEEDED",
-    "setCollateralFactorWithoutPrice": "TRANSLATION NEEDED",
-    "setComptrollerOwnerCheck": "TRANSLATION NEEDED",
-    "setImplementationOwnerCheck": "TRANSLATION NEEDED",
-    "setInterestRateModelAccrueInterestFailed": "TRANSLATION NEEDED",
-    "setInterestRateModelFreshCheck": "TRANSLATION NEEDED",
-    "setInterestRateModelOwnerCheck": "TRANSLATION NEEDED",
-    "setLiquidationIncentiveOwnerCheck": "TRANSLATION NEEDED",
-    "setLiquidationIncentiveValidation": "TRANSLATION NEEDED",
-    "setMaxAssetsOwnerCheck": "TRANSLATION NEEDED",
-    "setMintedVaiRejection": "TRANSLATION NEEDED",
-    "setOracleMarketNotListed": "TRANSLATION NEEDED",
-    "setPauseGuardianOwnerCheck": "TRANSLATION NEEDED",
-    "setPendingAdminOwnerCheck": "TRANSLATION NEEDED",
-    "setPendingImplementationOwnerCheck": "TRANSLATION NEEDED",
-    "setPriceOracleOwnerCheck": "TRANSLATION NEEDED",
-    "setReserveFactorAccrueInterestFailed": "TRANSLATION NEEDED",
-    "setReserveFactorAdminCheck": "TRANSLATION NEEDED",
-    "setReserveFactorBoundsCheck": "TRANSLATION NEEDED",
-    "setReserveFactorFreshCheck": "TRANSLATION NEEDED",
-    "setTreasuryOwnerCheck": "TRANSLATION NEEDED",
-    "setVaiControllerOwnerCheck": "TRANSLATION NEEDED",
-    "setVaiMintRateCheck": "TRANSLATION NEEDED",
-    "sftMintNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "snapshotError": "TRANSLATION NEEDED",
-    "supportMarketExists": "TRANSLATION NEEDED",
-    "supportMarketOwnerCheck": "TRANSLATION NEEDED",
-    "tokenGetUnderlyingPriceError": "TRANSLATION NEEDED",
-    "tokenInsufficentCash": "TRANSLATION NEEDED",
-    "tokenInsufficientAllowance": "TRANSLATION NEEDED",
-    "tokenInsufficientBalance": "TRANSLATION NEEDED",
-    "tokenPriceError": "TRANSLATION NEEDED",
-    "tokenTransferInFailed": "TRANSLATION NEEDED",
-    "tokenTransferOutFailed": "TRANSLATION NEEDED",
-    "tooManyAssets": "TRANSLATION NEEDED",
-    "tooMuchRepay": "TRANSLATION NEEDED",
-    "transferComptrollerRejection": "TRANSLATION NEEDED",
-    "transferNotAllowed": "TRANSLATION NEEDED",
-    "transferNotEnough": "TRANSLATION NEEDED",
-    "transferTooMuch": "TRANSLATION NEEDED",
-    "unauthorized": "TRANSLATION NEEDED",
-    "vaiBurnRejection": "TRANSLATION NEEDED",
-    "vaiLiquidateAccrueBorrowInterestFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateAccrueCollateralInterestFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateCloseAmountIsUintMax": "TRANSLATION NEEDED",
-    "vaiLiquidateCloseAmountIsZero": "TRANSLATION NEEDED",
-    "vaiLiquidateCollateralFreshnessCheck": "TRANSLATION NEEDED",
-    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateComptrollerRejection": "TRANSLATION NEEDED",
-    "vaiLiquidateFreshnessCheck": "TRANSLATION NEEDED",
-    "vaiLiquidateLiquidatorIsBorrower": "TRANSLATION NEEDED",
-    "vaiLiquidateRepayBorrowFreshFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeBalanceDecrementFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeBalanceIncrementFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeComptrollerRejection": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeLiquidatorIsBorrower": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeTooMuch": "TRANSLATION NEEDED",
-    "vaiMintExchangeCalculationFailed": "TRANSLATION NEEDED",
-    "vaiMintRejection": "TRANSLATION NEEDED"
+    "acceptAdminPendingAdminCheck": "Yönetici Kabulü (Bekleyen Yönetici) Kontrolü",
+    "acceptPendingImplementationAddressCheck": "Bekleyen Uygulama Adresi Kabul Kontrolü",
+    "accrueInterestAccumulatedInterestCalculationFailed": "Faiz Tahakkuku Birikmiş Faiz Hesaplaması Başarısız",
+    "accrueInterestBorrowRateCalculationFailed": "Faiz Tahakkuku Borç Oranı Hesaplaması Başarısız",
+    "accrueInterestNewBorrowIndexCalculationFailed": "Faiz Tahakkuku Yeni Borç Endeksi Hesaplaması Başarısız",
+    "accrueInterestNewTotalBorrowsCalculationFailed": "Faiz Tahakkuku Yeni Toplam Borçlar Hesaplaması Başarısız",
+    "accrueInterestNewTotalReservesCalculationFailed": "Faiz Tahakkuku Yeni Toplam Rezervler Hesaplaması Başarısız",
+    "accrueInterestSimpleInterestFactorCalculationFailed": "Faiz Tahakkuku Basit Faiz Faktörü Hesaplaması Başarısız",
+    "addReservesAccrueInterestFailed": "Rezerv Ekleme Faiz Tahakkuku Başarısız",
+    "addReservesFreshCheck": "Rezerv Ekleme Tazelik Kontrolü",
+    "addReservesTransferInNotPossible": "Rezerv Ekleme Transfer Girişi Mümkün Değil",
+    "badInput": "Hatalı Girdi",
+    "borrowAccrueInterestFailed": "Borç Faiz Tahakkuku Başarısız",
+    "borrowAccumulatedBalanceCalculationFailed": "Borç Birikmiş Bakiye Hesaplaması Başarısız",
+    "borrowCashNotAvailable": "Borç Nakit Mevcut Değil",
+    "borrowComptrollerRejection": "Borç Comptroller Reddedildi",
+    "borrowFreshnessCheck": "Borç Tazelik Kontrolü",
+    "borrowMarketNotListed": "Borç Piyasası Listelenmemiş",
+    "borrowNewAccountBorrowBalanceCalculationFailed": "Borç Yeni Hesap Borç Bakiyesi Hesaplaması Başarısız",
+    "borrowNewTotalBalanceCalculationFailed": "Borç Yeni Toplam Bakiye Hesaplaması Başarısız",
+    "comptrollerCalculationError": "Comptroller Hesaplama Hatası",
+    "comptrollerMismatch": "Comptroller Uyumsuzluğu",
+    "comptrollerRejection": "Comptroller Reddetti",
+    "exitMarketBalanceOwed": "Piyasadan Çıkış Borç Bakiyesi",
+    "exitMarketRejection": "Piyasadan Çıkış Reddedildi",
+    "gasEstimationFailed": "Gas tahmini başarısız",
+    "gaslessTransactionNotAvailable": "Gas'siz işlemler mevcut değil",
+    "insufficientBalanceForVai": "VAI için yetersiz bakiye",
+    "insufficientLiquidity": "Yetersiz likidite",
+    "insufficientShortfall": "Yetersiz açık",
+    "interestRateModelError": "Faiz Oranı Modeli Hatası",
+    "invalidAccountPair": "Geçersiz Hesap Çifti",
+    "invalidCloseAmountRequested": "Geçersiz Kapatma Tutarı İstendi",
+    "invalidCloseFactor": "Geçersiz Kapatma Faktörü",
+    "invalidCollateralFactor": "Geçersiz Teminat Faktörü",
+    "invalidLiquidationIncentive": "Geçersiz Likidasyon Teşviki",
+    "liquidateAccrueBorrowInterestFailed": "Likidasyon Borç Faizi Tahakkuku Başarısız",
+    "liquidateAccrueCollateralInterestFailed": "Likidasyon Teminat Faizi Tahakkuku Başarısız",
+    "liquidateCloseAmountIsUintMax": "Likidasyon Kapatma Tutarı UINT Max",
+    "liquidateCloseAmountIsZero": "Likidasyon Kapatma Tutarı Sıfır",
+    "liquidateCollateralFreshnessCheck": "Likidasyon Teminat Tazelik Kontrolü",
+    "liquidateComptrollerCalculateAmountSeizeFailed": "Likidasyon Comptroller El Koyma Tutarı Hesaplaması Başarısız",
+    "liquidateComptrollerRejection": "Likidasyon Comptroller Reddetti",
+    "liquidateFreshnessCheck": "Likidasyon Tazelik Kontrolü",
+    "liquidateSeizeBalanceDecrementFailed": "Likidasyon El Koyma Bakiyesi Azaltılamadı",
+    "liquidateSeizeBalanceIncrementFailed": "Likidasyon El Koyma Bakiyesi Artırılamadı",
+    "liquidateSeizeBorrowFreshFailed": "Likidasyon Borç Tazelik Kontrolü Başarısız",
+    "liquidateSeizeComptrollerRejection": "Likidasyon El Koyma Comptroller Reddetti",
+    "liquidateSeizeIsBorrower": "Likidasyon El Koyan Borçlu",
+    "liquidateSeizeLiquidatorIsBorrower": "Likidasyon Likidatör Borçlu",
+    "liquidateSeizeTooMuch": "Likidasyon Çok Fazla El Koyma",
+    "marketAlreadyListed": "Piyasa Zaten Listelenmiş",
+    "marketNotEntered": "Piyasaya Girilmemiş",
+    "marketNotFresh": "Piyasa Güncel Değil",
+    "marketNotListed": "Piyasa Listelenmemiş",
+    "mathError": "Matematik Hatası",
+    "mintAccrueInterestFailed": "Mint Faiz Tahakkuku Başarısız",
+    "mintComptrollerRejection": "Mint Comptroller Reddetti",
+    "mintExchangeRateReadFailed": "Mint Döviz Kuru Okuma Başarısız",
+    "mintFeeCalculationFailed": "Mint Ücret Hesaplaması Başarısız",
+    "mintFreshnessCheck": "Mint Tazelik Kontrolü",
+    "mintNewAccountBalanceCalculationFailed": "Mint Yeni Hesap Bakiye Hesaplaması Başarısız",
+    "mintNewTotalSupplyCalculationFailed": "Mint Yeni Toplam Sağlama Hesaplaması Başarısız",
+    "mintTransferInFailed": "Mint Transfer Girişi Başarısız",
+    "mintTransferNotPossible": "Mint Transfer Girişi Mümkün Değil",
+    "noError": "Hata Yok",
+    "nonzeroBorrowBalance": "Sıfır Olmayan Borç Bakiyesi",
+    "priceError": "Fiyat Hatası",
+    "redeemAccrueInterestFailed": "Geri Çekme Faiz Tahakkuku Başarısız",
+    "redeemComptrollerRejection": "Geri Çekme Comptroller Reddetti",
+    "redeemExchangeAmountCalculatioFailed": "Geri Çekme Döviz Tutarı Hesaplaması Başarısız",
+    "redeemExchangeRateReadFailed": "Geri Çekme Döviz Kuru Okuma Başarısız",
+    "redeemExchangeTokensCalculationFailed": "Geri Çekme Döviz Token Hesaplaması Başarısız",
+    "redeemFeeCalculationFailed": "Geri Çekme Ücret Hesaplaması Başarısız",
+    "redeemFreshnessCheck": "Geri Çekme Tazelik Kontrolü",
+    "redeemNewAccountBalanceCalculationFailed": "Geri Çekme Yeni Hesap Bakiye Hesaplaması Başarısız",
+    "redeemNewTotalSupplyCalculationFailed": "Geri Çekme Yeni Toplam Sağlama Hesaplaması Başarısız",
+    "redeemTransferOutNotPossible": "Geri Çekme Transfer Çıkışı Mümkün Değil",
+    "reduceReservesAccrueInterestFailed": "Rezerv Azaltma Faiz Tahakkuku Başarısız",
+    "reduceReservesAdminCheck": "Rezerv Azaltma Yönetici Kontrolü",
+    "reduceReservesCashNotAvailable": "Rezerv Azaltma Nakit Mevcut Değil",
+    "reduceReservesFreshCheck": "Rezerv Azaltma Tazelik Kontrolü",
+    "reduceReservesValidation": "Rezerv Azaltma Doğrulaması",
+    "rejection": "Reddedildi",
+    "repayBehalfAccrueInterestFailed": "Başkası Adına Geri Ödeme Faiz Tahakkuku Başarısız",
+    "repayBorrowAccrueInterestFailed": "Geri Ödeme Borç Faizi Tahakkuku Başarısız",
+    "repayBorrowAccumulatedBalanceCalculationFailed": "Geri Ödeme Borç Birikmiş Bakiye Hesaplaması Başarısız",
+    "repayBorrowComptrollerRejection": "Geri Ödeme Comptroller Reddetti",
+    "repayBorrowFreshnessCheck": "Geri Ödeme Tazelik Kontrolü",
+    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "Geri Ödeme Yeni Hesap Borç Bakiyesi Hesaplaması Başarısız",
+    "repayBorrowTransferInNotPossible": "Geri Ödeme Transfer Girişi Mümkün Değil",
+    "repayBorrowTransferNotPossible": "Geri Ödeme Transfer Mümkün Değil",
+    "repayVaiComptrollerRejection": "VAI Geri Ödeme Comptroller Reddetti",
+    "repayVaiFreshnessCheck": "VAI Geri Ödeme Tazelik Kontrolü",
+    "setCloseFactorOwnerCheck": "Kapatma Faktörü Sahip Kontrolü",
+    "setCloseFactorValidation": "Kapatma Faktörü Doğrulaması",
+    "setCollateralFactorNoExists": "Teminat Faktörü Yok",
+    "setCollateralFactorOwnerCheck": "Teminat Faktörü Sahip Kontrolü",
+    "setCollateralFactorValidation": "Teminat Faktörü Doğrulaması",
+    "setCollateralFactorWithoutPrice": "Fiyat Olmadan Teminat Faktörü",
+    "setComptrollerOwnerCheck": "Comptroller Sahip Kontrolü",
+    "setImplementationOwnerCheck": "Uygulama Sahip Kontrolü",
+    "setInterestRateModelAccrueInterestFailed": "Faiz Oranı Modeli Faiz Tahakkuku Başarısız",
+    "setInterestRateModelFreshCheck": "Faiz Oranı Modeli Tazelik Kontrolü",
+    "setInterestRateModelOwnerCheck": "Faiz Oranı Modeli Sahip Kontrolü",
+    "setLiquidationIncentiveOwnerCheck": "Likidasyon Teşviki Sahip Kontrolü",
+    "setLiquidationIncentiveValidation": "Likidasyon Teşviki Doğrulaması",
+    "setMaxAssetsOwnerCheck": "Maks Varlıklar Sahip Kontrolü",
+    "setMintedVaiRejection": "Mint Edilmiş VAI Reddedildi",
+    "setOracleMarketNotListed": "Oracle Piyasası Listelenmemiş",
+    "setPauseGuardianOwnerCheck": "Duraklatma Koruyucusu Sahip Kontrolü",
+    "setPendingAdminOwnerCheck": "Bekleyen Yönetici Sahip Kontrolü",
+    "setPendingImplementationOwnerCheck": "Bekleyen Uygulama Sahip Kontrolü",
+    "setPriceOracleOwnerCheck": "Fiyat Oracle Sahip Kontrolü",
+    "setReserveFactorAccrueInterestFailed": "Rezerv Faktörü Faiz Tahakkuku Başarısız",
+    "setReserveFactorAdminCheck": "Rezerv Faktörü Yönetici Kontrolü",
+    "setReserveFactorBoundsCheck": "Rezerv Faktörü Sınır Kontrolü",
+    "setReserveFactorFreshCheck": "Rezerv Faktörü Tazelik Kontrolü",
+    "setTreasuryOwnerCheck": "Hazine Sahip Kontrolü",
+    "setVaiControllerOwnerCheck": "VAI Controller Sahip Kontrolü",
+    "setVaiMintRateCheck": "VAI Mint Oranı Kontrolü",
+    "sftMintNewAccountBalanceCalculationFailed": "SFT Mint Yeni Hesap Bakiye Hesaplaması Başarısız",
+    "snapshotError": "Snapshot Hatası",
+    "supportMarketExists": "Piyasa Desteği Mevcut",
+    "supportMarketOwnerCheck": "Piyasa Desteği Sahip Kontrolü",
+    "tokenGetUnderlyingPriceError": "Token Dayanak Fiyatı Alma Hatası",
+    "tokenInsufficentCash": "Token Nakit Yetersiz",
+    "tokenInsufficientAllowance": "Token Onayı Yetersiz",
+    "tokenInsufficientBalance": "Token Bakiyesi Yetersiz",
+    "tokenPriceError": "Token Fiyat Hatası",
+    "tokenTransferInFailed": "Token Transfer Girişi Başarısız",
+    "tokenTransferOutFailed": "Token Transfer Çıkışı Başarısız",
+    "tooManyAssets": "Çok Fazla Varlık",
+    "tooMuchRepay": "Çok Fazla Geri Ödeme",
+    "transferComptrollerRejection": "Transfer Comptroller Reddetti",
+    "transferNotAllowed": "Transfere İzin Verilmiyor",
+    "transferNotEnough": "Transfer Yetersiz",
+    "transferTooMuch": "Transfer Çok Fazla",
+    "unauthorized": "Yetkisiz",
+    "vaiBurnRejection": "VAI Yakma Reddedildi",
+    "vaiLiquidateAccrueBorrowInterestFailed": "VAI Likidasyon Borç Faizi Tahakkuku Başarısız",
+    "vaiLiquidateAccrueCollateralInterestFailed": "VAI Likidasyon Teminat Faizi Tahakkuku Başarısız",
+    "vaiLiquidateCloseAmountIsUintMax": "VAI Likidasyon Kapatma Tutarı UINT Max",
+    "vaiLiquidateCloseAmountIsZero": "VAI Likidasyon Kapatma Tutarı Sıfır",
+    "vaiLiquidateCollateralFreshnessCheck": "VAI Likidasyon Teminat Tazelik Kontrolü",
+    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "VAI Likidasyon Comptroller El Koyma Tutarı Hesaplaması Başarısız",
+    "vaiLiquidateComptrollerRejection": "VAI Likidasyon Comptroller Reddetti",
+    "vaiLiquidateFreshnessCheck": "VAI Likidasyon Tazelik Kontrolü",
+    "vaiLiquidateLiquidatorIsBorrower": "VAI Likidasyon Likidatör Borçlu",
+    "vaiLiquidateRepayBorrowFreshFailed": "VAI Likidasyon Borç Geri Ödeme Tazelik Kontrolü Başarısız",
+    "vaiLiquidateSeizeBalanceDecrementFailed": "VAI Likidasyon El Koyma Bakiyesi Azaltılamadı",
+    "vaiLiquidateSeizeBalanceIncrementFailed": "VAI Likidasyon El Koyma Bakiyesi Artırılamadı",
+    "vaiLiquidateSeizeComptrollerRejection": "VAI Likidasyon El Koyma Comptroller Reddetti",
+    "vaiLiquidateSeizeLiquidatorIsBorrower": "VAI Likidasyon El Koyan Borçlu",
+    "vaiLiquidateSeizeTooMuch": "VAI Likidasyon Çok Fazla El Koyma",
+    "vaiMintExchangeCalculationFailed": "VAI Mint Döviz Hesaplaması Başarısız",
+    "vaiMintRejection": "VAI Mint Reddedildi"
   },
   "transactionNotification": {
     "couldNotFetchReceipt": {
-      "title": "TRANSLATION NEEDED"
+      "title": "İşlem durumu alınamadı"
     },
     "failed": {
-      "title": "TRANSLATION NEEDED"
+      "title": "İşlem başarısız"
     },
     "pending": {
-      "title": "TRANSLATION NEEDED"
+      "title": "İşlem onaylanıyor"
     },
     "success": {
-      "title": "TRANSLATION NEEDED"
+      "title": "İşlem onaylandı"
     }
   },
   "vai": {
     "borrow": {
       "amountTokensInput": {
-        "limitButtonLabel": "TRANSLATION NEEDED"
+        "limitButtonLabel": "GÜVENLİ MAKS"
       },
       "availableAmount": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Kullanılabilir",
+        "tooltip": "Global limitlere ve sağladığınız teminata göre borç alabileceğiniz maksimum VAI miktarı"
       },
       "borrowApr": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Borç APR",
+        "tooltip": "Basılmış VAI'nin üzerine gelecekte ödenecek yıllık faiz oranı"
       },
       "fee": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Ücret"
       },
       "notice": {
-        "amountHigherThanAccountMintableAmount": "TRANSLATION NEEDED",
-        "amountHigherThanLiquidity": "TRANSLATION NEEDED"
+        "amountHigherThanAccountMintableAmount": "Girilen miktar kullanılabilir miktardan fazla",
+        "amountHigherThanLiquidity": "Girilen miktar kullanılabilir VAI likiditesinden fazla"
       },
-      "primeOnlyWarning": "TRANSLATION NEEDED",
+      "primeOnlyWarning": "Yalnızca Prime tokenı tutan kullanıcılar VAI borç alabilir. Prime hakkında daha fazla bilgi <Link>burada</Link>.",
       "submitButton": {
-        "borrowLabel": "TRANSLATION NEEDED",
-        "enterValidAmountLabel": "TRANSLATION NEEDED"
+        "borrowLabel": "Borç al",
+        "enterValidAmountLabel": "Borç almak için geçerli bir miktar girin"
       },
-      "tabTitle": "TRANSLATION NEEDED"
+      "tabTitle": "Borç al"
     },
-    "headerMessage": "TRANSLATION NEEDED",
+    "headerMessage": "VAI, Venus Protokolünün birincil stablecoinidir. Sağladığınız teminatı kullanarak VAI borç alın. <Link>Daha fazla bilgi</Link>",
     "repay": {
       "amountTokensInput": {
-        "limitButtonLabel": "TRANSLATION NEEDED"
+        "limitButtonLabel": "MAKS"
       },
       "borrowApr": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Borç APR",
+        "tooltip": "Basılmış VAI'nin üzerine gelecekte ödenecek yıllık faiz oranı"
       },
       "notice": {
-        "amountHigherThanBorrowBalance": "TRANSLATION NEEDED",
-        "amountHigherThanWalletBalance": "TRANSLATION NEEDED",
-        "amountHigherThanWalletSpendingLimit": "TRANSLATION NEEDED",
-        "fullRepaymentWarning": "TRANSLATION NEEDED"
+        "amountHigherThanBorrowBalance": "Girilen miktar geri ödeme bakiyesinden fazla",
+        "amountHigherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
+        "amountHigherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için limiti iptal edin ve yeni bir limit ayarlayın.",
+        "fullRepaymentWarning": "Yeni biriken faizleri karşılamak için işlem değeri mevcut borç tutarından biraz daha yüksek olabilir"
       },
       "submitButton": {
-        "enterValidAmountLabel": "TRANSLATION NEEDED",
-        "repayLabel": "TRANSLATION NEEDED"
+        "enterValidAmountLabel": "Geri ödeme için geçerli bir miktar girin",
+        "repayLabel": "Geri öde"
       },
-      "tabTitle": "TRANSLATION NEEDED",
+      "tabTitle": "Geri öde",
       "walletBalance": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Cüzdan bakiyesi"
       }
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "TRANSLATION NEEDED",
-    "dailyEmission": "TRANSLATION NEEDED",
-    "pausedWarning": "TRANSLATION NEEDED",
-    "stakeButton": "TRANSLATION NEEDED",
-    "stakingApr": "TRANSLATION NEEDED",
-    "totalStaked": "TRANSLATION NEEDED",
+    "blockingPendingWithdrawalsWarning": "Bu vault ile etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekir.",
+    "dailyEmission": "Günlük Emisyon",
+    "pausedWarning": "Bu vault şu anda duraklatıldı. Faiz oranları birikmeye devam eder ancak talep, staking ve çekimler vault yeniden açılana kadar devre dışıdır",
+    "stakeButton": "Stake et",
+    "stakingApr": "{{stakeTokenName}} Stake APR",
+    "totalStaked": "Toplam Stake",
     "transactionForm": {
       "lockingPeriod": {
-        "duration": "TRANSLATION NEEDED",
-        "label": "TRANSLATION NEEDED"
+        "duration": "{{date, distanceToNow}}",
+        "label": "Kilitlenme süresi"
       },
-      "rightMaxButtonLabel": "TRANSLATION NEEDED"
+      "rightMaxButtonLabel": "MAKS"
     },
-    "withdrawButton": "TRANSLATION NEEDED",
-    "youAreStake": "TRANSLATION NEEDED"
+    "withdrawButton": "Çek",
+    "youAreStake": "Stake ediyorsunuz"
   },
   "vote": {
-    "abstain": "TRANSLATION NEEDED",
-    "addComment": "TRANSLATION NEEDED",
-    "against": "TRANSLATION NEEDED",
-    "comment": "TRANSLATION NEEDED",
+    "abstain": "Çekimser",
+    "addComment": "Yorum ekle",
+    "against": "Karşı",
+    "comment": "Yorum",
     "createProposalForm": {
-      "abstainOption": "TRANSLATION NEEDED",
-      "action": "TRANSLATION NEEDED",
-      "actions": "TRANSLATION NEEDED",
-      "addDescription": "TRANSLATION NEEDED",
-      "addOneMoreAction": "TRANSLATION NEEDED",
-      "address": "TRANSLATION NEEDED",
-      "againstOption": "TRANSLATION NEEDED",
-      "confirm": "TRANSLATION NEEDED",
-      "create": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "forOption": "TRANSLATION NEEDED",
-      "name": "TRANSLATION NEEDED",
-      "nextStep": "TRANSLATION NEEDED",
-      "proposalName": "TRANSLATION NEEDED",
-      "proposalType": "TRANSLATION NEEDED",
-      "signature": "TRANSLATION NEEDED",
-      "submitError": "TRANSLATION NEEDED",
-      "votingOptions": "TRANSLATION NEEDED"
+      "abstainOption": "Çekimser seçeneği",
+      "action": "Eylem",
+      "actions": "Eylemler",
+      "addDescription": "Açıklama ekle (temel Markdown biçimlendirmesi desteklenir)",
+      "addOneMoreAction": "+ Bir eylem daha ekle",
+      "address": "Adres",
+      "againstOption": "Karşı seçeneği",
+      "confirm": "Onayla",
+      "create": "Oluştur",
+      "description": "Açıklama",
+      "forOption": "Lehte seçeneği",
+      "name": "Ad",
+      "nextStep": "Sonraki adım",
+      "proposalName": "Teklif adı",
+      "proposalType": "Teklif türü",
+      "signature": "İmza",
+      "submitError": "Teklif oluşturulurken bir hata oluştu",
+      "votingOptions": "Oylama seçenekleri"
     },
     "createProposalModal": {
-      "createManually": "TRANSLATION NEEDED",
-      "createProposal": "TRANSLATION NEEDED",
-      "uploadFile": "TRANSLATION NEEDED",
-      "youCanEitherCreateManuallyOrUpload": "TRANSLATION NEEDED"
+      "createManually": "Manuel oluştur",
+      "createProposal": "Teklif oluştur",
+      "uploadFile": "Dosya yükle",
+      "youCanEitherCreateManuallyOrUpload": "Bir teklifi manuel oluşturabilir veya ayrıntılarını içeren bir dosya yükleyebilirsiniz. Dosya yüklemeyi seçerseniz bu şablonu örnek olarak kullanabilirsiniz: <Link>Github</Link>"
     },
-    "createProposalPlus": "TRANSLATION NEEDED",
-    "delegate": "TRANSLATION NEEDED",
-    "delegateAddress": "TRANSLATION NEEDED",
-    "delegateLeaderboard": "TRANSLATION NEEDED",
-    "delegateVotes": "TRANSLATION NEEDED",
-    "delegateVoting": "TRANSLATION NEEDED",
-    "delegateYourVoting": "TRANSLATION NEEDED",
-    "depositXvs": "TRANSLATION NEEDED",
-    "depositYourTokens": "TRANSLATION NEEDED",
-    "enterContactAddress": "TRANSLATION NEEDED",
+    "createProposalPlus": "+ Teklif oluştur",
+    "delegate": "Delege et",
+    "delegateAddress": "Delege adresi",
+    "delegateLeaderboard": "Delege liderlik tablosu",
+    "delegateVotes": "Delege oyları",
+    "delegateVoting": "Delege oylaması",
+    "delegateYourVoting": "2. <Anchor>Oy gücünüzü</Anchor> kendinize veya başkasına delege edin",
+    "depositXvs": "XVS yatır",
+    "depositYourTokens": "1. <Link>Tokenlarınızı yatırın</Link> XVS Vault'a ",
+    "enterContactAddress": "İletişim adresi girin",
     "errorState": {
-      "buttonLabel": "TRANSLATION NEEDED",
-      "message": "TRANSLATION NEEDED"
+      "buttonLabel": "Yeniden dene",
+      "message": "Teklifler alınamadı"
     },
-    "for": "TRANSLATION NEEDED",
-    "goToXvsSnapshot": "TRANSLATION NEEDED",
+    "for": "Lehte",
+    "goToXvsSnapshot": "XVS Snapshot'a git",
     "omnichain": {
-      "switchToBnb": "TRANSLATION NEEDED",
-      "votingOnlyEnabledOnBnb": "TRANSLATION NEEDED"
+      "switchToBnb": "BNB Chain'e geç",
+      "votingOnlyEnabledOnBnb": "Oylama yalnızca BNB Chain üzerinde kullanılabilir"
     },
     "pages": {
-      "actions": "TRANSLATION NEEDED",
-      "confirmation": "TRANSLATION NEEDED",
-      "proposalInformation": "TRANSLATION NEEDED",
-      "votingOptions": "TRANSLATION NEEDED"
+      "actions": "3 / 3 Eylemler",
+      "confirmation": "Onay",
+      "proposalInformation": "1 / 3 Teklif bilgisi",
+      "votingOptions": "2 / 3 Oylama seçenekleri"
     },
-    "pasteYourAddress": "TRANSLATION NEEDED",
-    "pleasePayAttention": "TRANSLATION NEEDED",
-    "proposals": "TRANSLATION NEEDED",
+    "pasteYourAddress": "Adresinizi yapıştırın",
+    "pleasePayAttention": "Lütfen dikkat edin",
+    "proposals": "Teklifler",
     "proposalStateFilter": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Durum"
     },
     "proposalType": {
-      "critical": "TRANSLATION NEEDED",
-      "fastTrack": "TRANSLATION NEEDED",
-      "normal": "TRANSLATION NEEDED"
+      "critical": "Kritik",
+      "fastTrack": "Hızlı",
+      "normal": "Normal"
     },
-    "redelegate": "TRANSLATION NEEDED",
-    "redelegateVoting": "TRANSLATION NEEDED",
-    "requiredVotingPower": "TRANSLATION NEEDED",
+    "redelegate": "Yeniden delege et",
+    "redelegateVoting": "Yeniden delege oylaması",
+    "requiredVotingPower": "Bir teklif oluşturmak için 300k oy gücüne sahip olmanız gerekir",
     "searchInput": {
-      "placeholder": "TRANSLATION NEEDED"
+      "placeholder": "Teklif ara"
     },
-    "summaryProgressBar": "TRANSLATION NEEDED",
-    "totalLocked": "TRANSLATION NEEDED",
-    "toVoteYouShould": "TRANSLATION NEEDED",
-    "voteAbstain": "TRANSLATION NEEDED",
-    "voteAgainst": "TRANSLATION NEEDED",
-    "voteFor": "TRANSLATION NEEDED",
-    "votingPower": "TRANSLATION NEEDED",
-    "votingWallet": "TRANSLATION NEEDED",
-    "votingWeight": "TRANSLATION NEEDED",
-    "youCanDelegateVotes": "TRANSLATION NEEDED",
-    "youDelegatedTo": "TRANSLATION NEEDED"
+    "summaryProgressBar": "Oylama Özet İlerleme Çubuğu - {{voteType}}",
+    "totalLocked": "Toplam kilitli",
+    "toVoteYouShould": "Oy vermek için şunları yapmalısınız:",
+    "voteAbstain": "Çekimser oy ver",
+    "voteAgainst": "Karşı oy ver",
+    "voteFor": "Lehte oy ver",
+    "votingPower": "Oy gücü",
+    "votingWallet": "Oylama cüzdanı",
+    "votingWeight": "Oy ağırlığı",
+    "youCanDelegateVotes": "Oylarınızı kendinize veya başkasına delege edebilirsiniz. Delege etmek istediğiniz adresi biliyorsanız aşağıya girin. Bilmiyorsanız, desteklemek istediğiniz siyasi partiyi bulmak için Delege Liderlik Tablosuna bakabilirsiniz",
+    "youDelegatedTo": "Kilitli tokenlarınızı {{delegate}}'e delege ettiniz"
   },
   "voteProposalUi": {
-    "activeUntilDate": "TRANSLATION NEEDED",
-    "canceledDate": "TRANSLATION NEEDED",
+    "activeUntilDate": "Aktif bitiş: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "canceledDate": "İptal: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "command": {
       "actionButton": {
-        "cancel": "TRANSLATION NEEDED",
-        "execute": "TRANSLATION NEEDED",
-        "queue": "TRANSLATION NEEDED"
+        "cancel": "İptal",
+        "execute": "Yürüt",
+        "queue": "Kuyruğa al"
       },
       "dates": {
-        "activeAt": "TRANSLATION NEEDED",
-        "executableAt": "TRANSLATION NEEDED",
-        "previousStep": "TRANSLATION NEEDED",
-        "queueableAt": "TRANSLATION NEEDED"
+        "activeAt": "Beklemede: {{date, }}",
+        "executableAt": "Yürütülebilir: {{date, }}",
+        "previousStep": "{{date, }}",
+        "queueableAt": "Kuyruğa alınabilir: {{date, }}"
       },
       "description": {
-        "bridged": "TRANSLATION NEEDED",
-        "canceled": "TRANSLATION NEEDED",
-        "failed": "TRANSLATION NEEDED",
-        "pending": "TRANSLATION NEEDED",
-        "pendingBsc": "TRANSLATION NEEDED",
-        "waitingToBeExecutable": "TRANSLATION NEEDED",
-        "wrongChain": "TRANSLATION NEEDED"
+        "bridged": "İşlemin köprü üzerinden iletilmesi bekleniyor",
+        "canceled": "Yürütme payload'ı yönetişim koruyucusu tarafından iptal edildi",
+        "failed": "Payload hedef ağa gönderilemedi",
+        "pending": "{{chainName}} payload'ının yürütülmesi bekleniyor",
+        "pendingBsc": "Oylamanın başlaması bekleniyor",
+        "waitingToBeExecutable": "Kuyruk süresinin bitmesi bekleniyor",
+        "wrongChain": "Bu payload {{chainName}} zincirinde yürütülmelidir"
       },
       "operations": {
-        "title": "TRANSLATION NEEDED"
+        "title": "İşlemler"
       },
       "status": {
-        "pending": "TRANSLATION NEEDED"
+        "pending": "Beklemede"
       }
     },
     "commands": {
-      "allPayloadsExecuted": "TRANSLATION NEEDED",
-      "somePayloadsExecuted": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "allPayloadsExecuted": "Tüm payload'lar yürütüldü",
+      "somePayloadsExecuted": "Yürütülen payload'lar",
+      "title": "Komutlar"
     },
     "countdownFormat": {
-      "daysIncluded": "TRANSLATION NEEDED",
-      "hoursIncluded": "TRANSLATION NEEDED",
-      "minutesIncluded": "TRANSLATION NEEDED",
-      "secondsIncluded": "TRANSLATION NEEDED"
+      "daysIncluded": "{{days}}g : {{hours}}s : {{minutes}}dk : {{seconds}}sn",
+      "hoursIncluded": "{{hours}}s : {{minutes}}dk : {{seconds}}sn",
+      "minutesIncluded": "{{minutes}}dk : {{seconds}}sn",
+      "secondsIncluded": "{{seconds}}sn"
     },
-    "defeatedDate": "TRANSLATION NEEDED",
-    "description": "TRANSLATION NEEDED",
-    "executedDate": "TRANSLATION NEEDED",
-    "expiredDate": "TRANSLATION NEEDED",
+    "defeatedDate": "Reddedildi: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "description": "Açıklama",
+    "executedDate": "Yürütüldü: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "expiredDate": "Süresi doldu: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "greenPulseAnimation": {
-      "altText": "TRANSLATION NEEDED"
+      "altText": "Yeşil nabız animasyonu"
     },
     "proposalState": {
-      "activeTimestamp": "TRANSLATION NEEDED",
-      "canceledTimestamp": "TRANSLATION NEEDED",
-      "defeatedTimestamp": "TRANSLATION NEEDED",
-      "executedTimestamp": "TRANSLATION NEEDED",
-      "expiredTimestamp": "TRANSLATION NEEDED",
-      "queuedTimestamp": "TRANSLATION NEEDED",
-      "succeededTimestamp": "TRANSLATION NEEDED"
+      "activeTimestamp": "Aktiften itibaren: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "canceledTimestamp": "İptal: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeatedTimestamp": "Reddedildi: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "executedTimestamp": "Yürütüldü: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "expiredTimestamp": "Süresi doldu: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "queuedTimestamp": "Kuyruğa alındı: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "Başarılı: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
-    "queuedUntilDate": "TRANSLATION NEEDED",
+    "queuedUntilDate": "Kuyruk sonu: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "status": {
-      "executedPayloads": "TRANSLATION NEEDED",
-      "readyForExecution": "TRANSLATION NEEDED",
-      "readyForQueuing": "TRANSLATION NEEDED"
+      "executedPayloads": "Yürütülen payload'lar",
+      "readyForExecution": "Yürütmeye hazır",
+      "readyForQueuing": "Kuyruğa almaya hazır"
     },
     "statusCard": {
-      "ariaLabelAbstain": "TRANSLATION NEEDED",
-      "ariaLabelAgainst": "TRANSLATION NEEDED",
-      "ariaLabelFor": "TRANSLATION NEEDED"
+      "ariaLabelAbstain": "çekimser oylar",
+      "ariaLabelAgainst": "karşı oylar",
+      "ariaLabelFor": "lehte oylar"
     },
-    "timeUntilExecutable": "TRANSLATION NEEDED",
-    "timeUntilVotable": "TRANSLATION NEEDED",
+    "timeUntilExecutable": "Yürütülebilir: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilVotable": "Oylama başlar: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "voteStatus": {
-      "abstained": "TRANSLATION NEEDED",
-      "notVoted": "TRANSLATION NEEDED",
-      "votedAgainst": "TRANSLATION NEEDED",
-      "votedFor": "TRANSLATION NEEDED"
+      "abstained": "Çekimser",
+      "notVoted": "Oy kullanılmadı",
+      "votedAgainst": "Karşı oy",
+      "votedFor": "Lehte oy"
     },
-    "votingOptions": "TRANSLATION NEEDED"
+    "votingOptions": "Oylama seçenekleri"
   },
   "voterDetail": {
-    "actions": "TRANSLATION NEEDED",
-    "amount": "TRANSLATION NEEDED",
-    "delegated": "TRANSLATION NEEDED",
-    "delegatingTo": "TRANSLATION NEEDED",
-    "holding": "TRANSLATION NEEDED",
-    "proposalNumber": "TRANSLATION NEEDED",
-    "transactions": "TRANSLATION NEEDED",
-    "undelegated": "TRANSLATION NEEDED",
-    "venusBalance": "TRANSLATION NEEDED",
-    "viewAll": "TRANSLATION NEEDED",
-    "votedAbstain": "TRANSLATION NEEDED",
-    "votedAgainst": "TRANSLATION NEEDED",
-    "votedFor": "TRANSLATION NEEDED",
-    "votes": "TRANSLATION NEEDED",
-    "votingHistory": "TRANSLATION NEEDED"
+    "actions": "Eylemler",
+    "amount": "Miktar",
+    "delegated": "Delege edildi",
+    "delegatingTo": "Şuna delege edildi",
+    "holding": "Tutar",
+    "proposalNumber": "Teklif #",
+    "transactions": "İşlemler",
+    "undelegated": "Delege edilmemiş",
+    "venusBalance": "Venus bakiyesi",
+    "viewAll": "Tümünü gör",
+    "votedAbstain": "Çekimser oy verdi",
+    "votedAgainst": "Karşı oy verdi",
+    "votedFor": "Lehte oy verdi",
+    "votes": "Oylar",
+    "votingHistory": "Oy geçmişi"
   },
   "voterLeaderboard": {
-    "addressesByVotingWeight": "TRANSLATION NEEDED",
+    "addressesByVotingWeight": "Oy ağırlığına göre adresler",
     "columns": {
-      "proposalsVoted": "TRANSLATION NEEDED",
-      "rank": "TRANSLATION NEEDED",
-      "votes": "TRANSLATION NEEDED",
-      "voteWeight": "TRANSLATION NEEDED"
+      "proposalsVoted": "Oy verilen teklifler",
+      "rank": "Sıra",
+      "votes": "Oylar",
+      "voteWeight": "Oy ağırlığı"
     }
   },
   "voteSummary": {
-    "addresses_one": "TRANSLATION NEEDED",
-    "addresses_other": "TRANSLATION NEEDED",
-    "votes": "TRANSLATION NEEDED"
+    "addresses_one": "{{count}} adres",
+    "addresses_other": "{{count}} adres",
+    "votes": "Oylar",
+    "addresses_zero": "{{count}} adres"
   },
   "wallets": {
     "errors": {
-      "noProvider": "TRANSLATION NEEDED"
+      "noProvider": "Bağlanılamıyor. Seçtiğiniz cüzdanın tarayıcınıza yüklü olduğundan emin olun."
     }
   },
   "web3DomainNames": {
     "providers": {
-      "ens": "TRANSLATION NEEDED",
-      "spaceId": "TRANSLATION NEEDED"
+      "ens": "ENS Adı",
+      "spaceId": "Space ID Adı"
     },
     "tooltip": {
-      "address": "TRANSLATION NEEDED"
+      "address": "({{address}})"
     }
   },
   "withdrawFromVaiVaultModal": {
-    "availableTokensLabel": "TRANSLATION NEEDED",
-    "connectWalletMessage": "TRANSLATION NEEDED",
-    "submitButtonDisabledLabel": "TRANSLATION NEEDED",
-    "submitButtonLabel": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
+    "connectWalletMessage": "{{tokenSymbol}} çekmek için cüzdanınızı bağlayın",
+    "submitButtonDisabledLabel": "Çekmek için geçerli bir miktar girin",
+    "submitButtonLabel": "Çek",
+    "title": "{{tokenSymbol}} çek"
   },
   "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "TRANSLATION NEEDED",
+    "displayWithdrawalRequestListButton": "Çekim talep listesi",
     "requestWithdrawalTab": {
       "approveToken": {
-        "connectWalletMessage": "TRANSLATION NEEDED"
+        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
       },
-      "availableTokensLabel": "TRANSLATION NEEDED",
-      "displayWithdrawalRequestListButton": "TRANSLATION NEEDED",
+      "availableTokensLabel": "Talep edilebilir {{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "Çekim talep listesi",
       "primeLossWarning": {
-        "message": "TRANSLATION NEEDED",
-        "submitButtonLabel": "TRANSLATION NEEDED"
+        "message": "Bu miktarı çekerseniz Prime tokenınızı kaybedersiniz; çünkü XVS vault'taki stake'iniz, Prime için gereken minimum {{minimumXvsStake}} seviyesinin altına düşer.",
+        "submitButtonLabel": "Prime tokenını kaybet ve çekim talep et"
       },
-      "submitButtonDisabledLabel": "TRANSLATION NEEDED",
-      "submitButtonLabel": "TRANSLATION NEEDED"
+      "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
+      "submitButtonLabel": "Çekim talep et"
     },
-    "requestWithdrawalTabTitle": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED",
+    "requestWithdrawalTabTitle": "Çekim talep et",
+    "title": "{{tokenSymbol}} çek",
     "withdrawalRequestList": {
       "approveToken": {
-        "connectWalletMessage": "TRANSLATION NEEDED"
+        "connectWalletMessage": "Çekim taleplerinizi görmek için cüzdanınızı bağlayın"
       },
-      "emptyState": "TRANSLATION NEEDED",
-      "itemContent": "TRANSLATION NEEDED"
+      "emptyState": "Aktif çekim talebiniz yok",
+      "itemContent": "{{date, dd.MM.yy h:mm a}} tarihine kadar kilitli"
     },
-    "withdrawalRequestListTitle": "TRANSLATION NEEDED",
+    "withdrawalRequestListTitle": "Çekim talep listesi",
     "withdrawTab": {
       "approveToken": {
-        "connectWalletMessage": "TRANSLATION NEEDED"
+        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
       },
-      "availableTokens": "TRANSLATION NEEDED",
-      "submitButton": "TRANSLATION NEEDED"
+      "availableTokens": "Kullanılabilir {{tokenSymbol}}",
+      "submitButton": "Çek"
     },
-    "withdrawTabTitle": "TRANSLATION NEEDED"
+    "withdrawTabTitle": "Çek"
   }
 }
