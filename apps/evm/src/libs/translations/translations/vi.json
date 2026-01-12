@@ -988,8 +988,8 @@
     "tokensLeft": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_one": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_many": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
-    "waitForPrimeTitle": "{{claimWaitingPeriod}} để có thể nhận thưởng Prime",
-    "tokensLeft_other": "Còn <WhiteText>{{count}}</WhiteText> token Prime"
+    "tokensLeft_other": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} để có thể nhận thưởng Prime"
   },
   "probableBanner": {
     "description": "Tăng niềm tin của bạn trên probable.markets",
@@ -1546,10 +1546,10 @@
     }
   },
   "voteSummary": {
-    "addresses_other": "{{count}} địa chỉ",
-    "votes": "Phiếu",
     "addresses_zero": "{{count}} địa chỉ",
-    "addresses_one": "{{count}} địa chỉ"
+    "addresses_one": "{{count}} địa chỉ",
+    "addresses_other": "{{count}} địa chỉ",
+    "votes": "Phiếu"
   },
   "wallets": {
     "errors": {

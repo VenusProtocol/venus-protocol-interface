@@ -988,8 +988,8 @@
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
-    "waitForPrimeTitle": "Prime ödüllerini talep edebilmeniz için {{claimWaitingPeriod}}",
-    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> Prime token kaldı"
+    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
+    "waitForPrimeTitle": "Prime ödüllerini talep edebilmeniz için {{claimWaitingPeriod}}"
   },
   "probableBanner": {
     "description": "probable.markets'te inancınızı artırın",
@@ -1546,10 +1546,10 @@
     }
   },
   "voteSummary": {
+    "addresses_zero": "{{count}} adres",
     "addresses_one": "{{count}} adres",
     "addresses_other": "{{count}} adres",
-    "votes": "Oylar",
-    "addresses_zero": "{{count}} adres"
+    "votes": "Oylar"
   },
   "wallets": {
     "errors": {

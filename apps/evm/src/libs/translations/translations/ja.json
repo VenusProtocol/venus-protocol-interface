@@ -988,8 +988,8 @@
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
-    "waitForPrimeTitle": "Prime報酬を請求できるまで{{claimWaitingPeriod}}",
-    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています"
+    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
+    "waitForPrimeTitle": "Prime報酬を請求できるまで{{claimWaitingPeriod}}"
   },
   "probableBanner": {
     "description": "probable.marketsで信念をブーストしよう",
@@ -1546,10 +1546,10 @@
     }
   },
   "voteSummary": {
-    "addresses_other": "{{count}} アドレス",
-    "votes": "投票",
     "addresses_zero": "{{count}} アドレス",
-    "addresses_one": "{{count}} アドレス"
+    "addresses_one": "{{count}} アドレス",
+    "addresses_other": "{{count}} アドレス",
+    "votes": "投票"
   },
   "wallets": {
     "errors": {

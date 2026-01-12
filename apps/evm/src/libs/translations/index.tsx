@@ -10,8 +10,8 @@ import jaLocales from './translations/ja.json';
 import thLocales from './translations/th.json';
 import trLocales from './translations/tr.json';
 import viLocales from './translations/vi.json';
-import zhChLocales from './translations/zhCn.json';
-import zhTwLocales from './translations/zhTw.json';
+import zhCnLocales from './translations/zh-CN.json';
+import zhTwLocales from './translations/zh-TW.json';
 
 export { default as en } from './translations/en.json';
 
@@ -37,7 +37,7 @@ const init = () => {
           translation: viLocales,
         },
         'zh-CN': {
-          translation: zhChLocales,
+          translation: zhCnLocales,
         },
         'zh-TW': {
           translation: zhTwLocales,

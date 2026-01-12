@@ -988,8 +988,8 @@
     "tokensLeft": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "tokensLeft_one": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "tokensLeft_many": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
-    "waitForPrimeTitle": "{{claimWaitingPeriod}} ก่อนที่จะรับรางวัล Prime ได้",
-    "tokensLeft_other": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน"
+    "tokensLeft_other": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} ก่อนที่จะรับรางวัล Prime ได้"
   },
   "probableBanner": {
     "description": "เพิ่มความเชื่อมั่นของคุณบน probable.markets",
@@ -1546,10 +1546,10 @@
     }
   },
   "voteSummary": {
-    "addresses_other": "{{count}} ที่อยู่",
-    "votes": "คะแนนโหวต",
     "addresses_zero": "{{count}} ที่อยู่",
-    "addresses_one": "{{count}} ที่อยู่"
+    "addresses_one": "{{count}} ที่อยู่",
+    "addresses_other": "{{count}} ที่อยู่",
+    "votes": "คะแนนโหวต"
   },
   "wallets": {
     "errors": {
