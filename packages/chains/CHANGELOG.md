@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.17.0
+
+### Minor Changes
+
+- d33118e: add U token record
+
 ## 0.16.0
 
 ### Minor Changes
