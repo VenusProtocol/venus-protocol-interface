@@ -372,4 +372,10 @@ export const bscTestnet: Token[] = [
     symbol: 'PT-USDe-30OCT2025',
     iconSrc: iconSrcs.ptUsdE,
   },
+  {
+    address: '0x180Bc1a9843A65D4116e44886FD3558515a56A49',
+    decimals: 18,
+    symbol: 'U',
+    iconSrc: iconSrcs.u,
+  },
 ];
