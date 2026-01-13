@@ -70,8 +70,8 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
         // primary
         default:
           return cn(
-            'border-lightGrey bg-cards hover:border-lightGrey hover:bg-lightGrey active:border-blue active:bg-lightGrey',
-            isDropdownOpened && 'border-blue bg-lightGrey hover:border-blue',
+            'border-dark-blue-disabled/50 bg-dark-blue hover:bg-dark-blue-hover active:bg-dark-blue-hover',
+            isDropdownOpened && 'bg-dark-blue-hover hover:border-blue',
           );
       }
     };
@@ -150,10 +150,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             {!disabled && (
               <Icon
                 name="chevronDown"
-                className={cn(
-                  'text-grey ml-2 size-3 flex-none',
-                  isDropdownOpened && 'text-blue rotate-180',
-                )}
+                className={cn('text-grey ml-2 size-3 flex-none', isDropdownOpened && 'rotate-180')}
               />
             )}
           </Button>
