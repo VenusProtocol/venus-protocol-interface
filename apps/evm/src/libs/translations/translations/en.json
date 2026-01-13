@@ -625,6 +625,10 @@
       "dashboard": {
         "label": "Dashboard"
       },
+      "gasLessTransactionSetting": {
+        "description": "TRANSLATION NEEDED",
+        "label": "Enable gasless transactions on {{chainName}}"
+      },
       "label": "Menu",
       "markets": {
         "label": "Markets"
