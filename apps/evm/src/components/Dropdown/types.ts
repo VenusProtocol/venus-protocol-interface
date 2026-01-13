@@ -21,4 +21,5 @@ export interface DropdownProps {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
   menuTitle?: string;
   menuPosition?: 'left' | 'right';
+  menuClassName?: string;
 }

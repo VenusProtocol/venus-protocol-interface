@@ -58,7 +58,7 @@ export const Layout: React.FC = () => {
       <NavBar className="shrink-0" />
 
       <div
-        className="flex flex-col grow gap-y-10 pt-10 overflow-x-hidden"
+        className="flex flex-col grow gap-y-10 pt-5 overflow-x-hidden sm:pt-10"
         id={PAGE_CONTAINER_ID}
         onScroll={handleScroll}
       >
