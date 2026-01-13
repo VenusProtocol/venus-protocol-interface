@@ -1,4 +1,4 @@
-import { cn } from '@venusprotocol/ui';
+import { cn } from 'components';
 
 const containerClassName = 'w-full px-4 sm:px-4 md:px-6 lg:px-12 lg:mx-auto';
 
