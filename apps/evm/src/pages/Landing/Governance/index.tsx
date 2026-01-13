@@ -2,7 +2,7 @@ import { useProposalsCountFromApi } from 'clients/api/queries/getProposalsCountF
 import { Button, cn } from 'components';
 import { COMMUNITY_URL } from 'constants/landing';
 import { Container } from 'containers/Container';
-import { Link } from 'containers/Link';
+import { useTranslation } from 'libs/translations';
 import plantsImg from './assets/planets.png';
 
 const textClassName = cn(
@@ -10,7 +10,8 @@ const textClassName = cn(
   '[&_p]:text-grey [&_p]:text-[1rem] xl:[&_p]:text-[1.125rem]',
 );
 
-const Governance: React.FC = () => {
+export const Governance: React.FC = () => {
+  const { t, Trans } = useTranslation();
   const { data: proposalsCount, isLoading } = useProposalsCountFromApi();
 
   return !isLoading && proposalsCount ? (
@@ -28,16 +29,18 @@ const Governance: React.FC = () => {
         >
           <div>
             <h2 className="mb-4 xl:mb-6 xl:pt-10 xl:pe-6.75 xl:pl-0 xl:ps-10">
-              Money Markets governed
-              <br />
-              by community
+              <Trans
+                i18nKey="landing.governance.title"
+                components={{
+                  br: <br />,
+                }}
+              />
             </h2>
             <p className="mt-4 mb-10 md:text-[1rem] xl:text-[1.125rem]">
-              Venus is a community-driven decentralized protocol delivering best-in-class
-              functionality for crypto money markets.
+              {t('landing.governance.text')}
             </p>
             <a className={'w-fit mb-6'} href={COMMUNITY_URL}>
-              <Button className="w-fit">Governance forum</Button>
+              <Button className="w-fit">{t('landing.governance.forum')}</Button>
             </a>
           </div>
         </div>
@@ -69,7 +72,7 @@ const Governance: React.FC = () => {
                 'text-grey text-center text-[0.875rem] max-w-32.5 sm:text-[0.75rem] leading-4.5 lg:text-[1rem] lg:[font-variant-caps:all-small-caps] lg:tracking-[0.07rem] lg:leading-5.25 lg:max-w-57.5 xl:text-[1rem] xl:tracking-[0.07rem] xl:max-w-78'
               }
             >
-              Venus Improvement Proposals Executed and counting
+              {t('landing.governance.proposalCounting')}
             </span>
           </div>
         </div>
@@ -77,5 +80,3 @@ const Governance: React.FC = () => {
     </Container>
   ) : null;
 };
-
-export default Governance;

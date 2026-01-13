@@ -1,8 +1,9 @@
 import { cn } from 'components';
 import { Container } from 'containers/Container';
-import Auditor from './Auditor';
-import OtherAuditors from './OtherAuditors';
-import SafetyScore from './SafetyScore';
+import { useTranslation } from 'libs/translations';
+import { Auditor } from './Auditor';
+import { OtherAuditors } from './OtherAuditors';
+import { SafetyScore } from './SafetyScore';
 import CantinaLogo from './assets/cantinaLogo.svg?react';
 import CantinaLogoGray from './assets/cantinaLogoGray.svg?react';
 import CertikLogo from './assets/certikLogo.svg?react';
@@ -67,25 +68,25 @@ const auditors = [
   },
 ];
 
-const Safety: React.FC<ISafetyProps> = ({ className }) => (
-  <section className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
-    <Container className="flex flex-col flex-wrap items-center">
-      <h2 className="text-[2rem]">Safety before all</h2>
-      <p className="text-center max-w-162.5 mt-4 mb-10">
-        Transact with confidence, knowing Venus places nothing before the security of your assets
-      </p>
-      <div className="flex flex-col gap-8 w-full xl:flex-row xl:gap-8">
-        <SafetyScore className="flex xl:hidden" />
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
-          {auditors.map(a => (
-            <Auditor key={`${a.href}-${a.audits}`} auditor={a} />
-          ))}
-          <OtherAuditors />
-        </div>
-        <SafetyScore className="hidden xl:flex" />
-      </div>
-    </Container>
-  </section>
-);
+export const Safety: React.FC<ISafetyProps> = ({ className }) => {
+  const { t } = useTranslation();
 
-export default Safety;
+  return (
+    <section className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
+      <Container className="flex flex-col flex-wrap items-center">
+        <h2 className="text-[2rem]">{t('landing.safety.title')}</h2>
+        <p className="text-center max-w-162.5 mt-4 mb-10">{t('landing.safety.text')}</p>
+        <div className="flex flex-col gap-8 w-full xl:flex-row xl:gap-8">
+          <SafetyScore className="flex xl:hidden" />
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
+            {auditors.map(a => (
+              <Auditor key={`${a.href}-${a.audits}`} auditor={a} />
+            ))}
+            <OtherAuditors />
+          </div>
+          <SafetyScore className="hidden xl:flex" />
+        </div>
+      </Container>
+    </section>
+  );
+};

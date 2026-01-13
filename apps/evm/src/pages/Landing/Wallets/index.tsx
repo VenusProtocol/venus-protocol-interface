@@ -1,4 +1,5 @@
 import { Container } from 'containers/Container';
+import { useTranslation } from 'libs/translations';
 import binanceLogoSrc from './assets/binance.svg';
 import braveLogoSrc from './assets/brave.svg';
 import foxWalletLogoSrc from './assets/foxWallet.svg';
@@ -68,20 +69,22 @@ const wallets: Wallet[] = [
   },
 ];
 
-const Wallets: React.FC = () => (
-  <section className="my-15 md:my-20 xl:my-25">
-    <Container>
-      <h2 className="text-[2rem] text-center mx-auto mb-10">Trusted by many</h2>
+export const Wallets: React.FC = () => {
+  const { t } = useTranslation();
 
-      <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 xl:gap-6">
-        {wallets.map(({ logoSrc, name }) => (
-          <div className="flex justify-center items-center" key={name}>
-            <img loading="lazy" src={logoSrc} className="w-full" alt={name} />
-          </div>
-        ))}
-      </div>
-    </Container>
-  </section>
-);
+  return (
+    <section className="my-15 md:my-20 xl:my-25">
+      <Container>
+        <h2 className="text-[2rem] text-center mx-auto mb-10">{t('landing.wallets.title')}</h2>
 
-export default Wallets;
+        <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 xl:gap-6">
+          {wallets.map(({ logoSrc, name }) => (
+            <div className="flex justify-center items-center" key={name}>
+              <img loading="lazy" src={logoSrc} className="w-full" alt={name} />
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+};
