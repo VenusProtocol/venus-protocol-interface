@@ -73,6 +73,7 @@ export { default as transactionCollateral } from './transactionCollateral';
 export { default as transactionLink } from './transactionLink';
 export { default as eMode } from './eMode';
 export { default as gear } from './gear';
+export { default as gearFull } from './gearFull';
 export { default as arrowRightFull } from './arrowRightFull';
 export { default as chevronDown } from './chevronDown';
 export { default as user } from './user';
