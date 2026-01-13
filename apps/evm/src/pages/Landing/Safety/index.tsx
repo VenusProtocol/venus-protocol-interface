@@ -1,5 +1,4 @@
 import { cn } from 'components';
-import { Container } from 'containers/Container';
 import { useTranslation } from 'libs/translations';
 import { Auditor } from './Auditor';
 import { OtherAuditors } from './OtherAuditors';
@@ -73,7 +72,7 @@ export const Safety: React.FC<ISafetyProps> = ({ className }) => {
 
   return (
     <section className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
-      <Container className="flex flex-col flex-wrap items-center">
+      <div className="flex flex-col flex-wrap items-center">
         <h2 className="text-[2rem]">{t('landing.safety.title')}</h2>
         <p className="text-center max-w-162.5 mt-4 mb-10">{t('landing.safety.text')}</p>
         <div className="flex flex-col gap-8 w-full xl:flex-row xl:gap-8">
@@ -86,7 +85,7 @@ export const Safety: React.FC<ISafetyProps> = ({ className }) => {
           </div>
           <SafetyScore className="hidden xl:flex" />
         </div>
-      </Container>
+      </div>
     </section>
   );
 };

@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
+import FunctionKey from 'constants/functionKey';
 import { fetchProposalCount } from '.';
 
 export const useProposalsCountFromApi = () =>
   useQuery({
-    queryKey: ['proposalCount'],
+    queryKey: [FunctionKey.GET_PROPOSALS_COUNT_FROM_API],
     queryFn: fetchProposalCount,
   });

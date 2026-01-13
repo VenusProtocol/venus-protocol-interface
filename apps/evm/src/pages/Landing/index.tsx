@@ -1,5 +1,5 @@
 import { Page } from 'components';
-import { DISCORD_SERVER_URL } from 'constants/landing';
+import { DISCORD_SERVER_URL } from 'constants/production';
 import { useEffect } from 'react';
 // import Background from './Background';
 import { Benefits } from './Benefits';

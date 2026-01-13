@@ -1,5 +1,4 @@
 import { cn } from 'components';
-import { Container } from 'containers/Container';
 import { useTranslation } from 'libs/translations';
 import Octahedron from './assets/1.svg?react';
 import Shield from './assets/2.svg?react';
@@ -9,7 +8,7 @@ interface IBenefitsProps {
   className?: string;
 }
 
-const iconClassName = 'mb-[24px] sm:mb-0 sm:me-[24px] md:me-0 md:mb-[85px]';
+const iconClassName = cn('mb-[24px] sm:mb-0 sm:me-[24px] md:me-0 md:mb-[85px]');
 
 export const Benefits: React.FC<IBenefitsProps> = ({ className }) => {
   const { t } = useTranslation();
@@ -33,7 +32,7 @@ export const Benefits: React.FC<IBenefitsProps> = ({ className }) => {
   ];
 
   return (
-    <Container className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
+    <div className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
       <ul className="md:flex md:gap-6">
         {content.map(({ icon, title, text }) => (
           <li
@@ -50,6 +49,6 @@ export const Benefits: React.FC<IBenefitsProps> = ({ className }) => {
           </li>
         ))}
       </ul>
-    </Container>
+    </div>
   );
 };

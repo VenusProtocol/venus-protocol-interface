@@ -1,7 +1,6 @@
 import { useProposalsCountFromApi } from 'clients/api/queries/getProposalsCountFromApi/useGetProposalsCountFromApi';
 import { Button, cn } from 'components';
-import { COMMUNITY_URL } from 'constants/landing';
-import { Container } from 'containers/Container';
+import { COMMUNITY_URL } from 'constants/production';
 import { useTranslation } from 'libs/translations';
 import plantsImg from './assets/planets.png';
 
@@ -15,20 +14,19 @@ export const Governance: React.FC = () => {
   const { data: proposalsCount, isLoading } = useProposalsCountFromApi();
 
   return !isLoading && proposalsCount ? (
-    <Container className={cn('mt-15 md:mt-20 xl:mt-25', textClassName)}>
+    <div className={cn('mt-15 md:mt-20 xl:mt-25', textClassName)}>
       <div
         className={
           'flex flex-col-reverse justify-between overflow-y-hidden border border-solid border-lightGrey rounded-3xl h-135.5 bg-[#1E2431] sm:h-94 sm:flex-row xl:gap-6 xl:h-125'
         }
-        key="bounty"
       >
         <div
           className={
-            'flex flex-col justify-evenly flex-1 pt-6 ps-6 h-full sm:max-w-1/2 md:max-w-81.25 xl:max-w-1/2'
+            'flex flex-col justify-evenly flex-1 pt-6 ps-6 h-full sm:max-w-1/2 md:max-w-81.25 xl:max-w-1/2 xl:pe-8 xl:ps-10'
           }
         >
           <div>
-            <h2 className="mb-4 xl:mb-6 xl:pt-10 xl:pe-6.75 xl:pl-0 xl:ps-10">
+            <h2 className="mb-4 xl:mb-6 xl:pt-4 xl:pe-6.75 xl:pl-0 xl:ps-10">
               <Trans
                 i18nKey="landing.governance.title"
                 components={{
@@ -77,6 +75,6 @@ export const Governance: React.FC = () => {
           </div>
         </div>
       </div>
-    </Container>
+    </div>
   ) : null;
 };
