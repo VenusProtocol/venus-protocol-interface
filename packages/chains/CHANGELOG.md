@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.18.0
+
+### Minor Changes
+
+- 9710833: add temporary fix to handle VenusLens address change after Fermi upgrade
+
 ## 0.17.0
 
 ### Minor Changes

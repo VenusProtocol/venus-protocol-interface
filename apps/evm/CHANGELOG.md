@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.89.0
+
+### Minor Changes
+
+- 9710833: add temporary fix to handle VenusLens address change after Fermi upgrade
+
+### Patch Changes
+
+- Updated dependencies [9710833]
+  - @venusprotocol/chains@0.18.0
+
 ## 3.88.0
 
 ### Minor Changes
