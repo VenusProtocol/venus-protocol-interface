@@ -306,6 +306,7 @@
     "governance": "Governance",
     "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
+    "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
     "staking": "Staking",
@@ -548,6 +549,10 @@
       "dashboard": {
         "label": "Dashboard"
       },
+      "gasLessTransactionSetting": {
+        "description": "TRANSLATION NEEDED",
+        "label": "Enable gasless transactions on {{chainName}}"
+      },
       "label": "Menu",
       "markets": {
         "label": "Markets"
@@ -570,7 +575,7 @@
           "label": "Port"
         },
         "swap": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Swap"
         },
         "vai": {
           "description": "TRANSLATION NEEDED",
@@ -586,6 +591,9 @@
         }
       },
       "venusLogoAlt": "Venus logo"
+    },
+    "settingsModal": {
+      "title": "Settings"
     },
     "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
   },
@@ -894,17 +902,6 @@
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
-  },
-  "pools": {
-    "poolTable": {
-      "columns": {
-        "assets": "TRANSLATION NEEDED",
-        "liquidity": "TRANSLATION NEEDED",
-        "pool": "TRANSLATION NEEDED",
-        "totalBorrow": "TRANSLATION NEEDED",
-        "totalSupply": "TRANSLATION NEEDED"
-      }
-    }
   },
   "poolsStats": {
     "cell": {

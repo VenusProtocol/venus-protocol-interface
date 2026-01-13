@@ -199,8 +199,8 @@ const AppRoutes = () => {
         )}
 
         {/* Redirect to Core pool if no route matches */}
-        <Route index element={<Redirect to={Subdirectory.LANDING} />} />
-        <Route path="*" element={<Redirect to={Subdirectory.LANDING} />} />
+        <Route index element={<Redirect to={`/${Subdirectory.LANDING}`} />} />
+        <Route path="*" element={<Redirect to={`/${Subdirectory.LANDING}`} />} />
       </Route>
     </Routes>
   );

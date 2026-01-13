@@ -5,7 +5,7 @@ import config from 'config';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
-import { GaslessStatus } from '../GaslessStatus';
+import { GaslessStatus } from './GaslessStatus';
 
 export interface ChainSelectProps
   extends Omit<SelectProps, 'value' | 'onChange' | 'options' | 'optionClassName'> {

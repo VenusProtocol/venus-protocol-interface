@@ -3,7 +3,8 @@ import { cn } from '@venusprotocol/ui';
 import { Icon } from 'components';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import type { MenuItem, SubMenu } from '../types';
+import { matchPath, useLocation } from 'react-router';
+import type { MenuItem, SubMenu } from '../../../types';
 
 export interface SubMenuItemProps extends MenuItem {
   variant?: SubMenu['variant'];
@@ -22,6 +23,10 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const { pathname } = useLocation();
+
+  const isActive = to && !!matchPath(to, pathname);
+
   const linkNavProps = to ? { to } : { href };
 
   return (
@@ -29,8 +34,9 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
       {...linkNavProps}
       onClick={onClick}
       className={cn(
-        'block py-3 space-y-6 rounded-lg group transition-colors hover:no-underline',
+        'block py-3 space-y-6 rounded-lg group transition-colors whitespace-nowrap hover:no-underline',
         variant === 'secondary' ? 'px-6' : 'px-4 bg-background-active hover:bg-background-hover',
+        isActive && variant === 'primary' && 'bg-background-hover',
       )}
     >
       <div className="flex gap-x-3">
@@ -44,7 +50,10 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
             {iconName ? (
               <Icon
                 name={iconName}
-                className="text-light-grey size-6 transition-colors group-hover:text-white"
+                className={cn(
+                  'text-light-grey size-6 transition-colors group-hover:text-white',
+                  isActive && 'text-white',
+                )}
               />
             ) : (
               <img src={imgSrc} alt={label} />
@@ -57,6 +66,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
             className={cn(
               'font-semibold',
               iconName ? 'text-light-grey transition-colors group-hover:text-white' : 'text-white',
+              isActive && 'text-white',
             )}
           >
             {label}
@@ -67,7 +77,12 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
       </div>
 
       {variant === 'secondary' && (
-        <div className="rounded-lg border border-dark-blue-active text-white inline-block px-3 py-2 transition-colors group-hover:bg-dark-blue-active">
+        <div
+          className={cn(
+            'rounded-lg border border-dark-blue-active text-white inline-block px-3 py-2 transition-colors group-hover:bg-dark-blue-active',
+            isActive && 'bg-dark-blue-active',
+          )}
+        >
           {t('layout.menu.subMenuItem.button.label')}
         </div>
       )}
