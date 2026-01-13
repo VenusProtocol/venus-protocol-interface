@@ -122,7 +122,7 @@
     "@venusprotocol/venus-periphery": "^1.1.0",
     "@venusprotocol/venus-protocol": "10.0.0",
     "@vitejs/plugin-react": "^4.3.3",
-    "@vitest/coverage-v8": "^2.1.5",
+    "@vitest/coverage-v8": "^4.0.17",
     "c8": "^10.0.0",
     "fs": "^0.0.1-security",
     "genversion": "^3.1.1",
