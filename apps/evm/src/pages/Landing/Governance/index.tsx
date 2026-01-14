@@ -2,7 +2,7 @@ import { useProposalsCountFromApi } from 'clients/api/queries/getProposalsCountF
 import { Button, cn } from 'components';
 import { COMMUNITY_URL } from 'constants/production';
 import { useTranslation } from 'libs/translations';
-import plantsImg from './assets/planets.png';
+import planetsImg from './assets/planets.png';
 
 const textClassName = cn(
   '[&_h2]:text-[1.5rem] [&_h2]:font-semibold xl:[&_h2]:text-[2rem]',
@@ -49,9 +49,9 @@ export const Governance: React.FC = () => {
         >
           <img
             loading="lazy"
-            className="absolute h-[352px] -top-25 sm:-right-24 sm:top-0 sm:h-[360px] max-w-[unset] md:h-[445px] md:-top-8 md:-right-7 lg:-right-9.5 xl:h-[605px] xl:left-0 xl:-top-13"
-            src={plantsImg}
-            alt="plants"
+            className="absolute h-88 -top-25 sm:-right-24 sm:top-0 sm:h-90 max-w-[unset] md:h-111.25 md:-top-8 md:-right-7 lg:-right-9.5 xl:h-151.25 xl:left-0 xl:-top-13"
+            src={planetsImg}
+            alt={t('landing.governance.planetsAlt', 'Planets Illustration')}
           />
           <div
             className={

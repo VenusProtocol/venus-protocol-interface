@@ -20,32 +20,31 @@ export const VenusPrime: React.FC = () => {
         className={cn(
           'relative overflow-hidden flex border border-solid border-lightGrey rounded-3xl bg-[#1E2431] p-6 sm:h-100',
         )}
-        key="bounty"
       >
         <div className="absolute sm:top-0 sm:-left-1 md:top-2 md:left-0 xl:-top-0.5 xl:-left-1.5">
           <img
             loading="lazy"
             className="hidden max-sm:flex h-50"
             src={venuePrimeXs}
-            alt="venusPrime"
+            alt={t('landing.venusPrime.imageAlt', 'VenusPrime Illustration')}
           />
           <img
             loading="lazy"
             className="hidden sm:max-md:flex h-100"
             src={venuePrimeSm}
-            alt="venusPrime"
+            alt={t('landing.venusPrime.imageAlt', 'VenusPrime Illustration')}
           />
           <img
             loading="lazy"
             className="hidden md:max-xl:flex h-100"
             src={venuePrimeMd}
-            alt="venusPrime"
+            alt={t('landing.venusPrime.imageAlt', 'VenusPrime Illustration')}
           />
           <img
             loading="lazy"
             className="hidden xl:flex h-100"
             src={venuePrimeXl}
-            alt="venusPrime"
+            alt={t('landing.venusPrime.imageAlt', 'VenusPrime Illustration')}
           />
         </div>
         <div className={cn('flex flex-col', 'max-md:mt-50 sm:ms-60 md:ms-105 xl:ms-147.5')}>

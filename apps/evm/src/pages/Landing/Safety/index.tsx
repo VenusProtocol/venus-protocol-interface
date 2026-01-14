@@ -74,7 +74,7 @@ export const Safety: React.FC<ISafetyProps> = ({ className }) => {
     <section className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
       <div className="flex flex-col flex-wrap items-center">
         <h2 className="text-[2rem]">{t('landing.safety.title')}</h2>
-        <p className="text-center max-w-162.5 mt-4 mb-10">{t('landing.safety.text')}</p>
+        <p className="text-center max-w-162.5 mt-4 mb-10 text-grey">{t('landing.safety.text')}</p>
         <div className="flex flex-col gap-8 w-full xl:flex-row xl:gap-8">
           <SafetyScore className="flex xl:hidden" />
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">

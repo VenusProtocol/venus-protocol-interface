@@ -34,20 +34,29 @@ export const Protection: React.FC<IProtectionProps> = ({ className }) => {
             <h2 className="mb-4">{t('landing.protection.challengeTitle')}</h2>
             <p className="mb-8 md:mb-0">{t('landing.protection.challengeText')}</p>
           </div>
-          <img loading="lazy" className={bgImgClassName} src={bugBountyImg} alt="bugBounty" />
+          <img
+            loading="lazy"
+            className={bgImgClassName}
+            src={bugBountyImg}
+            alt={t('landing.protection.bugBountyAlt', 'Bug Bounty Illustration')}
+          />
         </li>
         <li
           className={cn(
             itemClassName,
             'bg-radial-[62.14%_57.90%_at_50.00%_50.00%,rgba(30,75,100,0.50)_0%,rgba(18,22,32,0.50)_100%]',
           )}
-          key="protection"
         >
           <div className={'xl:mb-21'}>
             <h2 className="mb-4">{t('landing.protection.protectionTitle')}</h2>
             <p className="mb-8 md:mb-0">{t('landing.protection.protectionText')}</p>
           </div>
-          <img loading="lazy" className={bgImgClassName} src={protectionImg} alt="protection" />
+          <img
+            loading="lazy"
+            className={bgImgClassName}
+            src={protectionImg}
+            alt={t('landing.protection.protectionAlt', 'Protection Illustration')}
+          />
         </li>
       </ul>
     </div>

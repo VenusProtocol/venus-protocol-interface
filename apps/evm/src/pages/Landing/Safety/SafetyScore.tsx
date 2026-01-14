@@ -13,17 +13,22 @@ export const SafetyScore: React.FC<ISafetyProps> = ({ className }) => {
   return (
     <div
       className={cn(
-        'relative flex flex-col items-center bg-[#1E2431] rounded-3xl p-6 md:px-12 xl:w-[375px] xl:p-6 xl:pb-4',
+        'relative flex flex-col items-center bg-[#1E2431] rounded-3xl p-6 md:px-12 xl:w-93.75 xl:p-6 xl:pb-4',
         className,
       )}
     >
-      <div className="relative w-full max-w-[580px] mx-auto flex flex-col justify-center items-center gap-6 sm:flex-row xl:flex-col">
-        <div className="relative flex flex-col justify-center items-center h-[140px] w-[220px] text-center xl:h-[180px] xl:w-[180px]">
+      <div className="relative w-full max-w-145 mx-auto flex flex-col justify-center items-center gap-6 sm:flex-row xl:flex-col">
+        <div className="relative flex flex-col justify-center items-center h-35 w-55 text-center xl:h-45 xl:w-45">
           <Score90 />
           <span className="text-grey text-center text-[0.625rem] font-normal leading-4.5 mt-1.5 no-underline">
             {t('landing.safety.securityScore')}
           </span>
-          <img loading="lazy" className="absolute" src={scoreImg} alt="score" />
+          <img
+            loading="lazy"
+            className="absolute"
+            src={scoreImg}
+            alt={t('landing.safety.scoreAlt', 'Score Illustration')}
+          />
         </div>
 
         <p className="m-0 text-base text-grey leading-6 text-center sm:text-left xl:text-[0.875rem] xl:text-center">
