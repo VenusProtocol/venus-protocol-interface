@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
@@ -6,6 +6,7 @@ import { Subdirectory, routes } from 'constants/routing';
 import { Layout } from 'containers/Layout';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
+import { DISCORD_SERVER_URL } from 'constants/production';
 import { Redirect } from 'containers/Redirect';
 import { safeLazyLoad } from 'utilities';
 import PageSuspense from './PageSuspense';
@@ -44,6 +45,12 @@ const AppRoutes = () => {
       behavior: 'instant',
     });
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (window.location.pathname.startsWith('/discord')) {
+      window.location.replace(DISCORD_SERVER_URL);
+    }
+  }, []);
 
   return (
     <Routes>

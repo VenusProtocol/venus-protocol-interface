@@ -4,6 +4,6 @@ import { fetchProposalCount } from '.';
 
 export const useProposalsCountFromApi = () =>
   useQuery({
-    queryKey: [FunctionKey.GET_PROPOSALS_COUNT_FROM_API],
+    queryKey: [FunctionKey.GET_PROPOSALS_COUNT],
     queryFn: fetchProposalCount,
   });
