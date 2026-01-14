@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.89.1
+
+### Patch Changes
+
+- 8441a51: update VenusLens contract address
+
 ## 3.89.0
 
 ### Minor Changes
