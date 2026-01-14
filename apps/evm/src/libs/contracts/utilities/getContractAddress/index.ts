@@ -39,7 +39,7 @@ export const getContractAddress = (input: GetContractAddressInput) => {
     input.chainId === ChainId.BSC_MAINNET &&
     new Date().getTime() > bnbChainMainnetFermiUpgradeTimestampMs
   ) {
-    return '0x969a45F1bb5Ba4037CB44664135862D0c2226F89';
+    return '0x344cD779C5aAF3436795B49f7C375E716A20f527';
   }
   // END TEMPORARY FIX
 
