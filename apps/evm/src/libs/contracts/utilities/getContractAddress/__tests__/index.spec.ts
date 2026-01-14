@@ -49,7 +49,7 @@ describe('getContractAddress', () => {
       chainId: ChainId.BSC_MAINNET,
     });
 
-    expect(result).toBe('0x969a45F1bb5Ba4037CB44664135862D0c2226F89');
+    expect(result).toBe('0x344cD779C5aAF3436795B49f7C375E716A20f527');
   });
 
   it('returns the standard VenusLens address before the Fermi upgrade timestamp', () => {
