@@ -27,7 +27,7 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
   return (
     <div
       className={cn(
-        'rounded-lg bg-gradient-to-l h-14 from-[#071F39] to-[#1549A1] relative flex items-center before:content-[""] before:absolute before:inset-0 before:bg-[url("/images/noise.png")] before:bg-repeat before:mix-blend-soft-light overflow-hidden sm:pr-3',
+        'rounded-lg bg-linear-to-l h-14 from-[#071F39] to-[#1549A1] relative flex items-center before:content-[""] before:absolute before:inset-0 before:bg-[url("/images/noise.png")] before:bg-repeat before:mix-blend-soft-light overflow-hidden sm:pr-3',
         enabledEModeGroup ? 'pl-4 pr-2 lg:pr-2' : 'px-4 lg:pr-3',
         className,
       )}
