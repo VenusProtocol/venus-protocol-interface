@@ -2,10 +2,6 @@ import { iconSrcs } from '../../generated/manifests/chainIcons';
 import { bnb, eth } from '../../tokens/nativeTokens';
 import { type Chain, ChainId } from '../../types';
 
-// This is part of a temporary piece of code to automatically update the address of the VenusLens
-// contract once the Fermi upgrade is live
-export const bnbChainMainnetFermiUpgradeTimestampMs = new Date('2026-01-14T02:30:00Z').getTime();
-
 export const chains: Record<ChainId, Chain> = {
   [ChainId.BSC_MAINNET]: {
     name: 'BNB Chain',
@@ -27,7 +23,7 @@ export const chains: Record<ChainId, Chain> = {
         blockTimeMs: 750,
       },
       {
-        startTimestamp: bnbChainMainnetFermiUpgradeTimestampMs, // Fermi Upgrade
+        startTimestamp: new Date('2026-01-14T02:30:00Z').getTime(), // Fermi Upgrade
         blockTimeMs: 450,
       },
     ],
