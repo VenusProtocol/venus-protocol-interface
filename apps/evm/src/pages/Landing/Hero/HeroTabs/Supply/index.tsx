@@ -1,8 +1,9 @@
-import { Button, Icon, Tooltip, cn, theme } from 'components';
+import { Button, ButtonWrapper, Icon, Tooltip, cn, theme } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
+import { Link } from 'containers/Link';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { BarChart } from 'pages/Landing/Hero/HeroTabs/Supply/BarChart';
-import { Link } from 'react-router';
 import { CoinWithLogo, type CoinWithLogoProps } from '../CoinWithLogo';
 
 const rowClassName = cn('flex justify-between items-center gap-6');
@@ -11,6 +12,9 @@ export const DEFAULT_AMOUNT = 10_000;
 
 export const Supply: React.FC<CoinWithLogoProps> = ({ asset, chain, className }) => {
   const { t, Trans } = useTranslation();
+
+  const { marketsPagePath } = useGetMarketsPagePath();
+
   const apy = 0.1;
 
   const data = [
@@ -82,11 +86,9 @@ export const Supply: React.FC<CoinWithLogoProps> = ({ asset, chain, className })
         <div className="font-semibold">{'$420' /* TODO: daily earning amount */}</div>
       </div>
 
-      <Link to={routes.dashboard.path}>
-        <Button className="mt-6 h-12 w-full" variant="tertiary">
-          {t('landing.hero.getStarted')}
-        </Button>
-      </Link>
+      <ButtonWrapper asChild className="mt-6 h-12 w-full" variant="tertiary">
+        <Link to={marketsPagePath}>{t('landing.hero.getStarted')}</Link>
+      </ButtonWrapper>
     </div>
   );
 };
