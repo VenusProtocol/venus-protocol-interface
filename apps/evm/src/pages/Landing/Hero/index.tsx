@@ -11,7 +11,7 @@ export const Hero: React.FC = () => {
   const { data: tvlData, isLoading } = useGetMarketsTvl();
 
   return (
-    <div className="relative h-auto lg:min-h-[max(calc(100vh-80px),700px)] w-full bg-black">
+    <div className="relative h-auto xl:min-h-[max(calc(100vh-80px),700px)] w-full bg-black">
       <Galaxy />
       <Wrapper className="flex flex-col start-0 end-0">
         <div className="flex flex-col items-center xl:flex-row xl:justify-between xl:items-stretch gap-6 w-full py-15 z-1">
@@ -33,7 +33,7 @@ export const Hero: React.FC = () => {
               alt="coin-logos"
               className="h-10 mt-4 mx-auto xl:mx-0"
             />
-            <div className="pb-6 pt-12 xl:pt-40">
+            <div className="pb-6 pt-12 xl:pt-30">
               <div className="text-[16px] sm:text-[24px]">{t('landing.hero.venusTvl')}</div>
               <div className="xl:mt-4 text-[40px] leading-normal sm:text-[60px] sm:leading-[1.2] font-semibold">
                 {isLoading ? '--' : tvlData?.totalLiquidityUsd}

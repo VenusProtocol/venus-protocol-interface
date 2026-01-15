@@ -1,5 +1,7 @@
-import { Icon, Tooltip, cn } from 'components';
+import { Button, Icon, Tooltip, cn } from 'components';
+import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
+import { Link } from 'react-router';
 import { CoinWithLogo, type CoinWithLogoProps } from './CoinWithLogo';
 
 const rowClassName = cn('flex justify-between items-center gap-6');
@@ -34,6 +36,12 @@ export const Borrow: React.FC<CoinWithLogoProps> = ({ asset, chain, className })
         <div className="font-normal">{t('landing.hero.yearlyInterest')}</div>
         <div className="text-end">{'≈$42' /* TODO */}</div>
       </div>
+
+      <Link to={routes.dashboard.path}>
+        <Button className="mt-6 h-12 w-full" variant="tertiary">
+          {t('landing.hero.getStarted')}
+        </Button>
+      </Link>
     </div>
   );
 };

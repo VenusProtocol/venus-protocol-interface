@@ -64,6 +64,8 @@ export const Layout: React.FC = () => {
     <div className="h-dvh flex flex-col">
       <NavBar className="shrink-0" />
 
+      <TestEnvWarning className="shrink-0" />
+
       <div
         className={cn(
           'flex flex-col grow gap-y-10  overflow-x-hidden ',
@@ -72,8 +74,6 @@ export const Layout: React.FC = () => {
         id={PAGE_CONTAINER_ID}
         onScroll={handleScroll}
       >
-        <TestEnvWarning className="shrink-0 -mt-10" />
-
         <Header />
 
         {noWrapper ? (

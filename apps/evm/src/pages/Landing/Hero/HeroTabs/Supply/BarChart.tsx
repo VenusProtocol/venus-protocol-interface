@@ -45,11 +45,11 @@ export const BarChart = <T extends Record<string, any>>({
   const { t } = useTranslation();
 
   return (
-    <div className={cn('w-full h-62', className)}>
+    <div className={cn('w-full h-47.5', className)}>
       <ResponsiveContainer>
         <RCBarChart
           margin={{
-            top: 12,
+            top: 40,
             left: 0,
             right: 0,
           }}

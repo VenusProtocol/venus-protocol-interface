@@ -1,7 +1,8 @@
 import { Button, Icon, Tooltip, cn, theme } from 'components';
-import { DAPP_URL } from 'constants/production';
+import { Subdirectory, routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
 import { BarChart } from 'pages/Landing/Hero/HeroTabs/Supply/BarChart';
+import { Link } from 'react-router';
 import { CoinWithLogo, type CoinWithLogoProps } from '../CoinWithLogo';
 
 const rowClassName = cn('flex justify-between items-center gap-6');
@@ -81,11 +82,11 @@ export const Supply: React.FC<CoinWithLogoProps> = ({ asset, chain, className })
         <div className="font-semibold">{'$420' /* TODO: daily earning amount */}</div>
       </div>
 
-      <a href={DAPP_URL}>
+      <Link to={routes.dashboard.path}>
         <Button className="mt-6 h-12 w-full" variant="tertiary">
           {t('landing.hero.getStarted')}
         </Button>
-      </a>
+      </Link>
     </div>
   );
 };
