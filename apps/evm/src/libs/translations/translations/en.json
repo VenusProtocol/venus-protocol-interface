@@ -545,7 +545,7 @@
       "challengeText": "We encourage all to challenge our code and search for vulnerabilities. Read about our bug bounty rewards, and please submit any bug you identify.",
       "challengeTitle": "Challenge our code and be rewarded",
       "protectionAlt": "Protection Illustration",
-      "protectionText": "Maintaining a fallback pool to keep us all safe in the case of outlier events",
+      "protectionText": "Maintaining a fallback pool to keep us all safe in the case of outlier events.",
       "protectionTitle": "Protection prioritized"
     },
     "safety": {

@@ -38,7 +38,7 @@ export const Protection: React.FC<IProtectionProps> = ({ className }) => {
             loading="lazy"
             className={bgImgClassName}
             src={bugBountyImg}
-            alt={t('landing.protection.bugBountyAlt', 'Bug Bounty Illustration')}
+            alt={t('landing.protection.bugBountyAlt')}
           />
         </li>
         <li
@@ -55,7 +55,7 @@ export const Protection: React.FC<IProtectionProps> = ({ className }) => {
             loading="lazy"
             className={bgImgClassName}
             src={protectionImg}
-            alt={t('landing.protection.protectionAlt', 'Protection Illustration')}
+            alt={t('landing.protection.protectionAlt')}
           />
         </li>
       </ul>

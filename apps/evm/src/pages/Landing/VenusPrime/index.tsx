@@ -26,25 +26,25 @@ export const VenusPrime: React.FC = () => {
             loading="lazy"
             className="hidden max-sm:flex h-50"
             src={venuePrimeXs}
-            alt={t('landing.venusPrime.imageAlt', 'VenusPrime Illustration')}
+            alt={t('landing.venusPrime.imageAlt')}
           />
           <img
             loading="lazy"
             className="hidden sm:max-md:flex h-100"
             src={venuePrimeSm}
-            alt={t('landing.venusPrime.imageAlt', 'VenusPrime Illustration')}
+            alt={t('landing.venusPrime.imageAlt')}
           />
           <img
             loading="lazy"
             className="hidden md:max-xl:flex h-100"
             src={venuePrimeMd}
-            alt={t('landing.venusPrime.imageAlt', 'VenusPrime Illustration')}
+            alt={t('landing.venusPrime.imageAlt')}
           />
           <img
             loading="lazy"
             className="hidden xl:flex h-100"
             src={venuePrimeXl}
-            alt={t('landing.venusPrime.imageAlt', 'VenusPrime Illustration')}
+            alt={t('landing.venusPrime.imageAlt')}
           />
         </div>
         <div className={cn('flex flex-col', 'max-md:mt-50 sm:ms-60 md:ms-105 xl:ms-147.5')}>

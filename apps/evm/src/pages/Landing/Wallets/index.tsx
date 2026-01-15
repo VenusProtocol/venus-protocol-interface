@@ -73,16 +73,14 @@ export const Wallets: React.FC = () => {
 
   return (
     <section className="my-15 md:my-20 xl:my-25">
-      <div>
-        <h2 className="text-[2rem] text-center mx-auto mb-10">{t('landing.wallets.title')}</h2>
+      <h2 className="text-[2rem] text-center mx-auto mb-10">{t('landing.wallets.title')}</h2>
 
-        <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 xl:gap-6">
-          {wallets.map(({ logoSrc, name }) => (
-            <div className="flex justify-center items-center" key={name}>
-              <img loading="lazy" src={logoSrc} className="w-full" alt={name} />
-            </div>
-          ))}
-        </div>
+      <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 xl:gap-6">
+        {wallets.map(({ logoSrc, name }) => (
+          <div className="flex justify-center items-center" key={name}>
+            <img loading="lazy" src={logoSrc} className="w-full" alt={name} />
+          </div>
+        ))}
       </div>
     </section>
   );

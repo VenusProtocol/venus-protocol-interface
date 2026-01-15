@@ -1,4 +1,4 @@
-import { useProposalsCountFromApi } from 'clients/api/queries/getProposalsCountFromApi/useGetProposalsCountFromApi';
+import { useProposalsCount } from 'clients/api/queries/getProposalsCount/useGetProposalsCount';
 import { Button, cn } from 'components';
 import { COMMUNITY_URL } from 'constants/production';
 import { useTranslation } from 'libs/translations';
@@ -11,7 +11,7 @@ const textClassName = cn(
 
 export const Governance: React.FC = () => {
   const { t, Trans } = useTranslation();
-  const { data: proposalsCount, isLoading } = useProposalsCountFromApi();
+  const { data: proposalsCount, isLoading } = useProposalsCount();
 
   return !isLoading && proposalsCount ? (
     <div className={cn('mt-15 md:mt-20 xl:mt-25', textClassName)}>
@@ -51,7 +51,7 @@ export const Governance: React.FC = () => {
             loading="lazy"
             className="absolute h-88 -top-25 sm:-right-24 sm:top-0 sm:h-90 max-w-[unset] md:h-111.25 md:-top-8 md:-right-7 lg:-right-9.5 xl:h-151.25 xl:left-0 xl:-top-13"
             src={planetsImg}
-            alt={t('landing.governance.planetsAlt', 'Planets Illustration')}
+            alt={t('landing.governance.planetsAlt')}
           />
           <div
             className={

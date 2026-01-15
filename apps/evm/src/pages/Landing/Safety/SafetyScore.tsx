@@ -27,7 +27,7 @@ export const SafetyScore: React.FC<ISafetyProps> = ({ className }) => {
             loading="lazy"
             className="absolute"
             src={scoreImg}
-            alt={t('landing.safety.scoreAlt', 'Score Illustration')}
+            alt={t('landing.safety.scoreAlt')}
           />
         </div>
 
