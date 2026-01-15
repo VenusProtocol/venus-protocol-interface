@@ -9,12 +9,14 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "poolIndex": 0,
     "rewardToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
     },
     "stakedToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
@@ -31,12 +33,14 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "poolIndex": 1,
     "rewardToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
     },
     "stakedToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
@@ -53,12 +57,14 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "poolIndex": 2,
     "rewardToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
     },
     "stakedToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
@@ -75,12 +81,14 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "poolIndex": 3,
     "rewardToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
     },
     "stakedToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
@@ -97,12 +105,14 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "poolIndex": 4,
     "rewardToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
     },
     "stakedToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
@@ -117,12 +127,14 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "isPaused": false,
     "rewardToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
     },
     "stakedToken": {
       "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-vai-asset",
       "symbol": "VAI",

@@ -4,24 +4,28 @@ exports[`getSwapTokens > returns a list of tokens that contains all the tokens l
 [
   {
     "address": "0x331F639B4F3CF6E391CD244e0b5027C5968Ec325",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-vrt-asset",
     "symbol": "VRT",
   },
   {
     "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-xvs-asset",
     "symbol": "XVS",
   },
   {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-busd-asset",
     "symbol": "BUSD",
   },
   {
     "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-bnb-asset",
     "isNative": true,
@@ -29,6 +33,7 @@ exports[`getSwapTokens > returns a list of tokens that contains all the tokens l
   },
   {
     "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-vai-asset",
     "symbol": "VAI",

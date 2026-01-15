@@ -10,6 +10,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountIn > returns swap in correct for
     "expectedToTokenAmountReceivedMantissa": "499374217772215269",
     "fromToken": {
       "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-bnb-asset",
       "isNative": true,
@@ -24,6 +25,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountIn > returns swap in correct for
     ],
     "toToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",
@@ -42,6 +44,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountOut > returns swap in correct fo
     "expectedFromTokenAmountSoldMantissa": "1002506265664160402",
     "fromToken": {
       "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-bnb-asset",
       "isNative": true,
@@ -55,6 +58,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountOut > returns swap in correct fo
     ],
     "toToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
       "decimals": 18,
       "iconSrc": "fake-xvs-asset",
       "symbol": "XVS",

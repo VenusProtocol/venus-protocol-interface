@@ -16,6 +16,7 @@ exports[`getAccountTransactionHistory > returns transactions formatted 1`] = `
       "poolName": "Metaverse",
       "token": {
         "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "chainId": 97,
         "decimals": 6,
         "iconSrc": "fake-usdt-asset",
         "symbol": "USDT",
@@ -35,6 +36,7 @@ exports[`getAccountTransactionHistory > returns transactions formatted 1`] = `
       "poolName": "Metaverse",
       "token": {
         "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "chainId": 97,
         "decimals": 6,
         "iconSrc": "fake-usdt-asset",
         "symbol": "USDT",

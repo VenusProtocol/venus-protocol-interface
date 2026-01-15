@@ -2,7 +2,11 @@ import type { VToken } from 'types';
 
 import { bnb, busd, eth, lisUsd, luna, usdc, usdt, ust, wbnb, weth, xvs } from './tokens';
 
+// Note: we don't import ChainId because this causes some hoisting issues with tests
+const BSC_TESTNET_ID = 97;
+
 export const vXvs: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x6d6F697e34145Bb95c54E77482d97cc261Dc237E',
   decimals: 8,
   symbol: 'vXVS',
@@ -10,6 +14,7 @@ export const vXvs: VToken = {
 };
 
 export const vBnb: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c',
   decimals: 8,
   symbol: 'vBNB',
@@ -17,6 +22,7 @@ export const vBnb: VToken = {
 };
 
 export const vUsdc: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
   decimals: 8,
   symbol: 'vUSDC',
@@ -24,6 +30,7 @@ export const vUsdc: VToken = {
 };
 
 export const vUsdtCorePool: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
   decimals: 8,
   symbol: 'vUSDT',
@@ -31,6 +38,7 @@ export const vUsdtCorePool: VToken = {
 };
 
 export const vUsdtDeFi: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x80CC30811e362aC9aB857C3d7875CbcCc0b65750',
   decimals: 8,
   symbol: 'vUSDT_DeFi',
@@ -38,6 +46,7 @@ export const vUsdtDeFi: VToken = {
 };
 
 export const vUsdtGameFi: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634',
   decimals: 8,
   symbol: 'vUSDT_GameFi',
@@ -45,6 +54,7 @@ export const vUsdtGameFi: VToken = {
 };
 
 export const vUsdtLiquidStakedBnb: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c',
   decimals: 8,
   symbol: 'vUSDT_Liquid_Staked_BNB',
@@ -52,6 +62,7 @@ export const vUsdtLiquidStakedBnb: VToken = {
 };
 
 export const vUsdtMeme: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1',
   decimals: 8,
   symbol: 'vUSDT_Meme',
@@ -59,6 +70,7 @@ export const vUsdtMeme: VToken = {
 };
 
 export const vUsdtStablecoins: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x3338988d0beb4419Acb8fE624218754053362D06',
   decimals: 8,
   symbol: 'vUSDT_Stablecoins',
@@ -66,6 +78,7 @@ export const vUsdtStablecoins: VToken = {
 };
 
 export const vUsdtTron: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x712774CBFFCBD60e9825871CcEFF2F917442b2c3',
   decimals: 8,
   symbol: 'vUSDT_Tron',
@@ -73,6 +86,7 @@ export const vUsdtTron: VToken = {
 };
 
 export const vBusdCorePool: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
   decimals: 8,
   symbol: 'vBUSD',
@@ -80,6 +94,7 @@ export const vBusdCorePool: VToken = {
 };
 
 export const vBusdStablecoins: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0',
   decimals: 8,
   symbol: 'vBUSD',
@@ -87,6 +102,7 @@ export const vBusdStablecoins: VToken = {
 };
 
 export const vUst: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0xF206af85BC2761c4F876d27Bd474681CfB335EfA',
   decimals: 8,
   symbol: 'vUST',
@@ -94,6 +110,7 @@ export const vUst: VToken = {
 };
 
 export const vLuna: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x9C3015191d39cF1930F92EB7e7BCbd020bCA286a',
   decimals: 8,
   symbol: 'vLUNA',
@@ -101,6 +118,7 @@ export const vLuna: VToken = {
 };
 
 export const vWeth: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0xc2931B1fEa69b6D6dA65a50363A8D75d285e4da9',
   decimals: 8,
   symbol: 'vWETH',
@@ -108,6 +126,7 @@ export const vWeth: VToken = {
 };
 
 export const vEth: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD',
   decimals: 8,
   symbol: 'vETH',
@@ -115,6 +134,7 @@ export const vEth: VToken = {
 };
 
 export const vLisUSD: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x170d3b2da05cc2124334240fB34ad1359e34C562',
   decimals: 8,
   symbol: 'vlisUSD',
@@ -122,6 +142,7 @@ export const vLisUSD: VToken = {
 };
 
 export const vWbnb: VToken = {
+  chainId: BSC_TESTNET_ID,
   address: '0x231dED0Dfc99634e52EE1a1329586bc970d773b3',
   decimals: 8,
   symbol: 'vWBNB',
