@@ -63,6 +63,7 @@ export interface Token {
   symbol: string;
   decimals: number;
   iconSrc: string;
+  chainId: ChainId;
   address: Address;
   isNative?: boolean;
   tokenWrapped?: Token;

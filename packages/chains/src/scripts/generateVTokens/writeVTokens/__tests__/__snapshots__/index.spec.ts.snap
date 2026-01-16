@@ -6,6 +6,7 @@ import type { VToken } from '../../types';
 
 export const bscMainnet: VToken[] = [
   {
+    chainId: 56,
     address: '0x1234',
     decimals: 8,
     symbol: 'vWBTC',

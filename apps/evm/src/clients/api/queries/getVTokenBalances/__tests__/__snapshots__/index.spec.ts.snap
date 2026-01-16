@@ -7,10 +7,12 @@ exports[`getVTokenBalances > returns token balances in the right format on succe
       "balanceMantissa": "100000000000000000",
       "vToken": {
         "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+        "chainId": 97,
         "decimals": 8,
         "symbol": "vBNB",
         "underlyingToken": {
           "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+          "chainId": 97,
           "decimals": 18,
           "iconSrc": "fake-bnb-asset",
           "isNative": true,
@@ -22,10 +24,12 @@ exports[`getVTokenBalances > returns token balances in the right format on succe
       "balanceMantissa": "100000000000000000",
       "vToken": {
         "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+        "chainId": 97,
         "decimals": 8,
         "symbol": "vXVS",
         "underlyingToken": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          "chainId": 97,
           "decimals": 18,
           "iconSrc": "fake-xvs-asset",
           "symbol": "XVS",
@@ -36,10 +40,12 @@ exports[`getVTokenBalances > returns token balances in the right format on succe
       "balanceMantissa": "100000000000000000",
       "vToken": {
         "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+        "chainId": 97,
         "decimals": 8,
         "symbol": "vUSDC",
         "underlyingToken": {
           "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+          "chainId": 97,
           "decimals": 6,
           "iconSrc": "fake-usdc-asset",
           "symbol": "USDC",

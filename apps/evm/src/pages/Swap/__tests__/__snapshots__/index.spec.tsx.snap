@@ -20,6 +20,7 @@ exports[`Swap > lets user swap an already approved token for another token 1`] =
       "expectedToTokenAmountReceivedMantissa": "4e+23",
       "fromToken": {
         "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-bnb-asset",
         "isNative": true,
@@ -34,6 +35,7 @@ exports[`Swap > lets user swap an already approved token for another token 1`] =
       ],
       "toToken": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-busd-asset",
         "symbol": "BUSD",
@@ -53,6 +55,7 @@ exports[`Swap > updates fromToken input value correctly when user clicks on the 
       "expectedToTokenAmountReceivedMantissa": "4e+23",
       "fromToken": {
         "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-bnb-asset",
         "isNative": true,
@@ -67,6 +70,7 @@ exports[`Swap > updates fromToken input value correctly when user clicks on the 
       ],
       "toToken": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-busd-asset",
         "symbol": "BUSD",
