@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.90.0
+
+### Minor Changes
+
+- 3f5c86c: remove temporary fix for the updated VenusLens contract address
+
+### Patch Changes
+
+- Updated dependencies [3f5c86c]
+  - @venusprotocol/chains@0.19.0
+
 ## 3.89.1
 
 ### Patch Changes
