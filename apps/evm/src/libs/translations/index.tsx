@@ -10,8 +10,8 @@ import jaLocales from './translations/ja.json';
 import thLocales from './translations/th.json';
 import trLocales from './translations/tr.json';
 import viLocales from './translations/vi.json';
-import zhCnLocales from './translations/zh-CN.json';
-import zhTwLocales from './translations/zh-TW.json';
+import zhHansLocales from './translations/zh-Hans.json';
+import zhHantLocales from './translations/zh-Hant.json';
 
 export { default as en } from './translations/en.json';
 
@@ -36,14 +36,14 @@ const init = () => {
         vi: {
           translation: viLocales,
         },
-        'zh-CN': {
-          translation: zhCnLocales,
+        'zh-Hans': {
+          translation: zhHansLocales,
         },
-        'zh-TW': {
-          translation: zhTwLocales,
+        'zh-Hant': {
+          translation: zhHantLocales,
         },
       },
-      supportedLngs: supportedLanguages.map(language => language.tag),
+      supportedLngs: supportedLanguages.map(language => language.bcp47Tag),
       fallbackLng: 'en',
       detection: {
         order: ['localStorage', 'navigator'],

@@ -1,17 +1,17 @@
 export interface SupportedLanguage {
   name: string;
-  tag: string;
+  bcp47Tag: string;
 }
 
 export const supportedLanguages: SupportedLanguage[] = [
   {
     name: 'English',
-    tag: 'en',
+    bcp47Tag: 'en',
   },
-  { name: '简体中文', tag: 'zh-CN' },
-  { name: '繁體中文', tag: 'zh-TW' },
-  { name: '日本語', tag: 'ja' },
-  { name: 'Tiếng Việt', tag: 'vi' },
-  { name: 'ไทย', tag: 'th' },
-  { name: 'Türkçe', tag: 'tr' },
+  { name: '简体中文', bcp47Tag: 'zh-Hans' },
+  { name: '繁體中文', bcp47Tag: 'zh-Hant' },
+  { name: '日本語', bcp47Tag: 'ja' },
+  { name: 'Tiếng Việt', bcp47Tag: 'vi' },
+  { name: 'ไทย', bcp47Tag: 'th' },
+  { name: 'Türkçe', bcp47Tag: 'tr' },
 ];
