@@ -48,7 +48,7 @@
     "typescript": "^5.4.5",
     "vite": "^6.2.5",
     "vite-plugin-svgr": "^4.3.0",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^6.0.4"
   },
   "browserslist": {
     "production": [">0.2%", "not dead", "not op_mini all"],
