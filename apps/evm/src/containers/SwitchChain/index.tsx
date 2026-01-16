@@ -43,7 +43,7 @@ export const SwitchChain: React.FC<SwitchChainProps> = ({
           className={cn('w-full', buttonClassName)}
           onClick={handleSwitchChain}
           variant={buttonVariant}
-          small={small}
+          size={small ? 'xs' : 'md'}
         >
           {t('switchChain.switchButton', {
             chainName: targetChain.name,

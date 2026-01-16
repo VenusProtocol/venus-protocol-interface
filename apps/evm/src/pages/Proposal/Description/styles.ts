@@ -22,7 +22,6 @@ export const useStyles = () => {
     `,
     markdown: css`
       margin-top: ${theme.spacing(2)};
-      background-color: ${theme.palette.background.paper};
       font-family: ${theme.typography.fontFamily};
     `,
     section: css`

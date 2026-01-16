@@ -162,7 +162,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <SwitchChain small className="whitespace-nowrap">
                   <Button
                     onClick={handleButtonClick}
-                    small
+                    size="xs"
                     disabled={!isButtonEnabled && !disabledTooltip}
                     variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
                     className={cn(
