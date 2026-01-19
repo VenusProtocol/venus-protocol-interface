@@ -18669,47 +18669,47 @@ tsx@^4.1.2, tsx@^4.20.5:
   optionalDependencies:
     fsevents "~2.3.3"
 
-turbo-darwin-64@2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/turbo-darwin-64/-/turbo-darwin-64-2.6.1.tgz#62be8b3033c166103c6e6368bc37a29ebd9f5a1e"
-  integrity sha512-Dm0HwhyZF4J0uLqkhUyCVJvKM9Rw7M03v3J9A7drHDQW0qAbIGBrUijQ8g4Q9Cciw/BXRRd8Uzkc3oue+qn+ZQ==
+turbo-darwin-64@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/turbo-darwin-64/-/turbo-darwin-64-2.7.5.tgz#303648b7f7db2c062391d03b7e423bc010286918"
+  integrity sha512-nN3wfLLj4OES/7awYyyM7fkU8U8sAFxsXau2bYJwAWi6T09jd87DgHD8N31zXaJ7LcpyppHWPRI2Ov9MuZEwnQ==
 
-turbo-darwin-arm64@2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-2.6.1.tgz#41482448cd40f226237d97ca1892572f93d488e5"
-  integrity sha512-U0PIPTPyxdLsrC3jN7jaJUwgzX5sVUBsKLO7+6AL+OASaa1NbT1pPdiZoTkblBAALLP76FM0LlnsVQOnmjYhyw==
+turbo-darwin-arm64@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-2.7.5.tgz#a3cdc1776eb58d7f9b15236659aea50919e8f902"
+  integrity sha512-wCoDHMiTf3FgLAbZHDDx/unNNonSGhsF5AbbYODbxnpYyoKDpEYacUEPjZD895vDhNvYCH0Nnk24YsP4n/cD6g==
 
-turbo-linux-64@2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-2.6.1.tgz#1b47a28a3387858eb9c17ff77660180265074659"
-  integrity sha512-eM1uLWgzv89bxlK29qwQEr9xYWBhmO/EGiH22UGfq+uXr+QW1OvNKKMogSN65Ry8lElMH4LZh0aX2DEc7eC0Mw==
+turbo-linux-64@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-2.7.5.tgz#9f0a76a1f018d57c52cab0039f9a01606dffccb3"
+  integrity sha512-KKPvhOmJMmzWj/yjeO4LywkQ85vOJyhru7AZk/+c4B6OUh/odQ++SiIJBSbTG2lm1CuV5gV5vXZnf/2AMlu3Zg==
 
-turbo-linux-arm64@2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/turbo-linux-arm64/-/turbo-linux-arm64-2.6.1.tgz#7cc9b42c70cc37f8799312c586a914bd8b78c944"
-  integrity sha512-MFFh7AxAQAycXKuZDrbeutfWM5Ep0CEZ9u7zs4Hn2FvOViTCzIfEhmuJou3/a5+q5VX1zTxQrKGy+4Lf5cdpsA==
+turbo-linux-arm64@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/turbo-linux-arm64/-/turbo-linux-arm64-2.7.5.tgz#b96fe15f5df48c40dfe23ae46a264719fe78dfb3"
+  integrity sha512-8PIva4L6BQhiPikUTds9lSFSHXVDAsEvV6QUlgwPsXrtXVQMVi6Sv9p+IxtlWQFvGkdYJUgX9GnK2rC030Xcmw==
 
-turbo-windows-64@2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-2.6.1.tgz#c367296dd5f1465f1a1071ac987ba179b956531a"
-  integrity sha512-buq7/VAN7KOjMYi4tSZT5m+jpqyhbRU2EUTTvp6V0Ii8dAkY2tAAjQN1q5q2ByflYWKecbQNTqxmVploE0LVwQ==
+turbo-windows-64@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-2.7.5.tgz#4ef1c51ee6fc69ce98a4d4d085a08ca3e6f2fa0a"
+  integrity sha512-rupskv/mkIUgQXzX/wUiK00mKMorQcK8yzhGFha/D5lm05FEnLx8dsip6rWzMcVpvh+4GUMA56PgtnOgpel2AA==
 
-turbo-windows-arm64@2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-2.6.1.tgz#530eafbcf46a2b7ed2f183a6a32a25a9c8901287"
-  integrity sha512-7w+AD5vJp3R+FB0YOj1YJcNcOOvBior7bcHTodqp90S3x3bLgpr7tE6xOea1e8JkP7GK6ciKVUpQvV7psiwU5Q==
+turbo-windows-arm64@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-2.7.5.tgz#5c92b913436e3be635785e7ebd8c1aafc49cca21"
+  integrity sha512-G377Gxn6P42RnCzfMyDvsqQV7j69kVHKlhz9J4RhtJOB5+DyY4yYh/w0oTIxZQ4JRMmhjwLu3w9zncMoQ6nNDw==
 
 turbo@^2.0.3:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/turbo/-/turbo-2.6.1.tgz#12107e157f49e6bb3fbcf54025d55fd7f30b9c7c"
-  integrity sha512-qBwXXuDT3rA53kbNafGbT5r++BrhRgx3sAo0cHoDAeG9g1ItTmUMgltz3Hy7Hazy1ODqNpR+C7QwqL6DYB52yA==
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/turbo/-/turbo-2.7.5.tgz#ef908ae6a8b5c5593c13cce885af3b6cad70c893"
+  integrity sha512-7Imdmg37joOloTnj+DPrab9hIaQcDdJ5RwSzcauo/wMOSAgO+A/I/8b3hsGGs6PWQz70m/jkPgdqWsfNKtwwDQ==
   optionalDependencies:
-    turbo-darwin-64 "2.6.1"
-    turbo-darwin-arm64 "2.6.1"
-    turbo-linux-64 "2.6.1"
-    turbo-linux-arm64 "2.6.1"
-    turbo-windows-64 "2.6.1"
-    turbo-windows-arm64 "2.6.1"
+    turbo-darwin-64 "2.7.5"
+    turbo-darwin-arm64 "2.7.5"
+    turbo-linux-64 "2.7.5"
+    turbo-linux-arm64 "2.7.5"
+    turbo-windows-64 "2.7.5"
+    turbo-windows-arm64 "2.7.5"
 
 tw-animate-css@^1.4.0:
   version "1.4.0"
