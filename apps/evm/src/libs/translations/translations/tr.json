@@ -277,17 +277,64 @@
     "adCarousel": {
       "primeBanner": {
         "button": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Prime ödüllerinizi hesaplayın"
         },
-        "description": "TRANSLATION NEEDED",
+        "description": "Venus Prime, ödünç verme ve borç alma faaliyetlerinde aktif olan kullanıcılara ödül verir.",
         "illustration": {
-          "altText": "TRANSLATION NEEDED"
+          "altText": "Prime illüstrasyonu"
         },
-        "title": "TRANSLATION NEEDED"
+        "title": "<Gradient>Venus Prime</Gradient> ile daha yüksek hedeflere ulaşın"
       }
     },
+    "overview": {
+      "absolutePerformance": "Mutlak performans",
+      "netWorth": {
+        "label": "Net değer",
+        "tooltip": "Kasa stake’i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Kasa stake’i, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "Hesap geçmişi alınamadı",
+          "refetchButtonLabel": "Tekrar dene"
+        },
+        "placeholderText": "Rapor oluşturuluyor, bu işlem bir dakikaya kadar sürebilir"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6A",
+        "thirtyDays": "30G"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Günlük kazanç",
+          "mintedVai": "Basılmış VAI",
+          "netApy": "Net APY",
+          "netApyTooltip": "Toplam arz bakiyenizin yıllık faiz olarak alınan yüzdesi",
+          "netApyWithVaultStakeTooltip": "Toplam arz ve kasa stake’inizin yıllık faiz olarak alınan yüzdesi",
+          "totalBorrow": "Toplam borç",
+          "totalSupply": "Toplam arz",
+          "totalVaultStake": "Toplam kasa stake’i"
+        },
+        "title": "Özet"
+      },
+      "todaysChange": "Bugünün değişimi"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
-      "title": "TRANSLATION NEEDED"
+      "borrowButton": {
+        "label": "Borç al"
+      },
+      "interactiveTitle": "Venus’ta en iyi <SupplyButton>Arz</SupplyButton> / <BorrowButton>Borç</BorrowButton>",
+      "supplyButton": {
+        "label": "Arz"
+      },
+      "textTitle": "Venus’taki en iyi piyasalar"
     }
   },
   "eModeBanner": {

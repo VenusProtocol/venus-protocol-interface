@@ -1,21 +1,22 @@
 import { Page } from 'components';
 import { AdCarousel } from './AdCarousel';
+import { Overview } from './Overview';
 import { TopMarkets } from './TopMarkets';
 
-export const Dashboard: React.FC = () => {
-  return (
-    <Page indexWithSearchEngines={false}>
-      <div className="xl:flex xl:gap-x-6">
-        <div className="space-y-6 xl:w-78 xl:order-2">
-          <AdCarousel />
+export const Dashboard: React.FC = () => (
+  <Page indexWithSearchEngines={false}>
+    <div className="space-y-12 xl:flex xl:gap-x-6">
+      <div className="space-y-6 xl:w-78 xl:order-2">
+        <AdCarousel />
 
-          <TopMarkets />
-        </div>
-
-        <div className="xl:grow xl:order-1">TODO: add content</div>
+        <TopMarkets />
       </div>
-    </Page>
-  );
-};
+
+      <div className="xl:grow xl:order-1">
+        <Overview />
+      </div>
+    </div>
+  </Page>
+);
 
 export default Dashboard;

@@ -286,8 +286,55 @@
         "title": "Achieve greater heights with <Gradient>Venus Prime</Gradient>"
       }
     },
+    "overview": {
+      "absolutePerformance": "Absolute performance",
+      "netWorth": {
+        "label": "Net worth",
+        "tooltip": "Net available assets after accounting for vault stake and borrowings",
+        "tooltipWithVai": "Net available assets after accounting for vault stake, borrowings, and minted VAI"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "Could not fetch account history",
+          "refetchButtonLabel": "Retry"
+        },
+        "placeholderText": "Generating report, this can take up to a minute"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6M",
+        "thirtyDays": "30D"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Daily earnings",
+          "mintedVai": "Minted VAI",
+          "netApy": "Net APY",
+          "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+          "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
+          "totalBorrow": "Total borrow",
+          "totalSupply": "Total supply",
+          "totalVaultStake": "Total vault stake"
+        },
+        "title": "Summary"
+      },
+      "todaysChange": "Today's change"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
-      "title": "Top <SupplyButton>Supply</SupplyButton> / <BorrowButton>Borrow</BorrowButton> on Venus"
+      "borrowButton": {
+        "label": "Borrow"
+      },
+      "interactiveTitle": "Top <SupplyButton>Supply</SupplyButton> / <BorrowButton>Borrow</BorrowButton> on Venus",
+      "supplyButton": {
+        "label": "Supply"
+      },
+      "textTitle": "Top markets on Venus"
     }
   },
   "eModeBanner": {
