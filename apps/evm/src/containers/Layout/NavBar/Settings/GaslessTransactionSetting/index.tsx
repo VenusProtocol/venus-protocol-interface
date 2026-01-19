@@ -33,15 +33,11 @@ export const GaslessTransactionSetting: React.FC<GaslessTransactionSettingProps>
           <Icon name="gasSlashed" className="text-green size-4" />
 
           <p className="text-sm">
-            {t('layout.menu.gasLessTransactionSetting.label', {
+            {t('layout.menu.settings.gasLessTransactions.label', {
               chainName,
             })}
           </p>
         </div>
-
-        <p className="text-xs text-light-grey">
-          {t('layout.menu.gasLessTransactionSetting.description')}
-        </p>
       </div>
 
       <Toggle onChange={toggle} value={userSettings?.gaslessTransactions ?? false} />

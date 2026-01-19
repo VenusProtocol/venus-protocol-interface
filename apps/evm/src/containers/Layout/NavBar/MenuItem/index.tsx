@@ -27,7 +27,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   }
 
   const sharedContainerClassName = cn(
-    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active xl:font-normal xl:px-4 xl:py-3 xl:rounded-lg xl:hover:text-white xl:hover:bg-dark-blue-active',
+    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active xl:font-normal xl:px-4 xl:py-3 xl:rounded-lg xl:hover:text-white xl:hover:bg-dark-blue-active xl:whitespace-nowrap',
     isActive && 'xl:bg-dark-blue-active xl:text-white',
   );
 
@@ -54,9 +54,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           type="button"
           onClick={onAccordionTriggerClick}
         >
-          <span>{item.label}</span>
+          <span className="whitespace-nowrap">{item.label}</span>
 
-          <Icon name="chevronDown" className={cn('size-3', isSubMenuOpen && 'rotate-180')} />
+          <Icon
+            name="chevronDown"
+            className={cn('size-3 shrink-0', isSubMenuOpen && 'rotate-180')}
+          />
         </button>
 
         <AccordionAnimatedContent isOpen={isSubMenuOpen} className="pb-3 xl:hidden">

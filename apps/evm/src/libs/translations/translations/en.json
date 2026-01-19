@@ -587,10 +587,6 @@
       "dashboard": {
         "label": "Dashboard"
       },
-      "gasLessTransactionSetting": {
-        "description": "TRANSLATION NEEDED",
-        "label": "Enable gasless transactions on {{chainName}}"
-      },
       "label": "Menu",
       "markets": {
         "label": "Markets"
@@ -618,6 +614,14 @@
         "vai": {
           "description": "TRANSLATION NEEDED",
           "label": "VAI"
+        }
+      },
+      "settings": {
+        "gasLessTransactions": {
+          "label": "Enable gasless transactions on {{chainName}}"
+        },
+        "language": {
+          "label": "Language (beta)"
         }
       },
       "staking": {
