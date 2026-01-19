@@ -27,11 +27,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   }
 
   const sharedContainerClassName = cn(
-<<<<<<< HEAD
     'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active xl:font-normal xl:px-4 xl:py-3 xl:rounded-lg xl:hover:text-white xl:hover:bg-dark-blue-active xl:whitespace-nowrap',
-=======
-    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active xl:font-normal xl:px-4 xl:py-3 xl:rounded-lg xl:hover:text-white xl:hover:bg-dark-blue-active',
->>>>>>> fc030cdff (feat: add responsive menu (#5220))
     isActive && 'xl:bg-dark-blue-active xl:text-white',
   );
 

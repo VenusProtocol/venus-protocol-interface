@@ -1,140 +1,4 @@
 {
-  "account": {
-    "circularGradient": "圆形渐变",
-    "marketBreakdown": {
-      "tables": {
-        "borrowTableTitle": "已借入",
-        "eModeHeader": {
-          "illustrationAltText": "E-mode插图",
-          "title": "E-mode：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
-        },
-        "supplyTableTitle": "已存款",
-        "tabletBorrowTabTitle": "已借入",
-        "tabletSupplyTabTitle": "已存款",
-        "tabletTitle": "资产"
-      }
-    },
-    "performanceChart": {
-      "absolutePerformance": "绝对表现",
-      "dataPoint": {
-        "date": "{{ date, textual }}"
-      },
-      "errorState": {
-        "failedToFetchMessage": "无法获取账户历史",
-        "refetchButtonLabel": "重试"
-      },
-      "netWorth": {
-        "label": "净值",
-        "tooltip": "在考虑金库质押和借贷后可用的净资产",
-        "tooltipWithVai": "在考虑金库质押、借贷和已铸造 VAI 后可用的净资产"
-      },
-      "periodOption": {
-        "oneYear": "1年",
-        "sixMonths": "6个月",
-        "thirtyDays": "30天"
-      },
-      "placeholderText": "正在生成报告，最多可能需要一分钟",
-      "todaysChange": "今日变化",
-      "xAxisValue": "{{ date, numeric }}"
-    },
-    "placeholder": {
-      "buttonLabel": "浏览"
-    },
-    "pools": {
-      "placeholder": {
-        "description": "你的资金池持仓将显示在此",
-        "title": "尚无存款或借入持仓"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "已用借款限额：{{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "领取 Prime 代币",
-        "stakeXvs": "质押 XVS"
-      },
-      "primeLogoAltText": "Prime 标志",
-      "text": {
-        "apyBoost": "使用 Prime 将收益提升高达 <GreenText>{{boost}}</GreenText>",
-        "becomePrime": "你现在可以成为 Prime 用户"
-      }
-    },
-    "settings": {
-      "gaslessTransactions": {
-        "switchLabel": "在 {{chainName}} 上启用免 gas 交易"
-      }
-    },
-    "summary": {
-      "cellGroup": {
-        "dailyEarnings": "每日收益",
-        "healthFactor": "健康系数",
-        "healthFactorTooltip": "清算阈值 < 1.0",
-        "mintedVai": "已铸造 VAI",
-        "netApy": "净 APY",
-        "netApyTooltip": "以年化利息形式获得的总存款余额百分比",
-        "netApyWithVaultStakeTooltip": "以年化利息形式获得的总存款余额和金库质押百分比",
-        "totalBorrow": "总借款",
-        "totalSupply": "总存款",
-        "totalVaultStake": "总金库质押"
-      },
-      "title": "概览"
-    },
-    "tabs": {
-      "pools": "资金池",
-      "settings": "设置",
-      "transactions": "交易",
-      "vaults": "金库"
-    },
-    "transactions": {
-      "date": {
-        "full": "{{ date, textual }}",
-        "time": "{{ date, time }}"
-      },
-      "placeholder": {
-        "description": "你的交易将显示在此",
-        "title": "尚无交易"
-      },
-      "selects": {
-        "source": {
-          "all": "所有市场"
-        },
-        "txType": {
-          "all": "所有交易",
-          "approve": "授权",
-          "borrow": "借款",
-          "enterMarket": "启用可抵押",
-          "exitMarket": "禁用可抵押",
-          "mint": "存款",
-          "redeem": "取款",
-          "repay": "偿还"
-        }
-      },
-      "today": "今天",
-      "txText": {
-        "approve": "已授权支出 {{tokenAmount}}",
-        "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
-        "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为可抵押"
-      },
-      "txType": {
-        "approve": "授权",
-        "borrow": "借款",
-        "enterMarket": "启用可抵押",
-        "exitMarket": "禁用可抵押",
-        "mint": "存款",
-        "redeem": "取款",
-        "repay": "偿还"
-      },
-      "view": "查看",
-      "yesterday": "昨天"
-    },
-    "vaults": {
-      "placeholder": {
-        "description": "你的金库持仓将显示在此",
-        "title": "尚无质押持仓"
-      }
-    }
-  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "借款余额",
@@ -402,6 +266,23 @@
   },
   "connectWallet": {
     "connectButton": "连接钱包"
+  },
+  "dashboard": {
+    "adCarousel": {
+      "primeBanner": {
+        "button": {
+          "label": "TRANSLATION NEEDED"
+        },
+        "description": "TRANSLATION NEEDED",
+        "illustration": {
+          "altText": "TRANSLATION NEEDED"
+        },
+        "title": "TRANSLATION NEEDED"
+      }
+    },
+    "topMarkets": {
+      "title": "TRANSLATION NEEDED"
+    }
   },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
