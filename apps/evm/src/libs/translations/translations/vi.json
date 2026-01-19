@@ -228,6 +228,9 @@
       "label": "Số dư ví"
     }
   },
+  "burnedWBnbButton": {
+    "iconAlt": "TRANSLATION NEEDED"
+  },
   "chainExplorerLink": {
     "content": "Xem trên {{domainName}}"
   },

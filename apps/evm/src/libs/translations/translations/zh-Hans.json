@@ -228,6 +228,9 @@
       "label": "钱包余额"
     }
   },
+  "burnedWBnbButton": {
+    "iconAlt": "TRANSLATION NEEDED"
+  },
   "chainExplorerLink": {
     "content": "在 {{domainName}} 上查看"
   },

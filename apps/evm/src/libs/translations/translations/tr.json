@@ -228,6 +228,9 @@
       "label": "Cüzdan bakiyesi"
     }
   },
+  "burnedWBnbButton": {
+    "iconAlt": "TRANSLATION NEEDED"
+  },
   "chainExplorerLink": {
     "content": "{{domainName}} üzerinde görüntüle"
   },
@@ -518,7 +521,7 @@
     },
     "markets": {
       "button": {
-        "label": "Daha fazlasını keşfet"
+        "label": "TRANSLATION NEEDED"
       },
       "title": "Venus'te en iyi piyasalar"
     },

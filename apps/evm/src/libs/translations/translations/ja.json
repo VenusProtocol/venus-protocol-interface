@@ -228,6 +228,9 @@
       "label": "ウォレット残高"
     }
   },
+  "burnedWBnbButton": {
+    "iconAlt": "TRANSLATION NEEDED"
+  },
   "chainExplorerLink": {
     "content": "{{domainName}}で表示"
   },

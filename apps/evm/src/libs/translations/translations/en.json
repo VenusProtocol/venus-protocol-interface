@@ -228,6 +228,9 @@
       "label": "Wallet balance"
     }
   },
+  "burnedWBnbButton": {
+    "iconAlt": "TRANSLATION NEEDED"
+  },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
   },
