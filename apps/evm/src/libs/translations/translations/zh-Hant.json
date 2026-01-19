@@ -271,17 +271,64 @@
     "adCarousel": {
       "primeBanner": {
         "button": {
-          "label": "TRANSLATION NEEDED"
+          "label": "計算您的 Prime 獎勵"
         },
-        "description": "TRANSLATION NEEDED",
+        "description": "Venus Prime 會獎勵在借貸活動中積極參與的用戶。",
         "illustration": {
-          "altText": "TRANSLATION NEEDED"
+          "altText": "Prime 插圖"
         },
-        "title": "TRANSLATION NEEDED"
+        "title": "與 <Gradient>Venus Prime</Gradient> 一起登上更高境界"
       }
     },
+    "overview": {
+      "absolutePerformance": "絕對表現",
+      "netWorth": {
+        "label": "淨值",
+        "tooltip": "計入金庫質押與借款後的可用淨資產",
+        "tooltipWithVai": "計入金庫質押、借款與已鑄 VAI 後的可用淨資產"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "無法取得帳戶歷史紀錄",
+          "refetchButtonLabel": "重試"
+        },
+        "placeholderText": "正在生成報告，最多可能需要一分鐘"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6個月",
+        "thirtyDays": "30天"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "每日收益",
+          "mintedVai": "已鑄 VAI",
+          "netApy": "淨 APY",
+          "netApyTooltip": "您總供應餘額中按年利息獲得的百分比",
+          "netApyWithVaultStakeTooltip": "您總供應餘額與金庫質押按年利息獲得的百分比",
+          "totalBorrow": "總借款",
+          "totalSupply": "總供應",
+          "totalVaultStake": "金庫質押總額"
+        },
+        "title": "摘要"
+      },
+      "todaysChange": "今日變化"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
-      "title": "TRANSLATION NEEDED"
+      "borrowButton": {
+        "label": "借款"
+      },
+      "interactiveTitle": "Venus 頂級 <SupplyButton>供應</SupplyButton> / <BorrowButton>借款</BorrowButton>",
+      "supplyButton": {
+        "label": "供應"
+      },
+      "textTitle": "Venus 頂級市場"
     }
   },
   "eModeBanner": {

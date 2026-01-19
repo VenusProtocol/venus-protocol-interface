@@ -3,6 +3,7 @@
 exports[`useUserChainSettings > returns correct settings from the store 1`] = `
 {
   "doNotShowImportPositionsModal": false,
+  "doNotShowUserBalances": false,
   "gaslessTransactions": true,
   "showPausedAssets": false,
   "showUserAssetsOnly": false,

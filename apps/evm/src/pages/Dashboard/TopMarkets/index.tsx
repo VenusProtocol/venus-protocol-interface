@@ -1,23 +1,26 @@
-import { cn } from '@venusprotocol/ui';
+import { Spinner, cn } from '@venusprotocol/ui';
 
 import { useGetPool } from 'clients/api';
-import { AssetCard, type AssetCardProps } from 'components';
+import { AssetCard, type AssetCardProps, ButtonGroup } from 'components';
 import { useChain } from 'hooks/useChain';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useState } from 'react';
 import { compareBigNumbers, getCombinedDistributionApys } from 'utilities';
 import { TypeButton } from './TypeButton';
 
 export const TopMarkets: React.FC = () => {
-  const { Trans } = useTranslation();
+  const { Trans, t } = useTranslation();
 
   const { corePoolComptrollerContractAddress } = useChain();
 
   const [type, setType] = useState<AssetCardProps['type']>('supply');
 
   // TODO: update to fetch top markets across chains
+  const { accountAddress } = useAccountAddress();
   const { data: getPoolData } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
+    accountAddress,
   });
   const poolAssets = getPoolData?.pool.assets ?? [];
 
@@ -52,9 +55,10 @@ export const TopMarkets: React.FC = () => {
 
   return (
     <div className="space-y-3 xl:border xl:border-dark-blue-hover xl:rounded-lg xl:p-6 xl:space-y-6">
-      <div className="flex items-baseline font-semibold">
+      {/* Mobile/tablet header */}
+      <div className="flex items-baseline font-semibold xl:hidden">
         <Trans
-          i18nKey="dashboard.topMarkets.title"
+          i18nKey="dashboard.topMarkets.interactiveTitle"
           components={{
             SupplyButton: (
               <TypeButton isActive={type === 'supply'} onClick={() => setType('supply')} />
@@ -66,20 +70,39 @@ export const TopMarkets: React.FC = () => {
         />
       </div>
 
+      {/* Desktop header */}
+      <div className="space-y-6 hidden xl:block">
+        <p className="font-semibold">{t('dashboard.topMarkets.textTitle')}</p>
+
+        <ButtonGroup
+          buttonLabels={[
+            t('dashboard.topMarkets.supplyButton.label'),
+            t('dashboard.topMarkets.borrowButton.label'),
+          ]}
+          onButtonClick={index => setType(index === 0 ? 'supply' : 'borrow')}
+          activeButtonIndex={type === 'supply' ? 0 : 1}
+          fullWidth
+        />
+      </div>
+
       <div className="flex items-center gap-x-3 xl:flex-col xl:gap-y-2 xl:-mx-4 xl:-mb-4">
-        {topAssets.map((asset, index) => (
-          <AssetCard
-            key={`${asset.vToken.chainId}-${asset.vToken.address}`}
-            type={type}
-            asset={asset}
-            poolComptrollerContractAddress={corePoolComptrollerContractAddress}
-            className={cn(
-              'xl:border-0',
-              index > 0 && 'hidden md:flex',
-              index > 1 && 'md:hidden lg:flex',
-            )}
-          />
-        ))}
+        {topAssets.length > 0 ? (
+          topAssets.map((asset, index) => (
+            <AssetCard
+              key={`${asset.vToken.chainId}-${asset.vToken.address}`}
+              type={type}
+              asset={asset}
+              poolComptrollerContractAddress={corePoolComptrollerContractAddress}
+              className={cn(
+                'xl:border-0',
+                index > 0 && 'hidden md:flex',
+                index > 1 && 'md:hidden lg:flex',
+              )}
+            />
+          ))
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );

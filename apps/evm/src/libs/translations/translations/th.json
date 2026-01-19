@@ -271,17 +271,64 @@
     "adCarousel": {
       "primeBanner": {
         "button": {
-          "label": "TRANSLATION NEEDED"
+          "label": "คำนวณรางวัล Prime ของคุณ"
         },
-        "description": "TRANSLATION NEEDED",
+        "description": "Venus Prime มอบรางวัลให้กับผู้ใช้ที่ทุ่มเทสำหรับกิจกรรมการฝากและการยืมของพวกเขา",
         "illustration": {
-          "altText": "TRANSLATION NEEDED"
+          "altText": "ภาพประกอบ Prime"
         },
-        "title": "TRANSLATION NEEDED"
+        "title": "ก้าวสู่ระดับที่สูงขึ้นด้วย <Gradient>Venus Prime</Gradient>"
       }
     },
+    "overview": {
+      "absolutePerformance": "ผลการดำเนินงานแบบสัมบูรณ์",
+      "netWorth": {
+        "label": "มูลค่าสุทธิ",
+        "tooltip": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์และการยืม",
+        "tooltipWithVai": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์ การยืม และการมินต์ VAI"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "ไม่สามารถดึงประวัติบัญชีได้",
+          "refetchButtonLabel": "ลองอีกครั้ง"
+        },
+        "placeholderText": "กำลังสร้างรายงาน อาจใช้เวลาสูงสุดหนึ่งนาที"
+      },
+      "periodOption": {
+        "oneYear": "1ปี",
+        "sixMonths": "6ด",
+        "thirtyDays": "30ด"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "รายได้รายวัน",
+          "mintedVai": "VAI ที่มินต์แล้ว",
+          "netApy": "APY สุทธิ",
+          "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการสเตคในวอลต์ของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "totalBorrow": "ยอดยืมรวม",
+          "totalSupply": "ยอดฝากรวม",
+          "totalVaultStake": "ยอดสเตคในวอลต์รวม"
+        },
+        "title": "สรุป"
+      },
+      "todaysChange": "การเปลี่ยนแปลงวันนี้"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
-      "title": "TRANSLATION NEEDED"
+      "borrowButton": {
+        "label": "ยืม"
+      },
+      "interactiveTitle": "อันดับสูงสุดของ <SupplyButton>ฝาก</SupplyButton> / <BorrowButton>ยืม</BorrowButton> บน Venus",
+      "supplyButton": {
+        "label": "ฝาก"
+      },
+      "textTitle": "ตลาดยอดนิยมบน Venus"
     }
   },
   "eModeBanner": {

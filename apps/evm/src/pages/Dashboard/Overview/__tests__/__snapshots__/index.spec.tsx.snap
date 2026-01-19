@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Overview > displays correctly when user is connected 1`] = `"Net worth$1.23MToday's change+$1.23M99.99%Absolute performance+$1.23M"`;
+
+exports[`Overview > displays correctly when user is connected and accordion is expanded 1`] = `"Net worth$1.23MToday's change+$1.23M99.99%Absolute performance+$1.23M30D6M1YSummaryNet APY0.03%Daily earnings$1.08Total supply$1.23MTotal borrow$123.33Total vault stake$233Minted VAI$10"`;
+
+exports[`Overview > displays correctly when user is not connected 1`] = `"Net worth$1.23MToday's change-Absolute performance-"`;
+
+exports[`Overview > hides user balances when doNotShowUserBalances setting is true 1`] = `"Net worth******Today's change******Absolute performance******"`;

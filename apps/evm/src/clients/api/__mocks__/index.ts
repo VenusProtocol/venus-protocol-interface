@@ -568,7 +568,7 @@ export const useGetImportablePositions = vi.fn(() =>
   }),
 );
 
-export const getAccountPerformanceHistory = vi.fn(async () => ({
+export const getAccountPerformanceHistory = vi.fn(() => ({
   performanceHistory: [
     {
       blockNumber: 1,

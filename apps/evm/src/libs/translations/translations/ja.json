@@ -271,17 +271,64 @@
     "adCarousel": {
       "primeBanner": {
         "button": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Prime報酬を計算"
         },
-        "description": "TRANSLATION NEEDED",
+        "description": "Venus Primeはレンディングと借入の活動に対して熱心なユーザーに報酬を付与します。",
         "illustration": {
-          "altText": "TRANSLATION NEEDED"
+          "altText": "Primeのイラスト"
         },
-        "title": "TRANSLATION NEEDED"
+        "title": "<Gradient>Venus Prime</Gradient>でさらなる高みへ"
       }
     },
+    "overview": {
+      "absolutePerformance": "絶対パフォーマンス",
+      "netWorth": {
+        "label": "純資産",
+        "tooltip": "ボールトステークと借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールトステーク、借入、ミント済みVAIを考慮した利用可能な純資産"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "アカウント履歴を取得できませんでした",
+          "refetchButtonLabel": "再試行"
+        },
+        "placeholderText": "レポートを生成中。最大1分かかる場合があります"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6か月",
+        "thirtyDays": "30日"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "日次収益",
+          "mintedVai": "ミント済みVAI",
+          "netApy": "実質APY",
+          "netApyTooltip": "総供給残高に対して年利として受け取る割合",
+          "netApyWithVaultStakeTooltip": "総供給とボールトステークに対して年利として受け取る割合",
+          "totalBorrow": "総借入",
+          "totalSupply": "総供給",
+          "totalVaultStake": "ボールトステーク合計"
+        },
+        "title": "サマリー"
+      },
+      "todaysChange": "本日の変化"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
-      "title": "TRANSLATION NEEDED"
+      "borrowButton": {
+        "label": "借入"
+      },
+      "interactiveTitle": "Venusのトップ<SupplyButton>供給</SupplyButton> / <BorrowButton>借入</BorrowButton>",
+      "supplyButton": {
+        "label": "供給"
+      },
+      "textTitle": "Venusのトップマーケット"
     }
   },
   "eModeBanner": {
