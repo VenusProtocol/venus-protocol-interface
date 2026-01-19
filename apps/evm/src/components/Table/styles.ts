@@ -2,8 +2,15 @@ import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
 import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
+import type { CSSProperties } from 'react';
 
-export const useStyles = () => {
+type StylesProps = {
+  cellHeight?: CSSProperties['height'];
+};
+
+export const useStyles = (props?: StylesProps) => {
+  const { cellHeight } = props ?? {};
+
   const theme = useTheme();
   return {
     getRoot: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
@@ -171,7 +178,7 @@ export const useStyles = () => {
       }
     `,
     cellWrapper: css`
-      height: 1px;
+      height: ${cellHeight ?? '1px'};
       overflow: hidden;
       text-overflow: ellipsis;
       padding: ${theme.spacing(0, 4)};

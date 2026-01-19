@@ -559,6 +559,14 @@
       "yearlyEarnings": "Yearly Earnings",
       "yearlyInterest": "Yearly Interest (Repay Anytime):"
     },
+    "markets": {
+      "asset": "Asset",
+      "borrowApy": "Borrow APY",
+      "exploreMore": "Explorer more",
+      "liquidity": "Liquidity",
+      "marketSize": "Market Size",
+      "supplyApy": "Supply APY"
+    },
     "protection": {
       "bugBountyAlt": "Bug Bounty Illustration",
       "challengeText": "We encourage all to challenge our code and search for vulnerabilities. Read about our bug bounty rewards, and please submit any bug you identify.",

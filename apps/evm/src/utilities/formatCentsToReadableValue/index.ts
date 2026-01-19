@@ -18,7 +18,7 @@ const THRESHOLDS = {
 };
 
 export interface FormatCentsToReadableValueInput {
-  value: number | BigNumber | undefined;
+  value: BigNumber.Value | undefined;
   isTokenPrice?: boolean;
 }
 

@@ -85,7 +85,7 @@ export const Supply: React.FC<CoinWithLogoProps> = ({ asset, chain, className })
         <div className="font-semibold">{'$420' /* TODO: daily earning amount */}</div>
       </div>
 
-      <ButtonWrapper asChild className="mt-6 h-12 w-full text-[20px]" variant="tertiary">
+      <ButtonWrapper asChild className="mt-6 h-12 w-full text-[14px]" variant="tertiary">
         <Link to={marketsPagePath} noStyle>
           {t('landing.hero.getStarted')}
         </Link>

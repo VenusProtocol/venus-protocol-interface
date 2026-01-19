@@ -3,6 +3,7 @@ import { Page, Wrapper } from 'components';
 import { Benefits } from './Benefits';
 import { Governance } from './Governance';
 import { Hero } from './Hero';
+import { Markets } from './Markets';
 import { Protection } from './Protection';
 import { Safety } from './Safety';
 import { VenusPrime } from './VenusPrime';
@@ -12,7 +13,9 @@ export const Landing: React.FC = () => {
   return (
     <Page indexWithSearchEngines={true}>
       <Hero />
+
       <Wrapper>
+        <Markets />
         <VenusPrime />
         <Protection />
         <Governance />

@@ -34,7 +34,9 @@ export const Hero: React.FC = () => {
               className="h-6 sm:h-10 mt-4 mx-auto xl:mx-0"
             />
             <div className="pb-6 pt-12 xl:pt-30">
-              <div className="text-[16px] sm:text-[24px]">{t('landing.hero.venusTvl')}</div>
+              <div className="text-[16px] sm:text-[24px] font-semibold">
+                {t('landing.hero.venusTvl')}
+              </div>
               <div className="xl:mt-4 text-[40px] leading-normal sm:text-[60px] sm:leading-[1.2] font-semibold">
                 {isLoading ? '--' : tvlData?.totalLiquidityUsd}
               </div>

@@ -21,7 +21,7 @@ export const Borrow: React.FC<TokenChainIconWithSymbolProps> = ({ token, chain, 
       </div>
 
       <div className={cn(rowClassName, 'mt-6 py-4 sm:py-0')}>
-        <TokenChainIconWithSymbol token={token} chain={chain} />
+        <TokenChainIconWithSymbol token={token} chain={chain} size="xl" />
         <div className="flex items-center justify-end text-end text-light-grey gap-1.5">
           {'$10,000' /* TODO */}
           <Tooltip
@@ -40,7 +40,7 @@ export const Borrow: React.FC<TokenChainIconWithSymbolProps> = ({ token, chain, 
         <div className="text-end">{'≈$42' /* TODO */}</div>
       </div>
 
-      <ButtonWrapper asChild className="mt-6 h-12 w-full" variant="tertiary">
+      <ButtonWrapper asChild className="mt-6 h-12 w-full text-[14px]" variant="tertiary">
         <Link to={routes.dashboard.path} noStyle>
           {t('landing.hero.getStarted')}
         </Link>

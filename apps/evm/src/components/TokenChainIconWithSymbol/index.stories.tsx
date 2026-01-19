@@ -6,7 +6,7 @@ import { xvs } from '__mocks__/models/tokens';
 import { TokenChainIconWithSymbol } from '.';
 
 export default {
-  title: 'Components/TokenIconWithSymbol',
+  title: 'Components/TokenChainIconWithSymbol',
   component: TokenChainIconWithSymbol,
 } as Meta<typeof TokenChainIconWithSymbol>;
 
