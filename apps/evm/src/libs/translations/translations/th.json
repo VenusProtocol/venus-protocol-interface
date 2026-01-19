@@ -1,0 +1,1609 @@
+{
+  "account": {
+    "circularGradient": "ไล่ระดับสีแบบวงกลม",
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "ยืมแล้ว",
+        "eModeHeader": {
+          "illustrationAltText": "ภาพประกอบ E-mode",
+          "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+        },
+        "supplyTableTitle": "ฝากแล้ว",
+        "tabletBorrowTabTitle": "ยืมแล้ว",
+        "tabletSupplyTabTitle": "ฝากแล้ว",
+        "tabletTitle": "สินทรัพย์"
+      }
+    },
+    "performanceChart": {
+      "absolutePerformance": "ผลตอบแทนแบบสัมบูรณ์",
+      "errorState": {
+        "failedToFetchMessage": "ไม่สามารถดึงประวัติบัญชีได้",
+        "refetchButtonLabel": "ลองอีกครั้ง"
+      },
+      "netWorth": {
+        "label": "มูลค่าสุทธิ",
+        "tooltip": "มูลค่าสุทธิของสินทรัพย์ที่ใช้ได้หลังคำนึงถึงการสเตคในวอลต์และการยืม",
+        "tooltipWithVai": "มูลค่าสุทธิของสินทรัพย์ที่ใช้ได้หลังคำนึงถึงการสเตคในวอลต์ การยืม และ VAI ที่ถูกมินต์แล้ว"
+      },
+      "periodOption": {
+        "oneYear": "1ปี",
+        "sixMonths": "6ด",
+        "thirtyDays": "30ด"
+      },
+      "placeholderText": "กำลังสร้างรายงาน อาจใช้เวลาสูงสุดหนึ่งนาที",
+      "todaysChange": "การเปลี่ยนแปลงวันนี้"
+    },
+    "placeholder": {
+      "buttonLabel": "เรียกดู"
+    },
+    "pools": {
+      "placeholder": {
+        "description": "ตำแหน่งในพูลของคุณจะแสดงที่นี่",
+        "title": "ยังไม่มีตำแหน่งฝากหรือยืม"
+      }
+    },
+    "poolsBreakdown": {
+      "poolTagTooltip": "ใช้ขีดจำกัดการยืมแล้ว: {{borrowLimitUsedPercentage}}"
+    },
+    "primeBanner": {
+      "button": {
+        "becomePrime": "รับโทเคน Prime",
+        "stakeXvs": "สเตค XVS"
+      },
+      "primeLogoAltText": "โลโก้ Prime",
+      "text": {
+        "apyBoost": "เพิ่มรายได้ของคุณสูงสุด <GreenText>{{boost}}</GreenText> ด้วย Prime",
+        "becomePrime": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว"
+      }
+    },
+    "settings": {
+      "gaslessTransactions": {
+        "switchLabel": "เปิดใช้ธุรกรรมแบบไม่ต้องจ่ายแก๊สบน {{chainName}}"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "รายได้รายวัน",
+        "healthFactor": "ตัวคูณความปลอดภัย",
+        "healthFactorTooltip": "ถูกชำระบัญชีเมื่อ < 1.0",
+        "mintedVai": "VAI ที่มินต์แล้ว",
+        "netApy": "APY สุทธิ",
+        "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมที่ได้รับเป็นดอกเบี้ยรายปี",
+        "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการสเตคในวอลต์ที่ได้รับเป็นดอกเบี้ยรายปี",
+        "totalBorrow": "ยอดยืมรวม",
+        "totalSupply": "ยอดฝากรวม",
+        "totalVaultStake": "ยอดสเตคในวอลต์รวม"
+      },
+      "title": "สรุป"
+    },
+    "tabs": {
+      "pools": "พูล",
+      "settings": "การตั้งค่า",
+      "transactions": "ธุรกรรม",
+      "vaults": "วอลต์"
+    },
+    "transactions": {
+      "placeholder": {
+        "description": "ธุรกรรมของคุณจะแสดงที่นี่",
+        "title": "ยังไม่มีธุรกรรม"
+      },
+      "selects": {
+        "source": {
+          "all": "ตลาดทั้งหมด"
+        },
+        "txType": {
+          "all": "ธุรกรรมทั้งหมด",
+          "approve": "การอนุมัติ",
+          "borrow": "ยืม",
+          "enterMarket": "เปิดใช้หลักประกัน",
+          "exitMarket": "ปิดใช้หลักประกัน",
+          "mint": "ฝาก",
+          "redeem": "ถอน",
+          "repay": "การชำระคืน"
+        }
+      },
+      "today": "วันนี้",
+      "txText": {
+        "approve": "อนุมัติการใช้จ่าย {{tokenAmount}} แล้ว",
+        "enterMarket": "<Styled>เปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน",
+        "exitMarket": "<Styled>ปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน"
+      },
+      "txType": {
+        "approve": "การอนุมัติ",
+        "borrow": "ยืม",
+        "enterMarket": "เปิดใช้หลักประกัน",
+        "exitMarket": "ปิดใช้หลักประกัน",
+        "mint": "ฝาก",
+        "redeem": "ถอน",
+        "repay": "การชำระคืน"
+      },
+      "view": "ดู",
+      "yesterday": "เมื่อวาน"
+    },
+    "vaults": {
+      "placeholder": {
+        "description": "ตำแหน่งในวอลต์ของคุณจะแสดงที่นี่",
+        "title": "ยังไม่มีตำแหน่งสเตค"
+      }
+    }
+  },
+  "accountData": {
+    "balanceUpdate": {
+      "borrowBalance": "ยอดยืมคงเหลือ",
+      "supplyBalance": "ยอดฝากคงเหลือ"
+    },
+    "dailyEarnings": {
+      "label": "รายได้รายวัน"
+    },
+    "healthFactor": {
+      "label": "ตัวคูณความปลอดภัย",
+      "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
+    }
+  },
+  "accountHealth": {
+    "accessibilityLabel": "การแสดงสถานะปัจจุบันของบัญชีของคุณ",
+    "borrowLimitUsed": "ใช้ขีดจำกัดการยืมแล้ว:",
+    "limit": "ขีดจำกัด:",
+    "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืมที่ปลอดภัย:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% ของขีดจำกัดการยืมของคุณ)"
+  },
+  "adBanner": {
+    "learnMore": "เรียนรู้เพิ่มเติม",
+    "startNow": "เริ่มตอนนี้"
+  },
+  "announcements": {
+    "bethUpdate": {
+      "description": "Binance ได้หยุดการถอน BETH เมื่อ 2023-04-26 เราแนะนำให้ผู้ใช้ลดการถือครอง BETH บน Venus การยืมถูกระงับแล้ว สามารถแปลง BETH เป็น WBETH แบบออนเชนที่อัตรา 1:1 <Link>ที่นี่</Link>."
+    },
+    "sxpDisabling": {
+      "description": "ตามคำแนะนำจาก Gauntlet การยืมและการฝากสำหรับ SXP ถูกระงับ เนื่องจากความกังวลเกี่ยวกับการย้าย SXP ไปยังเชนใหม่และคาดว่าสภาพคล่องของ SXP จะลดลง"
+    },
+    "trxMigration": {
+      "description": "Venus รองรับโทเคน TRX ใหม่ในตลาดใหม่ การยืมและการฝากสำหรับโทเคน TRX เดิมถูกระงับ ดูข้อมูลเพิ่มเติมได้ที่ <Link>ประกาศอย่างเป็นทางการของ Binance</Link>."
+    },
+    "tusdMigration": {
+      "description": "Venus รองรับโทเคน TUSD ใหม่ในตลาดใหม่ การยืมและการฝากสำหรับโทเคน TUSD เดิมถูกระงับ ดูข้อมูลเพิ่มเติมได้ที่ <Link>ประกาศอย่างเป็นทางการของ Binance</Link>."
+    }
+  },
+  "approveDelegateSteps": {
+    "approveDelegateButton": {
+      "text": "อนุมัติสัญญามอบสิทธิ",
+      "tooltip": "เราจำเป็นต้องอนุมัติสัญญามอบสิทธิเพื่อดำเนินการนี้แทนคุณ"
+    },
+    "step1": "ขั้นตอนที่ 1"
+  },
+  "approveTokenSteps": {
+    "approveTokenButton": {
+      "text": "อนุมัติ {{tokenSymbol}}",
+      "tooltip": "เราต้องการการอนุมัติการใช้จ่ายสำหรับโทเคนใดๆ ที่คุณต้องการใช้กับโปรโตคอล Venus"
+    },
+    "step1": "ขั้นตอนที่ 1",
+    "step2": "ขั้นตอนที่ 2"
+  },
+  "appVersionChecker": {
+    "newVersionMessage": "มีเวอร์ชันใหม่ของ Venus พร้อมใช้งาน โหลดหน้าใหม่เพื่อใช้งานทันที"
+  },
+  "apy": {
+    "boost": {
+      "iconAlt": "ไอคอนตลาดที่ถูกบูสต์",
+      "tooltip": {
+        "borrowApy": {
+          "description": "ดอกเบี้ยที่เกิดขึ้นเมื่อยืมสินทรัพย์นี้จากโปรโตคอล Venus",
+          "name": "APY การยืม"
+        },
+        "defaultMerklRewardName": "รางวัล Merkl",
+        "externalRewardDescription": "รางวัลจากโปรแกรมภายนอกนี้สามารถรับได้ผ่าน <AppLink>แอปอย่างเป็นทางการ</AppLink> โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+        "intrinsicApy": {
+          "description": "ผลตอบแทนพื้นฐานจากสินทรัพย์อ้างอิงเอง เช่น รางวัลการสเตค ผลตอบแทนนี้มาจากแหล่งภายนอกและไม่ได้รับการรับประกันจาก Venus Protocol.",
+          "name": "APY พื้นฐาน"
+        },
+        "offChainApy": {
+          "description": "ผลตอบแทนเพิ่มเติมจากกิจกรรมนอกเชน เช่น airdrop หรือแคมเปญโปรโมชัน ที่จัดการโดยบุคคลที่สาม ผลตอบแทนนี้ไม่รับประกันโดย Venus Protocol.",
+          "name": "APY นอกเชน"
+        },
+        "pointDistribution": {
+          "learnMore": "เรียนรู้เพิ่มเติม"
+        },
+        "primeDistribution": {
+          "description": "รางวัล Venus Prime มอบรางวัลที่ถูกบูสต์ให้ผู้ใช้ที่ทุ่มเท โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+          "name": "APY Prime"
+        },
+        "supplyApy": {
+          "description": "ผลตอบแทนรวมที่ได้รับจากการฝากสินทรัพย์เข้าสู่ Venus Protocol.",
+          "name": "APY การฝาก"
+        },
+        "xvsDistribution": {
+          "description": "รางวัลการแจกจ่ายถูกเริ่มและดำเนินการโดยชุมชน Venus แบบกระจายอำนาจ โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+          "name": "การแจกจ่าย XVS"
+        }
+      }
+    },
+    "primeBadge": {
+      "logoAlt": "โลโก้ Prime",
+      "tooltip": {
+        "calculatorLink": "คำนวณรางวัล Prime ของคุณ",
+        "primeBorrowSimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากการยืมค่ามัธยฐานของผู้ใช้ {{borrowBalance}} และการสเตคในวอลต์ {{xvsStaked}}.",
+        "primeDocLink": "เรียนรู้เพิ่มเติม",
+        "primeMarket": "APY ถูกบูสต์ด้วย Prime.",
+        "primeSupplySimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากยอดฝากค่ามัธยฐานของผู้ใช้ {{supplyBalance}} และการสเตคในวอลต์ {{xvsStaked}}."
+      }
+    }
+  },
+  "apyBreakdown": {
+    "borrowApy": "APY การยืม",
+    "distributionApy": "APY การแจกจ่าย",
+    "distributionTooltip": "รางวัลการแจกจ่ายถูกเริ่มและดำเนินการโดยชุมชน Venus แบบกระจายอำนาจ โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+    "externalDistributionApy": "{{description}} APY",
+    "intrinsicApy": "APY พื้นฐาน",
+    "intrinsicApyTooltip": "APY ที่ได้โดยตรงจากสินทรัพย์เอง (เช่น การสเตคหรือรางวัลภายนอก) แยกจากผลตอบแทนการให้กู้ของ Venus โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+    "netApy": {
+      "label": "APY สุทธิ",
+      "tooltip": "ผลรวมของ APY ของทุกตลาดที่เกี่ยวข้อง"
+    },
+    "offChainApy": "APY นอกเชน",
+    "offChainApyTooltip": "ผลตอบแทนเพิ่มเติมจากกิจกรรมนอกเชน เช่น airdrop หรือแคมเปญโปรโมชัน ที่จัดการโดยบุคคลที่สาม โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+    "primeApy": "APY Prime",
+    "supplyApy": "APY การฝาก",
+    "totalApy": {
+      "borrowApyTooltip": "APY การยืม - APY การแจกจ่าย",
+      "label": "APY รวม",
+      "supplyApyTooltip": "APY การฝาก + APY การแจกจ่าย"
+    }
+  },
+  "apyChart": {
+    "tooltipItemLabels": {
+      "borrowApy": "APY การยืม",
+      "date": "วันที่",
+      "supplyApy": "APY การฝาก",
+      "totalBorrow": "ยอดยืมรวม",
+      "totalSupply": "ยอดฝากรวม"
+    }
+  },
+  "asset": {
+    "eModeInfo": {
+      "title": "ข้อมูล E-mode"
+    },
+    "marketInfo": {
+      "title": "ข้อมูลตลาด"
+    }
+  },
+  "assetAccessor": {
+    "disabledActionNotice": {
+      "boost": "การบูสต์ถูกปิดใช้งานสำหรับตลาดนี้",
+      "borrow": "การยืมถูกปิดใช้งานสำหรับตลาดนี้",
+      "repay": "การชำระคืนถูกปิดใช้งานสำหรับตลาดนี้",
+      "supply": "การฝากถูกปิดใช้งานสำหรับตลาดนี้",
+      "withdraw": "การถอนถูกปิดใช้งานสำหรับตลาดนี้"
+    },
+    "eModeBlockedActionNotice": {
+      "borrow": "การตั้งค่า E-mode ของคุณไม่อนุญาตให้ยืมจากตลาดนี้ <Link>จัดการ E-mode</Link>"
+    }
+  },
+  "assetWarning": {
+    "borrowDescription": "คุณสามารถยืม {{tokenSymbol}} ได้ตามยอดฝากที่เป็นหลักประกันในพูล {{poolName}} <Button>แสดงโทเคนทั้งหมด</Button>",
+    "modalTitle": "โทเคน {{ poolName }}",
+    "supplyDescription": "การฝาก {{tokenSymbol}} ในพูล {{poolName}} จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <Button>แสดงตลาดทั้งหมด</Button>"
+  },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
+    "binanceLogoAltText": "โลโก้ Binance",
+    "description": "ยืม USDT และร่วมแบ่งปันรางวัล <Bold>$400,000</Bold>!",
+    "title": "Venus เปิดให้ใช้งานบน Binance Wallet Earn แล้ว"
+  },
+  "boostBanner": {
+    "description": "เลเวอเรจคลิกเดียวเพื่อบูสต์ผลตอบแทนของคุณ <White>สูงสุด 5 เท่า</White>.",
+    "rocketAltText": "ภาพประกอบจรวด",
+    "title": "Boost ใช้งานได้แล้ว!"
+  },
+  "breadcrumbs": {
+    "bridge": "บริดจ์",
+    "dashboard": "แดชบอร์ด",
+    "governance": "การกำกับดูแล",
+    "isolatedPools": "พูลแบบแยก",
+    "leaderboard": "ลีดเดอร์บอร์ด",
+    "markets": "ตลาด",
+    "primeCalculator": "เครื่องคำนวณ Prime",
+    "proposal": "ข้อเสนอ #{{proposalId}}",
+    "staking": "สเตคกิ้ง",
+    "swap": "สวอป",
+    "vai": "VAI"
+  },
+  "bridgePage": {
+    "amountInput": {
+      "label": "จำนวน",
+      "maxButtonLabel": "สูงสุด"
+    },
+    "bridgeGasFee": {
+      "label": "ค่าก๊าซสำหรับบริดจ์",
+      "tooltip": "ใช้เพื่อครอบคลุมค่าก๊าซในการส่งธุรกรรมบนเชนปลายทาง"
+    },
+    "errors": {
+      "dailyTransactionLimitExceeded": {
+        "message": "คุณไม่สามารถบริดจ์มากกว่า {{readableAmountTokens}} ({{readableAmountUsd}}) ไปยังเชนปลายทางได้ เนื่องจากมีขีดจำกัด 24 ชั่วโมง ขีดจำกัดนี้จะรีเซ็ตใน {{ date, dd MMM yyyy h:mm a }}",
+        "submitButton": "จำนวนที่กรอกเกินขีดจำกัดรายวัน"
+      },
+      "doesNotHaveEnoughNativeFunds": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
+      "doesNotHaveEnoughXvs": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
+      "mintCapReached": {
+        "message": "คุณไม่สามารถบริดจ์มากกว่า {{readableAmountTokens}} ได้เนื่องจากขีดจำกัดการมินต์ของบริดจ์",
+        "submitButton": "ถึงขีดจำกัดการมินต์ของบริดจ์แล้ว"
+      },
+      "singleTransactionLimitExceeded": {
+        "message": "คุณไม่สามารถบริดจ์มากกว่า {{readableAmountTokens}} ({{readableAmountUsd}}) ในธุรกรรมเดียวบนเชนปลายทาง",
+        "submitButton": "จำนวนที่กรอกเกินขีดจำกัด"
+      }
+    },
+    "footer": {
+      "bridgeDocLink": "วิธีการบริดจ์",
+      "poweredBy": "ให้บริการโดย"
+    },
+    "fromChainSelect": {
+      "label": "จาก"
+    },
+    "submitButton": {
+      "label": {
+        "enterValidAmount": "ป้อนจำนวนที่ถูกต้อง",
+        "submit": "ยืนยัน"
+      }
+    },
+    "toChainSelect": {
+      "label": "ถึง"
+    },
+    "walletBalance": {
+      "label": "ยอดคงเหลือในกระเป๋า"
+    }
+  },
+  "burnedWBnbButton": {
+    "iconAlt": "ไอคอน BNB ที่ถูกเผา"
+  },
+  "chainExplorerLink": {
+    "content": "ดูบน {{domainName}}"
+  },
+  "chip": {
+    "proposalType": {
+      "critical": "สำคัญมาก",
+      "fastTrack": "เร่งด่วน"
+    }
+  },
+  "claimReward": {
+    "modal": {
+      "claimButton": {
+        "disabledLabel": "เลือกกลุ่มที่จะรับรางวัลจาก",
+        "enabledLabel": "รับรางวัล"
+      },
+      "claimOn": "รับบน {{appName}}",
+      "externalRewards": "รางวัลภายนอก",
+      "primeGroup": {
+        "disabledContractWarningMessage": "สัญญา Prime ถูกหยุดชั่วคราวอยู่ในขณะนี้ ดอกเบี้ยจาก Prime ยังคงสะสม แต่ไม่สามารถรับได้จนกว่าสัญญาจะถูกเปิดใช้งานอีกครั้ง",
+        "name": "Prime"
+      },
+      "rewards": "รางวัล",
+      "title": "รับรางวัล ({{chainName}})",
+      "vaultGroup": {
+        "disabledContractWarningMessage": "วอลต์นี้ถูกหยุดชั่วคราวอยู่ในขณะนี้ อัตราดอกเบี้ยยังคงสะสม แต่ไม่สามารถรับได้จนกว่าวอลต์จะถูกเปิดใช้งานอีกครั้ง",
+        "name": "วอลต์ {{stakedTokenSymbol}}"
+      },
+      "vestingVaultGroup": {
+        "name": "วอลต์เวสติ้ง {{stakedTokenSymbol}}"
+      }
+    }
+  },
+  "connectButton": {
+    "connect": "เชื่อมต่อกระเป๋า",
+    "disconnect": "ตัดการเชื่อมต่อ"
+  },
+  "connectWallet": {
+    "connectButton": "เชื่อมต่อกระเป๋า"
+  },
+  "eModeBanner": {
+    "exploreButtonLabel": "สำรวจ",
+    "illustrationAltText": "ภาพประกอบ E-mode",
+    "manageEModeButtonLabel": "จัดการ E-mode",
+    "title": "เพิ่มพลังการยืมของคุณด้วย E-Mode"
+  },
+  "errors": {
+    "couldNotRetrieveSigner": "ไม่สามารถดึง signer ได้ โปรดตรวจสอบว่ากระเป๋าของคุณถูกปลดล็อกแล้วและรีโหลดหน้า",
+    "couldNotSwitchChain": "ไม่สามารถสลับเชนได้ โปรดตรวจสอบว่ากระเป๋าของคุณถูกปลดล็อกแล้วและรีโหลดหน้า",
+    "missingAbstainDescription": "ข้อเสนอต้องมีคำอธิบายคะแนน 'งดออกเสียง'",
+    "missingAgainstDescription": "ข้อเสนอต้องมีคำอธิบายคะแนน 'คัดค้าน'",
+    "missingDescription": "ไม่มีคำอธิบายข้อเสนอในไฟล์",
+    "missingForDescription": "ข้อเสนอต้องมีคำอธิบายคะแนน 'เห็นด้วย'",
+    "missingParamForSignature": "ไม่มีพารามิเตอร์ที่สอดคล้องกับฟังก์ชัน",
+    "missingSafeWalletApiUrl": "ไม่สามารถดึง Safe transaction ได้เนื่องจากการตั้งค่าผิดพลาด",
+    "missingTargetForSignature": "ไม่มีเป้าหมายที่สอดคล้องกับฟังก์ชัน",
+    "missingTitle": "ข้อเสนอต้องมีชื่อ",
+    "noMetaKey": "ไม่มีข้อมูลเมตาในไฟล์",
+    "noParamsKey": "ไฟล์ไม่มีรายการพารามิเตอร์",
+    "noSignaturesKey": "ไม่มี call signatures ในไฟล์",
+    "noSwapQuoteFound": "ไม่พบสวอป โปรดอัปเดตฟอร์ม",
+    "noTargetsKey": "ไฟล์ไม่มีรายการเป้าหมาย",
+    "noTypeKey": "ไฟล์ไม่ได้ระบุประเภทของข้อเสนอ",
+    "proposalNotFound": "ไม่พบข้อเสนอ",
+    "somethingWentWrong": "เกิดข้อผิดพลาดบางอย่าง",
+    "somethingWentWrongRetrievingTransactions": "เกิดข้อผิดพลาดในการดึงธุรกรรม",
+    "somethingWentWrongRetrievingVoterAccounts": "เกิดข้อผิดพลาดในการดึงบัญชีผู้โหวต",
+    "somethingWentWrongRetrievingVoterDetails": "เกิดข้อผิดพลาดในการดึงรายละเอียดผู้โหวต",
+    "somethingWentWrongRetrievingVoterHistory": "เกิดข้อผิดพลาดในการดึงประวัติการโหวต",
+    "undefinedAccountErrorMessage": "ไม่ได้ระบุบัญชี",
+    "validationError": "การตรวจสอบล้มเหลวสำหรับข้อเสนอที่นำเข้า:",
+    "walletNotConnected": "ไม่ได้เชื่อมต่อกระเป๋า"
+  },
+  "errorState": {
+    "defaultMessage": "เกิดข้อผิดพลาด"
+  },
+  "footer": {
+    "links": {
+      "documentation": "เอกสาร",
+      "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+      "termsOfUse": "ข้อกำหนดการใช้งาน"
+    }
+  },
+  "gaslessTransactions": {
+    "chainLabel": "ฟรี",
+    "errorModal": {
+      "cancel": "ยกเลิก",
+      "description": "คุณยังสามารถส่งธุรกรรมนี้ได้โดยจ่ายค่าก๊าซเอง",
+      "resendButtonLabel": "ส่งใหม่พร้อมค่าก๊าซ",
+      "title": "ธุรกรรมแบบไม่ต้องจ่ายแก๊สยังไม่พร้อมใช้งานในตอนนี้"
+    },
+    "tooltip": {
+      "disabled": "เครือข่ายนี้รองรับธุรกรรมแบบไม่ต้องจ่ายแก๊ส แต่ฟีเจอร์นี้ถูกปิดในการตั้งค่าของคุณ ข้อมูลเพิ่มเติม <Link>ที่นี่</Link>",
+      "enabled": "ธุรกรรมบนเครือข่ายนี้ไม่ต้องจ่ายแก๊ส ไม่มีค่าธรรมเนียม ข้อมูลเพิ่มเติม <Link>ที่นี่</Link>"
+    }
+  },
+  "healthFactor": {
+    "label": {
+      "healthy": "ปลอดภัย",
+      "liquidation": "ชำระบัญชี",
+      "moderate": "ปานกลาง",
+      "risky": "เสี่ยง"
+    }
+  },
+  "importPositionsModal": {
+    "aave": {
+      "logoAlt": "โลโก้ของ Aave",
+      "title": "Aave"
+    },
+    "emptyState": "ไม่มีตำแหน่งภายนอกให้ย้ายเข้า",
+    "gasLess": {
+      "label": "ฟรี",
+      "tooltip": "ธุรกรรมเพื่อย้ายตำแหน่งของคุณไปยัง Venus ได้รับการสนับสนุนโดย Venus Protocol"
+    },
+    "infoSection": {
+      "1": {
+        "description": "แพลตฟอร์มเดียวที่มีอัตรา APY ที่บูสต์จากผลตอบแทนจริง",
+        "title": "ผลตอบแทนที่ดีกว่า"
+      },
+      "2": {
+        "description": "เข้าร่วมแพลตฟอร์ม DeFi ที่สร้างมูลค่าสูงสุดพร้อมการเติบโตอย่างสม่ำเสมอ",
+        "title": "ใช้เงินทุนได้มีประสิทธิภาพสูงสุด"
+      },
+      "3": {
+        "description": "สัญญาที่ผ่านการทดสอบจริงและได้รับการตรวจสอบมากที่สุดในวงการให้กู้",
+        "title": "ปลอดภัยสูงสุด"
+      },
+      "title": "ทำไมต้อง Venus?"
+    },
+    "limitNotice": "เฉพาะตำแหน่งที่มีมูลค่าระหว่าง <Number>{{min}}</Number> และ <Number>{{max}}</Number> เท่านั้นที่สามารถย้ายเข้า Venus ได้ในขณะนี้",
+    "position": {
+      "currentApy": {
+        "label": "APY ปัจจุบัน"
+      },
+      "importButtonLabel": "นำเข้า",
+      "missedYearlyGains": "คุณกำลังพลาด <Number><Gains /> / ปี</Number>",
+      "newApy": {
+        "label": "APY ของ Venus"
+      }
+    },
+    "title": "นำเข้าไปยัง Venus และรับผลตอบแทนมากขึ้น"
+  },
+  "interactive": {
+    "addToWallet": {
+      "modalTitle": "เพิ่มโทเคนไปยังกระเป๋า"
+    },
+    "copy": {
+      "address": {
+        "modalTitle": "คัดลอกที่อยู่โทเคน",
+        "name": "ที่อยู่",
+        "tooltip": "คัดลอกที่อยู่"
+      }
+    },
+    "copyToClipboard": "คัดลอก {{name}} ไปยังคลิปบอร์ดแล้ว",
+    "goTo": {
+      "modalTitle": "ไปยังสัญญาโทเคน"
+    }
+  },
+  "interestRateChart": {
+    "currentUtilizationRateLabelValue": "ปัจจุบัน ({{percentage}})",
+    "tooltipItemLabels": {
+      "borrowApy": "APY การยืม",
+      "supplyApy": "APY การฝาก",
+      "utilizationRate": "อัตราการใช้งาน"
+    }
+  },
+  "isolatedPoolsSunsetBanner": {
+    "description": "รับรางวัลของคุณและปิดตำแหน่งของคุณ",
+    "illustrationAltText": "ภาพประกอบ",
+    "title": "พูลแบบแยกกำลังจะยุติการให้บริการ"
+  },
+  "layout": {
+    "chainSelect": {
+      "label": "เลือกเชน"
+    },
+    "header": {
+      "liquidity": "สภาพคล่อง",
+      "maxLtv": {
+        "label": "LTV สูงสุด",
+        "tooltip": "LTV สูงสุดคือขีดจำกัดการยืม ที่ {{maxLtv}} LTV หลักประกัน 1 {{tokenSymbol}} สามารถยืมสกุลเงินมูลค่า {{userCollateralFactor}} {{tokenSymbol}} ได้"
+      },
+      "price": "ราคา",
+      "supply": "ฝาก",
+      "utilizationRate": "อัตราการใช้งาน"
+    },
+    "menu": {
+      "dashboard": {
+        "label": "แดชบอร์ด"
+      },
+      "label": "เมนู",
+      "markets": {
+        "label": "ตลาด"
+      },
+      "others": {
+        "bridge": {
+          "description": "TRANSLATION NEEDED",
+          "label": "บริดจ์"
+        },
+        "governance": {
+          "description": "TRANSLATION NEEDED",
+          "label": "การกำกับดูแล"
+        },
+        "isolatedPools": {
+          "description": "TRANSLATION NEEDED",
+          "label": "พูลแบบแยก"
+        },
+        "label": "อื่นๆ",
+        "port": {
+          "label": "พอร์ต"
+        },
+        "swap": {
+          "label": "สวอป"
+        },
+        "vai": {
+          "description": "TRANSLATION NEEDED",
+          "label": "VAI"
+        }
+      },
+      "settings": {
+        "gasLessTransactions": {
+          "label": "เปิดใช้ธุรกรรมแบบไม่ต้องจ่ายแก๊สบน {{chainName}}"
+        },
+        "language": {
+          "label": "ภาษา (เบต้า)"
+        }
+      },
+      "staking": {
+        "label": "สเตคกิ้ง"
+      },
+      "subMenuItem": {
+        "button": {
+          "label": "เริ่มต้นใช้งาน"
+        }
+      },
+      "venusLogoAlt": "โลโก้ Venus"
+    },
+    "settingsModal": {
+      "title": "การตั้งค่า"
+    },
+    "testEnvWarning": "นี่คือสภาพแวดล้อมทดสอบ ห้ามโต้ตอบเพื่อวัตถุประสงค์อื่นนอกเหนือจากการทดสอบ <Link>ไปยังเว็บไซต์ Venus Protocol อย่างเป็นทางการ</Link>"
+  },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "TRANSLATION NEEDED",
+          "label": "Venus Core"
+        },
+        "venusX": {
+          "description": "TRANSLATION NEEDED",
+          "label": "Venus X"
+        }
+      }
+    }
+  },
+  "markdownEditor": {
+    "markdownTabLabel": "เขียน",
+    "placeholder": "ไม่มีเนื้อหาให้พรีวิว",
+    "previewTabLabel": "พรีวิว"
+  },
+  "market": {
+    "borrowCapThreshold": {
+      "title": "ยอดยืมรวม",
+      "tooltip": "จำนวนสูงสุดที่ยืมได้คือ {{amountDollars}} ({{amountTokens}})<br />ขีดจำกัดการยืม: {{capTokens}}"
+    },
+    "borrowInfo": {
+      "title": "ข้อมูลการยืม"
+    },
+    "interestRateModel": {
+      "title": "โมเดลอัตราดอกเบี้ย"
+    },
+    "legends": {
+      "borrowApy": "APY การยืม",
+      "supplyApy": "APY การฝาก",
+      "utilizationRate": "อัตราการใช้งาน"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowerCountLabel": "จำนวนผู้ยืม",
+        "dailyBorrowingInterestsLabel": "ดอกเบี้ยการยืมรายวัน",
+        "dailyDistribution": "แจกจ่าย {{tokenSymbol}} รายวัน",
+        "dailySupplyingInterestsLabel": "ดอกเบี้ยการฝากรายวัน",
+        "exchangeRateLabel": "อัตราแลกเปลี่ยน",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "reserveFactorLabel": "ตัวคูณสำรอง",
+        "supplierCountLabel": "จำนวนผู้ฝาก"
+      }
+    },
+    "periodOption": {
+      "oneYear": "1ปี",
+      "sixMonths": "6ด",
+      "thirtyDays": "30ด"
+    },
+    "stats": {
+      "apy": "APY ปัจจุบัน",
+      "averageApy": "APY เฉลี่ย",
+      "liquidationPenalty": "บทลงโทษการชำระบัญชี",
+      "liquidationThreshold": "เกณฑ์การชำระบัญชี"
+    },
+    "supplyCapThreshold": {
+      "title": "ยอดฝากรวม",
+      "tooltip": "จำนวนสูงสุดที่ฝากได้คือ {{amountDollars}} ({{amountTokens}})"
+    },
+    "supplyInfo": {
+      "title": "ข้อมูลการฝาก"
+    }
+  },
+  "markets": {
+    "eMode": {
+      "group": {
+        "cannotDisable": {
+          "tooltip": {
+            "blockingPositions": "คุณไม่สามารถปิดกลุ่ม E-mode นี้ได้ เพราะมีตำแหน่งยืมที่มีสินทรัพย์ที่ยืมจากพูลนี้ไม่ได้ <Link>แสดงตำแหน่งของฉัน</Link>",
+            "notEnoughCollateral": "คุณไม่สามารถปิดกลุ่ม E-mode นี้ได้ เพราะมูลค่าหลักประกันรวมของคุณไม่ครอบคลุมยอดยืมรวม"
+          }
+        },
+        "cannotEnable": {
+          "modal": {
+            "description": "คุณต้องปิดตำแหน่งยืมต่อไปนี้เพื่อเปิดใช้กลุ่ม E-mode <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+            "repayButtonLabel": "ชำระคืน",
+            "title": "ตำแหน่งของคุณ"
+          },
+          "tooltip": {
+            "blockingPositions": "คุณไม่สามารถเปิดกลุ่ม E-mode นี้ได้ เพราะมีตำแหน่งยืมที่มีสินทรัพย์ที่ไม่อยู่ในกลุ่มนี้ <Link>แสดงตำแหน่งของฉัน</Link>",
+            "notEnoughCollateral": "คุณไม่สามารถเปิดกลุ่ม E-mode นี้ได้ เพราะมูลค่าหลักประกันรวมของคุณไม่ครอบคลุมยอดยืมรวม"
+          }
+        },
+        "disableButtonLabel": "ปิดใช้งาน",
+        "disabledNotice": "กลุ่ม E-Mode นี้ไม่ได้รับการสนับสนุนอีกต่อไป บัญชีของคุณกลับไปใช้พารามิเตอร์เริ่มต้น กรุณาสลับไปยังกลุ่ม E-mode อื่นที่มีให้ใช้หรือปิดใช้งาน",
+        "enableButtonLabel": "เปิดใช้งาน",
+        "healthFactor": "ตัวคูณความปลอดภัย:",
+        "switchButtonLabel": "สลับ"
+      },
+      "notice": "การเปิดใช้ E-Mode ช่วยเพิ่มพลังการยืมของคุณ แต่การยืมจะจำกัดเฉพาะสินทรัพย์ในกลุ่มที่เลือก <Link>เรียนรู้เพิ่มเติม</Link>",
+      "search": {
+        "placeholder": "ค้นหาสินทรัพย์หรือกลุ่ม"
+      },
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "ยืมได้",
+            "collateral": "หลักประกัน"
+          },
+          "rows": {
+            "liquidationPenalty": "บทลงโทษการชำระบัญชี",
+            "liquidationThreshold": "เกณฑ์การชำระบัญชี",
+            "maxLtv": "LTV สูงสุด"
+          }
+        },
+        "columns": {
+          "asset": "สินทรัพย์",
+          "collateral": "หลักประกัน",
+          "isBorrowable": "ยืมได้",
+          "liquidationPenalty": "บทลงโทษการชำระบัญชี",
+          "liquidationThreshold": "เกณฑ์การชำระบัญชี",
+          "maxLtv": "LTV สูงสุด",
+          "penalty": "บทลงโทษ",
+          "threshold": "เกณฑ์"
+        },
+        "mobileSelectLabel": "เรียงตาม:"
+      }
+    },
+    "errors": {
+      "accountError": "ต้องมีบัญชี - โปรดเชื่อมต่อกระเป๋า",
+      "collateralDisableError": "เกิดข้อผิดพลาดในการปิดใช้หลักประกัน - มีปัญหาในการปิดใช้ {{assetName}} เป็นหลักประกัน โปรดลองอีกครั้ง",
+      "collateralEnableError": "เกิดข้อผิดพลาดในการเปิดใช้หลักประกัน - มีปัญหาในการเปิดใช้ {{assetName}} เป็นหลักประกัน โปรดลองอีกครั้ง",
+      "collateralRequired": "ต้องมีหลักประกัน - โปรดชำระคืนสินทรัพย์ที่ยืมทั้งหมดหรือกำหนดสินทรัพย์อื่นเป็นหลักประกัน"
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "พลังการยืมของคุณจะเพิ่มขึ้นเมื่อฝากเฉพาะสินทรัพย์จากกลุ่ม {{ eModeGroupName }}",
+      "label": "แยก"
+    },
+    "tabs": {
+      "assets": {
+        "title": "สินทรัพย์"
+      },
+      "eMode": {
+        "illustrationAltText": "ภาพประกอบสายฟ้า",
+        "liquidationPenalty": {
+          "label": "บทลงโทษการชำระบัญชี"
+        },
+        "liquidationThreshold": {
+          "label": "เกณฑ์การชำระบัญชี"
+        },
+        "maxLtv": {
+          "label": "LTV สูงสุด",
+          "tooltip": "LTV สูงสุดคือขีดจำกัดการยืม ที่ {{maxLtv}} LTV หลักประกัน 1 {{tokenSymbol}} สามารถยืมสกุลเงินมูลค่า {{userCollateralFactor}} {{tokenSymbol}} ได้"
+        },
+        "title": "โหมด E"
+      }
+    }
+  },
+  "marketTable": {
+    "assetColumn": {
+      "eMode": "ตลาดนี้เป็นส่วนหนึ่งของกลุ่ม E-mode {{eModeGroupName}}",
+      "pausedAssetTooltip": "สินทรัพย์ถูกหยุดโดยการกำกับดูแลของ Venus การยืมและการฝากถูกปิดใช้งาน"
+    },
+    "columnKeys": {
+      "asset": "สินทรัพย์",
+      "borrowApy": "APY <InfoIcon />",
+      "borrowBalance": "ยอดยืมรวม",
+      "collateral": "หลักประกัน",
+      "labeledBorrowApy": "APY การยืม <InfoIcon />",
+      "labeledSupplyApy": "APY การฝาก <InfoIcon />",
+      "liquidity": "สภาพคล่อง",
+      "price": "ราคา",
+      "supplyApy": "APY <InfoIcon />",
+      "supplyBalance": "ยอดฝากรวม",
+      "userBorrowBalance": "ยอดคงเหลือ",
+      "userBorrowLimitSharePercentage": "% ของขีดจำกัด",
+      "userSupplyBalance": "ยอดคงเหลือ",
+      "userWalletBalance": "กระเป๋า"
+    },
+    "columnSelectOptionLabel": {
+      "asset": "สินทรัพย์",
+      "borrowApy": "APY การยืม",
+      "borrowBalance": "ยอดยืมรวม",
+      "collateral": "หลักประกัน",
+      "labeledBorrowApy": "APY การยืม",
+      "labeledSupplyApy": "APY การฝาก / LTV",
+      "liquidity": "สภาพคล่อง",
+      "price": "ราคา",
+      "supplyApy": "APY การฝาก / LTV",
+      "supplyBalance": "ยอดฝากรวม",
+      "userBorrowBalance": "ยอดยืมคงเหลือ",
+      "userBorrowLimitSharePercentage": "% ของขีดจำกัด",
+      "userSupplyBalance": "ยอดฝากคงเหลือ",
+      "userWalletBalance": "ยอดคงเหลือในกระเป๋า"
+    },
+    "columnTooltips": {
+      "borrowApy": "APY การยืมเป็นบวกหมายถึงคุณต้องจ่ายดอกเบี้ย และถ้าเป็นลบหมายถึงคุณจะได้รับดอกเบี้ย",
+      "supplyApy": "APY การฝากเป็นบวกหมายถึงคุณจะได้รับดอกเบี้ย และถ้าเป็นลบหมายถึงคุณต้องจ่ายดอกเบี้ย"
+    },
+    "pausedAssetsPlaceholder": {
+      "description": "โปรดเปิดสวิตช์ \"สินทรัพย์ที่หยุดไว้\" เพื่อดู",
+      "imgAlt": "ไอคอนหยุด",
+      "title": "สินทรัพย์ทั้งหมดในพูลนี้ถูกหยุดแล้ว"
+    },
+    "pausedAssetsToggle": {
+      "label": "สินทรัพย์ที่หยุดไว้"
+    },
+    "searchInput": {
+      "placeholder": "ค้นหาสินทรัพย์"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "เฉพาะสินทรัพย์ของฉัน"
+    },
+    "userEModeAssetsOnlyToggle": {
+      "label": "เฉพาะสินทรัพย์ E-mode"
+    }
+  },
+  "operationForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "ฉันรับทราบผลกระทบต่อราคาที่สูง",
+        "tooltip": "ธุรกรรมนี้คาดว่าจะมีผลกระทบต่อราคามากกว่า {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "ฉันรับทราบความเสี่ยงที่เกี่ยวข้อง",
+        "tooltip": "ตัวคูณความปลอดภัยของคุณจะต่ำหลังธุรกรรมนี้ เพิ่มความเสี่ยงต่อการชำระบัญชี"
+      }
+    },
+    "availableAmount": "ใช้ได้",
+    "boostTabAltText": "ไอคอนจรวด",
+    "boostTabTitle": "บูสต์",
+    "borrow": "ยืม",
+    "borrowTabTitle": "ยืม",
+    "collateral": "หลักประกัน",
+    "collateralField": {
+      "label": "หลักประกัน"
+    },
+    "error": {
+      "borrowCapReached": "ขีดจำกัดการยืมของ {{assetBorrowCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถยืมจากตลาดนี้ได้จนกว่าจะมีการชำระคืนหรือเพิ่มขีดจำกัดการยืม",
+      "higherThanAvailableAmount": "จำนวนที่กรอกมากกว่าจำนวนที่ใช้ได้",
+      "higherThanAvailableLiquidity": "สภาพคล่องของสินทรัพย์ไม่เพียงพอ",
+      "higherThanBorrowBalance": "จำนวนที่กรอกมากกว่ายอดยืมคงเหลือ",
+      "higherThanBorrowCap": "คุณไม่สามารถยืมเกิน {{userMaxBorrowAmount}} จากพูลนี้ได้ เนื่องจากขีดจำกัดการยืมของตลาดนี้ตั้งไว้ที่ {{assetBorrowCap}} และมีการยืมไปแล้ว {{assetBorrowBalance}}",
+      "higherThanRepayBalance": "จำนวนที่กรอกมากกว่ายอดชำระคืนคงเหลือ",
+      "higherThanSupplyCap": "คุณไม่สามารถฝากเกิน {{userMaxSupplyAmount}} ในพูลนี้ได้ เนื่องจากขีดจำกัดการฝากของตลาดนี้ตั้งไว้ที่ {{assetSupplyCap}} และมีการฝากแล้ว {{assetSupplyBalance}}",
+      "higherThanWalletBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
+      "higherThanWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
+      "insufficientSwapLiquidity": "สภาพคล่องใน PancakeSwap ไม่เพียงพอสำหรับการสวอปนี้",
+      "noCollateral": "คุณต้องฝากโทเคนและเปิดใช้เป็นหลักประกันก่อนจึงจะยืม {{tokenSymbol}} จากพูลนี้ได้",
+      "noSwapQuoteFound": "ไม่พบสวอป โปรดอัปเดตฟอร์ม",
+      "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป",
+      "supplyCapReached": "ขีดจำกัดการฝากของ {{assetSupplyCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถฝากเข้าสู่ตลาดนี้ได้จนกว่าจะมีการถอนหรือเพิ่มขีดจำกัดการฝาก",
+      "tooRisky": "ธุรกรรมนี้จะทำให้บัญชีของคุณถูกชำระบัญชี",
+      "unwrappingUnsupported": "ไม่รองรับการแกะห่อ",
+      "wrappingUnsupported": "ไม่รองรับการห่อ"
+    },
+    "receiveNativeToken": {
+      "label": "รับ {{tokenSymbol}}",
+      "tooltip": "แกะห่อ {{wrappedNativeTokenSymbol}} ที่ยืมมาเป็น {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "หนี้ที่ต้องชำระคืน"
+    },
+    "repay": {
+      "fullRepaymentWarning": "มูลค่าธุรกรรมอาจสูงกว่ายอดยืมปัจจุบันเล็กน้อยเพื่อครอบคลุมดอกเบี้ยที่สะสมใหม่",
+      "swappingWithHighPriceImpactWarning": "ผลกระทบต่อราคาของธุรกรรมนี้สูง ซึ่งอาจบ่งชี้ถึงการสวอปที่ไม่เป็นประโยชน์ โปรดตรวจสอบอัตราแลกเปลี่ยนและจำนวนโทเคนให้ตรงกับที่คาดหวัง"
+    },
+    "repayTab": {
+      "collateralTabTitle": "หลักประกัน",
+      "noCollateralWarning": "คุณไม่มีหลักประกันสำหรับชำระคืน",
+      "title": "ชำระคืน",
+      "walletBalanceTabTitle": "กระเป๋า"
+    },
+    "rightMaxButtonLabel": "สูงสุด",
+    "riskSlider": {
+      "highRisk": "ความเสี่ยงสูง",
+      "lowRisk": "ความเสี่ยงต่ำ"
+    },
+    "safeMaxButtonLabel": "สูงสุดแบบปลอดภัย",
+    "submitButtonLabel": {
+      "boost": "บูสต์",
+      "borrow": "ยืม",
+      "enterValidAmount": "ป้อนจำนวนที่ถูกต้อง",
+      "repay": "ชำระคืน",
+      "supply": "ฝาก",
+      "withdraw": "ถอน"
+    },
+    "supply": "ฝาก",
+    "supplyTabTitle": "ฝาก",
+    "swapDetails": {
+      "label": {
+        "repay": "คุณจะชำระคืน",
+        "supply": "คุณจะฝาก"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "swapSummary": {
+      "repay": "คุณจะชำระคืน {{toTokenAmount}} ด้วย {{fromTokenAmount}}",
+      "supply": "คุณจะฝาก {{toTokenAmount}} ด้วย {{fromTokenAmount}}"
+    },
+    "walletBalance": "ยอดคงเหลือในกระเป๋า",
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "ผลกระทบต่อราคาของธุรกรรมนี้สูง ซึ่งอาจบ่งชี้ถึงการสวอปที่ไม่เป็นประโยชน์ โปรดตรวจสอบอัตราแลกเปลี่ยนและจำนวนโทเคนให้ตรงกับที่คาดหวัง"
+    },
+    "withdrawTabTitle": "ถอน"
+  },
+  "pagination": {
+    "itemOf": "รายการที่ {{currentPageLastIndex}} จาก {{itemsCount}}",
+    "itemsOf": "รายการที่ {{firstItemNumber}} - {{currentPageLastIndex}} จาก {{itemsCount}}"
+  },
+  "poolsStats": {
+    "cell": {
+      "assetsLabel": "สินทรัพย์",
+      "availableLiquidityLabel": "สภาพคล่องที่ใช้ได้",
+      "dailyXvsDistributionLabel": "แจกจ่าย XVS รายวัน",
+      "totalBorrowLabel": "ยอดยืมรวม",
+      "totalSupplyLabel": "ยอดฝากรวม",
+      "treasuryLabel": "คลัง"
+    }
+  },
+  "primeButton": {
+    "primeLogoAlt": "โลโก้ Venus Prime"
+  },
+  "primeCalculator": {
+    "borrowedTokens": {
+      "infos": {
+        "label": "ยอดยืม {{tokenSymbol}} ที่มีคุณสมบัติ",
+        "tooltip": "ขีดจำกัดการยืม: {{borrowCapTokens}} ({{borrowCapUsd}})",
+        "tooltip_empty": "ขีดจำกัดการยืม: -"
+      },
+      "textField": {
+        "label": "ยืม {{tokenSymbol}}"
+      }
+    },
+    "rewardDetails": {
+      "fromBorrowedTokens": "จากการยืม {{tokenSymbol}}",
+      "fromSuppliedTokens": "จากการฝาก {{tokenSymbol}}",
+      "primeBorrowApy": {
+        "title": "APY การยืม Prime",
+        "tooltip": "Prime boost ที่จะเพิ่มไปยัง APY การยืมของตลาด <Link>เรียนรู้เพิ่มเติม</Link>"
+      },
+      "primeSupplyApy": {
+        "title": "APY การฝาก Prime",
+        "tooltip": "Prime boost ที่จะเพิ่มไปยัง APY การฝากของตลาด <Link>เรียนรู้เพิ่มเติม</Link>"
+      },
+      "title": "รายละเอียดรางวัล",
+      "totalDailyRewards": {
+        "title": "รางวัลรายวันรวม",
+        "tooltip": "จำนวนรางวัลทั้งหมดที่แจกให้ผู้ใช้ Prime ในหนึ่งวัน"
+      },
+      "yourDailyRewards": "รางวัลรายวันของคุณ"
+    },
+    "stakedTokens": {
+      "infos": {
+        "error": "เพื่อมีสิทธิรับรางวัล Prime ต้องสเตค XVS อย่างน้อย {{minimumXvsStaked}} โทเคน",
+        "label": "XVS ที่สเตคมีคุณสมบัติ",
+        "tooltip": "จะนับสูงสุด {{maximumXvsStaked}} สำหรับรางวัล Prime ของคุณ"
+      },
+      "textField": {
+        "label": "สเตค XVS"
+      }
+    },
+    "suppliedTokens": {
+      "infos": {
+        "label": "ยอดฝาก {{tokenSymbol}} ที่มีคุณสมบัติ",
+        "tooltip": "ขีดจำกัดการฝาก: {{supplyCapTokens}} ({{supplyCapUsd}})",
+        "tooltip_empty": "ขีดจำกัดการฝาก: -"
+      },
+      "textField": {
+        "label": "ฝาก {{tokenSymbol}}"
+      }
+    },
+    "tokenSelect": {
+      "label": "โทเคน"
+    },
+    "topMessage": "คุณสามารถใช้เครื่องคำนวณ Prime เพื่อประเมินรางวัลที่คุณจะได้รับจากการถือโทเคน Prime ตามตำแหน่งของคุณ <Link>เรียนรู้เพิ่มเติม</Link>"
+  },
+  "primeStatusBanner": {
+    "becomePrimeTitle": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว",
+    "claimButtonLabel": "รับโทเคน Prime",
+    "description": {
+      "primeCalculator": "สเตคเพิ่มอีก <WhiteText>{{stakeDelta}}</WhiteText> แล้วรอ {{claimWaitingPeriod}} เพื่อรับโทเคน Prime และบูสต์รายได้ของคุณ <Link>คำนวณรางวัล Prime ของคุณ</Link>",
+      "primeDoc": "สเตคเพิ่มอีก <WhiteText>{{stakeDelta}}</WhiteText> แล้วรอ {{claimWaitingPeriod}} เพื่อรับโทเคน Prime และบูสต์รายได้ของคุณ <Link>เรียนรู้เพิ่มเติม</Link>"
+    },
+    "noPrimeTokenWarning": {
+      "text": "โทเคน Prime ทั้งหมดถูกอ้างสิทธิ์แล้ว",
+      "tooltip": "โทเคน Prime ทั้งหมด {{primeTokenLimit}} โทเคนถูกอ้างสิทธิ์แล้วในขณะนี้ บางส่วนอาจพร้อมใช้งานหากเจ้าของไม่เข้าเกณฑ์อีกต่อไปหรือหากมีการเพิ่มจำนวน"
+    },
+    "progressBar": {
+      "ariaLabel": "ความคืบหน้า Prime ปัจจุบันของคุณ",
+      "label": "สเตคแล้ว: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+    },
+    "promotionalTitle": "เพิ่มรายได้ของคุณสูงสุด <GreenText>{{percentage}}</GreenText>",
+    "stakeButtonLabel": "สเตค XVS",
+    "tokensLeft": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
+    "tokensLeft_one": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
+    "tokensLeft_many": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
+    "tokensLeft_other": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} ก่อนที่จะรับรางวัล Prime ได้"
+  },
+  "probableBanner": {
+    "description": "เพิ่มความเชื่อมั่นของคุณบน probable.markets",
+    "probableAltText": "ภาพประกอบ Probable",
+    "title": "คุณเชื่อในสิ่งใดไหม?"
+  },
+  "proposalList": {
+    "selectOptions": {
+      "all": {
+        "label": "ทั้งหมด"
+      }
+    }
+  },
+  "proposalState": {
+    "active": "กำลังใช้งาน",
+    "bridged": "บริดจ์แล้ว",
+    "canceled": "ยกเลิกแล้ว",
+    "defeated": "ถูกปฏิเสธ",
+    "executed": "ดำเนินการแล้ว",
+    "expired": "หมดอายุ",
+    "failed": "ล้มเหลว",
+    "pending": "รอดำเนินการ",
+    "queued": "เข้าคิวแล้ว",
+    "succeeded": "สำเร็จ"
+  },
+  "select": {
+    "defaultLabel": "เลือกตัวเลือก"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "ค้นหาสินทรัพย์"
+    }
+  },
+  "spendingLimit": {
+    "label": "ขีดจำกัดการใช้จ่าย",
+    "labelTooltip": "นี่คือขีดจำกัดการใช้จ่ายปัจจุบันของสินทรัพย์นี้ หากต้องการใช้จ่ายมากขึ้น ให้ยกเลิกขีดจำกัดแล้วตั้งใหม่",
+    "revokeButtonTooltip": "ยกเลิกขีดจำกัดการใช้จ่าย"
+  },
+  "stakeModal": {
+    "availableTokensLabel": "{{tokenSymbol}} ที่ใช้ได้",
+    "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อสเตค {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อสเตค",
+    "submitButtonLabel": "สเตค",
+    "title": "สเตค {{tokenSymbol}}"
+  },
+  "swap": {
+    "errors": {
+      "amountAboveWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
+      "incorrectSwapInput": "ข้อมูลที่ป้อนสำหรับการสวอปไม่ถูกต้อง"
+    },
+    "swapDetails": {
+      "label": {
+        "exchangeRate": "อัตราแลกเปลี่ยน",
+        "maximumSold": "ขายสูงสุด",
+        "minimumReceived": "รับขั้นต่ำ",
+        "priceImpact": "ผลกระทบต่อราคา",
+        "slippageTolerance": "ความคลาดเคลื่อนที่ยอมรับได้"
+      },
+      "tooltip": {
+        "priceImpact": "ความแตกต่างระหว่างราคาตลาดและราคาที่คาดการณ์ เนื่องจากขนาดของการซื้อขาย"
+      },
+      "value": {
+        "exactAmount": "{{ value }}",
+        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+        "priceImpact": "{{ priceImpact }}"
+      }
+    },
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "ผลกระทบต่อราคาของธุรกรรมนี้สูง ซึ่งอาจบ่งชี้ถึงการสวอปที่ไม่เป็นประโยชน์ โปรดตรวจสอบอัตราแลกเปลี่ยนและจำนวนโทเคนให้ตรงกับที่คาดหวัง"
+    }
+  },
+  "swapDetails": {
+    "priceImpact": {
+      "label": "ผลกระทบต่อราคา"
+    },
+    "slippageTolerance": {
+      "label": "ความคลาดเคลื่อนที่ยอมรับได้"
+    },
+    "slippageToleranceModal": {
+      "description": "การตั้งค่าความคลาดเคลื่อนสูงอาจช่วยให้ธุรกรรมสำเร็จ แต่คุณอาจได้ราคาที่ไม่ดีนัก โปรดใช้ด้วยความระมัดระวัง",
+      "title": "ความคลาดเคลื่อนที่ยอมรับได้"
+    }
+  },
+  "swapPage": {
+    "connectWalletToSwap": "โปรดเชื่อมต่อกระเป๋าเพื่อสวอปโทเคน",
+    "fromTokenAmountField": {
+      "label": "จาก",
+      "max": "สูงสุด"
+    },
+    "submitButton": {
+      "disabledLabels": {
+        "insufficientLiquidity": "สภาพคล่องไม่เพียงพอสำหรับการสวอปนี้",
+        "insufficientUserBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
+        "invalidFromTokenAmount": "ป้อนจำนวนที่ถูกต้องเพื่อสวอป",
+        "priceImpactHigherThanMaximumTolerated": "ผลกระทบต่อราคาสูงเกินไป",
+        "processing": "กำลังประมวลผล",
+        "spendingLimitTooLow": "ขีดจำกัดการใช้จ่ายต่ำเกินไป",
+        "unwrappingUnsupported": "ไม่รองรับการแกะห่อ",
+        "wrappingUnsupported": "ไม่รองรับการห่อ"
+      },
+      "enabledLabels": {
+        "swap": "สวอป",
+        "swapWithHighPriceImpact": "สวอปด้วยผลกระทบต่อราคาสูง"
+      }
+    },
+    "toTokenAmountField": {
+      "label": "ถึง"
+    },
+    "walletBalance": "ยอดคงเหลือในกระเป๋า"
+  },
+  "switchChain": {
+    "switchButton": "สลับไปยัง {{chainName}}"
+  },
+  "switchChainNotice": {
+    "buttonLabel": "สลับไปยัง {{chainName}}",
+    "description": "คุณต้องสลับกระเป๋าไปยัง {{chainName}} เพื่อเปิดหรือปิดหลักประกัน"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "เรียงตาม"
+    }
+  },
+  "transactionErrors": {
+    "acceptAdminPendingAdminCheck": "ยอมรับแอดมิน (แอดมินค้างอยู่) ตรวจสอบ",
+    "acceptPendingImplementationAddressCheck": "ยอมรับที่อยู่ Implementation ที่ค้างอยู่ ตรวจสอบ",
+    "accrueInterestAccumulatedInterestCalculationFailed": "คำนวณดอกเบี้ยสะสมล้มเหลว",
+    "accrueInterestBorrowRateCalculationFailed": "คำนวณอัตราดอกเบี้ยการยืมล้มเหลว",
+    "accrueInterestNewBorrowIndexCalculationFailed": "คำนวณดัชนีการยืมใหม่ล้มเหลว",
+    "accrueInterestNewTotalBorrowsCalculationFailed": "คำนวณยอดยืมรวมใหม่ล้มเหลว",
+    "accrueInterestNewTotalReservesCalculationFailed": "คำนวณยอดสำรองรวมใหม่ล้มเหลว",
+    "accrueInterestSimpleInterestFactorCalculationFailed": "คำนวณปัจจัยดอกเบี้ยแบบง่ายล้มเหลว",
+    "addReservesAccrueInterestFailed": "เพิ่มสำรองแล้วคำนวณดอกเบี้ยล้มเหลว",
+    "addReservesFreshCheck": "เพิ่มสำรอง ตรวจสอบความสด",
+    "addReservesTransferInNotPossible": "เพิ่มสำรอง ไม่สามารถโอนเข้าได้",
+    "badInput": "อินพุตไม่ถูกต้อง",
+    "borrowAccrueInterestFailed": "คำนวณดอกเบี้ยการยืมล้มเหลว",
+    "borrowAccumulatedBalanceCalculationFailed": "คำนวณยอดยืมสะสมล้มเหลว",
+    "borrowCashNotAvailable": "เงินสดสำหรับยืมไม่เพียงพอ",
+    "borrowComptrollerRejection": "คอมป์โทรลเลอร์ปฏิเสธการยืม",
+    "borrowFreshnessCheck": "ตรวจสอบความสดของการยืม",
+    "borrowMarketNotListed": "ตลาดสำหรับยืมไม่ได้ลิสต์",
+    "borrowNewAccountBorrowBalanceCalculationFailed": "คำนวณยอดยืมใหม่ของบัญชีล้มเหลว",
+    "borrowNewTotalBalanceCalculationFailed": "คำนวณยอดรวมใหม่ของการยืมล้มเหลว",
+    "comptrollerCalculationError": "ข้อผิดพลาดในการคำนวณของ Comptroller",
+    "comptrollerMismatch": "Comptroller ไม่ตรงกัน",
+    "comptrollerRejection": "Comptroller ปฏิเสธ",
+    "exitMarketBalanceOwed": "ออกจากตลาด มียอดคงค้าง",
+    "exitMarketRejection": "ออกจากตลาดถูกปฏิเสธ",
+    "gasEstimationFailed": "การประเมินค่าก๊าซล้มเหลว",
+    "gaslessTransactionNotAvailable": "ธุรกรรมแบบไม่ต้องจ่ายแก๊สยังไม่พร้อมใช้งาน",
+    "insufficientBalanceForVai": "ยอดคงเหลือสำหรับ VAI ไม่เพียงพอ",
+    "insufficientLiquidity": "สภาพคล่องไม่เพียงพอ",
+    "insufficientShortfall": "ส่วนขาดไม่เพียงพอ",
+    "interestRateModelError": "ข้อผิดพลาดของโมเดลอัตราดอกเบี้ย",
+    "invalidAccountPair": "คู่บัญชีไม่ถูกต้อง",
+    "invalidCloseAmountRequested": "จำนวนปิดที่ร้องขอไม่ถูกต้อง",
+    "invalidCloseFactor": "ตัวคูณปิดไม่ถูกต้อง",
+    "invalidCollateralFactor": "ตัวคูณหลักประกันไม่ถูกต้อง",
+    "invalidLiquidationIncentive": "แรงจูงใจการชำระบัญชีไม่ถูกต้อง",
+    "liquidateAccrueBorrowInterestFailed": "ชำระบัญชี: คำนวณดอกเบี้ยการยืมล้มเหลว",
+    "liquidateAccrueCollateralInterestFailed": "ชำระบัญชี: คำนวณดอกเบี้ยหลักประกันล้มเหลว",
+    "liquidateCloseAmountIsUintMax": "ชำระบัญชี: จำนวนปิดเป็นค่าสูงสุดของ UINT",
+    "liquidateCloseAmountIsZero": "ชำระบัญชี: จำนวนปิดเป็นศูนย์",
+    "liquidateCollateralFreshnessCheck": "ชำระบัญชี: ตรวจสอบความสดของหลักประกัน",
+    "liquidateComptrollerCalculateAmountSeizeFailed": "ชำระบัญชี: คำนวณจำนวนยึดโดย Comptroller ล้มเหลว",
+    "liquidateComptrollerRejection": "ชำระบัญชี: Comptroller ปฏิเสธ",
+    "liquidateFreshnessCheck": "ชำระบัญชี: ตรวจสอบความสด",
+    "liquidateSeizeBalanceDecrementFailed": "ชำระบัญชี: ลดยอดคงเหลือที่ถูกยึดล้มเหลว",
+    "liquidateSeizeBalanceIncrementFailed": "ชำระบัญชี: เพิ่มยอดคงเหลือที่ถูกยึดล้มเหลว",
+    "liquidateSeizeBorrowFreshFailed": "ชำระบัญชี: ตรวจสอบความสดของการยืมล้มเหลว",
+    "liquidateSeizeComptrollerRejection": "ชำระบัญชี: Comptroller ปฏิเสธการยึด",
+    "liquidateSeizeIsBorrower": "ชำระบัญชี: ผู้ยึดเป็นผู้ยืม",
+    "liquidateSeizeLiquidatorIsBorrower": "ชำระบัญชี: ผู้ชำระบัญชีเป็นผู้ยืม",
+    "liquidateSeizeTooMuch": "ชำระบัญชี: ยึดมากเกินไป",
+    "marketAlreadyListed": "ตลาดถูกลิสต์แล้ว",
+    "marketNotEntered": "ยังไม่ได้เข้าตลาด",
+    "marketNotFresh": "ตลาดไม่สดใหม่",
+    "marketNotListed": "ตลาดไม่ได้ลิสต์",
+    "mathError": "ข้อผิดพลาดทางคณิตศาสตร์",
+    "mintAccrueInterestFailed": "มินต์: คำนวณดอกเบี้ยล้มเหลว",
+    "mintComptrollerRejection": "มินต์: Comptroller ปฏิเสธ",
+    "mintExchangeRateReadFailed": "มินต์: อ่านอัตราแลกเปลี่ยนล้มเหลว",
+    "mintFeeCalculationFailed": "มินต์: คำนวณค่าธรรมเนียมล้มเหลว",
+    "mintFreshnessCheck": "มินต์: ตรวจสอบความสด",
+    "mintNewAccountBalanceCalculationFailed": "มินต์: คำนวณยอดคงเหลือใหม่ของบัญชีล้มเหลว",
+    "mintNewTotalSupplyCalculationFailed": "มินต์: คำนวณยอดฝากรวมใหม่ล้มเหลว",
+    "mintTransferInFailed": "มินต์: โอนเข้าไม่สำเร็จ",
+    "mintTransferNotPossible": "มินต์: ไม่สามารถโอนเข้าได้",
+    "noError": "ไม่มีข้อผิดพลาด",
+    "nonzeroBorrowBalance": "ยอดยืมคงเหลือไม่เป็นศูนย์",
+    "priceError": "ข้อผิดพลาดด้านราคา",
+    "redeemAccrueInterestFailed": "ไถ่ถอน: คำนวณดอกเบี้ยล้มเหลว",
+    "redeemComptrollerRejection": "ไถ่ถอน: Comptroller ปฏิเสธ",
+    "redeemExchangeAmountCalculatioFailed": "ไถ่ถอน: คำนวณจำนวนแลกเปลี่ยนล้มเหลว",
+    "redeemExchangeRateReadFailed": "ไถ่ถอน: อ่านอัตราแลกเปลี่ยนล้มเหลว",
+    "redeemExchangeTokensCalculationFailed": "ไถ่ถอน: คำนวณโทเคนแลกเปลี่ยนล้มเหลว",
+    "redeemFeeCalculationFailed": "ไถ่ถอน: คำนวณค่าธรรมเนียมล้มเหลว",
+    "redeemFreshnessCheck": "ไถ่ถอน: ตรวจสอบความสด",
+    "redeemNewAccountBalanceCalculationFailed": "ไถ่ถอน: คำนวณยอดคงเหลือใหม่ของบัญชีล้มเหลว",
+    "redeemNewTotalSupplyCalculationFailed": "ไถ่ถอน: คำนวณยอดฝากรวมใหม่ล้มเหลว",
+    "redeemTransferOutNotPossible": "ไถ่ถอน: ไม่สามารถโอนออกได้",
+    "reduceReservesAccrueInterestFailed": "ลดสำรอง: คำนวณดอกเบี้ยล้มเหลว",
+    "reduceReservesAdminCheck": "ลดสำรอง: ตรวจสอบผู้ดูแล",
+    "reduceReservesCashNotAvailable": "ลดสำรอง: เงินสดไม่เพียงพอ",
+    "reduceReservesFreshCheck": "ลดสำรอง: ตรวจสอบความสด",
+    "reduceReservesValidation": "ลดสำรอง: ตรวจสอบความถูกต้อง",
+    "rejection": "ถูกปฏิเสธ",
+    "repayBehalfAccrueInterestFailed": "ชำระคืนแทน: คำนวณดอกเบี้ยล้มเหลว",
+    "repayBorrowAccrueInterestFailed": "ชำระคืน: คำนวณดอกเบี้ยการยืมล้มเหลว",
+    "repayBorrowAccumulatedBalanceCalculationFailed": "ชำระคืน: คำนวณยอดยืมสะสมล้มเหลว",
+    "repayBorrowComptrollerRejection": "ชำระคืน: Comptroller ปฏิเสธ",
+    "repayBorrowFreshnessCheck": "ชำระคืน: ตรวจสอบความสด",
+    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "ชำระคืน: คำนวณยอดยืมใหม่ของบัญชีล้มเหลว",
+    "repayBorrowTransferInNotPossible": "ชำระคืน: ไม่สามารถโอนเข้าได้",
+    "repayBorrowTransferNotPossible": "ชำระคืน: ไม่สามารถโอนได้",
+    "repayVaiComptrollerRejection": "ชำระคืน VAI: Comptroller ปฏิเสธ",
+    "repayVaiFreshnessCheck": "ชำระคืน VAI: ตรวจสอบความสด",
+    "setCloseFactorOwnerCheck": "ตั้งค่า Close Factor: ตรวจสอบผู้ถือสิทธิ์",
+    "setCloseFactorValidation": "ตั้งค่า Close Factor: ตรวจสอบความถูกต้อง",
+    "setCollateralFactorNoExists": "ตั้งค่า Collateral Factor: ไม่มีอยู่",
+    "setCollateralFactorOwnerCheck": "ตั้งค่า Collateral Factor: ตรวจสอบผู้ถือสิทธิ์",
+    "setCollateralFactorValidation": "ตั้งค่า Collateral Factor: ตรวจสอบความถูกต้อง",
+    "setCollateralFactorWithoutPrice": "ตั้งค่า Collateral Factor: ไม่มีราคา",
+    "setComptrollerOwnerCheck": "ตั้งค่า Comptroller: ตรวจสอบผู้ถือสิทธิ์",
+    "setImplementationOwnerCheck": "ตั้งค่า Implementation: ตรวจสอบผู้ถือสิทธิ์",
+    "setInterestRateModelAccrueInterestFailed": "ตั้งค่าโมเดลอัตราดอกเบี้ย: คำนวณดอกเบี้ยล้มเหลว",
+    "setInterestRateModelFreshCheck": "ตั้งค่าโมเดลอัตราดอกเบี้ย: ตรวจสอบความสด",
+    "setInterestRateModelOwnerCheck": "ตั้งค่าโมเดลอัตราดอกเบี้ย: ตรวจสอบผู้ถือสิทธิ์",
+    "setLiquidationIncentiveOwnerCheck": "ตั้งค่าแรงจูงใจการชำระบัญชี: ตรวจสอบผู้ถือสิทธิ์",
+    "setLiquidationIncentiveValidation": "ตั้งค่าแรงจูงใจการชำระบัญชี: ตรวจสอบความถูกต้อง",
+    "setMaxAssetsOwnerCheck": "ตั้งค่าสินทรัพย์สูงสุด: ตรวจสอบผู้ถือสิทธิ์",
+    "setMintedVaiRejection": "ตั้งค่า VAI ที่มินต์แล้ว: ถูกปฏิเสธ",
+    "setOracleMarketNotListed": "ตั้งค่า Oracle: ตลาดไม่ได้ลิสต์",
+    "setPauseGuardianOwnerCheck": "ตั้งค่า Pause Guardian: ตรวจสอบผู้ถือสิทธิ์",
+    "setPendingAdminOwnerCheck": "ตั้งค่า Pending Admin: ตรวจสอบผู้ถือสิทธิ์",
+    "setPendingImplementationOwnerCheck": "ตั้งค่า Pending Implementation: ตรวจสอบผู้ถือสิทธิ์",
+    "setPriceOracleOwnerCheck": "ตั้งค่า Price Oracle: ตรวจสอบผู้ถือสิทธิ์",
+    "setReserveFactorAccrueInterestFailed": "ตั้งค่า Reserve Factor: คำนวณดอกเบี้ยล้มเหลว",
+    "setReserveFactorAdminCheck": "ตั้งค่า Reserve Factor: ตรวจสอบผู้ดูแล",
+    "setReserveFactorBoundsCheck": "ตั้งค่า Reserve Factor: ตรวจสอบขอบเขต",
+    "setReserveFactorFreshCheck": "ตั้งค่า Reserve Factor: ตรวจสอบความสด",
+    "setTreasuryOwnerCheck": "ตั้งค่า Treasury: ตรวจสอบผู้ถือสิทธิ์",
+    "setVaiControllerOwnerCheck": "ตั้งค่า VAI Controller: ตรวจสอบผู้ถือสิทธิ์",
+    "setVaiMintRateCheck": "ตั้งค่า VAI Mint Rate: ตรวจสอบ",
+    "sftMintNewAccountBalanceCalculationFailed": "SFT มินต์: คำนวณยอดคงเหลือใหม่ของบัญชีล้มเหลว",
+    "snapshotError": "ข้อผิดพลาดของสแนปชอต",
+    "supportMarketExists": "รองรับตลาด: มีอยู่แล้ว",
+    "supportMarketOwnerCheck": "รองรับตลาด: ตรวจสอบผู้ถือสิทธิ์",
+    "tokenGetUnderlyingPriceError": "ข้อผิดพลาดในการดึงราคาสินทรัพย์อ้างอิงของโทเคน",
+    "tokenInsufficentCash": "เงินสดของโทเคนไม่เพียงพอ",
+    "tokenInsufficientAllowance": "การอนุมัติโทเคนไม่เพียงพอ",
+    "tokenInsufficientBalance": "ยอดคงเหลือโทเคนไม่เพียงพอ",
+    "tokenPriceError": "ข้อผิดพลาดด้านราคาโทเคน",
+    "tokenTransferInFailed": "โอนเข้าโทเคนล้มเหลว",
+    "tokenTransferOutFailed": "โอนออกโทเคนล้มเหลว",
+    "tooManyAssets": "มีสินทรัพย์มากเกินไป",
+    "tooMuchRepay": "จำนวนชำระคืนมากเกินไป",
+    "transferComptrollerRejection": "โอน: Comptroller ปฏิเสธ",
+    "transferNotAllowed": "ไม่อนุญาตให้โอน",
+    "transferNotEnough": "โอนไม่พอ",
+    "transferTooMuch": "โอนมากเกินไป",
+    "unauthorized": "ไม่ได้รับอนุญาต",
+    "vaiBurnRejection": "การเผา VAI ถูกปฏิเสธ",
+    "vaiLiquidateAccrueBorrowInterestFailed": "ชำระบัญชี VAI: คำนวณดอกเบี้ยการยืมล้มเหลว",
+    "vaiLiquidateAccrueCollateralInterestFailed": "ชำระบัญชี VAI: คำนวณดอกเบี้ยหลักประกันล้มเหลว",
+    "vaiLiquidateCloseAmountIsUintMax": "ชำระบัญชี VAI: จำนวนปิดเป็นค่าสูงสุดของ UINT",
+    "vaiLiquidateCloseAmountIsZero": "ชำระบัญชี VAI: จำนวนปิดเป็นศูนย์",
+    "vaiLiquidateCollateralFreshnessCheck": "ชำระบัญชี VAI: ตรวจสอบความสดของหลักประกัน",
+    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "ชำระบัญชี VAI: คำนวณจำนวนยึดโดย Comptroller ล้มเหลว",
+    "vaiLiquidateComptrollerRejection": "ชำระบัญชี VAI: Comptroller ปฏิเสธ",
+    "vaiLiquidateFreshnessCheck": "ชำระบัญชี VAI: ตรวจสอบความสด",
+    "vaiLiquidateLiquidatorIsBorrower": "ชำระบัญชี VAI: ผู้ชำระบัญชีเป็นผู้ยืม",
+    "vaiLiquidateRepayBorrowFreshFailed": "ชำระบัญชี VAI: ตรวจสอบความสดของการชำระคืนการยืมล้มเหลว",
+    "vaiLiquidateSeizeBalanceDecrementFailed": "ชำระบัญชี VAI: ลดยอดคงเหลือที่ถูกยึดล้มเหลว",
+    "vaiLiquidateSeizeBalanceIncrementFailed": "ชำระบัญชี VAI: เพิ่มยอดคงเหลือที่ถูกยึดล้มเหลว",
+    "vaiLiquidateSeizeComptrollerRejection": "ชำระบัญชี VAI: Comptroller ปฏิเสธการยึด",
+    "vaiLiquidateSeizeLiquidatorIsBorrower": "ชำระบัญชี VAI: ผู้ยึดเป็นผู้ยืม",
+    "vaiLiquidateSeizeTooMuch": "ชำระบัญชี VAI: ยึดมากเกินไป",
+    "vaiMintExchangeCalculationFailed": "มินต์ VAI: คำนวณการแลกเปลี่ยนล้มเหลว",
+    "vaiMintRejection": "มินต์ VAI ถูกปฏิเสธ"
+  },
+  "transactionNotification": {
+    "couldNotFetchReceipt": {
+      "title": "ไม่สามารถดึงสถานะธุรกรรมได้"
+    },
+    "failed": {
+      "title": "ธุรกรรมล้มเหลว"
+    },
+    "pending": {
+      "title": "กำลังยืนยันธุรกรรม"
+    },
+    "success": {
+      "title": "ยืนยันธุรกรรมแล้ว"
+    }
+  },
+  "vai": {
+    "borrow": {
+      "amountTokensInput": {
+        "limitButtonLabel": "สูงสุดแบบปลอดภัย"
+      },
+      "availableAmount": {
+        "label": "ใช้ได้",
+        "tooltip": "จำนวน VAI สูงสุดที่คุณสามารถยืมได้ ตามขีดจำกัดทั่วโลกและหลักประกันที่คุณฝากไว้"
+      },
+      "borrowApr": {
+        "label": "APR การยืม",
+        "tooltip": "อัตราดอกเบี้ยรายปีที่จะจ่ายในอนาคต นอกเหนือจาก VAI ที่มินต์แล้ว"
+      },
+      "fee": {
+        "label": "ค่าธรรมเนียม"
+      },
+      "notice": {
+        "amountHigherThanAccountMintableAmount": "จำนวนที่กรอกมากกว่าจำนวนที่ใช้ได้",
+        "amountHigherThanLiquidity": "จำนวนที่กรอกมากกว่าสภาพคล่อง VAI ที่ใช้ได้"
+      },
+      "primeOnlyWarning": "เฉพาะผู้ใช้ที่ถือโทเคน Prime เท่านั้นที่สามารถยืม VAI ได้ เรียนรู้เพิ่มเติมเกี่ยวกับ Prime <Link>ที่นี่</Link>.",
+      "submitButton": {
+        "borrowLabel": "ยืม",
+        "enterValidAmountLabel": "ป้อนจำนวนที่ถูกต้องเพื่อยืม"
+      },
+      "tabTitle": "ยืม"
+    },
+    "headerMessage": "VAI เป็นสเตเบิลคอยน์หลักของ Venus Protocol ยืม VAI โดยใช้หลักประกันที่คุณฝากไว้ <Link>เรียนรู้เพิ่มเติม</Link>",
+    "repay": {
+      "amountTokensInput": {
+        "limitButtonLabel": "สูงสุด"
+      },
+      "borrowApr": {
+        "label": "APR การยืม",
+        "tooltip": "อัตราดอกเบี้ยรายปีที่จะจ่ายในอนาคต นอกเหนือจาก VAI ที่มินต์แล้ว"
+      },
+      "notice": {
+        "amountHigherThanBorrowBalance": "จำนวนที่กรอกมากกว่ายอดชำระคืนคงเหลือ",
+        "amountHigherThanWalletBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
+        "amountHigherThanWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
+        "fullRepaymentWarning": "มูลค่าธุรกรรมอาจสูงกว่ายอดยืมปัจจุบันเล็กน้อยเพื่อครอบคลุมดอกเบี้ยที่สะสมใหม่"
+      },
+      "submitButton": {
+        "enterValidAmountLabel": "ป้อนจำนวนที่ถูกต้องเพื่อชำระคืน",
+        "repayLabel": "ชำระคืน"
+      },
+      "tabTitle": "ชำระคืน",
+      "walletBalance": {
+        "label": "ยอดคงเหลือในกระเป๋า"
+      }
+    }
+  },
+  "vault": {
+    "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนที่ค้างอยู่ให้เสร็จสิ้นเพื่อโต้ตอบกับวอลต์นี้",
+    "dailyEmission": "การปล่อยต่อวัน",
+    "pausedWarning": "วอลต์นี้ถูกหยุดชั่วคราวอยู่ในขณะนี้ อัตราดอกเบี้ยยังคงสะสม แต่การรับรางวัล การสเตค และการถอนถูกปิดใช้งานจนกว่าวอลต์จะถูกเปิดใช้งานอีกครั้ง",
+    "stakeButton": "สเตค",
+    "stakingApr": "APR การสเตค {{stakeTokenName}}",
+    "totalStaked": "ยอดสเตครวม",
+    "transactionForm": {
+      "lockingPeriod": {
+        "duration": "{{date, distanceToNow}}",
+        "label": "ระยะเวลาล็อก"
+      },
+      "rightMaxButtonLabel": "สูงสุด"
+    },
+    "withdrawButton": "ถอน",
+    "youAreStake": "คุณกำลังสเตคอยู่"
+  },
+  "vote": {
+    "abstain": "งดออกเสียง",
+    "addComment": "เพิ่มความคิดเห็น",
+    "against": "คัดค้าน",
+    "comment": "ความคิดเห็น",
+    "createProposalForm": {
+      "abstainOption": "ตัวเลือกงดออกเสียง",
+      "action": "การกระทำ",
+      "actions": "การกระทำ",
+      "addDescription": "เพิ่มคำอธิบาย (รองรับสไตล์ Markdown ขั้นพื้นฐาน)",
+      "addOneMoreAction": "+ เพิ่มการกระทำอีกหนึ่ง",
+      "address": "ที่อยู่",
+      "againstOption": "ตัวเลือกคัดค้าน",
+      "confirm": "ยืนยัน",
+      "create": "สร้าง",
+      "description": "คำอธิบาย",
+      "forOption": "ตัวเลือกเห็นด้วย",
+      "name": "ชื่อ",
+      "nextStep": "ขั้นตอนถัดไป",
+      "proposalName": "ชื่อข้อเสนอ",
+      "proposalType": "ประเภทข้อเสนอ",
+      "signature": "ลายเซ็น",
+      "submitError": "เกิดข้อผิดพลาดในการสร้างข้อเสนอของคุณ",
+      "votingOptions": "ตัวเลือกการโหวต"
+    },
+    "createProposalModal": {
+      "createManually": "สร้างด้วยตนเอง",
+      "createProposal": "สร้างข้อเสนอ",
+      "uploadFile": "อัปโหลดไฟล์",
+      "youCanEitherCreateManuallyOrUpload": "คุณสามารถสร้างข้อเสนอด้วยตนเองหรืออัปโหลดไฟล์ที่มีรายละเอียดก็ได้ หากเลือกอัปโหลดไฟล์ คุณสามารถใช้เทมเพลตนี้เป็นตัวอย่างได้: <Link>Github</Link>"
+    },
+    "createProposalPlus": "+ สร้างข้อเสนอ",
+    "delegate": "มอบสิทธิ์",
+    "delegateAddress": "ที่อยู่ผู้รับมอบสิทธิ์",
+    "delegateLeaderboard": "ลีดเดอร์บอร์ดผู้รับมอบสิทธิ์",
+    "delegateVotes": "คะแนนที่มอบสิทธิ์",
+    "delegateVoting": "การโหวตแบบมอบสิทธิ์",
+    "delegateYourVoting": "2. <Anchor>มอบสิทธิ์การโหวตของคุณ</Anchor> ให้กับตนเองหรือผู้อื่น",
+    "depositXvs": "ฝาก XVS",
+    "depositYourTokens": "1. <Link>ฝากโทเคนของคุณ</Link> ใน XVS Vault ",
+    "enterContactAddress": "ป้อนที่อยู่ติดต่อ",
+    "errorState": {
+      "buttonLabel": "ลองอีกครั้ง",
+      "message": "ดึงข้อเสนอไม่สำเร็จ"
+    },
+    "for": "เห็นด้วย",
+    "goToXvsSnapshot": "ไปยัง XVS Snapshot",
+    "omnichain": {
+      "switchToBnb": "สลับไปยัง BNB Chain",
+      "votingOnlyEnabledOnBnb": "การโหวตใช้ได้เฉพาะบน BNB Chain เท่านั้น"
+    },
+    "pages": {
+      "actions": "3 จาก 3 การกระทำ",
+      "confirmation": "ยืนยัน",
+      "proposalInformation": "1 จาก 3 ข้อมูลข้อเสนอ",
+      "votingOptions": "2 จาก 3 ตัวเลือกการโหวต"
+    },
+    "pasteYourAddress": "วางที่อยู่ของคุณ",
+    "pleasePayAttention": "โปรดให้ความสนใจ",
+    "proposals": "ข้อเสนอ",
+    "proposalStateFilter": {
+      "label": "สถานะ"
+    },
+    "proposalType": {
+      "critical": "สำคัญมาก",
+      "fastTrack": "เร่งด่วน",
+      "normal": "ปกติ"
+    },
+    "redelegate": "มอบสิทธิ์ใหม่",
+    "redelegateVoting": "การโหวตแบบมอบสิทธิ์ใหม่",
+    "requiredVotingPower": "คุณต้องมีพลังโหวต 300k เพื่อสร้างข้อเสนอ",
+    "searchInput": {
+      "placeholder": "ค้นหาข้อเสนอ"
+    },
+    "summaryProgressBar": "แถบสรุปการโหวต - {{voteType}}",
+    "totalLocked": "ยอดล็อกทั้งหมด",
+    "toVoteYouShould": "หากต้องการโหวต คุณควร:",
+    "voteAbstain": "โหวตงดออกเสียง",
+    "voteAgainst": "โหวตคัดค้าน",
+    "voteFor": "โหวตเห็นด้วย",
+    "votingPower": "พลังโหวต",
+    "votingWallet": "กระเป๋าโหวต",
+    "votingWeight": "น้ำหนักโหวต",
+    "youCanDelegateVotes": "คุณสามารถมอบสิทธิ์การโหวตให้ตัวเองหรือผู้อื่น หากทราบที่อยู่ที่จะมอบสิทธิ์ ให้กรอกลงด้านล่าง หากไม่ทราบ คุณสามารถดูลีดเดอร์บอร์ดผู้รับมอบสิทธิ์เพื่อค้นหาพรรคการเมืองที่ต้องการสนับสนุน",
+    "youDelegatedTo": "คุณได้มอบสิทธิ์โทเคนที่ล็อกไว้ให้กับ {{delegate}}"
+  },
+  "voteProposalUi": {
+    "activeUntilDate": "ใช้งานจนถึง: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "canceledDate": "ยกเลิกแล้ว: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "command": {
+      "actionButton": {
+        "cancel": "ยกเลิก",
+        "execute": "ดำเนินการ",
+        "queue": "คิว"
+      },
+      "dates": {
+        "activeAt": "รอดำเนินการจนถึง {{date, }}",
+        "executableAt": "ดำเนินการได้ที่ {{date, }}",
+        "previousStep": "{{date, }}",
+        "queueableAt": "เข้าคิวได้ที่ {{date, }}"
+      },
+      "description": {
+        "bridged": "กำลังรอให้บริดจ์เผยแพร่ธุรกรรม",
+        "canceled": "การดำเนินการ payload ถูกยกเลิกโดย governance guardian",
+        "failed": "ไม่สามารถส่ง payload ไปยังเครือข่ายปลายทางได้",
+        "pending": "กำลังรอให้ดำเนินการ payload บน {{chainName}}",
+        "pendingBsc": "กำลังรอให้เริ่มการโหวต",
+        "waitingToBeExecutable": "กำลังรอให้สิ้นสุดช่วงเข้าคิว",
+        "wrongChain": "payload นี้ต้องถูกดำเนินการบนเชน {{chainName}}"
+      },
+      "operations": {
+        "title": "การดำเนินการ"
+      },
+      "status": {
+        "pending": "รอดำเนินการ"
+      }
+    },
+    "commands": {
+      "allPayloadsExecuted": "ดำเนินการ payload ทั้งหมดแล้ว",
+      "somePayloadsExecuted": "payload ที่ดำเนินการแล้ว",
+      "title": "คำสั่ง"
+    },
+    "countdownFormat": {
+      "daysIncluded": "{{days}}วัน : {{hours}}ชม. : {{minutes}}น. : {{seconds}}วิ.",
+      "hoursIncluded": "{{hours}}ชม. : {{minutes}}น. : {{seconds}}วิ.",
+      "minutesIncluded": "{{minutes}}น. : {{seconds}}วิ.",
+      "secondsIncluded": "{{seconds}}วิ."
+    },
+    "defeatedDate": "ถูกปฏิเสธ: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "description": "คำอธิบาย",
+    "executedDate": "ดำเนินการแล้ว: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "expiredDate": "หมดอายุ: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "greenPulseAnimation": {
+      "altText": "แอนิเมชันพัลส์สีเขียว"
+    },
+    "proposalState": {
+      "activeTimestamp": "ใช้งานตั้งแต่: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "canceledTimestamp": "ยกเลิก: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeatedTimestamp": "ถูกปฏิเสธ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "executedTimestamp": "ดำเนินการแล้ว: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "expiredTimestamp": "หมดอายุ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "queuedTimestamp": "เข้าคิว: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "สำเร็จ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+    },
+    "queuedUntilDate": "เข้าคิวจนถึง: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "status": {
+      "executedPayloads": "payload ที่ดำเนินการแล้ว",
+      "readyForExecution": "พร้อมดำเนินการ",
+      "readyForQueuing": "พร้อมเข้าคิว"
+    },
+    "statusCard": {
+      "ariaLabelAbstain": "เสียงงดออกเสียง",
+      "ariaLabelAgainst": "เสียงคัดค้าน",
+      "ariaLabelFor": "เสียงเห็นด้วย"
+    },
+    "timeUntilExecutable": "ดำเนินการได้ที่: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilVotable": "เริ่มโหวตที่: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "voteStatus": {
+      "abstained": "งดออกเสียง",
+      "notVoted": "ยังไม่ได้โหวต",
+      "votedAgainst": "โหวตคัดค้าน",
+      "votedFor": "โหวตเห็นด้วย"
+    },
+    "votingOptions": "ตัวเลือกการโหวต"
+  },
+  "voterDetail": {
+    "actions": "การกระทำ",
+    "amount": "จำนวน",
+    "delegated": "มอบสิทธิ์แล้ว",
+    "delegatingTo": "มอบสิทธิ์ให้",
+    "holding": "ถือครอง",
+    "proposalNumber": "ข้อเสนอ #",
+    "transactions": "ธุรกรรม",
+    "undelegated": "ไม่ได้มอบสิทธิ์",
+    "venusBalance": "ยอดคงเหลือ Venus",
+    "viewAll": "ดูทั้งหมด",
+    "votedAbstain": "โหวตงดออกเสียง",
+    "votedAgainst": "โหวตคัดค้าน",
+    "votedFor": "โหวตเห็นด้วย",
+    "votes": "โหวต",
+    "votingHistory": "ประวัติการโหวต"
+  },
+  "voterLeaderboard": {
+    "addressesByVotingWeight": "ที่อยู่ตามน้ำหนักโหวต",
+    "columns": {
+      "proposalsVoted": "จำนวนข้อเสนอที่โหวต",
+      "rank": "อันดับ",
+      "votes": "คะแนนโหวต",
+      "voteWeight": "น้ำหนักโหวต"
+    }
+  },
+  "voteSummary": {
+    "addresses_zero": "{{count}} ที่อยู่",
+    "addresses_one": "{{count}} ที่อยู่",
+    "addresses_other": "{{count}} ที่อยู่",
+    "votes": "คะแนนโหวต"
+  },
+  "wallets": {
+    "errors": {
+      "noProvider": "ไม่สามารถเชื่อมต่อได้ ตรวจสอบว่ากระเป๋าที่คุณเลือกติดตั้งในเบราว์เซอร์แล้ว"
+    }
+  },
+  "web3DomainNames": {
+    "providers": {
+      "ens": "ชื่อ ENS",
+      "spaceId": "ชื่อ Space ID"
+    },
+    "tooltip": {
+      "address": "({{address}})"
+    }
+  },
+  "withdrawFromVaiVaultModal": {
+    "availableTokensLabel": "{{tokenSymbol}} ที่ใช้ได้",
+    "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อถอน",
+    "submitButtonLabel": "ถอน",
+    "title": "ถอน {{tokenSymbol}}"
+  },
+  "withdrawFromVestingVaultModalModal": {
+    "displayWithdrawalRequestListButton": "รายการคำขอถอน",
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน"
+      },
+      "availableTokensLabel": "{{tokenSymbol}} ที่ขอได้",
+      "displayWithdrawalRequestListButton": "รายการคำขอถอน",
+      "primeLossWarning": {
+        "message": "คุณจะสูญเสียโทเคน Prime หากถอนจำนวนนี้ เนื่องจากการสเตคใน XVS vault ของคุณจะต่ำกว่าขั้นต่ำที่ต้องการ {{minimumXvsStake}} เพื่อมีสิทธิ์ Prime.",
+        "submitButtonLabel": "เสียโทเคน Prime และขอถอน"
+      },
+      "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อขอถอน",
+      "submitButtonLabel": "ขอถอน"
+    },
+    "requestWithdrawalTabTitle": "ขอถอน",
+    "title": "ถอน {{tokenSymbol}}",
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อดูคำขอถอน"
+      },
+      "emptyState": "คุณไม่มีคำขอถอนที่ใช้งานอยู่",
+      "itemContent": "ล็อกจนถึง {{date, dd.MM.yy h:mm a}}"
+    },
+    "withdrawalRequestListTitle": "รายการคำขอถอน",
+    "withdrawTab": {
+      "approveToken": {
+        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน"
+      },
+      "availableTokens": "{{tokenSymbol}} ที่ใช้ได้",
+      "submitButton": "ถอน"
+    },
+    "withdrawTabTitle": "ถอน"
+  }
+}

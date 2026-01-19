@@ -12,7 +12,7 @@ export interface SelectProps<TValue extends string | number = string | number> {
   value: TValue;
   options: SelectOption<TValue>[];
   optionClassName?: DropdownProps['optionClassName'];
-  onChange: (newValue: SelectOption<TValue>['value']) => void;
+  onChange: (newValue: TValue) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   name?: string;
   'data-testid'?: string;

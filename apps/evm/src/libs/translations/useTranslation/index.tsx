@@ -10,7 +10,7 @@ interface TransProps extends Omit<I18NextTransProps<'t'>, 't' | 'i18nKey'> {
 }
 
 export const useTranslation = () => {
-  const { t } = useI18NextTranslation();
+  const { t, i18n } = useI18NextTranslation();
 
   const Trans: React.FC<TransProps> = useCallback(
     ({ children, ...otherProps }) => (
@@ -24,5 +24,6 @@ export const useTranslation = () => {
   return {
     t,
     Trans,
+    i18n,
   };
 };
