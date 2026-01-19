@@ -228,6 +228,9 @@
       "label": "ยอดคงเหลือในกระเป๋า"
     }
   },
+  "burnedWBnbButton": {
+    "iconAlt": "TRANSLATION NEEDED"
+  },
   "chainExplorerLink": {
     "content": "ดูบน {{domainName}}"
   },

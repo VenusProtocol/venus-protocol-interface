@@ -228,6 +228,9 @@
       "label": "Cüzdan bakiyesi"
     }
   },
+  "burnedWBnbButton": {
+    "iconAlt": "TRANSLATION NEEDED"
+  },
   "chainExplorerLink": {
     "content": "{{domainName}} üzerinde görüntüle"
   },
@@ -464,75 +467,75 @@
   },
   "landing": {
     "benefits": {
-      "text1": "Değiştirilemez bir para piyasasına doğrudan zincir üzerinde erişin.",
-      "text2": "Tüm Venus Protocol varlıkları BEP-20 ve ERC-20 standartlarına bağlıdır.",
-      "text3": "Hızlı, güvenli ve düşük maliyetli işlemler için EVM uyumlu zincirler üzerinde inşa edilmiştir.",
-      "title1": "Merkeziyetsiz",
-      "title2": "BEP-20/ERC-20",
-      "title3": "Omnichain"
+      "text1": "TRANSLATION NEEDED",
+      "text2": "TRANSLATION NEEDED",
+      "text3": "TRANSLATION NEEDED",
+      "title1": "TRANSLATION NEEDED",
+      "title2": "TRANSLATION NEEDED",
+      "title3": "TRANSLATION NEEDED"
     },
     "governance": {
-      "backgroundGradientAlt": "Arka plan illüstrasyonu",
-      "buttonLabel": "Yönetim forumu",
-      "description": "Venus, kripto para piyasaları için sınıfının en iyisi işlevsellik sunan, topluluk odaklı merkeziyetsiz bir protokoldür.",
-      "proposalCountLegend": "Uygulanan Venus İyileştirme Önerileri ve artmaya devam ediyor",
-      "title": "Topluluk tarafından yönetilen<br />para piyasaları"
+      "backgroundGradientAlt": "TRANSLATION NEEDED",
+      "buttonLabel": "TRANSLATION NEEDED",
+      "description": "TRANSLATION NEEDED",
+      "proposalCountLegend": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
     },
     "hero": {
-      "1Year": "1Y",
-      "30Day": "30G",
-      "6Month": "6A",
-      "assets": "Varlıklar",
-      "borrow": "Borç al",
-      "earned": "Kazanılan",
-      "earnedAmount": "Kazanılan {{amount}}",
-      "from": "{{percentage}}'den",
-      "highestApy": "En yüksek APY",
-      "monthNo": "{{number}}. ay",
-      "startNow": "Şimdi başla",
-      "subtitle": "Her DeFi getiri stratejisi için basit ama güçlü borç verme ve borç alma.",
-      "supply": "Arz",
-      "supplyTips": "$10,000 başlangıç yatırımı baz alınmıştır, kazançlar aylık bileşiklenir.",
-      "title": "Evrensel<br /><hl>Para Piyasaları</hl>",
-      "totalApy": "Toplam APY",
-      "upToPercentage": "{{percentage}}'e kadar",
-      "venusTvl": "Venus TVL",
-      "yearlyEarnings": "Yıllık kazanç",
-      "yearlyInterests": "Yıllık faiz"
+      "1Year": "TRANSLATION NEEDED",
+      "30Day": "TRANSLATION NEEDED",
+      "6Month": "TRANSLATION NEEDED",
+      "assets": "TRANSLATION NEEDED",
+      "borrow": "TRANSLATION NEEDED",
+      "earned": "TRANSLATION NEEDED",
+      "earnedAmount": "TRANSLATION NEEDED",
+      "from": "TRANSLATION NEEDED",
+      "highestApy": "TRANSLATION NEEDED",
+      "monthNo": "TRANSLATION NEEDED",
+      "startNow": "TRANSLATION NEEDED",
+      "subtitle": "TRANSLATION NEEDED",
+      "supply": "TRANSLATION NEEDED",
+      "supplyTips": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "totalApy": "TRANSLATION NEEDED",
+      "upToPercentage": "TRANSLATION NEEDED",
+      "venusTvl": "TRANSLATION NEEDED",
+      "yearlyEarnings": "TRANSLATION NEEDED",
+      "yearlyInterests": "TRANSLATION NEEDED"
     },
     "markets": {
       "button": {
-        "label": "Daha fazlasını keşfet"
+        "label": "TRANSLATION NEEDED"
       },
-      "title": "Venus'taki en iyi piyasalar"
+      "title": "TRANSLATION NEEDED"
     },
     "protection": {
-      "bugBountyAlt": "Hata ödülü illüstrasyonu",
-      "challengeText": "Kodumuzdaki açıkları bulun ve ödül kazanmak için bildirin. Daha fazla bilgi için hata ödülü programımızı okuyun.",
-      "challengeTitle": "Kodumuza meydan okuyun ve ödüllendirilin",
-      "protectionAlt": "Koruma illüstrasyonu",
-      "protectionText": "Güvenlik denetimleri, 7/24 izleme ve sağlam bir risk fonu, sıra dışı piyasa olaylarında protokolü güvende tutar.",
-      "protectionTitle": "Koruma öncelikli"
+      "bugBountyAlt": "TRANSLATION NEEDED",
+      "challengeText": "TRANSLATION NEEDED",
+      "challengeTitle": "TRANSLATION NEEDED",
+      "protectionAlt": "TRANSLATION NEEDED",
+      "protectionText": "TRANSLATION NEEDED",
+      "protectionTitle": "TRANSLATION NEEDED"
     },
     "safety": {
-      "audit_one": "Denetim",
-      "audit_other": "Denetimler",
-      "otherAuditors": "+14 denetim <br />Fairyproof, Hacken ve HashEx ile",
-      "scoreAlt": "Puan illüstrasyonu",
-      "securityScore": "Güvenlik Puanı",
-      "text": "Venus'un varlıklarınızın güvenliğini her şeyin önüne koyduğunu bilerek güvenle işlem yapın",
-      "title": "Önce güvenlik",
-      "venusScored": "Venus, Certik tarafından yapılan değerlendirmede BNB Chain'de güvenlikte <Link>3. en yüksek</Link> puanı aldı (Haziran 2021)"
+      "audit_one": "TRANSLATION NEEDED",
+      "audit_other": "TRANSLATION NEEDED",
+      "otherAuditors": "TRANSLATION NEEDED",
+      "scoreAlt": "TRANSLATION NEEDED",
+      "securityScore": "TRANSLATION NEEDED",
+      "text": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "venusScored": "TRANSLATION NEEDED"
     },
     "venusPrime": {
-      "illustrationAlt": "Venus Prime illüstrasyonu",
-      "imageAlt": "Venus Prime illüstrasyonu",
-      "learnMore": "Daha fazla bilgi edin",
-      "text": "Venus Protocol’ün güçlü kullanıcıları Venus Prime Token mint ederek Venus core havuzundaki seçili piyasalarda üstün oranlardan yararlanabilir.",
-      "title": "<hl>Venus Prime</hl> <br />getirilerinizi artırır"
+      "illustrationAlt": "TRANSLATION NEEDED",
+      "imageAlt": "TRANSLATION NEEDED",
+      "learnMore": "TRANSLATION NEEDED",
+      "text": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
     },
     "wallets": {
-      "title": "Birçok kişi tarafından güveniliyor"
+      "title": "TRANSLATION NEEDED"
     }
   },
   "layout": {
