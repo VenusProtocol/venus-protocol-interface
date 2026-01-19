@@ -1,12 +1,15 @@
-import { Button, Icon, Tooltip, cn } from 'components';
+import { ButtonWrapper, Icon, Tooltip, cn } from 'components';
+import {
+  TokenChainIconWithSymbol,
+  type TokenChainIconWithSymbolProps,
+} from 'components/TokenChainIconWithSymbol';
 import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import { Link } from 'react-router';
-import { CoinWithLogo, type CoinWithLogoProps } from './CoinWithLogo';
 
 const rowClassName = cn('flex justify-between items-center gap-6');
 
-export const Borrow: React.FC<CoinWithLogoProps> = ({ asset, chain, className }) => {
+export const Borrow: React.FC<TokenChainIconWithSymbolProps> = ({ token, chain, className }) => {
   const { t, Trans } = useTranslation();
   return (
     <div className={cn('text-[20px] leading-normal font-semibold w-full', className)}>
@@ -18,7 +21,7 @@ export const Borrow: React.FC<CoinWithLogoProps> = ({ asset, chain, className })
       </div>
 
       <div className={cn(rowClassName, 'mt-6 py-4 sm:py-0')}>
-        <CoinWithLogo asset={asset} chain={chain} />
+        <TokenChainIconWithSymbol token={token} chain={chain} />
         <div className="flex items-center justify-end text-end text-light-grey gap-1.5">
           {'$10,000' /* TODO */}
           <Tooltip
@@ -37,11 +40,11 @@ export const Borrow: React.FC<CoinWithLogoProps> = ({ asset, chain, className })
         <div className="text-end">{'≈$42' /* TODO */}</div>
       </div>
 
-      <Link to={routes.dashboard.path}>
-        <Button className="mt-6 h-12 w-full" variant="tertiary">
+      <ButtonWrapper asChild className="mt-6 h-12 w-full" variant="tertiary">
+        <Link to={routes.dashboard.path} noStyle>
           {t('landing.hero.getStarted')}
-        </Button>
-      </Link>
+        </Link>
+      </ButtonWrapper>
     </div>
   );
 };

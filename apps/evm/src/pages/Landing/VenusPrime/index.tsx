@@ -1,5 +1,6 @@
-import { Button, cn } from 'components';
+import { ButtonWrapper, cn } from 'components';
 
+import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import venuePrimeXs from './assets/venusPrimeLogo375.png';
 import venuePrimeSm from './assets/venusPrimeLogo640.png';
@@ -61,9 +62,11 @@ export const VenusPrime: React.FC = () => {
           </h2>
           <p className="m-0 mb-10">{t('landing.venusPrime.text')}</p>
 
-          <a className="w-fit" href="https://docs-v4.venus.io/whats-new/prime-yield">
-            <Button className="w-fit">{t('landing.venusPrime.learnMore')}</Button>
-          </a>
+          <ButtonWrapper asChild>
+            <Link className="w-fit" href="https://docs-v4.venus.io/whats-new/prime-yield" noStyle>
+              {t('landing.venusPrime.learnMore')}
+            </Link>
+          </ButtonWrapper>
         </div>
       </div>
     </div>

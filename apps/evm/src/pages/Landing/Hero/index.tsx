@@ -3,7 +3,7 @@ import { Wrapper } from 'components';
 import { useTranslation } from 'libs/translations';
 import { Galaxy } from './Galaxy';
 import { HeroTabs } from './HeroTabs';
-import CoinIconRow from './assets/coinIconRow.png';
+import CoinIconRow from './assets/coinIconRow.svg';
 
 export const Hero: React.FC = () => {
   const { t, Trans } = useTranslation();
@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
               loading="lazy"
               src={CoinIconRow}
               alt="coin-logos"
-              className="h-10 mt-4 mx-auto xl:mx-0"
+              className="h-6 sm:h-10 mt-4 mx-auto xl:mx-0"
             />
             <div className="pb-6 pt-12 xl:pt-30">
               <div className="text-[16px] sm:text-[24px]">{t('landing.hero.venusTvl')}</div>

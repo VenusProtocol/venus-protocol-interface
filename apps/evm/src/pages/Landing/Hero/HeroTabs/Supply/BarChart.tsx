@@ -11,7 +11,6 @@ import {
   YAxis,
 } from 'recharts';
 import type { DataKey } from 'recharts/types/util/types';
-import { DEFAULT_AMOUNT } from '.';
 import IconUSD from './usd.svg?react';
 
 export interface ChartProps<T extends Record<string, any>> {

@@ -1,5 +1,4 @@
-import { Button, ButtonWrapper, Icon, Tooltip, cn, theme } from 'components';
-import { Subdirectory, routes } from 'constants/routing';
+import { ButtonWrapper, Icon, Tooltip, cn, theme } from 'components';
 import { Link } from 'containers/Link';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
@@ -15,7 +14,7 @@ export const Supply: React.FC<CoinWithLogoProps> = ({ asset, chain, className })
 
   const { marketsPagePath } = useGetMarketsPagePath();
 
-  const apy = 0.1;
+  // const apy = 0.1;
 
   const data = [
     { month: 0, amount: 20, asset },
@@ -86,8 +85,10 @@ export const Supply: React.FC<CoinWithLogoProps> = ({ asset, chain, className })
         <div className="font-semibold">{'$420' /* TODO: daily earning amount */}</div>
       </div>
 
-      <ButtonWrapper asChild className="mt-6 h-12 w-full" variant="tertiary">
-        <Link to={marketsPagePath}>{t('landing.hero.getStarted')}</Link>
+      <ButtonWrapper asChild className="mt-6 h-12 w-full text-[20px]" variant="tertiary">
+        <Link to={marketsPagePath} noStyle>
+          {t('landing.hero.getStarted')}
+        </Link>
       </ButtonWrapper>
     </div>
   );
