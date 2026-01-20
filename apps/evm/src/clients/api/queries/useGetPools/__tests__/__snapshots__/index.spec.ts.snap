@@ -57,10 +57,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-busd-asset",
               "symbol": "BUSD",
@@ -82,6 +84,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -124,6 +127,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -143,10 +147,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-eth-asset",
               "isNative": true,
@@ -169,6 +175,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -211,6 +218,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -230,10 +238,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-bnb-asset",
               "isNative": true,
@@ -289,10 +299,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -314,6 +326,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -356,6 +369,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -375,10 +389,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -400,6 +416,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -442,6 +459,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -461,10 +479,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdc-asset",
               "symbol": "USDC",
@@ -483,10 +503,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vETH",
                 "underlyingToken": {
                   "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-eth-asset",
                   "isNative": true,
@@ -501,10 +523,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "liquidationThresholdPercentage": 82.5,
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vBUSD",
                 "underlyingToken": {
                   "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-busd-asset",
                   "symbol": "BUSD",
@@ -526,10 +550,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdt-asset",
                   "symbol": "USDT",
@@ -543,10 +569,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDC",
                 "underlyingToken": {
                   "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdc-asset",
                   "symbol": "USDC",
@@ -568,10 +596,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "liquidationThresholdPercentage": 88,
               "vToken": {
                 "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vBNB",
                 "underlyingToken": {
                   "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-bnb-asset",
                   "isNative": true,
@@ -586,10 +616,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdt-asset",
                   "symbol": "USDT",
@@ -616,6 +648,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
         "borrowAprPercentage": "10.51905",
         "token": {
           "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+          "chainId": 97,
           "decimals": 18,
           "iconSrc": "fake-vai-asset",
           "symbol": "VAI",
@@ -680,10 +713,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_DeFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -746,10 +781,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_GameFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -827,10 +864,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Liquid_Staked_BNB",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -877,10 +916,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-wbnb-asset",
               "symbol": "WBNB",
@@ -943,10 +984,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Meme",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -984,6 +1027,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-lisusd-asset",
                 "symbol": "lisUSD",
@@ -1018,6 +1062,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "rewardDetails": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-lisusd-asset",
                 "symbol": "lisUSD",
@@ -1037,10 +1082,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-lisusd-asset",
               "symbol": "lisUSD",
@@ -1102,10 +1149,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Stablecoins",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -1168,10 +1217,12 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Tron",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -1253,10 +1304,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-busd-asset",
               "symbol": "BUSD",
@@ -1278,6 +1331,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -1320,6 +1374,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -1339,10 +1394,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-eth-asset",
               "isNative": true,
@@ -1365,6 +1422,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -1407,6 +1465,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -1426,10 +1485,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-bnb-asset",
               "isNative": true,
@@ -1485,10 +1546,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -1510,6 +1573,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -1552,6 +1616,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -1571,10 +1636,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -1596,6 +1663,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -1638,6 +1706,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -1657,10 +1726,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdc-asset",
               "symbol": "USDC",
@@ -1679,10 +1750,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vETH",
                 "underlyingToken": {
                   "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-eth-asset",
                   "isNative": true,
@@ -1697,10 +1770,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "liquidationThresholdPercentage": 82.5,
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vBUSD",
                 "underlyingToken": {
                   "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-busd-asset",
                   "symbol": "BUSD",
@@ -1722,10 +1797,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdt-asset",
                   "symbol": "USDT",
@@ -1739,10 +1816,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDC",
                 "underlyingToken": {
                   "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdc-asset",
                   "symbol": "USDC",
@@ -1764,10 +1843,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "liquidationThresholdPercentage": 88,
               "vToken": {
                 "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vBNB",
                 "underlyingToken": {
                   "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-bnb-asset",
                   "isNative": true,
@@ -1782,10 +1863,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdt-asset",
                   "symbol": "USDT",
@@ -1867,10 +1950,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_DeFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -1933,10 +2018,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_GameFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -2014,10 +2101,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Liquid_Staked_BNB",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -2064,10 +2153,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-wbnb-asset",
               "symbol": "WBNB",
@@ -2130,10 +2221,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Meme",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -2171,6 +2264,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-lisusd-asset",
                 "symbol": "lisUSD",
@@ -2205,6 +2299,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "rewardDetails": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-lisusd-asset",
                 "symbol": "lisUSD",
@@ -2224,10 +2319,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-lisusd-asset",
               "symbol": "lisUSD",
@@ -2289,10 +2386,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Stablecoins",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -2355,10 +2454,12 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceTokens": "0",
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Tron",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -2440,10 +2541,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-busd-asset",
               "symbol": "BUSD",
@@ -2465,6 +2568,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -2507,6 +2611,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -2526,10 +2631,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-eth-asset",
               "isNative": true,
@@ -2552,6 +2659,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -2594,6 +2702,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -2613,10 +2722,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-bnb-asset",
               "isNative": true,
@@ -2672,10 +2783,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -2697,6 +2810,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -2739,6 +2853,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -2758,10 +2873,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -2783,6 +2900,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -2825,6 +2943,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -2844,10 +2963,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdc-asset",
               "symbol": "USDC",
@@ -2866,10 +2987,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vETH",
                 "underlyingToken": {
                   "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-eth-asset",
                   "isNative": true,
@@ -2884,10 +3007,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "liquidationThresholdPercentage": 82.5,
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vBUSD",
                 "underlyingToken": {
                   "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-busd-asset",
                   "symbol": "BUSD",
@@ -2909,10 +3034,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdt-asset",
                   "symbol": "USDT",
@@ -2926,10 +3053,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDC",
                 "underlyingToken": {
                   "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdc-asset",
                   "symbol": "USDC",
@@ -2951,10 +3080,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "liquidationThresholdPercentage": 88,
               "vToken": {
                 "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vBNB",
                 "underlyingToken": {
                   "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+                  "chainId": 97,
                   "decimals": 18,
                   "iconSrc": "fake-bnb-asset",
                   "isNative": true,
@@ -2969,10 +3100,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "chainId": 97,
                 "decimals": 8,
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "chainId": 97,
                   "decimals": 6,
                   "iconSrc": "fake-usdt-asset",
                   "symbol": "USDT",
@@ -2999,6 +3132,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
         "borrowAprPercentage": "10.51905",
         "token": {
           "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+          "chainId": 97,
           "decimals": 18,
           "iconSrc": "fake-vai-asset",
           "symbol": "VAI",
@@ -3065,10 +3199,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_DeFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -3131,10 +3267,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_GameFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -3212,10 +3350,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Liquid_Staked_BNB",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -3262,10 +3402,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-wbnb-asset",
               "symbol": "WBNB",
@@ -3328,10 +3470,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Meme",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -3369,6 +3513,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-lisusd-asset",
                 "symbol": "lisUSD",
@@ -3403,6 +3548,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "rewardDetails": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-lisusd-asset",
                 "symbol": "lisUSD",
@@ -3422,10 +3568,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-lisusd-asset",
               "symbol": "lisUSD",
@@ -3487,10 +3635,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Stablecoins",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -3553,10 +3703,12 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vUSDT_Tron",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",

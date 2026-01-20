@@ -7,6 +7,7 @@ exports[`RepayWithCollateralForm > lets user repay full loan using a swap 1`] = 
   "direction": "approximate-out",
   "fromToken": {
     "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+    "chainId": 97,
     "decimals": 6,
     "iconSrc": "fake-usdt-asset",
     "symbol": "USDT",
@@ -16,6 +17,7 @@ exports[`RepayWithCollateralForm > lets user repay full loan using a swap 1`] = 
   "slippagePercentage": 0.5,
   "toToken": {
     "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-xvs-asset",
     "symbol": "XVS",
@@ -28,10 +30,12 @@ exports[`RepayWithCollateralForm > lets user repay full loan using a swap 2`] = 
   {
     "collateralVToken": {
       "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vUSDT",
       "underlyingToken": {
         "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "chainId": 97,
         "decimals": 6,
         "iconSrc": "fake-usdt-asset",
         "symbol": "USDT",
@@ -39,10 +43,12 @@ exports[`RepayWithCollateralForm > lets user repay full loan using a swap 2`] = 
     },
     "repaidVToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -54,6 +60,7 @@ exports[`RepayWithCollateralForm > lets user repay full loan using a swap 2`] = 
       "expectedToTokenAmountReceivedMantissa": 999000000n,
       "fromToken": {
         "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "chainId": 97,
         "decimals": 6,
         "iconSrc": "fake-usdt-asset",
         "symbol": "USDT",
@@ -63,6 +70,7 @@ exports[`RepayWithCollateralForm > lets user repay full loan using a swap 2`] = 
       "priceImpactPercentage": 0.1,
       "toToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -78,10 +86,12 @@ exports[`RepayWithCollateralForm > lets user repay full loan using the same coll
     "amountMantissa": 1000000100000000000n,
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -96,6 +106,7 @@ exports[`RepayWithCollateralForm > lets user repay partial loan using a swap 1`]
   "direction": "exact-in",
   "fromToken": {
     "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+    "chainId": 97,
     "decimals": 6,
     "iconSrc": "fake-usdt-asset",
     "symbol": "USDT",
@@ -105,6 +116,7 @@ exports[`RepayWithCollateralForm > lets user repay partial loan using a swap 1`]
   "slippagePercentage": 0.5,
   "toToken": {
     "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-xvs-asset",
     "symbol": "XVS",
@@ -117,10 +129,12 @@ exports[`RepayWithCollateralForm > lets user repay partial loan using a swap 2`]
   {
     "collateralVToken": {
       "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vUSDT",
       "underlyingToken": {
         "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "chainId": 97,
         "decimals": 6,
         "iconSrc": "fake-usdt-asset",
         "symbol": "USDT",
@@ -128,10 +142,12 @@ exports[`RepayWithCollateralForm > lets user repay partial loan using a swap 2`]
     },
     "repaidVToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -143,6 +159,7 @@ exports[`RepayWithCollateralForm > lets user repay partial loan using a swap 2`]
       "expectedToTokenAmountReceivedMantissa": 999000000n,
       "fromToken": {
         "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "chainId": 97,
         "decimals": 6,
         "iconSrc": "fake-usdt-asset",
         "symbol": "USDT",
@@ -152,6 +169,7 @@ exports[`RepayWithCollateralForm > lets user repay partial loan using a swap 2`]
       "priceImpactPercentage": 0.1,
       "toToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -167,10 +185,12 @@ exports[`RepayWithCollateralForm > lets user repay partial loan using the same c
     "amountMantissa": 1000000000000000000n,
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",

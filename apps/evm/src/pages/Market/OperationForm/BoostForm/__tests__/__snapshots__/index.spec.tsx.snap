@@ -5,10 +5,12 @@ exports[`BoostForm > lets user open a leveraged position using a swap 1`] = `
   {
     "borrowedVToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -16,10 +18,12 @@ exports[`BoostForm > lets user open a leveraged position using a swap 1`] = `
     },
     "suppliedVToken": {
       "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vUSDT",
       "underlyingToken": {
         "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "chainId": 97,
         "decimals": 6,
         "iconSrc": "fake-usdt-asset",
         "symbol": "USDT",
@@ -31,6 +35,7 @@ exports[`BoostForm > lets user open a leveraged position using a swap 1`] = `
       "expectedToTokenAmountReceivedMantissa": 100000000n,
       "fromToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -40,6 +45,7 @@ exports[`BoostForm > lets user open a leveraged position using a swap 1`] = `
       "priceImpactPercentage": 0.1,
       "toToken": {
         "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "chainId": 97,
         "decimals": 6,
         "iconSrc": "fake-usdt-asset",
         "symbol": "USDT",
@@ -55,10 +61,12 @@ exports[`BoostForm > lets user open a leveraged position using the same supplied
     "amountMantissa": 1000000000000000000n,
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",

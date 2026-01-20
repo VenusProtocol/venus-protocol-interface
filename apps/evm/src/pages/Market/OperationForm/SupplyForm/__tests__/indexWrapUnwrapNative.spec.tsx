@@ -185,15 +185,18 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
           "poolName": "Venus",
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+            "chainId": 97,
             "decimals": 8,
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0x700868CAbb60e90d77B6588ce072d9859ec8E281",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-weth-asset",
               "symbol": "WETH",
               "tokenWrapped": {
                 "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-eth-asset",
                 "isNative": true,

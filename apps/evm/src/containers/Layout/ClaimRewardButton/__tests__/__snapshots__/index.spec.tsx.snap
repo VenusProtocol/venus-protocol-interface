@@ -67,6 +67,7 @@ exports[`ClaimRewardButton > it claims reward on submit button click and closes 
       "poolIndex": 0,
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",

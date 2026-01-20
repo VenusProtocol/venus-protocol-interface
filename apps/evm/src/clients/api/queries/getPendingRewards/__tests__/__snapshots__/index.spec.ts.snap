@@ -9,6 +9,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "rewardAmountMantissa": "1.9534041188941932704302e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -27,6 +28,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-lisusd-asset",
             "symbol": "lisUSD",
@@ -46,12 +48,14 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-vai-asset",
         "symbol": "VAI",
@@ -65,12 +69,14 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "rewardAmountMantissa": "645201192824999936",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-vai-asset",
         "symbol": "VAI",
@@ -90,6 +96,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
       "rewardAmountMantissa": "1.9534041188941932704302e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -108,6 +115,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-lisusd-asset",
             "symbol": "lisUSD",
@@ -127,12 +135,14 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-vai-asset",
         "symbol": "VAI",
@@ -146,12 +156,14 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
       "rewardAmountMantissa": "645201192824999936",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-vai-asset",
         "symbol": "VAI",
@@ -171,6 +183,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
           "rewardAmountMantissa": "76658101233016960",
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",
@@ -196,6 +209,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "rewardAmountMantissa": "1.9534041188941932704302e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -214,6 +228,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-lisusd-asset",
             "symbol": "lisUSD",
@@ -233,12 +248,14 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-vai-asset",
         "symbol": "VAI",
@@ -252,12 +269,14 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "rewardAmountMantissa": "645201192824999936",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-vai-asset",
         "symbol": "VAI",
@@ -272,6 +291,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           "rewardAmountMantissa": "13463630382",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-lisusd-asset",
             "symbol": "lisUSD",
@@ -282,6 +302,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           "rewardAmountMantissa": "1.7258246849676376539136e+22",
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",
