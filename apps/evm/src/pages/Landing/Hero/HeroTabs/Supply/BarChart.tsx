@@ -11,6 +11,7 @@ import {
   YAxis,
 } from 'recharts';
 import type { DataKey } from 'recharts/types/util/types';
+import { formatCentsToReadableValue } from 'utilities';
 import IconUSD from './usd.svg?react';
 
 export interface ChartProps<T extends Record<string, any>> {
@@ -62,7 +63,7 @@ export const BarChart = <T extends Record<string, any>>({
           barGap={'8%'}
         >
           <Bar
-            dataKey="amount"
+            dataKey={yAxisDataKey}
             fill="#181D27"
             activeBar={{ fill: '#1199FA', stroke: '#1199FA' }}
             radius={[9999, 9999, 9999, 9999]}
@@ -101,14 +102,16 @@ export const BarChart = <T extends Record<string, any>>({
               const data = payload?.[0]?.payload;
               if (!data) return null;
               return (
-                <div className="p-3 rounded-lg text-light-grey bg-background backdrop-blur-xs text-[16px] leading-[1.2] font-normal">
+                <div className="p-3 rounded-lg text-light-grey bg-background backdrop-blur-xs text-b1s">
                   <div className="flex items-center font-semibold">
                     <div>{t('landing.hero.monthNo', { number: data.month })}</div>
                   </div>
                   <div className="flex items-center mt-2.5">
                     <IconUSD className="size-5" />
                     <div className="ms-3 me-1">
-                      {t('landing.hero.earnedAmount', { amount: data.amount })}
+                      {t('landing.hero.earnedAmount', {
+                        amount: formatCentsToReadableValue({ value: data.currAmount * 100 }),
+                      })}
                     </div>
                   </div>
                 </div>

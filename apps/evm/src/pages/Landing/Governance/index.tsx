@@ -5,8 +5,8 @@ import { useTranslation } from 'libs/translations';
 import planetsImg from './assets/planets.png';
 
 const textClassName = cn(
-  '[&_h2]:text-[1.5rem] [&_h2]:font-semibold xl:[&_h2]:text-[2rem]',
-  '[&_p]:text-grey [&_p]:text-[1rem] xl:[&_p]:text-[1.125rem]',
+  '[&_h2]:text-p1s xl:[&_h2]:text-h6',
+  '[&_p]:text-grey [&_p]:text-p3r xl:[&_p]:text-[1.125rem]',
 );
 
 export const Governance: React.FC = () => {
