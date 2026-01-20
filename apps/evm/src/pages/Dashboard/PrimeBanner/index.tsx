@@ -101,13 +101,13 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
             <Button
               onClick={() => claimPrimeToken()}
               loading={isClaimPrimeTokenLoading}
-              small
+              size="xs"
               className={buttonClasses}
             >
               {buttonContentDom}
             </Button>
           ) : (
-            <ButtonWrapper asChild small className={cn('hidden sm:flex', buttonClasses)}>
+            <ButtonWrapper asChild size="xs" className={cn('hidden sm:flex', buttonClasses)}>
               <Link to={routes.staking.path}>{buttonContentDom}</Link>
             </ButtonWrapper>
           )}

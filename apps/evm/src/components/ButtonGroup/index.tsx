@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { TertiaryButton } from '@venusprotocol/ui';
-import { useStyles } from './styles';
+import { TertiaryButton, cn } from '@venusprotocol/ui';
 
 export interface ButtonGroupProps {
   buttonLabels: React.ReactNode[];
@@ -8,6 +6,7 @@ export interface ButtonGroupProps {
   onButtonClick: (newIndex: number) => void;
   fullWidth?: boolean;
   className?: string;
+  buttonClassName?: string;
 }
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -16,20 +15,18 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   onButtonClick,
   fullWidth = false,
   className,
+  buttonClassName,
 }) => {
-  const styles = useStyles();
-
   return (
-    <div css={styles.getContainer({ fullWidth })} className={className}>
+    <div
+      className={cn('flex items-center gap-x-4', fullWidth ? 'w-full' : 'max-sm:w-full', className)}
+    >
       {buttonLabels.map((label, index) => (
         <TertiaryButton
           key={`button-group-button-${label}`}
           onClick={() => onButtonClick(index)}
-          css={styles.getButton({
-            active: index === activeButtonIndex,
-            last: index === buttonLabels.length - 1,
-            fullWidth,
-          })}
+          className={cn('flex-1', !fullWidth && 'max-sm:flex-auto', buttonClassName)}
+          active={index === activeButtonIndex}
         >
           {label}
         </TertiaryButton>

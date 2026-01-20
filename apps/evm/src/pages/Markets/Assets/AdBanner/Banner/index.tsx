@@ -52,7 +52,7 @@ export const Banner: React.FC<BannerProps> = ({
             <div className="hidden sm:block">{textDom}</div>
           </div>
 
-          <ButtonWrapper small={!isSmOrUp} asChild>
+          <ButtonWrapper size={isSmOrUp ? 'md' : 'xs'} asChild>
             <Link
               href={learnMoreUrl}
               target="_blank"

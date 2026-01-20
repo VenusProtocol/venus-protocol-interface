@@ -49,7 +49,7 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
             </div>
 
             <EModeButton
-              small
+              size="xs"
               poolComptrollerContractAddress={poolComptrollerContractAddress}
               analyticVariant="market_borrow_banner"
             >
@@ -72,7 +72,7 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
               <EModeButton
                 poolComptrollerContractAddress={poolComptrollerContractAddress}
                 analyticVariant="market_borrow_banner"
-                small
+                size="xs"
                 className={cn('ml-auto', isMdOrUp ? 'hidden sm:flex' : 'h-8 w-8 p-0 shrink-0')}
               >
                 {isMdOrUp ? (
