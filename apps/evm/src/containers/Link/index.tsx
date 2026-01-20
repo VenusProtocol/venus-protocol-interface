@@ -14,7 +14,7 @@ export const Link: React.FC<LinkProps> = forwardRef<HTMLAnchorElement, LinkProps
     const formattedTo = 'to' in otherProps ? formatTo({ to: otherProps.to }) : undefined;
 
     const classes = cn(
-      'text-blue no-underline hover:underline hover:text-blue-hover active:underline active:text-blue-active decoration-current underline-offset-2 decoration-1 duration-250',
+      'text-blue no-underline hover:underline hover:text-blue-hover active:text-blue-active decoration-current underline-offset-2 decoration-1 duration-250',
       className,
     );
 
