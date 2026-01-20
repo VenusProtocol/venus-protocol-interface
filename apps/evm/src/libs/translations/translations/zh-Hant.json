@@ -525,6 +525,73 @@
     "illustrationAltText": "插圖",
     "title": "隔離池正在關閉"
   },
+  "landing": {
+    "benefits": {
+      "text1": "TRANSLATION NEEDED",
+      "text2": "TRANSLATION NEEDED",
+      "text3": "TRANSLATION NEEDED",
+      "title1": "TRANSLATION NEEDED",
+      "title2": "TRANSLATION NEEDED",
+      "title3": "TRANSLATION NEEDED"
+    },
+    "governance": {
+      "forum": "TRANSLATION NEEDED",
+      "planetsAlt": "TRANSLATION NEEDED",
+      "proposalCounting": "TRANSLATION NEEDED",
+      "text": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "hero": {
+      "borrow": "TRANSLATION NEEDED",
+      "borrowTips": "TRANSLATION NEEDED",
+      "earnedAmount": "TRANSLATION NEEDED",
+      "fromPercentage": "TRANSLATION NEEDED",
+      "getStarted": "TRANSLATION NEEDED",
+      "highestApy": "TRANSLATION NEEDED",
+      "monthNo": "TRANSLATION NEEDED",
+      "subtitle": "TRANSLATION NEEDED",
+      "supply": "TRANSLATION NEEDED",
+      "supplyTips": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "totalApy": "TRANSLATION NEEDED",
+      "upToPercentage": "TRANSLATION NEEDED",
+      "venusTvl": "TRANSLATION NEEDED",
+      "yearlyEarnings": "TRANSLATION NEEDED",
+      "yearlyInterest": "TRANSLATION NEEDED"
+    },
+    "markets": {
+      "button": {
+        "label": "TRANSLATION NEEDED"
+      },
+      "title": "TRANSLATION NEEDED"
+    },
+    "protection": {
+      "bugBountyAlt": "TRANSLATION NEEDED",
+      "challengeText": "TRANSLATION NEEDED",
+      "challengeTitle": "TRANSLATION NEEDED",
+      "protectionAlt": "TRANSLATION NEEDED",
+      "protectionText": "TRANSLATION NEEDED",
+      "protectionTitle": "TRANSLATION NEEDED"
+    },
+    "safety": {
+      "audit_other": "TRANSLATION NEEDED",
+      "otherAuditors": "TRANSLATION NEEDED",
+      "scoreAlt": "TRANSLATION NEEDED",
+      "securityScore": "TRANSLATION NEEDED",
+      "text": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "venusScored": "TRANSLATION NEEDED"
+    },
+    "venusPrime": {
+      "imageAlt": "TRANSLATION NEEDED",
+      "learnMore": "TRANSLATION NEEDED",
+      "text": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "wallets": {
+      "title": "TRANSLATION NEEDED"
+    }
+  },
   "layout": {
     "chainSelect": {
       "label": "選擇鏈"
@@ -753,6 +820,7 @@
     },
     "columnKeys": {
       "asset": "資產",
+      "assetAndChain": "TRANSLATION NEEDED",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "總借款",
       "collateral": "抵押",
@@ -988,8 +1056,8 @@
     "tokensLeft": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
     "tokensLeft_one": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
     "tokensLeft_many": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
-    "waitForPrimeTitle": "{{claimWaitingPeriod}} 後可領取 Prime 獎勵",
-    "tokensLeft_other": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣"
+    "tokensLeft_other": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} 後可領取 Prime 獎勵"
   },
   "probableBanner": {
     "description": "在 probable.markets 上增強你的信念",
@@ -1546,10 +1614,10 @@
     }
   },
   "voteSummary": {
-    "addresses_other": "{{count}} 個地址",
-    "votes": "票數",
     "addresses_zero": "{{count}} 個地址",
-    "addresses_one": "{{count}} 個地址"
+    "addresses_one": "{{count}} 個地址",
+    "addresses_other": "{{count}} 個地址",
+    "votes": "票數"
   },
   "wallets": {
     "errors": {

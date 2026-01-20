@@ -117,7 +117,7 @@ export const Summary: React.FC<SummaryProps> = ({
         <CellGroup
           cells={cells.slice(0, cells.length - 1)}
           className="w-full xl:p-0"
-          variant="tertiary"
+          variant="secondary"
         />
 
         {/* Account health */}

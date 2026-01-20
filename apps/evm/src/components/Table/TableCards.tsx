@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
 import { Spinner, cn } from '@venusprotocol/ui';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
-import { Card } from 'components';
+import { Card, LabeledInlineContent } from 'components';
 import { Delimiter } from '../Delimiter';
 import { Select, type SelectOption, type SelectProps } from '../Select';
 import { useStyles } from './styles';
@@ -82,40 +81,21 @@ export function TableCards<R>({
 
       {isFetching && <Spinner css={styles.loader} />}
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {data.map((row, rowIndex) => {
           const rowKey = rowKeyExtractor(row);
           const content = (
-            <>
+            <div className="space-y-6">
               <div>{titleColumn.renderCell(row, rowIndex)}</div>
 
               <Delimiter className="my-4" />
 
-              <div className="table-card-content grid grid-rows-1 gap-8">
-                {otherColumns.map(column => (
-                  <div
-                    key={`${rowKey}-${column.key}`}
-                    className="table-card-content-row flex flex-col"
-                  >
-                    <Typography
-                      variant="tiny"
-                      css={styles.cellTitleMobile}
-                      className="table-card-content-row-label"
-                    >
-                      {column.label}
-                    </Typography>
-
-                    <Typography
-                      variant="small2"
-                      css={styles.cellValueMobile}
-                      className="table-card-content-row-value"
-                    >
-                      {column.renderCell(row, rowIndex)}
-                    </Typography>
-                  </div>
-                ))}
-              </div>
-            </>
+              {otherColumns.map(column => (
+                <LabeledInlineContent key={`${rowKey}-${column.key}`} label={column.label}>
+                  <div className="text-right">{column.renderCell(row, rowIndex)}</div>
+                </LabeledInlineContent>
+              ))}
+            </div>
           );
 
           return (

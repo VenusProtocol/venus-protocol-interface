@@ -1,54 +1,67 @@
-import { ButtonWrapper, cn } from '@venusprotocol/ui';
-import { useGetTopMarkets } from 'clients/api/queries/getTopMarkets/useGetTopMarkets';
-import { Icon, Table } from 'components';
-import { routes } from 'constants/routing';
+import { useGetPool } from 'clients/api';
+import { ButtonWrapper, Icon } from 'components';
 import { Link } from 'containers/Link';
-import { useIsLgDown, useIsSmDown } from 'hooks/responsive';
+import { MarketTable } from 'containers/MarketTable';
+import { useChain } from 'hooks/useChain';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
-import { useColumns } from './columns';
+import { compareBigNumbers } from 'utilities';
 
-interface IMarketProps {
-  className?: string;
-}
-
-export const Markets: React.FC<IMarketProps> = ({ className }) => {
+export const Markets: React.FC = () => {
   const { t } = useTranslation();
+  const { corePoolComptrollerContractAddress } = useChain();
 
-  const isSmDown = useIsSmDown();
-  const isLgDown = useIsLgDown();
+  const { marketsPagePath } = useGetMarketsPagePath();
 
-  const { data, isLoading } = useGetTopMarkets({ limit: 6 });
-  const tempList = data?.result ?? [];
+  const { data: getLegacyPoolData } = useGetPool({
+    poolComptrollerAddress: corePoolComptrollerContractAddress,
+  });
+  const pool = getLegacyPoolData?.pool;
+  const assets = pool?.assets || [];
 
-  const listData = isSmDown ? tempList.slice(0, 3) : isLgDown ? tempList.slice(0, 4) : tempList;
+  // Extract top 6 assets by supply balance
+  const topAssets = [...assets]
+    .sort((assetA, assetB) =>
+      compareBigNumbers(assetA.supplyBalanceCents, assetB.supplyBalanceCents, 'desc'),
+    )
+    .slice(0, 6);
 
-  const { columns } = useColumns();
+  if (!pool) {
+    // TODO: display loader (?)
+    return undefined;
+  }
 
   return (
-    <div className={cn(className)}>
-      <Table
-        columns={columns}
-        data={listData}
-        rowKeyExtractor={row => row.address}
-        className="bg-transparent"
-        isFetching={isLoading}
-        cellHeight={'72px'}
-        breakpoint="lg"
-        cardClassName={cn(
-          'bg-transparent rounded-2 border border-solid border-dark-blue-hover',
-          '[&_.table-card-content]:gap-6',
-          '[&_.table-card-content-row]:flex-row [&_.table-card-content-row]:justify-between [&_.table-card-content-row-label]:text-[14px]! [&_.table-card-content-row-value]:pt-0!',
-        )}
+    <div className="space-y-6">
+      <h2 className="text-2xl">{t('landing.markets.title')}</h2>
+
+      <MarketTable
+        controls={false}
+        selectVariant="quaternary"
+        breakpoint="md"
+        poolName={pool.name}
+        poolComptrollerContractAddress={pool.comptrollerAddress}
+        assets={topAssets}
+        columns={[
+          'assetAndChain',
+          'supplyBalance',
+          'labeledSupplyApy',
+          'labeledBorrowApy',
+          'liquidity',
+        ]}
       />
 
-      <ButtonWrapper asChild variant="quinary" className="mx-auto my-7 h-11.25">
-        <Link
-          to={routes.markets.path}
-          noStyle
-          className="flex items-center w-fit gap-3 text-[16px]"
-        >
-          {t('landing.markets.exploreMore')}
-          <Icon name="link" />
+      <ButtonWrapper
+        className="flex justify-self-center grow-0 bg-dark-blue-disabled border-dark-blue-disabled text-light-grey hover:bg-blue hover:border-blue hover:text-white active:bg-blue active:border-blue active:text-white"
+        rounded
+        asChild
+      >
+        <Link to={marketsPagePath} noStyle>
+          <div className="flex items-center gap-x-3">
+            <span>{t('landing.markets.button.label')}</span>
+
+            <Icon name="link" className="text-inherit" />
+          </div>
         </Link>
       </ButtonWrapper>
     </div>

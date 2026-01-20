@@ -525,6 +525,73 @@
     "illustrationAltText": "イラスト",
     "title": "隔離プールは終了予定です"
   },
+  "landing": {
+    "benefits": {
+      "text1": "TRANSLATION NEEDED",
+      "text2": "TRANSLATION NEEDED",
+      "text3": "TRANSLATION NEEDED",
+      "title1": "TRANSLATION NEEDED",
+      "title2": "TRANSLATION NEEDED",
+      "title3": "TRANSLATION NEEDED"
+    },
+    "governance": {
+      "forum": "TRANSLATION NEEDED",
+      "planetsAlt": "TRANSLATION NEEDED",
+      "proposalCounting": "TRANSLATION NEEDED",
+      "text": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "hero": {
+      "borrow": "TRANSLATION NEEDED",
+      "borrowTips": "TRANSLATION NEEDED",
+      "earnedAmount": "TRANSLATION NEEDED",
+      "fromPercentage": "TRANSLATION NEEDED",
+      "getStarted": "TRANSLATION NEEDED",
+      "highestApy": "TRANSLATION NEEDED",
+      "monthNo": "TRANSLATION NEEDED",
+      "subtitle": "TRANSLATION NEEDED",
+      "supply": "TRANSLATION NEEDED",
+      "supplyTips": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "totalApy": "TRANSLATION NEEDED",
+      "upToPercentage": "TRANSLATION NEEDED",
+      "venusTvl": "TRANSLATION NEEDED",
+      "yearlyEarnings": "TRANSLATION NEEDED",
+      "yearlyInterest": "TRANSLATION NEEDED"
+    },
+    "markets": {
+      "button": {
+        "label": "TRANSLATION NEEDED"
+      },
+      "title": "TRANSLATION NEEDED"
+    },
+    "protection": {
+      "bugBountyAlt": "TRANSLATION NEEDED",
+      "challengeText": "TRANSLATION NEEDED",
+      "challengeTitle": "TRANSLATION NEEDED",
+      "protectionAlt": "TRANSLATION NEEDED",
+      "protectionText": "TRANSLATION NEEDED",
+      "protectionTitle": "TRANSLATION NEEDED"
+    },
+    "safety": {
+      "audit_other": "TRANSLATION NEEDED",
+      "otherAuditors": "TRANSLATION NEEDED",
+      "scoreAlt": "TRANSLATION NEEDED",
+      "securityScore": "TRANSLATION NEEDED",
+      "text": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "venusScored": "TRANSLATION NEEDED"
+    },
+    "venusPrime": {
+      "imageAlt": "TRANSLATION NEEDED",
+      "learnMore": "TRANSLATION NEEDED",
+      "text": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "wallets": {
+      "title": "TRANSLATION NEEDED"
+    }
+  },
   "layout": {
     "chainSelect": {
       "label": "チェーンを選択"
@@ -753,6 +820,7 @@
     },
     "columnKeys": {
       "asset": "資産",
+      "assetAndChain": "TRANSLATION NEEDED",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "総借入",
       "collateral": "担保",

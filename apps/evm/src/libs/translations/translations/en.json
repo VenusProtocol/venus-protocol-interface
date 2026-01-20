@@ -560,12 +560,10 @@
       "yearlyInterest": "Yearly Interest (Repay Anytime):"
     },
     "markets": {
-      "asset": "Asset",
-      "borrowApy": "Borrow APY",
-      "exploreMore": "Explorer more",
-      "liquidity": "Liquidity",
-      "marketSize": "Market Size",
-      "supplyApy": "Supply APY"
+      "button": {
+        "label": "Explore more"
+      },
+      "title": "Top markets on Venus"
     },
     "protection": {
       "bugBountyAlt": "Bug Bounty Illustration",
@@ -827,6 +825,7 @@
     },
     "columnKeys": {
       "asset": "Asset",
+      "assetAndChain": "Asset",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "Total borrow",
       "collateral": "Collateral",

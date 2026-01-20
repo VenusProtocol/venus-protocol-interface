@@ -88,7 +88,7 @@ export const useStyles = (props?: StylesProps) => {
       }
     `,
     getTableRow: ({ clickable }: { clickable: boolean }) => css`
-      height: ${theme.spacing(14)};
+      height: ${theme.spacing(18)};
 
       :hover {
         background-color: ${theme.palette.interactive.hover} !important;

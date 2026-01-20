@@ -1,11 +1,9 @@
+import { chains } from '@venusprotocol/chains';
 import { cn } from '@venusprotocol/ui';
-import type { Token } from 'types';
 
-import { TokenIcon } from '../TokenIcon';
+import { TokenIcon, type TokenIconProps } from '../TokenIcon';
 
-export interface TokenIconWithSymbolProps {
-  token: Token;
-  className?: string;
+export interface TokenIconWithSymbolProps extends TokenIconProps {
   tokenIconClassName?: string;
 }
 
@@ -13,10 +11,25 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
   token,
   className,
   tokenIconClassName,
-}) => (
-  <div className={cn(className, 'flex items-center')}>
-    <TokenIcon token={token} className={cn('mr-2 h-6 w-6', tokenIconClassName)} />
+  displayChain = false,
+  ...otherProps
+}) => {
+  const chain = chains[token.chainId];
 
-    <div>{token.symbol}</div>
-  </div>
-);
+  return (
+    <div className={cn(className, 'flex items-center gap-x-2')}>
+      <TokenIcon
+        token={token}
+        className={tokenIconClassName}
+        displayChain={displayChain}
+        {...otherProps}
+      />
+
+      <div className="space-y-1">
+        <p className={cn(displayChain && 'text-sm leading-[1.2]')}>{token.symbol}</p>
+
+        {displayChain && <p className="text-light-grey text-xs leading-[1.2]">{chain.name}</p>}
+      </div>
+    </div>
+  );
+};
