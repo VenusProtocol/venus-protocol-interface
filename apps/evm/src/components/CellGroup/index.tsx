@@ -21,6 +21,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
 }) => (
   <Card
     className={cn(
+      'border-0',
       variant === 'primary' &&
         'p-4 grid grid-cols-2 rounded-xl gap-4 sm:flex sm:flex-wrap sm:gap-0 sm:px-6 sm:py-4',
       variant === 'secondary' &&

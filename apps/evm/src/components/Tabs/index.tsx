@@ -1,9 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import { cn } from '@venusprotocol/ui';
 import { Delimiter } from 'components';
 import { type Tab, type TabNavType, useTabs } from 'hooks/useTabs';
 import { ButtonGroup } from '../ButtonGroup';
-import { useStyles } from './styles';
 
 export interface TabsProps {
   tabs: Tab[];
@@ -24,7 +22,6 @@ export const Tabs = ({
   headerClassName,
   navType = 'state',
 }: TabsProps) => {
-  const styles = useStyles();
   const { activeTab, setActiveTab } = useTabs({
     tabs,
     navType,
@@ -46,8 +43,8 @@ export const Tabs = ({
       {variant === 'primary' ? (
         <ButtonGroup
           buttonLabels={tabs.map(({ title }) => title)}
-          css={styles.buttonsContainer}
           className={headerClassName}
+          buttonClassName="px-2"
           activeButtonIndex={tabs.findIndex(tab => activeTab.id === tab.id)}
           onButtonClick={handleChange}
           fullWidth

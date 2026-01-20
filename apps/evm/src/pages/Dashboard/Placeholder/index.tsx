@@ -24,7 +24,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({ iconName, title, descr
         <p className="text-grey text-sm">{description}</p>
 
         {!!to && (
-          <ButtonWrapper className="mt-5 text-white hover:no-underline" small asChild>
+          <ButtonWrapper className="mt-5 text-white hover:no-underline" size="xs" asChild>
             <Link to={to}>{t('account.placeholder.buttonLabel')}</Link>
           </ButtonWrapper>
         )}
