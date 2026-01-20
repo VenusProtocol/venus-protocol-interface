@@ -38,6 +38,7 @@ export const Markets: React.FC = () => {
       <MarketTable
         controls={false}
         selectVariant="quaternary"
+        className="border-0 p-0"
         breakpoint="md"
         poolName={pool.name}
         poolComptrollerContractAddress={pool.comptrollerAddress}
