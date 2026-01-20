@@ -352,6 +352,8 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
             <QuaternaryButton
               key={`select-button-${percentage}`}
               className="flex-1"
+              size="xs"
+              rounded
               active={percentage === formValues.fixedRepayPercentage}
               disabled={!isUserConnected || asset.userBorrowBalanceTokens.isEqualTo(0)}
               onClick={() => {
