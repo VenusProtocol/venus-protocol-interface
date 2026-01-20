@@ -28,7 +28,7 @@ export const chains: Record<ChainId, Chain> = {
       },
     ],
     corePoolComptrollerContractAddress: '0xfD36E2c2a6789Db23113685031d7F16329158384',
-    nativeToken: bnb,
+    nativeToken: bnb[ChainId.BSC_MAINNET],
   },
   [ChainId.BSC_TESTNET]: {
     name: 'BNB testnet',
@@ -54,7 +54,7 @@ export const chains: Record<ChainId, Chain> = {
       },
     ],
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
-    nativeToken: bnb,
+    nativeToken: bnb[ChainId.BSC_TESTNET],
   },
   [ChainId.OPBNB_MAINNET]: {
     name: 'opBNB',
@@ -76,7 +76,7 @@ export const chains: Record<ChainId, Chain> = {
       },
     ],
     corePoolComptrollerContractAddress: '0xD6e3E2A1d8d95caE355D15b3b9f8E5c2511874dd',
-    nativeToken: bnb,
+    nativeToken: bnb[ChainId.OPBNB_MAINNET],
   },
   [ChainId.OPBNB_TESTNET]: {
     name: 'opBNB testnet',
@@ -98,7 +98,7 @@ export const chains: Record<ChainId, Chain> = {
       },
     ],
     corePoolComptrollerContractAddress: '0x2FCABb31E57F010D623D8d68e1E18Aed11d5A388',
-    nativeToken: bnb,
+    nativeToken: bnb[ChainId.OPBNB_TESTNET],
   },
   [ChainId.ETHEREUM]: {
     name: 'Ethereum',
@@ -113,7 +113,7 @@ export const chains: Record<ChainId, Chain> = {
       },
     ],
     corePoolComptrollerContractAddress: '0x687a01ecF6d3907658f7A7c714749fAC32336D1B',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.ETHEREUM],
   },
   [ChainId.SEPOLIA]: {
     name: 'Sepolia',
@@ -128,7 +128,7 @@ export const chains: Record<ChainId, Chain> = {
       },
     ],
     corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.SEPOLIA],
   },
   [ChainId.ARBITRUM_ONE]: {
     name: 'Arbitrum One',
@@ -137,7 +137,7 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-arbitrum.safe.global',
     corePoolComptrollerContractAddress: '0x317c1A5739F39046E20b08ac9BeEa3f10fD43326',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.ARBITRUM_ONE],
   },
   [ChainId.ARBITRUM_SEPOLIA]: {
     name: 'Arbitrum Sepolia',
@@ -145,7 +145,7 @@ export const chains: Record<ChainId, Chain> = {
     explorerUrl: 'https://sepolia.arbiscan.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     corePoolComptrollerContractAddress: '0x006D44b6f5927b3eD83bD0c1C36Fb1A3BaCaC208',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.ARBITRUM_SEPOLIA],
   },
   [ChainId.ZKSYNC_MAINNET]: {
     name: 'ZKsync',
@@ -154,7 +154,7 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-zksync.safe.global',
     corePoolComptrollerContractAddress: '0xddE4D098D9995B659724ae6d5E3FB9681Ac941B1',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.ZKSYNC_MAINNET],
   },
   [ChainId.ZKSYNC_SEPOLIA]: {
     name: 'ZKsync Sepolia',
@@ -162,7 +162,7 @@ export const chains: Record<ChainId, Chain> = {
     explorerUrl: 'https://sepolia.explorer.zksync.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     corePoolComptrollerContractAddress: '0xC527DE08E43aeFD759F7c0e6aE85433923064669',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.ZKSYNC_SEPOLIA],
   },
   [ChainId.OPTIMISM_MAINNET]: {
     name: 'Optimism',
@@ -171,7 +171,7 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-optimism.safe.global',
     corePoolComptrollerContractAddress: '0x5593FF68bE84C966821eEf5F0a988C285D5B7CeC',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.OPTIMISM_MAINNET],
   },
   [ChainId.OPTIMISM_SEPOLIA]: {
     name: 'Optimism Sepolia',
@@ -179,7 +179,7 @@ export const chains: Record<ChainId, Chain> = {
     explorerUrl: 'https://sepolia-optimism.etherscan.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     corePoolComptrollerContractAddress: '0x59d10988974223B042767aaBFb6D926863069535',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.OPTIMISM_SEPOLIA],
   },
   [ChainId.BASE_MAINNET]: {
     name: 'Base',
@@ -188,7 +188,7 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-base.safe.global',
     corePoolComptrollerContractAddress: '0x0C7973F9598AA62f9e03B94E92C967fD5437426C',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.BASE_MAINNET],
   },
   [ChainId.BASE_SEPOLIA]: {
     name: 'Base Sepolia',
@@ -197,7 +197,7 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-base-sepolia.safe.global',
     corePoolComptrollerContractAddress: '0x272795dd6c5355CF25765F36043F34014454Eb5b',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.BASE_SEPOLIA],
   },
   [ChainId.UNICHAIN_MAINNET]: {
     name: 'Unichain',
@@ -205,7 +205,7 @@ export const chains: Record<ChainId, Chain> = {
     explorerUrl: 'https://uniscan.xyz',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     corePoolComptrollerContractAddress: '0xe22af1e6b78318e1Fe1053Edbd7209b8Fc62c4Fe',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.UNICHAIN_MAINNET],
   },
   [ChainId.UNICHAIN_SEPOLIA]: {
     name: 'Unichain Sepolia',
@@ -213,6 +213,6 @@ export const chains: Record<ChainId, Chain> = {
     explorerUrl: 'https://sepolia.uniscan.xyz',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     corePoolComptrollerContractAddress: '0xFeD3eAA668a6179c9E5E1A84e3A7d6883F06f7c1',
-    nativeToken: eth,
+    nativeToken: eth[ChainId.UNICHAIN_SEPOLIA],
   },
 };

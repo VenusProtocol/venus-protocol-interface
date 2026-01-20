@@ -16,6 +16,7 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
       "expectedFromTokenAmountSoldMantissa": "3e+23",
       "fromToken": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-busd-asset",
         "symbol": "BUSD",
@@ -28,6 +29,7 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
       ],
       "toToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -36,10 +38,12 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
     },
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -61,6 +65,7 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
       "expectedToTokenAmountReceivedMantissa": "999999999999999999900",
       "fromToken": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-busd-asset",
         "symbol": "BUSD",
@@ -74,6 +79,7 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
       ],
       "toToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -81,10 +87,12 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
     },
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
