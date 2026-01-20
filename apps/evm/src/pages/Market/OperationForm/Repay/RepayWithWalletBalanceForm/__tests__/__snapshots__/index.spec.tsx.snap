@@ -11,10 +11,12 @@ exports[`RepayWithWalletBalanceForm > lets user repay borrowed tokens then calls
     "repayFullLoan": false,
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
@@ -34,10 +36,12 @@ exports[`RepayWithWalletBalanceForm > lets user repay full loan 1`] = `
     "repayFullLoan": true,
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "chainId": 97,
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",

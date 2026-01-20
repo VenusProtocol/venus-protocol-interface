@@ -439,10 +439,12 @@ describe('SupplyForm', () => {
             "poolName": "Venus",
             "vToken": {
               "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vBNB",
               "underlyingToken": {
                 "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-bnb-asset",
                 "isNative": true,
@@ -489,10 +491,12 @@ describe('SupplyForm', () => {
             "poolName": "Venus",
             "vToken": {
               "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vXVS",
               "underlyingToken": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",

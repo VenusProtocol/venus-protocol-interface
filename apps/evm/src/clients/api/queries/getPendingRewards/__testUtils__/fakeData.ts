@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import type { poolLensAbi, primeAbi, venusLensAbi } from 'libs/contracts';
-import type { MerklDistribution } from 'types';
+import { ChainId, type MerklDistribution } from 'types';
 import type {
   Address,
   ContractFunctionArgs,
@@ -102,6 +102,7 @@ export const fakeMerklCampaigns: Record<Address, MerklDistribution[]> = {
     {
       type: 'merkl' as const,
       token: {
+        chainId: ChainId.BSC_TESTNET,
         address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
         decimals: 18,
         symbol: 'XVS',
@@ -125,6 +126,7 @@ export const fakeMerklCampaigns: Record<Address, MerklDistribution[]> = {
     {
       type: 'merkl' as const,
       token: {
+        chainId: ChainId.BSC_TESTNET,
         address: '0x5a7d6b2f92c77fad6ccabd7ee0624e64907eaf3e',
         decimals: 18,
         symbol: 'ZK',

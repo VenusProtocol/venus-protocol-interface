@@ -138,6 +138,7 @@ export const Transactions: React.FC = () => {
         iconSrc: a.vToken.underlyingToken.iconSrc,
         address: a.vToken.address,
         decimals: a.vToken.decimals,
+        chainId: a.vToken.chainId,
       }))
       .sort((a, b) => a.symbol.localeCompare(b.symbol));
 

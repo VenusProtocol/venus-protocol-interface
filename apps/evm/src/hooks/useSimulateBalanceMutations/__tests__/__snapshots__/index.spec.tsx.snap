@@ -26,6 +26,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -67,6 +68,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -86,10 +88,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
         "userWalletBalanceTokens": "100",
         "vToken": {
           "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+          "chainId": 97,
           "decimals": 8,
           "symbol": "vXVS",
           "underlyingToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",
@@ -110,6 +114,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -126,6 +131,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdc-asset",
               "symbol": "USDC",
@@ -137,6 +143,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdc-asset",
               "symbol": "USDC",
@@ -173,6 +180,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -189,6 +197,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdc-asset",
               "symbol": "USDC",
@@ -200,6 +209,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdc-asset",
               "symbol": "USDC",
@@ -219,10 +229,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
         "userWalletBalanceTokens": "0",
         "vToken": {
           "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+          "chainId": 97,
           "decimals": 8,
           "symbol": "vUSDC",
           "underlyingToken": {
             "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+            "chainId": 97,
             "decimals": 6,
             "iconSrc": "fake-usdc-asset",
             "symbol": "USDC",
@@ -251,6 +263,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -267,6 +280,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -302,6 +316,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -318,6 +333,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "chainId": 97,
               "decimals": 6,
               "iconSrc": "fake-usdt-asset",
               "symbol": "USDT",
@@ -337,10 +353,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
         "userWalletBalanceTokens": "900",
         "vToken": {
           "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+          "chainId": 97,
           "decimals": 8,
           "symbol": "vUSDT",
           "underlyingToken": {
             "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+            "chainId": 97,
             "decimals": 6,
             "iconSrc": "fake-usdt-asset",
             "symbol": "USDT",
@@ -361,6 +379,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -377,6 +396,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             },
             "token": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-busd-asset",
               "symbol": "BUSD",
@@ -388,6 +408,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-busd-asset",
               "symbol": "BUSD",
@@ -431,6 +452,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -447,6 +469,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             },
             "token": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-busd-asset",
               "symbol": "BUSD",
@@ -458,6 +481,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "chainId": 97,
               "decimals": 18,
               "iconSrc": "fake-xvs-asset",
               "symbol": "XVS",
@@ -477,10 +501,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
         "userWalletBalanceTokens": "110",
         "vToken": {
           "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
+          "chainId": 97,
           "decimals": 8,
           "symbol": "vBUSD",
           "underlyingToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-busd-asset",
             "symbol": "BUSD",
@@ -499,10 +525,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "liquidationThresholdPercentage": 62,
             "vToken": {
               "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vXVS",
               "underlyingToken": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -516,10 +544,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "liquidationThresholdPercentage": 92,
             "vToken": {
               "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vUSDC",
               "underlyingToken": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                "chainId": 97,
                 "decimals": 6,
                 "iconSrc": "fake-usdc-asset",
                 "symbol": "USDC",
@@ -533,10 +563,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "liquidationThresholdPercentage": 92,
             "vToken": {
               "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vUSDT",
               "underlyingToken": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                "chainId": 97,
                 "decimals": 6,
                 "iconSrc": "fake-usdt-asset",
                 "symbol": "USDT",
@@ -558,10 +590,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "liquidationThresholdPercentage": 92,
             "vToken": {
               "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vUSDT",
               "underlyingToken": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                "chainId": 97,
                 "decimals": 6,
                 "iconSrc": "fake-usdt-asset",
                 "symbol": "USDT",
@@ -575,10 +609,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "liquidationThresholdPercentage": 92,
             "vToken": {
               "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vBUSD",
               "underlyingToken": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-busd-asset",
                 "symbol": "BUSD",
@@ -600,10 +636,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "liquidationThresholdPercentage": 92,
             "vToken": {
               "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vUSDC",
               "underlyingToken": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                "chainId": 97,
                 "decimals": 6,
                 "iconSrc": "fake-usdc-asset",
                 "symbol": "USDC",
@@ -625,10 +663,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "liquidationThresholdPercentage": 62,
             "vToken": {
               "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vXVS",
               "underlyingToken": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
                 "decimals": 18,
                 "iconSrc": "fake-xvs-asset",
                 "symbol": "XVS",
@@ -642,10 +682,12 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
             "liquidationThresholdPercentage": 92,
             "vToken": {
               "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+              "chainId": 97,
               "decimals": 8,
               "symbol": "vUSDC",
               "underlyingToken": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                "chainId": 97,
                 "decimals": 6,
                 "iconSrc": "fake-usdc-asset",
                 "symbol": "USDC",
@@ -671,6 +713,7 @@ exports[`useSimulateBalanceMutations > calls the right hooks and returns the rig
       "borrowAprPercentage": "1.34",
       "token": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "chainId": 97,
         "decimals": 18,
         "iconSrc": "fake-vai-asset",
         "symbol": "VAI",

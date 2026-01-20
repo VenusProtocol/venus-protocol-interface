@@ -7,6 +7,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   "expectedToTokenAmountReceivedMantissa": "10000000000000000000",
   "fromToken": {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-busd-asset",
     "symbol": "BUSD",
@@ -20,6 +21,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   ],
   "toToken": {
     "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-xvs-asset",
     "symbol": "XVS",
@@ -34,6 +36,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   "expectedFromTokenAmountSoldMantissa": "10000000000000000000",
   "fromToken": {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-busd-asset",
     "symbol": "BUSD",
@@ -46,6 +49,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   ],
   "toToken": {
     "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "chainId": 97,
     "decimals": 18,
     "iconSrc": "fake-xvs-asset",
     "symbol": "XVS",
