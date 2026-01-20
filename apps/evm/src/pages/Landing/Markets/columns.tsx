@@ -16,7 +16,7 @@ import VenusPrime from './assets/venusPrime.svg?react';
 export const useColumns = () => {
   const { t } = useTranslation();
 
-  return [
+  const columns = [
     {
       key: 'underlyingSymbol',
       label: t('landing.markets.asset'),
@@ -111,4 +111,8 @@ export const useColumns = () => {
       },
     },
   ] as TableColumn<TopMarketItem>[];
+
+  return {
+    columns,
+  }
 };

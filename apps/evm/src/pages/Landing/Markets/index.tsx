@@ -22,7 +22,7 @@ export const Markets: React.FC<IMarketProps> = ({ className }) => {
 
   const listData = isSmDown ? tempList.slice(0, 3) : isLgDown ? tempList.slice(0, 4) : tempList;
 
-  const columns = useColumns();
+  const { columns } = useColumns();
 
   return (
     <div className={cn(className)}>
@@ -33,6 +33,12 @@ export const Markets: React.FC<IMarketProps> = ({ className }) => {
         className="bg-transparent"
         isFetching={isLoading}
         cellHeight={'72px'}
+        breakpoint="lg"
+        cardClassName={cn(
+          'bg-transparent rounded-2 border border-solid border-dark-blue-hover',
+          '[&_.table-card-content]:gap-6',
+          '[&_.table-card-content-row]:flex-row [&_.table-card-content-row]:justify-between [&_.table-card-content-row-label]:text-[14px]! [&_.table-card-content-row-value]:pt-0!',
+        )}
       />
 
       <ButtonWrapper asChild variant="quinary" className="mx-auto my-7 h-11.25">

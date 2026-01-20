@@ -91,14 +91,25 @@ export function TableCards<R>({
 
               <Delimiter className="my-4" />
 
-              <div className="table__table-cards__card-content grid grid-rows-1 gap-8">
+              <div className="table-card-content grid grid-rows-1 gap-8">
                 {otherColumns.map(column => (
-                  <div key={`${rowKey}-${column.key}`} className="flex flex-col">
-                    <Typography variant="tiny" css={styles.cellTitleMobile}>
+                  <div
+                    key={`${rowKey}-${column.key}`}
+                    className="table-card-content-row flex flex-col"
+                  >
+                    <Typography
+                      variant="tiny"
+                      css={styles.cellTitleMobile}
+                      className="table-card-content-row-label"
+                    >
                       {column.label}
                     </Typography>
 
-                    <Typography variant="small2" css={styles.cellValueMobile}>
+                    <Typography
+                      variant="small2"
+                      css={styles.cellValueMobile}
+                      className="table-card-content-row-value"
+                    >
                       {column.renderCell(row, rowIndex)}
                     </Typography>
                   </div>
