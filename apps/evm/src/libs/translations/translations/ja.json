@@ -228,9 +228,6 @@
       "label": "ウォレット残高"
     }
   },
-  "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
-  },
   "chainExplorerLink": {
     "content": "{{domainName}}で表示"
   },
@@ -339,6 +336,14 @@
       },
       "xAxisValue": "{{ date, numeric }}"
     },
+    "placeholder": {
+      "buttonLabel": "閲覧"
+    },
+    "tabs": {
+      "markets": "マーケット",
+      "staking": "ステーキング",
+      "transactions": "取引"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "借入"
@@ -348,6 +353,42 @@
         "label": "供給"
       },
       "textTitle": "Venusのトップマーケット"
+    },
+    "transactions": {
+      "placeholder": {
+        "title": "取引はまだありません"
+      },
+      "selects": {
+        "source": {
+          "all": "すべてのマーケット"
+        },
+        "txType": {
+          "all": "すべての取引",
+          "approve": "承認",
+          "borrow": "借入",
+          "enterMarket": "担保を有効化",
+          "exitMarket": "担保を無効化",
+          "mint": "供給",
+          "redeem": "出金",
+          "repay": "返済"
+        }
+      },
+      "today": "今日",
+      "txText": {
+        "approve": "支出{{tokenAmount}}を承認",
+        "enterMarket": "<Styled>有効化</Styled> {{vTokenSymbol}}を担保として設定",
+        "exitMarket": "<Styled>無効化</Styled> {{vTokenSymbol}}を担保として解除"
+      },
+      "txType": {
+        "approve": "承認",
+        "borrow": "借入",
+        "enterMarket": "担保を有効化",
+        "exitMarket": "担保を無効化",
+        "mint": "供給",
+        "redeem": "出金",
+        "repay": "返済"
+      },
+      "yesterday": "昨日"
     }
   },
   "eModeBanner": {

@@ -228,9 +228,6 @@
       "label": "钱包余额"
     }
   },
-  "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
-  },
   "chainExplorerLink": {
     "content": "在 {{domainName}} 上查看"
   },
@@ -339,6 +336,14 @@
       },
       "xAxisValue": "{{ date, numeric }}"
     },
+    "placeholder": {
+      "buttonLabel": "浏览"
+    },
+    "tabs": {
+      "markets": "市场",
+      "staking": "质押",
+      "transactions": "交易"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "借款"
@@ -348,6 +353,42 @@
         "label": "供应"
       },
       "textTitle": "Venus 顶级市场"
+    },
+    "transactions": {
+      "placeholder": {
+        "title": "暂无交易"
+      },
+      "selects": {
+        "source": {
+          "all": "所有市场"
+        },
+        "txType": {
+          "all": "所有交易",
+          "approve": "授权",
+          "borrow": "借款",
+          "enterMarket": "已启用抵押品",
+          "exitMarket": "已停用抵押品",
+          "mint": "供应",
+          "redeem": "提取",
+          "repay": "还款"
+        }
+      },
+      "today": "今天",
+      "txText": {
+        "approve": "已授权支出 {{tokenAmount}}",
+        "enterMarket": "<Styled>已启用</Styled> {{vTokenSymbol}} 作为抵押品",
+        "exitMarket": "<Styled>已停用</Styled> {{vTokenSymbol}} 作为抵押品"
+      },
+      "txType": {
+        "approve": "授权",
+        "borrow": "借款",
+        "enterMarket": "已启用抵押品",
+        "exitMarket": "已停用抵押品",
+        "mint": "供应",
+        "redeem": "提取",
+        "repay": "还款"
+      },
+      "yesterday": "昨天"
     }
   },
   "eModeBanner": {

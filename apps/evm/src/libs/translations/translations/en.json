@@ -228,9 +228,6 @@
       "label": "Wallet balance"
     }
   },
-  "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
-  },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
   },
@@ -339,6 +336,14 @@
       },
       "xAxisValue": "{{ date, numeric }}"
     },
+    "placeholder": {
+      "buttonLabel": "Browse"
+    },
+    "tabs": {
+      "markets": "Markets",
+      "staking": "Staking",
+      "transactions": "Transactions"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "Borrow"
@@ -348,6 +353,42 @@
         "label": "Supply"
       },
       "textTitle": "Top markets on Venus"
+    },
+    "transactions": {
+      "placeholder": {
+        "title": "No transactions yet"
+      },
+      "selects": {
+        "source": {
+          "all": "All markets"
+        },
+        "txType": {
+          "all": "All transactions",
+          "approve": "Approval",
+          "borrow": "Borrow",
+          "enterMarket": "Enabled collateral",
+          "exitMarket": "Disabled collateral",
+          "mint": "Supply",
+          "redeem": "Withdraw",
+          "repay": "Repayment"
+        }
+      },
+      "today": "Today",
+      "txText": {
+        "approve": "Approved spending {{tokenAmount}}",
+        "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
+        "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
+      },
+      "txType": {
+        "approve": "Approval",
+        "borrow": "Borrow",
+        "enterMarket": "Enabled collateral",
+        "exitMarket": "Disabled collateral",
+        "mint": "Supply",
+        "redeem": "Withdraw",
+        "repay": "Repayment"
+      },
+      "yesterday": "Yesterday"
     }
   },
   "eModeBanner": {
