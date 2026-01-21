@@ -73,15 +73,17 @@ export const writeVTokens = async ({
     const vTokenAddress = vTokenAddresses[i / 2];
 
     if (!symbol) {
-      throw new Error(
+      process.emitWarning(
         `Failed to fetch vToken symbol. Chain ID: ${chainId} Address: ${vTokenAddress}`,
       );
+      continue;
     }
 
     if (underlyingTokenIndex < 0) {
-      throw new Error(
+      process.emitWarning(
         `Could not find underlying token for vToken ${symbol}. Chain ID: ${chainId} Address: ${vTokenAddress}`,
       );
+      continue;
     }
 
     vTokens.push({
