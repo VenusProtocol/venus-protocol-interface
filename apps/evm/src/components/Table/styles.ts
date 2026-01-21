@@ -93,7 +93,17 @@ export const useStyles = (props?: StylesProps) => {
 
       :hover {
         background-color: ${theme.palette.interactive.hover} !important;
-        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      > td:first-child {
+        border-top-left-radius: ${theme.spacing(2)}; 
+        border-bottom-left-radius: ${theme.spacing(2)}; 
+      }
+
+      > td:last-child {
+        border-bottom-right-radius: ${theme.spacing(2)}; 
+        border-top-right-radius: ${theme.spacing(2)}; 
       }
 
       ${
