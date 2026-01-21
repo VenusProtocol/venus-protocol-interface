@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
             <div className="pb-6 pt-12 xl:pt-30">
               <div className="text-p1s sm:text-p3s">{t('landing.hero.venusTvl')}</div>
               <div className="xl:mt-4 text-h5 sm:text-h3">
-                {isLoading ? PLACEHOLDER_KEY : tvlData?.totalLiquidityUsd}
+                {isLoading ? PLACEHOLDER_KEY : tvlData?.totalSupplyUsd}
               </div>
             </div>
           </div>
