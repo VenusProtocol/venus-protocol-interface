@@ -12,7 +12,7 @@ export const Hero: React.FC = () => {
   const { data: tvlData, isLoading } = useGetMarketsTvl();
 
   return (
-    <div className="relative h-auto xl:min-h-[max(calc(100vh-80px),700px)] w-full bg-black">
+    <div className="relative h-auto xl:min-h-175 w-full bg-black">
       <Galaxy />
       <Wrapper className="flex flex-col start-0 end-0">
         <div className="flex flex-col items-center xl:flex-row xl:justify-between xl:items-stretch gap-6 w-full py-15 z-1">

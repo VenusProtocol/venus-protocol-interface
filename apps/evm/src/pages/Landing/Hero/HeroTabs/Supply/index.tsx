@@ -46,7 +46,7 @@ export const Supply: React.FC<Props> = ({ token, apy, className }) => {
         <BarChart
           data={data}
           xAxisDataKey={'month'}
-          yAxisDataKey={'cumAmount'}
+          yAxisDataKey={'currAmount'}
           formatXAxisValue={value => value}
           formatYAxisValue={value => value}
           chartColor={theme.colors.blue}

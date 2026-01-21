@@ -9,20 +9,13 @@ export const calcSupplyEarnings = (apy: BigNumber | undefined, base = BASE_AMOUN
   return Array.from(Array(months)).reduce((accu, _curr, index) => {
     const month = index + 1;
     const earning = base * apyRate ** month;
-    if (index === 0) {
-      accu.push({
-        month,
-        cumAmount: earning,
-        currAmount: earning - base,
-      });
-    } else {
-      const prevEarning = accu[index - 1].cumAmount;
-      accu.push({
-        month,
-        cumAmount: earning,
-        currAmount: earning - prevEarning,
-      });
-    }
+
+    accu.push({
+      month,
+      cumAmount: earning,
+      currAmount: earning - base,
+    });
+
     return accu;
   }, []);
 };
