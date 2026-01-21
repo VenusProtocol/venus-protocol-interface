@@ -1,18 +1,9 @@
 import { cn, theme } from '@venusprotocol/ui';
-import { type ChartTooltipContentItem, ChartYAxisTick } from 'components';
+import { ChartYAxisTick, Icon } from 'components';
 import { useTranslation } from 'libs/translations';
-import {
-  // Area,
-  Bar,
-  BarChart as RCBarChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { Bar, BarChart as RCBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { DataKey } from 'recharts/types/util/types';
 import { formatCentsToReadableValue } from 'utilities';
-import IconUSD from './usd.svg?react';
 
 export interface ChartProps<T extends Record<string, any>> {
   data: T[];
@@ -24,7 +15,6 @@ export interface ChartProps<T extends Record<string, any>> {
   yAxisTickCount?: number;
   onDataPointHover?: (value: T) => void;
   onMouseLeave?: () => void;
-  formatTooltipItems?: (value: T) => ChartTooltipContentItem[];
   interval?: number;
   className?: string;
 }
@@ -38,7 +28,6 @@ export const BarChart = <T extends Record<string, any>>({
   yAxisTickCount = 6,
   formatXAxisValue,
   formatYAxisValue,
-  // formatTooltipItems,
   onDataPointHover,
   onMouseLeave,
 }: ChartProps<T>) => {
@@ -64,8 +53,8 @@ export const BarChart = <T extends Record<string, any>>({
         >
           <Bar
             dataKey={yAxisDataKey}
-            fill="#181D27"
-            activeBar={{ fill: '#1199FA', stroke: '#1199FA' }}
+            fill={'#181D27'}
+            activeBar={{ fill: theme.colors.blue, stroke: theme.colors.blue }}
             radius={[9999, 9999, 9999, 9999]}
           />
           <XAxis
@@ -107,7 +96,7 @@ export const BarChart = <T extends Record<string, any>>({
                     <div>{t('landing.hero.monthNo', { number: data.month })}</div>
                   </div>
                   <div className="flex items-center mt-2.5">
-                    <IconUSD className="size-5" />
+                    <Icon className="size-5" name="dollar" />
                     <div className="ms-3 me-1">
                       {t('landing.hero.earnedAmount', {
                         amount: formatCentsToReadableValue({ value: data.currAmount * 100 }),

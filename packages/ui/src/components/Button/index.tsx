@@ -23,7 +23,9 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
     case 'tertiary':
       return cn(
         'border-dark-blue-active bg-dark-blue-active disabled:bg-lightGrey h-10 px-3 disabled:border-transparent',
-        active ? 'bg-blue border-blue' : 'hover:border-blue active:bg-blue',
+        active
+          ? 'bg-blue border-blue'
+          : 'hover:text-blue hover:border-blue hover:bg-dark-blue-disabled active:bg-blue active:text-white',
       );
     case 'quaternary':
       return cn(

@@ -59,6 +59,12 @@ export const Layout: React.FC = () => {
   };
 
   const noWrapper = NO_WRAPPER_PATHNAMES.some(noWrapperPath => matchPath(noWrapperPath, pathname));
+  const contentDom = (
+    <>
+      <Outlet />
+      <ScrollToTop ref={scrollToTopRef} />
+    </>
+  );
 
   return (
     <div className="h-dvh flex flex-col">
@@ -69,7 +75,7 @@ export const Layout: React.FC = () => {
       <div
         className={cn(
           'flex flex-col grow gap-y-10  overflow-x-hidden ',
-          noWrapper ? '' : 'pt-5 sm:pt-10',
+          !noWrapper && 'pt-5 sm:pt-10',
         )}
         id={PAGE_CONTAINER_ID}
         onScroll={handleScroll}
@@ -77,15 +83,9 @@ export const Layout: React.FC = () => {
         <Header />
 
         {noWrapper ? (
-          <>
-            <Outlet />
-            <ScrollToTop ref={scrollToTopRef} />
-          </>
+          contentDom
         ) : (
-          <Wrapper className="relative w-full shrink-0 grow">
-            <Outlet />
-            <ScrollToTop ref={scrollToTopRef} />
-          </Wrapper>
+          <Wrapper className="relative w-full shrink-0 grow">{contentDom}</Wrapper>
         )}
 
         <Footer ref={footerRef} />

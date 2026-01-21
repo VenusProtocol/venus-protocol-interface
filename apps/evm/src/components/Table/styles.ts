@@ -12,6 +12,7 @@ export const useStyles = (props?: StylesProps) => {
   const { cellHeight } = props ?? {};
 
   const theme = useTheme();
+
   return {
     getRoot: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
       padding-left: 0;
@@ -92,6 +93,7 @@ export const useStyles = (props?: StylesProps) => {
 
       :hover {
         background-color: ${theme.palette.interactive.hover} !important;
+        border-radius: 8px;
       }
 
       ${

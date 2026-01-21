@@ -1,6 +1,8 @@
 import type { ReactElement } from 'react';
 
-import { Button, type ButtonVariant, cn } from '@venusprotocol/ui';
+import { cn } from '@venusprotocol/ui';
+
+import { QuinaryButton } from '@venusprotocol/ui';
 
 export interface Tag {
   content: string | number | ReactElement;
@@ -13,16 +15,9 @@ export interface TagGroupProps {
   activeTagIndex: number;
   onTagClick: (newIndex: number) => void;
   className?: string;
-  btnVariant?: ButtonVariant;
 }
 
-export const TagGroup = ({
-  tags,
-  activeTagIndex,
-  onTagClick,
-  className,
-  btnVariant = 'quaternary',
-}: TagGroupProps) => (
+export const TagGroup = ({ tags, activeTagIndex, onTagClick, className }: TagGroupProps) => (
   <div
     className={cn(
       'scrollbar-hidden flex items-center overflow-y-auto md:overflow-y-visible md:flex-wrap gap-2',
@@ -30,15 +25,14 @@ export const TagGroup = ({
     )}
   >
     {tags.map((tag, index) => (
-      <Button
-        variant={btnVariant}
+      <QuinaryButton
         active={index === activeTagIndex}
         key={`tag-group-tag-${tag.id}`}
         onClick={() => onTagClick(index)}
         className={cn('whitespace-nowrap px-5 py-2', tag.className)}
       >
         {tag.content}
-      </Button>
+      </QuinaryButton>
     ))}
   </div>
 );

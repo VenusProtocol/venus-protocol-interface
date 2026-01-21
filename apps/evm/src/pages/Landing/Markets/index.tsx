@@ -32,7 +32,7 @@ export const Markets: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6 w-full">
       <h2 className="text-2xl">{t('landing.markets.title')}</h2>
 
       <MarketTable
@@ -53,7 +53,7 @@ export const Markets: React.FC = () => {
       />
 
       <ButtonWrapper
-        className="flex justify-self-center grow-0 bg-dark-blue-disabled border-dark-blue-disabled text-light-grey hover:bg-blue hover:border-blue hover:text-white active:bg-blue active:border-blue active:text-white"
+        className="flex justify-self-center grow-0 bg-dark-blue-disabled border-dark-blue-disabled text-light-grey hover:bg-blue hover:border-blue hover:text-white active:bg-blue active:border-blue active:text-white mx-auto"
         rounded
         asChild
       >
