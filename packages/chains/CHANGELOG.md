@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.19.1
+
+### Patch Changes
+
+- b0ac390: do not block build pipeline when vToken is missing
+
 ## 0.19.0
 
 ### Minor Changes
