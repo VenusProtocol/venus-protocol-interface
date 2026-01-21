@@ -228,9 +228,6 @@
       "label": "钱包余额"
     }
   },
-  "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
-  },
   "chainExplorerLink": {
     "content": "在 {{domainName}} 上查看"
   },
@@ -282,6 +279,22 @@
         },
         "title": "与 <Gradient>Venus Prime</Gradient> 一起登上更高境界"
       }
+    },
+    "guide": {
+      "completed": "已完成",
+      "step1": {
+        "description": "通过供应资产或将现有头寸迁移到 Venus 协议来赚取收益。",
+        "title": "供应 / 迁移"
+      },
+      "step2": {
+        "description": "借入资产增强您的 DeFi 策略，或一键使用流动性进行杠杆操作。",
+        "title": "借款 / 杠杆"
+      },
+      "step3": {
+        "description": "将 XVS 存入金库，赚取由协议收入提供的收益。",
+        "title": "质押 XVS"
+      },
+      "uncompleted": "未完成"
     },
     "overview": {
       "absolutePerformance": "绝对表现",

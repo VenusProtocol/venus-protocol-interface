@@ -228,9 +228,6 @@
       "label": "Wallet balance"
     }
   },
-  "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
-  },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
   },
@@ -282,6 +279,22 @@
         },
         "title": "Achieve greater heights with <Gradient>Venus Prime</Gradient>"
       }
+    },
+    "guide": {
+      "completed": "Completed",
+      "step1": {
+        "description": "Earn yield by supplying assets or migrating your existing positions to the Venus protocol.",
+        "title": "Supply / Migrate"
+      },
+      "step2": {
+        "description": "Borrow assets to power up your DeFi strategies, or leverage liquidities in one click.",
+        "title": "Borrow / Leverage"
+      },
+      "step3": {
+        "description": "Deposit XVS into the vault and earn yield powered by the protocol's revenues.",
+        "title": "Stake XVS"
+      },
+      "uncompleted": "Uncompleted"
     },
     "overview": {
       "absolutePerformance": "Absolute performance",

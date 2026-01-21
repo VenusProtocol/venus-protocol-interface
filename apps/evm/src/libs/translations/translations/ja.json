@@ -228,9 +228,6 @@
       "label": "ウォレット残高"
     }
   },
-  "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
-  },
   "chainExplorerLink": {
     "content": "{{domainName}}で表示"
   },
@@ -283,63 +280,21 @@
         "title": "<Gradient>Venus Prime</Gradient>でさらなる高みへ"
       }
     },
-    "overview": {
-      "absolutePerformance": "絶対パフォーマンス",
-      "netWorth": {
-        "label": "純資産",
-        "tooltip": "ボールトステークと借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールトステーク、借入、ミント済みVAIを考慮した利用可能な純資産"
+    "guide": {
+      "completed": "完了",
+      "step1": {
+        "description": "資産を供給するか既存ポジションをVenusプロトコルへ移行して利回りを獲得しましょう。",
+        "title": "供給 / 移行"
       },
-      "performanceChart": {
-        "errorState": {
-          "failedToFetchMessage": "アカウント履歴を取得できませんでした",
-          "refetchButtonLabel": "再試行"
-        },
-        "placeholderText": "レポートを生成中。最大1分かかる場合があります"
+      "step2": {
+        "description": "資産を借りてDeFi戦略を強化したり、ワンクリックで流動性をレバレッジできます。",
+        "title": "借入 / レバレッジ"
       },
-      "periodOption": {
-        "oneYear": "1年",
-        "sixMonths": "6か月",
-        "thirtyDays": "30日"
+      "step3": {
+        "description": "XVSをボールトに預け入れ、プロトコル収益による利回りを獲得しましょう。",
+        "title": "XVSをステーク"
       },
-      "summary": {
-        "cellGroup": {
-          "dailyEarnings": "日次収益",
-          "mintedVai": "ミント済みVAI",
-          "netApy": "実質APY",
-          "netApyTooltip": "総供給残高に対して年利として受け取る割合",
-          "netApyWithVaultStakeTooltip": "総供給とボールトステークに対して年利として受け取る割合",
-          "totalBorrow": "総借入",
-          "totalSupply": "総供給",
-          "totalVaultStake": "ボールトステーク合計"
-        },
-        "title": "サマリー"
-      },
-      "todaysChange": "本日の変化"
-    },
-    "topMarkets": {
-      "borrowButton": {
-        "label": "借入"
-      },
-      "interactiveTitle": "Venusのトップ<SupplyButton>供給</SupplyButton> / <BorrowButton>借入</BorrowButton>",
-      "supplyButton": {
-        "label": "供給"
-      },
-      "textTitle": "Venusのトップマーケット"
-    }
-  },
-  "dashboard": {
-    "adCarousel": {
-      "primeBanner": {
-        "button": {
-          "label": "Prime報酬を計算"
-        },
-        "description": "Venus Primeはレンディングと借入の活動に対して熱心なユーザーに報酬を付与します。",
-        "illustration": {
-          "altText": "Primeのイラスト"
-        },
-        "title": "<Gradient>Venus Prime</Gradient>でさらなる高みへ"
-      }
+      "uncompleted": "未完了"
     },
     "overview": {
       "absolutePerformance": "絶対パフォーマンス",

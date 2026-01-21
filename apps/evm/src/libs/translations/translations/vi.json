@@ -228,9 +228,6 @@
       "label": "Số dư ví"
     }
   },
-  "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
-  },
   "chainExplorerLink": {
     "content": "Xem trên {{domainName}}"
   },
@@ -282,6 +279,22 @@
         },
         "title": "Đạt tầm cao mới cùng <Gradient>Venus Prime</Gradient>"
       }
+    },
+    "guide": {
+      "completed": "Hoàn thành",
+      "step1": {
+        "description": "Kiếm lợi suất bằng cách cung cấp tài sản hoặc chuyển các vị thế hiện có của bạn sang giao thức Venus.",
+        "title": "Cung cấp / Di chuyển"
+      },
+      "step2": {
+        "description": "Vay tài sản để tăng cường chiến lược DeFi của bạn hoặc đòn bẩy thanh khoản chỉ với một cú nhấp.",
+        "title": "Vay / Đòn bẩy"
+      },
+      "step3": {
+        "description": "Gửi XVS vào vault và nhận lợi suất được tạo từ doanh thu của giao thức.",
+        "title": "Stake XVS"
+      },
+      "uncompleted": "Chưa hoàn thành"
     },
     "overview": {
       "absolutePerformance": "Hiệu suất tuyệt đối",
