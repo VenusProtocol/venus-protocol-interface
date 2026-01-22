@@ -196,7 +196,6 @@ export const Galaxy: React.FC = ({
   hueShift = 70,
   disableAnimation = false,
   speed = 0.4,
-  mouseInteraction = false,
   glowIntensity = 0.1,
   saturation = 1,
   mouseRepulsion = false,
@@ -205,7 +204,6 @@ export const Galaxy: React.FC = ({
   rotationSpeed = 0.05,
   autoCenterRepulsion = 10,
   transparent = true,
-
   ...rest
 }: GalaxyProps) => {
   const ctnDom = useRef<HTMLDivElement>(null);
@@ -306,30 +304,10 @@ export const Galaxy: React.FC = ({
     animateId = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
 
-    function handleMouseMove(e: MouseEvent) {
-      const rect = ctn.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height;
-      targetMousePos.current = { x, y };
-      targetMouseActive.current = 1.0;
-    }
-
-    function handleMouseLeave() {
-      targetMouseActive.current = 0.0;
-    }
-
-    if (mouseInteraction) {
-      ctn.addEventListener('mousemove', handleMouseMove);
-      ctn.addEventListener('mouseleave', handleMouseLeave);
-    }
-
     return () => {
       cancelAnimationFrame(animateId);
       window.removeEventListener('resize', resize);
-      if (mouseInteraction) {
-        ctn.removeEventListener('mousemove', handleMouseMove);
-        ctn.removeEventListener('mouseleave', handleMouseLeave);
-      }
+
       ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
@@ -341,7 +319,6 @@ export const Galaxy: React.FC = ({
     hueShift,
     disableAnimation,
     speed,
-    mouseInteraction,
     glowIntensity,
     saturation,
     mouseRepulsion,

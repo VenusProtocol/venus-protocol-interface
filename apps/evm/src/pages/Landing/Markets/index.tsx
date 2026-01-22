@@ -1,3 +1,5 @@
+import { cn } from '@venusprotocol/ui';
+
 import { useGetPool } from 'clients/api';
 import { ButtonWrapper, Icon } from 'components';
 import { Link } from 'containers/Link';
@@ -8,7 +10,11 @@ import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { compareBigNumbers } from 'utilities';
 
-export const Markets: React.FC = () => {
+export interface MarketsProps {
+  className?: string;
+}
+
+export const Markets: React.FC<MarketsProps> = ({ className }) => {
   const { t } = useTranslation();
   const { corePoolComptrollerContractAddress } = useChain();
   const isSm = useIsSmDown();
@@ -37,7 +43,7 @@ export const Markets: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className={cn('flex flex-col gap-6 w-full', className)}>
       <h2 className="text-2xl">{t('landing.markets.title')}</h2>
 
       <MarketTable

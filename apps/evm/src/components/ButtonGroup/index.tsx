@@ -1,4 +1,4 @@
-import { TertiaryButton, cn } from '@venusprotocol/ui';
+import { type ButtonProps, SecondaryButton, cn } from '@venusprotocol/ui';
 
 export interface ButtonGroupProps {
   buttonLabels: React.ReactNode[];
@@ -7,6 +7,7 @@ export interface ButtonGroupProps {
   fullWidth?: boolean;
   className?: string;
   buttonClassName?: string;
+  buttonSize?: ButtonProps['size'];
 }
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -16,20 +17,30 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   fullWidth = false,
   className,
   buttonClassName,
+  buttonSize,
 }) => {
   return (
     <div
-      className={cn('flex items-center gap-x-4', fullWidth ? 'w-full' : 'max-sm:w-full', className)}
+      className={cn(
+        'flex items-center bg-dark-blue-disabled border border-dark-blue-hover rounded-lg',
+        fullWidth ? 'w-full' : 'max-sm:w-full',
+        className,
+      )}
     >
       {buttonLabels.map((label, index) => (
-        <TertiaryButton
+        <SecondaryButton
           key={`button-group-button-${label}`}
           onClick={() => onButtonClick(index)}
-          className={cn('flex-1', !fullWidth && 'max-sm:flex-auto', buttonClassName)}
+          className={cn(
+            'flex-1 border-transparent hover:border-transparent hover:text-white active:bg-blue active:border-blue',
+            !fullWidth && 'max-sm:flex-auto',
+            buttonClassName,
+          )}
           active={index === activeButtonIndex}
+          size={buttonSize}
         >
           {label}
-        </TertiaryButton>
+        </SecondaryButton>
       ))}
     </div>
   );

@@ -83,7 +83,7 @@ export const Layout: React.FC = () => {
         <Header />
 
         {noWrapper ? (
-          contentDom
+          <div>{contentDom}</div>
         ) : (
           <Wrapper className="relative w-full shrink-0 grow">{contentDom}</Wrapper>
         )}

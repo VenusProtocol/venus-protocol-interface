@@ -1,9 +1,17 @@
 import { VError } from 'libs/errors';
 import { restService } from 'utilities';
-import { type TvlResponseData, formatTvlData } from './utils';
 
-export async function fetchMarketsTvl() {
-  const response = await restService<TvlResponseData>({
+export type ApiMarketsTvl = {
+  suppliedSumCents: string;
+  borrowedSumCents: string;
+  liquiditySumCents: string;
+  marketCount: number;
+  poolCount: number;
+  chainCount: number;
+};
+
+export async function getMarketsTvl() {
+  const response = await restService<ApiMarketsTvl>({
     endpoint: '/markets/tvl',
     method: 'GET',
   });
@@ -22,5 +30,5 @@ export async function fetchMarketsTvl() {
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return formatTvlData(payload);
+  return payload;
 }

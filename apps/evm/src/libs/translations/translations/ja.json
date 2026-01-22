@@ -527,74 +527,73 @@
   },
   "landing": {
     "benefits": {
-      "text1": "TRANSLATION NEEDED",
-      "text2": "TRANSLATION NEEDED",
-      "text3": "TRANSLATION NEEDED",
-      "title1": "TRANSLATION NEEDED",
-      "title2": "TRANSLATION NEEDED",
-      "title3": "TRANSLATION NEEDED"
+      "text1": "改ざん不能なマネーマーケットにオンチェーンで直接アクセス。",
+      "text2": "Venus Protocolのすべての資産はBEP-20およびERC-20規格に準拠しています。",
+      "text3": "高速・安全・低コストな取引のためにEVM互換チェーン上で構築。",
+      "title1": "分散型",
+      "title2": "BEP-20/ERC-20",
+      "title3": "オムニチェーン"
     },
     "governance": {
-      "forum": "TRANSLATION NEEDED",
-      "planetsAlt": "TRANSLATION NEEDED",
-      "proposalCounting": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "forum": "ガバナンスフォーラム",
+      "planetsAlt": "植物のイラスト",
+      "proposalCounting": "実行済みのVenus改善提案、さらに増加中",
+      "text": "Venusはコミュニティ主導の分散型プロトコルで、暗号資産マネーマーケット向けに最高水準の機能を提供します。",
+      "title": "コミュニティが統治する<br />マネーマーケット"
     },
     "hero": {
-      "1Year": "TRANSLATION NEEDED",
-      "30Day": "TRANSLATION NEEDED",
-      "6Month": "TRANSLATION NEEDED",
-      "assets": "TRANSLATION NEEDED",
-      "borrow": "TRANSLATION NEEDED",
-      "borrowTips": "TRANSLATION NEEDED",
-      "earned": "TRANSLATION NEEDED",
-      "earnedAmount": "TRANSLATION NEEDED",
-      "fromPercentage": "TRANSLATION NEEDED",
-      "highestApy": "TRANSLATION NEEDED",
-      "monthNo": "TRANSLATION NEEDED",
-      "startNow": "TRANSLATION NEEDED",
-      "subtitle": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "supplyTips": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
-      "totalApy": "TRANSLATION NEEDED",
-      "upToPercentage": "TRANSLATION NEEDED",
-      "venusTvl": "TRANSLATION NEEDED",
-      "yearlyEarnings": "TRANSLATION NEEDED",
-      "yearlyInterest": "TRANSLATION NEEDED"
+      "1Year": "1年",
+      "30Day": "30日",
+      "6Month": "6か月",
+      "assets": "資産",
+      "borrow": "借入",
+      "earned": "獲得済み",
+      "earnedAmount": "獲得済み {{amount}}",
+      "from": "{{percentage}}から",
+      "highestApy": "最高APY",
+      "monthNo": "第{{number}}月",
+      "startNow": "今すぐ始める",
+      "subtitle": "どんなDeFi利回り戦略にも使えるシンプルで強力なレンディングと借入。",
+      "supply": "供給",
+      "supplyTips": "初期預入金$10,000を想定し、収益は月次で複利計算。",
+      "title": "ユニバーサル<br /><hl>マネーマーケット</hl>",
+      "totalApy": "合計APY",
+      "upToPercentage": "{{percentage}}まで",
+      "venusTvl": "Venus TVL",
+      "yearlyEarnings": "年間収益",
+      "yearlyInterests": "年間利息"
     },
     "markets": {
       "button": {
-        "label": "TRANSLATION NEEDED"
+        "label": "さらに見る"
       },
-      "title": "TRANSLATION NEEDED"
+      "title": "Venusのトップマーケット"
     },
     "protection": {
-      "bugBountyAlt": "TRANSLATION NEEDED",
-      "challengeText": "TRANSLATION NEEDED",
-      "challengeTitle": "TRANSLATION NEEDED",
-      "protectionAlt": "TRANSLATION NEEDED",
-      "protectionText": "TRANSLATION NEEDED",
-      "protectionTitle": "TRANSLATION NEEDED"
+      "bugBountyAlt": "バグバウンティのイラスト",
+      "challengeText": "私たちはすべての人にコードへの挑戦と脆弱性の探索を促しています。バグバウンティ報酬について読み、見つけたバグはぜひ報告してください。",
+      "challengeTitle": "コードに挑戦して報酬を獲得",
+      "protectionAlt": "保護のイラスト",
+      "protectionText": "外れ値イベントに備えて、全員の安全を守るためのフォールバックプールを維持しています。",
+      "protectionTitle": "保護を最優先"
     },
     "safety": {
-      "audit_other": "TRANSLATION NEEDED",
-      "otherAuditors": "TRANSLATION NEEDED",
-      "scoreAlt": "TRANSLATION NEEDED",
-      "securityScore": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
-      "venusScored": "TRANSLATION NEEDED"
+      "audit_other": "監査",
+      "otherAuditors": "Fairyproof、Hacken、HashExによる<br />14件以上の監査",
+      "scoreAlt": "スコアのイラスト",
+      "securityScore": "セキュリティスコア",
+      "text": "Venusは資産の安全性を最優先にしているため、安心して取引できます",
+      "title": "安全第一",
+      "venusScored": "VenusはCertikの評価でBNB Chainのセキュリティにおいて<Link>第3位</Link>にランクされました（2021年6月）"
     },
     "venusPrime": {
-      "imageAlt": "TRANSLATION NEEDED",
-      "learnMore": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "imageAlt": "Venus Primeのイラスト",
+      "learnMore": "詳細を見る",
+      "text": "Venus Primeでは、ガバナンスボールトにステークしながらVenusで貸借を行う熱心なユーザーがブースト報酬を獲得します。",
+      "title": "<hl>Venus Prime</hl> <br />リターンを増幅"
     },
     "wallets": {
-      "title": "TRANSLATION NEEDED"
+      "title": "多くの人に信頼されています"
     }
   },
   "layout": {
@@ -825,7 +824,7 @@
     },
     "columnKeys": {
       "asset": "資産",
-      "assetAndChain": "TRANSLATION NEEDED",
+      "assetAndChain": "資産",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "総借入",
       "collateral": "担保",

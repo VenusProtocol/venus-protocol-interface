@@ -15,10 +15,14 @@ export const Landing: React.FC = () => {
       <Hero />
 
       <Wrapper>
-        <Markets />
-        <VenusPrime />
-        <Protection />
-        <Governance />
+        <Markets className="mb-6 md:mb-10 lg:mb-15" />
+
+        <div className="space-y-6">
+          <VenusPrime />
+          <Protection />
+          <Governance />
+        </div>
+
         <Safety />
         <Benefits />
         <Wallets />

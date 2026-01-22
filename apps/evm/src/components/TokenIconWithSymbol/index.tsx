@@ -10,25 +10,31 @@ export interface TokenIconWithSymbolProps extends TokenIconProps {
 export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
   token,
   className,
-  tokenIconClassName,
   displayChain = false,
+  size = 'md',
   ...otherProps
 }) => {
   const chain = chains[token.chainId];
 
   return (
-    <div className={cn(className, 'flex items-center gap-x-2')}>
-      <TokenIcon
-        token={token}
-        className={tokenIconClassName}
-        displayChain={displayChain}
-        {...otherProps}
-      />
+    <div className={cn('flex items-center gap-x-3', className)}>
+      <TokenIcon token={token} displayChain={displayChain} size={size} {...otherProps} />
 
       <div>
-        <p className={cn(displayChain && 'text-b1r')}>{token.symbol}</p>
+        <p
+          className={cn(
+            displayChain && size === 'md' && 'text-b1r',
+            displayChain && size === 'lg' && 'text-p1s',
+          )}
+        >
+          {token.symbol}
+        </p>
 
-        {displayChain && <p className="text-light-grey text-b2r">{chain.name}</p>}
+        {displayChain && (
+          <p className={cn('text-light-grey', size === 'md' ? 'text-b2r' : 'text-b1r')}>
+            {chain.name}
+          </p>
+        )}
       </div>
     </div>
   );

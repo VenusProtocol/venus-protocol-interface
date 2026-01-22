@@ -527,74 +527,73 @@
   },
   "landing": {
     "benefits": {
-      "text1": "TRANSLATION NEEDED",
-      "text2": "TRANSLATION NEEDED",
-      "text3": "TRANSLATION NEEDED",
-      "title1": "TRANSLATION NEEDED",
-      "title2": "TRANSLATION NEEDED",
-      "title3": "TRANSLATION NEEDED"
+      "text1": "Truy cập trực tiếp thị trường tiền tệ bất biến trên chuỗi.",
+      "text2": "Tất cả tài sản của Venus Protocol tuân theo tiêu chuẩn BEP-20 và ERC-20.",
+      "text3": "Xây dựng trên các chuỗi tương thích EVM để giao dịch nhanh, an toàn và chi phí thấp.",
+      "title1": "Phi tập trung",
+      "title2": "BEP-20/ERC-20",
+      "title3": "Đa chuỗi"
     },
     "governance": {
-      "forum": "TRANSLATION NEEDED",
-      "planetsAlt": "TRANSLATION NEEDED",
-      "proposalCounting": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "forum": "Diễn đàn quản trị",
+      "planetsAlt": "Minh họa cây",
+      "proposalCounting": "Các đề xuất cải tiến Venus đã được thực thi và vẫn đang tiếp tục",
+      "text": "Venus là một giao thức phi tập trung do cộng đồng dẫn dắt, cung cấp chức năng hàng đầu cho thị trường tiền mã hóa.",
+      "title": "Thị trường tiền tệ được quản trị<br />bởi cộng đồng"
     },
     "hero": {
-      "1Year": "TRANSLATION NEEDED",
-      "30Day": "TRANSLATION NEEDED",
-      "6Month": "TRANSLATION NEEDED",
-      "assets": "TRANSLATION NEEDED",
-      "borrow": "TRANSLATION NEEDED",
-      "borrowTips": "TRANSLATION NEEDED",
-      "earned": "TRANSLATION NEEDED",
-      "earnedAmount": "TRANSLATION NEEDED",
-      "fromPercentage": "TRANSLATION NEEDED",
-      "highestApy": "TRANSLATION NEEDED",
-      "monthNo": "TRANSLATION NEEDED",
-      "startNow": "TRANSLATION NEEDED",
-      "subtitle": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "supplyTips": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
-      "totalApy": "TRANSLATION NEEDED",
-      "upToPercentage": "TRANSLATION NEEDED",
-      "venusTvl": "TRANSLATION NEEDED",
-      "yearlyEarnings": "TRANSLATION NEEDED",
-      "yearlyInterest": "TRANSLATION NEEDED"
+      "1Year": "1N",
+      "30Day": "30N",
+      "6Month": "6T",
+      "assets": "Tài sản",
+      "borrow": "Vay",
+      "earned": "Đã kiếm",
+      "earnedAmount": "Đã kiếm {{amount}}",
+      "from": "Từ {{percentage}}",
+      "highestApy": "APY cao nhất",
+      "monthNo": "Tháng {{number}}",
+      "startNow": "Bắt đầu ngay",
+      "subtitle": "Cho vay và vay đơn giản nhưng mạnh mẽ cho mọi chiến lược lợi suất DeFi.",
+      "supply": "Cung",
+      "supplyTips": "Dựa trên khoản gửi ban đầu $10,000, lợi nhuận được cộng dồn hằng tháng.",
+      "title": "Thị trường tiền tệ<br /><hl>phổ quát</hl>",
+      "totalApy": "APY tổng",
+      "upToPercentage": "Lên đến {{percentage}}",
+      "venusTvl": "TVL của Venus",
+      "yearlyEarnings": "Thu nhập hằng năm",
+      "yearlyInterests": "Lãi hằng năm"
     },
     "markets": {
       "button": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Khám phá thêm"
       },
-      "title": "TRANSLATION NEEDED"
+      "title": "Top thị trường trên Venus"
     },
     "protection": {
-      "bugBountyAlt": "TRANSLATION NEEDED",
-      "challengeText": "TRANSLATION NEEDED",
-      "challengeTitle": "TRANSLATION NEEDED",
-      "protectionAlt": "TRANSLATION NEEDED",
-      "protectionText": "TRANSLATION NEEDED",
-      "protectionTitle": "TRANSLATION NEEDED"
+      "bugBountyAlt": "Minh họa Bug Bounty",
+      "challengeText": "Chúng tôi khuyến khích mọi người thách thức mã nguồn và tìm kiếm lỗ hổng. Hãy đọc về phần thưởng bug bounty và gửi bất kỳ lỗi nào bạn tìm thấy.",
+      "challengeTitle": "Thách thức mã nguồn và nhận thưởng",
+      "protectionAlt": "Minh họa bảo vệ",
+      "protectionText": "Duy trì một pool dự phòng để đảm bảo an toàn cho tất cả chúng ta trong trường hợp xảy ra sự kiện bất thường.",
+      "protectionTitle": "Ưu tiên bảo vệ"
     },
     "safety": {
-      "audit_other": "TRANSLATION NEEDED",
-      "otherAuditors": "TRANSLATION NEEDED",
-      "scoreAlt": "TRANSLATION NEEDED",
-      "securityScore": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
-      "venusScored": "TRANSLATION NEEDED"
+      "audit_other": "Các cuộc kiểm toán",
+      "otherAuditors": "+14 cuộc kiểm toán với <br />Fairyproof, Hacken và HashEx",
+      "scoreAlt": "Minh họa điểm số",
+      "securityScore": "Điểm bảo mật",
+      "text": "Giao dịch tự tin, biết rằng Venus luôn đặt sự an toàn của tài sản bạn lên hàng đầu",
+      "title": "An toàn trên hết",
+      "venusScored": "Venus được Certik đánh giá đứng <Link>thứ 3</Link> về bảo mật trên BNB Chain (Tháng 6, 2021)"
     },
     "venusPrime": {
-      "imageAlt": "TRANSLATION NEEDED",
-      "learnMore": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "imageAlt": "Minh họa Venus Prime",
+      "learnMore": "Tìm hiểu thêm",
+      "text": "Với Venus Prime, người dùng tận tâm nhận phần thưởng tăng cường khi cho vay và vay trên Venus trong khi stake trong vault quản trị.",
+      "title": "<hl>Venus Prime</hl> <br />tăng cường lợi nhuận của bạn"
     },
     "wallets": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Được nhiều người tin dùng"
     }
   },
   "layout": {
@@ -825,7 +824,7 @@
     },
     "columnKeys": {
       "asset": "Tài sản",
-      "assetAndChain": "TRANSLATION NEEDED",
+      "assetAndChain": "Tài sản",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "Tổng vay",
       "collateral": "Tài sản thế chấp",

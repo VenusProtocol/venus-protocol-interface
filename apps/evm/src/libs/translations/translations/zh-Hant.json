@@ -527,74 +527,73 @@
   },
   "landing": {
     "benefits": {
-      "text1": "TRANSLATION NEEDED",
-      "text2": "TRANSLATION NEEDED",
-      "text3": "TRANSLATION NEEDED",
-      "title1": "TRANSLATION NEEDED",
-      "title2": "TRANSLATION NEEDED",
-      "title3": "TRANSLATION NEEDED"
+      "text1": "直接在鏈上存取不可篡改的貨幣市場。",
+      "text2": "所有 Venus Protocol 資產均符合 BEP-20 與 ERC-20 標準。",
+      "text3": "構建於相容 EVM 的鏈上，實現快速、安全且低成本的交易。",
+      "title1": "去中心化",
+      "title2": "BEP-20/ERC-20",
+      "title3": "全鏈"
     },
     "governance": {
-      "forum": "TRANSLATION NEEDED",
-      "planetsAlt": "TRANSLATION NEEDED",
-      "proposalCounting": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "forum": "治理論壇",
+      "planetsAlt": "植物插圖",
+      "proposalCounting": "Venus 改進提案已執行並持續增加",
+      "text": "Venus 是由社群驅動的去中心化協議，為加密貨幣市場提供一流功能。",
+      "title": "由社群治理的<br />貨幣市場"
     },
     "hero": {
-      "1Year": "TRANSLATION NEEDED",
-      "30Day": "TRANSLATION NEEDED",
-      "6Month": "TRANSLATION NEEDED",
-      "assets": "TRANSLATION NEEDED",
-      "borrow": "TRANSLATION NEEDED",
-      "borrowTips": "TRANSLATION NEEDED",
-      "earned": "TRANSLATION NEEDED",
-      "earnedAmount": "TRANSLATION NEEDED",
-      "fromPercentage": "TRANSLATION NEEDED",
-      "highestApy": "TRANSLATION NEEDED",
-      "monthNo": "TRANSLATION NEEDED",
-      "startNow": "TRANSLATION NEEDED",
-      "subtitle": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "supplyTips": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
-      "totalApy": "TRANSLATION NEEDED",
-      "upToPercentage": "TRANSLATION NEEDED",
-      "venusTvl": "TRANSLATION NEEDED",
-      "yearlyEarnings": "TRANSLATION NEEDED",
-      "yearlyInterest": "TRANSLATION NEEDED"
+      "1Year": "1年",
+      "30Day": "30天",
+      "6Month": "6個月",
+      "assets": "資產",
+      "borrow": "借款",
+      "earned": "已賺取",
+      "earnedAmount": "已賺取 {{amount}}",
+      "from": "來自 {{percentage}}",
+      "highestApy": "最高 APY",
+      "monthNo": "第 {{number}} 個月",
+      "startNow": "立即開始",
+      "subtitle": "適用於任何 DeFi 收益策略的簡單而強大的借貸。",
+      "supply": "供應",
+      "supplyTips": "以 $10,000 初始存款為基準，收益按月複利。",
+      "title": "通用<br /><hl>貨幣市場</hl>",
+      "totalApy": "總 APY",
+      "upToPercentage": "最高 {{percentage}}",
+      "venusTvl": "Venus TVL",
+      "yearlyEarnings": "年收益",
+      "yearlyInterests": "年利息"
     },
     "markets": {
       "button": {
-        "label": "TRANSLATION NEEDED"
+        "label": "查看更多"
       },
-      "title": "TRANSLATION NEEDED"
+      "title": "Venus 頂級市場"
     },
     "protection": {
-      "bugBountyAlt": "TRANSLATION NEEDED",
-      "challengeText": "TRANSLATION NEEDED",
-      "challengeTitle": "TRANSLATION NEEDED",
-      "protectionAlt": "TRANSLATION NEEDED",
-      "protectionText": "TRANSLATION NEEDED",
-      "protectionTitle": "TRANSLATION NEEDED"
+      "bugBountyAlt": "漏洞賞金插圖",
+      "challengeText": "我們鼓勵大家挑戰我們的程式碼並尋找漏洞。閱讀漏洞賞金獎勵資訊，並提交您發現的任何漏洞。",
+      "challengeTitle": "挑戰我們的程式碼並獲得獎勵",
+      "protectionAlt": "保護插圖",
+      "protectionText": "維持一個備援池，以在異常事件發生時保障大家的安全。",
+      "protectionTitle": "安全保障優先"
     },
     "safety": {
-      "audit_other": "TRANSLATION NEEDED",
-      "otherAuditors": "TRANSLATION NEEDED",
-      "scoreAlt": "TRANSLATION NEEDED",
-      "securityScore": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
-      "venusScored": "TRANSLATION NEEDED"
+      "audit_other": "審計",
+      "otherAuditors": "+14 次審計，來自 <br />Fairyproof、Hacken 與 HashEx",
+      "scoreAlt": "評分插圖",
+      "securityScore": "安全評分",
+      "text": "放心交易，Venus 將您的資產安全置於首位",
+      "title": "安全第一",
+      "venusScored": "Venus 在 Certik 的評估中於 BNB Chain 安全性排名 <Link>第 3</Link>（2021 年 6 月）"
     },
     "venusPrime": {
-      "imageAlt": "TRANSLATION NEEDED",
-      "learnMore": "TRANSLATION NEEDED",
-      "text": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "imageAlt": "Venus Prime 插圖",
+      "learnMore": "了解更多",
+      "text": "透過 Venus Prime，積極用戶在 Venus 上借貸並在治理金庫質押時可獲得增強獎勵。",
+      "title": "<hl>Venus Prime</hl> <br />提升您的回報"
     },
     "wallets": {
-      "title": "TRANSLATION NEEDED"
+      "title": "深受眾多用戶信賴"
     }
   },
   "layout": {
@@ -825,7 +824,7 @@
     },
     "columnKeys": {
       "asset": "資產",
-      "assetAndChain": "TRANSLATION NEEDED",
+      "assetAndChain": "資產",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "總借款",
       "collateral": "抵押",
