@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.20.0
+
+### Minor Changes
+
+- c42dee1: add PT-clisBNBx-25JUN2026 token record
+
 ## 0.19.1
 
 ### Patch Changes
