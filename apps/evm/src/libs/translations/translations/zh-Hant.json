@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "漏洞賞金插圖",
-      "challengeText": "我們鼓勵大家挑戰我們的程式碼並尋找漏洞。閱讀漏洞賞金獎勵資訊，並提交您發現的任何漏洞。",
+      "challengeText": "TRANSLATION NEEDED",
       "challengeTitle": "挑戰我們的程式碼並獲得獎勵",
       "protectionAlt": "保護插圖",
-      "protectionText": "維持一個備援池，以在異常事件發生時保障大家的安全。",
+      "protectionText": "TRANSLATION NEEDED",
       "protectionTitle": "安全保障優先"
     },
     "safety": {

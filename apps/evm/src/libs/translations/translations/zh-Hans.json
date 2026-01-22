@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "漏洞赏金插图",
-      "challengeText": "我们鼓励大家挑战我们的代码并寻找漏洞。阅读关于漏洞赏金奖励的信息，并提交您发现的任何漏洞。",
+      "challengeText": "TRANSLATION NEEDED",
       "challengeTitle": "挑战我们的代码并获得奖励",
       "protectionAlt": "保护插图",
-      "protectionText": "维护一个备用池，以便在异常事件发生时保障所有人的安全。",
+      "protectionText": "TRANSLATION NEEDED",
       "protectionTitle": "安全保障优先"
     },
     "safety": {

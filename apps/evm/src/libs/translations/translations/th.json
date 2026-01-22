@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "ภาพประกอบ Bug Bounty",
-      "challengeText": "เราสนับสนุนให้ทุกคนท้าทายโค้ดของเราและค้นหาช่องโหว่ อ่านเกี่ยวกับรางวัลบั๊กบาวน์ตี และโปรดส่งบั๊กที่คุณพบ",
+      "challengeText": "TRANSLATION NEEDED",
       "challengeTitle": "ท้าทายโค้ดของเราและรับรางวัล",
       "protectionAlt": "ภาพประกอบการปกป้อง",
-      "protectionText": "รักษาพูลสำรองเพื่อให้ทุกคนปลอดภัยในกรณีเหตุการณ์ผิดปกติ",
+      "protectionText": "TRANSLATION NEEDED",
       "protectionTitle": "ให้ความสำคัญกับการปกป้อง"
     },
     "safety": {

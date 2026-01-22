@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "Bug Bounty Illustration",
-      "challengeText": "We encourage all to challenge our code and search for vulnerabilities. Read about our bug bounty rewards, and please submit any bug you identify.",
+      "challengeText": "Find and report vulnerabilities in our code to be eligible for rewards. Read about our bug bounty program to learn more.",
       "challengeTitle": "Challenge our code and be rewarded",
       "protectionAlt": "Protection Illustration",
-      "protectionText": "Maintaining a fallback pool to keep us all safe in the case of outlier events.",
+      "protectionText": "Security audits, 24/7 monitoring, and a robust risk fund keeps the protocol safe in the case of outlier market events.",
       "protectionTitle": "Protection prioritized"
     },
     "safety": {
