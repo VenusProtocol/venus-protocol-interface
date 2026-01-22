@@ -43,7 +43,7 @@ export const Benefits: React.FC<IBenefitsProps> = ({ className }) => {
           >
             {icon}
             <div>
-              <h3 className="text-[24px] m-0 mb-2">{title}</h3>
+              <h3 className="text-p3s lg:text-p1s m-0 mb-2">{title}</h3>
               <p className="m-0 text-grey">{text}</p>
             </div>
           </li>

@@ -4,7 +4,7 @@ import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
 import type { Address, ByteArray, Hex } from 'viem';
 
-export { ChainId, type Token, type VToken } from '@venusprotocol/chains';
+export { ChainId, type Token, type VToken, type Chain } from '@venusprotocol/chains';
 
 export type NonNullableFields<T> = Required<{
   [P in keyof T]: NonNullable<T[P]>;

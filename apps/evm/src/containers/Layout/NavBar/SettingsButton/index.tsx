@@ -31,6 +31,7 @@ export const SettingsButton: React.FC<SettingsButtonProps> = ({ className }) => 
         isOpen={isSettingsModalOpen}
         handleClose={closeSettingsModal}
         title={t('layout.settingsModal.title')}
+        className="overflow-visible"
       >
         <Settings />
       </Modal>

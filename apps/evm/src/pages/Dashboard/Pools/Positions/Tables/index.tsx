@@ -106,6 +106,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
           </div>
 
           <ButtonGroup
+            buttonSize="sm"
             css={styles.tabletHeaderButtonGroup}
             buttonLabels={[
               t('account.marketBreakdown.tables.tabletSupplyTabTitle'),

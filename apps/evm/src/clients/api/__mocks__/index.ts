@@ -623,6 +623,22 @@ export const useGetSwapQuote = vi.fn(() =>
   }),
 );
 
+export const getMarketsTvl = vi.fn(async () => ({
+  suppliedSumCents: '100000000000',
+  borrowedSumCents: '10000000000',
+  liquiditySumCents: '900000000000',
+  marketCount: 99,
+  poolCount: 9,
+  chainCount: 12,
+}));
+
+export const useGetMarketsTvl = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_MARKETS_TVL],
+    queryFn: getMarketsTvl,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

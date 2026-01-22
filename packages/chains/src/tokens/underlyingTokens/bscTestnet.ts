@@ -53,7 +53,6 @@ export const bscTestnet: Token[] = [
     symbol: 'BUSD',
     iconSrc: iconSrcs.busd,
   },
-
   {
     chainId: ChainId.BSC_TESTNET,
     address: '0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4',
@@ -439,5 +438,12 @@ export const bscTestnet: Token[] = [
     decimals: 18,
     symbol: 'U',
     iconSrc: iconSrcs.u,
+  },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x60825e8eBbed5C32c1DAA7eA68ceCA70BEA65040',
+    decimals: 18,
+    symbol: 'PT-clisBNBx-25JUN2026',
+    iconSrc: iconSrcs.slisBnbX,
   },
 ];

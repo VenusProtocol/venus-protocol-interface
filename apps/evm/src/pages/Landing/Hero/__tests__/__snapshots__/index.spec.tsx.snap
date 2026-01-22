@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Hero > renders borrow tab correctly 1`] = `"Universal Money MarketsSimple yet powerful lending and borrowing for any DeFi yield strategy.Venus TVL-SupplyBorrowTotal APYFrom -6.48%XVSBNB testnetXVSBNB testnet$10,000Yearly interests-$648.09Start now"`;
+
+exports[`Hero > renders correctly 1`] = `"Universal Money MarketsSimple yet powerful lending and borrowing for any DeFi yield strategy.Venus TVL-SupplyBorrowHighest APYUp to 4.01%USDTBNB testnetUSDTBNB testnet$10,00030D6M1YAssets$10,033.46Earned$33.46Yearly earnings$401.53Start now"`;

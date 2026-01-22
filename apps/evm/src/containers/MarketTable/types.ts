@@ -1,5 +1,6 @@
 export type ColumnKey =
   | 'asset'
+  | 'assetAndChain'
   | 'supplyApy'
   | 'labeledSupplyApy'
   | 'borrowApy'

@@ -104,12 +104,12 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
 
   return (
     <div className="space-y-2">
-      {balanceUpdateRows.map(({ labeledInlineContentProps, readableAmountDollars }) => (
-        <div className="flex flex-col items-end">
-          <LabeledInlineContent
-            {...labeledInlineContentProps}
-            key={labeledInlineContentProps.label}
-          />
+      {balanceUpdateRows.map(({ labeledInlineContentProps, readableAmountDollars }, index) => (
+        <div
+          className="flex flex-col items-end"
+          key={labeledInlineContentProps.label?.toString() ?? index}
+        >
+          <LabeledInlineContent {...labeledInlineContentProps} />
 
           {readableAmountDollars && <p className="text-grey text-sm">{readableAmountDollars}</p>}
         </div>

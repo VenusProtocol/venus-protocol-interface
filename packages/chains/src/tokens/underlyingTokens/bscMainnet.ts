@@ -488,4 +488,11 @@ export const bscMainnet: Token[] = [
     symbol: 'U',
     iconSrc: iconSrcs.u,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0xe052823b4aefc6e230FAf46231A57d0905E30AE0',
+    decimals: 18,
+    symbol: 'PT-clisBNBx-25JUN2026',
+    iconSrc: iconSrcs.slisBnbX,
+  },
 ];
