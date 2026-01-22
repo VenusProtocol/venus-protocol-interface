@@ -27,7 +27,9 @@ export const Hero: React.FC = () => {
                 }}
               />
             </h1>
-            <div className="mt-4 text-p3r sm:text-p2r">{t('landing.hero.subtitle')}</div>
+            <div className="mt-4 text-p3r sm:text-p2r xl:text-p1r">
+              {t('landing.hero.subtitle')}
+            </div>
             <img
               loading="lazy"
               src={CoinIconRow}
@@ -35,8 +37,8 @@ export const Hero: React.FC = () => {
               className="h-6 sm:h-10 mt-4 mx-auto xl:mx-0"
             />
             <div className="pb-6 pt-12 xl:pt-30">
-              <div className="text-p1s sm:text-p3s">{t('landing.hero.venusTvl')}</div>
-              <div className="xl:mt-4 text-h5 sm:text-h3">
+              <div className="text-p3s sm:text-p1s">{t('landing.hero.venusTvl')}</div>
+              <div className="text-h5 sm:text-h3">
                 {isLoading ? PLACEHOLDER_KEY : tvlData?.totalSupplyUsd}
               </div>
             </div>

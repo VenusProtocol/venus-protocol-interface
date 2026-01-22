@@ -10,7 +10,7 @@ import { calcSupplyEarnings } from './utils';
 const rowClassName = cn('flex justify-between items-center gap-6');
 
 export const Supply: React.FC<Props> = ({ token, apy, className }) => {
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const showTab = useIsSmDown();
 
@@ -29,9 +29,7 @@ export const Supply: React.FC<Props> = ({ token, apy, className }) => {
         <TokenIconWithSymbol token={token} displayChain tokenIconClassName="sm:size-13" />
         <div className="flex items-center justify-end text-light-grey gap-1.5">
           {formatCentsToReadableValue({ value: BASE_AMOUNT * 100, isTokenPrice: true })}
-          <Tooltip
-            content={<Trans i18nKey={'landing.hero.supplyTips'} components={{ br: <br /> }} />}
-          >
+          <Tooltip content={t('landing.hero.supplyTips')}>
             <Icon
               name="info"
               className="size-3.5 hover:text-light-grey-hover hover:cursor-pointer duration-[250]"
