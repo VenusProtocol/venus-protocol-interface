@@ -2,9 +2,17 @@ import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
 import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
+import type { CSSProperties } from 'react';
 
-export const useStyles = () => {
+type StylesProps = {
+  cellHeight?: CSSProperties['height'];
+};
+
+export const useStyles = (props?: StylesProps) => {
+  const { cellHeight } = props ?? {};
+
   const theme = useTheme();
+
   return {
     getRoot: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
       padding-left: 0;
@@ -81,10 +89,21 @@ export const useStyles = () => {
       }
     `,
     getTableRow: ({ clickable }: { clickable: boolean }) => css`
-      height: ${theme.spacing(14)};
+      height: ${theme.spacing(18)};
 
       :hover {
         background-color: ${theme.palette.interactive.hover} !important;
+        overflow: hidden;
+      }
+
+      > td:first-child {
+        border-top-left-radius: ${theme.spacing(2)}; 
+        border-bottom-left-radius: ${theme.spacing(2)}; 
+      }
+
+      > td:last-child {
+        border-bottom-right-radius: ${theme.spacing(2)}; 
+        border-top-right-radius: ${theme.spacing(2)}; 
       }
 
       ${
@@ -171,7 +190,7 @@ export const useStyles = () => {
       }
     `,
     cellWrapper: css`
-      height: 1px;
+      height: ${cellHeight ?? '1px'};
       overflow: hidden;
       text-overflow: ellipsis;
       padding: ${theme.spacing(0, 4)};

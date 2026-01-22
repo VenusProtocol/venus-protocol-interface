@@ -547,6 +547,34 @@
       "text": "Venus is a community-driven decentralized protocol delivering best-in-class functionality for crypto money markets.",
       "title": "Money Markets governed <br />by community"
     },
+    "hero": {
+      "1Year": "1Y",
+      "30Day": "30D",
+      "6Month": "6M",
+      "assets": "Assets",
+      "borrow": "Borrow",
+      "earned": "Earned",
+      "earnedAmount": "Earned {{amount}}",
+      "from": "From {{percentage}}",
+      "highestApy": "Highest APY",
+      "monthNo": "Month {{number}}",
+      "startNow": "Start now",
+      "subtitle": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
+      "supply": "Supply",
+      "supplyTips": "Based on a $10,000 initial deposit, with earnings compounded monthly.",
+      "title": "Universal <br /><hl>Money Markets</hl>",
+      "totalApy": "Total APY",
+      "upToPercentage": "Up to {{percentage}}",
+      "venusTvl": "Venus TVL",
+      "yearlyEarnings": "Yearly earnings",
+      "yearlyInterests": "Yearly interests"
+    },
+    "markets": {
+      "button": {
+        "label": "Explore more"
+      },
+      "title": "Top markets on Venus"
+    },
     "protection": {
       "bugBountyAlt": "Bug Bounty Illustration",
       "challengeText": "We encourage all to challenge our code and search for vulnerabilities. Read about our bug bounty rewards, and please submit any bug you identify.",
@@ -569,7 +597,7 @@
       "imageAlt": "Venus Prime Illustration",
       "learnMore": "Learn more",
       "text": "With Venus Prime, dedicated users obtain boosted rewards when they lend and borrow on Venus while staking in the governance vault.",
-      "title": "<hl>Venus Prime</hl> rewards loyalty <br />with superior rewards"
+      "title": "<hl>Venus Prime</hl> <br />amplifies your returns"
     },
     "wallets": {
       "title": "Trusted by many"
@@ -803,6 +831,7 @@
     },
     "columnKeys": {
       "asset": "Asset",
+      "assetAndChain": "Asset",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "Total borrow",
       "collateral": "Collateral",

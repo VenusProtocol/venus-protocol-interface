@@ -83,7 +83,8 @@ export const MarketInfo = () => {
         label: t('layout.header.price'),
         value: formatCentsToReadableValue({
           value: asset?.tokenPriceCents,
-          isTokenPrice: true,
+          shorten: false,
+          maxDecimalPlaces: 6,
         }),
       },
     ];

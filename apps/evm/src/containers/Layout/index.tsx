@@ -1,8 +1,9 @@
-import { Outlet } from 'react-router';
+import { Outlet, matchPath, useLocation } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 
-import { Wrapper } from 'components';
+import { Wrapper, cn } from 'components';
+import { Subdirectory } from 'constants/routing';
 import { useRef } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -11,9 +12,13 @@ import ScrollToTop from './ScrollToTop';
 import { TestEnvWarning } from './TestEnvWarning';
 import { store } from './store';
 
+const NO_WRAPPER_PATHNAMES = [Subdirectory.LANDING] as string[];
+
 export const Layout: React.FC = () => {
   const scrollToTopRef = useRef<HTMLButtonElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
+
+  const { pathname } = useLocation();
 
   const isCloseToBottomState = store.use.isCloseToBottom();
   const setIsCloseToBottom = store.use.setIsCloseToBottom();
@@ -53,24 +58,35 @@ export const Layout: React.FC = () => {
     }
   };
 
+  const noWrapper = NO_WRAPPER_PATHNAMES.some(noWrapperPath => matchPath(noWrapperPath, pathname));
+  const contentDom = (
+    <>
+      <Outlet />
+      <ScrollToTop ref={scrollToTopRef} />
+    </>
+  );
+
   return (
     <div className="h-dvh flex flex-col">
       <NavBar className="shrink-0" />
 
+      <TestEnvWarning className="shrink-0" />
+
       <div
-        className="flex flex-col grow gap-y-10 pt-5 overflow-x-hidden sm:pt-10"
+        className={cn(
+          'flex flex-col grow gap-y-10  overflow-x-hidden ',
+          !noWrapper && 'pt-5 sm:pt-10',
+        )}
         id={PAGE_CONTAINER_ID}
         onScroll={handleScroll}
       >
-        <TestEnvWarning className="shrink-0 -mt-10" />
-
         <Header />
 
-        <Wrapper className="relative w-full shrink-0 grow">
-          <Outlet />
-
-          <ScrollToTop ref={scrollToTopRef} />
-        </Wrapper>
+        {noWrapper ? (
+          <div>{contentDom}</div>
+        ) : (
+          <Wrapper className="relative w-full shrink-0 grow">{contentDom}</Wrapper>
+        )}
 
         <Footer ref={footerRef} />
       </div>

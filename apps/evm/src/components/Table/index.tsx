@@ -10,8 +10,8 @@ import { Link } from 'react-router';
 import { useFormatTo } from 'hooks/useFormatTo';
 
 import { Spinner, cn } from '@venusprotocol/ui';
+import { Card } from 'components/Card';
 import { useBreakpointUp } from 'hooks/responsive';
-import { Card } from '../Card';
 import Head from './Head';
 import TableCards from './TableCards';
 import { useStyles } from './styles';
@@ -36,9 +36,10 @@ export function Table<R>({
   placeholder,
   selectVariant,
   showMobileFilter = true,
+  cellHeight,
   ...otherProps
 }: TableProps<R>) {
-  const styles = useStyles();
+  const styles = useStyles({ cellHeight });
   const { formatTo } = useFormatTo();
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used

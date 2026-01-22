@@ -15,7 +15,7 @@ export const useTableStyles = () => {
 
   return {
     table: css`
-      .table__table-cards__card-content {
+      .table-card-content {
         grid-template-columns: 1fr 1fr 1fr;
       }
 

@@ -27,13 +27,13 @@ const auditors = [
     Logo: OpenZeppelinLogoGray,
     LogoHovered: OpenZeppelinLogo,
     audits: 8,
-    href: 'https://certificate.quantstamp.com/',
+    href: 'https://docs-v4.venus.io/links/security-and-audits',
   },
   {
     Logo: QuantstampLogoGray,
     LogoHovered: QuantstampLogo,
     audits: 11,
-    href: 'https://docs-v4.venus.io/links/security-and-audits',
+    href: 'https://certificate.quantstamp.com/',
   },
   {
     Logo: PeckShieldLogoGray,

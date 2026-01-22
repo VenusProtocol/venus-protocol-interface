@@ -1,6 +1,7 @@
 import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
 import type { CardProps } from 'components/Card';
 import type { SelectProps } from 'components/Select';
+import type { CSSProperties } from 'react';
 
 export interface TableColumn<R> {
   key: string;
@@ -32,6 +33,7 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   header?: React.ReactNode;
   placeholder?: React.ReactNode;
   selectVariant?: SelectProps['variant'];
+  cellHeight?: CSSProperties['height'];
 }
 
 export interface TableCardProps<R>
