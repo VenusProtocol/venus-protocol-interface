@@ -2,6 +2,7 @@ import { useGetPool } from 'clients/api';
 import { ButtonWrapper, Icon } from 'components';
 import { Link } from 'containers/Link';
 import { MarketTable } from 'containers/MarketTable';
+import { useIsMdDown, useIsSmDown } from 'hooks/responsive';
 import { useChain } from 'hooks/useChain';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
@@ -10,6 +11,8 @@ import { compareBigNumbers } from 'utilities';
 export const Markets: React.FC = () => {
   const { t } = useTranslation();
   const { corePoolComptrollerContractAddress } = useChain();
+  const isSm = useIsSmDown();
+  const isMd = useIsMdDown();
 
   const { marketsPagePath } = useGetMarketsPagePath();
 
@@ -19,12 +22,14 @@ export const Markets: React.FC = () => {
   const pool = getLegacyPoolData?.pool;
   const assets = pool?.assets || [];
 
+  const total = isSm ? 3 : isMd ? 4 : 6;
+
   // Extract top 6 assets by supply balance
   const topAssets = [...assets]
     .sort((assetA, assetB) =>
       compareBigNumbers(assetA.supplyBalanceCents, assetB.supplyBalanceCents, 'desc'),
     )
-    .slice(0, 6);
+    .slice(0, total);
 
   if (!pool) {
     // TODO: display loader (?)
