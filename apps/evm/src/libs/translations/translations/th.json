@@ -525,6 +525,77 @@
     "illustrationAltText": "ภาพประกอบ",
     "title": "พูลแบบแยกกำลังจะยุติการให้บริการ"
   },
+  "landing": {
+    "benefits": {
+      "text1": "เข้าถึงตลาดเงินที่ไม่สามารถเปลี่ยนแปลงได้โดยตรงบนเชน",
+      "text2": "สินทรัพย์ทั้งหมดของ Venus Protocol อยู่ภายใต้มาตรฐาน BEP-20 และ ERC-20",
+      "text3": "สร้างบนเชนที่รองรับ EVM เพื่อธุรกรรมที่รวดเร็ว ปลอดภัย และต้นทุนต่ำ",
+      "title1": "กระจายอำนาจ",
+      "title2": "BEP-20/ERC-20",
+      "title3": "ออมนิเชน"
+    },
+    "governance": {
+      "forum": "ฟอรัมการกำกับดูแล",
+      "planetsAlt": "ภาพประกอบพืช",
+      "proposalCounting": "ข้อเสนอปรับปรุง Venus ที่ดำเนินการแล้วและยังเพิ่มขึ้นเรื่อยๆ",
+      "text": "Venus เป็นโปรโตคอลกระจายอำนาจที่ขับเคลื่อนโดยชุมชน มอบฟังก์ชันระดับแนวหน้าสำหรับตลาดเงินคริปโต",
+      "title": "ตลาดเงินที่ถูกกำกับดูแล<br />โดยชุมชน"
+    },
+    "hero": {
+      "1Year": "1ปี",
+      "30Day": "30ด",
+      "6Month": "6ด",
+      "assets": "สินทรัพย์",
+      "borrow": "ยืม",
+      "earned": "ได้รับ",
+      "earnedAmount": "ได้รับ {{amount}}",
+      "from": "จาก {{percentage}}",
+      "highestApy": "APY สูงสุด",
+      "monthNo": "เดือน {{number}}",
+      "startNow": "เริ่มตอนนี้",
+      "subtitle": "การฝากและยืมที่เรียบง่ายแต่ทรงพลัง สำหรับทุกกลยุทธ์ผลตอบแทน DeFi",
+      "supply": "ฝาก",
+      "supplyTips": "อิงจากเงินฝากเริ่มต้น $10,000 พร้อมทบต้นรายเดือน",
+      "title": "ตลาดเงินสากล<br /><hl>Money Markets</hl>",
+      "totalApy": "APY รวม",
+      "upToPercentage": "สูงสุด {{percentage}}",
+      "venusTvl": "TVL ของ Venus",
+      "yearlyEarnings": "รายได้ต่อปี",
+      "yearlyInterests": "ดอกเบี้ยต่อปี"
+    },
+    "markets": {
+      "button": {
+        "label": "สำรวจเพิ่มเติม"
+      },
+      "title": "ตลาดยอดนิยมบน Venus"
+    },
+    "protection": {
+      "bugBountyAlt": "ภาพประกอบ Bug Bounty",
+      "challengeText": "เราสนับสนุนให้ทุกคนท้าทายโค้ดของเราและค้นหาช่องโหว่ อ่านเกี่ยวกับรางวัลบั๊กบาวน์ตี และโปรดส่งบั๊กที่คุณพบ",
+      "challengeTitle": "ท้าทายโค้ดของเราและรับรางวัล",
+      "protectionAlt": "ภาพประกอบการปกป้อง",
+      "protectionText": "รักษาพูลสำรองเพื่อให้ทุกคนปลอดภัยในกรณีเหตุการณ์ผิดปกติ",
+      "protectionTitle": "ให้ความสำคัญกับการปกป้อง"
+    },
+    "safety": {
+      "audit_other": "การตรวจสอบ",
+      "otherAuditors": "+14 การตรวจสอบโดย <br />Fairyproof, Hacken และ HashEx",
+      "scoreAlt": "ภาพประกอบคะแนน",
+      "securityScore": "คะแนนความปลอดภัย",
+      "text": "ทำธุรกรรมอย่างมั่นใจ โดยรู้ว่า Venus ให้ความสำคัญกับความปลอดภัยของสินทรัพย์ของคุณเป็นอันดับแรก",
+      "title": "ความปลอดภัยมาก่อน",
+      "venusScored": "Venus ได้คะแนนความปลอดภัย <Link>อันดับ 3</Link> บน BNB Chain ตามการประเมินของ Certik (มิถุนายน 2021)"
+    },
+    "venusPrime": {
+      "imageAlt": "ภาพประกอบ Venus Prime",
+      "learnMore": "เรียนรู้เพิ่มเติม",
+      "text": "ด้วย Venus Prime ผู้ใช้ที่ทุ่มเทจะได้รับรางวัลที่บูสต์เมื่อฝากและยืมบน Venus ขณะสเตคในวอลต์กำกับดูแล",
+      "title": "<hl>Venus Prime</hl> <br />เพิ่มผลตอบแทนของคุณ"
+    },
+    "wallets": {
+      "title": "ได้รับความไว้วางใจจากผู้ใช้จำนวนมาก"
+    }
+  },
   "layout": {
     "chainSelect": {
       "label": "เลือกเชน"
@@ -753,6 +824,7 @@
     },
     "columnKeys": {
       "asset": "สินทรัพย์",
+      "assetAndChain": "สินทรัพย์",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "ยอดยืมรวม",
       "collateral": "หลักประกัน",

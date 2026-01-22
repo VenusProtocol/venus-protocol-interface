@@ -21,7 +21,7 @@ describe('utilities/formatCentsToReadableValue', () => {
     expect(result).toEqual('$0');
 
     const negativeResult = formatCentsToReadableValue({
-      isTokenPrice: true,
+      shorten: false,
       value: 0,
     });
     expect(negativeResult).toEqual('$0');
@@ -81,24 +81,40 @@ describe('utilities/formatCentsToReadableValue', () => {
     expect(negativeResult).toEqual('< -$100T');
   });
 
-  it('should format token prices correctly', () => {
+  it('should format unshortened correctly', () => {
     const result = formatCentsToReadableValue({
       value: new BigNumber('712142.357623123123'),
-      isTokenPrice: true,
+      shorten: false,
     });
-    expect(result).toEqual('$7,121.423576');
+    expect(result).toEqual('$7,121.42');
 
     const negativeResult = formatCentsToReadableValue({
       value: new BigNumber('-712142.357623123123'),
-      isTokenPrice: true,
+      shorten: false,
     });
-    expect(negativeResult).toEqual('-$7,121.423576');
+    expect(negativeResult).toEqual('-$7,121.42');
   });
 
-  it('should format insignificant token prices correctly', () => {
+  it('should format insignificant unshortened values correctly', () => {
     const result = formatCentsToReadableValue({
       value: new BigNumber(0.00000004),
+      shorten: false,
     });
-    expect(result).toEqual('< $0.01');
+    expect(result).toEqual('< $0.000001');
+  });
+
+  it('should respect maxDecimalPlaces', () => {
+    const dollarResult = formatCentsToReadableValue({
+      value: new BigNumber('123.456789'),
+      maxDecimalPlaces: 4,
+    });
+    expect(dollarResult).toEqual('$1.2345');
+
+    const tokenPriceResult = formatCentsToReadableValue({
+      value: new BigNumber('12345.6789'),
+      shorten: false,
+      maxDecimalPlaces: 2,
+    });
+    expect(tokenPriceResult).toEqual('$123.45');
   });
 });

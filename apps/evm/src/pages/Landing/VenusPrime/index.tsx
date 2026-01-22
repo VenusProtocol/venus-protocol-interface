@@ -1,71 +1,65 @@
-import { Button, cn } from 'components';
+import { ButtonWrapper, Card, cn } from 'components';
 
+import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import venuePrimeXs from './assets/venusPrimeLogo375.png';
-import venuePrimeSm from './assets/venusPrimeLogo640.png';
-import venuePrimeMd from './assets/venusPrimeLogo840.png';
-import venuePrimeXl from './assets/venusPrimeLogo1280.png';
-
-const textClassName = cn(
-  '[&_h2]:text-[1.5rem] [&_h2]:font-semibold xl:[&_h2]:text-[2rem]',
-  '[&_p]:text-grey [&_p]:text-[1rem] xl:[&_p]:text-[1.125rem]',
-);
+import venuePrimeBg from './assets/venusPrimeBg.svg';
+import venusPrimeIllus from './assets/venusPrimeIllus.png';
 
 export const VenusPrime: React.FC = () => {
   const { t, Trans } = useTranslation();
 
   return (
-    <div className={cn('mt-15 md:mt-20 xl:mt-25', textClassName)}>
+    <Card className="relative overflow-hidden flex h-112.5 p-0 rounded-xl sm:h-87.5 md:h-100">
+      <div className="absolute top-0 bottom-0 start-0 end-0">
+        <img
+          loading="lazy"
+          className={cn('absolute w-full h-full object-cover', 'object-[30%_50%]')}
+          src={venuePrimeBg}
+          role="img"
+          alt={t('landing.venusPrime.imageAlt')}
+        />
+      </div>
+
       <div
         className={cn(
-          'relative overflow-hidden flex border border-solid border-lightGrey rounded-3xl bg-[#1E2431] p-6 sm:h-100',
+          'relative flex flex-col w-full p-6 z-10 lg:p-10',
+          'items-center max-sm:text-center sm:items-start sm:justify-center',
         )}
       >
-        <div className="absolute sm:top-0 sm:-left-1 md:top-2 md:left-0 xl:-top-0.5 xl:-left-1.5">
-          <img
-            loading="lazy"
-            className="hidden max-sm:flex h-50"
-            src={venuePrimeXs}
-            alt={t('landing.venusPrime.imageAlt')}
-          />
-          <img
-            loading="lazy"
-            className="hidden sm:max-md:flex h-100"
-            src={venuePrimeSm}
-            alt={t('landing.venusPrime.imageAlt')}
-          />
-          <img
-            loading="lazy"
-            className="hidden md:max-xl:flex h-100"
-            src={venuePrimeMd}
-            alt={t('landing.venusPrime.imageAlt')}
-          />
-          <img
-            loading="lazy"
-            className="hidden xl:flex h-100"
-            src={venuePrimeXl}
-            alt={t('landing.venusPrime.imageAlt')}
-          />
-        </div>
-        <div className={cn('flex flex-col', 'max-md:mt-50 sm:ms-60 md:ms-105 xl:ms-147.5')}>
-          <h2 className="m-0 mt-7.5 mb-6">
+        <img
+          loading="lazy"
+          className={cn(
+            'absolute object-contain',
+            '-bottom-11 h-61.5 sm:bottom-0 sm:-right-17 sm:h-84.5 md:h-94 md:-right-15 lg:h-100 lg:-right-10 xl:right-0 2xl:right-20',
+          )}
+          src={venusPrimeIllus}
+          alt={t('landing.venusPrime.imageAlt')}
+        />
+
+        <div className="sm:max-w-1/2 xl:max-w-[40%] 2xl:max-w-[35%]">
+          <h6 className="text-p2s md:text-p1s lg:text-h6">
             <Trans
               i18nKey="landing.venusPrime.title"
               components={{
                 hl: (
-                  <span className="bg-linear-to-t from-[#8E6150] to-[#F2E3DB] bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] text-[#8E6150]" />
+                  <span className="bg-linear-to-b from-[#A87E6D] to-[#FFDDCB] bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] text-[#A87E6D]" />
                 ),
                 br: <br />,
               }}
             />
-          </h2>
-          <p className="m-0 mb-10">{t('landing.venusPrime.text')}</p>
+          </h6>
 
-          <a className="w-fit" href="https://docs-v4.venus.io/whats-new/prime-yield">
-            <Button className="w-fit">{t('landing.venusPrime.learnMore')}</Button>
-          </a>
+          <p className="text-light-grey mt-3 text-b1r lg:text-p3r">
+            {t('landing.venusPrime.text')}
+          </p>
+
+          <ButtonWrapper asChild className="mt-6 sm:mt-10" size={'sm'}>
+            <Link className="w-fit" href="https://docs-v4.venus.io/whats-new/prime-yield" noStyle>
+              {t('landing.venusPrime.learnMore')}
+            </Link>
+          </ButtonWrapper>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };

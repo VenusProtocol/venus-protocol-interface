@@ -157,6 +157,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
 
         <div>
           <ButtonGroup
+            buttonSize="xs"
             buttonLabels={periodOptions.map(p => p.label)}
             activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
             onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}

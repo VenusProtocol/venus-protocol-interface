@@ -4,27 +4,29 @@ import { ONE_TRILLION } from 'constants/numbers';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { shortenValueWithSuffix } from 'utilities';
 
+const DEFAULT_MAX_DECIMALS = 2;
+
 const THRESHOLDS = {
-  DOLLARS: {
+  SHORTENED: {
     MAX_VALUE: new BigNumber(100 * ONE_TRILLION),
     MIN_VALUE: new BigNumber(0.01),
-    MAX_DECIMALS: 2,
   },
-  TOKEN_PRICE: {
+  LONG: {
     MAX_VALUE: new BigNumber(100 * ONE_TRILLION),
     MIN_VALUE: new BigNumber(0.000001),
-    MAX_DECIMALS: 6,
   },
 };
 
 export interface FormatCentsToReadableValueInput {
-  value: number | BigNumber | undefined;
-  isTokenPrice?: boolean;
+  value: BigNumber.Value | undefined;
+  shorten?: boolean;
+  maxDecimalPlaces?: number;
 }
 
 const formatCentsToReadableValue = ({
   value,
-  isTokenPrice = false,
+  shorten = true,
+  maxDecimalPlaces,
 }: FormatCentsToReadableValueInput) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
@@ -36,7 +38,8 @@ const formatCentsToReadableValue = ({
     return '$0';
   }
 
-  const threshold = isTokenPrice ? THRESHOLDS.TOKEN_PRICE : THRESHOLDS.DOLLARS;
+  const threshold = shorten ? THRESHOLDS.SHORTENED : THRESHOLDS.LONG;
+  const safeMaxDecimalPlaces = maxDecimalPlaces ?? DEFAULT_MAX_DECIMALS;
   const absoluteValueDollars = wrappedValueDollars.absoluteValue();
   const isNegative = wrappedValueDollars.isLessThan(0);
 
@@ -44,7 +47,7 @@ const formatCentsToReadableValue = ({
   if (absoluteValueDollars.isGreaterThan(threshold.MAX_VALUE)) {
     return `${isNegative ? '< -$' : '> $'}${shortenValueWithSuffix({
       value: threshold.MAX_VALUE,
-      maxDecimalPlaces: threshold.MAX_DECIMALS,
+      maxDecimalPlaces: safeMaxDecimalPlaces,
     })}`;
   }
 
@@ -53,12 +56,12 @@ const formatCentsToReadableValue = ({
     return `< $${threshold.MIN_VALUE.toFormat()}`;
   }
 
-  const formattedValueDollars = isTokenPrice
-    ? absoluteValueDollars.dp(threshold.MAX_DECIMALS).toFormat()
-    : shortenValueWithSuffix({
+  const formattedValueDollars = shorten
+    ? shortenValueWithSuffix({
         value: absoluteValueDollars,
-        maxDecimalPlaces: threshold.MAX_DECIMALS,
-      });
+        maxDecimalPlaces: safeMaxDecimalPlaces,
+      })
+    : absoluteValueDollars.dp(safeMaxDecimalPlaces).toFormat();
 
   return `${isNegative ? '-' : ''}$${formattedValueDollars}`;
 };

@@ -17,13 +17,17 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
   switch (variant) {
     case 'secondary':
       return cn(
-        'bg-transparent border-blue',
-        active ? 'border-blue bg-blue' : 'hover:border-blue-hover active:border-blue-active',
+        'bg-dark-blue-disabled text-light-grey',
+        active
+          ? 'border-blue bg-blue text-white'
+          : 'hover:border-blue-hover hover:text-blue active:border-blue active:bg-blue active:text-white',
       );
     case 'tertiary':
       return cn(
-        'border-dark-blue-active bg-dark-blue-active disabled:bg-lightGrey h-10 px-3 disabled:border-transparent',
-        active ? 'bg-blue border-blue' : 'hover:border-blue active:bg-blue',
+        'border-dark-blue-active bg-dark-blue-active disabled:bg-lightGrey disabled:border-transparent',
+        active
+          ? 'bg-blue border-blue'
+          : 'hover:text-blue hover:border-blue hover:bg-dark-blue-disabled active:bg-blue active:text-white',
       );
     case 'quaternary':
       return cn(
@@ -86,7 +90,7 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   return (
     <Comp
       className={cn(
-        'text-sm inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-all duration-250 disabled:cursor-default disabled:bg-dark-blue-disabled disabled:border-dark-blue-disabled disabled:text-light-grey',
+        'text-sm inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-all duration-250 disabled:cursor-default disabled:bg-dark-grey-disabled disabled:border-dark-grey-hover disabled:text-light-grey',
         size === 'xs' && 'py-1 px-5',
         size === 'sm' && 'py-2 px-6',
         size === 'md' && 'py-3 px-12',

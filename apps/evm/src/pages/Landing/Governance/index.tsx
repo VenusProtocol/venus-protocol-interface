@@ -1,12 +1,12 @@
 import { useProposalsCount } from 'clients/api/queries/getProposalsCount/useGetProposalsCount';
-import { Button, cn } from 'components';
+import { ButtonWrapper, cn } from 'components';
 import { COMMUNITY_URL } from 'constants/production';
 import { useTranslation } from 'libs/translations';
 import planetsImg from './assets/planets.png';
 
 const textClassName = cn(
-  '[&_h2]:text-[1.5rem] [&_h2]:font-semibold xl:[&_h2]:text-[2rem]',
-  '[&_p]:text-grey [&_p]:text-[1rem] xl:[&_p]:text-[1.125rem]',
+  '[&_h2]:text-p1s xl:[&_h2]:text-h6',
+  '[&_p]:text-grey [&_p]:text-p3r xl:[&_p]:text-[1.125rem]',
 );
 
 export const Governance: React.FC = () => {
@@ -37,9 +37,11 @@ export const Governance: React.FC = () => {
             <p className="mt-4 mb-10 md:text-[1rem] xl:text-[1.125rem]">
               {t('landing.governance.text')}
             </p>
-            <a className={'w-fit mb-6'} href={COMMUNITY_URL}>
-              <Button className="w-fit">{t('landing.governance.forum')}</Button>
-            </a>
+            <ButtonWrapper asChild>
+              <a className={'w-fit mb-6'} href={COMMUNITY_URL}>
+                {t('landing.governance.forum')}
+              </a>
+            </ButtonWrapper>
           </div>
         </div>
         <div
