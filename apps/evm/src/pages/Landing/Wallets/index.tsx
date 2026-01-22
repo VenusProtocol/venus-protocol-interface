@@ -12,6 +12,10 @@ import rivoLogoSrc from './assets/rivo.svg';
 import safePalLogoSrc from './assets/safePal.svg';
 import trustLogoSrc from './assets/trust.svg';
 
+export interface WalletProps {
+  className?: string;
+}
+
 interface Wallet {
   logoSrc: string;
   name: string;
@@ -68,17 +72,19 @@ const wallets: Wallet[] = [
   },
 ];
 
-export const Wallets: React.FC = () => {
+export const Wallets: React.FC<WalletProps> = ({ className }) => {
   const { t } = useTranslation();
 
   return (
-    <section className="my-15 md:my-20 xl:my-25">
-      <h2 className="text-[2rem] text-center mx-auto mb-10">{t('landing.wallets.title')}</h2>
+    <section className={className}>
+      <h2 className="text-p2s text-center mx-auto mb-5 sm:text-p1s sm:mb-10 lg:text-h6">
+        {t('landing.wallets.title')}
+      </h2>
 
-      <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 xl:gap-6">
+      <div className="grid grid-cols-3 gap-x-1 gap-y-3 sm:grid-cols-4 md:px-6 lg:px-14 lg:gap-6 xl:grid-cols-6">
         {wallets.map(({ logoSrc, name }) => (
           <div className="flex justify-center items-center" key={name}>
-            <img loading="lazy" src={logoSrc} className="w-full" alt={name} />
+            <img loading="lazy" src={logoSrc} className="h-12 sm:h-16" alt={name} />
           </div>
         ))}
       </div>

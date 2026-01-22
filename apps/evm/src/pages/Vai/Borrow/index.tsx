@@ -18,7 +18,7 @@ import {
   Spinner,
 } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { PRIME_DOC_URL } from 'constants/prime';
+import { PRIME_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { handleError } from 'libs/errors';

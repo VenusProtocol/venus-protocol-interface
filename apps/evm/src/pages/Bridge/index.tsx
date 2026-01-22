@@ -20,6 +20,7 @@ import {
 } from 'components';
 import config from 'config';
 import { NULL_ADDRESS } from 'constants/address';
+import { VENUS_DOC_URL } from 'constants/production';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { Link } from 'containers/Link';
 import { SwitchChain } from 'containers/SwitchChain';
@@ -38,7 +39,7 @@ import LayerZeroLogo from './layerZeroLogo.svg?react';
 import TEST_IDS from './testIds';
 import useBridgeForm from './useBridgeForm';
 
-const BRIDGE_DOC_URL = 'https://docs-v4.venus.io/guides/xvs-bridge';
+const BRIDGE_DOC_URL = `${VENUS_DOC_URL}/guides/xvs-bridge`;
 
 const BridgePage: React.FC = () => {
   const { t } = useTranslation();

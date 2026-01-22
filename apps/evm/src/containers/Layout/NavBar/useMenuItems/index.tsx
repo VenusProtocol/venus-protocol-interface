@@ -3,7 +3,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
 import { useGetPools } from 'clients/api';
-import { VENUS_X_URL } from 'constants/production';
+import { VENUS_FLUX_URL } from 'constants/production';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import type { MenuItem, SubMenu } from '../types';
@@ -20,11 +20,16 @@ export const useMenuItems = () => {
   const { data: getPoolsData } = useGetPools();
   const pools = getPoolsData?.pools || [];
 
-  const menu: Array<MenuItem | SubMenu> = [
-    {
+  const menu: Array<MenuItem | SubMenu> = [];
+
+  if (accountAddress) {
+    menu.push({
       to: routes.dashboard.path,
       label: t('layout.menu.dashboard.label'),
-    },
+    });
+  }
+
+  menu.push(
     {
       label: t('layout.menu.markets.label'),
       variant: 'secondary',
@@ -36,19 +41,18 @@ export const useMenuItems = () => {
           description: t('layouts.menu.markets.venusCore.description'),
         },
         {
-          href: VENUS_X_URL,
+          href: VENUS_FLUX_URL,
           imgSrc: venusXIconSrc,
           label: t('layouts.menu.markets.venusX.label'),
           description: t('layouts.menu.markets.venusX.description'),
         },
       ],
     },
-  ];
-
-  menu.push({
-    to: routes.staking.path,
-    label: t('layout.menu.staking.label'),
-  });
+    {
+      to: routes.staking.path,
+      label: t('layout.menu.staking.label'),
+    },
+  );
 
   const othersSubMenuItems: MenuItem[] = [
     {
