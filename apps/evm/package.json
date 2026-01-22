@@ -45,7 +45,7 @@
     "@tanstack/react-query": "^5.48.0",
     "@venusprotocol/chains": "*",
     "@venusprotocol/ui": "*",
-    "@wagmi/core": "^2.16.4",
+    "@wagmi/core": "^3.3.1",
     "@yornaath/batshit": "^0.12.0",
     "bignumber.js": "^9.1.1",
     "buffer": "^6.0.3",
