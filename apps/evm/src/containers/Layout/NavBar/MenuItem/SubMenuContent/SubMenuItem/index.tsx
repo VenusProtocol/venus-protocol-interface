@@ -29,12 +29,14 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
 
   const linkNavProps = to ? { to } : { href };
 
+  console.log(imgSrc);
+
   return (
     <Link
       {...linkNavProps}
       onClick={onClick}
       className={cn(
-        'block py-3 space-y-6 rounded-lg group transition-colors whitespace-nowrap hover:no-underline',
+        'block py-3 space-y-6 rounded-lg group transition-colors hover:no-underline',
         variant === 'secondary' ? 'px-6' : 'px-4 bg-background-active hover:bg-background-hover',
         isActive && variant === 'primary' && 'bg-background-hover',
       )}
@@ -43,7 +45,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
         {(iconName || imgSrc) && (
           <div
             className={cn(
-              'rounded-lg size-12 flex items-center justify-center',
+              'rounded-lg size-12 shrink-0 flex items-center justify-center',
               !!iconName && 'bg-dark-blue',
             )}
           >
@@ -56,12 +58,12 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
                 )}
               />
             ) : (
-              <img src={imgSrc} alt={label} />
+              <img src={imgSrc} alt={label} className="size-12" />
             )}
           </div>
         )}
 
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col">
           <p
             className={cn(
               'font-semibold',

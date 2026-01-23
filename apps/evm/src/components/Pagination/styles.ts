@@ -45,6 +45,7 @@ export const useStyles = () => {
     iconArrow: css`
       width: ${theme.shape.iconSize.xLarge}px;
       height: ${theme.shape.iconSize.xLarge}px;
+      color: inherit;
     `,
     iconReverted: css`
       transform: rotate(180deg);

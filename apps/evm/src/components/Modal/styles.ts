@@ -69,7 +69,6 @@ export const useModalStyles = ({
         background-color: transparent;
       }
     `,
-    closeIconSize: theme.shape.iconSize.xLarge,
     contentWrapper: css`
       padding-bottom: ${theme.spacing(6)};
       padding-left: ${noHorizontalPadding ? 0 : theme.spacing(6)};

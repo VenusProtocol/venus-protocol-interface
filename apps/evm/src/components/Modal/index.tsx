@@ -70,7 +70,7 @@ export const Modal: React.FC<ModalProps> = ({
               disableRipple
               onClick={handleClose}
             >
-              <Icon name="close" size={`${s.closeIconSize}`} />
+              <Icon name="close" className="size-6" />
             </Button>
           </div>
           <div css={s.contentWrapper}>{children as React.ReactNode}</div>

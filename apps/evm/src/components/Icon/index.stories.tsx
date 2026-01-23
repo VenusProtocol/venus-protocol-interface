@@ -34,6 +34,4 @@ const IconWithCustomColorAndSizeTemplate: StoryFn<IconProps> = args => <Icon {..
 export const IconWithCustomColorAndSize = IconWithCustomColorAndSizeTemplate.bind({});
 IconWithCustomColorAndSize.args = {
   name: 'mask',
-  size: '32px',
-  color: '#345345',
 };
