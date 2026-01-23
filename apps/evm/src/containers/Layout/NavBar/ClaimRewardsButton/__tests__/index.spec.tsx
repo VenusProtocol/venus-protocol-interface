@@ -7,11 +7,11 @@ import { renderComponent } from 'testUtils/render';
 import { getPendingRewards, useClaimRewards } from 'clients/api';
 import { en } from 'libs/translations';
 
-import ClaimRewardButton from '..';
-import TEST_IDS from '../../testIds';
+import { ClaimRewardsButton } from '..';
+import TEST_IDS from '../../../testIds';
 import { fakePendingRewardGroups } from '../__testUtils__/fakeData';
 
-describe('ClaimRewardButton', () => {
+describe('ClaimRewardsButton', () => {
   beforeEach(() => {
     (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups,
@@ -19,11 +19,11 @@ describe('ClaimRewardButton', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<ClaimRewardButton />);
+    renderComponent(<ClaimRewardsButton />);
   });
 
   it('renders nothing if user has not connected any wallet', () => {
-    const { queryByTestId } = renderComponent(<ClaimRewardButton />);
+    const { queryByTestId } = renderComponent(<ClaimRewardsButton />);
 
     expect(queryByTestId(TEST_IDS.claimRewardOpenModalButton)).toBeNull();
   });
@@ -33,7 +33,7 @@ describe('ClaimRewardButton', () => {
       pendingRewardGroups: [],
     }));
 
-    const { queryByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { queryByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -41,7 +41,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('renders claim button if user has pending rewards to claim', async () => {
-    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -49,7 +49,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('renders correct reward breakdown in modal', async () => {
-    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -76,7 +76,7 @@ describe('ClaimRewardButton', () => {
       }),
     }));
 
-    const { getByTestId, getByText } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId, getByText } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -104,7 +104,7 @@ describe('ClaimRewardButton', () => {
       }),
     }));
 
-    const { getByTestId, getByText } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId, getByText } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -132,7 +132,7 @@ describe('ClaimRewardButton', () => {
       }),
     }));
 
-    const { getByTestId, getByText } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId, getByText } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -147,7 +147,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('unselects all groups when clicking on "Select all" checkbox and all groups are selected', async () => {
-    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -170,7 +170,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('selects all groups when clicking on "Select all" checkbox and some groups are unselected', async () => {
-    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -200,7 +200,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('it disables submit button if user unchecks all groups', async () => {
-    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -228,7 +228,7 @@ describe('ClaimRewardButton', () => {
       mutateAsync: mockClaimRewards,
     });
 
-    const { queryByTestId, getByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { queryByTestId, getByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -265,7 +265,7 @@ describe('ClaimRewardButton', () => {
       }),
     }));
 
-    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
 
@@ -289,7 +289,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('renders external rewards if user has pending external rewards to claim', async () => {
-    const { getByTestId, queryByText } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId, queryByText } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
@@ -307,7 +307,7 @@ describe('ClaimRewardButton', () => {
     (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups.filter(g => g.type !== 'external'),
     }));
-    const { getByTestId, queryByTestId } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId, queryByTestId } = renderComponent(<ClaimRewardsButton />, {
       accountAddress: fakeAddress,
     });
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));

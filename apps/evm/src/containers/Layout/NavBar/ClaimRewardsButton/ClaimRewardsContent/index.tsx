@@ -4,7 +4,7 @@ import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChain } from 'containers/SwitchChain';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'react-i18next';
-import TEST_IDS from '../../testIds';
+import TEST_IDS from '../../../testIds';
 import { ExternalRewardGroup } from '../ExternalRewardGroup';
 import { InternalRewardGroup } from '../InternalRewardGroup';
 import { RewardGroupFrame } from '../RewardGroupFrame';
@@ -15,23 +15,25 @@ interface ClaimRewardsContentProps {
   internalRewardsGroups: InternalRewardsGroup[];
   externalRewardsGroups: ExternalRewardsGroup[];
   onCloseModal: () => void;
-  onClaimReward: () => Promise<unknown>;
+  onClaimRewards: () => Promise<unknown>;
   onToggleAllGroups: () => void;
   onToggleGroup: (toggledGroup: InternalRewardsGroup) => void;
 }
+
 export const ClaimRewardsContent = ({
   isClaimingRewards,
   internalRewardsGroups,
   externalRewardsGroups,
   onCloseModal,
-  onClaimReward,
+  onClaimRewards,
   onToggleAllGroups,
   onToggleGroup,
 }: ClaimRewardsContentProps) => {
   const { t } = useTranslation();
-  const handleClaimReward = async () => {
+
+  const handleClaimRewards = async () => {
     try {
-      await onClaimReward();
+      await onClaimRewards();
       onCloseModal();
     } catch (error) {
       handleError({ error });
@@ -74,7 +76,7 @@ export const ClaimRewardsContent = ({
               <SwitchChain>
                 <PrimaryButton
                   className="w-full"
-                  onClick={handleClaimReward}
+                  onClick={handleClaimRewards}
                   disabled={isSubmitDisabled}
                   data-testid={TEST_IDS.claimRewardSubmitButton}
                   loading={isClaimingRewards}
@@ -88,6 +90,7 @@ export const ClaimRewardsContent = ({
           </div>
         </RewardGroupFrame>
       )}
+
       {hasExternalRewards && (
         <RewardGroupFrame title={t('claimReward.modal.externalRewards')}>
           <div data-testid={TEST_IDS.claimExternalRewardBreakdown} className="space-y-4">
