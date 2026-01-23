@@ -5,7 +5,7 @@ export type ProposalsResponseData = {
   total: number;
 };
 
-export async function fetchProposalCount() {
+export async function getProposalCount() {
   const response = await restService<ProposalsResponseData>({
     endpoint: '/governance/proposals?limit=1',
     method: 'GET',
@@ -25,5 +25,7 @@ export async function fetchProposalCount() {
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return payload.total;
+  return {
+    proposalCount: payload.total,
+  };
 }

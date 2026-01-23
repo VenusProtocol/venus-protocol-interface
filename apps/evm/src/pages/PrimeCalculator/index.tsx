@@ -1,5 +1,5 @@
 import { NoticeInfo } from 'components';
-import { PRIME_DOC_URL } from 'constants/production';
+import { VENUS_PRIME_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
@@ -17,7 +17,7 @@ const PrimeCalculator: React.FC = () => {
             <Trans
               i18nKey="primeCalculator.topMessage"
               components={{
-                Link: <Link href={PRIME_DOC_URL} />,
+                Link: <Link href={VENUS_PRIME_DOC_URL} />,
               }}
             />
           }

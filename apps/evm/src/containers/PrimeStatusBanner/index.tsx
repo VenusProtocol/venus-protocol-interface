@@ -5,7 +5,7 @@ import { cn } from '@venusprotocol/ui';
 import PrimeLogo from 'assets/img/primeLogo.svg?react';
 import { useClaimPrimeToken } from 'clients/api';
 import { Card, PrimaryButton, ProgressBar } from 'components';
-import { PRIME_DOC_URL } from 'constants/production';
+import { VENUS_PRIME_DOC_URL } from 'constants/production';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -221,7 +221,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                     i18nKey="primeStatusBanner.description.primeDoc"
                     components={{
                       WhiteText: <span className="text-white" />,
-                      Link: <Link href={PRIME_DOC_URL} />,
+                      Link: <Link href={VENUS_PRIME_DOC_URL} />,
                     }}
                     values={{
                       stakeDelta: readableStakeDeltaTokens,

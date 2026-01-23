@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getProposalCount > returns proposal count 1`] = `
+{
+  "proposalCount": 42,
+}
+`;

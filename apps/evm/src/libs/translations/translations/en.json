@@ -535,11 +535,11 @@
       "title3": "Omnichain"
     },
     "governance": {
-      "forum": "Governance forum",
-      "planetsAlt": "Plants Illustration",
-      "proposalCounting": "Venus Improvement Proposals Executed and counting",
-      "text": "Venus is a community-driven decentralized protocol delivering best-in-class functionality for crypto money markets.",
-      "title": "Money Markets governed <br />by community"
+      "backgroundGradientAlt": "TRANSLATION NEEDED",
+      "buttonLabel": "Governance forum",
+      "description": "Venus is a community-driven decentralized protocol delivering best-in-class functionality for crypto money markets.",
+      "proposalCountLegend": "Venus Improvement Proposals Executed and counting",
+      "title": "Money Markets governed <br/> by community"
     },
     "hero": {
       "1Year": "1Y",
@@ -588,6 +588,7 @@
       "venusScored": "Venus scored <Link>3rd highest</Link> for security on BNB Chain as assessed by Certik (June, 2021)"
     },
     "venusPrime": {
+      "illustrationAlt": "TRANSLATION NEEDED",
       "imageAlt": "Venus Prime Illustration",
       "learnMore": "Learn more",
       "text": "With Venus Prime, dedicated users obtain boosted rewards when they lend and borrow on Venus while staking in the governance vault.",
