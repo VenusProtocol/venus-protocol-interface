@@ -26,7 +26,7 @@ const Voter = safeLazyLoad(() => import('pages/Voter'));
 const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
 const Bridge = safeLazyLoad(() => import('pages/Bridge'));
-const PrivatePolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
+const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
 
 const AppRoutes = () => {
@@ -208,16 +208,16 @@ const AppRoutes = () => {
         )}
 
         <Route
-          path={Subdirectory.POLICY}
+          path={Subdirectory.PRIVACY_POLICY}
           element={
             <PageSuspense>
-              <PrivatePolicy />
+              <PrivacyPolicy />
             </PageSuspense>
           }
         />
 
         <Route
-          path={Subdirectory.TERMS}
+          path={Subdirectory.TERMS_OF_USE}
           element={
             <PageSuspense>
               <TermsOfUse />

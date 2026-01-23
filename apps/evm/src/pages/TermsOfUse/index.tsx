@@ -1,4 +1,7 @@
+import { MAIN_PRODUCTION_HOST } from 'constants/production';
+import { routes } from 'constants/routing';
 import { Legal } from 'containers/Legal';
+import { Link } from 'containers/Link';
 
 const LAST_UPDATED_AT = 'September 18, 2025';
 
@@ -9,10 +12,11 @@ const TermsOfUse: React.FC = () => (
     <p className="m-0">
       These Terms of Use ("Terms") govern your access to and use of the Venus Protocol platform and
       all related services (collectively, the "Platform"). By accessing or using the Platform
-      through https://venus.io/, any subdomains, mobile applications, APIs, or any other means
-      provided by Venus Protocol, you acknowledge that you have read, understood, and agree to be
-      bound by these Terms in their entirety. If you do not agree to these Terms, you are prohibited
-      from accessing or using the Platform and must discontinue use immediately.
+      through <Link to={routes.landing.path}>{MAIN_PRODUCTION_HOST}</Link>, any subdomains, mobile
+      applications, APIs, or any other means provided by Venus Protocol, you acknowledge that you
+      have read, understood, and agree to be bound by these Terms in their entirety. If you do not
+      agree to these Terms, you are prohibited from accessing or using the Platform and must
+      discontinue use immediately.
     </p>
 
     <h2 className="m-0">2. Description of the Platform</h2>

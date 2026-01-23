@@ -16,7 +16,7 @@ export const Landing: React.FC = () => {
       <Wrapper>
         <Markets className="mb-6 md:mb-10 lg:mb-15" />
 
-        <div className="space-y-24 lg:space-y-12 mb-11 sm:mb-18 lg:mb-23 xl:mb-27">
+        <div className="space-y-6 lg:space-y-12 mb-11 sm:mb-18 lg:mb-23 xl:mb-27">
           <VenusPrime />
           <Protection />
           <Governance />

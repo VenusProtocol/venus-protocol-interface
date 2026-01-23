@@ -1,19 +1,21 @@
-import { LANDING_PAGE_URL } from 'constants/production';
+import { MAIN_PRODUCTION_HOST } from 'constants/production';
+import { routes } from 'constants/routing';
 import { Legal } from 'containers/Legal';
+import { Link } from 'containers/Link';
 
 const LAST_UPDATED_AT = 'September 18, 2025';
 
 const PrivacyPolicy: React.FC = () => (
   <Legal title="Privacy Policy" lastUpdatedAt={new Date(LAST_UPDATED_AT)}>
     <p className="m-0">
-      This Privacy Notice (“Notice”) describes how Venus ((“Venus.io”, “we”, “us”, “our”,
+      This Privacy Notice (“Notice”) describes how Venus (“Venus.io”, “we”, “us”, “our”,
       “ourselves”) collects and processes your Personal Data (“you”, “your”) through our websites (
-      <a href={LANDING_PAGE_URL}>{LANDING_PAGE_URL}</a>) and applications or other services
-      (collectively, together with our websites and apps, our “Services”). In addition, we may also
-      process your Personal Data for specific purposes, where applicable, such as processing your
-      job applications or administering your employment with us. By using our Services or engaging
-      with us, you consent to the collection, storage, processing, and transfer of your Personal
-      Data as described in this Privacy Notice.
+      <Link to={routes.landing.path}>{MAIN_PRODUCTION_HOST}</Link>) and applications or other
+      services (collectively, together with our websites and apps, our “Services”). In addition, we
+      may also process your Personal Data for specific purposes, where applicable, such as
+      processing your job applications or administering your employment with us. By using our
+      Services or engaging with us, you consent to the collection, storage, processing, and transfer
+      of your Personal Data as described in this Privacy Notice.
     </p>
 
     <p className="m-0">
