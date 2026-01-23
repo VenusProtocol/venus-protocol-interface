@@ -639,6 +639,16 @@ export const useGetMarketsTvl = vi.fn(() =>
   }),
 );
 
+export const getProposalCount = vi.fn(async () => ({
+  proposalCount: 3,
+}));
+export const useGetProposalCount = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PROPOSAL_COUNT],
+    queryFn: getProposalCount,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
