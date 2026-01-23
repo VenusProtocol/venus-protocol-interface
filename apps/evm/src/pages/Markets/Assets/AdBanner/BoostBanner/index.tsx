@@ -1,8 +1,9 @@
+import { VENUS_DOC_URL } from 'constants/production';
 import { useTranslation } from 'libs/translations';
 import { Banner } from '../Banner';
 import rocketIllustration from './rocket.png';
 
-const LEARN_MORE_URL = 'https://docs-v4.venus.io/guides/leveraged-positions';
+const LEARN_MORE_URL = `${VENUS_DOC_URL}/guides/leveraged-positions`;
 
 export const BoostBanner: React.FC = () => {
   const { t, Trans } = useTranslation();

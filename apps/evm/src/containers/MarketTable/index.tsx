@@ -198,7 +198,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         !showPausedAssets && (
           <Card
             className={cn(
-              'flex flex-col items-center text-center py-16 sm:py-16',
+              'flex flex-col items-center text-center py-16 border-0 sm:py-16',
               isBreakpointUp && 'pt-14 pb-10 sm:pt-14 sm:pb-10',
             )}
           >

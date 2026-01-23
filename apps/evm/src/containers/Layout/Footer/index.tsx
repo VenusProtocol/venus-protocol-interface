@@ -4,17 +4,17 @@ import { useChainId } from 'libs/wallet';
 import { generateExplorerUrl } from 'utilities';
 
 import { Icon, type IconName } from 'components';
-import { Link } from 'containers/Link';
-import { forwardRef } from 'react';
 import {
   VENUS_DISCORD_URL,
   VENUS_DOC_URL,
+  VENUS_FLUX_URL,
   VENUS_GITHUB_URL,
   VENUS_PRIVACY_POLICY_URL,
   VENUS_TELEGRAM_URL,
   VENUS_TERMS_OF_USE_URL,
-  VENUS_X_URL,
-} from './constants';
+} from 'constants/production';
+import { Link } from 'containers/Link';
+import { forwardRef } from 'react';
 
 interface SocialLink {
   iconName: IconName;
@@ -55,7 +55,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
     },
     {
       iconName: 'x',
-      href: VENUS_X_URL,
+      href: VENUS_FLUX_URL,
     },
     {
       iconName: 'github',
