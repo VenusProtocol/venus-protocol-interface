@@ -1,5 +1,5 @@
 import { NoticeInfo } from 'components';
-import { PRIME_DOC_URL } from 'constants/prime';
+import { PRIME_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 

@@ -1,9 +1,12 @@
 import { ButtonWrapper, Card, cn } from 'components';
 
+import { VENUS_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import venuePrimeBg from './assets/venusPrimeBg.svg';
 import venusPrimeIllus from './assets/venusPrimeIllus.png';
+
+const PRIME_YIELD_DOC_URL = `${VENUS_DOC_URL}/prime-yield`;
 
 export const VenusPrime: React.FC = () => {
   const { t, Trans } = useTranslation();
@@ -54,7 +57,7 @@ export const VenusPrime: React.FC = () => {
           </p>
 
           <ButtonWrapper asChild className="mt-6 sm:mt-10" size={'sm'}>
-            <Link className="w-fit" href="https://docs-v4.venus.io/whats-new/prime-yield" noStyle>
+            <Link className="w-fit" href={PRIME_YIELD_DOC_URL} noStyle>
               {t('landing.venusPrime.learnMore')}
             </Link>
           </ButtonWrapper>

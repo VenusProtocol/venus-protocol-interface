@@ -1,11 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ChainId } from 'types';
 
-export const PRIME_DOC_URL = 'https://docs-v4.venus.io/whats-new/prime-yield';
-
-export const PRIME_APY_DOC_URL =
-  'https://docs-v4.venus.io/technical-reference/reference-technical-articles/prime#calculate-apr-associated-with-a-prime-market-and-user';
-
 const bscTestnetPrimeMarketsAddresses = {
   vBTCB: '0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe',
   vUSDT: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',

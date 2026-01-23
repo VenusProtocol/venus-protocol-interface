@@ -8,7 +8,7 @@ import {
   type SelectProps,
   TextField,
 } from 'components';
-import { E_MODE_DOC_URL } from 'constants/production';
+import { VENUS_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useFormatTo } from 'hooks/useFormatTo';
 import { useAnalytics } from 'libs/analytics';
@@ -18,6 +18,8 @@ import type { EModeAssetSettings, Pool } from 'types';
 import { EModeGroup as EModeGroupComp } from './EModeGroup';
 import { formatEModeGroups } from './formatEModeGroups';
 import { useColumns } from './useColumns';
+
+const E_MODE_DOC_URL = `${VENUS_DOC_URL}/whats-new/emode`;
 
 export interface EModeProps {
   pool: Pool;

@@ -1,5 +1,4 @@
 import { Page, Wrapper } from 'components';
-// import Background from './Background';
 import { Benefits } from './Benefits';
 import { Governance } from './Governance';
 import { Hero } from './Hero';
@@ -17,15 +16,18 @@ export const Landing: React.FC = () => {
       <Wrapper>
         <Markets className="mb-6 md:mb-10 lg:mb-15" />
 
-        <div className="space-y-6">
+        <div className="space-y-6 mb-11 sm:mb-18 lg:mb-23 xl:mb-27">
           <VenusPrime />
           <Protection />
           <Governance />
         </div>
 
-        <Safety />
-        <Benefits />
-        <Wallets />
+        <div className="space-y-3 mb-11 sm:space-y-6 sm:mb-22">
+          <Safety />
+          <Benefits />
+        </div>
+
+        <Wallets className="mb-8" />
       </Wrapper>
     </Page>
   );
