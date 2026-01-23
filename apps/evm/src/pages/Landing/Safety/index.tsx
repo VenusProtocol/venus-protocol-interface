@@ -1,7 +1,8 @@
 import { cn } from 'components';
+import { VENUS_DOC_URL } from 'constants/production';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import { Auditor } from './Auditor';
-import { OtherAuditors } from './OtherAuditors';
+import { Auditor, type AuditorProps } from './Auditor';
 import { SafetyScore } from './SafetyScore';
 import CantinaLogo from './assets/cantinaLogo.svg?react';
 import CantinaLogoGray from './assets/cantinaLogoGray.svg?react';
@@ -18,51 +19,53 @@ import PessimisticLogoGray from './assets/pessimisticLogoGray.svg?react';
 import QuantstampLogo from './assets/quantstampLogo.svg?react';
 import QuantstampLogoGray from './assets/quantstampLogoGray.svg?react';
 
+const SECURITY_DOC_URL = `${VENUS_DOC_URL}/links/security-and-audits`;
+
 interface ISafetyProps {
   className?: string;
 }
 
-const auditors = [
+const auditors: AuditorProps[] = [
   {
     Logo: OpenZeppelinLogoGray,
     LogoHovered: OpenZeppelinLogo,
-    audits: 8,
-    href: 'https://docs-v4.venus.io/links/security-and-audits',
+    auditsCount: 8,
+    href: SECURITY_DOC_URL,
   },
   {
     Logo: QuantstampLogoGray,
     LogoHovered: QuantstampLogo,
-    audits: 11,
+    auditsCount: 11,
     href: 'https://certificate.quantstamp.com/',
   },
   {
     Logo: PeckShieldLogoGray,
     LogoHovered: PeckShieldLogo,
-    audits: 21,
-    href: 'https://docs-v4.venus.io/links/security-and-audits',
+    auditsCount: 21,
+    href: SECURITY_DOC_URL,
   },
   {
     Logo: CertikLogoGray,
     LogoHovered: CertikLogo,
-    audits: 24,
+    auditsCount: 24,
     href: 'https://skynet.certik.com/projects/venus',
   },
   {
     Logo: Code4renaLogoGray,
     LogoHovered: Code4renaLogo,
-    audits: 2,
+    auditsCount: 2,
     href: 'https://code4rena.com/contests/2023-05-venus-protocol-isolated-pools',
   },
   {
     Logo: CantinaLogoGray,
     LogoHovered: CantinaLogo,
-    audits: 1,
+    auditsCount: 1,
     href: 'https://cantina.xyz/competitions/ddf86a5c-6f63-430f-aadc-d8742b4b1bcf',
   },
   {
     Logo: PessimisticLogoGray,
     LogoHovered: PessimisticLogo,
-    audits: 2,
+    auditsCount: 2,
     href: 'https://github.com/pessimistic-io/audits',
   },
 ];
@@ -71,19 +74,31 @@ export const Safety: React.FC<ISafetyProps> = ({ className }) => {
   const { t } = useTranslation();
 
   return (
-    <section className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
+    <section className={className}>
       <div className="flex flex-col flex-wrap items-center">
-        <h2 className="text-[2rem]">{t('landing.safety.title')}</h2>
-        <p className="text-center max-w-162.5 mt-4 mb-10 text-grey">{t('landing.safety.text')}</p>
-        <div className="flex flex-col gap-8 w-full xl:flex-row xl:gap-8">
-          <SafetyScore className="flex xl:hidden" />
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
+        <div className="max-w-136 text-center mb-6 xl:mb-16">
+          <h2 className="text-p1s mb-3 md:text-h6 md:mb-4">{t('landing.safety.title')}</h2>
+
+          <p className="text-center text-b1r text-grey md:text-p3r">{t('landing.safety.text')}</p>
+        </div>
+
+        <div className="flex flex-col w-full gap-3 sm:gap-6 xl:flex-row">
+          <SafetyScore className="xl:order-2" />
+
+          <div className="grid grid-cols-2 gap-3 grow sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 xl:order-1">
             {auditors.map(a => (
-              <Auditor key={`${a.href}-${a.audits}`} auditor={a} />
+              <Auditor key={`${a.href}-${a.auditsCount}-${a.Logo.toString()}`} {...a} />
             ))}
-            <OtherAuditors />
+
+            <Link
+              className={cn(
+                'rounded-lg border flex items-center justify-center border-dashed border-dark-blue-hover text-center p-4 sm:col-span-2 lg:col-span-1',
+              )}
+              href={SECURITY_DOC_URL}
+            >
+              <p className="max-w-38 text-b1r">{t('landing.safety.otherAuditors')}</p>
+            </Link>
           </div>
-          <SafetyScore className="hidden xl:flex" />
         </div>
       </div>
     </section>

@@ -580,7 +580,7 @@
     "safety": {
       "audit_one": "Audit",
       "audit_other": "Audits",
-      "otherAuditors": "+14 audits with <br />Fairyproof, Hacken and HashEx",
+      "otherAuditors": "+14 audits with Fairyproof, Hacken and HashEx",
       "scoreAlt": "Score Illustration",
       "securityScore": "Security Score",
       "text": "Transact with confidence, knowing Venus places nothing before the security of your assets",

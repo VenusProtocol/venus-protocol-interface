@@ -66,6 +66,8 @@ export const Layout: React.FC = () => {
     </>
   );
 
+  const WrapperComp = noWrapper ? 'div' : Wrapper;
+
   return (
     <div className="h-dvh flex flex-col">
       <NavBar className="shrink-0" />
@@ -82,11 +84,7 @@ export const Layout: React.FC = () => {
       >
         <Header />
 
-        {noWrapper ? (
-          <div>{contentDom}</div>
-        ) : (
-          <Wrapper className="relative w-full shrink-0 grow">{contentDom}</Wrapper>
-        )}
+        <WrapperComp className="relative w-full shrink-0 grow">{contentDom}</WrapperComp>
 
         <Footer ref={footerRef} />
       </div>
