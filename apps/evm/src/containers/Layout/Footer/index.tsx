@@ -9,10 +9,9 @@ import {
   VENUS_DOC_URL,
   VENUS_FLUX_URL,
   VENUS_GITHUB_URL,
-  VENUS_PRIVACY_POLICY_URL,
   VENUS_TELEGRAM_URL,
-  VENUS_TERMS_OF_USE_URL,
 } from 'constants/production';
+import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { forwardRef } from 'react';
 
@@ -21,9 +20,10 @@ interface SocialLink {
   href?: string;
 }
 
-interface RefLink {
+interface LinkConfig {
   label: string;
-  href: string;
+  href?: string;
+  to?: string;
 }
 
 export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
@@ -63,18 +63,18 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
     },
   ];
 
-  const refLinks: RefLink[] = [
+  const footerLinks: LinkConfig[] = [
     {
       label: t('footer.links.documentation'),
       href: VENUS_DOC_URL,
     },
     {
       label: t('footer.links.privacyPolicy'),
-      href: VENUS_PRIVACY_POLICY_URL,
+      to: routes.privacyPolicy.path,
     },
     {
       label: t('footer.links.termsOfUse'),
-      href: VENUS_TERMS_OF_USE_URL,
+      to: routes.termsOfUse.path,
     },
   ];
 
@@ -84,11 +84,15 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
       className="bg-background-active p-4 space-y-4 sm:flex sm:justify-between sm:items-center sm:space-y-0 md:px-6 xl:px-10"
     >
       <div className="flex items-center gap-x-4">
-        {refLinks.map(refLink => (
-          <Link className="text-grey text-sm" href={refLink.href} key={refLink.href}>
-            {refLink.label}
-          </Link>
-        ))}
+        {footerLinks.map(footerLink => {
+          const { label, ...restProps } = footerLink;
+
+          return (
+            <Link className="text-grey text-sm" key={label} {...restProps}>
+              {label}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="flex flex-none items-center">

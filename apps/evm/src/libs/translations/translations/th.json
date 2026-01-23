@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "ภาพประกอบ Bug Bounty",
-      "challengeText": "เราสนับสนุนให้ทุกคนท้าทายโค้ดของเราและค้นหาช่องโหว่ อ่านเกี่ยวกับรางวัลบั๊กบาวน์ตี และโปรดส่งบั๊กที่คุณพบ",
+      "challengeText": "TRANSLATION NEEDED",
       "challengeTitle": "ท้าทายโค้ดของเราและรับรางวัล",
       "protectionAlt": "ภาพประกอบการปกป้อง",
-      "protectionText": "รักษาพูลสำรองเพื่อให้ทุกคนปลอดภัยในกรณีเหตุการณ์ผิดปกติ",
+      "protectionText": "TRANSLATION NEEDED",
       "protectionTitle": "ให้ความสำคัญกับการปกป้อง"
     },
     "safety": {
@@ -590,7 +590,7 @@
       "illustrationAlt": "TRANSLATION NEEDED",
       "imageAlt": "ภาพประกอบ Venus Prime",
       "learnMore": "เรียนรู้เพิ่มเติม",
-      "text": "ด้วย Venus Prime ผู้ใช้ที่ทุ่มเทจะได้รับรางวัลที่บูสต์เมื่อฝากและยืมบน Venus ขณะสเตคในวอลต์กำกับดูแล",
+      "text": "TRANSLATION NEEDED",
       "title": "<hl>Venus Prime</hl> <br />เพิ่มผลตอบแทนของคุณ"
     },
     "wallets": {

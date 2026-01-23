@@ -1,64 +1,63 @@
 import { cn } from 'components';
 import { useTranslation } from 'libs/translations';
+import { ProtectionCard } from './ProtectionCard';
 import bugBountyImg from './assets/bugBounty.png';
 import protectionImg from './assets/protection.png';
 
-interface IProtectionProps {
+export interface ProtectionProps {
   className?: string;
 }
 
-const itemClassName = cn(
-  'relative flex flex-1 flex-col min-h-105 justify-between p-6 pb-0 border border-solid border-lightGrey rounded-3xl sm:min-h-100 xl:min-h-139 xl:p-10 xl:pb-0',
-);
-
-const bgImgClassName = cn('w-full bottom-0');
-
-const textClassName = cn(
-  '[&_h2]:text-[1.5rem] [&_h2]:font-semibold xl:[&_h2]:text-[2rem]',
-  '[&_p]:text-grey [&_p]:text-[1rem] xl:[&_p]:text-[1.125rem]',
-);
-
-export const Protection: React.FC<IProtectionProps> = ({ className }) => {
+export const Protection: React.FC<ProtectionProps> = ({ className }) => {
   const { t } = useTranslation();
 
   return (
-    <div className={cn('mt-15 md:mt-20 lg:mt-25', textClassName, className)}>
-      <ul className={'flex flex-col justify-between gap-6 sm:flex-row xl:gap-8'}>
-        <li
-          className={cn(
-            itemClassName,
-            'bg-radial-[62.14%_57.90%_at_50.00%_50.00%,rgba(23,46,98,0.50)_0%,rgba(18,22,32,0.50)_100%]',
-          )}
-        >
-          <div className={'xl:mb-21'}>
-            <h2 className="mb-4">{t('landing.protection.challengeTitle')}</h2>
-            <p className="mb-8 md:mb-0">{t('landing.protection.challengeText')}</p>
-          </div>
-          <img
-            loading="lazy"
-            className={bgImgClassName}
-            src={bugBountyImg}
-            alt={t('landing.protection.bugBountyAlt')}
-          />
-        </li>
-        <li
-          className={cn(
-            itemClassName,
-            'bg-radial-[62.14%_57.90%_at_50.00%_50.00%,rgba(30,75,100,0.50)_0%,rgba(18,22,32,0.50)_100%]',
-          )}
-        >
-          <div className={'xl:mb-21'}>
-            <h2 className="mb-4">{t('landing.protection.protectionTitle')}</h2>
-            <p className="mb-8 md:mb-0">{t('landing.protection.protectionText')}</p>
-          </div>
-          <img
-            loading="lazy"
-            className={bgImgClassName}
-            src={protectionImg}
-            alt={t('landing.protection.protectionAlt')}
-          />
-        </li>
-      </ul>
+    <div className={cn('flex flex-col justify-between gap-6 md:flex-row', className)}>
+      <ProtectionCard
+        className={
+          'bg-radial-[62.14%_57.90%_at_50.00%_50.00%,rgba(23,46,98,0.50)_0%,rgba(18,22,32,0.50)_100%]'
+        }
+      >
+        <div className={cn('mb-6 lg:mb-12 xl:mb-12 max-sm:text-center')}>
+          <h6 className={cn('text-p2s md:text-p1s lg:text-h6', 'mb-3 md:mb-4')}>
+            {t('landing.protection.challengeTitle')}
+          </h6>
+
+          <p className="text-grey text-b1r lg:text-p3r">{t('landing.protection.challengeText')}</p>
+        </div>
+
+        <img
+          loading="lazy"
+          className={cn('w-full', 'md:mb-12 xl:mb-0 2xl:mb-12')}
+          src={bugBountyImg}
+          alt={t('landing.protection.bugBountyAlt')}
+        />
+      </ProtectionCard>
+
+      <ProtectionCard
+        className={
+          'bg-radial-[62.14%_57.90%_at_50.00%_50.00%,rgba(30,75,100,0.50)_0%,rgba(18,22,32,0.50)_100%]'
+        }
+      >
+        <div className={'xl:mb-2 max-sm:text-center'}>
+          <h6 className={cn('text-p2s md:text-p1s lg:text-h6', 'mb-4')}>
+            {t('landing.protection.protectionTitle')}
+          </h6>
+
+          <p className={cn('text-grey text-b1r lg:text-p3r', 'mb-4 sm:mb-3 md:mb-0')}>
+            {t('landing.protection.protectionText')}
+          </p>
+        </div>
+
+        <img
+          loading="lazy"
+          className={
+            'max-sm:w-full max-sm:pb-8 object-cover object-[0%_50%] md:min-w-[160%] md:pb-8 md:-translate-x-[15%] xl:min-w-[130%] xl:-translate-x-[10%] 2xl:pb-0 2xl:translate-y-5'
+          }
+          src={protectionImg}
+          alt={t('landing.protection.protectionAlt')}
+        />
+      </ProtectionCard>
     </div>
   );
 };
