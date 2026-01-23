@@ -59,7 +59,7 @@ export const Pagination = ({
     return null;
   }
 
-  const iconProps: IconProps = { name: 'arrowRight', color: 'inherit' };
+  const iconProps: IconProps = { name: 'arrowRight' };
 
   return (
     <div className={className} css={styles.root}>

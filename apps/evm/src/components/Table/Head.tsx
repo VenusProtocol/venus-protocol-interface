@@ -47,19 +47,17 @@ function Head<R>({ columns, orderBy, orderDirection, onRequestOrder, className }
                   <div css={styles.tableSortLabelIconsContainer}>
                     <Icon
                       name="sort"
-                      size="8px"
                       css={styles.tableSortLabelIcon({
                         active: active && orderDirection === 'asc',
                       })}
-                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc size-2"
                     />
                     <Icon
                       name="sort"
-                      size="8px"
                       css={styles.tableSortLabelIcon({
                         active: active && orderDirection === 'desc',
                       })}
-                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionDesc"
+                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionDesc size-2"
                     />
                   </div>
                 )}

@@ -678,12 +678,12 @@
     "menu": {
       "markets": {
         "venusCore": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Classic lending and borrowing with easy, optimized leverage.",
           "label": "Venus Core"
         },
-        "venusX": {
-          "description": "TRANSLATION NEEDED",
-          "label": "Venus X"
+        "venusFlux": {
+          "description": "Capital-efficient lending and borrowing for optimal yield.",
+          "label": "Venus Flux"
         }
       }
     }
