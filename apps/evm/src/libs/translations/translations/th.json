@@ -535,10 +535,10 @@
       "title3": "ออมนิเชน"
     },
     "governance": {
-      "forum": "ฟอรัมการกำกับดูแล",
-      "planetsAlt": "ภาพประกอบพืช",
-      "proposalCounting": "ข้อเสนอปรับปรุง Venus ที่ดำเนินการแล้วและยังเพิ่มขึ้นเรื่อยๆ",
-      "text": "Venus เป็นโปรโตคอลกระจายอำนาจที่ขับเคลื่อนโดยชุมชน มอบฟังก์ชันระดับแนวหน้าสำหรับตลาดเงินคริปโต",
+      "backgroundGradientAlt": "TRANSLATION NEEDED",
+      "buttonLabel": "TRANSLATION NEEDED",
+      "description": "TRANSLATION NEEDED",
+      "proposalCountLegend": "TRANSLATION NEEDED",
       "title": "ตลาดเงินที่ถูกกำกับดูแล<br />โดยชุมชน"
     },
     "hero": {
@@ -587,6 +587,7 @@
       "venusScored": "Venus ได้คะแนนความปลอดภัย <Link>อันดับ 3</Link> บน BNB Chain ตามการประเมินของ Certik (มิถุนายน 2021)"
     },
     "venusPrime": {
+      "illustrationAlt": "TRANSLATION NEEDED",
       "imageAlt": "ภาพประกอบ Venus Prime",
       "learnMore": "เรียนรู้เพิ่มเติม",
       "text": "ด้วย Venus Prime ผู้ใช้ที่ทุ่มเทจะได้รับรางวัลที่บูสต์เมื่อฝากและยืมบน Venus ขณะสเตคในวอลต์กำกับดูแล",

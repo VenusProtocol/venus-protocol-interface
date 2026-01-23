@@ -535,10 +535,10 @@
       "title3": "Omnichain"
     },
     "governance": {
-      "forum": "Yönetim forumu",
-      "planetsAlt": "Bitkiler illüstrasyonu",
-      "proposalCounting": "Uygulanan Venus İyileştirme Önerileri ve artmaya devam ediyor",
-      "text": "Venus, kripto para piyasaları için sınıfının en iyisi işlevsellik sunan, topluluk odaklı merkeziyetsiz bir protokoldür.",
+      "backgroundGradientAlt": "TRANSLATION NEEDED",
+      "buttonLabel": "TRANSLATION NEEDED",
+      "description": "TRANSLATION NEEDED",
+      "proposalCountLegend": "TRANSLATION NEEDED",
       "title": "Topluluk tarafından yönetilen<br />para piyasaları"
     },
     "hero": {
@@ -588,6 +588,7 @@
       "venusScored": "Venus, Certik tarafından yapılan değerlendirmede BNB Chain'de güvenlikte <Link>3. en yüksek</Link> puanı aldı (Haziran 2021)"
     },
     "venusPrime": {
+      "illustrationAlt": "TRANSLATION NEEDED",
       "imageAlt": "Venus Prime illüstrasyonu",
       "learnMore": "Daha fazla bilgi edin",
       "text": "Venus Prime ile, yönetişim kasasında stake ederken Venus'ta borç verme ve borç alma yapan aktif kullanıcılar artırılmış ödüller elde eder.",

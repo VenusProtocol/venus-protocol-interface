@@ -535,10 +535,10 @@
       "title3": "全鏈"
     },
     "governance": {
-      "forum": "治理論壇",
-      "planetsAlt": "植物插圖",
-      "proposalCounting": "Venus 改進提案已執行並持續增加",
-      "text": "Venus 是由社群驅動的去中心化協議，為加密貨幣市場提供一流功能。",
+      "backgroundGradientAlt": "TRANSLATION NEEDED",
+      "buttonLabel": "TRANSLATION NEEDED",
+      "description": "TRANSLATION NEEDED",
+      "proposalCountLegend": "TRANSLATION NEEDED",
       "title": "由社群治理的<br />貨幣市場"
     },
     "hero": {
@@ -587,6 +587,7 @@
       "venusScored": "Venus 在 Certik 的評估中於 BNB Chain 安全性排名 <Link>第 3</Link>（2021 年 6 月）"
     },
     "venusPrime": {
+      "illustrationAlt": "TRANSLATION NEEDED",
       "imageAlt": "Venus Prime 插圖",
       "learnMore": "了解更多",
       "text": "透過 Venus Prime，積極用戶在 Venus 上借貸並在治理金庫質押時可獲得增強獎勵。",

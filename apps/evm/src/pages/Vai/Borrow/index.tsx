@@ -18,7 +18,7 @@ import {
   Spinner,
 } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { PRIME_DOC_URL } from 'constants/production';
+import { VENUS_PRIME_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { handleError } from 'libs/errors';
@@ -253,7 +253,7 @@ export const Borrow: React.FC = () => {
               i18nKey="vai.borrow.primeOnlyWarning"
               components={{
                 WhiteText: <span className="text-white" />,
-                Link: <Link href={PRIME_DOC_URL} />,
+                Link: <Link href={VENUS_PRIME_DOC_URL} />,
               }}
             />
           }
