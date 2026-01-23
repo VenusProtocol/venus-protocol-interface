@@ -28,13 +28,13 @@ export const Protection: React.FC<IProtectionProps> = ({ className }) => {
             'bg-radial-[62.14%_57.90%_at_50.00%_50.00%,rgba(23,46,98,0.50)_0%,rgba(18,22,32,0.50)_100%]',
           )}
         >
-          <div className={'mb-6 xl:mb-12'}>
-            <h6 className="mb-4">{t('landing.protection.challengeTitle')}</h6>
-            <p className="mb-8 md:mb-0">{t('landing.protection.challengeText')}</p>
+          <div className={'mb-6 lg:mb-12 xl:mb-12'}>
+            <h6 className="mb-3 md:mb-4">{t('landing.protection.challengeTitle')}</h6>
+            <p>{t('landing.protection.challengeText')}</p>
           </div>
           <img
             loading="lazy"
-            className={'w-full'}
+            className={cn('w-full', 'md:mb-12')}
             src={bugBountyImg}
             alt={t('landing.protection.bugBountyAlt')}
           />
