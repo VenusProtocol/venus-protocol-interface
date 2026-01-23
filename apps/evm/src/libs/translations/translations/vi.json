@@ -535,10 +535,10 @@
       "title3": "Đa chuỗi"
     },
     "governance": {
-      "forum": "Diễn đàn quản trị",
-      "planetsAlt": "Minh họa cây",
-      "proposalCounting": "Các đề xuất cải tiến Venus đã được thực thi và vẫn đang tiếp tục",
-      "text": "Venus là một giao thức phi tập trung do cộng đồng dẫn dắt, cung cấp chức năng hàng đầu cho thị trường tiền mã hóa.",
+      "backgroundGradientAlt": "TRANSLATION NEEDED",
+      "buttonLabel": "TRANSLATION NEEDED",
+      "description": "TRANSLATION NEEDED",
+      "proposalCountLegend": "TRANSLATION NEEDED",
       "title": "Thị trường tiền tệ được quản trị<br />bởi cộng đồng"
     },
     "hero": {
@@ -587,6 +587,7 @@
       "venusScored": "Venus được Certik đánh giá đứng <Link>thứ 3</Link> về bảo mật trên BNB Chain (Tháng 6, 2021)"
     },
     "venusPrime": {
+      "illustrationAlt": "TRANSLATION NEEDED",
       "imageAlt": "Minh họa Venus Prime",
       "learnMore": "Tìm hiểu thêm",
       "text": "Với Venus Prime, người dùng tận tâm nhận phần thưởng tăng cường khi cho vay và vay trên Venus trong khi stake trong vault quản trị.",

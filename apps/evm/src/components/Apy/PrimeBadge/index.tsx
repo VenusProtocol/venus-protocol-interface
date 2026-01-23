@@ -2,7 +2,7 @@ import type BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
 import { Tooltip, type TooltipProps } from 'components';
-import { PRIME_DOC_URL } from 'constants/production';
+import { VENUS_PRIME_DOC_URL } from 'constants/production';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -56,7 +56,7 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
               {t('apy.primeBadge.tooltip.calculatorLink')}
             </Link>
           ) : (
-            <Link href={PRIME_DOC_URL} onClick={e => e.stopPropagation()}>
+            <Link href={VENUS_PRIME_DOC_URL} onClick={e => e.stopPropagation()}>
               {t('apy.primeBadge.tooltip.primeDocLink')}
             </Link>
           )}

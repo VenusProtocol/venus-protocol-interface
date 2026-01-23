@@ -535,10 +535,10 @@
       "title3": "オムニチェーン"
     },
     "governance": {
-      "forum": "ガバナンスフォーラム",
-      "planetsAlt": "植物のイラスト",
-      "proposalCounting": "実行済みのVenus改善提案、さらに増加中",
-      "text": "Venusはコミュニティ主導の分散型プロトコルで、暗号資産マネーマーケット向けに最高水準の機能を提供します。",
+      "backgroundGradientAlt": "TRANSLATION NEEDED",
+      "buttonLabel": "TRANSLATION NEEDED",
+      "description": "TRANSLATION NEEDED",
+      "proposalCountLegend": "TRANSLATION NEEDED",
       "title": "コミュニティが統治する<br />マネーマーケット"
     },
     "hero": {
@@ -587,6 +587,7 @@
       "venusScored": "VenusはCertikの評価でBNB Chainのセキュリティにおいて<Link>第3位</Link>にランクされました（2021年6月）"
     },
     "venusPrime": {
+      "illustrationAlt": "TRANSLATION NEEDED",
       "imageAlt": "Venus Primeのイラスト",
       "learnMore": "詳細を見る",
       "text": "Venus Primeでは、ガバナンスボールトにステークしながらVenusで貸借を行う熱心なユーザーがブースト報酬を獲得します。",
