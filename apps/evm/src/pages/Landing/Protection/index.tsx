@@ -20,7 +20,7 @@ export const Protection: React.FC<IProtectionProps> = ({ className }) => {
   const { t } = useTranslation();
 
   return (
-    <div className={cn('mt-15 md:mt-20 lg:mt-25', textClassName, className)}>
+    <div className={cn(textClassName, className)}>
       <ul className={'flex flex-col justify-between gap-6 md:flex-row xl:gap-8'}>
         <li
           className={cn(
