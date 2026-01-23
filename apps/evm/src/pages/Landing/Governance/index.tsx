@@ -30,7 +30,7 @@ export const Governance: React.FC = () => {
         alt={t('landing.venusPrime.illustrationAlt')}
       />
 
-      <div className="relative px-6 pt-6 pb-54 text-center space-y-6 sm:text-left sm:max-w-84 sm:pb-16 md:max-w-130 md:pb-26 md:px-10 md:pt-10 lg:pb-12 lg:max-w-130">
+      <div className="relative px-6 pt-6 pb-54 text-center space-y-6 sm:text-left sm:max-w-84 sm:pb-16 md:max-w-130 md:pb-26 lg:px-10 md:pt-10 lg:pb-12 lg:max-w-130">
         <div className="space-y-3">
           <h2 className="text-p2s lg:text-h6">
             <Trans

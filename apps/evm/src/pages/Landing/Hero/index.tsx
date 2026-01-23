@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
       <Wrapper className="flex flex-col start-0 end-0">
         <div className="flex flex-col items-center xl:flex-row xl:justify-between xl:items-stretch gap-6 w-full py-15 z-1">
           <div className="flex flex-col sm:max-w-140.5 items-center text-center xl:items-start xl:text-start">
-            <h1 className="text-[48px] leading-[1.2] sm:text-[72px] sm:leading-none xl:text-[80px] font-semibold lg:leading-none">
+            <h1 className="text-[48px] leading-[1.2] sm:text-[72px] sm:leading-none font-semibold lg:leading-none">
               <Trans
                 i18nKey="landing.hero.title"
                 components={{
@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
               />
             </h1>
 
-            <div className="mt-4 text-p3r sm:text-p2r xl:text-p1r">
+            <div className="mt-4 text-p3r sm:text-p2r xl:text-p2r">
               {t('landing.hero.subtitle')}
             </div>
 
@@ -49,7 +49,7 @@ export const Hero: React.FC = () => {
             />
 
             <div className="pb-6 pt-12 xl:pt-30">
-              <div className="text-p3s sm:text-p1s">{t('landing.hero.venusTvl')}</div>
+              <div className="text-p3s sm:text-p1s lg:text-p2s">{t('landing.hero.venusTvl')}</div>
 
               <div className="text-h5 sm:text-h3">{readableMarketsTvl}</div>
             </div>

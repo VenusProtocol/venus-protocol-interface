@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "バグバウンティのイラスト",
-      "challengeText": "私たちはすべての人にコードへの挑戦と脆弱性の探索を促しています。バグバウンティ報酬について読み、見つけたバグはぜひ報告してください。",
+      "challengeText": "TRANSLATION NEEDED",
       "challengeTitle": "コードに挑戦して報酬を獲得",
       "protectionAlt": "保護のイラスト",
-      "protectionText": "外れ値イベントに備えて、全員の安全を守るためのフォールバックプールを維持しています。",
+      "protectionText": "TRANSLATION NEEDED",
       "protectionTitle": "保護を最優先"
     },
     "safety": {
@@ -590,7 +590,7 @@
       "illustrationAlt": "TRANSLATION NEEDED",
       "imageAlt": "Venus Primeのイラスト",
       "learnMore": "詳細を見る",
-      "text": "Venus Primeでは、ガバナンスボールトにステークしながらVenusで貸借を行う熱心なユーザーがブースト報酬を獲得します。",
+      "text": "TRANSLATION NEEDED",
       "title": "<hl>Venus Prime</hl> <br />リターンを増幅"
     },
     "wallets": {

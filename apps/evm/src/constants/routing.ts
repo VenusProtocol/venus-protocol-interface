@@ -1,7 +1,7 @@
 export enum Subdirectory {
   LANDING = 'landing',
-  TERMS = 'terms-of-use',
-  POLICY = 'private-policy',
+  TERMS_OF_USE = 'terms-of-use',
+  PRIVACY_POLICY = 'privacy-policy',
   DISCORD = 'discord',
   ISOLATED_POOLS = 'isolated-pools',
   MARKETS = 'markets/:poolComptrollerAddress',
@@ -26,8 +26,8 @@ export enum Subdirectory {
 
 const routeSubdirectories = {
   landing: [Subdirectory.LANDING],
-  terms: [Subdirectory.TERMS],
-  policy: [Subdirectory.POLICY],
+  termsOfUse: [Subdirectory.TERMS_OF_USE],
+  privacyPolicy: [Subdirectory.PRIVACY_POLICY],
   discord: [Subdirectory.DISCORD],
   isolatedPools: [Subdirectory.ISOLATED_POOLS],
   markets: [Subdirectory.MARKETS],

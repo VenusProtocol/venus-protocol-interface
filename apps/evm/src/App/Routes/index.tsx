@@ -26,6 +26,8 @@ const Voter = safeLazyLoad(() => import('pages/Voter'));
 const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
 const Bridge = safeLazyLoad(() => import('pages/Bridge'));
+const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
+const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -204,6 +206,24 @@ const AppRoutes = () => {
             }
           />
         )}
+
+        <Route
+          path={Subdirectory.PRIVACY_POLICY}
+          element={
+            <PageSuspense>
+              <PrivacyPolicy />
+            </PageSuspense>
+          }
+        />
+
+        <Route
+          path={Subdirectory.TERMS_OF_USE}
+          element={
+            <PageSuspense>
+              <TermsOfUse />
+            </PageSuspense>
+          }
+        />
 
         {/* Redirect to Core pool if no route matches */}
         <Route index element={<Redirect to={`/${Subdirectory.LANDING}`} />} />
