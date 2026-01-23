@@ -675,9 +675,9 @@
           "description": "TRANSLATION NEEDED",
           "label": "Venus Core"
         },
-        "venusX": {
+        "venusFlux": {
           "description": "TRANSLATION NEEDED",
-          "label": "Venus X"
+          "label": "Venus Flux"
         }
       }
     }
