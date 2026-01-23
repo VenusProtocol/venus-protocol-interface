@@ -30,6 +30,7 @@ export const RewardGroupContent: React.FC<RewardGroupContentProps> = ({
 
     return Array.from(pendingRewardMapping.values());
   }, [group.pendingRewards]);
+
   return (
     <div>
       <div className="mb-4">

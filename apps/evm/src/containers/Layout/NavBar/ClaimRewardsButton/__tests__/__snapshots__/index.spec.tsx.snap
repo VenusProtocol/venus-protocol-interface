@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ClaimRewardButton > it claims only selected and enabled rewards on submit button click on success 1`] = `
+exports[`ClaimRewardsButton > it claims only selected and enabled rewards on submit button click on success 1`] = `
 {
   "claims": [
     {
@@ -31,7 +31,7 @@ exports[`ClaimRewardButton > it claims only selected and enabled rewards on subm
 }
 `;
 
-exports[`ClaimRewardButton > it claims reward on submit button click and closes modal on success 1`] = `
+exports[`ClaimRewardsButton > it claims reward on submit button click and closes modal on success 1`] = `
 {
   "claims": [
     {
@@ -84,4 +84,4 @@ exports[`ClaimRewardButton > it claims reward on submit button click and closes 
 }
 `;
 
-exports[`ClaimRewardButton > renders correct reward breakdown in modal 1`] = `"VenusXVS$400K1B XVSMetaverseVAI$32B VAIXVS$1.123B XVSVAI vaultXVS$123B XVSXVS vesting vaultXVS$1.654B XVSPrimeVAI$32B VAIXVS$1.123B XVS"`;
+exports[`ClaimRewardsButton > renders correct reward breakdown in modal 1`] = `"VenusXVS$400K1B XVSMetaverseVAI$32B VAIXVS$1.123B XVSVAI vaultXVS$123B XVSXVS vesting vaultXVS$1.654B XVSPrimeVAI$32B VAIXVS$1.123B XVS"`;

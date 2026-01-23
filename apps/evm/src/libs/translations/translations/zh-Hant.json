@@ -5,8 +5,8 @@
       "tables": {
         "borrowTableTitle": "已借入",
         "eModeHeader": {
-          "illustrationAltText": "E 模式插圖",
-          "title": "E 模式：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+          "illustrationAltText": "E-mode插圖",
+          "title": "E-mode：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
         "supplyTableTitle": "已供應",
         "tabletBorrowTabTitle": "已借入",
@@ -260,7 +260,7 @@
   },
   "asset": {
     "eModeInfo": {
-      "title": "E 模式信息"
+      "title": "E-mode信息"
     },
     "marketInfo": {
       "title": "市場信息"
@@ -275,7 +275,7 @@
       "withdraw": "該市場已禁用提取"
     },
     "eModeBlockedActionNotice": {
-      "borrow": "你的 E 模式設置不允許從該市場借款。<Link>管理 E 模式</Link>"
+      "borrow": "你的 E-mode設置不允許從該市場借款。<Link>管理 E-mode</Link>"
     }
   },
   "assetWarning": {
@@ -396,8 +396,8 @@
   },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
-    "illustrationAltText": "E 模式插圖",
-    "manageEModeButtonLabel": "管理 E 模式",
+    "illustrationAltText": "E-mode插圖",
+    "manageEModeButtonLabel": "管理 E-mode",
     "title": "使用 E-Mode 提升借款能力"
   },
   "errors": {
@@ -535,10 +535,10 @@
       "title3": "全鏈"
     },
     "governance": {
-      "backgroundGradientAlt": "TRANSLATION NEEDED",
-      "buttonLabel": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "proposalCountLegend": "TRANSLATION NEEDED",
+      "backgroundGradientAlt": "背景插圖",
+      "buttonLabel": "治理論壇",
+      "description": "Venus 是由社群驅動的去中心化協議，為加密貨幣市場提供一流功能。",
+      "proposalCountLegend": "Venus 改進提案已執行並持續增加",
       "title": "由社群治理的<br />貨幣市場"
     },
     "hero": {
@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "漏洞賞金插圖",
-      "challengeText": "TRANSLATION NEEDED",
+      "challengeText": "在我們的程式碼中尋找並回報漏洞即可獲得獎勵資格。了解更多請閱讀我們的漏洞賞金計畫。",
       "challengeTitle": "挑戰我們的程式碼並獲得獎勵",
       "protectionAlt": "保護插圖",
-      "protectionText": "TRANSLATION NEEDED",
+      "protectionText": "安全審計、7x24 監控以及強健的風險基金可在異常市場事件中保障協議安全。",
       "protectionTitle": "安全保障優先"
     },
     "safety": {
@@ -587,10 +587,10 @@
       "venusScored": "Venus 在 Certik 的評估中於 BNB Chain 安全性排名 <Link>第 3</Link>（2021 年 6 月）"
     },
     "venusPrime": {
-      "illustrationAlt": "TRANSLATION NEEDED",
+      "illustrationAlt": "Venus Prime 插圖",
       "imageAlt": "Venus Prime 插圖",
       "learnMore": "了解更多",
-      "text": "TRANSLATION NEEDED",
+      "text": "Venus Protocol 的高階用戶可鑄造 Venus Prime 代幣，在 Venus core 池的部分市場享受更優費率。",
       "title": "<hl>Venus Prime</hl> <br />提升您的回報"
     },
     "wallets": {
@@ -671,11 +671,11 @@
     "menu": {
       "markets": {
         "venusCore": {
-          "description": "TRANSLATION NEEDED",
+          "description": "經典借貸，輕鬆且最佳化的槓桿。",
           "label": "Venus Core"
         },
         "venusFlux": {
-          "description": "TRANSLATION NEEDED",
+          "description": "為最佳收益提供高資本效率的借貸。",
           "label": "Venus Flux"
         }
       }
@@ -738,23 +738,23 @@
       "group": {
         "cannotDisable": {
           "tooltip": {
-            "blockingPositions": "你無法禁用該 E 模式組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
-            "notEnoughCollateral": "你無法禁用該 E 模式組，因為你的總抵押價值不足以覆蓋總借款餘額"
+            "blockingPositions": "你無法禁用該 E-mode組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
+            "notEnoughCollateral": "你無法禁用該 E-mode組，因為你的總抵押價值不足以覆蓋總借款餘額"
           }
         },
         "cannotEnable": {
           "modal": {
-            "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> E 模式組，你需要關閉以下借款倉位：",
+            "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode組，你需要關閉以下借款倉位：",
             "repayButtonLabel": "還款",
             "title": "你的倉位"
           },
           "tooltip": {
-            "blockingPositions": "你無法啟用該 E 模式組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
-            "notEnoughCollateral": "你無法啟用該 E 模式組，因為你的總抵押價值不足以覆蓋總借款餘額"
+            "blockingPositions": "你無法啟用該 E-mode組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
+            "notEnoughCollateral": "你無法啟用該 E-mode組，因為你的總抵押價值不足以覆蓋總借款餘額"
           }
         },
         "disableButtonLabel": "禁用",
-        "disabledNotice": "該 E-Mode 組已不再支持。你的賬戶將回到默認參數。請切換到其他可用的 E 模式組或將其禁用。",
+        "disabledNotice": "該 E-Mode 組已不再支持。你的賬戶將回到默認參數。請切換到其他可用的 E-mode組或將其禁用。",
         "enableButtonLabel": "啟用",
         "healthFactor": "健康係數：",
         "switchButtonLabel": "切換"
@@ -814,13 +814,13 @@
           "label": "最大 LTV",
           "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
         },
-        "title": "E 模式"
+        "title": "E-mode"
       }
     }
   },
   "marketTable": {
     "assetColumn": {
-      "eMode": "該市場屬於 {{eModeGroupName}} E 模式組",
+      "eMode": "該市場屬於 {{eModeGroupName}} E-mode組",
       "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。"
     },
     "columnKeys": {
@@ -875,7 +875,7 @@
       "label": "僅我的資產"
     },
     "userEModeAssetsOnlyToggle": {
-      "label": "僅 E 模式資產"
+      "label": "僅 E-mode資產"
     }
   },
   "operationForm": {

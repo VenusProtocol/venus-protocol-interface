@@ -535,10 +535,10 @@
       "title3": "ออมนิเชน"
     },
     "governance": {
-      "backgroundGradientAlt": "TRANSLATION NEEDED",
-      "buttonLabel": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "proposalCountLegend": "TRANSLATION NEEDED",
+      "backgroundGradientAlt": "ภาพประกอบพื้นหลัง",
+      "buttonLabel": "ฟอรัมการกำกับดูแล",
+      "description": "Venus เป็นโปรโตคอลกระจายอำนาจที่ขับเคลื่อนโดยชุมชน มอบฟังก์ชันระดับแนวหน้าสำหรับตลาดเงินคริปโต",
+      "proposalCountLegend": "ข้อเสนอปรับปรุง Venus ที่ดำเนินการแล้วและยังเพิ่มขึ้นเรื่อยๆ",
       "title": "ตลาดเงินที่ถูกกำกับดูแล<br />โดยชุมชน"
     },
     "hero": {
@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "ภาพประกอบ Bug Bounty",
-      "challengeText": "TRANSLATION NEEDED",
+      "challengeText": "ค้นหาและรายงานช่องโหว่ในโค้ดของเราเพื่อมีสิทธิ์รับรางวัล อ่านเกี่ยวกับโปรแกรมบั๊กบาวน์ตีเพื่อเรียนรู้เพิ่มเติม",
       "challengeTitle": "ท้าทายโค้ดของเราและรับรางวัล",
       "protectionAlt": "ภาพประกอบการปกป้อง",
-      "protectionText": "TRANSLATION NEEDED",
+      "protectionText": "การตรวจสอบความปลอดภัย การเฝ้าระวังตลอด 24/7 และกองทุนความเสี่ยงที่แข็งแกร่งช่วยให้โปรโตคอลปลอดภัยในกรณีเหตุการณ์ตลาดผิดปกติ",
       "protectionTitle": "ให้ความสำคัญกับการปกป้อง"
     },
     "safety": {
@@ -587,10 +587,10 @@
       "venusScored": "Venus ได้คะแนนความปลอดภัย <Link>อันดับ 3</Link> บน BNB Chain ตามการประเมินของ Certik (มิถุนายน 2021)"
     },
     "venusPrime": {
-      "illustrationAlt": "TRANSLATION NEEDED",
+      "illustrationAlt": "ภาพประกอบ Venus Prime",
       "imageAlt": "ภาพประกอบ Venus Prime",
       "learnMore": "เรียนรู้เพิ่มเติม",
-      "text": "TRANSLATION NEEDED",
+      "text": "ผู้ใช้ขั้นสูงของ Venus Protocol สามารถมินต์โทเคน Venus Prime เพื่อรับอัตราที่เหนือกว่าสำหรับบางตลาดในพูล Venus core",
       "title": "<hl>Venus Prime</hl> <br />เพิ่มผลตอบแทนของคุณ"
     },
     "wallets": {
@@ -671,11 +671,11 @@
     "menu": {
       "markets": {
         "venusCore": {
-          "description": "TRANSLATION NEEDED",
+          "description": "การให้กู้และการยืมแบบคลาสสิก พร้อมเลเวอเรจที่ง่ายและปรับให้เหมาะสม",
           "label": "Venus Core"
         },
         "venusFlux": {
-          "description": "TRANSLATION NEEDED",
+          "description": "การให้กู้และการยืมที่มีประสิทธิภาพด้านทุนเพื่อผลตอบแทนที่เหมาะสมที่สุด",
           "label": "Venus Flux"
         }
       }

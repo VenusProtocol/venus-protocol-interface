@@ -90,7 +90,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       </div>
 
       {/* Tablet/Mobile view */}
-      <Card css={[styles.tabletContainer, showXlDownCss]}>
+      <Card css={[styles.tabletContainer, showXlDownCss]} className="border-0 md:border">
         <div css={styles.tabletHeader}>
           <div className="items-center gap-x-2 hidden md:flex">
             <Typography variant="h4" css={styles.tabletHeaderTitle}>
@@ -131,6 +131,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             }
             {...marketTableProps.supply}
             css={styles.tabletMarketTable}
+            className="border-0"
           />
         ) : (
           <MarketTable
@@ -146,6 +147,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             }
             {...marketTableProps.borrow}
             css={styles.tabletMarketTable}
+            className="border-0"
           />
         )}
       </Card>

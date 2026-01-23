@@ -535,7 +535,7 @@
       "title3": "Omnichain"
     },
     "governance": {
-      "backgroundGradientAlt": "TRANSLATION NEEDED",
+      "backgroundGradientAlt": "Background illustration",
       "buttonLabel": "Governance forum",
       "description": "Venus is a community-driven decentralized protocol delivering best-in-class functionality for crypto money markets.",
       "proposalCountLegend": "Venus Improvement Proposals Executed and counting",
@@ -588,7 +588,7 @@
       "venusScored": "Venus scored <Link>3rd highest</Link> for security on BNB Chain as assessed by Certik (June, 2021)"
     },
     "venusPrime": {
-      "illustrationAlt": "TRANSLATION NEEDED",
+      "illustrationAlt": "Venus Prime illustration",
       "imageAlt": "Venus Prime Illustration",
       "learnMore": "Learn more",
       "text": "Power users of Venus Protocol may mint a Venus Prime Token to enjoy superior rates for select markets in the Venus core pool.",

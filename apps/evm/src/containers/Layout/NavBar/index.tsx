@@ -8,8 +8,8 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
-import { BurnedWBnbButton } from './BurnedWBnbButton';
 import { ChainSelect } from './ChainSelect';
+import { ClaimRewardsButton } from './ClaimRewardsButton';
 import { ConnectButton } from './ConnectButton';
 import { MenuItem } from './MenuItem';
 import { NavButtonWrapper } from './NavButtonWrapper';
@@ -76,7 +76,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         </div>
 
         <div className="flex items-center gap-x-2 h-9 sm:h-12">
-          <BurnedWBnbButton className="h-full hidden sm:flex" />
+          <ClaimRewardsButton className="h-full hidden sm:flex" />
 
           <ChainSelect buttonClassName="h-9 px-3 py-0 border-dark-blue sm:h-12" />
 
@@ -100,7 +100,11 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-[#000000] overflow-y-auto xl:hidden',
         )}
       >
-        <p className="mb-5">{t('layout.menu.label')}</p>
+        <div className="flex items-center justify-between mb-5">
+          <p>{t('layout.menu.label')}</p>
+
+          <ClaimRewardsButton className="px-4" />
+        </div>
 
         <div className="mb-2">
           {menuItems.map(item => (
