@@ -12,7 +12,7 @@ export const VenusPrime: React.FC = () => {
   const { t, Trans } = useTranslation();
 
   return (
-    <Card className="relative overflow-hidden flex h-112.5 p-0 rounded-xl sm:h-87.5 md:h-100">
+    <Card className="relative overflow-hidden flex h-112.5 p-0 sm:h-87.5 md:h-100">
       <div className="absolute top-0 bottom-0 start-0 end-0">
         <img
           loading="lazy"
