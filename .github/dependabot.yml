@@ -6,3 +6,7 @@ updates:
     versioning-strategy: 'widen'
     schedule:
       interval: 'daily'
+    ignore:
+      # Ignore all major updates
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
