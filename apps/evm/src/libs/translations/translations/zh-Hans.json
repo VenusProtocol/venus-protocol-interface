@@ -5,12 +5,12 @@
       "tables": {
         "borrowTableTitle": "已借入",
         "eModeHeader": {
-          "illustrationAltText": "E 模式插图",
-          "title": "E 模式：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+          "illustrationAltText": "E-mode插图",
+          "title": "E-mode：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
-        "supplyTableTitle": "已供应",
+        "supplyTableTitle": "已存款",
         "tabletBorrowTabTitle": "已借入",
-        "tabletSupplyTabTitle": "已供应",
+        "tabletSupplyTabTitle": "已存款",
         "tabletTitle": "资产"
       }
     },
@@ -39,7 +39,7 @@
     "pools": {
       "placeholder": {
         "description": "你的资金池持仓将显示在此",
-        "title": "尚无供应或借入持仓"
+        "title": "尚无存款或借入持仓"
       }
     },
     "poolsBreakdown": {
@@ -68,10 +68,10 @@
         "healthFactorTooltip": "清算阈值 < 1.0",
         "mintedVai": "已铸造 VAI",
         "netApy": "净 APY",
-        "netApyTooltip": "以年化利息形式获得的总供应余额百分比",
-        "netApyWithVaultStakeTooltip": "以年化利息形式获得的总供应余额和金库质押百分比",
+        "netApyTooltip": "以年化利息形式获得的总存款余额百分比",
+        "netApyWithVaultStakeTooltip": "以年化利息形式获得的总存款余额和金库质押百分比",
         "totalBorrow": "总借款",
-        "totalSupply": "总供应",
+        "totalSupply": "总存款",
         "totalVaultStake": "总金库质押"
       },
       "title": "概览"
@@ -95,26 +95,26 @@
           "all": "所有交易",
           "approve": "授权",
           "borrow": "借款",
-          "enterMarket": "启用抵押",
-          "exitMarket": "禁用抵押",
-          "mint": "供应",
-          "redeem": "提取",
+          "enterMarket": "启用可抵押",
+          "exitMarket": "禁用可抵押",
+          "mint": "存款",
+          "redeem": "取款",
           "repay": "偿还"
         }
       },
       "today": "今天",
       "txText": {
         "approve": "已授权支出 {{tokenAmount}}",
-        "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为抵押",
-        "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为抵押"
+        "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
+        "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为可抵押"
       },
       "txType": {
         "approve": "授权",
         "borrow": "借款",
-        "enterMarket": "启用抵押",
-        "exitMarket": "禁用抵押",
-        "mint": "供应",
-        "redeem": "提取",
+        "enterMarket": "启用可抵押",
+        "exitMarket": "禁用可抵押",
+        "mint": "存款",
+        "redeem": "取款",
         "repay": "偿还"
       },
       "view": "查看",
@@ -130,7 +130,7 @@
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "借款余额",
-      "supplyBalance": "供应余额"
+      "supplyBalance": "存款余额"
     },
     "dailyEarnings": {
       "label": "每日收益"
@@ -155,13 +155,13 @@
       "description": "Binance 于 2023-04-26 暂停了 BETH 提现。我们建议用户减少在 Venus 上的 BETH 曝险。借款已暂停。可在链上按 1:1 比例将 BETH 转换为 WBETH，<Link>点击此处</Link>。"
     },
     "sxpDisabling": {
-      "description": "根据 Gauntlet 的建议，由于 SXP 迁移到新链以及预计 SXP 流动性下降的担忧，SXP 的借款和供应已暂停。"
+      "description": "根据 Gauntlet 的建议，由于 SXP 迁移到新链以及预计 SXP 流动性下降的担忧，SXP 的借款和存款已暂停。"
     },
     "trxMigration": {
-      "description": "Venus 在新市场支持新的 TRX 代币。旧 TRX 代币的借款与供应已暂停。更多信息请见 <Link>Binance 官方公告</Link>。"
+      "description": "Venus 在新市场支持新的 TRX 代币。旧 TRX 代币的借款与存款已暂停。更多信息请见 <Link>Binance 官方公告</Link>。"
     },
     "tusdMigration": {
-      "description": "Venus 在新市场支持新的 TUSD 代币。旧 TUSD 代币的借款与供应已暂停。更多信息请见 <Link>Binance 官方公告</Link>。"
+      "description": "Venus 在新市场支持新的 TUSD 代币。旧 TUSD 代币的借款与存款已暂停。更多信息请见 <Link>Binance 官方公告</Link>。"
     }
   },
   "approveDelegateSteps": {
@@ -209,7 +209,7 @@
         },
         "supplyApy": {
           "description": "向 Venus 协议提供资产所获得的总收益。",
-          "name": "供应 APY"
+          "name": "存款 APY"
         },
         "xvsDistribution": {
           "description": "分发奖励由去中心化的 Venus 社区发起并实施。Venus 协议不作任何保证且不承担责任。",
@@ -224,7 +224,7 @@
         "primeBorrowSimulation": "Prime 加成基于用户借款中位数 {{borrowBalance}} 与金库质押 {{xvsStaked}} 提升 APY。",
         "primeDocLink": "了解更多",
         "primeMarket": "Prime 提升 APY。",
-        "primeSupplySimulation": "Prime 加成基于用户供应中位数 {{supplyBalance}} 与金库质押 {{xvsStaked}} 提升 APY。"
+        "primeSupplySimulation": "Prime 加成基于用户存款中位数 {{supplyBalance}} 与金库质押 {{xvsStaked}} 提升 APY。"
       }
     }
   },
@@ -242,25 +242,25 @@
     "offChainApy": "链下 APY",
     "offChainApyTooltip": "来自空投或推广活动等第三方管理的链下活动的额外收益。Venus 协议不作任何保证且不承担责任。",
     "primeApy": "Prime APY",
-    "supplyApy": "供应 APY",
+    "supplyApy": "存款 APY",
     "totalApy": {
       "borrowApyTooltip": "借款 APY - 分发 APY",
       "label": "总 APY",
-      "supplyApyTooltip": "供应 APY + 分发 APY"
+      "supplyApyTooltip": "存款 APY + 分发 APY"
     }
   },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "借款 APY",
       "date": "日期",
-      "supplyApy": "供应 APY",
+      "supplyApy": "存款 APY",
       "totalBorrow": "总借款",
-      "totalSupply": "总供应"
+      "totalSupply": "总存款"
     }
   },
   "asset": {
     "eModeInfo": {
-      "title": "E 模式信息"
+      "title": "E-mode信息"
     },
     "marketInfo": {
       "title": "市场信息"
@@ -271,15 +271,15 @@
       "boost": "该市场已禁用 Boost",
       "borrow": "该市场已禁用借款",
       "repay": "该市场已禁用还款",
-      "supply": "该市场已禁用供应",
-      "withdraw": "该市场已禁用提取"
+      "supply": "该市场已禁用存款",
+      "withdraw": "该市场已禁用取款"
     },
     "eModeBlockedActionNotice": {
-      "borrow": "你的 E 模式设置不允许从该市场借款。<Link>管理 E 模式</Link>"
+      "borrow": "你的 E-mode设置不允许从该市场借款。<Link>管理 E-mode</Link>"
     }
   },
   "assetWarning": {
-    "borrowDescription": "根据你在 {{poolName}} 池中的抵押供应，可借入 {{tokenSymbol}}。<Button>显示全部代币</Button>",
+    "borrowDescription": "根据你在 {{poolName}} 池中的可抵押存款，可借入 {{tokenSymbol}}。<Button>显示全部代币</Button>",
     "modalTitle": "{{ poolName }} 代币",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
   },
@@ -396,8 +396,8 @@
   },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
-    "illustrationAltText": "E 模式插图",
-    "manageEModeButtonLabel": "管理 E 模式",
+    "illustrationAltText": "E-mode插图",
+    "manageEModeButtonLabel": "管理 E-mode",
     "title": "使用 E-Mode 提升借款能力"
   },
   "errors": {
@@ -516,14 +516,14 @@
     "currentUtilizationRateLabelValue": "当前（{{percentage}}）",
     "tooltipItemLabels": {
       "borrowApy": "借款 APY",
-      "supplyApy": "供应 APY",
+      "supplyApy": "存款 APY",
       "utilizationRate": "利用率"
     }
   },
   "isolatedPoolsSunsetBanner": {
     "description": "领取奖励并关闭你的仓位",
     "illustrationAltText": "插图",
-    "title": "隔离池正在关闭"
+    "title": "隔离池即将关闭"
   },
   "landing": {
     "benefits": {
@@ -535,10 +535,10 @@
       "title3": "全链"
     },
     "governance": {
-      "backgroundGradientAlt": "TRANSLATION NEEDED",
-      "buttonLabel": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "proposalCountLegend": "TRANSLATION NEEDED",
+      "backgroundGradientAlt": "背景插图",
+      "buttonLabel": "治理论坛",
+      "description": "Venus 是由社区驱动的去中心化协议，为加密货币市场提供一流功能。",
+      "proposalCountLegend": "Venus 改进提案已执行并持续增加",
       "title": "由社区治理的<br />货币市场"
     },
     "hero": {
@@ -554,7 +554,7 @@
       "monthNo": "第 {{number}} 个月",
       "startNow": "立即开始",
       "subtitle": "适用于任何 DeFi 收益策略的简单而强大的借贷。",
-      "supply": "供应",
+      "supply": "存款",
       "supplyTips": "基于 $10,000 初始存款，收益按月复利。",
       "title": "通用<br /><hl>货币市场</hl>",
       "totalApy": "总 APY",
@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "漏洞赏金插图",
-      "challengeText": "TRANSLATION NEEDED",
+      "challengeText": "在我们的代码中寻找并报告漏洞即可获得奖励资格。了解更多请阅读我们的漏洞赏金计划。",
       "challengeTitle": "挑战我们的代码并获得奖励",
       "protectionAlt": "保护插图",
-      "protectionText": "TRANSLATION NEEDED",
+      "protectionText": "安全审计、7x24 监控以及强健的风险基金可在异常市场事件中保障协议安全。",
       "protectionTitle": "安全保障优先"
     },
     "safety": {
@@ -587,10 +587,10 @@
       "venusScored": "Venus 在 Certik 的评估中于 BNB Chain 安全性排名 <Link>第 3</Link>（2021 年 6 月）"
     },
     "venusPrime": {
-      "illustrationAlt": "TRANSLATION NEEDED",
+      "illustrationAlt": "Venus Prime 插图",
       "imageAlt": "Venus Prime 插图",
       "learnMore": "了解更多",
-      "text": "TRANSLATION NEEDED",
+      "text": "Venus Protocol 的高阶用户可铸造 Venus Prime 代币，在 Venus core 池的部分市场享受更优费率。",
       "title": "<hl>Venus Prime</hl> <br />提升您的回报"
     },
     "wallets": {
@@ -605,10 +605,10 @@
       "liquidity": "流动性",
       "maxLtv": {
         "label": "最大 LTV",
-        "tooltip": "最大 LTV 即借款限额。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允许借入价值 {{userCollateralFactor}} {{tokenSymbol}} 的货币。"
+        "tooltip": "最大 LTV 即借款限额。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的可抵押允许借入价值 {{userCollateralFactor}} {{tokenSymbol}} 的货币。"
       },
       "price": "价格",
-      "supply": "供应",
+      "supply": "存款",
       "utilizationRate": "利用率"
     },
     "menu": {
@@ -634,7 +634,7 @@
         },
         "label": "其他",
         "port": {
-          "label": "端口"
+          "label": "迁移"
         },
         "swap": {
           "label": "兑换"
@@ -671,11 +671,11 @@
     "menu": {
       "markets": {
         "venusCore": {
-          "description": "TRANSLATION NEEDED",
+          "description": "经典借贷，轻松且优化的杠杆。",
           "label": "Venus Core"
         },
         "venusFlux": {
-          "description": "TRANSLATION NEEDED",
+          "description": "为最佳收益提供高资本效率的借贷。",
           "label": "Venus Flux"
         }
       }
@@ -699,7 +699,7 @@
     },
     "legends": {
       "borrowApy": "借款 APY",
-      "supplyApy": "供应 APY",
+      "supplyApy": "存款 APY",
       "utilizationRate": "利用率"
     },
     "marketInfo": {
@@ -707,11 +707,11 @@
         "borrowerCountLabel": "借款人数",
         "dailyBorrowingInterestsLabel": "每日借款利息",
         "dailyDistribution": "每日分发 {{tokenSymbol}}",
-        "dailySupplyingInterestsLabel": "每日供应利息",
+        "dailySupplyingInterestsLabel": "每日存款利息",
         "exchangeRateLabel": "兑换率",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
         "reserveFactorLabel": "准备金系数",
-        "supplierCountLabel": "供应人数"
+        "supplierCountLabel": "存款人数"
       }
     },
     "periodOption": {
@@ -726,11 +726,11 @@
       "liquidationThreshold": "清算阈值"
     },
     "supplyCapThreshold": {
-      "title": "总供应",
-      "tooltip": "可供应最大金额为 {{amountDollars}}（{{amountTokens}}）"
+      "title": "总存款",
+      "tooltip": "可存款最大金额为 {{amountDollars}}（{{amountTokens}}）"
     },
     "supplyInfo": {
-      "title": "供应信息"
+      "title": "存款信息"
     }
   },
   "markets": {
@@ -738,28 +738,28 @@
       "group": {
         "cannotDisable": {
           "tooltip": {
-            "blockingPositions": "你无法禁用该 E 模式组，因为你有包含无法从该池借款的资产的借款仓位。<Link>显示我的仓位</Link>",
-            "notEnoughCollateral": "你无法禁用该 E 模式组，因为你的总抵押价值不足以覆盖总借款余额"
+            "blockingPositions": "你无法禁用该 E-mode组，因为你有包含无法从该池借款的资产的借款仓位。<Link>显示我的仓位</Link>",
+            "notEnoughCollateral": "你无法禁用该 E-mode组，因为你的总可抵押价值不足以覆盖总借款余额"
           }
         },
         "cannotEnable": {
           "modal": {
-            "description": "要启用 <WhiteText>{{ eModeGroupName }}</WhiteText> E 模式组，你需要关闭以下借款仓位：",
+            "description": "要启用 <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode组，你需要关闭以下借款仓位：",
             "repayButtonLabel": "还款",
             "title": "你的仓位"
           },
           "tooltip": {
-            "blockingPositions": "你无法启用该 E 模式组，因为你有不属于该组的资产借款仓位。<Link>显示我的仓位</Link>",
-            "notEnoughCollateral": "你无法启用该 E 模式组，因为你的总抵押价值不足以覆盖总借款余额"
+            "blockingPositions": "你无法启用该 E-mode组，因为你有不属于该组的资产借款仓位。<Link>显示我的仓位</Link>",
+            "notEnoughCollateral": "你无法启用该 E-mode组，因为你的总可抵押价值不足以覆盖总借款余额"
           }
         },
         "disableButtonLabel": "禁用",
-        "disabledNotice": "该 E-Mode 组已不再支持。你的账户将回到默认参数。请切换到其他可用的 E 模式组或将其禁用。",
+        "disabledNotice": "该 E-Mode 组已不再支持。你的账户将回到默认参数。请切换到其他可用的 E-mode组或将其禁用。",
         "enableButtonLabel": "启用",
         "healthFactor": "健康系数：",
         "switchButtonLabel": "切换"
       },
-      "notice": "启用 E-Mode 可最大化借款能力，但借款仅限于所选组内资产。<Link>了解更多</Link>",
+      "notice": "启用 E-Mode 可最大化借款能力，但借款仅限于特定筛选后的资产。<Link>了解更多</Link>",
       "search": {
         "placeholder": "搜索资产或组"
       },
@@ -767,7 +767,7 @@
         "card": {
           "header": {
             "borrowable": "可借",
-            "collateral": "抵押"
+            "collateral": "可抵押"
           },
           "rows": {
             "liquidationPenalty": "清算罚金",
@@ -777,7 +777,7 @@
         },
         "columns": {
           "asset": "资产",
-          "collateral": "抵押",
+          "collateral": "可抵押",
           "isBorrowable": "可借",
           "liquidationPenalty": "清算罚金",
           "liquidationThreshold": "清算阈值",
@@ -790,12 +790,12 @@
     },
     "errors": {
       "accountError": "需要账户 - 请连接钱包。",
-      "collateralDisableError": "禁用抵押错误 - 禁用 {{assetName}} 作为抵押时出现问题。请重试。",
-      "collateralEnableError": "启用抵押错误 - 启用 {{assetName}} 作为抵押时出现问题。请重试。",
-      "collateralRequired": "需要抵押 - 请偿还所有借款资产或将其他资产设为抵押。"
+      "collateralDisableError": "禁用可抵押错误 - 禁用 {{assetName}} 作为可抵押时出现问题。请重试。",
+      "collateralEnableError": "启用可抵押错误 - 启用 {{assetName}} 作为可抵押时出现问题。请重试。",
+      "collateralRequired": "需要可抵押 - 请偿还所有借款资产或将其他资产设为可抵押。"
     },
     "isolatedEModeGroupTooltip": {
-      "content": "仅向 {{ eModeGroupName }} 组内资产供应可提升你的借款能力",
+      "content": "仅向 {{ eModeGroupName }} 组内资产存款可提升你的借款能力",
       "label": "隔离"
     },
     "tabs": {
@@ -812,29 +812,29 @@
         },
         "maxLtv": {
           "label": "最大 LTV",
-          "tooltip": "最大 LTV 即借款限额。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允许借入价值 {{userCollateralFactor}} {{tokenSymbol}} 的货币。"
+          "tooltip": "最大 LTV 即借款限额。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的可抵押允许借入价值 {{userCollateralFactor}} {{tokenSymbol}} 的货币。"
         },
-        "title": "E 模式"
+        "title": "E-mode"
       }
     }
   },
   "marketTable": {
     "assetColumn": {
-      "eMode": "该市场属于 {{eModeGroupName}} E 模式组",
-      "pausedAssetTooltip": "资产已被 Venus 治理暂停。借款与供应已禁用。"
+      "eMode": "该市场属于 {{eModeGroupName}} E-mode组",
+      "pausedAssetTooltip": "资产已被 Venus 治理暂停。借款与存款已禁用。"
     },
     "columnKeys": {
       "asset": "资产",
       "assetAndChain": "资产",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "总借款",
-      "collateral": "抵押",
+      "collateral": "可抵押",
       "labeledBorrowApy": "借款 APY <InfoIcon />",
-      "labeledSupplyApy": "供应 APY <InfoIcon />",
+      "labeledSupplyApy": "存款 APY <InfoIcon />",
       "liquidity": "流动性",
       "price": "价格",
       "supplyApy": "APY <InfoIcon />",
-      "supplyBalance": "总供应",
+      "supplyBalance": "总存款",
       "userBorrowBalance": "余额",
       "userBorrowLimitSharePercentage": "限额 %",
       "userSupplyBalance": "余额",
@@ -844,21 +844,21 @@
       "asset": "资产",
       "borrowApy": "借款 APY",
       "borrowBalance": "总借款",
-      "collateral": "抵押",
+      "collateral": "可抵押",
       "labeledBorrowApy": "借款 APY",
-      "labeledSupplyApy": "供应 APY / LTV",
+      "labeledSupplyApy": "存款 APY / LTV",
       "liquidity": "流动性",
       "price": "价格",
-      "supplyApy": "供应 APY / LTV",
-      "supplyBalance": "总供应",
+      "supplyApy": "存款 APY / LTV",
+      "supplyBalance": "总存款",
       "userBorrowBalance": "借款余额",
       "userBorrowLimitSharePercentage": "限额 %",
-      "userSupplyBalance": "供应余额",
+      "userSupplyBalance": "存款余额",
       "userWalletBalance": "钱包余额"
     },
     "columnTooltips": {
       "borrowApy": "借款 APY 为正表示你需要支付利息，为负表示你将获得利息",
-      "supplyApy": "供应 APY 为正表示你将获得利息，为负表示你需要支付利息"
+      "supplyApy": "存款 APY 为正表示你将获得利息，为负表示你需要支付利息"
     },
     "pausedAssetsPlaceholder": {
       "description": "请启用“已暂停资产”开关以查看。",
@@ -875,7 +875,7 @@
       "label": "仅我的资产"
     },
     "userEModeAssetsOnlyToggle": {
-      "label": "仅 E 模式资产"
+      "label": "仅 E-mode资产"
     }
   },
   "operationForm": {
@@ -891,12 +891,12 @@
     },
     "availableAmount": "可用",
     "boostTabAltText": "火箭图标",
-    "boostTabTitle": "增益",
+    "boostTabTitle": "收益加成",
     "borrow": "借款",
     "borrowTabTitle": "借款",
-    "collateral": "抵押",
+    "collateral": "可抵押",
     "collateralField": {
-      "label": "抵押"
+      "label": "可抵押"
     },
     "error": {
       "borrowCapReached": "该池借款上限 {{assetBorrowCap}} 已达。除非还款或提高借款上限，否则无法再从该市场借款。",
@@ -905,14 +905,14 @@
       "higherThanBorrowBalance": "输入金额超过借款余额",
       "higherThanBorrowCap": "该市场借款上限为 {{assetBorrowCap}}，当前已借 {{assetBorrowBalance}}，因此你无法从该池借款超过 {{userMaxBorrowAmount}}。",
       "higherThanRepayBalance": "输入金额超过还款余额",
-      "higherThanSupplyCap": "该市场供应上限为 {{assetSupplyCap}}，当前已供应 {{assetSupplyBalance}}，因此你无法向该池供应超过 {{userMaxSupplyAmount}}。",
+      "higherThanSupplyCap": "该市场存款上限为 {{assetSupplyCap}}，当前已存款 {{assetSupplyBalance}}，因此你无法向该池存款超过 {{userMaxSupplyAmount}}。",
       "higherThanWalletBalance": "{{tokenSymbol}} 余额不足",
       "higherThanWalletSpendingLimit": "你输入的金额超过该资产的支出限额。请先撤销支出限额并设置新的限额后再继续交易。",
       "insufficientSwapLiquidity": "PancakeSwap 流动性不足，无法完成该兑换",
-      "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先供应代币并将其设为抵押",
+      "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
       "noSwapQuoteFound": "未找到兑换报价。请更新表单。",
       "priceImpactTooHigh": "价格影响过高",
-      "supplyCapReached": "该池供应上限 {{assetSupplyCap}} 已达。除非有人提取或提高供应上限，否则无法再向该市场供应。",
+      "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
       "tooRisky": "该交易会导致账户被清算",
       "unwrappingUnsupported": "不支持解包",
       "wrappingUnsupported": "不支持封装"
@@ -929,8 +929,8 @@
       "swappingWithHighPriceImpactWarning": "该交易价格影响较高，可能意味着不利的兑换。请确保兑换率和兑换数量符合预期。"
     },
     "repayTab": {
-      "collateralTabTitle": "抵押",
-      "noCollateralWarning": "你没有可用于还款的抵押资产。",
+      "collateralTabTitle": "可抵押",
+      "noCollateralWarning": "你没有可用于还款的可抵押资产。",
       "title": "还款",
       "walletBalanceTabTitle": "钱包"
     },
@@ -941,19 +941,19 @@
     },
     "safeMaxButtonLabel": "安全最大值",
     "submitButtonLabel": {
-      "boost": "增益",
+      "boost": "收益加成",
       "borrow": "借款",
       "enterValidAmount": "输入有效金额",
       "repay": "还款",
-      "supply": "供应",
-      "withdraw": "提取"
+      "supply": "存款",
+      "withdraw": "取款"
     },
-    "supply": "供应",
-    "supplyTabTitle": "供应",
+    "supply": "存款",
+    "supplyTabTitle": "存款",
     "swapDetails": {
       "label": {
         "repay": "你将还款",
-        "supply": "你将供应"
+        "supply": "你将存款"
       },
       "value": {
         "estimatedAmount": "≈ {{ value }}",
@@ -962,13 +962,13 @@
     },
     "swapSummary": {
       "repay": "你将用 {{fromTokenAmount}} 还款 {{toTokenAmount}}",
-      "supply": "你将用 {{fromTokenAmount}} 供应 {{toTokenAmount}}"
+      "supply": "你将用 {{fromTokenAmount}} 存款 {{toTokenAmount}}"
     },
     "walletBalance": "钱包余额",
     "warning": {
       "swappingWithHighPriceImpactWarning": "该交易价格影响较高，可能意味着不利的兑换。请确保兑换率和兑换数量符合预期。"
     },
-    "withdrawTabTitle": "提取"
+    "withdrawTabTitle": "取款"
   },
   "pagination": {
     "itemOf": "第 {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条",
@@ -980,7 +980,7 @@
       "availableLiquidityLabel": "可用流动性",
       "dailyXvsDistributionLabel": "每日 XVS 分发",
       "totalBorrowLabel": "总借款",
-      "totalSupplyLabel": "总供应",
+      "totalSupplyLabel": "总存款",
       "treasuryLabel": "金库"
     }
   },
@@ -1000,14 +1000,14 @@
     },
     "rewardDetails": {
       "fromBorrowedTokens": "来自借入 {{tokenSymbol}}",
-      "fromSuppliedTokens": "来自供应 {{tokenSymbol}}",
+      "fromSuppliedTokens": "来自存款 {{tokenSymbol}}",
       "primeBorrowApy": {
         "title": "Prime 借款 APY",
         "tooltip": "将添加到市场借款 APY 的 Prime 加成。<Link>了解更多</Link>"
       },
       "primeSupplyApy": {
-        "title": "Prime 供应 APY",
-        "tooltip": "将添加到市场供应 APY 的 Prime 加成。<Link>了解更多</Link>"
+        "title": "Prime 存款 APY",
+        "tooltip": "将添加到市场存款 APY 的 Prime 加成。<Link>了解更多</Link>"
       },
       "title": "奖励详情",
       "totalDailyRewards": {
@@ -1028,12 +1028,12 @@
     },
     "suppliedTokens": {
       "infos": {
-        "label": "合格供应 {{tokenSymbol}}",
-        "tooltip": "供应上限：{{supplyCapTokens}}（{{supplyCapUsd}}）",
-        "tooltip_empty": "供应上限：-"
+        "label": "合格存款 {{tokenSymbol}}",
+        "tooltip": "存款上限：{{supplyCapTokens}}（{{supplyCapUsd}}）",
+        "tooltip_empty": "存款上限：-"
       },
       "textField": {
-        "label": "已供应 {{tokenSymbol}}"
+        "label": "已存款 {{tokenSymbol}}"
       }
     },
     "tokenSelect": {
@@ -1067,7 +1067,7 @@
   "probableBanner": {
     "description": "在 probable.markets 上增强你的信念",
     "probableAltText": "Probable 插图",
-    "title": "相信点什么？"
+    "title": "预测点什么？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1178,7 +1178,7 @@
   },
   "switchChainNotice": {
     "buttonLabel": "切换到 {{chainName}}",
-    "description": "你需要切换到 {{chainName}} 以启用或禁用抵押品"
+    "description": "你需要切换到 {{chainName}} 以启用或禁用可抵押品"
   },
   "table": {
     "cardsSelect": {
@@ -1220,13 +1220,13 @@
     "invalidAccountPair": "账户对无效",
     "invalidCloseAmountRequested": "请求的关闭金额无效",
     "invalidCloseFactor": "关闭因子无效",
-    "invalidCollateralFactor": "抵押因子无效",
+    "invalidCollateralFactor": "可抵押因子无效",
     "invalidLiquidationIncentive": "清算激励无效",
     "liquidateAccrueBorrowInterestFailed": "清算借款利息累计失败",
-    "liquidateAccrueCollateralInterestFailed": "清算抵押利息累计失败",
+    "liquidateAccrueCollateralInterestFailed": "清算可抵押利息累计失败",
     "liquidateCloseAmountIsUintMax": "清算关闭金额为 UINT 最大值",
     "liquidateCloseAmountIsZero": "清算关闭金额为 0",
-    "liquidateCollateralFreshnessCheck": "清算抵押新鲜度检查",
+    "liquidateCollateralFreshnessCheck": "清算可抵押新鲜度检查",
     "liquidateComptrollerCalculateAmountSeizeFailed": "清算 Comptroller 计算扣押金额失败",
     "liquidateComptrollerRejection": "清算 Comptroller 拒绝",
     "liquidateFreshnessCheck": "清算新鲜度检查",
@@ -1248,7 +1248,7 @@
     "mintFeeCalculationFailed": "铸造费用计算失败",
     "mintFreshnessCheck": "铸造新鲜度检查",
     "mintNewAccountBalanceCalculationFailed": "铸造新账户余额计算失败",
-    "mintNewTotalSupplyCalculationFailed": "铸造新总供应计算失败",
+    "mintNewTotalSupplyCalculationFailed": "铸造新总存款计算失败",
     "mintTransferInFailed": "铸造转入失败",
     "mintTransferNotPossible": "铸造无法转入",
     "noError": "无错误",
@@ -1262,7 +1262,7 @@
     "redeemFeeCalculationFailed": "赎回费用计算失败",
     "redeemFreshnessCheck": "赎回新鲜度检查",
     "redeemNewAccountBalanceCalculationFailed": "赎回新账户余额计算失败",
-    "redeemNewTotalSupplyCalculationFailed": "赎回新总供应计算失败",
+    "redeemNewTotalSupplyCalculationFailed": "赎回新总存款计算失败",
     "redeemTransferOutNotPossible": "赎回无法转出",
     "reduceReservesAccrueInterestFailed": "减少准备金利息累计失败",
     "reduceReservesAdminCheck": "减少准备金管理员检查",
@@ -1282,10 +1282,10 @@
     "repayVaiFreshnessCheck": "偿还 VAI 新鲜度检查",
     "setCloseFactorOwnerCheck": "设置关闭因子所有者检查",
     "setCloseFactorValidation": "设置关闭因子验证",
-    "setCollateralFactorNoExists": "设置抵押因子不存在",
-    "setCollateralFactorOwnerCheck": "设置抵押因子所有者检查",
-    "setCollateralFactorValidation": "设置抵押因子验证",
-    "setCollateralFactorWithoutPrice": "设置抵押因子无价格",
+    "setCollateralFactorNoExists": "设置可抵押因子不存在",
+    "setCollateralFactorOwnerCheck": "设置可抵押因子所有者检查",
+    "setCollateralFactorValidation": "设置可抵押因子验证",
+    "setCollateralFactorWithoutPrice": "设置可抵押因子无价格",
     "setComptrollerOwnerCheck": "设置 Comptroller 所有者检查",
     "setImplementationOwnerCheck": "设置实施所有者检查",
     "setInterestRateModelAccrueInterestFailed": "设置利率模型利息累计失败",
@@ -1327,10 +1327,10 @@
     "unauthorized": "未授权",
     "vaiBurnRejection": "销毁 VAI 被拒绝",
     "vaiLiquidateAccrueBorrowInterestFailed": "清算 VAI 借款利息累计失败",
-    "vaiLiquidateAccrueCollateralInterestFailed": "清算 VAI 抵押利息累计失败",
+    "vaiLiquidateAccrueCollateralInterestFailed": "清算 VAI 可抵押利息累计失败",
     "vaiLiquidateCloseAmountIsUintMax": "清算 VAI 关闭金额为 UINT 最大值",
     "vaiLiquidateCloseAmountIsZero": "清算 VAI 关闭金额为 0",
-    "vaiLiquidateCollateralFreshnessCheck": "清算 VAI 抵押新鲜度检查",
+    "vaiLiquidateCollateralFreshnessCheck": "清算 VAI 可抵押新鲜度检查",
     "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "清算 VAI Comptroller 计算扣押金额失败",
     "vaiLiquidateComptrollerRejection": "清算 VAI Comptroller 拒绝",
     "vaiLiquidateFreshnessCheck": "清算 VAI 新鲜度检查",
@@ -1365,7 +1365,7 @@
       },
       "availableAmount": {
         "label": "可用",
-        "tooltip": "根据全局限额和你提供的抵押，最多可借 VAI 数量"
+        "tooltip": "根据全局限额和你提供的可抵押，最多可借 VAI 数量"
       },
       "borrowApr": {
         "label": "借款 APR",
@@ -1385,7 +1385,7 @@
       },
       "tabTitle": "借款"
     },
-    "headerMessage": "VAI 是 Venus 协议的主要稳定币。使用你提供的抵押借入 VAI。<Link>了解更多</Link>",
+    "headerMessage": "VAI 是 Venus 协议的主要稳定币。使用你提供的抵押物借入 VAI。<Link>了解更多</Link>",
     "repay": {
       "amountTokensInput": {
         "limitButtonLabel": "最大"
@@ -1411,9 +1411,9 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "你必须完成待处理的提取才能与该金库交互。",
+    "blockingPendingWithdrawalsWarning": "你必须完成待处理的取款才能与该金库交互。",
     "dailyEmission": "每日发放",
-    "pausedWarning": "该金库当前已暂停。利率仍在累积，但领取、质押和提取在金库恢复前不可用",
+    "pausedWarning": "该金库当前已暂停。利率仍在累积，但领取、质押和取款在金库恢复前不可用",
     "stakeButton": "质押",
     "stakingApr": "{{stakeTokenName}} 质押 APR",
     "totalStaked": "总质押",
@@ -1424,7 +1424,7 @@
       },
       "rightMaxButtonLabel": "最大"
     },
-    "withdrawButton": "提取",
+    "withdrawButton": "取款",
     "youAreStake": "你正在质押"
   },
   "vote": {
@@ -1473,7 +1473,7 @@
       "message": "提案获取失败"
     },
     "for": "赞成",
-    "goToXvsSnapshot": "前往 XVS 快照",
+    "goToXvsSnapshot": "前往 XVS Snapshot 页面",
     "omnichain": {
       "switchToBnb": "切换到 BNB Chain",
       "votingOnlyEnabledOnBnb": "投票仅在 BNB Chain 上可用"
@@ -1640,43 +1640,43 @@
   },
   "withdrawFromVaiVaultModal": {
     "availableTokensLabel": "可用 {{tokenSymbol}}",
-    "connectWalletMessage": "请连接钱包以提取 {{tokenSymbol}}",
-    "submitButtonDisabledLabel": "输入有效提取金额",
-    "submitButtonLabel": "提取",
-    "title": "提取 {{tokenSymbol}}"
+    "connectWalletMessage": "请连接钱包以取款 {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "输入有效取款金额",
+    "submitButtonLabel": "取款",
+    "title": "取款 {{tokenSymbol}}"
   },
   "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "提取请求列表",
+    "displayWithdrawalRequestListButton": "取款请求列表",
     "requestWithdrawalTab": {
       "approveToken": {
-        "connectWalletMessage": "请连接钱包以提取"
+        "connectWalletMessage": "请连接钱包以取款"
       },
       "availableTokensLabel": "可请求 {{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "提取请求列表",
+      "displayWithdrawalRequestListButton": "取款请求列表",
       "primeLossWarning": {
-        "message": "如果提取该金额，你将失去 Prime 代币，因为你在 XVS 金库的质押将低于获得 Prime 的最低要求 {{minimumXvsStake}}。",
-        "submitButtonLabel": "失去 Prime 代币并申请提取"
+        "message": "如果取款该金额，你将失去 Prime 代币，因为你在 XVS 金库的质押将低于获得 Prime 的最低要求 {{minimumXvsStake}}。",
+        "submitButtonLabel": "失去 Prime 代币并申请取款"
       },
       "submitButtonDisabledLabel": "输入有效申请金额",
-      "submitButtonLabel": "申请提取"
+      "submitButtonLabel": "申请取款"
     },
-    "requestWithdrawalTabTitle": "申请提取",
-    "title": "提取 {{tokenSymbol}}",
+    "requestWithdrawalTabTitle": "申请取款",
+    "title": "取款 {{tokenSymbol}}",
     "withdrawalRequestList": {
       "approveToken": {
-        "connectWalletMessage": "请连接钱包查看你的提取请求"
+        "connectWalletMessage": "请连接钱包查看你的取款请求"
       },
-      "emptyState": "你没有活跃的提取请求",
+      "emptyState": "你没有活跃的取款请求",
       "itemContent": "锁定至 {{date, dd.MM.yy h:mm a}}"
     },
-    "withdrawalRequestListTitle": "提取请求列表",
+    "withdrawalRequestListTitle": "取款请求列表",
     "withdrawTab": {
       "approveToken": {
-        "connectWalletMessage": "请连接钱包以提取"
+        "connectWalletMessage": "请连接钱包以取款"
       },
       "availableTokens": "可用 {{tokenSymbol}}",
-      "submitButton": "提取"
+      "submitButton": "取款"
     },
-    "withdrawTabTitle": "提取"
+    "withdrawTabTitle": "取款"
   }
 }

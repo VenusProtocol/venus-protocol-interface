@@ -6,7 +6,7 @@
         "borrowTableTitle": "Đã vay",
         "eModeHeader": {
           "illustrationAltText": "Hình minh họa E-mode",
-          "title": "Chế độ E: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+          "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
         "supplyTableTitle": "Đã cung cấp",
         "tabletBorrowTabTitle": "Đã vay",
@@ -23,7 +23,7 @@
       "netWorth": {
         "label": "Giá trị ròng",
         "tooltip": "Tài sản ròng khả dụng sau khi tính đến stake vault và các khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến stake vault, các khoản vay và VAI đã mint"
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến stake vault, các khoản vay và VAI đã đúc"
       },
       "periodOption": {
         "oneYear": "1N",
@@ -48,7 +48,7 @@
     "primeBanner": {
       "button": {
         "becomePrime": "Nhận token Prime",
-        "stakeXvs": "Đặt cọc XVS"
+        "stakeXvs": "Stake XVS"
       },
       "primeLogoAltText": "Logo Prime",
       "text": {
@@ -66,7 +66,7 @@
         "dailyEarnings": "Thu nhập hằng ngày",
         "healthFactor": "Hệ số an toàn",
         "healthFactorTooltip": "Thanh lý tại < 1.0",
-        "mintedVai": "VAI đã mint",
+        "mintedVai": "VAI đã đúc",
         "netApy": "APY ròng",
         "netApyTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp của bạn nhận được dưới dạng lãi hằng năm",
         "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp và stake vault của bạn nhận được dưới dạng lãi hằng năm",
@@ -97,7 +97,7 @@
           "borrow": "Vay",
           "enterMarket": "Bật tài sản thế chấp",
           "exitMarket": "Tắt tài sản thế chấp",
-          "mint": "Cung cấp",
+          "mint": "Đúc",
           "redeem": "Rút",
           "repay": "Hoàn trả"
         }
@@ -113,7 +113,7 @@
         "borrow": "Vay",
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",
-        "mint": "Cung cấp",
+        "mint": "Đúc",
         "redeem": "Rút",
         "repay": "Hoàn trả"
       },
@@ -268,7 +268,7 @@
   },
   "assetAccessor": {
     "disabledActionNotice": {
-      "boost": "Boost đã bị vô hiệu hóa cho thị trường này",
+      "boost": "Tăng cường đã bị vô hiệu hóa cho thị trường này",
       "borrow": "Vay đã bị vô hiệu hóa cho thị trường này",
       "repay": "Hoàn trả đã bị vô hiệu hóa cho thị trường này",
       "supply": "Cung cấp đã bị vô hiệu hóa cho thị trường này",
@@ -292,7 +292,7 @@
   "boostBanner": {
     "description": "Đòn bẩy một lần nhấp để tăng lợi suất <White>tối đa 5x</White>.",
     "rocketAltText": "Hình minh họa tên lửa",
-    "title": "Boost đã khả dụng!"
+    "title": "Tăng cường đã khả dụng!"
   },
   "breadcrumbs": {
     "bridge": "Cầu nối",
@@ -303,7 +303,7 @@
     "markets": "Thị trường",
     "primeCalculator": "Máy tính Prime",
     "proposal": "Đề xuất #{{proposalId}}",
-    "staking": "Đặt cọc",
+    "staking": "Staking",
     "swap": "Hoán đổi",
     "vai": "VAI"
   },
@@ -324,8 +324,8 @@
       "doesNotHaveEnoughNativeFunds": "Không đủ số dư {{tokenSymbol}}",
       "doesNotHaveEnoughXvs": "Không đủ số dư {{tokenSymbol}}",
       "mintCapReached": {
-        "message": "Bạn không thể bridge nhiều hơn {{readableAmountTokens}} do giới hạn mint của bridge",
-        "submitButton": "Đã đạt giới hạn mint của bridge"
+        "message": "Bạn không thể bridge nhiều hơn {{readableAmountTokens}} do giới hạn đúc của bridge",
+        "submitButton": "Đã đạt giới hạn đúc của bridge"
       },
       "singleTransactionLimitExceeded": {
         "message": "Bạn không thể bridge nhiều hơn {{readableAmountTokens}} ({{readableAmountUsd}}) trong một giao dịch trên chuỗi đích",
@@ -535,10 +535,10 @@
       "title3": "Đa chuỗi"
     },
     "governance": {
-      "backgroundGradientAlt": "TRANSLATION NEEDED",
-      "buttonLabel": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "proposalCountLegend": "TRANSLATION NEEDED",
+      "backgroundGradientAlt": "Minh họa nền",
+      "buttonLabel": "Diễn đàn quản trị",
+      "description": "Venus là một giao thức phi tập trung do cộng đồng dẫn dắt, cung cấp chức năng hàng đầu cho thị trường tiền mã hóa.",
+      "proposalCountLegend": "Các đề xuất cải tiến Venus đã được thực thi và vẫn đang tiếp tục",
       "title": "Thị trường tiền tệ được quản trị<br />bởi cộng đồng"
     },
     "hero": {
@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "Minh họa Bug Bounty",
-      "challengeText": "TRANSLATION NEEDED",
+      "challengeText": "Tìm và báo cáo lỗ hổng trong mã của chúng tôi để đủ điều kiện nhận thưởng. Hãy đọc về chương trình bug bounty để biết thêm.",
       "challengeTitle": "Thách thức mã nguồn và nhận thưởng",
       "protectionAlt": "Minh họa bảo vệ",
-      "protectionText": "TRANSLATION NEEDED",
+      "protectionText": "Kiểm toán bảo mật, giám sát 24/7 và quỹ rủi ro vững chắc giúp giao thức an toàn trong các sự kiện thị trường bất thường.",
       "protectionTitle": "Ưu tiên bảo vệ"
     },
     "safety": {
@@ -587,10 +587,10 @@
       "venusScored": "Venus được Certik đánh giá đứng <Link>thứ 3</Link> về bảo mật trên BNB Chain (Tháng 6, 2021)"
     },
     "venusPrime": {
-      "illustrationAlt": "TRANSLATION NEEDED",
+      "illustrationAlt": "Minh họa Venus Prime",
       "imageAlt": "Minh họa Venus Prime",
       "learnMore": "Tìm hiểu thêm",
-      "text": "TRANSLATION NEEDED",
+      "text": "Người dùng chuyên sâu của Venus Protocol có thể đúc Venus Prime Token để hưởng mức ưu đãi cho một số thị trường trong pool Venus core.",
       "title": "<hl>Venus Prime</hl> <br />tăng cường lợi nhuận của bạn"
     },
     "wallets": {
@@ -653,7 +653,7 @@
         }
       },
       "staking": {
-        "label": "Đặt cọc"
+        "label": "Staking"
       },
       "subMenuItem": {
         "button": {
@@ -671,11 +671,11 @@
     "menu": {
       "markets": {
         "venusCore": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Cho vay và vay kiểu cổ điển với đòn bẩy dễ dùng, tối ưu.",
           "label": "Venus Core"
         },
         "venusFlux": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Cho vay và vay hiệu quả vốn để tối ưu lợi suất.",
           "label": "Venus Flux"
         }
       }
@@ -814,7 +814,7 @@
           "label": "LTV tối đa",
           "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
         },
-        "title": "Chế độ E"
+        "title": "E-mode"
       }
     }
   },
@@ -1057,7 +1057,7 @@
       "label": "Đã stake: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Tăng thu nhập lên đến <GreenText>{{percentage}}</GreenText>",
-    "stakeButtonLabel": "Đặt cọc XVS",
+    "stakeButtonLabel": "Stake XVS",
     "tokensLeft": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_one": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_many": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
@@ -1080,12 +1080,12 @@
     "active": "Đang hoạt động",
     "bridged": "Đã bridge",
     "canceled": "Đã hủy",
-    "defeated": "Bị bác",
+    "defeated": "Defeated - Bị bác bỏ",
     "executed": "Đã thực thi",
     "expired": "Hết hạn",
     "failed": "Thất bại",
     "pending": "Đang chờ",
-    "queued": "Đang xếp hàng",
+    "queued": "Queued - Đang trong hàng đợi",
     "succeeded": "Thành công"
   },
   "select": {
@@ -1105,8 +1105,8 @@
     "availableTokensLabel": "{{tokenSymbol}} có thể dùng",
     "connectWalletMessage": "Vui lòng kết nối ví để stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để stake",
-    "submitButtonLabel": "Đặt cọc",
-    "title": "Đặt cọc {{tokenSymbol}}"
+    "submitButtonLabel": "Stake",
+    "title": "Stake {{tokenSymbol}}"
   },
   "swap": {
     "errors": {
@@ -1242,15 +1242,15 @@
     "marketNotFresh": "Thị trường không mới",
     "marketNotListed": "Thị trường chưa được niêm yết",
     "mathError": "Lỗi toán học",
-    "mintAccrueInterestFailed": "Mint: Tính lãi thất bại",
-    "mintComptrollerRejection": "Mint: Comptroller từ chối",
-    "mintExchangeRateReadFailed": "Mint: Đọc tỷ giá thất bại",
-    "mintFeeCalculationFailed": "Mint: Tính phí thất bại",
-    "mintFreshnessCheck": "Mint: Kiểm tra độ mới",
-    "mintNewAccountBalanceCalculationFailed": "Mint: Tính số dư mới của tài khoản thất bại",
-    "mintNewTotalSupplyCalculationFailed": "Mint: Tính tổng cung cấp mới thất bại",
-    "mintTransferInFailed": "Mint: Chuyển vào thất bại",
-    "mintTransferNotPossible": "Mint: Không thể chuyển vào",
+    "mintAccrueInterestFailed": "Đúc: Tính lãi thất bại",
+    "mintComptrollerRejection": "Đúc: Comptroller từ chối",
+    "mintExchangeRateReadFailed": "Đúc: Đọc tỷ giá thất bại",
+    "mintFeeCalculationFailed": "Đúc: Tính phí thất bại",
+    "mintFreshnessCheck": "Đúc: Kiểm tra độ mới",
+    "mintNewAccountBalanceCalculationFailed": "Đúc: Tính số dư mới của tài khoản thất bại",
+    "mintNewTotalSupplyCalculationFailed": "Đúc: Tính tổng cung cấp mới thất bại",
+    "mintTransferInFailed": "Đúc: Chuyển vào thất bại",
+    "mintTransferNotPossible": "Đúc: Không thể chuyển vào",
     "noError": "Không có lỗi",
     "nonzeroBorrowBalance": "Số dư vay không bằng 0",
     "priceError": "Lỗi giá",
@@ -1294,7 +1294,7 @@
     "setLiquidationIncentiveOwnerCheck": "Thiết lập khuyến khích thanh lý: Kiểm tra chủ sở hữu",
     "setLiquidationIncentiveValidation": "Thiết lập khuyến khích thanh lý: Xác thực",
     "setMaxAssetsOwnerCheck": "Thiết lập số tài sản tối đa: Kiểm tra chủ sở hữu",
-    "setMintedVaiRejection": "Thiết lập VAI đã mint: Bị từ chối",
+    "setMintedVaiRejection": "Thiết lập VAI đã đúc: Bị từ chối",
     "setOracleMarketNotListed": "Thiết lập oracle: Thị trường chưa niêm yết",
     "setPauseGuardianOwnerCheck": "Thiết lập Pause Guardian: Kiểm tra chủ sở hữu",
     "setPendingAdminOwnerCheck": "Thiết lập Pending Admin: Kiểm tra chủ sở hữu",
@@ -1306,8 +1306,8 @@
     "setReserveFactorFreshCheck": "Thiết lập hệ số dự trữ: Kiểm tra độ mới",
     "setTreasuryOwnerCheck": "Thiết lập kho bạc: Kiểm tra chủ sở hữu",
     "setVaiControllerOwnerCheck": "Thiết lập VAI Controller: Kiểm tra chủ sở hữu",
-    "setVaiMintRateCheck": "Thiết lập tỷ lệ mint VAI: Kiểm tra",
-    "sftMintNewAccountBalanceCalculationFailed": "SFT Mint: Tính số dư mới của tài khoản thất bại",
+    "setVaiMintRateCheck": "Thiết lập tỷ lệ đúc VAI: Kiểm tra",
+    "sftMintNewAccountBalanceCalculationFailed": "SFT Đúc: Tính số dư mới của tài khoản thất bại",
     "snapshotError": "Lỗi snapshot",
     "supportMarketExists": "Hỗ trợ thị trường đã tồn tại",
     "supportMarketOwnerCheck": "Hỗ trợ thị trường: Kiểm tra chủ sở hữu",
@@ -1341,8 +1341,8 @@
     "vaiLiquidateSeizeComptrollerRejection": "Thanh lý VAI: Comptroller từ chối tịch thu",
     "vaiLiquidateSeizeLiquidatorIsBorrower": "Thanh lý VAI: Người tịch thu là người vay",
     "vaiLiquidateSeizeTooMuch": "Thanh lý VAI: Tịch thu quá nhiều",
-    "vaiMintExchangeCalculationFailed": "Mint VAI: Tính toán quy đổi thất bại",
-    "vaiMintRejection": "Mint VAI bị từ chối"
+    "vaiMintExchangeCalculationFailed": "Đúc VAI: Tính toán quy đổi thất bại",
+    "vaiMintRejection": "Đúc VAI bị từ chối"
   },
   "transactionNotification": {
     "couldNotFetchReceipt": {
@@ -1369,7 +1369,7 @@
       },
       "borrowApr": {
         "label": "APR vay",
-        "tooltip": "Lãi suất hằng năm sẽ trả trong tương lai, ngoài VAI đã mint"
+        "tooltip": "Lãi suất hằng năm sẽ trả trong tương lai, ngoài VAI đã đúc"
       },
       "fee": {
         "label": "Phí"
@@ -1392,7 +1392,7 @@
       },
       "borrowApr": {
         "label": "APR vay",
-        "tooltip": "Lãi suất hằng năm sẽ trả trong tương lai, ngoài VAI đã mint"
+        "tooltip": "Lãi suất hằng năm sẽ trả trong tương lai, ngoài VAI đã đúc"
       },
       "notice": {
         "amountHigherThanBorrowBalance": "Số lượng nhập vượt quá số dư hoàn trả",
@@ -1414,7 +1414,7 @@
     "blockingPendingWithdrawalsWarning": "Bạn phải hoàn tất các khoản rút đang chờ để tương tác với vault này.",
     "dailyEmission": "Phát hành hằng ngày",
     "pausedWarning": "Vault này hiện đang tạm dừng. Lãi suất vẫn tích lũy nhưng việc nhận, staking và rút bị vô hiệu hóa cho đến khi vault được mở lại",
-    "stakeButton": "Đặt cọc",
+    "stakeButton": "Stake",
     "stakingApr": "APR stake {{stakeTokenName}}",
     "totalStaked": "Tổng đã stake",
     "transactionForm": {
@@ -1555,7 +1555,7 @@
       "minutesIncluded": "{{minutes}}p : {{seconds}}s",
       "secondsIncluded": "{{seconds}}s"
     },
-    "defeatedDate": "Bị bác: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "defeatedDate": "Defeated - Bị bác bỏ: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "description": "Mô tả",
     "executedDate": "Đã thực thi: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "expiredDate": "Hết hạn: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
@@ -1565,7 +1565,7 @@
     "proposalState": {
       "activeTimestamp": "Hiệu lực từ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "canceledTimestamp": "Đã hủy: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "defeatedTimestamp": "Bị bác: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeatedTimestamp": "Defeated - Bị bác bỏ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "executedTimestamp": "Đã thực thi: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "expiredTimestamp": "Hết hạn: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "queuedTimestamp": "Xếp hàng: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",

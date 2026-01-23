@@ -39,7 +39,7 @@
     "pools": {
       "placeholder": {
         "description": "Havuz pozisyonlarınız burada görünecek",
-        "title": "Henüz sağlama veya borçlanma pozisyonu yok"
+        "title": "Henüz tedarik veya borçlanma pozisyonu yok"
       }
     },
     "poolsBreakdown": {
@@ -68,10 +68,10 @@
         "healthFactorTooltip": "Likidasyon < 1.0",
         "mintedVai": "Basılmış VAI",
         "netApy": "Net APY",
-        "netApyTooltip": "Yıllık faiz olarak alınan toplam sağlama bakiyenizin yüzdesi",
-        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam sağlama bakiyeniz ve vault stake'inizin yüzdesi",
+        "netApyTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyenizin yüzdesi",
+        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyeniz ve vault stake'inizin yüzdesi",
         "totalBorrow": "Toplam borç",
-        "totalSupply": "Toplam sağlama",
+        "totalSupply": "Toplam tedarik",
         "totalVaultStake": "Toplam vault stake"
       },
       "title": "Özet"
@@ -155,13 +155,13 @@
       "description": "Binance, 2023-04-26 tarihinde BETH çekimlerini durdurdu. Kullanıcıların Venus üzerindeki BETH maruziyetini azaltmasını öneriyoruz. Borç alma duraklatıldı. BETH'yi zincir üzerinde 1:1 oranında WBETH'ye dönüştürün <Link>buradan</Link>."
     },
     "sxpDisabling": {
-      "description": "Gauntlet önerisi doğrultusunda, SXP'nin yeni bir zincire taşınmasına ilişkin endişeler ve SXP likiditesinde beklenen düşüş nedeniyle SXP için borç alma ve sağlama duraklatıldı."
+      "description": "Gauntlet önerisi doğrultusunda, SXP'nin yeni bir zincire taşınmasına ilişkin endişeler ve SXP likiditesinde beklenen düşüş nedeniyle SXP için borç alma ve tedarik duraklatıldı."
     },
     "trxMigration": {
-      "description": "Venus, yeni TRX tokenını yeni bir piyasada destekliyor. Eski TRX tokenı için borç alma ve sağlama duraklatıldı. Daha fazla bilgi için <Link>Binance'in resmi duyurusuna</Link> bakın."
+      "description": "Venus, yeni TRX tokenını yeni bir piyasada destekliyor. Eski TRX tokenı için borç alma ve tedarik duraklatıldı. Daha fazla bilgi için <Link>Binance'in resmi duyurusuna</Link> bakın."
     },
     "tusdMigration": {
-      "description": "Venus, yeni TUSD tokenını yeni bir piyasada destekliyor. Eski TUSD tokenı için borç alma ve sağlama duraklatıldı. Daha fazla bilgi için <Link>Binance'in resmi duyurusuna</Link> bakın."
+      "description": "Venus, yeni TUSD tokenını yeni bir piyasada destekliyor. Eski TUSD tokenı için borç alma ve tedarik duraklatıldı. Daha fazla bilgi için <Link>Binance'in resmi duyurusuna</Link> bakın."
     }
   },
   "approveDelegateSteps": {
@@ -224,7 +224,7 @@
         "primeBorrowSimulation": "Prime ile APY, kullanıcıların medyan {{borrowBalance}} borcuna ve {{xvsStaked}} vault stake'ine göre artırılır.",
         "primeDocLink": "Daha fazla bilgi",
         "primeMarket": "Prime ile APY artırılır.",
-        "primeSupplySimulation": "Prime ile APY, kullanıcıların medyan {{supplyBalance}} sağlamasına ve {{xvsStaked}} vault stake'ine göre artırılır."
+        "primeSupplySimulation": "Prime ile APY, kullanıcıların medyan {{supplyBalance}} tedarikine ve {{xvsStaked}} vault stake'ine göre artırılır."
       }
     }
   },
@@ -255,7 +255,7 @@
       "date": "Tarih",
       "supplyApy": "Sağlama APY",
       "totalBorrow": "Toplam borç",
-      "totalSupply": "Toplam sağlama"
+      "totalSupply": "Toplam tedarik"
     }
   },
   "asset": {
@@ -271,7 +271,7 @@
       "boost": "Bu piyasada boost devre dışı",
       "borrow": "Bu piyasada borç alma devre dışı",
       "repay": "Bu piyasada geri ödeme devre dışı",
-      "supply": "Bu piyasada sağlama devre dışı",
+      "supply": "Bu piyasada tedarik devre dışı",
       "withdraw": "Bu piyasada çekim devre dışı"
     },
     "eModeBlockedActionNotice": {
@@ -279,9 +279,9 @@
     }
   },
   "assetWarning": {
-    "borrowDescription": "{{poolName}} havuzundaki teminatlı sağlamanıza göre {{tokenSymbol}} borç alabilirsiniz. <Button>Tüm tokenları göster</Button>",
+    "borrowDescription": "{{poolName}} havuzundaki teminatlı tedarikinize göre {{tokenSymbol}} borç alabilirsiniz. <Button>Tüm tokenları göster</Button>",
     "modalTitle": "{{ poolName }} tokenları",
-    "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} sağlamak, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
+    "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "Arka plan illüstrasyonu",
@@ -475,7 +475,7 @@
       },
       "2": {
         "description": "Tutarlı büyümeyle DeFi'nin en fazla değer yaratan platformuna katılın.",
-        "title": "En sermaye verimli"
+        "title": "En Verimli Sermaye"
       },
       "3": {
         "description": "Borç verme alanında en çok denetlenen ve sahada test edilmiş sözleşmeler.",
@@ -535,10 +535,10 @@
       "title3": "Omnichain"
     },
     "governance": {
-      "backgroundGradientAlt": "TRANSLATION NEEDED",
-      "buttonLabel": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "proposalCountLegend": "TRANSLATION NEEDED",
+      "backgroundGradientAlt": "Arka plan illüstrasyonu",
+      "buttonLabel": "Yönetim forumu",
+      "description": "Venus, kripto para piyasaları için sınıfının en iyisi işlevsellik sunan, topluluk odaklı merkeziyetsiz bir protokoldür.",
+      "proposalCountLegend": "Uygulanan Venus İyileştirme Önerileri ve artmaya devam ediyor",
       "title": "Topluluk tarafından yönetilen<br />para piyasaları"
     },
     "hero": {
@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "Hata ödülü illüstrasyonu",
-      "challengeText": "TRANSLATION NEEDED",
+      "challengeText": "Kodumuzdaki açıkları bulun ve ödül kazanmak için bildirin. Daha fazla bilgi için hata ödülü programımızı okuyun.",
       "challengeTitle": "Kodumuza meydan okuyun ve ödüllendirilin",
       "protectionAlt": "Koruma illüstrasyonu",
-      "protectionText": "TRANSLATION NEEDED",
+      "protectionText": "Güvenlik denetimleri, 7/24 izleme ve sağlam bir risk fonu, sıra dışı piyasa olaylarında protokolü güvende tutar.",
       "protectionTitle": "Koruma öncelikli"
     },
     "safety": {
@@ -588,10 +588,10 @@
       "venusScored": "Venus, Certik tarafından yapılan değerlendirmede BNB Chain'de güvenlikte <Link>3. en yüksek</Link> puanı aldı (Haziran 2021)"
     },
     "venusPrime": {
-      "illustrationAlt": "TRANSLATION NEEDED",
+      "illustrationAlt": "Venus Prime illüstrasyonu",
       "imageAlt": "Venus Prime illüstrasyonu",
       "learnMore": "Daha fazla bilgi edin",
-      "text": "TRANSLATION NEEDED",
+      "text": "Venus Protocol’ün güçlü kullanıcıları Venus Prime Token mint ederek Venus core havuzundaki seçili piyasalarda üstün oranlardan yararlanabilir.",
       "title": "<hl>Venus Prime</hl> <br />getirilerinizi artırır"
     },
     "wallets": {
@@ -672,11 +672,11 @@
     "menu": {
       "markets": {
         "venusCore": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Kolay ve optimize kaldıraçla klasik borç verme ve borç alma.",
           "label": "Venus Core"
         },
         "venusFlux": {
-          "description": "TRANSLATION NEEDED",
+          "description": "En iyi getiri için sermaye verimli borç verme ve borç alma.",
           "label": "Venus Flux"
         }
       }
@@ -708,7 +708,7 @@
         "borrowerCountLabel": "Borç alan sayısı",
         "dailyBorrowingInterestsLabel": "Günlük borç faizi",
         "dailyDistribution": "Günlük {{tokenSymbol}} dağıtımı",
-        "dailySupplyingInterestsLabel": "Günlük sağlama faizi",
+        "dailySupplyingInterestsLabel": "Günlük tedarik faizi",
         "exchangeRateLabel": "Döviz kuru",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
         "reserveFactorLabel": "Rezerv faktörü",
@@ -727,7 +727,7 @@
       "liquidationThreshold": "Likidasyon eşiği"
     },
     "supplyCapThreshold": {
-      "title": "Toplam sağlama",
+      "title": "Toplam tedarik",
       "tooltip": "Sağlanabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})"
     },
     "supplyInfo": {
@@ -796,7 +796,7 @@
       "collateralRequired": "Teminat gerekli - Lütfen tüm borç alınan varlıkları geri ödeyin veya diğer varlıkları teminat olarak ayarlayın."
     },
     "isolatedEModeGroupTooltip": {
-      "content": "{{ eModeGroupName }} grubundaki varlıklara yalnızca sağlama yaparak borçlanma gücünüz artar",
+      "content": "{{ eModeGroupName }} grubundaki varlıklara yalnızca tedarik yaparak borçlanma gücünüz artar",
       "label": "İzole"
     },
     "tabs": {
@@ -822,7 +822,7 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "Bu piyasa {{eModeGroupName}} E-modu grubunun bir parçasıdır",
-      "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve sağlama devre dışı bırakıldı."
+      "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı."
     },
     "columnKeys": {
       "asset": "Varlık",
@@ -835,7 +835,7 @@
       "liquidity": "Likidite",
       "price": "Fiyat",
       "supplyApy": "APY <InfoIcon />",
-      "supplyBalance": "Toplam sağlama",
+      "supplyBalance": "Toplam tedarik",
       "userBorrowBalance": "Bakiye",
       "userBorrowLimitSharePercentage": "Limitin %'i",
       "userSupplyBalance": "Bakiye",
@@ -851,7 +851,7 @@
       "liquidity": "Likidite",
       "price": "Fiyat",
       "supplyApy": "Sağlama APY / LTV",
-      "supplyBalance": "Toplam sağlama",
+      "supplyBalance": "Toplam tedarik",
       "userBorrowBalance": "Borç bakiyesi",
       "userBorrowLimitSharePercentage": "Limitin %'i",
       "userSupplyBalance": "Sağlama bakiyesi",
@@ -859,7 +859,7 @@
     },
     "columnTooltips": {
       "borrowApy": "Pozitif borç APY faiz ödeyeceğiniz, negatif ise faiz kazanacağınız anlamına gelir",
-      "supplyApy": "Pozitif sağlama APY faiz kazanacağınız, negatif ise faiz ödeyeceğiniz anlamına gelir"
+      "supplyApy": "Pozitif tedarik APY faiz kazanacağınız, negatif ise faiz ödeyeceğiniz anlamına gelir"
     },
     "pausedAssetsPlaceholder": {
       "description": "Görmek için \"Durdurulan Varlıklar\" anahtarını etkinleştirin.",
@@ -906,14 +906,14 @@
       "higherThanBorrowBalance": "Girilen miktar borç bakiyesinden fazla",
       "higherThanBorrowCap": "Bu piyasanın borç limiti {{assetBorrowCap}} olarak ayarlı ve şu anda {{assetBorrowBalance}} borç alınmış olduğundan, bu havuzdan {{userMaxBorrowAmount}} üzeri borç alamazsınız.",
       "higherThanRepayBalance": "Girilen miktar geri ödeme bakiyesinden fazla",
-      "higherThanSupplyCap": "Bu piyasanın sağlama limiti {{assetSupplyCap}} olarak ayarlı ve şu anda {{assetSupplyBalance}} sağlanmış olduğundan, bu havuza {{userMaxSupplyAmount}} üzeri sağlayamazsınız.",
+      "higherThanSupplyCap": "Bu piyasanın tedarik limiti {{assetSupplyCap}} olarak ayarlı ve şu anda {{assetSupplyBalance}} sağlanmış olduğundan, bu havuza {{userMaxSupplyAmount}} üzeri sağlayamazsınız.",
       "higherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
       "higherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için harcama limitini iptal edin ve yeni bir limit ayarlayın.",
       "insufficientSwapLiquidity": "Bu takas için PancakeSwap'te yeterli likidite yok",
       "noCollateral": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce tokenları sağlayıp teminat olarak etkinleştirmelisiniz",
       "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güncelleyin.",
       "priceImpactTooHigh": "Fiyat etkisi çok yüksek",
-      "supplyCapReached": "Bu havuz için {{assetSupplyCap}} sağlama limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
+      "supplyCapReached": "Bu havuz için {{assetSupplyCap}} tedarik limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
       "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur",
       "unwrappingUnsupported": "Unwrap desteklenmiyor",
       "wrappingUnsupported": "Wrap desteklenmiyor"
@@ -981,7 +981,7 @@
       "availableLiquidityLabel": "Kullanılabilir likidite",
       "dailyXvsDistributionLabel": "Günlük XVS dağıtımı",
       "totalBorrowLabel": "Toplam borç",
-      "totalSupplyLabel": "Toplam sağlama",
+      "totalSupplyLabel": "Toplam tedarik",
       "treasuryLabel": "Hazine"
     }
   },
@@ -1007,8 +1007,8 @@
         "tooltip": "Piyasa borç APY'sine eklenecek Prime artırımı. <Link>Daha fazla bilgi</Link>"
       },
       "primeSupplyApy": {
-        "title": "Prime sağlama APY",
-        "tooltip": "Piyasa sağlama APY'sine eklenecek Prime artırımı. <Link>Daha fazla bilgi</Link>"
+        "title": "Prime tedarik APY",
+        "tooltip": "Piyasa tedarik APY'sine eklenecek Prime artırımı. <Link>Daha fazla bilgi</Link>"
       },
       "title": "Ödül detayları",
       "totalDailyRewards": {

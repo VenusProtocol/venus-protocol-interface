@@ -1,5 +1,5 @@
 export enum Subdirectory {
-  LANDING = 'landing',
+  LANDING = '',
   TERMS_OF_USE = 'terms-of-use',
   PRIVACY_POLICY = 'privacy-policy',
   DISCORD = 'discord',

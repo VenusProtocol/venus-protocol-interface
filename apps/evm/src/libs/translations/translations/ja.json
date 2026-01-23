@@ -22,8 +22,8 @@
       },
       "netWorth": {
         "label": "純資産",
-        "tooltip": "ボールトのステークと借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールトのステーク、借入、ミント済みVAIを考慮した利用可能な純資産"
+        "tooltip": "ボールトのステーキングと借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールトのステーキング、借入、ミント済みVAIを考慮した利用可能な純資産"
       },
       "periodOption": {
         "oneYear": "1年",
@@ -48,7 +48,7 @@
     "primeBanner": {
       "button": {
         "becomePrime": "Primeトークンを請求",
-        "stakeXvs": "XVSをステーク"
+        "stakeXvs": "XVSのステーキング"
       },
       "primeLogoAltText": "Primeロゴ",
       "text": {
@@ -69,10 +69,10 @@
         "mintedVai": "ミント済みVAI",
         "netApy": "実質APY",
         "netApyTooltip": "年間利息として受け取る供給残高の割合",
-        "netApyWithVaultStakeTooltip": "年間利息として受け取る供給残高とボールトステークの割合",
+        "netApyWithVaultStakeTooltip": "年間利息として受け取る供給残高とボールトステーキングの割合",
         "totalBorrow": "総借入",
         "totalSupply": "総供給",
-        "totalVaultStake": "ボールト総ステーク"
+        "totalVaultStake": "ボールト総ステーキング量"
       },
       "title": "サマリー"
     },
@@ -98,7 +98,7 @@
           "enterMarket": "担保有効",
           "exitMarket": "担保無効",
           "mint": "供給",
-          "redeem": "出金",
+          "redeem": "引き出し",
           "repay": "返済"
         }
       },
@@ -114,7 +114,7 @@
         "enterMarket": "担保有効",
         "exitMarket": "担保無効",
         "mint": "供給",
-        "redeem": "出金",
+        "redeem": "引き出し",
         "repay": "返済"
       },
       "view": "表示",
@@ -152,7 +152,7 @@
   },
   "announcements": {
     "bethUpdate": {
-      "description": "Binanceは2023-04-26にBETHの出金を停止しました。VenusでのBETHへのエクスポージャーを減らすことを推奨します。借入は停止されています。オンチェーンでBETHをWBETHに1:1の比率で変換できます。<Link>こちら</Link>をご覧ください。"
+      "description": "Binanceは2023-04-26にBETHの引き出しを停止しました。VenusでのBETHへのエクスポージャーを減らすことを推奨します。借入は停止されています。オンチェーンでBETHをWBETHに1:1の比率で変換できます。<Link>こちら</Link>をご覧ください。"
     },
     "sxpDisabling": {
       "description": "Gauntletの推奨に従い、SXPが新しいチェーンへ移行する懸念とSXP流動性の低下が見込まれるため、SXPの借入と供給は停止されています。"
@@ -221,10 +221,10 @@
       "logoAlt": "Primeロゴ",
       "tooltip": {
         "calculatorLink": "Prime報酬を計算",
-        "primeBorrowSimulation": "Primeにより、ユーザーの借入中央値{{borrowBalance}}とボールトステーク{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeBorrowSimulation": "Primeにより、ユーザーの借入中央値{{borrowBalance}}とボールトステーキング{{xvsStaked}}に基づきAPYがブーストされます。",
         "primeDocLink": "詳細を見る",
         "primeMarket": "PrimeによりAPYがブーストされます。",
-        "primeSupplySimulation": "Primeにより、ユーザーの供給中央値{{supplyBalance}}とボールトステーク{{xvsStaked}}に基づきAPYがブーストされます。"
+        "primeSupplySimulation": "Primeにより、ユーザーの供給中央値{{supplyBalance}}とボールトステーキング{{xvsStaked}}に基づきAPYがブーストされます。"
       }
     }
   },
@@ -272,7 +272,7 @@
       "borrow": "このマーケットでは借入が無効化されています",
       "repay": "このマーケットでは返済が無効化されています",
       "supply": "このマーケットでは供給が無効化されています",
-      "withdraw": "このマーケットでは出金が無効化されています"
+      "withdraw": "このマーケットでは引き出しが無効化されています"
     },
     "eModeBlockedActionNotice": {
       "borrow": "あなたのEモード設定ではこのマーケットから借入できません。<Link>Eモードを管理</Link>"
@@ -535,10 +535,10 @@
       "title3": "オムニチェーン"
     },
     "governance": {
-      "backgroundGradientAlt": "TRANSLATION NEEDED",
-      "buttonLabel": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "proposalCountLegend": "TRANSLATION NEEDED",
+      "backgroundGradientAlt": "背景イラスト",
+      "buttonLabel": "ガバナンスフォーラム",
+      "description": "Venusはコミュニティ主導の分散型プロトコルで、暗号資産マネーマーケット向けに最高水準の機能を提供します。",
+      "proposalCountLegend": "実行済みのVenus改善提案、さらに増加中",
       "title": "コミュニティが統治する<br />マネーマーケット"
     },
     "hero": {
@@ -571,10 +571,10 @@
     },
     "protection": {
       "bugBountyAlt": "バグバウンティのイラスト",
-      "challengeText": "TRANSLATION NEEDED",
+      "challengeText": "コードの脆弱性を見つけて報告すると報酬の対象になります。詳細はバグバウンティプログラムをご覧ください。",
       "challengeTitle": "コードに挑戦して報酬を獲得",
       "protectionAlt": "保護のイラスト",
-      "protectionText": "TRANSLATION NEEDED",
+      "protectionText": "セキュリティ監査、24時間365日の監視、そして強固なリスクファンドが、異常な市場イベントの際にもプロトコルを安全に保ちます。",
       "protectionTitle": "保護を最優先"
     },
     "safety": {
@@ -587,10 +587,10 @@
       "venusScored": "VenusはCertikの評価でBNB Chainのセキュリティにおいて<Link>第3位</Link>にランクされました（2021年6月）"
     },
     "venusPrime": {
-      "illustrationAlt": "TRANSLATION NEEDED",
+      "illustrationAlt": "Venus Primeのイラスト",
       "imageAlt": "Venus Primeのイラスト",
       "learnMore": "詳細を見る",
-      "text": "TRANSLATION NEEDED",
+      "text": "Venus ProtocolのパワーユーザーはVenus Primeトークンをミントし、Venusコアプールの一部マーケットで優遇レートを享受できます。",
       "title": "<hl>Venus Prime</hl> <br />リターンを増幅"
     },
     "wallets": {
@@ -671,11 +671,11 @@
     "menu": {
       "markets": {
         "venusCore": {
-          "description": "TRANSLATION NEEDED",
+          "description": "シンプルで最適化されたレバレッジによるクラシックな貸借。",
           "label": "Venus Core"
         },
         "venusFlux": {
-          "description": "TRANSLATION NEEDED",
+          "description": "最適な利回りのための資本効率の高い貸借。",
           "label": "Venus Flux"
         }
       }
@@ -759,7 +759,7 @@
         "healthFactor": "健全性ファクター:",
         "switchButtonLabel": "切り替え"
       },
-      "notice": "Eモードを有効にすると借入力を最大化できますが、借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
+      "notice": "Eモードを有効にすると借入可能額を最大化できますが、借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
       "search": {
         "placeholder": "資産またはグループを検索"
       },
@@ -912,7 +912,7 @@
       "noCollateral": "このプールから{{tokenSymbol}}を借りる前に、トークンを供給して担保として有効化する必要があります",
       "noSwapQuoteFound": "スワップが見つかりません。フォームを更新してください。",
       "priceImpactTooHigh": "価格影響が高すぎます",
-      "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。出金が行われるか上限が引き上げられるまで、このマーケットに供給できません。",
+      "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
       "tooRisky": "この取引はアカウントが清算されます",
       "unwrappingUnsupported": "アンラップは未対応です",
       "wrappingUnsupported": "ラップは未対応です"
@@ -946,7 +946,7 @@
       "enterValidAmount": "有効な金額を入力",
       "repay": "返済",
       "supply": "供給",
-      "withdraw": "出金"
+      "withdraw": "引き出し"
     },
     "supply": "供給",
     "supplyTabTitle": "供給",
@@ -968,7 +968,7 @@
     "warning": {
       "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
     },
-    "withdrawTabTitle": "出金"
+    "withdrawTabTitle": "引き出し"
   },
   "pagination": {
     "itemOf": "{{itemsCount}}件中{{currentPageLastIndex}}件目",
@@ -1018,12 +1018,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "Prime報酬の対象になるには、少なくとも{{minimumXvsStaked}} XVSをステークする必要があります。",
-        "label": "対象のステーク済みXVS",
+        "error": "Prime報酬の対象になるには、少なくとも{{minimumXvsStaked}} XVSをステーキングする必要があります。",
+        "label": "対象のステーキング済みXVS",
         "tooltip": "Prime報酬の計算に最大{{maximumXvsStaked}}までが考慮されます"
       },
       "textField": {
-        "label": "ステーク済みXVS"
+        "label": "ステーキング済みXVS"
       }
     },
     "suppliedTokens": {
@@ -1045,8 +1045,8 @@
     "becomePrimeTitle": "Primeユーザーになれるようになりました",
     "claimButtonLabel": "Primeトークンを請求",
     "description": {
-      "primeCalculator": "さらに<WhiteText>{{stakeDelta}}</WhiteText>ステークして{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>Prime報酬を計算</Link>",
-      "primeDoc": "さらに<WhiteText>{{stakeDelta}}</WhiteText>ステークして{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>詳細を見る</Link>"
+      "primeCalculator": "さらに<WhiteText>{{stakeDelta}}</WhiteText>ステーキングして{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>Prime報酬を計算</Link>",
+      "primeDoc": "さらに<WhiteText>{{stakeDelta}}</WhiteText>ステーキングして{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>詳細を見る</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "Primeトークンはすべて請求済みです",
@@ -1054,10 +1054,10 @@
     },
     "progressBar": {
       "ariaLabel": "現在のPrime進捗",
-      "label": "ステーク済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "ステーキング済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "収益を最大<GreenText>{{percentage}}</GreenText>までブースト",
-    "stakeButtonLabel": "XVSをステーク",
+    "stakeButtonLabel": "XVSのステーキング",
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
@@ -1103,10 +1103,10 @@
   },
   "stakeModal": {
     "availableTokensLabel": "利用可能な{{tokenSymbol}}",
-    "connectWalletMessage": "{{tokenSymbol}}をステークするにはウォレットを接続してください",
-    "submitButtonDisabledLabel": "ステークする有効な金額を入力",
-    "submitButtonLabel": "ステーク",
-    "title": "{{tokenSymbol}}をステーク"
+    "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
+    "submitButtonDisabledLabel": "ステーキングする数量を入力してください",
+    "submitButtonLabel": "ステーキング",
+    "title": "{{tokenSymbol}}をステーキング"
   },
   "swap": {
     "errors": {
@@ -1263,7 +1263,7 @@
     "redeemFreshnessCheck": "償還: 鮮度チェック",
     "redeemNewAccountBalanceCalculationFailed": "償還: 新しいアカウント残高計算に失敗",
     "redeemNewTotalSupplyCalculationFailed": "償還: 新しい総供給計算に失敗",
-    "redeemTransferOutNotPossible": "償還: 出金転送不可",
+    "redeemTransferOutNotPossible": "償還: 引き出し転送不可",
     "reduceReservesAccrueInterestFailed": "準備金削減: 利息計上に失敗",
     "reduceReservesAdminCheck": "準備金削減: 管理者チェック",
     "reduceReservesCashNotAvailable": "準備金削減: 現金不足",
@@ -1317,7 +1317,7 @@
     "tokenInsufficientBalance": "トークン残高不足",
     "tokenPriceError": "トークン価格エラー",
     "tokenTransferInFailed": "トークン入金転送に失敗",
-    "tokenTransferOutFailed": "トークン出金転送に失敗",
+    "tokenTransferOutFailed": "トークン引き出し転送に失敗",
     "tooManyAssets": "資産数が多すぎます",
     "tooMuchRepay": "返済額が多すぎます",
     "transferComptrollerRejection": "転送: コンプトローラ拒否",
@@ -1411,12 +1411,12 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の出金を完了する必要があります。",
-    "dailyEmission": "日次発行量",
-    "pausedWarning": "このボールトは現在停止中です。金利は引き続き発生しますが、請求・ステーク・出金はボールトが再開されるまで無効です",
-    "stakeButton": "ステーク",
-    "stakingApr": "{{stakeTokenName}} ステークAPR",
-    "totalStaked": "総ステーク",
+    "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
+    "dailyEmission": "日次排出量",
+    "pausedWarning": "このボールトは現在停止中です。金利は引き続き発生しますが、請求・ステーキング・引き出しはボールトが再開されるまで無効です",
+    "stakeButton": "ステーキング",
+    "stakingApr": "{{stakeTokenName}} ステーキングAPR",
+    "totalStaked": "総ステーキング量",
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
@@ -1424,8 +1424,8 @@
       },
       "rightMaxButtonLabel": "最大"
     },
-    "withdrawButton": "出金",
-    "youAreStake": "あなたはステークしています"
+    "withdrawButton": "引き出し",
+    "youAreStake": "あなたのステーキング量"
   },
   "vote": {
     "abstain": "棄権",
@@ -1646,30 +1646,30 @@
     "title": "{{tokenSymbol}}を引き出す"
   },
   "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "出金リクエスト一覧",
+    "displayWithdrawalRequestListButton": "引き出し申請一覧",
     "requestWithdrawalTab": {
       "approveToken": {
         "connectWalletMessage": "引き出すにはウォレットを接続してください"
       },
       "availableTokensLabel": "リクエスト可能な{{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "出金リクエスト一覧",
+      "displayWithdrawalRequestListButton": "引き出し申請一覧",
       "primeLossWarning": {
-        "message": "この金額を引き出すとXVSボールトのステークがPrime対象の最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。",
-        "submitButtonLabel": "Primeトークンを失って出金をリクエスト"
+        "message": "この金額を引き出すとXVSボールトのステーキングがPrime対象の最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。",
+        "submitButtonLabel": "Primeトークンを失って引き出しを申請する"
       },
-      "submitButtonDisabledLabel": "リクエストする有効な金額を入力",
-      "submitButtonLabel": "出金をリクエスト"
+      "submitButtonDisabledLabel": "引き出し申請する数量を入力してください",
+      "submitButtonLabel": "引き出しを申請する"
     },
-    "requestWithdrawalTabTitle": "出金をリクエスト",
+    "requestWithdrawalTabTitle": "引き出しを申請する",
     "title": "{{tokenSymbol}}を引き出す",
     "withdrawalRequestList": {
       "approveToken": {
-        "connectWalletMessage": "出金リクエストを見るにはウォレットを接続してください"
+        "connectWalletMessage": "引き出しリクエストを見るにはウォレットを接続してください"
       },
-      "emptyState": "有効な出金リクエストはありません",
+      "emptyState": "現在、引き出し申請はありません",
       "itemContent": "{{date, dd.MM.yy h:mm a}}までロック"
     },
-    "withdrawalRequestListTitle": "出金リクエスト一覧",
+    "withdrawalRequestListTitle": "引き出し申請一覧",
     "withdrawTab": {
       "approveToken": {
         "connectWalletMessage": "引き出すにはウォレットを接続してください"
