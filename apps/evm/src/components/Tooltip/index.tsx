@@ -53,7 +53,7 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
         isOpen={isTooltipOpened && !isMdOrUp}
         handleClose={handleToggleDropdown}
       >
-        <div className="pt-3">{content}</div>
+        <div>{content}</div>
       </Modal>
     </Provider>
   );
