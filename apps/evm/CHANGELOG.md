@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.91.0
+
+### Minor Changes
+
+- cd640f6: fix logic to determine if user has enabled asset as collateral
+
 ## 3.90.0
 
 ### Minor Changes
