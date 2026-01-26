@@ -60,6 +60,10 @@ export const formatRows = ({
         label = t('apyBreakdown.offChainApy');
       }
 
+      if (distribution.type === 'yield-to-maturity') {
+        label = t('apyBreakdown.yieldToMaturityApy');
+      }
+
       let children: undefined | React.ReactNode;
 
       if (distribution.type === 'prime') {
@@ -94,6 +98,10 @@ export const formatRows = ({
 
       if (distribution.type === 'off-chain') {
         tooltip = t('apyBreakdown.offChainApyTooltip');
+      }
+
+      if (distribution.type === 'yield-to-maturity') {
+        tooltip = t('apyBreakdown.yieldToMaturityApyTooltip');
       }
 
       const row: LabeledInlineContentProps = {

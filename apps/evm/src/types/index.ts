@@ -89,7 +89,7 @@ export interface MerklDistribution {
 }
 
 export interface GenericDistribution {
-  type: 'intrinsic' | 'off-chain';
+  type: 'intrinsic' | 'off-chain' | 'yield-to-maturity';
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
