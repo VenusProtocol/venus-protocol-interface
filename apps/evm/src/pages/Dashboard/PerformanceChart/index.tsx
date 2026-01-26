@@ -161,6 +161,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
             buttonLabels={periodOptions.map(p => p.label)}
             activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
             onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
+            buttonClassName="min-w-fit"
           />
         </div>
       </div>
