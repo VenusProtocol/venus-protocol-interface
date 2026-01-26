@@ -6,7 +6,7 @@ import { useTranslation } from 'libs/translations';
 import venuePrimeBg from './assets/venusPrimeBg.svg';
 import venusPrimeIllus from './assets/venusPrimeIllus.png';
 
-const PRIME_YIELD_DOC_URL = `${VENUS_DOC_URL}/prime-yield`;
+const PRIME_YIELD_DOC_URL = `${VENUS_DOC_URL}/whats-new/prime-yield`;
 
 export const VenusPrime: React.FC = () => {
   const { t, Trans } = useTranslation();

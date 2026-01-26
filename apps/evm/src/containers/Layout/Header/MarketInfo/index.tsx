@@ -3,6 +3,8 @@ import { useGetAsset, useGetPool } from 'clients/api';
 import { CellGroup, type CellProps, Icon, Spinner, TokenIcon, Wrapper } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { Link } from 'containers/Link';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
@@ -21,6 +23,8 @@ export const MarketInfo = () => {
 
   const { t } = useTranslation();
 
+  const { marketsPagePath } = useGetMarketsPagePath();
+
   const { data: getAssetData } = useGetAsset({
     vTokenAddress,
   });
@@ -33,8 +37,6 @@ export const MarketInfo = () => {
     poolComptrollerAddress,
   });
   const pool = getPools?.pool;
-
-  const handleGoBack = () => window.history.back();
 
   const cells: CellProps[] = useMemo(() => {
     const readableMaxLtvPercentage = asset
@@ -94,13 +96,11 @@ export const MarketInfo = () => {
     <div className="pb-6 sm:pb-12 md:pb-10 border-b-lightGrey border-b">
       <Wrapper className="space-y-6 sm:space-y-8">
         <div className="hidden sm:flex items-center h-8 mt-4">
-          <button
-            type="button"
-            onClick={handleGoBack}
-            className="h-full pr-3 flex items-center cursor-pointer"
-          >
-            <Icon name="chevronLeft" className="w-6 h-6 text-white" />
-          </button>
+          <Link to={marketsPagePath} replace noStyle>
+            <button type="button" className="h-full pr-3 flex items-center cursor-pointer">
+              <Icon name="chevronLeft" className="w-6 h-6 text-white" />
+            </button>
+          </Link>
 
           {asset && pool ? (
             <div className="flex items-center gap-3">
@@ -139,14 +139,12 @@ export const MarketInfo = () => {
             </div>
 
             <div className="flex flex-wrap gap-x-2 gap-y-1 items-center">
-              <button
-                type="button"
-                onClick={handleGoBack}
-                className="h-full flex items-center cursor-pointer"
-              >
-                <Icon name="chevronLeft" className="w-6 h-6 text-white" />
-                {(!asset || !pool) && <Spinner className="h-full w-auto" />}
-              </button>
+              <Link to={marketsPagePath} replace noStyle>
+                <button type="button" className="h-full flex items-center cursor-pointer">
+                  <Icon name="chevronLeft" className="w-6 h-6 text-white" />
+                  {(!asset || !pool) && <Spinner className="h-full w-auto" />}
+                </button>
+              </Link>
               {asset && pool && (
                 <span className="text-nowrap font-semibold text-lg">
                   {asset.vToken.underlyingToken.symbol} ({pool?.name})
