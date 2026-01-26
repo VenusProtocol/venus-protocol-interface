@@ -271,7 +271,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             <LabeledInlineContent label={t('operationForm.collateral')}>
               <Toggle
                 onChange={handleToggleCollateral}
-                value={asset.isCollateralOfUser}
+                value={
+                  asset.isCollateralOfUser &&
+                  (!pool.userEModeGroup || asset.userCollateralFactor > 0)
+                }
                 disabled={!isUserConnected || isAccountOnWrongChain || isCollateralToggleDisabled}
               />
             </LabeledInlineContent>
