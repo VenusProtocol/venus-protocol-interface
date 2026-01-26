@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
-import { formatDate } from 'date-fns';
 
 import { Icon, Wrapper } from 'components';
+import { useTranslation } from 'libs/translations';
 
 export interface LegalProps {
   title: string;
@@ -10,9 +10,9 @@ export interface LegalProps {
 }
 
 export const Legal: React.FC<LegalProps> = ({ children, title, lastUpdatedAt }) => {
-  const handleGoBack = () => window.history.back();
+  const { Trans } = useTranslation();
 
-  const readableLastUpatedAt = formatDate(new Date(lastUpdatedAt), 'MMMM d, y');
+  const handleGoBack = () => window.history.back();
 
   return (
     <Wrapper className="pt-15 pb-16 sm:pt-2">
@@ -26,7 +26,13 @@ export const Legal: React.FC<LegalProps> = ({ children, title, lastUpdatedAt }) 
         </div>
 
         <p className="text-grey text-base m-0 ml-9 sm:pb-1.5">
-          Last updated: <span className="text-white">{readableLastUpatedAt}</span>
+          <Trans
+            i18nKey="legal.lastUpdatedAt"
+            values={{ date: lastUpdatedAt }}
+            components={{
+              White: <span className="text-white" />,
+            }}
+          />
         </p>
       </div>
 

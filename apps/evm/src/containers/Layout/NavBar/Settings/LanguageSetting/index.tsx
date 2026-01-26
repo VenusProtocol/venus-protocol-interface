@@ -1,6 +1,5 @@
 import { Select, type SelectOption } from 'components';
-import { useTranslation } from 'libs/translations';
-import { supportedLanguages } from 'libs/translations/constants';
+import { supportedLanguages, useTranslation } from 'libs/translations';
 
 const selectOptions: SelectOption<string>[] = supportedLanguages.map(language => ({
   value: language.bcp47Tag,

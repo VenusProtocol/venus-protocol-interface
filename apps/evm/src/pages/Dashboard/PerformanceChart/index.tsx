@@ -14,8 +14,6 @@ import { useAccountAddress } from 'libs/wallet';
 import { useState } from 'react';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import { DollarValueChange } from './DollarValueChange';
-import { formatToReadableAxisDate } from './formatToReadableAxisDate';
-import { formatToReadableTitleDate } from './formatToReadableTitleDate';
 
 export interface PerformanceChartProps {
   netWorthCents: number;
@@ -128,8 +126,8 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
           <div className="sm:mb-2 sm:order-2">
             {selectedDataPoint ? (
               <p className="text-sm">
-                {formatToReadableTitleDate({
-                  timestampMs: Number(selectedDataPoint.blockTimestampMs),
+                {t('account.performanceChart.dataPoint.date', {
+                  date: new Date(selectedDataPoint.blockTimestampMs),
                 })}
               </p>
             ) : (
@@ -188,7 +186,11 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
             yAxisTickCount={5}
             onDataPointHover={payload => setSelectedDataPoint(payload)}
             onMouseLeave={() => setSelectedDataPoint(undefined)}
-            formatXAxisValue={formatToReadableAxisDate}
+            formatXAxisValue={timestampMs =>
+              t('account.performanceChart.xAxisValue', {
+                date: new Date(timestampMs),
+              })
+            }
             formatYAxisValue={value => formatCentsToReadableValue({ value })}
             interval={chartInterval}
             chartColor={theme.colors.blue}

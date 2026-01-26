@@ -1,5 +1,5 @@
 import { Spinner, cn } from '@venusprotocol/ui';
-import { format, isToday, isYesterday } from 'date-fns';
+import { isToday, isYesterday } from 'date-fns';
 import { useMemo } from 'react';
 
 import type { AmountTransaction, GetAccountTransactionHistoryOutput } from 'clients/api';
@@ -34,7 +34,9 @@ export const TransactionsList: React.FC<TransactionsListProps> = ({
         const isTodayGroup = isToday(txData.blockTimestamp);
         const isYesterdayGroup = isYesterday(txData.blockTimestamp);
 
-        let dayGroup = format(txData.blockTimestamp, 'MMM dd, yyyy');
+        let dayGroup = t('account.transactions.date.full', {
+          date: new Date(txData.blockTimestamp),
+        });
 
         if (isTodayGroup) {
           dayGroup = t('account.transactions.today');

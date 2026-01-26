@@ -8,7 +8,7 @@ import { useIsMdDown, useIsSmDown } from 'hooks/responsive';
 import { useChain } from 'hooks/useChain';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
-import { compareBigNumbers } from 'utilities';
+import { compareBigNumbers, isAssetPaused } from 'utilities';
 
 export interface MarketsProps {
   className?: string;
@@ -32,6 +32,8 @@ export const Markets: React.FC<MarketsProps> = ({ className }) => {
 
   // Extract top 6 assets by supply balance
   const topAssets = [...assets]
+    // Filter out paused assets
+    .filter(asset => !isAssetPaused({ disabledTokenActions: asset.disabledTokenActions }))
     .sort((assetA, assetB) =>
       compareBigNumbers(assetA.supplyBalanceCents, assetB.supplyBalanceCents, 'desc'),
     )

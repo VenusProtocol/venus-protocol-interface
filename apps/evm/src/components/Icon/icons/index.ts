@@ -79,4 +79,4 @@ export { default as chevronDown } from './chevronDown';
 export { default as user } from './user';
 export { default as expand } from './expand';
 export { default as dollar } from './dollar';
-export { default as parachute } from './parachute';
+export { default as gift } from './gift';

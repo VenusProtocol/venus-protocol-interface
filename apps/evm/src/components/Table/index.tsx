@@ -20,6 +20,7 @@ import type { Order, TableColumn, TableProps } from './types';
 export * from './types';
 
 export function Table<R>({
+  controls = true,
   columns,
   cardClassName,
   cardColumns,
@@ -93,6 +94,7 @@ export function Table<R>({
           <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
             <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })}>
               <Head
+                controls={controls}
                 columns={columns}
                 orderBy={order?.orderBy}
                 orderDirection={order?.orderDirection}

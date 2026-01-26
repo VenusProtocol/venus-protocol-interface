@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "绝对表现",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "无法获取账户历史",
         "refetchButtonLabel": "重试"
@@ -31,7 +34,8 @@
         "thirtyDays": "30天"
       },
       "placeholderText": "正在生成报告，最多可能需要一分钟",
-      "todaysChange": "今日变化"
+      "todaysChange": "今日变化",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "浏览"
@@ -83,6 +87,10 @@
       "vaults": "金库"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "你的交易将显示在此",
         "title": "尚无交易"
@@ -250,6 +258,10 @@
     }
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "借款 APY",
       "date": "日期",
@@ -351,9 +363,6 @@
     "walletBalance": {
       "label": "钱包余额"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "已销毁 BNB 图标"
   },
   "chainExplorerLink": {
     "content": "在 {{domainName}} 上查看"
@@ -621,26 +630,27 @@
       },
       "others": {
         "bridge": {
-          "description": "TRANSLATION NEEDED",
+          "description": "在 Venus 进行跨链 $XVS 转账。",
           "label": "跨链桥"
         },
         "governance": {
-          "description": "TRANSLATION NEEDED",
+          "description": "使用 $XVS 投票 Venus 提案。",
           "label": "治理"
         },
         "isolatedPools": {
-          "description": "TRANSLATION NEEDED",
+          "description": "在与核心市场隔离的池中交易资产。",
           "label": "隔离池"
         },
         "label": "其他",
         "port": {
+          "description": "无 Gas 导入借贷仓位。",
           "label": "迁移"
         },
         "swap": {
           "label": "兑换"
         },
         "vai": {
-          "description": "TRANSLATION NEEDED",
+          "description": "铸造 Venus 的原生稳定币。",
           "label": "VAI"
         }
       },
@@ -667,19 +677,8 @@
     },
     "testEnvWarning": "这是测试环境。除测试外请勿进行任何交互。<Link>前往 Venus Protocol 官方网站</Link>"
   },
-  "layouts": {
-    "menu": {
-      "markets": {
-        "venusCore": {
-          "description": "经典借贷，轻松且优化的杠杆。",
-          "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "为最佳收益提供高资本效率的借贷。",
-          "label": "Venus Flux"
-        }
-      }
-    }
+  "legal": {
+    "lastUpdatedAt": "最后更新：{{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "撰写",
