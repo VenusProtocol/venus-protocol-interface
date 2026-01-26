@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "Mutlak performans",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "Hesap geçmişi alınamadı",
         "refetchButtonLabel": "Yeniden dene"
@@ -31,7 +34,8 @@
         "thirtyDays": "30G"
       },
       "placeholderText": "Rapor oluşturuluyor, bu işlem bir dakikaya kadar sürebilir",
-      "todaysChange": "Bugünün değişimi"
+      "todaysChange": "Bugünün değişimi",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "Göz at"
@@ -83,6 +87,10 @@
       "vaults": "Vaultlar"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "İşlemleriniz burada görünecek",
         "title": "Henüz işlem yok"
@@ -250,6 +258,10 @@
     }
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "Borç APY",
       "date": "Tarih",
@@ -351,9 +363,6 @@
     "walletBalance": {
       "label": "Cüzdan bakiyesi"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "Yakılmış BNB ikonu"
   },
   "chainExplorerLink": {
     "content": "{{domainName}} üzerinde görüntüle"
@@ -622,26 +631,27 @@
       },
       "others": {
         "bridge": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Venus'ta zincirler arası $XVS transferleri.",
           "label": "Köprü"
         },
         "governance": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Venus tekliflerinde $XVS ile oy verin.",
           "label": "Yönetişim"
         },
         "isolatedPools": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Ana piyasalardan izole havuzlarda varlık alıp satın.",
           "label": "İzole havuzlar"
         },
         "label": "Diğerleri",
         "port": {
+          "description": "Borç verme pozisyonlarını gas'siz içe aktarın.",
           "label": "Port"
         },
         "swap": {
           "label": "Takas"
         },
         "vai": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Venus'ün yerel sabit coinini mint edin.",
           "label": "VAI"
         }
       },
@@ -668,19 +678,8 @@
     },
     "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>"
   },
-  "layouts": {
-    "menu": {
-      "markets": {
-        "venusCore": {
-          "description": "Kolay ve optimize kaldıraçla klasik borç verme ve borç alma.",
-          "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "En iyi getiri için sermaye verimli borç verme ve borç alma.",
-          "label": "Venus Flux"
-        }
-      }
-    }
+  "legal": {
+    "lastUpdatedAt": "Son güncelleme: {{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "Yaz",

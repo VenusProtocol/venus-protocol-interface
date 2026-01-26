@@ -54,7 +54,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   onClaimPrimeToken,
   onRedirectToXvsVaultPage,
 }) => {
-  const { Trans, t } = useTranslation();
+  const { Trans, t, language } = useTranslation();
   const last5Percent = primeTokenLimit * 0.05;
   const primeTokensLeft = primeTokenLimit - claimedPrimeTokenCount;
   const haveAllPrimeTokensBeenClaimed = primeTokensLeft <= 0;
@@ -82,10 +82,12 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   const readableClaimWaitingPeriod = formatWaitingPeriod({
     waitingPeriodSeconds: primeClaimWaitingPeriodSeconds,
+    locale: language.locale,
   });
 
   const readableUserClaimWaitingPeriod = formatWaitingPeriod({
     waitingPeriodSeconds: userPrimeClaimWaitingPeriodSeconds,
+    locale: language.locale,
   });
 
   const readableMinXvsToStakeForPrimeTokens = formatTokensToReadableValue({

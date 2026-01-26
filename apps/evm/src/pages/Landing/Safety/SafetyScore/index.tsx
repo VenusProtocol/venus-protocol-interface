@@ -13,7 +13,7 @@ export const SafetyScore: React.FC<ISafetyProps> = ({ className }) => {
 
   return (
     <DarkBlueCard
-      className={cn('relative flex flex-col items-center p-6 shrink-0 sm:py-8 xl:w-89', className)}
+      className={cn('relative flex flex-col items-center p-6 shrink-0 sm:py-8', className)}
     >
       <div className="relative w-full max-w-122 mx-auto flex flex-col justify-center items-center gap-6 sm:flex-row xl:flex-col">
         <div className="relative flex flex-col shrink-0 justify-center items-center size-38 sm:size-35 xl:size-45">

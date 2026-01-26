@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "Absolute performance",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "Could not fetch account history",
         "refetchButtonLabel": "Retry"
@@ -31,7 +34,8 @@
         "thirtyDays": "30D"
       },
       "placeholderText": "Generating report, this can take up to a minute",
-      "todaysChange": "Today's change"
+      "todaysChange": "Today's change",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "Browse"
@@ -83,6 +87,10 @@
       "vaults": "Vaults"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "Your transactions will appear here",
         "title": "No transactions yet"
@@ -250,6 +258,10 @@
     }
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
       "date": "Date",
@@ -351,9 +363,6 @@
     "walletBalance": {
       "label": "Wallet balance"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "Burned BNB icon"
   },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
@@ -622,26 +631,27 @@
       },
       "others": {
         "bridge": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Cross-chain $XVS transfers on Venus.",
           "label": "Bridge"
         },
         "governance": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Vote on Venus proposals with $XVS.",
           "label": "Governance"
         },
         "isolatedPools": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Trade assets in pools isolated from the core markets.",
           "label": "Isolated pools"
         },
         "label": "Others",
         "port": {
+          "description": "Gasless import of lending positions.",
           "label": "Port"
         },
         "swap": {
           "label": "Swap"
         },
         "vai": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Mint the native stablecoin of Venus.",
           "label": "VAI"
         }
       },
@@ -668,19 +678,8 @@
     },
     "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
   },
-  "layouts": {
-    "menu": {
-      "markets": {
-        "venusCore": {
-          "description": "Classic lending and borrowing with easy, optimized leverage.",
-          "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "Capital-efficient lending and borrowing for optimal yield.",
-          "label": "Venus Flux"
-        }
-      }
-    }
+  "legal": {
+    "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",

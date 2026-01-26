@@ -65,11 +65,9 @@ export const useColumns = ({
   columnKeys,
   collateralOnChange,
   userEModeGroup,
-  controls,
 }: {
   columnKeys: ColumnKey[];
   collateralOnChange: (asset: Asset) => void;
-  controls: boolean;
   userEModeGroup?: EModeGroup;
 }) => {
   const { t, Trans } = useTranslation();
@@ -305,7 +303,7 @@ export const useColumns = ({
         }
       },
       sortRows:
-        column === 'asset' || column === 'assetAndChain' || !controls
+        column === 'asset' || column === 'assetAndChain'
           ? undefined
           : (rowA, rowB, direction) => {
               if (column === 'borrowApy' || column === 'labeledBorrowApy') {

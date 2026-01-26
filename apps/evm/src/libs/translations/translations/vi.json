@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "Hiệu suất tuyệt đối",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "Không thể lấy lịch sử tài khoản",
         "refetchButtonLabel": "Thử lại"
@@ -31,7 +34,8 @@
         "thirtyDays": "30N"
       },
       "placeholderText": "Đang tạo báo cáo, có thể mất đến một phút",
-      "todaysChange": "Thay đổi hôm nay"
+      "todaysChange": "Thay đổi hôm nay",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "Duyệt"
@@ -83,6 +87,10 @@
       "vaults": "Kho"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "Giao dịch của bạn sẽ hiển thị ở đây",
         "title": "Chưa có giao dịch"
@@ -250,6 +258,10 @@
     }
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "APY vay",
       "date": "Ngày",
@@ -351,9 +363,6 @@
     "walletBalance": {
       "label": "Số dư ví"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "Biểu tượng BNB đã đốt"
   },
   "chainExplorerLink": {
     "content": "Xem trên {{domainName}}"
@@ -621,26 +630,27 @@
       },
       "others": {
         "bridge": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Chuyển $XVS xuyên chuỗi trên Venus.",
           "label": "Cầu nối"
         },
         "governance": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Bỏ phiếu cho các đề xuất Venus bằng $XVS.",
           "label": "Quản trị"
         },
         "isolatedPools": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Giao dịch tài sản trong các pool tách biệt khỏi thị trường lõi.",
           "label": "Pools cô lập"
         },
         "label": "Khác",
         "port": {
+          "description": "Nhập các vị thế cho vay không cần gas.",
           "label": "Cổng"
         },
         "swap": {
           "label": "Hoán đổi"
         },
         "vai": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Mint stablecoin gốc của Venus.",
           "label": "VAI"
         }
       },
@@ -667,19 +677,8 @@
     },
     "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>"
   },
-  "layouts": {
-    "menu": {
-      "markets": {
-        "venusCore": {
-          "description": "Cho vay và vay kiểu cổ điển với đòn bẩy dễ dùng, tối ưu.",
-          "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "Cho vay và vay hiệu quả vốn để tối ưu lợi suất.",
-          "label": "Venus Flux"
-        }
-      }
-    }
+  "legal": {
+    "lastUpdatedAt": "Cập nhật lần cuối: {{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "Viết",

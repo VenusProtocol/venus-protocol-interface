@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "絕對錶現",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "無法獲取賬戶歷史",
         "refetchButtonLabel": "重試"
@@ -31,7 +34,8 @@
         "thirtyDays": "30天"
       },
       "placeholderText": "正在生成報告，最多可能需要一分鐘",
-      "todaysChange": "今日變化"
+      "todaysChange": "今日變化",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "瀏覽"
@@ -83,6 +87,10 @@
       "vaults": "金庫"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "你的交易將顯示在此",
         "title": "尚無交易"
@@ -250,6 +258,10 @@
     }
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "借款 APY",
       "date": "日期",
@@ -351,9 +363,6 @@
     "walletBalance": {
       "label": "錢包餘額"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "已銷燬 BNB 圖標"
   },
   "chainExplorerLink": {
     "content": "在 {{domainName}} 上查看"
@@ -621,26 +630,27 @@
       },
       "others": {
         "bridge": {
-          "description": "TRANSLATION NEEDED",
+          "description": "在 Venus 進行跨鏈 $XVS 轉帳。",
           "label": "跨鏈橋"
         },
         "governance": {
-          "description": "TRANSLATION NEEDED",
+          "description": "使用 $XVS 投票 Venus 提案。",
           "label": "治理"
         },
         "isolatedPools": {
-          "description": "TRANSLATION NEEDED",
+          "description": "在與核心市場隔離的池中交易資產。",
           "label": "隔離池"
         },
         "label": "其他",
         "port": {
+          "description": "免 Gas 匯入借貸部位。",
           "label": "端口"
         },
         "swap": {
           "label": "兌換"
         },
         "vai": {
-          "description": "TRANSLATION NEEDED",
+          "description": "鑄造 Venus 的原生穩定幣。",
           "label": "VAI"
         }
       },
@@ -667,19 +677,8 @@
     },
     "testEnvWarning": "這是測試環境。除測試外請勿進行任何交互。<Link>前往 Venus Protocol 官方網站</Link>"
   },
-  "layouts": {
-    "menu": {
-      "markets": {
-        "venusCore": {
-          "description": "經典借貸，輕鬆且最佳化的槓桿。",
-          "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "為最佳收益提供高資本效率的借貸。",
-          "label": "Venus Flux"
-        }
-      }
-    }
+  "legal": {
+    "lastUpdatedAt": "最後更新：{{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "撰寫",

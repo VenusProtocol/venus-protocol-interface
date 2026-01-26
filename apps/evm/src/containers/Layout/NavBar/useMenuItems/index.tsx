@@ -87,7 +87,7 @@ export const useMenuItems = () => {
       to: routes.port.path,
       iconName: 'download',
       label: t('layout.menu.others.port.label'),
-      description: t('layout.menu.others.isolatedPools.description'),
+      description: t('layout.menu.others.port.description'),
     });
   }
 

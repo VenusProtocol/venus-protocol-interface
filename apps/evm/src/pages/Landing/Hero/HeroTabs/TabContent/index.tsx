@@ -4,6 +4,8 @@ import type { Address } from 'viem';
 import { ButtonWrapper, InfoIcon, TokenIconWithSymbol } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useFormatTo } from 'hooks/useFormatTo';
+import { TAB_PARAM_KEY } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
 import {
@@ -42,9 +44,17 @@ export const TabContent: React.FC<TabContentProps> = ({
     shorten: false,
   });
 
-  const marketHref = routes.market.path
+  const marketsPagePath = routes.market.path
     .replace(':poolComptrollerAddress', poolComptrollerContractAddress)
     .replace(':vTokenAddress', asset.vToken.address);
+
+  const { formatTo } = useFormatTo();
+  const to = formatTo({
+    to: {
+      pathname: marketsPagePath,
+      search: `${TAB_PARAM_KEY}=${type}`,
+    },
+  });
 
   return (
     <div className="space-y-6">
@@ -94,7 +104,7 @@ export const TabContent: React.FC<TabContentProps> = ({
       </div>
 
       <ButtonWrapper asChild className="w-full" variant="tertiary">
-        <Link to={marketHref} noStyle>
+        <Link to={to} noStyle>
           {t('landing.hero.startNow')}
         </Link>
       </ButtonWrapper>

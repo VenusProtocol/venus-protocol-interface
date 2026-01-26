@@ -22,7 +22,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   return (
     <div
       className={cn(
-        'flex items-center bg-dark-blue-disabled border border-dark-blue-hover rounded-lg',
+        'flex items-center bg-dark-blue-disabled border border-dark-blue-hover rounded-lg whitespace-nowrap',
         fullWidth ? 'w-full' : 'max-sm:w-full',
         className,
       )}

@@ -6,32 +6,32 @@ exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 
 
 exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 2 1`] = `"CommandsExecuted payloads0/1BNB testnetPayload execution cancelled by governance guardianCanceled"`;
 
-exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 3 1`] = `"CommandsExecuted payloads0/1BNB testnetDefeated20 Sep 2023 7:54 AM"`;
+exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 3 1`] = `"CommandsExecuted payloads0/1BNB testnetDefeatedSep 20, 2023"`;
 
 exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 4 1`] = `"CommandsExecuted payloads0/1BNB testnetQueueQueue"`;
 
-exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 5 1`] = `"CommandsExecuted payloads0/1BNB testnetWaiting for queueing period to endQueued20 Sep 2023 9:54 AMExecutable at 20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 5 1`] = `"CommandsExecuted payloads0/1BNB testnetWaiting for queueing period to endQueuedSep 20, 2023Executable at Sep 20, 2023"`;
 
 exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 5 2`] = `"CommandsExecuted payloads0/1BNB testnetExecuteExecute"`;
 
-exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 6 1`] = `"CommandsExecuted payloads0/1BNB testnetExpired20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 6 1`] = `"CommandsExecuted payloads0/1BNB testnetExpiredSep 20, 2023"`;
 
-exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 7 1`] = `"CommandsAll payloads executedBNB testnetExecuted20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders BSC command correctly. ProposalComp state: 7 1`] = `"CommandsAll payloads executedBNB testnetExecutedSep 20, 2023"`;
 
 exports[`ProposalComp page > renders description correctly 1`] = `"DescriptionThis vip implement diamond proxy for the comptroller to divide the comptroller logic into facets. The current implementation of the comptroller is exceeding the max limit of the contract size. To resolve this diamond proxy is implemented."`;
 
-exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: +0 1`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetWaiting for the BNB testnet payload to be executedPending"`;
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: +0 1`] = `"CommandsExecuted payloads1/2BNB testnetExecutedSep 20, 2023BNB testnetWaiting for the BNB testnet payload to be executedPending"`;
 
-exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 1 1`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetWaiting for the bridge to propagate the transactionBridged20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 1 1`] = `"CommandsExecuted payloads1/2BNB testnetExecutedSep 20, 2023BNB testnetWaiting for the bridge to propagate the transactionBridgedSep 20, 2023"`;
 
-exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 2 1`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetWaiting for queueing period to endQueued20 Sep 2023 7:49 AMExecutable at 20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 2 1`] = `"CommandsExecuted payloads1/2BNB testnetExecutedSep 20, 2023BNB testnetWaiting for queueing period to endQueuedSep 20, 2023Executable at Sep 20, 2023"`;
 
-exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 2 2`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetExecuteExecute"`;
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 2 2`] = `"CommandsExecuted payloads1/2BNB testnetExecutedSep 20, 2023BNB testnetExecuteExecute"`;
 
-exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 3 1`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetPayload execution cancelled by governance guardianCanceled20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 3 1`] = `"CommandsExecuted payloads1/2BNB testnetExecutedSep 20, 2023BNB testnetPayload execution cancelled by governance guardianCanceledSep 20, 2023"`;
 
-exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 4 1`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetExpired20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 4 1`] = `"CommandsExecuted payloads1/2BNB testnetExecutedSep 20, 2023BNB testnetExpiredSep 20, 2023"`;
 
-exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 5 1`] = `"CommandsAll payloads executedBNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetExecuted20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 5 1`] = `"CommandsAll payloads executedBNB testnetExecutedSep 20, 2023BNB testnetExecutedSep 20, 2023"`;
 
-exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 6 1`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetPayload could not be sent to the destination networkFailed20 Sep 2023 7:49 AM"`;
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 6 1`] = `"CommandsExecuted payloads1/2BNB testnetExecutedSep 20, 2023BNB testnetPayload could not be sent to the destination networkFailedSep 20, 2023"`;
