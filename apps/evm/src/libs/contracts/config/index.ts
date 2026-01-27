@@ -126,6 +126,7 @@ import nexusAbi from './externalAbis/Nexus.json';
 import nexusAccountFactoryAbi from './externalAbis/NexusAccountFactory.json';
 import nexusBoostrapAbi from './externalAbis/NexusBootstrap.json';
 import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
+import swapRouterV2Abi from './externalAbis/SwapRouterV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import zyFiVaultAbi from './externalAbis/ZyFiVault.json';
 
@@ -729,6 +730,13 @@ export const contracts: ContractConfig[] = [
     abi: pancakePairV2Abi as Abi,
   },
   // SwapRouter contract
+  {
+    name: 'SwapRouterV2',
+    abi: swapRouterV2Abi as Abi,
+    address: {
+      [ChainId.BSC_MAINNET]: '0x511fa4e04d47e2d80db9fd334359740be022aa35',
+    },
+  },
   {
     name: 'SwapRouter',
     abi: swapRouterAbi as Abi,

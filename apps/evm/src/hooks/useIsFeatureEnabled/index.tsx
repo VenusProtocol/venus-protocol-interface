@@ -2,7 +2,7 @@ import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 
 export const featureFlags = {
-  integratedSwap: [ChainId.SEPOLIA],
+  integratedSwap: [ChainId.BSC_MAINNET],
   prime: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,

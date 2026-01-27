@@ -9,9 +9,8 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import type { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import type { Asset, Pool, SwapQuote } from 'types';
+import type { Asset, Pool, SwapQuote, SwapQuoteError } from 'types';
 import type { FormError } from '../../../types';
 import type { FormErrorCode, FormValues } from './types';
 
@@ -22,7 +21,7 @@ interface UseFormValidationInput {
   isUsingSwap: boolean;
   simulatedPool?: Pool;
   swapQuote?: SwapQuote;
-  getSwapQuoteError?: VError<'swapQuote' | 'interaction'>;
+  getSwapQuoteError?: SwapQuoteError;
 }
 
 interface UseFormValidationOutput {

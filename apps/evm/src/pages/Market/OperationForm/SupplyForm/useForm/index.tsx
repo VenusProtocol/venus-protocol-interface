@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { handleError, isUserRejectedTxError } from 'libs/errors';
-import type { Asset, Swap, SwapError, Token } from 'types';
+import type { Asset, SwapQuote, SwapQuoteError, Token } from 'types';
 
 import { useAnalytics } from 'libs/analytics';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
@@ -17,7 +17,7 @@ export interface UseFormInput {
   onSubmit: (input: {
     fromToken: Token;
     fromTokenAmountTokens: string;
-    swap?: Swap;
+    swap?: SwapQuote;
   }) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
@@ -26,8 +26,8 @@ export interface UseFormInput {
   isFromTokenApproved?: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
-  swap?: Swap;
-  swapError?: SwapError;
+  swap?: SwapQuote;
+  swapError?: SwapQuoteError;
 }
 
 interface UseFormOutput {

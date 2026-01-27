@@ -1,5 +1,5 @@
 import fakeAccountAddress from '__mocks__/models/address';
-import { usdc, xvs } from '__mocks__/models/tokens';
+import { bnb, usdc, xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
@@ -18,7 +18,7 @@ const mockPoolComptrollerAddress = '0x456' as Address;
 const mockPoolName = 'Test Pool';
 
 const mockSwap = {
-  direction: 'exactAmountIn' as const,
+  direction: 'exact-in' as const,
   fromToken: xvs,
   toToken: usdc,
   fromTokenAmountSoldMantissa: new BigNumber(1000),
@@ -87,18 +87,14 @@ describe('useSwapTokensAndSupply', () => {
       `
       {
         "abi": Any<Object>,
-        "address": "0xfakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
           "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
-          1000n,
-          900n,
-          [
-            "0xdef",
-            "0xghi",
-          ],
-          1747386407n,
+          "1000",
+          "900",
+          undefined,
         ],
-        "functionName": "swapExactTokensForTokensAndSupply",
+        "functionName": "swapAndSupply",
       }
     `,
     );
@@ -110,7 +106,6 @@ describe('useSwapTokensAndSupply', () => {
       [
         "Tokens swapped and supplied",
         {
-          "exchangeRate": 1,
           "fromTokenAmountTokens": 1e-15,
           "fromTokenSymbol": "XVS",
           "poolName": "Test Pool",
@@ -140,7 +135,7 @@ describe('useSwapTokensAndSupply', () => {
     );
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
-    const res = await fn({ swap: mockSwap });
+    const res = await fn({ swap: { ...mockSwap, fromToken: bnb } });
 
     expect(res).toMatchInlineSnapshot(
       {
@@ -149,18 +144,14 @@ describe('useSwapTokensAndSupply', () => {
       `
       {
         "abi": Any<Object>,
-        "address": "0xfakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
           "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
-          1000n,
-          900n,
-          [
-            "0xdef",
-            "0xghi",
-          ],
-          1747386407n,
+          "900",
+          undefined,
         ],
-        "functionName": "swapExactTokensForTokensAndSupply",
+        "functionName": "swapNativeAndSupply",
+        "value": "1000",
       }
     `,
     );
@@ -180,7 +171,7 @@ describe('useSwapTokensAndSupply', () => {
     );
 
     const invalidMockSwap = {
-      direction: 'exactAmountOut' as const,
+      direction: 'exact-out' as const,
       fromToken: {
         isNative: false,
         address: '0xdef' as Address,

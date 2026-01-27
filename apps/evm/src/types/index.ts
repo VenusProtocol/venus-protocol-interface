@@ -2,6 +2,7 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
+import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
 export { ChainId, type Token, type VToken } from '@venusprotocol/chains';
@@ -587,6 +588,7 @@ export interface ApproximateOutSwapQuote extends SwapQuoteBase {
 }
 
 export type SwapQuote = ExactInSwapQuote | ExactOutSwapQuote | ApproximateOutSwapQuote;
+export type SwapQuoteError = VError<'swapQuote' | 'interaction'> | null;
 
 export type ImportableProtocol = 'aave';
 

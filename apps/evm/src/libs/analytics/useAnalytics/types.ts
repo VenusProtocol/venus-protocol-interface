@@ -41,7 +41,7 @@ type SwapAndSupply = AnalyticEvent & {
   toTokenAmountTokens: number;
   priceImpactPercentage: number;
   slippageTolerancePercentage: number;
-  exchangeRate: number;
+  exchangeRate?: number;
 };
 
 type CollateralChange = AnalyticEvent & {

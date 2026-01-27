@@ -1,5 +1,5 @@
-import { type VError, handleError } from 'libs/errors';
-import type { Asset, Pool, SwapQuote } from 'types';
+import { handleError } from 'libs/errors';
+import type { Asset, Pool, SwapQuote, SwapQuoteError } from 'types';
 
 import type BigNumber from 'bignumber.js';
 import type { FormError } from '../../types';
@@ -18,7 +18,7 @@ export interface UseFormInput {
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   initialFormValues: FormValues;
   swapQuote?: SwapQuote;
-  getSwapQuoteError?: VError<'swapQuote' | 'interaction'>;
+  getSwapQuoteError?: SwapQuoteError;
   expectedSuppliedAmountTokens?: BigNumber;
   simulatedPool?: Pool;
 }

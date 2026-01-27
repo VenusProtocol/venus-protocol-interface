@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
-import type { Swap } from 'types';
+import type { ExactOutSwapQuote, Swap, SwapQuote } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import TEST_IDS from './testIds';
 
 export interface SwapSummaryProps {
   type: 'supply' | 'repay';
-  swap?: Swap;
+  swap?: Swap | SwapQuote;
 }
 
 export const SwapSummary: React.FC<SwapSummaryProps> = ({ swap, type }) => {
@@ -20,13 +20,13 @@ export const SwapSummary: React.FC<SwapSummaryProps> = ({ swap, type }) => {
     }
 
     const fromTokenAmountMantissa =
-      swap.direction === 'exactAmountIn'
+      swap.direction === 'exactAmountIn' || swap.direction === 'exact-in'
         ? swap.fromTokenAmountSoldMantissa
-        : swap.expectedFromTokenAmountSoldMantissa;
+        : (swap as ExactOutSwapQuote).expectedFromTokenAmountSoldMantissa; // TODO: type check?
     const toTokenAmountMantissa =
-      swap.direction === 'exactAmountIn'
+      swap.direction === 'exactAmountIn' || swap.direction === 'exact-in'
         ? swap.expectedToTokenAmountReceivedMantissa
-        : swap.toTokenAmountReceivedMantissa;
+        : (swap as ExactOutSwapQuote).toTokenAmountReceivedMantissa; // TODO: type check?
 
     const readableFromTokenAmount = convertMantissaToTokens({
       value: fromTokenAmountMantissa,
