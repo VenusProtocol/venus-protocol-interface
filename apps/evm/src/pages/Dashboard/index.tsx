@@ -1,27 +1,67 @@
-import { Page } from 'components';
+import { Page, Tabs } from 'components';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import type { Tab } from 'hooks/useTabs';
+import { useTranslation } from 'libs/translations';
 import { AdCarousel } from './AdCarousel';
 import { Guide } from './Guide';
 import { Overview } from './Overview';
 import { TopMarkets } from './TopMarkets';
+import { Transactions } from './Transactions';
 
-export const Dashboard: React.FC = () => (
-  <Page indexWithSearchEngines={false}>
-    <div className="space-y-12 xl:flex xl:gap-x-6">
-      <div className="space-y-6 xl:w-78 xl:order-2 xl:shrink-0">
-        <AdCarousel />
+export const Dashboard: React.FC = () => {
+  const { t } = useTranslation();
 
-        <TopMarkets />
-      </div>
+  const isHistoricalTransactionsFeatureEnabled = useIsFeatureEnabled({
+    name: 'transactionHistory',
+  });
 
-      <div className="xl:grow xl:order-1">
-        <div className="space-y-6 sm:space-y-12">
-          <Overview />
+  const tabs: Tab[] = [
+    {
+      title: t('dashboard.tabs.markets'),
+      id: 'markets',
+      content: <></>, // TODO: add content
+    },
+    {
+      title: t('dashboard.tabs.staking'),
+      id: 'staking',
+      content: <></>, // TODO: add content
+    },
+  ];
 
-          <Guide />
+  if (isHistoricalTransactionsFeatureEnabled) {
+    tabs.push({
+      title: t('dashboard.tabs.transactions'),
+      id: 'transactions',
+      content: <Transactions />,
+    });
+  }
+
+  return (
+    <Page indexWithSearchEngines={false}>
+      <div className="space-y-12 xl:flex xl:gap-x-6">
+        <div className="space-y-6 xl:w-78 xl:order-2 xl:shrink-0">
+          <AdCarousel />
+
+          <TopMarkets />
+        </div>
+
+        <div className="xl:grow xl:order-1 space-y-12">
+          <div className="space-y-6 sm:space-y-12">
+            <Overview />
+
+            <Guide />
+          </div>
+
+          <Tabs
+            tabs={tabs}
+            headerClassName="text-md md:text-lg"
+            navType="searchParam"
+            variant="secondary"
+          />
         </div>
       </div>
-    </div>
-  </Page>
-);
+    </Page>
+  );
+};
 
 export default Dashboard;
