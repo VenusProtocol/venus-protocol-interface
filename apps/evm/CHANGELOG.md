@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.92.0
+
+### Minor Changes
+
+- f3171ff: Add yield-to-maturity APY
+
 ## 3.91.0
 
 ### Minor Changes
