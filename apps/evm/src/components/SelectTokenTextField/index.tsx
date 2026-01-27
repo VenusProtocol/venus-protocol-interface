@@ -69,6 +69,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 className="p-2"
                 disabled={disabled}
                 data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
+                size="sm"
               >
                 <div className="flex items-center gap-x-2">
                   <TokenIcon token={selectedToken} className="h-5 w-5" />
