@@ -40,7 +40,7 @@ import { useExtractData } from './useExtractData';
 
 export interface OverviewProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export const Overview: React.FC<OverviewProps> = ({ className, ...otherProps }) => {
+export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
   const { t } = useTranslation();
 
   const isVaiFeatureEnabled = useIsFeatureEnabled({

@@ -102,7 +102,6 @@ export const featureFlags = {
   ],
   gaslessTransactions: [] as ChainId[],
   web3DomainNames: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.ARBITRUM_ONE],
-  burnedWBnbButton: [ChainId.BSC_MAINNET],
   importPositions: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
