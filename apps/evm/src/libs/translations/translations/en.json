@@ -200,6 +200,10 @@
           "description": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. This yield is not guaranteed by Venus Protocol.",
           "name": "Off-chain APY"
         },
+        "yieldToMaturityApy": {
+          "description": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
+          "name": "Yield to maturity APY"
+        },
         "pointDistribution": {
           "learnMore": "Learn more"
         },
@@ -241,6 +245,8 @@
     },
     "offChainApy": "Off-chain APY",
     "offChainApyTooltip": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. The Venus protocol does not guarantee them and accepts no liability.",
+    "yieldToMaturityApy": "Yield to maturity APY",
+    "yieldToMaturityApyTooltip": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
     "primeApy": "Prime APY",
     "supplyApy": "Supply APY",
     "totalApy": {

@@ -109,6 +109,17 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
 
       return listItems.push(distribution);
     }
+
+    if (d.type === 'yield-to-maturity') {
+      const distribution: DistributionProps = {
+        name: t('apy.boost.tooltip.yieldToMaturityApy.name'),
+        description: t('apy.boost.tooltip.yieldToMaturityApy.description'),
+        value: formatPercentageToReadableValue(d.apyPercentage),
+        logoSrc: d.token.iconSrc,
+      };
+
+      return listItems.push(distribution);
+    }
   }, []);
 
   // Add Prime distribution

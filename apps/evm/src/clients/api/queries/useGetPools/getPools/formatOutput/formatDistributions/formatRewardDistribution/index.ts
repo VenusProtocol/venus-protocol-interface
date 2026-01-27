@@ -23,7 +23,7 @@ interface GenericDistributionRewardDetails {
   description: string;
 }
 
-type ApiRewardType = 'venus' | 'merkl' | 'intrinsic' | 'off-chain';
+type ApiRewardType = 'venus' | 'merkl' | 'intrinsic' | 'off-chain' | 'yield-to-maturity';
 
 type FormatDistributionInput<TType extends ApiRewardType> = {
   rewardType: TType;
@@ -79,7 +79,12 @@ const formatRewardDistribution = <TType extends ApiRewardType>({
     return distribution;
   }
 
-  if ((rewardType === 'intrinsic' || rewardType === 'off-chain') && rewardDetails) {
+  if (
+    (rewardType === 'intrinsic' ||
+      rewardType === 'off-chain' ||
+      rewardType === 'yield-to-maturity') &&
+    rewardDetails
+  ) {
     const distribution: GenericDistribution = {
       ...baseProps,
       type: rewardType,
