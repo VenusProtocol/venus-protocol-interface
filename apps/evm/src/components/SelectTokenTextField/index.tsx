@@ -89,6 +89,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                   disabled={disabled}
                   css={styles.maxButton}
                   data-testid={!!testId && getTokenMaxButtonTestId({ parentTestId: testId })}
+                  size="sm"
                   {...rightMaxButton}
                 >
                   {rightMaxButton.label}
