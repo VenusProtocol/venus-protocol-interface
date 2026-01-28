@@ -1,5 +1,5 @@
 import { useGetAccountTransactionHistory, useGetPools } from 'clients/api';
-import { Select, type SelectOption, Spinner, TokenIconWithSymbol } from 'components';
+import { Pagination, Select, type SelectOption, Spinner, TokenIconWithSymbol } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
@@ -15,6 +15,8 @@ const ALL_OPTION_VALUE = 'all';
 const PAGE_PARAM_KEY = 'page';
 const TX_TYPE_PARAM_KEY = 'txType';
 const CONTRACT_ADDRESS_PARAM_KEY = 'contractAddress';
+const INITIAL_PAGE_INDEX = 1;
+const ITEMS_PER_PAGE_COUNT = 20;
 
 // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
 // t('dashboard.transactions.selects.txType.mint')
@@ -155,6 +157,8 @@ export const Transactions: React.FC = () => {
 
   const transactions = accountTransactionHistoryData?.transactions || [];
 
+  const transactionCount = accountTransactionHistoryData?.count || 0;
+
   if (isGetAccountTransactionHistoryLoading) {
     return <Spinner />;
   }
@@ -169,39 +173,44 @@ export const Transactions: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 md:space-y-10 md:p-6 md:rounded-lg md:border md:border-dark-blue-hover">
-      <div className="flex gap-3">
-        <Select
-          className="flex-1 md:flex-none"
-          size="small"
-          variant="tertiary"
-          placeLabelToLeft
-          options={txTypeSelectOptions}
-          optionClassName="px-3 h-10 scrollbar-track-cards"
-          dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-          buttonClassName="min-w-45"
-          value={txTypeStr}
-          onChange={newValue => setTxType(newValue.toString())}
-        />
+    <div className="space-y-6 sm:space-y-3">
+      <div className="space-y-6 sm:p-6 sm:rounded-lg sm:space-y-10 sm:border sm:border-dark-blue-hover">
+        <div className="flex gap-3">
+          <Select
+            className="flex-1 sm:flex-none"
+            size="small"
+            variant="tertiary"
+            placeLabelToLeft
+            options={txTypeSelectOptions}
+            optionClassName="px-3 h-10 scrollbar-track-cards"
+            dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
+            buttonClassName="min-w-45"
+            value={txTypeStr}
+            onChange={newValue => setTxType(newValue.toString())}
+          />
 
-        <Select
-          className="flex-1 md:flex-none"
-          size="small"
-          variant="tertiary"
-          placeLabelToLeft
-          options={sourceSelectOptions}
-          optionClassName="px-3 h-10 scrollbar-track-cards"
-          dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-          buttonClassName="min-w-45"
-          value={selectedContractAddress}
-          onChange={newValue => setSelectedContractAddress(newValue.toString())}
-        />
+          <Select
+            className="flex-1 sm:flex-none"
+            size="small"
+            variant="tertiary"
+            placeLabelToLeft
+            options={sourceSelectOptions}
+            optionClassName="px-3 h-10 scrollbar-track-cards"
+            dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
+            buttonClassName="min-w-45"
+            value={selectedContractAddress}
+            onChange={newValue => setSelectedContractAddress(newValue.toString())}
+          />
+        </div>
+
+        <List transactions={transactions} />
       </div>
 
-      <List
-        transactions={transactions}
-        transactionsCount={accountTransactionHistoryData?.count || 0}
-        onPageChange={newValue => setPage(newValue.toString())}
+      <Pagination
+        initialPageIndex={INITIAL_PAGE_INDEX}
+        itemsCount={transactionCount}
+        itemsPerPageCount={ITEMS_PER_PAGE_COUNT}
+        onChange={newValue => setPage(newValue.toString())}
       />
     </div>
   );

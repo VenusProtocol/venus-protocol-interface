@@ -26,7 +26,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({
   return (
     <Card
       className={cn(
-        'flex items-center justify-between text-white hover:no-underline hover:text-white hover:bg-dark-blue-hover active:text-white',
+        'flex items-center justify-between text-white gap-x-3 hover:no-underline hover:text-white hover:bg-dark-blue-hover active:text-white',
         className,
       )}
       asChild

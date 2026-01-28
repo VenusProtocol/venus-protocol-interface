@@ -339,6 +339,11 @@
     "placeholder": {
       "buttonLabel": "瀏覽"
     },
+    "staking": {
+      "placeholder": {
+        "title": "尚無質押部位"
+      }
+    },
     "tabs": {
       "markets": "市場",
       "staking": "質押",
