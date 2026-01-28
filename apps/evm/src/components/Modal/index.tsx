@@ -17,7 +17,6 @@ export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open'> {
   handleClose: () => void;
   handleBackAction?: () => void;
   title?: string | ReactElement | ReactElement[];
-  asTooltip?: boolean;
   noHorizontalPadding?: boolean;
 }
 
@@ -29,23 +28,10 @@ export const Modal: React.FC<ModalProps> = ({
   handleBackAction,
   isOpen,
   title,
-  asTooltip,
   noHorizontalPadding,
   ...otherModalProps
 }) => {
-  const s = useModalStyles({ hasTitleComponent: Boolean(title), noHorizontalPadding, asTooltip });
-
-  const closeBtn = (
-    <Button
-      css={s.closeIcon}
-      className={cn('right-6', buttonClassName)}
-      disableRipple
-      onClick={handleClose}
-    >
-      <Icon name="close" className="size-6" />
-    </Button>
-  );
-
+  const s = useModalStyles({ hasTitleComponent: Boolean(title), noHorizontalPadding });
   return (
     <MUIModal
       open={isOpen}
@@ -63,28 +49,31 @@ export const Modal: React.FC<ModalProps> = ({
         <div
           className={cn(
             'overflow-auto outline-hidden bg-cards rounded-xl absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] border border-lightGrey max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
-            asTooltip && 'flex justify-between',
             className,
           )}
         >
-          {!asTooltip && (
-            <div css={s.titleWrapper}>
-              {!!handleBackAction && (
-                <Button
-                  css={s.backAction}
-                  className={buttonClassName}
-                  disableRipple
-                  onClick={handleBackAction}
-                >
-                  <Icon css={s.backArrow} name="arrowRight" />
-                </Button>
-              )}
-              <div css={s.titleComponent}>{title}</div>
-              {closeBtn}
-            </div>
-          )}
+          <div css={s.titleWrapper}>
+            {!!handleBackAction && (
+              <Button
+                css={s.backAction}
+                className={buttonClassName}
+                disableRipple
+                onClick={handleBackAction}
+              >
+                <Icon css={s.backArrow} name="arrowRight" />
+              </Button>
+            )}
+            <div css={s.titleComponent}>{title}</div>
+            <Button
+              css={s.closeIcon}
+              className={cn('right-6', buttonClassName)}
+              disableRipple
+              onClick={handleClose}
+            >
+              <Icon name="close" className="size-6" />
+            </Button>
+          </div>
           <div css={s.contentWrapper}>{children as React.ReactNode}</div>
-          {asTooltip && closeBtn}
         </div>
       </Fade>
     </MUIModal>

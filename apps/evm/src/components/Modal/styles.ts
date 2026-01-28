@@ -4,11 +4,9 @@ import { useTheme } from '@mui/material';
 export const useModalStyles = ({
   hasTitleComponent,
   noHorizontalPadding,
-  asTooltip,
 }: {
   hasTitleComponent: boolean;
   noHorizontalPadding?: boolean;
-  asTooltip?: boolean;
 }) => {
   const theme = useTheme();
 
@@ -57,8 +55,8 @@ export const useModalStyles = ({
       font-weight: ${theme.typography.h4.fontWeight};
     `,
     closeIcon: css`
-      top: ${asTooltip ? theme.spacing(theme.breakpoints.down('md') ? 4 : 6) : '50%'};
-      margin-top: ${asTooltip ? 0 : -theme.shape.iconSize.xLarge / 2}px;
+      top: 50%;
+      margin-top: ${-theme.shape.iconSize.xLarge / 2}px;
       position: absolute;
       height: ${theme.shape.iconSize.xLarge}px;
       width: ${theme.shape.iconSize.xLarge}px;
@@ -72,15 +70,13 @@ export const useModalStyles = ({
       }
     `,
     contentWrapper: css`
-      padding-top: ${asTooltip ? theme.spacing(6) : 0};
       padding-bottom: ${theme.spacing(6)};
       padding-left: ${noHorizontalPadding ? 0 : theme.spacing(6)};
-      padding-right: ${noHorizontalPadding ? 0 : theme.spacing(asTooltip ? 18 : 6)};
+      padding-right: ${noHorizontalPadding ? 0 : theme.spacing(6)};
       ${theme.breakpoints.down('md')} {
-        padding-top: ${asTooltip ? theme.spacing(4) : 0};
         padding-bottom: ${theme.spacing(4)};
         padding-left: ${noHorizontalPadding ? 0 : theme.spacing(4)};
-        padding-right: ${noHorizontalPadding ? 0 : theme.spacing(asTooltip ? 12 : 4)};
+        padding-right: ${noHorizontalPadding ? 0 : theme.spacing(4)};
       }
     `,
   };

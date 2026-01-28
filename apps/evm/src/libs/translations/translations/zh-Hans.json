@@ -564,7 +564,7 @@
       "startNow": "立即开始",
       "subtitle": "适用于任何 DeFi 收益策略的简单而强大的借贷。",
       "supply": "存款",
-      "supplyTips": "TRANSLATION NEEDED",
+      "supplyTips": "基于 $10,000 初始存款，收益按月复利。",
       "title": "通用<br /><hl>货币市场</hl>",
       "totalApy": "总 APY",
       "upToPercentage": "最高 {{percentage}}",

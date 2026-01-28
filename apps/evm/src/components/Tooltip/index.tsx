@@ -52,7 +52,6 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
         onClick={e => e.stopPropagation()}
         isOpen={isTooltipOpened && !isMdOrUp}
         handleClose={handleToggleDropdown}
-        asTooltip
       >
         <div>{content}</div>
       </Modal>
