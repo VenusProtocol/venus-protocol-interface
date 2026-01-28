@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "ผลตอบแทนแบบสัมบูรณ์",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "ไม่สามารถดึงประวัติบัญชีได้",
         "refetchButtonLabel": "ลองอีกครั้ง"
@@ -31,7 +34,8 @@
         "thirtyDays": "30ด"
       },
       "placeholderText": "กำลังสร้างรายงาน อาจใช้เวลาสูงสุดหนึ่งนาที",
-      "todaysChange": "การเปลี่ยนแปลงวันนี้"
+      "todaysChange": "การเปลี่ยนแปลงวันนี้",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "เรียกดู"
@@ -83,6 +87,10 @@
       "vaults": "วอลต์"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "ธุรกรรมของคุณจะแสดงที่นี่",
         "title": "ยังไม่มีธุรกรรม"
@@ -214,6 +222,10 @@
         "xvsDistribution": {
           "description": "รางวัลการแจกจ่ายถูกเริ่มและดำเนินการโดยชุมชน Venus แบบกระจายอำนาจ โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
           "name": "การแจกจ่าย XVS"
+        },
+        "yieldToMaturityApy": {
+          "description": "ผลตอบแทนนี้หมายถึงผลตอบแทนแบบต่อปีจากการซื้อโทเคน PT ด้วยส่วนลดโดยใช้สินทรัพย์อ้างอิงและถือไว้จนถึงวันครบกำหนด ผลตอบแทนนี้ไม่รับประกันโดย Venus Protocol.",
+          "name": "APY ถึงกำหนด"
         }
       }
     },
@@ -247,9 +259,15 @@
       "borrowApyTooltip": "APY การยืม - APY การแจกจ่าย",
       "label": "APY รวม",
       "supplyApyTooltip": "APY การฝาก + APY การแจกจ่าย"
-    }
+    },
+    "yieldToMaturityApy": "APY ถึงกำหนด",
+    "yieldToMaturityApyTooltip": "ผลตอบแทนนี้หมายถึงผลตอบแทนแบบต่อปีจากการซื้อโทเคน PT ด้วยส่วนลดโดยใช้สินทรัพย์อ้างอิงและถือไว้จนถึงวันครบกำหนด ผลตอบแทนนี้ไม่รับประกันโดย Venus Protocol."
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "APY การยืม",
       "date": "วันที่",
@@ -351,9 +369,6 @@
     "walletBalance": {
       "label": "ยอดคงเหลือในกระเป๋า"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "ไอคอน BNB ที่ถูกเผา"
   },
   "chainExplorerLink": {
     "content": "ดูบน {{domainName}}"
@@ -555,7 +570,7 @@
       "startNow": "เริ่มตอนนี้",
       "subtitle": "การฝากและยืมที่เรียบง่ายแต่ทรงพลัง สำหรับทุกกลยุทธ์ผลตอบแทน DeFi",
       "supply": "ฝาก",
-      "supplyTips": "อิงจากเงินฝากเริ่มต้น $10,000 พร้อมทบต้นรายเดือน",
+      "supplyTips": "คำนวณจากเงินฝากเริ่มต้น 10,000 ดอลลาร์ โดยผลตอบแทน/ดอกเบี้ยทบต้นต่อบล็อก <Link>เรียนรู้เพิ่มเติม</Link>",
       "title": "ตลาดเงินสากล<br /><hl>Money Markets</hl>",
       "totalApy": "APY รวม",
       "upToPercentage": "สูงสุด {{percentage}}",
@@ -621,26 +636,27 @@
       },
       "others": {
         "bridge": {
-          "description": "TRANSLATION NEEDED",
+          "description": "การโอน $XVS ข้ามเชนบน Venus",
           "label": "บริดจ์"
         },
         "governance": {
-          "description": "TRANSLATION NEEDED",
+          "description": "โหวตข้อเสนอของ Venus ด้วย $XVS",
           "label": "การกำกับดูแล"
         },
         "isolatedPools": {
-          "description": "TRANSLATION NEEDED",
+          "description": "ซื้อขายสินทรัพย์ในพูลที่แยกจากตลาดหลัก",
           "label": "พูลแบบแยก"
         },
         "label": "อื่นๆ",
         "port": {
+          "description": "นำเข้าตำแหน่งการให้กู้แบบไม่ใช้แก๊ส",
           "label": "พอร์ต"
         },
         "swap": {
           "label": "สวอป"
         },
         "vai": {
-          "description": "TRANSLATION NEEDED",
+          "description": "มินต์สเตเบิลคอยน์ประจำของ Venus",
           "label": "VAI"
         }
       },
@@ -667,19 +683,8 @@
     },
     "testEnvWarning": "นี่คือสภาพแวดล้อมทดสอบ ห้ามโต้ตอบเพื่อวัตถุประสงค์อื่นนอกเหนือจากการทดสอบ <Link>ไปยังเว็บไซต์ Venus Protocol อย่างเป็นทางการ</Link>"
   },
-  "layouts": {
-    "menu": {
-      "markets": {
-        "venusCore": {
-          "description": "การให้กู้และการยืมแบบคลาสสิก พร้อมเลเวอเรจที่ง่ายและปรับให้เหมาะสม",
-          "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "การให้กู้และการยืมที่มีประสิทธิภาพด้านทุนเพื่อผลตอบแทนที่เหมาะสมที่สุด",
-          "label": "Venus Flux"
-        }
-      }
-    }
+  "legal": {
+    "lastUpdatedAt": "อัปเดตล่าสุด: {{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "เขียน",

@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "Hiệu suất tuyệt đối",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "Không thể lấy lịch sử tài khoản",
         "refetchButtonLabel": "Thử lại"
@@ -31,7 +34,8 @@
         "thirtyDays": "30N"
       },
       "placeholderText": "Đang tạo báo cáo, có thể mất đến một phút",
-      "todaysChange": "Thay đổi hôm nay"
+      "todaysChange": "Thay đổi hôm nay",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "Duyệt"
@@ -83,6 +87,10 @@
       "vaults": "Kho"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "Giao dịch của bạn sẽ hiển thị ở đây",
         "title": "Chưa có giao dịch"
@@ -214,6 +222,10 @@
         "xvsDistribution": {
           "description": "Phần thưởng phân phối được khởi xướng và triển khai bởi cộng đồng Venus phi tập trung. Venus protocol không đảm bảo và không chịu trách nhiệm.",
           "name": "Phân phối XVS"
+        },
+        "yieldToMaturityApy": {
+          "description": "Lợi suất này đại diện cho lợi nhuận thường niên hóa từ việc mua token PT với giá chiết khấu bằng tài sản cơ sở và nắm giữ đến khi đáo hạn. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+          "name": "APY đến hạn"
         }
       }
     },
@@ -247,9 +259,15 @@
       "borrowApyTooltip": "APY vay - APY phân phối",
       "label": "Tổng APY",
       "supplyApyTooltip": "APY cung cấp + APY phân phối"
-    }
+    },
+    "yieldToMaturityApy": "APY đến hạn",
+    "yieldToMaturityApyTooltip": "Lợi suất này đại diện cho lợi nhuận thường niên hóa từ việc mua token PT với giá chiết khấu bằng tài sản cơ sở và nắm giữ đến khi đáo hạn. Venus protocol không đảm bảo và không chịu trách nhiệm."
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "APY vay",
       "date": "Ngày",
@@ -351,9 +369,6 @@
     "walletBalance": {
       "label": "Số dư ví"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "Biểu tượng BNB đã đốt"
   },
   "chainExplorerLink": {
     "content": "Xem trên {{domainName}}"
@@ -555,7 +570,7 @@
       "startNow": "Bắt đầu ngay",
       "subtitle": "Cho vay và vay đơn giản nhưng mạnh mẽ cho mọi chiến lược lợi suất DeFi.",
       "supply": "Cung",
-      "supplyTips": "Dựa trên khoản gửi ban đầu $10,000, lợi nhuận được cộng dồn hằng tháng.",
+      "supplyTips": "Dựa trên khoản gửi ban đầu 10.000 USD, lợi nhuận/lãi được cộng dồn theo từng block. <Link>Tìm hiểu thêm</Link>",
       "title": "Thị trường tiền tệ<br /><hl>phổ quát</hl>",
       "totalApy": "APY tổng",
       "upToPercentage": "Lên đến {{percentage}}",
@@ -621,26 +636,27 @@
       },
       "others": {
         "bridge": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Chuyển $XVS xuyên chuỗi trên Venus.",
           "label": "Cầu nối"
         },
         "governance": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Bỏ phiếu cho các đề xuất Venus bằng $XVS.",
           "label": "Quản trị"
         },
         "isolatedPools": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Giao dịch tài sản trong các pool tách biệt khỏi thị trường lõi.",
           "label": "Pools cô lập"
         },
         "label": "Khác",
         "port": {
+          "description": "Nhập các vị thế cho vay không cần gas.",
           "label": "Cổng"
         },
         "swap": {
           "label": "Hoán đổi"
         },
         "vai": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Mint stablecoin gốc của Venus.",
           "label": "VAI"
         }
       },
@@ -667,19 +683,8 @@
     },
     "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>"
   },
-  "layouts": {
-    "menu": {
-      "markets": {
-        "venusCore": {
-          "description": "Cho vay và vay kiểu cổ điển với đòn bẩy dễ dùng, tối ưu.",
-          "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "Cho vay và vay hiệu quả vốn để tối ưu lợi suất.",
-          "label": "Venus Flux"
-        }
-      }
-    }
+  "legal": {
+    "lastUpdatedAt": "Cập nhật lần cuối: {{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "Viết",

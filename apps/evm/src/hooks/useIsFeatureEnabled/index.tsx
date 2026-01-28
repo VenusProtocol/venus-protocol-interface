@@ -100,7 +100,7 @@ export const featureFlags = {
     ChainId.UNICHAIN_MAINNET,
     ChainId.UNICHAIN_SEPOLIA,
   ],
-  gaslessTransactions: [ChainId.ZKSYNC_SEPOLIA, ChainId.ZKSYNC_MAINNET],
+  gaslessTransactions: [] as ChainId[],
   web3DomainNames: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.ARBITRUM_ONE],
   burnedWBnbButton: [ChainId.BSC_MAINNET],
   importPositions: [

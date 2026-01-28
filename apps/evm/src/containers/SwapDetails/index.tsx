@@ -121,7 +121,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                   <TertiaryButton
                     key={value}
                     className={cn(
-                      'flex-1 bg-transparent border-transparent text-grey hover:bg-lightGrey hover:border-lightGrey hover:text-white active:bg-lightGrey active:border-lightGrey',
+                      'flex-1 bg-transparent border-transparent text-grey hover:bg-lightGrey px-3 hover:border-lightGrey hover:text-white active:bg-lightGrey active:border-lightGrey',
                       Number(value) === Number(userSlippageTolerancePercentage) &&
                         'bg-lightGrey text-white',
                     )}
@@ -130,6 +130,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                         value,
                       })
                     }
+                    size="sm"
                   >
                     {formatPercentageToReadableValue(value)}
                   </TertiaryButton>

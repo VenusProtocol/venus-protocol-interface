@@ -121,7 +121,7 @@ export const ClaimRewardsButton: React.FC<ClaimRewardsButtonProps> = ({ ...other
         {...otherProps}
       >
         <div className="flex items-center gap-x-2">
-          <Icon name="parachute" className="text-yellow" />
+          <Icon name="gift" className="text-yellow" />
 
           <span>{readableClaimableRewards}</span>
         </div>

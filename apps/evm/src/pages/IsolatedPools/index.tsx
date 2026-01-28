@@ -131,6 +131,7 @@ export const IsolatedPools: React.FC = () => {
       />
 
       <MarketTable
+        className="pt-0 border-0 lg:border"
         assets={selectedPool.assets}
         poolName={selectedPool.name}
         poolComptrollerContractAddress={selectedPool.comptrollerAddress}

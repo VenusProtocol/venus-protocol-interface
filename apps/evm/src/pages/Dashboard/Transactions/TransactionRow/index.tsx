@@ -1,7 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import type { AmountTransaction } from 'clients/api';
 import { Delimiter, Icon, type IconName, TokenIcon } from 'components';
-import { format } from 'date-fns';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 import { TxType } from 'types';
@@ -70,7 +69,11 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ transactionData,
           </div>
           <div className="flex flex-row w-full md:w-auto items-center md:items-start justify-between md:flex-col">
             <span className="text-sm">{transactionTitle}</span>
-            <span className="text-grey text-xs">{format(blockTimestamp, 'hh:mm aa')}</span>
+            <span className="text-grey text-xs">
+              {t('account.transactions.date.time', {
+                date: new Date(blockTimestamp),
+              })}
+            </span>
           </div>
         </div>
 

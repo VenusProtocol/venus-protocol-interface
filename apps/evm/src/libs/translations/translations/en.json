@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "Absolute performance",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "Could not fetch account history",
         "refetchButtonLabel": "Retry"
@@ -31,7 +34,8 @@
         "thirtyDays": "30D"
       },
       "placeholderText": "Generating report, this can take up to a minute",
-      "todaysChange": "Today's change"
+      "todaysChange": "Today's change",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "Browse"
@@ -83,6 +87,10 @@
       "vaults": "Vaults"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "Your transactions will appear here",
         "title": "No transactions yet"
@@ -200,10 +208,6 @@
           "description": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. This yield is not guaranteed by Venus Protocol.",
           "name": "Off-chain APY"
         },
-        "yieldToMaturityApy": {
-          "description": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
-          "name": "Yield to maturity APY"
-        },
         "pointDistribution": {
           "learnMore": "Learn more"
         },
@@ -218,6 +222,10 @@
         "xvsDistribution": {
           "description": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
           "name": "XVS distribution"
+        },
+        "yieldToMaturityApy": {
+          "description": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
+          "name": "Yield to maturity APY"
         }
       }
     },
@@ -245,17 +253,21 @@
     },
     "offChainApy": "Off-chain APY",
     "offChainApyTooltip": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. The Venus protocol does not guarantee them and accepts no liability.",
-    "yieldToMaturityApy": "Yield to maturity APY",
-    "yieldToMaturityApyTooltip": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
     "primeApy": "Prime APY",
     "supplyApy": "Supply APY",
     "totalApy": {
       "borrowApyTooltip": "Borrow APY - Distribution APYs",
       "label": "Total APY",
       "supplyApyTooltip": "Supply APY + Distribution APYs"
-    }
+    },
+    "yieldToMaturityApy": "Yield to maturity APY",
+    "yieldToMaturityApyTooltip": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol."
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
       "date": "Date",
@@ -357,9 +369,6 @@
     "walletBalance": {
       "label": "Wallet balance"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "Burned BNB icon"
   },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
@@ -561,7 +570,7 @@
       "startNow": "Start now",
       "subtitle": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
       "supply": "Supply",
-      "supplyTips": "Based on a $10,000 initial deposit, with earnings compounded monthly.",
+      "supplyTips": "Based on a $10,000 initial deposit, with earnings/interest compounded per block. <Link>Learn more</Link>",
       "title": "Universal <br /><hl>Money Markets</hl>",
       "totalApy": "Total APY",
       "upToPercentage": "Up to {{percentage}}",
@@ -628,26 +637,27 @@
       },
       "others": {
         "bridge": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Cross-chain $XVS transfers on Venus.",
           "label": "Bridge"
         },
         "governance": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Vote on Venus proposals with $XVS.",
           "label": "Governance"
         },
         "isolatedPools": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Trade assets in pools isolated from the core markets.",
           "label": "Isolated pools"
         },
         "label": "Others",
         "port": {
+          "description": "Gasless import of lending positions.",
           "label": "Port"
         },
         "swap": {
           "label": "Swap"
         },
         "vai": {
-          "description": "TRANSLATION NEEDED",
+          "description": "Mint the native stablecoin of Venus.",
           "label": "VAI"
         }
       },
@@ -674,19 +684,8 @@
     },
     "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
   },
-  "layouts": {
-    "menu": {
-      "markets": {
-        "venusCore": {
-          "description": "Classic lending and borrowing with easy, optimized leverage.",
-          "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "Capital-efficient lending and borrowing for optimal yield.",
-          "label": "Venus Flux"
-        }
-      }
-    }
+  "legal": {
+    "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",

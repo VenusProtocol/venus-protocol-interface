@@ -1,50 +1,34 @@
-import { format as formatDate, formatDistanceToNowStrict, isDate } from 'date-fns';
-import { enUS } from 'date-fns/locale';
-import i18next from 'i18next';
+import { format as formatDate, formatDistanceStrict, isDate } from 'date-fns';
+import i18next, { type Resource } from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
-import { supportedLanguages } from './constants';
-import enLocales from './translations/en.json';
-import jaLocales from './translations/ja.json';
-import thLocales from './translations/th.json';
-import trLocales from './translations/tr.json';
-import viLocales from './translations/vi.json';
-import zhHansLocales from './translations/zh-Hans.json';
-import zhHantLocales from './translations/zh-Hant.json';
+import { type DateFormatType, supportedLanguages } from './constants';
 
 export { default as en } from './translations/en.json';
+
+export { supportedLanguages } from './constants';
+
+const resources = supportedLanguages.reduce<Resource>(
+  (acc, language) => ({
+    ...acc,
+    [language.bcp47Tag]: {
+      translation: language.translations,
+    },
+  }),
+  {},
+);
+
+export const defaultLanguage = supportedLanguages[0];
 
 const init = () => {
   i18next
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-      resources: {
-        en: {
-          translation: enLocales,
-        },
-        th: {
-          translation: thLocales,
-        },
-        tr: {
-          translation: trLocales,
-        },
-        ja: {
-          translation: jaLocales,
-        },
-        vi: {
-          translation: viLocales,
-        },
-        'zh-Hans': {
-          translation: zhHansLocales,
-        },
-        'zh-Hant': {
-          translation: zhHantLocales,
-        },
-      },
+      resources,
       supportedLngs: supportedLanguages.map(language => language.bcp47Tag),
-      fallbackLng: 'en',
+      fallbackLng: defaultLanguage.bcp47Tag,
       detection: {
         order: ['localStorage', 'navigator'],
         caches: ['localStorage'],
@@ -53,18 +37,22 @@ const init = () => {
       },
       interpolation: {
         escapeValue: false,
-        format: (value, format, lng) => {
-          const locales = { en: enUS };
-
+        format: (value, format, tag) => {
           if (isDate(value)) {
-            const locale =
-              lng && lng in locales ? locales[lng as keyof typeof locales] : locales.en;
+            const language =
+              supportedLanguages.find(language => language.bcp47Tag === tag) ?? defaultLanguage;
+            const options = { locale: language.locale };
+
             if (format === 'distanceToNow') {
-              return formatDistanceToNowStrict(value, { locale });
+              return formatDistanceStrict(value, new Date(), options);
             }
 
-            return formatDate(value, format || 'dd MMM yyyy h:mm a', { locale });
+            const resolvedFormat: DateFormatType =
+              format && format in language.dateFormats ? (format as DateFormatType) : 'textual';
+
+            return formatDate(value, language.dateFormats[resolvedFormat], options);
           }
+
           return value;
         },
       },

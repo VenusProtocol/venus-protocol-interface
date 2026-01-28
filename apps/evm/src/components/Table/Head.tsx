@@ -15,10 +15,18 @@ interface HeadProps<R> {
   orderBy: TableColumn<R> | undefined;
   orderDirection: 'asc' | 'desc' | undefined;
   onRequestOrder: (column: TableColumn<R>) => void;
+  controls: boolean;
   className?: string;
 }
 
-function Head<R>({ columns, orderBy, orderDirection, onRequestOrder, className }: HeadProps<R>) {
+function Head<R>({
+  columns,
+  orderBy,
+  orderDirection,
+  onRequestOrder,
+  className,
+  controls,
+}: HeadProps<R>) {
   const styles = useStyles();
   return (
     <MuiTableHead>
@@ -43,7 +51,7 @@ function Head<R>({ columns, orderBy, orderDirection, onRequestOrder, className }
               >
                 <span>{column.label}</span>
 
-                {!!column.sortRows && (
+                {controls && !!column.sortRows && (
                   <div css={styles.tableSortLabelIconsContainer}>
                     <Icon
                       name="sort"

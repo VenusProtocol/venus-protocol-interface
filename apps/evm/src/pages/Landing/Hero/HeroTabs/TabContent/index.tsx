@@ -2,8 +2,11 @@ import { cn } from '@venusprotocol/ui';
 import type { Address } from 'viem';
 
 import { ButtonWrapper, InfoIcon, TokenIconWithSymbol } from 'components';
+import { VENUS_DOC_URL } from 'constants/production';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useFormatTo } from 'hooks/useFormatTo';
+import { TAB_PARAM_KEY } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
 import {
@@ -27,7 +30,7 @@ export const TabContent: React.FC<TabContentProps> = ({
   asset,
   type,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const combinedApys = getCombinedDistributionApys({ asset });
 
@@ -42,9 +45,17 @@ export const TabContent: React.FC<TabContentProps> = ({
     shorten: false,
   });
 
-  const marketHref = routes.market.path
+  const marketsPagePath = routes.market.path
     .replace(':poolComptrollerAddress', poolComptrollerContractAddress)
     .replace(':vTokenAddress', asset.vToken.address);
+
+  const { formatTo } = useFormatTo();
+  const to = formatTo({
+    to: {
+      pathname: marketsPagePath,
+      search: `${TAB_PARAM_KEY}=${type}`,
+    },
+  });
 
   return (
     <div className="space-y-6">
@@ -82,7 +93,16 @@ export const TabContent: React.FC<TabContentProps> = ({
           <div className="flex items-center text-light-grey gap-1.5 text-b1s sm:text-p2s">
             <span>{readableBaseAmount}</span>
 
-            <InfoIcon tooltip={t('landing.hero.supplyTips')} />
+            <InfoIcon
+              tooltip={
+                <Trans
+                  i18nKey="landing.hero.supplyTips"
+                  components={{
+                    Link: <Link href={`${VENUS_DOC_URL}/guides/protocol-math`} />,
+                  }}
+                />
+              }
+            />
           </div>
         </Row>
 
@@ -94,7 +114,7 @@ export const TabContent: React.FC<TabContentProps> = ({
       </div>
 
       <ButtonWrapper asChild className="w-full" variant="tertiary">
-        <Link to={marketHref} noStyle>
+        <Link to={to} noStyle>
           {t('landing.hero.startNow')}
         </Link>
       </ButtonWrapper>

@@ -82,10 +82,10 @@ export const Safety: React.FC<ISafetyProps> = ({ className }) => {
           <p className="text-center text-b1r text-grey md:text-p3r">{t('landing.safety.text')}</p>
         </div>
 
-        <div className="flex flex-col w-full gap-3 sm:gap-6 xl:flex-row">
-          <SafetyScore className="xl:order-2" />
+        <div className="flex flex-col w-full gap-3 sm:gap-6 xl:grid xl:grid-cols-3">
+          <SafetyScore className="xl:order-2 xl:col-span-1" />
 
-          <div className="grid grid-cols-2 gap-3 grow sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 xl:order-1">
+          <div className="grid grid-cols-2 gap-3 grow sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 xl:order-1 xl:col-span-2">
             {auditors.map(a => (
               <Auditor key={`${a.href}-${a.auditsCount}-${a.Logo.toString()}`} {...a} />
             ))}
