@@ -2,6 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import type { Address } from 'viem';
 
 import { ButtonWrapper, InfoIcon, TokenIconWithSymbol } from 'components';
+import { VENUS_DOC_URL } from 'constants/production';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useFormatTo } from 'hooks/useFormatTo';
@@ -29,7 +30,7 @@ export const TabContent: React.FC<TabContentProps> = ({
   asset,
   type,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const combinedApys = getCombinedDistributionApys({ asset });
 
@@ -92,7 +93,16 @@ export const TabContent: React.FC<TabContentProps> = ({
           <div className="flex items-center text-light-grey gap-1.5 text-b1s sm:text-p2s">
             <span>{readableBaseAmount}</span>
 
-            <InfoIcon tooltip={t('landing.hero.supplyTips')} />
+            <InfoIcon
+              tooltip={
+                <Trans
+                  i18nKey="landing.hero.supplyTips"
+                  components={{
+                    Link: <Link href={`${VENUS_DOC_URL}/guides/protocol-math`} />,
+                  }}
+                />
+              }
+            />
           </div>
         </Row>
 

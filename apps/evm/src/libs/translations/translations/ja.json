@@ -222,6 +222,10 @@
         "xvsDistribution": {
           "description": "配布報酬は分散型のVenusコミュニティにより開始・実装されます。Venusプロトコルはこれらを保証せず、責任を負いません。",
           "name": "XVS配布"
+        },
+        "yieldToMaturityApy": {
+          "description": "基礎資産を用いて割引価格でPTトークンを購入し、満期まで保有することで得られる年率換算リターンを表します。Venusプロトコルはこれを保証せず、責任を負いません。",
+          "name": "満期利回りAPY"
         }
       }
     },
@@ -255,7 +259,9 @@
       "borrowApyTooltip": "借入APY - 配布APY",
       "label": "合計APY",
       "supplyApyTooltip": "供給APY + 配布APY"
-    }
+    },
+    "yieldToMaturityApy": "満期利回りAPY",
+    "yieldToMaturityApyTooltip": "基礎資産を用いて割引価格でPTトークンを購入し、満期まで保有した場合の年率換算リターンを表します。Venusプロトコルはこれを保証せず、責任を負いません。"
   },
   "apyChart": {
     "date": {
@@ -564,7 +570,7 @@
       "startNow": "今すぐ始める",
       "subtitle": "どんなDeFi利回り戦略にも使えるシンプルで強力なレンディングと借入。",
       "supply": "供給",
-      "supplyTips": "初期預入金$10,000を想定し、収益は月次で複利計算。",
+      "supplyTips": "初期預入額10,000ドルを基準に、収益/利息はブロックごとに複利計算されます。<Link>詳細を見る</Link>",
       "title": "ユニバーサル<br /><hl>マネーマーケット</hl>",
       "totalApy": "合計APY",
       "upToPercentage": "{{percentage}}まで",

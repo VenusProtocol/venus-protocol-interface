@@ -222,6 +222,10 @@
         "xvsDistribution": {
           "description": "分发奖励由去中心化的 Venus 社区发起并实施。Venus 协议不作任何保证且不承担责任。",
           "name": "XVS 分发"
+        },
+        "yieldToMaturityApy": {
+          "description": "该收益表示使用标的资产折价购买 PT 代币并持有至到期所获得的年化回报。Venus 协议不作任何保证且不承担责任。",
+          "name": "到期收益率 APY"
         }
       }
     },
@@ -255,7 +259,9 @@
       "borrowApyTooltip": "借款 APY - 分发 APY",
       "label": "总 APY",
       "supplyApyTooltip": "存款 APY + 分发 APY"
-    }
+    },
+    "yieldToMaturityApy": "到期收益率 APY",
+    "yieldToMaturityApyTooltip": "该收益表示使用标的资产折价购买 PT 代币并持有至到期的年化回报。Venus 协议不作任何保证且不承担责任。"
   },
   "apyChart": {
     "date": {
@@ -564,7 +570,7 @@
       "startNow": "立即开始",
       "subtitle": "适用于任何 DeFi 收益策略的简单而强大的借贷。",
       "supply": "存款",
-      "supplyTips": "基于 $10,000 初始存款，收益按月复利。",
+      "supplyTips": "基于 10,000 美元的初始存款，收益/利息按区块复利计算。<Link>了解更多</Link>",
       "title": "通用<br /><hl>货币市场</hl>",
       "totalApy": "总 APY",
       "upToPercentage": "最高 {{percentage}}",

@@ -222,6 +222,10 @@
         "xvsDistribution": {
           "description": "Phần thưởng phân phối được khởi xướng và triển khai bởi cộng đồng Venus phi tập trung. Venus protocol không đảm bảo và không chịu trách nhiệm.",
           "name": "Phân phối XVS"
+        },
+        "yieldToMaturityApy": {
+          "description": "Lợi suất này đại diện cho lợi nhuận thường niên hóa từ việc mua token PT với giá chiết khấu bằng tài sản cơ sở và nắm giữ đến khi đáo hạn. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+          "name": "APY đến hạn"
         }
       }
     },
@@ -255,7 +259,9 @@
       "borrowApyTooltip": "APY vay - APY phân phối",
       "label": "Tổng APY",
       "supplyApyTooltip": "APY cung cấp + APY phân phối"
-    }
+    },
+    "yieldToMaturityApy": "APY đến hạn",
+    "yieldToMaturityApyTooltip": "Lợi suất này đại diện cho lợi nhuận thường niên hóa từ việc mua token PT với giá chiết khấu bằng tài sản cơ sở và nắm giữ đến khi đáo hạn. Venus protocol không đảm bảo và không chịu trách nhiệm."
   },
   "apyChart": {
     "date": {
@@ -564,7 +570,7 @@
       "startNow": "Bắt đầu ngay",
       "subtitle": "Cho vay và vay đơn giản nhưng mạnh mẽ cho mọi chiến lược lợi suất DeFi.",
       "supply": "Cung",
-      "supplyTips": "Dựa trên khoản gửi ban đầu $10,000, lợi nhuận được cộng dồn hằng tháng.",
+      "supplyTips": "Dựa trên khoản gửi ban đầu 10.000 USD, lợi nhuận/lãi được cộng dồn theo từng block. <Link>Tìm hiểu thêm</Link>",
       "title": "Thị trường tiền tệ<br /><hl>phổ quát</hl>",
       "totalApy": "APY tổng",
       "upToPercentage": "Lên đến {{percentage}}",
