@@ -570,7 +570,7 @@
       "startNow": "Start now",
       "subtitle": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
       "supply": "Supply",
-      "supplyTips": "Based on a $10,000 initial deposit, with earnings compounded monthly.",
+      "supplyTips": "Based on a $10,000 initial deposit, with earnings / interest compounded per block. <Link>Learn more</Link>",
       "title": "Universal <br /><hl>Money Markets</hl>",
       "totalApy": "Total APY",
       "upToPercentage": "Up to {{percentage}}",
