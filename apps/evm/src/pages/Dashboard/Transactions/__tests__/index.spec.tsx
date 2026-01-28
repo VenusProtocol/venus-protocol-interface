@@ -13,6 +13,7 @@ describe('Transactions', () => {
       ({ name }: UseIsFeatureEnabledInput) => name === 'transactionHistory',
     );
   });
+
   it('displays content correctly', async () => {
     const { container, getByText } = renderComponent(<Transactions />, {
       accountAddress: fakeAccountAddress,
@@ -30,6 +31,7 @@ describe('Transactions', () => {
       },
       isLoading: false,
     }));
+
     const { container } = renderComponent(<Transactions />, {
       accountAddress: fakeAccountAddress,
     });

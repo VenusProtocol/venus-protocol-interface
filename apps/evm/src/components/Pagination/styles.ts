@@ -6,9 +6,9 @@ export const useStyles = () => {
   return {
     root: css`
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
-      margin: ${theme.spacing(5)} 0;
+
       ${theme.breakpoints.down('sm')} {
         flex-wrap: wrap;
         justify-content: center;
@@ -30,8 +30,6 @@ export const useStyles = () => {
       padding: 0;
       background-color: ${theme.palette.background.paper};
       color: ${theme.palette.text.secondary};
-      margin-left: ${theme.spacing(1)};
-      margin-right: ${theme.spacing(1)};
       transition: color 0.3s;
       border-radius: ${theme.shape.borderRadius.verySmall}px;
 

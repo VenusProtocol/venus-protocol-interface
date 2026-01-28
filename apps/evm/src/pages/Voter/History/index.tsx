@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 
 import { Pagination, Spinner } from 'components';
@@ -7,7 +6,6 @@ import { useTranslation } from 'libs/translations';
 import type { VoterHistory } from 'types';
 
 import VoterProposal from './VoterProposal';
-import { useStyles } from './styles';
 
 interface HistoryProps {
   className?: string;
@@ -26,7 +24,6 @@ export const History: React.FC<HistoryProps> = ({
   limit,
   isFetching,
 }) => {
-  const styles = useStyles();
   const { t } = useTranslation();
 
   const xvs = useGetToken({
@@ -36,7 +33,9 @@ export const History: React.FC<HistoryProps> = ({
   return (
     <div className={className}>
       <Typography variant="h4">{t('voterDetail.votingHistory')}</Typography>
+
       {isFetching && <Spinner />}
+
       {voterHistory.map(
         ({
           proposalId,
@@ -70,16 +69,17 @@ export const History: React.FC<HistoryProps> = ({
           />
         ),
       )}
-      {total ? (
+
+      {total > 0 && (
         <Pagination
-          css={styles.pagination}
+          className="mt-3"
           itemsCount={total}
           onChange={(nextIndex: number) => {
             setCurrentPage(nextIndex);
           }}
           itemsPerPageCount={limit}
         />
-      ) : null}
+      )}
     </div>
   );
 };

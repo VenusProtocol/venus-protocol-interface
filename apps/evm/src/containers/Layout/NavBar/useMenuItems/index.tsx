@@ -20,14 +20,12 @@ export const useMenuItems = () => {
   const { data: getPoolsData } = useGetPools();
   const pools = getPoolsData?.pools || [];
 
-  const menu: Array<MenuItem | SubMenu> = [];
-
-  if (accountAddress) {
-    menu.push({
+  const menu: Array<MenuItem | SubMenu> = [
+    {
       to: routes.dashboard.path,
       label: t('layout.menu.dashboard.label'),
-    });
-  }
+    },
+  ];
 
   menu.push(
     {

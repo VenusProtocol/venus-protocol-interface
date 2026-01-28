@@ -5,6 +5,7 @@ import { useTranslation } from 'libs/translations';
 import { AdCarousel } from './AdCarousel';
 import { Guide } from './Guide';
 import { Overview } from './Overview';
+import { Staking } from './Staking';
 import { TopMarkets } from './TopMarkets';
 import { Transactions } from './Transactions';
 
@@ -24,7 +25,7 @@ export const Dashboard: React.FC = () => {
     {
       title: t('dashboard.tabs.staking'),
       id: 'staking',
-      content: <></>, // TODO: add content
+      content: <Staking />,
     },
   ];
 

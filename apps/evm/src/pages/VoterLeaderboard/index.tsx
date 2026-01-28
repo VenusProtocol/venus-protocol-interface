@@ -29,7 +29,7 @@ export const VoterLeaderboardUi: React.FC<VoterLeaderboardProps> = ({
   const styles = useStyles();
 
   return (
-    <div css={styles.root}>
+    <div css={styles.root} className="space-y-3">
       <LeaderboardTable voterAccounts={voterAccounts} offset={offset} isFetching={isFetching} />
 
       {total && (
