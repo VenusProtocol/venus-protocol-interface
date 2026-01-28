@@ -147,8 +147,7 @@
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
   },
   "adBanner": {
-    "learnMore": "Learn more",
-    "startNow": "Start Now"
+    "startNow": "Start now"
   },
   "announcements": {
     "bethUpdate": {
@@ -200,10 +199,6 @@
           "description": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. This yield is not guaranteed by Venus Protocol.",
           "name": "Off-chain APY"
         },
-        "yieldToMaturityApy": {
-          "description": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
-          "name": "Yield to maturity APY"
-        },
         "pointDistribution": {
           "learnMore": "Learn more"
         },
@@ -218,6 +213,10 @@
         "xvsDistribution": {
           "description": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
           "name": "XVS distribution"
+        },
+        "yieldToMaturityApy": {
+          "description": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
+          "name": "Yield to maturity APY"
         }
       }
     },
@@ -245,15 +244,15 @@
     },
     "offChainApy": "Off-chain APY",
     "offChainApyTooltip": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. The Venus protocol does not guarantee them and accepts no liability.",
-    "yieldToMaturityApy": "Yield to maturity APY",
-    "yieldToMaturityApyTooltip": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
     "primeApy": "Prime APY",
     "supplyApy": "Supply APY",
     "totalApy": {
       "borrowApyTooltip": "Borrow APY - Distribution APYs",
       "label": "Total APY",
       "supplyApyTooltip": "Supply APY + Distribution APYs"
-    }
+    },
+    "yieldToMaturityApy": "Yield to maturity APY",
+    "yieldToMaturityApyTooltip": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol."
   },
   "apyChart": {
     "tooltipItemLabels": {
@@ -299,11 +298,6 @@
     "description": "One-click leverage to boost your yield <White>up to 5x</White>.",
     "rocketAltText": "Rocket illustration",
     "title": "Boost is available now!"
-  },
-  "probableBanner": {
-    "description": "Give your conviction a boost on probable.markets",
-    "probableAltText": "Probable illustration",
-    "title": "Believe in something?"
   },
   "breadcrumbs": {
     "account": "Account",
@@ -691,6 +685,16 @@
     }
   },
   "operationForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "I acknowledge the high price impact",
+        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+      }
+    },
     "availableAmount": "Available",
     "boostTabAltText": "Rocket icon",
     "boostTabTitle": "Boost",
@@ -769,16 +773,6 @@
     "walletBalance": "Wallet balance",
     "warning": {
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
-    },
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "I acknowledge the high price impact",
-        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "I acknowledge the risks involved",
-        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
-      }
     },
     "withdrawTabTitle": "Withdraw"
   },
@@ -965,6 +959,11 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
+  },
+  "probableBanner": {
+    "description": "Give your conviction a boost on probable.markets",
+    "probableAltText": "Probable illustration",
+    "title": "Believe in something?"
   },
   "proposalList": {
     "selectOptions": {
@@ -1323,6 +1322,12 @@
     },
     "withdrawButton": "Withdraw",
     "youAreStake": "You are staking"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "Background illustration",
+    "description": "Let your liquidity Flux, watch your yield grow.",
+    "iconAltText": "Venus Flux icon",
+    "title": "Venus Flux is live!"
   },
   "vote": {
     "abstain": "Abstain",

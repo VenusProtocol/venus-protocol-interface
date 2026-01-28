@@ -3,9 +3,11 @@ import { BinanceWalletBanner } from './BinanceWalletBanner';
 import { BoostBanner } from './BoostBanner';
 import { IsolatedPoolsSunsetBanner } from './IsolatedPoolsSunsetBanner';
 import { ProbableBanner } from './ProbableBanner';
+import { VenusFluxBanner } from './VenusFluxBanner';
 
 export const AdBanner: React.FC = () => {
   const slides: React.ReactNode[] = [
+    <VenusFluxBanner />,
     <BoostBanner />,
     <BinanceWalletBanner />,
     <IsolatedPoolsSunsetBanner />,
