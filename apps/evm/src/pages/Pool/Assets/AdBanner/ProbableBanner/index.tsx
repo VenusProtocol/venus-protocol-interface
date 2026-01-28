@@ -1,6 +1,6 @@
 import { useTranslation } from 'libs/translations';
 import { Banner } from '../Banner';
-import probaleIcon from './probaleIcon.png';
+import probableIconSrc from './probableIcon.png';
 
 const LEARN_MORE_URL = 'https://probable.markets';
 
@@ -24,7 +24,7 @@ export const ProbableBanner: React.FC = () => {
       illustration={
         <div className="h-10 w-14 sm:w-17 md:w-[70px] lg:w-[82px] lg:h-14">
           <img
-            src={probaleIcon}
+            src={probableIconSrc}
             alt={t('probableBanner.probableAltText')}
             className="absolute size-14 -mt-4 sm:size-17 sm:-mt-4 md:size-[70px] lg:-mt-[18px] lg:size-[82px]"
           />
