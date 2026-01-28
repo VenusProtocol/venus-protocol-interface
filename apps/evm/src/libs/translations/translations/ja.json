@@ -155,7 +155,6 @@
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全な借入限度:<LineBreak/>{{safeBorrowLimit}}（借入限度の{{safeBorrowLimitPercentage}}%）"
   },
   "adBanner": {
-    "learnMore": "詳細を見る",
     "startNow": "今すぐ始める"
   },
   "announcements": {
@@ -970,9 +969,6 @@
       "supply": "{{fromTokenAmount}}で{{toTokenAmount}}を供給します"
     },
     "walletBalance": "ウォレット残高",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
-    },
     "withdrawTabTitle": "引き出し"
   },
   "pagination": {
@@ -1431,6 +1427,12 @@
     },
     "withdrawButton": "引き出し",
     "youAreStake": "あなたのステーキング量"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "背景イラスト",
+    "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
+    "iconAltText": "Venus Flux アイコン",
+    "title": "Venus Fluxが利用可能になりました！"
   },
   "vote": {
     "abstain": "棄権",

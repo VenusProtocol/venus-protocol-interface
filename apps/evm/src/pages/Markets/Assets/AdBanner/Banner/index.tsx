@@ -29,7 +29,7 @@ export const Banner: React.FC<BannerProps> = ({
   const isSmOrUp = useBreakpointUp('sm');
 
   const textDom = (
-    <div className="space-y-[2px]">
+    <div className="space-y-0.5">
       <p className="font-semibold text-sm lg:text-base">{title}</p>
       <p className="text-xs lg:text-sm">{description}</p>
     </div>
@@ -38,13 +38,13 @@ export const Banner: React.FC<BannerProps> = ({
   return (
     <div
       className={cn(
-        'relative rounded-lg h-[105px] py-2 px-4 sm:pr-2 sm:h-16 lg:pl-6 lg:pr-3 lg:h-[72px]',
+        'relative rounded-lg h-26.25 px-4 flex items-center sm:pr-3 sm:h-18 lg:pl-6 lg:pr-3',
         className,
       )}
     >
-      {backgroundIllustration}
+      <div className="absolute inset-0 rounded-lg overflow-hidden">{backgroundIllustration}</div>
 
-      <div className="space-y-2 relative">
+      <div className="flex flex-col gap-y-2 relative grow">
         <div className="flex items-center justify-between">
           <div className={cn('flex items-center gap-x-4', contentContainerClassName)}>
             {illustration}
@@ -58,7 +58,7 @@ export const Banner: React.FC<BannerProps> = ({
               target="_blank"
               className="hover:no-underline active:no-underline text-white"
             >
-              {learnMoreLabel ?? t('adBanner.learnMore')}
+              {learnMoreLabel ?? t('adBanner.startNow')}
             </Link>
           </ButtonWrapper>
         </div>

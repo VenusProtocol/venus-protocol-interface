@@ -155,7 +155,6 @@
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（占借款限额的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全借款限额：<LineBreak/>{{safeBorrowLimit}}（占借款限额的 {{safeBorrowLimitPercentage}}%）"
   },
   "adBanner": {
-    "learnMore": "了解更多",
     "startNow": "立即开始"
   },
   "announcements": {
@@ -970,9 +969,6 @@
       "supply": "你将用 {{fromTokenAmount}} 存款 {{toTokenAmount}}"
     },
     "walletBalance": "钱包余额",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "该交易价格影响较高，可能意味着不利的兑换。请确保兑换率和兑换数量符合预期。"
-    },
     "withdrawTabTitle": "取款"
   },
   "pagination": {
@@ -1431,6 +1427,12 @@
     },
     "withdrawButton": "取款",
     "youAreStake": "你正在质押"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "背景插图",
+    "description": "让你的流动性 Flux，见证收益增长。",
+    "iconAltText": "Venus Flux 图标",
+    "title": "Venus Flux 现已上线！"
   },
   "vote": {
     "abstain": "弃权",

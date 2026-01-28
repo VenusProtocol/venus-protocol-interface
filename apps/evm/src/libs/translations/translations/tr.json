@@ -155,7 +155,6 @@
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Güvenli borç limiti:<LineBreak/>{{safeBorrowLimit}} (borç limitinizin {{safeBorrowLimitPercentage}}%'i)"
   },
   "adBanner": {
-    "learnMore": "Daha fazla bilgi",
     "startNow": "Şimdi başla"
   },
   "announcements": {
@@ -971,9 +970,6 @@
       "supply": "{{fromTokenAmount}} kullanarak {{toTokenAmount}} sağlayacaksınız"
     },
     "walletBalance": "Cüzdan bakiyesi",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
-    },
     "withdrawTabTitle": "Çek"
   },
   "pagination": {
@@ -1432,6 +1428,12 @@
     },
     "withdrawButton": "Çek",
     "youAreStake": "Stake ediyorsunuz"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "Arka plan illüstrasyonu",
+    "description": "Likiditenizi Flux'a bırakın, getirinizi büyürken izleyin.",
+    "iconAltText": "Venus Flux simgesi",
+    "title": "Venus Flux yayında!"
   },
   "vote": {
     "abstain": "Çekimser",
