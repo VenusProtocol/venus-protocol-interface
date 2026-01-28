@@ -1,140 +1,4 @@
 {
-  "account": {
-    "circularGradient": "ไล่ระดับสีแบบวงกลม",
-    "marketBreakdown": {
-      "tables": {
-        "borrowTableTitle": "ยืมแล้ว",
-        "eModeHeader": {
-          "illustrationAltText": "ภาพประกอบ E-mode",
-          "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
-        },
-        "supplyTableTitle": "ฝากแล้ว",
-        "tabletBorrowTabTitle": "ยืมแล้ว",
-        "tabletSupplyTabTitle": "ฝากแล้ว",
-        "tabletTitle": "สินทรัพย์"
-      }
-    },
-    "performanceChart": {
-      "absolutePerformance": "ผลตอบแทนแบบสัมบูรณ์",
-      "dataPoint": {
-        "date": "{{ date, textual }}"
-      },
-      "errorState": {
-        "failedToFetchMessage": "ไม่สามารถดึงประวัติบัญชีได้",
-        "refetchButtonLabel": "ลองอีกครั้ง"
-      },
-      "netWorth": {
-        "label": "มูลค่าสุทธิ",
-        "tooltip": "มูลค่าสุทธิของสินทรัพย์ที่ใช้ได้หลังคำนึงถึงการสเตคในวอลต์และการยืม",
-        "tooltipWithVai": "มูลค่าสุทธิของสินทรัพย์ที่ใช้ได้หลังคำนึงถึงการสเตคในวอลต์ การยืม และ VAI ที่ถูกมินต์แล้ว"
-      },
-      "periodOption": {
-        "oneYear": "1ปี",
-        "sixMonths": "6ด",
-        "thirtyDays": "30ด"
-      },
-      "placeholderText": "กำลังสร้างรายงาน อาจใช้เวลาสูงสุดหนึ่งนาที",
-      "todaysChange": "การเปลี่ยนแปลงวันนี้",
-      "xAxisValue": "{{ date, numeric }}"
-    },
-    "placeholder": {
-      "buttonLabel": "เรียกดู"
-    },
-    "pools": {
-      "placeholder": {
-        "description": "ตำแหน่งในพูลของคุณจะแสดงที่นี่",
-        "title": "ยังไม่มีตำแหน่งฝากหรือยืม"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "ใช้ขีดจำกัดการยืมแล้ว: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "รับโทเคน Prime",
-        "stakeXvs": "สเตค XVS"
-      },
-      "primeLogoAltText": "โลโก้ Prime",
-      "text": {
-        "apyBoost": "เพิ่มรายได้ของคุณสูงสุด <GreenText>{{boost}}</GreenText> ด้วย Prime",
-        "becomePrime": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว"
-      }
-    },
-    "settings": {
-      "gaslessTransactions": {
-        "switchLabel": "เปิดใช้ธุรกรรมแบบไม่ต้องจ่ายแก๊สบน {{chainName}}"
-      }
-    },
-    "summary": {
-      "cellGroup": {
-        "dailyEarnings": "รายได้รายวัน",
-        "healthFactor": "ตัวคูณความปลอดภัย",
-        "healthFactorTooltip": "ถูกชำระบัญชีเมื่อ < 1.0",
-        "mintedVai": "VAI ที่มินต์แล้ว",
-        "netApy": "APY สุทธิ",
-        "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมที่ได้รับเป็นดอกเบี้ยรายปี",
-        "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการสเตคในวอลต์ที่ได้รับเป็นดอกเบี้ยรายปี",
-        "totalBorrow": "ยอดยืมรวม",
-        "totalSupply": "ยอดฝากรวม",
-        "totalVaultStake": "ยอดสเตคในวอลต์รวม"
-      },
-      "title": "สรุป"
-    },
-    "tabs": {
-      "pools": "พูล",
-      "settings": "การตั้งค่า",
-      "transactions": "ธุรกรรม",
-      "vaults": "วอลต์"
-    },
-    "transactions": {
-      "date": {
-        "full": "{{ date, textual }}",
-        "time": "{{ date, time }}"
-      },
-      "placeholder": {
-        "description": "ธุรกรรมของคุณจะแสดงที่นี่",
-        "title": "ยังไม่มีธุรกรรม"
-      },
-      "selects": {
-        "source": {
-          "all": "ตลาดทั้งหมด"
-        },
-        "txType": {
-          "all": "ธุรกรรมทั้งหมด",
-          "approve": "การอนุมัติ",
-          "borrow": "ยืม",
-          "enterMarket": "เปิดใช้หลักประกัน",
-          "exitMarket": "ปิดใช้หลักประกัน",
-          "mint": "ฝาก",
-          "redeem": "ถอน",
-          "repay": "การชำระคืน"
-        }
-      },
-      "today": "วันนี้",
-      "txText": {
-        "approve": "อนุมัติการใช้จ่าย {{tokenAmount}} แล้ว",
-        "enterMarket": "<Styled>เปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน",
-        "exitMarket": "<Styled>ปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน"
-      },
-      "txType": {
-        "approve": "การอนุมัติ",
-        "borrow": "ยืม",
-        "enterMarket": "เปิดใช้หลักประกัน",
-        "exitMarket": "ปิดใช้หลักประกัน",
-        "mint": "ฝาก",
-        "redeem": "ถอน",
-        "repay": "การชำระคืน"
-      },
-      "view": "ดู",
-      "yesterday": "เมื่อวาน"
-    },
-    "vaults": {
-      "placeholder": {
-        "description": "ตำแหน่งในวอลต์ของคุณจะแสดงที่นี่",
-        "title": "ยังไม่มีตำแหน่งสเตค"
-      }
-    }
-  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "ยอดยืมคงเหลือ",
@@ -408,6 +272,70 @@
   },
   "connectWallet": {
     "connectButton": "เชื่อมต่อกระเป๋า"
+  },
+  "dashboard": {
+    "adCarousel": {
+      "primeBanner": {
+        "button": {
+          "label": "คำนวณรางวัล Prime ของคุณ"
+        },
+        "description": "Venus Prime มอบรางวัลให้กับผู้ใช้ที่ทุ่มเทสำหรับกิจกรรมการฝากและการยืมของพวกเขา",
+        "illustration": {
+          "altText": "ภาพประกอบ Prime"
+        },
+        "title": "ก้าวสู่ระดับที่สูงขึ้นด้วย <Gradient>Venus Prime</Gradient>"
+      }
+    },
+    "overview": {
+      "absolutePerformance": "ผลการดำเนินงานแบบสัมบูรณ์",
+      "netWorth": {
+        "label": "มูลค่าสุทธิ",
+        "tooltip": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์และการยืม",
+        "tooltipWithVai": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์ การยืม และการมินต์ VAI"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "ไม่สามารถดึงประวัติบัญชีได้",
+          "refetchButtonLabel": "ลองอีกครั้ง"
+        },
+        "placeholderText": "กำลังสร้างรายงาน อาจใช้เวลาสูงสุดหนึ่งนาที"
+      },
+      "periodOption": {
+        "oneYear": "1ปี",
+        "sixMonths": "6ด",
+        "thirtyDays": "30ด"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "รายได้รายวัน",
+          "mintedVai": "VAI ที่มินต์แล้ว",
+          "netApy": "APY สุทธิ",
+          "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการสเตคในวอลต์ของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "totalBorrow": "ยอดยืมรวม",
+          "totalSupply": "ยอดฝากรวม",
+          "totalVaultStake": "ยอดสเตคในวอลต์รวม"
+        },
+        "title": "สรุป"
+      },
+      "todaysChange": "การเปลี่ยนแปลงวันนี้"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "topMarkets": {
+      "borrowButton": {
+        "label": "ยืม"
+      },
+      "interactiveTitle": "อันดับสูงสุดของ <SupplyButton>ฝาก</SupplyButton> / <BorrowButton>ยืม</BorrowButton> บน Venus",
+      "supplyButton": {
+        "label": "ฝาก"
+      },
+      "textTitle": "ตลาดยอดนิยมบน Venus"
+    }
   },
   "eModeBanner": {
     "exploreButtonLabel": "สำรวจ",

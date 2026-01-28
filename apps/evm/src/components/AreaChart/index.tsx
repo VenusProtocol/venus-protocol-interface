@@ -3,16 +3,15 @@ import { ChartTooltipContent, type ChartTooltipContentItem, ChartYAxisTick } fro
 import { useUID } from 'react-uid';
 import {
   Area,
-  CartesianGrid,
   AreaChart as RCAreaChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
-import type { DataKey } from 'recharts/types/util/types';
+import type { DataKey, Margin } from 'recharts/types/util/types';
 
-export interface ChartProps<T extends Record<string, any>> {
+export interface AreaChartProps<T extends Record<string, any>> {
   data: T[];
   xAxisDataKey: DataKey<T>;
   yAxisDataKey: DataKey<T>;
@@ -23,7 +22,10 @@ export interface ChartProps<T extends Record<string, any>> {
   onDataPointHover?: (value: T) => void;
   onMouseLeave?: () => void;
   formatTooltipItems?: (value: T) => ChartTooltipContentItem[];
+  areaChartMargin?: Margin;
   interval?: number;
+  displayAxes?: boolean;
+  displayToolTip?: boolean;
   className?: string;
 }
 
@@ -40,7 +42,10 @@ export const AreaChart = <T extends Record<string, any>>({
   formatTooltipItems,
   onDataPointHover,
   onMouseLeave,
-}: ChartProps<T>) => {
+  displayAxes = true,
+  displayToolTip = true,
+  areaChartMargin,
+}: AreaChartProps<T>) => {
   // Generate base ID that won't change between renders but will be incremented
   // automatically every time it is used (so multiple charts can be rendered
   // using unique ids)
@@ -55,6 +60,7 @@ export const AreaChart = <T extends Record<string, any>>({
             top: 20,
             left: -14,
             right: 4,
+            ...areaChartMargin,
           }}
           data={data}
           onMouseLeave={onMouseLeave}
@@ -72,42 +78,48 @@ export const AreaChart = <T extends Record<string, any>>({
             </linearGradient>
           </defs>
 
-          <CartesianGrid vertical={false} stroke={theme.colors.lightGrey} strokeDasharray="2 2" />
+          {displayAxes && (
+            <XAxis
+              dataKey={xAxisDataKey}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={formatXAxisValue}
+              stroke={theme.colors.grey}
+              tickMargin={8}
+              tickCount={data.length}
+              interval={
+                typeof interval === 'number' ? Math.round(data.length / interval) : undefined
+              }
+              className="text-xs"
+            />
+          )}
 
-          <XAxis
-            dataKey={xAxisDataKey}
-            axisLine={false}
-            tickLine={false}
-            tickFormatter={formatXAxisValue}
-            stroke={theme.colors.grey}
-            tickMargin={8}
-            tickCount={data.length}
-            interval={typeof interval === 'number' ? Math.round(data.length / interval) : undefined}
-            className="text-xs"
-          />
+          {displayAxes && (
+            <YAxis
+              dataKey={yAxisDataKey}
+              axisLine={false}
+              tickLine={false}
+              tickMargin={8}
+              tick={({ payload, y }) => (
+                <ChartYAxisTick value={formatYAxisValue(payload.value)} y={y} />
+              )}
+              tickCount={yAxisTickCount}
+              stroke={theme.colors.grey}
+              className="text-xs text-left"
+            />
+          )}
 
-          <YAxis
-            dataKey={yAxisDataKey}
-            axisLine={false}
-            tickLine={false}
-            tickMargin={8}
-            tick={({ payload, y }) => (
-              <ChartYAxisTick value={formatYAxisValue(payload.value)} y={y} />
-            )}
-            tickCount={yAxisTickCount}
-            stroke={theme.colors.grey}
-            className="text-xs text-left"
-          />
-
-          <Tooltip
-            isAnimationActive={false}
-            cursor={{ strokeDasharray: '4px 4px', stroke: theme.colors.grey }}
-            content={({ payload }) =>
-              formatTooltipItems && payload?.[0]?.payload ? (
-                <ChartTooltipContent items={formatTooltipItems(payload[0].payload)} />
-              ) : null
-            }
-          />
+          {displayToolTip && (
+            <Tooltip
+              isAnimationActive={false}
+              cursor={{ strokeDasharray: '4px 4px', stroke: theme.colors.grey }}
+              content={({ payload }) =>
+                formatTooltipItems && payload?.[0]?.payload ? (
+                  <ChartTooltipContent items={formatTooltipItems(payload[0].payload)} />
+                ) : null
+              }
+            />
+          )}
 
           <Area
             isAnimationActive={false}

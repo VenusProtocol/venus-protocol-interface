@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Transactions > displays content correctly 1`] = `"All transactionsAll marketsAug 23, 2024Withdraw4:17 AM> 100T USDT$24.06K • vUSDT • MetaverseViewAug 6, 2024Supply2:18 AM> 100T USDT$24.01K • vUSDT • MetaverseViewAug 5, 2024Borrow2:18 AM> 100T USDT$24.01K • vUSDT • MetaverseViewAug 4, 2024Repayment2:18 AM> 100T USDT$24.01K • vUSDT • MetaverseViewAug 3, 2024Enabled collateral2:18 AMEnabled vUSDT as collateralMetaverseViewDisabled collateral2:18 AMDisabled vUSDT as collateralMetaverseViewAug 2, 2024Approval2:18 AMApproved spending > 100T vUSDTvUSDT • MetaverseView"`;
-
-exports[`Transactions > displays placeholder when there are no transactions to display 1`] = `"All transactionsAll marketsNo transactions yetYour transactions will appear here"`;

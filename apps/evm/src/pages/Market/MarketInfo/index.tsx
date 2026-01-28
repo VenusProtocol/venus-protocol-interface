@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { LabeledInlineContent } from 'components';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';

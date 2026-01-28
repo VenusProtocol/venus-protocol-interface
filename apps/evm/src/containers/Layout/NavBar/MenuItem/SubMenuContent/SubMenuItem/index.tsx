@@ -29,8 +29,6 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
 
   const linkNavProps = to ? { to } : { href };
 
-  console.log(imgSrc);
-
   return (
     <Link
       {...linkNavProps}

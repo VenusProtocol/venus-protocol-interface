@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import {
   calculatePercentage,
