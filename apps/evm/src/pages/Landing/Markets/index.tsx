@@ -8,6 +8,7 @@ import { useIsMdDown, useIsSmDown } from 'hooks/responsive';
 import { useChain } from 'hooks/useChain';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { compareBigNumbers, isAssetPaused } from 'utilities';
 
 export interface MarketsProps {
@@ -21,9 +22,11 @@ export const Markets: React.FC<MarketsProps> = ({ className }) => {
   const isMd = useIsMdDown();
 
   const { marketsPagePath } = useGetMarketsPagePath();
+  const { accountAddress } = useAccountAddress();
 
   const { data: getLegacyPoolData } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
+    accountAddress,
   });
   const pool = getLegacyPoolData?.pool;
   const assets = pool?.assets || [];
