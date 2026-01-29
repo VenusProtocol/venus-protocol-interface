@@ -19,9 +19,7 @@ describe('Staking', () => {
       isLoading: false,
     }));
 
-    const { container, queryAllByText, debug } = renderComponent(<Staking />);
-
-    debug();
+    const { container, queryAllByText } = renderComponent(<Staking />);
 
     await waitFor(() => expect(queryAllByText(en.vault.totalStaked).length).not.toBe(0));
 
@@ -29,11 +27,9 @@ describe('Staking', () => {
   });
 
   it('displays content correctly when user is connected', async () => {
-    const { container, queryAllByText, debug } = renderComponent(<Staking />, {
+    const { container, queryAllByText } = renderComponent(<Staking />, {
       accountAddress: fakeAccountAddress,
     });
-
-    debug();
 
     await waitFor(() => expect(queryAllByText(en.vault.dailyEmission).length).not.toBe(0));
 

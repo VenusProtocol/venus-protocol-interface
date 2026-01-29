@@ -7,6 +7,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router';
 import { TxType } from 'types';
+import { areAddressesEqual } from 'utilities';
 import { Placeholder } from '../Placeholder';
 import { List } from './List';
 
@@ -57,8 +58,6 @@ export const Transactions: React.FC = () => {
   const txTypeNumber = Number(txTypeStr);
   const txType = !Number.isNaN(txTypeNumber) ? txTypeNumber : undefined;
 
-  const selectedContractAddress = searchParams.get(CONTRACT_ADDRESS_PARAM_KEY) ?? ALL_OPTION_VALUE;
-
   const setTxType = (newTxType: string) =>
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
@@ -85,40 +84,6 @@ export const Transactions: React.FC = () => {
   const isTransactionHistoryFeatureEnabled = useIsFeatureEnabled({
     name: 'transactionHistory',
   });
-  const { data: accountTransactionHistoryData, isLoading: isGetAccountTransactionHistoryLoading } =
-    useGetAccountTransactionHistory(
-      {
-        accountAddress: accountAddress || NULL_ADDRESS,
-        page,
-        contractAddress: selectedContractAddress,
-        type: txType,
-      },
-      {
-        enabled: !!accountAddress && isTransactionHistoryFeatureEnabled,
-      },
-    );
-
-  const txTypeSelectOptions = useMemo(() => {
-    const allOption: SelectOption<string> = {
-      label: t('dashboard.transactions.selects.txType.all'),
-      value: 'all',
-    };
-
-    const otherOptions: SelectOption<string>[] = [];
-
-    let value = 0;
-    for (const typeStr in TxType) {
-      if (typeStr) {
-        otherOptions.push({
-          label: t(getTxTypeOptionTranslationKey(TxType[typeStr as keyof typeof TxType])),
-          value: value.toString(),
-        });
-        value++;
-      }
-    }
-
-    return [allOption, ...otherOptions];
-  }, [t]);
 
   const sourceSelectOptions = useMemo(() => {
     const allOption: SelectOption<string> = {
@@ -155,6 +120,49 @@ export const Transactions: React.FC = () => {
     return [allOption, ...otherOptions];
   }, [t, poolData]);
 
+  const contractAddressSearchParam = searchParams.get(CONTRACT_ADDRESS_PARAM_KEY) ?? undefined;
+
+  const selectedContractAddress =
+    contractAddressSearchParam &&
+    sourceSelectOptions.some(option => areAddressesEqual(option.value, contractAddressSearchParam))
+      ? contractAddressSearchParam
+      : ALL_OPTION_VALUE;
+
+  const { data: accountTransactionHistoryData, isLoading: isGetAccountTransactionHistoryLoading } =
+    useGetAccountTransactionHistory(
+      {
+        accountAddress: accountAddress || NULL_ADDRESS,
+        page,
+        contractAddress: selectedContractAddress,
+        type: txType,
+      },
+      {
+        enabled: !!accountAddress && isTransactionHistoryFeatureEnabled,
+      },
+    );
+
+  const txTypeSelectOptions = useMemo(() => {
+    const allOption: SelectOption<string> = {
+      label: t('dashboard.transactions.selects.txType.all'),
+      value: 'all',
+    };
+
+    const otherOptions: SelectOption<string>[] = [];
+
+    let value = 0;
+    for (const typeStr in TxType) {
+      if (typeStr) {
+        otherOptions.push({
+          label: t(getTxTypeOptionTranslationKey(TxType[typeStr as keyof typeof TxType])),
+          value: value.toString(),
+        });
+        value++;
+      }
+    }
+
+    return [allOption, ...otherOptions];
+  }, [t]);
+
   const transactions = accountTransactionHistoryData?.transactions || [];
 
   const transactionCount = accountTransactionHistoryData?.count || 0;
@@ -163,18 +171,9 @@ export const Transactions: React.FC = () => {
     return <Spinner />;
   }
 
-  if (transactions.length === 0) {
-    return (
-      <Placeholder
-        iconName="transactionFile"
-        title={t('dashboard.transactions.placeholder.title')}
-      />
-    );
-  }
-
   return (
     <div className="space-y-6 sm:space-y-3">
-      <div className="space-y-6 sm:p-6 sm:rounded-lg sm:space-y-10 sm:border sm:border-dark-blue-hover">
+      <div className="space-y-6">
         <div className="flex gap-3">
           <Select
             className="flex-1 sm:flex-none"
@@ -203,7 +202,14 @@ export const Transactions: React.FC = () => {
           />
         </div>
 
-        <List transactions={transactions} />
+        {transactions.length > 0 ? (
+          <List transactions={transactions} />
+        ) : (
+          <Placeholder
+            iconName="transactionFile"
+            title={t('dashboard.transactions.placeholder.title')}
+          />
+        )}
       </div>
 
       <Pagination

@@ -1,7 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`AdCarousel > displays correctly 1`] = `"Achieve greater heights with Venus PrimeVenus Prime rewards dedicated users for their lending and borrowing activities.Calculate your Prime rewards"`;
-
-exports[`AdCarousel > displays nothing if user previously hid the carousel 1`] = `""`;
-
-exports[`AdCarousel > hide banners if user hides it 1`] = `""`;

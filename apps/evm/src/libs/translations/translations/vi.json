@@ -22,6 +22,49 @@
     "learnMore": "Tìm hiểu thêm",
     "startNow": "Bắt đầu ngay"
   },
+  "adCarousel": {
+    "boostBanner": {
+      "buttonLabel": "Tìm hiểu thêm",
+      "description": "Đòn bẩy một lần nhấp để tăng lợi suất tối đa 5x.",
+      "rocketIllustration": {
+        "altText": "Hình minh họa tên lửa"
+      },
+      "title": "Tăng cường đã khả dụng!"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "Nền sa mạc xanh"
+      },
+      "buttonLabel": "Tìm hiểu thêm",
+      "coinsIllustration": {
+        "altText": "Hình minh họa đồng xu"
+      },
+      "description": "Nhận phần thưởng của bạn và đóng vị thế",
+      "title": "Các pool cô lập đang được dừng"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "Nền đường chân trời"
+      },
+      "buttonLabel": "Bắt đầu ngay",
+      "coinIllustration": {
+        "altText": "Hình minh họa đồng xu"
+      },
+      "description": "Tăng niềm tin của bạn trên probable.markets",
+      "title": "Bạn tin vào điều gì?"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "Nền thiên hà"
+      },
+      "buttonLabel": "Bắt đầu ngay",
+      "description": "Hãy để thanh khoản của bạn Flux, theo dõi lợi suất tăng trưởng.",
+      "title": "Chia sẻ $1M phần thưởng Venus Flux",
+      "venusFluxIcon": {
+        "altText": "Biểu tượng Venus Flux"
+      }
+    }
+  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance đã tạm dừng rút BETH vào 2023-04-26. Chúng tôi khuyến nghị người dùng giảm mức tiếp xúc với BETH trên Venus. Việc vay đã bị tạm dừng. Chuyển BETH sang WBETH on-chain theo tỷ lệ 1:1 <Link>tại đây</Link>."
@@ -268,18 +311,6 @@
     "connectButton": "Kết nối ví"
   },
   "dashboard": {
-    "adCarousel": {
-      "primeBanner": {
-        "button": {
-          "label": "Tính phần thưởng Prime của bạn"
-        },
-        "description": "Venus Prime thưởng cho người dùng tận tâm vì hoạt động cho vay và vay của họ.",
-        "illustration": {
-          "altText": "Minh họa Prime"
-        },
-        "title": "Đạt tầm cao mới cùng <Gradient>Venus Prime</Gradient>"
-      }
-    },
     "guide": {
       "completed": "Hoàn thành",
       "step1": {
@@ -296,8 +327,24 @@
       },
       "uncompleted": "Chưa hoàn thành"
     },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "Hình minh họa E-mode",
+          "title": "E-mode: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "Đã vay",
+      "suppliedTabTitle": "Đã cung cấp",
+      "title": "Tài sản"
+    },
     "overview": {
       "absolutePerformance": "Hiệu suất tuyệt đối",
+      "healthFactor": {
+        "tooltip": "Hệ số an toàn (thanh lý tại < 1.0)"
+      },
       "netWorth": {
         "label": "Giá trị ròng",
         "tooltip": "Tài sản ròng khả dụng sau khi tính stake trong vault và khoản vay",
@@ -339,6 +386,21 @@
     "placeholder": {
       "buttonLabel": "Duyệt"
     },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "Chưa có vị thế vay"
+        }
+      },
+      "placeholder": {
+        "title": "Chưa có vị thế cung cấp hoặc vay"
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "Chưa có vị thế cung cấp"
+        }
+      }
+    },
     "staking": {
       "placeholder": {
         "title": "Chưa có vị thế staking"
@@ -353,11 +415,11 @@
       "borrowButton": {
         "label": "Vay"
       },
-      "interactiveTitle": "Top <SupplyButton>Cung</SupplyButton> / <BorrowButton>Vay</BorrowButton> trên Venus",
+      "interactiveTitle": "Điểm nổi bật (<Group><SupplyButton>cung cấp</SupplyButton>/<BorrowButton>vay</BorrowButton></Group>)",
       "supplyButton": {
         "label": "Cung"
       },
-      "textTitle": "Top thị trường trên Venus"
+      "textTitle": "Điểm nổi bật"
     },
     "transactions": {
       "placeholder": {
@@ -580,6 +642,7 @@
       "protectionTitle": "Ưu tiên bảo vệ"
     },
     "safety": {
+      "audit_one": "Kiểm toán",
       "audit_other": "Các cuộc kiểm toán",
       "otherAuditors": "+14 cuộc kiểm toán với <br />Fairyproof, Hacken và HashEx",
       "scoreAlt": "Minh họa điểm số",
@@ -789,6 +852,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "Sức mạnh vay của bạn tăng lên khi chỉ cung cấp tài sản trong nhóm {{ eModeGroupName }}",
       "label": "Cô lập"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "APY vay",
+        "supplyApyLabel": "APY cung cấp",
+        "supplyBalanceLabel": "Số dư cung cấp",
+        "title": "Khuyến nghị"
+      }
     },
     "tabs": {
       "assets": {

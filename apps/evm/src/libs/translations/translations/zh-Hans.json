@@ -22,6 +22,49 @@
     "learnMore": "了解更多",
     "startNow": "立即开始"
   },
+  "adCarousel": {
+    "boostBanner": {
+      "buttonLabel": "了解更多",
+      "description": "一键杠杆提升收益，最高 5 倍",
+      "rocketIllustration": {
+        "altText": "火箭插图"
+      },
+      "title": "Boost 已上线！"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "蓝色沙漠背景"
+      },
+      "buttonLabel": "了解更多",
+      "coinsIllustration": {
+        "altText": "硬币插图"
+      },
+      "description": "领取奖励并关闭你的仓位",
+      "title": "隔离池即将关闭"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "地平线背景"
+      },
+      "buttonLabel": "立即开始",
+      "coinIllustration": {
+        "altText": "硬币插图"
+      },
+      "description": "在 probable.markets 上增强你的信念",
+      "title": "预测点什么？"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "银河背景"
+      },
+      "buttonLabel": "立即开始",
+      "description": "让你的流动性 Flux，见证收益增长。",
+      "title": "分享 $1M Venus Flux 激励",
+      "venusFluxIcon": {
+        "altText": "Venus Flux 图标"
+      }
+    }
+  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance 于 2023-04-26 暂停了 BETH 提现。我们建议用户减少在 Venus 上的 BETH 曝险。借款已暂停。可在链上按 1:1 比例将 BETH 转换为 WBETH，<Link>点击此处</Link>。"
@@ -268,18 +311,6 @@
     "connectButton": "连接钱包"
   },
   "dashboard": {
-    "adCarousel": {
-      "primeBanner": {
-        "button": {
-          "label": "计算您的 Prime 奖励"
-        },
-        "description": "Venus Prime 会奖励在借贷活动中积极参与的用户。",
-        "illustration": {
-          "altText": "Prime 插图"
-        },
-        "title": "与 <Gradient>Venus Prime</Gradient> 一起登上更高境界"
-      }
-    },
     "guide": {
       "completed": "已完成",
       "step1": {
@@ -296,8 +327,24 @@
       },
       "uncompleted": "未完成"
     },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "E-mode插图",
+          "title": "E-mode: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "已借入",
+      "suppliedTabTitle": "已存款",
+      "title": "资产"
+    },
     "overview": {
       "absolutePerformance": "绝对表现",
+      "healthFactor": {
+        "tooltip": "健康系数（清算阈值 < 1.0）"
+      },
       "netWorth": {
         "label": "净值",
         "tooltip": "在计入金库质押和借款后可用的净资产",
@@ -339,6 +386,21 @@
     "placeholder": {
       "buttonLabel": "浏览"
     },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "暂无借入仓位"
+        }
+      },
+      "placeholder": {
+        "title": "暂无存款或借入仓位"
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "暂无存款仓位"
+        }
+      }
+    },
     "staking": {
       "placeholder": {
         "title": "暂无质押头寸"
@@ -353,11 +415,11 @@
       "borrowButton": {
         "label": "借款"
       },
-      "interactiveTitle": "Venus 顶级 <SupplyButton>供应</SupplyButton> / <BorrowButton>借款</BorrowButton>",
+      "interactiveTitle": "焦点（<Group><SupplyButton>存款</SupplyButton>/<BorrowButton>借款</BorrowButton></Group>）",
       "supplyButton": {
-        "label": "供应"
+        "label": "存款"
       },
-      "textTitle": "Venus 顶级市场"
+      "textTitle": "焦点"
     },
     "transactions": {
       "placeholder": {
@@ -580,6 +642,7 @@
       "protectionTitle": "安全保障优先"
     },
     "safety": {
+      "audit_one": "审计",
       "audit_other": "审计",
       "otherAuditors": "+14 次审计，来自 <br />Fairyproof、Hacken 和 HashEx",
       "scoreAlt": "评分插图",
@@ -789,6 +852,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "仅向 {{ eModeGroupName }} 组内资产存款可提升你的借款能力",
       "label": "隔离"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "借款 APY",
+        "supplyApyLabel": "存款 APY",
+        "supplyBalanceLabel": "存款余额",
+        "title": "推荐"
+      }
     },
     "tabs": {
       "assets": {

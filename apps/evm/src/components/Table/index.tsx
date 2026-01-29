@@ -22,6 +22,7 @@ export * from './types';
 export function Table<R>({
   controls = true,
   columns,
+  className,
   cardClassName,
   cardColumns,
   data,
@@ -33,6 +34,7 @@ export function Table<R>({
   rowKeyExtractor,
   breakpoint,
   isFetching,
+  variant = 'primary',
   header,
   placeholder,
   selectVariant,
@@ -73,7 +75,11 @@ export function Table<R>({
   }, [data, order]);
 
   return (
-    <Card css={styles.getRoot({ breakpoint })} {...otherProps}>
+    <Card
+      css={styles.getRoot({ breakpoint })}
+      className={cn('py-0', variant === 'secondary' && 'border-0', className)}
+      {...otherProps}
+    >
       {title && (
         <div css={styles.getTitle({ breakpoint })} className="text-lg h-8">
           {title}
@@ -94,6 +100,7 @@ export function Table<R>({
           <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
             <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })}>
               <Head
+                className={cn(variant === 'primary' && 'border-b border-dark-blue-hover')}
                 controls={controls}
                 columns={columns}
                 orderBy={order?.orderBy}
@@ -128,7 +135,10 @@ export function Table<R>({
                       key={rowKey}
                       css={[
                         styles.link,
-                        styles.getTableRow({ clickable: !!getRowHref || !!rowOnClick }),
+                        styles.getTableRow({
+                          clickable: !!getRowHref || !!rowOnClick,
+                          rounded: variant === 'secondary',
+                        }),
                       ]}
                       onClick={
                         rowOnClick

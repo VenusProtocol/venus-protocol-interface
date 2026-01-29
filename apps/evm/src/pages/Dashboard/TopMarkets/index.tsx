@@ -1,7 +1,8 @@
 import { Spinner, cn } from '@venusprotocol/ui';
 
 import { useGetPool } from 'clients/api';
-import { AssetCard, type AssetCardProps, ButtonGroup } from 'components';
+import { ButtonGroup, Icon } from 'components';
+import { AssetCard, type AssetCardProps } from 'containers/AssetCard';
 import { useChain } from 'hooks/useChain';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -28,7 +29,8 @@ export const TopMarkets: React.FC = () => {
     // Filter out non-borrowable assets if we're displaying the top borrow markets
     .filter(
       asset =>
-        type !== 'borrow' || (asset.isBorrowable && !asset.disabledTokenActions.includes('borrow')),
+        type !== 'borrow' ||
+        (asset.isBorrowableByUser && !asset.disabledTokenActions.includes('borrow')),
     )
     .sort((assetA, assetB) => {
       if (type === 'supply') {
@@ -56,23 +58,32 @@ export const TopMarkets: React.FC = () => {
   return (
     <div className="space-y-3 xl:border xl:border-dark-blue-hover xl:rounded-lg xl:p-6 xl:space-y-6">
       {/* Mobile/tablet header */}
-      <div className="flex items-baseline font-semibold xl:hidden">
-        <Trans
-          i18nKey="dashboard.topMarkets.interactiveTitle"
-          components={{
-            SupplyButton: (
-              <TypeButton isActive={type === 'supply'} onClick={() => setType('supply')} />
-            ),
-            BorrowButton: (
-              <TypeButton isActive={type === 'borrow'} onClick={() => setType('borrow')} />
-            ),
-          }}
-        />
+      <div className="flex items-center gap-x-2 xl:hidden">
+        <Icon name="crown" className="text-yellow shrink-0" />
+
+        <span className="font-semibold flex grow">
+          <Trans
+            i18nKey="dashboard.topMarkets.interactiveTitle"
+            components={{
+              SupplyButton: (
+                <TypeButton isActive={type === 'supply'} onClick={() => setType('supply')} />
+              ),
+              BorrowButton: (
+                <TypeButton isActive={type === 'borrow'} onClick={() => setType('borrow')} />
+              ),
+              Group: <div className="flex items-center gap-x-2" />,
+            }}
+          />
+        </span>
       </div>
 
       {/* Desktop header */}
       <div className="space-y-6 hidden xl:block">
-        <p className="font-semibold">{t('dashboard.topMarkets.textTitle')}</p>
+        <div className="flex items-center gap-x-2">
+          <Icon name="crown" className="text-yellow shrink-0" />
+
+          <p className="font-semibold grow">{t('dashboard.topMarkets.textTitle')}</p>
+        </div>
 
         <ButtonGroup
           buttonLabels={[

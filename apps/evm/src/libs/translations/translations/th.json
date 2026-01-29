@@ -22,6 +22,49 @@
     "learnMore": "เรียนรู้เพิ่มเติม",
     "startNow": "เริ่มตอนนี้"
   },
+  "adCarousel": {
+    "boostBanner": {
+      "buttonLabel": "เรียนรู้เพิ่มเติม",
+      "description": "เลเวอเรจคลิกเดียวเพื่อบูสต์ผลตอบแทนของคุณ สูงสุด 5 เท่า.",
+      "rocketIllustration": {
+        "altText": "ภาพประกอบจรวด"
+      },
+      "title": "Boost ใช้งานได้แล้ว!"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "พื้นหลังทะเลทรายสีน้ำเงิน"
+      },
+      "buttonLabel": "เรียนรู้เพิ่มเติม",
+      "coinsIllustration": {
+        "altText": "ภาพประกอบเหรียญ"
+      },
+      "description": "รับรางวัลของคุณและปิดตำแหน่งของคุณ",
+      "title": "พูลแบบแยกกำลังจะยุติการให้บริการ"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "พื้นหลังเส้นขอบฟ้า"
+      },
+      "buttonLabel": "เริ่มตอนนี้",
+      "coinIllustration": {
+        "altText": "ภาพประกอบเหรียญ"
+      },
+      "description": "เพิ่มความเชื่อมั่นของคุณบน probable.markets",
+      "title": "คุณเชื่อในสิ่งใดไหม?"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "พื้นหลังกาแล็กซี"
+      },
+      "buttonLabel": "เริ่มตอนนี้",
+      "description": "ปล่อยให้สภาพคล่องของคุณ Flux แล้วดูผลตอบแทนเติบโต",
+      "title": "ร่วมแบ่งปันรางวัล Venus Flux มูลค่า $1M",
+      "venusFluxIcon": {
+        "altText": "ไอคอน Venus Flux"
+      }
+    }
+  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance ได้หยุดการถอน BETH เมื่อ 2023-04-26 เราแนะนำให้ผู้ใช้ลดการถือครอง BETH บน Venus การยืมถูกระงับแล้ว สามารถแปลง BETH เป็น WBETH แบบออนเชนที่อัตรา 1:1 <Link>ที่นี่</Link>."
@@ -268,18 +311,6 @@
     "connectButton": "เชื่อมต่อกระเป๋า"
   },
   "dashboard": {
-    "adCarousel": {
-      "primeBanner": {
-        "button": {
-          "label": "คำนวณรางวัล Prime ของคุณ"
-        },
-        "description": "Venus Prime มอบรางวัลให้กับผู้ใช้ที่ทุ่มเทสำหรับกิจกรรมการฝากและการยืมของพวกเขา",
-        "illustration": {
-          "altText": "ภาพประกอบ Prime"
-        },
-        "title": "ก้าวสู่ระดับที่สูงขึ้นด้วย <Gradient>Venus Prime</Gradient>"
-      }
-    },
     "guide": {
       "completed": "เสร็จสิ้น",
       "step1": {
@@ -296,8 +327,24 @@
       },
       "uncompleted": "ยังไม่เสร็จ"
     },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "ภาพประกอบ E-mode",
+          "title": "E-mode: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "ยืมแล้ว",
+      "suppliedTabTitle": "ฝากแล้ว",
+      "title": "สินทรัพย์"
+    },
     "overview": {
       "absolutePerformance": "ผลการดำเนินงานแบบสัมบูรณ์",
+      "healthFactor": {
+        "tooltip": "ตัวคูณความปลอดภัย (ถูกชำระบัญชีเมื่อ < 1.0)"
+      },
       "netWorth": {
         "label": "มูลค่าสุทธิ",
         "tooltip": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์และการยืม",
@@ -339,6 +386,21 @@
     "placeholder": {
       "buttonLabel": "เรียกดู"
     },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "ยังไม่มีสถานะการยืม"
+        }
+      },
+      "placeholder": {
+        "title": "ยังไม่มีสถานะการฝากหรือยืม"
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "ยังไม่มีสถานะการฝาก"
+        }
+      }
+    },
     "staking": {
       "placeholder": {
         "title": "ยังไม่มีสถานะการสเตค"
@@ -353,11 +415,11 @@
       "borrowButton": {
         "label": "ยืม"
       },
-      "interactiveTitle": "อันดับสูงสุดของ <SupplyButton>ฝาก</SupplyButton> / <BorrowButton>ยืม</BorrowButton> บน Venus",
+      "interactiveTitle": "ไฮไลต์ (<Group><SupplyButton>ฝาก</SupplyButton>/<BorrowButton>ยืม</BorrowButton></Group>)",
       "supplyButton": {
         "label": "ฝาก"
       },
-      "textTitle": "ตลาดยอดนิยมบน Venus"
+      "textTitle": "ไฮไลต์"
     },
     "transactions": {
       "placeholder": {
@@ -580,6 +642,7 @@
       "protectionTitle": "ให้ความสำคัญกับการปกป้อง"
     },
     "safety": {
+      "audit_one": "การตรวจสอบ",
       "audit_other": "การตรวจสอบ",
       "otherAuditors": "+14 การตรวจสอบโดย <br />Fairyproof, Hacken และ HashEx",
       "scoreAlt": "ภาพประกอบคะแนน",
@@ -789,6 +852,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "พลังการยืมของคุณจะเพิ่มขึ้นเมื่อฝากเฉพาะสินทรัพย์จากกลุ่ม {{ eModeGroupName }}",
       "label": "แยก"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "APY การยืม",
+        "supplyApyLabel": "APY การฝาก",
+        "supplyBalanceLabel": "ยอดฝากคงเหลือ",
+        "title": "คำแนะนำ"
+      }
     },
     "tabs": {
       "assets": {

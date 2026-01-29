@@ -12,12 +12,15 @@ import {
 } from 'clients/api';
 import {
   AccordionAnimatedContent,
+  AccountHealthBar,
   ButtonGroup,
-  Cell,
   CellGroup,
   type CellProps,
+  Delimiter,
+  HealthFactorPill,
   Icon,
   InfoIcon,
+  Tooltip,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
@@ -34,6 +37,7 @@ import {
   formatPercentageToReadableValue,
 } from 'utilities';
 import { DollarValueChange } from './DollarValueChange';
+import { GridCellGroup } from './GridCellGroup';
 import { PerformanceChart } from './PerformanceChart';
 import { testIds } from './testIds';
 import { useExtractData } from './useExtractData';
@@ -285,7 +289,7 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
           </div>
         )}
 
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-3">
           <p className="text-3xl">
             <HidableUserBalance>{readableNetWorth}</HidableUserBalance>
           </p>
@@ -296,6 +300,14 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
               className="size-5"
             />
           </button>
+
+          {!!accountAddress &&
+            pool?.userHealthFactor !== undefined &&
+            pool?.userBorrowBalanceCents?.isGreaterThan(0) && (
+              <Tooltip content={t('dashboard.overview.healthFactor.tooltip')}>
+                <HealthFactorPill factor={pool.userHealthFactor} showLabel />
+              </Tooltip>
+            )}
         </div>
       </div>
 
@@ -333,33 +345,42 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
       </button>
 
       {shouldShowAccountBreakdown && (
-        <AccordionAnimatedContent isOpen={isAccordionOpen} className="pt-6 flex flex-col gap-y-6">
-          <ButtonGroup
-            buttonLabels={periodOptions.map(p => p.label)}
-            className="gap-x-1 inline-flex ml-auto"
-            buttonClassName="h-8 font-normal"
-            activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
-            onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
-          />
+        <AccordionAnimatedContent isOpen={isAccordionOpen} className="pt-6">
+          <div className="space-y-6 mb-8">
+            <div className="flex flex-col">
+              <ButtonGroup
+                buttonLabels={periodOptions.map(p => p.label)}
+                className="gap-x-1 inline-flex ml-auto"
+                buttonClassName="h-8 font-normal"
+                activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
+                onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
+              />
 
-          <PerformanceChart
-            displayAxes
-            onSelectedDataPointChange={setSelectedDataPoint}
-            accountPerformanceHistory={accountPerformanceHistory}
-            onRefetch={refetchAccountPerformanceHistoryData}
-            error={getAccountPerformanceHistoryError ?? undefined}
-            className="mb-6 shrink-0"
-          />
-
-          <div className="space-y-3">
-            <p className="text-lg">{t('dashboard.overview.summary.title')}</p>
-
-            <div className="grid grid-cols-2 gap-3 2xl:grid-cols-3">
-              {summaryCells.map(cell => (
-                <Cell {...cell} key={cell.label} />
-              ))}
+              <PerformanceChart
+                displayAxes
+                onSelectedDataPointChange={setSelectedDataPoint}
+                accountPerformanceHistory={accountPerformanceHistory}
+                onRefetch={refetchAccountPerformanceHistoryData}
+                error={getAccountPerformanceHistoryError ?? undefined}
+                className="shrink-0"
+              />
             </div>
+
+            <div className="space-y-3">
+              <p className="text-lg">{t('dashboard.overview.summary.title')}</p>
+
+              <GridCellGroup cells={summaryCells} />
+            </div>
+
+            {pool?.userBorrowBalanceCents && pool?.userBorrowLimitCents && (
+              <AccountHealthBar
+                borrowBalanceCents={pool.userBorrowBalanceCents.toNumber() ?? 0}
+                borrowLimitCents={pool.userBorrowLimitCents.toNumber() ?? 0}
+              />
+            )}
           </div>
+
+          <Delimiter />
         </AccordionAnimatedContent>
       )}
     </div>

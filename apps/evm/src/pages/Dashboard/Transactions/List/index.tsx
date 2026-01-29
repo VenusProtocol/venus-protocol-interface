@@ -45,7 +45,7 @@ export const List: React.FC<ListProps> = ({ transactions, className }) => {
   return (
     <ul
       className={cn(
-        'flex flex-col w-full items-center justify-evenly space-y-6 sm:space-y-4',
+        'flex flex-col w-full items-center justify-evenly space-y-6 sm:space-y-4 sm:border sm:p-6 sm:rounded-lg sm:border-dark-blue-hover',
         className,
       )}
     >
