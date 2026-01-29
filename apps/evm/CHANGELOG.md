@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.0.2
+
+### Patch Changes
+
+- b77c0c8: fix E-mode tooltip
+
 ## 4.0.1
 
 ### Patch Changes
