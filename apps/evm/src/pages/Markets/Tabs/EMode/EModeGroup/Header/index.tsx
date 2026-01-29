@@ -92,10 +92,10 @@ export const Header: React.FC<HeaderProps> = ({
           isEModeGroupEnabled
             ? // Translation key: do not remove this comment
               // t('markets.eMode.group.cannotDisable.tooltip.blockingPositions')
-              'pool.eMode.group.cannotDisable.tooltip.blockingPositions'
+              'markets.eMode.group.cannotDisable.tooltip.blockingPositions'
             : // Translation key: do not remove this comment
               // t('markets.eMode.group.cannotEnable.tooltip.blockingPositions')
-              'pool.eMode.group.cannotEnable.tooltip.blockingPositions'
+              'markets.eMode.group.cannotEnable.tooltip.blockingPositions'
         }
         components={{
           Link: (
