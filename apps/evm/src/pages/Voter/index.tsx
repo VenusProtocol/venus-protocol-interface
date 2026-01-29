@@ -82,7 +82,7 @@ const Voter: React.FC = () => {
     isGetVoterHistoryFetching && (isGetVoterHistoryPreviousData || voterHistory.length === 0);
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       <VoterUi
         balanceMantissa={voterDetails?.balanceMantissa}
         delegateCount={voterDetails?.delegateCount}

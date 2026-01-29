@@ -211,7 +211,7 @@ const Proposal = () => {
   }
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       <ProposalUi
         proposal={proposal}
         vote={vote}

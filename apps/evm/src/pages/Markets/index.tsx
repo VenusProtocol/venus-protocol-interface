@@ -30,7 +30,7 @@ export const Markets: React.FC = () => {
   }
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       {pool ? (
         pool.eModeGroups.length > 0 ? (
           <Tabs pool={pool} />

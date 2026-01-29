@@ -145,7 +145,7 @@ export const Dashboard: React.FC = () => {
   }
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       {isPrimeFeatureEnabled && !isUserPrime && primeBoostPercentage && (
         <PrimeBanner
           className="mb-4 lg:mb-6"

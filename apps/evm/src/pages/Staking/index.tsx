@@ -38,7 +38,7 @@ const StakingPage: React.FC = () => {
   });
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       <StakingUi vaults={vaults} isInitialLoading={isGetVaultsLoading} />
     </Page>
   );

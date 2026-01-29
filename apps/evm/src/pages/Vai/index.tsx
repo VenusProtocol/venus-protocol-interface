@@ -16,7 +16,7 @@ const Vai: React.FC = () => {
   ];
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       <div className="mx-auto w-full max-w-[544px]">
         <Notice
           className="mb-4 sm:mb-6"
