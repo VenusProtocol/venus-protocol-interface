@@ -1,5 +1,35 @@
 # @venusprotocol/landing
 
+## 1.24.0
+
+### Minor Changes
+
+- 68b31bb: start updating layout
+- 68b31bb: add chainId property to tokens
+- 68b31bb: update theme
+- 68b31bb: add responsive menu
+- 68b31bb: add support for multiple languages
+- 68b31bb: new hero and market list for landing
+- 68b31bb: update components to match new designs
+
+### Patch Changes
+
+- 68b31bb: new landing phase 2
+- 68b31bb: migrate landing to evm
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+- Updated dependencies [68b31bb]
+  - @venusprotocol/ui@0.8.0
+  - @venusprotocol/chains@0.21.0
+
 ## 1.23.0
 
 ### Minor Changes
