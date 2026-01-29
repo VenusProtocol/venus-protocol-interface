@@ -4,6 +4,7 @@ import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { AdCarousel } from './AdCarousel';
 import { Guide } from './Guide';
+import { Markets } from './Markets';
 import { Overview } from './Overview';
 import { Staking } from './Staking';
 import { TopMarkets } from './TopMarkets';
@@ -20,7 +21,7 @@ export const Dashboard: React.FC = () => {
     {
       title: t('dashboard.tabs.markets'),
       id: 'markets',
-      content: <></>, // TODO: add content
+      content: <Markets />,
     },
     {
       title: t('dashboard.tabs.staking'),

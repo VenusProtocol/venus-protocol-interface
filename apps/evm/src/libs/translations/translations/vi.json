@@ -1,4 +1,13 @@
 {
+  "account": {
+    "marketBreakdown": {
+      "tables": {
+        "eModeHeader": {
+          "title": "TRANSLATION NEEDED"
+        }
+      }
+    }
+  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "Số dư vay",
@@ -296,6 +305,18 @@
       },
       "uncompleted": "Chưa hoàn thành"
     },
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "TRANSLATION NEEDED",
+        "eModeHeader": {
+          "illustrationAltText": "TRANSLATION NEEDED"
+        },
+        "supplyTableTitle": "TRANSLATION NEEDED",
+        "tabletBorrowTabTitle": "TRANSLATION NEEDED",
+        "tabletSupplyTabTitle": "TRANSLATION NEEDED",
+        "tabletTitle": "TRANSLATION NEEDED"
+      }
+    },
     "overview": {
       "absolutePerformance": "Hiệu suất tuyệt đối",
       "netWorth": {
@@ -339,9 +360,30 @@
     "placeholder": {
       "buttonLabel": "Duyệt"
     },
+    "pools": {
+      "placeholder": {
+        "title": "TRANSLATION NEEDED"
+      }
+    },
+    "poolsBreakdown": {
+      "poolTagTooltip": "TRANSLATION NEEDED"
+    },
     "staking": {
       "placeholder": {
         "title": "Chưa có vị thế staking"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "TRANSLATION NEEDED",
+        "healthFactor": "TRANSLATION NEEDED",
+        "healthFactorTooltip": "TRANSLATION NEEDED",
+        "netApy": "TRANSLATION NEEDED",
+        "netApyTooltip": "TRANSLATION NEEDED",
+        "netApyWithVaultStakeTooltip": "TRANSLATION NEEDED",
+        "totalBorrow": "TRANSLATION NEEDED",
+        "totalSupply": "TRANSLATION NEEDED",
+        "totalVaultStake": "TRANSLATION NEEDED"
       }
     },
     "tabs": {
