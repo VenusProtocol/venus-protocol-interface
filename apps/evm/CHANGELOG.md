@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.0.1
+
+### Patch Changes
+
+- 7b695ee: update default adapter param for bridge transactions
+
 ## 4.0.0
 
 ### Major Changes
