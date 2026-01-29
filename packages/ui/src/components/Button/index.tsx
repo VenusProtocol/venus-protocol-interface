@@ -17,18 +17,24 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
   switch (variant) {
     case 'secondary':
       return cn(
-        'border-mediumBlue hover:border-blue hover:bg-blue active:border-mediumBlue active:bg-mediumBlue disabled:border-lightGrey disabled:bg-transparent',
-        active && 'border-blue bg-blue',
+        'bg-dark-blue-disabled text-light-grey',
+        active
+          ? 'border-blue bg-blue text-white'
+          : 'hover:border-blue-hover hover:text-blue active:border-blue active:bg-blue active:text-white',
       );
     case 'tertiary':
       return cn(
-        'border-lightGrey bg-lightGrey active:border-grey active:bg-grey disabled:bg-lightGrey h-10 px-3 disabled:border-transparent',
-        active ? 'border-grey bg-grey' : 'hover:border-blue',
+        'border-dark-blue-active bg-dark-blue-active disabled:bg-lightGrey disabled:border-transparent',
+        active
+          ? 'bg-blue border-blue'
+          : 'hover:text-blue hover:border-blue hover:bg-dark-blue-disabled active:bg-blue active:text-white',
       );
     case 'quaternary':
       return cn(
-        'active:border:text-grey border-lightGrey bg-lightGrey active:text-grey h-8 rounded-full px-2 py-1 disabled:border-transparent',
-        active ? 'border-grey bg-grey' : 'hover:border-blue hover:bg-lightGrey',
+        'bg-dark-blue-active border-dark-blue-active',
+        active
+          ? 'bg-dark-blue-active border-blue'
+          : 'hover:bg-dark-blue-hover hover:border-dark-blue-hover active:bg-dark-blue-active active:border-blue',
       );
     case 'quinary':
       return cn(
@@ -42,14 +48,16 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
       );
     case 'text':
       return cn(
-        'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0',
+        'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 disabled:bg-transparent disabled:border-transparent',
         active && 'text-mediumBlue',
       );
     // primary
     default:
       return cn(
-        'border-blue bg-blue active:border-darkBlue active:bg-darkBlue disabled:border-lightGrey disabled:bg-lightGrey hover:border-mediumBlue hover:bg-mediumBlue',
-        active ? 'border-mediumBlue bg-mediumBlue' : 'hover:border-mediumBlue hover:bg-mediumBlue',
+        'border-blue bg-blue text-white',
+        active
+          ? 'bg-blue-active'
+          : 'hover:bg-blue-hover hover:text-inherit active:bg-blue-active active:text-inherit active:border-blue-active',
       );
   }
 };
@@ -61,7 +69,8 @@ export interface ButtonWrapperProps
   > {
   asChild?: boolean;
   active?: boolean;
-  small?: boolean;
+  size?: 'xs' | 'sm' | 'md';
+  rounded?: boolean;
   variant?: ButtonVariant;
   children?: React.ReactNode;
 }
@@ -70,7 +79,8 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   asChild,
   variant = 'primary',
   active = false,
-  small = false,
+  size = 'md',
+  rounded = false,
   className,
   type = 'button',
   ...otherProps
@@ -80,8 +90,11 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   return (
     <Comp
       className={cn(
-        'disabled:text-grey inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-all duration-250 disabled:cursor-default',
-        small ? 'h-8 px-5 py-1 text-sm rounded-md' : 'h-12 px-6 py-2 rounded-lg',
+        'text-sm inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-all duration-250 disabled:cursor-default disabled:bg-dark-grey-disabled disabled:border-dark-grey-hover disabled:text-light-grey',
+        size === 'xs' && 'py-1 px-5',
+        size === 'sm' && 'py-2 px-6',
+        size === 'md' && 'py-3 px-12',
+        rounded ? 'rounded-full' : 'rounded-lg',
         getVariantClasses({ variant, active }),
         className,
       )}

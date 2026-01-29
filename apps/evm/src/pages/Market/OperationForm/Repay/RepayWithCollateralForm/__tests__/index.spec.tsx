@@ -626,6 +626,7 @@ describe('RepayWithCollateralForm', () => {
           "direction": "exact-in",
           "fromToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",
@@ -635,6 +636,7 @@ describe('RepayWithCollateralForm', () => {
           "slippagePercentage": 0.5,
           "toToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",
@@ -666,6 +668,7 @@ describe('RepayWithCollateralForm', () => {
           "direction": "approximate-out",
           "fromToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",
@@ -675,6 +678,7 @@ describe('RepayWithCollateralForm', () => {
           "slippagePercentage": 0.5,
           "toToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",

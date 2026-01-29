@@ -20,7 +20,7 @@ const Page: React.FC = () => {
     <PageComp indexWithSearchEngines={false}>
       <MarketLoader poolComptrollerAddress={poolComptrollerAddress} vTokenAddress={vTokenAddress}>
         {({ asset, pool }) => (
-          <div className="py-6 md:py-8 xl:py-12">
+          <>
             <AssetWarning
               token={asset.vToken.underlyingToken}
               pool={pool}
@@ -29,7 +29,7 @@ const Page: React.FC = () => {
             />
 
             <div className="space-y-6 lg:flex lg:space-y-0 lg:gap-x-6">
-              <Card className="w-auto self-start shrink-0 overflow-x-auto lg:order-2 lg:sticky lg:w-[400px] lg:top-6 lg:max-h-[calc(100vh-48px)]">
+              <Card className="w-auto self-start shrink-0 overflow-x-auto lg:order-2 lg:sticky lg:w-[400px] lg:-top-4 lg:max-h-[calc(100vh-128px)]">
                 <OperationForm
                   poolComptrollerAddress={pool.comptrollerAddress}
                   vToken={asset.vToken}
@@ -50,7 +50,7 @@ const Page: React.FC = () => {
                 <MarketInfo asset={asset} />
               </div>
             </div>
-          </div>
+          </>
         )}
       </MarketLoader>
     </PageComp>

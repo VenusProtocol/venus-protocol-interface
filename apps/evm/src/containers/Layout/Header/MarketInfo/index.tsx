@@ -1,8 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
-import { CellGroup, type CellProps, Icon, Spinner, TokenIcon } from 'components';
+import { CellGroup, type CellProps, Icon, Spinner, TokenIcon, Wrapper } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { Link } from 'containers/Link';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
@@ -21,6 +23,8 @@ export const MarketInfo = () => {
 
   const { t } = useTranslation();
 
+  const { marketsPagePath } = useGetMarketsPagePath();
+
   const { data: getAssetData } = useGetAsset({
     vTokenAddress,
   });
@@ -33,8 +37,6 @@ export const MarketInfo = () => {
     poolComptrollerAddress,
   });
   const pool = getPools?.pool;
-
-  const handleGoBack = () => window.history.back();
 
   const cells: CellProps[] = useMemo(() => {
     const readableMaxLtvPercentage = asset
@@ -83,76 +85,77 @@ export const MarketInfo = () => {
         label: t('layout.header.price'),
         value: formatCentsToReadableValue({
           value: asset?.tokenPriceCents,
-          isTokenPrice: true,
+          shorten: false,
+          maxDecimalPlaces: 6,
         }),
       },
     ];
   }, [asset, t, pool]);
 
   return (
-    <div className="pb-6 sm:pb-12 md:pb-10 border-b-lightGrey border-b space-y-6 sm:space-y-8">
-      <div className="hidden sm:flex items-center h-8 mt-4 px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto">
-        <button
-          type="button"
-          onClick={handleGoBack}
-          className="h-full pr-3 flex items-center cursor-pointer"
-        >
-          <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
-        </button>
+    <div className="pb-6 sm:pb-12 md:pb-10 border-b-lightGrey border-b">
+      <Wrapper className="space-y-6 sm:space-y-8">
+        <div className="hidden sm:flex items-center h-8 mt-4">
+          <Link to={marketsPagePath} replace noStyle>
+            <button type="button" className="h-full pr-3 flex items-center cursor-pointer">
+              <Icon name="chevronLeft" className="w-6 h-6 text-white" />
+            </button>
+          </Link>
 
-        {asset && pool ? (
-          <div className="flex items-center gap-3">
-            <TokenIcon token={asset.vToken.underlyingToken} className="h-full w-8 shrink-0" />
-
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="font-bold text-lg">
-                {asset.vToken.underlyingToken.symbol} ({pool?.name})
-              </span>
-            </div>
-
-            <AddTokenToWalletDropdown isUserConnected={isUserConnected} vToken={asset.vToken} />
-
-            <GoToTokenContractDropdown vToken={asset.vToken} />
-          </div>
-        ) : (
-          <Spinner className="h-full w-auto" />
-        )}
-      </div>
-
-      <div className="block sm:hidden px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto">
-        <div className="flex items-center pb-3">
-          {asset && pool && (
-            <div className="flex w-full justify-between">
+          {asset && pool ? (
+            <div className="flex items-center gap-3">
               <TokenIcon token={asset.vToken.underlyingToken} className="h-full w-8 shrink-0" />
-              <div className="flex gap-[12px]">
-                <AddTokenToWalletDropdown isUserConnected={isUserConnected} vToken={asset.vToken} />
-                <GoToTokenContractDropdown vToken={asset.vToken} />
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="flex flex-wrap gap-x-2 gap-y-1 items-center">
-          <button
-            type="button"
-            onClick={handleGoBack}
-            className="h-full flex items-center cursor-pointer"
-          >
-            <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
-            {(!asset || !pool) && <Spinner className="h-full w-auto" />}
-          </button>
-          {asset && pool && (
-            <span className="text-nowrap font-semibold text-lg">
-              {asset.vToken.underlyingToken.symbol} ({pool?.name})
-            </span>
-          )}
-        </div>
-      </div>
 
-      <CellGroup
-        variant="secondary"
-        className="px-4 sm:px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto"
-        cells={cells}
-      />
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span className="font-bold text-lg">
+                  {asset.vToken.underlyingToken.symbol} ({pool?.name})
+                </span>
+              </div>
+
+              <AddTokenToWalletDropdown isUserConnected={isUserConnected} vToken={asset.vToken} />
+
+              <GoToTokenContractDropdown vToken={asset.vToken} />
+            </div>
+          ) : (
+            <Spinner className="h-full w-auto" />
+          )}
+        </div>
+
+        <div>
+          <div className="block sm:hidden">
+            <div className="flex items-center pb-3">
+              {asset && pool && (
+                <div className="flex w-full justify-between">
+                  <TokenIcon token={asset.vToken.underlyingToken} className="h-full w-8 shrink-0" />
+                  <div className="flex gap-[12px]">
+                    <AddTokenToWalletDropdown
+                      isUserConnected={isUserConnected}
+                      vToken={asset.vToken}
+                    />
+                    <GoToTokenContractDropdown vToken={asset.vToken} />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-wrap gap-x-2 gap-y-1 items-center">
+              <Link to={marketsPagePath} replace noStyle>
+                <button type="button" className="h-full flex items-center cursor-pointer">
+                  <Icon name="chevronLeft" className="w-6 h-6 text-white" />
+                  {(!asset || !pool) && <Spinner className="h-full w-auto" />}
+                </button>
+              </Link>
+              {asset && pool && (
+                <span className="text-nowrap font-semibold text-lg">
+                  {asset.vToken.underlyingToken.symbol} ({pool?.name})
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <CellGroup variant="secondary" cells={cells} />
+      </Wrapper>
     </div>
   );
 };

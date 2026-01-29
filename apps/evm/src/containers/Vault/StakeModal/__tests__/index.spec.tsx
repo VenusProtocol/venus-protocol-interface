@@ -83,12 +83,14 @@ describe('pages/Vault/modals/StakeModal', () => {
           "poolIndex": 6,
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",
           },
           "stakedToken": {
             "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-vai-asset",
             "symbol": "VAI",

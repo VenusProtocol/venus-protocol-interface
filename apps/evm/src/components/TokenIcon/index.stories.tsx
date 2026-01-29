@@ -30,7 +30,7 @@ export const Default = () => (
         >
           <h4 style={{ marginRight: '8px' }}>{token.symbol}</h4>
 
-          <TokenIcon token={token} />
+          <TokenIcon token={token} displayChain />
         </div>
       ))}
     </div>

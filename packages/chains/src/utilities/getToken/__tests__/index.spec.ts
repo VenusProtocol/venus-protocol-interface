@@ -9,6 +9,6 @@ describe('getToken', () => {
       symbol: 'BNB',
     });
 
-    expect(result).toBe(tokens[ChainId.BSC_TESTNET][3]);
+    expect(result).toBe(tokens[ChainId.BSC_TESTNET][0]);
   });
 });

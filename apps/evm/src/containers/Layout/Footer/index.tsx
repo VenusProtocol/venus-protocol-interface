@@ -4,26 +4,26 @@ import { useChainId } from 'libs/wallet';
 import { generateExplorerUrl } from 'utilities';
 
 import { Icon, type IconName } from 'components';
-import { Link } from 'containers/Link';
-import { forwardRef } from 'react';
 import {
   VENUS_DISCORD_URL,
   VENUS_DOC_URL,
+  VENUS_FLUX_URL,
   VENUS_GITHUB_URL,
-  VENUS_PRIVACY_POLICY_URL,
   VENUS_TELEGRAM_URL,
-  VENUS_TERMS_OF_USE_URL,
-  VENUS_X_URL,
-} from './constants';
+} from 'constants/production';
+import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
+import { forwardRef } from 'react';
 
 interface SocialLink {
   iconName: IconName;
   href?: string;
 }
 
-interface RefLink {
+interface LinkConfig {
   label: string;
-  href: string;
+  href?: string;
+  to?: string;
 }
 
 export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
@@ -55,7 +55,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
     },
     {
       iconName: 'x',
-      href: VENUS_X_URL,
+      href: VENUS_FLUX_URL,
     },
     {
       iconName: 'github',
@@ -63,32 +63,36 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
     },
   ];
 
-  const refLinks: RefLink[] = [
+  const footerLinks: LinkConfig[] = [
     {
       label: t('footer.links.documentation'),
       href: VENUS_DOC_URL,
     },
     {
       label: t('footer.links.privacyPolicy'),
-      href: VENUS_PRIVACY_POLICY_URL,
+      to: routes.privacyPolicy.path,
     },
     {
       label: t('footer.links.termsOfUse'),
-      href: VENUS_TERMS_OF_USE_URL,
+      to: routes.termsOfUse.path,
     },
   ];
 
   return (
     <footer
       ref={ref}
-      className="bg-background p-4 space-y-4 sm:flex sm:justify-between sm:items-center sm:space-y-0 md:px-6 xl:px-10"
+      className="bg-background-active p-4 space-y-4 sm:flex sm:justify-between sm:items-center sm:space-y-0 md:px-6 xl:px-10"
     >
       <div className="flex items-center gap-x-4">
-        {refLinks.map(refLink => (
-          <Link className="text-grey text-sm" href={refLink.href} key={refLink.href}>
-            {refLink.label}
-          </Link>
-        ))}
+        {footerLinks.map(footerLink => {
+          const { label, ...restProps } = footerLink;
+
+          return (
+            <Link className="text-grey text-sm" key={label} {...restProps}>
+              {label}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="flex flex-none items-center">
@@ -100,7 +104,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
             target="_blank"
             rel="noreferrer"
           >
-            <Icon name={socialLink.iconName} className="text-offWhite h-3 w-3" />
+            <Icon name={socialLink.iconName} className="text-white h-3 w-3" />
           </a>
         ))}
       </div>

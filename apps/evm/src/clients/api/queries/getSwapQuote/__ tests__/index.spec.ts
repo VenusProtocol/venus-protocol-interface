@@ -78,6 +78,7 @@ describe('getSwapQuote', () => {
           "expectedToTokenAmountReceivedMantissa": 1000000000000000000n,
           "fromToken": {
             "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+            "chainId": 97,
             "decimals": 6,
             "iconSrc": "fake-usdc-asset",
             "symbol": "USDC",
@@ -87,6 +88,7 @@ describe('getSwapQuote', () => {
           "priceImpactPercentage": 80,
           "toToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-busd-asset",
             "symbol": "BUSD",
@@ -130,6 +132,7 @@ describe('getSwapQuote', () => {
           "expectedFromTokenAmountSoldMantissa": 1000000n,
           "fromToken": {
             "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+            "chainId": 97,
             "decimals": 6,
             "iconSrc": "fake-usdc-asset",
             "symbol": "USDC",
@@ -138,6 +141,7 @@ describe('getSwapQuote', () => {
           "priceImpactPercentage": 80,
           "toToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-busd-asset",
             "symbol": "BUSD",
@@ -182,6 +186,7 @@ describe('getSwapQuote', () => {
           "expectedToTokenAmountReceivedMantissa": 1000000000000000000n,
           "fromToken": {
             "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+            "chainId": 97,
             "decimals": 6,
             "iconSrc": "fake-usdc-asset",
             "symbol": "USDC",
@@ -191,6 +196,7 @@ describe('getSwapQuote', () => {
           "priceImpactPercentage": 80,
           "toToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            "chainId": 97,
             "decimals": 18,
             "iconSrc": "fake-busd-asset",
             "symbol": "BUSD",

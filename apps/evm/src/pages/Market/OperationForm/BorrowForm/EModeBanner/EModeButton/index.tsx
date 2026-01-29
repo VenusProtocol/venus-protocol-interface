@@ -24,7 +24,10 @@ export const EModeButton: React.FC<EModeButtonProps> = ({
   const { formatTo } = useFormatTo();
   const to = formatTo({
     to: {
-      pathname: routes.pool.path.replace(':poolComptrollerAddress', poolComptrollerContractAddress),
+      pathname: routes.markets.path.replace(
+        ':poolComptrollerAddress',
+        poolComptrollerContractAddress,
+      ),
       search: `${TAB_PARAM_KEY}=e-mode`,
     },
   });
@@ -34,7 +37,7 @@ export const EModeButton: React.FC<EModeButtonProps> = ({
   return (
     <ButtonWrapper
       asChild
-      className={cn('text-offWhite no-underline hover:no-underline whitespace-nowrap', className)}
+      className={cn('text-white no-underline hover:no-underline whitespace-nowrap', className)}
       {...otherProps}
     >
       <Link to={to} onClick={handleClick}>

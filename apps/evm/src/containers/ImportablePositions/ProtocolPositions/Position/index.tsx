@@ -72,7 +72,7 @@ export const Position: React.FC<PropositionProps> = ({
 
         // Redirect to Account page if this was the last importable position
         if (importablePositionsCount === 1) {
-          navigate(routes.account.path);
+          navigate(routes.dashboard.path);
         }
       },
     });
@@ -137,7 +137,7 @@ export const Position: React.FC<PropositionProps> = ({
           </ApyCell>
 
           <div className="h-6 w-6 rounded-full bg-lightGrey absolute inset-0 m-auto flex items-center justify-center">
-            <Icon name="arrowShaft" className="text-offWhite" />
+            <Icon name="arrowShaft" className="text-white" />
           </div>
 
           <ApyCell label={t('importPositionsModal.position.newApy.label')}>
@@ -153,7 +153,7 @@ export const Position: React.FC<PropositionProps> = ({
               // We need to wrap missed gains in a span tag to prevent bad escaping when the string
               // starts with a "<" character
               Gains: <span>{readableMissedYearlyGains}</span>,
-              Number: <span className="text-offWhite text-sm lg:block lg:mt-1" />,
+              Number: <span className="text-white text-sm lg:block lg:mt-1" />,
             }}
           />
         </p>

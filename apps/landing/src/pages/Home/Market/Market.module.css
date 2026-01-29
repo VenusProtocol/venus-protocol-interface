@@ -93,7 +93,7 @@
 }
 
 .totalSum {
-    color: var(--color-offWhite);
+    color: var(--color-white);
     font-weight: 600;
     font-size: 24px;
     margin: 0;
@@ -209,7 +209,7 @@
 }
 .marketItemValue {
     margin: 0;
-    color: var(--color-offWhite);
+    color: var(--color-white);
     display: flex;
     flex-direction: column;
     width: 25%;

@@ -12,7 +12,7 @@ export const ValueUpdate: React.FC<ValueUpdateProps> = ({ className, original, u
 
     {update && (
       <>
-        <Icon name="arrowShaft" className="w-4 h-4 text-offWhite" />
+        <Icon name="arrowShaft" className={cn('w-4 h-4 text-white')} />
 
         {update}
       </>

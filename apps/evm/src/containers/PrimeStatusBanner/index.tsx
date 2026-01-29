@@ -5,7 +5,7 @@ import { cn } from '@venusprotocol/ui';
 import PrimeLogo from 'assets/img/primeLogo.svg?react';
 import { useClaimPrimeToken } from 'clients/api';
 import { Card, PrimaryButton, ProgressBar } from 'components';
-import { PRIME_DOC_URL } from 'constants/prime';
+import { VENUS_PRIME_DOC_URL } from 'constants/production';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -54,7 +54,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   onClaimPrimeToken,
   onRedirectToXvsVaultPage,
 }) => {
-  const { Trans, t } = useTranslation();
+  const { Trans, t, language } = useTranslation();
   const last5Percent = primeTokenLimit * 0.05;
   const primeTokensLeft = primeTokenLimit - claimedPrimeTokenCount;
   const haveAllPrimeTokensBeenClaimed = primeTokensLeft <= 0;
@@ -82,10 +82,12 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   const readableClaimWaitingPeriod = formatWaitingPeriod({
     waitingPeriodSeconds: primeClaimWaitingPeriodSeconds,
+    locale: language.locale,
   });
 
   const readableUserClaimWaitingPeriod = formatWaitingPeriod({
     waitingPeriodSeconds: userPrimeClaimWaitingPeriodSeconds,
+    locale: language.locale,
   });
 
   const readableMinXvsToStakeForPrimeTokens = formatTokensToReadableValue({
@@ -199,7 +201,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             <PrimeLogo />
           </div>
 
-          <div className="xxl:max-w-[39.75rem] xl:max-w-[31.25rem]">
+          <div className="2xl:max-w-[39.75rem] xl:max-w-[31.25rem]">
             {!!title && <h3 className={cn('text-lg', displayProgress && 'mb-2')}>{title}</h3>}
 
             {displayProgress && (
@@ -208,7 +210,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                   <Trans
                     i18nKey="primeStatusBanner.description.primeCalculator"
                     components={{
-                      WhiteText: <span className="text-offWhite" />,
+                      WhiteText: <span className="text-white" />,
                       Link: <Link to={routes.primeCalculator.path} />,
                     }}
                     values={{
@@ -220,8 +222,8 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                   <Trans
                     i18nKey="primeStatusBanner.description.primeDoc"
                     components={{
-                      WhiteText: <span className="text-offWhite" />,
-                      Link: <Link href={PRIME_DOC_URL} />,
+                      WhiteText: <span className="text-white" />,
+                      Link: <Link href={VENUS_PRIME_DOC_URL} />,
                     }}
                     values={{
                       stakeDelta: readableStakeDeltaTokens,
@@ -249,7 +251,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               <Trans
                 i18nKey="primeStatusBanner.progressBar.label"
                 components={{
-                  WhiteText: <span className="text-offWhite" />,
+                  WhiteText: <span className="text-white" />,
                 }}
                 values={{
                   minXvsToStakeForPrimeTokens: readableMinXvsToStakeForPrimeTokens,
@@ -314,7 +316,7 @@ export type PrimeStatusBannerProps = Pick<
 const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const { accountAddress } = useAccountAddress();
   const { navigate } = useNavigate();
-  const redirectToXvsPage = () => navigate(routes.vaults.path);
+  const redirectToXvsPage = () => navigate(routes.staking.path);
 
   const xvs = useGetToken({
     symbol: 'XVS',

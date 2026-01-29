@@ -25,10 +25,10 @@ export const MarketStatus: React.FC<MarketStatusProp> = ({
       <Cell
         className="border-r border-lightGrey sm:border-r-0"
         isAvailable={canBeCollateral}
-        label={t('pool.eMode.table.card.header.collateral')}
+        label={t('markets.eMode.table.card.header.collateral')}
       />
 
-      <Cell isAvailable={isBorrowable} label={t('pool.eMode.table.card.header.borrowable')} />
+      <Cell isAvailable={isBorrowable} label={t('markets.eMode.table.card.header.borrowable')} />
     </div>
   );
 };

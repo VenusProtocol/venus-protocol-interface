@@ -1,0 +1,1687 @@
+{
+  "account": {
+    "circularGradient": "圓形漸變",
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "已借入",
+        "eModeHeader": {
+          "illustrationAltText": "E-mode插圖",
+          "title": "E-mode：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+        },
+        "supplyTableTitle": "已供應",
+        "tabletBorrowTabTitle": "已借入",
+        "tabletSupplyTabTitle": "已供應",
+        "tabletTitle": "資產"
+      }
+    },
+    "performanceChart": {
+      "absolutePerformance": "絕對錶現",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "errorState": {
+        "failedToFetchMessage": "無法獲取賬戶歷史",
+        "refetchButtonLabel": "重試"
+      },
+      "netWorth": {
+        "label": "淨值",
+        "tooltip": "在考慮金庫質押和借貸後可用的淨資產",
+        "tooltipWithVai": "在考慮金庫質押、借貸和已鑄造 VAI 後可用的淨資產"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6個月",
+        "thirtyDays": "30天"
+      },
+      "placeholderText": "正在生成報告，最多可能需要一分鐘",
+      "todaysChange": "今日變化",
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "placeholder": {
+      "buttonLabel": "瀏覽"
+    },
+    "pools": {
+      "placeholder": {
+        "description": "你的資金池持倉將顯示在此",
+        "title": "尚無供應或借入持倉"
+      }
+    },
+    "poolsBreakdown": {
+      "poolTagTooltip": "已用借款限額：{{borrowLimitUsedPercentage}}"
+    },
+    "primeBanner": {
+      "button": {
+        "becomePrime": "領取 Prime 代幣",
+        "stakeXvs": "質押 XVS"
+      },
+      "primeLogoAltText": "Prime 標誌",
+      "text": {
+        "apyBoost": "使用 Prime 將收益提升高達 <GreenText>{{boost}}</GreenText>",
+        "becomePrime": "你現在可以成為 Prime 用戶"
+      }
+    },
+    "settings": {
+      "gaslessTransactions": {
+        "switchLabel": "在 {{chainName}} 上啟用免 gas 交易"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "每日收益",
+        "healthFactor": "健康係數",
+        "healthFactorTooltip": "清算閾值 < 1.0",
+        "mintedVai": "已鑄造 VAI",
+        "netApy": "淨 APY",
+        "netApyTooltip": "以年化利息形式獲得的總供應餘額百分比",
+        "netApyWithVaultStakeTooltip": "以年化利息形式獲得的總供應餘額和金庫質押百分比",
+        "totalBorrow": "總借款",
+        "totalSupply": "總供應",
+        "totalVaultStake": "總金庫質押"
+      },
+      "title": "概覽"
+    },
+    "tabs": {
+      "pools": "資金池",
+      "settings": "設置",
+      "transactions": "交易",
+      "vaults": "金庫"
+    },
+    "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
+      "placeholder": {
+        "description": "你的交易將顯示在此",
+        "title": "尚無交易"
+      },
+      "selects": {
+        "source": {
+          "all": "所有市場"
+        },
+        "txType": {
+          "all": "所有交易",
+          "approve": "授權",
+          "borrow": "借款",
+          "enterMarket": "啟用抵押",
+          "exitMarket": "禁用抵押",
+          "mint": "供應",
+          "redeem": "提取",
+          "repay": "償還"
+        }
+      },
+      "today": "今天",
+      "txText": {
+        "approve": "已授權支出 {{tokenAmount}}",
+        "enterMarket": "<Styled>啟用</Styled> {{vTokenSymbol}} 作為抵押",
+        "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作為抵押"
+      },
+      "txType": {
+        "approve": "授權",
+        "borrow": "借款",
+        "enterMarket": "啟用抵押",
+        "exitMarket": "禁用抵押",
+        "mint": "供應",
+        "redeem": "提取",
+        "repay": "償還"
+      },
+      "view": "查看",
+      "yesterday": "昨天"
+    },
+    "vaults": {
+      "placeholder": {
+        "description": "你的金庫持倉將顯示在此",
+        "title": "尚無質押持倉"
+      }
+    }
+  },
+  "accountData": {
+    "balanceUpdate": {
+      "borrowBalance": "借款餘額",
+      "supplyBalance": "供應餘額"
+    },
+    "dailyEarnings": {
+      "label": "每日收益"
+    },
+    "healthFactor": {
+      "label": "健康係數",
+      "tooltip": "清算閾值 < 1.0"
+    }
+  },
+  "accountHealth": {
+    "accessibilityLabel": "當前賬戶狀態的表示",
+    "borrowLimitUsed": "已用借款限額：",
+    "limit": "限額：",
+    "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（佔借款限額的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全借款限額：<LineBreak/>{{safeBorrowLimit}}（佔借款限額的 {{safeBorrowLimitPercentage}}%）"
+  },
+  "adBanner": {
+    "learnMore": "瞭解更多",
+    "startNow": "立即開始"
+  },
+  "announcements": {
+    "bethUpdate": {
+      "description": "Binance 於 2023-04-26 暫停了 BETH 提現。我們建議用戶減少在 Venus 上的 BETH 曝險。借款已暫停。可在鏈上按 1:1 比例將 BETH 轉換為 WBETH，<Link>點擊此處</Link>。"
+    },
+    "sxpDisabling": {
+      "description": "根據 Gauntlet 的建議，由於 SXP 遷移到新鏈以及預計 SXP 流動性下降的擔憂，SXP 的借款和供應已暫停。"
+    },
+    "trxMigration": {
+      "description": "Venus 在新市場支持新的 TRX 代幣。舊 TRX 代幣的借款與供應已暫停。更多信息請見 <Link>Binance 官方公告</Link>。"
+    },
+    "tusdMigration": {
+      "description": "Venus 在新市場支持新的 TUSD 代幣。舊 TUSD 代幣的借款與供應已暫停。更多信息請見 <Link>Binance 官方公告</Link>。"
+    }
+  },
+  "approveDelegateSteps": {
+    "approveDelegateButton": {
+      "text": "授權委託合約",
+      "tooltip": "我們需要授權委託合約以代表你執行此操作。"
+    },
+    "step1": "步驟 1"
+  },
+  "approveTokenSteps": {
+    "approveTokenButton": {
+      "text": "授權 {{tokenSymbol}}",
+      "tooltip": "使用 Venus 協議的任何代幣都需要支出授權。"
+    },
+    "step1": "步驟 1",
+    "step2": "步驟 2"
+  },
+  "appVersionChecker": {
+    "newVersionMessage": "Venus 有新版本可用。請刷新頁面以立即使用。"
+  },
+  "apy": {
+    "boost": {
+      "iconAlt": "Boost 市場圖標",
+      "tooltip": {
+        "borrowApy": {
+          "description": "在 Venus 協議中借入該資產時產生的利息。",
+          "name": "借款 APY"
+        },
+        "defaultMerklRewardName": "Merkl 獎勵",
+        "externalRewardDescription": "該外部計劃的獎勵可通過其 <AppLink>官方應用</AppLink>領取。Venus 協議不作任何保證且不承擔責任。",
+        "intrinsicApy": {
+          "description": "標的資產本身產生的原生收益——例如質押獎勵。該收益來自外部來源，不由 Venus 協議保證。",
+          "name": "內在 APY"
+        },
+        "offChainApy": {
+          "description": "來自空投或推廣活動等第三方管理的鏈下活動的額外收益。該收益不由 Venus 協議保證。",
+          "name": "鏈下 APY"
+        },
+        "pointDistribution": {
+          "learnMore": "瞭解更多"
+        },
+        "primeDistribution": {
+          "description": "Venus Prime 為忠實用戶提供加成獎勵。Venus 協議不作任何保證且不承擔責任。",
+          "name": "Prime APY"
+        },
+        "supplyApy": {
+          "description": "向 Venus 協議提供資產所獲得的總收益。",
+          "name": "供應 APY"
+        },
+        "xvsDistribution": {
+          "description": "分發獎勵由去中心化的 Venus 社區發起並實施。Venus 協議不作任何保證且不承擔責任。",
+          "name": "XVS 分發"
+        },
+        "yieldToMaturityApy": {
+          "description": "該收益表示使用標的資產折價購買 PT 代幣並持有至到期所獲得的年化回報。Venus 協議不作任何保證且不承擔責任。",
+          "name": "到期收益率 APY"
+        }
+      }
+    },
+    "primeBadge": {
+      "logoAlt": "Prime 標誌",
+      "tooltip": {
+        "calculatorLink": "計算你的 Prime 獎勵",
+        "primeBorrowSimulation": "Prime 加成基於用戶借款中位數 {{borrowBalance}} 與金庫質押 {{xvsStaked}} 提升 APY。",
+        "primeDocLink": "瞭解更多",
+        "primeMarket": "Prime 提升 APY。",
+        "primeSupplySimulation": "Prime 加成基於用戶供應中位數 {{supplyBalance}} 與金庫質押 {{xvsStaked}} 提升 APY。"
+      }
+    }
+  },
+  "apyBreakdown": {
+    "borrowApy": "借款 APY",
+    "distributionApy": "分發 APY",
+    "distributionTooltip": "分發獎勵由去中心化的 Venus 社區發起並實施。Venus 協議不作任何保證且不承擔責任。",
+    "externalDistributionApy": "{{description}} APY",
+    "intrinsicApy": "內在 APY",
+    "intrinsicApyTooltip": "直接來自資產本身的 APY（如質押或外部獎勵），與 Venus 借貸收益分開。Venus 協議不作任何保證且不承擔責任。",
+    "netApy": {
+      "label": "淨 APY",
+      "tooltip": "涉及的所有市場 APY 之和"
+    },
+    "offChainApy": "鏈下 APY",
+    "offChainApyTooltip": "來自空投或推廣活動等第三方管理的鏈下活動的額外收益。Venus 協議不作任何保證且不承擔責任。",
+    "primeApy": "Prime APY",
+    "supplyApy": "供應 APY",
+    "totalApy": {
+      "borrowApyTooltip": "借款 APY - 分發 APY",
+      "label": "總 APY",
+      "supplyApyTooltip": "供應 APY + 分發 APY"
+    },
+    "yieldToMaturityApy": "到期收益率 APY",
+    "yieldToMaturityApyTooltip": "該收益表示使用標的資產折價購買 PT 代幣並持有至到期的年化回報。Venus 協議不作任何保證且不承擔責任。"
+  },
+  "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
+    "tooltipItemLabels": {
+      "borrowApy": "借款 APY",
+      "date": "日期",
+      "supplyApy": "供應 APY",
+      "totalBorrow": "總借款",
+      "totalSupply": "總供應"
+    }
+  },
+  "asset": {
+    "eModeInfo": {
+      "title": "E-mode信息"
+    },
+    "marketInfo": {
+      "title": "市場信息"
+    }
+  },
+  "assetAccessor": {
+    "disabledActionNotice": {
+      "boost": "該市場已禁用 Boost",
+      "borrow": "該市場已禁用借款",
+      "repay": "該市場已禁用還款",
+      "supply": "該市場已禁用供應",
+      "withdraw": "該市場已禁用提取"
+    },
+    "eModeBlockedActionNotice": {
+      "borrow": "你的 E-mode設置不允許從該市場借款。<Link>管理 E-mode</Link>"
+    }
+  },
+  "assetWarning": {
+    "borrowDescription": "根據你在 {{poolName}} 池中的抵押供應，可借入 {{tokenSymbol}}。<Button>顯示全部代幣</Button>",
+    "modalTitle": "{{ poolName }} 代幣",
+    "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 將使你只能從該池借入代幣。<Button>顯示全部市場</Button>"
+  },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "背景插圖",
+    "binanceLogoAltText": "Binance 標誌",
+    "description": "借入 USDT，分享 <Bold>$400,000</Bold> 獎勵！",
+    "title": "Venus 已在 Binance Wallet Earn 上線。"
+  },
+  "boostBanner": {
+    "description": "一鍵槓桿提升收益 <White>最高 5 倍</White>。",
+    "rocketAltText": "火箭插圖",
+    "title": "Boost 已上線！"
+  },
+  "breadcrumbs": {
+    "bridge": "跨鏈橋",
+    "dashboard": "儀表盤",
+    "governance": "治理",
+    "isolatedPools": "隔離池",
+    "leaderboard": "排行榜",
+    "markets": "市場",
+    "primeCalculator": "Prime 計算器",
+    "proposal": "提案 #{{proposalId}}",
+    "staking": "質押",
+    "swap": "兌換",
+    "vai": "VAI"
+  },
+  "bridgePage": {
+    "amountInput": {
+      "label": "數量",
+      "maxButtonLabel": "最大"
+    },
+    "bridgeGasFee": {
+      "label": "跨鏈橋 gas 費",
+      "tooltip": "用於覆蓋將轉賬發送到目標鏈的 gas 成本"
+    },
+    "errors": {
+      "dailyTransactionLimitExceeded": {
+        "message": "由於 24 小時限制，你無法在目標鏈上橋接超過 {{readableAmountTokens}}（{{readableAmountUsd}}）。該限制將在 {{ date, dd MMM yyyy h:mm a }} 重置",
+        "submitButton": "輸入金額超過每日限額"
+      },
+      "doesNotHaveEnoughNativeFunds": "{{tokenSymbol}} 餘額不足",
+      "doesNotHaveEnoughXvs": "{{tokenSymbol}} 餘額不足",
+      "mintCapReached": {
+        "message": "由於跨鏈橋鑄造上限，你無法橋接超過 {{readableAmountTokens}}",
+        "submitButton": "跨鏈橋鑄造上限已達"
+      },
+      "singleTransactionLimitExceeded": {
+        "message": "你無法在目標鏈上單筆橋接超過 {{readableAmountTokens}}（{{readableAmountUsd}}）",
+        "submitButton": "輸入金額超過上限"
+      }
+    },
+    "footer": {
+      "bridgeDocLink": "如何跨鏈",
+      "poweredBy": "技術支持"
+    },
+    "fromChainSelect": {
+      "label": "從"
+    },
+    "submitButton": {
+      "label": {
+        "enterValidAmount": "輸入有效金額",
+        "submit": "確認"
+      }
+    },
+    "toChainSelect": {
+      "label": "到"
+    },
+    "walletBalance": {
+      "label": "錢包餘額"
+    }
+  },
+  "chainExplorerLink": {
+    "content": "在 {{domainName}} 上查看"
+  },
+  "chip": {
+    "proposalType": {
+      "critical": "關鍵",
+      "fastTrack": "快速通道"
+    }
+  },
+  "claimReward": {
+    "modal": {
+      "claimButton": {
+        "disabledLabel": "選擇要領取獎勵的組",
+        "enabledLabel": "領取"
+      },
+      "claimOn": "在 {{appName}} 上領取",
+      "externalRewards": "外部獎勵",
+      "primeGroup": {
+        "disabledContractWarningMessage": "Prime 合約目前已暫停。Prime 的利息仍在累積，但需等合約恢復後才能領取。",
+        "name": "Prime"
+      },
+      "rewards": "獎勵",
+      "title": "領取獎勵（{{chainName}}）",
+      "vaultGroup": {
+        "disabledContractWarningMessage": "該金庫當前已暫停。利率仍在累積，但在金庫恢復前無法領取。",
+        "name": "{{stakedTokenSymbol}} 金庫"
+      },
+      "vestingVaultGroup": {
+        "name": "{{stakedTokenSymbol}} 歸屬金庫"
+      }
+    }
+  },
+  "connectButton": {
+    "connect": "連接錢包",
+    "disconnect": "斷開連接"
+  },
+  "connectWallet": {
+    "connectButton": "連接錢包"
+  },
+  "eModeBanner": {
+    "exploreButtonLabel": "探索",
+    "illustrationAltText": "E-mode插圖",
+    "manageEModeButtonLabel": "管理 E-mode",
+    "title": "使用 E-Mode 提升借款能力"
+  },
+  "errors": {
+    "couldNotRetrieveSigner": "無法獲取簽名者，請確保錢包已解鎖並刷新頁面",
+    "couldNotSwitchChain": "無法切換鏈，請確保錢包已解鎖並刷新頁面",
+    "missingAbstainDescription": "提案需要“棄權”票描述",
+    "missingAgainstDescription": "提案需要“反對”票描述",
+    "missingDescription": "文件中沒有提案描述",
+    "missingForDescription": "提案需要“贊成”票描述",
+    "missingParamForSignature": "函數缺少對應參數",
+    "missingSafeWalletApiUrl": "由於配置錯誤無法獲取 Safe 交易",
+    "missingTargetForSignature": "函數缺少對應目標",
+    "missingTitle": "提案需要標題",
+    "noMetaKey": "文件中沒有元數據信息",
+    "noParamsKey": "文件中沒有參數列表",
+    "noSignaturesKey": "文件中沒有調用簽名",
+    "noSwapQuoteFound": "未找到兌換報價。請更新表單。",
+    "noTargetsKey": "文件中沒有目標列表",
+    "noTypeKey": "文件中未指明提案類型",
+    "proposalNotFound": "未找到提案",
+    "somethingWentWrong": "出了點問題",
+    "somethingWentWrongRetrievingTransactions": "獲取交易時出錯",
+    "somethingWentWrongRetrievingVoterAccounts": "獲取投票賬戶時出錯",
+    "somethingWentWrongRetrievingVoterDetails": "獲取投票者詳情時出錯",
+    "somethingWentWrongRetrievingVoterHistory": "獲取投票歷史時出錯",
+    "undefinedAccountErrorMessage": "賬戶未定義",
+    "validationError": "導入的提案驗證失敗：",
+    "walletNotConnected": "錢包未連接"
+  },
+  "errorState": {
+    "defaultMessage": "發生錯誤"
+  },
+  "footer": {
+    "links": {
+      "documentation": "文檔",
+      "privacyPolicy": "隱私政策",
+      "termsOfUse": "使用條款"
+    }
+  },
+  "gaslessTransactions": {
+    "chainLabel": "免費",
+    "errorModal": {
+      "cancel": "取消",
+      "description": "你仍可自行支付 gas 發送此交易",
+      "resendButtonLabel": "使用 gas 重新發送",
+      "title": "目前無法使用免 gas 交易"
+    },
+    "tooltip": {
+      "disabled": "該網絡支持免 gas 交易且無需費用，但此功能目前在設置中被禁用。更多信息 <Link>這裡</Link>",
+      "enabled": "該網絡上的交易免 gas 且無需費用。更多信息 <Link>這裡</Link>"
+    }
+  },
+  "healthFactor": {
+    "label": {
+      "healthy": "健康",
+      "liquidation": "清算",
+      "moderate": "中等",
+      "risky": "風險"
+    }
+  },
+  "importPositionsModal": {
+    "aave": {
+      "logoAlt": "Aave 標誌",
+      "title": "Aave"
+    },
+    "emptyState": "沒有可導入的外部倉位",
+    "gasLess": {
+      "label": "免費",
+      "tooltip": "遷移倉位到 Venus 的交易由 Venus 協議贊助"
+    },
+    "infoSection": {
+      "1": {
+        "description": "唯一提供真實收益提升 APY 的平臺。",
+        "title": "更高收益"
+      },
+      "2": {
+        "description": "加入最具價值創造力且持續增長的 DeFi 平臺。",
+        "title": "最高資本效率"
+      },
+      "3": {
+        "description": "久經考驗且為借貸領域審計最多的合約。",
+        "title": "頂級安全"
+      },
+      "title": "為什麼選擇 Venus？"
+    },
+    "limitNotice": "目前僅可導入價值介於 <Number>{{min}}</Number> 和 <Number>{{max}}</Number> 的倉位到 Venus。",
+    "position": {
+      "currentApy": {
+        "label": "當前 APY"
+      },
+      "importButtonLabel": "導入",
+      "missedYearlyGains": "你錯過了 <Number><Gains /> / 年</Number>",
+      "newApy": {
+        "label": "Venus APY"
+      }
+    },
+    "title": "導入到 Venus 並賺取更多"
+  },
+  "interactive": {
+    "addToWallet": {
+      "modalTitle": "添加代幣到錢包"
+    },
+    "copy": {
+      "address": {
+        "modalTitle": "複製代幣地址",
+        "name": "地址",
+        "tooltip": "複製地址"
+      }
+    },
+    "copyToClipboard": "{{name}} 已複製到剪貼板",
+    "goTo": {
+      "modalTitle": "前往代幣合約"
+    }
+  },
+  "interestRateChart": {
+    "currentUtilizationRateLabelValue": "當前（{{percentage}}）",
+    "tooltipItemLabels": {
+      "borrowApy": "借款 APY",
+      "supplyApy": "供應 APY",
+      "utilizationRate": "利用率"
+    }
+  },
+  "isolatedPoolsSunsetBanner": {
+    "description": "領取獎勵並關閉你的倉位",
+    "illustrationAltText": "插圖",
+    "title": "隔離池正在關閉"
+  },
+  "landing": {
+    "benefits": {
+      "text1": "直接在鏈上存取不可篡改的貨幣市場。",
+      "text2": "所有 Venus Protocol 資產均符合 BEP-20 與 ERC-20 標準。",
+      "text3": "構建於相容 EVM 的鏈上，實現快速、安全且低成本的交易。",
+      "title1": "去中心化",
+      "title2": "BEP-20/ERC-20",
+      "title3": "全鏈"
+    },
+    "governance": {
+      "backgroundGradientAlt": "背景插圖",
+      "buttonLabel": "治理論壇",
+      "description": "Venus 是由社群驅動的去中心化協議，為加密貨幣市場提供一流功能。",
+      "proposalCountLegend": "Venus 改進提案已執行並持續增加",
+      "title": "由社群治理的<br />貨幣市場"
+    },
+    "hero": {
+      "1Year": "1年",
+      "30Day": "30天",
+      "6Month": "6個月",
+      "assets": "資產",
+      "borrow": "借款",
+      "earned": "已賺取",
+      "earnedAmount": "已賺取 {{amount}}",
+      "from": "來自 {{percentage}}",
+      "highestApy": "最高 APY",
+      "monthNo": "第 {{number}} 個月",
+      "startNow": "立即開始",
+      "subtitle": "適用於任何 DeFi 收益策略的簡單而強大的借貸。",
+      "supply": "供應",
+      "supplyTips": "基於 10,000 美元的初始存款，收益/利息按區塊複利計算。<Link>了解更多</Link>",
+      "title": "通用<br /><hl>貨幣市場</hl>",
+      "totalApy": "總 APY",
+      "upToPercentage": "最高 {{percentage}}",
+      "venusTvl": "Venus TVL",
+      "yearlyEarnings": "年收益",
+      "yearlyInterests": "年利息"
+    },
+    "markets": {
+      "button": {
+        "label": "查看更多"
+      },
+      "title": "Venus 頂級市場"
+    },
+    "protection": {
+      "bugBountyAlt": "漏洞賞金插圖",
+      "challengeText": "在我們的程式碼中尋找並回報漏洞即可獲得獎勵資格。了解更多請閱讀我們的漏洞賞金計畫。",
+      "challengeTitle": "挑戰我們的程式碼並獲得獎勵",
+      "protectionAlt": "保護插圖",
+      "protectionText": "安全審計、7x24 監控以及強健的風險基金可在異常市場事件中保障協議安全。",
+      "protectionTitle": "安全保障優先"
+    },
+    "safety": {
+      "audit_other": "審計",
+      "otherAuditors": "+14 次審計，來自 <br />Fairyproof、Hacken 與 HashEx",
+      "scoreAlt": "評分插圖",
+      "securityScore": "安全評分",
+      "text": "放心交易，Venus 將您的資產安全置於首位",
+      "title": "安全第一",
+      "venusScored": "Venus 在 Certik 的評估中於 BNB Chain 安全性排名 <Link>第 3</Link>（2021 年 6 月）"
+    },
+    "venusPrime": {
+      "illustrationAlt": "Venus Prime 插圖",
+      "imageAlt": "Venus Prime 插圖",
+      "learnMore": "了解更多",
+      "text": "Venus Protocol 的高階用戶可鑄造 Venus Prime 代幣，在 Venus core 池的部分市場享受更優費率。",
+      "title": "<hl>Venus Prime</hl> <br />提升您的回報"
+    },
+    "wallets": {
+      "title": "深受眾多用戶信賴"
+    }
+  },
+  "layout": {
+    "chainSelect": {
+      "label": "選擇鏈"
+    },
+    "header": {
+      "liquidity": "流動性",
+      "maxLtv": {
+        "label": "最大 LTV",
+        "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
+      },
+      "price": "價格",
+      "supply": "供應",
+      "utilizationRate": "利用率"
+    },
+    "menu": {
+      "dashboard": {
+        "label": "儀表盤"
+      },
+      "label": "菜單",
+      "markets": {
+        "label": "市場"
+      },
+      "others": {
+        "bridge": {
+          "description": "在 Venus 進行跨鏈 $XVS 轉帳。",
+          "label": "跨鏈橋"
+        },
+        "governance": {
+          "description": "使用 $XVS 投票 Venus 提案。",
+          "label": "治理"
+        },
+        "isolatedPools": {
+          "description": "在與核心市場隔離的池中交易資產。",
+          "label": "隔離池"
+        },
+        "label": "其他",
+        "port": {
+          "description": "免 Gas 匯入借貸部位。",
+          "label": "端口"
+        },
+        "swap": {
+          "label": "兌換"
+        },
+        "vai": {
+          "description": "鑄造 Venus 的原生穩定幣。",
+          "label": "VAI"
+        }
+      },
+      "settings": {
+        "gasLessTransactions": {
+          "label": "在 {{chainName}} 上啟用免 gas 交易"
+        },
+        "language": {
+          "label": "語言（測試版）"
+        }
+      },
+      "staking": {
+        "label": "質押"
+      },
+      "subMenuItem": {
+        "button": {
+          "label": "開始使用"
+        }
+      },
+      "venusLogoAlt": "Venus 標誌"
+    },
+    "settingsModal": {
+      "title": "設置"
+    },
+    "testEnvWarning": "這是測試環境。除測試外請勿進行任何交互。<Link>前往 Venus Protocol 官方網站</Link>"
+  },
+  "legal": {
+    "lastUpdatedAt": "最後更新：{{ date, textual }}"
+  },
+  "markdownEditor": {
+    "markdownTabLabel": "撰寫",
+    "placeholder": "沒有可預覽的內容",
+    "previewTabLabel": "預覽"
+  },
+  "market": {
+    "borrowCapThreshold": {
+      "title": "總借款",
+      "tooltip": "可借最大金額為 {{amountDollars}}（{{amountTokens}}）<br />借款上限：{{capTokens}}"
+    },
+    "borrowInfo": {
+      "title": "借款信息"
+    },
+    "interestRateModel": {
+      "title": "利率模型"
+    },
+    "legends": {
+      "borrowApy": "借款 APY",
+      "supplyApy": "供應 APY",
+      "utilizationRate": "利用率"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowerCountLabel": "借款人數",
+        "dailyBorrowingInterestsLabel": "每日借款利息",
+        "dailyDistribution": "每日分發 {{tokenSymbol}}",
+        "dailySupplyingInterestsLabel": "每日供應利息",
+        "exchangeRateLabel": "兌換率",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "reserveFactorLabel": "準備金係數",
+        "supplierCountLabel": "供應人數"
+      }
+    },
+    "periodOption": {
+      "oneYear": "1年",
+      "sixMonths": "6個月",
+      "thirtyDays": "30天"
+    },
+    "stats": {
+      "apy": "當前 APY",
+      "averageApy": "平均 APY",
+      "liquidationPenalty": "清算罰金",
+      "liquidationThreshold": "清算閾值"
+    },
+    "supplyCapThreshold": {
+      "title": "總供應",
+      "tooltip": "可供應最大金額為 {{amountDollars}}（{{amountTokens}}）"
+    },
+    "supplyInfo": {
+      "title": "供應信息"
+    }
+  },
+  "markets": {
+    "eMode": {
+      "group": {
+        "cannotDisable": {
+          "tooltip": {
+            "blockingPositions": "你無法禁用該 E-mode組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
+            "notEnoughCollateral": "你無法禁用該 E-mode組，因為你的總抵押價值不足以覆蓋總借款餘額"
+          }
+        },
+        "cannotEnable": {
+          "modal": {
+            "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode組，你需要關閉以下借款倉位：",
+            "repayButtonLabel": "還款",
+            "title": "你的倉位"
+          },
+          "tooltip": {
+            "blockingPositions": "你無法啟用該 E-mode組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
+            "notEnoughCollateral": "你無法啟用該 E-mode組，因為你的總抵押價值不足以覆蓋總借款餘額"
+          }
+        },
+        "disableButtonLabel": "禁用",
+        "disabledNotice": "該 E-Mode 組已不再支持。你的賬戶將回到默認參數。請切換到其他可用的 E-mode組或將其禁用。",
+        "enableButtonLabel": "啟用",
+        "healthFactor": "健康係數：",
+        "switchButtonLabel": "切換"
+      },
+      "notice": "啟用 E-Mode 可最大化借款能力，但借款僅限於所選組內資產。<Link>瞭解更多</Link>",
+      "search": {
+        "placeholder": "搜索資產或組"
+      },
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "可借",
+            "collateral": "抵押"
+          },
+          "rows": {
+            "liquidationPenalty": "清算罰金",
+            "liquidationThreshold": "清算閾值",
+            "maxLtv": "最大 LTV"
+          }
+        },
+        "columns": {
+          "asset": "資產",
+          "collateral": "抵押",
+          "isBorrowable": "可借",
+          "liquidationPenalty": "清算罰金",
+          "liquidationThreshold": "清算閾值",
+          "maxLtv": "最大 LTV",
+          "penalty": "罰金",
+          "threshold": "閾值"
+        },
+        "mobileSelectLabel": "排序："
+      }
+    },
+    "errors": {
+      "accountError": "需要賬戶 - 請連接錢包。",
+      "collateralDisableError": "禁用抵押錯誤 - 禁用 {{assetName}} 作為抵押時出現問題。請重試。",
+      "collateralEnableError": "啟用抵押錯誤 - 啟用 {{assetName}} 作為抵押時出現問題。請重試。",
+      "collateralRequired": "需要抵押 - 請償還所有借款資產或將其他資產設為抵押。"
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "僅向 {{ eModeGroupName }} 組內資產供應可提升你的借款能力",
+      "label": "隔離"
+    },
+    "tabs": {
+      "assets": {
+        "title": "資產"
+      },
+      "eMode": {
+        "illustrationAltText": "閃電插圖",
+        "liquidationPenalty": {
+          "label": "清算罰金"
+        },
+        "liquidationThreshold": {
+          "label": "清算閾值"
+        },
+        "maxLtv": {
+          "label": "最大 LTV",
+          "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
+        },
+        "title": "E-mode"
+      }
+    }
+  },
+  "marketTable": {
+    "assetColumn": {
+      "eMode": "該市場屬於 {{eModeGroupName}} E-mode組",
+      "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。"
+    },
+    "columnKeys": {
+      "asset": "資產",
+      "assetAndChain": "資產",
+      "borrowApy": "APY <InfoIcon />",
+      "borrowBalance": "總借款",
+      "collateral": "抵押",
+      "labeledBorrowApy": "借款 APY <InfoIcon />",
+      "labeledSupplyApy": "供應 APY <InfoIcon />",
+      "liquidity": "流動性",
+      "price": "價格",
+      "supplyApy": "APY <InfoIcon />",
+      "supplyBalance": "總供應",
+      "userBorrowBalance": "餘額",
+      "userBorrowLimitSharePercentage": "限額 %",
+      "userSupplyBalance": "餘額",
+      "userWalletBalance": "錢包"
+    },
+    "columnSelectOptionLabel": {
+      "asset": "資產",
+      "borrowApy": "借款 APY",
+      "borrowBalance": "總借款",
+      "collateral": "抵押",
+      "labeledBorrowApy": "借款 APY",
+      "labeledSupplyApy": "供應 APY / LTV",
+      "liquidity": "流動性",
+      "price": "價格",
+      "supplyApy": "供應 APY / LTV",
+      "supplyBalance": "總供應",
+      "userBorrowBalance": "借款餘額",
+      "userBorrowLimitSharePercentage": "限額 %",
+      "userSupplyBalance": "供應餘額",
+      "userWalletBalance": "錢包餘額"
+    },
+    "columnTooltips": {
+      "borrowApy": "借款 APY 為正表示你需要支付利息，為負表示你將獲得利息",
+      "supplyApy": "供應 APY 為正表示你將獲得利息，為負表示你需要支付利息"
+    },
+    "pausedAssetsPlaceholder": {
+      "description": "請啟用“已暫停資產”開關以查看。",
+      "imgAlt": "暫停圖標",
+      "title": "該池內所有資產已暫停"
+    },
+    "pausedAssetsToggle": {
+      "label": "已暫停資產"
+    },
+    "searchInput": {
+      "placeholder": "搜索資產"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "僅我的資產"
+    },
+    "userEModeAssetsOnlyToggle": {
+      "label": "僅 E-mode資產"
+    }
+  },
+  "operationForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "我已知悉高價格影響",
+        "tooltip": "該交易預計價格影響將超過 {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "我已知悉相關風險",
+        "tooltip": "此交易後你的健康係數將較低，清算風險增加"
+      }
+    },
+    "availableAmount": "可用",
+    "boostTabAltText": "火箭圖標",
+    "boostTabTitle": "增益",
+    "borrow": "借款",
+    "borrowTabTitle": "借款",
+    "collateral": "抵押",
+    "collateralField": {
+      "label": "抵押"
+    },
+    "error": {
+      "borrowCapReached": "該池借款上限 {{assetBorrowCap}} 已達。除非還款或提高借款上限，否則無法再從該市場借款。",
+      "higherThanAvailableAmount": "輸入金額超過可用金額",
+      "higherThanAvailableLiquidity": "資產流動性不足",
+      "higherThanBorrowBalance": "輸入金額超過借款餘額",
+      "higherThanBorrowCap": "該市場借款上限為 {{assetBorrowCap}}，當前已借 {{assetBorrowBalance}}，因此你無法從該池借款超過 {{userMaxBorrowAmount}}。",
+      "higherThanRepayBalance": "輸入金額超過還款餘額",
+      "higherThanSupplyCap": "該市場供應上限為 {{assetSupplyCap}}，當前已供應 {{assetSupplyBalance}}，因此你無法向該池供應超過 {{userMaxSupplyAmount}}。",
+      "higherThanWalletBalance": "{{tokenSymbol}} 餘額不足",
+      "higherThanWalletSpendingLimit": "你輸入的金額超過該資產的支出限額。請先撤銷支出限額並設置新的限額後再繼續交易。",
+      "insufficientSwapLiquidity": "PancakeSwap 流動性不足，無法完成該兌換",
+      "noCollateral": "在從該池借入 {{tokenSymbol}} 之前，你需要先供應代幣並將其設為抵押",
+      "noSwapQuoteFound": "未找到兌換報價。請更新表單。",
+      "priceImpactTooHigh": "價格影響過高",
+      "supplyCapReached": "該池供應上限 {{assetSupplyCap}} 已達。除非有人提取或提高供應上限，否則無法再向該市場供應。",
+      "tooRisky": "該交易會導致賬戶被清算",
+      "unwrappingUnsupported": "不支持解包",
+      "wrappingUnsupported": "不支持封裝"
+    },
+    "receiveNativeToken": {
+      "label": "接收 {{tokenSymbol}}",
+      "tooltip": "將借入的 {{wrappedNativeTokenSymbol}} 解包為 {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "待還債務"
+    },
+    "repay": {
+      "fullRepaymentWarning": "交易金額可能略高於當前借款金額以覆蓋新產生的利息",
+      "swappingWithHighPriceImpactWarning": "該交易價格影響較高，可能意味著不利的兌換。請確保兌換率和兌換數量符合預期。"
+    },
+    "repayTab": {
+      "collateralTabTitle": "抵押",
+      "noCollateralWarning": "你沒有可用於還款的抵押資產。",
+      "title": "還款",
+      "walletBalanceTabTitle": "錢包"
+    },
+    "rightMaxButtonLabel": "最大",
+    "riskSlider": {
+      "highRisk": "高風險",
+      "lowRisk": "低風險"
+    },
+    "safeMaxButtonLabel": "安全最大值",
+    "submitButtonLabel": {
+      "boost": "增益",
+      "borrow": "借款",
+      "enterValidAmount": "輸入有效金額",
+      "repay": "還款",
+      "supply": "供應",
+      "withdraw": "提取"
+    },
+    "supply": "供應",
+    "supplyTabTitle": "供應",
+    "swapDetails": {
+      "label": {
+        "repay": "你將還款",
+        "supply": "你將供應"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "swapSummary": {
+      "repay": "你將用 {{fromTokenAmount}} 還款 {{toTokenAmount}}",
+      "supply": "你將用 {{fromTokenAmount}} 供應 {{toTokenAmount}}"
+    },
+    "walletBalance": "錢包餘額",
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "該交易價格影響較高，可能意味著不利的兌換。請確保兌換率和兌換數量符合預期。"
+    },
+    "withdrawTabTitle": "提取"
+  },
+  "pagination": {
+    "itemOf": "第 {{currentPageLastIndex}} 條 / 共 {{itemsCount}} 條",
+    "itemsOf": "第 {{firstItemNumber}} - {{currentPageLastIndex}} 條 / 共 {{itemsCount}} 條"
+  },
+  "poolsStats": {
+    "cell": {
+      "assetsLabel": "資產",
+      "availableLiquidityLabel": "可用流動性",
+      "dailyXvsDistributionLabel": "每日 XVS 分發",
+      "totalBorrowLabel": "總借款",
+      "totalSupplyLabel": "總供應",
+      "treasuryLabel": "金庫"
+    }
+  },
+  "primeButton": {
+    "primeLogoAlt": "Venus Prime 標誌"
+  },
+  "primeCalculator": {
+    "borrowedTokens": {
+      "infos": {
+        "label": "合格借入 {{tokenSymbol}}",
+        "tooltip": "借款上限：{{borrowCapTokens}}（{{borrowCapUsd}}）",
+        "tooltip_empty": "借款上限：-"
+      },
+      "textField": {
+        "label": "已借入 {{tokenSymbol}}"
+      }
+    },
+    "rewardDetails": {
+      "fromBorrowedTokens": "來自借入 {{tokenSymbol}}",
+      "fromSuppliedTokens": "來自供應 {{tokenSymbol}}",
+      "primeBorrowApy": {
+        "title": "Prime 借款 APY",
+        "tooltip": "將添加到市場借款 APY 的 Prime 加成。<Link>瞭解更多</Link>"
+      },
+      "primeSupplyApy": {
+        "title": "Prime 供應 APY",
+        "tooltip": "將添加到市場供應 APY 的 Prime 加成。<Link>瞭解更多</Link>"
+      },
+      "title": "獎勵詳情",
+      "totalDailyRewards": {
+        "title": "每日獎勵總額",
+        "tooltip": "Prime 用戶一天內分發的所有獎勵數量"
+      },
+      "yourDailyRewards": "你的每日獎勵"
+    },
+    "stakedTokens": {
+      "infos": {
+        "error": "要符合 Prime 獎勵資格，至少需質押 {{minimumXvsStaked}} XVS。",
+        "label": "合格質押 XVS",
+        "tooltip": "最多 {{maximumXvsStaked}} 將計入你的 Prime 獎勵"
+      },
+      "textField": {
+        "label": "已質押 XVS"
+      }
+    },
+    "suppliedTokens": {
+      "infos": {
+        "label": "合格供應 {{tokenSymbol}}",
+        "tooltip": "供應上限：{{supplyCapTokens}}（{{supplyCapUsd}}）",
+        "tooltip_empty": "供應上限：-"
+      },
+      "textField": {
+        "label": "已供應 {{tokenSymbol}}"
+      }
+    },
+    "tokenSelect": {
+      "label": "代幣"
+    },
+    "topMessage": "你可以使用 Prime 計算器基於持倉估算持有 Prime 代幣可獲得的獎勵。<Link>瞭解更多</Link>"
+  },
+  "primeStatusBanner": {
+    "becomePrimeTitle": "你現在可以成為 Prime 用戶",
+    "claimButtonLabel": "領取 Prime 代幣",
+    "description": {
+      "primeCalculator": "再質押 <WhiteText>{{stakeDelta}}</WhiteText> 並等待 {{claimWaitingPeriod}} 即可領取 Prime 代幣並提升收益。<Link>計算 Prime 獎勵</Link>",
+      "primeDoc": "再質押 <WhiteText>{{stakeDelta}}</WhiteText> 並等待 {{claimWaitingPeriod}} 即可領取 Prime 代幣並提升收益。<Link>瞭解更多</Link>"
+    },
+    "noPrimeTokenWarning": {
+      "text": "所有 Prime 代幣已被領取",
+      "tooltip": "目前所有 {{primeTokenLimit}} 個 Prime 代幣均已被領取。如果持有人不再符合資格或我們增加數量，可能會有部分可用。"
+    },
+    "progressBar": {
+      "ariaLabel": "你的當前 Prime 進度",
+      "label": "已質押：<WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+    },
+    "promotionalTitle": "將收益提升高達 <GreenText>{{percentage}}</GreenText>",
+    "stakeButtonLabel": "質押 XVS",
+    "tokensLeft": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
+    "tokensLeft_one": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
+    "tokensLeft_many": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
+    "tokensLeft_other": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} 後可領取 Prime 獎勵"
+  },
+  "probableBanner": {
+    "description": "在 probable.markets 上增強你的信念",
+    "probableAltText": "Probable 插圖",
+    "title": "相信點什麼？"
+  },
+  "proposalList": {
+    "selectOptions": {
+      "all": {
+        "label": "全部"
+      }
+    }
+  },
+  "proposalState": {
+    "active": "進行中",
+    "bridged": "已跨鏈",
+    "canceled": "已取消",
+    "defeated": "已否決",
+    "executed": "已執行",
+    "expired": "已過期",
+    "failed": "失敗",
+    "pending": "待定",
+    "queued": "排隊中",
+    "succeeded": "成功"
+  },
+  "select": {
+    "defaultLabel": "選擇選項"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "搜索資產"
+    }
+  },
+  "spendingLimit": {
+    "label": "支出限額",
+    "labelTooltip": "這是你當前對該資產的支出上限。如需更多支出，請撤銷上限並重新設置。",
+    "revokeButtonTooltip": "撤銷支出限額"
+  },
+  "stakeModal": {
+    "availableTokensLabel": "可用 {{tokenSymbol}}",
+    "connectWalletMessage": "請連接錢包以質押 {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "輸入有效質押金額",
+    "submitButtonLabel": "質押",
+    "title": "質押 {{tokenSymbol}}"
+  },
+  "swap": {
+    "errors": {
+      "amountAboveWalletSpendingLimit": "你輸入的金額超過該資產的支出限額。請撤銷上限並重新設置後再繼續交易。",
+      "incorrectSwapInput": "兌換輸入不正確"
+    },
+    "swapDetails": {
+      "label": {
+        "exchangeRate": "兌換率",
+        "maximumSold": "最大賣出",
+        "minimumReceived": "最小接收",
+        "priceImpact": "價格影響",
+        "slippageTolerance": "滑點容忍度"
+      },
+      "tooltip": {
+        "priceImpact": "由於交易規模導致的市場價格與估算價格差異。"
+      },
+      "value": {
+        "exactAmount": "{{ value }}",
+        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+        "priceImpact": "{{ priceImpact }}"
+      }
+    },
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "該交易價格影響較高，可能意味著不利的兌換。請確保兌換率和兌換數量符合預期。"
+    }
+  },
+  "swapDetails": {
+    "priceImpact": {
+      "label": "價格影響"
+    },
+    "slippageTolerance": {
+      "label": "滑點容忍度"
+    },
+    "slippageToleranceModal": {
+      "description": "設置較高的滑點容忍度有助於交易成功，但可能無法獲得理想價格。請謹慎使用。",
+      "title": "滑點容忍度"
+    }
+  },
+  "swapPage": {
+    "connectWalletToSwap": "請連接錢包以兌換代幣",
+    "fromTokenAmountField": {
+      "label": "從",
+      "max": "最大"
+    },
+    "submitButton": {
+      "disabledLabels": {
+        "insufficientLiquidity": "兌換流動性不足",
+        "insufficientUserBalance": "{{tokenSymbol}} 餘額不足",
+        "invalidFromTokenAmount": "輸入有效兌換金額",
+        "priceImpactHigherThanMaximumTolerated": "價格影響過高",
+        "processing": "處理中",
+        "spendingLimitTooLow": "支出限額過低",
+        "unwrappingUnsupported": "不支持解包",
+        "wrappingUnsupported": "不支持封裝"
+      },
+      "enabledLabels": {
+        "swap": "兌換",
+        "swapWithHighPriceImpact": "高價格影響兌換"
+      }
+    },
+    "toTokenAmountField": {
+      "label": "到"
+    },
+    "walletBalance": "錢包餘額"
+  },
+  "switchChain": {
+    "switchButton": "切換到 {{chainName}}"
+  },
+  "switchChainNotice": {
+    "buttonLabel": "切換到 {{chainName}}",
+    "description": "你需要切換到 {{chainName}} 以啟用或禁用抵押品"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "排序"
+    }
+  },
+  "transactionErrors": {
+    "acceptAdminPendingAdminCheck": "接受管理員待定檢查",
+    "acceptPendingImplementationAddressCheck": "接受待定實現地址檢查",
+    "accrueInterestAccumulatedInterestCalculationFailed": "累計利息計算失敗",
+    "accrueInterestBorrowRateCalculationFailed": "借款利率計算失敗",
+    "accrueInterestNewBorrowIndexCalculationFailed": "新借款指數計算失敗",
+    "accrueInterestNewTotalBorrowsCalculationFailed": "新總借款計算失敗",
+    "accrueInterestNewTotalReservesCalculationFailed": "新總準備金計算失敗",
+    "accrueInterestSimpleInterestFactorCalculationFailed": "簡單利息因子計算失敗",
+    "addReservesAccrueInterestFailed": "增加準備金利息累計失敗",
+    "addReservesFreshCheck": "增加準備金新鮮度檢查",
+    "addReservesTransferInNotPossible": "增加準備金無法轉入",
+    "badInput": "輸入錯誤",
+    "borrowAccrueInterestFailed": "借款利息累計失敗",
+    "borrowAccumulatedBalanceCalculationFailed": "借款累計餘額計算失敗",
+    "borrowCashNotAvailable": "借款現金不可用",
+    "borrowComptrollerRejection": "借款 Comptroller 拒絕",
+    "borrowFreshnessCheck": "借款新鮮度檢查",
+    "borrowMarketNotListed": "借款市場未列出",
+    "borrowNewAccountBorrowBalanceCalculationFailed": "新賬戶借款餘額計算失敗",
+    "borrowNewTotalBalanceCalculationFailed": "新總餘額計算失敗",
+    "comptrollerCalculationError": "Comptroller 計算錯誤",
+    "comptrollerMismatch": "Comptroller 不匹配",
+    "comptrollerRejection": "Comptroller 拒絕",
+    "exitMarketBalanceOwed": "退出市場仍欠款餘額",
+    "exitMarketRejection": "退出市場被拒絕",
+    "gasEstimationFailed": "Gas 估算失敗",
+    "gaslessTransactionNotAvailable": "免 gas 交易不可用",
+    "insufficientBalanceForVai": "VAI 餘額不足",
+    "insufficientLiquidity": "流動性不足",
+    "insufficientShortfall": "不足差額",
+    "interestRateModelError": "利率模型錯誤",
+    "invalidAccountPair": "賬戶對無效",
+    "invalidCloseAmountRequested": "請求的關閉金額無效",
+    "invalidCloseFactor": "關閉因子無效",
+    "invalidCollateralFactor": "抵押因子無效",
+    "invalidLiquidationIncentive": "清算激勵無效",
+    "liquidateAccrueBorrowInterestFailed": "清算借款利息累計失敗",
+    "liquidateAccrueCollateralInterestFailed": "清算抵押利息累計失敗",
+    "liquidateCloseAmountIsUintMax": "清算關閉金額為 UINT 最大值",
+    "liquidateCloseAmountIsZero": "清算關閉金額為 0",
+    "liquidateCollateralFreshnessCheck": "清算抵押新鮮度檢查",
+    "liquidateComptrollerCalculateAmountSeizeFailed": "清算 Comptroller 計算扣押金額失敗",
+    "liquidateComptrollerRejection": "清算 Comptroller 拒絕",
+    "liquidateFreshnessCheck": "清算新鮮度檢查",
+    "liquidateSeizeBalanceDecrementFailed": "清算扣押餘額減少失敗",
+    "liquidateSeizeBalanceIncrementFailed": "清算扣押餘額增加失敗",
+    "liquidateSeizeBorrowFreshFailed": "清算借款新鮮度檢查失敗",
+    "liquidateSeizeComptrollerRejection": "清算扣押 Comptroller 拒絕",
+    "liquidateSeizeIsBorrower": "清算扣押為借款人",
+    "liquidateSeizeLiquidatorIsBorrower": "清算者為借款人",
+    "liquidateSeizeTooMuch": "清算扣押過多",
+    "marketAlreadyListed": "市場已列出",
+    "marketNotEntered": "未進入市場",
+    "marketNotFresh": "市場未更新",
+    "marketNotListed": "市場未列出",
+    "mathError": "數學錯誤",
+    "mintAccrueInterestFailed": "鑄造利息累計失敗",
+    "mintComptrollerRejection": "鑄造 Comptroller 拒絕",
+    "mintExchangeRateReadFailed": "鑄造讀取兌換率失敗",
+    "mintFeeCalculationFailed": "鑄造費用計算失敗",
+    "mintFreshnessCheck": "鑄造新鮮度檢查",
+    "mintNewAccountBalanceCalculationFailed": "鑄造新賬戶餘額計算失敗",
+    "mintNewTotalSupplyCalculationFailed": "鑄造新總供應計算失敗",
+    "mintTransferInFailed": "鑄造轉入失敗",
+    "mintTransferNotPossible": "鑄造無法轉入",
+    "noError": "無錯誤",
+    "nonzeroBorrowBalance": "借款餘額不為 0",
+    "priceError": "價格錯誤",
+    "redeemAccrueInterestFailed": "贖回利息累計失敗",
+    "redeemComptrollerRejection": "贖回 Comptroller 拒絕",
+    "redeemExchangeAmountCalculatioFailed": "贖回兌換金額計算失敗",
+    "redeemExchangeRateReadFailed": "贖回讀取兌換率失敗",
+    "redeemExchangeTokensCalculationFailed": "贖回兌換代幣計算失敗",
+    "redeemFeeCalculationFailed": "贖回費用計算失敗",
+    "redeemFreshnessCheck": "贖回新鮮度檢查",
+    "redeemNewAccountBalanceCalculationFailed": "贖回新賬戶餘額計算失敗",
+    "redeemNewTotalSupplyCalculationFailed": "贖回新總供應計算失敗",
+    "redeemTransferOutNotPossible": "贖回無法轉出",
+    "reduceReservesAccrueInterestFailed": "減少準備金利息累計失敗",
+    "reduceReservesAdminCheck": "減少準備金管理員檢查",
+    "reduceReservesCashNotAvailable": "減少準備金現金不可用",
+    "reduceReservesFreshCheck": "減少準備金新鮮度檢查",
+    "reduceReservesValidation": "減少準備金驗證",
+    "rejection": "拒絕",
+    "repayBehalfAccrueInterestFailed": "代為還款利息累計失敗",
+    "repayBorrowAccrueInterestFailed": "還款借款利息累計失敗",
+    "repayBorrowAccumulatedBalanceCalculationFailed": "還款借款累計餘額計算失敗",
+    "repayBorrowComptrollerRejection": "還款 Comptroller 拒絕",
+    "repayBorrowFreshnessCheck": "還款新鮮度檢查",
+    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "還款新賬戶借款餘額計算失敗",
+    "repayBorrowTransferInNotPossible": "還款無法轉入",
+    "repayBorrowTransferNotPossible": "還款無法轉入",
+    "repayVaiComptrollerRejection": "償還 VAI Comptroller 拒絕",
+    "repayVaiFreshnessCheck": "償還 VAI 新鮮度檢查",
+    "setCloseFactorOwnerCheck": "設置關閉因子所有者檢查",
+    "setCloseFactorValidation": "設置關閉因子驗證",
+    "setCollateralFactorNoExists": "設置抵押因子不存在",
+    "setCollateralFactorOwnerCheck": "設置抵押因子所有者檢查",
+    "setCollateralFactorValidation": "設置抵押因子驗證",
+    "setCollateralFactorWithoutPrice": "設置抵押因子無價格",
+    "setComptrollerOwnerCheck": "設置 Comptroller 所有者檢查",
+    "setImplementationOwnerCheck": "設置實施所有者檢查",
+    "setInterestRateModelAccrueInterestFailed": "設置利率模型利息累計失敗",
+    "setInterestRateModelFreshCheck": "設置利率模型新鮮度檢查",
+    "setInterestRateModelOwnerCheck": "設置利率模型所有者檢查",
+    "setLiquidationIncentiveOwnerCheck": "設置清算激勵所有者檢查",
+    "setLiquidationIncentiveValidation": "設置清算激勵驗證",
+    "setMaxAssetsOwnerCheck": "設置最大資產所有者檢查",
+    "setMintedVaiRejection": "設置已鑄 VAI 被拒絕",
+    "setOracleMarketNotListed": "設置預言機市場未列出",
+    "setPauseGuardianOwnerCheck": "設置暫停守護者所有者檢查",
+    "setPendingAdminOwnerCheck": "設置待定管理員所有者檢查",
+    "setPendingImplementationOwnerCheck": "設置待定實施所有者檢查",
+    "setPriceOracleOwnerCheck": "設置價格預言機所有者檢查",
+    "setReserveFactorAccrueInterestFailed": "設置準備金係數利息累計失敗",
+    "setReserveFactorAdminCheck": "設置準備金係數管理員檢查",
+    "setReserveFactorBoundsCheck": "設置準備金係數範圍檢查",
+    "setReserveFactorFreshCheck": "設置準備金係數新鮮度檢查",
+    "setTreasuryOwnerCheck": "設置金庫所有者檢查",
+    "setVaiControllerOwnerCheck": "設置 VAI 控制器所有者檢查",
+    "setVaiMintRateCheck": "設置 VAI 鑄造率檢查",
+    "sftMintNewAccountBalanceCalculationFailed": "SFT 鑄造新賬戶餘額計算失敗",
+    "snapshotError": "快照錯誤",
+    "supportMarketExists": "支持市場已存在",
+    "supportMarketOwnerCheck": "支持市場所有者檢查",
+    "tokenGetUnderlyingPriceError": "獲取代幣底層價格失敗",
+    "tokenInsufficentCash": "代幣現金不足",
+    "tokenInsufficientAllowance": "代幣授權不足",
+    "tokenInsufficientBalance": "代幣餘額不足",
+    "tokenPriceError": "代幣價格錯誤",
+    "tokenTransferInFailed": "代幣轉入失敗",
+    "tokenTransferOutFailed": "代幣轉出失敗",
+    "tooManyAssets": "資產過多",
+    "tooMuchRepay": "還款過多",
+    "transferComptrollerRejection": "轉賬 Comptroller 拒絕",
+    "transferNotAllowed": "不允許轉賬",
+    "transferNotEnough": "轉賬不足",
+    "transferTooMuch": "轉賬過多",
+    "unauthorized": "未授權",
+    "vaiBurnRejection": "銷燬 VAI 被拒絕",
+    "vaiLiquidateAccrueBorrowInterestFailed": "清算 VAI 借款利息累計失敗",
+    "vaiLiquidateAccrueCollateralInterestFailed": "清算 VAI 抵押利息累計失敗",
+    "vaiLiquidateCloseAmountIsUintMax": "清算 VAI 關閉金額為 UINT 最大值",
+    "vaiLiquidateCloseAmountIsZero": "清算 VAI 關閉金額為 0",
+    "vaiLiquidateCollateralFreshnessCheck": "清算 VAI 抵押新鮮度檢查",
+    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "清算 VAI Comptroller 計算扣押金額失敗",
+    "vaiLiquidateComptrollerRejection": "清算 VAI Comptroller 拒絕",
+    "vaiLiquidateFreshnessCheck": "清算 VAI 新鮮度檢查",
+    "vaiLiquidateLiquidatorIsBorrower": "清算 VAI 清算者為借款人",
+    "vaiLiquidateRepayBorrowFreshFailed": "清算 VAI 還款新鮮度檢查失敗",
+    "vaiLiquidateSeizeBalanceDecrementFailed": "清算 VAI 扣押餘額減少失敗",
+    "vaiLiquidateSeizeBalanceIncrementFailed": "清算 VAI 扣押餘額增加失敗",
+    "vaiLiquidateSeizeComptrollerRejection": "清算 VAI 扣押 Comptroller 拒絕",
+    "vaiLiquidateSeizeLiquidatorIsBorrower": "清算 VAI 扣押者為借款人",
+    "vaiLiquidateSeizeTooMuch": "清算 VAI 扣押過多",
+    "vaiMintExchangeCalculationFailed": "鑄造 VAI 兌換計算失敗",
+    "vaiMintRejection": "鑄造 VAI 被拒絕"
+  },
+  "transactionNotification": {
+    "couldNotFetchReceipt": {
+      "title": "無法獲取交易狀態"
+    },
+    "failed": {
+      "title": "交易失敗"
+    },
+    "pending": {
+      "title": "交易確認中"
+    },
+    "success": {
+      "title": "交易已確認"
+    }
+  },
+  "vai": {
+    "borrow": {
+      "amountTokensInput": {
+        "limitButtonLabel": "安全最大值"
+      },
+      "availableAmount": {
+        "label": "可用",
+        "tooltip": "根據全侷限額和你提供的抵押，最多可借 VAI 數量"
+      },
+      "borrowApr": {
+        "label": "借款 APR",
+        "tooltip": "在已鑄造 VAI 之外未來需支付的年化利率"
+      },
+      "fee": {
+        "label": "費用"
+      },
+      "notice": {
+        "amountHigherThanAccountMintableAmount": "輸入金額超過可用金額",
+        "amountHigherThanLiquidity": "輸入金額超過可用 VAI 流動性"
+      },
+      "primeOnlyWarning": "僅持有 Prime 代幣的用戶可借 VAI。瞭解更多 Prime 信息 <Link>這裡</Link>。",
+      "submitButton": {
+        "borrowLabel": "借款",
+        "enterValidAmountLabel": "輸入有效借款金額"
+      },
+      "tabTitle": "借款"
+    },
+    "headerMessage": "VAI 是 Venus 協議的主要穩定幣。使用你提供的抵押借入 VAI。<Link>瞭解更多</Link>",
+    "repay": {
+      "amountTokensInput": {
+        "limitButtonLabel": "最大"
+      },
+      "borrowApr": {
+        "label": "借款 APR",
+        "tooltip": "在已鑄造 VAI 之外未來需支付的年化利率"
+      },
+      "notice": {
+        "amountHigherThanBorrowBalance": "輸入金額超過還款餘額",
+        "amountHigherThanWalletBalance": "{{tokenSymbol}} 餘額不足",
+        "amountHigherThanWalletSpendingLimit": "你輸入的金額超過該資產的支出限額。請先撤銷限額並重新設置後再繼續交易。",
+        "fullRepaymentWarning": "交易金額可能略高於當前借款金額以覆蓋新產生的利息"
+      },
+      "submitButton": {
+        "enterValidAmountLabel": "輸入有效還款金額",
+        "repayLabel": "還款"
+      },
+      "tabTitle": "還款",
+      "walletBalance": {
+        "label": "錢包餘額"
+      }
+    }
+  },
+  "vault": {
+    "blockingPendingWithdrawalsWarning": "你必須完成待處理的提取才能與該金庫交互。",
+    "dailyEmission": "每日發放",
+    "pausedWarning": "該金庫當前已暫停。利率仍在累積，但領取、質押和提取在金庫恢復前不可用",
+    "stakeButton": "質押",
+    "stakingApr": "{{stakeTokenName}} 質押 APR",
+    "totalStaked": "總質押",
+    "transactionForm": {
+      "lockingPeriod": {
+        "duration": "{{date, distanceToNow}}",
+        "label": "鎖定期"
+      },
+      "rightMaxButtonLabel": "最大"
+    },
+    "withdrawButton": "提取",
+    "youAreStake": "你正在質押"
+  },
+  "vote": {
+    "abstain": "棄權",
+    "addComment": "添加評論",
+    "against": "反對",
+    "comment": "評論",
+    "createProposalForm": {
+      "abstainOption": "棄權選項",
+      "action": "操作",
+      "actions": "操作",
+      "addDescription": "添加描述（支持基礎 Markdown 樣式）",
+      "addOneMoreAction": "+ 添加一個操作",
+      "address": "地址",
+      "againstOption": "反對選項",
+      "confirm": "確認",
+      "create": "創建",
+      "description": "描述",
+      "forOption": "贊成選項",
+      "name": "名稱",
+      "nextStep": "下一步",
+      "proposalName": "提案名稱",
+      "proposalType": "提案類型",
+      "signature": "簽名",
+      "submitError": "創建提案時出錯",
+      "votingOptions": "投票選項"
+    },
+    "createProposalModal": {
+      "createManually": "手動創建",
+      "createProposal": "創建提案",
+      "uploadFile": "上傳文件",
+      "youCanEitherCreateManuallyOrUpload": "你可以手動創建提案，或上傳包含詳細信息的文件。如果選擇上傳文件，你可以使用該模板作為示例：<Link>Github</Link>"
+    },
+    "createProposalPlus": "+ 創建提案",
+    "delegate": "委託",
+    "delegateAddress": "委託地址",
+    "delegateLeaderboard": "委託排行榜",
+    "delegateVotes": "委託票數",
+    "delegateVoting": "委託投票",
+    "delegateYourVoting": "2. <Anchor>將你的投票權</Anchor>委託給自己或他人",
+    "depositXvs": "存入 XVS",
+    "depositYourTokens": "1. <Link>存入你的代幣</Link> 到 XVS 金庫 ",
+    "enterContactAddress": "輸入聯繫地址",
+    "errorState": {
+      "buttonLabel": "重試",
+      "message": "提案獲取失敗"
+    },
+    "for": "贊成",
+    "goToXvsSnapshot": "前往 XVS 快照",
+    "omnichain": {
+      "switchToBnb": "切換到 BNB Chain",
+      "votingOnlyEnabledOnBnb": "投票僅在 BNB Chain 上可用"
+    },
+    "pages": {
+      "actions": "3 / 3 操作",
+      "confirmation": "確認",
+      "proposalInformation": "1 / 3 提案信息",
+      "votingOptions": "2 / 3 投票選項"
+    },
+    "pasteYourAddress": "粘貼你的地址",
+    "pleasePayAttention": "請注意",
+    "proposals": "提案",
+    "proposalStateFilter": {
+      "label": "狀態"
+    },
+    "proposalType": {
+      "critical": "關鍵",
+      "fastTrack": "快速通道",
+      "normal": "普通"
+    },
+    "redelegate": "重新委託",
+    "redelegateVoting": "重新委託投票",
+    "requiredVotingPower": "你需要擁有 300k 投票權才能創建提案",
+    "searchInput": {
+      "placeholder": "搜索提案"
+    },
+    "summaryProgressBar": "投票總結進度條 - {{voteType}}",
+    "totalLocked": "總鎖定",
+    "toVoteYouShould": "投票前你應：",
+    "voteAbstain": "投票棄權",
+    "voteAgainst": "投票反對",
+    "voteFor": "投票贊成",
+    "votingPower": "投票權",
+    "votingWallet": "投票錢包",
+    "votingWeight": "投票權重",
+    "youCanDelegateVotes": "你可以將投票權委託給自己或他人。如果知道要委託的地址，請在下方輸入；否則可查看委託排行榜來選擇支持的政黨",
+    "youDelegatedTo": "你已將鎖定的代幣委託給 {{delegate}}"
+  },
+  "voteProposalUi": {
+    "activeUntilDate": "有效期至：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "canceledDate": "已取消：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "command": {
+      "actionButton": {
+        "cancel": "取消",
+        "execute": "執行",
+        "queue": "排隊"
+      },
+      "dates": {
+        "activeAt": "待定至 {{date, }}",
+        "executableAt": "可執行於 {{date, }}",
+        "previousStep": "{{date, }}",
+        "queueableAt": "可排隊於 {{date, }}"
+      },
+      "description": {
+        "bridged": "等待跨鏈橋傳播交易",
+        "canceled": "治理守護者已取消負載執行",
+        "failed": "無法將負載發送到目標網絡",
+        "pending": "等待在 {{chainName}} 上執行負載",
+        "pendingBsc": "等待投票開始",
+        "waitingToBeExecutable": "等待排隊期結束",
+        "wrongChain": "該負載需在 {{chainName}} 鏈上執行"
+      },
+      "operations": {
+        "title": "操作"
+      },
+      "status": {
+        "pending": "待定"
+      }
+    },
+    "commands": {
+      "allPayloadsExecuted": "所有負載已執行",
+      "somePayloadsExecuted": "已執行負載",
+      "title": "命令"
+    },
+    "countdownFormat": {
+      "daysIncluded": "{{days}}天 : {{hours}}小時 : {{minutes}}分 : {{seconds}}秒",
+      "hoursIncluded": "{{hours}}小時 : {{minutes}}分 : {{seconds}}秒",
+      "minutesIncluded": "{{minutes}}分 : {{seconds}}秒",
+      "secondsIncluded": "{{seconds}}秒"
+    },
+    "defeatedDate": "已否決：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "description": "描述",
+    "executedDate": "已執行：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "expiredDate": "已過期：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "greenPulseAnimation": {
+      "altText": "綠色脈衝動畫"
+    },
+    "proposalState": {
+      "activeTimestamp": "自 <Span>{{date, dd MMM yyyy HH:mm}}</Span> 起生效",
+      "canceledTimestamp": "已取消：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeatedTimestamp": "已否決：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "executedTimestamp": "已執行：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "expiredTimestamp": "已過期：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "queuedTimestamp": "已排隊：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "已成功：<Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+    },
+    "queuedUntilDate": "排隊至：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "status": {
+      "executedPayloads": "已執行負載",
+      "readyForExecution": "準備執行",
+      "readyForQueuing": "準備排隊"
+    },
+    "statusCard": {
+      "ariaLabelAbstain": "棄權票",
+      "ariaLabelAgainst": "反對票",
+      "ariaLabelFor": "贊成票"
+    },
+    "timeUntilExecutable": "可執行於：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilVotable": "投票開始：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "voteStatus": {
+      "abstained": "已棄權",
+      "notVoted": "未投票",
+      "votedAgainst": "已反對",
+      "votedFor": "已贊成"
+    },
+    "votingOptions": "投票選項"
+  },
+  "voterDetail": {
+    "actions": "操作",
+    "amount": "數量",
+    "delegated": "已委託",
+    "delegatingTo": "委託給",
+    "holding": "持有",
+    "proposalNumber": "提案 #",
+    "transactions": "交易",
+    "undelegated": "未委託",
+    "venusBalance": "Venus 餘額",
+    "viewAll": "查看全部",
+    "votedAbstain": "已棄權",
+    "votedAgainst": "已反對",
+    "votedFor": "已贊成",
+    "votes": "票數",
+    "votingHistory": "投票歷史"
+  },
+  "voterLeaderboard": {
+    "addressesByVotingWeight": "按投票權重的地址",
+    "columns": {
+      "proposalsVoted": "已投票提案",
+      "rank": "排名",
+      "votes": "票數",
+      "voteWeight": "投票權重"
+    }
+  },
+  "voteSummary": {
+    "addresses_zero": "{{count}} 個地址",
+    "addresses_one": "{{count}} 個地址",
+    "addresses_other": "{{count}} 個地址",
+    "votes": "票數"
+  },
+  "wallets": {
+    "errors": {
+      "noProvider": "無法連接。請確保你選擇的錢包已安裝在瀏覽器中。"
+    }
+  },
+  "web3DomainNames": {
+    "providers": {
+      "ens": "ENS 名稱",
+      "spaceId": "Space ID 名稱"
+    },
+    "tooltip": {
+      "address": "（{{address}}）"
+    }
+  },
+  "withdrawFromVaiVaultModal": {
+    "availableTokensLabel": "可用 {{tokenSymbol}}",
+    "connectWalletMessage": "請連接錢包以提取 {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "輸入有效提取金額",
+    "submitButtonLabel": "提取",
+    "title": "提取 {{tokenSymbol}}"
+  },
+  "withdrawFromVestingVaultModalModal": {
+    "displayWithdrawalRequestListButton": "提取請求列表",
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "請連接錢包以提取"
+      },
+      "availableTokensLabel": "可請求 {{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "提取請求列表",
+      "primeLossWarning": {
+        "message": "如果提取該金額，你將失去 Prime 代幣，因為你在 XVS 金庫的質押將低於獲得 Prime 的最低要求 {{minimumXvsStake}}。",
+        "submitButtonLabel": "失去 Prime 代幣並申請提取"
+      },
+      "submitButtonDisabledLabel": "輸入有效申請金額",
+      "submitButtonLabel": "申請提取"
+    },
+    "requestWithdrawalTabTitle": "申請提取",
+    "title": "提取 {{tokenSymbol}}",
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "請連接錢包查看你的提取請求"
+      },
+      "emptyState": "你沒有活躍的提取請求",
+      "itemContent": "鎖定至 {{date, dd.MM.yy h:mm a}}"
+    },
+    "withdrawalRequestListTitle": "提取請求列表",
+    "withdrawTab": {
+      "approveToken": {
+        "connectWalletMessage": "請連接錢包以提取"
+      },
+      "availableTokens": "可用 {{tokenSymbol}}",
+      "submitButton": "提取"
+    },
+    "withdrawTabTitle": "提取"
+  }
+}

@@ -20,7 +20,7 @@ export const PALETTE = {
     main: theme.colors.background,
   },
   text: {
-    primary: theme.colors.offWhite,
+    primary: theme.colors.white,
     secondary: theme.colors.grey,
   },
   button: {
@@ -34,18 +34,18 @@ export const PALETTE = {
     error: theme.colors.red,
     error50: 'rgba(233, 61, 68, 0.5)',
     warning: theme.colors.orange,
-    hover: theme.colors.lightGrey,
+    hover: theme.colors['background-hover'],
   },
 };
 
 export const BREAKPOINTS = {
   values: {
-    xs: 0,
-    sm: 576,
+    xs: 375,
+    sm: 640,
     md: 768,
-    lg: 992,
+    lg: 1024,
     xl: 1280,
-    xxl: 1440,
+    '2xl': 1440,
   },
 };
 

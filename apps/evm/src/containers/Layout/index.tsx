@@ -1,18 +1,24 @@
-import { Outlet } from 'react-router';
+import { Outlet, matchPath, useLocation } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 
+import { Wrapper, cn } from 'components';
+import { Subdirectory } from 'constants/routing';
 import { useRef } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { NavBar } from './NavBar';
 import ScrollToTop from './ScrollToTop';
-import { Sidebar } from './Sidebar';
 import { TestEnvWarning } from './TestEnvWarning';
 import { store } from './store';
+
+const NO_WRAPPER_PATHNAMES = [Subdirectory.LANDING] as string[];
 
 export const Layout: React.FC = () => {
   const scrollToTopRef = useRef<HTMLButtonElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
+
+  const { pathname } = useLocation();
 
   const isCloseToBottomState = store.use.isCloseToBottom();
   const setIsCloseToBottom = store.use.setIsCloseToBottom();
@@ -52,27 +58,35 @@ export const Layout: React.FC = () => {
     }
   };
 
+  const noWrapper = NO_WRAPPER_PATHNAMES.some(noWrapperPath => matchPath(noWrapperPath, pathname));
+  const contentDom = (
+    <>
+      <Outlet />
+      <ScrollToTop ref={scrollToTopRef} />
+    </>
+  );
+
+  const WrapperComp = noWrapper ? 'div' : Wrapper;
+
   return (
     <div className="h-dvh flex flex-col">
-      <TestEnvWarning />
+      <NavBar className="shrink-0" />
 
-      <div className="flex flex-1 flex-col overflow-hidden md:flex-row">
-        <Sidebar />
+      <TestEnvWarning className="shrink-0" />
 
-        <div
-          className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto"
-          id={PAGE_CONTAINER_ID}
-          onScroll={handleScroll}
-        >
-          <Header />
+      <div
+        className={cn(
+          'flex flex-col grow gap-y-10  overflow-x-hidden ',
+          !noWrapper && 'pt-5 sm:pt-10',
+        )}
+        id={PAGE_CONTAINER_ID}
+        onScroll={handleScroll}
+      >
+        <Header />
 
-          <main className="relative w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
-            <Outlet />
-            <ScrollToTop ref={scrollToTopRef} />
-          </main>
+        <WrapperComp className="relative w-full shrink-0 grow">{contentDom}</WrapperComp>
 
-          <Footer ref={footerRef} />
-        </div>
+        <Footer ref={footerRef} />
       </div>
     </div>
   );

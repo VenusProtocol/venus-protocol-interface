@@ -27,7 +27,7 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
   return (
     <div
       className={cn(
-        'rounded-lg bg-gradient-to-l h-14 from-[#071F39] to-[#1549A1] relative flex items-center before:content-[""] before:absolute before:inset-0 before:bg-[url("/images/noise.png")] before:bg-repeat before:mix-blend-soft-light overflow-hidden sm:pr-3',
+        'rounded-lg bg-linear-to-l h-14 from-[#071F39] to-[#1549A1] relative flex items-center before:content-[""] before:absolute before:inset-0 before:bg-[url("/images/noise.png")] before:bg-repeat before:mix-blend-soft-light overflow-hidden sm:pr-3',
         enabledEModeGroup ? 'pl-4 pr-2 lg:pr-2' : 'px-4 lg:pr-3',
         className,
       )}
@@ -49,7 +49,7 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
             </div>
 
             <EModeButton
-              small
+              size="xs"
               poolComptrollerContractAddress={poolComptrollerContractAddress}
               analyticVariant="market_borrow_banner"
             >
@@ -72,13 +72,13 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
               <EModeButton
                 poolComptrollerContractAddress={poolComptrollerContractAddress}
                 analyticVariant="market_borrow_banner"
-                small
+                size="xs"
                 className={cn('ml-auto', isMdOrUp ? 'hidden sm:flex' : 'h-8 w-8 p-0 shrink-0')}
               >
                 {isMdOrUp ? (
                   t('eModeBanner.exploreButtonLabel')
                 ) : (
-                  <Icon name="chevronRight" className="text-offWhite w-6 h-6" />
+                  <Icon name="chevronRight" className="text-white w-6 h-6" />
                 )}
               </EModeButton>
             </div>

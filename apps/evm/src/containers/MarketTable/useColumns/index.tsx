@@ -31,6 +31,7 @@ import type { ColumnKey } from '../types';
 
 // Translation keys: do not remove this comment
 // t('marketTable.columnKeys.asset')
+// t('marketTable.columnKeys.assetAndChain')
 // t('marketTable.columnKeys.supplyApy')
 // t('marketTable.columnKeys.labeledSupplyApy')
 // t('marketTable.columnKeys.borrowApy')
@@ -126,10 +127,13 @@ export const useColumns = ({
           disabledTokenActions: asset.disabledTokenActions,
         });
 
-        if (column === 'asset') {
+        if (column === 'asset' || column === 'assetAndChain') {
           return (
             <div className="flex items-center space-x-2">
-              <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+              <TokenIconWithSymbol
+                token={asset.vToken.underlyingToken}
+                displayChain={column === 'assetAndChain'}
+              />
 
               {userEModeGroup && isInUserEModeGroup && (
                 <Tooltip
@@ -282,7 +286,7 @@ export const useColumns = ({
         if (column === 'userBorrowLimitSharePercentage') {
           return (
             <div css={styles.userBorrowLimitSharePercentage}>
-              <span className={cn(isPaused ? 'text-grey' : 'text-offWhite')}>
+              <span className={cn(isPaused ? 'text-grey' : 'text-white')}>
                 {formatPercentageToReadableValue(asset.userBorrowLimitSharePercentage)}
               </span>
 
@@ -299,7 +303,7 @@ export const useColumns = ({
         }
       },
       sortRows:
-        column === 'asset'
+        column === 'asset' || column === 'assetAndChain'
           ? undefined
           : (rowA, rowB, direction) => {
               if (column === 'borrowApy' || column === 'labeledBorrowApy') {

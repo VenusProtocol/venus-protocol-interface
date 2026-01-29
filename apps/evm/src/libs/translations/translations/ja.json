@@ -1,0 +1,1687 @@
+{
+  "account": {
+    "circularGradient": "円形グラデーション",
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "借入",
+        "eModeHeader": {
+          "illustrationAltText": "Eモードのイラスト",
+          "title": "Eモード: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+        },
+        "supplyTableTitle": "供給",
+        "tabletBorrowTabTitle": "借入",
+        "tabletSupplyTabTitle": "供給",
+        "tabletTitle": "資産"
+      }
+    },
+    "performanceChart": {
+      "absolutePerformance": "絶対パフォーマンス",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "errorState": {
+        "failedToFetchMessage": "アカウント履歴を取得できませんでした",
+        "refetchButtonLabel": "再試行"
+      },
+      "netWorth": {
+        "label": "純資産",
+        "tooltip": "ボールトのステーキングと借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールトのステーキング、借入、ミント済みVAIを考慮した利用可能な純資産"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6か月",
+        "thirtyDays": "30日"
+      },
+      "placeholderText": "レポートを生成中です。最大で1分ほどかかる場合があります",
+      "todaysChange": "本日の変化",
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "placeholder": {
+      "buttonLabel": "参照"
+    },
+    "pools": {
+      "placeholder": {
+        "description": "あなたのプールポジションはここに表示されます",
+        "title": "まだ供給または借入のポジションはありません"
+      }
+    },
+    "poolsBreakdown": {
+      "poolTagTooltip": "借入限度の使用率: {{borrowLimitUsedPercentage}}"
+    },
+    "primeBanner": {
+      "button": {
+        "becomePrime": "Primeトークンを請求",
+        "stakeXvs": "XVSのステーキング"
+      },
+      "primeLogoAltText": "Primeロゴ",
+      "text": {
+        "apyBoost": "Primeで収益を最大<GreenText>{{boost}}</GreenText>までブースト",
+        "becomePrime": "Primeユーザーになれるようになりました"
+      }
+    },
+    "settings": {
+      "gaslessTransactions": {
+        "switchLabel": "{{chainName}}でガスレス取引を有効にする"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "日次収益",
+        "healthFactor": "健全性ファクター",
+        "healthFactorTooltip": "清算ライン: < 1.0",
+        "mintedVai": "ミント済みVAI",
+        "netApy": "実質APY",
+        "netApyTooltip": "年間利息として受け取る供給残高の割合",
+        "netApyWithVaultStakeTooltip": "年間利息として受け取る供給残高とボールトステーキングの割合",
+        "totalBorrow": "総借入",
+        "totalSupply": "総供給",
+        "totalVaultStake": "ボールト総ステーキング量"
+      },
+      "title": "サマリー"
+    },
+    "tabs": {
+      "pools": "プール",
+      "settings": "設定",
+      "transactions": "取引",
+      "vaults": "ボールト"
+    },
+    "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
+      "placeholder": {
+        "description": "あなたの取引はここに表示されます",
+        "title": "まだ取引はありません"
+      },
+      "selects": {
+        "source": {
+          "all": "すべてのマーケット"
+        },
+        "txType": {
+          "all": "すべての取引",
+          "approve": "承認",
+          "borrow": "借入",
+          "enterMarket": "担保有効",
+          "exitMarket": "担保無効",
+          "mint": "供給",
+          "redeem": "引き出し",
+          "repay": "返済"
+        }
+      },
+      "today": "今日",
+      "txText": {
+        "approve": "{{tokenAmount}}の支出を承認しました",
+        "enterMarket": "{{vTokenSymbol}}を担保として<Styled>有効化</Styled>",
+        "exitMarket": "{{vTokenSymbol}}を担保として<Styled>無効化</Styled>"
+      },
+      "txType": {
+        "approve": "承認",
+        "borrow": "借入",
+        "enterMarket": "担保有効",
+        "exitMarket": "担保無効",
+        "mint": "供給",
+        "redeem": "引き出し",
+        "repay": "返済"
+      },
+      "view": "表示",
+      "yesterday": "昨日"
+    },
+    "vaults": {
+      "placeholder": {
+        "description": "あなたのボールトポジションはここに表示されます",
+        "title": "まだステーキングポジションはありません"
+      }
+    }
+  },
+  "accountData": {
+    "balanceUpdate": {
+      "borrowBalance": "借入残高",
+      "supplyBalance": "供給残高"
+    },
+    "dailyEarnings": {
+      "label": "日次収益"
+    },
+    "healthFactor": {
+      "label": "健全性ファクター",
+      "tooltip": "清算ライン: < 1.0"
+    }
+  },
+  "accountHealth": {
+    "accessibilityLabel": "現在のアカウント状態の表示",
+    "borrowLimitUsed": "借入限度の使用率:",
+    "limit": "上限:",
+    "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全な借入限度:<LineBreak/>{{safeBorrowLimit}}（借入限度の{{safeBorrowLimitPercentage}}%）"
+  },
+  "adBanner": {
+    "learnMore": "詳細を見る",
+    "startNow": "今すぐ始める"
+  },
+  "announcements": {
+    "bethUpdate": {
+      "description": "Binanceは2023-04-26にBETHの引き出しを停止しました。VenusでのBETHへのエクスポージャーを減らすことを推奨します。借入は停止されています。オンチェーンでBETHをWBETHに1:1の比率で変換できます。<Link>こちら</Link>をご覧ください。"
+    },
+    "sxpDisabling": {
+      "description": "Gauntletの推奨に従い、SXPが新しいチェーンへ移行する懸念とSXP流動性の低下が見込まれるため、SXPの借入と供給は停止されています。"
+    },
+    "trxMigration": {
+      "description": "Venusは新しいTRXトークンを新しいマーケットでサポートしています。旧TRXトークンの借入と供給は停止されています。詳細は<Link>Binanceの公式アナウンス</Link>をご覧ください。"
+    },
+    "tusdMigration": {
+      "description": "Venusは新しいTUSDトークンを新しいマーケットでサポートしています。旧TUSDトークンの借入と供給は停止されています。詳細は<Link>Binanceの公式アナウンス</Link>をご覧ください。"
+    }
+  },
+  "approveDelegateSteps": {
+    "approveDelegateButton": {
+      "text": "委任コントラクトを承認",
+      "tooltip": "この操作をあなたに代わって実行するため、委任コントラクトの承認が必要です。"
+    },
+    "step1": "ステップ1"
+  },
+  "approveTokenSteps": {
+    "approveTokenButton": {
+      "text": "{{tokenSymbol}}を承認",
+      "tooltip": "Venusプロトコルで使用するトークンには支出承認が必要です。"
+    },
+    "step1": "ステップ1",
+    "step2": "ステップ2"
+  },
+  "appVersionChecker": {
+    "newVersionMessage": "Venusの新しいバージョンが利用可能です。今すぐ使用するにはページを再読み込みしてください。"
+  },
+  "apy": {
+    "boost": {
+      "iconAlt": "ブーストされたマーケットのアイコン",
+      "tooltip": {
+        "borrowApy": {
+          "description": "Venusプロトコルからこの資産を借りる際に発生する利息です。",
+          "name": "借入APY"
+        },
+        "defaultMerklRewardName": "Merkl報酬",
+        "externalRewardDescription": "この外部プログラムからの報酬は、<AppLink>公式アプリ</AppLink>で請求できます。Venusプロトコルはこれらを保証せず、責任を負いません。",
+        "intrinsicApy": {
+          "description": "原資産自体が生み出すネイティブ利回りです（例: ステーキング報酬）。この利回りは外部ソースに由来し、Venusプロトコルは保証しません。",
+          "name": "内在APY"
+        },
+        "offChainApy": {
+          "description": "エアドロップやプロモーションなど第三者によるオフチェーン活動からの追加利回りです。この利回りはVenusプロトコルによって保証されません。",
+          "name": "オフチェーンAPY"
+        },
+        "pointDistribution": {
+          "learnMore": "詳細を見る"
+        },
+        "primeDistribution": {
+          "description": "Venus Primeは専用ユーザーにブースト報酬を付与します。Venusプロトコルはこれらの報酬を保証せず、責任を負いません。",
+          "name": "Prime APY"
+        },
+        "supplyApy": {
+          "description": "Venusプロトコルに資産を供給して得られる総利回りです。",
+          "name": "供給APY"
+        },
+        "xvsDistribution": {
+          "description": "配布報酬は分散型のVenusコミュニティにより開始・実装されます。Venusプロトコルはこれらを保証せず、責任を負いません。",
+          "name": "XVS配布"
+        },
+        "yieldToMaturityApy": {
+          "description": "基礎資産を用いて割引価格でPTトークンを購入し、満期まで保有することで得られる年率換算リターンを表します。Venusプロトコルはこれを保証せず、責任を負いません。",
+          "name": "満期利回りAPY"
+        }
+      }
+    },
+    "primeBadge": {
+      "logoAlt": "Primeロゴ",
+      "tooltip": {
+        "calculatorLink": "Prime報酬を計算",
+        "primeBorrowSimulation": "Primeにより、ユーザーの借入中央値{{borrowBalance}}とボールトステーキング{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeDocLink": "詳細を見る",
+        "primeMarket": "PrimeによりAPYがブーストされます。",
+        "primeSupplySimulation": "Primeにより、ユーザーの供給中央値{{supplyBalance}}とボールトステーキング{{xvsStaked}}に基づきAPYがブーストされます。"
+      }
+    }
+  },
+  "apyBreakdown": {
+    "borrowApy": "借入APY",
+    "distributionApy": "配布APY",
+    "distributionTooltip": "配布報酬は分散型のVenusコミュニティにより開始・実装されます。Venusプロトコルはこれらを保証せず、責任を負いません。",
+    "externalDistributionApy": "{{description}} APY",
+    "intrinsicApy": "内在APY",
+    "intrinsicApyTooltip": "資産自体から直接得られるAPY（例: ステーキングや外部報酬）で、Venusのレンディング利回りとは別です。Venusプロトコルはこれらを保証せず、責任を負いません。",
+    "netApy": {
+      "label": "実質APY",
+      "tooltip": "関係するすべてのマーケットのAPYの合計"
+    },
+    "offChainApy": "オフチェーンAPY",
+    "offChainApyTooltip": "エアドロップやプロモーションなど第三者によるオフチェーン活動からの追加利回りです。Venusプロトコルはこれらを保証せず、責任を負いません。",
+    "primeApy": "Prime APY",
+    "supplyApy": "供給APY",
+    "totalApy": {
+      "borrowApyTooltip": "借入APY - 配布APY",
+      "label": "合計APY",
+      "supplyApyTooltip": "供給APY + 配布APY"
+    },
+    "yieldToMaturityApy": "満期利回りAPY",
+    "yieldToMaturityApyTooltip": "基礎資産を用いて割引価格でPTトークンを購入し、満期まで保有した場合の年率換算リターンを表します。Venusプロトコルはこれを保証せず、責任を負いません。"
+  },
+  "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
+    "tooltipItemLabels": {
+      "borrowApy": "借入APY",
+      "date": "日付",
+      "supplyApy": "供給APY",
+      "totalBorrow": "総借入",
+      "totalSupply": "総供給"
+    }
+  },
+  "asset": {
+    "eModeInfo": {
+      "title": "Eモード情報"
+    },
+    "marketInfo": {
+      "title": "マーケット情報"
+    }
+  },
+  "assetAccessor": {
+    "disabledActionNotice": {
+      "boost": "このマーケットではブーストが無効化されています",
+      "borrow": "このマーケットでは借入が無効化されています",
+      "repay": "このマーケットでは返済が無効化されています",
+      "supply": "このマーケットでは供給が無効化されています",
+      "withdraw": "このマーケットでは引き出しが無効化されています"
+    },
+    "eModeBlockedActionNotice": {
+      "borrow": "あなたのEモード設定ではこのマーケットから借入できません。<Link>Eモードを管理</Link>"
+    }
+  },
+  "assetWarning": {
+    "borrowDescription": "{{poolName}}プールで担保として供給しているため、{{tokenSymbol}}を借りられます。<Button>すべてのトークンを表示</Button>",
+    "modalTitle": "{{ poolName }} トークン",
+    "supplyDescription": "{{poolName}}プールに{{tokenSymbol}}を供給すると、このプールのみからトークンを借りられるようになります。<Button>すべてのマーケットを表示</Button>"
+  },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "背景イラスト",
+    "binanceLogoAltText": "Binanceロゴ",
+    "description": "USDTを借りて<Bold>$400,000</Bold>の報酬を山分け！",
+    "title": "VenusがBinance Wallet Earnで利用可能になりました。"
+  },
+  "boostBanner": {
+    "description": "ワンクリックのレバレッジで利回りを<White>最大5倍</White>までブースト。",
+    "rocketAltText": "ロケットのイラスト",
+    "title": "Boostが利用可能になりました！"
+  },
+  "breadcrumbs": {
+    "bridge": "ブリッジ",
+    "dashboard": "ダッシュボード",
+    "governance": "ガバナンス",
+    "isolatedPools": "隔離プール",
+    "leaderboard": "リーダーボード",
+    "markets": "マーケット",
+    "primeCalculator": "Prime計算機",
+    "proposal": "提案 #{{proposalId}}",
+    "staking": "ステーキング",
+    "swap": "スワップ",
+    "vai": "VAI"
+  },
+  "bridgePage": {
+    "amountInput": {
+      "label": "金額",
+      "maxButtonLabel": "最大"
+    },
+    "bridgeGasFee": {
+      "label": "ブリッジのガス代",
+      "tooltip": "宛先チェーンへの送金にかかるガス代をカバーするために使用されます"
+    },
+    "errors": {
+      "dailyTransactionLimitExceeded": {
+        "message": "宛先チェーンの24時間上限により、{{readableAmountTokens}}（{{readableAmountUsd}}）を超えてブリッジできません。この上限は{{ date, dd MMM yyyy h:mm a }}にリセットされます",
+        "submitButton": "日次上限を超える金額です"
+      },
+      "doesNotHaveEnoughNativeFunds": "{{tokenSymbol}}残高が不足しています",
+      "doesNotHaveEnoughXvs": "{{tokenSymbol}}残高が不足しています",
+      "mintCapReached": {
+        "message": "ブリッジのミント上限により、{{readableAmountTokens}}を超えてブリッジできません",
+        "submitButton": "ブリッジのミント上限に達しました"
+      },
+      "singleTransactionLimitExceeded": {
+        "message": "宛先チェーンの1回あたりの上限により、{{readableAmountTokens}}（{{readableAmountUsd}}）を超えてブリッジできません",
+        "submitButton": "上限を超える金額です"
+      }
+    },
+    "footer": {
+      "bridgeDocLink": "ブリッジ方法",
+      "poweredBy": "提供"
+    },
+    "fromChainSelect": {
+      "label": "送信元"
+    },
+    "submitButton": {
+      "label": {
+        "enterValidAmount": "有効な金額を入力",
+        "submit": "確認"
+      }
+    },
+    "toChainSelect": {
+      "label": "送信先"
+    },
+    "walletBalance": {
+      "label": "ウォレット残高"
+    }
+  },
+  "chainExplorerLink": {
+    "content": "{{domainName}}で表示"
+  },
+  "chip": {
+    "proposalType": {
+      "critical": "重大",
+      "fastTrack": "ファストトラック"
+    }
+  },
+  "claimReward": {
+    "modal": {
+      "claimButton": {
+        "disabledLabel": "報酬を受け取るグループを選択",
+        "enabledLabel": "請求"
+      },
+      "claimOn": "{{appName}}で請求",
+      "externalRewards": "外部報酬",
+      "primeGroup": {
+        "disabledContractWarningMessage": "Primeコントラクトは現在停止中です。Primeからの利息は引き続き発生していますが、コントラクトが再開されるまで請求できません。",
+        "name": "Prime"
+      },
+      "rewards": "報酬",
+      "title": "報酬を請求 ({{chainName}})",
+      "vaultGroup": {
+        "disabledContractWarningMessage": "このボールトは現在停止中です。金利は引き続き発生していますが、ボールトが再開されるまで請求できません。",
+        "name": "{{stakedTokenSymbol}} ボールト"
+      },
+      "vestingVaultGroup": {
+        "name": "{{stakedTokenSymbol}} ベスティングボールト"
+      }
+    }
+  },
+  "connectButton": {
+    "connect": "ウォレットを接続",
+    "disconnect": "接続を解除"
+  },
+  "connectWallet": {
+    "connectButton": "ウォレットを接続"
+  },
+  "eModeBanner": {
+    "exploreButtonLabel": "探索",
+    "illustrationAltText": "Eモードのイラスト",
+    "manageEModeButtonLabel": "Eモードを管理",
+    "title": "Eモードで借入力を強化"
+  },
+  "errors": {
+    "couldNotRetrieveSigner": "署名者を取得できませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
+    "couldNotSwitchChain": "チェーンを切り替えられませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
+    "missingAbstainDescription": "提案には「棄権」票の説明が必要です",
+    "missingAgainstDescription": "提案には「反対」票の説明が必要です",
+    "missingDescription": "ファイルに提案の説明がありません",
+    "missingForDescription": "提案には「賛成」票の説明が必要です",
+    "missingParamForSignature": "関数に対応するパラメータがありません",
+    "missingSafeWalletApiUrl": "設定不備のためSafeトランザクションを取得できませんでした",
+    "missingTargetForSignature": "関数に対応するターゲットがありません",
+    "missingTitle": "提案にはタイトルが必要です",
+    "noMetaKey": "ファイルにメタデータ情報がありません",
+    "noParamsKey": "ファイルにパラメータ一覧がありません",
+    "noSignaturesKey": "ファイルにコールシグネチャがありません",
+    "noSwapQuoteFound": "スワップが見つかりません。フォームを更新してください。",
+    "noTargetsKey": "ファイルにターゲット一覧がありません",
+    "noTypeKey": "ファイルに提案のタイプが示されていません",
+    "proposalNotFound": "提案が見つかりません",
+    "somethingWentWrong": "問題が発生しました",
+    "somethingWentWrongRetrievingTransactions": "取引の取得中に問題が発生しました",
+    "somethingWentWrongRetrievingVoterAccounts": "投票者アカウントの取得中に問題が発生しました",
+    "somethingWentWrongRetrievingVoterDetails": "投票者の詳細取得中に問題が発生しました",
+    "somethingWentWrongRetrievingVoterHistory": "投票履歴の取得中に問題が発生しました",
+    "undefinedAccountErrorMessage": "アカウントが未定義です",
+    "validationError": "インポートした提案の検証に失敗しました:",
+    "walletNotConnected": "ウォレットが接続されていません"
+  },
+  "errorState": {
+    "defaultMessage": "エラーが発生しました"
+  },
+  "footer": {
+    "links": {
+      "documentation": "ドキュメント",
+      "privacyPolicy": "プライバシーポリシー",
+      "termsOfUse": "利用規約"
+    }
+  },
+  "gaslessTransactions": {
+    "chainLabel": "無料",
+    "errorModal": {
+      "cancel": "キャンセル",
+      "description": "ガス代を自分で支払えばこの取引を送信できます",
+      "resendButtonLabel": "ガス代を支払って再送",
+      "title": "ガスレス取引は現在利用できません"
+    },
+    "tooltip": {
+      "disabled": "このネットワークは手数料不要のガスレス取引に対応していますが、この機能は設定で無効になっています。詳しくは<Link>こちら</Link>",
+      "enabled": "このネットワークの取引はガスレスで手数料不要です。詳しくは<Link>こちら</Link>"
+    }
+  },
+  "healthFactor": {
+    "label": {
+      "healthy": "健全",
+      "liquidation": "清算",
+      "moderate": "注意",
+      "risky": "危険"
+    }
+  },
+  "importPositionsModal": {
+    "aave": {
+      "logoAlt": "Aaveのロゴ",
+      "title": "Aave"
+    },
+    "emptyState": "インポートできる外部ポジションがありません",
+    "gasLess": {
+      "label": "無料",
+      "tooltip": "ポジションをVenusへ移行する取引はVenusプロトコルがスポンサーします"
+    },
+    "infoSection": {
+      "1": {
+        "description": "実利回りがブーストされたAPYを提供する唯一の場所。",
+        "title": "より高い利回り"
+      },
+      "2": {
+        "description": "一貫した成長を遂げるDeFiの最も価値創出力の高いプラットフォームに参加。",
+        "title": "最も資本効率が高い"
+      },
+      "3": {
+        "description": "実戦で検証され、レンディング分野で最も監査されたコントラクト。",
+        "title": "最高水準の安全性"
+      },
+      "title": "なぜVenus？"
+    },
+    "limitNotice": "現在は<Number>{{min}}</Number>〜<Number>{{max}}</Number>の評価額のポジションのみVenusにインポートできます。",
+    "position": {
+      "currentApy": {
+        "label": "現在のAPY"
+      },
+      "importButtonLabel": "インポート",
+      "missedYearlyGains": "年間<Number><Gains /> / 年</Number>の機会を逃しています",
+      "newApy": {
+        "label": "Venus APY"
+      }
+    },
+    "title": "Venusにインポートしてより多く稼ぐ"
+  },
+  "interactive": {
+    "addToWallet": {
+      "modalTitle": "ウォレットにトークンを追加"
+    },
+    "copy": {
+      "address": {
+        "modalTitle": "トークンアドレスをコピー",
+        "name": "アドレス",
+        "tooltip": "アドレスをコピー"
+      }
+    },
+    "copyToClipboard": "{{name}}をクリップボードにコピーしました",
+    "goTo": {
+      "modalTitle": "トークンコントラクトへ移動"
+    }
+  },
+  "interestRateChart": {
+    "currentUtilizationRateLabelValue": "現在（{{percentage}}）",
+    "tooltipItemLabels": {
+      "borrowApy": "借入APY",
+      "supplyApy": "供給APY",
+      "utilizationRate": "利用率"
+    }
+  },
+  "isolatedPoolsSunsetBanner": {
+    "description": "報酬を請求してポジションを閉じてください",
+    "illustrationAltText": "イラスト",
+    "title": "隔離プールは終了予定です"
+  },
+  "landing": {
+    "benefits": {
+      "text1": "改ざん不能なマネーマーケットにオンチェーンで直接アクセス。",
+      "text2": "Venus Protocolのすべての資産はBEP-20およびERC-20規格に準拠しています。",
+      "text3": "高速・安全・低コストな取引のためにEVM互換チェーン上で構築。",
+      "title1": "分散型",
+      "title2": "BEP-20/ERC-20",
+      "title3": "オムニチェーン"
+    },
+    "governance": {
+      "backgroundGradientAlt": "背景イラスト",
+      "buttonLabel": "ガバナンスフォーラム",
+      "description": "Venusはコミュニティ主導の分散型プロトコルで、暗号資産マネーマーケット向けに最高水準の機能を提供します。",
+      "proposalCountLegend": "実行済みのVenus改善提案、さらに増加中",
+      "title": "コミュニティが統治する<br />マネーマーケット"
+    },
+    "hero": {
+      "1Year": "1年",
+      "30Day": "30日",
+      "6Month": "6か月",
+      "assets": "資産",
+      "borrow": "借入",
+      "earned": "獲得済み",
+      "earnedAmount": "獲得済み {{amount}}",
+      "from": "{{percentage}}から",
+      "highestApy": "最高APY",
+      "monthNo": "第{{number}}月",
+      "startNow": "今すぐ始める",
+      "subtitle": "どんなDeFi利回り戦略にも使えるシンプルで強力なレンディングと借入。",
+      "supply": "供給",
+      "supplyTips": "初期預入額10,000ドルを基準に、収益/利息はブロックごとに複利計算されます。<Link>詳細を見る</Link>",
+      "title": "ユニバーサル<br /><hl>マネーマーケット</hl>",
+      "totalApy": "合計APY",
+      "upToPercentage": "{{percentage}}まで",
+      "venusTvl": "Venus TVL",
+      "yearlyEarnings": "年間収益",
+      "yearlyInterests": "年間利息"
+    },
+    "markets": {
+      "button": {
+        "label": "さらに見る"
+      },
+      "title": "Venusのトップマーケット"
+    },
+    "protection": {
+      "bugBountyAlt": "バグバウンティのイラスト",
+      "challengeText": "コードの脆弱性を見つけて報告すると報酬の対象になります。詳細はバグバウンティプログラムをご覧ください。",
+      "challengeTitle": "コードに挑戦して報酬を獲得",
+      "protectionAlt": "保護のイラスト",
+      "protectionText": "セキュリティ監査、24時間365日の監視、そして強固なリスクファンドが、異常な市場イベントの際にもプロトコルを安全に保ちます。",
+      "protectionTitle": "保護を最優先"
+    },
+    "safety": {
+      "audit_other": "監査",
+      "otherAuditors": "Fairyproof、Hacken、HashExによる<br />14件以上の監査",
+      "scoreAlt": "スコアのイラスト",
+      "securityScore": "セキュリティスコア",
+      "text": "Venusは資産の安全性を最優先にしているため、安心して取引できます",
+      "title": "安全第一",
+      "venusScored": "VenusはCertikの評価でBNB Chainのセキュリティにおいて<Link>第3位</Link>にランクされました（2021年6月）"
+    },
+    "venusPrime": {
+      "illustrationAlt": "Venus Primeのイラスト",
+      "imageAlt": "Venus Primeのイラスト",
+      "learnMore": "詳細を見る",
+      "text": "Venus ProtocolのパワーユーザーはVenus Primeトークンをミントし、Venusコアプールの一部マーケットで優遇レートを享受できます。",
+      "title": "<hl>Venus Prime</hl> <br />リターンを増幅"
+    },
+    "wallets": {
+      "title": "多くの人に信頼されています"
+    }
+  },
+  "layout": {
+    "chainSelect": {
+      "label": "チェーンを選択"
+    },
+    "header": {
+      "liquidity": "流動性",
+      "maxLtv": {
+        "label": "最大LTV",
+        "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
+      },
+      "price": "価格",
+      "supply": "供給",
+      "utilizationRate": "利用率"
+    },
+    "menu": {
+      "dashboard": {
+        "label": "ダッシュボード"
+      },
+      "label": "メニュー",
+      "markets": {
+        "label": "マーケット"
+      },
+      "others": {
+        "bridge": {
+          "description": "Venusでのクロスチェーン$XVS転送。",
+          "label": "ブリッジ"
+        },
+        "governance": {
+          "description": "Venusの提案に$XVSで投票。",
+          "label": "ガバナンス"
+        },
+        "isolatedPools": {
+          "description": "コアマーケットから隔離されたプールで資産を取引。",
+          "label": "隔離プール"
+        },
+        "label": "その他",
+        "port": {
+          "description": "レンディングポジションをガスレスでインポート。",
+          "label": "ポート"
+        },
+        "swap": {
+          "label": "スワップ"
+        },
+        "vai": {
+          "description": "Venusのネイティブステーブルコインをミント。",
+          "label": "VAI"
+        }
+      },
+      "settings": {
+        "gasLessTransactions": {
+          "label": "{{chainName}}でガスレス取引を有効にする"
+        },
+        "language": {
+          "label": "言語 (ベータ版)"
+        }
+      },
+      "staking": {
+        "label": "ステーキング"
+      },
+      "subMenuItem": {
+        "button": {
+          "label": "開始する"
+        }
+      },
+      "venusLogoAlt": "Venusロゴ"
+    },
+    "settingsModal": {
+      "title": "設定"
+    },
+    "testEnvWarning": "これはテスト環境です。テスト目的以外では操作しないでください。<Link>Venus Protocol公式サイトへ</Link>"
+  },
+  "legal": {
+    "lastUpdatedAt": "最終更新: {{ date, textual }}"
+  },
+  "markdownEditor": {
+    "markdownTabLabel": "書く",
+    "placeholder": "プレビューする内容がありません",
+    "previewTabLabel": "プレビュー"
+  },
+  "market": {
+    "borrowCapThreshold": {
+      "title": "総借入",
+      "tooltip": "借入可能な最大額は{{amountDollars}}（{{amountTokens}}）<br />借入上限: {{capTokens}}"
+    },
+    "borrowInfo": {
+      "title": "借入情報"
+    },
+    "interestRateModel": {
+      "title": "金利モデル"
+    },
+    "legends": {
+      "borrowApy": "借入APY",
+      "supplyApy": "供給APY",
+      "utilizationRate": "利用率"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowerCountLabel": "借入者数",
+        "dailyBorrowingInterestsLabel": "日次借入利息",
+        "dailyDistribution": "日次{{tokenSymbol}}配布",
+        "dailySupplyingInterestsLabel": "日次供給利息",
+        "exchangeRateLabel": "交換レート",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "reserveFactorLabel": "リザーブファクター",
+        "supplierCountLabel": "供給者数"
+      }
+    },
+    "periodOption": {
+      "oneYear": "1年",
+      "sixMonths": "6か月",
+      "thirtyDays": "30日"
+    },
+    "stats": {
+      "apy": "現在のAPY",
+      "averageApy": "平均APY",
+      "liquidationPenalty": "清算ペナルティ",
+      "liquidationThreshold": "清算しきい値"
+    },
+    "supplyCapThreshold": {
+      "title": "総供給",
+      "tooltip": "供給可能な最大額は{{amountDollars}}（{{amountTokens}}）"
+    },
+    "supplyInfo": {
+      "title": "供給情報"
+    }
+  },
+  "markets": {
+    "eMode": {
+      "group": {
+        "cannotDisable": {
+          "tooltip": {
+            "blockingPositions": "このEモードグループは無効化できません。プールから借入できない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
+            "notEnoughCollateral": "このEモードグループは無効化できません。担保の総額が借入残高の合計を下回るためです"
+          }
+        },
+        "cannotEnable": {
+          "modal": {
+            "description": "<WhiteText>{{ eModeGroupName }}</WhiteText>のEモードグループを有効にするには、次の借入ポジションを解消する必要があります:",
+            "repayButtonLabel": "返済",
+            "title": "あなたのポジション"
+          },
+          "tooltip": {
+            "blockingPositions": "このEモードグループは有効にできません。このグループに属さない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
+            "notEnoughCollateral": "このEモードグループは有効にできません。担保の総額が借入残高の合計を下回るためです"
+          }
+        },
+        "disableButtonLabel": "無効化",
+        "disabledNotice": "このEモードグループはサポートされなくなりました。アカウントは既定のパラメータに戻りました。別の利用可能なEモードグループに切り替えるか、無効化してください。",
+        "enableButtonLabel": "有効化",
+        "healthFactor": "健全性ファクター:",
+        "switchButtonLabel": "切り替え"
+      },
+      "notice": "Eモードを有効にすると借入可能額を最大化できますが、借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
+      "search": {
+        "placeholder": "資産またはグループを検索"
+      },
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "借入可能",
+            "collateral": "担保"
+          },
+          "rows": {
+            "liquidationPenalty": "清算ペナルティ",
+            "liquidationThreshold": "清算しきい値",
+            "maxLtv": "最大LTV"
+          }
+        },
+        "columns": {
+          "asset": "資産",
+          "collateral": "担保",
+          "isBorrowable": "借入可能",
+          "liquidationPenalty": "清算ペナルティ",
+          "liquidationThreshold": "清算しきい値",
+          "maxLtv": "最大LTV",
+          "penalty": "ペナルティ",
+          "threshold": "しきい値"
+        },
+        "mobileSelectLabel": "並べ替え:"
+      }
+    },
+    "errors": {
+      "accountError": "アカウントが必要です - ウォレットを接続してください。",
+      "collateralDisableError": "担保の無効化エラー - {{assetName}}を担保として無効化できませんでした。もう一度お試しください。",
+      "collateralEnableError": "担保の有効化エラー - {{assetName}}を担保として有効化できませんでした。もう一度お試しください。",
+      "collateralRequired": "担保が必要です - 借入中の資産をすべて返済するか、他の資産を担保に設定してください。"
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "{{ eModeGroupName }}グループの資産のみに供給することで借入力が高まります",
+      "label": "隔離"
+    },
+    "tabs": {
+      "assets": {
+        "title": "資産"
+      },
+      "eMode": {
+        "illustrationAltText": "稲妻のイラスト",
+        "liquidationPenalty": {
+          "label": "清算ペナルティ"
+        },
+        "liquidationThreshold": {
+          "label": "清算しきい値"
+        },
+        "maxLtv": {
+          "label": "最大LTV",
+          "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
+        },
+        "title": "Eモード"
+      }
+    }
+  },
+  "marketTable": {
+    "assetColumn": {
+      "eMode": "このマーケットは{{eModeGroupName}}のEモードグループに含まれます",
+      "pausedAssetTooltip": "資産はVenusガバナンスにより停止されています。借入と供給が無効化されています。"
+    },
+    "columnKeys": {
+      "asset": "資産",
+      "assetAndChain": "資産",
+      "borrowApy": "APY <InfoIcon />",
+      "borrowBalance": "総借入",
+      "collateral": "担保",
+      "labeledBorrowApy": "借入APY <InfoIcon />",
+      "labeledSupplyApy": "供給APY <InfoIcon />",
+      "liquidity": "流動性",
+      "price": "価格",
+      "supplyApy": "APY <InfoIcon />",
+      "supplyBalance": "総供給",
+      "userBorrowBalance": "残高",
+      "userBorrowLimitSharePercentage": "上限の%",
+      "userSupplyBalance": "残高",
+      "userWalletBalance": "ウォレット"
+    },
+    "columnSelectOptionLabel": {
+      "asset": "資産",
+      "borrowApy": "借入APY",
+      "borrowBalance": "総借入",
+      "collateral": "担保",
+      "labeledBorrowApy": "借入APY",
+      "labeledSupplyApy": "供給APY / LTV",
+      "liquidity": "流動性",
+      "price": "価格",
+      "supplyApy": "供給APY / LTV",
+      "supplyBalance": "総供給",
+      "userBorrowBalance": "借入残高",
+      "userBorrowLimitSharePercentage": "上限の%",
+      "userSupplyBalance": "供給残高",
+      "userWalletBalance": "ウォレット残高"
+    },
+    "columnTooltips": {
+      "borrowApy": "正の借入APYは利息の支払い、負の借入APYは利息の受取を意味します",
+      "supplyApy": "正の供給APYは利息の受取、負の供給APYは利息の支払いを意味します"
+    },
+    "pausedAssetsPlaceholder": {
+      "description": "表示するには「停止中の資産」トグルを有効にしてください。",
+      "imgAlt": "一時停止アイコン",
+      "title": "このプールの資産はすべて停止されています"
+    },
+    "pausedAssetsToggle": {
+      "label": "停止中の資産"
+    },
+    "searchInput": {
+      "placeholder": "資産を検索"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "自分の資産のみ"
+    },
+    "userEModeAssetsOnlyToggle": {
+      "label": "Eモード資産のみ"
+    }
+  },
+  "operationForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "高い価格影響を認識しました",
+        "tooltip": "この取引の価格影響は{{priceImpactPercentage}}%を超える見込みです"
+      },
+      "riskyOperation": {
+        "label": "リスクがあることを認識しました",
+        "tooltip": "この取引後の健全性ファクターが低くなり、清算リスクが高まります"
+      }
+    },
+    "availableAmount": "利用可能",
+    "boostTabAltText": "ロケットアイコン",
+    "boostTabTitle": "ブースト",
+    "borrow": "借入",
+    "borrowTabTitle": "借入",
+    "collateral": "担保",
+    "collateralField": {
+      "label": "担保"
+    },
+    "error": {
+      "borrowCapReached": "このプールの借入上限{{assetBorrowCap}}に達しました。返済されるか上限が引き上げられるまで、このマーケットから借入できません。",
+      "higherThanAvailableAmount": "入力額が利用可能額を超えています",
+      "higherThanAvailableLiquidity": "資産の流動性が不足しています",
+      "higherThanBorrowBalance": "入力額が借入残高を超えています",
+      "higherThanBorrowCap": "このマーケットの借入上限が{{assetBorrowCap}}で現在{{assetBorrowBalance}}が借りられているため、このプールから{{userMaxBorrowAmount}}以上借入できません。",
+      "higherThanRepayBalance": "入力額が返済残高を超えています",
+      "higherThanSupplyCap": "このマーケットの供給上限が{{assetSupplyCap}}で現在{{assetSupplyBalance}}が供給されているため、このプールに{{userMaxSupplyAmount}}以上供給できません。",
+      "higherThanWalletBalance": "{{tokenSymbol}}残高が不足しています",
+      "higherThanWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
+      "insufficientSwapLiquidity": "このスワップに対するPancakeSwapの流動性が不足しています",
+      "noCollateral": "このプールから{{tokenSymbol}}を借りる前に、トークンを供給して担保として有効化する必要があります",
+      "noSwapQuoteFound": "スワップが見つかりません。フォームを更新してください。",
+      "priceImpactTooHigh": "価格影響が高すぎます",
+      "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
+      "tooRisky": "この取引はアカウントが清算されます",
+      "unwrappingUnsupported": "アンラップは未対応です",
+      "wrappingUnsupported": "ラップは未対応です"
+    },
+    "receiveNativeToken": {
+      "label": "{{tokenSymbol}}を受け取る",
+      "tooltip": "借入した{{wrappedNativeTokenSymbol}}を{{nativeTokenSymbol}}にアンラップ"
+    },
+    "repaidField": {
+      "label": "返済する負債"
+    },
+    "repay": {
+      "fullRepaymentWarning": "新たに発生した利息を含めるため、取引値が現在の借入額よりわずかに高くなる可能性があります",
+      "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
+    },
+    "repayTab": {
+      "collateralTabTitle": "担保",
+      "noCollateralWarning": "返済に使える担保がありません。",
+      "title": "返済",
+      "walletBalanceTabTitle": "ウォレット"
+    },
+    "rightMaxButtonLabel": "最大",
+    "riskSlider": {
+      "highRisk": "高リスク",
+      "lowRisk": "低リスク"
+    },
+    "safeMaxButtonLabel": "安全な最大",
+    "submitButtonLabel": {
+      "boost": "ブースト",
+      "borrow": "借入",
+      "enterValidAmount": "有効な金額を入力",
+      "repay": "返済",
+      "supply": "供給",
+      "withdraw": "引き出し"
+    },
+    "supply": "供給",
+    "supplyTabTitle": "供給",
+    "swapDetails": {
+      "label": {
+        "repay": "返済する金額",
+        "supply": "供給する金額"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "swapSummary": {
+      "repay": "{{fromTokenAmount}}で{{toTokenAmount}}を返済します",
+      "supply": "{{fromTokenAmount}}で{{toTokenAmount}}を供給します"
+    },
+    "walletBalance": "ウォレット残高",
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
+    },
+    "withdrawTabTitle": "引き出し"
+  },
+  "pagination": {
+    "itemOf": "{{itemsCount}}件中{{currentPageLastIndex}}件目",
+    "itemsOf": "{{itemsCount}}件中{{firstItemNumber}} - {{currentPageLastIndex}}件"
+  },
+  "poolsStats": {
+    "cell": {
+      "assetsLabel": "資産",
+      "availableLiquidityLabel": "利用可能な流動性",
+      "dailyXvsDistributionLabel": "日次XVS配布",
+      "totalBorrowLabel": "総借入",
+      "totalSupplyLabel": "総供給",
+      "treasuryLabel": "トレジャリー"
+    }
+  },
+  "primeButton": {
+    "primeLogoAlt": "Venus Primeロゴ"
+  },
+  "primeCalculator": {
+    "borrowedTokens": {
+      "infos": {
+        "label": "対象の借入{{tokenSymbol}}",
+        "tooltip": "借入上限: {{borrowCapTokens}} ({{borrowCapUsd}})",
+        "tooltip_empty": "借入上限: -"
+      },
+      "textField": {
+        "label": "借入{{tokenSymbol}}"
+      }
+    },
+    "rewardDetails": {
+      "fromBorrowedTokens": "借入{{tokenSymbol}}から",
+      "fromSuppliedTokens": "供給{{tokenSymbol}}から",
+      "primeBorrowApy": {
+        "title": "Prime借入APY",
+        "tooltip": "マーケットの借入APYに追加されるPrimeブースト。<Link>詳細を見る</Link>"
+      },
+      "primeSupplyApy": {
+        "title": "Prime供給APY",
+        "tooltip": "マーケットの供給APYに追加されるPrimeブースト。<Link>詳細を見る</Link>"
+      },
+      "title": "報酬の詳細",
+      "totalDailyRewards": {
+        "title": "日次報酬合計",
+        "tooltip": "Primeユーザーに1日に配布される全報酬量"
+      },
+      "yourDailyRewards": "あなたの日次報酬"
+    },
+    "stakedTokens": {
+      "infos": {
+        "error": "Prime報酬の対象になるには、少なくとも{{minimumXvsStaked}} XVSをステーキングする必要があります。",
+        "label": "対象のステーキング済みXVS",
+        "tooltip": "Prime報酬の計算に最大{{maximumXvsStaked}}までが考慮されます"
+      },
+      "textField": {
+        "label": "ステーキング済みXVS"
+      }
+    },
+    "suppliedTokens": {
+      "infos": {
+        "label": "対象の供給{{tokenSymbol}}",
+        "tooltip": "供給上限: {{supplyCapTokens}} ({{supplyCapUsd}})",
+        "tooltip_empty": "供給上限: -"
+      },
+      "textField": {
+        "label": "供給{{tokenSymbol}}"
+      }
+    },
+    "tokenSelect": {
+      "label": "トークン"
+    },
+    "topMessage": "Prime計算機で、保有ポジションに基づいてPrimeトークンから受け取れる報酬を見積もれます。<Link>詳細を見る</Link>"
+  },
+  "primeStatusBanner": {
+    "becomePrimeTitle": "Primeユーザーになれるようになりました",
+    "claimButtonLabel": "Primeトークンを請求",
+    "description": {
+      "primeCalculator": "さらに<WhiteText>{{stakeDelta}}</WhiteText>ステーキングして{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>Prime報酬を計算</Link>",
+      "primeDoc": "さらに<WhiteText>{{stakeDelta}}</WhiteText>ステーキングして{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>詳細を見る</Link>"
+    },
+    "noPrimeTokenWarning": {
+      "text": "Primeトークンはすべて請求済みです",
+      "tooltip": "{{primeTokenLimit}}枚のPrimeトークンは現在すべて請求済みです。保有者が条件を満たさなくなるか、追加が行われると利用可能になる場合があります。"
+    },
+    "progressBar": {
+      "ariaLabel": "現在のPrime進捗",
+      "label": "ステーキング済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+    },
+    "promotionalTitle": "収益を最大<GreenText>{{percentage}}</GreenText>までブースト",
+    "stakeButtonLabel": "XVSのステーキング",
+    "tokensLeft": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
+    "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
+    "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
+    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
+    "waitForPrimeTitle": "Prime報酬を請求できるまで{{claimWaitingPeriod}}"
+  },
+  "probableBanner": {
+    "description": "probable.marketsで信念をブーストしよう",
+    "probableAltText": "Probableのイラスト",
+    "title": "何かを信じますか？"
+  },
+  "proposalList": {
+    "selectOptions": {
+      "all": {
+        "label": "すべて"
+      }
+    }
+  },
+  "proposalState": {
+    "active": "アクティブ",
+    "bridged": "ブリッジ済み",
+    "canceled": "キャンセル",
+    "defeated": "否決",
+    "executed": "実行済み",
+    "expired": "期限切れ",
+    "failed": "失敗",
+    "pending": "保留",
+    "queued": "キュー済み",
+    "succeeded": "可決"
+  },
+  "select": {
+    "defaultLabel": "選択してください"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "資産を検索"
+    }
+  },
+  "spendingLimit": {
+    "label": "支出上限",
+    "labelTooltip": "これはこの資産の現在の支出上限です。さらに支出するには上限を取り消し、新しい上限を設定してください。",
+    "revokeButtonTooltip": "支出上限を取り消す"
+  },
+  "stakeModal": {
+    "availableTokensLabel": "利用可能な{{tokenSymbol}}",
+    "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
+    "submitButtonDisabledLabel": "ステーキングする数量を入力してください",
+    "submitButtonLabel": "ステーキング",
+    "title": "{{tokenSymbol}}をステーキング"
+  },
+  "swap": {
+    "errors": {
+      "amountAboveWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
+      "incorrectSwapInput": "スワップ入力が正しくありません"
+    },
+    "swapDetails": {
+      "label": {
+        "exchangeRate": "交換レート",
+        "maximumSold": "最大売却量",
+        "minimumReceived": "最小受取額",
+        "priceImpact": "価格影響",
+        "slippageTolerance": "スリッページ許容度"
+      },
+      "tooltip": {
+        "priceImpact": "取引規模による市場価格と推定価格の差。"
+      },
+      "value": {
+        "exactAmount": "{{ value }}",
+        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+        "priceImpact": "{{ priceImpact }}"
+      }
+    },
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
+    }
+  },
+  "swapDetails": {
+    "priceImpact": {
+      "label": "価格影響"
+    },
+    "slippageTolerance": {
+      "label": "スリッページ許容度"
+    },
+    "slippageToleranceModal": {
+      "description": "スリッページ許容度を高く設定すると取引は成功しやすくなりますが、価格が不利になる可能性があります。注意してください。",
+      "title": "スリッページ許容度"
+    }
+  },
+  "swapPage": {
+    "connectWalletToSwap": "トークンをスワップするにはウォレットを接続してください",
+    "fromTokenAmountField": {
+      "label": "送信元",
+      "max": "最大"
+    },
+    "submitButton": {
+      "disabledLabels": {
+        "insufficientLiquidity": "このスワップの流動性が不足しています",
+        "insufficientUserBalance": "{{tokenSymbol}}残高が不足しています",
+        "invalidFromTokenAmount": "スワップする有効な金額を入力",
+        "priceImpactHigherThanMaximumTolerated": "価格影響が高すぎます",
+        "processing": "処理中",
+        "spendingLimitTooLow": "支出上限が低すぎます",
+        "unwrappingUnsupported": "アンラップは未対応です",
+        "wrappingUnsupported": "ラップは未対応です"
+      },
+      "enabledLabels": {
+        "swap": "スワップ",
+        "swapWithHighPriceImpact": "高い価格影響でスワップ"
+      }
+    },
+    "toTokenAmountField": {
+      "label": "送信先"
+    },
+    "walletBalance": "ウォレット残高"
+  },
+  "switchChain": {
+    "switchButton": "{{chainName}}に切り替える"
+  },
+  "switchChainNotice": {
+    "buttonLabel": "{{chainName}}に切り替える",
+    "description": "担保の有効/無効を行うにはウォレットを{{chainName}}に切り替える必要があります"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "並べ替え"
+    }
+  },
+  "transactionErrors": {
+    "acceptAdminPendingAdminCheck": "管理者承認（保留）チェック",
+    "acceptPendingImplementationAddressCheck": "実装アドレス承認（保留）チェック",
+    "accrueInterestAccumulatedInterestCalculationFailed": "利息計上: 累積利息計算に失敗",
+    "accrueInterestBorrowRateCalculationFailed": "利息計上: 借入利率計算に失敗",
+    "accrueInterestNewBorrowIndexCalculationFailed": "利息計上: 新しい借入指数計算に失敗",
+    "accrueInterestNewTotalBorrowsCalculationFailed": "利息計上: 新しい総借入計算に失敗",
+    "accrueInterestNewTotalReservesCalculationFailed": "利息計上: 新しい総準備金計算に失敗",
+    "accrueInterestSimpleInterestFactorCalculationFailed": "利息計上: 単利係数計算に失敗",
+    "addReservesAccrueInterestFailed": "準備金追加: 利息計上に失敗",
+    "addReservesFreshCheck": "準備金追加: 鮮度チェック",
+    "addReservesTransferInNotPossible": "準備金追加: 入金転送不可",
+    "badInput": "不正な入力",
+    "borrowAccrueInterestFailed": "借入: 利息計上に失敗",
+    "borrowAccumulatedBalanceCalculationFailed": "借入: 累積残高計算に失敗",
+    "borrowCashNotAvailable": "借入: 現金不足",
+    "borrowComptrollerRejection": "借入: コンプトローラ拒否",
+    "borrowFreshnessCheck": "借入: 鮮度チェック",
+    "borrowMarketNotListed": "借入: マーケット未上場",
+    "borrowNewAccountBorrowBalanceCalculationFailed": "借入: 新しいアカウント借入残高計算に失敗",
+    "borrowNewTotalBalanceCalculationFailed": "借入: 新しい総残高計算に失敗",
+    "comptrollerCalculationError": "コンプトローラ計算エラー",
+    "comptrollerMismatch": "コンプトローラ不一致",
+    "comptrollerRejection": "コンプトローラ拒否",
+    "exitMarketBalanceOwed": "マーケット退出: 未払い残高あり",
+    "exitMarketRejection": "マーケット退出: 拒否",
+    "gasEstimationFailed": "ガス見積もりに失敗",
+    "gaslessTransactionNotAvailable": "ガスレス取引は利用できません",
+    "insufficientBalanceForVai": "VAIの残高不足",
+    "insufficientLiquidity": "流動性不足",
+    "insufficientShortfall": "不足額が不十分",
+    "interestRateModelError": "金利モデルエラー",
+    "invalidAccountPair": "無効なアカウントペア",
+    "invalidCloseAmountRequested": "無効なクローズ金額の要求",
+    "invalidCloseFactor": "無効なクローズファクター",
+    "invalidCollateralFactor": "無効な担保係数",
+    "invalidLiquidationIncentive": "無効な清算インセンティブ",
+    "liquidateAccrueBorrowInterestFailed": "清算: 借入利息計上に失敗",
+    "liquidateAccrueCollateralInterestFailed": "清算: 担保利息計上に失敗",
+    "liquidateCloseAmountIsUintMax": "清算: クローズ金額がUINT最大",
+    "liquidateCloseAmountIsZero": "清算: クローズ金額が0",
+    "liquidateCollateralFreshnessCheck": "清算: 担保鮮度チェック",
+    "liquidateComptrollerCalculateAmountSeizeFailed": "清算: コンプトローラの差押額計算に失敗",
+    "liquidateComptrollerRejection": "清算: コンプトローラ拒否",
+    "liquidateFreshnessCheck": "清算: 鮮度チェック",
+    "liquidateSeizeBalanceDecrementFailed": "清算: 差押残高減算に失敗",
+    "liquidateSeizeBalanceIncrementFailed": "清算: 差押残高加算に失敗",
+    "liquidateSeizeBorrowFreshFailed": "清算: 借入鮮度チェックに失敗",
+    "liquidateSeizeComptrollerRejection": "清算: 差押に対するコンプトローラ拒否",
+    "liquidateSeizeIsBorrower": "清算: 差押者が借入者",
+    "liquidateSeizeLiquidatorIsBorrower": "清算: 清算者が借入者",
+    "liquidateSeizeTooMuch": "清算: 差押が多すぎる",
+    "marketAlreadyListed": "マーケットは既に上場",
+    "marketNotEntered": "マーケット未参加",
+    "marketNotFresh": "マーケットが最新ではありません",
+    "marketNotListed": "マーケット未上場",
+    "mathError": "計算エラー",
+    "mintAccrueInterestFailed": "ミント: 利息計上に失敗",
+    "mintComptrollerRejection": "ミント: コンプトローラ拒否",
+    "mintExchangeRateReadFailed": "ミント: 交換レート読込に失敗",
+    "mintFeeCalculationFailed": "ミント: 手数料計算に失敗",
+    "mintFreshnessCheck": "ミント: 鮮度チェック",
+    "mintNewAccountBalanceCalculationFailed": "ミント: 新しいアカウント残高計算に失敗",
+    "mintNewTotalSupplyCalculationFailed": "ミント: 新しい総供給計算に失敗",
+    "mintTransferInFailed": "ミント: 入金転送に失敗",
+    "mintTransferNotPossible": "ミント: 転送不可",
+    "noError": "エラーなし",
+    "nonzeroBorrowBalance": "借入残高が0ではありません",
+    "priceError": "価格エラー",
+    "redeemAccrueInterestFailed": "償還: 利息計上に失敗",
+    "redeemComptrollerRejection": "償還: コンプトローラ拒否",
+    "redeemExchangeAmountCalculatioFailed": "償還: 交換額計算に失敗",
+    "redeemExchangeRateReadFailed": "償還: 交換レート読込に失敗",
+    "redeemExchangeTokensCalculationFailed": "償還: 交換トークン計算に失敗",
+    "redeemFeeCalculationFailed": "償還: 手数料計算に失敗",
+    "redeemFreshnessCheck": "償還: 鮮度チェック",
+    "redeemNewAccountBalanceCalculationFailed": "償還: 新しいアカウント残高計算に失敗",
+    "redeemNewTotalSupplyCalculationFailed": "償還: 新しい総供給計算に失敗",
+    "redeemTransferOutNotPossible": "償還: 引き出し転送不可",
+    "reduceReservesAccrueInterestFailed": "準備金削減: 利息計上に失敗",
+    "reduceReservesAdminCheck": "準備金削減: 管理者チェック",
+    "reduceReservesCashNotAvailable": "準備金削減: 現金不足",
+    "reduceReservesFreshCheck": "準備金削減: 鮮度チェック",
+    "reduceReservesValidation": "準備金削減: 検証",
+    "rejection": "拒否",
+    "repayBehalfAccrueInterestFailed": "代理返済: 利息計上に失敗",
+    "repayBorrowAccrueInterestFailed": "返済: 借入利息計上に失敗",
+    "repayBorrowAccumulatedBalanceCalculationFailed": "返済: 借入累積残高計算に失敗",
+    "repayBorrowComptrollerRejection": "返済: コンプトローラ拒否",
+    "repayBorrowFreshnessCheck": "返済: 鮮度チェック",
+    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "返済: 新しいアカウント借入残高計算に失敗",
+    "repayBorrowTransferInNotPossible": "返済: 入金転送不可",
+    "repayBorrowTransferNotPossible": "返済: 転送不可",
+    "repayVaiComptrollerRejection": "VAI返済: コンプトローラ拒否",
+    "repayVaiFreshnessCheck": "VAI返済: 鮮度チェック",
+    "setCloseFactorOwnerCheck": "クローズファクター設定: オーナーチェック",
+    "setCloseFactorValidation": "クローズファクター設定: 検証",
+    "setCollateralFactorNoExists": "担保係数設定: 存在しません",
+    "setCollateralFactorOwnerCheck": "担保係数設定: オーナーチェック",
+    "setCollateralFactorValidation": "担保係数設定: 検証",
+    "setCollateralFactorWithoutPrice": "担保係数設定: 価格なし",
+    "setComptrollerOwnerCheck": "コンプトローラ設定: オーナーチェック",
+    "setImplementationOwnerCheck": "実装設定: オーナーチェック",
+    "setInterestRateModelAccrueInterestFailed": "金利モデル設定: 利息計上に失敗",
+    "setInterestRateModelFreshCheck": "金利モデル設定: 鮮度チェック",
+    "setInterestRateModelOwnerCheck": "金利モデル設定: オーナーチェック",
+    "setLiquidationIncentiveOwnerCheck": "清算インセンティブ設定: オーナーチェック",
+    "setLiquidationIncentiveValidation": "清算インセンティブ設定: 検証",
+    "setMaxAssetsOwnerCheck": "最大資産数設定: オーナーチェック",
+    "setMintedVaiRejection": "ミント済みVAI設定: 拒否",
+    "setOracleMarketNotListed": "オラクル設定: マーケット未上場",
+    "setPauseGuardianOwnerCheck": "一時停止ガーディアン設定: オーナーチェック",
+    "setPendingAdminOwnerCheck": "保留管理者設定: オーナーチェック",
+    "setPendingImplementationOwnerCheck": "保留実装設定: オーナーチェック",
+    "setPriceOracleOwnerCheck": "価格オラクル設定: オーナーチェック",
+    "setReserveFactorAccrueInterestFailed": "リザーブファクター設定: 利息計上に失敗",
+    "setReserveFactorAdminCheck": "リザーブファクター設定: 管理者チェック",
+    "setReserveFactorBoundsCheck": "リザーブファクター設定: 範囲チェック",
+    "setReserveFactorFreshCheck": "リザーブファクター設定: 鮮度チェック",
+    "setTreasuryOwnerCheck": "トレジャリー設定: オーナーチェック",
+    "setVaiControllerOwnerCheck": "VAIコントローラ設定: オーナーチェック",
+    "setVaiMintRateCheck": "VAIミントレート設定: チェック",
+    "sftMintNewAccountBalanceCalculationFailed": "SFTミント: 新しいアカウント残高計算に失敗",
+    "snapshotError": "スナップショットエラー",
+    "supportMarketExists": "マーケットサポート: 既に存在",
+    "supportMarketOwnerCheck": "マーケットサポート: オーナーチェック",
+    "tokenGetUnderlyingPriceError": "トークン基準価格取得エラー",
+    "tokenInsufficentCash": "トークン現金不足",
+    "tokenInsufficientAllowance": "トークン承認不足",
+    "tokenInsufficientBalance": "トークン残高不足",
+    "tokenPriceError": "トークン価格エラー",
+    "tokenTransferInFailed": "トークン入金転送に失敗",
+    "tokenTransferOutFailed": "トークン引き出し転送に失敗",
+    "tooManyAssets": "資産数が多すぎます",
+    "tooMuchRepay": "返済額が多すぎます",
+    "transferComptrollerRejection": "転送: コンプトローラ拒否",
+    "transferNotAllowed": "転送不可",
+    "transferNotEnough": "転送不足",
+    "transferTooMuch": "転送過多",
+    "unauthorized": "権限がありません",
+    "vaiBurnRejection": "VAIバーン拒否",
+    "vaiLiquidateAccrueBorrowInterestFailed": "VAI清算: 借入利息計上に失敗",
+    "vaiLiquidateAccrueCollateralInterestFailed": "VAI清算: 担保利息計上に失敗",
+    "vaiLiquidateCloseAmountIsUintMax": "VAI清算: クローズ金額がUINT最大",
+    "vaiLiquidateCloseAmountIsZero": "VAI清算: クローズ金額が0",
+    "vaiLiquidateCollateralFreshnessCheck": "VAI清算: 担保鮮度チェック",
+    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "VAI清算: コンプトローラの差押額計算に失敗",
+    "vaiLiquidateComptrollerRejection": "VAI清算: コンプトローラ拒否",
+    "vaiLiquidateFreshnessCheck": "VAI清算: 鮮度チェック",
+    "vaiLiquidateLiquidatorIsBorrower": "VAI清算: 清算者が借入者",
+    "vaiLiquidateRepayBorrowFreshFailed": "VAI清算: 返済借入の鮮度チェックに失敗",
+    "vaiLiquidateSeizeBalanceDecrementFailed": "VAI清算: 差押残高減算に失敗",
+    "vaiLiquidateSeizeBalanceIncrementFailed": "VAI清算: 差押残高加算に失敗",
+    "vaiLiquidateSeizeComptrollerRejection": "VAI清算: 差押に対するコンプトローラ拒否",
+    "vaiLiquidateSeizeLiquidatorIsBorrower": "VAI清算: 差押者が借入者",
+    "vaiLiquidateSeizeTooMuch": "VAI清算: 差押が多すぎる",
+    "vaiMintExchangeCalculationFailed": "VAIミント: 交換計算に失敗",
+    "vaiMintRejection": "VAIミント拒否"
+  },
+  "transactionNotification": {
+    "couldNotFetchReceipt": {
+      "title": "取引状況を取得できませんでした"
+    },
+    "failed": {
+      "title": "取引に失敗しました"
+    },
+    "pending": {
+      "title": "取引を確認中"
+    },
+    "success": {
+      "title": "取引が確認されました"
+    }
+  },
+  "vai": {
+    "borrow": {
+      "amountTokensInput": {
+        "limitButtonLabel": "安全な最大"
+      },
+      "availableAmount": {
+        "label": "利用可能",
+        "tooltip": "グローバル上限と供給担保に基づく、借りられるVAIの最大額"
+      },
+      "borrowApr": {
+        "label": "借入APR",
+        "tooltip": "ミント済みVAIに加えて将来支払う年率利息"
+      },
+      "fee": {
+        "label": "手数料"
+      },
+      "notice": {
+        "amountHigherThanAccountMintableAmount": "入力額が利用可能額を超えています",
+        "amountHigherThanLiquidity": "入力額が利用可能なVAI流動性を超えています"
+      },
+      "primeOnlyWarning": "Primeトークン保有者のみがVAIを借りられます。Primeについて<Link>こちら</Link>。",
+      "submitButton": {
+        "borrowLabel": "借入",
+        "enterValidAmountLabel": "借入の有効な金額を入力"
+      },
+      "tabTitle": "借入"
+    },
+    "headerMessage": "VAIはVenus Protocolの主要ステーブルコインです。供給した担保を使ってVAIを借りられます。<Link>詳細を見る</Link>",
+    "repay": {
+      "amountTokensInput": {
+        "limitButtonLabel": "最大"
+      },
+      "borrowApr": {
+        "label": "借入APR",
+        "tooltip": "ミント済みVAIに加えて将来支払う年率利息"
+      },
+      "notice": {
+        "amountHigherThanBorrowBalance": "入力額が返済残高を超えています",
+        "amountHigherThanWalletBalance": "{{tokenSymbol}}残高が不足しています",
+        "amountHigherThanWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
+        "fullRepaymentWarning": "新たに発生した利息を含めるため、取引値が現在の借入額よりわずかに高くなる可能性があります"
+      },
+      "submitButton": {
+        "enterValidAmountLabel": "返済の有効な金額を入力",
+        "repayLabel": "返済"
+      },
+      "tabTitle": "返済",
+      "walletBalance": {
+        "label": "ウォレット残高"
+      }
+    }
+  },
+  "vault": {
+    "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
+    "dailyEmission": "日次排出量",
+    "pausedWarning": "このボールトは現在停止中です。金利は引き続き発生しますが、請求・ステーキング・引き出しはボールトが再開されるまで無効です",
+    "stakeButton": "ステーキング",
+    "stakingApr": "{{stakeTokenName}} ステーキングAPR",
+    "totalStaked": "総ステーキング量",
+    "transactionForm": {
+      "lockingPeriod": {
+        "duration": "{{date, distanceToNow}}",
+        "label": "ロック期間"
+      },
+      "rightMaxButtonLabel": "最大"
+    },
+    "withdrawButton": "引き出し",
+    "youAreStake": "あなたのステーキング量"
+  },
+  "vote": {
+    "abstain": "棄権",
+    "addComment": "コメントを追加",
+    "against": "反対",
+    "comment": "コメント",
+    "createProposalForm": {
+      "abstainOption": "棄権オプション",
+      "action": "アクション",
+      "actions": "アクション",
+      "addDescription": "説明を追加（基本的なMarkdownスタイルに対応）",
+      "addOneMoreAction": "+ もう1つアクションを追加",
+      "address": "アドレス",
+      "againstOption": "反対オプション",
+      "confirm": "確認",
+      "create": "作成",
+      "description": "説明",
+      "forOption": "賛成オプション",
+      "name": "名前",
+      "nextStep": "次へ",
+      "proposalName": "提案名",
+      "proposalType": "提案タイプ",
+      "signature": "署名",
+      "submitError": "提案の作成中にエラーが発生しました",
+      "votingOptions": "投票オプション"
+    },
+    "createProposalModal": {
+      "createManually": "手動で作成",
+      "createProposal": "提案を作成",
+      "uploadFile": "ファイルをアップロード",
+      "youCanEitherCreateManuallyOrUpload": "提案は手動で作成するか、詳細を含むファイルをアップロードできます。ファイルをアップロードする場合、このテンプレートを例として使用できます: <Link>Github</Link>"
+    },
+    "createProposalPlus": "+ 提案を作成",
+    "delegate": "委任",
+    "delegateAddress": "委任先アドレス",
+    "delegateLeaderboard": "委任リーダーボード",
+    "delegateVotes": "委任票",
+    "delegateVoting": "委任投票",
+    "delegateYourVoting": "2. <Anchor>投票権を</Anchor>自分または他者に委任",
+    "depositXvs": "XVSを預け入れ",
+    "depositYourTokens": "1. <Link>トークンを預け入れ</Link>てXVS Vaultへ ",
+    "enterContactAddress": "連絡先アドレスを入力",
+    "errorState": {
+      "buttonLabel": "再試行",
+      "message": "提案の取得に失敗しました"
+    },
+    "for": "賛成",
+    "goToXvsSnapshot": "XVSスナップショットへ",
+    "omnichain": {
+      "switchToBnb": "BNB Chainに切り替える",
+      "votingOnlyEnabledOnBnb": "投票はBNB Chainでのみ利用可能です"
+    },
+    "pages": {
+      "actions": "3 / 3 アクション",
+      "confirmation": "確認",
+      "proposalInformation": "1 / 3 提案情報",
+      "votingOptions": "2 / 3 投票オプション"
+    },
+    "pasteYourAddress": "アドレスを貼り付け",
+    "pleasePayAttention": "ご注意ください",
+    "proposals": "提案",
+    "proposalStateFilter": {
+      "label": "状態"
+    },
+    "proposalType": {
+      "critical": "重大",
+      "fastTrack": "ファストトラック",
+      "normal": "通常"
+    },
+    "redelegate": "再委任",
+    "redelegateVoting": "再委任投票",
+    "requiredVotingPower": "提案を作成するには30万の投票パワーが必要です",
+    "searchInput": {
+      "placeholder": "提案を検索"
+    },
+    "summaryProgressBar": "投票サマリー進捗バー - {{voteType}}",
+    "totalLocked": "総ロック",
+    "toVoteYouShould": "投票するには:",
+    "voteAbstain": "棄権に投票",
+    "voteAgainst": "反対に投票",
+    "voteFor": "賛成に投票",
+    "votingPower": "投票パワー",
+    "votingWallet": "投票ウォレット",
+    "votingWeight": "投票ウェイト",
+    "youCanDelegateVotes": "自分または他者に投票を委任できます。委任先のアドレスが分かっていれば入力してください。分からない場合は、委任リーダーボードで支持したい政治団体を見つけられます",
+    "youDelegatedTo": "ロックしたトークンを{{delegate}}に委任しました"
+  },
+  "voteProposalUi": {
+    "activeUntilDate": "アクティブ期限: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "canceledDate": "キャンセル: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "command": {
+      "actionButton": {
+        "cancel": "キャンセル",
+        "execute": "実行",
+        "queue": "キュー"
+      },
+      "dates": {
+        "activeAt": "保留期限: {{date, }}",
+        "executableAt": "実行可能: {{date, }}",
+        "previousStep": "{{date, }}",
+        "queueableAt": "キュー可能: {{date, }}"
+      },
+      "description": {
+        "bridged": "ブリッジでトランザクションの伝播を待機中",
+        "canceled": "ガバナンスガーディアンによりペイロード実行がキャンセルされました",
+        "failed": "ペイロードを宛先ネットワークに送信できませんでした",
+        "pending": "{{chainName}}のペイロード実行を待機中",
+        "pendingBsc": "投票開始を待機中",
+        "waitingToBeExecutable": "キュー期間終了を待機中",
+        "wrongChain": "このペイロードは{{chainName}}チェーンで実行する必要があります"
+      },
+      "operations": {
+        "title": "オペレーション"
+      },
+      "status": {
+        "pending": "保留"
+      }
+    },
+    "commands": {
+      "allPayloadsExecuted": "すべてのペイロードを実行しました",
+      "somePayloadsExecuted": "実行済みペイロード",
+      "title": "コマンド"
+    },
+    "countdownFormat": {
+      "daysIncluded": "{{days}}日 : {{hours}}時間 : {{minutes}}分 : {{seconds}}秒",
+      "hoursIncluded": "{{hours}}時間 : {{minutes}}分 : {{seconds}}秒",
+      "minutesIncluded": "{{minutes}}分 : {{seconds}}秒",
+      "secondsIncluded": "{{seconds}}秒"
+    },
+    "defeatedDate": "否決: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "description": "説明",
+    "executedDate": "実行済み: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "expiredDate": "期限切れ: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "greenPulseAnimation": {
+      "altText": "緑のパルスアニメーション"
+    },
+    "proposalState": {
+      "activeTimestamp": "アクティブ開始: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "canceledTimestamp": "キャンセル: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeatedTimestamp": "否決: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "executedTimestamp": "実行済み: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "expiredTimestamp": "期限切れ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "queuedTimestamp": "キュー: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "可決: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+    },
+    "queuedUntilDate": "キュー期限: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "status": {
+      "executedPayloads": "実行済みペイロード",
+      "readyForExecution": "実行準備完了",
+      "readyForQueuing": "キュー準備完了"
+    },
+    "statusCard": {
+      "ariaLabelAbstain": "棄権票",
+      "ariaLabelAgainst": "反対票",
+      "ariaLabelFor": "賛成票"
+    },
+    "timeUntilExecutable": "実行可能: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilVotable": "投票開始: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "voteStatus": {
+      "abstained": "棄権",
+      "notVoted": "未投票",
+      "votedAgainst": "反対に投票",
+      "votedFor": "賛成に投票"
+    },
+    "votingOptions": "投票オプション"
+  },
+  "voterDetail": {
+    "actions": "アクション",
+    "amount": "数量",
+    "delegated": "委任済み",
+    "delegatingTo": "委任先",
+    "holding": "保有",
+    "proposalNumber": "提案 #",
+    "transactions": "取引",
+    "undelegated": "委任なし",
+    "venusBalance": "Venus残高",
+    "viewAll": "すべて表示",
+    "votedAbstain": "棄権に投票",
+    "votedAgainst": "反対に投票",
+    "votedFor": "賛成に投票",
+    "votes": "投票",
+    "votingHistory": "投票履歴"
+  },
+  "voterLeaderboard": {
+    "addressesByVotingWeight": "投票ウェイト別アドレス",
+    "columns": {
+      "proposalsVoted": "投票した提案数",
+      "rank": "順位",
+      "votes": "票数",
+      "voteWeight": "投票ウェイト"
+    }
+  },
+  "voteSummary": {
+    "addresses_zero": "{{count}} アドレス",
+    "addresses_one": "{{count}} アドレス",
+    "addresses_other": "{{count}} アドレス",
+    "votes": "投票"
+  },
+  "wallets": {
+    "errors": {
+      "noProvider": "接続できません。選択したウォレットがブラウザにインストールされていることを確認してください。"
+    }
+  },
+  "web3DomainNames": {
+    "providers": {
+      "ens": "ENS名",
+      "spaceId": "Space ID名"
+    },
+    "tooltip": {
+      "address": "({{address}})"
+    }
+  },
+  "withdrawFromVaiVaultModal": {
+    "availableTokensLabel": "利用可能な{{tokenSymbol}}",
+    "connectWalletMessage": "{{tokenSymbol}}を引き出すにはウォレットを接続してください",
+    "submitButtonDisabledLabel": "引き出す有効な金額を入力",
+    "submitButtonLabel": "引き出す",
+    "title": "{{tokenSymbol}}を引き出す"
+  },
+  "withdrawFromVestingVaultModalModal": {
+    "displayWithdrawalRequestListButton": "引き出し申請一覧",
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "引き出すにはウォレットを接続してください"
+      },
+      "availableTokensLabel": "リクエスト可能な{{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "引き出し申請一覧",
+      "primeLossWarning": {
+        "message": "この金額を引き出すとXVSボールトのステーキングがPrime対象の最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。",
+        "submitButtonLabel": "Primeトークンを失って引き出しを申請する"
+      },
+      "submitButtonDisabledLabel": "引き出し申請する数量を入力してください",
+      "submitButtonLabel": "引き出しを申請する"
+    },
+    "requestWithdrawalTabTitle": "引き出しを申請する",
+    "title": "{{tokenSymbol}}を引き出す",
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "引き出しリクエストを見るにはウォレットを接続してください"
+      },
+      "emptyState": "現在、引き出し申請はありません",
+      "itemContent": "{{date, dd.MM.yy h:mm a}}までロック"
+    },
+    "withdrawalRequestListTitle": "引き出し申請一覧",
+    "withdrawTab": {
+      "approveToken": {
+        "connectWalletMessage": "引き出すにはウォレットを接続してください"
+      },
+      "availableTokens": "利用可能な{{tokenSymbol}}",
+      "submitButton": "引き出す"
+    },
+    "withdrawTabTitle": "引き出す"
+  }
+}

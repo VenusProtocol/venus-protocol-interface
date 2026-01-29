@@ -129,6 +129,7 @@ export const Card: React.FC<CardProps> = ({
       rightContent={
         isApyChartsFeatureEnabled && data.length > 0 ? (
           <ButtonGroup
+            buttonSize="xs"
             buttonLabels={periodOptions.map(p => p.label)}
             activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
             onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}

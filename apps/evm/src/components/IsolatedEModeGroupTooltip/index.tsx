@@ -20,15 +20,15 @@ export const IsolatedEModeGroupTooltip: React.FC<IsolatedEModeGroupTooltipProps>
     <Tooltip
       className={cn(
         'rounded-full inline-flex items-center gap-1 pl-2 pr-1 cursor-pointer',
-        variant === 'primary' ? 'text-yellow bg-yellow/[.07]' : 'text-offWhite bg-offWhite/15',
+        variant === 'primary' ? 'text-yellow bg-yellow/[.07]' : 'text-white bg-white/15',
         className,
       )}
-      content={t('pool.isolatedEModeGroupTooltip.content', {
+      content={t('markets.isolatedEModeGroupTooltip.content', {
         eModeGroupName,
       })}
     >
       <span className="text-xs font-medium leading-[21px]">
-        {t('pool.isolatedEModeGroupTooltip.label')}
+        {t('markets.isolatedEModeGroupTooltip.label')}
       </span>
 
       <Icon name="info" className="text-inherit" />

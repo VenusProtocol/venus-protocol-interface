@@ -59,7 +59,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           );
         case 'tertiary':
           return cn(
-            'border-transparent bg-cards hover:bg-cards hover:border-offWhite active:bg-cards active:border-blue',
+            'border-transparent bg-cards hover:bg-cards hover:border-white active:bg-cards active:border-blue',
             isDropdownOpened && 'border-blue hover:border-blue',
           );
         case 'quaternary':
@@ -70,8 +70,8 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
         // primary
         default:
           return cn(
-            'border-lightGrey bg-cards hover:border-lightGrey hover:bg-lightGrey active:border-blue active:bg-lightGrey',
-            isDropdownOpened && 'border-blue bg-lightGrey hover:border-blue',
+            'border-dark-blue-disabled/50 bg-dark-blue hover:bg-dark-blue-hover active:bg-dark-blue-hover',
+            isDropdownOpened && 'bg-dark-blue-hover hover:border-blue',
           );
       }
     };
@@ -141,6 +141,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               }}
               {...otherProps}
             />
+
             <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
               {selectedOption &&
                 renderLabel({ label: selectedOption.label, isRenderedInButton: true })}
@@ -148,11 +149,8 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
 
             {!disabled && (
               <Icon
-                name="arrowUp"
-                className={cn(
-                  'text-offWhite ml-2 w-5 h-5 flex-none',
-                  isDropdownOpened ? 'text-blue' : 'rotate-180',
-                )}
+                name="chevronDown"
+                className={cn('text-grey ml-2 size-3 flex-none', isDropdownOpened && 'rotate-180')}
               />
             )}
           </Button>

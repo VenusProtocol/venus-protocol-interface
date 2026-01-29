@@ -1,0 +1,1688 @@
+{
+  "account": {
+    "circularGradient": "Dairesel gradyan",
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "Borçlanılan",
+        "eModeHeader": {
+          "illustrationAltText": "E-modu illüstrasyonu",
+          "title": "E-modu: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+        },
+        "supplyTableTitle": "Sağlanan",
+        "tabletBorrowTabTitle": "Borçlanılan",
+        "tabletSupplyTabTitle": "Sağlanan",
+        "tabletTitle": "Varlıklar"
+      }
+    },
+    "performanceChart": {
+      "absolutePerformance": "Mutlak performans",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "errorState": {
+        "failedToFetchMessage": "Hesap geçmişi alınamadı",
+        "refetchButtonLabel": "Yeniden dene"
+      },
+      "netWorth": {
+        "label": "Net değer",
+        "tooltip": "Vault stake'i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Vault stake'i, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6A",
+        "thirtyDays": "30G"
+      },
+      "placeholderText": "Rapor oluşturuluyor, bu işlem bir dakikaya kadar sürebilir",
+      "todaysChange": "Bugünün değişimi",
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "placeholder": {
+      "buttonLabel": "Göz at"
+    },
+    "pools": {
+      "placeholder": {
+        "description": "Havuz pozisyonlarınız burada görünecek",
+        "title": "Henüz tedarik veya borçlanma pozisyonu yok"
+      }
+    },
+    "poolsBreakdown": {
+      "poolTagTooltip": "Kullanılan borç limiti: {{borrowLimitUsedPercentage}}"
+    },
+    "primeBanner": {
+      "button": {
+        "becomePrime": "Prime tokenını talep et",
+        "stakeXvs": "XVS stake et"
+      },
+      "primeLogoAltText": "Prime logosu",
+      "text": {
+        "apyBoost": "Prime ile kazancınızı <GreenText>{{boost}}</GreenText> kadar artırın",
+        "becomePrime": "Artık Prime kullanıcısı olabilirsiniz"
+      }
+    },
+    "settings": {
+      "gaslessTransactions": {
+        "switchLabel": "{{chainName}} üzerinde gas'siz işlemleri etkinleştir"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "Günlük kazanç",
+        "healthFactor": "Sağlık faktörü",
+        "healthFactorTooltip": "Likidasyon < 1.0",
+        "mintedVai": "Basılmış VAI",
+        "netApy": "Net APY",
+        "netApyTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyenizin yüzdesi",
+        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyeniz ve vault stake'inizin yüzdesi",
+        "totalBorrow": "Toplam borç",
+        "totalSupply": "Toplam tedarik",
+        "totalVaultStake": "Toplam vault stake"
+      },
+      "title": "Özet"
+    },
+    "tabs": {
+      "pools": "Havuzlar",
+      "settings": "Ayarlar",
+      "transactions": "İşlemler",
+      "vaults": "Vaultlar"
+    },
+    "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
+      "placeholder": {
+        "description": "İşlemleriniz burada görünecek",
+        "title": "Henüz işlem yok"
+      },
+      "selects": {
+        "source": {
+          "all": "Tüm piyasalar"
+        },
+        "txType": {
+          "all": "Tüm işlemler",
+          "approve": "Onay",
+          "borrow": "Borç al",
+          "enterMarket": "Teminat etkin",
+          "exitMarket": "Teminat devre dışı",
+          "mint": "Sağla",
+          "redeem": "Çek",
+          "repay": "Geri ödeme"
+        }
+      },
+      "today": "Bugün",
+      "txText": {
+        "approve": "{{tokenAmount}} harcaması onaylandı",
+        "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
+        "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
+      },
+      "txType": {
+        "approve": "Onay",
+        "borrow": "Borç al",
+        "enterMarket": "Teminat etkin",
+        "exitMarket": "Teminat devre dışı",
+        "mint": "Sağla",
+        "redeem": "Çek",
+        "repay": "Geri ödeme"
+      },
+      "view": "Görüntüle",
+      "yesterday": "Dün"
+    },
+    "vaults": {
+      "placeholder": {
+        "description": "Vault pozisyonlarınız burada görünecek",
+        "title": "Henüz stake pozisyonu yok"
+      }
+    }
+  },
+  "accountData": {
+    "balanceUpdate": {
+      "borrowBalance": "Borç bakiyesi",
+      "supplyBalance": "Sağlama bakiyesi"
+    },
+    "dailyEarnings": {
+      "label": "Günlük kazanç"
+    },
+    "healthFactor": {
+      "label": "Sağlık faktörü",
+      "tooltip": "Likidasyon < 1.0"
+    }
+  },
+  "accountHealth": {
+    "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
+    "borrowLimitUsed": "Kullanılan borç limiti:",
+    "limit": "Limit:",
+    "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Güvenli borç limiti:<LineBreak/>{{safeBorrowLimit}} (borç limitinizin {{safeBorrowLimitPercentage}}%'i)"
+  },
+  "adBanner": {
+    "learnMore": "Daha fazla bilgi",
+    "startNow": "Şimdi başla"
+  },
+  "announcements": {
+    "bethUpdate": {
+      "description": "Binance, 2023-04-26 tarihinde BETH çekimlerini durdurdu. Kullanıcıların Venus üzerindeki BETH maruziyetini azaltmasını öneriyoruz. Borç alma duraklatıldı. BETH'yi zincir üzerinde 1:1 oranında WBETH'ye dönüştürün <Link>buradan</Link>."
+    },
+    "sxpDisabling": {
+      "description": "Gauntlet önerisi doğrultusunda, SXP'nin yeni bir zincire taşınmasına ilişkin endişeler ve SXP likiditesinde beklenen düşüş nedeniyle SXP için borç alma ve tedarik duraklatıldı."
+    },
+    "trxMigration": {
+      "description": "Venus, yeni TRX tokenını yeni bir piyasada destekliyor. Eski TRX tokenı için borç alma ve tedarik duraklatıldı. Daha fazla bilgi için <Link>Binance'in resmi duyurusuna</Link> bakın."
+    },
+    "tusdMigration": {
+      "description": "Venus, yeni TUSD tokenını yeni bir piyasada destekliyor. Eski TUSD tokenı için borç alma ve tedarik duraklatıldı. Daha fazla bilgi için <Link>Binance'in resmi duyurusuna</Link> bakın."
+    }
+  },
+  "approveDelegateSteps": {
+    "approveDelegateButton": {
+      "text": "Delege sözleşmesini onayla",
+      "tooltip": "Bu işlemi sizin adınıza gerçekleştirmek için delege sözleşmesini onaylamamız gerekiyor."
+    },
+    "step1": "Adım 1"
+  },
+  "approveTokenSteps": {
+    "approveTokenButton": {
+      "text": "{{tokenSymbol}} onayla",
+      "tooltip": "Venus protokolüyle kullanmak istediğiniz herhangi bir token için harcama onayı gerekiyor."
+    },
+    "step1": "Adım 1",
+    "step2": "Adım 2"
+  },
+  "appVersionChecker": {
+    "newVersionMessage": "Venus'un yeni bir sürümü mevcut. Hemen kullanmak için sayfayı yenileyin."
+  },
+  "apy": {
+    "boost": {
+      "iconAlt": "Boost edilmiş piyasa ikonu",
+      "tooltip": {
+        "borrowApy": {
+          "description": "Venus Protokolünden bu varlığı borç alırken biriken faiz.",
+          "name": "Borç APY"
+        },
+        "defaultMerklRewardName": "Merkl ödülleri",
+        "externalRewardDescription": "Bu dış programdaki ödüller <AppLink>resmi uygulaması</AppLink> üzerinden talep edilebilir. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
+        "intrinsicApy": {
+          "description": "Dayanak varlığın kendi doğal getirisi — ör. staking ödülleri. Bu getiri dış kaynaklardan gelir ve Venus Protokolü tarafından garanti edilmez.",
+          "name": "İçsel APY"
+        },
+        "offChainApy": {
+          "description": "Airdrop veya promosyon kampanyaları gibi üçüncü taraflarca yönetilen zincir dışı faaliyetlerden ek getiri. Bu getiri Venus Protokolü tarafından garanti edilmez.",
+          "name": "Zincir dışı APY"
+        },
+        "pointDistribution": {
+          "learnMore": "Daha fazla bilgi"
+        },
+        "primeDistribution": {
+          "description": "Venus Prime, özel kullanıcılara artırılmış ödüller sunar. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+          "name": "Prime APY"
+        },
+        "supplyApy": {
+          "description": "Varlığınızı Venus Protokolüne sağlayarak elde edilen toplam getiri.",
+          "name": "Sağlama APY"
+        },
+        "xvsDistribution": {
+          "description": "Dağıtım ödülleri merkeziyetsiz Venus topluluğu tarafından başlatılır ve uygulanır. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+          "name": "XVS dağıtımı"
+        },
+        "yieldToMaturityApy": {
+          "description": "Bu getiri, dayanak varlık kullanılarak PT tokenlarının indirimli fiyatla satın alınıp vade sonuna kadar elde tutulmasından kaynaklanan yıllıklandırılmış getiriyi ifade eder. Venus Protokolü bu getiriyi garanti etmez ve sorumluluk kabul etmez.",
+          "name": "Vade sonu APY"
+        }
+      }
+    },
+    "primeBadge": {
+      "logoAlt": "Prime logosu",
+      "tooltip": {
+        "calculatorLink": "Prime ödüllerinizi hesaplayın",
+        "primeBorrowSimulation": "Prime ile APY, kullanıcıların medyan {{borrowBalance}} borcuna ve {{xvsStaked}} vault stake'ine göre artırılır.",
+        "primeDocLink": "Daha fazla bilgi",
+        "primeMarket": "Prime ile APY artırılır.",
+        "primeSupplySimulation": "Prime ile APY, kullanıcıların medyan {{supplyBalance}} tedarikine ve {{xvsStaked}} vault stake'ine göre artırılır."
+      }
+    }
+  },
+  "apyBreakdown": {
+    "borrowApy": "Borç APY",
+    "distributionApy": "Dağıtım APY",
+    "distributionTooltip": "Dağıtım ödülleri merkeziyetsiz Venus topluluğu tarafından başlatılır ve uygulanır. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+    "externalDistributionApy": "{{description}} APY",
+    "intrinsicApy": "İçsel APY",
+    "intrinsicApyTooltip": "Varlığın kendisinden doğrudan kazanılan APY (ör. staking veya dış ödüller), Venus borç verme getirilerinden bağımsızdır. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
+    "netApy": {
+      "label": "Net APY",
+      "tooltip": "İlgili tüm piyasaların APY'lerinin toplamı"
+    },
+    "offChainApy": "Zincir dışı APY",
+    "offChainApyTooltip": "Airdrop veya promosyon kampanyaları gibi üçüncü taraflarca yönetilen zincir dışı faaliyetlerden ek getiri. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
+    "primeApy": "Prime APY",
+    "supplyApy": "Sağlama APY",
+    "totalApy": {
+      "borrowApyTooltip": "Borç APY - Dağıtım APY'leri",
+      "label": "Toplam APY",
+      "supplyApyTooltip": "Sağlama APY + Dağıtım APY'leri"
+    },
+    "yieldToMaturityApy": "Vade sonu APY",
+    "yieldToMaturityApyTooltip": "Bu getiri, dayanak varlık kullanılarak PT tokenlarının indirimli fiyatla satın alınıp vade sonuna kadar elde tutulmasından kaynaklanan yıllıklandırılmış getiriyi ifade eder. Venus Protokolü bu getiriyi garanti etmez ve sorumluluk kabul etmez."
+  },
+  "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
+    "tooltipItemLabels": {
+      "borrowApy": "Borç APY",
+      "date": "Tarih",
+      "supplyApy": "Sağlama APY",
+      "totalBorrow": "Toplam borç",
+      "totalSupply": "Toplam tedarik"
+    }
+  },
+  "asset": {
+    "eModeInfo": {
+      "title": "E-modu bilgisi"
+    },
+    "marketInfo": {
+      "title": "Piyasa bilgisi"
+    }
+  },
+  "assetAccessor": {
+    "disabledActionNotice": {
+      "boost": "Bu piyasada boost devre dışı",
+      "borrow": "Bu piyasada borç alma devre dışı",
+      "repay": "Bu piyasada geri ödeme devre dışı",
+      "supply": "Bu piyasada tedarik devre dışı",
+      "withdraw": "Bu piyasada çekim devre dışı"
+    },
+    "eModeBlockedActionNotice": {
+      "borrow": "E-modu ayarlarınız bu piyasadan borç almanıza izin vermiyor. <Link>E-modunu yönet</Link>"
+    }
+  },
+  "assetWarning": {
+    "borrowDescription": "{{poolName}} havuzundaki teminatlı tedarikinize göre {{tokenSymbol}} borç alabilirsiniz. <Button>Tüm tokenları göster</Button>",
+    "modalTitle": "{{ poolName }} tokenları",
+    "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
+  },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "Arka plan illüstrasyonu",
+    "binanceLogoAltText": "Binance logosu",
+    "description": "USDT borç alın ve <Bold>$400,000</Bold> ödülü paylaşın!",
+    "title": "Venus, Binance Wallet Earn'da yayında."
+  },
+  "boostBanner": {
+    "description": "Tek tık kaldıraçla getirinizi <White>5 kata kadar</White> artırın.",
+    "rocketAltText": "Roket illüstrasyonu",
+    "title": "Boost artık kullanılabilir!"
+  },
+  "breadcrumbs": {
+    "bridge": "Köprü",
+    "dashboard": "Gösterge paneli",
+    "governance": "Yönetişim",
+    "isolatedPools": "İzole havuzlar",
+    "leaderboard": "Liderlik tablosu",
+    "markets": "Piyasalar",
+    "primeCalculator": "Prime hesaplayıcı",
+    "proposal": "Teklif #{{proposalId}}",
+    "staking": "Staking",
+    "swap": "Takas",
+    "vai": "VAI"
+  },
+  "bridgePage": {
+    "amountInput": {
+      "label": "Miktar",
+      "maxButtonLabel": "MAKS"
+    },
+    "bridgeGasFee": {
+      "label": "Köprü gas ücreti",
+      "tooltip": "Aktarımı hedef zincire göndermenin gas maliyetini karşılamak için kullanılır"
+    },
+    "errors": {
+      "dailyTransactionLimitExceeded": {
+        "message": "24 saatlik limit nedeniyle hedef zincirde {{readableAmountTokens}} ({{readableAmountUsd}}) üzeri köprülenemez. Bu limit {{ date, dd MMM yyyy h:mm a }} tarihinde sıfırlanacak",
+        "submitButton": "Girilen miktar günlük limitin üzerinde"
+      },
+      "doesNotHaveEnoughNativeFunds": "Yetersiz {{tokenSymbol}} bakiyesi",
+      "doesNotHaveEnoughXvs": "Yetersiz {{tokenSymbol}} bakiyesi",
+      "mintCapReached": {
+        "message": "Köprü mint limiti nedeniyle {{readableAmountTokens}} üzeri köprülenemez",
+        "submitButton": "Köprü mint limiti aşıldı"
+      },
+      "singleTransactionLimitExceeded": {
+        "message": "Hedef zincirde tek işlemde {{readableAmountTokens}} ({{readableAmountUsd}}) üzeri köprülenemez",
+        "submitButton": "Girilen miktar limitin üzerinde"
+      }
+    },
+    "footer": {
+      "bridgeDocLink": "Köprü nasıl kullanılır",
+      "poweredBy": "Sağlayan"
+    },
+    "fromChainSelect": {
+      "label": "Kaynak"
+    },
+    "submitButton": {
+      "label": {
+        "enterValidAmount": "Geçerli miktar girin",
+        "submit": "Onayla"
+      }
+    },
+    "toChainSelect": {
+      "label": "Hedef"
+    },
+    "walletBalance": {
+      "label": "Cüzdan bakiyesi"
+    }
+  },
+  "chainExplorerLink": {
+    "content": "{{domainName}} üzerinde görüntüle"
+  },
+  "chip": {
+    "proposalType": {
+      "critical": "Kritik",
+      "fastTrack": "Hızlı"
+    }
+  },
+  "claimReward": {
+    "modal": {
+      "claimButton": {
+        "disabledLabel": "Ödül toplamak için grupları seçin",
+        "enabledLabel": "Talep et"
+      },
+      "claimOn": "{{appName}} üzerinde talep et",
+      "externalRewards": "Harici ödüller",
+      "primeGroup": {
+        "disabledContractWarningMessage": "Prime sözleşmesi şu anda duraklatılmıştır. Prime'dan faizler birikmeye devam eder ancak sözleşme tekrar açılana kadar talep edilemez.",
+        "name": "Prime"
+      },
+      "rewards": "Ödüller",
+      "title": "Ödülleri talep et ({{chainName}})",
+      "vaultGroup": {
+        "disabledContractWarningMessage": "Bu vault şu anda duraklatılmıştır. Faiz oranları birikmeye devam eder ancak vault tekrar açılana kadar talep edilemez.",
+        "name": "{{stakedTokenSymbol}} vault"
+      },
+      "vestingVaultGroup": {
+        "name": "{{stakedTokenSymbol}} vesting vault"
+      }
+    }
+  },
+  "connectButton": {
+    "connect": "Cüzdan bağla",
+    "disconnect": "Bağlantıyı kes"
+  },
+  "connectWallet": {
+    "connectButton": "Cüzdan bağla"
+  },
+  "eModeBanner": {
+    "exploreButtonLabel": "Keşfet",
+    "illustrationAltText": "E-modu illüstrasyonu",
+    "manageEModeButtonLabel": "E-modunu yönet",
+    "title": "E-Modu ile borçlanma gücünüzü artırın"
+  },
+  "errors": {
+    "couldNotRetrieveSigner": "İmzalayıcı alınamadı, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
+    "couldNotSwitchChain": "Zincir değiştirilemedi, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
+    "missingAbstainDescription": "Teklifin 'çekimser' oy açıklaması olmalı",
+    "missingAgainstDescription": "Teklifin 'karşı' oy açıklaması olmalı",
+    "missingDescription": "Dosyada teklif açıklaması yok",
+    "missingForDescription": "Teklifin 'lehte' oy açıklaması olmalı",
+    "missingParamForSignature": "Fonksiyon için karşılık gelen parametre yok",
+    "missingSafeWalletApiUrl": "Yanlış yapılandırma nedeniyle Safe işlemi alınamadı",
+    "missingTargetForSignature": "Fonksiyon için karşılık gelen hedef yok",
+    "missingTitle": "Teklifin başlığı olmalı",
+    "noMetaKey": "Dosyada meta veri bilgisi yok",
+    "noParamsKey": "Dosyada parametre listesi yok",
+    "noSignaturesKey": "Dosyada çağrı imzaları yok",
+    "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güncelleyin.",
+    "noTargetsKey": "Dosyada hedef listesi yok",
+    "noTypeKey": "Dosyada teklifin türü belirtilmemiş",
+    "proposalNotFound": "Teklif bulunamadı",
+    "somethingWentWrong": "Bir şeyler ters gitti",
+    "somethingWentWrongRetrievingTransactions": "İşlemleri alırken bir sorun oluştu",
+    "somethingWentWrongRetrievingVoterAccounts": "Oy veren hesaplar alınırken bir sorun oluştu",
+    "somethingWentWrongRetrievingVoterDetails": "Oy veren detayları alınırken bir sorun oluştu",
+    "somethingWentWrongRetrievingVoterHistory": "Oy geçmişi alınırken bir sorun oluştu",
+    "undefinedAccountErrorMessage": "Hesap tanımsız",
+    "validationError": "İçe aktarılan teklif doğrulanamadı:",
+    "walletNotConnected": "Cüzdan bağlı değil"
+  },
+  "errorState": {
+    "defaultMessage": "Bir hata oluştu"
+  },
+  "footer": {
+    "links": {
+      "documentation": "Dokümantasyon",
+      "privacyPolicy": "Gizlilik politikası",
+      "termsOfUse": "Kullanım şartları"
+    }
+  },
+  "gaslessTransactions": {
+    "chainLabel": "Ücretsiz",
+    "errorModal": {
+      "cancel": "İptal",
+      "description": "Bu işlemi gas ücretini kendiniz ödeyerek yine de gönderebilirsiniz",
+      "resendButtonLabel": "Gas ile yeniden gönder",
+      "title": "Gas'siz işlemler şu anda mevcut değil"
+    },
+    "tooltip": {
+      "disabled": "Bu ağ, ücret gerektirmeyen gas'siz işlemleri destekler, ancak bu özellik ayarlarınızda şu anda devre dışı. Daha fazla bilgi <Link>burada</Link>",
+      "enabled": "Bu ağdaki işlemler gas'sizdir, ücret gerekmez. Daha fazla bilgi <Link>burada</Link>"
+    }
+  },
+  "healthFactor": {
+    "label": {
+      "healthy": "Sağlıklı",
+      "liquidation": "Likidasyon",
+      "moderate": "Orta",
+      "risky": "Riskli"
+    }
+  },
+  "importPositionsModal": {
+    "aave": {
+      "logoAlt": "Aave logosu",
+      "title": "Aave"
+    },
+    "emptyState": "İçe aktarılacak harici pozisyon yok",
+    "gasLess": {
+      "label": "Ücretsiz",
+      "tooltip": "Pozisyonlarınızı Venus'e taşımak için yapılan işlemler Venus Protokolü tarafından sponsorlanır"
+    },
+    "infoSection": {
+      "1": {
+        "description": "Gerçek getiriyi artırılmış APY oranlarıyla sunan tek yer.",
+        "title": "Daha iyi getiriler"
+      },
+      "2": {
+        "description": "Tutarlı büyümeyle DeFi'nin en fazla değer yaratan platformuna katılın.",
+        "title": "En Verimli Sermaye"
+      },
+      "3": {
+        "description": "Borç verme alanında en çok denetlenen ve sahada test edilmiş sözleşmeler.",
+        "title": "Üst düzey güvenlik"
+      },
+      "title": "Neden Venus?"
+    },
+    "limitNotice": "Şu anda yalnızca <Number>{{min}}</Number> ile <Number>{{max}}</Number> arasındaki değere sahip pozisyonlar Venus'e aktarılabilir.",
+    "position": {
+      "currentApy": {
+        "label": "Mevcut APY"
+      },
+      "importButtonLabel": "İçe aktar",
+      "missedYearlyGains": "Yılda <Number><Gains /> / yıl</Number> kaybediyorsunuz",
+      "newApy": {
+        "label": "Venus APY"
+      }
+    },
+    "title": "Venus'e aktarın ve daha fazla kazanın"
+  },
+  "interactive": {
+    "addToWallet": {
+      "modalTitle": "Cüzdana token ekle"
+    },
+    "copy": {
+      "address": {
+        "modalTitle": "Token adresini kopyala",
+        "name": "Adres",
+        "tooltip": "Adresi kopyala"
+      }
+    },
+    "copyToClipboard": "{{name}} panoya kopyalandı",
+    "goTo": {
+      "modalTitle": "Token sözleşmesine git"
+    }
+  },
+  "interestRateChart": {
+    "currentUtilizationRateLabelValue": "Mevcut ({{percentage}})",
+    "tooltipItemLabels": {
+      "borrowApy": "Borç APY",
+      "supplyApy": "Sağlama APY",
+      "utilizationRate": "Kullanım oranı"
+    }
+  },
+  "isolatedPoolsSunsetBanner": {
+    "description": "Ödüllerinizi talep edin ve pozisyonlarınızı kapatın",
+    "illustrationAltText": "İllüstrasyon",
+    "title": "İzole havuzlar aşamalı olarak kapatılıyor"
+  },
+  "landing": {
+    "benefits": {
+      "text1": "Değiştirilemez bir para piyasasına doğrudan zincir üzerinde erişin.",
+      "text2": "Tüm Venus Protocol varlıkları BEP-20 ve ERC-20 standartlarına bağlıdır.",
+      "text3": "Hızlı, güvenli ve düşük maliyetli işlemler için EVM uyumlu zincirler üzerinde inşa edilmiştir.",
+      "title1": "Merkeziyetsiz",
+      "title2": "BEP-20/ERC-20",
+      "title3": "Omnichain"
+    },
+    "governance": {
+      "backgroundGradientAlt": "Arka plan illüstrasyonu",
+      "buttonLabel": "Yönetim forumu",
+      "description": "Venus, kripto para piyasaları için sınıfının en iyisi işlevsellik sunan, topluluk odaklı merkeziyetsiz bir protokoldür.",
+      "proposalCountLegend": "Uygulanan Venus İyileştirme Önerileri ve artmaya devam ediyor",
+      "title": "Topluluk tarafından yönetilen<br />para piyasaları"
+    },
+    "hero": {
+      "1Year": "1Y",
+      "30Day": "30G",
+      "6Month": "6A",
+      "assets": "Varlıklar",
+      "borrow": "Borç al",
+      "earned": "Kazanılan",
+      "earnedAmount": "Kazanılan {{amount}}",
+      "from": "{{percentage}}'den",
+      "highestApy": "En yüksek APY",
+      "monthNo": "{{number}}. ay",
+      "startNow": "Şimdi başla",
+      "subtitle": "Her DeFi getiri stratejisi için basit ama güçlü borç verme ve borç alma.",
+      "supply": "Arz",
+      "supplyTips": "10.000 $ başlangıç yatırımı baz alınmış olup, kazanç/faiz blok başına bileşik olarak hesaplanır. <Link>Daha fazla bilgi</Link>",
+      "title": "Evrensel<br /><hl>Para Piyasaları</hl>",
+      "totalApy": "Toplam APY",
+      "upToPercentage": "{{percentage}}'e kadar",
+      "venusTvl": "Venus TVL",
+      "yearlyEarnings": "Yıllık kazanç",
+      "yearlyInterests": "Yıllık faiz"
+    },
+    "markets": {
+      "button": {
+        "label": "Daha fazlasını keşfet"
+      },
+      "title": "Venus'taki en iyi piyasalar"
+    },
+    "protection": {
+      "bugBountyAlt": "Hata ödülü illüstrasyonu",
+      "challengeText": "Kodumuzdaki açıkları bulun ve ödül kazanmak için bildirin. Daha fazla bilgi için hata ödülü programımızı okuyun.",
+      "challengeTitle": "Kodumuza meydan okuyun ve ödüllendirilin",
+      "protectionAlt": "Koruma illüstrasyonu",
+      "protectionText": "Güvenlik denetimleri, 7/24 izleme ve sağlam bir risk fonu, sıra dışı piyasa olaylarında protokolü güvende tutar.",
+      "protectionTitle": "Koruma öncelikli"
+    },
+    "safety": {
+      "audit_one": "Denetim",
+      "audit_other": "Denetimler",
+      "otherAuditors": "+14 denetim <br />Fairyproof, Hacken ve HashEx ile",
+      "scoreAlt": "Puan illüstrasyonu",
+      "securityScore": "Güvenlik Puanı",
+      "text": "Venus'un varlıklarınızın güvenliğini her şeyin önüne koyduğunu bilerek güvenle işlem yapın",
+      "title": "Önce güvenlik",
+      "venusScored": "Venus, Certik tarafından yapılan değerlendirmede BNB Chain'de güvenlikte <Link>3. en yüksek</Link> puanı aldı (Haziran 2021)"
+    },
+    "venusPrime": {
+      "illustrationAlt": "Venus Prime illüstrasyonu",
+      "imageAlt": "Venus Prime illüstrasyonu",
+      "learnMore": "Daha fazla bilgi edin",
+      "text": "Venus Protocol’ün güçlü kullanıcıları Venus Prime Token mint ederek Venus core havuzundaki seçili piyasalarda üstün oranlardan yararlanabilir.",
+      "title": "<hl>Venus Prime</hl> <br />getirilerinizi artırır"
+    },
+    "wallets": {
+      "title": "Birçok kişi tarafından güveniliyor"
+    }
+  },
+  "layout": {
+    "chainSelect": {
+      "label": "Zincir seç"
+    },
+    "header": {
+      "liquidity": "Likidite",
+      "maxLtv": {
+        "label": "Maks LTV",
+        "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
+      },
+      "price": "Fiyat",
+      "supply": "Sağlama",
+      "utilizationRate": "Kullanım oranı"
+    },
+    "menu": {
+      "dashboard": {
+        "label": "Gösterge paneli"
+      },
+      "label": "Menü",
+      "markets": {
+        "label": "Piyasalar"
+      },
+      "others": {
+        "bridge": {
+          "description": "Venus'ta zincirler arası $XVS transferleri.",
+          "label": "Köprü"
+        },
+        "governance": {
+          "description": "Venus tekliflerinde $XVS ile oy verin.",
+          "label": "Yönetişim"
+        },
+        "isolatedPools": {
+          "description": "Ana piyasalardan izole havuzlarda varlık alıp satın.",
+          "label": "İzole havuzlar"
+        },
+        "label": "Diğerleri",
+        "port": {
+          "description": "Borç verme pozisyonlarını gas'siz içe aktarın.",
+          "label": "Port"
+        },
+        "swap": {
+          "label": "Takas"
+        },
+        "vai": {
+          "description": "Venus'ün yerel sabit coinini mint edin.",
+          "label": "VAI"
+        }
+      },
+      "settings": {
+        "gasLessTransactions": {
+          "label": "{{chainName}} üzerinde gas'siz işlemleri etkinleştir"
+        },
+        "language": {
+          "label": "Dil (beta)"
+        }
+      },
+      "staking": {
+        "label": "Staking"
+      },
+      "subMenuItem": {
+        "button": {
+          "label": "Başlayın"
+        }
+      },
+      "venusLogoAlt": "Venus logosu"
+    },
+    "settingsModal": {
+      "title": "Ayarlar"
+    },
+    "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>"
+  },
+  "legal": {
+    "lastUpdatedAt": "Son güncelleme: {{ date, textual }}"
+  },
+  "markdownEditor": {
+    "markdownTabLabel": "Yaz",
+    "placeholder": "Önizlenecek bir şey yok",
+    "previewTabLabel": "Önizleme"
+  },
+  "market": {
+    "borrowCapThreshold": {
+      "title": "Toplam borç",
+      "tooltip": "Borç alınabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})<br />Borç limiti: {{capTokens}}"
+    },
+    "borrowInfo": {
+      "title": "Borç bilgisi"
+    },
+    "interestRateModel": {
+      "title": "Faiz Oranı Modeli"
+    },
+    "legends": {
+      "borrowApy": "Borç APY",
+      "supplyApy": "Sağlama APY",
+      "utilizationRate": "Kullanım oranı"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowerCountLabel": "Borç alan sayısı",
+        "dailyBorrowingInterestsLabel": "Günlük borç faizi",
+        "dailyDistribution": "Günlük {{tokenSymbol}} dağıtımı",
+        "dailySupplyingInterestsLabel": "Günlük tedarik faizi",
+        "exchangeRateLabel": "Döviz kuru",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "reserveFactorLabel": "Rezerv faktörü",
+        "supplierCountLabel": "Sağlayan sayısı"
+      }
+    },
+    "periodOption": {
+      "oneYear": "1Y",
+      "sixMonths": "6A",
+      "thirtyDays": "30G"
+    },
+    "stats": {
+      "apy": "Mevcut APY",
+      "averageApy": "Ortalama APY",
+      "liquidationPenalty": "Likidasyon cezası",
+      "liquidationThreshold": "Likidasyon eşiği"
+    },
+    "supplyCapThreshold": {
+      "title": "Toplam tedarik",
+      "tooltip": "Sağlanabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})"
+    },
+    "supplyInfo": {
+      "title": "Sağlama bilgisi"
+    }
+  },
+  "markets": {
+    "eMode": {
+      "group": {
+        "cannotDisable": {
+          "tooltip": {
+            "blockingPositions": "Bu e-modu grubunu devre dışı bırakamazsınız çünkü havuzdan borç alınamayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+            "notEnoughCollateral": "Bu e-modu grubunu devre dışı bırakamazsınız çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamaz"
+          }
+        },
+        "cannotEnable": {
+          "modal": {
+            "description": "<WhiteText>{{ eModeGroupName }}</WhiteText> E-modu grubunu etkinleştirmek için aşağıdaki borç pozisyonlarını kapatmanız gerekir:",
+            "repayButtonLabel": "Geri öde",
+            "title": "Pozisyonlarınız"
+          },
+          "tooltip": {
+            "blockingPositions": "Bu e-modu grubunu etkinleştiremezsiniz çünkü bu gruba ait olmayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+            "notEnoughCollateral": "Bu e-modu grubunu etkinleştiremezsiniz çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamaz"
+          }
+        },
+        "disableButtonLabel": "Devre dışı bırak",
+        "disabledNotice": "Bu E-Modu grubu artık desteklenmiyor. Hesabınız varsayılan parametrelere geri döndü. Lütfen başka bir E-modu grubuna geçin veya devre dışı bırakın.",
+        "enableButtonLabel": "Etkinleştir",
+        "healthFactor": "Sağlık faktörü:",
+        "switchButtonLabel": "Değiştir"
+      },
+      "notice": "E-Modu etkinleştirmek borçlanma gücünüzü maksimize eder, ancak borçlanma seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
+      "search": {
+        "placeholder": "Varlık veya grup ara"
+      },
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "Borç alınabilir",
+            "collateral": "Teminat"
+          },
+          "rows": {
+            "liquidationPenalty": "Likidasyon cezası",
+            "liquidationThreshold": "Likidasyon eşiği",
+            "maxLtv": "Maks LTV"
+          }
+        },
+        "columns": {
+          "asset": "Varlık",
+          "collateral": "Teminat",
+          "isBorrowable": "Borç alınabilir",
+          "liquidationPenalty": "Likidasyon cezası",
+          "liquidationThreshold": "Likidasyon eşiği",
+          "maxLtv": "Maks LTV",
+          "penalty": "Ceza",
+          "threshold": "Eşik"
+        },
+        "mobileSelectLabel": "Sırala:"
+      }
+    },
+    "errors": {
+      "accountError": "Hesap gerekli - Lütfen cüzdanınızı bağlayın.",
+      "collateralDisableError": "Teminat Devre Dışı Hatası - {{assetName}} teminatını devre dışı bırakırken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "collateralEnableError": "Teminat Etkinleştirme Hatası - {{assetName}} teminatını etkinleştirirken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "collateralRequired": "Teminat gerekli - Lütfen tüm borç alınan varlıkları geri ödeyin veya diğer varlıkları teminat olarak ayarlayın."
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "{{ eModeGroupName }} grubundaki varlıklara yalnızca tedarik yaparak borçlanma gücünüz artar",
+      "label": "İzole"
+    },
+    "tabs": {
+      "assets": {
+        "title": "Varlıklar"
+      },
+      "eMode": {
+        "illustrationAltText": "Şimşek illüstrasyonu",
+        "liquidationPenalty": {
+          "label": "Likidasyon cezası"
+        },
+        "liquidationThreshold": {
+          "label": "Likidasyon eşiği"
+        },
+        "maxLtv": {
+          "label": "Maks LTV",
+          "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
+        },
+        "title": "E-modu"
+      }
+    }
+  },
+  "marketTable": {
+    "assetColumn": {
+      "eMode": "Bu piyasa {{eModeGroupName}} E-modu grubunun bir parçasıdır",
+      "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı."
+    },
+    "columnKeys": {
+      "asset": "Varlık",
+      "assetAndChain": "Varlık",
+      "borrowApy": "APY <InfoIcon />",
+      "borrowBalance": "Toplam borç",
+      "collateral": "Teminat",
+      "labeledBorrowApy": "Borç APY <InfoIcon />",
+      "labeledSupplyApy": "Sağlama APY <InfoIcon />",
+      "liquidity": "Likidite",
+      "price": "Fiyat",
+      "supplyApy": "APY <InfoIcon />",
+      "supplyBalance": "Toplam tedarik",
+      "userBorrowBalance": "Bakiye",
+      "userBorrowLimitSharePercentage": "Limitin %'i",
+      "userSupplyBalance": "Bakiye",
+      "userWalletBalance": "Cüzdan"
+    },
+    "columnSelectOptionLabel": {
+      "asset": "Varlık",
+      "borrowApy": "Borç APY",
+      "borrowBalance": "Toplam borç",
+      "collateral": "Teminat",
+      "labeledBorrowApy": "Borç APY",
+      "labeledSupplyApy": "Sağlama APY / LTV",
+      "liquidity": "Likidite",
+      "price": "Fiyat",
+      "supplyApy": "Sağlama APY / LTV",
+      "supplyBalance": "Toplam tedarik",
+      "userBorrowBalance": "Borç bakiyesi",
+      "userBorrowLimitSharePercentage": "Limitin %'i",
+      "userSupplyBalance": "Sağlama bakiyesi",
+      "userWalletBalance": "Cüzdan bakiyesi"
+    },
+    "columnTooltips": {
+      "borrowApy": "Pozitif borç APY faiz ödeyeceğiniz, negatif ise faiz kazanacağınız anlamına gelir",
+      "supplyApy": "Pozitif tedarik APY faiz kazanacağınız, negatif ise faiz ödeyeceğiniz anlamına gelir"
+    },
+    "pausedAssetsPlaceholder": {
+      "description": "Görmek için \"Durdurulan Varlıklar\" anahtarını etkinleştirin.",
+      "imgAlt": "Duraklatma ikonu",
+      "title": "Bu havuzdaki tüm varlıklar duraklatıldı"
+    },
+    "pausedAssetsToggle": {
+      "label": "Durdurulan varlıklar"
+    },
+    "searchInput": {
+      "placeholder": "Varlık ara"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "Yalnızca varlıklarım"
+    },
+    "userEModeAssetsOnlyToggle": {
+      "label": "Yalnızca E-modu varlıkları"
+    }
+  },
+  "operationForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Yüksek fiyat etkisini kabul ediyorum",
+        "tooltip": "Bu işlemin fiyat etkisinin {{priceImpactPercentage}}% üzerinde olması bekleniyor"
+      },
+      "riskyOperation": {
+        "label": "İlgili riskleri kabul ediyorum",
+        "tooltip": "Bu işlemden sonra sağlık faktörünüz düşük olacak ve likidasyon riski artacaktır"
+      }
+    },
+    "availableAmount": "Kullanılabilir",
+    "boostTabAltText": "Roket ikonu",
+    "boostTabTitle": "Boost",
+    "borrow": "Borç al",
+    "borrowTabTitle": "Borç al",
+    "collateral": "Teminat",
+    "collateralField": {
+      "label": "Teminat"
+    },
+    "error": {
+      "borrowCapReached": "Bu havuz için {{assetBorrowCap}} borç limiti aşıldı. Krediler geri ödenene veya borç limiti artırılana kadar bu piyasadan borç alamazsınız.",
+      "higherThanAvailableAmount": "Girilen miktar kullanılabilir miktardan fazla",
+      "higherThanAvailableLiquidity": "Yetersiz varlık likiditesi",
+      "higherThanBorrowBalance": "Girilen miktar borç bakiyesinden fazla",
+      "higherThanBorrowCap": "Bu piyasanın borç limiti {{assetBorrowCap}} olarak ayarlı ve şu anda {{assetBorrowBalance}} borç alınmış olduğundan, bu havuzdan {{userMaxBorrowAmount}} üzeri borç alamazsınız.",
+      "higherThanRepayBalance": "Girilen miktar geri ödeme bakiyesinden fazla",
+      "higherThanSupplyCap": "Bu piyasanın tedarik limiti {{assetSupplyCap}} olarak ayarlı ve şu anda {{assetSupplyBalance}} sağlanmış olduğundan, bu havuza {{userMaxSupplyAmount}} üzeri sağlayamazsınız.",
+      "higherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
+      "higherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için harcama limitini iptal edin ve yeni bir limit ayarlayın.",
+      "insufficientSwapLiquidity": "Bu takas için PancakeSwap'te yeterli likidite yok",
+      "noCollateral": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce tokenları sağlayıp teminat olarak etkinleştirmelisiniz",
+      "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güncelleyin.",
+      "priceImpactTooHigh": "Fiyat etkisi çok yüksek",
+      "supplyCapReached": "Bu havuz için {{assetSupplyCap}} tedarik limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
+      "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur",
+      "unwrappingUnsupported": "Unwrap desteklenmiyor",
+      "wrappingUnsupported": "Wrap desteklenmiyor"
+    },
+    "receiveNativeToken": {
+      "label": "{{tokenSymbol}} al",
+      "tooltip": "Borç alınan {{wrappedNativeTokenSymbol}}'i {{nativeTokenSymbol}}'e dönüştür"
+    },
+    "repaidField": {
+      "label": "Ödenecek borç"
+    },
+    "repay": {
+      "fullRepaymentWarning": "Yeni biriken faizleri karşılamak için işlem değeri mevcut borç tutarından biraz daha yüksek olabilir",
+      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
+    },
+    "repayTab": {
+      "collateralTabTitle": "Teminat",
+      "noCollateralWarning": "Geri ödeme için hiç teminatınız yok.",
+      "title": "Geri öde",
+      "walletBalanceTabTitle": "Cüzdan"
+    },
+    "rightMaxButtonLabel": "MAKS",
+    "riskSlider": {
+      "highRisk": "Yüksek risk",
+      "lowRisk": "Düşük risk"
+    },
+    "safeMaxButtonLabel": "GÜVENLİ MAKS",
+    "submitButtonLabel": {
+      "boost": "Boost",
+      "borrow": "Borç al",
+      "enterValidAmount": "Geçerli miktar girin",
+      "repay": "Geri öde",
+      "supply": "Sağla",
+      "withdraw": "Çek"
+    },
+    "supply": "Sağla",
+    "supplyTabTitle": "Sağla",
+    "swapDetails": {
+      "label": {
+        "repay": "Geri ödeyeceksiniz",
+        "supply": "Sağlayacaksınız"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "swapSummary": {
+      "repay": "{{fromTokenAmount}} kullanarak {{toTokenAmount}} geri ödeyeceksiniz",
+      "supply": "{{fromTokenAmount}} kullanarak {{toTokenAmount}} sağlayacaksınız"
+    },
+    "walletBalance": "Cüzdan bakiyesi",
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
+    },
+    "withdrawTabTitle": "Çek"
+  },
+  "pagination": {
+    "itemOf": "{{itemsCount}} öğeden {{currentPageLastIndex}}",
+    "itemsOf": "{{itemsCount}} öğeden {{firstItemNumber}} - {{currentPageLastIndex}}"
+  },
+  "poolsStats": {
+    "cell": {
+      "assetsLabel": "Varlıklar",
+      "availableLiquidityLabel": "Kullanılabilir likidite",
+      "dailyXvsDistributionLabel": "Günlük XVS dağıtımı",
+      "totalBorrowLabel": "Toplam borç",
+      "totalSupplyLabel": "Toplam tedarik",
+      "treasuryLabel": "Hazine"
+    }
+  },
+  "primeButton": {
+    "primeLogoAlt": "Venus Prime logosu"
+  },
+  "primeCalculator": {
+    "borrowedTokens": {
+      "infos": {
+        "label": "Uygun borç alınan {{tokenSymbol}}",
+        "tooltip": "Borç limiti: {{borrowCapTokens}} ({{borrowCapUsd}})",
+        "tooltip_empty": "Borç limiti: -"
+      },
+      "textField": {
+        "label": "Borç alınan {{tokenSymbol}}"
+      }
+    },
+    "rewardDetails": {
+      "fromBorrowedTokens": "Borç alınan {{tokenSymbol}}'den",
+      "fromSuppliedTokens": "Sağlanan {{tokenSymbol}}'den",
+      "primeBorrowApy": {
+        "title": "Prime borç APY",
+        "tooltip": "Piyasa borç APY'sine eklenecek Prime artırımı. <Link>Daha fazla bilgi</Link>"
+      },
+      "primeSupplyApy": {
+        "title": "Prime tedarik APY",
+        "tooltip": "Piyasa tedarik APY'sine eklenecek Prime artırımı. <Link>Daha fazla bilgi</Link>"
+      },
+      "title": "Ödül detayları",
+      "totalDailyRewards": {
+        "title": "Toplam günlük ödüller",
+        "tooltip": "Prime kullanıcılarına bir günde dağıtılan tüm ödüllerin miktarı"
+      },
+      "yourDailyRewards": "Günlük ödülleriniz"
+    },
+    "stakedTokens": {
+      "infos": {
+        "error": "Prime ödüllerine uygun olmak için en az {{minimumXvsStaked}} XVS stake edilmelidir.",
+        "label": "Uygun stake edilmiş XVS",
+        "tooltip": "Prime ödülleriniz için en fazla {{maximumXvsStaked}} dikkate alınır"
+      },
+      "textField": {
+        "label": "Stake edilmiş XVS"
+      }
+    },
+    "suppliedTokens": {
+      "infos": {
+        "label": "Uygun sağlanan {{tokenSymbol}}",
+        "tooltip": "Sağlama limiti: {{supplyCapTokens}} ({{supplyCapUsd}})",
+        "tooltip_empty": "Sağlama limiti: -"
+      },
+      "textField": {
+        "label": "Sağlanan {{tokenSymbol}}"
+      }
+    },
+    "tokenSelect": {
+      "label": "Token"
+    },
+    "topMessage": "Prime hesaplayıcıyı, pozisyonlarınıza göre Prime tokenı tutmaktan alacağınız ödülleri tahmin etmek için kullanabilirsiniz. <Link>Daha fazla bilgi</Link>"
+  },
+  "primeStatusBanner": {
+    "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",
+    "claimButtonLabel": "Prime tokenını talep et",
+    "description": {
+      "primeCalculator": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> stake edin ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Prime ödüllerinizi hesaplayın</Link>",
+      "primeDoc": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> stake edin ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Daha fazla bilgi</Link>"
+    },
+    "noPrimeTokenWarning": {
+      "text": "Tüm Prime tokenları talep edildi",
+      "tooltip": "{{primeTokenLimit}} Prime tokenının tamamı şu anda talep edildi. Sahipleri uygunluk kriterlerini karşılamazsa veya daha fazla eklersek bazıları kullanılabilir hale gelebilir."
+    },
+    "progressBar": {
+      "ariaLabel": "Mevcut Prime ilerlemeniz",
+      "label": "Stake edildi: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+    },
+    "promotionalTitle": "Kazancınızı <GreenText>{{percentage}}</GreenText> kadar artırın",
+    "stakeButtonLabel": "XVS stake et",
+    "tokensLeft": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
+    "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
+    "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
+    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
+    "waitForPrimeTitle": "Prime ödüllerini talep edebilmeniz için {{claimWaitingPeriod}}"
+  },
+  "probableBanner": {
+    "description": "probable.markets'te inancınızı artırın",
+    "probableAltText": "Probable illüstrasyonu",
+    "title": "Bir şeye inanıyor musunuz?"
+  },
+  "proposalList": {
+    "selectOptions": {
+      "all": {
+        "label": "Tümü"
+      }
+    }
+  },
+  "proposalState": {
+    "active": "Aktif",
+    "bridged": "Köprülenmiş",
+    "canceled": "İptal edildi",
+    "defeated": "Reddedildi",
+    "executed": "Yürütüldü",
+    "expired": "Süresi doldu",
+    "failed": "Başarısız",
+    "pending": "Beklemede",
+    "queued": "Kuyrukta",
+    "succeeded": "Başarılı"
+  },
+  "select": {
+    "defaultLabel": "Seçenek seçin"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "Varlık ara"
+    }
+  },
+  "spendingLimit": {
+    "label": "Harcama limiti",
+    "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin.",
+    "revokeButtonTooltip": "Harcama limitini iptal et"
+  },
+  "stakeModal": {
+    "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
+    "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
+    "submitButtonDisabledLabel": "Stake etmek için geçerli bir miktar girin",
+    "submitButtonLabel": "Stake et",
+    "title": "{{tokenSymbol}} stake et"
+  },
+  "swap": {
+    "errors": {
+      "amountAboveWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için limiti iptal edip yeni bir limit belirleyin.",
+      "incorrectSwapInput": "Takas için yanlış giriş sağlandı"
+    },
+    "swapDetails": {
+      "label": {
+        "exchangeRate": "Döviz kuru",
+        "maximumSold": "Maksimum satılan",
+        "minimumReceived": "Minimum alınan",
+        "priceImpact": "Fiyat etkisi",
+        "slippageTolerance": "Kayma toleransı"
+      },
+      "tooltip": {
+        "priceImpact": "İşlem büyüklüğü nedeniyle piyasa fiyatı ile tahmini fiyat arasındaki fark."
+      },
+      "value": {
+        "exactAmount": "{{ value }}",
+        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+        "priceImpact": "{{ priceImpact }}"
+      }
+    },
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
+    }
+  },
+  "swapDetails": {
+    "priceImpact": {
+      "label": "Fiyat etkisi"
+    },
+    "slippageTolerance": {
+      "label": "Kayma toleransı"
+    },
+    "slippageToleranceModal": {
+      "description": "Yüksek kayma toleransı ayarlamak işlemlerin başarılı olmasına yardımcı olabilir, ancak iyi bir fiyat alamayabilirsiniz. Dikkatli kullanın.",
+      "title": "Kayma toleransı"
+    }
+  },
+  "swapPage": {
+    "connectWalletToSwap": "Token takası için cüzdanınızı bağlayın",
+    "fromTokenAmountField": {
+      "label": "Gönderen",
+      "max": "Maks"
+    },
+    "submitButton": {
+      "disabledLabels": {
+        "insufficientLiquidity": "Bu takas için yeterli likidite yok",
+        "insufficientUserBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
+        "invalidFromTokenAmount": "Takas için geçerli bir miktar girin",
+        "priceImpactHigherThanMaximumTolerated": "Fiyat etkisi çok yüksek",
+        "processing": "İşleniyor",
+        "spendingLimitTooLow": "Harcama limiti çok düşük",
+        "unwrappingUnsupported": "Unwrap desteklenmiyor",
+        "wrappingUnsupported": "Wrap desteklenmiyor"
+      },
+      "enabledLabels": {
+        "swap": "Takas",
+        "swapWithHighPriceImpact": "Yüksek fiyat etkisiyle takas"
+      }
+    },
+    "toTokenAmountField": {
+      "label": "Alıcı"
+    },
+    "walletBalance": "Cüzdan bakiyesi"
+  },
+  "switchChain": {
+    "switchButton": "{{chainName}} zincirine geç"
+  },
+  "switchChainNotice": {
+    "buttonLabel": "{{chainName}} zincirine geç",
+    "description": "Teminatları etkinleştirmek veya devre dışı bırakmak için cüzdanınızı {{chainName}} zincirine geçirmeniz gerekir"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "Sırala"
+    }
+  },
+  "transactionErrors": {
+    "acceptAdminPendingAdminCheck": "Yönetici Kabulü (Bekleyen Yönetici) Kontrolü",
+    "acceptPendingImplementationAddressCheck": "Bekleyen Uygulama Adresi Kabul Kontrolü",
+    "accrueInterestAccumulatedInterestCalculationFailed": "Faiz Tahakkuku Birikmiş Faiz Hesaplaması Başarısız",
+    "accrueInterestBorrowRateCalculationFailed": "Faiz Tahakkuku Borç Oranı Hesaplaması Başarısız",
+    "accrueInterestNewBorrowIndexCalculationFailed": "Faiz Tahakkuku Yeni Borç Endeksi Hesaplaması Başarısız",
+    "accrueInterestNewTotalBorrowsCalculationFailed": "Faiz Tahakkuku Yeni Toplam Borçlar Hesaplaması Başarısız",
+    "accrueInterestNewTotalReservesCalculationFailed": "Faiz Tahakkuku Yeni Toplam Rezervler Hesaplaması Başarısız",
+    "accrueInterestSimpleInterestFactorCalculationFailed": "Faiz Tahakkuku Basit Faiz Faktörü Hesaplaması Başarısız",
+    "addReservesAccrueInterestFailed": "Rezerv Ekleme Faiz Tahakkuku Başarısız",
+    "addReservesFreshCheck": "Rezerv Ekleme Tazelik Kontrolü",
+    "addReservesTransferInNotPossible": "Rezerv Ekleme Transfer Girişi Mümkün Değil",
+    "badInput": "Hatalı Girdi",
+    "borrowAccrueInterestFailed": "Borç Faiz Tahakkuku Başarısız",
+    "borrowAccumulatedBalanceCalculationFailed": "Borç Birikmiş Bakiye Hesaplaması Başarısız",
+    "borrowCashNotAvailable": "Borç Nakit Mevcut Değil",
+    "borrowComptrollerRejection": "Borç Comptroller Reddedildi",
+    "borrowFreshnessCheck": "Borç Tazelik Kontrolü",
+    "borrowMarketNotListed": "Borç Piyasası Listelenmemiş",
+    "borrowNewAccountBorrowBalanceCalculationFailed": "Borç Yeni Hesap Borç Bakiyesi Hesaplaması Başarısız",
+    "borrowNewTotalBalanceCalculationFailed": "Borç Yeni Toplam Bakiye Hesaplaması Başarısız",
+    "comptrollerCalculationError": "Comptroller Hesaplama Hatası",
+    "comptrollerMismatch": "Comptroller Uyumsuzluğu",
+    "comptrollerRejection": "Comptroller Reddetti",
+    "exitMarketBalanceOwed": "Piyasadan Çıkış Borç Bakiyesi",
+    "exitMarketRejection": "Piyasadan Çıkış Reddedildi",
+    "gasEstimationFailed": "Gas tahmini başarısız",
+    "gaslessTransactionNotAvailable": "Gas'siz işlemler mevcut değil",
+    "insufficientBalanceForVai": "VAI için yetersiz bakiye",
+    "insufficientLiquidity": "Yetersiz likidite",
+    "insufficientShortfall": "Yetersiz açık",
+    "interestRateModelError": "Faiz Oranı Modeli Hatası",
+    "invalidAccountPair": "Geçersiz Hesap Çifti",
+    "invalidCloseAmountRequested": "Geçersiz Kapatma Tutarı İstendi",
+    "invalidCloseFactor": "Geçersiz Kapatma Faktörü",
+    "invalidCollateralFactor": "Geçersiz Teminat Faktörü",
+    "invalidLiquidationIncentive": "Geçersiz Likidasyon Teşviki",
+    "liquidateAccrueBorrowInterestFailed": "Likidasyon Borç Faizi Tahakkuku Başarısız",
+    "liquidateAccrueCollateralInterestFailed": "Likidasyon Teminat Faizi Tahakkuku Başarısız",
+    "liquidateCloseAmountIsUintMax": "Likidasyon Kapatma Tutarı UINT Max",
+    "liquidateCloseAmountIsZero": "Likidasyon Kapatma Tutarı Sıfır",
+    "liquidateCollateralFreshnessCheck": "Likidasyon Teminat Tazelik Kontrolü",
+    "liquidateComptrollerCalculateAmountSeizeFailed": "Likidasyon Comptroller El Koyma Tutarı Hesaplaması Başarısız",
+    "liquidateComptrollerRejection": "Likidasyon Comptroller Reddetti",
+    "liquidateFreshnessCheck": "Likidasyon Tazelik Kontrolü",
+    "liquidateSeizeBalanceDecrementFailed": "Likidasyon El Koyma Bakiyesi Azaltılamadı",
+    "liquidateSeizeBalanceIncrementFailed": "Likidasyon El Koyma Bakiyesi Artırılamadı",
+    "liquidateSeizeBorrowFreshFailed": "Likidasyon Borç Tazelik Kontrolü Başarısız",
+    "liquidateSeizeComptrollerRejection": "Likidasyon El Koyma Comptroller Reddetti",
+    "liquidateSeizeIsBorrower": "Likidasyon El Koyan Borçlu",
+    "liquidateSeizeLiquidatorIsBorrower": "Likidasyon Likidatör Borçlu",
+    "liquidateSeizeTooMuch": "Likidasyon Çok Fazla El Koyma",
+    "marketAlreadyListed": "Piyasa Zaten Listelenmiş",
+    "marketNotEntered": "Piyasaya Girilmemiş",
+    "marketNotFresh": "Piyasa Güncel Değil",
+    "marketNotListed": "Piyasa Listelenmemiş",
+    "mathError": "Matematik Hatası",
+    "mintAccrueInterestFailed": "Mint Faiz Tahakkuku Başarısız",
+    "mintComptrollerRejection": "Mint Comptroller Reddetti",
+    "mintExchangeRateReadFailed": "Mint Döviz Kuru Okuma Başarısız",
+    "mintFeeCalculationFailed": "Mint Ücret Hesaplaması Başarısız",
+    "mintFreshnessCheck": "Mint Tazelik Kontrolü",
+    "mintNewAccountBalanceCalculationFailed": "Mint Yeni Hesap Bakiye Hesaplaması Başarısız",
+    "mintNewTotalSupplyCalculationFailed": "Mint Yeni Toplam Sağlama Hesaplaması Başarısız",
+    "mintTransferInFailed": "Mint Transfer Girişi Başarısız",
+    "mintTransferNotPossible": "Mint Transfer Girişi Mümkün Değil",
+    "noError": "Hata Yok",
+    "nonzeroBorrowBalance": "Sıfır Olmayan Borç Bakiyesi",
+    "priceError": "Fiyat Hatası",
+    "redeemAccrueInterestFailed": "Geri Çekme Faiz Tahakkuku Başarısız",
+    "redeemComptrollerRejection": "Geri Çekme Comptroller Reddetti",
+    "redeemExchangeAmountCalculatioFailed": "Geri Çekme Döviz Tutarı Hesaplaması Başarısız",
+    "redeemExchangeRateReadFailed": "Geri Çekme Döviz Kuru Okuma Başarısız",
+    "redeemExchangeTokensCalculationFailed": "Geri Çekme Döviz Token Hesaplaması Başarısız",
+    "redeemFeeCalculationFailed": "Geri Çekme Ücret Hesaplaması Başarısız",
+    "redeemFreshnessCheck": "Geri Çekme Tazelik Kontrolü",
+    "redeemNewAccountBalanceCalculationFailed": "Geri Çekme Yeni Hesap Bakiye Hesaplaması Başarısız",
+    "redeemNewTotalSupplyCalculationFailed": "Geri Çekme Yeni Toplam Sağlama Hesaplaması Başarısız",
+    "redeemTransferOutNotPossible": "Geri Çekme Transfer Çıkışı Mümkün Değil",
+    "reduceReservesAccrueInterestFailed": "Rezerv Azaltma Faiz Tahakkuku Başarısız",
+    "reduceReservesAdminCheck": "Rezerv Azaltma Yönetici Kontrolü",
+    "reduceReservesCashNotAvailable": "Rezerv Azaltma Nakit Mevcut Değil",
+    "reduceReservesFreshCheck": "Rezerv Azaltma Tazelik Kontrolü",
+    "reduceReservesValidation": "Rezerv Azaltma Doğrulaması",
+    "rejection": "Reddedildi",
+    "repayBehalfAccrueInterestFailed": "Başkası Adına Geri Ödeme Faiz Tahakkuku Başarısız",
+    "repayBorrowAccrueInterestFailed": "Geri Ödeme Borç Faizi Tahakkuku Başarısız",
+    "repayBorrowAccumulatedBalanceCalculationFailed": "Geri Ödeme Borç Birikmiş Bakiye Hesaplaması Başarısız",
+    "repayBorrowComptrollerRejection": "Geri Ödeme Comptroller Reddetti",
+    "repayBorrowFreshnessCheck": "Geri Ödeme Tazelik Kontrolü",
+    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "Geri Ödeme Yeni Hesap Borç Bakiyesi Hesaplaması Başarısız",
+    "repayBorrowTransferInNotPossible": "Geri Ödeme Transfer Girişi Mümkün Değil",
+    "repayBorrowTransferNotPossible": "Geri Ödeme Transfer Mümkün Değil",
+    "repayVaiComptrollerRejection": "VAI Geri Ödeme Comptroller Reddetti",
+    "repayVaiFreshnessCheck": "VAI Geri Ödeme Tazelik Kontrolü",
+    "setCloseFactorOwnerCheck": "Kapatma Faktörü Sahip Kontrolü",
+    "setCloseFactorValidation": "Kapatma Faktörü Doğrulaması",
+    "setCollateralFactorNoExists": "Teminat Faktörü Yok",
+    "setCollateralFactorOwnerCheck": "Teminat Faktörü Sahip Kontrolü",
+    "setCollateralFactorValidation": "Teminat Faktörü Doğrulaması",
+    "setCollateralFactorWithoutPrice": "Fiyat Olmadan Teminat Faktörü",
+    "setComptrollerOwnerCheck": "Comptroller Sahip Kontrolü",
+    "setImplementationOwnerCheck": "Uygulama Sahip Kontrolü",
+    "setInterestRateModelAccrueInterestFailed": "Faiz Oranı Modeli Faiz Tahakkuku Başarısız",
+    "setInterestRateModelFreshCheck": "Faiz Oranı Modeli Tazelik Kontrolü",
+    "setInterestRateModelOwnerCheck": "Faiz Oranı Modeli Sahip Kontrolü",
+    "setLiquidationIncentiveOwnerCheck": "Likidasyon Teşviki Sahip Kontrolü",
+    "setLiquidationIncentiveValidation": "Likidasyon Teşviki Doğrulaması",
+    "setMaxAssetsOwnerCheck": "Maks Varlıklar Sahip Kontrolü",
+    "setMintedVaiRejection": "Mint Edilmiş VAI Reddedildi",
+    "setOracleMarketNotListed": "Oracle Piyasası Listelenmemiş",
+    "setPauseGuardianOwnerCheck": "Duraklatma Koruyucusu Sahip Kontrolü",
+    "setPendingAdminOwnerCheck": "Bekleyen Yönetici Sahip Kontrolü",
+    "setPendingImplementationOwnerCheck": "Bekleyen Uygulama Sahip Kontrolü",
+    "setPriceOracleOwnerCheck": "Fiyat Oracle Sahip Kontrolü",
+    "setReserveFactorAccrueInterestFailed": "Rezerv Faktörü Faiz Tahakkuku Başarısız",
+    "setReserveFactorAdminCheck": "Rezerv Faktörü Yönetici Kontrolü",
+    "setReserveFactorBoundsCheck": "Rezerv Faktörü Sınır Kontrolü",
+    "setReserveFactorFreshCheck": "Rezerv Faktörü Tazelik Kontrolü",
+    "setTreasuryOwnerCheck": "Hazine Sahip Kontrolü",
+    "setVaiControllerOwnerCheck": "VAI Controller Sahip Kontrolü",
+    "setVaiMintRateCheck": "VAI Mint Oranı Kontrolü",
+    "sftMintNewAccountBalanceCalculationFailed": "SFT Mint Yeni Hesap Bakiye Hesaplaması Başarısız",
+    "snapshotError": "Snapshot Hatası",
+    "supportMarketExists": "Piyasa Desteği Mevcut",
+    "supportMarketOwnerCheck": "Piyasa Desteği Sahip Kontrolü",
+    "tokenGetUnderlyingPriceError": "Token Dayanak Fiyatı Alma Hatası",
+    "tokenInsufficentCash": "Token Nakit Yetersiz",
+    "tokenInsufficientAllowance": "Token Onayı Yetersiz",
+    "tokenInsufficientBalance": "Token Bakiyesi Yetersiz",
+    "tokenPriceError": "Token Fiyat Hatası",
+    "tokenTransferInFailed": "Token Transfer Girişi Başarısız",
+    "tokenTransferOutFailed": "Token Transfer Çıkışı Başarısız",
+    "tooManyAssets": "Çok Fazla Varlık",
+    "tooMuchRepay": "Çok Fazla Geri Ödeme",
+    "transferComptrollerRejection": "Transfer Comptroller Reddetti",
+    "transferNotAllowed": "Transfere İzin Verilmiyor",
+    "transferNotEnough": "Transfer Yetersiz",
+    "transferTooMuch": "Transfer Çok Fazla",
+    "unauthorized": "Yetkisiz",
+    "vaiBurnRejection": "VAI Yakma Reddedildi",
+    "vaiLiquidateAccrueBorrowInterestFailed": "VAI Likidasyon Borç Faizi Tahakkuku Başarısız",
+    "vaiLiquidateAccrueCollateralInterestFailed": "VAI Likidasyon Teminat Faizi Tahakkuku Başarısız",
+    "vaiLiquidateCloseAmountIsUintMax": "VAI Likidasyon Kapatma Tutarı UINT Max",
+    "vaiLiquidateCloseAmountIsZero": "VAI Likidasyon Kapatma Tutarı Sıfır",
+    "vaiLiquidateCollateralFreshnessCheck": "VAI Likidasyon Teminat Tazelik Kontrolü",
+    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "VAI Likidasyon Comptroller El Koyma Tutarı Hesaplaması Başarısız",
+    "vaiLiquidateComptrollerRejection": "VAI Likidasyon Comptroller Reddetti",
+    "vaiLiquidateFreshnessCheck": "VAI Likidasyon Tazelik Kontrolü",
+    "vaiLiquidateLiquidatorIsBorrower": "VAI Likidasyon Likidatör Borçlu",
+    "vaiLiquidateRepayBorrowFreshFailed": "VAI Likidasyon Borç Geri Ödeme Tazelik Kontrolü Başarısız",
+    "vaiLiquidateSeizeBalanceDecrementFailed": "VAI Likidasyon El Koyma Bakiyesi Azaltılamadı",
+    "vaiLiquidateSeizeBalanceIncrementFailed": "VAI Likidasyon El Koyma Bakiyesi Artırılamadı",
+    "vaiLiquidateSeizeComptrollerRejection": "VAI Likidasyon El Koyma Comptroller Reddetti",
+    "vaiLiquidateSeizeLiquidatorIsBorrower": "VAI Likidasyon El Koyan Borçlu",
+    "vaiLiquidateSeizeTooMuch": "VAI Likidasyon Çok Fazla El Koyma",
+    "vaiMintExchangeCalculationFailed": "VAI Mint Döviz Hesaplaması Başarısız",
+    "vaiMintRejection": "VAI Mint Reddedildi"
+  },
+  "transactionNotification": {
+    "couldNotFetchReceipt": {
+      "title": "İşlem durumu alınamadı"
+    },
+    "failed": {
+      "title": "İşlem başarısız"
+    },
+    "pending": {
+      "title": "İşlem onaylanıyor"
+    },
+    "success": {
+      "title": "İşlem onaylandı"
+    }
+  },
+  "vai": {
+    "borrow": {
+      "amountTokensInput": {
+        "limitButtonLabel": "GÜVENLİ MAKS"
+      },
+      "availableAmount": {
+        "label": "Kullanılabilir",
+        "tooltip": "Global limitlere ve sağladığınız teminata göre borç alabileceğiniz maksimum VAI miktarı"
+      },
+      "borrowApr": {
+        "label": "Borç APR",
+        "tooltip": "Basılmış VAI'nin üzerine gelecekte ödenecek yıllık faiz oranı"
+      },
+      "fee": {
+        "label": "Ücret"
+      },
+      "notice": {
+        "amountHigherThanAccountMintableAmount": "Girilen miktar kullanılabilir miktardan fazla",
+        "amountHigherThanLiquidity": "Girilen miktar kullanılabilir VAI likiditesinden fazla"
+      },
+      "primeOnlyWarning": "Yalnızca Prime tokenı tutan kullanıcılar VAI borç alabilir. Prime hakkında daha fazla bilgi <Link>burada</Link>.",
+      "submitButton": {
+        "borrowLabel": "Borç al",
+        "enterValidAmountLabel": "Borç almak için geçerli bir miktar girin"
+      },
+      "tabTitle": "Borç al"
+    },
+    "headerMessage": "VAI, Venus Protokolünün birincil stablecoinidir. Sağladığınız teminatı kullanarak VAI borç alın. <Link>Daha fazla bilgi</Link>",
+    "repay": {
+      "amountTokensInput": {
+        "limitButtonLabel": "MAKS"
+      },
+      "borrowApr": {
+        "label": "Borç APR",
+        "tooltip": "Basılmış VAI'nin üzerine gelecekte ödenecek yıllık faiz oranı"
+      },
+      "notice": {
+        "amountHigherThanBorrowBalance": "Girilen miktar geri ödeme bakiyesinden fazla",
+        "amountHigherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
+        "amountHigherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için limiti iptal edin ve yeni bir limit ayarlayın.",
+        "fullRepaymentWarning": "Yeni biriken faizleri karşılamak için işlem değeri mevcut borç tutarından biraz daha yüksek olabilir"
+      },
+      "submitButton": {
+        "enterValidAmountLabel": "Geri ödeme için geçerli bir miktar girin",
+        "repayLabel": "Geri öde"
+      },
+      "tabTitle": "Geri öde",
+      "walletBalance": {
+        "label": "Cüzdan bakiyesi"
+      }
+    }
+  },
+  "vault": {
+    "blockingPendingWithdrawalsWarning": "Bu vault ile etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekir.",
+    "dailyEmission": "Günlük Emisyon",
+    "pausedWarning": "Bu vault şu anda duraklatıldı. Faiz oranları birikmeye devam eder ancak talep, staking ve çekimler vault yeniden açılana kadar devre dışıdır",
+    "stakeButton": "Stake et",
+    "stakingApr": "{{stakeTokenName}} Stake APR",
+    "totalStaked": "Toplam Stake",
+    "transactionForm": {
+      "lockingPeriod": {
+        "duration": "{{date, distanceToNow}}",
+        "label": "Kilitlenme süresi"
+      },
+      "rightMaxButtonLabel": "MAKS"
+    },
+    "withdrawButton": "Çek",
+    "youAreStake": "Stake ediyorsunuz"
+  },
+  "vote": {
+    "abstain": "Çekimser",
+    "addComment": "Yorum ekle",
+    "against": "Karşı",
+    "comment": "Yorum",
+    "createProposalForm": {
+      "abstainOption": "Çekimser seçeneği",
+      "action": "Eylem",
+      "actions": "Eylemler",
+      "addDescription": "Açıklama ekle (temel Markdown biçimlendirmesi desteklenir)",
+      "addOneMoreAction": "+ Bir eylem daha ekle",
+      "address": "Adres",
+      "againstOption": "Karşı seçeneği",
+      "confirm": "Onayla",
+      "create": "Oluştur",
+      "description": "Açıklama",
+      "forOption": "Lehte seçeneği",
+      "name": "Ad",
+      "nextStep": "Sonraki adım",
+      "proposalName": "Teklif adı",
+      "proposalType": "Teklif türü",
+      "signature": "İmza",
+      "submitError": "Teklif oluşturulurken bir hata oluştu",
+      "votingOptions": "Oylama seçenekleri"
+    },
+    "createProposalModal": {
+      "createManually": "Manuel oluştur",
+      "createProposal": "Teklif oluştur",
+      "uploadFile": "Dosya yükle",
+      "youCanEitherCreateManuallyOrUpload": "Bir teklifi manuel oluşturabilir veya ayrıntılarını içeren bir dosya yükleyebilirsiniz. Dosya yüklemeyi seçerseniz bu şablonu örnek olarak kullanabilirsiniz: <Link>Github</Link>"
+    },
+    "createProposalPlus": "+ Teklif oluştur",
+    "delegate": "Delege et",
+    "delegateAddress": "Delege adresi",
+    "delegateLeaderboard": "Delege liderlik tablosu",
+    "delegateVotes": "Delege oyları",
+    "delegateVoting": "Delege oylaması",
+    "delegateYourVoting": "2. <Anchor>Oy gücünüzü</Anchor> kendinize veya başkasına delege edin",
+    "depositXvs": "XVS yatır",
+    "depositYourTokens": "1. <Link>Tokenlarınızı yatırın</Link> XVS Vault'a ",
+    "enterContactAddress": "İletişim adresi girin",
+    "errorState": {
+      "buttonLabel": "Yeniden dene",
+      "message": "Teklifler alınamadı"
+    },
+    "for": "Lehte",
+    "goToXvsSnapshot": "XVS Snapshot'a git",
+    "omnichain": {
+      "switchToBnb": "BNB Chain'e geç",
+      "votingOnlyEnabledOnBnb": "Oylama yalnızca BNB Chain üzerinde kullanılabilir"
+    },
+    "pages": {
+      "actions": "3 / 3 Eylemler",
+      "confirmation": "Onay",
+      "proposalInformation": "1 / 3 Teklif bilgisi",
+      "votingOptions": "2 / 3 Oylama seçenekleri"
+    },
+    "pasteYourAddress": "Adresinizi yapıştırın",
+    "pleasePayAttention": "Lütfen dikkat edin",
+    "proposals": "Teklifler",
+    "proposalStateFilter": {
+      "label": "Durum"
+    },
+    "proposalType": {
+      "critical": "Kritik",
+      "fastTrack": "Hızlı",
+      "normal": "Normal"
+    },
+    "redelegate": "Yeniden delege et",
+    "redelegateVoting": "Yeniden delege oylaması",
+    "requiredVotingPower": "Bir teklif oluşturmak için 300k oy gücüne sahip olmanız gerekir",
+    "searchInput": {
+      "placeholder": "Teklif ara"
+    },
+    "summaryProgressBar": "Oylama Özet İlerleme Çubuğu - {{voteType}}",
+    "totalLocked": "Toplam kilitli",
+    "toVoteYouShould": "Oy vermek için şunları yapmalısınız:",
+    "voteAbstain": "Çekimser oy ver",
+    "voteAgainst": "Karşı oy ver",
+    "voteFor": "Lehte oy ver",
+    "votingPower": "Oy gücü",
+    "votingWallet": "Oylama cüzdanı",
+    "votingWeight": "Oy ağırlığı",
+    "youCanDelegateVotes": "Oylarınızı kendinize veya başkasına delege edebilirsiniz. Delege etmek istediğiniz adresi biliyorsanız aşağıya girin. Bilmiyorsanız, desteklemek istediğiniz siyasi partiyi bulmak için Delege Liderlik Tablosuna bakabilirsiniz",
+    "youDelegatedTo": "Kilitli tokenlarınızı {{delegate}}'e delege ettiniz"
+  },
+  "voteProposalUi": {
+    "activeUntilDate": "Aktif bitiş: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "canceledDate": "İptal: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "command": {
+      "actionButton": {
+        "cancel": "İptal",
+        "execute": "Yürüt",
+        "queue": "Kuyruğa al"
+      },
+      "dates": {
+        "activeAt": "Beklemede: {{date, }}",
+        "executableAt": "Yürütülebilir: {{date, }}",
+        "previousStep": "{{date, }}",
+        "queueableAt": "Kuyruğa alınabilir: {{date, }}"
+      },
+      "description": {
+        "bridged": "İşlemin köprü üzerinden iletilmesi bekleniyor",
+        "canceled": "Yürütme payload'ı yönetişim koruyucusu tarafından iptal edildi",
+        "failed": "Payload hedef ağa gönderilemedi",
+        "pending": "{{chainName}} payload'ının yürütülmesi bekleniyor",
+        "pendingBsc": "Oylamanın başlaması bekleniyor",
+        "waitingToBeExecutable": "Kuyruk süresinin bitmesi bekleniyor",
+        "wrongChain": "Bu payload {{chainName}} zincirinde yürütülmelidir"
+      },
+      "operations": {
+        "title": "İşlemler"
+      },
+      "status": {
+        "pending": "Beklemede"
+      }
+    },
+    "commands": {
+      "allPayloadsExecuted": "Tüm payload'lar yürütüldü",
+      "somePayloadsExecuted": "Yürütülen payload'lar",
+      "title": "Komutlar"
+    },
+    "countdownFormat": {
+      "daysIncluded": "{{days}}g : {{hours}}s : {{minutes}}dk : {{seconds}}sn",
+      "hoursIncluded": "{{hours}}s : {{minutes}}dk : {{seconds}}sn",
+      "minutesIncluded": "{{minutes}}dk : {{seconds}}sn",
+      "secondsIncluded": "{{seconds}}sn"
+    },
+    "defeatedDate": "Reddedildi: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "description": "Açıklama",
+    "executedDate": "Yürütüldü: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "expiredDate": "Süresi doldu: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "greenPulseAnimation": {
+      "altText": "Yeşil nabız animasyonu"
+    },
+    "proposalState": {
+      "activeTimestamp": "Aktiften itibaren: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "canceledTimestamp": "İptal: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeatedTimestamp": "Reddedildi: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "executedTimestamp": "Yürütüldü: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "expiredTimestamp": "Süresi doldu: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "queuedTimestamp": "Kuyruğa alındı: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "Başarılı: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+    },
+    "queuedUntilDate": "Kuyruk sonu: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "status": {
+      "executedPayloads": "Yürütülen payload'lar",
+      "readyForExecution": "Yürütmeye hazır",
+      "readyForQueuing": "Kuyruğa almaya hazır"
+    },
+    "statusCard": {
+      "ariaLabelAbstain": "çekimser oylar",
+      "ariaLabelAgainst": "karşı oylar",
+      "ariaLabelFor": "lehte oylar"
+    },
+    "timeUntilExecutable": "Yürütülebilir: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilVotable": "Oylama başlar: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "voteStatus": {
+      "abstained": "Çekimser",
+      "notVoted": "Oy kullanılmadı",
+      "votedAgainst": "Karşı oy",
+      "votedFor": "Lehte oy"
+    },
+    "votingOptions": "Oylama seçenekleri"
+  },
+  "voterDetail": {
+    "actions": "Eylemler",
+    "amount": "Miktar",
+    "delegated": "Delege edildi",
+    "delegatingTo": "Şuna delege edildi",
+    "holding": "Tutar",
+    "proposalNumber": "Teklif #",
+    "transactions": "İşlemler",
+    "undelegated": "Delege edilmemiş",
+    "venusBalance": "Venus bakiyesi",
+    "viewAll": "Tümünü gör",
+    "votedAbstain": "Çekimser oy verdi",
+    "votedAgainst": "Karşı oy verdi",
+    "votedFor": "Lehte oy verdi",
+    "votes": "Oylar",
+    "votingHistory": "Oy geçmişi"
+  },
+  "voterLeaderboard": {
+    "addressesByVotingWeight": "Oy ağırlığına göre adresler",
+    "columns": {
+      "proposalsVoted": "Oy verilen teklifler",
+      "rank": "Sıra",
+      "votes": "Oylar",
+      "voteWeight": "Oy ağırlığı"
+    }
+  },
+  "voteSummary": {
+    "addresses_zero": "{{count}} adres",
+    "addresses_one": "{{count}} adres",
+    "addresses_other": "{{count}} adres",
+    "votes": "Oylar"
+  },
+  "wallets": {
+    "errors": {
+      "noProvider": "Bağlanılamıyor. Seçtiğiniz cüzdanın tarayıcınıza yüklü olduğundan emin olun."
+    }
+  },
+  "web3DomainNames": {
+    "providers": {
+      "ens": "ENS Adı",
+      "spaceId": "Space ID Adı"
+    },
+    "tooltip": {
+      "address": "({{address}})"
+    }
+  },
+  "withdrawFromVaiVaultModal": {
+    "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
+    "connectWalletMessage": "{{tokenSymbol}} çekmek için cüzdanınızı bağlayın",
+    "submitButtonDisabledLabel": "Çekmek için geçerli bir miktar girin",
+    "submitButtonLabel": "Çek",
+    "title": "{{tokenSymbol}} çek"
+  },
+  "withdrawFromVestingVaultModalModal": {
+    "displayWithdrawalRequestListButton": "Çekim talep listesi",
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
+      },
+      "availableTokensLabel": "Talep edilebilir {{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "Çekim talep listesi",
+      "primeLossWarning": {
+        "message": "Bu miktarı çekerseniz Prime tokenınızı kaybedersiniz; çünkü XVS vault'taki stake'iniz, Prime için gereken minimum {{minimumXvsStake}} seviyesinin altına düşer.",
+        "submitButtonLabel": "Prime tokenını kaybet ve çekim talep et"
+      },
+      "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
+      "submitButtonLabel": "Çekim talep et"
+    },
+    "requestWithdrawalTabTitle": "Çekim talep et",
+    "title": "{{tokenSymbol}} çek",
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "Çekim taleplerinizi görmek için cüzdanınızı bağlayın"
+      },
+      "emptyState": "Aktif çekim talebiniz yok",
+      "itemContent": "{{date, dd.MM.yy h:mm a}} tarihine kadar kilitli"
+    },
+    "withdrawalRequestListTitle": "Çekim talep listesi",
+    "withdrawTab": {
+      "approveToken": {
+        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
+      },
+      "availableTokens": "Kullanılabilir {{tokenSymbol}}",
+      "submitButton": "Çek"
+    },
+    "withdrawTabTitle": "Çek"
+  }
+}

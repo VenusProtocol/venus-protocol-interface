@@ -7,7 +7,6 @@ import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'uti
 import type { MarketHistoryPeriodType } from 'clients/api';
 import { AreaChart } from 'components';
 import { useBreakpointUp } from 'hooks/responsive';
-import { formatToReadableDate } from './formatToReadableDate';
 
 export interface ApyChartItem {
   apyPercentage: number;
@@ -25,6 +24,18 @@ export interface ApyChartProps {
 export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selectedPeriod }) => {
   const { t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
+
+  const formatToReadableDate = (timestampMs: number, selectedPeriod?: MarketHistoryPeriodType) => {
+    if (selectedPeriod === 'year') {
+      return t('apyChart.date.short', {
+        date: new Date(timestampMs),
+      });
+    }
+
+    return t('apyChart.date.full', {
+      date: new Date(timestampMs),
+    });
+  };
 
   const chartColor = type === 'supply' ? theme.colors.green : theme.colors.red;
   const chartInterval = isSmOrUp ? 5 : 4;

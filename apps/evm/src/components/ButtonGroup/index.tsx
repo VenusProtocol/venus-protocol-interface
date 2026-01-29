@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { TertiaryButton } from '@venusprotocol/ui';
-import { useStyles } from './styles';
+import { type ButtonProps, SecondaryButton, cn } from '@venusprotocol/ui';
 
 export interface ButtonGroupProps {
   buttonLabels: React.ReactNode[];
@@ -8,6 +6,8 @@ export interface ButtonGroupProps {
   onButtonClick: (newIndex: number) => void;
   fullWidth?: boolean;
   className?: string;
+  buttonClassName?: string;
+  buttonSize?: ButtonProps['size'];
 }
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -16,23 +16,31 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   onButtonClick,
   fullWidth = false,
   className,
+  buttonClassName,
+  buttonSize,
 }) => {
-  const styles = useStyles();
-
   return (
-    <div css={styles.getContainer({ fullWidth })} className={className}>
+    <div
+      className={cn(
+        'flex items-center bg-dark-blue-disabled border border-dark-blue-hover rounded-lg whitespace-nowrap',
+        fullWidth ? 'w-full' : 'max-sm:w-full',
+        className,
+      )}
+    >
       {buttonLabels.map((label, index) => (
-        <TertiaryButton
+        <SecondaryButton
           key={`button-group-button-${label}`}
           onClick={() => onButtonClick(index)}
-          css={styles.getButton({
-            active: index === activeButtonIndex,
-            last: index === buttonLabels.length - 1,
-            fullWidth,
-          })}
+          className={cn(
+            'flex-1 border-transparent hover:border-transparent hover:text-white active:bg-blue active:border-blue',
+            !fullWidth && 'max-sm:flex-auto',
+            buttonClassName,
+          )}
+          active={index === activeButtonIndex}
+          size={buttonSize}
         >
           {label}
-        </TertiaryButton>
+        </SecondaryButton>
       ))}
     </div>
   );

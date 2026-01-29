@@ -337,7 +337,7 @@ describe('Bridge', () => {
     // Check the warning shown to the user
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-        `"You cannot bridge more than 0 XVS ($0) on the destination chain due to the 24-hour limit. This limit will be reset on 13 Jan 2024 12:00 PM"`,
+        `"You cannot bridge more than 0 XVS ($0) on the destination chain due to the 24-hour limit. This limit will be reset on Jan 13, 2024"`,
       ),
     );
 

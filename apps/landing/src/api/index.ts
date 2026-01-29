@@ -13,7 +13,7 @@ export async function fetchMarkets() {
   return mapMarketsData(response.result);
 }
 
-export async function fetchProposalCount() {
+export async function getProposalCount() {
   const { data: response }: { data: ProposalsResponseData } = await axios.get(proposalsRequestUrl);
   return response.total;
 }

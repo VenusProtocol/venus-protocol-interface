@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`WithdrawalRequestList > fetches withdrawal requests and displays them correctly 1`] = `"1 XVSLocked until 29.06.22 10:43 AM"`;
+exports[`WithdrawalRequestList > fetches withdrawal requests and displays them correctly 1`] = `"1 XVSLocked until Jun 29, 2022"`;
 
-exports[`WithdrawalRequestList > fetches withdrawal requests and displays them correctly 2`] = `"2 XVSLocked until 30.06.22 2:30 PM"`;
+exports[`WithdrawalRequestList > fetches withdrawal requests and displays them correctly 2`] = `"2 XVSLocked until Jun 30, 2022"`;
 
-exports[`WithdrawalRequestList > fetches withdrawal requests and displays them correctly 3`] = `"3 XVSLocked until 01.07.22 6:16 PM"`;
+exports[`WithdrawalRequestList > fetches withdrawal requests and displays them correctly 3`] = `"3 XVSLocked until Jul 1, 2022"`;

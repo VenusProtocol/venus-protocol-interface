@@ -16,6 +16,9 @@
     },
     "performanceChart": {
       "absolutePerformance": "Absolute performance",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
       "errorState": {
         "failedToFetchMessage": "Could not fetch account history",
         "refetchButtonLabel": "Retry"
@@ -31,7 +34,8 @@
         "thirtyDays": "30D"
       },
       "placeholderText": "Generating report, this can take up to a minute",
-      "todaysChange": "Today's change"
+      "todaysChange": "Today's change",
+      "xAxisValue": "{{ date, numeric }}"
     },
     "placeholder": {
       "buttonLabel": "Browse"
@@ -83,6 +87,10 @@
       "vaults": "Vaults"
     },
     "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
       "placeholder": {
         "description": "Your transactions will appear here",
         "title": "No transactions yet"
@@ -148,7 +156,7 @@
   },
   "adBanner": {
     "learnMore": "Learn more",
-    "startNow": "Start Now"
+    "startNow": "Start now"
   },
   "announcements": {
     "bethUpdate": {
@@ -200,10 +208,6 @@
           "description": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. This yield is not guaranteed by Venus Protocol.",
           "name": "Off-chain APY"
         },
-        "yieldToMaturityApy": {
-          "description": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
-          "name": "Yield to maturity APY"
-        },
         "pointDistribution": {
           "learnMore": "Learn more"
         },
@@ -218,6 +222,10 @@
         "xvsDistribution": {
           "description": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
           "name": "XVS distribution"
+        },
+        "yieldToMaturityApy": {
+          "description": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
+          "name": "Yield to maturity APY"
         }
       }
     },
@@ -245,17 +253,21 @@
     },
     "offChainApy": "Off-chain APY",
     "offChainApyTooltip": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. The Venus protocol does not guarantee them and accepts no liability.",
-    "yieldToMaturityApy": "Yield to maturity APY",
-    "yieldToMaturityApyTooltip": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
     "primeApy": "Prime APY",
     "supplyApy": "Supply APY",
     "totalApy": {
       "borrowApyTooltip": "Borrow APY - Distribution APYs",
       "label": "Total APY",
       "supplyApyTooltip": "Supply APY + Distribution APYs"
-    }
+    },
+    "yieldToMaturityApy": "Yield to maturity APY",
+    "yieldToMaturityApyTooltip": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol."
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
       "date": "Date",
@@ -300,23 +312,18 @@
     "rocketAltText": "Rocket illustration",
     "title": "Boost is available now!"
   },
-  "probableBanner": {
-    "description": "Give your conviction a boost on probable.markets",
-    "probableAltText": "Probable illustration",
-    "title": "Believe in something?"
-  },
   "breadcrumbs": {
-    "account": "Account",
     "bridge": "Bridge",
+    "dashboard": "Dashboard",
     "governance": "Governance",
     "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
+    "staking": "Staking",
     "swap": "Swap",
-    "vai": "VAI",
-    "vaults": "Vaults"
+    "vai": "VAI"
   },
   "bridgePage": {
     "amountInput": {
@@ -362,9 +369,6 @@
     "walletBalance": {
       "label": "Wallet balance"
     }
-  },
-  "burnedWBnbButton": {
-    "iconAlt": "Burned BNB icon"
   },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
@@ -534,8 +538,80 @@
   "isolatedPoolsSunsetBanner": {
     "description": "Claim your rewards and close your positions",
     "illustrationAltText": "Illustration",
-    "title": "Isolated pools are being sunsetted",
-    "tooltip": "Sunset"
+    "title": "Isolated pools are being sunsetted"
+  },
+  "landing": {
+    "benefits": {
+      "text1": "Access an immutable money market directly on-chain.",
+      "text2": "All Venus Protocol assets are bound by the BEP-20 and ERC-20 standards.",
+      "text3": "Built on EVM-compatible chains for fast, secure, and low cost transactions.",
+      "title1": "Decentralized",
+      "title2": "BEP-20/ERC-20",
+      "title3": "Omnichain"
+    },
+    "governance": {
+      "backgroundGradientAlt": "Background illustration",
+      "buttonLabel": "Governance forum",
+      "description": "Venus is a community-driven decentralized protocol delivering best-in-class functionality for crypto money markets.",
+      "proposalCountLegend": "Venus Improvement Proposals Executed and counting",
+      "title": "Money Markets governed <br/> by community"
+    },
+    "hero": {
+      "1Year": "1Y",
+      "30Day": "30D",
+      "6Month": "6M",
+      "assets": "Assets",
+      "borrow": "Borrow",
+      "earned": "Earned",
+      "earnedAmount": "Earned {{amount}}",
+      "from": "From {{percentage}}",
+      "highestApy": "Highest APY",
+      "monthNo": "Month {{number}}",
+      "startNow": "Start now",
+      "subtitle": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
+      "supply": "Supply",
+      "supplyTips": "Based on a $10,000 initial deposit, with earnings/interest compounded per block. <Link>Learn more</Link>",
+      "title": "Universal <br /><hl>Money Markets</hl>",
+      "totalApy": "Total APY",
+      "upToPercentage": "Up to {{percentage}}",
+      "venusTvl": "Venus TVL",
+      "yearlyEarnings": "Yearly earnings",
+      "yearlyInterests": "Yearly interests"
+    },
+    "markets": {
+      "button": {
+        "label": "Explore more"
+      },
+      "title": "Top markets on Venus"
+    },
+    "protection": {
+      "bugBountyAlt": "Bug Bounty Illustration",
+      "challengeText": "Find and report vulnerabilities in our code to be eligible for rewards. Read about our bug bounty program to learn more.",
+      "challengeTitle": "Challenge our code and be rewarded",
+      "protectionAlt": "Protection Illustration",
+      "protectionText": "Security audits, 24/7 monitoring, and a robust risk fund keeps the protocol safe in the case of outlier market events.",
+      "protectionTitle": "Protection prioritized"
+    },
+    "safety": {
+      "audit_one": "Audit",
+      "audit_other": "Audits",
+      "otherAuditors": "+14 audits with Fairyproof, Hacken and HashEx",
+      "scoreAlt": "Score Illustration",
+      "securityScore": "Security Score",
+      "text": "Transact with confidence, knowing Venus places nothing before the security of your assets",
+      "title": "Safety before all",
+      "venusScored": "Venus scored <Link>3rd highest</Link> for security on BNB Chain as assessed by Certik (June, 2021)"
+    },
+    "venusPrime": {
+      "illustrationAlt": "Venus Prime illustration",
+      "imageAlt": "Venus Prime Illustration",
+      "learnMore": "Learn more",
+      "text": "Power users of Venus Protocol may mint a Venus Prime Token to enjoy superior rates for select markets in the Venus core pool.",
+      "title": "<hl>Venus Prime</hl> <br />amplifies your returns"
+    },
+    "wallets": {
+      "title": "Trusted by many"
+    }
   },
   "layout": {
     "chainSelect": {
@@ -549,27 +625,67 @@
       },
       "price": "Price",
       "supply": "Supply",
-      "unichainBackgroundIllustrationAlt": "Background illustration",
       "utilizationRate": "Utilization rate"
     },
     "menu": {
-      "navLink": {
-        "new": "NEW"
+      "dashboard": {
+        "label": "Dashboard"
+      },
+      "label": "Menu",
+      "markets": {
+        "label": "Markets"
+      },
+      "others": {
+        "bridge": {
+          "description": "Cross-chain $XVS transfers on Venus.",
+          "label": "Bridge"
+        },
+        "governance": {
+          "description": "Vote on Venus proposals with $XVS.",
+          "label": "Governance"
+        },
+        "isolatedPools": {
+          "description": "Trade assets in pools isolated from the core markets.",
+          "label": "Isolated pools"
+        },
+        "label": "Others",
+        "port": {
+          "description": "Gasless import of lending positions.",
+          "label": "Port"
+        },
+        "swap": {
+          "label": "Swap"
+        },
+        "vai": {
+          "description": "Mint the native stablecoin of Venus.",
+          "label": "VAI"
+        }
+      },
+      "settings": {
+        "gasLessTransactions": {
+          "label": "Enable gasless transactions on {{chainName}}"
+        },
+        "language": {
+          "label": "Language (beta)"
+        }
+      },
+      "staking": {
+        "label": "Staking"
+      },
+      "subMenuItem": {
+        "button": {
+          "label": "Get started"
+        }
       },
       "venusLogoAlt": "Venus logo"
     },
-    "menuItems": {
-      "account": "Account",
-      "bridge": "Bridge",
-      "corePool": "Core pool",
-      "governance": "Governance",
-      "isolatedPools": "Isolated pools",
-      "port": "Port",
-      "swap": "Swap",
-      "vai": "VAI",
-      "vaults": "Vaults"
+    "settingsModal": {
+      "title": "Settings"
     },
     "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
+  },
+  "legal": {
+    "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",
@@ -624,11 +740,88 @@
     }
   },
   "markets": {
+    "eMode": {
+      "group": {
+        "cannotDisable": {
+          "tooltip": {
+            "blockingPositions": "You can't disable this e-mode group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
+            "notEnoughCollateral": "You can't disable this e-mode group because your total collateral value would not cover your total borrow balance"
+          }
+        },
+        "cannotEnable": {
+          "modal": {
+            "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode group:",
+            "repayButtonLabel": "Repay",
+            "title": "Your positions"
+          },
+          "tooltip": {
+            "blockingPositions": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
+            "notEnoughCollateral": "You can't enable this e-mode group because your total collateral value would not cover your total borrow balance"
+          }
+        },
+        "disableButtonLabel": "Disable",
+        "disabledNotice": "This E-Mode group is no longer supported. Your account now falls back to default parameters. Please switch to another available E-mode group or disable it.",
+        "enableButtonLabel": "Enable",
+        "healthFactor": "Health factor:",
+        "switchButtonLabel": "Switch"
+      },
+      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
+      "search": {
+        "placeholder": "Search asset or group"
+      },
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "Borrowable",
+            "collateral": "Collateral"
+          },
+          "rows": {
+            "liquidationPenalty": "Liquidation penalty",
+            "liquidationThreshold": "Liquidation threshold",
+            "maxLtv": "Max LTV"
+          }
+        },
+        "columns": {
+          "asset": "Asset",
+          "collateral": "Collateral",
+          "isBorrowable": "Borrowable",
+          "liquidationPenalty": "Liquidation penalty",
+          "liquidationThreshold": "Liquidation threshold",
+          "maxLtv": "Max LTV",
+          "penalty": "Penalty",
+          "threshold": "Threshold"
+        },
+        "mobileSelectLabel": "Sort by:"
+      }
+    },
     "errors": {
       "accountError": "Account Required - Please connect your wallet.",
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
+      "label": "Isolated"
+    },
+    "tabs": {
+      "assets": {
+        "title": "Assets"
+      },
+      "eMode": {
+        "illustrationAltText": "Lightning illustration",
+        "liquidationPenalty": {
+          "label": "Liquidation penalty"
+        },
+        "liquidationThreshold": {
+          "label": "Liquidation threshold"
+        },
+        "maxLtv": {
+          "label": "Max LTV",
+          "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
+        },
+        "title": "E-mode"
+      }
     }
   },
   "marketTable": {
@@ -638,6 +831,7 @@
     },
     "columnKeys": {
       "asset": "Asset",
+      "assetAndChain": "Asset",
       "borrowApy": "APY <InfoIcon />",
       "borrowBalance": "Total borrow",
       "collateral": "Collateral",
@@ -691,6 +885,16 @@
     }
   },
   "operationForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "I acknowledge the high price impact",
+        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+      }
+    },
     "availableAmount": "Available",
     "boostTabAltText": "Rocket icon",
     "boostTabTitle": "Boost",
@@ -770,111 +974,11 @@
     "warning": {
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "I acknowledge the high price impact",
-        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "I acknowledge the risks involved",
-        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
-      }
-    },
     "withdrawTabTitle": "Withdraw"
   },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
-  },
-  "pool": {
-    "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "You can't disable this e-mode group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
-            "notEnoughCollateral": "You can't disable this e-mode group because your total collateral value would not cover your total borrow balance"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode group:",
-            "repayButtonLabel": "Repay",
-            "title": "Your positions"
-          },
-          "tooltip": {
-            "blockingPositions": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
-            "notEnoughCollateral": "You can't enable this e-mode group because your total collateral value would not cover your total borrow balance"
-          }
-        },
-        "disableButtonLabel": "Disable",
-        "disabledNotice": "This E-Mode group is no longer supported. Your account now falls back to Core Pool parameters. Please switch to another available E-mode group or disable it.",
-        "enableButtonLabel": "Enable",
-        "healthFactor": "Health factor:",
-        "switchButtonLabel": "Switch"
-      },
-      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
-      "search": {
-        "placeholder": "Search asset or group"
-      },
-      "table": {
-        "card": {
-          "header": {
-            "borrowable": "Borrowable",
-            "collateral": "Collateral"
-          },
-          "rows": {
-            "liquidationPenalty": "Liquidation penalty",
-            "liquidationThreshold": "Liquidation threshold",
-            "maxLtv": "Max LTV"
-          }
-        },
-        "columns": {
-          "asset": "Asset",
-          "collateral": "Collateral",
-          "isBorrowable": "Borrowable",
-          "liquidationPenalty": "Liquidation penalty",
-          "liquidationThreshold": "Liquidation threshold",
-          "maxLtv": "Max LTV",
-          "penalty": "Penalty",
-          "threshold": "Threshold"
-        },
-        "mobileSelectLabel": "Sort by:"
-      }
-    },
-    "isolatedEModeGroupTooltip": {
-      "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
-      "label": "Isolated"
-    },
-    "tabs": {
-      "assets": {
-        "title": "Assets"
-      },
-      "eMode": {
-        "illustrationAltText": "Lightning illustration",
-        "liquidationPenalty": {
-          "label": "Liquidation penalty"
-        },
-        "liquidationThreshold": {
-          "label": "Liquidation threshold"
-        },
-        "maxLtv": {
-          "label": "Max LTV",
-          "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
-        },
-        "title": "E-mode"
-      }
-    }
-  },
-  "pools": {
-    "poolTable": {
-      "columns": {
-        "assets": "Assets",
-        "liquidity": "Liquidity",
-        "pool": "Pool",
-        "totalBorrow": "Total borrow",
-        "totalSupply": "Total supply"
-      }
-    }
   },
   "poolsStats": {
     "cell": {
@@ -886,7 +990,7 @@
       "treasuryLabel": "Treasury"
     }
   },
-  "PrimeButton": {
+  "primeButton": {
     "primeLogoAlt": "Venus Prime logo"
   },
   "primeCalculator": {
@@ -965,6 +1069,11 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
+  },
+  "probableBanner": {
+    "description": "Give your conviction a boost on probable.markets",
+    "probableAltText": "Probable illustration",
+    "title": "Believe in something?"
   },
   "proposalList": {
     "selectOptions": {
@@ -1262,7 +1371,7 @@
       },
       "availableAmount": {
         "label": "Available",
-        "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
+        "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied"
       },
       "borrowApr": {
         "label": "Borrow APR",
@@ -1282,7 +1391,7 @@
       },
       "tabTitle": "Borrow"
     },
-    "headerMessage": "VAI is the primary stablecoin of the Venus Protocol. Borrow VAI using your collateral supplied to the Core pool. <Link>Learn more</Link>",
+    "headerMessage": "VAI is the primary stablecoin of the Venus Protocol. Borrow VAI using your collateral supplied. <Link>Learn more</Link>",
     "repay": {
       "amountTokensInput": {
         "limitButtonLabel": "MAX"

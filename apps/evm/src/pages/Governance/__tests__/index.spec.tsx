@@ -164,7 +164,7 @@ describe('Governance', () => {
 
     expect(deposityYourTokensText).toHaveAttribute(
       'href',
-      `${routes.vaults.path}?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}`,
+      `${routes.staking.path}?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}`,
     );
   });
 
@@ -205,7 +205,7 @@ describe('Governance', () => {
     expect(getByTestId(VOTING_WALLET_TEST_IDS.totalLockedValue)).toHaveTextContent('0');
     expect(depositXvsButton).toHaveAttribute(
       'href',
-      `${routes.vaults.path}?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}`,
+      `${routes.staking.path}?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}`,
     );
   });
 

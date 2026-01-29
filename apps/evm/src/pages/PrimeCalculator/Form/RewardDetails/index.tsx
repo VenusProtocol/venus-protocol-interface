@@ -2,13 +2,14 @@ import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { Card, Delimiter, LabeledInlineContent } from 'components';
-import { PRIME_APY_DOC_URL } from 'constants/prime';
+import { VENUS_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
-
 import TokenAmountAndApy from './TokenAmountAndApy';
+
+const PRIME_APY_DOC_URL = `${VENUS_DOC_URL}/technical-reference/reference-technical-articles/prime#calculate-apr-associated-with-a-prime-market-and-user`;
 
 interface RewardDetailsProps {
   token: Token;
