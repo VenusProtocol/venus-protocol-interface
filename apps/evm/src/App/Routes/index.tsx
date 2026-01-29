@@ -9,6 +9,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { DISCORD_SERVER_URL } from 'constants/production';
 import { Redirect } from 'containers/Redirect';
 import { safeLazyLoad } from 'utilities';
+import { MarketRedirect } from './MarketRedirect';
 import PageSuspense from './PageSuspense';
 
 const Landing = safeLazyLoad(() => import('pages/Landing'));
@@ -223,6 +224,18 @@ const AppRoutes = () => {
               <TermsOfUse />
             </PageSuspense>
           }
+        />
+
+        {/* Redirect old pages to new ones */}
+        <Route path="/account/*" element={<Redirect to={routes.dashboard.path} />} />
+        <Route path="/vaults/*" element={<Redirect to={routes.staking.path} />} />
+        <Route
+          path="/pool/:poolComptrollerAddress/market/:vTokenAddress"
+          element={<MarketRedirect />}
+        />
+        <Route
+          path="/pool/:poolComptrollerAddress"
+          element={<Redirect to={routes.markets.path} />}
         />
 
         {/* Redirect to Core pool if no route matches */}

@@ -287,7 +287,7 @@ const BridgePage: React.FC = () => {
   });
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       <div className="mx-auto w-full space-y-6 md:max-w-[544px]">
         <Card>
           <form onSubmit={handleSubmit(onSubmit)}>

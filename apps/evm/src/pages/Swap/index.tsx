@@ -424,7 +424,7 @@ const SwapPage: React.FC = () => {
   };
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       <SwapPageUi
         formValues={formValues}
         setFormValues={setFormValues}

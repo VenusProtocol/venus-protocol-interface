@@ -10,7 +10,7 @@ import { Wallets } from './Wallets';
 
 export const Landing: React.FC = () => {
   return (
-    <Page indexWithSearchEngines={true}>
+    <Page>
       <Hero />
 
       <Wrapper>
