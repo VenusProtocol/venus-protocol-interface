@@ -7449,15 +7449,15 @@
     module-alias "^2.2.2"
 
 "@vercel/blob@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@vercel/blob/-/blob-2.0.0.tgz#de4536548fc8303cde932269aa09325b8f4e00f6"
-  integrity sha512-oAj7Pdy83YKSwIaMFoM7zFeLYWRc+qUpW3PiDSblxQMnGFb43qs4bmfq7dr/+JIfwhs6PTwe1o2YBwKhyjWxXw==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@vercel/blob/-/blob-2.0.1.tgz#11d347d806a2b622e096a63bb0198d9c2eeb385b"
+  integrity sha512-DeJmC/B5oH1ExazYh/UvjbN6Mg0q0wlDz29GPIPNhi4COjVzqYRkyPYjOcAZd+RgXVzWqGXholZWtGcLCPuL8A==
   dependencies:
     async-retry "^1.3.3"
     is-buffer "^2.0.5"
     is-node-process "^1.2.0"
     throttleit "^2.1.0"
-    undici "^5.28.4"
+    undici "^6.23.0"
 
 "@vitejs/plugin-react@^4.3.3":
   version "4.7.0"
@@ -18904,17 +18904,10 @@ undici@^5.14.0:
   dependencies:
     "@fastify/busboy" "^2.0.0"
 
-undici@^5.28.4:
-  version "5.29.0"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.29.0.tgz#419595449ae3f2cdcba3580a2e8903399bd1f5a3"
-  integrity sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==
-  dependencies:
-    "@fastify/busboy" "^2.0.0"
-
-undici@^6.19.5:
-  version "6.19.8"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-6.19.8.tgz#002d7c8a28f8cc3a44ff33c3d4be4d85e15d40e1"
-  integrity sha512-U8uCCl2x9TK3WANvmBavymRzxbfFYG+tAu+fgx3zxQy3qdagQqBLwJVrdyO1TBfUXvfKveMKJZhpvUYoOjM+4g==
+undici@^6.19.5, undici@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-6.23.0.tgz#7953087744d9095a96f115de3140ca3828aff3a4"
+  integrity sha512-VfQPToRA5FZs/qJxLIinmU59u0r7LXqoJkCzinq3ckNJp3vKEh7jTWN589YQ5+aoAC/TGRLyJLCPKcLQbM8r9g==
 
 unenv@^1.7.4:
   version "1.8.0"
