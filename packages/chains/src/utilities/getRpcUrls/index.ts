@@ -11,9 +11,12 @@ export const getRpcUrls = ({
     [chainId in ChainId]: string[];
   } = {
     [ChainId.BSC_MAINNET]: [
-      `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
-      `https://bnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
+      'https://virtual.rpc.tenderly.co/venus-labs/project/private/Swap-Router/f66d2d68-08f9-4056-8fc5-e2c549a48e37',
     ],
+    // [ChainId.BSC_MAINNET]: [
+    //   `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
+    //   `https://bnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
+    // ],
     [ChainId.BSC_TESTNET]: [`https://bsc-testnet.nodereal.io/v1/${nodeRealApiKey}`],
     [ChainId.OPBNB_MAINNET]: [
       `https://opbnb-mainnet.nodereal.io/v1/${nodeRealApiKey}`,

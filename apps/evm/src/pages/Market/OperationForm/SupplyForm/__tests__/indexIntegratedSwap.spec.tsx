@@ -9,13 +9,17 @@ import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import { useSwapTokensAndSupply } from 'clients/api';
+import {
+  type GetExactInSwapQuoteInput,
+  useGetSwapQuote,
+  useOpenLeveragedPosition,
+} from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
@@ -29,7 +33,7 @@ import type {
 } from 'types';
 
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
-import { areTokensEqual } from 'utilities';
+import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 import Supply from '..';
 import OPERATION_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
@@ -77,7 +81,7 @@ const fakeSwap: SwapQuote = {
 };
 
 vi.mock('hooks/useGetSwapTokenUserBalances');
-vi.mock('hooks/useGetSwapInfo');
+// vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');
 
 describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
@@ -86,10 +90,25 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       ({ name }: UseIsFeatureEnabledInput) => name === 'integratedSwap',
     );
 
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: undefined,
-      error: undefined,
+    (useGetSwapQuote as Mock).mockImplementation(() => (input: GetExactInSwapQuoteInput) => ({
       isLoading: false,
+      data: {
+        swapQuote: {
+          fromToken: input.fromToken,
+          toToken: input.toToken,
+          direction: 'exact-in',
+          priceImpactPercentage: 0.1,
+          fromTokenAmountSoldMantissa: BigInt(
+            convertTokensToMantissa({
+              value: input.fromTokenAmountTokens,
+              token: input.fromToken,
+            }).toFixed(),
+          ),
+          expectedToTokenAmountReceivedMantissa: 100000000n,
+          minimumToTokenAmountReceivedMantissa: 100000000n,
+          callData: '0x',
+        },
+      },
     }));
 
     (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
@@ -184,10 +203,12 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   */
 
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: undefined,
-      error: 'INSUFFICIENT_LIQUIDITY',
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
       isLoading: false,
+      error: {
+        type: 'swapQuote',
+        code: 'noSwapQuoteFound',
+      },
     }));
 
     const { getByTestId, container } = renderComponent(
@@ -250,8 +271,8 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       ),
     };
 
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: customFakeSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: customFakeSwap,
       error: undefined,
       isLoading: false,
     }));
@@ -449,8 +470,8 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
 
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: customFakeSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: customFakeSwap,
       isLoading: false,
     }));
 
@@ -493,8 +514,8 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
 
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: customFakeSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: customFakeSwap,
       isLoading: false,
     }));
 
@@ -532,8 +553,8 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('lets user swap and supply then calls onClose callback on success', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: fakeSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: fakeSwap,
       isLoading: false,
     }));
 
