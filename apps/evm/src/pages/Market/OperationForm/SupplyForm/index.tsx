@@ -264,22 +264,22 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
-        {(asset.userCollateralFactor || asset.isCollateralOfUser) && (
-          <>
-            <SwitchChainNotice />
+        <SwitchChainNotice />
 
-            <LabeledInlineContent label={t('operationForm.collateral')}>
-              <Toggle
-                onChange={handleToggleCollateral}
-                value={
-                  asset.isCollateralOfUser &&
-                  (!pool.userEModeGroup || asset.userCollateralFactor > 0)
-                }
-                disabled={!isUserConnected || isAccountOnWrongChain || isCollateralToggleDisabled}
-              />
-            </LabeledInlineContent>
-          </>
-        )}
+        <LabeledInlineContent label={t('operationForm.collateral')}>
+          <Toggle
+            onChange={handleToggleCollateral}
+            value={
+              asset.isCollateralOfUser && (!pool.userEModeGroup || asset.userCollateralFactor > 0)
+            }
+            disabled={
+              !isUserConnected ||
+              isAccountOnWrongChain ||
+              isCollateralToggleDisabled ||
+              !asset.userCollateralFactor
+            }
+          />
+        </LabeledInlineContent>
 
         {isIntegratedSwapFeatureEnabled || canWrapNativeToken ? (
           <SelectTokenTextField
