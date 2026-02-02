@@ -6,7 +6,7 @@ export default {
   title: 'Components/Page',
   component: Page,
   args: {
-    indexWithSearchEngines: false,
+    indexWithSearchEngines: true,
     children: 'Content',
   },
 } as Meta<typeof Page>;

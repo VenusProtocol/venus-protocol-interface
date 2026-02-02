@@ -17,7 +17,7 @@ const Page: React.FC = () => {
   }>();
 
   return (
-    <PageComp indexWithSearchEngines={false}>
+    <PageComp>
       <MarketLoader poolComptrollerAddress={poolComptrollerAddress} vTokenAddress={vTokenAddress}>
         {({ asset, pool }) => (
           <>

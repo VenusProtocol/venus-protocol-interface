@@ -69,7 +69,7 @@ const VoterLeaderboard: React.FC = () => {
     isGetVoterAccountsFetching && (isGetVoterAccountsPreviousData || voterAccounts.length === 0);
 
   return (
-    <Page indexWithSearchEngines={false}>
+    <Page>
       <VoterLeaderboardUi
         voterAccounts={voterAccounts}
         offset={offset}
