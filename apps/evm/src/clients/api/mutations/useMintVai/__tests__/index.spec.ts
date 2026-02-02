@@ -22,7 +22,7 @@ describe('useMintVai', () => {
       options: undefined,
     });
 
-    const { fn } = (useSendTransaction as jest.Mock).mock.calls[0][0];
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
@@ -40,7 +40,7 @@ describe('useMintVai', () => {
     `,
     );
 
-    const { onConfirmed } = (useSendTransaction as jest.Mock).mock.calls[0][0];
+    const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
     await onConfirmed();
 
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
