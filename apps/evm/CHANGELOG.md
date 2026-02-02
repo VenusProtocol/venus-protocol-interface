@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.1.0
+
+### Minor Changes
+
+- 3588023: prepare domain update
+
 ## 4.0.2
 
 ### Patch Changes
