@@ -683,6 +683,20 @@
     },
     "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>"
   },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "Cho vay và vay theo cách truyền thống với đòn bẩy dễ dùng, tối ưu.",
+          "label": "Venus Core"
+        },
+        "venusFlux": {
+          "description": "Cho vay và vay hiệu quả về vốn để tối ưu lợi suất.",
+          "label": "Venus Flux"
+        }
+      }
+    }
+  },
   "legal": {
     "lastUpdatedAt": "Cập nhật lần cuối: {{ date, textual }}"
   },

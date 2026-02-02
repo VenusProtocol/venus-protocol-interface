@@ -683,6 +683,20 @@
     },
     "testEnvWarning": "這是測試環境。除測試外請勿進行任何交互。<Link>前往 Venus Protocol 官方網站</Link>"
   },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "經典借貸，輕鬆使用最佳化槓桿。",
+          "label": "Venus Core"
+        },
+        "venusFlux": {
+          "description": "高資本效率的借貸，追求最佳收益。",
+          "label": "Venus Flux"
+        }
+      }
+    }
+  },
   "legal": {
     "lastUpdatedAt": "最後更新：{{ date, textual }}"
   },
