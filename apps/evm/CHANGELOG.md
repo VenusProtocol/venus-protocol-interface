@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 4.2.0
+
+### Minor Changes
+
+- 032cd26: minor fixes on E-mode
+
+### Patch Changes
+
+- 421ddb9: remove landing app
+
 ## 4.1.0
 
 ### Minor Changes
