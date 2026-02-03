@@ -8,7 +8,7 @@ export const chains: Record<ChainId, Chain> = {
     iconSrc: iconSrcs.bsc,
     // explorerUrl: 'https://bscscan.com',
     explorerUrl:
-      'https://virtual.rpc.tenderly.co/venus-labs/project/private/Swap-Router/f66d2d68-08f9-4056-8fc5-e2c549a48e37',
+      'https://dashboard.tenderly.co/venus-labs/project/testnet/43b649f5-b426-44f5-8052-c7836bdb67f5',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
     hardforks: [
