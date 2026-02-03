@@ -7,9 +7,6 @@ VEN-XXX
 ### [evm app](/apps/evm/)
 -
 
-### [landing app](/apps/landing/)
--
-
 ### [chains package](/packages/chains/)
 -
 
