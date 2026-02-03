@@ -59,16 +59,19 @@ export const useSwapTokensAndSupply = (
           code: 'somethingWentWrong',
         });
       }
-
       // Sell fromTokens to supply as many toTokens as possible
-      if (swap.direction === 'exact-in' && !swap.fromToken.isNative && !swap.toToken.isNative) {
+      if (
+        swap.direction === 'exact-in' &&
+        !swap.fromToken.tokenWrapped &&
+        !swap.toToken.tokenWrapped
+      ) {
         return {
           abi: swapRouterV2Abi,
           address: swapRouterContractAddress,
           functionName: 'swapAndSupply' as const,
           args: [
             vToken.address,
-            swap.toToken.address,
+            swap.fromToken.address,
             swap.fromTokenAmountSoldMantissa,
             swap.minimumToTokenAmountReceivedMantissa,
             swap.callData,
@@ -78,7 +81,11 @@ export const useSwapTokensAndSupply = (
       }
 
       // Sell BNBs to supply as many toTokens as possible
-      if (swap.direction === 'exact-in' && swap.fromToken.isNative && !swap.toToken.isNative) {
+      if (
+        swap.direction === 'exact-in' &&
+        swap.fromToken.tokenWrapped &&
+        !swap.toToken.tokenWrapped
+      ) {
         return {
           abi: swapRouterV2Abi,
           address: swapRouterContractAddress,
@@ -99,7 +106,6 @@ export const useSwapTokensAndSupply = (
       });
     },
     onConfirmed: async ({ input }) => {
-      // TODO: resolve args
       if (!input?.swap) return;
       captureAnalyticEvent('Tokens swapped and supplied', {
         poolName,

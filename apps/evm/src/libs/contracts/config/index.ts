@@ -734,7 +734,7 @@ export const contracts: ContractConfig[] = [
     name: 'SwapRouterV2',
     abi: swapRouterV2Abi as Abi,
     address: {
-      [ChainId.BSC_MAINNET]: '0x511fa4e04d47e2d80db9fd334359740be022aa35',
+      [ChainId.BSC_MAINNET]: '0xde7E4f67Af577F29e5F3B995f9e67FD425F73621',
     },
   },
   {

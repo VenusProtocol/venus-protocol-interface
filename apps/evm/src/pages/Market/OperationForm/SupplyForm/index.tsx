@@ -501,8 +501,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   );
 
   const { address: swapRouterContractAddress } = useGetContractAddress({
-    name: 'SwapRouter',
-    poolComptrollerContractAddress: pool.comptrollerAddress,
+    name: 'SwapRouterV2',
+    // poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
   const spenderAddress = useMemo(() => {
@@ -621,8 +621,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
   const fromTokenAmountTokens = new BigNumber(debouncedFormAmountTokens || 0);
 
-  const { address: leverageManagerContractAddress } = useGetContractAddress({
-    name: 'LeverageManager',
+  const { address: swapRouterV2ContractAddress } = useGetContractAddress({
+    name: 'SwapRouterV2',
   });
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const {
@@ -635,12 +635,12 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       fromTokenAmountTokens,
       toToken: asset.vToken.underlyingToken,
       direction: 'exact-in',
-      recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+      recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
       slippagePercentage: userSlippageTolerancePercentage,
     },
     {
       enabled:
-        isUsingSwap && !!leverageManagerContractAddress && fromTokenAmountTokens.isGreaterThan(0),
+        isUsingSwap && !!swapRouterV2ContractAddress && fromTokenAmountTokens.isGreaterThan(0),
     },
   );
   const swapQuote = getSwapQuoteData?.swapQuote;

@@ -5,15 +5,11 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
-import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
+import { busd, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import { useSwapTokensAndSupply } from 'clients/api';
-import {
-  type GetExactInSwapQuoteInput,
-  useGetSwapQuote,
-  useOpenLeveragedPosition,
-} from 'clients/api';
+import { type GetExactInSwapQuoteInput, useGetSwapQuote } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import {
@@ -35,8 +31,6 @@ import type {
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 import Supply from '..';
-import OPERATION_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
-import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import {
   checkSubmitButtonIsDisabled,
   checkSubmitButtonIsDisabledOnly,

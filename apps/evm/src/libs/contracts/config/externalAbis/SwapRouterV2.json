@@ -1,271 +1,917 @@
 [
   {
-    "inputs": [
-      { "internalType": "contract IComptroller", "name": "_comptroller", "type": "address" },
-      { "internalType": "contract SwapHelper", "name": "_swapHelper", "type": "address" },
-      { "internalType": "contract IWBNB", "name": "_wrappedNative", "type": "address" },
-      { "internalType": "address", "name": "_nativeVToken", "type": "address" }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "amountOut", "type": "uint256" },
-      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" }
-    ],
-    "name": "InsufficientAmountOut",
-    "type": "error"
-  },
-  { "inputs": [], "name": "InsufficientBalance", "type": "error" },
-  {
-    "inputs": [{ "internalType": "address", "name": "vToken", "type": "address" }],
-    "name": "MarketNotListed",
-    "type": "error"
-  },
-  { "inputs": [], "name": "NativeTransferFailed", "type": "error" },
-  { "inputs": [], "name": "NoTokensReceived", "type": "error" },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "errorCode", "type": "uint256" }],
-    "name": "RepayFailed",
-    "type": "error"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "errorCode", "type": "uint256" }],
-    "name": "SupplyFailed",
-    "type": "error"
-  },
-  { "inputs": [], "name": "SwapFailed", "type": "error" },
-  {
-    "inputs": [{ "internalType": "address", "name": "sender", "type": "address" }],
-    "name": "UnauthorizedNativeSender",
-    "type": "error"
-  },
-  { "inputs": [], "name": "ZeroAddress", "type": "error" },
-  { "inputs": [], "name": "ZeroAmount", "type": "error" },
-  {
+    "type": "constructor",
+    "name": "",
+    "constant": false,
     "anonymous": false,
-    "inputs": [{ "indexed": false, "internalType": "uint8", "name": "version", "type": "uint8" }],
-    "name": "Initialized",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
+    "stateMutability": "",
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "name": "_comptroller",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "_swapHelper",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "_wrappedNative",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "_nativeVToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
     ],
-    "name": "OwnershipTransferStarted",
-    "type": "event"
+    "outputs": null
   },
   {
-    "anonymous": false,
-    "inputs": [
-      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
-    ],
-    "name": "OwnershipTransferred",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "vToken", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "tokenIn", "type": "address" },
-      { "indexed": false, "internalType": "address", "name": "tokenOut", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "amountIn", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "amountOut", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "amountRepaid", "type": "uint256" }
-    ],
-    "name": "SwapAndRepay",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "vToken", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "tokenIn", "type": "address" },
-      { "indexed": false, "internalType": "address", "name": "tokenOut", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "amountIn", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "amountOut", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "amountSupplied", "type": "uint256" }
-    ],
-    "name": "SwapAndSupply",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      { "indexed": true, "internalType": "address", "name": "receiver", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "SweepNative",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      { "indexed": true, "internalType": "address", "name": "token", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "receiver", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "SweepToken",
-    "type": "event"
-  },
-  {
-    "inputs": [],
-    "name": "COMPTROLLER",
-    "outputs": [{ "internalType": "contract IComptroller", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "NATIVE_TOKEN_ADDR",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "NATIVE_VTOKEN",
-    "outputs": [{ "internalType": "contract IVBNB", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "SWAP_HELPER",
-    "outputs": [{ "internalType": "contract SwapHelper", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
+    "type": "function",
     "name": "WRAPPED_NATIVE",
-    "outputs": [{ "internalType": "contract IWBNB", "name": "", "type": "address" }],
+    "constant": false,
+    "anonymous": false,
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
-    "name": "acceptOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ]
   },
   {
-    "inputs": [],
-    "name": "initialize",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "pendingOwner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vToken", "type": "address" },
-      { "internalType": "address", "name": "tokenIn", "type": "address" },
-      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
-      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" },
-      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
-    ],
-    "name": "swapAndRepay",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vToken", "type": "address" },
-      { "internalType": "address", "name": "tokenIn", "type": "address" },
-      { "internalType": "uint256", "name": "maxAmountIn", "type": "uint256" },
-      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
-    ],
-    "name": "swapAndRepayFull",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vToken", "type": "address" },
-      { "internalType": "address", "name": "tokenIn", "type": "address" },
-      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
-      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" },
-      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
-    ],
-    "name": "swapAndSupply",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vToken", "type": "address" },
-      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" },
-      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
-    ],
+    "type": "function",
     "name": "swapNativeAndRepay",
-    "outputs": [],
+    "constant": false,
+    "anonymous": false,
     "stateMutability": "payable",
-    "type": "function"
+    "inputs": [
+      {
+        "name": "vToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "minAmountOut",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "swapCallData",
+        "type": "bytes",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "bytes"
+        }
+      }
+    ],
+    "outputs": []
   },
   {
+    "type": "function",
+    "name": "swapAndSupply",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "nonpayable",
     "inputs": [
-      { "internalType": "address", "name": "vToken", "type": "address" },
-      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" },
-      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
+      {
+        "name": "vToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "tokenIn",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "amountIn",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "minAmountOut",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "swapCallData",
+        "type": "bytes",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "bytes"
+        }
+      }
     ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "swapNativeAndRepayFull",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "payable",
+    "inputs": [
+      {
+        "name": "vToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "swapCallData",
+        "type": "bytes",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "bytes"
+        }
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
     "name": "swapNativeAndSupply",
-    "outputs": [],
+    "constant": false,
+    "anonymous": false,
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "sweepNative",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
-      { "internalType": "contract IERC20Upgradeable", "name": "token", "type": "address" }
+      {
+        "name": "vToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "minAmountOut",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "swapCallData",
+        "type": "bytes",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "bytes"
+        }
+      }
     ],
-    "name": "sweepToken",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "outputs": []
   },
   {
-    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
-    "name": "transferOwnership",
-    "outputs": [],
+    "type": "function",
+    "name": "sweepToken",
+    "constant": false,
+    "anonymous": false,
     "stateMutability": "nonpayable",
-    "type": "function"
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ],
+    "outputs": []
   },
-  { "stateMutability": "payable", "type": "receive" }
+  {
+    "type": "function",
+    "name": "COMPTROLLER",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "acceptOwnership",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "nonpayable",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "NATIVE_TOKEN_ADDR",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "transferOwnership",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "NATIVE_VTOKEN",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "pendingOwner",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "renounceOwnership",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "nonpayable",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "sweepNative",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "nonpayable",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "swapAndRepay",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "name": "vToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "tokenIn",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "amountIn",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "minAmountOut",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "swapCallData",
+        "type": "bytes",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "bytes"
+        }
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "swapAndRepayFull",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "name": "vToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "tokenIn",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "maxAmountIn",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "swapCallData",
+        "type": "bytes",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "bytes"
+        }
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "SWAP_HELPER",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "view",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "initialize",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "nonpayable",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "type": "event",
+    "name": "SwapAndRepay",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "vToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "tokenIn",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "tokenOut",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "amountIn",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "amountOut",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "amountRepaid",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      }
+    ],
+    "outputs": null
+  },
+  {
+    "type": "event",
+    "name": "SwapAndSupply",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "vToken",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "tokenIn",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "tokenOut",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "amountIn",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "amountOut",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      },
+      {
+        "name": "amountSupplied",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      }
+    ],
+    "outputs": null
+  },
+  {
+    "type": "event",
+    "name": "SweepNative",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "",
+    "inputs": [
+      {
+        "name": "receiver",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      }
+    ],
+    "outputs": null
+  },
+  {
+    "type": "event",
+    "name": "SweepToken",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "receiver",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      }
+    ],
+    "outputs": null
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "",
+    "inputs": [
+      {
+        "name": "version",
+        "type": "uint8",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": false,
+        "simple_type": {
+          "type": "uint"
+        }
+      }
+    ],
+    "outputs": null
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferStarted",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ],
+    "outputs": null
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "constant": false,
+    "anonymous": false,
+    "stateMutability": "",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "storage_location": "default",
+        "offset": 0,
+        "index": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "indexed": true,
+        "simple_type": {
+          "type": "address"
+        }
+      }
+    ],
+    "outputs": null
+  }
 ]

@@ -89,7 +89,7 @@ describe('useSwapTokensAndSupply', () => {
         "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
           "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
-          "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           "1000",
           "900",
           undefined,
@@ -139,21 +139,20 @@ describe('useSwapTokensAndSupply', () => {
     expect(res).toMatchInlineSnapshot(
       {
         abi: expect.any(Object),
-      },
-      `
+      }, `
       {
         "abi": Any<Object>,
         "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
           "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+          "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+          "1000",
           "900",
           undefined,
         ],
-        "functionName": "swapNativeAndSupply",
-        "value": "1000",
+        "functionName": "swapAndSupply",
       }
-    `,
-    );
+    `);
   });
 
   it('should throw error for unsupported swap direction', async () => {
