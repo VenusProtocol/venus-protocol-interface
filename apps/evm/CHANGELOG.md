@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.3.1
+
+### Patch Changes
+
+- 255c25a: only return cap errors for relevant balance mutations
+
 ## 4.3.0
 
 ### Minor Changes
