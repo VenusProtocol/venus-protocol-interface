@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.3.0
+
+### Minor Changes
+
+- 9b125af: add Footer component to share between Operation forms
+
 ## 4.2.0
 
 ### Minor Changes
