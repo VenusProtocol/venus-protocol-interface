@@ -126,7 +126,9 @@ export const useCommonValidation = ({
 
     if (
       simulatedPool?.userHealthFactor !== undefined &&
-      simulatedPool.userHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD
+      simulatedPool.userHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD &&
+      balanceMutation.action !== 'supply' &&
+      balanceMutation.action !== 'repay'
     ) {
       return {
         code: 'TOO_RISKY',
@@ -137,7 +139,9 @@ export const useCommonValidation = ({
     if (
       simulatedPool?.userHealthFactor !== undefined &&
       simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
-      !userAcknowledgesRisk
+      !userAcknowledgesRisk &&
+      balanceMutation.action !== 'supply' &&
+      balanceMutation.action !== 'repay'
     ) {
       return {
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',

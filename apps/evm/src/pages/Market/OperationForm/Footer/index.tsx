@@ -51,6 +51,7 @@ export const Footer: React.FC<FooterProps> = ({
 
   // Check if transaction would put user's health factor below moderate threshold
   const isRiskyTransaction =
+    balanceMutations.some(b => b.action !== 'supply' && b.action !== 'repay') &&
     simulatedPool?.userHealthFactor !== undefined &&
     simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
 

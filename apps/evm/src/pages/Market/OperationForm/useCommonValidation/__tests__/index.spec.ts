@@ -180,7 +180,10 @@ const cases: Case[] = [
         ...fakePool,
         userHealthFactor: HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
       },
-      balanceMutations: fakeSupplyBalanceMutations,
+      balanceMutations: fakeSupplyBalanceMutations.map(f => ({
+        ...f,
+        action: 'borrow',
+      })),
     },
   },
   {
@@ -192,7 +195,10 @@ const cases: Case[] = [
         userHealthFactor: HEALTH_FACTOR_MODERATE_THRESHOLD - 0.1,
       },
       userAcknowledgesRisk: false,
-      balanceMutations: fakeSupplyBalanceMutations,
+      balanceMutations: fakeSupplyBalanceMutations.map(f => ({
+        ...f,
+        action: 'borrow',
+      })),
     },
   },
   {

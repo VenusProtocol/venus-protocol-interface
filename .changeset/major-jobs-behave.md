@@ -2,4 +2,4 @@
 "@venusprotocol/evm": patch
 ---
 
-only check for acknowledgement when not supplying
+only check for acknowledgement when not supplyingor repaying
