@@ -1,11 +1,10 @@
+import type { ChainId } from '@venusprotocol/chains';
 import { type Control, useFormState } from 'react-hook-form';
 
 import { type ButtonProps, PrimaryButton } from 'components';
+import { ApproveToken, type ApproveTokenProps } from 'containers/ApproveToken';
 import { ConnectWallet } from 'containers/ConnectWallet';
-
-import type { ChainId } from '@venusprotocol/chains';
 import { SwitchChain } from 'containers/SwitchChain';
-import { ApproveTokenSteps, type ApproveTokenStepsProps } from './ApproveTokenSteps';
 
 export interface RhfSubmitButtonProps extends ButtonProps {
   control: Control<any>;
@@ -16,7 +15,7 @@ export interface RhfSubmitButtonProps extends ButtonProps {
     | {
         chainId: ChainId;
       };
-  spendingApproval?: Omit<ApproveTokenStepsProps, 'children' | 'secondStepButtonLabel'>;
+  spendingApproval?: Omit<ApproveTokenProps, 'children' | 'secondStepButtonLabel'>;
   analyticVariant?: string;
 }
 
@@ -48,9 +47,9 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
 
   if (formState.isValid && spendingApproval) {
     dom = (
-      <ApproveTokenSteps secondStepButtonLabel={enabledLabel} {...spendingApproval}>
+      <ApproveToken secondStepButtonLabel={enabledLabel} {...spendingApproval}>
         {dom}
-      </ApproveTokenSteps>
+      </ApproveToken>
     );
   }
 

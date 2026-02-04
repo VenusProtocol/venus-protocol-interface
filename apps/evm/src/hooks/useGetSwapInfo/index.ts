@@ -15,13 +15,16 @@ import { useChainId } from 'libs/wallet';
 import type { SwapError } from 'types';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 import formatToSwap from './formatToSwap';
-import type { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
+import type { UseGetSwapInfoInput, UseGetSwapInfoOptions, UseGetSwapInfoOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
 import wrapToken from './wrapToken';
 
 export * from './types';
 
-const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
+const useGetSwapInfo = (
+  input: UseGetSwapInfoInput,
+  options?: UseGetSwapInfoOptions,
+): UseGetSwapInfoOutput => {
   const { chainId } = useChainId();
   const wbnb = useGetToken({
     symbol: 'WBNB',
@@ -44,7 +47,8 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
       tokenCombinations,
     },
     {
-      enabled: isIntegratedSwapFeatureEnabled,
+      enabled:
+        (options?.enabled === undefined || options?.enabled) && isIntegratedSwapFeatureEnabled,
     },
   );
 

@@ -117,7 +117,6 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       <SwitchChain>
         <ApproveTokenSteps
           token={fromToken}
-          isUsingSwap
           isTokenApproved={isFromTokenApproved}
           approveToken={approveFromToken}
           isApproveTokenLoading={isApproveFromTokenLoading}

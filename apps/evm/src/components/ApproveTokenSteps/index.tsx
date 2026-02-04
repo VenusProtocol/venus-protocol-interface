@@ -3,6 +3,8 @@ import type { Token } from 'types';
 
 import { ApprovalSteps, type ApprovalStepsProps } from '../ApprovalSteps';
 
+// TODO: remove in favor of using ApproveToken container
+
 export interface ApproveTokenStepsProps
   extends Pick<ApprovalStepsProps, 'className' | 'children' | 'secondStepButtonLabel'> {
   token: Token;
@@ -10,7 +12,6 @@ export interface ApproveTokenStepsProps
   isWalletSpendingLimitLoading: boolean;
   isApproveTokenLoading: boolean;
   isTokenApproved?: boolean;
-  isUsingSwap?: boolean;
   hideTokenEnablingStep?: boolean;
 }
 
@@ -21,7 +22,6 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
   isWalletSpendingLimitLoading,
   isApproveTokenLoading,
   hideTokenEnablingStep,
-  isUsingSwap = false,
   className,
   children,
   ...otherProps
@@ -37,7 +37,7 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
       isApprovalActionLoading={isApproveTokenLoading}
       approvalAction={approveToken}
       firstStepLabel={t('approveTokenSteps.step1')}
-      firstStepTooltip={isUsingSwap ? t('approveTokenSteps.approveTokenButton.tooltip') : undefined}
+      firstStepTooltip={t('approveTokenSteps.approveTokenButton.tooltip')}
       firstStepButtonLabel={t('approveTokenSteps.approveTokenButton.text', {
         tokenSymbol: token.symbol,
       })}

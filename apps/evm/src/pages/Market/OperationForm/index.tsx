@@ -51,7 +51,6 @@ export const OperationForm: React.FC<OperationFormProps> = ({
                   asset={asset}
                   pool={pool}
                   userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
-                  onSubmitSuccess={onSubmitSuccess}
                 />
               )}
             </NativeTokenBalanceWrapper>

@@ -6,7 +6,7 @@ import type { Address } from 'viem';
 export interface UseDelegateApprovalInput {
   poolComptrollerAddress: Address;
   delegateeAddress: Address;
-  enabled: boolean;
+  enabled?: boolean;
 }
 
 export interface UseDelegateApprovalOutput {
@@ -19,7 +19,7 @@ export interface UseDelegateApprovalOutput {
 const useDelegateApproval = ({
   poolComptrollerAddress,
   delegateeAddress,
-  enabled,
+  enabled = true,
 }: UseDelegateApprovalInput): UseDelegateApprovalOutput => {
   const { accountAddress } = useAccountAddress();
 

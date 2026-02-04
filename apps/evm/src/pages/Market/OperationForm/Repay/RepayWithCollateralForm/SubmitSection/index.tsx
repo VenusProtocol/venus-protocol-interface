@@ -9,20 +9,21 @@ import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useTranslation } from 'libs/translations';
 import type { Address } from 'viem';
 import { ApproveDelegateSteps } from '../../../ApproveDelegateSteps';
+import type { FormError } from '../../../types';
 import type { FormErrorCode } from '../useForm';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isLoading: boolean;
   poolComptrollerContractAddress: Address;
-  formErrorCode?: FormErrorCode;
   isRiskyOperation: boolean;
+  formError?: FormError<FormErrorCode>;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isLoading,
-  formErrorCode,
+  formError,
   poolComptrollerContractAddress,
   isRiskyOperation,
 }) => {
@@ -48,14 +49,14 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   const submitButtonLabel = useMemo(() => {
     if (
       !isFormValid &&
-      formErrorCode !== 'REQUIRES_RISK_ACKNOWLEDGEMENT' &&
-      formErrorCode !== 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT'
+      formError?.code !== 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT' &&
+      formError?.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT'
     ) {
       return t('operationForm.submitButtonLabel.enterValidAmount');
     }
 
     return t('operationForm.submitButtonLabel.repay');
-  }, [isFormValid, t, formErrorCode]);
+  }, [isFormValid, t, formError?.code]);
 
   let dom = (
     <PrimaryButton

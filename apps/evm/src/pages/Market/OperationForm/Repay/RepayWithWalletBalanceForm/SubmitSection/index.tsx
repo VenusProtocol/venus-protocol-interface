@@ -13,7 +13,6 @@ import SwapSummary from '../../../SwapSummary';
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
-  isUsingSwap: boolean;
   fromToken: Token;
   isSwapLoading: boolean;
   isFromTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
@@ -27,7 +26,6 @@ export interface SubmitSectionProps {
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
-  isUsingSwap,
   fromToken,
   isFromTokenApproved,
   approveFromToken,
@@ -83,7 +81,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       <SwitchChain>
         <ApproveTokenSteps
           token={fromToken}
-          isUsingSwap={isUsingSwap}
           isTokenApproved={isFromTokenApproved}
           approveToken={approveFromToken}
           isApproveTokenLoading={isApproveFromTokenLoading}
