@@ -11,7 +11,7 @@ export const getRpcUrls = ({
     [chainId in ChainId]: string[];
   } = {
     [ChainId.BSC_MAINNET]: [
-      'https://virtual.rpc.tenderly.co/venus-labs/project/private/Swap-Router/f66d2d68-08f9-4056-8fc5-e2c549a48e37',
+      'https://virtual.binance.eu.rpc.tenderly.co/a18c3519-9972-46ff-9d01-5b2f83a992e2',
     ],
     // [ChainId.BSC_MAINNET]: [
     //   `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
