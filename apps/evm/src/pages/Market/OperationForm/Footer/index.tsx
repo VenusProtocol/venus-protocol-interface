@@ -1,11 +1,15 @@
 import { cn } from '@venusprotocol/ui';
 
-import { BalanceUpdates, Delimiter } from 'components';
+import { AcknowledgementToggle, BalanceUpdates, Delimiter } from 'components';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
-import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { AccountData } from 'containers/AccountData';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwapDetails } from 'containers/SwapDetails';
+import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { BalanceMutation, Pool, SwapQuote, Token } from 'types';
 import { ApyBreakdown } from '../ApyBreakdown';
@@ -25,6 +29,10 @@ export interface FooterProps {
   swapQuote?: SwapQuote;
   simulatedPool?: Pool;
   showApyBreakdown?: boolean;
+  isUserAcknowledgingRisk?: boolean;
+  setAcknowledgeRisk?: (checked: boolean) => void;
+  isUserAcknowledgingHighPriceImpact?: boolean;
+  setAcknowledgeHighPriceImpact?: (checked: boolean) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -40,14 +48,20 @@ export const Footer: React.FC<FooterProps> = ({
   swapQuote,
   showApyBreakdown = true,
   approval,
+  isUserAcknowledgingRisk,
+  setAcknowledgeRisk,
+  isUserAcknowledgingHighPriceImpact,
+  setAcknowledgeHighPriceImpact,
 }) => {
+  const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
   // Check if transaction is using a swap with a high price impact
   const isHighPriceImpactSwap =
     swapQuote?.priceImpactPercentage !== undefined &&
-    swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE;
+    swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+    swapQuote?.priceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE;
 
   // Check if transaction would put user's health factor below moderate threshold
   const isRiskyTransaction =
@@ -90,6 +104,30 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         <div className="space-y-3">
+          {isRiskyTransaction &&
+            typeof isUserAcknowledgingRisk === 'boolean' &&
+            setAcknowledgeRisk && (
+              <AcknowledgementToggle
+                value={isUserAcknowledgingRisk}
+                onChange={(_, checked) => setAcknowledgeRisk(checked)}
+                label={t('operationForm.acknowledgements.riskyOperation.label')}
+                tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
+              />
+            )}
+
+          {isHighPriceImpactSwap &&
+            typeof isUserAcknowledgingHighPriceImpact === 'boolean' &&
+            setAcknowledgeHighPriceImpact && (
+              <AcknowledgementToggle
+                value={isUserAcknowledgingHighPriceImpact}
+                onChange={(_, checked) => setAcknowledgeHighPriceImpact(checked)}
+                label={t('operationForm.acknowledgements.highPriceImpact.label')}
+                tooltip={t('operationForm.acknowledgements.highPriceImpact.tooltip', {
+                  priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+                })}
+              />
+            )}
+
           <SubmitButton
             approval={approval}
             label={submitButtonLabel}

@@ -1,6 +1,6 @@
 import { BalanceUpdates, Delimiter } from 'components';
 import { AccountData } from 'containers/AccountData';
-import type { BalanceMutation, Pool, Swap, TokenAction } from 'types';
+import type { BalanceMutation, Pool, Swap, SwapQuote, TokenAction } from 'types';
 import { ApyBreakdown } from '../ApyBreakdown';
 import { SwapDetails } from './SwapDetails';
 
@@ -11,7 +11,7 @@ export interface OperationDetailsProps {
   simulatedPool?: Pool;
   showApyBreakdown?: boolean;
   isUsingSwap?: boolean;
-  swap?: Swap;
+  swap?: Swap | SwapQuote;
 }
 
 export const OperationDetails: React.FC<OperationDetailsProps> = ({

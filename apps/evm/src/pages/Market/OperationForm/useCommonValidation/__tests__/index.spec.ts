@@ -6,7 +6,10 @@ import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
-import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { renderHook } from 'testUtils/render';
 import type { Asset, AssetBalanceMutation } from 'types';
 import { areTokensEqual } from 'utilities';
@@ -161,6 +164,18 @@ const cases: Case[] = [
         ...exactInSwapQuote,
         priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE + 0.1,
       },
+      balanceMutations: fakeSupplyBalanceMutations,
+    },
+  },
+  {
+    expectedErrorCode: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT',
+    input: {
+      pool: fakePool,
+      swapQuote: {
+        ...exactInSwapQuote,
+        priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE + 0.1,
+      },
+      userAcknowledgesHighPriceImpact: false,
       balanceMutations: fakeSupplyBalanceMutations,
     },
   },
