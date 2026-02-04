@@ -2307,9 +2307,9 @@
   integrity sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==
 
 "@fastify/deepmerge@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@fastify/deepmerge/-/deepmerge-3.1.0.tgz#4ee797682268eb9d7da51df8e415219addc512ca"
-  integrity sha512-lCVONBQINyNhM6LLezB6+2afusgEYR4G8xenMsfe+AT+iZ7Ca6upM5Ha8UkZuYSnuMw3GWl/BiPXnLMi/gSxuQ==
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@fastify/deepmerge/-/deepmerge-3.2.0.tgz#c2f79c1be40720761c263d3026ab98caa916e115"
+  integrity sha512-aO5giNgFN+rD4fMUAkro9nEL7c9gh5Q3lh0ZGKMDAhQAytf22HLicF/qZ2EYTDmH+XL2WvdazwBfOdmp6NiwBg==
 
 "@fastify/merge-json-schemas@^0.1.0":
   version "0.1.1"
