@@ -1,5 +1,5 @@
-import { type VError, handleError } from 'libs/errors';
-import type { Asset, Pool, SwapQuote } from 'types';
+import { handleError } from 'libs/errors';
+import type { Asset, Pool, SwapQuote, SwapQuoteError } from 'types';
 
 import type BigNumber from 'bignumber.js';
 import useIsMounted from 'hooks/useIsMounted';
@@ -21,7 +21,7 @@ export interface UseFormInput {
   isUsingSwap: boolean;
   simulatedPool?: Pool;
   swapQuote?: SwapQuote;
-  getSwapQuoteError?: VError<'swapQuote' | 'interaction'>;
+  getSwapQuoteError?: SwapQuoteError;
 }
 
 interface UseFormOutput {

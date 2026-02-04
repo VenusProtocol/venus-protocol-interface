@@ -970,9 +970,6 @@
       "supply": "你將用 {{fromTokenAmount}} 供應 {{toTokenAmount}}"
     },
     "walletBalance": "錢包餘額",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "該交易價格影響較高，可能意味著不利的兌換。請確保兌換率和兌換數量符合預期。"
-    },
     "withdrawTabTitle": "提取"
   },
   "pagination": {

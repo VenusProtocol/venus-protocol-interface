@@ -1,4 +1,6 @@
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -6,10 +8,10 @@ import { exactInSwapQuote as fakeSwapQuote } from '__mocks__/models/swap';
 import { usdc, xvs } from '__mocks__/models/tokens';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import { en } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { renderComponent } from 'testUtils/render';
 import type { Pool, SwapQuote } from 'types';
-import type { Mock } from 'vitest';
 import type { FooterProps } from '..';
 import { Footer } from '..';
 
@@ -98,24 +100,17 @@ describe('Footer', () => {
     expect(apyBreakdownMock).toHaveBeenCalledTimes(1);
   });
 
-  it('renders swap details and marks transaction as risky when price impact is high', () => {
-    const customFakeSwapQuote: SwapQuote = {
-      ...fakeSwapQuote,
-      priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
-    };
-
+  it('renders swap details', () => {
     renderComponent(
       <Footer
         {...baseProps}
         swapFromToken={xvs}
         swapToToken={usdc}
-        swapQuote={customFakeSwapQuote}
+        swapQuote={fakeSwapQuote}
         simulatedPool={baseProps.pool}
       />,
       { accountAddress: fakeAccountAddress },
     );
-
-    expect(submitButtonMock).toHaveBeenCalledWith(expect.objectContaining({ isRisky: true }));
 
     expect((swapDetailsMock as Mock).mock.calls[0]).toMatchInlineSnapshot(`
       [
@@ -127,7 +122,7 @@ describe('Footer', () => {
             "iconSrc": "fake-xvs-asset",
             "symbol": "XVS",
           },
-          "priceImpactPercentage": 3,
+          "priceImpactPercentage": 0.1,
           "toToken": {
             "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
             "chainId": 97,
@@ -140,24 +135,74 @@ describe('Footer', () => {
     `);
   });
 
-  it('marks transaction as risky when simulated health factor drops below threshold', () => {
+  it('marks transaction as risky when and prompts user to acknowledge the risks involved when simulated health factor drops below threshold', async () => {
     const fakeSimulatedPool: Pool = {
       ...baseProps.pool,
       userHealthFactor: HEALTH_FACTOR_MODERATE_THRESHOLD - 0.1,
     };
 
-    renderComponent(
+    const mockSetAcknowledgeRisk = vi.fn();
+
+    const { getByText, getByRole } = renderComponent(
       <Footer
         {...baseProps}
         swapFromToken={xvs}
         swapToToken={usdc}
         swapQuote={fakeSwapQuote}
         simulatedPool={fakeSimulatedPool}
+        isUserAcknowledgingRisk={false}
+        setAcknowledgeRisk={mockSetAcknowledgeRisk}
       />,
       { accountAddress: fakeAccountAddress },
     );
 
-    expect(submitButtonMock).toHaveBeenCalledWith(expect.objectContaining({ isRisky: true }));
+    // Check warning is displayed
+    expect(getByText(en.operationForm.acknowledgements.riskyOperation.tooltip));
+
+    // Toggle acknowledgement
+    const toggle = getByRole('checkbox');
+    fireEvent.click(toggle);
+
+    await waitFor(() => expect(mockSetAcknowledgeRisk).toHaveBeenCalledTimes(1));
+    expect(mockSetAcknowledgeRisk).toHaveBeenCalledWith(true);
+  });
+
+  it('prompts user to acknowledge a high price impact', async () => {
+    const customFakeSwapQuote: SwapQuote = {
+      ...fakeSwapQuote,
+      priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    };
+
+    const mockSetAcknowledgeHighPriceImpact = vi.fn();
+
+    const { getByText, getByRole } = renderComponent(
+      <Footer
+        {...baseProps}
+        swapFromToken={xvs}
+        swapToToken={usdc}
+        swapQuote={customFakeSwapQuote}
+        isUserAcknowledgingHighPriceImpact={false}
+        setAcknowledgeHighPriceImpact={mockSetAcknowledgeHighPriceImpact}
+      />,
+      { accountAddress: fakeAccountAddress },
+    );
+
+    // Check warning is displayed
+    expect(
+      getByText(
+        en.operationForm.acknowledgements.highPriceImpact.tooltip.replace(
+          '{{priceImpactPercentage}}',
+          `${HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE}`,
+        ),
+      ),
+    );
+
+    // Toggle acknowledgement
+    const toggle = getByRole('checkbox');
+    fireEvent.click(toggle);
+
+    await waitFor(() => expect(mockSetAcknowledgeHighPriceImpact).toHaveBeenCalledTimes(1));
+    expect(mockSetAcknowledgeHighPriceImpact).toHaveBeenCalledWith(true);
   });
 
   it('does not render APY breakdown when showApyBreakdown is passed as false', () => {
