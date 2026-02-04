@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.3.2
+
+### Patch Changes
+
+- f6168a8: only check for acknowledgement when not supplyingor repaying
+
 ## 4.3.1
 
 ### Patch Changes
