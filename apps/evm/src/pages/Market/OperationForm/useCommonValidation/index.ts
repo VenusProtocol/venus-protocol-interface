@@ -1,5 +1,3 @@
-// TODO: add tests
-
 import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
@@ -44,6 +42,7 @@ export const useCommonValidation = ({
     }
 
     if (
+      balanceMutation.action === 'supply' &&
       asset.supplyCapTokens &&
       asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
     ) {
@@ -60,6 +59,7 @@ export const useCommonValidation = ({
     }
 
     if (
+      balanceMutation.action === 'borrow' &&
       asset.borrowCapTokens &&
       asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
     ) {
