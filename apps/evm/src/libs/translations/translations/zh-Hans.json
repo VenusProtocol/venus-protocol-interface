@@ -849,6 +849,12 @@
       "collateralEnableError": "启用可抵押错误 - 启用 {{assetName}} 作为可抵押时出现问题。请重试。",
       "collateralRequired": "需要可抵押 - 请偿还所有借款资产或将其他资产设为可抵押。"
     },
+    "header": {
+      "venusCore": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "仅向 {{ eModeGroupName }} 组内资产存款可提升你的借款能力",
       "label": "隔离"

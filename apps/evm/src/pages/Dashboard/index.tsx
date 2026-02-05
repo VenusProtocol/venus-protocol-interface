@@ -1,4 +1,6 @@
-import { AdCarousel, Page, Tabs } from 'components';
+import { Page, Tabs } from 'components';
+import { AdCarousel } from 'containers/AdCarousel';
+import { TopMarkets } from 'containers/TopMarkets';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
@@ -6,7 +8,6 @@ import { Guide } from './Guide';
 import { Markets } from './Markets';
 import { Overview } from './Overview';
 import { Staking } from './Staking';
-import { TopMarkets } from './TopMarkets';
 import { Transactions } from './Transactions';
 
 export const Dashboard: React.FC = () => {

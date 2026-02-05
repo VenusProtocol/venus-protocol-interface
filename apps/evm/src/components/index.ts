@@ -63,4 +63,3 @@ export * from './TokenIcon';
 export * from './BalanceUpdates';
 export * from './TokenListWrapper';
 export * from './Wrapper';
-export * from './AdCarousel';
