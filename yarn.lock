@@ -7275,9 +7275,9 @@
     module-alias "^2.2.2"
 
 "@vercel/blob@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@vercel/blob/-/blob-2.0.1.tgz#11d347d806a2b622e096a63bb0198d9c2eeb385b"
-  integrity sha512-DeJmC/B5oH1ExazYh/UvjbN6Mg0q0wlDz29GPIPNhi4COjVzqYRkyPYjOcAZd+RgXVzWqGXholZWtGcLCPuL8A==
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@vercel/blob/-/blob-2.1.0.tgz#04fd68b25bacda1b175329193fb7bbb333119455"
+  integrity sha512-nNYlMJb1LrUyP9bx0ApLorsoRDSzluHq2wlkGCWtGIHHdjCq5pD4i2IY3dnsmTX0WS7G/1aTtyGMb4DF8VrUWg==
   dependencies:
     async-retry "^1.3.3"
     is-buffer "^2.0.5"
