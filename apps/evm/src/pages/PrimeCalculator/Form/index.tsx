@@ -135,7 +135,7 @@ export const Form: React.FC = () => {
   // Generate options from tokens affected by Prime
   const options = useMemo(() => {
     const selectOptions: SelectOption[] = primeAssets.map(primeToken => ({
-      label: () => <TokenIconWithSymbol token={primeToken.vToken.underlyingToken} />,
+      label: () => <TokenIconWithSymbol token={primeToken.vToken.underlyingToken} size="sm" />,
       value: primeToken.vToken.address,
     }));
 

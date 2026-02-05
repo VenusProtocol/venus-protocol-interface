@@ -12,16 +12,11 @@ export const AdBanner: React.FC = () => {
     <ProbableBanner />,
   ];
 
-  const carouselDom =
-    slides.length > 1 ? (
-      <Carousel autoPlay className="pt-4 -mt-4">
-        {slides.map((slide, i) => (
-          <CarouselItem key={i}>{slide}</CarouselItem>
-        ))}
-      </Carousel>
-    ) : (
-      slides
-    );
-
-  return <div className="lg:mt-4">{carouselDom}</div>;
+  return (
+    <Carousel autoPlay className="pt-4 -mt-4">
+      {slides.map((slide, i) => (
+        <CarouselItem key={i}>{slide}</CarouselItem>
+      ))}
+    </Carousel>
+  );
 };

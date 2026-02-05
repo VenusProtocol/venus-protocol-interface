@@ -5,6 +5,7 @@ import { TokenIcon, type TokenIconProps } from '../TokenIcon';
 
 export interface TokenIconWithSymbolProps extends TokenIconProps {
   tokenIconClassName?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
@@ -17,8 +18,18 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
   const chain = chains[token.chainId];
 
   return (
-    <div className={cn('flex items-center gap-x-3', className)}>
-      <TokenIcon token={token} displayChain={displayChain} size={size} {...otherProps} />
+    <div className={cn('flex items-center gap-x-3 shrink-0', className)}>
+      <TokenIcon
+        token={token}
+        displayChain={displayChain}
+        className={cn(
+          'shrink-0',
+          size === 'sm' && 'size-5',
+          size === 'md' && 'size-8',
+          size === 'lg' && 'size-13',
+        )}
+        {...otherProps}
+      />
 
       <div>
         <p

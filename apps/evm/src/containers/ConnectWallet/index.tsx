@@ -1,3 +1,5 @@
+import { cn } from '@venusprotocol/ui';
+
 import { Button, type ButtonProps, NoticeInfo } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
@@ -5,8 +7,9 @@ import { useAccountAddress, useAuthModal } from 'libs/wallet';
 export interface ConnectWalletProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'className'> {
   analyticVariant?: string;
+  buttonClassName?: ButtonProps['className'];
   buttonVariant?: ButtonProps['variant'];
-  small?: boolean;
+  buttonSize?: ButtonProps['size'];
   message?: string;
   className?: string;
   children?: React.ReactNode;
@@ -16,8 +19,9 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
   children,
   message,
   analyticVariant,
+  buttonClassName,
   buttonVariant,
-  small = false,
+  buttonSize,
   ...otherProps
 }) => {
   const { accountAddress } = useAccountAddress();
@@ -41,10 +45,10 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
           {!!message && <NoticeInfo className="mb-8" description={message} />}
 
           <Button
-            className="w-full"
+            className={cn('w-full', buttonClassName)}
             onClick={handleClick}
             variant={buttonVariant}
-            size={small ? 'xs' : 'md'}
+            size={buttonSize}
           >
             {t('connectWallet.connectButton')}
           </Button>

@@ -30,7 +30,6 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => (
         orderDirection: 'desc',
       }}
       header={<AdBanner />}
-      className="border-0 lg:border"
     />
   </div>
 );

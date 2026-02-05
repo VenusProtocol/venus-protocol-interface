@@ -12,7 +12,7 @@ export const TypeButton: React.FC<TypeButtonProps> = ({
 }) => (
   <button
     type="button"
-    className={cn('cursor-pointer px-2', !isActive && 'text-dark-grey-hover', className)}
+    className={cn('cursor-pointer', !isActive && 'text-dark-grey-hover', className)}
     {...otherProps}
   >
     {children}

@@ -22,6 +22,49 @@
     "learnMore": "Daha fazla bilgi",
     "startNow": "Şimdi başla"
   },
+  "adCarousel": {
+    "boostBanner": {
+      "buttonLabel": "Daha fazla bilgi",
+      "description": "Tek tık kaldıraçla getirinizi 5 kata kadar artırın.",
+      "rocketIllustration": {
+        "altText": "Roket illüstrasyonu"
+      },
+      "title": "Boost artık kullanılabilir!"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "Mavi çöl arka planı"
+      },
+      "buttonLabel": "Daha fazla bilgi",
+      "coinsIllustration": {
+        "altText": "Madeni para illüstrasyonu"
+      },
+      "description": "Ödüllerinizi talep edin ve pozisyonlarınızı kapatın",
+      "title": "İzole havuzlar aşamalı olarak kapatılıyor"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "Ufuk arka planı"
+      },
+      "buttonLabel": "Şimdi başla",
+      "coinIllustration": {
+        "altText": "Madeni para illüstrasyonu"
+      },
+      "description": "probable.markets'te inancınızı artırın",
+      "title": "Bir şeye inanıyor musunuz?"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "Galaksi arka planı"
+      },
+      "buttonLabel": "Şimdi başla",
+      "description": "Likiditenizi Flux'a bırakın, getirinizi büyürken izleyin.",
+      "title": "Venus Flux teşviklerinden $1M paylaşın",
+      "venusFluxIcon": {
+        "altText": "Venus Flux simgesi"
+      }
+    }
+  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance, 2023-04-26 tarihinde BETH çekimlerini durdurdu. Kullanıcıların Venus üzerindeki BETH maruziyetini azaltmasını öneriyoruz. Borç alma duraklatıldı. BETH'yi zincir üzerinde 1:1 oranında WBETH'ye dönüştürün <Link>buradan</Link>."
@@ -268,18 +311,6 @@
     "connectButton": "Cüzdan bağla"
   },
   "dashboard": {
-    "adCarousel": {
-      "primeBanner": {
-        "button": {
-          "label": "Prime ödüllerinizi hesaplayın"
-        },
-        "description": "Venus Prime, ödünç verme ve borç alma faaliyetlerinde aktif olan kullanıcılara ödül verir.",
-        "illustration": {
-          "altText": "Prime illüstrasyonu"
-        },
-        "title": "<Gradient>Venus Prime</Gradient> ile daha yüksek hedeflere ulaşın"
-      }
-    },
     "guide": {
       "completed": "Tamamlandı",
       "step1": {
@@ -296,8 +327,24 @@
       },
       "uncompleted": "Tamamlanmadı"
     },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "E-modu illüstrasyonu",
+          "title": "E-modu: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "Borç alınan",
+      "suppliedTabTitle": "Sağlanan",
+      "title": "Varlıklar"
+    },
     "overview": {
       "absolutePerformance": "Mutlak performans",
+      "healthFactor": {
+        "tooltip": "Sağlık faktörü (likidasyon < 1.0)"
+      },
       "netWorth": {
         "label": "Net değer",
         "tooltip": "Kasa stake’i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
@@ -339,6 +386,21 @@
     "placeholder": {
       "buttonLabel": "Göz at"
     },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "Henüz borç pozisyonu yok"
+        }
+      },
+      "placeholder": {
+        "title": "Henüz sağlama veya borç pozisyonu yok"
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "Henüz sağlama pozisyonu yok"
+        }
+      }
+    },
     "staking": {
       "placeholder": {
         "title": "Henüz staking pozisyonu yok"
@@ -353,11 +415,11 @@
       "borrowButton": {
         "label": "Borç al"
       },
-      "interactiveTitle": "Venus’ta en iyi <SupplyButton>Arz</SupplyButton> / <BorrowButton>Borç</BorrowButton>",
+      "interactiveTitle": "Öne çıkanlar (<Group><SupplyButton>arz</SupplyButton>/<BorrowButton>borç</BorrowButton></Group>)",
       "supplyButton": {
         "label": "Arz"
       },
-      "textTitle": "Venus’taki en iyi piyasalar"
+      "textTitle": "Öne çıkanlar"
     },
     "transactions": {
       "placeholder": {
@@ -790,6 +852,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "{{ eModeGroupName }} grubundaki varlıklara yalnızca tedarik yaparak borçlanma gücünüz artar",
       "label": "İzole"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "Borç APY",
+        "supplyApyLabel": "Sağlama APY",
+        "supplyBalanceLabel": "Sağlama bakiyesi",
+        "title": "Öneri"
+      }
     },
     "tabs": {
       "assets": {

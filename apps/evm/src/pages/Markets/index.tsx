@@ -6,13 +6,13 @@ import type { Address } from 'viem';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
-import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { Assets } from './Assets';
 import { Tabs } from './Tabs';
 
 export const Markets: React.FC = () => {
   const { accountAddress } = useAccountAddress();
-  const { marketsPagePath } = useGetMarketsPagePath();
+  const { marketsPagePath } = useMarketsPagePath();
 
   const { poolComptrollerAddress = NULL_ADDRESS } = useParams<{
     poolComptrollerAddress: Address;
