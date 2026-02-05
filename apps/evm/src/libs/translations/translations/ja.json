@@ -849,6 +849,12 @@
       "collateralEnableError": "担保の有効化エラー - {{assetName}}を担保として有効化できませんでした。もう一度お試しください。",
       "collateralRequired": "担保が必要です - 借入中の資産をすべて返済するか、他の資産を担保に設定してください。"
     },
+    "header": {
+      "venusCore": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "{{ eModeGroupName }}グループの資産のみに供給することで借入力が高まります",
       "label": "隔離"

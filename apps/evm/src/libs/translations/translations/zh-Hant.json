@@ -849,6 +849,12 @@
       "collateralEnableError": "啟用抵押錯誤 - 啟用 {{assetName}} 作為抵押時出現問題。請重試。",
       "collateralRequired": "需要抵押 - 請償還所有借款資產或將其他資產設為抵押。"
     },
+    "header": {
+      "venusCore": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "僅向 {{ eModeGroupName }} 組內資產供應可提升你的借款能力",
       "label": "隔離"
