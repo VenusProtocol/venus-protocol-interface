@@ -1,4 +1,5 @@
 import { cn } from '@venusprotocol/ui';
+import { Fragment } from 'react/jsx-runtime';
 
 import { Card } from 'components';
 import { Cell, type CellProps } from '../Cell';
@@ -33,9 +34,8 @@ export const CellGroup: React.FC<CellGroupProps> = ({
     {...containerProps}
   >
     {cells.map((cell, index) => (
-      <>
+      <Fragment key={`cell-group-item-${cell.label}`}>
         <Cell
-          key={`cell-group-item-${cell.label}`}
           {...cell}
           className={cn(
             'xl:bg-transparent',
@@ -57,7 +57,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
             )}
           />
         )}
-      </>
+      </Fragment>
     ))}
   </Card>
 );

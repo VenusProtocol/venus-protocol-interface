@@ -18,10 +18,6 @@
     "limit": "Limit:",
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Güvenli borç limiti:<LineBreak/>{{safeBorrowLimit}} (borç limitinizin {{safeBorrowLimitPercentage}}%'i)"
   },
-  "adBanner": {
-    "learnMore": "Daha fazla bilgi",
-    "startNow": "Şimdi başla"
-  },
   "adCarousel": {
     "boostBanner": {
       "buttonLabel": "Daha fazla bilgi",
@@ -202,17 +198,6 @@
     "modalTitle": "{{ poolName }} tokenları",
     "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "Arka plan illüstrasyonu",
-    "binanceLogoAltText": "Binance logosu",
-    "description": "USDT borç alın ve <Bold>$400,000</Bold> ödülü paylaşın!",
-    "title": "Venus, Binance Wallet Earn'da yayında."
-  },
-  "boostBanner": {
-    "description": "Tek tık kaldıraçla getirinizi <White>5 kata kadar</White> artırın.",
-    "rocketAltText": "Roket illüstrasyonu",
-    "title": "Boost artık kullanılabilir!"
-  },
   "breadcrumbs": {
     "bridge": "Köprü",
     "dashboard": "Gösterge paneli",
@@ -391,9 +376,6 @@
         "placeholder": {
           "title": "Henüz borç pozisyonu yok"
         }
-      },
-      "placeholder": {
-        "title": "Henüz sağlama veya borç pozisyonu yok"
       },
       "supplyTab": {
         "placeholder": {
@@ -583,11 +565,6 @@
       "supplyApy": "Sağlama APY",
       "utilizationRate": "Kullanım oranı"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Ödüllerinizi talep edin ve pozisyonlarınızı kapatın",
-    "illustrationAltText": "İllüstrasyon",
-    "title": "İzole havuzlar aşamalı olarak kapatılıyor"
   },
   "landing": {
     "benefits": {
@@ -786,61 +763,32 @@
     },
     "supplyInfo": {
       "title": "Sağlama bilgisi"
+    },
+    "tabs": {
+      "eMode": {
+        "illustrationAltText": "Yıldırım illüstrasyonu",
+        "liquidationPenalty": {
+          "label": "Likidasyon cezası"
+        },
+        "liquidationThreshold": {
+          "label": "Likidasyon eşiği"
+        },
+        "maxLtv": {
+          "label": "Maks LTV",
+          "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
+        }
+      }
     }
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "Bu e-modu grubunu devre dışı bırakamazsınız çünkü havuzdan borç alınamayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
-            "notEnoughCollateral": "Bu e-modu grubunu devre dışı bırakamazsınız çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamaz"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "<WhiteText>{{ eModeGroupName }}</WhiteText> E-modu grubunu etkinleştirmek için aşağıdaki borç pozisyonlarını kapatmanız gerekir:",
-            "repayButtonLabel": "Geri öde",
-            "title": "Pozisyonlarınız"
-          },
-          "tooltip": {
-            "blockingPositions": "Bu e-modu grubunu etkinleştiremezsiniz çünkü bu gruba ait olmayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
-            "notEnoughCollateral": "Bu e-modu grubunu etkinleştiremezsiniz çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamaz"
-          }
-        },
-        "disableButtonLabel": "Devre dışı bırak",
-        "disabledNotice": "Bu E-Modu grubu artık desteklenmiyor. Hesabınız varsayılan parametrelere geri döndü. Lütfen başka bir E-modu grubuna geçin veya devre dışı bırakın.",
-        "enableButtonLabel": "Etkinleştir",
-        "healthFactor": "Sağlık faktörü:",
-        "switchButtonLabel": "Değiştir"
-      },
-      "notice": "E-Modu etkinleştirmek borçlanma gücünüzü maksimize eder, ancak borçlanma seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
-      "search": {
-        "placeholder": "Varlık veya grup ara"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "Borç alınabilir",
             "collateral": "Teminat"
-          },
-          "rows": {
-            "liquidationPenalty": "Likidasyon cezası",
-            "liquidationThreshold": "Likidasyon eşiği",
-            "maxLtv": "Maks LTV"
           }
-        },
-        "columns": {
-          "asset": "Varlık",
-          "collateral": "Teminat",
-          "isBorrowable": "Borç alınabilir",
-          "liquidationPenalty": "Likidasyon cezası",
-          "liquidationThreshold": "Likidasyon eşiği",
-          "maxLtv": "Maks LTV",
-          "penalty": "Ceza",
-          "threshold": "Eşik"
-        },
-        "mobileSelectLabel": "Sırala:"
+        }
       }
     },
     "errors": {
@@ -851,8 +799,8 @@
     },
     "header": {
       "venusCore": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Tüm dünya için basit ve güçlü, topluluk odaklı finans.",
+        "title": "Venus Core"
       }
     },
     "isolatedEModeGroupTooltip": {
@@ -868,22 +816,62 @@
       }
     },
     "tabs": {
-      "assets": {
-        "title": "Varlıklar"
-      },
       "eMode": {
-        "illustrationAltText": "Şimşek illüstrasyonu",
-        "liquidationPenalty": {
-          "label": "Likidasyon cezası"
+        "eModeNotice": "E-modu etkinleştirmek borçlanma gücünüzü en üst düzeye çıkarır; ancak borç alma, seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "Bu grubu devre dışı bırakamazsınız çünkü havuzdan borç alınamayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+              "notEnoughCollateral": "Bu grubu devre dışı bırakamazsınız çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamıyor"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "<WhiteText>{{ eModeGroupName }}</WhiteText> grubunu etkinleştirmek için aşağıdaki borç pozisyonlarını kapatmanız gerekir:",
+              "repayButtonLabel": "Geri öde",
+              "title": "Pozisyonlarım"
+            },
+            "tooltip": {
+              "blockingPositions": "Bu grubu etkinleştiremezsiniz çünkü bu gruba ait olmayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+              "notEnoughCollateral": "Bu grubu etkinleştiremezsiniz çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamıyor"
+            }
+          },
+          "disableButtonLabel": "Devre dışı bırak",
+          "disabledNotice": "Bu grup artık desteklenmiyor. Hesabınız artık Core Pool parametrelerine geri döndü. Lütfen başka bir kullanılabilir gruba geçin veya devre dışı bırakın.",
+          "enableButtonLabel": "Etkinleştir",
+          "healthFactor": "Sağlık faktörü:",
+          "switchButtonLabel": "Değiştir"
         },
-        "liquidationThreshold": {
-          "label": "Likidasyon eşiği"
+        "isolationModeNotice": "İzolasyon modunu etkinleştirmek borçlanma gücünüzü en üst düzeye çıkarır; ancak sağlama ve borç alma seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
+        "label": "E-modu",
+        "pausedAssetsToggle": {
+          "label": "Durdurulan varlıklar"
         },
-        "maxLtv": {
-          "label": "Maks LTV",
-          "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
+        "search": {
+          "placeholder": "Varlık veya grup ara"
         },
-        "title": "E-modu"
+        "table": {
+          "columns": {
+            "asset": "Varlık",
+            "collateral": "Teminat",
+            "isBorrowable": "Borç alınabilir",
+            "liquidationPenalty": "Likidasyon cezası",
+            "liquidationThreshold": "Likidasyon eşiği",
+            "maxLtv": "Maks LTV",
+            "penalty": "Ceza",
+            "threshold": "Eşik"
+          },
+          "mobileSelectLabel": "Sırala:"
+        },
+        "userAssetsOnlyToggle": {
+          "label": "Yalnızca varlıklarım"
+        }
+      },
+      "isolationMode": {
+        "label": "İzolasyon modu"
+      },
+      "markets": {
+        "label": "Piyasalar"
       }
     }
   },
@@ -1132,11 +1120,6 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "waitForPrimeTitle": "Prime ödüllerini talep edebilmeniz için {{claimWaitingPeriod}}"
-  },
-  "probableBanner": {
-    "description": "probable.markets'te inancınızı artırın",
-    "probableAltText": "Probable illüstrasyonu",
-    "title": "Bir şeye inanıyor musunuz?"
   },
   "proposalList": {
     "selectOptions": {
