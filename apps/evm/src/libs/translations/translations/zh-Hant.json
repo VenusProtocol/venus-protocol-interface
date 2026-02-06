@@ -155,7 +155,6 @@
     "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（佔借款限額的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全借款限額：<LineBreak/>{{safeBorrowLimit}}（佔借款限額的 {{safeBorrowLimitPercentage}}%）"
   },
   "adBanner": {
-    "learnMore": "瞭解更多",
     "startNow": "立即開始"
   },
   "announcements": {
@@ -1431,6 +1430,12 @@
     },
     "withdrawButton": "提取",
     "youAreStake": "你正在質押"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "TRANSLATION NEEDED",
+    "description": "TRANSLATION NEEDED",
+    "iconAltText": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
   },
   "vote": {
     "abstain": "棄權",

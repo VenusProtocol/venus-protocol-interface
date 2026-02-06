@@ -155,7 +155,6 @@
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay an toàn:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% của hạn mức vay của bạn)"
   },
   "adBanner": {
-    "learnMore": "Tìm hiểu thêm",
     "startNow": "Bắt đầu ngay"
   },
   "announcements": {
@@ -1431,6 +1430,12 @@
     },
     "withdrawButton": "Rút",
     "youAreStake": "Bạn đang stake"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "TRANSLATION NEEDED",
+    "description": "TRANSLATION NEEDED",
+    "iconAltText": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
   },
   "vote": {
     "abstain": "Bỏ phiếu trắng",

@@ -155,7 +155,6 @@
     "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืมที่ปลอดภัย:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% ของขีดจำกัดการยืมของคุณ)"
   },
   "adBanner": {
-    "learnMore": "เรียนรู้เพิ่มเติม",
     "startNow": "เริ่มตอนนี้"
   },
   "announcements": {
@@ -1431,6 +1430,12 @@
     },
     "withdrawButton": "ถอน",
     "youAreStake": "คุณกำลังสเตคอยู่"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "TRANSLATION NEEDED",
+    "description": "TRANSLATION NEEDED",
+    "iconAltText": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
   },
   "vote": {
     "abstain": "งดออกเสียง",

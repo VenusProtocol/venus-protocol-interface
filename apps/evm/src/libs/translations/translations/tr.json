@@ -155,7 +155,6 @@
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Güvenli borç limiti:<LineBreak/>{{safeBorrowLimit}} (borç limitinizin {{safeBorrowLimitPercentage}}%'i)"
   },
   "adBanner": {
-    "learnMore": "Daha fazla bilgi",
     "startNow": "Şimdi başla"
   },
   "announcements": {
@@ -1432,6 +1431,12 @@
     },
     "withdrawButton": "Çek",
     "youAreStake": "Stake ediyorsunuz"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "TRANSLATION NEEDED",
+    "description": "TRANSLATION NEEDED",
+    "iconAltText": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
   },
   "vote": {
     "abstain": "Çekimser",
