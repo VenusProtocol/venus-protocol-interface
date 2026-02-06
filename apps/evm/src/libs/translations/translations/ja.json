@@ -683,6 +683,20 @@
     },
     "testEnvWarning": "これはテスト環境です。テスト目的以外では操作しないでください。<Link>Venus Protocol公式サイトへ</Link>"
   },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "最適化されたレバレッジを簡単に利用できるクラシックな貸借。",
+          "label": "Venus Core"
+        },
+        "venusFlux": {
+          "description": "最適な利回りのための資本効率の高い貸借。",
+          "label": "Venus Flux"
+        }
+      }
+    }
+  },
   "legal": {
     "lastUpdatedAt": "最終更新: {{ date, textual }}"
   },

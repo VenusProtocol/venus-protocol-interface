@@ -3,12 +3,12 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
 import { useGetPools } from 'clients/api';
-// import { VENUS_FLUX_URL } from 'constants/production';
+import { VENUS_FLUX_URL } from 'constants/production';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import type { MenuItem, SubMenu } from '../types';
-// import venusCoreIconSrc from './venusCoreIcon.png';
-// import venusFluxIconSrc from './venusFluxIcon.png';
+import venusCoreIconSrc from './venusCoreIcon.png';
+import venusFluxIconSrc from './venusFluxIcon.png';
 
 export const useMenuItems = () => {
   const { t } = useTranslation();
@@ -33,21 +33,21 @@ export const useMenuItems = () => {
     {
       label: t('layout.menu.markets.label'),
       to: marketsPagePath,
-      // variant: 'secondary',
-      // items: [
-      //   {
-      //     to: marketsPagePath,
-      //     imgSrc: venusCoreIconSrc,
-      //     label: t('layouts.menu.markets.venusCore.label'),
-      //     description: t('layouts.menu.markets.venusCore.description'),
-      //   },
-      //   {
-      //     href: VENUS_FLUX_URL,
-      //     imgSrc: venusFluxIconSrc,
-      //     label: t('layouts.menu.markets.venusFlux.label'),
-      //     description: t('layouts.menu.markets.venusFlux.description'),
-      //   },
-      // ],
+      variant: 'secondary',
+      items: [
+        {
+          to: marketsPagePath,
+          imgSrc: venusCoreIconSrc,
+          label: t('layouts.menu.markets.venusCore.label'),
+          description: t('layouts.menu.markets.venusCore.description'),
+        },
+        {
+          href: VENUS_FLUX_URL,
+          imgSrc: venusFluxIconSrc,
+          label: t('layouts.menu.markets.venusFlux.label'),
+          description: t('layouts.menu.markets.venusFlux.description'),
+        },
+      ],
     },
     {
       to: routes.staking.path,
