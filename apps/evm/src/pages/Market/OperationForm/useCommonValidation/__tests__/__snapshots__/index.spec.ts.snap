@@ -80,6 +80,14 @@ exports[`useCommonValidation > returns the right error based on passed arguments
 }
 `;
 
+exports[`useCommonValidation > returns the right error based on passed arguments: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDG…' 1`] = `
+{
+  "current": {
+    "code": "REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT",
+  },
+}
+`;
+
 exports[`useCommonValidation > returns the right error based on passed arguments: 'SUPPLY_CAP_ALREADY_REACHED' 1`] = `
 {
   "current": {

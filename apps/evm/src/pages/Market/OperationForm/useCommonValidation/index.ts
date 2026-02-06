@@ -2,7 +2,10 @@ import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
-import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import type { AssetBalanceMutation, Pool, SwapQuote } from 'types';
 import { areAddressesEqual, formatTokensToReadableValue } from 'utilities';
@@ -15,6 +18,7 @@ export interface UseCommonValidationInput {
   swapQuote?: SwapQuote;
   swapQuoteErrorCode?: string;
   userAcknowledgesRisk?: boolean;
+  userAcknowledgesHighPriceImpact?: boolean;
 }
 
 export type UseCommonValidationOutput = FormError | undefined;
@@ -26,6 +30,7 @@ export const useCommonValidation = ({
   balanceMutations,
   swapQuoteErrorCode,
   userAcknowledgesRisk,
+  userAcknowledgesHighPriceImpact,
 }: UseCommonValidationInput): UseCommonValidationOutput => {
   const { t } = useTranslation();
 
@@ -114,6 +119,16 @@ export const useCommonValidation = ({
       return {
         code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
         message: t('operationForm.error.priceImpactTooHigh'),
+      };
+    }
+
+    if (
+      swapQuote &&
+      swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+      !userAcknowledgesHighPriceImpact
+    ) {
+      return {
+        code: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT',
       };
     }
 

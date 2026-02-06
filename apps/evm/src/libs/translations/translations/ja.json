@@ -970,9 +970,6 @@
       "supply": "{{fromTokenAmount}}で{{toTokenAmount}}を供給します"
     },
     "walletBalance": "ウォレット残高",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
-    },
     "withdrawTabTitle": "引き出し"
   },
   "pagination": {

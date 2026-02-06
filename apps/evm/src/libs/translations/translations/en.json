@@ -971,9 +971,6 @@
       "supply": "You will supply {{toTokenAmount}} using {{fromTokenAmount}}"
     },
     "walletBalance": "Wallet balance",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
-    },
     "withdrawTabTitle": "Withdraw"
   },
   "pagination": {

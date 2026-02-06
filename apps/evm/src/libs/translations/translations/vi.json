@@ -970,9 +970,6 @@
       "supply": "Bạn sẽ cung cấp {{toTokenAmount}} bằng {{fromTokenAmount}}"
     },
     "walletBalance": "Số dư ví",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
-    },
     "withdrawTabTitle": "Rút"
   },
   "pagination": {

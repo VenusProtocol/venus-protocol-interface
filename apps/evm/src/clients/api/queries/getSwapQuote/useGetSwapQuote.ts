@@ -2,8 +2,9 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import type { VError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
+import type { SwapQuoteError } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 import {
   type GetApproximateOutSwapQuoteInput,
@@ -12,6 +13,7 @@ import {
   type GetSwapQuoteOutput,
   getSwapQuote,
 } from '.';
+import wrapToken from './wrapToken';
 
 export type TrimmedGetSwapQuoteInput =
   | Omit<GetExactInSwapQuoteInput, 'chainId'>
@@ -20,7 +22,7 @@ export type TrimmedGetSwapQuoteInput =
 
 type Options = QueryObserverOptions<
   GetSwapQuoteOutput,
-  VError<'swapQuote' | 'interaction'>,
+  SwapQuoteError,
   GetSwapQuoteOutput,
   GetSwapQuoteOutput,
   [FunctionKey.GET_SWAP_QUOTE, TrimmedGetSwapQuoteInput]
@@ -30,20 +32,32 @@ const refetchInterval = generatePseudoRandomRefetchInterval();
 
 export const useGetSwapQuote = (input: TrimmedGetSwapQuoteInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
+  const wbnb = useGetToken({
+    symbol: 'WBNB',
+  });
 
-  const { address: leverageManagerContractAddress } = useGetContractAddress({
-    name: 'LeverageManager',
+  const wrappedFromToken = wbnb && wrapToken({ token: input.fromToken, wrappedToken: wbnb });
+  const wrappedToToken = wbnb && wrapToken({ token: input.toToken, wrappedToken: wbnb });
+
+  const { address: swapRouterV2ContractAddress } = useGetContractAddress({
+    name: 'SwapRouterV2',
   });
 
   return useQuery({
     queryKey: [FunctionKey.GET_SWAP_QUOTE, input],
     queryFn: () =>
-      callOrThrow({ leverageManagerContractAddress }, params =>
-        getSwapQuote({
-          ...input,
-          chainId,
-          recipientAddress: params.leverageManagerContractAddress,
-        }),
+      callOrThrow(
+        {
+          recipientAddress: swapRouterV2ContractAddress,
+          fromToken: wrappedFromToken,
+          toToken: wrappedToToken,
+        },
+        params =>
+          getSwapQuote({
+            ...input,
+            ...params,
+            chainId,
+          }),
       ),
     retry: false,
     refetchInterval,

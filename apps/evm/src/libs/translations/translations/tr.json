@@ -971,9 +971,6 @@
       "supply": "{{fromTokenAmount}} kullanarak {{toTokenAmount}} sağlayacaksınız"
     },
     "walletBalance": "Cüzdan bakiyesi",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
-    },
     "withdrawTabTitle": "Çek"
   },
   "pagination": {

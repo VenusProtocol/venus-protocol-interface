@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
-import type { Address, Hex } from 'viem';
+import type { Address } from 'viem';
 
-import { useSupply, useSwapTokensAndSupply } from 'clients/api';
+import { useGetSwapQuote, useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -11,15 +11,21 @@ import {
   Toggle,
   TokenTextField,
 } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
+import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useCollateral } from 'hooks/useCollateral';
-import useGetSwapInfo from 'hooks/useGetSwapInfo';
+import useDebounceValue from 'hooks/useDebounceValue';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useAnalytics } from 'libs/analytics';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, AssetBalanceMutation, Pool, SwapQuote, TokenBalance } from 'types';
+import type { Asset, AssetBalanceMutation, Pool, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
@@ -29,12 +35,6 @@ import {
   getUniqueTokenBalances,
   isCollateralActionDisabled,
 } from 'utilities';
-
-import { SwitchChainNotice } from 'containers/SwitchChainNotice';
-import useDebounceValue from 'hooks/useDebounceValue';
-import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
-import { useAnalytics } from 'libs/analytics';
 import { Footer } from '../Footer';
 import type { Approval } from '../Footer/types';
 import { calculateAmountDollars } from '../calculateAmountDollars';
@@ -76,9 +76,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
-  const { address: swapRouterContractAddress } = useGetContractAddress({
-    name: 'SwapRouter',
-    poolComptrollerContractAddress: pool.comptrollerAddress,
+  const { address: swapRouterV2ContractAddress } = useGetContractAddress({
+    name: 'SwapRouterV2',
   });
 
   const { toggleCollateral } = useCollateral();
@@ -107,6 +106,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
         shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
           ? asset.vToken.underlyingToken.tokenWrapped
           : asset.vToken.underlyingToken,
+      acknowledgeHighPriceImpact: false,
     }),
     [asset, shouldSelectNativeToken],
   );
@@ -147,7 +147,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   if (isWrappingNativeToken) {
     spenderAddress = nativeTokenGatewayContractAddress;
   } else if (isUsingSwap) {
-    spenderAddress = swapRouterContractAddress;
+    spenderAddress = swapRouterV2ContractAddress;
   }
 
   const {
@@ -224,70 +224,38 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     // passed through props. This should never happen since the form is
     // disabled while swap infos are being fetched, but we add this logic
     // as a safeguard
-    if (!swap) {
+    if (!swapQuote) {
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
     }
 
     return swapExactTokensForTokensAndSupply({
-      swap,
+      swapQuote,
     });
   };
 
   const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
+  const fromTokenAmountTokens = new BigNumber(debouncedFormAmountTokens || 0);
 
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const {
-    swap,
-    error: swapError,
-    isLoading: isSwapLoading,
-  } = useGetSwapInfo(
+    data: getSwapQuoteData,
+    error: getSwapQuoteError,
+    isLoading: isGetSwapQuoteLoading,
+  } = useGetSwapQuote(
     {
       fromToken: formValues.fromToken,
-      fromTokenAmountTokens: debouncedFormAmountTokens,
+      fromTokenAmountTokens,
       toToken: asset.vToken.underlyingToken,
-      direction: 'exactAmountIn',
+      direction: 'exact-in',
+      recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
+      slippagePercentage: userSlippageTolerancePercentage,
     },
     {
-      enabled: isUsingSwap,
+      enabled:
+        isUsingSwap && !!swapRouterV2ContractAddress && fromTokenAmountTokens.isGreaterThan(0),
     },
   );
-
-  // Format swap into swap quote. This is a temporary code until we update the "swap and supply"
-  // feature to use the new API
-  let swapQuote: SwapQuote | undefined = undefined;
-
-  if (swap) {
-    const shareSwapQuoteProps = {
-      fromToken: swap.fromToken,
-      toToken: swap.toToken,
-      priceImpactPercentage: swap.priceImpactPercentage,
-      callData: '0x' as Hex, // Currently unused
-    };
-
-    swapQuote =
-      swap.direction === 'exactAmountIn'
-        ? {
-            ...shareSwapQuoteProps,
-            direction: 'exact-in',
-            fromTokenAmountSoldMantissa: BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
-            expectedToTokenAmountReceivedMantissa: BigInt(
-              swap.expectedToTokenAmountReceivedMantissa.toFixed(),
-            ),
-            minimumToTokenAmountReceivedMantissa: BigInt(
-              swap.expectedToTokenAmountReceivedMantissa.toFixed(),
-            ),
-          }
-        : {
-            ...shareSwapQuoteProps,
-            direction: 'exact-out',
-            toTokenAmountReceivedMantissa: BigInt(swap.toTokenAmountReceivedMantissa.toFixed()),
-            expectedFromTokenAmountSoldMantissa: BigInt(
-              swap.expectedFromTokenAmountSoldMantissa.toFixed(),
-            ),
-            maximumFromTokenAmountSoldMantissa: BigInt(
-              swap.maximumFromTokenAmountSoldMantissa.toFixed(),
-            ),
-          };
-  }
+  const swapQuote = getSwapQuoteData?.swapQuote;
 
   const approval: Approval | undefined = spenderAddress
     ? {
@@ -361,7 +329,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   ]);
 
   let toTokenAmountTokens = isUsingSwap
-    ? getSwapToTokenAmountReceivedTokens(swap)
+    ? getSwapToTokenAmountReceivedTokens(swapQuote)
     : debouncedFormAmountTokens;
   toTokenAmountTokens = new BigNumber(toTokenAmountTokens || 0);
 
@@ -388,11 +356,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     pool,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
-    isUsingSwap,
-    swap,
-    swapError,
     swapQuote,
-    swapQuoteErrorCode: undefined, // TODO: pass when implementing swap and supply flow
+    swapQuoteErrorCode: getSwapQuoteError?.code,
     onSubmit,
     formValues,
     setFormValues,
@@ -577,7 +542,14 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
           swapFromToken={isUsingSwap ? formValues.fromToken : undefined}
           swapToToken={isUsingSwap ? asset.vToken.underlyingToken : undefined}
           swapQuote={swapQuote}
-          isLoading={isSubmitting || isSwapLoading}
+          isUserAcknowledgingHighPriceImpact={formValues.acknowledgeHighPriceImpact}
+          setAcknowledgeHighPriceImpact={acknowledgeHighPriceImpact =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              acknowledgeHighPriceImpact,
+            }))
+          }
+          isLoading={isSubmitting || isGetSwapQuoteLoading}
         />
       </div>
     </form>

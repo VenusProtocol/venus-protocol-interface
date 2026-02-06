@@ -970,9 +970,6 @@
       "supply": "คุณจะฝาก {{toTokenAmount}} ด้วย {{fromTokenAmount}}"
     },
     "walletBalance": "ยอดคงเหลือในกระเป๋า",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "ผลกระทบต่อราคาของธุรกรรมนี้สูง ซึ่งอาจบ่งชี้ถึงการสวอปที่ไม่เป็นประโยชน์ โปรดตรวจสอบอัตราแลกเปลี่ยนและจำนวนโทเคนให้ตรงกับที่คาดหวัง"
-    },
     "withdrawTabTitle": "ถอน"
   },
   "pagination": {

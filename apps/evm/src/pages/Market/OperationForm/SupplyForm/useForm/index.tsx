@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { handleError, isUserRejectedTxError } from 'libs/errors';
-import type { Asset, AssetBalanceMutation, Pool, Swap, SwapError, SwapQuote, Token } from 'types';
+import type { Asset, AssetBalanceMutation, Pool, SwapQuote, SwapQuoteError } from 'types';
 
 import { useAnalytics } from 'libs/analytics';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
@@ -15,20 +15,14 @@ export interface UseFormInput {
   asset: Asset;
   pool: Pool;
   balanceMutations: AssetBalanceMutation[];
-  onSubmit: (input: {
-    fromToken: Token;
-    fromTokenAmountTokens: string;
-    swap?: Swap;
-  }) => Promise<unknown>;
+  onSubmit: () => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
-  isUsingSwap: boolean;
   simulatedPool?: Pool;
   isFromTokenApproved?: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
-  swap?: Swap; // TODO: remove once swap and supply flow has been implemented
-  swapError?: SwapError; // TODO: remove once swap and supply flow has been implemented
+  swapError?: SwapQuoteError;
   swapQuote?: SwapQuote;
   swapQuoteErrorCode?: string;
 }
@@ -47,27 +41,20 @@ const useForm = ({
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
   fromTokenWalletSpendingLimitTokens,
   isFromTokenApproved,
-  isUsingSwap,
   swapQuote,
-  swap,
-  swapError,
   swapQuoteErrorCode,
   formValues,
   setFormValues,
   onSubmit,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
-    asset,
     pool,
     simulatedPool,
     balanceMutations,
     formValues,
     swapQuote,
-    swap,
-    swapError,
     swapQuoteErrorCode,
     isFromTokenApproved,
-    isUsingSwap,
     fromTokenWalletSpendingLimitTokens,
     fromTokenUserWalletBalanceTokens,
   });
@@ -93,11 +80,7 @@ const useForm = ({
     try {
       captureAnalyticEvent('supply_initiated', analyticData);
 
-      await onSubmit({
-        fromTokenAmountTokens: formValues.amountTokens,
-        fromToken: formValues.fromToken,
-        swap,
-      });
+      await onSubmit();
 
       captureAnalyticEvent('supply_signed', analyticData);
 
@@ -105,6 +88,7 @@ const useForm = ({
       setFormValues(() => ({
         fromToken: asset.vToken.underlyingToken,
         amountTokens: '',
+        acknowledgeHighPriceImpact: false,
       }));
     } catch (error) {
       if (isUserRejectedTxError({ error })) {
