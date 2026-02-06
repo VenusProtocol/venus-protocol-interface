@@ -8,6 +8,7 @@ import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { Header } from './Header';
+import { Tabs } from './Tabs';
 
 export const Markets: React.FC = () => {
   const { accountAddress } = useAccountAddress();
@@ -28,7 +29,19 @@ export const Markets: React.FC = () => {
     return <Redirect to={marketsPagePath} />;
   }
 
-  return <Page indexWithSearchEngines={false}>{pool ? <Header pool={pool} /> : <Spinner />}</Page>;
+  return (
+    <Page indexWithSearchEngines={false}>
+      {pool ? (
+        <div className="space-y-6 sm:space-y-12">
+          <Header pool={pool} />
+
+          <Tabs pool={pool} />
+        </div>
+      ) : (
+        <Spinner />
+      )}
+    </Page>
+  );
 };
 
 export default Markets;
