@@ -1,140 +1,4 @@
 {
-  "account": {
-    "circularGradient": "Dairesel gradyan",
-    "marketBreakdown": {
-      "tables": {
-        "borrowTableTitle": "Borçlanılan",
-        "eModeHeader": {
-          "illustrationAltText": "E-modu illüstrasyonu",
-          "title": "E-modu: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
-        },
-        "supplyTableTitle": "Sağlanan",
-        "tabletBorrowTabTitle": "Borçlanılan",
-        "tabletSupplyTabTitle": "Sağlanan",
-        "tabletTitle": "Varlıklar"
-      }
-    },
-    "performanceChart": {
-      "absolutePerformance": "Mutlak performans",
-      "dataPoint": {
-        "date": "{{ date, textual }}"
-      },
-      "errorState": {
-        "failedToFetchMessage": "Hesap geçmişi alınamadı",
-        "refetchButtonLabel": "Yeniden dene"
-      },
-      "netWorth": {
-        "label": "Net değer",
-        "tooltip": "Vault stake'i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Vault stake'i, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
-      },
-      "periodOption": {
-        "oneYear": "1Y",
-        "sixMonths": "6A",
-        "thirtyDays": "30G"
-      },
-      "placeholderText": "Rapor oluşturuluyor, bu işlem bir dakikaya kadar sürebilir",
-      "todaysChange": "Bugünün değişimi",
-      "xAxisValue": "{{ date, numeric }}"
-    },
-    "placeholder": {
-      "buttonLabel": "Göz at"
-    },
-    "pools": {
-      "placeholder": {
-        "description": "Havuz pozisyonlarınız burada görünecek",
-        "title": "Henüz tedarik veya borçlanma pozisyonu yok"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "Kullanılan borç limiti: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "Prime tokenını talep et",
-        "stakeXvs": "XVS stake et"
-      },
-      "primeLogoAltText": "Prime logosu",
-      "text": {
-        "apyBoost": "Prime ile kazancınızı <GreenText>{{boost}}</GreenText> kadar artırın",
-        "becomePrime": "Artık Prime kullanıcısı olabilirsiniz"
-      }
-    },
-    "settings": {
-      "gaslessTransactions": {
-        "switchLabel": "{{chainName}} üzerinde gas'siz işlemleri etkinleştir"
-      }
-    },
-    "summary": {
-      "cellGroup": {
-        "dailyEarnings": "Günlük kazanç",
-        "healthFactor": "Sağlık faktörü",
-        "healthFactorTooltip": "Likidasyon < 1.0",
-        "mintedVai": "Basılmış VAI",
-        "netApy": "Net APY",
-        "netApyTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyenizin yüzdesi",
-        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyeniz ve vault stake'inizin yüzdesi",
-        "totalBorrow": "Toplam borç",
-        "totalSupply": "Toplam tedarik",
-        "totalVaultStake": "Toplam vault stake"
-      },
-      "title": "Özet"
-    },
-    "tabs": {
-      "pools": "Havuzlar",
-      "settings": "Ayarlar",
-      "transactions": "İşlemler",
-      "vaults": "Vaultlar"
-    },
-    "transactions": {
-      "date": {
-        "full": "{{ date, textual }}",
-        "time": "{{ date, time }}"
-      },
-      "placeholder": {
-        "description": "İşlemleriniz burada görünecek",
-        "title": "Henüz işlem yok"
-      },
-      "selects": {
-        "source": {
-          "all": "Tüm piyasalar"
-        },
-        "txType": {
-          "all": "Tüm işlemler",
-          "approve": "Onay",
-          "borrow": "Borç al",
-          "enterMarket": "Teminat etkin",
-          "exitMarket": "Teminat devre dışı",
-          "mint": "Sağla",
-          "redeem": "Çek",
-          "repay": "Geri ödeme"
-        }
-      },
-      "today": "Bugün",
-      "txText": {
-        "approve": "{{tokenAmount}} harcaması onaylandı",
-        "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
-        "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
-      },
-      "txType": {
-        "approve": "Onay",
-        "borrow": "Borç al",
-        "enterMarket": "Teminat etkin",
-        "exitMarket": "Teminat devre dışı",
-        "mint": "Sağla",
-        "redeem": "Çek",
-        "repay": "Geri ödeme"
-      },
-      "view": "Görüntüle",
-      "yesterday": "Dün"
-    },
-    "vaults": {
-      "placeholder": {
-        "description": "Vault pozisyonlarınız burada görünecek",
-        "title": "Henüz stake pozisyonu yok"
-      }
-    }
-  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "Borç bakiyesi",
@@ -408,6 +272,70 @@
   },
   "connectWallet": {
     "connectButton": "Cüzdan bağla"
+  },
+  "dashboard": {
+    "adCarousel": {
+      "primeBanner": {
+        "button": {
+          "label": "Prime ödüllerinizi hesaplayın"
+        },
+        "description": "Venus Prime, ödünç verme ve borç alma faaliyetlerinde aktif olan kullanıcılara ödül verir.",
+        "illustration": {
+          "altText": "Prime illüstrasyonu"
+        },
+        "title": "<Gradient>Venus Prime</Gradient> ile daha yüksek hedeflere ulaşın"
+      }
+    },
+    "overview": {
+      "absolutePerformance": "Mutlak performans",
+      "netWorth": {
+        "label": "Net değer",
+        "tooltip": "Kasa stake’i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Kasa stake’i, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "Hesap geçmişi alınamadı",
+          "refetchButtonLabel": "Tekrar dene"
+        },
+        "placeholderText": "Rapor oluşturuluyor, bu işlem bir dakikaya kadar sürebilir"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6A",
+        "thirtyDays": "30G"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Günlük kazanç",
+          "mintedVai": "Basılmış VAI",
+          "netApy": "Net APY",
+          "netApyTooltip": "Toplam arz bakiyenizin yıllık faiz olarak alınan yüzdesi",
+          "netApyWithVaultStakeTooltip": "Toplam arz ve kasa stake’inizin yıllık faiz olarak alınan yüzdesi",
+          "totalBorrow": "Toplam borç",
+          "totalSupply": "Toplam arz",
+          "totalVaultStake": "Toplam kasa stake’i"
+        },
+        "title": "Özet"
+      },
+      "todaysChange": "Bugünün değişimi"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "topMarkets": {
+      "borrowButton": {
+        "label": "Borç al"
+      },
+      "interactiveTitle": "Venus’ta en iyi <SupplyButton>Arz</SupplyButton> / <BorrowButton>Borç</BorrowButton>",
+      "supplyButton": {
+        "label": "Arz"
+      },
+      "textTitle": "Venus’taki en iyi piyasalar"
+    }
   },
   "eModeBanner": {
     "exploreButtonLabel": "Keşfet",

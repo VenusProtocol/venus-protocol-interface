@@ -1,140 +1,4 @@
 {
-  "account": {
-    "circularGradient": "Circular gradient",
-    "marketBreakdown": {
-      "tables": {
-        "borrowTableTitle": "Borrowed",
-        "eModeHeader": {
-          "illustrationAltText": "E-mode illustration",
-          "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
-        },
-        "supplyTableTitle": "Supplied",
-        "tabletBorrowTabTitle": "Borrowed",
-        "tabletSupplyTabTitle": "Supplied",
-        "tabletTitle": "Assets"
-      }
-    },
-    "performanceChart": {
-      "absolutePerformance": "Absolute performance",
-      "dataPoint": {
-        "date": "{{ date, textual }}"
-      },
-      "errorState": {
-        "failedToFetchMessage": "Could not fetch account history",
-        "refetchButtonLabel": "Retry"
-      },
-      "netWorth": {
-        "label": "Net worth",
-        "tooltip": "Net available assets after accounting for vault stake and borrowings",
-        "tooltipWithVai": "Net available assets after accounting for vault stake, borrowings, and minted VAI"
-      },
-      "periodOption": {
-        "oneYear": "1Y",
-        "sixMonths": "6M",
-        "thirtyDays": "30D"
-      },
-      "placeholderText": "Generating report, this can take up to a minute",
-      "todaysChange": "Today's change",
-      "xAxisValue": "{{ date, numeric }}"
-    },
-    "placeholder": {
-      "buttonLabel": "Browse"
-    },
-    "pools": {
-      "placeholder": {
-        "description": "Your pool positions will appear here",
-        "title": "No supply or borrow positions yet"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "Claim Prime token",
-        "stakeXvs": "Stake XVS"
-      },
-      "primeLogoAltText": "Prime logo",
-      "text": {
-        "apyBoost": "Boost your earnings by up to <GreenText>{{boost}}</GreenText> with Prime",
-        "becomePrime": "You can now become a Prime user"
-      }
-    },
-    "settings": {
-      "gaslessTransactions": {
-        "switchLabel": "Enable gasless transactions on {{chainName}}"
-      }
-    },
-    "summary": {
-      "cellGroup": {
-        "dailyEarnings": "Daily earnings",
-        "healthFactor": "Health factor",
-        "healthFactorTooltip": "Liquidation at < 1.0",
-        "mintedVai": "Minted VAI",
-        "netApy": "Net APY",
-        "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-        "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
-        "totalBorrow": "Total borrow",
-        "totalSupply": "Total supply",
-        "totalVaultStake": "Total vault stake"
-      },
-      "title": "Summary"
-    },
-    "tabs": {
-      "pools": "Pools",
-      "settings": "Settings",
-      "transactions": "Transactions",
-      "vaults": "Vaults"
-    },
-    "transactions": {
-      "date": {
-        "full": "{{ date, textual }}",
-        "time": "{{ date, time }}"
-      },
-      "placeholder": {
-        "description": "Your transactions will appear here",
-        "title": "No transactions yet"
-      },
-      "selects": {
-        "source": {
-          "all": "All markets"
-        },
-        "txType": {
-          "all": "All transactions",
-          "approve": "Approval",
-          "borrow": "Borrow",
-          "enterMarket": "Enabled collateral",
-          "exitMarket": "Disabled collateral",
-          "mint": "Supply",
-          "redeem": "Withdraw",
-          "repay": "Repayment"
-        }
-      },
-      "today": "Today",
-      "txText": {
-        "approve": "Approved spending {{tokenAmount}}",
-        "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
-        "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
-      },
-      "txType": {
-        "approve": "Approval",
-        "borrow": "Borrow",
-        "enterMarket": "Enabled collateral",
-        "exitMarket": "Disabled collateral",
-        "mint": "Supply",
-        "redeem": "Withdraw",
-        "repay": "Repayment"
-      },
-      "view": "View",
-      "yesterday": "Yesterday"
-    },
-    "vaults": {
-      "placeholder": {
-        "description": "Your vault positions will appear here",
-        "title": "No staking positions yet"
-      }
-    }
-  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "Borrow balance",
@@ -409,6 +273,70 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "dashboard": {
+    "adCarousel": {
+      "primeBanner": {
+        "button": {
+          "label": "Calculate your Prime rewards"
+        },
+        "description": "Venus Prime rewards dedicated users for their lending and borrowing activities.",
+        "illustration": {
+          "altText": "Prime illustration"
+        },
+        "title": "Achieve greater heights with <Gradient>Venus Prime</Gradient>"
+      }
+    },
+    "overview": {
+      "absolutePerformance": "Absolute performance",
+      "netWorth": {
+        "label": "Net worth",
+        "tooltip": "Net available assets after accounting for vault stake and borrowings",
+        "tooltipWithVai": "Net available assets after accounting for vault stake, borrowings, and minted VAI"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "Could not fetch account history",
+          "refetchButtonLabel": "Retry"
+        },
+        "placeholderText": "Generating report, this can take up to a minute"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6M",
+        "thirtyDays": "30D"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Daily earnings",
+          "mintedVai": "Minted VAI",
+          "netApy": "Net APY",
+          "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+          "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
+          "totalBorrow": "Total borrow",
+          "totalSupply": "Total supply",
+          "totalVaultStake": "Total vault stake"
+        },
+        "title": "Summary"
+      },
+      "todaysChange": "Today's change"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "topMarkets": {
+      "borrowButton": {
+        "label": "Borrow"
+      },
+      "interactiveTitle": "Top <SupplyButton>Supply</SupplyButton> / <BorrowButton>Borrow</BorrowButton> on Venus",
+      "supplyButton": {
+        "label": "Supply"
+      },
+      "textTitle": "Top markets on Venus"
+    }
+  },
   "eModeBanner": {
     "exploreButtonLabel": "Explore",
     "illustrationAltText": "E-mode illustration",
@@ -630,10 +558,6 @@
     "menu": {
       "dashboard": {
         "label": "Dashboard"
-      },
-      "gasLessTransactionSetting": {
-        "description": "TRANSLATION NEEDED",
-        "label": "Enable gasless transactions on {{chainName}}"
       },
       "label": "Menu",
       "markets": {
