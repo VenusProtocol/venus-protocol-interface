@@ -286,6 +286,22 @@
         "title": "<Gradient>Venus Prime</Gradient> ile daha yüksek hedeflere ulaşın"
       }
     },
+    "guide": {
+      "completed": "Tamamlandı",
+      "step1": {
+        "description": "Varlıkları sağlayarak veya mevcut pozisyonlarınızı Venus protokolüne taşıyarak getiri kazanın.",
+        "title": "Sağlama / Taşıma"
+      },
+      "step2": {
+        "description": "DeFi stratejilerinizi güçlendirmek için varlık borçlanın ya da likiditeyi tek tıkla kaldıraçlayın.",
+        "title": "Borçlan / Kaldıraç"
+      },
+      "step3": {
+        "description": "XVS'yi vault'a yatırın ve protokol gelirleriyle desteklenen getiri kazanın.",
+        "title": "XVS stake et"
+      },
+      "uncompleted": "Tamamlanmadı"
+    },
     "overview": {
       "absolutePerformance": "Mutlak performans",
       "netWorth": {

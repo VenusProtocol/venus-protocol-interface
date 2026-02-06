@@ -286,6 +286,22 @@
         "title": "<Gradient>Venus Prime</Gradient>でさらなる高みへ"
       }
     },
+    "guide": {
+      "completed": "完了",
+      "step1": {
+        "description": "資産を供給するか既存ポジションをVenusプロトコルへ移行して利回りを獲得しましょう。",
+        "title": "供給 / 移行"
+      },
+      "step2": {
+        "description": "資産を借りてDeFi戦略を強化したり、ワンクリックで流動性をレバレッジできます。",
+        "title": "借入 / レバレッジ"
+      },
+      "step3": {
+        "description": "XVSをボールトに預け入れ、プロトコル収益による利回りを獲得しましょう。",
+        "title": "XVSをステーク"
+      },
+      "uncompleted": "未完了"
+    },
     "overview": {
       "absolutePerformance": "絶対パフォーマンス",
       "netWorth": {

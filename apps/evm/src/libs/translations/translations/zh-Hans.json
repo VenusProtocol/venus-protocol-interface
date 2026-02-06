@@ -277,7 +277,7 @@
     "adCarousel": {
       "primeBanner": {
         "button": {
-          "label": "计算您的 Prime 奖励"
+          "label": "计算你的 Prime 奖励"
         },
         "description": "Venus Prime 会奖励在借贷活动中积极参与的用户。",
         "illustration": {
@@ -285,6 +285,22 @@
         },
         "title": "与 <Gradient>Venus Prime</Gradient> 一起登上更高境界"
       }
+    },
+    "guide": {
+      "completed": "已完成",
+      "step1": {
+        "description": "通过存款或将现有持仓迁移到 Venus 协议来赚取收益。",
+        "title": "存款 / 迁移"
+      },
+      "step2": {
+        "description": "活用借贷来应用你的Defi策略，或使用一键杠杆来放大持仓。",
+        "title": "借款 / 杠杆"
+      },
+      "step3": {
+        "description": "将 XVS 存入金库，赚取由协议收入提供的收益。",
+        "title": "质押 XVS"
+      },
+      "uncompleted": "未完成"
     },
     "overview": {
       "absolutePerformance": "绝对表现",
@@ -310,10 +326,10 @@
           "dailyEarnings": "每日收益",
           "mintedVai": "已铸 VAI",
           "netApy": "净 APY",
-          "netApyTooltip": "您总供应余额中按年利息获得的百分比",
+          "netApyTooltip": "您总存款余额与金库质押按年利息获得的百分比",
           "netApyWithVaultStakeTooltip": "您总供应余额与金库质押按年利息获得的百分比",
           "totalBorrow": "总借款",
-          "totalSupply": "总供应",
+          "totalSupply": "总存款",
           "totalVaultStake": "金库质押总额"
         },
         "title": "摘要"
@@ -330,7 +346,7 @@
       "borrowButton": {
         "label": "借款"
       },
-      "interactiveTitle": "Venus 顶级 <SupplyButton>供应</SupplyButton> / <BorrowButton>借款</BorrowButton>",
+      "interactiveTitle": "Venus 表现最佳 <SupplyButton>存款</SupplyButton> / <BorrowButton>借款</BorrowButton>",
       "supplyButton": {
         "label": "供应"
       },
