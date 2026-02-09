@@ -53,7 +53,7 @@ export const Tabs = ({
         <div className="relative">
           <div
             className={cn(
-              'flex text-sm gap-x-4 scrollbar-hidden overflow-y-auto sm:gap-x-6 md:overflow-y-visible',
+              'flex text-sm gap-x-6 scrollbar-hidden overflow-y-auto sm:gap-x-6 md:overflow-y-visible',
               headerClassName,
             )}
           >
@@ -67,7 +67,7 @@ export const Tabs = ({
                   activeTab.id === tab.id ? 'text-white' : 'text-grey',
                 )}
               >
-                <p className="mb-2 font-semibold whitespace-nowrap transition-colors text-inherit">
+                <p className="mb-4 font-semibold whitespace-nowrap transition-colors text-inherit">
                   {tab.title}
                 </p>
 
