@@ -6,9 +6,7 @@ export const chains: Record<ChainId, Chain> = {
   [ChainId.BSC_MAINNET]: {
     name: 'BNB Chain',
     iconSrc: iconSrcs.bsc,
-    // explorerUrl: 'https://bscscan.com',
-    explorerUrl:
-      'https://dashboard.tenderly.co/venus-labs/project/testnet/43b649f5-b426-44f5-8052-c7836bdb67f5',
+    explorerUrl: 'https://bscscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
     hardforks: [
