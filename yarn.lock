@@ -5008,17 +5008,17 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
-"@posthog/core@1.20.1":
-  version "1.20.1"
-  resolved "https://registry.yarnpkg.com/@posthog/core/-/core-1.20.1.tgz#bb5e291bf59aad4bdecb9ed5d1802d297d809c1d"
-  integrity sha512-uoTmWkYCtLYFpiK37/JCq+BuCA/OZn1qQZn5cPv1EEKt3ni3Zgg48xWCnSEyGFl5KKSXlfCruiRTwnbAtCgrBA==
+"@posthog/core@1.21.0":
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/@posthog/core/-/core-1.21.0.tgz#f907aa9a6f4d0419585cb11eb5a7c4c27f039abb"
+  integrity sha512-0a2JUIX1vhduP2El/6/J8s5AeYAurIoufQGFgMiGnJE5ajd63o9LFocu2vFYYBnIOmy75y4ADNeW8zSl1keEQQ==
   dependencies:
     cross-spawn "^7.0.6"
 
-"@posthog/types@1.342.1":
-  version "1.342.1"
-  resolved "https://registry.yarnpkg.com/@posthog/types/-/types-1.342.1.tgz#a4d5f7b44539641e910f36818fd4b6aa41022a2f"
-  integrity sha512-bcyBdO88FWTkd5AVTa4Nu8T7RfY0WJrG7WMCXum/rcvNjYhS3DmOfKf8o/Bt56vA3J3yeU0vbgrmltYVoTAfaA==
+"@posthog/types@1.345.0":
+  version "1.345.0"
+  resolved "https://registry.yarnpkg.com/@posthog/types/-/types-1.345.0.tgz#d368849cedfe2b8362b1df289eab5544c1b25be7"
+  integrity sha512-9zcsJhzO9BPBrGQDL/w7M9un3TQ7w0wiwnK5ZFfwvujhxsIS/GfcpBM/P51aE3bgzNhxpEcUkjL+60uthTentA==
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -15772,17 +15772,17 @@ postcss@^8.4.28, postcss@^8.4.30, postcss@^8.4.33, postcss@^8.5.3:
     source-map-js "^1.2.1"
 
 posthog-js@^1.257.0:
-  version "1.342.1"
-  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.342.1.tgz#9c030513104c39a0c7413c54b7e1134bca21a1e5"
-  integrity sha512-mMnQhWuKj4ejFicLtFzr52InmqploOyW1eInqXBkaVqE1DPhczBDmwsd9MSggY8kv0EXm8zgK+2tzBJUKcX5yg==
+  version "1.345.0"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.345.0.tgz#c6e496c4f24d1f2e352f7c2858791999ae329301"
+  integrity sha512-hS+h8QGn+GZp5cwOYQQrxbn/tHlYsORmi0d/JwUjP+ClI+Yr5pYUlScjrexSIi3kdCX80UCWRM1pNVF6GvTI1Q==
   dependencies:
     "@opentelemetry/api" "^1.9.0"
     "@opentelemetry/api-logs" "^0.208.0"
     "@opentelemetry/exporter-logs-otlp-http" "^0.208.0"
     "@opentelemetry/resources" "^2.2.0"
     "@opentelemetry/sdk-logs" "^0.208.0"
-    "@posthog/core" "1.20.1"
-    "@posthog/types" "1.342.1"
+    "@posthog/core" "1.21.0"
+    "@posthog/types" "1.345.0"
     core-js "^3.38.1"
     dompurify "^3.3.1"
     fflate "^0.4.8"
