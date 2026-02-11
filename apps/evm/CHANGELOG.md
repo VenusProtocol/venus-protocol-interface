@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 4.4.0
+
+### Minor Changes
+
+- 859b79c: update swap & supply feature
+
+### Patch Changes
+
+- Updated dependencies [859b79c]
+  - @venusprotocol/chains@0.22.0
+
 ## 4.3.2
 
 ### Patch Changes

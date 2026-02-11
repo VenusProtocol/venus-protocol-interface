@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.22.0
+
+### Minor Changes
+
+- 859b79c: update swap & supply feature
+
 ## 0.21.0
 
 ### Minor Changes
