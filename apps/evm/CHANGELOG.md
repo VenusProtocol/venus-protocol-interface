@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 4.5.0
+
+### Minor Changes
+
+- 988c4c1: add Venus Flux banner
+- 66daff3: add Venus Flux entry to navbar
+
 ## 4.4.0
 
 ### Minor Changes
