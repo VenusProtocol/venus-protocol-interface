@@ -970,9 +970,6 @@
       "supply": "你将用 {{fromTokenAmount}} 存款 {{toTokenAmount}}"
     },
     "walletBalance": "钱包余额",
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "该交易价格影响较高，可能意味着不利的兑换。请确保兑换率和兑换数量符合预期。"
-    },
     "withdrawTabTitle": "取款"
   },
   "pagination": {

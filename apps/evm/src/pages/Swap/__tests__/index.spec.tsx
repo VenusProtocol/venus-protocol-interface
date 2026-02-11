@@ -604,7 +604,7 @@ describe('Swap', () => {
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
     // Check warning notice is displayed
-    await waitFor(() => getByText(en.operationForm.warning.swappingWithHighPriceImpactWarning));
+    await waitFor(() => getByText(en.swap.warning.swappingWithHighPriceImpactWarning));
 
     // Check submit button has correct label and is enabled
     await waitFor(() => getByText(en.swapPage.submitButton.enabledLabels.swapWithHighPriceImpact));
