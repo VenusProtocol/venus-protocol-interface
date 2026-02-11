@@ -683,6 +683,20 @@
     },
     "testEnvWarning": "这是测试环境。除测试外请勿进行任何交互。<Link>前往 Venus Protocol 官方网站</Link>"
   },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "经典借贷，轻松使用优化杠杆。",
+          "label": "Venus Core"
+        },
+        "venusFlux": {
+          "description": "高资本效率的借贷，以获得最佳收益。",
+          "label": "Venus Flux"
+        }
+      }
+    }
+  },
   "legal": {
     "lastUpdatedAt": "最后更新：{{ date, textual }}"
   },

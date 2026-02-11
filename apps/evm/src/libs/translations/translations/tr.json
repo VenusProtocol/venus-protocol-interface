@@ -684,6 +684,20 @@
     },
     "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>"
   },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "Kolay ve optimize edilmiş kaldıraçla klasik borç verme ve borç alma.",
+          "label": "Venus Core"
+        },
+        "venusFlux": {
+          "description": "En iyi getiri için sermaye verimli borç verme ve borç alma.",
+          "label": "Venus Flux"
+        }
+      }
+    }
+  },
   "legal": {
     "lastUpdatedAt": "Son güncelleme: {{ date, textual }}"
   },

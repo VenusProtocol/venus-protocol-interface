@@ -684,6 +684,20 @@
     },
     "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
   },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "Classic lending and borrowing with easy, optimized leverage.",
+          "label": "Venus Core"
+        },
+        "venusFlux": {
+          "description": "Capital-efficient lending and borrowing for optimal yield.",
+          "label": "Venus Flux"
+        }
+      }
+    }
+  },
   "legal": {
     "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
