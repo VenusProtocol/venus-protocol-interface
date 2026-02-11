@@ -155,7 +155,6 @@
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
   },
   "adBanner": {
-    "learnMore": "Learn more",
     "startNow": "Start now"
   },
   "announcements": {
@@ -1443,6 +1442,12 @@
     },
     "withdrawButton": "Withdraw",
     "youAreStake": "You are staking"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "Background illustration",
+    "description": "Let your liquidity Flux, watch your yield grow.",
+    "iconAltText": "Venus Flux icon",
+    "title": "Venus Flux is live!"
   },
   "vote": {
     "abstain": "Abstain",

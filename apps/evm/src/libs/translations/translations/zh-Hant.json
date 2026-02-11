@@ -155,7 +155,6 @@
     "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（佔借款限額的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全借款限額：<LineBreak/>{{safeBorrowLimit}}（佔借款限額的 {{safeBorrowLimitPercentage}}%）"
   },
   "adBanner": {
-    "learnMore": "瞭解更多",
     "startNow": "立即開始"
   },
   "announcements": {
@@ -1442,6 +1441,12 @@
     },
     "withdrawButton": "提取",
     "youAreStake": "你正在質押"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "背景插圖",
+    "description": "讓你的流動性 Flux，見證收益成長。",
+    "iconAltText": "Venus Flux 圖標",
+    "title": "Venus Flux 已上線！"
   },
   "vote": {
     "abstain": "棄權",

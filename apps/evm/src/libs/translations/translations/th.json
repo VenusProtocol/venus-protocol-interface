@@ -155,7 +155,6 @@
     "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืมที่ปลอดภัย:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% ของขีดจำกัดการยืมของคุณ)"
   },
   "adBanner": {
-    "learnMore": "เรียนรู้เพิ่มเติม",
     "startNow": "เริ่มตอนนี้"
   },
   "announcements": {
@@ -1442,6 +1441,12 @@
     },
     "withdrawButton": "ถอน",
     "youAreStake": "คุณกำลังสเตคอยู่"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
+    "description": "ปล่อยให้สภาพคล่องของคุณ Flux แล้วดูผลตอบแทนเติบโต",
+    "iconAltText": "ไอคอน Venus Flux",
+    "title": "Venus Flux เปิดให้ใช้งานแล้ว!"
   },
   "vote": {
     "abstain": "งดออกเสียง",

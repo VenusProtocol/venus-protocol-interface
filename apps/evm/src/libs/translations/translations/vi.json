@@ -155,7 +155,6 @@
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay an toàn:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% của hạn mức vay của bạn)"
   },
   "adBanner": {
-    "learnMore": "Tìm hiểu thêm",
     "startNow": "Bắt đầu ngay"
   },
   "announcements": {
@@ -1442,6 +1441,12 @@
     },
     "withdrawButton": "Rút",
     "youAreStake": "Bạn đang stake"
+  },
+  "venusFluxBanner": {
+    "bgIllustrationAltText": "Minh họa nền",
+    "description": "Hãy để thanh khoản của bạn Flux, theo dõi lợi suất tăng trưởng.",
+    "iconAltText": "Biểu tượng Venus Flux",
+    "title": "Venus Flux đã ra mắt!"
   },
   "vote": {
     "abstain": "Bỏ phiếu trắng",
