@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.5.1
+
+### Patch Changes
+
+- 1590ab7: hotfix: boost and repay with swap
+
 ## 4.5.0
 
 ### Minor Changes
