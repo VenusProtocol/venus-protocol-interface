@@ -29,7 +29,7 @@
     "husky": "^9.0.6",
     "rollup-plugin-visualizer": "^6.0.1",
     "sass": "^1.68.0",
-    "turbo": "^2.0.3",
+    "turbo": "^2.8.7",
     "typescript": "^5.1.6",
     "validate-branch-name": "^1.3.0"
   },
