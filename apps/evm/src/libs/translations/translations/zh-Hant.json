@@ -1,140 +1,4 @@
 {
-  "account": {
-    "circularGradient": "圓形漸變",
-    "marketBreakdown": {
-      "tables": {
-        "borrowTableTitle": "已借入",
-        "eModeHeader": {
-          "illustrationAltText": "E-mode插圖",
-          "title": "E-mode：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
-        },
-        "supplyTableTitle": "已供應",
-        "tabletBorrowTabTitle": "已借入",
-        "tabletSupplyTabTitle": "已供應",
-        "tabletTitle": "資產"
-      }
-    },
-    "performanceChart": {
-      "absolutePerformance": "絕對錶現",
-      "dataPoint": {
-        "date": "{{ date, textual }}"
-      },
-      "errorState": {
-        "failedToFetchMessage": "無法獲取賬戶歷史",
-        "refetchButtonLabel": "重試"
-      },
-      "netWorth": {
-        "label": "淨值",
-        "tooltip": "在考慮金庫質押和借貸後可用的淨資產",
-        "tooltipWithVai": "在考慮金庫質押、借貸和已鑄造 VAI 後可用的淨資產"
-      },
-      "periodOption": {
-        "oneYear": "1年",
-        "sixMonths": "6個月",
-        "thirtyDays": "30天"
-      },
-      "placeholderText": "正在生成報告，最多可能需要一分鐘",
-      "todaysChange": "今日變化",
-      "xAxisValue": "{{ date, numeric }}"
-    },
-    "placeholder": {
-      "buttonLabel": "瀏覽"
-    },
-    "pools": {
-      "placeholder": {
-        "description": "你的資金池持倉將顯示在此",
-        "title": "尚無供應或借入持倉"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "已用借款限額：{{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "領取 Prime 代幣",
-        "stakeXvs": "質押 XVS"
-      },
-      "primeLogoAltText": "Prime 標誌",
-      "text": {
-        "apyBoost": "使用 Prime 將收益提升高達 <GreenText>{{boost}}</GreenText>",
-        "becomePrime": "你現在可以成為 Prime 用戶"
-      }
-    },
-    "settings": {
-      "gaslessTransactions": {
-        "switchLabel": "在 {{chainName}} 上啟用免 gas 交易"
-      }
-    },
-    "summary": {
-      "cellGroup": {
-        "dailyEarnings": "每日收益",
-        "healthFactor": "健康係數",
-        "healthFactorTooltip": "清算閾值 < 1.0",
-        "mintedVai": "已鑄造 VAI",
-        "netApy": "淨 APY",
-        "netApyTooltip": "以年化利息形式獲得的總供應餘額百分比",
-        "netApyWithVaultStakeTooltip": "以年化利息形式獲得的總供應餘額和金庫質押百分比",
-        "totalBorrow": "總借款",
-        "totalSupply": "總供應",
-        "totalVaultStake": "總金庫質押"
-      },
-      "title": "概覽"
-    },
-    "tabs": {
-      "pools": "資金池",
-      "settings": "設置",
-      "transactions": "交易",
-      "vaults": "金庫"
-    },
-    "transactions": {
-      "date": {
-        "full": "{{ date, textual }}",
-        "time": "{{ date, time }}"
-      },
-      "placeholder": {
-        "description": "你的交易將顯示在此",
-        "title": "尚無交易"
-      },
-      "selects": {
-        "source": {
-          "all": "所有市場"
-        },
-        "txType": {
-          "all": "所有交易",
-          "approve": "授權",
-          "borrow": "借款",
-          "enterMarket": "啟用抵押",
-          "exitMarket": "禁用抵押",
-          "mint": "供應",
-          "redeem": "提取",
-          "repay": "償還"
-        }
-      },
-      "today": "今天",
-      "txText": {
-        "approve": "已授權支出 {{tokenAmount}}",
-        "enterMarket": "<Styled>啟用</Styled> {{vTokenSymbol}} 作為抵押",
-        "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作為抵押"
-      },
-      "txType": {
-        "approve": "授權",
-        "borrow": "借款",
-        "enterMarket": "啟用抵押",
-        "exitMarket": "禁用抵押",
-        "mint": "供應",
-        "redeem": "提取",
-        "repay": "償還"
-      },
-      "view": "查看",
-      "yesterday": "昨天"
-    },
-    "vaults": {
-      "placeholder": {
-        "description": "你的金庫持倉將顯示在此",
-        "title": "尚無質押持倉"
-      }
-    }
-  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "借款餘額",
@@ -156,6 +20,57 @@
   },
   "adBanner": {
     "startNow": "立即開始"
+  },
+  "adCarousel": {
+    "binanceWalletBanner": {
+      "buttonLabel": "立即開始",
+      "description": "僅限 <WhiteText>Binance Wallet</WhiteText>",
+      "phoneIllustration": {
+        "altText": "手機插圖"
+      },
+      "title": "$U 最高 20% APY"
+    },
+    "boostBanner": {
+      "buttonLabel": "瞭解更多",
+      "description": "一鍵槓桿提升收益，最高 5 倍",
+      "rocketIllustration": {
+        "altText": "火箭插圖"
+      },
+      "title": "Boost 已上線！"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "藍色沙漠背景"
+      },
+      "buttonLabel": "瞭解更多",
+      "coinsIllustration": {
+        "altText": "硬幣插圖"
+      },
+      "description": "領取獎勵並關閉你的倉位",
+      "title": "隔離池正在關閉"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "地平線背景"
+      },
+      "buttonLabel": "立即開始",
+      "coinIllustration": {
+        "altText": "硬幣插圖"
+      },
+      "description": "在 probable.markets 上賦能你的信念",
+      "title": "心想事成？"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "銀河背景"
+      },
+      "buttonLabel": "立即開始",
+      "description": "讓你的流動性 Flux，見證收益成長。",
+      "title": "Venus Flux 已上線",
+      "venusFluxIcon": {
+        "altText": "Venus Flux 圖標"
+      }
+    }
   },
   "announcements": {
     "bethUpdate": {
@@ -408,6 +323,151 @@
   "connectWallet": {
     "connectButton": "連接錢包"
   },
+  "dashboard": {
+    "guide": {
+      "completed": "已完成",
+      "step1": {
+        "description": "透過存款或將現有持倉遷移到 Venus 協議來賺取收益。",
+        "title": "存款 / 遷移"
+      },
+      "step2": {
+        "description": "借入資產強化您的 DeFi 策略，或一鍵使用流動性進行槓桿操作。",
+        "title": "借款 / 槓桿"
+      },
+      "step3": {
+        "description": "將 XVS 存入金庫，賺取由協議收入提供的收益。",
+        "title": "質押 XVS"
+      },
+      "uncompleted": "未完成"
+    },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "E-mode插圖",
+          "title": "E-mode: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "已借入",
+      "suppliedTabTitle": "已供應",
+      "title": "資產"
+    },
+    "overview": {
+      "absolutePerformance": "絕對表現",
+      "healthFactor": {
+        "tooltip": "健康係數（清算閾值 < 1.0）"
+      },
+      "netWorth": {
+        "label": "淨值",
+        "tooltip": "計入金庫質押與借款後的可用淨資產",
+        "tooltipWithVai": "計入金庫質押、借款與已鑄 VAI 後的可用淨資產"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "無法取得帳戶歷史紀錄",
+          "refetchButtonLabel": "重試"
+        },
+        "placeholderText": "正在生成報告，最多可能需要一分鐘"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6個月",
+        "thirtyDays": "30天"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "每日收益",
+          "mintedVai": "已鑄 VAI",
+          "netApy": "淨 APY",
+          "netApyTooltip": "您總存款餘額中按年利息獲得的百分比",
+          "netApyWithVaultStakeTooltip": "您總存款餘額與金庫質押按年利息獲得的百分比",
+          "totalBorrow": "總借款",
+          "totalSupply": "總存款",
+          "totalVaultStake": "金庫質押總額"
+        },
+        "title": "摘要"
+      },
+      "todaysChange": "今日變化"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "placeholder": {
+      "buttonLabel": "瀏覽"
+    },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "尚無借入部位"
+        }
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "尚無供應部位"
+        }
+      }
+    },
+    "staking": {
+      "placeholder": {
+        "title": "尚無質押倉位"
+      }
+    },
+    "tabs": {
+      "markets": "市場",
+      "staking": "質押",
+      "transactions": "交易"
+    },
+    "topMarkets": {
+      "borrowButton": {
+        "label": "借款"
+      },
+      "interactiveTitle": "焦點（<Group><SupplyButton>供應</SupplyButton>/<BorrowButton>借款</BorrowButton></Group>）",
+      "supplyButton": {
+        "label": "供應"
+      },
+      "textTitle": "焦點"
+    },
+    "transactions": {
+      "placeholder": {
+        "title": "尚無交易"
+      },
+      "selects": {
+        "source": {
+          "all": "所有市場"
+        },
+        "txType": {
+          "all": "所有交易",
+          "approve": "授權",
+          "borrow": "借款",
+          "enterMarket": "已啟用抵押品",
+          "exitMarket": "已停用抵押品",
+          "mint": "供應",
+          "redeem": "提領",
+          "repay": "還款"
+        }
+      },
+      "today": "今天",
+      "txText": {
+        "approve": "已授權支出 {{tokenAmount}}",
+        "enterMarket": "<Styled>已啟用</Styled> {{vTokenSymbol}} 作為抵押品",
+        "exitMarket": "<Styled>已停用</Styled> {{vTokenSymbol}} 作為抵押品"
+      },
+      "txType": {
+        "approve": "授權",
+        "borrow": "借款",
+        "enterMarket": "已啟用抵押品",
+        "exitMarket": "已停用抵押品",
+        "mint": "供應",
+        "redeem": "提領",
+        "repay": "還款"
+      },
+      "yesterday": "昨天"
+    }
+  },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
     "illustrationAltText": "E-mode插圖",
@@ -592,6 +652,7 @@
       "protectionTitle": "安全保障優先"
     },
     "safety": {
+      "audit_one": "審計",
       "audit_other": "審計",
       "otherAuditors": "+14 次審計，來自 <br />Fairyproof、Hacken 與 HashEx",
       "scoreAlt": "評分插圖",
@@ -648,7 +709,7 @@
         },
         "label": "其他",
         "port": {
-          "description": "免 Gas 匯入借貸部位。",
+          "description": "免 Gas 匯入借貸倉位。",
           "label": "端口"
         },
         "swap": {
@@ -815,6 +876,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "僅向 {{ eModeGroupName }} 組內資產供應可提升你的借款能力",
       "label": "隔離"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "借款 APY",
+        "supplyApyLabel": "供應 APY",
+        "supplyBalanceLabel": "供應餘額",
+        "title": "推薦"
+      }
     },
     "tabs": {
       "assets": {
@@ -1080,9 +1149,9 @@
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 後可領取 Prime 獎勵"
   },
   "probableBanner": {
-    "description": "在 probable.markets 上增強你的信念",
+    "description": "在 probable.markets 上賦能你的信念",
     "probableAltText": "Probable 插圖",
-    "title": "相信點什麼？"
+    "title": "心想事成？"
   },
   "proposalList": {
     "selectOptions": {

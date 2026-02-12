@@ -1,140 +1,4 @@
 {
-  "account": {
-    "circularGradient": "円形グラデーション",
-    "marketBreakdown": {
-      "tables": {
-        "borrowTableTitle": "借入",
-        "eModeHeader": {
-          "illustrationAltText": "Eモードのイラスト",
-          "title": "Eモード: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
-        },
-        "supplyTableTitle": "供給",
-        "tabletBorrowTabTitle": "借入",
-        "tabletSupplyTabTitle": "供給",
-        "tabletTitle": "資産"
-      }
-    },
-    "performanceChart": {
-      "absolutePerformance": "絶対パフォーマンス",
-      "dataPoint": {
-        "date": "{{ date, textual }}"
-      },
-      "errorState": {
-        "failedToFetchMessage": "アカウント履歴を取得できませんでした",
-        "refetchButtonLabel": "再試行"
-      },
-      "netWorth": {
-        "label": "純資産",
-        "tooltip": "ボールトのステーキングと借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールトのステーキング、借入、ミント済みVAIを考慮した利用可能な純資産"
-      },
-      "periodOption": {
-        "oneYear": "1年",
-        "sixMonths": "6か月",
-        "thirtyDays": "30日"
-      },
-      "placeholderText": "レポートを生成中です。最大で1分ほどかかる場合があります",
-      "todaysChange": "本日の変化",
-      "xAxisValue": "{{ date, numeric }}"
-    },
-    "placeholder": {
-      "buttonLabel": "参照"
-    },
-    "pools": {
-      "placeholder": {
-        "description": "あなたのプールポジションはここに表示されます",
-        "title": "まだ供給または借入のポジションはありません"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "借入限度の使用率: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "Primeトークンを請求",
-        "stakeXvs": "XVSのステーキング"
-      },
-      "primeLogoAltText": "Primeロゴ",
-      "text": {
-        "apyBoost": "Primeで収益を最大<GreenText>{{boost}}</GreenText>までブースト",
-        "becomePrime": "Primeユーザーになれるようになりました"
-      }
-    },
-    "settings": {
-      "gaslessTransactions": {
-        "switchLabel": "{{chainName}}でガスレス取引を有効にする"
-      }
-    },
-    "summary": {
-      "cellGroup": {
-        "dailyEarnings": "日次収益",
-        "healthFactor": "健全性ファクター",
-        "healthFactorTooltip": "清算ライン: < 1.0",
-        "mintedVai": "ミント済みVAI",
-        "netApy": "実質APY",
-        "netApyTooltip": "年間利息として受け取る供給残高の割合",
-        "netApyWithVaultStakeTooltip": "年間利息として受け取る供給残高とボールトステーキングの割合",
-        "totalBorrow": "総借入",
-        "totalSupply": "総供給",
-        "totalVaultStake": "ボールト総ステーキング量"
-      },
-      "title": "サマリー"
-    },
-    "tabs": {
-      "pools": "プール",
-      "settings": "設定",
-      "transactions": "取引",
-      "vaults": "ボールト"
-    },
-    "transactions": {
-      "date": {
-        "full": "{{ date, textual }}",
-        "time": "{{ date, time }}"
-      },
-      "placeholder": {
-        "description": "あなたの取引はここに表示されます",
-        "title": "まだ取引はありません"
-      },
-      "selects": {
-        "source": {
-          "all": "すべてのマーケット"
-        },
-        "txType": {
-          "all": "すべての取引",
-          "approve": "承認",
-          "borrow": "借入",
-          "enterMarket": "担保有効",
-          "exitMarket": "担保無効",
-          "mint": "供給",
-          "redeem": "引き出し",
-          "repay": "返済"
-        }
-      },
-      "today": "今日",
-      "txText": {
-        "approve": "{{tokenAmount}}の支出を承認しました",
-        "enterMarket": "{{vTokenSymbol}}を担保として<Styled>有効化</Styled>",
-        "exitMarket": "{{vTokenSymbol}}を担保として<Styled>無効化</Styled>"
-      },
-      "txType": {
-        "approve": "承認",
-        "borrow": "借入",
-        "enterMarket": "担保有効",
-        "exitMarket": "担保無効",
-        "mint": "供給",
-        "redeem": "引き出し",
-        "repay": "返済"
-      },
-      "view": "表示",
-      "yesterday": "昨日"
-    },
-    "vaults": {
-      "placeholder": {
-        "description": "あなたのボールトポジションはここに表示されます",
-        "title": "まだステーキングポジションはありません"
-      }
-    }
-  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "借入残高",
@@ -156,6 +20,57 @@
   },
   "adBanner": {
     "startNow": "今すぐ始める"
+  },
+  "adCarousel": {
+    "binanceWalletBanner": {
+      "buttonLabel": "今すぐ始める",
+      "description": "<WhiteText>Binance Wallet</WhiteText>限定",
+      "phoneIllustration": {
+        "altText": "スマホのイラスト"
+      },
+      "title": "$U 最大20% APY"
+    },
+    "boostBanner": {
+      "buttonLabel": "詳細を見る",
+      "description": "ワンクリックのレバレッジで利回りを最大5倍までブースト。",
+      "rocketIllustration": {
+        "altText": "ロケットのイラスト"
+      },
+      "title": "Boostが利用可能になりました！"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "青い砂漠の背景"
+      },
+      "buttonLabel": "詳細を見る",
+      "coinsIllustration": {
+        "altText": "コインのイラスト"
+      },
+      "description": "報酬を請求してポジションを閉じてください",
+      "title": "隔離プールは終了予定です"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "地平線の背景"
+      },
+      "buttonLabel": "今すぐ始める",
+      "coinIllustration": {
+        "altText": "コインのイラスト"
+      },
+      "description": "probable.marketsで信念をブーストしよう",
+      "title": "何かを信じますか？"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "銀河の背景"
+      },
+      "buttonLabel": "今すぐ始める",
+      "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
+      "title": "Venus Fluxが利用可能",
+      "venusFluxIcon": {
+        "altText": "Venus Flux アイコン"
+      }
+    }
   },
   "announcements": {
     "bethUpdate": {
@@ -408,6 +323,151 @@
   "connectWallet": {
     "connectButton": "ウォレットを接続"
   },
+  "dashboard": {
+    "guide": {
+      "completed": "完了",
+      "step1": {
+        "description": "資産を供給するか既存ポジションをVenusプロトコルへ移行して利回りを獲得しましょう。",
+        "title": "供給 / 移行"
+      },
+      "step2": {
+        "description": "資産を借りてDeFi戦略を強化したり、ワンクリックで流動性をレバレッジできます。",
+        "title": "借入 / レバレッジ"
+      },
+      "step3": {
+        "description": "XVSをボールトに預け入れ、プロトコル収益による利回りを獲得しましょう。",
+        "title": "XVSをステーク"
+      },
+      "uncompleted": "未完了"
+    },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "Eモードのイラスト",
+          "title": "Eモード：<UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "借入済み",
+      "suppliedTabTitle": "供給済み",
+      "title": "資産"
+    },
+    "overview": {
+      "absolutePerformance": "絶対パフォーマンス",
+      "healthFactor": {
+        "tooltip": "健全性ファクター（清算ライン: < 1.0）"
+      },
+      "netWorth": {
+        "label": "純資産",
+        "tooltip": "ボールトステークと借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールトステーク、借入、ミント済みVAIを考慮した利用可能な純資産"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "アカウント履歴を取得できませんでした",
+          "refetchButtonLabel": "再試行"
+        },
+        "placeholderText": "レポートを生成中。最大1分かかる場合があります"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6か月",
+        "thirtyDays": "30日"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "日次収益",
+          "mintedVai": "ミント済みVAI",
+          "netApy": "実質APY",
+          "netApyTooltip": "総供給残高に対して年利として受け取る割合",
+          "netApyWithVaultStakeTooltip": "総供給とボールトステークに対して年利として受け取る割合",
+          "totalBorrow": "総借入",
+          "totalSupply": "総供給",
+          "totalVaultStake": "ボールトステーク合計"
+        },
+        "title": "サマリー"
+      },
+      "todaysChange": "本日の変化"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "placeholder": {
+      "buttonLabel": "閲覧"
+    },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "借入ポジションはまだありません"
+        }
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "供給ポジションはまだありません"
+        }
+      }
+    },
+    "staking": {
+      "placeholder": {
+        "title": "まだステーキングのポジションはありません"
+      }
+    },
+    "tabs": {
+      "markets": "マーケット",
+      "staking": "ステーキング",
+      "transactions": "取引"
+    },
+    "topMarkets": {
+      "borrowButton": {
+        "label": "借入"
+      },
+      "interactiveTitle": "スポットライト（<Group><SupplyButton>供給</SupplyButton>/<BorrowButton>借入</BorrowButton></Group>）",
+      "supplyButton": {
+        "label": "供給"
+      },
+      "textTitle": "スポットライト"
+    },
+    "transactions": {
+      "placeholder": {
+        "title": "取引はまだありません"
+      },
+      "selects": {
+        "source": {
+          "all": "すべてのマーケット"
+        },
+        "txType": {
+          "all": "すべての取引",
+          "approve": "承認",
+          "borrow": "借入",
+          "enterMarket": "担保を有効化",
+          "exitMarket": "担保を無効化",
+          "mint": "供給",
+          "redeem": "出金",
+          "repay": "返済"
+        }
+      },
+      "today": "今日",
+      "txText": {
+        "approve": "支出{{tokenAmount}}を承認",
+        "enterMarket": "<Styled>有効化</Styled> {{vTokenSymbol}}を担保として設定",
+        "exitMarket": "<Styled>無効化</Styled> {{vTokenSymbol}}を担保として解除"
+      },
+      "txType": {
+        "approve": "承認",
+        "borrow": "借入",
+        "enterMarket": "担保を有効化",
+        "exitMarket": "担保を無効化",
+        "mint": "供給",
+        "redeem": "出金",
+        "repay": "返済"
+      },
+      "yesterday": "昨日"
+    }
+  },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
     "illustrationAltText": "Eモードのイラスト",
@@ -592,6 +652,7 @@
       "protectionTitle": "保護を最優先"
     },
     "safety": {
+      "audit_one": "監査",
       "audit_other": "監査",
       "otherAuditors": "Fairyproof、Hacken、HashExによる<br />14件以上の監査",
       "scoreAlt": "スコアのイラスト",
@@ -815,6 +876,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "{{ eModeGroupName }}グループの資産のみに供給することで借入力が高まります",
       "label": "隔離"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "借入APY",
+        "supplyApyLabel": "供給APY",
+        "supplyBalanceLabel": "供給残高",
+        "title": "推奨"
+      }
     },
     "tabs": {
       "assets": {

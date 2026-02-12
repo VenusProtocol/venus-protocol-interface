@@ -81,20 +81,22 @@ export function TableCards<R>({
 
       {isFetching && <Spinner css={styles.loader} />}
 
-      <div className="space-y-6">
+      <div className="space-y-3">
         {data.map((row, rowIndex) => {
           const rowKey = rowKeyExtractor(row);
           const content = (
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div>{titleColumn.renderCell(row, rowIndex)}</div>
 
               <Delimiter className="my-4" />
 
-              {otherColumns.map(column => (
-                <LabeledInlineContent key={`${rowKey}-${column.key}`} label={column.label}>
-                  <div className="text-right">{column.renderCell(row, rowIndex)}</div>
-                </LabeledInlineContent>
-              ))}
+              <div className="space-y-6">
+                {otherColumns.map(column => (
+                  <LabeledInlineContent key={`${rowKey}-${column.key}`} label={column.label}>
+                    <div className="text-right inline-flex">{column.renderCell(row, rowIndex)}</div>
+                  </LabeledInlineContent>
+                ))}
+              </div>
             </div>
           );
 
@@ -102,7 +104,8 @@ export function TableCards<R>({
             <Card
               key={rowKey}
               className={cn(
-                !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-cards',
+                !!(rowOnClick || getRowHref) &&
+                  'cursor-pointer hover:bg-dark-blue-hover active:bg-dark-blue-active',
                 cardClassName,
               )}
               onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}

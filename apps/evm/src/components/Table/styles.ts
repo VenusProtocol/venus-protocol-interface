@@ -33,7 +33,7 @@ export const useStyles = (props?: StylesProps) => {
       }
     `,
     getHeader: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
-      padding: ${theme.spacing(0, 6)};
+      padding: ${theme.spacing(0, 4)};
       
       ${breakpoint && theme.breakpoints.down(breakpoint)} {
         padding: 0;
@@ -88,7 +88,7 @@ export const useStyles = (props?: StylesProps) => {
       `
       }
     `,
-    getTableRow: ({ clickable }: { clickable: boolean }) => css`
+    getTableRow: ({ clickable, rounded }: { clickable: boolean; rounded: boolean }) => css`
       height: ${theme.spacing(18)};
 
       :hover {
@@ -96,21 +96,26 @@ export const useStyles = (props?: StylesProps) => {
         overflow: hidden;
       }
 
-      > td:first-child {
-        border-top-left-radius: ${theme.spacing(2)}; 
-        border-bottom-left-radius: ${theme.spacing(2)}; 
-      }
-
-      > td:last-child {
-        border-bottom-right-radius: ${theme.spacing(2)}; 
-        border-top-right-radius: ${theme.spacing(2)}; 
-      }
-
       ${
-        clickable &&
+        rounded &&
         css`
-        cursor: pointer;
-      `
+          > td:first-child {
+            border-top-left-radius: ${theme.spacing(2)}; 
+            border-bottom-left-radius: ${theme.spacing(2)}; 
+          }
+
+          > td:last-child {
+            border-bottom-right-radius: ${theme.spacing(2)}; 
+            border-top-right-radius: ${theme.spacing(2)}; 
+          }
+
+          ${
+            clickable &&
+            css`
+            cursor: pointer;
+          `
+          }
+        `
       }
     `,
     cellTitleMobile: css`
@@ -138,15 +143,15 @@ export const useStyles = (props?: StylesProps) => {
       }
 
       .MuiTableCell-root:first-of-type {
-        padding-left: ${theme.spacing(6)};
+        padding-left: ${theme.spacing(4)};
       }
 
       .MuiTableCell-root:last-child {
-        padding-right: ${theme.spacing(6)};
+        padding-right: ${theme.spacing(4)};
       }
     `,
-    tableSortLabel: ({ orderable }: { orderable: boolean }) => css`
-      cursor: ${orderable ? 'pointer' : 'auto'};
+    tableSortLabel: ({ sortable }: { sortable: boolean }) => css`
+      cursor: ${sortable ? 'pointer' : 'auto'};
 
       &.MuiTableSortLabel-root {
         span {

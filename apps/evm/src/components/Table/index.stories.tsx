@@ -2,7 +2,7 @@
 import type { Meta } from '@storybook/react';
 
 import { Table } from '.';
-import { columns, data, orderableColumns, useTableStyles } from './storiesUtils';
+import { columns, data, sortableColumns, useTableStyles } from './storiesUtils';
 
 export default {
   title: 'Components/Table',
@@ -36,7 +36,7 @@ export const WithOrderableColumns = () => {
   return (
     <Table
       data={data}
-      columns={orderableColumns}
+      columns={sortableColumns}
       title="Market Data"
       minWidth="650px"
       rowKeyExtractor={row => row.token.address}

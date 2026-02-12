@@ -12,6 +12,7 @@ export type CarouselProps = {
   autoPlay?: boolean;
   autoPlayDelayMs?: number;
   setApi?: (api: CarouselApi) => void;
+  trackerClassName?: string;
 };
 
 export * from './CarouselItem';
@@ -21,7 +22,7 @@ const AUTOPLAY_DELAY_MS = 9000;
 export const Carousel = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & CarouselProps
->(({ autoPlay = false, setApi, className, children, ...props }, ref) => {
+>(({ autoPlay = false, setApi, className, children, trackerClassName, ...props }, ref) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   const slidesCount =
@@ -70,7 +71,7 @@ export const Carousel = forwardRef<
       </div>
 
       {slidesCount > 1 && (
-        <div className="flex mx-auto gap-x-1.5 w-max mt-3">
+        <div className={cn('flex mx-auto gap-x-1.5 w-max mt-3', trackerClassName)}>
           {Array.from({ length: slidesCount }).map((_s, i) => (
             <button
               type="button"
@@ -78,7 +79,7 @@ export const Carousel = forwardRef<
               key={i}
               className={cn(
                 'size-1.5 rounded-full cursor-pointer',
-                i === activeSlideIndex ? 'bg-white' : 'bg-white/30',
+                i === activeSlideIndex ? 'bg-blue' : 'bg-white',
               )}
             />
           ))}
