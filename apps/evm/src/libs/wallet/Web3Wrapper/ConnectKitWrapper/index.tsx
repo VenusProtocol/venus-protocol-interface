@@ -3,6 +3,8 @@ import { ConnectKitProvider } from 'connectkit';
 import { useChainId } from 'libs/wallet';
 import { AuthHandler } from './AuthHandler';
 
+// TODO: delete
+
 export interface ConnectKitWrapperProps {
   children?: React.ReactNode;
 }
