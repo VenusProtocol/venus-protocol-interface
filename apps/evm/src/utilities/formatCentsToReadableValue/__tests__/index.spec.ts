@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 
 import formatCentsToReadableValue, { type FormatCentsToReadableValueInput } from '..';
 

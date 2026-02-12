@@ -11,6 +11,8 @@ export interface UserChainSettings {
   showUserAssetsOnly: boolean;
   showUserEModeAssetsOnly: boolean;
   doNotShowImportPositionsModal: boolean;
+  doNotShowUserBalances: boolean;
+  doNotExpandGuide: boolean;
   slippageTolerancePercentage: string;
 }
 

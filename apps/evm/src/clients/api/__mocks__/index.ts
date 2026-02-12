@@ -550,16 +550,6 @@ export const getXvsVaultPendingWithdrawalsBalance = vi.fn(async () => ({
   balanceMantissa: 0,
 }));
 
-export const getBurnedWBnb = vi.fn(async () => ({
-  burnedWBnbMantissa: 10000000000000000000000n,
-}));
-export const useGetBurnedWBnb = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_BURNED_BNB],
-    queryFn: getBurnedWBnb,
-  }),
-);
-
 export const getImportablePositions = vi.fn(async () => importablePositions);
 export const useGetImportablePositions = vi.fn(() =>
   useQuery({
@@ -568,7 +558,7 @@ export const useGetImportablePositions = vi.fn(() =>
   }),
 );
 
-export const getAccountPerformanceHistory = vi.fn(async () => ({
+export const getAccountPerformanceHistory = vi.fn(() => ({
   performanceHistory: [
     {
       blockNumber: 1,

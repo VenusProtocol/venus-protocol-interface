@@ -2,9 +2,9 @@ import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
 import { CellGroup, type CellProps, Icon, Spinner, TokenIcon, Wrapper } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Link } from 'containers/Link';
-import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
@@ -23,7 +23,7 @@ export const MarketInfo = () => {
 
   const { t } = useTranslation();
 
-  const { marketsPagePath } = useGetMarketsPagePath();
+  const { marketsPagePath } = useMarketsPagePath();
 
   const { data: getAssetData } = useGetAsset({
     vTokenAddress,

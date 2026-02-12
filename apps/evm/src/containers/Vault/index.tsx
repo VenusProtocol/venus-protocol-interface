@@ -24,7 +24,7 @@ type ActiveModal = 'stake' | 'withdraw';
 
 export interface VaultProps {
   vault: VaultType;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary';
   className?: string;
 }
 
@@ -70,7 +70,10 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
         </span>
       ),
     },
-    {
+  ];
+
+  if (variant !== 'tertiary') {
+    dataListItems.push({
       label: t('vault.dailyEmission'),
       value: (
         <div className="flex items-center gap-x-2">
@@ -87,10 +90,10 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
           </span>
         </div>
       ),
-    },
-  ];
+    });
+  }
 
-  if (variant === 'primary') {
+  if (variant !== 'secondary') {
     dataListItems.push({
       label: t('vault.totalStaked'),
       value: (
@@ -113,9 +116,11 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
 
   return (
     <>
-      <Card className={cn('w-full flex flex-col px-4 py-6', className)}>
-        {variant === 'primary' && (
-          <div className="flex items-center justify-between mb-6">
+      <Card
+        className={cn('w-full flex flex-col', variant === 'tertiary' ? 'p-3' : 'p-6', className)}
+      >
+        {variant !== 'secondary' && (
+          <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-x-2">
               <TokenIcon className="w-6 h-6" token={vault.stakedToken} />
 
@@ -123,48 +128,59 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
                 {vault.stakedToken.symbol}
               </p>
 
-              <AddTokenToWalletButton
-                className="shrink-0"
-                isUserConnected={!!accountAddress}
-                token={vault.stakedToken}
-              />
+              {variant === 'primary' && (
+                <AddTokenToWalletButton
+                  className="shrink-0"
+                  isUserConnected={!!accountAddress}
+                  token={vault.stakedToken}
+                />
+              )}
             </div>
           </div>
         )}
 
-        <p className="text-sm text-grey mb-1">{t('vault.youAreStake')}</p>
+        {variant !== 'tertiary' && (
+          <div className="space-y-1 mb-5">
+            <p className="text-sm text-grey">{t('vault.youAreStake')}</p>
 
-        <h2 className="inline-flex items-center gap-x-2" data-testid={TEST_IDS.userStakedTokens}>
-          <TokenIcon
-            className={cn(variant === 'primary' ? 'w-8 h-8' : 'w-6 h-6')}
-            token={vault.stakedToken}
-          />
+            <h2
+              className="inline-flex items-center gap-x-2"
+              data-testid={TEST_IDS.userStakedTokens}
+            >
+              <TokenIcon
+                className={cn(variant === 'primary' ? 'w-8 h-8' : 'w-6 h-6')}
+                token={vault.stakedToken}
+              />
 
-          <span className={cn(variant === 'primary' ? 'text-3xl' : 'text-xl')}>
-            {readableUserStakedTokens}
-          </span>
-        </h2>
+              <span className={cn(variant === 'primary' ? 'text-3xl' : 'text-xl')}>
+                {readableUserStakedTokens}
+              </span>
+            </h2>
+          </div>
+        )}
 
         {variant === 'primary' &&
           isPrimeEnabled &&
           primePoolIndex !== undefined &&
           vault.poolIndex === primePoolIndex && (
-            <PrimeStatusBanner className="bg-background p-4 sm:mt-2" hidePromotionalTitle />
+            <PrimeStatusBanner className="bg-background p-4 mb-6" hidePromotionalTitle />
           )}
 
-        <div className="mt-4 sm:mt-6">
-          {/* Mobile */}
-          <div className="space-y-3 sm:hidden">
-            {dataListItems.map(item => (
-              <LabeledInlineContent label={item.label} key={item.label}>
-                {item.value}
-              </LabeledInlineContent>
-            ))}
-          </div>
-
-          {/* SM and up */}
-          <CellGroup className="hidden sm:flex" variant="secondary" cells={dataListItems} />
+        {/* Mobile */}
+        <div className="space-y-3 sm:hidden">
+          {dataListItems.map(item => (
+            <LabeledInlineContent label={item.label} key={item.label}>
+              {item.value}
+            </LabeledInlineContent>
+          ))}
         </div>
+
+        {/* SM and up */}
+        <CellGroup
+          className="hidden sm:flex"
+          variant="secondary"
+          cells={dataListItems.map(cell => ({ ...cell, className: 'flex-1' }))}
+        />
 
         {(vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade) && (
           <NoticeWarning
@@ -173,12 +189,11 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
                 ? t('vault.pausedWarning')
                 : t('vault.blockingPendingWithdrawalsWarning')
             }
-            className="mt-6"
           />
         )}
 
         {variant === 'primary' && (
-          <div className="flex flex-col justify-between gap-y-3 pt-6 sm:flex-row sm:gap-x-4 sm:mt-auto sm:pt-8">
+          <div className="flex flex-col justify-between gap-y-3 pt-6 sm:flex-row sm:gap-x-4 sm:pt-8">
             <Button
               onClick={onStake}
               variant="primary"
