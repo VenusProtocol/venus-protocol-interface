@@ -342,6 +342,14 @@
       },
       "xAxisValue": "{{ date, numeric }}"
     },
+    "placeholder": {
+      "buttonLabel": "Duyệt"
+    },
+    "tabs": {
+      "markets": "Thị trường",
+      "staking": "Staking",
+      "transactions": "Giao dịch"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "Vay"
@@ -351,6 +359,42 @@
         "label": "Cung"
       },
       "textTitle": "Top thị trường trên Venus"
+    },
+    "transactions": {
+      "placeholder": {
+        "title": "Chưa có giao dịch"
+      },
+      "selects": {
+        "source": {
+          "all": "Tất cả thị trường"
+        },
+        "txType": {
+          "all": "Tất cả giao dịch",
+          "approve": "Phê duyệt",
+          "borrow": "Vay",
+          "enterMarket": "Bật tài sản thế chấp",
+          "exitMarket": "Tắt tài sản thế chấp",
+          "mint": "Cung cấp",
+          "redeem": "Rút",
+          "repay": "Hoàn trả"
+        }
+      },
+      "today": "Hôm nay",
+      "txText": {
+        "approve": "Đã phê duyệt chi tiêu {{tokenAmount}}",
+        "enterMarket": "<Styled>Bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
+        "exitMarket": "<Styled>Tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
+      },
+      "txType": {
+        "approve": "Phê duyệt",
+        "borrow": "Vay",
+        "enterMarket": "Bật tài sản thế chấp",
+        "exitMarket": "Tắt tài sản thế chấp",
+        "mint": "Cung cấp",
+        "redeem": "Rút",
+        "repay": "Hoàn trả"
+      },
+      "yesterday": "Hôm qua"
     }
   },
   "eModeBanner": {

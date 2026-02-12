@@ -342,6 +342,14 @@
       },
       "xAxisValue": "{{ date, numeric }}"
     },
+    "placeholder": {
+      "buttonLabel": "Göz at"
+    },
+    "tabs": {
+      "markets": "Piyasalar",
+      "staking": "Staking",
+      "transactions": "İşlemler"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "Borç al"
@@ -351,6 +359,42 @@
         "label": "Arz"
       },
       "textTitle": "Venus’taki en iyi piyasalar"
+    },
+    "transactions": {
+      "placeholder": {
+        "title": "Henüz işlem yok"
+      },
+      "selects": {
+        "source": {
+          "all": "Tüm piyasalar"
+        },
+        "txType": {
+          "all": "Tüm işlemler",
+          "approve": "Onay",
+          "borrow": "Borç al",
+          "enterMarket": "Teminat etkin",
+          "exitMarket": "Teminat devre dışı",
+          "mint": "Arz",
+          "redeem": "Çekim",
+          "repay": "Geri ödeme"
+        }
+      },
+      "today": "Bugün",
+      "txText": {
+        "approve": "{{tokenAmount}} harcaması onaylandı",
+        "enterMarket": "{{vTokenSymbol}} için <Styled>teminat etkinleştirildi</Styled>",
+        "exitMarket": "{{vTokenSymbol}} için <Styled>teminat devre dışı bırakıldı</Styled>"
+      },
+      "txType": {
+        "approve": "Onay",
+        "borrow": "Borç al",
+        "enterMarket": "Teminat etkin",
+        "exitMarket": "Teminat devre dışı",
+        "mint": "Arz",
+        "redeem": "Çekim",
+        "repay": "Geri ödeme"
+      },
+      "yesterday": "Dün"
     }
   },
   "eModeBanner": {

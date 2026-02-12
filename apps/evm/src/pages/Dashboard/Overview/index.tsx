@@ -48,7 +48,6 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
   });
 
   const [userChainSettings] = useUserChainSettings();
-
   const setUserSettings = store.use.setUserSettings();
 
   const toggleShowUserBalances = () =>
@@ -287,7 +286,7 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
         )}
 
         <div className="flex items-center gap-x-2">
-          <p className="text-3xl hidden md:block">
+          <p className="text-3xl">
             <HidableUserBalance>{readableNetWorth}</HidableUserBalance>
           </p>
 

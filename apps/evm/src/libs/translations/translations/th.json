@@ -342,6 +342,14 @@
       },
       "xAxisValue": "{{ date, numeric }}"
     },
+    "placeholder": {
+      "buttonLabel": "เรียกดู"
+    },
+    "tabs": {
+      "markets": "ตลาด",
+      "staking": "สเตคกิ้ง",
+      "transactions": "ธุรกรรม"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "ยืม"
@@ -351,6 +359,42 @@
         "label": "ฝาก"
       },
       "textTitle": "ตลาดยอดนิยมบน Venus"
+    },
+    "transactions": {
+      "placeholder": {
+        "title": "ยังไม่มีธุรกรรม"
+      },
+      "selects": {
+        "source": {
+          "all": "ทุกตลาด"
+        },
+        "txType": {
+          "all": "ธุรกรรมทั้งหมด",
+          "approve": "การอนุมัติ",
+          "borrow": "ยืม",
+          "enterMarket": "เปิดใช้หลักประกัน",
+          "exitMarket": "ปิดใช้หลักประกัน",
+          "mint": "ฝาก",
+          "redeem": "ถอน",
+          "repay": "ชำระคืน"
+        }
+      },
+      "today": "วันนี้",
+      "txText": {
+        "approve": "อนุมัติการใช้จ่าย {{tokenAmount}} แล้ว",
+        "enterMarket": "<Styled>เปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน",
+        "exitMarket": "<Styled>ปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน"
+      },
+      "txType": {
+        "approve": "การอนุมัติ",
+        "borrow": "ยืม",
+        "enterMarket": "เปิดใช้หลักประกัน",
+        "exitMarket": "ปิดใช้หลักประกัน",
+        "mint": "ฝาก",
+        "redeem": "ถอน",
+        "repay": "ชำระคืน"
+      },
+      "yesterday": "เมื่อวาน"
     }
   },
   "eModeBanner": {
