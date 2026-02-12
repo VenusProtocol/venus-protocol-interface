@@ -51,7 +51,6 @@
     "bignumber.js": "^9.1.1",
     "buffer": "^6.0.3",
     "compare-versions": "^6.1.0",
-    "connectkit": "^1.8.2",
     "copy-to-clipboard": "^3.3.3",
     "date-fns": "^4.1.0",
     "embla-carousel-autoplay": "^8.5.2",
