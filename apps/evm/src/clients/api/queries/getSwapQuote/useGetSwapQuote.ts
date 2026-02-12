@@ -1,7 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
 import type { SwapQuoteError } from 'types';
@@ -39,16 +38,11 @@ export const useGetSwapQuote = (input: TrimmedGetSwapQuoteInput, options?: Parti
   const wrappedFromToken = wbnb && wrapToken({ token: input.fromToken, wrappedToken: wbnb });
   const wrappedToToken = wbnb && wrapToken({ token: input.toToken, wrappedToken: wbnb });
 
-  const { address: swapRouterV2ContractAddress } = useGetContractAddress({
-    name: 'SwapRouterV2',
-  });
-
   return useQuery({
     queryKey: [FunctionKey.GET_SWAP_QUOTE, input],
     queryFn: () =>
       callOrThrow(
         {
-          recipientAddress: swapRouterV2ContractAddress,
           fromToken: wrappedFromToken,
           toToken: wrappedToToken,
         },
