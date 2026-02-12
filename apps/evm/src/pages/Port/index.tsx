@@ -1,12 +1,12 @@
 import { Page } from 'components';
 import ImportablePositions from 'containers/ImportablePositions';
 import { Redirect } from 'containers/Redirect';
-import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { useAccountAddress } from 'libs/wallet';
 
 const Port: React.FC = () => {
   const { accountAddress } = useAccountAddress();
-  const { marketsPagePath } = useGetMarketsPagePath();
+  const { marketsPagePath } = useMarketsPagePath();
 
   // redirect to Core pool page when account address doesn't exist
   if (!accountAddress) {

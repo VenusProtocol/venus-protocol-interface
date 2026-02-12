@@ -14,7 +14,8 @@ export type LinkProps = (RRLinkProps | React.AnchorHTMLAttributes<HTMLAnchorElem
 export const Link: React.FC<LinkProps> = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ className, children, noStyle, chainId, ...otherProps }, ref) => {
     const { formatTo } = useFormatTo();
-    const formattedTo = 'to' in otherProps ? formatTo({ to: otherProps.to, chainId }) : undefined;
+    const formattedTo =
+      'to' in otherProps && otherProps.to ? formatTo({ to: otherProps.to, chainId }) : undefined;
 
     const classes = cn(
       !noStyle &&

@@ -79,7 +79,7 @@ export const Carousel = forwardRef<
               key={i}
               className={cn(
                 'size-1.5 rounded-full cursor-pointer',
-                i === activeSlideIndex ? 'bg-white' : 'bg-white/30',
+                i === activeSlideIndex ? 'bg-blue' : 'bg-white',
               )}
             />
           ))}

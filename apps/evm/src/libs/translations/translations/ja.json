@@ -22,6 +22,57 @@
     "learnMore": "詳細を見る",
     "startNow": "今すぐ始める"
   },
+  "adCarousel": {
+    "binanceWalletBanner": {
+      "buttonLabel": "今すぐ始める",
+      "description": "<WhiteText>Binance Wallet</WhiteText>限定",
+      "phoneIllustration": {
+        "altText": "スマホのイラスト"
+      },
+      "title": "$U 最大20% APY"
+    },
+    "boostBanner": {
+      "buttonLabel": "詳細を見る",
+      "description": "ワンクリックのレバレッジで利回りを最大5倍までブースト。",
+      "rocketIllustration": {
+        "altText": "ロケットのイラスト"
+      },
+      "title": "Boostが利用可能になりました！"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "青い砂漠の背景"
+      },
+      "buttonLabel": "詳細を見る",
+      "coinsIllustration": {
+        "altText": "コインのイラスト"
+      },
+      "description": "報酬を請求してポジションを閉じてください",
+      "title": "隔離プールは終了予定です"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "地平線の背景"
+      },
+      "buttonLabel": "今すぐ始める",
+      "coinIllustration": {
+        "altText": "コインのイラスト"
+      },
+      "description": "probable.marketsで信念をブーストしよう",
+      "title": "何かを信じますか？"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "銀河の背景"
+      },
+      "buttonLabel": "今すぐ始める",
+      "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
+      "title": "Venus Fluxが利用可能",
+      "venusFluxIcon": {
+        "altText": "Venus Flux アイコン"
+      }
+    }
+  },
   "announcements": {
     "bethUpdate": {
       "description": "Binanceは2023-04-26にBETHの引き出しを停止しました。VenusでのBETHへのエクスポージャーを減らすことを推奨します。借入は停止されています。オンチェーンでBETHをWBETHに1:1の比率で変換できます。<Link>こちら</Link>をご覧ください。"
@@ -274,18 +325,6 @@
     "connectButton": "ウォレットを接続"
   },
   "dashboard": {
-    "adCarousel": {
-      "primeBanner": {
-        "button": {
-          "label": "Prime報酬を計算"
-        },
-        "description": "Venus Primeはレンディングと借入の活動に対して熱心なユーザーに報酬を付与します。",
-        "illustration": {
-          "altText": "Primeのイラスト"
-        },
-        "title": "<Gradient>Venus Prime</Gradient>でさらなる高みへ"
-      }
-    },
     "guide": {
       "completed": "完了",
       "step1": {
@@ -302,8 +341,24 @@
       },
       "uncompleted": "未完了"
     },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "Eモードのイラスト",
+          "title": "Eモード：<UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "借入済み",
+      "suppliedTabTitle": "供給済み",
+      "title": "資産"
+    },
     "overview": {
       "absolutePerformance": "絶対パフォーマンス",
+      "healthFactor": {
+        "tooltip": "健全性ファクター（清算ライン: < 1.0）"
+      },
       "netWorth": {
         "label": "純資産",
         "tooltip": "ボールトステークと借入を考慮した利用可能な純資産",
@@ -345,6 +400,18 @@
     "placeholder": {
       "buttonLabel": "閲覧"
     },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "借入ポジションはまだありません"
+        }
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "供給ポジションはまだありません"
+        }
+      }
+    },
     "staking": {
       "placeholder": {
         "title": "まだステーキングのポジションはありません"
@@ -359,11 +426,11 @@
       "borrowButton": {
         "label": "借入"
       },
-      "interactiveTitle": "Venusのトップ<SupplyButton>供給</SupplyButton> / <BorrowButton>借入</BorrowButton>",
+      "interactiveTitle": "スポットライト（<Group><SupplyButton>供給</SupplyButton>/<BorrowButton>借入</BorrowButton></Group>）",
       "supplyButton": {
         "label": "供給"
       },
-      "textTitle": "Venusのトップマーケット"
+      "textTitle": "スポットライト"
     },
     "transactions": {
       "placeholder": {
@@ -586,6 +653,7 @@
       "protectionTitle": "保護を最優先"
     },
     "safety": {
+      "audit_one": "監査",
       "audit_other": "監査",
       "otherAuditors": "Fairyproof、Hacken、HashExによる<br />14件以上の監査",
       "scoreAlt": "スコアのイラスト",
@@ -795,6 +863,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "{{ eModeGroupName }}グループの資産のみに供給することで借入力が高まります",
       "label": "隔離"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "借入APY",
+        "supplyApyLabel": "供給APY",
+        "supplyBalanceLabel": "供給残高",
+        "title": "推奨"
+      }
     },
     "tabs": {
       "assets": {

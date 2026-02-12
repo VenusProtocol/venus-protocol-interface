@@ -22,6 +22,57 @@
     "learnMore": "Learn more",
     "startNow": "Start now"
   },
+  "adCarousel": {
+    "binanceWalletBanner": {
+      "buttonLabel": "Start now",
+      "description": "Exclusively on <WhiteText>Binance Wallet</WhiteText>",
+      "phoneIllustration": {
+        "altText": "Phone illustration"
+      },
+      "title": "Up to 20% APY for $U"
+    },
+    "boostBanner": {
+      "buttonLabel": "Learn more",
+      "description": "One-click leverage to boost your yield up to 5x",
+      "rocketIllustration": {
+        "altText": "Rocket illustration"
+      },
+      "title": "Boost is available now!"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "Blue desert background"
+      },
+      "buttonLabel": "Learn more",
+      "coinsIllustration": {
+        "altText": "Coins illustration"
+      },
+      "description": "Claim your rewards and close your positions",
+      "title": "Isolated pools are being sunset"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "Horizon background"
+      },
+      "buttonLabel": "Start now",
+      "coinIllustration": {
+        "altText": "Coin illustration"
+      },
+      "description": "Give your conviction a boost on probable.markets",
+      "title": "Believe in something?"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "Galaxy background"
+      },
+      "buttonLabel": "Start now",
+      "description": "Let your liquidity Flux, watch your yield grow.",
+      "title": "Venus Flux is live",
+      "venusFluxIcon": {
+        "altText": "Venus Flux icon"
+      }
+    }
+  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. Convert BETH to WBETH on-chain at a 1:1 ratio <Link>here</Link>."
@@ -274,36 +325,40 @@
     "connectButton": "Connect wallet"
   },
   "dashboard": {
-    "adCarousel": {
-      "primeBanner": {
-        "button": {
-          "label": "Calculate your Prime rewards"
-        },
-        "description": "Venus Prime rewards dedicated users for their lending and borrowing activities.",
-        "illustration": {
-          "altText": "Prime illustration"
-        },
-        "title": "Achieve greater heights with <Gradient>Venus Prime</Gradient>"
-      }
-    },
     "guide": {
       "completed": "Completed",
       "step1": {
-        "description": "Earn yield by supplying assets or migrating your existing positions to the Venus protocol.",
+        "description": "Earn yield by supplying any asset or moving your existing positions from another protocol to Venus.",
         "title": "Supply / Migrate"
       },
       "step2": {
-        "description": "Borrow assets to power up your DeFi strategies, or leverage liquidities in one click.",
+        "description": "Borrow any asset to power your DeFi strategies, and boost it in one simple click.",
         "title": "Borrow / Leverage"
       },
       "step3": {
-        "description": "Deposit XVS into the vault and earn yield powered by the protocol's revenues.",
+        "description": "Deposit XVS to our vault and earn yield powered by Venus' revenue.",
         "title": "Stake XVS"
       },
       "uncompleted": "Uncompleted"
     },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "E-mode illustration",
+          "title": "E-mode: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "Borrowed",
+      "suppliedTabTitle": "Supplied",
+      "title": "Assets"
+    },
     "overview": {
       "absolutePerformance": "Absolute performance",
+      "healthFactor": {
+        "tooltip": "Health factor (liquidation at < 1.0)"
+      },
       "netWorth": {
         "label": "Net worth",
         "tooltip": "Net available assets after accounting for vault stake and borrowings",
@@ -345,6 +400,18 @@
     "placeholder": {
       "buttonLabel": "Browse"
     },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "No borrow positions yet"
+        }
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "No supply positions yet"
+        }
+      }
+    },
     "staking": {
       "placeholder": {
         "title": "No staking positions yet"
@@ -359,15 +426,15 @@
       "borrowButton": {
         "label": "Borrow"
       },
-      "interactiveTitle": "Top <SupplyButton>Supply</SupplyButton> / <BorrowButton>Borrow</BorrowButton> on Venus",
+      "interactiveTitle": "Spotlight (<Group><SupplyButton>supply</SupplyButton>/<BorrowButton>borrow</BorrowButton></Group>)",
       "supplyButton": {
         "label": "Supply"
       },
-      "textTitle": "Top markets on Venus"
+      "textTitle": "Spotlight"
     },
     "transactions": {
       "placeholder": {
-        "title": "No transactions yet"
+        "title": "No transactions"
       },
       "selects": {
         "source": {
@@ -796,6 +863,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
       "label": "Isolated"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "Borrow APY",
+        "supplyApyLabel": "Supply APY",
+        "supplyBalanceLabel": "Supply balance",
+        "title": "Holdings-based recommendation"
+      }
     },
     "tabs": {
       "assets": {

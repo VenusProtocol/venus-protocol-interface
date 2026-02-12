@@ -1,19 +1,19 @@
-import { useState } from 'react';
-
 import { useGetPool, useGetVaults } from 'clients/api';
 import { Carousel, CarouselItem, Icon } from 'components';
 import { routes } from 'constants/routing';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useChain } from 'hooks/useChain';
-import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
+import { store } from 'store';
 import { StepCard, type StepCardProps } from './StepCard';
 
 export const Guide: React.FC = () => {
   const { t } = useTranslation();
-  const { marketsPagePath } = useGetMarketsPagePath();
   const isSmUp = useBreakpointUp('sm');
+  const { marketsPagePath } = useMarketsPagePath();
 
   const { corePoolComptrollerContractAddress } = useChain();
   const { accountAddress } = useAccountAddress();
@@ -35,8 +35,15 @@ export const Guide: React.FC = () => {
   const isUserSupplying = pool?.userSupplyBalanceCents?.isGreaterThan(0) || false;
   const isUserBorrowing = pool?.userBorrowBalanceCents?.isGreaterThan(0) || false;
 
-  const [areItemsCollapsed, setAreItemsCollapsed] = useState(false);
-  const toggleCollapseItems = () => setAreItemsCollapsed(current => !current);
+  const [userChainSettings] = useUserChainSettings();
+  const setUserSettings = store.use.setUserSettings();
+
+  const toggleCollapseItems = () =>
+    setUserSettings({
+      settings: {
+        doNotExpandGuide: !userChainSettings.doNotExpandGuide,
+      },
+    });
 
   const steps: Omit<StepCardProps, 'isCollapsed'>[] = [
     {
@@ -73,12 +80,12 @@ export const Guide: React.FC = () => {
         <div className="hidden gap-x-3 items-start sm:flex">
           <div className="flex gap-x-3 grow">
             {steps.map(step => (
-              <StepCard {...step} isCollapsed={areItemsCollapsed} />
+              <StepCard {...step} isCollapsed={userChainSettings.doNotExpandGuide} />
             ))}
           </div>
 
           <button type="button" className="cursor-pointer shrink-0" onClick={toggleCollapseItems}>
-            <Icon name={areItemsCollapsed ? 'outerArrows' : 'innerArrows'} />
+            <Icon name={userChainSettings.doNotExpandGuide ? 'outerArrows' : 'innerArrows'} />
           </button>
         </div>
       ) : (
@@ -90,7 +97,7 @@ export const Guide: React.FC = () => {
         >
           {steps.map(step => (
             <CarouselItem key={step.title}>
-              <StepCard {...step} isCollapsed={areItemsCollapsed} />
+              <StepCard {...step} isCollapsed={userChainSettings.doNotExpandGuide} />
             </CarouselItem>
           ))}
         </Carousel>

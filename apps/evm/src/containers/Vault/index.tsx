@@ -163,7 +163,7 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
           isPrimeEnabled &&
           primePoolIndex !== undefined &&
           vault.poolIndex === primePoolIndex && (
-            <PrimeStatusBanner className="bg-background p-4 " hidePromotionalTitle />
+            <PrimeStatusBanner className="bg-background p-4 mb-6" hidePromotionalTitle />
           )}
 
         {/* Mobile */}

@@ -26,7 +26,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
   const { t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
 
-  const chartInterval = isSmOrUp ? 5 : 4;
+  const chartInterval = isSmOrUp ? 5 : 3;
 
   return (
     <div className={cn('h-43', className)}>

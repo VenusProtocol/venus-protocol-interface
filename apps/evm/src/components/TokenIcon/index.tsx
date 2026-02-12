@@ -6,29 +6,14 @@ import type { Token } from 'types';
 export interface TokenIconProps {
   token: Token;
   displayChain?: boolean;
-  size?: 'md' | 'lg';
   className?: string;
 }
 
-export const TokenIcon: React.FC<TokenIconProps> = ({
-  className,
-  token,
-  displayChain = false,
-  size = 'md',
-}) => {
+export const TokenIcon: React.FC<TokenIconProps> = ({ className, token, displayChain = false }) => {
   const chain = chains[token.chainId];
 
   return (
-    <div
-      className={cn(
-        'relative',
-        displayChain && size === 'md' && 'size-8',
-        displayChain && size === 'lg' && 'size-13',
-        !displayChain && size === 'md' && 'size-5',
-        !displayChain && size === 'lg' && 'size-6',
-        className,
-      )}
-    >
+    <div className={cn('relative size-5', className)}>
       <img src={token.iconSrc} alt={token.symbol} className="w-full" />
 
       {displayChain && (

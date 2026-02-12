@@ -22,6 +22,57 @@
     "learnMore": "瞭解更多",
     "startNow": "立即開始"
   },
+  "adCarousel": {
+    "binanceWalletBanner": {
+      "buttonLabel": "立即開始",
+      "description": "僅限 <WhiteText>Binance Wallet</WhiteText>",
+      "phoneIllustration": {
+        "altText": "手機插圖"
+      },
+      "title": "$U 最高 20% APY"
+    },
+    "boostBanner": {
+      "buttonLabel": "瞭解更多",
+      "description": "一鍵槓桿提升收益，最高 5 倍",
+      "rocketIllustration": {
+        "altText": "火箭插圖"
+      },
+      "title": "Boost 已上線！"
+    },
+    "isolatedPoolsSunsetBanner": {
+      "backgroundIllustration": {
+        "altText": "藍色沙漠背景"
+      },
+      "buttonLabel": "瞭解更多",
+      "coinsIllustration": {
+        "altText": "硬幣插圖"
+      },
+      "description": "領取獎勵並關閉你的倉位",
+      "title": "隔離池正在關閉"
+    },
+    "probableBanner": {
+      "backgroundIllustration": {
+        "altText": "地平線背景"
+      },
+      "buttonLabel": "立即開始",
+      "coinIllustration": {
+        "altText": "硬幣插圖"
+      },
+      "description": "在 probable.markets 上賦能你的信念",
+      "title": "心想事成？"
+    },
+    "venusFluxBanner": {
+      "backgroundIllustration": {
+        "altText": "銀河背景"
+      },
+      "buttonLabel": "立即開始",
+      "description": "讓你的流動性 Flux，見證收益成長。",
+      "title": "Venus Flux 已上線",
+      "venusFluxIcon": {
+        "altText": "Venus Flux 圖標"
+      }
+    }
+  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance 於 2023-04-26 暫停了 BETH 提現。我們建議用戶減少在 Venus 上的 BETH 曝險。借款已暫停。可在鏈上按 1:1 比例將 BETH 轉換為 WBETH，<Link>點擊此處</Link>。"
@@ -274,18 +325,6 @@
     "connectButton": "連接錢包"
   },
   "dashboard": {
-    "adCarousel": {
-      "primeBanner": {
-        "button": {
-          "label": "計算你的 Prime 獎勵"
-        },
-        "description": "Venus Prime 會獎勵在借貸活動中積極參與的用戶。",
-        "illustration": {
-          "altText": "Prime 插圖"
-        },
-        "title": "與 <Gradient>Venus Prime</Gradient> 一起登上更高境界"
-      }
-    },
     "guide": {
       "completed": "已完成",
       "step1": {
@@ -302,8 +341,24 @@
       },
       "uncompleted": "未完成"
     },
+    "marketBreakdown": {
+      "tables": {
+        "eModeButton": {
+          "illustrationAltText": "E-mode插圖",
+          "title": "E-mode: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+        }
+      }
+    },
+    "markets": {
+      "borrowTabTitle": "已借入",
+      "suppliedTabTitle": "已供應",
+      "title": "資產"
+    },
     "overview": {
       "absolutePerformance": "絕對表現",
+      "healthFactor": {
+        "tooltip": "健康係數（清算閾值 < 1.0）"
+      },
       "netWorth": {
         "label": "淨值",
         "tooltip": "計入金庫質押與借款後的可用淨資產",
@@ -345,6 +400,18 @@
     "placeholder": {
       "buttonLabel": "瀏覽"
     },
+    "pools": {
+      "borrowTab": {
+        "placeholder": {
+          "title": "尚無借入部位"
+        }
+      },
+      "supplyTab": {
+        "placeholder": {
+          "title": "尚無供應部位"
+        }
+      }
+    },
     "staking": {
       "placeholder": {
         "title": "尚無質押倉位"
@@ -359,11 +426,11 @@
       "borrowButton": {
         "label": "借款"
       },
-      "interactiveTitle": "Venus 表現最優 <SupplyButton>存款</SupplyButton> / <BorrowButton>借款</BorrowButton>",
+      "interactiveTitle": "焦點（<Group><SupplyButton>供應</SupplyButton>/<BorrowButton>借款</BorrowButton></Group>）",
       "supplyButton": {
         "label": "供應"
       },
-      "textTitle": "Venus 頂級市場"
+      "textTitle": "焦點"
     },
     "transactions": {
       "placeholder": {
@@ -586,6 +653,7 @@
       "protectionTitle": "安全保障優先"
     },
     "safety": {
+      "audit_one": "審計",
       "audit_other": "審計",
       "otherAuditors": "+14 次審計，來自 <br />Fairyproof、Hacken 與 HashEx",
       "scoreAlt": "評分插圖",
@@ -795,6 +863,14 @@
     "isolatedEModeGroupTooltip": {
       "content": "僅向 {{ eModeGroupName }} 組內資產供應可提升你的借款能力",
       "label": "隔離"
+    },
+    "recommendations": {
+      "recommendation": {
+        "borrowApyLabel": "借款 APY",
+        "supplyApyLabel": "供應 APY",
+        "supplyBalanceLabel": "供應餘額",
+        "title": "推薦"
+      }
     },
     "tabs": {
       "assets": {
@@ -1063,9 +1139,9 @@
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 後可領取 Prime 獎勵"
   },
   "probableBanner": {
-    "description": "在 probable.markets 上增強你的信念",
+    "description": "在 probable.markets 上賦能你的信念",
     "probableAltText": "Probable 插圖",
-    "title": "相信點什麼？"
+    "title": "心想事成？"
   },
   "proposalList": {
     "selectOptions": {
