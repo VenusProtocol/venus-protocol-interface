@@ -345,6 +345,11 @@
     "placeholder": {
       "buttonLabel": "Duyệt"
     },
+    "staking": {
+      "placeholder": {
+        "title": "Chưa có vị thế staking"
+      }
+    },
     "tabs": {
       "markets": "Thị trường",
       "staking": "Staking",

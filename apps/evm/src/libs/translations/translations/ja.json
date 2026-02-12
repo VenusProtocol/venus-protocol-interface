@@ -345,6 +345,11 @@
     "placeholder": {
       "buttonLabel": "閲覧"
     },
+    "staking": {
+      "placeholder": {
+        "title": "まだステーキングのポジションはありません"
+      }
+    },
     "tabs": {
       "markets": "マーケット",
       "staking": "ステーキング",

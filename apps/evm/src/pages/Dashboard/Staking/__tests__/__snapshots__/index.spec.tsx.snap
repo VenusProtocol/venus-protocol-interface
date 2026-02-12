@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Staking > displays content correctly 1`] = `"VAIVAI Stake APR> 10,000%Total staked415VAI Stake APR> 10,000%Total staked415XVSXVS Stake APR12.92%Total staked400MXVS Stake APR12.92%Total staked400MNo staking positions yetBrowse"`;
+
+exports[`Staking > displays content correctly when user is connected 1`] = `"You are staking233XVS Stake APR12.92%Daily emission144XVS Stake APR12.92%Daily emission144"`;
+
+exports[`Staking > displays placeholder when user has no vault positions 1`] = `"VAIVAI Stake APR> 10,000%Total staked415VAI Stake APR> 10,000%Total staked415XVSXVS Stake APR12.92%Total staked400MXVS Stake APR12.92%Total staked400MNo staking positions yetBrowse"`;
