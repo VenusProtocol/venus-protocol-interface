@@ -345,6 +345,11 @@
     "placeholder": {
       "buttonLabel": "Göz at"
     },
+    "staking": {
+      "placeholder": {
+        "title": "Henüz staking pozisyonu yok"
+      }
+    },
     "tabs": {
       "markets": "Piyasalar",
       "staking": "Staking",

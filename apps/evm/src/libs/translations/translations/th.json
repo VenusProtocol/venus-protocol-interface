@@ -345,6 +345,11 @@
     "placeholder": {
       "buttonLabel": "เรียกดู"
     },
+    "staking": {
+      "placeholder": {
+        "title": "ยังไม่มีสถานะการสเตค"
+      }
+    },
     "tabs": {
       "markets": "ตลาด",
       "staking": "สเตคกิ้ง",

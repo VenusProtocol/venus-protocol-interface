@@ -32,21 +32,32 @@ export const CellGroup: React.FC<CellGroupProps> = ({
     )}
     {...containerProps}
   >
-    {cells.map(cell => (
-      <Cell
-        key={`cell-group-item-${cell.label}`}
-        {...cell}
-        className={cn(
-          'xl:bg-transparent',
-          variant === 'primary' &&
-            'sm:px-6 sm:first-of-type:pl-0 sm:last-of-type:pr-0 sm:border-r sm:last-of-type:border-r-0 sm:border-lightGrey',
-          variant === 'secondary' &&
-            'px-5 first-of-type:pl-0 last-of-type:pr-0 border-r border-r-white/10 last-of-type:border-r-0',
-          variant === 'tertiary' &&
-            'bg-cards rounded-xl p-4 xl:py-0 xl:px-6 xl:rounded-none xl:first-of-type:pl-0 xl:last-of-type:pr-0 xl:border-r xl:last-of-type:border-r-0 xl:border-lightGrey',
-          cell.className,
+    {cells.map((cell, index) => (
+      <>
+        <Cell
+          key={`cell-group-item-${cell.label}`}
+          {...cell}
+          className={cn(
+            'xl:bg-transparent',
+            variant === 'primary' && 'sm:px-6 sm:first-of-type:pl-0 sm:last-of-type:pr-0',
+            variant === 'secondary' && 'px-5 first-of-type:pl-0 last-of-type:pr-0',
+            variant === 'tertiary' &&
+              'bg-cards rounded-xl p-4 xl:py-0 xl:px-6 xl:rounded-none xl:first-of-type:pl-0 xl:last-of-type:pr-0',
+            cell.className,
+          )}
+        />
+
+        {index < cells.length - 1 && (
+          <div
+            className={cn(
+              'w-px self-stretch shrink-0 bg-dark-grey',
+              variant === 'primary' && 'hidden sm:block',
+              variant === 'secondary' && 'bg-white/10',
+              variant === 'tertiary' && 'hidden xl:block',
+            )}
+          />
         )}
-      />
+      </>
     ))}
   </Card>
 );

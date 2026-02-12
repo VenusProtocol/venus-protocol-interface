@@ -345,6 +345,11 @@
     "placeholder": {
       "buttonLabel": "浏览"
     },
+    "staking": {
+      "placeholder": {
+        "title": "暂无质押仓位"
+      }
+    },
     "tabs": {
       "markets": "市场",
       "staking": "质押",

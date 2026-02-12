@@ -345,6 +345,11 @@
     "placeholder": {
       "buttonLabel": "Browse"
     },
+    "staking": {
+      "placeholder": {
+        "title": "No staking positions yet"
+      }
+    },
     "tabs": {
       "markets": "Markets",
       "staking": "Staking",
@@ -1406,11 +1411,11 @@
   },
   "vault": {
     "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
-    "dailyEmission": "Daily Emission",
+    "dailyEmission": "Daily emission",
     "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Stake APR",
-    "totalStaked": "Total Staked",
+    "totalStaked": "Total staked",
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
