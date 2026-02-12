@@ -5,10 +5,9 @@ import { cn } from '@venusprotocol/ui';
 import { ApproveTokenSteps, type ApproveTokenStepsProps, PrimaryButton } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import type { Swap, Token } from 'types';
+import type { SwapQuote, Token } from 'types';
 
 import { SwitchChain } from 'containers/SwitchChain';
-import SwapSummary from '../../../SwapSummary';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
@@ -20,7 +19,7 @@ export interface SubmitSectionProps {
   isApproveFromTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
   isFromTokenWalletSpendingLimitLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
-  swap?: Swap;
+  swapQuote?: SwapQuote;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
@@ -32,16 +31,16 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isApproveFromTokenLoading,
   isFromTokenWalletSpendingLimitLoading,
   isRevokeFromTokenWalletSpendingLimitLoading,
-  swap,
+  swapQuote,
   isSwapLoading,
 }) => {
   const { t } = useTranslation();
 
   const isSwappingWithHighPriceImpact = useMemo(
     () =>
-      !!swap?.priceImpactPercentage &&
-      swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
-    [swap?.priceImpactPercentage],
+      !!swapQuote?.priceImpactPercentage &&
+      swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    [swapQuote?.priceImpactPercentage],
   );
 
   const submitButtonLabel = useMemo(() => {
@@ -69,10 +68,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       >
         {submitButtonLabel}
       </PrimaryButton>
-
-      {isFormValid && !isSwapLoading && !isFromTokenWalletSpendingLimitLoading && (
-        <SwapSummary swap={swap} type="repay" />
-      )}
     </>
   );
 

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import useIsMounted from 'hooks/useIsMounted';
 import { handleError, isUserRejectedTxError } from 'libs/errors';
-import type { Asset, Swap, SwapError, Token, VToken } from 'types';
+import type { Asset, SwapQuote, Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { useAnalytics } from 'libs/analytics';
@@ -23,7 +23,7 @@ export interface UseFormInput {
     toVToken: VToken;
     fromToken: Token;
     fromTokenAmountTokens: string;
-    swap?: Swap;
+    swapQuote?: SwapQuote;
     fixedRepayPercentage?: number;
   }) => Promise<unknown>;
   formValues: FormValues;
@@ -34,8 +34,8 @@ export interface UseFormInput {
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
   isUsingSwap: boolean;
-  swap?: Swap;
-  swapError?: SwapError;
+  swapQuote?: SwapQuote;
+  swapQuoteErrorCode?: string;
 }
 
 interface UseFormOutput {
@@ -53,8 +53,8 @@ const useForm = ({
   fromTokenWalletSpendingLimitTokens,
   isFromTokenApproved,
   onSubmitSuccess,
-  swap,
-  swapError,
+  swapQuote,
+  swapQuoteErrorCode,
   formValues,
   setFormValues,
   onSubmit,
@@ -64,8 +64,8 @@ const useForm = ({
 
   const { isFormValid, formError } = useFormValidation({
     formValues,
-    swap,
-    swapError,
+    swapQuote,
+    swapQuoteErrorCode,
     isFromTokenApproved,
     isUsingSwap,
     fromTokenUserWalletBalanceTokens,
@@ -100,7 +100,7 @@ const useForm = ({
         fromTokenAmountTokens: formValues.amountTokens,
         fromToken: formValues.fromToken,
         fixedRepayPercentage: formValues.fixedRepayPercentage,
-        swap,
+        swapQuote,
       });
 
       captureAnalyticEvent('repay_signed', analyticData);
@@ -148,18 +148,18 @@ const useForm = ({
   ]);
 
   useEffect(() => {
-    // Fixed percentage using the swap
-    const isSwapping = !!swap;
+    // Fixed percentage using the swapQuote
+    const isSwapping = !!swapQuote;
 
     if (
       isMounted() &&
       formValues.fixedRepayPercentage &&
       isSwapping &&
-      swap.direction === 'exactAmountOut'
+      swapQuote.direction === 'exact-out'
     ) {
       const expectedFromTokenAmountSoldTokens = convertMantissaToTokens({
-        value: swap.expectedFromTokenAmountSoldMantissa,
-        token: swap.fromToken,
+        value: swapQuote.expectedFromTokenAmountSoldMantissa,
+        token: swapQuote.fromToken,
       }).toFixed();
 
       setFormValues(currentFormValues => ({
@@ -167,7 +167,7 @@ const useForm = ({
         amountTokens: expectedFromTokenAmountSoldTokens,
       }));
     }
-  }, [formValues.fixedRepayPercentage, swap, setFormValues, isMounted]);
+  }, [formValues.fixedRepayPercentage, swapQuote, setFormValues, isMounted]);
 
   return {
     handleSubmit,

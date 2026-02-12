@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
-import { useRepay, useSwapTokensAndRepay } from 'clients/api';
+import { useGetSwapQuote, useRepay, useSwapTokensAndRepay } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -12,14 +12,13 @@ import {
   TokenTextField,
 } from 'components';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset, BalanceMutation, Pool, Swap, SwapError, TokenBalance } from 'types';
+import type { Asset, BalanceMutation, Pool, SwapQuote, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
@@ -29,9 +28,11 @@ import {
   getUniqueTokenBalances,
 } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
 import { ApyBreakdown } from '../../ApyBreakdown';
@@ -71,8 +72,8 @@ export interface RepayWithWalletBalanceFormUiProps
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
   onSubmitSuccess?: () => void;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
-  swap?: Swap;
-  swapError?: SwapError;
+  swapQuote?: SwapQuote;
+  swapQuoteErrorCode?: string;
 }
 
 export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUiProps> = ({
@@ -98,8 +99,8 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
   fromTokenWalletSpendingLimitTokens,
   revokeFromTokenWalletSpendingLimit,
   isRevokeFromTokenWalletSpendingLimitLoading,
-  swap,
-  swapError,
+  swapQuote,
+  swapQuoteErrorCode,
 }) => {
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
@@ -111,7 +112,7 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
 
   const fromTokenUserWalletBalanceTokens = useMemo(() => {
     // Get wallet balance from the list of fetched token balances if integrated
-    // swap feature is enabled and the selected token is different from the
+    // swapQuote feature is enabled and the selected token is different from the
     // asset object
     if (isUsingSwap || isWrappingNativeToken) {
       const tokenBalance = tokenBalances.find(item =>
@@ -140,7 +141,7 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
   const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
 
   let toTokenAmountTokens = isUsingSwap
-    ? getSwapToTokenAmountReceivedTokens(swap)
+    ? getSwapToTokenAmountReceivedTokens(swapQuote)
     : debouncedFormAmountTokens;
   toTokenAmountTokens = new BigNumber(toTokenAmountTokens || 0);
 
@@ -167,8 +168,8 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
     fromTokenUserBorrowBalanceTokens: asset.userBorrowBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
     isUsingSwap,
-    swap,
-    swapError,
+    swapQuote,
+    swapQuoteErrorCode,
     onSubmitSuccess,
     onSubmit,
     formValues,
@@ -192,7 +193,7 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
       fromTokenUserWalletBalanceTokens || 0,
     );
 
-    // If using swap, set input amount to wallet balance
+    // If using swapQuote, set input amount to wallet balance
     if (isUsingSwap) {
       amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0);
     }
@@ -241,7 +242,7 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
     };
 
     const canRepayFullLoan =
-      // If user is using swap, we don't know if they can repay the full loan after conversion
+      // If user is using swapQuote, we don't know if they can repay the full loan after conversion
       !isUsingSwap &&
       limitTokens.isGreaterThan(0) &&
       limitTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens);
@@ -394,7 +395,7 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
             isFormValid={isFormValid}
             isSubmitting={isSubmitting}
             isRepayingFullLoan={isRepayingFullLoan}
-            priceImpactPercentage={swap?.priceImpactPercentage}
+            priceImpactPercentage={swapQuote?.priceImpactPercentage}
           />
 
           <div className="space-y-2">
@@ -420,14 +421,14 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
             simulatedPool={simulatedPool}
             balanceMutations={balanceMutations}
             isUsingSwap={isUsingSwap}
-            swap={swap}
+            swap={swapQuote}
           />
         </div>
 
         <SubmitSection
           isFormSubmitting={isSubmitting}
           isFormValid={isFormValid}
-          swap={swap}
+          swapQuote={swapQuote}
           isSwapLoading={isSwapLoading}
           fromToken={formValues.fromToken}
           approveFromToken={approveFromToken}
@@ -502,8 +503,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   }, [accountAddress, initialFormValues]);
 
   const { address: swapRouterContractAddress } = useGetContractAddress({
-    name: 'SwapRouter',
-    poolComptrollerContractAddress: pool.comptrollerAddress,
+    name: 'SwapRouterV2',
   });
 
   // a user is trying to wrap the chain's native token if
@@ -592,7 +592,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   });
 
   const onSubmit: RepayWithWalletBalanceFormUiProps['onSubmit'] = useCallback(
-    async ({ fromToken, fromTokenAmountTokens, swap, fixedRepayPercentage }) => {
+    async ({ fromToken, fromTokenAmountTokens, swapQuote, fixedRepayPercentage }) => {
       const repayFullLoan = fixedRepayPercentage === 100;
       const amountMantissa = convertTokensToMantissa({
         value: new BigNumber(fromTokenAmountTokens.trim()),
@@ -611,18 +611,18 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
         });
       }
 
-      // Throw an error if we're meant to execute a swap but no swap was
+      // Throw an error if we're meant to execute a swapQuote but no swapQuote was
       // passed through props. This should never happen since the form is
-      // disabled while swap infos are being fetched, but we add this logic
+      // disabled while swapQuote infos are being fetched, but we add this logic
       // as a safeguard
-      if (!swap) {
+      if (!swapQuote) {
         throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
       }
 
-      // Handle swap and repay flow
+      // Handle swapQuote and repay flow
       return onSwapAndRepay({
         repayFullLoan,
-        swap,
+        swapQuote,
         poolName: pool.name,
         poolComptrollerContractAddress: pool.comptrollerAddress,
         vToken: asset.vToken,
@@ -639,24 +639,35 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     ],
   );
 
-  const swapDirection = formValues.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
+  const { address: swapRouterV2ContractAddress } = useGetContractAddress({
+    name: 'SwapRouterV2',
+  });
 
   const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
+  const fromTokenAmountTokens = new BigNumber(debouncedFormAmountTokens || 0);
 
-  const swapInfo = useGetSwapInfo({
-    fromToken: formValues.fromToken || asset.vToken.underlyingToken,
-    fromTokenAmountTokens:
-      swapDirection === 'exactAmountIn' ? debouncedFormAmountTokens : undefined,
-    toToken: asset.vToken.underlyingToken,
-    toTokenAmountTokens: formValues.fixedRepayPercentage
-      ? calculatePercentageOfUserBorrowBalance({
-          token: asset.vToken.underlyingToken,
-          userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
-          percentage: formValues.fixedRepayPercentage,
-        })
-      : undefined,
-    direction: swapDirection,
-  });
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
+
+  const {
+    data: swapQuoteData,
+    error: swapQuoteError,
+    isLoading: swapQuoteLoading,
+  } = useGetSwapQuote(
+    {
+      fromToken: formValues.fromToken,
+      fromTokenAmountTokens,
+      toToken: asset.vToken.underlyingToken,
+      direction: 'exact-in',
+      recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
+      slippagePercentage: userSlippageTolerancePercentage,
+    },
+    {
+      enabled:
+        isUsingSwap && !!swapRouterV2ContractAddress && fromTokenAmountTokens.isGreaterThan(0),
+    },
+  );
+
+  const swapQuote = swapQuoteData?.swapQuote;
 
   return (
     <RepayWithWalletBalanceFormUi
@@ -674,9 +685,9 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       integratedSwapTokenBalances={integratedSwapTokenBalancesData}
       onSubmit={onSubmit}
       isSubmitting={isSubmitting}
-      swap={swapInfo.swap}
-      swapError={swapInfo.error}
-      isSwapLoading={swapInfo.isLoading}
+      swapQuote={swapQuote}
+      swapQuoteErrorCode={swapQuoteError?.code}
+      isSwapLoading={swapQuoteLoading}
       isFromTokenApproved={isFromTokenApproved}
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}

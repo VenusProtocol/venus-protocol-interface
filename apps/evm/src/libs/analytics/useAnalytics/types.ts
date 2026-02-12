@@ -84,7 +84,7 @@ type SwapAndRepay = AnalyticEvent & {
   toTokenAmountTokens: number;
   priceImpactPercentage: number;
   slippageTolerancePercentage: number;
-  exchangeRate: number;
+  exchangeRate?: number;
   repaidFullLoan: boolean;
 };
 

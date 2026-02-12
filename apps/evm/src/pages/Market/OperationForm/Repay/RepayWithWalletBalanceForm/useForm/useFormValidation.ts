@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import type { Swap, SwapError } from 'types';
+import type { SwapQuote } from 'types';
 import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
 import type { FormError } from '../../../types';
 import type { FormErrorCode, FormValues } from './types';
@@ -15,8 +15,8 @@ interface UseFormValidationInput {
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
   isUsingSwap: boolean;
-  swap?: Swap;
-  swapError?: SwapError;
+  swapQuote?: SwapQuote;
+  swapQuoteErrorCode?: string;
 }
 
 interface UseFormValidationOutput {
@@ -25,8 +25,8 @@ interface UseFormValidationOutput {
 }
 
 const useFormValidation = ({
-  swap,
-  swapError,
+  swapQuote,
+  swapQuoteErrorCode,
   formValues,
   isFromTokenApproved,
   isUsingSwap,
@@ -54,8 +54,8 @@ const useFormValidation = ({
       },
     };
 
-    if (isUsingSwap && swapError && swapError in swapErrorMapping) {
-      return swapErrorMapping[swapError];
+    if (isUsingSwap && swapQuoteErrorCode && swapQuoteErrorCode in swapErrorMapping) {
+      return swapErrorMapping[swapQuoteErrorCode];
     }
 
     const fromTokenAmountTokens = formValues.amountTokens
@@ -81,7 +81,7 @@ const useFormValidation = ({
     }
 
     const toTokensAmountRepaidTokens = isUsingSwap
-      ? getSwapToTokenAmountReceivedTokens(swap)
+      ? getSwapToTokenAmountReceivedTokens(swapQuote)
       : fromTokenAmountTokens;
 
     if (
@@ -107,8 +107,8 @@ const useFormValidation = ({
     }
 
     if (
-      !!swap?.priceImpactPercentage &&
-      swap?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
+      !!swapQuote?.priceImpactPercentage &&
+      swapQuote?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
     ) {
       return {
         code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
@@ -123,8 +123,8 @@ const useFormValidation = ({
     isFromTokenApproved,
     isUsingSwap,
     formValues.amountTokens,
-    swap,
-    swapError,
+    swapQuote,
+    swapQuoteErrorCode,
     t,
   ]);
 
