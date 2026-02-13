@@ -873,6 +873,12 @@
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
     },
+    "header": {
+      "venusCore": {
+        "description": "Simple and powerful community-driven finance for the entire globe.",
+        "title": "Venus Core"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
       "label": "Isolated"

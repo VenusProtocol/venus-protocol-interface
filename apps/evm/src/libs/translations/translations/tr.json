@@ -873,6 +873,12 @@
       "collateralEnableError": "Teminat Etkinleştirme Hatası - {{assetName}} teminatını etkinleştirirken bir sorun oluştu. Lütfen tekrar deneyin.",
       "collateralRequired": "Teminat gerekli - Lütfen tüm borç alınan varlıkları geri ödeyin veya diğer varlıkları teminat olarak ayarlayın."
     },
+    "header": {
+      "venusCore": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "{{ eModeGroupName }} grubundaki varlıklara yalnızca tedarik yaparak borçlanma gücünüz artar",
       "label": "İzole"

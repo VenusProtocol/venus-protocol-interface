@@ -7,8 +7,7 @@ import type { Address } from 'viem';
 import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
-import { Assets } from './Assets';
-import { Tabs } from './Tabs';
+import { Header } from './Header';
 
 export const Markets: React.FC = () => {
   const { accountAddress } = useAccountAddress();
@@ -29,19 +28,7 @@ export const Markets: React.FC = () => {
     return <Redirect to={marketsPagePath} />;
   }
 
-  return (
-    <Page>
-      {pool ? (
-        pool.eModeGroups.length > 0 ? (
-          <Tabs pool={pool} />
-        ) : (
-          <Assets pool={pool} />
-        )
-      ) : (
-        <Spinner />
-      )}
-    </Page>
-  );
+  return <Page>{pool ? <Header pool={pool} /> : <Spinner />}</Page>;
 };
 
 export default Markets;

@@ -873,6 +873,12 @@
       "collateralEnableError": "Lỗi bật tài sản thế chấp - Đã xảy ra sự cố khi bật {{assetName}} làm tài sản thế chấp. Vui lòng thử lại.",
       "collateralRequired": "Yêu cầu tài sản thế chấp - Vui lòng hoàn trả tất cả tài sản đã vay hoặc đặt tài sản khác làm thế chấp."
     },
+    "header": {
+      "venusCore": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "Sức mạnh vay của bạn tăng lên khi chỉ cung cấp tài sản trong nhóm {{ eModeGroupName }}",
       "label": "Cô lập"

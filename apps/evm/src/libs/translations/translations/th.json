@@ -873,6 +873,12 @@
       "collateralEnableError": "เกิดข้อผิดพลาดในการเปิดใช้หลักประกัน - มีปัญหาในการเปิดใช้ {{assetName}} เป็นหลักประกัน โปรดลองอีกครั้ง",
       "collateralRequired": "ต้องมีหลักประกัน - โปรดชำระคืนสินทรัพย์ที่ยืมทั้งหมดหรือกำหนดสินทรัพย์อื่นเป็นหลักประกัน"
     },
+    "header": {
+      "venusCore": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "พลังการยืมของคุณจะเพิ่มขึ้นเมื่อฝากเฉพาะสินทรัพย์จากกลุ่ม {{ eModeGroupName }}",
       "label": "แยก"
