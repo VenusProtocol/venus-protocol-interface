@@ -215,17 +215,6 @@
     "modalTitle": "{{ poolName }} 代币",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "背景插图",
-    "binanceLogoAltText": "Binance 标志",
-    "description": "借入 USDT，分享 <Bold>$400,000</Bold> 奖励！",
-    "title": "Venus 已在 Binance Wallet Earn 上线。"
-  },
-  "boostBanner": {
-    "description": "一键杠杆提升收益 <White>最高 5 倍</White>。",
-    "rocketAltText": "火箭插图",
-    "title": "Boost 已上线！"
-  },
   "breadcrumbs": {
     "bridge": "跨链桥",
     "dashboard": "仪表盘",
@@ -472,7 +461,7 @@
     "exploreButtonLabel": "探索",
     "illustrationAltText": "E-mode插图",
     "manageEModeButtonLabel": "管理 E-mode",
-    "title": "使用 E-Mode 提升借款能力"
+    "title": "使用 E-mode 提升借款能力"
   },
   "errors": {
     "couldNotRetrieveSigner": "无法获取签名者，请确保钱包已解锁并刷新页面",
@@ -593,11 +582,6 @@
       "supplyApy": "存款 APY",
       "utilizationRate": "利用率"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "领取奖励并关闭你的仓位",
-    "illustrationAltText": "插图",
-    "title": "隔离池即将关闭"
   },
   "landing": {
     "benefits": {
@@ -810,61 +794,32 @@
     },
     "supplyInfo": {
       "title": "存款信息"
+    },
+    "tabs": {
+      "eMode": {
+        "illustrationAltText": "闪电插图",
+        "liquidationPenalty": {
+          "label": "清算罚金"
+        },
+        "liquidationThreshold": {
+          "label": "清算阈值"
+        },
+        "maxLtv": {
+          "label": "最大 LTV",
+          "tooltip": "最大 LTV 即借款限额。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的可抵押允许借入价值 {{userCollateralFactor}} {{tokenSymbol}} 的货币。"
+        }
+      }
     }
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "你无法禁用该 E-mode组，因为你有包含无法从该池借款的资产的借款仓位。<Link>显示我的仓位</Link>",
-            "notEnoughCollateral": "你无法禁用该 E-mode组，因为你的总可抵押价值不足以覆盖总借款余额"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "要启用 <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode组，你需要关闭以下借款仓位：",
-            "repayButtonLabel": "还款",
-            "title": "你的仓位"
-          },
-          "tooltip": {
-            "blockingPositions": "你无法启用该 E-mode组，因为你有不属于该组的资产借款仓位。<Link>显示我的仓位</Link>",
-            "notEnoughCollateral": "你无法启用该 E-mode组，因为你的总可抵押价值不足以覆盖总借款余额"
-          }
-        },
-        "disableButtonLabel": "禁用",
-        "disabledNotice": "该 E-Mode 组已不再支持。你的账户将回到默认参数。请切换到其他可用的 E-mode组或将其禁用。",
-        "enableButtonLabel": "启用",
-        "healthFactor": "健康系数：",
-        "switchButtonLabel": "切换"
-      },
-      "notice": "启用 E-Mode 可最大化借款能力，但借款仅限于特定筛选后的资产。<Link>了解更多</Link>",
-      "search": {
-        "placeholder": "搜索资产或组"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "可借",
             "collateral": "可抵押"
-          },
-          "rows": {
-            "liquidationPenalty": "清算罚金",
-            "liquidationThreshold": "清算阈值",
-            "maxLtv": "最大 LTV"
           }
-        },
-        "columns": {
-          "asset": "资产",
-          "collateral": "可抵押",
-          "isBorrowable": "可借",
-          "liquidationPenalty": "清算罚金",
-          "liquidationThreshold": "清算阈值",
-          "maxLtv": "最大 LTV",
-          "penalty": "罚金",
-          "threshold": "阈值"
-        },
-        "mobileSelectLabel": "排序："
+        }
       }
     },
     "errors": {
@@ -875,8 +830,8 @@
     },
     "header": {
       "venusCore": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "面向全球的简单而强大、社区驱动的金融。",
+        "title": "Venus Core"
       }
     },
     "isolatedEModeGroupTooltip": {
@@ -892,22 +847,62 @@
       }
     },
     "tabs": {
-      "assets": {
-        "title": "资产"
-      },
       "eMode": {
-        "illustrationAltText": "闪电插图",
-        "liquidationPenalty": {
-          "label": "清算罚金"
+        "eModeNotice": "启用 E-mode 可最大化你的借款能力，但借款仅限于所选组内资产。<Link>了解更多</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "你无法禁用该组，因为你有包含无法从该池借款的资产的借款仓位。<Link>显示我的仓位</Link>",
+              "notEnoughCollateral": "你无法禁用该组，因为你的总可抵押价值不足以覆盖总借款余额"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "要启用 <WhiteText>{{ eModeGroupName }}</WhiteText> 组，你需要关闭以下借款仓位：",
+              "repayButtonLabel": "还款",
+              "title": "你的仓位"
+            },
+            "tooltip": {
+              "blockingPositions": "你无法启用该组，因为你有不属于该组的资产借款仓位。<Link>显示我的仓位</Link>",
+              "notEnoughCollateral": "你无法启用该组，因为你的总可抵押价值不足以覆盖总借款余额"
+            }
+          },
+          "disableButtonLabel": "禁用",
+          "disabledNotice": "该组已不再支持。你的账户将回到核心池参数。请切换到其他可用组或将其禁用。",
+          "enableButtonLabel": "启用",
+          "healthFactor": "健康系数：",
+          "switchButtonLabel": "切换"
         },
-        "liquidationThreshold": {
-          "label": "清算阈值"
+        "isolationModeNotice": "启用隔离模式可最大化你的借款能力，但存款和借款仅限于所选组内资产。<Link>了解更多</Link>",
+        "label": "E-mode",
+        "pausedAssetsToggle": {
+          "label": "已暂停资产"
         },
-        "maxLtv": {
-          "label": "最大 LTV",
-          "tooltip": "最大 LTV 即借款限额。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的可抵押允许借入价值 {{userCollateralFactor}} {{tokenSymbol}} 的货币。"
+        "search": {
+          "placeholder": "搜索资产或组"
         },
-        "title": "E-mode"
+        "table": {
+          "columns": {
+            "asset": "资产",
+            "collateral": "可抵押",
+            "isBorrowable": "可借",
+            "liquidationPenalty": "清算罚金",
+            "liquidationThreshold": "清算阈值",
+            "maxLtv": "最大 LTV",
+            "penalty": "罚金",
+            "threshold": "阈值"
+          },
+          "mobileSelectLabel": "排序："
+        },
+        "userAssetsOnlyToggle": {
+          "label": "仅我的资产"
+        }
+      },
+      "isolationMode": {
+        "label": "隔离模式"
+      },
+      "markets": {
+        "label": "市场"
       }
     }
   },
