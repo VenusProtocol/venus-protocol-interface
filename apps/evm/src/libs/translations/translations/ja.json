@@ -18,9 +18,6 @@
     "limit": "上限:",
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全な借入限度:<LineBreak/>{{safeBorrowLimit}}（借入限度の{{safeBorrowLimitPercentage}}%）"
   },
-  "adBanner": {
-    "startNow": "今すぐ始める"
-  },
   "adCarousel": {
     "binanceWalletBanner": {
       "buttonLabel": "今すぐ始める",
@@ -191,9 +188,6 @@
     }
   },
   "asset": {
-    "eModeInfo": {
-      "title": "Eモード情報"
-    },
     "marketInfo": {
       "title": "マーケット情報"
     }
@@ -207,7 +201,7 @@
       "withdraw": "このマーケットでは引き出しが無効化されています"
     },
     "eModeBlockedActionNotice": {
-      "borrow": "あなたのEモード設定ではこのマーケットから借入できません。<Link>Eモードを管理</Link>"
+      "borrow": "あなたのE-mode設定ではこのマーケットから借入できません。<Link>E-modeを管理</Link>"
     }
   },
   "assetWarning": {
@@ -340,8 +334,8 @@
     "marketBreakdown": {
       "tables": {
         "eModeButton": {
-          "illustrationAltText": "Eモードのイラスト",
-          "title": "Eモード：<UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
+          "illustrationAltText": "E-modeのイラスト",
+          "title": "E-mode：<UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
         }
       }
     },
@@ -467,9 +461,49 @@
   },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
-    "illustrationAltText": "Eモードのイラスト",
-    "manageEModeButtonLabel": "Eモードを管理",
-    "title": "Eモードで借入力を強化"
+    "illustrationAltText": "E-modeのイラスト",
+    "manageEModeButtonLabel": "E-modeを管理",
+    "title": "E-modeで借入力を強化"
+  },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "並び替え:",
+      "searchPlaceholder": "グループまたは資産を検索"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "このグループは無効化できません。プールから借入できない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
+          "notEnoughCollateral": "このグループは無効化できません。担保の総額が借入残高の合計を下回るためです"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "<WhiteText>{{ eModeGroupName }}</WhiteText>グループを有効にするには、次の借入ポジションを解消する必要があります:",
+          "repayButtonLabel": "返済",
+          "title": "自分のポジション"
+        },
+        "tooltip": {
+          "blockingPositions": "このグループは有効にできません。このグループに属さない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
+          "notEnoughCollateral": "このグループは有効にできません。担保の総額が借入残高の合計を下回るためです"
+        }
+      },
+      "disableButtonLabel": "無効化",
+      "disabledNotice": "このグループはサポートされなくなりました。アカウントはコアプールのパラメータに戻りました。別の利用可能なグループに切り替えるか、無効化してください。",
+      "enableButtonLabel": "有効化",
+      "healthFactor": "健全性ファクター:",
+      "switchButtonLabel": "切り替え"
+    },
+    "table": {
+      "columns": {
+        "asset": "資産",
+        "collateral": "担保",
+        "isBorrowable": "借入可能",
+        "liquidationPenalty": "清算ペナルティ",
+        "liquidationThreshold": "清算しきい値",
+        "maxLtv": "最大LTV"
+      }
+    }
   },
   "errors": {
     "couldNotRetrieveSigner": "署名者を取得できませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
@@ -675,6 +709,7 @@
         "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
       },
       "price": "価格",
+      "resilientOracle": "レジリエントオラクル",
       "supply": "供給",
       "utilizationRate": "利用率"
     },
@@ -765,6 +800,25 @@
     "borrowInfo": {
       "title": "借入情報"
     },
+    "eModeInfo": {
+      "eMode": {
+        "title": "E-mode"
+      },
+      "isolationMode": {
+        "title": "隔離モード"
+      },
+      "link": "すべてのマーケットを表示",
+      "table": {
+        "columns": {
+          "collateral": "担保",
+          "group": "グループ",
+          "isBorrowable": "借入可能",
+          "liquidationPenalty": "ペナルティ",
+          "liquidationThreshold": "しきい値",
+          "maxLtv": "最大LTV"
+        }
+      }
+    },
     "interestRateModel": {
       "title": "金利モデル"
     },
@@ -802,21 +856,6 @@
     },
     "supplyInfo": {
       "title": "供給情報"
-    },
-    "tabs": {
-      "eMode": {
-        "illustrationAltText": "稲妻のイラスト",
-        "liquidationPenalty": {
-          "label": "清算ペナルティ"
-        },
-        "liquidationThreshold": {
-          "label": "清算しきい値"
-        },
-        "maxLtv": {
-          "label": "最大LTV",
-          "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
-        }
-      }
     }
   },
   "markets": {
@@ -856,55 +895,9 @@
     },
     "tabs": {
       "eMode": {
-        "eModeNotice": "Eモードを有効にすると借入可能額を最大化できますが、借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
-        "group": {
-          "cannotDisable": {
-            "tooltip": {
-              "blockingPositions": "このグループは無効化できません。プールから借入できない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
-              "notEnoughCollateral": "このグループは無効化できません。担保の総額が借入残高の合計を下回るためです"
-            }
-          },
-          "cannotEnable": {
-            "modal": {
-              "description": "<WhiteText>{{ eModeGroupName }}</WhiteText>グループを有効にするには、次の借入ポジションを解消する必要があります:",
-              "repayButtonLabel": "返済",
-              "title": "自分のポジション"
-            },
-            "tooltip": {
-              "blockingPositions": "このグループは有効にできません。このグループに属さない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
-              "notEnoughCollateral": "このグループは有効にできません。担保の総額が借入残高の合計を下回るためです"
-            }
-          },
-          "disableButtonLabel": "無効化",
-          "disabledNotice": "このグループはサポートされなくなりました。アカウントはコアプールのパラメータに戻りました。別の利用可能なグループに切り替えるか、無効化してください。",
-          "enableButtonLabel": "有効化",
-          "healthFactor": "健全性ファクター:",
-          "switchButtonLabel": "切り替え"
-        },
+        "eModeNotice": "E-modeを有効にすると借入可能額を最大化できますが、借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
         "isolationModeNotice": "隔離モードを有効にすると借入可能額を最大化できますが、供給と借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
-        "label": "Eモード",
-        "pausedAssetsToggle": {
-          "label": "停止中の資産"
-        },
-        "search": {
-          "placeholder": "資産またはグループを検索"
-        },
-        "table": {
-          "columns": {
-            "asset": "資産",
-            "collateral": "担保",
-            "isBorrowable": "借入可能",
-            "liquidationPenalty": "清算ペナルティ",
-            "liquidationThreshold": "清算しきい値",
-            "maxLtv": "最大LTV",
-            "penalty": "ペナルティ",
-            "threshold": "しきい値"
-          },
-          "mobileSelectLabel": "並び替え:"
-        },
-        "userAssetsOnlyToggle": {
-          "label": "自分の資産のみ"
-        }
+        "label": "E-mode"
       },
       "isolationMode": {
         "label": "隔離モード"
@@ -916,7 +909,7 @@
   },
   "marketTable": {
     "assetColumn": {
-      "eMode": "このマーケットは{{eModeGroupName}}のEモードグループに含まれます",
+      "eMode": "このマーケットは{{eModeGroupName}}のE-modeグループに含まれます",
       "pausedAssetTooltip": "資産はVenusガバナンスにより停止されています。借入と供給が無効化されています。"
     },
     "columnKeys": {
@@ -1147,11 +1140,6 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "waitForPrimeTitle": "Prime報酬を請求できるまで{{claimWaitingPeriod}}"
-  },
-  "probableBanner": {
-    "description": "probable.marketsで信念をブーストしよう",
-    "probableAltText": "Probableのイラスト",
-    "title": "何かを信じますか？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1510,12 +1498,6 @@
     },
     "withdrawButton": "引き出し",
     "youAreStake": "あなたのステーキング量"
-  },
-  "venusFluxBanner": {
-    "bgIllustrationAltText": "背景イラスト",
-    "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
-    "iconAltText": "Venus Flux アイコン",
-    "title": "Venus Fluxが利用可能になりました！"
   },
   "vote": {
     "abstain": "棄権",

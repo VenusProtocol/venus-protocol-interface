@@ -36,6 +36,7 @@ export function Table<R>({
   breakpoint,
   isFetching,
   variant = 'primary',
+  size = 'md',
   header,
   placeholder,
   selectVariant,
@@ -144,6 +145,7 @@ export function Table<R>({
                             rounded: variant === 'secondary',
                           }),
                         ]}
+                        className={cn(size === 'md' ? 'h-18' : 'h-14')}
                         onClick={rowOnClick ? e => rowOnClick(e, row) : undefined}
                         {...additionalProps}
                       >

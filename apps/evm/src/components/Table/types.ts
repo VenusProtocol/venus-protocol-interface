@@ -38,6 +38,7 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   selectVariant?: SelectProps['variant'];
   cellHeight?: CSSProperties['height'];
   variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md';
   controls?: boolean;
 }
 

@@ -1,8 +1,6 @@
 import { type ColumnKey, MarketTable } from 'containers/MarketTable';
 import type { Pool } from 'types';
 
-// TODO: add tests
-
 const marketTableColumns: ColumnKey[] = [
   'assetAndChain',
   'supplyBalance',

@@ -143,6 +143,8 @@ export interface ApiTokenPrice {
   priceMantissa: string;
   priceSource: 'oracle' | 'merkl' | 'coingecko';
   priceOracleAddress: Address | null;
+  mainOracleName: string;
+  mainOracleAddress: Address;
   isPriceInvalid: boolean;
   hasErrorFetchingPrice: boolean;
 }

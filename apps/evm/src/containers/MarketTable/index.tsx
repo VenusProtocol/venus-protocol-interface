@@ -60,6 +60,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   isFetching,
   header,
   className,
+  variant,
   ...otherTableProps
 }) => {
   const styles = useStyles();
@@ -153,7 +154,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         initialOrder={formattedInitialOrder}
         header={
           (header || controls || (columnKeys.includes('collateral') && isOnWrongChain)) && (
-            <div className={cn('space-y-4', isBreakpointUp && 'pt-4')}>
+            <div className={cn('space-y-4', isBreakpointUp && variant !== 'secondary' && 'pt-4')}>
               {(controls || header) && (
                 <div className={cn('flow-root space-y-4', isBreakpointUp && 'space-y-0')}>
                   {header}
@@ -165,6 +166,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                           searchValue={searchValue}
                           onSearchValueChange={onSearchValueChange}
                           searchInputPlaceholder={t('marketTable.search.placeholder')}
+                          showPausedAssetsToggle
                         />
                       </div>
 
@@ -210,6 +212,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         breakpoint={breakpoint}
         isFetching={isFetching}
         rowControlOnClick={rowControl ? handleRowControlClick : undefined}
+        variant={variant}
         {...otherTableProps}
       />
 

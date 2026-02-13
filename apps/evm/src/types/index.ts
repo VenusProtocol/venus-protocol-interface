@@ -119,6 +119,7 @@ export interface PointDistribution {
 export interface Asset {
   vToken: VToken;
   tokenPriceCents: BigNumber;
+  tokenPriceOracleAddress: Address;
   isBorrowable: boolean;
   reserveFactor: number;
   collateralFactor: number;

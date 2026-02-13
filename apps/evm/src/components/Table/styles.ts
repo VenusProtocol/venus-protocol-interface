@@ -89,8 +89,6 @@ export const useStyles = (props?: StylesProps) => {
       }
     `,
     getTableRow: ({ clickable, rounded }: { clickable: boolean; rounded: boolean }) => css`
-      height: ${theme.spacing(18)};
-
       :hover {
         background-color: ${theme.palette.interactive.hover} !important;
         overflow: hidden;

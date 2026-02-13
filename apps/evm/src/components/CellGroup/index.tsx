@@ -27,8 +27,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
         'p-4 grid grid-cols-2 rounded-xl gap-4 sm:flex sm:flex-wrap sm:gap-0 sm:px-6 sm:py-4',
       variant === 'secondary' &&
         'p-0 flex overflow-y-auto scrollbar-hidden bg-transparent sm:p-0 md:p-0 xl:p-0',
-      variant === 'tertiary' &&
-        'gap-2 bg-transparent p-0 grid grid-cols-2 sm:p-0 xl:bg-cards xl:flex xl:p-6 xl:flex-wrap xl:rounded-xl xl:gap-x-0',
+      variant === 'tertiary' && 'flex flex-wrap p-0 gap-x-6 gap-y-3 sm:grid sm:grid-cols-3 md:flex',
       className,
     )}
     {...containerProps}
@@ -50,10 +49,10 @@ export const CellGroup: React.FC<CellGroupProps> = ({
         {index < cells.length - 1 && (
           <div
             className={cn(
-              'w-px self-stretch shrink-0 bg-dark-grey',
+              'w-px self-stretch shrink-0 bg-dark-blue-hover',
               variant === 'primary' && 'hidden sm:block',
               variant === 'secondary' && 'bg-white/10',
-              variant === 'tertiary' && 'hidden xl:block',
+              variant === 'tertiary' && 'hidden md:block',
             )}
           />
         )}

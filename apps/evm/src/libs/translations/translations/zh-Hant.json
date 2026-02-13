@@ -18,9 +18,6 @@
     "limit": "限額：",
     "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（佔借款限額的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全借款限額：<LineBreak/>{{safeBorrowLimit}}（佔借款限額的 {{safeBorrowLimitPercentage}}%）"
   },
-  "adBanner": {
-    "startNow": "立即開始"
-  },
   "adCarousel": {
     "binanceWalletBanner": {
       "buttonLabel": "立即開始",
@@ -191,9 +188,6 @@
     }
   },
   "asset": {
-    "eModeInfo": {
-      "title": "E-mode信息"
-    },
     "marketInfo": {
       "title": "市場信息"
     }
@@ -471,6 +465,46 @@
     "manageEModeButtonLabel": "管理 E-mode",
     "title": "使用 E-mode 提升借款能力"
   },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "排序：",
+      "searchPlaceholder": "搜尋組或資產"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "你無法禁用該組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
+          "notEnoughCollateral": "你無法禁用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> 組，你需要關閉以下借款倉位：",
+          "repayButtonLabel": "還款",
+          "title": "你的倉位"
+        },
+        "tooltip": {
+          "blockingPositions": "你無法啟用該組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
+          "notEnoughCollateral": "你無法啟用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
+        }
+      },
+      "disableButtonLabel": "禁用",
+      "disabledNotice": "該組已不再支持。你的賬戶將回到核心池參數。請切換到其他可用組或將其禁用。",
+      "enableButtonLabel": "啟用",
+      "healthFactor": "健康係數：",
+      "switchButtonLabel": "切換"
+    },
+    "table": {
+      "columns": {
+        "asset": "資產",
+        "collateral": "抵押",
+        "isBorrowable": "可借",
+        "liquidationPenalty": "清算罰金",
+        "liquidationThreshold": "清算閾值",
+        "maxLtv": "最大 LTV"
+      }
+    }
+  },
   "errors": {
     "couldNotRetrieveSigner": "無法獲取簽名者，請確保錢包已解鎖並刷新頁面",
     "couldNotSwitchChain": "無法切換鏈，請確保錢包已解鎖並刷新頁面",
@@ -675,6 +709,7 @@
         "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
       },
       "price": "價格",
+      "resilientOracle": "彈性預言機",
       "supply": "供應",
       "utilizationRate": "利用率"
     },
@@ -765,6 +800,25 @@
     "borrowInfo": {
       "title": "借款信息"
     },
+    "eModeInfo": {
+      "eMode": {
+        "title": "E-mode"
+      },
+      "isolationMode": {
+        "title": "隔離模式"
+      },
+      "link": "顯示所有市場",
+      "table": {
+        "columns": {
+          "collateral": "抵押",
+          "group": "組",
+          "isBorrowable": "可借",
+          "liquidationPenalty": "罰金",
+          "liquidationThreshold": "閾值",
+          "maxLtv": "最大 LTV"
+        }
+      }
+    },
     "interestRateModel": {
       "title": "利率模型"
     },
@@ -802,21 +856,6 @@
     },
     "supplyInfo": {
       "title": "供應信息"
-    },
-    "tabs": {
-      "eMode": {
-        "illustrationAltText": "閃電插圖",
-        "liquidationPenalty": {
-          "label": "清算罰金"
-        },
-        "liquidationThreshold": {
-          "label": "清算閾值"
-        },
-        "maxLtv": {
-          "label": "最大 LTV",
-          "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
-        }
-      }
     }
   },
   "markets": {
@@ -857,54 +896,8 @@
     "tabs": {
       "eMode": {
         "eModeNotice": "啟用 E-mode 可最大化你的借款能力，但借款僅限於所選組內資產。<Link>了解更多</Link>",
-        "group": {
-          "cannotDisable": {
-            "tooltip": {
-              "blockingPositions": "你無法禁用該組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
-              "notEnoughCollateral": "你無法禁用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
-            }
-          },
-          "cannotEnable": {
-            "modal": {
-              "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> 組，你需要關閉以下借款倉位：",
-              "repayButtonLabel": "還款",
-              "title": "你的倉位"
-            },
-            "tooltip": {
-              "blockingPositions": "你無法啟用該組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
-              "notEnoughCollateral": "你無法啟用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
-            }
-          },
-          "disableButtonLabel": "禁用",
-          "disabledNotice": "該組已不再支持。你的賬戶將回到核心池參數。請切換到其他可用組或將其禁用。",
-          "enableButtonLabel": "啟用",
-          "healthFactor": "健康係數：",
-          "switchButtonLabel": "切換"
-        },
         "isolationModeNotice": "啟用隔離模式可最大化你的借款能力，但供應與借款僅限於所選組內資產。<Link>了解更多</Link>",
-        "label": "E-mode",
-        "pausedAssetsToggle": {
-          "label": "已暫停資產"
-        },
-        "search": {
-          "placeholder": "搜尋資產或組"
-        },
-        "table": {
-          "columns": {
-            "asset": "資產",
-            "collateral": "抵押",
-            "isBorrowable": "可借",
-            "liquidationPenalty": "清算罰金",
-            "liquidationThreshold": "清算閾值",
-            "maxLtv": "最大 LTV",
-            "penalty": "罰金",
-            "threshold": "閾值"
-          },
-          "mobileSelectLabel": "排序："
-        },
-        "userAssetsOnlyToggle": {
-          "label": "僅我的資產"
-        }
+        "label": "E-mode"
       },
       "isolationMode": {
         "label": "隔離模式"
@@ -1147,11 +1140,6 @@
     "tokensLeft_many": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
     "tokensLeft_other": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 後可領取 Prime 獎勵"
-  },
-  "probableBanner": {
-    "description": "在 probable.markets 上賦能你的信念",
-    "probableAltText": "Probable 插圖",
-    "title": "心想事成？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1510,12 +1498,6 @@
     },
     "withdrawButton": "提取",
     "youAreStake": "你正在質押"
-  },
-  "venusFluxBanner": {
-    "bgIllustrationAltText": "背景插圖",
-    "description": "讓你的流動性 Flux，見證收益成長。",
-    "iconAltText": "Venus Flux 圖標",
-    "title": "Venus Flux 已上線！"
   },
   "vote": {
     "abstain": "棄權",

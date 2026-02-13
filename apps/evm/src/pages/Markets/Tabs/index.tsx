@@ -1,41 +1,26 @@
 import { ButtonGroup, Select, type SelectOption } from 'components';
 import { VENUS_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
-import { useFormatTo } from 'hooks/useFormatTo';
 import { type Tab, useTabs } from 'hooks/useTabs';
-import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import type { Pool } from 'types';
-import { EMode } from './EMode';
+import type { EModeGroup, Pool } from 'types';
+import { EModeTabContent } from './EModeTabContent';
 import { Markets } from './Markets';
-import { formatEModeGroups } from './formatEModeGroups';
-import type { ExtendedEModeGroup } from './types';
+
+const E_MODE_DOC_URL = `${VENUS_DOC_URL}/whats-new/e-mode`;
+const ISOLATION_MODE_DOC_URL = `${VENUS_DOC_URL}/whats-new/isolated-e-mode`;
 
 export interface TabsProps {
   pool: Pool;
 }
 
-const E_MODE_DOC_URL = `${VENUS_DOC_URL}/whats-new/emode`;
-const ISOLATION_MODE_DOC_URL = ''; // TODO: add
-
 export const Tabs: React.FC<TabsProps> = ({ pool }) => {
   const { t, Trans } = useTranslation();
 
-  const { formatTo } = useFormatTo();
-  const vai = useGetToken({
-    symbol: 'VAI',
-  });
+  const isolatedEModeGroups: EModeGroup[] = [];
+  const eModeGroups: EModeGroup[] = [];
 
-  const extendedEModeGroups = formatEModeGroups({
-    pool,
-    vai,
-    formatTo,
-  });
-
-  const isolatedEModeGroups: ExtendedEModeGroup[] = [];
-  const eModeGroups: ExtendedEModeGroup[] = [];
-
-  extendedEModeGroups.forEach(
+  pool.eModeGroups.forEach(
     group => (group.isIsolated ? isolatedEModeGroups.push(group) : eModeGroups.push(group)),
     [],
   );
@@ -53,8 +38,9 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
       title: t('markets.tabs.eMode.label'),
       id: 'e-mode',
       content: (
-        <EMode
+        <EModeTabContent
           pool={pool}
+          eModeGroups={eModeGroups}
           notice={
             <Trans
               i18nKey="markets.tabs.eMode.eModeNotice"
@@ -63,7 +49,6 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
               }}
             />
           }
-          extendedEModeGroups={eModeGroups}
         />
       ),
     });
@@ -74,8 +59,9 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
       title: t('markets.tabs.isolationMode.label'),
       id: 'isolation-mode',
       content: (
-        <EMode
+        <EModeTabContent
           pool={pool}
+          eModeGroups={isolatedEModeGroups}
           notice={
             <Trans
               i18nKey="markets.tabs.eMode.isolationModeNotice"
@@ -84,7 +70,6 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
               }}
             />
           }
-          extendedEModeGroups={isolatedEModeGroups}
         />
       ),
     });

@@ -53,7 +53,7 @@ export const Tabs = ({
         <div className="relative">
           <div
             className={cn(
-              'flex text-sm gap-x-6 scrollbar-hidden overflow-y-auto sm:gap-x-6 md:overflow-y-visible',
+              'flex justify-center text-sm scrollbar-hidden overflow-y-auto md:overflow-y-visible',
               headerClassName,
             )}
           >
@@ -63,11 +63,11 @@ export const Tabs = ({
                 type="button"
                 key={tab.id}
                 className={cn(
-                  'hover:text-white cursor-pointer',
+                  'hover:text-white cursor-pointer flex-1',
                   activeTab.id === tab.id ? 'text-white' : 'text-grey',
                 )}
               >
-                <p className="mb-4 font-semibold whitespace-nowrap transition-colors text-inherit">
+                <p className="mb-4 font-semibold whitespace-nowrap transition-colors text-inherit mx-auto inline-block">
                   {tab.title}
                 </p>
 
