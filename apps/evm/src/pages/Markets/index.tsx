@@ -8,6 +8,7 @@ import { Redirect } from 'containers/Redirect';
 import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { useAccountAddress } from 'libs/wallet';
 import { Header } from './Header';
+import { Tabs } from './Tabs';
 
 export const Markets: React.FC = () => {
   const { accountAddress } = useAccountAddress();

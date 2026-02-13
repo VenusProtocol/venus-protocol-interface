@@ -312,6 +312,14 @@
   "connectWallet": {
     "connectButton": "ウォレットを接続"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "停止中の資産"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "自分の資産のみ"
+    }
+  },
   "dashboard": {
     "guide": {
       "completed": "完了",
@@ -953,17 +961,8 @@
       "imgAlt": "一時停止アイコン",
       "title": "このプールの資産はすべて停止されています"
     },
-    "pausedAssetsToggle": {
-      "label": "停止中の資産"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "資産を検索"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "自分の資産のみ"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "Eモード資産のみ"
     }
   },
   "operationForm": {

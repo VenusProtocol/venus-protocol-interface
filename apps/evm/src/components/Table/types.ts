@@ -30,6 +30,7 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   className?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
+  rowControlOnClick?: (e: React.MouseEvent<HTMLButtonElement>, row: R) => void;
   getRowHref?: (row: R) => To;
   title?: React.ReactNode | string;
   header?: React.ReactNode;
@@ -47,6 +48,7 @@ export interface TableCardProps<R>
     | 'data'
     | 'rowKeyExtractor'
     | 'rowOnClick'
+    | 'rowControlOnClick'
     | 'getRowHref'
     | 'breakpoint'
     | 'columns'

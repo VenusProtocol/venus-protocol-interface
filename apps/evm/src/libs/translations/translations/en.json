@@ -312,6 +312,14 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "Paused assets"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "My assets only"
+    }
+  },
   "dashboard": {
     "guide": {
       "completed": "Completed",
@@ -953,17 +961,8 @@
       "imgAlt": "Pause icon",
       "title": "All assets in this pool have been paused"
     },
-    "pausedAssetsToggle": {
-      "label": "Paused assets"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "Search asset"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "My assets only"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "E-mode assets only"
     }
   },
   "operationForm": {

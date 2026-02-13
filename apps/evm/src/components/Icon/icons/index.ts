@@ -84,6 +84,7 @@ export { default as gift } from './gift';
 export { default as eye } from './eye';
 export { default as closedEye } from './closedEye';
 export { default as pending } from './pending';
+export { default as pendingOutline } from './pendingOutline';
 export { default as innerArrows } from './innerArrows';
 export { default as outerArrows } from './outerArrows';
 export { default as crown } from './crown';

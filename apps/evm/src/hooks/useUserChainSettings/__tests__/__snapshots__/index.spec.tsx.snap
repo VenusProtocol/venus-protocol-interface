@@ -8,7 +8,6 @@ exports[`useUserChainSettings > returns correct settings from the store 1`] = `
   "gaslessTransactions": true,
   "showPausedAssets": false,
   "showUserAssetsOnly": false,
-  "showUserEModeAssetsOnly": false,
   "slippageTolerancePercentage": "0.5",
 }
 `;

@@ -7,6 +7,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 import { EMode } from './EMode';
+import { Markets } from './Markets';
 import { formatEModeGroups } from './formatEModeGroups';
 import type { ExtendedEModeGroup } from './types';
 
@@ -43,7 +44,7 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
     {
       title: t('markets.tabs.markets.label'),
       id: 'markets',
-      content: <></>, // TODO: add content
+      content: <Markets pool={pool} />,
     },
   ];
 

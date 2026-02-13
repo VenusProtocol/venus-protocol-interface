@@ -82,6 +82,7 @@ export const TabContent: React.FC<TabContentProps> = ({ type, pool }) => {
           columns={columns}
           breakpoint="sm"
           controls={false}
+          rowControl={false}
         />
       ) : (
         <Placeholder

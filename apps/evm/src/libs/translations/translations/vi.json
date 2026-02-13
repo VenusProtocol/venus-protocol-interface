@@ -312,6 +312,14 @@
   "connectWallet": {
     "connectButton": "Kết nối ví"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "Tài sản tạm dừng"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "Chỉ tài sản của tôi"
+    }
+  },
   "dashboard": {
     "guide": {
       "completed": "Hoàn thành",
@@ -953,17 +961,8 @@
       "imgAlt": "Biểu tượng tạm dừng",
       "title": "Tất cả tài sản trong pool này đã bị tạm dừng"
     },
-    "pausedAssetsToggle": {
-      "label": "Tài sản tạm dừng"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "Tìm tài sản"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "Chỉ tài sản của tôi"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "Chỉ tài sản E-mode"
     }
   },
   "operationForm": {

@@ -312,6 +312,14 @@
   "connectWallet": {
     "connectButton": "連接錢包"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "已暫停資產"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "僅我的資產"
+    }
+  },
   "dashboard": {
     "guide": {
       "completed": "已完成",
@@ -953,17 +961,8 @@
       "imgAlt": "暫停圖標",
       "title": "該池內所有資產已暫停"
     },
-    "pausedAssetsToggle": {
-      "label": "已暫停資產"
-    },
-    "searchInput": {
-      "placeholder": "搜索資產"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "僅我的資產"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "僅 E-mode資產"
+    "search": {
+      "placeholder": "搜尋資產"
     }
   },
   "operationForm": {

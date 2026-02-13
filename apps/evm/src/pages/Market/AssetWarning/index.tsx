@@ -78,6 +78,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
           data-testid={TEST_IDS.marketTable}
           rowOnClick={handleHideAssets}
           controls={false}
+          rowControl={false}
           variant="secondary"
           selectVariant="quaternary"
           breakpoint="sm"
