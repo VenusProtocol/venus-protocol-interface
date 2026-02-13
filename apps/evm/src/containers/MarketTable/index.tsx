@@ -151,7 +151,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                 {header}
 
                 {controls && (
-                  <div className={cn(isBreakpointUp && '-mx-6')}>
+                  <div className={cn(isBreakpointUp && '-mx-4')}>
                     <div
                       className={cn(
                         'space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:space-x-4',
