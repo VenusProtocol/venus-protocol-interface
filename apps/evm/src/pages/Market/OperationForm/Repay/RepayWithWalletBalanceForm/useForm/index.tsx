@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import useIsMounted from 'hooks/useIsMounted';
 import { handleError, isUserRejectedTxError } from 'libs/errors';
-import type { Asset, SwapQuote, Token, VToken } from 'types';
+import type { Asset, AssetBalanceMutation, Pool, SwapQuote, Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { useAnalytics } from 'libs/analytics';
@@ -17,7 +17,8 @@ export * from './types';
 
 export interface UseFormInput {
   asset: Asset;
-  poolName: string;
+  pool: Pool;
+  balanceMutations: AssetBalanceMutation[];
   toVToken: VToken;
   onSubmit: (input: {
     toVToken: VToken;
@@ -29,13 +30,15 @@ export interface UseFormInput {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
   onSubmitSuccess?: () => void;
-  fromTokenUserBorrowBalanceTokens?: BigNumber;
-  fromTokenUserWalletBalanceTokens?: BigNumber;
-  fromTokenWalletSpendingLimitTokens?: BigNumber;
+
+  simulatedPool?: Pool;
   isFromTokenApproved?: boolean;
-  isUsingSwap: boolean;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
+  fromTokenUserWalletBalanceTokens?: BigNumber;
+  fromTokenUserBorrowBalanceTokens?: BigNumber;
   swapQuote?: SwapQuote;
   swapQuoteErrorCode?: string;
+  isUsingSwap: boolean;
 }
 
 interface UseFormOutput {
@@ -46,7 +49,9 @@ interface UseFormOutput {
 
 const useForm = ({
   asset,
-  poolName,
+  pool,
+  simulatedPool,
+  balanceMutations,
   toVToken,
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
   fromTokenUserBorrowBalanceTokens = new BigNumber(0),
@@ -63,14 +68,16 @@ const useForm = ({
   const isMounted = useIsMounted();
 
   const { isFormValid, formError } = useFormValidation({
+    pool,
+    simulatedPool,
+    balanceMutations,
     formValues,
     swapQuote,
     swapQuoteErrorCode,
     isFromTokenApproved,
-    isUsingSwap,
     fromTokenUserWalletBalanceTokens,
-    fromTokenUserBorrowBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
+    isUsingSwap,
   });
 
   const { captureAnalyticEvent } = useAnalytics();
@@ -83,7 +90,7 @@ const useForm = ({
     }
 
     const analyticData = {
-      poolName,
+      poolName: pool.name,
       assetSymbol: asset.vToken.underlyingToken.symbol,
       usdAmount: calculateAmountDollars({
         amountTokens: formValues.amountTokens,

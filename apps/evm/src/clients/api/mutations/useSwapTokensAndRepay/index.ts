@@ -41,13 +41,11 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
         });
       }
 
-
-
       // 2. Repay full loan in BNBs using tokens
       if (
         repayFullLoan &&
         swapQuote.direction === 'exact-out' &&
-        vToken.symbol === 'vBNB' && 
+        vToken.symbol === 'vBNB' &&
         !swapQuote.fromToken.tokenWrapped?.isNative &&
         swapQuote.toToken.tokenWrapped?.isNative
       ) {
@@ -70,12 +68,10 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
         >;
       }
 
-
-
       // 6. Sell fromTokens to repay as many BNBs as possible → repay max BNBs
       if (
         swapQuote.direction === 'exact-in' &&
-        vToken.symbol === 'vBNB' && 
+        vToken.symbol === 'vBNB' &&
         !swapQuote.fromToken.isNative &&
         swapQuote.toToken.isNative
       ) {

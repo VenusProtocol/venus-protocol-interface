@@ -12,26 +12,26 @@ import fakeAccountAddress, {
 } from '__mocks__/models/address';
 import { bnb, xvs } from '__mocks__/models/tokens';
 import { vBnb } from '__mocks__/models/vTokens';
+import type { SwapQuote } from 'types';
 
 vi.mock('libs/contracts');
 vi.mock('utilities/generateTransactionDeadline');
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');
 
-const fakeSwap = {
-  direction: 'exactAmountIn' as const,
+const fakeSwapQuote: SwapQuote = {
+  direction: 'exact-in' as const,
   fromToken: xvs,
   toToken: bnb,
-  fromTokenAmountSoldMantissa: fakeAmountMantissa,
-  minimumToTokenAmountReceivedMantissa: fakeAmountMantissa,
-  expectedToTokenAmountReceivedMantissa: fakeAmountMantissa,
-  exchangeRate: new BigNumber('1'),
+  fromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+  minimumToTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
+  expectedToTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
   priceImpactPercentage: 0,
-  routePath: [xvs.address, bnb.address],
+  callData: '0x',
 };
 
 const fakeInput = {
-  swap: fakeSwap,
+  swapQuote: fakeSwapQuote,
   vToken: vBnb,
   repayFullLoan: false,
   poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
@@ -72,17 +72,15 @@ describe('useSwapTokensAndRepay', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xfakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
+          "${vBnb.address}",
+          "${xvs.address}",
           10000000000000000n,
           10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
-          ],
-          1747386407n,
+          "0x",
         ],
-        "functionName": "swapExactTokensForBNBAndRepay",
+        "functionName": "swapAndRepay",
       }
     `,
     );
@@ -94,7 +92,6 @@ describe('useSwapTokensAndRepay', () => {
       [
         "Tokens swapped and repaid",
         {
-          "exchangeRate": 1,
           "fromTokenAmountTokens": 0.01,
           "fromTokenSymbol": "XVS",
           "poolName": "Fake Pool",
@@ -118,12 +115,12 @@ describe('useSwapTokensAndRepay', () => {
     const repayFullLoanInput = {
       ...fakeInput,
       repayFullLoan: true,
-      swap: {
-        ...fakeSwap,
-        direction: 'exactAmountOut' as const,
-        toTokenAmountReceivedMantissa: fakeAmountMantissa,
-        maximumFromTokenAmountSoldMantissa: fakeAmountMantissa,
-        expectedFromTokenAmountSoldMantissa: fakeAmountMantissa,
+      swapQuote: {
+        ...fakeSwapQuote,
+        direction: 'exact-out' as const,
+        toTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        maximumFromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        expectedFromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
       },
     };
 
@@ -142,16 +139,14 @@ describe('useSwapTokensAndRepay', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xfakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
+          "${repayFullLoanInput.vToken.address}",
+          "${repayFullLoanInput.swapQuote.fromToken.address}",
           10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
-          ],
-          1747386407n,
+          "0x",
         ],
-        "functionName": "swapTokensForFullBNBDebtAndRepay",
+        "functionName": "swapAndRepayFull",
       }
     `,
     );
@@ -163,7 +158,6 @@ describe('useSwapTokensAndRepay', () => {
       [
         "Tokens swapped and repaid",
         {
-          "exchangeRate": 1,
           "fromTokenAmountTokens": 0.01,
           "fromTokenSymbol": "XVS",
           "poolName": "Fake Pool",
@@ -186,12 +180,15 @@ describe('useSwapTokensAndRepay', () => {
 
     const swapBnbInput = {
       ...fakeInput,
-      swap: {
-        ...fakeSwap,
-        fromToken: bnb,
+      swapQuote: {
+        ...fakeSwapQuote,
+        fromToken: {
+          ...bnb,
+          tokenWrapped: bnb,
+        },
         toToken: xvs,
-        fromTokenAmountSoldMantissa: fakeAmountMantissa,
-        minimumToTokenAmountReceivedMantissa: fakeAmountMantissa,
+        fromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        minimumToTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
       },
     };
 
@@ -210,17 +207,13 @@ describe('useSwapTokensAndRepay', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xfakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
-          "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+          "${swapBnbInput.vToken.address}",
           10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
-          ],
-          1747386407n,
+          "0x",
         ],
-        "functionName": "swapBNBForExactTokensAndRepay",
+        "functionName": "swapNativeAndRepay",
         "value": 10000000000000000n,
       }
     `,
@@ -233,7 +226,6 @@ describe('useSwapTokensAndRepay', () => {
       [
         "Tokens swapped and repaid",
         {
-          "exchangeRate": 1,
           "fromTokenAmountTokens": 0.01,
           "fromTokenSymbol": "XVS",
           "poolName": "Fake Pool",

@@ -18,7 +18,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset, BalanceMutation, Pool, SwapQuote, TokenBalance } from 'types';
+import type { Asset, AssetBalanceMutation, Pool, SwapQuote, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
@@ -145,7 +145,7 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
     : debouncedFormAmountTokens;
   toTokenAmountTokens = new BigNumber(toTokenAmountTokens || 0);
 
-  const balanceMutations: BalanceMutation[] = [
+  const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
       vTokenAddress: asset.vToken.address,
@@ -162,7 +162,8 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
-    poolName: pool.name,
+    pool,
+    balanceMutations,
     toVToken: asset.vToken,
     fromTokenUserWalletBalanceTokens,
     fromTokenUserBorrowBalanceTokens: asset.userBorrowBalanceTokens,
@@ -464,19 +465,15 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
-  const canWrapNativeToken = useMemo(
-    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
-    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
-  );
+  const canWrapNativeToken =
+    isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped;
 
-  const userWalletNativeTokenBalanceTokens = useMemo(() => {
-    return userTokenWrappedBalanceMantissa
-      ? convertMantissaToTokens({
-          token: asset.vToken.underlyingToken.tokenWrapped,
-          value: userTokenWrappedBalanceMantissa,
-        })
-      : undefined;
-  }, [asset.vToken.underlyingToken.tokenWrapped, userTokenWrappedBalanceMantissa]);
+  const userWalletNativeTokenBalanceTokens = userTokenWrappedBalanceMantissa
+    ? convertMantissaToTokens({
+        token: asset.vToken.underlyingToken.tokenWrapped,
+        value: userTokenWrappedBalanceMantissa,
+      })
+    : undefined;
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
@@ -646,6 +643,16 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
   const fromTokenAmountTokens = new BigNumber(debouncedFormAmountTokens || 0);
 
+  const toTokenAmountTokens = formValues.fixedRepayPercentage
+    ? new BigNumber(
+        calculatePercentageOfUserBorrowBalance({
+          userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
+          token: asset.vToken.underlyingToken,
+          percentage: formValues.fixedRepayPercentage,
+        }),
+      )
+    : undefined;
+
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
 
   const {
@@ -653,17 +660,30 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     error: swapQuoteError,
     isLoading: swapQuoteLoading,
   } = useGetSwapQuote(
-    {
-      fromToken: formValues.fromToken,
-      fromTokenAmountTokens,
-      toToken: asset.vToken.underlyingToken,
-      direction: 'exact-in',
-      recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
-      slippagePercentage: userSlippageTolerancePercentage,
-    },
+    formValues.fixedRepayPercentage
+      ? {
+          fromToken: formValues.fromToken,
+          toToken: asset.vToken.underlyingToken,
+          toTokenAmountTokens: toTokenAmountTokens || new BigNumber(0),
+          direction: 'exact-out' as const,
+          recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
+          slippagePercentage: userSlippageTolerancePercentage,
+        }
+      : {
+          fromToken: formValues.fromToken,
+          fromTokenAmountTokens,
+          toToken: asset.vToken.underlyingToken,
+          direction: 'exact-in' as const,
+          recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
+          slippagePercentage: userSlippageTolerancePercentage,
+        },
     {
       enabled:
-        isUsingSwap && !!swapRouterV2ContractAddress && fromTokenAmountTokens.isGreaterThan(0),
+        isUsingSwap &&
+        !!swapRouterV2ContractAddress &&
+        (formValues.fixedRepayPercentage
+          ? !!toTokenAmountTokens?.isGreaterThan(0)
+          : fromTokenAmountTokens.isGreaterThan(0)),
     },
   );
 
