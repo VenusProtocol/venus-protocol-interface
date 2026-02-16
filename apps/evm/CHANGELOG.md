@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.6.0
+
+### Minor Changes
+
+- 0209f62: replace ConnectKit with RainbowKit
+
 ## 4.5.2
 
 ### Patch Changes
