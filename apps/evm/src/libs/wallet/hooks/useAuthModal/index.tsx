@@ -1,20 +1,21 @@
-import { useModal } from 'connectkit';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import { useAnalytics } from 'libs/analytics';
+import { useEffect } from 'react';
 
 export const useAuthModal = () => {
   const { captureAnalyticEvent, authAnalyticVariant, setAuthAnalyticVariant } = useAnalytics();
 
-  const { open, setOpen } = useModal({
-    onDisconnect: () => {
-      if (authAnalyticVariant) {
-        setAuthAnalyticVariant(undefined);
-      }
-    },
-  });
+  const { openConnectModal, connectModalOpen } = useConnectModal();
+
+  useEffect(() => {
+    if (!connectModalOpen && authAnalyticVariant) {
+      setAuthAnalyticVariant(undefined);
+    }
+  }, [connectModalOpen, authAnalyticVariant, setAuthAnalyticVariant]);
 
   return {
-    isAuthModalOpen: open,
+    isAuthModalOpen: connectModalOpen,
     openAuthModal: ({ analyticVariant: inputAnalyticVariant }: { analyticVariant?: string }) => {
       setAuthAnalyticVariant(inputAnalyticVariant);
 
@@ -22,12 +23,7 @@ export const useAuthModal = () => {
         variant: inputAnalyticVariant,
       });
 
-      setOpen(true);
-    },
-    closeAuthModal: () => {
-      setAuthAnalyticVariant(undefined);
-
-      setOpen(false);
+      openConnectModal?.();
     },
   };
 };

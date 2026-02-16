@@ -1,5 +1,5 @@
 import { WagmiProvider } from 'wagmi';
-import { ConnectKitWrapper } from './ConnectKitWrapper';
+import { RainwbowKitWrapper } from './RainbowKitWrapper';
 import config from './config';
 
 export interface Web3WrapperProps {
@@ -8,6 +8,6 @@ export interface Web3WrapperProps {
 
 export const Web3Wrapper: React.FC<Web3WrapperProps> = ({ children }) => (
   <WagmiProvider config={config}>
-    <ConnectKitWrapper>{children}</ConnectKitWrapper>
+    <RainwbowKitWrapper>{children}</RainwbowKitWrapper>
   </WagmiProvider>
 );

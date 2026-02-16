@@ -1,15 +1,26 @@
-import { getDefaultConfig } from 'connectkit';
+import { connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { binanceWallet, okxWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
+import type { Chain } from 'viem';
 import { http, createConfig, fallback } from 'wagmi';
 
 import localConfig from 'config';
-import { MAIN_PRODUCTION_HOST } from 'constants/production';
 import type { ChainId } from 'types';
-import type { Chain } from 'viem';
 import { chains } from '../chains';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants';
 
-const connectKitConfig = getDefaultConfig({
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [binanceWallet, okxWallet, walletConnectWallet],
+    },
+  ],
+  { appName: 'Venus', projectId: WALLET_CONNECT_PROJECT_ID },
+);
+
+const config = createConfig({
   chains: chains as [Chain, ...Chain[]],
+  connectors,
   transports: chains.reduce((acc, chain) => {
     const urls = localConfig.rpcUrls[chain.id as ChainId];
 
@@ -22,19 +33,11 @@ const connectKitConfig = getDefaultConfig({
       ]),
     };
   }, {}),
-  walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
-  appName: 'Venus',
-  appUrl: `https://${MAIN_PRODUCTION_HOST}`,
-  appDescription:
-    'Venus is a decentralized finance (DeFi) algorithmic money market protocol on EVM networks.',
-  appIcon: 'https://venus.io/180x180.png',
   batch: {
     multicall: {
       wait: 50,
     },
   },
 });
-
-const config = createConfig(connectKitConfig);
 
 export default config;
