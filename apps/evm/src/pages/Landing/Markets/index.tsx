@@ -6,7 +6,7 @@ import { Link } from 'containers/Link';
 import { MarketTable } from 'containers/MarketTable';
 import { useIsMdDown, useIsSmDown } from 'hooks/responsive';
 import { useChain } from 'hooks/useChain';
-import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { compareBigNumbers, isAssetPaused } from 'utilities';
@@ -21,8 +21,8 @@ export const Markets: React.FC<MarketsProps> = ({ className }) => {
   const isSm = useIsSmDown();
   const isMd = useIsMdDown();
 
+  const { marketsPagePath } = useGetMarketsPagePath();
   const { accountAddress } = useAccountAddress();
-  const { marketsPagePath } = useMarketsPagePath();
 
   const { data: getLegacyPoolData } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
@@ -54,7 +54,7 @@ export const Markets: React.FC<MarketsProps> = ({ className }) => {
       <MarketTable
         controls={false}
         selectVariant="quaternary"
-        variant="secondary"
+        className="border-0 p-0"
         breakpoint="md"
         poolName={pool.name}
         poolComptrollerContractAddress={pool.comptrollerAddress}

@@ -1,4 +1,4 @@
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useGetVTokens } from 'libs/tokens/hooks/useGetVTokens';
 import { findTokenByAddress } from 'utilities';
 

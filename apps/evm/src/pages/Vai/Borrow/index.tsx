@@ -17,7 +17,7 @@ import {
   NoticeWarning,
   Spinner,
 } from 'components';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { VENUS_PRIME_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';

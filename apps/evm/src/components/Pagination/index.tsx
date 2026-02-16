@@ -62,44 +62,40 @@ export const Pagination = ({
   const iconProps: IconProps = { name: 'arrowRight' };
 
   return (
-    <div css={styles.root} className={className}>
-      <Typography css={styles.itemsCountString} className="text-light-grey">
-        {itemsCountString}
-      </Typography>
+    <div className={className} css={styles.root}>
+      <Typography css={styles.itemsCountString}>{itemsCountString}</Typography>
 
-      <div className="flex items-center gap-x-2">
-        {pagesArray.map((page, index) => {
-          if (index === maxPageIndexToShow) {
-            return (
-              <PaginationButton key={page} onClick={() => goToPageByIndex(activePageIndex + 1)}>
-                <Icon css={styles.iconArrow} {...iconProps} />
-              </PaginationButton>
-            );
-          }
-
-          if (index === minPageIndexToShow) {
-            return (
-              <PaginationButton key={page} onClick={() => goToPageByIndex(activePageIndex - 1)}>
-                <Icon css={[styles.iconArrow, styles.iconReverted]} {...iconProps} />
-              </PaginationButton>
-            );
-          }
-
-          if (index < minPageIndexToShow || index > maxPageIndexToShow) {
-            return null;
-          }
-
+      {pagesArray.map((page, index) => {
+        if (index === maxPageIndexToShow) {
           return (
-            <PaginationButton
-              key={page}
-              onClick={() => goToPageByIndex(index)}
-              css={styles.getButtonStyles({ isActive: index === activePageIndex })}
-            >
-              {page}
+            <PaginationButton key={page} onClick={() => goToPageByIndex(activePageIndex + 1)}>
+              <Icon css={styles.iconArrow} {...iconProps} />
             </PaginationButton>
           );
-        })}
-      </div>
+        }
+
+        if (index === minPageIndexToShow) {
+          return (
+            <PaginationButton key={page} onClick={() => goToPageByIndex(activePageIndex - 1)}>
+              <Icon css={[styles.iconArrow, styles.iconReverted]} {...iconProps} />
+            </PaginationButton>
+          );
+        }
+
+        if (index < minPageIndexToShow || index > maxPageIndexToShow) {
+          return null;
+        }
+
+        return (
+          <PaginationButton
+            key={page}
+            onClick={() => goToPageByIndex(index)}
+            css={styles.getButtonStyles({ isActive: index === activePageIndex })}
+          >
+            {page}
+          </PaginationButton>
+        );
+      })}
     </div>
   );
 };

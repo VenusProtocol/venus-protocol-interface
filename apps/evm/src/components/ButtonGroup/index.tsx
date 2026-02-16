@@ -32,7 +32,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
           key={`button-group-button-${label}`}
           onClick={() => onButtonClick(index)}
           className={cn(
-            'flex-1 border-transparent px-4 hover:border-transparent hover:text-white active:bg-blue active:border-blue',
+            'flex-1 border-transparent hover:border-transparent hover:text-white active:bg-blue active:border-blue',
             !fullWidth && 'max-sm:flex-auto',
             buttonClassName,
           )}

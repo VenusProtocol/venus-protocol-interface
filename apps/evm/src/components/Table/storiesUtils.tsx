@@ -88,7 +88,7 @@ export const columns: TableColumn<Row>[] = [
   },
 ];
 
-export const sortableColumns: TableColumn<Row>[] = columns.map(column => ({
+export const orderableColumns: TableColumn<Row>[] = columns.map(column => ({
   ...column,
   sortRows:
     column.key === 'collateral'

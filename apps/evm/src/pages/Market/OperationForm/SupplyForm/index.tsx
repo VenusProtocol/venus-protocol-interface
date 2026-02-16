@@ -433,7 +433,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
               !isUserConnected ||
               isAccountOnWrongChain ||
               isCollateralToggleDisabled ||
-              (pool.userEModeGroup && asset.userCollateralFactor === 0)
+              !asset.userCollateralFactor
             }
           />
         </LabeledInlineContent>

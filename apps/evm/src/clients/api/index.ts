@@ -208,8 +208,14 @@ export * from './queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes'
 export * from './queries/getVTokenUtilizationRate';
 export * from './queries/getVTokenUtilizationRate/useGetVTokenUtilizationRate';
 
+export * from './queries/getBurnedWBnb';
+export * from './queries/getBurnedWBnb/useGetBurnedWBnb';
+
 export * from './queries/getImportablePositions';
 export * from './queries/getImportablePositions/useGetImportablePositions';
+
+export * from './queries/getBurnedWBnb';
+export * from './queries/getBurnedWBnb/useGetBurnedWBnb';
 
 export * from './queries/getImportablePositions';
 export * from './queries/getImportablePositions/useGetImportablePositions';

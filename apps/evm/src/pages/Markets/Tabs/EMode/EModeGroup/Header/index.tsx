@@ -158,7 +158,7 @@ export const Header: React.FC<HeaderProps> = ({
                   />
                 )}
 
-              <ConnectWallet analyticVariant="e_mode_tab" buttonSize="xs">
+              <ConnectWallet analyticVariant="e_mode_tab" small>
                 <SwitchChain small className="whitespace-nowrap">
                   <Button
                     onClick={handleButtonClick}

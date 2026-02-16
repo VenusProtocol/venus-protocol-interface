@@ -2,20 +2,19 @@ import type { SVGProps } from 'react';
 
 const SvgCheck = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
+    viewBox="0 0 65 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    strokeWidth={4}
     {...props}
   >
-    <circle cx="10" cy="10" r="10" fill="currentColor" />
+    <circle cx={32.5} cy={32} r={24} fill="currentColor" />
     <path
-      d="M13.75 7.5L8.75 12.5L6.25 10"
-      stroke="white"
-      stroke-width="1.2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      d="m41.5 26-12 12-6-6"
+      stroke="#fff"
+      strokeWidth="inherit"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

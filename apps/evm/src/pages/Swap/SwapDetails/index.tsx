@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { cn } from '@venusprotocol/ui';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,

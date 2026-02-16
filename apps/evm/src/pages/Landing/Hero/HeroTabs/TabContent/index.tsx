@@ -3,8 +3,10 @@ import type { Address } from 'viem';
 
 import { ButtonWrapper, InfoIcon, TokenIconWithSymbol } from 'components';
 import { VENUS_DOC_URL } from 'constants/production';
+import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useMarketPageTo } from 'hooks/useMarketPageTo';
+import { useFormatTo } from 'hooks/useFormatTo';
+import { TAB_PARAM_KEY } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
 import {
@@ -43,12 +45,16 @@ export const TabContent: React.FC<TabContentProps> = ({
     shorten: false,
   });
 
-  const { formatMarketPageTo } = useMarketPageTo();
+  const marketsPagePath = routes.market.path
+    .replace(':poolComptrollerAddress', poolComptrollerContractAddress)
+    .replace(':vTokenAddress', asset.vToken.address);
 
-  const to = formatMarketPageTo({
-    poolComptrollerContractAddress,
-    vTokenAddress: asset.vToken.address,
-    tabId: type,
+  const { formatTo } = useFormatTo();
+  const to = formatTo({
+    to: {
+      pathname: marketsPagePath,
+      search: `${TAB_PARAM_KEY}=${type}`,
+    },
   });
 
   return (

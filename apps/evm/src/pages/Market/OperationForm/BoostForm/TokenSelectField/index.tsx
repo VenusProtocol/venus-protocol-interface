@@ -31,7 +31,7 @@ export const TokenSelectField: React.FC<TokenSelectFieldProps> = ({
       disabled={disabled}
     >
       <div className="flex items-center gap-x-2">
-        <TokenIconWithSymbol token={token} size="sm" />
+        <TokenIconWithSymbol token={token} tokenIconClassName="h-5 w-5" />
       </div>
 
       <Icon

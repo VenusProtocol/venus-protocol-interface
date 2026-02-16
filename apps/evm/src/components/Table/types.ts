@@ -1,9 +1,7 @@
-import type { CSSProperties } from 'react';
-import type { To } from 'react-router';
-
 import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
 import type { CardProps } from 'components/Card';
 import type { SelectProps } from 'components/Select';
+import type { CSSProperties } from 'react';
 
 export interface TableColumn<R> {
   key: string;
@@ -30,13 +28,12 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   className?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
-  getRowHref?: (row: R) => To;
+  getRowHref?: (row: R) => string;
   title?: React.ReactNode | string;
   header?: React.ReactNode;
   placeholder?: React.ReactNode;
   selectVariant?: SelectProps['variant'];
   cellHeight?: CSSProperties['height'];
-  variant?: 'primary' | 'secondary';
   controls?: boolean;
 }
 
