@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 4.5.2
+
+### Patch Changes
+
+- f50a622: minor alignment fix on MarketTable
+- 1e56ccc: revert changes made in v4 phase 2
+
 ## 4.5.1
 
 ### Patch Changes
