@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { ONE_TRILLION } from 'constants/numbers';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import type { Token, VToken } from 'types';
 
 import shortenValueWithSuffix from '../shortenValueWithSuffix';

@@ -1,14 +1,13 @@
-import type { ChainId } from '@venusprotocol/chains';
 import { useCallback } from 'react';
 import type { To } from 'react-router';
 
 import { CHAIN_ID_SEARCH_PARAM, useChainId } from 'libs/wallet';
 
 export const useFormatTo = () => {
-  const { chainId: currentChainId } = useChainId();
+  const { chainId } = useChainId();
 
   const formatTo = useCallback(
-    ({ to, chainId }: { to: To; chainId?: ChainId }) => {
+    ({ to }: { to: To }) => {
       let searchString: string | undefined;
       if (typeof to !== 'string') {
         searchString = to.search;
@@ -17,7 +16,7 @@ export const useFormatTo = () => {
       }
 
       const searchParams = new URLSearchParams(searchString);
-      searchParams.set(CHAIN_ID_SEARCH_PARAM, String(chainId ?? currentChainId));
+      searchParams.set(CHAIN_ID_SEARCH_PARAM, String(chainId));
       const search = `?${searchParams.toString()}`;
 
       if (typeof to === 'string') {
@@ -32,7 +31,7 @@ export const useFormatTo = () => {
         search,
       };
     },
-    [currentChainId],
+    [chainId],
   );
 
   return { formatTo };

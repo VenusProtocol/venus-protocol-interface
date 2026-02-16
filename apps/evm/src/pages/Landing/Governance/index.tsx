@@ -1,6 +1,6 @@
 import { useGetProposalCount } from 'clients/api';
 import { Card } from 'components';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useTranslation } from 'libs/translations';
 import { GovernanceForumButton } from './GovernanceForumButton';
 import backgroundGradientSrc from './assets/backgroundGradient.svg';

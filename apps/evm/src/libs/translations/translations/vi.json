@@ -1,4 +1,140 @@
 {
+  "account": {
+    "circularGradient": "Chuyển màu tròn",
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "Đã vay",
+        "eModeHeader": {
+          "illustrationAltText": "Hình minh họa E-mode",
+          "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+        },
+        "supplyTableTitle": "Đã cung cấp",
+        "tabletBorrowTabTitle": "Đã vay",
+        "tabletSupplyTabTitle": "Đã cung cấp",
+        "tabletTitle": "Tài sản"
+      }
+    },
+    "performanceChart": {
+      "absolutePerformance": "Hiệu suất tuyệt đối",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "errorState": {
+        "failedToFetchMessage": "Không thể lấy lịch sử tài khoản",
+        "refetchButtonLabel": "Thử lại"
+      },
+      "netWorth": {
+        "label": "Giá trị ròng",
+        "tooltip": "Tài sản ròng khả dụng sau khi tính đến stake vault và các khoản vay",
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến stake vault, các khoản vay và VAI đã đúc"
+      },
+      "periodOption": {
+        "oneYear": "1N",
+        "sixMonths": "6T",
+        "thirtyDays": "30N"
+      },
+      "placeholderText": "Đang tạo báo cáo, có thể mất đến một phút",
+      "todaysChange": "Thay đổi hôm nay",
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "placeholder": {
+      "buttonLabel": "Duyệt"
+    },
+    "pools": {
+      "placeholder": {
+        "description": "Vị thế trong pool của bạn sẽ hiển thị ở đây",
+        "title": "Chưa có vị thế cung cấp hoặc vay"
+      }
+    },
+    "poolsBreakdown": {
+      "poolTagTooltip": "Mức sử dụng hạn mức vay: {{borrowLimitUsedPercentage}}"
+    },
+    "primeBanner": {
+      "button": {
+        "becomePrime": "Nhận token Prime",
+        "stakeXvs": "Stake XVS"
+      },
+      "primeLogoAltText": "Logo Prime",
+      "text": {
+        "apyBoost": "Tăng thu nhập của bạn lên đến <GreenText>{{boost}}</GreenText> với Prime",
+        "becomePrime": "Bạn đã có thể trở thành người dùng Prime"
+      }
+    },
+    "settings": {
+      "gaslessTransactions": {
+        "switchLabel": "Bật giao dịch không gas trên {{chainName}}"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "Thu nhập hằng ngày",
+        "healthFactor": "Hệ số an toàn",
+        "healthFactorTooltip": "Thanh lý tại < 1.0",
+        "mintedVai": "VAI đã đúc",
+        "netApy": "APY ròng",
+        "netApyTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp của bạn nhận được dưới dạng lãi hằng năm",
+        "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp và stake vault của bạn nhận được dưới dạng lãi hằng năm",
+        "totalBorrow": "Tổng vay",
+        "totalSupply": "Tổng cung cấp",
+        "totalVaultStake": "Tổng stake vault"
+      },
+      "title": "Tóm tắt"
+    },
+    "tabs": {
+      "pools": "Bể",
+      "settings": "Cài đặt",
+      "transactions": "Giao dịch",
+      "vaults": "Kho"
+    },
+    "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
+      "placeholder": {
+        "description": "Giao dịch của bạn sẽ hiển thị ở đây",
+        "title": "Chưa có giao dịch"
+      },
+      "selects": {
+        "source": {
+          "all": "Tất cả thị trường"
+        },
+        "txType": {
+          "all": "Tất cả giao dịch",
+          "approve": "Phê duyệt",
+          "borrow": "Vay",
+          "enterMarket": "Bật tài sản thế chấp",
+          "exitMarket": "Tắt tài sản thế chấp",
+          "mint": "Đúc",
+          "redeem": "Rút",
+          "repay": "Hoàn trả"
+        }
+      },
+      "today": "Hôm nay",
+      "txText": {
+        "approve": "Đã phê duyệt chi {{tokenAmount}}",
+        "enterMarket": "<Styled>Đã bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
+        "exitMarket": "<Styled>Đã tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
+      },
+      "txType": {
+        "approve": "Phê duyệt",
+        "borrow": "Vay",
+        "enterMarket": "Bật tài sản thế chấp",
+        "exitMarket": "Tắt tài sản thế chấp",
+        "mint": "Đúc",
+        "redeem": "Rút",
+        "repay": "Hoàn trả"
+      },
+      "view": "Xem",
+      "yesterday": "Hôm qua"
+    },
+    "vaults": {
+      "placeholder": {
+        "description": "Vị thế vault của bạn sẽ hiển thị ở đây",
+        "title": "Chưa có vị thế staking"
+      }
+    }
+  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "Số dư vay",
@@ -20,57 +156,6 @@
   },
   "adBanner": {
     "startNow": "Bắt đầu ngay"
-  },
-  "adCarousel": {
-    "binanceWalletBanner": {
-      "buttonLabel": "Bắt đầu ngay",
-      "description": "Độc quyền trên <WhiteText>Binance Wallet</WhiteText>",
-      "phoneIllustration": {
-        "altText": "Hình minh họa điện thoại"
-      },
-      "title": "Lên đến 20% APY cho $U"
-    },
-    "boostBanner": {
-      "buttonLabel": "Tìm hiểu thêm",
-      "description": "Đòn bẩy một lần nhấp để tăng lợi suất tối đa 5x.",
-      "rocketIllustration": {
-        "altText": "Hình minh họa tên lửa"
-      },
-      "title": "Tăng cường đã khả dụng!"
-    },
-    "isolatedPoolsSunsetBanner": {
-      "backgroundIllustration": {
-        "altText": "Nền sa mạc xanh"
-      },
-      "buttonLabel": "Tìm hiểu thêm",
-      "coinsIllustration": {
-        "altText": "Hình minh họa đồng xu"
-      },
-      "description": "Nhận phần thưởng của bạn và đóng vị thế",
-      "title": "Các pool cô lập đang được dừng"
-    },
-    "probableBanner": {
-      "backgroundIllustration": {
-        "altText": "Nền đường chân trời"
-      },
-      "buttonLabel": "Bắt đầu ngay",
-      "coinIllustration": {
-        "altText": "Hình minh họa đồng xu"
-      },
-      "description": "Tăng niềm tin của bạn trên probable.markets",
-      "title": "Bạn tin vào điều gì?"
-    },
-    "venusFluxBanner": {
-      "backgroundIllustration": {
-        "altText": "Nền thiên hà"
-      },
-      "buttonLabel": "Bắt đầu ngay",
-      "description": "Hãy để thanh khoản của bạn Flux, theo dõi lợi suất tăng trưởng.",
-      "title": "Venus Flux đã ra mắt",
-      "venusFluxIcon": {
-        "altText": "Biểu tượng Venus Flux"
-      }
-    }
   },
   "announcements": {
     "bethUpdate": {
@@ -323,151 +408,6 @@
   "connectWallet": {
     "connectButton": "Kết nối ví"
   },
-  "dashboard": {
-    "guide": {
-      "completed": "Hoàn thành",
-      "step1": {
-        "description": "Kiếm lợi suất bằng cách cung cấp tài sản hoặc chuyển các vị thế hiện có của bạn sang giao thức Venus.",
-        "title": "Cung cấp / Di chuyển"
-      },
-      "step2": {
-        "description": "Vay tài sản để tăng cường chiến lược DeFi của bạn hoặc đòn bẩy thanh khoản chỉ với một cú nhấp.",
-        "title": "Vay / Đòn bẩy"
-      },
-      "step3": {
-        "description": "Gửi XVS vào vault và nhận lợi suất được tạo từ doanh thu của giao thức.",
-        "title": "Stake XVS"
-      },
-      "uncompleted": "Chưa hoàn thành"
-    },
-    "marketBreakdown": {
-      "tables": {
-        "eModeButton": {
-          "illustrationAltText": "Hình minh họa E-mode",
-          "title": "E-mode: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
-        }
-      }
-    },
-    "markets": {
-      "borrowTabTitle": "Đã vay",
-      "suppliedTabTitle": "Đã cung cấp",
-      "title": "Tài sản"
-    },
-    "overview": {
-      "absolutePerformance": "Hiệu suất tuyệt đối",
-      "healthFactor": {
-        "tooltip": "Hệ số an toàn (thanh lý tại < 1.0)"
-      },
-      "netWorth": {
-        "label": "Giá trị ròng",
-        "tooltip": "Tài sản ròng khả dụng sau khi tính stake trong vault và khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính stake trong vault, khoản vay và VAI đã mint"
-      },
-      "performanceChart": {
-        "errorState": {
-          "failedToFetchMessage": "Không thể tải lịch sử tài khoản",
-          "refetchButtonLabel": "Thử lại"
-        },
-        "placeholderText": "Đang tạo báo cáo, có thể mất tối đa một phút"
-      },
-      "periodOption": {
-        "oneYear": "1N",
-        "sixMonths": "6T",
-        "thirtyDays": "30N"
-      },
-      "summary": {
-        "cellGroup": {
-          "dailyEarnings": "Thu nhập hàng ngày",
-          "mintedVai": "VAI đã mint",
-          "netApy": "APY ròng",
-          "netApyTooltip": "Tỷ lệ phần trăm trên tổng số dư cung của bạn nhận được dưới dạng lãi suất hằng năm",
-          "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm trên tổng số dư cung và stake trong vault của bạn nhận được dưới dạng lãi suất hằng năm",
-          "totalBorrow": "Tổng số vay",
-          "totalSupply": "Tổng số cung",
-          "totalVaultStake": "Tổng stake trong vault"
-        },
-        "title": "Tóm tắt"
-      },
-      "todaysChange": "Biến động hôm nay"
-    },
-    "performanceChart": {
-      "dataPoint": {
-        "date": "{{ date, textual }}"
-      },
-      "xAxisValue": "{{ date, numeric }}"
-    },
-    "placeholder": {
-      "buttonLabel": "Duyệt"
-    },
-    "pools": {
-      "borrowTab": {
-        "placeholder": {
-          "title": "Chưa có vị thế vay"
-        }
-      },
-      "supplyTab": {
-        "placeholder": {
-          "title": "Chưa có vị thế cung cấp"
-        }
-      }
-    },
-    "staking": {
-      "placeholder": {
-        "title": "Chưa có vị thế staking"
-      }
-    },
-    "tabs": {
-      "markets": "Thị trường",
-      "staking": "Staking",
-      "transactions": "Giao dịch"
-    },
-    "topMarkets": {
-      "borrowButton": {
-        "label": "Vay"
-      },
-      "interactiveTitle": "Điểm nổi bật (<Group><SupplyButton>cung cấp</SupplyButton>/<BorrowButton>vay</BorrowButton></Group>)",
-      "supplyButton": {
-        "label": "Cung"
-      },
-      "textTitle": "Điểm nổi bật"
-    },
-    "transactions": {
-      "placeholder": {
-        "title": "Chưa có giao dịch"
-      },
-      "selects": {
-        "source": {
-          "all": "Tất cả thị trường"
-        },
-        "txType": {
-          "all": "Tất cả giao dịch",
-          "approve": "Phê duyệt",
-          "borrow": "Vay",
-          "enterMarket": "Bật tài sản thế chấp",
-          "exitMarket": "Tắt tài sản thế chấp",
-          "mint": "Cung cấp",
-          "redeem": "Rút",
-          "repay": "Hoàn trả"
-        }
-      },
-      "today": "Hôm nay",
-      "txText": {
-        "approve": "Đã phê duyệt chi tiêu {{tokenAmount}}",
-        "enterMarket": "<Styled>Bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
-        "exitMarket": "<Styled>Tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
-      },
-      "txType": {
-        "approve": "Phê duyệt",
-        "borrow": "Vay",
-        "enterMarket": "Bật tài sản thế chấp",
-        "exitMarket": "Tắt tài sản thế chấp",
-        "mint": "Cung cấp",
-        "redeem": "Rút",
-        "repay": "Hoàn trả"
-      },
-      "yesterday": "Hôm qua"
-    }
-  },
   "eModeBanner": {
     "exploreButtonLabel": "Khám phá",
     "illustrationAltText": "Hình minh họa E-mode",
@@ -652,7 +592,6 @@
       "protectionTitle": "Ưu tiên bảo vệ"
     },
     "safety": {
-      "audit_one": "Kiểm toán",
       "audit_other": "Các cuộc kiểm toán",
       "otherAuditors": "+14 cuộc kiểm toán với <br />Fairyproof, Hacken và HashEx",
       "scoreAlt": "Minh họa điểm số",
@@ -876,14 +815,6 @@
     "isolatedEModeGroupTooltip": {
       "content": "Sức mạnh vay của bạn tăng lên khi chỉ cung cấp tài sản trong nhóm {{ eModeGroupName }}",
       "label": "Cô lập"
-    },
-    "recommendations": {
-      "recommendation": {
-        "borrowApyLabel": "APY vay",
-        "supplyApyLabel": "APY cung cấp",
-        "supplyBalanceLabel": "Số dư cung cấp",
-        "title": "Khuyến nghị"
-      }
     },
     "tabs": {
       "assets": {

@@ -4,7 +4,7 @@ import { useAccountAddress } from 'libs/wallet';
 
 import { useGetPools } from 'clients/api';
 import { VENUS_FLUX_URL } from 'constants/production';
-import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import type { MenuItem, SubMenu } from '../types';
 import venusCoreIconSrc from './venusCoreIcon.png';
@@ -16,16 +16,18 @@ export const useMenuItems = () => {
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
-  const { marketsPagePath } = useMarketsPagePath();
+  const { marketsPagePath } = useGetMarketsPagePath();
   const { data: getPoolsData } = useGetPools();
   const pools = getPoolsData?.pools || [];
 
-  const menu: Array<MenuItem | SubMenu> = [
-    {
+  const menu: Array<MenuItem | SubMenu> = [];
+
+  if (accountAddress) {
+    menu.push({
       to: routes.dashboard.path,
       label: t('layout.menu.dashboard.label'),
-    },
-  ];
+    });
+  }
 
   menu.push(
     {

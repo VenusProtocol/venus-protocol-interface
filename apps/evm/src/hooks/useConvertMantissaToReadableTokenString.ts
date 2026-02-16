@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import type { Token, VToken } from 'types';
 import { type ConvertMantissaToTokensInput, convertMantissaToTokens } from 'utilities';
 

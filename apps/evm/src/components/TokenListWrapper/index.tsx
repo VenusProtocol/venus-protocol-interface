@@ -116,7 +116,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                       >
                         <TokenIconWithSymbol
                           className="font-semibold text-sm"
-                          size="sm"
+                          tokenIconClassName="size-5"
                           token={commonTokenBalance.token}
                         />
                       </SenaryButton>
@@ -142,7 +142,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                 >
                   <TokenIconWithSymbol
                     className="font-semibold text-sm"
-                    size="sm"
+                    tokenIconClassName="size-5"
                     token={tokenBalance.token}
                   />
 

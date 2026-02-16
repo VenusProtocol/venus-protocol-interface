@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import type BigNumber from 'bignumber.js';
 
 import { Card, Delimiter, Icon } from 'components';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';

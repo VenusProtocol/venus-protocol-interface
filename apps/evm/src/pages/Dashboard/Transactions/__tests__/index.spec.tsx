@@ -13,12 +13,11 @@ describe('Transactions', () => {
       ({ name }: UseIsFeatureEnabledInput) => name === 'transactionHistory',
     );
   });
-
   it('displays content correctly', async () => {
     const { container, getByText } = renderComponent(<Transactions />, {
       accountAddress: fakeAccountAddress,
     });
-    await waitFor(() => expect(getByText(en.dashboard.transactions.txType.mint)));
+    await waitFor(() => expect(getByText(en.account.transactions.txType.mint)));
 
     expect(container.textContent).toMatchSnapshot();
   });
@@ -31,7 +30,6 @@ describe('Transactions', () => {
       },
       isLoading: false,
     }));
-
     const { container } = renderComponent(<Transactions />, {
       accountAddress: fakeAccountAddress,
     });

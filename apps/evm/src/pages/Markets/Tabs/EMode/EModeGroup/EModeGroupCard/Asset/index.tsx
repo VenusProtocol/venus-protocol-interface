@@ -2,8 +2,9 @@ import { cn } from '@venusprotocol/ui';
 import type { Address } from 'viem';
 
 import { LabeledInlineContent, MarketStatus, TokenIconWithSymbol } from 'components';
+import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useMarketPageTo } from 'hooks/useMarketPageTo';
+import { useFormatTo } from 'hooks/useFormatTo';
 import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
@@ -22,12 +23,12 @@ export const Asset: React.FC<AssetProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
+  const { formatTo } = useFormatTo();
 
-  const { formatMarketPageTo } = useMarketPageTo();
-
-  const to = formatMarketPageTo({
-    poolComptrollerContractAddress: poolComptrollerAddress,
-    vTokenAddress: eModeAssetSettings.vToken.address,
+  const to = formatTo({
+    to: routes.market.path
+      .replace(':poolComptrollerAddress', poolComptrollerAddress)
+      .replace(':vTokenAddress', eModeAssetSettings.vToken.address),
   });
 
   const dataListItems = [

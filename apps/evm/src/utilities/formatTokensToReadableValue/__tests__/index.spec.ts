@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { busd } from '__mocks__/models/tokens';
 
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 import formatTokensToReadableValue, { type FormatTokensToReadableValueInput } from '..';
 

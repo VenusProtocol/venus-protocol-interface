@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import { AccountHealthBar, HealthFactorPill, LabeledInlineContent, ValueUpdate } from 'components';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useTranslation } from 'libs/translations';
 import { memo } from 'react';
 import type { Pool } from 'types';

@@ -1,4 +1,140 @@
 {
+  "account": {
+    "circularGradient": "圆形渐变",
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "已借入",
+        "eModeHeader": {
+          "illustrationAltText": "E-mode插图",
+          "title": "E-mode：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+        },
+        "supplyTableTitle": "已存款",
+        "tabletBorrowTabTitle": "已借入",
+        "tabletSupplyTabTitle": "已存款",
+        "tabletTitle": "资产"
+      }
+    },
+    "performanceChart": {
+      "absolutePerformance": "绝对表现",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "errorState": {
+        "failedToFetchMessage": "无法获取账户历史",
+        "refetchButtonLabel": "重试"
+      },
+      "netWorth": {
+        "label": "净值",
+        "tooltip": "在考虑金库质押和借贷后可用的净资产",
+        "tooltipWithVai": "在考虑金库质押、借贷和已铸造 VAI 后可用的净资产"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6个月",
+        "thirtyDays": "30天"
+      },
+      "placeholderText": "正在生成报告，最多可能需要一分钟",
+      "todaysChange": "今日变化",
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "placeholder": {
+      "buttonLabel": "浏览"
+    },
+    "pools": {
+      "placeholder": {
+        "description": "你的资金池持仓将显示在此",
+        "title": "尚无存款或借入持仓"
+      }
+    },
+    "poolsBreakdown": {
+      "poolTagTooltip": "已用借款限额：{{borrowLimitUsedPercentage}}"
+    },
+    "primeBanner": {
+      "button": {
+        "becomePrime": "领取 Prime 代币",
+        "stakeXvs": "质押 XVS"
+      },
+      "primeLogoAltText": "Prime 标志",
+      "text": {
+        "apyBoost": "使用 Prime 将收益提升高达 <GreenText>{{boost}}</GreenText>",
+        "becomePrime": "你现在可以成为 Prime 用户"
+      }
+    },
+    "settings": {
+      "gaslessTransactions": {
+        "switchLabel": "在 {{chainName}} 上启用免 gas 交易"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "每日收益",
+        "healthFactor": "健康系数",
+        "healthFactorTooltip": "清算阈值 < 1.0",
+        "mintedVai": "已铸造 VAI",
+        "netApy": "净 APY",
+        "netApyTooltip": "以年化利息形式获得的总存款余额百分比",
+        "netApyWithVaultStakeTooltip": "以年化利息形式获得的总存款余额和金库质押百分比",
+        "totalBorrow": "总借款",
+        "totalSupply": "总存款",
+        "totalVaultStake": "总金库质押"
+      },
+      "title": "概览"
+    },
+    "tabs": {
+      "pools": "资金池",
+      "settings": "设置",
+      "transactions": "交易",
+      "vaults": "金库"
+    },
+    "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
+      "placeholder": {
+        "description": "你的交易将显示在此",
+        "title": "尚无交易"
+      },
+      "selects": {
+        "source": {
+          "all": "所有市场"
+        },
+        "txType": {
+          "all": "所有交易",
+          "approve": "授权",
+          "borrow": "借款",
+          "enterMarket": "启用可抵押",
+          "exitMarket": "禁用可抵押",
+          "mint": "存款",
+          "redeem": "取款",
+          "repay": "偿还"
+        }
+      },
+      "today": "今天",
+      "txText": {
+        "approve": "已授权支出 {{tokenAmount}}",
+        "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
+        "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为可抵押"
+      },
+      "txType": {
+        "approve": "授权",
+        "borrow": "借款",
+        "enterMarket": "启用可抵押",
+        "exitMarket": "禁用可抵押",
+        "mint": "存款",
+        "redeem": "取款",
+        "repay": "偿还"
+      },
+      "view": "查看",
+      "yesterday": "昨天"
+    },
+    "vaults": {
+      "placeholder": {
+        "description": "你的金库持仓将显示在此",
+        "title": "尚无质押持仓"
+      }
+    }
+  },
   "accountData": {
     "balanceUpdate": {
       "borrowBalance": "借款余额",
@@ -20,57 +156,6 @@
   },
   "adBanner": {
     "startNow": "立即开始"
-  },
-  "adCarousel": {
-    "binanceWalletBanner": {
-      "buttonLabel": "立即开始",
-      "description": "仅限 <WhiteText>Binance Wallet</WhiteText>",
-      "phoneIllustration": {
-        "altText": "手机插图"
-      },
-      "title": "$U 最高 20% APY"
-    },
-    "boostBanner": {
-      "buttonLabel": "了解更多",
-      "description": "一键杠杆提升收益，最高 5 倍",
-      "rocketIllustration": {
-        "altText": "火箭插图"
-      },
-      "title": "Boost 已上线！"
-    },
-    "isolatedPoolsSunsetBanner": {
-      "backgroundIllustration": {
-        "altText": "蓝色沙漠背景"
-      },
-      "buttonLabel": "了解更多",
-      "coinsIllustration": {
-        "altText": "硬币插图"
-      },
-      "description": "领取奖励并关闭你的仓位",
-      "title": "隔离池即将关闭"
-    },
-    "probableBanner": {
-      "backgroundIllustration": {
-        "altText": "地平线背景"
-      },
-      "buttonLabel": "立即开始",
-      "coinIllustration": {
-        "altText": "硬币插图"
-      },
-      "description": "在 probable.markets 上赋能你的信念",
-      "title": "心想事成？"
-    },
-    "venusFluxBanner": {
-      "backgroundIllustration": {
-        "altText": "银河背景"
-      },
-      "buttonLabel": "立即开始",
-      "description": "让你的流动性 Flux，见证收益增长。",
-      "title": "Venus Flux 已上线",
-      "venusFluxIcon": {
-        "altText": "Venus Flux 图标"
-      }
-    }
   },
   "announcements": {
     "bethUpdate": {
@@ -323,151 +408,6 @@
   "connectWallet": {
     "connectButton": "连接钱包"
   },
-  "dashboard": {
-    "guide": {
-      "completed": "已完成",
-      "step1": {
-        "description": "通过存款或将现有持仓迁移到 Venus 协议来赚取收益。",
-        "title": "存款 / 迁移"
-      },
-      "step2": {
-        "description": "活用借贷来应用你的Defi策略，或使用一键杠杆来放大持仓。",
-        "title": "借款 / 杠杆"
-      },
-      "step3": {
-        "description": "将 XVS 存入金库，赚取由协议收入提供的收益。",
-        "title": "质押 XVS"
-      },
-      "uncompleted": "未完成"
-    },
-    "marketBreakdown": {
-      "tables": {
-        "eModeButton": {
-          "illustrationAltText": "E-mode插图",
-          "title": "E-mode: <UnderlinedText>{{ eModeGroupName }}</UnderlinedText>"
-        }
-      }
-    },
-    "markets": {
-      "borrowTabTitle": "已借入",
-      "suppliedTabTitle": "已存款",
-      "title": "资产"
-    },
-    "overview": {
-      "absolutePerformance": "绝对表现",
-      "healthFactor": {
-        "tooltip": "健康系数（清算阈值 < 1.0）"
-      },
-      "netWorth": {
-        "label": "净值",
-        "tooltip": "在计入金库质押和借款后可用的净资产",
-        "tooltipWithVai": "在计入金库质押、借款和已铸 VAI 后可用的净资产"
-      },
-      "performanceChart": {
-        "errorState": {
-          "failedToFetchMessage": "无法获取账户历史记录",
-          "refetchButtonLabel": "重试"
-        },
-        "placeholderText": "正在生成报告，最多可能需要一分钟"
-      },
-      "periodOption": {
-        "oneYear": "1年",
-        "sixMonths": "6个月",
-        "thirtyDays": "30天"
-      },
-      "summary": {
-        "cellGroup": {
-          "dailyEarnings": "每日收益",
-          "mintedVai": "已铸 VAI",
-          "netApy": "净 APY",
-          "netApyTooltip": "您总存款余额与金库质押按年利息获得的百分比",
-          "netApyWithVaultStakeTooltip": "您总供应余额与金库质押按年利息获得的百分比",
-          "totalBorrow": "总借款",
-          "totalSupply": "总存款",
-          "totalVaultStake": "金库质押总额"
-        },
-        "title": "摘要"
-      },
-      "todaysChange": "今日变化"
-    },
-    "performanceChart": {
-      "dataPoint": {
-        "date": "{{ date, textual }}"
-      },
-      "xAxisValue": "{{ date, numeric }}"
-    },
-    "placeholder": {
-      "buttonLabel": "浏览"
-    },
-    "pools": {
-      "borrowTab": {
-        "placeholder": {
-          "title": "暂无借入仓位"
-        }
-      },
-      "supplyTab": {
-        "placeholder": {
-          "title": "暂无存款仓位"
-        }
-      }
-    },
-    "staking": {
-      "placeholder": {
-        "title": "暂无质押仓位"
-      }
-    },
-    "tabs": {
-      "markets": "市场",
-      "staking": "质押",
-      "transactions": "交易"
-    },
-    "topMarkets": {
-      "borrowButton": {
-        "label": "借款"
-      },
-      "interactiveTitle": "焦点（<Group><SupplyButton>存款</SupplyButton>/<BorrowButton>借款</BorrowButton></Group>）",
-      "supplyButton": {
-        "label": "存款"
-      },
-      "textTitle": "焦点"
-    },
-    "transactions": {
-      "placeholder": {
-        "title": "暂无交易"
-      },
-      "selects": {
-        "source": {
-          "all": "所有市场"
-        },
-        "txType": {
-          "all": "所有交易",
-          "approve": "授权",
-          "borrow": "借款",
-          "enterMarket": "已启用抵押品",
-          "exitMarket": "已停用抵押品",
-          "mint": "供应",
-          "redeem": "提取",
-          "repay": "还款"
-        }
-      },
-      "today": "今天",
-      "txText": {
-        "approve": "已授权支出 {{tokenAmount}}",
-        "enterMarket": "<Styled>已启用</Styled> {{vTokenSymbol}} 作为抵押品",
-        "exitMarket": "<Styled>已停用</Styled> {{vTokenSymbol}} 作为抵押品"
-      },
-      "txType": {
-        "approve": "授权",
-        "borrow": "借款",
-        "enterMarket": "已启用抵押品",
-        "exitMarket": "已停用抵押品",
-        "mint": "供应",
-        "redeem": "提取",
-        "repay": "还款"
-      },
-      "yesterday": "昨天"
-    }
-  },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
     "illustrationAltText": "E-mode插图",
@@ -652,7 +592,6 @@
       "protectionTitle": "安全保障优先"
     },
     "safety": {
-      "audit_one": "审计",
       "audit_other": "审计",
       "otherAuditors": "+14 次审计，来自 <br />Fairyproof、Hacken 和 HashEx",
       "scoreAlt": "评分插图",
@@ -876,14 +815,6 @@
     "isolatedEModeGroupTooltip": {
       "content": "仅向 {{ eModeGroupName }} 组内资产存款可提升你的借款能力",
       "label": "隔离"
-    },
-    "recommendations": {
-      "recommendation": {
-        "borrowApyLabel": "借款 APY",
-        "supplyApyLabel": "存款 APY",
-        "supplyBalanceLabel": "存款余额",
-        "title": "推荐"
-      }
     },
     "tabs": {
       "assets": {
@@ -1149,9 +1080,9 @@
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 后可领取 Prime 奖励"
   },
   "probableBanner": {
-    "description": "在 probable.markets 上赋能你的信念",
+    "description": "在 probable.markets 上增强你的信念",
     "probableAltText": "Probable 插图",
-    "title": "心想事成？"
+    "title": "预测点什么？"
   },
   "proposalList": {
     "selectOptions": {

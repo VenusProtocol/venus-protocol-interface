@@ -28,13 +28,11 @@ function Head<R>({
   controls,
 }: HeadProps<R>) {
   const styles = useStyles();
-
   return (
     <MuiTableHead>
       <MuiTableRow className={className}>
         {columns.map(column => {
           const active = orderBy?.key === column.key;
-          const sortable = controls && !!column.sortRows;
 
           return (
             <MuiTableCell
@@ -43,17 +41,17 @@ function Head<R>({
               align={column.align}
             >
               <MuiTableSortLabel
-                css={styles.tableSortLabel({ sortable })}
+                css={styles.tableSortLabel({ orderable: !!column.sortRows })}
                 active={active}
                 direction={active ? orderDirection : 'asc'}
-                onClick={sortable ? () => onRequestOrder(column) : undefined}
+                onClick={column.sortRows ? () => onRequestOrder(column) : undefined}
                 hideSortIcon={false}
                 // @ts-expect-error Override IconComponent with null so it doesn't render
                 IconComponent={null}
               >
                 <span>{column.label}</span>
 
-                {sortable && (
+                {controls && !!column.sortRows && (
                   <div css={styles.tableSortLabelIconsContainer}>
                     <Icon
                       name="sort"

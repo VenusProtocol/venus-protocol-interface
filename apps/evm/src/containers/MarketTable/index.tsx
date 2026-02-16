@@ -4,21 +4,18 @@ import { type InputHTMLAttributes, useMemo } from 'react';
 import type { Address } from 'viem';
 
 import { Card, Delimiter, Table, type TableProps, TextField, Toggle } from 'components';
+import { routes } from 'constants/routing';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useCollateral } from 'hooks/useCollateral';
-import { useMarketPageTo } from 'hooks/useMarketPageTo';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useAccountChainId, useChainId } from 'libs/wallet';
 import type { Asset, EModeGroup } from 'types';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey } from './types';
 import { useColumns } from './useColumns';
 import { useControls } from './useControls';
-
-export * from './types';
 
 export interface MarketTableProps
   extends Partial<
@@ -51,14 +48,12 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   controls = true,
   isFetching,
   header,
-  className,
   ...otherTableProps
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   const { toggleCollateral } = useCollateral();
-  const { formatMarketPageTo } = useMarketPageTo();
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used
   const _isBreakpointUp = useBreakpointUp(breakpoint || '2xl');
@@ -80,10 +75,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     applyUserSettings: controls,
     userEModeGroup,
   });
-
-  const { chainId: currentChainId } = useChainId();
-  const { chainId: accountChainId } = useAccountChainId();
-  const isOnWrongChain = accountChainId !== currentChainId;
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchValueChange(changeEvent.currentTarget.value);
@@ -122,11 +113,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   }, [columns, initialOrder]);
 
   const getRowHref = (row: Asset) =>
-    formatMarketPageTo({
-      poolComptrollerContractAddress: poolComptrollerContractAddress,
-      vTokenAddress: row.vToken.address,
-      tabId: marketType,
-    });
+    routes.market.path
+      .replace(':poolComptrollerAddress', poolComptrollerContractAddress)
+      .replace(':vTokenAddress', row.vToken.address);
 
   return (
     <Table
@@ -135,17 +124,13 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       columns={columns}
       data={filteredAssets}
       css={styles.cardContentGrid}
-      className={cn(
-        isBreakpointUp && !title && 'pt-0 sm:pt-0',
-        !isBreakpointUp && 'border-0',
-        className,
-      )}
+      className={cn(isBreakpointUp && !title && 'pt-0 sm:pt-0')}
       title={title}
       rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
       initialOrder={formattedInitialOrder}
       header={
-        (header || controls || (columnKeys.includes('collateral') && isOnWrongChain)) && (
-          <div className={cn('space-y-4', isBreakpointUp && 'pt-4')}>
+        (header || controls || columnKeys.includes('collateral')) && (
+          <div className={cn('space-y-4')}>
             {(controls || header) && (
               <div className={cn('flow-root space-y-4', isBreakpointUp && 'space-y-0')}>
                 {header}
@@ -155,7 +140,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                     <div
                       className={cn(
                         'space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:space-x-4',
-                        isBreakpointUp && 'sm:mb-0 px-6 pb-4',
+                        isBreakpointUp && 'sm:mb-0 px-6 py-4',
                       )}
                     >
                       <div className="flex items-center gap-x-4 flex-wrap gap-y-6">

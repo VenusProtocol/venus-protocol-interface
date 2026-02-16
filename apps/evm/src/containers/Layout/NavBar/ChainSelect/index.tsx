@@ -22,7 +22,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
       const metadata = chainMetadata[chain.id as ChainId];
       return (
         <div className="flex items-center">
-          <img src={metadata.iconSrc} alt={metadata.name} className="w-5 max-w-none flex-none" />
+          <img src={metadata.iconSrc} alt={metadata.name} className="w-6 max-w-none flex-none" />
 
           {!isRenderedInButton && (
             <span className={cn('flex ml-2 grow items-center gap-x-1')}>

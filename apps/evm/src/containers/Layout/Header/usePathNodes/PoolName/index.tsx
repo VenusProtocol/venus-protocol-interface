@@ -1,5 +1,5 @@
 import { useGetPool } from 'clients/api';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useChain } from 'hooks/useChain';
 import { useTranslation } from 'libs/translations';
 import { areAddressesEqual } from 'utilities';
