@@ -1,5 +1,10 @@
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
-import { binanceWallet, okxWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
+import {
+  binanceWallet,
+  okxWallet,
+  trustWallet,
+  walletConnectWallet,
+} from '@rainbow-me/rainbowkit/wallets';
 import type { Chain } from 'viem';
 import { http, createConfig, fallback } from 'wagmi';
 
@@ -12,7 +17,7 @@ const connectors = connectorsForWallets(
   [
     {
       groupName: 'Recommended',
-      wallets: [binanceWallet, okxWallet, walletConnectWallet],
+      wallets: [binanceWallet, okxWallet, walletConnectWallet, trustWallet],
     },
   ],
   { appName: 'Venus', projectId: WALLET_CONNECT_PROJECT_ID },
