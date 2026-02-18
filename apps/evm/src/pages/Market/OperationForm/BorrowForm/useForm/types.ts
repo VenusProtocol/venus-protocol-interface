@@ -1,4 +1,5 @@
 import type { Token } from 'types';
+import type { CommonErrorCode } from '../../types';
 
 export interface FormValues {
   fromToken: Token;
@@ -7,11 +8,4 @@ export interface FormValues {
   acknowledgeRisk: boolean;
 }
 
-export type FormErrorCode =
-  | 'EMPTY_TOKEN_AMOUNT'
-  | 'NO_COLLATERALS'
-  | 'BORROW_CAP_ALREADY_REACHED'
-  | 'HIGHER_THAN_BORROW_CAP'
-  | 'HIGHER_THAN_LIQUIDITY'
-  | 'HIGHER_THAN_AVAILABLE_AMOUNT'
-  | 'REQUIRES_RISK_ACKNOWLEDGEMENT';
+export type FormErrorCode = CommonErrorCode | 'EMPTY_TOKEN_AMOUNT' | 'NO_COLLATERALS';

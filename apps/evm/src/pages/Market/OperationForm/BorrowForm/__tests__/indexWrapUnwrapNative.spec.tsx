@@ -1,11 +1,13 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import fakeAccountAddress from '__mocks__/models/address';
+import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { ChainId } from 'types';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { type BalanceMutation, ChainId } from 'types';
 
 import { useBorrow } from 'clients/api';
 import { en } from 'libs/translations';
@@ -73,6 +75,20 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     const correctAmountTokens = 1n;
     fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: correctAmountTokens },
+    });
+
+    const expectedBalanceMutations: BalanceMutation[] = [
+      {
+        type: 'asset',
+        action: 'borrow',
+        vTokenAddress: fakeWethAsset.vToken.address,
+        amountTokens: new BigNumber(correctAmountTokens.toString()),
+      },
+    ];
+
+    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+      pool: fakePool,
+      balanceMutations: expectedBalanceMutations,
     });
 
     // Click on submit button
