@@ -7,15 +7,29 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
 import { en } from 'libs/translations';
-import { type Asset, ChainId, type Pool } from 'types';
+import { type Asset, type BalanceMutation, ChainId, type Pool } from 'types';
 
 import { chains } from '@venusprotocol/chains';
 import { useBorrow } from 'clients/api';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import BorrowForm from '..';
 import { checkSubmitButtonIsDisabled } from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
+
+const buildPoolWithUpdatedAsset = ({
+  pool,
+  updatedAsset,
+}: {
+  pool: Pool;
+  updatedAsset: Asset;
+}): Pool => ({
+  ...pool,
+  assets: pool.assets.map(asset =>
+    asset.vToken.address === updatedAsset.vToken.address ? updatedAsset : asset,
+  ),
+});
 
 const testCases = [
   [
@@ -61,6 +75,13 @@ const testCases = [
 ] as const;
 
 describe('BorrowForm', () => {
+  beforeEach(() => {
+    (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: undefined,
+    }));
+  });
+
   it('renders without crashing', () => {
     renderComponent(<BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
   });
@@ -118,9 +139,13 @@ describe('BorrowForm', () => {
       borrowCapTokens: new BigNumber(100),
       borrowBalanceTokens: new BigNumber(100),
     };
+    const customFakePool = buildPoolWithUpdatedAsset({
+      pool: fakePool,
+      updatedAsset: customFakeAsset,
+    });
 
     const { getByText, getByTestId } = renderComponent(
-      <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BorrowForm asset={customFakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -176,10 +201,15 @@ describe('BorrowForm', () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       liquidityCents: new BigNumber(200),
+      cashTokens: new BigNumber(2),
     };
+    const customFakePool = buildPoolWithUpdatedAsset({
+      pool: fakePool,
+      updatedAsset: customFakeAsset,
+    });
 
     const { getByText, getByTestId } = renderComponent(
-      <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BorrowForm asset={customFakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -205,7 +235,7 @@ describe('BorrowForm', () => {
 
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.borrow),
     );
     expect(submitButton).toBeDisabled();
   });
@@ -216,9 +246,33 @@ describe('BorrowForm', () => {
       borrowCapTokens: new BigNumber(100),
       borrowBalanceTokens: new BigNumber(10),
     };
+    const customFakePool = buildPoolWithUpdatedAsset({
+      pool: fakePool,
+      updatedAsset: customFakeAsset,
+    });
+
+    const customFakeSimulatedPool: Pool = buildPoolWithUpdatedAsset({
+      pool: customFakePool,
+      updatedAsset: {
+        ...customFakeAsset,
+        borrowBalanceTokens: customFakeAsset.borrowCapTokens.plus(1),
+      },
+    });
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(
+      ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
+        isLoading: false,
+        data: {
+          pool:
+            balanceMutations.filter(b => b.amountTokens.isGreaterThan(0)).length > 0
+              ? customFakeSimulatedPool
+              : undefined,
+        },
+      }),
+    );
 
     const { getByText, getByTestId } = renderComponent(
-      <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BorrowForm asset={customFakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -337,6 +391,23 @@ describe('BorrowForm', () => {
   });
 
   it('prompts user to acknowledge risk if requested borrow lowers health factor to risky threshold', async () => {
+    const customFakePool: Pool = {
+      ...fakePool,
+      userHealthFactor: HEALTH_FACTOR_MODERATE_THRESHOLD - 0.01,
+    };
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(
+      ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
+        isLoading: false,
+        data: {
+          pool:
+            balanceMutations.filter(b => b.amountTokens.isGreaterThan(0)).length > 0
+              ? customFakePool
+              : undefined,
+        },
+      }),
+    );
+
     const { getByText, getByTestId, getByRole } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
@@ -361,6 +432,20 @@ describe('BorrowForm', () => {
     });
 
     await waitFor(() => expect(tokenTextInput.value).toBe(marginWithRiskyThresholdTokens));
+
+    const expectedBalanceMutations: BalanceMutation[] = [
+      {
+        type: 'asset',
+        action: 'borrow',
+        vTokenAddress: fakeAsset.vToken.address,
+        amountTokens: new BigNumber(marginWithRiskyThresholdTokens),
+      },
+    ];
+
+    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+      pool: fakePool,
+      balanceMutations: expectedBalanceMutations,
+    });
 
     // Check warning is displayed
     expect(getByText(en.operationForm.acknowledgements.riskyOperation.tooltip));
@@ -400,6 +485,20 @@ describe('BorrowForm', () => {
     const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
     fireEvent.change(tokenTextInput, {
       target: { value: correctAmountTokens },
+    });
+
+    const expectedBalanceMutations: BalanceMutation[] = [
+      {
+        type: 'asset',
+        action: 'borrow',
+        vTokenAddress: fakeAsset.vToken.address,
+        amountTokens: new BigNumber(correctAmountTokens.toString()),
+      },
+    ];
+
+    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+      pool: fakePool,
+      balanceMutations: expectedBalanceMutations,
     });
 
     // Click on submit button
