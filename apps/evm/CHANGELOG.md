@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.7.0
+
+### Minor Changes
+
+- c494063: add Trust wallet connector
+
 ## 4.6.0
 
 ### Minor Changes
