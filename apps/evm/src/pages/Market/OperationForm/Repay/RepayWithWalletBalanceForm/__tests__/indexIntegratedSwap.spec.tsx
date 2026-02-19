@@ -30,7 +30,6 @@ import {
   checkSubmitButtonIsEnabled,
 } from 'pages/Market/OperationForm/__testUtils__/checkFns';
 import RepayWithWalletBalanceForm, { PRESET_PERCENTAGES } from '..';
-import SWAP_DETAILS_TEST_IDS from '../../../OperationDetails/testIds';
 import { fakeAsset, fakePool } from '../../__testUtils__/fakeData';
 import REPAY_FORM_TEST_IDS from '../testIds';
 
@@ -472,12 +471,11 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
-    await waitFor(() => getByTestId(SWAP_DETAILS_TEST_IDS.swapDetails));
-
-    // Open swap details accordion
-    fireEvent.click(getByText(en.operationForm.swapDetails.label.repay).closest('button')!);
-
-    expect(getByTestId(SWAP_DETAILS_TEST_IDS.swapDetails).textContent).toMatchSnapshot();
+    // Verify swap details are displayed
+    await waitFor(() =>
+      expect(getByText(en.swapDetails.slippageTolerance.label)).toBeInTheDocument(),
+    );
+    expect(getByText(en.swapDetails.priceImpact.label)).toBeInTheDocument();
   });
 
   it('updates input value to 0 when clicking on MAX button if wallet balance is 0', async () => {

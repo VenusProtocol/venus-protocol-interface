@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { cn } from '@venusprotocol/ui';
 import { useGetSwapQuote, useRepay, useSwapTokensAndRepay } from 'clients/api';
 import {
-  Delimiter,
   LabeledInlineContent,
   QuaternaryButton,
   SelectTokenTextField,
@@ -14,7 +13,7 @@ import {
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useTokenApproval from 'hooks/useTokenApproval';
+import useTokenApproval, { type UseTokenApprovalOutput } from 'hooks/useTokenApproval';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -36,24 +35,17 @@ import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
 import { ApyBreakdown } from '../../ApyBreakdown';
-import { OperationDetails } from '../../OperationDetails';
+import { Footer } from '../../Footer';
+import type { Approval } from '../../Footer/types';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
 import { Notice } from '../Notice';
-import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
-export interface RepayWithWalletBalanceFormUiProps
-  extends Pick<
-    SubmitSectionProps,
-    | 'approveFromToken'
-    | 'isApproveFromTokenLoading'
-    | 'isFromTokenApproved'
-    | 'isFromTokenWalletSpendingLimitLoading'
-  > {
+export interface RepayWithWalletBalanceFormUiProps {
   isUserConnected: boolean;
   asset: Asset;
   pool: Pool;
@@ -63,6 +55,7 @@ export interface RepayWithWalletBalanceFormUiProps
   integratedSwapTokenBalances: TokenBalance[];
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
+  approval?: Approval;
   isSwapLoading: boolean;
   isIntegratedSwapFeatureEnabled: boolean;
   canWrapNativeToken: boolean;
@@ -74,6 +67,7 @@ export interface RepayWithWalletBalanceFormUiProps
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   swapQuote?: SwapQuote;
   swapQuoteErrorCode?: string;
+  isFromTokenApproved: UseTokenApprovalOutput['isTokenApproved'];
 }
 
 export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUiProps> = ({
@@ -87,11 +81,9 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
   integratedSwapTokenBalances,
   setFormValues,
   formValues,
+  approval,
   isSwapLoading,
-  approveFromToken,
-  isApproveFromTokenLoading,
   isFromTokenApproved,
-  isFromTokenWalletSpendingLimitLoading,
   isIntegratedSwapFeatureEnabled,
   canWrapNativeToken,
   isWrappingNativeToken,
@@ -413,30 +405,27 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
               data-testid={TEST_IDS.spendingLimit}
             />
           </div>
-
-          <Delimiter />
-
-          <OperationDetails
-            action="repay"
-            pool={pool}
-            simulatedPool={simulatedPool}
-            balanceMutations={balanceMutations}
-            isUsingSwap={isUsingSwap}
-            swap={swapQuote}
-          />
         </div>
 
-        <SubmitSection
-          isFormSubmitting={isSubmitting}
+        <Footer
+          analyticVariant="repay_with_wallet_form"
+          balanceMutations={balanceMutations}
+          pool={pool}
+          submitButtonLabel={t('operationForm.submitButtonLabel.repay')}
           isFormValid={isFormValid}
+          simulatedPool={simulatedPool}
+          approval={approval}
+          swapFromToken={isUsingSwap ? formValues.fromToken : undefined}
+          swapToToken={isUsingSwap ? asset.vToken.underlyingToken : undefined}
           swapQuote={swapQuote}
-          isSwapLoading={isSwapLoading}
-          fromToken={formValues.fromToken}
-          approveFromToken={approveFromToken}
-          isApproveFromTokenLoading={isApproveFromTokenLoading}
-          isFromTokenApproved={isFromTokenApproved}
-          isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
-          isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+          isUserAcknowledgingHighPriceImpact={formValues.acknowledgeHighPriceImpact}
+          setAcknowledgeHighPriceImpact={acknowledgeHighPriceImpact =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              acknowledgeHighPriceImpact,
+            }))
+          }
+          isLoading={isSubmitting || isSwapLoading}
         />
       </ConnectWallet>
     </form>
@@ -486,6 +475,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
           ? asset.vToken.underlyingToken.tokenWrapped
           : asset.vToken.underlyingToken,
       fixedRepayPercentage: undefined,
+      acknowledgeHighPriceImpact: false,
     }),
     [asset, shouldSelectNativeToken],
   );
@@ -512,20 +502,12 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     [canWrapNativeToken, formValues.fromToken],
   );
 
-  const isUsingSwap = useMemo(
-    () =>
-      isIntegratedSwapFeatureEnabled &&
-      !isWrappingNativeToken &&
-      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
-    [
-      isIntegratedSwapFeatureEnabled,
-      isWrappingNativeToken,
-      formValues.fromToken,
-      asset.vToken.underlyingToken,
-    ],
-  );
+  const isUsingSwap =
+    isIntegratedSwapFeatureEnabled &&
+    !isWrappingNativeToken &&
+    !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken);
 
-  const spenderAddress = useMemo(() => {
+  const spenderAddress = (() => {
     if (isWrappingNativeToken) {
       return nativeTokenGatewayContractAddress;
     }
@@ -534,19 +516,10 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     }
 
     return asset.vToken.address;
-  }, [
-    isWrappingNativeToken,
-    isUsingSwap,
-    asset.vToken.address,
-    nativeTokenGatewayContractAddress,
-    swapRouterContractAddress,
-  ]);
+  })();
 
   const {
     isTokenApproved: isFromTokenApproved,
-    approveToken: approveFromToken,
-    isApproveTokenLoading: isApproveFromTokenLoading,
-    isWalletSpendingLimitLoading: isFromTokenWalletSpendingLimitLoading,
     walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
     revokeWalletSpendingLimit: revokeFromTokenWalletSpendingLimit,
     isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
@@ -636,12 +609,10 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     ],
   );
 
-  const { address: swapRouterV2ContractAddress } = useGetContractAddress({
-    name: 'SwapRouterV2',
-  });
-
   const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
   const fromTokenAmountTokens = new BigNumber(debouncedFormAmountTokens || 0);
+
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
 
   const toTokenAmountTokens = formValues.fixedRepayPercentage
     ? new BigNumber(
@@ -653,7 +624,13 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       )
     : undefined;
 
-  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
+  const sharedSwapQuoteProps = {
+    fromToken: formValues.fromToken,
+    toToken: asset.vToken.underlyingToken,
+    toTokenAmountTokens: toTokenAmountTokens || new BigNumber(0),
+    recipientAddress: swapRouterContractAddress || NULL_ADDRESS,
+    slippagePercentage: userSlippageTolerancePercentage,
+  };
 
   const {
     data: swapQuoteData,
@@ -662,25 +639,18 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   } = useGetSwapQuote(
     formValues.fixedRepayPercentage
       ? {
-          fromToken: formValues.fromToken,
-          toToken: asset.vToken.underlyingToken,
-          toTokenAmountTokens: toTokenAmountTokens || new BigNumber(0),
+          ...sharedSwapQuoteProps,
           direction: 'exact-out' as const,
-          recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
-          slippagePercentage: userSlippageTolerancePercentage,
         }
       : {
-          fromToken: formValues.fromToken,
+          ...sharedSwapQuoteProps,
           fromTokenAmountTokens,
-          toToken: asset.vToken.underlyingToken,
           direction: 'exact-in' as const,
-          recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
-          slippagePercentage: userSlippageTolerancePercentage,
         },
     {
       enabled:
         isUsingSwap &&
-        !!swapRouterV2ContractAddress &&
+        !!swapRouterContractAddress &&
         (formValues.fixedRepayPercentage
           ? !!toTokenAmountTokens?.isGreaterThan(0)
           : fromTokenAmountTokens.isGreaterThan(0)),
@@ -688,6 +658,14 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   );
 
   const swapQuote = swapQuoteData?.swapQuote;
+
+  const approval: Approval | undefined = spenderAddress
+    ? {
+        type: 'token',
+        token: formValues.fromToken,
+        spenderAddress,
+      }
+    : undefined;
 
   return (
     <RepayWithWalletBalanceFormUi
@@ -701,6 +679,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       formValues={formValues}
       setFormValues={setFormValues}
       onSubmitSuccess={onSubmitSuccess}
+      approval={approval}
       nativeWrappedTokenBalances={nativeWrappedTokenBalances}
       integratedSwapTokenBalances={integratedSwapTokenBalancesData}
       onSubmit={onSubmit}
@@ -709,9 +688,6 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       swapQuoteErrorCode={swapQuoteError?.code}
       isSwapLoading={swapQuoteLoading}
       isFromTokenApproved={isFromTokenApproved}
-      approveFromToken={approveFromToken}
-      isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
       fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
       revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
       isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}

@@ -4,6 +4,7 @@ export interface FormValues {
   fromToken: Token;
   amountTokens: string;
   fixedRepayPercentage?: number;
+  acknowledgeHighPriceImpact?: boolean;
 }
 
 export type FormErrorCode =

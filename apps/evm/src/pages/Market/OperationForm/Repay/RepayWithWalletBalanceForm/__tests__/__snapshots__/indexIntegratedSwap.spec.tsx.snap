@@ -1,7 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `"You will repay≈ 999.999999 XVSSlippage tolerance0.5%Price impact< 0.01%"`;
-
 exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > lets user swap and repay full loan 1`] = `
 [
   {
