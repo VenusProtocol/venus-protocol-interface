@@ -11,7 +11,7 @@ export const SubMenuContent: React.FC<SubMenuContentProps> = ({ variant = 'prima
   <div
     className={cn(
       'rounded-lg',
-      variant === 'primary' ? 'min-w-83' : 'py-3 bg-background-active min-w-137',
+      variant === 'primary' ? 'min-w-83' : 'py-3 bg-background-active xl:min-w-137',
     )}
   >
     <div
