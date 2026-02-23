@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.7.1
+
+### Patch Changes
+
+- 55d615b: fix issue with mobile menu items
+
 ## 4.7.0
 
 ### Minor Changes
