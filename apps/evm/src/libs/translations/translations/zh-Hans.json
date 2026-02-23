@@ -394,6 +394,14 @@
   "connectWallet": {
     "connectButton": "连接钱包"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "已暂停资产"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "仅我的资产"
+    }
+  },
   "dashboard": {
     "topMarkets": {
       "borrowButton": {
@@ -893,17 +901,8 @@
       "imgAlt": "暂停图标",
       "title": "该池内所有资产已暂停"
     },
-    "pausedAssetsToggle": {
-      "label": "已暂停资产"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "搜索资产"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "仅我的资产"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "仅 E-mode资产"
     }
   },
   "operationForm": {

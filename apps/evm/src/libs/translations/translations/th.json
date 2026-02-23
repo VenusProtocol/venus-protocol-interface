@@ -394,6 +394,14 @@
   "connectWallet": {
     "connectButton": "เชื่อมต่อกระเป๋า"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "สินทรัพย์ที่หยุดไว้"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "เฉพาะสินทรัพย์ของฉัน"
+    }
+  },
   "dashboard": {
     "topMarkets": {
       "borrowButton": {
@@ -893,17 +901,8 @@
       "imgAlt": "ไอคอนหยุด",
       "title": "สินทรัพย์ทั้งหมดในพูลนี้ถูกหยุดแล้ว"
     },
-    "pausedAssetsToggle": {
-      "label": "สินทรัพย์ที่หยุดไว้"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "ค้นหาสินทรัพย์"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "เฉพาะสินทรัพย์ของฉัน"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "เฉพาะสินทรัพย์ E-mode"
     }
   },
   "operationForm": {

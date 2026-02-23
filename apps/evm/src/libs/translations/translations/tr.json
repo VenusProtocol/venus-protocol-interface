@@ -394,6 +394,14 @@
   "connectWallet": {
     "connectButton": "Cüzdan bağla"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "Durdurulan varlıklar"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "Yalnızca varlıklarım"
+    }
+  },
   "dashboard": {
     "topMarkets": {
       "borrowButton": {
@@ -894,17 +902,8 @@
       "imgAlt": "Duraklatma ikonu",
       "title": "Bu havuzdaki tüm varlıklar duraklatıldı"
     },
-    "pausedAssetsToggle": {
-      "label": "Durdurulan varlıklar"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "Varlık ara"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "Yalnızca varlıklarım"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "Yalnızca E-modu varlıkları"
     }
   },
   "operationForm": {
