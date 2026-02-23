@@ -80,3 +80,4 @@ export { default as user } from './user';
 export { default as expand } from './expand';
 export { default as dollar } from './dollar';
 export { default as gift } from './gift';
+export { default as crown } from './crown';

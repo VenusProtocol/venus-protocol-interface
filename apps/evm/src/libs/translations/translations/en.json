@@ -154,9 +154,6 @@
     "limit": "Limit:",
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
   },
-  "adBanner": {
-    "startNow": "Start now"
-  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. Convert BETH to WBETH on-chain at a 1:1 ratio <Link>here</Link>."
@@ -300,17 +297,6 @@
     "modalTitle": "{{ poolName }} tokens",
     "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "Background illustration",
-    "binanceLogoAltText": "Binance logo",
-    "description": "Borrow USDT and share <Bold>$400,000</Bold> in rewards!",
-    "title": "Venus is live on Binance Wallet Earn."
-  },
-  "boostBanner": {
-    "description": "One-click leverage to boost your yield <White>up to 5x</White>.",
-    "rocketAltText": "Rocket illustration",
-    "title": "Boost is available now!"
-  },
   "breadcrumbs": {
     "bridge": "Bridge",
     "dashboard": "Dashboard",
@@ -407,6 +393,18 @@
   },
   "connectWallet": {
     "connectButton": "Connect wallet"
+  },
+  "dashboard": {
+    "topMarkets": {
+      "borrowButton": {
+        "label": "Borrow"
+      },
+      "interactiveTitle": "Spotlight (<Group><SupplyButton>supply</SupplyButton> / <BorrowButton>borrow</BorrowButton></Group>)",
+      "supplyButton": {
+        "label": "Supply"
+      },
+      "textTitle": "Spotlight"
+    }
   },
   "eModeBanner": {
     "exploreButtonLabel": "Explore",
@@ -533,11 +531,6 @@
       "supplyApy": "Supply APY",
       "utilizationRate": "Utilization rate"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Claim your rewards and close your positions",
-    "illustrationAltText": "Illustration",
-    "title": "Isolated pools are being sunsetted"
   },
   "landing": {
     "benefits": {
@@ -754,57 +747,13 @@
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "You can't disable this e-mode group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
-            "notEnoughCollateral": "You can't disable this e-mode group because your total collateral value would not cover your total borrow balance"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode group:",
-            "repayButtonLabel": "Repay",
-            "title": "Your positions"
-          },
-          "tooltip": {
-            "blockingPositions": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
-            "notEnoughCollateral": "You can't enable this e-mode group because your total collateral value would not cover your total borrow balance"
-          }
-        },
-        "disableButtonLabel": "Disable",
-        "disabledNotice": "This E-Mode group is no longer supported. Your account now falls back to default parameters. Please switch to another available E-mode group or disable it.",
-        "enableButtonLabel": "Enable",
-        "healthFactor": "Health factor:",
-        "switchButtonLabel": "Switch"
-      },
-      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
-      "search": {
-        "placeholder": "Search asset or group"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "Borrowable",
             "collateral": "Collateral"
-          },
-          "rows": {
-            "liquidationPenalty": "Liquidation penalty",
-            "liquidationThreshold": "Liquidation threshold",
-            "maxLtv": "Max LTV"
           }
-        },
-        "columns": {
-          "asset": "Asset",
-          "collateral": "Collateral",
-          "isBorrowable": "Borrowable",
-          "liquidationPenalty": "Liquidation penalty",
-          "liquidationThreshold": "Liquidation threshold",
-          "maxLtv": "Max LTV",
-          "penalty": "Penalty",
-          "threshold": "Threshold"
-        },
-        "mobileSelectLabel": "Sort by:"
+        }
       }
     },
     "errors": {
@@ -813,14 +762,17 @@
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
     },
+    "header": {
+      "venusCore": {
+        "description": "Simple and powerful community-driven finance for the entire globe.",
+        "title": "Venus Core"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
       "label": "Isolated"
     },
     "tabs": {
-      "assets": {
-        "title": "Assets"
-      },
       "eMode": {
         "illustrationAltText": "Lightning illustration",
         "liquidationPenalty": {
@@ -832,8 +784,7 @@
         "maxLtv": {
           "label": "Max LTV",
           "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
-        },
-        "title": "E-mode"
+        }
       }
     }
   },
@@ -1079,11 +1030,6 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
-  },
-  "probableBanner": {
-    "description": "Give your conviction a boost on probable.markets",
-    "probableAltText": "Probable illustration",
-    "title": "Believe in something?"
   },
   "proposalList": {
     "selectOptions": {
@@ -1442,12 +1388,6 @@
     },
     "withdrawButton": "Withdraw",
     "youAreStake": "You are staking"
-  },
-  "venusFluxBanner": {
-    "bgIllustrationAltText": "Background illustration",
-    "description": "Let your liquidity Flux, watch your yield grow.",
-    "iconAltText": "Venus Flux icon",
-    "title": "Venus Flux is live!"
   },
   "vote": {
     "abstain": "Abstain",

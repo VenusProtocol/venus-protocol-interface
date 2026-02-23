@@ -154,9 +154,6 @@
     "limit": "Hạn mức:",
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay an toàn:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% của hạn mức vay của bạn)"
   },
-  "adBanner": {
-    "startNow": "Bắt đầu ngay"
-  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance đã tạm dừng rút BETH vào 2023-04-26. Chúng tôi khuyến nghị người dùng giảm mức tiếp xúc với BETH trên Venus. Việc vay đã bị tạm dừng. Chuyển BETH sang WBETH on-chain theo tỷ lệ 1:1 <Link>tại đây</Link>."
@@ -300,17 +297,6 @@
     "modalTitle": "Token {{ poolName }}",
     "supplyDescription": "Cung cấp {{tokenSymbol}} vào pool {{poolName}} sẽ cho phép bạn vay token chỉ từ pool này. <Button>Hiển thị tất cả thị trường</Button>"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "Hình minh họa nền",
-    "binanceLogoAltText": "Logo Binance",
-    "description": "Vay USDT và chia sẻ <Bold>$400,000</Bold> phần thưởng!",
-    "title": "Venus đã có trên Binance Wallet Earn."
-  },
-  "boostBanner": {
-    "description": "Đòn bẩy một lần nhấp để tăng lợi suất <White>tối đa 5x</White>.",
-    "rocketAltText": "Hình minh họa tên lửa",
-    "title": "Tăng cường đã khả dụng!"
-  },
   "breadcrumbs": {
     "bridge": "Cầu nối",
     "dashboard": "Bảng điều khiển",
@@ -407,6 +393,18 @@
   },
   "connectWallet": {
     "connectButton": "Kết nối ví"
+  },
+  "dashboard": {
+    "topMarkets": {
+      "borrowButton": {
+        "label": "Vay"
+      },
+      "interactiveTitle": "Điểm nổi bật (<Group><SupplyButton>cung cấp</SupplyButton> / <BorrowButton>vay</BorrowButton></Group>)",
+      "supplyButton": {
+        "label": "Cung cấp"
+      },
+      "textTitle": "Điểm nổi bật"
+    }
   },
   "eModeBanner": {
     "exploreButtonLabel": "Khám phá",
@@ -533,11 +531,6 @@
       "supplyApy": "APY cung cấp",
       "utilizationRate": "Tỷ lệ sử dụng"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Nhận phần thưởng của bạn và đóng vị thế",
-    "illustrationAltText": "Hình minh họa",
-    "title": "Các pool cô lập đang được dừng"
   },
   "landing": {
     "benefits": {
@@ -753,57 +746,13 @@
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "Bạn không thể tắt nhóm e-mode này vì bạn có vị thế vay với các tài sản không thể vay từ pool. <Link>Hiển thị vị thế của tôi</Link>",
-            "notEnoughCollateral": "Bạn không thể tắt nhóm e-mode này vì tổng giá trị tài sản thế chấp của bạn không đủ để bù tổng dư nợ"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "Bạn cần đóng các vị thế vay sau để bật nhóm E-mode <WhiteText>{{ eModeGroupName }}</WhiteText>:",
-            "repayButtonLabel": "Hoàn trả",
-            "title": "Vị thế của bạn"
-          },
-          "tooltip": {
-            "blockingPositions": "Bạn không thể bật nhóm e-mode này vì có vị thế vay với tài sản không thuộc nhóm đó. <Link>Hiển thị vị thế của tôi</Link>",
-            "notEnoughCollateral": "Bạn không thể bật nhóm e-mode này vì tổng giá trị tài sản thế chấp của bạn không đủ để bù tổng dư nợ"
-          }
-        },
-        "disableButtonLabel": "Tắt",
-        "disabledNotice": "Nhóm E-Mode này không còn được hỗ trợ. Tài khoản của bạn đã quay về tham số mặc định. Vui lòng chuyển sang nhóm E-mode khác hoặc tắt nó.",
-        "enableButtonLabel": "Bật",
-        "healthFactor": "Hệ số an toàn:",
-        "switchButtonLabel": "Chuyển"
-      },
-      "notice": "Bật E-Mode giúp tối đa hóa sức mạnh vay, tuy nhiên việc vay bị giới hạn trong các tài sản thuộc nhóm đã chọn. <Link>Tìm hiểu thêm</Link>",
-      "search": {
-        "placeholder": "Tìm tài sản hoặc nhóm"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "Có thể vay",
             "collateral": "Tài sản thế chấp"
-          },
-          "rows": {
-            "liquidationPenalty": "Phạt thanh lý",
-            "liquidationThreshold": "Ngưỡng thanh lý",
-            "maxLtv": "LTV tối đa"
           }
-        },
-        "columns": {
-          "asset": "Tài sản",
-          "collateral": "Tài sản thế chấp",
-          "isBorrowable": "Có thể vay",
-          "liquidationPenalty": "Phạt thanh lý",
-          "liquidationThreshold": "Ngưỡng thanh lý",
-          "maxLtv": "LTV tối đa",
-          "penalty": "Mức phạt",
-          "threshold": "Ngưỡng"
-        },
-        "mobileSelectLabel": "Sắp xếp theo:"
+        }
       }
     },
     "errors": {
@@ -812,14 +761,17 @@
       "collateralEnableError": "Lỗi bật tài sản thế chấp - Đã xảy ra sự cố khi bật {{assetName}} làm tài sản thế chấp. Vui lòng thử lại.",
       "collateralRequired": "Yêu cầu tài sản thế chấp - Vui lòng hoàn trả tất cả tài sản đã vay hoặc đặt tài sản khác làm thế chấp."
     },
+    "header": {
+      "venusCore": {
+        "description": "Tài chính đơn giản và mạnh mẽ do cộng đồng dẫn dắt cho toàn cầu.",
+        "title": "Venus Core"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "Sức mạnh vay của bạn tăng lên khi chỉ cung cấp tài sản trong nhóm {{ eModeGroupName }}",
       "label": "Cô lập"
     },
     "tabs": {
-      "assets": {
-        "title": "Tài sản"
-      },
       "eMode": {
         "illustrationAltText": "Hình minh họa tia sét",
         "liquidationPenalty": {
@@ -831,8 +783,7 @@
         "maxLtv": {
           "label": "LTV tối đa",
           "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
-        },
-        "title": "E-mode"
+        }
       }
     }
   },
@@ -1078,11 +1029,6 @@
     "tokensLeft_many": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_other": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} để có thể nhận thưởng Prime"
-  },
-  "probableBanner": {
-    "description": "Tăng niềm tin của bạn trên probable.markets",
-    "probableAltText": "Hình minh họa Probable",
-    "title": "Bạn tin vào điều gì?"
   },
   "proposalList": {
     "selectOptions": {
@@ -1441,12 +1387,6 @@
     },
     "withdrawButton": "Rút",
     "youAreStake": "Bạn đang stake"
-  },
-  "venusFluxBanner": {
-    "bgIllustrationAltText": "Minh họa nền",
-    "description": "Hãy để thanh khoản của bạn Flux, theo dõi lợi suất tăng trưởng.",
-    "iconAltText": "Biểu tượng Venus Flux",
-    "title": "Venus Flux đã ra mắt!"
   },
   "vote": {
     "abstain": "Bỏ phiếu trắng",

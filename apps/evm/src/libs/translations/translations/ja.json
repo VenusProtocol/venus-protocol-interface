@@ -154,9 +154,6 @@
     "limit": "上限:",
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全な借入限度:<LineBreak/>{{safeBorrowLimit}}（借入限度の{{safeBorrowLimitPercentage}}%）"
   },
-  "adBanner": {
-    "startNow": "今すぐ始める"
-  },
   "announcements": {
     "bethUpdate": {
       "description": "Binanceは2023-04-26にBETHの引き出しを停止しました。VenusでのBETHへのエクスポージャーを減らすことを推奨します。借入は停止されています。オンチェーンでBETHをWBETHに1:1の比率で変換できます。<Link>こちら</Link>をご覧ください。"
@@ -300,17 +297,6 @@
     "modalTitle": "{{ poolName }} トークン",
     "supplyDescription": "{{poolName}}プールに{{tokenSymbol}}を供給すると、このプールのみからトークンを借りられるようになります。<Button>すべてのマーケットを表示</Button>"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "背景イラスト",
-    "binanceLogoAltText": "Binanceロゴ",
-    "description": "USDTを借りて<Bold>$400,000</Bold>の報酬を山分け！",
-    "title": "VenusがBinance Wallet Earnで利用可能になりました。"
-  },
-  "boostBanner": {
-    "description": "ワンクリックのレバレッジで利回りを<White>最大5倍</White>までブースト。",
-    "rocketAltText": "ロケットのイラスト",
-    "title": "Boostが利用可能になりました！"
-  },
   "breadcrumbs": {
     "bridge": "ブリッジ",
     "dashboard": "ダッシュボード",
@@ -407,6 +393,18 @@
   },
   "connectWallet": {
     "connectButton": "ウォレットを接続"
+  },
+  "dashboard": {
+    "topMarkets": {
+      "borrowButton": {
+        "label": "借入"
+      },
+      "interactiveTitle": "スポットライト (<Group><SupplyButton>供給</SupplyButton> / <BorrowButton>借入</BorrowButton></Group>)",
+      "supplyButton": {
+        "label": "供給"
+      },
+      "textTitle": "スポットライト"
+    }
   },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
@@ -533,11 +531,6 @@
       "supplyApy": "供給APY",
       "utilizationRate": "利用率"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "報酬を請求してポジションを閉じてください",
-    "illustrationAltText": "イラスト",
-    "title": "隔離プールは終了予定です"
   },
   "landing": {
     "benefits": {
@@ -753,57 +746,13 @@
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "このEモードグループは無効化できません。プールから借入できない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
-            "notEnoughCollateral": "このEモードグループは無効化できません。担保の総額が借入残高の合計を下回るためです"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "<WhiteText>{{ eModeGroupName }}</WhiteText>のEモードグループを有効にするには、次の借入ポジションを解消する必要があります:",
-            "repayButtonLabel": "返済",
-            "title": "あなたのポジション"
-          },
-          "tooltip": {
-            "blockingPositions": "このEモードグループは有効にできません。このグループに属さない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
-            "notEnoughCollateral": "このEモードグループは有効にできません。担保の総額が借入残高の合計を下回るためです"
-          }
-        },
-        "disableButtonLabel": "無効化",
-        "disabledNotice": "このEモードグループはサポートされなくなりました。アカウントは既定のパラメータに戻りました。別の利用可能なEモードグループに切り替えるか、無効化してください。",
-        "enableButtonLabel": "有効化",
-        "healthFactor": "健全性ファクター:",
-        "switchButtonLabel": "切り替え"
-      },
-      "notice": "Eモードを有効にすると借入可能額を最大化できますが、借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
-      "search": {
-        "placeholder": "資産またはグループを検索"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "借入可能",
             "collateral": "担保"
-          },
-          "rows": {
-            "liquidationPenalty": "清算ペナルティ",
-            "liquidationThreshold": "清算しきい値",
-            "maxLtv": "最大LTV"
           }
-        },
-        "columns": {
-          "asset": "資産",
-          "collateral": "担保",
-          "isBorrowable": "借入可能",
-          "liquidationPenalty": "清算ペナルティ",
-          "liquidationThreshold": "清算しきい値",
-          "maxLtv": "最大LTV",
-          "penalty": "ペナルティ",
-          "threshold": "しきい値"
-        },
-        "mobileSelectLabel": "並べ替え:"
+        }
       }
     },
     "errors": {
@@ -812,14 +761,17 @@
       "collateralEnableError": "担保の有効化エラー - {{assetName}}を担保として有効化できませんでした。もう一度お試しください。",
       "collateralRequired": "担保が必要です - 借入中の資産をすべて返済するか、他の資産を担保に設定してください。"
     },
+    "header": {
+      "venusCore": {
+        "description": "全世界のためのシンプルで強力なコミュニティ主導の金融。",
+        "title": "Venus Core"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "{{ eModeGroupName }}グループの資産のみに供給することで借入力が高まります",
       "label": "隔離"
     },
     "tabs": {
-      "assets": {
-        "title": "資産"
-      },
       "eMode": {
         "illustrationAltText": "稲妻のイラスト",
         "liquidationPenalty": {
@@ -831,8 +783,7 @@
         "maxLtv": {
           "label": "最大LTV",
           "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
-        },
-        "title": "Eモード"
+        }
       }
     }
   },
@@ -1078,11 +1029,6 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "waitForPrimeTitle": "Prime報酬を請求できるまで{{claimWaitingPeriod}}"
-  },
-  "probableBanner": {
-    "description": "probable.marketsで信念をブーストしよう",
-    "probableAltText": "Probableのイラスト",
-    "title": "何かを信じますか？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1441,12 +1387,6 @@
     },
     "withdrawButton": "引き出し",
     "youAreStake": "あなたのステーキング量"
-  },
-  "venusFluxBanner": {
-    "bgIllustrationAltText": "背景イラスト",
-    "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
-    "iconAltText": "Venus Flux アイコン",
-    "title": "Venus Fluxが利用可能になりました！"
   },
   "vote": {
     "abstain": "棄権",

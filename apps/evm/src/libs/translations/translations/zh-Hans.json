@@ -154,9 +154,6 @@
     "limit": "限额：",
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（占借款限额的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全借款限额：<LineBreak/>{{safeBorrowLimit}}（占借款限额的 {{safeBorrowLimitPercentage}}%）"
   },
-  "adBanner": {
-    "startNow": "立即开始"
-  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance 于 2023-04-26 暂停了 BETH 提现。我们建议用户减少在 Venus 上的 BETH 曝险。借款已暂停。可在链上按 1:1 比例将 BETH 转换为 WBETH，<Link>点击此处</Link>。"
@@ -300,17 +297,6 @@
     "modalTitle": "{{ poolName }} 代币",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "背景插图",
-    "binanceLogoAltText": "Binance 标志",
-    "description": "借入 USDT，分享 <Bold>$400,000</Bold> 奖励！",
-    "title": "Venus 已在 Binance Wallet Earn 上线。"
-  },
-  "boostBanner": {
-    "description": "一键杠杆提升收益 <White>最高 5 倍</White>。",
-    "rocketAltText": "火箭插图",
-    "title": "Boost 已上线！"
-  },
   "breadcrumbs": {
     "bridge": "跨链桥",
     "dashboard": "仪表盘",
@@ -407,6 +393,18 @@
   },
   "connectWallet": {
     "connectButton": "连接钱包"
+  },
+  "dashboard": {
+    "topMarkets": {
+      "borrowButton": {
+        "label": "借款"
+      },
+      "interactiveTitle": "焦点 (<Group><SupplyButton>存款</SupplyButton> / <BorrowButton>借款</BorrowButton></Group>)",
+      "supplyButton": {
+        "label": "存款"
+      },
+      "textTitle": "焦点"
+    }
   },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
@@ -533,11 +531,6 @@
       "supplyApy": "存款 APY",
       "utilizationRate": "利用率"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "领取奖励并关闭你的仓位",
-    "illustrationAltText": "插图",
-    "title": "隔离池即将关闭"
   },
   "landing": {
     "benefits": {
@@ -753,57 +746,13 @@
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "你无法禁用该 E-mode组，因为你有包含无法从该池借款的资产的借款仓位。<Link>显示我的仓位</Link>",
-            "notEnoughCollateral": "你无法禁用该 E-mode组，因为你的总可抵押价值不足以覆盖总借款余额"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "要启用 <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode组，你需要关闭以下借款仓位：",
-            "repayButtonLabel": "还款",
-            "title": "你的仓位"
-          },
-          "tooltip": {
-            "blockingPositions": "你无法启用该 E-mode组，因为你有不属于该组的资产借款仓位。<Link>显示我的仓位</Link>",
-            "notEnoughCollateral": "你无法启用该 E-mode组，因为你的总可抵押价值不足以覆盖总借款余额"
-          }
-        },
-        "disableButtonLabel": "禁用",
-        "disabledNotice": "该 E-Mode 组已不再支持。你的账户将回到默认参数。请切换到其他可用的 E-mode组或将其禁用。",
-        "enableButtonLabel": "启用",
-        "healthFactor": "健康系数：",
-        "switchButtonLabel": "切换"
-      },
-      "notice": "启用 E-Mode 可最大化借款能力，但借款仅限于特定筛选后的资产。<Link>了解更多</Link>",
-      "search": {
-        "placeholder": "搜索资产或组"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "可借",
             "collateral": "可抵押"
-          },
-          "rows": {
-            "liquidationPenalty": "清算罚金",
-            "liquidationThreshold": "清算阈值",
-            "maxLtv": "最大 LTV"
           }
-        },
-        "columns": {
-          "asset": "资产",
-          "collateral": "可抵押",
-          "isBorrowable": "可借",
-          "liquidationPenalty": "清算罚金",
-          "liquidationThreshold": "清算阈值",
-          "maxLtv": "最大 LTV",
-          "penalty": "罚金",
-          "threshold": "阈值"
-        },
-        "mobileSelectLabel": "排序："
+        }
       }
     },
     "errors": {
@@ -812,14 +761,17 @@
       "collateralEnableError": "启用可抵押错误 - 启用 {{assetName}} 作为可抵押时出现问题。请重试。",
       "collateralRequired": "需要可抵押 - 请偿还所有借款资产或将其他资产设为可抵押。"
     },
+    "header": {
+      "venusCore": {
+        "description": "面向全球的简单而强大、社区驱动的金融。",
+        "title": "Venus Core"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "仅向 {{ eModeGroupName }} 组内资产存款可提升你的借款能力",
       "label": "隔离"
     },
     "tabs": {
-      "assets": {
-        "title": "资产"
-      },
       "eMode": {
         "illustrationAltText": "闪电插图",
         "liquidationPenalty": {
@@ -831,8 +783,7 @@
         "maxLtv": {
           "label": "最大 LTV",
           "tooltip": "最大 LTV 即借款限额。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的可抵押允许借入价值 {{userCollateralFactor}} {{tokenSymbol}} 的货币。"
-        },
-        "title": "E-mode"
+        }
       }
     }
   },
@@ -1078,11 +1029,6 @@
     "tokensLeft_many": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "tokensLeft_other": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 后可领取 Prime 奖励"
-  },
-  "probableBanner": {
-    "description": "在 probable.markets 上增强你的信念",
-    "probableAltText": "Probable 插图",
-    "title": "预测点什么？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1441,12 +1387,6 @@
     },
     "withdrawButton": "取款",
     "youAreStake": "你正在质押"
-  },
-  "venusFluxBanner": {
-    "bgIllustrationAltText": "背景插图",
-    "description": "让你的流动性 Flux，见证收益增长。",
-    "iconAltText": "Venus Flux 图标",
-    "title": "Venus Flux 现已上线！"
   },
   "vote": {
     "abstain": "弃权",
