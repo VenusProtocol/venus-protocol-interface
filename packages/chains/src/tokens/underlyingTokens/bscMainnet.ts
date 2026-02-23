@@ -495,4 +495,11 @@ export const bscMainnet: Token[] = [
     symbol: 'PT-clisBNBx-25JUN2026',
     iconSrc: iconSrcs.slisBnbX,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x23AE4fd8E7844cdBc97775496eBd0E8248656028',
+    decimals: 18,
+    symbol: 'XAUm',
+    iconSrc: iconSrcs.xaum,
+  },
 ];
