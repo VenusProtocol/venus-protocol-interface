@@ -657,6 +657,9 @@
         "vai": {
           "description": "铸造 Venus 的原生稳定币。",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "TRANSLATION NEEDED"
         }
       },
       "settings": {
@@ -1699,5 +1702,15 @@
       "submitButton": "取款"
     },
     "withdrawTabTitle": "取款"
+  },
+  "yieldPlus": {
+    "banner": {
+      "learnMore": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "longLiquidity": "TRANSLATION NEEDED",
+    "longSupplyApy": "TRANSLATION NEEDED",
+    "shortBorrowApy": "TRANSLATION NEEDED",
+    "shortLiquidity": "TRANSLATION NEEDED"
   }
 }

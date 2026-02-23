@@ -657,6 +657,9 @@
         "vai": {
           "description": "Mint stablecoin gốc của Venus.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "TRANSLATION NEEDED"
         }
       },
       "settings": {
@@ -1699,5 +1702,15 @@
       "submitButton": "Rút"
     },
     "withdrawTabTitle": "Rút"
+  },
+  "yieldPlus": {
+    "banner": {
+      "learnMore": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "longLiquidity": "TRANSLATION NEEDED",
+    "longSupplyApy": "TRANSLATION NEEDED",
+    "shortBorrowApy": "TRANSLATION NEEDED",
+    "shortLiquidity": "TRANSLATION NEEDED"
   }
 }

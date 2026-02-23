@@ -25,7 +25,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
       variant === 'primary' &&
         'p-4 grid grid-cols-2 rounded-xl gap-4 sm:flex sm:flex-wrap sm:gap-0 sm:px-6 sm:py-4',
       variant === 'secondary' &&
-        'p-0 flex overflow-y-auto scrollbar-hidden bg-transparent sm:p-0 md:p-0 xl:p-0',
+        'p-0 flex overflow-x-auto overflow-y-hidden scrollbar-hidden bg-transparent sm:p-0 md:p-0 xl:p-0',
       variant === 'tertiary' &&
         'gap-2 bg-transparent p-0 grid grid-cols-2 sm:p-0 xl:bg-cards xl:flex xl:p-6 xl:flex-wrap xl:rounded-xl xl:gap-x-0',
       className,
@@ -37,7 +37,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
         key={`cell-group-item-${cell.label}`}
         {...cell}
         className={cn(
-          'xl:bg-transparent',
+          'shrink-0 xl:bg-transparent',
           variant === 'primary' &&
             'sm:px-6 sm:first-of-type:pl-0 sm:last-of-type:pr-0 sm:border-r sm:last-of-type:border-r-0 sm:border-lightGrey',
           variant === 'secondary' &&

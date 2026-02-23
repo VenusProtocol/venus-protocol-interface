@@ -658,6 +658,9 @@
         "vai": {
           "description": "Venus'ün yerel sabit coinini mint edin.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "TRANSLATION NEEDED"
         }
       },
       "settings": {
@@ -1700,5 +1703,15 @@
       "submitButton": "Çek"
     },
     "withdrawTabTitle": "Çek"
+  },
+  "yieldPlus": {
+    "banner": {
+      "learnMore": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "longLiquidity": "TRANSLATION NEEDED",
+    "longSupplyApy": "TRANSLATION NEEDED",
+    "shortBorrowApy": "TRANSLATION NEEDED",
+    "shortLiquidity": "TRANSLATION NEEDED"
   }
 }
