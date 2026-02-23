@@ -1,13 +1,14 @@
-import { useGetPool } from 'clients/api';
-import { Page, Spinner } from 'components';
-import { useAccountAddress } from 'libs/wallet';
 import { useParams } from 'react-router';
 import type { Address } from 'viem';
 
+import { useGetPool } from 'clients/api';
+import { Page, Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useAccountAddress } from 'libs/wallet';
 import { Header } from './Header';
+import { Tabs } from './Tabs';
 
 export const Markets: React.FC = () => {
   const { accountAddress } = useAccountAddress();
@@ -28,7 +29,19 @@ export const Markets: React.FC = () => {
     return <Redirect to={marketsPagePath} />;
   }
 
-  return <Page>{pool ? <Header pool={pool} /> : <Spinner />}</Page>;
+  return (
+    <Page>
+      {pool ? (
+        <div className="space-y-6 sm:space-y-12">
+          <Header pool={pool} />
+
+          <Tabs pool={pool} />
+        </div>
+      ) : (
+        <Spinner />
+      )}
+    </Page>
+  );
 };
 
 export default Markets;

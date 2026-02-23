@@ -742,6 +742,21 @@
     },
     "supplyInfo": {
       "title": "供給情報"
+    },
+    "tabs": {
+      "eMode": {
+        "illustrationAltText": "稲妻のイラスト",
+        "liquidationPenalty": {
+          "label": "清算ペナルティ"
+        },
+        "liquidationThreshold": {
+          "label": "清算しきい値"
+        },
+        "maxLtv": {
+          "label": "最大LTV",
+          "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
+        }
+      }
     }
   },
   "markets": {
@@ -773,17 +788,61 @@
     },
     "tabs": {
       "eMode": {
-        "illustrationAltText": "稲妻のイラスト",
-        "liquidationPenalty": {
-          "label": "清算ペナルティ"
+        "eModeNotice": "Eモードを有効にすると借入可能額を最大化できますが、借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "このグループは無効化できません。プールから借入できない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
+              "notEnoughCollateral": "このグループは無効化できません。担保の総額が借入残高の合計を下回るためです"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "<WhiteText>{{ eModeGroupName }}</WhiteText>グループを有効にするには、次の借入ポジションを解消する必要があります:",
+              "repayButtonLabel": "返済",
+              "title": "自分のポジション"
+            },
+            "tooltip": {
+              "blockingPositions": "このグループは有効にできません。このグループに属さない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
+              "notEnoughCollateral": "このグループは有効にできません。担保の総額が借入残高の合計を下回るためです"
+            }
+          },
+          "disableButtonLabel": "無効化",
+          "disabledNotice": "このグループはサポートされなくなりました。アカウントはコアプールのパラメータに戻りました。別の利用可能なグループに切り替えるか、無効化してください。",
+          "enableButtonLabel": "有効化",
+          "healthFactor": "健全性ファクター:",
+          "switchButtonLabel": "切り替え"
         },
-        "liquidationThreshold": {
-          "label": "清算しきい値"
+        "isolationModeNotice": "隔離モードを有効にすると借入可能額を最大化できますが、供給と借入は選択したグループ内の資産に制限されます。<Link>詳細を見る</Link>",
+        "label": "Eモード",
+        "pausedAssetsToggle": {
+          "label": "停止中の資産"
         },
-        "maxLtv": {
-          "label": "最大LTV",
-          "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
+        "search": {
+          "placeholder": "資産またはグループを検索"
+        },
+        "table": {
+          "columns": {
+            "asset": "資産",
+            "collateral": "担保",
+            "isBorrowable": "借入可能",
+            "liquidationPenalty": "清算ペナルティ",
+            "liquidationThreshold": "清算しきい値",
+            "maxLtv": "最大LTV",
+            "penalty": "ペナルティ",
+            "threshold": "しきい値"
+          },
+          "mobileSelectLabel": "並び替え:"
+        },
+        "userAssetsOnlyToggle": {
+          "label": "自分の資産のみ"
         }
+      },
+      "isolationMode": {
+        "label": "隔離モード"
+      },
+      "markets": {
+        "label": "マーケット"
       }
     }
   },

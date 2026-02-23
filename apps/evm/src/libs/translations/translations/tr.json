@@ -743,6 +743,21 @@
     },
     "supplyInfo": {
       "title": "Sağlama bilgisi"
+    },
+    "tabs": {
+      "eMode": {
+        "illustrationAltText": "Yıldırım illüstrasyonu",
+        "liquidationPenalty": {
+          "label": "Likidasyon cezası"
+        },
+        "liquidationThreshold": {
+          "label": "Likidasyon eşiği"
+        },
+        "maxLtv": {
+          "label": "Maks LTV",
+          "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
+        }
+      }
     }
   },
   "markets": {
@@ -774,17 +789,61 @@
     },
     "tabs": {
       "eMode": {
-        "illustrationAltText": "Şimşek illüstrasyonu",
-        "liquidationPenalty": {
-          "label": "Likidasyon cezası"
+        "eModeNotice": "E-modu etkinleştirmek borçlanma gücünüzü en üst düzeye çıkarır; ancak borç alma, seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "Bu grubu devre dışı bırakamazsınız çünkü havuzdan borç alınamayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+              "notEnoughCollateral": "Bu grubu devre dışı bırakamazsınız çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamıyor"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "<WhiteText>{{ eModeGroupName }}</WhiteText> grubunu etkinleştirmek için aşağıdaki borç pozisyonlarını kapatmanız gerekir:",
+              "repayButtonLabel": "Geri öde",
+              "title": "Pozisyonlarım"
+            },
+            "tooltip": {
+              "blockingPositions": "Bu grubu etkinleştiremezsiniz çünkü bu gruba ait olmayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+              "notEnoughCollateral": "Bu grubu etkinleştiremezsiniz çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamıyor"
+            }
+          },
+          "disableButtonLabel": "Devre dışı bırak",
+          "disabledNotice": "Bu grup artık desteklenmiyor. Hesabınız artık Core Pool parametrelerine geri döndü. Lütfen başka bir kullanılabilir gruba geçin veya devre dışı bırakın.",
+          "enableButtonLabel": "Etkinleştir",
+          "healthFactor": "Sağlık faktörü:",
+          "switchButtonLabel": "Değiştir"
         },
-        "liquidationThreshold": {
-          "label": "Likidasyon eşiği"
+        "isolationModeNotice": "İzolasyon modunu etkinleştirmek borçlanma gücünüzü en üst düzeye çıkarır; ancak sağlama ve borç alma seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
+        "label": "E-modu",
+        "pausedAssetsToggle": {
+          "label": "Durdurulan varlıklar"
         },
-        "maxLtv": {
-          "label": "Maks LTV",
-          "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
+        "search": {
+          "placeholder": "Varlık veya grup ara"
+        },
+        "table": {
+          "columns": {
+            "asset": "Varlık",
+            "collateral": "Teminat",
+            "isBorrowable": "Borç alınabilir",
+            "liquidationPenalty": "Likidasyon cezası",
+            "liquidationThreshold": "Likidasyon eşiği",
+            "maxLtv": "Maks LTV",
+            "penalty": "Ceza",
+            "threshold": "Eşik"
+          },
+          "mobileSelectLabel": "Sırala:"
+        },
+        "userAssetsOnlyToggle": {
+          "label": "Yalnızca varlıklarım"
         }
+      },
+      "isolationMode": {
+        "label": "İzolasyon modu"
+      },
+      "markets": {
+        "label": "Piyasalar"
       }
     }
   },

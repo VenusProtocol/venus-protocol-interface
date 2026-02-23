@@ -410,7 +410,7 @@
     "exploreButtonLabel": "探索",
     "illustrationAltText": "E-mode插圖",
     "manageEModeButtonLabel": "管理 E-mode",
-    "title": "使用 E-Mode 提升借款能力"
+    "title": "使用 E-mode 提升借款能力"
   },
   "errors": {
     "couldNotRetrieveSigner": "無法獲取簽名者，請確保錢包已解鎖並刷新頁面",
@@ -742,6 +742,21 @@
     },
     "supplyInfo": {
       "title": "供應信息"
+    },
+    "tabs": {
+      "eMode": {
+        "illustrationAltText": "閃電插圖",
+        "liquidationPenalty": {
+          "label": "清算罰金"
+        },
+        "liquidationThreshold": {
+          "label": "清算閾值"
+        },
+        "maxLtv": {
+          "label": "最大 LTV",
+          "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
+        }
+      }
     }
   },
   "markets": {
@@ -773,17 +788,61 @@
     },
     "tabs": {
       "eMode": {
-        "illustrationAltText": "閃電插圖",
-        "liquidationPenalty": {
-          "label": "清算罰金"
+        "eModeNotice": "啟用 E-mode 可最大化你的借款能力，但借款僅限於所選組內資產。<Link>了解更多</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "你無法禁用該組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
+              "notEnoughCollateral": "你無法禁用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> 組，你需要關閉以下借款倉位：",
+              "repayButtonLabel": "還款",
+              "title": "你的倉位"
+            },
+            "tooltip": {
+              "blockingPositions": "你無法啟用該組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
+              "notEnoughCollateral": "你無法啟用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
+            }
+          },
+          "disableButtonLabel": "禁用",
+          "disabledNotice": "該組已不再支持。你的賬戶將回到核心池參數。請切換到其他可用組或將其禁用。",
+          "enableButtonLabel": "啟用",
+          "healthFactor": "健康係數：",
+          "switchButtonLabel": "切換"
         },
-        "liquidationThreshold": {
-          "label": "清算閾值"
+        "isolationModeNotice": "啟用隔離模式可最大化你的借款能力，但供應與借款僅限於所選組內資產。<Link>了解更多</Link>",
+        "label": "E-mode",
+        "pausedAssetsToggle": {
+          "label": "已暫停資產"
         },
-        "maxLtv": {
-          "label": "最大 LTV",
-          "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
+        "search": {
+          "placeholder": "搜尋資產或組"
+        },
+        "table": {
+          "columns": {
+            "asset": "資產",
+            "collateral": "抵押",
+            "isBorrowable": "可借",
+            "liquidationPenalty": "清算罰金",
+            "liquidationThreshold": "清算閾值",
+            "maxLtv": "最大 LTV",
+            "penalty": "罰金",
+            "threshold": "閾值"
+          },
+          "mobileSelectLabel": "排序："
+        },
+        "userAssetsOnlyToggle": {
+          "label": "僅我的資產"
         }
+      },
+      "isolationMode": {
+        "label": "隔離模式"
+      },
+      "markets": {
+        "label": "市場"
       }
     }
   },

@@ -410,7 +410,7 @@
     "exploreButtonLabel": "Explore",
     "illustrationAltText": "E-mode illustration",
     "manageEModeButtonLabel": "Manage E-mode",
-    "title": "Boost your borrowing power with E-Mode"
+    "title": "Boost your borrowing power with E-mode"
   },
   "errors": {
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
@@ -743,6 +743,21 @@
     },
     "supplyInfo": {
       "title": "Supply info"
+    },
+    "tabs": {
+      "eMode": {
+        "illustrationAltText": "Lightning illustration",
+        "liquidationPenalty": {
+          "label": "Liquidation penalty"
+        },
+        "liquidationThreshold": {
+          "label": "Liquidation threshold"
+        },
+        "maxLtv": {
+          "label": "Max LTV",
+          "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
+        }
+      }
     }
   },
   "markets": {
@@ -774,17 +789,61 @@
     },
     "tabs": {
       "eMode": {
-        "illustrationAltText": "Lightning illustration",
-        "liquidationPenalty": {
-          "label": "Liquidation penalty"
+        "eModeNotice": "Enabling E-mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "You can't disable this group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
+              "notEnoughCollateral": "You can't disable this group because your total collateral value would not cover your total borrow balance"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> group:",
+              "repayButtonLabel": "Repay",
+              "title": "Your positions"
+            },
+            "tooltip": {
+              "blockingPositions": "You can't enable this group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
+              "notEnoughCollateral": "You can't enable this group because your total collateral value would not cover your total borrow balance"
+            }
+          },
+          "disableButtonLabel": "Disable",
+          "disabledNotice": "This group is no longer supported. Your account now falls back to Core Pool parameters. Please switch to another available group or disable it.",
+          "enableButtonLabel": "Enable",
+          "healthFactor": "Health factor:",
+          "switchButtonLabel": "Switch"
         },
-        "liquidationThreshold": {
-          "label": "Liquidation threshold"
+        "isolationModeNotice": "Enabling isolation mode allows you to maximize your borrowing power, however, supplying and borrowing are restricted to assets within the selected group. <Link>Learn more</Link>",
+        "label": "E-mode",
+        "pausedAssetsToggle": {
+          "label": "Paused assets"
         },
-        "maxLtv": {
-          "label": "Max LTV",
-          "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
+        "search": {
+          "placeholder": "Search asset or group"
+        },
+        "table": {
+          "columns": {
+            "asset": "Asset",
+            "collateral": "Collateral",
+            "isBorrowable": "Borrowable",
+            "liquidationPenalty": "Liquidation penalty",
+            "liquidationThreshold": "Liquidation threshold",
+            "maxLtv": "Max LTV",
+            "penalty": "Penalty",
+            "threshold": "Threshold"
+          },
+          "mobileSelectLabel": "Sort by:"
+        },
+        "userAssetsOnlyToggle": {
+          "label": "My assets only"
         }
+      },
+      "isolationMode": {
+        "label": "Isolation mode"
+      },
+      "markets": {
+        "label": "Markets"
       }
     }
   },

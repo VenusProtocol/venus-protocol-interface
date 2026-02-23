@@ -410,7 +410,7 @@
     "exploreButtonLabel": "Khám phá",
     "illustrationAltText": "Hình minh họa E-mode",
     "manageEModeButtonLabel": "Quản lý E-mode",
-    "title": "Tăng sức mạnh vay với E-Mode"
+    "title": "Tăng sức mạnh vay với E-mode"
   },
   "errors": {
     "couldNotRetrieveSigner": "Không thể lấy signer, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
@@ -742,6 +742,21 @@
     },
     "supplyInfo": {
       "title": "Thông tin cung cấp"
+    },
+    "tabs": {
+      "eMode": {
+        "illustrationAltText": "Hình minh họa tia sét",
+        "liquidationPenalty": {
+          "label": "Phạt thanh lý"
+        },
+        "liquidationThreshold": {
+          "label": "Ngưỡng thanh lý"
+        },
+        "maxLtv": {
+          "label": "LTV tối đa",
+          "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
+        }
+      }
     }
   },
   "markets": {
@@ -773,17 +788,61 @@
     },
     "tabs": {
       "eMode": {
-        "illustrationAltText": "Hình minh họa tia sét",
-        "liquidationPenalty": {
-          "label": "Phạt thanh lý"
+        "eModeNotice": "Bật E-mode giúp tối đa hóa khả năng vay, tuy nhiên việc vay bị giới hạn trong các tài sản thuộc nhóm đã chọn. <Link>Tìm hiểu thêm</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "Bạn không thể tắt nhóm này vì bạn có vị thế vay với các tài sản không thể vay từ pool. <Link>Hiển thị vị thế của tôi</Link>",
+              "notEnoughCollateral": "Bạn không thể tắt nhóm này vì tổng giá trị tài sản thế chấp không đủ để phủ tổng dư nợ vay"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "Bạn cần đóng các vị thế vay sau để bật nhóm <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+              "repayButtonLabel": "Hoàn trả",
+              "title": "Vị thế của bạn"
+            },
+            "tooltip": {
+              "blockingPositions": "Bạn không thể bật nhóm này vì bạn có vị thế vay với các tài sản không thuộc nhóm đó. <Link>Hiển thị vị thế của tôi</Link>",
+              "notEnoughCollateral": "Bạn không thể bật nhóm này vì tổng giá trị tài sản thế chấp không đủ để phủ tổng dư nợ vay"
+            }
+          },
+          "disableButtonLabel": "Tắt",
+          "disabledNotice": "Nhóm này không còn được hỗ trợ. Tài khoản của bạn sẽ quay về tham số của Core Pool. Vui lòng chuyển sang nhóm khác hoặc tắt nó.",
+          "enableButtonLabel": "Bật",
+          "healthFactor": "Hệ số an toàn:",
+          "switchButtonLabel": "Chuyển"
         },
-        "liquidationThreshold": {
-          "label": "Ngưỡng thanh lý"
+        "isolationModeNotice": "Bật chế độ cô lập giúp tối đa hóa khả năng vay, tuy nhiên việc cung cấp và vay bị giới hạn trong các tài sản thuộc nhóm đã chọn. <Link>Tìm hiểu thêm</Link>",
+        "label": "E-mode",
+        "pausedAssetsToggle": {
+          "label": "Tài sản tạm dừng"
         },
-        "maxLtv": {
-          "label": "LTV tối đa",
-          "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
+        "search": {
+          "placeholder": "Tìm tài sản hoặc nhóm"
+        },
+        "table": {
+          "columns": {
+            "asset": "Tài sản",
+            "collateral": "Tài sản thế chấp",
+            "isBorrowable": "Có thể vay",
+            "liquidationPenalty": "Phạt thanh lý",
+            "liquidationThreshold": "Ngưỡng thanh lý",
+            "maxLtv": "LTV tối đa",
+            "penalty": "Phạt",
+            "threshold": "Ngưỡng"
+          },
+          "mobileSelectLabel": "Sắp xếp theo:"
+        },
+        "userAssetsOnlyToggle": {
+          "label": "Chỉ tài sản của tôi"
         }
+      },
+      "isolationMode": {
+        "label": "Chế độ cô lập"
+      },
+      "markets": {
+        "label": "Thị trường"
       }
     }
   },
