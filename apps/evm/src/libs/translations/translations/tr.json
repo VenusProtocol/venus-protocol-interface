@@ -660,7 +660,7 @@
           "label": "VAI"
         },
         "yieldPlus": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1706,12 +1706,24 @@
   },
   "yieldPlus": {
     "banner": {
-      "learnMore": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "illustrationAltText": "Yield+ illüstrasyonu",
+      "learnMore": "Daha fazla bilgi",
+      "title": "Yield+ nedir?"
     },
-    "longLiquidity": "TRANSLATION NEEDED",
-    "longSupplyApy": "TRANSLATION NEEDED",
-    "shortBorrowApy": "TRANSLATION NEEDED",
-    "shortLiquidity": "TRANSLATION NEEDED"
+    "form": {
+      "longField": {
+        "label": "Long"
+      },
+      "shortField": {
+        "label": "Short"
+      },
+      "submitButton": {
+        "label": "Kur"
+      }
+    },
+    "longLiquidity": "Long likiditesi",
+    "longSupplyApy": "{{ longTokenSymbol }} sağlama APY",
+    "shortBorrowApy": "{{ shortTokenSymbol }} borç APY",
+    "shortLiquidity": "Short likiditesi"
   }
 }

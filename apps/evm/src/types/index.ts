@@ -617,3 +617,21 @@ export enum TxType {
   ExitMarket = 'exit_market',
   Approve = 'approve',
 }
+
+type ApprovalBase = {
+  type: 'token' | 'delegate';
+};
+
+export type TokenApproval = ApprovalBase & {
+  type: 'token';
+  spenderAddress: Address;
+  token: Token;
+};
+
+export type DelegateApproval = ApprovalBase & {
+  type: 'delegate';
+  delegateeAddress: Address;
+  poolComptrollerContractAddress: Address;
+};
+
+export type Approval = TokenApproval | DelegateApproval;

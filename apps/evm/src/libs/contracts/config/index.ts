@@ -126,6 +126,7 @@ import nexusAbi from './externalAbis/Nexus.json';
 import nexusAccountFactoryAbi from './externalAbis/NexusAccountFactory.json';
 import nexusBoostrapAbi from './externalAbis/NexusBootstrap.json';
 import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
+import relativePositionManagerAbi from './externalAbis/RelativePositionManager.json';
 import swapRouterV2Abi from './externalAbis/SwapRouterV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import zyFiVaultAbi from './externalAbis/ZyFiVault.json';
@@ -682,6 +683,13 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_MAINNET]: venusPeripheryBscMainnetDeployments.addresses
         .LeverageStrategiesManager_Proxy as Address,
+    },
+  },
+  {
+    name: 'RelativePositionManager',
+    abi: relativePositionManagerAbi as Abi,
+    address: {
+      [ChainId.BSC_TESTNET]: '0xcB84425698B9426b5Edd9Ed25eA0116aA0c2Ce7F', // TODO: get from package
     },
   },
   // Generic Contracts

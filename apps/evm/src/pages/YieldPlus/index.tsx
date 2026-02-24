@@ -1,9 +1,10 @@
 import { useSearchParams } from 'react-router';
 
-import { Page } from 'components';
+import { Card, Page } from 'components';
 import { useEffect } from 'react';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
+import { Form } from './Form';
 import { PairInfo } from './PairInfo';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from './constants';
 import { useTokenPair } from './useTokenPair';
@@ -36,9 +37,19 @@ const YieldPlus: React.FC = () => {
   return (
     <Page>
       <div className="flex flex-col gap-y-6 lg:grid lg:grid-cols-[6fr_4fr] lg:gap-6 xl:grid-cols-[8fr_4fr]">
-        <PairInfo />
+        <div className="flex flex-col gap-y-6">
+          <PairInfo />
 
-        {!doNotShowBanner && <Banner />}
+          {!doNotShowBanner && <Banner className="lg:hidden" />}
+        </div>
+
+        <div className="flex flex-col gap-y-6">
+          {!doNotShowBanner && <Banner className="hidden lg:flex" />}
+
+          <Card className="border-blue bg-dark-blue p-6">
+            <Form />
+          </Card>
+        </div>
       </div>
     </Page>
   );

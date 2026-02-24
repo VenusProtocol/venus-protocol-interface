@@ -659,7 +659,7 @@
           "label": "VAI"
         },
         "yieldPlus": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1705,12 +1705,24 @@
   },
   "yieldPlus": {
     "banner": {
-      "learnMore": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "illustrationAltText": "ภาพประกอบ Yield+",
+      "learnMore": "เรียนรู้เพิ่มเติม",
+      "title": "Yield+ คืออะไร?"
     },
-    "longLiquidity": "TRANSLATION NEEDED",
-    "longSupplyApy": "TRANSLATION NEEDED",
-    "shortBorrowApy": "TRANSLATION NEEDED",
-    "shortLiquidity": "TRANSLATION NEEDED"
+    "form": {
+      "longField": {
+        "label": "Long"
+      },
+      "shortField": {
+        "label": "Short"
+      },
+      "submitButton": {
+        "label": "ตั้งค่า"
+      }
+    },
+    "longLiquidity": "สภาพคล่องฝั่ง Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",
+    "shortLiquidity": "สภาพคล่องฝั่ง Short"
   }
 }

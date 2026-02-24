@@ -28,20 +28,6 @@ export const useStyles = () => {
       `
       }
     `,
-    getArrowIcon: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
-      transform: rotate(${isTokenListShown ? '0' : '180deg'});
-      color: inherit;
-      margin-left: ${theme.spacing(2)};
-      transition: color 0.3s;
-
-      ${
-        isTokenListShown &&
-        css`
-        color: ${theme.palette.interactive.primary};
-      `
-      }
-    `,
-
     maxButton: css`
       margin-left: ${theme.spacing(2)};
     `,

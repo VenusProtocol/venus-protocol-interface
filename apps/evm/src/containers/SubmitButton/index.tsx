@@ -4,7 +4,8 @@ import { PrimaryButton } from 'components';
 import { ApproveDelegate } from 'containers/ApproveDelegate';
 import { ApproveToken } from 'containers/ApproveToken';
 import { SwitchChain } from 'containers/SwitchChain';
-import type { Approval } from '../types';
+
+import type { Approval } from 'types';
 
 export interface SubmitButtonProps {
   label: string;

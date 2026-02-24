@@ -8,13 +8,12 @@ import {
 } from 'constants/swap';
 import { AccountData } from 'containers/AccountData';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { SubmitButton } from 'containers/SubmitButton';
 import { SwapDetails } from 'containers/SwapDetails';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { BalanceMutation, Pool, SwapQuote, Token } from 'types';
+import type { Approval, BalanceMutation, Pool, SwapQuote, Token } from 'types';
 import { ApyBreakdown } from '../ApyBreakdown';
-import { SubmitButton } from './SubmitButton';
-import type { Approval } from './types';
 
 export interface FooterProps {
   analyticVariant: string;

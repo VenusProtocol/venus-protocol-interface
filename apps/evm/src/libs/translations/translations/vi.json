@@ -659,7 +659,7 @@
           "label": "VAI"
         },
         "yieldPlus": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1705,12 +1705,24 @@
   },
   "yieldPlus": {
     "banner": {
-      "learnMore": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "illustrationAltText": "Hình minh họa Yield+",
+      "learnMore": "Tìm hiểu thêm",
+      "title": "Yield+ là gì?"
     },
-    "longLiquidity": "TRANSLATION NEEDED",
-    "longSupplyApy": "TRANSLATION NEEDED",
-    "shortBorrowApy": "TRANSLATION NEEDED",
-    "shortLiquidity": "TRANSLATION NEEDED"
+    "form": {
+      "longField": {
+        "label": "Long"
+      },
+      "shortField": {
+        "label": "Short"
+      },
+      "submitButton": {
+        "label": "Thiết lập"
+      }
+    },
+    "longLiquidity": "Thanh khoản Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY cung cấp",
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY vay",
+    "shortLiquidity": "Thanh khoản Short"
   }
 }

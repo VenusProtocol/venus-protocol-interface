@@ -1,5 +1,3 @@
-import BigNumber from 'bignumber.js';
-
 import { useGetPool } from 'clients/api';
 import { Apy, CellGroup, type CellProps, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -18,7 +16,6 @@ export const PairInfo: React.FC = () => {
   const { corePoolComptrollerContractAddress } = useChain();
   const { shortToken, longToken } = useTokenPair();
 
-  const priceLongTokens = new BigNumber('0.02341'); // TODO: fetch
   const changePercentage = 3.32; // TODO: fetch
 
   const corePool = useGetPool({
@@ -46,7 +43,14 @@ export const PairInfo: React.FC = () => {
     },
   );
 
-  const readablePriceLongTokens = priceLongTokens.dp(6).toFixed();
+  const priceLongTokens =
+    longAsset && shortAsset
+      ? longAsset.tokenPriceCents.dividedBy(shortAsset.tokenPriceCents)
+      : undefined;
+  const readablePriceLongTokens = priceLongTokens
+    ? priceLongTokens.dp(6).toFixed()
+    : PLACEHOLDER_KEY;
+
   const readableChangePercentage = formatPercentageToReadableValue(changePercentage);
 
   const cells: CellProps[] = [

@@ -659,7 +659,7 @@
           "label": "VAI"
         },
         "yieldPlus": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1705,12 +1705,24 @@
   },
   "yieldPlus": {
     "banner": {
-      "learnMore": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "illustrationAltText": "Yield+ 插圖",
+      "learnMore": "了解更多",
+      "title": "什麼是 Yield+？"
     },
-    "longLiquidity": "TRANSLATION NEEDED",
-    "longSupplyApy": "TRANSLATION NEEDED",
-    "shortBorrowApy": "TRANSLATION NEEDED",
-    "shortLiquidity": "TRANSLATION NEEDED"
+    "form": {
+      "longField": {
+        "label": "多頭"
+      },
+      "shortField": {
+        "label": "空頭"
+      },
+      "submitButton": {
+        "label": "設置"
+      }
+    },
+    "longLiquidity": "多頭流動性",
+    "longSupplyApy": "{{ longTokenSymbol }} 供應 APY",
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
+    "shortLiquidity": "空頭流動性"
   }
 }

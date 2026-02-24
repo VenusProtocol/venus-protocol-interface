@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { useState } from 'react';
 
-import { TertiaryButton } from '@venusprotocol/ui';
+import { SelectButton, TertiaryButton, cn } from '@venusprotocol/ui';
 import type { Token } from 'types';
 import { Icon } from '../Icon';
 import { TokenIcon } from '../TokenIcon';
@@ -63,10 +63,10 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
           value={value}
           rightAdornment={
             <>
-              <TertiaryButton
+              <SelectButton
                 onClick={handleButtonClick}
-                css={styles.getButton({ isTokenListShown })}
                 className="p-2"
+                active={isTokenListShown}
                 disabled={disabled}
                 data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
                 size="sm"
@@ -78,11 +78,13 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 </div>
 
                 <Icon
-                  css={styles.getArrowIcon({ isTokenListShown })}
                   name="arrowUp"
-                  className="w-5 h-5"
+                  className={cn(
+                    'w-5 h-5 ml-2 transition-colors',
+                    isTokenListShown ? 'text-white' : 'rotate-180 text-light-grey',
+                  )}
                 />
-              </TertiaryButton>
+              </SelectButton>
 
               {rightMaxButton && (
                 <TertiaryButton

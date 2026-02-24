@@ -23,6 +23,7 @@ export interface TokenListWrapperProps {
   selectedToken: Token;
   displayCommonTokenButtons?: boolean;
   'data-testid'?: string;
+  className?: string;
 }
 
 const commonTokenSymbols = ['XVS', 'BNB', 'USDT', 'BTCB'];
@@ -36,6 +37,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
   selectedToken,
   displayCommonTokenButtons = true,
   'data-testid': testId,
+  className,
 }) => {
   const { t } = useTranslation();
 
@@ -88,7 +90,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
   }, [sortedTokenBalances, searchValue]);
 
   return (
-    <div>
+    <div className={className}>
       {children}
 
       {isListShown && (
