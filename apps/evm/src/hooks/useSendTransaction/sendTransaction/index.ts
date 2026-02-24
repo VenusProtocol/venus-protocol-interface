@@ -107,6 +107,20 @@ export const sendTransaction = async <
   };
 
   if (!gasless) {
+    // DEV ONLY
+    const ts = Math.floor(Date.now() / 1000).toString(16);
+    await fetch('https://virtual.binance.eu.rpc.tenderly.co/0acab753-b3d0-4fa6-91f8-8ca1578a00e3', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'tenderly_setNextBlockTimestamp',
+        params: [`0x${ts}`],
+      }),
+    });
+    // END DEV ONLY
+
     // Estimate gas limit
     const { from, ...estimationTxData } = txDataPayload;
     const gas = await publicClient.estimateGas({ ...estimationTxData, account: from });
