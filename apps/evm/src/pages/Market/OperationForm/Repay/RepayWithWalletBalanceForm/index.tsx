@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import type { Address } from 'viem';
 
 import { useGetSwapQuote, useRepay, useSwapTokensAndRepay } from 'clients/api';
 import {
@@ -12,7 +13,6 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import useDebounceValue from 'hooks/useDebounceValue';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
@@ -29,6 +29,7 @@ import {
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
+  formatTokensToReadableValue,
   getSwapToTokenAmountReceivedTokens,
   getUniqueTokenBalances,
 } from 'utilities';
@@ -38,6 +39,7 @@ import type { Approval } from '../../Footer/types';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
 import { Notice } from '../Notice';
 import { calculatePercentageOfUserBorrowBalance } from './calculatePercentageOfUserBorrowBalance';
+import { getInitialFormValues } from './getInitialFormValues';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
 
@@ -57,7 +59,8 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   userTokenWrappedBalanceMantissa,
 }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  const isIntegratedSwapFeatureEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
+  let isIntegratedSwapFeatureEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
+
   const { accountAddress } = useAccountAddress();
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
@@ -81,27 +84,27 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
 
-  const initialFormValues = useMemo(
-    () => ({
-      amountTokens: '',
-      fromToken:
-        shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
-          ? asset.vToken.underlyingToken.tokenWrapped
-          : asset.vToken.underlyingToken,
-      fixedRepayPercentage: undefined,
-      acknowledgeHighPriceImpact: false,
-    }),
-    [asset, shouldSelectNativeToken],
+  const initialFromToken =
+    shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
+      ? asset.vToken.underlyingToken.tokenWrapped
+      : asset.vToken.underlyingToken;
+
+  const [formValues, setFormValues] = useState<FormValues>(() =>
+    getInitialFormValues(initialFromToken),
   );
 
-  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+  isIntegratedSwapFeatureEnabled =
+    isIntegratedSwapFeatureEnabled &&
+    // The BNB market does not support the integrated swap feature because it uses a non-upgradable
+    // contract
+    formValues.fromToken.symbol !== 'BNB';
 
   // Reset form when user disconnects their wallet
   useEffect(() => {
     if (!accountAddress) {
-      setFormValues(initialFormValues);
+      setFormValues(getInitialFormValues(initialFromToken));
     }
-  }, [accountAddress, initialFormValues]);
+  }, [accountAddress, initialFromToken]);
 
   const { address: swapRouterContractAddress } = useGetContractAddress({
     name: 'SwapRouterV2',
@@ -111,26 +114,19 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   // 1) the wrap/unwrap feature is enabled
   // 2) the selected fromToken is the native token
   // 3) the market's underlying token wraps the native token
-  const isWrappingNativeToken = useMemo(
-    () => canWrapNativeToken && !!formValues.fromToken.isNative,
-    [canWrapNativeToken, formValues.fromToken],
-  );
+  const isWrappingNativeToken = canWrapNativeToken && !!formValues.fromToken.isNative;
 
   const isUsingSwap =
     isIntegratedSwapFeatureEnabled &&
     !isWrappingNativeToken &&
     !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken);
 
-  const spenderAddress = (() => {
-    if (isWrappingNativeToken) {
-      return nativeTokenGatewayContractAddress;
-    }
-    if (isUsingSwap) {
-      return swapRouterContractAddress;
-    }
-
-    return asset.vToken.address;
-  })();
+  let spenderAddress: Address | undefined = asset.vToken.address;
+  if (isWrappingNativeToken) {
+    spenderAddress = nativeTokenGatewayContractAddress;
+  } else if (isUsingSwap) {
+    spenderAddress = swapRouterContractAddress;
+  }
 
   const {
     isTokenApproved: isFromTokenApproved,
@@ -149,31 +145,31 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
 
   const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
 
-  const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
-    if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
-      const marketTokenBalance: TokenBalance = {
-        token: asset.vToken.underlyingToken,
-        balanceMantissa: convertTokensToMantissa({
-          token: asset.vToken.underlyingToken,
-          value: asset.userWalletBalanceTokens,
-        }),
-      };
-      const nativeTokenBalance: TokenBalance = {
-        token: asset.vToken.underlyingToken.tokenWrapped,
-        balanceMantissa: userTokenWrappedBalanceMantissa,
-      };
-      return [marketTokenBalance, nativeTokenBalance];
-    }
-    return [];
-  }, [
-    asset.userWalletBalanceTokens,
-    asset.vToken.underlyingToken,
-    userTokenWrappedBalanceMantissa,
-  ]);
+  let nativeWrappedTokenBalances: TokenBalance[] = [];
 
-  const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({
-    accountAddress,
-  });
+  if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
+    const marketTokenBalance: TokenBalance = {
+      token: asset.vToken.underlyingToken,
+      balanceMantissa: convertTokensToMantissa({
+        token: asset.vToken.underlyingToken,
+        value: asset.userWalletBalanceTokens,
+      }),
+    };
+    const nativeTokenBalance: TokenBalance = {
+      token: asset.vToken.underlyingToken.tokenWrapped,
+      balanceMantissa: userTokenWrappedBalanceMantissa,
+    };
+    nativeWrappedTokenBalances = [marketTokenBalance, nativeTokenBalance];
+  }
+
+  const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances(
+    {
+      accountAddress,
+    },
+    {
+      enabled: isIntegratedSwapFeatureEnabled && formValues.fromToken.symbol !== 'BNB',
+    },
+  );
 
   const onSubmit: UseFormInput['onSubmit'] = useCallback(
     async ({ fromToken, fromTokenAmountTokens, swapQuote, fixedRepayPercentage }) => {
@@ -228,7 +224,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
 
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
 
-  const swapQuoteToTokenAmountTokens = formValues.fixedRepayPercentage
+  const fixedRepayBorrowBalanceTokens = formValues.fixedRepayPercentage
     ? new BigNumber(
         calculatePercentageOfUserBorrowBalance({
           userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
@@ -246,7 +242,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   const sharedSwapQuoteProps = {
     fromToken: formValues.fromToken,
     toToken: asset.vToken.underlyingToken,
-    toTokenAmountTokens: swapQuoteToTokenAmountTokens || new BigNumber(0),
+    toTokenAmountTokens: fixedRepayBorrowBalanceTokens || new BigNumber(0),
     recipientAddress: swapRouterContractAddress || NULL_ADDRESS,
     slippagePercentage: userSlippageTolerancePercentage,
   };
@@ -256,10 +252,10 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     error: swapQuoteError,
     isLoading: swapQuoteLoading,
   } = useGetSwapQuote(
-    formValues.fixedRepayPercentage && swapQuoteToTokenAmountTokens
+    formValues.fixedRepayPercentage && fixedRepayBorrowBalanceTokens
       ? {
           ...sharedSwapQuoteProps,
-          minToTokenAmountTokens: swapQuoteToTokenAmountTokens,
+          minToTokenAmountTokens: fixedRepayBorrowBalanceTokens,
           direction: 'approximate-out',
         }
       : {
@@ -272,7 +268,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
         isUsingSwap &&
         !!swapRouterContractAddress &&
         (formValues.fixedRepayPercentage
-          ? !!swapQuoteToTokenAmountTokens?.isGreaterThan(0)
+          ? !!fixedRepayBorrowBalanceTokens?.isGreaterThan(0)
           : fromTokenAmountTokens.isGreaterThan(0)),
     },
   );
@@ -287,47 +283,35 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       }
     : undefined;
 
-  const tokenBalances = useMemo(
-    () =>
-      getUniqueTokenBalances(
-        ...(integratedSwapTokenBalancesData || []),
-        ...nativeWrappedTokenBalances,
-      ),
-    [integratedSwapTokenBalancesData, nativeWrappedTokenBalances],
+  const tokenBalances = getUniqueTokenBalances(
+    ...(integratedSwapTokenBalancesData || []),
+    ...nativeWrappedTokenBalances,
   );
 
-  const fromTokenUserWalletBalanceTokens = useMemo(() => {
-    // Get wallet balance from the list of fetched token balances if integrated
-    // swap feature is enabled and the selected token is different from the
-    // asset object
-    if (isUsingSwap || isWrappingNativeToken) {
-      const tokenBalance = tokenBalances.find(item =>
-        areTokensEqual(item.token, formValues.fromToken),
-      );
+  let fromTokenUserWalletBalanceTokens: BigNumber | undefined = asset.userWalletBalanceTokens;
 
-      return (
-        tokenBalance &&
-        convertMantissaToTokens({
-          value: tokenBalance.balanceMantissa,
-          token: tokenBalance.token,
-        })
-      );
-    }
+  // Get wallet balance from the list of fetched token balances if integrated swap feature is
+  // enabled and the selected token is different from the asset object
+  if (isUsingSwap || isWrappingNativeToken) {
+    const tokenBalance = tokenBalances.find(item =>
+      areTokensEqual(item.token, formValues.fromToken),
+    );
 
-    // Otherwise get the wallet balance from the asset object
-    return asset.userWalletBalanceTokens;
-  }, [
-    asset.userWalletBalanceTokens,
-    formValues.fromToken,
-    tokenBalances,
-    isUsingSwap,
-    isWrappingNativeToken,
-  ]);
+    fromTokenUserWalletBalanceTokens =
+      tokenBalance &&
+      convertMantissaToTokens({
+        value: tokenBalance.balanceMantissa,
+        token: tokenBalance.token,
+      });
+  }
 
-  let repayToTokenAmountTokens = isUsingSwap
-    ? getSwapToTokenAmountReceivedTokens(swapQuote)
-    : debouncedFormAmountTokens;
-  repayToTokenAmountTokens = new BigNumber(repayToTokenAmountTokens || 0);
+  let repayToTokenAmountTokens = new BigNumber(debouncedFormAmountTokens || 0);
+
+  if (isUsingSwap && formValues.fixedRepayPercentage && fixedRepayBorrowBalanceTokens) {
+    repayToTokenAmountTokens = fixedRepayBorrowBalanceTokens;
+  } else if (isUsingSwap) {
+    repayToTokenAmountTokens = getSwapToTokenAmountReceivedTokens(swapQuote) || new BigNumber(0);
+  }
 
   const balanceMutations: AssetBalanceMutation[] = [
     {
@@ -366,39 +350,27 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     isFromTokenApproved,
   });
 
-  const readableFromTokenUserWalletBalanceTokens = useFormatTokensToReadableValue({
+  const readableFromTokenUserWalletBalanceTokens = formatTokensToReadableValue({
     value: fromTokenUserWalletBalanceTokens,
     token: formValues.fromToken,
   });
 
-  const isRepayingFullLoan = useMemo(
-    () => formValues.fixedRepayPercentage === 100,
-    [formValues.fixedRepayPercentage],
+  const isRepayingFullLoan = formValues.fixedRepayPercentage === 100;
+
+  let limitTokens = BigNumber.min(
+    asset.userBorrowBalanceTokens,
+    fromTokenUserWalletBalanceTokens || 0,
   );
 
-  const limitTokens = useMemo(() => {
-    let amountTokens = BigNumber.min(
-      asset.userBorrowBalanceTokens,
-      fromTokenUserWalletBalanceTokens || 0,
-    );
+  // If using swap, set input amount to wallet balance
+  if (isUsingSwap) {
+    limitTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0);
+  }
 
-    // If using swap, set input amount to wallet balance
-    if (isUsingSwap) {
-      amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0);
-    }
-
-    // If user has set a spending limit, consider it
-    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
-      amountTokens = BigNumber.min(amountTokens || 0, fromTokenWalletSpendingLimitTokens);
-    }
-
-    return amountTokens;
-  }, [
-    asset.userBorrowBalanceTokens,
-    fromTokenUserWalletBalanceTokens,
-    fromTokenWalletSpendingLimitTokens,
-    isUsingSwap,
-  ]);
+  // If user has set a spending limit, consider it
+  if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
+    limitTokens = BigNumber.min(limitTokens || 0, fromTokenWalletSpendingLimitTokens);
+  }
 
   const captureAmountSetAnalyticEvent = ({
     amountTokens,

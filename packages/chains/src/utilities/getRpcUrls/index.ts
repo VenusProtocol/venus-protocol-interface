@@ -13,7 +13,7 @@ export const getRpcUrls = ({
     [ChainId.BSC_MAINNET]: [
       // `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
       // `https://bnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
-      'https://virtual.binance.eu.rpc.tenderly.co/0acab753-b3d0-4fa6-91f8-8ca1578a00e3',
+      'https://virtual.binance.eu.rpc.tenderly.co/d6b9cd9a-6e87-43a3-80cf-f8a9f37517d7',
     ],
     [ChainId.BSC_TESTNET]: [`https://bsc-testnet.nodereal.io/v1/${nodeRealApiKey}`],
     [ChainId.OPBNB_MAINNET]: [
