@@ -41,92 +41,11 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
         });
       }
 
-      // 2. Repay full loan in BNBs using tokens
+      // Repay full loan using tokens
       if (
         repayFullLoan &&
-        swapQuote.direction === 'exact-out' &&
-        vToken.symbol === 'vBNB' &&
-        !swapQuote.fromToken.tokenWrapped?.isNative &&
-        swapQuote.toToken.tokenWrapped?.isNative
-      ) {
-        return {
-          address: swapRouterContractAddress,
-          abi: swapRouterV2Abi,
-          functionName: 'swapAndRepayFull',
-          args: [
-            vToken.address, // vToken is vBNB
-            swapQuote.fromToken.address,
-            swapQuote.maximumFromTokenAmountSoldMantissa,
-            swapQuote.callData,
-          ],
-        } as WriteContractParameters<
-          typeof swapRouterV2Abi,
-          'swapAndRepayFull',
-          readonly [Address, Address, bigint, Hex],
-          Chain,
-          Account
-        >;
-      }
-
-      // 6. Sell fromTokens to repay as many BNBs as possible → repay max BNBs
-      if (
-        swapQuote.direction === 'exact-in' &&
-        vToken.symbol === 'vBNB' &&
-        !swapQuote.fromToken.isNative &&
-        swapQuote.toToken.isNative
-      ) {
-        return {
-          address: swapRouterContractAddress,
-          abi: swapRouterV2Abi,
-          functionName: 'swapAndRepay',
-          args: [
-            vToken.address, // vToken is vBNB
-            swapQuote.fromToken.address,
-            swapQuote.fromTokenAmountSoldMantissa,
-            swapQuote.minimumToTokenAmountReceivedMantissa,
-            swapQuote.callData,
-          ],
-        } as WriteContractParameters<
-          typeof swapRouterV2Abi,
-          'swapAndRepay',
-          readonly [Address, Address, bigint, bigint, Hex],
-          Chain,
-          Account
-        >;
-      }
-
-      // 9. Repay BNBs by selling as few fromTokens as possible
-      if (
-        swapQuote.direction === 'exact-out' &&
-        vToken.symbol === 'vBNB' &&
-        !swapQuote.fromToken.isNative &&
-        swapQuote.toToken.isNative
-      ) {
-        return {
-          address: swapRouterContractAddress,
-          abi: swapRouterV2Abi,
-          functionName: 'swapAndRepayFull',
-          args: [
-            vToken.address, // vToken is vBNB
-            swapQuote.fromToken.address,
-            swapQuote.maximumFromTokenAmountSoldMantissa,
-            swapQuote.callData,
-          ],
-        } as WriteContractParameters<
-          typeof swapRouterV2Abi,
-          'swapAndRepayFull',
-          readonly [Address, Address, bigint, Hex],
-          Chain,
-          Account
-        >;
-      }
-
-      // 1. Repay full loan in tokens using tokens
-      if (
-        repayFullLoan &&
-        swapQuote.direction === 'exact-out' &&
-        !swapQuote.fromToken.tokenWrapped?.isNative &&
-        !swapQuote.toToken.tokenWrapped?.isNative
+        swapQuote.direction === 'approximate-out' &&
+        !swapQuote.fromToken.tokenWrapped?.isNative
       ) {
         return {
           address: swapRouterContractAddress,
@@ -135,7 +54,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
           args: [
             vToken.address,
             swapQuote.fromToken.address,
-            swapQuote.maximumFromTokenAmountSoldMantissa,
+            swapQuote.fromTokenAmountSoldMantissa,
             swapQuote.callData,
           ],
         } as WriteContractParameters<
@@ -147,19 +66,18 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
         >;
       }
 
-      // 3. Repay full loan in tokens using BNBs
+      // Repay full loan using native tokens
       if (
         repayFullLoan &&
-        swapQuote.direction === 'exact-out' &&
-        swapQuote.fromToken.tokenWrapped?.isNative &&
-        !swapQuote.toToken.tokenWrapped?.isNative
+        swapQuote.direction === 'approximate-out' &&
+        swapQuote.fromToken.tokenWrapped?.isNative
       ) {
         return {
           address: swapRouterContractAddress,
           abi: swapRouterV2Abi,
           functionName: 'swapNativeAndRepayFull',
           args: [vToken.address, swapQuote.callData],
-          value: swapQuote.maximumFromTokenAmountSoldMantissa,
+          value: swapQuote.fromTokenAmountSoldMantissa,
         } as WriteContractParameters<
           typeof swapRouterV2Abi,
           'swapNativeAndRepayFull',
@@ -169,12 +87,8 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
         >;
       }
 
-      // 4. Sell fromTokens to repay as many toTokens as possible → repay max toTokens
-      if (
-        swapQuote.direction === 'exact-in' &&
-        !swapQuote.fromToken.tokenWrapped?.isNative &&
-        !swapQuote.toToken.tokenWrapped?.isNative
-      ) {
+      // Sell fromTokens to repay as many toTokens as possible
+      if (swapQuote.direction !== 'exact-out' && !swapQuote.fromToken.tokenWrapped?.isNative) {
         return {
           address: swapRouterContractAddress,
           abi: swapRouterV2Abi,
@@ -195,12 +109,8 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
         >;
       }
 
-      // 5. Sell BNBs to repay as many toTokens as possible → repay max toTokens
-      if (
-        swapQuote.direction === 'exact-in' &&
-        swapQuote.fromToken.tokenWrapped?.isNative &&
-        !swapQuote.toToken.tokenWrapped?.isNative
-      ) {
+      // Sell native tokens to repay as many toTokens as possible
+      if (swapQuote.direction !== 'exact-out' && swapQuote.fromToken.tokenWrapped?.isNative) {
         return {
           address: swapRouterContractAddress,
           abi: swapRouterV2Abi,
@@ -215,52 +125,6 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
           typeof swapRouterV2Abi,
           'swapNativeAndRepay',
           readonly [Address, bigint, Hex],
-          Chain,
-          Account
-        >;
-      }
-
-      // 7. Repay toTokens by selling as few fromTokens as possible
-      if (
-        swapQuote.direction === 'exact-out' &&
-        !swapQuote.fromToken.tokenWrapped?.isNative &&
-        !swapQuote.toToken.tokenWrapped?.isNative
-      ) {
-        return {
-          address: swapRouterContractAddress,
-          abi: swapRouterV2Abi,
-          functionName: 'swapAndRepayFull',
-          args: [
-            vToken.address,
-            swapQuote.fromToken.address, // TODO: supposed to be tokenIn, was: swapQuote.toTokenAmountReceivedMantissa,
-            swapQuote.maximumFromTokenAmountSoldMantissa,
-            swapQuote.callData,
-          ],
-        } as WriteContractParameters<
-          typeof swapRouterV2Abi,
-          'swapAndRepayFull',
-          readonly [Address, Address, bigint, Hex],
-          Chain,
-          Account
-        >;
-      }
-
-      // 8. Repay toTokens by selling as few BNBs as possible
-      if (
-        swapQuote.direction === 'exact-out' &&
-        swapQuote.fromToken.tokenWrapped?.isNative &&
-        !swapQuote.toToken.tokenWrapped?.isNative
-      ) {
-        return {
-          address: swapRouterContractAddress,
-          abi: swapRouterV2Abi,
-          functionName: 'swapNativeAndRepayFull',
-          args: [vToken.address, swapQuote.callData],
-          value: swapQuote.maximumFromTokenAmountSoldMantissa,
-        } as WriteContractParameters<
-          typeof swapRouterV2Abi,
-          'swapNativeAndRepayFull',
-          readonly [Address, Hex],
           Chain,
           Account
         >;

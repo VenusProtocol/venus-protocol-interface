@@ -8,8 +8,8 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
     "repayFullLoan": true,
     "swapQuote": {
       "callData": "0x",
-      "direction": "exact-out",
-      "expectedFromTokenAmountSoldMantissa": 300000000000000000000000n,
+      "direction": "approximate-out",
+      "expectedToTokenAmountReceivedMantissa": 1000000000000000000000n,
       "fromToken": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
         "chainId": 97,
@@ -17,7 +17,8 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
         "iconSrc": "fake-busd-asset",
         "symbol": "BUSD",
       },
-      "maximumFromTokenAmountSoldMantissa": 300000000000000000000000n,
+      "fromTokenAmountSoldMantissa": 300000000000000000000000n,
+      "minimumToTokenAmountReceivedMantissa": 1000000000000000000000n,
       "priceImpactPercentage": 0.001,
       "toToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -26,7 +27,6 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
       },
-      "toTokenAmountReceivedMantissa": 1000000000000000000000n,
     },
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",

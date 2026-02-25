@@ -11,6 +11,7 @@ import { useGetBalanceOf, useRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
@@ -48,6 +49,11 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
         balanceMantissa: fakeBalanceMantissa,
       },
       isLoading: false,
+    }));
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
+      isLoading: false,
+      data: { pool },
     }));
   });
 

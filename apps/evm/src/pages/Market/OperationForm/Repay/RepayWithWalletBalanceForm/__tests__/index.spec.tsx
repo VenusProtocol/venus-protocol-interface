@@ -10,6 +10,7 @@ import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
 import { useRepay } from 'clients/api';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 
@@ -31,6 +32,11 @@ describe('RepayWithWalletBalanceForm', () => {
   beforeEach(() => {
     (useRepay as Mock).mockImplementation(() => ({
       mutateAsync: mockRepay,
+    }));
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
+      isLoading: false,
+      data: { pool },
     }));
   });
 

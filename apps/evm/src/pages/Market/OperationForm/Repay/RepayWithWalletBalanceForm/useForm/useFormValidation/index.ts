@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 import { useTranslation } from 'libs/translations';
 import { useCommonValidation } from 'pages/Market/OperationForm/useCommonValidation';
 import type { AssetBalanceMutation, Pool, SwapQuote } from 'types';
-import type { FormError } from '../../../types';
-import type { FormErrorCode, FormValues } from './types';
+import type { FormError } from '../../../../types';
+import type { FormErrorCode, FormValues } from '../types';
 
 interface UseFormValidationInput {
   pool: Pool;
@@ -24,7 +24,7 @@ interface UseFormValidationOutput {
   formError?: FormError<FormErrorCode>;
 }
 
-const useFormValidation = ({
+export const useFormValidation = ({
   pool,
   swapQuote,
   swapQuoteErrorCode,
@@ -52,30 +52,15 @@ const useFormValidation = ({
       return commonFormError;
     }
 
-    const swapErrorMapping: {
-      [key: string]: FormError<FormErrorCode>;
-    } = {
-      INSUFFICIENT_LIQUIDITY: {
-        code: 'SWAP_INSUFFICIENT_LIQUIDITY',
-        message: t('operationForm.error.insufficientSwapLiquidity'),
-      },
-      SWAP_WRAPPING_UNSUPPORTED: {
-        code: 'SWAP_WRAPPING_UNSUPPORTED',
-        message: t('operationForm.error.wrappingUnsupported'),
-      },
-      SWAP_UNWRAPPING_UNSUPPORTED: {
-        code: 'SWAP_UNWRAPPING_UNSUPPORTED',
-        message: t('operationForm.error.unwrappingUnsupported'),
-      },
-    };
-
-    if (isUsingSwap && swapQuoteErrorCode && swapQuoteErrorCode in swapErrorMapping) {
-      return swapErrorMapping[swapQuoteErrorCode];
-    }
-
     const fromTokenAmountTokens = formValues.amountTokens
       ? new BigNumber(formValues.amountTokens)
       : undefined;
+
+    if (!fromTokenAmountTokens || fromTokenAmountTokens.isLessThanOrEqualTo(0)) {
+      return {
+        code: 'EMPTY_TOKEN_AMOUNT',
+      };
+    }
 
     if (
       fromTokenUserWalletBalanceTokens &&
@@ -100,9 +85,9 @@ const useFormValidation = ({
       };
     }
 
-    if (!fromTokenAmountTokens || fromTokenAmountTokens.isLessThanOrEqualTo(0)) {
+    if (!simulatedPool || (!swapQuote && isUsingSwap)) {
       return {
-        code: 'EMPTY_TOKEN_AMOUNT',
+        code: 'MISSING_DATA',
       };
     }
   })();
@@ -112,5 +97,3 @@ const useFormValidation = ({
     formError,
   };
 };
-
-export default useFormValidation;

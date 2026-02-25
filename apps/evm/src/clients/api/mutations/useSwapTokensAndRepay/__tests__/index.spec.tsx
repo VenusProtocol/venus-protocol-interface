@@ -117,10 +117,7 @@ describe('useSwapTokensAndRepay', () => {
       repayFullLoan: true,
       swapQuote: {
         ...fakeSwapQuote,
-        direction: 'exact-out' as const,
-        toTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
-        maximumFromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
-        expectedFromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        direction: 'approximate-out' as const,
       },
     };
 
@@ -241,6 +238,96 @@ describe('useSwapTokensAndRepay', () => {
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
+  it('calls useSendTransaction with the correct parameters for swapping BNB and repaying full loan', async () => {
+    renderHook(() => useSwapTokensAndRepay(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const repayFullLoanWithBnbInput = {
+      ...fakeInput,
+      repayFullLoan: true,
+      swapQuote: {
+        ...fakeSwapQuote,
+        direction: 'approximate-out' as const,
+        fromToken: {
+          ...bnb,
+          tokenWrapped: bnb,
+        },
+        toToken: xvs,
+      },
+    };
+
+    expect(useSendTransaction).toHaveBeenCalledWith({
+      fn: expect.any(Function),
+      onConfirmed: expect.any(Function),
+      options: fakeOptions,
+    });
+
+    const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(await fn(repayFullLoanWithBnbInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "address": "0xfakeSwapRouterV2ContractAddress",
+        "args": [
+          "${repayFullLoanWithBnbInput.vToken.address}",
+          "0x",
+        ],
+        "functionName": "swapNativeAndRepayFull",
+        "value": 10000000000000000n,
+      }
+    `,
+    );
+
+    onConfirmed({ input: fakeInput });
+
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledTimes(1);
+    expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "Tokens swapped and repaid",
+        {
+          "fromTokenAmountTokens": 0.01,
+          "fromTokenSymbol": "XVS",
+          "poolName": "Fake Pool",
+          "priceImpactPercentage": 0,
+          "repaidFullLoan": false,
+          "slippageTolerancePercentage": 0.5,
+          "toTokenAmountTokens": 0.01,
+          "toTokenSymbol": "BNB",
+        },
+      ]
+    `);
+
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
+  });
+
+  it('throws incorrectSwapInput for unsupported exact-out swap quote', async () => {
+    renderHook(() => useSwapTokensAndRepay(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const unsupportedExactOutInput = {
+      ...fakeInput,
+      repayFullLoan: false,
+      swapQuote: {
+        ...fakeSwapQuote,
+        direction: 'exact-out' as const,
+        toTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        maximumFromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        expectedFromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+      },
+    };
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    await expect(async () => fn(unsupportedExactOutInput)).rejects.toThrow('incorrectSwapInput');
+    expect(mockCaptureAnalyticEvent).not.toHaveBeenCalled();
+  });
+
   it('throws when SwapRouter contract address is not available', async () => {
     (getContractAddress as Mock).mockImplementation(() => undefined);
 
@@ -250,6 +337,6 @@ describe('useSwapTokensAndRepay', () => {
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(async () => fn(fakeInput)).rejects.toThrow('somethingWentWrong');
+    await expect(async () => fn(fakeInput)).rejects.toThrow('somethingWentWrong');
   });
 });
