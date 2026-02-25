@@ -1,11 +1,11 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import BigNumberLib from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
-import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
+import { busd, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import {
@@ -25,7 +25,7 @@ import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { en } from 'libs/translations';
-import type { Asset, SwapQuote, TokenBalance } from 'types';
+import type { SwapQuote, TokenBalance } from 'types';
 
 import {
   checkSubmitButtonIsDisabled,
@@ -37,8 +37,6 @@ import REPAY_FORM_TEST_IDS from '../testIds';
 
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapRouterContractAddress');
-
-const BigNumber = BigNumberLib.clone({ EXPONENTIAL_AT: 1e9 });
 
 const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(busd.decimals),
@@ -135,92 +133,6 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
         accountAddress: fakeAccountAddress,
       },
     );
-
-    await checkSubmitButtonIsDisabled();
-  });
-
-  it('disables submit button if swap is a wrap', async () => {
-    (useGetSwapQuote as Mock).mockImplementation(() => ({
-      data: { swapQuote: undefined },
-      error: {
-        code: 'SWAP_WRAPPING_UNSUPPORTED',
-        message: en.operationForm.error.wrappingUnsupported,
-      },
-      isLoading: false,
-    }));
-
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      vToken: {
-        ...fakeAsset.vToken,
-        underlyingToken: wbnb,
-      },
-    };
-
-    const { container, getByTestId } = renderComponent(
-      <RepayWithWalletBalanceForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      token: bnb,
-    });
-
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
-
-    await checkSubmitButtonIsDisabled();
-  });
-
-  it('disables submit button if swap is an unwrap', async () => {
-    (useGetSwapQuote as Mock).mockImplementation(() => ({
-      data: { swapQuote: undefined },
-      error: {
-        code: 'SWAP_UNWRAPPING_UNSUPPORTED',
-        message: en.operationForm.error.unwrappingUnsupported,
-      },
-      isLoading: false,
-    }));
-
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      vToken: {
-        ...fakeAsset.vToken,
-        underlyingToken: bnb,
-      },
-    };
-
-    const { container, getByTestId } = renderComponent(
-      <RepayWithWalletBalanceForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      token: wbnb,
-    });
-
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
     await checkSubmitButtonIsDisabled();
   });
@@ -442,42 +354,6 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
 
     // Check submit button has the correct label and is disabled
     await checkSubmitButtonIsDisabled();
-  });
-
-  it('displays correct swap details', async () => {
-    (useGetSwapQuote as Mock).mockImplementation(() => ({
-      data: { swapQuote: fakeSwap },
-      error: undefined,
-      isLoading: false,
-    }));
-
-    const { container, getByTestId, getByText } = renderComponent(
-      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      token: busd,
-    });
-
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
-
-    // Verify swap details are displayed
-    await waitFor(() =>
-      expect(getByText(en.swapDetails.slippageTolerance.label)).toBeInTheDocument(),
-    );
-    expect(getByText(en.swapDetails.priceImpact.label)).toBeInTheDocument();
   });
 
   it('updates input value to 0 when clicking on MAX button if wallet balance is 0', async () => {

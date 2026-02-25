@@ -926,14 +926,11 @@
       "higherThanSupplyCap": "Bạn không thể cung cấp nhiều hơn {{userMaxSupplyAmount}} vào pool này vì hạn mức cung cấp của thị trường là {{assetSupplyCap}} và hiện đang có {{assetSupplyBalance}} được cung cấp.",
       "higherThanWalletBalance": "Không đủ số dư {{tokenSymbol}}",
       "higherThanWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
-      "insufficientSwapLiquidity": "Thanh khoản trên PancakeSwap không đủ cho giao dịch hoán đổi này",
       "noCollateral": "Bạn cần cung cấp token và bật làm tài sản thế chấp trước khi có thể vay {{tokenSymbol}} từ pool này",
       "noSwapQuoteFound": "Không tìm thấy hoán đổi. Vui lòng cập nhật biểu mẫu.",
       "priceImpactTooHigh": "Tác động giá quá cao",
       "supplyCapReached": "Hạn mức cung cấp {{assetSupplyCap}} của pool này đã đạt. Bạn không thể cung cấp vào thị trường này cho đến khi có rút hoặc hạn mức cung cấp được tăng.",
-      "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý",
-      "unwrappingUnsupported": "Không hỗ trợ unwrapping",
-      "wrappingUnsupported": "Không hỗ trợ wrapping"
+      "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý"
     },
     "receiveNativeToken": {
       "label": "Nhận {{tokenSymbol}}",
@@ -977,10 +974,6 @@
         "estimatedAmount": "≈ {{ value }}",
         "exactAmount": "{{ value }}"
       }
-    },
-    "swapSummary": {
-      "repay": "Bạn sẽ hoàn trả {{toTokenAmount}} bằng {{fromTokenAmount}}",
-      "supply": "Bạn sẽ cung cấp {{toTokenAmount}} bằng {{fromTokenAmount}}"
     },
     "walletBalance": "Số dư ví",
     "withdrawTabTitle": "Rút"

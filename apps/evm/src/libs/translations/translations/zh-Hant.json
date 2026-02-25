@@ -926,14 +926,11 @@
       "higherThanSupplyCap": "該市場供應上限為 {{assetSupplyCap}}，當前已供應 {{assetSupplyBalance}}，因此你無法向該池供應超過 {{userMaxSupplyAmount}}。",
       "higherThanWalletBalance": "{{tokenSymbol}} 餘額不足",
       "higherThanWalletSpendingLimit": "你輸入的金額超過該資產的支出限額。請先撤銷支出限額並設置新的限額後再繼續交易。",
-      "insufficientSwapLiquidity": "PancakeSwap 流動性不足，無法完成該兌換",
       "noCollateral": "在從該池借入 {{tokenSymbol}} 之前，你需要先供應代幣並將其設為抵押",
       "noSwapQuoteFound": "未找到兌換報價。請更新表單。",
       "priceImpactTooHigh": "價格影響過高",
       "supplyCapReached": "該池供應上限 {{assetSupplyCap}} 已達。除非有人提取或提高供應上限，否則無法再向該市場供應。",
-      "tooRisky": "該交易會導致賬戶被清算",
-      "unwrappingUnsupported": "不支持解包",
-      "wrappingUnsupported": "不支持封裝"
+      "tooRisky": "該交易會導致賬戶被清算"
     },
     "receiveNativeToken": {
       "label": "接收 {{tokenSymbol}}",
@@ -977,10 +974,6 @@
         "estimatedAmount": "≈ {{ value }}",
         "exactAmount": "{{ value }}"
       }
-    },
-    "swapSummary": {
-      "repay": "你將用 {{fromTokenAmount}} 還款 {{toTokenAmount}}",
-      "supply": "你將用 {{fromTokenAmount}} 供應 {{toTokenAmount}}"
     },
     "walletBalance": "錢包餘額",
     "withdrawTabTitle": "提取"

@@ -29,7 +29,6 @@ export interface UseFormInput {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
   onSubmitSuccess?: () => void;
-
   simulatedPool?: Pool;
   isFromTokenApproved?: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
