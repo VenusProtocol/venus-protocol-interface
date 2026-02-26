@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { useGetTokenBalances } from 'clients/api';
 import type { Options as UseGetTokenBalancesOptions } from 'clients/api/queries/getTokenBalances/useGetTokenBalances';
-import { useGetSwapTokens } from 'libs/tokens';
+import { useGetTokens } from 'libs/tokens';
 import type { TokenBalance } from 'types';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -19,24 +19,24 @@ const useGetSwapTokenUserBalances = (
   options: Partial<UseGetTokenBalancesOptions> = {},
 ) => {
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
-  const swapTokens = useGetSwapTokens();
+  const tokens = useGetTokens();
   // By default we return the list of tokens with undefined balances so they can
   // still be listed while balances are being fetched
   const defaultTokenBalances: TokenBalance[] = useMemo(
     () =>
       isIntegratedSwapEnabled
-        ? swapTokens.map(token => ({
+        ? tokens.map(token => ({
             token,
             balanceMantissa: new BigNumber(0),
           }))
         : [],
-    [swapTokens, isIntegratedSwapEnabled],
+    [tokens, isIntegratedSwapEnabled],
   );
 
   const { data } = useGetTokenBalances(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
-      tokens: swapTokens,
+      tokens,
     },
     {
       ...options,
