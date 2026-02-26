@@ -174,7 +174,7 @@ export const useCommonValidation = ({
 
     if (
       balanceMutation.action === 'supply' &&
-      simulatedAsset.supplyBalanceTokens.isGreaterThan(asset.supplyCapTokens)
+      simulatedAsset.userSupplyBalanceTokens.isGreaterThan(asset.supplyCapTokens)
     ) {
       return {
         code: 'HIGHER_THAN_SUPPLY_CAP',
@@ -200,7 +200,7 @@ export const useCommonValidation = ({
 
     if (
       balanceMutation.action === 'borrow' &&
-      simulatedAsset.borrowBalanceTokens.isGreaterThan(asset.borrowCapTokens)
+      simulatedAsset.userBorrowBalanceTokens.isGreaterThan(asset.borrowCapTokens)
     ) {
       return {
         code: 'HIGHER_THAN_BORROW_CAP',

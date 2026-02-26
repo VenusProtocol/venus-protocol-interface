@@ -93,8 +93,6 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     getInitialFormValues(initialFromToken),
   );
 
-  console.log(asset);
-
   isIntegratedSwapFeatureEnabled =
     isIntegratedSwapFeatureEnabled &&
     // The BNB market does not support the integrated swap feature because it uses a non-upgradable
@@ -169,7 +167,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       accountAddress,
     },
     {
-      enabled: isIntegratedSwapFeatureEnabled && formValues.fromToken.symbol !== 'BNB',
+      enabled: isIntegratedSwapFeatureEnabled && asset.vToken.symbol !== 'vBNB',
     },
   );
 
@@ -315,13 +313,15 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     repayToTokenAmountTokens = getSwapToTokenAmountReceivedTokens(swapQuote) || new BigNumber(0);
   }
 
+  const isRepayingFullLoan = formValues.fixedRepayPercentage === 100;
+
   const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
       vTokenAddress: asset.vToken.address,
       action: 'repay',
       amountTokens:
-        isUsingSwap && formValues.fixedRepayPercentage === 100
+        isUsingSwap && isRepayingFullLoan
           ? asset.userBorrowBalanceTokens
           : repayToTokenAmountTokens,
     },
@@ -356,8 +356,6 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     value: fromTokenUserWalletBalanceTokens,
     token: formValues.fromToken,
   });
-
-  const isRepayingFullLoan = formValues.fixedRepayPercentage === 100;
 
   let limitTokens = BigNumber.min(
     asset.userBorrowBalanceTokens,
@@ -436,8 +434,6 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     }));
   };
 
-  console.log(isIntegratedSwapFeatureEnabled, canWrapNativeToken);
-
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
@@ -472,6 +468,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
             onChangeSelectedToken={fromToken =>
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
+                amountTokens: getInitialFormValues(fromToken).amountTokens,
                 fromToken,
               }))
             }

@@ -82,24 +82,31 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   const canWrapNativeToken =
     isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped;
 
-  const userWalletNativeTokenBalanceTokens = userTokenWrappedBalanceMantissa
-    ? convertMantissaToTokens({
-        token: asset.vToken.underlyingToken.tokenWrapped,
-        value: userTokenWrappedBalanceMantissa,
-      })
-    : undefined;
+  const userWalletNativeTokenBalanceTokens = useMemo(
+    () =>
+      userTokenWrappedBalanceMantissa
+        ? convertMantissaToTokens({
+            token: asset.vToken.underlyingToken.tokenWrapped,
+            value: userTokenWrappedBalanceMantissa,
+          })
+        : undefined,
+    [userTokenWrappedBalanceMantissa, asset.vToken.underlyingToken],
+  );
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
 
-  const initialFormValues: FormValues = {
-    amountTokens: '',
-    fromToken:
-      shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
-        ? asset.vToken.underlyingToken.tokenWrapped
-        : asset.vToken.underlyingToken,
-    acknowledgeHighPriceImpact: false,
-  };
+  const initialFormValues: FormValues = useMemo(
+    () => ({
+      amountTokens: '',
+      fromToken:
+        shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
+          ? asset.vToken.underlyingToken.tokenWrapped
+          : asset.vToken.underlyingToken,
+      acknowledgeHighPriceImpact: false,
+    }),
+    [asset, shouldSelectNativeToken],
+  );
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
@@ -440,6 +447,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
             onChangeSelectedToken={fromToken =>
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
+                amountTokens: initialFormValues.amountTokens,
                 fromToken,
               }))
             }

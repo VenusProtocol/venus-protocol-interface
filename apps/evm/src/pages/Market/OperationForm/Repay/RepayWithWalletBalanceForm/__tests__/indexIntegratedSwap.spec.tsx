@@ -260,7 +260,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
     await checkSubmitButtonIsDisabled();
   });
 
-  it('displays warning notice and set correct submit button label if the swap has a high price impact', async () => {
+  it('displays acknowledgement toggle and enables submit button after acknowledgement when swap has high price impact', async () => {
     const customFakeSwap: SwapQuote = {
       ...fakeSwap,
       priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -273,7 +273,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
 
     const onCloseMock = vi.fn();
 
-    const { container, getByTestId, getByText } = renderComponent(
+    const { container, getByTestId, getByText, getByRole } = renderComponent(
       <RepayWithWalletBalanceForm
         asset={fakeAsset}
         pool={fakePool}
@@ -299,10 +299,21 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    // Check warning notice is displayed
-    await waitFor(() => getByText(en.operationForm.repay.swappingWithHighPriceImpactWarning));
+    // Check acknowledgement toggle is displayed
+    await waitFor(() =>
+      expect(
+        getByText(en.operationForm.acknowledgements.highPriceImpact.label),
+      ).toBeInTheDocument(),
+    );
 
-    // Check submit button label is correct
+    // Check submit button is disabled until user acknowledges
+    await checkSubmitButtonIsDisabled();
+
+    // Toggle acknowledgement
+    const toggle = getByRole('checkbox');
+    fireEvent.click(toggle);
+
+    // Check submit button is enabled after acknowledgement
     await checkSubmitButtonIsEnabled({
       textContent: en.operationForm.submitButtonLabel.repay,
     });

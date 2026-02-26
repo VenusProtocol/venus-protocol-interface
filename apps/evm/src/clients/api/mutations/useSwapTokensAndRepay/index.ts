@@ -182,8 +182,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
       });
 
       const swapRouterContractAddress = getContractAddress({
-        name: 'SwapRouter',
-        poolComptrollerContractAddress: input.poolComptrollerContractAddress,
+        name: 'SwapRouterV2',
         chainId,
       });
 

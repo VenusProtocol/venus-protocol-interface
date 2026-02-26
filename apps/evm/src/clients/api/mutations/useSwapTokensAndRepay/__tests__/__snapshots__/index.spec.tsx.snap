@@ -33,7 +33,7 @@ exports[`useSwapTokensAndRepay > calls useSendTransaction with the correct param
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "spenderAddress": "0xfakeSwapRouterContractAddress",
+          "spenderAddress": "0xfakeSwapRouterV2ContractAddress",
           "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         },
       ],
@@ -100,7 +100,7 @@ exports[`useSwapTokensAndRepay > calls useSendTransaction with the correct param
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "spenderAddress": "0xfakeSwapRouterContractAddress",
+          "spenderAddress": "0xfakeSwapRouterV2ContractAddress",
           "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         },
       ],
@@ -167,7 +167,7 @@ exports[`useSwapTokensAndRepay > calls useSendTransaction with the correct param
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "spenderAddress": "0xfakeSwapRouterContractAddress",
+          "spenderAddress": "0xfakeSwapRouterV2ContractAddress",
           "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         },
       ],
@@ -234,7 +234,7 @@ exports[`useSwapTokensAndRepay > calls useSendTransaction with the correct param
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "spenderAddress": "0xfakeSwapRouterContractAddress",
+          "spenderAddress": "0xfakeSwapRouterV2ContractAddress",
           "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         },
       ],

@@ -223,13 +223,14 @@ const cases: Case[] = [
         ...fakePool,
         assets: updateAsset(fakePool.assets, {
           supplyBalanceTokens: new BigNumber(1),
+          userSupplyBalanceTokens: new BigNumber(1),
           supplyCapTokens: new BigNumber(10),
         }),
       },
       simulatedPool: {
         ...fakePool,
         assets: updateAsset(fakePool.assets, {
-          supplyBalanceTokens: new BigNumber(100),
+          userSupplyBalanceTokens: new BigNumber(100),
         }),
       },
       userAcknowledgesRisk: false,
@@ -243,13 +244,14 @@ const cases: Case[] = [
         ...fakePool,
         assets: updateAsset(fakePool.assets, {
           borrowBalanceTokens: new BigNumber(1),
+          userBorrowBalanceTokens: new BigNumber(1),
           borrowCapTokens: new BigNumber(10),
         }),
       },
       simulatedPool: {
         ...fakePool,
         assets: updateAsset(fakePool.assets, {
-          borrowBalanceTokens: new BigNumber(100),
+          userBorrowBalanceTokens: new BigNumber(100),
         }),
       },
       userAcknowledgesRisk: false,
