@@ -12430,9 +12430,9 @@ i18next-parser@^9.0.0:
     "@babel/runtime" "^7.26.10"
 
 i18next@^25.0.0:
-  version "25.8.10"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.8.10.tgz#5bfe20c167761a7c4e33427aae54e33615ce944a"
-  integrity sha512-CtPJLMAz1G8sxo+mIzfBjGgLxWs7d6WqIjlmmv9BTsOat4pJIfwZ8cm07n3kFS6bP9c6YwsYutYrwsEeJVBo2g==
+  version "25.8.13"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.8.13.tgz#1f9df59329f1706f02b2b58b5d1f75196ddb6e4a"
+  integrity sha512-E0vzjBY1yM+nsFrtgkjLhST2NBkirkvOVoQa0MSldhsuZ3jUge7ZNpuwG0Cfc74zwo5ZwRzg3uOgT+McBn32iA==
   dependencies:
     "@babel/runtime" "^7.28.4"
 
