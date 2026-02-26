@@ -63,13 +63,10 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
 
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
-  const isIntegratedSwapFeatureEnabled = useMemo(
-    () =>
-      isIntegratedSwapEnabled &&
-      // Check swap and supply action is enabled for underlying token
-      !asset.disabledTokenActions.includes('swapAndSupply'),
-    [asset.disabledTokenActions, isIntegratedSwapEnabled],
-  );
+  const isIntegratedSwapFeatureEnabled =
+    isIntegratedSwapEnabled &&
+    // Check swap and supply action is enabled for underlying token
+    !asset.disabledTokenActions.includes('swapAndSupply');
 
   const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
     name: 'NativeTokenGateway',
@@ -82,34 +79,27 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
 
   const { toggleCollateral } = useCollateral();
 
-  const canWrapNativeToken = useMemo(
-    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
-    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
-  );
+  const canWrapNativeToken =
+    isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped;
 
-  const userWalletNativeTokenBalanceTokens = useMemo(() => {
-    return userTokenWrappedBalanceMantissa
-      ? convertMantissaToTokens({
-          token: asset.vToken.underlyingToken.tokenWrapped,
-          value: userTokenWrappedBalanceMantissa,
-        })
-      : undefined;
-  }, [asset.vToken.underlyingToken.tokenWrapped, userTokenWrappedBalanceMantissa]);
+  const userWalletNativeTokenBalanceTokens = userTokenWrappedBalanceMantissa
+    ? convertMantissaToTokens({
+        token: asset.vToken.underlyingToken.tokenWrapped,
+        value: userTokenWrappedBalanceMantissa,
+      })
+    : undefined;
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
 
-  const initialFormValues: FormValues = useMemo(
-    () => ({
-      amountTokens: '',
-      fromToken:
-        shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
-          ? asset.vToken.underlyingToken.tokenWrapped
-          : asset.vToken.underlyingToken,
-      acknowledgeHighPriceImpact: false,
-    }),
-    [asset, shouldSelectNativeToken],
-  );
+  const initialFormValues: FormValues = {
+    amountTokens: '',
+    fromToken:
+      shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
+        ? asset.vToken.underlyingToken.tokenWrapped
+        : asset.vToken.underlyingToken,
+    acknowledgeHighPriceImpact: false,
+  };
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
@@ -124,23 +114,12 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   // 1) the wrap/unwrap feature is enabled
   // 2) the selected form token is the native token
   // 3) the market's underlying token wraps the native token
-  const isWrappingNativeToken = useMemo(
-    () => canWrapNativeToken && !!formValues.fromToken.isNative,
-    [canWrapNativeToken, formValues.fromToken],
-  );
+  const isWrappingNativeToken = canWrapNativeToken && !!formValues.fromToken.isNative;
 
-  const isUsingSwap = useMemo(
-    () =>
-      isIntegratedSwapFeatureEnabled &&
-      !isWrappingNativeToken &&
-      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
-    [
-      isIntegratedSwapFeatureEnabled,
-      formValues.fromToken,
-      asset.vToken.underlyingToken,
-      isWrappingNativeToken,
-    ],
-  );
+  const isUsingSwap =
+    isIntegratedSwapFeatureEnabled &&
+    !isWrappingNativeToken &&
+    !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken);
 
   let spenderAddress: undefined | Address = asset.vToken.address;
 
@@ -265,9 +244,9 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       }
     : undefined;
 
-  const tokenBalances = useMemo(
-    () => getUniqueTokenBalances(...integratedSwapTokenBalances, ...nativeWrappedTokenBalances),
-    [integratedSwapTokenBalances, nativeWrappedTokenBalances],
+  const tokenBalances = getUniqueTokenBalances(
+    ...integratedSwapTokenBalances,
+    ...nativeWrappedTokenBalances,
   );
 
   const fromTokenUserWalletBalanceTokens = useMemo(() => {

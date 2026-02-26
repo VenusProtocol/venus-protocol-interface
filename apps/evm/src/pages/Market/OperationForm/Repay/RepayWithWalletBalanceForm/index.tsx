@@ -93,11 +93,13 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     getInitialFormValues(initialFromToken),
   );
 
+  console.log(asset);
+
   isIntegratedSwapFeatureEnabled =
     isIntegratedSwapFeatureEnabled &&
     // The BNB market does not support the integrated swap feature because it uses a non-upgradable
     // contract
-    formValues.fromToken.symbol !== 'BNB';
+    asset.vToken.symbol !== 'vBNB';
 
   // Reset form when user disconnects their wallet
   useEffect(() => {
@@ -433,6 +435,8 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       ...updatedValues,
     }));
   };
+
+  console.log(isIntegratedSwapFeatureEnabled, canWrapNativeToken);
 
   return (
     <form onSubmit={handleSubmit}>

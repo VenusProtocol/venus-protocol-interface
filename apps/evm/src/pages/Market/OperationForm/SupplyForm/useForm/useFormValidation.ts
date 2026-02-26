@@ -43,6 +43,7 @@ const useFormValidation = ({
     swapQuote,
     balanceMutations,
     swapQuoteErrorCode,
+    userAcknowledgesHighPriceImpact: formValues.acknowledgeHighPriceImpact,
   });
 
   const formError: FormError<FormErrorCode> | undefined = useMemo(() => {

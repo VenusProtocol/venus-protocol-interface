@@ -108,7 +108,7 @@ export const sendTransaction = async <
 
   if (!gasless) {
     // DEV ONLY
-    const ts = (Math.floor(Date.now() / 1000) + 100).toString(16);
+    const ts = Math.floor(Date.now() / 1000 + 50).toString(16);
     await fetch('https://virtual.binance.eu.rpc.tenderly.co/d6b9cd9a-6e87-43a3-80cf-f8a9f37517d7', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

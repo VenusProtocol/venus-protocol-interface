@@ -44,7 +44,7 @@ export const useFormValidation = ({
     swapQuote,
     balanceMutations,
     swapQuoteErrorCode,
-    userAcknowledgesHighPriceImpact: true,
+    userAcknowledgesHighPriceImpact: formValues.acknowledgeHighPriceImpact,
   });
 
   const formError: FormError<FormErrorCode> | undefined = (() => {
