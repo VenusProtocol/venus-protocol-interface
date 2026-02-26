@@ -16,6 +16,7 @@ type SwapTokensAndRepayInput = {
   repayFullLoan: boolean;
   poolComptrollerContractAddress: Address;
   poolName: string;
+  isSwappingNative: boolean;
 };
 
 type Options = UseSendTransactionOptions<SwapTokensAndRepayInput>;
@@ -28,7 +29,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
   return useSendTransaction({
     // @ts-ignore mixing payable and non-payable function calls messes up with the typing of
     // useSendTransaction
-    fn: ({ swapQuote, vToken, repayFullLoan }: SwapTokensAndRepayInput) => {
+    fn: ({ swapQuote, vToken, repayFullLoan, isSwappingNative }: SwapTokensAndRepayInput) => {
       const swapRouterContractAddress = getContractAddress({
         name: 'SwapRouterV2',
         chainId,
@@ -42,11 +43,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
       }
 
       // Repay full loan using tokens
-      if (
-        repayFullLoan &&
-        swapQuote.direction === 'approximate-out' &&
-        !swapQuote.fromToken.tokenWrapped?.isNative
-      ) {
+      if (repayFullLoan && swapQuote.direction === 'approximate-out' && !isSwappingNative) {
         return {
           address: swapRouterContractAddress,
           abi: swapRouterV2Abi,
@@ -67,11 +64,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
       }
 
       // Repay full loan using native tokens
-      if (
-        repayFullLoan &&
-        swapQuote.direction === 'approximate-out' &&
-        swapQuote.fromToken.tokenWrapped?.isNative
-      ) {
+      if (repayFullLoan && swapQuote.direction === 'approximate-out' && isSwappingNative) {
         return {
           address: swapRouterContractAddress,
           abi: swapRouterV2Abi,
@@ -88,7 +81,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
       }
 
       // Sell fromTokens to repay as many toTokens as possible
-      if (swapQuote.direction !== 'exact-out' && !swapQuote.fromToken.tokenWrapped?.isNative) {
+      if (swapQuote.direction !== 'exact-out' && !isSwappingNative) {
         return {
           address: swapRouterContractAddress,
           abi: swapRouterV2Abi,
@@ -110,7 +103,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
       }
 
       // Sell native tokens to repay as many toTokens as possible
-      if (swapQuote.direction !== 'exact-out' && swapQuote.fromToken.tokenWrapped?.isNative) {
+      if (swapQuote.direction !== 'exact-out' && isSwappingNative) {
         return {
           address: swapRouterContractAddress,
           abi: swapRouterV2Abi,

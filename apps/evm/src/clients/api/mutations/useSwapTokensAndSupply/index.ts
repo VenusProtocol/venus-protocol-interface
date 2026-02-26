@@ -28,7 +28,13 @@ export const useSwapTokensAndSupply = (
     vToken,
     poolComptrollerAddress,
     poolName,
-  }: { vToken: VToken; poolComptrollerAddress: Address; poolName: string },
+    isSwappingNative,
+  }: {
+    vToken: VToken;
+    poolComptrollerAddress: Address;
+    poolName: string;
+    isSwappingNative: boolean;
+  },
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
@@ -57,11 +63,7 @@ export const useSwapTokensAndSupply = (
         });
       }
       // Sell fromTokens to supply as many toTokens as possible
-      if (
-        swapQuote.direction === 'exact-in' &&
-        !swapQuote.fromToken.tokenWrapped &&
-        !swapQuote.toToken.tokenWrapped
-      ) {
+      if (swapQuote.direction === 'exact-in' && !isSwappingNative) {
         return {
           abi: swapRouterV2Abi,
           address: swapRouterContractAddress,
@@ -77,11 +79,7 @@ export const useSwapTokensAndSupply = (
       }
 
       // Sell BNBs to supply as many toTokens as possible
-      if (
-        swapQuote.direction === 'exact-in' &&
-        swapQuote.fromToken.tokenWrapped?.isNative &&
-        !swapQuote.toToken.tokenWrapped?.isNative
-      ) {
+      if (swapQuote.direction === 'exact-in' && isSwappingNative) {
         return {
           abi: swapRouterV2Abi,
           address: swapRouterContractAddress,

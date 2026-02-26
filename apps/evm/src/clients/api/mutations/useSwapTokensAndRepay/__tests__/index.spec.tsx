@@ -36,6 +36,7 @@ const fakeInput = {
   repayFullLoan: false,
   poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
   poolName: 'Fake Pool',
+  isSwappingNative: false,
 };
 
 const fakeOptions = {
@@ -177,6 +178,7 @@ describe('useSwapTokensAndRepay', () => {
 
     const swapBnbInput = {
       ...fakeInput,
+      isSwappingNative: true,
       swapQuote: {
         ...fakeSwapQuote,
         fromToken: {
@@ -246,6 +248,7 @@ describe('useSwapTokensAndRepay', () => {
     const repayFullLoanWithBnbInput = {
       ...fakeInput,
       repayFullLoan: true,
+      isSwappingNative: true,
       swapQuote: {
         ...fakeSwapQuote,
         direction: 'approximate-out' as const,

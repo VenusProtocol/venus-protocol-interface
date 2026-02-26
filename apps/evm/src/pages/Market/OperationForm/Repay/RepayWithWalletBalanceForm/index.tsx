@@ -206,6 +206,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
         poolName: pool.name,
         poolComptrollerContractAddress: pool.comptrollerAddress,
         vToken: asset.vToken,
+        isSwappingNative: !!formValues.fromToken.isNative,
       });
     },
     [
@@ -216,6 +217,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       asset.vToken,
       pool.name,
       pool.comptrollerAddress,
+      formValues.fromToken,
     ],
   );
 

@@ -181,6 +181,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       poolName: pool.name,
       poolComptrollerAddress: pool.comptrollerAddress,
       vToken: asset.vToken,
+      isSwappingNative: !!formValues.fromToken.isNative,
     });
 
   const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading;
