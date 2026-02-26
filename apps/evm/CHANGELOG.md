@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.8.0
+
+### Minor Changes
+
+- 127ab4c: update Venus Flux banner content
+
 ## 4.7.1
 
 ### Patch Changes
