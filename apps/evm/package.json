@@ -56,7 +56,7 @@
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "formik": "^2.4.3",
-    "graphql": "16.12.0",
+    "graphql": "16.13.0",
     "graphql-request": "^7.0.1",
     "graphql-tag": "2.12.6",
     "i18next": "^25.0.0",
