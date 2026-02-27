@@ -16,7 +16,7 @@ import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useCollateral } from 'hooks/useCollateral';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
@@ -171,6 +171,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   ]);
 
   const { data: integratedSwapTokenBalances } = useGetSwapTokenUserBalances({
+    poolComptrollerContractAddress: pool.comptrollerAddress,
     accountAddress,
   });
 
@@ -253,7 +254,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     : undefined;
 
   const tokenBalances = getUniqueTokenBalances(
-    ...integratedSwapTokenBalances,
+    ...(integratedSwapTokenBalances || []),
     ...nativeWrappedTokenBalances,
   );
 

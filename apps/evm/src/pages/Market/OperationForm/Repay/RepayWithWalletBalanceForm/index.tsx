@@ -14,7 +14,7 @@ import { NULL_ADDRESS } from 'constants/address';
 import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
@@ -162,14 +162,10 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     nativeWrappedTokenBalances = [marketTokenBalance, nativeTokenBalance];
   }
 
-  const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances(
-    {
-      accountAddress,
-    },
-    {
-      enabled: isIntegratedSwapFeatureEnabled && asset.vToken.symbol !== 'vBNB',
-    },
-  );
+  const { data: integratedSwapTokenBalances } = useGetSwapTokenUserBalances({
+    poolComptrollerContractAddress: pool.comptrollerAddress,
+    accountAddress,
+  });
 
   const onSubmit: UseFormInput['onSubmit'] = useCallback(
     async ({ fromToken, fromTokenAmountTokens, swapQuote, fixedRepayPercentage }) => {
@@ -286,7 +282,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     : undefined;
 
   const tokenBalances = getUniqueTokenBalances(
-    ...(integratedSwapTokenBalancesData || []),
+    ...(integratedSwapTokenBalances || []),
     ...nativeWrappedTokenBalances,
   );
 
