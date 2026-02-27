@@ -41,7 +41,7 @@
     "@rollup/plugin-url": "^8.0.2",
     "@venusprotocol/isolated-pools": "^4.3.0",
     "@venusprotocol/typescript-config": "*",
-    "@venusprotocol/venus-protocol": "^10.0.0",
+    "@venusprotocol/venus-protocol": "10.2.0-dev.2",
     "@vercel/blob": "^2.0.0",
     "commander": "^14.0.1",
     "genversion": "^3.2.0",
