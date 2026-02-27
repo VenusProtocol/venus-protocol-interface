@@ -1444,9 +1444,8 @@
     "youAreStake": "Stake ediyorsunuz"
   },
   "venusFluxBanner": {
-    "bgIllustrationAltText": "Arka plan illüstrasyonu",
     "description": "Likiditenizi Flux'a bırakın, getirinizi büyürken izleyin.",
-    "iconAltText": "Venus Flux simgesi",
+    "illustrationAltText": "Venus Flux illüstrasyonu",
     "title": "Venus Flux Teşviklerinde $1M Paylaşın"
   },
   "vote": {

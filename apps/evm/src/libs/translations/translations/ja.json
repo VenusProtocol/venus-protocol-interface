@@ -1443,9 +1443,8 @@
     "youAreStake": "あなたのステーキング量"
   },
   "venusFluxBanner": {
-    "bgIllustrationAltText": "背景イラスト",
     "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
-    "iconAltText": "Venus Flux アイコン",
+    "illustrationAltText": "Venus Flux のイラスト",
     "title": "Venus Flux インセンティブ総額100万ドルをシェア"
   },
   "vote": {

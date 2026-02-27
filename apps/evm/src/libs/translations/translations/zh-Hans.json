@@ -1443,9 +1443,8 @@
     "youAreStake": "你正在质押"
   },
   "venusFluxBanner": {
-    "bgIllustrationAltText": "背景插图",
     "description": "让你的流动性 Flux，见证收益增长。",
-    "iconAltText": "Venus Flux 图标",
+    "illustrationAltText": "Venus Flux 插图",
     "title": "瓜分 Venus Flux 百万美元激励"
   },
   "vote": {
