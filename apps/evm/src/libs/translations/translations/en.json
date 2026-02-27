@@ -1444,9 +1444,8 @@
     "youAreStake": "You are staking"
   },
   "venusFluxBanner": {
-    "bgIllustrationAltText": "Background illustration",
     "description": "Let your liquidity Flux, watch your yield grow.",
-    "iconAltText": "Venus Flux icon",
+    "illustrationAltText": "Venus Flux illustration",
     "title": "Share $1M in Venus Flux Incentives"
   },
   "vote": {

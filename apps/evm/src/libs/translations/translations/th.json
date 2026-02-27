@@ -1443,9 +1443,8 @@
     "youAreStake": "คุณกำลังสเตคอยู่"
   },
   "venusFluxBanner": {
-    "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
     "description": "ปล่อยให้สภาพคล่องของคุณ Flux แล้วดูผลตอบแทนเติบโต",
-    "iconAltText": "ไอคอน Venus Flux",
+    "illustrationAltText": "ภาพประกอบ Venus Flux",
     "title": "แบ่งปันเงินจูงใจ Venus Flux มูลค่า $1M"
   },
   "vote": {
