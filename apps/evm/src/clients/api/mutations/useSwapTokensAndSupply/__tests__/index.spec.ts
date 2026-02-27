@@ -37,6 +37,7 @@ describe('useSwapTokensAndSupply', () => {
           vToken: vXvs,
           poolComptrollerAddress: mockPoolComptrollerAddress,
           poolName: mockPoolName,
+          isSwappingNative: false,
         }),
       {
         accountAddress: fakeAccountAddress,
@@ -64,6 +65,7 @@ describe('useSwapTokensAndSupply', () => {
           vToken: vXvs,
           poolComptrollerAddress: mockPoolComptrollerAddress,
           poolName: mockPoolName,
+          isSwappingNative: false,
         }),
       {
         accountAddress: fakeAccountAddress,
@@ -127,6 +129,7 @@ describe('useSwapTokensAndSupply', () => {
           vToken: vXvs,
           poolComptrollerAddress: mockPoolComptrollerAddress,
           poolName: mockPoolName,
+          isSwappingNative: false,
         }),
       {
         accountAddress: fakeAccountAddress,
@@ -164,6 +167,7 @@ describe('useSwapTokensAndSupply', () => {
           vToken: vXvs,
           poolComptrollerAddress: mockPoolComptrollerAddress,
           poolName: mockPoolName,
+          isSwappingNative: false,
         }),
       {
         accountAddress: fakeAccountAddress,
