@@ -11,8 +11,9 @@ export const getRpcUrls = ({
     [chainId in ChainId]: string[];
   } = {
     [ChainId.BSC_MAINNET]: [
-      `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
-      `https://bnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
+      // `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
+      // `https://bnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
+      'https://virtual.binance.eu.rpc.tenderly.co/0acab753-b3d0-4fa6-91f8-8ca1578a00e3',
     ],
     [ChainId.BSC_TESTNET]: [`https://bsc-testnet.nodereal.io/v1/${nodeRealApiKey}`],
     [ChainId.OPBNB_MAINNET]: [

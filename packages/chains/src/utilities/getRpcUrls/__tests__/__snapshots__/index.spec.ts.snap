@@ -42,8 +42,7 @@ exports[`getRpcUrls > returns RPC URLs for all chains 1`] = `
     "https://rpc.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da",
   ],
   "56": [
-    "https://bsc-mainnet.nodereal.io/v1/fake-node-real-api-key",
-    "https://bnb-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+    "https://virtual.binance.eu.rpc.tenderly.co/0acab753-b3d0-4fa6-91f8-8ca1578a00e3",
   ],
   "5611": [
     "https://opbnb-testnet.g.alchemy.com/v2/fake-alchemy-api-key",
