@@ -41,7 +41,7 @@ export const Layout: React.FC = () => {
     // we treat this case by calculating a reference position
     const scrollBtnBottom = scrollToTopRect?.bottom ?? 0;
     const scrollBtnHeight = scrollToTopRect?.height ?? 0;
-    // 1.25 is not arbitrary, it's related to the the styling of ScrollToTop
+    // 1.25 is not arbitrary, it's related to the styling of ScrollToTop
     // it's currently moving up by 125% of its height
     const scrollBtnDisplacement = isCloseToBottomState ? scrollBtnHeight * 1.25 : 0;
     const actualBottomReference = scrollBtnBottom + scrollBtnDisplacement;
