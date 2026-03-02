@@ -143,6 +143,7 @@ export const featureFlags = {
   transactionHistory: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.UNICHAIN_MAINNET],
   leveragedPositions: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   repayWithCollateral: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  yieldPlus: [ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
