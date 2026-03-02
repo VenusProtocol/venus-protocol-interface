@@ -662,6 +662,9 @@
         "vai": {
           "description": "Venus'ün yerel sabit coinini mint edin.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1698,5 +1701,22 @@
       "submitButton": "Çek"
     },
     "withdrawTabTitle": "Çek"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ görseli",
+      "learnMore": "Daha fazla bilgi",
+      "title": "Yield+ nedir?"
+    },
+    "longLiquidity": "Long likiditesi",
+    "longSupplyApy": "{{ longTokenSymbol }} sağlama APY",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} borç APY",
+    "shortLiquidity": "Short likiditesi",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
   }
 }

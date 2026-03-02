@@ -661,6 +661,9 @@
         "vai": {
           "description": "Venusのネイティブステーブルコインをミント。",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1697,5 +1700,22 @@
       "submitButton": "引き出す"
     },
     "withdrawTabTitle": "引き出す"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ のイラスト",
+      "learnMore": "詳細を見る",
+      "title": "Yield+ とは？"
+    },
+    "longLiquidity": "ロング流動性",
+    "longSupplyApy": "{{ longTokenSymbol }} 供給APY",
+    "longTokenSelect": {
+      "label": "ロング"
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借入APY",
+    "shortLiquidity": "ショート流動性",
+    "shortTokenSelect": {
+      "label": "ショート"
+    }
   }
 }

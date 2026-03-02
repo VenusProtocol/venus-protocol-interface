@@ -661,6 +661,9 @@
         "vai": {
           "description": "铸造 Venus 的原生稳定币。",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1697,5 +1700,22 @@
       "submitButton": "取款"
     },
     "withdrawTabTitle": "取款"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ 插图",
+      "learnMore": "了解更多",
+      "title": "什么是 Yield+？"
+    },
+    "longLiquidity": "多头流动性",
+    "longSupplyApy": "{{ longTokenSymbol }} 存款 APY",
+    "longTokenSelect": {
+      "label": "多头"
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
+    "shortLiquidity": "空头流动性",
+    "shortTokenSelect": {
+      "label": "空头"
+    }
   }
 }
