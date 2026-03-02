@@ -46,11 +46,17 @@ export const OperationForm: React.FC<OperationFormProps> = ({
         >
           {({ asset, pool }) => (
             <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-              {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
+              {({
+                asset,
+                pool,
+                userTokenWrappedBalanceMantissa,
+                userNativeTokenBalanceMantissa,
+              }) => (
                 <SupplyForm
                   asset={asset}
                   pool={pool}
                   userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
+                  userNativeTokenBalanceMantissa={userNativeTokenBalanceMantissa}
                 />
               )}
             </NativeTokenBalanceWrapper>

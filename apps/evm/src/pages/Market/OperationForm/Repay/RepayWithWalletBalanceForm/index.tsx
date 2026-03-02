@@ -21,6 +21,7 @@ import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { VError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, AssetBalanceMutation, Pool, TokenBalance } from 'types';
@@ -50,6 +51,7 @@ export interface RepayWithWalletBalanceFormProps {
   pool: Pool;
   onSubmitSuccess?: () => void;
   userTokenWrappedBalanceMantissa?: BigNumber;
+  userNativeTokenBalanceMantissa?: BigNumber;
 }
 
 const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
@@ -57,9 +59,17 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   pool,
   onSubmitSuccess,
   userTokenWrappedBalanceMantissa,
+  userNativeTokenBalanceMantissa,
 }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  let isIntegratedSwapFeatureEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
+
+  const isIntegratedSwapFeatureEnabled =
+    isIntegratedSwapEnabled &&
+    // Check swap and supply action is enabled for underlying token
+    !asset.disabledTokenActions.includes('swapAndRepay') &&
+    // Disable swap for BNB market
+    asset.vToken.symbol !== 'vBNB';
 
   const { accountAddress } = useAccountAddress();
   const { t } = useTranslation();
@@ -92,12 +102,6 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   const [formValues, setFormValues] = useState<FormValues>(() =>
     getInitialFormValues(initialFromToken),
   );
-
-  isIntegratedSwapFeatureEnabled =
-    isIntegratedSwapFeatureEnabled &&
-    // The BNB market does not support the integrated swap feature because it uses a non-upgradable
-    // contract
-    asset.vToken.symbol !== 'vBNB';
 
   // Reset form when user disconnects their wallet
   useEffect(() => {
@@ -145,6 +149,10 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
 
   const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
 
+  const bnb = useGetToken({
+    symbol: 'BNB',
+  });
+
   let nativeWrappedTokenBalances: TokenBalance[] = [];
 
   if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
@@ -160,6 +168,13 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       balanceMantissa: userTokenWrappedBalanceMantissa,
     };
     nativeWrappedTokenBalances = [marketTokenBalance, nativeTokenBalance];
+  }
+
+  if (isIntegratedSwapFeatureEnabled && userNativeTokenBalanceMantissa && bnb) {
+    nativeWrappedTokenBalances.push({
+      token: bnb,
+      balanceMantissa: userNativeTokenBalanceMantissa,
+    });
   }
 
   const { data: integratedSwapTokenBalances } = useGetSwapTokenUserBalances({

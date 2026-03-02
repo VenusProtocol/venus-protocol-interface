@@ -25,11 +25,12 @@ export const Repay: React.FC<RepayProps> = ({ asset, pool }) => {
 
   const repayWithWalletBalanceFormDom = (
     <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-      {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
+      {({ asset, pool, userTokenWrappedBalanceMantissa, userNativeTokenBalanceMantissa }) => (
         <RepayWithWalletBalanceForm
           asset={asset}
           pool={pool}
           userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
+          userNativeTokenBalanceMantissa={userNativeTokenBalanceMantissa}
         />
       )}
     </NativeTokenBalanceWrapper>

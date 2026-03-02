@@ -23,6 +23,7 @@ import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { VError, handleError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
 import type { Asset, AssetBalanceMutation, Pool, TokenBalance } from 'types';
@@ -45,12 +46,14 @@ export interface SupplyFormProps {
   asset: Asset;
   pool: Pool;
   userTokenWrappedBalanceMantissa?: BigNumber;
+  userNativeTokenBalanceMantissa?: BigNumber;
 }
 
 const SupplyForm: React.FC<SupplyFormProps> = ({
   asset,
   pool,
   userTokenWrappedBalanceMantissa,
+  userNativeTokenBalanceMantissa,
 }) => {
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
@@ -66,7 +69,9 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   const isIntegratedSwapFeatureEnabled =
     isIntegratedSwapEnabled &&
     // Check swap and supply action is enabled for underlying token
-    !asset.disabledTokenActions.includes('swapAndSupply');
+    !asset.disabledTokenActions.includes('swapAndSupply') &&
+    // Disable swap for BNB market
+    asset.vToken.symbol !== 'vBNB';
 
   const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
     name: 'NativeTokenGateway',
@@ -148,26 +153,40 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     accountAddress,
   });
 
+  const bnb = useGetToken({
+    symbol: 'BNB',
+  });
+
   const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
+    const balances: TokenBalance[] = [];
     if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
-      const marketTokenBalance: TokenBalance = {
+      balances.push({
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({
           token: asset.vToken.underlyingToken,
           value: asset.userWalletBalanceTokens,
         }),
-      };
-      const nativeTokenBalance: TokenBalance = {
+      });
+      balances.push({
         token: asset.vToken.underlyingToken.tokenWrapped,
         balanceMantissa: userTokenWrappedBalanceMantissa,
-      };
-      return [marketTokenBalance, nativeTokenBalance];
+      });
     }
-    return [];
+    // Add native BNB for non-BNB markets when integrated swap is enabled, so
+    // users can swap native BNB into any market's underlying and supply in one
+    // transaction.
+    if (isIntegratedSwapFeatureEnabled && userNativeTokenBalanceMantissa && bnb) {
+      balances.push({ token: bnb, balanceMantissa: userNativeTokenBalanceMantissa });
+    }
+
+    return balances;
   }, [
     asset.vToken.underlyingToken,
     asset.userWalletBalanceTokens,
+    bnb,
+    isIntegratedSwapFeatureEnabled,
     userTokenWrappedBalanceMantissa,
+    userNativeTokenBalanceMantissa,
   ]);
 
   const { data: integratedSwapTokenBalances } = useGetSwapTokenUserBalances({
