@@ -53,6 +53,7 @@ export const Markets: React.FC<MarketsProps> = ({ className }) => {
 
       <MarketTable
         controls={false}
+        rowControl={false}
         selectVariant="quaternary"
         className="border-0 p-0"
         breakpoint="md"

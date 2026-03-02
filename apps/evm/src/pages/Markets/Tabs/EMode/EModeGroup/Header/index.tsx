@@ -4,12 +4,11 @@ import { useSetEModeGroup } from 'clients/api';
 import { Button, EModeIcon, InfoIcon, IsolatedEModeGroupTooltip, NoticeWarning } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChain } from 'containers/SwitchChain';
-import { useAnalytics } from 'libs/analytics';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { EModeGroup, Pool } from 'types';
-import type { BlockingBorrowPosition } from '../../types';
+import type { BlockingBorrowPosition } from '../../../types';
 import { BlockingPositionModal } from './BlockingPositionModal';
 import { HealthFactorUpdate } from './HealthFactorUpdate';
 
@@ -31,14 +30,9 @@ export const Header: React.FC<HeaderProps> = ({
   className,
 }) => {
   const { t, Trans } = useTranslation();
-  const { captureAnalyticEvent } = useAnalytics();
 
   const [isBlockingPositionModalOpen, setIsBlockingPositionModalOpen] = useState(false);
-  const openBlockingPositionModal = () => {
-    captureAnalyticEvent('e_mode_open_positions_modal', {});
-
-    setIsBlockingPositionModalOpen(true);
-  };
+  const openBlockingPositionModal = () => setIsBlockingPositionModalOpen(true);
 
   const closeBlockingPositionModal = () => setIsBlockingPositionModalOpen(false);
 
@@ -71,31 +65,31 @@ export const Header: React.FC<HeaderProps> = ({
   const shouldDisplayHealthFactor =
     isButtonEnabled && !!pool.userBorrowBalanceCents?.isGreaterThan(0);
 
-  let buttonLabel = t('markets.eMode.group.enableButtonLabel');
+  let buttonLabel = t('markets.tabs.eMode.group.enableButtonLabel');
 
   if (isEModeGroupEnabled) {
-    buttonLabel = t('markets.eMode.group.disableButtonLabel');
+    buttonLabel = t('markets.tabs.eMode.group.disableButtonLabel');
   } else if (pool.userEModeGroup) {
-    buttonLabel = t('markets.eMode.group.switchButtonLabel');
+    buttonLabel = t('markets.tabs.eMode.group.switchButtonLabel');
   }
 
   let disabledTooltip: string | React.ReactNode | undefined;
 
   if (!isButtonEnabled && !userHasEnoughCollateral) {
     disabledTooltip = isEModeGroupEnabled
-      ? t('markets.eMode.group.cannotDisable.tooltip.notEnoughCollateral')
-      : t('markets.eMode.group.cannotEnable.tooltip.notEnoughCollateral');
+      ? t('markets.tabs.eMode.group.cannotDisable.tooltip.notEnoughCollateral')
+      : t('markets.tabs.eMode.group.cannotEnable.tooltip.notEnoughCollateral');
   } else if (!isButtonEnabled && userBlockingBorrowPositions.length > 0) {
     disabledTooltip = (
       <Trans
         i18nKey={
           isEModeGroupEnabled
             ? // Translation key: do not remove this comment
-              // t('markets.eMode.group.cannotDisable.tooltip.blockingPositions')
-              'markets.eMode.group.cannotDisable.tooltip.blockingPositions'
+              // t('markets.tabs.eMode.group.cannotDisable.tooltip.blockingPositions')
+              'markets.tabs.eMode.group.cannotDisable.tooltip.blockingPositions'
             : // Translation key: do not remove this comment
-              // t('markets.eMode.group.cannotEnable.tooltip.blockingPositions')
-              'markets.eMode.group.cannotEnable.tooltip.blockingPositions'
+              // t('markets.tabs.eMode.group.cannotEnable.tooltip.blockingPositions')
+              'markets.tabs.eMode.group.cannotEnable.tooltip.blockingPositions'
         }
         components={{
           Link: (
@@ -128,12 +122,12 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       <div className={cn('space-y-3', className)}>
         {!eModeGroup.isActive && (
-          <NoticeWarning description={t('markets.eMode.group.disabledNotice')} />
+          <NoticeWarning description={t('markets.tabs.eMode.group.disabledNotice')} />
         )}
 
         <div className="flex items-center justify-between gap-x-2">
           <div className="flex items-center flex-wrap gap-x-2">
-            <h3 className="font-semibold lg:text-lg">{eModeGroup.name}</h3>
+            <h3 className="font-semibold text-p2s">{eModeGroup.name}</h3>
 
             {eModeGroup.isIsolated && (
               <IsolatedEModeGroupTooltip eModeGroupName={eModeGroup.name} />
@@ -142,42 +136,44 @@ export const Header: React.FC<HeaderProps> = ({
             {isEModeGroupEnabled && <EModeIcon />}
           </div>
 
-          {isSetEModeGroupLoading ? (
-            <Spinner variant="small" className="h-8" />
-          ) : (
-            <div className="flex items-center gap-x-4">
-              {shouldDisplayHealthFactor &&
-                !!pool.userHealthFactor &&
-                !isEModeGroupEnabled &&
-                isButtonEnabled &&
-                hypotheticalUserHealthFactor !== undefined && (
-                  <HealthFactorUpdate
-                    className="hidden sm:flex"
-                    healthFactor={pool.userHealthFactor}
-                    hypotheticalHealthFactor={hypotheticalUserHealthFactor}
-                  />
-                )}
+          <div className="h-10 flex items-center">
+            {isSetEModeGroupLoading ? (
+              <Spinner variant="small" />
+            ) : (
+              <div className="flex items-center gap-x-4">
+                {shouldDisplayHealthFactor &&
+                  !!pool.userHealthFactor &&
+                  !isEModeGroupEnabled &&
+                  isButtonEnabled &&
+                  hypotheticalUserHealthFactor !== undefined && (
+                    <HealthFactorUpdate
+                      className="hidden sm:flex"
+                      healthFactor={pool.userHealthFactor}
+                      hypotheticalHealthFactor={hypotheticalUserHealthFactor}
+                    />
+                  )}
 
-              <ConnectWallet analyticVariant="e_mode_tab" small>
-                <SwitchChain small className="whitespace-nowrap">
-                  <Button
-                    onClick={handleButtonClick}
-                    size="xs"
-                    disabled={!isButtonEnabled && !disabledTooltip}
-                    variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
-                    className={cn(
-                      !!disabledTooltip &&
-                        'pl-3 pr-4 bg-lightGrey border-lightGrey hover:bg-lightGrey hover:border-lightGrey active:bg-lightGrey active:border-lightGrey',
-                    )}
-                  >
-                    {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
+                <ConnectWallet analyticVariant="e_mode_tab" buttonSize="sm">
+                  <SwitchChain buttonSize="sm" className="whitespace-nowrap">
+                    <Button
+                      onClick={handleButtonClick}
+                      size="sm"
+                      disabled={!isButtonEnabled && !disabledTooltip}
+                      variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
+                      className={cn(
+                        !!disabledTooltip &&
+                          'pl-3 pr-4 bg-lightGrey border-lightGrey hover:bg-lightGrey hover:border-lightGrey active:bg-lightGrey active:border-lightGrey',
+                      )}
+                    >
+                      {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
 
-                    <span className={cn(!isButtonEnabled && 'opacity-50')}>{buttonLabel}</span>
-                  </Button>
-                </SwitchChain>
-              </ConnectWallet>
-            </div>
-          )}
+                      <span className={cn(!isButtonEnabled && 'opacity-50')}>{buttonLabel}</span>
+                    </Button>
+                  </SwitchChain>
+                </ConnectWallet>
+              </div>
+            )}
+          </div>
         </div>
 
         {shouldDisplayHealthFactor &&

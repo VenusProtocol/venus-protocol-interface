@@ -1,46 +1,25 @@
-import { type InputHTMLAttributes, useState } from 'react';
+import { useState } from 'react';
 
-import {
-  Notice,
-  type Order,
-  Select,
-  type SelectOption,
-  type SelectProps,
-  TextField,
-} from 'components';
-import { VENUS_DOC_URL } from 'constants/production';
-import { Link } from 'containers/Link';
-import { useFormatTo } from 'hooks/useFormatTo';
-import { useAnalytics } from 'libs/analytics';
-import { useGetToken } from 'libs/tokens';
+import { Notice, type Order, Select, type SelectOption, type SelectProps } from 'components';
+import { Controls } from 'containers/Controls';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings, Pool } from 'types';
+import type { ExtendedEModeGroup } from '../types';
 import { EModeGroup as EModeGroupComp } from './EModeGroup';
-import { formatEModeGroups } from './formatEModeGroups';
+import { filterEModeGroups } from './filterEModeGroups';
 import { useColumns } from './useColumns';
 
-const E_MODE_DOC_URL = `${VENUS_DOC_URL}/whats-new/emode`;
-
 export interface EModeProps {
+  notice: React.ReactElement;
   pool: Pool;
-  searchValue: string;
-  onSearchValueChange: (newSearchValue: string) => void;
+  extendedEModeGroups: ExtendedEModeGroup[];
 }
 
-export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueChange }) => {
-  const { t, Trans } = useTranslation();
+export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups }) => {
+  const { t } = useTranslation();
   const columns = useColumns();
-  const { captureAnalyticEvent } = useAnalytics();
-
-  const { formatTo } = useFormatTo();
-  const vai = useGetToken({
-    symbol: 'VAI',
-  });
-
-  const handleLearnMoreClick = () =>
-    captureAnalyticEvent('e_mode_learn_more_click', {
-      variant: 'e_mode_tab',
-    });
+  const [userChainSettings] = useUserChainSettings();
 
   const initialOrder: Order<EModeAssetSettings> = {
     orderBy: columns[3],
@@ -77,64 +56,49 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
     }
   };
 
-  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
-    onSearchValueChange(changeEvent.currentTarget.value);
+  const [searchValue, setSearchValue] = useState('');
 
-  const formattedEModeGroups = formatEModeGroups({
+  const filteredEModeGroups = filterEModeGroups({
     pool,
-    vai,
-    formatTo,
+    extendedEModeGroups,
     searchValue,
+    showPausedAssets: userChainSettings.showPausedAssets,
+    showUserAssetsOnly: userChainSettings.showUserAssetsOnly,
   });
 
   return (
-    <div className="space-y-6">
-      <Notice
-        description={
-          <Trans
-            i18nKey="markets.eMode.notice"
-            components={{
-              Link: <Link href={E_MODE_DOC_URL} onClick={handleLearnMoreClick} />,
-            }}
-          />
-        }
+    <div className="space-y-6 sm:p-6 sm:rounded-lg sm:border sm:border-dark-blue-hover">
+      <Notice description={notice} />
+
+      <Controls
+        searchValue={searchValue}
+        onSearchValueChange={setSearchValue}
+        searchInputPlaceholder={t('markets.tabs.eMode.table.searchPlaceholder')}
       />
 
-      <div className="space-y-4">
-        <TextField
-          className="sm:hidden"
-          size="xs"
-          value={searchValue}
-          onChange={handleSearchInputChange}
-          placeholder={t('markets.eMode.search.placeholder')}
-          leftIconSrc="magnifier"
-          variant="secondary"
-        />
+      <Select
+        className="sm:hidden"
+        label={t('markets.tabs.eMode.table.mobileSelectLabel')}
+        placeLabelToLeft
+        size="small"
+        options={selectOptions}
+        value={selectedOption?.value || selectOptions[0].value}
+        onChange={handleOrderChange}
+      />
 
-        <Select
-          className="sm:hidden"
-          label={t('markets.eMode.table.mobileSelectLabel')}
-          placeLabelToLeft
-          size="small"
-          options={selectOptions}
-          value={selectedOption?.value || selectOptions[0].value}
-          onChange={handleOrderChange}
+      {filteredEModeGroups.map(extendedEModeGroup => (
+        <EModeGroupComp
+          key={extendedEModeGroup.id}
+          eModeGroup={extendedEModeGroup}
+          userHasEnoughCollateral={extendedEModeGroup.userHasEnoughCollateral}
+          userBlockingBorrowPositions={extendedEModeGroup.userBlockingBorrowPositions}
+          hypotheticalUserHealthFactor={extendedEModeGroup.hypotheticalUserHealthFactor}
+          pool={pool}
+          columns={columns}
+          initialOrder={initialOrder}
+          mobileOrder={order}
         />
-
-        {formattedEModeGroups.map(extendedEModeGroup => (
-          <EModeGroupComp
-            key={extendedEModeGroup.id}
-            eModeGroup={extendedEModeGroup}
-            userHasEnoughCollateral={extendedEModeGroup.userHasEnoughCollateral}
-            userBlockingBorrowPositions={extendedEModeGroup.userBlockingBorrowPositions}
-            hypotheticalUserHealthFactor={extendedEModeGroup.hypotheticalUserHealthFactor}
-            pool={pool}
-            columns={columns}
-            initialOrder={initialOrder}
-            mobileOrder={order}
-          />
-        ))}
-      </div>
+      ))}
     </div>
   );
 };

@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AdCarousel > displays correctly 1`] = `"Boost is available now!One-click leverage to boost your yield up to 5xLearn moreVenus Flux is liveLet your liquidity Flux, watch your yield grow.Start nowBelieve in something?Give your conviction a boost on probable.marketsStart nowIsolated pools are being sunsetClaim your rewards and close your positionsLearn more"`;
+
+exports[`AdCarousel > displays nothing if user previously hid the carousel 1`] = `""`;
+
+exports[`AdCarousel > hide banners if user hides it 1`] = `""`;

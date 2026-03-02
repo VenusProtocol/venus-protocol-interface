@@ -43,10 +43,10 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
     ? tokenBalances.filter(tokenBalance => commonTokenSymbols.includes(tokenBalance.token.symbol))
     : [];
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, onSearchValueChange] = useState('');
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = event =>
-    setSearchValue(event.currentTarget.value);
+    onSearchValueChange(event.currentTarget.value);
 
   // Sort tokens by balance (if it exists)
   const sortedTokenBalances = useMemo(
