@@ -1,17 +1,23 @@
+import { cn } from '@venusprotocol/ui';
+
 export interface LayeredValuesProps {
   topValue: string | number;
   bottomValue: string | number;
   className?: string;
+  bottomValueClassName?: string;
+  topValueClassName?: string;
 }
 
 export const LayeredValues: React.FC<LayeredValuesProps> = ({
   topValue,
   bottomValue,
   className,
+  topValueClassName,
+  bottomValueClassName,
 }) => (
   <div className={className}>
-    <p>{topValue}</p>
-    <p className="text-grey">{bottomValue}</p>
+    <p className={topValueClassName}>{topValue}</p>
+    <p className={cn('text-grey', bottomValueClassName)}>{bottomValue}</p>
   </div>
 );
 

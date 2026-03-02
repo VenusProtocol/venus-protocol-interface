@@ -14,11 +14,11 @@ export interface PrimeApy {
 }
 export interface GetPoolsInput {
   publicClient: PublicClient;
-  poolLensContractAddress: Address;
   chainId: ChainId;
   tokens: Token[];
   isEModeFeatureEnabled: boolean;
   accountAddress?: Address;
+  poolLensContractAddress?: Address;
   legacyPoolComptrollerContractAddress?: Address;
   venusLensContractAddress?: Address;
   vaiControllerContractAddress?: Address;

@@ -63,5 +63,6 @@ export * from './IsolatedEModeGroupTooltip';
 export * from './TokenIcon';
 export * from './BalanceUpdates';
 export * from './TokenListWrapper';
+export * from './TransactionsList';
 export * from './Wrapper';
 export * from './KLineChart';

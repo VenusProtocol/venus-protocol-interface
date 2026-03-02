@@ -1,4 +1,5 @@
 import { cn } from '@venusprotocol/ui';
+
 import type { AmountTransaction } from 'clients/api';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
@@ -60,6 +61,7 @@ export const TransactionDetails: React.FC<TransactionDetailsProps> = ({
       txType !== TxType.Approve && amountCents
         ? `${formatCentsToReadableValue({ value: amountCents })} • ${vTokenSymbol} • ${poolName}`
         : `${vTokenSymbol} • ${poolName}`;
+
     switch (txType) {
       case TxType.EnterMarket:
       case TxType.ExitMarket:

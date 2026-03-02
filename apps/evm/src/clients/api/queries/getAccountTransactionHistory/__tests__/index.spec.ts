@@ -12,7 +12,7 @@ const fakeInput = {
   accountAddress: fakeAddress,
   chainId: ChainId.BSC_TESTNET,
   getPoolsData: { pools: poolData },
-  contractAddress: 'all',
+  contractAddress: undefined,
   page: 1,
 };
 

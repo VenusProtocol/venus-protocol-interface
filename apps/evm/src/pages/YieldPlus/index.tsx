@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
 import { PairInfo } from './PairInfo';
+import { Positions } from './Positions';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from './constants';
 import { useTokenPair } from './useTokenPair';
 
@@ -125,9 +126,11 @@ const YieldPlus: React.FC = () => {
 
           {!doNotShowBanner && <Banner className="lg:hidden" />}
 
-          <Card className="p-0 overflow-hidden bg-dark-blue h-80 lg:h-114">
+          <Card className="p-0 overflow-hidden bg-dark-blue h-80 shrink-0 lg:h-114">
             <KLineChart title={`${longToken.symbol}/${shortToken.symbol}`} data={data} />
           </Card>
+
+          <Positions />
         </div>
 
         <div>{!doNotShowBanner && <Banner className="hidden lg:flex" />}</div>

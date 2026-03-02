@@ -649,6 +649,16 @@ export const useGetProposalCount = vi.fn(() =>
   }),
 );
 
+export const getYieldPlusPositions = vi.fn(async () => ({
+  positions: [], // TODO: add mock positions
+}));
+export const useGetYieldPlusPositions = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_YIELD_PLUS_POSITIONS],
+    queryFn: getYieldPlusPositions,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
