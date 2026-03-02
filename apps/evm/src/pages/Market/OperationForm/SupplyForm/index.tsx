@@ -171,6 +171,14 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
           value: asset.userWalletBalanceTokens,
         }),
       };
+
+      // Don't offer WBNB as an alternative when the market's underlying is the
+      // native token (e.g. BNB market). The SwapRouter treats WBNB and native
+      // BNB as identical for vBNB, so the swap path is broken for that pair.
+      if (asset.vToken.underlyingToken.isNative) {
+        return [marketTokenBalance];
+      }
+
       const nativeTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken.tokenWrapped,
         balanceMantissa: userTokenWrappedBalanceMantissa,
