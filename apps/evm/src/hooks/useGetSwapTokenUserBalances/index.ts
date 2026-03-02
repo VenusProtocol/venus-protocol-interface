@@ -19,7 +19,10 @@ export const useGetSwapTokenUserBalances = ({
   const data = getPoolData?.pool.assets
     ? getPoolData?.pool.assets.reduce<TokenBalance[]>((acc, poolAsset) => {
         // Filter out paused assets
-        if (poolAsset.disabledTokenActions.length > 0) {
+        if (
+          poolAsset.disabledTokenActions.includes('supply') ||
+          poolAsset.disabledTokenActions.includes('repay')
+        ) {
           return acc;
         }
 

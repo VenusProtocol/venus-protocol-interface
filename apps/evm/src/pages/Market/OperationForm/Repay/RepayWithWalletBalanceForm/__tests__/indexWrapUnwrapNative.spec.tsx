@@ -7,14 +7,16 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetBalanceOf, useRepay } from 'clients/api';
+import { useRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import { checkSubmitButtonIsEnabled } from 'pages/Market/OperationForm/__testUtils__/checkFns';
@@ -23,8 +25,7 @@ import { fakeAsset, fakePool, fakeWethAsset } from '../../__testUtils__/fakeData
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useGetSwapInfo');
-
-const fakeBalanceMantissa = new BigNumber('10000000000000000000');
+vi.mock('hooks/useGetSwapTokenUserBalances');
 
 const mockRepay = vi.fn();
 
@@ -44,12 +45,24 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
       isLoading: false,
     }));
 
-    (useGetBalanceOf as Mock).mockImplementation(() => ({
-      data: {
-        balanceMantissa: fakeBalanceMantissa,
-      },
-      isLoading: false,
-    }));
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: eth,
+          balanceMantissa: convertTokensToMantissa({
+            token: eth,
+            value: new BigNumber(10),
+          }),
+        },
+        {
+          token: fakeWethAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: fakeWethAsset.vToken.underlyingToken,
+            value: fakeWethAsset.userWalletBalanceTokens,
+          }),
+        },
+      ],
+    });
 
     (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
       isLoading: false,
@@ -59,12 +72,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
 
   it('renders without crashing', () => {
     renderComponent(
-      <RepayWithWalletBalanceForm
-        asset={fakeAsset}
-        pool={fakePool}
-        onSubmitSuccess={noop}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         chainId: ChainId.SEPOLIA,
       },
@@ -73,12 +81,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
 
   it('does not display the token selector if the underlying token does not wrap the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <RepayWithWalletBalanceForm
-        asset={fakeAsset}
-        pool={fakePool}
-        onSubmitSuccess={noop}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -90,12 +93,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
 
   it('displays the token selector if the underlying token wraps the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <RepayWithWalletBalanceForm
-        asset={fakeWethAsset}
-        pool={fakePool}
-        onSubmitSuccess={noop}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
+      <RepayWithWalletBalanceForm asset={fakeWethAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -113,26 +111,32 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
 
     // Add 1 WETH to simulate wallet balance being higher than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.plus(1);
-    const fakeHigherNativeTokenBalance = fakeBalanceMantissa.plus(1);
-    const fakeHigherUserWalletNativeTokenBalanceData = fakeHigherNativeTokenBalance.multipliedBy(
-      10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
-    );
+    const fakeHigherNativeTokenBalance = fakeUserWethWalletBalance.plus(1);
 
-    (useGetBalanceOf as Mock).mockImplementation(() => ({
-      data: {
-        balanceMantissa: fakeUserWethWalletBalance.multipliedBy(
-          10 ** customFakeWethAsset.vToken.underlyingToken.decimals,
-        ),
-      },
-      isLoading: false,
-    }));
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: eth,
+          balanceMantissa: convertTokensToMantissa({
+            token: eth,
+            value: fakeHigherNativeTokenBalance,
+          }),
+        },
+        {
+          token: customFakeWethAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: customFakeWethAsset.vToken.underlyingToken,
+            value: fakeUserWethWalletBalance,
+          }),
+        },
+      ],
+    });
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
         asset={customFakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
-        userTokenWrappedBalanceMantissa={fakeHigherUserWalletNativeTokenBalanceData}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -184,25 +188,31 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
     // Remove 1 WETH to simulate wallet balance being lower than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.minus(1);
     const fakeLowerNativeTokenBalance = fakeUserWethWalletBalance;
-    const fakeLowerUserWalletNativeTokenBalanceData = fakeLowerNativeTokenBalance.multipliedBy(
-      10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
-    );
 
-    (useGetBalanceOf as Mock).mockImplementation(() => ({
-      data: {
-        balanceMantissa: fakeUserWethWalletBalance.multipliedBy(
-          10 ** customFakeWethAsset.vToken.underlyingToken.decimals,
-        ),
-      },
-      isLoading: false,
-    }));
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: eth,
+          balanceMantissa: convertTokensToMantissa({
+            token: eth,
+            value: fakeLowerNativeTokenBalance,
+          }),
+        },
+        {
+          token: customFakeWethAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: customFakeWethAsset.vToken.underlyingToken,
+            value: fakeUserWethWalletBalance,
+          }),
+        },
+      ],
+    });
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
         asset={customFakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
-        userTokenWrappedBalanceMantissa={fakeLowerUserWalletNativeTokenBalanceData}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -255,12 +265,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <RepayWithWalletBalanceForm
-        asset={fakeWethAsset}
-        pool={fakePool}
-        onSubmitSuccess={noop}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
+      <RepayWithWalletBalanceForm asset={fakeWethAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -304,7 +309,6 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
         asset={fakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={onCloseMock}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
