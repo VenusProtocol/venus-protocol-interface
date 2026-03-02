@@ -300,17 +300,6 @@
     "modalTitle": "โทเคน {{ poolName }}",
     "supplyDescription": "การฝาก {{tokenSymbol}} ในพูล {{poolName}} จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <Button>แสดงตลาดทั้งหมด</Button>"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
-    "binanceLogoAltText": "โลโก้ Binance",
-    "description": "ยืม USDT และร่วมแบ่งปันรางวัล <Bold>$400,000</Bold>!",
-    "title": "Venus เปิดให้ใช้งานบน Binance Wallet Earn แล้ว"
-  },
-  "boostBanner": {
-    "description": "เลเวอเรจคลิกเดียวเพื่อบูสต์ผลตอบแทนของคุณ <White>สูงสุด 5 เท่า</White>.",
-    "rocketAltText": "ภาพประกอบจรวด",
-    "title": "Boost ใช้งานได้แล้ว!"
-  },
   "breadcrumbs": {
     "bridge": "บริดจ์",
     "dashboard": "แดชบอร์ด",
@@ -408,11 +397,31 @@
   "connectWallet": {
     "connectButton": "เชื่อมต่อกระเป๋า"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "สินทรัพย์ที่หยุดไว้"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "เฉพาะสินทรัพย์ของฉัน"
+    }
+  },
+  "dashboard": {
+    "topMarkets": {
+      "borrowButton": {
+        "label": "ยืม"
+      },
+      "interactiveTitle": "ไฮไลต์ (<Group><SupplyButton>ฝาก</SupplyButton> / <BorrowButton>ยืม</BorrowButton></Group>)",
+      "supplyButton": {
+        "label": "ฝาก"
+      },
+      "textTitle": "ไฮไลต์"
+    }
+  },
   "eModeBanner": {
     "exploreButtonLabel": "สำรวจ",
     "illustrationAltText": "ภาพประกอบ E-mode",
     "manageEModeButtonLabel": "จัดการ E-mode",
-    "title": "เพิ่มพลังการยืมของคุณด้วย E-Mode"
+    "title": "เพิ่มพลังการยืมของคุณด้วย E-mode"
   },
   "errors": {
     "couldNotRetrieveSigner": "ไม่สามารถดึง signer ได้ โปรดตรวจสอบว่ากระเป๋าของคุณถูกปลดล็อกแล้วและรีโหลดหน้า",
@@ -534,11 +543,6 @@
       "utilizationRate": "อัตราการใช้งาน"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "รับรางวัลของคุณและปิดตำแหน่งของคุณ",
-    "illustrationAltText": "ภาพประกอบ",
-    "title": "พูลแบบแยกกำลังจะยุติการให้บริการ"
-  },
   "landing": {
     "benefits": {
       "text1": "เข้าถึงตลาดเงินที่ไม่สามารถเปลี่ยนแปลงได้โดยตรงบนเชน",
@@ -657,6 +661,9 @@
         "vai": {
           "description": "มินต์สเตเบิลคอยน์ประจำของ Venus",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -749,77 +756,8 @@
     },
     "supplyInfo": {
       "title": "ข้อมูลการฝาก"
-    }
-  },
-  "markets": {
-    "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "คุณไม่สามารถปิดกลุ่ม E-mode นี้ได้ เพราะมีตำแหน่งยืมที่มีสินทรัพย์ที่ยืมจากพูลนี้ไม่ได้ <Link>แสดงตำแหน่งของฉัน</Link>",
-            "notEnoughCollateral": "คุณไม่สามารถปิดกลุ่ม E-mode นี้ได้ เพราะมูลค่าหลักประกันรวมของคุณไม่ครอบคลุมยอดยืมรวม"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "คุณต้องปิดตำแหน่งยืมต่อไปนี้เพื่อเปิดใช้กลุ่ม E-mode <WhiteText>{{ eModeGroupName }}</WhiteText>:",
-            "repayButtonLabel": "ชำระคืน",
-            "title": "ตำแหน่งของคุณ"
-          },
-          "tooltip": {
-            "blockingPositions": "คุณไม่สามารถเปิดกลุ่ม E-mode นี้ได้ เพราะมีตำแหน่งยืมที่มีสินทรัพย์ที่ไม่อยู่ในกลุ่มนี้ <Link>แสดงตำแหน่งของฉัน</Link>",
-            "notEnoughCollateral": "คุณไม่สามารถเปิดกลุ่ม E-mode นี้ได้ เพราะมูลค่าหลักประกันรวมของคุณไม่ครอบคลุมยอดยืมรวม"
-          }
-        },
-        "disableButtonLabel": "ปิดใช้งาน",
-        "disabledNotice": "กลุ่ม E-Mode นี้ไม่ได้รับการสนับสนุนอีกต่อไป บัญชีของคุณกลับไปใช้พารามิเตอร์เริ่มต้น กรุณาสลับไปยังกลุ่ม E-mode อื่นที่มีให้ใช้หรือปิดใช้งาน",
-        "enableButtonLabel": "เปิดใช้งาน",
-        "healthFactor": "ตัวคูณความปลอดภัย:",
-        "switchButtonLabel": "สลับ"
-      },
-      "notice": "การเปิดใช้ E-Mode ช่วยเพิ่มพลังการยืมของคุณ แต่การยืมจะจำกัดเฉพาะสินทรัพย์ในกลุ่มที่เลือก <Link>เรียนรู้เพิ่มเติม</Link>",
-      "search": {
-        "placeholder": "ค้นหาสินทรัพย์หรือกลุ่ม"
-      },
-      "table": {
-        "card": {
-          "header": {
-            "borrowable": "ยืมได้",
-            "collateral": "หลักประกัน"
-          },
-          "rows": {
-            "liquidationPenalty": "บทลงโทษการชำระบัญชี",
-            "liquidationThreshold": "เกณฑ์การชำระบัญชี",
-            "maxLtv": "LTV สูงสุด"
-          }
-        },
-        "columns": {
-          "asset": "สินทรัพย์",
-          "collateral": "หลักประกัน",
-          "isBorrowable": "ยืมได้",
-          "liquidationPenalty": "บทลงโทษการชำระบัญชี",
-          "liquidationThreshold": "เกณฑ์การชำระบัญชี",
-          "maxLtv": "LTV สูงสุด",
-          "penalty": "บทลงโทษ",
-          "threshold": "เกณฑ์"
-        },
-        "mobileSelectLabel": "เรียงตาม:"
-      }
-    },
-    "errors": {
-      "accountError": "ต้องมีบัญชี - โปรดเชื่อมต่อกระเป๋า",
-      "collateralDisableError": "เกิดข้อผิดพลาดในการปิดใช้หลักประกัน - มีปัญหาในการปิดใช้ {{assetName}} เป็นหลักประกัน โปรดลองอีกครั้ง",
-      "collateralEnableError": "เกิดข้อผิดพลาดในการเปิดใช้หลักประกัน - มีปัญหาในการเปิดใช้ {{assetName}} เป็นหลักประกัน โปรดลองอีกครั้ง",
-      "collateralRequired": "ต้องมีหลักประกัน - โปรดชำระคืนสินทรัพย์ที่ยืมทั้งหมดหรือกำหนดสินทรัพย์อื่นเป็นหลักประกัน"
-    },
-    "isolatedEModeGroupTooltip": {
-      "content": "พลังการยืมของคุณจะเพิ่มขึ้นเมื่อฝากเฉพาะสินทรัพย์จากกลุ่ม {{ eModeGroupName }}",
-      "label": "แยก"
     },
     "tabs": {
-      "assets": {
-        "title": "สินทรัพย์"
-      },
       "eMode": {
         "illustrationAltText": "ภาพประกอบสายฟ้า",
         "liquidationPenalty": {
@@ -831,8 +769,86 @@
         "maxLtv": {
           "label": "LTV สูงสุด",
           "tooltip": "LTV สูงสุดคือขีดจำกัดการยืม ที่ {{maxLtv}} LTV หลักประกัน 1 {{tokenSymbol}} สามารถยืมสกุลเงินมูลค่า {{userCollateralFactor}} {{tokenSymbol}} ได้"
+        }
+      }
+    }
+  },
+  "markets": {
+    "eMode": {
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "ยืมได้",
+            "collateral": "หลักประกัน"
+          }
+        }
+      }
+    },
+    "errors": {
+      "accountError": "ต้องมีบัญชี - โปรดเชื่อมต่อกระเป๋า",
+      "collateralDisableError": "เกิดข้อผิดพลาดในการปิดใช้หลักประกัน - มีปัญหาในการปิดใช้ {{assetName}} เป็นหลักประกัน โปรดลองอีกครั้ง",
+      "collateralEnableError": "เกิดข้อผิดพลาดในการเปิดใช้หลักประกัน - มีปัญหาในการเปิดใช้ {{assetName}} เป็นหลักประกัน โปรดลองอีกครั้ง",
+      "collateralRequired": "ต้องมีหลักประกัน - โปรดชำระคืนสินทรัพย์ที่ยืมทั้งหมดหรือกำหนดสินทรัพย์อื่นเป็นหลักประกัน"
+    },
+    "header": {
+      "venusCore": {
+        "description": "การเงินที่เรียบง่ายและทรงพลัง ขับเคลื่อนโดยชุมชนสำหรับผู้ใช้ทั่วโลก",
+        "title": "Venus Core"
+      }
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "พลังการยืมของคุณจะเพิ่มขึ้นเมื่อฝากเฉพาะสินทรัพย์จากกลุ่ม {{ eModeGroupName }}",
+      "label": "แยก"
+    },
+    "tabs": {
+      "eMode": {
+        "eModeNotice": "การเปิดใช้ E-mode ช่วยเพิ่มขีดความสามารถในการยืมสูงสุด อย่างไรก็ตาม การยืมจะถูกจำกัดให้เฉพาะสินทรัพย์ในกลุ่มที่เลือก <Link>เรียนรู้เพิ่มเติม</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "คุณไม่สามารถปิดกลุ่มนี้ได้ เพราะมีตำแหน่งยืมที่มีสินทรัพย์ที่ยืมจากพูลนี้ไม่ได้ <Link>แสดงตำแหน่งของฉัน</Link>",
+              "notEnoughCollateral": "คุณไม่สามารถปิดกลุ่มนี้ได้ เพราะมูลค่าหลักประกันรวมของคุณไม่ครอบคลุมยอดยืมรวม"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "คุณต้องปิดตำแหน่งยืมต่อไปนี้เพื่อเปิดใช้กลุ่ม <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+              "repayButtonLabel": "ชำระคืน",
+              "title": "ตำแหน่งของฉัน"
+            },
+            "tooltip": {
+              "blockingPositions": "คุณไม่สามารถเปิดกลุ่มนี้ได้ เพราะมีตำแหน่งยืมที่มีสินทรัพย์ที่ไม่อยู่ในกลุ่มนี้ <Link>แสดงตำแหน่งของฉัน</Link>",
+              "notEnoughCollateral": "คุณไม่สามารถเปิดกลุ่มนี้ได้ เพราะมูลค่าหลักประกันรวมของคุณไม่ครอบคลุมยอดยืมรวม"
+            }
+          },
+          "disableButtonLabel": "ปิดใช้งาน",
+          "disabledNotice": "กลุ่มนี้ไม่ได้รับการสนับสนุนอีกต่อไป บัญชีของคุณกลับไปใช้พารามิเตอร์ของ Core Pool กรุณาสลับไปยังกลุ่มอื่นที่มีให้ใช้หรือปิดใช้งาน",
+          "enableButtonLabel": "เปิดใช้งาน",
+          "healthFactor": "ตัวคูณความปลอดภัย:",
+          "switchButtonLabel": "สลับ"
         },
-        "title": "โหมด E"
+        "isolationModeNotice": "การเปิดใช้โหมดแยกช่วยเพิ่มขีดความสามารถในการยืมสูงสุด อย่างไรก็ตาม การฝากและการยืมจะถูกจำกัดให้เฉพาะสินทรัพย์ในกลุ่มที่เลือก <Link>เรียนรู้เพิ่มเติม</Link>",
+        "label": "E-mode",
+        "table": {
+          "columns": {
+            "asset": "สินทรัพย์",
+            "collateral": "หลักประกัน",
+            "isBorrowable": "ยืมได้",
+            "liquidationPenalty": "บทลงโทษการชำระบัญชี",
+            "liquidationThreshold": "เกณฑ์การชำระบัญชี",
+            "maxLtv": "LTV สูงสุด",
+            "penalty": "บทลงโทษ",
+            "threshold": "เกณฑ์"
+          },
+          "mobileSelectLabel": "เรียงตาม:",
+          "searchPlaceholder": "ค้นหาสินทรัพย์หรือกลุ่ม"
+        }
+      },
+      "isolationMode": {
+        "label": "โหมดแยก"
+      },
+      "markets": {
+        "label": "ตลาด"
       }
     }
   },
@@ -883,17 +899,8 @@
       "imgAlt": "ไอคอนหยุด",
       "title": "สินทรัพย์ทั้งหมดในพูลนี้ถูกหยุดแล้ว"
     },
-    "pausedAssetsToggle": {
-      "label": "สินทรัพย์ที่หยุดไว้"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "ค้นหาสินทรัพย์"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "เฉพาะสินทรัพย์ของฉัน"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "เฉพาะสินทรัพย์ E-mode"
     }
   },
   "operationForm": {
@@ -1078,11 +1085,6 @@
     "tokensLeft_many": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "tokensLeft_other": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} ก่อนที่จะรับรางวัล Prime ได้"
-  },
-  "probableBanner": {
-    "description": "เพิ่มความเชื่อมั่นของคุณบน probable.markets",
-    "probableAltText": "ภาพประกอบ Probable",
-    "title": "คุณเชื่อในสิ่งใดไหม?"
   },
   "proposalList": {
     "selectOptions": {
@@ -1698,5 +1700,22 @@
       "submitButton": "ถอน"
     },
     "withdrawTabTitle": "ถอน"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "ภาพประกอบ Yield+",
+      "learnMore": "เรียนรู้เพิ่มเติม",
+      "title": "Yield+ คืออะไร?"
+    },
+    "longLiquidity": "สภาพคล่องฝั่ง Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",
+    "shortLiquidity": "สภาพคล่องฝั่ง Short",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
   }
 }

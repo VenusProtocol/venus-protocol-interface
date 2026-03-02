@@ -29,12 +29,14 @@ const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
 const Bridge = safeLazyLoad(() => import('pages/Bridge'));
 const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
+const YieldPlus = safeLazyLoad(() => import('pages/YieldPlus'));
 
 const AppRoutes = () => {
   const location = useLocation();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
+  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlus' });
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
@@ -174,6 +176,17 @@ const AppRoutes = () => {
             </PageSuspense>
           }
         />
+
+        {yieldPlusRouteEnabled && (
+          <Route
+            path={Subdirectory.YIELD_PLUS}
+            element={
+              <PageSuspense>
+                <YieldPlus />
+              </PageSuspense>
+            }
+          />
+        )}
 
         {swapRouteEnabled && (
           <Route

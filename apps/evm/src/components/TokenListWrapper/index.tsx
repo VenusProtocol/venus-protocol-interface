@@ -21,6 +21,7 @@ export interface TokenListWrapperProps {
   onClose: () => void;
   isListShown: boolean;
   selectedToken: Token;
+  className?: string;
   displayCommonTokenButtons?: boolean;
   'data-testid'?: string;
 }
@@ -35,6 +36,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
   isListShown,
   selectedToken,
   displayCommonTokenButtons = true,
+  className,
   'data-testid': testId,
 }) => {
   const { t } = useTranslation();
@@ -43,10 +45,10 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
     ? tokenBalances.filter(tokenBalance => commonTokenSymbols.includes(tokenBalance.token.symbol))
     : [];
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, onSearchValueChange] = useState('');
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = event =>
-    setSearchValue(event.currentTarget.value);
+    onSearchValueChange(event.currentTarget.value);
 
   // Sort tokens by balance (if it exists)
   const sortedTokenBalances = useMemo(
@@ -88,7 +90,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
   }, [sortedTokenBalances, searchValue]);
 
   return (
-    <div>
+    <div className={className}>
       {children}
 
       {isListShown && (

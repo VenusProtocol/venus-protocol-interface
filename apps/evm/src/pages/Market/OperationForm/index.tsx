@@ -4,7 +4,7 @@ import type { Address } from 'viem';
 import { type ModalProps, Tabs } from 'components';
 import AssetAccessor from 'containers/AssetAccessor';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import type { Tab } from 'hooks/useTabs';
+import type { Tab, TabNavType } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { VToken } from 'types';
 import BoostForm from './BoostForm';
@@ -20,6 +20,7 @@ export interface OperationFormProps {
   poolComptrollerAddress: Address;
   initialActiveTabId?: string;
   onSubmitSuccess?: ModalProps['handleClose'];
+  navType?: TabNavType;
 }
 
 export const OperationForm: React.FC<OperationFormProps> = ({
@@ -27,6 +28,7 @@ export const OperationForm: React.FC<OperationFormProps> = ({
   vToken,
   poolComptrollerAddress,
   initialActiveTabId,
+  navType,
 }) => {
   const { t } = useTranslation();
 
@@ -126,7 +128,7 @@ export const OperationForm: React.FC<OperationFormProps> = ({
     <Tabs
       tabs={tabs}
       initialActiveTabId={initialActiveTabId}
-      navType="searchParam"
+      navType={navType}
       variant={isLeveragedPositionsFeatureEnabled ? 'secondary' : 'primary'}
       headerClassName={cn(isLeveragedPositionsFeatureEnabled && 'sm:gap-x-8 lg:gap-x-6')}
     />

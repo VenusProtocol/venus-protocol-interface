@@ -13,7 +13,8 @@ import { Spinner, cn } from '@venusprotocol/ui';
 import { Card } from 'components/Card';
 import { useBreakpointUp } from 'hooks/responsive';
 import Head from './Head';
-import TableCards from './TableCards';
+import { RowControl } from './RowControl';
+import { TableCards } from './TableCards';
 import { useStyles } from './styles';
 import type { Order, TableColumn, TableProps } from './types';
 
@@ -38,6 +39,8 @@ export function Table<R>({
   selectVariant,
   showMobileFilter = true,
   cellHeight,
+  rowControlOnClick,
+  variant,
   ...otherProps
 }: TableProps<R>) {
   const styles = useStyles({ cellHeight });
@@ -94,11 +97,13 @@ export function Table<R>({
           <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
             <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })}>
               <Head
+                className={cn(variant === 'primary' && 'border-b border-dark-blue-hover')}
                 controls={controls}
                 columns={columns}
                 orderBy={order?.orderBy}
                 orderDirection={order?.orderDirection}
                 onRequestOrder={onRequestOrder}
+                rowControlColumn={!!rowControlOnClick}
               />
 
               {isFetching && (
@@ -128,7 +133,10 @@ export function Table<R>({
                       key={rowKey}
                       css={[
                         styles.link,
-                        styles.getTableRow({ clickable: !!getRowHref || !!rowOnClick }),
+                        styles.getTableRow({
+                          clickable: !!getRowHref || !!rowOnClick,
+                          rounded: variant === 'secondary',
+                        }),
                       ]}
                       onClick={
                         rowOnClick
@@ -152,6 +160,15 @@ export function Table<R>({
                           </MuiTableCell>
                         );
                       })}
+
+                      {rowControlOnClick && (
+                        <MuiTableCell className="align-middle">
+                          <RowControl
+                            className="-ml-6"
+                            onClick={rowControlOnClick ? e => rowControlOnClick(e, row) : undefined}
+                          />
+                        </MuiTableCell>
+                      )}
                     </MuiTableRow>
                   );
                 })}
@@ -172,6 +189,7 @@ export function Table<R>({
             breakpoint={breakpoint}
             order={order}
             onOrderChange={setOrder}
+            rowControlOnClick={rowControlOnClick}
           />
         </>
       ) : (

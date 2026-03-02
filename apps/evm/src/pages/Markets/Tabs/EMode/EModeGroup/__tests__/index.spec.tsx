@@ -9,7 +9,7 @@ import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { Asset, EModeAssetSettings, Pool } from 'types';
 import { EModeGroup, type EModeGroupProps } from '..';
-import type { BlockingBorrowPosition } from '../../types';
+import type { BlockingBorrowPosition } from '../../../types';
 
 const fakeColumns: TableColumn<EModeAssetSettings>[] = [
   {
@@ -68,7 +68,9 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    const button = queryAllByText(en.markets.eMode.group.enableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.enableButtonLabel)[0].closest(
+      'button',
+    );
 
     expect(button).toBeEnabled();
     fireEvent.click(button as HTMLButtonElement);
@@ -99,7 +101,9 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    const button = queryAllByText(en.markets.eMode.group.disableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.disableButtonLabel)[0].closest(
+      'button',
+    );
 
     expect(button).toBeEnabled();
     fireEvent.click(button as HTMLButtonElement);
@@ -130,7 +134,9 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    const button = queryAllByText(en.markets.eMode.group.disableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.disableButtonLabel)[0].closest(
+      'button',
+    );
 
     expect(button).toBeEnabled();
     fireEvent.click(button as HTMLButtonElement);
@@ -161,7 +167,9 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    const button = queryAllByText(en.markets.eMode.group.switchButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.switchButtonLabel)[0].closest(
+      'button',
+    );
 
     expect(button).toBeEnabled();
     fireEvent.click(button as HTMLButtonElement);
@@ -176,12 +184,12 @@ describe('EModeGroup', () => {
   });
 
   describe.each([
-    ['enable', undefined, fakePool.eModeGroups[0], en.markets.eMode.group.enableButtonLabel],
+    ['enable', undefined, fakePool.eModeGroups[0], en.markets.tabs.eMode.group.enableButtonLabel],
     [
       'switch',
       fakePool.eModeGroups[0],
       fakePool.eModeGroups[1],
-      en.markets.eMode.group.switchButtonLabel,
+      en.markets.tabs.eMode.group.switchButtonLabel,
     ],
   ])('error states', (action, userEModeGroup, eModeGroup, buttonLabel) => {
     it(`does not let user ${action} E-mode group if they have blocking borrow positions`, async () => {
@@ -263,7 +271,9 @@ describe('EModeGroup', () => {
       },
     );
 
-    const button = queryAllByText(en.markets.eMode.group.disableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.disableButtonLabel)[0].closest(
+      'button',
+    );
 
     fireEvent.click(button as HTMLButtonElement);
 
@@ -290,7 +300,9 @@ describe('EModeGroup', () => {
       },
     );
 
-    const button = queryAllByText(en.markets.eMode.group.disableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.disableButtonLabel)[0].closest(
+      'button',
+    );
 
     fireEvent.click(button as HTMLButtonElement);
 

@@ -180,6 +180,7 @@ export const useColumns = ({
 
           return (
             <Toggle
+              className="py-1"
               onChange={() => collateralOnChange(asset)}
               value={
                 asset.isCollateralOfUser && (!userEModeGroup || asset.userCollateralFactor > 0)
