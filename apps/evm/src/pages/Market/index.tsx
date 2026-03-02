@@ -33,6 +33,7 @@ const Page: React.FC = () => {
                 <OperationForm
                   poolComptrollerAddress={pool.comptrollerAddress}
                   vToken={asset.vToken}
+                  navType="searchParam"
                 />
               </Card>
 

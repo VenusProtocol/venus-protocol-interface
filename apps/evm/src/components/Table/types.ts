@@ -1,7 +1,9 @@
 import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
+import type { CSSProperties } from 'react';
+import type { To } from 'react-router';
+
 import type { CardProps } from 'components/Card';
 import type { SelectProps } from 'components/Select';
-import type { CSSProperties } from 'react';
 
 export interface TableColumn<R> {
   key: string;
@@ -28,7 +30,9 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   className?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
-  getRowHref?: (row: R) => string;
+  rowControlOnClick?: (e: React.MouseEvent<HTMLButtonElement>, row: R) => void;
+  getRowHref?: (row: R) => To;
+  variant?: 'primary' | 'secondary';
   title?: React.ReactNode | string;
   header?: React.ReactNode;
   placeholder?: React.ReactNode;
@@ -44,6 +48,7 @@ export interface TableCardProps<R>
     | 'data'
     | 'rowKeyExtractor'
     | 'rowOnClick'
+    | 'rowControlOnClick'
     | 'getRowHref'
     | 'breakpoint'
     | 'columns'

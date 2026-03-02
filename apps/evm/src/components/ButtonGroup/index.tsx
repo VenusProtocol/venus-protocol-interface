@@ -4,6 +4,7 @@ export interface ButtonGroupProps {
   buttonLabels: React.ReactNode[];
   activeButtonIndex: number;
   onButtonClick: (newIndex: number) => void;
+  variant?: 'primary' | 'secondary';
   fullWidth?: boolean;
   className?: string;
   buttonClassName?: string;
@@ -15,6 +16,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   activeButtonIndex = 0,
   onButtonClick,
   fullWidth = false,
+  variant = 'primary',
   className,
   buttonClassName,
   buttonSize,
@@ -22,8 +24,11 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   return (
     <div
       className={cn(
-        'flex items-center bg-dark-blue-disabled border border-dark-blue-hover rounded-lg whitespace-nowrap',
+        'flex items-center whitespace-nowrap',
         fullWidth ? 'w-full' : 'max-sm:w-full',
+        variant === 'primary'
+          ? 'bg-dark-blue-disabled border border-dark-blue-hover rounded-lg'
+          : 'gap-x-3',
         className,
       )}
     >

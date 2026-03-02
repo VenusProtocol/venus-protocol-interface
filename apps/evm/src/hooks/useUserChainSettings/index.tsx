@@ -6,7 +6,6 @@ export const defaultUserChainSettings: UserChainSettings = {
   gaslessTransactions: false,
   showPausedAssets: false,
   showUserAssetsOnly: false,
-  showUserEModeAssetsOnly: false,
   doNotShowImportPositionsModal: false,
   slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
 };

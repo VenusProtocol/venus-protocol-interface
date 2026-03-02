@@ -6,6 +6,7 @@ import MuiTableRow from '@mui/material/TableRow';
 import MuiTableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 
+import { cn } from '@venusprotocol/ui';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 import type { TableColumn } from './types';
@@ -16,6 +17,7 @@ interface HeadProps<R> {
   orderDirection: 'asc' | 'desc' | undefined;
   onRequestOrder: (column: TableColumn<R>) => void;
   controls: boolean;
+  rowControlColumn: boolean;
   className?: string;
 }
 
@@ -26,11 +28,12 @@ function Head<R>({
   onRequestOrder,
   className,
   controls,
+  rowControlColumn,
 }: HeadProps<R>) {
   const styles = useStyles();
   return (
-    <MuiTableHead>
-      <MuiTableRow className={className}>
+    <MuiTableHead className={cn('h-14', className)}>
+      <MuiTableRow>
         {columns.map(column => {
           const active = orderBy?.key === column.key;
 
@@ -79,6 +82,8 @@ function Head<R>({
             </MuiTableCell>
           );
         })}
+
+        {rowControlColumn && <MuiTableCell className="w-8" />}
       </MuiTableRow>
     </MuiTableHead>
   );

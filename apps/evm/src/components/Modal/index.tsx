@@ -48,7 +48,7 @@ export const Modal: React.FC<ModalProps> = ({
       <Fade in={isOpen}>
         <div
           className={cn(
-            'overflow-auto outline-hidden bg-cards rounded-xl absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] border border-lightGrey max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
+            'overflow-auto outline-hidden bg-dark-blue rounded-xl absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] border border-blue max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
             className,
           )}
         >

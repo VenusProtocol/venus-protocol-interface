@@ -18,11 +18,18 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
 
   return (
     <div className={cn('flex items-center gap-x-3', className)}>
-      <TokenIcon token={token} displayChain={displayChain} size={size} {...otherProps} />
+      <TokenIcon
+        token={token}
+        className="shrink-0"
+        displayChain={displayChain}
+        size={size}
+        {...otherProps}
+      />
 
       <div>
         <p
           className={cn(
+            'whitespace-normal',
             displayChain && size === 'md' && 'text-b1r',
             displayChain && size === 'lg' && 'text-p1s',
           )}

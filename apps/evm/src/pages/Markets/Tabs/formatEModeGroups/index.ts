@@ -2,42 +2,22 @@ import type { To } from 'react-router';
 
 import { routes } from 'constants/routing';
 import { TAB_PARAM_KEY } from 'hooks/useTabs';
-import type { EModeGroup, Pool, Token } from 'types';
+import type { Pool, Token } from 'types';
 import { areTokensEqual, calculateHealthFactor } from 'utilities';
-import { getHypotheticalAssetValues } from '../getHypotheticalAssetValues';
-import type { BlockingBorrowPosition } from '../types';
+import type { BlockingBorrowPosition, ExtendedEModeGroup } from '../types';
+import { getHypotheticalAssetValues } from './getHypotheticalAssetValues';
 
-interface ExtendedEModeGroup extends EModeGroup {
-  userBlockingBorrowPositions: BlockingBorrowPosition[];
-  userHasEnoughCollateral: boolean;
-  hypotheticalUserHealthFactor: number;
+export interface FormatEModeGroupsInput {
+  pool: Pool;
+  formatTo: ({ to }: { to: To }) => To;
+  vai?: Token;
 }
 
-export const formatEModeGroups = ({
-  pool,
-  searchValue,
-  vai,
-  formatTo,
-}: { pool: Pool; searchValue: string; formatTo: ({ to }: { to: To }) => To; vai?: Token }) =>
+export const formatEModeGroups = ({ pool, formatTo, vai }: FormatEModeGroupsInput) =>
   pool.eModeGroups
     .reduce<ExtendedEModeGroup[]>((acc, eModeGroup) => {
       // Filter out inactive E-mode groups, except the one enabled by the user
       if (!eModeGroup.isActive && eModeGroup.id !== pool.userEModeGroup?.id) {
-        return acc;
-      }
-
-      // Handle search
-      const searchMatches = (value: string) =>
-        value.toLowerCase().includes(searchValue.toLowerCase());
-
-      const filteredEModeAssetSettings = eModeGroup.assetSettings.filter(settings =>
-        searchMatches(settings.vToken.underlyingToken.symbol),
-      );
-
-      const nameMatches = searchMatches(eModeGroup.name);
-
-      if (filteredEModeAssetSettings.length === 0 && !nameMatches) {
-        // Filter out E-mode group
         return acc;
       }
 
@@ -127,7 +107,6 @@ export const formatEModeGroups = ({
 
       const extendedEModeGroup: ExtendedEModeGroup = {
         ...eModeGroup,
-        assetSettings: filteredEModeAssetSettings,
         userHasEnoughCollateral,
         userBlockingBorrowPositions,
         hypotheticalUserHealthFactor,
