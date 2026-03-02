@@ -1,7 +1,7 @@
 import { Delimiter, type Order, Table, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
 import type { EModeAssetSettings, EModeGroup as EModeGroupType, Pool } from 'types';
-import type { BlockingBorrowPosition } from '../types';
+import type { BlockingBorrowPosition } from '../../types';
 import { ASSET_COLUMN_KEY } from '../useColumns';
 import { EModeGroupCard } from './EModeGroupCard';
 import { Header } from './Header';
@@ -51,6 +51,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
       {/* Mobile/Tablet view */}
       <EModeGroupCard
         eModeGroup={eModeGroup}
+        columns={formattedColumns}
         userHasEnoughCollateral={userHasEnoughCollateral}
         userBlockingBorrowPositions={userBlockingBorrowPositions}
         hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
@@ -69,14 +70,14 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
         getRowHref={getRowHref}
         breakpoint="md"
         header={
-          <div className="-mx-6">
+          <div className="-mx-4">
             <Header
               pool={pool}
               eModeGroup={eModeGroup}
               userHasEnoughCollateral={userHasEnoughCollateral}
               userBlockingBorrowPositions={userBlockingBorrowPositions}
               hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
-              className="px-6 py-4"
+              className="p-4"
             />
 
             <Delimiter />
