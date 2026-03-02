@@ -11,9 +11,9 @@ export const useTokenPair = () => {
 
   const tokens = useGetTokens();
 
-  const defaultShortToken = nativeToken;
+  const defaultLongToken = nativeToken;
 
-  const defaultLongToken =
+  const defaultShortToken =
     useGetToken({
       symbol: 'USDT',
     }) || tokens[0];
