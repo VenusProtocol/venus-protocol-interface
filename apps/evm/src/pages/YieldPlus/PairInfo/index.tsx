@@ -1,11 +1,9 @@
-import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router';
 
 import { useGetPool } from 'clients/api';
 import { Apy, CellGroup, type CellProps, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useChain } from 'hooks/useChain';
-import { useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Token } from 'types';
 import {
@@ -22,7 +20,6 @@ export const PairInfo: React.FC = () => {
   const { corePoolComptrollerContractAddress } = useChain();
   const { shortToken, longToken } = useTokenPair();
   const [_, setSearchParams] = useSearchParams();
-  const tokens = useGetTokens();
 
   const setLongToken = (newLongToken: Token) => {
     setSearchParams(currentSearchParams => ({
@@ -37,16 +34,16 @@ export const PairInfo: React.FC = () => {
       [SHORT_TOKEN_ADDRESS_PARAM_KEY]: newShortToken.address,
     }));
 
-  const priceLongTokens = new BigNumber('0.02341'); // TODO: fetch
   const changePercentage = 3.32; // TODO: fetch
 
-  const corePool = useGetPool({
+  const { data: getPoolData } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
   });
 
-  const { shortAsset, longAsset } = (corePool.data?.pool.assets || []).reduce<{
+  const { shortAsset, longAsset, tokens } = (getPoolData?.pool.assets || []).reduce<{
     shortAsset: Asset | undefined;
     longAsset: Asset | undefined;
+    tokens: Token[];
   }>(
     (acc, asset) => {
       if (areTokensEqual(asset.vToken.underlyingToken, shortToken)) {
@@ -57,28 +54,40 @@ export const PairInfo: React.FC = () => {
         acc.longAsset = asset;
       }
 
+      // Filter out paused assets
+      if (asset.disabledTokenActions.length > 0) {
+        acc.tokens.push(asset.vToken.underlyingToken);
+      }
+
       return acc;
     },
     {
       shortAsset: undefined,
       longAsset: undefined,
+      tokens: [],
     },
   );
 
-  const readablePriceLongTokens = priceLongTokens.dp(6).toFixed();
+  const priceLongTokens =
+    longAsset && shortAsset ? longAsset.tokenPriceCents.div(shortAsset.tokenPriceCents) : undefined;
+
+  const readablePriceLongTokens = priceLongTokens
+    ? priceLongTokens.dp(6).toFixed()
+    : PLACEHOLDER_KEY;
+
   const readableChangePercentage = formatPercentageToReadableValue(changePercentage);
 
   const cells: CellProps[] = [
     {
       label: t('yieldPlus.longLiquidity'),
       value: formatCentsToReadableValue({
-        value: shortAsset?.liquidityCents,
+        value: longAsset?.liquidityCents,
       }),
     },
     {
       label: t('yieldPlus.shortLiquidity'),
       value: formatCentsToReadableValue({
-        value: longAsset?.liquidityCents,
+        value: shortAsset?.liquidityCents,
       }),
     },
     {
@@ -116,14 +125,14 @@ export const PairInfo: React.FC = () => {
       <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between md:items-start lg:flex lg:flex-col">
         <div className="flex items-center gap-x-3">
           <div className="flex items-center -space-x-2">
-            <TokenIcon token={shortToken} className="size-8" />
-
             <TokenIcon token={longToken} className="size-8" />
+
+            <TokenIcon token={shortToken} className="size-8" />
           </div>
 
           <div className="flex flex-col">
             <p className="text-b1s">
-              {shortToken.symbol}/{longToken.symbol}
+              {longToken.symbol}/{shortToken.symbol}
             </p>
 
             <div className="flex items-center gap-x-1">
