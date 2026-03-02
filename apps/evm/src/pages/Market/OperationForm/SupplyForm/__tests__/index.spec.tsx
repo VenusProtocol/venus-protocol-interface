@@ -3,15 +3,19 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { xvs } from '__mocks__/models/tokens';
+import { bnb, xvs } from '__mocks__/models/tokens';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
 import { useSupply } from 'clients/api';
+import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { useCollateral } from 'hooks/useCollateral';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import type { Asset, AssetBalanceMutation } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
@@ -26,6 +30,7 @@ import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useCollateral');
+vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useTokenApproval');
 vi.mock('../../useCommonValidation');
 
@@ -34,6 +39,28 @@ const mockSupply = vi.fn();
 describe('SupplyForm', () => {
   beforeEach(() => {
     (useSupply as Mock).mockReturnValue({ mutateAsync: mockSupply });
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabledInput) => name === 'integratedSwap',
+    );
+
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: xvs,
+          balanceMantissa: convertTokensToMantissa({
+            token: xvs,
+            value: fakeAsset.userWalletBalanceTokens,
+          }),
+        },
+        {
+          token: bnb,
+          balanceMantissa: convertTokensToMantissa({
+            token: bnb,
+            value: fakeAsset.userWalletBalanceTokens,
+          }),
+        },
+      ],
+    });
   });
 
   it('displays correct wallet balance amount', async () => {
@@ -58,6 +85,18 @@ describe('SupplyForm', () => {
       userWalletBalanceTokens: new BigNumber(100),
     };
 
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: xvs,
+          balanceMantissa: convertTokensToMantissa({
+            token: xvs,
+            value: customFakeAsset.userWalletBalanceTokens,
+          }),
+        },
+      ],
+    });
+
     const { getByTestId, getByText } = renderComponent(
       <SupplyForm pool={fakePool} asset={customFakeAsset} />,
       {
@@ -68,7 +107,14 @@ describe('SupplyForm', () => {
     const incorrectValueTokens = customFakeAsset.userWalletBalanceTokens.plus(1).toFixed();
 
     // Enter amount in input
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    const tokenTextInput = await waitFor(
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
+    );
 
     fireEvent.change(tokenTextInput, {
       target: { value: incorrectValueTokens },
@@ -113,7 +159,13 @@ describe('SupplyForm', () => {
     );
 
     // Check input is disabled
-    expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
+    expect(
+      getByTestId(
+        getTokenTextFieldTestId({
+          parentTestId: TEST_IDS.selectTokenTextField,
+        }),
+      ).closest('input'),
+    ).toBeDisabled();
 
     // Check submit button is disabled
     await checkSubmitButtonIsDisabled();
@@ -146,7 +198,14 @@ describe('SupplyForm', () => {
       .toFixed();
 
     // Enter amount in input
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    const tokenTextInput = await waitFor(
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
+    );
 
     fireEvent.change(tokenTextInput, {
       target: { value: incorrectValueTokens },
@@ -236,7 +295,12 @@ describe('SupplyForm', () => {
     );
 
     const tokenTextInput = await waitFor(
-      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
     );
 
     // Click on max button
@@ -269,7 +333,12 @@ describe('SupplyForm', () => {
     );
 
     const tokenTextInput = await waitFor(
-      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
     );
 
     // Click on max button
@@ -305,7 +374,12 @@ describe('SupplyForm', () => {
       .minus(customFakeAsset.supplyBalanceTokens)
       .minus(1);
     const tokenTextInput = await waitFor(
-      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
     );
     fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
 
@@ -365,7 +439,14 @@ describe('SupplyForm', () => {
     const correctAmountTokens = fakeAsset.supplyCapTokens
       .minus(fakeAsset.supplyBalanceTokens)
       .minus(1);
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    const tokenTextInput = await waitFor(
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
+    );
     await waitFor(() => {
       fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
     });

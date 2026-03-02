@@ -6,12 +6,14 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetBalanceOf, useSupply } from 'clients/api';
+import { useSupply } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { type Asset, type AssetBalanceMutation, ChainId } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
@@ -20,9 +22,10 @@ import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 const fakeNativeTokenBalanceTokens = new BigNumber(10);
-const fakeBalanceMantissa = fakeNativeTokenBalanceTokens.multipliedBy(10 ** 18);
 
 const mockSupply = vi.fn();
+
+vi.mock('hooks/useGetSwapTokenUserBalances');
 
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
@@ -30,44 +33,42 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       ({ name }: UseIsFeatureEnabledInput) => name === 'wrapUnwrapNativeToken',
     );
 
-    (useGetBalanceOf as Mock).mockImplementation(() => ({
-      data: {
-        balanceMantissa: fakeBalanceMantissa,
-      },
-      isLoading: false,
-    }));
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: eth,
+          balanceMantissa: convertTokensToMantissa({
+            token: eth,
+            value: fakeNativeTokenBalanceTokens,
+          }),
+        },
+        {
+          token: fakeWethAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: fakeWethAsset.vToken.underlyingToken,
+            value: new BigNumber(1),
+          }),
+        },
+      ],
+    });
 
     (useSupply as Mock).mockReturnValue({ mutateAsync: mockSupply });
   });
 
   it('does not display the token selector if the underlying token does not wrap the chain native token', async () => {
-    const { queryByTestId } = renderComponent(
-      <Supply
-        asset={fakeAsset}
-        pool={fakePool}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
-      {
-        chainId: ChainId.SEPOLIA,
-        accountAddress: fakeAccountAddress,
-      },
-    );
+    const { queryByTestId } = renderComponent(<Supply asset={fakeAsset} pool={fakePool} />, {
+      chainId: ChainId.SEPOLIA,
+      accountAddress: fakeAccountAddress,
+    });
 
     expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeNull();
   });
 
   it('displays the token selector if the underlying token wraps the chain native token', async () => {
-    const { queryByTestId } = renderComponent(
-      <Supply
-        asset={fakeWethAsset}
-        pool={fakePool}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
-      {
-        chainId: ChainId.SEPOLIA,
-        accountAddress: fakeAccountAddress,
-      },
-    );
+    const { queryByTestId } = renderComponent(<Supply asset={fakeWethAsset} pool={fakePool} />, {
+      chainId: ChainId.SEPOLIA,
+      accountAddress: fakeAccountAddress,
+    });
 
     expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible();
   });
@@ -79,11 +80,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     };
 
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
-      <Supply
-        asset={customFakeAsset}
-        pool={fakePool}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
+      <Supply asset={customFakeAsset} pool={fakePool} />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -124,11 +121,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     const amountTokensToSupply = new BigNumber('1');
 
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
-      <Supply
-        asset={fakeWethAsset}
-        pool={fakePool}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
+      <Supply asset={fakeWethAsset} pool={fakePool} />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,

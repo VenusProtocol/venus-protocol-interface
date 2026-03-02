@@ -14,17 +14,15 @@ import { NULL_ADDRESS } from 'constants/address';
 import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { VError } from 'libs/errors';
-import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset, AssetBalanceMutation, Pool, TokenBalance } from 'types';
+import type { Asset, AssetBalanceMutation, Pool } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
@@ -32,12 +30,12 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getSwapToTokenAmountReceivedTokens,
-  getUniqueTokenBalances,
 } from 'utilities';
 import { ApyBreakdown } from '../../ApyBreakdown';
 import { Footer } from '../../Footer';
 import type { Approval } from '../../Footer/types';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
+import { useGetOperationFormTokenBalances } from '../../useGetOperationFormTokenBalances';
 import { Notice } from '../Notice';
 import { calculatePercentageOfUserBorrowBalance } from './calculatePercentageOfUserBorrowBalance';
 import { getInitialFormValues } from './getInitialFormValues';
@@ -50,16 +48,12 @@ export interface RepayWithWalletBalanceFormProps {
   asset: Asset;
   pool: Pool;
   onSubmitSuccess?: () => void;
-  userTokenWrappedBalanceMantissa?: BigNumber;
-  userNativeTokenBalanceMantissa?: BigNumber;
 }
 
 const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   asset,
   pool,
   onSubmitSuccess,
-  userTokenWrappedBalanceMantissa,
-  userNativeTokenBalanceMantissa,
 }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
@@ -67,9 +61,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   const isIntegratedSwapFeatureEnabled =
     isIntegratedSwapEnabled &&
     // Check swap and supply action is enabled for underlying token
-    !asset.disabledTokenActions.includes('swapAndRepay') &&
-    // Disable swap for BNB market
-    asset.vToken.symbol !== 'vBNB';
+    !asset.disabledTokenActions.includes('swapAndRepay');
 
   const { accountAddress } = useAccountAddress();
   const { t } = useTranslation();
@@ -84,12 +76,13 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   const canWrapNativeToken =
     isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped;
 
-  const userWalletNativeTokenBalanceTokens = userTokenWrappedBalanceMantissa
-    ? convertMantissaToTokens({
-        token: asset.vToken.underlyingToken.tokenWrapped,
-        value: userTokenWrappedBalanceMantissa,
-      })
-    : undefined;
+  const { tokenBalances, userWalletNativeTokenBalanceTokens } = useGetOperationFormTokenBalances({
+    poolComptrollerContractAddress: pool.comptrollerAddress,
+    accountAddress,
+    underlyingToken: asset.vToken.underlyingToken,
+    isIntegratedSwapFeatureEnabled,
+    canWrapNativeToken,
+  });
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
@@ -148,39 +141,6 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   const { mutateAsync: onSwapAndRepay, isPending: isSwapAndRepayLoading } = useSwapTokensAndRepay();
 
   const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
-
-  const bnb = useGetToken({
-    symbol: 'BNB',
-  });
-
-  let nativeWrappedTokenBalances: TokenBalance[] = [];
-
-  if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
-    const marketTokenBalance: TokenBalance = {
-      token: asset.vToken.underlyingToken,
-      balanceMantissa: convertTokensToMantissa({
-        token: asset.vToken.underlyingToken,
-        value: asset.userWalletBalanceTokens,
-      }),
-    };
-    const nativeTokenBalance: TokenBalance = {
-      token: asset.vToken.underlyingToken.tokenWrapped,
-      balanceMantissa: userTokenWrappedBalanceMantissa,
-    };
-    nativeWrappedTokenBalances = [marketTokenBalance, nativeTokenBalance];
-  }
-
-  if (isIntegratedSwapFeatureEnabled && userNativeTokenBalanceMantissa && bnb) {
-    nativeWrappedTokenBalances.push({
-      token: bnb,
-      balanceMantissa: userNativeTokenBalanceMantissa,
-    });
-  }
-
-  const { data: integratedSwapTokenBalances } = useGetSwapTokenUserBalances({
-    poolComptrollerContractAddress: pool.comptrollerAddress,
-    accountAddress,
-  });
 
   const onSubmit: UseFormInput['onSubmit'] = useCallback(
     async ({ fromToken, fromTokenAmountTokens, swapQuote, fixedRepayPercentage }) => {
@@ -296,27 +256,18 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
       }
     : undefined;
 
-  const tokenBalances = getUniqueTokenBalances(
-    ...(integratedSwapTokenBalances || []),
-    ...nativeWrappedTokenBalances,
-  );
-
   let fromTokenUserWalletBalanceTokens: BigNumber | undefined = asset.userWalletBalanceTokens;
 
-  // Get wallet balance from the list of fetched token balances if integrated swap feature is
-  // enabled and the selected token is different from the asset object
-  if (isUsingSwap || isWrappingNativeToken) {
-    const tokenBalance = tokenBalances.find(item =>
-      areTokensEqual(item.token, formValues.fromToken),
-    );
+  const fromTokenUserWalletBalanceMantissa = tokenBalances.find(item =>
+    areTokensEqual(item.token, formValues.fromToken),
+  );
 
-    fromTokenUserWalletBalanceTokens =
-      tokenBalance &&
-      convertMantissaToTokens({
-        value: tokenBalance.balanceMantissa,
-        token: tokenBalance.token,
-      });
-  }
+  fromTokenUserWalletBalanceTokens =
+    fromTokenUserWalletBalanceMantissa &&
+    convertMantissaToTokens({
+      value: fromTokenUserWalletBalanceMantissa.balanceMantissa,
+      token: fromTokenUserWalletBalanceMantissa.token,
+    });
 
   let repayToTokenAmountTokens = new BigNumber(debouncedFormAmountTokens || 0);
 

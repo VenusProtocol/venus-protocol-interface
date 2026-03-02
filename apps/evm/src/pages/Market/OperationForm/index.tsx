@@ -9,7 +9,6 @@ import { useTranslation } from 'libs/translations';
 import type { VToken } from 'types';
 import BoostForm from './BoostForm';
 import BorrowForm from './BorrowForm';
-import NativeTokenBalanceWrapper from './NativeTokenBalanceWrapper';
 import { Repay } from './Repay';
 import SupplyForm from './SupplyForm';
 import WithdrawForm from './WithdrawForm';
@@ -44,23 +43,7 @@ export const OperationForm: React.FC<OperationFormProps> = ({
           poolComptrollerAddress={poolComptrollerAddress}
           action="supply"
         >
-          {({ asset, pool }) => (
-            <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-              {({
-                asset,
-                pool,
-                userTokenWrappedBalanceMantissa,
-                userNativeTokenBalanceMantissa,
-              }) => (
-                <SupplyForm
-                  asset={asset}
-                  pool={pool}
-                  userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
-                  userNativeTokenBalanceMantissa={userNativeTokenBalanceMantissa}
-                />
-              )}
-            </NativeTokenBalanceWrapper>
-          )}
+          {({ asset, pool }) => <SupplyForm asset={asset} pool={pool} />}
         </AssetAccessor>
       ),
     },

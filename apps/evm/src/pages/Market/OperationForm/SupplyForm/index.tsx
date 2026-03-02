@@ -16,45 +16,36 @@ import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useCollateral } from 'hooks/useCollateral';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { VError, handleError } from 'libs/errors';
-import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, AssetBalanceMutation, Pool, TokenBalance } from 'types';
+import type { Asset, AssetBalanceMutation, Pool } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatTokensToReadableValue,
   getSwapToTokenAmountReceivedTokens,
-  getUniqueTokenBalances,
   isCollateralActionDisabled,
 } from 'utilities';
 import { Footer } from '../Footer';
 import type { Approval } from '../Footer/types';
 import { calculateAmountDollars } from '../calculateAmountDollars';
+import { useGetOperationFormTokenBalances } from '../useGetOperationFormTokenBalances';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues } from './useForm';
 
 export interface SupplyFormProps {
   asset: Asset;
   pool: Pool;
-  userTokenWrappedBalanceMantissa?: BigNumber;
-  userNativeTokenBalanceMantissa?: BigNumber;
 }
 
-const SupplyForm: React.FC<SupplyFormProps> = ({
-  asset,
-  pool,
-  userTokenWrappedBalanceMantissa,
-  userNativeTokenBalanceMantissa,
-}) => {
+const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
 
@@ -69,9 +60,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   const isIntegratedSwapFeatureEnabled =
     isIntegratedSwapEnabled &&
     // Check swap and supply action is enabled for underlying token
-    !asset.disabledTokenActions.includes('swapAndSupply') &&
-    // Disable swap for BNB market
-    asset.vToken.symbol !== 'vBNB';
+    !asset.disabledTokenActions.includes('swapAndSupply');
 
   const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
     name: 'NativeTokenGateway',
@@ -87,16 +76,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   const canWrapNativeToken =
     isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped;
 
-  const userWalletNativeTokenBalanceTokens = useMemo(
-    () =>
-      userTokenWrappedBalanceMantissa
-        ? convertMantissaToTokens({
-            token: asset.vToken.underlyingToken.tokenWrapped,
-            value: userTokenWrappedBalanceMantissa,
-          })
-        : undefined,
-    [userTokenWrappedBalanceMantissa, asset.vToken.underlyingToken],
-  );
+  const { tokenBalances, userWalletNativeTokenBalanceTokens } = useGetOperationFormTokenBalances({
+    poolComptrollerContractAddress: pool.comptrollerAddress,
+    accountAddress,
+    underlyingToken: asset.vToken.underlyingToken,
+    isIntegratedSwapFeatureEnabled,
+    canWrapNativeToken,
+  });
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
@@ -150,47 +136,6 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress,
-    accountAddress,
-  });
-
-  const bnb = useGetToken({
-    symbol: 'BNB',
-  });
-
-  const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
-    const balances: TokenBalance[] = [];
-    if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
-      balances.push({
-        token: asset.vToken.underlyingToken,
-        balanceMantissa: convertTokensToMantissa({
-          token: asset.vToken.underlyingToken,
-          value: asset.userWalletBalanceTokens,
-        }),
-      });
-      balances.push({
-        token: asset.vToken.underlyingToken.tokenWrapped,
-        balanceMantissa: userTokenWrappedBalanceMantissa,
-      });
-    }
-    // Add native BNB for non-BNB markets when integrated swap is enabled, so
-    // users can swap native BNB into any market's underlying and supply in one
-    // transaction.
-    if (isIntegratedSwapFeatureEnabled && userNativeTokenBalanceMantissa && bnb) {
-      balances.push({ token: bnb, balanceMantissa: userNativeTokenBalanceMantissa });
-    }
-
-    return balances;
-  }, [
-    asset.vToken.underlyingToken,
-    asset.userWalletBalanceTokens,
-    bnb,
-    isIntegratedSwapFeatureEnabled,
-    userTokenWrappedBalanceMantissa,
-    userNativeTokenBalanceMantissa,
-  ]);
-
-  const { data: integratedSwapTokenBalances } = useGetSwapTokenUserBalances({
-    poolComptrollerContractAddress: pool.comptrollerAddress,
     accountAddress,
   });
 
@@ -272,38 +217,19 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       }
     : undefined;
 
-  const tokenBalances = getUniqueTokenBalances(
-    ...(integratedSwapTokenBalances || []),
-    ...nativeWrappedTokenBalances,
-  );
-
   const fromTokenUserWalletBalanceTokens = useMemo(() => {
-    // Get wallet balance from the list of fetched token balances if integrated
-    // swap feature is enabled and the selected token is different from the
-    // asset object
-    if (isUsingSwap || isWrappingNativeToken) {
-      const tokenBalance = tokenBalances.find(item =>
-        areTokensEqual(item.token, formValues.fromToken),
-      );
+    const tokenBalance = tokenBalances.find(item =>
+      areTokensEqual(item.token, formValues.fromToken),
+    );
 
-      return (
-        tokenBalance &&
-        convertMantissaToTokens({
-          value: tokenBalance.balanceMantissa,
-          token: tokenBalance.token,
-        })
-      );
-    }
-
-    // Otherwise get the wallet balance from the asset object
-    return asset.userWalletBalanceTokens;
-  }, [
-    isUsingSwap,
-    isWrappingNativeToken,
-    asset.userWalletBalanceTokens,
-    formValues.fromToken,
-    tokenBalances,
-  ]);
+    return (
+      tokenBalance &&
+      convertMantissaToTokens({
+        value: tokenBalance.balanceMantissa,
+        token: tokenBalance.token,
+      })
+    );
+  }, [tokenBalances, formValues.fromToken]);
 
   // Determine the amount of tokens the user can supply, taking the supply cap, their wallet
   // balance and spending limit in consideration

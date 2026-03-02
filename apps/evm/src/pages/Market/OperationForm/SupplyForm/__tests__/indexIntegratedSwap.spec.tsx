@@ -222,9 +222,9 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       ...fakePool,
       assets: customFakePool.assets.map(a => ({
         ...a,
-        userSupplyBalanceTokens: areTokensEqual(a.vToken, fakeAsset.vToken)
+        supplyBalanceTokens: areTokensEqual(a.vToken, fakeAsset.vToken)
           ? fakeSupplyBalanceTokens
-          : a.userSupplyBalanceTokens,
+          : a.supplyBalanceTokens,
       })),
     };
 
