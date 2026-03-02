@@ -1,11 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
+import { useCommonValidation } from 'pages/Market/OperationForm/useCommonValidation';
 import type { AssetBalanceMutation, Pool, SwapQuote } from 'types';
-import type { FormError } from '../../types';
-import { useCommonValidation } from '../../useCommonValidation';
-import type { FormErrorCode, FormValues } from './types';
+import type { FormError } from '../../../../types';
+import type { FormErrorCode, FormValues } from '../types';
 
 interface UseFormValidationInput {
   pool: Pool;
@@ -17,6 +16,7 @@ interface UseFormValidationInput {
   simulatedPool?: Pool;
   swapQuote?: SwapQuote;
   swapQuoteErrorCode?: string;
+  isUsingSwap?: boolean;
 }
 
 interface UseFormValidationOutput {
@@ -24,7 +24,7 @@ interface UseFormValidationOutput {
   formError?: FormError<FormErrorCode>;
 }
 
-const useFormValidation = ({
+export const useFormValidation = ({
   pool,
   swapQuote,
   swapQuoteErrorCode,
@@ -34,6 +34,7 @@ const useFormValidation = ({
   simulatedPool,
   fromTokenUserWalletBalanceTokens,
   fromTokenWalletSpendingLimitTokens,
+  isUsingSwap,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
@@ -46,7 +47,7 @@ const useFormValidation = ({
     userAcknowledgesHighPriceImpact: formValues.acknowledgeHighPriceImpact,
   });
 
-  const formError: FormError<FormErrorCode> | undefined = useMemo(() => {
+  const formError: FormError<FormErrorCode> | undefined = (() => {
     if (commonFormError) {
       return commonFormError;
     }
@@ -63,7 +64,7 @@ const useFormValidation = ({
 
     if (
       fromTokenUserWalletBalanceTokens &&
-      fromTokenAmountTokens.isGreaterThan(fromTokenUserWalletBalanceTokens)
+      fromTokenAmountTokens?.isGreaterThan(fromTokenUserWalletBalanceTokens)
     ) {
       return {
         code: 'HIGHER_THAN_WALLET_BALANCE',
@@ -76,27 +77,23 @@ const useFormValidation = ({
     if (
       isFromTokenApproved &&
       fromTokenWalletSpendingLimitTokens &&
-      fromTokenAmountTokens.isGreaterThan(fromTokenWalletSpendingLimitTokens)
+      fromTokenAmountTokens?.isGreaterThan(fromTokenWalletSpendingLimitTokens)
     ) {
       return {
         code: 'HIGHER_THAN_WALLET_SPENDING_LIMIT',
         message: t('operationForm.error.higherThanWalletSpendingLimit'),
       };
     }
-  }, [
-    fromTokenUserWalletBalanceTokens,
-    fromTokenWalletSpendingLimitTokens,
-    isFromTokenApproved,
-    formValues.fromToken.symbol,
-    formValues.amountTokens,
-    t,
-    commonFormError,
-  ]);
+
+    if (!simulatedPool || (!swapQuote && isUsingSwap)) {
+      return {
+        code: 'MISSING_DATA',
+      };
+    }
+  })();
 
   return {
     isFormValid: !formError,
     formError,
   };
 };
-
-export default useFormValidation;

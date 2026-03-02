@@ -44,6 +44,7 @@ export const useStyles = () => {
 
     maxButton: css`
       margin-left: ${theme.spacing(2)};
+      white-space: nowrap;
     `,
   };
 };

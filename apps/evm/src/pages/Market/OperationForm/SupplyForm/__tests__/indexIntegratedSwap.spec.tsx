@@ -13,7 +13,7 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { en } from 'libs/translations';
@@ -222,9 +222,9 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       ...fakePool,
       assets: customFakePool.assets.map(a => ({
         ...a,
-        supplyBalanceTokens: areTokensEqual(a.vToken, fakeAsset.vToken)
+        userSupplyBalanceTokens: areTokensEqual(a.vToken, fakeAsset.vToken)
           ? fakeSupplyBalanceTokens
-          : a.supplyBalanceTokens,
+          : a.userSupplyBalanceTokens,
       })),
     };
 

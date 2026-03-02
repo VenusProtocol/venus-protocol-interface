@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useGetSwapTokenUserBalances > filters out paused assets and returns mapped token balances 1`] = `
+[
+  {
+    "balanceMantissa": "100000000000000000000",
+    "token": {
+      "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": 97,
+      "decimals": 18,
+      "iconSrc": "fake-xvs-asset",
+      "symbol": "XVS",
+    },
+  },
+]
+`;

@@ -58,7 +58,7 @@ exports[`useCommonValidation > returns the right error based on passed arguments
 {
   "current": {
     "code": "HIGHER_THAN_SUPPLY_CAP",
-    "message": "You can not supply more than 9 XVS to this pool, as the supply cap for this market is set at 10 XVS and 1 XVS are currently being supplied to it.",
+    "message": "You can not supply more than 0.5 XVS to this pool, as the supply cap for this market is set at 10 XVS and 9.5 XVS are currently being supplied to it.",
   },
 }
 `;

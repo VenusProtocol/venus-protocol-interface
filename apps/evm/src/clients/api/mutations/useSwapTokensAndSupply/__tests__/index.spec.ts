@@ -23,9 +23,7 @@ const mockSwap = {
   toToken: usdc,
   fromTokenAmountSoldMantissa: new BigNumber(1000),
   minimumToTokenAmountReceivedMantissa: new BigNumber(900),
-  routePath: ['0xdef' as Address, '0xghi' as Address],
   priceImpactPercentage: 0.1,
-  exchangeRate: new BigNumber(1),
   expectedToTokenAmountReceivedMantissa: new BigNumber(1000),
 };
 
@@ -39,6 +37,7 @@ describe('useSwapTokensAndSupply', () => {
           vToken: vXvs,
           poolComptrollerAddress: mockPoolComptrollerAddress,
           poolName: mockPoolName,
+          isSwappingNative: false,
         }),
       {
         accountAddress: fakeAccountAddress,
@@ -66,6 +65,7 @@ describe('useSwapTokensAndSupply', () => {
           vToken: vXvs,
           poolComptrollerAddress: mockPoolComptrollerAddress,
           poolName: mockPoolName,
+          isSwappingNative: false,
         }),
       {
         accountAddress: fakeAccountAddress,
@@ -129,6 +129,7 @@ describe('useSwapTokensAndSupply', () => {
           vToken: vXvs,
           poolComptrollerAddress: mockPoolComptrollerAddress,
           poolName: mockPoolName,
+          isSwappingNative: false,
         }),
       {
         accountAddress: fakeAccountAddress,
@@ -166,6 +167,7 @@ describe('useSwapTokensAndSupply', () => {
           vToken: vXvs,
           poolComptrollerAddress: mockPoolComptrollerAddress,
           poolName: mockPoolName,
+          isSwappingNative: false,
         }),
       {
         accountAddress: fakeAccountAddress,

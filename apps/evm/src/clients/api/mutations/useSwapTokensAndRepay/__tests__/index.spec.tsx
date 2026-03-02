@@ -12,30 +12,31 @@ import fakeAccountAddress, {
 } from '__mocks__/models/address';
 import { bnb, xvs } from '__mocks__/models/tokens';
 import { vBnb } from '__mocks__/models/vTokens';
+import type { SwapQuote } from 'types';
 
 vi.mock('libs/contracts');
 vi.mock('utilities/generateTransactionDeadline');
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');
 
-const fakeSwap = {
-  direction: 'exactAmountIn' as const,
+const fakeSwapQuote: SwapQuote = {
+  direction: 'exact-in' as const,
   fromToken: xvs,
   toToken: bnb,
-  fromTokenAmountSoldMantissa: fakeAmountMantissa,
-  minimumToTokenAmountReceivedMantissa: fakeAmountMantissa,
-  expectedToTokenAmountReceivedMantissa: fakeAmountMantissa,
-  exchangeRate: new BigNumber('1'),
+  fromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+  minimumToTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
+  expectedToTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
   priceImpactPercentage: 0,
-  routePath: [xvs.address, bnb.address],
+  callData: '0x',
 };
 
 const fakeInput = {
-  swap: fakeSwap,
+  swapQuote: fakeSwapQuote,
   vToken: vBnb,
   repayFullLoan: false,
   poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
   poolName: 'Fake Pool',
+  isSwappingNative: false,
 };
 
 const fakeOptions = {
@@ -72,17 +73,15 @@ describe('useSwapTokensAndRepay', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xfakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
+          "${vBnb.address}",
+          "${xvs.address}",
           10000000000000000n,
           10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
-          ],
-          1747386407n,
+          "0x",
         ],
-        "functionName": "swapExactTokensForBNBAndRepay",
+        "functionName": "swapAndRepay",
       }
     `,
     );
@@ -94,7 +93,6 @@ describe('useSwapTokensAndRepay', () => {
       [
         "Tokens swapped and repaid",
         {
-          "exchangeRate": 1,
           "fromTokenAmountTokens": 0.01,
           "fromTokenSymbol": "XVS",
           "poolName": "Fake Pool",
@@ -118,12 +116,9 @@ describe('useSwapTokensAndRepay', () => {
     const repayFullLoanInput = {
       ...fakeInput,
       repayFullLoan: true,
-      swap: {
-        ...fakeSwap,
-        direction: 'exactAmountOut' as const,
-        toTokenAmountReceivedMantissa: fakeAmountMantissa,
-        maximumFromTokenAmountSoldMantissa: fakeAmountMantissa,
-        expectedFromTokenAmountSoldMantissa: fakeAmountMantissa,
+      swapQuote: {
+        ...fakeSwapQuote,
+        direction: 'approximate-out' as const,
       },
     };
 
@@ -142,16 +137,14 @@ describe('useSwapTokensAndRepay', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xfakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
+          "${repayFullLoanInput.vToken.address}",
+          "${repayFullLoanInput.swapQuote.fromToken.address}",
           10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
-          ],
-          1747386407n,
+          "0x",
         ],
-        "functionName": "swapTokensForFullBNBDebtAndRepay",
+        "functionName": "swapAndRepayFull",
       }
     `,
     );
@@ -163,7 +156,6 @@ describe('useSwapTokensAndRepay', () => {
       [
         "Tokens swapped and repaid",
         {
-          "exchangeRate": 1,
           "fromTokenAmountTokens": 0.01,
           "fromTokenSymbol": "XVS",
           "poolName": "Fake Pool",
@@ -186,12 +178,16 @@ describe('useSwapTokensAndRepay', () => {
 
     const swapBnbInput = {
       ...fakeInput,
-      swap: {
-        ...fakeSwap,
-        fromToken: bnb,
+      isSwappingNative: true,
+      swapQuote: {
+        ...fakeSwapQuote,
+        fromToken: {
+          ...bnb,
+          tokenWrapped: bnb,
+        },
         toToken: xvs,
-        fromTokenAmountSoldMantissa: fakeAmountMantissa,
-        minimumToTokenAmountReceivedMantissa: fakeAmountMantissa,
+        fromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        minimumToTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
       },
     };
 
@@ -210,17 +206,13 @@ describe('useSwapTokensAndRepay', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xfakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterV2ContractAddress",
         "args": [
-          "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+          "${swapBnbInput.vToken.address}",
           10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
-          ],
-          1747386407n,
+          "0x",
         ],
-        "functionName": "swapBNBForExactTokensAndRepay",
+        "functionName": "swapNativeAndRepay",
         "value": 10000000000000000n,
       }
     `,
@@ -233,7 +225,6 @@ describe('useSwapTokensAndRepay', () => {
       [
         "Tokens swapped and repaid",
         {
-          "exchangeRate": 1,
           "fromTokenAmountTokens": 0.01,
           "fromTokenSymbol": "XVS",
           "poolName": "Fake Pool",
@@ -249,6 +240,97 @@ describe('useSwapTokensAndRepay', () => {
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
+  it('calls useSendTransaction with the correct parameters for swapping BNB and repaying full loan', async () => {
+    renderHook(() => useSwapTokensAndRepay(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const repayFullLoanWithBnbInput = {
+      ...fakeInput,
+      repayFullLoan: true,
+      isSwappingNative: true,
+      swapQuote: {
+        ...fakeSwapQuote,
+        direction: 'approximate-out' as const,
+        fromToken: {
+          ...bnb,
+          tokenWrapped: bnb,
+        },
+        toToken: xvs,
+      },
+    };
+
+    expect(useSendTransaction).toHaveBeenCalledWith({
+      fn: expect.any(Function),
+      onConfirmed: expect.any(Function),
+      options: fakeOptions,
+    });
+
+    const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(await fn(repayFullLoanWithBnbInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "address": "0xfakeSwapRouterV2ContractAddress",
+        "args": [
+          "${repayFullLoanWithBnbInput.vToken.address}",
+          "0x",
+        ],
+        "functionName": "swapNativeAndRepayFull",
+        "value": 10000000000000000n,
+      }
+    `,
+    );
+
+    onConfirmed({ input: fakeInput });
+
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledTimes(1);
+    expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "Tokens swapped and repaid",
+        {
+          "fromTokenAmountTokens": 0.01,
+          "fromTokenSymbol": "XVS",
+          "poolName": "Fake Pool",
+          "priceImpactPercentage": 0,
+          "repaidFullLoan": false,
+          "slippageTolerancePercentage": 0.5,
+          "toTokenAmountTokens": 0.01,
+          "toTokenSymbol": "BNB",
+        },
+      ]
+    `);
+
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
+  });
+
+  it('throws incorrectSwapInput for unsupported exact-out swap quote', async () => {
+    renderHook(() => useSwapTokensAndRepay(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const unsupportedExactOutInput = {
+      ...fakeInput,
+      repayFullLoan: false,
+      swapQuote: {
+        ...fakeSwapQuote,
+        direction: 'exact-out' as const,
+        toTokenAmountReceivedMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        maximumFromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+        expectedFromTokenAmountSoldMantissa: BigInt(fakeAmountMantissa.toFixed()),
+      },
+    };
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    await expect(async () => fn(unsupportedExactOutInput)).rejects.toThrow('incorrectSwapInput');
+    expect(mockCaptureAnalyticEvent).not.toHaveBeenCalled();
+  });
+
   it('throws when SwapRouter contract address is not available', async () => {
     (getContractAddress as Mock).mockImplementation(() => undefined);
 
@@ -258,6 +340,6 @@ describe('useSwapTokensAndRepay', () => {
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(async () => fn(fakeInput)).rejects.toThrow('somethingWentWrong');
+    await expect(async () => fn(fakeInput)).rejects.toThrow('somethingWentWrong');
   });
 });

@@ -3,7 +3,6 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
-import NativeTokenBalanceWrapper from '../NativeTokenBalanceWrapper';
 import { RepayWithCollateralForm } from './RepayWithCollateralForm';
 import RepayWithWalletBalanceForm from './RepayWithWalletBalanceForm';
 
@@ -23,17 +22,7 @@ export const Repay: React.FC<RepayProps> = ({ asset, pool }) => {
     isRepayWithCollateralFeatureEnabled &&
     !asset.disabledTokenActions.includes('repayWithCollateral');
 
-  const repayWithWalletBalanceFormDom = (
-    <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-      {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
-        <RepayWithWalletBalanceForm
-          asset={asset}
-          pool={pool}
-          userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
-        />
-      )}
-    </NativeTokenBalanceWrapper>
-  );
+  const repayWithWalletBalanceFormDom = <RepayWithWalletBalanceForm asset={asset} pool={pool} />;
 
   if (!displayTabs) {
     return repayWithWalletBalanceFormDom;

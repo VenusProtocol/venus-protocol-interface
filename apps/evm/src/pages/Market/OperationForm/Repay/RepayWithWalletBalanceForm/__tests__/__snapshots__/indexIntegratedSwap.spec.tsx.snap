@@ -1,19 +1,16 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `"You will repay≈ 999.999999 XVSSlippage tolerance0.5%Price impact< 0.01%"`;
-
-exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > displays correct swap details 2`] = `"You will repay 999.999999 XVS using 299.99K BUSD"`;
-
 exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > lets user swap and repay full loan 1`] = `
 [
   {
+    "isSwappingNative": false,
     "poolComptrollerContractAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
     "poolName": "Venus",
     "repayFullLoan": true,
-    "swap": {
-      "direction": "exactAmountOut",
-      "exchangeRate": "0.00333333333333333333",
-      "expectedFromTokenAmountSoldMantissa": "3e+23",
+    "swapQuote": {
+      "callData": "0x",
+      "direction": "approximate-out",
+      "expectedToTokenAmountReceivedMantissa": 1000000000000000000000n,
       "fromToken": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
         "chainId": 97,
@@ -21,12 +18,9 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
         "iconSrc": "fake-busd-asset",
         "symbol": "BUSD",
       },
-      "maximumFromTokenAmountSoldMantissa": "3e+23",
+      "fromTokenAmountSoldMantissa": 300000000000000000000000n,
+      "minimumToTokenAmountReceivedMantissa": 1000000000000000000000n,
       "priceImpactPercentage": 0.001,
-      "routePath": [
-        "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-        "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      ],
       "toToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "chainId": 97,
@@ -34,7 +28,6 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
         "iconSrc": "fake-xvs-asset",
         "symbol": "XVS",
       },
-      "toTokenAmountReceivedMantissa": "1e+21",
     },
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
@@ -56,13 +49,14 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
 exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > lets user swap and repay partial loan then calls onClose callback on success 1`] = `
 [
   {
+    "isSwappingNative": false,
     "poolComptrollerContractAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
     "poolName": "Venus",
     "repayFullLoan": false,
-    "swap": {
-      "direction": "exactAmountIn",
-      "exchangeRate": "0.00333333333333333333",
-      "expectedToTokenAmountReceivedMantissa": "999999999999999999900",
+    "swapQuote": {
+      "callData": "0x",
+      "direction": "exact-in",
+      "expectedToTokenAmountReceivedMantissa": 999999999999999999900n,
       "fromToken": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
         "chainId": 97,
@@ -70,13 +64,9 @@ exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > let
         "iconSrc": "fake-busd-asset",
         "symbol": "BUSD",
       },
-      "fromTokenAmountSoldMantissa": "2.999999999999999999999e+23",
-      "minimumToTokenAmountReceivedMantissa": "999999999999999999900",
+      "fromTokenAmountSoldMantissa": 299999999999999999999900n,
+      "minimumToTokenAmountReceivedMantissa": 999999999999999999900n,
       "priceImpactPercentage": 0.001,
-      "routePath": [
-        "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-        "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      ],
       "toToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "chainId": 97,

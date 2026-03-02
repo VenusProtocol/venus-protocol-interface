@@ -926,14 +926,11 @@
       "higherThanSupplyCap": "คุณไม่สามารถฝากเกิน {{userMaxSupplyAmount}} ในพูลนี้ได้ เนื่องจากขีดจำกัดการฝากของตลาดนี้ตั้งไว้ที่ {{assetSupplyCap}} และมีการฝากแล้ว {{assetSupplyBalance}}",
       "higherThanWalletBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
       "higherThanWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
-      "insufficientSwapLiquidity": "สภาพคล่องใน PancakeSwap ไม่เพียงพอสำหรับการสวอปนี้",
       "noCollateral": "คุณต้องฝากโทเคนและเปิดใช้เป็นหลักประกันก่อนจึงจะยืม {{tokenSymbol}} จากพูลนี้ได้",
       "noSwapQuoteFound": "ไม่พบสวอป โปรดอัปเดตฟอร์ม",
       "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป",
       "supplyCapReached": "ขีดจำกัดการฝากของ {{assetSupplyCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถฝากเข้าสู่ตลาดนี้ได้จนกว่าจะมีการถอนหรือเพิ่มขีดจำกัดการฝาก",
-      "tooRisky": "ธุรกรรมนี้จะทำให้บัญชีของคุณถูกชำระบัญชี",
-      "unwrappingUnsupported": "ไม่รองรับการแกะห่อ",
-      "wrappingUnsupported": "ไม่รองรับการห่อ"
+      "tooRisky": "ธุรกรรมนี้จะทำให้บัญชีของคุณถูกชำระบัญชี"
     },
     "receiveNativeToken": {
       "label": "รับ {{tokenSymbol}}",
@@ -977,10 +974,6 @@
         "estimatedAmount": "≈ {{ value }}",
         "exactAmount": "{{ value }}"
       }
-    },
-    "swapSummary": {
-      "repay": "คุณจะชำระคืน {{toTokenAmount}} ด้วย {{fromTokenAmount}}",
-      "supply": "คุณจะฝาก {{toTokenAmount}} ด้วย {{fromTokenAmount}}"
     },
     "walletBalance": "ยอดคงเหลือในกระเป๋า",
     "withdrawTabTitle": "ถอน"

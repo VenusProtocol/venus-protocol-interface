@@ -27,6 +27,7 @@ export type TransactionType = 'chain' | 'layerZero' | 'biconomy';
 
 export type TokenAction =
   | 'swapAndSupply'
+  | 'swapAndRepay'
   | 'boost'
   | 'supply'
   | 'withdraw'
