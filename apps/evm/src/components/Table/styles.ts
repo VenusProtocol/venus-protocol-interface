@@ -88,7 +88,7 @@ export const useStyles = (props?: StylesProps) => {
       `
       }
     `,
-    getTableRow: ({ clickable }: { clickable: boolean }) => css`
+    getTableRow: ({ clickable, rounded }: { clickable: boolean; rounded: boolean }) => css`
       height: ${theme.spacing(18)};
 
       :hover {
@@ -96,21 +96,26 @@ export const useStyles = (props?: StylesProps) => {
         overflow: hidden;
       }
 
-      > td:first-child {
-        border-top-left-radius: ${theme.spacing(2)}; 
-        border-bottom-left-radius: ${theme.spacing(2)}; 
-      }
-
-      > td:last-child {
-        border-bottom-right-radius: ${theme.spacing(2)}; 
-        border-top-right-radius: ${theme.spacing(2)}; 
-      }
-
       ${
-        clickable &&
+        rounded &&
         css`
-        cursor: pointer;
-      `
+          > td:first-child {
+            border-top-left-radius: ${theme.spacing(2)}; 
+            border-bottom-left-radius: ${theme.spacing(2)}; 
+          }
+
+          > td:last-child {
+            border-bottom-right-radius: ${theme.spacing(2)}; 
+            border-top-right-radius: ${theme.spacing(2)}; 
+          }
+
+          ${
+            clickable &&
+            css`
+            cursor: pointer;
+          `
+          }
+        `
       }
     `,
     cellTitleMobile: css`

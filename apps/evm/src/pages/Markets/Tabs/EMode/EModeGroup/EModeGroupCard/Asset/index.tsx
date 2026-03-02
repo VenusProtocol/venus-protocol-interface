@@ -1,17 +1,16 @@
 import { cn } from '@venusprotocol/ui';
 import type { Address } from 'viem';
 
-import { LabeledInlineContent, MarketStatus, TokenIconWithSymbol } from 'components';
+import { LabeledInlineContent, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useFormatTo } from 'hooks/useFormatTo';
-import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings } from 'types';
-import { formatPercentageToReadableValue } from 'utilities';
 
 export interface AssetProps {
   eModeAssetSettings: EModeAssetSettings;
   isEModeGroupActive: boolean;
+  columns: TableColumn<EModeAssetSettings>[];
   poolComptrollerAddress: Address;
   className?: string;
 }
@@ -19,10 +18,10 @@ export interface AssetProps {
 export const Asset: React.FC<AssetProps> = ({
   eModeAssetSettings,
   isEModeGroupActive,
+  columns,
   poolComptrollerAddress,
   className,
 }) => {
-  const { t } = useTranslation();
   const { formatTo } = useFormatTo();
 
   const to = formatTo({
@@ -31,42 +30,24 @@ export const Asset: React.FC<AssetProps> = ({
       .replace(':vTokenAddress', eModeAssetSettings.vToken.address),
   });
 
-  const dataListItems = [
-    {
-      label: t('markets.eMode.table.card.rows.maxLtv'),
-      value: formatPercentageToReadableValue(eModeAssetSettings.collateralFactor * 100),
-    },
-    {
-      label: t('markets.eMode.table.card.rows.liquidationThreshold'),
-      value: formatPercentageToReadableValue(eModeAssetSettings.liquidationThresholdPercentage),
-    },
-    {
-      label: t('markets.eMode.table.card.rows.liquidationPenalty'),
-      value: formatPercentageToReadableValue(eModeAssetSettings.liquidationPenaltyPercentage),
-    },
-  ];
+  const dataListItems = columns
+    // Remove first column which corresponds to the asset
+    .slice(1)
+    .map((column, index) => ({
+      label: column.label,
+      value: column.renderCell(eModeAssetSettings, index),
+    }));
 
   return (
-    <Link
-      className={cn('space-y-3 block no-underline text-inherit hover:no-underline', className)}
-      to={to}
-    >
+    <Link noStyle className={cn('space-y-3 block', className)} to={to}>
       <div className="space-y-3 sm:flex sm:items-center sm:justify-between sm:space-y-0">
-        <TokenIconWithSymbol
-          token={eModeAssetSettings.vToken.underlyingToken}
-          className="shrink-0"
-        />
-
-        <MarketStatus
-          className={cn(!isEModeGroupActive && 'opacity-50')}
-          isBorrowable={eModeAssetSettings.isBorrowable}
-          canBeCollateral={eModeAssetSettings.collateralFactor > 0}
-        />
+        {/* Render token icon */}
+        {columns[0].renderCell(eModeAssetSettings, 0)}
       </div>
 
-      <div className="space-y-2">
-        {dataListItems.map(item => (
-          <LabeledInlineContent key={item.label} label={item.label}>
+      <div className="grid grid-cols-2 gap-4">
+        {dataListItems.map((item, index) => (
+          <LabeledInlineContent key={item.label?.toString() ?? index} label={item.label}>
             <span className={cn(!isEModeGroupActive && 'text-grey opacity-50')}>{item.value}</span>
           </LabeledInlineContent>
         ))}

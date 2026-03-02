@@ -300,17 +300,6 @@
     "modalTitle": "{{ poolName }} tokenları",
     "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "Arka plan illüstrasyonu",
-    "binanceLogoAltText": "Binance logosu",
-    "description": "USDT borç alın ve <Bold>$400,000</Bold> ödülü paylaşın!",
-    "title": "Venus, Binance Wallet Earn'da yayında."
-  },
-  "boostBanner": {
-    "description": "Tek tık kaldıraçla getirinizi <White>5 kata kadar</White> artırın.",
-    "rocketAltText": "Roket illüstrasyonu",
-    "title": "Boost artık kullanılabilir!"
-  },
   "breadcrumbs": {
     "bridge": "Köprü",
     "dashboard": "Gösterge paneli",
@@ -407,6 +396,26 @@
   },
   "connectWallet": {
     "connectButton": "Cüzdan bağla"
+  },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "Durdurulan varlıklar"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "Yalnızca varlıklarım"
+    }
+  },
+  "dashboard": {
+    "topMarkets": {
+      "borrowButton": {
+        "label": "Borç al"
+      },
+      "interactiveTitle": "Öne çıkanlar (<Group><SupplyButton>sağlama</SupplyButton> / <BorrowButton>borç</BorrowButton></Group>)",
+      "supplyButton": {
+        "label": "Sağla"
+      },
+      "textTitle": "Öne çıkanlar"
+    }
   },
   "eModeBanner": {
     "exploreButtonLabel": "Keşfet",
@@ -533,11 +542,6 @@
       "supplyApy": "Sağlama APY",
       "utilizationRate": "Kullanım oranı"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Ödüllerinizi talep edin ve pozisyonlarınızı kapatın",
-    "illustrationAltText": "İllüstrasyon",
-    "title": "İzole havuzlar aşamalı olarak kapatılıyor"
   },
   "landing": {
     "benefits": {
@@ -750,77 +754,8 @@
     },
     "supplyInfo": {
       "title": "Sağlama bilgisi"
-    }
-  },
-  "markets": {
-    "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "Bu e-modu grubunu devre dışı bırakamazsınız çünkü havuzdan borç alınamayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
-            "notEnoughCollateral": "Bu e-modu grubunu devre dışı bırakamazsınız çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamaz"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "<WhiteText>{{ eModeGroupName }}</WhiteText> E-modu grubunu etkinleştirmek için aşağıdaki borç pozisyonlarını kapatmanız gerekir:",
-            "repayButtonLabel": "Geri öde",
-            "title": "Pozisyonlarınız"
-          },
-          "tooltip": {
-            "blockingPositions": "Bu e-modu grubunu etkinleştiremezsiniz çünkü bu gruba ait olmayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
-            "notEnoughCollateral": "Bu e-modu grubunu etkinleştiremezsiniz çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamaz"
-          }
-        },
-        "disableButtonLabel": "Devre dışı bırak",
-        "disabledNotice": "Bu E-Modu grubu artık desteklenmiyor. Hesabınız varsayılan parametrelere geri döndü. Lütfen başka bir E-modu grubuna geçin veya devre dışı bırakın.",
-        "enableButtonLabel": "Etkinleştir",
-        "healthFactor": "Sağlık faktörü:",
-        "switchButtonLabel": "Değiştir"
-      },
-      "notice": "E-Modu etkinleştirmek borçlanma gücünüzü maksimize eder, ancak borçlanma seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
-      "search": {
-        "placeholder": "Varlık veya grup ara"
-      },
-      "table": {
-        "card": {
-          "header": {
-            "borrowable": "Borç alınabilir",
-            "collateral": "Teminat"
-          },
-          "rows": {
-            "liquidationPenalty": "Likidasyon cezası",
-            "liquidationThreshold": "Likidasyon eşiği",
-            "maxLtv": "Maks LTV"
-          }
-        },
-        "columns": {
-          "asset": "Varlık",
-          "collateral": "Teminat",
-          "isBorrowable": "Borç alınabilir",
-          "liquidationPenalty": "Likidasyon cezası",
-          "liquidationThreshold": "Likidasyon eşiği",
-          "maxLtv": "Maks LTV",
-          "penalty": "Ceza",
-          "threshold": "Eşik"
-        },
-        "mobileSelectLabel": "Sırala:"
-      }
-    },
-    "errors": {
-      "accountError": "Hesap gerekli - Lütfen cüzdanınızı bağlayın.",
-      "collateralDisableError": "Teminat Devre Dışı Hatası - {{assetName}} teminatını devre dışı bırakırken bir sorun oluştu. Lütfen tekrar deneyin.",
-      "collateralEnableError": "Teminat Etkinleştirme Hatası - {{assetName}} teminatını etkinleştirirken bir sorun oluştu. Lütfen tekrar deneyin.",
-      "collateralRequired": "Teminat gerekli - Lütfen tüm borç alınan varlıkları geri ödeyin veya diğer varlıkları teminat olarak ayarlayın."
-    },
-    "isolatedEModeGroupTooltip": {
-      "content": "{{ eModeGroupName }} grubundaki varlıklara yalnızca tedarik yaparak borçlanma gücünüz artar",
-      "label": "İzole"
     },
     "tabs": {
-      "assets": {
-        "title": "Varlıklar"
-      },
       "eMode": {
         "illustrationAltText": "Şimşek illüstrasyonu",
         "liquidationPenalty": {
@@ -832,8 +767,86 @@
         "maxLtv": {
           "label": "Maks LTV",
           "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
+        }
+      }
+    }
+  },
+  "markets": {
+    "eMode": {
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "Borç alınabilir",
+            "collateral": "Teminat"
+          }
+        }
+      }
+    },
+    "errors": {
+      "accountError": "Hesap gerekli - Lütfen cüzdanınızı bağlayın.",
+      "collateralDisableError": "Teminat Devre Dışı Hatası - {{assetName}} teminatını devre dışı bırakırken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "collateralEnableError": "Teminat Etkinleştirme Hatası - {{assetName}} teminatını etkinleştirirken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "collateralRequired": "Teminat gerekli - Lütfen tüm borç alınan varlıkları geri ödeyin veya diğer varlıkları teminat olarak ayarlayın."
+    },
+    "header": {
+      "venusCore": {
+        "description": "Tüm dünya için basit ve güçlü, topluluk odaklı finans.",
+        "title": "Venus Core"
+      }
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "{{ eModeGroupName }} grubundaki varlıklara yalnızca tedarik yaparak borçlanma gücünüz artar",
+      "label": "İzole"
+    },
+    "tabs": {
+      "eMode": {
+        "eModeNotice": "E-modu etkinleştirmek borçlanma gücünüzü en üst düzeye çıkarır; ancak borç alma, seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "Bu grubu devre dışı bırakamazsınız çünkü havuzdan borç alınamayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+              "notEnoughCollateral": "Bu grubu devre dışı bırakamazsınız çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamıyor"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "<WhiteText>{{ eModeGroupName }}</WhiteText> grubunu etkinleştirmek için aşağıdaki borç pozisyonlarını kapatmanız gerekir:",
+              "repayButtonLabel": "Geri öde",
+              "title": "Pozisyonlarım"
+            },
+            "tooltip": {
+              "blockingPositions": "Bu grubu etkinleştiremezsiniz çünkü bu gruba ait olmayan varlıklarla borç pozisyonlarınız var. <Link>Pozisyonlarımı göster</Link>",
+              "notEnoughCollateral": "Bu grubu etkinleştiremezsiniz çünkü toplam teminat değeriniz toplam borç bakiyenizi karşılamıyor"
+            }
+          },
+          "disableButtonLabel": "Devre dışı bırak",
+          "disabledNotice": "Bu grup artık desteklenmiyor. Hesabınız artık Core Pool parametrelerine geri döndü. Lütfen başka bir kullanılabilir gruba geçin veya devre dışı bırakın.",
+          "enableButtonLabel": "Etkinleştir",
+          "healthFactor": "Sağlık faktörü:",
+          "switchButtonLabel": "Değiştir"
         },
-        "title": "E-modu"
+        "isolationModeNotice": "İzolasyon modunu etkinleştirmek borçlanma gücünüzü en üst düzeye çıkarır; ancak sağlama ve borç alma seçilen grup içindeki varlıklarla sınırlıdır. <Link>Daha fazla bilgi</Link>",
+        "label": "E-modu",
+        "table": {
+          "columns": {
+            "asset": "Varlık",
+            "collateral": "Teminat",
+            "isBorrowable": "Borç alınabilir",
+            "liquidationPenalty": "Likidasyon cezası",
+            "liquidationThreshold": "Likidasyon eşiği",
+            "maxLtv": "Maks LTV",
+            "penalty": "Ceza",
+            "threshold": "Eşik"
+          },
+          "mobileSelectLabel": "Sırala:",
+          "searchPlaceholder": "Varlık veya grup ara"
+        }
+      },
+      "isolationMode": {
+        "label": "İzolasyon modu"
+      },
+      "markets": {
+        "label": "Piyasalar"
       }
     }
   },
@@ -884,17 +897,8 @@
       "imgAlt": "Duraklatma ikonu",
       "title": "Bu havuzdaki tüm varlıklar duraklatıldı"
     },
-    "pausedAssetsToggle": {
-      "label": "Durdurulan varlıklar"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "Varlık ara"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "Yalnızca varlıklarım"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "Yalnızca E-modu varlıkları"
     }
   },
   "operationForm": {
@@ -1079,11 +1083,6 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "waitForPrimeTitle": "Prime ödüllerini talep edebilmeniz için {{claimWaitingPeriod}}"
-  },
-  "probableBanner": {
-    "description": "probable.markets'te inancınızı artırın",
-    "probableAltText": "Probable illüstrasyonu",
-    "title": "Bir şeye inanıyor musunuz?"
   },
   "proposalList": {
     "selectOptions": {

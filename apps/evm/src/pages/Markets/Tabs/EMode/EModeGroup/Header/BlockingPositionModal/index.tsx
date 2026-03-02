@@ -1,6 +1,6 @@
 import { Modal } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { BlockingBorrowPosition } from '../../../types';
+import type { BlockingBorrowPosition } from '../../../../types';
 import { BlockingPosition } from './BlockingPosition';
 
 export interface BlockingPositionModalProps {
@@ -17,16 +17,20 @@ export const BlockingPositionModal: React.FC<BlockingPositionModalProps> = ({
   const { t, Trans } = useTranslation();
 
   return (
-    <Modal isOpen handleClose={onClose} title={t('markets.eMode.group.cannotEnable.modal.title')}>
+    <Modal
+      isOpen
+      handleClose={onClose}
+      title={t('markets.tabs.eMode.group.cannotEnable.modal.title')}
+    >
       <>
         <p className="text-grey text-sm mb-3">
           <Trans
-            i18nKey="markets.eMode.group.cannotEnable.modal.description"
+            i18nKey="markets.tabs.eMode.group.cannotEnable.modal.description"
             values={{
               eModeGroupName,
             }}
             components={{
-              WhiteText: <span className="text-white" />,
+              WhiteText: <span className="text-offWhite" />,
             }}
           />
         </p>
