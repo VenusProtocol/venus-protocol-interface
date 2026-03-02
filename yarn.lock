@@ -13404,6 +13404,11 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
+klinecharts@^10.0.0-beta1:
+  version "10.0.0-beta1"
+  resolved "https://registry.yarnpkg.com/klinecharts/-/klinecharts-10.0.0-beta1.tgz#43e9bab3e364783b004436a61a9b9d32517d853d"
+  integrity sha512-5ZxFGjJeZqt9+q45lZDhApC3kdgrk51i27uSpIELgXJLNgfSc0anlb8XkU+52LVrBYnTv9dFr8/Q7lG81vIV1w==
+
 known-css-properties@^0.29.0:
   version "0.29.0"
   resolved "https://registry.yarnpkg.com/known-css-properties/-/known-css-properties-0.29.0.tgz#e8ba024fb03886f23cb882e806929f32d814158f"

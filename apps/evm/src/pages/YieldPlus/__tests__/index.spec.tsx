@@ -11,13 +11,13 @@ describe('YieldPlus', () => {
     await waitFor(() => expect(getByText('BNB/USDT')).toBeInTheDocument());
 
     fireEvent.click(getByRole('button', { name: /long/i }));
-    fireEvent.click(getAllByText('XVS')[0]);
+    fireEvent.click(getAllByText('USDC')[0]);
 
-    await waitFor(() => expect(getByText('BNB/XVS')).toBeInTheDocument());
+    await waitFor(() => expect(getByText('USDC/USDT')).toBeInTheDocument());
 
     fireEvent.click(getByRole('button', { name: /short/i }));
-    fireEvent.click(getAllByText('USDT')[0]);
+    fireEvent.click(getAllByText('BUSD')[0]);
 
-    await waitFor(() => expect(getByText('USDT/XVS')).toBeInTheDocument());
+    await waitFor(() => expect(getByText('USDC/BUSD')).toBeInTheDocument());
   });
 });
