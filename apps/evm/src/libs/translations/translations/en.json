@@ -1717,6 +1717,17 @@
     "shortLiquidity": "Short liquidity",
     "shortTokenSelect": {
       "label": "Short"
+    },
+    "tabs": {
+      "positions": {
+        "label": "Positions",
+        "placeholder": {
+          "title": "No positions yet"
+        }
+      },
+      "transactions": {
+        "label": "Transactions"
+      }
     }
   }
 }

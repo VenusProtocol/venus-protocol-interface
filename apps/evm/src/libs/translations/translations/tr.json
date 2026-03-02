@@ -1717,6 +1717,18 @@
     "shortLiquidity": "Short likiditesi",
     "shortTokenSelect": {
       "label": "Short"
+    },
+    "tabs": {
+      "positions": {
+        "label": "TRANSLATION NEEDED",
+        "placeholder": {
+          "description": "TRANSLATION NEEDED",
+          "title": "TRANSLATION NEEDED"
+        }
+      },
+      "transactions": {
+        "label": "TRANSLATION NEEDED"
+      }
     }
   }
 }

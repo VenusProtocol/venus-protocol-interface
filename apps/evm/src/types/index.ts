@@ -617,3 +617,15 @@ export enum TxType {
   ExitMarket = 'exit_market',
   Approve = 'approve',
 }
+
+export interface YieldPlusPosition {
+  chainId: ChainId;
+  positionAccountAddress: Address;
+  dsaVTokenAddress: Address;
+  longVTokenAddress: Address;
+  shortVLongTokenAddress: Address;
+  leverageFactor: number;
+  unrealizedPnlCents: number;
+  unrealizedPnlPercentage: number;
+  pool: Pool;
+}

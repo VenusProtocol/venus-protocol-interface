@@ -69,7 +69,9 @@ export const PairInfo: React.FC = () => {
   );
 
   const priceLongTokens =
-    longAsset && shortAsset ? longAsset.tokenPriceCents.div(shortAsset.tokenPriceCents) : undefined;
+    longAsset && shortAsset
+      ? longAsset.tokenPriceCents.dividedBy(shortAsset.tokenPriceCents)
+      : undefined;
 
   const readablePriceLongTokens = priceLongTokens
     ? priceLongTokens.dp(6).toFixed()

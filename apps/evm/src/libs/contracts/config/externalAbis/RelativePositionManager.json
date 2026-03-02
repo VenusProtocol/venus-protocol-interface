@@ -1,0 +1,1692 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "comptroller",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "leverageManager",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "AssetNotListed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BorrowAmountExceedsMaximum",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DSAInactive",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DSAVTokenAlreadyAdded",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "errorCode",
+        "type": "uint256"
+      }
+    ],
+    "name": "EnterMarketFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InsufficientPrincipal",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InsufficientWithdrawableAmount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidCloseFractionBps",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidCollateralFactor",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidDSA",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidLeverage",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidLongAmountToRedeem",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidOraclePrice",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MinAmountOutRepayBelowDebt",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MinAmountOutSecondBelowDebt",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "errorCode",
+        "type": "uint256"
+      }
+    ],
+    "name": "MintBehalfFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PositionAccountImplementationNotSet",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PositionAlreadyExists",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PositionNotActive",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PositionNotFullyClosed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProportionalCloseAmountOutOfTolerance",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "errorCode",
+        "type": "uint256"
+      }
+    ],
+    "name": "RedeemBehalfFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SameDSAActiveStatus",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SameMarketNotAllowed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SamePositionAccountImplementation",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SlippageExceeded",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TokenSwapCallFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "calledContract",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "methodSignature",
+        "type": "string"
+      }
+    ],
+    "name": "Unauthorized",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "VBNBNotSupported",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAmount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroDebt",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroShortAmount",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "dsaVToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "index",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      }
+    ],
+    "name": "DSAVTokenActiveUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "dsaVToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "index",
+        "type": "uint8"
+      }
+    ],
+    "name": "DSAVTokenAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "oldAccessControlManager",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newAccessControlManager",
+        "type": "address"
+      }
+    ],
+    "name": "NewAccessControlManager",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "longAsset",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "shortAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      }
+    ],
+    "name": "PositionAccountDeployed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "oldImplementation",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      }
+    ],
+    "name": "PositionAccountImplementationUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "longAsset",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "shortAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "dsaAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "initialPrincipal",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "effectiveLeverage",
+        "type": "uint256"
+      }
+    ],
+    "name": "PositionActivated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "closeFractionBps",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountRepaid",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountRedeemed",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountRedeemedDsa",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "longDustRedeemed",
+        "type": "uint256"
+      }
+    ],
+    "name": "PositionClosed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "dsaAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountWithdrawn",
+        "type": "uint256"
+      }
+    ],
+    "name": "PositionDeactivated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "longAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "shortAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "dsaAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "shortAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "additionalPrincipal",
+        "type": "uint256"
+      }
+    ],
+    "name": "PositionOpened",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "dsaAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newTotalPrincipal",
+        "type": "uint256"
+      }
+    ],
+    "name": "PrincipalSupplied",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "dsaAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "remainingPrincipal",
+        "type": "uint256"
+      }
+    ],
+    "name": "PrincipalWithdrawn",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountConvertedToProfit",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newTotalPrincipal",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProfitConverted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "oldSuppliedPrincipal",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newSuppliedPrincipal",
+        "type": "uint256"
+      }
+    ],
+    "name": "RefreshedSuppliedPrincipal",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "UnderlyingTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "COMPTROLLER",
+    "outputs": [
+      {
+        "internalType": "contract IComptroller",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "LEVERAGE_MANAGER",
+    "outputs": [
+      {
+        "internalType": "contract LeverageStrategiesManager",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "POSITION_ACCOUNT_IMPLEMENTATION",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "acceptOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "accessControlManager",
+    "outputs": [
+      {
+        "internalType": "contract IAccessControlManagerV8",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "dsaIndex",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "initialPrincipal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "effectiveLeverage",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "shortAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minLongAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "swapData",
+        "type": "bytes"
+      }
+    ],
+    "name": "activateAndOpenPosition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "dsaIndex",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "initialPrincipal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "effectiveLeverage",
+        "type": "uint256"
+      }
+    ],
+    "name": "activatePosition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "dsaVToken",
+        "type": "address"
+      }
+    ],
+    "name": "addDSAVToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      }
+    ],
+    "name": "calculateMaxBorrow",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "maxBorrowAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "closeFractionBps",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "longAmountToRedeemForFirstSwap",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "shortAmountToRepayForFirstSwap",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minAmountOutFirst",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "swapDataFirst",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "dsaAmountToRedeemForSecondSwap",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minAmountOutSecond",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "swapDataSecond",
+        "type": "bytes"
+      }
+    ],
+    "name": "closeWithLoss",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "closeFractionBps",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "longAmountToRedeemForRepay",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minAmountOutRepay",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "swapDataRepay",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "longAmountToRedeemForProfit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minAmountOutProfit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "swapDataProfit",
+        "type": "bytes"
+      }
+    ],
+    "name": "closeWithProfit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      }
+    ],
+    "name": "deactivatePosition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "dsaVTokenIndexCounter",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "name": "dsaVTokens",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "internalType": "address[]",
+        "name": "targets",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "data",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "executePositionAccountCall",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getDsaVTokens",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "dsaVTokensList",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      }
+    ],
+    "name": "getLongCollateralBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "longBalance",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      }
+    ],
+    "name": "getPosition",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "user",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "longVToken",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "shortVToken",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "positionAccount",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint8",
+            "name": "dsaIndex",
+            "type": "uint8"
+          },
+          {
+            "internalType": "address",
+            "name": "dsaVToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "suppliedPrincipalVTokens",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "effectiveLeverage",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "cycleId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IRelativePositionManager.Position",
+        "name": "position",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      }
+    ],
+    "name": "getPositionAccountAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "predicted",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      }
+    ],
+    "name": "getSuppliedPrincipalBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "balance",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      }
+    ],
+    "name": "getUtilizationInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "actualCapitalUtilized",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nominalCapitalUtilized",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "finalCapitalUtilized",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "availableCapitalUSD",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "withdrawableAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IRelativePositionManager.UtilizationInfo",
+        "name": "utilization",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "accessControlManager_",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isDsaVTokenActive",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "additionalPrincipal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "shortAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minLongAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "swapData",
+        "type": "bytes"
+      }
+    ],
+    "name": "openPosition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pendingOwner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "positions",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "isActive",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint8",
+        "name": "dsaIndex",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "dsaVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "suppliedPrincipalVTokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "effectiveLeverage",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "cycleId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "accessControlManager_",
+        "type": "address"
+      }
+    ],
+    "name": "setAccessControlManager",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "dsaIndex",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      }
+    ],
+    "name": "setDSAVTokenActive",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "positionAccountImpl",
+        "type": "address"
+      }
+    ],
+    "name": "setPositionAccountImplementation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "supplyPrincipal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "unpause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawPrincipal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

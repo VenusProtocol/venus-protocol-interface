@@ -1716,6 +1716,18 @@
     "shortLiquidity": "空头流动性",
     "shortTokenSelect": {
       "label": "空头"
+    },
+    "tabs": {
+      "positions": {
+        "label": "TRANSLATION NEEDED",
+        "placeholder": {
+          "description": "TRANSLATION NEEDED",
+          "title": "TRANSLATION NEEDED"
+        }
+      },
+      "transactions": {
+        "label": "TRANSLATION NEEDED"
+      }
     }
   }
 }

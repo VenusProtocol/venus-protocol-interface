@@ -22,7 +22,7 @@ export const getUserTokenBalances = async ({
   chainId: ChainId;
   tokens: Token[];
   publicClient: PublicClient;
-  poolLensContractAddress: Address;
+  poolLensContractAddress?: Address;
   venusLensContractAddress?: Address;
 }) => {
   // Extract token records and addresses
@@ -77,12 +77,14 @@ export const getUserTokenBalances = async ({
         tokens: underlyingTokens,
         publicClient,
       }),
-      publicClient.simulateContract({
-        abi: poolLensAbi,
-        address: poolLensContractAddress,
-        functionName: 'vTokenBalancesAll',
-        args: [isolatedPoolsVTokenAddresses, accountAddress],
-      }),
+      poolLensContractAddress
+        ? publicClient.simulateContract({
+            abi: poolLensAbi,
+            address: poolLensContractAddress,
+            functionName: 'vTokenBalancesAll',
+            args: [isolatedPoolsVTokenAddresses, accountAddress],
+          })
+        : undefined,
       venusLensContractAddress
         ? publicClient.simulateContract({
             abi: venusLensAbi,
@@ -94,7 +96,7 @@ export const getUserTokenBalances = async ({
     ]);
 
   const userVTokenBalances = [
-    ...userIsolatedPoolVTokenBalances.result,
+    ...(userIsolatedPoolVTokenBalances?.result || []),
     ...(userLegacyPoolVTokenBalances?.result || []),
   ].map(res => {
     const vTokenBalance: VTokenBalance = {
