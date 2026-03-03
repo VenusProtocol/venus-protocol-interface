@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 4.11.0
+
+### Minor Changes
+
+- 080e478: add support for Swap & Repay flow using updated SwapRouter contract
+
+### Patch Changes
+
+- Updated dependencies [080e478]
+  - @venusprotocol/chains@0.24.0
+
 ## 4.10.0
 
 ### Minor Changes

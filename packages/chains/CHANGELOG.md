@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.24.0
+
+### Minor Changes
+
+- 080e478: add support for Swap & Repay flow using updated SwapRouter contract
+
 ## 0.23.0
 
 ### Minor Changes
