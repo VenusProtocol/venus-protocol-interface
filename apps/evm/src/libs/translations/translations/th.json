@@ -46,20 +46,6 @@
         "title": "ยังไม่มีตำแหน่งฝากหรือยืม"
       }
     },
-    "poolsBreakdown": {
-      "poolTagTooltip": "ใช้ขีดจำกัดการยืมแล้ว: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "รับโทเคน Prime",
-        "stakeXvs": "สเตค XVS"
-      },
-      "primeLogoAltText": "โลโก้ Prime",
-      "text": {
-        "apyBoost": "เพิ่มรายได้ของคุณสูงสุด <GreenText>{{boost}}</GreenText> ด้วย Prime",
-        "becomePrime": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว"
-      }
-    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "เปิดใช้ธุรกรรมแบบไม่ต้องจ่ายแก๊สบน {{chainName}}"
@@ -81,10 +67,9 @@
       "title": "สรุป"
     },
     "tabs": {
-      "pools": "พูล",
-      "settings": "การตั้งค่า",
-      "transactions": "ธุรกรรม",
-      "vaults": "วอลต์"
+      "markets": "ตลาด",
+      "staking": "สเตคกิ้ง",
+      "transactions": "ธุรกรรม"
     },
     "transactions": {
       "date": {
@@ -300,6 +285,17 @@
     "modalTitle": "โทเคน {{ poolName }}",
     "supplyDescription": "การฝาก {{tokenSymbol}} ในพูล {{poolName}} จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <Button>แสดงตลาดทั้งหมด</Button>"
   },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
+    "binanceLogoAltText": "โลโก้ Binance",
+    "description": "ยืม USDT และร่วมแบ่งปันรางวัล <Bold>$400,000</Bold>!",
+    "title": "Venus เปิดให้ใช้งานบน Binance Wallet Earn แล้ว"
+  },
+  "boostBanner": {
+    "description": "เลเวอเรจคลิกเดียวเพื่อบูสต์ผลตอบแทนของคุณ <White>สูงสุด 5 เท่า</White>.",
+    "rocketAltText": "ภาพประกอบจรวด",
+    "title": "Boost ใช้งานได้แล้ว!"
+  },
   "breadcrumbs": {
     "bridge": "บริดจ์",
     "dashboard": "แดชบอร์ด",
@@ -406,11 +402,67 @@
     }
   },
   "dashboard": {
+    "guide": {
+      "completed": "เสร็จสิ้น",
+      "step1": {
+        "description": "รับผลตอบแทนโดยการฝากสินทรัพย์หรือย้ายตำแหน่งที่มีอยู่ไปยังโปรโตคอล Venus",
+        "title": "ฝาก / ย้าย"
+      },
+      "step2": {
+        "description": "ยืมสินทรัพย์เพื่อเพิ่มพลังให้กลยุทธ์ DeFi ของคุณ หรือเลเวอเรจสภาพคล่องได้ในคลิกเดียว",
+        "title": "ยืม / เลเวอเรจ"
+      },
+      "step3": {
+        "description": "ฝาก XVS เข้าไปในวอลต์และรับผลตอบแทนที่ขับเคลื่อนด้วยรายได้ของโปรโตคอล",
+        "title": "สเตค XVS"
+      },
+      "uncompleted": "ยังไม่เสร็จ"
+    },
+    "overview": {
+      "absolutePerformance": "ผลการดำเนินงานแบบสัมบูรณ์",
+      "netWorth": {
+        "label": "มูลค่าสุทธิ",
+        "tooltip": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์และการยืม",
+        "tooltipWithVai": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์ การยืม และการมินต์ VAI"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "ไม่สามารถดึงประวัติบัญชีได้",
+          "refetchButtonLabel": "ลองอีกครั้ง"
+        },
+        "placeholderText": "กำลังสร้างรายงาน อาจใช้เวลาสูงสุดหนึ่งนาที"
+      },
+      "periodOption": {
+        "oneYear": "1ปี",
+        "sixMonths": "6ด",
+        "thirtyDays": "30ด"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "รายได้รายวัน",
+          "mintedVai": "VAI ที่มินต์แล้ว",
+          "netApy": "APY สุทธิ",
+          "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการสเตคในวอลต์ของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "totalBorrow": "ยอดยืมรวม",
+          "totalSupply": "ยอดฝากรวม",
+          "totalVaultStake": "ยอดสเตคในวอลต์รวม"
+        },
+        "title": "สรุป"
+      },
+      "todaysChange": "การเปลี่ยนแปลงวันนี้"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "ยืม"
       },
-      "interactiveTitle": "ไฮไลต์ (<Group><SupplyButton>ฝาก</SupplyButton> / <BorrowButton>ยืม</BorrowButton></Group>)",
+      "interactiveTitle": "ไฮไลต์ ( <Group><SupplyButton>ฝาก</SupplyButton>/<BorrowButton>ยืม</BorrowButton></Group> )",
       "supplyButton": {
         "label": "ฝาก"
       },
@@ -543,6 +595,11 @@
       "utilizationRate": "อัตราการใช้งาน"
     }
   },
+  "isolatedPoolsSunsetBanner": {
+    "description": "รับรางวัลของคุณและปิดตำแหน่งของคุณ",
+    "illustrationAltText": "ภาพประกอบ",
+    "title": "พูลแบบแยกกำลังจะยุติการให้บริการ"
+  },
   "landing": {
     "benefits": {
       "text1": "เข้าถึงตลาดเงินที่ไม่สามารถเปลี่ยนแปลงได้โดยตรงบนเชน",
@@ -596,6 +653,7 @@
       "protectionTitle": "ให้ความสำคัญกับการปกป้อง"
     },
     "safety": {
+      "audit_one": "การตรวจสอบ",
       "audit_other": "การตรวจสอบ",
       "otherAuditors": "+14 การตรวจสอบโดย <br />Fairyproof, Hacken และ HashEx",
       "scoreAlt": "ภาพประกอบคะแนน",
@@ -1083,6 +1141,11 @@
     "tokensLeft_other": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} ก่อนที่จะรับรางวัล Prime ได้"
   },
+  "probableBanner": {
+    "description": "เพิ่มความเชื่อมั่นของคุณบน probable.markets",
+    "probableAltText": "ภาพประกอบ Probable",
+    "title": "คุณเชื่อในสิ่งใดไหม?"
+  },
   "proposalList": {
     "selectOptions": {
       "all": {
@@ -1442,7 +1505,9 @@
     "youAreStake": "คุณกำลังสเตคอยู่"
   },
   "venusFluxBanner": {
+    "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
     "description": "ปล่อยให้สภาพคล่องของคุณ Flux แล้วดูผลตอบแทนเติบโต",
+    "iconAltText": "ไอคอน Venus Flux",
     "illustrationAltText": "ภาพประกอบ Venus Flux",
     "title": "แบ่งปันเงินจูงใจ Venus Flux มูลค่า $1M"
   },

@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Guide > renders UI if user has some steps left to complete 1`] = `"dashboard.guide.step1.titledashboard.guide.step1.descriptiondashboard.guide.completeddashboard.guide.step2.titledashboard.guide.step2.descriptiondashboard.guide.uncompleteddashboard.guide.step3.titledashboard.guide.step3.descriptiondashboard.guide.uncompleted"`;
+
+exports[`Guide > renders UI if user is not connected 1`] = `""`;
+
+exports[`Guide > renders nothing if user has already completed all the steps 1`] = `""`;

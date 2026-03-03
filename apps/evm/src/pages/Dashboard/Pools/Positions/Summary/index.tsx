@@ -1,14 +1,18 @@
 import type BigNumber from 'bignumber.js';
-import { AccountHealthBar, Card, Cell, CellGroup, type CellProps, cn } from 'components';
+import {
+  AccountHealthBar,
+  Card,
+  Cell,
+  CellGroup,
+  type CellProps,
+  HealthFactorPill,
+  cn,
+} from 'components';
 import type { Pool, Vault } from 'types';
 
 import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
-import {
-  formatCentsToReadableValue,
-  formatHealthFactorToReadableValue,
-  formatPercentageToReadableValue,
-} from 'utilities';
+import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import Section from '../../../Section';
 import { useExtractData } from '../../../useExtractData';
 
@@ -22,6 +26,8 @@ export interface SummaryProps {
   displayAccountHealth?: boolean;
   className?: string;
 }
+
+const cellClassName = 'bg-transparent max-lg:px-0';
 
 export const Summary: React.FC<SummaryProps> = ({
   pool,
@@ -48,9 +54,9 @@ export const Summary: React.FC<SummaryProps> = ({
     ? [
         {
           label: t('account.summary.cellGroup.healthFactor'),
-          value: formatHealthFactorToReadableValue({ value: pool.userHealthFactor || 0 }),
+          value: <HealthFactorPill factor={pool.userHealthFactor || 0} showLabel />,
           tooltip: t('account.summary.cellGroup.healthFactorTooltip'),
-          className: textClass,
+          className: cn(textClass, cellClassName),
         },
       ]
     : [];
@@ -62,20 +68,25 @@ export const Summary: React.FC<SummaryProps> = ({
       tooltip: vaults
         ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
         : t('account.summary.cellGroup.netApyTooltip'),
-      className:
+      className: cn(
         typeof netApyPercentage === 'number' && netApyPercentage < 0 ? 'text-red' : 'text-green',
+        cellClassName,
+      ),
     },
     {
       label: t('account.summary.cellGroup.dailyEarnings'),
       value: formatCentsToReadableValue({ value: dailyEarningsCents }),
+      className: cellClassName,
     },
     {
       label: t('account.summary.cellGroup.totalSupply'),
       value: formatCentsToReadableValue({ value: pool.userSupplyBalanceCents }),
+      className: cellClassName,
     },
     {
       label: t('account.summary.cellGroup.totalBorrow'),
       value: formatCentsToReadableValue({ value: pool.userBorrowBalanceCents }),
+      className: cellClassName,
     },
   );
 
@@ -83,6 +94,7 @@ export const Summary: React.FC<SummaryProps> = ({
     cells.push({
       label: t('account.summary.cellGroup.totalVaultStake'),
       value: formatCentsToReadableValue({ value: totalVaultStakeCents }),
+      className: cellClassName,
     });
   }
 
@@ -94,23 +106,22 @@ export const Summary: React.FC<SummaryProps> = ({
           borrowLimitCents={pool.userBorrowLimitCents?.toNumber() ?? 0}
         />
       ),
+      className: cellClassName,
     });
   }
 
   return (
     <Section className={className} title={title}>
-      {/* XS view when displaying account health */}
-      <div className={cn('space-y-2', displayAccountHealth ? 'sm:hidden' : 'hidden')}>
-        <CellGroup cells={cells.slice(0, cells.length - 1)} variant="tertiary" />
+      {/* non-XL view when displaying account health */}
+      <div className={cn('space-y-2', displayAccountHealth ? 'xl:hidden' : 'hidden')}>
+        <CellGroup
+          cells={cells.slice(0, cells.length - 1)}
+          variant="tertiary"
+          className="sm:grid-cols-3"
+        />
 
-        <Cell {...cells[cells.length - 1]} className="rounded-xl bg-cards p-4" />
+        <Cell {...cells[cells.length - 1]} className={cellClassName} />
       </div>
-
-      <CellGroup
-        cells={cells}
-        className={cn(displayAccountHealth && 'hidden sm:grid xl:hidden')}
-        variant="tertiary"
-      />
 
       {/* XL view when displaying account health */}
       <Card className={cn('hidden justify-between', displayAccountHealth && 'xl:flex')}>

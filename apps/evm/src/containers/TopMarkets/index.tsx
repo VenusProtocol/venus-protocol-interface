@@ -72,7 +72,7 @@ export const TopMarkets: React.FC<TopMarketProps> = ({ className, variant = 'pri
       <div className={cn('flex items-center gap-x-2', variant === 'primary' && 'xl:hidden')}>
         <Icon name="crown" className="text-yellow shrink-0" />
 
-        <span className="font-semibold flex grow">
+        <span className="font-semibold flex grow whitespace-pre">
           <Trans
             i18nKey="dashboard.topMarkets.interactiveTitle"
             components={{
