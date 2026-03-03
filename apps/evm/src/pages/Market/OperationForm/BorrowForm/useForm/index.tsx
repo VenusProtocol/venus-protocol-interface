@@ -1,5 +1,5 @@
 import { handleError, isUserRejectedTxError } from 'libs/errors';
-import type { Asset, Pool, Token } from 'types';
+import type { Asset, AssetBalanceMutation, Pool, Token } from 'types';
 
 import type BigNumber from 'bignumber.js';
 import { useAnalytics } from 'libs/analytics';
@@ -14,7 +14,8 @@ export interface UseFormInput {
   asset: Asset;
   pool: Pool;
   limitTokens: BigNumber;
-  moderateRiskMaxTokens: BigNumber;
+  balanceMutations: AssetBalanceMutation[];
+  simulatedPool?: Pool;
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
@@ -31,7 +32,8 @@ const useForm = ({
   asset,
   pool,
   limitTokens,
-  moderateRiskMaxTokens,
+  balanceMutations,
+  simulatedPool,
   onSubmitSuccess,
   formValues,
   setFormValues,
@@ -40,8 +42,9 @@ const useForm = ({
   const { isFormValid, formError } = useFormValidation({
     asset,
     pool,
+    balanceMutations,
+    simulatedPool,
     limitTokens,
-    moderateRiskMaxTokens,
     formValues,
   });
 

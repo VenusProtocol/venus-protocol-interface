@@ -1,81 +1,90 @@
 import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 
-import { cn } from '@venusprotocol/ui';
 import { useBorrow } from 'clients/api';
-import {
-  AcknowledgementToggle,
-  Delimiter,
-  LabeledInlineContent,
-  Toggle,
-  TokenTextField,
-} from 'components';
+import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
 import { useChain } from 'hooks/useChain';
-import useDelegateApproval from 'hooks/useDelegateApproval';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import type { Asset, BalanceMutation, Pool } from 'types';
-import {
-  calculateHealthFactor,
-  convertTokensToMantissa,
-  formatTokensToReadableValue,
-} from 'utilities';
+import type { Asset, AssetBalanceMutation, Pool } from 'types';
+import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
-import { ConnectWallet } from 'containers/ConnectWallet';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
 import { useAccountAddress } from 'libs/wallet';
-import { ApyBreakdown } from '../ApyBreakdown';
-import { OperationDetails } from '../OperationDetails';
+import { Footer } from '../Footer';
+import type { Approval } from '../Footer/types';
 import { calculateAmountDollars } from '../calculateAmountDollars';
 import { EModeBanner } from './EModeBanner';
-import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
 
-export interface BorrowFormUiProps {
-  isUserConnected: boolean;
+export interface BorrowFormProps {
   asset: Asset;
   pool: Pool;
-  onSubmit: UseFormInput['onSubmit'];
-  isSubmitting: boolean;
-  setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
-  formValues: FormValues;
-  isWrapUnwrapNativeTokenEnabled: boolean;
-  isEModeFeatureEnabled: boolean;
-  isDelegateApproved: boolean | undefined;
-  isDelegateApprovedLoading: boolean;
-  isApproveDelegateLoading: boolean;
-  approveDelegateAction: () => Promise<unknown>;
   onSubmitSuccess?: () => void;
 }
 
-export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
-  isUserConnected,
-  asset,
-  pool,
-  onSubmitSuccess,
-  onSubmit,
-  isSubmitting,
-  setFormValues,
-  formValues,
-  isDelegateApproved,
-  isDelegateApprovedLoading,
-  isApproveDelegateLoading,
-  approveDelegateAction,
-  isWrapUnwrapNativeTokenEnabled,
-  isEModeFeatureEnabled,
-}) => {
+const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess }) => {
   const { t } = useTranslation();
   const { nativeToken } = useChain();
   const { captureAnalyticEvent } = useAnalytics();
+  const { accountAddress } = useAccountAddress();
+
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
+  const isEModeFeatureEnabled = useIsFeatureEnabled({ name: 'eMode' });
+
+  const initialFormValues: FormValues = useMemo(
+    () => ({
+      amountTokens: '',
+      fromToken: asset.vToken.underlyingToken,
+      receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
+      acknowledgeRisk: false,
+    }),
+    [asset],
+  );
+
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+
+  // Reset form when user disconnects their wallet
+  useEffect(() => {
+    if (!accountAddress) {
+      setFormValues(initialFormValues);
+    }
+  }, [accountAddress, initialFormValues]);
+
+  const { mutateAsync: borrow, isPending: isSubmitting } = useBorrow();
+
+  const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
+    name: 'NativeTokenGateway',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
+  });
+
+  const isUserConnected = !!accountAddress;
+
+  const onSubmit: UseFormInput['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
+    const amountMantissa = BigInt(
+      convertTokensToMantissa({
+        value: new BigNumber(fromTokenAmountTokens.trim()),
+        token: fromToken,
+      }).toFixed(),
+    );
+
+    return borrow({
+      poolName: pool.name,
+      poolComptrollerAddress: pool.comptrollerAddress,
+      vToken: asset.vToken,
+      amountMantissa,
+      unwrap: formValues.receiveNativeToken,
+    });
+  };
 
   const canUnwrapToNativeToken = useMemo(
     () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
@@ -88,18 +97,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       receiveNativeToken: !currentFormValues.receiveNativeToken,
     }));
   };
-
-  const hypotheticalHealthFactor =
-    Number(formValues.amountTokens) &&
-    pool.userBorrowBalanceCents &&
-    pool.userLiquidationThresholdCents
-      ? calculateHealthFactor({
-          borrowBalanceCents: pool.userBorrowBalanceCents
-            .plus(new BigNumber(formValues.amountTokens).multipliedBy(asset.tokenPriceCents))
-            .toNumber(),
-          liquidationThresholdCents: pool.userLiquidationThresholdCents.toNumber(),
-        })
-      : undefined;
 
   // Calculate maximum amount of tokens user can borrow
   const [limitTokens, safeLimitTokens, moderateRiskMaxTokens] = useMemo(() => {
@@ -178,7 +175,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   const _debouncedInputAmountTokens = useDebounceValue(formValues.amountTokens);
   const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
 
-  const balanceMutations: BalanceMutation[] = [
+  const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
       vTokenAddress: asset.vToken.address,
@@ -196,8 +193,9 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     pool,
-    moderateRiskMaxTokens,
     limitTokens,
+    balanceMutations,
+    simulatedPool,
     onSubmitSuccess,
     onSubmit,
     formValues,
@@ -263,12 +261,14 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     }));
   };
 
-  const isRiskyOperation =
-    hypotheticalHealthFactor !== undefined &&
-    hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
-
-  const shouldAskUserRiskAcknowledgement =
-    isRiskyOperation && (!formError || formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT');
+  const approval: Approval | undefined =
+    formValues.receiveNativeToken && isWrapUnwrapNativeTokenEnabled
+      ? {
+          type: 'delegate',
+          delegateeAddress: nativeTokenGatewayContractAddress || NULL_ADDRESS,
+          poolComptrollerContractAddress: pool.comptrollerAddress,
+        }
+      : undefined;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -317,161 +317,55 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           }
         />
 
-        {!isUserConnected && <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />}
-      </div>
+        {isUserConnected && (
+          <>
+            <LabeledInlineContent
+              label={t('operationForm.availableAmount')}
+              data-testid={TEST_IDS.availableAmount}
+            >
+              {readableLimit}
+            </LabeledInlineContent>
 
-      <ConnectWallet
-        className={cn('space-y-4', isUserConnected ? 'mt-2' : 'mt-6')}
-        analyticVariant="borrow_form"
-      >
-        <div className="space-y-4">
-          <LabeledInlineContent
-            label={t('operationForm.availableAmount')}
-            data-testid={TEST_IDS.availableAmount}
-          >
-            {readableLimit}
-          </LabeledInlineContent>
+            <Delimiter />
 
-          <Delimiter />
+            {canUnwrapToNativeToken && (
+              <>
+                <LabeledInlineContent
+                  data-testid={TEST_IDS.receiveNativeToken}
+                  label={t('operationForm.receiveNativeToken.label', {
+                    tokenSymbol: nativeToken.symbol,
+                  })}
+                  tooltip={t('operationForm.receiveNativeToken.tooltip', {
+                    wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
+                    nativeTokenSymbol: nativeToken.symbol,
+                  })}
+                >
+                  <Toggle
+                    onChange={handleToggleReceiveNativeToken}
+                    value={formValues.receiveNativeToken}
+                  />
+                </LabeledInlineContent>
 
-          {canUnwrapToNativeToken && (
-            <>
-              <LabeledInlineContent
-                data-testid={TEST_IDS.receiveNativeToken}
-                label={t('operationForm.receiveNativeToken.label', {
-                  tokenSymbol: nativeToken.symbol,
-                })}
-                tooltip={t('operationForm.receiveNativeToken.tooltip', {
-                  wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
-                  nativeTokenSymbol: nativeToken.symbol,
-                })}
-              >
-                <Toggle
-                  onChange={handleToggleReceiveNativeToken}
-                  value={formValues.receiveNativeToken}
-                />
-              </LabeledInlineContent>
+                <Delimiter />
+              </>
+            )}
+          </>
+        )}
 
-              <Delimiter />
-            </>
-          )}
-
-          <OperationDetails
-            action="borrow"
-            pool={pool}
-            simulatedPool={simulatedPool}
-            balanceMutations={balanceMutations}
-          />
-
-          {shouldAskUserRiskAcknowledgement && (
-            <AcknowledgementToggle
-              label={t('operationForm.acknowledgements.riskyOperation.label')}
-              tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
-              value={formValues.acknowledgeRisk}
-              onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
-            />
-          )}
-        </div>
-
-        <SubmitSection
-          isFormSubmitting={isSubmitting}
+        <Footer
+          analyticVariant="borrow_form"
+          balanceMutations={balanceMutations}
+          pool={pool}
+          simulatedPool={simulatedPool}
+          submitButtonLabel={t('operationForm.submitButtonLabel.borrow')}
           isFormValid={isFormValid}
-          formError={formError}
-          isDelegateApproved={isDelegateApproved}
-          isDelegateApprovedLoading={isDelegateApprovedLoading}
-          approveDelegateAction={approveDelegateAction}
-          isApproveDelegateLoading={isApproveDelegateLoading}
+          approval={approval}
+          isLoading={isSubmitting}
+          isUserAcknowledgingRisk={formValues.acknowledgeRisk}
+          setAcknowledgeRisk={handleToggleAcknowledgeRisk}
         />
-      </ConnectWallet>
+      </div>
     </form>
-  );
-};
-
-export interface BorrowFormProps {
-  asset: Asset;
-  pool: Pool;
-  onSubmitSuccess?: () => void;
-}
-
-const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess }) => {
-  const { accountAddress } = useAccountAddress();
-
-  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  const isEModeFeatureEnabled = useIsFeatureEnabled({ name: 'eMode' });
-
-  const initialFormValues: FormValues = useMemo(
-    () => ({
-      amountTokens: '',
-      fromToken: asset.vToken.underlyingToken,
-      receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
-      acknowledgeRisk: false,
-    }),
-    [asset],
-  );
-
-  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
-
-  // Reset form when user disconnects their wallet
-  useEffect(() => {
-    if (!accountAddress) {
-      setFormValues(initialFormValues);
-    }
-  }, [accountAddress, initialFormValues]);
-
-  const { mutateAsync: borrow, isPending: isBorrowLoading } = useBorrow();
-
-  const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
-    name: 'NativeTokenGateway',
-    poolComptrollerContractAddress: pool.comptrollerAddress,
-  });
-
-  const {
-    isDelegateApproved,
-    isDelegateApprovedLoading,
-    isUpdateDelegateStatusLoading,
-    updatePoolDelegateStatus,
-  } = useDelegateApproval({
-    delegateeAddress: nativeTokenGatewayContractAddress || NULL_ADDRESS,
-    poolComptrollerAddress: pool.comptrollerAddress,
-    enabled: formValues.receiveNativeToken && isWrapUnwrapNativeTokenEnabled,
-  });
-
-  const isSubmitting = isBorrowLoading;
-
-  const onSubmit: BorrowFormUiProps['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
-    const amountMantissa = BigInt(
-      convertTokensToMantissa({
-        value: new BigNumber(fromTokenAmountTokens.trim()),
-        token: fromToken,
-      }).toFixed(),
-    );
-
-    return borrow({
-      poolName: pool.name,
-      poolComptrollerAddress: pool.comptrollerAddress,
-      vToken: asset.vToken,
-      amountMantissa,
-      unwrap: formValues.receiveNativeToken,
-    });
-  };
-
-  return (
-    <BorrowFormUi
-      isUserConnected={!!accountAddress}
-      asset={asset}
-      pool={pool}
-      formValues={formValues}
-      setFormValues={setFormValues}
-      onSubmitSuccess={onSubmitSuccess}
-      onSubmit={onSubmit}
-      isSubmitting={isSubmitting}
-      isDelegateApproved={isDelegateApproved}
-      isDelegateApprovedLoading={isDelegateApprovedLoading}
-      isApproveDelegateLoading={isUpdateDelegateStatusLoading}
-      approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
-      isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
-      isEModeFeatureEnabled={isEModeFeatureEnabled}
-    />
   );
 };
 
