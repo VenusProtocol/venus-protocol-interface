@@ -1,0 +1,302 @@
+import type { SequenceItem, Translate } from '../../types';
+
+export const getSequence = (t: Translate): SequenceItem[] => [
+  {
+    type: 'user',
+    text: t('skillsPage.terminal.sequence.user.showTopMarkets'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.fetchingMarkets'),
+    color: 'gray',
+  },
+  { type: 'blank' },
+  {
+    type: 'header',
+    text: t('skillsPage.terminal.sequence.header.topMarkets'),
+  },
+  {
+    type: 'market',
+    rank: '1',
+    name: t('skillsPage.terminal.sequence.market.1.name'),
+    liquidity: t('skillsPage.terminal.sequence.market.1.liquidity'),
+    supply: t('skillsPage.terminal.sequence.market.1.supply'),
+    borrow: t('skillsPage.terminal.sequence.market.1.borrow'),
+  },
+  {
+    type: 'market',
+    rank: '2',
+    name: t('skillsPage.terminal.sequence.market.2.name'),
+    liquidity: t('skillsPage.terminal.sequence.market.2.liquidity'),
+    supply: t('skillsPage.terminal.sequence.market.2.supply'),
+    borrow: t('skillsPage.terminal.sequence.market.2.borrow'),
+  },
+  {
+    type: 'market',
+    rank: '3',
+    name: t('skillsPage.terminal.sequence.market.3.name'),
+    liquidity: t('skillsPage.terminal.sequence.market.3.liquidity'),
+    supply: t('skillsPage.terminal.sequence.market.3.supply'),
+    borrow: t('skillsPage.terminal.sequence.market.3.borrow'),
+  },
+  {
+    type: 'market',
+    rank: '4',
+    name: t('skillsPage.terminal.sequence.market.4.name'),
+    liquidity: t('skillsPage.terminal.sequence.market.4.liquidity'),
+    supply: t('skillsPage.terminal.sequence.market.4.supply'),
+    borrow: t('skillsPage.terminal.sequence.market.4.borrow'),
+  },
+  {
+    type: 'market',
+    rank: '5',
+    name: t('skillsPage.terminal.sequence.market.5.name'),
+    liquidity: t('skillsPage.terminal.sequence.market.5.liquidity'),
+    supply: t('skillsPage.terminal.sequence.market.5.supply'),
+    borrow: t('skillsPage.terminal.sequence.market.5.borrow'),
+  },
+  { type: 'blank' },
+  {
+    type: 'user',
+    text: t('skillsPage.terminal.sequence.user.wantToEarn'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.analyzingWallet'),
+    color: 'gray',
+  },
+  { type: 'blank' },
+  {
+    type: 'header',
+    text: t('skillsPage.terminal.sequence.header.walletBalance'),
+  },
+  {
+    type: 'balance',
+    token: t('skillsPage.terminal.sequence.balance.1.token'),
+    amount: t('skillsPage.terminal.sequence.balance.1.amount'),
+  },
+  {
+    type: 'balance',
+    token: t('skillsPage.terminal.sequence.balance.2.token'),
+    amount: t('skillsPage.terminal.sequence.balance.2.amount'),
+  },
+  {
+    type: 'balance',
+    token: t('skillsPage.terminal.sequence.balance.3.token'),
+    amount: t('skillsPage.terminal.sequence.balance.3.amount'),
+  },
+  { type: 'blank' },
+  {
+    type: 'header',
+    text: t('skillsPage.terminal.sequence.header.currentPosition'),
+  },
+  {
+    type: 'position',
+    label: t('skillsPage.terminal.sequence.position.current.1.label'),
+    value: t('skillsPage.terminal.sequence.position.current.1.value'),
+  },
+  {
+    type: 'position',
+    label: t('skillsPage.terminal.sequence.position.current.2.label'),
+    value: t('skillsPage.terminal.sequence.position.current.2.value'),
+  },
+  {
+    type: 'position',
+    label: t('skillsPage.terminal.sequence.position.current.3.label'),
+    value: t('skillsPage.terminal.sequence.position.current.3.value'),
+    status: t('skillsPage.terminal.sequence.position.current.3.status'),
+  },
+  { type: 'blank' },
+  {
+    type: 'header',
+    text: t('skillsPage.terminal.sequence.header.recommendation'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.recommendationTitle'),
+    color: 'cyan',
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.recommendationAmount'),
+    color: 'white',
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.recommendationApy'),
+    color: 'green',
+  },
+  { type: 'blank' },
+  {
+    type: 'user',
+    text: t('skillsPage.terminal.sequence.user.confirmDeposit'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.initiatingDeposit'),
+    color: 'gray',
+  },
+  { type: 'blank' },
+  {
+    type: 'tx',
+    label: t('skillsPage.terminal.sequence.tx.approve.label'),
+    hash: t('skillsPage.terminal.sequence.tx.approve.hash'),
+  },
+  {
+    type: 'tx',
+    label: t('skillsPage.terminal.sequence.tx.deposit.label'),
+    hash: t('skillsPage.terminal.sequence.tx.deposit.hash'),
+  },
+  { type: 'blank' },
+  {
+    type: 'success',
+    text: t('skillsPage.terminal.sequence.success.depositComplete'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.depositAmount'),
+    color: 'white',
+  },
+  { type: 'blank' },
+  {
+    type: 'header',
+    text: t('skillsPage.terminal.sequence.header.updatedPosition'),
+  },
+  {
+    type: 'position',
+    label: t('skillsPage.terminal.sequence.position.updated.1.label'),
+    value: t('skillsPage.terminal.sequence.position.updated.1.value'),
+    change: t('skillsPage.terminal.sequence.position.updated.1.change'),
+  },
+  {
+    type: 'position',
+    label: t('skillsPage.terminal.sequence.position.updated.2.label'),
+    value: t('skillsPage.terminal.sequence.position.updated.2.value'),
+    change: t('skillsPage.terminal.sequence.position.updated.2.change'),
+  },
+  { type: 'blank' },
+  {
+    type: 'user',
+    text: t('skillsPage.terminal.sequence.user.cleanupBorrow'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.cleaningBorrow'),
+    color: 'gray',
+  },
+  { type: 'blank' },
+  {
+    type: 'tx',
+    label: t('skillsPage.terminal.sequence.tx.approveBorrow.label'),
+    hash: t('skillsPage.terminal.sequence.tx.approveBorrow.hash'),
+  },
+  {
+    type: 'tx',
+    label: t('skillsPage.terminal.sequence.tx.repay.label'),
+    hash: t('skillsPage.terminal.sequence.tx.repay.hash'),
+  },
+  { type: 'blank' },
+  {
+    type: 'success',
+    text: t('skillsPage.terminal.sequence.success.borrowCleaned'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.borrowAfterCleanup'),
+    color: 'white',
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.healthAfterCleanup'),
+    color: 'green',
+  },
+  { type: 'blank' },
+  {
+    type: 'user',
+    text: t('skillsPage.terminal.sequence.user.autoDepositRule'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.settingRule'),
+    color: 'gray',
+  },
+  { type: 'blank' },
+  {
+    type: 'success',
+    text: t('skillsPage.terminal.sequence.success.ruleEnabled'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.ruleTrigger'),
+    color: 'white',
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.ruleAction'),
+    color: 'white',
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.ruleInterval'),
+    color: 'gray',
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.ruleId'),
+    color: 'gray',
+  },
+  { type: 'blank' },
+  {
+    type: 'user',
+    text: t('skillsPage.terminal.sequence.user.withdrawRequest'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.processingWithdrawal'),
+    color: 'gray',
+  },
+  { type: 'blank' },
+  {
+    type: 'tx',
+    label: t('skillsPage.terminal.sequence.tx.withdraw.label'),
+    hash: t('skillsPage.terminal.sequence.tx.withdraw.hash'),
+  },
+  { type: 'blank' },
+  {
+    type: 'success',
+    text: t('skillsPage.terminal.sequence.success.withdrawalComplete'),
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.withdrawalAmount'),
+    color: 'white',
+  },
+  {
+    type: 'output',
+    text: t('skillsPage.terminal.sequence.output.walletUsdtAfterWithdrawal'),
+    color: 'green',
+  },
+  { type: 'blank' },
+  {
+    type: 'header',
+    text: t('skillsPage.terminal.sequence.header.finalPosition'),
+  },
+  {
+    type: 'position',
+    label: t('skillsPage.terminal.sequence.position.final.1.label'),
+    value: t('skillsPage.terminal.sequence.position.final.1.value'),
+  },
+  {
+    type: 'position',
+    label: t('skillsPage.terminal.sequence.position.final.2.label'),
+    value: t('skillsPage.terminal.sequence.position.final.2.value'),
+  },
+  {
+    type: 'position',
+    label: t('skillsPage.terminal.sequence.position.final.3.label'),
+    value: t('skillsPage.terminal.sequence.position.final.3.value'),
+    status: t('skillsPage.terminal.sequence.position.final.3.status'),
+  },
+  { type: 'blank' },
+  { type: 'cursor' },
+];

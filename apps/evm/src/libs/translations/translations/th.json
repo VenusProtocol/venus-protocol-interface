@@ -448,6 +448,7 @@
     "links": {
       "documentation": "เอกสาร",
       "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+      "skills": "ทักษะเอเจนต์",
       "termsOfUse": "ข้อกำหนดการใช้งาน"
     }
   },
@@ -1102,6 +1103,275 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "ค้นหาสินทรัพย์"
+    }
+  },
+  "skillsPage": {
+    "footer": {
+      "tagline": "สร้างมาเพื่อชุมชน Venus Protocol"
+    },
+    "header": {
+      "beta": "BETA",
+      "tagline": "ระบบอัตโนมัติ DeFi ขับเคลื่อนด้วย AI สำหรับ Venus Protocol",
+      "title": "Venus Agent Skills"
+    },
+    "sections": {
+      "installation": {
+        "icon": "📦",
+        "note": {
+          "securityLabel": "🔐 หมายเหตุด้านความปลอดภัย:",
+          "securityText": "คีย์ส่วนตัวของคุณจะไม่ออกจากเครื่องของคุณ เอเจนต์จะดำเนินธุรกรรมบนเครื่องของคุณโดยใช้วอลเล็ตของคุณ",
+          "warningLabel": "⚠️ คำเตือนเวอร์ชัน BETA:",
+          "warningText": "นี่คือเวอร์ชันเบต้า โปรดใช้งานด้วยความเสี่ยงของคุณเอง ใช้เงินทดสอบหรือจำนวนเล็กน้อยเท่านั้น และตรวจสอบธุรกรรมทุกครั้งก่อนยืนยัน"
+        },
+        "paragraph1": "การติดตั้ง Venus Agent Skills ใช้เวลาไม่ถึง 5 นาที ทำตามขั้นตอนต่อไปนี้:",
+        "repository": {
+          "label": "ที่เก็บโค้ด:"
+        },
+        "steps": {
+          "1": {
+            "text": "<Bold>ดาวน์โหลดแพ็กเกจสกิล</Bold>จาก<RepoLink>ที่เก็บอย่างเป็นทางการ</RepoLink>"
+          },
+          "2": {
+            "text": "<Bold>วางไว้ในไดเรกทอรีสกิลของเอเจนต์:</Bold>"
+          },
+          "3": {
+            "text": "<Bold>ตั้งค่าข้อมูลรับรองวอลเล็ต</Bold>ในไฟล์ .env:"
+          },
+          "4": {
+            "text": "<Bold>ติดตั้ง dependencies:</Bold>"
+          },
+          "5": {
+            "text": "<Bold>รีสตาร์ทเอเจนต์</Bold>เพื่อโหลดสกิลใหม่"
+          }
+        },
+        "title": "วิธีติดตั้ง"
+      },
+      "introduction": {
+        "features": {
+          "1": {
+            "description": "คุยกับเอเจนต์เหมือนคุยกับคน ไม่ต้องใช้ศัพท์เทคนิค",
+            "title": "คำสั่งภาษาธรรมชาติ"
+          },
+          "2": {
+            "description": "ดูอัตรา APY สภาพคล่อง และสถิติตลาดแบบเรียลไทม์ได้ทันที",
+            "title": "ข้อมูลตลาดแบบเรียลไทม์"
+          },
+          "3": {
+            "description": "AI จะวิเคราะห์วอลเล็ตของคุณและแนะนำกลยุทธ์สร้างผลตอบแทนที่เหมาะสม",
+            "title": "คำแนะนำอัจฉริยะ"
+          },
+          "4": {
+            "description": "ฝาก กู้ ชำระคืน และถอน ด้วยคำสั่งง่ายๆ",
+            "title": "ระบบอัตโนมัติธุรกรรม"
+          },
+          "5": {
+            "description": "ตั้งเงื่อนไขอย่าง \"ฝากเมื่อ APY > 3%\" แล้วปล่อยให้เอเจนต์ทำงาน",
+            "title": "กฎการเทรดอัตโนมัติ"
+          },
+          "6": {
+            "description": "ติดตามสถานะ Health Factor และผลตอบแทนของคุณได้ตลอด 24/7",
+            "title": "การติดตามพอร์ต"
+          }
+        },
+        "highlight": "เหมาะทั้งสำหรับผู้เริ่มต้น DeFi และเทรดเดอร์มากประสบการณ์ที่ต้องการประหยัดเวลาและเพิ่มผลตอบแทนให้เหมาะสม",
+        "icon": "🚀",
+        "paragraph1": "Venus Agent Skills คือเฟรมเวิร์กอัตโนมัติที่ขับเคลื่อนด้วย AI ซึ่งช่วยให้คุณโต้ตอบกับ Venus Protocol ด้วยภาษาธรรมชาติ แทนที่จะต้องใช้อินเทอร์เฟซ DeFi ที่ซับซ้อน เพียงบอกเอเจนต์ AI ว่าคุณต้องการทำอะไร",
+        "title": "Venus Agent Skills คืออะไร?"
+      },
+      "verification": {
+        "dialog1": {
+          "agentIntro": "🤖 เอเจนต์: \"ได้เลย! ฉันติดตั้งสกิล Venus Protocol แล้ว ฉันช่วยคุณเรื่องต่อไปนี้ได้:",
+          "agentOutro": "อยากให้ฉันช่วยอะไร?\"",
+          "capabilities": {
+            "1": "ตรวจสอบข้อมูลตลาดและอัตรา APY",
+            "2": "วิเคราะห์วอลเล็ตและสถานะ Venus ของคุณ",
+            "3": "ฝากและถอนสินทรัพย์",
+            "4": "กู้ยืมและชำระคืน",
+            "5": "ตั้งค่ากฎการเทรดอัตโนมัติ"
+          },
+          "user": "👤 คุณ: \"คุณติดตั้งสกิล Venus แล้วหรือยัง?\""
+        },
+        "dialog2": {
+          "agent": "🤖 เอเจนต์กำลังดึงข้อมูลสดจาก Venus Core Pool...",
+          "user": "👤 \"แสดง 5 ตลาดที่มีสภาพคล่องสูงสุด\""
+        },
+        "dialog3": {
+          "agent": "🤖 เอเจนต์กำลังตรวจสอบวอลเล็ตและแสดงยอดฝาก ยอดกู้ และ Health Factor ของคุณ...",
+          "user": "👤 \"สถานะปัจจุบันของฉันบน Venus Core/Flux คืออะไร?\""
+        },
+        "dialog4": {
+          "agent": "🤖 เอเจนต์กำลังวิเคราะห์ยอดคงเหลือในวอลเล็ตและแนะนำกลยุทธ์สร้างผลตอบแทนที่ดีที่สุด...",
+          "user": "👤 \"ฉันอยากสร้างผลตอบแทน\""
+        },
+        "highlight": "หากเอเจนต์ตอบกลับด้วยข้อมูลตลาดหรือคำแนะนำ แสดงความยินดีด้วย! ติดตั้ง Venus Agent Skills สำเร็จและพร้อมใช้งานแล้ว 🎉",
+        "icon": "✅",
+        "paragraph1": "หลังติดตั้งแล้ว ให้ยืนยันว่า Venus Agent Skills ทำงานถูกต้องโดยแชตกับเอเจนต์ของคุณ:",
+        "paragraph2": "ลองใช้คำสั่งทดสอบเหล่านี้เพื่อให้แน่ใจว่าทุกอย่างทำงานได้:",
+        "tip": {
+          "label": "💡 เคล็ดลับ:",
+          "text": "เริ่มจากคำสั่งแบบอ่านอย่างเดียว (เช่นการตรวจสอบตลาด) ก่อนทำธุรกรรมจริง วิธีนี้จะช่วยให้คุณคุ้นเคยกับความสามารถของเอเจนต์"
+        },
+        "title": "ตรวจสอบการติดตั้ง"
+      }
+    },
+    "terminal": {
+      "sequence": {
+        "balance": {
+          "1": {
+            "amount": "0.004784",
+            "token": "BNB"
+          },
+          "2": {
+            "amount": "10.501949",
+            "token": "USDT"
+          },
+          "3": {
+            "amount": "4.000000",
+            "token": "USDC"
+          }
+        },
+        "header": {
+          "currentPosition": "สถานะ Venus ปัจจุบัน (Core Pool):",
+          "finalPosition": "สถานะสุดท้าย:",
+          "recommendation": "คำแนะนำ:",
+          "topMarkets": "5 ตลาดสภาพคล่องสูงสุด:",
+          "updatedPosition": "สถานะที่อัปเดต:",
+          "walletBalance": "ยอดคงเหลือวอลเล็ตปัจจุบัน (BNB Chain):"
+        },
+        "market": {
+          "1": {
+            "borrow": "1.0841%",
+            "liquidity": "$356,095,914.68",
+            "name": "vBTC",
+            "supply": "0.1711%"
+          },
+          "2": {
+            "borrow": "0.8598%",
+            "liquidity": "$300,845,581.93",
+            "name": "vBNB",
+            "supply": "0.1648%"
+          },
+          "3": {
+            "borrow": "0.0514%",
+            "liquidity": "$130,654,243.33",
+            "name": "vSolvBTC",
+            "supply": "0.0002%"
+          },
+          "4": {
+            "borrow": "3.7054%",
+            "liquidity": "$109,840,237.54",
+            "name": "vUSDT",
+            "supply": "1.8415%"
+          },
+          "5": {
+            "borrow": "0.0000%",
+            "liquidity": "$91,022,728.98",
+            "name": "vasBNB",
+            "supply": "0.0000%"
+          }
+        },
+        "output": {
+          "analyzingWallet": "กำลังวิเคราะห์วอลเล็ตและสถานะ Venus ของคุณ...",
+          "borrowAfterCleanup": "  ยอดกู้: $0.50 → ~$0.000001 (เศษคงเหลือ)",
+          "cleaningBorrow": "กำลังจัดการสถานะการกู้...",
+          "depositAmount": "  จำนวน: 10 USDT → vUSDT (Core Pool)",
+          "fetchingMarkets": "กำลังดึงข้อมูลตลาดของ Venus Core Pool...",
+          "healthAfterCleanup": "  Health Factor: 34.14 → ~17,656,287",
+          "initiatingDeposit": "กำลังเริ่มธุรกรรมฝาก...",
+          "processingWithdrawal": "กำลังประมวลผลการถอน...",
+          "recommendationAmount": "   จำนวนที่แนะนำ: 10 USDT",
+          "recommendationApy": "   APY ที่คาดหวัง: ~1.84% (~0.184 USDT/ปี)",
+          "recommendationTitle": "💡 ฝาก USDT เข้า Venus Core Pool",
+          "ruleAction": "  การดำเนินการ: ฝาก USDC ทั้งหมดในวอลเล็ต",
+          "ruleId": "  รหัสงาน: eadf856a-393b-4587-aa69-10b252c22efa",
+          "ruleInterval": "  ช่วงเวลา: ตรวจสอบทุก 10 นาที",
+          "ruleTrigger": "  ทริกเกอร์: APY ฝาก vUSDC > 3.0%",
+          "settingRule": "กำลังตั้งค่ากฎฝากอัตโนมัติ...",
+          "walletUsdtAfterWithdrawal": "  USDT ในวอลเล็ต: 10.001736",
+          "withdrawalAmount": "  จำนวน: ถอน 10 USDT จาก vUSDT"
+        },
+        "position": {
+          "current": {
+            "1": {
+              "label": "ยอดฝากรวม",
+              "value": "$11.003238"
+            },
+            "2": {
+              "label": "ยอดกู้รวม",
+              "value": "$0.500249"
+            },
+            "3": {
+              "label": "Health Factor",
+              "status": "ความเสี่ยงต่ำ",
+              "value": "18.15"
+            }
+          },
+          "final": {
+            "1": {
+              "label": "ยอดฝากรวม",
+              "value": "$11.003250"
+            },
+            "2": {
+              "label": "ยอดกู้รวม",
+              "value": "~$0.000001"
+            },
+            "3": {
+              "label": "Health Factor",
+              "status": "ปลอดภัยมาก",
+              "value": "~9,384,800"
+            }
+          },
+          "updated": {
+            "1": {
+              "change": "+$10.00",
+              "label": "ยอดฝากรวม",
+              "value": "$21.003943"
+            },
+            "2": {
+              "change": "ดีขึ้น",
+              "label": "Health Factor",
+              "value": "34.14"
+            }
+          }
+        },
+        "success": {
+          "borrowCleaned": "✓ จัดการสถานะการกู้เรียบร้อยแล้ว",
+          "depositComplete": "✓ ฝากสำเร็จแล้ว",
+          "ruleEnabled": "✓ เปิดใช้งานกฎเทรดอัตโนมัติแล้ว",
+          "withdrawalComplete": "✓ ถอนเสร็จสมบูรณ์"
+        },
+        "tx": {
+          "approve": {
+            "hash": "0xa66216ffb5de805e1d870bfa6dc8ce43af8c85935c0423e2cd779a1b4e3bae2a",
+            "label": "อนุมัติ"
+          },
+          "approveBorrow": {
+            "hash": "0x2539aebcf903c14dfc28c3757ccd358f1da7afe7c5334691a800e35523624049",
+            "label": "อนุมัติ"
+          },
+          "deposit": {
+            "hash": "0x7d485c4022644db464262a56b46ef5740909c890566d0f001895938fde3bc620",
+            "label": "ฝาก"
+          },
+          "repay": {
+            "hash": "0xdbccf6a5e9dc1ea5727115e86c9081646bf2c00a908512e7d9705f6e245930db",
+            "label": "ชำระคืน"
+          },
+          "withdraw": {
+            "hash": "0x4d313a66b6c966b543bfc874e4c5fa78c55b1a4c284bac224ff22fc4066abe91",
+            "label": "ถอน"
+          }
+        },
+        "user": {
+          "autoDepositRule": "ฝาก USDC ทั้งหมดในวอลเล็ตของฉันอัตโนมัติเมื่อ APY มากกว่า 3%",
+          "cleanupBorrow": "จัดการยอดกู้ของฉัน",
+          "confirmDeposit": "ยืนยันการฝาก",
+          "showTopMarkets": "แสดง 5 ตลาดที่มีสภาพคล่องสูงสุดให้ฉัน",
+          "wantToEarn": "ฉันอยากสร้างผลตอบแทน",
+          "withdrawRequest": "ถอน 10 USDT ให้ฉัน"
+        }
+      },
+      "title": "Venus-agent.md"
     }
   },
   "spendingLimit": {

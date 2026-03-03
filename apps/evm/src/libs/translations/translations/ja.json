@@ -448,6 +448,7 @@
     "links": {
       "documentation": "ドキュメント",
       "privacyPolicy": "プライバシーポリシー",
+      "skills": "エージェントスキル",
       "termsOfUse": "利用規約"
     }
   },
@@ -1102,6 +1103,275 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "資産を検索"
+    }
+  },
+  "skillsPage": {
+    "footer": {
+      "tagline": "Venus Protocolコミュニティのために作られました"
+    },
+    "header": {
+      "beta": "BETA",
+      "tagline": "Venus Protocol向けAI搭載DeFi自動化",
+      "title": "Venus Agent Skills"
+    },
+    "sections": {
+      "installation": {
+        "icon": "📦",
+        "note": {
+          "securityLabel": "🔐 セキュリティに関する注意:",
+          "securityText": "あなたの秘密鍵があなたのマシンを離れることはありません。エージェントはあなたのウォレットを使ってローカルでトランザクションを実行します。",
+          "warningLabel": "⚠️ BETA版に関する警告:",
+          "warningText": "これはベータ版です。ご自身の責任でご利用ください。テスト用資金または少額のみを使用してください。承認前に必ずトランザクションを確認してください。"
+        },
+        "paragraph1": "Venus Agent Skillsのインストールは5分もかかりません。以下の手順に従ってください:",
+        "repository": {
+          "label": "リポジトリ:"
+        },
+        "steps": {
+          "1": {
+            "text": "<Bold>スキルパッケージをダウンロード</Bold>（<RepoLink>公式リポジトリ</RepoLink>から）"
+          },
+          "2": {
+            "text": "<Bold>エージェントのskillsディレクトリに配置します:</Bold>"
+          },
+          "3": {
+            "text": "<Bold>ウォレット認証情報を設定</Bold>（.envファイル内）:"
+          },
+          "4": {
+            "text": "<Bold>依存関係をインストール:</Bold>"
+          },
+          "5": {
+            "text": "<Bold>エージェントを再起動</Bold>して新しいスキルを読み込みます"
+          }
+        },
+        "title": "インストール方法"
+      },
+      "introduction": {
+        "features": {
+          "1": {
+            "description": "技術的な専門用語なしで、人と話すようにエージェントと会話できます",
+            "title": "自然言語コマンド"
+          },
+          "2": {
+            "description": "最新のAPY、流動性、市場統計をすぐに取得",
+            "title": "リアルタイム市場データ"
+          },
+          "3": {
+            "description": "AIがあなたのウォレットを分析し、最適な収益戦略を提案します",
+            "title": "スマートな提案"
+          },
+          "4": {
+            "description": "シンプルなコマンドで入金、借入、返済、引き出し",
+            "title": "トランザクション自動化"
+          },
+          "5": {
+            "description": "「APYが3%を超えたら入金」のような条件を設定し、あとはエージェントに任せましょう",
+            "title": "自動取引ルール"
+          },
+          "6": {
+            "description": "ポジション、ヘルスファクター、収益を24時間365日監視",
+            "title": "ポートフォリオ追跡"
+          }
+        },
+        "highlight": "DeFi初心者から経験豊富なトレーダーまで、時間を節約し利回りを最適化したい人に最適です。",
+        "icon": "🚀",
+        "paragraph1": "Venus Agent Skillsは、自然言語を使ってVenus Protocolとやり取りできるAI自動化フレームワークです。複雑なDeFiインターフェースを操作する代わりに、やりたいことをAIエージェントに伝えるだけで実行できます。",
+        "title": "Venus Agent Skillsとは？"
+      },
+      "verification": {
+        "dialog1": {
+          "agentIntro": "🤖 エージェント:「はい！Venus Protocolスキルはインストール済みです。次のことをお手伝いできます:",
+          "agentOutro": "何をしますか？」",
+          "capabilities": {
+            "1": "市場データとAPYレートの確認",
+            "2": "ウォレットとVenusポジションの分析",
+            "3": "資産の入金と引き出し",
+            "4": "借入と返済",
+            "5": "自動取引ルールの設定"
+          },
+          "user": "👤 あなた:「Venusスキルはインストールされていますか？」"
+        },
+        "dialog2": {
+          "agent": "🤖 エージェントがVenus Core Poolからライブデータを取得中...",
+          "user": "👤「流動性の高い上位5市場を表示して」"
+        },
+        "dialog3": {
+          "agent": "🤖 エージェントがウォレットを確認し、供給額・借入額・ヘルスファクターを表示しています...",
+          "user": "👤「Venus Core/Fluxでの現在のポジションは？」"
+        },
+        "dialog4": {
+          "agent": "🤖 エージェントがウォレット残高を分析し、最適な収益戦略を提案しています...",
+          "user": "👤「運用して増やしたいです」"
+        },
+        "highlight": "エージェントが市場データや提案を返してくれたら成功です！Venus Agent Skillsはインストールされ、利用準備完了です。🎉",
+        "icon": "✅",
+        "paragraph1": "インストール後、エージェントとのチャットでVenus Agent Skillsが正しく動作していることを確認しましょう:",
+        "paragraph2": "これらのテストコマンドを試して、すべて正常に動作することを確認してください:",
+        "tip": {
+          "label": "💡 ヒント:",
+          "text": "まずは（市場確認などの）読み取り専用コマンドから始めてから、トランザクションを実行してください。これによりエージェントの機能に慣れることができます。"
+        },
+        "title": "インストール確認"
+      }
+    },
+    "terminal": {
+      "sequence": {
+        "balance": {
+          "1": {
+            "amount": "0.004784",
+            "token": "BNB"
+          },
+          "2": {
+            "amount": "10.501949",
+            "token": "USDT"
+          },
+          "3": {
+            "amount": "4.000000",
+            "token": "USDC"
+          }
+        },
+        "header": {
+          "currentPosition": "現在のVenusポジション（Core Pool）:",
+          "finalPosition": "最終ポジション:",
+          "recommendation": "推奨:",
+          "topMarkets": "流動性上位5市場:",
+          "updatedPosition": "更新後のポジション:",
+          "walletBalance": "現在のウォレット残高（BNB Chain）:"
+        },
+        "market": {
+          "1": {
+            "borrow": "1.0841%",
+            "liquidity": "$356,095,914.68",
+            "name": "vBTC",
+            "supply": "0.1711%"
+          },
+          "2": {
+            "borrow": "0.8598%",
+            "liquidity": "$300,845,581.93",
+            "name": "vBNB",
+            "supply": "0.1648%"
+          },
+          "3": {
+            "borrow": "0.0514%",
+            "liquidity": "$130,654,243.33",
+            "name": "vSolvBTC",
+            "supply": "0.0002%"
+          },
+          "4": {
+            "borrow": "3.7054%",
+            "liquidity": "$109,840,237.54",
+            "name": "vUSDT",
+            "supply": "1.8415%"
+          },
+          "5": {
+            "borrow": "0.0000%",
+            "liquidity": "$91,022,728.98",
+            "name": "vasBNB",
+            "supply": "0.0000%"
+          }
+        },
+        "output": {
+          "analyzingWallet": "ウォレットとVenusポジションを分析中...",
+          "borrowAfterCleanup": "  借入: $0.50 → ~$0.000001（ダスト）",
+          "cleaningBorrow": "借入ポジションを整理中...",
+          "depositAmount": "  数量: 10 USDT → vUSDT（Core Pool）",
+          "fetchingMarkets": "Venus Core Poolの市場データを取得中...",
+          "healthAfterCleanup": "  ヘルスファクター: 34.14 → ~17,656,287",
+          "initiatingDeposit": "入金トランザクションを開始中...",
+          "processingWithdrawal": "引き出しを処理中...",
+          "recommendationAmount": "   推奨金額: 10 USDT",
+          "recommendationApy": "   予想APY: ~1.84%（~0.184 USDT/年）",
+          "recommendationTitle": "💡 USDTをVenus Core Poolに預け入れ",
+          "ruleAction": "  アクション: ウォレット内のUSDCをすべて入金",
+          "ruleId": "  ジョブID: eadf856a-393b-4587-aa69-10b252c22efa",
+          "ruleInterval": "  間隔: 10分ごとにチェック",
+          "ruleTrigger": "  トリガー: vUSDC供給APY > 3.0%",
+          "settingRule": "自動入金ルールを設定中...",
+          "walletUsdtAfterWithdrawal": "  ウォレットUSDT: 10.001736",
+          "withdrawalAmount": "  数量: vUSDTから10 USDTを引き出し"
+        },
+        "position": {
+          "current": {
+            "1": {
+              "label": "総供給額",
+              "value": "$11.003238"
+            },
+            "2": {
+              "label": "総借入額",
+              "value": "$0.500249"
+            },
+            "3": {
+              "label": "ヘルスファクター",
+              "status": "低リスク",
+              "value": "18.15"
+            }
+          },
+          "final": {
+            "1": {
+              "label": "総供給額",
+              "value": "$11.003250"
+            },
+            "2": {
+              "label": "総借入額",
+              "value": "~$0.000001"
+            },
+            "3": {
+              "label": "ヘルスファクター",
+              "status": "非常に安全",
+              "value": "~9,384,800"
+            }
+          },
+          "updated": {
+            "1": {
+              "change": "+$10.00",
+              "label": "総供給額",
+              "value": "$21.003943"
+            },
+            "2": {
+              "change": "改善",
+              "label": "ヘルスファクター",
+              "value": "34.14"
+            }
+          }
+        },
+        "success": {
+          "borrowCleaned": "✓ 借入ポジションの整理が完了しました",
+          "depositComplete": "✓ 入金が正常に実行されました",
+          "ruleEnabled": "✓ 自動取引ルールが有効化されました",
+          "withdrawalComplete": "✓ 引き出しが完了しました"
+        },
+        "tx": {
+          "approve": {
+            "hash": "0xa66216ffb5de805e1d870bfa6dc8ce43af8c85935c0423e2cd779a1b4e3bae2a",
+            "label": "承認"
+          },
+          "approveBorrow": {
+            "hash": "0x2539aebcf903c14dfc28c3757ccd358f1da7afe7c5334691a800e35523624049",
+            "label": "承認"
+          },
+          "deposit": {
+            "hash": "0x7d485c4022644db464262a56b46ef5740909c890566d0f001895938fde3bc620",
+            "label": "入金"
+          },
+          "repay": {
+            "hash": "0xdbccf6a5e9dc1ea5727115e86c9081646bf2c00a908512e7d9705f6e245930db",
+            "label": "返済"
+          },
+          "withdraw": {
+            "hash": "0x4d313a66b6c966b543bfc874e4c5fa78c55b1a4c284bac224ff22fc4066abe91",
+            "label": "引き出し"
+          }
+        },
+        "user": {
+          "autoDepositRule": "APYが3%を超えたら、ウォレット内のUSDCを自動で全額入金して",
+          "cleanupBorrow": "借入を整理して",
+          "confirmDeposit": "入金を確認",
+          "showTopMarkets": "流動性上位5市場を表示して",
+          "wantToEarn": "収益を得たいです",
+          "withdrawRequest": "10 USDTを引き出して"
+        }
+      },
+      "title": "Venus-agent.md"
     }
   },
   "spendingLimit": {

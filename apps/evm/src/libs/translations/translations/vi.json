@@ -448,6 +448,7 @@
     "links": {
       "documentation": "Tài liệu",
       "privacyPolicy": "Chính sách quyền riêng tư",
+      "skills": "Kỹ năng Agent",
       "termsOfUse": "Điều khoản sử dụng"
     }
   },
@@ -1102,6 +1103,275 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Tìm tài sản"
+    }
+  },
+  "skillsPage": {
+    "footer": {
+      "tagline": "Được xây dựng cho cộng đồng Venus Protocol"
+    },
+    "header": {
+      "beta": "BETA",
+      "tagline": "Tự động hóa DeFi bằng AI cho Venus Protocol",
+      "title": "Venus Agent Skills"
+    },
+    "sections": {
+      "installation": {
+        "icon": "📦",
+        "note": {
+          "securityLabel": "🔐 Lưu ý bảo mật:",
+          "securityText": "Khóa riêng tư của bạn không bao giờ rời khỏi máy của bạn. Agent thực thi giao dịch cục bộ bằng ví của bạn.",
+          "warningLabel": "⚠️ Cảnh báo phiên bản BETA:",
+          "warningText": "Đây là bản beta. Hãy tự chịu rủi ro khi sử dụng. Chỉ dùng quỹ thử nghiệm hoặc số tiền nhỏ. Luôn kiểm tra giao dịch trước khi xác nhận."
+        },
+        "paragraph1": "Cài đặt Venus Agent Skills mất chưa đến 5 phút. Hãy làm theo các bước sau:",
+        "repository": {
+          "label": "Kho mã:"
+        },
+        "steps": {
+          "1": {
+            "text": "<Bold>Tải gói kỹ năng</Bold> từ <RepoLink>kho chính thức</RepoLink>"
+          },
+          "2": {
+            "text": "<Bold>Đặt vào thư mục skills của agent:</Bold>"
+          },
+          "3": {
+            "text": "<Bold>Cấu hình thông tin ví</Bold> trong tệp .env:"
+          },
+          "4": {
+            "text": "<Bold>Cài đặt dependencies:</Bold>"
+          },
+          "5": {
+            "text": "<Bold>Khởi động lại agent</Bold> để nạp kỹ năng mới"
+          }
+        },
+        "title": "Cách cài đặt"
+      },
+      "introduction": {
+        "features": {
+          "1": {
+            "description": "Trò chuyện với agent như người thật, không cần thuật ngữ kỹ thuật",
+            "title": "Lệnh ngôn ngữ tự nhiên"
+          },
+          "2": {
+            "description": "Nhận ngay APY trực tiếp, thanh khoản và số liệu thị trường",
+            "title": "Dữ liệu thị trường thời gian thực"
+          },
+          "3": {
+            "description": "AI phân tích ví của bạn và đề xuất chiến lược sinh lời tối ưu",
+            "title": "Gợi ý thông minh"
+          },
+          "4": {
+            "description": "Gửi, vay, hoàn trả và rút bằng các lệnh đơn giản",
+            "title": "Tự động hóa giao dịch"
+          },
+          "5": {
+            "description": "Đặt điều kiện như \"gửi khi APY > 3%\" rồi để agent tự xử lý",
+            "title": "Quy tắc giao dịch tự động"
+          },
+          "6": {
+            "description": "Theo dõi vị thế, Health Factor và lợi nhuận của bạn 24/7",
+            "title": "Theo dõi danh mục"
+          }
+        },
+        "highlight": "Phù hợp cho cả người mới DeFi và trader giàu kinh nghiệm muốn tiết kiệm thời gian và tối ưu lợi suất.",
+        "icon": "🚀",
+        "paragraph1": "Venus Agent Skills là framework tự động hóa bằng AI cho phép bạn tương tác với Venus Protocol bằng ngôn ngữ tự nhiên. Thay vì điều hướng các giao diện DeFi phức tạp, chỉ cần nói cho agent AI biết bạn muốn làm gì.",
+        "title": "Venus Agent Skills là gì?"
+      },
+      "verification": {
+        "dialog1": {
+          "agentIntro": "🤖 Agent: \"Có! Tôi đã cài kỹ năng Venus Protocol. Tôi có thể giúp bạn:",
+          "agentOutro": "Bạn muốn làm gì?\"",
+          "capabilities": {
+            "1": "Kiểm tra dữ liệu thị trường và APY",
+            "2": "Phân tích ví và vị thế Venus của bạn",
+            "3": "Nạp và rút tài sản",
+            "4": "Vay và hoàn trả khoản vay",
+            "5": "Thiết lập quy tắc giao dịch tự động"
+          },
+          "user": "👤 Bạn: \"Bạn đã cài kỹ năng Venus chưa?\""
+        },
+        "dialog2": {
+          "agent": "🤖 Agent đang lấy dữ liệu trực tiếp từ Venus Core Pool...",
+          "user": "👤 \"Hiển thị 5 thị trường có thanh khoản cao nhất\""
+        },
+        "dialog3": {
+          "agent": "🤖 Agent kiểm tra ví và hiển thị tổng gửi, tổng vay và Health Factor của bạn...",
+          "user": "👤 \"Vị thế hiện tại của tôi trên Venus Core/Flux là gì?\""
+        },
+        "dialog4": {
+          "agent": "🤖 Agent đang phân tích số dư ví của bạn và đề xuất chiến lược sinh lời tốt nhất...",
+          "user": "👤 \"Tôi muốn kiếm lợi nhuận\""
+        },
+        "highlight": "Nếu agent phản hồi dữ liệu thị trường hoặc đề xuất, xin chúc mừng! Venus Agent Skills đã được cài đặt và sẵn sàng sử dụng. 🎉",
+        "icon": "✅",
+        "paragraph1": "Sau khi cài đặt, hãy xác nhận Venus Agent Skills hoạt động đúng bằng cách trò chuyện với agent của bạn:",
+        "paragraph2": "Hãy thử các lệnh kiểm tra sau để đảm bảo mọi thứ hoạt động:",
+        "tip": {
+          "label": "💡 Mẹo:",
+          "text": "Hãy bắt đầu với các lệnh chỉ đọc (như kiểm tra thị trường) trước khi thực hiện giao dịch. Điều này giúp bạn làm quen với khả năng của agent."
+        },
+        "title": "Xác minh cài đặt"
+      }
+    },
+    "terminal": {
+      "sequence": {
+        "balance": {
+          "1": {
+            "amount": "0.004784",
+            "token": "BNB"
+          },
+          "2": {
+            "amount": "10.501949",
+            "token": "USDT"
+          },
+          "3": {
+            "amount": "4.000000",
+            "token": "USDC"
+          }
+        },
+        "header": {
+          "currentPosition": "Vị thế Venus hiện tại (Core Pool):",
+          "finalPosition": "Vị thế cuối cùng:",
+          "recommendation": "Khuyến nghị:",
+          "topMarkets": "Top 5 thị trường theo thanh khoản:",
+          "updatedPosition": "Vị thế sau cập nhật:",
+          "walletBalance": "Số dư ví hiện tại (BNB Chain):"
+        },
+        "market": {
+          "1": {
+            "borrow": "1.0841%",
+            "liquidity": "$356,095,914.68",
+            "name": "vBTC",
+            "supply": "0.1711%"
+          },
+          "2": {
+            "borrow": "0.8598%",
+            "liquidity": "$300,845,581.93",
+            "name": "vBNB",
+            "supply": "0.1648%"
+          },
+          "3": {
+            "borrow": "0.0514%",
+            "liquidity": "$130,654,243.33",
+            "name": "vSolvBTC",
+            "supply": "0.0002%"
+          },
+          "4": {
+            "borrow": "3.7054%",
+            "liquidity": "$109,840,237.54",
+            "name": "vUSDT",
+            "supply": "1.8415%"
+          },
+          "5": {
+            "borrow": "0.0000%",
+            "liquidity": "$91,022,728.98",
+            "name": "vasBNB",
+            "supply": "0.0000%"
+          }
+        },
+        "output": {
+          "analyzingWallet": "Đang phân tích ví và vị thế Venus của bạn...",
+          "borrowAfterCleanup": "  Khoản vay: $0.50 → ~$0.000001 (bụi)",
+          "cleaningBorrow": "Đang dọn dẹp vị thế vay...",
+          "depositAmount": "  Số lượng: 10 USDT → vUSDT (Core Pool)",
+          "fetchingMarkets": "Đang lấy dữ liệu thị trường Venus Core Pool...",
+          "healthAfterCleanup": "  Health Factor: 34.14 → ~17,656,287",
+          "initiatingDeposit": "Đang khởi tạo giao dịch gửi...",
+          "processingWithdrawal": "Đang xử lý rút tiền...",
+          "recommendationAmount": "   Số lượng đề xuất: 10 USDT",
+          "recommendationApy": "   APY dự kiến: ~1.84% (~0.184 USDT/năm)",
+          "recommendationTitle": "💡 Gửi USDT vào Venus Core Pool",
+          "ruleAction": "  Hành động: Gửi toàn bộ USDC trong ví",
+          "ruleId": "  Mã tác vụ: eadf856a-393b-4587-aa69-10b252c22efa",
+          "ruleInterval": "  Chu kỳ: Kiểm tra mỗi 10 phút",
+          "ruleTrigger": "  Điều kiện kích hoạt: APY gửi vUSDC > 3.0%",
+          "settingRule": "Đang thiết lập quy tắc gửi tự động...",
+          "walletUsdtAfterWithdrawal": "  USDT trong ví: 10.001736",
+          "withdrawalAmount": "  Số lượng: rút 10 USDT từ vUSDT"
+        },
+        "position": {
+          "current": {
+            "1": {
+              "label": "Tổng cung",
+              "value": "$11.003238"
+            },
+            "2": {
+              "label": "Tổng vay",
+              "value": "$0.500249"
+            },
+            "3": {
+              "label": "Health Factor",
+              "status": "rủi ro THẤP",
+              "value": "18.15"
+            }
+          },
+          "final": {
+            "1": {
+              "label": "Tổng cung",
+              "value": "$11.003250"
+            },
+            "2": {
+              "label": "Tổng vay",
+              "value": "~$0.000001"
+            },
+            "3": {
+              "label": "Health Factor",
+              "status": "rất an toàn",
+              "value": "~9,384,800"
+            }
+          },
+          "updated": {
+            "1": {
+              "change": "+$10.00",
+              "label": "Tổng cung",
+              "value": "$21.003943"
+            },
+            "2": {
+              "change": "cải thiện",
+              "label": "Health Factor",
+              "value": "34.14"
+            }
+          }
+        },
+        "success": {
+          "borrowCleaned": "✓ Đã dọn dẹp vị thế vay thành công",
+          "depositComplete": "✓ Gửi tiền thành công",
+          "ruleEnabled": "✓ Đã bật quy tắc giao dịch tự động",
+          "withdrawalComplete": "✓ Rút tiền hoàn tất"
+        },
+        "tx": {
+          "approve": {
+            "hash": "0xa66216ffb5de805e1d870bfa6dc8ce43af8c85935c0423e2cd779a1b4e3bae2a",
+            "label": "Phê duyệt"
+          },
+          "approveBorrow": {
+            "hash": "0x2539aebcf903c14dfc28c3757ccd358f1da7afe7c5334691a800e35523624049",
+            "label": "Phê duyệt"
+          },
+          "deposit": {
+            "hash": "0x7d485c4022644db464262a56b46ef5740909c890566d0f001895938fde3bc620",
+            "label": "Gửi"
+          },
+          "repay": {
+            "hash": "0xdbccf6a5e9dc1ea5727115e86c9081646bf2c00a908512e7d9705f6e245930db",
+            "label": "Hoàn trả"
+          },
+          "withdraw": {
+            "hash": "0x4d313a66b6c966b543bfc874e4c5fa78c55b1a4c284bac224ff22fc4066abe91",
+            "label": "Rút"
+          }
+        },
+        "user": {
+          "autoDepositRule": "Tự động gửi toàn bộ USDC trong ví của tôi khi APY vượt 3%",
+          "cleanupBorrow": "Dọn dẹp khoản vay của tôi",
+          "confirmDeposit": "Xác nhận gửi tiền",
+          "showTopMarkets": "Hiển thị cho tôi 5 thị trường có thanh khoản cao nhất",
+          "wantToEarn": "Tôi muốn kiếm lợi nhuận",
+          "withdrawRequest": "Rút giúp tôi 10 USDT"
+        }
+      },
+      "title": "Venus-agent.md"
     }
   },
   "spendingLimit": {

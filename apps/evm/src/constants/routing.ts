@@ -1,5 +1,6 @@
 export enum Subdirectory {
   LANDING = '',
+  SKILLS = 'skills',
   TERMS_OF_USE = 'terms-of-use',
   PRIVACY_POLICY = 'privacy-policy',
   DISCORD = 'discord',
@@ -26,6 +27,7 @@ export enum Subdirectory {
 
 const routeSubdirectories = {
   landing: [Subdirectory.LANDING],
+  skills: [Subdirectory.SKILLS],
   termsOfUse: [Subdirectory.TERMS_OF_USE],
   privacyPolicy: [Subdirectory.PRIVACY_POLICY],
   discord: [Subdirectory.DISCORD],
