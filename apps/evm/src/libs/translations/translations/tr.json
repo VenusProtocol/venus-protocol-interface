@@ -927,14 +927,11 @@
       "higherThanSupplyCap": "Bu piyasanın tedarik limiti {{assetSupplyCap}} olarak ayarlı ve şu anda {{assetSupplyBalance}} sağlanmış olduğundan, bu havuza {{userMaxSupplyAmount}} üzeri sağlayamazsınız.",
       "higherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
       "higherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için harcama limitini iptal edin ve yeni bir limit ayarlayın.",
-      "insufficientSwapLiquidity": "Bu takas için PancakeSwap'te yeterli likidite yok",
       "noCollateral": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce tokenları sağlayıp teminat olarak etkinleştirmelisiniz",
       "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güncelleyin.",
       "priceImpactTooHigh": "Fiyat etkisi çok yüksek",
       "supplyCapReached": "Bu havuz için {{assetSupplyCap}} tedarik limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
-      "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur",
-      "unwrappingUnsupported": "Unwrap desteklenmiyor",
-      "wrappingUnsupported": "Wrap desteklenmiyor"
+      "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur"
     },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}} al",
@@ -978,10 +975,6 @@
         "estimatedAmount": "≈ {{ value }}",
         "exactAmount": "{{ value }}"
       }
-    },
-    "swapSummary": {
-      "repay": "{{fromTokenAmount}} kullanarak {{toTokenAmount}} geri ödeyeceksiniz",
-      "supply": "{{fromTokenAmount}} kullanarak {{toTokenAmount}} sağlayacaksınız"
     },
     "walletBalance": "Cüzdan bakiyesi",
     "withdrawTabTitle": "Çek"

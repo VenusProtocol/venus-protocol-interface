@@ -2,7 +2,7 @@ import type BigNumber from 'bignumber.js';
 
 import type { Token } from 'types';
 
-const calculatePercentageOfUserBorrowBalance = ({
+export const calculatePercentageOfUserBorrowBalance = ({
   userBorrowBalanceTokens,
   token,
   percentage,
@@ -15,5 +15,3 @@ const calculatePercentageOfUserBorrowBalance = ({
     .multipliedBy(percentage / 100)
     .decimalPlaces(token.decimals)
     .toFixed();
-
-export default calculatePercentageOfUserBorrowBalance;

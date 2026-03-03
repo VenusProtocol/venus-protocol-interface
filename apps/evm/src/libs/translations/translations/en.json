@@ -927,14 +927,11 @@
       "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
       "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
       "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
-      "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
       "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "noSwapQuoteFound": "No swap found. Please update the form.",
       "priceImpactTooHigh": "Price impact too high",
       "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
-      "tooRisky": "This transaction would get your account liquidated",
-      "unwrappingUnsupported": "Unwrapping unsupported",
-      "wrappingUnsupported": "Wrapping unsupported"
+      "tooRisky": "This transaction would get your account liquidated"
     },
     "receiveNativeToken": {
       "label": "Receive {{tokenSymbol}}",
@@ -978,10 +975,6 @@
         "estimatedAmount": "≈ {{ value }}",
         "exactAmount": "{{ value }}"
       }
-    },
-    "swapSummary": {
-      "repay": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
-      "supply": "You will supply {{toTokenAmount}} using {{fromTokenAmount}}"
     },
     "walletBalance": "Wallet balance",
     "withdrawTabTitle": "Withdraw"

@@ -5,34 +5,37 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
-import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
+import { busd, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useSwapTokensAndRepay } from 'clients/api';
+import {
+  type GetApproximateOutSwapQuoteInput,
+  type GetSwapQuoteInput,
+  useGetSwapQuote,
+  useSwapTokensAndRepay,
+} from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
+import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import useGetSwapInfo, { type UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
-import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { en } from 'libs/translations';
-import type { Asset, Swap, TokenBalance } from 'types';
+import type { SwapQuote, TokenBalance } from 'types';
 
 import {
   checkSubmitButtonIsDisabled,
   checkSubmitButtonIsEnabled,
 } from 'pages/Market/OperationForm/__testUtils__/checkFns';
 import RepayWithWalletBalanceForm, { PRESET_PERCENTAGES } from '..';
-import SWAP_DETAILS_TEST_IDS from '../../../OperationDetails/testIds';
-import SWAP_SUMMARY_TEST_IDS from '../../../SwapSummary/testIds';
 import { fakeAsset, fakePool } from '../../__testUtils__/fakeData';
 import REPAY_FORM_TEST_IDS from '../testIds';
 
 vi.mock('hooks/useGetSwapTokenUserBalances');
-vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');
 
 const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
@@ -47,31 +50,31 @@ const fakeXvsUserBorrowBalanceInMantissa = new BigNumber(
 
 const fakeXvsAmountBelowUserBorrowBalanceMantissa = fakeXvsUserBorrowBalanceInMantissa.minus(100);
 
-const fakeSwap: Swap = {
+const fakeSwap: SwapQuote = {
   fromToken: busd,
-  fromTokenAmountSoldMantissa: fakeBusdAmountBellowWalletBalanceMantissa,
+  fromTokenAmountSoldMantissa: BigInt(fakeBusdAmountBellowWalletBalanceMantissa.toFixed()),
   toToken: xvs,
-  expectedToTokenAmountReceivedMantissa: fakeXvsAmountBelowUserBorrowBalanceMantissa,
-  minimumToTokenAmountReceivedMantissa: fakeXvsAmountBelowUserBorrowBalanceMantissa,
-  exchangeRate: fakeXvsAmountBelowUserBorrowBalanceMantissa.div(
-    fakeBusdAmountBellowWalletBalanceMantissa,
+  expectedToTokenAmountReceivedMantissa: BigInt(
+    fakeXvsAmountBelowUserBorrowBalanceMantissa.toFixed(),
   ),
-  routePath: [busd.address, xvs.address],
+  minimumToTokenAmountReceivedMantissa: BigInt(
+    fakeXvsAmountBelowUserBorrowBalanceMantissa.toFixed(),
+  ),
   priceImpactPercentage: 0.001,
-  direction: 'exactAmountIn',
+  direction: 'exact-in',
+  callData: '0x',
 };
 
 // Fake full repayment swap in which the wallet balance covers exactly the entire user loan
-const fakeFullRepaymentSwap: Swap = {
+const fakeFullRepaymentSwap: SwapQuote = {
   fromToken: busd,
-  expectedFromTokenAmountSoldMantissa: fakeBusdWalletBalanceMantissa,
-  maximumFromTokenAmountSoldMantissa: fakeBusdWalletBalanceMantissa,
+  fromTokenAmountSoldMantissa: BigInt(fakeBusdWalletBalanceMantissa.toFixed()),
   toToken: xvs,
-  toTokenAmountReceivedMantissa: fakeXvsUserBorrowBalanceInMantissa,
-  exchangeRate: fakeXvsUserBorrowBalanceInMantissa.div(fakeBusdWalletBalanceMantissa),
-  routePath: [busd.address, xvs.address],
+  expectedToTokenAmountReceivedMantissa: BigInt(fakeXvsUserBorrowBalanceInMantissa.toFixed()),
+  minimumToTokenAmountReceivedMantissa: BigInt(fakeXvsUserBorrowBalanceInMantissa.toFixed()),
   priceImpactPercentage: 0.001,
-  direction: 'exactAmountOut',
+  direction: 'approximate-out',
+  callData: '0x',
 };
 
 const mockSwapTokensAndRepay = vi.fn();
@@ -84,14 +87,19 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
       ({ name }: UseIsFeatureEnabledInput) => name === 'integratedSwap',
     );
 
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: undefined,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: { swapQuote: fakeSwap },
       error: undefined,
       isLoading: false,
     }));
 
     (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
+    }));
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
+      isLoading: false,
+      data: { pool },
     }));
   });
 
@@ -129,100 +137,13 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
     await checkSubmitButtonIsDisabled();
   });
 
-  it('disables submit button if swap is a wrap', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: undefined,
-      error: 'WRAPPING_UNSUPPORTED',
-      isLoading: false,
-    }));
-
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      vToken: {
-        ...fakeAsset.vToken,
-        underlyingToken: wbnb,
-      },
-    };
-
-    const { getByText, container, getByTestId } = renderComponent(
-      <RepayWithWalletBalanceForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      token: bnb,
-    });
-
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
-
-    // Check error is displayed
-    await waitFor(() =>
-      expect(getByText(en.operationForm.error.wrappingUnsupported)).toBeInTheDocument(),
-    );
-
-    await checkSubmitButtonIsDisabled();
-  });
-
-  it('disables submit button if swap is an unwrap', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: undefined,
-      error: 'UNWRAPPING_UNSUPPORTED',
-      isLoading: false,
-    }));
-
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      vToken: {
-        ...fakeAsset.vToken,
-        underlyingToken: bnb,
-      },
-    };
-
-    const { getByText, container, getByTestId } = renderComponent(
-      <RepayWithWalletBalanceForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      token: wbnb,
-    });
-
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
-
-    // Check error is displayed
-    await waitFor(() =>
-      expect(getByText(en.operationForm.error.unwrappingUnsupported)).toBeInTheDocument(),
-    );
-
-    await checkSubmitButtonIsDisabled();
-  });
-
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: undefined,
-      error: 'INSUFFICIENT_LIQUIDITY',
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: { swapQuote: undefined },
+      error: {
+        code: 'noSwapQuoteFound',
+        message: en.operationForm.error.noSwapQuoteFound,
+      },
       isLoading: false,
     }));
 
@@ -250,7 +171,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
 
     // Check error is displayed
     await waitFor(() =>
-      expect(getByText(en.operationForm.error.insufficientSwapLiquidity)).toBeInTheDocument(),
+      expect(getByText(en.operationForm.error.noSwapQuoteFound)).toBeInTheDocument(),
     );
 
     await checkSubmitButtonIsDisabled();
@@ -293,13 +214,18 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
   });
 
   it('disables submit button if amount entered in input would have a higher value than repay balance after swapping', async () => {
-    const customFakeFullRepaymentSwap: Swap = {
-      ...fakeFullRepaymentSwap,
-      toTokenAmountReceivedMantissa: fakeXvsUserBorrowBalanceInMantissa.plus(1),
+    const customFakeSwap: SwapQuote = {
+      ...fakeSwap,
+      expectedToTokenAmountReceivedMantissa: BigInt(
+        fakeXvsUserBorrowBalanceInMantissa.plus(1).toFixed(),
+      ),
+      minimumToTokenAmountReceivedMantissa: BigInt(
+        fakeXvsUserBorrowBalanceInMantissa.plus(1).toFixed(),
+      ),
     };
 
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: customFakeFullRepaymentSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: { swapQuote: customFakeSwap },
       error: undefined,
       isLoading: false,
     }));
@@ -334,20 +260,20 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
     await checkSubmitButtonIsDisabled();
   });
 
-  it('displays warning notice and set correct submit button label if the swap has a high price impact', async () => {
-    const customFakeSwap: Swap = {
+  it('displays acknowledgement toggle and enables submit button after acknowledgement when swap has high price impact', async () => {
+    const customFakeSwap: SwapQuote = {
       ...fakeSwap,
       priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
 
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: customFakeSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: { swapQuote: customFakeSwap },
       isLoading: false,
     }));
 
     const onCloseMock = vi.fn();
 
-    const { container, getByTestId, getByText } = renderComponent(
+    const { container, getByTestId, getByText, getByRole } = renderComponent(
       <RepayWithWalletBalanceForm
         asset={fakeAsset}
         pool={fakePool}
@@ -373,23 +299,34 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    // Check warning notice is displayed
-    await waitFor(() => getByText(en.operationForm.repay.swappingWithHighPriceImpactWarning));
+    // Check acknowledgement toggle is displayed
+    await waitFor(() =>
+      expect(
+        getByText(en.operationForm.acknowledgements.highPriceImpact.label),
+      ).toBeInTheDocument(),
+    );
 
-    // Check submit button label is correct
+    // Check submit button is disabled until user acknowledges
+    await checkSubmitButtonIsDisabled();
+
+    // Toggle acknowledgement
+    const toggle = getByRole('checkbox');
+    fireEvent.click(toggle);
+
+    // Check submit button is enabled after acknowledgement
     await checkSubmitButtonIsEnabled({
       textContent: en.operationForm.submitButtonLabel.repay,
     });
   });
 
   it('disables submit button when price impact has reached the maximum tolerated', async () => {
-    const customFakeSwap: Swap = {
+    const customFakeSwap: SwapQuote = {
       ...fakeSwap,
       priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
 
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: customFakeSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: { swapQuote: customFakeSwap },
       isLoading: false,
     }));
 
@@ -428,44 +365,6 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
 
     // Check submit button has the correct label and is disabled
     await checkSubmitButtonIsDisabled();
-  });
-
-  it('displays correct swap details', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: fakeSwap,
-      error: undefined,
-      isLoading: false,
-    }));
-
-    const { container, getByTestId, getByText } = renderComponent(
-      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      token: busd,
-    });
-
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
-
-    await waitFor(() => getByTestId(SWAP_DETAILS_TEST_IDS.swapDetails));
-
-    // Open swap details accordion
-    fireEvent.click(getByText(en.operationForm.swapDetails.label.repay).closest('button')!);
-
-    expect(getByTestId(SWAP_DETAILS_TEST_IDS.swapDetails).textContent).toMatchSnapshot();
-    expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });
 
   it('updates input value to 0 when clicking on MAX button if wallet balance is 0', async () => {
@@ -552,45 +451,42 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
       new BigNumber(toTokenAmountTokens).dividedBy(exchangeRate);
 
     // Memoize generate swaps to prevent infinite re-renders on state update
-    const memoizedFakeSwaps: { [key: string]: Swap } = {};
+    const memoizedFakeSwaps: { [key: string]: SwapQuote } = {};
 
     // Generate fake swap info based on amount being swapped to
-    const getFakeSwap = ({
-      toTokenAmountTokens,
-      direction,
-      fromToken,
-      toToken,
-    }: UseGetSwapInfoInput) => {
-      if (toTokenAmountTokens && memoizedFakeSwaps[toTokenAmountTokens]) {
-        return memoizedFakeSwaps[toTokenAmountTokens];
+    const getFakeSwap = (input: GetSwapQuoteInput) => {
+      const { minToTokenAmountTokens, direction, fromToken, toToken } =
+        input as GetApproximateOutSwapQuoteInput;
+      if (minToTokenAmountTokens && memoizedFakeSwaps[minToTokenAmountTokens.toFixed()]) {
+        return memoizedFakeSwaps[minToTokenAmountTokens.toFixed()];
       }
 
-      if (direction === 'exactAmountIn' || !toTokenAmountTokens) {
+      if ((direction as GetSwapQuoteInput['direction']) === 'exact-in' || !minToTokenAmountTokens) {
         return undefined;
       }
 
       const fakeConvertedFromTokenAmountTokens =
-        getConvertedFromTokenAmountTokens(toTokenAmountTokens);
+        getConvertedFromTokenAmountTokens(minToTokenAmountTokens);
       const fakeConvertedFromTokenAmountMantissa = fakeConvertedFromTokenAmountTokens.multipliedBy(
         new BigNumber(10).pow(fromToken.decimals),
       );
-      const fakeToTokenAmountReceivedMantissa = new BigNumber(toTokenAmountTokens).multipliedBy(
+      const fakeToTokenAmountReceivedMantissa = new BigNumber(minToTokenAmountTokens).multipliedBy(
         new BigNumber(10).pow(toToken.decimals),
       );
 
-      const customFakeSwap: Swap = {
+      const customFakeSwap: SwapQuote = {
         ...fakeFullRepaymentSwap,
-        expectedFromTokenAmountSoldMantissa: fakeConvertedFromTokenAmountMantissa,
-        maximumFromTokenAmountSoldMantissa: fakeConvertedFromTokenAmountMantissa,
-        toTokenAmountReceivedMantissa: fakeToTokenAmountReceivedMantissa,
+        fromTokenAmountSoldMantissa: BigInt(fakeConvertedFromTokenAmountMantissa.toFixed()),
+        expectedToTokenAmountReceivedMantissa: BigInt(fakeToTokenAmountReceivedMantissa.toFixed()),
+        minimumToTokenAmountReceivedMantissa: BigInt(fakeToTokenAmountReceivedMantissa.toFixed()),
       };
 
-      memoizedFakeSwaps[toTokenAmountTokens] = customFakeSwap;
+      memoizedFakeSwaps[minToTokenAmountTokens.toFixed()] = customFakeSwap;
       return customFakeSwap;
     };
 
-    (useGetSwapInfo as Mock).mockImplementation((input: UseGetSwapInfoInput) => ({
-      swap: getFakeSwap(input),
+    (useGetSwapQuote as Mock).mockImplementation((input: GetSwapQuoteInput) => ({
+      data: { swapQuote: getFakeSwap(input) },
       error: undefined,
       isLoading: false,
     }));
@@ -627,8 +523,13 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
       // Press on preset percentage button
       fireEvent.click(getByText(`${presetPercentage}%`));
 
+      const percentageWithBuffer =
+        presetPercentage === 100
+          ? presetPercentage + FULL_REPAYMENT_BUFFER_PERCENTAGE
+          : presetPercentage;
+
       const fakeToTokenAmountRepaidTokens = fakeAsset.userBorrowBalanceTokens
-        .multipliedBy(presetPercentage / 100)
+        .multipliedBy(percentageWithBuffer / 100)
         .dp(fakeAsset.vToken.underlyingToken.decimals);
 
       const fakeConvertedFromTokenAmountTokens = getConvertedFromTokenAmountTokens(
@@ -640,8 +541,8 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
   });
 
   it('lets user swap and repay partial loan then calls onClose callback on success', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: fakeSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: { swapQuote: fakeSwap },
       error: undefined,
       isLoading: false,
     }));
@@ -688,8 +589,8 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
   });
 
   it('lets user swap and repay full loan', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: fakeFullRepaymentSwap,
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      data: { swapQuote: fakeFullRepaymentSwap },
       isLoading: false,
     }));
 

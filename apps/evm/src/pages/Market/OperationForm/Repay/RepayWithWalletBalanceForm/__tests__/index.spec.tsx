@@ -10,6 +10,10 @@ import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
 import { useRepay } from 'clients/api';
+import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 
@@ -19,10 +23,13 @@ import {
   checkSubmitButtonIsEnabled,
 } from 'pages/Market/OperationForm/__testUtils__/checkFns';
 import { ChainId } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 import RepayWithWalletBalanceForm, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
+vi.mock('hooks/useGetSwapTokenUserBalances');
+vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 
 const mockRepay = vi.fn();
@@ -31,6 +38,27 @@ describe('RepayWithWalletBalanceForm', () => {
   beforeEach(() => {
     (useRepay as Mock).mockImplementation(() => ({
       mutateAsync: mockRepay,
+    }));
+
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabledInput) => name === 'integratedSwap',
+    );
+
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: fakeAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: fakeAsset.vToken.underlyingToken,
+            value: fakeAsset.userWalletBalanceTokens,
+          }),
+        },
+      ],
+    });
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
+      isLoading: false,
+      data: { pool },
     }));
   });
 
@@ -49,7 +77,13 @@ describe('RepayWithWalletBalanceForm', () => {
     expect(getByText(en.connectWallet.connectButton)).toBeInTheDocument();
 
     // Check input is disabled
-    expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
+    expect(
+      getByTestId(
+        getTokenTextFieldTestId({
+          parentTestId: TEST_IDS.selectTokenTextField,
+        }),
+      ).closest('input'),
+    ).toBeDisabled();
   });
 
   it('displays correct wallet amount', async () => {
@@ -69,6 +103,18 @@ describe('RepayWithWalletBalanceForm', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(1);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: customFakeAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: customFakeAsset.vToken.underlyingToken,
+            value: customFakeAsset.userWalletBalanceTokens,
+          }),
+        },
+      ],
+    });
+
     const { getByText, getByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
         asset={customFakeAsset}
@@ -80,7 +126,13 @@ describe('RepayWithWalletBalanceForm', () => {
       },
     );
 
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    const tokenTextInput = await waitFor(() =>
+      getByTestId(
+        getTokenTextFieldTestId({
+          parentTestId: TEST_IDS.selectTokenTextField,
+        }),
+      ),
+    );
 
     const incorrectValueTokens = customFakeAsset.userBorrowBalanceTokens.plus(1).toFixed();
 
@@ -104,6 +156,18 @@ describe('RepayWithWalletBalanceForm', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(1);
 
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: customFakeAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: customFakeAsset.vToken.underlyingToken,
+            value: customFakeAsset.userWalletBalanceTokens,
+          }),
+        },
+      ],
+    });
+
     const { getByText, getByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
         asset={customFakeAsset}
@@ -115,7 +179,13 @@ describe('RepayWithWalletBalanceForm', () => {
       },
     );
 
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    const tokenTextInput = await waitFor(() =>
+      getByTestId(
+        getTokenTextFieldTestId({
+          parentTestId: TEST_IDS.selectTokenTextField,
+        }),
+      ),
+    );
 
     const incorrectValueTokens = customFakeAsset.userWalletBalanceTokens.plus(1).toFixed();
 
@@ -161,7 +231,13 @@ describe('RepayWithWalletBalanceForm', () => {
       },
     );
 
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    const tokenTextInput = await waitFor(() =>
+      getByTestId(
+        getTokenTextFieldTestId({
+          parentTestId: TEST_IDS.selectTokenTextField,
+        }),
+      ),
+    );
 
     const incorrectValueTokens = fakeWalletSpendingLimitTokens
       // Add one token too much
@@ -194,7 +270,13 @@ describe('RepayWithWalletBalanceForm', () => {
 
     const correctAmountTokens = 1;
 
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    const tokenTextInput = await waitFor(() =>
+      getByTestId(
+        getTokenTextFieldTestId({
+          parentTestId: TEST_IDS.selectTokenTextField,
+        }),
+      ),
+    );
     fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
 
     // Check "Switch chain" button is displayed
@@ -253,7 +335,12 @@ describe('RepayWithWalletBalanceForm', () => {
     );
 
     const tokenTextInput = await waitFor(
-      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
     );
 
     // Check input is empty
@@ -283,6 +370,18 @@ describe('RepayWithWalletBalanceForm', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(10);
 
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: customFakeAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: customFakeAsset.vToken.underlyingToken,
+            value: customFakeAsset.userWalletBalanceTokens,
+          }),
+        },
+      ],
+    });
+
     const { getByText, getByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
         asset={customFakeAsset}
@@ -295,7 +394,12 @@ describe('RepayWithWalletBalanceForm', () => {
     );
 
     const tokenTextInput = await waitFor(
-      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
     );
 
     // Check input is empty
@@ -338,7 +442,12 @@ describe('RepayWithWalletBalanceForm', () => {
     );
 
     const tokenTextInput = await waitFor(
-      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
     );
 
     // Check input is empty
@@ -363,6 +472,18 @@ describe('RepayWithWalletBalanceForm', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
+    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
+      data: [
+        {
+          token: customFakeAsset.vToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: customFakeAsset.vToken.underlyingToken,
+            value: customFakeAsset.userWalletBalanceTokens,
+          }),
+        },
+      ],
+    });
+
     const { getByText, getByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
         asset={customFakeAsset}
@@ -375,7 +496,12 @@ describe('RepayWithWalletBalanceForm', () => {
     );
 
     const tokenTextInput = await waitFor(
-      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
     );
 
     // Check input is empty
@@ -383,9 +509,16 @@ describe('RepayWithWalletBalanceForm', () => {
 
     for (let i = 0; i < PRESET_PERCENTAGES.length; i++) {
       // Clear input
-      fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
-        target: { value: '' },
-      });
+      fireEvent.change(
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ),
+        {
+          target: { value: '' },
+        },
+      );
 
       const presetPercentage = PRESET_PERCENTAGES[i];
 
@@ -421,7 +554,12 @@ describe('RepayWithWalletBalanceForm', () => {
     );
 
     const tokenTextInput = await waitFor(
-      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
     );
 
     const correctAmountTokens = 1;
@@ -449,7 +587,14 @@ describe('RepayWithWalletBalanceForm', () => {
       },
     );
 
-    await waitFor(() => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement);
+    await waitFor(
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
+    );
 
     // Click on 100% button
     fireEvent.click(getByText('100%'));

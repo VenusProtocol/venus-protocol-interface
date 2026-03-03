@@ -14,7 +14,7 @@ import {
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { VError, handleError } from 'libs/errors';
 import { useGetToken, useGetTokens } from 'libs/tokens';
@@ -405,6 +405,7 @@ const SwapPage: React.FC = () => {
 
   const { data: tokenBalances } = useGetSwapTokenUserBalances({
     accountAddress,
+    poolComptrollerContractAddress: legacyPoolComptrollerContractAddress || NULL_ADDRESS,
   });
 
   const { mutateAsync: swapTokens, isPending: isSwapTokensLoading } = useSwapTokens();
@@ -431,7 +432,7 @@ const SwapPage: React.FC = () => {
         swap={swapInfo.swap}
         swapError={swapInfo.error}
         isSwapLoading={swapInfo.isLoading}
-        tokenBalances={tokenBalances}
+        tokenBalances={tokenBalances || []}
         onSubmit={onSwap}
         isSubmitting={isSwapTokensLoading}
         isFromTokenApproved={isFromTokenApproved}

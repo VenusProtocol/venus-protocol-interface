@@ -926,14 +926,11 @@
       "higherThanSupplyCap": "このマーケットの供給上限が{{assetSupplyCap}}で現在{{assetSupplyBalance}}が供給されているため、このプールに{{userMaxSupplyAmount}}以上供給できません。",
       "higherThanWalletBalance": "{{tokenSymbol}}残高が不足しています",
       "higherThanWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
-      "insufficientSwapLiquidity": "このスワップに対するPancakeSwapの流動性が不足しています",
       "noCollateral": "このプールから{{tokenSymbol}}を借りる前に、トークンを供給して担保として有効化する必要があります",
       "noSwapQuoteFound": "スワップが見つかりません。フォームを更新してください。",
       "priceImpactTooHigh": "価格影響が高すぎます",
       "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
-      "tooRisky": "この取引はアカウントが清算されます",
-      "unwrappingUnsupported": "アンラップは未対応です",
-      "wrappingUnsupported": "ラップは未対応です"
+      "tooRisky": "この取引はアカウントが清算されます"
     },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}}を受け取る",
@@ -977,10 +974,6 @@
         "estimatedAmount": "≈ {{ value }}",
         "exactAmount": "{{ value }}"
       }
-    },
-    "swapSummary": {
-      "repay": "{{fromTokenAmount}}で{{toTokenAmount}}を返済します",
-      "supply": "{{fromTokenAmount}}で{{toTokenAmount}}を供給します"
     },
     "walletBalance": "ウォレット残高",
     "withdrawTabTitle": "引き出し"

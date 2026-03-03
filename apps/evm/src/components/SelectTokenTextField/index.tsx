@@ -74,7 +74,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 <div className="flex items-center gap-x-2">
                   <TokenIcon token={selectedToken} className="h-5 w-5" />
 
-                  <div className="text-left">{selectedToken.symbol}</div>
+                  <div className="text-left leading-none">{selectedToken.symbol}</div>
                 </div>
 
                 <Icon
