@@ -55,8 +55,12 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
-  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({
+    name: 'wrapUnwrapNativeToken',
+  });
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({
+    name: 'integratedSwap',
+  });
   const isIntegratedSwapFeatureEnabled =
     isIntegratedSwapEnabled &&
     // Check swap and supply action is enabled for underlying token
@@ -159,7 +163,11 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
 
     // Handle supply flow
     if (!isUsingSwap && !isWrappingNativeToken) {
-      return supply({ amountMantissa, poolName: pool.name, vToken: asset.vToken });
+      return supply({
+        amountMantissa,
+        poolName: pool.name,
+        vToken: asset.vToken,
+      });
     }
 
     if (isWrappingNativeToken) {
@@ -310,7 +318,10 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
   const captureAmountSetAnalyticEvent = ({
     amountTokens,
     maxSelected,
-  }: { amountTokens: BigNumber | string; maxSelected: boolean }) => {
+  }: {
+    amountTokens: BigNumber | string;
+    maxSelected: boolean;
+  }) => {
     if (Number(formValues.amountTokens) > 0) {
       captureAnalyticEvent(
         'supply_amount_set',
@@ -343,7 +354,10 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
   };
 
   const handleRightMaxButtonClick = () => {
-    captureAmountSetAnalyticEvent({ amountTokens: limitTokens, maxSelected: true });
+    captureAmountSetAnalyticEvent({
+      amountTokens: limitTokens,
+      maxSelected: true,
+    });
 
     setFormValues(currentFormValues => ({
       ...currentFormValues,
@@ -384,7 +398,10 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
               formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
             }
             onChange={amountTokens => {
-              captureAmountSetAnalyticEvent({ amountTokens, maxSelected: false });
+              captureAmountSetAnalyticEvent({
+                amountTokens,
+                maxSelected: false,
+              });
 
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
@@ -416,7 +433,10 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
             token={asset.vToken.underlyingToken}
             value={formValues.amountTokens}
             onChange={amountTokens => {
-              captureAmountSetAnalyticEvent({ amountTokens, maxSelected: false });
+              captureAmountSetAnalyticEvent({
+                amountTokens,
+                maxSelected: false,
+              });
 
               setFormValues(currentFormValues => ({
                 ...currentFormValues,

@@ -55,8 +55,12 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   pool,
   onSubmitSuccess,
 }) => {
-  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({
+    name: 'wrapUnwrapNativeToken',
+  });
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({
+    name: 'integratedSwap',
+  });
 
   const isIntegratedSwapFeatureEnabled =
     isIntegratedSwapEnabled &&
@@ -340,7 +344,11 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     amountTokens,
     maxSelected,
     selectedPercentage,
-  }: { amountTokens: BigNumber | string; maxSelected: boolean; selectedPercentage?: number }) => {
+  }: {
+    amountTokens: BigNumber | string;
+    maxSelected: boolean;
+    selectedPercentage?: number;
+  }) => {
     if (Number(amountTokens.toString()) > 0) {
       captureAnalyticEvent(
         'repay_amount_set',

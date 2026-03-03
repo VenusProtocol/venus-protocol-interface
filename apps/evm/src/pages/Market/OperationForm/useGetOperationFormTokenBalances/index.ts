@@ -7,10 +7,10 @@ import type { Address } from 'viem';
 
 export interface UseGetOperationFormTokenBalancesInput {
   poolComptrollerContractAddress: Address;
-  accountAddress?: Address;
   underlyingToken: Token;
   isIntegratedSwapFeatureEnabled: boolean;
   canWrapNativeToken: boolean;
+  accountAddress?: Address;
 }
 
 export interface UseGetOperationFormTokenBalancesOutput {
@@ -43,7 +43,8 @@ export const useGetOperationFormTokenBalances = ({
 
     const shouldIncludeTokenBalance =
       isIntegratedSwapFeatureEnabled ||
-      (canWrapNativeToken && (isWrappedToken || isWrappedUnderlyingToken));
+      (canWrapNativeToken && (isWrappedToken || isWrappedUnderlyingToken)) ||
+      areTokensEqual(underlyingToken, tokenBalance.token);
 
     if (shouldIncludeTokenBalance) {
       tokenBalances.push(tokenBalance);
