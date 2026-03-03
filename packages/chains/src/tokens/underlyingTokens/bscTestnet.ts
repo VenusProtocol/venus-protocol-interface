@@ -446,4 +446,11 @@ export const bscTestnet: Token[] = [
     symbol: 'PT-clisBNBx-25JUN2026',
     iconSrc: iconSrcs.slisBnbX,
   },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0xd2e2575c24302C82d38A9079c85722e0D0C0D2cD',
+    decimals: 18,
+    symbol: 'XAUm',
+    iconSrc: iconSrcs.xaum,
+  },
 ];
