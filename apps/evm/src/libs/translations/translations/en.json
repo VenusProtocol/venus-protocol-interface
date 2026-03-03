@@ -448,6 +448,7 @@
     "links": {
       "documentation": "Documentation",
       "privacyPolicy": "Privacy policy",
+      "skills": "Agent skills",
       "termsOfUse": "Terms of use"
     }
   },
@@ -1103,6 +1104,275 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Search asset"
+    }
+  },
+  "skillsPage": {
+    "footer": {
+      "tagline": "Built for the Venus Protocol community"
+    },
+    "header": {
+      "beta": "BETA",
+      "tagline": "AI-powered DeFi automation for Venus Protocol",
+      "title": "Venus Agent Skills"
+    },
+    "sections": {
+      "installation": {
+        "icon": "📦",
+        "note": {
+          "securityLabel": "🔐 Security Note:",
+          "securityText": "Your private key never leaves your machine. The agent executes transactions locally using your wallet.",
+          "warningLabel": "⚠️ BETA Version Warning:",
+          "warningText": "This is a beta release. Use at your own risk. Only use test funds or small amounts. Always verify transactions before confirming."
+        },
+        "paragraph1": "Installing Venus Agent Skills takes less than 5 minutes. Follow these steps:",
+        "repository": {
+          "label": "Repository:"
+        },
+        "steps": {
+          "1": {
+            "text": "<Bold>Download the skill package</Bold> from the <RepoLink>official repository</RepoLink>"
+          },
+          "2": {
+            "text": "<Bold>Place it in your agent's skills directory:</Bold>"
+          },
+          "3": {
+            "text": "<Bold>Configure your wallet credentials</Bold> in the .env file:"
+          },
+          "4": {
+            "text": "<Bold>Install dependencies:</Bold>"
+          },
+          "5": {
+            "text": "<Bold>Restart your agent</Bold> to load the new skill"
+          }
+        },
+        "title": "How to Install"
+      },
+      "introduction": {
+        "features": {
+          "1": {
+            "description": "Talk to your agent like a human, no technical jargon required",
+            "title": "Natural Language Commands"
+          },
+          "2": {
+            "description": "Get live APY rates, liquidity, and market stats instantly",
+            "title": "Real-time Market Data"
+          },
+          "3": {
+            "description": "AI analyzes your wallet and suggests optimal earning strategies",
+            "title": "Smart Recommendations"
+          },
+          "4": {
+            "description": "Deposit, borrow, repay, and withdraw with simple commands",
+            "title": "Transaction Automation"
+          },
+          "5": {
+            "description": "Set conditions like \"deposit when APY > 3%\" and let the agent work",
+            "title": "Auto-trading Rules"
+          },
+          "6": {
+            "description": "Monitor your positions, health factor, and earnings 24/7",
+            "title": "Portfolio Tracking"
+          }
+        },
+        "highlight": "Perfect for both DeFi beginners and experienced traders who want to save time and optimize yields.",
+        "icon": "🚀",
+        "paragraph1": "Venus Agent Skills is an AI-powered automation framework that allows you to interact with Venus Protocol using natural language. Instead of navigating complex DeFi interfaces, simply tell your AI agent what you want to do.",
+        "title": "What is Venus Agent Skills?"
+      },
+      "verification": {
+        "dialog1": {
+          "agentIntro": "🤖 Agent: \"Yes! I have Venus Protocol skills installed. I can help you with:",
+          "agentOutro": "What would you like to do?\"",
+          "capabilities": {
+            "1": "Checking market data and APY rates",
+            "2": "Analyzing your wallet and Venus positions",
+            "3": "Depositing and withdrawing assets",
+            "4": "Borrowing and repaying loans",
+            "5": "Setting up auto-trading rules"
+          },
+          "user": "👤 You: \"Do you have Venus skills installed?\""
+        },
+        "dialog2": {
+          "agent": "🤖 Agent fetches live data from Venus Core Pool...",
+          "user": "👤 \"Show me the top 5 markets by liquidity\""
+        },
+        "dialog3": {
+          "agent": "🤖 Agent checks your wallet and displays your supply, borrow, and health factor...",
+          "user": "👤 \"What's my current position on Venus Core/Flux?\""
+        },
+        "dialog4": {
+          "agent": "🤖 Agent analyzes your wallet balance and recommends the best earning strategy...",
+          "user": "👤 \"I would like to earn\""
+        },
+        "highlight": "If the agent responds with market data or recommendations, congratulations! Venus Agent Skills is installed and ready to use. 🎉",
+        "icon": "✅",
+        "paragraph1": "After installation, confirm that Venus Agent Skills is working correctly by chatting with your agent:",
+        "paragraph2": "Try these test commands to make sure everything works:",
+        "tip": {
+          "label": "💡 Tip:",
+          "text": "Start with read-only commands (like checking markets) before executing transactions. This helps you get comfortable with the agent's capabilities."
+        },
+        "title": "Verify Installation"
+      }
+    },
+    "terminal": {
+      "sequence": {
+        "balance": {
+          "1": {
+            "amount": "0.004784",
+            "token": "BNB"
+          },
+          "2": {
+            "amount": "10.501949",
+            "token": "USDT"
+          },
+          "3": {
+            "amount": "4.000000",
+            "token": "USDC"
+          }
+        },
+        "header": {
+          "currentPosition": "Current Venus Position (Core Pool):",
+          "finalPosition": "Final Position:",
+          "recommendation": "Recommendation:",
+          "topMarkets": "Top 5 Markets by Liquidity:",
+          "updatedPosition": "Updated Position:",
+          "walletBalance": "Current Wallet Balance (BNB Chain):"
+        },
+        "market": {
+          "1": {
+            "borrow": "1.0841%",
+            "liquidity": "$356,095,914.68",
+            "name": "vBTC",
+            "supply": "0.1711%"
+          },
+          "2": {
+            "borrow": "0.8598%",
+            "liquidity": "$300,845,581.93",
+            "name": "vBNB",
+            "supply": "0.1648%"
+          },
+          "3": {
+            "borrow": "0.0514%",
+            "liquidity": "$130,654,243.33",
+            "name": "vSolvBTC",
+            "supply": "0.0002%"
+          },
+          "4": {
+            "borrow": "3.7054%",
+            "liquidity": "$109,840,237.54",
+            "name": "vUSDT",
+            "supply": "1.8415%"
+          },
+          "5": {
+            "borrow": "0.0000%",
+            "liquidity": "$91,022,728.98",
+            "name": "vasBNB",
+            "supply": "0.0000%"
+          }
+        },
+        "output": {
+          "analyzingWallet": "Analyzing your wallet and Venus position...",
+          "borrowAfterCleanup": "  Borrow: $0.50 → ~$0.000001 (dust)",
+          "cleaningBorrow": "Cleaning up borrow position...",
+          "depositAmount": "  Amount: 10 USDT → vUSDT (Core Pool)",
+          "fetchingMarkets": "Fetching Venus Core Pool markets...",
+          "healthAfterCleanup": "  Health Factor: 34.14 → ~17,656,287",
+          "initiatingDeposit": "Initiating deposit transaction...",
+          "processingWithdrawal": "Processing withdrawal...",
+          "recommendationAmount": "   Suggested amount: 10 USDT",
+          "recommendationApy": "   Expected APY: ~1.84% (~0.184 USDT/year)",
+          "recommendationTitle": "💡 Deposit USDT into Venus Core Pool",
+          "ruleAction": "  Action: Deposit all wallet USDC",
+          "ruleId": "  Job ID: eadf856a-393b-4587-aa69-10b252c22efa",
+          "ruleInterval": "  Interval: Check every 10 minutes",
+          "ruleTrigger": "  Trigger: vUSDC Supply APY > 3.0%",
+          "settingRule": "Setting up automatic deposit rule...",
+          "walletUsdtAfterWithdrawal": "  Wallet USDT: 10.001736",
+          "withdrawalAmount": "  Amount: 10 USDT withdrawn from vUSDT"
+        },
+        "position": {
+          "current": {
+            "1": {
+              "label": "Total Supply",
+              "value": "$11.003238"
+            },
+            "2": {
+              "label": "Total Borrow",
+              "value": "$0.500249"
+            },
+            "3": {
+              "label": "Health Factor",
+              "status": "LOW risk",
+              "value": "18.15"
+            }
+          },
+          "final": {
+            "1": {
+              "label": "Total Supply",
+              "value": "$11.003250"
+            },
+            "2": {
+              "label": "Total Borrow",
+              "value": "~$0.000001"
+            },
+            "3": {
+              "label": "Health Factor",
+              "status": "very safe",
+              "value": "~9,384,800"
+            }
+          },
+          "updated": {
+            "1": {
+              "change": "+$10.00",
+              "label": "Total Supply",
+              "value": "$21.003943"
+            },
+            "2": {
+              "change": "improved",
+              "label": "Health Factor",
+              "value": "34.14"
+            }
+          }
+        },
+        "success": {
+          "borrowCleaned": "✓ Borrow cleaned up successfully",
+          "depositComplete": "✓ Deposit executed successfully",
+          "ruleEnabled": "✓ Auto-trade rule enabled",
+          "withdrawalComplete": "✓ Withdrawal completed"
+        },
+        "tx": {
+          "approve": {
+            "hash": "0xa66216ffb5de805e1d870bfa6dc8ce43af8c85935c0423e2cd779a1b4e3bae2a",
+            "label": "Approve"
+          },
+          "approveBorrow": {
+            "hash": "0x2539aebcf903c14dfc28c3757ccd358f1da7afe7c5334691a800e35523624049",
+            "label": "Approve"
+          },
+          "deposit": {
+            "hash": "0x7d485c4022644db464262a56b46ef5740909c890566d0f001895938fde3bc620",
+            "label": "Deposit"
+          },
+          "repay": {
+            "hash": "0xdbccf6a5e9dc1ea5727115e86c9081646bf2c00a908512e7d9705f6e245930db",
+            "label": "Repay"
+          },
+          "withdraw": {
+            "hash": "0x4d313a66b6c966b543bfc874e4c5fa78c55b1a4c284bac224ff22fc4066abe91",
+            "label": "Withdraw"
+          }
+        },
+        "user": {
+          "autoDepositRule": "Automatically deposit all my USDC when the APY exceeds 3%",
+          "cleanupBorrow": "Clean up my borrow",
+          "confirmDeposit": "Confirm deposit",
+          "showTopMarkets": "Show me the Top5 market by liquidity",
+          "wantToEarn": "I would like to earn",
+          "withdrawRequest": "Withdrawal 10 USDT for me"
+        }
+      },
+      "title": "Venus-agent.md"
     }
   },
   "spendingLimit": {

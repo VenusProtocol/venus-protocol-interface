@@ -69,6 +69,10 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
       href: VENUS_DOC_URL,
     },
     {
+      label: t('footer.links.skills'),
+      to: routes.skills.path,
+    },
+    {
       label: t('footer.links.privacyPolicy'),
       to: routes.privacyPolicy.path,
     },

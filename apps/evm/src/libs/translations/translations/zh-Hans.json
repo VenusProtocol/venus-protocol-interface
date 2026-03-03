@@ -448,6 +448,7 @@
     "links": {
       "documentation": "文档",
       "privacyPolicy": "隐私政策",
+      "skills": "智能体技能",
       "termsOfUse": "使用条款"
     }
   },
@@ -1102,6 +1103,275 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "搜索资产"
+    }
+  },
+  "skillsPage": {
+    "footer": {
+      "tagline": "为 Venus Protocol 社区打造"
+    },
+    "header": {
+      "beta": "BETA",
+      "tagline": "面向 Venus Protocol 的 AI 驱动 DeFi 自动化",
+      "title": "Venus Agent Skills"
+    },
+    "sections": {
+      "installation": {
+        "icon": "📦",
+        "note": {
+          "securityLabel": "🔐 安全提示：",
+          "securityText": "你的私钥绝不会离开你的设备。智能体会使用你的钱包在本地执行交易。",
+          "warningLabel": "⚠️ BETA 版本警告：",
+          "warningText": "这是 Beta 版本。请自行承担使用风险。仅使用测试资金或小额资金。确认前请务必核对交易。"
+        },
+        "paragraph1": "安装 Venus Agent Skills 不到 5 分钟。请按以下步骤操作：",
+        "repository": {
+          "label": "代码仓库："
+        },
+        "steps": {
+          "1": {
+            "text": "<Bold>下载技能包</Bold>（来自<RepoLink>官方仓库</RepoLink>）"
+          },
+          "2": {
+            "text": "<Bold>将其放入你的智能体 skills 目录：</Bold>"
+          },
+          "3": {
+            "text": "<Bold>在 .env 文件中配置钱包凭据</Bold>："
+          },
+          "4": {
+            "text": "<Bold>安装依赖：</Bold>"
+          },
+          "5": {
+            "text": "<Bold>重启智能体</Bold>以加载新技能"
+          }
+        },
+        "title": "安装方法"
+      },
+      "introduction": {
+        "features": {
+          "1": {
+            "description": "像与人对话一样与智能体交流，无需技术术语",
+            "title": "自然语言指令"
+          },
+          "2": {
+            "description": "即时获取 APY、流动性和市场数据",
+            "title": "实时市场数据"
+          },
+          "3": {
+            "description": "AI 会分析你的钱包并推荐最优收益策略",
+            "title": "智能推荐"
+          },
+          "4": {
+            "description": "用简单指令完成存款、借款、还款和提取",
+            "title": "交易自动化"
+          },
+          "5": {
+            "description": "设置如“当 APY > 3% 时存入”之类的条件，让智能体自动执行",
+            "title": "自动交易规则"
+          },
+          "6": {
+            "description": "24/7 监控你的仓位、健康因子和收益",
+            "title": "投资组合追踪"
+          }
+        },
+        "highlight": "无论 DeFi 新手还是资深交易者，只要想节省时间并优化收益都非常适合。",
+        "icon": "🚀",
+        "paragraph1": "Venus Agent Skills 是一个 AI 驱动的自动化框架，可让你通过自然语言与 Venus Protocol 交互。无需在复杂的 DeFi 界面中操作，只要告诉 AI 智能体你想做什么即可。",
+        "title": "什么是 Venus Agent Skills？"
+      },
+      "verification": {
+        "dialog1": {
+          "agentIntro": "🤖 智能体：“是的！我已安装 Venus Protocol 技能。我可以帮你：",
+          "agentOutro": "你想做什么？”",
+          "capabilities": {
+            "1": "查看市场数据和 APY",
+            "2": "分析你的钱包和 Venus 仓位",
+            "3": "存入和提取资产",
+            "4": "借款和还款",
+            "5": "设置自动交易规则"
+          },
+          "user": "👤 你：“你安装了 Venus 技能吗？”"
+        },
+        "dialog2": {
+          "agent": "🤖 智能体正在从 Venus Core Pool 获取实时数据...",
+          "user": "👤 “显示按流动性排名前 5 的市场”"
+        },
+        "dialog3": {
+          "agent": "🤖 智能体正在检查你的钱包，并显示你的供应、借款和健康因子...",
+          "user": "👤 “我在 Venus Core/Flux 上的当前仓位是什么？”"
+        },
+        "dialog4": {
+          "agent": "🤖 智能体正在分析你的钱包余额，并推荐最佳收益策略...",
+          "user": "👤 “我想赚收益”"
+        },
+        "highlight": "如果智能体返回了市场数据或建议，恭喜你！Venus Agent Skills 已安装并可使用。🎉",
+        "icon": "✅",
+        "paragraph1": "安装后，请通过与智能体对话来确认 Venus Agent Skills 正常运行：",
+        "paragraph2": "试试这些测试指令，确认一切运行正常：",
+        "tip": {
+          "label": "💡 提示：",
+          "text": "先从只读指令（如查看市场）开始，再执行交易。这能帮助你熟悉智能体的能力。"
+        },
+        "title": "验证安装"
+      }
+    },
+    "terminal": {
+      "sequence": {
+        "balance": {
+          "1": {
+            "amount": "0.004784",
+            "token": "BNB"
+          },
+          "2": {
+            "amount": "10.501949",
+            "token": "USDT"
+          },
+          "3": {
+            "amount": "4.000000",
+            "token": "USDC"
+          }
+        },
+        "header": {
+          "currentPosition": "当前 Venus 仓位（Core Pool）：",
+          "finalPosition": "最终仓位：",
+          "recommendation": "建议：",
+          "topMarkets": "按流动性排名前 5 的市场：",
+          "updatedPosition": "更新后仓位：",
+          "walletBalance": "当前钱包余额（BNB Chain）："
+        },
+        "market": {
+          "1": {
+            "borrow": "1.0841%",
+            "liquidity": "$356,095,914.68",
+            "name": "vBTC",
+            "supply": "0.1711%"
+          },
+          "2": {
+            "borrow": "0.8598%",
+            "liquidity": "$300,845,581.93",
+            "name": "vBNB",
+            "supply": "0.1648%"
+          },
+          "3": {
+            "borrow": "0.0514%",
+            "liquidity": "$130,654,243.33",
+            "name": "vSolvBTC",
+            "supply": "0.0002%"
+          },
+          "4": {
+            "borrow": "3.7054%",
+            "liquidity": "$109,840,237.54",
+            "name": "vUSDT",
+            "supply": "1.8415%"
+          },
+          "5": {
+            "borrow": "0.0000%",
+            "liquidity": "$91,022,728.98",
+            "name": "vasBNB",
+            "supply": "0.0000%"
+          }
+        },
+        "output": {
+          "analyzingWallet": "正在分析你的钱包和 Venus 仓位...",
+          "borrowAfterCleanup": "  借款：$0.50 → ~$0.000001（零头）",
+          "cleaningBorrow": "正在清理借款仓位...",
+          "depositAmount": "  数量：10 USDT → vUSDT（Core Pool）",
+          "fetchingMarkets": "正在获取 Venus Core Pool 市场数据...",
+          "healthAfterCleanup": "  健康因子：34.14 → ~17,656,287",
+          "initiatingDeposit": "正在发起存款交易...",
+          "processingWithdrawal": "正在处理提取...",
+          "recommendationAmount": "   建议数量：10 USDT",
+          "recommendationApy": "   预期 APY：~1.84%（~0.184 USDT/年）",
+          "recommendationTitle": "💡 将 USDT 存入 Venus Core Pool",
+          "ruleAction": "  操作：存入钱包中的全部 USDC",
+          "ruleId": "  任务 ID：eadf856a-393b-4587-aa69-10b252c22efa",
+          "ruleInterval": "  间隔：每 10 分钟检查一次",
+          "ruleTrigger": "  触发条件：vUSDC 存款 APY > 3.0%",
+          "settingRule": "正在设置自动存款规则...",
+          "walletUsdtAfterWithdrawal": "  钱包 USDT：10.001736",
+          "withdrawalAmount": "  数量：从 vUSDT 提取 10 USDT"
+        },
+        "position": {
+          "current": {
+            "1": {
+              "label": "总供应",
+              "value": "$11.003238"
+            },
+            "2": {
+              "label": "总借款",
+              "value": "$0.500249"
+            },
+            "3": {
+              "label": "健康因子",
+              "status": "低风险",
+              "value": "18.15"
+            }
+          },
+          "final": {
+            "1": {
+              "label": "总供应",
+              "value": "$11.003250"
+            },
+            "2": {
+              "label": "总借款",
+              "value": "~$0.000001"
+            },
+            "3": {
+              "label": "健康因子",
+              "status": "非常安全",
+              "value": "~9,384,800"
+            }
+          },
+          "updated": {
+            "1": {
+              "change": "+$10.00",
+              "label": "总供应",
+              "value": "$21.003943"
+            },
+            "2": {
+              "change": "已改善",
+              "label": "健康因子",
+              "value": "34.14"
+            }
+          }
+        },
+        "success": {
+          "borrowCleaned": "✓ 借款仓位清理成功",
+          "depositComplete": "✓ 存款执行成功",
+          "ruleEnabled": "✓ 自动交易规则已启用",
+          "withdrawalComplete": "✓ 提取完成"
+        },
+        "tx": {
+          "approve": {
+            "hash": "0xa66216ffb5de805e1d870bfa6dc8ce43af8c85935c0423e2cd779a1b4e3bae2a",
+            "label": "授权"
+          },
+          "approveBorrow": {
+            "hash": "0x2539aebcf903c14dfc28c3757ccd358f1da7afe7c5334691a800e35523624049",
+            "label": "授权"
+          },
+          "deposit": {
+            "hash": "0x7d485c4022644db464262a56b46ef5740909c890566d0f001895938fde3bc620",
+            "label": "存入"
+          },
+          "repay": {
+            "hash": "0xdbccf6a5e9dc1ea5727115e86c9081646bf2c00a908512e7d9705f6e245930db",
+            "label": "还款"
+          },
+          "withdraw": {
+            "hash": "0x4d313a66b6c966b543bfc874e4c5fa78c55b1a4c284bac224ff22fc4066abe91",
+            "label": "取款"
+          }
+        },
+        "user": {
+          "autoDepositRule": "当 APY 超过 3% 时，自动存入我钱包中的全部 USDC",
+          "cleanupBorrow": "帮我清理借款",
+          "confirmDeposit": "确认存款",
+          "showTopMarkets": "给我显示按流动性排名前 5 的市场",
+          "wantToEarn": "我想赚收益",
+          "withdrawRequest": "帮我提取 10 USDT"
+        }
+      },
+      "title": "Venus-agent.md"
     }
   },
   "spendingLimit": {
