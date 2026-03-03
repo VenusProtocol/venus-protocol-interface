@@ -1,13 +1,13 @@
 import { Spinner, cn } from '@venusprotocol/ui';
 
-import { useGetPool } from 'clients/api';
+import { useGetPool, useGetTopMarkets } from 'clients/api';
 import { ButtonGroup, Icon } from 'components';
 import { AssetCard, type AssetCardProps } from 'containers/AssetCard';
 import { useChain } from 'hooks/useChain';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { useState } from 'react';
-import { compareBigNumbers, getCombinedDistributionApys } from 'utilities';
+import { useMemo, useState } from 'react';
+import { areAddressesEqual, compareBigNumbers, getCombinedDistributionApys } from 'utilities';
 import { TypeButton } from './TypeButton';
 
 export interface TopMarketProps {
@@ -22,7 +22,6 @@ export const TopMarkets: React.FC<TopMarketProps> = ({ className, variant = 'pri
 
   const [type, setType] = useState<AssetCardProps['type']>('supply');
 
-  // TODO: update to fetch top markets across chains
   const { accountAddress } = useAccountAddress();
   const { data: getPoolData } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
@@ -30,15 +29,24 @@ export const TopMarkets: React.FC<TopMarketProps> = ({ className, variant = 'pri
   });
   const poolAssets = getPoolData?.pool.assets ?? [];
 
-  const topAssets = [...poolAssets]
-    // Filter out non-borrowable assets if we're displaying the top borrow markets
-    .filter(
-      asset =>
-        type !== 'borrow' ||
-        (asset.isBorrowableByUser && !asset.disabledTokenActions.includes('borrow')),
-    )
-    .sort((assetA, assetB) => {
-      if (type === 'supply') {
+  const { data: topMarketsData } = useGetTopMarkets();
+
+  const topSupplyAssets = useMemo(() => {
+    const topMarketResults = topMarketsData?.result ?? [];
+
+    const assets =
+      topMarketResults.length > 0
+        ? topMarketResults
+            .map(market =>
+              poolAssets.find(asset =>
+                areAddressesEqual(asset.vToken.address, market.marketAddress),
+              ),
+            )
+            .filter((asset): asset is NonNullable<typeof asset> => !!asset)
+        : poolAssets;
+
+    return [...assets]
+      .sort((assetA, assetB) => {
         const assetASupplyApy = assetA.supplyApyPercentage.plus(
           getCombinedDistributionApys({ asset: assetA }).totalSupplyApyBoostPercentage,
         );
@@ -47,18 +55,29 @@ export const TopMarkets: React.FC<TopMarketProps> = ({ className, variant = 'pri
         );
 
         return compareBigNumbers(assetASupplyApy, assetBSupplyApy, 'desc');
-      }
+      })
+      .slice(0, 3);
+  }, [topMarketsData, poolAssets]);
 
-      const assetABorrowApy = assetA.borrowApyPercentage.minus(
-        getCombinedDistributionApys({ asset: assetA }).totalBorrowApyBoostPercentage,
-      );
-      const assetBBorrowApy = assetB.borrowApyPercentage.minus(
-        getCombinedDistributionApys({ asset: assetB }).totalBorrowApyBoostPercentage,
-      );
+  const topBorrowAssets = useMemo(
+    () =>
+      [...poolAssets]
+        .filter(asset => asset.isBorrowableByUser && !asset.disabledTokenActions.includes('borrow'))
+        .sort((assetA, assetB) => {
+          const assetABorrowApy = assetA.borrowApyPercentage.minus(
+            getCombinedDistributionApys({ asset: assetA }).totalBorrowApyBoostPercentage,
+          );
+          const assetBBorrowApy = assetB.borrowApyPercentage.minus(
+            getCombinedDistributionApys({ asset: assetB }).totalBorrowApyBoostPercentage,
+          );
 
-      return compareBigNumbers(assetABorrowApy, assetBBorrowApy, 'asc');
-    })
-    .slice(0, 3);
+          return compareBigNumbers(assetABorrowApy, assetBBorrowApy, 'asc');
+        })
+        .slice(0, 3),
+    [poolAssets],
+  );
+
+  const topAssets = type === 'supply' ? topSupplyAssets : topBorrowAssets;
 
   return (
     <div
