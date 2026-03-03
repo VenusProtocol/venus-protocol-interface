@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.12.0
+
+### Minor Changes
+
+- 508aed2: add Skills page
+
 ## 4.11.0
 
 ### Minor Changes
