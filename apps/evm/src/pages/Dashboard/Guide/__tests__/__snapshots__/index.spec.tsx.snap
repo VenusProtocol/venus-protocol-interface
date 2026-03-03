@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Guide > renders UI if user has some steps left to complete 1`] = `"dashboard.guide.step1.titledashboard.guide.step1.descriptiondashboard.guide.completeddashboard.guide.step2.titledashboard.guide.step2.descriptiondashboard.guide.uncompleteddashboard.guide.step3.titledashboard.guide.step3.descriptiondashboard.guide.uncompleted"`;
+exports[`Guide > renders UI if user has some steps left to complete 1`] = `"Supply / MigrateEarn yield by supplying any asset or moving your existing positions from another protocol to Venus.CompletedBorrow / LeverageBorrow any asset to power your DeFi strategies, and boost it in one simple click.UncompletedStake XVSDeposit XVS to our vault and earn yield powered by Venus' revenue.Uncompleted"`;
 
 exports[`Guide > renders UI if user is not connected 1`] = `""`;
 

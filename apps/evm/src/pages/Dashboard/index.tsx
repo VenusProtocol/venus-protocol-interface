@@ -82,7 +82,7 @@ export const Dashboard: React.FC = () => {
         <AdBanner />
       </div>
 
-      <div className="space-y-12 mb-12 lg:flex lg:space-y-0 lg:gap-x-6">
+      <div className="space-y-12 mb-12">
         <Overview className="w-full" />
 
         <Guide />
