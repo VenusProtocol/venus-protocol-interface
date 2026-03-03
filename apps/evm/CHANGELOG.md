@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.13.0
+
+### Minor Changes
+
+- 5721837: fix footer alignment
+
 ## 4.12.0
 
 ### Minor Changes
