@@ -1,5 +1,12 @@
 # @venusprotocol/chains
 
+## 0.23.0
+
+### Minor Changes
+
+- 4d02e6b: list XAUm
+- 4d02e6b: list XAUm
+
 ## 0.22.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 4.10.0
+
+### Minor Changes
+
+- 4d02e6b: list XAUm
+
+### Patch Changes
+
+- Updated dependencies [4d02e6b]
+- Updated dependencies [4d02e6b]
+  - @venusprotocol/chains@0.23.0
+
 ## 4.9.0
 
 ### Minor Changes
