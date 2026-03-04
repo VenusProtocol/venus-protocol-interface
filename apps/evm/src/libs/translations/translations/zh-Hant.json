@@ -46,20 +46,6 @@
         "title": "尚無供應或借入持倉"
       }
     },
-    "poolsBreakdown": {
-      "poolTagTooltip": "已用借款限額：{{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "領取 Prime 代幣",
-        "stakeXvs": "質押 XVS"
-      },
-      "primeLogoAltText": "Prime 標誌",
-      "text": {
-        "apyBoost": "使用 Prime 將收益提升高達 <GreenText>{{boost}}</GreenText>",
-        "becomePrime": "你現在可以成為 Prime 用戶"
-      }
-    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "在 {{chainName}} 上啟用免 gas 交易"
@@ -81,10 +67,9 @@
       "title": "概覽"
     },
     "tabs": {
-      "pools": "資金池",
-      "settings": "設置",
-      "transactions": "交易",
-      "vaults": "金庫"
+      "markets": "市場",
+      "staking": "質押",
+      "transactions": "交易"
     },
     "transactions": {
       "date": {
@@ -300,6 +285,17 @@
     "modalTitle": "{{ poolName }} 代幣",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 將使你只能從該池借入代幣。<Button>顯示全部市場</Button>"
   },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "背景插圖",
+    "binanceLogoAltText": "Binance 標誌",
+    "description": "借入 USDT，分享 <Bold>$400,000</Bold> 獎勵！",
+    "title": "Venus 已在 Binance Wallet Earn 上線。"
+  },
+  "boostBanner": {
+    "description": "一鍵槓桿提升收益 <White>最高 5 倍</White>。",
+    "rocketAltText": "火箭插圖",
+    "title": "Boost 已上線！"
+  },
   "breadcrumbs": {
     "bridge": "跨鏈橋",
     "dashboard": "儀表盤",
@@ -406,11 +402,67 @@
     }
   },
   "dashboard": {
+    "guide": {
+      "completed": "已完成",
+      "step1": {
+        "description": "透過存款或將現有持倉遷移到 Venus 協議來賺取收益。",
+        "title": "存款 / 遷移"
+      },
+      "step2": {
+        "description": "借入資產強化您的 DeFi 策略，或一鍵使用流動性進行槓桿操作。",
+        "title": "借款 / 槓桿"
+      },
+      "step3": {
+        "description": "將 XVS 存入金庫，賺取由協議收入提供的收益。",
+        "title": "質押 XVS"
+      },
+      "uncompleted": "未完成"
+    },
+    "overview": {
+      "absolutePerformance": "絕對表現",
+      "netWorth": {
+        "label": "淨值",
+        "tooltip": "計入金庫質押與借款後的可用淨資產",
+        "tooltipWithVai": "計入金庫質押、借款與已鑄 VAI 後的可用淨資產"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "無法取得帳戶歷史紀錄",
+          "refetchButtonLabel": "重試"
+        },
+        "placeholderText": "正在生成報告，最多可能需要一分鐘"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6個月",
+        "thirtyDays": "30天"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "每日收益",
+          "mintedVai": "已鑄 VAI",
+          "netApy": "淨 APY",
+          "netApyTooltip": "您總存款餘額中按年利息獲得的百分比",
+          "netApyWithVaultStakeTooltip": "您總存款餘額與金庫質押按年利息獲得的百分比",
+          "totalBorrow": "總借款",
+          "totalSupply": "總存款",
+          "totalVaultStake": "金庫質押總額"
+        },
+        "title": "摘要"
+      },
+      "todaysChange": "今日變化"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "借款"
       },
-      "interactiveTitle": "焦點 (<Group><SupplyButton>供應</SupplyButton> / <BorrowButton>借款</BorrowButton></Group>)",
+      "interactiveTitle": "焦點 ( <Group><SupplyButton>供應</SupplyButton>/<BorrowButton>借款</BorrowButton></Group> )",
       "supplyButton": {
         "label": "供應"
       },
@@ -544,6 +596,11 @@
       "utilizationRate": "利用率"
     }
   },
+  "isolatedPoolsSunsetBanner": {
+    "description": "領取獎勵並關閉你的倉位",
+    "illustrationAltText": "插圖",
+    "title": "隔離池正在關閉"
+  },
   "landing": {
     "benefits": {
       "text1": "直接在鏈上存取不可篡改的貨幣市場。",
@@ -597,6 +654,7 @@
       "protectionTitle": "安全保障優先"
     },
     "safety": {
+      "audit_one": "審計",
       "audit_other": "審計",
       "otherAuditors": "+14 次審計，來自 <br />Fairyproof、Hacken 與 HashEx",
       "scoreAlt": "評分插圖",
@@ -1076,6 +1134,11 @@
     "tokensLeft_many": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
     "tokensLeft_other": "剩餘 <WhiteText>{{count}}</WhiteText> 個 Prime 代幣",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 後可領取 Prime 獎勵"
+  },
+  "probableBanner": {
+    "description": "在 probable.markets 上賦能你的信念",
+    "probableAltText": "Probable 插圖",
+    "title": "心想事成？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1705,7 +1768,9 @@
     "youAreStake": "你正在質押"
   },
   "venusFluxBanner": {
+    "bgIllustrationAltText": "背景插圖",
     "description": "讓你的流動性 Flux，見證收益成長。",
+    "iconAltText": "Venus Flux 圖標",
     "illustrationAltText": "Venus Flux 插圖",
     "title": "瓜分 Venus Flux 百萬美元激勵"
   },

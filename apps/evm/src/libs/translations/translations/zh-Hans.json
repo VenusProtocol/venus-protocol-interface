@@ -46,20 +46,6 @@
         "title": "尚无存款或借入持仓"
       }
     },
-    "poolsBreakdown": {
-      "poolTagTooltip": "已用借款限额：{{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "领取 Prime 代币",
-        "stakeXvs": "质押 XVS"
-      },
-      "primeLogoAltText": "Prime 标志",
-      "text": {
-        "apyBoost": "使用 Prime 将收益提升高达 <GreenText>{{boost}}</GreenText>",
-        "becomePrime": "你现在可以成为 Prime 用户"
-      }
-    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "在 {{chainName}} 上启用免 gas 交易"
@@ -81,10 +67,9 @@
       "title": "概览"
     },
     "tabs": {
-      "pools": "资金池",
-      "settings": "设置",
-      "transactions": "交易",
-      "vaults": "金库"
+      "markets": "市场",
+      "staking": "质押",
+      "transactions": "交易"
     },
     "transactions": {
       "date": {
@@ -300,6 +285,17 @@
     "modalTitle": "{{ poolName }} 代币",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
   },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "背景插图",
+    "binanceLogoAltText": "Binance 标志",
+    "description": "借入 USDT，分享 <Bold>$400,000</Bold> 奖励！",
+    "title": "Venus 已在 Binance Wallet Earn 上线。"
+  },
+  "boostBanner": {
+    "description": "一键杠杆提升收益 <White>最高 5 倍</White>。",
+    "rocketAltText": "火箭插图",
+    "title": "Boost 已上线！"
+  },
   "breadcrumbs": {
     "bridge": "跨链桥",
     "dashboard": "仪表盘",
@@ -406,11 +402,67 @@
     }
   },
   "dashboard": {
+    "guide": {
+      "completed": "已完成",
+      "step1": {
+        "description": "通过存款或将现有持仓迁移到 Venus 协议来赚取收益。",
+        "title": "存款 / 迁移"
+      },
+      "step2": {
+        "description": "活用借贷来应用你的Defi策略，或使用一键杠杆来放大持仓。",
+        "title": "借款 / 杠杆"
+      },
+      "step3": {
+        "description": "将 XVS 存入金库，赚取由协议收入提供的收益。",
+        "title": "质押 XVS"
+      },
+      "uncompleted": "未完成"
+    },
+    "overview": {
+      "absolutePerformance": "绝对表现",
+      "netWorth": {
+        "label": "净值",
+        "tooltip": "在计入金库质押和借款后可用的净资产",
+        "tooltipWithVai": "在计入金库质押、借款和已铸 VAI 后可用的净资产"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "无法获取账户历史记录",
+          "refetchButtonLabel": "重试"
+        },
+        "placeholderText": "正在生成报告，最多可能需要一分钟"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6个月",
+        "thirtyDays": "30天"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "每日收益",
+          "mintedVai": "已铸 VAI",
+          "netApy": "净 APY",
+          "netApyTooltip": "您总存款余额与金库质押按年利息获得的百分比",
+          "netApyWithVaultStakeTooltip": "您总供应余额与金库质押按年利息获得的百分比",
+          "totalBorrow": "总借款",
+          "totalSupply": "总存款",
+          "totalVaultStake": "金库质押总额"
+        },
+        "title": "摘要"
+      },
+      "todaysChange": "今日变化"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "借款"
       },
-      "interactiveTitle": "焦点 (<Group><SupplyButton>存款</SupplyButton> / <BorrowButton>借款</BorrowButton></Group>)",
+      "interactiveTitle": "焦点 ( <Group><SupplyButton>存款</SupplyButton>/<BorrowButton>借款</BorrowButton></Group> )",
       "supplyButton": {
         "label": "存款"
       },
@@ -544,6 +596,11 @@
       "utilizationRate": "利用率"
     }
   },
+  "isolatedPoolsSunsetBanner": {
+    "description": "领取奖励并关闭你的仓位",
+    "illustrationAltText": "插图",
+    "title": "隔离池即将关闭"
+  },
   "landing": {
     "benefits": {
       "text1": "直接在链上访问不可篡改的货币市场。",
@@ -597,6 +654,7 @@
       "protectionTitle": "安全保障优先"
     },
     "safety": {
+      "audit_one": "审计",
       "audit_other": "审计",
       "otherAuditors": "+14 次审计，来自 <br />Fairyproof、Hacken 和 HashEx",
       "scoreAlt": "评分插图",
@@ -1076,6 +1134,11 @@
     "tokensLeft_many": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "tokensLeft_other": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 后可领取 Prime 奖励"
+  },
+  "probableBanner": {
+    "description": "在 probable.markets 上赋能你的信念",
+    "probableAltText": "Probable 插图",
+    "title": "心想事成？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1705,7 +1768,9 @@
     "youAreStake": "你正在质押"
   },
   "venusFluxBanner": {
+    "bgIllustrationAltText": "背景插图",
     "description": "让你的流动性 Flux，见证收益增长。",
+    "iconAltText": "Venus Flux 图标",
     "illustrationAltText": "Venus Flux 插图",
     "title": "瓜分 Venus Flux 百万美元激励"
   },

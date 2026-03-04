@@ -8,7 +8,11 @@ export const useStyles = () => {
     desktopContainer: css`
       display: grid;
       grid-template-columns: 1fr 1fr;
-      column-gap: ${theme.spacing(6)};
+      gap: ${theme.spacing(6)};
+
+      ${theme.breakpoints.down('lg')} {
+        grid-template-columns: 1fr;
+      }
     `,
     tabletContainer: css`
       padding-left: 0;

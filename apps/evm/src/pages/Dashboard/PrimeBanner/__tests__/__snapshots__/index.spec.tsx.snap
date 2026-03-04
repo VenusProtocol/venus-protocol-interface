@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`PrimeBanner > displays correctly if user can become Prime 1`] = `"You can now become a Prime userClaim Prime tokenYou can now become a Prime userClaim Prime token"`;
-
-exports[`PrimeBanner > displays correctly if user cannot become Prime yet 1`] = `"Boost your earnings by up to 8.45% with PrimeStake XVSBoost your earnings by up to 8.45% with PrimeStake XVS"`;
-
-exports[`PrimeBanner > displays nothing if user previously closed the modal and cannot become Prime yet 1`] = `""`;
-
-exports[`PrimeBanner > hide banners if user closes it 1`] = `""`;

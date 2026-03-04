@@ -8,6 +8,8 @@ export const defaultUserChainSettings: UserChainSettings = {
   showUserAssetsOnly: false,
   doNotShowImportPositionsModal: false,
   slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
+  doNotShowUserBalances: false,
+  doNotExpandGuide: false,
 };
 
 export const useUserChainSettings = () => {

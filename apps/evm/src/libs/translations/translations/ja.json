@@ -46,20 +46,6 @@
         "title": "まだ供給または借入のポジションはありません"
       }
     },
-    "poolsBreakdown": {
-      "poolTagTooltip": "借入限度の使用率: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "Primeトークンを請求",
-        "stakeXvs": "XVSのステーキング"
-      },
-      "primeLogoAltText": "Primeロゴ",
-      "text": {
-        "apyBoost": "Primeで収益を最大<GreenText>{{boost}}</GreenText>までブースト",
-        "becomePrime": "Primeユーザーになれるようになりました"
-      }
-    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "{{chainName}}でガスレス取引を有効にする"
@@ -81,10 +67,9 @@
       "title": "サマリー"
     },
     "tabs": {
-      "pools": "プール",
-      "settings": "設定",
-      "transactions": "取引",
-      "vaults": "ボールト"
+      "markets": "マーケット",
+      "staking": "ステーキング",
+      "transactions": "取引"
     },
     "transactions": {
       "date": {
@@ -300,6 +285,17 @@
     "modalTitle": "{{ poolName }} トークン",
     "supplyDescription": "{{poolName}}プールに{{tokenSymbol}}を供給すると、このプールのみからトークンを借りられるようになります。<Button>すべてのマーケットを表示</Button>"
   },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "背景イラスト",
+    "binanceLogoAltText": "Binanceロゴ",
+    "description": "USDTを借りて<Bold>$400,000</Bold>の報酬を山分け！",
+    "title": "VenusがBinance Wallet Earnで利用可能になりました。"
+  },
+  "boostBanner": {
+    "description": "ワンクリックのレバレッジで利回りを<White>最大5倍</White>までブースト。",
+    "rocketAltText": "ロケットのイラスト",
+    "title": "Boostが利用可能になりました！"
+  },
   "breadcrumbs": {
     "bridge": "ブリッジ",
     "dashboard": "ダッシュボード",
@@ -406,11 +402,67 @@
     }
   },
   "dashboard": {
+    "guide": {
+      "completed": "完了",
+      "step1": {
+        "description": "資産を供給するか既存ポジションをVenusプロトコルへ移行して利回りを獲得しましょう。",
+        "title": "供給 / 移行"
+      },
+      "step2": {
+        "description": "資産を借りてDeFi戦略を強化したり、ワンクリックで流動性をレバレッジできます。",
+        "title": "借入 / レバレッジ"
+      },
+      "step3": {
+        "description": "XVSをボールトに預け入れ、プロトコル収益による利回りを獲得しましょう。",
+        "title": "XVSをステーク"
+      },
+      "uncompleted": "未完了"
+    },
+    "overview": {
+      "absolutePerformance": "絶対パフォーマンス",
+      "netWorth": {
+        "label": "純資産",
+        "tooltip": "ボールトステークと借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールトステーク、借入、ミント済みVAIを考慮した利用可能な純資産"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "アカウント履歴を取得できませんでした",
+          "refetchButtonLabel": "再試行"
+        },
+        "placeholderText": "レポートを生成中。最大1分かかる場合があります"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6か月",
+        "thirtyDays": "30日"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "日次収益",
+          "mintedVai": "ミント済みVAI",
+          "netApy": "実質APY",
+          "netApyTooltip": "総供給残高に対して年利として受け取る割合",
+          "netApyWithVaultStakeTooltip": "総供給とボールトステークに対して年利として受け取る割合",
+          "totalBorrow": "総借入",
+          "totalSupply": "総供給",
+          "totalVaultStake": "ボールトステーク合計"
+        },
+        "title": "サマリー"
+      },
+      "todaysChange": "本日の変化"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "借入"
       },
-      "interactiveTitle": "スポットライト (<Group><SupplyButton>供給</SupplyButton> / <BorrowButton>借入</BorrowButton></Group>)",
+      "interactiveTitle": "スポットライト ( <Group><SupplyButton>供給</SupplyButton>/<BorrowButton>借入</BorrowButton></Group> )",
       "supplyButton": {
         "label": "供給"
       },
@@ -544,6 +596,11 @@
       "utilizationRate": "利用率"
     }
   },
+  "isolatedPoolsSunsetBanner": {
+    "description": "報酬を請求してポジションを閉じてください",
+    "illustrationAltText": "イラスト",
+    "title": "隔離プールは終了予定です"
+  },
   "landing": {
     "benefits": {
       "text1": "改ざん不能なマネーマーケットにオンチェーンで直接アクセス。",
@@ -597,6 +654,7 @@
       "protectionTitle": "保護を最優先"
     },
     "safety": {
+      "audit_one": "監査",
       "audit_other": "監査",
       "otherAuditors": "Fairyproof、Hacken、HashExによる<br />14件以上の監査",
       "scoreAlt": "スコアのイラスト",
@@ -1076,6 +1134,11 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "waitForPrimeTitle": "Prime報酬を請求できるまで{{claimWaitingPeriod}}"
+  },
+  "probableBanner": {
+    "description": "probable.marketsで信念をブーストしよう",
+    "probableAltText": "Probableのイラスト",
+    "title": "何かを信じますか？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1705,7 +1768,9 @@
     "youAreStake": "あなたのステーキング量"
   },
   "venusFluxBanner": {
+    "bgIllustrationAltText": "背景イラスト",
     "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
+    "iconAltText": "Venus Flux アイコン",
     "illustrationAltText": "Venus Flux のイラスト",
     "title": "Venus Flux インセンティブ総額100万ドルをシェア"
   },

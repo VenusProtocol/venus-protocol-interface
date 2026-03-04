@@ -46,20 +46,6 @@
         "title": "No supply or borrow positions yet"
       }
     },
-    "poolsBreakdown": {
-      "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "Claim Prime token",
-        "stakeXvs": "Stake XVS"
-      },
-      "primeLogoAltText": "Prime logo",
-      "text": {
-        "apyBoost": "Boost your earnings by up to <GreenText>{{boost}}</GreenText> with Prime",
-        "becomePrime": "You can now become a Prime user"
-      }
-    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "Enable gasless transactions on {{chainName}}"
@@ -81,10 +67,9 @@
       "title": "Summary"
     },
     "tabs": {
-      "pools": "Pools",
-      "settings": "Settings",
-      "transactions": "Transactions",
-      "vaults": "Vaults"
+      "markets": "Markets",
+      "staking": "Staking",
+      "transactions": "Transactions"
     },
     "transactions": {
       "date": {
@@ -300,6 +285,17 @@
     "modalTitle": "{{ poolName }} tokens",
     "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
   },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "Background illustration",
+    "binanceLogoAltText": "Binance logo",
+    "description": "Borrow USDT and share <Bold>$400,000</Bold> in rewards!",
+    "title": "Venus is live on Binance Wallet Earn."
+  },
+  "boostBanner": {
+    "description": "One-click leverage to boost your yield <White>up to 5x</White>.",
+    "rocketAltText": "Rocket illustration",
+    "title": "Boost is available now!"
+  },
   "breadcrumbs": {
     "bridge": "Bridge",
     "dashboard": "Dashboard",
@@ -406,11 +402,67 @@
     }
   },
   "dashboard": {
+    "guide": {
+      "completed": "Completed",
+      "step1": {
+        "description": "Earn yield by supplying any asset or moving your existing positions from another protocol to Venus.",
+        "title": "Supply / Migrate"
+      },
+      "step2": {
+        "description": "Borrow any asset to power your DeFi strategies, and boost it in one simple click.",
+        "title": "Borrow / Leverage"
+      },
+      "step3": {
+        "description": "Deposit XVS to our vault and earn yield powered by Venus' revenue.",
+        "title": "Stake XVS"
+      },
+      "uncompleted": "Uncompleted"
+    },
+    "overview": {
+      "absolutePerformance": "Absolute performance",
+      "netWorth": {
+        "label": "Net worth",
+        "tooltip": "Net available assets after accounting for vault stake and borrowings",
+        "tooltipWithVai": "Net available assets after accounting for vault stake, borrowings, and minted VAI"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "Could not fetch account history",
+          "refetchButtonLabel": "Retry"
+        },
+        "placeholderText": "Generating report, this can take up to a minute"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6M",
+        "thirtyDays": "30D"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Daily earnings",
+          "mintedVai": "Minted VAI",
+          "netApy": "Net APY",
+          "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+          "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
+          "totalBorrow": "Total borrow",
+          "totalSupply": "Total supply",
+          "totalVaultStake": "Total vault stake"
+        },
+        "title": "Summary"
+      },
+      "todaysChange": "Today's change"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "Borrow"
       },
-      "interactiveTitle": "Spotlight (<Group><SupplyButton>supply</SupplyButton> / <BorrowButton>borrow</BorrowButton></Group>)",
+      "interactiveTitle": "Spotlight ( <Group><SupplyButton>Supply</SupplyButton>/<BorrowButton>Borrow</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Supply"
       },
@@ -543,6 +595,11 @@
       "supplyApy": "Supply APY",
       "utilizationRate": "Utilization rate"
     }
+  },
+  "isolatedPoolsSunsetBanner": {
+    "description": "Claim your rewards and close your positions",
+    "illustrationAltText": "Illustration",
+    "title": "Isolated pools are being sunsetted"
   },
   "landing": {
     "benefits": {
@@ -1077,6 +1134,11 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
+  },
+  "probableBanner": {
+    "description": "Give your conviction a boost on probable.markets",
+    "probableAltText": "Probable illustration",
+    "title": "Believe in something?"
   },
   "proposalList": {
     "selectOptions": {
@@ -1706,7 +1768,9 @@
     "youAreStake": "You are staking"
   },
   "venusFluxBanner": {
+    "bgIllustrationAltText": "Background illustration",
     "description": "Let your liquidity Flux, watch your yield grow.",
+    "iconAltText": "Venus Flux icon",
     "illustrationAltText": "Venus Flux illustration",
     "title": "Share $1M in Venus Flux Incentives"
   },

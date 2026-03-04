@@ -163,7 +163,7 @@ export const Transactions: React.FC = () => {
           options={txTypeSelectOptions}
           optionClassName="px-3 h-10 scrollbar-track-cards"
           dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-          buttonClassName="min-w-45"
+          buttonClassName="min-w-1/2 sm:min-w-45"
           value={txTypeStr}
           onChange={newValue => setTxType(newValue.toString())}
         />
@@ -174,8 +174,8 @@ export const Transactions: React.FC = () => {
           placeLabelToLeft
           options={sourceSelectOptions}
           optionClassName="px-3 h-10 scrollbar-track-cards"
-          dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-          buttonClassName="min-w-45"
+          dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey sm:min-w-68"
+          buttonClassName="m-w-1/2 sm:min-w-45"
           value={selectedContractAddress}
           onChange={newValue => setSelectedContractAddress(newValue.toString())}
         />

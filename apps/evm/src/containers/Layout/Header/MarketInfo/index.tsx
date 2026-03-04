@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
 import { CellGroup, type CellProps, Icon, Spinner, TokenIcon, Wrapper } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Link } from 'containers/Link';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
