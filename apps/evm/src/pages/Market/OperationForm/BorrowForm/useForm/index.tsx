@@ -4,7 +4,7 @@ import type { Asset, AssetBalanceMutation, Pool, Token } from 'types';
 import type BigNumber from 'bignumber.js';
 import { useAnalytics } from 'libs/analytics';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
-import type { FormError } from '../../types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
@@ -25,7 +25,7 @@ export interface UseFormInput {
 interface UseFormOutput {
   handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formError?: TxFormError<FormErrorCode>;
 }
 
 const useForm = ({

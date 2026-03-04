@@ -1,6 +1,6 @@
 import { VError, logError } from 'libs/errors';
 import type { YieldPlusPosition } from 'types';
-import { areAddressesEqual, restService } from 'utilities';
+import { areAddressesEqual, formatToYieldPlusPosition, restService } from 'utilities';
 import { getPools } from '../useGetPools/getPools';
 import type {
   GetApiYieldPlusPositionsOutput,
@@ -70,7 +70,7 @@ export const getYieldPlusPositions = async ({
         return acc;
       }
 
-      const yieldPlusPosition: YieldPlusPosition = {
+      const yieldPlusPosition = formatToYieldPlusPosition({
         chainId,
         positionAccountAddress: apiYieldPlusPosition.positionAccountAddress,
         dsaVTokenAddress: apiYieldPlusPosition.dsaVTokenAddress,
@@ -84,9 +84,9 @@ export const getYieldPlusPositions = async ({
           ? Number(apiYieldPlusPosition.pnl.unrealizedPnlPercentage)
           : 0,
         pool,
-      };
+      });
 
-      return [...acc, yieldPlusPosition];
+      return yieldPlusPosition ? [...acc, yieldPlusPosition] : acc;
     },
     [],
   );

@@ -293,6 +293,9 @@
     "modalTitle": "โทเคน {{ poolName }}",
     "supplyDescription": "การฝาก {{tokenSymbol}} ในพูล {{poolName}} จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <Button>แสดงตลาดทั้งหมด</Button>"
   },
+  "availableBalance": {
+    "label": "TRANSLATION NEEDED"
+  },
   "breadcrumbs": {
     "bridge": "บริดจ์",
     "dashboard": "แดชบอร์ด",
@@ -952,8 +955,8 @@
     },
     "rightMaxButtonLabel": "สูงสุด",
     "riskSlider": {
-      "highRisk": "ความเสี่ยงสูง",
-      "lowRisk": "ความเสี่ยงต่ำ"
+      "0": "TRANSLATION NEEDED",
+      "100": "TRANSLATION NEEDED"
     },
     "safeMaxButtonLabel": "สูงสุดแบบปลอดภัย",
     "submitButtonLabel": {
@@ -1968,6 +1971,17 @@
     "longTokenSelect": {
       "label": "Long"
     },
+    "operationForm": {
+      "openForm": {
+        "collateral": "TRANSLATION NEEDED",
+        "entryPrice": "TRANSLATION NEEDED",
+        "liquidationPrice": "TRANSLATION NEEDED",
+        "long": "TRANSLATION NEEDED",
+        "netApy": "TRANSLATION NEEDED",
+        "short": "TRANSLATION NEEDED",
+        "submitButtonLabel": "TRANSLATION NEEDED"
+      }
+    },
     "positions": {
       "closeButtonLabel": "ปิด",
       "placeholder": {
@@ -2017,6 +2031,15 @@
     "shortLiquidity": "สภาพคล่องฝั่ง Short",
     "shortTokenSelect": {
       "label": "Short"
+    }
+  },
+  "yieldPLus": {
+    "operationForm": {
+      "openForm": {
+        "dsaFieldLabel": "TRANSLATION NEEDED",
+        "longFieldLabel": "TRANSLATION NEEDED",
+        "shortFieldLabel": "TRANSLATION NEEDED"
+      }
     }
   }
 }

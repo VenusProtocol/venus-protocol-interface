@@ -4,7 +4,7 @@ import { PrimaryButton } from 'components';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useTranslation } from 'libs/translations';
 import { ApproveDelegateSteps, type ApproveDelegateStepsProps } from '../../ApproveDelegateSteps';
-import type { FormError } from '../../types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode } from '../useForm';
 
 export interface SubmitSectionProps {
@@ -14,7 +14,7 @@ export interface SubmitSectionProps {
   isApproveDelegateLoading: ApproveDelegateStepsProps['isApproveDelegateeLoading'];
   isDelegateApproved: ApproveDelegateStepsProps['isDelegateeApproved'];
   isDelegateApprovedLoading: ApproveDelegateStepsProps['isDelegateeApprovedLoading'];
-  formError?: FormError<FormErrorCode>;
+  formError?: TxFormError<FormErrorCode>;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({

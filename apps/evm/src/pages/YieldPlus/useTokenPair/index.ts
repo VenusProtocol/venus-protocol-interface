@@ -11,12 +11,12 @@ export const useTokenPair = () => {
 
   const tokens = useGetTokens();
 
-  const defaultLongToken = nativeToken;
-
-  const defaultShortToken =
+  const defaultLongToken =
     useGetToken({
       symbol: 'USDT',
     }) || tokens[0];
+
+  const defaultShortToken = nativeToken;
 
   const shortTokenAddress = searchParams.get(SHORT_TOKEN_ADDRESS_PARAM_KEY) || undefined;
   const longTokenAddress = searchParams.get(LONG_TOKEN_ADDRESS_PARAM_KEY) || undefined;
@@ -41,6 +41,8 @@ export const useTokenPair = () => {
   }
 
   return {
+    defaultLongToken,
+    defaultShortToken,
     shortToken,
     longToken,
   };

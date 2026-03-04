@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import { Table } from 'components';
 import { useMemo, useState } from 'react';
 
@@ -9,19 +8,21 @@ import {
   SHORT_TOKEN_ADDRESS_PARAM_KEY,
 } from 'pages/YieldPlus/constants';
 import { useSearchParams } from 'react-router';
-import type { Asset } from 'types';
-import { areAddressesEqual } from 'utilities';
+import type { YieldPlusPosition } from 'types';
 import { RowFooter } from './RowFooter';
 import { rowKeyExtractor } from './rowKeyExtractor';
-import type { PositionListProps, Row } from './types';
 import { useColumns } from './useColumns';
+
+export interface PositionListProps {
+  positions: YieldPlusPosition[];
+}
 
 export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
   const { t } = useTranslation();
   const [_, setSearchParams] = useSearchParams();
   const [openPositionAccordionKeys, setOpenAccordionKeys] = useState<string[]>([]);
 
-  const handleRowClick = (_e: React.MouseEvent<HTMLDivElement>, row: Row) => {
+  const handleRowClick = (_e: React.MouseEvent<HTMLDivElement>, row: YieldPlusPosition) => {
     document.getElementById(PAGE_CONTAINER_ID)?.scrollTo({
       top: 0,
       left: 0,
@@ -30,18 +31,18 @@ export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
 
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
-      [LONG_TOKEN_ADDRESS_PARAM_KEY]: row.longToken.address,
-      [SHORT_TOKEN_ADDRESS_PARAM_KEY]: row.shortToken.address,
+      [LONG_TOKEN_ADDRESS_PARAM_KEY]: row.longAsset.vToken.underlyingToken.address,
+      [SHORT_TOKEN_ADDRESS_PARAM_KEY]: row.shortAsset.vToken.underlyingToken.address,
     }));
   };
 
-  const renderRowFooter = (row: Row) => {
+  const renderRowFooter = (row: YieldPlusPosition) => {
     const isOpen = openPositionAccordionKeys.includes(rowKeyExtractor(row));
 
     return <RowFooter row={row} isOpen={isOpen} />;
   };
 
-  const renderRowControl = (_row: Row) => {
+  const renderRowControl = (_row: YieldPlusPosition) => {
     const handleClick = (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
@@ -59,97 +60,6 @@ export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
       </button>
     );
   };
-
-  const rows = positions.reduce<Row[]>((acc, position) => {
-    let dsaAsset: Asset | undefined;
-    let longAsset: Asset | undefined;
-    let shortAsset: Asset | undefined;
-
-    position.pool.assets.forEach(asset => {
-      if (areAddressesEqual(asset.vToken.address, position.dsaVTokenAddress)) {
-        dsaAsset = asset;
-      }
-
-      if (areAddressesEqual(asset.vToken.address, position.shortVTokenAddress)) {
-        shortAsset = asset;
-      }
-
-      if (areAddressesEqual(asset.vToken.address, position.longVTokenAddress)) {
-        longAsset = asset;
-      }
-    });
-
-    if (!longAsset || !shortAsset || !dsaAsset) {
-      return acc;
-    }
-
-    const longBalanceTokens = longAsset.userSupplyBalanceTokens;
-    const shortBalanceTokens = shortAsset.userBorrowBalanceTokens;
-    const dsaBalanceTokens = dsaAsset.userSupplyBalanceTokens;
-
-    const longBalanceCents = longAsset.userSupplyBalanceCents;
-    const shortBalanceCents = shortAsset.userBorrowBalanceCents;
-    const dsaBalanceCents = dsaAsset.userSupplyBalanceCents;
-
-    const entryPriceTokens = longBalanceTokens.isZero()
-      ? new BigNumber(0)
-      : shortBalanceTokens.dividedBy(longBalanceTokens);
-
-    const entryPriceCents = entryPriceTokens.multipliedBy(shortAsset.tokenPriceCents);
-
-    const collateralLt = new BigNumber(dsaAsset.liquidationThresholdPercentage).dividedBy(100);
-    const longLt = new BigNumber(longAsset.liquidationThresholdPercentage).dividedBy(100);
-
-    const liquidationPriceTokens =
-      longBalanceTokens.isZero() || longLt.isZero() || shortAsset.tokenPriceCents.isZero()
-        ? new BigNumber(0)
-        : shortBalanceTokens
-            .minus(
-              dsaBalanceTokens
-                .multipliedBy(dsaAsset.tokenPriceCents.dividedBy(shortAsset.tokenPriceCents))
-                .multipliedBy(collateralLt),
-            )
-            .dividedBy(longBalanceTokens.multipliedBy(longLt));
-
-    const liquidationPriceCents = liquidationPriceTokens.multipliedBy(shortAsset.tokenPriceCents);
-
-    const totalSupplyValueCents = dsaBalanceCents.plus(longBalanceCents);
-    const shortBorrowApyPercentage = shortAsset.borrowApyPercentage.absoluteValue();
-    const netApyPercentage = totalSupplyValueCents.isZero()
-      ? 0
-      : dsaBalanceCents
-          .multipliedBy(dsaAsset.supplyApyPercentage)
-          .plus(longBalanceCents.multipliedBy(longAsset.supplyApyPercentage))
-          .minus(shortBalanceCents.multipliedBy(shortBorrowApyPercentage))
-          .dividedBy(totalSupplyValueCents)
-          .toNumber();
-
-    const netValueCents = dsaBalanceCents
-      .plus(longBalanceCents)
-      .minus(shortBalanceCents)
-      .toNumber();
-
-    const row: Row = {
-      ...position,
-      longToken: longAsset.vToken.underlyingToken,
-      longBalanceTokens,
-      longBalanceCents: longBalanceCents.toNumber(),
-      shortToken: shortAsset.vToken.underlyingToken,
-      shortBalanceTokens,
-      shortBalanceCents: shortBalanceCents.toNumber(),
-      dsaToken: dsaAsset.vToken.underlyingToken,
-      dsaBalanceTokens,
-      dsaBalanceCents: dsaBalanceCents.toNumber(),
-      netValueCents,
-      netApyPercentage,
-      entryPriceTokens,
-      entryPriceCents: entryPriceCents.toNumber(),
-      liquidationPriceTokens,
-      liquidationPriceCents: liquidationPriceCents.toNumber(),
-    };
-
-    return [...acc, row];
-  }, []);
 
   const columns = useColumns({
     openPositionAccordionKeys,
@@ -170,7 +80,7 @@ export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
   return (
     <Table
       columns={columns}
-      data={rows}
+      data={positions}
       rowKeyExtractor={rowKeyExtractor}
       initialOrder={initialOrder}
       breakpoint="xl"

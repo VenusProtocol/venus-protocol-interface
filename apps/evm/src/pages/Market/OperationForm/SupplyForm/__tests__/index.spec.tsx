@@ -18,14 +18,14 @@ import type { Asset, AssetBalanceMutation } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 import MAX_UINT256 from 'constants/maxUint256';
+import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import SupplyForm from '..';
 import {
   checkSubmitButtonIsDisabled,
   checkSubmitButtonIsEnabled,
 } from '../../__testUtils__/checkFns';
-import type { FormError } from '../../types';
-import { useCommonValidation } from '../../useCommonValidation';
+import type { TxFormError } from 'types';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
@@ -137,7 +137,7 @@ describe('SupplyForm', () => {
   });
 
   it('disables form and displays a warning notice if the supply cap of this market has been reached', async () => {
-    const fakeError: FormError = {
+    const fakeError: TxFormError = {
       code: 'SUPPLY_CAP_ALREADY_REACHED',
       message: en.operationForm.error.supplyCapReached.replace('{{assetSupplyCap}}', '100 XVS'),
     };

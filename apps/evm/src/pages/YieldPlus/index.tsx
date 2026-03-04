@@ -1,15 +1,18 @@
 import { useSearchParams } from 'react-router';
 
-import { Card, KLineChart, Page } from 'components';
+import { Card, KLineChart, Page, Spinner } from 'components';
 import { useEffect } from 'react';
+import { areAddressesEqual } from 'utilities';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
+import { OperationForm } from './OperationForm';
 import { PairInfo } from './PairInfo';
 import { Positions } from './Positions';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from './constants';
+import { useGetYieldPlusAssets } from './useGetYieldPlusAssets';
 import { useTokenPair } from './useTokenPair';
 
-const data = [
+const kLineChartData = [
   // TODO: fetch
   {
     timestamp: 1517846400000,
@@ -95,46 +98,88 @@ const data = [
 
 const YieldPlus: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { shortToken, longToken } = useTokenPair();
 
-  const longTokenAddress = searchParams.get(LONG_TOKEN_ADDRESS_PARAM_KEY);
-  const shortTokenAddress = searchParams.get(SHORT_TOKEN_ADDRESS_PARAM_KEY);
+  const {
+    data: { borrowAssets, supplyAssets },
+    isLoading,
+  } = useGetYieldPlusAssets();
+
+  const { shortToken, longToken, defaultLongToken, defaultShortToken } = useTokenPair();
+  const shortTokenAddressParam = searchParams.get(SHORT_TOKEN_ADDRESS_PARAM_KEY);
+  const longTokenAddressParam = searchParams.get(LONG_TOKEN_ADDRESS_PARAM_KEY);
 
   const doNotShowBanner = store.use.doNotShowBanner();
 
   // Update token search params if they are empty or incorrect
   useEffect(() => {
-    if (shortToken.address !== shortTokenAddress || longToken.address !== longTokenAddress) {
+    const longAsset =
+      longTokenAddressParam &&
+      supplyAssets.find(asset =>
+        areAddressesEqual(asset.vToken.underlyingToken.address, longTokenAddressParam),
+      );
+
+    const shortAsset =
+      shortTokenAddressParam &&
+      borrowAssets.find(asset =>
+        areAddressesEqual(asset.vToken.underlyingToken.address, shortTokenAddressParam),
+      );
+
+    if (!longAsset || !shortAsset) {
       setSearchParams(
         currentSearchParams => ({
           ...Object.fromEntries(currentSearchParams),
-          [SHORT_TOKEN_ADDRESS_PARAM_KEY]: String(shortToken.address),
-          [LONG_TOKEN_ADDRESS_PARAM_KEY]: String(longToken.address),
+          [SHORT_TOKEN_ADDRESS_PARAM_KEY]: String(defaultShortToken.address),
+          [LONG_TOKEN_ADDRESS_PARAM_KEY]: String(defaultLongToken.address),
         }),
         {
           replace: true,
         },
       );
     }
-  }, [shortToken, longToken, longTokenAddress, shortTokenAddress, setSearchParams]);
+  }, [
+    shortTokenAddressParam,
+    longTokenAddressParam,
+    borrowAssets,
+    supplyAssets,
+    defaultLongToken,
+    defaultShortToken,
+    setSearchParams,
+  ]);
 
   return (
     <Page>
-      <div className="flex flex-col gap-y-6 lg:grid lg:grid-cols-[6fr_4fr] lg:gap-6 xl:grid-cols-[8fr_4fr]">
-        <div className="flex flex-col gap-y-6">
-          <PairInfo />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="flex flex-col gap-y-6 lg:grid lg:grid-cols-[6fr_4fr] lg:gap-6 xl:grid-cols-[8fr_4fr]">
+          <div className="flex flex-col gap-y-6">
+            <PairInfo />
 
-          {!doNotShowBanner && <Banner className="lg:hidden" />}
+            {!doNotShowBanner && <Banner className="lg:hidden" />}
 
-          <Card className="p-0 overflow-hidden bg-dark-blue h-80 shrink-0 lg:h-114">
-            <KLineChart title={`${longToken.symbol}/${shortToken.symbol}`} data={data} />
-          </Card>
+            <Card className="p-0 overflow-hidden bg-dark-blue h-80 shrink-0 lg:h-114">
+              <KLineChart
+                title={`${longToken.symbol}/${shortToken.symbol}`}
+                data={kLineChartData}
+              />
+            </Card>
 
-          <Positions />
+            <Card className="border-blue lg:hidden">
+              <OperationForm />
+            </Card>
+
+            <Positions />
+          </div>
+
+          <div className="flex-col gap-y-6 hidden lg:flex lg:self-start">
+            {!doNotShowBanner && <Banner />}
+
+            <Card className="border-blue bg-dark-blue">
+              <OperationForm />
+            </Card>
+          </div>
         </div>
-
-        <div>{!doNotShowBanner && <Banner className="hidden lg:flex" />}</div>
-      </div>
+      )}
     </Page>
   );
 };

@@ -5,7 +5,7 @@ import type BigNumber from 'bignumber.js';
 import useIsMounted from 'hooks/useIsMounted';
 import { useEffect } from 'react';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
-import type { FormError } from '../../../types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
@@ -27,7 +27,7 @@ export interface UseFormInput {
 interface UseFormOutput {
   handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
   isFormValid: boolean;
-  formErrors: FormError<FormErrorCode>[];
+  formErrors: TxFormError<FormErrorCode>[];
 }
 
 const useForm = ({

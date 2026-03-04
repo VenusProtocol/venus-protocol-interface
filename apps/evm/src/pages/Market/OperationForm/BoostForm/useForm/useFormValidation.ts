@@ -12,7 +12,7 @@ import {
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, SwapQuote, SwapQuoteError } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
-import type { FormError } from '../../types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
@@ -29,7 +29,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formErrors: FormError<FormErrorCode>[];
+  formErrors: TxFormError<FormErrorCode>[];
 }
 
 const useFormValidation = ({
@@ -45,8 +45,8 @@ const useFormValidation = ({
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
-  const formErrors = useMemo<FormError<FormErrorCode>[]>(() => {
-    const tmpErrors: FormError<FormErrorCode>[] = [];
+  const formErrors = useMemo<TxFormError<FormErrorCode>[]>(() => {
+    const tmpErrors: TxFormError<FormErrorCode>[] = [];
 
     if (!pool?.userBorrowLimitCents || pool.userBorrowLimitCents.isEqualTo(0)) {
       tmpErrors.push({
