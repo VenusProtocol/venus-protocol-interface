@@ -18,6 +18,7 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   data: R[];
   rowKeyExtractor: (row: R) => string;
   columns: TableColumn<R>[];
+  tableLayout?: CSSProperties['tableLayout'];
   breakpoint?: keyof (typeof BREAKPOINTS)['values'];
   cardColumns?: TableColumn<R>[];
   showMobileFilter?: boolean;
@@ -30,7 +31,8 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   className?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
-  rowControlOnClick?: (e: React.MouseEvent<HTMLButtonElement>, row: R) => void;
+  renderRowFooter?: (row: R, rowIndex: number) => React.ReactNode | string;
+  renderRowControl?: (row: R, rowIndex: number) => React.ReactNode | string;
   getRowHref?: (row: R) => To;
   variant?: 'primary' | 'secondary';
   title?: React.ReactNode | string;
@@ -48,13 +50,14 @@ export interface TableCardProps<R>
     | 'data'
     | 'rowKeyExtractor'
     | 'rowOnClick'
-    | 'rowControlOnClick'
     | 'getRowHref'
     | 'breakpoint'
     | 'columns'
     | 'isFetching'
     | 'selectVariant'
     | 'showMobileFilter'
+    | 'renderRowFooter'
+    | 'renderRowControl'
   > {
   order: Order<R> | undefined;
   onOrderChange: (newOrder: Order<R>) => void;

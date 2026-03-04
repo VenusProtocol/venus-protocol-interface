@@ -7,9 +7,9 @@ import MuiTableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 
 import { cn } from '@venusprotocol/ui';
-import { Icon } from '../Icon';
-import { useStyles } from './styles';
-import type { TableColumn } from './types';
+import { Icon } from '../../Icon';
+import { useStyles } from '../styles';
+import type { TableColumn } from '../types';
 
 interface HeadProps<R> {
   columns: TableColumn<R>[];

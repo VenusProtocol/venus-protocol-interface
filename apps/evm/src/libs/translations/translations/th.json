@@ -100,14 +100,7 @@
           "all": "ตลาดทั้งหมด"
         },
         "txType": {
-          "all": "ธุรกรรมทั้งหมด",
-          "approve": "การอนุมัติ",
-          "borrow": "ยืม",
-          "enterMarket": "เปิดใช้หลักประกัน",
-          "exitMarket": "ปิดใช้หลักประกัน",
-          "mint": "ฝาก",
-          "redeem": "ถอน",
-          "repay": "การชำระคืน"
+          "all": "ธุรกรรมทั้งหมด"
         }
       },
       "today": "วันนี้",
@@ -117,13 +110,13 @@
         "exitMarket": "<Styled>ปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน"
       },
       "txType": {
-        "approve": "การอนุมัติ",
+        "approve": "อนุมัติ",
         "borrow": "ยืม",
         "enterMarket": "เปิดใช้หลักประกัน",
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
         "redeem": "ถอน",
-        "repay": "การชำระคืน"
+        "repay": "ชำระคืน"
       },
       "view": "ดู",
       "yesterday": "เมื่อวาน"
@@ -1974,6 +1967,51 @@
     "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
     "longTokenSelect": {
       "label": "Long"
+    },
+    "positions": {
+      "closeButtonLabel": "ปิด",
+      "placeholder": {
+        "title": "ยังไม่มีโพสิชัน"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "หลักประกัน"
+        },
+        "healthFactor": {
+          "label": "ตัวคูณความปลอดภัย",
+          "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
+        },
+        "netApy": {
+          "label": "APY สุทธิ"
+        },
+        "netValue": {
+          "label": "มูลค่าสุทธิ"
+        },
+        "title": "สถานะ"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "โพสิชัน"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "ธุรกรรม"
+      }
     },
     "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",
     "shortLiquidity": "สภาพคล่องฝั่ง Short",

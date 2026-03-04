@@ -100,14 +100,7 @@
           "all": "所有市場"
         },
         "txType": {
-          "all": "所有交易",
-          "approve": "授權",
-          "borrow": "借款",
-          "enterMarket": "啟用抵押",
-          "exitMarket": "禁用抵押",
-          "mint": "供應",
-          "redeem": "提取",
-          "repay": "償還"
+          "all": "所有交易"
         }
       },
       "today": "今天",
@@ -123,7 +116,7 @@
         "exitMarket": "禁用抵押",
         "mint": "供應",
         "redeem": "提取",
-        "repay": "償還"
+        "repay": "還款"
       },
       "view": "查看",
       "yesterday": "昨天"
@@ -1974,6 +1967,51 @@
     "longSupplyApy": "{{ longTokenSymbol }} 供應 APY",
     "longTokenSelect": {
       "label": "多頭"
+    },
+    "positions": {
+      "closeButtonLabel": "關閉",
+      "placeholder": {
+        "title": "暫無倉位"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "抵押"
+        },
+        "healthFactor": {
+          "label": "健康係數",
+          "tooltip": "清算閾值 < 1.0"
+        },
+        "netApy": {
+          "label": "淨 APY"
+        },
+        "netValue": {
+          "label": "淨值"
+        },
+        "title": "狀態"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "清算價"
+        },
+        "longColumn": {
+          "title": "多頭"
+        },
+        "pnlColumn": {
+          "title": "盈虧"
+        },
+        "positionColumn": {
+          "title": "倉位"
+        },
+        "shortColumn": {
+          "title": "空頭"
+        }
+      },
+      "transactions": {
+        "title": "交易"
+      }
     },
     "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
     "shortLiquidity": "空頭流動性",

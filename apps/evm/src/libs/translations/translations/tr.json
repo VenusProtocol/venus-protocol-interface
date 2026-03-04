@@ -100,14 +100,7 @@
           "all": "Tüm piyasalar"
         },
         "txType": {
-          "all": "Tüm işlemler",
-          "approve": "Onay",
-          "borrow": "Borç al",
-          "enterMarket": "Teminat etkin",
-          "exitMarket": "Teminat devre dışı",
-          "mint": "Sağla",
-          "redeem": "Çek",
-          "repay": "Geri ödeme"
+          "all": "Tüm işlemler"
         }
       },
       "today": "Bugün",
@@ -117,13 +110,13 @@
         "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
       },
       "txType": {
-        "approve": "Onay",
+        "approve": "Onayla",
         "borrow": "Borç al",
-        "enterMarket": "Teminat etkin",
-        "exitMarket": "Teminat devre dışı",
+        "enterMarket": "Teminatı etkinleştir",
+        "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
         "redeem": "Çek",
-        "repay": "Geri ödeme"
+        "repay": "Geri öde"
       },
       "view": "Görüntüle",
       "yesterday": "Dün"
@@ -1975,6 +1968,51 @@
     "longSupplyApy": "{{ longTokenSymbol }} sağlama APY",
     "longTokenSelect": {
       "label": "Long"
+    },
+    "positions": {
+      "closeButtonLabel": "Kapat",
+      "placeholder": {
+        "title": "Henüz pozisyon yok"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Teminat"
+        },
+        "healthFactor": {
+          "label": "Sağlık faktörü",
+          "tooltip": "Likidasyon < 1.0"
+        },
+        "netApy": {
+          "label": "Net APY"
+        },
+        "netValue": {
+          "label": "Net değer"
+        },
+        "title": "Durum"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Pozisyon"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "İşlemler"
+      }
     },
     "shortBorrowApy": "{{ shortTokenSymbol }} borç APY",
     "shortLiquidity": "Short likiditesi",

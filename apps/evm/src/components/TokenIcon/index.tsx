@@ -21,7 +21,7 @@ export const TokenIcon: React.FC<TokenIconProps> = ({
   return (
     <div
       className={cn(
-        'relative',
+        'relative flex items-center',
         displayChain && size === 'md' && 'size-8',
         displayChain && size === 'lg' && 'size-13',
         !displayChain && size === 'md' && 'size-5',

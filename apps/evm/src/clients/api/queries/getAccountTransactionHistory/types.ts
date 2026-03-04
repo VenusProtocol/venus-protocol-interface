@@ -5,6 +5,7 @@ import type { GetPoolsOutput } from '../useGetPools/types';
 
 export interface ApiAccountHistoricalTransaction {
   id: string;
+  chainId: ChainId;
   txHash: string;
   txIndex: number;
   txTimestamp: Date;
@@ -16,7 +17,24 @@ export interface ApiAccountHistoricalTransaction {
   amountUnderlyingMantissa: string | null;
   underlyingAddress: string;
   underlyingTokenPriceMantissa: string | null;
-  chainId: ChainId;
+  yieldPlusPositionAccountAddress: string | null;
+  yieldPlusLongVTokenAddress: string | null;
+  yieldPlusShortVTokenAddress: string | null;
+  yieldPlusDsaVTokenAddress: string | null;
+  yieldPlusCycleId: string | null;
+  yieldPlusEffectiveLeverageRatio: string | null;
+  yieldPlusInitialPrincipalMantissa: string | null;
+  yieldPlusPrincipalAmountMantissa: string | null;
+  yieldPlusNewTotalPrincipalMantissa: string | null;
+  yieldPlusRemainingPrincipalMantissa: string | null;
+  yieldPlusShortAmountMantissa: string | null;
+  yieldPlusAdditionalPrincipalMantissa: string | null;
+  yieldPlusCloseFractionBps: string | null;
+  yieldPlusAmountRepaidMantissa: string | null;
+  yieldPlusAmountRedeemedMantissa: string | null;
+  yieldPlusAmountRedeemedDsaMantissa: string | null;
+  yieldPlusLongDustRedeemedMantissa: string | null;
+  yieldPlusAmountConvertedToProfitMantissa: string | null;
 }
 
 export interface AmountTransaction {
@@ -41,9 +59,10 @@ export interface AccountTransactionHistoryApiResponse {
 
 export interface GetAccountTransactionHistoryInput {
   accountAddress: string;
-  contractAddress: string;
   chainId: ChainId;
   getPoolsData: GetPoolsOutput | undefined;
+  positionAccountAddress?: Address;
+  contractAddress?: Address;
   type?: number;
   page?: number;
 }

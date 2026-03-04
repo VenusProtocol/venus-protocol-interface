@@ -58,3 +58,4 @@ export * from './getDecimals';
 export * from './calculateUserPoolValues';
 export * from './addUserBorrowLimitShares';
 export * from './clampToZero';
+export * from './getTransactionName';

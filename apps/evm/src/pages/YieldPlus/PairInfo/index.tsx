@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router';
 
 import { useGetPool } from 'clients/api';
-import { Apy, CellGroup, type CellProps, TokenIcon } from 'components';
+import { Apy, CellGroup, type CellProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useChain } from 'hooks/useChain';
 import { useTranslation } from 'libs/translations';
@@ -11,6 +11,7 @@ import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
 } from 'utilities';
+import { TokenPair } from '../TokenPair';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from '../constants';
 import { useTokenPair } from '../useTokenPair';
 import { TokenSelect } from './TokenSelect';
@@ -69,7 +70,9 @@ export const PairInfo: React.FC = () => {
   );
 
   const priceLongTokens =
-    longAsset && shortAsset ? longAsset.tokenPriceCents.div(shortAsset.tokenPriceCents) : undefined;
+    longAsset && shortAsset
+      ? longAsset.tokenPriceCents.dividedBy(shortAsset.tokenPriceCents)
+      : undefined;
 
   const readablePriceLongTokens = priceLongTokens
     ? priceLongTokens.dp(6).toFixed()
@@ -94,13 +97,23 @@ export const PairInfo: React.FC = () => {
       label: t('yieldPlus.longSupplyApy', {
         longTokenSymbol: longToken.symbol,
       }),
-      value: longAsset ? <Apy asset={longAsset} type="supply" /> : PLACEHOLDER_KEY,
+      value: longAsset ? (
+        // TODO: ignore Prime and E-mode
+        <Apy asset={longAsset} type="supply" />
+      ) : (
+        PLACEHOLDER_KEY
+      ),
     },
     {
       label: t('yieldPlus.shortBorrowApy', {
         shortTokenSymbol: shortToken.symbol,
       }),
-      value: shortAsset ? <Apy asset={shortAsset} type="borrow" /> : PLACEHOLDER_KEY,
+      value: shortAsset ? (
+        // TODO: ignore Prime and E-mode
+        <Apy asset={shortAsset} type="borrow" />
+      ) : (
+        PLACEHOLDER_KEY
+      ),
     },
   ];
 
@@ -122,24 +135,14 @@ export const PairInfo: React.FC = () => {
         />
       </div>
 
-      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between md:items-start lg:flex lg:flex-col">
-        <div className="flex items-center gap-x-3">
-          <div className="flex items-center -space-x-2">
-            <TokenIcon token={longToken} className="size-8" />
+      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex lg:flex-col">
+        <div className="flex items-center gap-x-2">
+          <TokenPair shortToken={shortToken} longToken={longToken} size="md" />
 
-            <TokenIcon token={shortToken} className="size-8" />
-          </div>
+          <div className="flex items-center gap-x-2">
+            <p className="text-p3s">{readablePriceLongTokens}</p>
 
-          <div className="flex flex-col">
-            <p className="text-b1s">
-              {longToken.symbol}/{shortToken.symbol}
-            </p>
-
-            <div className="flex items-center gap-x-1">
-              <p className="text-p3s">{readablePriceLongTokens}</p>
-
-              <p className="text-b1s text-green">{readableChangePercentage}</p>
-            </div>
+            <p className="text-b1s text-green">{readableChangePercentage}</p>
           </div>
         </div>
 

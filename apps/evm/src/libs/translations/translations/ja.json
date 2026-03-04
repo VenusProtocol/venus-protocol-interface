@@ -100,14 +100,7 @@
           "all": "すべてのマーケット"
         },
         "txType": {
-          "all": "すべての取引",
-          "approve": "承認",
-          "borrow": "借入",
-          "enterMarket": "担保有効",
-          "exitMarket": "担保無効",
-          "mint": "供給",
-          "redeem": "引き出し",
-          "repay": "返済"
+          "all": "すべての取引"
         }
       },
       "today": "今日",
@@ -119,8 +112,8 @@
       "txType": {
         "approve": "承認",
         "borrow": "借入",
-        "enterMarket": "担保有効",
-        "exitMarket": "担保無効",
+        "enterMarket": "担保を有効化",
+        "exitMarket": "担保を無効化",
         "mint": "供給",
         "redeem": "引き出し",
         "repay": "返済"
@@ -1974,6 +1967,51 @@
     "longSupplyApy": "{{ longTokenSymbol }} 供給APY",
     "longTokenSelect": {
       "label": "ロング"
+    },
+    "positions": {
+      "closeButtonLabel": "閉じる",
+      "placeholder": {
+        "title": "まだポジションはありません"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "担保"
+        },
+        "healthFactor": {
+          "label": "健全性ファクター",
+          "tooltip": "清算ライン: < 1.0"
+        },
+        "netApy": {
+          "label": "実質APY"
+        },
+        "netValue": {
+          "label": "純資産"
+        },
+        "title": "ステータス"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "ロング"
+        },
+        "pnlColumn": {
+          "title": "損益"
+        },
+        "positionColumn": {
+          "title": "ポジション"
+        },
+        "shortColumn": {
+          "title": "ショート"
+        }
+      },
+      "transactions": {
+        "title": "取引"
+      }
     },
     "shortBorrowApy": "{{ shortTokenSymbol }} 借入APY",
     "shortLiquidity": "ショート流動性",
