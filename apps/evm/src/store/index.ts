@@ -11,6 +11,8 @@ export interface UserChainSettings {
   showUserAssetsOnly: boolean;
   doNotShowImportPositionsModal: boolean;
   slippageTolerancePercentage: string;
+  doNotShowUserBalances: boolean;
+  doNotExpandGuide: boolean;
 }
 
 type UserSettings = Partial<Record<ChainId, Partial<UserChainSettings>>>;

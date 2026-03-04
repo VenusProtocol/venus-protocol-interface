@@ -46,20 +46,6 @@
         "title": "Henüz tedarik veya borçlanma pozisyonu yok"
       }
     },
-    "poolsBreakdown": {
-      "poolTagTooltip": "Kullanılan borç limiti: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "Prime tokenını talep et",
-        "stakeXvs": "XVS stake et"
-      },
-      "primeLogoAltText": "Prime logosu",
-      "text": {
-        "apyBoost": "Prime ile kazancınızı <GreenText>{{boost}}</GreenText> kadar artırın",
-        "becomePrime": "Artık Prime kullanıcısı olabilirsiniz"
-      }
-    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "{{chainName}} üzerinde gas'siz işlemleri etkinleştir"
@@ -81,10 +67,9 @@
       "title": "Özet"
     },
     "tabs": {
-      "pools": "Havuzlar",
-      "settings": "Ayarlar",
-      "transactions": "İşlemler",
-      "vaults": "Vaultlar"
+      "markets": "Piyasalar",
+      "staking": "Staking",
+      "transactions": "İşlemler"
     },
     "transactions": {
       "date": {
@@ -300,6 +285,17 @@
     "modalTitle": "{{ poolName }} tokenları",
     "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "Arka plan illüstrasyonu",
+    "binanceLogoAltText": "Binance logosu",
+    "description": "USDT borç alın ve <Bold>$400,000</Bold> ödülü paylaşın!",
+    "title": "Venus, Binance Wallet Earn'da yayında."
+  },
+  "boostBanner": {
+    "description": "Tek tık kaldıraçla getirinizi <White>5 kata kadar</White> artırın.",
+    "rocketAltText": "Roket illüstrasyonu",
+    "title": "Boost artık kullanılabilir!"
+  },
   "breadcrumbs": {
     "bridge": "Köprü",
     "dashboard": "Gösterge paneli",
@@ -406,11 +402,67 @@
     }
   },
   "dashboard": {
+    "guide": {
+      "completed": "Tamamlandı",
+      "step1": {
+        "description": "Varlıkları sağlayarak veya mevcut pozisyonlarınızı Venus protokolüne taşıyarak getiri kazanın.",
+        "title": "Sağlama / Taşıma"
+      },
+      "step2": {
+        "description": "DeFi stratejilerinizi güçlendirmek için varlık borçlanın ya da likiditeyi tek tıkla kaldıraçlayın.",
+        "title": "Borçlan / Kaldıraç"
+      },
+      "step3": {
+        "description": "XVS'yi vault'a yatırın ve protokol gelirleriyle desteklenen getiri kazanın.",
+        "title": "XVS stake et"
+      },
+      "uncompleted": "Tamamlanmadı"
+    },
+    "overview": {
+      "absolutePerformance": "Mutlak performans",
+      "netWorth": {
+        "label": "Net değer",
+        "tooltip": "Kasa stake’i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Kasa stake’i, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "Hesap geçmişi alınamadı",
+          "refetchButtonLabel": "Tekrar dene"
+        },
+        "placeholderText": "Rapor oluşturuluyor, bu işlem bir dakikaya kadar sürebilir"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6A",
+        "thirtyDays": "30G"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Günlük kazanç",
+          "mintedVai": "Basılmış VAI",
+          "netApy": "Net APY",
+          "netApyTooltip": "Toplam arz bakiyenizin yıllık faiz olarak alınan yüzdesi",
+          "netApyWithVaultStakeTooltip": "Toplam arz ve kasa stake’inizin yıllık faiz olarak alınan yüzdesi",
+          "totalBorrow": "Toplam borç",
+          "totalSupply": "Toplam arz",
+          "totalVaultStake": "Toplam kasa stake’i"
+        },
+        "title": "Özet"
+      },
+      "todaysChange": "Bugünün değişimi"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
     "topMarkets": {
       "borrowButton": {
         "label": "Borç al"
       },
-      "interactiveTitle": "Öne çıkanlar (<Group><SupplyButton>sağlama</SupplyButton> / <BorrowButton>borç</BorrowButton></Group>)",
+      "interactiveTitle": "Öne çıkanlar ( <Group><SupplyButton>sağlama</SupplyButton>/<BorrowButton>borç</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Sağla"
       },
@@ -542,6 +594,11 @@
       "supplyApy": "Sağlama APY",
       "utilizationRate": "Kullanım oranı"
     }
+  },
+  "isolatedPoolsSunsetBanner": {
+    "description": "Ödüllerinizi talep edin ve pozisyonlarınızı kapatın",
+    "illustrationAltText": "İllüstrasyon",
+    "title": "İzole havuzlar aşamalı olarak kapatılıyor"
   },
   "landing": {
     "benefits": {
@@ -1084,6 +1141,11 @@
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "waitForPrimeTitle": "Prime ödüllerini talep edebilmeniz için {{claimWaitingPeriod}}"
   },
+  "probableBanner": {
+    "description": "probable.markets'te inancınızı artırın",
+    "probableAltText": "Probable illüstrasyonu",
+    "title": "Bir şeye inanıyor musunuz?"
+  },
   "proposalList": {
     "selectOptions": {
       "all": {
@@ -1443,7 +1505,9 @@
     "youAreStake": "Stake ediyorsunuz"
   },
   "venusFluxBanner": {
+    "bgIllustrationAltText": "Arka plan illüstrasyonu",
     "description": "Likiditenizi Flux'a bırakın, getirinizi büyürken izleyin.",
+    "iconAltText": "Venus Flux simgesi",
     "illustrationAltText": "Venus Flux illüstrasyonu",
     "title": "Venus Flux Teşviklerinde $1M Paylaşın"
   },

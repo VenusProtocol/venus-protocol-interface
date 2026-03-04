@@ -1,5 +1,6 @@
 import type { Pool } from 'types';
 
+import { TopMarkets } from 'containers/TopMarkets';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { Placeholder } from '../Placeholder';
@@ -24,16 +25,19 @@ export const Pools: React.FC<PoolsProps> = ({ pools }) => {
     ),
   );
 
-  if (filteredPools.length === 0) {
-    return (
-      <Placeholder
-        iconName="venus"
-        title={t('account.pools.placeholder.title')}
-        description={t('account.pools.placeholder.description')}
-        to={marketsPagePath}
-      />
-    );
-  }
-
-  return <Positions pools={filteredPools} />;
+  return (
+    <>
+      {filteredPools.length === 0 ? (
+        <Placeholder
+          iconName="venus"
+          title={t('account.pools.placeholder.title')}
+          description={t('account.pools.placeholder.description')}
+          to={marketsPagePath}
+        />
+      ) : (
+        <Positions pools={filteredPools} />
+      )}
+      <TopMarkets variant="secondary" className="mb-3 mt-6" />
+    </>
+  );
 };
