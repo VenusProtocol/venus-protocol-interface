@@ -12,7 +12,6 @@ import {
 } from 'clients/api';
 import {
   AccordionAnimatedContent,
-  AccountHealthBar,
   ButtonGroup,
   CellGroup,
   type CellProps,
@@ -324,8 +323,8 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
             <div className="flex flex-col">
               <ButtonGroup
                 buttonLabels={periodOptions.map(p => p.label)}
-                className="gap-x-1 inline-flex ml-auto"
-                buttonClassName="h-8 font-normal"
+                className="gap-x-1 inline-flex ml-auto max-sm:w-fit"
+                buttonClassName="h-8 font-normal px-3"
                 activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
                 onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
               />
@@ -345,13 +344,6 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
 
               <GridCellGroup cells={summaryCells} />
             </div>
-
-            {pool?.userBorrowBalanceCents && pool?.userBorrowLimitCents && (
-              <AccountHealthBar
-                borrowBalanceCents={pool.userBorrowBalanceCents.toNumber() ?? 0}
-                borrowLimitCents={pool.userBorrowLimitCents.toNumber() ?? 0}
-              />
-            )}
           </div>
 
           <Delimiter />

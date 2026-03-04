@@ -10,7 +10,6 @@ import {
 } from 'components';
 import type { Pool, Vault } from 'types';
 
-import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import Section from '../../../Section';
@@ -27,7 +26,7 @@ export interface SummaryProps {
   className?: string;
 }
 
-const cellClassName = 'bg-transparent max-lg:px-0';
+const cellClassName = cn('bg-transparent px-0 max-xl:py-0 lg:border-r-dark-blue');
 
 export const Summary: React.FC<SummaryProps> = ({
   pool,
@@ -48,15 +47,13 @@ export const Summary: React.FC<SummaryProps> = ({
     vaiPriceCents,
   });
 
-  const { textClass } = useHealthFactor({ value: pool.userHealthFactor || 0 });
-
   const cells: CellProps[] = displayHealthFactor
     ? [
         {
           label: t('account.summary.cellGroup.healthFactor'),
           value: <HealthFactorPill factor={pool.userHealthFactor || 0} showLabel />,
           tooltip: t('account.summary.cellGroup.healthFactorTooltip'),
-          className: cn(textClass, cellClassName),
+          className: cellClassName,
         },
       ]
     : [];
@@ -112,19 +109,21 @@ export const Summary: React.FC<SummaryProps> = ({
 
   return (
     <Section className={className} title={title}>
-      {/* non-XL view when displaying account health */}
-      <div className={cn('space-y-2', displayAccountHealth ? 'xl:hidden' : 'hidden')}>
+      {/* Below XL view when displaying account health */}
+      <div className={cn('space-y-4 md:space-y-6', displayAccountHealth ? 'xl:hidden' : 'hidden')}>
         <CellGroup
           cells={cells.slice(0, cells.length - 1)}
           variant="tertiary"
-          className="sm:grid-cols-3"
+          className="sm:grid-cols-3 gap-6"
         />
 
         <Cell {...cells[cells.length - 1]} className={cellClassName} />
       </div>
 
-      {/* XL view when displaying account health */}
-      <Card className={cn('hidden justify-between', displayAccountHealth && 'xl:flex')}>
+      {/* XL or above view when displaying account health */}
+      <Card
+        className={cn('hidden justify-between', displayAccountHealth && 'xl:flex border-0 p-0')}
+      >
         <CellGroup
           cells={cells.slice(0, cells.length - 1)}
           className="w-full xl:p-0"

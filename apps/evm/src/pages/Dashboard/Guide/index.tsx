@@ -7,6 +7,7 @@ import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
+import { useEffect } from 'react';
 import { store } from 'store';
 import { StepCard, type StepCardProps } from './StepCard';
 
@@ -37,6 +38,15 @@ export const Guide: React.FC = () => {
 
   const [userChainSettings] = useUserChainSettings();
   const setUserSettings = store.use.setUserSettings();
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    setUserSettings({
+      settings: {
+        doNotExpandGuide: isUserSupplying || isUserBorrowing || isUserStakingInXvsVault,
+      },
+    });
+  }, []);
 
   const toggleCollapseItems = () =>
     setUserSettings({
@@ -80,7 +90,11 @@ export const Guide: React.FC = () => {
         <div className="hidden gap-x-3 items-start sm:flex">
           <div className="flex gap-x-3 grow">
             {steps.map(step => (
-              <StepCard {...step} isCollapsed={userChainSettings.doNotExpandGuide} />
+              <StepCard
+                {...step}
+                isCollapsed={userChainSettings.doNotExpandGuide}
+                key={step.title}
+              />
             ))}
           </div>
 
@@ -97,7 +111,11 @@ export const Guide: React.FC = () => {
         >
           {steps.map(step => (
             <CarouselItem key={step.title}>
-              <StepCard {...step} isCollapsed={userChainSettings.doNotExpandGuide} />
+              <StepCard
+                {...step}
+                isCollapsed={userChainSettings.doNotExpandGuide}
+                key={step.title}
+              />
             </CarouselItem>
           ))}
         </Carousel>

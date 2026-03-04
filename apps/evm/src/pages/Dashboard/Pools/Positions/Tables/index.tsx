@@ -37,6 +37,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
         userEModeGroup: pool.userEModeGroup,
         marketType: 'supply',
         controls: false,
+        rowControl: false,
         breakpoint: 'sm',
         columns: ['asset', 'supplyApy', 'userSupplyBalance', 'collateral'],
         initialOrder: {
@@ -51,6 +52,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
         userEModeGroup: pool.userEModeGroup,
         marketType: 'borrow',
         controls: false,
+        rowControl: false,
         breakpoint: 'sm',
         columns: ['asset', 'borrowApy', 'userBorrowBalance', 'userBorrowLimitSharePercentage'],
         initialOrder: {

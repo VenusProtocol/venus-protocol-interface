@@ -90,7 +90,6 @@ export const Dashboard: React.FC = () => {
 
       <Tabs
         tabs={tabs}
-        className="lg:space-y-8"
         headerClassName="text-md sm:text-lg"
         navType="searchParam"
         variant="secondary"

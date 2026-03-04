@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import type { Pool } from 'types';
 
-import { TopMarkets } from 'containers/TopMarkets';
 import { Summary } from './Summary';
 import Tables from './Tables';
 import { useStyles } from './styles';
@@ -27,8 +26,6 @@ export const Positions: React.FC<PositionsProps> = ({ pools, className }) => {
       />
 
       <Tables pool={selectedPool} />
-
-      <TopMarkets variant="secondary" className="mb-3 mt-6" />
     </div>
   );
 };
