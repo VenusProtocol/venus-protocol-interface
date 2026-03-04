@@ -8,6 +8,7 @@ import {
   QuaternaryButton,
   QuinaryButton,
   SecondaryButton,
+  SelectButton,
   SenaryButton,
   TertiaryButton,
   TextButton,
@@ -104,6 +105,16 @@ export const Text = () => (
       <TextButton onClick={console.log} {...props}>
         Text
       </TextButton>
+    )}
+  </Presentation>
+);
+
+export const Select = () => (
+  <Presentation>
+    {props => (
+      <SelectButton onClick={console.log} {...props}>
+        Select
+      </SelectButton>
     )}
   </Presentation>
 );

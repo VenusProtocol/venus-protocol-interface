@@ -11,7 +11,8 @@ export type ButtonVariant =
   | 'quaternary'
   | 'quinary'
   | 'senary'
-  | 'text';
+  | 'text'
+  | 'select';
 
 const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active: boolean }) => {
   switch (variant) {
@@ -51,6 +52,8 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
         'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 disabled:bg-transparent disabled:border-transparent',
         active && 'text-mediumBlue',
       );
+    case 'select':
+      return cn('px-4 border-dark-blue-hover hover:bg-dark-blue-active', active && 'border-blue');
     // primary
     default:
       return cn(
@@ -144,3 +147,4 @@ export const QuaternaryButton = (props: ButtonProps) => <Button variant="quatern
 export const QuinaryButton = (props: ButtonProps) => <Button variant="quinary" {...props} />;
 export const SenaryButton = (props: ButtonProps) => <Button variant="senary" {...props} />;
 export const TextButton = (props: ButtonProps) => <Button variant="text" {...props} />;
+export const SelectButton = (props: ButtonProps) => <Button variant="select" {...props} />;

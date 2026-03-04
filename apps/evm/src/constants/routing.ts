@@ -22,6 +22,7 @@ export enum Subdirectory {
   SWAP = 'swap',
   VAI = 'vai',
   BRIDGE = 'bridge',
+  YIELD_PLUS = 'yield-plus',
 }
 
 const routeSubdirectories = {
@@ -48,6 +49,7 @@ const routeSubdirectories = {
   staking: [Subdirectory.STAKING],
   vai: [Subdirectory.VAI],
   bridge: [Subdirectory.BRIDGE],
+  yieldPlus: [Subdirectory.YIELD_PLUS],
 };
 
 export type RouteName = keyof typeof routeSubdirectories;
