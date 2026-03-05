@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.14.1
+
+### Patch Changes
+
+- 42eb6d0: fix responsive issue with max buttons
+
 ## 4.14.0
 
 ### Minor Changes
