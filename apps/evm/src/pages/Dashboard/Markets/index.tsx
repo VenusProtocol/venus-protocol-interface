@@ -6,36 +6,32 @@ import { useTranslation } from 'libs/translations';
 import { Placeholder } from '../Placeholder';
 import { Positions } from './Positions';
 
-export interface PoolsProps {
-  pools: Pool[];
+export interface MarketsProps {
+  pool: Pool;
 }
 
-export const Pools: React.FC<PoolsProps> = ({ pools }) => {
+export const Markets: React.FC<MarketsProps> = ({ pool }) => {
   const { t } = useTranslation();
   const { marketsPagePath } = useGetMarketsPagePath();
 
-  // Filter out pools user has not supplied in or borrowed from, unless they have assets enabled as
-  // collateral in that pool
-  const filteredPools = pools.filter(pool =>
-    pool.assets.some(
-      asset =>
-        asset.userSupplyBalanceTokens.isGreaterThan(0) ||
-        asset.userBorrowBalanceTokens.isGreaterThan(0) ||
-        asset.isCollateralOfUser,
-    ),
+  const userHasPositions = pool.assets.some(
+    asset =>
+      asset.userSupplyBalanceTokens.isGreaterThan(0) ||
+      asset.userBorrowBalanceTokens.isGreaterThan(0) ||
+      asset.isCollateralOfUser,
   );
 
   return (
     <>
-      {filteredPools.length === 0 ? (
+      {userHasPositions ? (
+        <Positions pools={[pool]} />
+      ) : (
         <Placeholder
           iconName="venus"
           title={t('account.pools.placeholder.title')}
           to={marketsPagePath}
           buttonSize="sm"
         />
-      ) : (
-        <Positions pools={filteredPools} />
       )}
       <TopMarkets variant="secondary" className="mb-3 mt-6" />
     </>

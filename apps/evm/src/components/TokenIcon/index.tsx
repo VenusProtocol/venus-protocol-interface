@@ -6,7 +6,7 @@ import type { Token } from 'types';
 export interface TokenIconProps {
   token: Token;
   displayChain?: boolean;
-  size?: 'md' | 'lg';
+  size?: 'md' | 'lg' | 'xl';
   className?: string;
 }
 
@@ -24,8 +24,10 @@ export const TokenIcon: React.FC<TokenIconProps> = ({
         'relative',
         displayChain && size === 'md' && 'size-8',
         displayChain && size === 'lg' && 'size-13',
+        displayChain && size === 'xl' && 'size-16',
         !displayChain && size === 'md' && 'size-5',
         !displayChain && size === 'lg' && 'size-6',
+        !displayChain && size === 'xl' && 'size-8',
         className,
       )}
     >

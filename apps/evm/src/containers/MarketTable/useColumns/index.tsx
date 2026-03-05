@@ -136,6 +136,7 @@ export const useColumns = ({
               <TokenIconWithSymbol
                 token={asset.vToken.underlyingToken}
                 displayChain={column === 'assetAndChain'}
+                size={column === 'assetAndChain' ? 'md' : 'xl'}
               />
 
               {userEModeGroup &&

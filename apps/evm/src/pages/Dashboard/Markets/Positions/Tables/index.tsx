@@ -45,6 +45,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
           orderBy: 'userSupplyBalance',
           orderDirection: 'desc',
         },
+        variant: 'primary',
       },
       borrow: {
         assets: pool.assets.filter(asset => asset.userBorrowBalanceTokens.isGreaterThan(0)),
@@ -60,6 +61,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
           orderBy: 'userBorrowBalance',
           orderDirection: 'desc',
         },
+        variant: 'primary',
       },
     }),
     [pool],
@@ -74,6 +76,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             {...marketTableProps.supply}
             title={t('account.marketBreakdown.tables.supplyTableTitle')}
           />
+
           <MarketTable
             {...marketTableProps.borrow}
             title={

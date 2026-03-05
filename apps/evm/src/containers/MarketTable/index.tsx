@@ -158,7 +158,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                   {header}
 
                   {controls && (
-                    <div className={cn(isBreakpointUp && '-mx-4')}>
+                    <div className={cn(isBreakpointUp && '-mx-6')}>
                       <div className={cn(isBreakpointUp && 'px-4 pb-4')}>
                         <Controls
                           searchValue={searchValue}

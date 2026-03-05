@@ -1,19 +1,21 @@
-import { useGetPools, useGetVaults } from 'clients/api';
+import { useGetPool, useGetVaults } from 'clients/api';
 import { Page, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
+import { useChain } from 'hooks/useChain';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { Guide } from './Guide';
+import { Markets } from './Markets';
 import { Overview } from './Overview';
-import { Pools } from './Pools';
 import { Settings } from './Settings';
 import { Transactions } from './Transactions';
 import { Vaults } from './Vaults';
 
 export const Dashboard: React.FC = () => {
   const { t } = useTranslation();
+  const { corePoolComptrollerContractAddress } = useChain();
 
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({
     name: 'gaslessTransactions',
@@ -23,10 +25,11 @@ export const Dashboard: React.FC = () => {
   });
 
   const { accountAddress } = useAccountAddress();
-  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
+  const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
+    poolComptrollerAddress: corePoolComptrollerContractAddress,
     accountAddress,
   });
-  const pools = getPoolsData?.pools || [];
+  const pool = getPoolData?.pool;
 
   const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress,
@@ -37,7 +40,7 @@ export const Dashboard: React.FC = () => {
     {
       title: t('account.tabs.markets'),
       id: 'pools',
-      content: <Pools pools={pools} />,
+      content: pool && <Markets pool={pool} />,
     },
     {
       title: t('account.tabs.staking'),
@@ -62,7 +65,7 @@ export const Dashboard: React.FC = () => {
     });
   }
 
-  const isFetching = isGetPoolsLoading || isGetVaultsLoading;
+  const isFetching = isGetPoolLoading || isGetVaultsLoading;
 
   if (isFetching) {
     return <Spinner />;

@@ -25,8 +25,8 @@ export const useStyles = (props?: StylesProps) => {
       }
     `,
     getTitle: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
-      margin-bottom: ${theme.spacing(4)};
-      padding: ${theme.spacing(0, 6)};
+      margin-bottom: ${theme.spacing(2)};
+      padding: ${theme.spacing(0, 4)};
 
       ${breakpoint && theme.breakpoints.down(breakpoint)} {
         padding: 0;
@@ -143,11 +143,11 @@ export const useStyles = (props?: StylesProps) => {
       }
 
       .MuiTableCell-root:first-of-type {
-        padding-left: ${theme.spacing(6)};
+        padding-left: ${theme.spacing(4)};
       }
 
       .MuiTableCell-root:last-child {
-        padding-right: ${theme.spacing(6)};
+        padding-right: ${theme.spacing(4)};
       }
     `,
     tableSortLabel: ({ orderable }: { orderable: boolean }) => css`

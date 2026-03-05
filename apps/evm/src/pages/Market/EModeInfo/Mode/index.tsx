@@ -35,6 +35,7 @@ export const Mode: React.FC<ModeProps> = ({ title, eModeAssetSettings, pool }) =
         {/* Table  view */}
         <div className="px-2 hidden md:block lg:hidden 2xl:block">
           <Table
+            className="border-0"
             variant="secondary"
             columns={columns}
             data={eModeAssetSettings}

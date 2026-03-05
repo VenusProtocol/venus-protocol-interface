@@ -863,8 +863,8 @@
     "stats": {
       "apy": "Current APY",
       "averageApy": "Average APY",
-      "liquidationPenalty": "Liquidation Penalty",
-      "liquidationThreshold": "Liquidation Threshold"
+      "liquidationPenalty": "Penalty",
+      "liquidationThreshold": "Threshold"
     },
     "supplyCapThreshold": {
       "title": "Total supplied",
