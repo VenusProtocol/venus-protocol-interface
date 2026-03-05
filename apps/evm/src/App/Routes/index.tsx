@@ -28,6 +28,7 @@ const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
 const Bridge = safeLazyLoad(() => import('pages/Bridge'));
 const Skills = safeLazyLoad(() => import('pages/Skills'));
+const YieldPlus = safeLazyLoad(() => import('pages/YieldPlus'));
 const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
 
@@ -138,6 +139,15 @@ const AppRoutes = () => {
             }
           />
         </Route>
+
+        <Route
+          path={Subdirectory.YIELD_PLUS}
+          element={
+            <PageSuspense>
+              <YieldPlus />
+            </PageSuspense>
+          }
+        />
 
         {/* TODO: refactor to use nested routes (see VEN-2235) */}
         <Route

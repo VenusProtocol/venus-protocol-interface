@@ -53,6 +53,10 @@ export const useMenuItems = () => {
       to: routes.staking.path,
       label: t('layout.menu.staking.label'),
     },
+    {
+      to: routes.yieldPlus.path,
+      label: t('layout.menu.yieldPlus.label'),
+    },
   );
 
   const othersSubMenuItems: MenuItem[] = [

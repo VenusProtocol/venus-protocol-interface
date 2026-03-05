@@ -672,6 +672,9 @@
       "staking": {
         "label": "Staking"
       },
+      "yieldPlus": {
+        "label": "Yield+"
+      },
       "subMenuItem": {
         "button": {
           "label": "Get started"
@@ -1962,5 +1965,68 @@
       "submitButton": "Withdraw"
     },
     "withdrawTabTitle": "Withdraw"
+  },
+  "yieldPlus": {
+    "header": {
+      "title": "Yield+"
+    },
+    "infoCard": {
+      "dismiss": "Dismiss",
+      "howItWorks": "How it works?",
+      "title": "What is Yield+"
+    },
+    "pairInfoBar": {
+      "borrowApy": "{{symbol}} borrow APY",
+      "longLiquidity": "Long liquidity",
+      "shortLiquidity": "Short liquidity",
+      "supplyApy": "{{symbol}} supply APY"
+    },
+    "positionForm": {
+      "tabs": {
+        "position": "Position",
+        "collateral": "Collateral"
+      },
+      "avgEnterPrice": "Avg. enter price",
+      "available": "Available",
+      "button": {
+        "open": "Open"
+      },
+      "collateral": {
+        "label": "Collateral",
+        "multiplier": "{{value}}x"
+      },
+      "healthFactor": {
+        "label": "Health factor",
+        "safe": "Safe"
+      },
+      "liquidationPrice": "Liquidation price",
+      "long": {
+        "label": "Long"
+      },
+      "lt": "LT: {{value}}",
+      "ltv": "LTV: {{value}}",
+      "netApy": "Net APY",
+      "priceImpact": "Price impact",
+      "short": {
+        "label": "Short"
+      },
+      "slippageTolerance": "Slippage tolerance {{value}}"
+    },
+    "positionsTable": {
+      "emptyState": {
+        "walletDisconnected": {
+          "description": "You do not have an open position yet",
+          "title": "Wallet Disconnected"
+        }
+      },
+      "tabs": {
+        "positions": "Positions",
+        "transactions": "Transactions"
+      }
+    },
+    "tokenPairSelector": {
+      "long": "Long",
+      "short": "Short"
+    }
   }
 }
