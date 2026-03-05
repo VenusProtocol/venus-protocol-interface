@@ -1,8 +1,6 @@
 import { useGetPools, useGetVaults } from 'clients/api';
 import { Page, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
-import { Redirect } from 'containers/Redirect';
-import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
@@ -23,8 +21,6 @@ export const Dashboard: React.FC = () => {
   const isHistoricalTransactionsFeatureEnabled = useIsFeatureEnabled({
     name: 'transactionHistory',
   });
-
-  const { marketsPagePath } = useGetMarketsPagePath();
 
   const { accountAddress } = useAccountAddress();
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
@@ -67,10 +63,6 @@ export const Dashboard: React.FC = () => {
   }
 
   const isFetching = isGetPoolsLoading || isGetVaultsLoading;
-
-  if (!accountAddress) {
-    return <Redirect to={marketsPagePath} />;
-  }
 
   if (isFetching) {
     return <Spinner />;

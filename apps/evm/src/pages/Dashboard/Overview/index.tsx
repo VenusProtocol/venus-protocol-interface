@@ -140,13 +140,14 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
     },
   );
 
-  const netWorthCents = pool
-    ? new BigNumber(pool.userSupplyBalanceCents || 0)
-        .plus(userTotalVaultStakeCents || 0)
-        .minus(pool.userBorrowBalanceCents || 0)
-        .minus(pool.vai?.userBorrowBalanceCents || 0)
-        .toNumber()
-    : undefined;
+  const netWorthCents =
+    pool && accountAddress
+      ? new BigNumber(pool.userSupplyBalanceCents || 0)
+          .plus(userTotalVaultStakeCents || 0)
+          .minus(pool.userBorrowBalanceCents || 0)
+          .minus(pool.vai?.userBorrowBalanceCents || 0)
+          .toNumber()
+      : undefined;
 
   const startOfDayNetWorthCents =
     getAccountPerformanceHistoryData?.startOfDayNetWorthCents !== undefined
@@ -186,6 +187,22 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
         <div className="space-x-2 flex items-start">
           <HidableUserBalance>
             <DollarValueChange value={dailyChangeCents} />
+
+            {dailyChangeCents !== undefined && dailyChangeCents !== 0 && (
+              <div
+                className={cn(
+                  'flex items-center',
+                  dailyChangeCents > 0 ? 'text-green' : 'text-red',
+                )}
+              >
+                <Icon
+                  name="arrowUpFull2"
+                  className={cn('w-4 h-4 text-inherit', dailyChangeCents < 0 && 'rotate-180')}
+                />
+
+                <span>{readableDailyChangePercentage}</span>
+              </div>
+            )}
           </HidableUserBalance>
         </div>
       ),

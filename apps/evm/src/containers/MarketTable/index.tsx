@@ -34,6 +34,7 @@ export interface MarketTableProps
   columns: ColumnKey[];
   modalColumn?: boolean;
   userEModeGroup?: EModeGroup;
+  isolatedModeGroup?: EModeGroup;
   controls?: boolean;
   rowControl?: boolean;
   initialOrder?: {
@@ -51,6 +52,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   marketType,
   columns: columnKeys,
   userEModeGroup,
+  isolatedModeGroup,
   initialOrder,
   breakpoint,
   title,
@@ -162,6 +164,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                           searchValue={searchValue}
                           onSearchValueChange={onSearchValueChange}
                           searchInputPlaceholder={t('marketTable.search.placeholder')}
+                          showPausedAssetsToggle
                         />
                       </div>
 

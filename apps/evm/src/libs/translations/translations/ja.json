@@ -8,6 +8,9 @@
           "illustrationAltText": "Eモードのイラスト",
           "title": "Eモード: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
+        "isolatedModeHeader": {
+          "title": "アイソレートモード: <UnderlinedText>{{groupName}}</UnderlinedText>"
+        },
         "supplyTableTitle": "供給",
         "tabletBorrowTabTitle": "借入",
         "tabletSupplyTabTitle": "供給",
@@ -42,7 +45,6 @@
     },
     "pools": {
       "placeholder": {
-        "description": "あなたのプールポジションはここに表示されます",
         "title": "まだ供給または借入のポジションはありません"
       }
     },
@@ -68,6 +70,7 @@
     },
     "tabs": {
       "markets": "マーケット",
+      "settings": "設定",
       "staking": "ステーキング",
       "transactions": "取引"
     },
@@ -261,9 +264,6 @@
     }
   },
   "asset": {
-    "eModeInfo": {
-      "title": "Eモード情報"
-    },
     "marketInfo": {
       "title": "マーケット情報"
     }
@@ -475,6 +475,46 @@
     "manageEModeButtonLabel": "Eモードを管理",
     "title": "Eモードで借入力を強化"
   },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "並び替え:",
+      "searchPlaceholder": "グループまたは資産を検索"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "このグループは無効化できません。プールから借入できない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
+          "notEnoughCollateral": "このグループは無効化できません。担保の総額が借入残高の合計を下回るためです"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "<WhiteText>{{ eModeGroupName }}</WhiteText>グループを有効にするには、次の借入ポジションを解消する必要があります:",
+          "repayButtonLabel": "返済",
+          "title": "自分のポジション"
+        },
+        "tooltip": {
+          "blockingPositions": "このグループは有効にできません。このグループに属さない資産の借入ポジションがあるためです。<Link>自分のポジションを表示</Link>",
+          "notEnoughCollateral": "このグループは有効にできません。担保の総額が借入残高の合計を下回るためです"
+        }
+      },
+      "disableButtonLabel": "無効化",
+      "disabledNotice": "このグループはサポートされなくなりました。アカウントはコアプールのパラメータに戻りました。別の利用可能なグループに切り替えるか、無効化してください。",
+      "enableButtonLabel": "有効化",
+      "healthFactor": "健全性ファクター:",
+      "switchButtonLabel": "切り替え"
+    },
+    "table": {
+      "columns": {
+        "asset": "資産",
+        "collateral": "担保",
+        "isBorrowable": "借入可能",
+        "liquidationPenalty": "清算ペナルティ",
+        "liquidationThreshold": "清算しきい値",
+        "maxLtv": "最大LTV"
+      }
+    }
+  },
   "errors": {
     "couldNotRetrieveSigner": "署名者を取得できませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
     "couldNotSwitchChain": "チェーンを切り替えられませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
@@ -685,6 +725,7 @@
         "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
       },
       "price": "価格",
+      "resilientOracle": "レジリエントオラクル",
       "supply": "供給",
       "utilizationRate": "利用率"
     },
@@ -775,6 +816,25 @@
     "borrowInfo": {
       "title": "借入情報"
     },
+    "eModeInfo": {
+      "eMode": {
+        "title": "E-mode"
+      },
+      "isolationMode": {
+        "title": "隔離モード"
+      },
+      "link": "すべてのマーケットを表示",
+      "table": {
+        "columns": {
+          "collateral": "担保",
+          "group": "グループ",
+          "isBorrowable": "借入可能",
+          "liquidationPenalty": "ペナルティ",
+          "liquidationThreshold": "しきい値",
+          "maxLtv": "最大LTV"
+        }
+      }
+    },
     "interestRateModel": {
       "title": "金利モデル"
     },
@@ -812,21 +872,6 @@
     },
     "supplyInfo": {
       "title": "供給情報"
-    },
-    "tabs": {
-      "eMode": {
-        "illustrationAltText": "稲妻のイラスト",
-        "liquidationPenalty": {
-          "label": "清算ペナルティ"
-        },
-        "liquidationThreshold": {
-          "label": "清算しきい値"
-        },
-        "maxLtv": {
-          "label": "最大LTV",
-          "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
-        }
-      }
     }
   },
   "markets": {
@@ -1768,9 +1813,7 @@
     "youAreStake": "あなたのステーキング量"
   },
   "venusFluxBanner": {
-    "bgIllustrationAltText": "背景イラスト",
     "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
-    "iconAltText": "Venus Flux アイコン",
     "illustrationAltText": "Venus Flux のイラスト",
     "title": "Venus Flux インセンティブ総額100万ドルをシェア"
   },

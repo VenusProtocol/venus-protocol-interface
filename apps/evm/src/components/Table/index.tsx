@@ -34,6 +34,7 @@ export function Table<R>({
   rowKeyExtractor,
   breakpoint,
   isFetching,
+  size = 'md',
   header,
   placeholder,
   selectVariant,
@@ -138,6 +139,7 @@ export function Table<R>({
                           rounded: variant === 'secondary',
                         }),
                       ]}
+                      className={cn(size === 'md' ? 'h-18' : 'h-14')}
                       onClick={
                         rowOnClick
                           ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)

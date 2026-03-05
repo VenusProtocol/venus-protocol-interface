@@ -3,6 +3,7 @@ import { cn } from '@venusprotocol/ui';
 
 import {
   EModeIcon,
+  Icon,
   InfoIcon,
   LayeredValues,
   ProgressBar,
@@ -123,6 +124,8 @@ export const useColumns = ({
           areTokensEqual(a.vToken, asset.vToken),
         );
 
+        const isIsolated = !!userEModeGroup?.isIsolated;
+
         const isPaused = isAssetPaused({
           disabledTokenActions: asset.disabledTokenActions,
         });
@@ -135,16 +138,20 @@ export const useColumns = ({
                 displayChain={column === 'assetAndChain'}
               />
 
-              {userEModeGroup && isInUserEModeGroup && (
-                <Tooltip
-                  className="inline-flex items-center"
-                  content={t('marketTable.assetColumn.eMode', {
-                    eModeGroupName: userEModeGroup.name,
-                  })}
-                >
-                  <EModeIcon className="w-4 h-4" />
-                </Tooltip>
-              )}
+              {userEModeGroup &&
+                isInUserEModeGroup &&
+                (isIsolated ? (
+                  <Icon name="isolated" className="size-5" />
+                ) : (
+                  <Tooltip
+                    className="inline-flex items-center"
+                    content={t('marketTable.assetColumn.eMode', {
+                      eModeGroupName: userEModeGroup.name,
+                    })}
+                  >
+                    <EModeIcon className="size-5" />
+                  </Tooltip>
+                ))}
 
               {isPaused && (
                 <InfoIcon

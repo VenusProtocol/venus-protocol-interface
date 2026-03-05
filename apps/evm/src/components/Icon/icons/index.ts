@@ -87,3 +87,4 @@ export { default as closedEye } from './closedEye';
 export { default as innerArrows } from './innerArrows';
 export { default as outerArrows } from './outerArrows';
 export { default as crown } from './crown';
+export { default as isolated } from './isolated';

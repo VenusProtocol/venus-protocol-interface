@@ -1,55 +1,62 @@
 import { useTranslation } from 'libs/translations';
-import type { EModeGroup, Token } from 'types';
+import type { EModeGroup, Pool, Token } from 'types';
 import { areTokensEqual } from 'utilities';
-import { MarketCard } from '../MarketCard';
-import { AssetSettings, type AssetSettingsProps } from './AssetSettings';
+import { type ExtendedEModeAssetSettings, Mode } from './Mode';
 
 export interface EModeInfoProps {
-  eModeGroups: EModeGroup[];
   token: Token;
+  pool: Pool;
+  eModeGroups: EModeGroup[];
 }
 
-export const EModeInfo: React.FC<EModeInfoProps> = ({ eModeGroups, token }) => {
+export const EModeInfo: React.FC<EModeInfoProps> = ({ eModeGroups, token, pool }) => {
   const { t } = useTranslation();
-  const assetSettingsProps = eModeGroups.reduce<Omit<AssetSettingsProps, 'isLast'>[]>(
-    (acc, eModeGroup) => {
-      const assetSettings = eModeGroup.assetSettings.find(settings =>
-        areTokensEqual(token, settings.vToken.underlyingToken),
-      );
 
-      if (!assetSettings) {
-        return acc;
-      }
+  const eModeAssetSettings: ExtendedEModeAssetSettings[] = [];
+  const isolatedEModeAssetSettings: ExtendedEModeAssetSettings[] = [];
 
-      const props: Omit<AssetSettingsProps, 'isLast'> = {
-        eModeGroupName: eModeGroup.name,
-        token: assetSettings.vToken.underlyingToken,
-        collateralFactor: assetSettings.collateralFactor,
-        isBorrowable: assetSettings.isBorrowable,
-        liquidationThresholdPercentage: assetSettings.liquidationThresholdPercentage,
-        liquidationPenaltyPercentage: assetSettings.liquidationPenaltyPercentage,
-      };
+  eModeGroups.forEach(eModeGroup => {
+    const assetSettings = eModeGroup.assetSettings.find(settings =>
+      areTokensEqual(token, settings.vToken.underlyingToken),
+    );
 
-      return [...acc, props];
-    },
-    [],
-  );
+    if (!assetSettings) {
+      return;
+    }
 
-  if (assetSettingsProps.length === 0) {
+    const settings: ExtendedEModeAssetSettings = {
+      eModeGroup,
+      ...assetSettings,
+    };
+
+    if (eModeGroup.isIsolated) {
+      isolatedEModeAssetSettings.push(settings);
+    } else {
+      eModeAssetSettings.push(settings);
+    }
+  }, []);
+
+  if (eModeAssetSettings.length === 0 && isolatedEModeAssetSettings.length === 0) {
     return null;
   }
 
   return (
-    <MarketCard title={t('asset.eModeInfo.title')}>
-      <div className="space-y-4 sm:space-y-5">
-        {assetSettingsProps.map((props, index) => (
-          <AssetSettings
-            {...props}
-            isLast={index === assetSettingsProps.length - 1}
-            key={props.eModeGroupName}
-          />
-        ))}
-      </div>
-    </MarketCard>
+    <div className="space-y-6">
+      {eModeAssetSettings.length > 0 && (
+        <Mode
+          title={t('market.eModeInfo.eMode.title')}
+          eModeAssetSettings={eModeAssetSettings}
+          pool={pool}
+        />
+      )}
+
+      {isolatedEModeAssetSettings.length > 0 && (
+        <Mode
+          title={t('market.eModeInfo.isolationMode.title')}
+          eModeAssetSettings={isolatedEModeAssetSettings}
+          pool={pool}
+        />
+      )}
+    </div>
   );
 };

@@ -8,6 +8,9 @@
           "illustrationAltText": "ภาพประกอบ E-mode",
           "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
+        "isolatedModeHeader": {
+          "title": "โหมด Isolated: <UnderlinedText>{{groupName}}</UnderlinedText>"
+        },
         "supplyTableTitle": "ฝากแล้ว",
         "tabletBorrowTabTitle": "ยืมแล้ว",
         "tabletSupplyTabTitle": "ฝากแล้ว",
@@ -42,7 +45,6 @@
     },
     "pools": {
       "placeholder": {
-        "description": "ตำแหน่งในพูลของคุณจะแสดงที่นี่",
         "title": "ยังไม่มีตำแหน่งฝากหรือยืม"
       }
     },
@@ -68,6 +70,7 @@
     },
     "tabs": {
       "markets": "ตลาด",
+      "settings": "การตั้งค่า",
       "staking": "สเตคกิ้ง",
       "transactions": "ธุรกรรม"
     },
@@ -261,9 +264,6 @@
     }
   },
   "asset": {
-    "eModeInfo": {
-      "title": "ข้อมูล E-mode"
-    },
     "marketInfo": {
       "title": "ข้อมูลตลาด"
     }
@@ -475,6 +475,46 @@
     "manageEModeButtonLabel": "จัดการ E-mode",
     "title": "เพิ่มพลังการยืมของคุณด้วย E-mode"
   },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "เรียงตาม:",
+      "searchPlaceholder": "ค้นหากลุ่มหรือสินทรัพย์"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "คุณไม่สามารถปิดกลุ่มนี้ได้ เพราะมีตำแหน่งยืมที่มีสินทรัพย์ที่ยืมจากพูลนี้ไม่ได้ <Link>แสดงตำแหน่งของฉัน</Link>",
+          "notEnoughCollateral": "คุณไม่สามารถปิดกลุ่มนี้ได้ เพราะมูลค่าหลักประกันรวมของคุณไม่ครอบคลุมยอดยืมรวม"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "คุณต้องปิดตำแหน่งยืมต่อไปนี้เพื่อเปิดใช้กลุ่ม <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+          "repayButtonLabel": "ชำระคืน",
+          "title": "ตำแหน่งของฉัน"
+        },
+        "tooltip": {
+          "blockingPositions": "คุณไม่สามารถเปิดกลุ่มนี้ได้ เพราะมีตำแหน่งยืมที่มีสินทรัพย์ที่ไม่อยู่ในกลุ่มนี้ <Link>แสดงตำแหน่งของฉัน</Link>",
+          "notEnoughCollateral": "คุณไม่สามารถเปิดกลุ่มนี้ได้ เพราะมูลค่าหลักประกันรวมของคุณไม่ครอบคลุมยอดยืมรวม"
+        }
+      },
+      "disableButtonLabel": "ปิดใช้งาน",
+      "disabledNotice": "กลุ่มนี้ไม่ได้รับการสนับสนุนอีกต่อไป บัญชีของคุณกลับไปใช้พารามิเตอร์ของ Core Pool กรุณาสลับไปยังกลุ่มอื่นที่มีให้ใช้หรือปิดใช้งาน",
+      "enableButtonLabel": "เปิดใช้งาน",
+      "healthFactor": "ตัวคูณความปลอดภัย:",
+      "switchButtonLabel": "สลับ"
+    },
+    "table": {
+      "columns": {
+        "asset": "สินทรัพย์",
+        "collateral": "หลักประกัน",
+        "isBorrowable": "ยืมได้",
+        "liquidationPenalty": "บทลงโทษการชำระบัญชี",
+        "liquidationThreshold": "เกณฑ์การชำระบัญชี",
+        "maxLtv": "LTV สูงสุด"
+      }
+    }
+  },
   "errors": {
     "couldNotRetrieveSigner": "ไม่สามารถดึง signer ได้ โปรดตรวจสอบว่ากระเป๋าของคุณถูกปลดล็อกแล้วและรีโหลดหน้า",
     "couldNotSwitchChain": "ไม่สามารถสลับเชนได้ โปรดตรวจสอบว่ากระเป๋าของคุณถูกปลดล็อกแล้วและรีโหลดหน้า",
@@ -685,6 +725,7 @@
         "tooltip": "LTV สูงสุดคือขีดจำกัดการยืม ที่ {{maxLtv}} LTV หลักประกัน 1 {{tokenSymbol}} สามารถยืมสกุลเงินมูลค่า {{userCollateralFactor}} {{tokenSymbol}} ได้"
       },
       "price": "ราคา",
+      "resilientOracle": "ออราเคิลที่ยืดหยุ่น",
       "supply": "ฝาก",
       "utilizationRate": "อัตราการใช้งาน"
     },
@@ -775,6 +816,25 @@
     "borrowInfo": {
       "title": "ข้อมูลการยืม"
     },
+    "eModeInfo": {
+      "eMode": {
+        "title": "E-mode"
+      },
+      "isolationMode": {
+        "title": "โหมดแยก"
+      },
+      "link": "แสดงทุกตลาด",
+      "table": {
+        "columns": {
+          "collateral": "หลักประกัน",
+          "group": "กลุ่ม",
+          "isBorrowable": "ยืมได้",
+          "liquidationPenalty": "บทลงโทษ",
+          "liquidationThreshold": "เกณฑ์",
+          "maxLtv": "LTV สูงสุด"
+        }
+      }
+    },
     "interestRateModel": {
       "title": "โมเดลอัตราดอกเบี้ย"
     },
@@ -812,21 +872,6 @@
     },
     "supplyInfo": {
       "title": "ข้อมูลการฝาก"
-    },
-    "tabs": {
-      "eMode": {
-        "illustrationAltText": "ภาพประกอบสายฟ้า",
-        "liquidationPenalty": {
-          "label": "บทลงโทษการชำระบัญชี"
-        },
-        "liquidationThreshold": {
-          "label": "เกณฑ์การชำระบัญชี"
-        },
-        "maxLtv": {
-          "label": "LTV สูงสุด",
-          "tooltip": "LTV สูงสุดคือขีดจำกัดการยืม ที่ {{maxLtv}} LTV หลักประกัน 1 {{tokenSymbol}} สามารถยืมสกุลเงินมูลค่า {{userCollateralFactor}} {{tokenSymbol}} ได้"
-        }
-      }
     }
   },
   "markets": {
@@ -1768,9 +1813,7 @@
     "youAreStake": "คุณกำลังสเตคอยู่"
   },
   "venusFluxBanner": {
-    "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
     "description": "ปล่อยให้สภาพคล่องของคุณ Flux แล้วดูผลตอบแทนเติบโต",
-    "iconAltText": "ไอคอน Venus Flux",
     "illustrationAltText": "ภาพประกอบ Venus Flux",
     "title": "แบ่งปันเงินจูงใจ Venus Flux มูลค่า $1M"
   },

@@ -74,6 +74,7 @@ export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups 
         searchValue={searchValue}
         onSearchValueChange={setSearchValue}
         searchInputPlaceholder={t('markets.tabs.eMode.table.searchPlaceholder')}
+        showPausedAssetsToggle
       />
 
       <Select

@@ -111,11 +111,7 @@ export const Guide: React.FC = () => {
         >
           {steps.map(step => (
             <CarouselItem key={step.title}>
-              <StepCard
-                {...step}
-                isCollapsed={userChainSettings.doNotExpandGuide}
-                key={step.title}
-              />
+              <StepCard {...step} isCollapsed={false} key={step.title} />
             </CarouselItem>
           ))}
         </Carousel>

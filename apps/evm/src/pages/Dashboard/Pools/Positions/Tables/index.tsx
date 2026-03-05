@@ -10,6 +10,7 @@ import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 
 import { EModeHeader } from './EModeHeader';
+import { IsolatedModeHeader } from './IsolatedModeHeader';
 import { useStyles } from './styles';
 
 export interface TablesProps {
@@ -79,12 +80,18 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
               <div className="flex gap-x-2">
                 {t('account.marketBreakdown.tables.borrowTableTitle')}
 
-                {pool.userEModeGroup && (
-                  <EModeHeader
-                    eModeGroupName={pool.userEModeGroup.name}
-                    poolComptrollerContractAddress={pool.comptrollerAddress}
-                  />
-                )}
+                {pool.userEModeGroup &&
+                  (pool.userEModeGroup.isIsolated ? (
+                    <IsolatedModeHeader
+                      groupName={pool.userEModeGroup.name}
+                      poolComptrollerContractAddress={pool.comptrollerAddress}
+                    />
+                  ) : (
+                    <EModeHeader
+                      eModeGroupName={pool.userEModeGroup.name}
+                      poolComptrollerContractAddress={pool.comptrollerAddress}
+                    />
+                  ))}
               </div>
             }
           />
@@ -96,13 +103,6 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
               <Typography variant="h4" css={styles.tabletHeaderTitle}>
                 {t('account.marketBreakdown.tables.tabletTitle')}
               </Typography>
-
-              {pool.userEModeGroup && (
-                <EModeHeader
-                  eModeGroupName={pool.userEModeGroup.name}
-                  poolComptrollerContractAddress={pool.comptrollerAddress}
-                />
-              )}
             </div>
 
             <ButtonGroup
@@ -121,13 +121,20 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             <MarketTable
               key="supply-market-table"
               header={
-                pool.userEModeGroup && (
+                pool.userEModeGroup &&
+                (pool.userEModeGroup.isIsolated ? (
+                  <IsolatedModeHeader
+                    groupName={pool.userEModeGroup.name}
+                    poolComptrollerContractAddress={pool.comptrollerAddress}
+                    className="max-sm:hidden"
+                  />
+                ) : (
                   <EModeHeader
                     eModeGroupName={pool.userEModeGroup.name}
                     poolComptrollerContractAddress={pool.comptrollerAddress}
-                    className="md:hidden"
+                    className="max-sm:hidden"
                   />
-                )
+                ))
               }
               {...marketTableProps.supply}
               css={styles.tabletMarketTable}
@@ -137,13 +144,20 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             <MarketTable
               key="borrow-market-table"
               header={
-                pool.userEModeGroup && (
+                pool.userEModeGroup &&
+                (pool.userEModeGroup.isIsolated ? (
+                  <IsolatedModeHeader
+                    groupName={pool.userEModeGroup.name}
+                    poolComptrollerContractAddress={pool.comptrollerAddress}
+                    className="max-sm:hidden"
+                  />
+                ) : (
                   <EModeHeader
                     eModeGroupName={pool.userEModeGroup.name}
                     poolComptrollerContractAddress={pool.comptrollerAddress}
-                    className="md:hidden"
+                    className="max-sm:hidden"
                   />
-                )
+                ))
               }
               {...marketTableProps.borrow}
               css={styles.tabletMarketTable}

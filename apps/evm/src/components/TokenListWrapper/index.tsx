@@ -93,7 +93,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
 
       {isListShown && (
         <div className="relative">
-          <div className="bg-cards border border-lightGrey absolute z-[2] left-0 right-0 top-2 rounded-xl overflow-hidden shadow-[0_4px_15px_0_#0d1017]">
+          <div className="bg-dark-blue border border-lightGrey absolute z-[2] left-0 right-0 top-2 rounded-xl overflow-hidden shadow-[0_4px_15px_0_#0d1017]">
             {tokenBalances.length > 5 && (
               <div className="mb-3 pl-3 pr-3 pt-3 space-y-3">
                 <TextField

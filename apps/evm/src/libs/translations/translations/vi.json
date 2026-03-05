@@ -8,6 +8,9 @@
           "illustrationAltText": "Hình minh họa E-mode",
           "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
+        "isolatedModeHeader": {
+          "title": "Chế độ Isolated: <UnderlinedText>{{groupName}}</UnderlinedText>"
+        },
         "supplyTableTitle": "Đã cung cấp",
         "tabletBorrowTabTitle": "Đã vay",
         "tabletSupplyTabTitle": "Đã cung cấp",
@@ -42,7 +45,6 @@
     },
     "pools": {
       "placeholder": {
-        "description": "Vị thế trong pool của bạn sẽ hiển thị ở đây",
         "title": "Chưa có vị thế cung cấp hoặc vay"
       }
     },
@@ -68,6 +70,7 @@
     },
     "tabs": {
       "markets": "Thị trường",
+      "settings": "Cài đặt",
       "staking": "Staking",
       "transactions": "Giao dịch"
     },
@@ -261,9 +264,6 @@
     }
   },
   "asset": {
-    "eModeInfo": {
-      "title": "Thông tin E-mode"
-    },
     "marketInfo": {
       "title": "Thông tin thị trường"
     }
@@ -475,6 +475,46 @@
     "manageEModeButtonLabel": "Quản lý E-mode",
     "title": "Tăng sức mạnh vay với E-mode"
   },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "Sắp xếp theo:",
+      "searchPlaceholder": "Tìm nhóm hoặc tài sản"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "Bạn không thể tắt nhóm này vì bạn có vị thế vay với các tài sản không thể vay từ pool. <Link>Hiển thị vị thế của tôi</Link>",
+          "notEnoughCollateral": "Bạn không thể tắt nhóm này vì tổng giá trị tài sản thế chấp không đủ để phủ tổng dư nợ vay"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "Bạn cần đóng các vị thế vay sau để bật nhóm <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+          "repayButtonLabel": "Hoàn trả",
+          "title": "Vị thế của bạn"
+        },
+        "tooltip": {
+          "blockingPositions": "Bạn không thể bật nhóm này vì bạn có vị thế vay với các tài sản không thuộc nhóm đó. <Link>Hiển thị vị thế của tôi</Link>",
+          "notEnoughCollateral": "Bạn không thể bật nhóm này vì tổng giá trị tài sản thế chấp không đủ để phủ tổng dư nợ vay"
+        }
+      },
+      "disableButtonLabel": "Tắt",
+      "disabledNotice": "Nhóm này không còn được hỗ trợ. Tài khoản của bạn sẽ quay về tham số của Core Pool. Vui lòng chuyển sang nhóm khác hoặc tắt nó.",
+      "enableButtonLabel": "Bật",
+      "healthFactor": "Hệ số an toàn:",
+      "switchButtonLabel": "Chuyển"
+    },
+    "table": {
+      "columns": {
+        "asset": "Tài sản",
+        "collateral": "Tài sản thế chấp",
+        "isBorrowable": "Có thể vay",
+        "liquidationPenalty": "Phạt thanh lý",
+        "liquidationThreshold": "Ngưỡng thanh lý",
+        "maxLtv": "LTV tối đa"
+      }
+    }
+  },
   "errors": {
     "couldNotRetrieveSigner": "Không thể lấy signer, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
     "couldNotSwitchChain": "Không thể chuyển chain, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
@@ -685,6 +725,7 @@
         "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
       },
       "price": "Giá",
+      "resilientOracle": "Oracle bền vững",
       "supply": "Cung cấp",
       "utilizationRate": "Tỷ lệ sử dụng"
     },
@@ -775,6 +816,25 @@
     "borrowInfo": {
       "title": "Thông tin vay"
     },
+    "eModeInfo": {
+      "eMode": {
+        "title": "E-mode"
+      },
+      "isolationMode": {
+        "title": "Chế độ cô lập"
+      },
+      "link": "Hiển thị tất cả thị trường",
+      "table": {
+        "columns": {
+          "collateral": "Tài sản thế chấp",
+          "group": "Nhóm",
+          "isBorrowable": "Có thể vay",
+          "liquidationPenalty": "Phạt",
+          "liquidationThreshold": "Ngưỡng",
+          "maxLtv": "LTV tối đa"
+        }
+      }
+    },
     "interestRateModel": {
       "title": "Mô hình lãi suất"
     },
@@ -812,21 +872,6 @@
     },
     "supplyInfo": {
       "title": "Thông tin cung cấp"
-    },
-    "tabs": {
-      "eMode": {
-        "illustrationAltText": "Hình minh họa tia sét",
-        "liquidationPenalty": {
-          "label": "Phạt thanh lý"
-        },
-        "liquidationThreshold": {
-          "label": "Ngưỡng thanh lý"
-        },
-        "maxLtv": {
-          "label": "LTV tối đa",
-          "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
-        }
-      }
     }
   },
   "markets": {
@@ -1768,9 +1813,7 @@
     "youAreStake": "Bạn đang stake"
   },
   "venusFluxBanner": {
-    "bgIllustrationAltText": "Minh họa nền",
     "description": "Hãy để thanh khoản của bạn Flux, theo dõi lợi suất tăng trưởng.",
-    "iconAltText": "Biểu tượng Venus Flux",
     "illustrationAltText": "Hình minh họa Venus Flux",
     "title": "Chia sẻ $1M phần thưởng Venus Flux"
   },

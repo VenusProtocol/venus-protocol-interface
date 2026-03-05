@@ -1,15 +1,27 @@
 import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
-import { CellGroup, type CellProps, Icon, Spinner, TokenIcon, Wrapper } from 'components';
+import {
+  ButtonWrapper,
+  CellGroup,
+  type CellProps,
+  Icon,
+  Spinner,
+  TokenIcon,
+  Wrapper,
+} from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Link } from 'containers/Link';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 import { useParams } from 'react-router';
-import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import {
+  formatCentsToReadableValue,
+  formatPercentageToReadableValue,
+  generateExplorerUrl,
+} from 'utilities';
 import type { Address } from 'viem';
 import { AddTokenToWalletDropdown } from './AddTokenToWalletDropdown';
 import { GoToTokenContractDropdown } from './GoToTokenContractDropdown';
@@ -22,6 +34,8 @@ export const MarketInfo = () => {
   }>();
 
   const { t } = useTranslation();
+
+  const { chainId } = useChainId();
 
   const { marketsPagePath } = useGetMarketsPagePath();
 
@@ -92,6 +106,13 @@ export const MarketInfo = () => {
     ];
   }, [asset, t, pool]);
 
+  const oracleContractHref =
+    asset &&
+    generateExplorerUrl({
+      hash: asset?.tokenPriceOracleAddress,
+      chainId,
+    });
+
   return (
     <div className="pb-6 sm:pb-12 md:pb-10 border-b-lightGrey border-b">
       <Wrapper className="space-y-6 sm:space-y-8">
@@ -115,6 +136,20 @@ export const MarketInfo = () => {
               <AddTokenToWalletDropdown isUserConnected={isUserConnected} vToken={asset.vToken} />
 
               <GoToTokenContractDropdown vToken={asset.vToken} />
+
+              {oracleContractHref && (
+                <ButtonWrapper
+                  asChild
+                  size="xs"
+                  className="gap-x-2 inline-flex self-start shrink-0 bg-transparent text-blue"
+                >
+                  <Link noStyle href={oracleContractHref}>
+                    <span>{t('layout.header.resilientOracle')}</span>
+
+                    <Icon name="shield" />
+                  </Link>
+                </ButtonWrapper>
+              )}
             </div>
           ) : (
             <Spinner className="h-full w-auto" />

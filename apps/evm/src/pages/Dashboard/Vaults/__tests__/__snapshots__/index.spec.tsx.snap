@@ -2,4 +2,4 @@
 
 exports[`Vaults > displays content correctly 1`] = `"You are staking233XVS Stake APR12.92%Daily Emission144XVS Stake APR12.92%Daily Emission144"`;
 
-exports[`Vaults > displays placeholder when there are no vaults to display 1`] = `"No staking positions yetYour vault positions will appear hereBrowse"`;
+exports[`Vaults > displays placeholder when there are no vaults to display 1`] = `"No staking positions yetYour vault positions will appear hereConnect wallet"`;

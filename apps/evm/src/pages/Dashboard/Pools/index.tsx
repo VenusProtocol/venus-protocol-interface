@@ -31,8 +31,8 @@ export const Pools: React.FC<PoolsProps> = ({ pools }) => {
         <Placeholder
           iconName="venus"
           title={t('account.pools.placeholder.title')}
-          description={t('account.pools.placeholder.description')}
           to={marketsPagePath}
+          buttonSize="sm"
         />
       ) : (
         <Positions pools={filteredPools} />
