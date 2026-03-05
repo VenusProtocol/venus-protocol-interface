@@ -61,7 +61,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
         leftIconSrc={displayTokenIcon ? token : undefined}
         rightAdornment={
           rightMaxButton ? (
-            <TertiaryButton size="sm" disabled={disabled} {...rightMaxButton}>
+            <TertiaryButton size="sm" className="px-2" disabled={disabled} {...rightMaxButton}>
               {rightMaxButton.label}
             </TertiaryButton>
           ) : undefined
