@@ -7,11 +7,30 @@ import { useSetEModeGroup } from 'clients/api';
 import type { Order, TableColumn } from 'components';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { Asset, EModeAssetSettings, Pool } from 'types';
+import type { Asset, EModeGroup as BaseEModeGroup, Pool } from 'types';
 import { EModeGroup, type EModeGroupProps } from '..';
-import type { BlockingBorrowPosition } from '../../types';
+import type {
+  BlockingBorrowPosition,
+  ExtendedEModeAssetSettings,
+  ExtendedEModeGroup,
+} from '../../../types';
 
-const fakeColumns: TableColumn<EModeAssetSettings>[] = [
+const extendEModeGroup = (
+  eModeGroup: BaseEModeGroup,
+  overrides: Partial<ExtendedEModeGroup> = {},
+): ExtendedEModeGroup => ({
+  ...eModeGroup,
+  userHasEnoughCollateral: true,
+  userBlockingBorrowPositions: [],
+  hypotheticalUserHealthFactor: 10,
+  assetSettings: eModeGroup.assetSettings.map(settings => ({
+    ...settings,
+    isPaused: false,
+  })),
+  ...overrides,
+});
+
+const fakeColumns: TableColumn<ExtendedEModeAssetSettings>[] = [
   {
     key: 'fake-key',
     label: 'Fake label',
@@ -20,16 +39,17 @@ const fakeColumns: TableColumn<EModeAssetSettings>[] = [
   },
 ];
 
-const fakeOrder: Order<EModeAssetSettings> = {
+const fakeOrder: Order<ExtendedEModeAssetSettings> = {
   orderBy: fakeColumns[0],
   orderDirection: 'desc',
 };
 
 const fakePool = poolData[0];
+const fakeEModeGroups = fakePool.eModeGroups.map(group => extendEModeGroup(group));
 
 const baseProps: EModeGroupProps = {
   pool: fakePool,
-  eModeGroup: fakePool.eModeGroups[0],
+  eModeGroup: fakeEModeGroups[0],
   columns: fakeColumns,
   initialOrder: fakeOrder,
   mobileOrder: fakeOrder,
@@ -57,7 +77,7 @@ describe('EModeGroup', () => {
   });
 
   it('lets user enable E-mode group when they meet the criteria', async () => {
-    const fakeEModeGroup = baseProps.eModeGroup;
+    const fakeEModeGroup = fakeEModeGroups[0];
 
     const { queryAllByText, container } = renderComponent(
       <EModeGroup {...baseProps} eModeGroup={fakeEModeGroup} />,
@@ -68,7 +88,9 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    const button = queryAllByText(en.markets.eMode.group.enableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.enableButtonLabel)[0].closest(
+      'button',
+    );
 
     expect(button).toBeEnabled();
     fireEvent.click(button as HTMLButtonElement);
@@ -83,7 +105,7 @@ describe('EModeGroup', () => {
   });
 
   it('lets user disable E-mode group when they meet the criteria', async () => {
-    const fakeEModeGroup = baseProps.eModeGroup;
+    const fakeEModeGroup = fakeEModeGroups[0];
 
     const customFakePool: Pool = {
       ...baseProps.pool,
@@ -99,7 +121,9 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    const button = queryAllByText(en.markets.eMode.group.disableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.disableButtonLabel)[0].closest(
+      'button',
+    );
 
     expect(button).toBeEnabled();
     fireEvent.click(button as HTMLButtonElement);
@@ -114,7 +138,7 @@ describe('EModeGroup', () => {
   });
 
   it('lets user disable inactive E-mode group when they meet the criteria', async () => {
-    const fakeEModeGroup = fakePool.eModeGroups[3];
+    const fakeEModeGroup = fakeEModeGroups[3];
 
     const customFakePool: Pool = {
       ...baseProps.pool,
@@ -130,7 +154,9 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    const button = queryAllByText(en.markets.eMode.group.disableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.disableButtonLabel)[0].closest(
+      'button',
+    );
 
     expect(button).toBeEnabled();
     fireEvent.click(button as HTMLButtonElement);
@@ -145,11 +171,11 @@ describe('EModeGroup', () => {
   });
 
   it('lets user switch E-mode group when they meet the criteria', async () => {
-    const fakeEModeGroup = fakePool.eModeGroups[1];
+    const fakeEModeGroup = fakeEModeGroups[1];
 
     const customFakePool: Pool = {
       ...baseProps.pool,
-      userEModeGroup: fakePool.eModeGroups[0],
+      userEModeGroup: fakeEModeGroups[0],
     };
 
     const { queryAllByText, container } = renderComponent(
@@ -161,7 +187,9 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    const button = queryAllByText(en.markets.eMode.group.switchButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.switchButtonLabel)[0].closest(
+      'button',
+    );
 
     expect(button).toBeEnabled();
     fireEvent.click(button as HTMLButtonElement);
@@ -176,12 +204,12 @@ describe('EModeGroup', () => {
   });
 
   describe.each([
-    ['enable', undefined, fakePool.eModeGroups[0], en.markets.eMode.group.enableButtonLabel],
+    ['enable', undefined, fakeEModeGroups[0], en.markets.tabs.eMode.group.enableButtonLabel],
     [
       'switch',
-      fakePool.eModeGroups[0],
-      fakePool.eModeGroups[1],
-      en.markets.eMode.group.switchButtonLabel,
+      fakeEModeGroups[0],
+      fakeEModeGroups[1],
+      en.markets.tabs.eMode.group.switchButtonLabel,
     ],
   ])('error states', (action, userEModeGroup, eModeGroup, buttonLabel) => {
     it(`does not let user ${action} E-mode group if they have blocking borrow positions`, async () => {
@@ -240,7 +268,7 @@ describe('EModeGroup', () => {
   });
 
   it('does not let user disable E-mode group if they have blocking borrow positions', async () => {
-    const fakeEModeGroup = fakePool.eModeGroups[0];
+    const fakeEModeGroup = fakeEModeGroups[0];
 
     const customFakePool: Pool = {
       ...baseProps.pool,
@@ -263,7 +291,9 @@ describe('EModeGroup', () => {
       },
     );
 
-    const button = queryAllByText(en.markets.eMode.group.disableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.disableButtonLabel)[0].closest(
+      'button',
+    );
 
     fireEvent.click(button as HTMLButtonElement);
 
@@ -271,7 +301,7 @@ describe('EModeGroup', () => {
   });
 
   it('does not let user disable E-mode group if their collateral value would not cover their borrow balance', async () => {
-    const fakeEModeGroup = fakePool.eModeGroups[0];
+    const fakeEModeGroup = fakeEModeGroups[0];
 
     const customFakePool: Pool = {
       ...baseProps.pool,
@@ -290,7 +320,9 @@ describe('EModeGroup', () => {
       },
     );
 
-    const button = queryAllByText(en.markets.eMode.group.disableButtonLabel)[0].closest('button');
+    const button = queryAllByText(en.markets.tabs.eMode.group.disableButtonLabel)[0].closest(
+      'button',
+    );
 
     fireEvent.click(button as HTMLButtonElement);
 

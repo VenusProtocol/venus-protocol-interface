@@ -28,7 +28,7 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   className,
   ...otherProps
 }) => (
-  <Card className={cn('space-y-5 md:space-y-8', className)} {...otherProps}>
+  <Card className={cn('space-y-5 p-6 md:space-y-8', className)} {...otherProps}>
     <div className="space-y-5 md:space-y-6">
       <div
         className={cn(

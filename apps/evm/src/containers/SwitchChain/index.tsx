@@ -9,7 +9,7 @@ import type { ChainId } from 'types';
 export interface SwitchChainProps extends React.HTMLAttributes<HTMLDivElement> {
   buttonClassName?: string;
   buttonVariant?: ButtonProps['variant'];
-  small?: boolean;
+  buttonSize?: ButtonProps['size'];
   chainId?: ChainId;
 }
 
@@ -18,7 +18,7 @@ export const SwitchChain: React.FC<SwitchChainProps> = ({
   chainId,
   buttonClassName,
   buttonVariant,
-  small,
+  buttonSize,
   ...otherProps
 }) => {
   const { accountAddress } = useAccountAddress();
@@ -43,7 +43,7 @@ export const SwitchChain: React.FC<SwitchChainProps> = ({
           className={cn('w-full', buttonClassName)}
           onClick={handleSwitchChain}
           variant={buttonVariant}
-          size={small ? 'xs' : 'md'}
+          size={buttonSize}
         >
           {t('switchChain.switchButton', {
             chainName: targetChain.name,

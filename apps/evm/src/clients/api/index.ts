@@ -74,6 +74,9 @@ export * from './queries/useGetPool';
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';
 
+export * from './queries/getTopMarkets';
+export * from './queries/getTopMarkets/useGetTopMarkets';
+
 export * from './queries/getVTokenInterestRateModel';
 export * from './queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 

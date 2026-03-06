@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { ONE_TRILLION } from 'constants/numbers';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { shortenValueWithSuffix } from 'utilities';
 
 const DEFAULT_MAX_DECIMALS = 2;

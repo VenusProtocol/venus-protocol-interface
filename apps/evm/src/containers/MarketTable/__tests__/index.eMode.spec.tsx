@@ -1,11 +1,6 @@
-import { fireEvent, screen } from '@testing-library/react';
 import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
-import { en } from 'libs/translations';
-import type { UserChainSettings } from 'store';
 import { renderComponent } from 'testUtils/render';
-import type { Mock } from 'vitest';
 import { MarketTable } from '../index';
 import type { ColumnKey } from '../types';
 
@@ -47,47 +42,5 @@ describe('MarketTable - Feature flag enabled: E-mode', () => {
     );
 
     expect(container.textContent).toMatchSnapshot();
-  });
-
-  it('shows E-mode assets only if controls are enabled and corresponding toggle is enabled', () => {
-    const mockSetUserChainSettings = vi.fn();
-
-    const fakeUserChainSettings: UserChainSettings = {
-      ...defaultUserChainSettings,
-      showUserEModeAssetsOnly: false,
-    };
-
-    (useUserChainSettings as Mock).mockReturnValue([
-      fakeUserChainSettings,
-      mockSetUserChainSettings,
-    ]);
-
-    const { container } = renderComponent(
-      <MarketTable
-        assets={poolData[0].assets}
-        poolName={poolData[0].name}
-        poolComptrollerContractAddress={poolData[0].comptrollerAddress}
-        userEModeGroup={poolData[0].eModeGroups[0]}
-        columns={columns}
-        marketType="supply"
-      />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    expect(screen.getByText(en.marketTable.userAssetsOnlyToggle.label)).toBeInTheDocument();
-
-    expect(container.textContent).toMatchSnapshot();
-
-    // Check switching off toggle calls callback correctly
-    const [_1, _2, eModeAssetsOnlyToggle] = screen.getAllByRole('checkbox');
-
-    fireEvent.click(eModeAssetsOnlyToggle);
-
-    expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
-    expect(mockSetUserChainSettings).toHaveBeenCalledWith({
-      showUserEModeAssetsOnly: !fakeUserChainSettings.showUserEModeAssetsOnly,
-    });
   });
 });

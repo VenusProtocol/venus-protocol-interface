@@ -6,7 +6,7 @@ export interface ConnectWalletProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'className'> {
   analyticVariant?: string;
   buttonVariant?: ButtonProps['variant'];
-  small?: boolean;
+  buttonSize?: ButtonProps['size'];
   message?: string;
   className?: string;
   children?: React.ReactNode;
@@ -17,7 +17,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
   message,
   analyticVariant,
   buttonVariant,
-  small = false,
+  buttonSize,
   ...otherProps
 }) => {
   const { accountAddress } = useAccountAddress();
@@ -44,7 +44,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
             className="w-full"
             onClick={handleClick}
             variant={buttonVariant}
-            size={small ? 'xs' : 'md'}
+            size={buttonSize}
           >
             {t('connectWallet.connectButton')}
           </Button>

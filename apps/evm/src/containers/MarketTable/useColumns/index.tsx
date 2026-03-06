@@ -133,16 +133,23 @@ export const useColumns = ({
               <TokenIconWithSymbol
                 token={asset.vToken.underlyingToken}
                 displayChain={column === 'assetAndChain'}
+                size={column === 'assetAndChain' ? 'md' : 'xl'}
               />
 
               {userEModeGroup && isInUserEModeGroup && (
                 <Tooltip
                   className="inline-flex items-center"
-                  content={t('marketTable.assetColumn.eMode', {
-                    eModeGroupName: userEModeGroup.name,
-                  })}
+                  content={
+                    userEModeGroup.isIsolated
+                      ? t('marketTable.assetColumn.isolationMode', {
+                          eModeGroupName: userEModeGroup.name,
+                        })
+                      : t('marketTable.assetColumn.eMode', {
+                          eModeGroupName: userEModeGroup.name,
+                        })
+                  }
                 >
-                  <EModeIcon className="w-4 h-4" />
+                  <EModeIcon className="size-5" isIsolated={userEModeGroup.isIsolated} />
                 </Tooltip>
               )}
 
@@ -180,6 +187,7 @@ export const useColumns = ({
 
           return (
             <Toggle
+              className="py-1"
               onChange={() => collateralOnChange(asset)}
               value={
                 asset.isCollateralOfUser && (!userEModeGroup || asset.userCollateralFactor > 0)

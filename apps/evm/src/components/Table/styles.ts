@@ -25,8 +25,8 @@ export const useStyles = (props?: StylesProps) => {
       }
     `,
     getTitle: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
-      margin-bottom: ${theme.spacing(4)};
-      padding: ${theme.spacing(0, 6)};
+      margin-bottom: ${theme.spacing(2)};
+      padding: ${theme.spacing(0, 4)};
 
       ${breakpoint && theme.breakpoints.down(breakpoint)} {
         padding: 0;
@@ -88,7 +88,7 @@ export const useStyles = (props?: StylesProps) => {
       `
       }
     `,
-    getTableRow: ({ clickable }: { clickable: boolean }) => css`
+    getTableRow: ({ clickable, rounded }: { clickable: boolean; rounded: boolean }) => css`
       height: ${theme.spacing(18)};
 
       :hover {
@@ -96,21 +96,26 @@ export const useStyles = (props?: StylesProps) => {
         overflow: hidden;
       }
 
-      > td:first-child {
-        border-top-left-radius: ${theme.spacing(2)}; 
-        border-bottom-left-radius: ${theme.spacing(2)}; 
-      }
-
-      > td:last-child {
-        border-bottom-right-radius: ${theme.spacing(2)}; 
-        border-top-right-radius: ${theme.spacing(2)}; 
-      }
-
       ${
-        clickable &&
+        rounded &&
         css`
-        cursor: pointer;
-      `
+          > td:first-child {
+            border-top-left-radius: ${theme.spacing(2)}; 
+            border-bottom-left-radius: ${theme.spacing(2)}; 
+          }
+
+          > td:last-child {
+            border-bottom-right-radius: ${theme.spacing(2)}; 
+            border-top-right-radius: ${theme.spacing(2)}; 
+          }
+
+          ${
+            clickable &&
+            css`
+            cursor: pointer;
+          `
+          }
+        `
       }
     `,
     cellTitleMobile: css`
@@ -138,11 +143,11 @@ export const useStyles = (props?: StylesProps) => {
       }
 
       .MuiTableCell-root:first-of-type {
-        padding-left: ${theme.spacing(6)};
+        padding-left: ${theme.spacing(4)};
       }
 
       .MuiTableCell-root:last-child {
-        padding-right: ${theme.spacing(6)};
+        padding-right: ${theme.spacing(4)};
       }
     `,
     tableSortLabel: ({ orderable }: { orderable: boolean }) => css`

@@ -8,6 +8,9 @@
           "illustrationAltText": "Hình minh họa E-mode",
           "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
+        "isolatedModeHeader": {
+          "title": "Chế độ Isolated: <UnderlinedText>{{groupName}}</UnderlinedText>"
+        },
         "supplyTableTitle": "Đã cung cấp",
         "tabletBorrowTabTitle": "Đã vay",
         "tabletSupplyTabTitle": "Đã cung cấp",
@@ -42,22 +45,7 @@
     },
     "pools": {
       "placeholder": {
-        "description": "Vị thế trong pool của bạn sẽ hiển thị ở đây",
         "title": "Chưa có vị thế cung cấp hoặc vay"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "Mức sử dụng hạn mức vay: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "Nhận token Prime",
-        "stakeXvs": "Stake XVS"
-      },
-      "primeLogoAltText": "Logo Prime",
-      "text": {
-        "apyBoost": "Tăng thu nhập của bạn lên đến <GreenText>{{boost}}</GreenText> với Prime",
-        "becomePrime": "Bạn đã có thể trở thành người dùng Prime"
       }
     },
     "settings": {
@@ -81,10 +69,10 @@
       "title": "Tóm tắt"
     },
     "tabs": {
-      "pools": "Bể",
+      "markets": "Thị trường",
       "settings": "Cài đặt",
-      "transactions": "Giao dịch",
-      "vaults": "Kho"
+      "staking": "Staking",
+      "transactions": "Giao dịch"
     },
     "transactions": {
       "date": {
@@ -276,9 +264,6 @@
     }
   },
   "asset": {
-    "eModeInfo": {
-      "title": "Thông tin E-mode"
-    },
     "marketInfo": {
       "title": "Thông tin thị trường"
     }
@@ -293,6 +278,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "Cài đặt E-mode của bạn không cho phép vay từ thị trường này. <Link>Quản lý E-mode</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "Cài đặt chế độ cô lập của bạn không cho phép vay từ thị trường này. <Link>Quản lý E-mode</Link>"
     }
   },
   "assetWarning": {
@@ -408,11 +396,127 @@
   "connectWallet": {
     "connectButton": "Kết nối ví"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "Tài sản tạm dừng"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "Chỉ tài sản của tôi"
+    }
+  },
+  "dashboard": {
+    "guide": {
+      "completed": "Hoàn thành",
+      "step1": {
+        "description": "Kiếm lợi suất bằng cách cung cấp tài sản hoặc chuyển các vị thế hiện có của bạn sang giao thức Venus.",
+        "title": "Cung cấp / Di chuyển"
+      },
+      "step2": {
+        "description": "Vay tài sản để tăng cường chiến lược DeFi của bạn hoặc đòn bẩy thanh khoản chỉ với một cú nhấp.",
+        "title": "Vay / Đòn bẩy"
+      },
+      "step3": {
+        "description": "Gửi XVS vào vault và nhận lợi suất được tạo từ doanh thu của giao thức.",
+        "title": "Stake XVS"
+      },
+      "uncompleted": "Chưa hoàn thành"
+    },
+    "overview": {
+      "absolutePerformance": "Hiệu suất tuyệt đối",
+      "netWorth": {
+        "label": "Giá trị ròng",
+        "tooltip": "Tài sản ròng khả dụng sau khi tính stake trong vault và khoản vay",
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính stake trong vault, khoản vay và VAI đã mint"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "Không thể tải lịch sử tài khoản",
+          "refetchButtonLabel": "Thử lại"
+        },
+        "placeholderText": "Đang tạo báo cáo, có thể mất tối đa một phút"
+      },
+      "periodOption": {
+        "oneYear": "1N",
+        "sixMonths": "6T",
+        "thirtyDays": "30N"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Thu nhập hàng ngày",
+          "mintedVai": "VAI đã mint",
+          "netApy": "APY ròng",
+          "netApyTooltip": "Tỷ lệ phần trăm trên tổng số dư cung của bạn nhận được dưới dạng lãi suất hằng năm",
+          "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm trên tổng số dư cung và stake trong vault của bạn nhận được dưới dạng lãi suất hằng năm",
+          "totalBorrow": "Tổng số vay",
+          "totalSupply": "Tổng số cung",
+          "totalVaultStake": "Tổng stake trong vault"
+        },
+        "title": "Tóm tắt"
+      },
+      "todaysChange": "Biến động hôm nay"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "topMarkets": {
+      "borrowButton": {
+        "label": "Vay"
+      },
+      "interactiveTitle": "Điểm nổi bật ( <Group><SupplyButton>cung cấp</SupplyButton>/<BorrowButton>vay</BorrowButton></Group> )",
+      "supplyButton": {
+        "label": "Cung cấp"
+      },
+      "textTitle": "Điểm nổi bật"
+    }
+  },
   "eModeBanner": {
     "exploreButtonLabel": "Khám phá",
     "illustrationAltText": "Hình minh họa E-mode",
     "manageEModeButtonLabel": "Quản lý E-mode",
-    "title": "Tăng sức mạnh vay với E-Mode"
+    "title": "Tăng sức mạnh vay với E-mode"
+  },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "Sắp xếp theo:",
+      "searchPlaceholder": "Tìm nhóm hoặc tài sản"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "Bạn không thể tắt nhóm này vì bạn có vị thế vay với các tài sản không thể vay từ pool. <Link>Hiển thị vị thế của tôi</Link>",
+          "notEnoughCollateral": "Bạn không thể tắt nhóm này vì tổng giá trị tài sản thế chấp không đủ để phủ tổng dư nợ vay"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "Bạn cần đóng các vị thế vay sau để bật nhóm <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+          "repayButtonLabel": "Hoàn trả",
+          "title": "Vị thế của bạn"
+        },
+        "tooltip": {
+          "blockingPositions": "Bạn không thể bật nhóm này vì bạn có vị thế vay với các tài sản không thuộc nhóm đó. <Link>Hiển thị vị thế của tôi</Link>",
+          "notEnoughCollateral": "Bạn không thể bật nhóm này vì tổng giá trị tài sản thế chấp không đủ để phủ tổng dư nợ vay"
+        }
+      },
+      "disableButtonLabel": "Tắt",
+      "disabledNotice": "Nhóm này không còn được hỗ trợ. Tài khoản của bạn sẽ quay về tham số của Core Pool. Vui lòng chuyển sang nhóm khác hoặc tắt nó.",
+      "enableButtonLabel": "Bật",
+      "healthFactor": "Hệ số an toàn:",
+      "switchButtonLabel": "Chuyển"
+    },
+    "table": {
+      "columns": {
+        "asset": "Tài sản",
+        "collateral": "Tài sản thế chấp",
+        "isBorrowable": "Có thể vay",
+        "liquidationPenalty": "Phạt thanh lý",
+        "liquidationThreshold": "Ngưỡng thanh lý",
+        "maxLtv": "LTV tối đa"
+      }
+    }
   },
   "errors": {
     "couldNotRetrieveSigner": "Không thể lấy signer, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
@@ -593,6 +697,7 @@
       "protectionTitle": "Ưu tiên bảo vệ"
     },
     "safety": {
+      "audit_one": "Kiểm toán",
       "audit_other": "Các cuộc kiểm toán",
       "otherAuditors": "+14 cuộc kiểm toán với <br />Fairyproof, Hacken và HashEx",
       "scoreAlt": "Minh họa điểm số",
@@ -623,6 +728,7 @@
         "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
       },
       "price": "Giá",
+      "resilientOracle": "Oracle bền vững",
       "supply": "Cung cấp",
       "utilizationRate": "Tỷ lệ sử dụng"
     },
@@ -713,6 +819,25 @@
     "borrowInfo": {
       "title": "Thông tin vay"
     },
+    "eModeInfo": {
+      "eMode": {
+        "title": "E-mode"
+      },
+      "isolationMode": {
+        "title": "Chế độ cô lập"
+      },
+      "link": "Hiển thị tất cả thị trường",
+      "table": {
+        "columns": {
+          "collateral": "Tài sản thế chấp",
+          "group": "Nhóm",
+          "isBorrowable": "Có thể vay",
+          "liquidationPenalty": "Phạt",
+          "liquidationThreshold": "Ngưỡng",
+          "maxLtv": "LTV tối đa"
+        }
+      }
+    },
     "interestRateModel": {
       "title": "Mô hình lãi suất"
     },
@@ -754,57 +879,13 @@
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "Bạn không thể tắt nhóm e-mode này vì bạn có vị thế vay với các tài sản không thể vay từ pool. <Link>Hiển thị vị thế của tôi</Link>",
-            "notEnoughCollateral": "Bạn không thể tắt nhóm e-mode này vì tổng giá trị tài sản thế chấp của bạn không đủ để bù tổng dư nợ"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "Bạn cần đóng các vị thế vay sau để bật nhóm E-mode <WhiteText>{{ eModeGroupName }}</WhiteText>:",
-            "repayButtonLabel": "Hoàn trả",
-            "title": "Vị thế của bạn"
-          },
-          "tooltip": {
-            "blockingPositions": "Bạn không thể bật nhóm e-mode này vì có vị thế vay với tài sản không thuộc nhóm đó. <Link>Hiển thị vị thế của tôi</Link>",
-            "notEnoughCollateral": "Bạn không thể bật nhóm e-mode này vì tổng giá trị tài sản thế chấp của bạn không đủ để bù tổng dư nợ"
-          }
-        },
-        "disableButtonLabel": "Tắt",
-        "disabledNotice": "Nhóm E-Mode này không còn được hỗ trợ. Tài khoản của bạn đã quay về tham số mặc định. Vui lòng chuyển sang nhóm E-mode khác hoặc tắt nó.",
-        "enableButtonLabel": "Bật",
-        "healthFactor": "Hệ số an toàn:",
-        "switchButtonLabel": "Chuyển"
-      },
-      "notice": "Bật E-Mode giúp tối đa hóa sức mạnh vay, tuy nhiên việc vay bị giới hạn trong các tài sản thuộc nhóm đã chọn. <Link>Tìm hiểu thêm</Link>",
-      "search": {
-        "placeholder": "Tìm tài sản hoặc nhóm"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "Có thể vay",
             "collateral": "Tài sản thế chấp"
-          },
-          "rows": {
-            "liquidationPenalty": "Phạt thanh lý",
-            "liquidationThreshold": "Ngưỡng thanh lý",
-            "maxLtv": "LTV tối đa"
           }
-        },
-        "columns": {
-          "asset": "Tài sản",
-          "collateral": "Tài sản thế chấp",
-          "isBorrowable": "Có thể vay",
-          "liquidationPenalty": "Phạt thanh lý",
-          "liquidationThreshold": "Ngưỡng thanh lý",
-          "maxLtv": "LTV tối đa",
-          "penalty": "Mức phạt",
-          "threshold": "Ngưỡng"
-        },
-        "mobileSelectLabel": "Sắp xếp theo:"
+        }
       }
     },
     "errors": {
@@ -813,33 +894,72 @@
       "collateralEnableError": "Lỗi bật tài sản thế chấp - Đã xảy ra sự cố khi bật {{assetName}} làm tài sản thế chấp. Vui lòng thử lại.",
       "collateralRequired": "Yêu cầu tài sản thế chấp - Vui lòng hoàn trả tất cả tài sản đã vay hoặc đặt tài sản khác làm thế chấp."
     },
+    "header": {
+      "venusCore": {
+        "description": "Tài chính đơn giản và mạnh mẽ do cộng đồng dẫn dắt cho toàn cầu.",
+        "title": "Venus Core"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "Sức mạnh vay của bạn tăng lên khi chỉ cung cấp tài sản trong nhóm {{ eModeGroupName }}",
       "label": "Cô lập"
     },
     "tabs": {
-      "assets": {
-        "title": "Tài sản"
-      },
       "eMode": {
-        "illustrationAltText": "Hình minh họa tia sét",
-        "liquidationPenalty": {
-          "label": "Phạt thanh lý"
+        "eModeNotice": "Bật E-mode giúp tối đa hóa khả năng vay, tuy nhiên việc vay bị giới hạn trong các tài sản thuộc nhóm đã chọn. <Link>Tìm hiểu thêm</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "Bạn không thể tắt nhóm này vì bạn có vị thế vay với các tài sản không thể vay từ pool. <Link>Hiển thị vị thế của tôi</Link>",
+              "notEnoughCollateral": "Bạn không thể tắt nhóm này vì tổng giá trị tài sản thế chấp không đủ để phủ tổng dư nợ vay"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "Bạn cần đóng các vị thế vay sau để bật nhóm <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+              "repayButtonLabel": "Hoàn trả",
+              "title": "Vị thế của bạn"
+            },
+            "tooltip": {
+              "blockingPositions": "Bạn không thể bật nhóm này vì bạn có vị thế vay với các tài sản không thuộc nhóm đó. <Link>Hiển thị vị thế của tôi</Link>",
+              "notEnoughCollateral": "Bạn không thể bật nhóm này vì tổng giá trị tài sản thế chấp không đủ để phủ tổng dư nợ vay"
+            }
+          },
+          "disableButtonLabel": "Tắt",
+          "disabledNotice": "Nhóm này không còn được hỗ trợ. Tài khoản của bạn sẽ quay về tham số của Core Pool. Vui lòng chuyển sang nhóm khác hoặc tắt nó.",
+          "enableButtonLabel": "Bật",
+          "healthFactor": "Hệ số an toàn:",
+          "switchButtonLabel": "Chuyển"
         },
-        "liquidationThreshold": {
-          "label": "Ngưỡng thanh lý"
-        },
-        "maxLtv": {
-          "label": "LTV tối đa",
-          "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
-        },
-        "title": "E-mode"
+        "isolationModeNotice": "Bật chế độ cô lập giúp tối đa hóa khả năng vay, tuy nhiên việc cung cấp và vay bị giới hạn trong các tài sản thuộc nhóm đã chọn. <Link>Tìm hiểu thêm</Link>",
+        "label": "E-mode",
+        "table": {
+          "columns": {
+            "asset": "Tài sản",
+            "collateral": "Tài sản thế chấp",
+            "isBorrowable": "Có thể vay",
+            "liquidationPenalty": "Phạt thanh lý",
+            "liquidationThreshold": "Ngưỡng thanh lý",
+            "maxLtv": "LTV tối đa",
+            "penalty": "Phạt",
+            "threshold": "Ngưỡng"
+          },
+          "mobileSelectLabel": "Sắp xếp theo:",
+          "searchPlaceholder": "Tìm tài sản hoặc nhóm"
+        }
+      },
+      "isolationMode": {
+        "label": "Chế độ cô lập"
+      },
+      "markets": {
+        "label": "Thị trường"
       }
     }
   },
   "marketTable": {
     "assetColumn": {
       "eMode": "Thị trường này thuộc nhóm E-mode {{eModeGroupName}}",
+      "isolationMode": "Thị trường này thuộc nhóm chế độ cô lập {{eModeGroupName}}",
       "pausedAssetTooltip": "Tài sản đã bị tạm dừng bởi Venus Governance. Việc vay và cung cấp đã bị vô hiệu hóa."
     },
     "columnKeys": {
@@ -884,17 +1004,8 @@
       "imgAlt": "Biểu tượng tạm dừng",
       "title": "Tất cả tài sản trong pool này đã bị tạm dừng"
     },
-    "pausedAssetsToggle": {
-      "label": "Tài sản tạm dừng"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "Tìm tài sản"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "Chỉ tài sản của tôi"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "Chỉ tài sản E-mode"
     }
   },
   "operationForm": {

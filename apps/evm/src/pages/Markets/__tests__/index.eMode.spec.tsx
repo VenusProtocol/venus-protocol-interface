@@ -1,34 +1,30 @@
-import BigNumber from 'bignumber.js';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
 import { fireEvent, waitFor } from '@testing-library/react';
-import fakeAccountAddress from '__mocks__/models/address';
 import { eModeGroups } from '__mocks__/models/eModeGroup';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPool } from 'clients/api';
-import { routes } from 'constants/routing';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import type { Pool } from 'types';
 import { Markets } from '..';
 
-const customFakePool: Pool = {
-  ...poolData[0],
-  eModeGroups,
-  userEModeGroup: eModeGroups[0],
-  vai: {
-    ...poolData[0].vai!,
-    userBorrowBalanceTokens: new BigNumber(0),
-    userBorrowBalanceCents: new BigNumber(0),
-  },
-};
-
-describe('Markets - Feature flag enabled: E-mode', () => {
+describe('Markets - Feature flag enabled: eMode', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'eMode',
     );
+  });
+
+  it('renders E-mode tab if E-mode groups are available', async () => {
+    const customFakePool: Pool = {
+      ...poolData[0],
+      eModeGroups: eModeGroups.map(eModeGroup => ({
+        ...eModeGroup,
+        isIsolated: false,
+      })),
+    };
 
     (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
@@ -36,56 +32,40 @@ describe('Markets - Feature flag enabled: E-mode', () => {
         pool: customFakePool,
       },
     }));
+
+    const { getByText, container } = renderComponent(<Markets />);
+
+    await waitFor(() => expect(getByText(en.markets.tabs.eMode.label)).toBeInTheDocument());
+
+    // Open E-mode tab
+    fireEvent.click(getByText(en.markets.tabs.eMode.label));
+
+    expect(container.textContent).toMatchSnapshot();
   });
 
-  describe('Assets tab', () => {
-    it('renders correctly when pool has E-mode groups', async () => {
-      const { container } = renderComponent(<Markets />);
+  it('renders Isolation mode tab if isolated E-mode groups are available', async () => {
+    const customFakePool: Pool = {
+      ...poolData[0],
+      eModeGroups: eModeGroups.map(eModeGroup => ({
+        ...eModeGroup,
+        isIsolated: true,
+      })),
+    };
 
-      await waitFor(() => expect(container.textContent).not.toEqual(''));
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: customFakePool,
+      },
+    }));
 
-      expect(container.textContent).toMatchSnapshot();
-    });
-  });
+    const { getByText, container } = renderComponent(<Markets />);
 
-  describe('E-mode tab', () => {
-    it('renders correctly', async () => {
-      const { container } = renderComponent(<Markets />, {
-        accountAddress: fakeAccountAddress,
-        routerInitialEntries: [
-          `${routes.markets.path.replace(
-            ':poolComptrollerAddress',
-            customFakePool.comptrollerAddress,
-          )}?tab=e-mode`,
-        ],
-        routePath: routes.markets.path,
-      });
+    await waitFor(() => expect(getByText(en.markets.tabs.isolationMode.label)).toBeInTheDocument());
 
-      await waitFor(() => expect(container.textContent).not.toEqual(''));
+    // Open isolated mode tab
+    fireEvent.click(getByText(en.markets.tabs.isolationMode.label));
 
-      expect(container.textContent).toMatchSnapshot();
-    });
-
-    it('filters assets correctly when using search', async () => {
-      const { container, queryAllByPlaceholderText } = renderComponent(<Markets />, {
-        accountAddress: fakeAccountAddress,
-        routerInitialEntries: [
-          `${routes.markets.path.replace(
-            ':poolComptrollerAddress',
-            customFakePool.comptrollerAddress,
-          )}?tab=e-mode`,
-        ],
-        routePath: routes.markets.path,
-      });
-
-      await waitFor(() => expect(container.textContent).not.toEqual(''));
-
-      const tokenTextFieldInput = queryAllByPlaceholderText(
-        en.markets.eMode.search.placeholder,
-      )[0] as HTMLInputElement;
-      fireEvent.change(tokenTextFieldInput, { target: { value: 'b' } });
-
-      expect(container.textContent).toMatchSnapshot();
-    });
+    expect(container.textContent).toMatchSnapshot();
   });
 });

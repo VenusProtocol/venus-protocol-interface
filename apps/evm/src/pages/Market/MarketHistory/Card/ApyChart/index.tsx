@@ -38,7 +38,7 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
   };
 
   const chartColor = type === 'supply' ? theme.colors.green : theme.colors.red;
-  const chartInterval = isSmOrUp ? 5 : 4;
+  const chartInterval = isSmOrUp ? 5 : 3;
 
   return (
     <AreaChart
