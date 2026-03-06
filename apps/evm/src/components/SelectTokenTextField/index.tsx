@@ -66,7 +66,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
               <TertiaryButton
                 onClick={handleButtonClick}
                 css={styles.getButton({ isTokenListShown })}
-                className="px-2 max-w-28 min-w-0"
+                className="pl-2 pr-1 max-w-28 min-w-0"
                 contentClassName="min-w-0"
                 disabled={disabled}
                 data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
@@ -81,7 +81,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 <Icon
                   css={styles.getArrowIcon({ isTokenListShown })}
                   name="arrowUp"
-                  className="w-5 h-5 shrink-0"
+                  className="w-5 h-5 ml-1 shrink-0"
                 />
               </TertiaryButton>
 
