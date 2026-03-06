@@ -3,8 +3,8 @@ import { Select, type SelectOption, TokenIconWithSymbol } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
-import { useMemo } from 'react';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router';
 import { TxType } from 'types';
 import { TransactionsList } from './TransactionsList';
@@ -45,6 +45,7 @@ const getTxTypeOptionTranslationKey = (txType: TxType) => {
 
 export const Transactions: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { chainId } = useChainId();
 
   const pageStr = searchParams.get(PAGE_PARAM_KEY);
   const pageNumber = pageStr ? Number(pageStr) : FIRST_PAGE;
@@ -74,6 +75,21 @@ export const Transactions: React.FC = () => {
       [PAGE_PARAM_KEY]: newPage,
     }));
 
+  // Reset search params when detecting chain switch.
+  const chainIdRef = useRef(chainId);
+  useEffect(() => {
+    if (chainId !== chainIdRef.current) {
+      setSearchParams(currentSearchParams => ({
+        ...Object.fromEntries(currentSearchParams),
+        [TX_TYPE_PARAM_KEY]: ALL_OPTION_VALUE,
+        [CONTRACT_ADDRESS_PARAM_KEY]: ALL_OPTION_VALUE,
+        [PAGE_PARAM_KEY]: ALL_OPTION_VALUE,
+      }));
+
+      chainIdRef.current = chainId;
+    }
+  }, [chainId, setSearchParams]);
+
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const { data: poolData } = useGetPools({
@@ -98,7 +114,7 @@ export const Transactions: React.FC = () => {
   const txTypeSelectOptions = useMemo(() => {
     const allOption: SelectOption<string> = {
       label: t('account.transactions.selects.txType.all'),
-      value: 'all',
+      value: ALL_OPTION_VALUE,
     };
 
     const otherOptions: SelectOption<string>[] = [];

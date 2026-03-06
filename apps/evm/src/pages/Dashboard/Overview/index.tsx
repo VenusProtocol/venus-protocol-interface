@@ -292,12 +292,14 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
             <HidableUserBalance>{readableNetWorth}</HidableUserBalance>
           </p>
 
-          <button type="button" onClick={toggleShowUserBalances} className="cursor-pointer p-1">
-            <Icon
-              name={userChainSettings.doNotShowUserBalances ? 'closedEye' : 'eye'}
-              className="size-5"
-            />
-          </button>
+          {accountAddress && (
+            <button type="button" onClick={toggleShowUserBalances} className="cursor-pointer p-1">
+              <Icon
+                name={userChainSettings.doNotShowUserBalances ? 'closedEye' : 'eye'}
+                className="size-5"
+              />
+            </button>
+          )}
         </div>
       </div>
 

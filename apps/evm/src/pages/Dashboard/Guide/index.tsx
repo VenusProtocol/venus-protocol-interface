@@ -79,7 +79,7 @@ export const Guide: React.FC = () => {
   const isLoading = isGetPoolLoading || isGetVaultsLoading;
 
   // Render nothing if user has already completed all the steps
-  if (isLoading || !steps.some(step => !step.isCompleted)) {
+  if (isLoading || !steps.some(step => !step.isCompleted) || !accountAddress) {
     return undefined;
   }
 
