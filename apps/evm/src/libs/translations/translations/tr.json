@@ -278,6 +278,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "E-modu ayarlarınız bu piyasadan borç almanıza izin vermiyor. <Link>E-modunu yönet</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "TRANSLATION NEEDED"
     }
   },
   "assetWarning": {

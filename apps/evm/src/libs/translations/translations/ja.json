@@ -278,6 +278,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "あなたのEモード設定ではこのマーケットから借入できません。<Link>Eモードを管理</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "TRANSLATION NEEDED"
     }
   },
   "assetWarning": {

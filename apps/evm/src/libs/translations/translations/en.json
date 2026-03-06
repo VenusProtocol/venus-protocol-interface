@@ -278,6 +278,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "Your E-mode settings do not allow you to borrow from this market. <Link>Manage E-mode</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "Your isolation mode settings do not allow you to borrow from this market. <Link>Manage E-mode</Link>"
     }
   },
   "assetWarning": {

@@ -278,6 +278,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "การตั้งค่า E-mode ของคุณไม่อนุญาตให้ยืมจากตลาดนี้ <Link>จัดการ E-mode</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "TRANSLATION NEEDED"
     }
   },
   "assetWarning": {

@@ -278,6 +278,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "你的 E-mode設置不允許從該市場借款。<Link>管理 E-mode</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "TRANSLATION NEEDED"
     }
   },
   "assetWarning": {

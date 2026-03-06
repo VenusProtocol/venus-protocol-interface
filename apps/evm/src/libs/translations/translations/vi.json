@@ -278,6 +278,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "Cài đặt E-mode của bạn không cho phép vay từ thị trường này. <Link>Quản lý E-mode</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "TRANSLATION NEEDED"
     }
   },
   "assetWarning": {
