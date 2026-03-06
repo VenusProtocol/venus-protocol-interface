@@ -48,35 +48,34 @@ export const Modal: React.FC<ModalProps> = ({
       <Fade in={isOpen}>
         <div
           className={cn(
-            'flex flex-col overflow-hidden outline-hidden bg-dark-blue rounded-xl absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] border border-blue max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
+            'flex flex-col overflow-auto outline-hidden bg-dark-blue rounded-xl absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] border border-blue max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
             className,
           )}
         >
-          {/* Having 2 containers to prevent scroll bar sticking out of the rounded border. */}
-          <div className="min-h-0 flex-1 overflow-auto">
-            <div css={s.titleWrapper}>
-              {!!handleBackAction && (
-                <Button
-                  css={s.backAction}
-                  className={buttonClassName}
-                  disableRipple
-                  onClick={handleBackAction}
-                >
-                  <Icon css={s.backArrow} name="arrowRight" />
-                </Button>
-              )}
-              <div css={s.titleComponent}>{title}</div>
+          <div css={s.titleWrapper}>
+            {!!handleBackAction && (
               <Button
-                css={s.closeIcon}
-                className={cn('right-6', buttonClassName)}
+                css={s.backAction}
+                className={buttonClassName}
                 disableRipple
-                onClick={handleClose}
+                onClick={handleBackAction}
               >
-                <Icon name="close" className="size-6" />
+                <Icon css={s.backArrow} name="arrowRight" />
               </Button>
-            </div>
-            <div css={s.contentWrapper}>{children as React.ReactNode}</div>
+            )}
+            <div css={s.titleComponent}>{title}</div>
+
+            <Button
+              css={s.closeIcon}
+              className={cn('right-6', buttonClassName)}
+              disableRipple
+              onClick={handleClose}
+            >
+              <Icon name="close" className="size-6" />
+            </Button>
           </div>
+
+          <div css={s.contentWrapper}>{children as React.ReactNode}</div>
         </div>
       </Fade>
     </MUIModal>
