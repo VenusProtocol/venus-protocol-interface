@@ -47,7 +47,7 @@ function Head<R>({
                 css={styles.tableSortLabel({ orderable: !!column.sortRows })}
                 active={active}
                 direction={active ? orderDirection : 'asc'}
-                onClick={column.sortRows ? () => onRequestOrder(column) : undefined}
+                onClick={controls && column.sortRows ? () => onRequestOrder(column) : undefined}
                 hideSortIcon={false}
                 // @ts-expect-error Override IconComponent with null so it doesn't render
                 IconComponent={null}
