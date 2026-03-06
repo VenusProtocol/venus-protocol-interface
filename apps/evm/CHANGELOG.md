@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.15.0
+
+### Minor Changes
+
+- 43661f7: improve wallet listing
+
 ## 4.14.2
 
 ### Patch Changes
