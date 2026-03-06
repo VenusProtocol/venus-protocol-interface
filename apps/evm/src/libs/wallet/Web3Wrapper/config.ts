@@ -1,7 +1,9 @@
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
   binanceWallet,
+  metaMaskWallet,
   okxWallet,
+  rabbyWallet,
   trustWallet,
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
@@ -17,7 +19,14 @@ const connectors = connectorsForWallets(
   [
     {
       groupName: 'Recommended',
-      wallets: [binanceWallet, okxWallet, walletConnectWallet, trustWallet],
+      wallets: [
+        binanceWallet,
+        okxWallet,
+        trustWallet,
+        walletConnectWallet,
+        rabbyWallet,
+        metaMaskWallet,
+      ],
     },
   ],
   { appName: 'Venus', projectId: WALLET_CONNECT_PROJECT_ID },
