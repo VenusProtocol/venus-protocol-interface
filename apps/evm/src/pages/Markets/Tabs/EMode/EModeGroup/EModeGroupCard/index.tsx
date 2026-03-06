@@ -1,14 +1,18 @@
 import { Card, type Order, type TableColumn } from 'components';
-import type { EModeAssetSettings, EModeGroup, Pool } from 'types';
-import type { BlockingBorrowPosition } from '../../../types';
+import type { Pool } from 'types';
+import type {
+  BlockingBorrowPosition,
+  ExtendedEModeAssetSettings,
+  ExtendedEModeGroup,
+} from '../../../types';
 import { Header } from '../Header';
 import { Asset } from './Asset';
 
 export interface EModeGroupCardProps {
   pool: Pool;
-  columns: TableColumn<EModeAssetSettings>[];
-  eModeGroup: EModeGroup;
-  order: Order<EModeAssetSettings>;
+  columns: TableColumn<ExtendedEModeAssetSettings>[];
+  eModeGroup: ExtendedEModeGroup;
+  order: Order<ExtendedEModeAssetSettings>;
   userHasEnoughCollateral: boolean;
   userBlockingBorrowPositions: BlockingBorrowPosition[];
   hypotheticalUserHealthFactor: number;

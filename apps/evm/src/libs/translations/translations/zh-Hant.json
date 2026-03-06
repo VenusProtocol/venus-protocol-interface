@@ -280,7 +280,7 @@
       "borrow": "你的 E-mode設置不允許從該市場借款。<Link>管理 E-mode</Link>"
     },
     "isolationModeBlockedActionNotice": {
-      "borrow": "TRANSLATION NEEDED"
+      "borrow": "你的隔離模式設置不允許從該市場借款。<Link>管理 E-mode</Link>"
     }
   },
   "assetWarning": {
@@ -959,6 +959,7 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "該市場屬於 {{eModeGroupName}} E-mode組",
+      "isolationMode": "該市場屬於 {{eModeGroupName}} 隔離模式組",
       "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。"
     },
     "columnKeys": {

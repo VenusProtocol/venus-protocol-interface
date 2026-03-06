@@ -1,17 +1,21 @@
 import { Delimiter, type Order, Table, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
-import type { EModeAssetSettings, EModeGroup as EModeGroupType, Pool } from 'types';
-import type { BlockingBorrowPosition } from '../../types';
+import type { Pool } from 'types';
+import type {
+  BlockingBorrowPosition,
+  ExtendedEModeAssetSettings,
+  ExtendedEModeGroup,
+} from '../../types';
 import { ASSET_COLUMN_KEY } from '../useColumns';
 import { EModeGroupCard } from './EModeGroupCard';
 import { Header } from './Header';
 
 export interface EModeGroupProps {
   pool: Pool;
-  eModeGroup: EModeGroupType;
-  columns: TableColumn<EModeAssetSettings>[];
-  initialOrder: Order<EModeAssetSettings>;
-  mobileOrder: Order<EModeAssetSettings>;
+  eModeGroup: ExtendedEModeGroup;
+  columns: TableColumn<ExtendedEModeAssetSettings>[];
+  initialOrder: Order<ExtendedEModeAssetSettings>;
+  mobileOrder: Order<ExtendedEModeAssetSettings>;
   userHasEnoughCollateral: boolean;
   userBlockingBorrowPositions: BlockingBorrowPosition[];
   hypotheticalUserHealthFactor: number;
@@ -35,13 +39,13 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
     // Grey out non-asset cells if E-mode group is inactive
     return {
       ...column,
-      renderCell: (...params: Parameters<TableColumn<EModeAssetSettings>['renderCell']>) => (
-        <span className="text-grey opacity-50">{column.renderCell(...params)}</span>
-      ),
+      renderCell: (
+        ...params: Parameters<TableColumn<ExtendedEModeAssetSettings>['renderCell']>
+      ) => <span className="text-grey opacity-50">{column.renderCell(...params)}</span>,
     };
   });
 
-  const getRowHref = (row: EModeAssetSettings) =>
+  const getRowHref = (row: ExtendedEModeAssetSettings) =>
     routes.market.path
       .replace(':poolComptrollerAddress', pool.comptrollerAddress)
       .replace(':vTokenAddress', row.vToken.address);

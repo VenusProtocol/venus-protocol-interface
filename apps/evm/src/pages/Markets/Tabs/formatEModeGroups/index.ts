@@ -1,10 +1,15 @@
 import type { To } from 'react-router';
+import type { Address } from 'viem';
 
 import { routes } from 'constants/routing';
 import { TAB_PARAM_KEY } from 'hooks/useTabs';
 import type { Pool, Token } from 'types';
-import { areTokensEqual, calculateHealthFactor } from 'utilities';
-import type { BlockingBorrowPosition, ExtendedEModeGroup } from '../types';
+import { areTokensEqual, calculateHealthFactor, isAssetPaused } from 'utilities';
+import type {
+  BlockingBorrowPosition,
+  ExtendedEModeAssetSettings,
+  ExtendedEModeGroup,
+} from '../types';
 import { getHypotheticalAssetValues } from './getHypotheticalAssetValues';
 
 export interface FormatEModeGroupsInput {
@@ -24,11 +29,16 @@ export const formatEModeGroups = ({ pool, formatTo, vai }: FormatEModeGroupsInpu
       // These values are used to determine if a user can enable the E-mode group if it's not
       // enabled already, or disable it if it's enabled
       const userBlockingBorrowPositions: BlockingBorrowPosition[] = [];
+      const pausedVTokenAddresses: Address[] = [];
       let hypotheticalUserLiquidationThresholdCents = 0;
       let hypotheticalUserBorrowLimitCents = 0;
       let hypotheticalUserBorrowBalanceCents = 0;
 
       pool.assets.forEach(asset => {
+        if (isAssetPaused(asset)) {
+          pausedVTokenAddresses.push(asset.vToken.address.toLowerCase() as Address);
+        }
+
         const assetSettings = eModeGroup.assetSettings.find(settings =>
           areTokensEqual(settings.vToken, asset.vToken),
         );
@@ -105,8 +115,18 @@ export const formatEModeGroups = ({ pool, formatTo, vai }: FormatEModeGroupsInpu
         borrowBalanceCents: hypotheticalUserBorrowBalanceCents,
       });
 
+      const assetSettings: ExtendedEModeAssetSettings[] = eModeGroup.assetSettings.map(
+        settings => ({
+          ...settings,
+          isPaused: pausedVTokenAddresses.includes(
+            settings.vToken.address.toLowerCase() as Address,
+          ),
+        }),
+      );
+
       const extendedEModeGroup: ExtendedEModeGroup = {
         ...eModeGroup,
+        assetSettings,
         userHasEnoughCollateral,
         userBlockingBorrowPositions,
         hypotheticalUserHealthFactor,

@@ -959,6 +959,7 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "This market is part of the {{eModeGroupName}} E-mode group",
+      "isolationMode": "This market is part of the {{eModeGroupName}} isolation mode group",
       "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled."
     },
     "columnKeys": {

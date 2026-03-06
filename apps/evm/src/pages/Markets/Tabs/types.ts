@@ -1,5 +1,9 @@
 import type { To } from 'react-router';
-import type { EModeGroup, Token } from 'types';
+import type { EModeAssetSettings, EModeGroup, Token } from 'types';
+
+export interface ExtendedEModeAssetSettings extends EModeAssetSettings {
+  isPaused: boolean;
+}
 
 export interface BlockingBorrowPosition {
   token: Token;
@@ -8,8 +12,9 @@ export interface BlockingBorrowPosition {
   to: To;
 }
 
-export interface ExtendedEModeGroup extends EModeGroup {
+export interface ExtendedEModeGroup extends Omit<EModeGroup, 'assetSettings'> {
   userBlockingBorrowPositions: BlockingBorrowPosition[];
   userHasEnoughCollateral: boolean;
   hypotheticalUserHealthFactor: number;
+  assetSettings: ExtendedEModeAssetSettings[];
 }

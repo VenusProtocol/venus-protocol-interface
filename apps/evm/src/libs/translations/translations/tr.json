@@ -280,7 +280,7 @@
       "borrow": "E-modu ayarlarınız bu piyasadan borç almanıza izin vermiyor. <Link>E-modunu yönet</Link>"
     },
     "isolationModeBlockedActionNotice": {
-      "borrow": "TRANSLATION NEEDED"
+      "borrow": "İzolasyon modu ayarlarınız bu piyasadan borç almanıza izin vermiyor. <Link>E-modunu yönet</Link>"
     }
   },
   "assetWarning": {
@@ -959,6 +959,7 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "Bu piyasa {{eModeGroupName}} E-modu grubunun bir parçasıdır",
+      "isolationMode": "Bu piyasa {{eModeGroupName}} izolasyon modu grubunun bir parçasıdır",
       "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı."
     },
     "columnKeys": {

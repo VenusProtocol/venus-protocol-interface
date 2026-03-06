@@ -280,7 +280,7 @@
       "borrow": "あなたのEモード設定ではこのマーケットから借入できません。<Link>Eモードを管理</Link>"
     },
     "isolationModeBlockedActionNotice": {
-      "borrow": "TRANSLATION NEEDED"
+      "borrow": "あなたの隔離モード設定ではこのマーケットから借入できません。<Link>Eモードを管理</Link>"
     }
   },
   "assetWarning": {
@@ -959,6 +959,7 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "このマーケットは{{eModeGroupName}}のEモードグループに含まれます",
+      "isolationMode": "このマーケットは{{eModeGroupName}}の隔離モードグループに含まれます",
       "pausedAssetTooltip": "資産はVenusガバナンスにより停止されています。借入と供給が無効化されています。"
     },
     "columnKeys": {

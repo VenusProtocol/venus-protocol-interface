@@ -4,8 +4,8 @@ import { Notice, type Order, Select, type SelectOption, type SelectProps } from 
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
-import type { EModeAssetSettings, Pool } from 'types';
-import type { ExtendedEModeGroup } from '../types';
+import type { Pool } from 'types';
+import type { ExtendedEModeAssetSettings, ExtendedEModeGroup } from '../types';
 import { EModeGroup as EModeGroupComp } from './EModeGroup';
 import { filterEModeGroups } from './filterEModeGroups';
 import { useColumns } from './useColumns';
@@ -21,12 +21,12 @@ export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups 
   const columns = useColumns();
   const [userChainSettings] = useUserChainSettings();
 
-  const initialOrder: Order<EModeAssetSettings> = {
+  const initialOrder: Order<ExtendedEModeAssetSettings> = {
     orderBy: columns[3],
     orderDirection: 'desc',
   };
 
-  const [order, setOrder] = useState<Order<EModeAssetSettings>>(initialOrder);
+  const [order, setOrder] = useState<Order<ExtendedEModeAssetSettings>>(initialOrder);
 
   const selectOptions = columns.reduce<SelectOption[]>((acc, column) => {
     if (!column.sortRows) {

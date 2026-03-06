@@ -36,7 +36,7 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
         {enabledEModeGroup ? (
           <div className="flex items-center gap-x-4 justify-between">
             <div className="flex items-center gap-x-2">
-              <EModeIcon />
+              <EModeIcon isIsolated={enabledEModeGroup.isIsolated} />
 
               <p className="font-semibold text-sm">{enabledEModeGroup.name}</p>
 

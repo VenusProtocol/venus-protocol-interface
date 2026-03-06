@@ -13,6 +13,10 @@ const extendGroup = (
   overrides: Partial<ExtendedEModeGroup> = {},
 ): ExtendedEModeGroup => ({
   ...group,
+  assetSettings: group.assetSettings.map(settings => ({
+    ...settings,
+    isPaused: false,
+  })),
   userBlockingBorrowPositions: [],
   userHasEnoughCollateral: true,
   hypotheticalUserHealthFactor: 1,

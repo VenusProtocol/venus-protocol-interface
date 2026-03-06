@@ -133,7 +133,7 @@ export const Header: React.FC<HeaderProps> = ({
               <IsolatedEModeGroupTooltip eModeGroupName={eModeGroup.name} />
             )}
 
-            {isEModeGroupEnabled && <EModeIcon />}
+            {isEModeGroupEnabled && <EModeIcon isIsolated={eModeGroup.isIsolated} />}
           </div>
 
           <div className="h-10 flex items-center">

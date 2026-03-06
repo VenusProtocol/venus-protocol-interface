@@ -1,23 +1,35 @@
 import { cn } from '@venusprotocol/ui';
 
-import { Icon, type TableColumn, TokenIconWithSymbol } from 'components';
+import { Icon, InfoIcon, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { EModeAssetSettings } from 'types';
 import { compareBooleans, compareNumbers, formatPercentageToReadableValue } from 'utilities';
+import type { ExtendedEModeAssetSettings } from '../../types';
 
 export const ASSET_COLUMN_KEY = 'asset';
 
 export const useColumns = () => {
   const { t } = useTranslation();
 
-  const columns: TableColumn<EModeAssetSettings>[] = [
+  const columns: TableColumn<ExtendedEModeAssetSettings>[] = [
     {
       key: ASSET_COLUMN_KEY,
       label: t('markets.tabs.eMode.table.columns.asset'),
       selectOptionLabel: t('markets.tabs.eMode.table.columns.asset'),
-      renderCell: ({ vToken }) => (
-        <TokenIconWithSymbol displayChain token={vToken.underlyingToken} />
-      ),
+      renderCell: ({ vToken, isPaused }) => {
+        return (
+          <div className="flex items-center gap-x-2">
+            <TokenIconWithSymbol displayChain token={vToken.underlyingToken} />
+
+            {isPaused && (
+              <InfoIcon
+                iconClassName="text-orange"
+                iconName="attention"
+                tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
+              />
+            )}
+          </div>
+        );
+      },
     },
     {
       key: 'collateral',

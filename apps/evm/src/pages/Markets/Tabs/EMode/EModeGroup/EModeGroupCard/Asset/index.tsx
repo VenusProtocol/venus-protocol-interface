@@ -5,12 +5,12 @@ import { LabeledInlineContent, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useFormatTo } from 'hooks/useFormatTo';
-import type { EModeAssetSettings } from 'types';
+import type { ExtendedEModeAssetSettings } from 'pages/Markets/Tabs/types';
 
 export interface AssetProps {
-  eModeAssetSettings: EModeAssetSettings;
+  eModeAssetSettings: ExtendedEModeAssetSettings;
   isEModeGroupActive: boolean;
-  columns: TableColumn<EModeAssetSettings>[];
+  columns: TableColumn<ExtendedEModeAssetSettings>[];
   poolComptrollerAddress: Address;
   className?: string;
 }
