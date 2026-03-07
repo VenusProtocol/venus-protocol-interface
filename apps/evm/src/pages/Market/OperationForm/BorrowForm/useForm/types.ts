@@ -1,5 +1,4 @@
-import type { Token } from 'types';
-import type { CommonErrorCode } from '../../types';
+import type { CommonTxFormErrorCode, Token } from 'types';
 
 export interface FormValues {
   fromToken: Token;
@@ -8,4 +7,4 @@ export interface FormValues {
   acknowledgeRisk: boolean;
 }
 
-export type FormErrorCode = CommonErrorCode | 'EMPTY_TOKEN_AMOUNT' | 'NO_COLLATERALS';
+export type FormErrorCode = CommonTxFormErrorCode | 'EMPTY_TOKEN_AMOUNT' | 'NO_COLLATERALS';

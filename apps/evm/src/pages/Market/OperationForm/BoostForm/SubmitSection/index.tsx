@@ -9,7 +9,7 @@ import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useTranslation } from 'libs/translations';
 import type { Address } from 'viem';
 import { ApproveDelegateSteps } from '../../ApproveDelegateSteps';
-import type { FormError } from '../../types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode } from '../useForm';
 
 export interface SubmitSectionProps {
@@ -17,7 +17,7 @@ export interface SubmitSectionProps {
   isLoading: boolean;
   isRiskyOperation: boolean;
   poolComptrollerContractAddress: Address;
-  formError?: FormError<FormErrorCode>;
+  formError?: TxFormError<FormErrorCode>;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({

@@ -689,6 +689,7 @@ export const contracts: ContractConfig[] = [
     name: 'RelativePositionManager',
     abi: relativePositionManagerAbi as Abi,
     address: {
+      [ChainId.BSC_MAINNET]: '0xcB84425698B9426b5Edd9Ed25eA0116aA0c2Ce7F', // TODO: get from package
       [ChainId.BSC_TESTNET]: '0xcB84425698B9426b5Edd9Ed25eA0116aA0c2Ce7F', // TODO: get from package
     },
   },

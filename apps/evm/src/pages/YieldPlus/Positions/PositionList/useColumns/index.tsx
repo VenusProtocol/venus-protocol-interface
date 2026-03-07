@@ -2,6 +2,8 @@ import { cn } from '@venusprotocol/ui';
 
 import { Icon, LayeredValues, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
+import { TokenPair } from 'pages/YieldPlus/TokenPair';
+import type { YieldPlusPosition } from 'types';
 import {
   compareNumbers,
   compareStrings,
@@ -9,8 +11,6 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
-import { TokenPair } from '../../../TokenPair';
-import type { Row } from '../types';
 
 export const useColumns = ({
   openPositionAccordionKeys,
@@ -19,12 +19,13 @@ export const useColumns = ({
 }: {
   openPositionAccordionKeys: string[];
   setOpenAccordionKeys: (setter: (currOpenKeys: string[]) => string[]) => void;
-  rowKeyExtractor: (row: Row) => string;
+  rowKeyExtractor: (row: YieldPlusPosition) => string;
 }) => {
   const { t } = useTranslation();
-  const getPositionLabel = (row: Row) => `${row.longToken.symbol}/${row.shortToken.symbol}`;
+  const getPositionLabel = (row: YieldPlusPosition) =>
+    `${row.longAsset.vToken.underlyingToken.symbol}/${row.shortAsset.vToken.underlyingToken.symbol}`;
 
-  const handleTokenPairClick = (e: React.MouseEvent, row: Row) => {
+  const handleTokenPairClick = (e: React.MouseEvent, row: YieldPlusPosition) => {
     e.stopPropagation();
 
     const rowKey = rowKeyExtractor(row);
@@ -36,7 +37,7 @@ export const useColumns = ({
     );
   };
 
-  const columns: TableColumn<Row>[] = [
+  const columns: TableColumn<YieldPlusPosition>[] = [
     {
       key: 'position',
       label: t('yieldPlus.positions.table.positionColumn.title'),
@@ -60,7 +61,11 @@ export const useColumns = ({
           type="button"
           onClick={e => handleTokenPairClick(e, row)}
         >
-          <TokenPair shortToken={row.shortToken} longToken={row.longToken} size="sm" />
+          <TokenPair
+            shortToken={row.shortAsset.vToken.underlyingToken}
+            longToken={row.longAsset.vToken.underlyingToken}
+            size="sm"
+          />
 
           <div className="px-1 py-0.5 rounded-lg border border-light-grey text-light-grey text-b2s">
             {row.leverageFactor}x
@@ -83,11 +88,11 @@ export const useColumns = ({
       sortRows: (rowA, rowB, direction) =>
         compareNumbers(rowA.longBalanceCents, rowB.longBalanceCents, direction),
       align: 'right',
-      renderCell: ({ longToken, longBalanceTokens, longBalanceCents }) => (
+      renderCell: ({ longAsset, longBalanceTokens, longBalanceCents }) => (
         <LayeredValues
           topValue={formatTokensToReadableValue({
             value: longBalanceTokens,
-            token: longToken,
+            token: longAsset.vToken.underlyingToken,
           })}
           bottomValue={formatCentsToReadableValue({
             value: longBalanceCents,
@@ -102,11 +107,11 @@ export const useColumns = ({
       sortRows: (rowA, rowB, direction) =>
         compareNumbers(rowA.shortBalanceCents, rowB.shortBalanceCents, direction),
       align: 'right',
-      renderCell: ({ shortToken, shortBalanceTokens, shortBalanceCents }) => (
+      renderCell: ({ shortAsset, shortBalanceTokens, shortBalanceCents }) => (
         <LayeredValues
           topValue={formatTokensToReadableValue({
             value: shortBalanceTokens,
-            token: shortToken,
+            token: shortAsset.vToken.underlyingToken,
           })}
           bottomValue={formatCentsToReadableValue({
             value: shortBalanceCents,
@@ -140,11 +145,11 @@ export const useColumns = ({
       sortRows: (rowA, rowB, direction) =>
         compareNumbers(rowA.entryPriceCents, rowB.entryPriceCents, direction),
       align: 'right',
-      renderCell: ({ shortToken, entryPriceCents, entryPriceTokens }) => (
+      renderCell: ({ shortAsset, entryPriceCents, entryPriceTokens }) => (
         <LayeredValues
           topValue={formatTokensToReadableValue({
             value: entryPriceTokens,
-            token: shortToken,
+            token: shortAsset.vToken.underlyingToken,
           })}
           bottomValue={formatCentsToReadableValue({
             value: entryPriceCents,
@@ -161,11 +166,11 @@ export const useColumns = ({
       sortRows: (rowA, rowB, direction) =>
         compareNumbers(rowA.liquidationPriceCents, rowB.liquidationPriceCents, direction),
       align: 'right',
-      renderCell: ({ shortToken, liquidationPriceCents, liquidationPriceTokens }) => (
+      renderCell: ({ shortAsset, liquidationPriceCents, liquidationPriceTokens }) => (
         <LayeredValues
           topValue={formatTokensToReadableValue({
             value: liquidationPriceTokens,
-            token: shortToken,
+            token: shortAsset.vToken.underlyingToken,
           })}
           bottomValue={formatCentsToReadableValue({
             value: liquidationPriceCents,

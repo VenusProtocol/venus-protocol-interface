@@ -293,6 +293,9 @@
     "modalTitle": "{{ poolName }} tokenları",
     "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },
+  "availableBalance": {
+    "label": "TRANSLATION NEEDED"
+  },
   "breadcrumbs": {
     "bridge": "Köprü",
     "dashboard": "Gösterge paneli",
@@ -953,8 +956,8 @@
     },
     "rightMaxButtonLabel": "MAKS",
     "riskSlider": {
-      "highRisk": "Yüksek risk",
-      "lowRisk": "Düşük risk"
+      "0": "TRANSLATION NEEDED",
+      "100": "TRANSLATION NEEDED"
     },
     "safeMaxButtonLabel": "GÜVENLİ MAKS",
     "submitButtonLabel": {
@@ -1969,6 +1972,17 @@
     "longTokenSelect": {
       "label": "Long"
     },
+    "operationForm": {
+      "openForm": {
+        "collateral": "TRANSLATION NEEDED",
+        "entryPrice": "TRANSLATION NEEDED",
+        "liquidationPrice": "TRANSLATION NEEDED",
+        "long": "TRANSLATION NEEDED",
+        "netApy": "TRANSLATION NEEDED",
+        "short": "TRANSLATION NEEDED",
+        "submitButtonLabel": "TRANSLATION NEEDED"
+      }
+    },
     "positions": {
       "closeButtonLabel": "Kapat",
       "placeholder": {
@@ -2018,6 +2032,15 @@
     "shortLiquidity": "Short likiditesi",
     "shortTokenSelect": {
       "label": "Short"
+    }
+  },
+  "yieldPLus": {
+    "operationForm": {
+      "openForm": {
+        "dsaFieldLabel": "TRANSLATION NEEDED",
+        "longFieldLabel": "TRANSLATION NEEDED",
+        "shortFieldLabel": "TRANSLATION NEEDED"
+      }
     }
   }
 }

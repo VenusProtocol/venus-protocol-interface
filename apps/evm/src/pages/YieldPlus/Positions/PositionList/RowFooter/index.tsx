@@ -2,12 +2,12 @@ import { AccordionAnimatedContent, Card, Tabs } from 'components';
 // import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
-import type { Row } from '../types';
+import type { YieldPlusPosition } from 'types';
 import { StatusTab } from './StatusTab';
 import { TransactionsTab } from './TransactionsTab';
 
 export interface RowFooterProps {
-  row: Row;
+  row: YieldPlusPosition;
   isOpen: boolean;
 }
 

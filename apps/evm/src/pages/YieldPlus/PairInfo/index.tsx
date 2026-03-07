@@ -1,9 +1,7 @@
 import { useSearchParams } from 'react-router';
 
-import { useGetPool } from 'clients/api';
 import { Apy, CellGroup, type CellProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { useChain } from 'hooks/useChain';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Token } from 'types';
 import {
@@ -13,12 +11,12 @@ import {
 } from 'utilities';
 import { TokenPair } from '../TokenPair';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from '../constants';
+import { useGetYieldPlusAssets } from '../useGetYieldPlusAssets';
 import { useTokenPair } from '../useTokenPair';
 import { TokenSelect } from './TokenSelect';
 
 export const PairInfo: React.FC = () => {
   const { t } = useTranslation();
-  const { corePoolComptrollerContractAddress } = useChain();
   const { shortToken, longToken } = useTokenPair();
   const [_, setSearchParams] = useSearchParams();
 
@@ -35,37 +33,47 @@ export const PairInfo: React.FC = () => {
       [SHORT_TOKEN_ADDRESS_PARAM_KEY]: newShortToken.address,
     }));
 
-  const changePercentage = 3.32; // TODO: fetch
+  const {
+    data: { borrowAssets, supplyAssets },
+  } = useGetYieldPlusAssets();
 
-  const { data: getPoolData } = useGetPool({
-    poolComptrollerAddress: corePoolComptrollerContractAddress,
-  });
+  const { longAsset, longTokens } = supplyAssets.reduce<{
+    longAsset?: Asset;
+    longTokens: Token[];
+  }>(
+    (acc, asset) => {
+      if (areTokensEqual(asset.vToken.underlyingToken, longToken)) {
+        acc.longAsset = asset;
+      }
 
-  const { shortAsset, longAsset, tokens } = (getPoolData?.pool.assets || []).reduce<{
-    shortAsset: Asset | undefined;
-    longAsset: Asset | undefined;
-    tokens: Token[];
+      return {
+        ...acc,
+        longTokens: [...acc.longTokens, asset.vToken.underlyingToken],
+      };
+    },
+    {
+      longAsset: undefined,
+      longTokens: [],
+    },
+  );
+
+  const { shortAsset, shortTokens } = borrowAssets.reduce<{
+    shortAsset?: Asset;
+    shortTokens: Token[];
   }>(
     (acc, asset) => {
       if (areTokensEqual(asset.vToken.underlyingToken, shortToken)) {
         acc.shortAsset = asset;
       }
 
-      if (areTokensEqual(asset.vToken.underlyingToken, longToken)) {
-        acc.longAsset = asset;
-      }
-
-      // Filter out paused assets
-      if (asset.disabledTokenActions.length > 0) {
-        acc.tokens.push(asset.vToken.underlyingToken);
-      }
-
-      return acc;
+      return {
+        ...acc,
+        shortTokens: [...acc.shortTokens, asset.vToken.underlyingToken],
+      };
     },
     {
       shortAsset: undefined,
-      longAsset: undefined,
-      tokens: [],
+      shortTokens: [],
     },
   );
 
@@ -78,6 +86,7 @@ export const PairInfo: React.FC = () => {
     ? priceLongTokens.dp(6).toFixed()
     : PLACEHOLDER_KEY;
 
+  const changePercentage = 3.32; // TODO: fetch
   const readableChangePercentage = formatPercentageToReadableValue(changePercentage);
 
   const cells: CellProps[] = [
@@ -123,14 +132,14 @@ export const PairInfo: React.FC = () => {
         <TokenSelect
           type="long"
           selectedToken={longToken}
-          tokens={tokens}
+          tokens={longTokens}
           onChangeSelectedToken={setLongToken}
         />
 
         <TokenSelect
           type="short"
           selectedToken={shortToken}
-          tokens={tokens}
+          tokens={shortTokens}
           onChangeSelectedToken={setShortToken}
         />
       </div>

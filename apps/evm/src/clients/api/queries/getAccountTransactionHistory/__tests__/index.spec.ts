@@ -16,6 +16,27 @@ const fakeInput = {
   page: 1,
 };
 
+const defaultYieldPlusFields = {
+  yieldPlusPositionAccountAddress: null,
+  yieldPlusLongVTokenAddress: null,
+  yieldPlusShortVTokenAddress: null,
+  yieldPlusDsaVTokenAddress: null,
+  yieldPlusCycleId: null,
+  yieldPlusEffectiveLeverageRatio: null,
+  yieldPlusInitialPrincipalMantissa: null,
+  yieldPlusPrincipalAmountMantissa: null,
+  yieldPlusNewTotalPrincipalMantissa: null,
+  yieldPlusRemainingPrincipalMantissa: null,
+  yieldPlusShortAmountMantissa: null,
+  yieldPlusAdditionalPrincipalMantissa: null,
+  yieldPlusCloseFractionBps: null,
+  yieldPlusAmountRepaidMantissa: null,
+  yieldPlusAmountRedeemedMantissa: null,
+  yieldPlusAmountRedeemedDsaMantissa: null,
+  yieldPlusLongDustRedeemedMantissa: null,
+  yieldPlusAmountConvertedToProfitMantissa: null,
+};
+
 describe('getAccountTransactionHistory', () => {
   it('returns transactions formatted', async () => {
     (restService as Mock).mockImplementation(() => {
@@ -34,6 +55,7 @@ describe('getAccountTransactionHistory', () => {
           chainId: ChainId.BSC_TESTNET,
           underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
           underlyingTokenPriceMantissa: '1000130000000000000',
+          ...defaultYieldPlusFields,
         },
         {
           id: 'b0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e-119-56',
@@ -49,6 +71,7 @@ describe('getAccountTransactionHistory', () => {
           chainId: ChainId.BSC_TESTNET,
           underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
           underlyingTokenPriceMantissa: '1000391740000000000',
+          ...defaultYieldPlusFields,
         },
       ];
 

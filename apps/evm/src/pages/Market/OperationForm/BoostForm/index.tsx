@@ -9,6 +9,7 @@ import {
   Icon,
   LabeledInlineContent,
   type OptionalTokenBalance,
+  RiskSlider,
   TokenListWrapper,
   TokenTextField,
 } from 'components';
@@ -31,6 +32,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, BalanceMutation, Pool, Token } from 'types';
 import {
   areTokensEqual,
+  calculateUserMaxBorrowTokens,
   compareNumbers,
   convertMantissaToTokens,
   convertTokensToMantissa,
@@ -39,11 +41,9 @@ import {
 import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
-import type { FormError } from '../types';
-import { RiskSlider } from './RiskSlider';
+import type { TxFormError } from 'types';
 import { SelectTokenField } from './SelectTokenField';
 import { SubmitSection } from './SubmitSection';
-import { calculateUserMaxBorrowTokens } from './calculateUserMaxBorrowTokens';
 import TEST_IDS from './testIds';
 import useForm, { type FormErrorCode, type FormValues, type UseFormInput } from './useForm';
 
@@ -259,7 +259,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     setFormValues,
     initialFormValues,
   });
-  const formError: FormError<FormErrorCode> | undefined = formErrors[0];
+  const formError: TxFormError<FormErrorCode> | undefined = formErrors[0];
 
   // Convert input amount to percentage of limit
   const riskSliderValue =

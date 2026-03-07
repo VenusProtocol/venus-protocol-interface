@@ -293,6 +293,9 @@
     "modalTitle": "{{ poolName }} 代幣",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 將使你只能從該池借入代幣。<Button>顯示全部市場</Button>"
   },
+  "availableBalance": {
+    "label": "TRANSLATION NEEDED"
+  },
   "breadcrumbs": {
     "bridge": "跨鏈橋",
     "dashboard": "儀表盤",
@@ -952,8 +955,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
-      "highRisk": "高風險",
-      "lowRisk": "低風險"
+      "0": "TRANSLATION NEEDED",
+      "100": "TRANSLATION NEEDED"
     },
     "safeMaxButtonLabel": "安全最大值",
     "submitButtonLabel": {
@@ -1968,6 +1971,17 @@
     "longTokenSelect": {
       "label": "多頭"
     },
+    "operationForm": {
+      "openForm": {
+        "collateral": "TRANSLATION NEEDED",
+        "entryPrice": "TRANSLATION NEEDED",
+        "liquidationPrice": "TRANSLATION NEEDED",
+        "long": "TRANSLATION NEEDED",
+        "netApy": "TRANSLATION NEEDED",
+        "short": "TRANSLATION NEEDED",
+        "submitButtonLabel": "TRANSLATION NEEDED"
+      }
+    },
     "positions": {
       "closeButtonLabel": "關閉",
       "placeholder": {
@@ -2017,6 +2031,15 @@
     "shortLiquidity": "空頭流動性",
     "shortTokenSelect": {
       "label": "空頭"
+    }
+  },
+  "yieldPLus": {
+    "operationForm": {
+      "openForm": {
+        "dsaFieldLabel": "TRANSLATION NEEDED",
+        "longFieldLabel": "TRANSLATION NEEDED",
+        "shortFieldLabel": "TRANSLATION NEEDED"
+      }
     }
   }
 }

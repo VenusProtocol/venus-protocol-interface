@@ -7,13 +7,12 @@ import {
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import type { AssetBalanceMutation, Pool, SwapQuote } from 'types';
+import type { BalanceMutation, CommonTxFormErrorCode, Pool, SwapQuote, TxFormError } from 'types';
 import { areAddressesEqual, formatTokensToReadableValue } from 'utilities';
-import type { FormError } from '../types';
 
 export interface UseCommonValidationInput {
   pool: Pool;
-  balanceMutations: AssetBalanceMutation[];
+  balanceMutations: BalanceMutation[];
   simulatedPool?: Pool;
   swapQuote?: SwapQuote;
   swapQuoteErrorCode?: string;
@@ -21,7 +20,7 @@ export interface UseCommonValidationInput {
   userAcknowledgesHighPriceImpact?: boolean;
 }
 
-export type UseCommonValidationOutput = FormError | undefined;
+export type UseCommonValidationOutput = TxFormError<CommonTxFormErrorCode> | undefined;
 
 export const useCommonValidation = ({
   pool,
@@ -36,6 +35,11 @@ export const useCommonValidation = ({
 
   for (let b = 0; b < balanceMutations.length; b++) {
     const balanceMutation = balanceMutations[b];
+
+    if (balanceMutation.type === 'vai') {
+      // Skip VAI balance mutations
+      return;
+    }
 
     const asset = pool.assets.find(asset =>
       areAddressesEqual(asset.vToken.address, balanceMutation.vTokenAddress),
