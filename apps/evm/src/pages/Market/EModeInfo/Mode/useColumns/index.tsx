@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
-import { Icon, type TableColumn } from 'components';
+import { EModeIcon, Icon, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import { compareBooleans, compareNumbers, formatPercentageToReadableValue } from 'utilities';
 import type { ExtendedEModeAssetSettings } from '../types';
@@ -13,8 +13,12 @@ export const useColumns = () => {
       key: 'group',
       label: t('market.eModeInfo.table.columns.group'),
       selectOptionLabel: t('market.eModeInfo.table.columns.group'),
-      renderCell: ({ eModeGroup }) => (
-        <div className="flex items-center gap-x-3 text-p3s">{eModeGroup.name}</div>
+      renderCell: ({ eModeGroup, isEnabledByUser }) => (
+        <div className="flex items-center gap-x-3 text-p3s">
+          <span className="truncate">{eModeGroup.name}</span>
+
+          {isEnabledByUser && <EModeIcon isIsolated={eModeGroup.isIsolated} className="shrink-0" />}
+        </div>
       ),
     },
     {
