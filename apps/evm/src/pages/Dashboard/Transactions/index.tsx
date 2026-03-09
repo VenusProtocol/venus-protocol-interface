@@ -172,6 +172,17 @@ export const Transactions: React.FC = () => {
     return [allOption, ...otherOptions];
   }, [t, poolData]);
 
+  // Reset contract address filter if the value in the URL is incorrect
+  useEffect(() => {
+    if (!sourceSelectOptions.find(option => option.value === selectedContractAddress)) {
+      setSearchParams(currentSearchParams => {
+        currentSearchParams.delete(CONTRACT_ADDRESS_PARAM_KEY);
+
+        return Object.fromEntries(currentSearchParams);
+      });
+    }
+  }, [selectedContractAddress, sourceSelectOptions, setSearchParams]);
+
   return (
     <div className="grid grid-cols-1 gap-4">
       {accountAddress && (
@@ -188,6 +199,7 @@ export const Transactions: React.FC = () => {
             value={txTypeStr}
             onChange={newValue => setTxType(newValue.toString())}
           />
+
           <Select
             className="flex-1 md:flex-none"
             size="small"
