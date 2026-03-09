@@ -174,32 +174,34 @@ export const Transactions: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      <div className="flex flex-row gap-3 md:gap-4">
-        <Select
-          className="flex-1 md:flex-none"
-          size="small"
-          variant="tertiary"
-          placeLabelToLeft
-          options={txTypeSelectOptions}
-          optionClassName="px-3 h-10 scrollbar-track-cards"
-          dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-          buttonClassName="min-w-1/2 sm:min-w-45"
-          value={txTypeStr}
-          onChange={newValue => setTxType(newValue.toString())}
-        />
-        <Select
-          className="flex-1 md:flex-none"
-          size="small"
-          variant="tertiary"
-          placeLabelToLeft
-          options={sourceSelectOptions}
-          optionClassName="px-3 h-10 scrollbar-track-cards"
-          dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey sm:min-w-68"
-          buttonClassName="m-w-1/2 sm:min-w-45"
-          value={selectedContractAddress}
-          onChange={newValue => setSelectedContractAddress(newValue.toString())}
-        />
-      </div>
+      {accountAddress && (
+        <div className="flex flex-row gap-3 md:gap-4">
+          <Select
+            className="flex-1 md:flex-none"
+            size="small"
+            variant="tertiary"
+            placeLabelToLeft
+            options={txTypeSelectOptions}
+            optionClassName="px-3 h-10 scrollbar-track-cards"
+            dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
+            buttonClassName="min-w-1/2 sm:min-w-45"
+            value={txTypeStr}
+            onChange={newValue => setTxType(newValue.toString())}
+          />
+          <Select
+            className="flex-1 md:flex-none"
+            size="small"
+            variant="tertiary"
+            placeLabelToLeft
+            options={sourceSelectOptions}
+            optionClassName="px-3 h-10 scrollbar-track-cards"
+            dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey sm:min-w-68"
+            buttonClassName="m-w-1/2 sm:min-w-45"
+            value={selectedContractAddress}
+            onChange={newValue => setSelectedContractAddress(newValue.toString())}
+          />
+        </div>
+      )}
 
       <TransactionsList
         transactions={historicalTxsData?.transactions || []}
