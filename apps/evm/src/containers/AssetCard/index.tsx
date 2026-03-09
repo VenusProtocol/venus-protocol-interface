@@ -35,7 +35,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({
       asChild
     >
       <Link to={to} chainId={asset.vToken.chainId}>
-        <TokenIconWithSymbol token={asset.vToken.underlyingToken} displayChain />
+        <TokenIconWithSymbol token={asset.vToken.underlyingToken} size="xl" />
 
         <Apy type={type} asset={asset} className="text-sm" />
       </Link>

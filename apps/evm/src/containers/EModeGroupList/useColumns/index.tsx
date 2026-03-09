@@ -15,9 +15,7 @@ export const useColumns = () => {
       key: ASSET_COLUMN_KEY,
       label: t('eModeGroupList.table.columns.asset'),
       selectOptionLabel: t('eModeGroupList.table.columns.asset'),
-      renderCell: ({ vToken }) => (
-        <TokenIconWithSymbol displayChain token={vToken.underlyingToken} />
-      ),
+      renderCell: ({ vToken }) => <TokenIconWithSymbol token={vToken.underlyingToken} />,
     },
     {
       key: 'collateral',

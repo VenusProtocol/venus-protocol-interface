@@ -38,7 +38,6 @@ export function Table<R>({
   header,
   placeholder,
   selectVariant,
-  showMobileFilter = true,
   cellHeight,
   rowControlOnClick,
   variant,
@@ -179,8 +178,8 @@ export function Table<R>({
           </MuiTableContainer>
 
           <TableCards
+            controls={controls}
             cardClassName={cardClassName}
-            showMobileFilter={showMobileFilter}
             selectVariant={selectVariant}
             data={sortedData}
             isFetching={isFetching}

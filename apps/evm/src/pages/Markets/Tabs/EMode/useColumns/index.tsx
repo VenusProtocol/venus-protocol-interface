@@ -18,7 +18,7 @@ export const useColumns = () => {
       renderCell: ({ vToken, isPaused }) => {
         return (
           <div className="flex items-center gap-x-2">
-            <TokenIconWithSymbol displayChain token={vToken.underlyingToken} />
+            <TokenIconWithSymbol token={vToken.underlyingToken} />
 
             {isPaused && (
               <InfoIcon

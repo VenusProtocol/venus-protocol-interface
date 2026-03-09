@@ -20,7 +20,6 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   columns: TableColumn<R>[];
   breakpoint?: keyof (typeof BREAKPOINTS)['values'];
   cardColumns?: TableColumn<R>[];
-  showMobileFilter?: boolean;
   minWidth?: string;
   initialOrder?: {
     orderBy: TableColumn<R>;
@@ -55,7 +54,7 @@ export interface TableCardProps<R>
     | 'columns'
     | 'isFetching'
     | 'selectVariant'
-    | 'showMobileFilter'
+    | 'controls'
   > {
   order: Order<R> | undefined;
   onOrderChange: (newOrder: Order<R>) => void;

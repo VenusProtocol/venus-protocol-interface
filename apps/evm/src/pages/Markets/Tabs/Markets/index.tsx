@@ -4,7 +4,7 @@ import type { Pool } from 'types';
 // TODO: add tests
 
 const marketTableColumns: ColumnKey[] = [
-  'assetAndChain',
+  'asset',
   'supplyBalance',
   'labeledSupplyApy',
   'borrowBalance',

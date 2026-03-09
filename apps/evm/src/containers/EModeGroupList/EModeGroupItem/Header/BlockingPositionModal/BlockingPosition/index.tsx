@@ -35,7 +35,7 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
       </div>
 
       <div className="hidden sm:flex sm:items-center">
-        <TokenIconWithSymbol token={token} displayChain />
+        <TokenIconWithSymbol token={token} />
       </div>
 
       <div className="hidden sm:flex sm:items-center">

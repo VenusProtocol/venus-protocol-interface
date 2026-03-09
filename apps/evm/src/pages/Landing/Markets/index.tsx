@@ -60,13 +60,7 @@ export const Markets: React.FC<MarketsProps> = ({ className }) => {
         poolName={pool.name}
         poolComptrollerContractAddress={pool.comptrollerAddress}
         assets={topAssets}
-        columns={[
-          'assetAndChain',
-          'supplyBalance',
-          'labeledSupplyApy',
-          'labeledBorrowApy',
-          'liquidity',
-        ]}
+        columns={['asset', 'supplyBalance', 'labeledSupplyApy', 'labeledBorrowApy', 'liquidity']}
       />
 
       <ButtonWrapper

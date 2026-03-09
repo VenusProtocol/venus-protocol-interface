@@ -77,15 +77,10 @@ export const TabContent: React.FC<TabContentProps> = ({
         </Row>
 
         <Row>
-          <TokenIconWithSymbol
-            token={asset.vToken.underlyingToken}
-            displayChain
-            className="sm:hidden"
-          />
+          <TokenIconWithSymbol token={asset.vToken.underlyingToken} className="sm:hidden" />
 
           <TokenIconWithSymbol
             token={asset.vToken.underlyingToken}
-            displayChain
             size="lg"
             className="hidden sm:flex"
           />
