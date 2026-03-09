@@ -17,7 +17,7 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
   const chain = chains[token.chainId];
 
   return (
-    <div className={cn('flex items-center gap-x-3', className)}>
+    <div className={cn('flex min-w-0 items-center gap-x-3', className)}>
       <TokenIcon
         token={token}
         className="shrink-0"
@@ -26,10 +26,10 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
         {...otherProps}
       />
 
-      <div>
+      <div className="min-w-0">
         <p
           className={cn(
-            'whitespace-normal',
+            'truncate',
             displayChain && size === 'md' && 'text-b1r',
             displayChain && size === 'lg' && 'text-p1s',
           )}
@@ -38,7 +38,7 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
         </p>
 
         {displayChain && (
-          <p className={cn('text-light-grey', size === 'md' ? 'text-b2r' : 'text-b1r')}>
+          <p className={cn('truncate text-light-grey', size === 'md' ? 'text-b2r' : 'text-b1r')}>
             {chain.name}
           </p>
         )}
