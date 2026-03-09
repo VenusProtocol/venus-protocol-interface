@@ -63,7 +63,7 @@ describe('filterEModeGroups', () => {
     expect(result.map(g => g.id)).toEqual([stablecoinsGroup.id]);
   });
 
-  it('excludes paused assets when showPausedAssets is false', () => {
+  it('excludes paused assets from groups when showPausedAssets is false', () => {
     const customFakePool: Pool = {
       ...fakePool,
       assets: fakePool.assets.map(a => ({
@@ -80,7 +80,8 @@ describe('filterEModeGroups', () => {
       showUserAssetsOnly: false,
     });
 
-    expect(hiddenResult.map(g => g.id)).toEqual([]);
+    expect(hiddenResult.map(g => g.id)).toEqual([stablecoinsGroup.id, defiGroup.id]);
+    expect(hiddenResult.every(g => g.assetSettings.length === 0)).toBe(true);
 
     const shownResult = filterEModeGroups({
       pool: customFakePool,

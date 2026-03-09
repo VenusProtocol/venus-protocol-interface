@@ -23,6 +23,10 @@ export const filterEModeGroups = ({
     const { assetSettings } = extendedEModeGroup;
     const groupNameMatches = searchMatches(extendedEModeGroup.name);
 
+    let hasUserAsset = false;
+    let hasSearchMatch = false;
+
+    // Filter out paused assets if setting is disabled
     const filteredEModeAssetSettings = assetSettings.filter(settings => {
       const asset = pool.assets.find(a => areTokensEqual(settings.vToken, a.vToken));
 
@@ -31,23 +35,34 @@ export const filterEModeGroups = ({
       }
 
       // Handle user settings
-      const hasUserAsset =
-        asset.userSupplyBalanceCents.isGreaterThan(0) ||
-        asset.userBorrowBalanceCents.isGreaterThan(0) ||
-        asset.userWalletBalanceCents.isGreaterThan(0);
+      if (
+        !hasUserAsset &&
+        (asset.userSupplyBalanceCents.isGreaterThan(0) ||
+          asset.userBorrowBalanceCents.isGreaterThan(0) ||
+          asset.userWalletBalanceCents.isGreaterThan(0))
+      ) {
+        hasUserAsset = true;
+      }
+
+      if (!hasSearchMatch) {
+        const symbolMatches = searchMatches(settings.vToken.underlyingToken.symbol);
+        hasSearchMatch = !searchValue || groupNameMatches || symbolMatches;
+      }
 
       const isPausedAsset = isAssetPaused({
         disabledTokenActions: asset.disabledTokenActions,
       });
 
-      const symbolMatches = searchMatches(settings.vToken.underlyingToken.symbol);
-      const includeSearch = !searchValue || groupNameMatches || symbolMatches;
-
-      const includePausedAsset = showPausedAssets || !isPausedAsset;
-      const includeUserAsset = !showUserAssetsOnly || hasUserAsset;
-
-      return includeSearch && includePausedAsset && includeUserAsset;
+      return showPausedAssets || !isPausedAsset;
     });
 
-    return filteredEModeAssetSettings.length > 0 ? [...acc, extendedEModeGroup] : acc;
+    const includeUserAsset = !showUserAssetsOnly || hasUserAsset;
+
+    const formattedEModeGroup: ExtendedEModeGroup = {
+      ...extendedEModeGroup,
+      assetSettings: filteredEModeAssetSettings,
+    };
+
+    // Filter out groups with no match
+    return includeUserAsset && hasSearchMatch ? [...acc, formattedEModeGroup] : acc;
   }, []);
