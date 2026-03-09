@@ -34,13 +34,10 @@ export const formatApiTransaction = ({
 
   const { poolName, vToken } = contractToTokenMap[contractAddress];
 
-  const isApproval = txType === TxType.Approve;
-
   const vTokenSymbol = vToken.symbol;
-  const token = isApproval ? vToken : vToken.underlyingToken;
+  const token = vToken.underlyingToken;
 
-  const canCalculateUsdAmount =
-    !isApproval && txType !== TxType.EnterMarket && txType !== TxType.ExitMarket;
+  const canCalculateUsdAmount = txType !== TxType.EnterMarket && txType !== TxType.ExitMarket;
 
   const amountTokens = amountUnderlyingMantissa
     ? convertMantissaToTokens({

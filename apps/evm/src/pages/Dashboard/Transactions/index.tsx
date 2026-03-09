@@ -20,7 +20,6 @@ const CONTRACT_ADDRESS_PARAM_KEY = 'contractAddress';
 // t('account.transactions.selects.txType.repay')
 // t('account.transactions.selects.txType.borrow')
 // t('account.transactions.selects.txType.redeem')
-// t('account.transactions.selects.txType.approve')
 // t('account.transactions.selects.txType.exitMarket')
 // t('account.transactions.selects.txType.enterMarket')
 
@@ -34,8 +33,6 @@ const getTxTypeOptionTranslationKey = (txType: TxType) => {
       return 'account.transactions.selects.txType.borrow';
     case TxType.Redeem:
       return 'account.transactions.selects.txType.redeem';
-    case TxType.Approve:
-      return 'account.transactions.selects.txType.approve';
     case TxType.ExitMarket:
       return 'account.transactions.selects.txType.exitMarket';
     default:

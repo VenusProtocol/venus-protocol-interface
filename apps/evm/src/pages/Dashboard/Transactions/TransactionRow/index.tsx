@@ -39,8 +39,6 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ transactionData,
         return t('account.transactions.txType.borrow');
       case TxType.Redeem:
         return t('account.transactions.txType.redeem');
-      case TxType.Approve:
-        return t('account.transactions.txType.approve');
       case TxType.ExitMarket:
         return t('account.transactions.txType.exitMarket');
       default:

@@ -89,7 +89,6 @@
         },
         "txType": {
           "all": "所有交易",
-          "approve": "授权",
           "borrow": "借款",
           "enterMarket": "启用可抵押",
           "exitMarket": "禁用可抵押",
@@ -100,12 +99,10 @@
       },
       "today": "今天",
       "txText": {
-        "approve": "已授权支出 {{tokenAmount}}",
         "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
         "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为可抵押"
       },
       "txType": {
-        "approve": "授权",
         "borrow": "借款",
         "enterMarket": "启用可抵押",
         "exitMarket": "禁用可抵押",

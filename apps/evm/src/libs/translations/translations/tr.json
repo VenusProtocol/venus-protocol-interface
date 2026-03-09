@@ -89,7 +89,6 @@
         },
         "txType": {
           "all": "Tüm işlemler",
-          "approve": "Onay",
           "borrow": "Borç al",
           "enterMarket": "Teminat etkin",
           "exitMarket": "Teminat devre dışı",
@@ -100,12 +99,10 @@
       },
       "today": "Bugün",
       "txText": {
-        "approve": "{{tokenAmount}} harcaması onaylandı",
         "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
         "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
       },
       "txType": {
-        "approve": "Onay",
         "borrow": "Borç al",
         "enterMarket": "Teminat etkin",
         "exitMarket": "Teminat devre dışı",

@@ -89,7 +89,6 @@
         },
         "txType": {
           "all": "Tất cả giao dịch",
-          "approve": "Phê duyệt",
           "borrow": "Vay",
           "enterMarket": "Bật tài sản thế chấp",
           "exitMarket": "Tắt tài sản thế chấp",
@@ -100,12 +99,10 @@
       },
       "today": "Hôm nay",
       "txText": {
-        "approve": "Đã phê duyệt chi {{tokenAmount}}",
         "enterMarket": "<Styled>Đã bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
         "exitMarket": "<Styled>Đã tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
       },
       "txType": {
-        "approve": "Phê duyệt",
         "borrow": "Vay",
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",

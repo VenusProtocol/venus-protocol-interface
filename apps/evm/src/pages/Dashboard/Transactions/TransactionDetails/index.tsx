@@ -19,18 +19,6 @@ export const TransactionDetails: React.FC<TransactionDetailsProps> = ({
 
   const transactionText = useMemo(() => {
     switch (txType) {
-      case TxType.Approve:
-        return (
-          <Trans
-            i18nKey="account.transactions.txText.approve"
-            values={{
-              tokenAmount: formatTokensToReadableValue({
-                token,
-                value: amountTokens,
-              }),
-            }}
-          />
-        );
       case TxType.EnterMarket:
         return (
           <Trans
@@ -56,10 +44,9 @@ export const TransactionDetails: React.FC<TransactionDetailsProps> = ({
   }, [amountTokens, Trans, txType, token, vTokenSymbol]);
 
   const transactionSecondaryText = useMemo(() => {
-    const text =
-      txType !== TxType.Approve && amountCents
-        ? `${formatCentsToReadableValue({ value: amountCents })} • ${vTokenSymbol} • ${poolName}`
-        : `${vTokenSymbol} • ${poolName}`;
+    const text = amountCents
+      ? `${formatCentsToReadableValue({ value: amountCents })} • ${vTokenSymbol} • ${poolName}`
+      : `${vTokenSymbol} • ${poolName}`;
     switch (txType) {
       case TxType.EnterMarket:
       case TxType.ExitMarket:

@@ -89,7 +89,6 @@
         },
         "txType": {
           "all": "All transactions",
-          "approve": "Approval",
           "borrow": "Borrow",
           "enterMarket": "Enabled collateral",
           "exitMarket": "Disabled collateral",
@@ -100,12 +99,10 @@
       },
       "today": "Today",
       "txText": {
-        "approve": "Approved spending {{tokenAmount}}",
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
         "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
       },
       "txType": {
-        "approve": "Approval",
         "borrow": "Borrow",
         "enterMarket": "Enabled collateral",
         "exitMarket": "Disabled collateral",

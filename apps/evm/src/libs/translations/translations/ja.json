@@ -89,7 +89,6 @@
         },
         "txType": {
           "all": "すべての取引",
-          "approve": "承認",
           "borrow": "借入",
           "enterMarket": "担保有効",
           "exitMarket": "担保無効",
@@ -100,12 +99,10 @@
       },
       "today": "今日",
       "txText": {
-        "approve": "{{tokenAmount}}の支出を承認しました",
         "enterMarket": "{{vTokenSymbol}}を担保として<Styled>有効化</Styled>",
         "exitMarket": "{{vTokenSymbol}}を担保として<Styled>無効化</Styled>"
       },
       "txType": {
-        "approve": "承認",
         "borrow": "借入",
         "enterMarket": "担保有効",
         "exitMarket": "担保無効",
