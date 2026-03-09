@@ -469,12 +469,17 @@ export interface Vault {
   rewardToken: Token;
   stakingAprPercentage: number;
   totalStakedMantissa: BigNumber;
+  totalStakedUsdCents: BigNumber;
   dailyEmissionMantissa: BigNumber;
+  dailyEmissionUsdCents: BigNumber;
   isPaused: boolean;
   lockingPeriodMs?: number;
   userStakedMantissa?: BigNumber;
+  userStakedUsdCents?: BigNumber;
   poolIndex?: number;
   userHasPendingWithdrawalsFromBeforeUpgrade?: boolean;
+  stakedTokenPriceUsd: BigNumber;
+  rewardTokenPriceUsd: BigNumber;
 }
 
 export interface VoterAccount {

@@ -25,7 +25,10 @@ export const CopyAddressButton: React.FC<CopyAddressButtonProps> = ({
         'text-blue hover:text-darkBlue active:text-darkBlue cursor-pointer transition-colors cursor-pointer',
         className,
       )}
-      onClick={() => copyToClipboard(address)}
+      onClick={e => {
+        e.stopPropagation();
+        copyToClipboard(address);
+      }}
       {...otherProps}
     >
       <Icon name="copy" className="h-4 w-4 text-inherit" />

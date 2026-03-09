@@ -2,6 +2,6 @@
 
 exports[`TransactionForm > displays available tokens and locking period correctly 1`] = `"Available XVS100K XVS"`;
 
-exports[`TransactionForm > displays available tokens and locking period correctly 2`] = `"Locking period3 days"`;
+exports[`TransactionForm > displays available tokens and locking period correctly 2`] = `"vault.transactionForm.lockingPeriod.labelvault.transactionForm.lockingPeriod.duration"`;
 
 exports[`TransactionForm > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10 XVS"`;

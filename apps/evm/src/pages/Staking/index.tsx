@@ -1,45 +1,73 @@
+import BigNumber from 'bignumber.js';
 /** @jsxImportSource @emotion/react */
 import { useGetVaults } from 'clients/api';
-import { Page, Spinner } from 'components';
+import { Page, Spinner, cn } from 'components';
 import { useAccountAddress } from 'libs/wallet';
-import type { Vault as VaultType } from 'types';
+import type { Vault } from 'types';
 
-import { Vault } from 'containers/Vault';
-import { useStyles } from './styles';
-
-export interface StakingUiProps {
-  vaults: VaultType[];
-  isInitialLoading: boolean;
-}
-
-const generateVaultKey = (vault: VaultType) =>
-  `vault-${vault.stakedToken.address}-${vault.rewardToken.address}-${vault.lockingPeriodMs || 0}`;
-
-export const StakingUi: React.FC<StakingUiProps> = ({ vaults, isInitialLoading }) => {
-  const styles = useStyles();
-
-  if (isInitialLoading || vaults.length === 0) {
-    return <Spinner />;
-  }
-
-  return (
-    <div css={styles.container}>
-      {vaults.map(vault => (
-        <Vault vault={vault} key={generateVaultKey(vault)} />
-      ))}
-    </div>
-  );
-};
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { type ActiveModal, VaultModals } from 'containers/Vault';
+import { useGetToken } from 'libs/tokens';
+import { useState } from 'react';
+import { areTokensEqual } from 'utilities';
+import { Overview } from './Overview';
+import { Vaults } from './Vaults';
 
 const StakingPage: React.FC = () => {
+  const [activeModal, setActiveModal] = useState<ActiveModal | undefined>(undefined);
+  const [activeVault, setActiveVault] = useState<Vault | undefined>(undefined);
+
+  const openModal = (_vault: Vault, _activeModal: ActiveModal) => {
+    setActiveVault(_vault);
+    setActiveModal(_activeModal);
+  };
+
+  const closeModal = () => {
+    setActiveVault(undefined);
+    setActiveModal(undefined);
+  };
+
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   const { accountAddress } = useAccountAddress();
   const { data: vaults, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress,
   });
 
+  if (isGetVaultsLoading || vaults.length === 0 || !vaults) {
+    return <Spinner />;
+  }
+
+  const vaultWithHighestApr = vaults.sort(
+    (a, b) => b.stakingAprPercentage - a.stakingAprPercentage,
+  )[0];
+
+  const featuredVault =
+    vaults.find(vault => xvs && areTokensEqual(vault.stakedToken, xvs)) ?? vaultWithHighestApr;
+
+  const totalStakedUsdCents = (vaults ?? []).reduce((accu, curr) => {
+    const newVal = accu.plus(curr.totalStakedUsdCents);
+    return newVal;
+  }, new BigNumber(0));
+
   return (
     <Page>
-      <StakingUi vaults={vaults} isInitialLoading={isGetVaultsLoading} />
+      <div className={cn('flex flex-col gap-6')}>
+        <Overview
+          totalStakedUsdCents={totalStakedUsdCents}
+          highestApr={vaultWithHighestApr.stakingAprPercentage}
+          featuredVault={featuredVault}
+          onOpenModal={openModal}
+          totalVault={vaults?.length ?? PLACEHOLDER_KEY}
+        />
+
+        <Vaults vaults={vaults} openModal={openModal} />
+      </div>
+      {activeVault && (
+        <VaultModals vault={activeVault} activeModal={activeModal} onClose={closeModal} />
+      )}
     </Page>
   );
 };

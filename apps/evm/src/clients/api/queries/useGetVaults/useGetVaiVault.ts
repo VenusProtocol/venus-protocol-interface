@@ -12,7 +12,7 @@ import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
 import type { Vault } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens, convertPriceMantissaToDollars } from 'utilities';
 import type { Address } from 'viem';
 
 export interface UseGetVaiVaultOutput {
@@ -71,11 +71,21 @@ export const useGetVaiVault = ({
     },
   );
 
+  const { data: vaiPriceData, isLoading: isGetVaiPriceLoading } = useGetTokenUsdPrice(
+    {
+      token: vai,
+    },
+    {
+      enabled: !!vai,
+    },
+  );
+
   const data: Vault | undefined = useMemo(() => {
     if (
       !totalVaiStakedData ||
       !vaiVaultDailyRateData ||
       !xvsPriceData ||
+      !vaiPriceData ||
       !xvs ||
       !vai ||
       !getVaiVaultPausedData
@@ -84,6 +94,7 @@ export const useGetVaiVault = ({
     }
 
     const { tokenPriceUsd: xvsPriceDollars } = xvsPriceData;
+    const { tokenPriceUsd: vaiPriceDollars } = vaiPriceData;
 
     const stakingAprPercentage = convertMantissaToTokens({
       value: vaiVaultDailyRateData.dailyRateMantissa,
@@ -108,9 +119,24 @@ export const useGetVaiVault = ({
       totalStakedMantissa: totalVaiStakedData.balanceMantissa,
       stakingAprPercentage,
       userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
+      stakedTokenPriceUsd: vaiPriceDollars,
+      rewardTokenPriceUsd: xvsPriceDollars,
+      totalStakedUsdCents: convertPriceMantissaToDollars({
+        priceMantissa: totalVaiStakedData.balanceMantissa?.times(vaiPriceDollars),
+        decimals: vai.decimals,
+      }).shiftedBy(2),
+      userStakedUsdCents: convertPriceMantissaToDollars({
+        priceMantissa: (vaiVaultUserInfo?.stakedVaiMantissa ?? BigNumber(0)).times(vaiPriceDollars),
+        decimals: vai.decimals,
+      }).shiftedBy(2),
+      dailyEmissionUsdCents: convertPriceMantissaToDollars({
+        priceMantissa: vaiVaultDailyRateData.dailyRateMantissa?.times(vaiPriceDollars),
+        decimals: vai.decimals,
+      }).shiftedBy(2),
     };
   }, [
     xvsPriceData,
+    vaiPriceData,
     vaiVaultUserInfo,
     totalVaiStakedData,
     vaiVaultDailyRateData,
@@ -123,6 +149,7 @@ export const useGetVaiVault = ({
     isGetTotalVaiStakedMantissaLoading ||
     isGetVaiVaultDailyRateMantissaLoading ||
     isGetXvsPriceLoading ||
+    isGetVaiPriceLoading ||
     isGetVaiVaultUserInfoLoading ||
     isGetVaiVaultPausedLoading;
 

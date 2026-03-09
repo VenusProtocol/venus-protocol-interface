@@ -14,6 +14,10 @@ export const vaults: Vault[] = [
     dailyEmissionMantissa: new BigNumber('144000000000000000000'),
     totalStakedMantissa: new BigNumber('415000000000000000000'),
     stakingAprPercentage: 12665.060240963856,
+    totalStakedUsdCents: new BigNumber('41500'),
+    dailyEmissionUsdCents: new BigNumber('50000'),
+    stakedTokenPriceUsd: new BigNumber('1'),
+    rewardTokenPriceUsd: new BigNumber('5'),
   },
   {
     rewardToken: xvs,
@@ -24,6 +28,10 @@ export const vaults: Vault[] = [
     totalStakedMantissa: new BigNumber('400000000000000000000000000'),
     stakingAprPercentage: 12.92281835063781,
     userStakedMantissa: new BigNumber('233000000000000000000'),
+    totalStakedUsdCents: new BigNumber('2000000000'),
+    dailyEmissionUsdCents: new BigNumber('50000'),
+    stakedTokenPriceUsd: new BigNumber('5'),
+    rewardTokenPriceUsd: new BigNumber('5'),
   },
 ];
 

@@ -1,5 +1,5 @@
 import { routes } from 'constants/routing';
-import { Vault } from 'containers/Vault';
+import { VaultCard as Vault } from 'containers/Vault';
 import { useTranslation } from 'libs/translations';
 import type { Vault as VaultType } from 'types';
 import { Placeholder } from '../Placeholder';

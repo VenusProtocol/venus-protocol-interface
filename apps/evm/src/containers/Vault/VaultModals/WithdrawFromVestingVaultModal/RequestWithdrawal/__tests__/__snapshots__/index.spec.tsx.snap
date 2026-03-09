@@ -2,4 +2,4 @@
 
 exports[`RequestWithdrawal > fetches staked tokens and locking period and displays them correctly 1`] = `"Requestable VAI24 VAI"`;
 
-exports[`RequestWithdrawal > fetches staked tokens and locking period and displays them correctly 2`] = `"Locking period3 minutes"`;
+exports[`RequestWithdrawal > fetches staked tokens and locking period and displays them correctly 2`] = `"vault.transactionForm.lockingPeriod.labelvault.transactionForm.lockingPeriod.duration"`;
