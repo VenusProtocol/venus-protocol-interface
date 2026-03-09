@@ -61,12 +61,16 @@ export const Transactions: React.FC = () => {
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
       [TX_TYPE_PARAM_KEY]: newTxType,
+      // Reset page
+      [PAGE_PARAM_KEY]: String(FIRST_PAGE),
     }));
 
   const setSelectedContractAddress = (newContractAddress: string) =>
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
       [CONTRACT_ADDRESS_PARAM_KEY]: newContractAddress,
+      // Reset page
+      [PAGE_PARAM_KEY]: String(FIRST_PAGE),
     }));
 
   const setPage = (newPage: string) =>
