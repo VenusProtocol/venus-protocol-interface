@@ -88,13 +88,7 @@
           "all": "Tüm piyasalar"
         },
         "txType": {
-          "all": "Tüm işlemler",
-          "borrow": "Borç al",
-          "enterMarket": "Teminat etkin",
-          "exitMarket": "Teminat devre dışı",
-          "mint": "Sağla",
-          "redeem": "Çek",
-          "repay": "Geri ödeme"
+          "all": "Tüm işlemler"
         }
       },
       "today": "Bugün",
@@ -104,11 +98,11 @@
       },
       "txType": {
         "borrow": "Borç al",
-        "enterMarket": "Teminat etkin",
-        "exitMarket": "Teminat devre dışı",
+        "enterMarket": "Teminatı etkinleştir",
+        "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
         "redeem": "Çek",
-        "repay": "Geri ödeme"
+        "repay": "Geri öde"
       },
       "view": "Görüntüle",
       "yesterday": "Dün"
@@ -765,6 +759,9 @@
         "vai": {
           "description": "Venus'ün yerel sabit coinini mint edin.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1809,34 +1806,21 @@
       "blockingPendingWithdrawalsWarning": "Bu kasayla etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekmektedir.",
       "currentStaked": "Mevcut stake",
       "dailyEmission": "Günlük ödül dağıtımı",
-      "manager": "Yönetici kurum",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, stake ve çekim işlemleri devre dışı bırakılmıştır.",
       "stake": "Stake et",
       "stakingApr": "{{stakeTokenName}} Stake APR",
       "totalDeposited": "Toplam yatırılan",
       "totalStaked": "Toplam Stake",
-      "venusManager": "Venus",
       "withdraw": "Çek",
-      "youAreStake": "Stake ediyorsunuz",
-      "youStaked": "Stake ettiğiniz"
+      "youAreStake": "Stake ediyorsunuz"
     },
     "filter": {
-      "active": "Aktif",
       "allCategories": "Tüm kategoriler",
       "allManagers": "Tüm yönetici kurumlar",
-      "allStates": "Tüm durumlar",
-      "claim": "Talep et",
-      "deposit": "Yatır",
-      "earning": "Kazanıyor",
       "inputPlaceholder": "Varlık ara",
       "others": "Diğerleri",
-      "paused": "Duraklatıldı",
-      "refund": "İade",
-      "repaying": "Geri ödeniyor",
-      "rwa": "RWA",
       "stablecoins": "Stablecoin'ler",
-      "vaults": "Kasalar",
-      "yieldTokens": "Getiri tokenları"
+      "vaults": "Kasalar"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} para birimi görseli",
@@ -2113,5 +2097,67 @@
       "submitButton": "Çek"
     },
     "withdrawTabTitle": "Çek"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ görseli",
+      "learnMore": "Daha fazla bilgi",
+      "title": "Yield+ nedir?"
+    },
+    "longLiquidity": "Long likiditesi",
+    "longSupplyApy": "{{ longTokenSymbol }} sağlama APY",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "positions": {
+      "closeButtonLabel": "Kapat",
+      "placeholder": {
+        "title": "Henüz pozisyon yok"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Teminat"
+        },
+        "healthFactor": {
+          "label": "Sağlık faktörü",
+          "tooltip": "Likidasyon < 1.0"
+        },
+        "netApy": {
+          "label": "Net APY"
+        },
+        "netValue": {
+          "label": "Net değer"
+        },
+        "title": "Durum"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Pozisyon"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "İşlemler"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} borç APY",
+    "shortLiquidity": "Short likiditesi",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
   }
 }

@@ -88,13 +88,7 @@
           "all": "Tất cả thị trường"
         },
         "txType": {
-          "all": "Tất cả giao dịch",
-          "borrow": "Vay",
-          "enterMarket": "Bật tài sản thế chấp",
-          "exitMarket": "Tắt tài sản thế chấp",
-          "mint": "Đúc",
-          "redeem": "Rút",
-          "repay": "Hoàn trả"
+          "all": "Tất cả giao dịch"
         }
       },
       "today": "Hôm nay",
@@ -106,7 +100,7 @@
         "borrow": "Vay",
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",
-        "mint": "Đúc",
+        "mint": "Cung cấp",
         "redeem": "Rút",
         "repay": "Hoàn trả"
       },
@@ -765,6 +759,9 @@
         "vai": {
           "description": "Mint stablecoin gốc của Venus.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1809,34 +1806,21 @@
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
       "currentStaked": "Đang đặt cược",
       "dailyEmission": "Phần thưởng hàng ngày",
-      "manager": "Tổ chức quản lý",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, đặt cược và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
       "stake": "Stake",
       "stakingApr": "APR stake {{stakeTokenName}}",
       "totalDeposited": "Tổng tiền gửi",
       "totalStaked": "Tổng đã stake",
-      "venusManager": "Venus",
       "withdraw": "Rút",
-      "youAreStake": "Bạn đang stake",
-      "youStaked": "Bạn đã đặt cược"
+      "youAreStake": "Bạn đang stake"
     },
     "filter": {
-      "active": "Đang hoạt động",
       "allCategories": "Tất cả danh mục",
       "allManagers": "Tất cả tổ chức quản lý",
-      "allStates": "Tất cả trạng thái",
-      "claim": "Nhận thưởng",
-      "deposit": "Gửi tiền",
-      "earning": "Đang kiếm",
       "inputPlaceholder": "Tìm kiếm tài sản",
       "others": "Khác",
-      "paused": "Tạm dừng",
-      "refund": "Hoàn tiền",
-      "repaying": "Đang trả nợ",
-      "rwa": "RWA",
       "stablecoins": "Stablecoin",
-      "vaults": "Kho",
-      "yieldTokens": "Token sinh lời"
+      "vaults": "Kho"
     },
     "overview": {
       "bannerCoinIllustration": "Hình minh họa đồng {{token}}",
@@ -2113,5 +2097,67 @@
       "submitButton": "Rút"
     },
     "withdrawTabTitle": "Rút"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Hình minh họa Yield+",
+      "learnMore": "Tìm hiểu thêm",
+      "title": "Yield+ là gì?"
+    },
+    "longLiquidity": "Thanh khoản Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY cung cấp",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "positions": {
+      "closeButtonLabel": "Đóng",
+      "placeholder": {
+        "title": "Chưa có vị thế"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Tài sản thế chấp"
+        },
+        "healthFactor": {
+          "label": "Hệ số an toàn",
+          "tooltip": "Thanh lý tại < 1.0"
+        },
+        "netApy": {
+          "label": "APY ròng"
+        },
+        "netValue": {
+          "label": "Giá trị ròng"
+        },
+        "title": "Trạng thái"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Vị thế"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "Giao dịch"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY vay",
+    "shortLiquidity": "Thanh khoản Short",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
   }
 }

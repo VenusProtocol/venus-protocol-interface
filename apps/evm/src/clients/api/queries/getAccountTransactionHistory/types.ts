@@ -5,6 +5,7 @@ import type { GetPoolsOutput } from '../useGetPools/types';
 
 export interface ApiAccountHistoricalTransaction {
   id: string;
+  chainId: ChainId;
   txHash: string;
   txIndex: number;
   txTimestamp: Date;
@@ -16,7 +17,6 @@ export interface ApiAccountHistoricalTransaction {
   amountUnderlyingMantissa: string | null;
   underlyingAddress: string;
   underlyingTokenPriceMantissa: string | null;
-  chainId: ChainId;
 }
 
 export interface AmountTransaction {
@@ -41,9 +41,10 @@ export interface AccountTransactionHistoryApiResponse {
 
 export interface GetAccountTransactionHistoryInput {
   accountAddress: string;
-  contractAddress: string;
   chainId: ChainId;
   getPoolsData: GetPoolsOutput | undefined;
+  positionAccountAddress?: Address;
+  contractAddress?: Address;
   type?: number;
   page?: number;
 }

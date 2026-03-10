@@ -1,11 +1,15 @@
+/** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
 import { Spinner, cn } from '@venusprotocol/ui';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
-import { Select, type SelectOption, type SelectProps } from 'components/Select';
+import { Card, LabeledInlineContent } from 'components';
+import { Delimiter } from '../../Delimiter';
+import { Select, type SelectOption, type SelectProps } from '../../Select';
+import { useStyles } from '../styles';
 import type { TableCardProps } from '../types';
-import { MarketCard } from './MarketCard';
 
 export function TableCards<R>({
   cardClassName,
@@ -18,11 +22,14 @@ export function TableCards<R>({
   columns,
   order,
   onOrderChange,
-  rowControlOnClick,
   selectVariant = 'tertiary',
   controls,
+  renderRowFooter,
 }: TableCardProps<R>) {
   const { t } = useTranslation();
+  const styles = useStyles();
+
+  const [titleColumn, ...otherColumns] = columns;
 
   const selectOptions = useMemo(
     () =>
@@ -68,27 +75,57 @@ export function TableCards<R>({
           options={selectOptions}
           value={selectedOption?.value || selectOptions[0].value}
           onChange={handleOrderChange}
-          className="mb-4 w-56"
+          css={styles.cardsSelect}
           variant={selectVariant}
         />
       )}
 
-      {isFetching && <Spinner className="mb-5" />}
+      {isFetching && <Spinner css={styles.loader} />}
 
-      <div className="space-y-3">
-        {data.map((row, rowIndex) => (
-          <MarketCard
-            key={rowKeyExtractor(row)}
-            index={rowIndex}
-            row={row}
-            onClick={rowOnClick}
-            onControlClick={rowControlOnClick}
-            className={cardClassName}
-            columns={columns}
-            href={getRowHref?.(row)}
-          />
-        ))}
+      <div className="space-y-6">
+        {data.map((row, rowIndex) => {
+          const rowKey = rowKeyExtractor(row);
+          const content = (
+            <div className="space-y-4">
+              <div>{titleColumn.renderCell(row, rowIndex)}</div>
+
+              {renderRowFooter ? renderRowFooter(row, rowIndex) : undefined}
+
+              <Delimiter />
+
+              {otherColumns.map(column => (
+                <LabeledInlineContent key={`${rowKey}-${column.key}`} label={column.label}>
+                  <div className="text-right">{column.renderCell(row, rowIndex)}</div>
+                </LabeledInlineContent>
+              ))}
+
+              {/* TODO: render row control */}
+            </div>
+          );
+
+          return (
+            <Card
+              key={rowKey}
+              className={cn(
+                !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-cards',
+                cardClassName,
+              )}
+              onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}
+              asChild
+            >
+              {getRowHref ? (
+                <Link css={styles.link} to={getRowHref(row)}>
+                  {content}
+                </Link>
+              ) : (
+                <div>{content}</div>
+              )}
+            </Card>
+          );
+        })}
       </div>
     </div>
   );
 }
+
+export default TableCards;

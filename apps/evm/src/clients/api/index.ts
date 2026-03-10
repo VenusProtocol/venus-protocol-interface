@@ -240,3 +240,6 @@ export * from './queries/getSwapQuote/useGetSwapQuote';
 
 export * from './queries/getProposalCount';
 export * from './queries/getProposalCount/useGetProposalCount';
+
+export * from './queries/getYieldPlusPositions';
+export * from './queries/getYieldPlusPositions/useGetYieldPlusPositions';

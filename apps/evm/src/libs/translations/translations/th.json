@@ -88,13 +88,7 @@
           "all": "ตลาดทั้งหมด"
         },
         "txType": {
-          "all": "ธุรกรรมทั้งหมด",
-          "borrow": "ยืม",
-          "enterMarket": "เปิดใช้หลักประกัน",
-          "exitMarket": "ปิดใช้หลักประกัน",
-          "mint": "ฝาก",
-          "redeem": "ถอน",
-          "repay": "การชำระคืน"
+          "all": "ธุรกรรมทั้งหมด"
         }
       },
       "today": "วันนี้",
@@ -108,7 +102,7 @@
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
         "redeem": "ถอน",
-        "repay": "การชำระคืน"
+        "repay": "ชำระคืน"
       },
       "view": "ดู",
       "yesterday": "เมื่อวาน"
@@ -765,6 +759,9 @@
         "vai": {
           "description": "มินต์สเตเบิลคอยน์ประจำของ Venus",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1809,34 +1806,21 @@
       "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนเงินที่รอดำเนินการให้เสร็จสิ้นก่อนจึงจะสามารถโต้ตอบกับ vault นี้ได้",
       "currentStaked": "สเตคอยู่ในปัจจุบัน",
       "dailyEmission": "รางวัลรายวัน",
-      "manager": "ผู้ดูแล",
       "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การสเตค และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
       "stake": "สเตค",
       "stakingApr": "APR การสเตค {{stakeTokenName}}",
       "totalDeposited": "ยอดฝากทั้งหมด",
       "totalStaked": "ยอดสเตครวม",
-      "venusManager": "Venus",
       "withdraw": "ถอน",
-      "youAreStake": "คุณกำลังสเตคอยู่",
-      "youStaked": "คุณสเตคแล้ว"
+      "youAreStake": "คุณกำลังสเตคอยู่"
     },
     "filter": {
-      "active": "ใช้งานอยู่",
       "allCategories": "ทุกหมวดหมู่",
       "allManagers": "ผู้ดูแลทั้งหมด",
-      "allStates": "ทุกสถานะ",
-      "claim": "อ้างสิทธิ์",
-      "deposit": "ฝากเงิน",
-      "earning": "กำลังรับรายได้",
       "inputPlaceholder": "ค้นหาสินทรัพย์",
       "others": "อื่นๆ",
-      "paused": "หยุดชั่วคราว",
-      "refund": "คืนเงิน",
-      "repaying": "กำลังชำระคืน",
-      "rwa": "RWA",
       "stablecoins": "สเตเบิลคอยน์",
-      "vaults": "คลัง",
-      "yieldTokens": "เหรียญผลตอบแทน"
+      "vaults": "คลัง"
     },
     "overview": {
       "bannerCoinIllustration": "ภาพประกอบเหรียญ {{token}}",
@@ -2113,5 +2097,67 @@
       "submitButton": "ถอน"
     },
     "withdrawTabTitle": "ถอน"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "ภาพประกอบ Yield+",
+      "learnMore": "เรียนรู้เพิ่มเติม",
+      "title": "Yield+ คืออะไร?"
+    },
+    "longLiquidity": "สภาพคล่องฝั่ง Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "positions": {
+      "closeButtonLabel": "ปิด",
+      "placeholder": {
+        "title": "ยังไม่มีโพสิชัน"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "หลักประกัน"
+        },
+        "healthFactor": {
+          "label": "ตัวคูณความปลอดภัย",
+          "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
+        },
+        "netApy": {
+          "label": "APY สุทธิ"
+        },
+        "netValue": {
+          "label": "มูลค่าสุทธิ"
+        },
+        "title": "สถานะ"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "โพสิชัน"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "ธุรกรรม"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",
+    "shortLiquidity": "สภาพคล่องฝั่ง Short",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
   }
 }
