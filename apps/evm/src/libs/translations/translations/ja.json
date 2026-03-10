@@ -278,6 +278,9 @@
     "modalTitle": "{{ poolName }} トークン",
     "supplyDescription": "{{poolName}}プールに{{tokenSymbol}}を供給すると、このプールのみからトークンを借りられるようになります。<Button>すべてのマーケットを表示</Button>"
   },
+  "availableBalance": {
+    "label": "利用可能"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "背景イラスト",
     "binanceLogoAltText": "Binanceロゴ",
@@ -527,7 +530,7 @@
     "noMetaKey": "ファイルにメタデータ情報がありません",
     "noParamsKey": "ファイルにパラメータ一覧がありません",
     "noSignaturesKey": "ファイルにコールシグネチャがありません",
-    "noSwapQuoteFound": "スワップが見つかりません。フォームを更新してください。",
+    "noSwapQuoteFound": "スワップが見つかりません。",
     "noTargetsKey": "ファイルにターゲット一覧がありません",
     "noTypeKey": "ファイルに提案のタイプが示されていません",
     "proposalNotFound": "提案が見つかりません",
@@ -1037,10 +1040,17 @@
       "higherThanWalletBalance": "{{tokenSymbol}}残高が不足しています",
       "higherThanWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
       "noCollateral": "このプールから{{tokenSymbol}}を借りる前に、トークンを供給して担保として有効化する必要があります",
-      "noSwapQuoteFound": "スワップが見つかりません。フォームを更新してください。",
+      "noSwapQuoteFound": "スワップが見つかりません。",
       "priceImpactTooHigh": "価格影響が高すぎます",
       "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
       "tooRisky": "この取引はアカウントが清算されます"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "現在のレバレッジでの最大ポジション: {{ value }}",
+      "submitButtonLabel": "確認",
+      "title": "レバレッジ倍率",
+      "warning": "レバレッジは資本利用率に影響し、ポジションを完全に解消するまで変更できません。"
     },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}}を受け取る",
@@ -1061,8 +1071,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
-      "highRisk": "高リスク",
-      "lowRisk": "低リスク"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "安全な最大",
     "submitButtonLabel": {
@@ -2121,6 +2131,20 @@
     "longSupplyApy": "{{ longTokenSymbol }} 供給APY",
     "longTokenSelect": {
       "label": "ロング"
+    },
+    "operationForm": {
+      "openForm": {
+        "collateral": "担保",
+        "dsaFieldLabel": "担保",
+        "entryPrice": "エントリー価格",
+        "liquidationPrice": "清算価格",
+        "long": "ロング",
+        "longFieldLabel": "ロング",
+        "netApy": "実質APY",
+        "short": "ショート",
+        "shortFieldLabel": "ショート",
+        "submitButtonLabel": "オープン"
+      }
     },
     "positions": {
       "closeButtonLabel": "閉じる",

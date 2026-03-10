@@ -278,6 +278,9 @@
     "modalTitle": "{{ poolName }} 代币",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
   },
+  "availableBalance": {
+    "label": "可用"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "背景插图",
     "binanceLogoAltText": "Binance 标志",
@@ -527,7 +530,7 @@
     "noMetaKey": "文件中没有元数据信息",
     "noParamsKey": "文件中没有参数列表",
     "noSignaturesKey": "文件中没有调用签名",
-    "noSwapQuoteFound": "未找到兑换报价。请更新表单。",
+    "noSwapQuoteFound": "未找到兑换。",
     "noTargetsKey": "文件中没有目标列表",
     "noTypeKey": "文件中未指明提案类型",
     "proposalNotFound": "未找到提案",
@@ -1037,10 +1040,17 @@
       "higherThanWalletBalance": "{{tokenSymbol}} 余额不足",
       "higherThanWalletSpendingLimit": "你输入的金额超过该资产的支出限额。请先撤销支出限额并设置新的限额后再继续交易。",
       "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
-      "noSwapQuoteFound": "未找到兑换报价。请更新表单。",
+      "noSwapQuoteFound": "未找到兑换。",
       "priceImpactTooHigh": "价格影响过高",
       "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
       "tooRisky": "该交易会导致账户被清算"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "当前杠杆下的最大仓位：{{ value }}",
+      "submitButtonLabel": "确认",
+      "title": "杠杆倍数",
+      "warning": "杠杆会影响你的资金利用率，并且在你完全平仓前无法更改。"
     },
     "receiveNativeToken": {
       "label": "接收 {{tokenSymbol}}",
@@ -1061,8 +1071,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
-      "highRisk": "高风险",
-      "lowRisk": "低风险"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "安全最大值",
     "submitButtonLabel": {
@@ -2121,6 +2131,20 @@
     "longSupplyApy": "{{ longTokenSymbol }} 存款 APY",
     "longTokenSelect": {
       "label": "多头"
+    },
+    "operationForm": {
+      "openForm": {
+        "collateral": "可抵押",
+        "dsaFieldLabel": "可抵押",
+        "entryPrice": "开仓价",
+        "liquidationPrice": "清算价",
+        "long": "多头",
+        "longFieldLabel": "多头",
+        "netApy": "净 APY",
+        "short": "空头",
+        "shortFieldLabel": "空头",
+        "submitButtonLabel": "开仓"
+      }
     },
     "positions": {
       "closeButtonLabel": "关闭",

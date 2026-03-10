@@ -2,10 +2,10 @@ import { useGetAccountTransactionHistory } from 'clients/api';
 import { TransactionsList } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useAccountAddress } from 'libs/wallet';
-import type { Row } from '../../types';
+import type { YieldPlusPosition } from 'types';
 
 export interface TransactionsTabProps {
-  row: Row;
+  row: YieldPlusPosition;
 }
 
 export const TransactionsTab: React.FC<TransactionsTabProps> = ({ row }) => {

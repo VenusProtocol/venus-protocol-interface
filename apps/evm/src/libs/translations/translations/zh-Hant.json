@@ -278,6 +278,9 @@
     "modalTitle": "{{ poolName }} 代幣",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 將使你只能從該池借入代幣。<Button>顯示全部市場</Button>"
   },
+  "availableBalance": {
+    "label": "可用"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "背景插圖",
     "binanceLogoAltText": "Binance 標誌",
@@ -527,7 +530,7 @@
     "noMetaKey": "文件中沒有元數據信息",
     "noParamsKey": "文件中沒有參數列表",
     "noSignaturesKey": "文件中沒有調用簽名",
-    "noSwapQuoteFound": "未找到兌換報價。請更新表單。",
+    "noSwapQuoteFound": "找不到兌換。",
     "noTargetsKey": "文件中沒有目標列表",
     "noTypeKey": "文件中未指明提案類型",
     "proposalNotFound": "未找到提案",
@@ -1037,10 +1040,17 @@
       "higherThanWalletBalance": "{{tokenSymbol}} 餘額不足",
       "higherThanWalletSpendingLimit": "你輸入的金額超過該資產的支出限額。請先撤銷支出限額並設置新的限額後再繼續交易。",
       "noCollateral": "在從該池借入 {{tokenSymbol}} 之前，你需要先供應代幣並將其設為抵押",
-      "noSwapQuoteFound": "未找到兌換報價。請更新表單。",
+      "noSwapQuoteFound": "找不到兌換。",
       "priceImpactTooHigh": "價格影響過高",
       "supplyCapReached": "該池供應上限 {{assetSupplyCap}} 已達。除非有人提取或提高供應上限，否則無法再向該市場供應。",
       "tooRisky": "該交易會導致賬戶被清算"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "當前槓桿下的最大倉位：{{ value }}",
+      "submitButtonLabel": "確認",
+      "title": "槓桿倍數",
+      "warning": "槓桿會影響你的資金利用率，且在你完全平倉前無法變更。"
     },
     "receiveNativeToken": {
       "label": "接收 {{tokenSymbol}}",
@@ -1061,8 +1071,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
-      "highRisk": "高風險",
-      "lowRisk": "低風險"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "安全最大值",
     "submitButtonLabel": {
@@ -2121,6 +2131,20 @@
     "longSupplyApy": "{{ longTokenSymbol }} 供應 APY",
     "longTokenSelect": {
       "label": "多頭"
+    },
+    "operationForm": {
+      "openForm": {
+        "collateral": "抵押",
+        "dsaFieldLabel": "抵押",
+        "entryPrice": "開倉價",
+        "liquidationPrice": "清算價",
+        "long": "多頭",
+        "longFieldLabel": "多頭",
+        "netApy": "淨 APY",
+        "short": "空頭",
+        "shortFieldLabel": "空頭",
+        "submitButtonLabel": "開倉"
+      }
     },
     "positions": {
       "closeButtonLabel": "關閉",

@@ -278,6 +278,9 @@
     "modalTitle": "{{ poolName }} tokens",
     "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
   },
+  "availableBalance": {
+    "label": "Available"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "Background illustration",
     "binanceLogoAltText": "Binance logo",
@@ -527,7 +530,7 @@
     "noMetaKey": "No metadata information is present in the file",
     "noParamsKey": "File does not contain the list of params",
     "noSignaturesKey": "There are no call signatures in the file",
-    "noSwapQuoteFound": "No swap found. Please update the form.",
+    "noSwapQuoteFound": "No swap found.",
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
     "proposalNotFound": "Proposal not found",
@@ -1037,10 +1040,17 @@
       "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
       "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
-      "noSwapQuoteFound": "No swap found. Please update the form.",
+      "noSwapQuoteFound": "No swap found.",
       "priceImpactTooHigh": "Price impact too high",
       "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "tooRisky": "This transaction would get your account liquidated"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Maximum position at current leverage: {{ value }}",
+      "submitButtonLabel": "Confirm",
+      "title": "Leverage factor",
+      "warning": "Leverage affects your capital utilization and cannot be changed until you fully exit the position."
     },
     "receiveNativeToken": {
       "label": "Receive {{tokenSymbol}}",
@@ -1061,8 +1071,8 @@
     },
     "rightMaxButtonLabel": "MAX",
     "riskSlider": {
-      "highRisk": "High risk",
-      "lowRisk": "Low risk"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "SAFE MAX",
     "submitButtonLabel": {
@@ -2121,6 +2131,20 @@
     "longSupplyApy": "{{ longTokenSymbol }} supply APY",
     "longTokenSelect": {
       "label": "Long"
+    },
+    "operationForm": {
+      "openForm": {
+        "collateral": "Collateral",
+        "dsaFieldLabel": "Collateral",
+        "entryPrice": "Entry price",
+        "liquidationPrice": "Liq. price",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "Net APY",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Open"
+      }
     },
     "positions": {
       "closeButtonLabel": "Close",

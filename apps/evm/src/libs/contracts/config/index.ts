@@ -683,13 +683,15 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_MAINNET]: venusPeripheryBscMainnetDeployments.addresses
         .LeverageStrategiesManager_Proxy as Address,
+      [ChainId.BSC_TESTNET]: '0xE852204A757A3Ee9Dfc5d608b7038f962f393706', // TODO: get from package
     },
   },
   {
     name: 'RelativePositionManager',
     abi: relativePositionManagerAbi as Abi,
     address: {
-      [ChainId.BSC_TESTNET]: '0xcB84425698B9426b5Edd9Ed25eA0116aA0c2Ce7F', // TODO: get from package
+      [ChainId.BSC_MAINNET]: '0x', // TODO: add
+      [ChainId.BSC_TESTNET]: '0xE0E9cf74bAdf91F15ffdeE3dC50B8171De3AEcFF', // TODO: get from package
     },
   },
   // Generic Contracts
