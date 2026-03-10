@@ -2,7 +2,8 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { governanceChainId } from 'libs/wallet';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import callOrThrow from 'utilities/callOrThrow';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import { type GetProposalInput, type GetProposalOutput, getProposal } from '.';
 import { useGetBlockNumber } from '../getBlockNumber/useGetBlockNumber';
 import { useGetProposalMinQuorumVotes } from '../getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';

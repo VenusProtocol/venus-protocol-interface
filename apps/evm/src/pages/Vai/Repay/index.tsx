@@ -26,12 +26,10 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { BalanceMutation } from 'types';
-import {
-  convertMantissaToTokens,
-  convertTokensToMantissa,
-  formatPercentageToReadableValue,
-  generatePseudoRandomRefetchInterval,
-} from 'utilities';
+import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
+import { convertTokensToMantissa } from 'utilities/convertTokensToMantissa';
+import { formatPercentageToReadableValue } from 'utilities/formatPercentageToReadableValue';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
 import { ErrorCode, useForm } from './useForm';

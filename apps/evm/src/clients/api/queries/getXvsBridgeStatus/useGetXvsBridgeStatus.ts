@@ -5,7 +5,8 @@ import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { getContractAddress } from 'libs/contracts';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import { ChainId } from 'types';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import callOrThrow from 'utilities/callOrThrow';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import { type GetXvsBridgeStatusInput, type GetXvsBridgeStatusOutput, getXvsBridgeStatus } from '.';
 
 type TrimmedGetXvsBridgeStatusInput = Omit<

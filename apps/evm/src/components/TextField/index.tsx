@@ -66,19 +66,6 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
 
     const leftIconClassNames = cn('mr-2 mt-0', size === 'md' ? 'size-6' : 'size-5');
 
-    let inputContainerCn = cn(
-      'flex items-center h-14 pr-2 pl-4 py-2 border border-lightGrey rounded-xl bg-background transition-[border-color] hover:border-white focus-within:border-blue focus-within:hover:border-blue',
-      size === 'xs' && 'h-10 py-1 rounded-lg',
-      disabled && 'border-lightGrey bg-cards',
-      hasError && 'border-red focus-within:border-red focus-within:hover:border-red',
-    );
-
-    if (variant === 'secondary') {
-      inputContainerCn = cn(inputContainerCn, disabled ? 'bg-lightGrey' : 'bg-cards');
-    }
-
-    inputContainerCn = cn(inputContainerCn, inputContainerClassName);
-
     return (
       <div className={className}>
         {!!label && (
@@ -87,7 +74,17 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
           </label>
         )}
 
-        <div className={inputContainerCn}>
+        <div
+          className={cn(
+            'flex items-center h-14 pr-2 pl-4 py-2 border border-lightGrey rounded-xl bg-background transition-[border-color] hover:border-white focus-within:border-blue focus-within:hover:border-blue',
+            size === 'xs' && 'h-10 py-1 rounded-lg',
+            disabled && 'border-lightGrey bg-cards',
+            hasError && 'border-red focus-within:border-red focus-within:hover:border-red',
+            variant === 'secondary' && disabled && 'bg-lightGrey',
+            variant === 'secondary' && !disabled && 'bg-cards',
+            inputContainerClassName,
+          )}
+        >
           {typeof leftIconSrc === 'string' && (
             <Icon name={leftIconSrc} className={leftIconClassNames} />
           )}

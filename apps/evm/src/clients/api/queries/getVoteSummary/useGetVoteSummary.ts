@@ -6,7 +6,7 @@ import {
   getVoteSummary,
 } from 'clients/api/queries/getVoteSummary';
 import FunctionKey from 'constants/functionKey';
-import { generatePseudoRandomRefetchInterval } from 'utilities';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 
 type Options = QueryObserverOptions<
   GetVoteSummaryOutput,

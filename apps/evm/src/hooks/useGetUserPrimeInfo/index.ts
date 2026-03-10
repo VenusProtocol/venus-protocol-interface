@@ -8,7 +8,8 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
-import { convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
+import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import type { Address } from 'viem';
 
 const refetchInterval = generatePseudoRandomRefetchInterval();

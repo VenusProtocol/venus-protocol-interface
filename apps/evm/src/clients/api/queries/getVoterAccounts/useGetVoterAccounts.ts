@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { generatePseudoRandomRefetchInterval } from 'utilities';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 
 import { type GetVoterAccountsInput, type GetVoterAccountsOutput, getVoterAccounts } from '.';
 

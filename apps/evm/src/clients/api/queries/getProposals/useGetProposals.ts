@@ -4,7 +4,8 @@ import { useGetBlockNumber } from 'clients/api/queries/getBlockNumber/useGetBloc
 import { useGetProposalMinQuorumVotes } from 'clients/api/queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
 import FunctionKey from 'constants/functionKey';
 import { governanceChainId } from 'libs/wallet';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import callOrThrow from 'utilities/callOrThrow';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import { type GetProposalsInput, type GetProposalsOutput, getProposals } from '.';
 
 type TrimmedGetProposalsInput = Omit<
