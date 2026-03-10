@@ -1,0 +1,173 @@
+import BigNumber from 'bignumber.js';
+
+import { useGetSwapQuote, useOpenYieldPlusPosition } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
+import useDebounceValue from 'hooks/useDebounceValue';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
+import { VError } from 'libs/errors';
+import { useTranslation } from 'libs/translations';
+import { useGetYieldPlusAssets } from 'pages/YieldPlus/useGetYieldPlusAssets';
+import type { AssetBalanceMutation, YieldPlusPosition } from 'types';
+import {
+  areTokensEqual,
+  convertTokensToMantissa,
+  getSwapToTokenAmountReceivedTokens,
+} from 'utilities';
+import { type FormValues, PositionForm } from '../../PositionForm';
+import { calculateMaxBorrowShortTokens } from '../../calculateMaxBorrowShortTokens';
+import { usePositionForm } from '../../usePositionForm';
+
+export interface FormProps {
+  position: YieldPlusPosition;
+}
+
+export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
+  const { t } = useTranslation();
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
+  const { formValues, setFormValues } = usePositionForm({ position: newPosition });
+
+  const { mutateAsync: openYieldPlusPosition, isPending: isSubmitting } =
+    useOpenYieldPlusPosition();
+
+  const {
+    data: { dsaAssets },
+  } = useGetYieldPlusAssets();
+
+  // The DSA asset from the position is static, so we manually update the position based on the
+  // selected DSA token and leverage factor
+  const position: YieldPlusPosition = {
+    ...newPosition,
+    leverageFactor: formValues.leverageFactor,
+    dsaAsset:
+      newPosition.pool.assets.find(asset =>
+        areTokensEqual(asset.vToken.underlyingToken, formValues.dsaToken),
+      ) || newPosition.dsaAsset,
+  };
+
+  const _debouncedDsaAmountTokens = useDebounceValue(formValues.dsaAmountTokens);
+  const debouncedDsaAmountTokens = new BigNumber(_debouncedDsaAmountTokens || 0);
+
+  const _debouncedShortAmountTokens = useDebounceValue(formValues.shortAmountTokens);
+  const debouncedShortAmountTokens = new BigNumber(_debouncedShortAmountTokens || 0);
+
+  const { address: leverageManagerContractAddress } = useGetContractAddress({
+    name: 'LeverageManager',
+  });
+
+  const {
+    data: getSwapQuoteData,
+    error: getSwapQuoteError,
+    isLoading: isGetSwapQuoteLoading,
+  } = useGetSwapQuote(
+    {
+      fromToken: position.shortAsset.vToken.underlyingToken,
+      fromTokenAmountTokens: debouncedShortAmountTokens,
+      toToken: position.longAsset.vToken.underlyingToken,
+      direction: 'exact-in',
+      recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+      slippagePercentage: userSlippageTolerancePercentage,
+    },
+    {
+      enabled: !!leverageManagerContractAddress && debouncedShortAmountTokens.isGreaterThan(0),
+    },
+  );
+  const swapQuote = getSwapQuoteData?.swapQuote;
+
+  const expectedLongAmountTokens = getSwapToTokenAmountReceivedTokens(swapQuote);
+
+  const balanceMutations: AssetBalanceMutation[] = [
+    {
+      type: 'asset',
+      vTokenAddress: position.dsaAsset.vToken.address,
+      action: 'supply',
+      amountTokens: new BigNumber(swapQuote ? debouncedDsaAmountTokens : 0),
+      enableAsCollateralOfUser: true,
+      label: t('yieldPlus.operationForm.openForm.collateral'),
+    },
+    {
+      type: 'asset',
+      vTokenAddress: position.longAsset.vToken.address,
+      action: 'supply',
+      amountTokens: new BigNumber(expectedLongAmountTokens || 0),
+      enableAsCollateralOfUser: true,
+      label: t('yieldPlus.operationForm.openForm.long'),
+    },
+    {
+      type: 'asset',
+      vTokenAddress: position.shortAsset.vToken.address,
+      action: 'borrow',
+      amountTokens: new BigNumber(swapQuote ? debouncedShortAmountTokens : 0),
+      label: t('yieldPlus.operationForm.openForm.short'),
+    },
+  ];
+
+  const limitShortTokens = calculateMaxBorrowShortTokens({
+    dsaAmountTokens: debouncedDsaAmountTokens,
+    dsaTokenPriceCents: position.dsaAsset.tokenPriceCents,
+    dsaTokenCollateralFactor: position.dsaAsset.collateralFactor,
+    shortTokenPriceCents: position.shortAsset.tokenPriceCents,
+    leverageFactor: formValues.leverageFactor,
+  });
+
+  const handleSubmit = async (formValues: FormValues) => {
+    const initialPrincipalMantissa = BigInt(
+      convertTokensToMantissa({
+        value: new BigNumber(formValues.dsaAmountTokens),
+        token: formValues.dsaToken,
+      }).toFixed(),
+    );
+
+    const shortAmountMantissa = BigInt(
+      convertTokensToMantissa({
+        value: new BigNumber(formValues.shortAmountTokens),
+        token: position.shortAsset.vToken.underlyingToken,
+      }).toFixed(),
+    );
+
+    if (swapQuote?.direction !== 'exact-in') {
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+      });
+    }
+
+    const dsaIndex = dsaAssets.findIndex(dsaAsset =>
+      areTokensEqual(dsaAsset.vToken.underlyingToken, formValues.dsaToken),
+    );
+
+    if (dsaIndex < 0) {
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+      });
+    }
+
+    return openYieldPlusPosition({
+      longVTokenAddress: position.longAsset.vToken.address,
+      shortVTokenAddress: position.shortAsset.vToken.address,
+      dsaIndex,
+      initialPrincipalMantissa,
+      leverageFactor: formValues.leverageFactor,
+      shortAmountMantissa,
+      minLongAmountMantissa: swapQuote.minimumToTokenAmountReceivedMantissa,
+      swapQuote,
+    });
+  };
+
+  return (
+    <PositionForm
+      onSubmit={handleSubmit}
+      isSubmitting={isSubmitting}
+      swapQuote={swapQuote}
+      swapQuoteErrorCode={getSwapQuoteError?.code}
+      isLoading={isGetSwapQuoteLoading}
+      position={position}
+      formValues={formValues}
+      setFormValues={setFormValues}
+      limitShortTokens={limitShortTokens}
+      balanceMutations={balanceMutations}
+      submitButtonLabel={t('yieldPlus.operationForm.openForm.submitButtonLabel')}
+    />
+  );
+};

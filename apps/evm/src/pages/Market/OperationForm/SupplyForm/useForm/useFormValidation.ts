@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
+import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useTranslation } from 'libs/translations';
 import type { AssetBalanceMutation, Pool, SwapQuote } from 'types';
-import type { FormError } from '../../types';
-import { useCommonValidation } from '../../useCommonValidation';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
@@ -21,7 +21,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formError?: TxFormError<FormErrorCode>;
 }
 
 const useFormValidation = ({
@@ -46,7 +46,7 @@ const useFormValidation = ({
     userAcknowledgesHighPriceImpact: formValues.acknowledgeHighPriceImpact,
   });
 
-  const formError: FormError<FormErrorCode> | undefined = useMemo(() => {
+  const formError: TxFormError<FormErrorCode> | undefined = useMemo(() => {
     if (commonFormError) {
       return commonFormError;
     }

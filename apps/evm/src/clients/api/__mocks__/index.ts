@@ -53,6 +53,30 @@ export const useGetVaiTreasuryPercentage = vi.fn(() =>
   }),
 );
 
+export const getProportionalCloseTolerancePercentage = vi.fn(() => ({
+  proportionalCloseTolerancePercentage: 2,
+}));
+export const useGetProportionalCloseTolerancePercentage = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PROPORTIONAL_CLOSE_TOLERANCE_PERCENTAGE],
+    queryFn: getProportionalCloseTolerancePercentage,
+  }),
+);
+
+export const getDsaVTokens = vi.fn(async () => ({
+  dsaVTokenAddresses: [
+    poolData[0].assets[0].vToken.address,
+    poolData[0].assets[1].vToken.address,
+    poolData[0].assets[2].vToken.address,
+  ],
+}));
+export const useGetDsaVTokens = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_DSA_V_TOKENS],
+    queryFn: getDsaVTokens,
+  }),
+);
+
 export const getMarketHistory = vi.fn();
 export const useGetMarketHistory = vi.fn(() =>
   useQuery({
@@ -732,6 +756,14 @@ export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOpt
 );
 
 export const useOpenLeveragedPosition = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useOpenYieldPlusPosition = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),

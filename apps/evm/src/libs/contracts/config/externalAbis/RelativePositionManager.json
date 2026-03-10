@@ -88,6 +88,11 @@
   },
   {
     "inputs": [],
+    "name": "InvalidProportionalCloseTolerance",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "MinAmountOutRepayBelowDebt",
     "type": "error"
   },
@@ -105,6 +110,11 @@
       }
     ],
     "name": "MintBehalfFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PositionAccountImplementationLocked",
     "type": "error"
   },
   {
@@ -155,7 +165,7 @@
   },
   {
     "inputs": [],
-    "name": "SamePositionAccountImplementation",
+    "name": "SameProportionalCloseTolerance",
     "type": "error"
   },
   {
@@ -212,6 +222,11 @@
   {
     "inputs": [],
     "name": "ZeroShortAmount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroVTokensMinted",
     "type": "error"
   },
   {
@@ -378,17 +393,11 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "oldImplementation",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "newImplementation",
+        "name": "implementation",
         "type": "address"
       }
     ],
-    "name": "PositionAccountImplementationUpdated",
+    "name": "PositionAccountImplementationSet",
     "type": "event"
   },
   {
@@ -586,11 +595,66 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "additionalPrincipal",
+        "name": "initialPrincipal",
         "type": "uint256"
       }
     ],
     "name": "PositionOpened",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "positionAccount",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "longAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "shortAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "dsaAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "shortAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "additionalPrincipal",
+        "type": "uint256"
+      }
+    ],
+    "name": "PositionScaled",
     "type": "event"
   },
   {
@@ -653,6 +717,12 @@
       },
       {
         "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
         "internalType": "address",
         "name": "dsaAsset",
         "type": "address"
@@ -702,6 +772,25 @@
       }
     ],
     "name": "ProfitConverted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "oldTolerance",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "newTolerance",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProportionalCloseToleranceUpdated",
     "type": "event"
   },
   {
@@ -890,74 +979,12 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "longVToken",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "shortVToken",
-        "type": "address"
-      },
-      {
-        "internalType": "uint8",
-        "name": "dsaIndex",
-        "type": "uint8"
-      },
-      {
-        "internalType": "uint256",
-        "name": "initialPrincipal",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "effectiveLeverage",
-        "type": "uint256"
-      }
-    ],
-    "name": "activatePosition",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "dsaVToken",
         "type": "address"
       }
     ],
     "name": "addDSAVToken",
     "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "internalType": "contract IVToken",
-        "name": "longVToken",
-        "type": "address"
-      },
-      {
-        "internalType": "contract IVToken",
-        "name": "shortVToken",
-        "type": "address"
-      }
-    ],
-    "name": "calculateMaxBorrow",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "maxBorrowAmount",
-        "type": "uint256"
-      }
-    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -1146,6 +1173,35 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      }
+    ],
+    "name": "getAvailableShortCapacity",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "availableCapacity",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "getDsaVTokens",
     "outputs": [
@@ -1185,6 +1241,30 @@
       }
     ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IVToken",
+        "name": "dsaVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "longVToken",
+        "type": "address"
+      }
+    ],
+    "name": "getMaxLeverageAllowed",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "maxLeverage",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1415,41 +1495,16 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "isPositionAccountImplementationLocked",
+    "outputs": [
       {
-        "internalType": "contract IVToken",
-        "name": "longVToken",
-        "type": "address"
-      },
-      {
-        "internalType": "contract IVToken",
-        "name": "shortVToken",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "additionalPrincipal",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "shortAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "minLongAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "swapData",
-        "type": "bytes"
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
-    "name": "openPosition",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1574,7 +1629,58 @@
   },
   {
     "inputs": [],
+    "name": "proportionalCloseTolerance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IVToken",
+        "name": "longVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IVToken",
+        "name": "shortVToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "additionalPrincipal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "shortAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minLongAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "swapData",
+        "type": "bytes"
+      }
+    ],
+    "name": "scalePosition",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1619,6 +1725,19 @@
       }
     ],
     "name": "setPositionAccountImplementation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newTolerance",
+        "type": "uint256"
+      }
+    ],
+    "name": "setProportionalCloseTolerance",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

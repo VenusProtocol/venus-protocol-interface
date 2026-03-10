@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
-import type { FormError } from '../../types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
@@ -15,7 +15,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formError?: TxFormError<FormErrorCode>;
 }
 
 const useFormValidation = ({
@@ -26,7 +26,7 @@ const useFormValidation = ({
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
-  const formError = useMemo<FormError<FormErrorCode> | undefined>(() => {
+  const formError = useMemo<TxFormError<FormErrorCode> | undefined>(() => {
     const fromTokenAmountTokens = formValues.amountTokens
       ? new BigNumber(formValues.amountTokens)
       : undefined;
