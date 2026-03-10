@@ -85,7 +85,11 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
         topRightAdornment={
           topRightAdornment || typeof tokenPriceCents === 'number' ? (
             <div className="flex items-center gap-x-2">
+<<<<<<< HEAD
               {tokenPriceCents && readableValueDollars ? (
+=======
+              {readableValueDollars ? (
+>>>>>>> bb8c9645f (refactor: input components)
                 <p className="text-light-grey text-b1r">
                   {t('tokenTextField.valueDollars', {
                     value: readableValueDollars,
