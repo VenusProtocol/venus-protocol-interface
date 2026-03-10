@@ -88,13 +88,7 @@
           "all": "All markets"
         },
         "txType": {
-          "all": "All transactions",
-          "borrow": "Borrow",
-          "enterMarket": "Enabled collateral",
-          "exitMarket": "Disabled collateral",
-          "mint": "Supply",
-          "redeem": "Withdraw",
-          "repay": "Repayment"
+          "all": "All transactions"
         }
       },
       "today": "Today",
@@ -104,11 +98,11 @@
       },
       "txType": {
         "borrow": "Borrow",
-        "enterMarket": "Enabled collateral",
-        "exitMarket": "Disabled collateral",
+        "enterMarket": "Enable collateral",
+        "exitMarket": "Disable collateral",
         "mint": "Supply",
         "redeem": "Withdraw",
-        "repay": "Repayment"
+        "repay": "Repay"
       },
       "view": "View",
       "yesterday": "Yesterday"
@@ -761,6 +755,9 @@
         "vai": {
           "description": "Mint the native stablecoin of Venus.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -2072,5 +2069,67 @@
       "submitButton": "Withdraw"
     },
     "withdrawTabTitle": "Withdraw"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ illustration",
+      "learnMore": "Learn more",
+      "title": "What is Yield+?"
+    },
+    "longLiquidity": "Long liquidity",
+    "longSupplyApy": "{{ longTokenSymbol }} supply APY",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "positions": {
+      "closeButtonLabel": "Close",
+      "placeholder": {
+        "title": "No positions yet"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Collateral"
+        },
+        "healthFactor": {
+          "label": "Health factor",
+          "tooltip": "Liquidation at < 1.0"
+        },
+        "netApy": {
+          "label": "Net APY"
+        },
+        "netValue": {
+          "label": "Net value"
+        },
+        "title": "Status"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Position"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "Transactions"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} borrow APY",
+    "shortLiquidity": "Short liquidity",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
   }
 }

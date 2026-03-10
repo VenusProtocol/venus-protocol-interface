@@ -1,7 +1,7 @@
 import { VError } from 'libs/errors';
 import type { VToken } from 'types';
 import { restService } from 'utilities';
-import { type Address, isAddress } from 'viem';
+import type { Address } from 'viem';
 import { formatApiTransaction } from './formatApiTransaction';
 import type {
   AccountTransactionHistoryApiResponse,
@@ -15,6 +15,7 @@ export const getAccountTransactionHistory = async ({
   chainId,
   accountAddress,
   contractAddress,
+  positionAccountAddress,
   getPoolsData,
   type,
   page,
@@ -25,7 +26,8 @@ export const getAccountTransactionHistory = async ({
     params: {
       chainId,
       type,
-      contractAddress: isAddress(contractAddress) ? contractAddress : undefined,
+      contractAddress,
+      positionAccountAddress,
       page,
     },
   });

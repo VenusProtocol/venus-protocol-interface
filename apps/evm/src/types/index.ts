@@ -617,4 +617,22 @@ export enum TxType {
   Repay = 'repay',
   EnterMarket = 'enter_market',
   ExitMarket = 'exit_market',
+  YieldPlusPrincipalSupplied = 'principal_supplied',
+  YieldPlusPrincipalWithdrawn = 'principal_withdrawn',
+  YieldPlusPositionAccountDeployed = 'position_account_deployed',
+  YieldPlusPositionActivated = 'position_activated',
+  YieldPlusPositionOpened = 'position_opened',
+  YieldPlusPositionClosed = 'position_closed',
+}
+
+export interface YieldPlusPosition {
+  chainId: ChainId;
+  positionAccountAddress: Address;
+  dsaVTokenAddress: Address;
+  longVTokenAddress: Address;
+  shortVTokenAddress: Address;
+  leverageFactor: number;
+  unrealizedPnlCents: number;
+  unrealizedPnlPercentage: number;
+  pool: Pool;
 }

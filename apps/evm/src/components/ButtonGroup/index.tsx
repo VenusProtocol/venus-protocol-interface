@@ -21,6 +21,13 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   buttonClassName,
   buttonSize,
 }) => {
+  const handleButtonClick = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    onButtonClick(index);
+  };
+
   return (
     <div
       className={cn(
@@ -35,7 +42,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
       {buttonLabels.map((label, index) => (
         <SecondaryButton
           key={`button-group-button-${label}`}
-          onClick={() => onButtonClick(index)}
+          onClick={e => handleButtonClick(e, index)}
           className={cn(
             'flex-1 border-transparent hover:border-transparent hover:text-white active:bg-blue active:border-blue',
             !fullWidth && 'max-sm:flex-auto',

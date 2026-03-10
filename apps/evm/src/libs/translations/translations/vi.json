@@ -88,13 +88,7 @@
           "all": "Tất cả thị trường"
         },
         "txType": {
-          "all": "Tất cả giao dịch",
-          "borrow": "Vay",
-          "enterMarket": "Bật tài sản thế chấp",
-          "exitMarket": "Tắt tài sản thế chấp",
-          "mint": "Đúc",
-          "redeem": "Rút",
-          "repay": "Hoàn trả"
+          "all": "Tất cả giao dịch"
         }
       },
       "today": "Hôm nay",
@@ -106,7 +100,7 @@
         "borrow": "Vay",
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",
-        "mint": "Đúc",
+        "mint": "Cung cấp",
         "redeem": "Rút",
         "repay": "Hoàn trả"
       },
@@ -761,6 +755,9 @@
         "vai": {
           "description": "Mint stablecoin gốc của Venus.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -2072,5 +2069,67 @@
       "submitButton": "Rút"
     },
     "withdrawTabTitle": "Rút"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Hình minh họa Yield+",
+      "learnMore": "Tìm hiểu thêm",
+      "title": "Yield+ là gì?"
+    },
+    "longLiquidity": "Thanh khoản Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY cung cấp",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "positions": {
+      "closeButtonLabel": "Đóng",
+      "placeholder": {
+        "title": "Chưa có vị thế"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Tài sản thế chấp"
+        },
+        "healthFactor": {
+          "label": "Hệ số an toàn",
+          "tooltip": "Thanh lý tại < 1.0"
+        },
+        "netApy": {
+          "label": "APY ròng"
+        },
+        "netValue": {
+          "label": "Giá trị ròng"
+        },
+        "title": "Trạng thái"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Vị thế"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "Giao dịch"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY vay",
+    "shortLiquidity": "Thanh khoản Short",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
   }
 }

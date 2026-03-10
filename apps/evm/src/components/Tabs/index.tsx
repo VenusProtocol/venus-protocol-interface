@@ -28,7 +28,10 @@ export const Tabs = ({
     initialActiveTabId,
   });
 
-  const handleChange = (index: number) => {
+  const handleChange = (index: number, e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
     const id = tabs[index].id;
     setActiveTab({ id });
 
@@ -59,7 +62,7 @@ export const Tabs = ({
           >
             {tabs.map((tab, index) => (
               <button
-                onClick={() => handleChange(index)}
+                onClick={e => handleChange(index, e)}
                 type="button"
                 key={tab.id}
                 className={cn(
