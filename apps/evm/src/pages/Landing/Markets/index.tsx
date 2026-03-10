@@ -53,19 +53,14 @@ export const Markets: React.FC<MarketsProps> = ({ className }) => {
 
       <MarketTable
         controls={false}
+        rowControl={false}
         selectVariant="quaternary"
         className="border-0 p-0"
         breakpoint="md"
         poolName={pool.name}
         poolComptrollerContractAddress={pool.comptrollerAddress}
         assets={topAssets}
-        columns={[
-          'assetAndChain',
-          'supplyBalance',
-          'labeledSupplyApy',
-          'labeledBorrowApy',
-          'liquidity',
-        ]}
+        columns={['asset', 'supplyBalance', 'labeledSupplyApy', 'labeledBorrowApy', 'liquidity']}
       />
 
       <ButtonWrapper

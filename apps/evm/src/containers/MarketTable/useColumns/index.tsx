@@ -129,20 +129,28 @@ export const useColumns = ({
 
         if (column === 'asset' || column === 'assetAndChain') {
           return (
-            <div className="flex items-center space-x-2">
+            <div className="flex min-w-0 items-center space-x-2">
               <TokenIconWithSymbol
                 token={asset.vToken.underlyingToken}
                 displayChain={column === 'assetAndChain'}
+                size={column === 'assetAndChain' ? 'md' : 'xl'}
+                className="min-w-0"
               />
 
               {userEModeGroup && isInUserEModeGroup && (
                 <Tooltip
                   className="inline-flex items-center"
-                  content={t('marketTable.assetColumn.eMode', {
-                    eModeGroupName: userEModeGroup.name,
-                  })}
+                  content={
+                    userEModeGroup.isIsolated
+                      ? t('marketTable.assetColumn.isolationMode', {
+                          eModeGroupName: userEModeGroup.name,
+                        })
+                      : t('marketTable.assetColumn.eMode', {
+                          eModeGroupName: userEModeGroup.name,
+                        })
+                  }
                 >
-                  <EModeIcon className="w-4 h-4" />
+                  <EModeIcon className="size-5" isIsolated={userEModeGroup.isIsolated} />
                 </Tooltip>
               )}
 
@@ -180,6 +188,7 @@ export const useColumns = ({
 
           return (
             <Toggle
+              className="py-1"
               onChange={() => collateralOnChange(asset)}
               value={
                 asset.isCollateralOfUser && (!userEModeGroup || asset.userCollateralFactor > 0)
@@ -200,6 +209,7 @@ export const useColumns = ({
               topValue={formatTokensToReadableValue({
                 value: asset.cashTokens,
                 token: asset.vToken.underlyingToken,
+                addSymbol: false,
               })}
               bottomValue={formatCentsToReadableValue({
                 value: asset.liquidityCents,
@@ -215,6 +225,7 @@ export const useColumns = ({
               topValue={formatTokensToReadableValue({
                 value: asset.userWalletBalanceTokens,
                 token: asset.vToken.underlyingToken,
+                addSymbol: false,
               })}
               bottomValue={formatCentsToReadableValue({
                 value: asset.userWalletBalanceCents,
@@ -230,6 +241,7 @@ export const useColumns = ({
               topValue={formatTokensToReadableValue({
                 value: asset.userSupplyBalanceTokens,
                 token: asset.vToken.underlyingToken,
+                addSymbol: false,
               })}
               bottomValue={formatCentsToReadableValue({
                 value: asset.userSupplyBalanceCents,
@@ -245,6 +257,7 @@ export const useColumns = ({
               topValue={formatTokensToReadableValue({
                 value: asset.userBorrowBalanceTokens,
                 token: asset.vToken.underlyingToken,
+                addSymbol: false,
               })}
               bottomValue={formatCentsToReadableValue({
                 value: asset.userBorrowBalanceCents,
@@ -260,6 +273,7 @@ export const useColumns = ({
               topValue={formatTokensToReadableValue({
                 value: asset.supplyBalanceTokens,
                 token: asset.vToken.underlyingToken,
+                addSymbol: false,
               })}
               bottomValue={formatCentsToReadableValue({
                 value: asset.supplyBalanceCents,
@@ -275,6 +289,7 @@ export const useColumns = ({
               topValue={formatTokensToReadableValue({
                 value: asset.borrowBalanceTokens,
                 token: asset.vToken.underlyingToken,
+                addSymbol: false,
               })}
               bottomValue={formatCentsToReadableValue({
                 value: asset.borrowBalanceCents,

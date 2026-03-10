@@ -18,7 +18,7 @@ export const HealthFactorUpdate: React.FC<HealthFactorUpdateProps> = ({
 
   return (
     <div className={cn('flex items-center gap-x-3', className)}>
-      <p className="text-grey text-sm">{t('markets.eMode.group.healthFactor')}</p>
+      <p className="text-grey text-sm">{t('markets.tabs.eMode.group.healthFactor')}</p>
 
       <ValueUpdate
         original={<HealthFactorPill factor={healthFactor} />}

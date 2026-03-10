@@ -44,22 +44,31 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   }
 
   if ((action === 'borrow' || action === 'boost') && !asset.isBorrowableByUser) {
+    const components = {
+      Link: (
+        <EModeButton
+          variant="text"
+          className="p-0 h-auto text-blue font-normal"
+          poolComptrollerContractAddress={poolComptrollerAddress}
+          analyticVariant="market_borrow_banner"
+        />
+      ),
+    };
+
     return (
       <NoticeWarning
         description={
-          <Trans
-            i18nKey="assetAccessor.eModeBlockedActionNotice.borrow"
-            components={{
-              Link: (
-                <EModeButton
-                  variant="text"
-                  className="p-0 h-auto text-blue font-normal"
-                  poolComptrollerContractAddress={poolComptrollerAddress}
-                  analyticVariant="market_borrow_banner"
-                />
-              ),
-            }}
-          />
+          pool.userEModeGroup?.isIsolated ? (
+            <Trans
+              i18nKey="assetAccessor.isolationModeBlockedActionNotice.borrow"
+              components={components}
+            />
+          ) : (
+            <Trans
+              i18nKey="assetAccessor.eModeBlockedActionNotice.borrow"
+              components={components}
+            />
+          )
         }
       />
     );

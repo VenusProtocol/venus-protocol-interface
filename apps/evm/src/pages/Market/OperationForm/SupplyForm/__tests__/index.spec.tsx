@@ -281,6 +281,50 @@ describe('SupplyForm', () => {
     });
   });
 
+  it('disables collateral switch when user is in eMode and asset collateral factor is zero', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      userCollateralFactor: 0,
+      isCollateralOfUser: false,
+    };
+
+    const customFakePool = {
+      ...fakePool,
+      userEModeGroup: fakePool.eModeGroups[0],
+    };
+
+    const { getByRole } = renderComponent(
+      <SupplyForm pool={customFakePool} asset={customFakeAsset} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const collateralSwitch = await waitFor(() => getByRole('checkbox'));
+    expect(collateralSwitch).toBeDisabled();
+  });
+
+  it('does not disable collateral switch when user is not in eMode and asset collateral factor is zero', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      userCollateralFactor: 0,
+      isCollateralOfUser: false,
+    };
+
+    const { toggleCollateral } = useCollateral();
+
+    const { getByRole } = renderComponent(<SupplyForm pool={fakePool} asset={customFakeAsset} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const collateralSwitch = await waitFor(() => getByRole('checkbox'));
+    expect(collateralSwitch).not.toBeDisabled();
+
+    fireEvent.click(collateralSwitch);
+
+    await waitFor(() => expect(toggleCollateral).toHaveBeenCalledTimes(1));
+  });
+
   it('updates input value to wallet balance when clicking on max button if supply cap permits it', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,

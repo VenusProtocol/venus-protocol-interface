@@ -417,7 +417,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
       receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
       acknowledgeRisk: false,
     }),
-    [asset],
+    [asset.vToken.underlyingToken],
   );
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -428,6 +428,11 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
       setFormValues(initialFormValues);
     }
   }, [accountAddress, initialFormValues]);
+
+  // Reset form when initial values change, which indicates the base asset was changed
+  useEffect(() => {
+    setFormValues(initialFormValues);
+  }, [initialFormValues]);
 
   const { data: getVTokenBalanceData } = useGetVTokenBalance(
     {

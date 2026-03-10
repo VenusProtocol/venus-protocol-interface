@@ -1,22 +1,20 @@
 import { useState } from 'react';
 
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import type { Asset, EModeGroup } from 'types';
-import { areTokensEqual, isAssetPaused } from 'utilities';
+import type { Asset } from 'types';
+import { isAssetPaused } from 'utilities';
 
 export const useControls = ({
   assets,
   applyUserSettings,
-  userEModeGroup,
 }: {
   assets: Asset[];
   applyUserSettings: boolean;
-  userEModeGroup?: EModeGroup;
 }) => {
-  const [searchValue, setSearchValue] = useState('');
-  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
+  const [searchValue, onSearchValueChange] = useState('');
+  const [userChainSettings] = useUserChainSettings();
 
-  const { showPausedAssets, showUserAssetsOnly, showUserEModeAssetsOnly } = userChainSettings;
+  const { showPausedAssets, showUserAssetsOnly } = userChainSettings;
 
   let pausedAssetsExist = false;
 
@@ -43,15 +41,6 @@ export const useControls = ({
       return;
     }
 
-    // Handle E-mode setting
-    const isInUserEModeGroup = (userEModeGroup?.assetSettings || []).some(a =>
-      areTokensEqual(a.vToken, asset.vToken),
-    );
-
-    if (applyUserSettings && userEModeGroup && !isInUserEModeGroup && showUserEModeAssetsOnly) {
-      return;
-    }
-
     // Handle search
     if (
       !!searchValue &&
@@ -63,24 +52,12 @@ export const useControls = ({
     filteredAssets.push(asset);
   });
 
-  const setShowUserAssetsOnly = (value: boolean) =>
-    setUserChainSettings({ showUserAssetsOnly: value });
-
-  const setShowUserEModeAssetsOnly = (value: boolean) =>
-    setUserChainSettings({ showUserEModeAssetsOnly: value });
-
-  const setShowPausedAssets = (value: boolean) => setUserChainSettings({ showPausedAssets: value });
-
   return {
     assets: filteredAssets,
     searchValue,
-    setShowUserAssetsOnly,
-    setShowPausedAssets,
-    setShowUserEModeAssetsOnly,
-    onSearchValueChange: setSearchValue,
+    onSearchValueChange: onSearchValueChange,
     pausedAssetsExist,
     showPausedAssets,
     showUserAssetsOnly,
-    showUserEModeAssetsOnly,
   };
 };

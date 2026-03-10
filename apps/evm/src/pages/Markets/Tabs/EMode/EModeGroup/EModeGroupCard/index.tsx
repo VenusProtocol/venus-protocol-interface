@@ -1,13 +1,18 @@
-import { Card, Delimiter, type Order } from 'components';
-import type { EModeAssetSettings, EModeGroup, Pool } from 'types';
-import type { BlockingBorrowPosition } from '../../types';
+import { Card, type Order, type TableColumn } from 'components';
+import type { Pool } from 'types';
+import type {
+  BlockingBorrowPosition,
+  ExtendedEModeAssetSettings,
+  ExtendedEModeGroup,
+} from '../../../types';
 import { Header } from '../Header';
 import { Asset } from './Asset';
 
 export interface EModeGroupCardProps {
   pool: Pool;
-  eModeGroup: EModeGroup;
-  order: Order<EModeAssetSettings>;
+  columns: TableColumn<ExtendedEModeAssetSettings>[];
+  eModeGroup: ExtendedEModeGroup;
+  order: Order<ExtendedEModeAssetSettings>;
   userHasEnoughCollateral: boolean;
   userBlockingBorrowPositions: BlockingBorrowPosition[];
   hypotheticalUserHealthFactor: number;
@@ -16,6 +21,7 @@ export interface EModeGroupCardProps {
 
 export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
   eModeGroup,
+  columns,
   pool,
   className,
   userHasEnoughCollateral,
@@ -34,6 +40,7 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
       <Asset
         key={settings.vToken.address}
         eModeAssetSettings={settings}
+        columns={columns}
         isEModeGroupActive={eModeGroup.isActive}
         className="border-lightGrey not-last-of-type:border-b not-last-of-type:pb-4"
         poolComptrollerAddress={pool.comptrollerAddress}
@@ -45,18 +52,14 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
 
   return (
     <Card className={className}>
-      <div className="-mx-4 mb-4">
-        <Header
-          pool={pool}
-          eModeGroup={eModeGroup}
-          userHasEnoughCollateral={userHasEnoughCollateral}
-          userBlockingBorrowPositions={userBlockingBorrowPositions}
-          hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
-          className="px-4 pb-4"
-        />
-
-        <Delimiter />
-      </div>
+      <Header
+        pool={pool}
+        eModeGroup={eModeGroup}
+        userHasEnoughCollateral={userHasEnoughCollateral}
+        userBlockingBorrowPositions={userBlockingBorrowPositions}
+        hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
+        className="mb-4"
+      />
 
       <div className="space-y-4">{listItemsDom}</div>
     </Card>

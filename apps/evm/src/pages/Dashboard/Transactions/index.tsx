@@ -3,8 +3,8 @@ import { Select, type SelectOption, TokenIconWithSymbol } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
-import { useMemo } from 'react';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router';
 import { TxType } from 'types';
 import { TransactionsList } from './TransactionsList';
@@ -20,7 +20,6 @@ const CONTRACT_ADDRESS_PARAM_KEY = 'contractAddress';
 // t('account.transactions.selects.txType.repay')
 // t('account.transactions.selects.txType.borrow')
 // t('account.transactions.selects.txType.redeem')
-// t('account.transactions.selects.txType.approve')
 // t('account.transactions.selects.txType.exitMarket')
 // t('account.transactions.selects.txType.enterMarket')
 
@@ -34,8 +33,6 @@ const getTxTypeOptionTranslationKey = (txType: TxType) => {
       return 'account.transactions.selects.txType.borrow';
     case TxType.Redeem:
       return 'account.transactions.selects.txType.redeem';
-    case TxType.Approve:
-      return 'account.transactions.selects.txType.approve';
     case TxType.ExitMarket:
       return 'account.transactions.selects.txType.exitMarket';
     default:
@@ -45,6 +42,7 @@ const getTxTypeOptionTranslationKey = (txType: TxType) => {
 
 export const Transactions: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { chainId } = useChainId();
 
   const pageStr = searchParams.get(PAGE_PARAM_KEY);
   const pageNumber = pageStr ? Number(pageStr) : FIRST_PAGE;
@@ -60,12 +58,16 @@ export const Transactions: React.FC = () => {
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
       [TX_TYPE_PARAM_KEY]: newTxType,
+      // Reset page
+      [PAGE_PARAM_KEY]: String(FIRST_PAGE),
     }));
 
   const setSelectedContractAddress = (newContractAddress: string) =>
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
       [CONTRACT_ADDRESS_PARAM_KEY]: newContractAddress,
+      // Reset page
+      [PAGE_PARAM_KEY]: String(FIRST_PAGE),
     }));
 
   const setPage = (newPage: string) =>
@@ -73,6 +75,21 @@ export const Transactions: React.FC = () => {
       ...Object.fromEntries(currentSearchParams),
       [PAGE_PARAM_KEY]: newPage,
     }));
+
+  // Reset search params when detecting chain switch.
+  const chainIdRef = useRef(chainId);
+  useEffect(() => {
+    if (chainId !== chainIdRef.current) {
+      setSearchParams(currentSearchParams => ({
+        ...Object.fromEntries(currentSearchParams),
+        [TX_TYPE_PARAM_KEY]: ALL_OPTION_VALUE,
+        [CONTRACT_ADDRESS_PARAM_KEY]: ALL_OPTION_VALUE,
+        [PAGE_PARAM_KEY]: ALL_OPTION_VALUE,
+      }));
+
+      chainIdRef.current = chainId;
+    }
+  }, [chainId, setSearchParams]);
 
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
@@ -98,7 +115,7 @@ export const Transactions: React.FC = () => {
   const txTypeSelectOptions = useMemo(() => {
     const allOption: SelectOption<string> = {
       label: t('account.transactions.selects.txType.all'),
-      value: 'all',
+      value: ALL_OPTION_VALUE,
     };
 
     const otherOptions: SelectOption<string>[] = [];
@@ -152,34 +169,48 @@ export const Transactions: React.FC = () => {
     return [allOption, ...otherOptions];
   }, [t, poolData]);
 
+  // Reset contract address filter if the value in the URL is incorrect
+  useEffect(() => {
+    if (!sourceSelectOptions.find(option => option.value === selectedContractAddress)) {
+      setSearchParams(currentSearchParams => {
+        currentSearchParams.delete(CONTRACT_ADDRESS_PARAM_KEY);
+
+        return Object.fromEntries(currentSearchParams);
+      });
+    }
+  }, [selectedContractAddress, sourceSelectOptions, setSearchParams]);
+
   return (
     <div className="grid grid-cols-1 gap-4">
-      <div className="flex flex-row gap-3 md:gap-4">
-        <Select
-          className="flex-1 md:flex-none"
-          size="small"
-          variant="tertiary"
-          placeLabelToLeft
-          options={txTypeSelectOptions}
-          optionClassName="px-3 h-10 scrollbar-track-cards"
-          dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-          buttonClassName="min-w-45"
-          value={txTypeStr}
-          onChange={newValue => setTxType(newValue.toString())}
-        />
-        <Select
-          className="flex-1 md:flex-none"
-          size="small"
-          variant="tertiary"
-          placeLabelToLeft
-          options={sourceSelectOptions}
-          optionClassName="px-3 h-10 scrollbar-track-cards"
-          dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-          buttonClassName="min-w-45"
-          value={selectedContractAddress}
-          onChange={newValue => setSelectedContractAddress(newValue.toString())}
-        />
-      </div>
+      {accountAddress && (
+        <div className="flex flex-row gap-3 md:gap-4">
+          <Select
+            className="flex-1 md:flex-none"
+            size="small"
+            variant="tertiary"
+            placeLabelToLeft
+            options={txTypeSelectOptions}
+            optionClassName="px-3 h-10 scrollbar-track-cards"
+            dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
+            buttonClassName="min-w-1/2 sm:min-w-45"
+            value={txTypeStr}
+            onChange={newValue => setTxType(newValue.toString())}
+          />
+
+          <Select
+            className="flex-1 md:flex-none"
+            size="small"
+            variant="tertiary"
+            placeLabelToLeft
+            options={sourceSelectOptions}
+            optionClassName="px-3 h-10 scrollbar-track-cards"
+            dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey sm:min-w-68"
+            buttonClassName="m-w-1/2 sm:min-w-45"
+            value={selectedContractAddress}
+            onChange={newValue => setSelectedContractAddress(newValue.toString())}
+          />
+        </div>
+      )}
 
       <TransactionsList
         transactions={historicalTxsData?.transactions || []}

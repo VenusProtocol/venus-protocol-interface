@@ -1,7 +1,9 @@
 import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
+import type { CSSProperties } from 'react';
+import type { To } from 'react-router';
+
 import type { CardProps } from 'components/Card';
 import type { SelectProps } from 'components/Select';
-import type { CSSProperties } from 'react';
 
 export interface TableColumn<R> {
   key: string;
@@ -18,7 +20,6 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   columns: TableColumn<R>[];
   breakpoint?: keyof (typeof BREAKPOINTS)['values'];
   cardColumns?: TableColumn<R>[];
-  showMobileFilter?: boolean;
   minWidth?: string;
   initialOrder?: {
     orderBy: TableColumn<R>;
@@ -28,12 +29,15 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   className?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
-  getRowHref?: (row: R) => string;
+  rowControlOnClick?: (e: React.MouseEvent<HTMLButtonElement>, row: R) => void;
+  getRowHref?: (row: R) => To;
+  variant?: 'primary' | 'secondary';
   title?: React.ReactNode | string;
   header?: React.ReactNode;
   placeholder?: React.ReactNode;
   selectVariant?: SelectProps['variant'];
   cellHeight?: CSSProperties['height'];
+  size?: 'sm' | 'md';
   controls?: boolean;
 }
 
@@ -44,12 +48,13 @@ export interface TableCardProps<R>
     | 'data'
     | 'rowKeyExtractor'
     | 'rowOnClick'
+    | 'rowControlOnClick'
     | 'getRowHref'
     | 'breakpoint'
     | 'columns'
     | 'isFetching'
     | 'selectVariant'
-    | 'showMobileFilter'
+    | 'controls'
   > {
   order: Order<R> | undefined;
   onOrderChange: (newOrder: Order<R>) => void;

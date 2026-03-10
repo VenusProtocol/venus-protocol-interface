@@ -12,6 +12,9 @@ import { MarketTable } from '../index';
 import type { ColumnKey } from '../types';
 
 vi.mock('hooks/useCollateral');
+vi.mock('pages/Market/OperationForm', () => ({
+  OperationForm: () => <div data-testid="operation-form">Operation form</div>,
+}));
 
 const columns: ColumnKey[] = ['asset', 'supplyApy', 'borrowApy', 'collateral', 'userWalletBalance'];
 
@@ -50,7 +53,7 @@ describe('MarketTable', () => {
       />,
     );
 
-    expect(screen.queryByPlaceholderText(en.marketTable.searchInput.placeholder)).toBeNull();
+    expect(screen.queryByPlaceholderText(en.marketTable.search.placeholder)).toBeNull();
   });
 
   it('filters by search input', () => {
@@ -64,7 +67,7 @@ describe('MarketTable', () => {
       />,
     );
 
-    const searchInput = screen.getByPlaceholderText(en.marketTable.searchInput.placeholder);
+    const searchInput = screen.getByPlaceholderText(en.marketTable.search.placeholder);
 
     fireEvent.change(searchInput, { target: { value: 'busd' } });
 
@@ -82,7 +85,7 @@ describe('MarketTable', () => {
       />,
     );
 
-    expect(screen.getByText(en.marketTable.pausedAssetsToggle.label)).toBeInTheDocument();
+    expect(screen.getByText(en.controls.pausedAssetsToggle.label)).toBeInTheDocument();
 
     // Check empty state is displayed
     expect(screen.getByText(en.marketTable.pausedAssetsPlaceholder.title)).toBeInTheDocument();
@@ -148,12 +151,12 @@ describe('MarketTable', () => {
       },
     );
 
-    expect(screen.getByText(en.marketTable.userAssetsOnlyToggle.label)).toBeInTheDocument();
+    expect(screen.getByText(en.controls.userAssetsOnlyToggle.label)).toBeInTheDocument();
 
     expect(container.textContent).toMatchSnapshot();
 
     // Check switching off toggle calls callback correctly
-    const [_, userAssetsOnlyToggle] = screen.getAllByRole('checkbox');
+    const [userAssetsOnlyToggle] = screen.getAllByRole('checkbox');
 
     fireEvent.click(userAssetsOnlyToggle);
 
@@ -161,5 +164,26 @@ describe('MarketTable', () => {
     expect(mockSetUserChainSettings).toHaveBeenCalledWith({
       showUserAssetsOnly: !fakeUserChainSettings.showUserAssetsOnly,
     });
+  });
+
+  it('opens operation modal when clicking on row control button', async () => {
+    const { container } = renderComponent(
+      <MarketTable
+        assets={poolData[0].assets}
+        poolName={poolData[0].name}
+        poolComptrollerContractAddress={poolData[0].comptrollerAddress}
+        columns={columns}
+        marketType="supply"
+      />,
+    );
+
+    expect(screen.queryByTestId('operation-form')).toBeNull();
+
+    const rowControlButton = container.querySelector('tbody button');
+    expect(rowControlButton).not.toBeNull();
+
+    fireEvent.click(rowControlButton as HTMLButtonElement);
+
+    expect(await screen.findByTestId('operation-form')).toBeInTheDocument();
   });
 });

@@ -1,6 +1,13 @@
-import { TertiaryButton, cn } from '@venusprotocol/ui';
+import { cn } from '@venusprotocol/ui';
 
-import { Icon, LabeledInlineContent, Modal, TextField, type TextFieldProps } from 'components';
+import {
+  ButtonGroup,
+  Icon,
+  LabeledInlineContent,
+  Modal,
+  TextField,
+  type TextFieldProps,
+} from 'components';
 import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -115,27 +122,20 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
           <form className="space-y-6" onSubmit={closeSlippageToleranceModal}>
             <p className="text-grey">{t('swapDetails.slippageToleranceModal.description')}</p>
 
-            <div className="flex items-center justify-between gap-x-3">
-              <div className="flex items-center gap-x-2 px-2 w-full max-w-75 border border-lightGrey bg-background rounded-xl h-14">
-                {slippageToleranceOptions.map(value => (
-                  <TertiaryButton
-                    key={value}
-                    className={cn(
-                      'flex-1 bg-transparent border-transparent text-grey hover:bg-lightGrey px-3 hover:border-lightGrey hover:text-white active:bg-lightGrey active:border-lightGrey',
-                      Number(value) === Number(userSlippageTolerancePercentage) &&
-                        'bg-lightGrey text-white',
-                    )}
-                    onClick={() =>
-                      handleSlippageToleranceModalFieldChange({
-                        value,
-                      })
-                    }
-                    size="sm"
-                  >
-                    {formatPercentageToReadableValue(value)}
-                  </TertiaryButton>
-                ))}
-              </div>
+            <div className="flex items-center justify-between gap-x-4">
+              <ButtonGroup
+                buttonLabels={slippageToleranceOptions.map(formatPercentageToReadableValue)}
+                activeButtonIndex={slippageToleranceOptions.findIndex(
+                  value => Number(value) === Number(userSlippageTolerancePercentage),
+                )}
+                onButtonClick={index =>
+                  handleSlippageToleranceModalFieldChange({
+                    value: slippageToleranceOptions[index],
+                  })
+                }
+                className="grow"
+                buttonClassName="px-0 max-w-90"
+              />
 
               <TextField
                 placeholder={String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE)}
@@ -145,8 +145,8 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                 value={userChainSettings.slippageTolerancePercentage}
                 onChange={handlePriceImpactFieldChange}
                 type="number"
-                className="w-25"
-                inputContainerClassName="h-14"
+                className="w-25 shrink-0"
+                inputContainerClassName="h-12"
                 autoFocus
               />
             </div>

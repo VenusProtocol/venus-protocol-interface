@@ -42,7 +42,7 @@ export const useStyles = () => {
         margin-right: ${theme.spacing(2)};
       }
 
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('sm')} {
         justify-content: flex-start;
       }
     `,

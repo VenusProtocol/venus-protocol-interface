@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { type FormatTokensToReadableValueInput, formatTokensToReadableValue } from 'utilities';
 
 export type UseFormatTokensToReadableValueInput = FormatTokensToReadableValueInput;

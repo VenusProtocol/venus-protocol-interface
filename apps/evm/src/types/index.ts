@@ -120,6 +120,7 @@ export interface PointDistribution {
 export interface Asset {
   vToken: VToken;
   tokenPriceCents: BigNumber;
+  tokenPriceOracleAddress: Address;
   isBorrowable: boolean;
   reserveFactor: number;
   collateralFactor: number;
@@ -616,5 +617,4 @@ export enum TxType {
   Repay = 'repay',
   EnterMarket = 'enter_market',
   ExitMarket = 'exit_market',
-  Approve = 'approve',
 }
