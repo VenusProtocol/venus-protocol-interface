@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 4.16.0
+
+### Minor Changes
+
+- cbe6ad4: dashboard ui updates
+- cbe6ad4: refactor Markets page header
+- cbe6ad4: add Isolated and E-mode tabs to Market page
+
+### Patch Changes
+
+- Updated dependencies [cbe6ad4]
+  - @venusprotocol/ui@0.9.0
+
 ## 4.15.0
 
 ### Minor Changes
