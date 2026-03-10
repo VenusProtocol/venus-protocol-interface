@@ -10,7 +10,7 @@ import { TokenTextField } from '.';
 const ONE_XVS = '1';
 const testId = 'token-text-field-input';
 
-describe('components/TokenTextField', () => {
+describe('TokenTextField', () => {
   it('renders without crashing', async () => {
     renderComponent(<TokenTextField token={xvs} onChange={noop} value="" />);
   });

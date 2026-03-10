@@ -1,9 +1,9 @@
 import { cn } from '@venusprotocol/ui';
 import { type InputHTMLAttributes, forwardRef } from 'react';
 
+import { Icon, type IconName } from 'components/Icon';
+import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import type { Token } from 'types';
-import { Icon, type IconName } from '../Icon';
-import { TokenIcon } from '../TokenIcon';
 
 export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   ref?: React.Ref<HTMLInputElement>;
@@ -13,7 +13,9 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   description?: string | React.ReactElement;
   hasError?: boolean;
   leftIconSrc?: IconName | Token;
+  leftAdornment?: React.ReactElement;
   rightAdornment?: React.ReactElement;
+  topRightAdornment?: React.ReactElement;
   size?: 'xs' | 'md';
   variant?: 'primary' | 'secondary';
 }
@@ -27,7 +29,9 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
       description,
       hasError = false,
       leftIconSrc,
+      leftAdornment,
       rightAdornment,
+      topRightAdornment,
       onChange,
       max,
       min,
@@ -64,19 +68,25 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
       }
     };
 
-    const leftIconClassNames = cn('mr-2 mt-0', size === 'md' ? 'size-6' : 'size-5');
-
     return (
-      <div className={className}>
-        {!!label && (
-          <label className="text-sm text-grey block mb-1" htmlFor={inputProps.id}>
-            {label}
-          </label>
+      <div className={cn('flex flex-col gap-y-2', className)}>
+        {(!!label || topRightAdornment) && (
+          <div className="flex items-center justify-between">
+            {!!label && (
+              <label className="text-b1r text-light-grey block" htmlFor={inputProps.id}>
+                {label}
+              </label>
+            )}
+
+            {topRightAdornment && <div className="ml-auto">{topRightAdornment}</div>}
+          </div>
         )}
 
         <div
           className={cn(
-            'flex items-center h-14 pr-2 pl-4 py-2 border border-lightGrey rounded-xl bg-background transition-[border-color] hover:border-white focus-within:border-blue focus-within:hover:border-blue',
+            'flex items-center justify-between gap-x-4 h-14 p-4 border border-dark-blue-hover rounded-xl bg-dark-blue transition-[border-color] focus-within:border-blue focus-within:hover:border-blue',
+            rightAdornment && 'pr-2',
+            leftAdornment && !leftIconSrc && 'pl-2',
             size === 'xs' && 'h-10 py-1 rounded-lg',
             disabled && 'border-lightGrey bg-cards',
             hasError && 'border-red focus-within:border-red focus-within:hover:border-red',
@@ -85,30 +95,36 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
             inputContainerClassName,
           )}
         >
-          {typeof leftIconSrc === 'string' && (
-            <Icon name={leftIconSrc} className={leftIconClassNames} />
+          {(!!leftIconSrc || leftAdornment) && (
+            <div className="flex items-center gap-x-2 shrink-0">
+              {typeof leftIconSrc === 'string' && <Icon name={leftIconSrc} className="size-5" />}
+
+              {!!leftIconSrc && typeof leftIconSrc !== 'string' && (
+                <TokenIconWithSymbol token={leftIconSrc} size="md" />
+              )}
+
+              {leftAdornment}
+            </div>
           )}
 
-          {!!leftIconSrc && typeof leftIconSrc !== 'string' && (
-            <TokenIcon token={leftIconSrc} className={leftIconClassNames} />
-          )}
+          <div className="flex grow items-center gap-x-2">
+            <input
+              className={cn(
+                'bg-transparent w-full h-full font-semibold leading-6 placeholder:text-grey outline-hidden',
+                type === 'number' && 'text-right',
+                size === 'xs' && 'text-sm',
+              )}
+              max={max}
+              min={min}
+              onChange={handleChange}
+              type={type}
+              disabled={disabled}
+              ref={ref}
+              {...inputProps}
+            />
 
-          <input
-            className={cn(
-              'bg-transparent flex-1 h-full font-semibold leading-6 w-full placeholder:text-grey outline-hidden',
-              !!rightAdornment && 'mr-1',
-              size === 'xs' && 'text-sm',
-            )}
-            max={max}
-            min={min}
-            onChange={handleChange}
-            type={type}
-            disabled={disabled}
-            ref={ref}
-            {...inputProps}
-          />
-
-          {rightAdornment}
+            {rightAdornment && <div className="shrink-0">{rightAdornment}</div>}
+          </div>
         </div>
 
         {!!description && <div className="block mt-1 text-grey text-sm">{description}</div>}

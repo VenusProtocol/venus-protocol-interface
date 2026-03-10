@@ -1571,6 +1571,9 @@
       "label": "Sắp xếp theo"
     }
   },
+  "tokenTextField": {
+    "valueDollars": "≈ {{ value }}"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Chấp nhận Admin Đang chờ Kiểm tra",
     "acceptPendingImplementationAddressCheck": "Chấp nhận địa chỉ triển khai đang chờ Kiểm tra",

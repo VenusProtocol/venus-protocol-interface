@@ -28,7 +28,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { BalanceMutation } from 'types';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import { convertTokensToMantissa } from 'utilities/convertTokensToMantissa';
-import { formatPercentageToReadableValue } from 'utilities/formatPercentageToReadableValue';
+import formatPercentageToReadableValue from 'utilities/formatPercentageToReadableValue';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';

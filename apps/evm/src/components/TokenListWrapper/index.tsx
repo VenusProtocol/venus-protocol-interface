@@ -140,11 +140,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                     })
                   }
                 >
-                  <TokenIconWithSymbol
-                    className="font-semibold text-sm"
-                    tokenIconClassName="size-5"
-                    token={tokenBalance.token}
-                  />
+                  <TokenIconWithSymbol token={tokenBalance.token} />
 
                   {tokenBalance.balanceMantissa && (
                     <Typography variant="small2" className="text-white">
