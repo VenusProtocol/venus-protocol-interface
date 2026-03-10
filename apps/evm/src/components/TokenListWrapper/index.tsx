@@ -21,6 +21,7 @@ export interface TokenListWrapperProps {
   onClose: () => void;
   isListShown: boolean;
   selectedToken: Token;
+  className?: string;
   displayCommonTokenButtons?: boolean;
   'data-testid'?: string;
 }
@@ -35,6 +36,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
   isListShown,
   selectedToken,
   displayCommonTokenButtons = true,
+  className,
   'data-testid': testId,
 }) => {
   const { t } = useTranslation();
@@ -88,7 +90,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
   }, [sortedTokenBalances, searchValue]);
 
   return (
-    <div>
+    <div className={className}>
       {children}
 
       {isListShown && (
