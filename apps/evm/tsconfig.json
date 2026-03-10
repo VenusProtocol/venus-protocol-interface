@@ -4,5 +4,6 @@
     "rootDir": ".",
     "baseUrl": "./src",
     "types": ["vitest/globals"]
-  }
+  },
+  "exclude": ["coverage", "storybook-static", "dist", "node_modules"]
 }

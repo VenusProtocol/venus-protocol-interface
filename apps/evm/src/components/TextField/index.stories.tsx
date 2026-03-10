@@ -1,8 +1,5 @@
 import type { Meta } from '@storybook/react';
-
-import { xvs } from '__mocks__/models/tokens';
-
-import { Button } from 'components';
+import { ChainId, tokens } from '@venusprotocol/chains';
 
 import { TextField } from '.';
 
@@ -22,11 +19,29 @@ export const WithDescription = () => (
 export const WithXsSize = () => <TextField placeholder="0.0" type="number" min={0} size="xs" />;
 
 export const WithLeftIcon = () => (
-  <TextField leftIconSrc={xvs} placeholder="0.0" type="number" min={0} />
+  <TextField leftIconSrc="attention" placeholder="0.0" type="number" min={0} />
+);
+
+export const WithLeftTokenIcon = () => (
+  <TextField leftIconSrc={tokens[ChainId.BSC_TESTNET][0]} placeholder="0.0" type="number" min={0} />
 );
 
 export const WithRightAdornment = () => (
-  <TextField rightAdornment={<Button>Safe max</Button>} placeholder="0.0" type="number" min={0} />
+  <TextField
+    rightAdornment={<button type="button">Safe max</button>}
+    placeholder="0.0"
+    type="number"
+    min={0}
+  />
+);
+
+export const WithTopRightAdornment = () => (
+  <TextField
+    topRightAdornment={<button type="button">Max</button>}
+    placeholder="0.0"
+    type="number"
+    min={0}
+  />
 );
 
 export const WithHasError = () => (

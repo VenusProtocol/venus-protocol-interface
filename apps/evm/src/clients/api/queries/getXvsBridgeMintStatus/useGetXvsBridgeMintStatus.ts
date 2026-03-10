@@ -4,7 +4,8 @@ import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { ChainId } from 'types';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import callOrThrow from 'utilities/callOrThrow';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import { type GetXvsMintStatusOutput, getXvsBridgeMintStatus } from '.';
 
 interface UseGetXvsBridgeMintStatusInput {

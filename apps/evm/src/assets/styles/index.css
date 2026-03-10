@@ -44,21 +44,6 @@
   input {
     color: inherit;
 
-    &::-webkit-input-placeholder {
-      /* Chrome/Opera/Safari */
-      padding-right: 22px;
-    }
-
-    &::-moz-placeholder {
-      /* Firefox 19+ */
-      padding-right: 22px;
-    }
-
-    &:-moz-placeholder {
-      /* Firefox 18- */
-      padding-right: 22px;
-    }
-
     /* Hide arrows from input number */
     /* Chrome, Safari, Edge, Opera */
     &::-webkit-outer-spin-button,

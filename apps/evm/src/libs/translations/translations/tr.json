@@ -1571,6 +1571,9 @@
       "label": "Sırala"
     }
   },
+  "tokenTextField": {
+    "valueDollars": "≈ {{ value }}"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Yönetici Kabulü (Bekleyen Yönetici) Kontrolü",
     "acceptPendingImplementationAddressCheck": "Bekleyen Uygulama Adresi Kabul Kontrolü",

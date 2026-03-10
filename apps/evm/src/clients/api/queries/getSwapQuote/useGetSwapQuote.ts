@@ -4,7 +4,8 @@ import FunctionKey from 'constants/functionKey';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
 import type { SwapQuoteError } from 'types';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import callOrThrow from 'utilities/callOrThrow';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import {
   type GetApproximateOutSwapQuoteInput,
   type GetExactInSwapQuoteInput,

@@ -1571,6 +1571,9 @@
       "label": "排序"
     }
   },
+  "tokenTextField": {
+    "valueDollars": "≈ {{ value }}"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "接受管理員待定檢查",
     "acceptPendingImplementationAddressCheck": "接受待定實現地址檢查",
