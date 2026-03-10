@@ -71,7 +71,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
     <>
       {/* Desktop view */}
       {!isMobile ? (
-        <div css={[styles.desktopContainer]}>
+        <div className="flex flex-col gap-6 xl:grid xl:grid-cols-2">
           <MarketTable
             {...marketTableProps.supply}
             title={t('account.marketBreakdown.tables.supplyTableTitle')}

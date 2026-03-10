@@ -5,15 +5,6 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    desktopContainer: css`
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: ${theme.spacing(6)};
-
-      ${theme.breakpoints.down('lg')} {
-        grid-template-columns: 1fr;
-      }
-    `,
     tabletContainer: css`
       padding-left: 0;
       padding-right: 0;
