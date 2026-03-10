@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.17.0
+
+### Minor Changes
+
+- 6049310: refactor input components
+
 ## 4.16.0
 
 ### Minor Changes
