@@ -2,13 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 
 import { useGetPrimeStatus } from 'clients/api';
-import {
-  Card,
-  LabeledInlineContent,
-  NoticeWarning,
-  TokenIcon,
-  TokenIconWithSymbol,
-} from 'components';
+import { Card, LabeledInlineContent, NoticeWarning, TokenIconWithSymbol } from 'components';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
@@ -25,6 +19,7 @@ import {
 import { StatusLabel } from 'components/StatusLabel';
 import { NULL_ADDRESS } from 'constants/address';
 import type { ActiveModal } from '../VaultModals';
+import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
 import TEST_IDS from '../testIds';
 
 export interface VaultProps {
@@ -54,10 +49,13 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
     addSymbol: false,
   });
 
+  const {
+    data: { dailyEmissionUsdCents, totalStakedUsdCents },
+  } = useVaultUsdValues(vault);
+
   const isPaused = vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade;
 
   const canWithdraw = vault.userStakedMantissa?.gt(0);
-
   const handleWithdraw = (e: React.MouseEvent<HTMLDivElement>) => {
     if (canWithdraw) {
       e.stopPropagation();
@@ -78,7 +76,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
         onClick={() => onClick?.(vault, 'stake')}
       >
         {/* Card body */}
-        <div className={cn('bg-dark-blue p-4 sm:p-6 flex flex-col gap-4 sm:gap-6 flex-1')}>
+        <div className={cn('bg-dark-blue p-3 sm:p-6 flex flex-col gap-4 sm:gap-6 flex-1')}>
           {/* Header */}
           <div className={cn('flex items-center justify-between')}>
             <div className={cn('flex items-center gap-x-3')}>
@@ -97,7 +95,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
               )}
             </div>
 
-            <StatusLabel variant="primary">{t('vault.card.status.active')}</StatusLabel>
+            <StatusLabel variant="primary">{t('vault.filter.active')}</StatusLabel>
           </div>
 
           {/* Stats */}
@@ -120,7 +118,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
                 </div>
                 <div className="text-light-grey">
                   {formatCentsToReadableValue({
-                    value: vault.dailyEmissionUsdCents,
+                    value: dailyEmissionUsdCents,
                   })}
                 </div>
               </div>
@@ -138,7 +136,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
                 </div>
                 <div className="text-light-grey">
                   {formatCentsToReadableValue({
-                    value: vault.totalStakedUsdCents,
+                    value: totalStakedUsdCents,
                   })}
                 </div>
               </div>

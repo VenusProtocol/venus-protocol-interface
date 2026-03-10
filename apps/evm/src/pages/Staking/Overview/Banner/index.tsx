@@ -1,5 +1,6 @@
 import { PrimaryButton, cn } from '@venusprotocol/ui';
 import type { ActiveModal } from 'containers/Vault';
+import { useVaultUsdValues } from 'containers/Vault/hooks/useVaultUsdValues';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
@@ -14,7 +15,10 @@ export interface BannerProps {
 export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className }) => {
   const { t, Trans } = useTranslation();
 
-  const { stakingAprPercentage, stakedToken, dailyEmissionUsdCents, userStakedUsdCents } = vault;
+  const { stakingAprPercentage, stakedToken } = vault;
+  const {
+    data: { dailyEmissionUsdCents, userStakedUsdCents },
+  } = useVaultUsdValues(vault);
 
   const onEarnClick = () => {
     onOpenModal?.(vault, 'stake');

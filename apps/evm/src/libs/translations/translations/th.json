@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "ตลาด",
       "settings": "การตั้งค่า",
-      "staking": "สเตคกิ้ง",
-      "transactions": "ธุรกรรม"
+      "transactions": "ธุรกรรม",
+      "vaults": "คลัง"
     },
     "transactions": {
       "date": {
@@ -776,7 +776,7 @@
         }
       },
       "vaults": {
-        "label": "Vault"
+        "label": "คลัง"
       },
       "venusLogoAlt": "โลโก้ Venus"
     },
@@ -1803,12 +1803,9 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนเงินที่รอดำเนินการให้เสร็จสิ้นก่อนจึงจะสามารถโต้ตอบกับ vault นี้ได้",
       "currentStaked": "สเตคอยู่ในปัจจุบัน",
-      "dailyEmission": "การปล่อยรายวัน",
-      "manager": "ผู้จัดการ",
+      "dailyEmission": "รางวัลรายวัน",
+      "manager": "ผู้ดูแล",
       "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การสเตค และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
-      "status": {
-        "active": "ใช้งานอยู่"
-      },
       "totalDeposited": "ยอดฝากทั้งหมด",
       "totalStaked": "ยอดฝากทั้งหมด",
       "venusManager": "Venus",
@@ -1817,22 +1814,22 @@
     "filter": {
       "active": "ใช้งานอยู่",
       "allCategories": "ทุกหมวดหมู่",
+      "allManagers": "ผู้ดูแลทั้งหมด",
+      "allStates": "ทุกสถานะ",
       "claim": "อ้างสิทธิ์",
       "deposit": "ฝากเงิน",
       "earning": "กำลังรับรายได้",
       "inputPlaceholder": "ค้นหาสินทรัพย์หรือตลาด",
-      "manager": "ผู้จัดการ",
       "refund": "คืนเงิน",
       "repaying": "กำลังชำระคืน",
       "stables": "สกุลเงินที่มั่นคง",
-      "state": "สถานะ",
-      "vaults": "Vault"
+      "vaults": "คลัง"
     },
     "overview": {
-      "bannerTitle": "รับ APY มากกว่า <strong>{{apyPercentage}}</strong> กับ <strong>{{tokenDashMarket}}</strong>",
-      "dailyEmission": "การปล่อยรายวัน",
+      "bannerTitle": "สเตค <strong>{{tokenDashMarket}}</strong> เพื่อรับ APY มากกว่า <strong>{{apyPercentage}}</strong>",
+      "dailyEmission": "รางวัลรายวัน",
       "description": "เพิ่มรายได้คริปโตของคุณสูงสุดและค้นพบรางวัลที่ซ่อนอยู่กับ Venus Yield Vault ลดความซับซ้อนในการลงทุน DeFi และขยายพอร์ตโฟลิโอของคุณได้อย่างง่ายดาย",
-      "earningNow": "กำลังรับรายได้",
+      "earningNow": "สเตคเลย",
       "highestApr": "APR สูงสุด",
       "title": "Venus Vault",
       "totalStaked": "ยอดสเตคทั้งหมด",

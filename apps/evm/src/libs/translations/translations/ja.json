@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "マーケット",
       "settings": "設定",
-      "staking": "ステーキング",
-      "transactions": "取引"
+      "transactions": "取引",
+      "vaults": "ボールト"
     },
     "transactions": {
       "date": {
@@ -1803,12 +1803,9 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
       "currentStaked": "現在のステーク量",
-      "dailyEmission": "日次排出量",
-      "manager": "マネージャー",
+      "dailyEmission": "日次報酬配布",
+      "manager": "運用機関",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、ステーキング、引き出しは無効になっています。",
-      "status": {
-        "active": "アクティブ"
-      },
       "totalDeposited": "総預金額",
       "totalStaked": "総預金額",
       "venusManager": "Venus",
@@ -1817,22 +1814,22 @@
     "filter": {
       "active": "アクティブ",
       "allCategories": "全カテゴリ",
+      "allManagers": "全運用機関",
+      "allStates": "全ステータス",
       "claim": "請求",
       "deposit": "預け入れ",
       "earning": "獲得中",
       "inputPlaceholder": "資産またはマーケットを検索",
-      "manager": "マネージャー",
       "refund": "返金",
       "repaying": "返済中",
       "stables": "ステーブルコイン",
-      "state": "状態",
       "vaults": "ボールト"
     },
     "overview": {
-      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> で <strong>{{apyPercentage}}</strong> 以上の APY を享受",
-      "dailyEmission": "日次排出量",
+      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> をステークして <strong>{{apyPercentage}}</strong> 以上の APY を享受",
+      "dailyEmission": "日次報酬配布",
       "description": "Venus Yield Vault で暗号資産の収益を最大化し、隠れた報酬を発見しましょう。DeFi 投資を簡素化し、ポートフォリオを楽に成長させましょう。",
-      "earningNow": "獲得中",
+      "earningNow": "今すぐステーク",
       "highestApr": "最高 APR",
       "title": "Venus Vault",
       "totalStaked": "総ステーク量",

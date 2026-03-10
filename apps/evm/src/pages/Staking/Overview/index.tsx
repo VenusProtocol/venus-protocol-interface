@@ -1,32 +1,56 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
+import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenUsdPrice/useGetTokenListUsdPrice';
 import { Delimiter } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import type { ActiveModal } from 'containers/Vault';
+import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
-import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import {
+  areTokensEqual,
+  convertPriceMantissaToDollars,
+  formatCentsToReadableValue,
+  formatPercentageToReadableValue,
+} from 'utilities';
 import { Banner } from './Banner';
 
 export interface OverviewProps {
-  totalStakedUsdCents?: BigNumber;
-  totalVault: number;
-  highestApr: number;
-  featuredVault: Vault;
+  vaults: Vault[];
   onOpenModal?: (vault: Vault, activeModal: ActiveModal) => void;
   className?: string;
 }
 
-export const Overview: React.FC<OverviewProps> = ({
-  totalStakedUsdCents,
-  totalVault,
-  highestApr,
-  featuredVault,
-  onOpenModal,
-  className,
-}) => {
+export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, className }) => {
   const { t } = useTranslation();
+
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
+  const vaultWithHighestApr = (vaults ?? []).sort(
+    (a, b) => b.stakingAprPercentage - a.stakingAprPercentage,
+  )[0];
+
+  const featuredVault =
+    (vaults ?? []).find(vault => xvs && areTokensEqual(vault.stakedToken, xvs)) ??
+    vaultWithHighestApr;
+
+  const totalVault = (vaults ?? []).length;
+
+  const stakedTokenPriceResults = useGetTokenListUsdPrice({
+    tokens: (vaults ?? []).map(vault => vault.stakedToken),
+  });
+
+  const totalStakedUsdCents = stakedTokenPriceResults.reduce((accu, curr, index) => {
+    return accu.plus(
+      convertPriceMantissaToDollars({
+        priceMantissa: vaults[index]?.totalStakedMantissa?.times(curr.data?.tokenPriceUsd ?? 0),
+        decimals: vaults[index]?.stakedToken?.decimals,
+      }).shiftedBy(2),
+    );
+  }, BigNumber(0));
 
   return (
     <div className={cn('flex flex-col gap-6 lg:gap-12 lg:flex-row lg:items-start', className)}>
@@ -55,8 +79,8 @@ export const Overview: React.FC<OverviewProps> = ({
           <div className="flex flex-col gap-1">
             <span className="text-b1r text-grey">{t('vault.overview.highestApr')}</span>
             <span className="text-b1s">
-              {highestApr !== undefined
-                ? formatPercentageToReadableValue(highestApr)
+              {vaultWithHighestApr !== undefined
+                ? formatPercentageToReadableValue(vaultWithHighestApr.stakingAprPercentage)
                 : PLACEHOLDER_KEY}
             </span>
           </div>

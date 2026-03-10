@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "Piyasalar",
       "settings": "Ayarlar",
-      "staking": "Staking",
-      "transactions": "İşlemler"
+      "transactions": "İşlemler",
+      "vaults": "Kasalar"
     },
     "transactions": {
       "date": {
@@ -1803,12 +1803,9 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bu kasayla etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekmektedir.",
       "currentStaked": "Mevcut stake",
-      "dailyEmission": "Günlük emisyon",
-      "manager": "Yönetici",
+      "dailyEmission": "Günlük ödül dağıtımı",
+      "manager": "Yönetici kurum",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, stake ve çekim işlemleri devre dışı bırakılmıştır.",
-      "status": {
-        "active": "Aktif"
-      },
       "totalDeposited": "Toplam yatırılan",
       "totalStaked": "Toplam yatırılan",
       "venusManager": "Venus",
@@ -1817,22 +1814,22 @@
     "filter": {
       "active": "Aktif",
       "allCategories": "Tüm kategoriler",
+      "allManagers": "Tüm yönetici kurumlar",
+      "allStates": "Tüm durumlar",
       "claim": "Talep et",
       "deposit": "Yatır",
       "earning": "Kazanıyor",
       "inputPlaceholder": "Varlık veya piyasa ara",
-      "manager": "Yönetici",
       "refund": "İade",
       "repaying": "Geri ödeniyor",
       "stables": "Stablecoin'ler",
-      "state": "Durum",
       "vaults": "Kasalar"
     },
     "overview": {
-      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> ile <strong>{{apyPercentage}}</strong> üzerinde APY keyfini çıkarın",
-      "dailyEmission": "Günlük emisyon",
+      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> stake ederek <strong>{{apyPercentage}}</strong> üzerinde APY kazanın",
+      "dailyEmission": "Günlük ödül dağıtımı",
       "description": "Venus Yield Vault ile kripto kazançlarınızı maksimize edin ve gizli ödülleri keşfedin. DeFi yatırımlarınızı basitleştirin ve portföyünüzü zahmetsizce büyütün.",
-      "earningNow": "Şu an kazanıyor",
+      "earningNow": "Hemen stake yap",
       "highestApr": "En yüksek APR",
       "title": "Venus Vault",
       "totalStaked": "Toplam stake",

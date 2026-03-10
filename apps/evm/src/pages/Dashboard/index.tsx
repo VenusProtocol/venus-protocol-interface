@@ -43,7 +43,7 @@ export const Dashboard: React.FC = () => {
       content: pool && <Markets pool={pool} />,
     },
     {
-      title: t('account.tabs.staking'),
+      title: t('account.tabs.vaults'),
       id: 'vaults',
       content: <Vaults vaults={vaults} />,
     },

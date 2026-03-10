@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "Thị trường",
       "settings": "Cài đặt",
-      "staking": "Staking",
-      "transactions": "Giao dịch"
+      "transactions": "Giao dịch",
+      "vaults": "Kho"
     },
     "transactions": {
       "date": {
@@ -1803,12 +1803,9 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
       "currentStaked": "Đang đặt cược",
-      "dailyEmission": "Phát thải hàng ngày",
-      "manager": "Người quản lý",
+      "dailyEmission": "Phần thưởng hàng ngày",
+      "manager": "Tổ chức quản lý",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, đặt cược và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
-      "status": {
-        "active": "Đang hoạt động"
-      },
       "totalDeposited": "Tổng tiền gửi",
       "totalStaked": "Tổng tiền gửi",
       "venusManager": "Venus",
@@ -1817,22 +1814,22 @@
     "filter": {
       "active": "Đang hoạt động",
       "allCategories": "Tất cả danh mục",
+      "allManagers": "Tất cả tổ chức quản lý",
+      "allStates": "Tất cả trạng thái",
       "claim": "Nhận thưởng",
       "deposit": "Gửi tiền",
       "earning": "Đang kiếm",
       "inputPlaceholder": "Tìm kiếm tài sản hoặc thị trường",
-      "manager": "Người quản lý",
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ",
       "stables": "Stablecoin",
-      "state": "Trạng thái",
       "vaults": "Kho"
     },
     "overview": {
-      "bannerTitle": "Thưởng thức hơn <strong>{{apyPercentage}}</strong> APY với <strong>{{tokenDashMarket}}</strong>",
-      "dailyEmission": "Phát thải hàng ngày",
+      "bannerTitle": "Đặt cược <strong>{{tokenDashMarket}}</strong> để nhận hơn <strong>{{apyPercentage}}</strong> APY",
+      "dailyEmission": "Phần thưởng hàng ngày",
       "description": "Tối đa hóa thu nhập tiền điện tử của bạn và khám phá phần thưởng ẩn với Venus Yield Vault. Đơn giản hóa các khoản đầu tư DeFi của bạn và phát triển danh mục đầu tư một cách dễ dàng.",
-      "earningNow": "Đang kiếm",
+      "earningNow": "Đặt cược ngay",
       "highestApr": "APR cao nhất",
       "title": "Venus Vault",
       "totalStaked": "Tổng đặt cược",

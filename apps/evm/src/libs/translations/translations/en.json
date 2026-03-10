@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "Markets",
       "settings": "Settings",
-      "staking": "Staking",
-      "transactions": "Transactions"
+      "transactions": "Transactions",
+      "vaults": "Vaults"
     },
     "transactions": {
       "date": {
@@ -1806,9 +1806,6 @@
       "dailyEmission": "Daily emission",
       "manager": "Manager",
       "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
-      "status": {
-        "active": "Active"
-      },
       "totalDeposited": "Total deposited",
       "totalStaked": "Total deposited",
       "venusManager": "Venus",
@@ -1817,15 +1814,15 @@
     "filter": {
       "active": "Active",
       "allCategories": "All categories",
+      "allManagers": "All managers",
+      "allStates": "All states",
       "claim": "Claim",
       "deposit": "Deposit",
       "earning": "Earning",
       "inputPlaceholder": "Search asset or market",
-      "manager": "Manager",
       "refund": "Refund",
       "repaying": "Repaying",
       "stables": "Stables",
-      "state": "State",
       "vaults": "Vaults"
     },
     "overview": {

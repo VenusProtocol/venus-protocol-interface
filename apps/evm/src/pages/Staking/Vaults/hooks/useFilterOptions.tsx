@@ -57,7 +57,7 @@ export const useFilterOptions = () => {
   ];
   const curatorOptions = [
     {
-      label: t('vault.filter.manager'),
+      label: t('vault.filter.allManagers'),
       value: ALL_OPTION_VALUE,
     },
     /*
@@ -92,7 +92,7 @@ export const useFilterOptions = () => {
   ];
   const statusOptions = [
     {
-      label: t('vault.filter.state'),
+      label: t('vault.filter.allStates'),
       value: ALL_OPTION_VALUE,
     },
     {
