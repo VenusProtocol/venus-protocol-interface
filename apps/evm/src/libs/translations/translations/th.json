@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "ตำแหน่งในวอลต์ของคุณจะแสดงที่นี่",
         "title": "ยังไม่มีตำแหน่งสเตค"
       }
     }
@@ -771,13 +770,13 @@
           "label": "ภาษา (เบต้า)"
         }
       },
-      "staking": {
-        "label": "สเตคกิ้ง"
-      },
       "subMenuItem": {
         "button": {
           "label": "เริ่มต้นใช้งาน"
         }
+      },
+      "vaults": {
+        "label": "Vault"
       },
       "venusLogoAlt": "โลโก้ Venus"
     },
@@ -1800,21 +1799,53 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนที่ค้างอยู่ให้เสร็จสิ้นเพื่อโต้ตอบกับวอลต์นี้",
-    "dailyEmission": "การปล่อยต่อวัน",
-    "pausedWarning": "วอลต์นี้ถูกหยุดชั่วคราวอยู่ในขณะนี้ อัตราดอกเบี้ยยังคงสะสม แต่การรับรางวัล การสเตค และการถอนถูกปิดใช้งานจนกว่าวอลต์จะถูกเปิดใช้งานอีกครั้ง",
-    "stakeButton": "สเตค",
-    "stakingApr": "APR การสเตค {{stakeTokenName}}",
-    "totalStaked": "ยอดสเตครวม",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนเงินที่รอดำเนินการให้เสร็จสิ้นก่อนจึงจะสามารถโต้ตอบกับ vault นี้ได้",
+      "currentStaked": "สเตคอยู่ในปัจจุบัน",
+      "dailyEmission": "การปล่อยรายวัน",
+      "manager": "ผู้จัดการ",
+      "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การสเตค และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
+      "status": {
+        "active": "ใช้งานอยู่"
+      },
+      "totalDeposited": "ยอดฝากทั้งหมด",
+      "totalStaked": "ยอดฝากทั้งหมด",
+      "venusManager": "Venus",
+      "youStaked": "คุณสเตคแล้ว"
+    },
+    "filter": {
+      "active": "ใช้งานอยู่",
+      "allCategories": "ทุกหมวดหมู่",
+      "claim": "อ้างสิทธิ์",
+      "deposit": "ฝากเงิน",
+      "earning": "กำลังรับรายได้",
+      "inputPlaceholder": "ค้นหาสินทรัพย์หรือตลาด",
+      "manager": "ผู้จัดการ",
+      "refund": "คืนเงิน",
+      "repaying": "กำลังชำระคืน",
+      "stables": "สกุลเงินที่มั่นคง",
+      "state": "สถานะ",
+      "vaults": "Vault"
+    },
+    "overview": {
+      "bannerTitle": "รับ APY มากกว่า <strong>{{apyPercentage}}</strong> กับ <strong>{{tokenDashMarket}}</strong>",
+      "dailyEmission": "การปล่อยรายวัน",
+      "description": "เพิ่มรายได้คริปโตของคุณสูงสุดและค้นพบรางวัลที่ซ่อนอยู่กับ Venus Yield Vault ลดความซับซ้อนในการลงทุน DeFi และขยายพอร์ตโฟลิโอของคุณได้อย่างง่ายดาย",
+      "earningNow": "กำลังรับรายได้",
+      "highestApr": "APR สูงสุด",
+      "title": "Venus Vault",
+      "totalStaked": "ยอดสเตคทั้งหมด",
+      "totalVault": "Vault",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "ระยะเวลาล็อก"
       },
       "rightMaxButtonLabel": "สูงสุด"
-    },
-    "withdrawButton": "ถอน",
-    "youAreStake": "คุณกำลังสเตคอยู่"
+    }
   },
   "venusFluxBanner": {
     "description": "ปล่อยให้สภาพคล่องของคุณ Flux แล้วดูผลตอบแทนเติบโต",

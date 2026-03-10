@@ -1,8 +1,9 @@
-import { Icon, type SelectOption } from 'components';
+import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useSearchParams } from 'react-router';
+import type { Vault } from 'types';
 
-const ALL_OPTION_VALUE = 'all';
+export const ALL_OPTION_VALUE = 'all';
 
 const CATEGORY_PARAM_KEY = 'category';
 const CURATOR_PARAM_KEY = 'curator';
@@ -34,17 +35,16 @@ export const useFilterOptions = () => {
       [STATUS_PARAM_KEY]: newVal,
     }));
 
-  const allOption: SelectOption<string> = {
-    label: t('vault.filter.all'),
-    value: 'all',
-  };
-
   const categoryOptions = [
-    allOption,
+    {
+      label: t('vault.filter.allCategories'),
+      value: ALL_OPTION_VALUE,
+    },
     {
       label: t('vault.filter.stables'),
       value: 'stables',
     },
+    /*
     {
       label: t('vault.filter.rwa'),
       value: 'rwa',
@@ -53,9 +53,14 @@ export const useFilterOptions = () => {
       label: t('vault.filter.yieldTokens'),
       value: 'yieldTokens',
     },
+    */
   ];
   const curatorOptions = [
-    allOption,
+    {
+      label: t('vault.filter.manager'),
+      value: ALL_OPTION_VALUE,
+    },
+    /*
     {
       label: (
         <div className="flex items-center gap-2">
@@ -68,16 +73,17 @@ export const useFilterOptions = () => {
     {
       label: (
         <div className="flex items-center gap-2">
-          <Icon name="ceefu" />
+          <Icon name="pendle" />
           Pendle
         </div>
       ),
       value: 'pendle',
     },
+    */
     {
       label: (
         <div className="flex items-center gap-2">
-          <Icon name="ceefu" />
+          <Icon name="logoMobile" />
           Venus
         </div>
       ),
@@ -85,7 +91,10 @@ export const useFilterOptions = () => {
     },
   ];
   const statusOptions = [
-    allOption,
+    {
+      label: t('vault.filter.state'),
+      value: ALL_OPTION_VALUE,
+    },
     {
       label: t('vault.filter.deposit'),
       value: 'deposit',
@@ -112,6 +121,28 @@ export const useFilterOptions = () => {
     },
   ];
 
+  const getFilterProperties = (vault: Vault) => {
+    let category = ALL_OPTION_VALUE;
+    let curator = ALL_OPTION_VALUE;
+    let status = ALL_OPTION_VALUE;
+
+    if (vault.stakedToken.symbol === 'XVS') {
+      category = 'others';
+      curator = 'venus';
+      status = vault.isPaused ? '' : 'active';
+    } else if (vault.stakedToken.symbol === 'VAI') {
+      category = 'stables';
+      curator = 'venus';
+      status = vault.isPaused ? '' : 'active';
+    }
+
+    return {
+      category,
+      curator,
+      status,
+    };
+  };
+
   return {
     category,
     setCategory,
@@ -122,5 +153,6 @@ export const useFilterOptions = () => {
     status,
     setStatus,
     statusOptions,
+    getFilterProperties,
   };
 };

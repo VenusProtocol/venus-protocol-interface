@@ -5,7 +5,7 @@ import { Page, Spinner, cn } from 'components';
 import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
 
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { type ActiveModal, VaultModals } from 'containers/Vault';
 import { useGetToken } from 'libs/tokens';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ const StakingPage: React.FC = () => {
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>(undefined);
   const [activeVault, setActiveVault] = useState<Vault | undefined>(undefined);
 
-  const openModal = (_vault: Vault, _activeModal: ActiveModal) => {
+  const openModal = (_vault: Vault, _activeModal?: ActiveModal) => {
     setActiveVault(_vault);
     setActiveModal(_activeModal);
   };
@@ -54,7 +54,7 @@ const StakingPage: React.FC = () => {
 
   return (
     <Page>
-      <div className={cn('flex flex-col gap-6')}>
+      <div className={cn('flex flex-col gap-6 sm:gap-12')}>
         <Overview
           totalStakedUsdCents={totalStakedUsdCents}
           highestApr={vaultWithHighestApr.stakingAprPercentage}

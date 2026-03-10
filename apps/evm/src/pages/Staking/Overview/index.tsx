@@ -1,7 +1,8 @@
 import type BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { Delimiter } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import type { ActiveModal } from 'containers/Vault';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
@@ -28,7 +29,7 @@ export const Overview: React.FC<OverviewProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className={cn('flex flex-col gap-6 lg:flex-row lg:items-start', className)}>
+    <div className={cn('flex flex-col gap-6 lg:gap-12 lg:flex-row lg:items-start', className)}>
       {/* Left: title, description, stats */}
       <div className="flex flex-col gap-6 flex-1">
         {/* Title + description */}
@@ -49,7 +50,7 @@ export const Overview: React.FC<OverviewProps> = ({
             </span>
           </div>
 
-          <div className="w-px h-12.25 bg-lightGrey" />
+          <Delimiter vertical />
 
           <div className="flex flex-col gap-1">
             <span className="text-b1r text-grey">{t('vault.overview.highestApr')}</span>
@@ -59,6 +60,8 @@ export const Overview: React.FC<OverviewProps> = ({
                 : PLACEHOLDER_KEY}
             </span>
           </div>
+
+          <Delimiter vertical />
 
           <div className="flex flex-col gap-1">
             <span className="text-b1r text-grey">{t('vault.overview.totalVault')}</span>

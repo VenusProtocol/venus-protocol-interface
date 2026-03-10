@@ -18,29 +18,22 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
 import {
   convertMantissaToTokens,
+  formatCentsToReadableValue,
   formatPercentageToReadableValue,
-  formatTokensToReadableValue,
 } from 'utilities';
 
 import { StatusLabel } from 'components/StatusLabel';
 import { NULL_ADDRESS } from 'constants/address';
+import type { ActiveModal } from '../VaultModals';
 import TEST_IDS from '../testIds';
 
 export interface VaultProps {
   vault: Vault;
-  onStake?: () => void;
-  onWithdraw?: () => void;
-  variant?: 'primary' | 'secondary';
+  onClick?: (vault: Vault, activeModal: ActiveModal) => void;
   className?: string;
 }
 
-export const VaultCard: React.FC<VaultProps> = ({
-  vault,
-  className,
-  onStake,
-  onWithdraw,
-  variant = 'primary',
-}) => {
+export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) => {
   const { t } = useTranslation();
 
   const { accountAddress } = useAccountAddress();
@@ -68,61 +61,21 @@ export const VaultCard: React.FC<VaultProps> = ({
   const handleWithdraw = (e: React.MouseEvent<HTMLDivElement>) => {
     if (canWithdraw) {
       e.stopPropagation();
-      onWithdraw?.();
+      onClick?.(vault, 'withdraw');
     }
   };
-
-  // Vault Card in Dashboard
-  if (variant === 'secondary') {
-    return (
-      <Card className={cn('w-full flex flex-col p-3 gap-3', className)}>
-        <TokenIconWithSymbol
-          token={vault.stakedToken}
-          displayChain={false}
-          size="md"
-          data-testid={TEST_IDS.symbol}
-        />
-        <div className="flex">
-          <div className="flex flex-col w-full flex-1 pr-6">
-            <div className={cn('text-b1r text-light-grey mb-1')}>
-              {t('vault.card.stakingApr', { tokenSymbol: vault.stakedToken.symbol })}
-            </div>
-            <div className={cn('text-light-grey-active text-p2s')}>
-              {formatPercentageToReadableValue(vault.stakingAprPercentage)}
-            </div>
-          </div>
-
-          <div className="flex flex-col w-full flex-1 border-l border-dark-grey px-6">
-            <div className={cn('text-b1r text-light-grey mb-1')}>{t('vault.card.totalStaked')}</div>
-            {vault.userStakedMantissa && (
-              <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
-                <TokenIcon token={vault.stakedToken} displayChain={false} size="md" />
-                {formatTokensToReadableValue({
-                  value: convertMantissaToTokens({
-                    value: vault.userStakedMantissa,
-                    token: vault.stakedToken,
-                  }),
-                  token: vault.stakedToken,
-                })}
-              </div>
-            )}
-          </div>
-        </div>
-      </Card>
-    );
-  }
 
   return (
     <>
       <Card
         className={cn(
           'w-full flex flex-col p-0 overflow-hidden duration-250',
-          !!onStake && 'cursor-pointer hover:border-blue',
+          !!onClick && 'cursor-pointer hover:border-blue',
           isPaused && !canWithdraw && 'cursor-not-allowed',
           className,
         )}
         data-testid={TEST_IDS.userStakedTokens}
-        onClick={onStake}
+        onClick={() => onClick?.(vault, 'stake')}
       >
         {/* Card body */}
         <div className={cn('bg-dark-blue p-4 sm:p-6 flex flex-col gap-4 sm:gap-6 flex-1')}>
@@ -156,30 +109,38 @@ export const VaultCard: React.FC<VaultProps> = ({
             </LabeledInlineContent>
 
             <LabeledInlineContent label={t('vault.card.dailyEmission')}>
-              <div className={cn('flex items-center gap-x-2')}>
-                <TokenIcon className="w-4 h-4" token={vault.rewardToken} />
-                <span>
+              <div className="text-b1r text-end">
+                <div className={cn('flex items-center gap-x-2')}>
                   {convertMantissaToTokens({
                     value: vault.dailyEmissionMantissa,
                     token: vault.rewardToken,
                     returnInReadableFormat: true,
                     addSymbol: true,
                   })}
-                </span>
+                </div>
+                <div className="text-light-grey">
+                  {formatCentsToReadableValue({
+                    value: vault.dailyEmissionUsdCents,
+                  })}
+                </div>
               </div>
             </LabeledInlineContent>
 
             <LabeledInlineContent label={t('vault.card.totalStaked')}>
-              <div className={cn('flex items-center gap-x-2')}>
-                <TokenIcon className="w-4 h-4" token={vault.stakedToken} />
-                <span>
+              <div className="text-b1r text-end">
+                <div className={cn('flex items-center gap-x-2')}>
                   {convertMantissaToTokens({
                     value: vault.totalStakedMantissa,
                     token: vault.stakedToken,
                     returnInReadableFormat: true,
                     addSymbol: true,
                   })}
-                </span>
+                </div>
+                <div className="text-light-grey">
+                  {formatCentsToReadableValue({
+                    value: vault.totalStakedUsdCents,
+                  })}
+                </div>
               </div>
             </LabeledInlineContent>
 

@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "Vault pozisyonlarınız burada görünecek",
         "title": "Henüz stake pozisyonu yok"
       }
     }
@@ -771,13 +770,13 @@
           "label": "Dil (beta)"
         }
       },
-      "staking": {
-        "label": "Staking"
-      },
       "subMenuItem": {
         "button": {
           "label": "Başlayın"
         }
+      },
+      "vaults": {
+        "label": "Kasalar"
       },
       "venusLogoAlt": "Venus logosu"
     },
@@ -1800,21 +1799,53 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "Bu vault ile etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekir.",
-    "dailyEmission": "Günlük Emisyon",
-    "pausedWarning": "Bu vault şu anda duraklatıldı. Faiz oranları birikmeye devam eder ancak talep, staking ve çekimler vault yeniden açılana kadar devre dışıdır",
-    "stakeButton": "Stake et",
-    "stakingApr": "{{stakeTokenName}} Stake APR",
-    "totalStaked": "Toplam Stake",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "Bu kasayla etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekmektedir.",
+      "currentStaked": "Mevcut stake",
+      "dailyEmission": "Günlük emisyon",
+      "manager": "Yönetici",
+      "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, stake ve çekim işlemleri devre dışı bırakılmıştır.",
+      "status": {
+        "active": "Aktif"
+      },
+      "totalDeposited": "Toplam yatırılan",
+      "totalStaked": "Toplam yatırılan",
+      "venusManager": "Venus",
+      "youStaked": "Stake ettiğiniz"
+    },
+    "filter": {
+      "active": "Aktif",
+      "allCategories": "Tüm kategoriler",
+      "claim": "Talep et",
+      "deposit": "Yatır",
+      "earning": "Kazanıyor",
+      "inputPlaceholder": "Varlık veya piyasa ara",
+      "manager": "Yönetici",
+      "refund": "İade",
+      "repaying": "Geri ödeniyor",
+      "stables": "Stablecoin'ler",
+      "state": "Durum",
+      "vaults": "Kasalar"
+    },
+    "overview": {
+      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> ile <strong>{{apyPercentage}}</strong> üzerinde APY keyfini çıkarın",
+      "dailyEmission": "Günlük emisyon",
+      "description": "Venus Yield Vault ile kripto kazançlarınızı maksimize edin ve gizli ödülleri keşfedin. DeFi yatırımlarınızı basitleştirin ve portföyünüzü zahmetsizce büyütün.",
+      "earningNow": "Şu an kazanıyor",
+      "highestApr": "En yüksek APR",
+      "title": "Venus Vault",
+      "totalStaked": "Toplam stake",
+      "totalVault": "Kasa",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "Kilitlenme süresi"
       },
       "rightMaxButtonLabel": "MAKS"
-    },
-    "withdrawButton": "Çek",
-    "youAreStake": "Stake ediyorsunuz"
+    }
   },
   "venusFluxBanner": {
     "description": "Likiditenizi Flux'a bırakın, getirinizi büyürken izleyin.",

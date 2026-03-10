@@ -16,7 +16,7 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   leftAdornment?: React.ReactElement;
   rightAdornment?: React.ReactElement;
   topRightAdornment?: React.ReactElement;
-  size?: 'xs' | 'md';
+  size?: 'xs' | 'sm' | 'md';
   variant?: 'primary' | 'secondary';
 }
 
@@ -84,10 +84,11 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
 
         <div
           className={cn(
-            'flex items-center justify-between gap-x-4 h-14 p-4 border border-dark-blue-hover rounded-xl bg-dark-blue transition-[border-color] focus-within:border-blue focus-within:hover:border-blue',
+            'flex items-center justify-between gap-x-4 h-14 p-4 border border-dark-blue-hover rounded-xl bg-transparent transition-[border-color] hover:border-light-grey focus-within:border-blue focus-within:bg-dark-blue focus-within:hover:border-blue',
             rightAdornment && 'pr-2',
             leftAdornment && !leftIconSrc && 'pl-2',
             size === 'xs' && 'h-10 py-1 rounded-lg',
+            size === 'sm' && 'h-12 py-2 rounded-lg',
             disabled && 'border-lightGrey bg-cards',
             hasError && 'border-red focus-within:border-red focus-within:hover:border-red',
             variant === 'secondary' && disabled && 'bg-lightGrey',

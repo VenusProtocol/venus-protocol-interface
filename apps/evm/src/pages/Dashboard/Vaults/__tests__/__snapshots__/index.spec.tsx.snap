@@ -1,5 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Vaults > displays content correctly 1`] = `"XVS{{stakeTokenName}} Stake APR12.92%Total deposited233 XVS"`;
+exports[`Vaults > displays content correctly 1`] = `"XVSAPR12.92%Total deposited400M XVS"`;
 
-exports[`Vaults > displays placeholder when there are no vaults to display 1`] = `"No staking positions yetYour vault positions will appear hereConnect wallet"`;
+exports[`Vaults > displays placeholder when there are no vaults to display 1`] = `"No staking positions yetBrowse"`;

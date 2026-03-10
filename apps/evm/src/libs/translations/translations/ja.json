@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "あなたのボールトポジションはここに表示されます",
         "title": "まだステーキングポジションはありません"
       }
     }
@@ -771,13 +770,13 @@
           "label": "言語 (ベータ版)"
         }
       },
-      "staking": {
-        "label": "ステーキング"
-      },
       "subMenuItem": {
         "button": {
           "label": "開始する"
         }
+      },
+      "vaults": {
+        "label": "ボールト"
       },
       "venusLogoAlt": "Venusロゴ"
     },
@@ -1800,21 +1799,53 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
-    "dailyEmission": "日次排出量",
-    "pausedWarning": "このボールトは現在停止中です。金利は引き続き発生しますが、請求・ステーキング・引き出しはボールトが再開されるまで無効です",
-    "stakeButton": "ステーキング",
-    "stakingApr": "{{stakeTokenName}} ステーキングAPR",
-    "totalStaked": "総ステーキング量",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
+      "currentStaked": "現在のステーク量",
+      "dailyEmission": "日次排出量",
+      "manager": "マネージャー",
+      "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、ステーキング、引き出しは無効になっています。",
+      "status": {
+        "active": "アクティブ"
+      },
+      "totalDeposited": "総預金額",
+      "totalStaked": "総預金額",
+      "venusManager": "Venus",
+      "youStaked": "ステーク済み"
+    },
+    "filter": {
+      "active": "アクティブ",
+      "allCategories": "全カテゴリ",
+      "claim": "請求",
+      "deposit": "預け入れ",
+      "earning": "獲得中",
+      "inputPlaceholder": "資産またはマーケットを検索",
+      "manager": "マネージャー",
+      "refund": "返金",
+      "repaying": "返済中",
+      "stables": "ステーブルコイン",
+      "state": "状態",
+      "vaults": "ボールト"
+    },
+    "overview": {
+      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> で <strong>{{apyPercentage}}</strong> 以上の APY を享受",
+      "dailyEmission": "日次排出量",
+      "description": "Venus Yield Vault で暗号資産の収益を最大化し、隠れた報酬を発見しましょう。DeFi 投資を簡素化し、ポートフォリオを楽に成長させましょう。",
+      "earningNow": "獲得中",
+      "highestApr": "最高 APR",
+      "title": "Venus Vault",
+      "totalStaked": "総ステーク量",
+      "totalVault": "ボールト",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "ロック期間"
       },
       "rightMaxButtonLabel": "最大"
-    },
-    "withdrawButton": "引き出し",
-    "youAreStake": "あなたのステーキング量"
+    }
   },
   "venusFluxBanner": {
     "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",

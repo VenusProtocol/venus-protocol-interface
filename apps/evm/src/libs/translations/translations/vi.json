@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "Vị thế vault của bạn sẽ hiển thị ở đây",
         "title": "Chưa có vị thế staking"
       }
     }
@@ -771,13 +770,13 @@
           "label": "Ngôn ngữ (beta)"
         }
       },
-      "staking": {
-        "label": "Staking"
-      },
       "subMenuItem": {
         "button": {
           "label": "Bắt đầu"
         }
+      },
+      "vaults": {
+        "label": "Kho"
       },
       "venusLogoAlt": "Logo Venus"
     },
@@ -1800,21 +1799,53 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "Bạn phải hoàn tất các khoản rút đang chờ để tương tác với vault này.",
-    "dailyEmission": "Phát hành hằng ngày",
-    "pausedWarning": "Vault này hiện đang tạm dừng. Lãi suất vẫn tích lũy nhưng việc nhận, staking và rút bị vô hiệu hóa cho đến khi vault được mở lại",
-    "stakeButton": "Stake",
-    "stakingApr": "APR stake {{stakeTokenName}}",
-    "totalStaked": "Tổng đã stake",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
+      "currentStaked": "Đang đặt cược",
+      "dailyEmission": "Phát thải hàng ngày",
+      "manager": "Người quản lý",
+      "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, đặt cược và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
+      "status": {
+        "active": "Đang hoạt động"
+      },
+      "totalDeposited": "Tổng tiền gửi",
+      "totalStaked": "Tổng tiền gửi",
+      "venusManager": "Venus",
+      "youStaked": "Bạn đã đặt cược"
+    },
+    "filter": {
+      "active": "Đang hoạt động",
+      "allCategories": "Tất cả danh mục",
+      "claim": "Nhận thưởng",
+      "deposit": "Gửi tiền",
+      "earning": "Đang kiếm",
+      "inputPlaceholder": "Tìm kiếm tài sản hoặc thị trường",
+      "manager": "Người quản lý",
+      "refund": "Hoàn tiền",
+      "repaying": "Đang trả nợ",
+      "stables": "Stablecoin",
+      "state": "Trạng thái",
+      "vaults": "Kho"
+    },
+    "overview": {
+      "bannerTitle": "Thưởng thức hơn <strong>{{apyPercentage}}</strong> APY với <strong>{{tokenDashMarket}}</strong>",
+      "dailyEmission": "Phát thải hàng ngày",
+      "description": "Tối đa hóa thu nhập tiền điện tử của bạn và khám phá phần thưởng ẩn với Venus Yield Vault. Đơn giản hóa các khoản đầu tư DeFi của bạn và phát triển danh mục đầu tư một cách dễ dàng.",
+      "earningNow": "Đang kiếm",
+      "highestApr": "APR cao nhất",
+      "title": "Venus Vault",
+      "totalStaked": "Tổng đặt cược",
+      "totalVault": "Kho",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "Thời gian khóa"
       },
       "rightMaxButtonLabel": "TỐI ĐA"
-    },
-    "withdrawButton": "Rút",
-    "youAreStake": "Bạn đang stake"
+    }
   },
   "venusFluxBanner": {
     "description": "Hãy để thanh khoản của bạn Flux, theo dõi lợi suất tăng trưởng.",
