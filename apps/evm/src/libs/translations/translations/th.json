@@ -466,6 +466,11 @@
         "label": "ฝาก"
       },
       "textTitle": "ไฮไลต์"
+    },
+    "vaults": {
+      "dailyEarnings": "รายได้รายวัน",
+      "dailyEarningsTooltip": "รายได้รายวันโดยประมาณของคุณใน vault ที่ใช้งานอยู่ทั้งหมด โดยอิงจากอัตราปัจจุบันหรือ APR คงที่ของแต่ละ vault รายได้จริงอาจแตกต่างกัน",
+      "totalStakedValue": "มูลค่าสเตคทั้งหมด"
     }
   },
   "eModeBanner": {

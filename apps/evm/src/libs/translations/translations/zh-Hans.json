@@ -466,6 +466,11 @@
         "label": "存款"
       },
       "textTitle": "焦点"
+    },
+    "vaults": {
+      "dailyEarnings": "每日收益",
+      "dailyEarningsTooltip": "您在所有活跃金库中的每日预计收益，基于各金库的当前利率或固定 APR。实际收益可能有所变化。",
+      "totalStakedValue": "总质押价值"
     }
   },
   "eModeBanner": {

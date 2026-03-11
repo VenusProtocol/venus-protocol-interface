@@ -466,6 +466,11 @@
         "label": "Supply"
       },
       "textTitle": "Spotlight"
+    },
+    "vaults": {
+      "dailyEarnings": "Daily earnings",
+      "dailyEarningsTooltip": "Your estimated daily earnings across all active vaults, based on each vault's current rate or fixed APR. Actual earnings may vary.",
+      "totalStakedValue": "Total staked value"
     }
   },
   "eModeBanner": {

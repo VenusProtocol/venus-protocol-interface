@@ -18,6 +18,7 @@ import {
 
 import { StatusLabel } from 'components/StatusLabel';
 import { NULL_ADDRESS } from 'constants/address';
+import { getVaultMetadata } from 'pages/Staking/Vaults/utils';
 import type { ActiveModal } from '../VaultModals';
 import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
 import TEST_IDS from '../testIds';
@@ -30,6 +31,8 @@ export interface VaultProps {
 
 export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) => {
   const { t } = useTranslation();
+
+  const { curatorLogo } = getVaultMetadata(vault);
 
   const { accountAddress } = useAccountAddress();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
@@ -101,7 +104,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
           {/* Stats */}
           <div className={cn('flex flex-col gap-y-4')}>
             <LabeledInlineContent label={t('vault.card.apr')}>
-              <span className="text-b1s text-green">
+              <span className="text-b1s">
                 {formatPercentageToReadableValue(vault.stakingAprPercentage)}
               </span>
             </LabeledInlineContent>
@@ -143,7 +146,8 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
             </LabeledInlineContent>
 
             <LabeledInlineContent label={t('vault.card.manager')}>
-              <span>{t('vault.card.venusManager')}</span>
+              {curatorLogo}
+              <span className="ms-2">{t('vault.card.venusManager')}</span>
             </LabeledInlineContent>
           </div>
 

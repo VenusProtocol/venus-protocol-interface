@@ -466,6 +466,11 @@
         "label": "Sağla"
       },
       "textTitle": "Öne çıkanlar"
+    },
+    "vaults": {
+      "dailyEarnings": "Günlük kazançlar",
+      "dailyEarningsTooltip": "Tüm aktif kasalardaki tahmini günlük kazançlarınız; her kasanın mevcut oranına veya sabit APR'sine göre hesaplanır. Gerçek kazançlar değişebilir.",
+      "totalStakedValue": "Toplam stake değeri"
     }
   },
   "eModeBanner": {

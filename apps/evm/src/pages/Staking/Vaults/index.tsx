@@ -4,7 +4,7 @@ import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
 import type { Vault } from 'types';
 import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
-import { generateVaultKey } from './utils';
+import { generateVaultKey, getVaultMetadata } from './utils';
 
 interface VaultsProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];
@@ -23,7 +23,6 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
     status,
     setStatus,
     statusOptions,
-    getFilterProperties,
   } = useFilterOptions();
 
   const [search, setSearch] = useState('');
@@ -32,7 +31,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
   };
 
   const filteredVaults = (vaults ?? []).filter(vault => {
-    const { category: _category, curator: _curator, status: _status } = getFilterProperties(vault);
+    const { category: _category, curator: _curator, status: _status } = getVaultMetadata(vault);
 
     return (
       (category === ALL_OPTION_VALUE || category === _category) &&

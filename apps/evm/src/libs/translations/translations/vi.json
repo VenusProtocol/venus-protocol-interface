@@ -466,6 +466,11 @@
         "label": "Cung cấp"
       },
       "textTitle": "Điểm nổi bật"
+    },
+    "vaults": {
+      "dailyEarnings": "Thu nhập hàng ngày",
+      "dailyEarningsTooltip": "Thu nhập hàng ngày ước tính của bạn trên tất cả các kho đang hoạt động, dựa trên lãi suất hiện tại hoặc APR cố định của mỗi kho. Thu nhập thực tế có thể khác nhau.",
+      "totalStakedValue": "Tổng giá trị đặt cược"
     }
   },
   "eModeBanner": {

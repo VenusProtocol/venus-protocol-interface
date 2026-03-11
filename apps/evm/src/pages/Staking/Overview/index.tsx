@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
 import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenUsdPrice/useGetTokenListUsdPrice';
-import { Delimiter } from 'components';
+import { CellGroup, type CellProps } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import type { ActiveModal } from 'containers/Vault';
 import { useGetToken } from 'libs/tokens';
@@ -52,6 +52,27 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, classNa
     );
   }, BigNumber(0));
 
+  const overviewCells: CellProps[] = [
+    {
+      label: t('vault.overview.tvl'),
+      value:
+        totalStakedUsdCents !== undefined
+          ? formatCentsToReadableValue({ value: totalStakedUsdCents })
+          : PLACEHOLDER_KEY,
+    },
+    {
+      label: t('vault.overview.highestApr'),
+      value:
+        vaultWithHighestApr !== undefined
+          ? formatPercentageToReadableValue(vaultWithHighestApr.stakingAprPercentage)
+          : PLACEHOLDER_KEY,
+    },
+    {
+      label: t('vault.overview.totalVault'),
+      value: totalVault,
+    },
+  ];
+
   return (
     <div className={cn('flex flex-col gap-6 lg:gap-12 lg:flex-row lg:items-start', className)}>
       {/* Left: title, description, stats */}
@@ -64,34 +85,7 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, classNa
         </div>
 
         {/* Stats */}
-        <div className="flex items-center gap-6">
-          <div className="flex flex-col gap-1">
-            <span className="text-b1r text-grey">{t('vault.overview.tvl')}</span>
-            <span className="text-b1s">
-              {totalStakedUsdCents !== undefined
-                ? formatCentsToReadableValue({ value: totalStakedUsdCents })
-                : PLACEHOLDER_KEY}
-            </span>
-          </div>
-
-          <Delimiter vertical />
-
-          <div className="flex flex-col gap-1">
-            <span className="text-b1r text-grey">{t('vault.overview.highestApr')}</span>
-            <span className="text-b1s">
-              {vaultWithHighestApr !== undefined
-                ? formatPercentageToReadableValue(vaultWithHighestApr.stakingAprPercentage)
-                : PLACEHOLDER_KEY}
-            </span>
-          </div>
-
-          <Delimiter vertical />
-
-          <div className="flex flex-col gap-1">
-            <span className="text-b1r text-grey">{t('vault.overview.totalVault')}</span>
-            <span className="text-b1s">{totalVault}</span>
-          </div>
-        </div>
+        <CellGroup variant="secondary" cells={overviewCells} />
       </div>
 
       <Banner vault={featuredVault} onOpenModal={onOpenModal} />

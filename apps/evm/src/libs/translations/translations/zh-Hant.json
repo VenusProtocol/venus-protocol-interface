@@ -466,6 +466,11 @@
         "label": "供應"
       },
       "textTitle": "焦點"
+    },
+    "vaults": {
+      "dailyEarnings": "每日收益",
+      "dailyEarningsTooltip": "您在所有活躍金庫中的每日預計收益，基於各金庫的當前利率或固定 APR。實際收益可能有所變化。",
+      "totalStakedValue": "總質押價值"
     }
   },
   "eModeBanner": {

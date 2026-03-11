@@ -17,7 +17,7 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
 
   const { stakingAprPercentage, stakedToken } = vault;
   const {
-    data: { dailyEmissionUsdCents, userStakedUsdCents },
+    data: { userStakedUsdCents },
   } = useVaultUsdValues(vault);
 
   const onEarnClick = () => {
@@ -40,7 +40,7 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
       <img
         className={cn(
           'absolute bottom-0 pointer-events-none',
-          'right-[5%] bottom-6 h-28',
+          '-right-[2%] bottom-9.5 h-24',
           'sm:-right-8 sm:bottom-0 sm:h-32',
           'md:right-0 md:h-32',
           'lg:-right-6 lg:h-30',
@@ -53,9 +53,9 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
       />
 
       {/* Content */}
-      <div className={cn('relative z-10 flex flex-col gap-2')}>
+      <div className={cn('relative z-10 flex flex-col gap-2 sm:my-3 lg:my-6 w-full sm:w-fit')}>
         {/* Title */}
-        <p className="text-b1s md:text-p3s text-grey max-sm:max-w-2/3">
+        <p className="text-b1s md:text-p3s text-grey max-sm:max-w-1/2">
           <Trans
             i18nKey="vault.overview.bannerTitle"
             components={{
@@ -69,14 +69,14 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
         </p>
 
         {/* Stats + CTA: row on sm/md, column on lg+ */}
-        <div className="flex sm:flex-row items-end sm:justify-between lg:flex-col lg:items-start gap-3">
-          <div className="flex flex-col gap-1 ">
-            <div className="flex items-center gap-1">
+        <div className="flex sm:flex-row items-end justify-between lg:flex-col lg:items-start gap-3">
+          <div className="flex flex-col gap-1">
+            {/* <div className="flex items-center gap-1">
               <span className="text-b1r text-grey">{t('vault.overview.dailyEmission')}</span>
               <span className="text-b1s">
                 {formatCentsToReadableValue({ value: dailyEmissionUsdCents })}
               </span>
-            </div>
+            </div> */}
 
             <div className="flex items-center gap-1">
               <span className="text-b1r text-grey">{t('vault.overview.totalStaked')}</span>
@@ -88,7 +88,7 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
 
           <PrimaryButton
             onClick={onEarnClick}
-            className="h-7.5 py-1 px-5 text-b1s rounded-lg max-sm:px-4"
+            className="h-7.5 py-1 px-5 text-b1s rounded-lg max-sm:px-4 max-sm:mr-1"
             size="xs"
           >
             {t('vault.overview.earningNow')}

@@ -466,6 +466,11 @@
         "label": "供給"
       },
       "textTitle": "スポットライト"
+    },
+    "vaults": {
+      "dailyEarnings": "日次収益",
+      "dailyEarningsTooltip": "すべてのアクティブなボールト全体での推定日次収益です。各ボールトの現在のレートまたは固定 APR に基づいています。実際の収益は異なる場合があります。",
+      "totalStakedValue": "総ステーク価値"
     }
   },
   "eModeBanner": {

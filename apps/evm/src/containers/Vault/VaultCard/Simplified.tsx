@@ -45,8 +45,8 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({
   return (
     <Card
       className={cn(
-        'w-full flex flex-col p-3 gap-3',
-        !!onClick && !isPaused && 'cursor-pointer',
+        'w-full flex flex-col p-3 gap-3 duration-200',
+        !!onClick && !isPaused && 'cursor-pointer hover:border-blue',
         className,
       )}
       onClick={() => onClick?.(vault, 'stake')}

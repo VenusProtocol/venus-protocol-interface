@@ -1,7 +1,6 @@
 import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useSearchParams } from 'react-router';
-import type { Vault } from 'types';
 
 export const ALL_OPTION_VALUE = 'all';
 
@@ -121,28 +120,6 @@ export const useFilterOptions = () => {
     },
   ];
 
-  const getFilterProperties = (vault: Vault) => {
-    let category = ALL_OPTION_VALUE;
-    let curator = ALL_OPTION_VALUE;
-    let status = ALL_OPTION_VALUE;
-
-    if (vault.stakedToken.symbol === 'XVS') {
-      category = 'others';
-      curator = 'venus';
-      status = vault.isPaused ? '' : 'active';
-    } else if (vault.stakedToken.symbol === 'VAI') {
-      category = 'stables';
-      curator = 'venus';
-      status = vault.isPaused ? '' : 'active';
-    }
-
-    return {
-      category,
-      curator,
-      status,
-    };
-  };
-
   return {
     category,
     setCategory,
@@ -153,6 +130,5 @@ export const useFilterOptions = () => {
     status,
     setStatus,
     statusOptions,
-    getFilterProperties,
   };
 };

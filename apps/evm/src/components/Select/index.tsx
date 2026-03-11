@@ -52,6 +52,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       isDropdownOpened: boolean;
     }) => {
       switch (variant) {
+        /*
         case 'secondary':
           return cn(
             'border-lightGrey bg-lightGrey hover:border-blue hover:bg-lightGrey active:border-blue active:bg-lightGrey',
@@ -67,11 +68,12 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             'border-transparent bg-lightGrey rounded-xl hover:bg-lightGrey hover:border-grey active:bg-lightGrey active:border-blue',
             isDropdownOpened && 'border-blue bg-lightGrey hover:border-blue',
           );
+        */
         // primary
         default:
           return cn(
-            'border-dark-blue-disabled/50 bg-dark-blue hover:bg-dark-blue-hover active:bg-dark-blue-hover',
-            isDropdownOpened && 'bg-dark-blue-hover hover:border-blue',
+            'rounded-xl border-dark-blue-hover bg-transparent hover:bg-transparent hover:border-light-grey active:bg-dark-blue',
+            isDropdownOpened && 'bg-dark-blue-active border-blue',
           );
       }
     };
