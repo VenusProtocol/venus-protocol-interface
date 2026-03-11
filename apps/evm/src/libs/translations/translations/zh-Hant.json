@@ -1811,9 +1811,13 @@
       "dailyEmission": "每日獎勵釋放",
       "manager": "管理機構",
       "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、質押和提款功能已禁用，直至金庫恢復運作。",
+      "stake": "質押",
+      "stakingApr": "{{stakeTokenName}} 質押 APR",
       "totalDeposited": "總存款",
-      "totalStaked": "總存款",
+      "totalStaked": "總質押",
       "venusManager": "Venus",
+      "withdraw": "提取",
+      "youAreStake": "你正在質押",
       "youStaked": "您已質押"
     },
     "filter": {
@@ -1832,12 +1836,11 @@
     },
     "overview": {
       "bannerTitle": "質押 <strong>{{tokenDashMarket}}</strong> 享受超過 <strong>{{apyPercentage}}</strong> APY",
-      "dailyEmission": "每日獎勵釋放",
       "description": "通過 Venus 收益金庫最大化您的加密資產收益，發現隱藏獎勵。簡化您的 DeFi 投資，輕鬆增長您的投資組合。",
       "earningNow": "立即質押",
       "highestApr": "最高 APR",
       "title": "Venus Vault",
-      "totalStaked": "總質押量",
+      "tokenTotalDeposited": "{{token}} 總存入量",
       "totalVault": "金庫",
       "tvl": "TVL"
     },

@@ -1811,9 +1811,13 @@
       "dailyEmission": "Günlük ödül dağıtımı",
       "manager": "Yönetici kurum",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, stake ve çekim işlemleri devre dışı bırakılmıştır.",
+      "stake": "Stake et",
+      "stakingApr": "{{stakeTokenName}} Stake APR",
       "totalDeposited": "Toplam yatırılan",
-      "totalStaked": "Toplam yatırılan",
+      "totalStaked": "Toplam Stake",
       "venusManager": "Venus",
+      "withdraw": "Çek",
+      "youAreStake": "Stake ediyorsunuz",
       "youStaked": "Stake ettiğiniz"
     },
     "filter": {
@@ -1832,12 +1836,11 @@
     },
     "overview": {
       "bannerTitle": "<strong>{{tokenDashMarket}}</strong> stake ederek <strong>{{apyPercentage}}</strong> üzerinde APY kazanın",
-      "dailyEmission": "Günlük ödül dağıtımı",
       "description": "Venus Yield Vault ile kripto kazançlarınızı maksimize edin ve gizli ödülleri keşfedin. DeFi yatırımlarınızı basitleştirin ve portföyünüzü zahmetsizce büyütün.",
       "earningNow": "Hemen stake yap",
       "highestApr": "En yüksek APR",
       "title": "Venus Vault",
-      "totalStaked": "Toplam stake",
+      "tokenTotalDeposited": "Toplam yatırılan {{token}}",
       "totalVault": "Kasa",
       "tvl": "TVL"
     },

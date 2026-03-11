@@ -1811,9 +1811,13 @@
       "dailyEmission": "Daily emission",
       "manager": "Manager",
       "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
+      "stake": "Stake",
+      "stakingApr": "{{stakeTokenName}} Stake APR",
       "totalDeposited": "Total deposited",
-      "totalStaked": "Total deposited",
+      "totalStaked": "Total Staked",
       "venusManager": "Venus",
+      "withdraw": "Withdraw",
+      "youAreStake": "You are staking",
       "youStaked": "You staked"
     },
     "filter": {
@@ -1832,12 +1836,11 @@
     },
     "overview": {
       "bannerTitle": "Enjoy more than <strong>{{apyPercentage}}</strong> APY with <strong>{{tokenDashMarket}}</strong>",
-      "dailyEmission": "Daily emission",
       "description": "Maximize your crypto earnings and discover hidden rewards with Venus Yield Vault. Simplify your DeFi investments and grow your portfolio effortlessly.",
       "earningNow": "Earning now",
       "highestApr": "Highest APR",
       "title": "Venus Vault",
-      "totalStaked": "Total staked",
+      "tokenTotalDeposited": "{{token}} total deposited",
       "totalVault": "Vault",
       "tvl": "TVL"
     },

@@ -1,5 +1,6 @@
 import { Select, TextField, type TextFieldProps, cn } from 'components';
-import { type ActiveModal, VaultCard } from 'containers/Vault';
+import type { ActiveModal } from 'containers/Vault';
+import { VaultCardLegacy } from 'containers/Vault/VaultCard/Legacy';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
 import type { Vault } from 'types';
@@ -39,7 +40,6 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
       (status === ALL_OPTION_VALUE || status === _status) &&
       (!search ||
         vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()) ||
-        vault.rewardToken.symbol?.toLowerCase().includes(search?.toLowerCase()) ||
         _curator?.toLowerCase().includes(search?.toLowerCase()))
     );
   });
@@ -97,7 +97,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
       </div>
       <div className={cn('grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6', className)} {...props}>
         {filteredVaults.map(vault => (
-          <VaultCard vault={vault} key={generateVaultKey(vault)} onClick={openModal} />
+          <VaultCardLegacy vault={vault} key={generateVaultKey(vault)} openModal={openModal} />
         ))}
       </div>
     </div>

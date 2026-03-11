@@ -1811,9 +1811,13 @@
       "dailyEmission": "รางวัลรายวัน",
       "manager": "ผู้ดูแล",
       "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การสเตค และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
+      "stake": "สเตค",
+      "stakingApr": "APR การสเตค {{stakeTokenName}}",
       "totalDeposited": "ยอดฝากทั้งหมด",
-      "totalStaked": "ยอดฝากทั้งหมด",
+      "totalStaked": "ยอดสเตครวม",
       "venusManager": "Venus",
+      "withdraw": "ถอน",
+      "youAreStake": "คุณกำลังสเตคอยู่",
       "youStaked": "คุณสเตคแล้ว"
     },
     "filter": {
@@ -1832,12 +1836,11 @@
     },
     "overview": {
       "bannerTitle": "สเตค <strong>{{tokenDashMarket}}</strong> เพื่อรับ APY มากกว่า <strong>{{apyPercentage}}</strong>",
-      "dailyEmission": "รางวัลรายวัน",
       "description": "เพิ่มรายได้คริปโตของคุณสูงสุดและค้นพบรางวัลที่ซ่อนอยู่กับ Venus Yield Vault ลดความซับซ้อนในการลงทุน DeFi และขยายพอร์ตโฟลิโอของคุณได้อย่างง่ายดาย",
       "earningNow": "สเตคเลย",
       "highestApr": "APR สูงสุด",
       "title": "Venus Vault",
-      "totalStaked": "ยอดสเตคทั้งหมด",
+      "tokenTotalDeposited": "{{token}} ยอดฝากรวม",
       "totalVault": "Vault",
       "tvl": "TVL"
     },

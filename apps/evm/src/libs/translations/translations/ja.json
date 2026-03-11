@@ -1811,9 +1811,13 @@
       "dailyEmission": "日次報酬配布",
       "manager": "運用機関",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、ステーキング、引き出しは無効になっています。",
+      "stake": "ステーキング",
+      "stakingApr": "{{stakeTokenName}} ステーキングAPR",
       "totalDeposited": "総預金額",
-      "totalStaked": "総預金額",
+      "totalStaked": "総ステーキング量",
       "venusManager": "Venus",
+      "withdraw": "引き出し",
+      "youAreStake": "あなたのステーキング量",
       "youStaked": "ステーク済み"
     },
     "filter": {
@@ -1832,12 +1836,11 @@
     },
     "overview": {
       "bannerTitle": "<strong>{{tokenDashMarket}}</strong> をステークして <strong>{{apyPercentage}}</strong> 以上の APY を享受",
-      "dailyEmission": "日次報酬配布",
       "description": "Venus Yield Vault で暗号資産の収益を最大化し、隠れた報酬を発見しましょう。DeFi 投資を簡素化し、ポートフォリオを楽に成長させましょう。",
       "earningNow": "今すぐステーク",
       "highestApr": "最高 APR",
       "title": "Venus Vault",
-      "totalStaked": "総ステーク量",
+      "tokenTotalDeposited": "{{token}} 総預入量",
       "totalVault": "ボールト",
       "tvl": "TVL"
     },

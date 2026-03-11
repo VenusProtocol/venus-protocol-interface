@@ -127,7 +127,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
               </div>
             </LabeledInlineContent>
 
-            <LabeledInlineContent label={t('vault.card.totalStaked')}>
+            <LabeledInlineContent label={t('vault.card.totalDeposited')}>
               <div className="text-b1r text-end">
                 <div className={cn('flex items-center gap-x-2')}>
                   {convertMantissaToTokens({

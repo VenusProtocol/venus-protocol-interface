@@ -17,7 +17,7 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
 
   const { stakingAprPercentage, stakedToken } = vault;
   const {
-    data: { userStakedUsdCents },
+    data: { totalStakedUsdCents },
   } = useVaultUsdValues(vault);
 
   const onEarnClick = () => {
@@ -53,7 +53,7 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
       />
 
       {/* Content */}
-      <div className={cn('relative z-10 flex flex-col gap-2 sm:my-3 lg:my-6 w-full sm:w-fit')}>
+      <div className={cn('relative z-10 flex flex-col gap-2 sm:my-3 lg:my-0 w-full sm:w-fit')}>
         {/* Title */}
         <p className="text-b1s md:text-p3s text-grey max-sm:max-w-1/2">
           <Trans
@@ -69,7 +69,7 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
         </p>
 
         {/* Stats + CTA: row on sm/md, column on lg+ */}
-        <div className="flex sm:flex-row items-end justify-between lg:flex-col lg:items-start gap-3">
+        <div className="flex sm:flex-row items-end justify-between lg:flex-col lg:items-start lg:justify-between gap-3 lg:gap-12">
           <div className="flex flex-col gap-1">
             {/* <div className="flex items-center gap-1">
               <span className="text-b1r text-grey">{t('vault.overview.dailyEmission')}</span>
@@ -79,9 +79,11 @@ export const Banner: React.FC<BannerProps> = ({ vault, onOpenModal, className })
             </div> */}
 
             <div className="flex items-center gap-1">
-              <span className="text-b1r text-grey">{t('vault.overview.totalStaked')}</span>
+              <span className="text-b1r text-grey">
+                {t('vault.overview.tokenTotalDeposited', { token: stakedToken.symbol })}
+              </span>
               <span className="text-b1s">
-                {formatCentsToReadableValue({ value: userStakedUsdCents })}
+                {formatCentsToReadableValue({ value: totalStakedUsdCents })}
               </span>
             </div>
           </div>

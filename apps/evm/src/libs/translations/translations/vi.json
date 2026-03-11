@@ -1811,9 +1811,13 @@
       "dailyEmission": "Phần thưởng hàng ngày",
       "manager": "Tổ chức quản lý",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, đặt cược và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
+      "stake": "Stake",
+      "stakingApr": "APR stake {{stakeTokenName}}",
       "totalDeposited": "Tổng tiền gửi",
-      "totalStaked": "Tổng tiền gửi",
+      "totalStaked": "Tổng đã stake",
       "venusManager": "Venus",
+      "withdraw": "Rút",
+      "youAreStake": "Bạn đang stake",
       "youStaked": "Bạn đã đặt cược"
     },
     "filter": {
@@ -1832,12 +1836,11 @@
     },
     "overview": {
       "bannerTitle": "Đặt cược <strong>{{tokenDashMarket}}</strong> để nhận hơn <strong>{{apyPercentage}}</strong> APY",
-      "dailyEmission": "Phần thưởng hàng ngày",
       "description": "Tối đa hóa thu nhập tiền điện tử của bạn và khám phá phần thưởng ẩn với Venus Yield Vault. Đơn giản hóa các khoản đầu tư DeFi của bạn và phát triển danh mục đầu tư một cách dễ dàng.",
       "earningNow": "Đặt cược ngay",
       "highestApr": "APR cao nhất",
       "title": "Venus Vault",
-      "totalStaked": "Tổng đặt cược",
+      "tokenTotalDeposited": "Tổng {{token}} đã gửi",
       "totalVault": "Kho",
       "tvl": "TVL"
     },
