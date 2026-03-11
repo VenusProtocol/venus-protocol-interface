@@ -672,6 +672,9 @@
       "staking": {
         "label": "Staking"
       },
+      "yieldPlus": {
+        "label": "Yield+"
+      },
       "subMenuItem": {
         "button": {
           "label": "Get started"
@@ -1962,5 +1965,51 @@
       "submitButton": "Withdraw"
     },
     "withdrawTabTitle": "Withdraw"
+  },
+  "yieldPlus": {
+    "title": "Yield+",
+    "long": "Long",
+    "short": "Short",
+    "pairStats": {
+      "longLiquidity": "Long liquidity",
+      "shortLiquidity": "Short liquidity",
+      "supplyApy": "{{token}} supply APY",
+      "borrowApy": "{{token}} borrow APY"
+    },
+    "tabs": {
+      "positions": "Positions",
+      "transactions": "Transactions",
+      "position": "Position",
+      "collateral": "Collateral"
+    },
+    "banner": {
+      "title": "What is Yield+,",
+      "link": "How it works?"
+    },
+    "form": {
+      "collateral": "Collateral",
+      "available": "Available",
+      "long": "Long",
+      "short": "Short",
+      "liqPrice": "Liq. price",
+      "avgEnterPrice": "Avg. enter price",
+      "netApy": "Net APY",
+      "ltv": "LTV: {{value}}",
+      "lt": "LT: {{value}}",
+      "healthFactor": "Health factor",
+      "open": "Open",
+      "slippageTolerance": "Slippage tolerance",
+      "priceImpact": "Price impact",
+      "leverage": "{{value}}x"
+    },
+    "emptyState": {
+      "walletDisconnected": "Wallet Disconnected",
+      "noOpenPosition": "You do not have an open position yet"
+    },
+    "collateralForm": {
+      "deposit": "Deposit",
+      "withdraw": "Withdraw",
+      "max": "MAX"
+    }
   }
 }

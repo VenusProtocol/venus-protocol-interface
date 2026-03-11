@@ -28,6 +28,7 @@ const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
 const Bridge = safeLazyLoad(() => import('pages/Bridge'));
 const Skills = safeLazyLoad(() => import('pages/Skills'));
+const YieldPlus = safeLazyLoad(() => import('pages/YieldPlus'));
 const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
 
@@ -39,6 +40,7 @@ const AppRoutes = () => {
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
+  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlusRoute' });
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -204,6 +206,17 @@ const AppRoutes = () => {
             element={
               <PageSuspense>
                 <Bridge />
+              </PageSuspense>
+            }
+          />
+        )}
+
+        {yieldPlusRouteEnabled && (
+          <Route
+            path={Subdirectory.YIELD_PLUS}
+            element={
+              <PageSuspense>
+                <YieldPlus />
               </PageSuspense>
             }
           />

@@ -16,6 +16,7 @@ export const useMenuItems = () => {
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
+  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlusRoute' });
   const { marketsPagePath } = useGetMarketsPagePath();
   const { data: getPoolsData } = useGetPools();
   const pools = getPoolsData?.pools || [];
@@ -88,6 +89,13 @@ export const useMenuItems = () => {
       iconName: 'download',
       label: t('layout.menu.others.port.label'),
       description: t('layout.menu.others.port.description'),
+    });
+  }
+
+  if (yieldPlusRouteEnabled) {
+    menu.push({
+      to: routes.yieldPlus.path,
+      label: t('layout.menu.yieldPlus.label'),
     });
   }
 

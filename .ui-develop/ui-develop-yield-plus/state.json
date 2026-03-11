@@ -1,0 +1,10 @@
+{
+  "feature": "yield-plus",
+  "figmaUrls": [{ "label": "Main page", "url": "https://www.figma.com/design/DTDw3AtDZQMthlqEDDfOZj/Yield-?node-id=688-23062&m=dev" }],
+  "mode": "code",
+  "qa": 2,
+  "plan": 1,
+  "codeAgents": 2,
+  "completedPhases": ["1", "2.5", "3"],
+  "timestamp": "2026-03-10T00:02:00Z"
+}
