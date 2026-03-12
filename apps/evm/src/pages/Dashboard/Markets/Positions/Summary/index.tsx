@@ -109,29 +109,27 @@ export const Summary: React.FC<SummaryProps> = ({
 
   return (
     <Section className={className} title={title}>
-      {/* Below XL view when displaying account health */}
-      <div className={cn('space-y-4 md:space-y-6', displayAccountHealth ? 'xl:hidden' : 'hidden')}>
+      {/* Below XL view */}
+      <div className="space-y-4 md:space-y-6 xl:hidden">
         <CellGroup
-          cells={cells.slice(0, cells.length - 1)}
+          cells={displayAccountHealth ? cells.slice(0, cells.length - 1) : cells}
           variant="tertiary"
-          className="sm:grid-cols-3 gap-6"
+          className={cn('gap-3', displayAccountHealth ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
         />
 
-        <Cell {...cells[cells.length - 1]} className={cellClassName} />
+        {displayAccountHealth && <Cell {...cells[cells.length - 1]} className={cellClassName} />}
       </div>
 
-      {/* XL or above view when displaying account health */}
-      <Card
-        className={cn('hidden justify-between', displayAccountHealth && 'xl:flex border-0 p-0')}
-      >
+      {/* XL or above view */}
+      <Card className="justify-between border-0 p-0 hidden xl:flex">
         <CellGroup
-          cells={cells.slice(0, cells.length - 1)}
+          cells={displayAccountHealth ? cells.slice(0, cells.length - 1) : cells}
           className="w-full xl:p-0"
           variant="secondary"
         />
 
         {/* Account health */}
-        <div className="shrink-0">{cells[cells.length - 1].value}</div>
+        {displayAccountHealth && <div className="shrink-0">{cells[cells.length - 1].value}</div>}
       </Card>
     </Section>
   );
