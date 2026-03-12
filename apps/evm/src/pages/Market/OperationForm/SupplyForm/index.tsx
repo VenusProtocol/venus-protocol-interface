@@ -30,7 +30,7 @@ import {
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatTokensToReadableValue,
-  getSwapToTokenAmountReceivedTokens,
+  getSwapToTokenAmount,
   isCollateralActionDisabled,
 } from 'utilities';
 import { Footer } from '../Footer';
@@ -275,7 +275,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
   ]);
 
   let toTokenAmountTokens = isUsingSwap
-    ? getSwapToTokenAmountReceivedTokens(swapQuote)
+    ? getSwapToTokenAmount(swapQuote)
     : debouncedFormAmountTokens;
   toTokenAmountTokens = new BigNumber(toTokenAmountTokens || 0);
 

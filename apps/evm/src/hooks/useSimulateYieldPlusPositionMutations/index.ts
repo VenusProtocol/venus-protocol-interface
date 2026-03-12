@@ -30,6 +30,8 @@ export const useSimulateYieldPlusMutations = ({
       leverageFactor: position.leverageFactor,
       unrealizedPnlCents: position.unrealizedPnlCents,
       unrealizedPnlPercentage: position.unrealizedPnlPercentage,
+      entryRatio: position.entryRatio,
+      currentRatio: position.currentRatio,
     });
 
   return {

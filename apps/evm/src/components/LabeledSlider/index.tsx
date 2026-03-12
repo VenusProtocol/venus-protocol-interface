@@ -1,13 +1,17 @@
 import { Slider } from 'components';
 import { useTranslation } from 'libs/translations';
 
-export interface RiskSliderProps {
+export interface LabeledSliderProps {
   value: number;
   onChange: (newValue: number) => void;
   disabled?: boolean;
 }
 
-export const RiskSlider: React.FC<RiskSliderProps> = ({ value, onChange, disabled = false }) => {
+export const LabeledSlider: React.FC<LabeledSliderProps> = ({
+  value,
+  onChange,
+  disabled = false,
+}) => {
   const { t } = useTranslation();
 
   return (

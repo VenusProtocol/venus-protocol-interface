@@ -8,8 +8,8 @@ import {
   Delimiter,
   Icon,
   LabeledInlineContent,
+  LabeledSlider,
   type OptionalTokenBalance,
-  RiskSlider,
   TokenListWrapper,
   TokenTextField,
 } from 'components';
@@ -267,7 +267,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
       ? new BigNumber(formValues.amountTokens).multipliedBy(100).div(limitTokens).dp(1).toNumber()
       : 0;
 
-  const handleRiskSliderChange = (riskLevelPercentage: number) => {
+  const handleLabeledSliderChange = (riskLevelPercentage: number) => {
     const amountTokens = limitTokens
       .multipliedBy(riskLevelPercentage)
       .div(100)
@@ -442,10 +442,10 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
             </button>
           </LabeledInlineContent>
 
-          <RiskSlider
+          <LabeledSlider
             disabled={isDisabled}
             value={riskSliderValue}
-            onChange={handleRiskSliderChange}
+            onChange={handleLabeledSliderChange}
           />
 
           <Delimiter />

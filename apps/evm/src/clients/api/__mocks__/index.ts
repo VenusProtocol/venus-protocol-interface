@@ -14,6 +14,7 @@ import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { transactions } from '__mocks__/models/transactions';
 import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
+import { yieldPlusPositions } from '__mocks__/models/yieldPlus';
 
 import FunctionKey from 'constants/functionKey';
 
@@ -682,7 +683,7 @@ export const useGetProposalCount = vi.fn(() =>
 );
 
 export const getYieldPlusPositions = vi.fn(async () => ({
-  positions: [], // TODO: add mock positions
+  positions: yieldPlusPositions,
 }));
 export const useGetYieldPlusPositions = vi.fn(() =>
   useQuery({
@@ -764,6 +765,14 @@ export const useOpenLeveragedPosition = vi.fn(
 );
 
 export const useOpenYieldPlusPosition = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useScaleYieldPlusPosition = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),

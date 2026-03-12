@@ -1,5 +1,6 @@
 import { Spinner } from 'components';
 import { useGetSelectedYieldPosition } from '../useGetSelectedYieldPosition';
+import { ManagePositionTabs } from './ManagePositionTabs';
 import { OpenForm } from './OpenForm';
 
 export const OperationForm: React.FC = () => {
@@ -13,7 +14,7 @@ export const OperationForm: React.FC = () => {
   }
 
   if (selectedYieldPosition) {
-    return undefined; // TODO: return tabs to manage existing position
+    return <ManagePositionTabs position={selectedYieldPosition} />;
   }
 
   return <OpenForm />;

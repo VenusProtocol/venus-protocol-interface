@@ -1048,6 +1048,14 @@
       "title": "ตัวคูณเลเวอเรจ",
       "warning": "เลเวอเรจส่งผลต่อการใช้เงินทุนของคุณ และจะไม่สามารถเปลี่ยนได้จนกว่าคุณจะปิดสถานะทั้งหมด"
     },
+    "managePositionsTabs": {
+      "collateral": "หลักประกัน",
+      "position": "โพสิชัน",
+      "positionsTabs": {
+        "increase": "เพิ่ม",
+        "reduce": "ลด"
+      }
+    },
     "receiveNativeToken": {
       "label": "รับ {{tokenSymbol}}",
       "tooltip": "แกะห่อ {{wrappedNativeTokenSymbol}} ที่ยืมมาเป็น {{nativeTokenSymbol}}"
@@ -2092,6 +2100,9 @@
       "label": "Long"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "เพิ่ม"
+      },
       "openForm": {
         "collateral": "หลักประกัน",
         "dsaFieldLabel": "หลักประกัน",
@@ -2103,6 +2114,9 @@
         "short": "Short",
         "shortFieldLabel": "Short",
         "submitButtonLabel": "เปิด"
+      },
+      "reduceForm": {
+        "submitButtonLabel": "TRANSLATION NEEDED"
       }
     },
     "positions": {

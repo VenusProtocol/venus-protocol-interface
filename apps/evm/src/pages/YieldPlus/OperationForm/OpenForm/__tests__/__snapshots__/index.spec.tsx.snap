@@ -1,3 +1,3 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`OpenForm > renders real form when data is ready 1`] = `"Collateral2xXVSAvailable100 XVSLong≈ $100.02USDTShortBUSDAvailable0 BUSD0%100%Collateral0Long0100+ $100.02Short0Liq. price-0.094247 BUSDEntry price0.5 BUSDNet APY0.75%Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyOpenSlippage tolerance0.5%Price impact0.1%"`;
+exports[`OpenForm > renders form when data is ready 1`] = `"Collateral2xXVSAvailable100 XVSLong≈ $100.02USDTShortBUSDAvailable0 BUSD0%100%Collateral0Long0100+ $100.02Short0Liq. price-0.094247 BUSDEntry price0.5 BUSDNet APY0.75%Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyOpenSlippage tolerance0.5%Price impact0.1%"`;

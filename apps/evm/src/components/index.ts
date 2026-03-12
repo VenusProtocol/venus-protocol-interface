@@ -67,5 +67,5 @@ export * from './TokenListWrapper';
 export * from './TransactionsList';
 export * from './Wrapper';
 export * from './KLineChart';
-export * from './RiskSlider';
+export * from './LabeledSlider';
 export * from './AvailableBalance';

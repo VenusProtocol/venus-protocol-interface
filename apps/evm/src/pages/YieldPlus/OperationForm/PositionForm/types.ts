@@ -27,6 +27,8 @@ export type FormErrorCode =
 
 export type FormError = TxFormError<FormErrorCode>;
 
+export type PositionFormAction = 'open' | 'increase' | 'reduce';
+
 export interface PositionFormProps {
   formValues: FormValues;
   setFormValues: (setter: FormValues | ((newFormValues: FormValues) => FormValues)) => void;
@@ -36,8 +38,13 @@ export interface PositionFormProps {
   submitButtonLabel: string;
   onSubmit: (formValues: FormValues) => Promise<unknown>;
   isSubmitting: boolean;
+  action: PositionFormAction;
   formError?: FormError;
   isLoading?: boolean;
-  swapQuote?: SwapQuote;
-  swapQuoteErrorCode?: string;
+  actionSwapQuote?: SwapQuote;
+  actionSwapQuoteErrorCode?: string;
+  profitSwapQuote?: SwapQuote;
+  profitSwapQuoteErrorCode?: string;
+  lossSwapQuote?: SwapQuote;
+  lossSwapQuoteErrorCode?: string;
 }

@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { relativePositionManagerAbi } from 'libs/contracts';
 import type { Address, PublicClient } from 'viem';
 
-const PROPORTIONAL_CLOSE_TOLERANCE_DIVISOR = 10_000;
+const PROPORTIONAL_CLOSE_TOLERANCE_DIVISOR = 100;
 
 export interface GetProportionalCloseTolerancePercentageInput {
   publicClient: PublicClient;

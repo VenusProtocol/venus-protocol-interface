@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 import type { Asset, ChainId, Pool, YieldPlusPosition } from 'types';
-import { areAddressesEqual } from 'utilities';
+import { areAddressesEqual } from 'utilities/areAddressesEqual';
 
 // TODO: add tests
 
@@ -16,6 +16,8 @@ export const formatToYieldPlusPosition = ({
   leverageFactor,
   unrealizedPnlCents,
   unrealizedPnlPercentage,
+  entryRatio,
+  currentRatio,
 }: {
   pool: Pool;
   chainId: ChainId;
@@ -26,6 +28,8 @@ export const formatToYieldPlusPosition = ({
   leverageFactor: number;
   unrealizedPnlCents: number;
   unrealizedPnlPercentage: number;
+  entryRatio: number;
+  currentRatio: number;
 }) => {
   let dsaAsset: Asset | undefined;
   let longAsset: Asset | undefined;
@@ -114,6 +118,8 @@ export const formatToYieldPlusPosition = ({
     entryPriceCents: entryPriceCents.toNumber(),
     liquidationPriceTokens,
     liquidationPriceCents: liquidationPriceCents.toNumber(),
+    entryRatio,
+    currentRatio,
   };
 
   return position;

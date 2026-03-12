@@ -12,9 +12,10 @@ import { AccountHealth } from 'pages/YieldPlus/AccountHealth';
 import { Fragment } from 'react/jsx-runtime';
 import type { YieldPlusPosition } from 'types';
 import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
+import type { PositionFormAction } from '../PositionForm';
 
 export interface FooterProps extends TxFormSubmitButtonProps {
-  isNewPosition?: boolean;
+  action?: PositionFormAction;
   simulatedPosition?: YieldPlusPosition;
   position: YieldPlusPosition;
 }
@@ -26,7 +27,7 @@ export const Footer: React.FC<FooterProps> = ({
   isFormValid,
   balanceMutations,
   className,
-  isNewPosition = false,
+  action,
   ...otherSubmitButtonProps
 }) => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ export const Footer: React.FC<FooterProps> = ({
     {
       label: t('yieldPlus.operationForm.openForm.liquidationPrice'),
       original: formatTokensToReadableValue(
-        isNewPosition
+        action === 'open'
           ? {
               value: simulatedPosition?.liquidationPriceTokens,
               token: simulatedPosition?.shortAsset.vToken.underlyingToken,
@@ -46,21 +47,21 @@ export const Footer: React.FC<FooterProps> = ({
             },
       ),
       update:
-        isNewPosition || !simulatedPosition
+        action === 'open' || !simulatedPosition
           ? undefined
           : formatTokensToReadableValue({
               value: simulatedPosition.liquidationPriceTokens,
               token: simulatedPosition.shortAsset.vToken.underlyingToken,
             }),
       deltaAmountCents:
-        isNewPosition || !simulatedPosition
+        action === 'open' || !simulatedPosition
           ? undefined
           : simulatedPosition.liquidationPriceCents - position.liquidationPriceCents,
     },
     {
       label: t('yieldPlus.operationForm.openForm.entryPrice'),
       original: formatTokensToReadableValue(
-        isNewPosition
+        action === 'open'
           ? {
               value: simulatedPosition?.entryPriceTokens,
               token: simulatedPosition?.shortAsset.vToken.underlyingToken,
@@ -71,24 +72,24 @@ export const Footer: React.FC<FooterProps> = ({
             },
       ),
       update:
-        isNewPosition || !simulatedPosition
+        action === 'open' || !simulatedPosition
           ? undefined
           : formatTokensToReadableValue({
               value: simulatedPosition.entryPriceTokens,
               token: simulatedPosition.shortAsset.vToken.underlyingToken,
             }),
       deltaAmountCents:
-        isNewPosition || !simulatedPosition
+        action === 'open' || !simulatedPosition
           ? undefined
           : simulatedPosition.entryPriceCents - position.entryPriceCents,
     },
     {
       label: t('yieldPlus.operationForm.openForm.netApy'),
       original: formatPercentageToReadableValue(
-        isNewPosition ? simulatedPosition?.netApyPercentage : position.netApyPercentage,
+        action === 'open' ? simulatedPosition?.netApyPercentage : position.netApyPercentage,
       ),
       update:
-        isNewPosition || !simulatedPosition
+        action === 'open' || !simulatedPosition
           ? undefined
           : formatPercentageToReadableValue(simulatedPosition?.netApyPercentage),
     },

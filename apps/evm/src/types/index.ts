@@ -647,6 +647,8 @@ export interface YieldPlusPosition {
   liquidationPriceTokens: BigNumber;
   liquidationPriceCents: number;
   leverageFactor: number;
+  entryRatio: number;
+  currentRatio: number;
   pool: Pool;
 }
 

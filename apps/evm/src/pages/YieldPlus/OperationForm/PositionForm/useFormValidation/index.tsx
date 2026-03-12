@@ -7,25 +7,30 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { FormValues } from 'pages/YieldPlus/OperationForm/PositionForm';
-import type { FormError } from 'pages/YieldPlus/OperationForm/PositionForm/types';
-import type { BalanceMutation, SwapQuote, YieldPlusPosition } from 'types';
+import type {
+  FormError,
+  PositionFormAction,
+} from 'pages/YieldPlus/OperationForm/PositionForm/types';
+import type { BalanceMutation, YieldPlusPosition } from 'types';
 
 export const useFormValidation = ({
   balanceMutations,
   position,
   simulatedPosition,
   formValues,
-  swapQuoteErrorCode,
-  swapQuote,
+  averageSwapPriceImpactPercentage,
+  firstSwapQuoteErrorCode,
   limitShortTokens,
+  action,
 }: {
   position: YieldPlusPosition;
   balanceMutations: BalanceMutation[];
   formValues: FormValues;
+  action?: PositionFormAction;
   limitShortTokens?: BigNumber;
   simulatedPosition?: YieldPlusPosition;
-  swapQuoteErrorCode?: string;
-  swapQuote?: SwapQuote;
+  averageSwapPriceImpactPercentage?: number;
+  firstSwapQuoteErrorCode?: string;
 }) => {
   const { accountAddress } = useAccountAddress();
 
@@ -49,9 +54,9 @@ export const useFormValidation = ({
   const commonFormError = useCommonValidation({
     pool: position.pool,
     simulatedPool: simulatedPosition?.pool,
-    swapQuote,
     balanceMutations,
-    swapQuoteErrorCode,
+    swapPriceImpactPercentage: averageSwapPriceImpactPercentage,
+    swapQuoteErrorCode: firstSwapQuoteErrorCode,
     userAcknowledgesHighPriceImpact: formValues.acknowledgeHighPriceImpact,
     userAcknowledgesRisk: formValues.acknowledgeRisk,
   });
@@ -65,7 +70,7 @@ export const useFormValidation = ({
       ? new BigNumber(formValues.dsaAmountTokens)
       : undefined;
 
-    if (!dsaAmountTokens || dsaAmountTokens.isLessThanOrEqualTo(0)) {
+    if (action === 'open' && (!dsaAmountTokens || dsaAmountTokens.isLessThanOrEqualTo(0))) {
       return {
         code: 'EMPTY_DSA_TOKEN_AMOUNT',
       };
@@ -109,7 +114,7 @@ export const useFormValidation = ({
     }
 
     // TODO: add other cases
-    if (!simulatedPosition || !swapQuote) {
+    if (!simulatedPosition || averageSwapPriceImpactPercentage === undefined) {
       return {
         code: 'MISSING_DATA',
       };
@@ -123,9 +128,10 @@ export const useFormValidation = ({
     t,
     userDsaWalletSpendingLimitTokens,
     commonFormError,
-    swapQuote,
+    averageSwapPriceImpactPercentage,
     simulatedPosition,
     limitShortTokens,
+    action,
   ]);
 
   return {
