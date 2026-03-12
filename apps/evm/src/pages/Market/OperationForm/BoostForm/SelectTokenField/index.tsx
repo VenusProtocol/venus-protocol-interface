@@ -22,7 +22,7 @@ export const SelectTokenField: React.FC<SelectTokenFieldProps> = ({
   ...otherProps
 }) => (
   <div className={className} data-testid={testId} {...otherProps}>
-    <p className="text-sm text-grey mb-1">{label}</p>
+    <p className="text-sm text-grey mb-2">{label}</p>
 
     <TertiaryButton
       className={cn(
