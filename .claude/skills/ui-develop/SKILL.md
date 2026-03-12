@@ -7,6 +7,8 @@ Orchestrate a multi-phase UI development pipeline. Each phase is a dedicated sub
 via the Task tool. Generated code goes direct to monorepo paths; plan artifacts go to
 `.ui-develop/ui-develop-{FEATURE}/` (never to `.ui-develop/` root).
 
+**This skill covers phases 1-2 (Plan, Code). For i18n phase, use the `ui-i18n` skill. For QA phases (Preview, Review, Fix), use the `ui-qa` skill.**
+
 ## Setup
 
 Extract from `$ARGUMENTS`:
@@ -15,20 +17,19 @@ Extract from `$ARGUMENTS`:
 - **Text description** - primary input if no Figma URL
 - **mode** - how far the pipeline runs:
   - `plan` - Phase 1 only; present plan, stop
-  - `code` - through Phase 6; code remains unstaged for review **(default)**
-  - `auto` - run through Phase 6 automatically (no deploy)
+  - `code` - through Phase 2; code remains unstaged for review **(default)**
+  - `auto` - run through Phase 2 automatically
 - **plan=** - override plan agents (default: **auto**)
-- **qa=** - override QA reviewers (default: **auto**)
 - **resume={feature}** - load state from `{ARTIFACTS}/state.json` and skip completed phases
 - **from={phase}** - start from this phase, skipping all earlier phases regardless of state.
-  Accepts names (`plan`, `code`, `i18n`, `preview`, `review`, `fix`) or numbers (`1`-`6`).
-- Extra instructions (e.g. "skip review", "skip plan", "dark mode only")
+  Accepts names (`plan`, `code`) or numbers (`1`-`2`).
+- Extra instructions (e.g. "skip plan", "dark mode only")
 
 Parse Figma URLs into a list. One URL = single-page. Multiple = multi-page/multi-state.
 
-### Dynamic agent allocation (plan + QA)
+### Dynamic agent allocation (plan)
 
-When `plan=` and `qa=` are not explicitly specified, the pipeline **auto-determines** agent counts from complexity signals - the same approach used for code agents.
+When `plan=` is not explicitly specified, the pipeline **auto-determines** agent counts from complexity signals.
 
 **Plan agents** - determined from Figma URL count (available before Phase 1):
 
@@ -38,21 +39,10 @@ When `plan=` and `qa=` are not explicitly specified, the pipeline **auto-determi
 | 2+ Figma URLs | 3 | Multi-page features benefit from PM + Architect + QA perspectives |
 | Text-only input | 1 | No Figma to analyze in parallel |
 
-**QA agents** - determined from complexity score (available after Phase 1):
-
-| Complexity score | QA_AGENTS | Reviewers |
-|---|---:|---|
-| `simple` | 1 | Single reviewer, all domains |
-| `moderate` | 2 | Designer + QA Engineer (skip A11y) |
-| `complex` | 3 | Designer + QA Engineer + A11y Auditor |
-
-The complexity score comes from the plan's `recommended_agents` field - the same signal that determines CODE_AGENTS. If no score is found, default to `QA_AGENTS=1`.
-
-**Explicit `plan=` or `qa=` always overrides** the auto-determined value. This means:
+**Explicit `plan=` always overrides** the auto-determined value. This means:
 
 - `/ui-develop <url>` - auto (smart defaults)
 - `/ui-develop <url> plan=1` - force single planner regardless of URL count
-- `/ui-develop <url> qa=3` - force 3 reviewers regardless of complexity
 
 ### Artifacts directory convention
 
@@ -102,10 +92,8 @@ cat > /tmp/pipeline-viz.json << 'VIZEOF'
 | 2.3 | ui-code (opus) | blue | Sr Frontend Engineer | mode=plan, or CODE_AGENTS=1 |
 | 2.4 | integration check | gray | - | mode=plan. Dynamic: 1-3 parallel agents |
 | 2.5 | lint + typecheck | gray | - | mode=plan, or CODE_AGENTS=1 |
-| 3 | ui-i18n (sonnet) | orange | i18n Engineer | mode=plan |
-| 4 | ui-preview (sonnet) | orange | Preview + QA Tester | mode=plan; conditional otherwise |
-| 5 | ui-qa-verify (opus) | yellow | Sr UI/UX Designer & QA | mode=plan, or "skip preview" |
-| 6 | ui-qa-fix (sonnet) | red | Fix + Verify Engineer | mode=plan, no Figma, "skip review" |
+
+**Note:** For i18n phase, use the `ui-i18n` skill after completing phases 1-2. For QA phases (Preview, Review, Fix), use the `ui-qa` skill.
 
 Phase 1 parallel items (PLAN_AGENTS>1):
 
@@ -119,12 +107,6 @@ Phase 2 parallel items (when CODE_AGENTS > 1):
 - Phase 2.3 parallel agents: labels from work_assignments role names, color: "blue"
   (e.g. "Infrastructure + Dashboard", "Broker Codes", "Affiliate Referral")
 
-Phase 5 parallel items (QA_AGENTS>1):
-
-1. label: "Designer", role: "Design System Owner"
-2. label: "QA Engineer", role: "Sr. QA Engineer"
-3. label: "A11y Auditor", role: "Accessibility Auditor" (only when QA_AGENTS=3)
-
 ## State persistence
 
 After each major phase completes, write/update `{ARTIFACTS}/state.json` using the Write tool:
@@ -134,7 +116,6 @@ After each major phase completes, write/update `{ARTIFACTS}/state.json` using th
   "feature": "{FEATURE}",
   "figmaUrls": [{ "label": "...", "url": "https://figma.com/design/..." }],
   "mode": "{MODE}",
-  "qa": {QA_AGENTS},
   "plan": {PLAN_AGENTS},
   "codeAgents": {CODE_AGENTS},
   "completedPhases": [],
@@ -142,7 +123,7 @@ After each major phase completes, write/update `{ARTIFACTS}/state.json` using th
 }
 ```
 
-Persist state after these phases (append the phase to `completedPhases` and update `timestamp`): `1`, `2.5`, `3`, `4`, `5`, `6`.
+Persist state after these phases (append the phase to `completedPhases` and update `timestamp`): `1`, `2.5`.
 
 Sub-phases 2.1-2.4 are internal - code generation is all-or-nothing (only checkpoint at 2.5).
 
@@ -152,12 +133,12 @@ When `resume={feature}` is present in `$ARGUMENTS`:
 
 1. **Load state** from `{ARTIFACTS}/state.json`. If missing, abort with error.
 2. **Determine start phase**:
-   - If `from=` specified -> start from that phase (map names: `plan`->1, `code`->2, `i18n`->3, `preview`->4, `review`->5, `fix`->6)
+   - If `from=` specified -> start from that phase (map names: `plan`->1, `code`->2)
    - Otherwise -> first phase after the last entry in `completedPhases`
 3. **Resolve mode**:
    - No mode override -> use `mode` from state
    - `mode=` in arguments -> override
-  - If `from=` exceeds mode cutoff (e.g. `from=fix` with `mode=plan`) -> auto-upgrade to `auto`
+  - If `from=` exceeds mode cutoff (e.g. `from=code` with `mode=plan`) -> auto-upgrade to `code`
 4. **Show pipeline viz** with completed/skipped phases marked as `status: "skip"` in the viz config.
 5. **Run phases** from the start point, persisting state after each.
 
@@ -323,101 +304,9 @@ yarn lint && yarn test --watch=false
 
 Fix errors inline. Update state: append `"2.5"` to `completedPhases`.
 
-## Phase 3 - i18n (conditional)
+**After Phase 2:** Present summary and suggest running `ui-i18n` for i18n phase:
+> "Phases 1-2 complete. Run `/ui-i18n {FEATURE}` to add internationalization, then `/ui-qa {FEATURE}` for QA phases."
 
-Skip if components already have `t()` calls and locale file exists. Otherwise Task `subagent_type="ui-i18n"`.
-
-Update state: append `"3"` to `completedPhases`.
-
-## Phase 4 - Preview
-
-Task `subagent_type="ui-preview"`: _"Take screenshots. Figma URLs: {LIST}. Feature: {FEATURE}. Artifacts directory: {ARTIFACTS}. Save screenshots to {ARTIFACTS}/."_
-
-Update state: append `"4"` to `completedPhases`.
-
-## Phase 5 - Design Review
-
-Determine `QA_AGENTS`:
-
-- If `qa=` explicitly specified -> use that value
-- Else extract from plan complexity: `simple` -> 1, `moderate` -> 2, `complex` -> 3
-
-```bash
-COMPLEXITY=$(grep 'score:' {ARTIFACTS}/plan.md | head -1 | awk '{print $2}')
-```
-
-If complexity not found -> default to 1.
-
-### Single reviewer (QA_AGENTS=1)
-
-Task `subagent_type="ui-qa-verify"`:
-_"Review components against Figma. URLs: {LIST}. Feature: {FEATURE}. Artifacts directory: {ARTIFACTS}. Plan at {ARTIFACTS}/plan.md. Screenshots in {ARTIFACTS}/. Write to {ARTIFACTS}/review.md."_
-
-### Parallel reviewers (QA_AGENTS >= 2)
-
-Fan out QA_AGENTS review agents in parallel. Each writes to `{ARTIFACTS}/review-{i}.md`.
-
-| # | Role | Scope | When |
-|---:|---|---|---|
-| 1 | Designer (Design System Owner) | Visual fidelity, design token compliance, interaction states, responsive, cross-page consistency | QA_AGENTS >= 2 |
-| 2 | Sr. QA Engineer | AC verification, interactive wiring ($A2), mental simulation ($A1), assertion results ($A3) | QA_AGENTS >= 2 |
-| 3 | Accessibility & Edge Cases | ARIA, keyboard nav, screen reader, error/empty/loading states, boundary values, performance | QA_AGENTS = 3 |
-
-**QA_AGENTS=2**: Dispatch Review-1 and Review-2 only. Review-2 also covers basic a11y (ARIA on interactive elements, heading hierarchy) as part of Domain C. No separate A11y reviewer.
-
-**QA_AGENTS=3**: Dispatch all three. Review-3 performs deep a11y audit.
-
-Each gets the standard review prompt plus a role-specific suffix:
-
-**Review-1 (Designer):**
-
-> You are a **Figma Design System Owner** reviewing for visual fidelity. Write to `{ARTIFACTS}/review-1.md`.
-> Focus on: pixel-level comparison with Figma, design token compliance
-> (every color/typography/spacing from tokens), interaction design
-> (hover/active/focus match Figma annotations), responsive
-> (mobile screenshots vs mobile Figma), design consistency across pages.
-> Perform Domain B + Domain C from the review checklist, DO NOT perform Domain A.
-> Your reviewer role is: Designer reviewer.
-
-**Review-2 (Sr. QA Engineer):**
-
-> You are a **Sr. QA Engineer** reviewing for functional correctness. Write to `{ARTIFACTS}/review-2.md`.
-> Focus on: Read the plan's acceptance criteria and verify each is met.
-> Interactive wiring (Domain A2).
-> Mental simulation (Domain A1): trace data flow for forms, computed values, multi-step flows.
-> Assertion results (Domain A3): read PASS/FAIL/TIMEOUT screenshots.
-> Cross-page functional consistency (Domain C).
-> Mock-first code is intentional - do NOT flag hardcoded constants or unwired hooks.
-> (When QA_AGENTS>=2, add:). Also check basic accessibility:
-> ARIA attributes on interactive elements, heading hierarchy,
-> and keyboard-focusable controls.
-> Your reviewer role is: QA Engineer reviewer.
-
-**Review-3 (Accessibility & Edge Cases) - only when QA_AGENTS=3:**
-
-> You are an **Accessibility Auditor**. Write to `{ARTIFACTS}/review-3.md`.
-> Focus on: ARIA attributes, keyboard navigation, screen reader
-> (alt text, heading hierarchy, landmarks), error states, empty states,
-> loading states, boundary values (long text, zero, special chars),
-> performance (re-render triggers, DOM size).
-> Verify  components exist before suggesting them. Do not duplicate review-1 or review-2 findings.
-> Your reviewer role is: A11y reviewer.
-
-**Merge into `review.md`:** QA findings on wiring (Domain A) take precedence +
-Designer findings on tokens (Domain B) + A11y findings are additive.
-Deduplicate by file:line, keep highest severity.
-
-**Preserve original review files** (`review-1.md`, `review-2.md`, and `review-3.md` if present) - do NOT delete.
-
-Update state: append `"5"` to `completedPhases`.
-
-## Phase 6 - Auto-fix
-
-Skip if no Must Fix/Should Fix items.
-Task `subagent_type="ui-qa-fix"`:
-_"Apply QA review fixes. Feature: {FEATURE}. Artifacts directory: {ARTIFACTS}. Review at {ARTIFACTS}/review.md."_
-
-Update state: append `"6"` to `completedPhases`.
 
 
 
@@ -427,3 +316,5 @@ Update state: append `"6"` to `completedPhases`.
 - No deploy phase
 - No `ui-deploy` sub-agent
 - No commit/PR/deploy automation in this skill
+- **No i18n phase (3)** - use `ui-i18n` skill instead
+- **No QA phases (4-6)** - use `ui-qa` skill instead
