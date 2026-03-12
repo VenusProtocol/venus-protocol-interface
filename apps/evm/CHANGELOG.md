@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.18.1
+
+### Patch Changes
+
+- a43f798: fix hypothetical health factor displayed on E-mode groups
+
 ## 4.18.0
 
 ### Minor Changes
