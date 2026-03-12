@@ -2,7 +2,7 @@ import { handleError } from 'libs/errors';
 import type { Asset, Pool, SwapQuote, SwapQuoteError } from 'types';
 
 import type BigNumber from 'bignumber.js';
-import type { FormError } from '../../types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
@@ -26,7 +26,7 @@ export interface UseFormInput {
 interface UseFormOutput {
   handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
   isFormValid: boolean;
-  formErrors: FormError<FormErrorCode>[];
+  formErrors: TxFormError<FormErrorCode>[];
 }
 
 const useForm = ({
