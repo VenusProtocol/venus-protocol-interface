@@ -18,7 +18,7 @@ export const Banner: React.FC<BannerProps> = ({ className }) => {
   const hideBanner = store.use.hideBanner();
 
   return (
-    <Card className={cn('h-21 relative bg-dark-blue-active items-center flex', className)}>
+    <Card className={cn('h-21 relative bg-dark-blue-active items-center flex p-6', className)}>
       <img
         src={illustrationSrc}
         className="h-18 absolute bottom-0 right-2 sm:h-22 sm:right-12 md:h-24 md:right-14 lg:h-19 lg:right-3 2xl:right-6"

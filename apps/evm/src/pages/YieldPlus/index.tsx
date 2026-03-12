@@ -169,20 +169,17 @@ const YieldPlus: React.FC = () => {
               />
             </Card>
 
-            <Card className="border-blue lg:hidden">
-              <OperationForm />
-            </Card>
-
-            <Positions />
+            <Positions className="hidden lg:block" />
           </div>
 
-          <div className="flex-col gap-y-6 hidden lg:flex lg:self-start">
-            {!doNotShowBanner && <Banner />}
+          <div className="flex flex-col gap-y-6 lg:self-start">
+            {!doNotShowBanner && <Banner className="hidden lg:flex" />}
 
-            <Card className="border-blue bg-dark-blue">
-              {/* TODO: don't render the OperationForm twice, find another way to make the UI responsive */}
+            <Card className="border-blue bg-dark-blue p-6">
               <OperationForm />
             </Card>
+
+            <Positions className="lg:hidden" />
           </div>
         </div>
       )}

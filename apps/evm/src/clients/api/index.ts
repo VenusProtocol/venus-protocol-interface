@@ -33,6 +33,7 @@ export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
 export * from './mutations/useOpenLeveragedPosition';
 export * from './mutations/useOpenYieldPlusPosition';
+export * from './mutations/useScaleYieldPlusPosition';
 export * from './mutations/useRepayWithCollateral';
 
 // Queries

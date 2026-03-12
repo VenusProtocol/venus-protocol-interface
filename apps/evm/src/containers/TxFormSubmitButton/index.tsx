@@ -1,5 +1,8 @@
 import { AcknowledgementToggle, cn } from 'components';
-import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
+import {
+  HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
+  HEALTH_FACTOR_MODERATE_THRESHOLD,
+} from 'constants/healthFactor';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -43,7 +46,8 @@ export const TxFormSubmitButton: React.FC<TxFormSubmitButtonProps> = ({
   const isRiskyTransaction =
     balanceMutations.some(b => b.action !== 'supply' && b.action !== 'repay') &&
     simulatedPool?.userHealthFactor !== undefined &&
-    simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
+    simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
+    simulatedPool.userHealthFactor > HEALTH_FACTOR_LIQUIDATION_THRESHOLD;
 
   const isRisky = isHighPriceImpactSwap || isRiskyTransaction;
 

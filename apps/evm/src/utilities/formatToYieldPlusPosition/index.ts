@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 import type { Asset, ChainId, Pool, YieldPlusPosition } from 'types';
-import { areAddressesEqual } from 'utilities';
+import { areAddressesEqual } from 'utilities/areAddressesEqual';
 
 // TODO: add tests
 

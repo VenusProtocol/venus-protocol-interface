@@ -36,6 +36,7 @@ export interface PositionFormProps {
   submitButtonLabel: string;
   onSubmit: (formValues: FormValues) => Promise<unknown>;
   isSubmitting: boolean;
+  isNewPosition?: boolean;
   formError?: FormError;
   isLoading?: boolean;
   swapQuote?: SwapQuote;

@@ -1,53 +1,29 @@
 import BigNumber from 'bignumber.js';
 
-import { useGetSwapQuote, useOpenYieldPlusPosition } from 'clients/api';
+import { useGetSwapQuote, useScaleYieldPlusPosition } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useGetYieldPlusAssets } from 'pages/YieldPlus/useGetYieldPlusAssets';
+import { type FormValues, PositionForm } from 'pages/YieldPlus/OperationForm/PositionForm';
+import { calculateMaxBorrowShortTokens } from 'pages/YieldPlus/OperationForm/calculateMaxBorrowShortTokens';
+import { usePositionForm } from 'pages/YieldPlus/OperationForm/usePositionForm';
 import type { AssetBalanceMutation, YieldPlusPosition } from 'types';
-import {
-  areTokensEqual,
-  convertTokensToMantissa,
-  getSwapToTokenAmountReceivedTokens,
-} from 'utilities';
-import { type FormValues, PositionForm } from '../../PositionForm';
-import { calculateMaxBorrowShortTokens } from '../../calculateMaxBorrowShortTokens';
-import { usePositionForm } from '../../usePositionForm';
+import { convertTokensToMantissa, getSwapToTokenAmountReceivedTokens } from 'utilities';
 
-export interface FormProps {
+export interface IncreaseFormProps {
   position: YieldPlusPosition;
 }
 
-export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
+export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
   const { t } = useTranslation();
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
-  const { formValues, setFormValues } = usePositionForm({ position: newPosition });
+  const { formValues, setFormValues } = usePositionForm({ position });
 
-  const { mutateAsync: openYieldPlusPosition, isPending: isSubmitting } = useOpenYieldPlusPosition({
-    waitForConfirmation: true,
-  });
-
-  const {
-    data: { dsaAssets },
-  } = useGetYieldPlusAssets();
-
-  // The DSA asset from the position is static, so we manually update the position based on the
-  // selected DSA token and leverage factor
-  const position: YieldPlusPosition = {
-    ...newPosition,
-    leverageFactor: formValues.leverageFactor,
-    dsaAsset:
-      newPosition.pool.assets.find(asset =>
-        areTokensEqual(asset.vToken.underlyingToken, formValues.dsaToken),
-      ) || newPosition.dsaAsset,
-  };
-
-  const _debouncedDsaAmountTokens = useDebounceValue(formValues.dsaAmountTokens);
-  const debouncedDsaAmountTokens = new BigNumber(_debouncedDsaAmountTokens || 0);
+  const { mutateAsync: scaleYieldPlusPosition, isPending: isSubmitting } =
+    useScaleYieldPlusPosition();
 
   const _debouncedShortAmountTokens = useDebounceValue(formValues.shortAmountTokens);
   const debouncedShortAmountTokens = new BigNumber(_debouncedShortAmountTokens || 0);
@@ -80,14 +56,6 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
   const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
-      vTokenAddress: position.dsaAsset.vToken.address,
-      action: 'supply',
-      amountTokens: new BigNumber(swapQuote ? debouncedDsaAmountTokens : 0),
-      enableAsCollateralOfUser: true,
-      label: t('yieldPlus.operationForm.openForm.collateral'),
-    },
-    {
-      type: 'asset',
       vTokenAddress: position.longAsset.vToken.address,
       action: 'supply',
       amountTokens: new BigNumber(expectedLongAmountTokens || 0),
@@ -104,26 +72,19 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
   ];
 
   const limitShortTokens = calculateMaxBorrowShortTokens({
-    dsaAmountTokens: debouncedDsaAmountTokens,
+    dsaAmountTokens: position.dsaBalanceTokens,
     dsaTokenPriceCents: position.dsaAsset.tokenPriceCents,
     dsaTokenCollateralFactor: position.dsaAsset.collateralFactor,
-    longAmountTokens: new BigNumber(0),
+    longAmountTokens: position.longBalanceTokens,
     longTokenPriceCents: position.longAsset.tokenPriceCents,
     longTokenCollateralFactor: position.longAsset.collateralFactor,
-    shortAmountTokens: new BigNumber(0),
+    shortAmountTokens: position.shortBalanceTokens,
     shortTokenPriceCents: position.shortAsset.tokenPriceCents,
-    leverageFactor: formValues.leverageFactor,
+    leverageFactor: position.leverageFactor,
     shortTokenDecimals: position.shortAsset.vToken.underlyingToken.decimals,
   });
 
   const handleSubmit = async (formValues: FormValues) => {
-    const initialPrincipalMantissa = BigInt(
-      convertTokensToMantissa({
-        value: new BigNumber(formValues.dsaAmountTokens),
-        token: formValues.dsaToken,
-      }).toFixed(),
-    );
-
     const shortAmountMantissa = BigInt(
       convertTokensToMantissa({
         value: new BigNumber(formValues.shortAmountTokens),
@@ -138,23 +99,10 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
       });
     }
 
-    const dsaIndex = dsaAssets.findIndex(dsaAsset =>
-      areTokensEqual(dsaAsset.vToken.underlyingToken, formValues.dsaToken),
-    );
-
-    if (dsaIndex < 0) {
-      throw new VError({
-        type: 'unexpected',
-        code: 'somethingWentWrong',
-      });
-    }
-
-    return openYieldPlusPosition({
+    return scaleYieldPlusPosition({
       longVTokenAddress: position.longAsset.vToken.address,
       shortVTokenAddress: position.shortAsset.vToken.address,
-      dsaIndex,
-      initialPrincipalMantissa,
-      leverageFactor: formValues.leverageFactor,
+      additionalPrincipalMantissa: 0n,
       shortAmountMantissa,
       minLongAmountMantissa: swapQuote.minimumToTokenAmountReceivedMantissa,
       swapQuote,
@@ -163,7 +111,6 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
 
   return (
     <PositionForm
-      isNewPosition
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       swapQuote={swapQuote}
@@ -174,7 +121,7 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
       setFormValues={setFormValues}
       limitShortTokens={limitShortTokens}
       balanceMutations={balanceMutations}
-      submitButtonLabel={t('yieldPlus.operationForm.openForm.submitButtonLabel')}
+      submitButtonLabel={t('yieldPlus.operationForm.increaseForm.submitButtonLabel')}
     />
   );
 };

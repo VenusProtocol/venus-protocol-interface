@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import type { Token } from 'types';
 import { formatTokensToReadableValue, getSwapToTokenAmountReceivedTokens } from 'utilities';
 import { Footer } from '../Footer';
-import { calculateMaximumLeverageFactor } from '../calculateMaximumLeverageFactor';
+import { calculateMaxLeverageFactor } from '../calculateMaxLeverageFactor';
 import { SelectDsaTokenTextField } from './SelectDsaTokenTextField';
 import type { PositionFormProps } from './types';
 import { useFormValidation } from './useFormValidation';
@@ -20,6 +20,7 @@ import { useFormValidation } from './useFormValidation';
 export * from './types';
 
 export const PositionForm: React.FC<PositionFormProps> = ({
+  isNewPosition = false,
   position,
   setFormValues,
   formValues,
@@ -35,7 +36,6 @@ export const PositionForm: React.FC<PositionFormProps> = ({
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
-  const isNewPosition = position.dsaBalanceTokens.isEqualTo(0);
 
   const { address: relativePositionManagerContractAddress } = useGetContractAddress({
     name: 'RelativePositionManager',
@@ -76,13 +76,14 @@ export const PositionForm: React.FC<PositionFormProps> = ({
     swapQuoteErrorCode,
     swapQuote,
     limitShortTokens,
+    isNewPosition,
   });
 
   const maximumLeverageFactor =
     typeof proportionalCloseTolerancePercentage === 'number'
-      ? calculateMaximumLeverageFactor({
-          dsaTokenCollateralFactor: position.dsaAsset.userCollateralFactor,
-          longTokenCollateralFactor: position.longAsset.userCollateralFactor,
+      ? calculateMaxLeverageFactor({
+          dsaTokenCollateralFactor: position.dsaAsset.collateralFactor,
+          longTokenCollateralFactor: position.longAsset.collateralFactor,
           proportionalCloseTolerancePercentage,
         })
       : position.leverageFactor;
@@ -162,74 +163,89 @@ export const PositionForm: React.FC<PositionFormProps> = ({
     try {
       await onSubmit(formValues);
 
-      // No need to reset the form since a new UI will be displayed to manage the newly created
-      // position
+      setFormValues(currFormValues => ({
+        ...currFormValues,
+        dsaAmountTokens: '',
+        shortAmountTokens: '',
+        acknowledgeRisk: false,
+        acknowledgeHighPriceImpact: false,
+      }));
     } catch (error) {
       handleError({ error });
     }
   };
 
-  const approval: Approval | undefined = relativePositionManagerContractAddress
-    ? {
-        type: 'token',
-        token: formValues.dsaToken,
-        spenderAddress: relativePositionManagerContractAddress,
-      }
-    : undefined;
+  const approval: Approval | undefined =
+    // Only request approval if user is supplying DSA
+    simulatedPosition?.dsaBalanceCents &&
+    position.dsaBalanceCents < simulatedPosition.dsaBalanceCents &&
+    relativePositionManagerContractAddress
+      ? {
+          type: 'token',
+          token: formValues.dsaToken,
+          spenderAddress: relativePositionManagerContractAddress,
+        }
+      : undefined;
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
       {isNewPosition && (
-        <SelectDsaTokenTextField
-          shortTokenPriceCents={position.shortAsset.tokenPriceCents}
-          dsaTokenCollateralFactor={position.dsaAsset.userCollateralFactor}
-          tokenPriceCents={position.dsaAsset.tokenPriceCents.toNumber()}
-          selectedToken={formValues.dsaToken}
-          leverageFactor={formValues.leverageFactor}
-          maximumLeverageFactor={maximumLeverageFactor}
-          onChangeLeverageFactor={(newLeverageFactor: number) =>
-            setFormValues(currFormValues => ({
-              ...currFormValues,
-              leverageFactor: newLeverageFactor,
-            }))
-          }
-          name="dsaAmountTokens"
-          onChange={(newDsaAmountTokens: string) =>
-            setFormValues(currFormValues => ({
-              ...currFormValues,
-              dsaAmountTokens: newDsaAmountTokens,
-            }))
-          }
-          onChangeSelectedToken={(newDsaToken: Token) =>
-            setFormValues(currFormValues => ({
-              ...currFormValues,
-              dsaToken: newDsaToken,
-            }))
-          }
-          value={formValues.dsaAmountTokens}
-          label={t('yieldPlus.operationForm.openForm.dsaFieldLabel')}
-          disabled={isDisabled}
-          hasError={
-            !!accountAddress &&
-            !isSubmitting &&
-            (formError?.code === 'HIGHER_THAN_WALLET_BALANCE' ||
-              formError?.code === 'HIGHER_THAN_WALLET_SPENDING_LIMIT' ||
-              formError?.code === 'HIGHER_THAN_SUPPLY_CAP')
-          }
-          formError={
-            !!accountAddress &&
-            !isSubmitting &&
-            (formError?.code === 'EMPTY_DSA_TOKEN_AMOUNT' ||
-              formError?.code === 'HIGHER_THAN_WALLET_BALANCE' ||
-              formError?.code === 'HIGHER_THAN_WALLET_SPENDING_LIMIT' ||
-              formError?.code === 'HIGHER_THAN_SUPPLY_CAP')
-              ? formError
-              : undefined
-          }
-        />
-      )}
+        <>
+          <SelectDsaTokenTextField
+            proportionalCloseTolerancePercentage={proportionalCloseTolerancePercentage ?? 1}
+            shortTokenPriceCents={position.shortAsset.tokenPriceCents}
+            shortTokenDecimals={position.shortAsset.vToken.underlyingToken.decimals}
+            longTokenPriceCents={position.longAsset.tokenPriceCents}
+            longTokenCollateralFactor={position.longAsset.userCollateralFactor}
+            dsaTokenCollateralFactor={position.dsaAsset.userCollateralFactor}
+            tokenPriceCents={position.dsaAsset.tokenPriceCents.toNumber()}
+            selectedToken={formValues.dsaToken}
+            leverageFactor={formValues.leverageFactor}
+            maximumLeverageFactor={maximumLeverageFactor}
+            onChangeLeverageFactor={(newLeverageFactor: number) =>
+              setFormValues(currFormValues => ({
+                ...currFormValues,
+                leverageFactor: newLeverageFactor,
+              }))
+            }
+            name="dsaAmountTokens"
+            onChange={(newDsaAmountTokens: string) =>
+              setFormValues(currFormValues => ({
+                ...currFormValues,
+                dsaAmountTokens: newDsaAmountTokens,
+              }))
+            }
+            onChangeSelectedToken={(newDsaToken: Token) =>
+              setFormValues(currFormValues => ({
+                ...currFormValues,
+                dsaToken: newDsaToken,
+              }))
+            }
+            value={formValues.dsaAmountTokens}
+            label={t('yieldPlus.operationForm.openForm.dsaFieldLabel')}
+            disabled={isDisabled}
+            hasError={
+              !!accountAddress &&
+              !isSubmitting &&
+              (formError?.code === 'HIGHER_THAN_WALLET_BALANCE' ||
+                formError?.code === 'HIGHER_THAN_WALLET_SPENDING_LIMIT' ||
+                formError?.code === 'HIGHER_THAN_SUPPLY_CAP')
+            }
+            formError={
+              !!accountAddress &&
+              !isSubmitting &&
+              (formError?.code === 'EMPTY_DSA_TOKEN_AMOUNT' ||
+                formError?.code === 'HIGHER_THAN_WALLET_BALANCE' ||
+                formError?.code === 'HIGHER_THAN_WALLET_SPENDING_LIMIT' ||
+                formError?.code === 'HIGHER_THAN_SUPPLY_CAP')
+                ? formError
+                : undefined
+            }
+          />
 
-      <Delimiter />
+          <Delimiter />
+        </>
+      )}
 
       <TokenTextField
         name="longAmountTokens"

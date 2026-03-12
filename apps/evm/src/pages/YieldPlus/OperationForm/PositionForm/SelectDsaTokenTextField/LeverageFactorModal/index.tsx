@@ -17,7 +17,11 @@ export interface LeverageFactorModalProps {
   onChangeLeverageFactor: (newLeverageFactor: number) => void;
   maximumLeverageFactor: number;
   onClose: () => void;
+  proportionalCloseTolerancePercentage: number;
   shortTokenPriceCents: BigNumber;
+  shortTokenDecimals: number;
+  longTokenPriceCents: BigNumber;
+  longTokenCollateralFactor: number;
   dsaTokenCollateralFactor: number;
   dsaTokenPriceCents?: number;
   dsaAmountTokens?: BigNumber;
@@ -30,7 +34,10 @@ export const LeverageFactorModal: React.FC<LeverageFactorModalProps> = ({
   dsaAmountTokens,
   dsaTokenPriceCents,
   dsaTokenCollateralFactor,
+  longTokenPriceCents,
+  longTokenCollateralFactor,
   shortTokenPriceCents,
+  shortTokenDecimals,
   onClose,
 }) => {
   const { t } = useTranslation();
@@ -51,8 +58,13 @@ export const LeverageFactorModal: React.FC<LeverageFactorModalProps> = ({
           dsaAmountTokens,
           dsaTokenPriceCents,
           dsaTokenCollateralFactor,
+          longAmountTokens: new BigNumber(0),
+          longTokenPriceCents,
+          longTokenCollateralFactor,
+          shortAmountTokens: new BigNumber(0),
           shortTokenPriceCents,
           leverageFactor: newLeverageFactor,
+          shortTokenDecimals,
         })
       : undefined;
 
