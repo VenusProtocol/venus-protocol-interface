@@ -1048,6 +1048,14 @@
       "title": "Kaldıraç oranı",
       "warning": "Kaldıraç, sermaye kullanımınızı etkiler ve pozisyondan tamamen çıkana kadar değiştirilemez."
     },
+    "managePositionsTabs": {
+      "collateral": "Teminat",
+      "position": "Pozisyon",
+      "positionsTabs": {
+        "increase": "Artır",
+        "reduce": "Azalt"
+      }
+    },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}} al",
       "tooltip": "Borç alınan {{wrappedNativeTokenSymbol}}'i {{nativeTokenSymbol}}'e dönüştür"
@@ -2092,6 +2100,9 @@
       "label": "Long"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Artır"
+      },
       "openForm": {
         "collateral": "Teminat",
         "dsaFieldLabel": "Teminat",

@@ -1048,6 +1048,14 @@
       "title": "槓桿倍數",
       "warning": "槓桿會影響你的資金利用率，且在你完全平倉前無法變更。"
     },
+    "managePositionsTabs": {
+      "collateral": "抵押",
+      "position": "倉位",
+      "positionsTabs": {
+        "increase": "增加",
+        "reduce": "減少"
+      }
+    },
     "receiveNativeToken": {
       "label": "接收 {{tokenSymbol}}",
       "tooltip": "將借入的 {{wrappedNativeTokenSymbol}} 解包為 {{nativeTokenSymbol}}"
@@ -2092,6 +2100,9 @@
       "label": "多頭"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "增加"
+      },
       "openForm": {
         "collateral": "抵押",
         "dsaFieldLabel": "抵押",

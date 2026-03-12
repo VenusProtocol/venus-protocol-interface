@@ -18,10 +18,12 @@ export const useFormValidation = ({
   swapQuoteErrorCode,
   swapQuote,
   limitShortTokens,
+  isNewPosition = false,
 }: {
   position: YieldPlusPosition;
   balanceMutations: BalanceMutation[];
   formValues: FormValues;
+  isNewPosition?: boolean;
   limitShortTokens?: BigNumber;
   simulatedPosition?: YieldPlusPosition;
   swapQuoteErrorCode?: string;
@@ -65,7 +67,7 @@ export const useFormValidation = ({
       ? new BigNumber(formValues.dsaAmountTokens)
       : undefined;
 
-    if (!dsaAmountTokens || dsaAmountTokens.isLessThanOrEqualTo(0)) {
+    if (isNewPosition && (!dsaAmountTokens || dsaAmountTokens.isLessThanOrEqualTo(0))) {
       return {
         code: 'EMPTY_DSA_TOKEN_AMOUNT',
       };
@@ -126,6 +128,7 @@ export const useFormValidation = ({
     swapQuote,
     simulatedPosition,
     limitShortTokens,
+    isNewPosition,
   ]);
 
   return {

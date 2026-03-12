@@ -25,7 +25,7 @@ describe('getProportionalCloseTolerancePercentage', () => {
     });
 
     expect(response).toEqual({
-      proportionalCloseTolerancePercentage: 0.025,
+      proportionalCloseTolerancePercentage: 2.5,
     });
   });
 });
