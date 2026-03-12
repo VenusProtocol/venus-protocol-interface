@@ -26,9 +26,8 @@ export const getHypotheticalAssetValues = ({
     borrowBalanceCents += userBorrowBalanceCents;
   }
 
-  if (!!collateralFactor && !!liquidationThresholdPercentage && isCollateralOfUser) {
+  if (isCollateralOfUser) {
     borrowLimitCents += userSupplyBalanceCents * collateralFactor;
-
     liquidationThresholdCents += (userSupplyBalanceCents * liquidationThresholdPercentage) / 100;
   }
 
