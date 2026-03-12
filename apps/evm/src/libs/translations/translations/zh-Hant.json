@@ -1829,6 +1829,7 @@
       "deposit": "存款",
       "earning": "收益中",
       "inputPlaceholder": "搜尋資產或市場",
+      "paused": "已暫停",
       "refund": "退款",
       "repaying": "還款中",
       "stables": "穩定幣",
@@ -1836,7 +1837,7 @@
     },
     "overview": {
       "bannerTitle": "質押 <strong>{{tokenDashMarket}}</strong> 享受超過 <strong>{{apyPercentage}}</strong> APY",
-      "description": "通過 Venus 收益金庫最大化您的加密資產收益，發現隱藏獎勵。簡化您的 DeFi 投資，輕鬆增長您的投資組合。",
+      "description": "通過 Venus 收益金庫最大化您的加密資產收益，發現隱藏獎勵。",
       "earningNow": "立即質押",
       "highestApr": "最高 APR",
       "title": "Venus Vault",

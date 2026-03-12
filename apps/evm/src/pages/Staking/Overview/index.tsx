@@ -29,7 +29,7 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, classNa
     symbol: 'XVS',
   });
 
-  const vaultWithHighestApr = (vaults ?? []).sort(
+  const vaultWithHighestApr = [...(vaults ?? [])].sort(
     (a, b) => b.stakingAprPercentage - a.stakingAprPercentage,
   )[0];
 

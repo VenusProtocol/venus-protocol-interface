@@ -1829,6 +1829,7 @@
       "deposit": "Deposit",
       "earning": "Earning",
       "inputPlaceholder": "Search asset or market",
+      "paused": "Paused",
       "refund": "Refund",
       "repaying": "Repaying",
       "stables": "Stables",
@@ -1836,7 +1837,7 @@
     },
     "overview": {
       "bannerTitle": "Enjoy more than <strong>{{apyPercentage}}</strong> APY with <strong>{{tokenDashMarket}}</strong>",
-      "description": "Maximize your crypto earnings and discover hidden rewards with Venus Yield Vault. Simplify your DeFi investments and grow your portfolio effortlessly.",
+      "description": "Maximize your crypto earnings and discover hidden rewards with Venus Yield Vault.",
       "earningNow": "Earning now",
       "highestApr": "Highest APR",
       "title": "Venus Vault",

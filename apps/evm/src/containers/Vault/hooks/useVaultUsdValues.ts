@@ -42,7 +42,7 @@ export const useVaultUsdValues = (vault: Vault) => {
         dailyEmissionMantissa && rewardTokenPrice?.tokenPriceUsd
           ? convertPriceMantissaToDollars({
               priceMantissa: dailyEmissionMantissa?.times(rewardTokenPrice?.tokenPriceUsd),
-              decimals: stakedToken.decimals,
+              decimals: rewardToken.decimals,
             }).shiftedBy(2)
           : undefined,
     },

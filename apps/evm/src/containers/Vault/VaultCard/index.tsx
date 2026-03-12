@@ -98,7 +98,9 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
               )}
             </div>
 
-            <StatusLabel variant="primary">{t('vault.filter.active')}</StatusLabel>
+            <StatusLabel variant={isPaused ? 'warning' : 'primary'}>
+              {isPaused ? t('vault.filter.paused') : t('vault.filter.active')}
+            </StatusLabel>
           </div>
 
           {/* Stats */}

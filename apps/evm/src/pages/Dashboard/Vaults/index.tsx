@@ -37,6 +37,13 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
     <VaultModals vault={activeVault} activeModal={activeModal} onClose={closeModal} />
   ) : null;
 
+  const stakedTokenPriceResults = useGetTokenListUsdPrice({
+    tokens: filteredVaults.map(vault => vault.stakedToken),
+  });
+  const rewardTokenPriceResults = useGetTokenListUsdPrice({
+    tokens: filteredVaults.map(vault => vault.rewardToken),
+  });
+
   if (filteredVaults.length === 0) {
     return (
       <>
@@ -59,13 +66,6 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
     );
   }
 
-  const stakedTokenPriceResults = useGetTokenListUsdPrice({
-    tokens: filteredVaults.map(vault => vault.stakedToken),
-  });
-  const rewardTokenPriceResults = useGetTokenListUsdPrice({
-    tokens: filteredVaults.map(vault => vault.rewardToken),
-  });
-
   const { totalStakedUsd, dailyEarnUsd } = filteredVaults.reduce(
     (accu, curr, index) => {
       return {
@@ -85,7 +85,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
                   .times(curr.dailyEmissionMantissa)
                   .times(rewardTokenPriceResults?.[index]?.data?.tokenPriceUsd ?? 0)
               : new BigNumber(0),
-          decimals: curr.stakedToken.decimals,
+          decimals: curr.rewardToken.decimals,
         }).plus(accu.dailyEarnUsd),
       };
     },

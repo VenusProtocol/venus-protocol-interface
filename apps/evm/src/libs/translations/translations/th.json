@@ -1829,6 +1829,7 @@
       "deposit": "ฝากเงิน",
       "earning": "กำลังรับรายได้",
       "inputPlaceholder": "ค้นหาสินทรัพย์หรือตลาด",
+      "paused": "หยุดชั่วคราว",
       "refund": "คืนเงิน",
       "repaying": "กำลังชำระคืน",
       "stables": "สกุลเงินที่มั่นคง",
@@ -1836,7 +1837,7 @@
     },
     "overview": {
       "bannerTitle": "สเตค <strong>{{tokenDashMarket}}</strong> เพื่อรับ APY มากกว่า <strong>{{apyPercentage}}</strong>",
-      "description": "เพิ่มรายได้คริปโตของคุณสูงสุดและค้นพบรางวัลที่ซ่อนอยู่กับ Venus Yield Vault ลดความซับซ้อนในการลงทุน DeFi และขยายพอร์ตโฟลิโอของคุณได้อย่างง่ายดาย",
+      "description": "เพิ่มรายได้คริปโตของคุณสูงสุดและค้นพบรางวัลที่ซ่อนอยู่กับ Venus Yield Vault",
       "earningNow": "สเตคเลย",
       "highestApr": "APR สูงสุด",
       "title": "Venus Vault",

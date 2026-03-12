@@ -1829,6 +1829,7 @@
       "deposit": "預け入れ",
       "earning": "獲得中",
       "inputPlaceholder": "資産またはマーケットを検索",
+      "paused": "停止中",
       "refund": "返金",
       "repaying": "返済中",
       "stables": "ステーブルコイン",
@@ -1836,7 +1837,7 @@
     },
     "overview": {
       "bannerTitle": "<strong>{{tokenDashMarket}}</strong> をステークして <strong>{{apyPercentage}}</strong> 以上の APY を享受",
-      "description": "Venus Yield Vault で暗号資産の収益を最大化し、隠れた報酬を発見しましょう。DeFi 投資を簡素化し、ポートフォリオを楽に成長させましょう。",
+      "description": "Venus Yield Vault で暗号資産の収益を最大化し、隠れた報酬を発見しましょう。",
       "earningNow": "今すぐステーク",
       "highestApr": "最高 APR",
       "title": "Venus Vault",

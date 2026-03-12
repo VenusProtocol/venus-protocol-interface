@@ -1829,6 +1829,7 @@
       "deposit": "Gửi tiền",
       "earning": "Đang kiếm",
       "inputPlaceholder": "Tìm kiếm tài sản hoặc thị trường",
+      "paused": "Tạm dừng",
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ",
       "stables": "Stablecoin",
@@ -1836,7 +1837,7 @@
     },
     "overview": {
       "bannerTitle": "Đặt cược <strong>{{tokenDashMarket}}</strong> để nhận hơn <strong>{{apyPercentage}}</strong> APY",
-      "description": "Tối đa hóa thu nhập tiền điện tử của bạn và khám phá phần thưởng ẩn với Venus Yield Vault. Đơn giản hóa các khoản đầu tư DeFi của bạn và phát triển danh mục đầu tư một cách dễ dàng.",
+      "description": "Tối đa hóa thu nhập tiền điện tử của bạn và khám phá phần thưởng ẩn với Venus Yield Vault.",
       "earningNow": "Đặt cược ngay",
       "highestApr": "APR cao nhất",
       "title": "Venus Vault",

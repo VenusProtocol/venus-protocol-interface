@@ -87,9 +87,9 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({
                   {formatTokensToReadableValue({
                     value: convertMantissaToTokens({
                       value: vault.dailyEmissionMantissa,
-                      token: vault.stakedToken,
+                      token: vault.rewardToken,
                     }),
-                    token: vault.stakedToken,
+                    token: vault.rewardToken,
                   })}
                 </div>
               )}

@@ -1829,6 +1829,7 @@
       "deposit": "Yatır",
       "earning": "Kazanıyor",
       "inputPlaceholder": "Varlık veya piyasa ara",
+      "paused": "Duraklatıldı",
       "refund": "İade",
       "repaying": "Geri ödeniyor",
       "stables": "Stablecoin'ler",
@@ -1836,7 +1837,7 @@
     },
     "overview": {
       "bannerTitle": "<strong>{{tokenDashMarket}}</strong> stake ederek <strong>{{apyPercentage}}</strong> üzerinde APY kazanın",
-      "description": "Venus Yield Vault ile kripto kazançlarınızı maksimize edin ve gizli ödülleri keşfedin. DeFi yatırımlarınızı basitleştirin ve portföyünüzü zahmetsizce büyütün.",
+      "description": "Venus Yield Vault ile kripto kazançlarınızı maksimize edin ve gizli ödülleri keşfedin.",
       "earningNow": "Hemen stake yap",
       "highestApr": "En yüksek APR",
       "title": "Venus Vault",
