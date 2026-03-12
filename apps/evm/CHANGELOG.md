@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.18.0
+
+### Minor Changes
+
+- ee9b595: display Dashboard stats with no borrow position
+
 ## 4.17.0
 
 ### Minor Changes
