@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 4.18.2
+
+### Patch Changes
+
+- 4f09a92: fix size of E-mode group asset icons
+- 30a6d99: fix minor alignment issue on field
+
 ## 4.18.1
 
 ### Patch Changes
