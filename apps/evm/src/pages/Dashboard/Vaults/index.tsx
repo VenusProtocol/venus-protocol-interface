@@ -3,10 +3,8 @@ import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenUsdPrice/us
 import { CellGroup, type CellProps } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-// import { type ActiveModal, VaultModals } from 'containers/Vault';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
 import { useTranslation } from 'libs/translations';
-// import { useState } from 'react';
 import type { Vault } from 'types';
 import { convertPriceMantissaToDollars, formatCentsToReadableValue } from 'utilities';
 import { Placeholder } from '../Placeholder';
@@ -17,25 +15,6 @@ export interface VaultsProps {
 
 export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   const { t } = useTranslation();
-
-  /*
-  const [activeModal, setActiveModal] = useState<ActiveModal | undefined>(undefined);
-  const [activeVault, setActiveVault] = useState<Vault | undefined>(undefined);
-
-  const openModal = (_vault: Vault, _activeModal?: ActiveModal) => {
-    setActiveVault(_vault);
-    setActiveModal(_activeModal);
-  };
-
-  const closeModal = () => {
-    setActiveVault(undefined);
-    setActiveModal(undefined);
-  };
-
-  const modalDom = activeVault ? (
-    <VaultModals vault={activeVault} activeModal={activeModal} onClose={closeModal} />
-  ) : null;
-  */
 
   // Filter out vaults user has not staked in
   const filteredVaults = vaults.filter(vault => vault.userStakedMantissa?.isGreaterThan(0));
@@ -63,14 +42,10 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
               key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
               noStyle
             >
-              <VaultCardSimplified
-                key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
-                vault={vault}
-              />
+              <VaultCardSimplified vault={vault} />
             </Link>
           ))}
         </div>
-        {/* {modalDom} */}
       </>
     );
   }
@@ -127,7 +102,6 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
           </Link>
         ))}
       </div>
-      {/* {modalDom} */}
     </>
   );
 };

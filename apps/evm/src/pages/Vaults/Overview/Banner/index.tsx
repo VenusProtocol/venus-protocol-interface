@@ -1,5 +1,4 @@
 import { cn } from '@venusprotocol/ui';
-import type { ActiveModal } from 'containers/Vault';
 import { useVaultUsdValues } from 'containers/Vault/hooks/useVaultUsdValues';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
@@ -13,7 +12,6 @@ import bannerVaultSrc from './asset/banner-vault.png';
 
 export interface BannerProps {
   vault: Vault;
-  onOpenModal?: (vault: Vault, activeModal: ActiveModal) => void;
   className?: string;
 }
 
@@ -24,10 +22,6 @@ export const Banner: React.FC<BannerProps> = ({ vault, className }) => {
   const {
     data: { totalStakedUsdCents },
   } = useVaultUsdValues(vault);
-
-  // const onEarnClick = () => {
-  //   onOpenModal?.(vault, 'stake');
-  // };
 
   return (
     <div
@@ -96,13 +90,6 @@ export const Banner: React.FC<BannerProps> = ({ vault, className }) => {
         {/* Stats + CTA: row on sm/md, column on lg+ */}
         <div className="flex sm:flex-row items-end justify-between lg:flex-col lg:items-start lg:justify-between gap-3 lg:gap-12">
           <div className="flex flex-col gap-1">
-            {/* <div className="flex items-center gap-1">
-              <span className="text-b2r sm:text-b1r md:text-p3r text-grey">{t('vault.overview.dailyEmission')}</span>
-              <span className="text-b1s">
-                {formatCentsToReadableValue({ value: dailyEmissionUsdCents })}
-              </span>
-            </div> */}
-
             <div className="flex lg:max-xl:block items-center gap-1 sm:gap-2 flex-wrap">
               <span className="text-b2r sm:text-b1r md:text-p3r text-grey">
                 {t('vault.overview.tokenTotalDeposited', { token: stakedToken.symbol })}
@@ -120,14 +107,6 @@ export const Banner: React.FC<BannerProps> = ({ vault, className }) => {
               </div>
             </div>
           </div>
-
-          {/* <PrimaryButton
-            onClick={onEarnClick}
-            className="h-7.5 py-1 px-5 text-b1s rounded-lg max-sm:px-4 max-sm:mr-1"
-            size="xs"
-          >
-            {t('vault.overview.earnNow')}
-          </PrimaryButton> */}
         </div>
       </div>
     </div>

@@ -14,17 +14,8 @@ interface VaultsProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props }) => {
   const { t } = useTranslation();
-  const {
-    category,
-    setCategory,
-    categoryOptions,
-    curator,
-    setCurator,
-    curatorOptions,
-    // status,
-    // setStatus,
-    // statusOptions,
-  } = useFilterOptions();
+  const { category, setCategory, categoryOptions, curator, setCurator, curatorOptions } =
+    useFilterOptions();
 
   const [search, setSearch] = useState('');
   const onChange: TextFieldProps['onChange'] = e => {
@@ -32,12 +23,11 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
   };
 
   const filteredVaults = (vaults ?? []).filter(vault => {
-    const { category: _category, curator: _curator, status: _status } = getVaultMetadata(vault);
+    const { category: _category, curator: _curator } = getVaultMetadata(vault);
 
     return (
       (category === ALL_OPTION_VALUE || category === _category) &&
       (curator === ALL_OPTION_VALUE || curator === _curator) &&
-      /*(status === ALL_OPTION_VALUE || status === _status) && */
       (!search ||
         vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()) ||
         _curator?.toLowerCase().includes(search?.toLowerCase()))
@@ -73,18 +63,6 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
             value={curator}
             onChange={newValue => setCurator(newValue.toString())}
           />
-          {/* <Select
-            className="sm:flex-1/3 lg:flex-none"
-            size="medium"
-            variant="tertiary"
-            placeLabelToLeft
-            options={statusOptions}
-            optionClassName="px-3 h-10 scrollbar-track-cards"
-            dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-            buttonClassName="sm:min-w-45"
-            value={status}
-            onChange={newValue => setStatus(newValue.toString())}
-          /> */}
         </div>
         <TextField
           value={search}

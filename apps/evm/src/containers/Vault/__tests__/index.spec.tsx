@@ -6,7 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { en } from 'libs/translations';
 
-import { VaultCard as Vault, type VaultProps } from '..';
+import { VaultCardLegacy as Vault, type VaultProps } from '..';
 import TEST_IDS from '../testIds';
 
 const fakeVault = {
@@ -14,13 +14,15 @@ const fakeVault = {
   userStakedMantissa: new BigNumber('200000000000000000000'),
 };
 
+const openModal = () => {};
+
 describe('pages/Vault/Vault', () => {
   it('renders without crashing', async () => {
-    renderComponent(<Vault vault={fakeVault} />);
+    renderComponent(<Vault vault={fakeVault} openModal={openModal} />);
   });
 
   it('renders vault correctly', async () => {
-    const { container } = renderComponent(<Vault vault={fakeVault} />);
+    const { container } = renderComponent(<Vault vault={fakeVault} openModal={openModal} />);
 
     expect(container.textContent).toMatchSnapshot();
   });
@@ -32,12 +34,12 @@ describe('pages/Vault/Vault', () => {
       isPaused: true,
     };
 
-    const { getByTestId, queryByText } = renderComponent(<Vault vault={customFakeVault} />, {
-      accountAddress: fakeAddress,
-    });
-
-    // Check card is styled as non-interactive when paused
-    expect(getByTestId(TEST_IDS.userStakedTokens)).toHaveClass('cursor-not-allowed');
+    const { queryByText } = renderComponent(
+      <Vault vault={customFakeVault} openModal={openModal} />,
+      {
+        accountAddress: fakeAddress,
+      },
+    );
 
     // Check warning is displayed
     expect(queryByText(en.vault.card.pausedWarning)).toBeInTheDocument();

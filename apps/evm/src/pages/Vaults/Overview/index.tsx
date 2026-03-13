@@ -4,7 +4,6 @@ import { cn } from '@venusprotocol/ui';
 import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenUsdPrice/useGetTokenListUsdPrice';
 import { CellGroup, type CellProps } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
-import type { ActiveModal } from 'containers/Vault';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
@@ -18,11 +17,10 @@ import { Banner } from './Banner';
 
 export interface OverviewProps {
   vaults: Vault[];
-  onOpenModal?: (vault: Vault, activeModal: ActiveModal) => void;
   className?: string;
 }
 
-export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, className }) => {
+export const Overview: React.FC<OverviewProps> = ({ vaults, className }) => {
   const { t, Trans } = useTranslation();
 
   const xvs = useGetToken({
@@ -64,15 +62,14 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, classNa
   const overviewCells: CellProps[] = [
     {
       label: t('vault.overview.tvl'),
-      value:
-        totalStakedUsdCents !== undefined && !isLoading
-          ? formatCentsToReadableValue({ value: totalStakedUsdCents })
-          : PLACEHOLDER_KEY,
+      value: !isLoading
+        ? formatCentsToReadableValue({ value: totalStakedUsdCents })
+        : PLACEHOLDER_KEY,
     },
     {
       label: t('vault.overview.highestApr'),
       value:
-        vaultWithHighestApr !== undefined && !isLoading
+        vaultWithHighestApr && !isLoading
           ? formatPercentageToReadableValue(vaultWithHighestApr.stakingAprPercentage)
           : PLACEHOLDER_KEY,
     },
@@ -104,7 +101,7 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, classNa
         <CellGroup variant="secondary" cells={overviewCells} />
       </div>
 
-      {featuredVault && <Banner vault={featuredVault} onOpenModal={onOpenModal} />}
+      {featuredVault && <Banner vault={featuredVault} />}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useGetVaults } from 'clients/api';
 import { Page, Spinner, cn } from 'components';
 import { useAccountAddress } from 'libs/wallet';
@@ -35,7 +34,7 @@ const StakingPage: React.FC = () => {
   return (
     <Page>
       <div className={cn('flex flex-col gap-6 sm:gap-12')}>
-        <Overview vaults={vaults} onOpenModal={openModal} />
+        <Overview vaults={vaults} />
 
         <Vaults vaults={vaults} openModal={openModal} />
       </div>
