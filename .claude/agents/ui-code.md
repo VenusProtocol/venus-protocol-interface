@@ -91,7 +91,9 @@ rg "<ComponentName" apps/evm/src/pages -A 5
 
 ### 4.3 - Key component usage patterns
 
-#### Select Component
+#### Select Component (for non-token selections)
+
+**CRITICAL:** Use `Select` only for non-token selections (categories, options, settings, etc.). For token selections, see Token Selection Components below.
 
 **Import:** `import { Select } from 'components';`
 
@@ -105,16 +107,17 @@ rg "<ComponentName" apps/evm/src/pages -A 5
 - `placeLabelToLeft?: boolean` - place label on left side
 - `disabled?: boolean` - disable state
 
-**Example:**
+**Example (non-token selection):**
 ```typescript
-const [selectedToken, setSelectedToken] = useState('USDT');
+const [selectedCategory, setSelectedCategory] = useState('all');
 
 <Select
-  value={selectedToken}
-  onChange={setSelectedToken}
+  value={selectedCategory}
+  onChange={setSelectedCategory}
   options={[
-    { value: 'USDT', label: 'USDT' },
-    { value: 'USDC', label: 'USDC' },
+    { value: 'all', label: 'All Categories' },
+    { value: 'lending', label: 'Lending' },
+    { value: 'borrowing', label: 'Borrowing' },
   ]}
   variant="primary"
   size="medium"
@@ -122,6 +125,22 @@ const [selectedToken, setSelectedToken] = useState('USDT');
 ```
 
 **Real usage:** See `apps/evm/src/pages/Markets/Tabs/EMode/index.tsx` and `apps/evm/src/components/Select/index.stories.tsx`
+
+#### Token Selection Components
+
+**When UI shows dropdown/select for token selection, use token-specific components:**
+
+**SelectTokenField** (for single token selector button, no input field):
+- **Import:** `import { SelectTokenField } from 'pages/Market/OperationForm/BoostForm/SelectTokenField';`
+- **Props:** `token`, `onButtonClick`, `isActive`, `label`, `disabled`
+- **Use when:** Figma design shows a token selector button that opens a token list modal (without input field)
+- **Real usage:** See `apps/evm/src/pages/Market/OperationForm/BoostForm/index.tsx`
+
+**SelectTokenTextField** (for single token selector with input field):
+- **Import:** `import { SelectTokenTextField } from 'components';`
+- **Props:** `selectedToken`, `onChangeSelectedToken`, `tokenBalances`, `value`, etc.
+- **Use when:** Token selector button + amount input field combined
+- **Real usage:** See `apps/evm/src/pages/Market/OperationForm/SupplyForm/index.tsx` and `apps/evm/src/pages/Swap/index.tsx`
 
 #### Tabs Component
 
@@ -228,6 +247,35 @@ rg "export const .*: React\\.FC|className=" apps/evm/src/components apps/evm/src
 
 **Before introducing new UI primitives, verify whether existing project components already solve the pattern.**
 
+### 4.6 - Token data pattern (when applicable)
+
+When implementing components that use tokens (TokenIcon, token selectors, etc.):
+
+**Check existing patterns first:**
+```bash
+# See how Swap page handles tokens
+cat apps/evm/src/pages/Swap/index.tsx | grep -A 10 "useGetToken\|useGetTokens"
+
+# See how Dashboard handles tokens  
+cat apps/evm/src/pages/Dashboard/index.tsx | grep -A 5 "useGetToken"
+```
+
+**Pattern to consider:**
+- If component needs token metadata (for icons, selectors), consider using `useGetTokens()` / `useGetToken()` from `libs/tokens`
+- This pattern ensures correct icon paths and matches project conventions
+- Token data is static (from `@venusprotocol/chains`), so hooks work even in mock UI implementations
+
+**Example pattern:**
+```typescript
+import { useGetTokens, useGetToken } from 'libs/tokens';
+
+// In page/container component:
+const tokens = useGetTokens();
+const defaultToken = useGetToken({ symbol: 'USDT' }) || tokens?.[0];
+```
+
+**Note:** This is a pattern recommendation, not a hard requirement. Use judgment based on component needs and existing codebase patterns.
+
 ## Step 5 - Write code
 
 Follow `.claude/references/code-quality.md` and `.claude/references/api-patterns.md`.
@@ -236,6 +284,7 @@ Key rules:
 
 - keep data fetching/mutations in `apps/evm/src/clients/api` hooks
 - pages/components consume named hooks instead of raw API calls
+- **for token data: consider using `useGetTokens()` / `useGetToken()` from `libs/tokens` to match project patterns (see Swap, Dashboard examples)**
 - keep route changes aligned with `apps/evm/src/App/Routes/index.tsx`
 - use Venus typography/color/background token classes from design reference
 - implement plan-defined interaction states exactly

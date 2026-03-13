@@ -51,6 +51,22 @@ Use existing Venus component patterns first:
 - `apps/evm/src/containers/`
 - `@venusprotocol/ui` exports
 
+**Critical: Dropdown/Select component identification**
+
+When analyzing Figma designs with dropdown/select controls:
+
+1. **Identify selection type:**
+   - If selecting tokens (cryptocurrency) → use token-specific components
+   - If selecting non-token items (categories, options, settings) → use `Select` from `components`
+
+2. **For token selections:**
+   - **Single token selector button (no input field)** → Use `SelectTokenField` from `pages/Market/OperationForm/BoostForm/SelectTokenField`
+   - **Single token selector with input field** → Use `SelectTokenTextField` from `components`
+   - Check existing page implementations for other reusable token selector patterns
+
+3. **For non-token selections:**
+   - Use `Select` from `components`
+
 For custom visual elements (progress indicators, sliders, gauges), combine two sources:
 
 1. `get_metadata` structure (child types and dimensions)
@@ -131,10 +147,37 @@ Component/Page
       -> infrastructure utilities (restService / contracts / useSendTransaction)
 ```
 
+### Token data pattern (when components use tokens)
+
+If your plan includes components that display or select tokens (TokenIcon, token selectors, token pair selectors):
+
+**Recommended pattern:**
+- Use `useGetTokens()` and `useGetToken({ symbol })` from `libs/tokens` to get token data
+- Token metadata (symbol, address, iconSrc, decimals) is static and available from `@venusprotocol/chains`
+- This ensures correct icon paths and consistency with other pages (see Swap, Dashboard examples)
+
+**Reference existing patterns:**
+```bash
+# See how other pages handle token data
+cat apps/evm/src/pages/Swap/index.tsx | grep -A 5 "useGetToken\|useGetTokens"
+cat apps/evm/src/pages/Dashboard/index.tsx | grep -A 5 "useGetToken"
+```
+
+**When mock data is acceptable:**
+- Price data, liquidity, APY percentages (requires API/on-chain calls)
+- Position data, transaction history
+- Any dynamic data that isn't available statically
+
+**When to prefer hooks over mocks:**
+- Token metadata (symbol, address, iconSrc, decimals) - use hooks
+- Token lists for selectors - use `useGetTokens()`
+- Default token selection - use `useGetToken({ symbol })`
+
 List:
 
 - required query hooks
 - required mutation hooks
+- token hooks (if components use tokens)
 - local UI state (tab/filter/sort/search)
 - query invalidation needs (if mutations exist)
 

@@ -8,6 +8,7 @@ out
 
 # Local environment variables
 .env
+settings.local.json
 
 # Dependencies
 node_modules
@@ -42,3 +43,6 @@ yarn-error.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# AI development artifacts
+.ui-develop

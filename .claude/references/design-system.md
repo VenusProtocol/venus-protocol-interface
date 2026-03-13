@@ -187,6 +187,38 @@ The project spacing scale uses 0.25rem increments from the UI theme (`--spacing:
 - Large layout widths/heights with no clean utility mapping (`max-w-[1176px]`, `h-[70vh]`)
 - Visual effects that are intentionally non-tokenized (hero-only decorative gradients)
 
+## Component selection patterns
+
+When implementing UI that includes dropdown/select controls, identify the selection type first:
+
+### Dropdown selection type identification
+
+**If the dropdown selects tokens (cryptocurrency tokens):**
+- **Single token selector (button only, no input field)** → Use `SelectTokenField`
+  - **Import:** `import { SelectTokenField } from 'pages/Market/OperationForm/BoostForm/SelectTokenField';`
+  - **Props:** `token`, `onButtonClick`, `isActive`, `label`, `disabled`
+  - **Pattern:** Token selector button that opens a token list modal
+
+- **Single token selector with input field** → Use `SelectTokenTextField`
+  - **Import:** `import { SelectTokenTextField } from 'components';`
+  - **Props:** `selectedToken`, `onChangeSelectedToken`, `tokenBalances`, `value`, etc.
+  - **Pattern:** Token selector button + amount input field combined
+
+**If the dropdown selects non-token items (categories, options, settings, etc.):**
+- Use `Select` from `components`
+  - **Import:** `import { Select } from 'components';`
+  - **Props:** `value`, `options`, `onChange`, `variant`, `size`
+  - **Pattern:** Generic dropdown for any non-token selection
+
+### Component discovery priority
+
+Before creating new selection components:
+1. **Identify selection type:** Is it selecting tokens or non-token items?
+2. **For token selections:**
+   - Check `apps/evm/src/components/` for generic token selection components (e.g., `SelectTokenTextField`)
+   - Check existing page implementations for reusable token selector patterns (e.g., `SelectTokenField` in BoostForm)
+3. **For non-token selections:** Use `Select` from `components`
+
 ## Component style constraints
 
 ### `@venusprotocol/ui` usage
