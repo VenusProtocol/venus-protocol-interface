@@ -43,27 +43,36 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, classNa
     tokens: (vaults ?? []).map(vault => vault.stakedToken),
   });
 
-  const totalStakedUsdCents = stakedTokenPriceResults.reduce((accu, curr, index) => {
-    return accu.plus(
-      convertPriceMantissaToDollars({
-        priceMantissa: vaults[index]?.totalStakedMantissa?.times(curr.data?.tokenPriceUsd ?? 0),
-        decimals: vaults[index]?.stakedToken?.decimals,
-      }).shiftedBy(2),
-    );
-  }, BigNumber(0));
+  const { data: totalStakedUsdCents, isLoading } = stakedTokenPriceResults.reduce(
+    (accu, curr, index) => {
+      return {
+        data: accu.data.plus(
+          convertPriceMantissaToDollars({
+            priceMantissa: vaults[index]?.totalStakedMantissa?.times(curr.data?.tokenPriceUsd ?? 0),
+            decimals: vaults[index]?.stakedToken?.decimals,
+          }).shiftedBy(2),
+        ),
+        isLoading: accu.isLoading || curr.isLoading,
+      };
+    },
+    {
+      data: BigNumber(0),
+      isLoading: false,
+    },
+  );
 
   const overviewCells: CellProps[] = [
     {
       label: t('vault.overview.tvl'),
       value:
-        totalStakedUsdCents !== undefined
+        totalStakedUsdCents !== undefined && !isLoading
           ? formatCentsToReadableValue({ value: totalStakedUsdCents })
           : PLACEHOLDER_KEY,
     },
     {
       label: t('vault.overview.highestApr'),
       value:
-        vaultWithHighestApr !== undefined
+        vaultWithHighestApr !== undefined && !isLoading
           ? formatPercentageToReadableValue(vaultWithHighestApr.stakingAprPercentage)
           : PLACEHOLDER_KEY,
     },

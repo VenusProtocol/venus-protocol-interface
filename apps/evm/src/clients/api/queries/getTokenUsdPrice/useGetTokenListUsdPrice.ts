@@ -17,7 +17,7 @@ type TrimmedGetTokenUsdPriceInput = Omit<
 >;
 
 export type UseGetTokenUsdPriceQueryKey = [
-  FunctionKey.GET_TOKEN_LIST_USD_PRICE,
+  FunctionKey.GET_TOKEN_USD_PRICE,
   {
     tokenAddress: string;
     chainId: ChainId;
@@ -48,10 +48,7 @@ export const useGetTokenListUsdPrice = (
 
   return useQueries({
     queries: (tokens ?? []).map(token => ({
-      queryKey: [
-        FunctionKey.GET_TOKEN_LIST_USD_PRICE,
-        { tokenAddress: token?.address ?? '', chainId },
-      ],
+      queryKey: [FunctionKey.GET_TOKEN_USD_PRICE, { tokenAddress: token?.address ?? '', chainId }],
       queryFn: () =>
         callOrThrow({ token, resilientOracleAddress }, params =>
           getTokenUsdPrice({ publicClient, ...params }),

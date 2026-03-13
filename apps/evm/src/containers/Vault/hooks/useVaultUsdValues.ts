@@ -11,16 +11,16 @@ export const useVaultUsdValues = (vault: Vault) => {
     dailyEmissionMantissa,
   } = vault;
 
-  const { data: stakedTokenPrice, isFetching: isStakedTokenPriceFetching } = useGetTokenUsdPrice({
+  const { data: stakedTokenPrice, isLoading: isStakedTokenPriceLoading } = useGetTokenUsdPrice({
     token: stakedToken,
   });
 
-  const { data: rewardTokenPrice, isFetching: isRewardTokenPriceFetching } = useGetTokenUsdPrice({
+  const { data: rewardTokenPrice, isLoading: isRewardTokenPriceLoading } = useGetTokenUsdPrice({
     token: rewardToken,
   });
 
   return {
-    isLoading: isStakedTokenPriceFetching || isRewardTokenPriceFetching,
+    isLoading: isStakedTokenPriceLoading || isRewardTokenPriceLoading,
     data: {
       stakedTokenPriceUsd: stakedTokenPrice?.tokenPriceUsd,
       rewardTokenPriceUsd: rewardTokenPrice?.tokenPriceUsd,
