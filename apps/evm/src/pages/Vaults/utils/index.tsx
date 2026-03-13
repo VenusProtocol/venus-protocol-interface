@@ -1,4 +1,4 @@
-import { Icon } from 'components/Icon';
+import { Icon } from 'components';
 import type { ReactNode } from 'react';
 import type { Vault } from 'types';
 

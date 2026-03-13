@@ -21,10 +21,10 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>(undefined);
   const [activeVault, setActiveVault] = useState<Vault | undefined>(undefined);
 
-  const openModal = (_vault: Vault, _activeModal?: ActiveModal) => {
-    setActiveVault(_vault);
-    setActiveModal(_activeModal);
-  };
+  // const openModal = (_vault: Vault, _activeModal?: ActiveModal) => {
+  //   setActiveVault(_vault);
+  //   setActiveModal(_activeModal);
+  // };
 
   const closeModal = () => {
     setActiveVault(undefined);
@@ -64,7 +64,6 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
               <VaultCardSimplified
                 key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
                 vault={vault}
-                onClick={() => openModal(vault, 'stake')}
               />
             </Link>
           ))}

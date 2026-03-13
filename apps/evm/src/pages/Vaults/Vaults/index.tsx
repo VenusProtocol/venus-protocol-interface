@@ -4,8 +4,8 @@ import { VaultCardLegacy } from 'containers/Vault/VaultCard/Legacy';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
 import type { Vault } from 'types';
+import { generateVaultKey, getVaultMetadata } from '../utils';
 import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
-import { generateVaultKey, getVaultMetadata } from './utils';
 
 interface VaultsProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];

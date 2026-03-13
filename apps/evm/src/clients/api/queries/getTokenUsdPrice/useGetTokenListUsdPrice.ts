@@ -7,8 +7,7 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { usePublicClient } from 'libs/wallet';
-import { useChainId } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 

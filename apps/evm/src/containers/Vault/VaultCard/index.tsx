@@ -18,7 +18,7 @@ import {
 
 import { StatusLabel } from 'components/StatusLabel';
 import { NULL_ADDRESS } from 'constants/address';
-import { getVaultMetadata } from 'pages/Vaults/Vaults/utils';
+import { getVaultMetadata } from 'pages/Vaults/utils';
 import type { ActiveModal } from '../VaultModals';
 import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
 import TEST_IDS from '../testIds';
@@ -58,7 +58,9 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
 
   const isPaused = vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade;
 
-  const canWithdraw = vault.userStakedMantissa?.gt(0);
+  const canWithdraw =
+    typeof vault.poolIndex === 'number' || vault.userStakedMantissa?.isGreaterThan(0);
+
   const handleWithdraw = (e: React.MouseEvent<HTMLDivElement>) => {
     if (canWithdraw) {
       e.stopPropagation();
@@ -162,7 +164,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className, onClick }) =
           )}
 
           {/* Warnings */}
-          {(vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade) && (
+          {isPaused && (
             <NoticeWarning
               description={
                 vault.isPaused
