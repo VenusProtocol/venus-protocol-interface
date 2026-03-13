@@ -8,7 +8,7 @@ import { downscaleIfNeeded } from './utils/image.js';
  * Run interactive Playwright tests and capture screenshots at each step.
  *
  * Usage:
- *   pnpm tsx .claude/scripts/ui-interaction-test.ts \
+ *   yarn tsx .claude/scripts/ui-interaction-test.ts \
  *     --url /help-center \
  *     --output .ui-develop \
  *     --steps '[{"action":"click","selector":"[role=tab]:nth-child(2)","name":"tab2-click"},{"action":"screenshot","name":"tab2-active"}]' \
@@ -30,7 +30,7 @@ import { downscaleIfNeeded } from './utils/image.js';
  *   wait-for       - wait for element to be visible with timeout -> -TIMEOUT
  *
  * Prerequisites:
- *   - Dev server running on localhost:5173 (pnpm dev)
+ *   - Dev server running on localhost:5173 (yarn dev)
  *   - Playwright installed (already in devDependencies)
  */
 
@@ -78,7 +78,7 @@ function parseArgs(args: string[]) {
 
   if (!url || !output || !stepsJson) {
     console.error(
-      'Usage: pnpm tsx .claude/scripts/ui-interaction-test.ts --url <path> --output <dir> --steps <json> [--width=1440] [--height=900] [--max-width=1400]',
+      'Usage: yarn tsx .claude/scripts/ui-interaction-test.ts --url <path> --output <dir> --steps <json> [--width=1440] [--height=900] [--max-width=1400]',
     );
     process.exit(1);
   }
@@ -108,7 +108,7 @@ async function main() {
     await fetch(DEV_SERVER_URL, { signal: AbortSignal.timeout(3000) });
   } catch {
     console.error(`Dev server not responding at ${DEV_SERVER_URL}`);
-    console.error('Start it with: pnpm dev');
+    console.error('Start it with: yarn dev');
     process.exit(1);
   }
 

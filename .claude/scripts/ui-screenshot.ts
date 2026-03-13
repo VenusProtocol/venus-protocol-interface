@@ -2,13 +2,13 @@
  * Take a screenshot of a local dev route for visual comparison with Figma.
  *
  * Usage:
- *   pnpm tsx .claude/scripts/ui-screenshot.ts <route-path> <output-path> [--width=1440] [--height=900] [--full-page] [--max-width=1400]
+ *   yarn tsx .claude/scripts/ui-screenshot.ts <route-path> <output-path> [--width=1440] [--height=900] [--full-page] [--max-width=1400]
  *
  * Examples:
- *   pnpm tsx .claude/scripts/ui-screenshot.ts /convert .ui-develop/screenshot.png
- *   pnpm tsx .claude/scripts/ui-screenshot.ts /convert .ui-develop/screenshot.png --width=375 --height=812
- *   pnpm tsx .claude/scripts/ui-screenshot.ts /help-center .ui-develop/screenshot.png --full-page
- *   pnpm tsx .claude/scripts/ui-screenshot.ts /help-center .ui-develop/screenshot.png --full-page --max-width=1400
+ *   yarn tsx .claude/scripts/ui-screenshot.ts /convert .ui-develop/screenshot.png
+ *   yarn tsx .claude/scripts/ui-screenshot.ts /convert .ui-develop/screenshot.png --width=375 --height=812
+ *   yarn tsx .claude/scripts/ui-screenshot.ts /help-center .ui-develop/screenshot.png --full-page
+ *   yarn tsx .claude/scripts/ui-screenshot.ts /help-center .ui-develop/screenshot.png --full-page --max-width=1400
  *
  * Options:
  *   --max-width=W  Downscale the screenshot if its width exceeds N pixels (default: 1400).
@@ -16,7 +16,7 @@
  *                  Set to 0 to disable downscaling.
  *
  * Prerequisites:
- *   - Dev server running on localhost:5173 (pnpm dev)
+ *   - Dev server running on localhost:5173 (yarn dev)
  *   - Playwright installed (already in devDependencies)
  */
 
@@ -33,7 +33,7 @@ function parseArgs(args: string[]) {
 
   if (!routePath || !outputPath) {
     console.error(
-      'Usage: pnpm tsx .claude/scripts/ui-screenshot.ts <route-path> <output-path> [--width=1440] [--height=900] [--full-page] [--max-width=1400]',
+      'Usage: yarn tsx .claude/scripts/ui-screenshot.ts <route-path> <output-path> [--width=1440] [--height=900] [--full-page] [--max-width=1400]',
     );
     process.exit(1);
   }
@@ -69,7 +69,7 @@ async function main() {
     await fetch(DEV_SERVER_URL, { signal: AbortSignal.timeout(3000) });
   } catch {
     console.error(`Dev server not responding at ${DEV_SERVER_URL}`);
-    console.error('Start it with: pnpm dev');
+    console.error('Start it with: yarn dev');
     process.exit(1);
   }
 
