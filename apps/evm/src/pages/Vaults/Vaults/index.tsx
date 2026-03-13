@@ -21,9 +21,9 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
     curator,
     setCurator,
     curatorOptions,
-    status,
-    setStatus,
-    statusOptions,
+    // status,
+    // setStatus,
+    // statusOptions,
   } = useFilterOptions();
 
   const [search, setSearch] = useState('');
@@ -37,7 +37,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
     return (
       (category === ALL_OPTION_VALUE || category === _category) &&
       (curator === ALL_OPTION_VALUE || curator === _curator) &&
-      (status === ALL_OPTION_VALUE || status === _status) &&
+      /*(status === ALL_OPTION_VALUE || status === _status) && */
       (!search ||
         vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()) ||
         _curator?.toLowerCase().includes(search?.toLowerCase()))
@@ -47,10 +47,10 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
   return (
     <div>
       <div className="text-light-grey-active mb-3 text-p2s">{t('vault.filter.vaults')}</div>
-      <div className={cn('flex max-lg:flex-wrap items-center justify-between gap-3')}>
-        <div className="flex gap-3 max-sm:flex-wrap w-full">
+      <div className={cn('flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3')}>
+        <div className="grid grid-cols-2 sm:flex gap-3 w-full">
           <Select
-            className="sm:flex-1/3 lg:flex-none max-sm:w-[48%]"
+            className="sm:flex-1/3 lg:flex-none"
             size="medium"
             variant="tertiary"
             placeLabelToLeft
@@ -62,7 +62,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
             onChange={newValue => setCategory(newValue.toString())}
           />
           <Select
-            className="sm:flex-1/3 lg:flex-none max-sm:w-[48%]"
+            className="sm:flex-1/3 lg:flex-none"
             size="medium"
             variant="tertiary"
             placeLabelToLeft
@@ -73,8 +73,8 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
             value={curator}
             onChange={newValue => setCurator(newValue.toString())}
           />
-          <Select
-            className="sm:flex-1/3 lg:flex-none max-sm:w-[48%]"
+          {/* <Select
+            className="sm:flex-1/3 lg:flex-none"
             size="medium"
             variant="tertiary"
             placeLabelToLeft
@@ -84,7 +84,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
             buttonClassName="sm:min-w-45"
             value={status}
             onChange={newValue => setStatus(newValue.toString())}
-          />
+          /> */}
         </div>
         <TextField
           value={search}
@@ -92,7 +92,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
           size="sm"
           leftIconSrc="search"
           placeholder={t('vault.filter.inputPlaceholder')}
-          className="w-full lg:w-75"
+          className="w-full lg:w-80"
         />
       </div>
       <div className={cn('grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6', className)} {...props}>

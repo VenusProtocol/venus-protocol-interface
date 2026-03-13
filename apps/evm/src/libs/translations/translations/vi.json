@@ -304,9 +304,9 @@
     "markets": "Thị trường",
     "primeCalculator": "Máy tính Prime",
     "proposal": "Đề xuất #{{proposalId}}",
-    "staking": "Staking",
     "swap": "Hoán đổi",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "Kho"
   },
   "bridgePage": {
     "amountInput": {
@@ -1829,16 +1829,20 @@
       "deposit": "Gửi tiền",
       "earning": "Đang kiếm",
       "inputPlaceholder": "Tìm kiếm tài sản hoặc thị trường",
+      "others": "Khác",
       "paused": "Tạm dừng",
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ",
-      "stables": "Stablecoin",
-      "vaults": "Kho"
+      "rwa": "RWA",
+      "stablecoins": "Stablecoin",
+      "vaults": "Kho",
+      "yieldTokens": "Token sinh lời"
     },
     "overview": {
-      "bannerTitle": "Đặt cược <strong>{{tokenDashMarket}}</strong> để nhận hơn <strong>{{apyPercentage}}</strong> APY",
-      "description": "Tối đa hóa thu nhập tiền điện tử của bạn và khám phá phần thưởng ẩn với Venus Yield Vault.",
-      "earningNow": "Đặt cược ngay",
+      "bannerCoinIllustration": "Hình minh họa đồng {{token}}",
+      "bannerTitle": "Đặt cược <strong>{{tokenDashMarket}}</strong> để nhận <strong>{{apyPercentage}}</strong> APR",
+      "bannerVaultIllustration": "Hình minh họa kho",
+      "description": "Sinh lời đơn giản, lợi nhuận thực tế — gửi tiền vào nhiều kho và xem tài sản crypto của bạn tăng trưởng <strong>theo cách của bạn</strong>.",
       "highestApr": "APR cao nhất",
       "title": "Venus Vault",
       "tokenTotalDeposited": "Tổng {{token}} đã gửi",

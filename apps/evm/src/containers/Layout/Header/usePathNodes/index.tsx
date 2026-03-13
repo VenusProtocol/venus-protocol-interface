@@ -118,8 +118,8 @@ export const usePathNodes = () => {
             </div>
           );
           break;
-        case Subdirectory.STAKING:
-          dom = t('breadcrumbs.staking');
+        case Subdirectory.VAULTS:
+          dom = t('breadcrumbs.vaults');
           break;
         case Subdirectory.SWAP:
           dom = t('breadcrumbs.swap');

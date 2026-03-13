@@ -40,8 +40,8 @@ export const useFilterOptions = () => {
       value: ALL_OPTION_VALUE,
     },
     {
-      label: t('vault.filter.stables'),
-      value: 'stables',
+      label: t('vault.filter.stablecoins'),
+      value: 'stablecoins',
     },
     /*
     {
@@ -53,6 +53,10 @@ export const useFilterOptions = () => {
       value: 'yieldTokens',
     },
     */
+    {
+      label: t('vault.filter.others'),
+      value: 'others',
+    },
   ];
   const curatorOptions = [
     {

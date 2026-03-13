@@ -304,9 +304,9 @@
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
-    "staking": "Staking",
     "swap": "Swap",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "Vaults"
   },
   "bridgePage": {
     "amountInput": {
@@ -1829,20 +1829,24 @@
       "deposit": "Deposit",
       "earning": "Earning",
       "inputPlaceholder": "Search asset or market",
+      "others": "Others",
       "paused": "Paused",
       "refund": "Refund",
       "repaying": "Repaying",
-      "stables": "Stables",
-      "vaults": "Vaults"
+      "rwa": "RWA",
+      "stablecoins": "Stablecoins",
+      "vaults": "Vaults",
+      "yieldTokens": "Yield tokens"
     },
     "overview": {
-      "bannerTitle": "Enjoy more than <strong>{{apyPercentage}}</strong> APY with <strong>{{tokenDashMarket}}</strong>",
-      "description": "Maximize your crypto earnings and discover hidden rewards with Venus Yield Vault.",
-      "earningNow": "Earning now",
+      "bannerCoinIllustration": "{{token}} coins illustration",
+      "bannerTitle": "Enjoy <strong>{{apyPercentage}}</strong> APR with <strong>{{tokenDashMarket}}</strong>",
+      "bannerVaultIllustration": "Vault illustration",
+      "description": "Yield made simple, returns made real — deposit across multiple vaults and watch your crypto grow <strong>on your terms</strong>.",
       "highestApr": "Highest APR",
       "title": "Venus Vault",
       "tokenTotalDeposited": "{{token}} total deposited",
-      "totalVault": "Vault",
+      "totalVault": "Vaults",
       "tvl": "TVL"
     },
     "transactionForm": {

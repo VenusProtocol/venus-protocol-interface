@@ -18,7 +18,7 @@ import {
 
 import { StatusLabel } from 'components/StatusLabel';
 import { NULL_ADDRESS } from 'constants/address';
-import { getVaultMetadata } from 'pages/Staking/Vaults/utils';
+import { getVaultMetadata } from 'pages/Vaults/Vaults/utils';
 import type { ActiveModal } from '../VaultModals';
 import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
 import TEST_IDS from '../testIds';

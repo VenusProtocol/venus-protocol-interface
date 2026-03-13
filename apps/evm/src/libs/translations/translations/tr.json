@@ -304,9 +304,9 @@
     "markets": "Piyasalar",
     "primeCalculator": "Prime hesaplayıcı",
     "proposal": "Teklif #{{proposalId}}",
-    "staking": "Staking",
     "swap": "Takas",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "Kasalar"
   },
   "bridgePage": {
     "amountInput": {
@@ -1829,20 +1829,24 @@
       "deposit": "Yatır",
       "earning": "Kazanıyor",
       "inputPlaceholder": "Varlık veya piyasa ara",
+      "others": "Diğerleri",
       "paused": "Duraklatıldı",
       "refund": "İade",
       "repaying": "Geri ödeniyor",
-      "stables": "Stablecoin'ler",
-      "vaults": "Kasalar"
+      "rwa": "RWA",
+      "stablecoins": "Stablecoin'ler",
+      "vaults": "Kasalar",
+      "yieldTokens": "Getiri tokenları"
     },
     "overview": {
-      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> stake ederek <strong>{{apyPercentage}}</strong> üzerinde APY kazanın",
-      "description": "Venus Yield Vault ile kripto kazançlarınızı maksimize edin ve gizli ödülleri keşfedin.",
-      "earningNow": "Hemen stake yap",
+      "bannerCoinIllustration": "{{token}} para birimi görseli",
+      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> stake ederek <strong>{{apyPercentage}}</strong> APR kazanın",
+      "bannerVaultIllustration": "Kasa görseli",
+      "description": "Verim basit, getiri gerçek — birden fazla kasaya yatırın ve kripto varlıklarınızın <strong>kendi koşullarınızda</strong> büyümesini izleyin.",
       "highestApr": "En yüksek APR",
       "title": "Venus Vault",
       "tokenTotalDeposited": "Toplam yatırılan {{token}}",
-      "totalVault": "Kasa",
+      "totalVault": "Kasalar",
       "tvl": "TVL"
     },
     "transactionForm": {

@@ -17,7 +17,7 @@ export const getVaultMetadata = (vault: Vault) => {
     curatorLogo = <Icon name="logoMobile" />;
     status = vault.isPaused ? '' : 'active';
   } else if (vault.stakedToken.symbol === 'VAI') {
-    category = 'stables';
+    category = 'stablecoins';
     curator = 'venus';
     curatorLogo = <Icon name="logoMobile" />;
     status = vault.isPaused ? '' : 'active';

@@ -304,9 +304,9 @@
     "markets": "ตลาด",
     "primeCalculator": "เครื่องคำนวณ Prime",
     "proposal": "ข้อเสนอ #{{proposalId}}",
-    "staking": "สเตคกิ้ง",
     "swap": "สวอป",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "คลัง"
   },
   "bridgePage": {
     "amountInput": {
@@ -1829,20 +1829,24 @@
       "deposit": "ฝากเงิน",
       "earning": "กำลังรับรายได้",
       "inputPlaceholder": "ค้นหาสินทรัพย์หรือตลาด",
+      "others": "อื่นๆ",
       "paused": "หยุดชั่วคราว",
       "refund": "คืนเงิน",
       "repaying": "กำลังชำระคืน",
-      "stables": "สกุลเงินที่มั่นคง",
-      "vaults": "คลัง"
+      "rwa": "RWA",
+      "stablecoins": "สเตเบิลคอยน์",
+      "vaults": "คลัง",
+      "yieldTokens": "เหรียญผลตอบแทน"
     },
     "overview": {
-      "bannerTitle": "สเตค <strong>{{tokenDashMarket}}</strong> เพื่อรับ APY มากกว่า <strong>{{apyPercentage}}</strong>",
-      "description": "เพิ่มรายได้คริปโตของคุณสูงสุดและค้นพบรางวัลที่ซ่อนอยู่กับ Venus Yield Vault",
-      "earningNow": "สเตคเลย",
+      "bannerCoinIllustration": "ภาพประกอบเหรียญ {{token}}",
+      "bannerTitle": "สเตค <strong>{{tokenDashMarket}}</strong> เพื่อรับ APR <strong>{{apyPercentage}}</strong>",
+      "bannerVaultIllustration": "ภาพประกอบคลัง",
+      "description": "ผลตอบแทนที่เข้าใจง่าย กำไรที่แท้จริง — ฝากเงินในหลายคลังและดูสินทรัพย์คริปโตของคุณเติบโต<strong>ตามเงื่อนไขของคุณ</strong>",
       "highestApr": "APR สูงสุด",
       "title": "Venus Vault",
       "tokenTotalDeposited": "{{token}} ยอดฝากรวม",
-      "totalVault": "Vault",
+      "totalVault": "คลัง",
       "tvl": "TVL"
     },
     "transactionForm": {

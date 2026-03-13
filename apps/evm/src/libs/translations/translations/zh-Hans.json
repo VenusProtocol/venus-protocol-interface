@@ -304,9 +304,9 @@
     "markets": "市场",
     "primeCalculator": "Prime 计算器",
     "proposal": "提案 #{{proposalId}}",
-    "staking": "质押",
     "swap": "兑换",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "金库"
   },
   "bridgePage": {
     "amountInput": {
@@ -1829,16 +1829,20 @@
       "deposit": "存款",
       "earning": "收益中",
       "inputPlaceholder": "搜索资产或市场",
+      "others": "其他",
       "paused": "已暂停",
       "refund": "退款",
       "repaying": "还款中",
-      "stables": "稳定币",
-      "vaults": "金库"
+      "rwa": "RWA",
+      "stablecoins": "稳定币",
+      "vaults": "金库",
+      "yieldTokens": "收益代币"
     },
     "overview": {
-      "bannerTitle": "质押 <strong>{{tokenDashMarket}}</strong> 享受超过 <strong>{{apyPercentage}}</strong> APY",
-      "description": "通过 Venus 收益金库最大化您的加密资产收益，发现隐藏奖励。",
-      "earningNow": "立即质押",
+      "bannerCoinIllustration": "{{token}} 硬币插图",
+      "bannerTitle": "质押 <strong>{{tokenDashMarket}}</strong> 享受 <strong>{{apyPercentage}}</strong> APR",
+      "bannerVaultIllustration": "金库插图",
+      "description": "收益化繁为简，回报触手可及 — 存入多个金库，<strong>按您的方式</strong>让加密资产增值。",
       "highestApr": "最高 APR",
       "title": "Venus Vault",
       "tokenTotalDeposited": "{{token}} 总存入量",

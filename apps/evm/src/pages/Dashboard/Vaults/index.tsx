@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenUsdPrice/useGetTokenListUsdPrice';
 import { CellGroup, type CellProps } from 'components';
 import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import { type ActiveModal, VaultModals } from 'containers/Vault';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
 import { useTranslation } from 'libs/translations';
@@ -50,15 +51,22 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
         <Placeholder
           iconName="vault"
           title={t('account.vaults.placeholder.title')}
-          to={routes.staking.path}
+          to={routes.vaults.path}
+          buttonSize="sm"
         />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-6">
           {(vaults ?? []).slice(0, 3).map(vault => (
-            <VaultCardSimplified
+            <Link
+              to={routes.vaults.path}
               key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
-              vault={vault}
-              onClick={() => openModal(vault, 'stake')}
-            />
+              noStyle
+            >
+              <VaultCardSimplified
+                key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
+                vault={vault}
+                onClick={() => openModal(vault, 'stake')}
+              />
+            </Link>
           ))}
         </div>
         {modalDom}
@@ -109,11 +117,13 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
       <CellGroup variant="secondary" cells={overviewCells} className="mb-6" />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3">
         {filteredVaults.map(vault => (
-          <VaultCardSimplified
+          <Link
+            to={routes.vaults.path}
             key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
-            vault={vault}
-            onClick={() => openModal(vault, 'withdraw')}
-          />
+            noStyle
+          >
+            <VaultCardSimplified vault={vault} />
+          </Link>
         ))}
       </div>
       {modalDom}

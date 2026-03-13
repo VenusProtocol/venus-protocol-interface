@@ -22,7 +22,7 @@ const Governance = safeLazyLoad(() => import('pages/Governance'));
 const Proposal = safeLazyLoad(() => import('pages/Proposal'));
 const Swap = safeLazyLoad(() => import('pages/Swap'));
 const Vai = safeLazyLoad(() => import('pages/Vai'));
-const Staking = safeLazyLoad(() => import('pages/Staking'));
+const Vaults = safeLazyLoad(() => import('pages/Vaults'));
 const Voter = safeLazyLoad(() => import('pages/Voter'));
 const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
@@ -128,12 +128,12 @@ const AppRoutes = () => {
           />
         )}
 
-        <Route path={Subdirectory.STAKING}>
+        <Route path={Subdirectory.VAULTS}>
           <Route
             index
             element={
               <PageSuspense>
-                <Staking />
+                <Vaults />
               </PageSuspense>
             }
           />
@@ -238,7 +238,7 @@ const AppRoutes = () => {
 
         {/* Redirect old pages to new ones */}
         <Route path="/account/*" element={<Redirect to={routes.dashboard.path} />} />
-        <Route path="/vaults/*" element={<Redirect to={routes.staking.path} />} />
+        <Route path="/staking/*" element={<Redirect to={routes.vaults.path} />} />
         <Route
           path="/pool/:poolComptrollerAddress/market/:vTokenAddress"
           element={<MarketRedirect />}

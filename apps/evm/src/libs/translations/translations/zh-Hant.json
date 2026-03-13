@@ -304,9 +304,9 @@
     "markets": "市場",
     "primeCalculator": "Prime 計算器",
     "proposal": "提案 #{{proposalId}}",
-    "staking": "質押",
     "swap": "兌換",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "金庫"
   },
   "bridgePage": {
     "amountInput": {
@@ -1829,16 +1829,20 @@
       "deposit": "存款",
       "earning": "收益中",
       "inputPlaceholder": "搜尋資產或市場",
+      "others": "其他",
       "paused": "已暫停",
       "refund": "退款",
       "repaying": "還款中",
-      "stables": "穩定幣",
-      "vaults": "金庫"
+      "rwa": "RWA",
+      "stablecoins": "穩定幣",
+      "vaults": "金庫",
+      "yieldTokens": "收益代幣"
     },
     "overview": {
-      "bannerTitle": "質押 <strong>{{tokenDashMarket}}</strong> 享受超過 <strong>{{apyPercentage}}</strong> APY",
-      "description": "通過 Venus 收益金庫最大化您的加密資產收益，發現隱藏獎勵。",
-      "earningNow": "立即質押",
+      "bannerCoinIllustration": "{{token}} 硬幣插圖",
+      "bannerTitle": "質押 <strong>{{tokenDashMarket}}</strong> 享受 <strong>{{apyPercentage}}</strong> APR",
+      "bannerVaultIllustration": "金庫插圖",
+      "description": "收益化繁為簡，回報觸手可及 — 存入多個金庫，<strong>按您的方式</strong>讓加密資產增值。",
       "highestApr": "最高 APR",
       "title": "Venus Vault",
       "tokenTotalDeposited": "{{token}} 總存入量",

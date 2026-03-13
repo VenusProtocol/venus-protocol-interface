@@ -23,7 +23,7 @@ export interface OverviewProps {
 }
 
 export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, className }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -81,14 +81,21 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, onOpenModal, classNa
         <div className="flex flex-col gap-3">
           <h1 className="text-h6">{t('vault.overview.title')}</h1>
 
-          <p className="text-b1r text-grey">{t('vault.overview.description')}</p>
+          <p className="text-b1r text-light-grey-active">
+            <Trans
+              i18nKey="vault.overview.description"
+              components={{
+                strong: <strong className="font-semibold" />,
+              }}
+            />
+          </p>
         </div>
 
         {/* Stats */}
         <CellGroup variant="secondary" cells={overviewCells} />
       </div>
 
-      <Banner vault={featuredVault} onOpenModal={onOpenModal} />
+      {featuredVault && <Banner vault={featuredVault} onOpenModal={onOpenModal} />}
     </div>
   );
 };
