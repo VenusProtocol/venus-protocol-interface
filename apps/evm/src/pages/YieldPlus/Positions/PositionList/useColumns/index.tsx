@@ -125,16 +125,16 @@ export const useColumns = ({
       label: t('yieldPlus.positions.table.entryPrice.title'),
       selectOptionLabel: t('yieldPlus.positions.table.entryPrice.title'),
       sortRows: (rowA, rowB, direction) =>
-        compareNumbers(rowA.entryPriceCents, rowB.entryPriceCents, direction),
+        compareNumbers(rowA.priceCents, rowB.priceCents, direction),
       align: 'right',
-      renderCell: ({ shortAsset, entryPriceCents, entryPriceTokens }) => (
+      renderCell: ({ shortAsset, priceCents, priceTokens }) => (
         <LayeredValues
           topValue={formatTokensToReadableValue({
-            value: entryPriceTokens,
+            value: priceTokens,
             token: shortAsset.vToken.underlyingToken,
           })}
           bottomValue={formatCentsToReadableValue({
-            value: entryPriceCents,
+            value: priceCents,
             shorten: false,
             maxDecimalPlaces: 6,
           })}

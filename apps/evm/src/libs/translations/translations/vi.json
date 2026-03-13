@@ -1048,6 +1048,14 @@
       "title": "Hệ số đòn bẩy",
       "warning": "Đòn bẩy ảnh hưởng đến mức sử dụng vốn của bạn và không thể thay đổi cho đến khi bạn thoát hoàn toàn khỏi vị thế."
     },
+    "managePositionsTabs": {
+      "collateral": "Tài sản thế chấp",
+      "position": "Vị thế",
+      "positionsTabs": {
+        "increase": "Tăng",
+        "reduce": "Giảm"
+      }
+    },
     "receiveNativeToken": {
       "label": "Nhận {{tokenSymbol}}",
       "tooltip": "Unwrap {{wrappedNativeTokenSymbol}} đã vay sang {{nativeTokenSymbol}}"
@@ -2092,7 +2100,11 @@
       "label": "Long"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Tăng"
+      },
       "openForm": {
+        "averageEntryPrice": "TRANSLATION NEEDED",
         "collateral": "Tài sản thế chấp",
         "dsaFieldLabel": "Tài sản thế chấp",
         "entryPrice": "Giá vào lệnh",
@@ -2103,6 +2115,9 @@
         "short": "Short",
         "shortFieldLabel": "Short",
         "submitButtonLabel": "Mở"
+      },
+      "reduceForm": {
+        "submitButtonLabel": "TRANSLATION NEEDED"
       }
     },
     "positions": {

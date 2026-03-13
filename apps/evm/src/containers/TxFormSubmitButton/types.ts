@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import type { BalanceMutation, Pool, SwapQuote, Token } from 'types';
+import type { BalanceMutation, Pool, Token } from 'types';
 
 type ApprovalBase = {
   type: 'token' | 'delegate';
@@ -33,7 +33,7 @@ export interface TxFormSubmitButtonProps {
   isLoading?: boolean;
   swapFromToken?: Token;
   swapToToken?: Token;
-  swapQuote?: SwapQuote;
+  swapPriceImpactPercentage?: number;
   analyticVariant?: string;
   className?: string;
 }

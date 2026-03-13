@@ -6,7 +6,11 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { PositionList } from './PositionList';
 
-export const Positions: React.FC = () => {
+export interface PositionsProps {
+  className?: string;
+}
+
+export const Positions: React.FC<PositionsProps> = ({ className }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
 
@@ -21,13 +25,15 @@ export const Positions: React.FC = () => {
 
   const positions = getYieldPositionsData?.positions || [];
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  return (
+    <div className={className}>
+      {isLoading && <Spinner />}
 
-  if (positions.length === 0) {
-    return <Placeholder iconName="wallet" title={t('yieldPlus.positions.placeholder.title')} />;
-  }
+      {!isLoading && positions.length === 0 && (
+        <Placeholder iconName="wallet" title={t('yieldPlus.positions.placeholder.title')} />
+      )}
 
-  return <PositionList positions={positions} />;
+      {!isLoading && positions.length > 0 && <PositionList positions={positions} />}
+    </div>
+  );
 };

@@ -12,9 +12,10 @@ import { AccountHealth } from 'pages/YieldPlus/AccountHealth';
 import { Fragment } from 'react/jsx-runtime';
 import type { YieldPlusPosition } from 'types';
 import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
+import type { PositionFormAction } from '../PositionForm';
 
 export interface FooterProps extends TxFormSubmitButtonProps {
-  isNewPosition?: boolean;
+  action?: PositionFormAction;
   simulatedPosition?: YieldPlusPosition;
   position: YieldPlusPosition;
 }
@@ -26,7 +27,7 @@ export const Footer: React.FC<FooterProps> = ({
   isFormValid,
   balanceMutations,
   className,
-  isNewPosition = false,
+  action,
   ...otherSubmitButtonProps
 }) => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ export const Footer: React.FC<FooterProps> = ({
     {
       label: t('yieldPlus.operationForm.openForm.liquidationPrice'),
       original: formatTokensToReadableValue(
-        isNewPosition
+        action === 'open'
           ? {
               value: simulatedPosition?.liquidationPriceTokens,
               token: simulatedPosition?.shortAsset.vToken.underlyingToken,
@@ -46,53 +47,66 @@ export const Footer: React.FC<FooterProps> = ({
             },
       ),
       update:
-        isNewPosition || !simulatedPosition
+        action === 'open' || !simulatedPosition
           ? undefined
           : formatTokensToReadableValue({
               value: simulatedPosition.liquidationPriceTokens,
               token: simulatedPosition.shortAsset.vToken.underlyingToken,
             }),
       deltaAmountCents:
-        isNewPosition || !simulatedPosition
+        action === 'open' || !simulatedPosition
           ? undefined
           : simulatedPosition.liquidationPriceCents - position.liquidationPriceCents,
     },
-    {
-      label: t('yieldPlus.operationForm.openForm.entryPrice'),
-      original: formatTokensToReadableValue(
-        isNewPosition
-          ? {
-              value: simulatedPosition?.entryPriceTokens,
-              token: simulatedPosition?.shortAsset.vToken.underlyingToken,
-            }
-          : {
-              value: position.entryPriceTokens,
-              token: position.shortAsset.vToken.underlyingToken,
-            },
-      ),
-      update:
-        isNewPosition || !simulatedPosition
-          ? undefined
-          : formatTokensToReadableValue({
-              value: simulatedPosition.entryPriceTokens,
-              token: simulatedPosition.shortAsset.vToken.underlyingToken,
-            }),
-      deltaAmountCents:
-        isNewPosition || !simulatedPosition
-          ? undefined
-          : simulatedPosition.entryPriceCents - position.entryPriceCents,
-    },
-    {
-      label: t('yieldPlus.operationForm.openForm.netApy'),
-      original: formatPercentageToReadableValue(
-        isNewPosition ? simulatedPosition?.netApyPercentage : position.netApyPercentage,
-      ),
-      update:
-        isNewPosition || !simulatedPosition
-          ? undefined
-          : formatPercentageToReadableValue(simulatedPosition?.netApyPercentage),
-    },
   ];
+
+  if (action === 'open') {
+    rows.push({
+      label: t('yieldPlus.operationForm.openForm.entryPrice'),
+      original: formatTokensToReadableValue({
+        value: simulatedPosition?.priceTokens,
+        token: simulatedPosition?.shortAsset.vToken.underlyingToken,
+      }),
+      update:
+        simulatedPosition &&
+        formatTokensToReadableValue({
+          value: simulatedPosition.priceTokens,
+          token: simulatedPosition.shortAsset.vToken.underlyingToken,
+        }),
+      deltaAmountCents: simulatedPosition && simulatedPosition.priceCents - position.priceCents,
+    });
+  }
+
+  if (action === 'increase' || action === 'reduce') {
+    rows.push({
+      label: t('yieldPlus.operationForm.openForm.averageEntryPrice'),
+      original: formatTokensToReadableValue({
+        value: position.averageEntryPriceTokens,
+        token: position.shortAsset.vToken.underlyingToken,
+      }),
+      update:
+        simulatedPosition &&
+        formatTokensToReadableValue({
+          value: simulatedPosition.averageEntryPriceTokens,
+          token: simulatedPosition.shortAsset.vToken.underlyingToken,
+        }),
+      deltaAmountCents:
+        simulatedPosition &&
+        simulatedPosition.averageEntryPriceCents - position.averageEntryPriceCents,
+    });
+  }
+  // TODO: add average entry price when increasing or reducing a position
+
+  rows.push({
+    label: t('yieldPlus.operationForm.openForm.netApy'),
+    original: formatPercentageToReadableValue(
+      action === 'open' ? simulatedPosition?.netApyPercentage : position.netApyPercentage,
+    ),
+    update:
+      action === 'open' || !simulatedPosition
+        ? undefined
+        : formatPercentageToReadableValue(simulatedPosition?.netApyPercentage),
+  });
 
   return (
     <div className={cn('flex flex-col gap-y-8', className)}>

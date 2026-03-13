@@ -642,10 +642,12 @@ export interface YieldPlusPosition {
   netApyPercentage: number;
   unrealizedPnlCents: number;
   unrealizedPnlPercentage: number;
-  entryPriceTokens: BigNumber;
-  entryPriceCents: number;
+  priceTokens: BigNumber;
+  priceCents: number;
   liquidationPriceTokens: BigNumber;
   liquidationPriceCents: number;
+  averageEntryPriceTokens: BigNumber;
+  averageEntryPriceCents: number;
   leverageFactor: number;
   pool: Pool;
 }

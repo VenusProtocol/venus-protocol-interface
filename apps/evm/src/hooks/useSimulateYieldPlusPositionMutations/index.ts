@@ -18,6 +18,8 @@ export const useSimulateYieldPlusMutations = ({
 
   const simulatedPool = data?.pool;
 
+  // TODO: recalculate averageEntryRatio (requires more data from the backend)
+
   const simulatedYieldPlusPosition =
     simulatedPool &&
     formatToYieldPlusPosition({
@@ -30,6 +32,7 @@ export const useSimulateYieldPlusMutations = ({
       leverageFactor: position.leverageFactor,
       unrealizedPnlCents: position.unrealizedPnlCents,
       unrealizedPnlPercentage: position.unrealizedPnlPercentage,
+      averageEntryRatio: position.averageEntryPriceTokens,
     });
 
   return {

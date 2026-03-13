@@ -7,14 +7,14 @@ import {
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import type { BalanceMutation, CommonTxFormErrorCode, Pool, SwapQuote, TxFormError } from 'types';
+import type { BalanceMutation, CommonTxFormErrorCode, Pool, TxFormError } from 'types';
 import { areAddressesEqual, formatTokensToReadableValue } from 'utilities';
 
 export interface UseCommonValidationInput {
   pool: Pool;
   balanceMutations: BalanceMutation[];
   simulatedPool?: Pool;
-  swapQuote?: SwapQuote;
+  swapPriceImpactPercentage?: number;
   swapQuoteErrorCode?: string;
   userAcknowledgesRisk?: boolean;
   userAcknowledgesHighPriceImpact?: boolean;
@@ -25,8 +25,8 @@ export type UseCommonValidationOutput = TxFormError<CommonTxFormErrorCode> | und
 export const useCommonValidation = ({
   pool,
   simulatedPool,
-  swapQuote,
   balanceMutations,
+  swapPriceImpactPercentage,
   swapQuoteErrorCode,
   userAcknowledgesRisk,
   userAcknowledgesHighPriceImpact,
@@ -117,8 +117,8 @@ export const useCommonValidation = ({
     }
 
     if (
-      swapQuote &&
-      swapQuote?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
+      swapPriceImpactPercentage !== undefined &&
+      swapPriceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
     ) {
       return {
         code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
@@ -127,8 +127,8 @@ export const useCommonValidation = ({
     }
 
     if (
-      swapQuote &&
-      swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+      swapPriceImpactPercentage !== undefined &&
+      swapPriceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
       !userAcknowledgesHighPriceImpact
     ) {
       return {

@@ -12,6 +12,7 @@ export interface FormValues {
   dsaToken: Token;
   dsaAmountTokens: string;
   shortAmountTokens: string;
+  longAmountTokens: string;
   acknowledgeRisk: boolean;
   acknowledgeHighPriceImpact: boolean;
 }
@@ -27,17 +28,25 @@ export type FormErrorCode =
 
 export type FormError = TxFormError<FormErrorCode>;
 
+export type PositionFormAction = 'open' | 'increase' | 'reduce';
+
 export interface PositionFormProps {
   formValues: FormValues;
   setFormValues: (setter: FormValues | ((newFormValues: FormValues) => FormValues)) => void;
-  limitShortTokens: BigNumber;
   position: YieldPlusPosition;
   balanceMutations: BalanceMutation[];
   submitButtonLabel: string;
   onSubmit: (formValues: FormValues) => Promise<unknown>;
   isSubmitting: boolean;
+  action: PositionFormAction;
+  limitShortTokens?: BigNumber;
+  limitLongTokens?: BigNumber;
   formError?: FormError;
   isLoading?: boolean;
-  swapQuote?: SwapQuote;
-  swapQuoteErrorCode?: string;
+  actionSwapQuote?: SwapQuote;
+  actionSwapQuoteErrorCode?: string;
+  profitSwapQuote?: SwapQuote;
+  profitSwapQuoteErrorCode?: string;
+  lossSwapQuote?: SwapQuote;
+  lossSwapQuoteErrorCode?: string;
 }

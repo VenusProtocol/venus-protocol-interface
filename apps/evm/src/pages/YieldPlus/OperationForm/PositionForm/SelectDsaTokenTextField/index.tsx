@@ -32,7 +32,11 @@ export const SelectDsaTokenTextField: React.FC<SelectDsaTokenTextFieldProps> = (
   leverageFactor,
   maximumLeverageFactor,
   onChangeLeverageFactor,
+  proportionalCloseTolerancePercentage,
   shortTokenPriceCents,
+  shortTokenDecimals,
+  longTokenPriceCents,
+  longTokenCollateralFactor,
   dsaTokenCollateralFactor,
   value,
   tokenPriceCents,
@@ -142,7 +146,11 @@ export const SelectDsaTokenTextField: React.FC<SelectDsaTokenTextFieldProps> = (
           onChangeLeverageFactor={onChangeLeverageFactor}
           maximumLeverageFactor={maximumLeverageFactor}
           onClose={closeLeverageFactorModal}
+          proportionalCloseTolerancePercentage={proportionalCloseTolerancePercentage}
           shortTokenPriceCents={shortTokenPriceCents}
+          shortTokenDecimals={shortTokenDecimals}
+          longTokenPriceCents={longTokenPriceCents}
+          longTokenCollateralFactor={longTokenCollateralFactor}
           dsaTokenCollateralFactor={dsaTokenCollateralFactor}
           dsaAmountTokens={value ? new BigNumber(value) : undefined}
           dsaTokenPriceCents={tokenPriceCents}

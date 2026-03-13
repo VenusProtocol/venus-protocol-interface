@@ -86,7 +86,7 @@ export const Footer: React.FC<FooterProps> = ({
         isLoading={isLoading}
         swapFromToken={swapFromToken}
         swapToToken={swapToToken}
-        swapQuote={swapQuote}
+        swapPriceImpactPercentage={swapQuote?.priceImpactPercentage}
         analyticVariant={analyticVariant}
       />
     </div>

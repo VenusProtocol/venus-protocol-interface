@@ -1048,6 +1048,14 @@
       "title": "レバレッジ倍率",
       "warning": "レバレッジは資本利用率に影響し、ポジションを完全に解消するまで変更できません。"
     },
+    "managePositionsTabs": {
+      "collateral": "担保",
+      "position": "ポジション",
+      "positionsTabs": {
+        "increase": "増加",
+        "reduce": "減少"
+      }
+    },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}}を受け取る",
       "tooltip": "借入した{{wrappedNativeTokenSymbol}}を{{nativeTokenSymbol}}にアンラップ"
@@ -2092,7 +2100,11 @@
       "label": "ロング"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "増加"
+      },
       "openForm": {
+        "averageEntryPrice": "TRANSLATION NEEDED",
         "collateral": "担保",
         "dsaFieldLabel": "担保",
         "entryPrice": "エントリー価格",
@@ -2103,6 +2115,9 @@
         "short": "ショート",
         "shortFieldLabel": "ショート",
         "submitButtonLabel": "オープン"
+      },
+      "reduceForm": {
+        "submitButtonLabel": "TRANSLATION NEEDED"
       }
     },
     "positions": {

@@ -1,5 +1,8 @@
 import { AcknowledgementToggle, cn } from 'components';
-import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
+import {
+  HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
+  HEALTH_FACTOR_MODERATE_THRESHOLD,
+} from 'constants/healthFactor';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -27,7 +30,7 @@ export const TxFormSubmitButton: React.FC<TxFormSubmitButtonProps> = ({
   isLoading,
   swapFromToken,
   swapToToken,
-  swapQuote,
+  swapPriceImpactPercentage,
   analyticVariant,
   className,
 }) => {
@@ -35,15 +38,16 @@ export const TxFormSubmitButton: React.FC<TxFormSubmitButtonProps> = ({
 
   // Check if transaction is using a swap with a high price impact
   const isHighPriceImpactSwap =
-    swapQuote?.priceImpactPercentage !== undefined &&
-    swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
-    swapQuote?.priceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE;
+    swapPriceImpactPercentage !== undefined &&
+    swapPriceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+    swapPriceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE;
 
   // Check if transaction would put user's health factor below moderate threshold
   const isRiskyTransaction =
     balanceMutations.some(b => b.action !== 'supply' && b.action !== 'repay') &&
     simulatedPool?.userHealthFactor !== undefined &&
-    simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
+    simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
+    simulatedPool.userHealthFactor > HEALTH_FACTOR_LIQUIDATION_THRESHOLD;
 
   const isRisky = isHighPriceImpactSwap || isRiskyTransaction;
 
@@ -86,7 +90,7 @@ export const TxFormSubmitButton: React.FC<TxFormSubmitButtonProps> = ({
           <SwapDetails
             fromToken={swapFromToken}
             toToken={swapToToken}
-            priceImpactPercentage={swapQuote?.priceImpactPercentage}
+            priceImpactPercentage={swapPriceImpactPercentage}
           />
         )}
       </div>

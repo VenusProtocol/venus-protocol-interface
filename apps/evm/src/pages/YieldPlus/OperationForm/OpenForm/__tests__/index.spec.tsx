@@ -147,11 +147,10 @@ describe('OpenForm', () => {
   };
 
   beforeEach(() => {
-    vi.clearAllMocks();
     setReadyState();
   });
 
-  it('renders real form when data is ready', async () => {
+  it('renders form when data is ready', async () => {
     const { container, getByText, getAllByText } = renderOpenForm({
       accountAddress: fakeAccountAddress,
     });
@@ -321,6 +320,8 @@ describe('OpenForm', () => {
       shortAmountTokens: '0.1',
     });
 
+    const { dsaAmountInput, shortAmountInput } = getFormInputs(container);
+
     const submitButton = container.querySelector('button[type="submit"]') as HTMLButtonElement;
     fireEvent.click(submitButton);
 
@@ -335,6 +336,12 @@ describe('OpenForm', () => {
       shortAmountMantissa: 100000000000000000n,
       minLongAmountMantissa: swapQuote.minimumToTokenAmountReceivedMantissa,
       swapQuote,
+    });
+
+    // CHeck form is reset after a successful submission
+    await waitFor(() => {
+      expect(dsaAmountInput).toHaveValue(null);
+      expect(shortAmountInput).toHaveValue(null);
     });
   });
 

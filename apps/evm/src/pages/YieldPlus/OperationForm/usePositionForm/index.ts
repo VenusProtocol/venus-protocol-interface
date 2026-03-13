@@ -9,6 +9,7 @@ export const usePositionForm = ({ position }: { position: YieldPlusPosition }) =
       leverageFactor: position.leverageFactor,
       dsaToken: position.dsaAsset.vToken.underlyingToken,
       dsaAmountTokens: '',
+      longAmountTokens: '',
       shortAmountTokens: '',
       acknowledgeRisk: false,
       acknowledgeHighPriceImpact: false,

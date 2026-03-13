@@ -8,12 +8,9 @@ import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useGetYieldPlusAssets } from 'pages/YieldPlus/useGetYieldPlusAssets';
+import { useEffect } from 'react';
 import type { AssetBalanceMutation, YieldPlusPosition } from 'types';
-import {
-  areTokensEqual,
-  convertTokensToMantissa,
-  getSwapToTokenAmountReceivedTokens,
-} from 'utilities';
+import { areTokensEqual, convertTokensToMantissa, getSwapToTokenAmount } from 'utilities';
 import { type FormValues, PositionForm } from '../../PositionForm';
 import { calculateMaxBorrowShortTokens } from '../../calculateMaxBorrowShortTokens';
 import { usePositionForm } from '../../usePositionForm';
@@ -27,8 +24,9 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const { formValues, setFormValues } = usePositionForm({ position: newPosition });
 
-  const { mutateAsync: openYieldPlusPosition, isPending: isSubmitting } =
-    useOpenYieldPlusPosition();
+  const { mutateAsync: openYieldPlusPosition, isPending: isSubmitting } = useOpenYieldPlusPosition({
+    waitForConfirmation: true,
+  });
 
   const {
     data: { dsaAssets },
@@ -47,6 +45,9 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
 
   const _debouncedDsaAmountTokens = useDebounceValue(formValues.dsaAmountTokens);
   const debouncedDsaAmountTokens = new BigNumber(_debouncedDsaAmountTokens || 0);
+
+  const _debouncedLongAmountTokens = useDebounceValue(formValues.longAmountTokens);
+  const debouncedLongAmountTokens = new BigNumber(_debouncedLongAmountTokens || 0);
 
   const _debouncedShortAmountTokens = useDebounceValue(formValues.shortAmountTokens);
   const debouncedShortAmountTokens = new BigNumber(_debouncedShortAmountTokens || 0);
@@ -74,7 +75,17 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
   );
   const swapQuote = getSwapQuoteData?.swapQuote;
 
-  const expectedLongAmountTokens = getSwapToTokenAmountReceivedTokens(swapQuote);
+  // Update long amount when swap quote is fetched
+  useEffect(() => {
+    const expectedLongAmountTokens = getSwapToTokenAmount(swapQuote);
+
+    if (expectedLongAmountTokens) {
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        longAmountTokens: expectedLongAmountTokens.toFixed(),
+      }));
+    }
+  }, [setFormValues, swapQuote]);
 
   const balanceMutations: AssetBalanceMutation[] = [
     {
@@ -89,7 +100,7 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
       type: 'asset',
       vTokenAddress: position.longAsset.vToken.address,
       action: 'supply',
-      amountTokens: new BigNumber(expectedLongAmountTokens || 0),
+      amountTokens: new BigNumber(swapQuote ? debouncedLongAmountTokens : 0),
       enableAsCollateralOfUser: true,
       label: t('yieldPlus.operationForm.openForm.long'),
     },
@@ -106,8 +117,13 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
     dsaAmountTokens: debouncedDsaAmountTokens,
     dsaTokenPriceCents: position.dsaAsset.tokenPriceCents,
     dsaTokenCollateralFactor: position.dsaAsset.collateralFactor,
+    longAmountTokens: new BigNumber(0),
+    longTokenPriceCents: position.longAsset.tokenPriceCents,
+    longTokenCollateralFactor: position.longAsset.collateralFactor,
+    shortAmountTokens: new BigNumber(0),
     shortTokenPriceCents: position.shortAsset.tokenPriceCents,
     leverageFactor: formValues.leverageFactor,
+    shortTokenDecimals: position.shortAsset.vToken.underlyingToken.decimals,
   });
 
   const handleSubmit = async (formValues: FormValues) => {
@@ -157,10 +173,11 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
 
   return (
     <PositionForm
+      action="open"
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
-      swapQuote={swapQuote}
-      swapQuoteErrorCode={getSwapQuoteError?.code}
+      actionSwapQuote={swapQuote}
+      actionSwapQuoteErrorCode={getSwapQuoteError?.code}
       isLoading={isGetSwapQuoteLoading}
       position={position}
       formValues={formValues}

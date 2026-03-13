@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 import type { Asset, ChainId, Pool, YieldPlusPosition } from 'types';
-import { areAddressesEqual } from 'utilities';
+import { areAddressesEqual } from 'utilities/areAddressesEqual';
 
 // TODO: add tests
 
@@ -16,6 +16,7 @@ export const formatToYieldPlusPosition = ({
   leverageFactor,
   unrealizedPnlCents,
   unrealizedPnlPercentage,
+  averageEntryRatio,
 }: {
   pool: Pool;
   chainId: ChainId;
@@ -26,6 +27,7 @@ export const formatToYieldPlusPosition = ({
   leverageFactor: number;
   unrealizedPnlCents: number;
   unrealizedPnlPercentage: number;
+  averageEntryRatio: number | BigNumber;
 }) => {
   let dsaAsset: Asset | undefined;
   let longAsset: Asset | undefined;
@@ -57,11 +59,11 @@ export const formatToYieldPlusPosition = ({
   const shortBalanceCents = shortAsset.userBorrowBalanceCents;
   const dsaBalanceCents = dsaAsset.userSupplyBalanceCents;
 
-  const entryPriceTokens = longBalanceTokens.isZero()
+  const priceTokens = longBalanceTokens.isZero()
     ? new BigNumber(0)
     : shortBalanceTokens.dividedBy(longBalanceTokens);
 
-  const entryPriceCents = entryPriceTokens.multipliedBy(shortAsset.tokenPriceCents);
+  const priceCents = priceTokens.multipliedBy(shortAsset.tokenPriceCents).toNumber();
 
   const collateralLt = new BigNumber(dsaAsset.liquidationThresholdPercentage).dividedBy(100);
   const longLt = new BigNumber(longAsset.liquidationThresholdPercentage).dividedBy(100);
@@ -78,6 +80,11 @@ export const formatToYieldPlusPosition = ({
           .dividedBy(longBalanceTokens.multipliedBy(longLt));
 
   const liquidationPriceCents = liquidationPriceTokens.multipliedBy(shortAsset.tokenPriceCents);
+
+  const averageEntryPriceTokens = new BigNumber(averageEntryRatio);
+  const averageEntryPriceCents = averageEntryPriceTokens
+    .multipliedBy(shortAsset.tokenPriceCents)
+    .toNumber();
 
   const totalSupplyValueCents = dsaBalanceCents.plus(longBalanceCents);
   const shortBorrowApyPercentage = shortAsset.borrowApyPercentage.absoluteValue();
@@ -110,10 +117,12 @@ export const formatToYieldPlusPosition = ({
     dsaBalanceCents: dsaBalanceCents.toNumber(),
     netValueCents,
     netApyPercentage,
-    entryPriceTokens,
-    entryPriceCents: entryPriceCents.toNumber(),
+    priceTokens,
+    priceCents,
     liquidationPriceTokens,
     liquidationPriceCents: liquidationPriceCents.toNumber(),
+    averageEntryPriceTokens,
+    averageEntryPriceCents,
   };
 
   return position;

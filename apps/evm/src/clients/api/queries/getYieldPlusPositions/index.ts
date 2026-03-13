@@ -83,6 +83,9 @@ export const getYieldPlusPositions = async ({
         unrealizedPnlPercentage: apiYieldPlusPosition?.pnl
           ? Number(apiYieldPlusPosition.pnl.unrealizedPnlPercentage)
           : 0,
+        averageEntryRatio: apiYieldPlusPosition?.pnl
+          ? Number(apiYieldPlusPosition.pnl.entryRatio)
+          : 0,
         pool,
       });
 

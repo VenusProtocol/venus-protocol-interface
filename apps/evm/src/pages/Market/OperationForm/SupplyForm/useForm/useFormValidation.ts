@@ -40,8 +40,8 @@ const useFormValidation = ({
   const commonFormError = useCommonValidation({
     pool,
     simulatedPool,
-    swapQuote,
     balanceMutations,
+    swapPriceImpactPercentage: swapQuote?.priceImpactPercentage,
     swapQuoteErrorCode,
     userAcknowledgesHighPriceImpact: formValues.acknowledgeHighPriceImpact,
   });

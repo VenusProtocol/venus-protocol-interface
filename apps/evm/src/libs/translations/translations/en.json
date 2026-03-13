@@ -1048,6 +1048,14 @@
       "title": "Leverage factor",
       "warning": "Leverage affects your capital utilization and cannot be changed until you fully exit the position."
     },
+    "managePositionsTabs": {
+      "collateral": "Collateral",
+      "position": "Position",
+      "positionsTabs": {
+        "increase": "Increase",
+        "reduce": "Reduce"
+      }
+    },
     "receiveNativeToken": {
       "label": "Receive {{tokenSymbol}}",
       "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
@@ -2092,7 +2100,11 @@
       "label": "Long"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Increase"
+      },
       "openForm": {
+        "averageEntryPrice": "Avg. entry price",
         "collateral": "Collateral",
         "dsaFieldLabel": "Collateral",
         "entryPrice": "Entry price",
@@ -2103,6 +2115,9 @@
         "short": "Short",
         "shortFieldLabel": "Short",
         "submitButtonLabel": "Open"
+      },
+      "reduceForm": {
+        "submitButtonLabel": "Reduce"
       }
     },
     "positions": {

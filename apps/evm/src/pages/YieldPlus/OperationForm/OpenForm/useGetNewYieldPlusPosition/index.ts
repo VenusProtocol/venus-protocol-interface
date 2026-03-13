@@ -8,7 +8,7 @@ import { useGetYieldPlusAssets } from 'pages/YieldPlus/useGetYieldPlusAssets';
 import { useTokenPair } from 'pages/YieldPlus/useTokenPair';
 import type { Asset, Pool } from 'types';
 import { areAddressesEqual, formatToYieldPlusPosition } from 'utilities';
-import { calculateMaximumLeverageFactor } from '../../calculateMaximumLeverageFactor';
+import { calculateMaxLeverageFactor } from '../../calculateMaxLeverageFactor';
 
 const DEFAULT_LEVERAGE_FACTOR = 2;
 
@@ -82,7 +82,7 @@ export const useGetNewYieldPlusPosition = () => {
 
   const maximumLeverageFactor =
     dsaAsset && longAsset && typeof proportionalCloseTolerancePercentage === 'number'
-      ? calculateMaximumLeverageFactor({
+      ? calculateMaxLeverageFactor({
           dsaTokenCollateralFactor: dsaAsset.userCollateralFactor,
           longTokenCollateralFactor: longAsset.userCollateralFactor,
           proportionalCloseTolerancePercentage,
@@ -102,6 +102,7 @@ export const useGetNewYieldPlusPosition = () => {
           leverageFactor: BigNumber.min(maximumLeverageFactor, DEFAULT_LEVERAGE_FACTOR).toNumber(),
           unrealizedPnlCents: 0,
           unrealizedPnlPercentage: 0,
+          averageEntryRatio: 0,
         })
       : undefined;
 

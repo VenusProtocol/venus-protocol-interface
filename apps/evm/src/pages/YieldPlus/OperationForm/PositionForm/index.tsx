@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { useGetProportionalCloseTolerancePercentage } from 'clients/api';
-import { AvailableBalance, Delimiter, RiskSlider, TokenTextField } from 'components';
+import { AvailableBalance, Delimiter, LabeledSlider, TokenTextField } from 'components';
 import type { Approval } from 'containers/TxFormSubmitButton';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSimulateYieldPlusMutations } from 'hooks/useSimulateYieldPlusPositionMutations';
@@ -10,24 +10,34 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import type { Token } from 'types';
-import { formatTokensToReadableValue, getSwapToTokenAmountReceivedTokens } from 'utilities';
+import { formatTokensToReadableValue } from 'utilities';
 import { Footer } from '../Footer';
-import { calculateMaximumLeverageFactor } from '../calculateMaximumLeverageFactor';
+import { calculateMaxLeverageFactor } from '../calculateMaxLeverageFactor';
 import { SelectDsaTokenTextField } from './SelectDsaTokenTextField';
+import {
+  type WeightedAveragePriceImpactItem,
+  calculateWeightedAverageSwapPriceImpact,
+} from './calculateWeightedAverageSwapPriceImpact';
 import type { PositionFormProps } from './types';
 import { useFormValidation } from './useFormValidation';
 
 export * from './types';
 
 export const PositionForm: React.FC<PositionFormProps> = ({
+  action,
   position,
   setFormValues,
   formValues,
   limitShortTokens,
+  limitLongTokens,
   balanceMutations,
   submitButtonLabel,
-  swapQuote,
-  swapQuoteErrorCode,
+  actionSwapQuote,
+  actionSwapQuoteErrorCode,
+  profitSwapQuote,
+  profitSwapQuoteErrorCode,
+  lossSwapQuote,
+  lossSwapQuoteErrorCode,
   isSubmitting,
   onSubmit,
   isLoading = false,
@@ -35,7 +45,6 @@ export const PositionForm: React.FC<PositionFormProps> = ({
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
-  const isNewPosition = position.dsaBalanceTokens.isEqualTo(0);
 
   const { address: relativePositionManagerContractAddress } = useGetContractAddress({
     name: 'RelativePositionManager',
@@ -68,21 +77,51 @@ export const PositionForm: React.FC<PositionFormProps> = ({
   const proportionalCloseTolerancePercentage =
     getProportionalCloseTolerancePercentageData?.proportionalCloseTolerancePercentage;
 
+  const weightedAveragePriceImpactItems: WeightedAveragePriceImpactItem[] = [];
+
+  if (actionSwapQuote) {
+    weightedAveragePriceImpactItems.push({
+      swapQuote: actionSwapQuote,
+      fromTokenPriceCents: position.shortAsset.tokenPriceCents,
+    });
+  }
+
+  if (profitSwapQuote) {
+    weightedAveragePriceImpactItems.push({
+      swapQuote: profitSwapQuote,
+      fromTokenPriceCents: position.longAsset.tokenPriceCents,
+    });
+  }
+
+  if (lossSwapQuote) {
+    weightedAveragePriceImpactItems.push({
+      swapQuote: lossSwapQuote,
+      fromTokenPriceCents: position.dsaAsset.tokenPriceCents,
+    });
+  }
+
+  const weightedAveragePriceImpactPercentage =
+    weightedAveragePriceImpactItems.length > 0
+      ? calculateWeightedAverageSwapPriceImpact(weightedAveragePriceImpactItems)
+      : undefined;
+
   const { formError } = useFormValidation({
     balanceMutations,
     position,
     simulatedPosition,
     formValues,
-    swapQuoteErrorCode,
-    swapQuote,
+    firstSwapQuoteErrorCode:
+      actionSwapQuoteErrorCode || profitSwapQuoteErrorCode || lossSwapQuoteErrorCode,
+    averageSwapPriceImpactPercentage: weightedAveragePriceImpactPercentage,
     limitShortTokens,
+    action,
   });
 
   const maximumLeverageFactor =
     typeof proportionalCloseTolerancePercentage === 'number'
-      ? calculateMaximumLeverageFactor({
-          dsaTokenCollateralFactor: position.dsaAsset.userCollateralFactor,
-          longTokenCollateralFactor: position.longAsset.userCollateralFactor,
+      ? calculateMaxLeverageFactor({
+          dsaTokenCollateralFactor: position.dsaAsset.collateralFactor,
+          longTokenCollateralFactor: position.longAsset.collateralFactor,
           proportionalCloseTolerancePercentage,
         })
       : position.leverageFactor;
@@ -100,6 +139,8 @@ export const PositionForm: React.FC<PositionFormProps> = ({
   // Clamp short amount to the maximum possible
   useEffect(() => {
     if (
+      action !== 'reduce' &&
+      limitShortTokens &&
       formValues.shortAmountTokens &&
       new BigNumber(formValues.shortAmountTokens).isGreaterThan(limitShortTokens)
     ) {
@@ -108,9 +149,22 @@ export const PositionForm: React.FC<PositionFormProps> = ({
         shortAmountTokens: limitShortTokens.toFixed(),
       }));
     }
-  }, [formValues.shortAmountTokens, limitShortTokens, setFormValues]);
+  }, [formValues.shortAmountTokens, limitShortTokens, setFormValues, action]);
 
-  const expectedLongAmountTokens = getSwapToTokenAmountReceivedTokens(swapQuote);
+  // Clamp long amount to the maximum possible
+  useEffect(() => {
+    if (
+      action === 'reduce' &&
+      limitLongTokens &&
+      formValues.longAmountTokens &&
+      new BigNumber(formValues.longAmountTokens).isGreaterThan(limitLongTokens)
+    ) {
+      setFormValues(currFormValues => ({
+        ...currFormValues,
+        longAmountTokens: limitLongTokens.toFixed(),
+      }));
+    }
+  }, [formValues.longAmountTokens, limitLongTokens, setFormValues, action]);
 
   const isDisabled =
     !isUserConnected ||
@@ -119,38 +173,85 @@ export const PositionForm: React.FC<PositionFormProps> = ({
     formError?.code === 'SUPPLY_CAP_ALREADY_REACHED';
 
   // Convert short amount to percentage of limit
-  const riskSliderValue =
-    limitShortTokens.isGreaterThan(0) && Number(formValues.shortAmountTokens) > 0
-      ? new BigNumber(formValues.shortAmountTokens)
-          .multipliedBy(100)
-          .div(limitShortTokens)
-          .dp(1)
-          .toNumber()
-      : 0;
+  let sliderValue = 0;
 
-  const handleRiskSliderChange = (riskLevelPercentage: number) => {
-    const shortAmountTokens = limitShortTokens
-      .multipliedBy(riskLevelPercentage)
-      .div(100)
-      .dp(position.shortAsset.vToken.underlyingToken.decimals)
-      .toFixed();
+  if (action !== 'reduce' && limitShortTokens && Number(formValues.shortAmountTokens) > 0) {
+    sliderValue = new BigNumber(formValues.shortAmountTokens)
+      .multipliedBy(100)
+      .div(limitShortTokens)
+      .dp(1)
+      .toNumber();
+  } else if (action === 'reduce' && limitLongTokens && Number(formValues.longAmountTokens) > 0) {
+    sliderValue = new BigNumber(formValues.longAmountTokens)
+      .multipliedBy(100)
+      .div(limitLongTokens)
+      .dp(1)
+      .toNumber();
+  }
 
-    setFormValues(currentFormValues => ({
-      ...currentFormValues,
-      shortAmountTokens,
-    }));
+  const handleSliderChange = (riskLevelPercentage: number) => {
+    // Open/increase position
+    if (action !== 'reduce' && limitShortTokens) {
+      const shortAmountTokens = limitShortTokens
+        .multipliedBy(riskLevelPercentage)
+        .div(100)
+        .dp(position.shortAsset.vToken.underlyingToken.decimals)
+        .toFixed();
+
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        shortAmountTokens,
+      }));
+
+      return;
+    }
+
+    // Reduce position
+    if (limitLongTokens) {
+      const longAmountTokens = limitLongTokens
+        .multipliedBy(riskLevelPercentage)
+        .div(100)
+        .dp(position.longAsset.vToken.underlyingToken.decimals)
+        .toFixed();
+
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        longAmountTokens,
+      }));
+    }
   };
 
   const handleLimitClick = () =>
-    setFormValues(currentFormValues => ({
-      ...currentFormValues,
-      shortAmountTokens: limitShortTokens.toFixed(),
-    }));
+    setFormValues(currentFormValues => {
+      if (action !== 'reduce' && limitShortTokens) {
+        return {
+          ...currentFormValues,
+          shortAmountTokens: limitShortTokens.toFixed(),
+        };
+      }
 
-  const readableLimitShort = formatTokensToReadableValue({
-    value: limitShortTokens,
-    token: position.shortAsset.vToken.underlyingToken,
-  });
+      if (action === 'reduce' && limitLongTokens) {
+        return {
+          ...currentFormValues,
+          longAmountTokens: limitLongTokens.toFixed(),
+        };
+      }
+
+      // This case should never be reached, this is just a safe guard
+      return currentFormValues;
+    });
+
+  const readableLimit = formatTokensToReadableValue(
+    action !== 'reduce'
+      ? {
+          value: limitShortTokens,
+          token: position.shortAsset.vToken.underlyingToken,
+        }
+      : {
+          value: limitLongTokens,
+          token: position.longAsset.vToken.underlyingToken,
+        },
+  );
 
   const handleSubmit = async (e?: React.SyntheticEvent) => {
     e?.preventDefault();
@@ -162,78 +263,94 @@ export const PositionForm: React.FC<PositionFormProps> = ({
     try {
       await onSubmit(formValues);
 
-      // No need to reset the form since a new UI will be displayed to manage the newly created
-      // position
+      setFormValues(currFormValues => ({
+        ...currFormValues,
+        dsaAmountTokens: '',
+        longAmountTokens: '',
+        shortAmountTokens: '',
+        acknowledgeRisk: false,
+        acknowledgeHighPriceImpact: false,
+      }));
     } catch (error) {
       handleError({ error });
     }
   };
 
-  const approval: Approval | undefined = relativePositionManagerContractAddress
-    ? {
-        type: 'token',
-        token: formValues.dsaToken,
-        spenderAddress: relativePositionManagerContractAddress,
-      }
-    : undefined;
+  const approval: Approval | undefined =
+    // Only request approval if user is supplying DSA
+    simulatedPosition?.dsaBalanceCents &&
+    position.dsaBalanceCents < simulatedPosition.dsaBalanceCents &&
+    relativePositionManagerContractAddress
+      ? {
+          type: 'token',
+          token: formValues.dsaToken,
+          spenderAddress: relativePositionManagerContractAddress,
+        }
+      : undefined;
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
-      {isNewPosition && (
-        <SelectDsaTokenTextField
-          shortTokenPriceCents={position.shortAsset.tokenPriceCents}
-          dsaTokenCollateralFactor={position.dsaAsset.userCollateralFactor}
-          tokenPriceCents={position.dsaAsset.tokenPriceCents.toNumber()}
-          selectedToken={formValues.dsaToken}
-          leverageFactor={formValues.leverageFactor}
-          maximumLeverageFactor={maximumLeverageFactor}
-          onChangeLeverageFactor={(newLeverageFactor: number) =>
-            setFormValues(currFormValues => ({
-              ...currFormValues,
-              leverageFactor: newLeverageFactor,
-            }))
-          }
-          name="dsaAmountTokens"
-          onChange={(newDsaAmountTokens: string) =>
-            setFormValues(currFormValues => ({
-              ...currFormValues,
-              dsaAmountTokens: newDsaAmountTokens,
-            }))
-          }
-          onChangeSelectedToken={(newDsaToken: Token) =>
-            setFormValues(currFormValues => ({
-              ...currFormValues,
-              dsaToken: newDsaToken,
-            }))
-          }
-          value={formValues.dsaAmountTokens}
-          label={t('yieldPlus.operationForm.openForm.dsaFieldLabel')}
-          disabled={isDisabled}
-          hasError={
-            !!accountAddress &&
-            !isSubmitting &&
-            (formError?.code === 'HIGHER_THAN_WALLET_BALANCE' ||
-              formError?.code === 'HIGHER_THAN_WALLET_SPENDING_LIMIT' ||
-              formError?.code === 'HIGHER_THAN_SUPPLY_CAP')
-          }
-          formError={
-            !!accountAddress &&
-            !isSubmitting &&
-            (formError?.code === 'EMPTY_DSA_TOKEN_AMOUNT' ||
-              formError?.code === 'HIGHER_THAN_WALLET_BALANCE' ||
-              formError?.code === 'HIGHER_THAN_WALLET_SPENDING_LIMIT' ||
-              formError?.code === 'HIGHER_THAN_SUPPLY_CAP')
-              ? formError
-              : undefined
-          }
-        />
-      )}
+      {action === 'open' && (
+        <>
+          <SelectDsaTokenTextField
+            proportionalCloseTolerancePercentage={proportionalCloseTolerancePercentage ?? 1}
+            shortTokenPriceCents={position.shortAsset.tokenPriceCents}
+            shortTokenDecimals={position.shortAsset.vToken.underlyingToken.decimals}
+            longTokenPriceCents={position.longAsset.tokenPriceCents}
+            longTokenCollateralFactor={position.longAsset.userCollateralFactor}
+            dsaTokenCollateralFactor={position.dsaAsset.userCollateralFactor}
+            tokenPriceCents={position.dsaAsset.tokenPriceCents.toNumber()}
+            selectedToken={formValues.dsaToken}
+            leverageFactor={formValues.leverageFactor}
+            maximumLeverageFactor={maximumLeverageFactor}
+            onChangeLeverageFactor={(newLeverageFactor: number) =>
+              setFormValues(currFormValues => ({
+                ...currFormValues,
+                leverageFactor: newLeverageFactor,
+              }))
+            }
+            name="dsaAmountTokens"
+            onChange={(newDsaAmountTokens: string) =>
+              setFormValues(currFormValues => ({
+                ...currFormValues,
+                dsaAmountTokens: newDsaAmountTokens,
+              }))
+            }
+            onChangeSelectedToken={(newDsaToken: Token) =>
+              setFormValues(currFormValues => ({
+                ...currFormValues,
+                dsaToken: newDsaToken,
+              }))
+            }
+            value={formValues.dsaAmountTokens}
+            label={t('yieldPlus.operationForm.openForm.dsaFieldLabel')}
+            disabled={isDisabled}
+            hasError={
+              !!accountAddress &&
+              !isSubmitting &&
+              (formError?.code === 'HIGHER_THAN_WALLET_BALANCE' ||
+                formError?.code === 'HIGHER_THAN_WALLET_SPENDING_LIMIT' ||
+                formError?.code === 'HIGHER_THAN_SUPPLY_CAP')
+            }
+            formError={
+              !!accountAddress &&
+              !isSubmitting &&
+              (formError?.code === 'EMPTY_DSA_TOKEN_AMOUNT' ||
+                formError?.code === 'HIGHER_THAN_WALLET_BALANCE' ||
+                formError?.code === 'HIGHER_THAN_WALLET_SPENDING_LIMIT' ||
+                formError?.code === 'HIGHER_THAN_SUPPLY_CAP')
+                ? formError
+                : undefined
+            }
+          />
 
-      <Delimiter />
+          <Delimiter />
+        </>
+      )}
 
       <TokenTextField
         name="longAmountTokens"
-        value={expectedLongAmountTokens?.toFixed() || ''}
+        value={formValues.longAmountTokens}
         tokenPriceCents={position.longAsset.tokenPriceCents.toNumber()}
         onChange={newLongAmountTokens =>
           setFormValues(currFormValues => ({
@@ -243,7 +360,7 @@ export const PositionForm: React.FC<PositionFormProps> = ({
         }
         token={position.longAsset.vToken.underlyingToken}
         label={t('yieldPlus.operationForm.openForm.longFieldLabel')}
-        disabled
+        disabled={isDisabled || action !== 'reduce'}
         description={
           !!accountAddress &&
           !isSubmitting &&
@@ -254,7 +371,12 @@ export const PositionForm: React.FC<PositionFormProps> = ({
             <p className="text-red">{formError.message}</p>
           ) : undefined
         }
-        hasError={!!accountAddress && !isSubmitting && formError?.code === 'HIGHER_THAN_SUPPLY_CAP'}
+        hasError={
+          !!accountAddress &&
+          !isSubmitting &&
+          (formError?.code === 'HIGHER_THAN_SUPPLY_CAP' ||
+            formError?.code === 'HIGHER_THAN_LIQUIDITY')
+        }
       />
 
       <TokenTextField
@@ -269,7 +391,7 @@ export const PositionForm: React.FC<PositionFormProps> = ({
         }
         token={position.shortAsset.vToken.underlyingToken}
         label={t('yieldPlus.operationForm.openForm.shortFieldLabel')}
-        disabled={isDisabled}
+        disabled={isDisabled || action === 'reduce'}
         hasError={
           !!accountAddress &&
           !isSubmitting &&
@@ -285,9 +407,9 @@ export const PositionForm: React.FC<PositionFormProps> = ({
         }
       />
 
-      <AvailableBalance readableBalance={readableLimitShort} onClick={handleLimitClick} />
+      <AvailableBalance readableBalance={readableLimit} onClick={handleLimitClick} />
 
-      <RiskSlider value={riskSliderValue} onChange={handleRiskSliderChange} disabled={isDisabled} />
+      <LabeledSlider value={sliderValue} onChange={handleSliderChange} disabled={isDisabled} />
 
       <Delimiter />
 
@@ -295,13 +417,13 @@ export const PositionForm: React.FC<PositionFormProps> = ({
         isLoading={isLoading || isSubmitting}
         position={position}
         simulatedPosition={simulatedPosition}
-        swapQuote={swapQuote}
+        swapPriceImpactPercentage={weightedAveragePriceImpactPercentage}
         swapFromToken={position.shortAsset.vToken.underlyingToken}
         swapToToken={position.longAsset.vToken.underlyingToken}
         submitButtonLabel={submitButtonLabel}
         isFormValid={!formError}
         balanceMutations={balanceMutations}
-        isNewPosition={isNewPosition}
+        action={action}
         isUserAcknowledgingHighPriceImpact={formValues.acknowledgeHighPriceImpact}
         setAcknowledgeHighPriceImpact={acknowledgeHighPriceImpact =>
           setFormValues(currentFormValues => ({
