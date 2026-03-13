@@ -14,8 +14,8 @@ import type { Vault as VaultType } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
-import type { ActiveModal } from '../VaultModals';
-import TEST_IDS from '../testIds';
+import type { ActiveModal } from '../../VaultModals';
+import TEST_IDS from '../../testIds';
 
 export interface VaultProps {
   vault: VaultType;

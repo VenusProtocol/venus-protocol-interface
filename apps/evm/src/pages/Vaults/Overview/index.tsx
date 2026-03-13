@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
-import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenUsdPrice/useGetTokenListUsdPrice';
+import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenListUsdPrice/useGetTokenListUsdPrice';
 import { CellGroup, type CellProps } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useGetToken } from 'libs/tokens';
@@ -37,26 +37,19 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, className }) => {
 
   const totalVault = (vaults ?? []).length;
 
-  const stakedTokenPriceResults = useGetTokenListUsdPrice({
+  const { data: stakedTokenPriceData, isLoading } = useGetTokenListUsdPrice({
     tokens: (vaults ?? []).map(vault => vault.stakedToken),
   });
 
-  const { data: totalStakedUsdCents, isLoading } = stakedTokenPriceResults.reduce(
-    (accu, curr, index) => {
-      return {
-        data: accu.data.plus(
-          convertPriceMantissaToDollars({
-            priceMantissa: vaults[index]?.totalStakedMantissa?.times(curr.data?.tokenPriceUsd ?? 0),
-            decimals: vaults[index]?.stakedToken?.decimals,
-          }).shiftedBy(2),
-        ),
-        isLoading: accu.isLoading || curr.isLoading,
-      };
-    },
-    {
-      data: BigNumber(0),
-      isLoading: false,
-    },
+  const totalStakedUsdCents = stakedTokenPriceData?.reduce(
+    (accu, curr, index) =>
+      accu.plus(
+        convertPriceMantissaToDollars({
+          priceMantissa: vaults[index]?.totalStakedMantissa?.times(curr?.tokenPriceUsd ?? 0),
+          decimals: vaults[index]?.stakedToken?.decimals,
+        }).shiftedBy(2),
+      ),
+    new BigNumber(0),
   );
 
   const overviewCells: CellProps[] = [

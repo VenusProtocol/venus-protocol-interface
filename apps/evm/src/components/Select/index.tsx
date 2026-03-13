@@ -52,7 +52,6 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       isDropdownOpened: boolean;
     }) => {
       switch (variant) {
-        /*
         case 'secondary':
           return cn(
             'border-lightGrey bg-lightGrey hover:border-blue hover:bg-lightGrey active:border-blue active:bg-lightGrey',
@@ -68,7 +67,6 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             'border-transparent bg-lightGrey rounded-xl hover:bg-lightGrey hover:border-grey active:bg-lightGrey active:border-blue',
             isDropdownOpened && 'border-blue bg-lightGrey hover:border-blue',
           );
-        */
         // primary
         default:
           return cn(

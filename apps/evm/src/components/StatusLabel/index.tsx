@@ -18,9 +18,6 @@ export const StatusLabel: FC<StatusLabelProps> = ({
 }) => {
   let variantClassName = '';
   switch (variant) {
-    case 'success':
-      variantClassName = cn('border-blue bg-blue/10');
-      break;
     case 'warning':
       variantClassName = cn('border-yellow bg-yellow/10');
       break;

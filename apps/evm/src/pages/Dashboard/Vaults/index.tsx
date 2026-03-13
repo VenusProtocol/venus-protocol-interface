@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenUsdPrice/useGetTokenListUsdPrice';
+import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenListUsdPrice/useGetTokenListUsdPrice';
 import { CellGroup, type CellProps } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
@@ -19,14 +20,21 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   // Filter out vaults user has not staked in
   const filteredVaults = vaults.filter(vault => vault.userStakedMantissa?.isGreaterThan(0));
 
-  const stakedTokenPriceResults = useGetTokenListUsdPrice({
-    tokens: filteredVaults.map(vault => vault.stakedToken),
-  });
-  const rewardTokenPriceResults = useGetTokenListUsdPrice({
-    tokens: filteredVaults.map(vault => vault.rewardToken),
-  });
+  const filteredVaultsLength = filteredVaults.length;
 
-  if (filteredVaults.length === 0) {
+  const { data: tokenPricesData, isLoading } = useGetTokenListUsdPrice(
+    {
+      tokens: [
+        ...filteredVaults.map(vault => vault.stakedToken),
+        ...filteredVaults.map(vault => vault.rewardToken),
+      ],
+    },
+    {
+      enabled: filteredVaultsLength > 0,
+    },
+  );
+
+  if (filteredVaultsLength === 0) {
     return (
       <>
         <Placeholder
@@ -50,14 +58,15 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
     );
   }
 
+  const stakedTokenPrices = tokenPricesData?.slice(0, filteredVaultsLength);
+  const rewardTokenPrices = tokenPricesData?.slice(filteredVaultsLength);
+
   const { totalStakedUsd, dailyEarnUsd } = filteredVaults.reduce(
     (accu, curr, index) => {
       return {
         totalStakedUsd: convertPriceMantissaToDollars({
           priceMantissa: curr.userStakedMantissa
-            ? curr.userStakedMantissa.times(
-                stakedTokenPriceResults?.[index]?.data?.tokenPriceUsd ?? 0,
-              )
+            ? curr.userStakedMantissa.times(stakedTokenPrices?.[index]?.tokenPriceUsd ?? 0)
             : new BigNumber(0),
           decimals: curr.stakedToken.decimals,
         }).plus(accu.totalStakedUsd),
@@ -67,7 +76,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
               ? curr.userStakedMantissa
                   .div(curr.totalStakedMantissa)
                   .times(curr.dailyEmissionMantissa)
-                  .times(rewardTokenPriceResults?.[index]?.data?.tokenPriceUsd ?? 0)
+                  .times(rewardTokenPrices?.[index]?.tokenPriceUsd ?? 0)
               : new BigNumber(0),
           decimals: curr.rewardToken.decimals,
         }).plus(accu.dailyEarnUsd),
@@ -79,11 +88,15 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   const overviewCells: CellProps[] = [
     {
       label: t('dashboard.vaults.totalStakedValue'),
-      value: formatCentsToReadableValue({ value: totalStakedUsd.shiftedBy(2) }),
+      value: isLoading
+        ? PLACEHOLDER_KEY
+        : formatCentsToReadableValue({ value: totalStakedUsd.shiftedBy(2) }),
     },
     {
       label: t('dashboard.vaults.dailyEarnings'),
-      value: formatCentsToReadableValue({ value: dailyEarnUsd.shiftedBy(2) }),
+      value: isLoading
+        ? PLACEHOLDER_KEY
+        : formatCentsToReadableValue({ value: dailyEarnUsd.shiftedBy(2) }),
       tooltip: t('dashboard.vaults.dailyEarningsTooltip'),
     },
   ];

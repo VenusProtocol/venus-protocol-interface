@@ -12,21 +12,17 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
-import type { ActiveModal } from '../VaultModals';
-import TEST_IDS from '../testIds';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import TEST_IDS from '../../testIds';
+import { Cell } from './Cell';
 
 interface VaultCardSimplifiedProps {
   vault: Vault;
-  onClick?: (vault: Vault, activeModal?: ActiveModal) => void;
   className?: string;
 }
 
 // Vault Card in Dashboard
-export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({
-  vault,
-  className,
-  onClick,
-}) => {
+export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
   const { t } = useTranslation();
 
   const { accountAddress } = useAccountAddress();
@@ -46,10 +42,9 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({
     <Card
       className={cn(
         'w-full flex flex-col p-3 gap-3 duration-200',
-        !!onClick && !isPaused && 'cursor-pointer hover:border-blue',
+        !isPaused && 'cursor-pointer hover:border-blue',
         className,
       )}
-      onClick={() => onClick?.(vault, 'stake')}
     >
       {showHoldingsCard ? (
         <div className="text-b1r text-light-grey">
@@ -69,37 +64,31 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({
         />
       )}
       <div className="flex">
-        <div className="flex flex-col w-full flex-1">
-          <div className={cn('text-b1r text-light-grey mb-1')}>{t('vault.card.apr')}</div>
-          <div className={cn('text-light-grey-active text-p2s')}>
-            {formatPercentageToReadableValue(vault.stakingAprPercentage)}
-          </div>
-        </div>
+        <Cell
+          title={t('vault.card.apr')}
+          content={formatPercentageToReadableValue(vault.stakingAprPercentage)}
+        />
 
-        <div className="flex flex-col w-full flex-1">
-          {showHoldingsCard ? (
-            <>
-              <div className={cn('text-b1r text-light-grey mb-1')}>
-                {t('vault.card.dailyEmission')}
-              </div>
-              {vault.dailyEmissionMantissa && (
-                <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
-                  {formatTokensToReadableValue({
+        {showHoldingsCard ? (
+          <Cell
+            title={t('vault.card.dailyEmission')}
+            content={
+              vault.dailyEmissionMantissa
+                ? formatTokensToReadableValue({
                     value: convertMantissaToTokens({
                       value: vault.dailyEmissionMantissa,
                       token: vault.rewardToken,
                     }),
                     token: vault.rewardToken,
-                  })}
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              <div className={cn('text-b1r text-light-grey mb-1')}>
-                {t('vault.card.totalDeposited')}
-              </div>
-              {vault.totalStakedMantissa && (
+                  })
+                : PLACEHOLDER_KEY
+            }
+          />
+        ) : (
+          <Cell
+            title={t('vault.card.totalDeposited')}
+            content={
+              vault.totalStakedMantissa ? (
                 <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
                   <TokenIcon token={vault.stakedToken} displayChain={false} size="md" />
                   {formatTokensToReadableValue({
@@ -110,10 +99,12 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({
                     token: vault.stakedToken,
                   })}
                 </div>
-              )}
-            </>
-          )}
-        </div>
+              ) : (
+                PLACEHOLDER_KEY
+              )
+            }
+          />
+        )}
       </div>
     </Card>
   );

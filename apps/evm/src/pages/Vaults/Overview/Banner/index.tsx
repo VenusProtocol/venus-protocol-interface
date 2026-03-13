@@ -64,7 +64,7 @@ export const Banner: React.FC<BannerProps> = ({ vault, className }) => {
         )}
         aria-hidden
         src={bannerCoinSrc}
-        alt={t('vault.overview.bannerCoinIllustration', { coin: 'XVS' })}
+        alt={t('vault.overview.bannerCoinIllustration', { token: 'XVS' })}
       />
 
       {/* Content */}

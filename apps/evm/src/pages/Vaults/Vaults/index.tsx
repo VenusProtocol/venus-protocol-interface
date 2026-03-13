@@ -42,7 +42,6 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
           <Select
             className="sm:flex-1/3 lg:flex-none"
             size="medium"
-            variant="tertiary"
             placeLabelToLeft
             options={categoryOptions}
             optionClassName="px-3 h-10 scrollbar-track-cards"
@@ -54,7 +53,6 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
           <Select
             className="sm:flex-1/3 lg:flex-none"
             size="medium"
-            variant="tertiary"
             placeLabelToLeft
             options={curatorOptions}
             optionClassName="px-3 h-10 scrollbar-track-cards"
@@ -68,7 +66,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
           value={search}
           onChange={onChange}
           size="sm"
-          leftIconSrc="search"
+          leftIconSrc="magnifier"
           placeholder={t('vault.filter.inputPlaceholder')}
           className="w-full lg:w-80"
         />
