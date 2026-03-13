@@ -20,7 +20,7 @@ Follow these rules exactly.
 ## Step 2 - Read components and plan
 
 Read all target `.tsx` files from the component/page paths provided in the prompt.
-Read `.ui-develop/plan.md` to get feature scope and i18n key inventory.
+Read `{ARTIFACTS}/plan.md` to get feature scope and i18n key inventory.
 
 Primary Venus paths to expect:
 
