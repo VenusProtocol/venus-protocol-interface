@@ -32,7 +32,7 @@ type Options = QueryObserverOptions<
 
 export interface UseGetTokenListUsdPriceInput
   extends Omit<TrimmedGetTokenListUsdPriceInput, 'tokens'> {
-  tokens?: Token[];
+  tokens: Token[];
 }
 
 export const useGetTokenListUsdPrice = (

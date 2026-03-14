@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { resilientOracleAbi } from 'libs/contracts';
-import { VError } from 'libs/errors';
+import { logError } from 'libs/errors';
 import type { Token } from 'types';
 import { convertPriceMantissaToDollars } from 'utilities';
 import type { Address, PublicClient } from 'viem';
@@ -13,7 +13,6 @@ export interface GetTokenListUsdPriceInput {
 
 export type GetTokenListUsdPriceOutput = {
   tokenPriceUsd: BigNumber | undefined;
-  error?: VError<'unexpected'>;
 }[];
 
 export const getTokenListUsdPrice = async ({
@@ -31,17 +30,19 @@ export const getTokenListUsdPrice = async ({
   });
 
   return priceMantissaResps.map((resp, index) => {
-    if (resp.status === 'failure')
-      return {
-        tokenPriceUsd: undefined,
-        error: new VError({ type: 'unexpected', code: 'somethingWentWrong' }),
-      };
+    if (resp.status === 'failure') {
+      logError(
+        `Failed to get ${tokens[index]?.symbol} USD price from Oracle (${resilientOracleAddress})`,
+      );
+    }
 
     return {
-      tokenPriceUsd: convertPriceMantissaToDollars({
-        priceMantissa: new BigNumber(resp.result?.toString() ?? 0),
-        decimals: tokens[index].decimals,
-      }),
+      tokenPriceUsd: resp.result
+        ? convertPriceMantissaToDollars({
+            priceMantissa: new BigNumber(resp.result?.toString() ?? 0),
+            decimals: tokens[index].decimals,
+          })
+        : undefined,
     };
   });
 };

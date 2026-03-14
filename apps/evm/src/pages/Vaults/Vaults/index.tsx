@@ -7,6 +7,8 @@ import type { Vault } from 'types';
 import { generateVaultKey, getVaultMetadata } from '../utils';
 import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
 
+const optionClassName = cn('px-3 h-10 scrollbar-track-cards');
+
 interface VaultsProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];
   openModal: (vault: Vault, activeModal?: ActiveModal) => void;
@@ -14,8 +16,14 @@ interface VaultsProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props }) => {
   const { t } = useTranslation();
-  const { category, setCategory, categoryOptions, curator, setCurator, curatorOptions } =
-    useFilterOptions();
+  const {
+    category: filterCategory,
+    setCategory,
+    categoryOptions,
+    curator: filterCurator,
+    setCurator,
+    curatorOptions,
+  } = useFilterOptions();
 
   const [search, setSearch] = useState('');
   const onChange: TextFieldProps['onChange'] = e => {
@@ -23,14 +31,14 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
   };
 
   const filteredVaults = (vaults ?? []).filter(vault => {
-    const { category: _category, curator: _curator } = getVaultMetadata(vault);
+    const { category, curator } = getVaultMetadata(vault);
 
     return (
-      (category === ALL_OPTION_VALUE || category === _category) &&
-      (curator === ALL_OPTION_VALUE || curator === _curator) &&
+      (filterCategory === ALL_OPTION_VALUE || filterCategory === category) &&
+      (filterCurator === ALL_OPTION_VALUE || filterCurator === curator) &&
       (!search ||
         vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()) ||
-        _curator?.toLowerCase().includes(search?.toLowerCase()))
+        curator?.toLowerCase().includes(search?.toLowerCase()))
     );
   });
 
@@ -44,10 +52,9 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
             size="medium"
             placeLabelToLeft
             options={categoryOptions}
-            optionClassName="px-3 h-10 scrollbar-track-cards"
-            dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
+            optionClassName={optionClassName}
             buttonClassName="sm:min-w-45"
-            value={category}
+            value={filterCategory}
             onChange={newValue => setCategory(newValue.toString())}
           />
           <Select
@@ -55,10 +62,9 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
             size="medium"
             placeLabelToLeft
             options={curatorOptions}
-            optionClassName="px-3 h-10 scrollbar-track-cards"
-            dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
+            optionClassName={optionClassName}
             buttonClassName="sm:min-w-45"
-            value={curator}
+            value={filterCurator}
             onChange={newValue => setCurator(newValue.toString())}
           />
         </div>
@@ -68,7 +74,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
           size="sm"
           leftIconSrc="magnifier"
           placeholder={t('vault.filter.inputPlaceholder')}
-          className="w-full lg:w-80"
+          className="w-full lg:w-75"
         />
       </div>
       <div className={cn('grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6', className)} {...props}>

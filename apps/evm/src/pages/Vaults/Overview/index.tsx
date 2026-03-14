@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
-import { useGetTokenListUsdPrice } from 'clients/api/queries/getTokenListUsdPrice/useGetTokenListUsdPrice';
+import { useGetTokenListUsdPrice } from 'clients/api';
 import { CellGroup, type CellProps } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useGetToken } from 'libs/tokens';

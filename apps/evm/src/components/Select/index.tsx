@@ -70,7 +70,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
         // primary
         default:
           return cn(
-            'rounded-xl border-dark-blue-hover bg-transparent hover:bg-transparent hover:border-light-grey active:bg-dark-blue',
+            'rounded-lg border-dark-blue-hover bg-transparent hover:bg-transparent hover:border-light-grey active:bg-dark-blue',
             isDropdownOpened && 'bg-dark-blue-active border-blue',
           );
       }

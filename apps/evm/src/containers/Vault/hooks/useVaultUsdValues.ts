@@ -1,4 +1,4 @@
-import { useGetTokenUsdPrice } from 'clients/api';
+import { useGetTokenListUsdPrice } from 'clients/api';
 import type { Vault } from 'types';
 import { convertPriceMantissaToDollars } from 'utilities';
 
@@ -11,16 +11,14 @@ export const useVaultUsdValues = (vault: Vault) => {
     dailyEmissionMantissa,
   } = vault;
 
-  const { data: stakedTokenPrice, isLoading: isStakedTokenPriceLoading } = useGetTokenUsdPrice({
-    token: stakedToken,
+  const { data: tokenPrices, isLoading: isTokensPriceLoading } = useGetTokenListUsdPrice({
+    tokens: [stakedToken, rewardToken],
   });
 
-  const { data: rewardTokenPrice, isLoading: isRewardTokenPriceLoading } = useGetTokenUsdPrice({
-    token: rewardToken,
-  });
+  const [stakedTokenPrice, rewardTokenPrice] = tokenPrices ?? [];
 
   return {
-    isLoading: isStakedTokenPriceLoading || isRewardTokenPriceLoading,
+    isLoading: isTokensPriceLoading,
     data: {
       stakedTokenPriceUsd: stakedTokenPrice?.tokenPriceUsd,
       rewardTokenPriceUsd: rewardTokenPrice?.tokenPriceUsd,

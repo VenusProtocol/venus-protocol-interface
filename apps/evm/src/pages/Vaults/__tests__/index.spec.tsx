@@ -7,7 +7,7 @@ import { useGetVaults } from 'clients/api';
 
 import Staking from '..';
 
-describe('StakingUi', () => {
+describe('VaultsUi', () => {
   beforeEach(() => {
     (useGetVaults as Mock).mockImplementation(() => ({
       data: fakeVaults,

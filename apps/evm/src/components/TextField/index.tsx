@@ -108,12 +108,13 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
             </div>
           )}
 
-          <div className="flex grow items-center gap-x-2">
+          <div className="flex grow items-center gap-x-2 h-full">
             <input
               className={cn(
-                'bg-transparent w-full h-full font-semibold leading-6 placeholder:text-grey outline-hidden',
+                'bg-transparent w-full h-full font-semibold leading-6 placeholder:text-grey  placeholder:font-normal outline-hidden',
                 type === 'number' && 'text-right',
                 size === 'xs' && 'text-sm',
+                size === 'sm' && 'text-sm',
               )}
               max={max}
               min={min}

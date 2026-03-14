@@ -5,6 +5,7 @@ import {
   type GetTokenUsdPriceOutput,
   getTokenUsdPrice,
 } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
@@ -52,7 +53,7 @@ export const useGetTokenUsdPrice = (
     queryKey: [
       FunctionKey.GET_TOKEN_USD_PRICE,
       {
-        tokenAddress: token?.address ?? '0x',
+        tokenAddress: token?.address ?? NULL_ADDRESS,
         chainId,
       },
     ],
