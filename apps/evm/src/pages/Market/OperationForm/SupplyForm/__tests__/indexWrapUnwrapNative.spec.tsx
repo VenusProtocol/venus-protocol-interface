@@ -6,17 +6,16 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useSupply } from 'clients/api';
+import { useGetPool, useSupply } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { type Asset, type AssetBalanceMutation, ChainId } from 'types';
-import { convertTokensToMantissa } from 'utilities';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { replaceAssetsInPool } from 'pages/Market/OperationForm/__testUtils__/replaceAssetsInPool';
 import Supply from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -25,33 +24,34 @@ const fakeNativeTokenBalanceTokens = new BigNumber(10);
 
 const mockSupply = vi.fn();
 
-vi.mock('hooks/useGetSwapTokenUserBalances');
+const makeWrapNativePool = (wrappedAsset: Asset = fakeWethAsset) =>
+  replaceAssetsInPool(fakePool, [
+    wrappedAsset,
+    {
+      ...fakeAsset,
+      userWalletBalanceTokens: fakeNativeTokenBalanceTokens,
+      disabledTokenActions: [],
+      vToken: {
+        ...fakeAsset.vToken,
+        address: '0x1111111111111111111111111111111111111111',
+        underlyingToken: eth,
+      },
+    },
+  ]);
 
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
+    mockSupply.mockClear();
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'wrapUnwrapNativeToken',
     );
-
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: eth,
-          balanceMantissa: convertTokensToMantissa({
-            token: eth,
-            value: fakeNativeTokenBalanceTokens,
-          }),
-        },
-        {
-          token: fakeWethAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: fakeWethAsset.vToken.underlyingToken,
-            value: new BigNumber(1),
-          }),
-        },
-      ],
-    });
-
+    const pool = makeWrapNativePool();
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
     (useSupply as Mock).mockReturnValue({ mutateAsync: mockSupply });
   });
 
@@ -78,6 +78,14 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       ...fakeWethAsset,
       supplyCapTokens: MAX_UINT256,
     };
+
+    const pool = makeWrapNativePool(customFakeAsset);
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
       <Supply asset={customFakeAsset} pool={fakePool} />,
