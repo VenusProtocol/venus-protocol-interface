@@ -57,3 +57,26 @@ Generate production builds
 ```ssh
 yarn build
 ```
+
+## UI Development Skills
+
+### ui-develop
+
+Build new UI features from Figma designs (phases 1-2: Plan, Code).
+
+```ssh
+/ui-develop <Figma URL or description>
+```
+
+### ui-i18n
+```ssh
+/ui-i18n [feature-name]
+```
+
+### ui-qa
+
+Run QA pipeline for UI features (phases 4-6: Preview, Review, Fix). Auto-detects the most recent feature if not specified.
+
+```ssh
+/ui-qa [feature-name]
+```
