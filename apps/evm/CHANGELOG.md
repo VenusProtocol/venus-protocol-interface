@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.20.1
+
+### Patch Changes
+
+- a34b680: temporarily show all swap token balances
+
 ## 4.20.0
 
 ### Minor Changes
