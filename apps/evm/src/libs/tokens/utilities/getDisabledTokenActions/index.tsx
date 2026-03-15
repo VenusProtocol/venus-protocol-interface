@@ -1,6 +1,5 @@
 import type { ChainId } from 'types';
 import areAddressesEqual from 'utilities/areAddressesEqual';
-import removeDuplicates from 'utilities/removeDuplicates';
 
 import disabledTokenActions from '../../infos/disabledTokenActions';
 
@@ -17,5 +16,5 @@ export const getDisabledTokenActions = ({
     areAddressesEqual(item.address, tokenAddress),
   );
 
-  return removeDuplicates([...(disabledToken?.disabledActions || []), 'borrow']);
+  return disabledToken?.disabledActions || [];
 };
