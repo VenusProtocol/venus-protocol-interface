@@ -1,4 +1,5 @@
 import { Select, TextField, type TextFieldProps, cn } from 'components';
+import { VaultCard } from 'containers/Vault/VaultCard';
 import { VaultCardLegacy } from 'containers/Vault/VaultCard/Legacy';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
@@ -21,6 +22,9 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
     curator: filterCurator,
     setCurator,
     curatorOptions,
+    status: filterStatus,
+    setStatus,
+    statusOptions,
   } = useFilterOptions();
 
   const [search, setSearch] = useState('');
@@ -28,17 +32,23 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
     setSearch(e.currentTarget?.value);
   };
 
-  const filteredVaults = (vaults ?? []).filter(vault => {
-    const { category, curator } = getVaultMetadata(vault);
-
-    return (
-      (filterCategory === ALL_OPTION_VALUE || filterCategory === category) &&
-      (filterCurator === ALL_OPTION_VALUE || filterCurator === curator) &&
-      (!search ||
-        vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()) ||
-        curator?.toLowerCase().includes(search?.toLowerCase()))
-    );
-  });
+  const filteredVaults = (vaults ?? []).reduce(
+    (accu, curr) => {
+      const { category, curator, status } = getVaultMetadata(curr);
+      if (
+        (filterCategory === ALL_OPTION_VALUE || filterCategory === category) &&
+        (filterCurator === ALL_OPTION_VALUE || filterCurator === curator) &&
+        (filterStatus === ALL_OPTION_VALUE || filterStatus === status) &&
+        (!search ||
+          curr.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()) ||
+          curator?.toLowerCase().includes(search?.toLowerCase()))
+      ) {
+        accu.push({ ...curr, category, curator, status });
+      }
+      return accu;
+    },
+    [] as (Vault & { category: string; curator: string; status: string })[],
+  );
 
   return (
     <div>
@@ -65,6 +75,16 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
             value={filterCurator}
             onChange={newValue => setCurator(newValue.toString())}
           />
+          <Select
+            className="sm:flex-1/3 lg:flex-none"
+            size="medium"
+            placeLabelToLeft
+            options={statusOptions}
+            optionClassName={optionClassName}
+            buttonClassName="sm:min-w-45"
+            value={filterStatus}
+            onChange={newValue => setStatus(newValue.toString())}
+          />
         </div>
         <TextField
           value={search}
@@ -76,9 +96,13 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
         />
       </div>
       <div className={cn('grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6', className)} {...props}>
-        {filteredVaults.map(vault => (
-          <VaultCardLegacy vault={vault} key={generateVaultKey(vault)} />
-        ))}
+        {filteredVaults.map(vault =>
+          vault.curator === 'venus' ? (
+            <VaultCardLegacy vault={vault} key={generateVaultKey(vault)} />
+          ) : (
+            <VaultCard vault={vault} key={generateVaultKey(vault)} />
+          ),
+        )}
       </div>
     </div>
   );

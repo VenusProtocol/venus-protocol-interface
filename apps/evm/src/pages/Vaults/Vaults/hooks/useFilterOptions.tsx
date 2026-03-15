@@ -6,6 +6,7 @@ export const ALL_OPTION_VALUE = 'all';
 
 const CATEGORY_PARAM_KEY = 'category';
 const CURATOR_PARAM_KEY = 'curator';
+const STATUS_PARAM_KEY = 'status';
 
 export const useFilterOptions = () => {
   const { t } = useTranslation();
@@ -13,6 +14,7 @@ export const useFilterOptions = () => {
 
   const category = searchParams.get(CATEGORY_PARAM_KEY) ?? ALL_OPTION_VALUE;
   const curator = searchParams.get(CURATOR_PARAM_KEY) ?? ALL_OPTION_VALUE;
+  const status = searchParams.get(STATUS_PARAM_KEY) ?? ALL_OPTION_VALUE;
 
   const setCategory = (newVal: string) =>
     setSearchParams(currentSearchParams => ({
@@ -26,6 +28,12 @@ export const useFilterOptions = () => {
       [CURATOR_PARAM_KEY]: newVal,
     }));
 
+  const setStatus = (newVal: string) =>
+    setSearchParams(currentSearchParams => ({
+      ...Object.fromEntries(currentSearchParams),
+      [STATUS_PARAM_KEY]: newVal,
+    }));
+
   const categoryOptions = [
     {
       label: t('vault.filter.allCategories'),
@@ -34,6 +42,10 @@ export const useFilterOptions = () => {
     {
       label: t('vault.filter.stablecoins'),
       value: 'stablecoins',
+    },
+    {
+      label: t('vault.filter.yieldTokens'),
+      value: 'yieldTokens',
     },
     {
       label: t('vault.filter.others'),
@@ -54,6 +66,46 @@ export const useFilterOptions = () => {
       ),
       value: 'venus',
     },
+    {
+      label: (
+        <div className="flex items-center gap-2">
+          <Icon name="pendle" />
+          Pendle
+        </div>
+      ),
+      value: 'pendle',
+    },
+  ];
+
+  const statusOptions = [
+    {
+      label: t('vault.filter.allStates'),
+      value: ALL_OPTION_VALUE,
+    },
+    {
+      label: t('vault.filter.deposit'),
+      value: 'deposit',
+    },
+    {
+      label: t('vault.filter.active'),
+      value: 'active',
+    },
+    {
+      label: t('vault.filter.refund'),
+      value: 'refund',
+    },
+    {
+      label: t('vault.filter.earning'),
+      value: 'earning',
+    },
+    {
+      label: t('vault.filter.repaying'),
+      value: 'repaying',
+    },
+    {
+      label: t('vault.filter.claim'),
+      value: 'claim',
+    },
   ];
 
   return {
@@ -63,5 +115,8 @@ export const useFilterOptions = () => {
     curator,
     setCurator,
     curatorOptions,
+    status,
+    setStatus,
+    statusOptions,
   };
 };
