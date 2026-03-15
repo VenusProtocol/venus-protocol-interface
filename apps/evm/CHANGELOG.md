@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.20.0
+
+### Minor Changes
+
+- a5d88c7: Pause vTHE borrows
+
 ## 4.19.0
 
 ### Minor Changes
