@@ -14,22 +14,28 @@ import type { Vault as VaultType } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
-import type { ActiveModal } from '../../VaultModals';
+import { useState } from 'react';
 import TEST_IDS from '../../testIds';
+import { type ActiveModal, VaultModals } from './VaultModals';
 
 export interface VaultProps {
   vault: VaultType;
-  openModal: (vault: VaultType, activeModal?: ActiveModal) => void;
   variant?: 'primary' | 'secondary';
   className?: string;
 }
 
 export const VaultCardLegacy: React.FC<VaultProps> = ({
   vault,
-  openModal,
   variant = 'primary',
   className,
 }) => {
+  const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
+
+  const onStake = () => setActiveModal('stake');
+  const onWithdraw = () => setActiveModal('withdraw');
+
+  const closeActiveModal = () => setActiveModal(undefined);
+
   const canWithdraw =
     typeof vault.poolIndex === 'number' ||
     !vault.userStakedMantissa ||
@@ -174,7 +180,7 @@ export const VaultCardLegacy: React.FC<VaultProps> = ({
         {variant === 'primary' && (
           <div className="flex flex-col justify-between gap-y-3 pt-6 sm:flex-row sm:gap-x-4 sm:mt-auto sm:pt-8">
             <Button
-              onClick={() => openModal(vault, 'stake')}
+              onClick={onStake}
               variant="primary"
               className="flex-1"
               disabled={vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade}
@@ -184,7 +190,7 @@ export const VaultCardLegacy: React.FC<VaultProps> = ({
 
             {canWithdraw && (
               <Button
-                onClick={() => openModal(vault, 'withdraw')}
+                onClick={onWithdraw}
                 variant="secondary"
                 className="flex-1"
                 disabled={vault.isPaused}
@@ -195,6 +201,10 @@ export const VaultCardLegacy: React.FC<VaultProps> = ({
           </div>
         )}
       </Card>
+
+      {activeModal && (
+        <VaultModals activeModal={activeModal} vault={vault} onClose={closeActiveModal} />
+      )}
     </>
   );
 };

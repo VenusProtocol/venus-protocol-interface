@@ -1,5 +1,4 @@
 import { Select, TextField, type TextFieldProps, cn } from 'components';
-import type { ActiveModal } from 'containers/Vault';
 import { VaultCardLegacy } from 'containers/Vault/VaultCard/Legacy';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
@@ -11,10 +10,9 @@ const optionClassName = cn('px-3 h-10 scrollbar-track-cards');
 
 interface VaultsProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];
-  openModal: (vault: Vault, activeModal?: ActiveModal) => void;
 }
 
-export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props }) => {
+export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
   const { t } = useTranslation();
   const {
     category: filterCategory,
@@ -79,7 +77,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, openModal, className, ...props
       </div>
       <div className={cn('grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6', className)} {...props}>
         {filteredVaults.map(vault => (
-          <VaultCardLegacy vault={vault} key={generateVaultKey(vault)} openModal={openModal} />
+          <VaultCardLegacy vault={vault} key={generateVaultKey(vault)} />
         ))}
       </div>
     </div>

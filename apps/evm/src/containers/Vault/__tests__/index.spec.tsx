@@ -6,22 +6,20 @@ import { renderComponent } from 'testUtils/render';
 
 import { en } from 'libs/translations';
 
-import { VaultCardLegacy as Vault, type VaultProps } from '..';
+import { VaultCardLegacy as Vault, type VaultProps } from '../VaultCard';
 
 const fakeVault = {
   ...fakeVaults[0],
   userStakedMantissa: new BigNumber('200000000000000000000'),
 };
 
-const openModal = () => {};
-
 describe('pages/Vault/Vault', () => {
   it('renders without crashing', async () => {
-    renderComponent(<Vault vault={fakeVault} openModal={openModal} />);
+    renderComponent(<Vault vault={fakeVault} />);
   });
 
   it('renders vault correctly', async () => {
-    const { container } = renderComponent(<Vault vault={fakeVault} openModal={openModal} />);
+    const { container } = renderComponent(<Vault vault={fakeVault} />);
 
     expect(container.textContent).toMatchSnapshot();
   });
@@ -33,12 +31,9 @@ describe('pages/Vault/Vault', () => {
       isPaused: true,
     };
 
-    const { queryByText } = renderComponent(
-      <Vault vault={customFakeVault} openModal={openModal} />,
-      {
-        accountAddress: fakeAddress,
-      },
-    );
+    const { queryByText } = renderComponent(<Vault vault={customFakeVault} />, {
+      accountAddress: fakeAddress,
+    });
 
     // Check warning is displayed
     expect(queryByText(en.vault.card.pausedWarning)).toBeInTheDocument();

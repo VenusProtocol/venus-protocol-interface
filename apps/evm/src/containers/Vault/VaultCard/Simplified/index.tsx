@@ -38,6 +38,31 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
   const canWithdraw = vault.userStakedMantissa?.gt(0);
   const showHoldingsCard = accountAddress && canWithdraw;
 
+  const dailyEmissionContent = vault.dailyEmissionMantissa
+    ? formatTokensToReadableValue({
+        value: convertMantissaToTokens({
+          value: vault.dailyEmissionMantissa,
+          token: vault.rewardToken,
+        }),
+        token: vault.rewardToken,
+      })
+    : PLACEHOLDER_KEY;
+
+  const totalDepositedContent = vault.totalStakedMantissa ? (
+    <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
+      <TokenIcon token={vault.stakedToken} displayChain={false} size="md" />
+      {formatTokensToReadableValue({
+        value: convertMantissaToTokens({
+          value: vault.totalStakedMantissa,
+          token: vault.stakedToken,
+        }),
+        token: vault.stakedToken,
+      })}
+    </div>
+  ) : (
+    PLACEHOLDER_KEY
+  );
+
   return (
     <Card
       className={cn(
@@ -70,40 +95,9 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
         />
 
         {showHoldingsCard ? (
-          <Cell
-            title={t('vault.card.dailyEmission')}
-            content={
-              vault.dailyEmissionMantissa
-                ? formatTokensToReadableValue({
-                    value: convertMantissaToTokens({
-                      value: vault.dailyEmissionMantissa,
-                      token: vault.rewardToken,
-                    }),
-                    token: vault.rewardToken,
-                  })
-                : PLACEHOLDER_KEY
-            }
-          />
+          <Cell title={t('vault.card.dailyEmission')} content={dailyEmissionContent} />
         ) : (
-          <Cell
-            title={t('vault.card.totalDeposited')}
-            content={
-              vault.totalStakedMantissa ? (
-                <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
-                  <TokenIcon token={vault.stakedToken} displayChain={false} size="md" />
-                  {formatTokensToReadableValue({
-                    value: convertMantissaToTokens({
-                      value: vault.totalStakedMantissa,
-                      token: vault.stakedToken,
-                    }),
-                    token: vault.stakedToken,
-                  })}
-                </div>
-              ) : (
-                PLACEHOLDER_KEY
-              )
-            }
-          />
+          <Cell title={t('vault.card.totalDeposited')} content={totalDepositedContent} />
         )}
       </div>
     </Card>

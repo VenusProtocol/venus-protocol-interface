@@ -12,7 +12,7 @@ interface VaultModalsProps {
 }
 
 export const VaultModals: React.FC<VaultModalsProps> = ({ vault, activeModal, onClose }) => {
-  const modals = (
+  return (
     <>
       {activeModal === 'stake' && (
         <StakeModal
@@ -39,6 +39,4 @@ export const VaultModals: React.FC<VaultModalsProps> = ({ vault, activeModal, on
       )}
     </>
   );
-
-  return modals;
 };
