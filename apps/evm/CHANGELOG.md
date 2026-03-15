@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.19.0
+
+### Minor Changes
+
+- dd2667c: Temporarily disable borrows
+
 ## 4.18.2
 
 ### Patch Changes
