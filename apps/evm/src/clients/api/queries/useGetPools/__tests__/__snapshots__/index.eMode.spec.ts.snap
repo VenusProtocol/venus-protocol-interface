@@ -18,7 +18,9 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
@@ -1279,7 +1281,9 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
@@ -2588,7 +2592,9 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
@@ -3896,7 +3902,9 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",

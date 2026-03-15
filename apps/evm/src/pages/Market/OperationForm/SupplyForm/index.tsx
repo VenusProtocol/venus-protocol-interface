@@ -86,6 +86,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
     underlyingToken: asset.vToken.underlyingToken,
     isIntegratedSwapFeatureEnabled,
     canWrapNativeToken,
+    action: 'supply',
   });
 
   const shouldSelectNativeToken =

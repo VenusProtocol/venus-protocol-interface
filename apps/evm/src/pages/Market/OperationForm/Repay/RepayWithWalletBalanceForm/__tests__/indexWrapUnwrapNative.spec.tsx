@@ -7,30 +7,50 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useRepay } from 'clients/api';
+import { useGetPool, useRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
-import { convertTokensToMantissa } from 'utilities';
 
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import { checkSubmitButtonIsEnabled } from 'pages/Market/OperationForm/__testUtils__/checkFns';
+import { replaceAssetsInPool } from 'pages/Market/OperationForm/__testUtils__/replaceAssetsInPool';
 import RepayWithWalletBalanceForm from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useGetSwapInfo');
-vi.mock('hooks/useGetSwapTokenUserBalances');
 
 const mockRepay = vi.fn();
 
+const makeWrapNativePool = ({
+  wrappedAsset = fakeWethAsset,
+  nativeBalanceTokens = new BigNumber(10),
+}: {
+  wrappedAsset?: Asset;
+  nativeBalanceTokens?: BigNumber;
+} = {}) =>
+  replaceAssetsInPool(fakePool, [
+    wrappedAsset,
+    {
+      ...fakeAsset,
+      userWalletBalanceTokens: nativeBalanceTokens,
+      disabledTokenActions: [],
+      vToken: {
+        ...fakeAsset.vToken,
+        address: '0x2222222222222222222222222222222222222222',
+        underlyingToken: eth,
+      },
+    },
+  ]);
+
 describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
+    mockRepay.mockClear();
     (useRepay as Mock).mockImplementation(() => ({
       mutateAsync: mockRepay,
     }));
@@ -44,26 +64,13 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
       error: undefined,
       isLoading: false,
     }));
-
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: eth,
-          balanceMantissa: convertTokensToMantissa({
-            token: eth,
-            value: new BigNumber(10),
-          }),
-        },
-        {
-          token: fakeWethAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: fakeWethAsset.vToken.underlyingToken,
-            value: fakeWethAsset.userWalletBalanceTokens,
-          }),
-        },
-      ],
-    });
-
+    const pool = makeWrapNativePool();
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
     (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
       isLoading: false,
       data: { pool },
@@ -112,25 +119,21 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
     // Add 1 WETH to simulate wallet balance being higher than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.plus(1);
     const fakeHigherNativeTokenBalance = fakeUserWethWalletBalance.plus(1);
-
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: eth,
-          balanceMantissa: convertTokensToMantissa({
-            token: eth,
-            value: fakeHigherNativeTokenBalance,
-          }),
+    const pool = {
+      ...makeWrapNativePool({
+        wrappedAsset: {
+          ...customFakeWethAsset,
+          userWalletBalanceTokens: fakeUserWethWalletBalance,
         },
-        {
-          token: customFakeWethAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: customFakeWethAsset.vToken.underlyingToken,
-            value: fakeUserWethWalletBalance,
-          }),
-        },
-      ],
-    });
+        nativeBalanceTokens: fakeHigherNativeTokenBalance,
+      }),
+    };
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
@@ -188,25 +191,19 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeTok
     // Remove 1 WETH to simulate wallet balance being lower than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.minus(1);
     const fakeLowerNativeTokenBalance = fakeUserWethWalletBalance;
-
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: eth,
-          balanceMantissa: convertTokensToMantissa({
-            token: eth,
-            value: fakeLowerNativeTokenBalance,
-          }),
-        },
-        {
-          token: customFakeWethAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: customFakeWethAsset.vToken.underlyingToken,
-            value: fakeUserWethWalletBalance,
-          }),
-        },
-      ],
+    const pool = makeWrapNativePool({
+      wrappedAsset: {
+        ...customFakeWethAsset,
+        userWalletBalanceTokens: fakeUserWethWalletBalance,
+      },
+      nativeBalanceTokens: fakeLowerNativeTokenBalance,
     });
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
       <RepayWithWalletBalanceForm

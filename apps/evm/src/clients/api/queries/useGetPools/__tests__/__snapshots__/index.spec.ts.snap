@@ -18,7 +18,9 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
@@ -1279,7 +1281,9 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
@@ -2530,7 +2534,9 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",

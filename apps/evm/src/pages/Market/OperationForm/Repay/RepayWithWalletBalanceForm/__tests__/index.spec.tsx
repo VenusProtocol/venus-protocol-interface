@@ -9,9 +9,8 @@ import { xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useRepay } from 'clients/api';
+import { useGetPool, useRepay } from 'clients/api';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -22,13 +21,12 @@ import {
   checkSubmitButtonIsDisabled,
   checkSubmitButtonIsEnabled,
 } from 'pages/Market/OperationForm/__testUtils__/checkFns';
+import { replaceAssetsInPool } from 'pages/Market/OperationForm/__testUtils__/replaceAssetsInPool';
 import { ChainId } from 'types';
-import { convertTokensToMantissa } from 'utilities';
 import RepayWithWalletBalanceForm, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 
@@ -36,6 +34,7 @@ const mockRepay = vi.fn();
 
 describe('RepayWithWalletBalanceForm', () => {
   beforeEach(() => {
+    mockRepay.mockClear();
     (useRepay as Mock).mockImplementation(() => ({
       mutateAsync: mockRepay,
     }));
@@ -43,18 +42,13 @@ describe('RepayWithWalletBalanceForm', () => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'integratedSwap',
     );
-
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: fakeAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: fakeAsset.vToken.underlyingToken,
-            value: fakeAsset.userWalletBalanceTokens,
-          }),
-        },
-      ],
-    });
+    const pool = replaceAssetsInPool(fakePool, [fakeAsset]);
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
       isLoading: false,
@@ -103,17 +97,13 @@ describe('RepayWithWalletBalanceForm', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(1);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: customFakeAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: customFakeAsset.vToken.underlyingToken,
-            value: customFakeAsset.userWalletBalanceTokens,
-          }),
-        },
-      ],
-    });
+    const pool = customFakePool;
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { getByText, getByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
@@ -156,17 +146,13 @@ describe('RepayWithWalletBalanceForm', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(1);
 
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: customFakeAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: customFakeAsset.vToken.underlyingToken,
-            value: customFakeAsset.userWalletBalanceTokens,
-          }),
-        },
-      ],
-    });
+    const pool = customFakePool;
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { getByText, getByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
@@ -370,17 +356,13 @@ describe('RepayWithWalletBalanceForm', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(10);
 
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: customFakeAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: customFakeAsset.vToken.underlyingToken,
-            value: customFakeAsset.userWalletBalanceTokens,
-          }),
-        },
-      ],
-    });
+    const pool = customFakePool;
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { getByText, getByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
@@ -472,17 +454,13 @@ describe('RepayWithWalletBalanceForm', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: customFakeAsset.vToken.underlyingToken,
-          balanceMantissa: convertTokensToMantissa({
-            token: customFakeAsset.vToken.underlyingToken,
-            value: customFakeAsset.userWalletBalanceTokens,
-          }),
-        },
-      ],
-    });
+    const pool = customFakePool;
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { getByText, getByTestId } = renderComponent(
       <RepayWithWalletBalanceForm
