@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "市場",
       "settings": "設定",
-      "staking": "質押",
-      "transactions": "交易"
+      "transactions": "交易",
+      "vaults": "金庫"
     },
     "transactions": {
       "date": {
@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "你的金庫持倉將顯示在此",
         "title": "尚無質押持倉"
       }
     }
@@ -305,9 +304,9 @@
     "markets": "市場",
     "primeCalculator": "Prime 計算器",
     "proposal": "提案 #{{proposalId}}",
-    "staking": "質押",
     "swap": "兌換",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "金庫"
   },
   "bridgePage": {
     "amountInput": {
@@ -467,6 +466,11 @@
         "label": "供應"
       },
       "textTitle": "焦點"
+    },
+    "vaults": {
+      "dailyEarnings": "每日收益",
+      "dailyEarningsTooltip": "您在所有活躍金庫中的每日預計收益，基於各金庫的當前利率或固定 APR。實際收益可能有所變化。",
+      "totalStakedValue": "總質押價值"
     }
   },
   "eModeBanner": {
@@ -771,13 +775,13 @@
           "label": "語言（測試版）"
         }
       },
-      "staking": {
-        "label": "質押"
-      },
       "subMenuItem": {
         "button": {
           "label": "開始使用"
         }
+      },
+      "vaults": {
+        "label": "金庫"
       },
       "venusLogoAlt": "Venus 標誌"
     },
@@ -1800,21 +1804,58 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "你必須完成待處理的提取才能與該金庫交互。",
-    "dailyEmission": "每日發放",
-    "pausedWarning": "該金庫當前已暫停。利率仍在累積，但領取、質押和提取在金庫恢復前不可用",
-    "stakeButton": "質押",
-    "stakingApr": "{{stakeTokenName}} 質押 APR",
-    "totalStaked": "總質押",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "您必須先完成待處理的提款才能與此金庫互動。",
+      "currentStaked": "當前質押",
+      "dailyEmission": "每日獎勵釋放",
+      "manager": "管理機構",
+      "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、質押和提款功能已禁用，直至金庫恢復運作。",
+      "stake": "質押",
+      "stakingApr": "{{stakeTokenName}} 質押 APR",
+      "totalDeposited": "總存款",
+      "totalStaked": "總質押",
+      "venusManager": "Venus",
+      "withdraw": "提取",
+      "youAreStake": "你正在質押",
+      "youStaked": "您已質押"
+    },
+    "filter": {
+      "active": "活躍",
+      "allCategories": "所有類別",
+      "allManagers": "所有管理機構",
+      "allStates": "所有狀態",
+      "claim": "領取",
+      "deposit": "存款",
+      "earning": "收益中",
+      "inputPlaceholder": "搜尋資產",
+      "others": "其他",
+      "paused": "已暫停",
+      "refund": "退款",
+      "repaying": "還款中",
+      "rwa": "RWA",
+      "stablecoins": "穩定幣",
+      "vaults": "金庫",
+      "yieldTokens": "收益代幣"
+    },
+    "overview": {
+      "bannerCoinIllustration": "{{token}} 硬幣插圖",
+      "bannerTitle": "質押 <strong>{{tokenDashMarket}}</strong> 享受 <strong>{{apyPercentage}}</strong> APR",
+      "bannerVaultIllustration": "金庫插圖",
+      "description": "收益化繁為簡，回報觸手可及 — 存入多個金庫，<strong>按您的方式</strong>讓加密資產增值。",
+      "highestApr": "最高 APR",
+      "title": "Venus Vault",
+      "tokenTotalDeposited": "{{token}} 總存入量",
+      "totalVault": "金庫",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "鎖定期"
       },
       "rightMaxButtonLabel": "最大"
-    },
-    "withdrawButton": "提取",
-    "youAreStake": "你正在質押"
+    }
   },
   "venusFluxBanner": {
     "description": "讓你的流動性 Flux，見證收益成長。",

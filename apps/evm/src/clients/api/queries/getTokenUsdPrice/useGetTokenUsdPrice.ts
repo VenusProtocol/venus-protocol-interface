@@ -5,12 +5,14 @@ import {
   type GetTokenUsdPriceOutput,
   getTokenUsdPrice,
 } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 type TrimmedGetTokenUsdPriceInput = Omit<
   GetTokenUsdPriceInput,
@@ -20,7 +22,7 @@ type TrimmedGetTokenUsdPriceInput = Omit<
 export type UseGetTokenUsdPriceQueryKey = [
   FunctionKey.GET_TOKEN_USD_PRICE,
   {
-    tokenAddress: string;
+    tokenAddress: Address;
     chainId: ChainId;
   },
 ];
@@ -51,7 +53,7 @@ export const useGetTokenUsdPrice = (
     queryKey: [
       FunctionKey.GET_TOKEN_USD_PRICE,
       {
-        tokenAddress: token ? token.address : '',
+        tokenAddress: token?.address ?? NULL_ADDRESS,
         chainId,
       },
     ],

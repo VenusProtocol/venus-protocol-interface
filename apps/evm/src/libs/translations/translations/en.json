@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "Markets",
       "settings": "Settings",
-      "staking": "Staking",
-      "transactions": "Transactions"
+      "transactions": "Transactions",
+      "vaults": "Vaults"
     },
     "transactions": {
       "date": {
@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "Your vault positions will appear here",
         "title": "No staking positions yet"
       }
     }
@@ -305,9 +304,9 @@
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
-    "staking": "Staking",
     "swap": "Swap",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "Vaults"
   },
   "bridgePage": {
     "amountInput": {
@@ -467,6 +466,11 @@
         "label": "Supply"
       },
       "textTitle": "Spotlight"
+    },
+    "vaults": {
+      "dailyEarnings": "Daily earnings",
+      "dailyEarningsTooltip": "Your estimated daily earnings across all active vaults, based on each vault's current rate or fixed APR. Actual earnings may vary.",
+      "totalStakedValue": "Total staked value"
     }
   },
   "eModeBanner": {
@@ -771,13 +775,13 @@
           "label": "Language (beta)"
         }
       },
-      "staking": {
-        "label": "Staking"
-      },
       "subMenuItem": {
         "button": {
           "label": "Get started"
         }
+      },
+      "vaults": {
+        "label": "Vaults"
       },
       "venusLogoAlt": "Venus logo"
     },
@@ -1800,21 +1804,58 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
-    "dailyEmission": "Daily Emission",
-    "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
-    "stakeButton": "Stake",
-    "stakingApr": "{{stakeTokenName}} Stake APR",
-    "totalStaked": "Total Staked",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
+      "currentStaked": "Currently staked",
+      "dailyEmission": "Daily emission",
+      "manager": "Manager",
+      "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
+      "stake": "Stake",
+      "stakingApr": "{{stakeTokenName}} Stake APR",
+      "totalDeposited": "Total deposited",
+      "totalStaked": "Total Staked",
+      "venusManager": "Venus",
+      "withdraw": "Withdraw",
+      "youAreStake": "You are staking",
+      "youStaked": "You staked"
+    },
+    "filter": {
+      "active": "Active",
+      "allCategories": "All categories",
+      "allManagers": "All managers",
+      "allStates": "All states",
+      "claim": "Claim",
+      "deposit": "Deposit",
+      "earning": "Earning",
+      "inputPlaceholder": "Search asset",
+      "others": "Others",
+      "paused": "Paused",
+      "refund": "Refund",
+      "repaying": "Repaying",
+      "rwa": "RWA",
+      "stablecoins": "Stablecoins",
+      "vaults": "Vaults",
+      "yieldTokens": "Yield tokens"
+    },
+    "overview": {
+      "bannerCoinIllustration": "{{token}} coins illustration",
+      "bannerTitle": "Enjoy <strong>{{apyPercentage}}</strong> APR with <strong>{{tokenDashMarket}}</strong>",
+      "bannerVaultIllustration": "Vault illustration",
+      "description": "Yield made simple, returns made real — deposit across multiple vaults and watch your crypto grow <strong>on your terms</strong>.",
+      "highestApr": "Highest APR",
+      "title": "Venus Vault",
+      "tokenTotalDeposited": "{{token}} total deposited",
+      "totalVault": "Vaults",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "Locking period"
       },
       "rightMaxButtonLabel": "MAX"
-    },
-    "withdrawButton": "Withdraw",
-    "youAreStake": "You are staking"
+    }
   },
   "venusFluxBanner": {
     "description": "Let your liquidity Flux, watch your yield grow.",

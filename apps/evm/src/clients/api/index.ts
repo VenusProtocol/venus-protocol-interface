@@ -62,6 +62,9 @@ export * from './queries/getVTokenBalances/useGetVTokenBalances';
 export * from './queries/getTokenUsdPrice';
 export * from './queries/getTokenUsdPrice/useGetTokenUsdPrice';
 
+export * from './queries/getTokenListUsdPrice';
+export * from './queries/getTokenListUsdPrice/useGetTokenListUsdPrice';
+
 export * from './queries/getVenusVaiVaultDailyRate';
 export * from './queries/getVenusVaiVaultDailyRate/useGetVenusVaiVaultDailyRate';
 

@@ -445,6 +445,14 @@ export const useGetTokenUsdPrice = vi.fn(() =>
   }),
 );
 
+export const getTokenListUsdPrice = vi.fn(async () => [{ tokenPriceUsd: new BigNumber('1') }]);
+export const useGetTokenListUsdPrice = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_TOKEN_USD_PRICE],
+    queryFn: getTokenListUsdPrice,
+  }),
+);
+
 export const getPrimeEstimation = vi.fn(async () => primeEstimationData);
 export const useGetPrimeEstimation = vi.fn(() =>
   useQuery({
