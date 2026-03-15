@@ -1,5 +1,11 @@
 import { useGetAccountTransactionHistory, useGetPools } from 'clients/api';
-import { Select, type SelectOption, TokenIconWithSymbol } from 'components';
+import {
+  Pagination,
+  Select,
+  type SelectOption,
+  TokenIconWithSymbol,
+  TransactionsList,
+} from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
@@ -7,38 +13,15 @@ import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router';
 import { TxType } from 'types';
-import { TransactionsList } from './TransactionsList';
+import { getTransactionName } from 'utilities';
+import { type Address, isAddress } from 'viem';
 
 const FIRST_PAGE = 1;
+const ITEMS_PER_PAGE_COUNT = 20;
 const ALL_OPTION_VALUE = 'all';
 const PAGE_PARAM_KEY = 'page';
 const TX_TYPE_PARAM_KEY = 'txType';
 const CONTRACT_ADDRESS_PARAM_KEY = 'contractAddress';
-
-// DO NOT REMOVE COMMENT: needed by i18next to extract translation key
-// t('account.transactions.selects.txType.mint')
-// t('account.transactions.selects.txType.repay')
-// t('account.transactions.selects.txType.borrow')
-// t('account.transactions.selects.txType.redeem')
-// t('account.transactions.selects.txType.exitMarket')
-// t('account.transactions.selects.txType.enterMarket')
-
-const getTxTypeOptionTranslationKey = (txType: TxType) => {
-  switch (txType) {
-    case TxType.Mint:
-      return 'account.transactions.selects.txType.mint';
-    case TxType.Repay:
-      return 'account.transactions.selects.txType.repay';
-    case TxType.Borrow:
-      return 'account.transactions.selects.txType.borrow';
-    case TxType.Redeem:
-      return 'account.transactions.selects.txType.redeem';
-    case TxType.ExitMarket:
-      return 'account.transactions.selects.txType.exitMarket';
-    default:
-      return 'account.transactions.selects.txType.enterMarket';
-  }
-};
 
 export const Transactions: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,7 +35,9 @@ export const Transactions: React.FC = () => {
   const txTypeNumber = Number(txTypeStr);
   const txType = !Number.isNaN(txTypeNumber) ? txTypeNumber : undefined;
 
-  const selectedContractAddress = searchParams.get(CONTRACT_ADDRESS_PARAM_KEY) ?? ALL_OPTION_VALUE;
+  const selectedContractAddress = searchParams.get(CONTRACT_ADDRESS_PARAM_KEY)
+    ? (searchParams.get(CONTRACT_ADDRESS_PARAM_KEY) as Address)
+    : ALL_OPTION_VALUE;
 
   const setTxType = (newTxType: string) =>
     setSearchParams(currentSearchParams => ({
@@ -99,12 +84,13 @@ export const Transactions: React.FC = () => {
   const isTransactionHistoryFeatureEnabled = useIsFeatureEnabled({
     name: 'transactionHistory',
   });
+
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(
       {
         accountAddress: accountAddress || NULL_ADDRESS,
         page,
-        contractAddress: selectedContractAddress,
+        contractAddress: isAddress(selectedContractAddress) ? selectedContractAddress : undefined,
         type: txType,
       },
       {
@@ -124,7 +110,10 @@ export const Transactions: React.FC = () => {
     for (const typeStr in TxType) {
       if (typeStr) {
         otherOptions.push({
-          label: t(getTxTypeOptionTranslationKey(TxType[typeStr as keyof typeof TxType])),
+          label: getTransactionName({
+            txType: TxType[typeStr as keyof typeof TxType],
+            t,
+          }),
           value: value.toString(),
         });
         value++;
@@ -215,9 +204,16 @@ export const Transactions: React.FC = () => {
       <TransactionsList
         transactions={historicalTxsData?.transactions || []}
         isLoading={areHistoricalTxsLoading}
-        transactionsCount={historicalTxsData?.count || 0}
-        onPageChange={newValue => setPage(newValue.toString())}
       />
+
+      {!areHistoricalTxsLoading && (
+        <Pagination
+          initialPageIndex={FIRST_PAGE}
+          itemsCount={historicalTxsData?.count || 0}
+          itemsPerPageCount={ITEMS_PER_PAGE_COUNT}
+          onChange={newValue => setPage(newValue.toString())}
+        />
+      )}
     </div>
   );
 };

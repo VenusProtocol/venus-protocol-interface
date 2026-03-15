@@ -88,22 +88,6 @@ export const transactions = {
       token: usdt,
       txType: 'exit_market',
     },
-    {
-      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
-      amountCents: new BigNumber('0'),
-      amountTokens: new BigNumber(
-        '115792089237316195423570985008687907853269984665640564039457584007913129639935',
-      ),
-      blockNumber: '41114008',
-      blockTimestamp: new Date('2024-08-02T02:18:00.000Z'),
-      chainId: 97,
-      contractAddress: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
-      hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
-      poolName: 'Metaverse',
-      vTokenSymbol: vUsdtCorePool.symbol,
-      token: vUsdtCorePool,
-      txType: 'approve',
-    },
   ],
   count: 7,
 };

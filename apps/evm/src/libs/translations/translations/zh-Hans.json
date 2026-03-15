@@ -88,13 +88,7 @@
           "all": "所有市场"
         },
         "txType": {
-          "all": "所有交易",
-          "borrow": "借款",
-          "enterMarket": "启用可抵押",
-          "exitMarket": "禁用可抵押",
-          "mint": "存款",
-          "redeem": "取款",
-          "repay": "偿还"
+          "all": "所有交易"
         }
       },
       "today": "今天",
@@ -104,11 +98,11 @@
       },
       "txType": {
         "borrow": "借款",
-        "enterMarket": "启用可抵押",
-        "exitMarket": "禁用可抵押",
+        "enterMarket": "启用抵押",
+        "exitMarket": "禁用抵押",
         "mint": "存款",
         "redeem": "取款",
-        "repay": "偿还"
+        "repay": "还款"
       },
       "view": "查看",
       "yesterday": "昨天"
@@ -761,6 +755,9 @@
         "vai": {
           "description": "铸造 Venus 的原生稳定币。",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -2072,5 +2069,67 @@
       "submitButton": "取款"
     },
     "withdrawTabTitle": "取款"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ 插图",
+      "learnMore": "了解更多",
+      "title": "什么是 Yield+？"
+    },
+    "longLiquidity": "多头流动性",
+    "longSupplyApy": "{{ longTokenSymbol }} 存款 APY",
+    "longTokenSelect": {
+      "label": "多头"
+    },
+    "positions": {
+      "closeButtonLabel": "关闭",
+      "placeholder": {
+        "title": "暂无仓位"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "可抵押"
+        },
+        "healthFactor": {
+          "label": "健康系数",
+          "tooltip": "清算阈值 < 1.0"
+        },
+        "netApy": {
+          "label": "净 APY"
+        },
+        "netValue": {
+          "label": "净值"
+        },
+        "title": "状态"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "清算价"
+        },
+        "longColumn": {
+          "title": "多头"
+        },
+        "pnlColumn": {
+          "title": "盈亏"
+        },
+        "positionColumn": {
+          "title": "仓位"
+        },
+        "shortColumn": {
+          "title": "空头"
+        }
+      },
+      "transactions": {
+        "title": "交易"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
+    "shortLiquidity": "空头流动性",
+    "shortTokenSelect": {
+      "label": "空头"
+    }
   }
 }
