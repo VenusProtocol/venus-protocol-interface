@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import { useVaultUsdValues } from 'containers/Vault/hooks/useVaultUsdValues';
 import { useTranslation } from 'libs/translations';
-import type { Vault } from 'types';
+import type { AnyVault } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
@@ -11,7 +11,7 @@ import bannerCoinSrc from './asset/banner-coins-xvs.png';
 import bannerVaultSrc from './asset/banner-vault.png';
 
 export interface BannerProps {
-  vault: Vault;
+  vault: AnyVault;
   className?: string;
 }
 

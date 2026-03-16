@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router';
 export const ALL_OPTION_VALUE = 'all';
 
 const CATEGORY_PARAM_KEY = 'category';
-const CURATOR_PARAM_KEY = 'curator';
+const MANAGER_PARAM_KEY = 'manager';
 const STATUS_PARAM_KEY = 'status';
 
 export const useFilterOptions = () => {
@@ -13,7 +13,7 @@ export const useFilterOptions = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const category = searchParams.get(CATEGORY_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const curator = searchParams.get(CURATOR_PARAM_KEY) ?? ALL_OPTION_VALUE;
+  const manager = searchParams.get(MANAGER_PARAM_KEY) ?? ALL_OPTION_VALUE;
   const status = searchParams.get(STATUS_PARAM_KEY) ?? ALL_OPTION_VALUE;
 
   const setCategory = (newVal: string) =>
@@ -22,10 +22,10 @@ export const useFilterOptions = () => {
       [CATEGORY_PARAM_KEY]: newVal,
     }));
 
-  const setCurator = (newVal: string) =>
+  const setManager = (newVal: string) =>
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
-      [CURATOR_PARAM_KEY]: newVal,
+      [MANAGER_PARAM_KEY]: newVal,
     }));
 
   const setStatus = (newVal: string) =>
@@ -52,7 +52,7 @@ export const useFilterOptions = () => {
       value: 'others',
     },
   ];
-  const curatorOptions = [
+  const managerOptions = [
     {
       label: t('vault.filter.allManagers'),
       value: ALL_OPTION_VALUE,
@@ -112,9 +112,9 @@ export const useFilterOptions = () => {
     category,
     setCategory,
     categoryOptions,
-    curator,
-    setCurator,
-    curatorOptions,
+    manager,
+    setManager,
+    managerOptions,
     status,
     setStatus,
     statusOptions,

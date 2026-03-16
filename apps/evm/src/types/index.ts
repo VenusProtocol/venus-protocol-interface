@@ -2,6 +2,7 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
+import type { IconName } from 'components';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -464,18 +465,62 @@ export interface Transaction {
   token: Token;
 }
 
-export interface Vault {
+export enum VaultStatus {
+  Active = 'status',
+  Deposit = 'deposit',
+  Earning = 'earning',
+  Refund = 'refund',
+  Repaying = 'repaying',
+  Claim = 'claim',
+  Paused = 'paused',
+}
+
+export enum VaultManager {
+  Venus = 'venus',
+  Pendle = 'pendle',
+}
+
+export enum VaultCategory {
+  Stablecoin = 'stablecoin',
+  YieldTokens = 'yieldTokens',
+  Others = 'others',
+}
+interface VaultMetadata {
+  category: VaultCategory;
+  manager: VaultManager;
+  managerIcon: IconName;
+  status: VaultStatus;
+  key: string;
+}
+
+interface BaseVault {
   stakedToken: Token;
   rewardToken: Token;
   stakingAprPercentage: number;
   totalStakedMantissa: BigNumber;
-  dailyEmissionMantissa: BigNumber;
-  isPaused: boolean;
   lockingPeriodMs?: number;
   userStakedMantissa?: BigNumber;
   poolIndex?: number;
+}
+export interface VaultData extends BaseVault {
+  dailyEmissionMantissa: BigNumber;
+  isPaused: boolean;
   userHasPendingWithdrawalsFromBeforeUpgrade?: boolean;
 }
+
+export interface Vault extends VaultData, VaultMetadata {}
+
+export interface PendleVaultData extends BaseVault {
+  key: string;
+  maturityDate?: number;
+  maxDeposited?: BigNumber;
+  depositEndDate?: number;
+  duration?: number; // TBD
+}
+
+export interface PendleVault extends PendleVaultData, VaultMetadata {}
+
+export type AnyVault = Vault | PendleVault;
 
 export interface VoterAccount {
   address: Address;

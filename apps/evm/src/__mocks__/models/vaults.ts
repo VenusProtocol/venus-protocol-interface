@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import type { LockedDeposit, Vault } from 'types';
+import { type LockedDeposit, type Vault, VaultCategory, VaultManager, VaultStatus } from 'types';
 
 import type { Address } from 'viem';
 import { vai, xvs } from './tokens';
@@ -14,6 +14,11 @@ export const vaults: Vault[] = [
     dailyEmissionMantissa: new BigNumber('144000000000000000000'),
     totalStakedMantissa: new BigNumber('415000000000000000000'),
     stakingAprPercentage: 12665.060240963856,
+    category: VaultCategory.Stablecoin,
+    manager: VaultManager.Venus,
+    managerIcon: 'logoMobile',
+    status: VaultStatus.Active,
+    key: 'venus-VAI-XVS-300000',
   },
   {
     rewardToken: xvs,
@@ -24,6 +29,11 @@ export const vaults: Vault[] = [
     totalStakedMantissa: new BigNumber('400000000000000000000000000'),
     stakingAprPercentage: 12.92281835063781,
     userStakedMantissa: new BigNumber('233000000000000000000'),
+    category: VaultCategory.Others,
+    manager: VaultManager.Venus,
+    managerIcon: 'logoMobile',
+    status: VaultStatus.Active,
+    key: 'venus-XVS-XVS-300000',
   },
 ];
 

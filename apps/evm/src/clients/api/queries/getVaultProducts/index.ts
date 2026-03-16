@@ -5,7 +5,6 @@ import type {
   GetVaultProductsOutput,
   GetVaultProductsResponse,
 } from './types';
-import { useFormatToVault } from './useFormatToVault';
 
 export const getVaultProducts = async ({
   chainId,
@@ -20,8 +19,6 @@ export const getVaultProducts = async ({
 
   const payload = response.data;
 
-  const { formatToVault } = useFormatToVault();
-
   if (payload && 'error' in payload) {
     throw new VError({
       type: 'unexpected',
@@ -34,5 +31,5 @@ export const getVaultProducts = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return (payload.result ?? []).map(item => formatToVault(item));
+  return payload.result ?? [];
 };

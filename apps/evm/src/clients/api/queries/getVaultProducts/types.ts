@@ -1,4 +1,4 @@
-import type { ChainId, Vault } from 'types';
+import type { ChainId } from 'types';
 
 export type GetVaultProductsInput = {
   chainId: ChainId;
@@ -53,4 +53,4 @@ export type GetVaultProductsResponse = {
   result: VaultProduct[];
 };
 
-export type GetVaultProductsOutput = Vault[];
+export type GetVaultProductsOutput = VaultProduct[];

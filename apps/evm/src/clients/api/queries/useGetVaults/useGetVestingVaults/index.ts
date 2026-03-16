@@ -13,7 +13,7 @@ import {
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken, useGetTokens } from 'libs/tokens';
-import type { Vault } from 'types';
+import type { Vault, VaultData } from 'types';
 import { convertTokensToMantissa, indexBy } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
@@ -21,6 +21,7 @@ import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 import { useGetXvsVaultPoolBalances } from './useGetXvsVaultPoolBalances';
 import { useGetXvsVaultPools } from './useGetXvsVaultPools';
+import { injectMetadata } from './utils';
 
 export interface UseGetVestingVaultsOutput {
   isLoading: boolean;
@@ -161,9 +162,9 @@ export const useGetVestingVaults = (input?: {
     isGetXvsVaultPausedLoading;
 
   // Format query results into Vaults
-  const data: Vault[] = useMemo(
+  const data: VaultData[] = useMemo(
     () =>
-      Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<Vault[]>(
+      Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<VaultData[]>(
         (acc, _item, poolIndex) => {
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
           const userStakedMantissa = poolData[poolIndex]?.userInfos?.stakedAmountMantissa.minus(
@@ -220,7 +221,7 @@ export const useGetVestingVaults = (input?: {
             getXvsVaultPausedData?.isVaultPaused !== undefined &&
             !!xvs
           ) {
-            const vault: Vault = {
+            const vault: VaultData = {
               isPaused: getXvsVaultPausedData.isVaultPaused,
               rewardToken: xvs,
               stakedToken,
@@ -253,7 +254,7 @@ export const useGetVestingVaults = (input?: {
   );
 
   return {
-    data,
+    data: injectMetadata(data),
     isLoading,
   };
 };

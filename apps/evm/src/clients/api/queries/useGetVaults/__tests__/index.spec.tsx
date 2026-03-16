@@ -25,6 +25,13 @@ import { type UseGetVaultsOutput, useGetVaults } from '..';
 
 describe('useGetVaults', () => {
   beforeEach(() => {
+    (global.fetch as Mock).mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({ result: [] }),
+      }),
+    );
     (getXvsVaultPoolCount as Mock).mockImplementation(() => ({
       poolCount: xvsVaultResponses.poolLength,
     }));

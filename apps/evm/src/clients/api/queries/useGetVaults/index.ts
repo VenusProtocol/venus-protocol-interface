@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
 
-import type { Vault } from 'types';
+import type { AnyVault } from 'types';
 
 import type { Address } from 'viem';
-import { useGetVaultProducts } from '../getVaultProducts/useGetVaultProducts';
+import { useGetPendleVaults } from './useGetPendleVaults';
 import { useGetVaiVault } from './useGetVaiVault';
 import { useGetVestingVaults } from './useGetVestingVaults';
 
 export interface UseGetVaultsOutput {
   isLoading: boolean;
-  data: Vault[];
+  data: AnyVault[];
 }
 
 export const useGetVaults = ({
@@ -23,10 +23,10 @@ export const useGetVaults = ({
     accountAddress,
   });
 
-  const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetVaultProducts();
+  const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetPendleVaults();
 
-  const data: Vault[] = useMemo(() => {
-    const allVaults = [...vestingVaults];
+  const data = useMemo(() => {
+    const allVaults = [...vestingVaults] as AnyVault[];
 
     if (vaiVault) {
       allVaults.push(vaiVault);

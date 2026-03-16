@@ -5,7 +5,7 @@ import { Card, TokenIcon, TokenIconWithSymbol } from 'components';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Vault } from 'types';
+import type { AnyVault } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
@@ -17,7 +17,7 @@ import TEST_IDS from '../../testIds';
 import { Cell } from './Cell';
 
 interface VaultCardSimplifiedProps {
-  vault: Vault;
+  vault: AnyVault;
   className?: string;
 }
 
@@ -33,20 +33,24 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
     addSymbol: false,
   });
 
-  const isPaused = vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade;
+  const isPaused =
+    ('isPaused' in vault && vault.isPaused) ||
+    ('userHasPendingWithdrawalsFromBeforeUpgrade' in vault &&
+      vault.userHasPendingWithdrawalsFromBeforeUpgrade);
 
   const canWithdraw = vault.userStakedMantissa?.gt(0);
   const showHoldingsCard = accountAddress && canWithdraw;
 
-  const dailyEmissionContent = vault.dailyEmissionMantissa
-    ? formatTokensToReadableValue({
-        value: convertMantissaToTokens({
-          value: vault.dailyEmissionMantissa,
+  const dailyEmissionContent =
+    'dailyEmissionMantissa' in vault && vault.dailyEmissionMantissa
+      ? formatTokensToReadableValue({
+          value: convertMantissaToTokens({
+            value: vault.dailyEmissionMantissa,
+            token: vault.rewardToken,
+          }),
           token: vault.rewardToken,
-        }),
-        token: vault.rewardToken,
-      })
-    : PLACEHOLDER_KEY;
+        })
+      : PLACEHOLDER_KEY;
 
   const totalDepositedContent = vault.totalStakedMantissa ? (
     <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>

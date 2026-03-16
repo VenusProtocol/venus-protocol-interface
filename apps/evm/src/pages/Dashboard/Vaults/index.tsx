@@ -6,12 +6,12 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
 import { useTranslation } from 'libs/translations';
-import type { Vault } from 'types';
+import type { AnyVault } from 'types';
 import { convertPriceMantissaToDollars, formatCentsToReadableValue } from 'utilities';
 import { Placeholder } from '../Placeholder';
 
 export interface VaultsProps {
-  vaults: Vault[];
+  vaults: AnyVault[];
 }
 
 export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
@@ -72,7 +72,9 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
         }).plus(accu.totalStakedUsd),
         dailyEarnUsd: convertPriceMantissaToDollars({
           priceMantissa:
-            curr.userStakedMantissa && curr.totalStakedMantissa.gt(0)
+            curr.userStakedMantissa &&
+            curr.totalStakedMantissa.gt(0) &&
+            'dailyEmissionMantissa' in curr
               ? curr.userStakedMantissa
                   .div(curr.totalStakedMantissa)
                   .times(curr.dailyEmissionMantissa)
