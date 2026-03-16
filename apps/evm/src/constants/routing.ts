@@ -10,7 +10,7 @@ export enum Subdirectory {
   PRIME_CALCULATOR = 'prime-calculator',
   DASHBOARD = 'dashboard',
   PORT = 'port',
-  STAKING = 'staking',
+  VAULTS = 'vaults',
   GOVERNANCE = 'governance',
   PROPOSAL = 'proposal/:proposalId',
   PROPOSAL_CREATE = 'proposal-create',
@@ -47,7 +47,7 @@ const routeSubdirectories = {
   governanceLeaderBoard: [Subdirectory.GOVERNANCE, Subdirectory.LEADER_BOARD],
   governanceVoter: [Subdirectory.GOVERNANCE, Subdirectory.LEADER_BOARD, Subdirectory.VOTER],
   swap: [Subdirectory.SWAP],
-  staking: [Subdirectory.STAKING],
+  vaults: [Subdirectory.VAULTS],
   vai: [Subdirectory.VAI],
   bridge: [Subdirectory.BRIDGE],
 };

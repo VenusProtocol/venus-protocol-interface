@@ -211,7 +211,9 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                     i18nKey="primeStatusBanner.description.primeCalculator"
                     components={{
                       WhiteText: <span className="text-white" />,
-                      Link: <Link to={routes.primeCalculator.path} />,
+                      Link: (
+                        <Link to={routes.primeCalculator.path} onClick={e => e.stopPropagation()} />
+                      ),
                     }}
                     values={{
                       stakeDelta: readableStakeDeltaTokens,
@@ -223,7 +225,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                     i18nKey="primeStatusBanner.description.primeDoc"
                     components={{
                       WhiteText: <span className="text-white" />,
-                      Link: <Link href={VENUS_PRIME_DOC_URL} />,
+                      Link: <Link href={VENUS_PRIME_DOC_URL} onClick={e => e.stopPropagation()} />,
                     }}
                     values={{
                       stakeDelta: readableStakeDeltaTokens,
@@ -316,7 +318,7 @@ export type PrimeStatusBannerProps = Pick<
 const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const { accountAddress } = useAccountAddress();
   const { navigate } = useNavigate();
-  const redirectToXvsPage = () => navigate(routes.staking.path);
+  const redirectToXvsPage = () => navigate(routes.vaults.path);
 
   const xvs = useGetToken({
     symbol: 'XVS',

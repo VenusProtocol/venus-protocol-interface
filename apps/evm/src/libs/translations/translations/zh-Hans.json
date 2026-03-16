@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "市场",
       "settings": "设置",
-      "staking": "质押",
-      "transactions": "交易"
+      "transactions": "交易",
+      "vaults": "金库"
     },
     "transactions": {
       "date": {
@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "你的金库持仓将显示在此",
         "title": "尚无质押持仓"
       }
     }
@@ -305,9 +304,9 @@
     "markets": "市场",
     "primeCalculator": "Prime 计算器",
     "proposal": "提案 #{{proposalId}}",
-    "staking": "质押",
     "swap": "兑换",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "金库"
   },
   "bridgePage": {
     "amountInput": {
@@ -467,6 +466,11 @@
         "label": "存款"
       },
       "textTitle": "焦点"
+    },
+    "vaults": {
+      "dailyEarnings": "每日收益",
+      "dailyEarningsTooltip": "您在所有活跃金库中的每日预计收益，基于各金库的当前利率或固定 APR。实际收益可能有所变化。",
+      "totalStakedValue": "总质押价值"
     }
   },
   "eModeBanner": {
@@ -771,13 +775,13 @@
           "label": "语言（测试版）"
         }
       },
-      "staking": {
-        "label": "质押"
-      },
       "subMenuItem": {
         "button": {
           "label": "开始使用"
         }
+      },
+      "vaults": {
+        "label": "金库"
       },
       "venusLogoAlt": "Venus 标志"
     },
@@ -1800,21 +1804,58 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "你必须完成待处理的取款才能与该金库交互。",
-    "dailyEmission": "每日发放",
-    "pausedWarning": "该金库当前已暂停。利率仍在累积，但领取、质押和取款在金库恢复前不可用",
-    "stakeButton": "质押",
-    "stakingApr": "{{stakeTokenName}} 质押 APR",
-    "totalStaked": "总质押",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
+      "currentStaked": "当前质押",
+      "dailyEmission": "每日奖励释放",
+      "manager": "管理机构",
+      "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、质押和提款功能已禁用，直至金库恢复运作。",
+      "stake": "质押",
+      "stakingApr": "{{stakeTokenName}} 质押 APR",
+      "totalDeposited": "总存款",
+      "totalStaked": "总质押",
+      "venusManager": "Venus",
+      "withdraw": "取款",
+      "youAreStake": "你正在质押",
+      "youStaked": "您已质押"
+    },
+    "filter": {
+      "active": "活跃",
+      "allCategories": "所有类别",
+      "allManagers": "所有管理机构",
+      "allStates": "所有状态",
+      "claim": "领取",
+      "deposit": "存款",
+      "earning": "收益中",
+      "inputPlaceholder": "搜索资产",
+      "others": "其他",
+      "paused": "已暂停",
+      "refund": "退款",
+      "repaying": "还款中",
+      "rwa": "RWA",
+      "stablecoins": "稳定币",
+      "vaults": "金库",
+      "yieldTokens": "收益代币"
+    },
+    "overview": {
+      "bannerCoinIllustration": "{{token}} 硬币插图",
+      "bannerTitle": "质押 <strong>{{tokenDashMarket}}</strong> 享受 <strong>{{apyPercentage}}</strong> APR",
+      "bannerVaultIllustration": "金库插图",
+      "description": "收益化繁为简，回报触手可及 — 存入多个金库，<strong>按您的方式</strong>让加密资产增值。",
+      "highestApr": "最高 APR",
+      "title": "金库",
+      "tokenTotalDeposited": "{{token}} 总存入量",
+      "totalVault": "金库",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "锁定期"
       },
       "rightMaxButtonLabel": "最大"
-    },
-    "withdrawButton": "取款",
-    "youAreStake": "你正在质押"
+    }
   },
   "venusFluxBanner": {
     "description": "让你的流动性 Flux，见证收益增长。",

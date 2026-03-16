@@ -72,7 +72,7 @@ export const Guide: React.FC = () => {
       title: t('dashboard.guide.step3.title'),
       description: t('dashboard.guide.step3.description'),
       isCompleted: isUserStakingInXvsVault,
-      to: routes.staking.path,
+      to: routes.vaults.path,
     },
   ];
 

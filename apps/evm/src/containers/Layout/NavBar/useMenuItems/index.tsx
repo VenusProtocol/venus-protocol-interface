@@ -47,8 +47,8 @@ export const useMenuItems = () => {
       ],
     },
     {
-      to: routes.staking.path,
-      label: t('layout.menu.staking.label'),
+      to: routes.vaults.path,
+      label: t('layout.menu.vaults.label'),
     },
   );
 

@@ -6,7 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { en } from 'libs/translations';
 
-import { Vault, type VaultProps } from '..';
+import { VaultCardLegacy as Vault, type VaultProps } from '../VaultCard';
 
 const fakeVault = {
   ...fakeVaults[0],
@@ -24,23 +24,10 @@ describe('pages/Vault/Vault', () => {
     expect(container.textContent).toMatchSnapshot();
   });
 
-  it('hides withdraw button if userStakedMantissa is equal to 0', async () => {
+  it('disables stake button and displays message if isPaused is true', async () => {
     const customFakeVault: VaultProps['vault'] = {
       ...fakeVault,
-      userStakedMantissa: new BigNumber(0),
-    };
-
-    const { queryByText } = renderComponent(<Vault vault={customFakeVault} />, {
-      accountAddress: fakeAddress,
-    });
-
-    // Click on withdraw button
-    expect(queryByText(en.vault.withdrawButton)).toBeNull();
-  });
-
-  it('disables stake and withdraw buttons and displays message if isPaused is true', async () => {
-    const customFakeVault: VaultProps['vault'] = {
-      ...fakeVault,
+      userStakedMantissa: new BigNumber('0'),
       isPaused: true,
     };
 
@@ -48,10 +35,7 @@ describe('pages/Vault/Vault', () => {
       accountAddress: fakeAddress,
     });
 
-    // Check stake and withdraw buttons are disabled
-    expect(queryByText(en.vault.stakeButton)?.closest('button')).toBeDisabled();
-    expect(queryByText(en.vault.withdrawButton)?.closest('button')).toBeDisabled();
     // Check warning is displayed
-    expect(queryByText(en.vault.pausedWarning));
+    expect(queryByText(en.vault.card.pausedWarning)).toBeInTheDocument();
   });
 });

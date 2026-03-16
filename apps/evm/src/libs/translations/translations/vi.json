@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "Thị trường",
       "settings": "Cài đặt",
-      "staking": "Staking",
-      "transactions": "Giao dịch"
+      "transactions": "Giao dịch",
+      "vaults": "Kho"
     },
     "transactions": {
       "date": {
@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "Vị thế vault của bạn sẽ hiển thị ở đây",
         "title": "Chưa có vị thế staking"
       }
     }
@@ -305,9 +304,9 @@
     "markets": "Thị trường",
     "primeCalculator": "Máy tính Prime",
     "proposal": "Đề xuất #{{proposalId}}",
-    "staking": "Staking",
     "swap": "Hoán đổi",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "Kho"
   },
   "bridgePage": {
     "amountInput": {
@@ -467,6 +466,11 @@
         "label": "Cung cấp"
       },
       "textTitle": "Điểm nổi bật"
+    },
+    "vaults": {
+      "dailyEarnings": "Thu nhập hàng ngày",
+      "dailyEarningsTooltip": "Thu nhập hàng ngày ước tính của bạn trên tất cả các kho đang hoạt động, dựa trên lãi suất hiện tại hoặc APR cố định của mỗi kho. Thu nhập thực tế có thể khác nhau.",
+      "totalStakedValue": "Tổng giá trị đặt cược"
     }
   },
   "eModeBanner": {
@@ -771,13 +775,13 @@
           "label": "Ngôn ngữ (beta)"
         }
       },
-      "staking": {
-        "label": "Staking"
-      },
       "subMenuItem": {
         "button": {
           "label": "Bắt đầu"
         }
+      },
+      "vaults": {
+        "label": "Kho"
       },
       "venusLogoAlt": "Logo Venus"
     },
@@ -1800,21 +1804,58 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "Bạn phải hoàn tất các khoản rút đang chờ để tương tác với vault này.",
-    "dailyEmission": "Phát hành hằng ngày",
-    "pausedWarning": "Vault này hiện đang tạm dừng. Lãi suất vẫn tích lũy nhưng việc nhận, staking và rút bị vô hiệu hóa cho đến khi vault được mở lại",
-    "stakeButton": "Stake",
-    "stakingApr": "APR stake {{stakeTokenName}}",
-    "totalStaked": "Tổng đã stake",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
+      "currentStaked": "Đang đặt cược",
+      "dailyEmission": "Phần thưởng hàng ngày",
+      "manager": "Tổ chức quản lý",
+      "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, đặt cược và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
+      "stake": "Stake",
+      "stakingApr": "APR stake {{stakeTokenName}}",
+      "totalDeposited": "Tổng tiền gửi",
+      "totalStaked": "Tổng đã stake",
+      "venusManager": "Venus",
+      "withdraw": "Rút",
+      "youAreStake": "Bạn đang stake",
+      "youStaked": "Bạn đã đặt cược"
+    },
+    "filter": {
+      "active": "Đang hoạt động",
+      "allCategories": "Tất cả danh mục",
+      "allManagers": "Tất cả tổ chức quản lý",
+      "allStates": "Tất cả trạng thái",
+      "claim": "Nhận thưởng",
+      "deposit": "Gửi tiền",
+      "earning": "Đang kiếm",
+      "inputPlaceholder": "Tìm kiếm tài sản",
+      "others": "Khác",
+      "paused": "Tạm dừng",
+      "refund": "Hoàn tiền",
+      "repaying": "Đang trả nợ",
+      "rwa": "RWA",
+      "stablecoins": "Stablecoin",
+      "vaults": "Kho",
+      "yieldTokens": "Token sinh lời"
+    },
+    "overview": {
+      "bannerCoinIllustration": "Hình minh họa đồng {{token}}",
+      "bannerTitle": "Đặt cược <strong>{{tokenDashMarket}}</strong> để nhận <strong>{{apyPercentage}}</strong> APR",
+      "bannerVaultIllustration": "Hình minh họa kho",
+      "description": "Sinh lời đơn giản, lợi nhuận thực tế — gửi tiền vào nhiều kho và xem tài sản crypto của bạn tăng trưởng <strong>theo cách của bạn</strong>.",
+      "highestApr": "APR cao nhất",
+      "title": "Kho",
+      "tokenTotalDeposited": "Tổng {{token}} đã gửi",
+      "totalVault": "Kho",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "Thời gian khóa"
       },
       "rightMaxButtonLabel": "TỐI ĐA"
-    },
-    "withdrawButton": "Rút",
-    "youAreStake": "Bạn đang stake"
+    }
   },
   "venusFluxBanner": {
     "description": "Hãy để thanh khoản của bạn Flux, theo dõi lợi suất tăng trưởng.",

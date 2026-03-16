@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "ตลาด",
       "settings": "การตั้งค่า",
-      "staking": "สเตคกิ้ง",
-      "transactions": "ธุรกรรม"
+      "transactions": "ธุรกรรม",
+      "vaults": "คลัง"
     },
     "transactions": {
       "date": {
@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "ตำแหน่งในวอลต์ของคุณจะแสดงที่นี่",
         "title": "ยังไม่มีตำแหน่งสเตค"
       }
     }
@@ -305,9 +304,9 @@
     "markets": "ตลาด",
     "primeCalculator": "เครื่องคำนวณ Prime",
     "proposal": "ข้อเสนอ #{{proposalId}}",
-    "staking": "สเตคกิ้ง",
     "swap": "สวอป",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "คลัง"
   },
   "bridgePage": {
     "amountInput": {
@@ -467,6 +466,11 @@
         "label": "ฝาก"
       },
       "textTitle": "ไฮไลต์"
+    },
+    "vaults": {
+      "dailyEarnings": "รายได้รายวัน",
+      "dailyEarningsTooltip": "รายได้รายวันโดยประมาณของคุณใน vault ที่ใช้งานอยู่ทั้งหมด โดยอิงจากอัตราปัจจุบันหรือ APR คงที่ของแต่ละ vault รายได้จริงอาจแตกต่างกัน",
+      "totalStakedValue": "มูลค่าสเตคทั้งหมด"
     }
   },
   "eModeBanner": {
@@ -771,13 +775,13 @@
           "label": "ภาษา (เบต้า)"
         }
       },
-      "staking": {
-        "label": "สเตคกิ้ง"
-      },
       "subMenuItem": {
         "button": {
           "label": "เริ่มต้นใช้งาน"
         }
+      },
+      "vaults": {
+        "label": "คลัง"
       },
       "venusLogoAlt": "โลโก้ Venus"
     },
@@ -1800,21 +1804,58 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนที่ค้างอยู่ให้เสร็จสิ้นเพื่อโต้ตอบกับวอลต์นี้",
-    "dailyEmission": "การปล่อยต่อวัน",
-    "pausedWarning": "วอลต์นี้ถูกหยุดชั่วคราวอยู่ในขณะนี้ อัตราดอกเบี้ยยังคงสะสม แต่การรับรางวัล การสเตค และการถอนถูกปิดใช้งานจนกว่าวอลต์จะถูกเปิดใช้งานอีกครั้ง",
-    "stakeButton": "สเตค",
-    "stakingApr": "APR การสเตค {{stakeTokenName}}",
-    "totalStaked": "ยอดสเตครวม",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนเงินที่รอดำเนินการให้เสร็จสิ้นก่อนจึงจะสามารถโต้ตอบกับ vault นี้ได้",
+      "currentStaked": "สเตคอยู่ในปัจจุบัน",
+      "dailyEmission": "รางวัลรายวัน",
+      "manager": "ผู้ดูแล",
+      "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การสเตค และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
+      "stake": "สเตค",
+      "stakingApr": "APR การสเตค {{stakeTokenName}}",
+      "totalDeposited": "ยอดฝากทั้งหมด",
+      "totalStaked": "ยอดสเตครวม",
+      "venusManager": "Venus",
+      "withdraw": "ถอน",
+      "youAreStake": "คุณกำลังสเตคอยู่",
+      "youStaked": "คุณสเตคแล้ว"
+    },
+    "filter": {
+      "active": "ใช้งานอยู่",
+      "allCategories": "ทุกหมวดหมู่",
+      "allManagers": "ผู้ดูแลทั้งหมด",
+      "allStates": "ทุกสถานะ",
+      "claim": "อ้างสิทธิ์",
+      "deposit": "ฝากเงิน",
+      "earning": "กำลังรับรายได้",
+      "inputPlaceholder": "ค้นหาสินทรัพย์",
+      "others": "อื่นๆ",
+      "paused": "หยุดชั่วคราว",
+      "refund": "คืนเงิน",
+      "repaying": "กำลังชำระคืน",
+      "rwa": "RWA",
+      "stablecoins": "สเตเบิลคอยน์",
+      "vaults": "คลัง",
+      "yieldTokens": "เหรียญผลตอบแทน"
+    },
+    "overview": {
+      "bannerCoinIllustration": "ภาพประกอบเหรียญ {{token}}",
+      "bannerTitle": "สเตค <strong>{{tokenDashMarket}}</strong> เพื่อรับ APR <strong>{{apyPercentage}}</strong>",
+      "bannerVaultIllustration": "ภาพประกอบคลัง",
+      "description": "ผลตอบแทนที่เข้าใจง่าย กำไรที่แท้จริง — ฝากเงินในหลายคลังและดูสินทรัพย์คริปโตของคุณเติบโต<strong>ตามเงื่อนไขของคุณ</strong>",
+      "highestApr": "APR สูงสุด",
+      "title": "คลัง",
+      "tokenTotalDeposited": "{{token}} ยอดฝากรวม",
+      "totalVault": "คลัง",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "ระยะเวลาล็อก"
       },
       "rightMaxButtonLabel": "สูงสุด"
-    },
-    "withdrawButton": "ถอน",
-    "youAreStake": "คุณกำลังสเตคอยู่"
+    }
   },
   "venusFluxBanner": {
     "description": "ปล่อยให้สภาพคล่องของคุณ Flux แล้วดูผลตอบแทนเติบโต",

@@ -70,8 +70,8 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
         // primary
         default:
           return cn(
-            'border-dark-blue-disabled/50 bg-dark-blue hover:bg-dark-blue-hover active:bg-dark-blue-hover',
-            isDropdownOpened && 'bg-dark-blue-hover hover:border-blue',
+            'rounded-lg border-dark-blue-hover bg-transparent hover:bg-transparent hover:border-light-grey active:bg-dark-blue',
+            isDropdownOpened && 'bg-dark-blue-active border-blue',
           );
       }
     };

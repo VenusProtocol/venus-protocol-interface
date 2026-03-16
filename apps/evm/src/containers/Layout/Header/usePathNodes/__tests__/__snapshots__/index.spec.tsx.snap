@@ -130,15 +130,6 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /prime-
 ]
 `;
 
-exports[`usePathNodes > outputs the right DOM based on the current path: /staking 1`] = `
-[
-  {
-    "dom": "Staking",
-    "href": "staking",
-  },
-]
-`;
-
 exports[`usePathNodes > outputs the right DOM based on the current path: /swap 1`] = `
 [
   {
@@ -153,6 +144,15 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /vai 1`
   {
     "dom": "VAI",
     "href": "vai",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /vaults 1`] = `
+[
+  {
+    "dom": "Vaults",
+    "href": "vaults",
   },
 ]
 `;

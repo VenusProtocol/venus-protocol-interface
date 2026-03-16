@@ -1,6 +1,5 @@
 import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
-import { useState } from 'react';
 
 import { useGetPrimeStatus } from 'clients/api';
 import { Card, CellGroup, LabeledInlineContent } from 'components';
@@ -15,12 +14,9 @@ import type { Vault as VaultType } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
-import StakeModal from './StakeModal';
-import WithdrawFromVaiVaultModal from './WithdrawFromVaiVaultModal';
-import WithdrawFromVestingVaultModal from './WithdrawFromVestingVaultModal';
-import TEST_IDS from './testIds';
-
-type ActiveModal = 'stake' | 'withdraw';
+import { useState } from 'react';
+import TEST_IDS from '../../testIds';
+import { type ActiveModal, VaultModals } from './VaultModals';
 
 export interface VaultProps {
   vault: VaultType;
@@ -28,7 +24,11 @@ export interface VaultProps {
   className?: string;
 }
 
-export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', className }) => {
+export const VaultCardLegacy: React.FC<VaultProps> = ({
+  vault,
+  variant = 'primary',
+  className,
+}) => {
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
 
   const onStake = () => setActiveModal('stake');
@@ -63,7 +63,7 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
 
   const dataListItems = [
     {
-      label: t('vault.stakingApr', { stakeTokenName: vault.stakedToken.symbol }),
+      label: t('vault.card.stakingApr', { stakeTokenName: vault.stakedToken.symbol }),
       value: (
         <span className="font-semibold">
           {formatPercentageToReadableValue(vault.stakingAprPercentage)}
@@ -71,7 +71,7 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
       ),
     },
     {
-      label: t('vault.dailyEmission'),
+      label: t('vault.card.dailyEmission'),
       value: (
         <div className="flex items-center gap-x-2">
           <TokenIcon className="w-4 h-4 sm:w-6 sm:h-6" token={vault.rewardToken} />
@@ -92,7 +92,7 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
 
   if (variant === 'primary') {
     dataListItems.push({
-      label: t('vault.totalStaked'),
+      label: t('vault.card.totalStaked'),
       value: (
         <div className="flex items-center gap-x-2">
           <TokenIcon className="w-4 h-4 sm:w-6 sm:h-6" token={vault.stakedToken} />
@@ -132,7 +132,7 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
           </div>
         )}
 
-        <p className="text-sm text-grey mb-1">{t('vault.youAreStake')}</p>
+        <p className="text-sm text-grey mb-1">{t('vault.card.youAreStake')}</p>
 
         <h2 className="inline-flex items-center gap-x-2" data-testid={TEST_IDS.userStakedTokens}>
           <TokenIcon
@@ -170,8 +170,8 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
           <NoticeWarning
             description={
               vault.isPaused
-                ? t('vault.pausedWarning')
-                : t('vault.blockingPendingWithdrawalsWarning')
+                ? t('vault.card.pausedWarning')
+                : t('vault.card.blockingPendingWithdrawalsWarning')
             }
             className="mt-6"
           />
@@ -185,7 +185,7 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
               className="flex-1"
               disabled={vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade}
             >
-              {t('vault.stakeButton')}
+              {t('vault.card.stake')}
             </Button>
 
             {canWithdraw && (
@@ -195,37 +195,15 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
                 className="flex-1"
                 disabled={vault.isPaused}
               >
-                {t('vault.withdrawButton')}
+                {t('vault.card.withdraw')}
               </Button>
             )}
           </div>
         )}
       </Card>
 
-      {activeModal === 'stake' && (
-        <StakeModal
-          stakedToken={vault.stakedToken}
-          rewardToken={vault.rewardToken}
-          handleClose={closeActiveModal}
-          poolIndex={vault.poolIndex}
-        />
-      )}
-
-      {activeModal === 'withdraw' &&
-        vault.poolIndex === undefined &&
-        vault.stakedToken.symbol === 'VAI' && (
-          <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
-        )}
-
-      {activeModal === 'withdraw' && vault.poolIndex !== undefined && (
-        <WithdrawFromVestingVaultModal
-          handleClose={closeActiveModal}
-          stakedToken={vault.stakedToken}
-          poolIndex={vault.poolIndex}
-          userHasPendingWithdrawalsFromBeforeUpgrade={
-            vault.userHasPendingWithdrawalsFromBeforeUpgrade || false
-          }
-        />
+      {activeModal && (
+        <VaultModals activeModal={activeModal} vault={vault} onClose={closeActiveModal} />
       )}
     </>
   );

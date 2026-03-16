@@ -71,8 +71,8 @@
     "tabs": {
       "markets": "マーケット",
       "settings": "設定",
-      "staking": "ステーキング",
-      "transactions": "取引"
+      "transactions": "取引",
+      "vaults": "ボールト"
     },
     "transactions": {
       "date": {
@@ -115,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "あなたのボールトポジションはここに表示されます",
         "title": "まだステーキングポジションはありません"
       }
     }
@@ -305,9 +304,9 @@
     "markets": "マーケット",
     "primeCalculator": "Prime計算機",
     "proposal": "提案 #{{proposalId}}",
-    "staking": "ステーキング",
     "swap": "スワップ",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "ボールト"
   },
   "bridgePage": {
     "amountInput": {
@@ -467,6 +466,11 @@
         "label": "供給"
       },
       "textTitle": "スポットライト"
+    },
+    "vaults": {
+      "dailyEarnings": "日次収益",
+      "dailyEarningsTooltip": "すべてのアクティブなボールト全体での推定日次収益です。各ボールトの現在のレートまたは固定 APR に基づいています。実際の収益は異なる場合があります。",
+      "totalStakedValue": "総ステーク価値"
     }
   },
   "eModeBanner": {
@@ -771,13 +775,13 @@
           "label": "言語 (ベータ版)"
         }
       },
-      "staking": {
-        "label": "ステーキング"
-      },
       "subMenuItem": {
         "button": {
           "label": "開始する"
         }
+      },
+      "vaults": {
+        "label": "ボールト"
       },
       "venusLogoAlt": "Venusロゴ"
     },
@@ -1800,21 +1804,58 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
-    "dailyEmission": "日次排出量",
-    "pausedWarning": "このボールトは現在停止中です。金利は引き続き発生しますが、請求・ステーキング・引き出しはボールトが再開されるまで無効です",
-    "stakeButton": "ステーキング",
-    "stakingApr": "{{stakeTokenName}} ステーキングAPR",
-    "totalStaked": "総ステーキング量",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
+      "currentStaked": "現在のステーク量",
+      "dailyEmission": "日次報酬配布",
+      "manager": "運用機関",
+      "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、ステーキング、引き出しは無効になっています。",
+      "stake": "ステーキング",
+      "stakingApr": "{{stakeTokenName}} ステーキングAPR",
+      "totalDeposited": "総預金額",
+      "totalStaked": "総ステーキング量",
+      "venusManager": "Venus",
+      "withdraw": "引き出し",
+      "youAreStake": "あなたのステーキング量",
+      "youStaked": "ステーク済み"
+    },
+    "filter": {
+      "active": "アクティブ",
+      "allCategories": "全カテゴリ",
+      "allManagers": "全運用機関",
+      "allStates": "全ステータス",
+      "claim": "請求",
+      "deposit": "預け入れ",
+      "earning": "獲得中",
+      "inputPlaceholder": "資産を検索",
+      "others": "その他",
+      "paused": "停止中",
+      "refund": "返金",
+      "repaying": "返済中",
+      "rwa": "RWA",
+      "stablecoins": "ステーブルコイン",
+      "vaults": "ボールト",
+      "yieldTokens": "イールドトークン"
+    },
+    "overview": {
+      "bannerCoinIllustration": "{{token}} コインのイラスト",
+      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> をステークして <strong>{{apyPercentage}}</strong> APR を享受",
+      "bannerVaultIllustration": "ボールトのイラスト",
+      "description": "シンプルな利回り、確かな収益 — 複数のボールトに預けて、<strong>あなたのペースで</strong>資産を増やしましょう。",
+      "highestApr": "最高 APR",
+      "title": "ボールト",
+      "tokenTotalDeposited": "{{token}} 総預入量",
+      "totalVault": "ボールト",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "ロック期間"
       },
       "rightMaxButtonLabel": "最大"
-    },
-    "withdrawButton": "引き出し",
-    "youAreStake": "あなたのステーキング量"
+    }
   },
   "venusFluxBanner": {
     "description": "流動性をFluxさせ、利回りの伸びを見届けよう。",
