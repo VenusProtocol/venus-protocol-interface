@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.21.0
+
+### Minor Changes
+
+- cfed882: Vault page revamp
+
 ## 4.20.2
 
 ### Patch Changes
