@@ -1844,7 +1844,7 @@
       "bannerVaultIllustration": "金庫插圖",
       "description": "收益化繁為簡，回報觸手可及 — 存入多個金庫，<strong>按您的方式</strong>讓加密資產增值。",
       "highestApr": "最高 APR",
-      "title": "Venus Vault",
+      "title": "金庫",
       "tokenTotalDeposited": "{{token}} 總存入量",
       "totalVault": "金庫",
       "tvl": "TVL"

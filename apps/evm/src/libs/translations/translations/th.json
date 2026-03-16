@@ -1844,7 +1844,7 @@
       "bannerVaultIllustration": "ภาพประกอบคลัง",
       "description": "ผลตอบแทนที่เข้าใจง่าย กำไรที่แท้จริง — ฝากเงินในหลายคลังและดูสินทรัพย์คริปโตของคุณเติบโต<strong>ตามเงื่อนไขของคุณ</strong>",
       "highestApr": "APR สูงสุด",
-      "title": "Venus Vault",
+      "title": "คลัง",
       "tokenTotalDeposited": "{{token}} ยอดฝากรวม",
       "totalVault": "คลัง",
       "tvl": "TVL"
