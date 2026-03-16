@@ -1,11 +1,15 @@
-import { type Locale, RainbowKitProvider, type Theme, darkTheme } from '@rainbow-me/rainbowkit';
+import {
+  type Locale,
+  RainbowKitProvider,
+  type Theme,
+  darkTheme,
+  useConnectModal,
+} from '@rainbow-me/rainbowkit';
 import { theme } from '@venusprotocol/ui';
-import { watchAccount } from '@wagmi/core';
+import { reconnect as wagmiReconnect } from '@wagmi/core';
 import merge from 'lodash.merge';
-import { useEffect } from 'react';
-import type { PropsWithChildren } from 'react';
-import { useAccount, useConfig, useConnections } from 'wagmi';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { type PropsWithChildren, useEffect, useRef } from 'react';
+import { useAccount, useConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import { useTranslation } from 'libs/translations';
@@ -33,47 +37,36 @@ const rkTheme = merge(
   } as Theme,
 );
 
-const WalletStateWatcher: React.FC = () => {
+/**
+ * Detects when wagmi gets stuck in "connecting" status (known issue with
+ * WalletConnect connector reusing a stale provider after disconnect) and
+ * recovers by calling reconnect() which re-reads the actual provider state.
+ */
+const StuckConnectionRecovery: React.FC = () => {
   const config = useConfig();
   const { connectModalOpen } = useConnectModal();
-  const { isConnected, address, status, connector } = useAccount();
-  const connections = useConnections();
+  const { status } = useAccount();
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
-    if (!connectModalOpen) return;
-
-    const interval = setInterval(() => {
-      if (connections.length > 0 && !isConnected) {
-        console.warn(`${LOG_PREFIX} ⚠️ [Periodic] Connections exist but wagmi not connected | Connections: ${connections.length} | Wagmi: ${status} | Modal: ${connectModalOpen}`);
-      }
-    }, 2000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [connectModalOpen, isConnected, address, status, connector, connections]);
-
-  useEffect(() => {
-    const unwatch = watchAccount(config, {
-      onChange(data, prevData) {
-        console.log(`${LOG_PREFIX} watchAccount: ${prevData.status}(${prevData.address || 'none'}) -> ${data.status}(${data.address || 'none'}) | Connector: ${data.connector?.id || 'none'} | Modal: ${connectModalOpen}`);
-
-        if (connectModalOpen && data.status === 'connected' && data.address) {
-          console.warn(`${LOG_PREFIX} ⚠️ watchAccount: Connected but modal open | Address: ${data.address} | Connector: ${data.connector?.id}`);
-        }
-      },
-    });
-
-    return () => {
-      unwatch();
-    };
-  }, [config, connectModalOpen]);
-
-  useEffect(() => {
-    if (connections.length > 0) {
-      console.log(`${LOG_PREFIX} Connections changed: ${connections.length} | Types: ${connections.map(c => c.connector.type).join(',')} | Wagmi status: ${status}`);
+    // Only act when modal is open and wagmi is stuck in "connecting"
+    if (!connectModalOpen || status !== 'connecting') {
+      clearTimeout(timerRef.current);
+      return;
     }
-  }, [connections, status]);
+
+    // If still "connecting" after 5s, the connector.connect() Promise likely
+    // hung due to stale WalletConnect provider. Call reconnect() once to sync.
+    timerRef.current = setTimeout(async () => {
+      console.log(`${LOG_PREFIX} stuck in connecting for 5s, attempting reconnect`);
+      const connections = await wagmiReconnect(config);
+      console.log(
+        `${LOG_PREFIX} reconnect result: ${connections.length} connections recovered`,
+      );
+    }, 5000);
+
+    return () => clearTimeout(timerRef.current);
+  }, [connectModalOpen, status, config]);
 
   return null;
 };
@@ -89,7 +82,7 @@ export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children
       }}
       theme={rkTheme}
     >
-      <WalletStateWatcher />
+      <StuckConnectionRecovery />
       {children}
     </RainbowKitProvider>
   );
