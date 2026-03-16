@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.20.2
+
+### Patch Changes
+
+- e3e75fe: improve swap tokens list
+
 ## 4.20.1
 
 ### Patch Changes
