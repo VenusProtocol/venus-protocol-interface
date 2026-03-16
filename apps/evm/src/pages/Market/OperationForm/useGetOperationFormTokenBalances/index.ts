@@ -1,8 +1,8 @@
 import type BigNumber from 'bignumber.js';
+import { useGetPool } from 'clients/api';
 
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
-import type { Token, TokenBalance } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
+import type { Token, TokenAction, TokenBalance } from 'types';
+import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 import type { Address } from 'viem';
 
 export interface UseGetOperationFormTokenBalancesInput {
@@ -10,6 +10,7 @@ export interface UseGetOperationFormTokenBalancesInput {
   underlyingToken: Token;
   isIntegratedSwapFeatureEnabled: boolean;
   canWrapNativeToken: boolean;
+  action: TokenAction;
   accountAddress?: Address;
 }
 
@@ -23,38 +24,46 @@ export const useGetOperationFormTokenBalances = ({
   accountAddress,
   underlyingToken,
   isIntegratedSwapFeatureEnabled,
+  action,
   canWrapNativeToken,
 }: UseGetOperationFormTokenBalancesInput): UseGetOperationFormTokenBalancesOutput => {
-  const { data: getSwapTokenUserBalancesData } = useGetSwapTokenUserBalances({
-    poolComptrollerContractAddress,
+  const { data: getPoolData } = useGetPool({
+    poolComptrollerAddress: poolComptrollerContractAddress,
     accountAddress,
   });
 
-  const userPoolTokenBalancesData = getSwapTokenUserBalancesData || [];
+  const assets = getPoolData?.pool.assets || [];
+
   const wrappedUnderlyingToken = underlyingToken.tokenWrapped;
 
   let userWalletNativeTokenBalanceTokens: BigNumber | undefined;
   const tokenBalances: TokenBalance[] = [];
 
-  userPoolTokenBalancesData.forEach(tokenBalance => {
-    const isWrappedToken = !!tokenBalance.token.tokenWrapped;
+  assets.forEach(asset => {
+    const isWrappedToken = !!asset.vToken.underlyingToken.tokenWrapped;
     const isWrappedUnderlyingToken =
-      wrappedUnderlyingToken && areTokensEqual(tokenBalance.token, wrappedUnderlyingToken);
+      wrappedUnderlyingToken &&
+      areTokensEqual(asset.vToken.underlyingToken, wrappedUnderlyingToken);
 
     const shouldIncludeTokenBalance =
       isIntegratedSwapFeatureEnabled ||
       (canWrapNativeToken && (isWrappedToken || isWrappedUnderlyingToken)) ||
-      areTokensEqual(underlyingToken, tokenBalance.token);
+      areTokensEqual(underlyingToken, asset.vToken.underlyingToken);
 
-    if (shouldIncludeTokenBalance) {
-      tokenBalances.push(tokenBalance);
+    const isPaused = asset.disabledTokenActions.includes(action);
+
+    if (shouldIncludeTokenBalance && !isPaused) {
+      tokenBalances.push({
+        token: asset.vToken.underlyingToken,
+        balanceMantissa: convertTokensToMantissa({
+          token: asset.vToken.underlyingToken,
+          value: asset.userWalletBalanceTokens,
+        }),
+      });
     }
 
-    if (tokenBalance.token.isNative) {
-      userWalletNativeTokenBalanceTokens = convertMantissaToTokens({
-        value: tokenBalance.balanceMantissa,
-        token: tokenBalance.token,
-      });
+    if (asset.vToken.underlyingToken.isNative) {
+      userWalletNativeTokenBalanceTokens = asset.userWalletBalanceTokens;
     }
   });
 

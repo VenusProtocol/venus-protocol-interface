@@ -36,7 +36,9 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
@@ -1523,7 +1525,9 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
@@ -3125,7 +3129,9 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "collateralFactor": 0,
           "disabledTokenActions": [
             "supply",
+            "swapAndSupply",
             "borrow",
+            "boost",
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",

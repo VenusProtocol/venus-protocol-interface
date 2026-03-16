@@ -3,9 +3,9 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
+import { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { busd, xvs } from '__mocks__/models/tokens';
-import { useSwapTokensAndSupply } from 'clients/api';
+import { useGetPool, useSwapTokensAndSupply } from 'clients/api';
 import { type GetExactInSwapQuoteInput, useGetSwapQuote } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
@@ -13,10 +13,10 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { en } from 'libs/translations';
+import { replaceAssetsInPool } from 'pages/Market/OperationForm/__testUtils__/replaceAssetsInPool';
 import { renderComponent } from 'testUtils/render';
 import type {
   Asset,
@@ -25,7 +25,6 @@ import type {
   ExactInSwapQuote,
   Pool,
   SwapQuote,
-  TokenBalance,
 } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
@@ -62,8 +61,28 @@ const fakeSwapQuote: SwapQuote = {
   callData: '0x',
 };
 
-vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapRouterContractAddress');
+
+const makeIntegratedSwapPool = (
+  busdBalanceTokens: BigNumber = new BigNumber(FAKE_BUSD_BALANCE_TOKENS),
+) => {
+  const fakeBusdAsset = fakePool.assets.find(poolAsset =>
+    areTokensEqual(poolAsset.vToken.underlyingToken, busd),
+  );
+
+  if (!fakeBusdAsset) {
+    throw new Error('Missing BUSD asset in fake pool');
+  }
+
+  return replaceAssetsInPool(fakePool, [
+    fakeAsset,
+    {
+      ...fakeBusdAsset,
+      userWalletBalanceTokens: busdBalanceTokens,
+      disabledTokenActions: [],
+    },
+  ]);
+};
 
 describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
@@ -92,8 +111,12 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       },
     }));
 
-    (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
-      data: fakeTokenBalances,
+    const pool = makeIntegratedSwapPool();
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
     }));
   });
 
@@ -218,6 +241,22 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       ),
     };
 
+    const pool = replaceAssetsInPool(customFakePool, [
+      {
+        ...customFakePool.assets.find(poolAsset =>
+          areTokensEqual(poolAsset.vToken.underlyingToken, busd),
+        )!,
+        userWalletBalanceTokens: new BigNumber(FAKE_BUSD_BALANCE_TOKENS),
+        disabledTokenActions: [],
+      },
+    ]);
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
+
     const fakeSimulatedPool: Pool = {
       ...fakePool,
       assets: customFakePool.assets.map(a => ({
@@ -278,16 +317,12 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('updates input value to 0 when clicking on MAX button if wallet balance is 0', async () => {
-    const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
-      ...tokenBalance,
-      balanceMantissa:
-        tokenBalance.token.address.toLowerCase() === busd.address.toLowerCase()
-          ? new BigNumber(0)
-          : tokenBalance.balanceMantissa,
-    }));
-
-    (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
-      data: customFakeTokenBalances,
+    const pool = makeIntegratedSwapPool(new BigNumber(0));
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
     }));
 
     const { container, getByText, getByTestId } = renderComponent(

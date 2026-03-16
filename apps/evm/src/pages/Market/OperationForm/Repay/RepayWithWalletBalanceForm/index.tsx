@@ -85,6 +85,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     underlyingToken: asset.vToken.underlyingToken,
     isIntegratedSwapFeatureEnabled,
     canWrapNativeToken,
+    action: 'repay',
   });
 
   const shouldSelectNativeToken =
