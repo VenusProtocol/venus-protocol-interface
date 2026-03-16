@@ -4,7 +4,7 @@ import { watchAccount } from '@wagmi/core';
 import merge from 'lodash.merge';
 import { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
-import { useAccount, useConfig } from 'wagmi';
+import { useAccount, useConfig, useConnections } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import '@rainbow-me/rainbowkit/styles.css';
@@ -36,51 +36,44 @@ const rkTheme = merge(
 const WalletStateWatcher: React.FC = () => {
   const config = useConfig();
   const { connectModalOpen } = useConnectModal();
+  const { isConnected, address, status, connector } = useAccount();
+  const connections = useConnections();
 
   useEffect(() => {
-    console.log(`${LOG_PREFIX} WalletStateWatcher initialized, starting to watch account changes`);
+    if (!connectModalOpen) return;
 
+    const interval = setInterval(() => {
+      if (connections.length > 0 && !isConnected) {
+        console.warn(`${LOG_PREFIX} ⚠️ [Periodic] Connections exist but wagmi not connected | Connections: ${connections.length} | Wagmi: ${status} | Modal: ${connectModalOpen}`);
+      }
+    }, 2000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [connectModalOpen, isConnected, address, status, connector, connections]);
+
+  useEffect(() => {
     const unwatch = watchAccount(config, {
       onChange(data, prevData) {
-        console.log(`${LOG_PREFIX} watchAccount onChange triggered:`, {
-          previous: {
-            status: prevData.status,
-            address: prevData.address,
-            isConnected: prevData.isConnected,
-            connectorId: prevData.connector?.id,
-            connectorType: prevData.connector?.type,
-          },
-          current: {
-            status: data.status,
-            address: data.address,
-            isConnected: data.isConnected,
-            connectorId: data.connector?.id,
-            connectorType: data.connector?.type,
-            connectorName: data.connector?.name,
-          },
-          modalOpen: connectModalOpen,
-          timestamp: new Date().toISOString(),
-        });
+        console.log(`${LOG_PREFIX} watchAccount: ${prevData.status}(${prevData.address || 'none'}) -> ${data.status}(${data.address || 'none'}) | Connector: ${data.connector?.id || 'none'} | Modal: ${connectModalOpen}`);
 
         if (connectModalOpen && data.status === 'connected' && data.address) {
-          console.warn(`${LOG_PREFIX} ⚠️ watchAccount detected sync issue:`, {
-            message: 'Account is connected but modal is still open',
-            accountStatus: data.status,
-            accountAddress: data.address,
-            modalOpen: connectModalOpen,
-            connectorId: data.connector?.id,
-            connectorType: data.connector?.type,
-            timestamp: new Date().toISOString(),
-          });
+          console.warn(`${LOG_PREFIX} ⚠️ watchAccount: Connected but modal open | Address: ${data.address} | Connector: ${data.connector?.id}`);
         }
       },
     });
 
     return () => {
-      console.log(`${LOG_PREFIX} WalletStateWatcher cleanup, unwatching account changes`);
       unwatch();
     };
   }, [config, connectModalOpen]);
+
+  useEffect(() => {
+    if (connections.length > 0) {
+      console.log(`${LOG_PREFIX} Connections changed: ${connections.length} | Types: ${connections.map(c => c.connector.type).join(',')} | Wagmi status: ${status}`);
+    }
+  }, [connections, status]);
 
   return null;
 };

@@ -15,11 +15,7 @@ export const useAuthModal = () => {
 
   useEffect(() => {
     if (previousModalStateRef.current !== connectModalOpen) {
-      console.log(`${LOG_PREFIX} Modal state changed:`, {
-        previous: previousModalStateRef.current,
-        current: connectModalOpen,
-        timestamp: new Date().toISOString(),
-      });
+      console.log(`${LOG_PREFIX} Modal: ${previousModalStateRef.current} -> ${connectModalOpen}`);
       previousModalStateRef.current = connectModalOpen;
     }
   }, [connectModalOpen]);
@@ -31,35 +27,10 @@ export const useAuthModal = () => {
       prev.address !== address ||
       prev.status !== status
     ) {
-      console.log(`${LOG_PREFIX} Connection state changed:`, {
-        previous: {
-          isConnected: prev.isConnected,
-          address: prev.address,
-          status: prev.status,
-        },
-        current: {
-          isConnected,
-          address,
-          status,
-          connectorId: connector?.id,
-          connectorName: connector?.name,
-          connectorType: connector?.type,
-        },
-        modalOpen: connectModalOpen,
-        timestamp: new Date().toISOString(),
-      });
+      console.log(`${LOG_PREFIX} Connection: ${prev.status}(${prev.address || 'none'}) -> ${status}(${address || 'none'}) | Modal: ${connectModalOpen} | Connector: ${connector?.id || 'none'}`);
 
       if (connectModalOpen && isConnected && address && status === 'connected') {
-        console.warn(`${LOG_PREFIX} ⚠️ STATE SYNC ISSUE DETECTED:`, {
-          message: 'Wallet is connected but modal is still open',
-          isConnected,
-          address,
-          status,
-          modalOpen: connectModalOpen,
-          connectorId: connector?.id,
-          connectorType: connector?.type,
-          timestamp: new Date().toISOString(),
-        });
+        console.warn(`${LOG_PREFIX} ⚠️ SYNC ISSUE: Connected but modal still open | Address: ${address} | Connector: ${connector?.id}`);
       }
 
       previousConnectionStateRef.current = { isConnected, address, status };
@@ -75,18 +46,7 @@ export const useAuthModal = () => {
   return {
     isAuthModalOpen: connectModalOpen,
     openAuthModal: ({ analyticVariant: inputAnalyticVariant }: { analyticVariant?: string }) => {
-      console.log(`${LOG_PREFIX} openAuthModal called:`, {
-        analyticVariant: inputAnalyticVariant,
-        currentConnectionState: {
-          isConnected,
-          address,
-          status,
-          connectorId: connector?.id,
-          connectorType: connector?.type,
-        },
-        currentModalState: connectModalOpen,
-        timestamp: new Date().toISOString(),
-      });
+      console.log(`${LOG_PREFIX} openAuthModal | Variant: ${inputAnalyticVariant} | Current: ${status}(${address || 'none'}) | Modal: ${connectModalOpen}`);
 
       setAuthAnalyticVariant(inputAnalyticVariant);
 

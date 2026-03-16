@@ -30,18 +30,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({ className, ...othe
   const closeAccountModal = () => setIsAccountModalOpen(false);
 
   const handleConnectButtonClick = () => {
-    console.log(`${LOG_PREFIX} Connect button clicked:`, {
-      hasAccountAddress: !!accountAddress,
-      accountAddress,
-      wagmiState: {
-        isConnected,
-        address,
-        status,
-        connectorId: connector?.id,
-        connectorType: connector?.type,
-      },
-      timestamp: new Date().toISOString(),
-    });
+    console.log(`${LOG_PREFIX} Connect clicked | HasAccount: ${!!accountAddress} | Status: ${status} | Connector: ${connector?.id || 'none'}`);
 
     if (accountAddress) {
       openAccountModal();
@@ -53,17 +42,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({ className, ...othe
   };
 
   const handleDisconnect = () => {
-    console.log(`${LOG_PREFIX} Disconnect called:`, {
-      accountAddress,
-      wagmiState: {
-        isConnected,
-        address,
-        status,
-        connectorId: connector?.id,
-        connectorType: connector?.type,
-      },
-      timestamp: new Date().toISOString(),
-    });
+    console.log(`${LOG_PREFIX} Disconnect clicked | Address: ${accountAddress || 'none'} | Connector: ${connector?.id || 'none'}`);
 
     disconnect();
     closeAccountModal();
