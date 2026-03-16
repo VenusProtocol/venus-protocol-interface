@@ -151,7 +151,19 @@ Persist state after phase: `3`.
    > **DO NOT modify any existing shared components or files outside the feature directory.**
    > Update components and add keys to apps/evm/src/libs/translations/translations/en.json.
 
-2. **Update state**: append `"3"` to `completedPhases` in `{ARTIFACTS}/state.json`.
+2. **After feature i18n is complete, sync all translation files**:
+   > Go through all translation files located at `apps/evm/src/libs/translations/translations` and ensure all keys from `en.json` exist in other language files (ja.json, th.json, tr.json, vi.json, zh-Hans.json, zh-Hant.json).
+   > 
+   > **Process all locale files:**
+   > - Compare each language file with `en.json` to identify missing keys
+   > - For each missing key in a language file, use the corresponding English text from `en.json` as the source
+   > - Translate the English text to the target language
+   > - Add the translated key-value pair to the appropriate language file
+   > - Ensure the translation maintains the same structure (interpolation placeholders like `{{variable}}`, JSX components like `<UnderlinedText>`, etc.)
+   > 
+   > **The English translations in `en.json` are the source of truth** - use them as the base for all translations.
+
+3. **Update state**: append `"3"` to `completedPhases` in `{ARTIFACTS}/state.json`.
 
 **After Phase 3:** Present summary and suggest running `ui-qa` for QA phases:
 > "Phase 3 (i18n) complete. Run `/ui-qa {FEATURE}` to continue with Preview, Review, and Fix phases."
