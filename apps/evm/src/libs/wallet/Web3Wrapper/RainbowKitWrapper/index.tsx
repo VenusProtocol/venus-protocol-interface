@@ -35,11 +35,6 @@ const rkTheme = merge(
   } as Theme,
 );
 
-/**
- * Detects when wagmi gets stuck in "connecting" status (known issue with
- * WalletConnect connector reusing a stale provider after disconnect) and
- * recovers by calling reconnect() which re-reads the actual provider state.
- */
 const StuckConnectionRecovery: React.FC = () => {
   const config = useConfig();
   const { connectModalOpen } = useConnectModal();
@@ -47,14 +42,11 @@ const StuckConnectionRecovery: React.FC = () => {
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
-    // Only act when modal is open and wagmi is stuck in "connecting"
     if (!connectModalOpen || status !== 'connecting') {
       clearTimeout(timerRef.current);
       return;
     }
 
-    // If still "connecting" after 5s, the connector.connect() Promise likely
-    // hung due to stale WalletConnect provider. Call reconnect() once to sync.
     timerRef.current = setTimeout(async () => {
       await wagmiReconnect(config);
     }, 5000);
