@@ -14,8 +14,6 @@ import { useAccount, useConfig } from 'wagmi';
 import '@rainbow-me/rainbowkit/styles.css';
 import { useTranslation } from 'libs/translations';
 
-const LOG_PREFIX = '[WalletConnectDebug]';
-
 export interface RainwbowKitWrapperProps extends PropsWithChildren {}
 
 const rkTheme = merge(
@@ -58,11 +56,7 @@ const StuckConnectionRecovery: React.FC = () => {
     // If still "connecting" after 5s, the connector.connect() Promise likely
     // hung due to stale WalletConnect provider. Call reconnect() once to sync.
     timerRef.current = setTimeout(async () => {
-      console.log(`${LOG_PREFIX} stuck in connecting for 5s, attempting reconnect`);
-      const connections = await wagmiReconnect(config);
-      console.log(
-        `${LOG_PREFIX} reconnect result: ${connections.length} connections recovered`,
-      );
+      await wagmiReconnect(config);
     }, 5000);
 
     return () => clearTimeout(timerRef.current);

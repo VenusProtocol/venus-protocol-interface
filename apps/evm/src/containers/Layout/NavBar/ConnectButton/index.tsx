@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import { useState } from 'react';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useDisconnect } from 'wagmi';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
 import { useGetPrimeToken } from 'clients/api';
@@ -8,8 +8,6 @@ import { Button, type ButtonProps, Icon, Modal, SecondaryButton, Username } from
 import config from 'config';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
-
-const LOG_PREFIX = '[WalletConnectDebug]';
 
 export interface ConnectButtonProps
   extends Omit<
@@ -20,7 +18,6 @@ export interface ConnectButtonProps
 export const ConnectButton: React.FC<ConnectButtonProps> = ({ className, ...otherProps }) => {
   const { disconnect } = useDisconnect();
   const { accountAddress } = useAccountAddress();
-  const { isConnected, address, status, connector } = useAccount();
 
   const { openAuthModal } = useAuthModal();
 
@@ -30,8 +27,6 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({ className, ...othe
   const closeAccountModal = () => setIsAccountModalOpen(false);
 
   const handleConnectButtonClick = () => {
-    console.log(`${LOG_PREFIX} Connect clicked | HasAccount: ${!!accountAddress} | Status: ${status} | Connector: ${connector?.id || 'none'}`);
-
     if (accountAddress) {
       openAccountModal();
     } else {
@@ -42,8 +37,6 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({ className, ...othe
   };
 
   const handleDisconnect = () => {
-    console.log(`${LOG_PREFIX} Disconnect clicked | Address: ${accountAddress || 'none'} | Connector: ${connector?.id || 'none'}`);
-
     disconnect();
     closeAccountModal();
   };
