@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 export const useAuthModal = () => {
   const { captureAnalyticEvent, authAnalyticVariant, setAuthAnalyticVariant } = useAnalytics();
+  
   const { openConnectModal, connectModalOpen } = useConnectModal();
 
   useEffect(() => {
