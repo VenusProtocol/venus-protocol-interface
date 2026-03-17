@@ -94,8 +94,8 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
       return [...acc, tokenBalance];
     }, []);
 
-  const initialFormValues: FormValues = useMemo(() => {
-    const values: FormValues = {
+  const initialFormValues: FormValues = useMemo(
+    () => ({
       direction: 'exact-in',
       collateralToken:
         tokenBalances.length > 0 ? tokenBalances[0].token : repaidAsset.vToken.underlyingToken,
@@ -104,10 +104,9 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
       acknowledgeRisk: false,
       acknowledgeHighPriceImpact: false,
       repayFullLoan: false,
-    };
-
-    return values;
-  }, [tokenBalances, repaidAsset]);
+    }),
+    [tokenBalances, repaidAsset.vToken.underlyingToken],
+  );
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 

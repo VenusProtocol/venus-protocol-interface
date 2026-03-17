@@ -75,6 +75,7 @@ exports[`useGetAsset > returns the correct asset 1`] = `
       },
     ],
     "tokenPriceCents": "127.86734",
+    "tokenPriceOracleAddress": "0x0000000000000000000000000000000000000000",
     "userBorrowBalanceCents": "0",
     "userBorrowBalanceTokens": "0",
     "userBorrowLimitSharePercentage": 0,

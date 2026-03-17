@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
 import { useGetSwapQuote, useRepay, useSwapTokensAndRepay } from 'clients/api';
@@ -38,7 +38,6 @@ import { calculateAmountDollars } from '../../calculateAmountDollars';
 import { useGetOperationFormTokenBalances } from '../../useGetOperationFormTokenBalances';
 import { Notice } from '../Notice';
 import { calculatePercentageOfUserBorrowBalance } from './calculatePercentageOfUserBorrowBalance';
-import { getInitialFormValues } from './getInitialFormValues';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
 
@@ -86,26 +85,38 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     underlyingToken: asset.vToken.underlyingToken,
     isIntegratedSwapFeatureEnabled,
     canWrapNativeToken,
+    action: 'repay',
   });
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
 
-  const initialFromToken =
-    shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
-      ? asset.vToken.underlyingToken.tokenWrapped
-      : asset.vToken.underlyingToken;
-
-  const [formValues, setFormValues] = useState<FormValues>(() =>
-    getInitialFormValues(initialFromToken),
+  const initialFormValues: FormValues = useMemo(
+    () => ({
+      amountTokens: '',
+      fromToken:
+        shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
+          ? asset.vToken.underlyingToken.tokenWrapped
+          : asset.vToken.underlyingToken,
+      fixedRepayPercentage: undefined,
+      acknowledgeHighPriceImpact: false,
+    }),
+    [shouldSelectNativeToken, asset.vToken.underlyingToken],
   );
+
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
   // Reset form when user disconnects their wallet
   useEffect(() => {
     if (!accountAddress) {
-      setFormValues(getInitialFormValues(initialFromToken));
+      setFormValues(initialFormValues);
     }
-  }, [accountAddress, initialFromToken]);
+  }, [accountAddress, initialFormValues]);
+
+  // Reset form when initial values change, which indicates the base asset was changed
+  useEffect(() => {
+    setFormValues(initialFormValues);
+  }, [initialFormValues]);
 
   const { address: swapRouterContractAddress } = useGetContractAddress({
     name: 'SwapRouterV2',
@@ -440,7 +451,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
             onChangeSelectedToken={fromToken =>
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
-                amountTokens: getInitialFormValues(fromToken).amountTokens,
+                amountTokens: initialFormValues.amountTokens,
                 fromToken,
               }))
             }

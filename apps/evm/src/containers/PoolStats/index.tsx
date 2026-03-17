@@ -6,7 +6,7 @@ import {
 } from 'clients/api';
 import { CellGroup, type CellGroupProps } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAddress';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';

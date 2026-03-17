@@ -266,6 +266,7 @@ export const formatOutput = ({
         vToken,
         disabledTokenActions,
         tokenPriceCents,
+        tokenPriceOracleAddress: correspondingOraclePrice.priceOracleAddress as Address,
         reserveFactor,
         collateralFactor,
         liquidationThresholdPercentage,

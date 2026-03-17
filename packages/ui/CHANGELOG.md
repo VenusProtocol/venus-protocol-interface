@@ -1,5 +1,11 @@
 # @venusprotocol/ui
 
+## 0.9.0
+
+### Minor Changes
+
+- cbe6ad4: add Markets table to Markets page
+
 ## 0.8.0
 
 ### Minor Changes

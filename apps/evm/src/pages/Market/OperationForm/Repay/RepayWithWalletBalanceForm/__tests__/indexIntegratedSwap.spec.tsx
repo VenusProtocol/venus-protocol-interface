@@ -4,13 +4,14 @@ import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
+import { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { busd, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import {
   type GetApproximateOutSwapQuoteInput,
   type GetSwapQuoteInput,
+  useGetPool,
   useGetSwapQuote,
   useSwapTokensAndRepay,
 } from 'clients/api';
@@ -21,22 +22,42 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { en } from 'libs/translations';
-import type { SwapQuote, TokenBalance } from 'types';
+import { replaceAssetsInPool } from 'pages/Market/OperationForm/__testUtils__/replaceAssetsInPool';
+import type { SwapQuote } from 'types';
 
 import {
   checkSubmitButtonIsDisabled,
   checkSubmitButtonIsEnabled,
 } from 'pages/Market/OperationForm/__testUtils__/checkFns';
+import { areTokensEqual } from 'utilities';
 import RepayWithWalletBalanceForm, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../../__testUtils__/fakeData';
 import REPAY_FORM_TEST_IDS from '../testIds';
 
-vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapRouterContractAddress');
+
+const makeIntegratedSwapPool = (
+  busdBalanceTokens: BigNumber = new BigNumber(FAKE_BUSD_BALANCE_TOKENS),
+) => {
+  const fakeBusdAsset = fakePool.assets.find(poolAsset =>
+    areTokensEqual(poolAsset.vToken.underlyingToken, busd),
+  );
+
+  if (!fakeBusdAsset) {
+    throw new Error('Missing BUSD asset in fake pool');
+  }
+
+  return replaceAssetsInPool(fakePool, [
+    fakeAsset,
+    {
+      ...fakeBusdAsset,
+      userWalletBalanceTokens: busdBalanceTokens,
+    },
+  ]);
+};
 
 const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(busd.decimals),
@@ -81,6 +102,7 @@ const mockSwapTokensAndRepay = vi.fn();
 
 describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
+    mockSwapTokensAndRepay.mockClear();
     (useSwapTokensAndRepay as Mock).mockReturnValue({ mutateAsync: mockSwapTokensAndRepay });
 
     (useIsFeatureEnabled as Mock).mockImplementation(
@@ -93,8 +115,12 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
       isLoading: false,
     }));
 
-    (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
-      data: fakeTokenBalances,
+    const pool = makeIntegratedSwapPool();
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
     }));
 
     (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
@@ -368,16 +394,12 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
   });
 
   it('updates input value to 0 when clicking on MAX button if wallet balance is 0', async () => {
-    const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
-      ...tokenBalance,
-      balanceMantissa:
-        tokenBalance.token.address.toLowerCase() === busd.address.toLowerCase()
-          ? new BigNumber(0)
-          : tokenBalance.balanceMantissa,
-    }));
-
-    (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
-      data: customFakeTokenBalances,
+    const pool = makeIntegratedSwapPool(new BigNumber(0));
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
     }));
 
     const { container, getByText, getByTestId } = renderComponent(

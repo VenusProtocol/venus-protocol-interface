@@ -1,5 +1,73 @@
 # @venusprotocol/evm
 
+## 4.21.0
+
+### Minor Changes
+
+- cfed882: Vault page revamp
+
+## 4.20.2
+
+### Patch Changes
+
+- e3e75fe: improve swap tokens list
+
+## 4.20.1
+
+### Patch Changes
+
+- a34b680: temporarily show all swap token balances
+
+## 4.20.0
+
+### Minor Changes
+
+- a5d88c7: Pause vTHE borrows
+
+## 4.19.0
+
+### Minor Changes
+
+- dd2667c: Temporarily disable borrows
+
+## 4.18.2
+
+### Patch Changes
+
+- 4f09a92: fix size of E-mode group asset icons
+- 30a6d99: fix minor alignment issue on field
+
+## 4.18.1
+
+### Patch Changes
+
+- a43f798: fix hypothetical health factor displayed on E-mode groups
+
+## 4.18.0
+
+### Minor Changes
+
+- ee9b595: display Dashboard stats with no borrow position
+
+## 4.17.0
+
+### Minor Changes
+
+- 6049310: refactor input components
+
+## 4.16.0
+
+### Minor Changes
+
+- cbe6ad4: dashboard ui updates
+- cbe6ad4: refactor Markets page header
+- cbe6ad4: add Isolated and E-mode tabs to Market page
+
+### Patch Changes
+
+- Updated dependencies [cbe6ad4]
+  - @venusprotocol/ui@0.9.0
+
 ## 4.15.0
 
 ### Minor Changes

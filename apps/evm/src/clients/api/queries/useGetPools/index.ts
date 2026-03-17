@@ -6,7 +6,8 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import callOrThrow from 'utilities/callOrThrow';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 
 import { getPools } from './getPools';
 import type { GetPoolsInput, GetPoolsOutput } from './types';

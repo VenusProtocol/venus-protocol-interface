@@ -45,10 +45,7 @@ export const ClaimRewardsContent = ({
   const hasExternalRewards = externalRewardsGroups.length > 0;
 
   return (
-    <div
-      className="flex flex-col md:gap-4 md:rounded-3xl md:mx-4"
-      onClick={e => e.stopPropagation()}
-    >
+    <div className="flex flex-col md:gap-4 md:rounded-3xl" onClick={e => e.stopPropagation()}>
       {hasInternalRewards && (
         <RewardGroupFrame
           className={cn(hasExternalRewards && 'border-b pb-6 mb-4 md:mb-0')}

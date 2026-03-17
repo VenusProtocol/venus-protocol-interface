@@ -62,6 +62,9 @@ export * from './queries/getVTokenBalances/useGetVTokenBalances';
 export * from './queries/getTokenUsdPrice';
 export * from './queries/getTokenUsdPrice/useGetTokenUsdPrice';
 
+export * from './queries/getTokenListUsdPrice';
+export * from './queries/getTokenListUsdPrice/useGetTokenListUsdPrice';
+
 export * from './queries/getVenusVaiVaultDailyRate';
 export * from './queries/getVenusVaiVaultDailyRate/useGetVenusVaiVaultDailyRate';
 
@@ -73,6 +76,9 @@ export * from './queries/useGetPool';
 
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';
+
+export * from './queries/getTopMarkets';
+export * from './queries/getTopMarkets/useGetTopMarkets';
 
 export * from './queries/getVTokenInterestRateModel';
 export * from './queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';

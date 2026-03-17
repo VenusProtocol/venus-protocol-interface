@@ -8,6 +8,9 @@
           "illustrationAltText": "E-mode illustration",
           "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
+        "isolatedModeHeader": {
+          "title": "Isolated mode: <UnderlinedText>{{groupName}}</UnderlinedText>"
+        },
         "supplyTableTitle": "Supplied",
         "tabletBorrowTabTitle": "Borrowed",
         "tabletSupplyTabTitle": "Supplied",
@@ -42,22 +45,7 @@
     },
     "pools": {
       "placeholder": {
-        "description": "Your pool positions will appear here",
         "title": "No supply or borrow positions yet"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "Claim Prime token",
-        "stakeXvs": "Stake XVS"
-      },
-      "primeLogoAltText": "Prime logo",
-      "text": {
-        "apyBoost": "Boost your earnings by up to <GreenText>{{boost}}</GreenText> with Prime",
-        "becomePrime": "You can now become a Prime user"
       }
     },
     "settings": {
@@ -81,7 +69,7 @@
       "title": "Summary"
     },
     "tabs": {
-      "pools": "Pools",
+      "markets": "Markets",
       "settings": "Settings",
       "transactions": "Transactions",
       "vaults": "Vaults"
@@ -101,7 +89,6 @@
         },
         "txType": {
           "all": "All transactions",
-          "approve": "Approval",
           "borrow": "Borrow",
           "enterMarket": "Enabled collateral",
           "exitMarket": "Disabled collateral",
@@ -112,12 +99,10 @@
       },
       "today": "Today",
       "txText": {
-        "approve": "Approved spending {{tokenAmount}}",
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
         "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
       },
       "txType": {
-        "approve": "Approval",
         "borrow": "Borrow",
         "enterMarket": "Enabled collateral",
         "exitMarket": "Disabled collateral",
@@ -130,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "Your vault positions will appear here",
         "title": "No staking positions yet"
       }
     }
@@ -276,9 +260,6 @@
     }
   },
   "asset": {
-    "eModeInfo": {
-      "title": "E-mode info"
-    },
     "marketInfo": {
       "title": "Market info"
     }
@@ -293,6 +274,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "Your E-mode settings do not allow you to borrow from this market. <Link>Manage E-mode</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "Your isolation mode settings do not allow you to borrow from this market. <Link>Manage E-mode</Link>"
     }
   },
   "assetWarning": {
@@ -320,9 +304,9 @@
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
-    "staking": "Staking",
     "swap": "Swap",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "Vaults"
   },
   "bridgePage": {
     "amountInput": {
@@ -408,11 +392,132 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "Paused assets"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "My assets only"
+    }
+  },
+  "dashboard": {
+    "guide": {
+      "completed": "Completed",
+      "step1": {
+        "description": "Earn yield by supplying any asset or moving your existing positions from another protocol to Venus.",
+        "title": "Supply / Migrate"
+      },
+      "step2": {
+        "description": "Borrow any asset to power your DeFi strategies, and boost it in one simple click.",
+        "title": "Borrow / Leverage"
+      },
+      "step3": {
+        "description": "Deposit XVS to our vault and earn yield powered by Venus' revenue.",
+        "title": "Stake XVS"
+      },
+      "uncompleted": "Uncompleted"
+    },
+    "overview": {
+      "absolutePerformance": "Absolute performance",
+      "netWorth": {
+        "label": "Net worth",
+        "tooltip": "Net available assets after accounting for vault stake and borrowings",
+        "tooltipWithVai": "Net available assets after accounting for vault stake, borrowings, and minted VAI"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "Could not fetch account history",
+          "refetchButtonLabel": "Retry"
+        },
+        "placeholderText": "Generating report, this can take up to a minute"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6M",
+        "thirtyDays": "30D"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Daily earnings",
+          "mintedVai": "Minted VAI",
+          "netApy": "Net APY",
+          "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+          "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
+          "totalBorrow": "Total borrow",
+          "totalSupply": "Total supply",
+          "totalVaultStake": "Total vault stake"
+        },
+        "title": "Summary"
+      },
+      "todaysChange": "Today's change"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "topMarkets": {
+      "borrowButton": {
+        "label": "Borrow"
+      },
+      "interactiveTitle": "Spotlight ( <Group><SupplyButton>Supply</SupplyButton>/<BorrowButton>Borrow</BorrowButton></Group> )",
+      "supplyButton": {
+        "label": "Supply"
+      },
+      "textTitle": "Spotlight"
+    },
+    "vaults": {
+      "dailyEarnings": "Daily earnings",
+      "dailyEarningsTooltip": "Your estimated daily earnings across all active vaults, based on each vault's current rate or fixed APR. Actual earnings may vary.",
+      "totalStakedValue": "Total staked value"
+    }
+  },
   "eModeBanner": {
     "exploreButtonLabel": "Explore",
     "illustrationAltText": "E-mode illustration",
     "manageEModeButtonLabel": "Manage E-mode",
-    "title": "Boost your borrowing power with E-Mode"
+    "title": "Boost your borrowing power with E-mode"
+  },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "Sort by:",
+      "searchPlaceholder": "Search group or asset"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "You can't disable this group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
+          "notEnoughCollateral": "You can't disable this group because your total collateral value would not cover your total borrow balance"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> group:",
+          "repayButtonLabel": "Repay",
+          "title": "Your positions"
+        },
+        "tooltip": {
+          "blockingPositions": "You can't enable this group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
+          "notEnoughCollateral": "You can't enable this group because your total collateral value would not cover your total borrow balance"
+        }
+      },
+      "disableButtonLabel": "Disable",
+      "disabledNotice": "This group is no longer supported. Your account now falls back to Core Pool parameters. Please switch to another available group or disable it.",
+      "enableButtonLabel": "Enable",
+      "healthFactor": "Health factor:",
+      "switchButtonLabel": "Switch"
+    },
+    "table": {
+      "columns": {
+        "asset": "Asset",
+        "collateral": "Collateral",
+        "isBorrowable": "Borrowable",
+        "liquidationPenalty": "Penalty",
+        "liquidationThreshold": "Threshold",
+        "maxLtv": "Max LTV"
+      }
+    }
   },
   "errors": {
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
@@ -624,6 +729,7 @@
         "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
       },
       "price": "Price",
+      "resilientOracle": "Resilient Oracle",
       "supply": "Supply",
       "utilizationRate": "Utilization rate"
     },
@@ -669,13 +775,13 @@
           "label": "Language (beta)"
         }
       },
-      "staking": {
-        "label": "Staking"
-      },
       "subMenuItem": {
         "button": {
           "label": "Get started"
         }
+      },
+      "vaults": {
+        "label": "Vaults"
       },
       "venusLogoAlt": "Venus logo"
     },
@@ -714,6 +820,25 @@
     "borrowInfo": {
       "title": "Borrow info"
     },
+    "eModeInfo": {
+      "eMode": {
+        "title": "E-mode"
+      },
+      "isolationMode": {
+        "title": "Isolation mode"
+      },
+      "link": "Show all markets",
+      "table": {
+        "columns": {
+          "collateral": "Collateral",
+          "group": "Group",
+          "isBorrowable": "Borrowable",
+          "liquidationPenalty": "Penalty",
+          "liquidationThreshold": "Threshold",
+          "maxLtv": "Max LTV"
+        }
+      }
+    },
     "interestRateModel": {
       "title": "Interest Rate Model"
     },
@@ -742,8 +867,8 @@
     "stats": {
       "apy": "Current APY",
       "averageApy": "Average APY",
-      "liquidationPenalty": "Liquidation Penalty",
-      "liquidationThreshold": "Liquidation Threshold"
+      "liquidationPenalty": "Penalty",
+      "liquidationThreshold": "Threshold"
     },
     "supplyCapThreshold": {
       "title": "Total supplied",
@@ -755,57 +880,13 @@
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "You can't disable this e-mode group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
-            "notEnoughCollateral": "You can't disable this e-mode group because your total collateral value would not cover your total borrow balance"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode group:",
-            "repayButtonLabel": "Repay",
-            "title": "Your positions"
-          },
-          "tooltip": {
-            "blockingPositions": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
-            "notEnoughCollateral": "You can't enable this e-mode group because your total collateral value would not cover your total borrow balance"
-          }
-        },
-        "disableButtonLabel": "Disable",
-        "disabledNotice": "This E-Mode group is no longer supported. Your account now falls back to default parameters. Please switch to another available E-mode group or disable it.",
-        "enableButtonLabel": "Enable",
-        "healthFactor": "Health factor:",
-        "switchButtonLabel": "Switch"
-      },
-      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
-      "search": {
-        "placeholder": "Search asset or group"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "Borrowable",
             "collateral": "Collateral"
-          },
-          "rows": {
-            "liquidationPenalty": "Liquidation penalty",
-            "liquidationThreshold": "Liquidation threshold",
-            "maxLtv": "Max LTV"
           }
-        },
-        "columns": {
-          "asset": "Asset",
-          "collateral": "Collateral",
-          "isBorrowable": "Borrowable",
-          "liquidationPenalty": "Liquidation penalty",
-          "liquidationThreshold": "Liquidation threshold",
-          "maxLtv": "Max LTV",
-          "penalty": "Penalty",
-          "threshold": "Threshold"
-        },
-        "mobileSelectLabel": "Sort by:"
+        }
       }
     },
     "errors": {
@@ -814,33 +895,72 @@
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
     },
+    "header": {
+      "venusCore": {
+        "description": "Simple and powerful community-driven finance for the entire globe.",
+        "title": "Venus Core"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
       "label": "Isolated"
     },
     "tabs": {
-      "assets": {
-        "title": "Assets"
-      },
       "eMode": {
-        "illustrationAltText": "Lightning illustration",
-        "liquidationPenalty": {
-          "label": "Liquidation penalty"
+        "eModeNotice": "Enabling E-mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "You can't disable this group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
+              "notEnoughCollateral": "You can't disable this group because your total collateral value would not cover your total borrow balance"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> group:",
+              "repayButtonLabel": "Repay",
+              "title": "Your positions"
+            },
+            "tooltip": {
+              "blockingPositions": "You can't enable this group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
+              "notEnoughCollateral": "You can't enable this group because your total collateral value would not cover your total borrow balance"
+            }
+          },
+          "disableButtonLabel": "Disable",
+          "disabledNotice": "This group is no longer supported. Your account now falls back to Core Pool parameters. Please switch to another available group or disable it.",
+          "enableButtonLabel": "Enable",
+          "healthFactor": "Health factor:",
+          "switchButtonLabel": "Switch"
         },
-        "liquidationThreshold": {
-          "label": "Liquidation threshold"
-        },
-        "maxLtv": {
-          "label": "Max LTV",
-          "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
-        },
-        "title": "E-mode"
+        "isolationModeNotice": "Enabling isolation mode allows you to maximize your borrowing power, however, supplying and borrowing are restricted to assets within the selected group. <Link>Learn more</Link>",
+        "label": "E-mode",
+        "table": {
+          "columns": {
+            "asset": "Asset",
+            "collateral": "Collateral",
+            "isBorrowable": "Borrowable",
+            "liquidationPenalty": "Liquidation penalty",
+            "liquidationThreshold": "Liquidation threshold",
+            "maxLtv": "Max LTV",
+            "penalty": "Penalty",
+            "threshold": "Threshold"
+          },
+          "mobileSelectLabel": "Sort by:",
+          "searchPlaceholder": "Search asset or group"
+        }
+      },
+      "isolationMode": {
+        "label": "Isolation mode"
+      },
+      "markets": {
+        "label": "Markets"
       }
     }
   },
   "marketTable": {
     "assetColumn": {
       "eMode": "This market is part of the {{eModeGroupName}} E-mode group",
+      "isolationMode": "This market is part of the {{eModeGroupName}} isolation mode group",
       "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled."
     },
     "columnKeys": {
@@ -885,17 +1005,8 @@
       "imgAlt": "Pause icon",
       "title": "All assets in this pool have been paused"
     },
-    "pausedAssetsToggle": {
-      "label": "Paused assets"
-    },
-    "searchInput": {
+    "search": {
       "placeholder": "Search asset"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "My assets only"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "E-mode assets only"
     }
   },
   "operationForm": {
@@ -1464,6 +1575,9 @@
       "label": "Sort by"
     }
   },
+  "tokenTextField": {
+    "valueDollars": "≈ {{ value }}"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
     "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",
@@ -1690,21 +1804,58 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
-    "dailyEmission": "Daily Emission",
-    "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
-    "stakeButton": "Stake",
-    "stakingApr": "{{stakeTokenName}} Stake APR",
-    "totalStaked": "Total Staked",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
+      "currentStaked": "Currently staked",
+      "dailyEmission": "Daily emission",
+      "manager": "Manager",
+      "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
+      "stake": "Stake",
+      "stakingApr": "{{stakeTokenName}} Stake APR",
+      "totalDeposited": "Total deposited",
+      "totalStaked": "Total Staked",
+      "venusManager": "Venus",
+      "withdraw": "Withdraw",
+      "youAreStake": "You are staking",
+      "youStaked": "You staked"
+    },
+    "filter": {
+      "active": "Active",
+      "allCategories": "All categories",
+      "allManagers": "All managers",
+      "allStates": "All states",
+      "claim": "Claim",
+      "deposit": "Deposit",
+      "earning": "Earning",
+      "inputPlaceholder": "Search asset",
+      "others": "Others",
+      "paused": "Paused",
+      "refund": "Refund",
+      "repaying": "Repaying",
+      "rwa": "RWA",
+      "stablecoins": "Stablecoins",
+      "vaults": "Vaults",
+      "yieldTokens": "Yield tokens"
+    },
+    "overview": {
+      "bannerCoinIllustration": "{{token}} coins illustration",
+      "bannerTitle": "Enjoy <strong>{{apyPercentage}}</strong> APR with <strong>{{tokenDashMarket}}</strong>",
+      "bannerVaultIllustration": "Vault illustration",
+      "description": "Yield made simple, returns made real — deposit across multiple vaults and watch your crypto grow <strong>on your terms</strong>.",
+      "highestApr": "Highest APR",
+      "title": "Vaults",
+      "tokenTotalDeposited": "{{token}} total deposited",
+      "totalVault": "Vaults",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "Locking period"
       },
       "rightMaxButtonLabel": "MAX"
-    },
-    "withdrawButton": "Withdraw",
-    "youAreStake": "You are staking"
+    }
   },
   "venusFluxBanner": {
     "description": "Let your liquidity Flux, watch your yield grow.",

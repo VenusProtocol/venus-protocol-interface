@@ -22,14 +22,11 @@ export const useMenuItems = () => {
 
   const menu: Array<MenuItem | SubMenu> = [];
 
-  if (accountAddress) {
-    menu.push({
+  menu.push(
+    {
       to: routes.dashboard.path,
       label: t('layout.menu.dashboard.label'),
-    });
-  }
-
-  menu.push(
+    },
     {
       label: t('layout.menu.markets.label'),
       to: marketsPagePath,
@@ -50,8 +47,8 @@ export const useMenuItems = () => {
       ],
     },
     {
-      to: routes.staking.path,
-      label: t('layout.menu.staking.label'),
+      to: routes.vaults.path,
+      label: t('layout.menu.vaults.label'),
     },
   );
 

@@ -38,7 +38,7 @@ describe('usePathNodes', () => {
       routes.market.path,
     ],
     [routes.vai.path, routes.vai.path],
-    [routes.staking.path, routes.staking.path],
+    [routes.vaults.path, routes.vaults.path],
     [routes.swap.path, routes.swap.path],
     [routes.primeCalculator.path, routes.primeCalculator.path],
   ])('outputs the right DOM based on the current path: %s', async (pathname, originalRoute) => {

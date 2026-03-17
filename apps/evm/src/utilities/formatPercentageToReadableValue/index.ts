@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { ONE_THOUSAND } from 'constants/numbers';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import getSmartDecimalPlaces from 'utilities/getSmartDecimalPlaces';
 
 const MIN_VALUE = 0.01;

@@ -86,6 +86,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
     underlyingToken: asset.vToken.underlyingToken,
     isIntegratedSwapFeatureEnabled,
     canWrapNativeToken,
+    action: 'supply',
   });
 
   const shouldSelectNativeToken =
@@ -100,7 +101,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
           : asset.vToken.underlyingToken,
       acknowledgeHighPriceImpact: false,
     }),
-    [asset, shouldSelectNativeToken],
+    [asset.vToken.underlyingToken, shouldSelectNativeToken],
   );
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -111,6 +112,11 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
       setFormValues(initialFormValues);
     }
   }, [accountAddress, initialFormValues]);
+
+  // Reset form when initial values change, which indicates the base asset was changed
+  useEffect(() => {
+    setFormValues(initialFormValues);
+  }, [initialFormValues]);
 
   // a user is trying to wrap the chain's native token if
   // 1) the wrap/unwrap feature is enabled
@@ -380,7 +386,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
               !isUserConnected ||
               isAccountOnWrongChain ||
               isCollateralToggleDisabled ||
-              !asset.userCollateralFactor
+              (pool.userEModeGroup && asset.userCollateralFactor === 0)
             }
           />
         </LabeledInlineContent>

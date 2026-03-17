@@ -18,14 +18,6 @@ export const useGetSwapTokenUserBalances = ({
 
   const data = getPoolData?.pool.assets
     ? getPoolData?.pool.assets.reduce<TokenBalance[]>((acc, poolAsset) => {
-        // Filter out paused assets
-        if (
-          poolAsset.disabledTokenActions.includes('supply') ||
-          poolAsset.disabledTokenActions.includes('repay')
-        ) {
-          return acc;
-        }
-
         const tokenBalance: TokenBalance = {
           token: poolAsset.vToken.underlyingToken,
           balanceMantissa: convertTokensToMantissa({

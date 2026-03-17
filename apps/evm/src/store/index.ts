@@ -9,9 +9,10 @@ export interface UserChainSettings {
   gaslessTransactions: boolean;
   showPausedAssets: boolean;
   showUserAssetsOnly: boolean;
-  showUserEModeAssetsOnly: boolean;
   doNotShowImportPositionsModal: boolean;
   slippageTolerancePercentage: string;
+  doNotShowUserBalances: boolean;
+  doNotExpandGuide: boolean;
 }
 
 type UserSettings = Partial<Record<ChainId, Partial<UserChainSettings>>>;

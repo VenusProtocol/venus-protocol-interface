@@ -48,7 +48,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
       acknowledgeRisk: false,
     }),
-    [asset],
+    [asset.vToken.underlyingToken],
   );
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -59,6 +59,11 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       setFormValues(initialFormValues);
     }
   }, [accountAddress, initialFormValues]);
+
+  // Reset form when initial values change, which indicates the base asset was changed
+  useEffect(() => {
+    setFormValues(initialFormValues);
+  }, [initialFormValues]);
 
   const { mutateAsync: borrow, isPending: isSubmitting } = useBorrow();
 

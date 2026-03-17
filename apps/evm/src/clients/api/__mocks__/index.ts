@@ -61,6 +61,14 @@ export const useGetMarketHistory = vi.fn(() =>
   }),
 );
 
+export const getTopMarkets = vi.fn();
+export const useGetTopMarkets = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_TOP_MARKETS],
+    queryFn: getTopMarkets,
+  }),
+);
+
 export const getMintableVai = vi.fn();
 export const useGetMintableVai = vi.fn(() =>
   useQuery({
@@ -434,6 +442,14 @@ export const useGetTokenUsdPrice = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_TOKEN_USD_PRICE],
     queryFn: getTokenUsdPrice,
+  }),
+);
+
+export const getTokenListUsdPrice = vi.fn(async () => [{ tokenPriceUsd: new BigNumber('1') }]);
+export const useGetTokenListUsdPrice = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_TOKEN_USD_PRICE],
+    queryFn: getTokenListUsdPrice,
   }),
 );
 

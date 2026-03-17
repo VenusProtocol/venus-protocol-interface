@@ -3,22 +3,21 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { bnb, xvs } from '__mocks__/models/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useSupply } from 'clients/api';
+import { useGetPool, useSupply } from 'clients/api';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { useCollateral } from 'hooks/useCollateral';
-import { useGetSwapTokenUserBalances } from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import type { Asset, AssetBalanceMutation } from 'types';
-import { convertTokensToMantissa } from 'utilities';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { replaceAssetsInPool } from 'pages/Market/OperationForm/__testUtils__/replaceAssetsInPool';
 import SupplyForm from '..';
 import {
   checkSubmitButtonIsDisabled,
@@ -30,7 +29,6 @@ import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useCollateral');
-vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useTokenApproval');
 vi.mock('../../useCommonValidation');
 
@@ -38,29 +36,18 @@ const mockSupply = vi.fn();
 
 describe('SupplyForm', () => {
   beforeEach(() => {
+    mockSupply.mockClear();
     (useSupply as Mock).mockReturnValue({ mutateAsync: mockSupply });
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'integratedSwap',
     );
-
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: xvs,
-          balanceMantissa: convertTokensToMantissa({
-            token: xvs,
-            value: fakeAsset.userWalletBalanceTokens,
-          }),
-        },
-        {
-          token: bnb,
-          balanceMantissa: convertTokensToMantissa({
-            token: bnb,
-            value: fakeAsset.userWalletBalanceTokens,
-          }),
-        },
-      ],
-    });
+    const pool = replaceAssetsInPool(fakePool, [fakeAsset]);
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
   });
 
   it('displays correct wallet balance amount', async () => {
@@ -85,17 +72,13 @@ describe('SupplyForm', () => {
       userWalletBalanceTokens: new BigNumber(100),
     };
 
-    (useGetSwapTokenUserBalances as Mock).mockReturnValue({
-      data: [
-        {
-          token: xvs,
-          balanceMantissa: convertTokensToMantissa({
-            token: xvs,
-            value: customFakeAsset.userWalletBalanceTokens,
-          }),
-        },
-      ],
-    });
+    const pool = replaceAssetsInPool(fakePool, [customFakeAsset]);
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { getByTestId, getByText } = renderComponent(
       <SupplyForm pool={fakePool} asset={customFakeAsset} />,
@@ -281,11 +264,63 @@ describe('SupplyForm', () => {
     });
   });
 
+  it('disables collateral switch when user is in eMode and asset collateral factor is zero', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      userCollateralFactor: 0,
+      isCollateralOfUser: false,
+    };
+
+    const customFakePool = {
+      ...fakePool,
+      userEModeGroup: fakePool.eModeGroups[0],
+    };
+
+    const { getByRole } = renderComponent(
+      <SupplyForm pool={customFakePool} asset={customFakeAsset} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const collateralSwitch = await waitFor(() => getByRole('checkbox'));
+    expect(collateralSwitch).toBeDisabled();
+  });
+
+  it('does not disable collateral switch when user is not in eMode and asset collateral factor is zero', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      userCollateralFactor: 0,
+      isCollateralOfUser: false,
+    };
+
+    const { toggleCollateral } = useCollateral();
+
+    const { getByRole } = renderComponent(<SupplyForm pool={fakePool} asset={customFakeAsset} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const collateralSwitch = await waitFor(() => getByRole('checkbox'));
+    expect(collateralSwitch).not.toBeDisabled();
+
+    fireEvent.click(collateralSwitch);
+
+    await waitFor(() => expect(toggleCollateral).toHaveBeenCalledTimes(1));
+  });
+
   it('updates input value to wallet balance when clicking on max button if supply cap permits it', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       supplyCapTokens: MAX_UINT256,
     };
+
+    const pool = replaceAssetsInPool(fakePool, [customFakeAsset]);
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { getByText, getByTestId } = renderComponent(
       <SupplyForm asset={customFakeAsset} pool={fakePool} />,
@@ -325,6 +360,14 @@ describe('SupplyForm', () => {
       supplyCapTokens: new BigNumber(100),
     };
 
+    const pool = replaceAssetsInPool(fakePool, [customFakeAsset]);
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
+
     const { getByText, getByTestId } = renderComponent(
       <SupplyForm asset={customFakeAsset} pool={fakePool} />,
       {
@@ -362,6 +405,13 @@ describe('SupplyForm', () => {
       ...fakeAsset,
       vToken: vBnb,
     };
+    const pool = replaceAssetsInPool(fakePool, [customFakeAsset]);
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool,
+      },
+    }));
 
     const { getByTestId } = renderComponent(
       <SupplyForm pool={fakePool} asset={customFakeAsset} />,

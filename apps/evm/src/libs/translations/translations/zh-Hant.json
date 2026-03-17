@@ -8,6 +8,9 @@
           "illustrationAltText": "E-mode插圖",
           "title": "E-mode：<UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
+        "isolatedModeHeader": {
+          "title": "隔離模式：<UnderlinedText>{{groupName}}</UnderlinedText>"
+        },
         "supplyTableTitle": "已供應",
         "tabletBorrowTabTitle": "已借入",
         "tabletSupplyTabTitle": "已供應",
@@ -42,22 +45,7 @@
     },
     "pools": {
       "placeholder": {
-        "description": "你的資金池持倉將顯示在此",
         "title": "尚無供應或借入持倉"
-      }
-    },
-    "poolsBreakdown": {
-      "poolTagTooltip": "已用借款限額：{{borrowLimitUsedPercentage}}"
-    },
-    "primeBanner": {
-      "button": {
-        "becomePrime": "領取 Prime 代幣",
-        "stakeXvs": "質押 XVS"
-      },
-      "primeLogoAltText": "Prime 標誌",
-      "text": {
-        "apyBoost": "使用 Prime 將收益提升高達 <GreenText>{{boost}}</GreenText>",
-        "becomePrime": "你現在可以成為 Prime 用戶"
       }
     },
     "settings": {
@@ -81,8 +69,8 @@
       "title": "概覽"
     },
     "tabs": {
-      "pools": "資金池",
-      "settings": "設置",
+      "markets": "市場",
+      "settings": "設定",
       "transactions": "交易",
       "vaults": "金庫"
     },
@@ -101,7 +89,6 @@
         },
         "txType": {
           "all": "所有交易",
-          "approve": "授權",
           "borrow": "借款",
           "enterMarket": "啟用抵押",
           "exitMarket": "禁用抵押",
@@ -112,12 +99,10 @@
       },
       "today": "今天",
       "txText": {
-        "approve": "已授權支出 {{tokenAmount}}",
         "enterMarket": "<Styled>啟用</Styled> {{vTokenSymbol}} 作為抵押",
         "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作為抵押"
       },
       "txType": {
-        "approve": "授權",
         "borrow": "借款",
         "enterMarket": "啟用抵押",
         "exitMarket": "禁用抵押",
@@ -130,7 +115,6 @@
     },
     "vaults": {
       "placeholder": {
-        "description": "你的金庫持倉將顯示在此",
         "title": "尚無質押持倉"
       }
     }
@@ -276,9 +260,6 @@
     }
   },
   "asset": {
-    "eModeInfo": {
-      "title": "E-mode信息"
-    },
     "marketInfo": {
       "title": "市場信息"
     }
@@ -293,6 +274,9 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "你的 E-mode設置不允許從該市場借款。<Link>管理 E-mode</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "你的隔離模式設置不允許從該市場借款。<Link>管理 E-mode</Link>"
     }
   },
   "assetWarning": {
@@ -320,9 +304,9 @@
     "markets": "市場",
     "primeCalculator": "Prime 計算器",
     "proposal": "提案 #{{proposalId}}",
-    "staking": "質押",
     "swap": "兌換",
-    "vai": "VAI"
+    "vai": "VAI",
+    "vaults": "金庫"
   },
   "bridgePage": {
     "amountInput": {
@@ -408,11 +392,132 @@
   "connectWallet": {
     "connectButton": "連接錢包"
   },
+  "controls": {
+    "pausedAssetsToggle": {
+      "label": "已暫停資產"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "僅我的資產"
+    }
+  },
+  "dashboard": {
+    "guide": {
+      "completed": "已完成",
+      "step1": {
+        "description": "透過存款或將現有持倉遷移到 Venus 協議來賺取收益。",
+        "title": "存款 / 遷移"
+      },
+      "step2": {
+        "description": "借入資產強化您的 DeFi 策略，或一鍵使用流動性進行槓桿操作。",
+        "title": "借款 / 槓桿"
+      },
+      "step3": {
+        "description": "將 XVS 存入金庫，賺取由協議收入提供的收益。",
+        "title": "質押 XVS"
+      },
+      "uncompleted": "未完成"
+    },
+    "overview": {
+      "absolutePerformance": "絕對表現",
+      "netWorth": {
+        "label": "淨值",
+        "tooltip": "計入金庫質押與借款後的可用淨資產",
+        "tooltipWithVai": "計入金庫質押、借款與已鑄 VAI 後的可用淨資產"
+      },
+      "performanceChart": {
+        "errorState": {
+          "failedToFetchMessage": "無法取得帳戶歷史紀錄",
+          "refetchButtonLabel": "重試"
+        },
+        "placeholderText": "正在生成報告，最多可能需要一分鐘"
+      },
+      "periodOption": {
+        "oneYear": "1年",
+        "sixMonths": "6個月",
+        "thirtyDays": "30天"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "每日收益",
+          "mintedVai": "已鑄 VAI",
+          "netApy": "淨 APY",
+          "netApyTooltip": "您總存款餘額中按年利息獲得的百分比",
+          "netApyWithVaultStakeTooltip": "您總存款餘額與金庫質押按年利息獲得的百分比",
+          "totalBorrow": "總借款",
+          "totalSupply": "總存款",
+          "totalVaultStake": "金庫質押總額"
+        },
+        "title": "摘要"
+      },
+      "todaysChange": "今日變化"
+    },
+    "performanceChart": {
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "topMarkets": {
+      "borrowButton": {
+        "label": "借款"
+      },
+      "interactiveTitle": "焦點 ( <Group><SupplyButton>供應</SupplyButton>/<BorrowButton>借款</BorrowButton></Group> )",
+      "supplyButton": {
+        "label": "供應"
+      },
+      "textTitle": "焦點"
+    },
+    "vaults": {
+      "dailyEarnings": "每日收益",
+      "dailyEarningsTooltip": "您在所有活躍金庫中的每日預計收益，基於各金庫的當前利率或固定 APR。實際收益可能有所變化。",
+      "totalStakedValue": "總質押價值"
+    }
+  },
   "eModeBanner": {
     "exploreButtonLabel": "探索",
     "illustrationAltText": "E-mode插圖",
     "manageEModeButtonLabel": "管理 E-mode",
-    "title": "使用 E-Mode 提升借款能力"
+    "title": "使用 E-mode 提升借款能力"
+  },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "排序：",
+      "searchPlaceholder": "搜尋組或資產"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "你無法禁用該組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
+          "notEnoughCollateral": "你無法禁用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> 組，你需要關閉以下借款倉位：",
+          "repayButtonLabel": "還款",
+          "title": "你的倉位"
+        },
+        "tooltip": {
+          "blockingPositions": "你無法啟用該組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
+          "notEnoughCollateral": "你無法啟用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
+        }
+      },
+      "disableButtonLabel": "禁用",
+      "disabledNotice": "該組已不再支持。你的賬戶將回到核心池參數。請切換到其他可用組或將其禁用。",
+      "enableButtonLabel": "啟用",
+      "healthFactor": "健康係數：",
+      "switchButtonLabel": "切換"
+    },
+    "table": {
+      "columns": {
+        "asset": "資產",
+        "collateral": "抵押",
+        "isBorrowable": "可借",
+        "liquidationPenalty": "清算罰金",
+        "liquidationThreshold": "清算閾值",
+        "maxLtv": "最大 LTV"
+      }
+    }
   },
   "errors": {
     "couldNotRetrieveSigner": "無法獲取簽名者，請確保錢包已解鎖並刷新頁面",
@@ -593,6 +698,7 @@
       "protectionTitle": "安全保障優先"
     },
     "safety": {
+      "audit_one": "審計",
       "audit_other": "審計",
       "otherAuditors": "+14 次審計，來自 <br />Fairyproof、Hacken 與 HashEx",
       "scoreAlt": "評分插圖",
@@ -623,6 +729,7 @@
         "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
       },
       "price": "價格",
+      "resilientOracle": "彈性預言機",
       "supply": "供應",
       "utilizationRate": "利用率"
     },
@@ -668,13 +775,13 @@
           "label": "語言（測試版）"
         }
       },
-      "staking": {
-        "label": "質押"
-      },
       "subMenuItem": {
         "button": {
           "label": "開始使用"
         }
+      },
+      "vaults": {
+        "label": "金庫"
       },
       "venusLogoAlt": "Venus 標誌"
     },
@@ -712,6 +819,25 @@
     },
     "borrowInfo": {
       "title": "借款信息"
+    },
+    "eModeInfo": {
+      "eMode": {
+        "title": "E-mode"
+      },
+      "isolationMode": {
+        "title": "隔離模式"
+      },
+      "link": "顯示所有市場",
+      "table": {
+        "columns": {
+          "collateral": "抵押",
+          "group": "組",
+          "isBorrowable": "可借",
+          "liquidationPenalty": "罰金",
+          "liquidationThreshold": "閾值",
+          "maxLtv": "最大 LTV"
+        }
+      }
     },
     "interestRateModel": {
       "title": "利率模型"
@@ -754,57 +880,13 @@
   },
   "markets": {
     "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "你無法禁用該 E-mode組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
-            "notEnoughCollateral": "你無法禁用該 E-mode組，因為你的總抵押價值不足以覆蓋總借款餘額"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode組，你需要關閉以下借款倉位：",
-            "repayButtonLabel": "還款",
-            "title": "你的倉位"
-          },
-          "tooltip": {
-            "blockingPositions": "你無法啟用該 E-mode組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
-            "notEnoughCollateral": "你無法啟用該 E-mode組，因為你的總抵押價值不足以覆蓋總借款餘額"
-          }
-        },
-        "disableButtonLabel": "禁用",
-        "disabledNotice": "該 E-Mode 組已不再支持。你的賬戶將回到默認參數。請切換到其他可用的 E-mode組或將其禁用。",
-        "enableButtonLabel": "啟用",
-        "healthFactor": "健康係數：",
-        "switchButtonLabel": "切換"
-      },
-      "notice": "啟用 E-Mode 可最大化借款能力，但借款僅限於所選組內資產。<Link>瞭解更多</Link>",
-      "search": {
-        "placeholder": "搜索資產或組"
-      },
       "table": {
         "card": {
           "header": {
             "borrowable": "可借",
             "collateral": "抵押"
-          },
-          "rows": {
-            "liquidationPenalty": "清算罰金",
-            "liquidationThreshold": "清算閾值",
-            "maxLtv": "最大 LTV"
           }
-        },
-        "columns": {
-          "asset": "資產",
-          "collateral": "抵押",
-          "isBorrowable": "可借",
-          "liquidationPenalty": "清算罰金",
-          "liquidationThreshold": "清算閾值",
-          "maxLtv": "最大 LTV",
-          "penalty": "罰金",
-          "threshold": "閾值"
-        },
-        "mobileSelectLabel": "排序："
+        }
       }
     },
     "errors": {
@@ -813,33 +895,72 @@
       "collateralEnableError": "啟用抵押錯誤 - 啟用 {{assetName}} 作為抵押時出現問題。請重試。",
       "collateralRequired": "需要抵押 - 請償還所有借款資產或將其他資產設為抵押。"
     },
+    "header": {
+      "venusCore": {
+        "description": "面向全球的簡單而強大、由社群驅動的金融。",
+        "title": "Venus Core"
+      }
+    },
     "isolatedEModeGroupTooltip": {
       "content": "僅向 {{ eModeGroupName }} 組內資產供應可提升你的借款能力",
       "label": "隔離"
     },
     "tabs": {
-      "assets": {
-        "title": "資產"
-      },
       "eMode": {
-        "illustrationAltText": "閃電插圖",
-        "liquidationPenalty": {
-          "label": "清算罰金"
+        "eModeNotice": "啟用 E-mode 可最大化你的借款能力，但借款僅限於所選組內資產。<Link>了解更多</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "你無法禁用該組，因為你有包含無法從該池借款的資產的借款倉位。<Link>顯示我的倉位</Link>",
+              "notEnoughCollateral": "你無法禁用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "要啟用 <WhiteText>{{ eModeGroupName }}</WhiteText> 組，你需要關閉以下借款倉位：",
+              "repayButtonLabel": "還款",
+              "title": "你的倉位"
+            },
+            "tooltip": {
+              "blockingPositions": "你無法啟用該組，因為你有不屬於該組的資產借款倉位。<Link>顯示我的倉位</Link>",
+              "notEnoughCollateral": "你無法啟用該組，因為你的總可抵押價值不足以覆蓋總借款餘額"
+            }
+          },
+          "disableButtonLabel": "禁用",
+          "disabledNotice": "該組已不再支持。你的賬戶將回到核心池參數。請切換到其他可用組或將其禁用。",
+          "enableButtonLabel": "啟用",
+          "healthFactor": "健康係數：",
+          "switchButtonLabel": "切換"
         },
-        "liquidationThreshold": {
-          "label": "清算閾值"
-        },
-        "maxLtv": {
-          "label": "最大 LTV",
-          "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
-        },
-        "title": "E-mode"
+        "isolationModeNotice": "啟用隔離模式可最大化你的借款能力，但供應與借款僅限於所選組內資產。<Link>了解更多</Link>",
+        "label": "E-mode",
+        "table": {
+          "columns": {
+            "asset": "資產",
+            "collateral": "抵押",
+            "isBorrowable": "可借",
+            "liquidationPenalty": "清算罰金",
+            "liquidationThreshold": "清算閾值",
+            "maxLtv": "最大 LTV",
+            "penalty": "罰金",
+            "threshold": "閾值"
+          },
+          "mobileSelectLabel": "排序：",
+          "searchPlaceholder": "搜尋資產或組"
+        }
+      },
+      "isolationMode": {
+        "label": "隔離模式"
+      },
+      "markets": {
+        "label": "市場"
       }
     }
   },
   "marketTable": {
     "assetColumn": {
       "eMode": "該市場屬於 {{eModeGroupName}} E-mode組",
+      "isolationMode": "該市場屬於 {{eModeGroupName}} 隔離模式組",
       "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。"
     },
     "columnKeys": {
@@ -884,17 +1005,8 @@
       "imgAlt": "暫停圖標",
       "title": "該池內所有資產已暫停"
     },
-    "pausedAssetsToggle": {
-      "label": "已暫停資產"
-    },
-    "searchInput": {
-      "placeholder": "搜索資產"
-    },
-    "userAssetsOnlyToggle": {
-      "label": "僅我的資產"
-    },
-    "userEModeAssetsOnlyToggle": {
-      "label": "僅 E-mode資產"
+    "search": {
+      "placeholder": "搜尋資產"
     }
   },
   "operationForm": {
@@ -1074,9 +1186,9 @@
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 後可領取 Prime 獎勵"
   },
   "probableBanner": {
-    "description": "在 probable.markets 上增強你的信念",
+    "description": "在 probable.markets 上賦能你的信念",
     "probableAltText": "Probable 插圖",
-    "title": "相信點什麼？"
+    "title": "心想事成？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1463,6 +1575,9 @@
       "label": "排序"
     }
   },
+  "tokenTextField": {
+    "valueDollars": "≈ {{ value }}"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "接受管理員待定檢查",
     "acceptPendingImplementationAddressCheck": "接受待定實現地址檢查",
@@ -1689,21 +1804,58 @@
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "你必須完成待處理的提取才能與該金庫交互。",
-    "dailyEmission": "每日發放",
-    "pausedWarning": "該金庫當前已暫停。利率仍在累積，但領取、質押和提取在金庫恢復前不可用",
-    "stakeButton": "質押",
-    "stakingApr": "{{stakeTokenName}} 質押 APR",
-    "totalStaked": "總質押",
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "您必須先完成待處理的提款才能與此金庫互動。",
+      "currentStaked": "當前質押",
+      "dailyEmission": "每日獎勵釋放",
+      "manager": "管理機構",
+      "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、質押和提款功能已禁用，直至金庫恢復運作。",
+      "stake": "質押",
+      "stakingApr": "{{stakeTokenName}} 質押 APR",
+      "totalDeposited": "總存款",
+      "totalStaked": "總質押",
+      "venusManager": "Venus",
+      "withdraw": "提取",
+      "youAreStake": "你正在質押",
+      "youStaked": "您已質押"
+    },
+    "filter": {
+      "active": "活躍",
+      "allCategories": "所有類別",
+      "allManagers": "所有管理機構",
+      "allStates": "所有狀態",
+      "claim": "領取",
+      "deposit": "存款",
+      "earning": "收益中",
+      "inputPlaceholder": "搜尋資產",
+      "others": "其他",
+      "paused": "已暫停",
+      "refund": "退款",
+      "repaying": "還款中",
+      "rwa": "RWA",
+      "stablecoins": "穩定幣",
+      "vaults": "金庫",
+      "yieldTokens": "收益代幣"
+    },
+    "overview": {
+      "bannerCoinIllustration": "{{token}} 硬幣插圖",
+      "bannerTitle": "質押 <strong>{{tokenDashMarket}}</strong> 享受 <strong>{{apyPercentage}}</strong> APR",
+      "bannerVaultIllustration": "金庫插圖",
+      "description": "收益化繁為簡，回報觸手可及 — 存入多個金庫，<strong>按您的方式</strong>讓加密資產增值。",
+      "highestApr": "最高 APR",
+      "title": "金庫",
+      "tokenTotalDeposited": "{{token}} 總存入量",
+      "totalVault": "金庫",
+      "tvl": "TVL"
+    },
     "transactionForm": {
       "lockingPeriod": {
         "duration": "{{date, distanceToNow}}",
         "label": "鎖定期"
       },
       "rightMaxButtonLabel": "最大"
-    },
-    "withdrawButton": "提取",
-    "youAreStake": "你正在質押"
+    }
   },
   "venusFluxBanner": {
     "description": "讓你的流動性 Flux，見證收益成長。",

@@ -42,26 +42,23 @@ export const getDisabledTokenActions = ({
       const pausedAction = Object.values(ContractVTokenAction)[index];
 
       // Translate paused vToken action from contract into disabled action
-      let translatedDisabledAction: TokenAction | undefined;
+      const translatedDisabledActions: TokenAction[] = [];
+
       if (pausedAction === ContractVTokenAction.MINT) {
-        translatedDisabledAction = 'supply';
+        translatedDisabledActions.push('supply', 'swapAndSupply');
       } else if (pausedAction === ContractVTokenAction.REDEEM) {
-        translatedDisabledAction = 'withdraw';
+        translatedDisabledActions.push('withdraw');
       } else if (pausedAction === ContractVTokenAction.BORROW) {
-        translatedDisabledAction = 'borrow';
+        translatedDisabledActions.push('borrow', 'boost');
       } else if (pausedAction === ContractVTokenAction.REPAY) {
-        translatedDisabledAction = 'repay';
+        translatedDisabledActions.push('repay', 'swapAndRepay');
       } else if (pausedAction === ContractVTokenAction.ENTER_MARKET) {
-        translatedDisabledAction = 'enterMarket';
+        translatedDisabledActions.push('enterMarket');
       } else if (pausedAction === ContractVTokenAction.EXIT_MARKET) {
-        translatedDisabledAction = 'exitMarket';
+        translatedDisabledActions.push('exitMarket');
       }
 
-      if (!translatedDisabledAction) {
-        return acc;
-      }
-
-      return [...acc, translatedDisabledAction];
+      return [...acc, ...translatedDisabledActions];
     }, []);
 
   // Merge disabled actions from contract with local disabled actions

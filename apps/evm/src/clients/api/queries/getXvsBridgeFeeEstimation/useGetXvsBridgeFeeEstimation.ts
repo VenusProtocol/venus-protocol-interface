@@ -10,7 +10,8 @@ import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import { ChainId, type Token } from 'types';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import callOrThrow from 'utilities/callOrThrow';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 
 type TrimmedGetXvsBridgeEstimationInput = Omit<
   GetXvsBridgeEstimationInput,
