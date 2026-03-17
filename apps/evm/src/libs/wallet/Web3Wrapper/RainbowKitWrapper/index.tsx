@@ -35,7 +35,7 @@ const rkTheme = merge(
   } as Theme,
 );
 
-const StuckConnectionRecovery: React.FC = () => {
+const ConnectionRecovery: React.FC = () => {
   const config = useConfig();
   const { connectModalOpen } = useConnectModal();
   const { status } = useAccount();
@@ -68,7 +68,7 @@ export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children
       }}
       theme={rkTheme}
     >
-      <StuckConnectionRecovery />
+      <ConnectionRecovery />
       {children}
     </RainbowKitProvider>
   );
