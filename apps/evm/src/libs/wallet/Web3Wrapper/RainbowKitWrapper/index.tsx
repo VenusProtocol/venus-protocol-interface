@@ -60,7 +60,12 @@ const ConnectionRecovery: React.FC = () => {
     const prevStatus = prevStatusRef.current;
     prevStatusRef.current = status;
 
-    if (prevStatus === 'disconnected' && status === 'connected' && connector?.type === 'walletConnect' && chainId !== defaultChain.id) {
+    if (
+      prevStatus === 'disconnected' &&
+      status === 'connected' &&
+      connector?.type === 'walletConnect' &&
+      chainId !== defaultChain.id
+    ) {
       window.location.reload();
     }
   }, [status, chainId, connector]);
