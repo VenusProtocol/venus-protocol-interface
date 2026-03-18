@@ -57,12 +57,17 @@ const ConnectionRecovery: React.FC = () => {
   }, [connectModalOpen, status, config]);
 
   useEffect(() => {
-    if (prevStatusRef.current === 'connecting' && status === 'connected') {
+    const prevStatus = prevStatusRef.current;
+    prevStatusRef.current = status;
+
+    console.log(`[ConnectionRecovery] status=${prevStatus}->${status}, connector=${connector?.type}, chainId=${chainId}, defaultChain=${defaultChain.id}`);
+
+    if (prevStatus === 'connecting' && status === 'connected') {
       if (connector?.type === 'walletConnect' && chainId !== defaultChain.id) {
+        console.log('[ConnectionRecovery] WalletConnect wrong chain, reloading');
         window.location.reload();
       }
     }
-    prevStatusRef.current = status;
   }, [status, chainId, connector]);
 
   return null;
