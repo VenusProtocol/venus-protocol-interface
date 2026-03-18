@@ -13,6 +13,7 @@ import { useAccount, useConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import { useTranslation } from 'libs/translations';
+import { defaultChain } from 'libs/wallet/chains';
 
 export interface RainwbowKitWrapperProps extends PropsWithChildren {}
 
@@ -38,8 +39,9 @@ const rkTheme = merge(
 const ConnectionRecovery: React.FC = () => {
   const config = useConfig();
   const { connectModalOpen } = useConnectModal();
-  const { status } = useAccount();
+  const { status, chainId, connector } = useAccount();
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const prevStatusRef = useRef<string>(status);
 
   useEffect(() => {
     if (!connectModalOpen || status !== 'connecting') {
@@ -49,11 +51,19 @@ const ConnectionRecovery: React.FC = () => {
 
     timerRef.current = setTimeout(async () => {
       await wagmiReconnect(config);
-      window.location.reload();
     }, 5000);
 
     return () => clearTimeout(timerRef.current);
   }, [connectModalOpen, status, config]);
+
+  useEffect(() => {
+    if (prevStatusRef.current === 'connecting' && status === 'connected') {
+      if (connector?.type === 'walletConnect' && chainId !== defaultChain.id) {
+        window.location.reload();
+      }
+    }
+    prevStatusRef.current = status;
+  }, [status, chainId, connector]);
 
   return null;
 };
