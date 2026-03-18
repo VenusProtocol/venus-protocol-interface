@@ -4,35 +4,33 @@ import { VaultCategory, VaultManager, VaultStatus } from 'types';
 import { areAddressesEqual, convertTokensToMantissa, findTokenByAddress } from 'utilities';
 import type { GetVaultProductsOutput } from '../../getVaultProducts/types';
 
-interface FormatToPendleVaultsInput {
-  vaultProducts: GetVaultProductsOutput;
+interface BaseInput {
   pools: Pool[];
   tokens: Token[];
   now: number;
 }
 
+interface FormatToPendleVaultsInput extends BaseInput {
+  vaultProducts: GetVaultProductsOutput;
+}
+
 const formatVaultProduct = ({
-  product,
+  vaultData,
   pools,
   tokens,
   now,
-}: {
-  product: GetVaultProductsOutput[number];
-  pools: Pool[];
-  tokens: Token[];
-  now: number;
-}) => {
+}: BaseInput & { vaultData: GetVaultProductsOutput[number] }) => {
   const asset = pools
     .flatMap(pool => pool.assets)
-    .find(a => areAddressesEqual(a.vToken.address, product.vTokenAddress));
+    .find(asset => areAddressesEqual(asset.vToken.address, vaultData.vTokenAddress));
 
   const stakedToken = findTokenByAddress({
-    address: product.underlyingAssetAddress,
+    address: vaultData.underlyingAssetAddress,
     tokens,
   });
 
   const rewardToken = findTokenByAddress({
-    address: product.protocolData?.accountingAsset?.address ?? '',
+    address: vaultData.protocolData?.accountingAsset?.address ?? '',
     tokens,
   });
 
@@ -40,7 +38,7 @@ const formatVaultProduct = ({
     return undefined;
   }
 
-  const maturityDate = new Date(product.maturityDate).getTime();
+  const maturityDate = new Date(vaultData.maturityDate).getTime();
 
   let status = VaultStatus.Deposit;
   if (now >= maturityDate) {
@@ -50,10 +48,10 @@ const formatVaultProduct = ({
   }
 
   return {
-    key: product.id,
+    key: vaultData.id,
     stakedToken,
     rewardToken,
-    stakingAprPercentage: new BigNumber(product.fixedApyDecimal).shiftedBy(2).toNumber(),
+    stakingAprPercentage: new BigNumber(vaultData.fixedApyDecimal).shiftedBy(2).toNumber(),
     userStakedMantissa: convertTokensToMantissa({
       value: asset.userSupplyBalanceTokens,
       token: stakedToken,
@@ -62,12 +60,16 @@ const formatVaultProduct = ({
       value: asset.supplyBalanceTokens,
       token: stakedToken,
     }),
-    lockingPeriodMs: maturityDate > now ? maturityDate - now : undefined,
+    stakedTokenPriceUsd: new BigNumber(vaultData.protocolData.ptTokenPriceUsd),
+    rewardTokenPriceUsd: new BigNumber(vaultData.protocolData?.accountingAsset?.priceUsd),
     maturityDate,
+    liquidityCents: new BigNumber(vaultData.protocolData.liquidityCents),
     category: VaultCategory.YieldTokens,
     manager: VaultManager.Pendle,
     managerIcon: 'pendle' as const,
+    managerAddress: vaultData.protocolData.pendleMarketAddress,
     status,
+    vToken: asset.vToken,
   };
 };
 
@@ -77,8 +79,8 @@ export const formatToPendleVaults = ({
   tokens,
   now,
 }: FormatToPendleVaultsInput): PendleVault[] =>
-  vaultProducts.reduce<PendleVault[]>((acc, product) => {
-    const vault = formatVaultProduct({ product, pools, tokens, now });
+  vaultProducts.reduce<PendleVault[]>((acc, vaultData) => {
+    const vault = formatVaultProduct({ vaultData, pools, tokens, now });
     if (vault) {
       acc.push(vault);
     }

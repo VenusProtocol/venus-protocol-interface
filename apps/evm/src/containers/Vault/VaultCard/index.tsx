@@ -14,6 +14,7 @@ import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
+  formatTokensToReadableValue,
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -51,20 +52,28 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     addSymbol: false,
   });
 
+  const {
+    data: { stakedTokenPriceUsd, dailyEmissionUsdCents, totalStakedUsdCents },
+  } = useVaultUsdValues(vault);
+
   const dailyEmissionMantissa =
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
 
-  const {
-    data: { dailyEmissionUsdCents, totalStakedUsdCents },
-  } = useVaultUsdValues(vault);
+  const liquidityCents = 'liquidityCents' in vault ? vault.liquidityCents : undefined;
+  const liquidityToken = stakedTokenPriceUsd
+    ? liquidityCents?.div(stakedTokenPriceUsd).shiftedBy(-2)
+    : undefined;
 
   const openModal = () => {
     setModalVisible(true);
   };
 
-  const clickAble = [VaultStatus.Active, VaultStatus.Deposit, VaultStatus.Claim].includes(
-    vault.status,
-  );
+  const clickAble = [
+    VaultStatus.Active,
+    VaultStatus.Earning,
+    VaultStatus.Claim,
+    ...(vault.manager === VaultManager.Pendle ? [VaultStatus.Deposit] : []),
+  ].includes(vault.status);
 
   return (
     <>
@@ -117,6 +126,24 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                 {formatPercentageToReadableValue(vault.stakingAprPercentage)}
               </span>
             </LabeledInlineContent>
+
+            {liquidityCents && (
+              <LabeledInlineContent label={t('vault.card.liquidity')}>
+                <div className="text-b1r text-end">
+                  <div className={cn('flex items-center gap-x-2')}>
+                    {formatTokensToReadableValue({
+                      value: liquidityToken,
+                      token: vault.stakedToken,
+                    })}
+                  </div>
+                  <div className="text-light-grey">
+                    {formatCentsToReadableValue({
+                      value: liquidityCents,
+                    })}
+                  </div>
+                </div>
+              </LabeledInlineContent>
+            )}
 
             {dailyEmissionMantissa && (
               <LabeledInlineContent label={t('vault.card.dailyEmission')}>

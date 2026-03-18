@@ -4,6 +4,7 @@ import { Modal, Tabs, TokenIcon } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { AnyVault } from 'types';
 
+import { OverviewTab } from './OverviewTab';
 import { PositionTab } from './PositionTab';
 
 export interface PendleModalProps {
@@ -54,17 +55,13 @@ export const PendleModal: React.FC<PendleModalProps> = ({
     {
       id: 'overview',
       title: t('pendleModal.overviewTab'),
-      content: (
-        <div className="flex items-center justify-center py-8">
-          <span className="text-b1r text-grey">{t('pendleModal.overviewComingSoon')}</span>
-        </div>
-      ),
+      content: <OverviewTab vault={vault} />,
     },
   ];
 
   return (
     <Modal isOpen={isOpen} handleClose={handleClose} title={title}>
-      <Tabs tabs={tabs} variant="secondary" />
+      <Tabs tabs={tabs} variant="secondary" buttonClassName="flex-1" />
     </Modal>
   );
 };

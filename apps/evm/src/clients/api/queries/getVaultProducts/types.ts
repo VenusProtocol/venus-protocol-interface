@@ -1,4 +1,5 @@
 import type { ChainId } from 'types';
+import type { Address } from 'viem';
 
 export type GetVaultProductsInput = {
   chainId: ChainId;
@@ -17,15 +18,15 @@ type VaultProductProtocolData = {
   ptTokenSymbol: string;
   underlyingApy: number;
   liquidityCents: string;
-  ptTokenAddress: string;
+  ptTokenAddress: Address;
   accountingAsset: VaultProductAsset;
   ptTokenPriceUsd: number;
   underlyingAsset: VaultProductAsset;
-  pendleMarketAddress: string;
+  pendleMarketAddress: Address;
 };
 
 type VaultProductUnderlyingToken = {
-  address: string;
+  address: Address;
   chainId: string;
   name: string | null;
   symbol: string | null;
@@ -39,8 +40,8 @@ type VaultProduct = {
   id: string;
   chainId: string;
   protocol: string;
-  vTokenAddress: string;
-  underlyingAssetAddress: string;
+  vTokenAddress: Address;
+  underlyingAssetAddress: Address;
   fixedApyDecimal: string;
   maturityDate: string;
   protocolData: VaultProductProtocolData;

@@ -98,7 +98,9 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
         >
           {(!!leftIconSrc || leftAdornment) && (
             <div className="flex items-center gap-x-2 shrink-0">
-              {typeof leftIconSrc === 'string' && <Icon name={leftIconSrc} className="size-5" />}
+              {typeof leftIconSrc === 'string' && (
+                <Icon name={leftIconSrc as IconName} className="size-5" />
+              )}
 
               {!!leftIconSrc && typeof leftIconSrc !== 'string' && (
                 <TokenIconWithSymbol token={leftIconSrc} size="md" />
@@ -129,7 +131,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
           </div>
         </div>
 
-        {!!description && <div className="block mt-1 text-grey text-sm">{description}</div>}
+        {!!description && <div className="block text-grey text-sm">{description}</div>}
       </div>
     );
   },

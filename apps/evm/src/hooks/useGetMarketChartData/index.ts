@@ -6,7 +6,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { ApyChartProps } from 'pages/Market/MarketHistory/Card/ApyChart';
 import type { VToken } from 'types';
 
-const useGetChartData = ({
+export const useGetMarketChartData = ({
   vToken,
   period,
 }: { vToken: VToken; period: MarketHistoryPeriodType }) => {
@@ -22,7 +22,7 @@ const useGetChartData = ({
       period,
     },
     {
-      enabled: isApyChartsFeatureEnabled,
+      enabled: isApyChartsFeatureEnabled && !!vToken,
     },
   );
 
@@ -56,5 +56,3 @@ const useGetChartData = ({
     data,
   };
 };
-
-export default useGetChartData;

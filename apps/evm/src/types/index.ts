@@ -489,6 +489,7 @@ interface VaultMetadata {
   category: VaultCategory;
   manager: VaultManager;
   managerIcon: IconName;
+  managerAddress?: Address;
   status: VaultStatus;
   key: string;
 }
@@ -513,9 +514,10 @@ export interface Vault extends VaultData, VaultMetadata {}
 export interface PendleVaultData extends BaseVault {
   key: string;
   maturityDate?: number;
-  maxDeposited?: BigNumber;
-  depositEndDate?: number;
-  duration?: number; // TBD
+  liquidityCents: BigNumber;
+  stakedTokenPriceUsd: BigNumber;
+  rewardTokenPriceUsd: BigNumber;
+  vToken: VToken;
 }
 
 export interface PendleVault extends PendleVaultData, VaultMetadata {}

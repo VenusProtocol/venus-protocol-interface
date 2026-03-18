@@ -7,17 +7,28 @@ export const useVaultUsdValues = (vault: AnyVault) => {
   const dailyEmissionMantissa =
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
 
-  const { data: tokenPrices, isLoading: isTokensPriceLoading } = useGetTokenListUsdPrice({
-    tokens: [stakedToken, rewardToken],
-  });
+  const { data: tokenPrices, isLoading: isTokensPriceLoading } = useGetTokenListUsdPrice(
+    {
+      tokens: [stakedToken, rewardToken],
+    },
+    {
+      enabled: !('stakedTokenPriceUsd' in vault || 'rewardTokenPriceUsd' in vault),
+    },
+  );
 
   const [stakedTokenPrice, rewardTokenPrice] = tokenPrices ?? [];
 
   return {
     isLoading: isTokensPriceLoading,
     data: {
-      stakedTokenPriceUsd: stakedTokenPrice?.tokenPriceUsd,
-      rewardTokenPriceUsd: rewardTokenPrice?.tokenPriceUsd,
+      stakedTokenPriceUsd:
+        'stakedTokenPriceUsd' in vault
+          ? vault.stakedTokenPriceUsd
+          : stakedTokenPrice?.tokenPriceUsd,
+      rewardTokenPriceUsd:
+        'rewardTokenPriceUsd' in vault
+          ? vault.rewardTokenPriceUsd
+          : rewardTokenPrice?.tokenPriceUsd,
       userStakedUsdCents:
         userStakedMantissa && stakedTokenPrice?.tokenPriceUsd
           ? convertPriceMantissaToDollars({
