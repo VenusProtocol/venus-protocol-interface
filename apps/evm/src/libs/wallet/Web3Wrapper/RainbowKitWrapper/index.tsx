@@ -49,6 +49,7 @@ const ConnectionRecovery: React.FC = () => {
 
     timerRef.current = setTimeout(async () => {
       await wagmiReconnect(config);
+      window.location.reload();
     }, 5000);
 
     return () => clearTimeout(timerRef.current);
