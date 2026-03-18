@@ -675,6 +675,16 @@ export const useGetYieldPlusPositions = vi.fn(() =>
   }),
 );
 
+export const getDexKlineCandles = vi.fn(async () => ({
+  candles: [],
+}));
+export const useGetDexKlineCandles = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_DEX_KLINE_CANDLES],
+    queryFn: getDexKlineCandles,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

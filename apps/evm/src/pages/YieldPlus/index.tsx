@@ -1,7 +1,10 @@
 import { useSearchParams } from 'react-router';
 
+import { useGetDexKlineCandles } from 'clients/api';
 import { Card, KLineChart, Page } from 'components';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useGetTokens } from 'libs/tokens';
+import { areAddressesEqual } from 'utilities';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
 import { PairInfo } from './PairInfo';
@@ -9,102 +12,44 @@ import { Positions } from './Positions';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from './constants';
 import { useTokenPair } from './useTokenPair';
 
-const data = [
-  // TODO: fetch
-  {
-    timestamp: 1517846400000,
-    open: 7424.6,
-    high: 7511.3,
-    low: 6032.3,
-    close: 7310.1,
-    volume: 224461,
-  },
-  {
-    timestamp: 1517932800000,
-    open: 7310.1,
-    high: 8499.9,
-    low: 6810,
-    close: 8165.4,
-    volume: 148807,
-  },
-  {
-    timestamp: 1518019200000,
-    open: 8166.7,
-    high: 8700.8,
-    low: 7400,
-    close: 8245.1,
-    volume: 24467,
-  },
-  {
-    timestamp: 1518105600000,
-    open: 8244,
-    high: 8494,
-    low: 7760,
-    close: 8364,
-    volume: 29834,
-  },
-  {
-    timestamp: 1518192000000,
-    open: 8363.6,
-    high: 9036.7,
-    low: 8269.8,
-    close: 8311.9,
-    volume: 28203,
-  },
-  {
-    timestamp: 1518278400000,
-    open: 8301,
-    high: 8569.4,
-    low: 7820.2,
-    close: 8426,
-    volume: 59854,
-  },
-  {
-    timestamp: 1518364800000,
-    open: 8426,
-    high: 8838,
-    low: 8024,
-    close: 8640,
-    volume: 54457,
-  },
-  {
-    timestamp: 1518451200000,
-    open: 8640,
-    high: 8976.8,
-    low: 8360,
-    close: 8500,
-    volume: 51156,
-  },
-  {
-    timestamp: 1518537600000,
-    open: 8504.9,
-    high: 9307.3,
-    low: 8474.3,
-    close: 9307.3,
-    volume: 49118,
-  },
-  {
-    timestamp: 1518624000000,
-    open: 9307.3,
-    high: 9897,
-    low: 9182.2,
-    close: 9774,
-    volume: 48092,
-  },
-];
+const KLINE_INTERVAL = '1d' as const;
+const KLINE_LIMIT = 300;
 
 const YieldPlus: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { shortToken, longToken } = useTokenPair();
+  const tokens = useGetTokens();
 
-  const longTokenAddress = searchParams.get(LONG_TOKEN_ADDRESS_PARAM_KEY);
-  const shortTokenAddress = searchParams.get(SHORT_TOKEN_ADDRESS_PARAM_KEY);
+  const longTokenAddressParam = searchParams.get(LONG_TOKEN_ADDRESS_PARAM_KEY);
+  const shortTokenAddressParam = searchParams.get(SHORT_TOKEN_ADDRESS_PARAM_KEY);
 
   const doNotShowBanner = store.use.doNotShowBanner();
 
+  const longTokenDexAddress = useMemo(() => {
+    if (!longToken.isNative) return longToken.address;
+    const wrappedToken = tokens.find(t =>
+      areAddressesEqual(t.tokenWrapped?.address ?? '', longToken.address),
+    );
+    return wrappedToken?.address ?? longToken.address;
+  }, [longToken, tokens]);
+
+  const { data: klineData } = useGetDexKlineCandles({
+    address: longTokenDexAddress,
+    interval: KLINE_INTERVAL,
+    limit: KLINE_LIMIT,
+  });
+
+  const changePercentage = useMemo(() => {
+    const candles = klineData?.candles;
+    if (!candles || candles.length < 2) return undefined;
+    const prev = candles[candles.length - 2].close;
+    const curr = candles[candles.length - 1].close;
+    return prev !== 0 ? ((curr - prev) / prev) * 100 : undefined;
+  }, [klineData]);
+
   // Update token search params if they are empty or incorrect
   useEffect(() => {
-    if (shortToken.address !== shortTokenAddress || longToken.address !== longTokenAddress) {
+    if (shortToken.address !== shortTokenAddressParam || longToken.address !== longTokenAddressParam) {
       setSearchParams(
         currentSearchParams => ({
           ...Object.fromEntries(currentSearchParams),
@@ -116,18 +61,21 @@ const YieldPlus: React.FC = () => {
         },
       );
     }
-  }, [shortToken, longToken, longTokenAddress, shortTokenAddress, setSearchParams]);
+  }, [shortToken, longToken, longTokenAddressParam, shortTokenAddressParam, setSearchParams]);
 
   return (
     <Page>
       <div className="flex flex-col gap-y-6 lg:grid lg:grid-cols-[6fr_4fr] lg:gap-6 xl:grid-cols-[8fr_4fr]">
         <div className="flex flex-col gap-y-6">
-          <PairInfo />
+          <PairInfo changePercentage={changePercentage} />
 
           {!doNotShowBanner && <Banner className="lg:hidden" />}
 
           <Card className="p-0 overflow-hidden bg-dark-blue h-80 shrink-0 lg:h-114">
-            <KLineChart title={`${longToken.symbol}/${shortToken.symbol}`} data={data} />
+            <KLineChart
+              title={`${longToken.symbol}/${shortToken.symbol}`}
+              data={klineData?.candles ?? []}
+            />
           </Card>
 
           <Positions />

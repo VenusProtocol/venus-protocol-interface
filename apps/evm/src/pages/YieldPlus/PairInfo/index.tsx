@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { useSearchParams } from 'react-router';
 
 import { useGetPool } from 'clients/api';
@@ -16,7 +17,11 @@ import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from '../
 import { useTokenPair } from '../useTokenPair';
 import { TokenSelect } from './TokenSelect';
 
-export const PairInfo: React.FC = () => {
+export interface PairInfoProps {
+  changePercentage: number | undefined;
+}
+
+export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage }) => {
   const { t } = useTranslation();
   const { corePoolComptrollerContractAddress } = useChain();
   const { shortToken, longToken } = useTokenPair();
@@ -34,8 +39,6 @@ export const PairInfo: React.FC = () => {
       ...Object.fromEntries(currentSearchParams),
       [SHORT_TOKEN_ADDRESS_PARAM_KEY]: newShortToken.address,
     }));
-
-  const changePercentage = 3.32; // TODO: fetch
 
   const { data: getPoolData } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
@@ -78,7 +81,10 @@ export const PairInfo: React.FC = () => {
     ? priceLongTokens.dp(6).toFixed()
     : PLACEHOLDER_KEY;
 
-  const readableChangePercentage = formatPercentageToReadableValue(changePercentage);
+  const readableChangePercentage =
+    changePercentage !== undefined
+      ? formatPercentageToReadableValue(changePercentage)
+      : PLACEHOLDER_KEY;
 
   const cells: CellProps[] = [
     {
@@ -142,7 +148,16 @@ export const PairInfo: React.FC = () => {
           <div className="flex items-center gap-x-2">
             <p className="text-p3s">{readablePriceLongTokens}</p>
 
-            <p className="text-b1s text-green">{readableChangePercentage}</p>
+            <p
+              className={cn(
+                'text-b1s',
+                changePercentage === undefined || changePercentage >= 0
+                  ? 'text-green'
+                  : 'text-red',
+              )}
+            >
+              {readableChangePercentage}
+            </p>
           </div>
         </div>
 

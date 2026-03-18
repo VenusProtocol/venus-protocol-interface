@@ -243,3 +243,6 @@ export * from './queries/getProposalCount/useGetProposalCount';
 
 export * from './queries/getYieldPlusPositions';
 export * from './queries/getYieldPlusPositions/useGetYieldPlusPositions';
+
+export * from './queries/getDexKlineCandles';
+export * from './queries/getDexKlineCandles/useGetDexKlineCandles';

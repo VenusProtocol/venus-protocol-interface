@@ -10,6 +10,7 @@ export interface Config {
   network: Network;
   isSafeApp: boolean;
   apiUrl: string;
+  dexApiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string[];
   };
@@ -45,6 +46,7 @@ const config: Config = {
   network,
   isSafeApp,
   apiUrl,
+  dexApiUrl: envVariables.VITE_DEX_API_URL || '',
   rpcUrls,
   governanceSubgraphUrls,
   sentryDsn: envVariables.VITE_SENTRY_DSN || '',
