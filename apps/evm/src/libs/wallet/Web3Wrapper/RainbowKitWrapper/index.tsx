@@ -6,14 +6,12 @@ import {
   useConnectModal,
 } from '@rainbow-me/rainbowkit';
 import { theme } from '@venusprotocol/ui';
-import { reconnect as wagmiReconnect } from '@wagmi/core';
 import merge from 'lodash.merge';
 import { type PropsWithChildren, useEffect, useRef } from 'react';
 import { useAccount, useConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import { useTranslation } from 'libs/translations';
-import { defaultChain } from 'libs/wallet/chains';
 
 export interface RainwbowKitWrapperProps extends PropsWithChildren {}
 
@@ -39,9 +37,8 @@ const rkTheme = merge(
 const ConnectionRecovery: React.FC = () => {
   const config = useConfig();
   const { connectModalOpen } = useConnectModal();
-  const { status, chainId, connector } = useAccount();
+  const { status } = useAccount();
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const prevStatusRef = useRef<string>(status);
 
   useEffect(() => {
     if (!connectModalOpen || status !== 'connecting') {
@@ -50,25 +47,11 @@ const ConnectionRecovery: React.FC = () => {
     }
 
     timerRef.current = setTimeout(async () => {
-      await wagmiReconnect(config);
+      window.location.reload();
     }, 5000);
 
     return () => clearTimeout(timerRef.current);
   }, [connectModalOpen, status, config]);
-
-  useEffect(() => {
-    const prevStatus = prevStatusRef.current;
-    prevStatusRef.current = status;
-
-    if (
-      prevStatus === 'disconnected' &&
-      status === 'connected' &&
-      connector?.type === 'walletConnect' &&
-      chainId !== defaultChain.id
-    ) {
-      window.location.reload();
-    }
-  }, [status, chainId, connector]);
 
   return null;
 };
