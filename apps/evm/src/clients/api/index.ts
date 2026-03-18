@@ -238,5 +238,8 @@ export * from './queries/getSimulatedPool/useGetSimulatedPool';
 export * from './queries/getSwapQuote';
 export * from './queries/getSwapQuote/useGetSwapQuote';
 
+export * from './queries/getPendleSwapQuote';
+export * from './queries/getPendleSwapQuote/useGetPendleSwapQuote';
+
 export * from './queries/getProposalCount';
 export * from './queries/getProposalCount/useGetProposalCount';

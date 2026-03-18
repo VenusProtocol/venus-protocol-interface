@@ -2,7 +2,7 @@ import { PrimaryButton, cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useGetBalanceOf } from 'clients/api';
+import { useGetBalanceOf, useGetPendleSwapQuote } from 'clients/api';
 import { ButtonGroup, LabeledInlineContent, NoticeInfo, Slider, TokenTextField } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
@@ -18,6 +18,9 @@ import {
   formatPercentageToReadableValue,
 } from 'utilities';
 
+import { SwapDetails } from 'containers/SwapDetails';
+import useDebounceValue from 'hooks/useDebounceValue';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { ConvertDetails } from '../ConvertDetails';
 import useForm, { type FormValues } from './useForm';
 
@@ -116,10 +119,32 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     }
   };
 
+  const _debouncedInputAmountTokens = useDebounceValue(formValues.amountTokens || 0);
+  const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
+
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
+
+  const {
+    data: getSwapQuoteData,
+    error: getSwapQuoteError,
+    isLoading: isGetSwapQuoteLoading,
+  } = useGetPendleSwapQuote(
+    {
+      fromToken: vault.rewardToken,
+      toToken: vault.stakedToken,
+      amount: debouncedInputAmountTokens,
+      slippagePercentage: userSlippageTolerancePercentage,
+    },
+    {
+      enabled: debouncedInputAmountTokens.isGreaterThan(0),
+    },
+  );
+
   const { handleSubmit, isFormValid, formError } = useForm({
     onSubmit: handleOnSubmit,
     formValues,
     setFormValues,
+    swapQuoteErrorCode: getSwapQuoteError?.code,
     availableTokens,
     token: balanceToken,
   });
@@ -156,6 +181,13 @@ export const PositionTab: React.FC<PositionTabProps> = ({
       amountTokens: availableTokens.toFixed(),
     }));
   };
+
+  const disableInput = isBalanceLoading || isSubmitting;
+  const disableSubmit = isBalanceLoading || !isFormValid || isSubmitting || isGetSwapQuoteLoading;
+
+  const submitButtonLabel = isStake
+    ? t('pendleModal.submitStake')
+    : t('pendleModal.submitWithdraw');
 
   // When wallet is disconnected, show minimal view
   if (!accountAddress) {
@@ -203,7 +235,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
             token={balanceToken}
             value={formValues.amountTokens}
             onChange={amountTokens => setFormValues(curr => ({ ...curr, amountTokens }))}
-            disabled={isBalanceLoading || isSubmitting}
+            disabled={disableInput}
             rightMaxButton={{
               label: t('pendleModal.max'),
               onClick: handleMaxButtonClick,
@@ -249,8 +281,10 @@ export const PositionTab: React.FC<PositionTabProps> = ({
 
         {/* Convert details */}
         <ConvertDetails
-          fromSymbol={isStake ? vault.rewardToken.symbol : vault.stakedToken.symbol}
-          toSymbol={isStake ? vault.stakedToken.symbol : vault.rewardToken.symbol}
+          fromToken={isStake ? vault.rewardToken : vault.stakedToken}
+          toToken={isStake ? vault.stakedToken : vault.rewardToken}
+          slippagePercentage={userSlippageTolerancePercentage}
+          estReceived={getSwapQuoteData?.estimatedOutput?.amount}
         />
 
         {/* Effective Fixed APR (stake mode only) */}
@@ -288,11 +322,19 @@ export const PositionTab: React.FC<PositionTabProps> = ({
           <PrimaryButton
             type="submit"
             loading={isSubmitting}
-            disabled={!isFormValid || isSubmitting}
+            disabled={disableSubmit}
             className="w-full"
           >
-            {isStake ? t('pendleModal.submitStake') : t('pendleModal.submitWithdraw')}
+            {isFormValid ? submitButtonLabel : t('pendleModal.submitButtonDisabledLabel')}
           </PrimaryButton>
+
+          {vault && (
+            <SwapDetails
+              fromToken={vault.rewardToken}
+              toToken={vault.stakedToken}
+              priceImpactPercentage={getSwapQuoteData?.priceImpact}
+            />
+          )}
         </ConnectWallet>
 
         {/* Disclaimer notice */}

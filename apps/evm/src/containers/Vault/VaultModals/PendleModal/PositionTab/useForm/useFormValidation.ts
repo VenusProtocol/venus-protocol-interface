@@ -10,6 +10,7 @@ interface UseFormValidationInput {
   formValues: FormValues;
   availableTokens: BigNumber;
   token: Token;
+  swapQuoteErrorCode?: string;
 }
 
 interface UseFormValidationOutput {
@@ -21,6 +22,7 @@ const useFormValidation = ({
   formValues,
   availableTokens,
   token,
+  swapQuoteErrorCode,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
@@ -29,21 +31,28 @@ const useFormValidation = ({
       ? new BigNumber(formValues.amountTokens)
       : undefined;
 
+    if (swapQuoteErrorCode === 'noSwapQuoteFound') {
+      return {
+        code: 'NO_SWAP_QUOTE_FOUND' as const,
+        message: t('pendleModal.error.noSwapQuoteFound'),
+      };
+    }
+
     if (!amountTokens || amountTokens.isNaN() || amountTokens.isLessThanOrEqualTo(0)) {
       return {
-        code: 'EMPTY_TOKEN_AMOUNT',
+        code: 'EMPTY_TOKEN_AMOUNT' as const,
       };
     }
 
     if (amountTokens.isGreaterThan(availableTokens)) {
       return {
-        code: 'HIGHER_THAN_WALLET_BALANCE',
+        code: 'HIGHER_THAN_WALLET_BALANCE' as const,
         message: t('pendleModal.error.higherThanBalance', {
           tokenSymbol: token.symbol,
         }),
       };
     }
-  }, [formValues.amountTokens, availableTokens, token.symbol, t]);
+  }, [formValues.amountTokens, availableTokens, token.symbol, t, swapQuoteErrorCode]);
 
   return {
     isFormValid: !formError,

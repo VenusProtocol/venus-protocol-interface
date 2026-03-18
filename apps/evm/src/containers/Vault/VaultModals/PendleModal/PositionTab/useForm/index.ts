@@ -12,6 +12,7 @@ export interface UseFormInput {
   onSubmit: () => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (current: FormValues) => FormValues) => void;
+  swapQuoteErrorCode?: string;
   availableTokens: BigNumber;
   token: Token;
 }
@@ -26,12 +27,14 @@ const useForm = ({
   onSubmit,
   formValues,
   setFormValues,
+  swapQuoteErrorCode,
   availableTokens,
   token,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
     formValues,
     availableTokens,
+    swapQuoteErrorCode,
     token,
   });
 

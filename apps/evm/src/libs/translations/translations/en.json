@@ -1107,10 +1107,11 @@
     "currentStakedTooltip": "Your current staked position in PT tokens",
     "daysRemaining": "{{days}} days",
     "effectiveFixedApr": "Effective Fixed APR",
-    "error": {
-      "higherThanBalance": "Amount exceeds your available {{tokenSymbol}} balance"
-    },
     "effectiveFixedAprTooltip": "The fixed APY you receive at maturity based on current Pendle market prices",
+    "error": {
+      "higherThanBalance": "Amount exceeds your available {{tokenSymbol}} balance",
+      "noSwapQuoteFound": "No swap found. Please update the form."
+    },
     "estPenalty": "Est. Penalty",
     "estReceived": "Est. Received",
     "estYield": "Est. Yield",
@@ -1120,37 +1121,28 @@
     "max": "Max",
     "minReceived": "Min. Received",
     "overview": {
-      "chartTooltip": {
-        "date": "Date",
-        "totalStaked": "Total Staked"
-      },
+      "manager": "Manager",
       "marketInfo": "Market info",
       "marketRiskDisclosures": "Market Risk Disclosures",
-      "manager": "Manager",
       "riskDisclosureText": "Venus Protocol, accessible at venus.io, is a decentralized lending and borrowing platform built on the BNB Chain that focuses on crypto money markets. Launched in 2020, it combines elements of Maker's overcollateralized stablecoin design with Compound-style algorithmic money markets, allowing users to supply crypto assets, earn yield, and borrow against their collateral in a single application. The protocol is governed by its community and aims to provide a non-custodial, transparent alternative to centralized lenders.",
-      "strategyAllocation": "Strategy Allocation",
       "strategy": {
         "pendleRouter": "Pendle Router",
         "supply": "Supply",
         "users": "Users",
         "venusCore": "Venus Core"
       },
-      "timeRange": {
-        "30d": "30D",
-        "6m": "6M",
-        "1y": "1Y"
-      },
+      "strategyAllocation": "Strategy Allocation",
+      "supply": "Supply",
       "totalDeposits": "Total Deposits",
       "totalStaked": "Total Staked",
       "vaultDeploymentDate": "Vault Deployment Date"
     },
-    "overviewComingSoon": "Coming soon",
     "overviewTab": "Overview",
     "pendleFee": "Pendle Fee",
     "positionTab": "Position",
     "stake": "Stake",
     "stakeLabel": "Stake",
-    "submitDisabled": "Enter a valid amount to request",
+    "submitButtonDisabledLabel": "Enter a valid amount to request",
     "submitStake": "Stake",
     "submitWithdraw": "Withdraw",
     "withdraw": "Withdraw"
@@ -1870,6 +1862,7 @@
       "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
       "currentStaked": "Currently staked",
       "dailyEmission": "Daily emission",
+      "liquidity": "Liquidity",
       "manager": "Manager",
       "numDays_one": "{{count}} day",
       "numDays_other": "{{count}} days",
