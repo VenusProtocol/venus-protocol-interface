@@ -6,9 +6,10 @@ import {
   useConnectModal,
 } from '@rainbow-me/rainbowkit';
 import { theme } from '@venusprotocol/ui';
+import { reconnect as wagmiReconnect } from '@wagmi/core';
 import merge from 'lodash.merge';
 import { type PropsWithChildren, useEffect, useRef } from 'react';
-import { useAccount, useConfig } from 'wagmi';
+import { useAccount, useConnect, useConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import { useTranslation } from 'libs/translations';
@@ -47,11 +48,30 @@ const ConnectionRecovery: React.FC = () => {
     }
 
     timerRef.current = setTimeout(async () => {
-      window.location.reload();
+      await wagmiReconnect(config);
     }, 5000);
 
     return () => clearTimeout(timerRef.current);
   }, [connectModalOpen, status, config]);
+
+  return null;
+};
+
+const ConnectionLogger: React.FC = () => {
+  const { status, chainId, connector } = useAccount();
+  useConnect({
+    mutation: {
+      onSuccess: data => {
+        console.log(`[onSuccess] chainId=${data.chainId}, accounts=${data.accounts}`);
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (status === 'connected') {
+      console.log(`[useAccount] connected, chainId=${chainId}, connector=${connector?.name}, type=${connector?.type}`);
+    }
+  }, [status, chainId, connector]);
 
   return null;
 };
@@ -68,6 +88,7 @@ export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children
       theme={rkTheme}
     >
       <ConnectionRecovery />
+      <ConnectionLogger />
       {children}
     </RainbowKitProvider>
   );
