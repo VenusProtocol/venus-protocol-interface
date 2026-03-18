@@ -1,6 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
+import { ONE_HOUR_MS } from 'constants/time';
 import { type GetIsAddressAuthorizedOutput, getIsAddressAuthorized } from '.';
 
 export type UseGetIsAddressAuthorizedQueryKey = [
@@ -15,8 +16,6 @@ type Options = QueryObserverOptions<
   GetIsAddressAuthorizedOutput,
   UseGetIsAddressAuthorizedQueryKey
 >;
-
-const ONE_HOUR_MS = 60 * 60 * 1000;
 
 export const useGetIsAddressAuthorized = (accountAddress: string, options?: Partial<Options>) =>
   useQuery({

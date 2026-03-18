@@ -1,6 +1,7 @@
 import type BigNumber from 'bignumber.js';
 
-import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
+import { useStakeInVaiVault } from 'clients/api/mutations/useStakeInVaiVault';
+import { useStakeInXvsVault } from 'clients/api/mutations/useStakeInXvsVault';
 import { VError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import type { Token } from 'types';

@@ -1,5 +1,4 @@
-import type { Token } from 'types';
-import type { CommonErrorCode } from '../../../types';
+import type { CommonTxFormErrorCode, Token } from 'types';
 
 export interface FormValues {
   fromToken: Token;
@@ -9,7 +8,7 @@ export interface FormValues {
 }
 
 export type FormErrorCode =
-  | CommonErrorCode
+  | CommonTxFormErrorCode
   | 'EMPTY_TOKEN_AMOUNT'
   | 'HIGHER_THAN_REPAY_BALANCE'
   | 'HIGHER_THAN_WALLET_BALANCE'

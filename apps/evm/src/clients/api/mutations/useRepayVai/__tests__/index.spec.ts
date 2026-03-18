@@ -1,7 +1,7 @@
 import fakeAccountAddress from '__mocks__/models/address';
 import { vai } from '__mocks__/models/tokens';
 import BigNumber from 'bignumber.js';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetToken } from 'libs/tokens';

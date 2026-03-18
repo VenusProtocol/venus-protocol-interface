@@ -33,7 +33,7 @@ export const OperationDetails: React.FC<OperationDetailsProps> = ({
       </>
     )}
 
-    <BalanceUpdates pool={pool} simulatedPool={simulatedPool} balanceMutations={balanceMutations} />
+    <BalanceUpdates pool={pool} balanceMutations={balanceMutations} />
 
     <Delimiter />
 

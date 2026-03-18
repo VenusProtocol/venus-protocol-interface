@@ -91,9 +91,16 @@ export const useStyles = (props?: StylesProps) => {
     getTableRow: ({ clickable, rounded }: { clickable: boolean; rounded: boolean }) => css`
       height: ${theme.spacing(18)};
 
-      :hover {
+      &:hover:not(:has(button:hover)) {
         background-color: ${theme.palette.interactive.hover} !important;
         overflow: hidden;
+      }
+
+      ${
+        clickable &&
+        css`
+            cursor: pointer;
+          `
       }
 
       ${
@@ -107,13 +114,6 @@ export const useStyles = (props?: StylesProps) => {
           > td:last-child {
             border-bottom-right-radius: ${theme.spacing(2)}; 
             border-top-right-radius: ${theme.spacing(2)}; 
-          }
-
-          ${
-            clickable &&
-            css`
-            cursor: pointer;
-          `
           }
         `
       }
@@ -130,9 +130,12 @@ export const useStyles = (props?: StylesProps) => {
     loader: css`
       margin-bottom: ${theme.spacing(5)};
     `,
-    table: ({ minWidth }: { minWidth: string }) => css`
+    table: ({
+      minWidth,
+      tableLayout,
+    }: { minWidth: string; tableLayout: CSSProperties['tableLayout'] }) => css`
       min-width: ${minWidth};
-      table-layout: fixed;
+      table-layout: ${tableLayout};
 
       .MuiTableCell-root {
         border-width: 0;

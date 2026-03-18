@@ -88,13 +88,7 @@
           "all": "所有市场"
         },
         "txType": {
-          "all": "所有交易",
-          "borrow": "借款",
-          "enterMarket": "启用可抵押",
-          "exitMarket": "禁用可抵押",
-          "mint": "存款",
-          "redeem": "取款",
-          "repay": "偿还"
+          "all": "所有交易"
         }
       },
       "today": "今天",
@@ -104,13 +98,21 @@
       },
       "txType": {
         "borrow": "借款",
-        "enterMarket": "启用可抵押",
-        "exitMarket": "禁用可抵押",
+        "enterMarket": "启用抵押",
+        "exitMarket": "禁用抵押",
         "mint": "存款",
+        "positionClosedWithLoss": "已停用（亏损） • Yield+",
+        "positionClosedWithProfit": "已停用（盈利） • Yield+",
+        "positionIncreased": "增加 • Yield+",
+        "positionOpened": "开仓 • Yield+",
+        "positionReducedWithLoss": "减少（亏损） • Yield+",
+        "positionReducedWithProfit": "减少（盈利） • Yield+",
+        "principalSupplied": "存款 • Yield+",
+        "principalWithdrawn": "取款 • Yield+",
+        "realizedPnl": "已实现盈亏 • Yield+",
         "redeem": "取款",
-        "repay": "偿还"
+        "repay": "还款"
       },
-      "view": "查看",
       "yesterday": "昨天"
     },
     "vaults": {
@@ -283,6 +285,9 @@
     "borrowDescription": "根据你在 {{poolName}} 池中的可抵押存款，可借入 {{tokenSymbol}}。<Button>显示全部代币</Button>",
     "modalTitle": "{{ poolName }} 代币",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
+  },
+  "availableBalance": {
+    "label": "可用"
   },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "背景插图",
@@ -533,7 +538,7 @@
     "noMetaKey": "文件中没有元数据信息",
     "noParamsKey": "文件中没有参数列表",
     "noSignaturesKey": "文件中没有调用签名",
-    "noSwapQuoteFound": "未找到兑换报价。请更新表单。",
+    "noSwapQuoteFound": "未找到兑换。",
     "noTargetsKey": "文件中没有目标列表",
     "noTypeKey": "文件中未指明提案类型",
     "proposalNotFound": "未找到提案",
@@ -765,6 +770,9 @@
         "vai": {
           "description": "铸造 Venus 的原生稳定币。",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1040,10 +1048,27 @@
       "higherThanWalletBalance": "{{tokenSymbol}} 余额不足",
       "higherThanWalletSpendingLimit": "你输入的金额超过该资产的支出限额。请先撤销支出限额并设置新的限额后再继续交易。",
       "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
-      "noSwapQuoteFound": "未找到兑换报价。请更新表单。",
+      "noSwapQuoteFound": "未找到兑换。",
       "priceImpactTooHigh": "价格影响过高",
       "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
       "tooRisky": "该交易会导致账户被清算"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "当前杠杆下的最大仓位：{{ value }}",
+      "submitButtonLabel": "确认",
+      "title": "杠杆倍数",
+      "warning": "杠杆会影响你的资金利用率，并且在你完全平仓前无法更改。"
+    },
+    "managePositionsTabs": {
+      "collateral": "可抵押",
+      "position": "仓位",
+      "positionsTabs": {
+        "increase": "增加",
+        "reduce": "减少",
+        "supply": "存款",
+        "withdraw": "取款"
+      }
     },
     "receiveNativeToken": {
       "label": "接收 {{tokenSymbol}}",
@@ -1064,8 +1089,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
-      "highRisk": "高风险",
-      "lowRisk": "低风险"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "安全最大值",
     "submitButtonLabel": {
@@ -1809,34 +1834,21 @@
       "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
       "currentStaked": "当前质押",
       "dailyEmission": "每日奖励释放",
-      "manager": "管理机构",
       "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、质押和提款功能已禁用，直至金库恢复运作。",
       "stake": "质押",
       "stakingApr": "{{stakeTokenName}} 质押 APR",
       "totalDeposited": "总存款",
       "totalStaked": "总质押",
-      "venusManager": "Venus",
       "withdraw": "取款",
-      "youAreStake": "你正在质押",
-      "youStaked": "您已质押"
+      "youAreStake": "你正在质押"
     },
     "filter": {
-      "active": "活跃",
       "allCategories": "所有类别",
       "allManagers": "所有管理机构",
-      "allStates": "所有状态",
-      "claim": "领取",
-      "deposit": "存款",
-      "earning": "收益中",
       "inputPlaceholder": "搜索资产",
       "others": "其他",
-      "paused": "已暂停",
-      "refund": "退款",
-      "repaying": "还款中",
-      "rwa": "RWA",
       "stablecoins": "稳定币",
-      "vaults": "金库",
-      "yieldTokens": "收益代币"
+      "vaults": "金库"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} 硬币插图",
@@ -2113,5 +2125,112 @@
       "submitButton": "取款"
     },
     "withdrawTabTitle": "取款"
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ 插图",
+      "learnMore": "了解更多",
+      "title": "什么是 Yield+？"
+    },
+    "closePositionModal": {
+      "title": "关闭"
+    },
+    "longLiquidity": "多头流动性",
+    "longSupplyApy": "{{ longTokenSymbol }} 存款 APY",
+    "longTokenSelect": {
+      "label": "多头"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "增加"
+      },
+      "invalidLiquidationPrice": "不适用",
+      "openForm": {
+        "averageEntryPrice": "平均开仓价",
+        "collateral": "可抵押",
+        "dsaFieldLabel": "可抵押",
+        "entryPrice": "开仓价",
+        "liquidationPrice": "清算价",
+        "long": "多头",
+        "longFieldLabel": "多头",
+        "netApy": "净 APY",
+        "pnl": "已实现盈亏",
+        "short": "空头",
+        "shortFieldLabel": "空头",
+        "submitButtonLabel": "开仓"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "关闭",
+          "reduce": "减少"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "存款"
+      },
+      "walletBalance": "钱包余额",
+      "warning": {
+        "cannotBorrowShort": "该仓位的空头代币借款已被禁用",
+        "cannotRepayShort": "该仓位的空头代币还款已被禁用",
+        "cannotSupplyDsa": "该仓位的抵押品代币存款已被禁用",
+        "cannotSupplyLong": "该仓位的多头代币存款已被禁用",
+        "cannotWithdrawDsa": "该仓位的抵押品代币取款已被禁用",
+        "cannotWithdrawLong": "该仓位的多头代币取款已被禁用",
+        "notEnoughLeverage": "该代币对不支持至少 {{ minimumLeverageFactor }} 的杠杆倍数，而这是开立 Yield+ 仓位所需的最低值"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "取款"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "关闭",
+      "placeholder": {
+        "title": "暂无仓位"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "可抵押"
+        },
+        "healthFactor": {
+          "label": "健康系数",
+          "tooltip": "清算阈值 < 1.0"
+        },
+        "netApy": {
+          "label": "净 APY"
+        },
+        "netValue": {
+          "label": "净值"
+        },
+        "title": "状态"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP"
+        },
+        "liquidationPrice": {
+          "title": "清算价"
+        },
+        "longColumn": {
+          "title": "多头"
+        },
+        "pnlColumn": {
+          "title": "盈亏"
+        },
+        "positionColumn": {
+          "title": "仓位"
+        },
+        "shortColumn": {
+          "title": "空头"
+        }
+      },
+      "transactions": {
+        "title": "交易"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
+    "shortLiquidity": "空头流动性",
+    "shortTokenSelect": {
+      "label": "空头"
+    }
   }
 }

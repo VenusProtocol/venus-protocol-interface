@@ -1,4 +1,3 @@
-import { cn } from '@venusprotocol/ui';
 import type { Address } from 'viem';
 
 import { type ModalProps, Tabs } from 'components';
@@ -118,8 +117,7 @@ export const OperationForm: React.FC<OperationFormProps> = ({
       tabs={tabs}
       initialActiveTabId={initialActiveTabId}
       navType={navType}
-      variant={isLeveragedPositionsFeatureEnabled ? 'secondary' : 'primary'}
-      headerClassName={cn(isLeveragedPositionsFeatureEnabled && 'sm:gap-x-8 lg:gap-x-6')}
+      variant="secondary"
     />
   );
 };

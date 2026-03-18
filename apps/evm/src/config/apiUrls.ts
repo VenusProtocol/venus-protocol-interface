@@ -1,9 +1,9 @@
 import type { Network } from 'types';
 
-export const apiUrls: {
+export const apiHosts: {
   [key in Network]: string;
 } = {
-  testnet: 'https://testnetapi.venus.io',
-  mainnet: 'https://api.venus.io',
-  'mainnet-preview': 'https://api-preview.venus.io',
+  testnet: 'testnetapi.venus.io',
+  mainnet: 'api.venus.io',
+  'mainnet-preview': 'api-preview.venus.io',
 };

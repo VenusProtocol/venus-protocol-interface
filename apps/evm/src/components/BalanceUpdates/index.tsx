@@ -1,32 +1,21 @@
-import type BigNumber from 'bignumber.js';
-import { LabeledInlineContent, type LabeledInlineContentProps, ValueUpdate } from 'components';
+import BigNumber from 'bignumber.js';
+
+import { LabeledValueUpdate, type LabeledValueUpdateProps } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { BalanceMutation, Pool } from 'types';
-import {
-  areAddressesEqual,
-  formatCentsToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
-
-interface Row {
-  labeledInlineContentProps: LabeledInlineContentProps;
-  readableAmountDollars?: string;
-}
+import { areAddressesEqual, formatTokensToReadableValue } from 'utilities';
 
 export interface BalanceUpdatesProps {
   pool: Pool;
-  simulatedPool?: Pool;
   balanceMutations?: BalanceMutation[];
 }
 
-export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
-  pool,
-  simulatedPool,
-  balanceMutations = [],
-}) => {
+export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({ pool, balanceMutations = [] }) => {
   const { t } = useTranslation();
 
-  const balanceUpdateRows: Row[] = balanceMutations.reduce<Row[]>((acc, balanceMutation) => {
+  const balanceUpdateRows: LabeledValueUpdateProps[] = balanceMutations.reduce<
+    LabeledValueUpdateProps[]
+  >((acc, balanceMutation) => {
     // Skip VAI updates
     if (balanceMutation.type === 'vai') {
       return acc;
@@ -36,29 +25,39 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
       areAddressesEqual(asset.vToken.address, balanceMutation.vTokenAddress),
     );
 
-    const simulatedAsset = simulatedPool?.assets.find(asset =>
-      areAddressesEqual(asset.vToken.address, balanceMutation.vTokenAddress),
-    );
-
     if (!asset) {
       // This case should never happen
       return acc;
     }
 
-    let label: undefined | string;
-    let balanceTokens: undefined | BigNumber;
-    let simulatedBalanceTokens: undefined | BigNumber;
+    let balanceTokens = balanceMutation.balanceTokens;
 
-    if (balanceMutation.action === 'borrow' || balanceMutation.action === 'repay') {
-      label = t('accountData.balanceUpdate.borrowBalance');
+    if (!balanceTokens) {
+      balanceTokens =
+        balanceMutation.action === 'borrow' || balanceMutation.action === 'repay'
+          ? asset.userBorrowBalanceTokens
+          : asset.userSupplyBalanceTokens;
+    }
 
-      balanceTokens = asset.userBorrowBalanceTokens;
-      simulatedBalanceTokens = simulatedAsset?.userBorrowBalanceTokens;
-    } else {
-      label = t('accountData.balanceUpdate.supplyBalance');
+    let simulatedBalanceTokens: BigNumber | undefined;
 
-      balanceTokens = asset.userSupplyBalanceTokens;
-      simulatedBalanceTokens = simulatedAsset?.userSupplyBalanceTokens;
+    if (balanceMutation.amountTokens.isGreaterThan(0)) {
+      simulatedBalanceTokens =
+        balanceMutation.action === 'supply' || balanceMutation.action === 'borrow'
+          ? balanceTokens.plus(balanceMutation.amountTokens)
+          : balanceTokens.minus(balanceMutation.amountTokens);
+
+      // Clamp balance to 0
+      simulatedBalanceTokens = BigNumber.max(simulatedBalanceTokens, 0);
+    }
+
+    let label = balanceMutation.label;
+
+    if (!label) {
+      label =
+        balanceMutation.action === 'borrow' || balanceMutation.action === 'repay'
+          ? t('accountData.balanceUpdate.borrowBalance')
+          : t('accountData.balanceUpdate.supplyBalance');
     }
 
     const original = formatTokensToReadableValue({
@@ -79,24 +78,16 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
       ? simulatedBalanceTokens.minus(balanceTokens)
       : undefined;
 
-    let readableAmountDollars = updateAmountTokens
-      ? formatCentsToReadableValue({
-          value: asset.tokenPriceCents.times(updateAmountTokens).absoluteValue(),
-        })
+    const deltaAmountCents = updateAmountTokens
+      ? asset.tokenPriceCents.times(updateAmountTokens)
       : undefined;
 
-    if (readableAmountDollars && updateAmountTokens) {
-      const sign = updateAmountTokens.isLessThan(0) ? '-' : '+';
-      readableAmountDollars = `${sign} ${readableAmountDollars}`;
-    }
-
-    const row: Row = {
-      readableAmountDollars,
-      labeledInlineContentProps: {
-        iconSrc: asset.vToken.underlyingToken,
-        label,
-        children: <ValueUpdate original={original} update={update} />,
-      },
+    const row: LabeledValueUpdateProps = {
+      deltaAmountCents,
+      iconSrc: asset.vToken.underlyingToken,
+      label,
+      original,
+      update,
     };
 
     return [...acc, row];
@@ -104,15 +95,8 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
 
   return (
     <div className="space-y-2">
-      {balanceUpdateRows.map(({ labeledInlineContentProps, readableAmountDollars }, index) => (
-        <div
-          className="flex flex-col items-end"
-          key={labeledInlineContentProps.label?.toString() ?? index}
-        >
-          <LabeledInlineContent {...labeledInlineContentProps} />
-
-          {readableAmountDollars && <p className="text-grey text-sm">{readableAmountDollars}</p>}
-        </div>
+      {balanceUpdateRows.map((row, index) => (
+        <LabeledValueUpdate key={row.label?.toString() ?? index} {...row} />
       ))}
     </div>
   );

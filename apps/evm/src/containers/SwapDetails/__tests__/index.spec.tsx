@@ -72,5 +72,14 @@ describe('SwapDetails', () => {
     // Check decimals are validated
     fireEvent.change(input, { target: { value: '0.1234' } });
     expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
+
+    // Check maximum value is validated using the full decimal value
+    fireEvent.change(input, { target: { value: '100.111' } });
+    expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
+
+    fireEvent.change(input, { target: { value: '100' } });
+    expect(mockSetUserChainSettings).toHaveBeenCalledWith({
+      slippageTolerancePercentage: '100',
+    });
   });
 });

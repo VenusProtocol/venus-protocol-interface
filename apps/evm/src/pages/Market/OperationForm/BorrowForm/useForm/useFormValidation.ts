@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 
 import type { Asset, AssetBalanceMutation, Pool } from 'types';
 
+import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useTranslation } from 'libs/translations';
-import type { FormError } from '../../types';
-import { useCommonValidation } from '../../useCommonValidation';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
@@ -19,7 +19,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formError?: TxFormError<FormErrorCode>;
 }
 
 const useFormValidation = ({
@@ -39,7 +39,7 @@ const useFormValidation = ({
     userAcknowledgesRisk: formValues.acknowledgeRisk,
   });
 
-  const formError = useMemo<FormError<FormErrorCode> | undefined>(() => {
+  const formError = useMemo<TxFormError<FormErrorCode> | undefined>(() => {
     if (!pool?.userBorrowLimitCents || pool.userBorrowLimitCents.isEqualTo(0)) {
       return {
         code: 'NO_COLLATERALS',

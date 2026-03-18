@@ -1,19 +1,41 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import { vai, xvs } from '__mocks__/models/tokens';
 import BigNumber from 'bignumber.js';
-import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
+import { useStakeInVaiVault } from 'clients/api/mutations/useStakeInVaiVault';
+import { useStakeInXvsVault } from 'clients/api/mutations/useStakeInXvsVault';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useStakeInVault } from '..';
+
+vi.mock('clients/api/mutations/useStakeInVaiVault', () => ({
+  useStakeInVaiVault: vi.fn(),
+}));
+
+vi.mock('clients/api/mutations/useStakeInXvsVault', () => ({
+  useStakeInXvsVault: vi.fn(),
+}));
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');
 const fakeStakeButtonLabel = 'Stake';
 
 describe('useStakeInVault', () => {
+  beforeEach(() => {
+    (useStakeInXvsVault as Mock).mockReturnValue({
+      mutateAsync: vi.fn(),
+      isPending: false,
+    });
+
+    (useStakeInVaiVault as Mock).mockReturnValue({
+      mutateAsync: vi.fn(),
+      isPending: false,
+    });
+  });
+
   it('calls stakeInXvsVault with correct parameters when calling stake a poolIndex', async () => {
     const mockStakeInXvsVault = vi.fn();
     (useStakeInXvsVault as Mock).mockReturnValue({
       mutateAsync: mockStakeInXvsVault,
+      isPending: false,
     });
 
     const fakePoolIndex = 6;
@@ -58,6 +80,7 @@ describe('useStakeInVault', () => {
     const mockStakeInVaiVault = vi.fn();
     (useStakeInVaiVault as Mock).mockReturnValue({
       mutateAsync: mockStakeInVaiVault,
+      isPending: false,
     });
 
     const TestComponent: React.FC = () => {

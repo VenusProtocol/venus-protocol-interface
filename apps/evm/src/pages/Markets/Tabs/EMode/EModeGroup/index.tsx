@@ -74,7 +74,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
         getRowHref={getRowHref}
         breakpoint="md"
         header={
-          <div className="-mx-4">
+          <div className="-mx-6">
             <Header
               pool={pool}
               eModeGroup={eModeGroup}

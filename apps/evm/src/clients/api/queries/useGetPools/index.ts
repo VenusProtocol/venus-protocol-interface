@@ -6,7 +6,6 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
-import callOrThrow from 'utilities/callOrThrow';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 
 import { getPools } from './getPools';
@@ -80,21 +79,19 @@ export const useGetPools = (input?: TrimmedInput, options?: Options) => {
   return useQuery({
     queryKey: [FunctionKey.GET_POOLS, { ...input, chainId, accountAddress }],
     queryFn: () =>
-      callOrThrow({ poolLensContractAddress }, params =>
-        getPools({
-          publicClient,
-          chainId,
-          tokens,
-          legacyPoolComptrollerContractAddress,
-          venusLensContractAddress,
-          vaiControllerContractAddress,
-          resilientOracleContractAddress,
-          primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
-          isEModeFeatureEnabled,
-          ...params,
-          ...input,
-        }),
-      ),
+      getPools({
+        publicClient,
+        chainId,
+        tokens,
+        legacyPoolComptrollerContractAddress,
+        venusLensContractAddress,
+        poolLensContractAddress,
+        vaiControllerContractAddress,
+        resilientOracleContractAddress,
+        primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
+        isEModeFeatureEnabled,
+        ...input,
+      }),
     placeholderData: (previousOutput, previousInput) => {
       // Return previous data if chain ID param hasn't changed and user address was undefined
       const previousChainId = previousInput?.queryKey[1]?.chainId;

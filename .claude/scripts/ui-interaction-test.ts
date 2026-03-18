@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { chromium, type Page } from '@playwright/test';
+import { type Page, chromium } from '@playwright/test';
 
 // Shared utility - see .claude/scripts/utils/image.ts
 import { downscaleIfNeeded } from './utils/image.js';
@@ -68,11 +68,11 @@ function parseArgs(args: string[]) {
     } else if (arg === '--steps') {
       stepsJson = args[++i] ?? '';
     } else if (arg.startsWith('--width=')) {
-      width = parseInt(arg.split('=')[1] ?? '1440', 10);
+      width = Number.parseInt(arg.split('=')[1] ?? '1440', 10);
     } else if (arg.startsWith('--height=')) {
-      height = parseInt(arg.split('=')[1] ?? '900', 10);
+      height = Number.parseInt(arg.split('=')[1] ?? '900', 10);
     } else if (arg.startsWith('--max-width=')) {
-      maxWidth = parseInt(arg.split('=')[1] ?? '1400', 10);
+      maxWidth = Number.parseInt(arg.split('=')[1] ?? '1400', 10);
     }
   }
 
@@ -97,11 +97,9 @@ async function waitForStable(page: Page): Promise<void> {
 }
 
 async function main() {
-  const { url, output, steps, width, height, maxWidth } = parseArgs(
-    process.argv.slice(2),
-  );
+  const { url, output, steps, width, height, maxWidth } = parseArgs(process.argv.slice(2));
 
-  const targetUrl = `${DEV_SERVER_URL}${url.startsWith('/') ? url : '/' + url}`;
+  const targetUrl = `${DEV_SERVER_URL}${url.startsWith('/') ? url : `/${url}`}`;
 
   // Check dev server
   try {
@@ -200,9 +198,7 @@ async function main() {
         });
         await waitForStable(page);
         await takeScreenshot(screenshotPath(''));
-        console.log(
-          `  viewport: ${step.width}x${step.height} -> ${screenshotPath('')}`,
-        );
+        console.log(`  viewport: ${step.width}x${step.height} -> ${screenshotPath('')}`);
         break;
       }
 
@@ -239,9 +235,7 @@ async function main() {
           await locator.fill(step.value);
           await waitForStable(page);
           await takeScreenshot(screenshotPath(''));
-          console.log(
-            `  fill: "${step.value}" into ${step.selector} -> ${screenshotPath('')}`,
-          );
+          console.log(`  fill: "${step.value}" into ${step.selector} -> ${screenshotPath('')}`);
         }
         break;
       }
@@ -251,15 +245,14 @@ async function main() {
         if ((await trigger.count()) === 0) {
           await takeScreenshot(screenshotPath('-NOTFOUND'));
           console.log(
-            `  select-option: trigger not found "${step.selector}" -> ${screenshotPath('-NOTFOUND')}`,
+            `  select-option: trigger not found "${step.selector}" -> ${screenshotPath(
+              '-NOTFOUND',
+            )}`,
           );
         } else {
           await trigger.click();
           await waitForStable(page);
-          const option = page
-            .locator('[role="option"]')
-            .filter({ hasText: step.value })
-            .first();
+          const option = page.locator('[role="option"]').filter({ hasText: step.value }).first();
 
           if ((await option.count()) === 0) {
             await takeScreenshot(screenshotPath('-NOTFOUND'));
@@ -282,21 +275,19 @@ async function main() {
         const locator = page.locator(step.selector).first();
         if ((await locator.count()) === 0) {
           await takeScreenshot(screenshotPath('-FAIL'));
-          console.log(
-            `  assert-text: FAIL - selector not found "${step.selector}"`,
-          );
+          console.log(`  assert-text: FAIL - selector not found "${step.selector}"`);
           process.exitCode = 1;
         } else {
           const text = (await locator.textContent()) ?? '';
           if (text.includes(step.expected)) {
             await takeScreenshot(screenshotPath('-PASS'));
-            console.log(
-              `  assert-text: PASS - "${step.expected}" found in ${step.selector}`,
-            );
+            console.log(`  assert-text: PASS - "${step.expected}" found in ${step.selector}`);
           } else {
             await takeScreenshot(screenshotPath('-FAIL'));
             console.log(
-              `  assert-text: FAIL - expected "${step.expected}" in ${step.selector}, got "${text.slice(0, 100)}"`,
+              `  assert-text: FAIL - expected "${step.expected}" in ${
+                step.selector
+              }, got "${text.slice(0, 100)}"`,
             );
             process.exitCode = 1;
           }
@@ -308,9 +299,7 @@ async function main() {
         const locator = page.locator(step.selector).first();
         if ((await locator.count()) === 0) {
           await takeScreenshot(screenshotPath('-FAIL'));
-          console.log(
-            `  assert-visible: FAIL - selector not found "${step.selector}"`,
-          );
+          console.log(`  assert-visible: FAIL - selector not found "${step.selector}"`);
           process.exitCode = 1;
         } else {
           const visible = await locator.isVisible();
@@ -319,9 +308,7 @@ async function main() {
             console.log(`  assert-visible: PASS - ${step.selector} is visible`);
           } else {
             await takeScreenshot(screenshotPath('-FAIL'));
-            console.log(
-              `  assert-visible: FAIL - ${step.selector} exists but not visible`,
-            );
+            console.log(`  assert-visible: FAIL - ${step.selector} exists but not visible`);
             process.exitCode = 1;
           }
         }
@@ -332,9 +319,7 @@ async function main() {
         const locator = page.locator(step.selector).first();
         if ((await locator.count()) === 0) {
           await takeScreenshot(screenshotPath('-FAIL'));
-          console.log(
-            `  assert-value: FAIL - selector not found "${step.selector}"`,
-          );
+          console.log(`  assert-value: FAIL - selector not found "${step.selector}"`);
           process.exitCode = 1;
         } else {
           const value = await locator.inputValue();
@@ -360,9 +345,7 @@ async function main() {
           console.log('  check-console: PASS - no console errors');
         } else {
           await takeScreenshot(screenshotPath('-FAIL'));
-          console.log(
-            `  check-console: FAIL - ${consoleErrors.length} error(s):`,
-          );
+          console.log(`  check-console: FAIL - ${consoleErrors.length} error(s):`);
           for (const err of consoleErrors) {
             console.log(`    ${err.slice(0, 200)}`);
           }
@@ -379,14 +362,10 @@ async function main() {
             timeout,
           });
           await takeScreenshot(screenshotPath('-PASS'));
-          console.log(
-            `  wait-for: PASS - ${step.selector} visible within ${timeout}ms`,
-          );
+          console.log(`  wait-for: PASS - ${step.selector} visible within ${timeout}ms`);
         } catch {
           await takeScreenshot(screenshotPath('-TIMEOUT'));
-          console.log(
-            `  wait-for: TIMEOUT - ${step.selector} not visible after ${timeout}ms`,
-          );
+          console.log(`  wait-for: TIMEOUT - ${step.selector} not visible after ${timeout}ms`);
           process.exitCode = 1;
         }
         break;
@@ -395,12 +374,10 @@ async function main() {
   }
 
   await browser.close();
-  console.log(
-    `Interaction test complete.${process.exitCode ? ' (FAILURES DETECTED)' : ''}`,
-  );
+  console.log(`Interaction test complete.${process.exitCode ? ' (FAILURES DETECTED)' : ''}`);
 }
 
-main().catch((err) => {
+main().catch(err => {
   console.error(err);
   process.exit(1);
 });

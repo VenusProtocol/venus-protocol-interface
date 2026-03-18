@@ -4,7 +4,7 @@ import type { Mock } from 'vitest';
 import apiPoolsResponse from '__mocks__/api/pools.json';
 import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
-import { type GetTokenBalancesInput, getTokenBalances } from 'clients/api';
+import { type GetTokenBalancesInput, getTokenBalances } from 'clients/api/queries/getTokenBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import {
@@ -27,6 +27,9 @@ import {
 } from '../__testUtils__/fakeData';
 
 vi.mock('utilities/restService');
+vi.mock('clients/api/queries/getTokenBalances', () => ({
+  getTokenBalances: vi.fn(),
+}));
 
 describe('useGetPools', () => {
   beforeEach(() => {

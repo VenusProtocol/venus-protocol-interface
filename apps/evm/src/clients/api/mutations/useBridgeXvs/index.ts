@@ -1,4 +1,4 @@
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';

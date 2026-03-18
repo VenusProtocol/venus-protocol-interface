@@ -4,7 +4,7 @@ import {
   type GetTokenUsdPriceInput,
   type GetTokenUsdPriceOutput,
   getTokenUsdPrice,
-} from 'clients/api';
+} from 'clients/api/queries/getTokenUsdPrice';
 import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';

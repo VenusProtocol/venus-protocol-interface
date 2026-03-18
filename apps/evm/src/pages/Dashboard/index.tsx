@@ -83,12 +83,7 @@ export const Dashboard: React.FC = () => {
         <Guide />
       </div>
 
-      <Tabs
-        tabs={tabs}
-        headerClassName="text-md sm:text-lg"
-        navType="searchParam"
-        variant="secondary"
-      />
+      <Tabs tabs={tabs} navType="searchParam" variant="tertiary" />
     </Page>
   );
 };

@@ -1,5 +1,3 @@
-export { default as queryClient } from './queryClient';
-
 // Mutations
 export * from './mutations/useEnterMarket';
 export * from './mutations/useExitMarket';
@@ -32,11 +30,24 @@ export * from './mutations/useWithdraw';
 export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
 export * from './mutations/useOpenLeveragedPosition';
+export * from './mutations/useOpenYieldPlusPosition';
+export * from './mutations/useCloseYieldPlusPosition';
+export * from './mutations/useCloseYieldPlusPositionWithLoss';
+export * from './mutations/useCloseYieldPlusPositionWithProfit';
+export * from './mutations/useReduceYieldPlusPositionWithProfit';
+export * from './mutations/useReduceYieldPlusPositionWithLoss';
+export * from './mutations/useIncreaseYieldPlusPosition';
+export * from './mutations/useSupplyYieldPlusPositionCollateral';
+export * from './mutations/useWithdrawYieldPlusPositionCollateral';
 export * from './mutations/useRepayWithCollateral';
 
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
+export * from './queries/getProportionalCloseTolerancePercentage';
+export * from './queries/getProportionalCloseTolerancePercentage/useGetProportionalCloseTolerancePercentage';
+export * from './queries/getDsaVTokens';
+export * from './queries/getDsaVTokens/useGetDsaVTokens';
 
 export * from './queries/getVTokenBalance';
 export * from './queries/getVTokenBalance/useGetVTokenBalance';
@@ -79,6 +90,9 @@ export * from './queries/getMarketHistory/useGetMarketHistory';
 
 export * from './queries/getTopMarkets';
 export * from './queries/getTopMarkets/useGetTopMarkets';
+
+export * from './queries/getTokenPairKLineCandles';
+export * from './queries/getTokenPairKLineCandles/useGetTokenPairKLineCandles';
 
 export * from './queries/getVTokenInterestRateModel';
 export * from './queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
@@ -240,3 +254,6 @@ export * from './queries/getSwapQuote/useGetSwapQuote';
 
 export * from './queries/getProposalCount';
 export * from './queries/getProposalCount/useGetProposalCount';
+
+export * from './queries/getRawYieldPlusPositions';
+export * from './queries/getRawYieldPlusPositions/useGetRawYieldPlusPositions';

@@ -29,7 +29,7 @@ import {
   convertTokensToMantissa,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
-  getSwapToTokenAmountReceivedTokens,
+  getSwapToTokenAmount,
 } from 'utilities';
 import { ApyBreakdown } from '../../ApyBreakdown';
 import { Footer } from '../../Footer';
@@ -289,7 +289,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   if (isUsingSwap && formValues.fixedRepayPercentage && fixedRepayBorrowBalanceTokens) {
     repayToTokenAmountTokens = fixedRepayBorrowBalanceTokens;
   } else if (isUsingSwap) {
-    repayToTokenAmountTokens = getSwapToTokenAmountReceivedTokens(swapQuote) || new BigNumber(0);
+    repayToTokenAmountTokens = getSwapToTokenAmount(swapQuote) || new BigNumber(0);
   }
 
   const isRepayingFullLoan = formValues.fixedRepayPercentage === 100;

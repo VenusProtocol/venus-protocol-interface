@@ -16,6 +16,7 @@ import { useAccountChainId, useChainId } from 'libs/wallet';
 // so moving it now could generate conflicts
 import { OperationForm } from 'pages/Market/OperationForm';
 import type { Asset, EModeGroup } from 'types';
+import { RowControl } from './RowControl';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey } from './types';
@@ -103,11 +104,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     }
   };
 
-  const handleRowControlClick = (e: React.MouseEvent<HTMLButtonElement>, row: Asset) => {
-    e.preventDefault();
-    setSelectedAsset(row);
-  };
-
   const columns = useColumns({
     columnKeys,
     collateralOnChange: handleCollateralChange,
@@ -128,6 +124,17 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       }
     );
   }, [columns, initialOrder]);
+
+  const renderRowControl = (row: Asset) => {
+    const handleRowControlClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      setSelectedAsset(row);
+    };
+
+    return <RowControl className="-ml-6" onClick={handleRowControlClick} />;
+  };
 
   const getRowHref = (row: Asset) =>
     routes.market.path
@@ -209,7 +216,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         }
         breakpoint={breakpoint}
         isFetching={isFetching}
-        rowControlOnClick={rowControl ? handleRowControlClick : undefined}
+        renderRowControl={rowControl ? renderRowControl : undefined}
         {...otherTableProps}
       />
 

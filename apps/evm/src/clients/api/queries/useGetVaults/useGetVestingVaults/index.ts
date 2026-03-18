@@ -1,16 +1,14 @@
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import {
-  type GetXvsVaultPendingWithdrawalsBalanceOutput,
-  type GetXvsVaultPoolInfoOutput,
-  type GetXvsVaultUserInfoOutput,
-  type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
-  useGetXvsVaultPaused,
-  useGetXvsVaultPoolCount,
-  useGetXvsVaultTotalAllocationPoints,
-  useGetXvsVaultsTotalDailyDistributedXvs,
-} from 'clients/api';
+import { useGetXvsVaultPaused } from 'clients/api/queries/getXvsVaultPaused/useGetXvsVaultPaused';
+import type { GetXvsVaultPendingWithdrawalsBalanceOutput } from 'clients/api/queries/getXvsVaultPendingWithdrawalsBalance';
+import { useGetXvsVaultPoolCount } from 'clients/api/queries/getXvsVaultPoolCount/useGetXvsVaultPoolCount';
+import type { GetXvsVaultPoolInfoOutput } from 'clients/api/queries/getXvsVaultPoolInfo';
+import { useGetXvsVaultTotalAllocationPoints } from 'clients/api/queries/getXvsVaultTotalAllocationPoints/useGetXvsVaultTotalAllocationPoints';
+import type { GetXvsVaultUserInfoOutput } from 'clients/api/queries/getXvsVaultUserInfo';
+import type { GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput } from 'clients/api/queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
+import { useGetXvsVaultsTotalDailyDistributedXvs } from 'clients/api/queries/getXvsVaultsTotalDailyDistributedXvs/useGetXvsVaultsTotalDailyDistributedXvs';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import type { Vault } from 'types';

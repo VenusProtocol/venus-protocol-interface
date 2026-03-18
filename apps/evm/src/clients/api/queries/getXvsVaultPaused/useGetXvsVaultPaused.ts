@@ -1,6 +1,9 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { type GetXvsVaultPausedOutput, getXvsVaultPaused } from 'clients/api';
+import {
+  type GetXvsVaultPausedOutput,
+  getXvsVaultPaused,
+} from 'clients/api/queries/getXvsVaultPaused';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';

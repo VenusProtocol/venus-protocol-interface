@@ -5,7 +5,7 @@ import {
   type GetXvsBridgeEstimationInput,
   type GetXvsBridgeEstimationOutput,
   getXvsBridgeFeeEstimation,
-} from 'clients/api';
+} from 'clients/api/queries/getXvsBridgeFeeEstimation';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';

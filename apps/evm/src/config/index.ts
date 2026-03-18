@@ -1,6 +1,6 @@
 import type { ChainId, Environment, Network } from 'types';
 
-import { apiUrls } from './apiUrls';
+import { apiHosts } from './apiUrls';
 import { envVariables } from './envVariables';
 import { rpcUrls } from './rpcUrls';
 import { getGovernanceSubgraphUrls } from './subgraphUrls';
@@ -10,6 +10,7 @@ export interface Config {
   network: Network;
   isSafeApp: boolean;
   apiUrl: string;
+  wsApiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string[];
   };
@@ -29,7 +30,9 @@ export interface Config {
 const environment: Environment = envVariables.VITE_ENV || 'preview';
 const network: Network = envVariables.VITE_NETWORK || 'mainnet';
 
-const apiUrl = apiUrls[network];
+const apiHost = apiHosts[network];
+const apiUrl = `https://${apiHost}`;
+const wsApiUrl = `wss://${apiHost}/ws`;
 
 const keys = {
   nodeRealApiKey: envVariables.VITE_NODE_REAL_API_KEY,
@@ -45,6 +48,7 @@ const config: Config = {
   network,
   isSafeApp,
   apiUrl,
+  wsApiUrl,
   rpcUrls,
   governanceSubgraphUrls,
   sentryDsn: envVariables.VITE_SENTRY_DSN || '',

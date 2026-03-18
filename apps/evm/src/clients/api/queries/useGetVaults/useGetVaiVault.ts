@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
 
-import {
-  useGetBalanceOf,
-  useGetTokenUsdPrice,
-  useGetVaiVaultPaused,
-  useGetVaiVaultUserInfo,
-  useGetVenusVaiVaultDailyRate,
-} from 'clients/api';
+import { useGetBalanceOf } from 'clients/api/queries/getBalanceOf/useGetBalanceOf';
+import { useGetTokenUsdPrice } from 'clients/api/queries/getTokenUsdPrice/useGetTokenUsdPrice';
+import { useGetVaiVaultPaused } from 'clients/api/queries/getVaiVaultPaused/useGetVaiVaultPaused';
+import { useGetVaiVaultUserInfo } from 'clients/api/queries/getVaiVaultUserInfo/useGetVaiVaultUserInfo';
+import { useGetVenusVaiVaultDailyRate } from 'clients/api/queries/getVenusVaiVaultDailyRate/useGetVenusVaiVaultDailyRate';
 import { NULL_ADDRESS } from 'constants/address';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';

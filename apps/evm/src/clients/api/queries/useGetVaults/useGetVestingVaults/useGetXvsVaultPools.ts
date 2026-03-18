@@ -2,14 +2,20 @@ import { type UseQueryOptions, type UseQueryResult, useQueries } from '@tanstack
 
 import {
   type GetXvsVaultPendingWithdrawalsBalanceOutput,
-  type GetXvsVaultPoolInfoOutput,
-  type GetXvsVaultUserInfoOutput,
-  type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
   getXvsVaultPendingWithdrawalsBalance,
+} from 'clients/api/queries/getXvsVaultPendingWithdrawalsBalance';
+import {
+  type GetXvsVaultPoolInfoOutput,
   getXvsVaultPoolInfo,
+} from 'clients/api/queries/getXvsVaultPoolInfo';
+import {
+  type GetXvsVaultUserInfoOutput,
   getXvsVaultUserInfo,
+} from 'clients/api/queries/getXvsVaultUserInfo';
+import {
+  type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
   getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
-} from 'clients/api';
+} from 'clients/api/queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';

@@ -33,6 +33,7 @@ import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, BalanceMutation, Pool } from 'types';
+import type { TxFormError } from 'types';
 import {
   buffer,
   areTokensEqual,
@@ -43,7 +44,6 @@ import {
 } from 'utilities';
 import { ApyBreakdown } from '../../ApyBreakdown';
 import { OperationDetails } from '../../OperationDetails';
-import type { FormError } from '../../types';
 import { Notice } from '../Notice';
 import { SubmitSection } from './SubmitSection';
 import TEST_IDS from './testIds';
@@ -276,7 +276,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     getSwapQuoteError: getSwapQuoteError || undefined,
   });
 
-  const formError: FormError<FormErrorCode> | undefined = formErrors[0];
+  const formError: TxFormError<FormErrorCode> | undefined = formErrors[0];
 
   const handleToggleAcknowledgeRisk = (checked: boolean) => {
     setFormValues(currentFormValues => ({

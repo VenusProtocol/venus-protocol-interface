@@ -8,10 +8,11 @@ import { PrimeBadge } from './PrimeBadge';
 export interface ApyProps {
   asset: Asset;
   type: 'supply' | 'borrow';
+  showPrimeSimulation?: boolean;
   className?: string;
 }
 
-export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
+export const Apy: React.FC<ApyProps> = ({ asset, type, showPrimeSimulation = true, className }) => {
   const combinedDistributionApys = getCombinedDistributionApys({ asset });
 
   const baseApyPercentage =
@@ -89,7 +90,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
         <p className={cn(shouldBeGreyedOut && 'text-grey')}>{readableApy}</p>
       )}
 
-      {isPrimeAsset && !isApyBoostedByPrime && (
+      {showPrimeSimulation && isPrimeAsset && !isApyBoostedByPrime && (
         <PrimeBadge
           type={type}
           token={asset.vToken.underlyingToken}

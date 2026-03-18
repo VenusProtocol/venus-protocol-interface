@@ -27,7 +27,7 @@ export type ApiResponse<D> =
     }
   | ApiErrorResponse;
 
-const createQueryParams = (params: Record<string, unknown>) => {
+export const createQueryParams = (params: Record<string, unknown>) => {
   const paramArray = Object.entries(params).map(([key, value]) => {
     if (value !== undefined && value !== null) {
       return `${key}=${value}`;

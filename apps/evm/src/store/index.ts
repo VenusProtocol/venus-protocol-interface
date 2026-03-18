@@ -1,6 +1,7 @@
 import createDeepMerge from '@fastify/deepmerge';
 import { ChainId } from 'types';
-import { createStoreSelectors, extractEnumValues } from 'utilities';
+import { createStoreSelectors } from 'utilities/createStoreSelectors';
+import { extractEnumValues } from 'utilities/extractEnumValues';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
