@@ -60,13 +60,8 @@ const ConnectionRecovery: React.FC = () => {
     const prevStatus = prevStatusRef.current;
     prevStatusRef.current = status;
 
-    console.log(`[ConnectionRecovery] status=${prevStatus}->${status}, connector=${connector?.type}, chainId=${chainId}, defaultChain=${defaultChain.id}`);
-
-    if (prevStatus === 'connecting' && status === 'connected') {
-      if (connector?.type === 'walletConnect' && chainId !== defaultChain.id) {
-        console.log('[ConnectionRecovery] WalletConnect wrong chain, reloading');
-        window.location.reload();
-      }
+    if (prevStatus === 'disconnected' && status === 'connected' && connector?.type === 'walletConnect' && chainId !== defaultChain.id) {
+      window.location.reload();
     }
   }, [status, chainId, connector]);
 
