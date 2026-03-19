@@ -1,11 +1,11 @@
 import { useSearchParams } from 'react-router';
 
-import { useGetDexKlineCandles, useDexKlineWebSocket } from 'clients/api';
-import { Card, KLineChart, Page } from 'components';
-import { useEffect, useMemo, useState } from 'react';
-import { useGetTokens } from 'libs/tokens';
-import { areAddressesEqual } from 'utilities';
+import { useDexKlineWebSocket, useGetDexKlineCandles } from 'clients/api';
 import type { DexKlineCandle } from 'clients/api';
+import { Card, KLineChart, Page } from 'components';
+import { useGetTokens } from 'libs/tokens';
+import { useEffect, useMemo, useState } from 'react';
+import { areAddressesEqual } from 'utilities';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
 import { PairInfo } from './PairInfo';
@@ -42,6 +42,7 @@ const YieldPlus: React.FC = () => {
 
   const [liveCandle, setLiveCandle] = useState<DexKlineCandle | undefined>(undefined);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally watching address changes to reset live candle
   useEffect(() => {
     setLiveCandle(undefined);
   }, [longTokenDexAddress]);
@@ -61,7 +62,10 @@ const YieldPlus: React.FC = () => {
 
   // Update token search params if they are empty or incorrect
   useEffect(() => {
-    if (shortToken.address !== shortTokenAddressParam || longToken.address !== longTokenAddressParam) {
+    if (
+      shortToken.address !== shortTokenAddressParam ||
+      longToken.address !== longTokenAddressParam
+    ) {
       setSearchParams(
         currentSearchParams => ({
           ...Object.fromEntries(currentSearchParams),

@@ -16,7 +16,7 @@ export class DexKlineWsClient extends WsClient {
       this.callbacks.set(channel, new Set());
       this.openChannel(channel);
     }
-    this.callbacks.get(channel)!.add(callback);
+    this.callbacks.get(channel)?.add(callback);
   }
 
   unsubscribe(channel: string, callback: CandleCallback): void {

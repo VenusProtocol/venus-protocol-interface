@@ -685,6 +685,8 @@ export const useGetDexKlineCandles = vi.fn(() =>
   }),
 );
 
+export const useDexKlineWebSocket = vi.fn();
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

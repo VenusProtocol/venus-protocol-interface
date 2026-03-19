@@ -48,7 +48,7 @@ export abstract class WsClient {
     this.ws.onopen = () => {
       this.isConnecting = false;
       for (const channel of this.activeChannels) {
-        this.ws!.send(this.buildSubscribeMessage(channel));
+        this.ws?.send(this.buildSubscribeMessage(channel));
       }
     };
 
