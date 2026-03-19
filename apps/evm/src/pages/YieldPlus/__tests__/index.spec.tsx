@@ -1,8 +1,8 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 
+import { poolData } from '__mocks__/models/pools';
 import { useGetPool } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
-import { poolData } from '__mocks__/models/pools';
 
 import YieldPlus from '..';
 
