@@ -1,40 +1,40 @@
 import { cn } from '@venusprotocol/ui';
-import BigNumber from 'bignumber.js';
+import type { GetPendleSwapQuoteOutput } from 'clients/api';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
 
 export interface ConvertDetailsProps {
   fromToken: Token;
   toToken: Token;
   slippagePercentage: number;
-  estReceived?: string;
+  swapQuote?: GetPendleSwapQuoteOutput;
   className?: string;
 }
 
-export const ConvertDetails: React.FC<ConvertDetailsProps> = ({
+export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
   fromToken,
   toToken,
   slippagePercentage,
-  estReceived,
+  swapQuote,
   className,
 }) => {
   const { t } = useTranslation();
 
-  const estReceivedMantissa = estReceived ? new BigNumber(estReceived) : undefined;
+  const { estReceiveMantissa, feeUsdCents } = swapQuote ?? {};
 
   const minReceivedMantissa =
-    estReceivedMantissa && slippagePercentage
-      ? estReceivedMantissa.times(1 - slippagePercentage / 100)
+    estReceiveMantissa && slippagePercentage
+      ? estReceiveMantissa.times(1 - slippagePercentage / 100)
       : undefined;
 
   return (
     <div className={cn('border border-lightGrey rounded-xl p-4 space-y-3', className)}>
       {/* Header row */}
       <div className="flex items-center justify-between">
-        <span className="text-b1s text-white">{t('pendleModal.convert')}</span>
+        <span className="text-b1s text-white">{t('vaultModals.convert')}</span>
         <span className="text-b2r text-grey">
           {fromToken.symbol} → {toToken.symbol}
         </span>
@@ -42,13 +42,19 @@ export const ConvertDetails: React.FC<ConvertDetailsProps> = ({
 
       {/* Pendle Fee */}
       <div className="flex items-center justify-between">
-        <span className="text-b2r text-grey">{t('pendleModal.pendleFee')}</span>
-        <span className="text-b2r text-white">{PLACEHOLDER_KEY}</span>
+        <span className="text-b2r text-grey">{t('vaultModals.pendleFee')}</span>
+        <span className="text-b2r text-white">
+          {feeUsdCents
+            ? formatCentsToReadableValue({
+                value: feeUsdCents,
+              })
+            : PLACEHOLDER_KEY}
+        </span>
       </div>
 
       {/* Min. Received */}
       <div className="flex items-center justify-between">
-        <span className="text-b2r text-grey">{t('pendleModal.minReceived')}</span>
+        <span className="text-b2r text-grey">{t('vaultModals.minReceived')}</span>
         <span className="text-b2r text-white">
           {minReceivedMantissa
             ? convertMantissaToTokens({
@@ -62,12 +68,12 @@ export const ConvertDetails: React.FC<ConvertDetailsProps> = ({
 
       {/* Est. Received */}
       <div className="flex items-center justify-between">
-        <span className="text-b2r text-grey">{t('pendleModal.estReceived')}</span>
+        <span className="text-b2r text-grey">{t('vaultModals.estReceived')}</span>
         <span className="text-b2r text-white">
           ≈{' '}
-          {estReceivedMantissa
+          {estReceiveMantissa
             ? convertMantissaToTokens({
-                value: estReceivedMantissa,
+                value: estReceiveMantissa,
                 token: toToken,
                 returnInReadableFormat: true,
               })
@@ -77,5 +83,3 @@ export const ConvertDetails: React.FC<ConvertDetailsProps> = ({
     </div>
   );
 };
-
-export default ConvertDetails;

@@ -22,7 +22,10 @@ const formatVaultProduct = ({
 }: BaseInput & { vaultData: GetVaultProductsOutput[number] }) => {
   const asset = pools
     .flatMap(pool => pool.assets)
-    .find(asset => areAddressesEqual(asset.vToken.address, vaultData.vTokenAddress));
+    .find(
+      _asset =>
+        _asset && vaultData && areAddressesEqual(_asset?.vToken?.address, vaultData?.vaultAddress),
+    );
 
   const stakedToken = findTokenByAddress({
     address: vaultData.underlyingAssetAddress,
@@ -68,7 +71,12 @@ const formatVaultProduct = ({
     manager: VaultManager.Pendle,
     managerIcon: 'pendle' as const,
     managerAddress: vaultData.protocolData.pendleMarketAddress,
+    managerLink: vaultData.protocolData.pendleMarketAddress
+      ? `https://app.pendle.finance/trade/pools/${vaultData.protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`
+      : undefined,
     status,
+    underlyingAssetAddress: vaultData.underlyingAssetAddress,
+    vaultDeploymentTime: new Date('2025-10-09T09:04:39.000Z').getTime(),
     vToken: asset.vToken,
   };
 };

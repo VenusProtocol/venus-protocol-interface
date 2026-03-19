@@ -1099,7 +1099,7 @@
     "itemOf": "{{itemsCount}}件中{{currentPageLastIndex}}件目",
     "itemsOf": "{{itemsCount}}件中{{firstItemNumber}} - {{currentPageLastIndex}}件"
   },
-  "pendleModal": {
+  "vaultModals": {
     "available": "利用可能",
     "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
     "convert": "変換",

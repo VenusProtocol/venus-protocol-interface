@@ -1099,7 +1099,7 @@
     "itemOf": "第 {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条",
     "itemsOf": "第 {{firstItemNumber}} - {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条"
   },
-  "pendleModal": {
+  "vaultModals": {
     "available": "可用",
     "connectWalletMessage": "请连接您的錢包以质押 {{tokenSymbol}}",
     "convert": "转换",

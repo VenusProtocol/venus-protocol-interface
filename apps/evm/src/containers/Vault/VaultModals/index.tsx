@@ -10,14 +10,14 @@ import { PositionTab } from './PositionTab';
 export interface PendleModalProps {
   vault: AnyVault;
   handleClose: () => void;
-  initialMode?: 'stake' | 'withdraw';
+  initialMode?: 'deposit' | 'withdraw';
   isOpen: boolean;
 }
 
 export const PendleModal: React.FC<PendleModalProps> = ({
   vault,
   handleClose,
-  initialMode = 'stake',
+  initialMode = 'deposit',
   isOpen,
 }) => {
   const { t } = useTranslation();
@@ -39,7 +39,7 @@ export const PendleModal: React.FC<PendleModalProps> = ({
         <span className="text-b1s truncate">{vault.stakedToken.symbol}</span>
         {formattedMaturityDate && daysRemaining !== undefined && daysRemaining > 0 && (
           <span className="text-b2r text-grey">
-            {formattedMaturityDate} ({t('pendleModal.daysRemaining', { days: daysRemaining })})
+            {formattedMaturityDate} ({t('vaultModals.daysRemaining', { days: daysRemaining })})
           </span>
         )}
       </div>
@@ -49,12 +49,12 @@ export const PendleModal: React.FC<PendleModalProps> = ({
   const tabs = [
     {
       id: 'position',
-      title: t('pendleModal.positionTab'),
-      content: <PositionTab vault={vault} initialMode={initialMode} onClose={handleClose} />,
+      title: t('vaultModals.positionTab'),
+      content: <PositionTab vault={vault} onClose={handleClose} initialMode={initialMode} />,
     },
     {
       id: 'overview',
-      title: t('pendleModal.overviewTab'),
+      title: t('vaultModals.overviewTab'),
       content: <OverviewTab vault={vault} />,
     },
   ];

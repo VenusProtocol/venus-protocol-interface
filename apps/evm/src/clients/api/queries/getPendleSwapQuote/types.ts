@@ -1,8 +1,8 @@
 import type { ChainId, Token } from '@venusprotocol/chains';
 import type { VError } from 'libs/errors';
-import type { Address } from 'viem';
+import type { Address, Hex } from 'viem';
 
-export interface PendleGuessPtOut {
+export interface PendleGuessPtOut extends Record<string, unknown> {
   guessMin: string;
   guessMax: string;
   guessOffchain: string;
@@ -10,14 +10,14 @@ export interface PendleGuessPtOut {
   eps: string;
 }
 
-export interface PendleSwapData {
+export interface PendleSwapData extends Record<string, unknown> {
   swapType: string;
   extRouter: Address;
-  extCalldata: string;
+  extCalldata: Hex;
   needScale: boolean;
 }
 
-export interface PendleTokenInput {
+export interface PendleTokenInput extends Record<string, unknown> {
   tokenIn: Address;
   netTokenIn: string;
   tokenMintSy: Address;
@@ -25,7 +25,7 @@ export interface PendleTokenInput {
   swapData: PendleSwapData;
 }
 
-export interface PendleLimitOrder {
+export interface PendleLimitOrder extends Record<string, unknown> {
   salt: string;
   expiry: string;
   nonce: string;
@@ -46,12 +46,12 @@ export interface PendleFlashFill {
   makingAmount: string;
 }
 
-export interface PendleLimitOrderData {
+export interface PendleLimitOrderData extends Record<string, unknown> {
   limitRouter: Address;
   epsSkipMarket: string;
   normalFills: PendleFlashFill[];
   flashFills: PendleFlashFill[];
-  optData: string;
+  optData: Hex;
 }
 
 export type PendleContractCallParams = [
@@ -77,6 +77,9 @@ export interface PendleSwapApiResponse {
     before: number;
     after: number;
   };
+  fee: {
+    usd: string;
+  };
   requiredApprovals: {
     token: Address;
     amount: string;
@@ -94,4 +97,9 @@ export interface GetPendleSwapQuoteInput {
   receiverAddress?: Address;
 }
 
-export type GetPendleSwapQuoteOutput = PendleSwapApiResponse;
+export type GetPendleSwapQuoteOutput = {
+  estReceiveMantissa: BigNumber;
+  feeUsdCents: BigNumber;
+  priceImpactPercentage: number;
+  pendleMarketAddress: Address;
+} & Pick<PendleSwapApiResponse, 'contractCallParams' | 'contractCallParamsName'>;

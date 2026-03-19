@@ -1099,7 +1099,7 @@
     "itemOf": "Mục {{currentPageLastIndex}} trong {{itemsCount}}",
     "itemsOf": "Mục {{firstItemNumber}} - {{currentPageLastIndex}} trong {{itemsCount}}"
   },
-  "pendleModal": {
+  "vaultModals": {
     "available": "Khả dụng",
     "connectWalletMessage": "Vui lòng kết nối ví của bạn để stake {{tokenSymbol}}",
     "convert": "Chuyển đổi",

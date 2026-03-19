@@ -518,6 +518,9 @@ export interface PendleVaultData extends BaseVault {
   stakedTokenPriceUsd: BigNumber;
   rewardTokenPriceUsd: BigNumber;
   vToken: VToken;
+  underlyingAssetAddress: Address;
+  managerLink?: string;
+  vaultDeploymentTime?: number;
 }
 
 export interface PendleVault extends PendleVaultData, VaultMetadata {}

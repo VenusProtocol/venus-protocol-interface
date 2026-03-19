@@ -1,5 +1,6 @@
 import { VError } from 'libs/errors';
 import { convertTokensToMantissa, restService } from 'utilities';
+import { formatOutput } from './formatOutput';
 import type {
   GetPendleSwapQuoteInput,
   GetPendleSwapQuoteOutput,
@@ -44,5 +45,5 @@ export const getPendleSwapQuote = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return response.data;
+  return formatOutput(response.data);
 };

@@ -1099,7 +1099,7 @@
     "itemOf": "{{itemsCount}} öğeden {{currentPageLastIndex}}",
     "itemsOf": "{{itemsCount}} öğeden {{firstItemNumber}} - {{currentPageLastIndex}}"
   },
-  "pendleModal": {
+  "vaultModals": {
     "available": "Mevcut",
     "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
     "convert": "Dönüştür",

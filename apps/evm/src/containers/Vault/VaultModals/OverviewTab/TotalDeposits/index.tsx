@@ -44,7 +44,7 @@ export const TotalDeposits: React.FC<{ vault: AnyVault }> = ({ vault }) => {
   return (
     <div>
       <div className="flex items-center justify-between gap-3">
-        <p className="text-p2s text-white">{t('pendleModal.overview.totalDeposits')}</p>
+        <p className="text-p2s text-white">{t('vaultModals.overview.totalDeposits')}</p>
 
         <div className="flex items-center gap-3">
           <ButtonGroup
@@ -72,7 +72,7 @@ export const TotalDeposits: React.FC<{ vault: AnyVault }> = ({ vault }) => {
         <div className="mt-4">
           <div className="flex items-center gap-2 mb-2">
             <span className="size-2 rounded-full bg-green" />
-            <span className="text-b1r text-grey">{t('pendleModal.overview.totalStaked')}</span>
+            <span className="text-b1r text-grey">{t('vaultModals.overview.totalStaked')}</span>
           </div>
 
           <SupplyChart data={supplyChartData} selectedPeriod={selectedPeriod} />

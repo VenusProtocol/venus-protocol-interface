@@ -51,11 +51,11 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ vault }) => {
     <div className="flex flex-col gap-8 py-4">
       <TotalDeposits vault={vault} />
 
-      <CollapsibleSection title={t('pendleModal.overview.strategyAllocation')}>
+      <CollapsibleSection title={t('vaultModals.overview.strategyAllocation')}>
         <StrategyDiagram vault={vault} />
       </CollapsibleSection>
 
-      <CollapsibleSection title={t('pendleModal.overview.marketInfo')}>
+      <CollapsibleSection title={t('vaultModals.overview.marketInfo')}>
         <MarketInfo vault={vault} />
       </CollapsibleSection>
     </div>

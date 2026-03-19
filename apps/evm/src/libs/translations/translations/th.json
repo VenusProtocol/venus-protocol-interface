@@ -1099,7 +1099,7 @@
     "itemOf": "รายการที่ {{currentPageLastIndex}} จาก {{itemsCount}}",
     "itemsOf": "รายการที่ {{firstItemNumber}} - {{currentPageLastIndex}} จาก {{itemsCount}}"
   },
-  "pendleModal": {
+  "vaultModals": {
     "available": "ที่มีอยู่",
     "connectWalletMessage": "กรุณาเชื่อมต่อกระเป๋าเงินของคุณเพื่อสเตค {{tokenSymbol}}",
     "convert": "แปลง",

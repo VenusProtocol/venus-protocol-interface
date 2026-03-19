@@ -34,7 +34,7 @@ const useFormValidation = ({
     if (swapQuoteErrorCode === 'noSwapQuoteFound') {
       return {
         code: 'NO_SWAP_QUOTE_FOUND' as const,
-        message: t('pendleModal.error.noSwapQuoteFound'),
+        message: t('vaultModals.error.noSwapQuoteFound'),
       };
     }
 
@@ -47,7 +47,7 @@ const useFormValidation = ({
     if (amountTokens.isGreaterThan(availableTokens)) {
       return {
         code: 'HIGHER_THAN_WALLET_BALANCE' as const,
-        message: t('pendleModal.error.higherThanBalance', {
+        message: t('vaultModals.error.higherThanBalance', {
           tokenSymbol: token.symbol,
         }),
       };

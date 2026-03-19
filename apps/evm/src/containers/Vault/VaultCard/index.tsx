@@ -20,7 +20,7 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { StatusLabel } from 'containers/Vault/VaultCard/StatusLabel';
 import { useState } from 'react';
-import PendleModal from '../VaultModals/PendleModal';
+import PendleModal from '../VaultModals';
 import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
 import TEST_IDS from '../testIds';
 import { TokenIconWithPeriod } from './TokenIconWithPeriod';

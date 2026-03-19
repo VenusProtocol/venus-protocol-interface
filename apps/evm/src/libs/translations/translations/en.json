@@ -1099,7 +1099,7 @@
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
-  "pendleModal": {
+  "vaultModals": {
     "available": "Available",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
     "convert": "Convert",

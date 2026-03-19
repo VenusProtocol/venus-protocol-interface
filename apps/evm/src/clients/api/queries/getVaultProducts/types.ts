@@ -40,7 +40,7 @@ type VaultProduct = {
   id: string;
   chainId: string;
   protocol: string;
-  vTokenAddress: Address;
+  vaultAddress: Address;
   underlyingAssetAddress: Address;
   fixedApyDecimal: string;
   maturityDate: string;
