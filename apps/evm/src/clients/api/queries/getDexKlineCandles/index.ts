@@ -5,7 +5,7 @@ import type {
   GetApiDexKlineCandlesOutput,
   GetDexKlineCandlesInput,
   GetDexKlineCandlesOutput,
-} from '.';
+} from './types';
 
 export * from './types';
 
@@ -41,7 +41,7 @@ export const getDexKlineCandles = async ({
 
   const payload: GetApiDexKlineCandlesOutput = await response.json();
 
-  const candles = payload.data.map(([o, h, l, c, v, ts]) => ({
+  const candles = (payload.data ?? []).map(([o, h, l, c, v, ts]) => ({
     timestamp: ts,
     open: o,
     high: h,

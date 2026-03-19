@@ -21,6 +21,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<ReturnType<typeof init> | null>(null);
   const latestDataRef = useRef<KLineData[]>(data);
+  const subscribeCallbackRef = useRef<((data: KLineData) => void) | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -106,9 +107,14 @@ export const KLineChart: React.FC<KLineChartProps> = ({
       getBars: ({ callback }) => {
         callback(latestDataRef.current);
       },
+      subscribeBar: ({ callback }) => {
+        subscribeCallbackRef.current = callback;
+      },
+      unsubscribeBar: () => {
+        subscribeCallbackRef.current = null;
+      },
     });
 
-    // Re-render chart when browser window is resized
     const resizeObserver = new ResizeObserver(() => {
       chart.resize();
     });
@@ -117,6 +123,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
 
     return () => {
       chartRef.current = null;
+      subscribeCallbackRef.current = null;
       resizeObserver?.disconnect();
       dispose(chart);
     };
@@ -137,12 +144,18 @@ export const KLineChart: React.FC<KLineChartProps> = ({
       getBars: ({ callback }) => {
         callback(data);
       },
+      subscribeBar: ({ callback }) => {
+        subscribeCallbackRef.current = callback;
+      },
+      unsubscribeBar: () => {
+        subscribeCallbackRef.current = null;
+      },
     });
   }, [data]);
 
   useEffect(() => {
     if (liveCandle) {
-      chartRef.current?.updateData(liveCandle);
+      subscribeCallbackRef.current?.(liveCandle);
     }
   }, [liveCandle]);
 
