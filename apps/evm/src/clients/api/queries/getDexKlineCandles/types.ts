@@ -27,7 +27,6 @@ export interface GetDexKlineCandlesInput {
   tokenIndex?: 0 | 1;
 }
 
-// API returns each candle as [o, h, l, c, v, ts, ut?]
 export type ApiDexKlineCandle = [
   number, // o - open price
   number, // h - highest price
@@ -35,7 +34,6 @@ export type ApiDexKlineCandle = [
   number, // c - close price
   number, // v - volume
   number, // ts - opening time (Unix ms)
-  number | null, // ut - unique traders (optional)
 ];
 
 export interface GetApiDexKlineCandlesOutput {
