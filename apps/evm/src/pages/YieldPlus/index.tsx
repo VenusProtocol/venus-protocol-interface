@@ -54,10 +54,19 @@ const YieldPlus: React.FC = () => {
   });
 
   const changePercentage = useMemo(() => {
-    const lastCandle = liveCandle ?? klineData?.candles?.at(-1);
-    const prevCandle = klineData?.candles?.at(-2);
-    if (!lastCandle || !prevCandle || prevCandle.close === 0) return undefined;
-    return ((lastCandle.close - prevCandle.close) / prevCandle.close) * 100;
+    const historicalLast = klineData?.candles?.at(-1);
+    const historicalPrev = klineData?.candles?.at(-2);
+
+    if (liveCandle && historicalLast) {
+      // If liveCandle has a newer timestamp, it's a new period — prev is the last historical candle
+      const prev =
+        liveCandle.timestamp > historicalLast.timestamp ? historicalLast : historicalPrev;
+      if (!prev || prev.close === 0) return undefined;
+      return ((liveCandle.close - prev.close) / prev.close) * 100;
+    }
+
+    if (!historicalLast || !historicalPrev || historicalPrev.close === 0) return undefined;
+    return ((historicalLast.close - historicalPrev.close) / historicalPrev.close) * 100;
   }, [liveCandle, klineData]);
 
   // Update token search params if they are empty or incorrect

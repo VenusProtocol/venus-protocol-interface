@@ -73,6 +73,7 @@ export abstract class WsClient {
       clearTimeout(this.reconnectTimer);
       this.reconnectTimer = null;
     }
+    this.isConnecting = false;
     this.ws?.close();
     this.ws = null;
   }
