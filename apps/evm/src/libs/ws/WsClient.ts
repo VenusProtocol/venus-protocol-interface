@@ -47,19 +47,21 @@ export abstract class WsClient {
 
   private connect(): void {
     this.isConnecting = true;
-    this.ws = new WebSocket(this.url);
+    const ws = new WebSocket(this.url);
+    this.ws = ws;
 
-    this.ws.onopen = () => {
+    ws.onopen = () => {
       this.isConnecting = false;
       for (const channel of this.activeChannels) {
-        this.ws?.send(this.buildSubscribeMessage(channel));
+        ws.send(this.buildSubscribeMessage(channel));
       }
     };
 
-    this.ws.onmessage = ({ data }) => this.onMessage(data as string);
-    this.ws.onerror = () => this.ws?.close();
+    ws.onmessage = ({ data }) => this.onMessage(data as string);
+    ws.onerror = () => ws.close();
 
-    this.ws.onclose = () => {
+    ws.onclose = () => {
+      if (this.ws !== ws) return;
       this.isConnecting = false;
       this.ws = null;
       if (this.activeChannels.size > 0) {
