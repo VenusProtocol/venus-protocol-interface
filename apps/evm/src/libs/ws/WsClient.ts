@@ -4,11 +4,11 @@ const IDLE_DISCONNECT_DELAY_MS = 30_000;
 
 export abstract class WsClient {
   private ws: WebSocket | null = null;
-  private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
-  private idleTimer: ReturnType<typeof setTimeout> | null = null;
+  private reconnectTimer: ReturnType<typeof setTimeout> | null = null; // reconnect if connection is lost
+  private idleTimer: ReturnType<typeof setTimeout> | null = null; // wait if will coming new subscription
   private isConnecting = false;
-  private reconnectDelay = RECONNECT_BASE_DELAY_MS;
-  private readonly activeChannels = new Set<string>();
+  private reconnectDelay = RECONNECT_BASE_DELAY_MS; // delay between reconnect attempts
+  private readonly activeChannels = new Set<string>(); // channels that are currently subscribed to
 
   constructor(private readonly url: string) {}
 
