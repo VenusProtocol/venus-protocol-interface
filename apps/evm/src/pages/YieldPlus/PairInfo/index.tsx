@@ -151,9 +151,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage }) => {
             <p
               className={cn(
                 'text-b1s',
-                changePercentage === undefined || changePercentage >= 0
-                  ? 'text-green'
-                  : 'text-red',
+                changePercentage === undefined || changePercentage >= 0 ? 'text-green' : 'text-red',
               )}
             >
               {readableChangePercentage}

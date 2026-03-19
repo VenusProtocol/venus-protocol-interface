@@ -45,7 +45,5 @@ export const envVariables = {
       ? process.env.VITE_DEX_API_URL
       : import.meta.env.VITE_DEX_API_URL,
   VITE_DEX_WS_URL:
-    typeof process !== 'undefined'
-      ? process.env.VITE_DEX_WS_URL
-      : import.meta.env.VITE_DEX_WS_URL,
+    typeof process !== 'undefined' ? process.env.VITE_DEX_WS_URL : import.meta.env.VITE_DEX_WS_URL,
 };

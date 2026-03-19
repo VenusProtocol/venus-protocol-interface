@@ -3,11 +3,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import FunctionKey from 'constants/functionKey';
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
-import {
-  type GetDexKlineCandlesInput,
-  type GetDexKlineCandlesOutput,
-  getDexKlineCandles,
-} from '.';
+import { type GetDexKlineCandlesInput, type GetDexKlineCandlesOutput, getDexKlineCandles } from '.';
 
 // Platform names as defined by the DEX API
 const DEX_PLATFORM_BY_CHAIN_ID = new Map<ChainId, string>([
@@ -43,7 +39,7 @@ export const useGetDexKlineCandles = (
 
   return useQuery({
     queryKey: [FunctionKey.GET_DEX_KLINE_CANDLES, { ...params, chainId }],
-    queryFn: () => getDexKlineCandles({ platform: platform!, ...params }),
+    queryFn: () => getDexKlineCandles({ platform: platform ?? '', ...params }),
     staleTime: Number.POSITIVE_INFINITY,
     ...options,
     enabled: !!platform && (options?.enabled ?? true),

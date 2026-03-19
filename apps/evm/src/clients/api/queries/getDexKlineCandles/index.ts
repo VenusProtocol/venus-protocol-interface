@@ -30,10 +30,9 @@ export const getDexKlineCandles = async ({
     tokenIndex,
   });
 
-  const response = await fetch(
-    `${config.dexApiUrl}/k-line/candles?${queryParams}`,
-    { headers: { Accept: 'application/json' } },
-  );
+  const response = await fetch(`${config.dexApiUrl}/k-line/candles?${queryParams}`, {
+    headers: { Accept: 'application/json' },
+  });
 
   if (!response.ok) {
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
