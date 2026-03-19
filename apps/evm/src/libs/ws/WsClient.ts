@@ -1,9 +1,11 @@
 const RECONNECT_BASE_DELAY_MS = 3_000;
 const RECONNECT_MAX_DELAY_MS = 30_000;
+const IDLE_DISCONNECT_DELAY_MS = 30_000;
 
 export abstract class WsClient {
   private ws: WebSocket | null = null;
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
+  private idleTimer: ReturnType<typeof setTimeout> | null = null;
   private isConnecting = false;
   private reconnectDelay = RECONNECT_BASE_DELAY_MS;
   private readonly activeChannels = new Set<string>();
@@ -12,6 +14,7 @@ export abstract class WsClient {
 
   protected openChannel(channel: string): void {
     this.activeChannels.add(channel);
+    this.cancelIdleDisconnect();
     this.ensureConnected();
 
     if (this.ws?.readyState === WebSocket.OPEN) {
@@ -27,12 +30,13 @@ export abstract class WsClient {
     }
 
     if (this.activeChannels.size === 0) {
-      this.disconnect();
+      this.scheduleIdleDisconnect();
     }
   }
 
   destroy(): void {
     this.activeChannels.clear();
+    this.cancelIdleDisconnect();
     this.disconnect();
   }
 
@@ -83,6 +87,20 @@ export abstract class WsClient {
     this.isConnecting = false;
     this.ws?.close();
     this.ws = null;
+  }
+
+  private scheduleIdleDisconnect(): void {
+    this.idleTimer = setTimeout(() => {
+      this.idleTimer = null;
+      if (this.activeChannels.size === 0) this.disconnect();
+    }, IDLE_DISCONNECT_DELAY_MS);
+  }
+
+  private cancelIdleDisconnect(): void {
+    if (this.idleTimer !== null) {
+      clearTimeout(this.idleTimer);
+      this.idleTimer = null;
+    }
   }
 
   private scheduleReconnect(): void {

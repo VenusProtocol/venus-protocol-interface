@@ -34,7 +34,7 @@ const YieldPlus: React.FC = () => {
     return wrappedToken?.address ?? longToken.address;
   }, [longToken, tokens]);
 
-  const { data: klineData } = useGetDexKlineCandles({
+  const { data: klineData, isFetched: isKlineDataFetched } = useGetDexKlineCandles({
     address: longTokenDexAddress,
     interval: KLINE_INTERVAL,
     limit: KLINE_LIMIT,
@@ -51,6 +51,7 @@ const YieldPlus: React.FC = () => {
     address: longTokenDexAddress,
     interval: KLINE_INTERVAL,
     onCandle: setLiveCandle,
+    enabled: isKlineDataFetched,
   });
 
   const changePercentage = useMemo(() => {
