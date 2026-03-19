@@ -6,6 +6,7 @@ import { rgb } from './rgb';
 export interface KLineChartProps {
   title: string;
   data: KLineData[];
+  liveCandle?: KLineData;
   period?: PeriodType;
   className?: string;
 }
@@ -13,6 +14,7 @@ export interface KLineChartProps {
 export const KLineChart: React.FC<KLineChartProps> = ({
   className,
   data,
+  liveCandle,
   period = 'day',
   title,
 }) => {
@@ -137,6 +139,12 @@ export const KLineChart: React.FC<KLineChartProps> = ({
       },
     });
   }, [data]);
+
+  useEffect(() => {
+    if (liveCandle) {
+      chartRef.current?.updateData(liveCandle);
+    }
+  }, [liveCandle]);
 
   return <div ref={containerRef} className={cn('w-full h-full bg-dark-blue', className)} />;
 };

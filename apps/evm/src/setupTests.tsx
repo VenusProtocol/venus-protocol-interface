@@ -23,6 +23,7 @@ vi.mock('config', async () => {
     network: 'testnet',
     apiUrl: 'fakeApiUrl',
     dexApiUrl: 'fakeDexApiUrl',
+    dexWsUrl: '',
     rpcUrls: actualConfig.rpcUrls,
     governanceSubgraphUrls: actualConfig.governanceSubgraphUrls,
     isSafeApp: false,

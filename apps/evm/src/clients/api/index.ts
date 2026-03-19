@@ -246,3 +246,4 @@ export * from './queries/getYieldPlusPositions/useGetYieldPlusPositions';
 
 export * from './queries/getDexKlineCandles';
 export * from './queries/getDexKlineCandles/useGetDexKlineCandles';
+export * from './queries/getDexKlineCandles/useDexKlineWebSocket';

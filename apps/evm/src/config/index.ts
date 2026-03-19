@@ -11,6 +11,7 @@ export interface Config {
   isSafeApp: boolean;
   apiUrl: string;
   dexApiUrl: string;
+  dexWsUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string[];
   };
@@ -47,6 +48,7 @@ const config: Config = {
   isSafeApp,
   apiUrl,
   dexApiUrl: envVariables.VITE_DEX_API_URL || '',
+  dexWsUrl: envVariables.VITE_DEX_WS_URL || '',
   rpcUrls,
   governanceSubgraphUrls,
   sentryDsn: envVariables.VITE_SENTRY_DSN || '',

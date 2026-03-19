@@ -1,10 +1,11 @@
 import { useSearchParams } from 'react-router';
 
-import { useGetDexKlineCandles } from 'clients/api';
+import { useGetDexKlineCandles, useDexKlineWebSocket } from 'clients/api';
 import { Card, KLineChart, Page } from 'components';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useGetTokens } from 'libs/tokens';
 import { areAddressesEqual } from 'utilities';
+import type { DexKlineCandle } from 'clients/api';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
 import { PairInfo } from './PairInfo';
@@ -39,13 +40,24 @@ const YieldPlus: React.FC = () => {
     limit: KLINE_LIMIT,
   });
 
+  const [liveCandle, setLiveCandle] = useState<DexKlineCandle | undefined>(undefined);
+
+  useEffect(() => {
+    setLiveCandle(undefined);
+  }, [longTokenDexAddress]);
+
+  useDexKlineWebSocket({
+    address: longTokenDexAddress,
+    interval: KLINE_INTERVAL,
+    onCandle: setLiveCandle,
+  });
+
   const changePercentage = useMemo(() => {
-    const candles = klineData?.candles;
-    if (!candles || candles.length < 2) return undefined;
-    const prev = candles[candles.length - 2].close;
-    const curr = candles[candles.length - 1].close;
-    return prev !== 0 ? ((curr - prev) / prev) * 100 : undefined;
-  }, [klineData]);
+    const lastCandle = liveCandle ?? klineData?.candles?.at(-1);
+    const prevCandle = klineData?.candles?.at(-2);
+    if (!lastCandle || !prevCandle || prevCandle.close === 0) return undefined;
+    return ((lastCandle.close - prevCandle.close) / prevCandle.close) * 100;
+  }, [liveCandle, klineData]);
 
   // Update token search params if they are empty or incorrect
   useEffect(() => {
@@ -75,6 +87,7 @@ const YieldPlus: React.FC = () => {
             <KLineChart
               title={`${longToken.symbol}/${shortToken.symbol}`}
               data={klineData?.candles ?? []}
+              liveCandle={liveCandle}
             />
           </Card>
 
