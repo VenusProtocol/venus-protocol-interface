@@ -1,7 +1,11 @@
+const RECONNECT_BASE_DELAY_MS = 3_000;
+const RECONNECT_MAX_DELAY_MS = 30_000;
+
 export abstract class WsClient {
   private ws: WebSocket | null = null;
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
   private isConnecting = false;
+  private reconnectDelay = RECONNECT_BASE_DELAY_MS;
   private readonly activeChannels = new Set<string>();
 
   constructor(private readonly url: string) {}
@@ -52,6 +56,7 @@ export abstract class WsClient {
 
     ws.onopen = () => {
       this.isConnecting = false;
+      this.reconnectDelay = RECONNECT_BASE_DELAY_MS;
       for (const channel of this.activeChannels) {
         ws.send(this.buildSubscribeMessage(channel));
       }
@@ -80,10 +85,12 @@ export abstract class WsClient {
     this.ws = null;
   }
 
-  private scheduleReconnect(delayMs = 3000): void {
+  private scheduleReconnect(): void {
+    const delay = this.reconnectDelay;
+    this.reconnectDelay = Math.min(this.reconnectDelay * 2, RECONNECT_MAX_DELAY_MS);
     this.reconnectTimer = setTimeout(() => {
       this.reconnectTimer = null;
       this.connect();
-    }, delayMs);
+    }, delay);
   }
 }
