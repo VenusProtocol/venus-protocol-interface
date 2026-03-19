@@ -38,6 +38,10 @@ export abstract class WsClient {
 
   private ensureConnected(): void {
     if (this.ws?.readyState === WebSocket.OPEN || this.isConnecting) return;
+    if (this.reconnectTimer !== null) {
+      clearTimeout(this.reconnectTimer);
+      this.reconnectTimer = null;
+    }
     this.connect();
   }
 

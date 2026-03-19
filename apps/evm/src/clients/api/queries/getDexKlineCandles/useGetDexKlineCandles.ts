@@ -45,7 +45,7 @@ export const useGetDexKlineCandles = (
     queryKey: [FunctionKey.GET_DEX_KLINE_CANDLES, { ...params, chainId }],
     queryFn: () => getDexKlineCandles({ platform: platform!, ...params }),
     staleTime: Number.POSITIVE_INFINITY,
-    enabled: !!platform,
     ...options,
+    enabled: !!platform && (options?.enabled ?? true),
   });
 };
