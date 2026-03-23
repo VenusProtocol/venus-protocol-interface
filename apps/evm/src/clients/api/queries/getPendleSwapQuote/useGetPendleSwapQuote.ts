@@ -1,7 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetToken } from 'libs/tokens';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
@@ -11,7 +10,6 @@ import {
   type PendleSwapQuoteError,
   getPendleSwapQuote,
 } from '.';
-import wrapToken from '../getSwapQuote/wrapToken';
 
 export type UseGetPendleSwapQuoteInput = Omit<
   GetPendleSwapQuoteInput,
@@ -35,21 +33,13 @@ export const useGetPendleSwapQuote = (
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
 
-  const wbnb = useGetToken({
-    symbol: 'WBNB',
-  });
-
-  const wrappedFromToken = wbnb && wrapToken({ token: input.fromToken, wrappedToken: wbnb });
+  console.log('from:', input.fromToken.symbol, 'to:', input.toToken.symbol);
 
   return useQuery({
     queryKey: [FunctionKey.GET_PENDLE_SWAP_QUOTE, input],
     queryFn: () =>
-      callOrThrow(
-        {
-          fromToken: wrappedFromToken,
-        },
-        params =>
-          getPendleSwapQuote({ chainId, receiverAddress: accountAddress, ...input, ...params }),
+      callOrThrow({}, params =>
+        getPendleSwapQuote({ chainId, receiverAddress: accountAddress, ...input, ...params }),
       ),
     retry: false,
     refetchInterval,

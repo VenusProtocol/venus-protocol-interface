@@ -11,14 +11,19 @@ import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import type { Address } from 'viem';
-import { formatDepositOutput } from './utils';
+import {
+  formatDepositNativeParams,
+  formatDepositParams,
+  formatRedeemParams,
+  formatWithdrawParams,
+} from './utils';
 
 export interface PendlePtVaultInput {
   pendlePtVaultContractAddress: Address;
   swapQuote: GetPendleSwapQuoteOutput;
   type: 'deposit' | 'withdraw' | 'redeemAtMaturity';
-  stakedToken: Token;
-  rewardToken: Token;
+  fromToken: Token;
+  toToken: Token;
   amountToken: BigNumber;
 }
 
@@ -57,12 +62,11 @@ export const usePendlePtVault = (
       }
       // Deposit non-BNB tokens
       if (type === 'deposit' && !isNative) {
-        console.log('deposit', isNative, formatDepositOutput(swapQuote.contractCallParams));
         return {
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'deposit' as const,
-          args: formatDepositOutput(swapQuote.contractCallParams),
+          args: formatDepositParams(swapQuote.contractCallParams),
         } as const;
       }
 
@@ -72,7 +76,7 @@ export const usePendlePtVault = (
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'depositNative' as const,
-          args: swapQuote.contractCallParams,
+          args: formatDepositNativeParams(swapQuote.contractCallParams),
           value: BigInt(amountToken.toFixed()),
         } as const;
       }
@@ -83,16 +87,17 @@ export const usePendlePtVault = (
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'withdraw' as const,
-          args: swapQuote.contractCallParams,
+          args: formatWithdrawParams(swapQuote.contractCallParams, amountToken),
         } as const;
       }
 
+      // Redeem after maturity
       if (type === 'redeemAtMaturity') {
         return {
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'redeemAtMaturity' as const,
-          args: swapQuote.contractCallParams,
+          args: formatRedeemParams(swapQuote.contractCallParams, amountToken),
         } as const;
       }
 
@@ -104,17 +109,17 @@ export const usePendlePtVault = (
     onConfirmed: async ({ input }) => {
       captureAnalyticEvent(`Pendle vault ${input.type}`, {
         pendleMarketAddress: pendleMarketAddress,
-        fromTokenSymbol: input.stakedToken.symbol,
+        fromTokenSymbol: input.fromToken.symbol,
         fromTokenAmountTokens: (
           convertMantissaToTokens({
-            token: input.stakedToken,
+            token: input.fromToken,
             value: input.amountToken,
           }) ?? '0'
         ).toNumber(),
-        toTokenSymbol: input.rewardToken.symbol,
+        toTokenSymbol: input.toToken.symbol,
         toTokenAmountTokens: (
           convertMantissaToTokens({
-            token: input.rewardToken,
+            token: input.toToken,
             value: input.swapQuote.estReceiveMantissa,
           }) ?? '0'
         ).toNumber(),
@@ -128,7 +133,7 @@ export const usePendlePtVault = (
           {
             chainId,
             accountAddress,
-            tokenAddress: input.stakedToken.address,
+            tokenAddress: input.fromToken.address,
           },
         ],
       });
@@ -139,7 +144,7 @@ export const usePendlePtVault = (
             FunctionKey.GET_TOKEN_ALLOWANCE,
             {
               chainId,
-              tokenAddress: input.stakedToken.address,
+              tokenAddress: input.fromToken.address,
               accountAddress,
               spenderAddress: poolComptrollerAddress,
             },
@@ -152,7 +157,7 @@ export const usePendlePtVault = (
           {
             chainId,
             accountAddress,
-            tokenAddress: input.rewardToken.address,
+            tokenAddress: input.toToken.address,
           },
         ],
       });

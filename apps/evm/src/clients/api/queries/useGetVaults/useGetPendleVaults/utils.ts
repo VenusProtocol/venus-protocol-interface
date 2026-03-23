@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import type { PendleVault, Pool, Token } from 'types';
+import type { Asset, PendleVault, Pool, Token } from 'types';
 import { VaultCategory, VaultManager, VaultStatus } from 'types';
 import { areAddressesEqual, convertTokensToMantissa, findTokenByAddress } from 'utilities';
+import type { Address } from 'viem';
 import type { GetVaultProductsOutput } from '../../getVaultProducts/types';
 
 interface BaseInput {
@@ -20,12 +21,20 @@ const formatVaultProduct = ({
   tokens,
   now,
 }: BaseInput & { vaultData: GetVaultProductsOutput[number] }) => {
-  const asset = pools
-    .flatMap(pool => pool.assets)
-    .find(
+  let asset: Asset | undefined;
+  let poolComptrollerAddress: Address | undefined;
+
+  for (const pool of pools) {
+    const targetAsset = pool.assets.find(
       _asset =>
         _asset && vaultData && areAddressesEqual(_asset?.vToken?.address, vaultData?.vaultAddress),
     );
+    if (targetAsset) {
+      asset = targetAsset;
+      poolComptrollerAddress = pool.comptrollerAddress as Address;
+      break;
+    }
+  }
 
   const stakedToken = findTokenByAddress({
     address: vaultData.underlyingAssetAddress,
@@ -37,7 +46,7 @@ const formatVaultProduct = ({
     tokens,
   });
 
-  if (!stakedToken || !rewardToken || !asset) {
+  if (!stakedToken || !rewardToken || !asset || !poolComptrollerAddress) {
     return undefined;
   }
 
@@ -78,6 +87,7 @@ const formatVaultProduct = ({
     underlyingAssetAddress: vaultData.underlyingAssetAddress,
     vaultDeploymentTime: new Date('2025-10-09T09:04:39.000Z').getTime(),
     vToken: asset.vToken,
+    poolComptrollerAddress,
   };
 };
 

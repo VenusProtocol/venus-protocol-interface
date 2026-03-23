@@ -27,9 +27,7 @@ const useFormValidation = ({
   const { t } = useTranslation();
 
   const formError: FormError | undefined = useMemo(() => {
-    const amountTokens = formValues.amountTokens
-      ? new BigNumber(formValues.amountTokens)
-      : undefined;
+    const tokenAmount = formValues.tokenAmount ? new BigNumber(formValues.tokenAmount) : undefined;
 
     if (swapQuoteErrorCode === 'noSwapQuoteFound') {
       return {
@@ -38,13 +36,13 @@ const useFormValidation = ({
       };
     }
 
-    if (!amountTokens || amountTokens.isNaN() || amountTokens.isLessThanOrEqualTo(0)) {
+    if (!tokenAmount || tokenAmount.isNaN() || tokenAmount.isLessThanOrEqualTo(0)) {
       return {
         code: 'EMPTY_TOKEN_AMOUNT' as const,
       };
     }
 
-    if (amountTokens.isGreaterThan(availableTokens)) {
+    if (tokenAmount.isGreaterThan(availableTokens)) {
       return {
         code: 'HIGHER_THAN_WALLET_BALANCE' as const,
         message: t('vaultModals.error.higherThanBalance', {
@@ -52,7 +50,7 @@ const useFormValidation = ({
         }),
       };
     }
-  }, [formValues.amountTokens, availableTokens, token.symbol, t, swapQuoteErrorCode]);
+  }, [formValues.tokenAmount, availableTokens, token.symbol, t, swapQuoteErrorCode]);
 
   return {
     isFormValid: !formError,

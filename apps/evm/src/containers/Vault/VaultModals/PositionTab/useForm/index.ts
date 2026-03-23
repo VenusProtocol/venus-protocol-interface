@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { handleError } from 'libs/errors';
 import type { Token } from 'types';
@@ -49,7 +49,7 @@ const useForm = ({
       await onSubmit();
 
       // Reset form after successful submission
-      setFormValues(() => ({ amountTokens: '' }));
+      setFormValues(prev => ({ ...prev, tokenAmount: '' }));
     } catch (error) {
       handleError({ error });
     }

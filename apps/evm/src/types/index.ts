@@ -36,7 +36,8 @@ export type TokenAction =
   | 'repay'
   | 'repayWithCollateral'
   | 'enterMarket'
-  | 'exitMarket';
+  | 'exitMarket'
+  | 'vault';
 
 export interface TokenBalance {
   token: Token;
@@ -521,6 +522,7 @@ export interface PendleVaultData extends BaseVault {
   underlyingAssetAddress: Address;
   managerLink?: string;
   vaultDeploymentTime?: number;
+  poolComptrollerAddress: Address;
 }
 
 export interface PendleVault extends PendleVaultData, VaultMetadata {}

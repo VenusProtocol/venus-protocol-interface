@@ -1,17 +1,33 @@
-import { PrimaryButton, cn } from '@venusprotocol/ui';
+import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useGetBalanceOf, useGetPendleSwapQuote } from 'clients/api';
-import { ButtonGroup, LabeledInlineContent, NoticeInfo, Slider, TokenTextField } from 'components';
+import { useGetPendleSwapQuote } from 'clients/api';
+import { PendlePtVaultInput, usePendlePtVault } from 'clients/api/mutations/usePendlePtVault';
+import {
+  ButtonGroup,
+  LabeledInlineContent,
+  NoticeInfo,
+  SelectTokenTextField,
+  Slider,
+  TokenTextField,
+} from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { SwapDetails } from 'containers/SwapDetails';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import useDebounceValue from 'hooks/useDebounceValue';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { type AnyVault, VaultManager } from 'types';
+import { useGetOperationFormTokenBalances } from 'pages/Market/OperationForm/useGetOperationFormTokenBalances';
+import { type AnyVault, type PendleVault, VaultManager } from 'types';
 import {
+  areTokensEqual,
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatDateToUtc,
@@ -19,11 +35,9 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { usePendlePtVault } from 'clients/api/mutations/usePendlePtVault';
-import { SwapDetails } from 'containers/SwapDetails';
-import useDebounceValue from 'hooks/useDebounceValue';
-import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { PendleConvertDetails } from './PendleConvertDetails';
+import { SubmitButton } from './SubmitButton';
+import type { Approval } from './SubmitButton/types';
 import useForm, { type FormValues } from './useForm';
 
 type ActionMode = 'deposit' | 'withdraw';
@@ -39,71 +53,38 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
+  // --- Action mode ---
   const [actionMode, setActionMode] = useState<ActionMode>(initialMode);
-
   const isStake = actionMode === 'deposit';
 
-  // For stake: balance of the underlying token (future: use different token per mode when Pendle API is ready)
-  const balanceToken = vault.rewardToken;
+  const handleActionModeChange = (index: number) => {
+    setActionMode(index === 0 ? 'deposit' : 'withdraw');
+  };
 
-  const { data: balanceData, isLoading: isBalanceLoading } = useGetBalanceOf(
-    {
-      accountAddress: accountAddress || NULL_ADDRESS,
-      token: balanceToken,
-    },
-    {
-      enabled: !!accountAddress,
-    },
+  const initialFormValues: FormValues = useMemo(
+    () => ({ tokenAmount: '', fromToken: isStake ? vault.rewardToken : vault.stakedToken }),
+    [isStake, vault.rewardToken, vault.stakedToken],
   );
 
-  const availableMantissa = balanceData?.balanceMantissa ?? new BigNumber(0);
+  // --- Form state ---
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
-  const availableTokens = convertMantissaToTokens({
-    value: availableMantissa,
-    token: balanceToken,
-  });
-
-  const readableAvailable = useConvertMantissaToReadableTokenString({
-    value: availableMantissa,
-    token: balanceToken,
-  });
+  // Reset form when wallet disconnects or action mode changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    setFormValues(initialFormValues);
+  }, [accountAddress, initialFormValues]);
 
   const readableUserStaked = useConvertMantissaToReadableTokenString({
     value: vault.userStakedMantissa ?? new BigNumber(0),
     token: vault.stakedToken,
   });
 
-  const maturityDateUtc =
-    'maturityDate' in vault
-      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
-      : undefined;
-
-  const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
-
-  const connectWalletMessage = t('vaultModals.connectWalletMessage', {
-    tokenSymbol: vault.stakedToken.symbol,
-  });
-
-  // Form state (follows SupplyForm pattern)
-  const initialFormValues: FormValues = useMemo(() => ({ amountTokens: '' }), []);
-  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
-
-  // Reset form when wallet disconnects
-  useEffect(() => {
-    if (!accountAddress) {
-      setFormValues(initialFormValues);
-    }
-  }, [accountAddress, initialFormValues]);
-
-  // Reset form when action mode changes
-  useEffect(() => {
-    setFormValues(initialFormValues);
-  }, [initialFormValues]);
-
-  const _debouncedInputAmountTokens = useDebounceValue(formValues.amountTokens || 0);
-  const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
-
+  // --- Swap quote ---
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
+
+  const debouncedInputAmountTokens = useDebounceValue(formValues.tokenAmount || 0);
+  const inputAmountBN = new BigNumber(debouncedInputAmountTokens);
 
   const {
     data: getSwapQuoteData,
@@ -111,48 +92,112 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
     isLoading: isGetSwapQuoteLoading,
   } = useGetPendleSwapQuote(
     {
-      fromToken: vault.rewardToken,
-      toToken: vault.stakedToken,
-      amount: debouncedInputAmountTokens,
-      slippagePercentage: userSlippageTolerancePercentage,
+      fromToken: formValues.fromToken,
+      toToken: isStake ? vault.stakedToken : vault.rewardToken,
+      amount: inputAmountBN,
+      slippagePercentage: userSlippageTolerancePercentage / 100,
     },
-    {
-      enabled: debouncedInputAmountTokens.isGreaterThan(0),
-    },
+    { enabled: inputAmountBN.isGreaterThan(0) },
   );
 
+  // --- Token approval ---
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
+
+  const canUseSwap = isStake && isIntegratedSwapEnabled;
+
+  const { address: pendlePtVaultAddress } = useGetContractAddress({ name: 'PendlePtVault' });
+  const spenderAddress = canUseSwap ? pendlePtVaultAddress : NULL_ADDRESS;
+
+  const { isTokenApproved: isFromTokenApproved, isApproveTokenLoading: isApproveFromTokenLoading } =
+    useTokenApproval({
+      token: formValues.fromToken,
+      spenderAddress,
+      accountAddress,
+    });
+
+  const approval = ((): Approval | undefined => {
+    if (!isStake && pendlePtVaultAddress) {
+      return {
+        type: 'delegate',
+        delegateeAddress: pendlePtVaultAddress,
+        poolComptrollerContractAddress: (vault as PendleVault).poolComptrollerAddress,
+      };
+    }
+    return spenderAddress &&
+      Array.isArray(getSwapQuoteData?.requiredApprovals) &&
+      getSwapQuoteData.requiredApprovals.length > 0 &&
+      !isFromTokenApproved
+      ? {
+          type: 'token',
+          token: formValues.fromToken,
+          spenderAddress,
+        }
+      : undefined;
+  })();
+
+  const { tokenBalances } = useGetOperationFormTokenBalances({
+    poolComptrollerContractAddress:
+      'poolComptrollerAddress' in vault ? vault.poolComptrollerAddress : NULL_ADDRESS,
+    accountAddress,
+    underlyingToken: (vault as PendleVault).vToken.underlyingToken,
+    isIntegratedSwapFeatureEnabled: canUseSwap,
+    canWrapNativeToken: false, // TODO: TBC
+    action: 'vault',
+  });
+
+  // --- Balance ---
+  // Derived from tokenBalances (same source as SelectTokenTextField), following SupplyForm pattern
+  const balanceToken = isStake ? formValues.fromToken : vault.stakedToken;
+  const availableTokens = useMemo(() => {
+    if (!isStake)
+      return convertMantissaToTokens({
+        value: vault.userStakedMantissa ?? new BigNumber(0),
+        token: balanceToken,
+      });
+
+    const match = tokenBalances.find(item => areTokensEqual(item.token, formValues.fromToken));
+    return match
+      ? convertMantissaToTokens({ value: match.balanceMantissa, token: match.token })
+      : new BigNumber(0);
+  }, [isStake, tokenBalances, formValues.fromToken, balanceToken, vault.userStakedMantissa]);
+
+  const readableAvailable = isStake
+    ? formatTokensToReadableValue({
+        value: availableTokens,
+        token: balanceToken,
+      })
+    : readableUserStaked;
+
+  // --- Vault action ---
   const { mutateAsync: pendleVaultAction, isPending: isSubmitting } = usePendlePtVault({
     pendleMarketAddress: getSwapQuoteData?.pendleMarketAddress ?? NULL_ADDRESS,
-    isNative: false,
+    isNative: formValues.fromToken.isNative,
   });
 
   const handleOnSubmit = async () => {
     if (!getSwapQuoteData) return;
 
     const amountMantissa = convertTokensToMantissa({
-      value: new BigNumber(formValues.amountTokens),
-      token: vault.stakedToken,
+      value: new BigNumber(formValues.tokenAmount),
+      token: (vault as PendleVault).vToken,
     });
+
+    const now = new Date().getTime();
+    let type: PendlePtVaultInput['type'] = actionMode;
+    if ('maturityDate' in vault && vault.maturityDate && now > vault.maturityDate) {
+      type = 'redeemAtMaturity';
+    }
 
     return pendleVaultAction({
       swapQuote: getSwapQuoteData,
-      type: actionMode,
-      stakedToken: vault.stakedToken,
-      rewardToken: vault.rewardToken,
+      type,
+      fromToken: isStake ? vault.rewardToken : vault.stakedToken,
+      toToken: isStake ? vault.stakedToken : vault.rewardToken,
       amountToken: amountMantissa,
     });
   };
 
-  const estYield = getSwapQuoteData?.estReceiveMantissa
-    ? formatTokensToReadableValue({
-        value: convertMantissaToTokens({
-          value: getSwapQuoteData.estReceiveMantissa,
-          token: vault.stakedToken,
-        }).minus(formValues.amountTokens),
-        token: vault.stakedToken,
-      })
-    : undefined;
-
+  // --- Form validation ---
   const { handleSubmit, isFormValid, formError } = useForm({
     onSubmit: handleOnSubmit,
     formValues,
@@ -162,12 +207,36 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
     token: balanceToken,
   });
 
-  // Slider: derive percentage from form value (BoostForm pattern)
+  // --- Derived display values ---
+  const connectWalletMessage = t('vaultModals.connectWalletMessage', {
+    tokenSymbol: vault.stakedToken.symbol,
+  });
+
+  const maturityDateUtc =
+    'maturityDate' in vault
+      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
+      : undefined;
+  const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
+
+  const estDiffAmount = getSwapQuoteData?.estReceiveMantissa
+    ? convertMantissaToTokens({
+        value: getSwapQuoteData.estReceiveMantissa,
+        token: isStake ? vault.stakedToken : vault.rewardToken,
+      }).minus(formValues.tokenAmount)
+    : undefined;
+  const estDiff = estDiffAmount
+    ? formatTokensToReadableValue({
+        value: isStake ? estDiffAmount : estDiffAmount.negated(),
+        token: isStake ? vault.stakedToken : vault.rewardToken,
+      })
+    : undefined;
+
+  // --- Slider ---
   const sliderPercentage =
-    availableTokens.isGreaterThan(0) && Number(formValues.amountTokens) > 0
+    availableTokens.isGreaterThan(0) && Number(formValues.tokenAmount) > 0
       ? Math.min(
           100,
-          new BigNumber(formValues.amountTokens)
+          new BigNumber(formValues.tokenAmount)
             .multipliedBy(100)
             .div(availableTokens)
             .dp(1)
@@ -176,28 +245,21 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
       : 0;
 
   const handleSliderChange = (percentage: number) => {
-    const amountTokens = availableTokens
+    const tokenAmount = availableTokens
       .multipliedBy(percentage)
       .div(100)
       .dp(balanceToken.decimals)
       .toFixed();
-    setFormValues(current => ({ ...current, amountTokens }));
-  };
-
-  const handleActionModeChange = (index: number) => {
-    setActionMode(index === 0 ? 'deposit' : 'withdraw');
+    setFormValues(current => ({ ...current, tokenAmount }));
   };
 
   const handleMaxButtonClick = () => {
-    setFormValues(current => ({
-      ...current,
-      amountTokens: availableTokens.toFixed(),
-    }));
+    setFormValues(current => ({ ...current, tokenAmount: availableTokens.toFixed() }));
   };
 
-  const disableInput = isBalanceLoading || isSubmitting;
-  const disableSubmit =
-    isBalanceLoading || !isFormValid || isSubmitting || isGetSwapQuoteLoading || !getSwapQuoteData;
+  // --- Submit state ---
+  const disableInput = !isUserConnected || isSubmitting || isApproveFromTokenLoading;
+  const disableSubmit = !isFormValid || isSubmitting || isGetSwapQuoteLoading || !getSwapQuoteData;
 
   const submitButtonLabel = isStake
     ? t('vaultModals.submitStake')
@@ -245,23 +307,55 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
 
         <div>
           {/* Amount input */}
-          <TokenTextField
-            token={balanceToken}
-            value={formValues.amountTokens}
-            onChange={amountTokens => setFormValues(curr => ({ ...curr, amountTokens }))}
-            disabled={disableInput}
-            rightMaxButton={{
-              label: t('vaultModals.max'),
-              onClick: handleMaxButtonClick,
-            }}
-            hasError={!!formError?.message && Number(formValues.amountTokens) > 0}
-            description={
-              !isSubmitting && formError?.message ? (
-                <p className="text-red">{formError.message}</p>
-              ) : undefined
-            }
-            label={isStake ? t('vaultModals.stakeLabel') : t('vaultModals.withdraw')}
-          />
+          {canUseSwap ? (
+            <SelectTokenTextField
+              selectedToken={formValues.fromToken}
+              value={formValues.tokenAmount}
+              hasError={!isSubmitting && !!formError && Number(formValues.tokenAmount) > 0}
+              disabled={disableInput}
+              onChange={tokenAmount => {
+                setFormValues(currentFormValues => ({
+                  ...currentFormValues,
+                  tokenAmount,
+                }));
+              }}
+              onChangeSelectedToken={fromToken =>
+                setFormValues(currentFormValues => ({
+                  ...currentFormValues,
+                  tokenAmount: initialFormValues.tokenAmount,
+                  fromToken,
+                }))
+              }
+              rightMaxButton={{
+                label: t('operationForm.rightMaxButtonLabel'),
+                onClick: handleMaxButtonClick,
+              }}
+              tokenBalances={tokenBalances}
+              description={
+                !isSubmitting && !!formError?.message ? (
+                  <p className="text-red">{formError.message}</p>
+                ) : undefined
+              }
+            />
+          ) : (
+            <TokenTextField
+              token={balanceToken}
+              value={formValues.tokenAmount}
+              onChange={tokenAmount => setFormValues(curr => ({ ...curr, tokenAmount }))}
+              disabled={disableInput}
+              rightMaxButton={{
+                label: t('vaultModals.max'),
+                onClick: handleMaxButtonClick,
+              }}
+              hasError={!!formError?.message && Number(formValues.tokenAmount) > 0}
+              description={
+                !isSubmitting && formError?.message ? (
+                  <p className="text-red">{formError.message}</p>
+                ) : undefined
+              }
+              label={isStake ? t('vaultModals.stakeLabel') : t('vaultModals.withdraw')}
+            />
+          )}
         </div>
 
         {/* Available balance */}
@@ -296,7 +390,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
         {/* Convert details (Pendle only) */}
         {vault.manager === VaultManager.Pendle && (
           <PendleConvertDetails
-            fromToken={isStake ? vault.rewardToken : vault.stakedToken}
+            fromToken={formValues.fromToken}
             toToken={isStake ? vault.stakedToken : vault.rewardToken}
             slippagePercentage={userSlippageTolerancePercentage}
             swapQuote={getSwapQuoteData}
@@ -319,7 +413,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
         <LabeledInlineContent
           label={isStake ? t('vaultModals.estYield') : t('vaultModals.estPenalty')}
         >
-          <span className="text-b1s text-white">{estYield ?? PLACEHOLDER_KEY}</span>
+          <span className="text-b1s text-white">{estDiff ? `≈ ${estDiff}` : PLACEHOLDER_KEY}</span>
         </LabeledInlineContent>
 
         {/* Maturity Date */}
@@ -335,14 +429,13 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
           className={cn('space-y-4', isUserConnected ? 'mt-2' : 'mt-6')}
           analyticVariant="vault_pendle_modal"
         >
-          <PrimaryButton
-            type="submit"
-            loading={isGetSwapQuoteLoading || isSubmitting}
+          <SubmitButton
+            approval={approval}
+            label={isFormValid ? submitButtonLabel : t('vaultModals.submitButtonDisabledLabel')}
+            isFormValid={isFormValid}
+            isLoading={isGetSwapQuoteLoading || isSubmitting}
             disabled={disableSubmit}
-            className="w-full"
-          >
-            {isFormValid ? submitButtonLabel : t('vaultModals.submitButtonDisabledLabel')}
-          </PrimaryButton>
+          />
 
           {vault && (
             <SwapDetails

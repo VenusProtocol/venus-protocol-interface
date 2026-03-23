@@ -896,7 +896,7 @@ export const contracts: ContractConfig[] = [
     name: 'PendlePtVault',
     abi: pendlePtVaultAbi as Abi,
     address: {
-      [ChainId.BSC_MAINNET]: '0x60Db419d8ea13C5827072Cf693D13cA1Ec6E0B4a',
+      [ChainId.BSC_MAINNET]: '0x179bD219c2a20a49406C9AdA39634eDac1C7F656',
     },
   },
 ];

@@ -8,6 +8,6 @@ export const formatOutput = (input: PendleSwapApiResponse) => {
     feeUsdCents: new BigNumber(input.fee.usd).shiftedBy(2),
     priceImpactPercentage: input.priceImpact,
     pendleMarketAddress: input.pendleMarket,
-    ..._.pick(input, ['contractCallParamsName', 'contractCallParams']),
+    ..._.pick(input, ['contractCallParamsName', 'contractCallParams', 'requiredApprovals']),
   };
 };

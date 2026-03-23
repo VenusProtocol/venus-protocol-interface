@@ -70,13 +70,12 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
       <div className="flex items-center justify-between">
         <span className="text-b2r text-grey">{t('vaultModals.estReceived')}</span>
         <span className="text-b2r text-white">
-          ≈{' '}
           {estReceiveMantissa
-            ? convertMantissaToTokens({
+            ? `≈ ${convertMantissaToTokens({
                 value: estReceiveMantissa,
                 token: toToken,
                 returnInReadableFormat: true,
-              })
+              })}`
             : PLACEHOLDER_KEY}
         </span>
       </div>

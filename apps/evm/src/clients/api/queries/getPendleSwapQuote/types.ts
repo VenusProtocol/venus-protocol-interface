@@ -37,20 +37,20 @@ export interface PendleLimitOrder extends Record<string, unknown> {
   makingAmount: string;
   lnImpliedRate: string;
   failSafeRate: string;
-  permit: string;
+  permit: Hex;
 }
 
-export interface PendleFlashFill {
+export interface PendleFillOrderParams {
   order: PendleLimitOrder;
-  signature: string;
+  signature: Hex;
   makingAmount: string;
 }
 
 export interface PendleLimitOrderData extends Record<string, unknown> {
   limitRouter: Address;
   epsSkipMarket: string;
-  normalFills: PendleFlashFill[];
-  flashFills: PendleFlashFill[];
+  normalFills: PendleFillOrderParams[];
+  flashFills: PendleFillOrderParams[];
   optData: Hex;
 }
 
@@ -102,4 +102,7 @@ export type GetPendleSwapQuoteOutput = {
   feeUsdCents: BigNumber;
   priceImpactPercentage: number;
   pendleMarketAddress: Address;
-} & Pick<PendleSwapApiResponse, 'contractCallParams' | 'contractCallParamsName'>;
+} & Pick<
+  PendleSwapApiResponse,
+  'contractCallParams' | 'contractCallParamsName' | 'requiredApprovals'
+>;

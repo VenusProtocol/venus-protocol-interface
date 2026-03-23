@@ -1,5 +1,8 @@
+import type { Token } from 'types';
+
 export interface FormValues {
-  amountTokens: string;
+  tokenAmount: string;
+  fromToken: Token;
 }
 
 export type FormErrorCode =
