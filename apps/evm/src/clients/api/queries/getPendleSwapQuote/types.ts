@@ -1,4 +1,5 @@
 import type { ChainId, Token } from '@venusprotocol/chains';
+import type BigNumber from 'bignumber.js';
 import type { VError } from 'libs/errors';
 import type { Address, Hex } from 'viem';
 

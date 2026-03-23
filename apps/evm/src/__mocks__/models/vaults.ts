@@ -14,7 +14,7 @@ export const vaults: Vault[] = [
     dailyEmissionMantissa: new BigNumber('144000000000000000000'),
     totalStakedMantissa: new BigNumber('415000000000000000000'),
     stakingAprPercentage: 12665.060240963856,
-    category: VaultCategory.Stablecoin,
+    category: VaultCategory.Stablecoins,
     manager: VaultManager.Venus,
     managerIcon: 'logoMobile',
     status: VaultStatus.Active,

@@ -33,8 +33,6 @@ export const useGetPendleSwapQuote = (
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
 
-  console.log('from:', input.fromToken.symbol, 'to:', input.toToken.symbol);
-
   return useQuery({
     queryKey: [FunctionKey.GET_PENDLE_SWAP_QUOTE, input],
     queryFn: () =>

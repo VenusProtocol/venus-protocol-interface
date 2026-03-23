@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useGetPendleSwapQuote } from 'clients/api';
-import { PendlePtVaultInput, usePendlePtVault } from 'clients/api/mutations/usePendlePtVault';
+import { type PendlePtVaultInput, usePendlePtVault } from 'clients/api/mutations/usePendlePtVault';
 import {
   ButtonGroup,
   LabeledInlineContent,
@@ -86,6 +86,8 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
   const debouncedInputAmountTokens = useDebounceValue(formValues.tokenAmount || 0);
   const inputAmountBN = new BigNumber(debouncedInputAmountTokens);
 
+  const toToken = isStake ? vault.stakedToken : vault.rewardToken;
+
   const {
     data: getSwapQuoteData,
     error: getSwapQuoteError,
@@ -93,7 +95,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
   } = useGetPendleSwapQuote(
     {
       fromToken: formValues.fromToken,
-      toToken: isStake ? vault.stakedToken : vault.rewardToken,
+      toToken,
       amount: inputAmountBN,
       slippagePercentage: userSlippageTolerancePercentage / 100,
     },
@@ -106,7 +108,8 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
   const canUseSwap = isStake && isIntegratedSwapEnabled;
 
   const { address: pendlePtVaultAddress } = useGetContractAddress({ name: 'PendlePtVault' });
-  const spenderAddress = canUseSwap ? pendlePtVaultAddress : NULL_ADDRESS;
+  const spenderAddress =
+    isStake && canUseSwap && pendlePtVaultAddress ? pendlePtVaultAddress : undefined;
 
   const { isTokenApproved: isFromTokenApproved, isApproveTokenLoading: isApproveFromTokenLoading } =
     useTokenApproval({
@@ -179,20 +182,21 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
 
     const amountMantissa = convertTokensToMantissa({
       value: new BigNumber(formValues.tokenAmount),
-      token: (vault as PendleVault).vToken,
+      token: isStake ? formValues.fromToken : (vault as PendleVault).vToken, // Withdraw requires vToken amount as input instead
     });
 
     const now = new Date().getTime();
     let type: PendlePtVaultInput['type'] = actionMode;
-    if ('maturityDate' in vault && vault.maturityDate && now > vault.maturityDate) {
+
+    if ('maturityDate' in vault && vault.maturityDate && now > vault.maturityDate && !isStake) {
       type = 'redeemAtMaturity';
     }
 
     return pendleVaultAction({
       swapQuote: getSwapQuoteData,
       type,
-      fromToken: isStake ? vault.rewardToken : vault.stakedToken,
-      toToken: isStake ? vault.stakedToken : vault.rewardToken,
+      fromToken: formValues.fromToken,
+      toToken,
       amountToken: amountMantissa,
     });
   };
@@ -221,13 +225,13 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
   const estDiffAmount = getSwapQuoteData?.estReceiveMantissa
     ? convertMantissaToTokens({
         value: getSwapQuoteData.estReceiveMantissa,
-        token: isStake ? vault.stakedToken : vault.rewardToken,
+        token: toToken,
       }).minus(formValues.tokenAmount)
     : undefined;
   const estDiff = estDiffAmount
     ? formatTokensToReadableValue({
         value: isStake ? estDiffAmount : estDiffAmount.negated(),
-        token: isStake ? vault.stakedToken : vault.rewardToken,
+        token: toToken,
       })
     : undefined;
 
@@ -391,7 +395,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
         {vault.manager === VaultManager.Pendle && (
           <PendleConvertDetails
             fromToken={formValues.fromToken}
-            toToken={isStake ? vault.stakedToken : vault.rewardToken}
+            toToken={toToken}
             slippagePercentage={userSlippageTolerancePercentage}
             swapQuote={getSwapQuoteData}
           />
@@ -437,10 +441,10 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
             disabled={disableSubmit}
           />
 
-          {vault && (
+          {canUseSwap && (
             <SwapDetails
-              fromToken={vault.rewardToken}
-              toToken={vault.stakedToken}
+              fromToken={formValues.fromToken}
+              toToken={toToken}
               priceImpactPercentage={getSwapQuoteData?.priceImpactPercentage}
             />
           )}

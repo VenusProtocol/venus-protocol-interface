@@ -33,16 +33,16 @@ export const getPendleSwapQuote = async ({
     },
   });
 
+  if (!response.data) {
+    throw new VError({ type: 'swapQuote', code: 'noSwapQuoteFound' });
+  }
+
   if (response.data && 'error' in response.data) {
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
       data: { exception: (response.data as { error: unknown }).error },
     });
-  }
-
-  if (!response.data) {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
   return formatOutput(response.data);

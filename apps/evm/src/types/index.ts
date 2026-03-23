@@ -467,7 +467,7 @@ export interface Transaction {
 }
 
 export enum VaultStatus {
-  Active = 'status',
+  Active = 'active',
   Deposit = 'deposit',
   Earning = 'earning',
   Refund = 'refund',
@@ -482,7 +482,7 @@ export enum VaultManager {
 }
 
 export enum VaultCategory {
-  Stablecoin = 'stablecoin',
+  Stablecoins = 'stablecoins',
   YieldTokens = 'yieldTokens',
   Others = 'others',
 }

@@ -1,3 +1,4 @@
+import type BigNumber from 'bignumber.js';
 import type { PendleContractCallParams } from 'clients/api/queries/getPendleSwapQuote';
 import _ from 'lodash';
 
@@ -30,69 +31,69 @@ const convertKeysToNumber = (
   return obj;
 };
 
-export const formatDepositParams = (input: PendleContractCallParams) => {
-  if (!Array.isArray(input)) return input;
+export const formatDepositParams = (params: PendleContractCallParams) => {
+  if (!Array.isArray(params)) return params;
 
   return [
-    input[1],
-    BigInt(input[2]),
-    convertKeysToNumber(input[3], {
+    params[1],
+    BigInt(params[2]),
+    convertKeysToNumber(params[3], {
       bigintKeyPaths: ['guessMin', 'guessMax', 'guessOffchain', 'eps'],
       numberKeyPaths: ['maxIteration'],
     }),
-    convertKeysToNumber(input[4], {
+    convertKeysToNumber(params[4], {
       bigintKeyPaths: ['netTokenIn'],
       numberKeyPaths: ['swapData.swapType'],
     }),
-    convertKeysToNumber(input[5], { bigintKeyPaths: ['epsSkipMarket'] }),
+    convertKeysToNumber(params[5], { bigintKeyPaths: ['epsSkipMarket'] }),
   ];
 };
 
-export const formatDepositNativeParams = (input: PendleContractCallParams) => {
-  if (!Array.isArray(input)) return input;
+export const formatDepositNativeParams = (params: PendleContractCallParams) => {
+  if (!Array.isArray(params)) return params;
 
   return [
-    input[1],
-    BigInt(input[2]),
-    convertKeysToNumber(input[3], {
+    params[1],
+    BigInt(params[2]),
+    convertKeysToNumber(params[3], {
       bigintKeyPaths: ['guessMin', 'guessMax', 'guessOffchain', 'eps'],
       numberKeyPaths: ['maxIteration'],
     }),
-    convertKeysToNumber(input[4], {
+    convertKeysToNumber(params[4], {
       bigintKeyPaths: ['netTokenIn'],
       numberKeyPaths: ['swapData.swapType'],
     }),
-    convertKeysToNumber(input[5], { bigintKeyPaths: ['epsSkipMarket'] }),
+    convertKeysToNumber(params[5], { bigintKeyPaths: ['epsSkipMarket'] }),
   ];
 };
 
-export const formatWithdrawParams = (input: PendleContractCallParams, amountToken: BigNumber) => {
-  if (!Array.isArray(input)) return input;
+export const formatWithdrawParams = (params: PendleContractCallParams, amountToken: BigNumber) => {
+  if (!Array.isArray(params)) return params;
 
   return [
-    input[1], // pendle market
-    BigInt(amountToken.toFixed()), // token amount
-    convertKeysToNumber(input[3], {
+    params[1], // pendle market
+    BigInt(amountToken.toFixed()), // use vToken amount
+    convertKeysToNumber(params[3], {
       bigintKeyPaths: ['minTokenOut'],
       numberKeyPaths: ['swapData.swapType'],
     }),
-    convertKeysToNumber(input[4], {
+    convertKeysToNumber(params[4], {
       bigintKeyPaths: ['epsSkipMarket'],
     }),
   ];
 };
 
-export const formatRedeemParams = (input: PendleContractCallParams, amountToken: BigNumber) => {
-  if (!Array.isArray(input)) return input;
+export const formatRedeemParams = (params: PendleContractCallParams, amountToken: BigNumber) => {
+  if (!Array.isArray(params)) return params;
 
   return [
-    input[1], // pendle market
-    BigInt(amountToken.toFixed()), // token amount
-    convertKeysToNumber(input[3], {
+    params[1], // pendle market
+    BigInt(amountToken.toFixed()), // use vToken amount
+    convertKeysToNumber(params[3], {
       bigintKeyPaths: ['minTokenOut'],
       numberKeyPaths: ['swapData.swapType'],
     }),
-    convertKeysToNumber(input[4], {
+    convertKeysToNumber(params[4], {
       bigintKeyPaths: ['epsSkipMarket'],
     }),
   ];

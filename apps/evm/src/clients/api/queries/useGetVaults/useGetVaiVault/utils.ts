@@ -8,7 +8,7 @@ export const injectMetadata = (vault?: VaultData) => {
     key: `${VaultManager.Venus}-${vault.stakedToken.symbol}-${vault.rewardToken.symbol}-${
       vault.lockingPeriodMs || 0
     }`,
-    category: VaultCategory.Stablecoin,
+    category: VaultCategory.Stablecoins,
     manager: VaultManager.Venus,
     managerIcon: 'logoMobile' as const,
     status:

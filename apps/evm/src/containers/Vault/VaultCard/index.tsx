@@ -64,10 +64,6 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     ? liquidityCents?.div(stakedTokenPriceUsd).shiftedBy(-2)
     : undefined;
 
-  const openModal = () => {
-    setModalVisible(true);
-  };
-
   const clickAble = [
     VaultStatus.Active,
     VaultStatus.Earning,
@@ -75,17 +71,20 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     ...(vault.manager === VaultManager.Pendle ? [VaultStatus.Deposit] : []),
   ].includes(vault.status);
 
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
   return (
     <>
       <Card
         className={cn(
           'w-full flex flex-col p-0 overflow-hidden duration-250',
-          !!openModal && 'cursor-pointer hover:border-blue',
-          !clickAble && 'cursor-not-allowed',
+          clickAble ? 'cursor-pointer hover:border-blue' : 'cursor-not-allowed',
           className,
         )}
         data-testid={TEST_IDS.userStakedTokens}
-        onClick={openModal}
+        onClick={clickAble ? openModal : undefined}
       >
         {/* Card body */}
         <div className={cn('bg-dark-blue p-3 sm:p-6 flex flex-col gap-4 sm:gap-6 flex-1')}>

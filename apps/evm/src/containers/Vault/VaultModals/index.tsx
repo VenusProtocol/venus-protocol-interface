@@ -22,9 +22,8 @@ export const PendleModal: React.FC<PendleModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const maturityDate = vault.lockingPeriodMs
-    ? new Date(Date.now() + vault.lockingPeriodMs)
-    : undefined;
+  const maturityDate =
+    'maturityDate' in vault && vault.maturityDate ? new Date(vault.maturityDate) : undefined;
 
   const formattedMaturityDate = maturityDate ? format(maturityDate, 'dd MMM yyyy') : undefined;
 
