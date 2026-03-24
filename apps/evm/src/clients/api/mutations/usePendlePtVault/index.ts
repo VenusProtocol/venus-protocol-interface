@@ -8,15 +8,10 @@ import { useAnalytics } from 'libs/analytics';
 import { pendlePtVaultAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import type { Token } from 'types';
+import type { Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import type { Address } from 'viem';
-import {
-  formatDepositNativeParams,
-  formatDepositParams,
-  formatRedeemParams,
-  formatWithdrawParams,
-} from './utils';
+import { formatDepositParams, formatWithdrawParams } from './utils';
 
 export interface PendlePtVaultInput {
   pendlePtVaultContractAddress: Address;
@@ -25,6 +20,7 @@ export interface PendlePtVaultInput {
   fromToken: Token;
   toToken: Token;
   amountToken: BigNumber;
+  vToken?: VToken;
 }
 
 type TrimmedPendlePtVaultInput = Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'>;
@@ -53,7 +49,7 @@ export const usePendlePtVault = (
   return useSendTransaction({
     // @ts-ignore mixing payable and non-payable function calls messes up with the typing of
     // useSendTransaction
-    fn: ({ swapQuote, type, amountToken }: TrimmedPendlePtVaultInput) => {
+    fn: ({ swapQuote, type, amountToken, fromToken, vToken }: TrimmedPendlePtVaultInput) => {
       if (!pendlePtVaultContractAddress) {
         throw new VError({
           type: 'unexpected',
@@ -76,28 +72,28 @@ export const usePendlePtVault = (
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'depositNative' as const,
-          args: formatDepositNativeParams(swapQuote.contractCallParams),
+          args: formatDepositParams(swapQuote.contractCallParams),
           value: BigInt(amountToken.toFixed()),
         } as const;
       }
 
       // Withdraw
-      if (type === 'withdraw') {
+      if (type === 'withdraw' && vToken) {
         return {
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'withdraw' as const,
-          args: formatWithdrawParams(swapQuote.contractCallParams, amountToken),
+          args: formatWithdrawParams(swapQuote.contractCallParams, { fromToken, vToken }),
         } as const;
       }
 
       // Redeem after maturity
-      if (type === 'redeemAtMaturity') {
+      if (type === 'redeemAtMaturity' && vToken) {
         return {
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'redeemAtMaturity' as const,
-          args: formatRedeemParams(swapQuote.contractCallParams, amountToken),
+          args: formatWithdrawParams(swapQuote.contractCallParams, { fromToken, vToken }), // Share the same format as withdraw.
         } as const;
       }
 

@@ -1099,54 +1099,6 @@
     "itemOf": "Mục {{currentPageLastIndex}} trong {{itemsCount}}",
     "itemsOf": "Mục {{firstItemNumber}} - {{currentPageLastIndex}} trong {{itemsCount}}"
   },
-  "vaultModals": {
-    "available": "Khả dụng",
-    "connectWalletMessage": "Vui lòng kết nối ví của bạn để stake {{tokenSymbol}}",
-    "convert": "Chuyển đổi",
-    "currentStaked": "Đang đặt cược",
-    "currentStakedTooltip": "Vị thế stake hiện tại của bạn tính bằng token PT",
-    "daysRemaining": "{{days}} ngày",
-    "effectiveFixedApr": "APR cố định thực tế",
-    "effectiveFixedAprTooltip": "APY cố định bạn nhận được khi đáo hạn dựa trên giá thị trường Pendle hiện tại",
-    "error": {
-      "higherThanBalance": "Số lượng vượt quá số dư {{tokenSymbol}} khả dụng của bạn",
-      "noSwapQuoteFound": "Không tìm thấy lệnh swap. Vui lòng cập nhật biểu mẫu."
-    },
-    "estPenalty": "Phí phạt ước tính",
-    "estReceived": "Ước tính nhận được",
-    "estYield": "Lợi nhuận ước tính",
-    "maturityDate": "Ngày đáo hạn",
-    "maturityDateTooltip": "Ngày token PT đáo hạn và có thể được đổi 1:1",
-    "maturityDisclaimer": "Trước khi đáo hạn, số tiền nhận được khi rút phụ thuộc vào giá thị trường Pendle. Sau khi đáo hạn, các khoản rút được đổi 1:1 dựa trên số lượng token PT bạn nắm giữ.",
-    "max": "Tối đa",
-    "minReceived": "Tối thiểu nhận được",
-    "overview": {
-      "manager": "Tổ chức quản lý",
-      "marketInfo": "Thông tin thị trường",
-      "marketRiskDisclosures": "Công bố rủi ro thị trường",
-      "riskDisclosureText": "Venus Protocol, có thể truy cập tại venus.io, là nền tảng cho vay và đi vay phi tập trung được xây dựng trên BNB Chain, tập trung vào thị trường tiền tệ tiền điện tử. Ra mắt vào năm 2020, nền tảng này kết hợp các yếu tố thiết kế stablecoin có tài sản thế chấp vượt mức của Maker với thị trường tiền tệ thuật toán theo phong cách Compound, cho phép người dùng cung cấp tài sản tiền điện tử, kiếm lợi nhuận và vay mượn dựa trên tài sản thế chấp trong một ứng dụng duy nhất. Giao thức được quản lý bởi cộng đồng và hướng đến việc cung cấp giải pháp thay thế minh bạch, không lưu ký cho các bên cho vay tập trung.",
-      "strategy": {
-        "pendleRouter": "Pendle Router",
-        "supply": "Cung cấp",
-        "users": "Người dùng",
-        "venusCore": "Venus Core"
-      },
-      "strategyAllocation": "Phân bổ chiến lược",
-      "supply": "Cung cấp",
-      "totalDeposits": "Tổng tiền gửi",
-      "totalStaked": "Tổng đã stake",
-      "vaultDeploymentDate": "Ngày triển khai Vault"
-    },
-    "overviewTab": "Tổng quan",
-    "pendleFee": "Phí Pendle",
-    "positionTab": "Vị thế",
-    "stake": "Stake",
-    "stakeLabel": "Stake",
-    "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để yêu cầu",
-    "submitStake": "Stake",
-    "submitWithdraw": "Rút",
-    "withdraw": "Rút"
-  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "Tài sản",
@@ -1863,7 +1815,10 @@
       "currentStaked": "Đang đặt cược",
       "dailyEmission": "Phần thưởng hàng ngày",
       "liquidity": "Thanh khoản",
+      "liquidityTooltip": "Tổng giá trị tài sản hiện đang được cung cấp trong pool tích hợp Pendle (hoặc chiến lược) của kho này.",
       "manager": "Tổ chức quản lý",
+      "maturityDate": "Ngày đáo hạn",
+      "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
       "numDays_other": "{{count}} ngày",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, đặt cược và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
       "stake": "Stake",
@@ -1883,6 +1838,55 @@
       "repaying": "Đang trả nợ",
       "stablecoins": "Stablecoin",
       "vaults": "Kho"
+    },
+    "modals": {
+      "available": "Có sẵn",
+      "connectWalletMessage": "Vui lòng kết nối ví của bạn để stake {{tokenSymbol}}",
+      "convert": "Chuyển đổi",
+      "currentStaked": "Đang stake hiện tại",
+      "currentStakedTooltip": "Số lượng tài sản của bạn hiện đang được khóa và kiếm lợi nhuận trong kho này.",
+      "daysRemaining": "{{days}} ngày",
+      "effectiveFixedApr": "APR Cố Định Hiệu Quả",
+      "effectiveFixedAprPendleTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
+      "error": {
+        "higherThanBalance": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn",
+        "noSwapQuoteFound": "Không tìm thấy lệnh swap. Vui lòng cập nhật biểu mẫu."
+      },
+      "estPenalty": "Phạt ước tính",
+      "estReceived": "Ước tính nhận được",
+      "estYield": "Lợi nhuận ước tính",
+      "maturityDate": "Ngày đáo hạn",
+      "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
+      "maturityPendleDisclaimer": "Trước khi đáo hạn, số tiền nhận được khi rút phụ thuộc vào giá thị trường Pendle. Sau khi đáo hạn, các khoản rút được quy đổi theo tỷ lệ 1:1 dựa trên số PT token bạn nắm giữ.",
+      "max": "Tối đa",
+      "minReceived": "Tối thiểu nhận được",
+      "overview": {
+        "manager": "Quản lý",
+        "managerTooltip": "Chủ sở hữu của kho này (địa chỉ hoặc nhóm đã tạo và kiểm soát nó). Họ có thể cập nhật các cài đặt như phí hoặc chiến lược, nhưng tiền gửi của bạn vẫn an toàn trong hợp đồng thông minh, họ không thể lấy hoặc di chuyển tiền của bạn trực tiếp.",
+        "marketInfo": "Thông tin thị trường",
+        "marketRiskDisclosures": "Công bố rủi ro thị trường",
+        "riskDisclosureText": "Venus Protocol, có thể truy cập tại venus.io, là nền tảng cho vay và đi vay phi tập trung được xây dựng trên BNB Chain, tập trung vào thị trường tiền tệ tiền điện tử. Ra mắt năm 2020, nền tảng kết hợp các yếu tố thiết kế stablecoin thế chấp quá mức của Maker với thị trường tiền tệ theo thuật toán kiểu Compound, cho phép người dùng cung cấp tài sản tiền điện tử, kiếm lợi nhuận và vay dựa trên tài sản thế chấp trong một ứng dụng duy nhất. Giao thức được quản trị bởi cộng đồng và nhằm cung cấp một giải pháp thay thế phi lưu ký, minh bạch cho các bên cho vay tập trung.",
+        "strategy": {
+          "pendleRouter": "Pendle Router",
+          "supply": "Cung cấp",
+          "users": "Người dùng",
+          "venusCore": "Venus Core"
+        },
+        "strategyAllocation": "Phân bổ chiến lược",
+        "supply": "Cung cấp",
+        "totalDeposits": "Tổng tiền gửi",
+        "totalStaked": "Tổng đã stake",
+        "vaultDeploymentDate": "Ngày triển khai Kho"
+      },
+      "overviewTab": "Tổng quan",
+      "pendleFee": "Phí Pendle",
+      "positionTab": "Vị thế",
+      "stake": "Stake",
+      "stakeLabel": "Stake",
+      "submitButtonDisabledLabel": "Nhập số tiền hợp lệ để yêu cầu",
+      "submitStake": "Stake",
+      "submitWithdraw": "Rút",
+      "withdraw": "Rút"
     },
     "overview": {
       "bannerCoinIllustration": "Hình minh họa đồng {{token}}",

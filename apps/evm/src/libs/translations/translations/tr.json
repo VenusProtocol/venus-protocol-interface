@@ -1099,54 +1099,6 @@
     "itemOf": "{{itemsCount}} öğeden {{currentPageLastIndex}}",
     "itemsOf": "{{itemsCount}} öğeden {{firstItemNumber}} - {{currentPageLastIndex}}"
   },
-  "vaultModals": {
-    "available": "Mevcut",
-    "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
-    "convert": "Dönüştür",
-    "currentStaked": "Mevcut stake",
-    "currentStakedTooltip": "PT token cinsinden mevcut stake pozisyonunuz",
-    "daysRemaining": "{{days}} gün",
-    "effectiveFixedApr": "Efektif Sabit APR",
-    "effectiveFixedAprTooltip": "Mevcut Pendle piyasa fiyatlarına göre vade sonunda elde edeceğiniz sabit APY",
-    "error": {
-      "higherThanBalance": "Miktar mevcut {{tokenSymbol}} bakiyenizi aşıyor",
-      "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güelleyin."
-    },
-    "estPenalty": "Tahmini Ceza",
-    "estReceived": "Tahmini Alınan",
-    "estYield": "Tahmini Getiri",
-    "maturityDate": "Vade Tarihi",
-    "maturityDateTooltip": "PT tokenının vade dolacağı ve 1:1 oranında kullanılabileceği tarih",
-    "maturityDisclaimer": "Vade öncesinde, çekim sırasında alınan miktar Pendle piyasa fiyatlarına tabidir. Vadeden sonra, çekimler PT token varlıklarınıza göre 1:1 oranında gerçekleştirilir.",
-    "max": "Maks",
-    "minReceived": "Min. Alınan",
-    "overview": {
-      "manager": "Yönetici kurum",
-      "marketInfo": "Piyasa bilgisi",
-      "marketRiskDisclosures": "Piyasa Risk Açıklamaları",
-      "riskDisclosureText": "venus.io adresinden erişilebilen Venus Protocol, BNB Chain üzerine inşa edilmiş ve kripto para piyasalarına odaklanan merkezi olmayan bir borç verme ve borçlanma platformudur. 2020 yılında başlatılan bu platform, Maker'ın aşırı teminatlı stabilcoin tasarımının unsurlarını Compound tarzı algoritmik para piyasalarıyla birleştirerek kullanıcıların tek bir uygulamada kripto varlıkları tedarik etmelerine, getiri elde etmelerine ve teminatları karşılığında borçlanmalarına olanak tanır. Protokol, topluluğu tarafından yönetilmekte ve merkezi borç verenlere saklama gerektirmeyen, şeffaf bir alternatif sunmayı hedeflemektedir.",
-      "strategy": {
-        "pendleRouter": "Pendle Router",
-        "supply": "Sağla",
-        "users": "Kullanıcılar",
-        "venusCore": "Venus Core"
-      },
-      "strategyAllocation": "Strateji Dağılımı",
-      "supply": "Sağla",
-      "totalDeposits": "Toplam Yatırımlar",
-      "totalStaked": "Toplam Stake",
-      "vaultDeploymentDate": "Kasa Başlangıç Tarihi"
-    },
-    "overviewTab": "Genel Bakış",
-    "pendleFee": "Pendle Ücreti",
-    "positionTab": "Pozisyon",
-    "stake": "Stake et",
-    "stakeLabel": "Stake et",
-    "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
-    "submitStake": "Stake et",
-    "submitWithdraw": "Çek",
-    "withdraw": "Çek"
-  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "Varlıklar",
@@ -1863,7 +1815,10 @@
       "currentStaked": "Mevcut stake",
       "dailyEmission": "Günlük ödül dağıtımı",
       "liquidity": "Likidite",
+      "liquidityTooltip": "Bu kasanın temelindeki Pendle entegre havuzunda (veya stratejisinde) şu anda sağlanan toplam varlık değeri.",
       "manager": "Yönetici kurum",
+      "maturityDate": "Vade Tarihi",
+      "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
       "numDays_one": "{{count}} gün",
       "numDays_other": "{{count}} gün",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, stake ve çekim işlemleri devre dışı bırakılmıştır.",
@@ -1884,6 +1839,55 @@
       "repaying": "Geri ödeniyor",
       "stablecoins": "Stablecoin'ler",
       "vaults": "Kasalar"
+    },
+    "modals": {
+      "available": "Mevcut",
+      "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
+      "convert": "Dönüştür",
+      "currentStaked": "Mevcut stake",
+      "currentStakedTooltip": "PT token cinsinden mevcut stake pozisyonunuz",
+      "daysRemaining": "{{days}} gün",
+      "effectiveFixedApr": "Efektif Sabit APR",
+      "effectiveFixedAprPendleTooltip": "Bu kasa stratejisinin sunduğu yıllık sabit getiri; bileşik faiz dahil efektif Yıllık Yüzde Oranı (APR) olarak ifade edilmektedir.",
+      "error": {
+        "higherThanBalance": "Miktar mevcut {{tokenSymbol}} bakiyenizi aşıyor",
+        "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güelleyin."
+      },
+      "estPenalty": "Tahmini Ceza",
+      "estReceived": "Tahmini Alınan",
+      "estYield": "Tahmini Getiri",
+      "maturityDate": "Vade Tarihi",
+      "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
+      "maturityPendleDisclaimer": "Vade öncesinde, çekim sırasında alınan tutar Pendle piyasa fiyatlarına tabidir. Vade sonrasında, çekimler sahip olduğunuz PT token miktarına göre 1:1 oranında itfa edilir.",
+      "max": "Maks",
+      "minReceived": "Min. Alınan",
+      "overview": {
+        "manager": "Yönetici kurum",
+        "managerTooltip": "Bu kasanın sahibi (onu oluşturan ve kontrol eden adres veya ekip). Ücretler veya stratejiler gibi ayarları güncelleyebilirler; ancak yatırdığınız fonlar akıllı sözleşmede güvende kalır, paranızı doğrudan alamaz veya taşıyamazlar.",
+        "marketInfo": "Piyasa bilgisi",
+        "marketRiskDisclosures": "Piyasa Risk Açıklamaları",
+        "riskDisclosureText": "venus.io adresinden erişilebilen Venus Protocol, BNB Chain üzerine inşa edilmiş ve kripto para piyasalarına odaklanan merkezi olmayan bir borç verme ve borçlanma platformudur. 2020 yılında başlatılan bu platform, Maker'ın aşırı teminatlı stabilcoin tasarımının unsurlarını Compound tarzı algoritmik para piyasalarıyla birleştirerek kullanıcıların tek bir uygulamada kripto varlıkları tedarik etmelerine, getiri elde etmelerine ve teminatları karşılığında borçlanmalarına olanak tanır. Protokol, topluluğu tarafından yönetilmekte ve merkezi borç verenlere saklama gerektirmeyen, şeffaf bir alternatif sunmayı hedeflemektedir.",
+        "strategy": {
+          "pendleRouter": "Pendle Router",
+          "supply": "Sağla",
+          "users": "Kullanıcılar",
+          "venusCore": "Venus Core"
+        },
+        "strategyAllocation": "Strateji Dağılımı",
+        "supply": "Sağla",
+        "totalDeposits": "Toplam Yatırımlar",
+        "totalStaked": "Toplam Stake",
+        "vaultDeploymentDate": "Kasa Başlangıç Tarihi"
+      },
+      "overviewTab": "Genel Bakış",
+      "pendleFee": "Pendle Ücreti",
+      "positionTab": "Pozisyon",
+      "stake": "Stake et",
+      "stakeLabel": "Stake et",
+      "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
+      "submitStake": "Stake et",
+      "submitWithdraw": "Çek",
+      "withdraw": "Çek"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} para birimi görseli",

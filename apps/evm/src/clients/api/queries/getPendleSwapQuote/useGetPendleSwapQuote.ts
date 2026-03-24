@@ -1,9 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useAccountAddress, useChainId } from 'libs/wallet';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
+import type { Address } from 'viem';
 import {
   type GetPendleSwapQuoteInput,
   type GetPendleSwapQuoteOutput,
@@ -21,7 +24,7 @@ type Options = QueryObserverOptions<
   PendleSwapQuoteError,
   GetPendleSwapQuoteOutput,
   GetPendleSwapQuoteOutput,
-  [FunctionKey.GET_PENDLE_SWAP_QUOTE, UseGetPendleSwapQuoteInput]
+  [FunctionKey.GET_PENDLE_SWAP_QUOTE, UseGetPendleSwapQuoteInput, ChainId, Address]
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
@@ -34,7 +37,7 @@ export const useGetPendleSwapQuote = (
   const { accountAddress } = useAccountAddress();
 
   return useQuery({
-    queryKey: [FunctionKey.GET_PENDLE_SWAP_QUOTE, input],
+    queryKey: [FunctionKey.GET_PENDLE_SWAP_QUOTE, input, chainId, accountAddress ?? NULL_ADDRESS],
     queryFn: () =>
       callOrThrow({}, params =>
         getPendleSwapQuote({ chainId, receiverAddress: accountAddress, ...input, ...params }),

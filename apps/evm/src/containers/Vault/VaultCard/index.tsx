@@ -13,11 +13,13 @@ import { type AnyVault, VaultManager, VaultStatus } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
+  formatDateToUtc,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { StatusLabel } from 'containers/Vault/VaultCard/StatusLabel';
 import { useState } from 'react';
 import PendleModal from '../VaultModals';
@@ -54,7 +56,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
   const {
     data: { stakedTokenPriceUsd, dailyEmissionUsdCents, totalStakedUsdCents },
-  } = useVaultUsdValues(vault);
+  } = useVaultUsdValues(vault) ?? {};
 
   const dailyEmissionMantissa =
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
@@ -63,6 +65,12 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const liquidityToken = stakedTokenPriceUsd
     ? liquidityCents?.div(stakedTokenPriceUsd).shiftedBy(-2)
     : undefined;
+
+  const maturityDateUtc =
+    'maturityDate' in vault
+      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
+      : undefined;
+  const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
 
   const clickAble = [
     VaultStatus.Active,
@@ -127,7 +135,10 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             </LabeledInlineContent>
 
             {liquidityCents && (
-              <LabeledInlineContent label={t('vault.card.liquidity')}>
+              <LabeledInlineContent
+                label={t('vault.card.liquidity')}
+                tooltip={t('vault.card.liquidityTooltip')}
+              >
                 <div className="text-b1r text-end">
                   <div className={cn('flex items-center gap-x-2')}>
                     {formatTokensToReadableValue({
@@ -175,12 +186,27 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                   })}
                 </div>
                 <div className="text-light-grey">
-                  {formatCentsToReadableValue({
-                    value: totalStakedUsdCents,
-                  })}
+                  {totalStakedUsdCents
+                    ? formatCentsToReadableValue({
+                        value: totalStakedUsdCents,
+                      })
+                    : PLACEHOLDER_KEY}
                 </div>
               </div>
             </LabeledInlineContent>
+
+            {formattedMaturityDate && (
+              <LabeledInlineContent
+                label={t('vault.card.maturityDate')}
+                tooltip={
+                  vault.manager === VaultManager.Pendle
+                    ? t('vault.card.maturityDatePendleTooltip')
+                    : undefined
+                }
+              >
+                <div className="text-b1r text-end">{formattedMaturityDate}</div>
+              </LabeledInlineContent>
+            )}
 
             <LabeledInlineContent label={t('vault.card.manager')}>
               <Icon name={vault.managerIcon} />

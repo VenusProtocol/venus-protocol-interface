@@ -1099,54 +1099,6 @@
     "itemOf": "第 {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条",
     "itemsOf": "第 {{firstItemNumber}} - {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条"
   },
-  "vaultModals": {
-    "available": "可用",
-    "connectWalletMessage": "请连接您的錢包以质押 {{tokenSymbol}}",
-    "convert": "转换",
-    "currentStaked": "当前质押",
-    "currentStakedTooltip": "您在 PT 代币中的当前质押持仓",
-    "daysRemaining": "{{days}} 天",
-    "effectiveFixedApr": "实际固定年化利率",
-    "effectiveFixedAprTooltip": "根据当前 Pendle 市场价格，您在到期时获得的固定年化收益率",
-    "error": {
-      "higherThanBalance": "金额超过您的可用 {{tokenSymbol}} 余额",
-      "noSwapQuoteFound": "未找到兑换报价，请更新表单。"
-    },
-    "estPenalty": "预计罚款",
-    "estReceived": "预计收到",
-    "estYield": "预计收益",
-    "maturityDate": "到期日",
-    "maturityDateTooltip": "PT 代币到期并可按 1:1 赎回的日期",
-    "maturityDisclaimer": "在到期前，提款时收到的金额取决于 Pendle 市场价格。到期后，提款将根据您持有的 PT 代币数量按 1:1 赎回。",
-    "max": "最大",
-    "minReceived": "最低收到",
-    "overview": {
-      "manager": "管理机构",
-      "marketInfo": "市场信息",
-      "marketRiskDisclosures": "市场风险披露",
-      "riskDisclosureText": "Venus Protocol（可通过 venus.io 访问）是一个建立在 BNB Chain 上的去中心化借贷平台，专注于加密货币货币市场。平台于 2020 年上线，融合了 Maker 超额抖押稳定币设计与 Compound 式算法货币市场的特点，允许用户在单一应用中供应加密资产、赚取收益并以抵押品借款。该协议由社区治理，旨在为中心化借贷机构提供非托管、透明的替代方案。",
-      "strategy": {
-        "pendleRouter": "Pendle Router",
-        "supply": "存款",
-        "users": "用户",
-        "venusCore": "Venus Core"
-      },
-      "strategyAllocation": "策略分配",
-      "supply": "存款",
-      "totalDeposits": "总存款",
-      "totalStaked": "总质押",
-      "vaultDeploymentDate": "金库部署日期"
-    },
-    "overviewTab": "概览",
-    "pendleFee": "Pendle 费用",
-    "positionTab": "持仓",
-    "stake": "质押",
-    "stakeLabel": "质押",
-    "submitButtonDisabledLabel": "输入有效申请金额",
-    "submitStake": "质押",
-    "submitWithdraw": "取款",
-    "withdraw": "取款"
-  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "资产",
@@ -1863,7 +1815,10 @@
       "currentStaked": "当前质押",
       "dailyEmission": "每日奖励释放",
       "liquidity": "流动性",
+      "liquidityTooltip": "此金库底层 Pendle 集成资金池（或策略）中当前提供的资产总价值。",
       "manager": "管理机构",
+      "maturityDate": "到期日",
+      "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
       "numDays_other": "{{count}} 天",
       "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、质押和提款功能已禁用，直至金库恢复运作。",
       "stake": "质押",
@@ -1883,6 +1838,55 @@
       "repaying": "还款中",
       "stablecoins": "稳定币",
       "vaults": "金库"
+    },
+    "modals": {
+      "available": "可用",
+      "connectWalletMessage": "请连接您的錢包以质押 {{tokenSymbol}}",
+      "convert": "转换",
+      "currentStaked": "当前质押",
+      "currentStakedTooltip": "您在 PT 代币中的当前质押持仓",
+      "daysRemaining": "{{days}} 天",
+      "effectiveFixedApr": "实际固定年化利率",
+      "effectiveFixedAprPendleTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
+      "error": {
+        "higherThanBalance": "金额超过您的可用 {{tokenSymbol}} 余额",
+        "noSwapQuoteFound": "未找到兑换报价，请更新表单。"
+      },
+      "estPenalty": "预计罚款",
+      "estReceived": "预计收到",
+      "estYield": "预计收益",
+      "maturityDate": "到期日",
+      "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
+      "maturityPendleDisclaimer": "到期前，提款时收到的金额取决于 Pendle 市场价格。到期后，提款将根据您持有的 PT 代币 1:1 赎回。",
+      "max": "最大",
+      "minReceived": "最低收到",
+      "overview": {
+        "manager": "管理机构",
+        "managerTooltip": "此金库的所有者（创建并控制它的地址或团队）。他们可以更新手续费或策略等设置，但您的存款在智能合约中是安全的，他们无法直接提取或转移您的资金。",
+        "marketInfo": "市场信息",
+        "marketRiskDisclosures": "市场风险披露",
+        "riskDisclosureText": "Venus Protocol（可通过 venus.io 访问）是一个建立在 BNB Chain 上的去中心化借贷平台，专注于加密货币货币市场。平台于 2020 年上线，融合了 Maker 超额抖押稳定币设计与 Compound 式算法货币市场的特点，允许用户在单一应用中供应加密资产、赚取收益并以抵押品借款。该协议由社区治理，旨在为中心化借贷机构提供非托管、透明的替代方案。",
+        "strategy": {
+          "pendleRouter": "Pendle Router",
+          "supply": "存款",
+          "users": "用户",
+          "venusCore": "Venus Core"
+        },
+        "strategyAllocation": "策略分配",
+        "supply": "存款",
+        "totalDeposits": "总存款",
+        "totalStaked": "总质押",
+        "vaultDeploymentDate": "金库部署日期"
+      },
+      "overviewTab": "概览",
+      "pendleFee": "Pendle 费用",
+      "positionTab": "持仓",
+      "stake": "质押",
+      "stakeLabel": "质押",
+      "submitButtonDisabledLabel": "输入有效申请金额",
+      "submitStake": "质押",
+      "submitWithdraw": "取款",
+      "withdraw": "取款"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} 硬币插图",

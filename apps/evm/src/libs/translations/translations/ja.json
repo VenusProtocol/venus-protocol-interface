@@ -1099,54 +1099,6 @@
     "itemOf": "{{itemsCount}}件中{{currentPageLastIndex}}件目",
     "itemsOf": "{{itemsCount}}件中{{firstItemNumber}} - {{currentPageLastIndex}}件"
   },
-  "vaultModals": {
-    "available": "利用可能",
-    "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
-    "convert": "変換",
-    "currentStaked": "現在のステーク量",
-    "currentStakedTooltip": "PTトークンでの現在のステーク残高",
-    "daysRemaining": "{{days}}日",
-    "effectiveFixedApr": "実質固定APR",
-    "effectiveFixedAprTooltip": "現在のPendleマーケット価格に基づいて満期時に受け取る固定APY",
-    "error": {
-      "higherThanBalance": "金額があなたの利用可能な{{tokenSymbol}}残高を超えています",
-      "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。"
-    },
-    "estPenalty": "推定ペナルティ",
-    "estReceived": "推定受取額",
-    "estYield": "推定利回り",
-    "maturityDate": "満期日",
-    "maturityDateTooltip": "PTトークンが満期を迎え、1:1で償還できる日付",
-    "maturityDisclaimer": "満期前は、引き出し時に受け取る金額はPendleマーケット価格に依存します。満期後は、PTトークンの保有量に基づいて1:1で償還されます。",
-    "max": "最大",
-    "minReceived": "最小受取額",
-    "overview": {
-      "manager": "運用機関",
-      "marketInfo": "マーケット情報",
-      "marketRiskDisclosures": "マーケットリスク開示",
-      "riskDisclosureText": "venus.ioからアクセスできるVenus Protocolは、BNBチェーン上に構築された分散型の貸付・借入プラットフォームであり、暗号通貨マネーマーケットに特化しています　2020年にローンチされ、Makerの過剰担保型ステーブルコイン設計とCompoundスタイルのアルゴリズム型マネーマーケットの要素を組み合わせ、ユーザーが1つのアプリケーション内で暗号資産を供給し、利回りを得て、担保を元に借入できるようにしています。このプロトコルはコミュニティによって管理されており、中央集権型の貸し手に対する非カストディアル型の透明な代替手段を提供することを目指しています。",
-      "strategy": {
-        "pendleRouter": "Pendle Router",
-        "supply": "供給",
-        "users": "ユーザー",
-        "venusCore": "Venus Core"
-      },
-      "strategyAllocation": "戦略配分",
-      "supply": "供給",
-      "totalDeposits": "総預金額",
-      "totalStaked": "総ステーキング量",
-      "vaultDeploymentDate": "ボールト展開日"
-    },
-    "overviewTab": "概要",
-    "pendleFee": "Pendleフィー",
-    "positionTab": "ポジション",
-    "stake": "ステーキング",
-    "stakeLabel": "ステーキング",
-    "submitButtonDisabledLabel": "リクエストする数量を入力してください",
-    "submitStake": "ステーキング",
-    "submitWithdraw": "引き出し",
-    "withdraw": "引き出し"
-  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "資産",
@@ -1863,7 +1815,10 @@
       "currentStaked": "現在のステーク量",
       "dailyEmission": "日次報酬配布",
       "liquidity": "流動性",
+      "liquidityTooltip": "このボールトの基盤となる Pendle 統合プール（またはストラテジー）に現在提供されている資産の総価値です。",
       "manager": "運用機関",
+      "maturityDate": "満期日",
+      "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
       "numDays_other": "{{count}}日",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、ステーキング、引き出しは無効になっています。",
       "stake": "ステーキング",
@@ -1883,6 +1838,55 @@
       "repaying": "返済中",
       "stablecoins": "ステーブルコイン",
       "vaults": "ボールト"
+    },
+    "modals": {
+      "available": "利用可能",
+      "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
+      "convert": "変換",
+      "currentStaked": "現在のステーク量",
+      "currentStakedTooltip": "PTトークンでの現在のステーク残高",
+      "daysRemaining": "{{days}}日",
+      "effectiveFixedApr": "実質固定APR",
+      "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
+      "error": {
+        "higherThanBalance": "金額があなたの利用可能な{{tokenSymbol}}残高を超えています",
+        "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。"
+      },
+      "estPenalty": "推定ペナルティ",
+      "estReceived": "推定受取額",
+      "estYield": "推定利回り",
+      "maturityDate": "満期日",
+      "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
+      "maturityPendleDisclaimer": "満期前は、引き出し時に受け取る金額は Pendle の市場価格に依存します。満期後は、保有する PT トークンに基づいて 1:1 で引き出しが換金されます。",
+      "max": "最大",
+      "minReceived": "最小受取額",
+      "overview": {
+        "manager": "運用機関",
+        "managerTooltip": "このボールトのオーナー（作成・管理するアドレスまたはチーム）です。手数料や戦略などの設定を更新できますが、預けた資金はスマートコントラクトで安全に保管されており、直接引き出したり移動させたりすることはできません。",
+        "marketInfo": "マーケット情報",
+        "marketRiskDisclosures": "マーケットリスク開示",
+        "riskDisclosureText": "venus.ioからアクセスできるVenus Protocolは、BNBチェーン上に構築された分散型の貸付・借入プラットフォームであり、暗号通貨マネーマーケットに特化しています\u30002020年にローンチされ、Makerの過剰担保型ステーブルコイン設計とCompoundスタイルのアルゴリズム型マネーマーケットの要素を組み合わせ、ユーザーが1つのアプリケーション内で暗号資産を供給し、利回りを得て、担保を元に借入できるようにしています。このプロトコルはコミュニティによって管理されており、中央集権型の貸し手に対する非カストディアル型の透明な代替手段を提供することを目指しています。",
+        "strategy": {
+          "pendleRouter": "Pendle Router",
+          "supply": "供給",
+          "users": "ユーザー",
+          "venusCore": "Venus Core"
+        },
+        "strategyAllocation": "戦略配分",
+        "supply": "供給",
+        "totalDeposits": "総預金額",
+        "totalStaked": "総ステーキング量",
+        "vaultDeploymentDate": "ボールト展開日"
+      },
+      "overviewTab": "概要",
+      "pendleFee": "Pendleフィー",
+      "positionTab": "ポジション",
+      "stake": "ステーキング",
+      "stakeLabel": "ステーキング",
+      "submitButtonDisabledLabel": "リクエストする数量を入力してください",
+      "submitStake": "ステーキング",
+      "submitWithdraw": "引き出し",
+      "withdraw": "引き出し"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} コインのイラスト",

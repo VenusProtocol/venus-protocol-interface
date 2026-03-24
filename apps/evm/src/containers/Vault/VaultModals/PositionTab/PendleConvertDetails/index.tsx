@@ -34,7 +34,7 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
     <div className={cn('border border-lightGrey rounded-xl p-4 space-y-3', className)}>
       {/* Header row */}
       <div className="flex items-center justify-between">
-        <span className="text-b1s text-white">{t('vaultModals.convert')}</span>
+        <span className="text-b1s text-white">{t('vault.modals.convert')}</span>
         <span className="text-b2r text-grey">
           {fromToken.symbol} → {toToken.symbol}
         </span>
@@ -42,7 +42,7 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
 
       {/* Pendle Fee */}
       <div className="flex items-center justify-between">
-        <span className="text-b2r text-grey">{t('vaultModals.pendleFee')}</span>
+        <span className="text-b2r text-grey">{t('vault.modals.pendleFee')}</span>
         <span className="text-b2r text-white">
           {feeUsdCents
             ? formatCentsToReadableValue({
@@ -54,7 +54,7 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
 
       {/* Min. Received */}
       <div className="flex items-center justify-between">
-        <span className="text-b2r text-grey">{t('vaultModals.minReceived')}</span>
+        <span className="text-b2r text-grey">{t('vault.modals.minReceived')}</span>
         <span className="text-b2r text-white">
           {minReceivedMantissa
             ? convertMantissaToTokens({
@@ -68,7 +68,7 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
 
       {/* Est. Received */}
       <div className="flex items-center justify-between">
-        <span className="text-b2r text-grey">{t('vaultModals.estReceived')}</span>
+        <span className="text-b2r text-grey">{t('vault.modals.estReceived')}</span>
         <span className="text-b2r text-white">
           {estReceiveMantissa
             ? `≈ ${convertMantissaToTokens({

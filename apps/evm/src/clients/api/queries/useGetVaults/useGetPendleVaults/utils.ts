@@ -15,6 +15,10 @@ interface FormatToPendleVaultsInput extends BaseInput {
   vaultProducts: GetVaultProductsOutput;
 }
 
+const DEPLOY_DATE_MAP: Record<Address, number> = {
+  '0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e': new Date('2025-10-09T09:04:39.000Z').getTime(),
+};
+
 const formatVaultProduct = ({
   vaultData,
   pools,
@@ -85,7 +89,7 @@ const formatVaultProduct = ({
       : undefined,
     status,
     underlyingAssetAddress: vaultData.underlyingAssetAddress,
-    vaultDeploymentTime: new Date('2025-10-09T09:04:39.000Z').getTime(),
+    vaultDeploymentTime: DEPLOY_DATE_MAP[vaultData.vaultAddress],
     vToken: asset.vToken,
     poolComptrollerAddress,
   };

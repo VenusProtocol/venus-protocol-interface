@@ -1,9 +1,10 @@
-import { format } from 'date-fns';
-
-import { Modal, Tabs, TokenIcon } from 'components';
+import { Modal, Tabs, TokenIcon, cn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { AnyVault } from 'types';
 
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import { useNow } from 'hooks/useNow';
+import { formatDateToUtc } from 'utilities';
 import { OverviewTab } from './OverviewTab';
 import { PositionTab } from './PositionTab';
 
@@ -21,15 +22,18 @@ export const PendleModal: React.FC<PendleModalProps> = ({
   isOpen,
 }) => {
   const { t } = useTranslation();
+  const now = useNow();
 
-  const maturityDate =
-    'maturityDate' in vault && vault.maturityDate ? new Date(vault.maturityDate) : undefined;
+  const maturityDateUtc =
+    'maturityDate' in vault
+      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
+      : undefined;
+  const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
 
-  const formattedMaturityDate = maturityDate ? format(maturityDate, 'dd MMM yyyy') : undefined;
-
-  const daysRemaining = maturityDate
-    ? Math.ceil((maturityDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
-    : undefined;
+  const daysRemaining =
+    'maturityDate' in vault && vault.maturityDate
+      ? Math.ceil((new Date(vault.maturityDate).getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+      : undefined;
 
   const title = (
     <div className="flex items-center gap-2 min-w-0">
@@ -38,7 +42,7 @@ export const PendleModal: React.FC<PendleModalProps> = ({
         <span className="text-b1s truncate">{vault.stakedToken.symbol}</span>
         {formattedMaturityDate && daysRemaining !== undefined && daysRemaining > 0 && (
           <span className="text-b2r text-grey">
-            {formattedMaturityDate} ({t('vaultModals.daysRemaining', { days: daysRemaining })})
+            {formattedMaturityDate} ({t('vault.modals.daysRemaining', { days: daysRemaining })})
           </span>
         )}
       </div>
@@ -48,18 +52,23 @@ export const PendleModal: React.FC<PendleModalProps> = ({
   const tabs = [
     {
       id: 'position',
-      title: t('vaultModals.positionTab'),
+      title: t('vault.modals.positionTab'),
       content: <PositionTab vault={vault} onClose={handleClose} initialMode={initialMode} />,
     },
     {
       id: 'overview',
-      title: t('vaultModals.overviewTab'),
+      title: t('vault.modals.overviewTab'),
       content: <OverviewTab vault={vault} />,
     },
   ];
 
   return (
-    <Modal isOpen={isOpen} handleClose={handleClose} title={title}>
+    <Modal
+      isOpen={isOpen}
+      handleClose={handleClose}
+      title={title}
+      className={cn('max-sm:w-full max-sm:translate-y-[calc(-50%+1rem)] max-sm:rounded-b-none')}
+    >
       <Tabs tabs={tabs} variant="secondary" buttonClassName="flex-1" />
     </Modal>
   );

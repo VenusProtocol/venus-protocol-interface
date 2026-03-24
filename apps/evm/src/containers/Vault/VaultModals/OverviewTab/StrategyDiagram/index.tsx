@@ -13,21 +13,21 @@ export const StrategyDiagram: React.FC<StrategyDiagramProps> = ({ vault }) => {
 
   return (
     <div className={cn('flex flex-col items-stretch')}>
-      <FlowNode variant="line">{t('vaultModals.overview.strategy.users')}</FlowNode>
+      <FlowNode variant="line">{t('vault.modals.overview.strategy.users')}</FlowNode>
 
       <FlowArrow
         leftContent={vault.manager.toUpperCase()}
         rightContent={vault.rewardToken.symbol}
       />
 
-      <FlowNode variant="primary">{t('vaultModals.overview.strategy.pendleRouter')}</FlowNode>
+      <FlowNode variant="primary">{t('vault.modals.overview.strategy.pendleRouter')}</FlowNode>
       <FlowArrow
-        leftContent={t('vaultModals.overview.supply', 'Supply')}
+        leftContent={t('vault.modals.overview.supply', 'Supply')}
         rightContent={vault.stakedToken.symbol}
       />
 
       <FlowNode variant="line">
-        {t('vaultModals.overview.strategy.supply')} {t('vaultModals.overview.strategy.venusCore')}
+        {t('vault.modals.overview.strategy.supply')} {t('vault.modals.overview.strategy.venusCore')}
       </FlowNode>
     </div>
   );

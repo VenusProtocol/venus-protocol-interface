@@ -24,11 +24,14 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <LabeledInlineContent label={t('vaultModals.overview.vaultDeploymentDate')}>
+      <LabeledInlineContent label={t('vault.modals.overview.vaultDeploymentDate')}>
         {deploymentDate}
       </LabeledInlineContent>
 
-      <LabeledInlineContent label={t('vaultModals.overview.manager')}>
+      <LabeledInlineContent
+        label={t('vault.modals.overview.manager')}
+        tooltip={t('vault.modals.overview.managerTooltip')}
+      >
         <div className="flex items-center gap-2">
           <Icon name="pendle" className="size-4" />
           <span className="text-b1r text-white">PENDLE</span>
@@ -47,8 +50,10 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
       </LabeledInlineContent>
 
       <div className="mt-2">
-        <p className="text-b1r text-grey mb-2">{t('vaultModals.overview.marketRiskDisclosures')}</p>
-        <p className="text-b1r text-white">{t('vaultModals.overview.riskDisclosureText')}</p>
+        <p className="text-b1r text-grey mb-2">
+          {t('vault.modals.overview.marketRiskDisclosures')}
+        </p>
+        <p className="text-b1r text-white">{t('vault.modals.overview.riskDisclosureText')}</p>
       </div>
     </div>
   );
