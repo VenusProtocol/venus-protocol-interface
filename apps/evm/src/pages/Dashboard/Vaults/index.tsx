@@ -6,7 +6,7 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
 import { useTranslation } from 'libs/translations';
-import type { AnyVault } from 'types';
+import { type AnyVault, VaultManager } from 'types';
 import { convertPriceMantissaToDollars, formatCentsToReadableValue } from 'utilities';
 import { Placeholder } from '../Placeholder';
 
@@ -107,15 +107,20 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
     <>
       <CellGroup variant="secondary" cells={overviewCells} className="mb-6" />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3">
-        {filteredVaults.map(vault => (
-          <Link
-            to={routes.vaults.path}
-            key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
-            noStyle
-          >
+        {filteredVaults.map(vault =>
+          vault.manager === VaultManager.Venus ? (
+            <Link
+              to={routes.vaults.path}
+              key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
+              noStyle
+              onClick={e => e.stopPropagation()}
+            >
+              <VaultCardSimplified vault={vault} />
+            </Link>
+          ) : (
             <VaultCardSimplified vault={vault} />
-          </Link>
-        ))}
+          ),
+        )}
       </div>
     </>
   );

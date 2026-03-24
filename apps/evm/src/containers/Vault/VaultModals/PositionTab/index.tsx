@@ -12,7 +12,6 @@ import { SwapDetails } from 'containers/SwapDetails';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -32,7 +31,7 @@ import { SubmitButton } from './SubmitButton';
 import type { Approval } from './SubmitButton/types';
 import useForm, { type FormValues } from './useForm';
 
-type ActionMode = 'deposit' | 'withdraw';
+type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';
 
 export interface PositionTabProps {
   vault: AnyVault;
@@ -46,25 +45,28 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
-  // --- Action mode ---
+  const hasMatured =
+    'maturityDate' in vault && vault.maturityDate && now.getTime() > vault.maturityDate;
 
+  // --- Action mode ---
   const forceActionMode = useMemo(() => {
-    // Always display withdraw after pendle maturity date
-    if (
-      vault.manager === VaultManager.Pendle &&
-      'maturityDate' in vault &&
-      vault.maturityDate &&
-      now.getTime() > vault.maturityDate
-    ) {
-      return 'withdraw';
+    // Always display withdraw (redeemAtMaturity) after pendle maturity date
+    if (vault.manager === VaultManager.Pendle && hasMatured) {
+      return 'redeemAtMaturity';
     }
 
     return undefined;
-  }, [vault, now]);
+  }, [vault, hasMatured]);
 
   const [actionMode, setActionMode] = useState<ActionMode>(
     forceActionMode ? forceActionMode : initialMode,
   );
+  useEffect(() => {
+    if (forceActionMode) {
+      setActionMode(forceActionMode);
+    }
+  }, [forceActionMode]);
+
   const isStake = actionMode === 'deposit';
 
   const handleActionModeChange = (index: number) => {
@@ -104,19 +106,15 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
       fromToken: formValues.fromToken,
       toToken,
       amount: inputAmountBN,
-      slippagePercentage: userSlippageTolerancePercentage / 100,
+      slippagePercentage:
+        actionMode === 'redeemAtMaturity' ? 0 : userSlippageTolerancePercentage / 100,
     },
     { enabled: inputAmountBN.isGreaterThan(0) },
   );
 
   // --- Token approval ---
-  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
-
-  const canUseSwap = isStake && isIntegratedSwapEnabled;
-
   const { address: pendlePtVaultAddress } = useGetContractAddress({ name: 'PendlePtVault' });
-  const spenderAddress =
-    isStake && canUseSwap && pendlePtVaultAddress ? pendlePtVaultAddress : undefined;
+  const spenderAddress = isStake && pendlePtVaultAddress ? pendlePtVaultAddress : undefined;
 
   const { isTokenApproved: isFromTokenApproved, isApproveTokenLoading: isApproveFromTokenLoading } =
     useTokenApproval({
@@ -280,9 +278,11 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
     !isUserConnected || isSubmitting || isApproveFromTokenLoading || isBalanceLoading;
   const disableSubmit = !isFormValid || isSubmitting || isGetSwapQuoteLoading || !getSwapQuoteData;
 
-  const submitButtonLabel = isStake
-    ? t('vault.modals.submitStake')
-    : t('vault.modals.submitWithdraw');
+  const actionLabel = (() => {
+    if (actionMode === 'deposit') return t('vault.modals.stake');
+    if (actionMode === 'withdraw') return t('vault.modals.withdraw');
+    return t('vault.modals.claim');
+  })();
 
   // When wallet is disconnected, show minimal view
   if (!accountAddress) {
@@ -366,7 +366,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
                 <p className="text-red">{formError.message}</p>
               ) : undefined
             }
-            label={isStake ? t('vault.modals.stakeLabel') : t('vault.modals.withdraw')}
+            label={actionLabel}
           />
         </div>
 
@@ -422,11 +422,15 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
         )}
 
         {/* Est. Yield (stake) or Est. Penalty (withdraw) */}
-        <LabeledInlineContent
-          label={isStake ? t('vault.modals.estYield') : t('vault.modals.estPenalty')}
-        >
-          <span className="text-b1s text-white">{estDiff ? `≈ ${estDiff}` : PLACEHOLDER_KEY}</span>
-        </LabeledInlineContent>
+        {actionMode !== 'redeemAtMaturity' && (
+          <LabeledInlineContent
+            label={isStake ? t('vault.modals.estYield') : t('vault.modals.estPenalty')}
+          >
+            <span className="text-b1s text-white">
+              {estDiff ? `≈ ${estDiff}` : PLACEHOLDER_KEY}
+            </span>
+          </LabeledInlineContent>
+        )}
 
         {/* Maturity Date */}
         <LabeledInlineContent
@@ -447,13 +451,13 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
         >
           <SubmitButton
             approval={approval}
-            label={isFormValid ? submitButtonLabel : t('vault.modals.submitButtonDisabledLabel')}
+            label={isFormValid ? actionLabel : t('vault.modals.submitButtonDisabledLabel')}
             isFormValid={isFormValid}
             isLoading={isGetSwapQuoteLoading || isSubmitting}
             disabled={disableSubmit}
           />
 
-          {canUseSwap && (
+          {actionMode !== 'redeemAtMaturity' && (
             <SwapDetails
               fromToken={formValues.fromToken}
               toToken={toToken}

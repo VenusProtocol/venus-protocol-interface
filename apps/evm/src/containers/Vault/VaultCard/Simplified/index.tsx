@@ -5,7 +5,7 @@ import { Card, TokenIcon, TokenIconWithSymbol } from 'components';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { AnyVault } from 'types';
+import { type AnyVault, VaultManager } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
@@ -13,6 +13,8 @@ import {
 } from 'utilities';
 
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import PendleModal from 'containers/Vault/VaultModals';
+import { useState } from 'react';
 import TEST_IDS from '../../testIds';
 import { Cell } from './Cell';
 
@@ -24,6 +26,11 @@ interface VaultCardSimplifiedProps {
 // Vault Card in Dashboard
 export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
   const { t } = useTranslation();
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const openModal = () => {
+    setModalVisible(true);
+  };
 
   const { accountAddress } = useAccountAddress();
 
@@ -68,42 +75,53 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
   );
 
   return (
-    <Card
-      className={cn(
-        'w-full flex flex-col p-3 gap-3 duration-200',
-        !isPaused && 'cursor-pointer hover:border-blue',
-        className,
-      )}
-    >
-      {showHoldingsCard ? (
-        <div className="text-b1r text-light-grey">
-          {t('vault.card.currentStaked')}
-          <div className={cn('flex items-center text-p2s gap-2 text-light-grey-active')}>
-            <TokenIcon token={vault.stakedToken} displayChain={false} size="lg" />
-            {readableUserStakedTokens}
-          </div>
-        </div>
-      ) : (
-        <TokenIconWithSymbol
-          token={vault.stakedToken}
-          displayChain={false}
-          size="lg"
-          data-testid={TEST_IDS.symbol}
-          className="text-p2s"
-        />
-      )}
-      <div className="flex">
-        <Cell
-          title={t('vault.card.apr')}
-          content={formatPercentageToReadableValue(vault.stakingAprPercentage)}
-        />
-
-        {showHoldingsCard ? (
-          <Cell title={t('vault.card.dailyEmission')} content={dailyEmissionContent} />
-        ) : (
-          <Cell title={t('vault.card.totalDeposited')} content={totalDepositedContent} />
+    <>
+      <Card
+        className={cn(
+          'w-full h-full flex flex-col p-3 gap-3 duration-200',
+          !isPaused && 'cursor-pointer hover:border-blue',
+          className,
         )}
-      </div>
-    </Card>
+        onClick={isPaused || vault.manager === VaultManager.Venus ? undefined : openModal}
+      >
+        {showHoldingsCard ? (
+          <div className="text-b1r text-light-grey">
+            {t('vault.card.currentStaked')}
+            <div className={cn('flex items-center text-p2s gap-2 text-light-grey-active')}>
+              <TokenIcon token={vault.stakedToken} displayChain={false} size="lg" />
+              {readableUserStakedTokens}
+            </div>
+          </div>
+        ) : (
+          <TokenIconWithSymbol
+            token={vault.stakedToken}
+            displayChain={false}
+            size="lg"
+            data-testid={TEST_IDS.symbol}
+            className="text-p2s"
+          />
+        )}
+        <div className="flex">
+          <Cell
+            title={t('vault.card.apr')}
+            content={formatPercentageToReadableValue(vault.stakingAprPercentage)}
+          />
+
+          {showHoldingsCard ? (
+            <Cell title={t('vault.card.dailyEmission')} content={dailyEmissionContent} />
+          ) : (
+            <Cell title={t('vault.card.totalDeposited')} content={totalDepositedContent} />
+          )}
+        </div>
+      </Card>
+
+      {modalVisible && vault.manager === VaultManager.Pendle && (
+        <PendleModal
+          vault={vault}
+          isOpen={modalVisible}
+          handleClose={() => setModalVisible(false)}
+        />
+      )}
+    </>
   );
 };

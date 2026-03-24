@@ -1841,6 +1841,7 @@
     },
     "modals": {
       "available": "利用可能",
+      "claim": "請求",
       "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
       "convert": "変換",
       "currentStaked": "現在のステーク量",
@@ -1882,10 +1883,7 @@
       "pendleFee": "Pendleフィー",
       "positionTab": "ポジション",
       "stake": "ステーキング",
-      "stakeLabel": "ステーキング",
       "submitButtonDisabledLabel": "リクエストする数量を入力してください",
-      "submitStake": "ステーキング",
-      "submitWithdraw": "引き出し",
       "withdraw": "引き出し"
     },
     "overview": {

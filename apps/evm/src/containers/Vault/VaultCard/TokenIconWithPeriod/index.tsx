@@ -55,7 +55,7 @@ export const TokenIconWithPeriod: React.FC<TokenIconWithPeriodProps> = ({
           {token.symbol}
         </p>
 
-        {targetDate && (
+        {daysRemaining && daysRemaining > 0 && (
           <p className={cn('truncate text-light-grey', size === 'md' ? 'text-b2r' : 'text-b1r')}>
             {formattedDateUtc} ( {daysRemainingStr} )
           </p>

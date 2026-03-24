@@ -1841,6 +1841,7 @@
     },
     "modals": {
       "available": "可用",
+      "claim": "領取",
       "connectWalletMessage": "請連接您的錢包以質押 {{tokenSymbol}}",
       "convert": "轉換",
       "currentStaked": "當前質押",
@@ -1880,12 +1881,9 @@
       },
       "overviewTab": "概覽",
       "pendleFee": "Pendle 費用",
-      "positionTab": "持倃",
+      "positionTab": "持倉",
       "stake": "質押",
-      "stakeLabel": "質押",
       "submitButtonDisabledLabel": "輸入有效申請金額",
-      "submitStake": "質押",
-      "submitWithdraw": "提取",
       "withdraw": "提取"
     },
     "overview": {

@@ -1841,6 +1841,7 @@
     },
     "modals": {
       "available": "ที่มีอยู่",
+      "claim": "อ้างสิทธิ์",
       "connectWalletMessage": "กรุณาเชื่อมต่อกระเป๋าเงินของคุณเพื่อสเตค {{tokenSymbol}}",
       "convert": "แปลง",
       "currentStaked": "สเตคในปัจจุบัน",
@@ -1882,10 +1883,7 @@
       "pendleFee": "ค่าธรรมเนียม Pendle",
       "positionTab": "ตำแหน่ง",
       "stake": "สเตค",
-      "stakeLabel": "สเตค",
       "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อส่งคำขอ",
-      "submitStake": "สเตค",
-      "submitWithdraw": "ถอน",
       "withdraw": "ถอน"
     },
     "overview": {

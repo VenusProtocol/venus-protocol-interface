@@ -1842,6 +1842,7 @@
     },
     "modals": {
       "available": "Mevcut",
+      "claim": "Talep et",
       "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
       "convert": "Dönüştür",
       "currentStaked": "Mevcut stake",
@@ -1883,10 +1884,7 @@
       "pendleFee": "Pendle Ücreti",
       "positionTab": "Pozisyon",
       "stake": "Stake et",
-      "stakeLabel": "Stake et",
       "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
-      "submitStake": "Stake et",
-      "submitWithdraw": "Çek",
       "withdraw": "Çek"
     },
     "overview": {

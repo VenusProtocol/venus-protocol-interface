@@ -12,7 +12,7 @@ export const useVaultUsdValues = (vault: AnyVault) => {
       tokens: [stakedToken, rewardToken],
     },
     {
-      enabled: !('stakedTokenPriceUsd' in vault || 'rewardTokenPriceUsd' in vault),
+      enabled: !('stakedTokenPriceUsd' in vault && 'rewardTokenPriceUsd' in vault),
     },
   );
 

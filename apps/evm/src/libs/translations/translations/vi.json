@@ -1841,6 +1841,7 @@
     },
     "modals": {
       "available": "Có sẵn",
+      "claim": "Nhận thưởng",
       "connectWalletMessage": "Vui lòng kết nối ví của bạn để stake {{tokenSymbol}}",
       "convert": "Chuyển đổi",
       "currentStaked": "Đang stake hiện tại",
@@ -1882,10 +1883,7 @@
       "pendleFee": "Phí Pendle",
       "positionTab": "Vị thế",
       "stake": "Stake",
-      "stakeLabel": "Stake",
       "submitButtonDisabledLabel": "Nhập số tiền hợp lệ để yêu cầu",
-      "submitStake": "Stake",
-      "submitWithdraw": "Rút",
       "withdraw": "Rút"
     },
     "overview": {

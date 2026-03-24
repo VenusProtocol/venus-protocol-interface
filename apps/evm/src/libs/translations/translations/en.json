@@ -1842,6 +1842,7 @@
     },
     "modals": {
       "available": "Available",
+      "claim": "Claim",
       "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
       "convert": "Convert",
       "currentStaked": "Current Staked",
@@ -1883,10 +1884,7 @@
       "pendleFee": "Pendle Fee",
       "positionTab": "Position",
       "stake": "Stake",
-      "stakeLabel": "Stake",
       "submitButtonDisabledLabel": "Enter a valid amount to request",
-      "submitStake": "Stake",
-      "submitWithdraw": "Withdraw",
       "withdraw": "Withdraw"
     },
     "overview": {

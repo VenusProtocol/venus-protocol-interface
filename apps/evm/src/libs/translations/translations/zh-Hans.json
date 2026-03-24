@@ -1841,6 +1841,7 @@
     },
     "modals": {
       "available": "可用",
+      "claim": "领取",
       "connectWalletMessage": "请连接您的錢包以质押 {{tokenSymbol}}",
       "convert": "转换",
       "currentStaked": "当前质押",
@@ -1882,10 +1883,7 @@
       "pendleFee": "Pendle 费用",
       "positionTab": "持仓",
       "stake": "质押",
-      "stakeLabel": "质押",
       "submitButtonDisabledLabel": "输入有效申请金额",
-      "submitStake": "质押",
-      "submitWithdraw": "取款",
       "withdraw": "取款"
     },
     "overview": {
