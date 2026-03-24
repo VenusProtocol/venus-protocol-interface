@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.21.1
+
+### Patch Changes
+
+- 841de69: add recovery for reconnect
+
 ## 4.21.0
 
 ### Minor Changes
