@@ -18,5 +18,8 @@
   },
   "[css]": {
     "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
   }
 }
