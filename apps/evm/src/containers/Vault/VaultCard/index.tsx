@@ -73,7 +73,9 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     'maturityDate' in vault && vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
   const maturityDateUtc =
     'maturityDate' in vault
-      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
+      ? t('vault.card.textualWithTime', {
+          date: formatDateToUtc(vault.maturityDate),
+        })
       : undefined;
   const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
 

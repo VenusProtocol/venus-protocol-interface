@@ -1826,6 +1826,8 @@
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, stake ve çekim işlemleri devre dışı bırakılmıştır.",
       "stake": "Stake et",
       "stakingApr": "{{stakeTokenName}} Stake APR",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Toplam yatırılan",
       "totalStaked": "Toplam Stake",
       "withdraw": "Çek",
@@ -1888,6 +1890,8 @@
       "positionTab": "Pozisyon",
       "stake": "Stake et",
       "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "Çek"
     },
     "overview": {

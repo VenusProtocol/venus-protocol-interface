@@ -1825,6 +1825,8 @@
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, đặt cược và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
       "stake": "Stake",
       "stakingApr": "APR stake {{stakeTokenName}}",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Tổng tiền gửi",
       "totalStaked": "Tổng đã stake",
       "withdraw": "Rút",
@@ -1887,6 +1889,8 @@
       "positionTab": "Vị thế",
       "stake": "Stake",
       "submitButtonDisabledLabel": "Nhập số tiền hợp lệ để yêu cầu",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "Rút"
     },
     "overview": {

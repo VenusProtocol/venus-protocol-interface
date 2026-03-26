@@ -1825,6 +1825,8 @@
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、ステーキング、引き出しは無効になっています。",
       "stake": "ステーキング",
       "stakingApr": "{{stakeTokenName}} ステーキングAPR",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "総預金額",
       "totalStaked": "総ステーキング量",
       "withdraw": "引き出し",
@@ -1887,6 +1889,8 @@
       "positionTab": "ポジション",
       "stake": "ステーキング",
       "submitButtonDisabledLabel": "リクエストする数量を入力してください",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "引き出し"
     },
     "overview": {

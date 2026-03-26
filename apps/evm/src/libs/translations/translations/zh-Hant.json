@@ -1825,6 +1825,8 @@
       "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、質押和提款功能已禁用，直至金庫恢復運作。",
       "stake": "質押",
       "stakingApr": "{{stakeTokenName}} 質押 APR",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "總存款",
       "totalStaked": "總質押",
       "withdraw": "提取",
@@ -1887,6 +1889,8 @@
       "positionTab": "持倉",
       "stake": "質押",
       "submitButtonDisabledLabel": "輸入有效申請金額",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "提取"
     },
     "overview": {

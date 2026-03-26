@@ -251,7 +251,9 @@ export const PositionTab: React.FC<PositionTabProps> = ({
 
   const maturityDateUtc =
     'maturityDate' in vault
-      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
+      ? t('vault.modals.textualWithTime', {
+          date: formatDateToUtc(vault.maturityDate),
+        })
       : undefined;
   const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
 

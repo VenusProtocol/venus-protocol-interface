@@ -1,5 +1,3 @@
-import { format } from 'date-fns';
-
 import { Icon, LabeledInlineContent } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
@@ -18,7 +16,7 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
   const pendleVault = isPendleVault(vault) ? vault : undefined;
 
   const formattedDeploymentDate = pendleVault?.vaultDeploymentDate
-    ? format(pendleVault.vaultDeploymentDate, 'dd MMM yyyy')
+    ? t('vault.modals.textualDate', { date: pendleVault.vaultDeploymentDate })
     : PLACEHOLDER_KEY;
 
   return (

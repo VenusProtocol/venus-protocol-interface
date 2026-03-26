@@ -1825,6 +1825,8 @@
       "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การสเตค และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
       "stake": "สเตค",
       "stakingApr": "APR การสเตค {{stakeTokenName}}",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "ยอดฝากทั้งหมด",
       "totalStaked": "ยอดสเตครวม",
       "withdraw": "ถอน",
@@ -1887,6 +1889,8 @@
       "positionTab": "ตำแหน่ง",
       "stake": "สเตค",
       "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อส่งคำขอ",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "ถอน"
     },
     "overview": {

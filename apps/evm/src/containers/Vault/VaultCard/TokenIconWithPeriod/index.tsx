@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
 import { TokenIcon, type TokenIconProps } from 'components/TokenIcon';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { formatDateToUtc } from 'utilities';
@@ -31,10 +32,11 @@ export const TokenIconWithPeriod: React.FC<TokenIconWithPeriodProps> = ({
       ? t('vault.card.numDays', { count: daysRemaining })
       : undefined;
 
-  const formattedDateUtc = formatDateToUtc(targetDate, {
-    showPlaceholder: true,
-    formatStr: 'MMM dd yyyy',
-  });
+  const formattedDateUtc = targetDate
+    ? t('vault.card.textualDate', {
+        date: formatDateToUtc(targetDate),
+      })
+    : PLACEHOLDER_KEY;
 
   return (
     <div
