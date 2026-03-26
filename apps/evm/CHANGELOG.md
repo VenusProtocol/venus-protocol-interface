@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 4.21.2
+
+### Patch Changes
+
+- ad8f099: check translations during CI process
+- 0aaeef1: update code quality guidelines
+- 0aaeef1: create skill to review PRs
+
 ## 4.21.1
 
 ### Patch Changes
