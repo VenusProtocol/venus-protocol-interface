@@ -1809,34 +1809,21 @@
       "blockingPendingWithdrawalsWarning": "Bu kasayla etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekmektedir.",
       "currentStaked": "Mevcut stake",
       "dailyEmission": "Günlük ödül dağıtımı",
-      "manager": "Yönetici kurum",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, stake ve çekim işlemleri devre dışı bırakılmıştır.",
       "stake": "Stake et",
       "stakingApr": "{{stakeTokenName}} Stake APR",
       "totalDeposited": "Toplam yatırılan",
       "totalStaked": "Toplam Stake",
-      "venusManager": "Venus",
       "withdraw": "Çek",
-      "youAreStake": "Stake ediyorsunuz",
-      "youStaked": "Stake ettiğiniz"
+      "youAreStake": "Stake ediyorsunuz"
     },
     "filter": {
-      "active": "Aktif",
       "allCategories": "Tüm kategoriler",
       "allManagers": "Tüm yönetici kurumlar",
-      "allStates": "Tüm durumlar",
-      "claim": "Talep et",
-      "deposit": "Yatır",
-      "earning": "Kazanıyor",
       "inputPlaceholder": "Varlık ara",
       "others": "Diğerleri",
-      "paused": "Duraklatıldı",
-      "refund": "İade",
-      "repaying": "Geri ödeniyor",
-      "rwa": "RWA",
       "stablecoins": "Stablecoin'ler",
-      "vaults": "Kasalar",
-      "yieldTokens": "Getiri tokenları"
+      "vaults": "Kasalar"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} para birimi görseli",

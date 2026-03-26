@@ -1809,34 +1809,21 @@
       "blockingPendingWithdrawalsWarning": "您必須先完成待處理的提款才能與此金庫互動。",
       "currentStaked": "當前質押",
       "dailyEmission": "每日獎勵釋放",
-      "manager": "管理機構",
       "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、質押和提款功能已禁用，直至金庫恢復運作。",
       "stake": "質押",
       "stakingApr": "{{stakeTokenName}} 質押 APR",
       "totalDeposited": "總存款",
       "totalStaked": "總質押",
-      "venusManager": "Venus",
       "withdraw": "提取",
-      "youAreStake": "你正在質押",
-      "youStaked": "您已質押"
+      "youAreStake": "你正在質押"
     },
     "filter": {
-      "active": "活躍",
       "allCategories": "所有類別",
       "allManagers": "所有管理機構",
-      "allStates": "所有狀態",
-      "claim": "領取",
-      "deposit": "存款",
-      "earning": "收益中",
       "inputPlaceholder": "搜尋資產",
       "others": "其他",
-      "paused": "已暫停",
-      "refund": "退款",
-      "repaying": "還款中",
-      "rwa": "RWA",
       "stablecoins": "穩定幣",
-      "vaults": "金庫",
-      "yieldTokens": "收益代幣"
+      "vaults": "金庫"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} 硬幣插圖",

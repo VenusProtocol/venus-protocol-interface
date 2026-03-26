@@ -1809,34 +1809,21 @@
       "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
       "currentStaked": "Currently staked",
       "dailyEmission": "Daily emission",
-      "manager": "Manager",
       "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
       "stake": "Stake",
       "stakingApr": "{{stakeTokenName}} Stake APR",
       "totalDeposited": "Total deposited",
       "totalStaked": "Total Staked",
-      "venusManager": "Venus",
       "withdraw": "Withdraw",
-      "youAreStake": "You are staking",
-      "youStaked": "You staked"
+      "youAreStake": "You are staking"
     },
     "filter": {
-      "active": "Active",
       "allCategories": "All categories",
       "allManagers": "All managers",
-      "allStates": "All states",
-      "claim": "Claim",
-      "deposit": "Deposit",
-      "earning": "Earning",
       "inputPlaceholder": "Search asset",
       "others": "Others",
-      "paused": "Paused",
-      "refund": "Refund",
-      "repaying": "Repaying",
-      "rwa": "RWA",
       "stablecoins": "Stablecoins",
-      "vaults": "Vaults",
-      "yieldTokens": "Yield tokens"
+      "vaults": "Vaults"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} coins illustration",

@@ -1809,34 +1809,21 @@
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
       "currentStaked": "Đang đặt cược",
       "dailyEmission": "Phần thưởng hàng ngày",
-      "manager": "Tổ chức quản lý",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, đặt cược và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
       "stake": "Stake",
       "stakingApr": "APR stake {{stakeTokenName}}",
       "totalDeposited": "Tổng tiền gửi",
       "totalStaked": "Tổng đã stake",
-      "venusManager": "Venus",
       "withdraw": "Rút",
-      "youAreStake": "Bạn đang stake",
-      "youStaked": "Bạn đã đặt cược"
+      "youAreStake": "Bạn đang stake"
     },
     "filter": {
-      "active": "Đang hoạt động",
       "allCategories": "Tất cả danh mục",
       "allManagers": "Tất cả tổ chức quản lý",
-      "allStates": "Tất cả trạng thái",
-      "claim": "Nhận thưởng",
-      "deposit": "Gửi tiền",
-      "earning": "Đang kiếm",
       "inputPlaceholder": "Tìm kiếm tài sản",
       "others": "Khác",
-      "paused": "Tạm dừng",
-      "refund": "Hoàn tiền",
-      "repaying": "Đang trả nợ",
-      "rwa": "RWA",
       "stablecoins": "Stablecoin",
-      "vaults": "Kho",
-      "yieldTokens": "Token sinh lời"
+      "vaults": "Kho"
     },
     "overview": {
       "bannerCoinIllustration": "Hình minh họa đồng {{token}}",
