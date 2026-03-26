@@ -4,13 +4,14 @@ import { useMemo } from 'react';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 
+import type { PendleSwapQuoteError } from 'clients/api';
 import type { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
   formValues: FormValues;
   availableTokens: BigNumber;
   token: Token;
-  swapQuoteErrorCode?: string;
+  swapQuoteError?: PendleSwapQuoteError;
 }
 
 interface UseFormValidationOutput {
@@ -22,17 +23,26 @@ const useFormValidation = ({
   formValues,
   availableTokens,
   token,
-  swapQuoteErrorCode,
+  swapQuoteError,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
   const formError: FormError | undefined = useMemo(() => {
     const tokenAmount = formValues.tokenAmount ? new BigNumber(formValues.tokenAmount) : undefined;
 
-    if (swapQuoteErrorCode === 'noSwapQuoteFound') {
+    if (swapQuoteError?.code === 'noSwapQuoteFound') {
       return {
         code: 'NO_SWAP_QUOTE_FOUND' as const,
         message: t('vault.modals.error.noSwapQuoteFound'),
+      };
+    }
+
+    if (swapQuoteError?.code === 'lowerThanMinimum') {
+      return {
+        code: 'LOWER_THAN_MINIMUM' as const,
+        message: t('vault.modals.error.lowerThanMinimum', {
+          amount: swapQuoteError.data?.exception,
+        }),
       };
     }
 
@@ -50,7 +60,7 @@ const useFormValidation = ({
         }),
       };
     }
-  }, [formValues.tokenAmount, availableTokens, token.symbol, t, swapQuoteErrorCode]);
+  }, [formValues.tokenAmount, availableTokens, token.symbol, t, swapQuoteError]);
 
   return {
     isFormValid: !formError,

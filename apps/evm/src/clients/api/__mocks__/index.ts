@@ -915,7 +915,7 @@ export const getFixedRatedVaults = vi.fn(async () => ({
       vTokenAddress: '0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
       underlyingAssetAddress: '0xe052823b4aefc6e230FAf46231A57d0905E30AE0',
       fixedApyDecimal: '0.0339809766',
-      maturityTimestampMs: '2026-06-25T00:00:00.000Z',
+      maturityDate: '2026-06-25T00:00:00.000Z',
       protocolData: {
         ptDiscount: 0.00923603148159602,
         ptTokenSymbol: 'PT-clisBNB-25JUN2026',
@@ -948,7 +948,7 @@ export const getFixedRatedVaults = vi.fn(async () => ({
           name: null,
           symbol: null,
           decimals: 18,
-          maturityTimestampMs: '2026-06-25T00:00:00.000Z',
+          maturityDate: '2026-06-25T00:00:00.000Z',
           createdAt: '2026-01-21T20:14:15.000Z',
           updatedAt: '2026-01-21T20:14:15.000Z',
         },

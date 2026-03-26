@@ -522,6 +522,7 @@
   "errors": {
     "couldNotRetrieveSigner": "无法获取签名者，请确保钱包已解锁并刷新页面",
     "couldNotSwitchChain": "无法切换链，请确保钱包已解锁并刷新页面",
+    "lowerThanMinimum": "输入金额过低。",
     "missingAbstainDescription": "提案需要“弃权”票描述",
     "missingAgainstDescription": "提案需要“反对”票描述",
     "missingDescription": "文件中没有提案描述",
@@ -1841,17 +1842,18 @@
       "vaults": "金库"
     },
     "modals": {
+      "afterMaturityPendleDisclaimer": "请先通过取款按钮将您的 PT 代币提取到钱包，然后访问 <Link>Pendle 官方</Link>网站赎回您的底层代币。",
       "available": "可用",
       "claim": "领取",
-      "connectWalletMessage": "请连接您的錢包以质押 {{tokenSymbol}}",
+      "connectWalletMessage": "请连接您的钱包以质押 / 提取 {{tokenSymbol}}",
       "convert": "转换",
       "currentStaked": "当前质押",
       "currentStakedTooltip": "您在 PT 代币中的当前质押持仓",
-      "daysRemaining": "{{days}} 天",
       "effectiveFixedApr": "实际固定年化利率",
       "effectiveFixedAprPendleTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
       "error": {
         "higherThanBalance": "金额超过您的可用 {{tokenSymbol}} 余额",
+        "lowerThanMinimum": "输入金额过低。最低金额相当于 {{amount}} USD。",
         "noSwapQuoteFound": "未找到兑换报价，请更新表单。"
       },
       "estPenalty": "预计罚款",

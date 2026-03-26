@@ -10,8 +10,9 @@ exports[`useGetPendleVaults > fetches and returns pendle vaults correctly 1`] = 
     "managerAddress": "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
     "managerIcon": "pendle",
     "managerLink": "https://app.pendle.finance/trade/pools/0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5/zap/in?chain=bnbchain",
-    "maturityTimestampMs": 1782345600000,
+    "maturityDate": 2026-06-25T00:00:00.000Z,
     "poolComptrollerContractAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
+    "poolName": "Venus",
     "rewardToken": {
       "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
       "chainId": 56,
@@ -46,7 +47,7 @@ exports[`useGetPendleVaults > fetches and returns pendle vaults correctly 1`] = 
         "symbol": "PT-clisBNB-25JUN2026",
       },
     },
-    "vaultDeploymentTimestampMs": 1760000679000,
+    "vaultDeploymentDate": 2025-10-09T09:04:39.000Z,
   },
 ]
 `;

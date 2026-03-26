@@ -522,6 +522,7 @@
   "errors": {
     "couldNotRetrieveSigner": "署名者を取得できませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
     "couldNotSwitchChain": "チェーンを切り替えられませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
+    "lowerThanMinimum": "入力金額が少なすぎます。",
     "missingAbstainDescription": "提案には「棄権」票の説明が必要です",
     "missingAgainstDescription": "提案には「反対」票の説明が必要です",
     "missingDescription": "ファイルに提案の説明がありません",
@@ -1841,17 +1842,18 @@
       "vaults": "ボールト"
     },
     "modals": {
+      "afterMaturityPendleDisclaimer": "まず「引き出し」ボタンからPTトークンをウォレットに引き出してから、<Link>Pendle公式</Link>ウェブサイトで原資産トークンを償還してください。",
       "available": "利用可能",
       "claim": "請求",
-      "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
+      "connectWalletMessage": "{{tokenSymbol}}をステーキング / 引き出しするにはウォレットを接続してください",
       "convert": "変換",
       "currentStaked": "現在のステーク量",
       "currentStakedTooltip": "PTトークンでの現在のステーク残高",
-      "daysRemaining": "{{days}}日",
       "effectiveFixedApr": "実質固定APR",
       "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
       "error": {
         "higherThanBalance": "金額があなたの利用可能な{{tokenSymbol}}残高を超えています",
+        "lowerThanMinimum": "入力金額が少なすぎます。最低金額は {{amount}} USD 相当です。",
         "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。"
       },
       "estPenalty": "推定ペナルティ",

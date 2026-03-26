@@ -2,7 +2,12 @@ import { TertiaryButton, cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useGetBalanceOf, useGetPendleSwapQuote, useGetTokenUsdPrice } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetPendleSwapQuote,
+  useGetTokenUsdPrice,
+  useWithdraw,
+} from 'clients/api';
 import { usePendlePtVault } from 'clients/api';
 import { ButtonGroup, LabeledInlineContent, NoticeInfo, Slider, TokenTextField } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
@@ -25,6 +30,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import { Link } from 'containers/Link';
 import { useNow } from 'hooks/useNow';
 import { PendleConvertDetails } from './PendleConvertDetails';
 import { SubmitButton } from './SubmitButton';
@@ -32,7 +38,8 @@ import type { Approval } from './SubmitButton/types';
 import useForm, { type FormValues } from './useForm';
 
 type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';
-
+const PENDLE_SITE =
+  'https://app.pendle.finance/trade/dashboard/overview/positions?timeframe=allTime';
 export interface PositionTabProps {
   vault: AnyVault;
   initialMode?: ActionMode;
@@ -44,15 +51,13 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   initialMode = 'deposit',
   onClose,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const now = useNow();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
   const hasMatured =
-    'maturityTimestampMs' in vault &&
-    vault.maturityTimestampMs &&
-    now.getTime() > vault.maturityTimestampMs;
+    'maturityDate' in vault && vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
 
   // --- Action mode ---
   const forceActionMode = useMemo(() => {
@@ -99,7 +104,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
 
   const debouncedInputAmountTokens = useDebounceValue(formValues.tokenAmount || 0);
-  const inputAmountBN = new BigNumber(debouncedInputAmountTokens);
+  const amountTokens = new BigNumber(debouncedInputAmountTokens);
 
   const toToken = isStake ? vault.stakedToken : vault.rewardToken;
 
@@ -111,11 +116,11 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     {
       fromToken: formValues.fromToken,
       toToken,
-      amountTokens: inputAmountBN,
+      amountTokens,
       slippagePercentage:
         actionMode === 'redeemAtMaturity' ? 0 : userSlippageTolerancePercentage / 100,
     },
-    { enabled: inputAmountBN.isGreaterThan(0) },
+    { enabled: amountTokens.isGreaterThan(0) && actionMode !== 'redeemAtMaturity' },
   );
 
   // --- Token approval ---
@@ -194,22 +199,37 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     isNative: formValues.fromToken.isNative,
   });
 
+  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = useWithdraw();
+
   const handleOnSubmit = async () => {
-    if (!getSwapQuoteData) return;
+    // Use Withdraw from Core pool.
+    if (actionMode === 'redeemAtMaturity') {
+      await withdraw({
+        poolName: (vault as PendleVault).poolName,
+        poolComptrollerContractAddress: (vault as PendleVault).poolComptrollerContractAddress,
+        vToken: (vault as PendleVault).vToken,
+        withdrawFullSupply: formValues.tokenAmount === availableTokens.toFixed(),
+        unwrap: formValues.fromToken.isNative,
+        amountMantissa: convertTokensToMantissa({
+          value: new BigNumber(formValues.tokenAmount),
+          token: formValues.fromToken,
+        }),
+      });
+    } else if (getSwapQuoteData) {
+      const amountMantissa = convertTokensToMantissa({
+        value: new BigNumber(formValues.tokenAmount),
+        token: isStake ? formValues.fromToken : (vault as PendleVault).vToken, // Withdraw requires vToken amount as input instead
+      });
 
-    const amountMantissa = convertTokensToMantissa({
-      value: new BigNumber(formValues.tokenAmount),
-      token: isStake ? formValues.fromToken : (vault as PendleVault).vToken, // Withdraw requires vToken amount as input instead
-    });
-
-    await pendleVaultMutation({
-      swapQuote: getSwapQuoteData,
-      type: actionMode,
-      fromToken: formValues.fromToken,
-      toToken,
-      amountToken: amountMantissa,
-      vToken: 'vToken' in vault ? vault.vToken : undefined,
-    });
+      await pendleVaultMutation({
+        swapQuote: getSwapQuoteData,
+        type: actionMode,
+        fromToken: formValues.fromToken,
+        toToken,
+        amountToken: amountMantissa,
+        vToken: 'vToken' in vault ? vault.vToken : undefined,
+      });
+    }
 
     onClose?.();
   };
@@ -219,7 +239,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     onSubmit: handleOnSubmit,
     formValues,
     setFormValues,
-    swapQuoteErrorCode: getSwapQuoteError?.code,
+    swapQuoteError: getSwapQuoteError ?? undefined,
     availableTokens,
     token: balanceToken,
   });
@@ -230,8 +250,8 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   });
 
   const maturityDateUtc =
-    'maturityTimestampMs' in vault
-      ? formatDateToUtc(vault.maturityTimestampMs, { formatStr: 'MMM dd yyyy HH:mm' })
+    'maturityDate' in vault
+      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
       : undefined;
   const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
 
@@ -276,8 +296,17 @@ export const PositionTab: React.FC<PositionTabProps> = ({
 
   // --- Submit state ---
   const disableInput =
-    !isUserConnected || isSubmitting || isApproveFromTokenLoading || isBalanceLoading;
-  const disableSubmit = !isFormValid || isSubmitting || isGetSwapQuoteLoading || !getSwapQuoteData;
+    !isUserConnected ||
+    isSubmitting ||
+    isWithdrawLoading ||
+    isApproveFromTokenLoading ||
+    isBalanceLoading;
+  const disableSubmit =
+    !isFormValid ||
+    isSubmitting ||
+    isWithdrawLoading ||
+    isGetSwapQuoteLoading ||
+    (actionMode !== 'redeemAtMaturity' && !getSwapQuoteData);
 
   const actionLabel = (() => {
     if (actionMode === 'deposit') return t('vault.modals.stake');
@@ -363,7 +392,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
             }
             hasError={!!formError?.message && Number(formValues.tokenAmount) > 0}
             description={
-              !isSubmitting && formError?.message ? (
+              !isGetSwapQuoteLoading && formError?.message ? (
                 <p className="text-red">{formError.message}</p>
               ) : undefined
             }
@@ -384,7 +413,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
             min={0}
             max={100}
             step={1}
-            disabled={availableTokens.lte(0) || isSubmitting}
+            disabled={availableTokens.lte(0) || isSubmitting || isWithdrawLoading}
           />
           <div className="flex justify-between">
             <span className="text-b2r text-grey">0%</span>
@@ -469,7 +498,20 @@ export const PositionTab: React.FC<PositionTabProps> = ({
 
         {/* Disclaimer notice */}
         {vault.manager === VaultManager.Pendle && (
-          <NoticeInfo description={t('vault.modals.maturityPendleDisclaimer')} />
+          <NoticeInfo
+            description={
+              hasMatured ? (
+                <Trans
+                  i18nKey="vault.modals.afterMaturityPendleDisclaimer"
+                  components={{
+                    Link: <Link href={PENDLE_SITE} />,
+                  }}
+                />
+              ) : (
+                t('vault.modals.maturityPendleDisclaimer')
+              )
+            }
+          />
         )}
       </div>
     </form>

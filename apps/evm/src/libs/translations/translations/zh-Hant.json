@@ -522,6 +522,7 @@
   "errors": {
     "couldNotRetrieveSigner": "無法獲取簽名者，請確保錢包已解鎖並刷新頁面",
     "couldNotSwitchChain": "無法切換鏈，請確保錢包已解鎖並刷新頁面",
+    "lowerThanMinimum": "輸入金額過低。",
     "missingAbstainDescription": "提案需要“棄權”票描述",
     "missingAgainstDescription": "提案需要“反對”票描述",
     "missingDescription": "文件中沒有提案描述",
@@ -1841,17 +1842,18 @@
       "vaults": "金庫"
     },
     "modals": {
+      "afterMaturityPendleDisclaimer": "請先透過提取按鈕將您的 PT 代幣提取到錢包，然後訪問 <Link>Pendle 官方</Link>網站贖回您的底層代幣。",
       "available": "可用",
       "claim": "領取",
-      "connectWalletMessage": "請連接您的錢包以質押 {{tokenSymbol}}",
+      "connectWalletMessage": "請連接您的錢包以質押 / 提取 {{tokenSymbol}}",
       "convert": "轉換",
       "currentStaked": "當前質押",
       "currentStakedTooltip": "您在 PT 代幣中的當前質押持倃",
-      "daysRemaining": "{{days}} 天",
       "effectiveFixedApr": "實際固定年化利率",
       "effectiveFixedAprPendleTooltip": "此金庫策略提供的年化固定收益，以包含複利的有效年化利率（APR）表示。",
       "error": {
         "higherThanBalance": "金額超過您的可用 {{tokenSymbol}} 餘額",
+        "lowerThanMinimum": "輸入金額過低。最低金額相當於 {{amount}} USD。",
         "noSwapQuoteFound": "未找到兑換報價，請更新表單。"
       },
       "estPenalty": "預計罰款",

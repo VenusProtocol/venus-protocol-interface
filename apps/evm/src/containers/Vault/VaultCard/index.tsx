@@ -70,12 +70,10 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     : undefined;
 
   const hasMatured =
-    'maturityTimestampMs' in vault &&
-    vault.maturityTimestampMs &&
-    vault.maturityTimestampMs > now.getTime();
+    'maturityDate' in vault && vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
   const maturityDateUtc =
-    'maturityTimestampMs' in vault
-      ? formatDateToUtc(vault.maturityTimestampMs, { formatStr: 'MMM dd yyyy HH:mm' })
+    'maturityDate' in vault
+      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
       : undefined;
   const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
 
@@ -114,10 +112,10 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           {/* Header */}
           <div className={cn('flex items-center justify-between')}>
             <div className={cn('flex items-center gap-x-3')}>
-              {'maturityTimestampMs' in vault ? (
+              {'maturityDate' in vault ? (
                 <TokenIconWithPeriod
                   token={vault.stakedToken}
-                  targetTime={vault.maturityTimestampMs}
+                  targetDate={vault.maturityDate}
                   size="xl"
                   data-testid={TEST_IDS.symbol}
                 />

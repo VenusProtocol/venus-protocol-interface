@@ -3,6 +3,7 @@ import type BigNumber from 'bignumber.js';
 import { handleError } from 'libs/errors';
 import type { Token } from 'types';
 
+import type { PendleSwapQuoteError } from 'clients/api';
 import type { FormError, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
@@ -12,7 +13,7 @@ export interface UseFormInput {
   onSubmit: () => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (current: FormValues) => FormValues) => void;
-  swapQuoteErrorCode?: string;
+  swapQuoteError?: PendleSwapQuoteError;
   availableTokens: BigNumber;
   token: Token;
 }
@@ -27,14 +28,14 @@ const useForm = ({
   onSubmit,
   formValues,
   setFormValues,
-  swapQuoteErrorCode,
+  swapQuoteError,
   availableTokens,
   token,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
     formValues,
     availableTokens,
-    swapQuoteErrorCode,
+    swapQuoteError,
     token,
   });
 

@@ -17,8 +17,8 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
 
   const pendleVault = isPendleVault(vault) ? vault : undefined;
 
-  const formattedDeploymentDate = pendleVault?.vaultDeploymentTimestampMs
-    ? format(new Date(pendleVault.vaultDeploymentTimestampMs), 'dd MMM yyyy')
+  const formattedDeploymentDate = pendleVault?.vaultDeploymentDate
+    ? format(pendleVault.vaultDeploymentDate, 'dd MMM yyyy')
     : PLACEHOLDER_KEY;
 
   return (

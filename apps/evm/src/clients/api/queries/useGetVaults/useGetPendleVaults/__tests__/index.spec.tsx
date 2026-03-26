@@ -35,6 +35,7 @@ const fakeVaultProduct: GetFixedRatedVaultsOutput[number] = {
     underlyingApy: 0.04487067325658617,
     liquidityCents: '742673002',
     ptTokenAddress: '0xe052823b4aefc6e230faf46231a57d0905e30ae0',
+    startDate: '2025-10-09T09:04:39.000Z',
     accountingAsset: {
       name: 'BNB',
       symbol: 'BNB',

@@ -26,6 +26,7 @@ export const formatVaultProduct = ({
 }: BaseInput & { vaultData: GetFixedRatedVaultsOutput[number] }) => {
   let asset: Asset | undefined;
   let poolComptrollerContractAddress: Address | undefined;
+  let poolName: string | undefined;
 
   for (const pool of pools) {
     const targetAsset = pool.assets.find(
@@ -35,6 +36,7 @@ export const formatVaultProduct = ({
     if (targetAsset) {
       asset = targetAsset;
       poolComptrollerContractAddress = pool.comptrollerAddress as Address;
+      poolName = pool.name;
       break;
     }
   }
@@ -49,11 +51,12 @@ export const formatVaultProduct = ({
     tokens,
   });
 
-  if (!stakedToken || !rewardToken || !asset || !poolComptrollerContractAddress) {
+  if (!stakedToken || !rewardToken || !asset || !poolComptrollerContractAddress || !poolName) {
     return undefined;
   }
 
-  const maturityTimestampMs = new Date(vaultData.maturityDate).getTime();
+  const maturityDate = new Date(vaultData.maturityDate);
+  const maturityTimestampMs = maturityDate.getTime();
 
   let status = VaultStatus.Deposit;
   if (now >= maturityTimestampMs) {
@@ -79,8 +82,8 @@ export const formatVaultProduct = ({
     rewardTokenPriceCents: new BigNumber(
       vaultData.protocolData?.accountingAsset?.priceUsd,
     ).shiftedBy(2),
-    maturityTimestampMs,
-    vaultDeploymentTimestampMs: new Date(vaultData.protocolData?.startDate).getTime(),
+    maturityDate,
+    vaultDeploymentDate: new Date(vaultData.protocolData?.startDate),
     liquidityCents: new BigNumber(vaultData.protocolData.liquidityCents),
     category: VaultCategory.YieldTokens,
     manager: VaultManager.Pendle,
@@ -92,6 +95,7 @@ export const formatVaultProduct = ({
     status,
     vToken: asset.vToken,
     poolComptrollerContractAddress,
+    poolName,
   };
 
   return result;

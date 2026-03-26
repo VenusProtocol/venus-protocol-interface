@@ -522,6 +522,7 @@
   "errors": {
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
     "couldNotSwitchChain": "Could not switch chain, please make sure your wallet is unlocked then reload the page",
+    "lowerThanMinimum": "Input amount is too low.",
     "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
     "missingAgainstDescription": "Proposal needs an 'against' votes description",
     "missingDescription": "There is no proposal description in the file",
@@ -1842,17 +1843,18 @@
       "vaults": "Vaults"
     },
     "modals": {
+      "afterMaturityPendleDisclaimer": "Please withdraw your PT tokens to your wallet first via the Withdraw button, then visit the <Link>Pendle official</Link> website to redeem your underlying tokens.",
       "available": "Available",
       "claim": "Claim",
-      "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
+      "connectWalletMessage": "Please connect your wallet to stake / withdraw {{tokenSymbol}}",
       "convert": "Convert",
       "currentStaked": "Current Staked",
       "currentStakedTooltip": "The amount of your assets currently locked and earning in this vault.",
-      "daysRemaining": "{{days}} days",
       "effectiveFixedApr": "Effective Fixed APR",
       "effectiveFixedAprPendleTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
       "error": {
         "higherThanBalance": "Amount exceeds your available {{tokenSymbol}} balance",
+        "lowerThanMinimum": "Input amount is too low. The minimum amount is equivalent to {{amount}} USD.",
         "noSwapQuoteFound": "No swap found. Please update the form."
       },
       "estPenalty": "Est. Penalty",

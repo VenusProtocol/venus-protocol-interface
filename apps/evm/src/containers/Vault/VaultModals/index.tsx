@@ -41,7 +41,7 @@ export const PendleModal: React.FC<PendleModalProps> = ({
       title={
         <TokenIconWithPeriod
           token={vault.stakedToken}
-          targetTime={'maturityTimestampMs' in vault ? vault.maturityTimestampMs : undefined}
+          targetDate={'maturityDate' in vault ? vault.maturityDate : undefined}
           size="xl"
         />
       }

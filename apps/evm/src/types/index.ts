@@ -514,14 +514,15 @@ export interface Vault extends VaultData, VaultMetadata {}
 
 export interface PendleVaultData extends BaseVault {
   key: string;
-  maturityTimestampMs?: number;
+  maturityDate?: Date;
   liquidityCents: BigNumber;
   stakedTokenPriceCents: BigNumber;
   rewardTokenPriceCents: BigNumber;
   vToken: VToken;
   managerLink?: string;
-  vaultDeploymentTimestampMs?: number;
+  vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
+  poolName: string;
 }
 
 export interface PendleVault extends PendleVaultData, VaultMetadata {}

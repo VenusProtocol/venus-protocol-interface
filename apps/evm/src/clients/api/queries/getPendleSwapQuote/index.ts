@@ -34,10 +34,21 @@ export const getPendleSwapQuote = async ({
   });
 
   if (!response.data) {
-    throw new VError({ type: 'swapQuote', code: 'noSwapQuoteFound' });
+    throw new VError({ type: 'pendleSwapQuote', code: 'noSwapQuoteFound' });
   }
 
   if (response.data && 'error' in response.data) {
+    const errorMsg = (response.data as { error: unknown }).error;
+    if (errorMsg === 'The input valuation is too low. The minimum valuation is 0.01 USD') {
+      throw new VError({
+        type: 'pendleSwapQuote',
+        code: 'lowerThanMinimum',
+        data: {
+          exception: 0.01,
+        },
+      });
+    }
+
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
