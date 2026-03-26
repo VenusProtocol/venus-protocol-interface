@@ -79,7 +79,7 @@ describe('getPendleSwapQuote', () => {
       chainId: ChainId.BSC_MAINNET,
       fromToken: bnb,
       toToken: xvs,
-      amount: new BigNumber('0.001'),
+      amountTokens: new BigNumber('0.001'),
       slippagePercentage: 0.5,
       receiverAddress: fakeReceiverAddress,
     });
@@ -125,8 +125,8 @@ describe('getPendleSwapQuote', () => {
           "input",
           "limit",
         ],
-        "estReceiveMantissa": "1008860197051378",
-        "feeUsdCents": "1.32",
+        "estimatedReceivedTokensMantissa": "1008860197051378",
+        "feeCents": "1.32",
         "pendleMarketAddress": "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
         "priceImpactPercentage": 0.0000012,
         "requiredApprovals": [
@@ -144,7 +144,7 @@ describe('getPendleSwapQuote', () => {
       chainId: ChainId.BSC_MAINNET,
       fromToken: bnb,
       toToken: xvs,
-      amount: new BigNumber('0.001'),
+      amountTokens: new BigNumber('0.001'),
       slippagePercentage: 0.5,
       receiverAddress: fakeReceiverAddress,
     });
@@ -174,7 +174,7 @@ describe('getPendleSwapQuote', () => {
         chainId: ChainId.BSC_MAINNET,
         fromToken: bnb,
         toToken: xvs,
-        amount: new BigNumber('0.001'),
+        amountTokens: new BigNumber('0.001'),
         slippagePercentage: 0.5,
       }),
     ).rejects.toThrow('noSwapQuoteFound');
@@ -190,7 +190,7 @@ describe('getPendleSwapQuote', () => {
         chainId: ChainId.BSC_MAINNET,
         fromToken: bnb,
         toToken: xvs,
-        amount: new BigNumber('0.001'),
+        amountTokens: new BigNumber('0.001'),
         slippagePercentage: 0.5,
       }),
     ).rejects.toThrow('somethingWentWrong');

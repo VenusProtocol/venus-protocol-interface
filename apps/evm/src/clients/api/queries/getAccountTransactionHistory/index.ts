@@ -5,6 +5,7 @@ import { type Address, isAddress } from 'viem';
 import { formatApiTransaction } from './formatApiTransaction';
 import type {
   AccountTransactionHistoryApiResponse,
+  AmountTransaction,
   GetAccountTransactionHistoryInput,
   GetAccountTransactionHistoryOutput,
 } from './types';
@@ -64,12 +65,14 @@ export const getAccountTransactionHistory = async ({
     };
   }, {});
 
-  const formattedResponse = txsResponse.data.results.map(apiTransaction =>
-    formatApiTransaction({
-      contractToTokenMap,
-      apiTransaction,
-    }),
-  );
+  const formattedResponse = txsResponse.data.results
+    .map(apiTransaction =>
+      formatApiTransaction({
+        contractToTokenMap,
+        apiTransaction,
+      }),
+    )
+    .filter(item => item) as AmountTransaction[];
 
   return {
     count: Number(txsResponse.data.count),

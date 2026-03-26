@@ -1,11 +1,11 @@
 import type { ChainId } from 'types';
 import type { Address } from 'viem';
 
-export type GetVaultProductsInput = {
+export type GetFixedRatedVaultsInput = {
   chainId: ChainId;
 };
 
-type VaultProductAsset = {
+type FixedRatedVaultAsset = {
   name: string;
   symbol: string;
   address: string;
@@ -13,19 +13,20 @@ type VaultProductAsset = {
   priceUsd: number;
 };
 
-type VaultProductProtocolData = {
+type FixedRatedVaultProtocolData = {
+  startDate: string;
   ptDiscount: number;
   ptTokenSymbol: string;
   underlyingApy: number;
   liquidityCents: string;
   ptTokenAddress: Address;
-  accountingAsset: VaultProductAsset;
+  accountingAsset: FixedRatedVaultAsset;
   ptTokenPriceUsd: number;
-  underlyingAsset: VaultProductAsset;
+  underlyingAsset: FixedRatedVaultAsset;
   pendleMarketAddress: Address;
 };
 
-type VaultProductUnderlyingToken = {
+type FixedRatedVaultUnderlyingToken = {
   address: Address;
   chainId: string;
   name: string | null;
@@ -36,7 +37,7 @@ type VaultProductUnderlyingToken = {
   updatedAt: string;
 };
 
-type VaultProduct = {
+type FixedRatedVault = {
   id: string;
   chainId: string;
   protocol: string;
@@ -44,14 +45,14 @@ type VaultProduct = {
   underlyingAssetAddress: Address;
   fixedApyDecimal: string;
   maturityDate: string;
-  protocolData: VaultProductProtocolData;
+  protocolData: FixedRatedVaultProtocolData;
   createdAt: string;
   updatedAt: string;
-  underlyingToken: VaultProductUnderlyingToken[];
+  underlyingToken: FixedRatedVaultUnderlyingToken[];
 };
 
-export type GetVaultProductsResponse = {
-  result: VaultProduct[];
+export type GetFixedRatedVaultsResponse = {
+  result: FixedRatedVault[];
 };
 
-export type GetVaultProductsOutput = VaultProduct[];
+export type GetFixedRatedVaultsOutput = FixedRatedVault[];

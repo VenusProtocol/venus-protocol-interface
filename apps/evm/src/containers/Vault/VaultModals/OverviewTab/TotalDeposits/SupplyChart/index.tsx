@@ -38,11 +38,16 @@ export const SupplyChart: React.FC<ApyChartProps> = ({ className, data, selected
 
   const chartInterval = isSmOrUp ? 5 : 3;
 
+  const formattedData = (data ?? []).map(item => ({
+    ...item,
+    balanceNum: item.balanceCents.toNumber(),
+  }));
+
   return (
     <AreaChart
-      data={data}
+      data={formattedData}
       xAxisDataKey="timestampMs"
-      yAxisDataKey="balanceCents"
+      yAxisDataKey="balanceNum"
       className={className}
       formatXAxisValue={value => formatToReadableDate(value)}
       formatYAxisValue={value =>

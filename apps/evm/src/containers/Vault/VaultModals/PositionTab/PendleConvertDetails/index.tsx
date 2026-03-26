@@ -23,11 +23,11 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { estReceiveMantissa, feeUsdCents } = swapQuote ?? {};
+  const { estimatedReceivedTokensMantissa, feeCents } = swapQuote ?? {};
 
   const minReceivedMantissa =
-    estReceiveMantissa && slippagePercentage
-      ? estReceiveMantissa.times(1 - slippagePercentage / 100)
+    estimatedReceivedTokensMantissa && slippagePercentage
+      ? estimatedReceivedTokensMantissa.times(1 - slippagePercentage / 100)
       : undefined;
 
   return (
@@ -44,9 +44,9 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
       <div className="flex items-center justify-between">
         <span className="text-b2r text-grey">{t('vault.modals.pendleFee')}</span>
         <span className="text-b2r text-white">
-          {feeUsdCents
+          {feeCents
             ? formatCentsToReadableValue({
-                value: feeUsdCents,
+                value: feeCents,
               })
             : PLACEHOLDER_KEY}
         </span>
@@ -70,9 +70,9 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
       <div className="flex items-center justify-between">
         <span className="text-b2r text-grey">{t('vault.modals.estReceived')}</span>
         <span className="text-b2r text-white">
-          {estReceiveMantissa
+          {estimatedReceivedTokensMantissa
             ? `≈ ${convertMantissaToTokens({
-                value: estReceiveMantissa,
+                value: estimatedReceivedTokensMantissa,
                 token: toToken,
                 returnInReadableFormat: true,
               })}`

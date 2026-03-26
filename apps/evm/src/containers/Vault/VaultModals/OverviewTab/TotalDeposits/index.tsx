@@ -1,18 +1,17 @@
 import { useMemo, useState } from 'react';
 
-import { AccordionAnimatedContent, ButtonGroup, Icon } from 'components';
+import { ButtonGroup, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
 
 import type { MarketHistoryPeriodType } from 'clients/api';
 
 import { useGetMarketChartData } from 'hooks/useGetMarketChartData';
 import type { AnyVault, PendleVault } from 'types';
+import { CollapsibleSection } from '../CollapsibleSection';
 import { SupplyChart } from './SupplyChart';
 
 export const TotalDeposits: React.FC<{ vault: AnyVault }> = ({ vault }) => {
   const { t } = useTranslation();
-
-  const [isOpen, setIsOpen] = useState(true);
 
   const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>('month');
 
@@ -36,6 +35,7 @@ export const TotalDeposits: React.FC<{ vault: AnyVault }> = ({ vault }) => {
 
   const {
     data: { supplyChartData },
+    isLoading,
   } = useGetMarketChartData({
     vToken: (vault as PendleVault).vToken,
     period: selectedPeriod,
@@ -43,41 +43,36 @@ export const TotalDeposits: React.FC<{ vault: AnyVault }> = ({ vault }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-p2s text-white">{t('vault.modals.overview.totalDeposits')}</p>
+      <CollapsibleSection
+        title={
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-p2s text-white">{t('vault.modals.overview.totalDeposits')}</p>
 
-        <div className="flex items-center gap-3">
-          <ButtonGroup
-            buttonSize="xs"
-            buttonLabels={periodOptions.map(p => p.label)}
-            activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
-            onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
-            buttonClassName="min-w-fit"
-          />
-
-          <button
-            type="button"
-            className="hidden md:block text-grey hover:text-white transition-colors"
-            onClick={() => setIsOpen(prev => !prev)}
-          >
-            <Icon
-              name="chevronDown"
-              className={`size-4 transition-transform cursor-pointer ${isOpen ? 'rotate-180' : ''}`}
+            <ButtonGroup
+              buttonSize="xs"
+              buttonLabels={periodOptions.map(p => p.label)}
+              activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
+              onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
+              buttonClassName="min-w-fit"
             />
-          </button>
-        </div>
-      </div>
-
-      <AccordionAnimatedContent isOpen={isOpen}>
+          </div>
+        }
+      >
         <div className="mt-4">
           <div className="flex items-center gap-2 mb-2">
             <span className="size-2 rounded-full bg-green" />
             <span className="text-b1r text-grey">{t('vault.modals.overview.totalStaked')}</span>
           </div>
 
-          <SupplyChart data={supplyChartData} selectedPeriod={selectedPeriod} />
+          {isLoading ? (
+            <div className="flex items-center justify-center w-full min-h-62">
+              <Spinner />
+            </div>
+          ) : (
+            <SupplyChart data={supplyChartData} selectedPeriod={selectedPeriod} />
+          )}
         </div>
-      </AccordionAnimatedContent>
+      </CollapsibleSection>
     </div>
   );
 };

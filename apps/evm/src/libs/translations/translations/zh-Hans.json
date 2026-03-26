@@ -1812,6 +1812,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
+      "claimReward": "领取奖励",
       "currentStaked": "当前质押",
       "dailyEmission": "每日奖励释放",
       "liquidity": "流动性",
@@ -1863,10 +1864,10 @@
       "minReceived": "最低收到",
       "overview": {
         "manager": "管理机构",
-        "managerTooltip": "此金库的所有者（创建并控制它的地址或团队）。他们可以更新手续费或策略等设置，但您的存款在智能合约中是安全的，他们无法直接提取或转移您的资金。",
+        "managerTooltip": "管理此金库基础资产的地址或团队。存入的资产会被分配到他们管理的市场中，他们可能会根据市场状况更新赎回或结算时间。",
         "marketInfo": "市场信息",
         "marketRiskDisclosures": "市场风险披露",
-        "riskDisclosureText": "Venus Protocol（可通过 venus.io 访问）是一个建立在 BNB Chain 上的去中心化借贷平台，专注于加密货币货币市场。平台于 2020 年上线，融合了 Maker 超额抖押稳定币设计与 Compound 式算法货币市场的特点，允许用户在单一应用中供应加密资产、赚取收益并以抵押品借款。该协议由社区治理，旨在为中心化借贷机构提供非托管、透明的替代方案。",
+        "riskDisclosureText": "Pendle 是一个去中心化的收益交易协议，通过本金代币（PT）实现固定收益。Venus 固定利率金库通过 Pendle 的基础设施获取 PT，并将其作为抵押品供应给 Venus Core。<br />虽然 Pendle 无法访问或转移您的存款，但使用此金库会使您面临来自两个协议的风险。这些风险包括智能合约漏洞、预言机故障，以及任一协议被攻击或暂停的可能性。提前提款按市场价格执行，可能低于存入金额。固定 APY 在存入时锁定，无法防范协议层面的故障。",
         "strategy": {
           "pendleRouter": "Pendle Router",
           "supply": "存款",

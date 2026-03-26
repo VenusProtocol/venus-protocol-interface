@@ -5,22 +5,23 @@ import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { legacyCorePool } from '__mocks__/models/pools';
-import type { GetVaultProductsOutput } from 'clients/api/queries/getVaultProducts/types';
-import { useGetVaultProducts } from 'clients/api/queries/getVaultProducts/useGetVaultProducts';
+
 import { useGetPools } from 'clients/api/queries/useGetPools';
 import { useGetTokens } from 'libs/tokens';
 import { renderComponent } from 'testUtils/render';
 import type { Asset, Token, VToken } from 'types';
 import { VaultStatus } from 'types';
 
+import { useGetFixedRatedVaults } from 'clients/api';
+import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults/types';
 import { type UseGetPendleVaultsOutput, useGetPendleVaults } from '../index';
 
-vi.mock('clients/api/queries/getVaultProducts/useGetVaultProducts');
+vi.mock('clients/api/queries/getFixedRatedVaults/useGetFixedRatedVaults');
 vi.mock('clients/api/queries/useGetPools');
 vi.mock('libs/tokens');
 
 // Real API response data from the /fixed-rate-vaults endpoint
-const fakeVaultProduct: GetVaultProductsOutput[number] = {
+const fakeVaultProduct: GetFixedRatedVaultsOutput[number] = {
   id: '56-pendle-0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
   chainId: '56',
   protocol: 'pendle',
@@ -151,7 +152,7 @@ describe('useGetPendleVaults', () => {
   beforeEach(() => {
     (useGetTokens as Mock).mockReturnValue([ptClisbnb, bnbToken]);
 
-    (useGetVaultProducts as Mock).mockReturnValue({
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
       data: [fakeVaultProduct],
       isLoading: false,
     });
@@ -180,7 +181,7 @@ describe('useGetPendleVaults', () => {
   });
 
   it('returns undefined when vault products are not loaded', () => {
-    (useGetVaultProducts as Mock).mockReturnValue({
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
       data: undefined,
       isLoading: true,
     });
@@ -224,7 +225,7 @@ describe('useGetPendleVaults', () => {
   });
 
   it('returns empty array when no vault products match pool assets', () => {
-    (useGetVaultProducts as Mock).mockReturnValue({
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
       data: [
         {
           ...fakeVaultProduct,
@@ -251,7 +252,7 @@ describe('useGetPendleVaults', () => {
   });
 
   it('sets status to Claim when maturity date has passed', () => {
-    (useGetVaultProducts as Mock).mockReturnValue({
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
       data: [
         {
           ...fakeVaultProduct,

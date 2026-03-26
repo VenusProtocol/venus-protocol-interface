@@ -1,15 +1,17 @@
 import { VError } from 'libs/errors';
 import { restService } from 'utilities';
 import type {
-  GetVaultProductsInput,
-  GetVaultProductsOutput,
-  GetVaultProductsResponse,
+  GetFixedRatedVaultsInput,
+  GetFixedRatedVaultsOutput,
+  GetFixedRatedVaultsResponse,
 } from './types';
 
-export const getVaultProducts = async ({
+export * from './types';
+
+export const getFixedRatedVaults = async ({
   chainId,
-}: GetVaultProductsInput): Promise<GetVaultProductsOutput> => {
-  const response = await restService<GetVaultProductsResponse>({
+}: GetFixedRatedVaultsInput): Promise<GetFixedRatedVaultsOutput> => {
+  const response = await restService<GetFixedRatedVaultsResponse>({
     endpoint: '/fixed-rate-vaults',
     method: 'GET',
     params: {

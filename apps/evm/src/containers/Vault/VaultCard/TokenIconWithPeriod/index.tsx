@@ -15,7 +15,7 @@ export const TokenIconWithPeriod: React.FC<TokenIconWithPeriodProps> = ({
   token,
   className,
   targetTime,
-  size = 'md',
+  size = 'xl',
   ...otherProps
 }) => {
   const { t } = useTranslation();
@@ -40,7 +40,7 @@ export const TokenIconWithPeriod: React.FC<TokenIconWithPeriodProps> = ({
 
   return (
     <div
-      className={cn('flex min-w-0 items-center', size === 'md' ? 'gap-x-2' : 'gap-x-3', className)}
+      className={cn('flex min-w-0 items-center', size === 'xl' ? 'gap-x-3' : 'gap-x-2', className)}
     >
       <TokenIcon token={token} className="shrink-0" size={size} {...otherProps} />
 
@@ -48,15 +48,15 @@ export const TokenIconWithPeriod: React.FC<TokenIconWithPeriodProps> = ({
         <p
           className={cn(
             'truncate font-semibold',
-            targetDate && size === 'md' && 'text-b1r',
-            targetDate && size === 'lg' && 'text-p1s',
+            targetDate && size === 'xl' && 'text-b1r',
+            targetDate && size === 'md' && 'text-b2r',
           )}
         >
           {token.symbol}
         </p>
 
         {daysRemaining && daysRemaining > 0 && (
-          <p className={cn('truncate text-light-grey', size === 'md' ? 'text-b2r' : 'text-b1r')}>
+          <p className={cn('truncate text-light-grey', size === 'xl' ? 'text-b2r' : 'text-b3r')}>
             {formattedDateUtc} ( {daysRemainingStr} )
           </p>
         )}

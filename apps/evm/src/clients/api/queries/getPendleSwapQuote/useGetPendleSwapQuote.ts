@@ -1,12 +1,8 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
-import { callOrThrow } from 'utilities';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
-import type { Address } from 'viem';
 import {
   type GetPendleSwapQuoteInput,
   type GetPendleSwapQuoteOutput,
@@ -14,7 +10,7 @@ import {
   getPendleSwapQuote,
 } from '.';
 
-export type UseGetPendleSwapQuoteInput = Omit<
+export type TrimmedGetPendleSwapQuoteInput = Omit<
   GetPendleSwapQuoteInput,
   'chainId' | 'receiverAddress'
 >;
@@ -24,25 +20,28 @@ type Options = QueryObserverOptions<
   PendleSwapQuoteError,
   GetPendleSwapQuoteOutput,
   GetPendleSwapQuoteOutput,
-  [FunctionKey.GET_PENDLE_SWAP_QUOTE, UseGetPendleSwapQuoteInput, ChainId, Address]
+  [FunctionKey.GET_PENDLE_SWAP_QUOTE, GetPendleSwapQuoteInput]
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 export const useGetPendleSwapQuote = (
-  input: UseGetPendleSwapQuoteInput,
+  input: TrimmedGetPendleSwapQuoteInput,
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const { accountAddress } = useAccountAddress();
+  const { accountAddress: receiverAddress } = useAccountAddress();
 
   return useQuery({
-    queryKey: [FunctionKey.GET_PENDLE_SWAP_QUOTE, input, chainId, accountAddress ?? NULL_ADDRESS],
-    queryFn: () =>
-      callOrThrow({}, params =>
-        getPendleSwapQuote({ chainId, receiverAddress: accountAddress, ...input, ...params }),
-      ),
-    retry: false,
+    queryKey: [
+      FunctionKey.GET_PENDLE_SWAP_QUOTE,
+      {
+        ...input,
+        chainId,
+        receiverAddress,
+      },
+    ],
+    queryFn: params => getPendleSwapQuote({ chainId, receiverAddress, ...input, ...params }),
     refetchInterval,
     ...options,
   });

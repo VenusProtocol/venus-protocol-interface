@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useGetBalanceOf, useGetPendleSwapQuote, useGetTokenUsdPrice } from 'clients/api';
-import { type PendlePtVaultInput, usePendlePtVault } from 'clients/api/mutations/usePendlePtVault';
+import { usePendlePtVault } from 'clients/api';
 import { ButtonGroup, LabeledInlineContent, NoticeInfo, Slider, TokenTextField } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
@@ -39,14 +39,20 @@ export interface PositionTabProps {
   onClose?: () => void;
 }
 
-export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = 'deposit' }) => {
+export const PositionTab: React.FC<PositionTabProps> = ({
+  vault,
+  initialMode = 'deposit',
+  onClose,
+}) => {
   const { t } = useTranslation();
   const now = useNow();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
   const hasMatured =
-    'maturityDate' in vault && vault.maturityDate && now.getTime() > vault.maturityDate;
+    'maturityTimestampMs' in vault &&
+    vault.maturityTimestampMs &&
+    now.getTime() > vault.maturityTimestampMs;
 
   // --- Action mode ---
   const forceActionMode = useMemo(() => {
@@ -105,7 +111,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
     {
       fromToken: formValues.fromToken,
       toToken,
-      amount: inputAmountBN,
+      amountTokens: inputAmountBN,
       slippagePercentage:
         actionMode === 'redeemAtMaturity' ? 0 : userSlippageTolerancePercentage / 100,
     },
@@ -128,7 +134,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
       return {
         type: 'delegate',
         delegateeAddress: pendlePtVaultAddress,
-        poolComptrollerContractAddress: (vault as PendleVault).poolComptrollerAddress,
+        poolComptrollerContractAddress: (vault as PendleVault).poolComptrollerContractAddress,
       };
     }
     return spenderAddress &&
@@ -196,21 +202,16 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
       token: isStake ? formValues.fromToken : (vault as PendleVault).vToken, // Withdraw requires vToken amount as input instead
     });
 
-    const now = new Date().getTime();
-    let type: PendlePtVaultInput['type'] = actionMode;
-
-    if ('maturityDate' in vault && vault.maturityDate && now > vault.maturityDate && !isStake) {
-      type = 'redeemAtMaturity';
-    }
-
-    return pendleVaultMutation({
+    await pendleVaultMutation({
       swapQuote: getSwapQuoteData,
-      type,
+      type: actionMode,
       fromToken: formValues.fromToken,
       toToken,
       amountToken: amountMantissa,
       vToken: 'vToken' in vault ? vault.vToken : undefined,
     });
+
+    onClose?.();
   };
 
   // --- Form validation ---
@@ -229,14 +230,14 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
   });
 
   const maturityDateUtc =
-    'maturityDate' in vault
-      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
+    'maturityTimestampMs' in vault
+      ? formatDateToUtc(vault.maturityTimestampMs, { formatStr: 'MMM dd yyyy HH:mm' })
       : undefined;
   const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
 
-  const estDiffAmount = getSwapQuoteData?.estReceiveMantissa
+  const estDiffAmount = getSwapQuoteData?.estimatedReceivedTokensMantissa
     ? convertMantissaToTokens({
-        value: getSwapQuoteData.estReceiveMantissa,
+        value: getSwapQuoteData.estimatedReceivedTokensMantissa,
         token: toToken,
       }).minus(formValues.tokenAmount)
     : undefined;
@@ -312,9 +313,9 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode = '
           <span className="text-b1s text-white">{formattedMaturityDate}</span>
         </LabeledInlineContent>
 
-        <NoticeInfo description={connectWalletMessage} />
-
         <ConnectWallet analyticVariant="vault_pendle_modal" />
+
+        <NoticeInfo description={connectWalletMessage} />
       </div>
     );
   }

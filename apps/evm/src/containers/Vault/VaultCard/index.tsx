@@ -21,6 +21,7 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { StatusLabel } from 'containers/Vault/VaultCard/StatusLabel';
+import { useNow } from 'hooks/useNow';
 import { useState } from 'react';
 import PendleModal from '../VaultModals';
 import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
@@ -34,6 +35,8 @@ export interface VaultProps {
 
 export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const { t } = useTranslation();
+  const now = useNow();
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const { accountAddress } = useAccountAddress();
@@ -55,20 +58,24 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   });
 
   const {
-    data: { stakedTokenPriceUsd, dailyEmissionUsdCents, totalStakedUsdCents },
+    data: { stakedTokenPriceCents, dailyEmissionUsdCents, totalStakedUsdCents },
   } = useVaultUsdValues(vault) ?? {};
 
   const dailyEmissionMantissa =
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
 
   const liquidityCents = 'liquidityCents' in vault ? vault.liquidityCents : undefined;
-  const liquidityToken = stakedTokenPriceUsd
-    ? liquidityCents?.div(stakedTokenPriceUsd).shiftedBy(-2)
+  const liquidityToken = stakedTokenPriceCents
+    ? liquidityCents?.div(stakedTokenPriceCents)
     : undefined;
 
+  const hasMatured =
+    'maturityTimestampMs' in vault &&
+    vault.maturityTimestampMs &&
+    vault.maturityTimestampMs > now.getTime();
   const maturityDateUtc =
-    'maturityDate' in vault
-      ? formatDateToUtc(vault.maturityDate, { formatStr: 'MMM dd yyyy HH:mm' })
+    'maturityTimestampMs' in vault
+      ? formatDateToUtc(vault.maturityTimestampMs, { formatStr: 'MMM dd yyyy HH:mm' })
       : undefined;
   const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
 
@@ -82,6 +89,14 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const openModal = () => {
     setModalVisible(true);
   };
+
+  const footerLabel = (() => {
+    if (hasMatured) {
+      return t('vault.card.claimReward');
+    }
+
+    return t('vault.card.youStaked');
+  })();
 
   return (
     <>
@@ -99,11 +114,11 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           {/* Header */}
           <div className={cn('flex items-center justify-between')}>
             <div className={cn('flex items-center gap-x-3')}>
-              {'maturityDate' in vault ? (
+              {'maturityTimestampMs' in vault ? (
                 <TokenIconWithPeriod
                   token={vault.stakedToken}
-                  targetTime={vault.maturityDate}
-                  size="md"
+                  targetTime={vault.maturityTimestampMs}
+                  size="xl"
                   data-testid={TEST_IDS.symbol}
                 />
               ) : (
@@ -236,7 +251,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
         {/* Footer */}
         <div className={cn('bg-cards px-4 sm:px-6 py-4 flex items-center justify-between')}>
-          <span className="text-b1s">{t('vault.card.youStaked')}</span>
+          <span className="text-b1s">{footerLabel}</span>
 
           <div className={cn('flex items-center gap-x-3 text-b1s')}>
             <span>

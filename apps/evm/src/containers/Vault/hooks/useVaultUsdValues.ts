@@ -12,41 +12,45 @@ export const useVaultUsdValues = (vault: AnyVault) => {
       tokens: [stakedToken, rewardToken],
     },
     {
-      enabled: !('stakedTokenPriceUsd' in vault && 'rewardTokenPriceUsd' in vault),
+      enabled: !('stakedTokenPriceCents' in vault && 'rewardTokenPriceCents' in vault),
     },
   );
 
   const [stakedTokenPrice, rewardTokenPrice] = tokenPrices ?? [];
-  const stakedTokenPriceUsd =
-    'stakedTokenPriceUsd' in vault ? vault.stakedTokenPriceUsd : stakedTokenPrice?.tokenPriceUsd;
-  const rewardTokenPriceUsd =
-    'rewardTokenPriceUsd' in vault ? vault.rewardTokenPriceUsd : rewardTokenPrice?.tokenPriceUsd;
+  const stakedTokenPriceCents =
+    'stakedTokenPriceCents' in vault
+      ? vault.stakedTokenPriceCents
+      : stakedTokenPrice?.tokenPriceUsd?.shiftedBy(2);
+  const rewardTokenPriceCents =
+    'rewardTokenPriceCents' in vault
+      ? vault.rewardTokenPriceCents
+      : rewardTokenPrice?.tokenPriceUsd?.shiftedBy(2);
 
   return {
     isLoading: isTokensPriceLoading,
     data: {
-      stakedTokenPriceUsd,
-      rewardTokenPriceUsd,
+      stakedTokenPriceCents,
+      rewardTokenPriceCents,
       userStakedUsdCents:
-        userStakedMantissa && stakedTokenPriceUsd
+        userStakedMantissa && stakedTokenPriceCents
           ? convertPriceMantissaToDollars({
-              priceMantissa: userStakedMantissa?.times(stakedTokenPriceUsd),
+              priceMantissa: userStakedMantissa?.times(stakedTokenPriceCents),
               decimals: stakedToken.decimals,
-            }).shiftedBy(2)
+            })
           : undefined,
       totalStakedUsdCents:
-        totalStakedMantissa && stakedTokenPriceUsd
+        totalStakedMantissa && stakedTokenPriceCents
           ? convertPriceMantissaToDollars({
-              priceMantissa: totalStakedMantissa?.times(stakedTokenPriceUsd),
+              priceMantissa: totalStakedMantissa?.times(stakedTokenPriceCents),
               decimals: stakedToken.decimals,
-            }).shiftedBy(2)
+            })
           : undefined,
       dailyEmissionUsdCents:
-        dailyEmissionMantissa && rewardTokenPriceUsd
+        dailyEmissionMantissa && rewardTokenPriceCents
           ? convertPriceMantissaToDollars({
-              priceMantissa: dailyEmissionMantissa?.times(rewardTokenPriceUsd),
+              priceMantissa: dailyEmissionMantissa?.times(rewardTokenPriceCents),
               decimals: rewardToken.decimals,
-            }).shiftedBy(2)
+            })
           : undefined,
     },
   };

@@ -99,12 +99,12 @@ export const usePendlePtVault = (
 
       throw new VError({
         type: 'unexpected',
-        code: 'incorrectSwapInput',
+        code: 'somethingWentWrong',
       });
     },
     onConfirmed: async ({ input }) => {
       captureAnalyticEvent(`Pendle vault ${input.type}`, {
-        pendleMarketAddress: pendleMarketAddress,
+        pendleMarketAddress,
         fromTokenSymbol: input.fromToken.symbol,
         fromTokenAmountTokens: convertMantissaToTokens({
           value: input.amountToken,
@@ -114,7 +114,7 @@ export const usePendlePtVault = (
         toTokenAmountTokens: (
           convertMantissaToTokens({
             token: input.toToken,
-            value: input.swapQuote.estReceiveMantissa,
+            value: input.swapQuote.estimatedReceivedTokensMantissa,
           }) ?? '0'
         ).toNumber(),
         priceImpactPercentage: input.swapQuote.priceImpactPercentage,

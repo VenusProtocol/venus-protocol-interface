@@ -93,14 +93,14 @@ export interface GetPendleSwapQuoteInput {
   chainId: ChainId;
   fromToken: Token;
   toToken: Token;
-  amount: BigNumber;
+  amountTokens: BigNumber;
   slippagePercentage: number;
   receiverAddress?: Address;
 }
 
 export type GetPendleSwapQuoteOutput = {
-  estReceiveMantissa: BigNumber;
-  feeUsdCents: BigNumber;
+  estimatedReceivedTokensMantissa: BigNumber;
+  feeCents: BigNumber;
   priceImpactPercentage: number;
   pendleMarketAddress: Address;
 } & Pick<

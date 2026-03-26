@@ -62,5 +62,3 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
     </div>
   );
 };
-
-StatusLabel.displayName = 'StatusLabel';

@@ -2,7 +2,8 @@ import { useNow } from 'hooks/useNow';
 import { useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import type { PendleVault } from 'types';
-import { useGetVaultProducts } from '../../getVaultProducts/useGetVaultProducts';
+
+import { useGetFixedRatedVaults } from 'clients/api';
 import { useGetPools } from '../../useGetPools';
 import { formatToPendleVaults } from './utils';
 
@@ -13,7 +14,7 @@ export interface UseGetPendleVaultsOutput {
 
 export const useGetPendleVaults = (): UseGetPendleVaultsOutput => {
   const { accountAddress } = useAccountAddress();
-  const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetVaultProducts();
+  const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetFixedRatedVaults();
   const { data: poolsData, isLoading: isPoolsLoading } = useGetPools({ accountAddress });
 
   const tokens = useGetTokens();

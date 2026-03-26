@@ -1812,6 +1812,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bu kasayla etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekmektedir.",
+      "claimReward": "Ödülü talep et",
       "currentStaked": "Mevcut stake",
       "dailyEmission": "Günlük ödül dağıtımı",
       "liquidity": "Likidite",
@@ -1864,10 +1865,10 @@
       "minReceived": "Min. Alınan",
       "overview": {
         "manager": "Yönetici kurum",
-        "managerTooltip": "Bu kasanın sahibi (onu oluşturan ve kontrol eden adres veya ekip). Ücretler veya stratejiler gibi ayarları güncelleyebilirler; ancak yatırdığınız fonlar akıllı sözleşmede güvende kalır, paranızı doğrudan alamaz veya taşıyamazlar.",
+        "managerTooltip": "Bu kasanın temel varlığını yöneten adres veya ekip. Yatırılan varlıklar, denetledikleri piyasalara tahsis edilir ve piyasa koşullarına göre itfa veya uzlaşma sürelerini güncelleyebilirler.",
         "marketInfo": "Piyasa bilgisi",
         "marketRiskDisclosures": "Piyasa Risk Açıklamaları",
-        "riskDisclosureText": "venus.io adresinden erişilebilen Venus Protocol, BNB Chain üzerine inşa edilmiş ve kripto para piyasalarına odaklanan merkezi olmayan bir borç verme ve borçlanma platformudur. 2020 yılında başlatılan bu platform, Maker'ın aşırı teminatlı stabilcoin tasarımının unsurlarını Compound tarzı algoritmik para piyasalarıyla birleştirerek kullanıcıların tek bir uygulamada kripto varlıkları tedarik etmelerine, getiri elde etmelerine ve teminatları karşılığında borçlanmalarına olanak tanır. Protokol, topluluğu tarafından yönetilmekte ve merkezi borç verenlere saklama gerektirmeyen, şeffaf bir alternatif sunmayı hedeflemektedir.",
+        "riskDisclosureText": "Pendle, Temel Tokenlar (PT'ler) aracılığıyla sabit oranlı getiri sağlayan merkeziyetsiz bir getiri ticaret protokolüdür. Venus Sabit Faiz Kasası, PT'leri edinmek için mevduatları Pendle'ın altyapısı üzerinden yönlendirir ve bunlar Venus Core'a teminat olarak sağlanır.<br />Pendle yatırdığınız fonlara erişemez veya taşıyamaz olsa da bu kasayı kullanmak sizi her iki protokolden kaynaklanan risklere maruz bırakır. Bunlar arasında akıllı sözleşme güvenlik açıkları, oracle arızaları ve her iki protokolün de istismar edilmesi veya duraklatılması olasılığı yer alır. Erken para çekme işlemleri piyasa fiyatından gerçekleştirilir ve yatırılan tutardan daha az iade edilebilir. Sabit APY yatırım sırasında kilitlenir ve protokol düzeyindeki arızalara karşı koruma sağlamaz.",
         "strategy": {
           "pendleRouter": "Pendle Router",
           "supply": "Sağla",

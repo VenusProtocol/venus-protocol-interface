@@ -1812,6 +1812,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
+      "claimReward": "Nhận thưởng",
       "currentStaked": "Đang đặt cược",
       "dailyEmission": "Phần thưởng hàng ngày",
       "liquidity": "Thanh khoản",
@@ -1863,10 +1864,10 @@
       "minReceived": "Tối thiểu nhận được",
       "overview": {
         "manager": "Quản lý",
-        "managerTooltip": "Chủ sở hữu của kho này (địa chỉ hoặc nhóm đã tạo và kiểm soát nó). Họ có thể cập nhật các cài đặt như phí hoặc chiến lược, nhưng tiền gửi của bạn vẫn an toàn trong hợp đồng thông minh, họ không thể lấy hoặc di chuyển tiền của bạn trực tiếp.",
+        "managerTooltip": "Địa chỉ hoặc nhóm quản lý tài sản cơ sở của kho này. Tài sản được gửi sẽ được phân bổ vào các thị trường mà họ giám sát, và họ có thể cập nhật thời hạn mua lại hoặc thanh toán dựa trên điều kiện thị trường.",
         "marketInfo": "Thông tin thị trường",
         "marketRiskDisclosures": "Công bố rủi ro thị trường",
-        "riskDisclosureText": "Venus Protocol, có thể truy cập tại venus.io, là nền tảng cho vay và đi vay phi tập trung được xây dựng trên BNB Chain, tập trung vào thị trường tiền tệ tiền điện tử. Ra mắt năm 2020, nền tảng kết hợp các yếu tố thiết kế stablecoin thế chấp quá mức của Maker với thị trường tiền tệ theo thuật toán kiểu Compound, cho phép người dùng cung cấp tài sản tiền điện tử, kiếm lợi nhuận và vay dựa trên tài sản thế chấp trong một ứng dụng duy nhất. Giao thức được quản trị bởi cộng đồng và nhằm cung cấp một giải pháp thay thế phi lưu ký, minh bạch cho các bên cho vay tập trung.",
+        "riskDisclosureText": "Pendle là một giao thức giao dịch lợi suất phi tập trung cho phép lợi suất cố định thông qua Token Gốc (PT). Venus Fixed Rate Vault chuyển tiền gửi qua cơ sở hạ tầng của Pendle để mua PT, sau đó được cung cấp cho Venus Core làm tài sản thế chấp.<br />Mặc dù Pendle không thể truy cập hoặc di chuyển tiền gửi của bạn, việc sử dụng kho này khiến bạn phải chịu rủi ro từ cả hai giao thức. Những rủi ro này bao gồm lỗ hổng hợp đồng thông minh, lỗi oracle và khả năng một trong hai giao thức bị khai thác hoặc tạm dừng. Rút tiền sớm được thực hiện theo giá thị trường và có thể nhận lại ít hơn số tiền đã gửi. APY cố định được khóa tại thời điểm gửi và không bảo vệ khỏi các lỗi ở cấp giao thức.",
         "strategy": {
           "pendleRouter": "Pendle Router",
           "supply": "Cung cấp",

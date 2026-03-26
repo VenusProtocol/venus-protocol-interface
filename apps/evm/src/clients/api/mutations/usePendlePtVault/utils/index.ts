@@ -1,37 +1,8 @@
 import BigNumber from 'bignumber.js';
-import type { PendleContractCallParams } from 'clients/api/queries/getPendleSwapQuote';
-import _ from 'lodash';
+import type { PendleContractCallParams } from 'clients/api';
 import type { Token, VToken } from 'types';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
-
-const convertKeysToNumber = (
-  obj: Record<string, unknown>,
-  {
-    bigintKeyPaths = [],
-    numberKeyPaths = [],
-  }: {
-    bigintKeyPaths?: string[];
-    numberKeyPaths?: string[];
-  },
-) => {
-  if (!!obj && typeof obj !== 'object') return obj;
-
-  (bigintKeyPaths ?? []).forEach((keyPath: string) => {
-    const value = _.get(obj, keyPath);
-    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'bigint') {
-      _.set(obj, keyPath, BigInt(value));
-    }
-  });
-
-  (numberKeyPaths ?? []).forEach(keyPath => {
-    const value = _.get(obj, keyPath);
-    if (typeof value === 'string') {
-      _.set(obj, keyPath, Number(value));
-    }
-  });
-
-  return obj;
-};
+import { convertKeysToNumber } from './convertKeysToNumber';
 
 export const formatDepositParams = (params: PendleContractCallParams) => {
   if (!Array.isArray(params)) return params;

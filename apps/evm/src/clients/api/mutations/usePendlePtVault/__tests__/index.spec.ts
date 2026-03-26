@@ -5,7 +5,7 @@ import { bnb, xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
-import type { PendleContractCallParams } from 'clients/api/queries/getPendleSwapQuote';
+import type { PendleContractCallParams } from 'clients/api';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
@@ -51,8 +51,8 @@ const fakeContractCallParams: PendleContractCallParams = [
 ];
 
 const fakeSwapQuote = {
-  estReceiveMantissa: new BigNumber('2000000000000000000'),
-  feeUsdCents: new BigNumber('100'),
+  estimatedReceivedTokensMantissa: new BigNumber('2000000000000000000'),
+  feeCents: new BigNumber('100'),
   priceImpactPercentage: 0.5,
   pendleMarketAddress: fakePendleMarketAddress,
   contractCallParams: fakeContractCallParams,
@@ -378,7 +378,7 @@ describe('usePendlePtVault', () => {
       // missing vToken for withdraw
     };
 
-    await expect(async () => fn(invalidInput)).rejects.toThrow('incorrectSwapInput');
+    await expect(async () => fn(invalidInput)).rejects.toThrow('somethingWentWrong');
   });
 
   it('throws when contract address could not be retrieved', async () => {

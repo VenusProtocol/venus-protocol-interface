@@ -13,7 +13,7 @@ export const getPendleSwapQuote = async ({
   chainId,
   fromToken,
   toToken,
-  amount,
+  amountTokens,
   slippagePercentage,
   receiverAddress,
 }: GetPendleSwapQuoteInput): Promise<GetPendleSwapQuoteOutput> => {
@@ -25,7 +25,7 @@ export const getPendleSwapQuote = async ({
       tokenInAddress: fromToken.address,
       tokenOutAddress: toToken.address,
       amountInMantissa: convertTokensToMantissa({
-        value: amount,
+        value: amountTokens,
         token: fromToken,
       }),
       slippagePercentage,
