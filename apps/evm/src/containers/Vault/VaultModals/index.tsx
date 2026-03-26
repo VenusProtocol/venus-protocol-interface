@@ -1,4 +1,4 @@
-import { Modal, Tabs, cn } from 'components';
+import { Modal, Tabs } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { AnyVault } from 'types';
 
@@ -45,7 +45,7 @@ export const PendleModal: React.FC<PendleModalProps> = ({
           size="xl"
         />
       }
-      className={cn('max-sm:w-full max-sm:translate-y-[calc(-50%+1rem)] max-sm:rounded-b-none')}
+      useDrawerInXs
     >
       <Tabs tabs={tabs} variant="secondary" buttonClassName="flex-1" />
     </Modal>
