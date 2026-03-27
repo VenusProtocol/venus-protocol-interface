@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.22.0
+
+### Minor Changes
+
+- 8300d84: add Safe connector
+
 ## 4.21.2
 
 ### Patch Changes
