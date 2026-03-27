@@ -4,6 +4,7 @@ import { put } from '@vercel/blob';
 
 import { IMAGES_DIR_PATH } from '../../../constants';
 import { getImgCdnPath } from '../../../utilities/getImgCdnPath';
+import { removeOutdatedImages } from '../removeOutdatedImages';
 
 export const uploadImages = async () => {
   // List files
@@ -39,5 +40,5 @@ export const uploadImages = async () => {
     }),
   );
 
-  // TODO: remove outdated CDN image directories based on version
+  await removeOutdatedImages();
 };
