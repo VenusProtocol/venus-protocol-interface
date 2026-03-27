@@ -4,7 +4,6 @@ import { TokenIcon, type TokenIconProps } from 'components/TokenIcon';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
-import { formatDateToUtc } from 'utilities';
 
 export interface TokenIconWithPeriodProps extends TokenIconProps {
   targetDate?: Date;
@@ -34,7 +33,7 @@ export const TokenIconWithPeriod: React.FC<TokenIconWithPeriodProps> = ({
 
   const formattedDateUtc = targetDate
     ? t('vault.card.textualDate', {
-        date: formatDateToUtc(targetDate),
+        date: targetDate,
       })
     : PLACEHOLDER_KEY;
 

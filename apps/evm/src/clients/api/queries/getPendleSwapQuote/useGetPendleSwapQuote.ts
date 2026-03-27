@@ -42,6 +42,7 @@ export const useGetPendleSwapQuote = (
       },
     ],
     queryFn: params => getPendleSwapQuote({ chainId, receiverAddress, ...input, ...params }),
+    retry: false,
     refetchInterval,
     ...options,
   });

@@ -520,9 +520,10 @@
     }
   },
   "errors": {
+    "amountTooLow": "จำนวนที่ป้อนต่ำเกินไป",
     "couldNotRetrieveSigner": "ไม่สามารถดึง signer ได้ โปรดตรวจสอบว่ากระเป๋าของคุณถูกปลดล็อกแล้วและรีโหลดหน้า",
     "couldNotSwitchChain": "ไม่สามารถสลับเชนได้ โปรดตรวจสอบว่ากระเป๋าของคุณถูกปลดล็อกแล้วและรีโหลดหน้า",
-    "lowerThanMinimum": "จำนวนที่ป้อนต่ำเกินไป",
+    "invalidAmount": "จำนวนไม่ถูกต้อง",
     "missingAbstainDescription": "ข้อเสนอต้องมีคำอธิบายคะแนน 'งดออกเสียง'",
     "missingAgainstDescription": "ข้อเสนอต้องมีคำอธิบายคะแนน 'คัดค้าน'",
     "missingDescription": "ไม่มีคำอธิบายข้อเสนอในไฟล์",
@@ -1830,18 +1831,25 @@
       "totalDeposited": "ยอดฝากทั้งหมด",
       "totalStaked": "ยอดสเตครวม",
       "withdraw": "ถอน",
-      "youAreStake": "คุณกำลังสเตคอยู่"
+      "youAreStake": "คุณกำลังสเตคอยู่",
+      "youStaked": "คุณสเตคแล้ว"
     },
     "filter": {
+      "active": "กำลังใช้งาน",
       "allCategories": "ทุกหมวดหมู่",
       "allManagers": "ผู้ดูแลทั้งหมด",
+      "allStates": "สถานะทั้งหมด",
+      "claim": "อ้างสิทธิ์",
+      "deposit": "ฝาก",
+      "earning": "กำลังรับผลตอบแทน",
       "inputPlaceholder": "ค้นหาสินทรัพย์",
       "others": "อื่นๆ",
       "paused": "หยุดชั่วคราว",
       "refund": "คืนเงิน",
       "repaying": "กำลังชำระคืน",
       "stablecoins": "สเตเบิลคอยน์",
-      "vaults": "คลัง"
+      "vaults": "คลัง",
+      "yieldTokens": "โทเคนผลตอบแทน"
     },
     "modals": {
       "afterMaturityPendleDisclaimer": "กรุณาถอน PT token ไปยังวอลเล็ตของคุณก่อนผ่านปุ่มถอน จากนั้นไปที่เว็บไซต์<Link>Pendle อย่างเป็นทางการ</Link>เพื่อแลกรับ underlying token ของคุณ",
@@ -1854,8 +1862,10 @@
       "effectiveFixedApr": "APR คงที่ที่มีผล",
       "effectiveFixedAprPendleTooltip": "ผลตอบแทนคงที่รายปีที่เสนอโดยกลยุทธ์ vault นี้ แสดงเป็นอัตราร้อยละต่อปีที่มีผลซึ่งรวมดอกเบี้ยทบต้นแล้ว",
       "error": {
+        "amountTooLow": "จำนวนที่ป้อนต่ำเกินไป",
         "higherThanBalance": "จำนวนเกินกว่ายอด {{tokenSymbol}} ที่มีอยู่ของคุณ",
-        "lowerThanMinimum": "จำนวนที่ป้อนต่ำเกินไป จำนวนขั้นต่ำเทียบเท่ากับ {{amount}} USD",
+        "invalidAmount": "จำนวนที่ป้อนไม่ถูกต้อง",
+        "lowerThanMinimumAmount": "จำนวนที่ป้อนต่ำเกินไป จำนวนขั้นต่ำเทียบเท่ากับ {{amount}} USD",
         "noSwapQuoteFound": "ไม่พบการสวอป กรุณาอัปเดตแบบฟอร์ม"
       },
       "estPenalty": "ค่าปรับโดยประมาณ",

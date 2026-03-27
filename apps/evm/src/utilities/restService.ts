@@ -16,6 +16,7 @@ export interface ApiErrorResponse {
   status: number;
   data: {
     error: string;
+    code?: string;
   };
 }
 

@@ -8,8 +8,9 @@ export interface FormValues {
 export type FormErrorCode =
   | 'EMPTY_TOKEN_AMOUNT'
   | 'HIGHER_THAN_WALLET_BALANCE'
-  | 'NO_SWAP_QUOTE_FOUND'
-  | 'LOWER_THAN_MINIMUM';
+  | 'PENDLE_NO_ROUTE_FOUND'
+  | 'PENDLE_AMOUNT_TOO_LOW'
+  | 'PENDLE_INVALID_AMOUNT';
 
 export interface FormError {
   code: FormErrorCode;

@@ -6,6 +6,7 @@ import {
   useGetBalanceOf,
   useGetPendleSwapQuote,
   useGetTokenUsdPrice,
+  useGetVTokenBalance,
   useWithdraw,
 } from 'clients/api';
 import { usePendlePtVault } from 'clients/api';
@@ -25,7 +26,6 @@ import {
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatCentsToReadableValue,
-  formatDateToUtc,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
@@ -167,6 +167,16 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     },
   );
 
+  const { data: getVTokenBalanceData } = useGetVTokenBalance(
+    {
+      accountAddress: accountAddress || NULL_ADDRESS,
+      vTokenAddress: (vault as PendleVault).vToken.address,
+    },
+    {
+      enabled: !!accountAddress && actionMode === 'redeemAtMaturity',
+    },
+  );
+
   const balanceTokenAmount = useMemo(() => {
     if (isBalanceLoading || !balanceData) return undefined;
 
@@ -204,16 +214,20 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   const handleOnSubmit = async () => {
     // Use Withdraw from Core pool.
     if (actionMode === 'redeemAtMaturity') {
+      const withdrawFull = formValues.tokenAmount === availableTokens.toFixed();
       await withdraw({
         poolName: (vault as PendleVault).poolName,
         poolComptrollerContractAddress: (vault as PendleVault).poolComptrollerContractAddress,
         vToken: (vault as PendleVault).vToken,
-        withdrawFullSupply: formValues.tokenAmount === availableTokens.toFixed(),
+        withdrawFullSupply: withdrawFull,
         unwrap: formValues.fromToken.isNative,
-        amountMantissa: convertTokensToMantissa({
-          value: new BigNumber(formValues.tokenAmount),
-          token: formValues.fromToken,
-        }),
+        amountMantissa:
+          withdrawFull && getVTokenBalanceData?.balanceMantissa
+            ? getVTokenBalanceData.balanceMantissa
+            : convertTokensToMantissa({
+                value: new BigNumber(formValues.tokenAmount),
+                token: formValues.fromToken,
+              }),
       });
     } else if (getSwapQuoteData) {
       const amountMantissa = convertTokensToMantissa({
@@ -249,13 +263,12 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     tokenSymbol: vault.stakedToken.symbol,
   });
 
-  const maturityDateUtc =
+  const formattedMaturityDate =
     'maturityDate' in vault
       ? t('vault.modals.textualWithTime', {
-          date: formatDateToUtc(vault.maturityDate),
+          date: vault.maturityDate,
         })
-      : undefined;
-  const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
+      : PLACEHOLDER_KEY;
 
   const estDiffAmount = getSwapQuoteData?.estimatedReceivedTokensMantissa
     ? convertMantissaToTokens({
@@ -312,7 +325,8 @@ export const PositionTab: React.FC<PositionTabProps> = ({
 
   const actionLabel = (() => {
     if (actionMode === 'deposit') return t('vault.modals.stake');
-    if (actionMode === 'withdraw') return t('vault.modals.withdraw');
+    if (actionMode === 'withdraw' || actionMode === 'redeemAtMaturity')
+      return t('vault.modals.withdraw');
     return t('vault.modals.claim');
   })();
 
@@ -392,9 +406,11 @@ export const PositionTab: React.FC<PositionTabProps> = ({
                 </TertiaryButton>
               </div>
             }
-            hasError={!!formError?.message && Number(formValues.tokenAmount) > 0}
+            hasError={
+              !!formError?.message && !isGetSwapQuoteLoading && Number(formValues.tokenAmount) > 0
+            }
             description={
-              !isGetSwapQuoteLoading && formError?.message ? (
+              !isGetSwapQuoteLoading && !!formError?.message ? (
                 <p className="text-red">{formError.message}</p>
               ) : undefined
             }
@@ -432,7 +448,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
         </LabeledInlineContent>
 
         {/* Convert details (Pendle only) */}
-        {vault.manager === VaultManager.Pendle && (
+        {vault.manager === VaultManager.Pendle && actionMode !== 'redeemAtMaturity' && (
           <PendleConvertDetails
             fromToken={formValues.fromToken}
             toToken={toToken}

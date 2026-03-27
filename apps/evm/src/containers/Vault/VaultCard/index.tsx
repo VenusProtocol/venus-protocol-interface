@@ -13,7 +13,6 @@ import { type AnyVault, VaultManager, VaultStatus } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
-  formatDateToUtc,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
@@ -71,13 +70,13 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
   const hasMatured =
     'maturityDate' in vault && vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
-  const maturityDateUtc =
+
+  const formattedMaturityDate =
     'maturityDate' in vault
       ? t('vault.card.textualWithTime', {
-          date: formatDateToUtc(vault.maturityDate),
+          date: vault.maturityDate,
         })
-      : undefined;
-  const formattedMaturityDate = maturityDateUtc ? `${maturityDateUtc} UTC` : PLACEHOLDER_KEY;
+      : PLACEHOLDER_KEY;
 
   const clickAble = [
     VaultStatus.Active,

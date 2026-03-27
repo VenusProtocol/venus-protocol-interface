@@ -520,9 +520,10 @@
     }
   },
   "errors": {
+    "amountTooLow": "輸入金額過低。",
     "couldNotRetrieveSigner": "無法獲取簽名者，請確保錢包已解鎖並刷新頁面",
     "couldNotSwitchChain": "無法切換鏈，請確保錢包已解鎖並刷新頁面",
-    "lowerThanMinimum": "輸入金額過低。",
+    "invalidAmount": "無效金額",
     "missingAbstainDescription": "提案需要“棄權”票描述",
     "missingAgainstDescription": "提案需要“反對”票描述",
     "missingDescription": "文件中沒有提案描述",
@@ -1830,18 +1831,25 @@
       "totalDeposited": "總存款",
       "totalStaked": "總質押",
       "withdraw": "提取",
-      "youAreStake": "你正在質押"
+      "youAreStake": "你正在質押",
+      "youStaked": "你已質押"
     },
     "filter": {
+      "active": "進行中",
       "allCategories": "所有類別",
       "allManagers": "所有管理機構",
+      "allStates": "所有狀態",
+      "claim": "領取",
+      "deposit": "存款",
+      "earning": "收益中",
       "inputPlaceholder": "搜尋資產",
       "others": "其他",
       "paused": "已暫停",
       "refund": "退款",
       "repaying": "還款中",
       "stablecoins": "穩定幣",
-      "vaults": "金庫"
+      "vaults": "金庫",
+      "yieldTokens": "收益代幣"
     },
     "modals": {
       "afterMaturityPendleDisclaimer": "請先透過提取按鈕將您的 PT 代幣提取到錢包，然後訪問 <Link>Pendle 官方</Link>網站贖回您的底層代幣。",
@@ -1854,8 +1862,10 @@
       "effectiveFixedApr": "實際固定年化利率",
       "effectiveFixedAprPendleTooltip": "此金庫策略提供的年化固定收益，以包含複利的有效年化利率（APR）表示。",
       "error": {
+        "amountTooLow": "輸入金額過低。",
         "higherThanBalance": "金額超過您的可用 {{tokenSymbol}} 餘額",
-        "lowerThanMinimum": "輸入金額過低。最低金額相當於 {{amount}} USD。",
+        "invalidAmount": "輸入金額無效。",
+        "lowerThanMinimumAmount": "輸入金額過低。最低金額應不少於 {{amount}} USD。",
         "noSwapQuoteFound": "未找到兑換報價，請更新表單。"
       },
       "estPenalty": "預計罰款",

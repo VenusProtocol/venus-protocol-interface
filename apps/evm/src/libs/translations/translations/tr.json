@@ -520,9 +520,10 @@
     }
   },
   "errors": {
+    "amountTooLow": "Girilen miktar çok düşük.",
     "couldNotRetrieveSigner": "İmzalayıcı alınamadı, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
     "couldNotSwitchChain": "Zincir değiştirilemedi, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
-    "lowerThanMinimum": "Girilen miktar çok düşük.",
+    "invalidAmount": "Geçersiz Miktar",
     "missingAbstainDescription": "Teklifin 'çekimser' oy açıklaması olmalı",
     "missingAgainstDescription": "Teklifin 'karşı' oy açıklaması olmalı",
     "missingDescription": "Dosyada teklif açıklaması yok",
@@ -1831,18 +1832,25 @@
       "totalDeposited": "Toplam yatırılan",
       "totalStaked": "Toplam Stake",
       "withdraw": "Çek",
-      "youAreStake": "Stake ediyorsunuz"
+      "youAreStake": "Stake ediyorsunuz",
+      "youStaked": "Stake ettiniz"
     },
     "filter": {
+      "active": "Aktif",
       "allCategories": "Tüm kategoriler",
       "allManagers": "Tüm yönetici kurumlar",
+      "allStates": "Tüm durumlar",
+      "claim": "Talep et",
+      "deposit": "Yatır",
+      "earning": "Kazanıyor",
       "inputPlaceholder": "Varlık ara",
       "others": "Diğerleri",
       "paused": "Duraklatıldı",
       "refund": "İade",
       "repaying": "Geri ödeniyor",
       "stablecoins": "Stablecoin'ler",
-      "vaults": "Kasalar"
+      "vaults": "Kasalar",
+      "yieldTokens": "Getiri token'ları"
     },
     "modals": {
       "afterMaturityPendleDisclaimer": "Lütfen önce Çek butonu ile PT tokenlarınızı cüzdanınıza çekin, ardından temel tokenlarınızı geri almak için <Link>Pendle resmi</Link> web sitesini ziyaret edin.",
@@ -1855,8 +1863,10 @@
       "effectiveFixedApr": "Efektif Sabit APR",
       "effectiveFixedAprPendleTooltip": "Bu kasa stratejisinin sunduğu yıllık sabit getiri; bileşik faiz dahil efektif Yıllık Yüzde Oranı (APR) olarak ifade edilmektedir.",
       "error": {
+        "amountTooLow": "Girilen miktar çok düşük.",
         "higherThanBalance": "Miktar mevcut {{tokenSymbol}} bakiyenizi aşıyor",
-        "lowerThanMinimum": "Girilen miktar çok düşük. Minimum miktar {{amount}} USD eşdeğeridir.",
+        "invalidAmount": "Girilen miktar geçersiz.",
+        "lowerThanMinimumAmount": "Girilen miktar çok düşük. Minimum miktar {{amount}} USD eşdeğeridir.",
         "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güelleyin."
       },
       "estPenalty": "Tahmini Ceza",

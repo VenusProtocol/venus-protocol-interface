@@ -520,9 +520,10 @@
     }
   },
   "errors": {
+    "amountTooLow": "Số tiền nhập vào quá thấp.",
     "couldNotRetrieveSigner": "Không thể lấy signer, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
     "couldNotSwitchChain": "Không thể chuyển chain, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
-    "lowerThanMinimum": "Số tiền nhập vào quá thấp.",
+    "invalidAmount": "Số tiền không hợp lệ",
     "missingAbstainDescription": "Đề xuất cần mô tả phiếu 'abstain'",
     "missingAgainstDescription": "Đề xuất cần mô tả phiếu 'against'",
     "missingDescription": "Không có mô tả đề xuất trong tệp",
@@ -1830,18 +1831,25 @@
       "totalDeposited": "Tổng tiền gửi",
       "totalStaked": "Tổng đã stake",
       "withdraw": "Rút",
-      "youAreStake": "Bạn đang stake"
+      "youAreStake": "Bạn đang stake",
+      "youStaked": "Bạn đã stake"
     },
     "filter": {
+      "active": "Đang hoạt động",
       "allCategories": "Tất cả danh mục",
       "allManagers": "Tất cả tổ chức quản lý",
+      "allStates": "Tất cả trạng thái",
+      "claim": "Nhận thưởng",
+      "deposit": "Gửi",
+      "earning": "Đang kiếm lợi nhuận",
       "inputPlaceholder": "Tìm kiếm tài sản",
       "others": "Khác",
       "paused": "Tạm dừng",
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ",
       "stablecoins": "Stablecoin",
-      "vaults": "Kho"
+      "vaults": "Kho",
+      "yieldTokens": "Token lợi suất"
     },
     "modals": {
       "afterMaturityPendleDisclaimer": "Vui lòng rút PT token về ví của bạn trước thông qua nút Rút, sau đó truy cập trang web <Link>Pendle chính thức</Link> để đổi lấy token cơ sở của bạn.",
@@ -1854,8 +1862,10 @@
       "effectiveFixedApr": "APR Cố Định Hiệu Quả",
       "effectiveFixedAprPendleTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
       "error": {
+        "amountTooLow": "Số tiền nhập vào quá thấp.",
         "higherThanBalance": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn",
-        "lowerThanMinimum": "Số tiền nhập vào quá thấp. Số tiền tối thiểu tương đương {{amount}} USD.",
+        "invalidAmount": "Số tiền nhập vào không hợp lệ.",
+        "lowerThanMinimumAmount": "Số tiền nhập vào quá thấp. Số tiền tối thiểu tương đương {{amount}} USD.",
         "noSwapQuoteFound": "Không tìm thấy lệnh swap. Vui lòng cập nhật biểu mẫu."
       },
       "estPenalty": "Phạt ước tính",

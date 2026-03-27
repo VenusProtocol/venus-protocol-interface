@@ -177,12 +177,12 @@ describe('getPendleSwapQuote', () => {
         amountTokens: new BigNumber('0.001'),
         slippagePercentage: 0.5,
       }),
-    ).rejects.toThrow('noSwapQuoteFound');
+    ).rejects.toThrow('somethingWentWrong');
   });
 
   it('throws when response contains an error', async () => {
     (restService as Mock).mockImplementation(async () => ({
-      data: { error: 'INSUFFICIENT_LIQUIDITY' },
+      data: { error: '0.01', code: 'PENDLE_AMOUNT_TOO_LOW' },
     }));
 
     await expect(
@@ -190,9 +190,9 @@ describe('getPendleSwapQuote', () => {
         chainId: ChainId.BSC_MAINNET,
         fromToken: bnb,
         toToken: xvs,
-        amountTokens: new BigNumber('0.001'),
+        amountTokens: new BigNumber('0.00001'),
         slippagePercentage: 0.5,
       }),
-    ).rejects.toThrow('somethingWentWrong');
+    ).rejects.toThrow('PENDLE_AMOUNT_TOO_LOW');
   });
 });

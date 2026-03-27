@@ -30,19 +30,28 @@ const useFormValidation = ({
   const formError: FormError | undefined = useMemo(() => {
     const tokenAmount = formValues.tokenAmount ? new BigNumber(formValues.tokenAmount) : undefined;
 
-    if (swapQuoteError?.code === 'noSwapQuoteFound') {
+    if (swapQuoteError?.code === 'PENDLE_NO_ROUTE_FOUND') {
       return {
-        code: 'NO_SWAP_QUOTE_FOUND' as const,
+        code: 'PENDLE_NO_ROUTE_FOUND' as const,
         message: t('vault.modals.error.noSwapQuoteFound'),
       };
     }
 
-    if (swapQuoteError?.code === 'lowerThanMinimum') {
+    if (swapQuoteError?.code === 'PENDLE_AMOUNT_TOO_LOW') {
       return {
-        code: 'LOWER_THAN_MINIMUM' as const,
-        message: t('vault.modals.error.lowerThanMinimum', {
-          amount: swapQuoteError.data?.exception,
-        }),
+        code: 'PENDLE_AMOUNT_TOO_LOW' as const,
+        message: swapQuoteError.data?.exception
+          ? t('vault.modals.error.lowerThanMinimumAmount', {
+              amount: swapQuoteError.data?.exception,
+            })
+          : t('vault.modals.error.amountTooLow'),
+      };
+    }
+
+    if (swapQuoteError?.code === 'PENDLE_INVALID_AMOUNT') {
+      return {
+        code: 'PENDLE_INVALID_AMOUNT' as const,
+        message: t('vault.modals.error.invalidAmount'),
       };
     }
 

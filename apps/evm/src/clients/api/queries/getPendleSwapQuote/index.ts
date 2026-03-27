@@ -1,4 +1,6 @@
 import { VError } from 'libs/errors';
+import type { pendleSwapQuoteErrorPhrases } from 'libs/errors/pendleSwapQuoteErrorPhrases';
+
 import { convertTokensToMantissa, restService } from 'utilities';
 import { formatOutput } from './formatOutput';
 import type {
@@ -34,21 +36,21 @@ export const getPendleSwapQuote = async ({
   });
 
   if (!response.data) {
-    throw new VError({ type: 'pendleSwapQuote', code: 'noSwapQuoteFound' });
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+    });
+  }
+
+  if ('code' in response.data && response.data.code) {
+    throw new VError({
+      type: 'pendleSwapQuote',
+      code: response.data.code as keyof typeof pendleSwapQuoteErrorPhrases,
+      data: { exception: response.data?.error },
+    });
   }
 
   if (response.data && 'error' in response.data) {
-    const errorMsg = (response.data as { error: unknown }).error;
-    if (errorMsg === 'The input valuation is too low. The minimum valuation is 0.01 USD') {
-      throw new VError({
-        type: 'pendleSwapQuote',
-        code: 'lowerThanMinimum',
-        data: {
-          exception: 0.01,
-        },
-      });
-    }
-
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',

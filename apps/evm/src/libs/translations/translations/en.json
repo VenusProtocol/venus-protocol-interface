@@ -520,9 +520,10 @@
     }
   },
   "errors": {
+    "amountTooLow": "Input amount is too low.",
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
     "couldNotSwitchChain": "Could not switch chain, please make sure your wallet is unlocked then reload the page",
-    "lowerThanMinimum": "Input amount is too low.",
+    "invalidAmount": "Invalid Amount",
     "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
     "missingAgainstDescription": "Proposal needs an 'against' votes description",
     "missingDescription": "There is no proposal description in the file",
@@ -1831,18 +1832,25 @@
       "totalDeposited": "Total deposited",
       "totalStaked": "Total Staked",
       "withdraw": "Withdraw",
-      "youAreStake": "You are staking"
+      "youAreStake": "You are staking",
+      "youStaked": "You staked"
     },
     "filter": {
+      "active": "Active",
       "allCategories": "All categories",
       "allManagers": "All managers",
+      "allStates": "All states",
+      "claim": "Claim",
+      "deposit": "Deposit",
+      "earning": "Earning",
       "inputPlaceholder": "Search asset",
       "others": "Others",
       "paused": "Paused",
       "refund": "Refund",
       "repaying": "Repaying",
       "stablecoins": "Stablecoins",
-      "vaults": "Vaults"
+      "vaults": "Vaults",
+      "yieldTokens": "Yield tokens"
     },
     "modals": {
       "afterMaturityPendleDisclaimer": "Please withdraw your PT tokens to your wallet first via the Withdraw button, then visit the <Link>Pendle official</Link> website to redeem your underlying tokens.",
@@ -1855,8 +1863,10 @@
       "effectiveFixedApr": "Effective Fixed APR",
       "effectiveFixedAprPendleTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
       "error": {
+        "amountTooLow": "Input amount is too low.",
         "higherThanBalance": "Amount exceeds your available {{tokenSymbol}} balance",
-        "lowerThanMinimum": "Input amount is too low. The minimum amount is equivalent to {{amount}} USD.",
+        "invalidAmount": "Input amount is invalid.",
+        "lowerThanMinimumAmount": "Input amount is too low. The minimum amount is equivalent to {{amount}} USD.",
         "noSwapQuoteFound": "No swap found. Please update the form."
       },
       "estPenalty": "Est. Penalty",
