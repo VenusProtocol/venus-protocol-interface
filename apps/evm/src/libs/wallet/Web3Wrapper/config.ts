@@ -20,15 +20,9 @@ const connectors = connectorsForWallets(
   [
     {
       groupName: 'Recommended',
-      wallets: [
-        binanceWallet,
-        okxWallet,
-        trustWallet,
-        walletConnectWallet,
-        rabbyWallet,
-        metaMaskWallet,
-        safeWallet,
-      ],
+      wallets: localConfig.isSafeApp
+        ? [safeWallet]
+        : [binanceWallet, okxWallet, trustWallet, walletConnectWallet, metaMaskWallet, rabbyWallet],
     },
   ],
   { appName: 'Venus', projectId: WALLET_CONNECT_PROJECT_ID },

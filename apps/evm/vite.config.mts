@@ -21,6 +21,12 @@ export default defineConfig(({ mode }) => {
         '@venusprotocol/chains': '/../../packages/chains/src',
       },
     },
+    // DEV ONLY
+    server: {
+      allowedHosts: true,
+      cors: true,
+    },
+    // END DEV ONLY
     optimizeDeps: {
       esbuildOptions: {
         // Node.js global to browser globalThis
