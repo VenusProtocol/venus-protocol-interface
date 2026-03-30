@@ -1,33 +1,15 @@
 import { TertiaryButton, cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
-import { useEffect, useMemo, useState } from 'react';
 
-import {
-  useGetBalanceOf,
-  useGetPendleSwapQuote,
-  useGetTokenUsdPrice,
-  useGetVTokenBalance,
-  usePendlePtVaultDeposit,
-  usePendlePtVaultWithdraw,
-  useWithdraw,
-} from 'clients/api';
 import { ButtonGroup, LabeledInlineContent, NoticeInfo, Slider, TokenTextField } from 'components';
-import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { Link } from 'containers/Link';
 import { SwapDetails } from 'containers/SwapDetails';
-import useDebounceValue from 'hooks/useDebounceValue';
-import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
-import { useNow } from 'hooks/useNow';
-import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
 import { type PendleVault, VaultManager } from 'types';
 import {
   convertMantissaToTokens,
-  convertTokensToMantissa,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
@@ -35,10 +17,7 @@ import {
 
 import { PendleConvertDetails } from './PendleConvertDetails';
 import { SubmitButton } from './SubmitButton';
-import type { Approval } from './SubmitButton/types';
-import useForm, { type FormValues } from './useForm';
-
-type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';
+import usePositionTab, { type ActionMode } from './usePositionTab';
 
 const PENDLE_SITE =
   'https://app.pendle.finance/trade/dashboard/overview/positions?timeframe=allTime';
@@ -49,276 +28,57 @@ export interface PositionTabProps {
   onClose?: () => void;
 }
 
-export const PositionTab: React.FC<PositionTabProps> = ({
-  vault,
-  initialMode = 'deposit',
-  onClose,
-}) => {
+export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, onClose }) => {
   const { t, Trans } = useTranslation();
-  const now = useNow();
-  const { accountAddress } = useAccountAddress();
-  const isUserConnected = !!accountAddress;
-
-  const hasMatured = vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
-
-  // --- Action mode ---
-  const forceActionMode = useMemo(() => {
-    // Always display withdraw (redeemAtMaturity) after pendle maturity date
-    if (vault.manager === VaultManager.Pendle && hasMatured) {
-      return 'redeemAtMaturity';
-    }
-
-    return undefined;
-  }, [vault, hasMatured]);
-
-  const [actionMode, setActionMode] = useState<ActionMode>(
-    forceActionMode ? forceActionMode : initialMode,
-  );
-  useEffect(() => {
-    if (forceActionMode) {
-      setActionMode(forceActionMode);
-    }
-  }, [forceActionMode]);
-
-  const isStake = actionMode === 'deposit';
-
-  // --- Form state ---
-  const initialFormValues: FormValues = useMemo(
-    () => ({ tokenAmount: '', fromToken: isStake ? vault.rewardToken : vault.stakedToken }),
-    [isStake, vault.rewardToken, vault.stakedToken],
-  );
-
-  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
-
-  // Reset form when wallet disconnects or action mode changes
-  // biome-ignore lint/correctness/useExhaustiveDependencies: also watch for wallet connect/disconnect
-  useEffect(() => {
-    setFormValues(initialFormValues);
-  }, [accountAddress, initialFormValues]);
-
-  const balanceToken = formValues.fromToken;
-  const toToken = isStake ? vault.stakedToken : vault.rewardToken;
-
-  // --- Balances ---
-  const { data: priceUsdData } = useGetTokenUsdPrice({ token: formValues.fromToken });
-
-  const { data: balanceData, isLoading: isBalanceLoading } = useGetBalanceOf(
-    {
-      accountAddress: accountAddress || NULL_ADDRESS,
-      token: balanceToken,
-    },
-    {
-      enabled: !!accountAddress,
-    },
-  );
-
-  const { data: getVTokenBalanceData } = useGetVTokenBalance(
-    {
-      accountAddress: accountAddress || NULL_ADDRESS,
-      vTokenAddress: vault.asset.vToken.address,
-    },
-    {
-      enabled: !!accountAddress && !isStake,
-    },
-  );
-
-  const balanceTokens = useMemo(() => {
-    if (isBalanceLoading || !balanceData) return undefined;
-
-    return convertMantissaToTokens({
-      value: balanceData.balanceMantissa,
-      token: balanceToken,
-    });
-  }, [balanceToken, balanceData, isBalanceLoading]);
-
-  const userStakedTokens = convertMantissaToTokens({
-    value: getVTokenBalanceData?.balanceMantissa ?? new BigNumber(0),
-    token: vault.asset.vToken,
-  });
-
-  // --- Token approval ---
-  const { address: pendlePtVaultAddress } = useGetContractAddress({ name: 'PendlePtVault' });
-  const spenderAddress = isStake && pendlePtVaultAddress ? pendlePtVaultAddress : undefined;
 
   const {
-    isTokenApproved: isFromTokenApproved,
-    isApproveTokenLoading: isApproveFromTokenLoading,
-    walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
-  } = useTokenApproval({
-    token: formValues.fromToken,
-    spenderAddress,
+    actionMode,
+    isStake,
+    formValues,
+    forceActionMode,
+    hasMatured,
     accountAddress,
-  });
+    isUserConnected,
+    balanceToken,
+    toToken,
+    priceUsdData,
+    userStakedTokens,
+    availableTokens,
+    getSwapQuoteData,
+    isGetSwapQuoteLoading,
+    userSlippageTolerancePercentage,
+    handleSubmit,
+    isFormValid,
+    formError,
+    approval,
+    sliderPercentage,
+    disableInput,
+    disableSubmit,
+    isSubmitting,
+    setFormValues,
+    handleSliderChange,
+    handleMaxButtonClick,
+    handleActionModeChange,
+  } = usePositionTab({ vault, initialMode, onClose });
 
-  // --- Derived balance values ---
+  // --- Derived display values ---
+  const formattedMaturityDate = vault.maturityDate
+    ? t('vault.modals.textualWithTime', { date: vault.maturityDate })
+    : PLACEHOLDER_KEY;
+
   const readableUserStaked = formatTokensToReadableValue({
     value: userStakedTokens,
     token: vault.stakedToken,
   });
-
-  // Determine the amount of tokens the user can supply, taking the supply cap, their wallet
-  // balance and spending limit in consideration
-  const limitTokens = useMemo(() => {
-    let tokens = new BigNumber(balanceTokens || 0);
-
-    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
-      tokens = BigNumber.min(tokens, fromTokenWalletSpendingLimitTokens);
-    }
-
-    const marginWithSupplyCapTokens = vault.asset.supplyCapTokens.isEqualTo(0)
-      ? new BigNumber(0)
-      : vault.asset.supplyCapTokens.minus(vault.asset.supplyBalanceTokens);
-    tokens = BigNumber.min(tokens, marginWithSupplyCapTokens);
-
-    return tokens;
-  }, [
-    vault.asset.supplyBalanceTokens,
-    balanceTokens,
-    fromTokenWalletSpendingLimitTokens,
-    vault.asset.supplyCapTokens,
-  ]);
-
-  const availableTokens = (isStake ? limitTokens : userStakedTokens) ?? new BigNumber(0);
 
   const readableAvailable = formatTokensToReadableValue({
     value: availableTokens,
     token: isStake ? balanceToken : vault.stakedToken,
   });
 
-  // --- Swap quote ---
-  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
-
-  const debouncedInputAmountTokens = useDebounceValue(formValues.tokenAmount || 0);
-  const amountTokens = new BigNumber(debouncedInputAmountTokens);
-
-  const {
-    data: getSwapQuoteData,
-    error: getSwapQuoteError,
-    isLoading: isGetSwapQuoteLoading,
-  } = useGetPendleSwapQuote(
-    {
-      fromToken: formValues.fromToken,
-      toToken,
-      amountTokens,
-      slippagePercentage:
-        actionMode === 'redeemAtMaturity' ? 0 : userSlippageTolerancePercentage / 100,
-    },
-    {
-      enabled:
-        amountTokens.isGreaterThan(0) &&
-        amountTokens.lte(userStakedTokens) &&
-        actionMode !== 'redeemAtMaturity',
-    },
-  );
-
-  const approval = ((): Approval | undefined => {
-    if (!isStake && pendlePtVaultAddress) {
-      return {
-        type: 'delegate',
-        delegateeAddress: pendlePtVaultAddress,
-        poolComptrollerContractAddress: vault.poolComptrollerContractAddress,
-      };
-    }
-    return spenderAddress &&
-      Array.isArray(getSwapQuoteData?.requiredApprovals) &&
-      getSwapQuoteData.requiredApprovals.length > 0 &&
-      !isFromTokenApproved
-      ? {
-          type: 'token',
-          token: formValues.fromToken,
-          spenderAddress,
-        }
-      : undefined;
-  })();
-
-  // --- Mutations ---
-  const { mutateAsync: deposit, isPending: isDepositLoading } = usePendlePtVaultDeposit({
-    pendleMarketAddress: getSwapQuoteData?.pendleMarketAddress ?? NULL_ADDRESS,
-    isNative: formValues.fromToken.isNative,
-  });
-
-  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = usePendlePtVaultWithdraw({
-    pendleMarketAddress: getSwapQuoteData?.pendleMarketAddress ?? NULL_ADDRESS,
-  });
-
-  const { mutateAsync: withdrawAfterMaturity, isPending: isWithdrawAfterMaturityLoading } =
-    useWithdraw();
-
-  const isSubmitting = isDepositLoading || isWithdrawLoading || isWithdrawAfterMaturityLoading;
-
-  // --- Form validation ---
-  const handleOnSubmit = async () => {
-    const withdrawFull = !isStake && formValues.tokenAmount === availableTokens.toFixed();
-
-    if (actionMode === 'redeemAtMaturity') {
-      await withdrawAfterMaturity({
-        poolName: vault.poolName,
-        poolComptrollerContractAddress: vault.poolComptrollerContractAddress,
-        vToken: vault.asset.vToken,
-        withdrawFullSupply: withdrawFull,
-        unwrap: formValues.fromToken.isNative,
-        amountMantissa: getVTokenBalanceData?.balanceMantissa
-          ? getVTokenBalanceData?.balanceMantissa
-          : convertTokensToMantissa({
-              value: new BigNumber(formValues.tokenAmount),
-              token: formValues.fromToken,
-            }),
-      });
-    } else if (getSwapQuoteData) {
-      const amountMantissa =
-        withdrawFull && getVTokenBalanceData?.balanceMantissa
-          ? getVTokenBalanceData?.balanceMantissa
-          : convertTokensToMantissa({
-              value: new BigNumber(formValues.tokenAmount),
-              token: isStake ? formValues.fromToken : vault.asset.vToken,
-            });
-
-      const params = {
-        swapQuote: getSwapQuoteData,
-        type: actionMode,
-        fromToken: formValues.fromToken,
-        toToken,
-        amountMantissa,
-        vToken: vault.asset.vToken,
-      };
-
-      if (actionMode === 'deposit') {
-        await deposit(params);
-      } else {
-        await withdraw(params);
-      }
-    }
-
-    onClose?.();
-  };
-
-  const { handleSubmit, isFormValid, formError } = useForm({
-    onSubmit: handleOnSubmit,
-    formValues,
-    setFormValues,
-    swapQuoteError: getSwapQuoteError ?? undefined,
-    availableTokens,
-    balanceTokens,
-    token: balanceToken,
-  });
-
-  // --- Derived display values ---
-  const connectWalletMessage = t('vault.modals.connectWalletMessage', {
-    tokenSymbol: vault.stakedToken.symbol,
-  });
-
-  const formattedMaturityDate = vault.maturityDate
-    ? t('vault.modals.textualWithTime', {
-        date: vault.maturityDate,
-      })
-    : PLACEHOLDER_KEY;
-
   const estDiffAmountReadable = (() => {
     if (actionMode === 'redeemAtMaturity') {
-      return formatTokensToReadableValue({
-        value: new BigNumber(0),
-        token: toToken,
-      });
+      return formatTokensToReadableValue({ value: new BigNumber(0), token: toToken });
     }
 
     if (!getSwapQuoteData?.estimatedReceivedTokensMantissa) return PLACEHOLDER_KEY;
@@ -341,46 +101,11 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     return t('vault.modals.claim');
   })();
 
-  // --- Handlers ---
-  const handleActionModeChange = (index: number) => {
-    setActionMode(index === 0 ? 'deposit' : 'withdraw');
-  };
+  const connectWalletMessage = t('vault.modals.connectWalletMessage', {
+    tokenSymbol: vault.stakedToken.symbol,
+  });
 
-  const sliderPercentage =
-    availableTokens.isGreaterThan(0) && Number(formValues.tokenAmount) > 0
-      ? Math.min(
-          100,
-          new BigNumber(formValues.tokenAmount)
-            .multipliedBy(100)
-            .div(availableTokens)
-            .dp(1)
-            .toNumber(),
-        )
-      : 0;
-
-  const handleSliderChange = (percentage: number) => {
-    const tokenAmount = availableTokens
-      .multipliedBy(percentage)
-      .div(100)
-      .dp(isStake ? balanceToken.decimals : vault.asset.vToken.decimals)
-      .toFixed();
-    setFormValues(current => ({ ...current, tokenAmount }));
-  };
-
-  const handleMaxButtonClick = () => {
-    setFormValues(current => ({ ...current, tokenAmount: availableTokens.toFixed() }));
-  };
-
-  // --- Submit state ---
-  const disableInput =
-    !isUserConnected || isSubmitting || isApproveFromTokenLoading || isBalanceLoading;
-  const disableSubmit =
-    !isFormValid ||
-    isSubmitting ||
-    isGetSwapQuoteLoading ||
-    (actionMode !== 'redeemAtMaturity' && !getSwapQuoteData);
-
-  // When wallet is disconnected, show minimal view
+  // --- Disconnected state ---
   if (!accountAddress) {
     return (
       <div className="space-y-4">
@@ -415,10 +140,10 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     );
   }
 
+  // --- Connected state ---
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
-        {/* Stake / Withdraw toggle */}
         {!forceActionMode && (
           <div className="py-2">
             <ButtonGroup
@@ -431,7 +156,6 @@ export const PositionTab: React.FC<PositionTabProps> = ({
         )}
 
         <div>
-          {/* Amount input */}
           <TokenTextField
             token={balanceToken}
             value={formValues.tokenAmount}
@@ -468,12 +192,10 @@ export const PositionTab: React.FC<PositionTabProps> = ({
           />
         </div>
 
-        {/* Available balance */}
         <LabeledInlineContent label={t('vault.modals.available')}>
           <span className="text-b1s text-white">{readableAvailable}</span>
         </LabeledInlineContent>
 
-        {/* Slider */}
         <div className="space-y-2">
           <Slider
             value={sliderPercentage}
@@ -489,7 +211,6 @@ export const PositionTab: React.FC<PositionTabProps> = ({
           </div>
         </div>
 
-        {/* Current Staked */}
         <LabeledInlineContent
           label={t('vault.modals.currentStaked')}
           tooltip={t('vault.modals.currentStakedTooltip')}
@@ -497,7 +218,6 @@ export const PositionTab: React.FC<PositionTabProps> = ({
           <span className="text-b1s text-white">{readableUserStaked}</span>
         </LabeledInlineContent>
 
-        {/* Convert details (Pendle only) */}
         {vault.manager === VaultManager.Pendle && actionMode !== 'redeemAtMaturity' && (
           <PendleConvertDetails
             fromToken={formValues.fromToken}
@@ -507,7 +227,6 @@ export const PositionTab: React.FC<PositionTabProps> = ({
           />
         )}
 
-        {/* Effective Fixed APR (stake mode only) */}
         {isStake && (
           <LabeledInlineContent
             label={t('vault.modals.effectiveFixedApr')}
@@ -519,14 +238,12 @@ export const PositionTab: React.FC<PositionTabProps> = ({
           </LabeledInlineContent>
         )}
 
-        {/* Est. Yield (stake) or Est. Penalty (withdraw) */}
         <LabeledInlineContent
           label={isStake ? t('vault.modals.estYield') : t('vault.modals.estPenalty')}
         >
           <span className="text-b1s text-white">{estDiffAmountReadable}</span>
         </LabeledInlineContent>
 
-        {/* Maturity Date */}
         <LabeledInlineContent
           label={t('vault.modals.maturityDate')}
           tooltip={
@@ -538,7 +255,6 @@ export const PositionTab: React.FC<PositionTabProps> = ({
           <span className="text-b1s text-white">{formattedMaturityDate}</span>
         </LabeledInlineContent>
 
-        {/* Submit button */}
         <ConnectWallet
           className={cn('space-y-4', isUserConnected ? 'mt-2' : 'mt-6')}
           analyticVariant="vault_pendle_modal"
@@ -560,7 +276,6 @@ export const PositionTab: React.FC<PositionTabProps> = ({
           )}
         </ConnectWallet>
 
-        {/* Disclaimer notice */}
         {vault.manager === VaultManager.Pendle && (
           <NoticeInfo
             description={
