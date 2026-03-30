@@ -39,11 +39,7 @@ export const PendleModal: React.FC<PendleModalProps> = ({
       isOpen={isOpen}
       handleClose={handleClose}
       title={
-        <TokenIconWithPeriod
-          token={vault.stakedToken}
-          targetDate={'maturityDate' in vault ? vault.maturityDate : undefined}
-          size="xl"
-        />
+        <TokenIconWithPeriod token={vault.stakedToken} targetDate={vault.maturityDate} size="xl" />
       }
       useDrawerInXs
     >

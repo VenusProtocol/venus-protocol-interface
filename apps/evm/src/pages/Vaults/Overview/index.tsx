@@ -7,7 +7,7 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
-import type { AnyVault } from 'types';
+import type { Vault } from 'types';
 import {
   areTokensEqual,
   convertPriceMantissaToDollars,
@@ -19,7 +19,7 @@ import { XVS_FIXED_PRICE_CENTS } from 'utilities/xvsPriceOnZk/constants';
 import { Banner } from './Banner';
 
 export interface OverviewProps {
-  vaults: AnyVault[];
+  vaults: Vault[];
   className?: string;
 }
 

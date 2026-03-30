@@ -1,5 +1,4 @@
-import { queryClient } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import type { PendleContractWithdrawCallParams } from 'clients/api';
 import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
@@ -9,8 +8,9 @@ import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import type { Address } from 'viem';
-import type { Options, TrimmedPendlePtVaultInput } from './types';
-import { formatWithdrawParams } from './utils';
+import type { Options, TrimmedPendlePtVaultInput } from '../types';
+import { invalidatePendleVaultCaches } from '../utils/invalidatePendleVaultCaches';
+import { formatWithdrawParams } from './formatWithdrawParams';
 
 export const usePendlePtVaultWithdraw = (
   {
@@ -31,8 +31,6 @@ export const usePendlePtVaultWithdraw = (
   });
 
   return useSendTransaction({
-    // @ts-ignore mixing payable and non-payable function calls messes up with the typing of
-    // useSendTransaction
     fn: ({ swapQuote, type, fromToken, vToken }: TrimmedPendlePtVaultInput) => {
       if (!pendlePtVaultContractAddress) {
         throw new VError({
@@ -46,7 +44,13 @@ export const usePendlePtVaultWithdraw = (
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'withdraw' as const,
-          args: formatWithdrawParams(swapQuote.contractCallParams, { fromToken, vToken }),
+          args: formatWithdrawParams(
+            swapQuote.contractCallParams as PendleContractWithdrawCallParams,
+            {
+              fromToken,
+              vToken,
+            },
+          ),
         } as const;
       }
 
@@ -56,7 +60,10 @@ export const usePendlePtVaultWithdraw = (
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'redeemAtMaturity' as const,
-          args: formatWithdrawParams(swapQuote.contractCallParams, { fromToken, vToken }), // Share the same format as withdraw.
+          args: formatWithdrawParams(
+            swapQuote.contractCallParams as PendleContractWithdrawCallParams,
+            { fromToken, vToken },
+          ), // Share the same format as withdraw.
         } as const;
       }
 
@@ -74,64 +81,20 @@ export const usePendlePtVaultWithdraw = (
           token: input.fromToken,
         }).toNumber(),
         toTokenSymbol: input.toToken.symbol,
-        toTokenAmountTokens: (
-          convertMantissaToTokens({
-            token: input.toToken,
-            value: input.swapQuote.estimatedReceivedTokensMantissa,
-          }) ?? '0'
-        ).toNumber(),
+        toTokenAmountTokens: convertMantissaToTokens({
+          token: input.toToken,
+          value: input.swapQuote.estimatedReceivedTokensMantissa,
+        }).toNumber(),
         priceImpactPercentage: input.swapQuote.priceImpactPercentage,
         slippageTolerancePercentage: DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
       });
 
-      queryClient.invalidateQueries({
-        queryKey: [
-          FunctionKey.GET_BALANCE_OF,
-          {
-            chainId,
-            accountAddress,
-            tokenAddress: input.fromToken.address,
-          },
-        ],
+      invalidatePendleVaultCaches({
+        input,
+        chainId,
+        accountAddress,
+        poolComptrollerAddress,
       });
-
-      poolComptrollerAddress &&
-        queryClient.invalidateQueries({
-          queryKey: [
-            FunctionKey.GET_TOKEN_ALLOWANCE,
-            {
-              chainId,
-              tokenAddress: input.fromToken.address,
-              accountAddress,
-              spenderAddress: poolComptrollerAddress,
-            },
-          ],
-        });
-
-      queryClient.invalidateQueries({
-        queryKey: [
-          FunctionKey.GET_BALANCE_OF,
-          {
-            chainId,
-            accountAddress,
-            tokenAddress: input.toToken.address,
-          },
-        ],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: [
-          FunctionKey.GET_TOKEN_BALANCES,
-          {
-            chainId,
-            accountAddress,
-          },
-        ],
-      });
-
-      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL] });
-      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_POOLS] });
-      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS] });
     },
     options,
   });

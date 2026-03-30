@@ -520,10 +520,8 @@
     }
   },
   "errors": {
-    "amountTooLow": "Số tiền nhập vào quá thấp.",
     "couldNotRetrieveSigner": "Không thể lấy signer, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
     "couldNotSwitchChain": "Không thể chuyển chain, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
-    "invalidAmount": "Số tiền không hợp lệ",
     "missingAbstainDescription": "Đề xuất cần mô tả phiếu 'abstain'",
     "missingAgainstDescription": "Đề xuất cần mô tả phiếu 'against'",
     "missingDescription": "Không có mô tả đề xuất trong tệp",
@@ -1868,7 +1866,8 @@
         "invalidAmount": "Số tiền nhập vào không hợp lệ.",
         "invalidAmountFromQuote": "Số tiền vượt quá thanh khoản có sẵn trên thị trường Pendle. Giảm số tiền và thử lại.",
         "lowerThanMinimumAmount": "Số tiền nhập vào quá thấp. Số tiền tối thiểu tương đương {{amount}} USD.",
-        "noSwapQuoteFound": "Không tìm thấy lệnh swap. Vui lòng cập nhật biểu mẫu."
+        "noSwapQuoteFound": "Không tìm thấy lệnh swap. Vui lòng cập nhật biểu mẫu.",
+        "pendleApiError": "Pendle đang tạm thời quá tải. Vui lòng thử lại sau giây lát."
       },
       "estPenalty": "Phạt ước tính",
       "estReceived": "Ước tính nhận được",

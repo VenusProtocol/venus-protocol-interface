@@ -520,10 +520,8 @@
     }
   },
   "errors": {
-    "amountTooLow": "Input amount is too low.",
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
     "couldNotSwitchChain": "Could not switch chain, please make sure your wallet is unlocked then reload the page",
-    "invalidAmount": "Invalid Amount",
     "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
     "missingAgainstDescription": "Proposal needs an 'against' votes description",
     "missingDescription": "There is no proposal description in the file",
@@ -1869,7 +1867,8 @@
         "invalidAmount": "Input amount is invalid.",
         "invalidAmountFromQuote": "Amount exceeds available liquidity in the Pendle market. Reduce the amount and try again.",
         "lowerThanMinimumAmount": "Input amount is too low. The minimum amount is equivalent to {{amount}} USD.",
-        "noSwapQuoteFound": "No swap found. Please update the form."
+        "noSwapQuoteFound": "No swap found. Please update the form.",
+        "pendleApiError": "Temporarily experiencing high demand with Pendle. Please try again in a moment."
       },
       "estPenalty": "Est. penalty",
       "estReceived": "Est. received",

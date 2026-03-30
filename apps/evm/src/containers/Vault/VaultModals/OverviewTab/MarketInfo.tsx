@@ -4,7 +4,6 @@ import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type { PendleVault } from 'types';
-import { isPendleVault } from '../utils';
 
 interface MarketInfoProps {
   vault: PendleVault;
@@ -13,14 +12,14 @@ interface MarketInfoProps {
 export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
   const { t, Trans } = useTranslation();
 
-  const pendleVault = isPendleVault(vault) ? vault : undefined;
-
-  const formattedDeploymentDate = pendleVault?.vaultDeploymentDate
-    ? t('vault.modals.textualDate', { date: pendleVault.vaultDeploymentDate })
+  const formattedDeploymentDate = vault.vaultDeploymentDate
+    ? t('vault.modals.textualDate', { date: vault.vaultDeploymentDate })
     : PLACEHOLDER_KEY;
 
   return (
     <div className="flex flex-col gap-4">
+      <p className="text-p2s text-white flex-1 pb-2">{t('vault.modals.overview.marketInfo')}</p>
+
       <LabeledInlineContent label={t('vault.modals.overview.vaultDeploymentDate')}>
         {formattedDeploymentDate}
       </LabeledInlineContent>

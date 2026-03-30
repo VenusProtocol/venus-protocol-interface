@@ -46,9 +46,10 @@ export const TokenIconWithPeriod: React.FC<TokenIconWithPeriodProps> = ({
       <div className="min-w-0">
         <p
           className={cn(
-            'truncate font-semibold',
-            targetDate && size === 'xl' && 'text-b1r',
-            targetDate && size === 'md' && 'text-b2r',
+            'truncate',
+            targetDate && size === 'xl' && 'text-b1s',
+            targetDate && size === 'md' && 'text-b2s',
+            !targetDate && 'text-b1s',
           )}
         >
           {token.symbol}

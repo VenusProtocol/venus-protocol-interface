@@ -520,10 +520,8 @@
     }
   },
   "errors": {
-    "amountTooLow": "Girilen miktar çok düşük.",
     "couldNotRetrieveSigner": "İmzalayıcı alınamadı, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
     "couldNotSwitchChain": "Zincir değiştirilemedi, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
-    "invalidAmount": "Geçersiz Miktar",
     "missingAbstainDescription": "Teklifin 'çekimser' oy açıklaması olmalı",
     "missingAgainstDescription": "Teklifin 'karşı' oy açıklaması olmalı",
     "missingDescription": "Dosyada teklif açıklaması yok",
@@ -1869,7 +1867,8 @@
         "invalidAmount": "Girilen miktar geçersiz.",
         "invalidAmountFromQuote": "Girilen miktar, Pendle piyasasındaki kullanılabilir likidityi aşıyor. Miktarı azaltın ve tekrar deneyin.",
         "lowerThanMinimumAmount": "Girilen miktar çok düşük. Minimum miktar {{amount}} USD eşdeğeridir.",
-        "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güelleyin."
+        "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güelleyin.",
+        "pendleApiError": "Pendle şu anda yoğun talep yaşıyor. Lütfen biraz sonra tekrar deneyin."
       },
       "estPenalty": "Tahmini Ceza",
       "estReceived": "Tahmini Alınan",

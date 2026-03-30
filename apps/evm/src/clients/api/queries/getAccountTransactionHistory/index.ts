@@ -72,7 +72,7 @@ export const getAccountTransactionHistory = async ({
         apiTransaction,
       }),
     )
-    .filter(item => item) as AmountTransaction[];
+    .filter((item): item is AmountTransaction => !!item);
 
   return {
     count: Number(txsResponse.data.count),

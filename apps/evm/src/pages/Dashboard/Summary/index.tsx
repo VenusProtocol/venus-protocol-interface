@@ -2,14 +2,14 @@ import { cn } from '@venusprotocol/ui';
 
 import { Card, Cell, type CellProps } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { AnyVault, Pool } from 'types';
+import type { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import { useExtractData } from '../useExtractData';
 import circularGradientSrc from './circularGradient.svg';
 
 export interface SummaryProps {
   pools: Pool[];
-  vaults?: AnyVault[];
+  vaults?: Vault[];
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
   className?: string;

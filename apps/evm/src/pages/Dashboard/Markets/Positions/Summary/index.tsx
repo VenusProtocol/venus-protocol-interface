@@ -8,7 +8,7 @@ import {
   HealthFactorPill,
   cn,
 } from 'components';
-import type { AnyVault, Pool } from 'types';
+import type { Pool, Vault } from 'types';
 
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
@@ -17,7 +17,7 @@ import { useExtractData } from '../../../useExtractData';
 
 export interface SummaryProps {
   pool: Pool;
-  vaults?: AnyVault[];
+  vaults?: Vault[];
   title?: string;
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;

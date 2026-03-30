@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import type { AnyVault, Pool } from 'types';
+import type { Pool, Vault } from 'types';
 import {
   calculateDailyEarningsCents,
   calculateYearlyInterests,
@@ -12,7 +12,7 @@ interface UseExtractDataInput {
   pool?: Pool;
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
-  vaults?: AnyVault[];
+  vaults?: Vault[];
 }
 
 export const useExtractData = ({

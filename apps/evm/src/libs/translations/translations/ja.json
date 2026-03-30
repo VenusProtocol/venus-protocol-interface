@@ -520,10 +520,8 @@
     }
   },
   "errors": {
-    "amountTooLow": "入力金額が少なすぎます。",
     "couldNotRetrieveSigner": "署名者を取得できませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
     "couldNotSwitchChain": "チェーンを切り替えられませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
-    "invalidAmount": "無効な金額",
     "missingAbstainDescription": "提案には「棄権」票の説明が必要です",
     "missingAgainstDescription": "提案には「反対」票の説明が必要です",
     "missingDescription": "ファイルに提案の説明がありません",
@@ -1868,7 +1866,8 @@
         "invalidAmount": "入力金額が無効です。",
         "invalidAmountFromQuote": "入力金額がPendleマーケットで利用可能な流動性を超えています。金額を減らして再試行してください。",
         "lowerThanMinimumAmount": "入力金額が少なすぎます。最低金額は {{amount}} USD 相当です。",
-        "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。"
+        "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。",
+        "pendleApiError": "現在Pendleへのアクセスが集中しています。しばらくしてからもう一度お試しください。"
       },
       "estPenalty": "推定ペナルティ",
       "estReceived": "推定受取額",

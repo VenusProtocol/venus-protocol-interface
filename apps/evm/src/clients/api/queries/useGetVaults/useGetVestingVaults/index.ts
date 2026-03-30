@@ -13,7 +13,7 @@ import {
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken, useGetTokens } from 'libs/tokens';
-import type { Vault, VaultData } from 'types';
+import type { VenusVault } from 'types';
 import { convertTokensToMantissa, indexBy } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
@@ -21,11 +21,11 @@ import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 import { useGetXvsVaultPoolBalances } from './useGetXvsVaultPoolBalances';
 import { useGetXvsVaultPools } from './useGetXvsVaultPools';
-import { injectMetadata } from './utils';
+import { type VaultData, injectMetadata } from './utils';
 
 export interface UseGetVestingVaultsOutput {
   isLoading: boolean;
-  data: Vault[];
+  data: VenusVault[];
 }
 
 export const useGetVestingVaults = (input?: {

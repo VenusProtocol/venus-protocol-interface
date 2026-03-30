@@ -7,7 +7,6 @@ import type { MarketHistoryPeriodType } from 'clients/api';
 
 import { useGetMarketChartData } from 'hooks/useGetMarketChartData';
 import type { PendleVault } from 'types';
-import { CollapsibleSection } from '../CollapsibleSection';
 import { SupplyChart } from './SupplyChart';
 
 export const TotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
@@ -43,36 +42,31 @@ export const TotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
 
   return (
     <div>
-      <CollapsibleSection
-        title={
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-p2s text-white">{t('vault.modals.overview.totalDeposits')}</p>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-p2s text-white pb-2">{t('vault.modals.overview.totalDeposits')}</p>
 
-            <ButtonGroup
-              buttonSize="xs"
-              buttonLabels={periodOptions.map(p => p.label)}
-              activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
-              onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
-              buttonClassName="min-w-fit"
-            />
-          </div>
-        }
-      >
-        <div className="mt-4">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="size-2 rounded-full bg-green" />
-            <span className="text-b1r text-grey">{t('vault.modals.overview.totalStaked')}</span>
-          </div>
-
-          {isLoading ? (
-            <div className="flex items-center justify-center w-full min-h-62">
-              <Spinner />
-            </div>
-          ) : (
-            <SupplyChart data={supplyChartData} selectedPeriod={selectedPeriod} />
-          )}
+        <ButtonGroup
+          buttonSize="xs"
+          buttonLabels={periodOptions.map(p => p.label)}
+          activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
+          onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
+          buttonClassName="min-w-fit"
+        />
+      </div>
+      <div className="mt-4">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="size-2 rounded-full bg-green" />
+          <span className="text-b1r text-grey">{t('vault.modals.overview.totalStaked')}</span>
         </div>
-      </CollapsibleSection>
+
+        {isLoading ? (
+          <div className="flex items-center justify-center w-full min-h-62">
+            <Spinner />
+          </div>
+        ) : (
+          <SupplyChart data={supplyChartData} selectedPeriod={selectedPeriod} />
+        )}
+      </div>
     </div>
   );
 };

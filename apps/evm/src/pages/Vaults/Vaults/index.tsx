@@ -3,16 +3,16 @@ import { VaultCard } from 'containers/Vault/VaultCard';
 import { VaultCardLegacy } from 'containers/Vault/VaultCard/Legacy';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
-import { type AnyVault, type Vault, VaultManager } from 'types';
+import { type Vault, VaultManager, type VenusVault } from 'types';
 
 import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
 
-const isLegacyVault = (vault: AnyVault): vault is Vault => vault.manager === VaultManager.Venus;
+const isLegacyVault = (vault: Vault): vault is VenusVault => vault.manager === VaultManager.Venus;
 
 const optionClassName = cn('px-3 h-10 scrollbar-track-cards');
 
 interface VaultsProps extends HTMLAttributes<HTMLDivElement> {
-  vaults: AnyVault[];
+  vaults: Vault[];
 }
 
 export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {

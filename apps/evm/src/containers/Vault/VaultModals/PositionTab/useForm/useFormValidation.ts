@@ -75,6 +75,13 @@ const useFormValidation = ({
       };
     }
 
+    if (swapQuoteError?.code === 'PENDLE_API_ERROR') {
+      return {
+        code: 'PENDLE_API_ERROR' as const,
+        message: t('vault.modals.error.pendleApiError'),
+      };
+    }
+
     if (tokenAmount && (tokenAmount.isNaN() || tokenAmount.isLessThanOrEqualTo(0))) {
       return {
         code: 'EMPTY_TOKEN_AMOUNT' as const,

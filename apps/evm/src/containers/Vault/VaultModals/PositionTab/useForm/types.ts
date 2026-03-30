@@ -11,7 +11,8 @@ export type FormErrorCode =
   | 'HIGHER_THAN_AVAILABLE'
   | 'PENDLE_NO_ROUTE_FOUND'
   | 'PENDLE_AMOUNT_TOO_LOW'
-  | 'PENDLE_INVALID_AMOUNT';
+  | 'PENDLE_INVALID_AMOUNT'
+  | 'PENDLE_API_ERROR';
 
 export interface FormError {
   code: FormErrorCode;

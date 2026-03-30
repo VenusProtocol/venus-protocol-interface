@@ -1,15 +1,20 @@
 import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
+import { useState } from 'react';
 
 import { useGetPrimeStatus } from 'clients/api';
 import { Card, Icon, LabeledInlineContent, NoticeWarning, TokenIconWithSymbol } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
+import { StatusLabel } from 'containers/Vault/VaultCard/StatusLabel';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { type AnyVault, VaultManager, VaultStatus } from 'types';
+import { type Vault, VaultManager, VaultStatus } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
@@ -17,19 +22,14 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { NULL_ADDRESS } from 'constants/address';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
-import { StatusLabel } from 'containers/Vault/VaultCard/StatusLabel';
-import { useNow } from 'hooks/useNow';
-import { useState } from 'react';
 import { PendleModal } from '../VaultModals';
-import { isPendleVault } from '../VaultModals/utils';
 import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
 import TEST_IDS from '../testIds';
+import { isPendleVault } from '../utils';
 import { TokenIconWithPeriod } from './TokenIconWithPeriod';
 
 export interface VaultProps {
-  vault: AnyVault;
+  vault: Vault;
   className?: string;
 }
 

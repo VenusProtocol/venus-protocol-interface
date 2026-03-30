@@ -1,7 +1,9 @@
-import { VaultCategory, type VaultData, VaultManager, VaultStatus } from 'types';
+import { VaultCategory, VaultManager, VaultStatus, type VenusVault } from 'types';
 
-export const injectMetadata = (vault?: VaultData) => {
-  if (!vault) return vault;
+type VaultData = Omit<VenusVault, 'key' | 'category' | 'manager' | 'managerIcon' | 'status'>;
+
+export const injectMetadata = (vault?: VaultData): VenusVault | undefined => {
+  if (!vault) return undefined;
 
   return {
     ...vault,

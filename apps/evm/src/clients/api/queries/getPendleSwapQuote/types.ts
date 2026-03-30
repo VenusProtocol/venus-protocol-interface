@@ -18,10 +18,18 @@ export interface PendleSwapData extends Record<string, unknown> {
   needScale: boolean;
 }
 
-export interface PendleTokenInput extends Record<string, unknown> {
+export interface PendleTokenDepositInput extends Record<string, unknown> {
   tokenIn: Address;
   netTokenIn: string;
   tokenMintSy: Address;
+  pendleSwap: Address;
+  swapData: PendleSwapData;
+}
+
+export interface PendleTokenWithdrawInput extends Record<string, unknown> {
+  tokenOut: Address;
+  minTokenOut: string;
+  tokenRedeemSy: Address;
   pendleSwap: Address;
   swapData: PendleSwapData;
 }
@@ -55,12 +63,20 @@ export interface PendleLimitOrderData extends Record<string, unknown> {
   optData: Hex;
 }
 
-export type PendleContractCallParams = [
+export type PendleContractDepositCallParams = [
   receiver: Address,
   market: Address,
   minPtOut: string,
   guessPtOut: PendleGuessPtOut,
-  input: PendleTokenInput,
+  input: PendleTokenDepositInput,
+  limit: PendleLimitOrderData,
+];
+
+export type PendleContractWithdrawCallParams = [
+  receiver: Address,
+  market: Address,
+  minPtOut: string,
+  input: PendleTokenWithdrawInput,
   limit: PendleLimitOrderData,
 ];
 
@@ -68,7 +84,7 @@ export interface PendleSwapApiResponse {
   pendleMarket: Address;
   method: string;
   contractCallParamsName: string[];
-  contractCallParams: PendleContractCallParams;
+  contractCallParams: PendleContractDepositCallParams | PendleContractWithdrawCallParams;
   estimatedOutput: {
     token: Address;
     amount: string;

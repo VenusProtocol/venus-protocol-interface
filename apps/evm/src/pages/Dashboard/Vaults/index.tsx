@@ -6,12 +6,12 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
 import { useTranslation } from 'libs/translations';
-import { type AnyVault, VaultManager } from 'types';
+import { type Vault, VaultManager } from 'types';
 import { convertPriceMantissaToDollars, formatCentsToReadableValue } from 'utilities';
 import { Placeholder } from '../Placeholder';
 
 export interface VaultsProps {
-  vaults: AnyVault[];
+  vaults: Vault[];
 }
 
 export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
@@ -118,7 +118,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
               <VaultCardSimplified vault={vault} />
             </Link>
           ) : (
-            <VaultCardSimplified vault={vault} />
+            <VaultCardSimplified vault={vault} key={vault.key} />
           ),
         )}
       </div>

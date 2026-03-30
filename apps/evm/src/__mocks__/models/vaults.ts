@@ -1,11 +1,17 @@
 import BigNumber from 'bignumber.js';
 
-import { type LockedDeposit, type Vault, VaultCategory, VaultManager, VaultStatus } from 'types';
+import {
+  type LockedDeposit,
+  VaultCategory,
+  VaultManager,
+  VaultStatus,
+  type VenusVault,
+} from 'types';
 
 import type { Address } from 'viem';
 import { vai, xvs } from './tokens';
 
-export const vaults: Vault[] = [
+export const vaults: VenusVault[] = [
   {
     rewardToken: xvs,
     stakedToken: vai,

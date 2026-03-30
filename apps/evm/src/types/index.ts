@@ -486,16 +486,14 @@ export enum VaultCategory {
   YieldTokens = 'yieldTokens',
   Others = 'others',
 }
-interface VaultMetadata {
+
+interface BaseVault {
   category: VaultCategory;
   manager: VaultManager;
   managerIcon: IconName;
   managerAddress?: Address;
   status: VaultStatus;
   key: string;
-}
-
-interface BaseVault {
   stakedToken: Token;
   rewardToken: Token;
   stakingAprPercentage: number;
@@ -504,17 +502,13 @@ interface BaseVault {
   userStakedMantissa?: BigNumber;
   poolIndex?: number;
 }
-export interface VaultData extends BaseVault {
-  dailyEmissionMantissa: BigNumber;
+export type VenusVault = BaseVault & {
   isPaused: boolean;
+  dailyEmissionMantissa: BigNumber;
   userHasPendingWithdrawalsFromBeforeUpgrade?: boolean;
-}
-
-export interface Vault extends VaultData, VaultMetadata {}
-
-export interface PendleVaultData extends BaseVault {
-  key: string;
-  maturityDate?: Date;
+};
+export type PendleVault = BaseVault & {
+  maturityDate: Date;
   liquidityCents: BigNumber;
   stakedTokenPriceCents: BigNumber;
   rewardTokenPriceCents: BigNumber;
@@ -523,12 +517,8 @@ export interface PendleVaultData extends BaseVault {
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   poolName: string;
-}
-
-export interface PendleVault extends PendleVaultData, VaultMetadata {}
-
-export type AnyVault = Vault | PendleVault;
-
+};
+export type Vault = VenusVault | PendleVault;
 export interface VoterAccount {
   address: Address;
   proposalsVoted: number;

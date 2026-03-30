@@ -1,7 +1,5 @@
-import { useTranslation } from 'libs/translations';
 import type { PendleVault } from 'types';
 
-import { CollapsibleSection } from './CollapsibleSection';
 import { MarketInfo } from './MarketInfo';
 import { StrategyDiagram } from './StrategyDiagram';
 import { TotalDeposits } from './TotalDeposits';
@@ -11,19 +9,13 @@ export interface OverviewTabProps {
 }
 
 export const OverviewTab: React.FC<OverviewTabProps> = ({ vault }) => {
-  const { t } = useTranslation();
-
   return (
     <div className="flex flex-col gap-8 py-2">
       <TotalDeposits vault={vault} />
 
-      <CollapsibleSection title={t('vault.modals.overview.strategyAllocation')}>
-        <StrategyDiagram vault={vault} />
-      </CollapsibleSection>
+      <StrategyDiagram vault={vault} />
 
-      <CollapsibleSection title={t('vault.modals.overview.marketInfo')}>
-        <MarketInfo vault={vault} />
-      </CollapsibleSection>
+      <MarketInfo vault={vault} />
     </div>
   );
 };

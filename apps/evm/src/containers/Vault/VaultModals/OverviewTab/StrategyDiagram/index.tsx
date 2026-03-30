@@ -13,6 +13,10 @@ export const StrategyDiagram: React.FC<StrategyDiagramProps> = ({ vault }) => {
 
   return (
     <div className={cn('flex flex-col items-stretch')}>
+      <p className="text-p2s text-white flex-1 pb-6">
+        {t('vault.modals.overview.strategyAllocation')}
+      </p>
+
       <FlowNode variant="line">{t('vault.modals.overview.strategy.users')}</FlowNode>
 
       <FlowArrow

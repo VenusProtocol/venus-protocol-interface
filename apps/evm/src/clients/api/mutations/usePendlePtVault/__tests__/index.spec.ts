@@ -5,20 +5,23 @@ import { bnb, xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
-import type { PendleContractCallParams } from 'clients/api';
+import type {
+  PendleContractDepositCallParams,
+  PendleContractWithdrawCallParams,
+} from 'clients/api';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { usePendlePtVaultDeposit, usePendlePtVaultWithdraw } from '..';
-import { PendlePtVaultInput } from '../types';
+import type { PendlePtVaultInput } from '../types';
 
 vi.mock('libs/contracts');
 
 const fakePendleMarketAddress = '0x1234567890abcdef1234567890abcdef12345678' as const;
 
-const fakeContractCallParams: PendleContractCallParams = [
+const fakeContractDepositCallParams: PendleContractDepositCallParams = [
   '0x7679f4ffc3f7e10b5dc25bf657e12567909f1c6d',
   '0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5',
   '998771595080864',
@@ -50,13 +53,48 @@ const fakeContractCallParams: PendleContractCallParams = [
   },
 ];
 
-const fakeSwapQuote = {
+const fakeContractWithdrawCallParams: PendleContractWithdrawCallParams = [
+  '0x7679f4ffc3f7e10b5dc25bf657e12567909f1c6d',
+  '0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5',
+  '998771595080864',
+  {
+    tokenOut: '0x0000000000000000000000000000000000000000',
+    minTokenOut: '1000000000000000',
+    tokenRedeemSy: '0x0000000000000000000000000000000000000000',
+    pendleSwap: '0x0000000000000000000000000000000000000000',
+    swapData: {
+      swapType: '0',
+      extRouter: '0x0000000000000000000000000000000000000000',
+      extCalldata: '0x',
+      needScale: false,
+    },
+  },
+  {
+    limitRouter: '0x0000000000000000000000000000000000000000',
+    epsSkipMarket: '0',
+    normalFills: [],
+    flashFills: [],
+    optData: '0x',
+  },
+];
+
+const fakeDepositSwapQuote = {
   estimatedReceivedTokensMantissa: new BigNumber('2000000000000000000'),
   feeCents: new BigNumber('100'),
   priceImpactPercentage: 0.5,
   pendleMarketAddress: fakePendleMarketAddress,
-  contractCallParams: fakeContractCallParams,
+  contractCallParams: fakeContractDepositCallParams,
   contractCallParamsName: ['receiver', 'market', 'minPtOut', 'guessPtOut', 'input', 'limit'],
+  requiredApprovals: [],
+};
+
+const fakeWithdrawSwapQuote = {
+  estimatedReceivedTokensMantissa: new BigNumber('2000000000000000000'),
+  feeCents: new BigNumber('100'),
+  priceImpactPercentage: 0.5,
+  pendleMarketAddress: fakePendleMarketAddress,
+  contractCallParams: fakeContractWithdrawCallParams,
+  contractCallParamsName: ['receiver', 'market', 'minPtOut', 'input', 'limit'],
   requiredApprovals: [],
 };
 
@@ -98,7 +136,7 @@ describe('usePendlePtVault', () => {
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
     const depositInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeSwapQuote,
+      swapQuote: fakeDepositSwapQuote,
       type: 'deposit',
       fromToken: xvs,
       toToken: bnb,
@@ -119,7 +157,7 @@ describe('usePendlePtVault', () => {
             "guessMax": 1059303206903946n,
             "guessMin": 504430098525689n,
             "guessOffchain": 1008860197051378n,
-            "maxIteration": 30,
+            "maxIteration": 30n,
           },
           {
             "netTokenIn": 1000000000000000n,
@@ -183,7 +221,7 @@ describe('usePendlePtVault', () => {
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     const depositNativeInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeSwapQuote,
+      swapQuote: fakeDepositSwapQuote,
       type: 'deposit',
       fromToken: bnb,
       toToken: xvs,
@@ -204,7 +242,7 @@ describe('usePendlePtVault', () => {
             "guessMax": 1059303206903946n,
             "guessMin": 504430098525689n,
             "guessOffchain": 1008860197051378n,
-            "maxIteration": 30,
+            "maxIteration": 30n,
           },
           {
             "netTokenIn": 1000000000000000n,
@@ -249,7 +287,7 @@ describe('usePendlePtVault', () => {
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     const withdrawInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeSwapQuote,
+      swapQuote: fakeWithdrawSwapQuote,
       type: 'withdraw',
       fromToken: xvs,
       toToken: bnb,
@@ -269,14 +307,7 @@ describe('usePendlePtVault', () => {
           "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
           99877n,
           {
-            "eps": 1000000000000n,
-            "guessMax": 1059303206903946n,
-            "guessMin": 504430098525689n,
-            "guessOffchain": 1008860197051378n,
-            "maxIteration": 30,
-          },
-          {
-            "netTokenIn": 1000000000000000n,
+            "minTokenOut": 1000000000000000n,
             "pendleSwap": "0x0000000000000000000000000000000000000000",
             "swapData": {
               "extCalldata": "0x",
@@ -284,8 +315,15 @@ describe('usePendlePtVault', () => {
               "needScale": false,
               "swapType": 0,
             },
-            "tokenIn": "0x0000000000000000000000000000000000000000",
-            "tokenMintSy": "0x0000000000000000000000000000000000000000",
+            "tokenOut": "0x0000000000000000000000000000000000000000",
+            "tokenRedeemSy": "0x0000000000000000000000000000000000000000",
+          },
+          {
+            "epsSkipMarket": 0n,
+            "flashFills": [],
+            "limitRouter": "0x0000000000000000000000000000000000000000",
+            "normalFills": [],
+            "optData": "0x",
           },
         ],
         "functionName": "withdraw",
@@ -310,7 +348,7 @@ describe('usePendlePtVault', () => {
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     const redeemInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeSwapQuote,
+      swapQuote: fakeWithdrawSwapQuote,
       type: 'redeemAtMaturity',
       fromToken: xvs,
       toToken: bnb,
@@ -330,14 +368,7 @@ describe('usePendlePtVault', () => {
           "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
           99877n,
           {
-            "eps": 1000000000000n,
-            "guessMax": 1059303206903946n,
-            "guessMin": 504430098525689n,
-            "guessOffchain": 1008860197051378n,
-            "maxIteration": 30,
-          },
-          {
-            "netTokenIn": 1000000000000000n,
+            "minTokenOut": 1000000000000000n,
             "pendleSwap": "0x0000000000000000000000000000000000000000",
             "swapData": {
               "extCalldata": "0x",
@@ -345,8 +376,15 @@ describe('usePendlePtVault', () => {
               "needScale": false,
               "swapType": 0,
             },
-            "tokenIn": "0x0000000000000000000000000000000000000000",
-            "tokenMintSy": "0x0000000000000000000000000000000000000000",
+            "tokenOut": "0x0000000000000000000000000000000000000000",
+            "tokenRedeemSy": "0x0000000000000000000000000000000000000000",
+          },
+          {
+            "epsSkipMarket": 0n,
+            "flashFills": [],
+            "limitRouter": "0x0000000000000000000000000000000000000000",
+            "normalFills": [],
+            "optData": "0x",
           },
         ],
         "functionName": "redeemAtMaturity",
@@ -370,7 +408,7 @@ describe('usePendlePtVault', () => {
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     const invalidInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeSwapQuote,
+      swapQuote: fakeWithdrawSwapQuote,
       type: 'withdraw',
       fromToken: xvs,
       toToken: bnb,
@@ -398,7 +436,7 @@ describe('usePendlePtVault', () => {
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     const depositInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeSwapQuote,
+      swapQuote: fakeDepositSwapQuote,
       type: 'deposit',
       fromToken: xvs,
       toToken: bnb,

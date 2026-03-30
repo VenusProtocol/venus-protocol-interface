@@ -11,14 +11,14 @@ import { NULL_ADDRESS } from 'constants/address';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
-import type { Vault, VaultData } from 'types';
+import type { VenusVault } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 import type { Address } from 'viem';
 import { injectMetadata } from './utils';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
-  data: Vault | undefined;
+  data: VenusVault | undefined;
 }
 
 export const useGetVaiVault = ({
@@ -72,7 +72,7 @@ export const useGetVaiVault = ({
     },
   );
 
-  const data: VaultData | undefined = useMemo(() => {
+  const data = useMemo(() => {
     if (
       !totalVaiStakedData ||
       !vaiVaultDailyRateData ||

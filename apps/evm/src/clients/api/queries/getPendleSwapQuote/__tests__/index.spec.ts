@@ -126,7 +126,7 @@ describe('getPendleSwapQuote', () => {
           "limit",
         ],
         "estimatedReceivedTokensMantissa": "1008860197051378",
-        "feeCents": "1.32",
+        "feeCents": "1",
         "pendleMarketAddress": "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
         "priceImpactPercentage": 0.0000012,
         "requiredApprovals": [

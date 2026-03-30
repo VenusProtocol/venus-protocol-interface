@@ -1,30 +1,31 @@
 import { useGetTokenListUsdPrice } from 'clients/api';
-import type { AnyVault } from 'types';
+import type { Vault } from 'types';
 import { convertPriceMantissaToDollars } from 'utilities';
 
-export const useVaultUsdValues = (vault: AnyVault) => {
+import { isPendleVault } from '../utils';
+
+export const useVaultUsdValues = (vault: Vault) => {
   const { stakedToken, rewardToken, userStakedMantissa, totalStakedMantissa } = vault;
-  const dailyEmissionMantissa =
-    'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
+  const dailyEmissionMantissa = !isPendleVault(vault) ? vault.dailyEmissionMantissa : undefined;
+
+  const hasPricesFromApi = isPendleVault(vault);
 
   const { data: tokenPrices, isLoading: isTokensPriceLoading } = useGetTokenListUsdPrice(
     {
       tokens: [stakedToken, rewardToken],
     },
     {
-      enabled: !('stakedTokenPriceCents' in vault && 'rewardTokenPriceCents' in vault),
+      enabled: !hasPricesFromApi,
     },
   );
 
   const [stakedTokenPrice, rewardTokenPrice] = tokenPrices ?? [];
-  const stakedTokenPriceCents =
-    'stakedTokenPriceCents' in vault
-      ? vault.stakedTokenPriceCents
-      : stakedTokenPrice?.tokenPriceUsd?.shiftedBy(2);
-  const rewardTokenPriceCents =
-    'rewardTokenPriceCents' in vault
-      ? vault.rewardTokenPriceCents
-      : rewardTokenPrice?.tokenPriceUsd?.shiftedBy(2);
+  const stakedTokenPriceCents = hasPricesFromApi
+    ? vault.stakedTokenPriceCents
+    : stakedTokenPrice?.tokenPriceUsd?.shiftedBy(2);
+  const rewardTokenPriceCents = hasPricesFromApi
+    ? vault.rewardTokenPriceCents
+    : rewardTokenPrice?.tokenPriceUsd?.shiftedBy(2);
 
   return {
     isLoading: isTokensPriceLoading,

@@ -1,3 +1,4 @@
+import type BigNumber from 'bignumber.js';
 import type { GetPendleSwapQuoteOutput } from 'clients/api/queries/getPendleSwapQuote';
 import type { UseSendTransactionOptions } from 'hooks/useSendTransaction';
 import type { Token, VToken } from 'types';

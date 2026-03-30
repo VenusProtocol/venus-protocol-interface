@@ -5,7 +5,7 @@ import { Card, TokenIcon, TokenIconWithSymbol } from 'components';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { type AnyVault, VaultManager } from 'types';
+import { type Vault, VaultManager } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
@@ -13,13 +13,13 @@ import {
 } from 'utilities';
 
 import { PendleModal } from 'containers/Vault/VaultModals';
-import { isPendleVault } from 'containers/Vault/VaultModals/utils';
+import { isPendleVault } from 'containers/Vault/utils';
 import { useState } from 'react';
 import TEST_IDS from '../../testIds';
 import { Cell } from './Cell';
 
 interface VaultCardSimplifiedProps {
-  vault: AnyVault;
+  vault: Vault;
   className?: string;
 }
 
