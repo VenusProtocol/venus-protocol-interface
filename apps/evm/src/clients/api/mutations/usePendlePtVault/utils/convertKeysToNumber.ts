@@ -12,14 +12,14 @@ export const convertKeysToNumber = (
 ) => {
   if (!!obj && typeof obj !== 'object') return obj;
 
-  (bigintKeyPaths ?? []).forEach((keyPath: string) => {
+  bigintKeyPaths.forEach((keyPath: string) => {
     const value = get(obj, keyPath);
     if (typeof value === 'string' || typeof value === 'number' || typeof value === 'bigint') {
       set(obj, keyPath, BigInt(value));
     }
   });
 
-  (numberKeyPaths ?? []).forEach(keyPath => {
+  numberKeyPaths.forEach(keyPath => {
     const value = get(obj, keyPath);
     if (typeof value === 'string') {
       set(obj, keyPath, Number(value));

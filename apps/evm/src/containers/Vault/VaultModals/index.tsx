@@ -1,13 +1,13 @@
 import { Modal, Tabs } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { AnyVault } from 'types';
+import type { PendleVault } from 'types';
 
 import { TokenIconWithPeriod } from '../VaultCard/TokenIconWithPeriod';
 import { OverviewTab } from './OverviewTab';
 import { PositionTab } from './PositionTab';
 
 export interface PendleModalProps {
-  vault: AnyVault;
+  vault: PendleVault;
   handleClose: () => void;
   initialMode?: 'deposit' | 'withdraw';
   isOpen: boolean;
@@ -51,5 +51,3 @@ export const PendleModal: React.FC<PendleModalProps> = ({
     </Modal>
   );
 };
-
-export default PendleModal;

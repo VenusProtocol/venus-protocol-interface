@@ -1,11 +1,11 @@
 import { cn } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { AnyVault } from 'types';
+import type { PendleVault } from 'types';
 import { FlowArrow } from './FlowArrow';
 import { FlowNode } from './FlowNode';
 
 interface StrategyDiagramProps {
-  vault: AnyVault;
+  vault: PendleVault;
 }
 
 export const StrategyDiagram: React.FC<StrategyDiagramProps> = ({ vault }) => {

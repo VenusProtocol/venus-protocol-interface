@@ -15,6 +15,7 @@ export interface UseFormInput {
   setFormValues: (setter: (current: FormValues) => FormValues) => void;
   swapQuoteError?: PendleSwapQuoteError;
   availableTokens: BigNumber;
+  balanceTokens?: BigNumber;
   token: Token;
 }
 
@@ -30,11 +31,13 @@ const useForm = ({
   setFormValues,
   swapQuoteError,
   availableTokens,
+  balanceTokens,
   token,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
     formValues,
     availableTokens,
+    balanceTokens,
     swapQuoteError,
     token,
   });

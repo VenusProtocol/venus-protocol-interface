@@ -180,8 +180,6 @@ export const Transactions: React.FC = () => {
     }
   }, [selectedContractAddress, sourceSelectOptions, setSearchParams]);
 
-  console.log(historicalTxsData);
-
   return (
     <div className="grid grid-cols-1 gap-4">
       {accountAddress && (

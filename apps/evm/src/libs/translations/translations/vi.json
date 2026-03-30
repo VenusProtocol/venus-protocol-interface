@@ -1863,8 +1863,10 @@
       "effectiveFixedAprPendleTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
       "error": {
         "amountTooLow": "Số tiền nhập vào quá thấp.",
-        "higherThanBalance": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn",
+        "higherThanAvailable": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn. Giảm số tiền hoặc nhấn 'Tối đa' để sử dụng toàn bộ số dư.",
+        "higherThanBalance": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn. Giảm số tiền hoặc nhấn 'Tối đa' để sử dụng toàn bộ số dư.",
         "invalidAmount": "Số tiền nhập vào không hợp lệ.",
+        "invalidAmountFromQuote": "Số tiền vượt quá thanh khoản có sẵn trên thị trường Pendle. Giảm số tiền và thử lại.",
         "lowerThanMinimumAmount": "Số tiền nhập vào quá thấp. Số tiền tối thiểu tương đương {{amount}} USD.",
         "noSwapQuoteFound": "Không tìm thấy lệnh swap. Vui lòng cập nhật biểu mẫu."
       },

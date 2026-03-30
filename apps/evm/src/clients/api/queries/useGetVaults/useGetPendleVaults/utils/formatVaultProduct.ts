@@ -93,7 +93,7 @@ export const formatVaultProduct = ({
       ? `https://app.pendle.finance/trade/pools/${vaultData.protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`
       : undefined,
     status,
-    vToken: asset.vToken,
+    asset,
     poolComptrollerContractAddress,
     poolName,
   };

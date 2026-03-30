@@ -1863,8 +1863,10 @@
       "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
       "error": {
         "amountTooLow": "入力金額が少なすぎます。",
-        "higherThanBalance": "金額があなたの利用可能な{{tokenSymbol}}残高を超えています",
+        "higherThanAvailable": "入力金額があなたの利用可能な{{tokenSymbol}}残高を超えています。金額を減らすか、「最大」をクリックして全残高を使用してください。",
+        "higherThanBalance": "入力金額があなたの利用可能な{{tokenSymbol}}残高を超えています。金額を減らすか、「最大」をクリックして全残高を使用してください。",
         "invalidAmount": "入力金額が無効です。",
+        "invalidAmountFromQuote": "入力金額がPendleマーケットで利用可能な流動性を超えています。金額を減らして再試行してください。",
         "lowerThanMinimumAmount": "入力金額が少なすぎます。最低金額は {{amount}} USD 相当です。",
         "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。"
       },

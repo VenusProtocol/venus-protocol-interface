@@ -6,11 +6,11 @@ import { useTranslation } from 'libs/translations';
 import type { MarketHistoryPeriodType } from 'clients/api';
 
 import { useGetMarketChartData } from 'hooks/useGetMarketChartData';
-import type { AnyVault, PendleVault } from 'types';
+import type { PendleVault } from 'types';
 import { CollapsibleSection } from '../CollapsibleSection';
 import { SupplyChart } from './SupplyChart';
 
-export const TotalDeposits: React.FC<{ vault: AnyVault }> = ({ vault }) => {
+export const TotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
   const { t } = useTranslation();
 
   const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>('month');
@@ -37,7 +37,7 @@ export const TotalDeposits: React.FC<{ vault: AnyVault }> = ({ vault }) => {
     data: { supplyChartData },
     isLoading,
   } = useGetMarketChartData({
-    vToken: (vault as PendleVault).vToken,
+    vToken: vault.asset.vToken,
     period: selectedPeriod,
   });
 

@@ -12,8 +12,8 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
-import PendleModal from 'containers/Vault/VaultModals';
+import { PendleModal } from 'containers/Vault/VaultModals';
+import { isPendleVault } from 'containers/Vault/VaultModals/utils';
 import { useState } from 'react';
 import TEST_IDS from '../../testIds';
 import { Cell } from './Cell';
@@ -48,7 +48,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
   const canWithdraw = vault.userStakedMantissa?.gt(0);
   const showHoldingsCard = accountAddress && canWithdraw;
 
-  const dailyEmissionContent =
+  const dailyEmissionReadableValue =
     'dailyEmissionMantissa' in vault && vault.dailyEmissionMantissa
       ? formatTokensToReadableValue({
           value: convertMantissaToTokens({
@@ -57,9 +57,9 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
           }),
           token: vault.rewardToken,
         })
-      : PLACEHOLDER_KEY;
+      : undefined;
 
-  const totalDepositedContent = vault.totalStakedMantissa ? (
+  const totalDepositedReadableValue = vault.totalStakedMantissa ? (
     <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
       <TokenIcon token={vault.stakedToken} displayChain={false} size="md" />
       {formatTokensToReadableValue({
@@ -70,9 +70,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
         token: vault.stakedToken,
       })}
     </div>
-  ) : (
-    PLACEHOLDER_KEY
-  );
+  ) : undefined;
 
   return (
     <>
@@ -106,16 +104,16 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
             title={t('vault.card.apr')}
             content={formatPercentageToReadableValue(vault.stakingAprPercentage)}
           />
-
-          {showHoldingsCard ? (
-            <Cell title={t('vault.card.dailyEmission')} content={dailyEmissionContent} />
-          ) : (
-            <Cell title={t('vault.card.totalDeposited')} content={totalDepositedContent} />
+          {showHoldingsCard && dailyEmissionReadableValue && (
+            <Cell title={t('vault.card.dailyEmission')} content={dailyEmissionReadableValue} />
+          )}
+          {!showHoldingsCard && totalDepositedReadableValue && (
+            <Cell title={t('vault.card.totalDeposited')} content={totalDepositedReadableValue} />
           )}
         </div>
       </Card>
 
-      {modalVisible && vault.manager === VaultManager.Pendle && (
+      {modalVisible && isPendleVault(vault) && (
         <PendleModal
           vault={vault}
           isOpen={modalVisible}

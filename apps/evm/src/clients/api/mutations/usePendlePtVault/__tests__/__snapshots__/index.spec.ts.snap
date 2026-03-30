@@ -64,5 +64,12 @@ exports[`usePendlePtVault > calls useSendTransaction with the correct parameters
       ],
     },
   ],
+  [
+    {
+      "queryKey": [
+        "GET_FIXED_RATED_VAULTS",
+      ],
+    },
+  ],
 ]
 `;

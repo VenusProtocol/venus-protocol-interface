@@ -1,5 +1,5 @@
 import { useTranslation } from 'libs/translations';
-import type { AnyVault } from 'types';
+import type { PendleVault } from 'types';
 
 import { CollapsibleSection } from './CollapsibleSection';
 import { MarketInfo } from './MarketInfo';
@@ -7,7 +7,7 @@ import { StrategyDiagram } from './StrategyDiagram';
 import { TotalDeposits } from './TotalDeposits';
 
 export interface OverviewTabProps {
-  vault: AnyVault;
+  vault: PendleVault;
 }
 
 export const OverviewTab: React.FC<OverviewTabProps> = ({ vault }) => {

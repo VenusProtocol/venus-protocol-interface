@@ -22,7 +22,8 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { StatusLabel } from 'containers/Vault/VaultCard/StatusLabel';
 import { useNow } from 'hooks/useNow';
 import { useState } from 'react';
-import PendleModal from '../VaultModals';
+import { PendleModal } from '../VaultModals';
+import { isPendleVault } from '../VaultModals/utils';
 import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
 import TEST_IDS from '../testIds';
 import { TokenIconWithPeriod } from './TokenIconWithPeriod';
@@ -58,7 +59,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
   const {
     data: { stakedTokenPriceCents, dailyEmissionUsdCents, totalStakedUsdCents },
-  } = useVaultUsdValues(vault) ?? {};
+  } = useVaultUsdValues(vault);
 
   const dailyEmissionMantissa =
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
@@ -259,7 +260,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           </div>
         </div>
       </Card>
-      {modalVisible && vault.manager === VaultManager.Pendle && (
+      {isPendleVault(vault) && (
         <PendleModal
           vault={vault}
           isOpen={modalVisible}

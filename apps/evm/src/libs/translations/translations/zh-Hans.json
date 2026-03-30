@@ -1863,8 +1863,10 @@
       "effectiveFixedAprPendleTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
       "error": {
         "amountTooLow": "输入金额过低。",
-        "higherThanBalance": "金额超过您的可用 {{tokenSymbol}} 余额",
+        "higherThanAvailable": "金额超过您的可用{{tokenSymbol}}余额。请减少金额或点击 '最大' 使用全部余额。",
+        "higherThanBalance": "金额超过您的可用{{tokenSymbol}}余额。请减少金额或点击 '最大' 使用全部余额。",
         "invalidAmount": "输入金额无效。",
+        "invalidAmountFromQuote": "输入金额超过Pendle市场的可用流动性。请减少金额后重试。",
         "lowerThanMinimumAmount": "输入金额过低。最低金额应不少于 {{amount}} USD。",
         "noSwapQuoteFound": "未找到兑换报价，请更新表单。"
       },

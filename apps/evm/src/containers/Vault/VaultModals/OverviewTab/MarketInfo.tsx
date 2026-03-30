@@ -3,11 +3,11 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import type { AnyVault } from 'types';
+import type { PendleVault } from 'types';
 import { isPendleVault } from '../utils';
 
 interface MarketInfoProps {
-  vault: AnyVault;
+  vault: PendleVault;
 }
 
 export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
@@ -32,7 +32,7 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
         <div className="flex items-center gap-2">
           <Icon name="pendle" className="size-4" />
           <span className="text-b1r text-white">PENDLE</span>
-          {'managerLink' in vault && vault.managerLink && (
+          {vault.managerLink && (
             <Link href={vault.managerLink} target="_blank">
               <Icon
                 name="link"
@@ -40,9 +40,9 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
               />
             </Link>
           )}
-          {'vToken' in vault && (
+          {vault.asset?.vToken?.underlyingToken?.address && (
             <CopyAddressButton
-              address={vault.vToken.underlyingToken.address}
+              address={vault.asset.vToken.underlyingToken.address}
               className="text-light-grey"
             />
           )}

@@ -11,8 +11,8 @@ import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
-import { usePendlePtVault } from '..';
-import type { PendlePtVaultInput } from '..';
+import { usePendlePtVaultDeposit, usePendlePtVaultWithdraw } from '..';
+import { PendlePtVaultInput } from '../types';
 
 vi.mock('libs/contracts');
 
@@ -79,7 +79,7 @@ describe('usePendlePtVault', () => {
   it('calls useSendTransaction with the correct parameters for deposit', async () => {
     renderHook(
       () =>
-        usePendlePtVault(
+        usePendlePtVaultDeposit(
           {
             pendleMarketAddress: fakePendleMarketAddress,
             poolComptrollerAddress: fakePoolComptrollerAddress,
@@ -102,7 +102,7 @@ describe('usePendlePtVault', () => {
       type: 'deposit',
       fromToken: xvs,
       toToken: bnb,
-      amountToken: fakeAmountToken,
+      amountMantissa: fakeAmountToken,
     };
 
     expect(await fn(depositInput)).toMatchInlineSnapshot(
@@ -169,7 +169,7 @@ describe('usePendlePtVault', () => {
   it('calls useSendTransaction with the correct parameters for native deposit', async () => {
     renderHook(
       () =>
-        usePendlePtVault(
+        usePendlePtVaultDeposit(
           {
             pendleMarketAddress: fakePendleMarketAddress,
             poolComptrollerAddress: fakePoolComptrollerAddress,
@@ -187,7 +187,7 @@ describe('usePendlePtVault', () => {
       type: 'deposit',
       fromToken: bnb,
       toToken: xvs,
-      amountToken: fakeAmountToken,
+      amountMantissa: fakeAmountToken,
     };
 
     expect(await fn(depositNativeInput)).toMatchInlineSnapshot(
@@ -236,7 +236,7 @@ describe('usePendlePtVault', () => {
   it('calls useSendTransaction with the correct parameters for withdraw', async () => {
     renderHook(
       () =>
-        usePendlePtVault(
+        usePendlePtVaultWithdraw(
           {
             pendleMarketAddress: fakePendleMarketAddress,
             poolComptrollerAddress: fakePoolComptrollerAddress,
@@ -253,7 +253,7 @@ describe('usePendlePtVault', () => {
       type: 'withdraw',
       fromToken: xvs,
       toToken: bnb,
-      amountToken: fakeAmountToken,
+      amountMantissa: fakeAmountToken,
       vToken: vXvs,
     };
 
@@ -297,7 +297,7 @@ describe('usePendlePtVault', () => {
   it('calls useSendTransaction with the correct parameters for redeemAtMaturity', async () => {
     renderHook(
       () =>
-        usePendlePtVault(
+        usePendlePtVaultWithdraw(
           {
             pendleMarketAddress: fakePendleMarketAddress,
             poolComptrollerAddress: fakePoolComptrollerAddress,
@@ -314,7 +314,7 @@ describe('usePendlePtVault', () => {
       type: 'redeemAtMaturity',
       fromToken: xvs,
       toToken: bnb,
-      amountToken: fakeAmountToken,
+      amountMantissa: fakeAmountToken,
       vToken: vXvs,
     };
 
@@ -358,7 +358,7 @@ describe('usePendlePtVault', () => {
   it('throws when type is invalid', async () => {
     renderHook(
       () =>
-        usePendlePtVault(
+        usePendlePtVaultDeposit(
           {
             pendleMarketAddress: fakePendleMarketAddress,
           },
@@ -374,7 +374,7 @@ describe('usePendlePtVault', () => {
       type: 'withdraw',
       fromToken: xvs,
       toToken: bnb,
-      amountToken: fakeAmountToken,
+      amountMantissa: fakeAmountToken,
       // missing vToken for withdraw
     };
 
@@ -386,7 +386,7 @@ describe('usePendlePtVault', () => {
 
     renderHook(
       () =>
-        usePendlePtVault(
+        usePendlePtVaultDeposit(
           {
             pendleMarketAddress: fakePendleMarketAddress,
           },
@@ -402,7 +402,7 @@ describe('usePendlePtVault', () => {
       type: 'deposit',
       fromToken: xvs,
       toToken: bnb,
-      amountToken: fakeAmountToken,
+      amountMantissa: fakeAmountToken,
     };
 
     await expect(async () => fn(depositInput)).rejects.toThrow('somethingWentWrong');

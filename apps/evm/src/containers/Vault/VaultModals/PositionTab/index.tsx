@@ -7,9 +7,10 @@ import {
   useGetPendleSwapQuote,
   useGetTokenUsdPrice,
   useGetVTokenBalance,
+  usePendlePtVaultDeposit,
+  usePendlePtVaultWithdraw,
   useWithdraw,
 } from 'clients/api';
-import { usePendlePtVault } from 'clients/api';
 import { ButtonGroup, LabeledInlineContent, NoticeInfo, Slider, TokenTextField } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
@@ -21,7 +22,7 @@ import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { type AnyVault, type PendleVault, VaultManager } from 'types';
+import { type PendleVault, VaultManager } from 'types';
 import {
   convertMantissaToTokens,
   convertTokensToMantissa,
@@ -41,7 +42,7 @@ type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';
 const PENDLE_SITE =
   'https://app.pendle.finance/trade/dashboard/overview/positions?timeframe=allTime';
 export interface PositionTabProps {
-  vault: AnyVault;
+  vault: PendleVault;
   initialMode?: ActionMode;
   onClose?: () => void;
 }
@@ -56,8 +57,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
-  const hasMatured =
-    'maturityDate' in vault && vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
+  const hasMatured = vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
 
   // --- Action mode ---
   const forceActionMode = useMemo(() => {
@@ -93,7 +93,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
   // Reset form when wallet disconnects or action mode changes
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: also watch for wallet connect/disconnect
   useEffect(() => {
     setFormValues(initialFormValues);
   }, [accountAddress, initialFormValues]);
@@ -127,19 +127,22 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   const { address: pendlePtVaultAddress } = useGetContractAddress({ name: 'PendlePtVault' });
   const spenderAddress = isStake && pendlePtVaultAddress ? pendlePtVaultAddress : undefined;
 
-  const { isTokenApproved: isFromTokenApproved, isApproveTokenLoading: isApproveFromTokenLoading } =
-    useTokenApproval({
-      token: formValues.fromToken,
-      spenderAddress,
-      accountAddress,
-    });
+  const {
+    isTokenApproved: isFromTokenApproved,
+    isApproveTokenLoading: isApproveFromTokenLoading,
+    walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
+  } = useTokenApproval({
+    token: formValues.fromToken,
+    spenderAddress,
+    accountAddress,
+  });
 
   const approval = ((): Approval | undefined => {
     if (!isStake && pendlePtVaultAddress) {
       return {
         type: 'delegate',
         delegateeAddress: pendlePtVaultAddress,
-        poolComptrollerContractAddress: (vault as PendleVault).poolComptrollerContractAddress,
+        poolComptrollerContractAddress: vault.poolComptrollerContractAddress,
       };
     }
     return spenderAddress &&
@@ -170,14 +173,14 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   const { data: getVTokenBalanceData } = useGetVTokenBalance(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
-      vTokenAddress: (vault as PendleVault).vToken.address,
+      vTokenAddress: vault.asset.vToken.address,
     },
     {
       enabled: !!accountAddress && actionMode === 'redeemAtMaturity',
     },
   );
 
-  const balanceTokenAmount = useMemo(() => {
+  const balanceTokens = useMemo(() => {
     if (isBalanceLoading || !balanceData) return undefined;
 
     return convertMantissaToTokens({
@@ -196,7 +199,31 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     token: vault.stakedToken,
   });
 
-  const availableTokens = (isStake ? balanceTokenAmount : userStakedAmount) ?? new BigNumber(0);
+  // Determine the amount of tokens the user can supply, taking the supply cap, their wallet
+  // balance and spending limit in consideration
+  const limitTokens = useMemo(() => {
+    // If user is using swap, we fill the input with the user's wallet balance as we don't have a
+    // way to know in advance exactly how much of the fromToken they can supply to
+    let amountTokens = new BigNumber(balanceTokens || 0);
+
+    // If user has set a spending limit for fromToken, then we take it in consideration
+    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
+      amountTokens = BigNumber.min(amountTokens, fromTokenWalletSpendingLimitTokens);
+    }
+    const marginWithSupplyCapTokens = vault.asset.supplyCapTokens.isEqualTo(0)
+      ? new BigNumber(0)
+      : vault.asset.supplyCapTokens.minus(vault.asset.supplyBalanceTokens);
+    amountTokens = BigNumber.min(amountTokens, marginWithSupplyCapTokens);
+
+    return amountTokens;
+  }, [
+    vault.asset.supplyBalanceTokens,
+    balanceTokens,
+    fromTokenWalletSpendingLimitTokens,
+    vault.asset.supplyCapTokens,
+  ]);
+
+  const availableTokens = (isStake ? limitTokens : userStakedAmount) ?? new BigNumber(0);
 
   const readableAvailable = formatTokensToReadableValue({
     value: availableTokens,
@@ -204,21 +231,28 @@ export const PositionTab: React.FC<PositionTabProps> = ({
   });
 
   // --- Vault action ---
-  const { mutateAsync: pendleVaultMutation, isPending: isSubmitting } = usePendlePtVault({
+  const { mutateAsync: deposit, isPending: isDepositLoading } = usePendlePtVaultDeposit({
     pendleMarketAddress: getSwapQuoteData?.pendleMarketAddress ?? NULL_ADDRESS,
     isNative: formValues.fromToken.isNative,
   });
 
-  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = useWithdraw();
+  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = usePendlePtVaultWithdraw({
+    pendleMarketAddress: getSwapQuoteData?.pendleMarketAddress ?? NULL_ADDRESS,
+  });
+
+  const { mutateAsync: withdrawAfterMaturity, isPending: isWithdrawAfterMaturityLoading } =
+    useWithdraw();
+
+  const isSubmitting = isDepositLoading || isWithdrawLoading || isWithdrawAfterMaturityLoading;
 
   const handleOnSubmit = async () => {
     // Use Withdraw from Core pool.
     if (actionMode === 'redeemAtMaturity') {
       const withdrawFull = formValues.tokenAmount === availableTokens.toFixed();
-      await withdraw({
-        poolName: (vault as PendleVault).poolName,
-        poolComptrollerContractAddress: (vault as PendleVault).poolComptrollerContractAddress,
-        vToken: (vault as PendleVault).vToken,
+      await withdrawAfterMaturity({
+        poolName: vault.poolName,
+        poolComptrollerContractAddress: vault.poolComptrollerContractAddress,
+        vToken: vault.asset.vToken,
         withdrawFullSupply: withdrawFull,
         unwrap: formValues.fromToken.isNative,
         amountMantissa:
@@ -232,17 +266,21 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     } else if (getSwapQuoteData) {
       const amountMantissa = convertTokensToMantissa({
         value: new BigNumber(formValues.tokenAmount),
-        token: isStake ? formValues.fromToken : (vault as PendleVault).vToken, // Withdraw requires vToken amount as input instead
+        token: isStake ? formValues.fromToken : vault.asset.vToken, // Withdraw requires vToken amount as input instead
       });
 
-      await pendleVaultMutation({
+      const params = {
         swapQuote: getSwapQuoteData,
         type: actionMode,
         fromToken: formValues.fromToken,
         toToken,
-        amountToken: amountMantissa,
-        vToken: 'vToken' in vault ? vault.vToken : undefined,
-      });
+        amountMantissa,
+        vToken: vault.asset.vToken,
+      };
+
+      const submitFunc = actionMode === 'deposit' ? deposit : withdraw;
+
+      await submitFunc(params);
     }
 
     onClose?.();
@@ -255,6 +293,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     setFormValues,
     swapQuoteError: getSwapQuoteError ?? undefined,
     availableTokens,
+    balanceTokens,
     token: balanceToken,
   });
 
@@ -263,25 +302,29 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     tokenSymbol: vault.stakedToken.symbol,
   });
 
-  const formattedMaturityDate =
-    'maturityDate' in vault
-      ? t('vault.modals.textualWithTime', {
-          date: vault.maturityDate,
-        })
-      : PLACEHOLDER_KEY;
-
-  const estDiffAmount = getSwapQuoteData?.estimatedReceivedTokensMantissa
-    ? convertMantissaToTokens({
-        value: getSwapQuoteData.estimatedReceivedTokensMantissa,
-        token: toToken,
-      }).minus(formValues.tokenAmount)
-    : undefined;
-  const estDiff = estDiffAmount
-    ? formatTokensToReadableValue({
-        value: isStake ? estDiffAmount : estDiffAmount.negated(),
-        token: toToken,
+  const formattedMaturityDate = vault.maturityDate
+    ? t('vault.modals.textualWithTime', {
+        date: vault.maturityDate,
       })
-    : undefined;
+    : PLACEHOLDER_KEY;
+
+  const estDiffAmountReadable = (() => {
+    if (actionMode === 'redeemAtMaturity') {
+      return formatTokensToReadableValue({
+        value: new BigNumber(0),
+        token: toToken,
+      });
+    }
+
+    if (!getSwapQuoteData?.estimatedReceivedTokensMantissa) return PLACEHOLDER_KEY;
+
+    const diffAmount = convertMantissaToTokens({
+      value: getSwapQuoteData.estimatedReceivedTokensMantissa,
+      token: toToken,
+    }).minus(formValues.tokenAmount);
+
+    return `≈ ${isStake ? diffAmount : diffAmount.negated()}`;
+  })();
 
   // --- Slider ---
   const sliderPercentage =
@@ -311,15 +354,10 @@ export const PositionTab: React.FC<PositionTabProps> = ({
 
   // --- Submit state ---
   const disableInput =
-    !isUserConnected ||
-    isSubmitting ||
-    isWithdrawLoading ||
-    isApproveFromTokenLoading ||
-    isBalanceLoading;
+    !isUserConnected || isSubmitting || isApproveFromTokenLoading || isBalanceLoading;
   const disableSubmit =
     !isFormValid ||
     isSubmitting ||
-    isWithdrawLoading ||
     isGetSwapQuoteLoading ||
     (actionMode !== 'redeemAtMaturity' && !getSwapQuoteData);
 
@@ -431,7 +469,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({
             min={0}
             max={100}
             step={1}
-            disabled={availableTokens.lte(0) || isSubmitting || isWithdrawLoading}
+            disabled={availableTokens.lte(0) || isSubmitting}
           />
           <div className="flex justify-between">
             <span className="text-b2r text-grey">0%</span>
@@ -470,15 +508,11 @@ export const PositionTab: React.FC<PositionTabProps> = ({
         )}
 
         {/* Est. Yield (stake) or Est. Penalty (withdraw) */}
-        {actionMode !== 'redeemAtMaturity' && (
-          <LabeledInlineContent
-            label={isStake ? t('vault.modals.estYield') : t('vault.modals.estPenalty')}
-          >
-            <span className="text-b1s text-white">
-              {estDiff ? `≈ ${estDiff}` : PLACEHOLDER_KEY}
-            </span>
-          </LabeledInlineContent>
-        )}
+        <LabeledInlineContent
+          label={isStake ? t('vault.modals.estYield') : t('vault.modals.estPenalty')}
+        >
+          <span className="text-b1s text-white">{estDiffAmountReadable}</span>
+        </LabeledInlineContent>
 
         {/* Maturity Date */}
         <LabeledInlineContent
@@ -535,5 +569,3 @@ export const PositionTab: React.FC<PositionTabProps> = ({
     </form>
   );
 };
-
-export default PositionTab;

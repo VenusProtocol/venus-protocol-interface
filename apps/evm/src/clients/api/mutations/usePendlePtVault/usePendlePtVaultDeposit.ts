@@ -1,0 +1,141 @@
+import { queryClient } from 'clients/api';
+import FunctionKey from 'constants/functionKey';
+import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
+import { pendlePtVaultAbi } from 'libs/contracts';
+import { VError } from 'libs/errors';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
+import type { Address } from 'viem';
+import type { Options, TrimmedPendlePtVaultInput } from './types';
+import { formatDepositParams } from './utils';
+
+export const usePendlePtVaultDeposit = (
+  {
+    pendleMarketAddress,
+    poolComptrollerAddress,
+    isNative,
+  }: {
+    pendleMarketAddress: Address;
+    poolComptrollerAddress?: Address;
+    isNative?: boolean;
+  },
+  options?: Partial<Options>,
+) => {
+  const { chainId } = useChainId();
+  const { accountAddress } = useAccountAddress();
+  const { captureAnalyticEvent } = useAnalytics();
+
+  const { address: pendlePtVaultContractAddress } = useGetContractAddress({
+    name: 'PendlePtVault',
+  });
+
+  return useSendTransaction({
+    // @ts-ignore mixing payable and non-payable function calls messes up with the typing of
+    // useSendTransaction
+    fn: ({ swapQuote, type, amountMantissa }: TrimmedPendlePtVaultInput) => {
+      if (!pendlePtVaultContractAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+      // Deposit non-BNB tokens
+      if (type === 'deposit' && !isNative) {
+        return {
+          abi: pendlePtVaultAbi,
+          address: pendlePtVaultContractAddress,
+          functionName: 'deposit' as const,
+          args: formatDepositParams(swapQuote.contractCallParams),
+        } as const;
+      }
+
+      // Deposit BNB tokens
+      if (type === 'deposit' && isNative) {
+        return {
+          abi: pendlePtVaultAbi,
+          address: pendlePtVaultContractAddress,
+          functionName: 'depositNative' as const,
+          args: formatDepositParams(swapQuote.contractCallParams),
+          value: BigInt(amountMantissa.toFixed()),
+        } as const;
+      }
+
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+      });
+    },
+    onConfirmed: async ({ input }) => {
+      captureAnalyticEvent(`Pendle vault ${input.type}`, {
+        pendleMarketAddress,
+        fromTokenSymbol: input.fromToken.symbol,
+        fromTokenAmountTokens: convertMantissaToTokens({
+          value: input.amountMantissa,
+          token: input.fromToken,
+        }).toNumber(),
+        toTokenSymbol: input.toToken.symbol,
+        toTokenAmountTokens: (
+          convertMantissaToTokens({
+            token: input.toToken,
+            value: input.swapQuote.estimatedReceivedTokensMantissa,
+          }) ?? '0'
+        ).toNumber(),
+        priceImpactPercentage: input.swapQuote.priceImpactPercentage,
+        slippageTolerancePercentage: DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            chainId,
+            accountAddress,
+            tokenAddress: input.fromToken.address,
+          },
+        ],
+      });
+
+      poolComptrollerAddress &&
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_TOKEN_ALLOWANCE,
+            {
+              chainId,
+              tokenAddress: input.fromToken.address,
+              accountAddress,
+              spenderAddress: poolComptrollerAddress,
+            },
+          ],
+        });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            chainId,
+            accountAddress,
+            tokenAddress: input.toToken.address,
+          },
+        ],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
+
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL] });
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_POOLS] });
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS] });
+    },
+    options,
+  });
+};

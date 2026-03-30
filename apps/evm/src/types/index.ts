@@ -518,7 +518,7 @@ export interface PendleVaultData extends BaseVault {
   liquidityCents: BigNumber;
   stakedTokenPriceCents: BigNumber;
   rewardTokenPriceCents: BigNumber;
-  vToken: VToken;
+  asset: Asset;
   managerLink?: string;
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
