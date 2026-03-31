@@ -14,7 +14,7 @@ import { useGetToken } from 'libs/tokens';
 import type { VenusVault } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 import type { Address } from 'viem';
-import { injectMetadata } from './utils';
+import { formatToVenusVault } from '../formatToVenusVault';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
@@ -101,7 +101,7 @@ export const useGetVaiVault = ({
       .multipliedBy(100)
       .toNumber();
 
-    return {
+    return formatToVenusVault({
       isPaused: getVaiVaultPausedData.isVaultPaused,
       rewardToken: xvs,
       stakedToken: vai,
@@ -109,7 +109,7 @@ export const useGetVaiVault = ({
       totalStakedMantissa: totalVaiStakedData.balanceMantissa,
       stakingAprPercentage,
       userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
-    };
+    });
   }, [
     xvsPriceData,
     vaiVaultUserInfo,
@@ -128,7 +128,7 @@ export const useGetVaiVault = ({
     isGetVaiVaultPausedLoading;
 
   return {
-    data: injectMetadata(data),
+    data,
     isLoading,
   };
 };

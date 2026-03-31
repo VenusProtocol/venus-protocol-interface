@@ -20,12 +20,11 @@ import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  isPendleVault,
 } from 'utilities';
-
 import { PendleModal } from '../VaultModals';
-import { useVaultUsdValues } from '../hooks/useVaultUsdValues';
 import TEST_IDS from '../testIds';
-import { isPendleVault } from '../utils';
+import { useVaultUsdValues } from '../useVaultUsdValues';
 import { TokenIconWithPeriod } from './TokenIconWithPeriod';
 
 export interface VaultProps {

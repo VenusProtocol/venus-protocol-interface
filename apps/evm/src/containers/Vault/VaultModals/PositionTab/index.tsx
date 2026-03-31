@@ -77,39 +77,50 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
     maxDecimalPlaces: isStake ? undefined : 8,
   });
 
-  const readableInputUsdValue =
-    priceUsdData?.tokenPriceUsd && formValues.tokenAmount
-      ? `≈ ${formatCentsToReadableValue({
-          value: new BigNumber(formValues.tokenAmount)
-            .times(priceUsdData.tokenPriceUsd)
-            .shiftedBy(2),
-        })}`
-      : PLACEHOLDER_KEY;
+  let readableInputUsdValue = PLACEHOLDER_KEY;
 
-  const estDiffAmountReadable = (() => {
-    if (actionMode === 'redeemAtMaturity') {
-      return formatTokensToReadableValue({ value: new BigNumber(0), token: toToken });
-    }
+  if (priceUsdData?.tokenPriceUsd && formValues.tokenAmount) {
+    readableInputUsdValue = `≈ ${formatCentsToReadableValue({
+      value: new BigNumber(formValues.tokenAmount).times(priceUsdData.tokenPriceUsd).shiftedBy(2),
+    })}`;
+  }
 
-    if (!getSwapQuoteData?.estimatedReceivedTokensMantissa) return PLACEHOLDER_KEY;
+  let estimatedReceivedTokens: BigNumber | undefined;
 
-    const diffAmount = convertMantissaToTokens({
+  if (getSwapQuoteData?.estimatedReceivedTokensMantissa) {
+    estimatedReceivedTokens = convertMantissaToTokens({
       value: getSwapQuoteData.estimatedReceivedTokensMantissa,
       token: toToken,
-    }).minus(formValues.tokenAmount);
+    });
+  }
 
-    return `≈ ${formatTokensToReadableValue({
-      value: isStake ? diffAmount : diffAmount.negated(),
+  const estDiffAmount = estimatedReceivedTokens?.minus(formValues.tokenAmount);
+
+  let estDiffAmountReadable = PLACEHOLDER_KEY;
+
+  if (actionMode === 'redeemAtMaturity') {
+    estDiffAmountReadable = formatTokensToReadableValue({
+      value: new BigNumber(0),
+      token: toToken,
+    });
+  }
+
+  if (actionMode !== 'redeemAtMaturity' && estDiffAmount) {
+    estDiffAmountReadable = `≈ ${formatTokensToReadableValue({
+      value: isStake ? estDiffAmount : estDiffAmount.negated(),
       token: toToken,
     })}`;
-  })();
+  }
 
-  const actionLabel = (() => {
-    if (actionMode === 'deposit') return t('vault.modals.stake');
-    if (actionMode === 'withdraw' || actionMode === 'redeemAtMaturity')
-      return t('vault.modals.withdraw');
-    return t('vault.modals.claim');
-  })();
+  let actionLabel = t('vault.modals.claim');
+
+  if (actionMode === 'deposit') {
+    actionLabel = t('vault.modals.stake');
+  }
+
+  if (actionMode === 'withdraw' || actionMode === 'redeemAtMaturity') {
+    actionLabel = t('vault.modals.withdraw');
+  }
 
   const connectWalletMessage = t('vault.modals.connectWalletMessage', {
     tokenSymbol: vault.stakedToken.symbol,

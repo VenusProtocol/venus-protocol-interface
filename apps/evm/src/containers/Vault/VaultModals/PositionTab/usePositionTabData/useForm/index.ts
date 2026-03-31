@@ -24,7 +24,7 @@ interface UseFormOutput {
   formError?: FormError;
 }
 
-const useForm = ({
+export const useForm = ({
   onSubmit,
   formValues,
   setFormValues,
@@ -62,5 +62,3 @@ const useForm = ({
     formError,
   };
 };
-
-export default useForm;

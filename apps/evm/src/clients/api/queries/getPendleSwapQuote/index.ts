@@ -54,7 +54,7 @@ export const getPendleSwapQuote = async ({
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
-      data: { exception: (response.data as { error: unknown }).error },
+      data: { exception: response.data },
     });
   }
 

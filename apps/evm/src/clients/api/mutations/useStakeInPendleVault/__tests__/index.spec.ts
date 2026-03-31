@@ -1,25 +1,32 @@
 import fakeAccountAddress, {
   altAddress as fakePoolComptrollerAddress,
 } from '__mocks__/models/address';
-import { bnb, xvs } from '__mocks__/models/tokens';
-import { vXvs } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
-import type {
-  PendleContractDepositCallParams,
-  PendleContractWithdrawCallParams,
-} from 'clients/api';
+import type { PendleContractDepositCallParams } from 'clients/api';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
-import { usePendlePtVaultDeposit, usePendlePtVaultWithdraw } from '..';
-import type { PendlePtVaultInput } from '../types';
+import { useStakeInPendleVault } from '..';
 
 vi.mock('libs/contracts');
 
 const fakePendleMarketAddress = '0x1234567890abcdef1234567890abcdef12345678' as const;
+
+const fakeFromToken = {
+  address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+  decimals: 18,
+  symbol: 'XVS',
+};
+
+const fakeToToken = {
+  address: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+  decimals: 18,
+  isNative: true,
+  symbol: 'BNB',
+};
 
 const fakeContractDepositCallParams: PendleContractDepositCallParams = [
   '0x7679f4ffc3f7e10b5dc25bf657e12567909f1c6d',
@@ -53,31 +60,6 @@ const fakeContractDepositCallParams: PendleContractDepositCallParams = [
   },
 ];
 
-const fakeContractWithdrawCallParams: PendleContractWithdrawCallParams = [
-  '0x7679f4ffc3f7e10b5dc25bf657e12567909f1c6d',
-  '0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5',
-  '998771595080864',
-  {
-    tokenOut: '0x0000000000000000000000000000000000000000',
-    minTokenOut: '1000000000000000',
-    tokenRedeemSy: '0x0000000000000000000000000000000000000000',
-    pendleSwap: '0x0000000000000000000000000000000000000000',
-    swapData: {
-      swapType: '0',
-      extRouter: '0x0000000000000000000000000000000000000000',
-      extCalldata: '0x',
-      needScale: false,
-    },
-  },
-  {
-    limitRouter: '0x0000000000000000000000000000000000000000',
-    epsSkipMarket: '0',
-    normalFills: [],
-    flashFills: [],
-    optData: '0x',
-  },
-];
-
 const fakeDepositSwapQuote = {
   estimatedReceivedTokensMantissa: new BigNumber('2000000000000000000'),
   feeCents: new BigNumber('100'),
@@ -85,16 +67,6 @@ const fakeDepositSwapQuote = {
   pendleMarketAddress: fakePendleMarketAddress,
   contractCallParams: fakeContractDepositCallParams,
   contractCallParamsName: ['receiver', 'market', 'minPtOut', 'guessPtOut', 'input', 'limit'],
-  requiredApprovals: [],
-};
-
-const fakeWithdrawSwapQuote = {
-  estimatedReceivedTokensMantissa: new BigNumber('2000000000000000000'),
-  feeCents: new BigNumber('100'),
-  priceImpactPercentage: 0.5,
-  pendleMarketAddress: fakePendleMarketAddress,
-  contractCallParams: fakeContractWithdrawCallParams,
-  contractCallParamsName: ['receiver', 'market', 'minPtOut', 'input', 'limit'],
   requiredApprovals: [],
 };
 
@@ -117,7 +89,7 @@ describe('usePendlePtVault', () => {
   it('calls useSendTransaction with the correct parameters for deposit', async () => {
     renderHook(
       () =>
-        usePendlePtVaultDeposit(
+        useStakeInPendleVault(
           {
             pendleMarketAddress: fakePendleMarketAddress,
             poolComptrollerAddress: fakePoolComptrollerAddress,
@@ -135,19 +107,17 @@ describe('usePendlePtVault', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    const depositInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
+    const depositInput = {
       swapQuote: fakeDepositSwapQuote,
       type: 'deposit',
-      fromToken: xvs,
-      toToken: bnb,
+      fromToken: fakeFromToken,
+      toToken: fakeToToken,
       amountMantissa: fakeAmountToken,
     };
 
-    expect(await fn(depositInput)).toMatchInlineSnapshot(
-      { abi: expect.any(Array) },
-      `
+    expect(await fn(depositInput)).toMatchInlineSnapshot(`
       {
-        "abi": Any<Array>,
+        "abi": undefined,
         "address": "0xfakePendlePtVaultContractAddress",
         "args": [
           "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
@@ -181,8 +151,7 @@ describe('usePendlePtVault', () => {
         ],
         "functionName": "deposit",
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: depositInput });
 
@@ -207,7 +176,7 @@ describe('usePendlePtVault', () => {
   it('calls useSendTransaction with the correct parameters for native deposit', async () => {
     renderHook(
       () =>
-        usePendlePtVaultDeposit(
+        useStakeInPendleVault(
           {
             pendleMarketAddress: fakePendleMarketAddress,
             poolComptrollerAddress: fakePoolComptrollerAddress,
@@ -220,19 +189,17 @@ describe('usePendlePtVault', () => {
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    const depositNativeInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
+    const depositNativeInput = {
       swapQuote: fakeDepositSwapQuote,
       type: 'deposit',
-      fromToken: bnb,
-      toToken: xvs,
+      fromToken: fakeToToken,
+      toToken: fakeFromToken,
       amountMantissa: fakeAmountToken,
     };
 
-    expect(await fn(depositNativeInput)).toMatchInlineSnapshot(
-      { abi: expect.any(Array) },
-      `
+    expect(await fn(depositNativeInput)).toMatchInlineSnapshot(`
       {
-        "abi": Any<Array>,
+        "abi": undefined,
         "address": "0xfakePendlePtVaultContractAddress",
         "args": [
           "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
@@ -267,136 +234,13 @@ describe('usePendlePtVault', () => {
         "functionName": "depositNative",
         "value": 1000000000000000000n,
       }
-    `,
-    );
-  });
-
-  it('calls useSendTransaction with the correct parameters for withdraw', async () => {
-    renderHook(
-      () =>
-        usePendlePtVaultWithdraw(
-          {
-            pendleMarketAddress: fakePendleMarketAddress,
-            poolComptrollerAddress: fakePoolComptrollerAddress,
-          },
-          fakeOptions,
-        ),
-      { accountAddress: fakeAccountAddress },
-    );
-
-    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
-
-    const withdrawInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeWithdrawSwapQuote,
-      type: 'withdraw',
-      fromToken: xvs,
-      toToken: bnb,
-      amountMantissa: fakeAmountToken,
-      vToken: vXvs,
-    };
-
-    const result = await fn(withdrawInput);
-
-    expect(result).toMatchInlineSnapshot(
-      { abi: expect.any(Array) },
-      `
-      {
-        "abi": Any<Array>,
-        "address": "0xfakePendlePtVaultContractAddress",
-        "args": [
-          "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
-          99877n,
-          {
-            "minTokenOut": 1000000000000000n,
-            "pendleSwap": "0x0000000000000000000000000000000000000000",
-            "swapData": {
-              "extCalldata": "0x",
-              "extRouter": "0x0000000000000000000000000000000000000000",
-              "needScale": false,
-              "swapType": 0,
-            },
-            "tokenOut": "0x0000000000000000000000000000000000000000",
-            "tokenRedeemSy": "0x0000000000000000000000000000000000000000",
-          },
-          {
-            "epsSkipMarket": 0n,
-            "flashFills": [],
-            "limitRouter": "0x0000000000000000000000000000000000000000",
-            "normalFills": [],
-            "optData": "0x",
-          },
-        ],
-        "functionName": "withdraw",
-      }
-    `,
-    );
-  });
-
-  it('calls useSendTransaction with the correct parameters for redeemAtMaturity', async () => {
-    renderHook(
-      () =>
-        usePendlePtVaultWithdraw(
-          {
-            pendleMarketAddress: fakePendleMarketAddress,
-            poolComptrollerAddress: fakePoolComptrollerAddress,
-          },
-          fakeOptions,
-        ),
-      { accountAddress: fakeAccountAddress },
-    );
-
-    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
-
-    const redeemInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeWithdrawSwapQuote,
-      type: 'redeemAtMaturity',
-      fromToken: xvs,
-      toToken: bnb,
-      amountMantissa: fakeAmountToken,
-      vToken: vXvs,
-    };
-
-    const result = await fn(redeemInput);
-
-    expect(result).toMatchInlineSnapshot(
-      { abi: expect.any(Array) },
-      `
-      {
-        "abi": Any<Array>,
-        "address": "0xfakePendlePtVaultContractAddress",
-        "args": [
-          "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
-          99877n,
-          {
-            "minTokenOut": 1000000000000000n,
-            "pendleSwap": "0x0000000000000000000000000000000000000000",
-            "swapData": {
-              "extCalldata": "0x",
-              "extRouter": "0x0000000000000000000000000000000000000000",
-              "needScale": false,
-              "swapType": 0,
-            },
-            "tokenOut": "0x0000000000000000000000000000000000000000",
-            "tokenRedeemSy": "0x0000000000000000000000000000000000000000",
-          },
-          {
-            "epsSkipMarket": 0n,
-            "flashFills": [],
-            "limitRouter": "0x0000000000000000000000000000000000000000",
-            "normalFills": [],
-            "optData": "0x",
-          },
-        ],
-        "functionName": "redeemAtMaturity",
-      }
-    `,
-    );
+    `);
   });
 
   it('throws when type is invalid', async () => {
     renderHook(
       () =>
-        usePendlePtVaultDeposit(
+        useStakeInPendleVault(
           {
             pendleMarketAddress: fakePendleMarketAddress,
           },
@@ -407,13 +251,12 @@ describe('usePendlePtVault', () => {
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    const invalidInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
-      swapQuote: fakeWithdrawSwapQuote,
+    const invalidInput = {
+      swapQuote: fakeDepositSwapQuote,
       type: 'withdraw',
-      fromToken: xvs,
-      toToken: bnb,
+      fromToken: fakeFromToken,
+      toToken: fakeToToken,
       amountMantissa: fakeAmountToken,
-      // missing vToken for withdraw
     };
 
     await expect(async () => fn(invalidInput)).rejects.toThrow('somethingWentWrong');
@@ -424,7 +267,7 @@ describe('usePendlePtVault', () => {
 
     renderHook(
       () =>
-        usePendlePtVaultDeposit(
+        useStakeInPendleVault(
           {
             pendleMarketAddress: fakePendleMarketAddress,
           },
@@ -435,11 +278,11 @@ describe('usePendlePtVault', () => {
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    const depositInput: Omit<PendlePtVaultInput, 'pendlePtVaultContractAddress'> = {
+    const depositInput = {
       swapQuote: fakeDepositSwapQuote,
       type: 'deposit',
-      fromToken: xvs,
-      toToken: bnb,
+      fromToken: fakeFromToken,
+      toToken: fakeToToken,
       amountMantissa: fakeAmountToken,
     };
 

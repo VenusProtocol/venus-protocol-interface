@@ -10,10 +10,10 @@ import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  isPendleVault,
 } from 'utilities';
 
 import { PendleModal } from 'containers/Vault/VaultModals';
-import { isPendleVault } from 'containers/Vault/utils';
 import { useState } from 'react';
 import TEST_IDS from '../../testIds';
 import { Cell } from './Cell';

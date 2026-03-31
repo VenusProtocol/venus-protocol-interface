@@ -496,29 +496,36 @@ interface BaseVault {
   key: string;
   stakedToken: Token;
   rewardToken: Token;
+  stakedTokenPriceCents: BigNumber;
+  rewardTokenPriceCents: BigNumber;
   stakingAprPercentage: number;
   totalStakedMantissa: BigNumber;
+  totalStakedCents: number;
   lockingPeriodMs?: number;
   userStakedMantissa?: BigNumber;
+  userStakedCents?: number;
   poolIndex?: number;
 }
+
 export type VenusVault = BaseVault & {
   isPaused: boolean;
   dailyEmissionMantissa: BigNumber;
+  dailyEmissionCents: number;
   userHasPendingWithdrawalsFromBeforeUpgrade?: boolean;
 };
+
 export type PendleVault = BaseVault & {
   maturityDate: Date;
   liquidityCents: BigNumber;
-  stakedTokenPriceCents: BigNumber;
-  rewardTokenPriceCents: BigNumber;
   asset: Asset;
   managerLink?: string;
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   poolName: string;
 };
+
 export type Vault = VenusVault | PendleVault;
+
 export interface VoterAccount {
   address: Address;
   proposalsVoted: number;

@@ -5,7 +5,7 @@ import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 
 import type { PendleSwapQuoteError } from 'clients/api';
-import type { FormError, FormValues } from './types';
+import type { FormError, FormValues } from '../types';
 
 interface UseFormValidationInput {
   formValues: FormValues;
@@ -32,7 +32,7 @@ const useFormValidation = ({
 
     if (tokenAmount && availableTokens && tokenAmount.isGreaterThan(availableTokens)) {
       return {
-        code: 'HIGHER_THAN_AVAILABLE' as const,
+        code: 'HIGHER_THAN_AVAILABLE',
         message: t('vault.modals.error.higherThanAvailable', {
           tokenSymbol: token.symbol,
         }),
@@ -41,14 +41,14 @@ const useFormValidation = ({
 
     if (swapQuoteError?.code === 'PENDLE_NO_ROUTE_FOUND') {
       return {
-        code: 'PENDLE_NO_ROUTE_FOUND' as const,
+        code: 'PENDLE_NO_ROUTE_FOUND',
         message: t('vault.modals.error.noSwapQuoteFound'),
       };
     }
 
     if (swapQuoteError?.code === 'PENDLE_AMOUNT_TOO_LOW') {
       return {
-        code: 'PENDLE_AMOUNT_TOO_LOW' as const,
+        code: 'PENDLE_AMOUNT_TOO_LOW',
         message: swapQuoteError.data?.exception
           ? t('vault.modals.error.lowerThanMinimumAmount', {
               amount: swapQuoteError.data?.exception,
@@ -59,28 +59,28 @@ const useFormValidation = ({
 
     if (swapQuoteError?.code === 'PENDLE_INVALID_AMOUNT') {
       return {
-        code: 'PENDLE_INVALID_AMOUNT' as const,
+        code: 'PENDLE_INVALID_AMOUNT',
         message: t('vault.modals.error.invalidAmountFromQuote'),
       };
     }
 
     if (swapQuoteError?.code === 'PENDLE_API_ERROR') {
       return {
-        code: 'PENDLE_API_ERROR' as const,
+        code: 'PENDLE_API_ERROR',
         message: t('vault.modals.error.pendleApiError'),
       };
     }
 
     if (tokenAmount && (tokenAmount.isNaN() || tokenAmount.isLessThanOrEqualTo(0))) {
       return {
-        code: 'EMPTY_TOKEN_AMOUNT' as const,
+        code: 'EMPTY_TOKEN_AMOUNT',
         message: t('vault.modals.error.invalidAmount'),
       };
     }
 
     if (!tokenAmount) {
       return {
-        code: 'EMPTY_TOKEN_AMOUNT' as const,
+        code: 'EMPTY_TOKEN_AMOUNT',
       };
     }
   }, [formValues.tokenAmount, availableTokens, token.symbol, t, swapQuoteError]);

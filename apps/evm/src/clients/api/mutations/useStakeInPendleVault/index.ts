@@ -6,13 +6,13 @@ import { useAnalytics } from 'libs/analytics';
 import { pendlePtVaultAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
+import { invalidatePendleVaultCaches } from 'utilities';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import type { Address } from 'viem';
-import type { Options, TrimmedPendlePtVaultInput } from '../types';
-import { invalidatePendleVaultCaches } from '../utils/invalidatePendleVaultCaches';
 import { formatDepositParams } from './formatDepositParams';
+import type { Options, TrimmedPendlePtVaultInput } from './types';
 
-export const usePendlePtVaultDeposit = (
+export const useStakeInPendleVault = (
   {
     pendleMarketAddress,
     poolComptrollerAddress,
@@ -42,7 +42,7 @@ export const usePendlePtVaultDeposit = (
           code: 'somethingWentWrong',
         });
       }
-      // Deposit non-BNB tokens
+
       if (type === 'deposit' && !isNative) {
         return {
           abi: pendlePtVaultAbi,
@@ -54,7 +54,6 @@ export const usePendlePtVaultDeposit = (
         } as const;
       }
 
-      // Deposit BNB tokens
       if (type === 'deposit' && isNative) {
         return {
           abi: pendlePtVaultAbi,

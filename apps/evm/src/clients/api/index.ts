@@ -33,8 +33,8 @@ export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
 export * from './mutations/useOpenLeveragedPosition';
 export * from './mutations/useRepayWithCollateral';
-export * from './mutations/usePendlePtVault';
-
+export * from './mutations/useStakeInPendleVault';
+export * from './mutations/useWithdrawFromPendleVault';
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';

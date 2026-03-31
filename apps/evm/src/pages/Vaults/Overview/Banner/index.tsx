@@ -1,5 +1,5 @@
 import { cn } from '@venusprotocol/ui';
-import { useVaultUsdValues } from 'containers/Vault/hooks/useVaultUsdValues';
+import { useVaultUsdValues } from 'containers/Vault/useVaultUsdValues';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
 import {

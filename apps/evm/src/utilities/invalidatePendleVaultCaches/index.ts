@@ -2,7 +2,7 @@ import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import type { ChainId } from 'types';
 import type { Address } from 'viem';
-import type { TrimmedPendlePtVaultInput } from '../types';
+import type { TrimmedPendlePtVaultInput } from '../../clients/api/mutations/useStakeInPendleVault/types';
 
 export const invalidatePendleVaultCaches = ({
   input,

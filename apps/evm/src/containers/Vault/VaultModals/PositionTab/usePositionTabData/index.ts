@@ -6,8 +6,8 @@ import {
   useGetPendleSwapQuote,
   useGetTokenUsdPrice,
   useGetVTokenBalance,
-  usePendlePtVaultDeposit,
-  usePendlePtVaultWithdraw,
+  useStakeInPendleVault,
+  useWithdrawFromPendleVault,
   useWithdraw,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
@@ -21,7 +21,7 @@ import { type PendleVault, VaultManager } from 'types';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import type { Approval } from '../SubmitButton/types';
-import useForm, { type FormValues } from '../useForm';
+import { type FormValues, useForm } from './useForm';
 
 export type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';
 
@@ -215,12 +215,12 @@ export const usePositionTabData = ({
   ]);
 
   // --- Mutations ---
-  const { mutateAsync: deposit, isPending: isDepositLoading } = usePendlePtVaultDeposit({
+  const { mutateAsync: deposit, isPending: isDepositLoading } = useStakeInPendleVault({
     pendleMarketAddress: getSwapQuoteData?.pendleMarketAddress ?? NULL_ADDRESS,
     isNative: formValues.fromToken.isNative,
   });
 
-  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = usePendlePtVaultWithdraw({
+  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = useWithdrawFromPendleVault({
     pendleMarketAddress: getSwapQuoteData?.pendleMarketAddress ?? NULL_ADDRESS,
   });
 

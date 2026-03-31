@@ -65,14 +65,21 @@ export const getAccountTransactionHistory = async ({
     };
   }, {});
 
-  const formattedResponse = txsResponse.data.results
-    .map(apiTransaction =>
-      formatApiTransaction({
+  const formattedResponse = txsResponse.data.results.reduce<AmountTransaction[]>(
+    (acc, apiTransaction) => {
+      const formattedTransaction = formatApiTransaction({
         contractToTokenMap,
         apiTransaction,
-      }),
-    )
-    .filter((item): item is AmountTransaction => !!item);
+      });
+
+      if (formattedTransaction) {
+        acc.push(formattedTransaction);
+      }
+
+      return acc;
+    },
+    [],
+  );
 
   return {
     count: Number(txsResponse.data.count),

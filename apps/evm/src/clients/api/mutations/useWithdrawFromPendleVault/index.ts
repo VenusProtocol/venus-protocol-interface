@@ -8,11 +8,11 @@ import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import type { Address } from 'viem';
-import type { Options, TrimmedPendlePtVaultInput } from '../types';
-import { invalidatePendleVaultCaches } from '../utils/invalidatePendleVaultCaches';
+import { invalidatePendleVaultCaches } from '../../../../utilities/invalidatePendleVaultCaches';
+import type { Options, TrimmedPendlePtVaultInput } from '../useStakeInPendleVault/types';
 import { formatWithdrawParams } from './formatWithdrawParams';
 
-export const usePendlePtVaultWithdraw = (
+export const useWithdrawFromPendleVault = (
   {
     pendleMarketAddress,
     poolComptrollerAddress,
@@ -38,7 +38,7 @@ export const usePendlePtVaultWithdraw = (
           code: 'somethingWentWrong',
         });
       }
-      // Withdraw
+
       if (type === 'withdraw' && vToken) {
         return {
           abi: pendlePtVaultAbi,
@@ -54,7 +54,6 @@ export const usePendlePtVaultWithdraw = (
         } as const;
       }
 
-      // Redeem after maturity
       if (type === 'redeemAtMaturity' && vToken) {
         return {
           abi: pendlePtVaultAbi,
@@ -63,7 +62,7 @@ export const usePendlePtVaultWithdraw = (
           args: formatWithdrawParams(
             swapQuote.contractCallParams as PendleContractWithdrawCallParams,
             { fromToken, vToken },
-          ), // Share the same format as withdraw.
+          ),
         } as const;
       }
 

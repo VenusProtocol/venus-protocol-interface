@@ -10,10 +10,10 @@ export const formatToPendleVaults = ({
   vaultProducts,
   pools,
   tokens,
-  now,
+  nowMs,
 }: FormatToPendleVaultsInput): PendleVault[] =>
   vaultProducts.reduce<PendleVault[]>((acc, vaultData) => {
-    const vault = formatVaultProduct({ vaultData, pools, tokens, now });
+    const vault = formatVaultProduct({ vaultData, pools, tokens, nowMs });
     if (vault) {
       acc.push(vault);
     }

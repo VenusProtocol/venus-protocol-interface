@@ -1,8 +1,6 @@
 import { useGetTokenListUsdPrice } from 'clients/api';
 import type { Vault } from 'types';
-import { convertPriceMantissaToDollars } from 'utilities';
-
-import { isPendleVault } from '../utils';
+import { convertPriceMantissaToDollars, isPendleVault } from 'utilities';
 
 export const useVaultUsdValues = (vault: Vault) => {
   const { stakedToken, rewardToken, userStakedMantissa, totalStakedMantissa } = vault;

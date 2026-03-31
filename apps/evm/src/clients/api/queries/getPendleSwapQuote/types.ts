@@ -3,7 +3,7 @@ import type BigNumber from 'bignumber.js';
 import type { VError } from 'libs/errors';
 import type { Address, Hex } from 'viem';
 
-export interface PendleGuessPtOut extends Record<string, unknown> {
+export interface PendleGuessPtOut {
   guessMin: string;
   guessMax: string;
   guessOffchain: string;
@@ -11,14 +11,14 @@ export interface PendleGuessPtOut extends Record<string, unknown> {
   eps: string;
 }
 
-export interface PendleSwapData extends Record<string, unknown> {
+export interface PendleSwapData {
   swapType: string;
   extRouter: Address;
   extCalldata: Hex;
   needScale: boolean;
 }
 
-export interface PendleTokenDepositInput extends Record<string, unknown> {
+export interface PendleTokenDepositInput {
   tokenIn: Address;
   netTokenIn: string;
   tokenMintSy: Address;
@@ -26,7 +26,7 @@ export interface PendleTokenDepositInput extends Record<string, unknown> {
   swapData: PendleSwapData;
 }
 
-export interface PendleTokenWithdrawInput extends Record<string, unknown> {
+export interface PendleTokenWithdrawInput {
   tokenOut: Address;
   minTokenOut: string;
   tokenRedeemSy: Address;
@@ -34,7 +34,7 @@ export interface PendleTokenWithdrawInput extends Record<string, unknown> {
   swapData: PendleSwapData;
 }
 
-export interface PendleLimitOrder extends Record<string, unknown> {
+export interface PendleLimitOrder {
   salt: string;
   expiry: string;
   nonce: string;
@@ -55,7 +55,7 @@ export interface PendleFillOrderParams {
   makingAmount: string;
 }
 
-export interface PendleLimitOrderData extends Record<string, unknown> {
+export interface PendleLimitOrderData {
   limitRouter: Address;
   epsSkipMarket: string;
   normalFills: PendleFillOrderParams[];

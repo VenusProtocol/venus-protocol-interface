@@ -15,14 +15,14 @@ import type { Address } from 'viem';
 export interface BaseInput {
   pools: Pool[];
   tokens: Token[];
-  now: number;
+  nowMs: number;
 }
 
 export const formatVaultProduct = ({
   vaultData,
   pools,
   tokens,
-  now,
+  nowMs,
 }: BaseInput & { vaultData: GetFixedRatedVaultsOutput[number] }) => {
   let asset: Asset | undefined;
   let poolComptrollerContractAddress: Address | undefined;
@@ -33,11 +33,11 @@ export const formatVaultProduct = ({
       _asset =>
         _asset && vaultData && areAddressesEqual(_asset?.vToken?.address, vaultData?.vaultAddress),
     );
+
     if (targetAsset) {
       asset = targetAsset;
       poolComptrollerContractAddress = pool.comptrollerAddress as Address;
       poolName = pool.name;
-      break;
     }
   }
 
@@ -59,9 +59,9 @@ export const formatVaultProduct = ({
   const maturityTimestampMs = maturityDate.getTime();
 
   let status = VaultStatus.Deposit;
-  if (now >= maturityTimestampMs) {
+  if (nowMs >= maturityTimestampMs) {
     status = VaultStatus.Claim;
-  } else if (now < maturityTimestampMs && asset.userSupplyBalanceCents.gt(0)) {
+  } else if (nowMs < maturityTimestampMs && asset.userSupplyBalanceCents.gt(0)) {
     status = VaultStatus.Earning;
   }
 

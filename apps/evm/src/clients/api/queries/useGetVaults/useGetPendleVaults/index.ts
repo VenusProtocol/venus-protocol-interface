@@ -5,7 +5,7 @@ import type { PendleVault } from 'types';
 
 import { useGetFixedRatedVaults } from 'clients/api';
 import { useGetPools } from '../../useGetPools';
-import { formatToPendleVaults } from './utils';
+import { formatToPendleVaults } from './formatToPendleVaults';
 
 export interface UseGetPendleVaultsOutput {
   isLoading: boolean;
@@ -19,7 +19,7 @@ export const useGetPendleVaults = (): UseGetPendleVaultsOutput => {
 
   const tokens = useGetTokens();
 
-  const now = useNow().getTime();
+  const now = useNow();
 
   const isLoading = isVaultProductsLoading || isPoolsLoading;
 
@@ -29,7 +29,7 @@ export const useGetPendleVaults = (): UseGetPendleVaultsOutput => {
           vaultProducts,
           pools: poolsData.pools,
           tokens,
-          now,
+          nowMs: now.getTime(),
         })
       : undefined;
 

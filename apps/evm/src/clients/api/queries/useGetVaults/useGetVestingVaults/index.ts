@@ -19,9 +19,9 @@ import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
+import { formatToVenusVault } from '../formatToVenusVault';
 import { useGetXvsVaultPoolBalances } from './useGetXvsVaultPoolBalances';
 import { useGetXvsVaultPools } from './useGetXvsVaultPools';
-import { type VaultData, injectMetadata } from './utils';
 
 export interface UseGetVestingVaultsOutput {
   isLoading: boolean;
@@ -162,9 +162,9 @@ export const useGetVestingVaults = (input?: {
     isGetXvsVaultPausedLoading;
 
   // Format query results into Vaults
-  const data: VaultData[] = useMemo(
+  const data = useMemo(
     () =>
-      Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<VaultData[]>(
+      Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<VenusVault[]>(
         (acc, _item, poolIndex) => {
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
           const userStakedMantissa = poolData[poolIndex]?.userInfos?.stakedAmountMantissa.minus(
@@ -221,7 +221,7 @@ export const useGetVestingVaults = (input?: {
             getXvsVaultPausedData?.isVaultPaused !== undefined &&
             !!xvs
           ) {
-            const vault: VaultData = {
+            const vault = formatToVenusVault({
               isPaused: getXvsVaultPausedData.isVaultPaused,
               rewardToken: xvs,
               stakedToken,
@@ -232,7 +232,7 @@ export const useGetVestingVaults = (input?: {
               userStakedMantissa,
               poolIndex,
               userHasPendingWithdrawalsFromBeforeUpgrade,
-            };
+            });
 
             return [...acc, vault];
           }
@@ -254,7 +254,7 @@ export const useGetVestingVaults = (input?: {
   );
 
   return {
-    data: injectMetadata(data),
+    data,
     isLoading,
   };
 };
