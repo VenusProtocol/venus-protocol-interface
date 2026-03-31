@@ -134,8 +134,10 @@
   },
   "accountHealth": {
     "accessibilityLabel": "當前賬戶狀態的表示",
+    "borrowed": "已借：",
     "borrowLimitUsed": "已用借款限額：",
     "limit": "限額：",
+    "liquidationThreshold": "清算閾值：",
     "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（佔借款限額的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全借款限額：<LineBreak/>{{safeBorrowLimit}}（佔借款限額的 {{safeBorrowLimitPercentage}}%）"
   },
   "adBanner": {

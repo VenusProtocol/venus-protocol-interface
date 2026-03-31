@@ -134,8 +134,10 @@
   },
   "accountHealth": {
     "accessibilityLabel": "現在のアカウント状態の表示",
+    "borrowed": "借入額:",
     "borrowLimitUsed": "借入限度の使用率:",
     "limit": "上限:",
+    "liquidationThreshold": "清算閾値:",
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全な借入限度:<LineBreak/>{{safeBorrowLimit}}（借入限度の{{safeBorrowLimitPercentage}}%）"
   },
   "adBanner": {

@@ -134,9 +134,11 @@
   },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
+    "borrowed": "Borrowed:",
     "borrowLimitUsed": "Borrow limit used:",
     "limit": "Limit:",
-    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
+    "liquidationThreshold": "Liquidation Threshold:",
+    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}}<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Start now"

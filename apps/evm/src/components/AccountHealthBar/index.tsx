@@ -22,6 +22,7 @@ const moderateBorrowLimitPercentage = 100 / HEALTH_FACTOR_MODERATE_THRESHOLD;
 export interface AccountHealthBarProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
+  liquidationThresholdCents: number | undefined;
   className?: string;
 }
 
@@ -29,6 +30,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   className,
   borrowBalanceCents,
   borrowLimitCents,
+  liquidationThresholdCents,
 }) => {
   const { t, Trans } = useTranslation();
 
@@ -43,12 +45,34 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     [borrowBalanceCents, borrowLimitCents],
   );
 
-  const { readableBorrowLimitUsedPercentage, sanitizedBorrowLimitUsedPercentage } = useMemo(
+  const fillPercentage = useMemo(
+    () =>
+      typeof borrowBalanceCents === 'number' && typeof liquidationThresholdCents === 'number'
+        ? calculatePercentage({
+            numerator: borrowBalanceCents,
+            denominator: liquidationThresholdCents,
+          })
+        : undefined,
+    [borrowBalanceCents, liquidationThresholdCents],
+  );
+
+  const markPercentage = useMemo(
+    () =>
+      typeof borrowLimitCents === 'number' && typeof liquidationThresholdCents === 'number'
+        ? calculatePercentage({
+            numerator: borrowLimitCents,
+            denominator: liquidationThresholdCents,
+          })
+        : undefined,
+    [borrowLimitCents, liquidationThresholdCents],
+  );
+
+  const { readableBorrowLimitUsedPercentage, sanitizedFillPercentage } = useMemo(
     () => ({
       readableBorrowLimitUsedPercentage: formatPercentageToReadableValue(borrowLimitUsedPercentage),
-      sanitizedBorrowLimitUsedPercentage: borrowLimitUsedPercentage || 0,
+      sanitizedFillPercentage: fillPercentage || 0,
     }),
-    [borrowLimitUsedPercentage],
+    [borrowLimitUsedPercentage, fillPercentage],
   );
 
   const readableModerateBorrowLimit = useMemo(() => {
@@ -68,6 +92,14 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
         value: borrowLimitCents,
       }),
     [borrowLimitCents],
+  );
+
+  const readableLiquidationThreshold = useMemo(
+    () =>
+      formatCentsToReadableValue({
+        value: liquidationThresholdCents,
+      }),
+    [liquidationThresholdCents],
   );
 
   const readableBorrowBalance = useMemo(
@@ -94,7 +126,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
             borrowBalance: readableBorrowBalance,
             borrowLimitUsedPercentage: readableBorrowLimitUsedPercentage,
             safeBorrowLimit: readableModerateBorrowLimit,
-            safeBorrowLimitPercentage: moderateBorrowLimitPercentage,
+            borrowLimit: readableBorrowLimit,
           }}
         />
       ) : undefined,
@@ -108,26 +140,26 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   );
 
   const progressBarColor = useMemo(() => {
-    if (sanitizedBorrowLimitUsedPercentage <= safeBorrowLimitPercentage) {
+    if (sanitizedFillPercentage <= safeBorrowLimitPercentage) {
       return theme.colors.green;
     }
 
-    if (sanitizedBorrowLimitUsedPercentage <= moderateBorrowLimitPercentage) {
+    if (sanitizedFillPercentage <= moderateBorrowLimitPercentage) {
       return theme.colors.yellow;
     }
 
     return theme.colors.red;
-  }, [sanitizedBorrowLimitUsedPercentage]);
+  }, [sanitizedFillPercentage]);
 
   return (
     <div className={className}>
       <LabeledProgressBar
-        greyLeftText={t('accountHealth.borrowLimitUsed')}
-        whiteLeftText={readableBorrowLimitUsedPercentage}
-        greyRightText={t('accountHealth.limit')}
-        whiteRightText={readableBorrowLimit}
-        value={sanitizedBorrowLimitUsedPercentage}
-        mark={moderateBorrowLimitPercentage}
+        greyLeftText={t('accountHealth.borrowed')}
+        whiteLeftText={readableBorrowBalance}
+        greyRightText={t('accountHealth.liquidationThreshold')}
+        whiteRightText={readableLiquidationThreshold}
+        value={sanitizedFillPercentage}
+        mark={markPercentage ?? 0}
         step={1}
         ariaLabel={t('accountHealth.accessibilityLabel')}
         min={0}

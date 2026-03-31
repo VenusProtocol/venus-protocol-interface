@@ -134,8 +134,10 @@
   },
   "accountHealth": {
     "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
+    "borrowed": "Borç alınan:",
     "borrowLimitUsed": "Kullanılan borç limiti:",
     "limit": "Limit:",
+    "liquidationThreshold": "Tasfiye Eşiği:",
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Güvenli borç limiti:<LineBreak/>{{safeBorrowLimit}} (borç limitinizin {{safeBorrowLimitPercentage}}%'i)"
   },
   "adBanner": {

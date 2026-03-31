@@ -134,8 +134,10 @@
   },
   "accountHealth": {
     "accessibilityLabel": "การแสดงสถานะปัจจุบันของบัญชีของคุณ",
+    "borrowed": "ยอดยืม:",
     "borrowLimitUsed": "ใช้ขีดจำกัดการยืมแล้ว:",
     "limit": "ขีดจำกัด:",
+    "liquidationThreshold": "เกณฑ์การชำระบัญชี:",
     "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืมที่ปลอดภัย:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% ของขีดจำกัดการยืมของคุณ)"
   },
   "adBanner": {
