@@ -1863,7 +1863,6 @@
       "error": {
         "amountTooLow": "Girilen miktar çok düşük.",
         "higherThanAvailable": "Girilen miktar mevcut {{tokenSymbol}} bakiyenizi aşıyor. Miktarı azaltın veya tüm bakiyenizi kullanmak için 'Maks' düğmesine tıklayın.",
-        "higherThanBalance": "Girilen miktar mevcut {{tokenSymbol}} bakiyenizi aşıyor. Miktarı azaltın veya tüm bakiyenizi kullanmak için 'Maks' düğmesine tıklayın.",
         "invalidAmount": "Girilen miktar geçersiz.",
         "invalidAmountFromQuote": "Girilen miktar, Pendle piyasasındaki kullanılabilir likidityi aşıyor. Miktarı azaltın ve tekrar deneyin.",
         "lowerThanMinimumAmount": "Girilen miktar çok düşük. Minimum miktar {{amount}} USD eşdeğeridir.",

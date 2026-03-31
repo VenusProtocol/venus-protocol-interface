@@ -1862,7 +1862,6 @@
       "error": {
         "amountTooLow": "输入金额过低。",
         "higherThanAvailable": "金额超过您的可用{{tokenSymbol}}余额。请减少金额或点击 '最大' 使用全部余额。",
-        "higherThanBalance": "金额超过您的可用{{tokenSymbol}}余额。请减少金额或点击 '最大' 使用全部余额。",
         "invalidAmount": "输入金额无效。",
         "invalidAmountFromQuote": "输入金额超过Pendle市场的可用流动性。请减少金额后重试。",
         "lowerThanMinimumAmount": "输入金额过低。最低金额应不少于 {{amount}} USD。",

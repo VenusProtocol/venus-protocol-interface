@@ -10,7 +10,6 @@ import type { FormError, FormValues } from './types';
 interface UseFormValidationInput {
   formValues: FormValues;
   availableTokens: BigNumber;
-  balanceTokens?: BigNumber;
   token: Token;
   swapQuoteError?: PendleSwapQuoteError;
 }
@@ -23,7 +22,6 @@ interface UseFormValidationOutput {
 const useFormValidation = ({
   formValues,
   availableTokens,
-  balanceTokens,
   token,
   swapQuoteError,
 }: UseFormValidationInput): UseFormValidationOutput => {
@@ -31,15 +29,6 @@ const useFormValidation = ({
 
   const formError: FormError | undefined = useMemo(() => {
     const tokenAmount = formValues.tokenAmount ? new BigNumber(formValues.tokenAmount) : undefined;
-
-    if (tokenAmount && balanceTokens && tokenAmount.isGreaterThan(balanceTokens)) {
-      return {
-        code: 'HIGHER_THAN_WALLET_BALANCE' as const,
-        message: t('vault.modals.error.higherThanBalance', {
-          tokenSymbol: token.symbol,
-        }),
-      };
-    }
 
     if (tokenAmount && availableTokens && tokenAmount.isGreaterThan(availableTokens)) {
       return {
@@ -94,7 +83,7 @@ const useFormValidation = ({
         code: 'EMPTY_TOKEN_AMOUNT' as const,
       };
     }
-  }, [formValues.tokenAmount, availableTokens, token.symbol, t, swapQuoteError, balanceTokens]);
+  }, [formValues.tokenAmount, availableTokens, token.symbol, t, swapQuoteError]);
 
   return {
     isFormValid: !formError,

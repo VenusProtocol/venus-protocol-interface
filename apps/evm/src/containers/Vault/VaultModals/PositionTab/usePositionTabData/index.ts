@@ -20,10 +20,10 @@ import { useAccountAddress } from 'libs/wallet';
 import { type PendleVault, VaultManager } from 'types';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
-import type { Approval } from './SubmitButton/types';
-import useForm, { type FormValues } from './useForm';
+import type { Approval } from '../SubmitButton/types';
+import useForm, { type FormValues } from '../useForm';
 
-type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';
+export type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';
 
 export interface UsePositionTabInput {
   vault: PendleVault;
@@ -31,7 +31,11 @@ export interface UsePositionTabInput {
   onClose?: () => void;
 }
 
-const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePositionTabInput) => {
+export const usePositionTabData = ({
+  vault,
+  initialMode = 'deposit',
+  onClose,
+}: UsePositionTabInput) => {
   const now = useNow();
   const { accountAddress } = useAccountAddress();
 
@@ -69,7 +73,6 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
     setFormValues(initialFormValues);
   }, [accountAddress, initialFormValues]);
 
-  const balanceToken = formValues.fromToken;
   const toToken = isStake ? vault.stakedToken : vault.rewardToken;
 
   // --- Balances ---
@@ -78,7 +81,7 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
   const { data: balanceData, isLoading: isBalanceLoading } = useGetBalanceOf(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
-      token: balanceToken,
+      token: formValues.fromToken,
     },
     { enabled: !!accountAddress },
   );
@@ -90,14 +93,6 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
     },
     { enabled: !!accountAddress && !isStake },
   );
-
-  const balanceTokens = useMemo(() => {
-    if (isBalanceLoading || !balanceData) return undefined;
-    return convertMantissaToTokens({
-      value: balanceData.balanceMantissa,
-      token: balanceToken,
-    });
-  }, [balanceToken, balanceData, isBalanceLoading]);
 
   const userStakedTokens = convertMantissaToTokens({
     value: getVTokenBalanceData?.balanceMantissa ?? new BigNumber(0),
@@ -120,6 +115,13 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
 
   // --- Available / limit tokens ---
   const limitTokens = useMemo(() => {
+    const balanceTokens = balanceData
+      ? convertMantissaToTokens({
+          value: balanceData.balanceMantissa,
+          token: formValues.fromToken,
+        })
+      : new BigNumber(0);
+
     let tokens = new BigNumber(balanceTokens || 0);
 
     if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
@@ -133,8 +135,9 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
 
     return tokens;
   }, [
+    balanceData,
+    formValues.fromToken,
     vault.asset.supplyBalanceTokens,
-    balanceTokens,
     fromTokenWalletSpendingLimitTokens,
     vault.asset.supplyCapTokens,
   ]);
@@ -174,8 +177,7 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
     setFormValues,
     swapQuoteError: getSwapQuoteError ?? undefined,
     availableTokens,
-    balanceTokens,
-    token: balanceToken,
+    token: formValues.fromToken,
   });
 
   // --- Approval ---
@@ -274,6 +276,9 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
   }
 
   // --- Slider ---
+  const availableTokenDecimals = isStake
+    ? formValues.fromToken.decimals
+    : vault.asset.vToken.decimals;
   const sliderPercentage =
     availableTokens.isGreaterThan(0) && Number(formValues.tokenAmount) > 0
       ? Math.min(
@@ -290,13 +295,27 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
     const tokenAmount = availableTokens
       .multipliedBy(percentage)
       .div(100)
-      .dp(isStake ? balanceToken.decimals : vault.asset.vToken.decimals)
+      .dp(availableTokenDecimals)
       .toFixed();
     setFormValues(current => ({ ...current, tokenAmount }));
   };
 
+  const handleAmountChange = (tokenAmount: string) => {
+    const tokenAmountBN = new BigNumber(tokenAmount);
+
+    setFormValues(current => ({
+      ...current,
+      tokenAmount: tokenAmountBN.isNaN()
+        ? tokenAmount
+        : tokenAmountBN.dp(availableTokenDecimals).toFixed(),
+    }));
+  };
+
   const handleMaxButtonClick = () => {
-    setFormValues(current => ({ ...current, tokenAmount: availableTokens.toFixed() }));
+    setFormValues(current => ({
+      ...current,
+      tokenAmount: availableTokens.dp(availableTokenDecimals).toFixed(),
+    }));
   };
 
   const handleActionModeChange = (index: number) => {
@@ -324,7 +343,6 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
     isUserConnected,
 
     // Tokens
-    balanceToken,
     toToken,
     priceUsdData,
     userStakedTokens,
@@ -348,12 +366,9 @@ const usePositionTab = ({ vault, initialMode = 'deposit', onClose }: UsePosition
     isSubmitting,
 
     // Handlers
-    setFormValues,
+    handleAmountChange,
     handleSliderChange,
     handleMaxButtonClick,
     handleActionModeChange,
   };
 };
-
-export default usePositionTab;
-export type { ActionMode };

@@ -1863,7 +1863,6 @@
       "error": {
         "amountTooLow": "Input amount is too low.",
         "higherThanAvailable": "Amount exceeds your available {{tokenSymbol}} balance. Reduce the amount or click 'Max' to use your full balance.",
-        "higherThanBalance": "Amount exceeds your available {{tokenSymbol}} balance. Reduce the amount or click 'Max' to use your full balance.",
         "invalidAmount": "Input amount is invalid.",
         "invalidAmountFromQuote": "Amount exceeds available liquidity in the Pendle market. Reduce the amount and try again.",
         "lowerThanMinimumAmount": "Input amount is too low. The minimum amount is equivalent to {{amount}} USD.",

@@ -1862,7 +1862,6 @@
       "error": {
         "amountTooLow": "Số tiền nhập vào quá thấp.",
         "higherThanAvailable": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn. Giảm số tiền hoặc nhấn 'Tối đa' để sử dụng toàn bộ số dư.",
-        "higherThanBalance": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn. Giảm số tiền hoặc nhấn 'Tối đa' để sử dụng toàn bộ số dư.",
         "invalidAmount": "Số tiền nhập vào không hợp lệ.",
         "invalidAmountFromQuote": "Số tiền vượt quá thanh khoản có sẵn trên thị trường Pendle. Giảm số tiền và thử lại.",
         "lowerThanMinimumAmount": "Số tiền nhập vào quá thấp. Số tiền tối thiểu tương đương {{amount}} USD.",

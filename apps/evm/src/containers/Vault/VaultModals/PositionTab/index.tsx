@@ -17,7 +17,7 @@ import {
 
 import { PendleConvertDetails } from './PendleConvertDetails';
 import { SubmitButton } from './SubmitButton';
-import usePositionTab, { type ActionMode } from './usePositionTab';
+import { type ActionMode, usePositionTabData } from './usePositionTabData';
 
 const PENDLE_SITE =
   'https://app.pendle.finance/trade/dashboard/overview/positions?timeframe=allTime';
@@ -39,7 +39,6 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
     hasMatured,
     accountAddress,
     isUserConnected,
-    balanceToken,
     toToken,
     priceUsdData,
     userStakedTokens,
@@ -55,11 +54,11 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
     disableInput,
     disableSubmit,
     isSubmitting,
-    setFormValues,
+    handleAmountChange,
     handleSliderChange,
     handleMaxButtonClick,
     handleActionModeChange,
-  } = usePositionTab({ vault, initialMode, onClose });
+  } = usePositionTabData({ vault, initialMode, onClose });
 
   // --- Derived display values ---
   const formattedMaturityDate = vault.maturityDate
@@ -69,12 +68,23 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
   const readableUserStaked = formatTokensToReadableValue({
     value: userStakedTokens,
     token: vault.stakedToken,
+    maxDecimalPlaces: isStake ? undefined : 8,
   });
 
   const readableAvailable = formatTokensToReadableValue({
     value: availableTokens,
-    token: isStake ? balanceToken : vault.stakedToken,
+    token: formValues.fromToken,
+    maxDecimalPlaces: isStake ? undefined : 8,
   });
+
+  const readableInputUsdValue =
+    priceUsdData?.tokenPriceUsd && formValues.tokenAmount
+      ? `≈ ${formatCentsToReadableValue({
+          value: new BigNumber(formValues.tokenAmount)
+            .times(priceUsdData.tokenPriceUsd)
+            .shiftedBy(2),
+        })}`
+      : PLACEHOLDER_KEY;
 
   const estDiffAmountReadable = (() => {
     if (actionMode === 'redeemAtMaturity') {
@@ -157,19 +167,13 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
 
         <div>
           <TokenTextField
-            token={balanceToken}
+            token={formValues.fromToken}
             value={formValues.tokenAmount}
-            onChange={tokenAmount => setFormValues(curr => ({ ...curr, tokenAmount }))}
+            onChange={handleAmountChange}
             disabled={disableInput}
             topRightAdornment={
               <div className="flex justify-end items-center gap-2 text-b1r text-light-grey">
-                {priceUsdData && formValues.tokenAmount
-                  ? `≈ ${formatCentsToReadableValue({
-                      value: new BigNumber(formValues.tokenAmount)
-                        .times(priceUsdData.tokenPriceUsd)
-                        .shiftedBy(2),
-                    })}`
-                  : PLACEHOLDER_KEY}
+                {readableInputUsdValue}
                 <TertiaryButton
                   size="xs"
                   className="bg-transparent border-dark-blue-hover"
