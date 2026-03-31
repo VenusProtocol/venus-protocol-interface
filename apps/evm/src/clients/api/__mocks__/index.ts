@@ -445,12 +445,28 @@ export const useGetTokenUsdPrice = vi.fn(() =>
   }),
 );
 
-export const getTokenListUsdPrice = vi.fn(async () => [{ tokenPriceUsd: new BigNumber('1') }]);
-export const useGetTokenListUsdPrice = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_TOKEN_USD_PRICE],
-    queryFn: getTokenListUsdPrice,
-  }),
+export const getTokenListUsdPrice = vi.fn(async ({ tokens }: { tokens?: unknown[] } = {}) =>
+  Array.from({ length: tokens?.length || 0 }, () => ({
+    tokenPriceUsd: new BigNumber('1'),
+  })),
+);
+export const useGetTokenListUsdPrice = vi.fn(
+  (
+    { tokens }: { tokens: { address?: string }[] },
+    options?: {
+      enabled?: boolean;
+    },
+  ) =>
+    useQuery({
+      queryKey: [
+        FunctionKey.GET_TOKEN_USD_PRICE,
+        tokens?.map(token => ({
+          tokenAddress: token.address,
+        })),
+      ],
+      queryFn: () => getTokenListUsdPrice({ tokens }),
+      enabled: (options?.enabled === undefined || options.enabled) && Array.isArray(tokens),
+    }),
 );
 
 export const getPrimeEstimation = vi.fn(async () => primeEstimationData);

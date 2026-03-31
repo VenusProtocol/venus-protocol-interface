@@ -1,13 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { useGetTokenListUsdPrice } from 'clients/api';
 import { CellGroup, type CellProps } from 'components';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
 import { useTranslation } from 'libs/translations';
 import { type Vault, VaultManager } from 'types';
-import { convertPriceMantissaToDollars, formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 import { Placeholder } from '../Placeholder';
 
 export interface VaultsProps {
@@ -21,18 +19,6 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   const filteredVaults = vaults.filter(vault => vault.userStakedMantissa?.isGreaterThan(0));
 
   const filteredVaultsLength = filteredVaults.length;
-
-  const { data: tokenPricesData, isLoading } = useGetTokenListUsdPrice(
-    {
-      tokens: [
-        ...filteredVaults.map(vault => vault.stakedToken),
-        ...filteredVaults.map(vault => vault.rewardToken),
-      ],
-    },
-    {
-      enabled: filteredVaultsLength > 0,
-    },
-  );
 
   if (filteredVaultsLength === 0) {
     return (
@@ -58,47 +44,29 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
     );
   }
 
-  const stakedTokenPrices = tokenPricesData?.slice(0, filteredVaultsLength);
-  const rewardTokenPrices = tokenPricesData?.slice(filteredVaultsLength);
+  const { totalStakedCents, dailyEarningsCents } = filteredVaults.reduce(
+    (acc, curr) => {
+      const userDailyEarningsCents =
+        curr.userStakedMantissa && curr.totalStakedMantissa.gt(0) && 'dailyEmissionCents' in curr
+          ? curr.userStakedMantissa.div(curr.totalStakedMantissa).times(curr.dailyEmissionCents)
+          : new BigNumber(0);
 
-  const { totalStakedUsd, dailyEarnUsd } = filteredVaults.reduce(
-    (accu, curr, index) => {
       return {
-        totalStakedUsd: convertPriceMantissaToDollars({
-          priceMantissa: curr.userStakedMantissa
-            ? curr.userStakedMantissa.times(stakedTokenPrices?.[index]?.tokenPriceUsd ?? 0)
-            : new BigNumber(0),
-          decimals: curr.stakedToken.decimals,
-        }).plus(accu.totalStakedUsd),
-        dailyEarnUsd: convertPriceMantissaToDollars({
-          priceMantissa:
-            curr.userStakedMantissa &&
-            curr.totalStakedMantissa.gt(0) &&
-            'dailyEmissionMantissa' in curr
-              ? curr.userStakedMantissa
-                  .div(curr.totalStakedMantissa)
-                  .times(curr.dailyEmissionMantissa)
-                  .times(rewardTokenPrices?.[index]?.tokenPriceUsd ?? 0)
-              : new BigNumber(0),
-          decimals: curr.rewardToken.decimals,
-        }).plus(accu.dailyEarnUsd),
+        totalStakedCents: acc.totalStakedCents.plus(curr.userStakedCents ?? 0),
+        dailyEarningsCents: acc.dailyEarningsCents.plus(userDailyEarningsCents),
       };
     },
-    { totalStakedUsd: new BigNumber(0), dailyEarnUsd: new BigNumber(0) },
+    { totalStakedCents: new BigNumber(0), dailyEarningsCents: new BigNumber(0) },
   );
 
   const overviewCells: CellProps[] = [
     {
       label: t('dashboard.vaults.totalStakedValue'),
-      value: isLoading
-        ? PLACEHOLDER_KEY
-        : formatCentsToReadableValue({ value: totalStakedUsd.shiftedBy(2) }),
+      value: formatCentsToReadableValue({ value: totalStakedCents }),
     },
     {
       label: t('dashboard.vaults.dailyEarnings'),
-      value: isLoading
-        ? PLACEHOLDER_KEY
-        : formatCentsToReadableValue({ value: dailyEarnUsd.shiftedBy(2) }),
+      value: formatCentsToReadableValue({ value: dailyEarningsCents }),
       tooltip: t('dashboard.vaults.dailyEarningsTooltip'),
     },
   ];

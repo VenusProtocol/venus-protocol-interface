@@ -24,7 +24,6 @@ import {
 } from 'utilities';
 import { PendleModal } from '../VaultModals';
 import TEST_IDS from '../testIds';
-import { useVaultUsdValues } from '../useVaultUsdValues';
 import { TokenIconWithPeriod } from './TokenIconWithPeriod';
 
 export interface VaultProps {
@@ -56,16 +55,13 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     addSymbol: false,
   });
 
-  const {
-    data: { stakedTokenPriceCents, dailyEmissionUsdCents, totalStakedUsdCents },
-  } = useVaultUsdValues(vault);
-
   const dailyEmissionMantissa =
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
+  const dailyEmissionCents = 'dailyEmissionCents' in vault ? vault.dailyEmissionCents : undefined;
 
   const liquidityCents = 'liquidityCents' in vault ? vault.liquidityCents : undefined;
-  const liquidityToken = stakedTokenPriceCents
-    ? liquidityCents?.div(stakedTokenPriceCents)
+  const liquidityToken = liquidityCents
+    ? liquidityCents?.div(vault.stakedTokenPriceCents)
     : undefined;
 
   const hasMatured =
@@ -182,7 +178,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                   </div>
                   <div className="text-light-grey">
                     {formatCentsToReadableValue({
-                      value: dailyEmissionUsdCents,
+                      value: dailyEmissionCents,
                     })}
                   </div>
                 </div>
@@ -200,11 +196,9 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                   })}
                 </div>
                 <div className="text-light-grey">
-                  {totalStakedUsdCents
-                    ? formatCentsToReadableValue({
-                        value: totalStakedUsdCents,
-                      })
-                    : PLACEHOLDER_KEY}
+                  {formatCentsToReadableValue({
+                    value: vault.totalStakedCents,
+                  })}
                 </div>
               </div>
             </LabeledInlineContent>

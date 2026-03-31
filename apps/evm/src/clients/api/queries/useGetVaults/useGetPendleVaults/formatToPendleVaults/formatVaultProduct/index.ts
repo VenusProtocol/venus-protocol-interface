@@ -78,6 +78,8 @@ export const formatVaultProduct = ({
       value: asset.supplyBalanceTokens,
       token: stakedToken,
     }),
+    totalStakedCents: asset.supplyBalanceCents.toNumber(),
+    userStakedCents: asset.userSupplyBalanceCents.toNumber(),
     stakedTokenPriceCents: new BigNumber(vaultData.protocolData.ptTokenPriceUsd).shiftedBy(2),
     rewardTokenPriceCents: new BigNumber(
       vaultData.protocolData?.accountingAsset?.priceUsd,
