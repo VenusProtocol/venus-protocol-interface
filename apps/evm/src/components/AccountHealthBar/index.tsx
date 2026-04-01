@@ -145,15 +145,19 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       <LabeledProgressBar
         greyLeftText={t('accountHealth.borrowed')}
         whiteLeftText={readableBorrowBalance}
-        greyRightText={t(isSmDown ? 'accountHealth.liquidationThresholdShort' : 'accountHealth.liquidationThreshold')}
+        greyRightText={t(
+          isSmDown
+            ? 'accountHealth.liquidationThresholdShort'
+            : 'accountHealth.liquidationThreshold',
+        )}
         whiteRightText={readableLiquidationThreshold}
         rightInfoTooltip={
           <Trans
             i18nKey="accountHealth.liquidationThresholdTooltip"
             components={{
               LineBreak: <br />,
-              // biome-ignore lint/a11y/useAnchorContent: content is injected by Trans component
               Link: (
+                // biome-ignore lint/a11y/useAnchorContent: content is injected by Trans component
                 <a
                   href="https://docs-v4.venus.io/guides/liquidation"
                   target="_blank"
