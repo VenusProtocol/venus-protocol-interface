@@ -170,9 +170,9 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
         }
         value={sanitizedFillPercentage}
         marks={[
-          { value: 80, color: theme.colors.red },
+          { value: 80 },
           ...(markPercentage !== undefined
-            ? [{ value: Math.min(markPercentage, 99), color: theme.colors.yellow }]
+            ? [{ value: Math.min(markPercentage, 99), color: theme.colors.white }]
             : []),
         ]}
         step={1}
