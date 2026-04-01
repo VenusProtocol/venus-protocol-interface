@@ -152,7 +152,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
               LineBreak: <br />,
               Link: (
                 <a
-                  href=""
+                  href="https://docs-v4.venus.io/guides/liquidation"
                   target="_blank"
                   rel="noreferrer"
                   style={{ color: theme.colors.blue, textDecoration: 'underline' }}
