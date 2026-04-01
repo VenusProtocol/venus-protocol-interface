@@ -137,8 +137,9 @@
     "borrowed": "ยอดยืม:",
     "borrowLimitUsed": "ใช้ขีดจำกัดการยืมแล้ว:",
     "limit": "ขีดจำกัด:",
-    "liquidationThreshold": "เกณฑ์การชำระบัญชี:",
-    "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืมที่ปลอดภัย:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% ของขีดจำกัดการยืมของคุณ)"
+    "liquidationThreshold": "เกณฑ์การชำระบัญชี：",
+    "liquidationThresholdTooltip": "LT = เกณฑ์การชำระบัญชี<LineBreak/>เมื่อยอดยืมของคุณถึงค่านี้ ตำแหน่งของคุณจะมีสิทธิ์ถูกชำระบัญชี<LineBreak/><LineBreak/>เรียนรู้เพิ่มเติมเกี่ยวกับ<Link>การคำนวณ</Link>",
+    "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืม:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "เริ่มตอนนี้"

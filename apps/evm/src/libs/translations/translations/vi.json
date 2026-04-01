@@ -138,7 +138,8 @@
     "borrowLimitUsed": "Mức sử dụng hạn mức vay:",
     "limit": "Hạn mức:",
     "liquidationThreshold": "Ngưỡng thanh lý:",
-    "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay an toàn:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% của hạn mức vay của bạn)"
+    "liquidationThresholdTooltip": "LT = Ngưỡng thanh lý<LineBreak/>Khi số dư vay của bạn đạt đến giá trị này, vị thế của bạn sẽ đủ điều kiện bị thanh lý.<LineBreak/><LineBreak/>Tìm hiểu thêm về <Link>cách tính.</Link>",
+    "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Bắt đầu ngay"
