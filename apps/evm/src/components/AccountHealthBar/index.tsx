@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import { useIsSmDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import {
   calculatePercentage,
@@ -33,6 +34,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   liquidationThresholdCents,
 }) => {
   const { t, Trans } = useTranslation();
+  const isSmDown = useIsSmDown();
 
   const borrowLimitUsedPercentage = useMemo(
     () =>
@@ -143,7 +145,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       <LabeledProgressBar
         greyLeftText={t('accountHealth.borrowed')}
         whiteLeftText={readableBorrowBalance}
-        greyRightText={t('accountHealth.liquidationThreshold')}
+        greyRightText={t(isSmDown ? 'accountHealth.liquidationThresholdShort' : 'accountHealth.liquidationThreshold')}
         whiteRightText={readableLiquidationThreshold}
         rightInfoTooltip={
           <Trans
