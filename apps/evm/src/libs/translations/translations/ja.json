@@ -135,8 +135,6 @@
   "accountHealth": {
     "accessibilityLabel": "現在のアカウント状態の表示",
     "borrowed": "借入額:",
-    "borrowLimitUsed": "借入限度の使用率:",
-    "limit": "上限:",
     "liquidationThreshold": "清算閾値：",
     "liquidationThresholdShort": "LT.",
     "liquidationThresholdTooltip": "LT = 清算閾値<LineBreak/>借入残高がこの値に達すると、ポジションが清算対象になります。<LineBreak/><LineBreak/><Link>計算方法</Link>の詳細はこちら。",

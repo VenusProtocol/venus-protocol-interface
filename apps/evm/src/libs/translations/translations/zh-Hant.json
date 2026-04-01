@@ -135,8 +135,6 @@
   "accountHealth": {
     "accessibilityLabel": "當前賬戶狀態的表示",
     "borrowed": "已借：",
-    "borrowLimitUsed": "已用借款限額：",
-    "limit": "限額：",
     "liquidationThreshold": "清算閾值：",
     "liquidationThresholdShort": "LT.",
     "liquidationThresholdTooltip": "LT = 清算閾值<LineBreak/>當您的借款餘額達到此值時，您的倉位將有資格被清算。<LineBreak/><LineBreak/>了解更多關於<Link>計算方式。</Link>",

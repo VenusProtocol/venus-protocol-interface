@@ -145,11 +145,11 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       <LabeledProgressBar
         greyLeftText={t('accountHealth.borrowed')}
         whiteLeftText={readableBorrowBalance}
-        greyRightText={t(
+        greyRightText={
           isSmDown
-            ? 'accountHealth.liquidationThresholdShort'
-            : 'accountHealth.liquidationThreshold',
-        )}
+            ? t('accountHealth.liquidationThresholdShort')
+            : t('accountHealth.liquidationThreshold')
+        }
         whiteRightText={readableLiquidationThreshold}
         rightInfoTooltip={
           <Trans

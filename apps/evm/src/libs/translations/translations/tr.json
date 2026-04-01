@@ -135,8 +135,6 @@
   "accountHealth": {
     "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
     "borrowed": "Borç alınan:",
-    "borrowLimitUsed": "Kullanılan borç limiti:",
-    "limit": "Limit:",
     "liquidationThreshold": "Tasfiye Eşiği:",
     "liquidationThresholdShort": "LT.",
     "liquidationThresholdTooltip": "LT = Tasfiye Eşiği<LineBreak/>Borç bakiyeniz bu değere ulaştığında, pozisyonunuz tasfiye edilmeye uygun hale gelir.<LineBreak/><LineBreak/><Link>Hesaplama</Link> hakkında daha fazla bilgi edinin.",

@@ -135,8 +135,6 @@
   "accountHealth": {
     "accessibilityLabel": "Biểu diễn trạng thái hiện tại của tài khoản của bạn",
     "borrowed": "Đã vay:",
-    "borrowLimitUsed": "Mức sử dụng hạn mức vay:",
-    "limit": "Hạn mức:",
     "liquidationThreshold": "Ngưỡng thanh lý:",
     "liquidationThresholdShort": "LT.",
     "liquidationThresholdTooltip": "LT = Ngưỡng thanh lý<LineBreak/>Khi số dư vay của bạn đạt đến giá trị này, vị thế của bạn sẽ đủ điều kiện bị thanh lý.<LineBreak/><LineBreak/>Tìm hiểu thêm về <Link>cách tính.</Link>",
