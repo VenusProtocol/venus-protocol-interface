@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 4.22.1
+
+### Patch Changes
+
+- a0e18e6: update the PoolLens contract address on Ethereum
+- Updated dependencies [a0e18e6]
+  - @venusprotocol/chains@0.24.1
+
 ## 4.22.0
 
 ### Minor Changes
