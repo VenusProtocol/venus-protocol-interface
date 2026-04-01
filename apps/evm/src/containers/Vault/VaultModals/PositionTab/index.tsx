@@ -40,7 +40,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
     accountAddress,
     isUserConnected,
     toToken,
-    priceUsdData,
+    fromTokenPriceCents,
     userStakedTokens,
     availableTokens,
     getSwapQuoteData,
@@ -78,10 +78,11 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
   });
 
   let readableInputUsdValue = PLACEHOLDER_KEY;
+  const tokenAmountBN = new BigNumber(formValues.tokenAmount);
 
-  if (priceUsdData?.tokenPriceUsd && formValues.tokenAmount) {
+  if (fromTokenPriceCents && !tokenAmountBN.isNaN()) {
     readableInputUsdValue = `≈ ${formatCentsToReadableValue({
-      value: new BigNumber(formValues.tokenAmount).times(priceUsdData.tokenPriceUsd).shiftedBy(2),
+      value: tokenAmountBN.times(fromTokenPriceCents),
     })}`;
   }
 
@@ -230,7 +231,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
           label={t('vault.modals.currentStaked')}
           tooltip={t('vault.modals.currentStakedTooltip')}
         >
-          <span className="text-b1s text-white">{readableUserStaked}</span>
+          {readableUserStaked}
         </LabeledInlineContent>
 
         {vault.manager === VaultManager.Pendle && actionMode !== 'redeemAtMaturity' && (
@@ -256,7 +257,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
         <LabeledInlineContent
           label={isStake ? t('vault.modals.estYield') : t('vault.modals.estPenalty')}
         >
-          <span className="text-b1s text-white">{estDiffAmountReadable}</span>
+          {estDiffAmountReadable}
         </LabeledInlineContent>
 
         <LabeledInlineContent
@@ -267,7 +268,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
               : undefined
           }
         >
-          <span className="text-b1s text-white">{formattedMaturityDate}</span>
+          {formattedMaturityDate}
         </LabeledInlineContent>
 
         <ConnectWallet

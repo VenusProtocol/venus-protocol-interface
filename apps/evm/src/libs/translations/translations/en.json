@@ -247,10 +247,6 @@
     "yieldToMaturityApyTooltip": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol."
   },
   "apyChart": {
-    "date": {
-      "full": "{{ date, numeric }}",
-      "short": "{{ date, numericWithTime }}"
-    },
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
       "date": "Date",
@@ -1912,8 +1908,8 @@
       "highestApr": "Highest APR",
       "title": "Vaults",
       "tokenTotalDeposited": "{{token}} total deposited",
-      "totalVault": "Vaults",
-      "tvl": "TVL"
+      "tvl": "TVL",
+      "vaultCount": "Vaults"
     },
     "transactionForm": {
       "lockingPeriod": {

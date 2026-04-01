@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   useGetBalanceOf,
   useGetPendleSwapQuote,
-  useGetTokenUsdPrice,
   useGetVTokenBalance,
   useStakeInPendleVault,
   useWithdraw,
@@ -76,7 +75,8 @@ export const usePositionTabData = ({
   const toToken = isStake ? vault.stakedToken : vault.rewardToken;
 
   // --- Balances ---
-  const { data: priceUsdData } = useGetTokenUsdPrice({ token: formValues.fromToken });
+
+  const fromTokenPriceCents = isStake ? vault.rewardTokenPriceCents : vault.stakedTokenPriceCents;
 
   const { data: balanceData, isLoading: isBalanceLoading } = useGetBalanceOf(
     {
@@ -302,12 +302,12 @@ export const usePositionTabData = ({
 
   const handleAmountChange = (tokenAmount: string) => {
     const tokenAmountBN = new BigNumber(tokenAmount);
-
     setFormValues(current => ({
       ...current,
-      tokenAmount: tokenAmountBN.isNaN()
-        ? tokenAmount
-        : tokenAmountBN.dp(availableTokenDecimals).toFixed(),
+      tokenAmount:
+        !tokenAmountBN.isNaN() && !tokenAmountBN.shiftedBy(availableTokenDecimals).isInteger()
+          ? tokenAmountBN.toFixed(availableTokenDecimals, 1)
+          : tokenAmount,
     }));
   };
 
@@ -344,7 +344,7 @@ export const usePositionTabData = ({
 
     // Tokens
     toToken,
-    priceUsdData,
+    fromTokenPriceCents,
     userStakedTokens,
     availableTokens,
 

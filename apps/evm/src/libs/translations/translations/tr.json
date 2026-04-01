@@ -247,10 +247,6 @@
     "yieldToMaturityApyTooltip": "Bu getiri, dayanak varlık kullanılarak PT tokenlarının indirimli fiyatla satın alınıp vade sonuna kadar elde tutulmasından kaynaklanan yıllıklandırılmış getiriyi ifade eder. Venus Protokolü bu getiriyi garanti etmez ve sorumluluk kabul etmez."
   },
   "apyChart": {
-    "date": {
-      "full": "{{ date, numeric }}",
-      "short": "{{ date, numericWithTime }}"
-    },
     "tooltipItemLabels": {
       "borrowApy": "Borç APY",
       "date": "Tarih",
@@ -1912,8 +1908,8 @@
       "highestApr": "En yüksek APR",
       "title": "Kasalar",
       "tokenTotalDeposited": "Toplam yatırılan {{token}}",
-      "totalVault": "Kasalar",
-      "tvl": "TVL"
+      "tvl": "TVL",
+      "vaultCount": "Kasalar"
     },
     "transactionForm": {
       "lockingPeriod": {

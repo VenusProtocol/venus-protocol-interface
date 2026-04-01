@@ -53,11 +53,12 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
 
   return (
     <div className={cn('border border-lightGrey rounded-xl p-4 space-y-3', className)}>
-      <LabeledInlineContent label={t('vault.modals.convert')}>
+      <LabeledInlineContent
+        label={<div className="text-white">{t('vault.modals.convert')}</div>}
+        className="text-b1s"
+      >
         {fromToken.symbol} → {toToken.symbol}
       </LabeledInlineContent>
-
-      <LabeledInlineContent label={t('vault.modals.pendleFee')}>{readableFee}</LabeledInlineContent>
 
       <LabeledInlineContent label={t('vault.modals.pendleFee')}>{readableFee}</LabeledInlineContent>
 

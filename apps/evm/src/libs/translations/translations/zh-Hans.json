@@ -247,10 +247,6 @@
     "yieldToMaturityApyTooltip": "该收益表示使用标的资产折价购买 PT 代币并持有至到期的年化回报。Venus 协议不作任何保证且不承担责任。"
   },
   "apyChart": {
-    "date": {
-      "full": "{{ date, numeric }}",
-      "short": "{{ date, numericWithTime }}"
-    },
     "tooltipItemLabels": {
       "borrowApy": "借款 APY",
       "date": "日期",
@@ -1911,8 +1907,8 @@
       "highestApr": "最高 APR",
       "title": "金库",
       "tokenTotalDeposited": "{{token}} 总存入量",
-      "totalVault": "金库",
-      "tvl": "TVL"
+      "tvl": "TVL",
+      "vaultCount": "金库"
     },
     "transactionForm": {
       "lockingPeriod": {

@@ -247,10 +247,6 @@
     "yieldToMaturityApyTooltip": "ผลตอบแทนนี้หมายถึงผลตอบแทนแบบต่อปีจากการซื้อโทเคน PT ด้วยส่วนลดโดยใช้สินทรัพย์อ้างอิงและถือไว้จนถึงวันครบกำหนด ผลตอบแทนนี้ไม่รับประกันโดย Venus Protocol."
   },
   "apyChart": {
-    "date": {
-      "full": "{{ date, numeric }}",
-      "short": "{{ date, numericWithTime }}"
-    },
     "tooltipItemLabels": {
       "borrowApy": "APY การยืม",
       "date": "วันที่",
@@ -1911,8 +1907,8 @@
       "highestApr": "APR สูงสุด",
       "title": "คลัง",
       "tokenTotalDeposited": "{{token}} ยอดฝากรวม",
-      "totalVault": "คลัง",
-      "tvl": "TVL"
+      "tvl": "TVL",
+      "vaultCount": "คลัง"
     },
     "transactionForm": {
       "lockingPeriod": {
