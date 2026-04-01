@@ -61,7 +61,7 @@ const poolConfigs: PoolConfig[] = [
   {
     configs: [
       {
-        poolLensContractAddress: isolatedPoolsEthereumDeployments.addresses.PoolLens as Address,
+        poolLensContractAddress: '0x3716C24EA86A67cAf890d7C9e4C4505cDDC2F8A2', // TODO: get from package
         poolRegistryContractAddress: isolatedPoolsEthereumDeployments.addresses
           .PoolRegistry_Proxy as Address,
       },

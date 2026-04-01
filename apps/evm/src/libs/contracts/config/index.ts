@@ -174,7 +174,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens as Address,
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens as Address,
-      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolLens as Address,
+      [ChainId.ETHEREUM]: '0x3716C24EA86A67cAf890d7C9e4C4505cDDC2F8A2', // TODO: get from package
       [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses.PoolLens as Address,
       [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolLens as Address,
       [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens as Address,
