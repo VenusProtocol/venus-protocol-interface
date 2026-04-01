@@ -15,8 +15,6 @@ export const useStyles = () => {
       display: flex;
 
       ${theme.breakpoints.down('md')} {
-        flex-direction: column;
-
         :last-of-type {
           text-align: right;
         }
