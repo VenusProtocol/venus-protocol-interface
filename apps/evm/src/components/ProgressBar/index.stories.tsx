@@ -8,7 +8,7 @@ export default {
 } as Meta<typeof ProgressBar>;
 
 export const ValidProgressBar = () => (
-  <ProgressBar value={50} step={5} mark={75} ariaLabel="Storybook slider" min={0} max={100} />
+  <ProgressBar value={50} step={5} marks={[{ value: 75 }]} ariaLabel="Storybook slider" min={0} max={100} />
 );
 
 export const ProgressBarWithCustomProgressColor = () => (
@@ -16,7 +16,7 @@ export const ProgressBarWithCustomProgressColor = () => (
     progressBarColor="yellow"
     value={50}
     step={5}
-    mark={75}
+    marks={[{ value: 75 }]}
     ariaLabel="Storybook slider"
     min={0}
     max={100}
@@ -27,7 +27,7 @@ export const ValidProgressBarWithTooltip = () => (
   <ProgressBar
     value={50}
     step={5}
-    mark={75}
+    marks={[{ value: 75 }]}
     ariaLabel="Storybook slider"
     min={0}
     max={100}
@@ -36,5 +36,5 @@ export const ValidProgressBarWithTooltip = () => (
 );
 
 export const InvalidProgressBar = () => (
-  <ProgressBar value={90} step={10} mark={75} ariaLabel="Storybook slider" min={0} max={100} />
+  <ProgressBar value={90} step={10} marks={[{ value: 75 }]} ariaLabel="Storybook slider" min={0} max={100} />
 );

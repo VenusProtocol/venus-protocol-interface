@@ -75,17 +75,6 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     [borrowLimitUsedPercentage, fillPercentage],
   );
 
-  const readableModerateBorrowLimit = useMemo(() => {
-    const moderateBorrowLimitCents =
-      typeof borrowLimitCents === 'number'
-        ? Math.floor((borrowLimitCents * moderateBorrowLimitPercentage) / 100)
-        : undefined;
-
-    return formatCentsToReadableValue({
-      value: moderateBorrowLimitCents,
-    });
-  }, [borrowLimitCents]);
-
   const readableBorrowLimit = useMemo(
     () =>
       formatCentsToReadableValue({
@@ -114,7 +103,6 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     () =>
       readableBorrowBalance !== PLACEHOLDER_KEY &&
       readableBorrowLimitUsedPercentage !== PLACEHOLDER_KEY &&
-      readableModerateBorrowLimit !== PLACEHOLDER_KEY &&
       borrowBalanceCents &&
       borrowBalanceCents > 0 ? (
         <Trans
@@ -125,16 +113,15 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
           values={{
             borrowBalance: readableBorrowBalance,
             borrowLimitUsedPercentage: readableBorrowLimitUsedPercentage,
-            safeBorrowLimit: readableModerateBorrowLimit,
             borrowLimit: readableBorrowLimit,
           }}
         />
       ) : undefined,
     [
-      readableModerateBorrowLimit,
       borrowBalanceCents,
       readableBorrowBalance,
       readableBorrowLimitUsedPercentage,
+      readableBorrowLimit,
       Trans,
     ],
   );
@@ -158,8 +145,27 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
         whiteLeftText={readableBorrowBalance}
         greyRightText={t('accountHealth.liquidationThreshold')}
         whiteRightText={readableLiquidationThreshold}
+        rightInfoTooltip={
+          <Trans
+            i18nKey="accountHealth.liquidationThresholdTooltip"
+            components={{
+              LineBreak: <br />,
+              Link: (
+                <a
+                  href=""
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: theme.colors.blue, textDecoration: 'underline' }}
+                />
+              ),
+            }}
+          />
+        }
         value={sanitizedFillPercentage}
-        mark={markPercentage ?? 0}
+        marks={[
+          { value: 80, color: theme.colors.red },
+          { value: markPercentage ?? 0, color: theme.colors.yellow },
+        ]}
         step={1}
         ariaLabel={t('accountHealth.accessibilityLabel')}
         min={0}

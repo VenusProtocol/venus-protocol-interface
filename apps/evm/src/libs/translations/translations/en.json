@@ -137,8 +137,9 @@
     "borrowed": "Borrowed:",
     "borrowLimitUsed": "Borrow limit used:",
     "limit": "Limit:",
-    "liquidationThreshold": "Liquidation Threshold:",
-    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}}<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
+    "liquidationThreshold": "LT.",
+    "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
+    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Start now"
