@@ -6,7 +6,7 @@ export const formatOutput = (input: PendleSwapApiResponse) => {
 
   return {
     estimatedReceivedTokensMantissa: new BigNumber(input.estimatedOutput.amount),
-    feeCents: new BigNumber(input.fee.usd).shiftedBy(2).integerValue(),
+    feeCents: new BigNumber(input.fee.usd).shiftedBy(2),
     priceImpactPercentage: input.priceImpact,
     pendleMarketAddress: input.pendleMarket,
     contractCallParamsName,

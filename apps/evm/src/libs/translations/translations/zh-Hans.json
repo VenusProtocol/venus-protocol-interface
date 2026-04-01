@@ -247,6 +247,10 @@
     "yieldToMaturityApyTooltip": "该收益表示使用标的资产折价购买 PT 代币并持有至到期的年化回报。Venus 协议不作任何保证且不承担责任。"
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "借款 APY",
       "date": "日期",

@@ -11,6 +11,10 @@ export const formatToReadableDate = ({
   selectedPeriod,
   t,
 }: FormatToReadableDateInput) =>
-  t(selectedPeriod === 'year' ? 'apyChart.date.short' : 'apyChart.date.full', {
-    date: new Date(timestampMs),
-  });
+  selectedPeriod === 'year'
+    ? t('apyChart.date.short', {
+        date: new Date(timestampMs),
+      })
+    : t('apyChart.date.full', {
+        date: new Date(timestampMs),
+      });

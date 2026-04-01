@@ -52,7 +52,6 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
     token: vault.stakedToken,
     value: vault.userStakedMantissa || new BigNumber(0),
-    addSymbol: false,
   });
 
   const dailyEmissionMantissa =
@@ -247,9 +246,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           <span className="text-b1s">{footerLabel}</span>
 
           <div className={cn('flex items-center gap-x-3 text-b1s')}>
-            <span>
-              {readableUserStakedTokens} {vault.stakedToken.symbol}
-            </span>
+            <span>{readableUserStakedTokens}</span>
           </div>
         </div>
       </Card>

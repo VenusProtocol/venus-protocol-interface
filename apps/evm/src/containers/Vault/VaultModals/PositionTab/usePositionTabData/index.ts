@@ -91,7 +91,7 @@ export const usePositionTabData = ({
       accountAddress: accountAddress || NULL_ADDRESS,
       vTokenAddress: vault.asset.vToken.address,
     },
-    { enabled: !!accountAddress && !isStake },
+    { enabled: !!accountAddress },
   );
 
   const userStakedTokens = convertMantissaToTokens({
@@ -240,12 +240,13 @@ export const usePositionTabData = ({
         vToken: vault.asset.vToken,
         withdrawFullSupply: withdrawFull,
         unwrap: formValues.fromToken.isNative,
-        amountMantissa: getVTokenBalanceData?.balanceMantissa
-          ? getVTokenBalanceData.balanceMantissa
-          : convertTokensToMantissa({
-              value: new BigNumber(formValues.tokenAmount),
-              token: formValues.fromToken,
-            }),
+        amountMantissa:
+          withdrawFull && getVTokenBalanceData?.balanceMantissa
+            ? getVTokenBalanceData.balanceMantissa
+            : convertTokensToMantissa({
+                value: new BigNumber(formValues.tokenAmount),
+                token: vault.stakedToken,
+              }),
       });
     } else if (getSwapQuoteData) {
       const amountMantissa =

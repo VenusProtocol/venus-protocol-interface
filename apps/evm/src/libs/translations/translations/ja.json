@@ -247,6 +247,10 @@
     "yieldToMaturityApyTooltip": "基礎資産を用いて割引価格でPTトークンを購入し、満期まで保有した場合の年率換算リターンを表します。Venusプロトコルはこれを保証せず、責任を負いません。"
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "借入APY",
       "date": "日付",

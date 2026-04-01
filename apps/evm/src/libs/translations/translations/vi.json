@@ -247,6 +247,10 @@
     "yieldToMaturityApyTooltip": "Lợi suất này đại diện cho lợi nhuận thường niên hóa từ việc mua token PT với giá chiết khấu bằng tài sản cơ sở và nắm giữ đến khi đáo hạn. Venus protocol không đảm bảo và không chịu trách nhiệm."
   },
   "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
     "tooltipItemLabels": {
       "borrowApy": "APY vay",
       "date": "Ngày",
