@@ -167,7 +167,9 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
         value={sanitizedFillPercentage}
         marks={[
           { value: 80, color: theme.colors.red },
-          { value: markPercentage ?? 0, color: theme.colors.yellow },
+          ...(markPercentage !== undefined
+            ? [{ value: markPercentage, color: theme.colors.yellow }]
+            : []),
         ]}
         step={1}
         ariaLabel={t('accountHealth.accessibilityLabel')}

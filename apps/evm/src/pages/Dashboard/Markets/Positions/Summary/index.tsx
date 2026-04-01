@@ -101,7 +101,7 @@ export const Summary: React.FC<SummaryProps> = ({
         <AccountHealthBar
           borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber() ?? 0}
           borrowLimitCents={pool.userBorrowLimitCents?.toNumber() ?? 0}
-          liquidationThresholdCents={pool.userLiquidationThresholdCents?.toNumber() ?? 0}
+          liquidationThresholdCents={pool.userLiquidationThresholdCents?.toNumber()}
         />
       ),
       className: cellClassName,
