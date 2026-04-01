@@ -152,6 +152,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
             i18nKey="accountHealth.liquidationThresholdTooltip"
             components={{
               LineBreak: <br />,
+              // biome-ignore lint/a11y/useAnchorContent: content is injected by Trans component
               Link: (
                 <a
                   href="https://docs-v4.venus.io/guides/liquidation"
