@@ -1185,11 +1185,6 @@
     "tokensLeft_other": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} 后可领取 Prime 奖励"
   },
-  "probableBanner": {
-    "description": "在 probable.markets 上赋能你的信念",
-    "probableAltText": "Probable 插图",
-    "title": "心想事成？"
-  },
   "proposalList": {
     "selectOptions": {
       "all": {

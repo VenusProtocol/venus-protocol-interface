@@ -1185,11 +1185,6 @@
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
   },
-  "probableBanner": {
-    "description": "Give your conviction a boost on probable.markets",
-    "probableAltText": "Probable illustration",
-    "title": "Believe in something?"
-  },
   "proposalList": {
     "selectOptions": {
       "all": {

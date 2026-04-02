@@ -1185,11 +1185,6 @@
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "waitForPrimeTitle": "Prime報酬を請求できるまで{{claimWaitingPeriod}}"
   },
-  "probableBanner": {
-    "description": "probable.marketsで信念をブーストしよう",
-    "probableAltText": "Probableのイラスト",
-    "title": "何かを信じますか？"
-  },
   "proposalList": {
     "selectOptions": {
       "all": {
