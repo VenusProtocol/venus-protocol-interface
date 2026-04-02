@@ -1,18 +1,18 @@
 import { useNow } from 'hooks/useNow';
 import { useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import type { PendleVault } from 'types';
+import type { Vault } from 'types';
 
 import { useGetFixedRatedVaults } from 'clients/api';
 import { useGetPools } from '../../useGetPools';
-import { formatToPendleVaults } from './formatToPendleVaults';
+import { formatVaults } from './formatVaults';
 
 export interface UseGetPendleVaultsOutput {
   isLoading: boolean;
-  data: PendleVault[] | undefined;
+  data: Vault[] | undefined;
 }
 
-export const useGetPendleVaults = (): UseGetPendleVaultsOutput => {
+export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
   const { accountAddress } = useAccountAddress();
   const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetFixedRatedVaults();
   const { data: poolsData, isLoading: isPoolsLoading } = useGetPools({ accountAddress });
@@ -25,7 +25,7 @@ export const useGetPendleVaults = (): UseGetPendleVaultsOutput => {
 
   const data =
     vaultProducts && poolsData?.pools
-      ? formatToPendleVaults({
+      ? formatVaults({
           vaultProducts,
           pools: poolsData.pools,
           tokens,

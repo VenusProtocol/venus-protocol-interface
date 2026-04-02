@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`useGetPendleVaults > fetches and returns pendle vaults correctly 1`] = `
+exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle vaults correctly 1`] = `
 [
   {
     "asset": {

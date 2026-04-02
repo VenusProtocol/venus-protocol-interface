@@ -14,7 +14,7 @@ import { VaultStatus } from 'types';
 
 import { useGetFixedRatedVaults } from 'clients/api';
 import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults/types';
-import { type UseGetPendleVaultsOutput, useGetPendleVaults } from '../index';
+import { type UseGetPendleVaultsOutput, useGetFormattedFixedRatedVaults } from '../index';
 
 vi.mock('clients/api/queries/getFixedRatedVaults/useGetFixedRatedVaults');
 vi.mock('clients/api/queries/useGetPools');
@@ -149,7 +149,7 @@ const fakePoolsData = {
   ],
 };
 
-describe('useGetPendleVaults', () => {
+describe('useGetFormattedFixedRatedVaults', () => {
   beforeEach(() => {
     (useGetTokens as Mock).mockReturnValue([ptClisbnb, bnbToken]);
 
@@ -169,7 +169,7 @@ describe('useGetPendleVaults', () => {
     let isLoading = false;
 
     const Wrapper = () => {
-      ({ data, isLoading } = useGetPendleVaults());
+      ({ data, isLoading } = useGetFormattedFixedRatedVaults());
       return <div />;
     };
 
@@ -191,7 +191,7 @@ describe('useGetPendleVaults', () => {
     let isLoading = false;
 
     const Wrapper = () => {
-      ({ data, isLoading } = useGetPendleVaults());
+      ({ data, isLoading } = useGetFormattedFixedRatedVaults());
       return <div />;
     };
 
@@ -213,7 +213,7 @@ describe('useGetPendleVaults', () => {
     let isLoading = false;
 
     const Wrapper = () => {
-      ({ data, isLoading } = useGetPendleVaults());
+      ({ data, isLoading } = useGetFormattedFixedRatedVaults());
       return <div />;
     };
 
@@ -240,7 +240,7 @@ describe('useGetPendleVaults', () => {
     let isLoading = false;
 
     const Wrapper = () => {
-      ({ data, isLoading } = useGetPendleVaults());
+      ({ data, isLoading } = useGetFormattedFixedRatedVaults());
       return <div />;
     };
 
@@ -266,7 +266,7 @@ describe('useGetPendleVaults', () => {
     let data: UseGetPendleVaultsOutput['data'] | undefined;
 
     const Wrapper = () => {
-      ({ data } = useGetPendleVaults());
+      ({ data } = useGetFormattedFixedRatedVaults());
       return <div />;
     };
 
@@ -283,7 +283,7 @@ describe('useGetPendleVaults', () => {
     let data: UseGetPendleVaultsOutput['data'] | undefined;
 
     const Wrapper = () => {
-      ({ data } = useGetPendleVaults());
+      ({ data } = useGetFormattedFixedRatedVaults());
       return <div />;
     };
 

@@ -18,7 +18,7 @@ export interface BaseInput {
   nowMs: number;
 }
 
-export const formatVaultProduct = ({
+export const formatToPendleVault = ({
   vaultData,
   pools,
   tokens,
