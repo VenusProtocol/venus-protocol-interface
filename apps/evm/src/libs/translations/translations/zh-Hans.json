@@ -760,8 +760,8 @@
           "label": "迁移"
         },
         "stats": {
-          "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "description": "实时风险参数",
+          "label": "统计"
         },
         "swap": {
           "label": "兑换"

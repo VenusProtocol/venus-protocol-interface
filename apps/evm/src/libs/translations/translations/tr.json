@@ -760,8 +760,8 @@
           "label": "Port"
         },
         "stats": {
-          "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "description": "Gerçek zamanlı risk parametreleri",
+          "label": "İstatistikler"
         },
         "swap": {
           "label": "Takas"

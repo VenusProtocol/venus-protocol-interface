@@ -760,8 +760,8 @@
           "label": "ポート"
         },
         "stats": {
-          "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "description": "リアルタイムリスクパラメータ",
+          "label": "統計"
         },
         "swap": {
           "label": "スワップ"

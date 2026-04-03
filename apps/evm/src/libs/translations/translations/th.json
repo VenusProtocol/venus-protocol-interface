@@ -760,8 +760,8 @@
           "label": "พอร์ต"
         },
         "stats": {
-          "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "description": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์",
+          "label": "สถิติ"
         },
         "swap": {
           "label": "สวอป"

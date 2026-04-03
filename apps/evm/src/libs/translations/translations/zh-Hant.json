@@ -760,8 +760,8 @@
           "label": "端口"
         },
         "stats": {
-          "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "description": "即時風險參數",
+          "label": "統計"
         },
         "swap": {
           "label": "兌換"
