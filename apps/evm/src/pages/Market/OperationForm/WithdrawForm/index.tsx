@@ -140,9 +140,12 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     // affecting their borrow limit, if there's enough liquidity
     const availableTokens = BigNumber.minimum(asset.userSupplyBalanceTokens, assetLiquidityTokens);
 
+    const canAssetIncreaseBorrowLimit =
+      asset.userCollateralFactor === 0 && asset.userLiquidationThresholdPercentage === 0;
+
     if (
       !asset.isCollateralOfUser ||
-      asset.userCollateralFactor === 0 ||
+      canAssetIncreaseBorrowLimit ||
       !pool.userBorrowLimitCents ||
       !pool.userLiquidationThresholdCents ||
       !pool.userBorrowBalanceCents ||
