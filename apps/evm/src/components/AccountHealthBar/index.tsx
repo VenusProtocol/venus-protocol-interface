@@ -36,70 +36,45 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   const { t, Trans } = useTranslation();
   const isSmDown = useIsSmDown();
 
-  const borrowLimitUsedPercentage = useMemo(
-    () =>
-      typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
-        ? calculatePercentage({
-            numerator: borrowBalanceCents,
-            denominator: borrowLimitCents,
-          })
-        : undefined,
-    [borrowBalanceCents, borrowLimitCents],
-  );
+  const borrowLimitUsedPercentage =
+    typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowBalanceCents,
+          denominator: borrowLimitCents,
+        })
+      : undefined;
 
-  const fillPercentage = useMemo(
-    () =>
-      typeof borrowBalanceCents === 'number' && typeof liquidationThresholdCents === 'number'
-        ? calculatePercentage({
-            numerator: borrowBalanceCents,
-            denominator: liquidationThresholdCents,
-          })
-        : undefined,
-    [borrowBalanceCents, liquidationThresholdCents],
-  );
+  const fillPercentage =
+    typeof borrowBalanceCents === 'number' && typeof liquidationThresholdCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowBalanceCents,
+          denominator: liquidationThresholdCents,
+        })
+      : undefined;
 
-  const markPercentage = useMemo(
-    () =>
-      typeof borrowLimitCents === 'number' && typeof liquidationThresholdCents === 'number'
-        ? calculatePercentage({
-            numerator: borrowLimitCents,
-            denominator: liquidationThresholdCents,
-          })
-        : undefined,
-    [borrowLimitCents, liquidationThresholdCents],
-  );
+  const markPercentage =
+    typeof borrowLimitCents === 'number' && typeof liquidationThresholdCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowLimitCents,
+          denominator: liquidationThresholdCents,
+        })
+      : undefined;
 
-  const { readableBorrowLimitUsedPercentage, sanitizedFillPercentage } = useMemo(
-    () => ({
-      readableBorrowLimitUsedPercentage: formatPercentageToReadableValue(borrowLimitUsedPercentage),
-      sanitizedFillPercentage: fillPercentage || 0,
-    }),
-    [borrowLimitUsedPercentage, fillPercentage],
-  );
+  const readableBorrowLimitUsedPercentage =
+    formatPercentageToReadableValue(borrowLimitUsedPercentage);
+  const sanitizedFillPercentage = fillPercentage || 0;
 
-  const readableBorrowLimit = useMemo(
-    () =>
-      formatCentsToReadableValue({
-        value: borrowLimitCents,
-      }),
-    [borrowLimitCents],
-  );
+  const readableBorrowLimit = formatCentsToReadableValue({
+    value: borrowLimitCents,
+  });
 
-  const readableLiquidationThreshold = useMemo(
-    () =>
-      formatCentsToReadableValue({
-        value: liquidationThresholdCents,
-      }),
-    [liquidationThresholdCents],
-  );
+  const readableLiquidationThreshold = formatCentsToReadableValue({
+    value: liquidationThresholdCents,
+  });
 
-  const readableBorrowBalance = useMemo(
-    () =>
-      formatCentsToReadableValue({
-        value: borrowBalanceCents,
-      }),
-    [borrowBalanceCents],
-  );
+  const readableBorrowBalance = formatCentsToReadableValue({
+    value: borrowBalanceCents,
+  });
 
   const tooltip = useMemo(
     () =>

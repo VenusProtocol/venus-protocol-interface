@@ -135,8 +135,8 @@
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
     "borrowed": "Borrowed:",
-    "liquidationThreshold": "Liquidation Threshold:",
-    "liquidationThresholdShort": "LT.",
+    "liquidationThreshold": "Liquidation threshold:",
+    "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
   },

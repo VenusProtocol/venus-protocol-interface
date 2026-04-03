@@ -136,7 +136,7 @@
     "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
     "borrowed": "Borç alınan:",
     "liquidationThreshold": "Tasfiye Eşiği:",
-    "liquidationThresholdShort": "LT.",
+    "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Tasfiye Eşiği<LineBreak/>Borç bakiyeniz bu değere ulaştığında, pozisyonunuz tasfiye edilmeye uygun hale gelir.<LineBreak/><LineBreak/><Link>Hesaplama</Link> hakkında daha fazla bilgi edinin.",
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}"
   },

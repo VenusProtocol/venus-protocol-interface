@@ -136,7 +136,7 @@
     "accessibilityLabel": "当前账户状态的表示",
     "borrowed": "已借：",
     "liquidationThreshold": "清算阈值：",
-    "liquidationThresholdShort": "LT.",
+    "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算阈值<LineBreak/>当您的借款余额达到此值时，您的仓位将有资格被清算。<LineBreak/><LineBreak/>了解更多关于<Link>计算方式。</Link>",
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（占借款限额的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}"
   },

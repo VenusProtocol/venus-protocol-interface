@@ -22,10 +22,6 @@ export const useStyles = () => {
     `,
     inlineLabel: css`
       margin-right: ${theme.spacing(1)};
-
-      ${theme.breakpoints.down('md')} {
-        margin-right: 0;
-      }
     `,
     inlineValue: css`
       color: ${theme.palette.text.primary};
