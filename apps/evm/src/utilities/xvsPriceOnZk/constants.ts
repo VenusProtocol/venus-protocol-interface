@@ -1,1 +1,1 @@
-export const XVS_FIXED_USD_PRICE = 2.56;
+export const XVS_FIXED_PRICE_CENTS = '256';

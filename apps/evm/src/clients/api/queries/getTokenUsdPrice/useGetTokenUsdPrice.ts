@@ -14,7 +14,7 @@ import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 import { checkIsXvsOnZk } from 'utilities/xvsPriceOnZk';
-import { XVS_FIXED_USD_PRICE } from 'utilities/xvsPriceOnZk/constants';
+import { XVS_FIXED_PRICE_CENTS } from 'utilities/xvsPriceOnZk/constants';
 import type { Address } from 'viem';
 
 type TrimmedGetTokenUsdPriceInput = Omit<
@@ -79,7 +79,7 @@ export const useGetTokenUsdPrice = (
     ...(isXvsOnZk
       ? {
           initialData: {
-            tokenPriceUsd: new BigNumber(XVS_FIXED_USD_PRICE),
+            tokenPriceUsd: new BigNumber(XVS_FIXED_PRICE_CENTS).shiftedBy(-2),
           },
           staleTime: Number.POSITIVE_INFINITY,
         }

@@ -15,7 +15,7 @@ import {
   formatPercentageToReadableValue,
 } from 'utilities';
 import { checkIsXvsOnZk } from 'utilities/xvsPriceOnZk';
-import { XVS_FIXED_USD_PRICE } from 'utilities/xvsPriceOnZk/constants';
+import { XVS_FIXED_PRICE_CENTS } from 'utilities/xvsPriceOnZk/constants';
 import { Banner } from './Banner';
 
 export interface OverviewProps {
@@ -56,7 +56,7 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, className }) => {
     return accu.plus(
       convertPriceMantissaToDollars({
         priceMantissa: vaults[index]?.totalStakedMantissa?.times(
-          isXvsOnZk ? XVS_FIXED_USD_PRICE : curr?.tokenPriceUsd ?? 0,
+          isXvsOnZk ? new BigNumber(XVS_FIXED_PRICE_CENTS).shiftedBy(-2) : curr?.tokenPriceUsd ?? 0,
         ),
         decimals: vaults[index]?.stakedToken?.decimals,
       }).shiftedBy(2),
