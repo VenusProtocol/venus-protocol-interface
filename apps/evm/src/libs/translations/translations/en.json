@@ -1504,7 +1504,7 @@
   },
   "statsPage": {
     "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by {{provider}}",
+    "poweredBy": "Powered by <Link>{{provider}}</Link>",
     "subtitle": "Real-time risk parameters for Venus Protocol markets",
     "title": "Venus Stats"
   },
