@@ -142,6 +142,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
     if (
       !asset.isCollateralOfUser ||
+      asset.userCollateralFactor === 0 ||
       !pool.userBorrowLimitCents ||
       !pool.userLiquidationThresholdCents ||
       !pool.userBorrowBalanceCents ||
@@ -153,36 +154,22 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     // Calculate how much token user can withdraw before they risk getting
     // liquidated
 
-    // When CF is 0, the asset no longer contributes to borrow limit but may still contribute to
-    // liquidation threshold. Use LT% as the divisor in that case to prevent division by zero and
-    // ensure the user cannot withdraw more than what keeps their health factor safe.
-    const collateralDivisor =
-      asset.userCollateralFactor === 0
-        ? asset.userLiquidationThresholdPercentage / 100
-        : asset.userCollateralFactor;
-
-    // Return 0 if borrow limit has already been reached and CF is not 0
-    if (
-      asset.userCollateralFactor !== 0 &&
-      pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents)
-    ) {
+    // Return 0 if borrow limit has already been reached
+    if (pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents)) {
       return [new BigNumber(0), new BigNumber(0), new BigNumber(0)];
     }
 
-    const marginWithUserBorrowLimitTokens =
-      asset.userCollateralFactor === 0
-        ? availableTokens
-        : pool.userBorrowLimitCents
-            .minus(pool.userBorrowBalanceCents)
-            .dividedBy(collateralDivisor)
-            .dividedBy(asset.tokenPriceCents);
+    const marginWithUserBorrowLimitTokens = pool.userBorrowLimitCents
+      .minus(pool.userBorrowBalanceCents)
+      .dividedBy(asset.userCollateralFactor)
+      .dividedBy(asset.tokenPriceCents);
 
     let marginWithUserSafeBorrowLimitTokens =
       // We base the safe borrow limit on the liquidation threshold because that's the base used to
       // calculate the health factor
       pool.userLiquidationThresholdCents
         .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_SAFE_MAX_THRESHOLD))
-        .dividedBy(collateralDivisor)
+        .dividedBy(asset.userCollateralFactor)
         .dividedBy(asset.tokenPriceCents);
 
     if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
@@ -194,7 +181,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       // calculate the health factor
       pool.userLiquidationThresholdCents
         .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_MODERATE_THRESHOLD))
-        .dividedBy(collateralDivisor)
+        .dividedBy(asset.userCollateralFactor)
         .dividedBy(asset.tokenPriceCents);
 
     if (marginWithUserModerateRiskBorrowLimitTokens.isLessThan(0)) {
