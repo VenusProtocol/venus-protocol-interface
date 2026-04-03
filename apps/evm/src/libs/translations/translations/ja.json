@@ -1491,6 +1491,12 @@
     "labelTooltip": "これはこの資産の現在の支出上限です。さらに支出するには上限を取り消し、新しい上限を設定してください。",
     "revokeButtonTooltip": "支出上限を取り消す"
   },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
+  },
   "stakeModal": {
     "availableTokensLabel": "利用可能な{{tokenSymbol}}",
     "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",

@@ -105,6 +105,13 @@ export const useMenuItems = () => {
     });
   }
 
+  othersSubMenuItems.push({
+    to: routes.stats.path,
+    iconName: 'stats',
+    label: t('layout.menu.others.stats.label'),
+    description: t('layout.menu.others.stats.description'),
+  });
+
   menu.push({
     label: t('layout.menu.others.label'),
     items: othersSubMenuItems,

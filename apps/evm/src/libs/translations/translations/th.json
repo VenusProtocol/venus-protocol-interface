@@ -1491,6 +1491,12 @@
     "labelTooltip": "นี่คือขีดจำกัดการใช้จ่ายปัจจุบันของสินทรัพย์นี้ หากต้องการใช้จ่ายมากขึ้น ให้ยกเลิกขีดจำกัดแล้วตั้งใหม่",
     "revokeButtonTooltip": "ยกเลิกขีดจำกัดการใช้จ่าย"
   },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
+  },
   "stakeModal": {
     "availableTokensLabel": "{{tokenSymbol}} ที่ใช้ได้",
     "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อสเตค {{tokenSymbol}}",

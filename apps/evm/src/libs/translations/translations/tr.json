@@ -1491,6 +1491,12 @@
     "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin.",
     "revokeButtonTooltip": "Harcama limitini iptal et"
   },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
+  },
   "stakeModal": {
     "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
     "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",

@@ -1491,6 +1491,12 @@
     "labelTooltip": "这是你当前对该资产的支出上限。如需更多支出，请撤销上限并重新设置。",
     "revokeButtonTooltip": "撤销支出限额"
   },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
+  },
   "stakeModal": {
     "availableTokensLabel": "可用 {{tokenSymbol}}",
     "connectWalletMessage": "请连接钱包以质押 {{tokenSymbol}}",

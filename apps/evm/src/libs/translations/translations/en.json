@@ -759,6 +759,10 @@
           "description": "Gasless import of lending positions.",
           "label": "Port"
         },
+        "stats": {
+          "description": "Real-time Risk Parameters",
+          "label": "Stats"
+        },
         "swap": {
           "label": "Swap"
         },
@@ -1490,6 +1494,12 @@
     "label": "Spending limit",
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one.",
     "revokeButtonTooltip": "Revoke spending limit"
+  },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
