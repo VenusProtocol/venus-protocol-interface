@@ -15,7 +15,7 @@ export const StatsIframe: React.FC = () => {
     <div className="relative">
       <div
         className="overflow-hidden border-t border-dark-blue-hover"
-        style={{ height: 'calc(100vh - 200px)', backgroundColor: 'rgb(31, 31, 41)' }}
+        style={{ height: 'calc(100vh - 200px)', backgroundColor: 'rgb(31 31 41)' }}
       >
         {isLoading && <Spinner className="absolute inset-0 m-auto" />}
 
