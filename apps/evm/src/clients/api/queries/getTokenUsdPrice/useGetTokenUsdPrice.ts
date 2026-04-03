@@ -1,4 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import BigNumber from 'bignumber.js';
 
 import {
   type GetTokenUsdPriceInput,
@@ -8,10 +9,12 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { usePublicClient } from 'libs/wallet';
-import { useChainId } from 'libs/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
+import { checkIsXvsOnZk } from 'utilities/xvsPriceOnZk';
+import { XVS_FIXED_USD_PRICE } from 'utilities/xvsPriceOnZk/constants';
 import type { Address } from 'viem';
 
 type TrimmedGetTokenUsdPriceInput = Omit<
@@ -49,6 +52,15 @@ export const useGetTokenUsdPrice = (
     name: 'ResilientOracle',
   });
 
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+  const isXvsOnZk = checkIsXvsOnZk({
+    chainId,
+    token,
+    xvs,
+  });
+
   return useQuery({
     queryKey: [
       FunctionKey.GET_TOKEN_USD_PRICE,
@@ -64,6 +76,14 @@ export const useGetTokenUsdPrice = (
       ),
 
     ...options,
+    ...(isXvsOnZk
+      ? {
+          initialData: {
+            tokenPriceUsd: new BigNumber(XVS_FIXED_USD_PRICE),
+          },
+          staleTime: Number.POSITIVE_INFINITY,
+        }
+      : {}),
     enabled: (options?.enabled === undefined || options?.enabled) && !!token,
   });
 };
