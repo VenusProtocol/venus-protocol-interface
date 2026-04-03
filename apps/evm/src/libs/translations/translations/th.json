@@ -1185,11 +1185,6 @@
     "tokensLeft_other": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} ก่อนที่จะรับรางวัล Prime ได้"
   },
-  "probableBanner": {
-    "description": "เพิ่มความเชื่อมั่นของคุณบน probable.markets",
-    "probableAltText": "ภาพประกอบ Probable",
-    "title": "คุณเชื่อในสิ่งใดไหม?"
-  },
   "proposalList": {
     "selectOptions": {
       "all": {
