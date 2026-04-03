@@ -1187,11 +1187,6 @@
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "waitForPrimeTitle": "Prime ödüllerini talep edebilmeniz için {{claimWaitingPeriod}}"
   },
-  "probableBanner": {
-    "description": "probable.markets'te inancınızı artırın",
-    "probableAltText": "Probable illüstrasyonu",
-    "title": "Bir şeye inanıyor musunuz?"
-  },
   "proposalList": {
     "selectOptions": {
       "all": {

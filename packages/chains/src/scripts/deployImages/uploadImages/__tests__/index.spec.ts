@@ -12,6 +12,8 @@ const directories: Record<string, string[]> = {
 };
 
 vi.mock('@vercel/blob', () => ({
+  del: vi.fn(),
+  list: vi.fn().mockResolvedValue({ blobs: [], hasMore: false }),
   put: vi.fn(),
 }));
 

@@ -1187,11 +1187,6 @@
     "tokensLeft_other": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} để có thể nhận thưởng Prime"
   },
-  "probableBanner": {
-    "description": "Tăng niềm tin của bạn trên probable.markets",
-    "probableAltText": "Hình minh họa Probable",
-    "title": "Bạn tin vào điều gì?"
-  },
   "proposalList": {
     "selectOptions": {
       "all": {
