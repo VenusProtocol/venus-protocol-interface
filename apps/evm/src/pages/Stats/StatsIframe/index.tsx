@@ -1,6 +1,7 @@
 import { Spinner } from 'components';
-import { useState } from 'react';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
+import { useState } from 'react';
 
 const STATS_IFRAME_URL =
   'https://app.hex.tech/10609151-106a-4740-8982-17a9a4e59699/app/Venus-032RSn52D8LeH6K6o73Edt/latest?embedded=true';
@@ -36,15 +37,7 @@ export const StatsIframe: React.FC = () => {
             i18nKey="statsPage.poweredBy"
             values={{ provider: 'allez.xyz' }}
             components={{
-              Link: (
-                {/* biome-ignore lint/a11y/useAnchorContent: Trans injects children at runtime */}
-                <a
-                  href={ALLEZ_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline"
-                />
-              ),
+              Link: <Link href={ALLEZ_URL} className="underline" />,
             }}
           />
         </span>
