@@ -1503,10 +1503,10 @@
     "title": "{{tokenSymbol}} stake et"
   },
   "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by <Link>{{provider}}</Link>",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
+    "illustrationAlt": "İstatistik illüstrasyonu",
+    "poweredBy": "<Link>{{provider}}</Link> tarafından desteklenmektedir",
+    "subtitle": "Venus Protocol piyasaları için gerçek zamanlı risk parametreleri",
+    "title": "Venus İstatistikleri"
   },
   "swap": {
     "errors": {

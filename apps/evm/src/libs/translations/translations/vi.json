@@ -1503,10 +1503,10 @@
     "title": "Stake {{tokenSymbol}}"
   },
   "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by <Link>{{provider}}</Link>",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
+    "illustrationAlt": "Hình minh họa thống kê",
+    "poweredBy": "Được cung cấp bởi <Link>{{provider}}</Link>",
+    "subtitle": "Thông số rủi ro thời gian thực cho thị trường Venus Protocol",
+    "title": "Thống kê Venus"
   },
   "swap": {
     "errors": {

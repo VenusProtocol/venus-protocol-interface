@@ -1503,10 +1503,10 @@
     "title": "{{tokenSymbol}}をステーキング"
   },
   "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by <Link>{{provider}}</Link>",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
+    "illustrationAlt": "統計イラスト",
+    "poweredBy": "<Link>{{provider}}</Link> 提供",
+    "subtitle": "Venus Protocol マーケットのリアルタイムリスクパラメータ",
+    "title": "Venus 統計"
   },
   "swap": {
     "errors": {

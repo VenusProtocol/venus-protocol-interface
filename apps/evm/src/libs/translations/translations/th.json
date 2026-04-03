@@ -1503,10 +1503,10 @@
     "title": "สเตค {{tokenSymbol}}"
   },
   "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by <Link>{{provider}}</Link>",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
+    "illustrationAlt": "ภาพประกอบสถิติ",
+    "poweredBy": "ขับเคลื่อนโดย <Link>{{provider}}</Link>",
+    "subtitle": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์สำหรับตลาด Venus Protocol",
+    "title": "สถิติ Venus"
   },
   "swap": {
     "errors": {
