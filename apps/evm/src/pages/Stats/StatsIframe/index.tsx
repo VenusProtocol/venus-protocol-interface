@@ -37,6 +37,7 @@ export const StatsIframe: React.FC = () => {
             values={{ provider: 'allez.xyz' }}
             components={{
               Link: (
+                {/* biome-ignore lint/a11y/useAnchorContent: Trans injects children at runtime */}
                 <a
                   href={ALLEZ_URL}
                   target="_blank"
