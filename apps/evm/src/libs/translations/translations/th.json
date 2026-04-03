@@ -759,6 +759,10 @@
           "description": "นำเข้าตำแหน่งการให้กู้แบบไม่ใช้แก๊ส",
           "label": "พอร์ต"
         },
+        "stats": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
         "swap": {
           "label": "สวอป"
         },
@@ -1491,18 +1495,18 @@
     "labelTooltip": "นี่คือขีดจำกัดการใช้จ่ายปัจจุบันของสินทรัพย์นี้ หากต้องการใช้จ่ายมากขึ้น ให้ยกเลิกขีดจำกัดแล้วตั้งใหม่",
     "revokeButtonTooltip": "ยกเลิกขีดจำกัดการใช้จ่าย"
   },
-  "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by {{provider}}",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
-  },
   "stakeModal": {
     "availableTokensLabel": "{{tokenSymbol}} ที่ใช้ได้",
     "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อสเตค {{tokenSymbol}}",
     "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อสเตค",
     "submitButtonLabel": "สเตค",
     "title": "สเตค {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
   },
   "swap": {
     "errors": {

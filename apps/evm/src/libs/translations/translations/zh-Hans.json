@@ -759,6 +759,10 @@
           "description": "无 Gas 导入借贷仓位。",
           "label": "迁移"
         },
+        "stats": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
         "swap": {
           "label": "兑换"
         },
@@ -1491,18 +1495,18 @@
     "labelTooltip": "这是你当前对该资产的支出上限。如需更多支出，请撤销上限并重新设置。",
     "revokeButtonTooltip": "撤销支出限额"
   },
-  "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by {{provider}}",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
-  },
   "stakeModal": {
     "availableTokensLabel": "可用 {{tokenSymbol}}",
     "connectWalletMessage": "请连接钱包以质押 {{tokenSymbol}}",
     "submitButtonDisabledLabel": "输入有效质押金额",
     "submitButtonLabel": "质押",
     "title": "质押 {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
   },
   "swap": {
     "errors": {

@@ -759,6 +759,10 @@
           "description": "Nhập các vị thế cho vay không cần gas.",
           "label": "Cổng"
         },
+        "stats": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
         "swap": {
           "label": "Hoán đổi"
         },
@@ -1491,18 +1495,18 @@
     "labelTooltip": "Đây là hạn mức chi tiêu hiện tại của bạn cho tài sản này. Để chi tiêu nhiều hơn, hãy hủy hạn mức và đặt lại.",
     "revokeButtonTooltip": "Hủy hạn mức chi tiêu"
   },
-  "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by {{provider}}",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
-  },
   "stakeModal": {
     "availableTokensLabel": "{{tokenSymbol}} có thể dùng",
     "connectWalletMessage": "Vui lòng kết nối ví để stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để stake",
     "submitButtonLabel": "Stake",
     "title": "Stake {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
   },
   "swap": {
     "errors": {

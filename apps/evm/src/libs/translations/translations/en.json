@@ -1495,18 +1495,18 @@
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one.",
     "revokeButtonTooltip": "Revoke spending limit"
   },
-  "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by {{provider}}",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
-  },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Enter a valid amount to stake",
     "submitButtonLabel": "Stake",
     "title": "Stake {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
   },
   "swap": {
     "errors": {

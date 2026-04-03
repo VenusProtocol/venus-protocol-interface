@@ -759,6 +759,10 @@
           "description": "Borç verme pozisyonlarını gas'siz içe aktarın.",
           "label": "Port"
         },
+        "stats": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
         "swap": {
           "label": "Takas"
         },
@@ -1491,18 +1495,18 @@
     "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin.",
     "revokeButtonTooltip": "Harcama limitini iptal et"
   },
-  "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by {{provider}}",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
-  },
   "stakeModal": {
     "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
     "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
     "submitButtonDisabledLabel": "Stake etmek için geçerli bir miktar girin",
     "submitButtonLabel": "Stake et",
     "title": "{{tokenSymbol}} stake et"
+  },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
   },
   "swap": {
     "errors": {

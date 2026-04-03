@@ -14,14 +14,16 @@ export const StatsIframe: React.FC = () => {
       >
         <iframe
           src={STATS_IFRAME_URL}
-          title="Stats"
+          title={t('statsPage.title')}
+          sandbox="allow-scripts allow-same-origin"
+          referrerPolicy="no-referrer"
           className="w-full border-0 -mt-[120px] md:-mt-[90px]"
           style={{ height: 'calc(100vh - 120px)' }}
         />
       </div>
 
       <div className="absolute bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 rounded-full border border-dark-blue-hover bg-background px-5 py-3">
-        <span className="text-xs font-semibold leading-[1.5] text-white">
+        <span className="text-b2s text-white">
           {t('statsPage.poweredBy', { provider: 'allez.xyz' })}
         </span>
       </div>

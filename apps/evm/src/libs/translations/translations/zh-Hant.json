@@ -759,6 +759,10 @@
           "description": "免 Gas 匯入借貸部位。",
           "label": "端口"
         },
+        "stats": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
         "swap": {
           "label": "兌換"
         },
@@ -1491,18 +1495,18 @@
     "labelTooltip": "這是你當前對該資產的支出上限。如需更多支出，請撤銷上限並重新設置。",
     "revokeButtonTooltip": "撤銷支出限額"
   },
-  "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by {{provider}}",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
-  },
   "stakeModal": {
     "availableTokensLabel": "可用 {{tokenSymbol}}",
     "connectWalletMessage": "請連接錢包以質押 {{tokenSymbol}}",
     "submitButtonDisabledLabel": "輸入有效質押金額",
     "submitButtonLabel": "質押",
     "title": "質押 {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "Stats illustration",
+    "poweredBy": "Powered by {{provider}}",
+    "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "title": "Venus Stats"
   },
   "swap": {
     "errors": {

@@ -6,10 +6,8 @@ export const Header: React.FC = () => {
 
   return (
     <div className="relative pt-12">
-      <h1 className="text-[32px] font-semibold leading-[1.5] text-light-grey-active">
-        {t('statsPage.title')}
-      </h1>
-      <p className="text-base leading-[1.5] text-white">{t('statsPage.subtitle')}</p>
+      <h1 className="text-h6 text-light-grey-active">{t('statsPage.title')}</h1>
+      <p className="text-p3r text-white">{t('statsPage.subtitle')}</p>
 
       <img
         src={illustrationSrc}
