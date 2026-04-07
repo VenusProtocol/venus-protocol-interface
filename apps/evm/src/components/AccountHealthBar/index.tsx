@@ -84,6 +84,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       borrowBalanceCents > 0 ? (
         <Trans
           i18nKey="accountHealth.tooltip"
+          shouldUnescape
           components={{
             LineBreak: <br />,
           }}
