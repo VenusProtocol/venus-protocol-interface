@@ -759,6 +759,10 @@
           "description": "免 Gas 匯入借貸部位。",
           "label": "端口"
         },
+        "stats": {
+          "description": "即時風險參數",
+          "label": "統計"
+        },
         "swap": {
           "label": "兌換"
         },
@@ -1492,6 +1496,12 @@
     "submitButtonDisabledLabel": "輸入有效質押金額",
     "submitButtonLabel": "質押",
     "title": "質押 {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "統計插圖",
+    "poweredBy": "由 <Link>{{provider}}</Link> 提供支持",
+    "subtitle": "Venus Protocol 市場的即時風險參數",
+    "title": "Venus 統計"
   },
   "swap": {
     "errors": {

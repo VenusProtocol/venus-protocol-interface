@@ -759,6 +759,10 @@
           "description": "นำเข้าตำแหน่งการให้กู้แบบไม่ใช้แก๊ส",
           "label": "พอร์ต"
         },
+        "stats": {
+          "description": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์",
+          "label": "สถิติ"
+        },
         "swap": {
           "label": "สวอป"
         },
@@ -1492,6 +1496,12 @@
     "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อสเตค",
     "submitButtonLabel": "สเตค",
     "title": "สเตค {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "ภาพประกอบสถิติ",
+    "poweredBy": "ขับเคลื่อนโดย <Link>{{provider}}</Link>",
+    "subtitle": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์สำหรับตลาด Venus Protocol",
+    "title": "สถิติ Venus"
   },
   "swap": {
     "errors": {

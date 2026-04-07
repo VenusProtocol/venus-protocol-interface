@@ -759,6 +759,10 @@
           "description": "Nhập các vị thế cho vay không cần gas.",
           "label": "Cổng"
         },
+        "stats": {
+          "description": "Thông số rủi ro thời gian thực",
+          "label": "Thống kê"
+        },
         "swap": {
           "label": "Hoán đổi"
         },
@@ -1492,6 +1496,12 @@
     "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để stake",
     "submitButtonLabel": "Stake",
     "title": "Stake {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "Hình minh họa thống kê",
+    "poweredBy": "Được cung cấp bởi <Link>{{provider}}</Link>",
+    "subtitle": "Thông số rủi ro thời gian thực cho thị trường Venus Protocol",
+    "title": "Thống kê Venus"
   },
   "swap": {
     "errors": {

@@ -759,6 +759,10 @@
           "description": "无 Gas 导入借贷仓位。",
           "label": "迁移"
         },
+        "stats": {
+          "description": "实时风险参数",
+          "label": "统计"
+        },
         "swap": {
           "label": "兑换"
         },
@@ -1492,6 +1496,12 @@
     "submitButtonDisabledLabel": "输入有效质押金额",
     "submitButtonLabel": "质押",
     "title": "质押 {{tokenSymbol}}"
+  },
+  "statsPage": {
+    "illustrationAlt": "统计插图",
+    "poweredBy": "由 <Link>{{provider}}</Link> 提供支持",
+    "subtitle": "Venus Protocol 市场的实时风险参数",
+    "title": "Venus 统计"
   },
   "swap": {
     "errors": {

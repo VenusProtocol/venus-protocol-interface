@@ -759,6 +759,10 @@
           "description": "Borç verme pozisyonlarını gas'siz içe aktarın.",
           "label": "Port"
         },
+        "stats": {
+          "description": "Gerçek zamanlı risk parametreleri",
+          "label": "İstatistikler"
+        },
         "swap": {
           "label": "Takas"
         },
@@ -1492,6 +1496,12 @@
     "submitButtonDisabledLabel": "Stake etmek için geçerli bir miktar girin",
     "submitButtonLabel": "Stake et",
     "title": "{{tokenSymbol}} stake et"
+  },
+  "statsPage": {
+    "illustrationAlt": "İstatistik illüstrasyonu",
+    "poweredBy": "<Link>{{provider}}</Link> tarafından desteklenmektedir",
+    "subtitle": "Venus Protocol piyasaları için gerçek zamanlı risk parametreleri",
+    "title": "Venus İstatistikleri"
   },
   "swap": {
     "errors": {

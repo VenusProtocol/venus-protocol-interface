@@ -16,6 +16,7 @@ export const useMenuItems = () => {
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
+  const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
   const { marketsPagePath } = useGetMarketsPagePath();
   const { data: getPoolsData } = useGetPools();
   const pools = getPoolsData?.pools || [];
@@ -102,6 +103,15 @@ export const useMenuItems = () => {
       iconName: 'fourDots',
       label: t('layout.menu.others.isolatedPools.label'),
       description: t('layout.menu.others.isolatedPools.description'),
+    });
+  }
+
+  if (statsRouteEnabled) {
+    othersSubMenuItems.push({
+      to: routes.stats.path,
+      iconName: 'stats',
+      label: t('layout.menu.others.stats.label'),
+      description: t('layout.menu.others.stats.description'),
     });
   }
 

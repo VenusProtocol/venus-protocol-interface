@@ -759,6 +759,10 @@
           "description": "レンディングポジションをガスレスでインポート。",
           "label": "ポート"
         },
+        "stats": {
+          "description": "リアルタイムリスクパラメータ",
+          "label": "統計"
+        },
         "swap": {
           "label": "スワップ"
         },
@@ -1492,6 +1496,12 @@
     "submitButtonDisabledLabel": "ステーキングする数量を入力してください",
     "submitButtonLabel": "ステーキング",
     "title": "{{tokenSymbol}}をステーキング"
+  },
+  "statsPage": {
+    "illustrationAlt": "統計イラスト",
+    "poweredBy": "<Link>{{provider}}</Link> 提供",
+    "subtitle": "Venus Protocol マーケットのリアルタイムリスクパラメータ",
+    "title": "Venus 統計"
   },
   "swap": {
     "errors": {
