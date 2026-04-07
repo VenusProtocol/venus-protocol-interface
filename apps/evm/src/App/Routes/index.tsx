@@ -40,6 +40,7 @@ const AppRoutes = () => {
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
+  const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -210,14 +211,16 @@ const AppRoutes = () => {
           />
         )}
 
-        <Route
-          path={Subdirectory.STATS}
-          element={
-            <PageSuspense>
-              <Stats />
-            </PageSuspense>
-          }
-        />
+        {statsRouteEnabled && (
+          <Route
+            path={Subdirectory.STATS}
+            element={
+              <PageSuspense>
+                <Stats />
+              </PageSuspense>
+            }
+          />
+        )}
 
         <Route
           path={Subdirectory.SKILLS}
