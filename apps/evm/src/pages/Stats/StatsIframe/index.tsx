@@ -25,8 +25,8 @@ export const StatsIframe: React.FC = () => {
           title={t('statsPage.title')}
           sandbox="allow-scripts allow-same-origin"
           referrerPolicy="no-referrer"
-          className="w-full border-0 -mt-[120px] md:-mt-[90px]"
-          style={{ height: 'calc(100vh - 120px)' }}
+          className="w-full border-0"
+          style={{ height: 'calc(100vh - 200px)' }}
           onLoad={() => setIsLoading(false)}
         />
       </div>
