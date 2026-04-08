@@ -134,9 +134,11 @@
   },
   "accountHealth": {
     "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
-    "borrowLimitUsed": "Kullanılan borç limiti:",
-    "limit": "Limit:",
-    "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Güvenli borç limiti:<LineBreak/>{{safeBorrowLimit}} (borç limitinizin {{safeBorrowLimitPercentage}}%'i)"
+    "borrowed": "Borç alınan:",
+    "liquidationThreshold": "Tasfiye Eşiği:",
+    "liquidationThresholdShort": "LT:",
+    "liquidationThresholdTooltip": "LT = Tasfiye Eşiği<LineBreak/>Borç bakiyeniz bu değere ulaştığında, pozisyonunuz tasfiye edilmeye uygun hale gelir.<LineBreak/><LineBreak/><Link>Hesaplama</Link> hakkında daha fazla bilgi edinin.",
+    "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Şimdi başla"

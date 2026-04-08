@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 
-import { ProgressBar, type ProgressBarProps } from '..';
+import { InfoIcon, ProgressBar, type ProgressBarProps } from '..';
 import { useStyles } from './styles';
 
 export interface LabeledProgressBarProps extends ProgressBarProps {
@@ -9,6 +9,7 @@ export interface LabeledProgressBarProps extends ProgressBarProps {
   whiteLeftText?: string | React.ReactElement;
   greyRightText?: string | React.ReactElement;
   whiteRightText?: string;
+  rightInfoTooltip?: string | React.ReactNode;
   className?: string;
 }
 
@@ -17,6 +18,7 @@ export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
   whiteRightText,
   greyLeftText,
   whiteLeftText,
+  rightInfoTooltip,
   className,
   ...progressBarProps
 }) => {
@@ -49,6 +51,10 @@ export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
             <Typography component="span" variant="small1" css={styles.inlineValue}>
               {whiteRightText}
             </Typography>
+          )}
+
+          {rightInfoTooltip && (
+            <InfoIcon className="ml-1 inline-flex items-center" tooltip={rightInfoTooltip} />
           )}
         </div>
       </div>

@@ -15,8 +15,6 @@ export const useStyles = () => {
       display: flex;
 
       ${theme.breakpoints.down('md')} {
-        flex-direction: column;
-
         :last-of-type {
           text-align: right;
         }
@@ -24,10 +22,6 @@ export const useStyles = () => {
     `,
     inlineLabel: css`
       margin-right: ${theme.spacing(1)};
-
-      ${theme.breakpoints.down('md')} {
-        margin-right: 0;
-      }
     `,
     inlineValue: css`
       color: ${theme.palette.text.primary};
