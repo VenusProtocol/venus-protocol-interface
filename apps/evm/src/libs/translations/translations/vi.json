@@ -858,19 +858,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "Số người vay",
-        "collateralFactorLabel": "Collateral factor",
+        "collateralFactorLabel": "Hệ số thế chấp (Core)",
         "dailyBorrowingInterestsLabel": "Lãi vay hằng ngày",
         "dailyDistribution": "Phân phối {{tokenSymbol}} hằng ngày",
         "dailySupplyingInterestsLabel": "Lãi cung cấp hằng ngày",
         "exchangeRateLabel": "Tỷ giá",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
-        "isBorrowableLabel": "Borrowable",
-        "liquidationPenaltyLabel": "Liquidation penalty",
-        "liquidationThresholdLabel": "Liquidation threshold",
-        "no": "No",
+        "isBorrowableLabel": "Có thể vay (Core)",
+        "liquidationPenaltyLabel": "Phạt thanh lý (Core)",
+        "liquidationThresholdLabel": "Ngưỡng thanh lý (Core)",
+        "no": "Không",
         "reserveFactorLabel": "Hệ số dự trữ",
         "supplierCountLabel": "Số người cung cấp",
-        "yes": "Yes"
+        "yes": "Có"
       }
     },
     "periodOption": {

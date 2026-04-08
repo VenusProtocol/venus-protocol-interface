@@ -858,19 +858,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "Borç alan sayısı",
-        "collateralFactorLabel": "Collateral factor",
+        "collateralFactorLabel": "Teminat faktörü (Core)",
         "dailyBorrowingInterestsLabel": "Günlük borç faizi",
         "dailyDistribution": "Günlük {{tokenSymbol}} dağıtımı",
         "dailySupplyingInterestsLabel": "Günlük tedarik faizi",
         "exchangeRateLabel": "Döviz kuru",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
-        "isBorrowableLabel": "Borrowable",
-        "liquidationPenaltyLabel": "Liquidation penalty",
-        "liquidationThresholdLabel": "Liquidation threshold",
-        "no": "No",
+        "isBorrowableLabel": "Borç alınabilir (Core)",
+        "liquidationPenaltyLabel": "Tasfiye cezası (Core)",
+        "liquidationThresholdLabel": "Tasfiye eşiği (Core)",
+        "no": "Hayır",
         "reserveFactorLabel": "Rezerv faktörü",
         "supplierCountLabel": "Sağlayan sayısı",
-        "yes": "Yes"
+        "yes": "Evet"
       }
     },
     "periodOption": {

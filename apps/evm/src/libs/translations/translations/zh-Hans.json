@@ -858,19 +858,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "借款人数",
-        "collateralFactorLabel": "Collateral factor",
+        "collateralFactorLabel": "抵押系数 (Core)",
         "dailyBorrowingInterestsLabel": "每日借款利息",
         "dailyDistribution": "每日分发 {{tokenSymbol}}",
         "dailySupplyingInterestsLabel": "每日存款利息",
         "exchangeRateLabel": "兑换率",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
-        "isBorrowableLabel": "Borrowable",
-        "liquidationPenaltyLabel": "Liquidation penalty",
-        "liquidationThresholdLabel": "Liquidation threshold",
-        "no": "No",
+        "isBorrowableLabel": "可借 (Core)",
+        "liquidationPenaltyLabel": "清算罚金 (Core)",
+        "liquidationThresholdLabel": "清算阈值 (Core)",
+        "no": "否",
         "reserveFactorLabel": "准备金系数",
         "supplierCountLabel": "存款人数",
-        "yes": "Yes"
+        "yes": "是"
       }
     },
     "periodOption": {

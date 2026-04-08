@@ -858,19 +858,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "借入者数",
-        "collateralFactorLabel": "Collateral factor",
+        "collateralFactorLabel": "担保係数 (Core)",
         "dailyBorrowingInterestsLabel": "日次借入利息",
         "dailyDistribution": "日次{{tokenSymbol}}配布",
         "dailySupplyingInterestsLabel": "日次供給利息",
         "exchangeRateLabel": "交換レート",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
-        "isBorrowableLabel": "Borrowable",
-        "liquidationPenaltyLabel": "Liquidation penalty",
-        "liquidationThresholdLabel": "Liquidation threshold",
-        "no": "No",
+        "isBorrowableLabel": "借入可能 (Core)",
+        "liquidationPenaltyLabel": "清算ペナルティ (Core)",
+        "liquidationThresholdLabel": "清算閾値 (Core)",
+        "no": "いいえ",
         "reserveFactorLabel": "リザーブファクター",
         "supplierCountLabel": "供給者数",
-        "yes": "Yes"
+        "yes": "はい"
       }
     },
     "periodOption": {

@@ -858,19 +858,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "จำนวนผู้ยืม",
-        "collateralFactorLabel": "Collateral factor",
+        "collateralFactorLabel": "ตัวคูณหลักประกัน (Core)",
         "dailyBorrowingInterestsLabel": "ดอกเบี้ยการยืมรายวัน",
         "dailyDistribution": "แจกจ่าย {{tokenSymbol}} รายวัน",
         "dailySupplyingInterestsLabel": "ดอกเบี้ยการฝากรายวัน",
         "exchangeRateLabel": "อัตราแลกเปลี่ยน",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
-        "isBorrowableLabel": "Borrowable",
-        "liquidationPenaltyLabel": "Liquidation penalty",
-        "liquidationThresholdLabel": "Liquidation threshold",
-        "no": "No",
+        "isBorrowableLabel": "ยืมได้ (Core)",
+        "liquidationPenaltyLabel": "บทลงโทษการชำระบัญชี (Core)",
+        "liquidationThresholdLabel": "เกณฑ์การชำระบัญชี (Core)",
+        "no": "ไม่",
         "reserveFactorLabel": "ตัวคูณสำรอง",
         "supplierCountLabel": "จำนวนผู้ฝาก",
-        "yes": "Yes"
+        "yes": "ใช่"
       }
     },
     "periodOption": {
