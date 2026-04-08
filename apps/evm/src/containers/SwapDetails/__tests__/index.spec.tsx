@@ -2,6 +2,7 @@ import { fireEvent } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import { bnb, xvs } from '__mocks__/models/tokens';
+import { MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { renderComponent } from 'testUtils/render';
 import { formatPercentageToReadableValue } from 'utilities';
@@ -65,6 +66,7 @@ describe('SwapDetails', () => {
       target: { value },
     });
 
+    expect(input).toHaveAttribute('max', String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE));
     expect(mockSetUserChainSettings).toHaveBeenCalledWith({
       slippageTolerancePercentage: value,
     });
@@ -72,5 +74,18 @@ describe('SwapDetails', () => {
     // Check decimals are validated
     fireEvent.change(input, { target: { value: '0.1234' } });
     expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
+
+    // Check values with too many decimals are rejected even when above the input max
+    fireEvent.change(input, {
+      target: { value: `${MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE}.111` },
+    });
+    expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
+
+    fireEvent.change(input, {
+      target: { value: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE) },
+    });
+    expect(mockSetUserChainSettings).toHaveBeenCalledWith({
+      slippageTolerancePercentage: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE),
+    });
   });
 });

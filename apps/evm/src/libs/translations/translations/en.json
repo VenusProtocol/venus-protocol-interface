@@ -286,6 +286,9 @@
     "modalTitle": "{{ poolName }} tokens",
     "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
   },
+  "availableBalance": {
+    "label": "TRANSLATION NEEDED"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "Background illustration",
     "binanceLogoAltText": "Binance logo",
@@ -1070,8 +1073,8 @@
     },
     "rightMaxButtonLabel": "MAX",
     "riskSlider": {
-      "highRisk": "High risk",
-      "lowRisk": "Low risk"
+      "0": "TRANSLATION NEEDED",
+      "100": "TRANSLATION NEEDED"
     },
     "safeMaxButtonLabel": "SAFE MAX",
     "submitButtonLabel": {

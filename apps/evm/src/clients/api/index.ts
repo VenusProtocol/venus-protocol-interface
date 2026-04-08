@@ -1,5 +1,3 @@
-export { default as queryClient } from './queryClient';
-
 // Mutations
 export * from './mutations/useEnterMarket';
 export * from './mutations/useExitMarket';
@@ -37,7 +35,6 @@ export * from './mutations/useRepayWithCollateral';
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
-
 export * from './queries/getVTokenBalance';
 export * from './queries/getVTokenBalance/useGetVTokenBalance';
 

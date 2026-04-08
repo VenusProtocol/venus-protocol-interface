@@ -4,8 +4,8 @@ import { handleError, isUserRejectedTxError } from 'libs/errors';
 import type { Asset, AssetBalanceMutation, Pool, SwapQuote, SwapQuoteError } from 'types';
 
 import { useAnalytics } from 'libs/analytics';
+import type { TxFormError } from 'types';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
-import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
@@ -30,7 +30,7 @@ export interface UseFormInput {
 interface UseFormOutput {
   handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formError?: TxFormError<FormErrorCode>;
 }
 
 const useForm = ({

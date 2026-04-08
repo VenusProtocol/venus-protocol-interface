@@ -286,6 +286,9 @@
     "modalTitle": "โทเคน {{ poolName }}",
     "supplyDescription": "การฝาก {{tokenSymbol}} ในพูล {{poolName}} จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <Button>แสดงตลาดทั้งหมด</Button>"
   },
+  "availableBalance": {
+    "label": "TRANSLATION NEEDED"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
     "binanceLogoAltText": "โลโก้ Binance",
@@ -1070,8 +1073,8 @@
     },
     "rightMaxButtonLabel": "สูงสุด",
     "riskSlider": {
-      "highRisk": "ความเสี่ยงสูง",
-      "lowRisk": "ความเสี่ยงต่ำ"
+      "0": "TRANSLATION NEEDED",
+      "100": "TRANSLATION NEEDED"
     },
     "safeMaxButtonLabel": "สูงสุดแบบปลอดภัย",
     "submitButtonLabel": {
