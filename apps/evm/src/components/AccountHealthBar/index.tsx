@@ -25,7 +25,7 @@ export interface AccountHealthBarProps {
   borrowLimitCents: number | undefined;
   liquidationThresholdCents: number | undefined;
   className?: string;
-  hiddenValues?: string;
+  hideUserBalances?: string;
 }
 
 export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
@@ -33,7 +33,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   borrowBalanceCents,
   borrowLimitCents,
   liquidationThresholdCents,
-  hiddenValues,
+  hideUserBalances,
 }) => {
   const { t, Trans } = useTranslation();
   const isSmDown = useIsSmDown();
@@ -91,9 +91,9 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
             LineBreak: <br />,
           }}
           values={{
-            borrowBalance: readableBorrowBalance,
-            borrowLimitUsedPercentage: readableBorrowLimitUsedPercentage,
-            borrowLimit: readableBorrowLimit,
+            borrowBalance: hideUserBalances ?? readableBorrowBalance,
+            borrowLimitUsedPercentage: hideUserBalances ?? readableBorrowLimitUsedPercentage,
+            borrowLimit: hideUserBalances ?? readableBorrowLimit,
           }}
         />
       ) : undefined,
@@ -122,13 +122,13 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     <div className={className}>
       <LabeledProgressBar
         greyLeftText={t('accountHealth.borrowed')}
-        whiteLeftText={hiddenValues ?? readableBorrowBalance}
+        whiteLeftText={hideUserBalances ?? readableBorrowBalance}
         greyRightText={
           isSmDown
             ? t('accountHealth.liquidationThresholdShort')
             : t('accountHealth.liquidationThreshold')
         }
-        whiteRightText={hiddenValues ?? readableLiquidationThreshold}
+        whiteRightText={hideUserBalances ?? readableLiquidationThreshold}
         rightInfoTooltip={
           <Trans
             i18nKey="accountHealth.liquidationThresholdTooltip"

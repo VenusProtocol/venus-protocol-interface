@@ -127,7 +127,7 @@ export const Summary: React.FC<SummaryProps> = ({
           borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber() ?? 0}
           borrowLimitCents={pool.userBorrowLimitCents?.toNumber() ?? 0}
           liquidationThresholdCents={pool.userLiquidationThresholdCents?.toNumber()}
-          hiddenValues={shouldHideBalances ? HIDDEN_BALANCE_KEY : undefined}
+          hideUserBalances={shouldHideBalances ? HIDDEN_BALANCE_KEY : undefined}
         />
       ),
       className: cellClassName,
