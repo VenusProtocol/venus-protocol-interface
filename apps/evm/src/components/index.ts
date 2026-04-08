@@ -64,6 +64,7 @@ export * from './TokenIcon';
 export * from './BalanceUpdates';
 export * from './LabeledValueUpdate';
 export * from './TokenListWrapper';
+export * from './TransactionsList';
 export * from './Wrapper';
 export * from './LabeledSlider';
 export * from './AvailableBalance';

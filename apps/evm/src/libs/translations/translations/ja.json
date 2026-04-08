@@ -88,13 +88,7 @@
           "all": "すべてのマーケット"
         },
         "txType": {
-          "all": "すべての取引",
-          "borrow": "借入",
-          "enterMarket": "担保有効",
-          "exitMarket": "担保無効",
-          "mint": "供給",
-          "redeem": "引き出し",
-          "repay": "返済"
+          "all": "すべての取引"
         }
       },
       "today": "今日",
@@ -107,10 +101,18 @@
         "enterMarket": "担保有効",
         "exitMarket": "担保無効",
         "mint": "供給",
+        "positionClosedWithLoss": "TRANSLATION NEEDED",
+        "positionClosedWithProfit": "TRANSLATION NEEDED",
+        "positionIncreased": "TRANSLATION NEEDED",
+        "positionOpened": "TRANSLATION NEEDED",
+        "positionReducedWithLoss": "TRANSLATION NEEDED",
+        "positionReducedWithProfit": "TRANSLATION NEEDED",
+        "principalSupplied": "TRANSLATION NEEDED",
+        "principalWithdrawn": "TRANSLATION NEEDED",
+        "realizedPnl": "TRANSLATION NEEDED",
         "redeem": "引き出し",
         "repay": "返済"
       },
-      "view": "表示",
       "yesterday": "昨日"
     },
     "vaults": {

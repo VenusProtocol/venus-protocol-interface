@@ -88,13 +88,7 @@
           "all": "所有市场"
         },
         "txType": {
-          "all": "所有交易",
-          "borrow": "借款",
-          "enterMarket": "启用可抵押",
-          "exitMarket": "禁用可抵押",
-          "mint": "存款",
-          "redeem": "取款",
-          "repay": "偿还"
+          "all": "所有交易"
         }
       },
       "today": "今天",
@@ -107,10 +101,18 @@
         "enterMarket": "启用可抵押",
         "exitMarket": "禁用可抵押",
         "mint": "存款",
+        "positionClosedWithLoss": "TRANSLATION NEEDED",
+        "positionClosedWithProfit": "TRANSLATION NEEDED",
+        "positionIncreased": "TRANSLATION NEEDED",
+        "positionOpened": "TRANSLATION NEEDED",
+        "positionReducedWithLoss": "TRANSLATION NEEDED",
+        "positionReducedWithProfit": "TRANSLATION NEEDED",
+        "principalSupplied": "TRANSLATION NEEDED",
+        "principalWithdrawn": "TRANSLATION NEEDED",
+        "realizedPnl": "TRANSLATION NEEDED",
         "redeem": "取款",
         "repay": "偿还"
       },
-      "view": "查看",
       "yesterday": "昨天"
     },
     "vaults": {

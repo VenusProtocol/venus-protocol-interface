@@ -88,13 +88,7 @@
           "all": "Tất cả thị trường"
         },
         "txType": {
-          "all": "Tất cả giao dịch",
-          "borrow": "Vay",
-          "enterMarket": "Bật tài sản thế chấp",
-          "exitMarket": "Tắt tài sản thế chấp",
-          "mint": "Đúc",
-          "redeem": "Rút",
-          "repay": "Hoàn trả"
+          "all": "Tất cả giao dịch"
         }
       },
       "today": "Hôm nay",
@@ -107,10 +101,18 @@
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",
         "mint": "Đúc",
+        "positionClosedWithLoss": "TRANSLATION NEEDED",
+        "positionClosedWithProfit": "TRANSLATION NEEDED",
+        "positionIncreased": "TRANSLATION NEEDED",
+        "positionOpened": "TRANSLATION NEEDED",
+        "positionReducedWithLoss": "TRANSLATION NEEDED",
+        "positionReducedWithProfit": "TRANSLATION NEEDED",
+        "principalSupplied": "TRANSLATION NEEDED",
+        "principalWithdrawn": "TRANSLATION NEEDED",
+        "realizedPnl": "TRANSLATION NEEDED",
         "redeem": "Rút",
         "repay": "Hoàn trả"
       },
-      "view": "Xem",
       "yesterday": "Hôm qua"
     },
     "vaults": {

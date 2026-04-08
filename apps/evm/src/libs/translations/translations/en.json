@@ -88,13 +88,7 @@
           "all": "All markets"
         },
         "txType": {
-          "all": "All transactions",
-          "borrow": "Borrow",
-          "enterMarket": "Enabled collateral",
-          "exitMarket": "Disabled collateral",
-          "mint": "Supply",
-          "redeem": "Withdraw",
-          "repay": "Repayment"
+          "all": "All transactions"
         }
       },
       "today": "Today",
@@ -107,10 +101,18 @@
         "enterMarket": "Enabled collateral",
         "exitMarket": "Disabled collateral",
         "mint": "Supply",
+        "positionClosedWithLoss": "TRANSLATION NEEDED",
+        "positionClosedWithProfit": "TRANSLATION NEEDED",
+        "positionIncreased": "TRANSLATION NEEDED",
+        "positionOpened": "TRANSLATION NEEDED",
+        "positionReducedWithLoss": "TRANSLATION NEEDED",
+        "positionReducedWithProfit": "TRANSLATION NEEDED",
+        "principalSupplied": "TRANSLATION NEEDED",
+        "principalWithdrawn": "TRANSLATION NEEDED",
+        "realizedPnl": "TRANSLATION NEEDED",
         "redeem": "Withdraw",
         "repay": "Repayment"
       },
-      "view": "View",
       "yesterday": "Yesterday"
     },
     "vaults": {

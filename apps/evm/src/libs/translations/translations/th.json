@@ -88,13 +88,7 @@
           "all": "ตลาดทั้งหมด"
         },
         "txType": {
-          "all": "ธุรกรรมทั้งหมด",
-          "borrow": "ยืม",
-          "enterMarket": "เปิดใช้หลักประกัน",
-          "exitMarket": "ปิดใช้หลักประกัน",
-          "mint": "ฝาก",
-          "redeem": "ถอน",
-          "repay": "การชำระคืน"
+          "all": "ธุรกรรมทั้งหมด"
         }
       },
       "today": "วันนี้",
@@ -107,10 +101,18 @@
         "enterMarket": "เปิดใช้หลักประกัน",
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
+        "positionClosedWithLoss": "TRANSLATION NEEDED",
+        "positionClosedWithProfit": "TRANSLATION NEEDED",
+        "positionIncreased": "TRANSLATION NEEDED",
+        "positionOpened": "TRANSLATION NEEDED",
+        "positionReducedWithLoss": "TRANSLATION NEEDED",
+        "positionReducedWithProfit": "TRANSLATION NEEDED",
+        "principalSupplied": "TRANSLATION NEEDED",
+        "principalWithdrawn": "TRANSLATION NEEDED",
+        "realizedPnl": "TRANSLATION NEEDED",
         "redeem": "ถอน",
         "repay": "การชำระคืน"
       },
-      "view": "ดู",
       "yesterday": "เมื่อวาน"
     },
     "vaults": {

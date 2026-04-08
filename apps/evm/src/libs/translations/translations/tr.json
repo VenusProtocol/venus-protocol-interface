@@ -88,13 +88,7 @@
           "all": "Tüm piyasalar"
         },
         "txType": {
-          "all": "Tüm işlemler",
-          "borrow": "Borç al",
-          "enterMarket": "Teminat etkin",
-          "exitMarket": "Teminat devre dışı",
-          "mint": "Sağla",
-          "redeem": "Çek",
-          "repay": "Geri ödeme"
+          "all": "Tüm işlemler"
         }
       },
       "today": "Bugün",
@@ -107,10 +101,18 @@
         "enterMarket": "Teminat etkin",
         "exitMarket": "Teminat devre dışı",
         "mint": "Sağla",
+        "positionClosedWithLoss": "TRANSLATION NEEDED",
+        "positionClosedWithProfit": "TRANSLATION NEEDED",
+        "positionIncreased": "TRANSLATION NEEDED",
+        "positionOpened": "TRANSLATION NEEDED",
+        "positionReducedWithLoss": "TRANSLATION NEEDED",
+        "positionReducedWithProfit": "TRANSLATION NEEDED",
+        "principalSupplied": "TRANSLATION NEEDED",
+        "principalWithdrawn": "TRANSLATION NEEDED",
+        "realizedPnl": "TRANSLATION NEEDED",
         "redeem": "Çek",
         "repay": "Geri ödeme"
       },
-      "view": "Görüntüle",
       "yesterday": "Dün"
     },
     "vaults": {
