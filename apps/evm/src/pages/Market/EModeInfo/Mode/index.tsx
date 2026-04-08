@@ -1,4 +1,4 @@
-import { Card, Modal, type Order, Table } from 'components';
+import { Card, InfoIcon, Modal, type Order, Table } from 'components';
 import { EModeGroupList } from 'containers/EModeGroupList';
 import { useState } from 'react';
 import type { EModeGroup } from 'types';
@@ -8,7 +8,7 @@ import { useColumns } from './useColumns';
 
 export * from './types';
 
-export const Mode: React.FC<ModeProps> = ({ title, eModeAssetSettings, pool }) => {
+export const Mode: React.FC<ModeProps> = ({ title, tooltip, eModeAssetSettings, pool }) => {
   const columns = useColumns();
   const [selectedEModeGroup, setSelectedEModeGroup] = useState<EModeGroup>();
   const closeModal = () => setSelectedEModeGroup(undefined);
@@ -21,7 +21,10 @@ export const Mode: React.FC<ModeProps> = ({ title, eModeAssetSettings, pool }) =
   return (
     <>
       <Card className="pt-6 px-0 pb-2 space-y-6">
-        <div className="text-p2s px-6">{title}</div>
+        <div className="text-p2s px-6 flex items-center gap-1">
+          {title}
+          {tooltip && <InfoIcon tooltip={tooltip} />}
+        </div>
 
         {/* Card view */}
         <ModeCard
