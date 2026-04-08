@@ -84,7 +84,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
       >
         {showHoldingsCard ? (
           <div className="text-b1r text-light-grey">
-            {t('vault.card.currentStaked')}
+            {t('vault.card.currentDeposited')}
             <div className={cn('flex items-center text-p2s gap-2 text-light-grey-active')}>
               <TokenIcon token={vault.stakedToken} displayChain={false} size="lg" />
               {readableUserStakedTokens}

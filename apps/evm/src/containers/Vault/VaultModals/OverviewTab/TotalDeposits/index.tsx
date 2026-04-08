@@ -56,7 +56,7 @@ export const TotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
       <div className="mt-4">
         <div className="flex items-center gap-2 mb-2">
           <span className="size-2 rounded-full bg-green" />
-          <span className="text-b1r text-grey">{t('vault.modals.overview.totalStaked')}</span>
+          <span className="text-b1r text-grey">{t('vault.modals.overview.totalDeposited')}</span>
         </div>
 
         {isLoading ? (

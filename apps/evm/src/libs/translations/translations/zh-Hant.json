@@ -1462,7 +1462,7 @@
           },
           "deposit": {
             "hash": "0x7d485c4022644db464262a56b46ef5740909c890566d0f001895938fde3bc620",
-            "label": "存入"
+            "label": "存款"
           },
           "repay": {
             "hash": "0xdbccf6a5e9dc1ea5727115e86c9081646bf2c00a908512e7d9705f6e245930db",
@@ -1813,7 +1813,7 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必須先完成待處理的提款才能與此金庫互動。",
       "claimReward": "領取獎勵",
-      "currentStaked": "當前質押",
+      "currentDeposited": "當前存款",
       "dailyEmission": "每日獎勵釋放",
       "liquidity": "流動性",
       "liquidityTooltip": "此金庫底層 Pendle 集成資金池（或策略）中當前提供的資產總價值。",
@@ -1821,7 +1821,7 @@
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益部位（來自 Pendle）的到期日。在此日期之後，您將收回全部原始資產（本金）。鎖定的固定收益在此停止，建議持有至此以獲得預期收益。",
       "numDays_other": "{{count}} 天",
-      "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、質押和提款功能已禁用，直至金庫恢復運作。",
+      "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、存入和提款功能已禁用，直至金庫恢復運作。",
       "stake": "質押",
       "stakingApr": "{{stakeTokenName}} 質押 APR",
       "textualDate": "{{date, textual}}",
@@ -1830,7 +1830,7 @@
       "totalStaked": "總質押",
       "withdraw": "提取",
       "youAreStake": "你正在質押",
-      "youStaked": "你已質押"
+      "youDeposited": "你已存入"
     },
     "filter": {
       "active": "進行中",
@@ -1855,8 +1855,9 @@
       "claim": "領取",
       "connectWalletMessage": "請連接您的錢包以質押 / 提取 {{tokenSymbol}}",
       "convert": "轉換",
-      "currentStaked": "當前質押",
-      "currentStakedTooltip": "您在 PT 代幣中的當前質押持倃",
+      "currentDeposited": "當前存入",
+      "currentDepositedTooltip": "您當前在此金庫中鎖定並產生收益的資產數量。",
+      "deposit": "存款",
       "effectiveFixedApr": "實際固定年化利率",
       "effectiveFixedAprPendleTooltip": "此金庫策略提供的年化固定收益，以包含複利的有效年化利率（APR）表示。",
       "error": {
@@ -1890,14 +1891,13 @@
         },
         "strategyAllocation": "策略分配",
         "supply": "供應",
+        "totalDeposited": "總存款",
         "totalDeposits": "總存款",
-        "totalStaked": "總質押",
         "vaultDeploymentDate": "金庫部署日期"
       },
       "overviewTab": "概覽",
       "pendleFee": "Pendle 費用",
       "positionTab": "持倉",
-      "stake": "質押",
       "submitButtonDisabledLabel": "輸入有效申請金額",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",

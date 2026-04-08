@@ -89,7 +89,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
       return t('vault.card.claimReward');
     }
 
-    return t('vault.card.youStaked');
+    return t('vault.card.youDeposited');
   })();
 
   return (

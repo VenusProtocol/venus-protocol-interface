@@ -116,7 +116,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
   let actionLabel = t('vault.modals.claim');
 
   if (actionMode === 'deposit') {
-    actionLabel = t('vault.modals.stake');
+    actionLabel = t('vault.modals.deposit');
   }
 
   if (actionMode === 'withdraw' || actionMode === 'redeemAtMaturity') {
@@ -169,7 +169,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
         {!forceActionMode && (
           <div className="py-2">
             <ButtonGroup
-              buttonLabels={[t('vault.modals.stake'), t('vault.modals.withdraw')]}
+              buttonLabels={[t('vault.modals.deposit'), t('vault.modals.withdraw')]}
               activeButtonIndex={isStake ? 0 : 1}
               onButtonClick={handleActionModeChange}
               fullWidth
@@ -228,8 +228,8 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
         </div>
 
         <LabeledInlineContent
-          label={t('vault.modals.currentStaked')}
-          tooltip={t('vault.modals.currentStakedTooltip')}
+          label={t('vault.modals.currentDeposited')}
+          tooltip={t('vault.modals.currentDepositedTooltip')}
         >
           {readableUserStaked}
         </LabeledInlineContent>
