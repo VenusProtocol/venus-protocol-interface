@@ -26,6 +26,7 @@ import {
   isAssetPaused,
   isCollateralActionDisabled,
 } from 'utilities';
+import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useStyles } from '../styles';
 import type { ColumnKey } from '../types';
 
@@ -236,33 +237,37 @@ export const useColumns = ({
 
         if (column === 'userSupplyBalance') {
           return (
-            <LayeredValues
-              className={cn(isPaused && 'text-grey')}
-              topValue={formatTokensToReadableValue({
-                value: asset.userSupplyBalanceTokens,
-                token: asset.vToken.underlyingToken,
-                addSymbol: false,
-              })}
-              bottomValue={formatCentsToReadableValue({
-                value: asset.userSupplyBalanceCents,
-              })}
-            />
+            <HidableUserBalance>
+              <LayeredValues
+                className={cn(isPaused && 'text-grey')}
+                topValue={formatTokensToReadableValue({
+                  value: asset.userSupplyBalanceTokens,
+                  token: asset.vToken.underlyingToken,
+                  addSymbol: false,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: asset.userSupplyBalanceCents,
+                })}
+              />
+            </HidableUserBalance>
           );
         }
 
         if (column === 'userBorrowBalance') {
           return (
-            <LayeredValues
-              className={cn(isPaused && 'text-grey')}
-              topValue={formatTokensToReadableValue({
-                value: asset.userBorrowBalanceTokens,
-                token: asset.vToken.underlyingToken,
-                addSymbol: false,
-              })}
-              bottomValue={formatCentsToReadableValue({
-                value: asset.userBorrowBalanceCents,
-              })}
-            />
+            <HidableUserBalance>
+              <LayeredValues
+                className={cn(isPaused && 'text-grey')}
+                topValue={formatTokensToReadableValue({
+                  value: asset.userBorrowBalanceTokens,
+                  token: asset.vToken.underlyingToken,
+                  addSymbol: false,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: asset.userBorrowBalanceCents,
+                })}
+              />
+            </HidableUserBalance>
           );
         }
 
@@ -300,20 +305,22 @@ export const useColumns = ({
 
         if (column === 'userBorrowLimitSharePercentage') {
           return (
-            <div css={styles.userBorrowLimitSharePercentage}>
-              <span className={cn(isPaused ? 'text-grey' : 'text-white')}>
-                {formatPercentageToReadableValue(asset.userBorrowLimitSharePercentage)}
-              </span>
+            <HidableUserBalance>
+              <div css={styles.userBorrowLimitSharePercentage}>
+                <span className={cn(isPaused ? 'text-grey' : 'text-white')}>
+                  {formatPercentageToReadableValue(asset.userBorrowLimitSharePercentage)}
+                </span>
 
-              <ProgressBar
-                min={0}
-                max={100}
-                value={asset.userBorrowLimitSharePercentage}
-                step={1}
-                ariaLabel={t('marketTable.columnKeys.userBorrowLimitSharePercentage')}
-                css={styles.percentOfLimitProgressBar}
-              />
-            </div>
+                <ProgressBar
+                  min={0}
+                  max={100}
+                  value={asset.userBorrowLimitSharePercentage}
+                  step={1}
+                  ariaLabel={t('marketTable.columnKeys.userBorrowLimitSharePercentage')}
+                  css={styles.percentOfLimitProgressBar}
+                />
+              </div>
+            </HidableUserBalance>
           );
         }
       },

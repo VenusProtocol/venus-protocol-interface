@@ -23,12 +23,14 @@ export interface AccountHealthBarProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   className?: string;
+  hiddenValues?: string;
 }
 
 export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   className,
   borrowBalanceCents,
   borrowLimitCents,
+  hiddenValues,
 }) => {
   const { t, Trans } = useTranslation();
 
@@ -123,9 +125,9 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     <div className={className}>
       <LabeledProgressBar
         greyLeftText={t('accountHealth.borrowLimitUsed')}
-        whiteLeftText={readableBorrowLimitUsedPercentage}
+        whiteLeftText={hiddenValues ?? readableBorrowLimitUsedPercentage}
         greyRightText={t('accountHealth.limit')}
-        whiteRightText={readableBorrowLimit}
+        whiteRightText={hiddenValues ?? readableBorrowLimit}
         value={sanitizedBorrowLimitUsedPercentage}
         mark={moderateBorrowLimitPercentage}
         step={1}
