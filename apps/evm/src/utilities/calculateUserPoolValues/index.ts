@@ -27,13 +27,15 @@ export const calculateUserPoolValues = ({
     userSupplyBalanceCents = userSupplyBalanceCents.plus(asset.userSupplyBalanceCents);
 
     if (asset.isCollateralOfUser) {
-      userBorrowLimitCents = userBorrowLimitCents.plus(
-        asset.userSupplyBalanceCents.multipliedBy(asset.userCollateralFactor),
+      const borrowLimitContribution = asset.userSupplyBalanceCents.multipliedBy(
+        asset.userCollateralFactor,
+      );
+      const liqThresholdContribution = asset.userSupplyBalanceCents.multipliedBy(
+        asset.userLiquidationThresholdPercentage / 100,
       );
 
-      userLiquidationThresholdCents = userLiquidationThresholdCents.plus(
-        asset.userSupplyBalanceCents.multipliedBy(asset.userLiquidationThresholdPercentage / 100),
-      );
+      userBorrowLimitCents = userBorrowLimitCents.plus(borrowLimitContribution);
+      userLiquidationThresholdCents = userLiquidationThresholdCents.plus(liqThresholdContribution);
     }
   });
 

@@ -9,10 +9,15 @@ import { PALETTE } from 'App/MuiThemeProvider/muiTheme';
 import { Tooltip, type TooltipProps } from '../Tooltip';
 import { useStyles } from './styles';
 
+export interface ProgressBarMark {
+  value: number;
+  color?: string;
+}
+
 export interface ProgressBarProps {
   value: number;
   secondaryValue?: number;
-  mark?: number;
+  marks?: ProgressBarMark[];
   step: number;
   ariaLabel: string;
   min: number;
@@ -24,7 +29,7 @@ export interface ProgressBarProps {
 
 export const ProgressBar = ({
   value,
-  mark,
+  marks,
   step,
   ariaLabel,
   min,
@@ -35,9 +40,11 @@ export const ProgressBar = ({
 }: ProgressBarProps) => {
   const safeValue = value < max ? value : max;
 
-  const marks = mark ? [{ value: mark }] : undefined;
+  const sliderMarks = marks?.map(m => ({ value: m.value }));
+  const hasMarks = !!marks && marks.length > 0;
+
   const styles = useStyles({
-    over: mark ? safeValue > mark : false,
+    over: hasMarks ? safeValue > marks[0].value : false,
     progressBarColor,
   });
 
@@ -46,13 +53,24 @@ export const ProgressBar = ({
       props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark'] & {
         className?: string;
         style?: React.CSSProperties;
+        'data-index'?: number;
       },
-    ) => (
-      <Box component="span" style={props?.style} className={props?.className} css={styles.mark}>
-        <span css={styles.tooltipHelper}>.</span>
-      </Box>
-    ),
-    [styles.mark, styles.tooltipHelper],
+    ) => {
+      const index = props?.['data-index'] ?? 0;
+      const markColor = marks?.[index]?.color;
+
+      return (
+        <Box
+          component="span"
+          style={{ ...props?.style, ...(markColor ? { color: markColor } : {}) }}
+          className={props?.className}
+          css={styles.mark}
+        >
+          <span css={styles.tooltipHelper}>.</span>
+        </Box>
+      );
+    },
+    [styles.mark, styles.tooltipHelper, marks],
   );
 
   const renderTrack = useCallback(
@@ -79,11 +97,11 @@ export const ProgressBar = ({
       css={styles.slider}
       components={{
         Thumb: undefined,
-        Mark: mark ? renderMark : undefined,
+        Mark: hasMarks ? renderMark : undefined,
         Track: renderTrack,
       }}
       value={safeValue}
-      marks={marks}
+      marks={sliderMarks}
       step={step}
       aria-label={ariaLabel}
       min={min}

@@ -15,7 +15,7 @@ export const Default = () => (
     whiteRightText="$100"
     value={50}
     step={5}
-    mark={75}
+    marks={[{ value: 75 }]}
     ariaLabel="Storybook slider"
     min={0}
     max={100}

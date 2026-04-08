@@ -39,6 +39,7 @@ export const AccountData: React.FC<AccountDataProps> = ({ pool, simulatedPool, c
           <MemoizedAccountHealthBar
             borrowBalanceCents={refPool.userBorrowBalanceCents?.toNumber()}
             borrowLimitCents={refPool.userBorrowLimitCents?.toNumber()}
+            liquidationThresholdCents={refPool.userLiquidationThresholdCents?.toNumber()}
           />
 
           <LabeledInlineContent

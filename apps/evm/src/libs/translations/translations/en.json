@@ -134,9 +134,11 @@
   },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
-    "borrowLimitUsed": "Borrow limit used:",
-    "limit": "Limit:",
-    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
+    "borrowed": "Borrowed:",
+    "liquidationThreshold": "Liquidation threshold:",
+    "liquidationThresholdShort": "LT:",
+    "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
+    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Start now"

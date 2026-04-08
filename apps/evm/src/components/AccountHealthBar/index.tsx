@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import { useIsSmDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import {
   calculatePercentage,
@@ -22,6 +23,7 @@ const moderateBorrowLimitPercentage = 100 / HEALTH_FACTOR_MODERATE_THRESHOLD;
 export interface AccountHealthBarProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
+  liquidationThresholdCents: number | undefined;
   className?: string;
 }
 
@@ -29,105 +31,126 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   className,
   borrowBalanceCents,
   borrowLimitCents,
+  liquidationThresholdCents,
 }) => {
   const { t, Trans } = useTranslation();
+  const isSmDown = useIsSmDown();
 
-  const borrowLimitUsedPercentage = useMemo(
-    () =>
-      typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
-        ? calculatePercentage({
-            numerator: borrowBalanceCents,
-            denominator: borrowLimitCents,
-          })
-        : undefined,
-    [borrowBalanceCents, borrowLimitCents],
-  );
+  const borrowLimitUsedPercentage =
+    typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowBalanceCents,
+          denominator: borrowLimitCents,
+        })
+      : undefined;
 
-  const { readableBorrowLimitUsedPercentage, sanitizedBorrowLimitUsedPercentage } = useMemo(
-    () => ({
-      readableBorrowLimitUsedPercentage: formatPercentageToReadableValue(borrowLimitUsedPercentage),
-      sanitizedBorrowLimitUsedPercentage: borrowLimitUsedPercentage || 0,
-    }),
-    [borrowLimitUsedPercentage],
-  );
+  const fillPercentage =
+    typeof borrowBalanceCents === 'number' && typeof liquidationThresholdCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowBalanceCents,
+          denominator: liquidationThresholdCents,
+        })
+      : undefined;
 
-  const readableModerateBorrowLimit = useMemo(() => {
-    const moderateBorrowLimitCents =
-      typeof borrowLimitCents === 'number'
-        ? Math.floor((borrowLimitCents * moderateBorrowLimitPercentage) / 100)
-        : undefined;
+  const markPercentage =
+    typeof borrowLimitCents === 'number' && typeof liquidationThresholdCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowLimitCents,
+          denominator: liquidationThresholdCents,
+        })
+      : undefined;
 
-    return formatCentsToReadableValue({
-      value: moderateBorrowLimitCents,
-    });
-  }, [borrowLimitCents]);
+  const readableBorrowLimitUsedPercentage =
+    formatPercentageToReadableValue(borrowLimitUsedPercentage);
+  const sanitizedFillPercentage = fillPercentage || 0;
 
-  const readableBorrowLimit = useMemo(
-    () =>
-      formatCentsToReadableValue({
-        value: borrowLimitCents,
-      }),
-    [borrowLimitCents],
-  );
+  const readableBorrowLimit = formatCentsToReadableValue({
+    value: borrowLimitCents,
+  });
 
-  const readableBorrowBalance = useMemo(
-    () =>
-      formatCentsToReadableValue({
-        value: borrowBalanceCents,
-      }),
-    [borrowBalanceCents],
-  );
+  const readableLiquidationThreshold = formatCentsToReadableValue({
+    value: liquidationThresholdCents,
+  });
+
+  const readableBorrowBalance = formatCentsToReadableValue({
+    value: borrowBalanceCents,
+  });
 
   const tooltip = useMemo(
     () =>
       readableBorrowBalance !== PLACEHOLDER_KEY &&
       readableBorrowLimitUsedPercentage !== PLACEHOLDER_KEY &&
-      readableModerateBorrowLimit !== PLACEHOLDER_KEY &&
       borrowBalanceCents &&
       borrowBalanceCents > 0 ? (
         <Trans
           i18nKey="accountHealth.tooltip"
+          shouldUnescape
           components={{
             LineBreak: <br />,
           }}
           values={{
             borrowBalance: readableBorrowBalance,
             borrowLimitUsedPercentage: readableBorrowLimitUsedPercentage,
-            safeBorrowLimit: readableModerateBorrowLimit,
-            safeBorrowLimitPercentage: moderateBorrowLimitPercentage,
+            borrowLimit: readableBorrowLimit,
           }}
         />
       ) : undefined,
     [
-      readableModerateBorrowLimit,
       borrowBalanceCents,
       readableBorrowBalance,
       readableBorrowLimitUsedPercentage,
+      readableBorrowLimit,
       Trans,
     ],
   );
 
   const progressBarColor = useMemo(() => {
-    if (sanitizedBorrowLimitUsedPercentage <= safeBorrowLimitPercentage) {
+    if (sanitizedFillPercentage <= safeBorrowLimitPercentage) {
       return theme.colors.green;
     }
 
-    if (sanitizedBorrowLimitUsedPercentage <= moderateBorrowLimitPercentage) {
+    if (sanitizedFillPercentage <= moderateBorrowLimitPercentage) {
       return theme.colors.yellow;
     }
 
     return theme.colors.red;
-  }, [sanitizedBorrowLimitUsedPercentage]);
+  }, [sanitizedFillPercentage]);
 
   return (
     <div className={className}>
       <LabeledProgressBar
-        greyLeftText={t('accountHealth.borrowLimitUsed')}
-        whiteLeftText={readableBorrowLimitUsedPercentage}
-        greyRightText={t('accountHealth.limit')}
-        whiteRightText={readableBorrowLimit}
-        value={sanitizedBorrowLimitUsedPercentage}
-        mark={moderateBorrowLimitPercentage}
+        greyLeftText={t('accountHealth.borrowed')}
+        whiteLeftText={readableBorrowBalance}
+        greyRightText={
+          isSmDown
+            ? t('accountHealth.liquidationThresholdShort')
+            : t('accountHealth.liquidationThreshold')
+        }
+        whiteRightText={readableLiquidationThreshold}
+        rightInfoTooltip={
+          <Trans
+            i18nKey="accountHealth.liquidationThresholdTooltip"
+            components={{
+              LineBreak: <br />,
+              Link: (
+                // biome-ignore lint/a11y/useAnchorContent: content is injected by Trans component
+                <a
+                  href="https://docs-v4.venus.io/guides/liquidation"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: theme.colors.blue, textDecoration: 'underline' }}
+                />
+              ),
+            }}
+          />
+        }
+        value={sanitizedFillPercentage}
+        marks={[
+          { value: 80 },
+          ...(markPercentage !== undefined
+            ? [{ value: Math.min(markPercentage, 99), color: theme.colors.white }]
+            : []),
+        ]}
         step={1}
         ariaLabel={t('accountHealth.accessibilityLabel')}
         min={0}
