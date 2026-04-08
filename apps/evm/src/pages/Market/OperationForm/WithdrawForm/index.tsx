@@ -225,20 +225,21 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   });
   const simulatedPool = getSimulatedPoolData?.pool;
 
+  const isRiskyOperation =
+    hypotheticalHealthFactor !== undefined &&
+    hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
+
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     poolName: pool.name,
     limitTokens,
     moderateRiskMaxTokens,
+    isRiskyOperation,
     onSubmitSuccess,
     onSubmit,
     formValues,
     setFormValues,
   });
-
-  const isRiskyOperation =
-    hypotheticalHealthFactor !== undefined &&
-    hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
 
   const shouldAskUserRiskAcknowledgement =
     isRiskyOperation && (!formError || formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT');

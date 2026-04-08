@@ -11,6 +11,7 @@ interface UseFormValidationInput {
   formValues: FormValues;
   limitTokens: BigNumber;
   moderateRiskMaxTokens: BigNumber;
+  isRiskyOperation: boolean;
 }
 
 interface UseFormValidationOutput {
@@ -22,6 +23,7 @@ const useFormValidation = ({
   asset,
   limitTokens,
   moderateRiskMaxTokens,
+  isRiskyOperation,
   formValues,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
@@ -56,7 +58,10 @@ const useFormValidation = ({
       };
     }
 
-    if (fromTokenAmountTokens.isGreaterThan(moderateRiskMaxTokens) && !formValues.acknowledgeRisk) {
+    if (
+      (fromTokenAmountTokens.isGreaterThan(moderateRiskMaxTokens) || isRiskyOperation) &&
+      !formValues.acknowledgeRisk
+    ) {
       return {
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
       };
@@ -68,6 +73,7 @@ const useFormValidation = ({
     t,
     asset,
     moderateRiskMaxTokens,
+    isRiskyOperation,
   ]);
 
   return {
