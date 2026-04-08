@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from 'components';
 import { Apy } from 'components';
+import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
 import type { Asset, EModeGroup } from 'types';
@@ -26,7 +27,6 @@ import {
   isAssetPaused,
   isCollateralActionDisabled,
 } from 'utilities';
-import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useStyles } from '../styles';
 import type { ColumnKey } from '../types';
 

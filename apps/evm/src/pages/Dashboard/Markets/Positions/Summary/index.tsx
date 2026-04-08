@@ -67,9 +67,7 @@ export const Summary: React.FC<SummaryProps> = ({
     {
       label: t('account.summary.cellGroup.netApy'),
       value: (
-        <HidableUserBalance>
-          {formatPercentageToReadableValue(netApyPercentage)}
-        </HidableUserBalance>
+        <HidableUserBalance>{formatPercentageToReadableValue(netApyPercentage)}</HidableUserBalance>
       ),
       tooltip: vaults
         ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
