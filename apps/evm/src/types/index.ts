@@ -2,6 +2,7 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
+import type { MARKET_TX_TYPES, YIELD_PLUS_TX_TYPES } from 'constants/marketTxTypes';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -167,7 +168,9 @@ export interface AssetBalanceMutation {
   vTokenAddress: Address;
   amountTokens: BigNumber;
   action: 'borrow' | 'repay' | 'withdraw' | 'supply';
+  balanceTokens?: BigNumber;
   enableAsCollateralOfUser?: boolean;
+  label?: string;
 }
 
 export interface VaiBalanceMutation {
@@ -610,11 +613,79 @@ export interface ImportableAaveSupplyPosition extends ImportableSupplyPositionBa
 
 export type ImportableSupplyPosition = ImportableAaveSupplyPosition;
 
-export enum TxType {
-  Mint = 'mint',
-  Borrow = 'borrow',
-  Redeem = 'redeem',
-  Repay = 'repay',
-  EnterMarket = 'enter_market',
-  ExitMarket = 'exit_market',
+export interface YieldPlusPosition {
+  chainId: ChainId;
+  positionAccountAddress: Address;
+  longAsset: Asset;
+  longBalanceTokens: BigNumber;
+  longBalanceCents: number;
+  shortAsset: Asset;
+  shortBalanceTokens: BigNumber;
+  shortBalanceCents: number;
+  dsaAsset: Asset;
+  dsaBalanceTokens: BigNumber;
+  dsaBalanceCents: number;
+  netValueCents: number;
+  netApyPercentage: number;
+  unrealizedPnlCents: number;
+  unrealizedPnlPercentage: number;
+  liquidationPriceTokens: BigNumber;
+  entryPriceTokens: BigNumber;
+  leverageFactor: number;
+  pool: Pool;
 }
+
+export type CommonTxFormErrorCode =
+  | 'SUPPLY_CAP_ALREADY_REACHED'
+  | 'BORROW_CAP_ALREADY_REACHED'
+  | 'HIGHER_THAN_BORROW_CAP'
+  | 'HIGHER_THAN_SUPPLY_CAP'
+  | 'SWAP_PRICE_IMPACT_TOO_HIGH'
+  | 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT'
+  | 'NO_SWAP_QUOTE_FOUND'
+  | 'HIGHER_THAN_LIQUIDITY'
+  | 'HIGHER_THAN_AVAILABLE_AMOUNT'
+  | 'HIGHER_THAN_REPAY_BALANCE'
+  | 'REQUIRES_RISK_ACKNOWLEDGEMENT'
+  | 'TOO_RISKY';
+
+export interface TxFormError<C extends string = never> {
+  code: CommonTxFormErrorCode | C;
+  message?: string;
+}
+
+export type YieldPlusTxType = (typeof YIELD_PLUS_TX_TYPES)[number];
+
+export type MarketTxType = (typeof MARKET_TX_TYPES)[number];
+
+export type TxType = YieldPlusTxType | MarketTxType;
+
+export interface TxAmount {
+  token: Token;
+  amountTokens: BigNumber;
+  amountCents: number;
+}
+
+export interface BaseTx {
+  hash: string;
+  blockTimestamp: Date;
+  blockNumber: string;
+  accountAddress: Address;
+  contractAddress: Address;
+  chainId: ChainId;
+  amounts?: TxAmount[];
+}
+
+export interface MarketTx extends BaseTx {
+  txType: MarketTxType;
+  poolName: string;
+  vToken: VToken;
+}
+export interface YieldPlusTx extends BaseTx {
+  txType: YieldPlusTxType;
+  cycleId: string;
+}
+
+export type Tx = MarketTx | YieldPlusTx;
+
+export type ApiOhlcInterval = '1m' | '5m' | '15m' | '30m' | '1h' | '4h' | '1d';

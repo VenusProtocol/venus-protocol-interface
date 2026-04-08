@@ -35,6 +35,10 @@ export * from './mutations/useRepayWithCollateral';
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
+export * from './queries/getProportionalCloseTolerancePercentage';
+export * from './queries/getProportionalCloseTolerancePercentage/useGetProportionalCloseTolerancePercentage';
+export * from './queries/getDsaVTokens';
+export * from './queries/getDsaVTokens/useGetDsaVTokens';
 export * from './queries/getVTokenBalance';
 export * from './queries/getVTokenBalance/useGetVTokenBalance';
 
@@ -237,3 +241,6 @@ export * from './queries/getSwapQuote/useGetSwapQuote';
 
 export * from './queries/getProposalCount';
 export * from './queries/getProposalCount/useGetProposalCount';
+
+export * from './queries/getRawYieldPlusPositions';
+export * from './queries/getRawYieldPlusPositions/useGetRawYieldPlusPositions';

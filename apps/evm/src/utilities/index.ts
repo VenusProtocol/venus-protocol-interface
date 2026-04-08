@@ -61,3 +61,4 @@ export * from './calculateUserPoolValues';
 export * from './addUserBorrowLimitShares';
 export * from './clampToZero';
 export * from './calculateUserMaxBorrowTokens';
+export * from './formatToYieldPlusPosition';
