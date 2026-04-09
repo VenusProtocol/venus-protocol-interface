@@ -126,6 +126,7 @@ import nexusAbi from './externalAbis/Nexus.json';
 import nexusAccountFactoryAbi from './externalAbis/NexusAccountFactory.json';
 import nexusBoostrapAbi from './externalAbis/NexusBootstrap.json';
 import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
+import pendlePtVaultAbi from './externalAbis/PendlePtVault.json';
 import swapRouterV2Abi from './externalAbis/SwapRouterV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import zyFiVaultAbi from './externalAbis/ZyFiVault.json';
@@ -889,6 +890,13 @@ export const contracts: ContractConfig[] = [
           isolatedPoolsUnichainSepoliaDeployments.addresses
             .NativeTokenGateway_vWETH_Core as Address,
       },
+    },
+  },
+  {
+    name: 'PendlePtVault',
+    abi: pendlePtVaultAbi as Abi,
+    address: {
+      [ChainId.BSC_MAINNET]: '0x179bD219c2a20a49406C9AdA39634eDac1C7F656',
     },
   },
 ];

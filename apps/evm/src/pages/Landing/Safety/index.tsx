@@ -99,7 +99,9 @@ export const Safety: React.FC<ISafetyProps> = ({ className }) => {
               <p className="max-w-38 text-b1r">
                 <Trans
                   i18nKey="landing.safety.otherAuditors"
-                  components={{ br: <br /> }}
+                  components={{
+                    br: <br />,
+                  }}
                 />
               </p>
             </Link>

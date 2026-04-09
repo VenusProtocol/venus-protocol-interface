@@ -1,0 +1,75 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useWithdrawFromPendleVault > calls useSendTransaction with the correct parameters for withdraw 3`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_BALANCES",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_V_TOKEN_BALANCES_ALL",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_FIXED_RATED_VAULTS",
+      ],
+    },
+  ],
+]
+`;

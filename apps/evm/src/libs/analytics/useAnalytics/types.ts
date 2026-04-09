@@ -144,6 +144,16 @@ type EModeClickRepayPositionsModal = AnalyticEvent & {
   tokenSymbol: string;
 };
 
+type PendleVault = AnalyticEvent & {
+  pendleMarketAddress: Address;
+  fromTokenSymbol: string;
+  fromTokenAmountTokens: number;
+  toTokenSymbol: string;
+  toTokenAmountTokens: number;
+  priceImpactPercentage: number;
+  slippageTolerancePercentage: number;
+};
+
 type EventMap = {
   connect_wallet_initiated: AnalyticEvent;
   wallet_connected: AnalyticEvent;
@@ -221,6 +231,10 @@ type EventMap = {
   switch_e_mode_initiated: SwitchEModeGroup;
   switch_e_mode_rejected: SwitchEModeGroup;
   switch_e_mode_signed: SwitchEModeGroup;
+
+  'Pendle vault deposit': PendleVault;
+  'Pendle vault withdraw': PendleVault;
+  'Pendle vault redeemAtMaturity': PendleVault;
 };
 
 export type AnalyticEventName = keyof EventMap;

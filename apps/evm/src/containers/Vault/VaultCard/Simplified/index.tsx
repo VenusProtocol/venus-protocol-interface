@@ -5,14 +5,16 @@ import { Card, TokenIcon, TokenIconWithSymbol } from 'components';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Vault } from 'types';
+import { type Vault, VaultManager } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  isPendleVault,
 } from 'utilities';
 
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import { PendleModal } from 'containers/Vault/VaultModals';
+import { useState } from 'react';
 import TEST_IDS from '../../testIds';
 import { Cell } from './Cell';
 
@@ -25,6 +27,11 @@ interface VaultCardSimplifiedProps {
 export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
   const { t } = useTranslation();
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
   const { accountAddress } = useAccountAddress();
 
   const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
@@ -33,22 +40,26 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
     addSymbol: false,
   });
 
-  const isPaused = vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade;
+  const isPaused =
+    ('isPaused' in vault && vault.isPaused) ||
+    ('userHasPendingWithdrawalsFromBeforeUpgrade' in vault &&
+      vault.userHasPendingWithdrawalsFromBeforeUpgrade);
 
   const canWithdraw = vault.userStakedMantissa?.gt(0);
   const showHoldingsCard = accountAddress && canWithdraw;
 
-  const dailyEmissionContent = vault.dailyEmissionMantissa
-    ? formatTokensToReadableValue({
-        value: convertMantissaToTokens({
-          value: vault.dailyEmissionMantissa,
+  const dailyEmissionReadableValue =
+    'dailyEmissionMantissa' in vault && vault.dailyEmissionMantissa
+      ? formatTokensToReadableValue({
+          value: convertMantissaToTokens({
+            value: vault.dailyEmissionMantissa,
+            token: vault.rewardToken,
+          }),
           token: vault.rewardToken,
-        }),
-        token: vault.rewardToken,
-      })
-    : PLACEHOLDER_KEY;
+        })
+      : undefined;
 
-  const totalDepositedContent = vault.totalStakedMantissa ? (
+  const totalDepositedReadableValue = vault.totalStakedMantissa ? (
     <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
       <TokenIcon token={vault.stakedToken} displayChain={false} size="md" />
       {formatTokensToReadableValue({
@@ -59,47 +70,56 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
         token: vault.stakedToken,
       })}
     </div>
-  ) : (
-    PLACEHOLDER_KEY
-  );
+  ) : undefined;
 
   return (
-    <Card
-      className={cn(
-        'w-full flex flex-col p-3 gap-3 duration-200',
-        !isPaused && 'cursor-pointer hover:border-blue',
-        className,
-      )}
-    >
-      {showHoldingsCard ? (
-        <div className="text-b1r text-light-grey">
-          {t('vault.card.currentStaked')}
-          <div className={cn('flex items-center text-p2s gap-2 text-light-grey-active')}>
-            <TokenIcon token={vault.stakedToken} displayChain={false} size="lg" />
-            {readableUserStakedTokens}
-          </div>
-        </div>
-      ) : (
-        <TokenIconWithSymbol
-          token={vault.stakedToken}
-          displayChain={false}
-          size="lg"
-          data-testid={TEST_IDS.symbol}
-          className="text-p2s"
-        />
-      )}
-      <div className="flex">
-        <Cell
-          title={t('vault.card.apr')}
-          content={formatPercentageToReadableValue(vault.stakingAprPercentage)}
-        />
-
-        {showHoldingsCard ? (
-          <Cell title={t('vault.card.dailyEmission')} content={dailyEmissionContent} />
-        ) : (
-          <Cell title={t('vault.card.totalDeposited')} content={totalDepositedContent} />
+    <>
+      <Card
+        className={cn(
+          'w-full h-full flex flex-col p-3 gap-3 duration-200',
+          !isPaused && 'cursor-pointer hover:border-blue',
+          className,
         )}
-      </div>
-    </Card>
+        onClick={isPaused || vault.manager === VaultManager.Venus ? undefined : openModal}
+      >
+        {showHoldingsCard ? (
+          <div className="text-b1r text-light-grey">
+            {t('vault.card.currentDeposited')}
+            <div className={cn('flex items-center text-p2s gap-2 text-light-grey-active')}>
+              <TokenIcon token={vault.stakedToken} displayChain={false} size="lg" />
+              {readableUserStakedTokens}
+            </div>
+          </div>
+        ) : (
+          <TokenIconWithSymbol
+            token={vault.stakedToken}
+            displayChain={false}
+            size="lg"
+            data-testid={TEST_IDS.symbol}
+            className="text-p2s"
+          />
+        )}
+        <div className="flex">
+          <Cell
+            title={t('vault.card.apr')}
+            content={formatPercentageToReadableValue(vault.stakingAprPercentage)}
+          />
+          {showHoldingsCard && dailyEmissionReadableValue && (
+            <Cell title={t('vault.card.dailyEmission')} content={dailyEmissionReadableValue} />
+          )}
+          {!showHoldingsCard && totalDepositedReadableValue && (
+            <Cell title={t('vault.card.totalDeposited')} content={totalDepositedReadableValue} />
+          )}
+        </div>
+      </Card>
+
+      {modalVisible && isPendleVault(vault) && (
+        <PendleModal
+          vault={vault}
+          isOpen={modalVisible}
+          handleClose={() => setModalVisible(false)}
+        />
+      )}
+    </>
   );
 };

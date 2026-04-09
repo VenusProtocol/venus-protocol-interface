@@ -2,7 +2,11 @@ import { theme } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 
 import { useTranslation } from 'libs/translations';
-import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import {
+  formatCentsToReadableValue,
+  formatPercentageToReadableValue,
+  formatToReadableDate,
+} from 'utilities';
 
 import type { MarketHistoryPeriodType } from 'clients/api';
 import { AreaChart } from 'components';
@@ -25,17 +29,12 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
   const { t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
 
-  const formatToReadableDate = (timestampMs: number, selectedPeriod?: MarketHistoryPeriodType) => {
-    if (selectedPeriod === 'year') {
-      return t('apyChart.date.short', {
-        date: new Date(timestampMs),
-      });
-    }
-
-    return t('apyChart.date.full', {
-      date: new Date(timestampMs),
+  const formatDate = (timestampMs: number, period?: MarketHistoryPeriodType) =>
+    formatToReadableDate({
+      timestampMs,
+      selectedPeriod: period,
+      t,
     });
-  };
 
   const chartColor = type === 'supply' ? theme.colors.green : theme.colors.red;
   const chartInterval = isSmOrUp ? 5 : 3;
@@ -46,14 +45,14 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
       xAxisDataKey="timestampMs"
       yAxisDataKey="apyPercentage"
       className={className}
-      formatXAxisValue={value => formatToReadableDate(value)}
+      formatXAxisValue={value => formatDate(value)}
       formatYAxisValue={formatPercentageToReadableValue}
       chartColor={chartColor}
       interval={chartInterval}
       formatTooltipItems={payload => [
         {
           label: t('apyChart.tooltipItemLabels.date'),
-          value: formatToReadableDate(payload.timestampMs, selectedPeriod),
+          value: formatDate(payload.timestampMs, selectedPeriod),
         },
         {
           label:

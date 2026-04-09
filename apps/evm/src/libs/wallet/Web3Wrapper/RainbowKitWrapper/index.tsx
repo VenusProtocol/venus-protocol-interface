@@ -7,7 +7,7 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { theme } from '@venusprotocol/ui';
 import { reconnect as wagmiReconnect } from '@wagmi/core';
-import merge from 'lodash.merge';
+import { merge } from 'lodash-es';
 import { type PropsWithChildren, useEffect, useRef } from 'react';
 import { useAccount, useConfig } from 'wagmi';
 
