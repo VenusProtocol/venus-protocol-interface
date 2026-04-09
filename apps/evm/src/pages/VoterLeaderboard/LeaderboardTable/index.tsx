@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import _cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { Table, type TableColumn, Username } from 'components';
@@ -95,7 +95,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
   );
 
   const cardColumns = useMemo(() => {
-    const newColumns = _cloneDeep(columns);
+    const newColumns = cloneDeep(columns);
     newColumns[2].align = 'center';
     newColumns[3].align = 'left';
     return newColumns;
