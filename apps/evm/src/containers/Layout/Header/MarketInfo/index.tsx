@@ -46,15 +46,24 @@ export const MarketInfo = () => {
 
   const { data: getPools } = useGetPool({
     poolComptrollerAddress,
+    accountAddress,
   });
   const pool = getPools?.pool;
 
   const cells: CellProps[] = useMemo(() => {
+    const eModeAssetSettings = pool?.userEModeGroup?.assetSettings.find(
+      settings =>
+        settings.vToken.address.toLowerCase() === asset?.vToken.address.toLowerCase(),
+    );
+    const effectiveCollateralFactor = eModeAssetSettings
+      ? eModeAssetSettings.collateralFactor
+      : asset?.collateralFactor;
+
     const readableMaxLtvPercentage = asset
       ? formatPercentageToReadableValue(
-          asset
+          effectiveCollateralFactor !== undefined
             ? // We use BigNumber to prevent issues with floating-point numbers
-              new BigNumber(asset.collateralFactor)
+              new BigNumber(effectiveCollateralFactor)
                 .multipliedBy(100)
                 .toNumber()
             : undefined,
@@ -79,7 +88,7 @@ export const MarketInfo = () => {
         value: readableMaxLtvPercentage,
         tooltip: t('layout.header.maxLtv.tooltip', {
           maxLtv: readableMaxLtvPercentage,
-          userCollateralFactor: asset?.collateralFactor,
+          userCollateralFactor: effectiveCollateralFactor,
           tokenSymbol: asset?.vToken.underlyingToken.symbol,
         }),
       },
