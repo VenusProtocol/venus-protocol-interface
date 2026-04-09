@@ -470,6 +470,7 @@ export enum VaultStatus {
   Active = 'active',
   Deposit = 'deposit',
   Earning = 'earning',
+  Pending = 'pending',
   Refund = 'refund',
   Repaying = 'repaying',
   Claim = 'claim',
@@ -479,6 +480,7 @@ export enum VaultStatus {
 export enum VaultManager {
   Venus = 'venus',
   Pendle = 'pendle',
+  Ceefu = 'ceefu',
 }
 
 export enum VaultCategory {
@@ -524,7 +526,21 @@ export type PendleVault = BaseVault & {
   poolName: string;
 };
 
-export type Vault = VenusVault | PendleVault;
+export type InstitutionalVault = BaseVault & {
+  maturityDate: Date;
+  liquidityCents: BigNumber;
+  asset: Asset;
+  managerLink?: string;
+  vaultDeploymentDate?: Date;
+  poolComptrollerContractAddress: Address;
+  poolName: string;
+  openEndDate: Date;
+  totalDepositedMantissa: BigNumber;
+  maxDepositedMantissa: BigNumber;
+  minRequestMantissa: BigNumber;
+};
+
+export type Vault = VenusVault | PendleVault | InstitutionalVault;
 
 export interface VoterAccount {
   address: Address;

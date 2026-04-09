@@ -1,13 +1,10 @@
 import { Select, TextField, type TextFieldProps, cn } from 'components';
 import { VaultCard } from 'containers/Vault/VaultCard';
-import { VaultCardLegacy } from 'containers/Vault/VaultCard/Legacy';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
-import { type Vault, VaultManager, type VenusVault } from 'types';
+import type { Vault } from 'types';
 
 import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
-
-const isLegacyVault = (vault: Vault): vault is VenusVault => vault.manager === VaultManager.Venus;
 
 const optionClassName = cn('px-3 h-10 scrollbar-track-cards');
 
@@ -89,13 +86,9 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
         />
       </div>
       <div className={cn('grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6', className)} {...props}>
-        {filteredVaults.map(vault =>
-          isLegacyVault(vault) ? (
-            <VaultCardLegacy vault={vault} key={vault.key} />
-          ) : (
-            <VaultCard vault={vault} key={vault.key} />
-          ),
-        )}
+        {filteredVaults.map(vault => (
+          <VaultCard vault={vault} key={vault.key} />
+        ))}
       </div>
     </div>
   );

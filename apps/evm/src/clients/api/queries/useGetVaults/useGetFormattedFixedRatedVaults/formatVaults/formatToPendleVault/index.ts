@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import type { GetFixedRatedVaultsOutput } from 'clients/api';
+import type { GetFixedRatedVaultsOutput, PendleVaultProtocolData } from 'clients/api';
 import {
   type Asset,
   type PendleVault,
@@ -46,8 +46,10 @@ export const formatToPendleVault = ({
     tokens,
   });
 
+  const protocolData = vaultData.protocolData as PendleVaultProtocolData;
+
   const rewardToken = findTokenByAddress({
-    address: vaultData.protocolData?.accountingAsset?.address ?? '',
+    address: protocolData?.accountingAsset?.address ?? '',
     tokens,
   });
 
@@ -80,19 +82,17 @@ export const formatToPendleVault = ({
     }),
     totalStakedCents: asset.supplyBalanceCents.toNumber(),
     userStakedCents: asset.userSupplyBalanceCents.toNumber(),
-    stakedTokenPriceCents: new BigNumber(vaultData.protocolData.ptTokenPriceUsd).shiftedBy(2),
-    rewardTokenPriceCents: new BigNumber(
-      vaultData.protocolData?.accountingAsset?.priceUsd,
-    ).shiftedBy(2),
+    stakedTokenPriceCents: new BigNumber(protocolData.ptTokenPriceUsd).shiftedBy(2),
+    rewardTokenPriceCents: new BigNumber(protocolData?.accountingAsset?.priceUsd).shiftedBy(2),
     maturityDate,
-    vaultDeploymentDate: new Date(vaultData.protocolData?.startDate),
-    liquidityCents: new BigNumber(vaultData.protocolData.liquidityCents),
+    vaultDeploymentDate: new Date(protocolData?.startDate),
+    liquidityCents: new BigNumber(protocolData.liquidityCents),
     category: VaultCategory.YieldTokens,
     manager: VaultManager.Pendle,
     managerIcon: 'pendle' as const,
-    managerAddress: vaultData.protocolData.pendleMarketAddress,
-    managerLink: vaultData.protocolData.pendleMarketAddress
-      ? `https://app.pendle.finance/trade/pools/${vaultData.protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`
+    managerAddress: protocolData.pendleMarketAddress,
+    managerLink: protocolData.pendleMarketAddress
+      ? `https://app.pendle.finance/trade/pools/${protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`
       : undefined,
     status,
     asset,

@@ -15,7 +15,7 @@ import {
 
 import { PendleModal } from 'containers/Vault/VaultModals';
 import { useState } from 'react';
-import TEST_IDS from '../../testIds';
+import TEST_IDS from '../testIds';
 import { Cell } from './Cell';
 
 interface VaultCardSimplifiedProps {
@@ -24,7 +24,7 @@ interface VaultCardSimplifiedProps {
 }
 
 // Vault Card in Dashboard
-export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
+export const VaultSimpleCard: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
   const { t } = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false);

@@ -3,6 +3,7 @@ import type { Address } from 'viem';
 
 export type GetFixedRatedVaultsInput = {
   chainId: ChainId;
+  includeExpired?: boolean;
 };
 
 type FixedRatedVaultAsset = {
@@ -13,7 +14,7 @@ type FixedRatedVaultAsset = {
   priceUsd: number;
 };
 
-type FixedRatedVaultProtocolData = {
+export type PendleVaultProtocolData = {
   startDate: string;
   ptDiscount: number;
   ptTokenSymbol: string;
@@ -26,6 +27,17 @@ type FixedRatedVaultProtocolData = {
   pendleMarketAddress: Address;
 };
 
+export type InstitutionalVaultProtocolData = {
+  collateralAssetAddress: Address;
+  institutionOperatorAddress: Address;
+  latePenaltyRateMantissa: string;
+  lockDurationSeconds: number;
+  openDurationSeconds: number;
+  settlementWindowSeconds: number;
+};
+
+type FixedRatedVaultProtocolData = PendleVaultProtocolData | InstitutionalVaultProtocolData;
+
 type FixedRatedVaultUnderlyingToken = {
   address: Address;
   chainId: string;
@@ -35,6 +47,34 @@ type FixedRatedVaultUnderlyingToken = {
   maturityDate: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type LoanVaultDetail = {
+  chainId: string;
+  collateralAssetAddress: Address;
+  collateralValueCents: string;
+  createdAt: string;
+  debtValueCents: string;
+  fixedRateVaultId: string;
+  id: string;
+  institutionAddress: Address;
+  latePenaltyRateMantissa: string;
+  liquidationIncentiveMantissa: string;
+  liquidationThresholdMantissa: string;
+  liquidityMantissa: string;
+  lockEndTime: string;
+  maxBorrowCapMantissa: string;
+  minBorrowCapMantissa: string;
+  openEndTime: string;
+  outstandingDebtMantissa: string;
+  reserveFactorMantissa: string;
+  settlementDeadline: string;
+  shortfallMantissa: string;
+  supplyAssetAddress: Address;
+  totalOwedMantissa: string;
+  totalRaisedMantissa: string;
+  updatedAt: string;
+  vaultState: number;
 };
 
 type FixedRatedVault = {
@@ -48,6 +88,7 @@ type FixedRatedVault = {
   protocolData: FixedRatedVaultProtocolData;
   createdAt: string;
   updatedAt: string;
+  loanVaultDetail?: LoanVaultDetail;
   underlyingToken: FixedRatedVaultUnderlyingToken[];
 };
 
