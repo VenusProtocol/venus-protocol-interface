@@ -52,8 +52,7 @@ export const MarketInfo = () => {
 
   const cells: CellProps[] = useMemo(() => {
     const eModeAssetSettings = pool?.userEModeGroup?.assetSettings.find(
-      settings =>
-        settings.vToken.address.toLowerCase() === asset?.vToken.address.toLowerCase(),
+      settings => settings.vToken.address.toLowerCase() === asset?.vToken.address.toLowerCase(),
     );
     const effectiveCollateralFactor = eModeAssetSettings
       ? eModeAssetSettings.collateralFactor
