@@ -60,7 +60,7 @@ export const MarketInfo = () => {
 
     const readableMaxLtvPercentage = asset
       ? formatPercentageToReadableValue(
-          effectiveCollateralFactor !== undefined
+          effectiveCollateralFactor
             ? // We use BigNumber to prevent issues with floating-point numbers
               new BigNumber(effectiveCollateralFactor)
                 .multipliedBy(100)
