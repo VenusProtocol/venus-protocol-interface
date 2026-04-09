@@ -1,6 +1,6 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import _cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
@@ -92,7 +92,7 @@ describe('RepayWithWalletBalanceForm', () => {
   });
 
   it('disables submit button if amount entered in input is higher than user repay balance', async () => {
-    const customFakePool = _cloneDeep(fakePool);
+    const customFakePool = cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(1);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
@@ -141,7 +141,7 @@ describe('RepayWithWalletBalanceForm', () => {
   });
 
   it('disables submit button if amount entered in input is higher than wallet balance', async () => {
-    const customFakePool = _cloneDeep(fakePool);
+    const customFakePool = cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(1);
@@ -351,7 +351,7 @@ describe('RepayWithWalletBalanceForm', () => {
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet balance', async () => {
-    const customFakePool = _cloneDeep(fakePool);
+    const customFakePool = cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(10);
@@ -449,7 +449,7 @@ describe('RepayWithWalletBalanceForm', () => {
   });
 
   it('updates input value to correct value when clicking on preset percentage buttons', async () => {
-    const customFakePool = _cloneDeep(fakePool);
+    const customFakePool = cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);

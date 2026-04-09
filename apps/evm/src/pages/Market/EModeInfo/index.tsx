@@ -24,8 +24,6 @@ export const EModeInfo: React.FC<EModeInfoProps> = ({ eModeGroups, token, pool }
       return;
     }
 
-    console.log(pool.userEModeGroup?.id);
-
     const settings: ExtendedEModeAssetSettings = {
       eModeGroup,
       isEnabledByUser: eModeGroup.id === pool.userEModeGroup?.id,

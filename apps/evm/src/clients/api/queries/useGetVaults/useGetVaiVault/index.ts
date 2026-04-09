@@ -1,8 +1,9 @@
+import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import {
   useGetBalanceOf,
-  useGetTokenUsdPrice,
+  useGetTokenListUsdPrice,
   useGetVaiVaultPaused,
   useGetVaiVaultUserInfo,
   useGetVenusVaiVaultDailyRate,
@@ -11,18 +12,25 @@ import { NULL_ADDRESS } from 'constants/address';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
-import type { Vault } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { useChainId } from 'libs/wallet';
+import type { VenusVault } from 'types';
+import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
+import { checkIsXvsOnZk } from 'utilities/xvsPriceOnZk';
+import { XVS_FIXED_PRICE_CENTS } from 'utilities/xvsPriceOnZk/constants';
 import type { Address } from 'viem';
+import { calculateVaultCentsValues } from '../calculateVaultCentsValues';
+import { formatToVenusVault } from '../formatToVenusVault';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
-  data: Vault | undefined;
+  data: VenusVault | undefined;
 }
 
 export const useGetVaiVault = ({
   accountAddress,
 }: { accountAddress?: Address }): UseGetVaiVaultOutput => {
+  const { chainId } = useChainId();
+
   const { address: vaiVaultContractAddress } = useGetContractAddress({
     name: 'VaiVault',
   });
@@ -62,20 +70,31 @@ export const useGetVaiVault = ({
   const { data: getVaiVaultPausedData, isLoading: isGetVaiVaultPausedLoading } =
     useGetVaiVaultPaused();
 
-  const { data: xvsPriceData, isLoading: isGetXvsPriceLoading } = useGetTokenUsdPrice(
+  const { data: tokenPricesData, isLoading: isGetTokenPricesLoading } = useGetTokenListUsdPrice(
     {
-      token: xvs,
+      tokens: xvs && vai ? [xvs, vai] : [],
     },
     {
-      enabled: !!xvs,
+      enabled: !!xvs && !!vai,
     },
   );
 
-  const data: Vault | undefined = useMemo(() => {
+  const isXvsOnZk = checkIsXvsOnZk({
+    chainId,
+    xvs,
+    token: xvs,
+  });
+
+  const xvsPriceDollars = isXvsOnZk
+    ? new BigNumber(XVS_FIXED_PRICE_CENTS).shiftedBy(-2)
+    : tokenPricesData?.[0]?.tokenPriceUsd;
+
+  const data = useMemo(() => {
     if (
       !totalVaiStakedData ||
       !vaiVaultDailyRateData ||
-      !xvsPriceData ||
+      !xvsPriceDollars ||
+      !tokenPricesData?.[1]?.tokenPriceUsd ||
       !xvs ||
       !vai ||
       !getVaiVaultPausedData
@@ -83,7 +102,8 @@ export const useGetVaiVault = ({
       return undefined;
     }
 
-    const { tokenPriceUsd: xvsPriceDollars } = xvsPriceData;
+    const stakedTokenPriceCents = convertDollarsToCents(tokenPricesData[1].tokenPriceUsd);
+    const rewardTokenPriceCents = convertDollarsToCents(xvsPriceDollars);
 
     const stakingAprPercentage = convertMantissaToTokens({
       value: vaiVaultDailyRateData.dailyRateMantissa,
@@ -100,29 +120,49 @@ export const useGetVaiVault = ({
       .multipliedBy(100)
       .toNumber();
 
-    return {
+    const { totalStakedCents, userStakedCents, dailyEmissionCents } = calculateVaultCentsValues({
+      stakedTokenDecimals: vai.decimals,
+      rewardTokenDecimals: xvs.decimals,
+      stakedTokenPriceCents,
+      rewardTokenPriceCents,
+      totalStakedMantissa: totalVaiStakedData.balanceMantissa,
+      userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
+      dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
+    });
+
+    if (dailyEmissionCents === undefined) {
+      return undefined;
+    }
+
+    return formatToVenusVault({
       isPaused: getVaiVaultPausedData.isVaultPaused,
       rewardToken: xvs,
       stakedToken: vai,
+      stakedTokenPriceCents,
+      rewardTokenPriceCents,
       dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
+      dailyEmissionCents,
       totalStakedMantissa: totalVaiStakedData.balanceMantissa,
+      totalStakedCents,
       stakingAprPercentage,
       userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
-    };
+      userStakedCents,
+    });
   }, [
-    xvsPriceData,
+    tokenPricesData,
     vaiVaultUserInfo,
     totalVaiStakedData,
     vaiVaultDailyRateData,
     xvs,
     vai,
     getVaiVaultPausedData,
+    xvsPriceDollars,
   ]);
 
   const isLoading =
     isGetTotalVaiStakedMantissaLoading ||
     isGetVaiVaultDailyRateMantissaLoading ||
-    isGetXvsPriceLoading ||
+    isGetTokenPricesLoading ||
     isGetVaiVaultUserInfoLoading ||
     isGetVaiVaultPausedLoading;
 

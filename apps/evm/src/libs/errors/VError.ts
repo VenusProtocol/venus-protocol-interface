@@ -1,5 +1,6 @@
 import type { importProposalErrorPhrases } from './importProposalErrorPhrases';
 import type { interactionErrorPhrases } from './interactionErrorPhrases';
+import type { pendleSwapQuoteErrorPhrases } from './pendleSwapQuoteErrorPhrases';
 import type { swapQuoteErrorPhrases } from './swapQuoteErrorPhrases';
 import type { transactionErrorPhrases } from './transactionErrorPhrases';
 import type { unexpectedErrorPhrases } from './unexpectedErrorPhrases';
@@ -12,6 +13,7 @@ export interface VErrorParamMap {
   unexpected: { exception?: unknown } | undefined;
   interaction: { assetName: string; exception?: unknown };
   swapQuote: { exception?: unknown };
+  pendleSwapQuote: { exception?: unknown };
   proposal: {
     info?: string;
   };
@@ -23,6 +25,7 @@ export interface VErrorPhraseMap {
   interaction: keyof typeof interactionErrorPhrases;
   proposal: keyof typeof importProposalErrorPhrases;
   swapQuote: keyof typeof swapQuoteErrorPhrases;
+  pendleSwapQuote: keyof typeof pendleSwapQuoteErrorPhrases;
 }
 
 export type ErrorCodes = keyof VErrorParamMap;

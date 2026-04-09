@@ -6,7 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { en } from 'libs/translations';
 
-import { VaultCardLegacy as Vault, type VaultProps } from '../VaultCard';
+import { VaultCardLegacy as Vault, type VaultProps } from '../VaultCard/Legacy';
 
 const fakeVault = {
   ...fakeVaults[0],

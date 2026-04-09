@@ -6,6 +6,7 @@ import {
   type GetXvsVaultPoolInfoOutput,
   type GetXvsVaultUserInfoOutput,
   type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
+  useGetTokenListUsdPrice,
   useGetXvsVaultPaused,
   useGetXvsVaultPoolCount,
   useGetXvsVaultTotalAllocationPoints,
@@ -13,23 +14,30 @@ import {
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken, useGetTokens } from 'libs/tokens';
-import type { Vault } from 'types';
-import { convertTokensToMantissa, indexBy } from 'utilities';
+import type { VenusVault } from 'types';
+import { convertDollarsToCents, convertTokensToMantissa, indexBy } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import BigNumber from 'bignumber.js';
+import { useChainId } from 'libs/wallet';
+import { checkIsXvsOnZk } from 'utilities/xvsPriceOnZk';
+import { XVS_FIXED_PRICE_CENTS } from 'utilities/xvsPriceOnZk/constants';
 import type { Address } from 'viem';
+import { calculateVaultCentsValues } from '../calculateVaultCentsValues';
+import { formatToVenusVault } from '../formatToVenusVault';
 import { useGetXvsVaultPoolBalances } from './useGetXvsVaultPoolBalances';
 import { useGetXvsVaultPools } from './useGetXvsVaultPools';
 
 export interface UseGetVestingVaultsOutput {
   isLoading: boolean;
-  data: Vault[];
+  data: VenusVault[];
 }
 
 export const useGetVestingVaults = (input?: {
   accountAddress?: Address;
 }): UseGetVestingVaultsOutput => {
+  const { chainId } = useChainId();
+
   const xvs = useGetToken({
     symbol: 'XVS',
   });
@@ -152,18 +160,83 @@ export const useGetVestingVaults = (input?: {
     [poolBalanceQueryResults],
   );
 
+  const stakedTokens = useMemo(() => {
+    const uniqueTokensByAddress: Record<string, (typeof tokens)[number]> = {};
+
+    Object.values(poolData).forEach(({ poolInfos }) => {
+      const stakedToken = findTokenByAddress({
+        tokens,
+        address: poolInfos.stakedTokenAddress,
+      });
+
+      if (stakedToken) {
+        uniqueTokensByAddress[stakedToken.address.toLowerCase()] = stakedToken;
+      }
+    });
+
+    return Object.values(uniqueTokensByAddress);
+  }, [poolData, tokens]);
+
+  const pricedTokens = useMemo(() => {
+    const uniqueTokensByAddress: Record<string, (typeof tokens)[number]> = {};
+
+    if (xvs) {
+      uniqueTokensByAddress[xvs.address.toLowerCase()] = xvs;
+    }
+
+    stakedTokens.forEach(stakedToken => {
+      uniqueTokensByAddress[stakedToken.address.toLowerCase()] = stakedToken;
+    });
+
+    return Object.values(uniqueTokensByAddress);
+  }, [stakedTokens, xvs]);
+
+  const { data: tokenPricesData, isLoading: isGetTokenPricesLoading } = useGetTokenListUsdPrice(
+    {
+      tokens: pricedTokens,
+    },
+    {
+      enabled: pricedTokens.length > 0,
+    },
+  );
+
+  const tokenPriceCentsByAddress = useMemo(() => {
+    const priceCentsByAddress: Record<string, BigNumber> = {};
+
+    pricedTokens.forEach((token, index) => {
+      const isXvsOnZk = checkIsXvsOnZk({
+        chainId,
+        xvs,
+        token,
+      });
+
+      const priceUsd = isXvsOnZk
+        ? new BigNumber(XVS_FIXED_PRICE_CENTS).shiftedBy(-2)
+        : tokenPricesData?.[index]?.tokenPriceUsd;
+
+      if (priceUsd) {
+        priceCentsByAddress[token.address.toLowerCase()] = convertDollarsToCents(priceUsd);
+      }
+    });
+
+    return priceCentsByAddress;
+  }, [chainId, pricedTokens, tokenPricesData, xvs]);
+
+  const xvsPriceCents = xvs ? tokenPriceCentsByAddress[xvs.address.toLowerCase()] : undefined;
+
   const isLoading =
     isGetXvsVaultPoolCountLoading ||
     isGetXvsVaultsTotalDailyDistributedXvsLoading ||
     isGetXvsVaultTotalAllocationPointsLoading ||
     arePoolQueriesLoading ||
     arePoolBalanceQueriesLoading ||
+    isGetTokenPricesLoading ||
     isGetXvsVaultPausedLoading;
 
   // Format query results into Vaults
-  const data: Vault[] = useMemo(
+  const data = useMemo(
     () =>
-      Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<Vault[]>(
+      Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<VenusVault[]>(
         (acc, _item, poolIndex) => {
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
           const userStakedMantissa = poolData[poolIndex]?.userInfos?.stakedAmountMantissa.minus(
@@ -186,6 +259,10 @@ export const useGetVestingVaults = (input?: {
               tokens,
               address: poolData[poolIndex]?.poolInfos.stakedTokenAddress,
             });
+
+          const stakedTokenPriceCents = stakedToken
+            ? tokenPriceCentsByAddress[stakedToken.address.toLowerCase()]
+            : undefined;
 
           const dailyDistributedXvs =
             xvsVaultDailyDistributedXvsData?.dailyDistributedXvs !== undefined &&
@@ -216,22 +293,44 @@ export const useGetVestingVaults = (input?: {
             lockingPeriodMs !== undefined &&
             dailyDistributedXvsMantissa !== undefined &&
             totalStakedMantissaData !== undefined &&
+            stakedTokenPriceCents !== undefined &&
+            xvsPriceCents !== undefined &&
             stakingAprPercentage !== undefined &&
             getXvsVaultPausedData?.isVaultPaused !== undefined &&
             !!xvs
           ) {
-            const vault: Vault = {
+            const { totalStakedCents, userStakedCents, dailyEmissionCents } =
+              calculateVaultCentsValues({
+                stakedTokenDecimals: stakedToken.decimals,
+                rewardTokenDecimals: xvs.decimals,
+                stakedTokenPriceCents,
+                rewardTokenPriceCents: xvsPriceCents,
+                totalStakedMantissa,
+                userStakedMantissa,
+                dailyEmissionMantissa: dailyDistributedXvsMantissa,
+              });
+
+            if (dailyEmissionCents === undefined) {
+              return acc;
+            }
+
+            const vault = formatToVenusVault({
               isPaused: getXvsVaultPausedData.isVaultPaused,
               rewardToken: xvs,
               stakedToken,
+              stakedTokenPriceCents,
+              rewardTokenPriceCents: xvsPriceCents,
               lockingPeriodMs,
               dailyEmissionMantissa: dailyDistributedXvsMantissa,
+              dailyEmissionCents,
               totalStakedMantissa,
+              totalStakedCents,
               stakingAprPercentage,
               userStakedMantissa,
+              userStakedCents,
               poolIndex,
               userHasPendingWithdrawalsFromBeforeUpgrade,
-            };
+            });
 
             return [...acc, vault];
           }
@@ -244,6 +343,8 @@ export const useGetVestingVaults = (input?: {
       xvsVaultPoolCountData.poolCount,
       poolData,
       poolBalances,
+      tokenPriceCentsByAddress,
+      xvsPriceCents,
       xvsVaultDailyDistributedXvsData?.dailyDistributedXvs,
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
       getXvsVaultPausedData?.isVaultPaused,
