@@ -1101,6 +1101,11 @@
     "itemOf": "第 {{currentPageLastIndex}} 條 / 共 {{itemsCount}} 條",
     "itemsOf": "第 {{firstItemNumber}} - {{currentPageLastIndex}} 條 / 共 {{itemsCount}} 條"
   },
+  "pendleVaultBanner": {
+    "description": "一鍵即可在 <White>Venus</White> 上獲取 Pendle 收益",
+    "illustrationAltText": "金庫插圖",
+    "title": "Pendle 金庫現已開放"
+  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "資產",

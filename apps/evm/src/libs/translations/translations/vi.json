@@ -1101,6 +1101,11 @@
     "itemOf": "Mục {{currentPageLastIndex}} trong {{itemsCount}}",
     "itemsOf": "Mục {{firstItemNumber}} - {{currentPageLastIndex}} trong {{itemsCount}}"
   },
+  "pendleVaultBanner": {
+    "description": "Lợi suất Pendle chỉ với một cú nhấp ngay trên <White>Venus</White>",
+    "illustrationAltText": "Hình minh họa kho",
+    "title": "Kho Pendle hiện đã mở"
+  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "Tài sản",

@@ -1101,6 +1101,11 @@
     "itemOf": "{{itemsCount}}件中{{currentPageLastIndex}}件目",
     "itemsOf": "{{itemsCount}}件中{{firstItemNumber}} - {{currentPageLastIndex}}件"
   },
+  "pendleVaultBanner": {
+    "description": "<White>Venus</White> からワンクリックで Pendle の利回りを獲得",
+    "illustrationAltText": "ボールトのイラスト",
+    "title": "Pendle ボールトがオープン"
+  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "資産",

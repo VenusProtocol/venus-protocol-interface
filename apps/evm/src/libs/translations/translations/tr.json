@@ -1101,6 +1101,11 @@
     "itemOf": "{{itemsCount}} öğeden {{currentPageLastIndex}}",
     "itemsOf": "{{itemsCount}} öğeden {{firstItemNumber}} - {{currentPageLastIndex}}"
   },
+  "pendleVaultBanner": {
+    "description": "<White>Venus</White> üzerinden tek tıkla Pendle getirisi",
+    "illustrationAltText": "Kasa görseli",
+    "title": "Pendle kasası artık açık"
+  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "Varlıklar",
