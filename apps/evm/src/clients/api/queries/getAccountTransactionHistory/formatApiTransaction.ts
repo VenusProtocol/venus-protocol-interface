@@ -19,7 +19,7 @@ export const formatApiTransaction = ({
     }
   >;
   apiTransaction: ApiAccountHistoricalTransaction;
-}): AmountTransaction => {
+}): AmountTransaction | undefined => {
   const {
     txType,
     txHash: hash,
@@ -32,7 +32,10 @@ export const formatApiTransaction = ({
     underlyingTokenPriceMantissa,
   } = apiTransaction;
 
-  const { poolName, vToken } = contractToTokenMap[contractAddress];
+  const contractToken = contractToTokenMap[contractAddress.toLowerCase() as Address];
+  if (!contractToken) return undefined;
+
+  const { poolName, vToken } = contractToken;
 
   const vTokenSymbol = vToken.symbol;
   const token = vToken.underlyingToken;

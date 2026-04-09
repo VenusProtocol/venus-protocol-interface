@@ -1,21 +1,13 @@
-import BigNumber from 'bignumber.js';
-
 import { cn } from '@venusprotocol/ui';
-import { useGetTokenListUsdPrice } from 'clients/api';
 import { CellGroup, type CellProps } from 'components';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { useChainId } from 'libs/wallet';
 import type { Vault } from 'types';
 import {
   areTokensEqual,
-  convertPriceMantissaToDollars,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
 } from 'utilities';
-import { checkIsXvsOnZk } from 'utilities/xvsPriceOnZk';
-import { XVS_FIXED_PRICE_CENTS } from 'utilities/xvsPriceOnZk/constants';
 import { Banner } from './Banner';
 
 export interface OverviewProps {
@@ -25,8 +17,6 @@ export interface OverviewProps {
 
 export const Overview: React.FC<OverviewProps> = ({ vaults, className }) => {
   const { t, Trans } = useTranslation();
-
-  const { chainId } = useChainId();
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -40,46 +30,21 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, className }) => {
     (vaults ?? []).find(vault => xvs && areTokensEqual(vault.stakedToken, xvs)) ??
     vaultWithHighestApr;
 
-  const totalVault = (vaults ?? []).length;
-
-  const { data: stakedTokenPriceData, isLoading } = useGetTokenListUsdPrice({
-    tokens: (vaults ?? []).map(vault => vault.stakedToken),
-  });
-
-  const totalStakedUsdCents = stakedTokenPriceData?.reduce((accu, curr, index) => {
-    const isXvsOnZk = checkIsXvsOnZk({
-      chainId,
-      token: vaults[index]?.stakedToken,
-      xvs,
-    });
-
-    return accu.plus(
-      convertPriceMantissaToDollars({
-        priceMantissa: vaults[index]?.totalStakedMantissa?.times(
-          isXvsOnZk ? new BigNumber(XVS_FIXED_PRICE_CENTS).shiftedBy(-2) : curr?.tokenPriceUsd ?? 0,
-        ),
-        decimals: vaults[index]?.stakedToken?.decimals,
-      }).shiftedBy(2),
-    );
-  }, new BigNumber(0));
+  const vaultCount = (vaults ?? []).length;
+  const totalStakedCents = (vaults ?? []).reduce((acc, vault) => acc + vault.totalStakedCents, 0);
 
   const overviewCells: CellProps[] = [
     {
       label: t('vault.overview.tvl'),
-      value: !isLoading
-        ? formatCentsToReadableValue({ value: totalStakedUsdCents })
-        : PLACEHOLDER_KEY,
+      value: formatCentsToReadableValue({ value: totalStakedCents }),
     },
     {
       label: t('vault.overview.highestApr'),
-      value:
-        vaultWithHighestApr && !isLoading
-          ? formatPercentageToReadableValue(vaultWithHighestApr.stakingAprPercentage)
-          : PLACEHOLDER_KEY,
+      value: formatPercentageToReadableValue(vaultWithHighestApr?.stakingAprPercentage),
     },
     {
-      label: t('vault.overview.totalVault'),
-      value: totalVault,
+      label: t('vault.overview.vaultCount'),
+      value: vaultCount,
     },
   ];
 

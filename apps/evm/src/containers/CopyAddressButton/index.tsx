@@ -22,7 +22,7 @@ export const CopyAddressButton: React.FC<CopyAddressButtonProps> = ({
     <button
       type="button"
       className={cn(
-        'text-blue hover:text-darkBlue active:text-darkBlue cursor-pointer transition-colors cursor-pointer',
+        'text-blue hover:text-blue active:text-blue hover:cursor-pointer transition-colors',
         className,
       )}
       onClick={e => {

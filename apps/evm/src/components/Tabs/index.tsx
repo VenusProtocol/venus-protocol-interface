@@ -11,6 +11,7 @@ export interface TabsProps {
   initialActiveTabId?: string;
   className?: string;
   headerClassName?: string;
+  buttonClassName?: string;
 }
 
 export const Tabs = ({
@@ -20,6 +21,7 @@ export const Tabs = ({
   initialActiveTabId,
   className,
   headerClassName,
+  buttonClassName,
   navType = 'state',
 }: TabsProps) => {
   const { activeTab, setActiveTab } = useTabs({
@@ -44,7 +46,7 @@ export const Tabs = ({
         <ButtonGroup
           buttonLabels={tabs.map(({ title }) => title)}
           className={headerClassName}
-          buttonClassName="px-2"
+          buttonClassName={cn('px-2', buttonClassName)}
           activeButtonIndex={tabs.findIndex(tab => activeTab.id === tab.id)}
           onButtonClick={handleChange}
           fullWidth
@@ -65,6 +67,7 @@ export const Tabs = ({
                 className={cn(
                   'hover:text-white cursor-pointer',
                   activeTab.id === tab.id ? 'text-white' : 'text-grey',
+                  buttonClassName,
                 )}
               >
                 <p className="mb-2 font-semibold whitespace-nowrap transition-colors text-inherit">

@@ -33,7 +33,8 @@ export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
 export * from './mutations/useOpenLeveragedPosition';
 export * from './mutations/useRepayWithCollateral';
-
+export * from './mutations/useStakeInPendleVault';
+export * from './mutations/useWithdrawFromPendleVault';
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
@@ -240,3 +241,9 @@ export * from './queries/getSwapQuote/useGetSwapQuote';
 
 export * from './queries/getProposalCount';
 export * from './queries/getProposalCount/useGetProposalCount';
+
+export * from './queries/getFixedRatedVaults';
+export * from './queries/getFixedRatedVaults/useGetFixedRatedVaults';
+
+export * from './queries/getPendleSwapQuote';
+export * from './queries/getPendleSwapQuote/useGetPendleSwapQuote';

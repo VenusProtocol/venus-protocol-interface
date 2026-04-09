@@ -1,6 +1,6 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import _cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
@@ -183,7 +183,7 @@ describe('Governance', () => {
   });
 
   it('prompts user to deposit XVS', async () => {
-    const vaultsCopy = _cloneDeep(vaults);
+    const vaultsCopy = cloneDeep(vaults);
     vaultsCopy[1].userStakedMantissa = new BigNumber(0);
     (getCurrentVotes as Mock).mockImplementationOnce(() => ({
       votesMantissa: new BigNumber(0),
@@ -356,7 +356,7 @@ describe('Governance', () => {
   });
 
   it('renders the delegate/redelegate button when voting is enabled', async () => {
-    const vaultsCopy = _cloneDeep(vaults);
+    const vaultsCopy = cloneDeep(vaults);
     vaultsCopy[1].userStakedMantissa = new BigNumber(1000);
     (useGetVestingVaults as Mock).mockImplementation(() => ({
       data: vaultsCopy,

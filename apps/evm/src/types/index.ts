@@ -2,6 +2,7 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
+import type { IconName } from 'components';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -35,7 +36,8 @@ export type TokenAction =
   | 'repay'
   | 'repayWithCollateral'
   | 'enterMarket'
-  | 'exitMarket';
+  | 'exitMarket'
+  | 'vault';
 
 export interface TokenBalance {
   token: Token;
@@ -464,18 +466,65 @@ export interface Transaction {
   token: Token;
 }
 
-export interface Vault {
+export enum VaultStatus {
+  Active = 'active',
+  Deposit = 'deposit',
+  Earning = 'earning',
+  Refund = 'refund',
+  Repaying = 'repaying',
+  Claim = 'claim',
+  Paused = 'paused',
+}
+
+export enum VaultManager {
+  Venus = 'venus',
+  Pendle = 'pendle',
+}
+
+export enum VaultCategory {
+  Stablecoins = 'stablecoins',
+  YieldTokens = 'yieldTokens',
+  Others = 'others',
+}
+
+interface BaseVault {
+  category: VaultCategory;
+  manager: VaultManager;
+  managerIcon: IconName;
+  managerAddress?: Address;
+  status: VaultStatus;
+  key: string;
   stakedToken: Token;
   rewardToken: Token;
+  stakedTokenPriceCents: BigNumber;
+  rewardTokenPriceCents: BigNumber;
   stakingAprPercentage: number;
   totalStakedMantissa: BigNumber;
-  dailyEmissionMantissa: BigNumber;
-  isPaused: boolean;
+  totalStakedCents: number;
   lockingPeriodMs?: number;
   userStakedMantissa?: BigNumber;
+  userStakedCents?: number;
   poolIndex?: number;
-  userHasPendingWithdrawalsFromBeforeUpgrade?: boolean;
 }
+
+export type VenusVault = BaseVault & {
+  isPaused: boolean;
+  dailyEmissionMantissa: BigNumber;
+  dailyEmissionCents: number;
+  userHasPendingWithdrawalsFromBeforeUpgrade?: boolean;
+};
+
+export type PendleVault = BaseVault & {
+  maturityDate: Date;
+  liquidityCents: BigNumber;
+  asset: Asset;
+  managerLink?: string;
+  vaultDeploymentDate?: Date;
+  poolComptrollerContractAddress: Address;
+  poolName: string;
+};
+
+export type Vault = VenusVault | PendleVault;
 
 export interface VoterAccount {
   address: Address;
