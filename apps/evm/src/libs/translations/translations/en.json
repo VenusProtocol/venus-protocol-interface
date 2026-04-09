@@ -1101,6 +1101,11 @@
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
+  "pendleVaultBanner": {
+    "description": "One-click Pendle yield right from <White>Venus</White>",
+    "illustrationAltText": "Vault illustration",
+    "title": "Pendle vault now open"
+  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "Assets",

@@ -1101,6 +1101,11 @@
     "itemOf": "รายการที่ {{currentPageLastIndex}} จาก {{itemsCount}}",
     "itemsOf": "รายการที่ {{firstItemNumber}} - {{currentPageLastIndex}} จาก {{itemsCount}}"
   },
+  "pendleVaultBanner": {
+    "description": "รับผลตอบแทน Pendle ได้ในคลิกเดียวจาก <White>Venus</White>",
+    "illustrationAltText": "ภาพประกอบคลัง",
+    "title": "คลัง Pendle เปิดให้ใช้งานแล้ว"
+  },
   "poolsStats": {
     "cell": {
       "assetsLabel": "สินทรัพย์",
