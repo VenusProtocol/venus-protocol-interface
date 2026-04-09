@@ -3,7 +3,8 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import type { InstitutionalVault, PendleVault } from 'types';
+import { type InstitutionalVault, type PendleVault, VaultManager } from 'types';
+import { isInstitutionalVault } from 'utilities';
 
 interface MarketInfoProps {
   vault: PendleVault | InstitutionalVault;
@@ -15,6 +16,13 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
   const formattedDeploymentDate = vault.vaultDeploymentDate
     ? t('vault.modals.textualDate', { date: vault.vaultDeploymentDate })
     : PLACEHOLDER_KEY;
+
+  const isInstitutional = isInstitutionalVault(vault);
+  const managerLabel = vault.manager === VaultManager.Ceefu ? 'CEFFU' : 'PENDLE';
+  const managerIcon = vault.manager === VaultManager.Ceefu ? vault.managerIcon : 'pendle';
+  const riskDisclosureKey = isInstitutional
+    ? 'vault.modals.overview.institutionalRiskDisclosureText'
+    : 'vault.modals.overview.riskDisclosureText';
 
   return (
     <div className="flex flex-col gap-4">
@@ -29,8 +37,8 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
         tooltip={t('vault.modals.overview.managerTooltip')}
       >
         <div className="flex items-center gap-2">
-          <Icon name="pendle" className="size-4" />
-          <span className="text-b1r text-white">PENDLE</span>
+          <Icon name={managerIcon} className="size-4" />
+          <span className="text-b1r text-white">{managerLabel}</span>
           {vault.managerLink && (
             <Link href={vault.managerLink} target="_blank">
               <Icon
@@ -51,7 +59,7 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
         </p>
         <p className="text-b1r text-white">
           <Trans
-            i18nKey={'vault.modals.overview.riskDisclosureText'}
+            i18nKey={riskDisclosureKey}
             components={{
               br: <br />,
             }}

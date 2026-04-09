@@ -19,10 +19,9 @@ import { useAccountAddress } from 'libs/wallet';
 import type { PendleVault } from 'types';
 import { convertMantissaToTokens, convertTokensToMantissa, isPendleVault } from 'utilities';
 
-import type { Approval } from '../SubmitButton/types';
+import type { Approval } from '../../SubmitButton/types';
+import type { ActionMode } from '../../types';
 import { type FormValues, useForm } from './useForm';
-
-export type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';
 
 export interface UsePositionTabInput {
   vault: PendleVault;
@@ -30,7 +29,7 @@ export interface UsePositionTabInput {
   onClose?: () => void;
 }
 
-export const usePositionTabData = ({
+export const usePendlePositionTabData = ({
   vault,
   initialMode = 'deposit',
   onClose,

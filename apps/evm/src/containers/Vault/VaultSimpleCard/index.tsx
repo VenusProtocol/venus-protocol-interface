@@ -10,10 +10,11 @@ import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  isInstitutionalVault,
   isPendleVault,
 } from 'utilities';
 
-import { PendleModal } from 'containers/Vault/VaultModals';
+import { VaultModal } from 'containers/Vault/VaultModals';
 import { useState } from 'react';
 import TEST_IDS from '../testIds';
 import { Cell } from './Cell';
@@ -113,8 +114,8 @@ export const VaultSimpleCard: React.FC<VaultCardSimplifiedProps> = ({ vault, cla
         </div>
       </Card>
 
-      {modalVisible && isPendleVault(vault) && (
-        <PendleModal
+      {modalVisible && (isPendleVault(vault) || isInstitutionalVault(vault)) && (
+        <VaultModal
           vault={vault}
           isOpen={modalVisible}
           handleClose={() => setModalVisible(false)}

@@ -8,6 +8,7 @@ import {
   VaultCategory,
   VaultManager,
   VaultStatus,
+  VaultType,
 } from 'types';
 import { areAddressesEqual, convertTokensToMantissa, findTokenByAddress } from 'utilities';
 import type { Address } from 'viem';
@@ -89,6 +90,7 @@ export const formatToPendleVault = ({
     vaultDeploymentDate: new Date(protocolData?.startDate),
     liquidityCents: new BigNumber(protocolData.liquidityCents),
     category: VaultCategory.YieldTokens,
+    vaultType: VaultType.Pendle,
     manager: VaultManager.Pendle,
     managerIcon: 'pendle' as const,
     managerAddress: protocolData.pendleMarketAddress,

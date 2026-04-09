@@ -19,20 +19,16 @@ export const InstitutionalDiagram: React.FC<InstitutionalDiagramProps> = ({ vaul
 
       <FlowNode variant="line">{t('vault.modals.overview.strategy.users')}</FlowNode>
 
-      <FlowArrow
-        leftContent={vault.manager.toUpperCase()}
-        rightContent={vault.rewardToken.symbol}
-      />
+      <FlowArrow leftContent="CEFFU" rightContent={vault.stakedToken.symbol} />
 
-      <FlowNode variant="primary">{t('vault.modals.overview.strategy.pendleRouter')}</FlowNode>
+      <FlowNode variant="primary">{t('vault.modals.overview.strategy.venusVault')}</FlowNode>
+
       <FlowArrow
-        leftContent={t('vault.modals.overview.supply', 'Supply')}
+        leftContent={t('vault.modals.overview.strategy.loan')}
         rightContent={vault.stakedToken.symbol}
       />
 
-      <FlowNode variant="line">
-        {t('vault.modals.overview.strategy.supply')} {t('vault.modals.overview.strategy.venusCore')}
-      </FlowNode>
+      <FlowNode variant="line">CEFFU</FlowNode>
     </div>
   );
 };

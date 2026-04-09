@@ -2,15 +2,15 @@ import {
   type InstitutionalVault,
   type PendleVault,
   type Vault,
-  VaultManager,
+  VaultType,
   type VenusVault,
 } from 'types';
 
 export const isVenusVault = (vault: Vault): vault is VenusVault =>
-  vault.manager === VaultManager.Venus;
+  vault.vaultType === VaultType.Venus;
 
 export const isPendleVault = (vault: Vault): vault is PendleVault =>
-  vault.manager === VaultManager.Pendle;
+  vault.vaultType === VaultType.Pendle;
 
 export const isInstitutionalVault = (vault: Vault): vault is InstitutionalVault =>
-  vault.manager === VaultManager.Ceefu;
+  vault.vaultType === VaultType.Institutional;

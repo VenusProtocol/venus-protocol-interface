@@ -11,6 +11,7 @@ import {
   VaultCategory,
   VaultManager,
   VaultStatus,
+  VaultType,
 } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
@@ -90,6 +91,7 @@ export const formatToInstitutionalVault = ({
       token: stakedToken,
     }), // TODO: times by price
     category: VaultCategory.Stablecoins,
+    vaultType: VaultType.Institutional,
     manager: VaultManager.Ceefu,
     managerIcon: 'ceefu' as const,
     managerAddress: loanVaultDetail.institutionAddress,
@@ -97,7 +99,11 @@ export const formatToInstitutionalVault = ({
     status,
     poolComptrollerContractAddress: vaultData.vaultAddress,
     openEndDate: loanVaultDetail.openEndTime ? new Date(loanVaultDetail.openEndTime) : undefined,
-    maturityDate: loanVaultDetail.lockEndTime ? new Date(loanVaultDetail.lockEndTime) : undefined,
+    lockEndDate: loanVaultDetail.lockEndTime ? new Date(loanVaultDetail.lockEndTime) : undefined,
+    settlementDate: loanVaultDetail.settlementDeadline
+      ? new Date(loanVaultDetail.settlementDeadline)
+      : undefined,
+    maturityDate: vaultData.maturityDate ? new Date(vaultData.maturityDate) : undefined,
     totalDepositedMantissa: new BigNumber(loanVaultDetail.totalRaisedMantissa),
     maxDepositedMantissa: new BigNumber(loanVaultDetail.maxBorrowCapMantissa),
     minRequestMantissa: new BigNumber(loanVaultDetail.minBorrowCapMantissa),

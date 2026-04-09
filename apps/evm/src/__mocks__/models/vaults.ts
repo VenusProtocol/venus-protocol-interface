@@ -6,6 +6,7 @@ import {
   VaultCategory,
   VaultManager,
   VaultStatus,
+  VaultType,
   type VenusVault,
 } from 'types';
 
@@ -26,6 +27,7 @@ export const vaults: VenusVault[] = [
     totalStakedCents: 41500,
     stakingAprPercentage: 12665.060240963856,
     category: VaultCategory.Stablecoins,
+    vaultType: VaultType.Venus,
     manager: VaultManager.Venus,
     managerIcon: 'logoMobile',
     status: VaultStatus.Active,
@@ -46,6 +48,7 @@ export const vaults: VenusVault[] = [
     userStakedMantissa: new BigNumber('233000000000000000000'),
     userStakedCents: 23300,
     category: VaultCategory.Others,
+    vaultType: VaultType.Venus,
     manager: VaultManager.Venus,
     managerIcon: 'logoMobile',
     status: VaultStatus.Active,

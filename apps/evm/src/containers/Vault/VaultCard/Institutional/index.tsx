@@ -70,12 +70,7 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
       })
     : undefined;
 
-  const clickAble = [
-    VaultStatus.Active,
-    VaultStatus.Earning,
-    VaultStatus.Deposit,
-    VaultStatus.Claim,
-  ].includes(vault.status);
+  const clickAble = ![VaultStatus.Inactive, VaultStatus.Paused].includes(vault.status);
 
   const openModal = () => {
     setModalVisible(true);

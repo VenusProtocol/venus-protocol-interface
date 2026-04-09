@@ -484,6 +484,12 @@ export enum VaultManager {
   Ceefu = 'ceefu',
 }
 
+export enum VaultType {
+  Venus = 'venus',
+  Pendle = 'pendle',
+  Institutional = 'institutional',
+}
+
 export enum VaultCategory {
   Stablecoins = 'stablecoins',
   YieldTokens = 'yieldTokens',
@@ -491,6 +497,7 @@ export enum VaultCategory {
 }
 
 interface BaseVault {
+  vaultType: VaultType;
   category: VaultCategory;
   manager: VaultManager;
   managerIcon: IconName;
@@ -535,6 +542,8 @@ export type InstitutionalVault = BaseVault & {
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   openEndDate?: Date;
+  lockEndDate?: Date;
+  settlementDate?: Date;
   maturityDate?: Date;
   totalDepositedMantissa: BigNumber;
   maxDepositedMantissa: BigNumber;
