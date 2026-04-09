@@ -1,121 +1,106 @@
+import { type ChainId, getToken } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
-import type { GetFixedRatedVaultsOutput, LoanVaultDetail } from 'clients/api';
+import type {
+  GetFixedRatedVaultUserStakedTokensOutput,
+  GetFixedRatedVaultsOutput,
+  LoanVaultDetail,
+} from 'clients/api';
 import {
-  type Asset,
   type InstitutionalVault,
   type Pool,
-  type Token,
   VaultCategory,
   VaultManager,
   VaultStatus,
 } from 'types';
-import {
-  areAddressesEqual,
-  convertMantissaToTokens,
-  convertTokensToMantissa,
-  findTokenByAddress,
-} from 'utilities';
-import type { Address } from 'viem';
+import { convertMantissaToTokens } from 'utilities';
 
 const VAULT_STATE_MAP = {
-  1: VaultStatus.Deposit,
-  2: VaultStatus.Pending,
-  3: VaultStatus.Earning,
-  4: VaultStatus.Refund,
+  0: VaultStatus.Pending,
+  1: VaultStatus.Pending,
+  2: VaultStatus.Deposit,
+  3: VaultStatus.Pending,
+  4: VaultStatus.Earning,
   5: VaultStatus.Repaying,
-  6: VaultStatus.Claim,
+  6: VaultStatus.Repaying,
+  7: VaultStatus.Claim,
+  8: VaultStatus.Refund,
+  9: VaultStatus.Pending,
+  10: VaultStatus.Inactive,
 };
 export interface BaseInput {
   pools: Pool[];
-  tokens: Token[];
+  chainId: ChainId;
 }
 
 export const formatToInstitutionalVault = ({
   vaultData,
-  pools,
-  tokens,
-}: BaseInput & { vaultData: GetFixedRatedVaultsOutput[number] }) => {
-  let asset: Asset | undefined;
-  let poolComptrollerContractAddress: Address | undefined;
-  let poolName: string | undefined;
-
-  for (const pool of pools) {
-    const targetAsset = pool.assets.find(
-      _asset =>
-        _asset && vaultData && areAddressesEqual(_asset?.vToken?.address, vaultData?.vaultAddress),
-    );
-
-    if (targetAsset) {
-      asset = targetAsset;
-      poolComptrollerContractAddress = pool.comptrollerAddress as Address;
-      poolName = pool.name;
-    }
-  }
-
+  chainId,
+  userStakedAmount,
+}: BaseInput & {
+  vaultData: GetFixedRatedVaultsOutput[number];
+  userStakedAmount?: GetFixedRatedVaultUserStakedTokensOutput[number];
+}) => {
   const loanVaultDetail = vaultData?.loanVaultDetail as LoanVaultDetail;
 
-  const stakedToken = findTokenByAddress({
-    address: loanVaultDetail?.supplyAssetAddress as string,
-    tokens,
+  const stakedToken = getToken({
+    symbol: 'MOCK_USDC',
+    chainId,
   });
 
-  const rewardToken = findTokenByAddress({
-    address: loanVaultDetail?.collateralAssetAddress as string,
-    tokens,
-  });
+  const rewardToken = stakedToken;
 
-  if (
-    !stakedToken ||
-    !rewardToken ||
-    !asset ||
-    !poolComptrollerContractAddress ||
-    !poolName ||
-    !loanVaultDetail
-  ) {
+  console.log(stakedToken, rewardToken);
+
+  if (!stakedToken || !rewardToken || !loanVaultDetail) {
     return undefined;
   }
 
-  const maturityDate = new Date(vaultData.maturityDate);
   const status = VAULT_STATE_MAP[loanVaultDetail.vaultState as keyof typeof VAULT_STATE_MAP];
+
+  const userStakedMantissa = userStakedAmount?.tokensMantissa ?? new BigNumber(0);
+
+  const userStakedTokens = convertMantissaToTokens({
+    value: userStakedMantissa,
+    token: stakedToken,
+  });
+
+  const totalStakedTokens = convertMantissaToTokens({
+    value: new BigNumber(loanVaultDetail.totalRaisedMantissa),
+    token: stakedToken,
+  });
+
+  const stakedTokenPriceCents = new BigNumber(100); // TODO: price
+  const rewardTokenPriceCents = new BigNumber(100);
 
   const result: InstitutionalVault = {
     key: vaultData.id,
     stakedToken,
     rewardToken,
     stakingAprPercentage: new BigNumber(vaultData.fixedApyDecimal).shiftedBy(2).toNumber(),
-    userStakedMantissa: convertTokensToMantissa({
-      value: asset.userSupplyBalanceTokens,
-      token: stakedToken,
-    }),
-    totalStakedMantissa: convertTokensToMantissa({
-      value: asset.supplyBalanceTokens,
-      token: stakedToken,
-    }),
-    totalStakedCents: asset.supplyBalanceCents.toNumber(),
-    userStakedCents: asset.userSupplyBalanceCents.toNumber(),
-    stakedTokenPriceCents: new BigNumber(100),
-    rewardTokenPriceCents: new BigNumber(100),
-    maturityDate,
+    userStakedMantissa,
+    totalStakedMantissa: new BigNumber(loanVaultDetail.totalRaisedMantissa),
+    userStakedCents: userStakedTokens.times(stakedTokenPriceCents).toNumber(),
+    totalStakedCents: totalStakedTokens.times(stakedTokenPriceCents).toNumber(),
+    stakedTokenPriceCents,
+    rewardTokenPriceCents,
+    vaultAddress: vaultData.vaultAddress,
     vaultDeploymentDate: new Date(vaultData?.createdAt),
     liquidityCents: convertMantissaToTokens({
       value: new BigNumber(loanVaultDetail.liquidityMantissa ?? 0),
       token: stakedToken,
-    }), // TODO: divide by price
+    }), // TODO: times by price
     category: VaultCategory.Stablecoins,
     manager: VaultManager.Ceefu,
     managerIcon: 'ceefu' as const,
     managerAddress: loanVaultDetail.institutionAddress,
-    managerLink: loanVaultDetail.institutionAddress
-      ? `https://app.pendle.finance/trade/pools/${loanVaultDetail.institutionAddress}/zap/in?chain=bnbchain` // TODO: update link
-      : undefined,
+    managerLink: 'https://www.matrixdock.com',
     status,
-    asset,
-    poolComptrollerContractAddress,
-    poolName,
-    openEndDate: new Date(),
-    totalDepositedMantissa: new BigNumber(0),
-    maxDepositedMantissa: new BigNumber(0),
-    minRequestMantissa: new BigNumber(0),
+    poolComptrollerContractAddress: vaultData.vaultAddress,
+    openEndDate: loanVaultDetail.openEndTime ? new Date(loanVaultDetail.openEndTime) : undefined,
+    maturityDate: loanVaultDetail.lockEndTime ? new Date(loanVaultDetail.lockEndTime) : undefined,
+    totalDepositedMantissa: new BigNumber(loanVaultDetail.totalRaisedMantissa),
+    maxDepositedMantissa: new BigNumber(loanVaultDetail.maxBorrowCapMantissa),
+    minRequestMantissa: new BigNumber(loanVaultDetail.minBorrowCapMantissa),
   };
 
   return result;

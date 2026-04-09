@@ -22,7 +22,7 @@ import {
   formatTokensToReadableValue,
   isPendleVault,
 } from 'utilities';
-import { PendleModal } from '../../VaultModals';
+import { VaultModal } from '../../VaultModals';
 import TEST_IDS from '../../testIds';
 import { Footer } from '../Footer';
 import { TokenIconWithPeriod } from '../TokenIconWithPeriod';
@@ -246,7 +246,7 @@ export const PendleVaultCard: React.FC<VaultProps> = ({ vault, className }) => {
         <Footer label={footerLabel} content={readableUserStakedTokens} />
       </Card>
       {isPendleVault(vault) && (
-        <PendleModal
+        <VaultModal
           vault={vault}
           isOpen={modalVisible}
           handleClose={() => setModalVisible(false)}

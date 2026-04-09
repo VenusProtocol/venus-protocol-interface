@@ -16,8 +16,8 @@ import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useNow } from 'hooks/useNow';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAccountAddress } from 'libs/wallet';
-import { type PendleVault, VaultManager } from 'types';
-import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
+import type { PendleVault } from 'types';
+import { convertMantissaToTokens, convertTokensToMantissa, isPendleVault } from 'utilities';
 
 import type { Approval } from '../SubmitButton/types';
 import { type FormValues, useForm } from './useForm';
@@ -38,15 +38,17 @@ export const usePositionTabData = ({
   const now = useNow();
   const { accountAddress } = useAccountAddress();
 
-  const hasMatured = vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
+  const hasMatured =
+    isPendleVault(vault) && vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
 
   // --- Action mode ---
   const forceActionMode = useMemo<ActionMode | undefined>(() => {
-    if (vault.manager === VaultManager.Pendle && hasMatured) {
+    if (hasMatured) {
       return 'redeemAtMaturity';
     }
+
     return undefined;
-  }, [vault.manager, hasMatured]);
+  }, [hasMatured]);
 
   const [actionMode, setActionMode] = useState<ActionMode>(forceActionMode ?? initialMode);
 

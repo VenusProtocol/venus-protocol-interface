@@ -453,4 +453,18 @@ export const bscTestnet: Token[] = [
     symbol: 'XAUm',
     iconSrc: iconSrcs.xaum,
   },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x312e39c7641cE64BEccDe53613f07952258fa810',
+    decimals: 18,
+    symbol: 'MOCK_USDC',
+    iconSrc: iconSrcs.usdc,
+  },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0xCC3933141a64E26C9317b19CE4BbB4ec2c333bc6',
+    decimals: 18,
+    symbol: 'MOCK_WBTC',
+    iconSrc: iconSrcs.wbtc,
+  },
 ];

@@ -468,6 +468,7 @@ export interface Transaction {
 
 export enum VaultStatus {
   Active = 'active',
+  Inactive = 'inactive',
   Deposit = 'deposit',
   Earning = 'earning',
   Pending = 'pending',
@@ -517,24 +518,24 @@ export type VenusVault = BaseVault & {
 };
 
 export type PendleVault = BaseVault & {
-  maturityDate: Date;
+  maturityDate?: Date;
   liquidityCents: BigNumber;
   asset: Asset;
   managerLink?: string;
+  vaultAddress?: Address;
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   poolName: string;
 };
 
 export type InstitutionalVault = BaseVault & {
-  maturityDate: Date;
   liquidityCents: BigNumber;
-  asset: Asset;
   managerLink?: string;
+  vaultAddress?: Address;
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
-  poolName: string;
-  openEndDate: Date;
+  openEndDate?: Date;
+  maturityDate?: Date;
   totalDepositedMantissa: BigNumber;
   maxDepositedMantissa: BigNumber;
   minRequestMantissa: BigNumber;

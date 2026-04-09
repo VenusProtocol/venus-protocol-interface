@@ -3,10 +3,10 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import type { PendleVault } from 'types';
+import type { InstitutionalVault, PendleVault } from 'types';
 
 interface MarketInfoProps {
-  vault: PendleVault;
+  vault: PendleVault | InstitutionalVault;
 }
 
 export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
@@ -39,11 +39,8 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
               />
             </Link>
           )}
-          {vault.asset?.vToken?.underlyingToken?.address && (
-            <CopyAddressButton
-              address={vault.asset.vToken.underlyingToken.address}
-              className="text-light-grey"
-            />
+          {vault.vaultAddress && (
+            <CopyAddressButton address={vault.vaultAddress} className="text-light-grey" />
           )}
         </div>
       </LabeledInlineContent>

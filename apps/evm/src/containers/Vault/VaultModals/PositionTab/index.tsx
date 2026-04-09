@@ -7,7 +7,7 @@ import { ConnectWallet } from 'containers/ConnectWallet';
 import { Link } from 'containers/Link';
 import { SwapDetails } from 'containers/SwapDetails';
 import { useTranslation } from 'libs/translations';
-import { type PendleVault, VaultManager } from 'types';
+import { type Vault, VaultManager } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
@@ -23,7 +23,7 @@ const PENDLE_SITE =
   'https://app.pendle.finance/trade/dashboard/overview/positions?timeframe=allTime';
 
 export interface PositionTabProps {
-  vault: PendleVault;
+  vault: Vault;
   initialMode?: ActionMode;
   onClose?: () => void;
 }

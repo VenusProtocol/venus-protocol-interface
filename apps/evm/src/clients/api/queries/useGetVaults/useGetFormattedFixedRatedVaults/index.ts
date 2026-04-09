@@ -1,9 +1,9 @@
 import { useNow } from 'hooks/useNow';
 import { useGetTokens } from 'libs/tokens';
-import { useAccountAddress } from 'libs/wallet';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Vault } from 'types';
 
-import { useGetFixedRatedVaults } from 'clients/api';
+import { useGetFixedRatedVaultUserStakedTokens, useGetFixedRatedVaults } from 'clients/api';
 import { useGetPools } from '../../useGetPools';
 import { formatVaults } from './formatVaults';
 
@@ -13,23 +13,31 @@ export interface UseGetPendleVaultsOutput {
 }
 
 export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
+  const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
   const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetFixedRatedVaults();
   const { data: poolsData, isLoading: isPoolsLoading } = useGetPools({ accountAddress });
+
+  const { data: userStakedAmounts, isLoading: isUserStakedTokensLoading } =
+    useGetFixedRatedVaultUserStakedTokens({
+      vaultAddresses: (vaultProducts ?? []).map(vaultProduct => vaultProduct.vaultAddress),
+    });
 
   const tokens = useGetTokens();
 
   const now = useNow();
 
-  const isLoading = isVaultProductsLoading || isPoolsLoading;
+  const isLoading = isVaultProductsLoading || isPoolsLoading || isUserStakedTokensLoading;
 
   const data =
-    vaultProducts && poolsData?.pools
+    vaultProducts && poolsData?.pools && userStakedAmounts
       ? formatVaults({
           vaultProducts,
           pools: poolsData.pools,
           tokens,
           nowMs: now.getTime(),
+          chainId,
+          userStakedAmounts,
         })
       : undefined;
 

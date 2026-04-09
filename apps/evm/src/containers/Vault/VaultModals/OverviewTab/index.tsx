@@ -1,21 +1,22 @@
-import type { PendleVault } from 'types';
+import type { Vault } from 'types';
 
+import { isInstitutionalVault, isPendleVault } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { StrategyDiagram } from './StrategyDiagram';
 import { TotalDeposits } from './TotalDeposits';
 
 export interface OverviewTabProps {
-  vault: PendleVault;
+  vault: Vault;
 }
 
 export const OverviewTab: React.FC<OverviewTabProps> = ({ vault }) => {
   return (
     <div className="flex flex-col gap-8 py-2">
-      <TotalDeposits vault={vault} />
+      {isPendleVault(vault) && <TotalDeposits vault={vault} />}
 
       <StrategyDiagram vault={vault} />
 
-      <MarketInfo vault={vault} />
+      {(isPendleVault(vault) || isInstitutionalVault(vault)) && <MarketInfo vault={vault} />}
     </div>
   );
 };

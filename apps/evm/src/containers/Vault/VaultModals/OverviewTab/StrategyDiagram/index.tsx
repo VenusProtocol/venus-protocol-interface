@@ -1,38 +1,21 @@
-import { cn } from 'components';
-import { useTranslation } from 'libs/translations';
-import type { PendleVault } from 'types';
-import { FlowArrow } from './FlowArrow';
-import { FlowNode } from './FlowNode';
+import type { FC } from 'react';
+import type { Vault } from 'types';
+import { isInstitutionalVault, isPendleVault } from 'utilities';
+import { InstitutionalDiagram } from './InstitutionalDiagram';
+import { PendleDiagram } from './PendleDiagram';
 
 interface StrategyDiagramProps {
-  vault: PendleVault;
+  vault: Vault;
 }
 
-export const StrategyDiagram: React.FC<StrategyDiagramProps> = ({ vault }) => {
-  const { t } = useTranslation();
+export const StrategyDiagram: FC<StrategyDiagramProps> = ({ vault }) => {
+  if (isPendleVault(vault)) {
+    return <PendleDiagram vault={vault} />;
+  }
 
-  return (
-    <div className={cn('flex flex-col items-stretch')}>
-      <p className="text-p2s text-white flex-1 pb-6">
-        {t('vault.modals.overview.strategyAllocation')}
-      </p>
+  if (isInstitutionalVault(vault)) {
+    return <InstitutionalDiagram vault={vault} />;
+  }
 
-      <FlowNode variant="line">{t('vault.modals.overview.strategy.users')}</FlowNode>
-
-      <FlowArrow
-        leftContent={vault.manager.toUpperCase()}
-        rightContent={vault.rewardToken.symbol}
-      />
-
-      <FlowNode variant="primary">{t('vault.modals.overview.strategy.pendleRouter')}</FlowNode>
-      <FlowArrow
-        leftContent={t('vault.modals.overview.supply', 'Supply')}
-        rightContent={vault.stakedToken.symbol}
-      />
-
-      <FlowNode variant="line">
-        {t('vault.modals.overview.strategy.supply')} {t('vault.modals.overview.strategy.venusCore')}
-      </FlowNode>
-    </div>
-  );
+  return null;
 };

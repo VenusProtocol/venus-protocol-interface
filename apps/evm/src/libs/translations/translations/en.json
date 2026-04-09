@@ -1854,6 +1854,7 @@
       "inputPlaceholder": "Search asset",
       "others": "Others",
       "paused": "Paused",
+      "pending": "Pending",
       "refund": "Refund",
       "repaying": "Repaying",
       "stablecoins": "Stablecoins",

@@ -245,5 +245,8 @@ export * from './queries/getProposalCount/useGetProposalCount';
 export * from './queries/getFixedRatedVaults';
 export * from './queries/getFixedRatedVaults/useGetFixedRatedVaults';
 
+export * from './queries/getFixedRatedVaultUserStakedTokens';
+export * from './queries/getFixedRatedVaultUserStakedTokens/useGetFixedRatedVaultUserStakedTokens';
+
 export * from './queries/getPendleSwapQuote';
 export * from './queries/getPendleSwapQuote/useGetPendleSwapQuote';
