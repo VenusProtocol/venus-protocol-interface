@@ -53,12 +53,12 @@ describe('uploadImage', () => {
     expect(put).toHaveBeenCalledWith(
       'cdn/src/images/tokens/token-a.svg',
       streams.get(`${IMAGES_DIR_PATH}/tokens/token-a.svg`),
-      { access: 'public' },
+      { access: 'public', allowOverwrite: true },
     );
     expect(put).toHaveBeenCalledWith(
       'cdn/src/images/logo.png',
       streams.get(`${IMAGES_DIR_PATH}/logo.png`),
-      { access: 'public' },
+      { access: 'public', allowOverwrite: true },
     );
   });
 });

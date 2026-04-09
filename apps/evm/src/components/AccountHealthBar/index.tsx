@@ -2,7 +2,6 @@
 import { useMemo } from 'react';
 
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
-import { useIsSmDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import {
   calculatePercentage,
@@ -10,7 +9,7 @@ import {
   formatPercentageToReadableValue,
 } from 'utilities';
 
-import { theme } from '@venusprotocol/ui';
+import { cn, theme } from '@venusprotocol/ui';
 import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_THRESHOLD,
@@ -36,7 +35,6 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   hideUserBalances,
 }) => {
   const { t, Trans } = useTranslation();
-  const isSmDown = useIsSmDown();
 
   const borrowLimitUsedPercentage =
     typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
@@ -120,14 +118,15 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   }, [sanitizedFillPercentage]);
 
   return (
-    <div className={className}>
+    <div className={cn('@container/accountHealthBar', className)}>
       <LabeledProgressBar
         greyLeftText={t('accountHealth.borrowed')}
         whiteLeftText={hideUserBalances ?? readableBorrowBalance}
         greyRightText={
-          isSmDown
-            ? t('accountHealth.liquidationThresholdShort')
-            : t('accountHealth.liquidationThreshold')
+          <>
+            <p className="@sm:hidden">{t('accountHealth.liquidationThresholdShort')}</p>
+            <p className="hidden @sm:block">{t('accountHealth.liquidationThreshold')}</p>
+          </>
         }
         whiteRightText={hideUserBalances ?? readableLiquidationThreshold}
         rightInfoTooltip={

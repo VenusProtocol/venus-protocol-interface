@@ -51,7 +51,7 @@ export const calculateUserPoolValues = ({
       interestPercentage: vaiBorrowAprPercentage,
     });
 
-    userYearlyEarningsCents = userYearlyEarningsCents.minus(userYearlyVaiInterestsCents).dp(0);
+    userYearlyEarningsCents = userYearlyEarningsCents.minus(userYearlyVaiInterestsCents);
   }
 
   const userHealthFactor = calculateHealthFactor({

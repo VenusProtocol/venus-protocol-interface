@@ -18,6 +18,6 @@ export const Cell: React.FC<CellProps> = ({ className, tooltip, label, value, ..
       </div>
     )}
 
-    <p className="text-lg">{value}</p>
+    <p className="text-p3s">{value}</p>
   </div>
 );

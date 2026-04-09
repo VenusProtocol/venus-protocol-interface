@@ -154,7 +154,9 @@ export const Summary: React.FC<SummaryProps> = ({
         />
 
         {/* Account health */}
-        {displayAccountHealth && <div className="shrink-0">{cells[cells.length - 1].value}</div>}
+        {displayAccountHealth && (
+          <div className="shrink-0 min-w-96">{cells[cells.length - 1].value}</div>
+        )}
       </Card>
     </Section>
   );

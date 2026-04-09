@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useGetPools } from 'clients/api';
+import { useGetPools } from 'clients/api/queries/useGetPools';
 import type { Pool } from 'types';
 import { areAddressesEqual } from 'utilities';
 import type { Address } from 'viem';

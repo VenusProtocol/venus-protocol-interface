@@ -1,5 +1,5 @@
 import { ChainId } from '@venusprotocol/chains';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { getContractAddress } from 'libs/contracts';
 import { governanceChainId } from 'libs/wallet';

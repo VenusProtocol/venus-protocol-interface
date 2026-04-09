@@ -12,6 +12,7 @@ import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   HIGH_SLIPPAGE_PERCENTAGE,
+  MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -141,7 +142,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                 placeholder={String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE)}
                 step={0.01}
                 min={0}
-                max={100}
+                max={MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE}
                 value={userChainSettings.slippageTolerancePercentage}
                 onChange={handlePriceImpactFieldChange}
                 type="number"

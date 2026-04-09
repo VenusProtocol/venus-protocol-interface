@@ -11,7 +11,7 @@ describe('utilities/calculateYearlyEarnings', () => {
       asset: assets[0],
     });
 
-    expect(earnings.toFixed()).toMatchInlineSnapshot('"19"');
+    expect(earnings.toFixed()).toMatchInlineSnapshot(`"19.5016014174559981452"`);
   });
 
   test('calculates yearly Earnings for array assets', () => {
@@ -19,6 +19,6 @@ describe('utilities/calculateYearlyEarnings', () => {
       assets,
     });
 
-    expect(earnings?.toFixed()).toMatchInlineSnapshot(`"1529"`);
+    expect(earnings?.toFixed()).toMatchInlineSnapshot(`"1531.00666454662583935848"`);
   });
 });

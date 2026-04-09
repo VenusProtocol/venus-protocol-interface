@@ -755,7 +755,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "15795522039638",
+      "userYearlyEarningsCents": "15795522039639.51843638350895415921",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -851,7 +851,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
       "userHealthFactor": 17.6,
       "userLiquidationThresholdCents": "175987680000000.0199986",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "-303495608375",
+      "userYearlyEarningsCents": "-303495608375.582811681714",
       "vai": undefined,
     },
     {
@@ -920,7 +920,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
       "userHealthFactor": 17.6,
       "userLiquidationThresholdCents": "175987680000000.0199986",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "254226077599",
+      "userYearlyEarningsCents": "254226077599.652772318627",
       "vai": undefined,
     },
     {
@@ -1093,7 +1093,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
       "userHealthFactor": 9.9,
       "userLiquidationThresholdCents": "65448.8666954100066109966359",
       "userSupplyBalanceCents": "199986000132219.932718",
-      "userYearlyEarningsCents": "280760",
+      "userYearlyEarningsCents": "280760.51889910221307262183",
       "vai": undefined,
     },
     {
@@ -1162,7 +1162,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
       "userHealthFactor": 16.5,
       "userLiquidationThresholdCents": "164988450000000.0399972",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "-1147608000",
+      "userYearlyEarningsCents": "-1147608000.383889768735",
       "vai": undefined,
     },
     {
@@ -1365,7 +1365,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
       "userHealthFactor": 17.59,
       "userLiquidationThresholdCents": "175987680000143.0199986",
       "userSupplyBalanceCents": "199986000000200",
-      "userYearlyEarningsCents": "-198662397323",
+      "userYearlyEarningsCents": "-198662397322.7673671785720904033",
       "vai": undefined,
     },
     {
@@ -2304,7 +2304,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "17021260364579",
+      "userYearlyEarningsCents": "17021260364582.4646450224126947178",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -2400,7 +2400,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
       "userHealthFactor": 17.6,
       "userLiquidationThresholdCents": "175987680000000.0199986",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "-303495608375",
+      "userYearlyEarningsCents": "-303495608375.582811681714",
       "vai": undefined,
     },
     {
@@ -2469,7 +2469,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
       "userHealthFactor": 17.6,
       "userLiquidationThresholdCents": "175987680000000.0199986",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "254226077599",
+      "userYearlyEarningsCents": "254226077599.652772318627",
       "vai": undefined,
     },
     {
@@ -2666,7 +2666,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
       "userHealthFactor": 9.9,
       "userLiquidationThresholdCents": "65448.8666954100066109966359",
       "userSupplyBalanceCents": "199986000132219.932718",
-      "userYearlyEarningsCents": "580799124768",
+      "userYearlyEarningsCents": "580799124768.60296962821307262183",
       "vai": undefined,
     },
     {
@@ -2735,7 +2735,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
       "userHealthFactor": 16.5,
       "userLiquidationThresholdCents": "164988450000000.0399972",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "-1147608000",
+      "userYearlyEarningsCents": "-1147608000.383889768735",
       "vai": undefined,
     },
     {
@@ -2962,7 +2962,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
       "userHealthFactor": 17.59,
       "userLiquidationThresholdCents": "175987680000143.0199986",
       "userSupplyBalanceCents": "199986000000200",
-      "userYearlyEarningsCents": "414185317040",
+      "userYearlyEarningsCents": "414185317041.2676735032779095967",
       "vai": undefined,
     },
     {
@@ -3091,7 +3091,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
       "userHealthFactor": Infinity,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "580798844008",
+      "userYearlyEarningsCents": "580798844008.084070526",
       "vai": undefined,
     },
   ],
@@ -3823,7 +3823,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "15795522039638",
+      "userYearlyEarningsCents": "15795522039639.51843638350895415921",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -3919,7 +3919,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
       "userHealthFactor": 17.6,
       "userLiquidationThresholdCents": "175987680000000.0199986",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "-303495608375",
+      "userYearlyEarningsCents": "-303495608375.582811681714",
       "vai": undefined,
     },
     {
@@ -3988,7 +3988,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
       "userHealthFactor": 17.6,
       "userLiquidationThresholdCents": "175987680000000.0199986",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "254226077599",
+      "userYearlyEarningsCents": "254226077599.652772318627",
       "vai": undefined,
     },
     {
@@ -4151,7 +4151,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
       "userHealthFactor": 9.9,
       "userLiquidationThresholdCents": "65448.8666954100066109966359",
       "userSupplyBalanceCents": "199986000132219.932718",
-      "userYearlyEarningsCents": "280760",
+      "userYearlyEarningsCents": "280760.51889910221307262183",
       "vai": undefined,
     },
     {
@@ -4220,7 +4220,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
       "userHealthFactor": 16.5,
       "userLiquidationThresholdCents": "164988450000000.0399972",
       "userSupplyBalanceCents": "199986000000000",
-      "userYearlyEarningsCents": "-1147608000",
+      "userYearlyEarningsCents": "-1147608000.383889768735",
       "vai": undefined,
     },
     {
@@ -4413,7 +4413,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
       "userHealthFactor": 17.59,
       "userLiquidationThresholdCents": "175987680000143.0199986",
       "userSupplyBalanceCents": "199986000000200",
-      "userYearlyEarningsCents": "-198662397323",
+      "userYearlyEarningsCents": "-198662397322.7673671785720904033",
       "vai": undefined,
     },
     {

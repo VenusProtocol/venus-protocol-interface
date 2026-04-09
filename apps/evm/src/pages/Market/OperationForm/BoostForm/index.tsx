@@ -8,6 +8,7 @@ import {
   Delimiter,
   Icon,
   LabeledInlineContent,
+  LabeledSlider,
   type OptionalTokenBalance,
   TokenListWrapper,
   TokenTextField,
@@ -29,8 +30,10 @@ import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, BalanceMutation, Pool, Token } from 'types';
+import type { TxFormError } from 'types';
 import {
   areTokensEqual,
+  calculateUserMaxBorrowTokens,
   compareNumbers,
   convertMantissaToTokens,
   convertTokensToMantissa,
@@ -39,11 +42,8 @@ import {
 import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
-import type { FormError } from '../types';
-import { RiskSlider } from './RiskSlider';
 import { SelectTokenField } from './SelectTokenField';
 import { SubmitSection } from './SubmitSection';
-import { calculateUserMaxBorrowTokens } from './calculateUserMaxBorrowTokens';
 import TEST_IDS from './testIds';
 import useForm, { type FormErrorCode, type FormValues, type UseFormInput } from './useForm';
 
@@ -259,7 +259,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     setFormValues,
     initialFormValues,
   });
-  const formError: FormError<FormErrorCode> | undefined = formErrors[0];
+  const formError: TxFormError<FormErrorCode> | undefined = formErrors[0];
 
   // Convert input amount to percentage of limit
   const riskSliderValue =
@@ -267,7 +267,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
       ? new BigNumber(formValues.amountTokens).multipliedBy(100).div(limitTokens).dp(1).toNumber()
       : 0;
 
-  const handleRiskSliderChange = (riskLevelPercentage: number) => {
+  const handleLabeledSliderChange = (riskLevelPercentage: number) => {
     const amountTokens = limitTokens
       .multipliedBy(riskLevelPercentage)
       .div(100)
@@ -320,15 +320,11 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     }));
   };
 
-  const handleSuppliedTokenChange = (suppliedToken: Token) => {
+  const handleSuppliedTokenChange = (suppliedToken: Token) =>
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       suppliedToken,
     }));
-
-    // Close token list
-    setIsTokenListShown(false);
-  };
 
   const handleAmountTokensFieldChange = (amountTokens: string) => {
     captureAmountSetAnalyticEvent({
@@ -442,10 +438,10 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
             </button>
           </LabeledInlineContent>
 
-          <RiskSlider
+          <LabeledSlider
             disabled={isDisabled}
             value={riskSliderValue}
-            onChange={handleRiskSliderChange}
+            onChange={handleLabeledSliderChange}
           />
 
           <Delimiter />

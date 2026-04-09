@@ -68,9 +68,9 @@ export const CapThreshold: React.FC<CapThresholdProps> = ({
     const limitCents = limitTokens.multipliedBy(tokenPriceCents);
     const tmpReadableLimitDollars = formatCentsToReadableValue({ value: limitCents });
 
-    const deltaCents = limitCents.minus(balanceCents);
+    const deltaAmountCents = limitCents.minus(balanceCents);
     const tmpReadableDeltaDollars = formatCentsToReadableValue({
-      value: deltaCents.isLessThanOrEqualTo(0) ? 0 : deltaCents,
+      value: deltaAmountCents.isLessThanOrEqualTo(0) ? 0 : deltaAmountCents,
     });
 
     const deltaTokens = limitTokens.minus(balanceTokens);

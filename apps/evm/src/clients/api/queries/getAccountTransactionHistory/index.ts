@@ -1,32 +1,48 @@
 import { VError } from 'libs/errors';
-import type { VToken } from 'types';
+import type { MarketTxType } from 'types';
 import { restService } from 'utilities';
 import { type Address, isAddress } from 'viem';
 import { formatApiTransaction } from './formatApiTransaction';
 import type {
   AccountTransactionHistoryApiResponse,
-  AmountTransaction,
   GetAccountTransactionHistoryInput,
   GetAccountTransactionHistoryOutput,
+  VTokenAssetMapping,
 } from './types';
 
 export * from './types';
+
+export const MARKET_TX_TYPE_TO_API_FILTER: Record<MarketTxType, number> = {
+  supply: 0,
+  borrow: 1,
+  withdraw: 2,
+  repay: 3,
+  enterMarket: 4,
+  exitMarket: 5,
+};
 
 export const getAccountTransactionHistory = async ({
   chainId,
   accountAddress,
   contractAddress,
+  positionAccountAddress,
   getPoolsData,
   type,
   page,
 }: GetAccountTransactionHistoryInput): Promise<GetAccountTransactionHistoryOutput> => {
+  const apiType =
+    type && Object.prototype.hasOwnProperty.call(MARKET_TX_TYPE_TO_API_FILTER, type)
+      ? MARKET_TX_TYPE_TO_API_FILTER[type as keyof typeof MARKET_TX_TYPE_TO_API_FILTER]
+      : undefined;
+
   const txsResponse = await restService<AccountTransactionHistoryApiResponse>({
     endpoint: `/account/${accountAddress}/transactions`,
     method: 'GET',
     params: {
       chainId,
-      type,
-      contractAddress: isAddress(contractAddress) ? contractAddress : undefined,
+      type: apiType,
+      contractAddress: contractAddress && isAddress(contractAddress) ? contractAddress : undefined,
+      positionAccountAddress,
       page,
     },
   });
@@ -43,43 +59,31 @@ export const getAccountTransactionHistory = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  const allAssets =
-    getPoolsData?.pools.flatMap(p =>
-      p.assets.map(a => ({
-        ...a,
-        poolName: p.name,
-      })),
-    ) || [];
+  const vTokenAssetMapping = (getPoolsData?.pools || []).reduce<VTokenAssetMapping>((acc, pool) => {
+    pool.assets.forEach(asset => {
+      acc[asset.vToken.address.toLowerCase() as Address] = {
+        ...asset,
+        poolName: pool.name,
+      };
+    });
 
-  const contractToTokenMap = allAssets.reduce<
-    Record<Address, { vToken: VToken; poolName: string }>
-  >((acc, a) => {
-    const { poolName, vToken } = a;
-
-    return {
-      ...acc,
-      [vToken.address.toLowerCase()]: {
-        poolName,
-        vToken,
-      },
-    };
+    return acc;
   }, {});
 
-  const formattedResponse = txsResponse.data.results.reduce<AmountTransaction[]>(
-    (acc, apiTransaction) => {
-      const formattedTransaction = formatApiTransaction({
-        contractToTokenMap,
-        apiTransaction,
-      });
+  const formattedResponse = txsResponse.data.results.reduce<
+    GetAccountTransactionHistoryOutput['transactions']
+  >((acc, apiTransaction) => {
+    const formattedTransaction = formatApiTransaction({
+      vTokenAssetMapping,
+      apiTransaction,
+    });
 
-      if (formattedTransaction) {
-        acc.push(formattedTransaction);
-      }
+    if (formattedTransaction) {
+      acc.push(formattedTransaction);
+    }
 
-      return acc;
-    },
-    [],
-  );
+    return acc;
+  }, []);
 
   return {
     count: Number(txsResponse.data.count),

@@ -5,9 +5,13 @@ import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetPools } from 'clients/api';
+import { useGetPools } from 'clients/api/queries/useGetPools';
 
 import { type UseGetPoolOutput, useGetPool } from '.';
+
+vi.mock('clients/api/queries/useGetPools', () => ({
+  useGetPools: vi.fn(),
+}));
 
 describe('useGetPool', () => {
   beforeEach(() => {

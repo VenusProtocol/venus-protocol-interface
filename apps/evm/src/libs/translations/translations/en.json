@@ -88,13 +88,7 @@
           "all": "All markets"
         },
         "txType": {
-          "all": "All transactions",
-          "borrow": "Borrow",
-          "enterMarket": "Enabled collateral",
-          "exitMarket": "Disabled collateral",
-          "mint": "Supply",
-          "redeem": "Withdraw",
-          "repay": "Repayment"
+          "all": "All transactions"
         }
       },
       "today": "Today",
@@ -104,13 +98,21 @@
       },
       "txType": {
         "borrow": "Borrow",
-        "enterMarket": "Enabled collateral",
-        "exitMarket": "Disabled collateral",
+        "enterMarket": "Enable collateral",
+        "exitMarket": "Disable collateral",
         "mint": "Supply",
+        "positionClosedWithLoss": "Close (loss) • Yield+",
+        "positionClosedWithProfit": "Close (profit) • Yield+",
+        "positionIncreased": "Increase • Yield+",
+        "positionOpened": "Opened • Yield+",
+        "positionReducedWithLoss": "Reduced (loss) • Yield+",
+        "positionReducedWithProfit": "Reduced (profit) • Yield+",
+        "principalSupplied": "Supply • Yield+",
+        "principalWithdrawn": "Withdraw • Yield+",
+        "realizedPnl": "Realized PnL • Yield+",
         "redeem": "Withdraw",
-        "repay": "Repayment"
+        "repay": "Repay"
       },
-      "view": "View",
       "yesterday": "Yesterday"
     },
     "vaults": {
@@ -539,7 +541,7 @@
     "noMetaKey": "No metadata information is present in the file",
     "noParamsKey": "File does not contain the list of params",
     "noSignaturesKey": "There are no call signatures in the file",
-    "noSwapQuoteFound": "No swap found. Please update the form.",
+    "noSwapQuoteFound": "No swap found.",
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
     "proposalNotFound": "Proposal not found",
@@ -776,6 +778,9 @@
         "vai": {
           "description": "Mint the native stablecoin of Venus.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1059,10 +1064,27 @@
       "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
       "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
-      "noSwapQuoteFound": "No swap found. Please update the form.",
+      "noSwapQuoteFound": "No swap found.",
       "priceImpactTooHigh": "Price impact too high",
       "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "tooRisky": "This transaction would get your account liquidated"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Maximum position at current leverage: {{ value }}",
+      "submitButtonLabel": "Confirm",
+      "title": "Leverage factor",
+      "warning": "Leverage affects your capital utilization and cannot be changed until you fully exit the position."
+    },
+    "managePositionsTabs": {
+      "collateral": "Collateral",
+      "position": "Position",
+      "positionsTabs": {
+        "increase": "Increase",
+        "reduce": "Reduce",
+        "supply": "Supply",
+        "withdraw": "Withdraw"
+      }
     },
     "receiveNativeToken": {
       "label": "Receive {{tokenSymbol}}",
@@ -1084,9 +1106,7 @@
     "rightMaxButtonLabel": "MAX",
     "riskSlider": {
       "0": "0%",
-      "100": "100%",
-      "highRisk": "High risk",
-      "lowRisk": "Low risk"
+      "100": "100%"
     },
     "safeMaxButtonLabel": "SAFE MAX",
     "submitButtonLabel": {
@@ -2193,6 +2213,114 @@
     },
     "tooltip": {
       "address": "({{address}})"
+    }
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ illustration",
+      "learnMore": "Learn more",
+      "title": "What is Yield+?"
+    },
+    "closePositionModal": {
+      "title": "Close"
+    },
+    "longLiquidity": "Long liquidity",
+    "longSupplyApy": "{{ longTokenSymbol }} supply APY",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Increase"
+      },
+      "invalidLiquidationPrice": "N/A",
+      "openForm": {
+        "collateral": "Collateral",
+        "dsaFieldLabel": "Collateral",
+        "dsaFieldPlaceholder": "Enter to continue",
+        "entryPrice": "Entry price",
+        "liquidationPrice": "Liq. price",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "Net APY",
+        "pnl": "Realized PnL",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Open"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "Close",
+          "reduce": "Reduce"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Supply"
+      },
+      "walletBalance": "Wallet balance",
+      "warning": {
+        "cannotBorrowShort": "Borrowing the short token of this position has been disabled",
+        "cannotRepayShort": "Repaying the short token of this position has been disabled",
+        "cannotSupplyDsa": "Supplying the collateral token of this position has been disabled",
+        "cannotSupplyLong": "Supplying the long token of this position has been disabled",
+        "cannotWithdrawDsa": "Withdrawing the collateral token of this position has been disabled",
+        "cannotWithdrawLong": "Withdrawing the long token of this position has been disabled",
+        "notEnoughLeverage": "This token pair does not allow a leverage factor of at least {{ minimumLeverageFactor }}, which is the minimum required to open a Yield+ position"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Withdraw"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "Close",
+      "placeholder": {
+        "title": "No positions yet"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Collateral"
+        },
+        "healthFactor": {
+          "label": "Health factor",
+          "tooltip": "Liquidation at < 1.0"
+        },
+        "netApy": {
+          "label": "Net APY"
+        },
+        "netValue": {
+          "label": "Net value"
+        },
+        "title": "Status"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "The entry price ratio of this position (short asset amount ÷ long asset amount), reflecting the relative value between the two tokens from entry"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Position"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "Transactions"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} borrow APY",
+    "shortLiquidity": "Short liquidity",
+    "shortTokenSelect": {
+      "label": "Short"
     }
   }
 }

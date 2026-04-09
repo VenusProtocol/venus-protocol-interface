@@ -35,6 +35,7 @@ export const uploadImages = async () => {
 
       return put(cdnFilePath, file, {
         access: 'public',
+        allowOverwrite: true,
         // The Vercel Blob token will be automatically retrieved from env variables
       });
     }),

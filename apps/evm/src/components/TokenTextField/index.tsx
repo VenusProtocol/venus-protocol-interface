@@ -43,6 +43,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
       topRightAdornment,
       tokenPriceCents,
       value,
+      placeholder,
       ...otherProps
     },
     ref,
@@ -74,7 +75,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
     return (
       <TextField
         ref={ref}
-        placeholder="0.00"
+        placeholder={placeholder ?? '0.00'}
         min={0}
         max={max}
         step={step}

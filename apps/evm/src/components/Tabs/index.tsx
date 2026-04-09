@@ -5,7 +5,7 @@ import { ButtonGroup } from '../ButtonGroup';
 
 export interface TabsProps {
   tabs: Tab[];
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary';
   onTabChange?: (newIndex: number) => void;
   navType?: TabNavType;
   initialActiveTabId?: string;
@@ -30,7 +30,10 @@ export const Tabs = ({
     initialActiveTabId,
   });
 
-  const handleChange = (index: number) => {
+  const handleChange = (index: number, e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
     const id = tabs[index].id;
     setActiveTab({ id });
 
@@ -55,24 +58,30 @@ export const Tabs = ({
         <div className="relative">
           <div
             className={cn(
-              'flex text-sm gap-x-4 scrollbar-hidden overflow-y-auto sm:gap-x-6 md:overflow-y-visible',
-              headerClassName,
+              'flex text-sm gap-x-4 sm:gap-x-6',
+              variant === 'tertiary' && 'text-md sm:text-lg',
             )}
           >
             {tabs.map((tab, index) => (
               <button
-                onClick={() => handleChange(index)}
+                onClick={e => handleChange(index, e)}
                 type="button"
                 key={tab.id}
                 className={cn(
                   'hover:text-white cursor-pointer',
+                  variant === 'secondary' && 'grow',
                   activeTab.id === tab.id ? 'text-white' : 'text-grey',
                   buttonClassName,
                 )}
               >
-                <p className="mb-2 font-semibold whitespace-nowrap transition-colors text-inherit">
-                  {tab.title}
-                </p>
+                <div
+                  className={cn(
+                    'mb-2 flex  font-semibold whitespace-nowrap transition-colors text-inherit',
+                    variant === 'secondary' && 'justify-center',
+                  )}
+                >
+                  <div>{tab.title}</div>
+                </div>
 
                 <div
                   className={cn(

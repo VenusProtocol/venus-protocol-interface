@@ -2,8 +2,8 @@ import fakeAccountAddress, {
   altAddress as fakePoolComptrollerAddress,
 } from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
-import { queryClient } from 'clients/api';
 import type { PendleContractWithdrawCallParams } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
