@@ -1916,6 +1916,7 @@
         "managerTooltip": "Địa chỉ hoặc nhóm quản lý tài sản cơ sở của kho này. Tài sản được gửi sẽ được phân bổ vào các thị trường mà họ giám sát, và họ có thể cập nhật thời hạn mua lại hoặc thanh toán dựa trên điều kiện thị trường.",
         "marketInfo": "Thông tin thị trường",
         "marketRiskDisclosures": "Công bố rủi ro thị trường",
+        "riskDisclosureText": "Venus Protocol, truy cập tại venus.io, là một nền tảng cho vay và đi vay phi tập trung được xây dựng trên BNB Chain, tập trung vào thị trường tiền mã hóa. Ra mắt vào năm 2020, nó kết hợp các yếu tố của thiết kế stablecoin thế chấp vượt mức của Maker với thị trường tiền tệ thuật toán kiểu Compound, cho phép người dùng cung cấp tài sản mã hóa, kiếm lợi suất và vay dựa trên tài sản thế chấp trong một ứng dụng duy nhất. Giao thức được quản trị bởi cộng đồng và nhằm cung cấp một giải pháp thay thế phi tập trung, không lưu ký và minh bạch cho các tổ chức cho vay tập trung.",
         "strategy": {
           "loan": "Cho vay",
           "pendleRouter": "Pendle Router",

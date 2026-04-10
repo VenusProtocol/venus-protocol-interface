@@ -63,23 +63,6 @@ const useFormValidation = ({
       };
     }
 
-    /*
-    if (
-      isStake &&
-      tokenAmount &&
-      minRequestTokens.isGreaterThan(0) &&
-      tokenAmount.isLessThan(minRequestTokens)
-    ) {
-      return {
-        code: 'LOWER_THAN_MIN_REQUEST',
-        message: t('vault.modals.error.lowerThanMinRequest', {
-          amount: minRequestTokens.toFixed(),
-          tokenSymbol: token.symbol,
-        }),
-      };
-    }
-    */
-
     if (tokenAmount && (tokenAmount.isNaN() || tokenAmount.isLessThanOrEqualTo(0))) {
       return {
         code: 'EMPTY_TOKEN_AMOUNT',

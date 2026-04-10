@@ -63,6 +63,7 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
   const depositPercentage = vault.maxDepositedMantissa.gt(0)
     ? vault.totalDepositedMantissa.div(vault.maxDepositedMantissa).times(100).dp(0).toNumber()
     : 0;
+  const readableDepositPercentage = formatPercentageToReadableValue(depositPercentage);
 
   const formattedOpenEndDate = vault.openEndDate
     ? t('vault.card.textualWithTime', {
@@ -93,10 +94,10 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
         onClick={clickAble ? openModal : undefined}
       >
         {/* Card body */}
-        <div className={cn('bg-dark-blue p-3 sm:p-6 flex flex-col gap-4 sm:gap-6 flex-1')}>
+        <div className="bg-dark-blue p-3 sm:p-6 flex flex-col gap-4 sm:gap-6 flex-1">
           {/* Header */}
-          <div className={cn('flex items-center justify-between')}>
-            <div className={cn('flex items-center gap-x-3')}>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-x-3">
               <TokenIconWithPeriod
                 token={{ ...vault.stakedToken, symbol: displayName }}
                 targetDate={vault.openEndDate}
@@ -116,7 +117,7 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
           </div>
 
           {/* Stats */}
-          <div className={cn('flex flex-col gap-y-4')}>
+          <div className="flex flex-col gap-y-4">
             <LabeledInlineContent
               label={t('vault.card.effectiveFixedApr')}
               tooltip={t('vault.card.effectiveFixedAprTooltip')}
@@ -133,17 +134,20 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
               tooltip={t('vault.card.totalDepositedMaxDepositTooltip')}
             >
               <div className="text-b1r text-end">
-                <div className="flex items-center justify-end gap-x-2">
+                <div className={cn('flex items-center justify-end gap-x-2')}>
                   {totalDeposited} / {maxDeposit}
                 </div>
-                <div className="flex items-center justify-end gap-x-3 mt-2">
-                  <div className="w-25 h-2 rounded-full bg-[rgb(45,53,73)] overflow-hidden">
+                <div className={cn('flex items-center justify-end gap-x-3 mt-2')}>
+                  <div className={cn('w-25 h-2 rounded-full overflow-hidden bg-dark-grey')}>
                     <div
-                      className="h-full rounded-full bg-yellow"
+                      className={cn(
+                        'h-full rounded-full',
+                        depositPercentage >= 80 ? 'bg-green' : 'bg-blue',
+                      )}
                       style={{ width: `${Math.min(depositPercentage, 100)}%` }}
                     />
                   </div>
-                  <span>{depositPercentage}%</span>
+                  <span>{readableDepositPercentage}</span>
                 </div>
               </div>
             </LabeledInlineContent>
@@ -163,7 +167,9 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
 
             <LabeledInlineContent label={t('vault.card.manager')}>
               <Icon name={vault.managerIcon} />
-              <span className="ms-2 text-b1r text-light-grey">{vault.manager?.toUpperCase()}</span>
+              <span className={cn('ms-2 text-b1r text-light-grey')}>
+                {vault.manager?.toUpperCase()}
+              </span>
             </LabeledInlineContent>
           </div>
 

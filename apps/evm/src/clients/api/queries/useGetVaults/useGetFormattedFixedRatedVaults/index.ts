@@ -1,6 +1,6 @@
 import { useNow } from 'hooks/useNow';
 import { useGetTokens } from 'libs/tokens';
-import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
 
 import { useGetFixedRatedVaultUserStakedTokens, useGetFixedRatedVaults } from 'clients/api';
@@ -13,7 +13,6 @@ export interface UseGetPendleVaultsOutput {
 }
 
 export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
-  const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
   const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetFixedRatedVaults();
   const { data: poolsData, isLoading: isPoolsLoading } = useGetPools({ accountAddress });
@@ -36,7 +35,6 @@ export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
           pools: poolsData.pools,
           tokens,
           nowMs: now.getTime(),
-          chainId,
           userStakedAmounts,
         })
       : undefined;

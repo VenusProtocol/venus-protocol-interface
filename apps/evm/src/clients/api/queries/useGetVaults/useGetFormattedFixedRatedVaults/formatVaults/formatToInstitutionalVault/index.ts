@@ -1,42 +1,44 @@
-import { type ChainId, getToken } from '@venusprotocol/chains';
+import type { Token } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import type {
   GetFixedRatedVaultUserStakedTokensOutput,
   GetFixedRatedVaultsOutput,
-  LoanVaultDetail,
 } from 'clients/api';
-import { type InstitutionalVault, type Pool, VaultCategory, VaultManager, VaultType } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { type InstitutionalVault, VaultCategory, VaultManager, VaultType } from 'types';
+import { convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
 import { getVaultStatus } from './getVaultStatus';
 
 export interface BaseInput {
-  pools: Pool[];
-  chainId: ChainId;
+  tokens: Token[];
   nowMs: number;
 }
 
 export const formatToInstitutionalVault = ({
   vaultData,
-  chainId,
+  tokens,
   userStakedAmount,
   nowMs,
 }: BaseInput & {
   vaultData: GetFixedRatedVaultsOutput[number];
   userStakedAmount?: GetFixedRatedVaultUserStakedTokensOutput[number];
 }) => {
-  const loanVaultDetail = vaultData?.loanVaultDetail as LoanVaultDetail;
+  const loanVaultDetail = vaultData?.loanVaultDetail;
 
-  const stakedToken = getToken({
-    symbol: 'MOCK_USDC',
-    chainId,
-  });
-
-  const rewardToken = stakedToken;
-
-  if (!stakedToken || !rewardToken || !loanVaultDetail) {
+  if (!loanVaultDetail) {
     return undefined;
   }
+
+  const stakedToken = findTokenByAddress({
+    address: loanVaultDetail.supplyAssetAddress,
+    tokens,
+  });
+
+  if (!stakedToken) {
+    return undefined;
+  }
+
+  const rewardToken = stakedToken;
 
   const status = getVaultStatus({
     loanVaultDetail,
@@ -57,6 +59,8 @@ export const formatToInstitutionalVault = ({
 
   const stakedTokenPriceCents = new BigNumber(100); // TODO: price
   const rewardTokenPriceCents = new BigNumber(100);
+
+  const maturityDate = vaultData.maturityDate ? new Date(vaultData.maturityDate) : undefined;
 
   const result: InstitutionalVault = {
     key: vaultData.id,
@@ -83,12 +87,13 @@ export const formatToInstitutionalVault = ({
     managerLink: 'https://www.matrixdock.com',
     status,
     poolComptrollerContractAddress: vaultData.vaultAddress,
+    lockingPeriodMs: maturityDate ? maturityDate.getTime() - nowMs : undefined,
     openEndDate: loanVaultDetail.openEndTime ? new Date(loanVaultDetail.openEndTime) : undefined,
     lockEndDate: loanVaultDetail.lockEndTime ? new Date(loanVaultDetail.lockEndTime) : undefined,
     settlementDate: loanVaultDetail.settlementDeadline
       ? new Date(loanVaultDetail.settlementDeadline)
       : undefined,
-    maturityDate: vaultData.maturityDate ? new Date(vaultData.maturityDate) : undefined,
+    maturityDate,
     totalDepositedMantissa: new BigNumber(loanVaultDetail.totalRaisedMantissa),
     maxDepositedMantissa: new BigNumber(loanVaultDetail.maxBorrowCapMantissa),
     minRequestMantissa: new BigNumber(loanVaultDetail.minBorrowCapMantissa),

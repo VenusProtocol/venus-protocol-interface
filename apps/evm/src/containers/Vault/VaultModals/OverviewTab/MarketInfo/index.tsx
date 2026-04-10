@@ -4,7 +4,6 @@ import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { type InstitutionalVault, type PendleVault, VaultManager } from 'types';
-import { isInstitutionalVault } from 'utilities';
 
 interface MarketInfoProps {
   vault: PendleVault | InstitutionalVault;
@@ -17,12 +16,8 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
     ? t('vault.modals.textualDate', { date: vault.vaultDeploymentDate })
     : PLACEHOLDER_KEY;
 
-  const isInstitutional = isInstitutionalVault(vault);
   const managerLabel = vault.manager === VaultManager.Ceefu ? 'CEFFU' : 'PENDLE';
   const managerIcon = vault.manager === VaultManager.Ceefu ? vault.managerIcon : 'pendle';
-  const riskDisclosureKey = isInstitutional
-    ? 'vault.modals.overview.institutionalRiskDisclosureText'
-    : 'vault.modals.overview.riskDisclosureText';
 
   return (
     <div className="flex flex-col gap-4">
@@ -59,7 +54,7 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
         </p>
         <p className="text-b1r text-white">
           <Trans
-            i18nKey={riskDisclosureKey}
+            i18nKey="vault.modals.overview.riskDisclosureText"
             components={{
               br: <br />,
             }}

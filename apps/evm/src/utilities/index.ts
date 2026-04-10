@@ -60,4 +60,4 @@ export * from './calculateUserPoolValues';
 export * from './addUserBorrowLimitShares';
 export * from './clampToZero';
 export * from './invalidatePendleVaultCaches';
-export * from './isPendleVault';
+export * from './checkVaultType';

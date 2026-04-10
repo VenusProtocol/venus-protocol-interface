@@ -2,13 +2,12 @@ import type {
   GetFixedRatedVaultUserStakedTokensOutput,
   GetFixedRatedVaultsOutput,
 } from 'clients/api';
-import type { ChainId, Vault } from 'types';
+import type { Vault } from 'types';
 import { formatToInstitutionalVault } from './formatToInstitutionalVault';
 import { type BaseInput, formatToPendleVault } from './formatToPendleVault';
 
 interface FormatToPendleVaultsInput extends BaseInput {
   vaultProducts: GetFixedRatedVaultsOutput;
-  chainId: ChainId;
   userStakedAmounts?: GetFixedRatedVaultUserStakedTokensOutput;
 }
 
@@ -17,7 +16,6 @@ export const formatVaults = ({
   pools,
   tokens,
   nowMs,
-  chainId,
   userStakedAmounts,
 }: FormatToPendleVaultsInput): Vault[] =>
   vaultProducts.reduce<Vault[]>((acc, vaultData, index) => {
@@ -31,8 +29,7 @@ export const formatVaults = ({
     ) {
       vault = formatToInstitutionalVault({
         vaultData,
-        pools,
-        chainId,
+        tokens,
         userStakedAmount: userStakedAmounts[index],
         nowMs,
       });

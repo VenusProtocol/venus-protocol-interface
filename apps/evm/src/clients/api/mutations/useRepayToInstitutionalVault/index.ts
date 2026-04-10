@@ -46,7 +46,7 @@ export const useRepayToInstitutionalVault = (
       queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS] });
 
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_TOKEN_BALANCES, { chainId }],
+        queryKey: [FunctionKey.GET_TOKEN_BALANCES, { chainId, accountAddress }],
       });
 
       queryClient.invalidateQueries({

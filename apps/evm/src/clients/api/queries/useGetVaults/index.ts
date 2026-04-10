@@ -34,7 +34,7 @@ export const useGetVaults = ({
     }
 
     if (fixedRatedVaults) {
-      allVaults.push(...fixedRatedVaults);
+      allVaults.unshift(...fixedRatedVaults);
     }
 
     return allVaults;

@@ -1,12 +1,23 @@
 import { ChainId } from '@venusprotocol/chains';
+import type { Token } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults/types';
 import { VaultCategory, VaultManager, VaultStatus, VaultType } from 'types';
 import { formatToInstitutionalVault } from '..';
 
+const fakeSupplyAssetAddress = '0x0000000000000000000000000000000000000003' as const;
+
+const fakeToken: Token = {
+  address: fakeSupplyAssetAddress,
+  symbol: 'USDC',
+  decimals: 6,
+  iconSrc: '',
+  chainId: ChainId.BSC_TESTNET,
+};
+
 const fakeLoanVaultDetail = {
   chainId: '97',
-  collateralAssetAddress: '0x0000000000000000000000000000000000000001',
+  collateralAssetAddress: '0x0000000000000000000000000000000000000001' as const,
   collateralValueCents: '0',
   createdAt: '2025-01-01T00:00:00.000Z',
   debtValueCents: '0',
@@ -25,7 +36,7 @@ const fakeLoanVaultDetail = {
   reserveFactorMantissa: '0',
   settlementDeadline: '2025-07-01T00:00:00.000Z',
   shortfallMantissa: '0',
-  supplyAssetAddress: '0x0000000000000000000000000000000000000003',
+  supplyAssetAddress: fakeSupplyAssetAddress,
   totalOwedMantissa: '0',
   totalRaisedMantissa: '2000000000',
   updatedAt: '2025-01-02T00:00:00.000Z',
@@ -41,6 +52,7 @@ const fakeVaultData: GetFixedRatedVaultsOutput[number] = {
   fixedApyDecimal: '0.05',
   maturityDate: '2025-08-01T00:00:00.000Z',
   protocolData: {
+    collateralAssetAddress: '0x0000000000000000000000000000000000000001',
     institutionOperatorAddress: '0x0000000000000000000000000000000000000002',
     latePenaltyRateMantissa: '0',
     lockDurationSeconds: 12960000,
@@ -57,8 +69,7 @@ describe('formatToInstitutionalVault', () => {
   it('formats vault data correctly', () => {
     const result = formatToInstitutionalVault({
       vaultData: fakeVaultData,
-      chainId: ChainId.BSC_TESTNET,
-      pools: [],
+      tokens: [fakeToken],
       nowMs: new Date('2025-01-15T00:00:00.000Z').getTime(),
       userStakedAmount: {
         vaultAddress: '0x1234567890abcdef1234567890abcdef12345678',
@@ -91,8 +102,7 @@ describe('formatToInstitutionalVault', () => {
   it('returns undefined when loanVaultDetail is missing', () => {
     const result = formatToInstitutionalVault({
       vaultData: { ...fakeVaultData, loanVaultDetail: undefined },
-      chainId: ChainId.BSC_TESTNET,
-      pools: [],
+      tokens: [fakeToken],
       nowMs: Date.now(),
     });
 
@@ -102,8 +112,7 @@ describe('formatToInstitutionalVault', () => {
   it('defaults userStakedMantissa to 0 when userStakedAmount is not provided', () => {
     const result = formatToInstitutionalVault({
       vaultData: fakeVaultData,
-      chainId: ChainId.BSC_TESTNET,
-      pools: [],
+      tokens: [fakeToken],
       nowMs: new Date('2025-01-15T00:00:00.000Z').getTime(),
     });
 

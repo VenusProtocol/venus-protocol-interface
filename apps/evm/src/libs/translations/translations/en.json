@@ -1918,6 +1918,7 @@
         "managerTooltip": "The address or team that manages this underlying asset of this vault. Deposited assets are allocated to markets they oversee, and they may update redemption or settlement timelines based on market conditions.",
         "marketInfo": "Market info",
         "marketRiskDisclosures": "Market risk disclosures",
+        "riskDisclosureText": "Venus Protocol, accessible at venus.io, is a decentralized lending and borrowing platform built on the BNB Chain that focuses on crypto money markets. Launched in 2020, it combines elements of Maker's overcollateralized stablecoin design with Compound-style algorithmic money markets, allowing users to supply crypto assets, earn yield, and borrow against their collateral in a single application. The protocol is governed by its community and aims to provide a non-custodial, transparent alternative to centralized lenders.",
         "strategy": {
           "loan": "Loan",
           "pendleRouter": "Pendle router",

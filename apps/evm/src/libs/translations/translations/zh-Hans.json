@@ -1916,6 +1916,7 @@
         "managerTooltip": "管理此金库基础资产的地址或团队。存入的资产会被分配到他们管理的市场中，他们可能会根据市场状况更新赎回或结算时间。",
         "marketInfo": "市场信息",
         "marketRiskDisclosures": "市场风险披露",
+        "riskDisclosureText": "Venus Protocol 是一个建立在 BNB Chain 上的去中心化借贷平台，可通过 venus.io 访问，专注于加密货币货币市场。该协议于2020年推出，结合了 Maker 的超额抵押稳定币设计和 Compound 风格的算法化货币市场，允许用户在单一应用中供应加密资产、赚取收益并以抵押品进行借款。该协议由社区治理，旨在为用户提供一个非托管、透明的去中心化替代方案，以取代中心化借贷机构。",
         "strategy": {
           "loan": "贷款",
           "pendleRouter": "Pendle Router",

@@ -66,9 +66,7 @@ describe('useRepayToInstitutionalVault', () => {
   });
 
   it('throws when account address is not available', async () => {
-    renderHook(() =>
-      useRepayToInstitutionalVault({ vaultAddress: fakeVaultAddress }, fakeOptions),
-    );
+    renderHook(() => useRepayToInstitutionalVault({ vaultAddress: fakeVaultAddress }, fakeOptions));
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 

@@ -49,12 +49,6 @@ export const useInstitutionalPositionTabData = ({
   // --- Deposit window check ---
   const isDepositWindowClosed = useMemo(() => {
     return vault.status !== VaultStatus.Deposit;
-    /*
-    if (!vault.openEndDate) {
-      return false;
-    }
-    return now.getTime() > vault.openEndDate.getTime();
-    */
   }, [vault.status]);
 
   // --- Form state (deposit mode only) ---

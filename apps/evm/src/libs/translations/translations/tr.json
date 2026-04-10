@@ -1918,6 +1918,7 @@
         "managerTooltip": "Bu kasanın temel varlığını yöneten adres veya ekip. Yatırılan varlıklar, denetledikleri piyasalara tahsis edilir ve piyasa koşullarına göre itfa veya uzlaşma sürelerini güncelleyebilirler.",
         "marketInfo": "Piyasa bilgisi",
         "marketRiskDisclosures": "Piyasa Risk Açıklamaları",
+        "riskDisclosureText": "Venus Protocol, venus.io üzerinden erişilebilen, BNB Chain üzerine inşa edilmiş ve kripto para piyasalarına odaklanan merkezi olmayan bir borç verme ve borç alma platformudur. 2020 yılında başlatılan protokol, Maker'ın aşırı teminatlandırılmış stablecoin tasarımını Compound tarzı algoritmik para piyasaları ile birleştirerek kullanıcıların tek bir uygulamada kripto varlıkları arz etmesine, getiri elde etmesine ve teminatları karşılığında borç almasına olanak tanır. Protokol, topluluğu tarafından yönetilmekte olup merkezi borç verenlere karşı saklama gerektirmeyen, şeffaf bir alternatif sunmayı amaçlamaktadır.",
         "strategy": {
           "loan": "Kredi",
           "pendleRouter": "Pendle Router",

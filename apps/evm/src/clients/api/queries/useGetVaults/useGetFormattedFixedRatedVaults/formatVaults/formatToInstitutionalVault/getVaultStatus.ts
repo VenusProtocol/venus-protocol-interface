@@ -1,6 +1,22 @@
 import type { LoanVaultDetail } from 'clients/api';
 import { VaultStatus } from 'types';
 
+/*
+const VAULT_STATUS_MAPPING = {
+  0: VaultStatus.Pending,
+  1: VaultStatus.Pending,
+  2: VaultStatus.Deposit,
+  3: VaultStatus.Pending,
+  4: VaultStatus.Earning,
+  5: VaultStatus.Repaying,
+  6: VaultStatus.Pending,
+  7: VaultStatus.Claim,
+  8: VaultStatus.Refund,
+  9: VaultStatus.Paused,
+  10: VaultStatus.Inactive,
+};
+*/
+
 export const getVaultStatus = ({
   loanVaultDetail,
   nowMs,
