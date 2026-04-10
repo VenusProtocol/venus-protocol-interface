@@ -774,6 +774,10 @@
         "vai": {
           "description": "Venus'ün yerel sabit coinini mint edin.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "description": "Kaldıraçlı long ve short pozisyonlar.",
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -2191,8 +2195,64 @@
     "withdrawTabTitle": "Çek"
   },
   "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ görseli",
+      "learnMore": "Daha fazla bilgi",
+      "title": "Yield+ nedir?"
+    },
+    "longLiquidity": "Long likiditesi",
+    "longSupplyApy": "{{ longTokenSymbol }} sağlama APY",
+    "longTokenSelect": {
+      "label": "Long"
+    },
     "operationForm": {
       "invalidLiquidationPrice": "Yok"
+    },
+    "positions": {
+      "placeholder": {
+        "title": "Henüz pozisyon yok"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Teminat"
+        },
+        "healthFactor": {
+          "label": "Sağlık faktörü",
+          "tooltip": "Likidasyon < 1.0"
+        },
+        "netApy": {
+          "label": "Net APY"
+        },
+        "netValue": {
+          "label": "Net değer"
+        }
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "Bu pozisyonun giriş fiyat oranı (short varlık miktarı ÷ long varlık miktarı), girişten itibaren iki token arasındaki göreli değeri yansıtır"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Pozisyon"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} borç APY",
+    "shortLiquidity": "Short likiditesi",
+    "shortTokenSelect": {
+      "label": "Short"
     }
   }
 }

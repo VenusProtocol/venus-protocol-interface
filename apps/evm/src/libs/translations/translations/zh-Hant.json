@@ -774,6 +774,10 @@
         "vai": {
           "description": "鑄造 Venus 的原生穩定幣。",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "description": "槓桿多頭和空頭倉位。",
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -2190,8 +2194,64 @@
     "withdrawTabTitle": "提取"
   },
   "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ 插圖",
+      "learnMore": "瞭解更多",
+      "title": "什麼是 Yield+？"
+    },
+    "longLiquidity": "多頭流動性",
+    "longSupplyApy": "{{ longTokenSymbol }} 供應 APY",
+    "longTokenSelect": {
+      "label": "多頭"
+    },
     "operationForm": {
       "invalidLiquidationPrice": "不適用"
+    },
+    "positions": {
+      "placeholder": {
+        "title": "暫無倉位"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "抵押"
+        },
+        "healthFactor": {
+          "label": "健康係數",
+          "tooltip": "清算閾值 < 1.0"
+        },
+        "netApy": {
+          "label": "淨 APY"
+        },
+        "netValue": {
+          "label": "淨值"
+        }
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "此倉位的入場價格比率（空頭資產數量 ÷ 多頭資產數量），反映自入場以來兩種代幣之間的相對價值"
+        },
+        "liquidationPrice": {
+          "title": "清算價"
+        },
+        "longColumn": {
+          "title": "多頭"
+        },
+        "pnlColumn": {
+          "title": "盈虧"
+        },
+        "positionColumn": {
+          "title": "倉位"
+        },
+        "shortColumn": {
+          "title": "空頭"
+        }
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
+    "shortLiquidity": "空頭流動性",
+    "shortTokenSelect": {
+      "label": "空頭"
     }
   }
 }

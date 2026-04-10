@@ -774,6 +774,10 @@
         "vai": {
           "description": "Mint stablecoin gốc của Venus.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "description": "Các vị thế long và short có đòn bẩy.",
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -2190,8 +2194,64 @@
     "withdrawTabTitle": "Rút"
   },
   "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Hình minh họa Yield+",
+      "learnMore": "Tìm hiểu thêm",
+      "title": "Yield+ là gì?"
+    },
+    "longLiquidity": "Thanh khoản Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY cung cấp",
+    "longTokenSelect": {
+      "label": "Long"
+    },
     "operationForm": {
       "invalidLiquidationPrice": "Không áp dụng"
+    },
+    "positions": {
+      "placeholder": {
+        "title": "Chưa có vị thế"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Tài sản thế chấp"
+        },
+        "healthFactor": {
+          "label": "Hệ số an toàn",
+          "tooltip": "Thanh lý tại < 1.0"
+        },
+        "netApy": {
+          "label": "APY ròng"
+        },
+        "netValue": {
+          "label": "Giá trị ròng"
+        }
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "Tỷ lệ giá vào lệnh của vị thế này (số lượng tài sản Short ÷ số lượng tài sản Long), phản ánh giá trị tương đối giữa hai token kể từ lúc vào lệnh"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Vị thế"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY vay",
+    "shortLiquidity": "Thanh khoản Short",
+    "shortTokenSelect": {
+      "label": "Short"
     }
   }
 }

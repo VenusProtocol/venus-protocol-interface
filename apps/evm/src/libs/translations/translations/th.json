@@ -774,6 +774,10 @@
         "vai": {
           "description": "มินต์สเตเบิลคอยน์ประจำของ Venus",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "description": "สถานะ Long และ Short แบบมีเลเวอเรจ",
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -2190,8 +2194,64 @@
     "withdrawTabTitle": "ถอน"
   },
   "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "ภาพประกอบ Yield+",
+      "learnMore": "เรียนรู้เพิ่มเติม",
+      "title": "Yield+ คืออะไร?"
+    },
+    "longLiquidity": "สภาพคล่องฝั่ง Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
+    "longTokenSelect": {
+      "label": "Long"
+    },
     "operationForm": {
       "invalidLiquidationPrice": "ไม่มี"
+    },
+    "positions": {
+      "placeholder": {
+        "title": "ยังไม่มีโพสิชัน"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "หลักประกัน"
+        },
+        "healthFactor": {
+          "label": "ตัวคูณความปลอดภัย",
+          "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
+        },
+        "netApy": {
+          "label": "APY สุทธิ"
+        },
+        "netValue": {
+          "label": "มูลค่าสุทธิ"
+        }
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "อัตราส่วนราคาเข้าของโพสิชันนี้ (จำนวนสินทรัพย์ Short ÷ จำนวนสินทรัพย์ Long) ซึ่งสะท้อนมูลค่าเปรียบเทียบระหว่างโทเค็นทั้งสองนับตั้งแต่ตอนเข้า"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "โพสิชัน"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",
+    "shortLiquidity": "สภาพคล่องฝั่ง Short",
+    "shortTokenSelect": {
+      "label": "Short"
     }
   }
 }

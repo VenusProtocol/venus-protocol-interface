@@ -67,3 +67,4 @@ export * from './TokenListWrapper';
 export * from './Wrapper';
 export * from './LabeledSlider';
 export * from './AvailableBalance';
+export * from './KLineChart';

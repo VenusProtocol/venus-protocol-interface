@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PairInfo > renders the selected pair details and market stats 1`] = `"LongUSDTShortBUSDUSDT/BUSD3.32%Long liquidity$55.34MShort liquidity$36.54MUSDT supply APY4.01%BUSD borrow APY-5.81%"`;

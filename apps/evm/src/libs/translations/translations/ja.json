@@ -774,6 +774,10 @@
         "vai": {
           "description": "Venusのネイティブステーブルコインをミント。",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "description": "レバレッジをかけたロングとショートのポジション。",
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -2190,8 +2194,64 @@
     "withdrawTabTitle": "引き出す"
   },
   "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ のイラスト",
+      "learnMore": "詳細を見る",
+      "title": "Yield+ とは？"
+    },
+    "longLiquidity": "ロング流動性",
+    "longSupplyApy": "{{ longTokenSymbol }} 供給APY",
+    "longTokenSelect": {
+      "label": "ロング"
+    },
     "operationForm": {
       "invalidLiquidationPrice": "該当なし"
+    },
+    "positions": {
+      "placeholder": {
+        "title": "まだポジションはありません"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "担保"
+        },
+        "healthFactor": {
+          "label": "健全性ファクター",
+          "tooltip": "清算ライン: < 1.0"
+        },
+        "netApy": {
+          "label": "実質APY"
+        },
+        "netValue": {
+          "label": "純資産"
+        }
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "このポジションのエントリー価格比率（ショート資産量 ÷ ロング資産量）で、エントリー時点からの2つのトークン間の相対的な価値を示します"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "ロング"
+        },
+        "pnlColumn": {
+          "title": "損益"
+        },
+        "positionColumn": {
+          "title": "ポジション"
+        },
+        "shortColumn": {
+          "title": "ショート"
+        }
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借入APY",
+    "shortLiquidity": "ショート流動性",
+    "shortTokenSelect": {
+      "label": "ショート"
     }
   }
 }

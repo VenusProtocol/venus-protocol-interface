@@ -144,6 +144,7 @@ export const featureFlags = {
   leveragedPositions: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   repayWithCollateral: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   statsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  yieldPlusRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
