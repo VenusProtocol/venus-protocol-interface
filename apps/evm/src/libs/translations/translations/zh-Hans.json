@@ -2188,5 +2188,10 @@
       "submitButton": "取款"
     },
     "withdrawTabTitle": "取款"
+  },
+  "yieldPlus": {
+    "operationForm": {
+      "invalidLiquidationPrice": "不适用"
+    }
   }
 }

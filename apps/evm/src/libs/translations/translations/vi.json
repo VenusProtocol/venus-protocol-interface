@@ -2188,5 +2188,10 @@
       "submitButton": "Rút"
     },
     "withdrawTabTitle": "Rút"
+  },
+  "yieldPlus": {
+    "operationForm": {
+      "invalidLiquidationPrice": "Không áp dụng"
+    }
   }
 }

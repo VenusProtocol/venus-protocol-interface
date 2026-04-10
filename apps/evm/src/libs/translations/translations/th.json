@@ -2188,5 +2188,10 @@
       "submitButton": "ถอน"
     },
     "withdrawTabTitle": "ถอน"
+  },
+  "yieldPlus": {
+    "operationForm": {
+      "invalidLiquidationPrice": "ไม่มี"
+    }
   }
 }
