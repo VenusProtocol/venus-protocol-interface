@@ -12,11 +12,10 @@ import { renderComponent } from 'testUtils/render';
 import type { Asset, Token, VToken } from 'types';
 import { VaultStatus } from 'types';
 
-import { useGetFixedRatedVaults } from 'clients/api';
+import { useGetFixedRatedVaultUserStakedTokens, useGetFixedRatedVaults } from 'clients/api';
 import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults/types';
 import { type UseGetPendleVaultsOutput, useGetFormattedFixedRatedVaults } from '../index';
 
-vi.mock('clients/api/queries/getFixedRatedVaults/useGetFixedRatedVaults');
 vi.mock('clients/api/queries/useGetPools');
 vi.mock('libs/tokens');
 
@@ -155,6 +154,11 @@ describe('useGetFormattedFixedRatedVaults', () => {
 
     (useGetFixedRatedVaults as Mock).mockReturnValue({
       data: [fakeVaultProduct],
+      isLoading: false,
+    });
+
+    (useGetFixedRatedVaultUserStakedTokens as Mock).mockReturnValue({
+      data: [{ vaultAddress: fakeVaultProduct.vaultAddress, tokensMantissa: undefined }],
       isLoading: false,
     });
 

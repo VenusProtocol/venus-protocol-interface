@@ -31,7 +31,7 @@ export interface InstitutionalFormProps {
 }
 
 export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onClose }) => {
-  const { t, Trans: TransComponent } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const {
     displayMode,
@@ -294,7 +294,7 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
             size="md"
           />
           <span className="text-b1r text-grey">
-            <TransComponent
+            <Trans
               i18nKey="vault.modals.institutionalTcsAgreement"
               components={{
                 Link: <Link href={CEFFU_TCS_URL} target="_blank" />,

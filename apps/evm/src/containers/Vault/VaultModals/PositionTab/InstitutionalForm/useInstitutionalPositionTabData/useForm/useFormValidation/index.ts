@@ -26,7 +26,7 @@ const useFormValidation = ({
   availableTokens,
   token,
   maxDepositCapacityTokens,
-  minRequestTokens,
+  // minRequestTokens,
   isDepositWindowClosed,
   isStake,
 }: UseFormValidationInput): UseFormValidationOutput => {
@@ -63,6 +63,7 @@ const useFormValidation = ({
       };
     }
 
+    /*
     if (
       isStake &&
       tokenAmount &&
@@ -77,6 +78,7 @@ const useFormValidation = ({
         }),
       };
     }
+    */
 
     if (tokenAmount && (tokenAmount.isNaN() || tokenAmount.isLessThanOrEqualTo(0))) {
       return {
@@ -95,7 +97,7 @@ const useFormValidation = ({
     availableTokens,
     token.symbol,
     maxDepositCapacityTokens,
-    minRequestTokens,
+    // minRequestTokens,
     isDepositWindowClosed,
     isStake,
     t,

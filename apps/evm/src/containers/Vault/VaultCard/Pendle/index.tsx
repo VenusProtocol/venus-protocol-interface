@@ -85,13 +85,7 @@ export const PendleVaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     setModalVisible(true);
   };
 
-  const footerLabel = (() => {
-    if (hasMatured) {
-      return t('vault.card.claimReward');
-    }
-
-    return t('vault.card.youStaked');
-  })();
+  const footerLabel = hasMatured ? t('vault.card.claimReward') : t('vault.card.youDeposited');
 
   return (
     <>

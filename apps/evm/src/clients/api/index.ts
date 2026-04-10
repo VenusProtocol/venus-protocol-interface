@@ -35,6 +35,9 @@ export * from './mutations/useOpenLeveragedPosition';
 export * from './mutations/useRepayWithCollateral';
 export * from './mutations/useStakeInPendleVault';
 export * from './mutations/useWithdrawFromPendleVault';
+export * from './mutations/useDepositToInstitutionalVault';
+export * from './mutations/useWithdrawFromInstitutionalVault';
+export * from './mutations/useRepayToInstitutionalVault';
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';

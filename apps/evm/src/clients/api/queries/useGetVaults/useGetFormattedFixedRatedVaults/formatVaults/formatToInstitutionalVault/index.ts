@@ -5,38 +5,22 @@ import type {
   GetFixedRatedVaultsOutput,
   LoanVaultDetail,
 } from 'clients/api';
-import {
-  type InstitutionalVault,
-  type Pool,
-  VaultCategory,
-  VaultManager,
-  VaultStatus,
-  VaultType,
-} from 'types';
+import { type InstitutionalVault, type Pool, VaultCategory, VaultManager, VaultType } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
-const VAULT_STATE_MAP = {
-  0: VaultStatus.Pending,
-  1: VaultStatus.Pending,
-  2: VaultStatus.Deposit,
-  3: VaultStatus.Pending,
-  4: VaultStatus.Earning,
-  5: VaultStatus.Repaying,
-  6: VaultStatus.Repaying,
-  7: VaultStatus.Claim,
-  8: VaultStatus.Refund,
-  9: VaultStatus.Pending,
-  10: VaultStatus.Inactive,
-};
+import { getVaultStatus } from './getVaultStatus';
+
 export interface BaseInput {
   pools: Pool[];
   chainId: ChainId;
+  nowMs: number;
 }
 
 export const formatToInstitutionalVault = ({
   vaultData,
   chainId,
   userStakedAmount,
+  nowMs,
 }: BaseInput & {
   vaultData: GetFixedRatedVaultsOutput[number];
   userStakedAmount?: GetFixedRatedVaultUserStakedTokensOutput[number];
@@ -50,13 +34,14 @@ export const formatToInstitutionalVault = ({
 
   const rewardToken = stakedToken;
 
-  console.log(stakedToken, rewardToken);
-
   if (!stakedToken || !rewardToken || !loanVaultDetail) {
     return undefined;
   }
 
-  const status = VAULT_STATE_MAP[loanVaultDetail.vaultState as keyof typeof VAULT_STATE_MAP];
+  const status = getVaultStatus({
+    loanVaultDetail,
+    nowMs,
+  });
 
   const userStakedMantissa = userStakedAmount?.tokensMantissa ?? new BigNumber(0);
 

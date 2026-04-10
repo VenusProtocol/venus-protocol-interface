@@ -9,7 +9,7 @@ import { type BaseInput, formatToPendleVault } from './formatToPendleVault';
 interface FormatToPendleVaultsInput extends BaseInput {
   vaultProducts: GetFixedRatedVaultsOutput;
   chainId: ChainId;
-  userStakedAmounts: GetFixedRatedVaultUserStakedTokensOutput;
+  userStakedAmounts?: GetFixedRatedVaultUserStakedTokensOutput;
 }
 
 export const formatVaults = ({
@@ -24,12 +24,17 @@ export const formatVaults = ({
     let vault: Vault | undefined = undefined;
     if (vaultData.protocol === 'pendle') {
       vault = formatToPendleVault({ vaultData, pools, tokens, nowMs });
-    } else if (vaultData.protocol === 'institutional-vault') {
+    } else if (
+      vaultData.protocol === 'institutional-vault' &&
+      Array.isArray(userStakedAmounts) &&
+      userStakedAmounts[index]
+    ) {
       vault = formatToInstitutionalVault({
         vaultData,
         pools,
         chainId,
         userStakedAmount: userStakedAmounts[index],
+        nowMs,
       });
     }
 

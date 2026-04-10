@@ -21,6 +21,13 @@ export const getFixedRatedVaultUserStakedTokens = async ({
   accountAddress,
   vaultAddresses,
 }: GetFixedRatedVaultUserStakedTokensInput): Promise<GetFixedRatedVaultUserStakedTokensOutput> => {
+  if (!accountAddress) {
+    return vaultAddresses.map(vaultAddress => ({
+      vaultAddress: vaultAddress,
+      tokensMantissa: undefined,
+    }));
+  }
+
   const results = await publicClient.multicall({
     contracts: vaultAddresses.map(vaultAddress => ({
       abi: institutionalVaultAbi,

@@ -1840,7 +1840,7 @@
       "totalStaked": "總質押",
       "withdraw": "提取",
       "youAreStake": "你正在質押",
-      "youStaked": "您已質押"
+      "youDeposited": "您已存入"
     },
     "filter": {
       "active": "進行中",
@@ -1884,7 +1884,6 @@
         "invalidAmount": "輸入金額無效。",
         "invalidAmountFromQuote": "輸入金額超過Pendle市場的可用流動性。請減少金額後重試。",
         "lowerThanMinimumAmount": "輸入金額過低。最低金額應不少於 {{amount}} USD。",
-        "lowerThanMinRequest": "金額低於最低請求 {{amount}} {{tokenSymbol}}。",
         "noSwapQuoteFound": "未找到兑換報價，請更新表單。",
         "pendleApiError": "Pendle 目前請求量較大，請稍後再試。"
       },
@@ -1892,6 +1891,7 @@
       "estReceived": "預計收到",
       "estYield": "預計收益",
       "institutionalDisclaimer_other": "如果金庫達到最低要求，存款將繼續至最大目標。質押 {{count}} 天以領取獎勵。否則，資金將被退還。",
+      "institutionalTcsAgreement": "繼續存款即表示我同意<Link>條款與條件</Link>",
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益部位（來自 Pendle）的到期日。在此日期之後，您將收回全部原始資產（本金）。鎖定的固定收益在此停止，建議持有至此以獲得預期收益。",
       "maturityDateTooltip": "您的固定收益部位結束的到期日，届時您可以提取本金和已賺取的收益。",

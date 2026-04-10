@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useRepayToInstitutionalVault > calls useSendTransaction with the correct parameters 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_FIXED_RATED_VAULTS",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_BALANCES",
+        {
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_FIXED_RATED_VAULTS_USER_STAKED_TOKENS",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+]
+`;

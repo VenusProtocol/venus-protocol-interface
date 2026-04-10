@@ -1841,7 +1841,7 @@
       "totalStaked": "Total staked",
       "withdraw": "Withdraw",
       "youAreStake": "You are staking",
-      "youStaked": "You staked"
+      "youDeposited": "You deposited"
     },
     "filter": {
       "active": "Active",
@@ -1885,7 +1885,6 @@
         "invalidAmount": "Input amount is invalid.",
         "invalidAmountFromQuote": "Amount exceeds available liquidity in the Pendle market. Reduce the amount and try again.",
         "lowerThanMinimumAmount": "Input amount is too low. The minimum amount is equivalent to {{amount}} USD.",
-        "lowerThanMinRequest": "Amount is below the minimum request of {{amount}} {{tokenSymbol}}.",
         "noSwapQuoteFound": "No swap found. Please update the form.",
         "pendleApiError": "Temporarily experiencing high demand with Pendle. Please try again in a moment."
       },
@@ -1894,6 +1893,7 @@
       "estYield": "Est. yield",
       "institutionalDisclaimer_one": "If the vault reaches the minimum required, deposits continue up to the max target. Stake for {{count}} day to claim rewards. Otherwise, funds are refunded.",
       "institutionalDisclaimer_other": "If the vault reaches the minimum required, deposits continue up to the max target. Stake for {{count}} days to claim rewards. Otherwise, funds are refunded.",
+      "institutionalTcsAgreement": "By proceeding to deposit, I am agreeing to the <Link>T&Cs</Link>",
       "maturityDate": "Maturity date",
       "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
       "maturityDateTooltip": "The maturity date when your fixed-yield position ends and you can withdraw your principal plus earned yield.",

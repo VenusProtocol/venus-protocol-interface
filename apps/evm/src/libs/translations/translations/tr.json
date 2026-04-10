@@ -1841,7 +1841,7 @@
       "totalStaked": "Toplam Stake",
       "withdraw": "Çek",
       "youAreStake": "Stake ediyorsunuz",
-      "youStaked": "Stake ettiğiniz"
+      "youDeposited": "Yatırdığınız miktar"
     },
     "filter": {
       "active": "Aktif",
@@ -1885,7 +1885,6 @@
         "invalidAmount": "Girilen miktar geçersiz.",
         "invalidAmountFromQuote": "Girilen miktar, Pendle piyasasındaki kullanılabilir likidityi aşıyor. Miktarı azaltın ve tekrar deneyin.",
         "lowerThanMinimumAmount": "Girilen miktar çok düşük. Minimum miktar {{amount}} USD eşdeğeridir.",
-        "lowerThanMinRequest": "Miktar minimum talep olan {{amount}} {{tokenSymbol}} altında.",
         "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güelleyin.",
         "pendleApiError": "Pendle şu anda yoğun talep yaşıyor. Lütfen biraz sonra tekrar deneyin."
       },
@@ -1894,6 +1893,7 @@
       "estYield": "Tahmini Getiri",
       "institutionalDisclaimer_one": "Kasa minimum gerekliliğe ulaşırsa, yatırımlar maksimum hedefe kadar devam eder. Ödül talep etmek için {{count}} gün stake edin. Aksi takdirde fonlar iade edilir.",
       "institutionalDisclaimer_other": "Kasa minimum gerekliliğe ulaşırsa, yatırımlar maksimum hedefe kadar devam eder. Ödül talep etmek için {{count}} gün stake edin. Aksi takdirde fonlar iade edilir.",
+      "institutionalTcsAgreement": "Yatırma işlemine devam ederek <Link>Şartlar ve Koşulları</Link> kabul etmiş olursunuz",
       "maturityDate": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
       "maturityDateTooltip": "Sabit getirili pozisyonunuzun sona erdiği ve anaparanızı ve kazanılan getiriyi çekebileceğiniz vade tarihi.",

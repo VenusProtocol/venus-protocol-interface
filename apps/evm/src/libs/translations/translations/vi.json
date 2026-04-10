@@ -1840,7 +1840,7 @@
       "totalStaked": "Tổng đã stake",
       "withdraw": "Rút",
       "youAreStake": "Bạn đang stake",
-      "youStaked": "Bạn đã stake"
+      "youDeposited": "Bạn đã nạp"
     },
     "filter": {
       "active": "Đang hoạt động",
@@ -1884,7 +1884,6 @@
         "invalidAmount": "Số tiền nhập vào không hợp lệ.",
         "invalidAmountFromQuote": "Số tiền vượt quá thanh khoản có sẵn trên thị trường Pendle. Giảm số tiền và thử lại.",
         "lowerThanMinimumAmount": "Số tiền nhập vào quá thấp. Số tiền tối thiểu tương đương {{amount}} USD.",
-        "lowerThanMinRequest": "Số tiền thấp hơn yêu cầu tối thiểu {{amount}} {{tokenSymbol}}.",
         "noSwapQuoteFound": "Không tìm thấy lệnh swap. Vui lòng cập nhật biểu mẫu.",
         "pendleApiError": "Pendle đang tạm thời quá tải. Vui lòng thử lại sau giây lát."
       },
@@ -1892,6 +1891,7 @@
       "estReceived": "Ước tính nhận được",
       "estYield": "Lợi nhuận ước tính",
       "institutionalDisclaimer_other": "Nếu vault đạt mức tối thiểu yêu cầu, nạp tiền tiếp tục đến mục tiêu tối đa. Stake {{count}} ngày để nhận thưởng. Nếu không, tiền sẽ được hoàn trả.",
+      "institutionalTcsAgreement": "Bằng việc tiến hành nạp tiền, tôi đồng ý với <Link>Điều khoản và Điều kiện</Link>",
       "maturityDate": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
       "maturityDateTooltip": "Ngày đáo hạn khi vị thế lợi suất cố định của bạn kết thúc và bạn có thể rút vốn gốc cùng lợi suất đã kiếm được.",

@@ -45,7 +45,7 @@ export const useGetFixedRatedVaultUserStakedTokens = (
         accountAddress: accountAddress as Address,
         vaultAddresses,
       }),
-    enabled: !!accountAddress && vaultAddresses.length > 0,
+    enabled: vaultAddresses.length > 0,
     ...options,
   });
 };

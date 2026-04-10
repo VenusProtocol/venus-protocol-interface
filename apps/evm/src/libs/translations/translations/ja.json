@@ -1840,7 +1840,7 @@
       "totalStaked": "総ステーキング量",
       "withdraw": "引き出し",
       "youAreStake": "あなたのステーキング量",
-      "youStaked": "ステーキング済み"
+      "youDeposited": "あなたの入金額"
     },
     "filter": {
       "active": "アクティブ",
@@ -1884,7 +1884,6 @@
         "invalidAmount": "入力金額が無効です。",
         "invalidAmountFromQuote": "入力金額がPendleマーケットで利用可能な流動性を超えています。金額を減らして再試行してください。",
         "lowerThanMinimumAmount": "入力金額が少なすぎます。最低金額は {{amount}} USD 相当です。",
-        "lowerThanMinRequest": "最低リクエスト額の {{amount}} {{tokenSymbol}} を下回っています。",
         "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。",
         "pendleApiError": "現在Pendleへのアクセスが集中しています。しばらくしてからもう一度お試しください。"
       },
@@ -1892,6 +1891,7 @@
       "estReceived": "推定受取額",
       "estYield": "推定利回り",
       "institutionalDisclaimer_other": "ボールトが最低必要額に達した場合、最大目標まで預入が継続されます。報酬を請求するには {{count}} 日間ステーキングしてください。それ以外の場合、資金は返金されます。",
+      "institutionalTcsAgreement": "入金を進めることにより、<Link>利用規約</Link>に同意したものとみなされます",
       "maturityDate": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
       "maturityDateTooltip": "固定利回りポジションが終了し、元本と獲得した利回りを引き出せる満期日です。",

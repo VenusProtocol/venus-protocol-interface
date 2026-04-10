@@ -77,7 +77,7 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
   };
 
   const footerLabel =
-    vault.status === VaultStatus.Claim ? t('vault.card.claimReward') : t('vault.card.youStaked');
+    vault.status === VaultStatus.Claim ? t('vault.card.claimReward') : t('vault.card.youDeposited');
 
   const displayName = `${vault.stakedToken.symbol} - ${vault.manager?.toUpperCase()}`;
 

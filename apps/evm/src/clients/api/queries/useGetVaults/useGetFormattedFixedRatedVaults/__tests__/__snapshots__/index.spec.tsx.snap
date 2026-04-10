@@ -89,7 +89,9 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle vaults cor
     "totalStakedMantissa": "1.13645e+22",
     "userStakedCents": 326742,
     "userStakedMantissa": "5000000000000000000",
+    "vaultAddress": "0xe052823b4aefc6e230FAf46231A57d0905E30AE0",
     "vaultDeploymentDate": 2025-10-09T09:04:39.000Z,
+    "vaultType": "pendle",
   },
 ]
 `;

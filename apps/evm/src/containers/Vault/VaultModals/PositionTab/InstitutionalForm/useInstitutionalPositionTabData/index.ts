@@ -1,13 +1,16 @@
 import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useGetBalanceOf } from 'clients/api';
+import {
+  useDepositToInstitutionalVault,
+  useGetBalanceOf,
+  useWithdrawFromInstitutionalVault,
+} from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { useNow } from 'hooks/useNow';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAccountAddress } from 'libs/wallet';
 import { type InstitutionalVault, VaultStatus } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import type { Approval } from '../../SubmitButton/types';
 import { type FormValues, useForm } from './useForm';
@@ -36,7 +39,6 @@ export const useInstitutionalPositionTabData = ({
   vault,
   onClose,
 }: UseInstitutionalPositionTabInput) => {
-  const now = useNow();
   const { accountAddress } = useAccountAddress();
 
   // --- Display mode derived from vault status ---
@@ -46,11 +48,14 @@ export const useInstitutionalPositionTabData = ({
 
   // --- Deposit window check ---
   const isDepositWindowClosed = useMemo(() => {
+    return vault.status !== VaultStatus.Deposit;
+    /*
     if (!vault.openEndDate) {
       return false;
     }
     return now.getTime() > vault.openEndDate.getTime();
-  }, [now, vault.openEndDate]);
+    */
+  }, [vault.status]);
 
   // --- Form state (deposit mode only) ---
   const initialFormValues: FormValues = useMemo(
@@ -159,10 +164,22 @@ export const useInstitutionalPositionTabData = ({
     maxDepositCapacityTokens,
   ]);
 
-  // --- Submit stub (deposit mode) ---
-  // TODO: implement actual deposit/withdraw mutation when contract interaction is ready
+  // --- Mutation hooks ---
+  const vaultAddress = vault.vaultAddress ?? NULL_ADDRESS;
+
+  const { mutateAsync: depositToInstitutionalVault, isPending: isDepositing } =
+    useDepositToInstitutionalVault({ vaultAddress });
+
+  const { mutateAsync: withdrawFromInstitutionalVault, isPending: isWithdrawing } =
+    useWithdrawFromInstitutionalVault({ vaultAddress });
+
+  // --- Submit handler (deposit mode) ---
   async function handleOnSubmit() {
-    // no-op stub — mutation hook not implemented yet
+    const amountMantissa = convertTokensToMantissa({
+      value: new BigNumber(formValues.tokenAmount),
+      token: vault.stakedToken,
+    });
+    await depositToInstitutionalVault({ amountMantissa });
     onClose?.();
   }
 
@@ -234,23 +251,25 @@ export const useInstitutionalPositionTabData = ({
     }));
   };
 
-  // --- Claim stub handler ---
-  // TODO: implement actual withdraw/claim mutation when contract interaction is ready
+  // --- Claim handler ---
   const handleWithdraw = async () => {
-    // no-op stub
+    if (vault.userStakedMantissa) {
+      await withdrawFromInstitutionalVault({ amountMantissa: vault.userStakedMantissa });
+    }
     onClose?.();
   };
 
-  // --- Refund stub handler ---
-  // TODO: implement actual refund mutation when contract interaction is ready
+  // --- Refund handler ---
   const handleRefund = async () => {
-    // no-op stub
+    if (vault.userStakedMantissa) {
+      await withdrawFromInstitutionalVault({ amountMantissa: vault.userStakedMantissa });
+    }
     onClose?.();
   };
 
   // --- Derived submit state ---
   const isUserConnected = !!accountAddress;
-  const isSubmitting = false;
+  const isSubmitting = isDepositing || isWithdrawing;
   const disableInput =
     !isUserConnected || isSubmitting || isApproveFromTokenLoading || isBalanceLoading;
   const disableSubmit = !isFormValid || isSubmitting || !tcsAccepted;
