@@ -2216,14 +2216,18 @@
     "operationForm": {
       "invalidLiquidationPrice": "不適用",
       "openForm": {
+        "collateral": "抵押",
         "dsaFieldLabel": "抵押",
         "dsaFieldPlaceholder": "輸入以繼續",
         "entryPrice": "開倉價",
         "liquidationPrice": "清算價",
+        "long": "多頭",
         "longFieldLabel": "多頭",
         "netApy": "淨 APY",
         "pnl": "已實現盈虧",
-        "shortFieldLabel": "空頭"
+        "short": "空頭",
+        "shortFieldLabel": "空頭",
+        "submitButtonLabel": "開倉"
       },
       "walletBalance": "錢包餘額",
       "warning": {

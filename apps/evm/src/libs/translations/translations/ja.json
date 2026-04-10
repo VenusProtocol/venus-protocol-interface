@@ -2216,14 +2216,18 @@
     "operationForm": {
       "invalidLiquidationPrice": "該当なし",
       "openForm": {
+        "collateral": "担保",
         "dsaFieldLabel": "担保",
         "dsaFieldPlaceholder": "入力して続行",
         "entryPrice": "エントリー価格",
         "liquidationPrice": "清算価格",
+        "long": "ロング",
         "longFieldLabel": "ロング",
         "netApy": "実質APY",
         "pnl": "実現損益",
-        "shortFieldLabel": "ショート"
+        "short": "ショート",
+        "shortFieldLabel": "ショート",
+        "submitButtonLabel": "オープン"
       },
       "walletBalance": "ウォレット残高",
       "warning": {

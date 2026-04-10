@@ -6,6 +6,7 @@ import { ONE_DAY_MS } from 'constants/time';
 import { areAddressesEqual } from 'utilities';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
+import { OperationForm } from './OperationForm';
 import { PairInfo } from './PairInfo';
 import { Positions } from './Positions';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from './constants';
@@ -108,6 +109,10 @@ const YieldPlus: React.FC = () => {
 
           <div className="min-w-0 flex flex-col gap-y-6 relative overflow-hidden lg:self-start">
             {!doNotShowBanner && <Banner className="hidden lg:flex" />}
+
+            <Card className="border-blue bg-dark-blue p-6">
+              <OperationForm />
+            </Card>
 
             <Positions className="lg:hidden" />
           </div>

@@ -2217,14 +2217,18 @@
     "operationForm": {
       "invalidLiquidationPrice": "N/A",
       "openForm": {
+        "collateral": "Collateral",
         "dsaFieldLabel": "Collateral",
         "dsaFieldPlaceholder": "Enter to continue",
         "entryPrice": "Entry price",
         "liquidationPrice": "Liq. price",
+        "long": "Long",
         "longFieldLabel": "Long",
         "netApy": "Net APY",
         "pnl": "Realized PnL",
-        "shortFieldLabel": "Short"
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Open"
       },
       "walletBalance": "Wallet balance",
       "warning": {

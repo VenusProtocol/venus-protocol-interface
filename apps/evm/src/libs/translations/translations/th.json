@@ -2216,14 +2216,18 @@
     "operationForm": {
       "invalidLiquidationPrice": "ไม่มี",
       "openForm": {
+        "collateral": "หลักประกัน",
         "dsaFieldLabel": "หลักประกัน",
         "dsaFieldPlaceholder": "ป้อนข้อมูลเพื่อดำเนินการต่อ",
         "entryPrice": "ราคาเปิด",
         "liquidationPrice": "ราคาชำระบัญชี",
+        "long": "Long",
         "longFieldLabel": "Long",
         "netApy": "APY สุทธิ",
         "pnl": "กำไร/ขาดทุนที่รับรู้",
-        "shortFieldLabel": "Short"
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "เปิด"
       },
       "walletBalance": "ยอดคงเหลือในกระเป๋า",
       "warning": {

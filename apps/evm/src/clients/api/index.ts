@@ -31,6 +31,7 @@ export * from './mutations/useWithdraw';
 export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
 export * from './mutations/useOpenLeveragedPosition';
+export * from './mutations/useOpenYieldPlusPosition';
 export * from './mutations/useRepayWithCollateral';
 export * from './mutations/useStakeInPendleVault';
 export * from './mutations/useWithdrawFromPendleVault';

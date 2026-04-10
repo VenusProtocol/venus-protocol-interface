@@ -2217,14 +2217,18 @@
     "operationForm": {
       "invalidLiquidationPrice": "Yok",
       "openForm": {
+        "collateral": "Teminat",
         "dsaFieldLabel": "Teminat",
         "dsaFieldPlaceholder": "Devam etmek için girin",
         "entryPrice": "Giriş fiyatı",
         "liquidationPrice": "Likidasyon fiyatı",
+        "long": "Long",
         "longFieldLabel": "Long",
         "netApy": "Net APY",
         "pnl": "Gerçekleşen K/Z",
-        "shortFieldLabel": "Short"
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Aç"
       },
       "walletBalance": "Cüzdan bakiyesi",
       "warning": {

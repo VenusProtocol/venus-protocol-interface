@@ -2216,14 +2216,18 @@
     "operationForm": {
       "invalidLiquidationPrice": "Không áp dụng",
       "openForm": {
+        "collateral": "Tài sản thế chấp",
         "dsaFieldLabel": "Tài sản thế chấp",
         "dsaFieldPlaceholder": "Nhập để tiếp tục",
         "entryPrice": "Giá vào lệnh",
         "liquidationPrice": "Giá thanh lý",
+        "long": "Long",
         "longFieldLabel": "Long",
         "netApy": "APY ròng",
         "pnl": "Lãi/lỗ đã thực hiện",
-        "shortFieldLabel": "Short"
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Mở"
       },
       "walletBalance": "Số dư ví",
       "warning": {
