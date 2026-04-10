@@ -1,5 +1,5 @@
 import fakeAccountAddress, { altAddress as fakeDelegateAddress } from '__mocks__/models/address';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 
 import fakePoolComptrollerAddress, {
   altAddress as fakeDelegateeAddress,

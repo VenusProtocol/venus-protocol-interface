@@ -1,4 +1,4 @@
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';

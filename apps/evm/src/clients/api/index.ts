@@ -1,6 +1,5 @@
-export { default as queryClient } from './queryClient';
-
 // Mutations
+export * from './queryClient';
 export * from './mutations/useEnterMarket';
 export * from './mutations/useExitMarket';
 export * from './mutations/useApproveToken';

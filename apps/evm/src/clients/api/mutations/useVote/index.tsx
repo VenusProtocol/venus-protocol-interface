@@ -1,4 +1,4 @@
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';

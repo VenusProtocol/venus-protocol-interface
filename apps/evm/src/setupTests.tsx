@@ -40,6 +40,15 @@ vi.mock('config', async () => {
   };
 });
 
+vi.mock('clients/api');
+
+const mockedQueryClient = vi.hoisted(() => ({
+  invalidateQueries: vi.fn(),
+}));
+vi.mock('clients/api/queryClient', () => ({
+  queryClient: mockedQueryClient,
+}));
+
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('hooks/useSendTransaction');
@@ -47,7 +56,6 @@ vi.mock('hooks/useGetContractAddress');
 vi.mock('hooks/useUserChainSettings');
 vi.mock('hooks/useSimulateBalanceMutations');
 vi.mock('hooks/useGetUserPrimeInfo');
-vi.mock('clients/api');
 vi.mock('clients/subgraph');
 vi.mock('libs/analytics');
 vi.mock('libs/tokens');
