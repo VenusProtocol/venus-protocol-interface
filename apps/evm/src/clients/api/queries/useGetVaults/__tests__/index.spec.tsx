@@ -1,88 +1,40 @@
-import { waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
-import compTrollerResponses from '__mocks__/contracts/legacyPoolComptroller';
-import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
-import { renderComponent } from 'testUtils/render';
+import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
+import { renderHook } from 'testUtils/render';
 
-import {
-  getVaiVaultUserInfo,
-  getVenusVaiVaultDailyRate,
-  getXvsVaultPoolCount,
-  getXvsVaultTotalAllocationPoints,
-  getXvsVaultsTotalDailyDistributedXvs,
-} from 'clients/api';
+import { useGetVaults } from '..';
+import { useGetFormattedFixedRatedVaults } from '../useGetFormattedFixedRatedVaults';
+import { useGetVaiVault } from '../useGetVaiVault';
+import { useGetVestingVaults } from '../useGetVestingVaults';
 
-import { xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
-import { getBalanceOf } from 'clients/api/queries/getBalanceOf';
-import { getXvsVaultPendingWithdrawalsBalance } from 'clients/api/queries/getXvsVaultPendingWithdrawalsBalance';
-import { getXvsVaultPoolInfo } from 'clients/api/queries/getXvsVaultPoolInfo';
-import { getXvsVaultUserInfo } from 'clients/api/queries/getXvsVaultUserInfo';
-import { getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade } from 'clients/api/queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
-import { type UseGetVaultsOutput, useGetVaults } from '..';
+vi.mock('../useGetFormattedFixedRatedVaults');
+vi.mock('../useGetVaiVault');
+vi.mock('../useGetVestingVaults');
 
-vi.mock('clients/api/queries/getBalanceOf');
-vi.mock('clients/api/queries/getXvsVaultPendingWithdrawalsBalance');
-vi.mock('clients/api/queries/getXvsVaultPoolInfo');
-vi.mock('clients/api/queries/getXvsVaultUserInfo');
-vi.mock('clients/api/queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade');
+const fakeVaiVault = vaults[0];
+const fakeVestingVaults = [vaults[1]];
 
 describe('useGetVaults', () => {
   beforeEach(() => {
-    (global.fetch as Mock).mockImplementation(() =>
-      Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve({ result: [] }),
-      }),
-    );
-    (getXvsVaultPoolCount as Mock).mockImplementation(() => ({
-      poolCount: xvsVaultResponses.poolLength,
+    (useGetVestingVaults as Mock).mockImplementation(() => ({
+      data: fakeVestingVaults,
+      isLoading: false,
     }));
-    (getXvsVaultPendingWithdrawalsBalance as Mock).mockImplementation(() => ({
-      balanceMantissa: new BigNumber('1000000000'),
+    (useGetVaiVault as Mock).mockImplementation(() => ({
+      data: fakeVaiVault,
+      isLoading: false,
     }));
-    (getXvsVaultTotalAllocationPoints as Mock).mockImplementation(() => ({
-      totalAllocationPoints: new BigNumber(xvsVaultResponses.totalAllocPoints.toString()),
+    (useGetFormattedFixedRatedVaults as Mock).mockImplementation(() => ({
+      data: fixedRatedVaults,
+      isLoading: false,
     }));
-    (getXvsVaultsTotalDailyDistributedXvs as Mock).mockImplementation(() => ({
-      dailyDistributedXvs: new BigNumber('0.000000288'),
-    }));
-    (getVenusVaiVaultDailyRate as Mock).mockImplementation(() => ({
-      dailyRateMantissa: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),
-    }));
-    (getBalanceOf as Mock).mockImplementation(() => ({
-      balanceMantissa: new BigNumber('4000000000'),
-    }));
-    (getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade as Mock).mockImplementation(() => ({
-      userPendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber('100000'),
-    }));
-
-    (getVaiVaultUserInfo as Mock).mockImplementation(() => ({
-      stakedVaiMantissa: new BigNumber('100000000000000000000000'),
-    }));
-
-    (getXvsVaultPoolInfo as Mock).mockImplementation(() => xvsVaultPoolInfo);
-
-    (getXvsVaultUserInfo as Mock).mockImplementation(() => xvsVaultUserInfo);
   });
 
-  it('fetches and returns vaults correctly', async () => {
-    let data: UseGetVaultsOutput['data'] | undefined;
-    let isLoading = false;
+  it('returns vesting, VAI, and fixed-rate vaults in a single list', async () => {
+    const { result } = renderHook(() => useGetVaults({ accountAddress: fakeAddress }));
 
-    const GetVaultsWrapper = () => {
-      ({ data, isLoading } = useGetVaults({ accountAddress: fakeAddress }));
-      return <div />;
-    };
-
-    renderComponent(<GetVaultsWrapper />, {
-      accountAddress: fakeAddress,
-    });
-
-    await waitFor(() => expect(!isLoading && data && data.length > 0).toBe(true));
-    expect(data).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
   });
 });

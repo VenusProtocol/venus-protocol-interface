@@ -14,6 +14,7 @@ import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { transactions } from '__mocks__/models/transactions';
 import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
+import { yieldPlusPositions } from '__mocks__/models/yieldPlus';
 
 import FunctionKey from 'constants/functionKey';
 
@@ -53,6 +54,30 @@ export const useGetVaiTreasuryPercentage = vi.fn(() =>
   }),
 );
 
+export const getProportionalCloseTolerancePercentage = vi.fn(() => ({
+  proportionalCloseTolerancePercentage: 2,
+}));
+export const useGetProportionalCloseTolerancePercentage = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PROPORTIONAL_CLOSE_TOLERANCE_PERCENTAGE],
+    queryFn: getProportionalCloseTolerancePercentage,
+  }),
+);
+
+export const getDsaVTokens = vi.fn(async () => ({
+  dsaVTokenAddresses: [
+    poolData[0].assets[0].vToken.address,
+    poolData[0].assets[1].vToken.address,
+    poolData[0].assets[2].vToken.address,
+  ],
+}));
+export const useGetDsaVTokens = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_DSA_V_TOKENS],
+    queryFn: getDsaVTokens,
+  }),
+);
+
 export const getMarketHistory = vi.fn();
 export const useGetMarketHistory = vi.fn(() =>
   useQuery({
@@ -66,6 +91,16 @@ export const useGetTopMarkets = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_TOP_MARKETS],
     queryFn: getTopMarkets,
+  }),
+);
+
+export const getTokenPairKLineCandles = vi.fn(() => ({
+  candles: [],
+}));
+export const useGetTokenPairKLineCandles = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_TOKEN_PAIR_K_LINE_CANDLES],
+    queryFn: getTokenPairKLineCandles,
   }),
 );
 
@@ -681,6 +716,18 @@ export const useGetProposalCount = vi.fn(() =>
   }),
 );
 
+export const getRawYieldPlusPositions = vi.fn(async () => ({
+  positions: yieldPlusPositions,
+}));
+export const useGetRawYieldPlusPositions = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_RAW_YIELD_PLUS_POSITIONS],
+    queryFn: getRawYieldPlusPositions,
+  }),
+);
+
+export const useKLineWebSocket = vi.fn();
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
@@ -746,6 +793,78 @@ export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOpt
 );
 
 export const useOpenLeveragedPosition = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useOpenYieldPlusPosition = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useCloseYieldPlusPosition = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useCloseYieldPlusPositionWithLoss = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useCloseYieldPlusPositionWithProfit = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useReduceYieldPlusPositionWithProfit = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useReduceYieldPlusPositionWithLoss = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useIncreaseYieldPlusPosition = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useSupplyYieldPlusPositionCollateral = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useWithdrawYieldPlusPositionCollateral = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),

@@ -238,8 +238,16 @@ export * from './queries/getSimulatedPool/useGetSimulatedPool';
 export * from './queries/getSwapQuote';
 export * from './queries/getSwapQuote/useGetSwapQuote';
 
+export * from './queries/getDsaVTokens';
+export * from './queries/getDsaVTokens/useGetDsaVTokens';
+
+export * from './queries/getProportionalCloseTolerancePercentage';
+export * from './queries/getProportionalCloseTolerancePercentage/useGetProportionalCloseTolerancePercentage';
+
 export * from './queries/getProposalCount';
 export * from './queries/getProposalCount/useGetProposalCount';
+export * from './queries/getRawYieldPlusPositions';
+export * from './queries/getRawYieldPlusPositions/useGetRawYieldPlusPositions';
 
 export * from './queries/getFixedRatedVaults';
 export * from './queries/getFixedRatedVaults/useGetFixedRatedVaults';
