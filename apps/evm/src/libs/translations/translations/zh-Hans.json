@@ -286,6 +286,9 @@
     "modalTitle": "{{ poolName }} 代币",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
   },
+  "availableBalance": {
+    "label": "可用"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "背景插图",
     "binanceLogoAltText": "Binance 标志",
@@ -1070,8 +1073,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
-      "highRisk": "高风险",
-      "lowRisk": "低风险"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "安全最大值",
     "submitButtonLabel": {

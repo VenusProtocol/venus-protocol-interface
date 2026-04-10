@@ -42,15 +42,10 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
   const handleButtonClick = () => setIsTokenListShown(isShowing => !isShowing);
 
-  const handleChangeSelectedToken = (newSelectedToken: Token) => {
-    setIsTokenListShown(false);
-    onChangeSelectedToken(newSelectedToken);
-  };
-
   return (
     <div className={className} data-testid={testId}>
       <TokenListWrapper
-        onTokenClick={handleChangeSelectedToken}
+        onTokenClick={onChangeSelectedToken}
         tokenBalances={tokenBalances}
         onClose={() => setIsTokenListShown(false)}
         isListShown={isTokenListShown}

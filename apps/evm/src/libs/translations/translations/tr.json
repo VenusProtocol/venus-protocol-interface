@@ -286,6 +286,9 @@
     "modalTitle": "{{ poolName }} tokenları",
     "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },
+  "availableBalance": {
+    "label": "Kullanılabilir"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "Arka plan illüstrasyonu",
     "binanceLogoAltText": "Binance logosu",
@@ -1070,8 +1073,8 @@
     },
     "rightMaxButtonLabel": "MAKS",
     "riskSlider": {
-      "highRisk": "Yüksek risk",
-      "lowRisk": "Düşük risk"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "GÜVENLİ MAKS",
     "submitButtonLabel": {

@@ -45,11 +45,11 @@ function parseArgs(args: string[]) {
 
   for (const arg of args.slice(2)) {
     if (arg.startsWith('--width=')) {
-      width = Number.parseInt(arg.split('=')[1] ?? '1440', 10);
+      width = parseInt(arg.split('=')[1] ?? '1440', 10);
     } else if (arg.startsWith('--height=')) {
-      height = Number.parseInt(arg.split('=')[1] ?? '900', 10);
+      height = parseInt(arg.split('=')[1] ?? '900', 10);
     } else if (arg.startsWith('--max-width=')) {
-      maxWidth = Number.parseInt(arg.split('=')[1] ?? '1400', 10);
+      maxWidth = parseInt(arg.split('=')[1] ?? '1400', 10);
     } else if (arg === '--full-page') {
       fullPage = true;
     }
@@ -59,11 +59,10 @@ function parseArgs(args: string[]) {
 }
 
 async function main() {
-  const { routePath, outputPath, width, height, fullPage, maxWidth } = parseArgs(
-    process.argv.slice(2),
-  );
+  const { routePath, outputPath, width, height, fullPage, maxWidth } =
+    parseArgs(process.argv.slice(2));
 
-  const url = `${DEV_SERVER_URL}${routePath.startsWith('/') ? routePath : `/${routePath}`}`;
+  const url = `${DEV_SERVER_URL}${routePath.startsWith('/') ? routePath : '/' + routePath}`;
 
   // Check if dev server is running
   try {
@@ -103,7 +102,7 @@ async function main() {
   await browser.close();
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error(err);
   process.exit(1);
 });

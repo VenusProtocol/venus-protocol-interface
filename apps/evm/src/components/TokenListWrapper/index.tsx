@@ -21,6 +21,7 @@ export interface TokenListWrapperProps {
   onClose: () => void;
   isListShown: boolean;
   selectedToken: Token;
+  className?: string;
   displayCommonTokenButtons?: boolean;
   'data-testid'?: string;
 }
@@ -35,6 +36,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
   isListShown,
   selectedToken,
   displayCommonTokenButtons = true,
+  className,
   'data-testid': testId,
 }) => {
   const { t } = useTranslation();
@@ -87,8 +89,18 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
     );
   }, [sortedTokenBalances, searchValue]);
 
+  const handleTokenClick = (token: Token) => {
+    onTokenClick(token);
+
+    // Reset search value
+    onSearchValueChange('');
+
+    // Close list
+    onClose();
+  };
+
   return (
-    <div>
+    <div className={className}>
       {children}
 
       {isListShown && (
@@ -110,7 +122,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                   <div className="flex overflow-y-auto gap-x-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {commonTokenBalances.map(commonTokenBalance => (
                       <SenaryButton
-                        onClick={() => onTokenClick(commonTokenBalance.token)}
+                        onClick={() => handleTokenClick(commonTokenBalance.token)}
                         className="shrink-0"
                         key={`select-token-text-field-common-token-${commonTokenBalance.token.symbol}`}
                       >
@@ -130,7 +142,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
               {filteredTokenBalances.map(tokenBalance => (
                 <div
                   className="cursor-pointer flex items-center justify-between h-12 px-3 hover:bg-lightGrey"
-                  onClick={() => onTokenClick(tokenBalance.token)}
+                  onClick={() => handleTokenClick(tokenBalance.token)}
                   key={`select-token-text-field-item-${tokenBalance.token.address}`}
                   data-testid={
                     !!testId &&

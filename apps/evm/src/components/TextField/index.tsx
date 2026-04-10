@@ -45,6 +45,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
   ) => {
     const handleChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = e => {
       let safeValue = e.currentTarget.value;
+      const safeNumericValue = Number(safeValue);
 
       if (type === 'number' && safeValue.startsWith('.')) {
         safeValue = `0${safeValue}`;
@@ -55,13 +56,13 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
         !safeValue ||
         max === undefined ||
         type !== 'number' ||
-        Number.parseInt(safeValue, 10) <= +max;
+        (!Number.isNaN(safeNumericValue) && safeNumericValue <= +max);
 
       const followsMinRule =
         !safeValue ||
         min === undefined ||
         type !== 'number' ||
-        Number.parseInt(safeValue, 10) >= +min;
+        (!Number.isNaN(safeNumericValue) && safeNumericValue >= +min);
 
       if (onChange && followsMaxRule && followsMinRule) {
         onChange(e);

@@ -286,6 +286,9 @@
     "modalTitle": "{{ poolName }} トークン",
     "supplyDescription": "{{poolName}}プールに{{tokenSymbol}}を供給すると、このプールのみからトークンを借りられるようになります。<Button>すべてのマーケットを表示</Button>"
   },
+  "availableBalance": {
+    "label": "利用可能"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "背景イラスト",
     "binanceLogoAltText": "Binanceロゴ",
@@ -1070,8 +1073,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
-      "highRisk": "高リスク",
-      "lowRisk": "低リスク"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "安全な最大",
     "submitButtonLabel": {
