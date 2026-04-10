@@ -1,6 +1,11 @@
 import createDeepMerge from '@fastify/deepmerge';
+import {
+  DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
+  MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
+} from 'constants/swap';
 import { ChainId } from 'types';
-import { createStoreSelectors, extractEnumValues } from 'utilities';
+import { createStoreSelectors } from 'utilities/createStoreSelectors';
+import { extractEnumValues } from 'utilities/extractEnumValues';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -57,7 +62,28 @@ const useStore = create<State>()(
     })),
     {
       name: 'venus-global-store',
-      merge: (persisted, current) => deepMerge(current, persisted) as never,
+      merge: (persisted, current) => {
+        const state = deepMerge(current, persisted) as State;
+
+        const userSettings = Object.entries(state.userSettings).reduce<UserSettings>(
+          (acc, [chainId, settings]) => ({
+            ...acc,
+            [chainId]: {
+              ...settings,
+              slippageTolerancePercentage:
+                Number(settings.slippageTolerancePercentage) > MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE
+                  ? DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE
+                  : settings.slippageTolerancePercentage,
+            },
+          }),
+          state.userSettings,
+        );
+
+        return {
+          ...state,
+          userSettings,
+        };
+      },
     },
   ),
 );

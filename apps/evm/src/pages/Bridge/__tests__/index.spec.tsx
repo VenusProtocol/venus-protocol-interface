@@ -22,6 +22,14 @@ import { fromUnixTime } from 'date-fns';
 import Bridge from '..';
 import TEST_IDS from '../testIds';
 
+vi.mock('hooks/useIsFeatureEnabled', async () => {
+  const actual = await vi.importActual<typeof import('hooks/useIsFeatureEnabled')>(
+    'hooks/useIsFeatureEnabled',
+  );
+
+  return actual;
+});
+
 const fakeDailyLimitResetTimestamp = new BigNumber('1705060800');
 const fakeMaxDailyLimitUsd = new BigNumber('100000000000000000000');
 // tests will run inside the 24 hour daily transaction window
@@ -67,12 +75,6 @@ describe('Bridge', () => {
     }));
     (useGetXvsBridgeStatus as Mock).mockImplementation(() => ({
       data: fakeBridgeStatusData,
-    }));
-
-    vi.mock('hooks/useIsFeatureEnabled', () => ({
-      featureFlags: {
-        bridgeRoute: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],
-      },
     }));
   });
 
