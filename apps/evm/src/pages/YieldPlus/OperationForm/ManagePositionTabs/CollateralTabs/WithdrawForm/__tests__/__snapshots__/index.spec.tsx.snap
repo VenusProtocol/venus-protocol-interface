@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WithdrawForm > renders form when data is ready 1`] = `"CollateralXVSAvailable70.440666 XVS0%100%Collateral90Liq. priceN/AN/ANet APY0.75%0.75%Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyWithdraw"`;

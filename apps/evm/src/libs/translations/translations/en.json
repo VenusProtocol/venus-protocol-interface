@@ -1067,6 +1067,15 @@
       "title": "Leverage factor",
       "warning": "Leverage affects your capital utilization and cannot be changed until you fully exit the position."
     },
+    "managePositionsTabs": {
+      "collateral": "Collateral",
+      "position": "Position",
+      "positionsTabs": {
+        "increase": "Increase",
+        "supply": "Supply",
+        "withdraw": "Withdraw"
+      }
+    },
     "receiveNativeToken": {
       "label": "Receive {{tokenSymbol}}",
       "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
@@ -2215,6 +2224,9 @@
       "label": "Long"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Increase"
+      },
       "invalidLiquidationPrice": "N/A",
       "openForm": {
         "collateral": "Collateral",
@@ -2230,6 +2242,9 @@
         "shortFieldLabel": "Short",
         "submitButtonLabel": "Open"
       },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Supply"
+      },
       "walletBalance": "Wallet balance",
       "warning": {
         "cannotBorrowShort": "Borrowing the short token of this position has been disabled",
@@ -2239,6 +2254,9 @@
         "cannotWithdrawDsa": "Withdrawing the collateral token of this position has been disabled",
         "cannotWithdrawLong": "Withdrawing the long token of this position has been disabled",
         "notEnoughLeverage": "This token pair does not allow a leverage factor of at least {{ minimumLeverageFactor }}, which is the minimum required to open a Yield+ position"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Withdraw"
       }
     },
     "positions": {

@@ -1067,6 +1067,15 @@
       "title": "ตัวคูณเลเวอเรจ",
       "warning": "เลเวอเรจส่งผลต่อการใช้เงินทุนของคุณ และจะไม่สามารถเปลี่ยนได้จนกว่าคุณจะปิดสถานะทั้งหมด"
     },
+    "managePositionsTabs": {
+      "collateral": "หลักประกัน",
+      "position": "โพสิชัน",
+      "positionsTabs": {
+        "increase": "เพิ่ม",
+        "supply": "ฝาก",
+        "withdraw": "ถอน"
+      }
+    },
     "receiveNativeToken": {
       "label": "รับ {{tokenSymbol}}",
       "tooltip": "แกะห่อ {{wrappedNativeTokenSymbol}} ที่ยืมมาเป็น {{nativeTokenSymbol}}"
@@ -2214,6 +2223,9 @@
       "label": "Long"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "ฝาก"
+      },
       "invalidLiquidationPrice": "ไม่มี",
       "openForm": {
         "collateral": "หลักประกัน",
@@ -2229,6 +2241,9 @@
         "shortFieldLabel": "Short",
         "submitButtonLabel": "เปิด"
       },
+      "supplyDsaForm": {
+        "submitButtonLabel": "ฝาก"
+      },
       "walletBalance": "ยอดคงเหลือในกระเป๋า",
       "warning": {
         "cannotBorrowShort": "การยืมโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
@@ -2238,6 +2253,9 @@
         "cannotWithdrawDsa": "การถอนโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
         "cannotWithdrawLong": "การถอนโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
         "notEnoughLeverage": "คู่โทเค็นนี้ไม่รองรับตัวคูณเลเวอเรจอย่างน้อย {{ minimumLeverageFactor }} ซึ่งเป็นค่าขั้นต่ำที่จำเป็นสำหรับการเปิดโพสิชัน Yield+"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "ถอน"
       }
     },
     "positions": {

@@ -1067,6 +1067,15 @@
       "title": "レバレッジ倍率",
       "warning": "レバレッジは資本利用率に影響し、ポジションを完全に解消するまで変更できません。"
     },
+    "managePositionsTabs": {
+      "collateral": "担保",
+      "position": "ポジション",
+      "positionsTabs": {
+        "increase": "増加",
+        "supply": "供給",
+        "withdraw": "引き出し"
+      }
+    },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}}を受け取る",
       "tooltip": "借入した{{wrappedNativeTokenSymbol}}を{{nativeTokenSymbol}}にアンラップ"
@@ -2214,6 +2223,9 @@
       "label": "ロング"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "供給"
+      },
       "invalidLiquidationPrice": "該当なし",
       "openForm": {
         "collateral": "担保",
@@ -2229,6 +2241,9 @@
         "shortFieldLabel": "ショート",
         "submitButtonLabel": "オープン"
       },
+      "supplyDsaForm": {
+        "submitButtonLabel": "供給"
+      },
       "walletBalance": "ウォレット残高",
       "warning": {
         "cannotBorrowShort": "このポジションのショートトークンの借入は無効化されています",
@@ -2238,6 +2253,9 @@
         "cannotWithdrawDsa": "このポジションの担保トークンの引き出しは無効化されています",
         "cannotWithdrawLong": "このポジションのロングトークンの引き出しは無効化されています",
         "notEnoughLeverage": "このトークンペアでは、Yield+ポジションを開くために必要な最低倍率である {{ minimumLeverageFactor }} 以上のレバレッジ倍率を利用できません"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "引き出し"
       }
     },
     "positions": {

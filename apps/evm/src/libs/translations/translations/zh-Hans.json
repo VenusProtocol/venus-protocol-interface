@@ -1067,6 +1067,15 @@
       "title": "杠杆倍数",
       "warning": "杠杆会影响你的资金利用率，并且在你完全平仓前无法更改。"
     },
+    "managePositionsTabs": {
+      "collateral": "可抵押",
+      "position": "仓位",
+      "positionsTabs": {
+        "increase": "增加",
+        "supply": "存款",
+        "withdraw": "取款"
+      }
+    },
     "receiveNativeToken": {
       "label": "接收 {{tokenSymbol}}",
       "tooltip": "将借入的 {{wrappedNativeTokenSymbol}} 解包为 {{nativeTokenSymbol}}"
@@ -2214,6 +2223,9 @@
       "label": "多头"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "存款"
+      },
       "invalidLiquidationPrice": "不适用",
       "openForm": {
         "collateral": "可抵押",
@@ -2229,6 +2241,9 @@
         "shortFieldLabel": "空头",
         "submitButtonLabel": "开仓"
       },
+      "supplyDsaForm": {
+        "submitButtonLabel": "存款"
+      },
       "walletBalance": "钱包余额",
       "warning": {
         "cannotBorrowShort": "该仓位的空头代币借款已被禁用",
@@ -2238,6 +2253,9 @@
         "cannotWithdrawDsa": "该仓位的抵押品代币取款已被禁用",
         "cannotWithdrawLong": "该仓位的多头代币取款已被禁用",
         "notEnoughLeverage": "该代币对不支持至少 {{ minimumLeverageFactor }} 的杠杆倍数，而这是开立 Yield+ 仓位所需的最低值"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "取款"
       }
     },
     "positions": {

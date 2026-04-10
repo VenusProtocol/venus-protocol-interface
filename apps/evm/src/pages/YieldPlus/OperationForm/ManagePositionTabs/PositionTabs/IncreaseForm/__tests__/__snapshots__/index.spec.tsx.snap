@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`IncreaseForm > renders form when data is ready 1`] = `"Long≈ $100.02USDTShortBUSDAvailable180.138339 BUSD0%100%Long100200+ $100.02Short50Liq. priceN/AN/AEntry price0.50.5Net APY0.75%0.75%Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyIncreaseSlippage tolerance0.5%Price impact0.1%"`;

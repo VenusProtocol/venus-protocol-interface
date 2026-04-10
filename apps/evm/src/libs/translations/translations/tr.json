@@ -1067,6 +1067,15 @@
       "title": "Kaldıraç oranı",
       "warning": "Kaldıraç, sermaye kullanımınızı etkiler ve pozisyondan tamamen çıkana kadar değiştirilemez."
     },
+    "managePositionsTabs": {
+      "collateral": "Teminat",
+      "position": "Pozisyon",
+      "positionsTabs": {
+        "increase": "Artır",
+        "supply": "Sağla",
+        "withdraw": "Çek"
+      }
+    },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}} al",
       "tooltip": "Borç alınan {{wrappedNativeTokenSymbol}}'i {{nativeTokenSymbol}}'e dönüştür"
@@ -2215,6 +2224,9 @@
       "label": "Long"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Sağla"
+      },
       "invalidLiquidationPrice": "Yok",
       "openForm": {
         "collateral": "Teminat",
@@ -2230,6 +2242,9 @@
         "shortFieldLabel": "Short",
         "submitButtonLabel": "Aç"
       },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Sağla"
+      },
       "walletBalance": "Cüzdan bakiyesi",
       "warning": {
         "cannotBorrowShort": "Bu pozisyondaki short token için borç alma devre dışı bırakıldı",
@@ -2239,6 +2254,9 @@
         "cannotWithdrawDsa": "Bu pozisyondaki teminat tokeni için çekim devre dışı bırakıldı",
         "cannotWithdrawLong": "Bu pozisyondaki long token için çekim devre dışı bırakıldı",
         "notEnoughLeverage": "Bu token çifti, Yield+ pozisyonu açmak için gereken minimum kaldıraç oranı olan en az {{ minimumLeverageFactor }} değerine izin vermiyor"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Çek"
       }
     },
     "positions": {

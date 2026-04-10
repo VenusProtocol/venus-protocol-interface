@@ -1067,6 +1067,15 @@
       "title": "Hệ số đòn bẩy",
       "warning": "Đòn bẩy ảnh hưởng đến mức sử dụng vốn của bạn và không thể thay đổi cho đến khi bạn thoát hoàn toàn khỏi vị thế."
     },
+    "managePositionsTabs": {
+      "collateral": "Tài sản thế chấp",
+      "position": "Vị thế",
+      "positionsTabs": {
+        "increase": "Tăng",
+        "supply": "Cung cấp",
+        "withdraw": "Rút"
+      }
+    },
     "receiveNativeToken": {
       "label": "Nhận {{tokenSymbol}}",
       "tooltip": "Unwrap {{wrappedNativeTokenSymbol}} đã vay sang {{nativeTokenSymbol}}"
@@ -2214,6 +2223,9 @@
       "label": "Long"
     },
     "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Cung cấp"
+      },
       "invalidLiquidationPrice": "Không áp dụng",
       "openForm": {
         "collateral": "Tài sản thế chấp",
@@ -2229,6 +2241,9 @@
         "shortFieldLabel": "Short",
         "submitButtonLabel": "Mở"
       },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Cung cấp"
+      },
       "walletBalance": "Số dư ví",
       "warning": {
         "cannotBorrowShort": "Việc vay token Short của vị thế này đã bị vô hiệu hóa",
@@ -2238,6 +2253,9 @@
         "cannotWithdrawDsa": "Việc rút token thế chấp của vị thế này đã bị vô hiệu hóa",
         "cannotWithdrawLong": "Việc rút token Long của vị thế này đã bị vô hiệu hóa",
         "notEnoughLeverage": "Cặp token này không cho phép hệ số đòn bẩy ít nhất là {{ minimumLeverageFactor }}, đây là mức tối thiểu cần thiết để mở một vị thế Yield+"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Rút"
       }
     },
     "positions": {
