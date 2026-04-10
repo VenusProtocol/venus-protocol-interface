@@ -1,13 +1,10 @@
 import { Select, TextField, type TextFieldProps, cn } from 'components';
-import { VaultCard } from 'containers/Vault/VaultCard';
 import { VaultCardLegacy } from 'containers/Vault/VaultCard/Legacy';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
-import { type Vault, VaultManager, type VenusVault } from 'types';
-
+import type { Vault } from 'types';
+import { generateVaultKey, getVaultMetadata } from '../utils';
 import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
-
-const isLegacyVault = (vault: Vault): vault is VenusVault => vault.manager === VaultManager.Venus;
 
 const optionClassName = cn('px-3 h-10 scrollbar-track-cards');
 
@@ -21,12 +18,9 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
     category: filterCategory,
     setCategory,
     categoryOptions,
-    manager: filterManager,
-    setManager,
-    managerOptions,
-    status: filterStatus,
-    setStatus,
-    statusOptions,
+    curator: filterCurator,
+    setCurator,
+    curatorOptions,
   } = useFilterOptions();
 
   const [search, setSearch] = useState('');
@@ -35,11 +29,14 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
   };
 
   const filteredVaults = (vaults ?? []).filter(vault => {
+    const { category, curator } = getVaultMetadata(vault);
+
     return (
-      (filterCategory === ALL_OPTION_VALUE || filterCategory === vault.category) &&
-      (filterManager === ALL_OPTION_VALUE || filterManager === vault.manager) &&
-      (filterStatus === ALL_OPTION_VALUE || filterStatus === vault.status) &&
-      (!search || vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()))
+      (filterCategory === ALL_OPTION_VALUE || filterCategory === category) &&
+      (filterCurator === ALL_OPTION_VALUE || filterCurator === curator) &&
+      (!search ||
+        vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()) ||
+        curator?.toLowerCase().includes(search?.toLowerCase()))
     );
   });
 
@@ -62,21 +59,11 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
             className="sm:flex-1/3 lg:flex-none"
             size="medium"
             placeLabelToLeft
-            options={managerOptions}
+            options={curatorOptions}
             optionClassName={optionClassName}
             buttonClassName="sm:min-w-45"
-            value={filterManager}
-            onChange={newValue => setManager(newValue.toString())}
-          />
-          <Select
-            className="sm:flex-1/3 lg:flex-none"
-            size="medium"
-            placeLabelToLeft
-            options={statusOptions}
-            optionClassName={optionClassName}
-            buttonClassName="sm:min-w-45"
-            value={filterStatus}
-            onChange={newValue => setStatus(newValue.toString())}
+            value={filterCurator}
+            onChange={newValue => setCurator(newValue.toString())}
           />
         </div>
         <TextField
@@ -89,13 +76,9 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
         />
       </div>
       <div className={cn('grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6', className)} {...props}>
-        {filteredVaults.map(vault =>
-          isLegacyVault(vault) ? (
-            <VaultCardLegacy vault={vault} key={vault.key} />
-          ) : (
-            <VaultCard vault={vault} key={vault.key} />
-          ),
-        )}
+        {filteredVaults.map(vault => (
+          <VaultCardLegacy vault={vault} key={generateVaultKey(vault)} />
+        ))}
       </div>
     </div>
   );

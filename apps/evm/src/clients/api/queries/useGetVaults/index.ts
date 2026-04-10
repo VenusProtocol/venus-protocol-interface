@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import type { Vault } from 'types';
 
 import type { Address } from 'viem';
-import { useGetFormattedFixedRatedVaults } from './useGetFormattedFixedRatedVaults';
 import { useGetVaiVault } from './useGetVaiVault';
 import { useGetVestingVaults } from './useGetVestingVaults';
 
@@ -23,24 +22,17 @@ export const useGetVaults = ({
     accountAddress,
   });
 
-  const { data: fixedRatedVaults, isLoading: isVaultProductsLoading } =
-    useGetFormattedFixedRatedVaults();
-
-  const data = useMemo(() => {
-    const allVaults = [...vestingVaults] as Vault[];
+  const data: Vault[] = useMemo(() => {
+    const allVaults = [...vestingVaults];
 
     if (vaiVault) {
       allVaults.push(vaiVault);
     }
 
-    if (fixedRatedVaults) {
-      allVaults.push(...fixedRatedVaults);
-    }
-
     return allVaults;
-  }, [vestingVaults, vaiVault, fixedRatedVaults]);
+  }, [vestingVaults, vaiVault]);
 
-  const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading || isVaultProductsLoading;
+  const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading;
 
   return {
     data,

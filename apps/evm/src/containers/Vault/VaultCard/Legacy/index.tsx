@@ -10,7 +10,7 @@ import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToR
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { VenusVault as VaultType } from 'types';
+import type { Vault as VaultType } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';

@@ -11,7 +11,7 @@ export const VenusFluxBanner: React.FC = () => {
   const isSmOrUp = useBreakpointUp('sm');
 
   return (
-    <div className="relative rounded-lg h-26.25 px-3 pt-2 pb-3 flex flex-col gap-y-3 bg-linear-to-r from-[#363636] to-[#0C0C0C] sm:h-18 sm:flex-row sm:items-center sm:justify-between sm:py-3 sm:pl-31">
+    <div className="relative rounded-lg h-26.25 px-4 pt-2 pb-3 flex flex-col gap-y-3 bg-linear-to-r from-[#363636] to-[#0C0C0C] sm:h-18 sm:flex-row sm:items-center sm:justify-between sm:py-3 sm:pl-31">
       <img
         src={mobileIllustrationSrc}
         className="absolute left-4 bottom-0 h-12 sm:hidden"

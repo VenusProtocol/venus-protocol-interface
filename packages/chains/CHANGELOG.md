@@ -1,11 +1,5 @@
 # @venusprotocol/chains
 
-## 0.24.1
-
-### Patch Changes
-
-- a0e18e6: update the PoolLens contract address on Ethereum
-
 ## 0.24.0
 
 ### Minor Changes

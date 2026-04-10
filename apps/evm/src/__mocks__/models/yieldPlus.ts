@@ -1,37 +1,9 @@
+import type { ApiYieldPlusPosition } from 'clients/api/queries/getRawYieldPlusPositions';
 import type { YieldPlusPosition } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 import { formatToYieldPlusPosition } from 'utilities/formatToYieldPlusPosition';
 import fakeAddress, { altAddress } from './address';
 import { poolData } from './pools';
-
-type ApiYieldPlusPosition = {
-  pnl: {
-    realizedPnlShortAssetMantissa: string;
-    realizedPnlUsd: string;
-    unrealizedPnlShortAssetMantissa: string;
-    unrealizedPnlUsd: string;
-    unrealizedPnlPercentage: string;
-    entryRatio: string;
-    currentRatio: string;
-    closeEventsWithPnlData: unknown[];
-    totalShortOpenedMantissa: string;
-    totalLongReceivedMantissa: string;
-  };
-  positionAccountAddress: string;
-  accountAddress: string;
-  longVTokenAddress: string;
-  shortVTokenAddress: string;
-  chainId: string;
-  isActive: boolean;
-  cycleId: string;
-  dsaVTokenAddress: string;
-  effectiveLeverageRatio: string;
-  capitalUtilization: {
-    suppliedPrincipalMantissa: string;
-    capitalUtilizedMantissa: string;
-    withdrawableCapitalMantissa: string;
-  };
-};
 
 const pool = poolData[0];
 const xvsAsset = pool.assets[0];

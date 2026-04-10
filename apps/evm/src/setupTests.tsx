@@ -120,6 +120,9 @@ vi.mock('@uiw/react-markdown-preview', () => ({
 // Mock chart library
 vi.mock('recharts');
 
+// Mock K-line chart library
+vi.mock('klinecharts');
+
 // Mock @radix-ui/react-slider library
 vi.mock('@radix-ui/react-slider');
 

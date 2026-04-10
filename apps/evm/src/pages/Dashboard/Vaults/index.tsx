@@ -1,11 +1,13 @@
 import BigNumber from 'bignumber.js';
+import { useGetTokenListUsdPrice } from 'clients/api';
 import { CellGroup, type CellProps } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
 import { useTranslation } from 'libs/translations';
-import { type Vault, VaultManager } from 'types';
-import { formatCentsToReadableValue } from 'utilities';
+import type { Vault } from 'types';
+import { convertPriceMantissaToDollars, formatCentsToReadableValue } from 'utilities';
 import { Placeholder } from '../Placeholder';
 
 export interface VaultsProps {
@@ -19,6 +21,18 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   const filteredVaults = vaults.filter(vault => vault.userStakedMantissa?.isGreaterThan(0));
 
   const filteredVaultsLength = filteredVaults.length;
+
+  const { data: tokenPricesData, isLoading } = useGetTokenListUsdPrice(
+    {
+      tokens: [
+        ...filteredVaults.map(vault => vault.stakedToken),
+        ...filteredVaults.map(vault => vault.rewardToken),
+      ],
+    },
+    {
+      enabled: filteredVaultsLength > 0,
+    },
+  );
 
   if (filteredVaultsLength === 0) {
     return (
@@ -44,29 +58,45 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
     );
   }
 
-  const { totalStakedCents, dailyEarningsCents } = filteredVaults.reduce(
-    (acc, curr) => {
-      const userDailyEarningsCents =
-        curr.userStakedMantissa && curr.totalStakedMantissa.gt(0) && 'dailyEmissionCents' in curr
-          ? curr.userStakedMantissa.div(curr.totalStakedMantissa).times(curr.dailyEmissionCents)
-          : new BigNumber(0);
+  const stakedTokenPrices = tokenPricesData?.slice(0, filteredVaultsLength);
+  const rewardTokenPrices = tokenPricesData?.slice(filteredVaultsLength);
 
+  const { totalStakedUsd, dailyEarnUsd } = filteredVaults.reduce(
+    (accu, curr, index) => {
       return {
-        totalStakedCents: acc.totalStakedCents.plus(curr.userStakedCents ?? 0),
-        dailyEarningsCents: acc.dailyEarningsCents.plus(userDailyEarningsCents),
+        totalStakedUsd: convertPriceMantissaToDollars({
+          priceMantissa: curr.userStakedMantissa
+            ? curr.userStakedMantissa.times(stakedTokenPrices?.[index]?.tokenPriceUsd ?? 0)
+            : new BigNumber(0),
+          decimals: curr.stakedToken.decimals,
+        }).plus(accu.totalStakedUsd),
+        dailyEarnUsd: convertPriceMantissaToDollars({
+          priceMantissa:
+            curr.userStakedMantissa && curr.totalStakedMantissa.gt(0)
+              ? curr.userStakedMantissa
+                  .div(curr.totalStakedMantissa)
+                  .times(curr.dailyEmissionMantissa)
+                  .times(rewardTokenPrices?.[index]?.tokenPriceUsd ?? 0)
+              : new BigNumber(0),
+          decimals: curr.rewardToken.decimals,
+        }).plus(accu.dailyEarnUsd),
       };
     },
-    { totalStakedCents: new BigNumber(0), dailyEarningsCents: new BigNumber(0) },
+    { totalStakedUsd: new BigNumber(0), dailyEarnUsd: new BigNumber(0) },
   );
 
   const overviewCells: CellProps[] = [
     {
       label: t('dashboard.vaults.totalStakedValue'),
-      value: formatCentsToReadableValue({ value: totalStakedCents }),
+      value: isLoading
+        ? PLACEHOLDER_KEY
+        : formatCentsToReadableValue({ value: totalStakedUsd.shiftedBy(2) }),
     },
     {
       label: t('dashboard.vaults.dailyEarnings'),
-      value: formatCentsToReadableValue({ value: dailyEarningsCents }),
+      value: isLoading
+        ? PLACEHOLDER_KEY
+        : formatCentsToReadableValue({ value: dailyEarnUsd.shiftedBy(2) }),
       tooltip: t('dashboard.vaults.dailyEarningsTooltip'),
     },
   ];
@@ -75,20 +105,15 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
     <>
       <CellGroup variant="secondary" cells={overviewCells} className="mb-6" />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3">
-        {filteredVaults.map(vault =>
-          vault.manager === VaultManager.Venus ? (
-            <Link
-              to={routes.vaults.path}
-              key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
-              noStyle
-              onClick={e => e.stopPropagation()}
-            >
-              <VaultCardSimplified vault={vault} />
-            </Link>
-          ) : (
-            <VaultCardSimplified vault={vault} key={vault.key} />
-          ),
-        )}
+        {filteredVaults.map(vault => (
+          <Link
+            to={routes.vaults.path}
+            key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
+            noStyle
+          >
+            <VaultCardSimplified vault={vault} />
+          </Link>
+        ))}
       </div>
     </>
   );

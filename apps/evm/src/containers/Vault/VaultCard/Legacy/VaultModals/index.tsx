@@ -1,4 +1,4 @@
-import type { VenusVault } from 'types';
+import type { Vault } from 'types';
 import StakeModal from './StakeModal';
 import WithdrawFromVaiVaultModal from './WithdrawFromVaiVaultModal';
 import WithdrawFromVestingVaultModal from './WithdrawFromVestingVaultModal';
@@ -6,7 +6,7 @@ import WithdrawFromVestingVaultModal from './WithdrawFromVestingVaultModal';
 export type ActiveModal = 'stake' | 'withdraw';
 
 interface VaultModalsProps {
-  vault: VenusVault;
+  vault: Vault;
   activeModal: ActiveModal | undefined;
   onClose: () => void;
 }

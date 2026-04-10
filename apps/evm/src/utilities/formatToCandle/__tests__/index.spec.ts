@@ -1,6 +1,6 @@
-import { formatToCandle } from '..';
+import type { ApiCandle } from 'clients/api';
 
-type ApiCandle = Parameters<typeof formatToCandle>[0];
+import { formatToCandle } from '..';
 
 describe('formatToCandle', () => {
   it('maps API candle fields to a KLine candle', () => {

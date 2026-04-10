@@ -2,8 +2,7 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
-import type { IconName } from 'components';
-import { MARKET_TX_TYPES, YIELD_PLUS_TX_TYPES } from 'constants/marketTxTypes';
+import type { MARKET_TX_TYPES, YIELD_PLUS_TX_TYPES } from 'constants/marketTxTypes';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -37,8 +36,7 @@ export type TokenAction =
   | 'repay'
   | 'repayWithCollateral'
   | 'enterMarket'
-  | 'exitMarket'
-  | 'vault';
+  | 'exitMarket';
 
 export interface TokenBalance {
   token: Token;
@@ -469,65 +467,18 @@ export interface Transaction {
   token: Token;
 }
 
-export enum VaultStatus {
-  Active = 'active',
-  Deposit = 'deposit',
-  Earning = 'earning',
-  Refund = 'refund',
-  Repaying = 'repaying',
-  Claim = 'claim',
-  Paused = 'paused',
-}
-
-export enum VaultManager {
-  Venus = 'venus',
-  Pendle = 'pendle',
-}
-
-export enum VaultCategory {
-  Stablecoins = 'stablecoins',
-  YieldTokens = 'yieldTokens',
-  Others = 'others',
-}
-
-interface BaseVault {
-  category: VaultCategory;
-  manager: VaultManager;
-  managerIcon: IconName;
-  managerAddress?: Address;
-  status: VaultStatus;
-  key: string;
+export interface Vault {
   stakedToken: Token;
   rewardToken: Token;
-  stakedTokenPriceCents: BigNumber;
-  rewardTokenPriceCents: BigNumber;
   stakingAprPercentage: number;
   totalStakedMantissa: BigNumber;
-  totalStakedCents: number;
+  dailyEmissionMantissa: BigNumber;
+  isPaused: boolean;
   lockingPeriodMs?: number;
   userStakedMantissa?: BigNumber;
-  userStakedCents?: number;
   poolIndex?: number;
-}
-
-export type VenusVault = BaseVault & {
-  isPaused: boolean;
-  dailyEmissionMantissa: BigNumber;
-  dailyEmissionCents: number;
   userHasPendingWithdrawalsFromBeforeUpgrade?: boolean;
-};
-
-export type PendleVault = BaseVault & {
-  maturityDate: Date;
-  liquidityCents: BigNumber;
-  asset: Asset;
-  managerLink?: string;
-  vaultDeploymentDate?: Date;
-  poolComptrollerContractAddress: Address;
-  poolName: string;
-};
-
-export type Vault = VenusVault | PendleVault;
+}
 
 export interface VoterAccount {
   address: Address;
@@ -730,11 +681,11 @@ export interface MarketTx extends BaseTx {
   poolName: string;
   vToken: VToken;
 }
-
 export interface YieldPlusTx extends BaseTx {
   txType: YieldPlusTxType;
   cycleId: string;
 }
 
 export type Tx = MarketTx | YieldPlusTx;
+
 export type ApiOhlcInterval = '1m' | '5m' | '15m' | '30m' | '1h' | '4h' | '1d';

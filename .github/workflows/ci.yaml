@@ -36,12 +36,6 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Check translations
-        run: |
-          yarn extract-translations
-          git add --intent-to-add apps/evm/src/libs/translations/translations/
-          git diff --exit-code apps/evm/src/libs/translations/translations/
-
   test:
     runs-on: ubuntu-22.04
     steps:

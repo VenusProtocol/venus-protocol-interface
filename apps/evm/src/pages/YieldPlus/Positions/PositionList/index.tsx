@@ -1,6 +1,8 @@
 import { Table } from 'components';
 import { useMemo, useState } from 'react';
 
+import { useTranslation } from 'libs/translations';
+import { store } from 'pages/YieldPlus/ClosePositionModal/store';
 import {
   LONG_TOKEN_ADDRESS_PARAM_KEY,
   SHORT_TOKEN_ADDRESS_PARAM_KEY,
@@ -16,6 +18,7 @@ export interface PositionListProps {
 }
 
 export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
+  const { t } = useTranslation();
   const [_, setSearchParams] = useSearchParams();
   const [openPositionAccordionKeys, setOpenAccordionKeys] = useState<string[]>([]);
 
@@ -34,6 +37,30 @@ export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
     const isOpen = openPositionAccordionKeys.includes(rowKeyExtractor(row));
 
     return <RowFooter row={row} isOpen={isOpen} />;
+  };
+
+  const showClosePositionModal = store.use.showModal();
+
+  const renderRowControl = (row: YieldPlusPosition) => {
+    const handleClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      selectPosition(row);
+
+      // Open "Close position" modal
+      showClosePositionModal();
+    };
+
+    return (
+      <button
+        onClick={handleClick}
+        className="-ml-2 text-b2s px-2 py-1 rounded-lg border border-dark-blue-hover text-light-grey transition-colors cursor-pointer whitespace-nowrap hover:bg-dark-blue-hover"
+        type="button"
+      >
+        {t('yieldPlus.positions.closeButtonLabel')}
+      </button>
+    );
   };
 
   const handleAccordionClick = (row: YieldPlusPosition) => {
@@ -74,6 +101,7 @@ export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
       tableLayout="auto"
       rowOnClick={handleRowClick}
       renderRowFooter={renderRowFooter}
+      renderRowControl={renderRowControl}
     />
   );
 };

@@ -2,7 +2,8 @@ import type BigNumber from 'bignumber.js';
 
 import { useAnalytics } from 'libs/analytics';
 import { handleError, isUserRejectedTxError } from 'libs/errors';
-import type { Asset, Token, TxFormError } from 'types';
+import type { Asset, Token } from 'types';
+import type { TxFormError } from 'types';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -14,7 +15,6 @@ export interface UseFormInput {
   poolName: string;
   limitTokens: BigNumber;
   moderateRiskMaxTokens: BigNumber;
-  isRiskyOperation: boolean;
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
@@ -33,7 +33,6 @@ const useForm = ({
   poolName,
   limitTokens,
   moderateRiskMaxTokens,
-  isRiskyOperation,
   onSubmitSuccess,
   formValues,
   setFormValues,
@@ -43,7 +42,6 @@ const useForm = ({
     asset,
     limitTokens,
     moderateRiskMaxTokens,
-    isRiskyOperation,
     formValues,
   });
 

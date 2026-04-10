@@ -120,51 +120,6 @@ These match dominant existing patterns and should be followed for new code:
 | Constants | `UPPER_SNAKE_CASE` for true constants, otherwise descriptive `camelCase` exports |
 | Test files | `*.spec.ts` / `*.spec.tsx` (often under `__tests__/`) |
 
-## File and module structure rules
-
-- **One export per file**: each file must contain exactly one function or one component. Do not co-locate multiple functions or components in the same file.
-- **Self-named index files**: every function or component must live in a dedicated directory named after it, exposing the implementation via `index.ts` / `index.tsx`.
-  ```
-  components/
-  └─ MyButton/
-     └─ index.tsx   ← exports MyButton only
-  utilities/
-  └─ formatAmount/
-     └─ index.ts    ← exports formatAmount only
-  ```
-- **Reuse over duplication**: extract repeated logic into reusable components, hooks, or utility functions rather than duplicating code. Prefer referencing an existing abstraction over copy-pasting.
-
-## Control-flow rules
-
-- **No nested conditionals**: do not nest `if` statements or ternary expressions inside one another. Flatten logic using early returns, guard clauses, or helper functions instead.
-
-  ```typescript
-  // ✗ nested ternary
-  const label = isLoading ? 'Loading…' : hasError ? 'Error' : 'Done';
-
-  // ✓ guard clauses
-  if (isLoading) return 'Loading…';
-  if (hasError) return 'Error';
-  return 'Done';
-  ```
-
-## Data-type conventions for object properties
-
-Enforce consistent property naming so the unit of every value is unambiguous at the call-site.
-
-| Data type | Required suffix | Example property name |
-|---|---|---|
-| Mantissa (raw BigNumber / bigint numerator) | `Mantissa` | `supplyApyMantissa` |
-| Token amounts | `Tokens` | `borrowedTokens` |
-| Milliseconds | `Ms` | `lockPeriodMs` |
-| Percentages (0–100 scale) | `Percentage` | `collateralFactorPercentage` |
-| Dollar / fiat amounts | express in **cents** (`number \| bigint`), suffix `Cents` | `liquidationThresholdCents` |
-| Date values | use the `Date` type (not `number` timestamps) | `maturityDate: Date` |
-
-Additional rules:
-- Dollar/fiat values **must** be stored and passed as integer cents; never store fractional dollar amounts.
-- Date properties on domain objects **must** use the `Date` type; convert to timestamps only at serialisation boundaries.
-
 ## Generated code policy
 
 Do not manually edit generated artifacts.

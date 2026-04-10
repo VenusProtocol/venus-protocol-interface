@@ -1,11 +1,11 @@
 import type { Asset } from 'types';
 
 import type { MarketHistoryPeriodType } from 'clients/api';
-import { useGetMarketChartData } from 'hooks/useGetMarketChartData';
 import { useState } from 'react';
 import type { Address } from 'viem';
 import TEST_IDS from '../testIds';
 import { Card } from './Card';
+import useGetChartData from './useGetChartData';
 
 interface MarketHistoryProps {
   asset: Asset;
@@ -21,7 +21,7 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
   const {
     data: { supplyChartData, borrowChartData },
     isLoading: isChartDataLoading,
-  } = useGetMarketChartData({
+  } = useGetChartData({
     vToken: asset.vToken,
     period: selectedPeriod,
   });

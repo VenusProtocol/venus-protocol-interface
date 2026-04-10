@@ -98,8 +98,8 @@
       },
       "txType": {
         "borrow": "借入",
-        "enterMarket": "担保有効",
-        "exitMarket": "担保無効",
+        "enterMarket": "担保を有効化",
+        "exitMarket": "担保を無効化",
         "mint": "供給",
         "positionClosedWithLoss": "無効化（損失） • Yield+",
         "positionClosedWithProfit": "無効化（利益） • Yield+",
@@ -140,7 +140,7 @@
     "liquidationThreshold": "清算閾値：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾値<LineBreak/>借入残高がこの値に達すると、ポジションが清算対象になります。<LineBreak/><LineBreak/><Link>計算方法</Link>の詳細はこちら。",
-    "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借入限度:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>安全な借入限度:<LineBreak/>{{safeBorrowLimit}}（借入限度の{{safeBorrowLimitPercentage}}%）"
   },
   "adBanner": {
     "startNow": "今すぐ始める"
@@ -540,7 +540,7 @@
     "noMetaKey": "ファイルにメタデータ情報がありません",
     "noParamsKey": "ファイルにパラメータ一覧がありません",
     "noSignaturesKey": "ファイルにコールシグネチャがありません",
-    "noSwapQuoteFound": "スワップが見つかりません。フォームを更新してください。",
+    "noSwapQuoteFound": "スワップが見つかりません。",
     "noTargetsKey": "ファイルにターゲット一覧がありません",
     "noTypeKey": "ファイルに提案のタイプが示されていません",
     "proposalNotFound": "提案が見つかりません",
@@ -766,10 +766,6 @@
           "description": "レンディングポジションをガスレスでインポート。",
           "label": "ポート"
         },
-        "stats": {
-          "description": "リアルタイムリスクパラメータ",
-          "label": "統計"
-        },
         "swap": {
           "label": "スワップ"
         },
@@ -778,7 +774,6 @@
           "label": "VAI"
         },
         "yieldPlus": {
-          "description": "レバレッジをかけたロングとショートのポジション。",
           "label": "Yield+"
         }
       },
@@ -1055,7 +1050,7 @@
       "higherThanWalletBalance": "{{tokenSymbol}}残高が不足しています",
       "higherThanWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
       "noCollateral": "このプールから{{tokenSymbol}}を借りる前に、トークンを供給して担保として有効化する必要があります",
-      "noSwapQuoteFound": "スワップが見つかりません。フォームを更新してください。",
+      "noSwapQuoteFound": "スワップが見つかりません。",
       "priceImpactTooHigh": "価格影響が高すぎます",
       "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
       "tooRisky": "この取引はアカウントが清算されます"
@@ -1072,6 +1067,7 @@
       "position": "ポジション",
       "positionsTabs": {
         "increase": "増加",
+        "reduce": "減少",
         "supply": "供給",
         "withdraw": "引き出し"
       }
@@ -1125,11 +1121,6 @@
   "pagination": {
     "itemOf": "{{itemsCount}}件中{{currentPageLastIndex}}件目",
     "itemsOf": "{{itemsCount}}件中{{firstItemNumber}} - {{currentPageLastIndex}}件"
-  },
-  "pendleVaultBanner": {
-    "description": "<White>Venus</White> からワンクリックで Pendle の利回りを獲得",
-    "illustrationAltText": "ボールトのイラスト",
-    "title": "Pendle ボールトがオープン"
   },
   "poolsStats": {
     "cell": {
@@ -1220,6 +1211,11 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "waitForPrimeTitle": "Prime報酬を請求できるまで{{claimWaitingPeriod}}"
+  },
+  "probableBanner": {
+    "description": "probable.marketsで信念をブーストしよう",
+    "probableAltText": "Probableのイラスト",
+    "title": "何かを信じますか？"
   },
   "proposalList": {
     "selectOptions": {
@@ -1528,12 +1524,6 @@
     "submitButtonDisabledLabel": "ステーキングする数量を入力してください",
     "submitButtonLabel": "ステーキング",
     "title": "{{tokenSymbol}}をステーキング"
-  },
-  "statsPage": {
-    "illustrationAlt": "統計イラスト",
-    "poweredBy": "<Link>{{provider}}</Link> 提供",
-    "subtitle": "Venus Protocol マーケットのリアルタイムリスクパラメータ",
-    "title": "Venus 統計"
   },
   "swap": {
     "errors": {
@@ -1844,96 +1834,23 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
-      "claimReward": "報酬を請求",
-      "currentDeposited": "現在の預入量",
+      "currentStaked": "現在のステーク量",
       "dailyEmission": "日次報酬配布",
-      "liquidity": "流動性",
-      "liquidityTooltip": "このボールトの基盤となる Pendle 統合プール（またはストラテジー）に現在提供されている資産の総価値です。",
-      "manager": "運用機関",
-      "maturityDate": "満期日",
-      "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
-      "numDays_other": "{{count}}日",
-      "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、預入、引き出しは無効になっています。",
+      "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、ステーキング、引き出しは無効になっています。",
       "stake": "ステーキング",
       "stakingApr": "{{stakeTokenName}} ステーキングAPR",
-      "textualDate": "{{date, textual}}",
-      "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "総預金額",
       "totalStaked": "総ステーキング量",
       "withdraw": "引き出し",
-      "youAreStake": "あなたのステーキング量",
-      "youDeposited": "預入済み"
+      "youAreStake": "あなたのステーキング量"
     },
     "filter": {
-      "active": "アクティブ",
       "allCategories": "全カテゴリ",
       "allManagers": "全運用機関",
-      "allStates": "すべての状態",
-      "claim": "請求",
-      "deposit": "預入",
-      "earning": "収益中",
       "inputPlaceholder": "資産を検索",
       "others": "その他",
-      "paused": "停止中",
-      "refund": "返金",
-      "repaying": "返済中",
       "stablecoins": "ステーブルコイン",
-      "vaults": "ボールト",
-      "yieldTokens": "イールドトークン"
-    },
-    "modals": {
-      "afterMaturityPendleDisclaimer": "まず「引き出し」ボタンからPTトークンをウォレットに引き出してから、<Link>Pendle公式</Link>ウェブサイトで原資産トークンを償還してください。",
-      "available": "利用可能",
-      "claim": "請求",
-      "connectWalletMessage": "{{tokenSymbol}}をステーキング / 引き出しするにはウォレットを接続してください",
-      "convert": "変換",
-      "currentDeposited": "現在の預入額",
-      "currentDepositedTooltip": "このボールトに現在ロックされ、収益を得ている資産の量です。",
-      "deposit": "ステーキング",
-      "effectiveFixedApr": "実質固定APR",
-      "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
-      "error": {
-        "amountTooLow": "入力金額が少なすぎます。",
-        "higherThanAvailable": "入力金額があなたの利用可能な{{tokenSymbol}}残高を超えています。金額を減らすか、「最大」をクリックして全残高を使用してください。",
-        "invalidAmount": "入力金額が無効です。",
-        "invalidAmountFromQuote": "入力金額がPendleマーケットで利用可能な流動性を超えています。金額を減らして再試行してください。",
-        "lowerThanMinimumAmount": "入力金額が少なすぎます。最低金額は {{amount}} USD 相当です。",
-        "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。",
-        "pendleApiError": "現在Pendleへのアクセスが集中しています。しばらくしてからもう一度お試しください。"
-      },
-      "estPenalty": "推定ペナルティ",
-      "estReceived": "推定受取額",
-      "estYield": "推定利回り",
-      "maturityDate": "満期日",
-      "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
-      "maturityPendleDisclaimer": "満期前は、引き出し時に受け取る金額は Pendle の市場価格に依存します。満期後は、保有する PT トークンに基づいて 1:1 で引き出しが換金されます。",
-      "max": "最大",
-      "minReceived": "最小受取額",
-      "overview": {
-        "manager": "運用機関",
-        "managerTooltip": "このボールトの基礎資産を管理するアドレスまたはチームです。預けた資産は彼らが管理する市場に配分され、市場状況に応じて償還や決済のスケジュールが更新される場合があります。",
-        "marketInfo": "マーケット情報",
-        "marketRiskDisclosures": "マーケットリスク開示",
-        "riskDisclosureText": "Pendle は、プリンシパルトークン（PT）を通じて固定利回りを実現する分散型イールドトレーディングプロトコルです。Venus 固定金利ボールトは、Pendle のインフラストラクチャを通じて PT を取得し、Venus Core に担保として供給します。<br />Pendle があなたの預金にアクセスしたり移動させたりすることはできませんが、このボールトを利用することで両方のプロトコルからのリスクにさらされます。これにはスマートコントラクトの脆弱性、オラクルの障害、いずれかのプロトコルが悪用または停止される可能性が含まれます。満期前の引き出しは市場価格で実行され、預入額を下回る場合があります。固定 APY は預入時にロックされ、プロトコルレベルの障害に対する保護にはなりません。",
-        "strategy": {
-          "pendleRouter": "Pendle Router",
-          "supply": "供給",
-          "users": "ユーザー",
-          "venusCore": "Venus Core"
-        },
-        "strategyAllocation": "戦略配分",
-        "supply": "供給",
-        "totalDeposited": "総ステーキング量",
-        "totalDeposits": "総預金額",
-        "vaultDeploymentDate": "ボールト展開日"
-      },
-      "overviewTab": "概要",
-      "pendleFee": "Pendleフィー",
-      "positionTab": "ポジション",
-      "submitButtonDisabledLabel": "リクエストする数量を入力してください",
-      "textualDate": "{{date, textual}}",
-      "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "引き出し"
+      "vaults": "ボールト"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} コインのイラスト",
@@ -1943,8 +1860,8 @@
       "highestApr": "最高 APR",
       "title": "ボールト",
       "tokenTotalDeposited": "{{token}} 総預入量",
-      "tvl": "TVL",
-      "vaultCount": "ボールト"
+      "totalVault": "ボールト",
+      "tvl": "TVL"
     },
     "transactionForm": {
       "lockingPeriod": {
@@ -2217,6 +2134,9 @@
       "learnMore": "詳細を見る",
       "title": "Yield+ とは？"
     },
+    "closePositionModal": {
+      "title": "閉じる"
+    },
     "longLiquidity": "ロング流動性",
     "longSupplyApy": "{{ longTokenSymbol }} 供給APY",
     "longTokenSelect": {
@@ -2224,7 +2144,7 @@
     },
     "operationForm": {
       "increaseForm": {
-        "submitButtonLabel": "供給"
+        "submitButtonLabel": "増加"
       },
       "invalidLiquidationPrice": "該当なし",
       "openForm": {
@@ -2240,6 +2160,12 @@
         "short": "ショート",
         "shortFieldLabel": "ショート",
         "submitButtonLabel": "オープン"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "閉じる",
+          "reduce": "減少"
+        }
       },
       "supplyDsaForm": {
         "submitButtonLabel": "供給"
@@ -2259,6 +2185,7 @@
       }
     },
     "positions": {
+      "closeButtonLabel": "閉じる",
       "placeholder": {
         "title": "まだポジションはありません"
       },
@@ -2275,7 +2202,8 @@
         },
         "netValue": {
           "label": "純資産"
-        }
+        },
+        "title": "ステータス"
       },
       "table": {
         "entryPrice": {
@@ -2297,6 +2225,9 @@
         "shortColumn": {
           "title": "ショート"
         }
+      },
+      "transactions": {
+        "title": "取引"
       }
     },
     "shortBorrowApy": "{{ shortTokenSymbol }} 借入APY",

@@ -5,16 +5,14 @@ import { useSearchParams } from 'react-router';
 export const ALL_OPTION_VALUE = 'all';
 
 const CATEGORY_PARAM_KEY = 'category';
-const MANAGER_PARAM_KEY = 'manager';
-const STATUS_PARAM_KEY = 'status';
+const CURATOR_PARAM_KEY = 'curator';
 
 export const useFilterOptions = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const category = searchParams.get(CATEGORY_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const manager = searchParams.get(MANAGER_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const status = searchParams.get(STATUS_PARAM_KEY) ?? ALL_OPTION_VALUE;
+  const curator = searchParams.get(CURATOR_PARAM_KEY) ?? ALL_OPTION_VALUE;
 
   const setCategory = (newVal: string) =>
     setSearchParams(currentSearchParams => ({
@@ -22,16 +20,10 @@ export const useFilterOptions = () => {
       [CATEGORY_PARAM_KEY]: newVal,
     }));
 
-  const setManager = (newVal: string) =>
+  const setCurator = (newVal: string) =>
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
-      [MANAGER_PARAM_KEY]: newVal,
-    }));
-
-  const setStatus = (newVal: string) =>
-    setSearchParams(currentSearchParams => ({
-      ...Object.fromEntries(currentSearchParams),
-      [STATUS_PARAM_KEY]: newVal,
+      [CURATOR_PARAM_KEY]: newVal,
     }));
 
   const categoryOptions = [
@@ -44,15 +36,11 @@ export const useFilterOptions = () => {
       value: 'stablecoins',
     },
     {
-      label: t('vault.filter.yieldTokens'),
-      value: 'yieldTokens',
-    },
-    {
       label: t('vault.filter.others'),
       value: 'others',
     },
   ];
-  const managerOptions = [
+  const curatorOptions = [
     {
       label: t('vault.filter.allManagers'),
       value: ALL_OPTION_VALUE,
@@ -66,57 +54,14 @@ export const useFilterOptions = () => {
       ),
       value: 'venus',
     },
-    {
-      label: (
-        <div className="flex items-center gap-2">
-          <Icon name="pendle" />
-          Pendle
-        </div>
-      ),
-      value: 'pendle',
-    },
-  ];
-
-  const statusOptions = [
-    {
-      label: t('vault.filter.allStates'),
-      value: ALL_OPTION_VALUE,
-    },
-    {
-      label: t('vault.filter.deposit'),
-      value: 'deposit',
-    },
-    {
-      label: t('vault.filter.active'),
-      value: 'active',
-    },
-    {
-      label: t('vault.filter.refund'),
-      value: 'refund',
-    },
-    {
-      label: t('vault.filter.earning'),
-      value: 'earning',
-    },
-    {
-      label: t('vault.filter.repaying'),
-      value: 'repaying',
-    },
-    {
-      label: t('vault.filter.claim'),
-      value: 'claim',
-    },
   ];
 
   return {
     category,
     setCategory,
     categoryOptions,
-    manager,
-    setManager,
-    managerOptions,
-    status,
-    setStatus,
-    statusOptions,
+    curator,
+    setCurator,
+    curatorOptions,
   };
 };

@@ -2,16 +2,16 @@ import { Carousel, CarouselItem } from 'components';
 import { BinanceWalletBanner } from './BinanceWalletBanner';
 import { BoostBanner } from './BoostBanner';
 import { IsolatedPoolsSunsetBanner } from './IsolatedPoolsSunsetBanner';
-import { PendleVaultBanner } from './PendleVaultBanner';
+import { ProbableBanner } from './ProbableBanner';
 import { VenusFluxBanner } from './VenusFluxBanner';
 
 export const AdBanner: React.FC = () => {
   const slides: React.ReactNode[] = [
     <VenusFluxBanner />,
-    <PendleVaultBanner />,
     <BoostBanner />,
     <BinanceWalletBanner />,
     <IsolatedPoolsSunsetBanner />,
+    <ProbableBanner />,
   ];
 
   return (

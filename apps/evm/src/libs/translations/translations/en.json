@@ -98,8 +98,8 @@
       },
       "txType": {
         "borrow": "Borrow",
-        "enterMarket": "Enabled collateral",
-        "exitMarket": "Disabled collateral",
+        "enterMarket": "Enable collateral",
+        "exitMarket": "Disable collateral",
         "mint": "Supply",
         "positionClosedWithLoss": "Deactivated (loss) • Yield+",
         "positionClosedWithProfit": "Deactivated (profit) • Yield+",
@@ -111,7 +111,7 @@
         "principalWithdrawn": "Withdraw • Yield+",
         "realizedPnl": "Realized PnL • Yield+",
         "redeem": "Withdraw",
-        "repay": "Repayment"
+        "repay": "Repay"
       },
       "yesterday": "Yesterday"
     },
@@ -540,7 +540,7 @@
     "noMetaKey": "No metadata information is present in the file",
     "noParamsKey": "File does not contain the list of params",
     "noSignaturesKey": "There are no call signatures in the file",
-    "noSwapQuoteFound": "No swap found. Please update the form.",
+    "noSwapQuoteFound": "No swap found.",
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
     "proposalNotFound": "Proposal not found",
@@ -766,10 +766,6 @@
           "description": "Gasless import of lending positions.",
           "label": "Port"
         },
-        "stats": {
-          "description": "Real-time Risk Parameters",
-          "label": "Stats"
-        },
         "swap": {
           "label": "Swap"
         },
@@ -778,7 +774,6 @@
           "label": "VAI"
         },
         "yieldPlus": {
-          "description": "Leveraged long and short positions.",
           "label": "Yield+"
         }
       },
@@ -1055,7 +1050,7 @@
       "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
       "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
-      "noSwapQuoteFound": "No swap found. Please update the form.",
+      "noSwapQuoteFound": "No swap found.",
       "priceImpactTooHigh": "Price impact too high",
       "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "tooRisky": "This transaction would get your account liquidated"
@@ -1072,6 +1067,7 @@
       "position": "Position",
       "positionsTabs": {
         "increase": "Increase",
+        "reduce": "Reduce",
         "supply": "Supply",
         "withdraw": "Withdraw"
       }
@@ -1125,11 +1121,6 @@
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
-  },
-  "pendleVaultBanner": {
-    "description": "One-click Pendle yield right from <White>Venus</White>",
-    "illustrationAltText": "Vault illustration",
-    "title": "Pendle vault now open"
   },
   "poolsStats": {
     "cell": {
@@ -1220,6 +1211,11 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
+  },
+  "probableBanner": {
+    "description": "Give your conviction a boost on probable.markets",
+    "probableAltText": "Probable illustration",
+    "title": "Believe in something?"
   },
   "proposalList": {
     "selectOptions": {
@@ -1528,12 +1524,6 @@
     "submitButtonDisabledLabel": "Enter a valid amount to stake",
     "submitButtonLabel": "Stake",
     "title": "Stake {{tokenSymbol}}"
-  },
-  "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "poweredBy": "Powered by <Link>{{provider}}</Link>",
-    "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
   },
   "swap": {
     "errors": {
@@ -1844,97 +1834,23 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
-      "claimReward": "Claim reward",
-      "currentDeposited": "Currently deposited",
+      "currentStaked": "Currently staked",
       "dailyEmission": "Daily emission",
-      "liquidity": "Liquidity",
-      "liquidityTooltip": "The total value of assets currently provided in this vault's underlying Pendle-integrated pool (or strategy).",
-      "manager": "Manager",
-      "maturityDate": "Maturity date",
-      "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
-      "numDays_one": "{{count}} day",
-      "numDays_other": "{{count}} days",
-      "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, depositing, and withdrawing are disabled until the vault is unpaused",
+      "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
       "stake": "Stake",
       "stakingApr": "{{stakeTokenName}} Stake APR",
-      "textualDate": "{{date, textual}}",
-      "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Total deposited",
-      "totalStaked": "Total staked",
+      "totalStaked": "Total Staked",
       "withdraw": "Withdraw",
-      "youAreStake": "You are staking",
-      "youDeposited": "You deposited"
+      "youAreStake": "You are staking"
     },
     "filter": {
-      "active": "Active",
       "allCategories": "All categories",
       "allManagers": "All managers",
-      "allStates": "All states",
-      "claim": "Claim",
-      "deposit": "Deposit",
-      "earning": "Earning",
       "inputPlaceholder": "Search asset",
       "others": "Others",
-      "paused": "Paused",
-      "refund": "Refund",
-      "repaying": "Repaying",
       "stablecoins": "Stablecoins",
-      "vaults": "Vaults",
-      "yieldTokens": "Yield tokens"
-    },
-    "modals": {
-      "afterMaturityPendleDisclaimer": "Please withdraw your PT tokens to your wallet first via the Withdraw button, then visit the <Link>Pendle official</Link> website to redeem your underlying tokens.",
-      "available": "Available",
-      "claim": "Claim",
-      "connectWalletMessage": "Please connect your wallet to deposit / withdraw {{tokenSymbol}}",
-      "convert": "Convert",
-      "currentDeposited": "Currently deposited",
-      "currentDepositedTooltip": "The amount of your assets currently locked and earning in this vault.",
-      "deposit": "Deposit",
-      "effectiveFixedApr": "Effective Fixed APR",
-      "effectiveFixedAprPendleTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
-      "error": {
-        "amountTooLow": "Input amount is too low.",
-        "higherThanAvailable": "Amount exceeds your available {{tokenSymbol}} balance. Reduce the amount or click 'Max' to use your full balance.",
-        "invalidAmount": "Input amount is invalid.",
-        "invalidAmountFromQuote": "Amount exceeds available liquidity in the Pendle market. Reduce the amount and try again.",
-        "lowerThanMinimumAmount": "Input amount is too low. The minimum amount is equivalent to {{amount}} USD.",
-        "noSwapQuoteFound": "No swap found. Please update the form.",
-        "pendleApiError": "Temporarily experiencing high demand with Pendle. Please try again in a moment."
-      },
-      "estPenalty": "Est. penalty",
-      "estReceived": "Est. received",
-      "estYield": "Est. yield",
-      "maturityDate": "Maturity date",
-      "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
-      "maturityPendleDisclaimer": "Before maturity, the amount received upon withdrawal is subject to Pendle market prices. After maturity, withdrawals are redeemed 1:1 based on your PT token holdings.",
-      "max": "Max",
-      "minReceived": "Min. received",
-      "overview": {
-        "manager": "Manager",
-        "managerTooltip": "The address or team that manages this underlying asset of this vault. Deposited assets are allocated to markets they oversee, and they may update redemption or settlement timelines based on market conditions.",
-        "marketInfo": "Market info",
-        "marketRiskDisclosures": "Market risk disclosures",
-        "riskDisclosureText": "Pendle is a decentralised yield-trading protocol that enables fixed-rate yield through Principal Tokens (PTs). The Venus Fixed Rate Vault routes deposits through Pendle's infrastructure to acquire PTs, which are supplied to Venus Core as collateral. <br />While Pendle cannot access or move your deposited funds, using this vault exposes you to risks from both protocols. These include smart contract vulnerabilities, oracle failures, and the possibility of either protocol being exploited or paused. Early withdrawals are executed at market price and may return less than the amount deposited. Fixed APY is locked at deposit and does not protect against protocol-level failures.",
-        "strategy": {
-          "pendleRouter": "Pendle router",
-          "supply": "Supply",
-          "users": "Users",
-          "venusCore": "Venus Core"
-        },
-        "strategyAllocation": "Strategy allocation",
-        "supply": "Supply",
-        "totalDeposited": "Total deposited",
-        "totalDeposits": "Total deposits",
-        "vaultDeploymentDate": "Vault deployment date"
-      },
-      "overviewTab": "Overview",
-      "pendleFee": "Pendle fee",
-      "positionTab": "Position",
-      "submitButtonDisabledLabel": "Enter a valid amount to request",
-      "textualDate": "{{date, textual}}",
-      "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "Withdraw"
+      "vaults": "Vaults"
     },
     "overview": {
       "bannerCoinIllustration": "{{token}} coins illustration",
@@ -1944,8 +1860,8 @@
       "highestApr": "Highest APR",
       "title": "Vaults",
       "tokenTotalDeposited": "{{token}} total deposited",
-      "tvl": "TVL",
-      "vaultCount": "Vaults"
+      "totalVault": "Vaults",
+      "tvl": "TVL"
     },
     "transactionForm": {
       "lockingPeriod": {
@@ -2218,6 +2134,9 @@
       "learnMore": "Learn more",
       "title": "What is Yield+?"
     },
+    "closePositionModal": {
+      "title": "Close"
+    },
     "longLiquidity": "Long liquidity",
     "longSupplyApy": "{{ longTokenSymbol }} supply APY",
     "longTokenSelect": {
@@ -2242,6 +2161,12 @@
         "shortFieldLabel": "Short",
         "submitButtonLabel": "Open"
       },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "Close",
+          "reduce": "Reduce"
+        }
+      },
       "supplyDsaForm": {
         "submitButtonLabel": "Supply"
       },
@@ -2260,6 +2185,7 @@
       }
     },
     "positions": {
+      "closeButtonLabel": "Close",
       "placeholder": {
         "title": "No positions yet"
       },
@@ -2276,7 +2202,8 @@
         },
         "netValue": {
           "label": "Net value"
-        }
+        },
+        "title": "Status"
       },
       "table": {
         "entryPrice": {
@@ -2298,6 +2225,9 @@
         "shortColumn": {
           "title": "Short"
         }
+      },
+      "transactions": {
+        "title": "Transactions"
       }
     },
     "shortBorrowApy": "{{ shortTokenSymbol }} borrow APY",

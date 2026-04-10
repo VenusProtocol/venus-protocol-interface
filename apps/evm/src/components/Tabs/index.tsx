@@ -10,8 +10,6 @@ export interface TabsProps {
   navType?: TabNavType;
   initialActiveTabId?: string;
   className?: string;
-  headerClassName?: string;
-  buttonClassName?: string;
 }
 
 export const Tabs = ({
@@ -20,8 +18,6 @@ export const Tabs = ({
   onTabChange,
   initialActiveTabId,
   className,
-  headerClassName,
-  buttonClassName,
   navType = 'state',
 }: TabsProps) => {
   const { activeTab, setActiveTab } = useTabs({
@@ -30,7 +26,10 @@ export const Tabs = ({
     initialActiveTabId,
   });
 
-  const handleChange = (index: number) => {
+  const handleChange = (index: number, e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
     const id = tabs[index].id;
     setActiveTab({ id });
 
@@ -45,8 +44,7 @@ export const Tabs = ({
       {variant === 'primary' ? (
         <ButtonGroup
           buttonLabels={tabs.map(({ title }) => title)}
-          className={headerClassName}
-          buttonClassName={cn('px-2', buttonClassName)}
+          buttonClassName="px-2"
           activeButtonIndex={tabs.findIndex(tab => activeTab.id === tab.id)}
           onButtonClick={handleChange}
           fullWidth
@@ -55,31 +53,29 @@ export const Tabs = ({
         <div className="relative">
           <div
             className={cn(
-              'flex text-sm gap-x-4 scrollbar-hidden overflow-y-auto sm:gap-x-6 md:overflow-y-visible',
+              'flex text-sm gap-x-4 sm:gap-x-6',
               variant === 'tertiary' && 'text-md sm:text-lg',
-              headerClassName,
             )}
           >
             {tabs.map((tab, index) => (
               <button
-                onClick={() => handleChange(index)}
+                onClick={e => handleChange(index, e)}
                 type="button"
                 key={tab.id}
                 className={cn(
                   'hover:text-white cursor-pointer',
                   variant === 'secondary' && 'grow',
                   activeTab.id === tab.id ? 'text-white' : 'text-grey',
-                  buttonClassName,
                 )}
               >
-                <p
+                <div
                   className={cn(
-                    'mb-2 font-semibold whitespace-nowrap transition-colors text-inherit',
-                    variant === 'secondary' && 'text-center',
+                    'mb-2 flex  font-semibold whitespace-nowrap transition-colors text-inherit',
+                    variant === 'secondary' && 'justify-center',
                   )}
                 >
-                  {tab.title}
-                </p>
+                  <div>{tab.title}</div>
+                </div>
 
                 <div
                   className={cn(

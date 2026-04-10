@@ -12,7 +12,7 @@ import { importablePositions } from '__mocks__/models/importablePositions';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { transactions } from '__mocks__/models/transactions';
-import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
+import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
 import { yieldPlusPositions } from '__mocks__/models/yieldPlus';
 
@@ -480,28 +480,12 @@ export const useGetTokenUsdPrice = vi.fn(() =>
   }),
 );
 
-export const getTokenListUsdPrice = vi.fn(async ({ tokens }: { tokens?: unknown[] } = {}) =>
-  Array.from({ length: tokens?.length || 0 }, () => ({
-    tokenPriceUsd: new BigNumber('1'),
-  })),
-);
-export const useGetTokenListUsdPrice = vi.fn(
-  (
-    { tokens }: { tokens: { address?: string }[] },
-    options?: {
-      enabled?: boolean;
-    },
-  ) =>
-    useQuery({
-      queryKey: [
-        FunctionKey.GET_TOKEN_USD_PRICE,
-        tokens?.map(token => ({
-          tokenAddress: token.address,
-        })),
-      ],
-      queryFn: () => getTokenListUsdPrice({ tokens }),
-      enabled: (options?.enabled === undefined || options.enabled) && Array.isArray(tokens),
-    }),
+export const getTokenListUsdPrice = vi.fn(async () => [{ tokenPriceUsd: new BigNumber('1') }]);
+export const useGetTokenListUsdPrice = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_TOKEN_USD_PRICE],
+    queryFn: getTokenListUsdPrice,
+  }),
 );
 
 export const getPrimeEstimation = vi.fn(async () => primeEstimationData);
@@ -1035,10 +1019,3 @@ export const useSetEModeGroup = vi.fn((_variables: never, options?: MutationObse
     ...options,
   }),
 );
-
-export const useGetFixedRatedVaults = vi.fn(() => ({
-  data: fixedRatedVaults,
-  isLoading: false,
-}));
-
-export const getFixedRatedVaults = vi.fn(async () => fixedRatedVaults);

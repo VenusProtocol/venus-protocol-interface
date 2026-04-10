@@ -1,4 +1,5 @@
 import { cn } from '@venusprotocol/ui';
+import { useVaultUsdValues } from 'containers/Vault/hooks/useVaultUsdValues';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
 import {
@@ -18,12 +19,9 @@ export const Banner: React.FC<BannerProps> = ({ vault, className }) => {
   const { t, Trans } = useTranslation();
 
   const { stakingAprPercentage, stakedToken, totalStakedMantissa } = vault;
-
-  const readableTotalStaked = `${convertMantissaToTokens({
-    value: totalStakedMantissa,
-    token: stakedToken,
-    returnInReadableFormat: true,
-  })} (${formatCentsToReadableValue({ value: vault.totalStakedCents })})`;
+  const {
+    data: { totalStakedUsdCents },
+  } = useVaultUsdValues(vault);
 
   return (
     <div
@@ -98,7 +96,14 @@ export const Banner: React.FC<BannerProps> = ({ vault, className }) => {
               </span>
               <div className="flex items-center lg:max-xl:mt-1 gap-1 sm:gap-2">
                 <img src={stakedToken.iconSrc} alt={stakedToken.symbol} className="h-4 md:h-5" />
-                <span className="text-b2s sm:text-b1s md:text-p3s">{readableTotalStaked}</span>
+                <span className="text-b2s sm:text-b1s md:text-p3s">
+                  {convertMantissaToTokens({
+                    value: totalStakedMantissa,
+                    token: stakedToken,
+                    returnInReadableFormat: true,
+                  })}{' '}
+                  {`(${formatCentsToReadableValue({ value: totalStakedUsdCents })})`}
+                </span>
               </div>
             </div>
           </div>

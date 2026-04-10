@@ -23,7 +23,6 @@ export enum Subdirectory {
   SWAP = 'swap',
   VAI = 'vai',
   BRIDGE = 'bridge',
-  STATS = 'stats',
   YIELD_PLUS = 'yield-plus',
 }
 
@@ -52,7 +51,6 @@ const routeSubdirectories = {
   vaults: [Subdirectory.VAULTS],
   vai: [Subdirectory.VAI],
   bridge: [Subdirectory.BRIDGE],
-  stats: [Subdirectory.STATS],
   yieldPlus: [Subdirectory.YIELD_PLUS],
 };
 

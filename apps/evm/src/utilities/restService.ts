@@ -1,4 +1,5 @@
-import { isEmpty, set } from 'lodash-es';
+import _isEmpty from 'lodash/isEmpty';
+import _set from 'lodash/set';
 
 import config from 'config';
 import { logError } from 'libs/errors';
@@ -16,7 +17,6 @@ export interface ApiErrorResponse {
   status: number;
   data: {
     error: string;
-    code?: string;
   };
 }
 
@@ -49,22 +49,22 @@ export async function restService<D>({
   const basePath = baseUrl ?? config.apiUrl;
   let path = `${basePath}${endpoint}`;
 
-  set(headers, 'Accept', 'application/json');
+  _set(headers, 'Accept', 'application/json');
 
   if (next) {
-    set(headers, 'Accept-Version', 'next');
+    _set(headers, 'Accept-Version', 'next');
   } else {
-    set(headers, 'Accept-Version', 'stable');
+    _set(headers, 'Accept-Version', 'stable');
   }
 
   if (next) {
-    set(headers, 'Accept-Version', 'next');
+    _set(headers, 'Accept-Version', 'next');
   } else {
-    set(headers, 'Accept-Version', 'stable');
+    _set(headers, 'Accept-Version', 'stable');
   }
 
   if (token) {
-    set(headers, 'Authorization', `Bearer ${token}`);
+    _set(headers, 'Authorization', `Bearer ${token}`);
   }
 
   const reqBody = {
@@ -73,9 +73,9 @@ export async function restService<D>({
     body: {},
   };
 
-  if (params && !isEmpty(params) && method === 'POST') {
+  if (params && !_isEmpty(params) && method === 'POST') {
     reqBody.body = JSON.stringify(params);
-  } else if (params && !isEmpty(params) && method === 'GET') {
+  } else if (params && !_isEmpty(params) && method === 'GET') {
     const queryParams = createQueryParams(params);
     path = `${path}?${queryParams}`;
   }

@@ -106,7 +106,6 @@ export const AreaChart = <T extends Record<string, any>>({
               tickCount={yAxisTickCount}
               stroke={theme.colors.grey}
               className="text-xs text-left"
-              domain={['auto', 'auto']}
             />
           )}
 

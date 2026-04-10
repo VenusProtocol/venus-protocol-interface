@@ -2,7 +2,8 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
-import type { Asset, TxFormError } from 'types';
+import type { Asset } from 'types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
@@ -10,7 +11,6 @@ interface UseFormValidationInput {
   formValues: FormValues;
   limitTokens: BigNumber;
   moderateRiskMaxTokens: BigNumber;
-  isRiskyOperation: boolean;
 }
 
 interface UseFormValidationOutput {
@@ -22,7 +22,6 @@ const useFormValidation = ({
   asset,
   limitTokens,
   moderateRiskMaxTokens,
-  isRiskyOperation,
   formValues,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
@@ -57,10 +56,7 @@ const useFormValidation = ({
       };
     }
 
-    if (
-      (fromTokenAmountTokens.isGreaterThan(moderateRiskMaxTokens) || isRiskyOperation) &&
-      !formValues.acknowledgeRisk
-    ) {
+    if (fromTokenAmountTokens.isGreaterThan(moderateRiskMaxTokens) && !formValues.acknowledgeRisk) {
       return {
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
       };
@@ -72,7 +68,6 @@ const useFormValidation = ({
     t,
     asset,
     moderateRiskMaxTokens,
-    isRiskyOperation,
   ]);
 
   return {

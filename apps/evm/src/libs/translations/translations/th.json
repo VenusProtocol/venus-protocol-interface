@@ -111,7 +111,7 @@
         "principalWithdrawn": "ถอน • Yield+",
         "realizedPnl": "กำไร/ขาดทุนที่รับรู้ • Yield+",
         "redeem": "ถอน",
-        "repay": "การชำระคืน"
+        "repay": "ชำระคืน"
       },
       "yesterday": "เมื่อวาน"
     },
@@ -140,7 +140,7 @@
     "liquidationThreshold": "เกณฑ์การชำระบัญชี：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = เกณฑ์การชำระบัญชี<LineBreak/>เมื่อยอดยืมของคุณถึงค่านี้ ตำแหน่งของคุณจะมีสิทธิ์ถูกชำระบัญชี<LineBreak/><LineBreak/>เรียนรู้เพิ่มเติมเกี่ยวกับ<Link>การคำนวณ</Link>",
-    "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืม:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืมที่ปลอดภัย:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% ของขีดจำกัดการยืมของคุณ)"
   },
   "adBanner": {
     "startNow": "เริ่มตอนนี้"
@@ -540,7 +540,7 @@
     "noMetaKey": "ไม่มีข้อมูลเมตาในไฟล์",
     "noParamsKey": "ไฟล์ไม่มีรายการพารามิเตอร์",
     "noSignaturesKey": "ไม่มี call signatures ในไฟล์",
-    "noSwapQuoteFound": "ไม่พบสวอป โปรดอัปเดตฟอร์ม",
+    "noSwapQuoteFound": "ไม่พบการสวอป",
     "noTargetsKey": "ไฟล์ไม่มีรายการเป้าหมาย",
     "noTypeKey": "ไฟล์ไม่ได้ระบุประเภทของข้อเสนอ",
     "proposalNotFound": "ไม่พบข้อเสนอ",
@@ -766,10 +766,6 @@
           "description": "นำเข้าตำแหน่งการให้กู้แบบไม่ใช้แก๊ส",
           "label": "พอร์ต"
         },
-        "stats": {
-          "description": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์",
-          "label": "สถิติ"
-        },
         "swap": {
           "label": "สวอป"
         },
@@ -778,7 +774,6 @@
           "label": "VAI"
         },
         "yieldPlus": {
-          "description": "สถานะ Long และ Short แบบมีเลเวอเรจ",
           "label": "Yield+"
         }
       },
@@ -1055,7 +1050,7 @@
       "higherThanWalletBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
       "higherThanWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
       "noCollateral": "คุณต้องฝากโทเคนและเปิดใช้เป็นหลักประกันก่อนจึงจะยืม {{tokenSymbol}} จากพูลนี้ได้",
-      "noSwapQuoteFound": "ไม่พบสวอป โปรดอัปเดตฟอร์ม",
+      "noSwapQuoteFound": "ไม่พบการสวอป",
       "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป",
       "supplyCapReached": "ขีดจำกัดการฝากของ {{assetSupplyCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถฝากเข้าสู่ตลาดนี้ได้จนกว่าจะมีการถอนหรือเพิ่มขีดจำกัดการฝาก",
       "tooRisky": "ธุรกรรมนี้จะทำให้บัญชีของคุณถูกชำระบัญชี"
@@ -1072,6 +1067,7 @@
       "position": "โพสิชัน",
       "positionsTabs": {
         "increase": "เพิ่ม",
+        "reduce": "ลด",
         "supply": "ฝาก",
         "withdraw": "ถอน"
       }
@@ -1125,11 +1121,6 @@
   "pagination": {
     "itemOf": "รายการที่ {{currentPageLastIndex}} จาก {{itemsCount}}",
     "itemsOf": "รายการที่ {{firstItemNumber}} - {{currentPageLastIndex}} จาก {{itemsCount}}"
-  },
-  "pendleVaultBanner": {
-    "description": "รับผลตอบแทน Pendle ได้ในคลิกเดียวจาก <White>Venus</White>",
-    "illustrationAltText": "ภาพประกอบคลัง",
-    "title": "คลัง Pendle เปิดให้ใช้งานแล้ว"
   },
   "poolsStats": {
     "cell": {
@@ -1220,6 +1211,11 @@
     "tokensLeft_many": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "tokensLeft_other": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} ก่อนที่จะรับรางวัล Prime ได้"
+  },
+  "probableBanner": {
+    "description": "เพิ่มความเชื่อมั่นของคุณบน probable.markets",
+    "probableAltText": "ภาพประกอบ Probable",
+    "title": "คุณเชื่อในสิ่งใดไหม?"
   },
   "proposalList": {
     "selectOptions": {
@@ -1528,12 +1524,6 @@
     "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อสเตค",
     "submitButtonLabel": "สเตค",
     "title": "สเตค {{tokenSymbol}}"
-  },
-  "statsPage": {
-    "illustrationAlt": "ภาพประกอบสถิติ",
-    "poweredBy": "ขับเคลื่อนโดย <Link>{{provider}}</Link>",
-    "subtitle": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์สำหรับตลาด Venus Protocol",
-    "title": "สถิติ Venus"
   },
   "swap": {
     "errors": {
@@ -1844,96 +1834,23 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนเงินที่รอดำเนินการให้เสร็จสิ้นก่อนจึงจะสามารถโต้ตอบกับ vault นี้ได้",
-      "claimReward": "รับรางวัล",
-      "currentDeposited": "ฝากอยู่ในปัจจุบัน",
+      "currentStaked": "สเตคอยู่ในปัจจุบัน",
       "dailyEmission": "รางวัลรายวัน",
-      "liquidity": "สภาพคล่อง",
-      "liquidityTooltip": "มูลค่ารวมของสินทรัพย์ที่ปัจจุบันให้บริการอยู่ใน pool ที่รองรับ Pendle (หรือกลยุทธ์) ของ vault นี้",
-      "manager": "ผู้ดูแล",
-      "maturityDate": "วันครบกำหนด",
-      "maturityDatePendleTooltip": "วันสิ้นสุดของตำแหน่งผลตอบแทนคงที่นี้ (จาก Pendle) หลังจากวันนี้ คุณจะได้รับสินทรัพย์ต้นฉบับครบถ้วน (เงินต้น) ผลตอบแทนคงที่ที่ล็อคไว้หยุดที่นี่ ควรถือครองจนถึงวันนั้นเพื่อรับผลตอบแทนตามแผน",
-      "numDays_other": "{{count}} วัน",
-      "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การฝาก และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
+      "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การสเตค และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
       "stake": "สเตค",
       "stakingApr": "APR การสเตค {{stakeTokenName}}",
-      "textualDate": "{{date, textual}}",
-      "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "ยอดฝากทั้งหมด",
       "totalStaked": "ยอดสเตครวม",
       "withdraw": "ถอน",
-      "youAreStake": "คุณกำลังสเตคอยู่",
-      "youDeposited": "คุณฝากแล้ว"
+      "youAreStake": "คุณกำลังสเตคอยู่"
     },
     "filter": {
-      "active": "กำลังใช้งาน",
       "allCategories": "ทุกหมวดหมู่",
       "allManagers": "ผู้ดูแลทั้งหมด",
-      "allStates": "สถานะทั้งหมด",
-      "claim": "อ้างสิทธิ์",
-      "deposit": "ฝาก",
-      "earning": "กำลังรับผลตอบแทน",
       "inputPlaceholder": "ค้นหาสินทรัพย์",
       "others": "อื่นๆ",
-      "paused": "หยุดชั่วคราว",
-      "refund": "คืนเงิน",
-      "repaying": "กำลังชำระคืน",
       "stablecoins": "สเตเบิลคอยน์",
-      "vaults": "คลัง",
-      "yieldTokens": "โทเคนผลตอบแทน"
-    },
-    "modals": {
-      "afterMaturityPendleDisclaimer": "กรุณาถอน PT token ไปยังวอลเล็ตของคุณก่อนผ่านปุ่มถอน จากนั้นไปที่เว็บไซต์<Link>Pendle อย่างเป็นทางการ</Link>เพื่อแลกรับ underlying token ของคุณ",
-      "available": "ที่มีอยู่",
-      "claim": "อ้างสิทธิ์",
-      "connectWalletMessage": "กรุณาเชื่อมต่อกระเป๋าเงินของคุณเพื่อสเตค / ถอน {{tokenSymbol}}",
-      "convert": "แปลง",
-      "currentDeposited": "ยอดฝากปัจจุบัน",
-      "currentDepositedTooltip": "จำนวนสินทรัพย์ของคุณที่ล็อคและสร้างรายได้อยู่ในห้องนิรภัยนี้",
-      "deposit": "สเตค",
-      "effectiveFixedApr": "APR คงที่ที่มีผล",
-      "effectiveFixedAprPendleTooltip": "ผลตอบแทนคงที่รายปีที่เสนอโดยกลยุทธ์ vault นี้ แสดงเป็นอัตราร้อยละต่อปีที่มีผลซึ่งรวมดอกเบี้ยทบต้นแล้ว",
-      "error": {
-        "amountTooLow": "จำนวนที่ป้อนต่ำเกินไป",
-        "higherThanAvailable": "จำนวนเกินกว่ายอด {{tokenSymbol}} ที่ใช้ได้ของคุณ ลดจำนวนหรือคลิก 'สูงสุด' เพื่อใช้ยอดทั้งหมด",
-        "invalidAmount": "จำนวนที่ป้อนไม่ถูกต้อง",
-        "invalidAmountFromQuote": "จำนวนเกินกว่าสภาพคล่องที่ใช้ได้ในตลาด Pendle ลดจำนวนแล้วลองอีกครั้ง",
-        "lowerThanMinimumAmount": "จำนวนที่ป้อนต่ำเกินไป จำนวนขั้นต่ำเทียบเท่ากับ {{amount}} USD",
-        "noSwapQuoteFound": "ไม่พบการสวอป กรุณาอัปเดตแบบฟอร์ม",
-        "pendleApiError": "ขณะนี้มีการใช้งาน Pendle จำนวนมาก กรุณาลองใหม่อีกครั้งในภายหลัง"
-      },
-      "estPenalty": "ค่าปรับโดยประมาณ",
-      "estReceived": "ที่จะได้รับโดยประมาณ",
-      "estYield": "ผลตอบแทนโดยประมาณ",
-      "maturityDate": "วันครบกำหนด",
-      "maturityDatePendleTooltip": "วันสิ้นสุดของตำแหน่งผลตอบแทนคงที่นี้ (จาก Pendle) หลังจากวันนี้ คุณจะได้รับสินทรัพย์ต้นฉบับครบถ้วน (เงินต้น) ผลตอบแทนคงที่ที่ล็อคไว้หยุดที่นี่ ควรถือครองจนถึงวันนั้นเพื่อรับผลตอบแทนตามแผน",
-      "maturityPendleDisclaimer": "ก่อนครบกำหนด จำนวนเงินที่ได้รับเมื่อถอนขึ้นอยู่กับราคาตลาด Pendle หลังจากครบกำหนด การถอนจะถูกแลกตามจำนวน PT token ที่คุณถือครองในอัตรา 1:1",
-      "max": "สูงสุด",
-      "minReceived": "ขั้นต่ำที่จะได้รับ",
-      "overview": {
-        "manager": "ผู้ดูแล",
-        "managerTooltip": "ที่อยู่หรือทีมที่จัดการสินทรัพย์อ้างอิงของ vault นี้ สินทรัพย์ที่ฝากจะถูกจัดสรรไปยังตลาดที่พวกเขาดูแล และพวกเขาอาจอัปเดตระยะเวลาการไถ่ถอนหรือการชำระบัญชีตามสภาวะตลาด",
-        "marketInfo": "ข้อมูลตลาด",
-        "marketRiskDisclosures": "การเปิดเผยความเสี่ยงของตลาด",
-        "riskDisclosureText": "Pendle เป็นโปรโตคอลการซื้อขายผลตอบแทนแบบกระจายศูนย์ที่ช่วยให้ได้รับผลตอบแทนอัตราคงที่ผ่าน Principal Tokens (PTs) Venus Fixed Rate Vault จะส่งเงินฝากผ่านโครงสร้างพื้นฐานของ Pendle เพื่อซื้อ PT ซึ่งจะถูกนำไปเป็นหลักประกันใน Venus Core<br />แม้ว่า Pendle จะไม่สามารถเข้าถึงหรือย้ายเงินฝากของคุณได้ แต่การใช้ vault นี้ทำให้คุณเผชิญกับความเสี่ยงจากทั้งสองโปรโตคอล ซึ่งรวมถึงช่องโหว่ของสัญญาอัจฉริยะ ความล้มเหลวของ oracle และความเป็นไปได้ที่โปรโตคอลใดโปรโตคอลหนึ่งจะถูกโจมตีหรือหยุดชั่วคราว การถอนก่อนกำหนดจะดำเนินการตามราคาตลาดและอาจได้รับคืนน้อยกว่าจำนวนที่ฝาก APY คงที่จะถูกล็อคไว้เมื่อฝากและไม่สามารถป้องกันความล้มเหลวในระดับโปรโตคอล",
-        "strategy": {
-          "pendleRouter": "Pendle Router",
-          "supply": "ฝาก",
-          "users": "ผู้ใช้งาน",
-          "venusCore": "Venus Core"
-        },
-        "strategyAllocation": "การจัดสรรกลยุทธ์",
-        "supply": "ฝาก",
-        "totalDeposited": "ยอดสเตครวม",
-        "totalDeposits": "ยอดฝากทั้งหมด",
-        "vaultDeploymentDate": "วันเปิดตัว Vault"
-      },
-      "overviewTab": "ภาพรวม",
-      "pendleFee": "ค่าธรรมเนียม Pendle",
-      "positionTab": "ตำแหน่ง",
-      "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อส่งคำขอ",
-      "textualDate": "{{date, textual}}",
-      "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "ถอน"
+      "vaults": "คลัง"
     },
     "overview": {
       "bannerCoinIllustration": "ภาพประกอบเหรียญ {{token}}",
@@ -1943,8 +1860,8 @@
       "highestApr": "APR สูงสุด",
       "title": "คลัง",
       "tokenTotalDeposited": "{{token}} ยอดฝากรวม",
-      "tvl": "TVL",
-      "vaultCount": "คลัง"
+      "totalVault": "คลัง",
+      "tvl": "TVL"
     },
     "transactionForm": {
       "lockingPeriod": {
@@ -2217,6 +2134,9 @@
       "learnMore": "เรียนรู้เพิ่มเติม",
       "title": "Yield+ คืออะไร?"
     },
+    "closePositionModal": {
+      "title": "ปิด"
+    },
     "longLiquidity": "สภาพคล่องฝั่ง Long",
     "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
     "longTokenSelect": {
@@ -2224,7 +2144,7 @@
     },
     "operationForm": {
       "increaseForm": {
-        "submitButtonLabel": "ฝาก"
+        "submitButtonLabel": "เพิ่ม"
       },
       "invalidLiquidationPrice": "ไม่มี",
       "openForm": {
@@ -2240,6 +2160,12 @@
         "short": "Short",
         "shortFieldLabel": "Short",
         "submitButtonLabel": "เปิด"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "ปิด",
+          "reduce": "ลด"
+        }
       },
       "supplyDsaForm": {
         "submitButtonLabel": "ฝาก"
@@ -2259,6 +2185,7 @@
       }
     },
     "positions": {
+      "closeButtonLabel": "ปิด",
       "placeholder": {
         "title": "ยังไม่มีโพสิชัน"
       },
@@ -2275,7 +2202,8 @@
         },
         "netValue": {
           "label": "มูลค่าสุทธิ"
-        }
+        },
+        "title": "สถานะ"
       },
       "table": {
         "entryPrice": {
@@ -2297,6 +2225,9 @@
         "shortColumn": {
           "title": "Short"
         }
+      },
+      "transactions": {
+        "title": "ธุรกรรม"
       }
     },
     "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",

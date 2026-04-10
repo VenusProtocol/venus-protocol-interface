@@ -85,7 +85,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <footer
       ref={ref}
-      className="bg-background-active p-5 space-y-4 sm:flex sm:justify-between sm:items-center sm:space-y-0 md:px-6 xl:px-10"
+      className="bg-background-active p-4 space-y-4 sm:flex sm:justify-between sm:items-center sm:space-y-0 md:px-6 xl:px-10"
     >
       <div className="flex items-center gap-4 flex-wrap">
         {footerLinks.map(footerLink => {

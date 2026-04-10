@@ -16,8 +16,7 @@ export const useMenuItems = () => {
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
-  const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
-  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlusRoute' });
+  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlus' });
   const { marketsPagePath } = useGetMarketsPagePath();
   const { data: getPoolsData } = useGetPools();
   const pools = getPoolsData?.pools || [];
@@ -90,10 +89,16 @@ export const useMenuItems = () => {
     });
   }
 
+  if (yieldPlusRouteEnabled) {
+    menu.push({
+      to: routes.yieldPlus.path,
+      label: t('layout.menu.others.yieldPlus.label'),
+    });
+  }
+
   if (swapRouteEnabled) {
     menu.push({
       to: routes.swap.path,
-      iconName: 'convert',
       label: t('layout.menu.others.swap.label'),
     });
   }
@@ -104,24 +109,6 @@ export const useMenuItems = () => {
       iconName: 'fourDots',
       label: t('layout.menu.others.isolatedPools.label'),
       description: t('layout.menu.others.isolatedPools.description'),
-    });
-  }
-
-  if (statsRouteEnabled) {
-    othersSubMenuItems.push({
-      to: routes.stats.path,
-      iconName: 'stats',
-      label: t('layout.menu.others.stats.label'),
-      description: t('layout.menu.others.stats.description'),
-    });
-  }
-
-  if (yieldPlusRouteEnabled) {
-    othersSubMenuItems.push({
-      to: routes.yieldPlus.path,
-      iconName: 'market',
-      label: t('layout.menu.others.yieldPlus.label'),
-      description: t('layout.menu.others.yieldPlus.description'),
     });
   }
 

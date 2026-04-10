@@ -1,21 +1,9 @@
-type ApiCandle = {
-  s: number;
-  o: string;
-  h: string;
-  l: string;
-  c: string;
-};
+import type { KLineData } from 'klinecharts';
 
-interface CandleData {
-  open: number;
-  close: number;
-  high: number;
-  low: number;
-  timestamp: number;
-}
+import type { ApiCandle } from 'clients/api';
 
 export const formatToCandle = ({ o: open, c: close, h: high, l: low, s: timestamp }: ApiCandle) => {
-  const candle: CandleData = {
+  const candle: KLineData = {
     open: Number(open),
     close: Number(close),
     high: Number(high),

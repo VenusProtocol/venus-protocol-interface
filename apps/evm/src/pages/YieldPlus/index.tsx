@@ -6,6 +6,7 @@ import { ONE_DAY_MS } from 'constants/time';
 import { areAddressesEqual } from 'utilities';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
+import { ClosePositionModal } from './ClosePositionModal';
 import { OperationForm } from './OperationForm';
 import { PairInfo } from './PairInfo';
 import { Positions } from './Positions';
@@ -115,6 +116,8 @@ const YieldPlus: React.FC = () => {
             </Card>
 
             <Positions className="lg:hidden" />
+
+            <ClosePositionModal />
           </div>
         </div>
       )}

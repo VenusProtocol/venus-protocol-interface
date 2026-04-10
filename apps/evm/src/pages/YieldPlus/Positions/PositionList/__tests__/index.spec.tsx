@@ -1,5 +1,7 @@
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { t } from 'libs/translations';
+import { store } from 'pages/YieldPlus/ClosePositionModal/store';
 import { useTokenPair } from 'pages/YieldPlus/useTokenPair';
 import { useSearchParams } from 'react-router';
 import { renderComponent } from 'testUtils/render';
@@ -88,6 +90,12 @@ const setComponentState = ({
     longToken,
     shortToken,
   }));
+
+  (useIsFeatureEnabled as Mock).mockReturnValue(false);
+
+  store.setState({
+    isModalShown: false,
+  });
 };
 
 const renderPositionList = (
@@ -149,11 +157,7 @@ describe('PositionList', () => {
 
     const accordionToggleButton = within(getRowByPositionLabel(selectedPosition))
       .getAllByRole('button')
-      .find(button => !button.textContent?.trim());
-
-    if (!accordionToggleButton) {
-      throw new Error('Expected accordion toggle button to be rendered');
-    }
+      .find(button => !button.textContent?.trim())!;
 
     fireEvent.click(accordionToggleButton);
 
@@ -163,5 +167,26 @@ describe('PositionList', () => {
     fireEvent.click(accordionToggleButton);
 
     await waitFor(() => expect(screen.queryByText(collateralLabel)).not.toBeInTheDocument());
+  });
+
+  it('opens the close position modal without toggling the accordion when clicking the close button', async () => {
+    const closeButtonLabel = t('yieldPlus.positions.closeButtonLabel');
+    const collateralLabel = t('yieldPlus.positions.status.collateralColumn.label');
+
+    renderPositionList();
+
+    fireEvent.click(
+      within(getRowByPositionLabel(selectedPosition)).getByRole('button', {
+        name: closeButtonLabel,
+      }),
+    );
+
+    await expectUpdatedSearchParams({
+      longTokenAddress: selectedPosition.longAsset.vToken.underlyingToken.address,
+      shortTokenAddress: selectedPosition.shortAsset.vToken.underlyingToken.address,
+    });
+
+    await waitFor(() => expect(store.getState().isModalShown).toBe(true));
+    expect(screen.queryByText(collateralLabel)).not.toBeInTheDocument();
   });
 });

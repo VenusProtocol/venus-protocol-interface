@@ -71,7 +71,7 @@ const auditors: AuditorProps[] = [
 ];
 
 export const Safety: React.FC<ISafetyProps> = ({ className }) => {
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <section className={className}>
@@ -96,14 +96,7 @@ export const Safety: React.FC<ISafetyProps> = ({ className }) => {
               )}
               href={SECURITY_DOC_URL}
             >
-              <p className="max-w-38 text-b1r">
-                <Trans
-                  i18nKey="landing.safety.otherAuditors"
-                  components={{
-                    br: <br />,
-                  }}
-                />
-              </p>
+              <p className="max-w-38 text-b1r">{t('landing.safety.otherAuditors')}</p>
             </Link>
           </div>
         </div>

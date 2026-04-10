@@ -1,33 +1,5 @@
 # @venusprotocol/evm
 
-## 4.22.1
-
-### Patch Changes
-
-- a0e18e6: update the PoolLens contract address on Ethereum
-- Updated dependencies [a0e18e6]
-  - @venusprotocol/chains@0.24.1
-
-## 4.22.0
-
-### Minor Changes
-
-- 8300d84: add Safe connector
-
-## 4.21.2
-
-### Patch Changes
-
-- ad8f099: check translations during CI process
-- 0aaeef1: update code quality guidelines
-- 0aaeef1: create skill to review PRs
-
-## 4.21.1
-
-### Patch Changes
-
-- 841de69: add recovery for reconnect
-
 ## 4.21.0
 
 ### Minor Changes

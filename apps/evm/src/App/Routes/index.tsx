@@ -27,20 +27,20 @@ const Voter = safeLazyLoad(() => import('pages/Voter'));
 const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
 const Bridge = safeLazyLoad(() => import('pages/Bridge'));
-const Stats = safeLazyLoad(() => import('pages/Stats'));
 const Skills = safeLazyLoad(() => import('pages/Skills'));
 const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
+const YieldPlus = safeLazyLoad(() => import('pages/YieldPlus'));
 
 const AppRoutes = () => {
   const location = useLocation();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
+  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlus' });
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
-  const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -178,6 +178,17 @@ const AppRoutes = () => {
           }
         />
 
+        {yieldPlusRouteEnabled && (
+          <Route
+            path={Subdirectory.YIELD_PLUS}
+            element={
+              <PageSuspense>
+                <YieldPlus />
+              </PageSuspense>
+            }
+          />
+        )}
+
         {swapRouteEnabled && (
           <Route
             path={Subdirectory.SWAP}
@@ -206,17 +217,6 @@ const AppRoutes = () => {
             element={
               <PageSuspense>
                 <Bridge />
-              </PageSuspense>
-            }
-          />
-        )}
-
-        {statsRouteEnabled && (
-          <Route
-            path={Subdirectory.STATS}
-            element={
-              <PageSuspense>
-                <Stats />
               </PageSuspense>
             }
           />

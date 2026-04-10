@@ -18,6 +18,7 @@ export const useModalStyles = ({
       top: 0;
       z-index: 10;
       background-color: ${hasTitleComponent ? theme.colors['dark-blue'] : 'transparent'};
+      margin-bottom: ${hasTitleComponent ? muiTheme.spacing(6) : 0};
       display: flex;
       align-items: center;
       justify-content: center;

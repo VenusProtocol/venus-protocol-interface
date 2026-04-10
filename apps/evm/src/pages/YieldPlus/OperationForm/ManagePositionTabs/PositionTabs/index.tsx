@@ -2,6 +2,7 @@ import { Tabs } from 'components';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { YieldPlusPosition } from 'types';
+import { ReduceForm } from '../../../ReduceForm';
 import { IncreaseForm } from './IncreaseForm';
 
 export interface PositionTabsProps {
@@ -16,6 +17,11 @@ export const PositionTabs: React.FC<PositionTabsProps> = ({ position }) => {
       title: t('operationForm.managePositionsTabs.positionsTabs.increase'),
       id: 'increase',
       content: <IncreaseForm position={position} />,
+    },
+    {
+      title: t('operationForm.managePositionsTabs.positionsTabs.reduce'),
+      id: 'reduce',
+      content: <ReduceForm position={position} />,
     },
   ];
 

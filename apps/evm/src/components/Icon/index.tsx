@@ -1,5 +1,5 @@
 import { cn } from '@venusprotocol/ui';
-import { uniqueId } from 'lodash-es';
+import _uniqueId from 'lodash/uniqueId';
 import { useRef } from 'react';
 
 import * as icons from './icons';
@@ -13,7 +13,7 @@ export interface IconProps {
 }
 
 export const Icon: React.FC<IconProps> = ({ name, className, ...otherProps }) => {
-  const idRef = useRef<string>(uniqueId());
+  const idRef = useRef<string>(_uniqueId());
 
   // Because "name" could come from fetched data, we use a default icon in case
   // the one requested isn't found

@@ -1,10 +1,15 @@
+import BigNumber from 'bignumber.js';
+
 import { cn } from '@venusprotocol/ui';
+import { useGetTokenListUsdPrice } from 'clients/api';
 import { CellGroup, type CellProps } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
 import {
   areTokensEqual,
+  convertPriceMantissaToDollars,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
 } from 'utilities';
@@ -30,21 +35,40 @@ export const Overview: React.FC<OverviewProps> = ({ vaults, className }) => {
     (vaults ?? []).find(vault => xvs && areTokensEqual(vault.stakedToken, xvs)) ??
     vaultWithHighestApr;
 
-  const vaultCount = (vaults ?? []).length;
-  const totalStakedCents = (vaults ?? []).reduce((acc, vault) => acc + vault.totalStakedCents, 0);
+  const totalVault = (vaults ?? []).length;
+
+  const { data: stakedTokenPriceData, isLoading } = useGetTokenListUsdPrice({
+    tokens: (vaults ?? []).map(vault => vault.stakedToken),
+  });
+
+  const totalStakedUsdCents = stakedTokenPriceData?.reduce(
+    (accu, curr, index) =>
+      accu.plus(
+        convertPriceMantissaToDollars({
+          priceMantissa: vaults[index]?.totalStakedMantissa?.times(curr?.tokenPriceUsd ?? 0),
+          decimals: vaults[index]?.stakedToken?.decimals,
+        }).shiftedBy(2),
+      ),
+    new BigNumber(0),
+  );
 
   const overviewCells: CellProps[] = [
     {
       label: t('vault.overview.tvl'),
-      value: formatCentsToReadableValue({ value: totalStakedCents }),
+      value: !isLoading
+        ? formatCentsToReadableValue({ value: totalStakedUsdCents })
+        : PLACEHOLDER_KEY,
     },
     {
       label: t('vault.overview.highestApr'),
-      value: formatPercentageToReadableValue(vaultWithHighestApr?.stakingAprPercentage),
+      value:
+        vaultWithHighestApr && !isLoading
+          ? formatPercentageToReadableValue(vaultWithHighestApr.stakingAprPercentage)
+          : PLACEHOLDER_KEY,
     },
     {
-      label: t('vault.overview.vaultCount'),
-      value: vaultCount,
+      label: t('vault.overview.totalVault'),
+      value: totalVault,
     },
   ];
 

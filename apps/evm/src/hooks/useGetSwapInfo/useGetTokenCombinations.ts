@@ -1,5 +1,5 @@
 import { Token as PSToken } from '@pancakeswap/sdk';
-import { flatMap } from 'lodash-es';
+import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 
 import { useGetSwapTokens, useGetToken } from 'libs/tokens';
