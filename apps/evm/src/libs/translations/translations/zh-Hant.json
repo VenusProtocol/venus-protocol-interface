@@ -1060,6 +1060,13 @@
       "supplyCapReached": "該池供應上限 {{assetSupplyCap}} 已達。除非有人提取或提高供應上限，否則無法再向該市場供應。",
       "tooRisky": "該交易會導致賬戶被清算"
     },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "當前槓桿下的最大倉位：{{ value }}",
+      "submitButtonLabel": "確認",
+      "title": "槓桿倍數",
+      "warning": "槓桿會影響你的資金利用率，且在你完全平倉前無法變更。"
+    },
     "receiveNativeToken": {
       "label": "接收 {{tokenSymbol}}",
       "tooltip": "將借入的 {{wrappedNativeTokenSymbol}} 解包為 {{nativeTokenSymbol}}"
@@ -2207,7 +2214,27 @@
       "label": "多頭"
     },
     "operationForm": {
-      "invalidLiquidationPrice": "不適用"
+      "invalidLiquidationPrice": "不適用",
+      "openForm": {
+        "dsaFieldLabel": "抵押",
+        "dsaFieldPlaceholder": "輸入以繼續",
+        "entryPrice": "開倉價",
+        "liquidationPrice": "清算價",
+        "longFieldLabel": "多頭",
+        "netApy": "淨 APY",
+        "pnl": "已實現盈虧",
+        "shortFieldLabel": "空頭"
+      },
+      "walletBalance": "錢包餘額",
+      "warning": {
+        "cannotBorrowShort": "此倉位的空頭代幣借款已禁用",
+        "cannotRepayShort": "此倉位的空頭代幣還款已禁用",
+        "cannotSupplyDsa": "此倉位的抵押品代幣供應已禁用",
+        "cannotSupplyLong": "此倉位的多頭代幣供應已禁用",
+        "cannotWithdrawDsa": "此倉位的抵押品代幣提取已禁用",
+        "cannotWithdrawLong": "此倉位的多頭代幣提取已禁用",
+        "notEnoughLeverage": "此代幣對不支援至少 {{ minimumLeverageFactor }} 的槓桿倍數，而這是開立 Yield+ 倉位所需的最低值"
+      }
     },
     "positions": {
       "placeholder": {

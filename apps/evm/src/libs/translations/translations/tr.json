@@ -1060,6 +1060,13 @@
       "supplyCapReached": "Bu havuz için {{assetSupplyCap}} tedarik limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
       "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur"
     },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Mevcut kaldıraçta maksimum pozisyon: {{ value }}",
+      "submitButtonLabel": "Onayla",
+      "title": "Kaldıraç oranı",
+      "warning": "Kaldıraç, sermaye kullanımınızı etkiler ve pozisyondan tamamen çıkana kadar değiştirilemez."
+    },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}} al",
       "tooltip": "Borç alınan {{wrappedNativeTokenSymbol}}'i {{nativeTokenSymbol}}'e dönüştür"
@@ -2208,7 +2215,27 @@
       "label": "Long"
     },
     "operationForm": {
-      "invalidLiquidationPrice": "Yok"
+      "invalidLiquidationPrice": "Yok",
+      "openForm": {
+        "dsaFieldLabel": "Teminat",
+        "dsaFieldPlaceholder": "Devam etmek için girin",
+        "entryPrice": "Giriş fiyatı",
+        "liquidationPrice": "Likidasyon fiyatı",
+        "longFieldLabel": "Long",
+        "netApy": "Net APY",
+        "pnl": "Gerçekleşen K/Z",
+        "shortFieldLabel": "Short"
+      },
+      "walletBalance": "Cüzdan bakiyesi",
+      "warning": {
+        "cannotBorrowShort": "Bu pozisyondaki short token için borç alma devre dışı bırakıldı",
+        "cannotRepayShort": "Bu pozisyondaki short token için geri ödeme devre dışı bırakıldı",
+        "cannotSupplyDsa": "Bu pozisyondaki teminat tokeni için sağlama devre dışı bırakıldı",
+        "cannotSupplyLong": "Bu pozisyondaki long token için sağlama devre dışı bırakıldı",
+        "cannotWithdrawDsa": "Bu pozisyondaki teminat tokeni için çekim devre dışı bırakıldı",
+        "cannotWithdrawLong": "Bu pozisyondaki long token için çekim devre dışı bırakıldı",
+        "notEnoughLeverage": "Bu token çifti, Yield+ pozisyonu açmak için gereken minimum kaldıraç oranı olan en az {{ minimumLeverageFactor }} değerine izin vermiyor"
+      }
     },
     "positions": {
       "placeholder": {

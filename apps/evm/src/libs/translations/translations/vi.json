@@ -1060,6 +1060,13 @@
       "supplyCapReached": "Hạn mức cung cấp {{assetSupplyCap}} của pool này đã đạt. Bạn không thể cung cấp vào thị trường này cho đến khi có rút hoặc hạn mức cung cấp được tăng.",
       "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý"
     },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Vị thế tối đa ở mức đòn bẩy hiện tại: {{ value }}",
+      "submitButtonLabel": "Xác nhận",
+      "title": "Hệ số đòn bẩy",
+      "warning": "Đòn bẩy ảnh hưởng đến mức sử dụng vốn của bạn và không thể thay đổi cho đến khi bạn thoát hoàn toàn khỏi vị thế."
+    },
     "receiveNativeToken": {
       "label": "Nhận {{tokenSymbol}}",
       "tooltip": "Unwrap {{wrappedNativeTokenSymbol}} đã vay sang {{nativeTokenSymbol}}"
@@ -2207,7 +2214,27 @@
       "label": "Long"
     },
     "operationForm": {
-      "invalidLiquidationPrice": "Không áp dụng"
+      "invalidLiquidationPrice": "Không áp dụng",
+      "openForm": {
+        "dsaFieldLabel": "Tài sản thế chấp",
+        "dsaFieldPlaceholder": "Nhập để tiếp tục",
+        "entryPrice": "Giá vào lệnh",
+        "liquidationPrice": "Giá thanh lý",
+        "longFieldLabel": "Long",
+        "netApy": "APY ròng",
+        "pnl": "Lãi/lỗ đã thực hiện",
+        "shortFieldLabel": "Short"
+      },
+      "walletBalance": "Số dư ví",
+      "warning": {
+        "cannotBorrowShort": "Việc vay token Short của vị thế này đã bị vô hiệu hóa",
+        "cannotRepayShort": "Việc hoàn trả token Short của vị thế này đã bị vô hiệu hóa",
+        "cannotSupplyDsa": "Việc cung cấp token thế chấp của vị thế này đã bị vô hiệu hóa",
+        "cannotSupplyLong": "Việc cung cấp token Long của vị thế này đã bị vô hiệu hóa",
+        "cannotWithdrawDsa": "Việc rút token thế chấp của vị thế này đã bị vô hiệu hóa",
+        "cannotWithdrawLong": "Việc rút token Long của vị thế này đã bị vô hiệu hóa",
+        "notEnoughLeverage": "Cặp token này không cho phép hệ số đòn bẩy ít nhất là {{ minimumLeverageFactor }}, đây là mức tối thiểu cần thiết để mở một vị thế Yield+"
+      }
     },
     "positions": {
       "placeholder": {

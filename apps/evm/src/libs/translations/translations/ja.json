@@ -1060,6 +1060,13 @@
       "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
       "tooRisky": "この取引はアカウントが清算されます"
     },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "現在のレバレッジでの最大ポジション: {{ value }}",
+      "submitButtonLabel": "確認",
+      "title": "レバレッジ倍率",
+      "warning": "レバレッジは資本利用率に影響し、ポジションを完全に解消するまで変更できません。"
+    },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}}を受け取る",
       "tooltip": "借入した{{wrappedNativeTokenSymbol}}を{{nativeTokenSymbol}}にアンラップ"
@@ -2207,7 +2214,27 @@
       "label": "ロング"
     },
     "operationForm": {
-      "invalidLiquidationPrice": "該当なし"
+      "invalidLiquidationPrice": "該当なし",
+      "openForm": {
+        "dsaFieldLabel": "担保",
+        "dsaFieldPlaceholder": "入力して続行",
+        "entryPrice": "エントリー価格",
+        "liquidationPrice": "清算価格",
+        "longFieldLabel": "ロング",
+        "netApy": "実質APY",
+        "pnl": "実現損益",
+        "shortFieldLabel": "ショート"
+      },
+      "walletBalance": "ウォレット残高",
+      "warning": {
+        "cannotBorrowShort": "このポジションのショートトークンの借入は無効化されています",
+        "cannotRepayShort": "このポジションのショートトークンの返済は無効化されています",
+        "cannotSupplyDsa": "このポジションの担保トークンの供給は無効化されています",
+        "cannotSupplyLong": "このポジションのロングトークンの供給は無効化されています",
+        "cannotWithdrawDsa": "このポジションの担保トークンの引き出しは無効化されています",
+        "cannotWithdrawLong": "このポジションのロングトークンの引き出しは無効化されています",
+        "notEnoughLeverage": "このトークンペアでは、Yield+ポジションを開くために必要な最低倍率である {{ minimumLeverageFactor }} 以上のレバレッジ倍率を利用できません"
+      }
     },
     "positions": {
       "placeholder": {

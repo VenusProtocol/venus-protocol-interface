@@ -1060,6 +1060,13 @@
       "supplyCapReached": "ขีดจำกัดการฝากของ {{assetSupplyCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถฝากเข้าสู่ตลาดนี้ได้จนกว่าจะมีการถอนหรือเพิ่มขีดจำกัดการฝาก",
       "tooRisky": "ธุรกรรมนี้จะทำให้บัญชีของคุณถูกชำระบัญชี"
     },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "สถานะสูงสุดที่เลเวอเรจปัจจุบัน: {{ value }}",
+      "submitButtonLabel": "ยืนยัน",
+      "title": "ตัวคูณเลเวอเรจ",
+      "warning": "เลเวอเรจส่งผลต่อการใช้เงินทุนของคุณ และจะไม่สามารถเปลี่ยนได้จนกว่าคุณจะปิดสถานะทั้งหมด"
+    },
     "receiveNativeToken": {
       "label": "รับ {{tokenSymbol}}",
       "tooltip": "แกะห่อ {{wrappedNativeTokenSymbol}} ที่ยืมมาเป็น {{nativeTokenSymbol}}"
@@ -2207,7 +2214,27 @@
       "label": "Long"
     },
     "operationForm": {
-      "invalidLiquidationPrice": "ไม่มี"
+      "invalidLiquidationPrice": "ไม่มี",
+      "openForm": {
+        "dsaFieldLabel": "หลักประกัน",
+        "dsaFieldPlaceholder": "ป้อนข้อมูลเพื่อดำเนินการต่อ",
+        "entryPrice": "ราคาเปิด",
+        "liquidationPrice": "ราคาชำระบัญชี",
+        "longFieldLabel": "Long",
+        "netApy": "APY สุทธิ",
+        "pnl": "กำไร/ขาดทุนที่รับรู้",
+        "shortFieldLabel": "Short"
+      },
+      "walletBalance": "ยอดคงเหลือในกระเป๋า",
+      "warning": {
+        "cannotBorrowShort": "การยืมโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotRepayShort": "การชำระคืนโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotSupplyDsa": "การฝากโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotSupplyLong": "การฝากโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotWithdrawDsa": "การถอนโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotWithdrawLong": "การถอนโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
+        "notEnoughLeverage": "คู่โทเค็นนี้ไม่รองรับตัวคูณเลเวอเรจอย่างน้อย {{ minimumLeverageFactor }} ซึ่งเป็นค่าขั้นต่ำที่จำเป็นสำหรับการเปิดโพสิชัน Yield+"
+      }
     },
     "positions": {
       "placeholder": {
