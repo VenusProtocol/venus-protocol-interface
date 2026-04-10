@@ -3,6 +3,7 @@ import type { ChainId, Token, VToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
 import type { IconName } from 'components';
+import { MARKET_TX_TYPES, YIELD_PLUS_TX_TYPES } from 'constants/marketTxTypes';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -702,13 +703,38 @@ export interface TxFormError<C extends string = never> {
   message?: string;
 }
 
-export enum TxType {
-  Mint = 'mint',
-  Borrow = 'borrow',
-  Redeem = 'redeem',
-  Repay = 'repay',
-  EnterMarket = 'enter_market',
-  ExitMarket = 'exit_market',
+export type YieldPlusTxType = (typeof YIELD_PLUS_TX_TYPES)[number];
+
+export type MarketTxType = (typeof MARKET_TX_TYPES)[number];
+
+export type TxType = YieldPlusTxType | MarketTxType;
+
+export interface TxAmount {
+  token: Token;
+  amountTokens: BigNumber;
+  amountCents: number;
 }
 
+export interface BaseTx {
+  hash: string;
+  blockTimestamp: Date;
+  blockNumber: string;
+  accountAddress: Address;
+  contractAddress: Address;
+  chainId: ChainId;
+  amounts?: TxAmount[];
+}
+
+export interface MarketTx extends BaseTx {
+  txType: MarketTxType;
+  poolName: string;
+  vToken: VToken;
+}
+
+export interface YieldPlusTx extends BaseTx {
+  txType: YieldPlusTxType;
+  cycleId: string;
+}
+
+export type Tx = MarketTx | YieldPlusTx;
 export type ApiOhlcInterval = '1m' | '5m' | '15m' | '30m' | '1h' | '4h' | '1d';

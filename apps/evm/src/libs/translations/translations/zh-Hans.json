@@ -88,13 +88,7 @@
           "all": "所有市场"
         },
         "txType": {
-          "all": "所有交易",
-          "borrow": "借款",
-          "enterMarket": "启用可抵押",
-          "exitMarket": "禁用可抵押",
-          "mint": "存款",
-          "redeem": "取款",
-          "repay": "偿还"
+          "all": "所有交易"
         }
       },
       "today": "今天",
@@ -107,10 +101,18 @@
         "enterMarket": "启用可抵押",
         "exitMarket": "禁用可抵押",
         "mint": "存款",
+        "positionClosedWithLoss": "已停用（亏损） • Yield+",
+        "positionClosedWithProfit": "已停用（盈利） • Yield+",
+        "positionIncreased": "增加 • Yield+",
+        "positionOpened": "开仓 • Yield+",
+        "positionReducedWithLoss": "减少（亏损） • Yield+",
+        "positionReducedWithProfit": "减少（盈利） • Yield+",
+        "principalSupplied": "存款 • Yield+",
+        "principalWithdrawn": "取款 • Yield+",
+        "realizedPnl": "已实现盈亏 • Yield+",
         "redeem": "取款",
         "repay": "偿还"
       },
-      "view": "查看",
       "yesterday": "昨天"
     },
     "vaults": {

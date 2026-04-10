@@ -88,13 +88,7 @@
           "all": "ตลาดทั้งหมด"
         },
         "txType": {
-          "all": "ธุรกรรมทั้งหมด",
-          "borrow": "ยืม",
-          "enterMarket": "เปิดใช้หลักประกัน",
-          "exitMarket": "ปิดใช้หลักประกัน",
-          "mint": "ฝาก",
-          "redeem": "ถอน",
-          "repay": "การชำระคืน"
+          "all": "ธุรกรรมทั้งหมด"
         }
       },
       "today": "วันนี้",
@@ -107,10 +101,18 @@
         "enterMarket": "เปิดใช้หลักประกัน",
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
+        "positionClosedWithLoss": "ปิดการใช้งาน (ขาดทุน) • Yield+",
+        "positionClosedWithProfit": "ปิดการใช้งาน (กำไร) • Yield+",
+        "positionIncreased": "เพิ่ม • Yield+",
+        "positionOpened": "เปิด • Yield+",
+        "positionReducedWithLoss": "ลดลง (ขาดทุน) • Yield+",
+        "positionReducedWithProfit": "ลดลง (กำไร) • Yield+",
+        "principalSupplied": "ฝาก • Yield+",
+        "principalWithdrawn": "ถอน • Yield+",
+        "realizedPnl": "กำไร/ขาดทุนที่รับรู้ • Yield+",
         "redeem": "ถอน",
         "repay": "การชำระคืน"
       },
-      "view": "ดู",
       "yesterday": "เมื่อวาน"
     },
     "vaults": {

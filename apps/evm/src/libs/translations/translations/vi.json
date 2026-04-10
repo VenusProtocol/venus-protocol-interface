@@ -88,13 +88,7 @@
           "all": "Tất cả thị trường"
         },
         "txType": {
-          "all": "Tất cả giao dịch",
-          "borrow": "Vay",
-          "enterMarket": "Bật tài sản thế chấp",
-          "exitMarket": "Tắt tài sản thế chấp",
-          "mint": "Đúc",
-          "redeem": "Rút",
-          "repay": "Hoàn trả"
+          "all": "Tất cả giao dịch"
         }
       },
       "today": "Hôm nay",
@@ -107,10 +101,18 @@
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",
         "mint": "Đúc",
+        "positionClosedWithLoss": "Đã hủy kích hoạt (lỗ) • Yield+",
+        "positionClosedWithProfit": "Đã hủy kích hoạt (lãi) • Yield+",
+        "positionIncreased": "Tăng • Yield+",
+        "positionOpened": "Mở • Yield+",
+        "positionReducedWithLoss": "Đã giảm (lỗ) • Yield+",
+        "positionReducedWithProfit": "Đã giảm (lãi) • Yield+",
+        "principalSupplied": "Cung cấp • Yield+",
+        "principalWithdrawn": "Rút • Yield+",
+        "realizedPnl": "Lãi/lỗ đã thực hiện • Yield+",
         "redeem": "Rút",
         "repay": "Hoàn trả"
       },
-      "view": "Xem",
       "yesterday": "Hôm qua"
     },
     "vaults": {

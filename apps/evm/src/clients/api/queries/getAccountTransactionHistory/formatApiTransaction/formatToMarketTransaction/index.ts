@@ -1,29 +1,23 @@
-import { TxType, type VToken } from 'types';
+import type { MarketTx, MarketTxType } from 'types';
 import {
   convertDollarsToCents,
   convertMantissaToTokens,
   convertPriceMantissaToDollars,
 } from 'utilities';
-import type { Address } from 'viem';
-import type { AmountTransaction, ApiAccountHistoricalTransaction } from './types';
+import type { ApiAccountHistoricalTransaction, VTokenAssetMapping } from '../../types';
 
-export const formatApiTransaction = ({
-  contractToTokenMap,
+export const formatToMarketTransaction = ({
+  vTokenAssetMapping,
   apiTransaction,
+  txType,
 }: {
-  contractToTokenMap: Record<
-    Address,
-    {
-      vToken: VToken;
-      poolName: string;
-    }
-  >;
+  vTokenAssetMapping: VTokenAssetMapping;
   apiTransaction: ApiAccountHistoricalTransaction;
-}): AmountTransaction | undefined => {
+  txType: MarketTxType;
+}) => {
   const {
-    txType,
     txHash: hash,
-    txTimestamp,
+    txTimestamp: blockTimestamp,
     blockNumber,
     accountAddress,
     contractAddress,
@@ -32,15 +26,9 @@ export const formatApiTransaction = ({
     underlyingTokenPriceMantissa,
   } = apiTransaction;
 
-  const contractToken = contractToTokenMap[contractAddress.toLowerCase() as Address];
-  if (!contractToken) return undefined;
-
-  const { poolName, vToken } = contractToken;
-
-  const vTokenSymbol = vToken.symbol;
+  const { poolName, vToken } = vTokenAssetMapping[contractAddress];
   const token = vToken.underlyingToken;
-
-  const canCalculateUsdAmount = txType !== TxType.EnterMarket && txType !== TxType.ExitMarket;
+  const canCalculateUsdAmount = txType !== 'enterMarket' && txType !== 'exitMarket';
 
   const amountTokens = amountUnderlyingMantissa
     ? convertMantissaToTokens({
@@ -56,22 +44,31 @@ export const formatApiTransaction = ({
           decimals: token.decimals,
         })
       : undefined;
-  const tokenPriceCents = tokenPriceDollars ? convertDollarsToCents(tokenPriceDollars) : undefined;
-  const amountCents =
-    amountTokens && tokenPriceCents ? amountTokens.multipliedBy(tokenPriceCents) : undefined;
 
-  return {
+  const tokenPriceCents = tokenPriceDollars ? convertDollarsToCents(tokenPriceDollars) : undefined;
+  const amounts =
+    amountTokens && tokenPriceCents
+      ? [
+          {
+            token,
+            amountTokens,
+            amountCents: amountTokens.multipliedBy(tokenPriceCents).toNumber(),
+          },
+        ]
+      : undefined;
+
+  const transaction: MarketTx = {
     txType,
     hash,
-    blockTimestamp: txTimestamp,
+    blockTimestamp,
     blockNumber,
     accountAddress,
     contractAddress,
     chainId,
     poolName,
-    vTokenSymbol,
-    amountTokens,
-    amountCents,
-    token,
+    vToken,
+    amounts,
   };
+
+  return transaction;
 };

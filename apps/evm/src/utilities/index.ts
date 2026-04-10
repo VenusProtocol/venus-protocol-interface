@@ -64,3 +64,4 @@ export * from './formatToCandle';
 export * from './formatToYieldPlusPosition';
 export * from './invalidatePendleVaultCaches';
 export * from './isPendleVault';
+export * from './getTransactionName';

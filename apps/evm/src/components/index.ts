@@ -68,3 +68,4 @@ export * from './Wrapper';
 export * from './LabeledSlider';
 export * from './AvailableBalance';
 export * from './KLineChart';
+export * from './TransactionsList';
