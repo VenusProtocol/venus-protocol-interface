@@ -2,11 +2,9 @@ import type { QueryObserverOptions } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import {
-  type GetHypotheticalPrimeApysOutput,
-  useGetHypotheticalPrimeApys,
-  useGetPrimeDistributionForMarket,
-} from 'clients/api';
+import type { GetHypotheticalPrimeApysOutput } from 'clients/api/queries/getHypotheticalPrimeApys';
+import { useGetHypotheticalPrimeApys } from 'clients/api/queries/getHypotheticalPrimeApys/useGetHypotheticalPrimeApys';
+import { useGetPrimeDistributionForMarket } from 'clients/api/queries/getPrimeDistributionForMarket/useGetPrimeDistributionForMarket';
 import { NULL_ADDRESS } from 'constants/address';
 import type FunctionKey from 'constants/functionKey';
 import { DAYS_PER_YEAR } from 'constants/time';

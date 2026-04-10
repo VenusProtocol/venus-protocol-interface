@@ -8,20 +8,26 @@ import fakeAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
 import {
-  getBalanceOf,
   getVaiVaultUserInfo,
   getVenusVaiVaultDailyRate,
-  getXvsVaultPendingWithdrawalsBalance,
   getXvsVaultPoolCount,
-  getXvsVaultPoolInfo,
   getXvsVaultTotalAllocationPoints,
-  getXvsVaultUserInfo,
-  getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api';
 
 import { xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
+import { getBalanceOf } from 'clients/api/queries/getBalanceOf';
+import { getXvsVaultPendingWithdrawalsBalance } from 'clients/api/queries/getXvsVaultPendingWithdrawalsBalance';
+import { getXvsVaultPoolInfo } from 'clients/api/queries/getXvsVaultPoolInfo';
+import { getXvsVaultUserInfo } from 'clients/api/queries/getXvsVaultUserInfo';
+import { getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade } from 'clients/api/queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 import { type UseGetVaultsOutput, useGetVaults } from '..';
+
+vi.mock('clients/api/queries/getBalanceOf');
+vi.mock('clients/api/queries/getXvsVaultPendingWithdrawalsBalance');
+vi.mock('clients/api/queries/getXvsVaultPoolInfo');
+vi.mock('clients/api/queries/getXvsVaultUserInfo');
+vi.mock('clients/api/queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade');
 
 describe('useGetVaults', () => {
   beforeEach(() => {
