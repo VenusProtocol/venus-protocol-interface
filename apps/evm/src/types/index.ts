@@ -661,6 +661,28 @@ export interface ImportableAaveSupplyPosition extends ImportableSupplyPositionBa
 
 export type ImportableSupplyPosition = ImportableAaveSupplyPosition;
 
+export interface YieldPlusPosition {
+  chainId: ChainId;
+  positionAccountAddress: Address;
+  longAsset: Asset;
+  longBalanceTokens: BigNumber;
+  longBalanceCents: number;
+  shortAsset: Asset;
+  shortBalanceTokens: BigNumber;
+  shortBalanceCents: number;
+  dsaAsset: Asset;
+  dsaBalanceTokens: BigNumber;
+  dsaBalanceCents: number;
+  netValueCents: number;
+  netApyPercentage: number;
+  unrealizedPnlCents: number;
+  unrealizedPnlPercentage: number;
+  liquidationPriceTokens: BigNumber;
+  entryPriceTokens: BigNumber;
+  leverageFactor: number;
+  pool: Pool;
+}
+
 export type CommonTxFormErrorCode =
   | 'SUPPLY_CAP_ALREADY_REACHED'
   | 'BORROW_CAP_ALREADY_REACHED'

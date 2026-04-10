@@ -2188,5 +2188,10 @@
       "submitButton": "引き出す"
     },
     "withdrawTabTitle": "引き出す"
+  },
+  "yieldPlus": {
+    "operationForm": {
+      "invalidLiquidationPrice": "該当なし"
+    }
   }
 }

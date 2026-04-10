@@ -2189,5 +2189,10 @@
       "submitButton": "Withdraw"
     },
     "withdrawTabTitle": "Withdraw"
+  },
+  "yieldPlus": {
+    "operationForm": {
+      "invalidLiquidationPrice": "N/A"
+    }
   }
 }

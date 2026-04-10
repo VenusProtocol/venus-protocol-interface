@@ -2188,5 +2188,10 @@
       "submitButton": "提取"
     },
     "withdrawTabTitle": "提取"
+  },
+  "yieldPlus": {
+    "operationForm": {
+      "invalidLiquidationPrice": "不適用"
+    }
   }
 }

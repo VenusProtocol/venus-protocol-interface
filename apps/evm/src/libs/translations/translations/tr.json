@@ -2189,5 +2189,10 @@
       "submitButton": "Çek"
     },
     "withdrawTabTitle": "Çek"
+  },
+  "yieldPlus": {
+    "operationForm": {
+      "invalidLiquidationPrice": "Yok"
+    }
   }
 }
