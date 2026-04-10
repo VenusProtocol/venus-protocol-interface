@@ -67,7 +67,7 @@ exports[`useCommonValidation > returns the right error based on passed arguments
 {
   "current": {
     "code": "NO_SWAP_QUOTE_FOUND",
-    "message": "No swap found.",
+    "message": "No swap found. Please update the form.",
   },
 }
 `;

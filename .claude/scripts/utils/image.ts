@@ -9,7 +9,7 @@ export function downscaleIfNeeded(filePath: string, maxW: number): void {
       stdio: ['ignore', 'pipe', 'ignore'],
     });
     const match = info.match(/pixelWidth:\s*(\d+)/);
-    const currentWidth = match ? Number.parseInt(match[1] ?? '0', 10) : 0;
+    const currentWidth = match ? parseInt(match[1] ?? '0', 10) : 0;
     if (currentWidth > maxW) {
       execFileSync('sips', ['--resampleWidth', String(maxW), filePath, '--out', filePath], {
         stdio: 'pipe',
