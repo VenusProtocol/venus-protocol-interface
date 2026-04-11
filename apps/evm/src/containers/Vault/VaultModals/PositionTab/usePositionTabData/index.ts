@@ -76,7 +76,7 @@ export const usePositionTabData = ({
 
   // --- Balances ---
 
-  const fromTokenPriceCents = isStake ? vault.rewardTokenPriceCents : vault.stakedTokenPriceCents;
+  const fromTokenPriceCents = isStake ? vault.stakedTokenPriceCents : vault.rewardTokenPriceCents;
 
   const { data: balanceData, isLoading: isBalanceLoading } = useGetBalanceOf(
     {

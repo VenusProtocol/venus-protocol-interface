@@ -49,7 +49,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const liquidityCents = 'liquidityCents' in vault ? vault.liquidityCents : undefined;
   const liquidityTokens = liquidityCents
     ? liquidityCents?.div(
-        isPendleVault(vault) ? vault.stakedTokenPriceCents : vault.rewardTokenPriceCents,
+        isPendleVault(vault) ? vault.rewardTokenPriceCents : vault.stakedTokenPriceCents,
       )
     : undefined;
 
