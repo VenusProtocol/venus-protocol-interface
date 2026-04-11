@@ -42,12 +42,12 @@ export const formatToPendleVault = ({
   }
 
   const stakedToken = findTokenByAddress({
-    address: vaultData.underlyingAssetAddress,
+    address: vaultData.protocolData?.accountingAsset?.address ?? '',
     tokens,
   });
 
   const rewardToken = findTokenByAddress({
-    address: vaultData.protocolData?.accountingAsset?.address ?? '',
+    address: vaultData.underlyingAssetAddress,
     tokens,
   });
 
@@ -72,18 +72,18 @@ export const formatToPendleVault = ({
     stakingAprPercentage: new BigNumber(vaultData.fixedApyDecimal).shiftedBy(2).toNumber(),
     userStakedMantissa: convertTokensToMantissa({
       value: asset.userSupplyBalanceTokens,
-      token: stakedToken,
+      token: rewardToken,
     }),
     totalStakedMantissa: convertTokensToMantissa({
       value: asset.supplyBalanceTokens,
-      token: stakedToken,
+      token: rewardToken,
     }),
     totalStakedCents: asset.supplyBalanceCents.toNumber(),
     userStakedCents: asset.userSupplyBalanceCents.toNumber(),
-    stakedTokenPriceCents: new BigNumber(vaultData.protocolData.ptTokenPriceUsd).shiftedBy(2),
-    rewardTokenPriceCents: new BigNumber(
+    stakedTokenPriceCents: new BigNumber(
       vaultData.protocolData?.accountingAsset?.priceUsd,
     ).shiftedBy(2),
+    rewardTokenPriceCents: new BigNumber(vaultData.protocolData.ptTokenPriceUsd).shiftedBy(2),
     maturityDate,
     vaultDeploymentDate: new Date(vaultData.protocolData?.startDate),
     liquidityCents: new BigNumber(vaultData.protocolData.liquidityCents),

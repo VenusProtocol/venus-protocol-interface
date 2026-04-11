@@ -60,7 +60,7 @@ export const usePositionTabData = ({
 
   // --- Form state ---
   const initialFormValues: FormValues = useMemo(
-    () => ({ tokenAmount: '', fromToken: isStake ? vault.rewardToken : vault.stakedToken }),
+    () => ({ tokenAmount: '', fromToken: isStake ? vault.stakedToken : vault.rewardToken }),
     [isStake, vault.rewardToken, vault.stakedToken],
   );
 
@@ -72,7 +72,7 @@ export const usePositionTabData = ({
     setFormValues(initialFormValues);
   }, [accountAddress, initialFormValues]);
 
-  const toToken = isStake ? vault.stakedToken : vault.rewardToken;
+  const toToken = isStake ? vault.rewardToken : vault.stakedToken;
 
   // --- Balances ---
 
@@ -245,7 +245,7 @@ export const usePositionTabData = ({
             ? getVTokenBalanceData.balanceMantissa
             : convertTokensToMantissa({
                 value: new BigNumber(formValues.tokenAmount),
-                token: vault.stakedToken,
+                token: vault.rewardToken,
               }),
       });
     } else if (getSwapQuoteData) {

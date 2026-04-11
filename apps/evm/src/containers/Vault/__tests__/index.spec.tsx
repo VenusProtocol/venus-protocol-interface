@@ -6,7 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { en } from 'libs/translations';
 
-import { VaultCardLegacy as Vault, type VaultProps } from '../VaultCard/Legacy';
+import { LegacyVaultModal as Vault, type VaultProps } from '../VaultModals/LegacyModal';
 
 const fakeVault = {
   ...fakeVaults[0],
@@ -15,11 +15,11 @@ const fakeVault = {
 
 describe('pages/Vault/Vault', () => {
   it('renders without crashing', async () => {
-    renderComponent(<Vault vault={fakeVault} />);
+    renderComponent(<Vault vault={fakeVault} isOpen handleClose={vi.fn()} />);
   });
 
   it('renders vault correctly', async () => {
-    const { container } = renderComponent(<Vault vault={fakeVault} />);
+    const { container } = renderComponent(<Vault vault={fakeVault} isOpen handleClose={vi.fn()} />);
 
     expect(container.textContent).toMatchSnapshot();
   });
@@ -31,9 +31,12 @@ describe('pages/Vault/Vault', () => {
       isPaused: true,
     };
 
-    const { queryByText } = renderComponent(<Vault vault={customFakeVault} />, {
-      accountAddress: fakeAddress,
-    });
+    const { queryByText } = renderComponent(
+      <Vault vault={customFakeVault} isOpen handleClose={vi.fn()} />,
+      {
+        accountAddress: fakeAddress,
+      },
+    );
 
     // Check warning is displayed
     expect(queryByText(en.vault.card.pausedWarning)).toBeInTheDocument();

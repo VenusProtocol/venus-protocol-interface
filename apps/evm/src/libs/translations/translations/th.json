@@ -1892,7 +1892,6 @@
         "riskDisclosureText": "Pendle เป็นโปรโตคอลการซื้อขายผลตอบแทนแบบกระจายศูนย์ที่ช่วยให้ได้รับผลตอบแทนอัตราคงที่ผ่าน Principal Tokens (PTs) Venus Fixed Rate Vault จะส่งเงินฝากผ่านโครงสร้างพื้นฐานของ Pendle เพื่อซื้อ PT ซึ่งจะถูกนำไปเป็นหลักประกันใน Venus Core<br />แม้ว่า Pendle จะไม่สามารถเข้าถึงหรือย้ายเงินฝากของคุณได้ แต่การใช้ vault นี้ทำให้คุณเผชิญกับความเสี่ยงจากทั้งสองโปรโตคอล ซึ่งรวมถึงช่องโหว่ของสัญญาอัจฉริยะ ความล้มเหลวของ oracle และความเป็นไปได้ที่โปรโตคอลใดโปรโตคอลหนึ่งจะถูกโจมตีหรือหยุดชั่วคราว การถอนก่อนกำหนดจะดำเนินการตามราคาตลาดและอาจได้รับคืนน้อยกว่าจำนวนที่ฝาก APY คงที่จะถูกล็อคไว้เมื่อฝากและไม่สามารถป้องกันความล้มเหลวในระดับโปรโตคอล",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "ฝาก",
           "users": "ผู้ใช้งาน",
           "venusCore": "Venus Core"
         },
@@ -1911,15 +1910,7 @@
       "withdraw": "ถอน"
     },
     "overview": {
-      "bannerCoinIllustration": "ภาพประกอบเหรียญ {{token}}",
-      "bannerTitle": "สเตค <strong>{{tokenDashMarket}}</strong> เพื่อรับ APR <strong>{{apyPercentage}}</strong>",
-      "bannerVaultIllustration": "ภาพประกอบคลัง",
-      "description": "ผลตอบแทนที่เข้าใจง่าย กำไรที่แท้จริง — ฝากเงินในหลายคลังและดูสินทรัพย์คริปโตของคุณเติบโต<strong>ตามเงื่อนไขของคุณ</strong>",
-      "highestApr": "APR สูงสุด",
-      "title": "คลัง",
-      "tokenTotalDeposited": "{{token}} ยอดฝากรวม",
-      "tvl": "TVL",
-      "vaultCount": "คลัง"
+      "bannerVaultIllustration": "ภาพประกอบคลัง"
     },
     "transactionForm": {
       "lockingPeriod": {

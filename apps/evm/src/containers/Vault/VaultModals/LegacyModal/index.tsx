@@ -2,8 +2,14 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 
 import { useGetPrimeStatus } from 'clients/api';
-import { Card, CellGroup, LabeledInlineContent } from 'components';
-import { Button, NoticeWarning, TokenIcon } from 'components';
+import {
+  Button,
+  CellGroup,
+  LabeledInlineContent,
+  Modal,
+  NoticeWarning,
+  TokenIcon,
+} from 'components';
 import { AddTokenToWalletButton } from 'containers/AddTokenToWalletButton';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
@@ -21,13 +27,15 @@ import { type ActiveModal, VaultModals } from './VaultModals';
 export interface VaultProps {
   vault: VaultType;
   variant?: 'primary' | 'secondary';
-  className?: string;
+  isOpen: boolean;
+  handleClose: () => void;
 }
 
-export const VaultCardLegacy: React.FC<VaultProps> = ({
+export const LegacyVaultModal: React.FC<VaultProps> = ({
   vault,
   variant = 'primary',
-  className,
+  isOpen,
+  handleClose,
 }) => {
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
 
@@ -65,7 +73,7 @@ export const VaultCardLegacy: React.FC<VaultProps> = ({
     {
       label: t('vault.card.stakingApr', { stakeTokenName: vault.stakedToken.symbol }),
       value: (
-        <span className="font-semibold">
+        <span className="text-b1s">
           {formatPercentageToReadableValue(vault.stakingAprPercentage)}
         </span>
       ),
@@ -76,7 +84,7 @@ export const VaultCardLegacy: React.FC<VaultProps> = ({
         <div className="flex items-center gap-x-2">
           <TokenIcon className="w-4 h-4 sm:w-6 sm:h-6" token={vault.rewardToken} />
 
-          <span className="font-semibold">
+          <span className="text-b1s">
             {convertMantissaToTokens({
               value: vault.dailyEmissionMantissa,
               token: vault.rewardToken,
@@ -97,7 +105,7 @@ export const VaultCardLegacy: React.FC<VaultProps> = ({
         <div className="flex items-center gap-x-2">
           <TokenIcon className="w-4 h-4 sm:w-6 sm:h-6" token={vault.stakedToken} />
 
-          <span className="font-semibold">
+          <span className="text-b1s">
             {convertMantissaToTokens({
               value: vault.totalStakedMantissa,
               token: vault.stakedToken,
@@ -113,94 +121,101 @@ export const VaultCardLegacy: React.FC<VaultProps> = ({
 
   return (
     <>
-      <Card className={cn('w-full flex flex-col px-4 py-6', className)}>
-        {variant === 'primary' && (
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-x-2">
-              <TokenIcon className="w-6 h-6" token={vault.stakedToken} />
+      <Modal
+        isOpen={isOpen && !activeModal}
+        handleClose={handleClose}
+        useDrawerInXs
+        title={
+          variant === 'primary' ? (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-x-2">
+                <TokenIcon className="w-6 h-6" token={vault.stakedToken} />
 
-              <p className="text-lg" data-testid={TEST_IDS.symbol}>
-                {vault.stakedToken.symbol}
-              </p>
+                <span className="text-p2s" data-testid={TEST_IDS.symbol}>
+                  {vault.stakedToken.symbol}
+                </span>
 
-              <AddTokenToWalletButton
-                className="shrink-0"
-                isUserConnected={!!accountAddress}
-                token={vault.stakedToken}
-              />
+                <AddTokenToWalletButton
+                  className="shrink-0"
+                  isUserConnected={!!accountAddress}
+                  token={vault.stakedToken}
+                />
+              </div>
             </div>
+          ) : undefined
+        }
+      >
+        <div>
+          <p className="text-b1r text-grey mb-1">{t('vault.card.youAreStake')}</p>
+
+          <h2 className="inline-flex items-center gap-x-2" data-testid={TEST_IDS.userStakedTokens}>
+            <TokenIcon
+              className={cn(variant === 'primary' ? 'w-8 h-8' : 'w-6 h-6')}
+              token={vault.stakedToken}
+            />
+
+            <span className={cn(variant === 'primary' ? 'text-h6' : 'text-p2s')}>
+              {readableUserStakedTokens}
+            </span>
+          </h2>
+
+          {variant === 'primary' &&
+            isPrimeEnabled &&
+            primePoolIndex !== undefined &&
+            vault.poolIndex === primePoolIndex && (
+              <PrimeStatusBanner className="bg-background p-4 sm:mt-2" hidePromotionalTitle />
+            )}
+
+          <div className="mt-4 sm:mt-6">
+            {/* Mobile */}
+            <div className="space-y-3 sm:hidden">
+              {dataListItems.map(item => (
+                <LabeledInlineContent label={item.label} key={item.label}>
+                  {item.value}
+                </LabeledInlineContent>
+              ))}
+            </div>
+
+            {/* SM and up */}
+            <CellGroup className="hidden sm:flex" variant="secondary" cells={dataListItems} />
           </div>
-        )}
 
-        <p className="text-sm text-grey mb-1">{t('vault.card.youAreStake')}</p>
-
-        <h2 className="inline-flex items-center gap-x-2" data-testid={TEST_IDS.userStakedTokens}>
-          <TokenIcon
-            className={cn(variant === 'primary' ? 'w-8 h-8' : 'w-6 h-6')}
-            token={vault.stakedToken}
-          />
-
-          <span className={cn(variant === 'primary' ? 'text-3xl' : 'text-xl')}>
-            {readableUserStakedTokens}
-          </span>
-        </h2>
-
-        {variant === 'primary' &&
-          isPrimeEnabled &&
-          primePoolIndex !== undefined &&
-          vault.poolIndex === primePoolIndex && (
-            <PrimeStatusBanner className="bg-background p-4 sm:mt-2" hidePromotionalTitle />
+          {(vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade) && (
+            <NoticeWarning
+              description={
+                vault.isPaused
+                  ? t('vault.card.pausedWarning')
+                  : t('vault.card.blockingPendingWithdrawalsWarning')
+              }
+              className="mt-6"
+            />
           )}
 
-        <div className="mt-4 sm:mt-6">
-          {/* Mobile */}
-          <div className="space-y-3 sm:hidden">
-            {dataListItems.map(item => (
-              <LabeledInlineContent label={item.label} key={item.label}>
-                {item.value}
-              </LabeledInlineContent>
-            ))}
-          </div>
-
-          {/* SM and up */}
-          <CellGroup className="hidden sm:flex" variant="secondary" cells={dataListItems} />
-        </div>
-
-        {(vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade) && (
-          <NoticeWarning
-            description={
-              vault.isPaused
-                ? t('vault.card.pausedWarning')
-                : t('vault.card.blockingPendingWithdrawalsWarning')
-            }
-            className="mt-6"
-          />
-        )}
-
-        {variant === 'primary' && (
-          <div className="flex flex-col justify-between gap-y-3 pt-6 sm:flex-row sm:gap-x-4 sm:mt-auto sm:pt-8">
-            <Button
-              onClick={onStake}
-              variant="primary"
-              className="flex-1"
-              disabled={vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade}
-            >
-              {t('vault.card.stake')}
-            </Button>
-
-            {canWithdraw && (
+          {variant === 'primary' && (
+            <div className="flex flex-col justify-between gap-y-3 pt-6 sm:flex-row sm:gap-x-4 sm:mt-auto sm:pt-8">
               <Button
-                onClick={onWithdraw}
-                variant="secondary"
+                onClick={onStake}
+                variant="primary"
                 className="flex-1"
-                disabled={vault.isPaused}
+                disabled={vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade}
               >
-                {t('vault.card.withdraw')}
+                {t('vault.card.stake')}
               </Button>
-            )}
-          </div>
-        )}
-      </Card>
+
+              {canWithdraw && (
+                <Button
+                  onClick={onWithdraw}
+                  variant="secondary"
+                  className="flex-1"
+                  disabled={vault.isPaused}
+                >
+                  {t('vault.card.withdraw')}
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
+      </Modal>
 
       {activeModal && (
         <VaultModals activeModal={activeModal} vault={vault} onClose={closeActiveModal} />

@@ -1893,7 +1893,6 @@
         "riskDisclosureText": "Pendle, Temel Tokenlar (PT'ler) aracılığıyla sabit oranlı getiri sağlayan merkeziyetsiz bir getiri ticaret protokolüdür. Venus Sabit Faiz Kasası, PT'leri edinmek için mevduatları Pendle'ın altyapısı üzerinden yönlendirir ve bunlar Venus Core'a teminat olarak sağlanır.<br />Pendle yatırdığınız fonlara erişemez veya taşıyamaz olsa da bu kasayı kullanmak sizi her iki protokolden kaynaklanan risklere maruz bırakır. Bunlar arasında akıllı sözleşme güvenlik açıkları, oracle arızaları ve her iki protokolün de istismar edilmesi veya duraklatılması olasılığı yer alır. Erken para çekme işlemleri piyasa fiyatından gerçekleştirilir ve yatırılan tutardan daha az iade edilebilir. Sabit APY yatırım sırasında kilitlenir ve protokol düzeyindeki arızalara karşı koruma sağlamaz.",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "Sağla",
           "users": "Kullanıcılar",
           "venusCore": "Venus Core"
         },
@@ -1912,15 +1911,7 @@
       "withdraw": "Çek"
     },
     "overview": {
-      "bannerCoinIllustration": "{{token}} para birimi görseli",
-      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> yatırarak <strong>{{apyPercentage}}</strong> APR kazanın",
-      "bannerVaultIllustration": "Kasa görseli",
-      "description": "Verim basit, getiri gerçek — birden fazla kasaya yatırın ve kripto varlıklarınızın <strong>kendi koşullarınızda</strong> büyümesini izleyin.",
-      "highestApr": "En yüksek APR",
-      "title": "Kasalar",
-      "tokenTotalDeposited": "Toplam yatırılan {{token}}",
-      "tvl": "TVL",
-      "vaultCount": "Kasalar"
+      "bannerVaultIllustration": "Kasa görseli"
     },
     "transactionForm": {
       "lockingPeriod": {

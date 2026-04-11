@@ -67,7 +67,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
 
   const readableUserStaked = formatTokensToReadableValue({
     value: userStakedTokens,
-    token: vault.stakedToken,
+    token: vault.rewardToken,
     maxDecimalPlaces: isStake ? undefined : 8,
   });
 

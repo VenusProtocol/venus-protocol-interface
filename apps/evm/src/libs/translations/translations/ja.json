@@ -1892,7 +1892,6 @@
         "riskDisclosureText": "Pendle は、プリンシパルトークン（PT）を通じて固定利回りを実現する分散型イールドトレーディングプロトコルです。Venus 固定金利ボールトは、Pendle のインフラストラクチャを通じて PT を取得し、Venus Core に担保として供給します。<br />Pendle があなたの預金にアクセスしたり移動させたりすることはできませんが、このボールトを利用することで両方のプロトコルからのリスクにさらされます。これにはスマートコントラクトの脆弱性、オラクルの障害、いずれかのプロトコルが悪用または停止される可能性が含まれます。満期前の引き出しは市場価格で実行され、預入額を下回る場合があります。固定 APY は預入時にロックされ、プロトコルレベルの障害に対する保護にはなりません。",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "供給",
           "users": "ユーザー",
           "venusCore": "Venus Core"
         },
@@ -1911,15 +1910,7 @@
       "withdraw": "引き出し"
     },
     "overview": {
-      "bannerCoinIllustration": "{{token}} コインのイラスト",
-      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> をステークして <strong>{{apyPercentage}}</strong> APR を享受",
-      "bannerVaultIllustration": "ボールトのイラスト",
-      "description": "シンプルな利回り、確かな収益 — 複数のボールトに預けて、<strong>あなたのペースで</strong>資産を増やしましょう。",
-      "highestApr": "最高 APR",
-      "title": "ボールト",
-      "tokenTotalDeposited": "{{token}} 総預入量",
-      "tvl": "TVL",
-      "vaultCount": "ボールト"
+      "bannerVaultIllustration": "ボールトのイラスト"
     },
     "transactionForm": {
       "lockingPeriod": {

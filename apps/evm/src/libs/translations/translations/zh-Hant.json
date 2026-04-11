@@ -1892,7 +1892,6 @@
         "riskDisclosureText": "Pendle 是一個去中心化的收益交易協議，通過本金代幣（PT）實現固定收益。Venus 固定利率金庫通過 Pendle 的基礎設施獲取 PT，並將其作為抵押品供應給 Venus Core。<br />雖然 Pendle 無法存取或轉移您的存款，但使用此金庫會使您面臨來自兩個協議的風險。這些風險包括智能合約漏洞、預言機故障，以及任一協議被攻擊或暫停的可能性。提前提款按市場價格執行，可能低於存入金額。固定 APY 在存入時鎖定，無法防範協議層面的故障。",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "供應",
           "users": "用戶",
           "venusCore": "Venus Core"
         },
@@ -1911,15 +1910,7 @@
       "withdraw": "提取"
     },
     "overview": {
-      "bannerCoinIllustration": "{{token}} 硬幣插圖",
-      "bannerTitle": "質押 <strong>{{tokenDashMarket}}</strong> 享受 <strong>{{apyPercentage}}</strong> APR",
-      "bannerVaultIllustration": "金庫插圖",
-      "description": "收益化繁為簡，回報觸手可及 — 存入多個金庫，<strong>按您的方式</strong>讓加密資產增值。",
-      "highestApr": "最高 APR",
-      "title": "金庫",
-      "tokenTotalDeposited": "{{token}} 總存入量",
-      "tvl": "TVL",
-      "vaultCount": "金庫"
+      "bannerVaultIllustration": "金庫插圖"
     },
     "transactionForm": {
       "lockingPeriod": {

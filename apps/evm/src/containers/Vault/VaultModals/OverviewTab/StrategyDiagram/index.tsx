@@ -20,19 +20,17 @@ export const StrategyDiagram: React.FC<StrategyDiagramProps> = ({ vault }) => {
       <FlowNode variant="line">{t('vault.modals.overview.strategy.users')}</FlowNode>
 
       <FlowArrow
-        leftContent={vault.manager.toUpperCase()}
-        rightContent={vault.rewardToken.symbol}
+        leftContent={t('vault.modals.overview.supply')}
+        rightContent={vault.stakedToken.symbol}
       />
 
       <FlowNode variant="primary">{t('vault.modals.overview.strategy.pendleRouter')}</FlowNode>
       <FlowArrow
-        leftContent={t('vault.modals.overview.supply', 'Supply')}
-        rightContent={vault.stakedToken.symbol}
+        leftContent={t('vault.modals.overview.supply')}
+        rightContent={vault.rewardToken.symbol}
       />
 
-      <FlowNode variant="line">
-        {t('vault.modals.overview.strategy.supply')} {t('vault.modals.overview.strategy.venusCore')}
-      </FlowNode>
+      <FlowNode variant="line">{t('vault.modals.overview.strategy.venusCore')}</FlowNode>
     </div>
   );
 };

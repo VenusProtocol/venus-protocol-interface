@@ -1892,7 +1892,6 @@
         "riskDisclosureText": "Pendle là một giao thức giao dịch lợi suất phi tập trung cho phép lợi suất cố định thông qua Token Gốc (PT). Venus Fixed Rate Vault chuyển tiền gửi qua cơ sở hạ tầng của Pendle để mua PT, sau đó được cung cấp cho Venus Core làm tài sản thế chấp.<br />Mặc dù Pendle không thể truy cập hoặc di chuyển tiền gửi của bạn, việc sử dụng kho này khiến bạn phải chịu rủi ro từ cả hai giao thức. Những rủi ro này bao gồm lỗ hổng hợp đồng thông minh, lỗi oracle và khả năng một trong hai giao thức bị khai thác hoặc tạm dừng. Rút tiền sớm được thực hiện theo giá thị trường và có thể nhận lại ít hơn số tiền đã gửi. APY cố định được khóa tại thời điểm gửi và không bảo vệ khỏi các lỗi ở cấp giao thức.",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "Cung cấp",
           "users": "Người dùng",
           "venusCore": "Venus Core"
         },
@@ -1911,15 +1910,7 @@
       "withdraw": "Rút"
     },
     "overview": {
-      "bannerCoinIllustration": "Hình minh họa đồng {{token}}",
-      "bannerTitle": "Đặt cược <strong>{{tokenDashMarket}}</strong> để nhận <strong>{{apyPercentage}}</strong> APR",
-      "bannerVaultIllustration": "Hình minh họa kho",
-      "description": "Sinh lời đơn giản, lợi nhuận thực tế — gửi tiền vào nhiều kho và xem tài sản crypto của bạn tăng trưởng <strong>theo cách của bạn</strong>.",
-      "highestApr": "APR cao nhất",
-      "title": "Kho",
-      "tokenTotalDeposited": "Tổng {{token}} đã gửi",
-      "tvl": "TVL",
-      "vaultCount": "Kho"
+      "bannerVaultIllustration": "Hình minh họa kho"
     },
     "transactionForm": {
       "lockingPeriod": {
