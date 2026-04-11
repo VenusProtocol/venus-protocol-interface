@@ -4,13 +4,12 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import { memo } from 'react';
 import type { Pool } from 'types';
-import { calculateDailyEarningsCents, formatCentsToReadableValue } from 'utilities';
+import { calculateDailyInterests, formatCentsToReadableValue } from 'utilities';
 
 const formatToReadableDailyEarnings = ({
   yearlyEarningsCents,
 }: { yearlyEarningsCents: BigNumber | undefined }) => {
-  const dailyEarningsCents =
-    yearlyEarningsCents && calculateDailyEarningsCents(yearlyEarningsCents);
+  const dailyEarningsCents = yearlyEarningsCents && calculateDailyInterests(yearlyEarningsCents);
 
   return formatCentsToReadableValue({ value: dailyEarningsCents });
 };

@@ -29,10 +29,12 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
           <div
             className={className}
             onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+
               if (!isMdOrUp) {
                 setIsTooltipOpened(true);
               }
-              e.preventDefault();
             }}
           >
             {children}

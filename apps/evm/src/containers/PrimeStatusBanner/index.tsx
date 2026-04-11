@@ -17,7 +17,11 @@ import type { Token } from 'types';
 
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { useAccountAddress } from 'libs/wallet';
-import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
+import {
+  clampToZero,
+  formatPercentageToReadableValue,
+  formatTokensToReadableValue,
+} from 'utilities';
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';
 import { formatWaitingPeriod } from './formatWaitingPeriod';
@@ -68,7 +72,9 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     }
   };
 
-  const stakeDeltaTokens = minXvsToStakeForPrimeTokens.minus(userStakedXvsTokens);
+  const stakeDeltaTokens = clampToZero({
+    value: minXvsToStakeForPrimeTokens.minus(userStakedXvsTokens),
+  });
   const isUserXvsStakeHighEnoughForPrime = !!stakeDeltaTokens?.isLessThanOrEqualTo(0);
 
   const readableStakeDeltaTokens = formatTokensToReadableValue({
@@ -205,12 +211,12 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             {!!title && <h3 className={cn('text-lg', displayProgress && 'mb-2')}>{title}</h3>}
 
             {displayProgress && (
-              <p className="text-grey">
+              <p className="text-grey text-b1r">
                 {isPrimeCalculatorEnabled ? (
                   <Trans
                     i18nKey="primeStatusBanner.description.primeCalculator"
                     components={{
-                      WhiteText: <span className="text-white" />,
+                      WhiteText: <span className="text-white font-semibold" />,
                       Link: (
                         <Link to={routes.primeCalculator.path} onClick={e => e.stopPropagation()} />
                       ),
@@ -253,7 +259,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               <Trans
                 i18nKey="primeStatusBanner.progressBar.label"
                 components={{
-                  WhiteText: <span className="text-white" />,
+                  WhiteText: <span className="text-white font-semibold" />,
                 }}
                 values={{
                   minXvsToStakeForPrimeTokens: readableMinXvsToStakeForPrimeTokens,
@@ -289,6 +295,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               data-testid={TEST_IDS.stakeXvsButton}
               onClick={onRedirectToXvsVaultPage}
               className="w-full whitespace-nowrap sm:w-auto"
+              size="xs"
             >
               {t('primeStatusBanner.stakeButtonLabel')}
             </PrimaryButton>
@@ -300,6 +307,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               onClick={handleClaimPrimeToken}
               className="w-full whitespace-nowrap sm:w-auto"
               loading={isClaimPrimeTokenLoading}
+              size="xs"
             >
               {t('primeStatusBanner.claimButtonLabel')}
             </PrimaryButton>

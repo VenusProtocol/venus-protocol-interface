@@ -1,6 +1,8 @@
 import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useSearchParams } from 'react-router';
+import { VaultCategory } from 'types';
+import { getVaultCategoryName } from 'utilities/getVaultCategoryName';
 
 export const ALL_OPTION_VALUE = 'all';
 
@@ -39,19 +41,18 @@ export const useFilterOptions = () => {
       label: t('vault.filter.allCategories'),
       value: ALL_OPTION_VALUE,
     },
-    {
-      label: t('vault.filter.stablecoins'),
-      value: 'stablecoins',
-    },
-    {
-      label: t('vault.filter.yieldTokens'),
-      value: 'yieldTokens',
-    },
-    {
-      label: t('vault.filter.others'),
-      value: 'others',
-    },
   ];
+
+  Object.values(VaultCategory).forEach(category =>
+    categoryOptions.push({
+      label: getVaultCategoryName({
+        category,
+        t,
+      }),
+      value: category,
+    }),
+  );
+
   const managerOptions = [
     {
       label: t('vault.filter.allManagers'),

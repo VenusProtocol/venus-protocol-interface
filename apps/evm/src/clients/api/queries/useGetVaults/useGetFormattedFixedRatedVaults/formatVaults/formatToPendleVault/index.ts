@@ -72,11 +72,11 @@ export const formatToPendleVault = ({
     stakingAprPercentage: new BigNumber(vaultData.fixedApyDecimal).shiftedBy(2).toNumber(),
     userStakedMantissa: convertTokensToMantissa({
       value: asset.userSupplyBalanceTokens,
-      token: rewardToken,
+      token: asset.vToken.underlyingToken,
     }),
     totalStakedMantissa: convertTokensToMantissa({
       value: asset.supplyBalanceTokens,
-      token: rewardToken,
+      token: asset.vToken.underlyingToken,
     }),
     totalStakedCents: asset.supplyBalanceCents.toNumber(),
     userStakedCents: asset.userSupplyBalanceCents.toNumber(),
@@ -87,7 +87,7 @@ export const formatToPendleVault = ({
     maturityDate,
     vaultDeploymentDate: new Date(vaultData.protocolData?.startDate),
     liquidityCents: new BigNumber(vaultData.protocolData.liquidityCents),
-    category: VaultCategory.YieldTokens,
+    category: VaultCategory.YIELD_TOKENS,
     manager: VaultManager.Pendle,
     managerIcon: 'pendle' as const,
     managerAddress: vaultData.protocolData.pendleMarketAddress,

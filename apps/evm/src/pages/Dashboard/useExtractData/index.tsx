@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import type { Pool, Vault } from 'types';
 import {
-  calculateDailyEarningsCents,
+  calculateDailyInterests,
   calculateYearlyInterests,
   convertMantissaToTokens,
 } from 'utilities';
@@ -84,7 +84,7 @@ export const useExtractData = ({
     yearlyEarningsCents,
   });
 
-  const dailyEarningsCents = calculateDailyEarningsCents(yearlyEarningsCents);
+  const dailyEarningsCents = calculateDailyInterests(yearlyEarningsCents);
 
   return {
     totalVaultStakeCents,

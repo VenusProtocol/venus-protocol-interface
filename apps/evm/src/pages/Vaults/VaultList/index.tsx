@@ -1,5 +1,5 @@
 import { Select, TextField, type TextFieldProps, cn } from 'components';
-import { VaultCard } from 'containers/Vault/VaultCard';
+import { VaultCard } from 'containers/VaultCard';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
 import type { Vault } from 'types';
@@ -50,7 +50,11 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
         loading="lazy"
       />
 
-      <h1 className="text-p1s sm:text-h6 mb-3">{t('vault.filter.vaults')}</h1>
+      <div className="mb-3">
+        <h1 className="text-p1s sm:text-h6">{t('vault.header')}</h1>
+        <p className="text-1br">{t('vault.description')}</p>
+      </div>
+
       <div className={cn('flex flex-col xl:flex-row xl:items-center gap-3')}>
         <div className="grid grid-cols-2 sm:flex gap-3 w-full xl:w-fit">
           <Select

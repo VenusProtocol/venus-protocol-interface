@@ -64,3 +64,6 @@ export * from './TokenIcon';
 export * from './BalanceUpdates';
 export * from './TokenListWrapper';
 export * from './Wrapper';
+export * from './AvailableBalance';
+export * from './LabeledSlider';
+export * from './LabeledValueUpdate';

@@ -12,7 +12,6 @@ export interface MarketCardProps<R> {
   row: R;
   index: number;
   columns: TableProps<R>['columns'];
-  key: string;
   href?: To;
   onClick?: TableProps<R>['rowOnClick'];
   onControlClick?: TableProps<R>['rowControlOnClick'];
@@ -27,7 +26,6 @@ export function MarketCard<R>({
   onClick,
   onControlClick,
   className,
-  key,
 }: MarketCardProps<R>) {
   const [titleColumn, ...otherColumns] = columns;
 
@@ -43,7 +41,7 @@ export function MarketCard<R>({
 
       <div className="space-y-6">
         {otherColumns.map(column => (
-          <LabeledInlineContent key={`${key}-${column.key}`} label={column.label}>
+          <LabeledInlineContent key={column.key} label={column.label}>
             <div className="text-right inline-flex">{column.renderCell(row, index)}</div>
           </LabeledInlineContent>
         ))}
@@ -59,7 +57,6 @@ export function MarketCard<R>({
       )}
       asChild
       onClick={e => onClick?.(e, row)}
-      key={key}
     >
       {href ? (
         <Link className="text-white no-underline hover:no-underline" noStyle to={href}>

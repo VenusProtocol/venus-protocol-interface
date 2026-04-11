@@ -3,7 +3,7 @@
 exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
 [
   {
-    "category": "others",
+    "category": "governance",
     "dailyEmissionCents": 0.00000288,
     "dailyEmissionMantissa": "28800000000",
     "isPaused": false,
@@ -37,7 +37,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userStakedMantissa": "29000000000000000000",
   },
   {
-    "category": "others",
+    "category": "governance",
     "dailyEmissionCents": 0.00000288,
     "dailyEmissionMantissa": "28800000000",
     "isPaused": false,
@@ -71,7 +71,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userStakedMantissa": "29000000000000000000",
   },
   {
-    "category": "others",
+    "category": "governance",
     "dailyEmissionCents": 0.00000288,
     "dailyEmissionMantissa": "28800000000",
     "isPaused": false,
@@ -105,7 +105,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userStakedMantissa": "29000000000000000000",
   },
   {
-    "category": "others",
+    "category": "governance",
     "dailyEmissionCents": 0.00000288,
     "dailyEmissionMantissa": "28800000000",
     "isPaused": false,
@@ -139,7 +139,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userStakedMantissa": "29000000000000000000",
   },
   {
-    "category": "others",
+    "category": "governance",
     "dailyEmissionCents": 0.00000288,
     "dailyEmissionMantissa": "28800000000",
     "isPaused": false,

@@ -482,9 +482,9 @@ export enum VaultManager {
 }
 
 export enum VaultCategory {
-  Stablecoins = 'stablecoins',
-  YieldTokens = 'yieldTokens',
-  Others = 'others',
+  STABLECOINS = 'stablecoins',
+  YIELD_TOKENS = 'yieldTokens',
+  GOVERNANCE = 'governance',
 }
 
 interface BaseVault {
@@ -522,6 +522,7 @@ export type PendleVault = BaseVault & {
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   poolName: string;
+  rewardToken: Token;
 };
 
 export type Vault = VenusVault | PendleVault;
