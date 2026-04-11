@@ -1902,7 +1902,6 @@
         "riskDisclosureText": "Pendle is a decentralised yield-trading protocol that enables fixed-rate yield through Principal Tokens (PTs). The Venus Fixed Rate Vault routes deposits through Pendle's infrastructure to acquire PTs, which are supplied to Venus Core as collateral. <br />While Pendle cannot access or move your deposited funds, using this vault exposes you to risks from both protocols. These include smart contract vulnerabilities, oracle failures, and the possibility of either protocol being exploited or paused. Early withdrawals are executed at market price and may return less than the amount deposited. Fixed APY is locked at deposit and does not protect against protocol-level failures.",
         "strategy": {
           "pendleRouter": "Pendle router",
-          "supply": "Supply",
           "users": "Users",
           "venusCore": "Venus Core"
         },
@@ -1921,15 +1920,7 @@
       "withdraw": "Withdraw"
     },
     "overview": {
-      "bannerCoinIllustration": "{{token}} coins illustration",
-      "bannerTitle": "Enjoy <strong>{{apyPercentage}}</strong> APR with <strong>{{tokenDashMarket}}</strong>",
-      "bannerVaultIllustration": "Vault illustration",
-      "description": "Yield made simple, returns made real — deposit across multiple vaults and watch your crypto grow <strong>on your terms</strong>.",
-      "highestApr": "Highest APR",
-      "title": "Vaults",
-      "tokenTotalDeposited": "{{token}} total deposited",
-      "tvl": "TVL",
-      "vaultCount": "Vaults"
+      "bannerVaultIllustration": "Vault illustration"
     },
     "transactionForm": {
       "lockingPeriod": {

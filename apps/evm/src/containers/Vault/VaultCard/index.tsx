@@ -2,15 +2,10 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
-import { useGetPrimeStatus } from 'clients/api';
 import { Card, Icon, LabeledInlineContent, NoticeWarning, TokenIconWithSymbol } from 'components';
-import { NULL_ADDRESS } from 'constants/address';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
-import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import { StatusLabel } from 'containers/Vault/VaultCard/StatusLabel';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -20,9 +15,11 @@ import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  isLegacyVenusVault,
   isPendleVault,
 } from 'utilities';
 import { PendleModal } from '../VaultModals';
+import { LegacyVaultModal } from '../VaultModals/LegacyModal';
 import TEST_IDS from '../testIds';
 import { TokenIconWithPeriod } from './TokenIconWithPeriod';
 
@@ -38,19 +35,9 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const { accountAddress } = useAccountAddress();
-  const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
-  const { data: getPrimeStatusData } = useGetPrimeStatus(
-    {
-      accountAddress: accountAddress || NULL_ADDRESS,
-    },
-    {
-      enabled: !!accountAddress,
-    },
-  );
-  const primePoolIndex = getPrimeStatusData?.xvsVaultPoolId;
 
   const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
-    token: vault.stakedToken,
+    token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
     value: vault.userStakedMantissa || new BigNumber(0),
   });
 
@@ -58,9 +45,12 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
   const dailyEmissionCents = 'dailyEmissionCents' in vault ? vault.dailyEmissionCents : undefined;
 
+  // PT Token
   const liquidityCents = 'liquidityCents' in vault ? vault.liquidityCents : undefined;
-  const liquidityToken = liquidityCents
-    ? liquidityCents?.div(vault.stakedTokenPriceCents)
+  const liquidityTokens = liquidityCents
+    ? liquidityCents?.div(
+        isPendleVault(vault) ? vault.stakedTokenPriceCents : vault.rewardTokenPriceCents,
+      )
     : undefined;
 
   const hasMatured =
@@ -71,7 +61,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
       ? t('vault.card.textualWithTime', {
           date: vault.maturityDate,
         })
-      : PLACEHOLDER_KEY;
+      : undefined;
 
   const clickAble = [
     VaultStatus.Active,
@@ -137,7 +127,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
           {/* Stats */}
           <div className={cn('flex flex-col gap-y-4')}>
-            <LabeledInlineContent label={t('vault.card.apr')}>
+            <LabeledInlineContent label={t('vault.card.apr')} labelClassName="mb-auto">
               <span className="text-b1s">
                 {formatPercentageToReadableValue(vault.stakingAprPercentage)}
               </span>
@@ -146,13 +136,14 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             {liquidityCents && (
               <LabeledInlineContent
                 label={t('vault.card.liquidity')}
+                labelClassName="mb-auto"
                 tooltip={t('vault.card.liquidityTooltip')}
               >
                 <div className="text-b1r text-end">
                   <div className={cn('flex items-center gap-x-2')}>
                     {formatTokensToReadableValue({
-                      value: liquidityToken,
-                      token: vault.stakedToken,
+                      value: liquidityTokens,
+                      token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
                     })}
                   </div>
                   <div className="text-light-grey">
@@ -165,7 +156,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             )}
 
             {dailyEmissionMantissa && (
-              <LabeledInlineContent label={t('vault.card.dailyEmission')}>
+              <LabeledInlineContent label={t('vault.card.dailyEmission')} labelClassName="mb-auto">
                 <div className="text-b1r text-end">
                   <div className={cn('flex items-center gap-x-2')}>
                     {convertMantissaToTokens({
@@ -184,12 +175,12 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               </LabeledInlineContent>
             )}
 
-            <LabeledInlineContent label={t('vault.card.totalDeposited')}>
+            <LabeledInlineContent label={t('vault.card.totalDeposited')} labelClassName="mb-auto">
               <div className="text-b1r text-end">
                 <div className={cn('flex items-center gap-x-2')}>
                   {convertMantissaToTokens({
                     value: vault.totalStakedMantissa,
-                    token: vault.stakedToken,
+                    token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
                     returnInReadableFormat: true,
                     addSymbol: true,
                   })}
@@ -205,6 +196,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             {formattedMaturityDate && (
               <LabeledInlineContent
                 label={t('vault.card.maturityDate')}
+                labelClassName="mb-auto"
                 tooltip={
                   vault.manager === VaultManager.Pendle
                     ? t('vault.card.maturityDatePendleTooltip')
@@ -215,19 +207,11 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               </LabeledInlineContent>
             )}
 
-            <LabeledInlineContent label={t('vault.card.manager')}>
+            <LabeledInlineContent label={t('vault.card.manager')} labelClassName="mb-auto">
               <Icon name={vault.managerIcon} />
               <span className="ms-2 text-b1r text-light-grey">{vault.manager?.toUpperCase()}</span>
             </LabeledInlineContent>
           </div>
-
-          {/* Prime banner */}
-          {isPrimeEnabled && primePoolIndex !== undefined && vault.poolIndex === primePoolIndex && (
-            <PrimeStatusBanner
-              className={cn('bg-background p-4 rounded-xl')}
-              hidePromotionalTitle
-            />
-          )}
 
           {/* Warnings */}
           {vault.status === VaultStatus.Paused && (
@@ -252,6 +236,13 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
       </Card>
       {isPendleVault(vault) && (
         <PendleModal
+          vault={vault}
+          isOpen={modalVisible}
+          handleClose={() => setModalVisible(false)}
+        />
+      )}
+      {isLegacyVenusVault(vault) && (
+        <LegacyVaultModal
           vault={vault}
           isOpen={modalVisible}
           handleClose={() => setModalVisible(false)}

@@ -1,21 +1,19 @@
 import { Select, TextField, type TextFieldProps, cn } from 'components';
 import { VaultCard } from 'containers/Vault/VaultCard';
-import { VaultCardLegacy } from 'containers/Vault/VaultCard/Legacy';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
-import { type Vault, VaultManager, type VenusVault } from 'types';
+import type { Vault } from 'types';
 
+import bannerVault from './asset/banner-vault.png';
 import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
-
-const isLegacyVault = (vault: Vault): vault is VenusVault => vault.manager === VaultManager.Venus;
 
 const optionClassName = cn('px-3 h-10 scrollbar-track-cards');
 
-interface VaultsProps extends HTMLAttributes<HTMLDivElement> {
+interface VaultListProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];
 }
 
-export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
+export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) => {
   const { t } = useTranslation();
   const {
     category: filterCategory,
@@ -44,12 +42,19 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
   });
 
   return (
-    <div>
-      <div className="text-light-grey-active mb-3 text-p2s">{t('vault.filter.vaults')}</div>
-      <div className={cn('flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3')}>
-        <div className="grid grid-cols-2 sm:flex gap-3 w-full">
+    <div className="relative">
+      <img
+        src={bannerVault}
+        alt={t('vault.overview.bannerVaultIllustration')}
+        className="pointer-events-none absolute right-6 top-0 hidden xl:block h-37.5 -translate-y-4.5"
+        loading="lazy"
+      />
+
+      <h1 className="text-p1s sm:text-h6 mb-3">{t('vault.filter.vaults')}</h1>
+      <div className={cn('flex flex-col xl:flex-row xl:items-center gap-3')}>
+        <div className="grid grid-cols-2 sm:flex gap-3 w-full xl:w-fit">
           <Select
-            className="sm:flex-1/3 lg:flex-none"
+            className="sm:flex-1/3 xl:flex-none"
             size="medium"
             placeLabelToLeft
             options={categoryOptions}
@@ -59,7 +64,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
             onChange={newValue => setCategory(newValue.toString())}
           />
           <Select
-            className="sm:flex-1/3 lg:flex-none"
+            className="sm:flex-1/3 xl:flex-none"
             size="medium"
             placeLabelToLeft
             options={managerOptions}
@@ -69,7 +74,7 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
             onChange={newValue => setManager(newValue.toString())}
           />
           <Select
-            className="sm:flex-1/3 lg:flex-none"
+            className="sm:flex-1/3 xl:flex-none"
             size="medium"
             placeLabelToLeft
             options={statusOptions}
@@ -85,17 +90,13 @@ export const Vaults: FC<VaultsProps> = ({ vaults, className, ...props }) => {
           size="sm"
           leftIconSrc="magnifier"
           placeholder={t('vault.filter.inputPlaceholder')}
-          className="w-full lg:w-75"
+          className="w-full xl:w-75"
         />
       </div>
-      <div className={cn('grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6', className)} {...props}>
-        {filteredVaults.map(vault =>
-          isLegacyVault(vault) ? (
-            <VaultCardLegacy vault={vault} key={vault.key} />
-          ) : (
-            <VaultCard vault={vault} key={vault.key} />
-          ),
-        )}
+      <div className={cn('grid grid-cols-1 xl:grid-cols-3 gap-3 mt-6', className)} {...props}>
+        {filteredVaults.map(vault => (
+          <VaultCard vault={vault} key={vault.key} />
+        ))}
       </div>
     </div>
   );
