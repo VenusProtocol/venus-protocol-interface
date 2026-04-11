@@ -1215,6 +1215,31 @@
     "queued": "排队中",
     "succeeded": "成功"
   },
+  "requestWithdrawalFromVestingVaultForm": {
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "请连接钱包以取款"
+      },
+      "availableTokensLabel": "可请求 {{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "取款请求列表",
+      "primeLossWarning": {
+        "message": "如果取款该金额，你将失去 Prime 代币，因为你在 XVS 金库的质押将低于获得 Prime 的最低要求 {{minimumXvsStake}}。",
+        "submitButtonLabel": "失去 Prime 代币并申请取款"
+      },
+      "submitButtonDisabledLabel": "输入有效申请金额",
+      "submitButtonLabel": "申请取款"
+    },
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "请连接钱包查看你的取款请求"
+      },
+      "emptyState": "你没有活跃的取款请求",
+      "locked": "锁定至 {{date, dd.MM.yy h:mm a}}",
+      "title": "取款请求",
+      "unlocked": "已解锁",
+      "withdrawButtonLabel": "提取已解锁余额"
+    }
+  },
   "select": {
     "defaultLabel": "选择选项"
   },
@@ -1501,8 +1526,7 @@
     "availableTokensLabel": "可用 {{tokenSymbol}}",
     "connectWalletMessage": "请连接钱包以质押 {{tokenSymbol}}",
     "submitButtonDisabledLabel": "输入有效质押金额",
-    "submitButtonLabel": "质押",
-    "title": "质押 {{tokenSymbol}}"
+    "submitButtonLabel": "质押"
   },
   "statsPage": {
     "illustrationAlt": "统计插图",
@@ -1829,14 +1853,9 @@
       "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
       "numDays_other": "{{count}} 天",
       "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、存入和提款功能已禁用，直至金库恢复运作。",
-      "stake": "质押",
-      "stakingApr": "{{stakeTokenName}} 质押 APR",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "总存款",
-      "totalStaked": "总质押",
-      "withdraw": "取款",
-      "youAreStake": "你正在质押",
       "youDeposited": "你已存入"
     },
     "filter": {
@@ -1904,10 +1923,12 @@
       "overviewTab": "概览",
       "pendleFee": "Pendle 费用",
       "positionTab": "持仓",
+      "stakeTab": "质押",
       "submitButtonDisabledLabel": "输入有效申请金额",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "取款"
+      "withdraw": "取款",
+      "withdrawTab": "取款"
     },
     "overview": {
       "bannerVaultIllustration": "金库插图"
@@ -2136,45 +2157,10 @@
       "address": "（{{address}}）"
     }
   },
-  "withdrawFromVaiVaultModal": {
+  "withdrawFromVaiVaultModalForm": {
     "availableTokensLabel": "可用 {{tokenSymbol}}",
     "connectWalletMessage": "请连接钱包以取款 {{tokenSymbol}}",
     "submitButtonDisabledLabel": "输入有效取款金额",
-    "submitButtonLabel": "取款",
-    "title": "取款 {{tokenSymbol}}"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "取款请求列表",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "请连接钱包以取款"
-      },
-      "availableTokensLabel": "可请求 {{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "取款请求列表",
-      "primeLossWarning": {
-        "message": "如果取款该金额，你将失去 Prime 代币，因为你在 XVS 金库的质押将低于获得 Prime 的最低要求 {{minimumXvsStake}}。",
-        "submitButtonLabel": "失去 Prime 代币并申请取款"
-      },
-      "submitButtonDisabledLabel": "输入有效申请金额",
-      "submitButtonLabel": "申请取款"
-    },
-    "requestWithdrawalTabTitle": "申请取款",
-    "title": "取款 {{tokenSymbol}}",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "请连接钱包查看你的取款请求"
-      },
-      "emptyState": "你没有活跃的取款请求",
-      "itemContent": "锁定至 {{date, dd.MM.yy h:mm a}}"
-    },
-    "withdrawalRequestListTitle": "取款请求列表",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "请连接钱包以取款"
-      },
-      "availableTokens": "可用 {{tokenSymbol}}",
-      "submitButton": "取款"
-    },
-    "withdrawTabTitle": "取款"
+    "submitButtonLabel": "取款"
   }
 }

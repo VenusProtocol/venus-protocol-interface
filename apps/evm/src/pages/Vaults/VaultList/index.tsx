@@ -1,5 +1,5 @@
 import { Select, TextField, type TextFieldProps, cn } from 'components';
-import { VaultCard } from 'containers/Vault/VaultCard';
+import { VaultCard } from 'containers/VaultCard';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
 import type { Vault } from 'types';

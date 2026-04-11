@@ -1215,6 +1215,31 @@
     "queued": "Queued - Đang trong hàng đợi",
     "succeeded": "Thành công"
   },
+  "requestWithdrawalFromVestingVaultForm": {
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "Vui lòng kết nối ví để rút"
+      },
+      "availableTokensLabel": "{{tokenSymbol}} có thể yêu cầu",
+      "displayWithdrawalRequestListButton": "Danh sách yêu cầu rút",
+      "primeLossWarning": {
+        "message": "Bạn sẽ mất token Prime nếu rút số lượng này, vì stake trong XVS vault của bạn sẽ giảm xuống dưới mức tối thiểu {{minimumXvsStake}} để đủ điều kiện Prime.",
+        "submitButtonLabel": "Mất token Prime và yêu cầu rút"
+      },
+      "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để yêu cầu",
+      "submitButtonLabel": "Yêu cầu rút"
+    },
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "Vui lòng kết nối ví để xem yêu cầu rút"
+      },
+      "emptyState": "Bạn không có yêu cầu rút đang hoạt động",
+      "locked": "Khóa đến {{date, dd.MM.yy h:mm a}}",
+      "title": "Yêu cầu rút",
+      "unlocked": "Đã mở khóa",
+      "withdrawButtonLabel": "Rút số dư đã mở khóa"
+    }
+  },
   "select": {
     "defaultLabel": "Chọn tùy chọn"
   },
@@ -1501,8 +1526,7 @@
     "availableTokensLabel": "{{tokenSymbol}} có thể dùng",
     "connectWalletMessage": "Vui lòng kết nối ví để stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để stake",
-    "submitButtonLabel": "Stake",
-    "title": "Stake {{tokenSymbol}}"
+    "submitButtonLabel": "Stake"
   },
   "statsPage": {
     "illustrationAlt": "Hình minh họa thống kê",
@@ -1829,14 +1853,9 @@
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
       "numDays_other": "{{count}} ngày",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, gửi tiền và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
-      "stake": "Stake",
-      "stakingApr": "APR stake {{stakeTokenName}}",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Tổng tiền gửi",
-      "totalStaked": "Tổng đã stake",
-      "withdraw": "Rút",
-      "youAreStake": "Bạn đang stake",
       "youDeposited": "Bạn đã gửi"
     },
     "filter": {
@@ -1904,10 +1923,12 @@
       "overviewTab": "Tổng quan",
       "pendleFee": "Phí Pendle",
       "positionTab": "Vị thế",
+      "stakeTab": "Stake",
       "submitButtonDisabledLabel": "Nhập số tiền hợp lệ để yêu cầu",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "Rút"
+      "withdraw": "Rút",
+      "withdrawTab": "Rút"
     },
     "overview": {
       "bannerVaultIllustration": "Hình minh họa kho"
@@ -2136,45 +2157,10 @@
       "address": "({{address}})"
     }
   },
-  "withdrawFromVaiVaultModal": {
+  "withdrawFromVaiVaultModalForm": {
     "availableTokensLabel": "{{tokenSymbol}} có thể dùng",
     "connectWalletMessage": "Vui lòng kết nối ví để rút {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để rút",
-    "submitButtonLabel": "Rút",
-    "title": "Rút {{tokenSymbol}}"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "Danh sách yêu cầu rút",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "Vui lòng kết nối ví để rút"
-      },
-      "availableTokensLabel": "{{tokenSymbol}} có thể yêu cầu",
-      "displayWithdrawalRequestListButton": "Danh sách yêu cầu rút",
-      "primeLossWarning": {
-        "message": "Bạn sẽ mất token Prime nếu rút số lượng này, vì stake trong XVS vault của bạn sẽ giảm xuống dưới mức tối thiểu {{minimumXvsStake}} để đủ điều kiện Prime.",
-        "submitButtonLabel": "Mất token Prime và yêu cầu rút"
-      },
-      "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để yêu cầu",
-      "submitButtonLabel": "Yêu cầu rút"
-    },
-    "requestWithdrawalTabTitle": "Yêu cầu rút",
-    "title": "Rút {{tokenSymbol}}",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "Vui lòng kết nối ví để xem yêu cầu rút"
-      },
-      "emptyState": "Bạn không có yêu cầu rút đang hoạt động",
-      "itemContent": "Khóa đến {{date, dd.MM.yy h:mm a}}"
-    },
-    "withdrawalRequestListTitle": "Danh sách yêu cầu rút",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "Vui lòng kết nối ví để rút"
-      },
-      "availableTokens": "{{tokenSymbol}} có thể dùng",
-      "submitButton": "Rút"
-    },
-    "withdrawTabTitle": "Rút"
+    "submitButtonLabel": "Rút"
   }
 }

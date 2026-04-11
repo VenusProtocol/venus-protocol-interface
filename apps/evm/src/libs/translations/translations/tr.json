@@ -1215,6 +1215,31 @@
     "queued": "Kuyrukta",
     "succeeded": "Başarılı"
   },
+  "requestWithdrawalFromVestingVaultForm": {
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
+      },
+      "availableTokensLabel": "Talep edilebilir {{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "Çekim talep listesi",
+      "primeLossWarning": {
+        "message": "Bu miktarı çekerseniz Prime tokenınızı kaybedersiniz; çünkü XVS vault'taki stake'iniz, Prime için gereken minimum {{minimumXvsStake}} seviyesinin altına düşer.",
+        "submitButtonLabel": "Prime tokenını kaybet ve çekim talep et"
+      },
+      "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
+      "submitButtonLabel": "Çekim talep et"
+    },
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "Çekim taleplerinizi görmek için cüzdanınızı bağlayın"
+      },
+      "emptyState": "Aktif çekim talebiniz yok",
+      "locked": "{{date, dd.MM.yy h:mm a}} tarihine kadar kilitli",
+      "title": "Çekim talepleri",
+      "unlocked": "Kilidi açıldı",
+      "withdrawButtonLabel": "Kilidi açılan bakiyeyi çek"
+    }
+  },
   "select": {
     "defaultLabel": "Seçenek seçin"
   },
@@ -1501,8 +1526,7 @@
     "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
     "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
     "submitButtonDisabledLabel": "Stake etmek için geçerli bir miktar girin",
-    "submitButtonLabel": "Stake et",
-    "title": "{{tokenSymbol}} stake et"
+    "submitButtonLabel": "Stake et"
   },
   "statsPage": {
     "illustrationAlt": "İstatistik illüstrasyonu",
@@ -1830,14 +1854,9 @@
       "numDays_one": "{{count}} gün",
       "numDays_other": "{{count}} gün",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, yatırım ve çekim işlemleri devre dışı bırakılmıştır.",
-      "stake": "Stake et",
-      "stakingApr": "{{stakeTokenName}} Stake APR",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Toplam yatırılan",
-      "totalStaked": "Toplam Stake",
-      "withdraw": "Çek",
-      "youAreStake": "Stake ediyorsunuz",
       "youDeposited": "Yatırım yaptınız"
     },
     "filter": {
@@ -1905,10 +1924,12 @@
       "overviewTab": "Genel Bakış",
       "pendleFee": "Pendle Ücreti",
       "positionTab": "Pozisyon",
+      "stakeTab": "Stake et",
       "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "Çek"
+      "withdraw": "Çek",
+      "withdrawTab": "Çek"
     },
     "overview": {
       "bannerVaultIllustration": "Kasa görseli"
@@ -2137,45 +2158,10 @@
       "address": "({{address}})"
     }
   },
-  "withdrawFromVaiVaultModal": {
+  "withdrawFromVaiVaultModalForm": {
     "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
     "connectWalletMessage": "{{tokenSymbol}} çekmek için cüzdanınızı bağlayın",
     "submitButtonDisabledLabel": "Çekmek için geçerli bir miktar girin",
-    "submitButtonLabel": "Çek",
-    "title": "{{tokenSymbol}} çek"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "Çekim talep listesi",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
-      },
-      "availableTokensLabel": "Talep edilebilir {{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "Çekim talep listesi",
-      "primeLossWarning": {
-        "message": "Bu miktarı çekerseniz Prime tokenınızı kaybedersiniz; çünkü XVS vault'taki stake'iniz, Prime için gereken minimum {{minimumXvsStake}} seviyesinin altına düşer.",
-        "submitButtonLabel": "Prime tokenını kaybet ve çekim talep et"
-      },
-      "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
-      "submitButtonLabel": "Çekim talep et"
-    },
-    "requestWithdrawalTabTitle": "Çekim talep et",
-    "title": "{{tokenSymbol}} çek",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "Çekim taleplerinizi görmek için cüzdanınızı bağlayın"
-      },
-      "emptyState": "Aktif çekim talebiniz yok",
-      "itemContent": "{{date, dd.MM.yy h:mm a}} tarihine kadar kilitli"
-    },
-    "withdrawalRequestListTitle": "Çekim talep listesi",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
-      },
-      "availableTokens": "Kullanılabilir {{tokenSymbol}}",
-      "submitButton": "Çek"
-    },
-    "withdrawTabTitle": "Çek"
+    "submitButtonLabel": "Çek"
   }
 }

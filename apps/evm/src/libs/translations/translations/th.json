@@ -1215,6 +1215,31 @@
     "queued": "เข้าคิวแล้ว",
     "succeeded": "สำเร็จ"
   },
+  "requestWithdrawalFromVestingVaultForm": {
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน"
+      },
+      "availableTokensLabel": "{{tokenSymbol}} ที่ขอได้",
+      "displayWithdrawalRequestListButton": "รายการคำขอถอน",
+      "primeLossWarning": {
+        "message": "คุณจะสูญเสียโทเคน Prime หากถอนจำนวนนี้ เนื่องจากการสเตคใน XVS vault ของคุณจะต่ำกว่าขั้นต่ำที่ต้องการ {{minimumXvsStake}} เพื่อมีสิทธิ์ Prime.",
+        "submitButtonLabel": "เสียโทเคน Prime และขอถอน"
+      },
+      "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อขอถอน",
+      "submitButtonLabel": "ขอถอน"
+    },
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อดูคำขอถอน"
+      },
+      "emptyState": "คุณไม่มีคำขอถอนที่ใช้งานอยู่",
+      "locked": "ล็อกจนถึง {{date, dd.MM.yy h:mm a}}",
+      "title": "คำขอถอน",
+      "unlocked": "ปลดล็อกแล้ว",
+      "withdrawButtonLabel": "ถอนยอดคงเหลือที่ปลดล็อกแล้ว"
+    }
+  },
   "select": {
     "defaultLabel": "เลือกตัวเลือก"
   },
@@ -1501,8 +1526,7 @@
     "availableTokensLabel": "{{tokenSymbol}} ที่ใช้ได้",
     "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อสเตค {{tokenSymbol}}",
     "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อสเตค",
-    "submitButtonLabel": "สเตค",
-    "title": "สเตค {{tokenSymbol}}"
+    "submitButtonLabel": "สเตค"
   },
   "statsPage": {
     "illustrationAlt": "ภาพประกอบสถิติ",
@@ -1829,14 +1853,9 @@
       "maturityDatePendleTooltip": "วันสิ้นสุดของตำแหน่งผลตอบแทนคงที่นี้ (จาก Pendle) หลังจากวันนี้ คุณจะได้รับสินทรัพย์ต้นฉบับครบถ้วน (เงินต้น) ผลตอบแทนคงที่ที่ล็อคไว้หยุดที่นี่ ควรถือครองจนถึงวันนั้นเพื่อรับผลตอบแทนตามแผน",
       "numDays_other": "{{count}} วัน",
       "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การฝาก และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
-      "stake": "สเตค",
-      "stakingApr": "APR การสเตค {{stakeTokenName}}",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "ยอดฝากทั้งหมด",
-      "totalStaked": "ยอดสเตครวม",
-      "withdraw": "ถอน",
-      "youAreStake": "คุณกำลังสเตคอยู่",
       "youDeposited": "คุณฝากแล้ว"
     },
     "filter": {
@@ -1904,10 +1923,12 @@
       "overviewTab": "ภาพรวม",
       "pendleFee": "ค่าธรรมเนียม Pendle",
       "positionTab": "ตำแหน่ง",
+      "stakeTab": "สเตค",
       "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อส่งคำขอ",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "ถอน"
+      "withdraw": "ถอน",
+      "withdrawTab": "ถอน"
     },
     "overview": {
       "bannerVaultIllustration": "ภาพประกอบคลัง"
@@ -2136,45 +2157,10 @@
       "address": "({{address}})"
     }
   },
-  "withdrawFromVaiVaultModal": {
+  "withdrawFromVaiVaultModalForm": {
     "availableTokensLabel": "{{tokenSymbol}} ที่ใช้ได้",
     "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน {{tokenSymbol}}",
     "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อถอน",
-    "submitButtonLabel": "ถอน",
-    "title": "ถอน {{tokenSymbol}}"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "รายการคำขอถอน",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน"
-      },
-      "availableTokensLabel": "{{tokenSymbol}} ที่ขอได้",
-      "displayWithdrawalRequestListButton": "รายการคำขอถอน",
-      "primeLossWarning": {
-        "message": "คุณจะสูญเสียโทเคน Prime หากถอนจำนวนนี้ เนื่องจากการสเตคใน XVS vault ของคุณจะต่ำกว่าขั้นต่ำที่ต้องการ {{minimumXvsStake}} เพื่อมีสิทธิ์ Prime.",
-        "submitButtonLabel": "เสียโทเคน Prime และขอถอน"
-      },
-      "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อขอถอน",
-      "submitButtonLabel": "ขอถอน"
-    },
-    "requestWithdrawalTabTitle": "ขอถอน",
-    "title": "ถอน {{tokenSymbol}}",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อดูคำขอถอน"
-      },
-      "emptyState": "คุณไม่มีคำขอถอนที่ใช้งานอยู่",
-      "itemContent": "ล็อกจนถึง {{date, dd.MM.yy h:mm a}}"
-    },
-    "withdrawalRequestListTitle": "รายการคำขอถอน",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน"
-      },
-      "availableTokens": "{{tokenSymbol}} ที่ใช้ได้",
-      "submitButton": "ถอน"
-    },
-    "withdrawTabTitle": "ถอน"
+    "submitButtonLabel": "ถอน"
   }
 }

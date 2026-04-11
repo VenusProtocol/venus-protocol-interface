@@ -1215,6 +1215,31 @@
     "queued": "キュー済み",
     "succeeded": "可決"
   },
+  "requestWithdrawalFromVestingVaultForm": {
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "引き出すにはウォレットを接続してください"
+      },
+      "availableTokensLabel": "リクエスト可能な{{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "引き出し申請一覧",
+      "primeLossWarning": {
+        "message": "この金額を引き出すとXVSボールトのステーキングがPrime対象の最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。",
+        "submitButtonLabel": "Primeトークンを失って引き出しを申請する"
+      },
+      "submitButtonDisabledLabel": "引き出し申請する数量を入力してください",
+      "submitButtonLabel": "引き出しを申請する"
+    },
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "引き出しリクエストを見るにはウォレットを接続してください"
+      },
+      "emptyState": "現在、引き出し申請はありません",
+      "locked": "{{date, dd.MM.yy h:mm a}}までロック",
+      "title": "引き出しリクエスト",
+      "unlocked": "ロック解除済み",
+      "withdrawButtonLabel": "ロック解除済み残高を引き出す"
+    }
+  },
   "select": {
     "defaultLabel": "選択してください"
   },
@@ -1501,8 +1526,7 @@
     "availableTokensLabel": "利用可能な{{tokenSymbol}}",
     "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
     "submitButtonDisabledLabel": "ステーキングする数量を入力してください",
-    "submitButtonLabel": "ステーキング",
-    "title": "{{tokenSymbol}}をステーキング"
+    "submitButtonLabel": "ステーキング"
   },
   "statsPage": {
     "illustrationAlt": "統計イラスト",
@@ -1829,14 +1853,9 @@
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
       "numDays_other": "{{count}}日",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、預入、引き出しは無効になっています。",
-      "stake": "ステーキング",
-      "stakingApr": "{{stakeTokenName}} ステーキングAPR",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "総預金額",
-      "totalStaked": "総ステーキング量",
-      "withdraw": "引き出し",
-      "youAreStake": "あなたのステーキング量",
       "youDeposited": "預入済み"
     },
     "filter": {
@@ -1904,10 +1923,12 @@
       "overviewTab": "概要",
       "pendleFee": "Pendleフィー",
       "positionTab": "ポジション",
+      "stakeTab": "ステーク",
       "submitButtonDisabledLabel": "リクエストする数量を入力してください",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "引き出し"
+      "withdraw": "引き出し",
+      "withdrawTab": "引き出し"
     },
     "overview": {
       "bannerVaultIllustration": "ボールトのイラスト"
@@ -2136,45 +2157,10 @@
       "address": "({{address}})"
     }
   },
-  "withdrawFromVaiVaultModal": {
+  "withdrawFromVaiVaultModalForm": {
     "availableTokensLabel": "利用可能な{{tokenSymbol}}",
     "connectWalletMessage": "{{tokenSymbol}}を引き出すにはウォレットを接続してください",
     "submitButtonDisabledLabel": "引き出す有効な金額を入力",
-    "submitButtonLabel": "引き出す",
-    "title": "{{tokenSymbol}}を引き出す"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "引き出し申請一覧",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "引き出すにはウォレットを接続してください"
-      },
-      "availableTokensLabel": "リクエスト可能な{{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "引き出し申請一覧",
-      "primeLossWarning": {
-        "message": "この金額を引き出すとXVSボールトのステーキングがPrime対象の最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。",
-        "submitButtonLabel": "Primeトークンを失って引き出しを申請する"
-      },
-      "submitButtonDisabledLabel": "引き出し申請する数量を入力してください",
-      "submitButtonLabel": "引き出しを申請する"
-    },
-    "requestWithdrawalTabTitle": "引き出しを申請する",
-    "title": "{{tokenSymbol}}を引き出す",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "引き出しリクエストを見るにはウォレットを接続してください"
-      },
-      "emptyState": "現在、引き出し申請はありません",
-      "itemContent": "{{date, dd.MM.yy h:mm a}}までロック"
-    },
-    "withdrawalRequestListTitle": "引き出し申請一覧",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "引き出すにはウォレットを接続してください"
-      },
-      "availableTokens": "利用可能な{{tokenSymbol}}",
-      "submitButton": "引き出す"
-    },
-    "withdrawTabTitle": "引き出す"
+    "submitButtonLabel": "引き出す"
   }
 }

@@ -72,11 +72,11 @@ export const formatToPendleVault = ({
     stakingAprPercentage: new BigNumber(vaultData.fixedApyDecimal).shiftedBy(2).toNumber(),
     userStakedMantissa: convertTokensToMantissa({
       value: asset.userSupplyBalanceTokens,
-      token: rewardToken,
+      token: asset.vToken.underlyingToken,
     }),
     totalStakedMantissa: convertTokensToMantissa({
       value: asset.supplyBalanceTokens,
-      token: rewardToken,
+      token: asset.vToken.underlyingToken,
     }),
     totalStakedCents: asset.supplyBalanceCents.toNumber(),
     userStakedCents: asset.userSupplyBalanceCents.toNumber(),
