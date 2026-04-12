@@ -14,7 +14,7 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useParams } from 'react-router';
 import {
   formatCentsToReadableValue,
@@ -32,7 +32,7 @@ export const MarketInfo = () => {
     vTokenAddress: Address;
   }>();
 
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const { chainId } = useChainId();
 
@@ -48,6 +48,10 @@ export const MarketInfo = () => {
     poolComptrollerAddress,
   });
   const pool = getPools?.pool;
+
+  const scrollToModeInfo = useCallback(() => {
+    document.getElementById('mode-info')?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   const cells: CellProps[] = useMemo(() => {
     const readableMaxLtvPercentage = asset
@@ -77,11 +81,31 @@ export const MarketInfo = () => {
       {
         label: t('layout.header.maxLtv.label'),
         value: readableMaxLtvPercentage,
-        tooltip: t('layout.header.maxLtv.tooltip', {
-          maxLtv: readableMaxLtvPercentage,
-          userCollateralFactor: asset?.collateralFactor,
-          tokenSymbol: asset?.vToken.underlyingToken.symbol,
-        }),
+        tooltip: (
+          <div>
+            <p>
+              {t('layout.header.maxLtv.tooltip', {
+                maxLtv: readableMaxLtvPercentage,
+                userCollateralFactor: asset?.collateralFactor,
+                tokenSymbol: asset?.vToken.underlyingToken.symbol,
+              })}
+            </p>
+            <p className="mt-2">
+              <Trans
+                i18nKey="layout.header.maxLtv.modeInfoHint"
+                components={{
+                  Link: (
+                    <button
+                      type="button"
+                      className="text-blue underline"
+                      onClick={scrollToModeInfo}
+                    />
+                  ),
+                }}
+              />
+            </p>
+          </div>
+        ),
       },
       {
         label: t('layout.header.utilizationRate'),
@@ -101,7 +125,7 @@ export const MarketInfo = () => {
         }),
       },
     ];
-  }, [asset, t, pool]);
+  }, [asset, t, pool, scrollToModeInfo, Trans]);
 
   const oracleContractHref =
     asset &&
