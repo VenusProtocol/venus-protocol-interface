@@ -8,10 +8,11 @@ export interface CheckboxProps {
   value: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
-export const Checkbox = ({ value, ...otherProps }: CheckboxProps) => {
-  const styles = useStyles();
+export const Checkbox = ({ value, size = 'lg', ...otherProps }: CheckboxProps) => {
+  const styles = useStyles({ size });
   return (
     <MuiCheckbox
       css={styles.root}

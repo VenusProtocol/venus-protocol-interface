@@ -91,6 +91,7 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle vaults cor
     "userStakedCents": 326742,
     "userStakedMantissa": "5000000000000000000",
     "vaultDeploymentDate": 2025-10-09T09:04:39.000Z,
+    "vaultType": "pendle",
   },
 ]
 `;

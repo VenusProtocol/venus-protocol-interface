@@ -154,6 +154,10 @@ type PendleVault = AnalyticEvent & {
   slippageTolerancePercentage: number;
 };
 
+type InstitutionalVaultTx = AnalyticEvent & {
+  vaultAddress: Address;
+};
+
 type EventMap = {
   connect_wallet_initiated: AnalyticEvent;
   wallet_connected: AnalyticEvent;
@@ -235,6 +239,10 @@ type EventMap = {
   'Pendle vault deposit': PendleVault;
   'Pendle vault withdraw': PendleVault;
   'Pendle vault redeemAtMaturity': PendleVault;
+
+  'Institutional vault deposit': InstitutionalVaultTx;
+  'Institutional vault withdraw': InstitutionalVaultTx;
+  'Institutional vault repay': InstitutionalVaultTx;
 };
 
 export type AnalyticEventName = keyof EventMap;

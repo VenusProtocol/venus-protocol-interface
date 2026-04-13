@@ -51,14 +51,17 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
     case VaultStatus.Paused:
       label = t('vault.filter.paused');
       break;
+    case VaultStatus.Pending:
+      label = t('vault.filter.pending');
+      break;
     case VaultStatus.Repaying:
       label = t('vault.filter.repaying');
       break;
   }
 
-  return (
+  return label ? (
     <div className={cn(commonClassName, variantClassName, className)} {...props}>
       {label}
     </div>
-  );
+  ) : null;
 };

@@ -468,8 +468,10 @@ export interface Transaction {
 
 export enum VaultStatus {
   Active = 'active',
+  Inactive = 'inactive',
   Deposit = 'deposit',
   Earning = 'earning',
+  Pending = 'pending',
   Refund = 'refund',
   Repaying = 'repaying',
   Claim = 'claim',
@@ -479,6 +481,13 @@ export enum VaultStatus {
 export enum VaultManager {
   Venus = 'venus',
   Pendle = 'pendle',
+  Ceefu = 'ceefu',
+}
+
+export enum VaultType {
+  Venus = 'venus',
+  Pendle = 'pendle',
+  Institutional = 'institutional',
 }
 
 export enum VaultCategory {
@@ -488,6 +497,7 @@ export enum VaultCategory {
 }
 
 interface BaseVault {
+  vaultType: VaultType;
   category: VaultCategory;
   manager: VaultManager;
   managerIcon: IconName;
@@ -515,17 +525,32 @@ export type VenusVault = BaseVault & {
 };
 
 export type PendleVault = BaseVault & {
-  maturityDate: Date;
+  maturityDate?: Date;
   liquidityCents: BigNumber;
   asset: Asset;
   managerLink?: string;
+  vaultAddress?: Address;
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   poolName: string;
   rewardToken: Token & { fullSymbol: string };
 };
 
-export type Vault = VenusVault | PendleVault;
+export type InstitutionalVault = BaseVault & {
+  liquidityCents: BigNumber;
+  managerLink?: string;
+  vaultAddress?: Address;
+  vaultDeploymentDate?: Date;
+  openEndDate?: Date;
+  lockEndDate?: Date;
+  settlementDate?: Date;
+  maturityDate?: Date;
+  totalDepositedMantissa: BigNumber;
+  maxDepositedMantissa: BigNumber;
+  minRequestMantissa: BigNumber;
+};
+
+export type Vault = VenusVault | PendleVault | InstitutionalVault;
 
 export interface VoterAccount {
   address: Address;

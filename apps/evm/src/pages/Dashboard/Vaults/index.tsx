@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { CellGroup, type CellProps } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { VaultCardSimplified } from 'containers/VaultCard/Simplified';
+import { SimpleVaultCard } from 'containers/VaultCard/SimpleVaultCard';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
@@ -36,7 +36,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
               key={`${vault.poolIndex}-${vault.stakedToken.address}-${vault.rewardToken.address}`}
               noStyle
             >
-              <VaultCardSimplified vault={vault} />
+              <SimpleVaultCard vault={vault} />
             </Link>
           ))}
         </div>
@@ -76,7 +76,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
       <CellGroup variant="secondary" cells={overviewCells} className="mb-6" />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3">
         {filteredVaults.map(vault => (
-          <VaultCardSimplified vault={vault} key={vault.key} />
+          <SimpleVaultCard vault={vault} key={vault.key} />
         ))}
       </div>
     </>
