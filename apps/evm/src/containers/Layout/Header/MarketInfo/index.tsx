@@ -64,7 +64,9 @@ export const MarketInfo = () => {
   const scrollToLtvOptions = () => scrollToElement('mode-info');
 
   const cells: CellProps[] = useMemo(() => {
-    const effectiveCollateralFactor = asset?.userCollateralFactor || asset?.collateralFactor;
+    const effectiveCollateralFactor = isUserConnected
+      ? asset?.userCollateralFactor
+      : asset?.collateralFactor;
 
     const readableMaxLtvPercentage = asset
       ? formatPercentageToReadableValue(
@@ -139,7 +141,7 @@ export const MarketInfo = () => {
         }),
       },
     ];
-  }, [asset, t, pool, scrollToLtvOptions, Trans, hasModeInfo]);
+  }, [asset, t, pool, scrollToLtvOptions, Trans, hasModeInfo, isUserConnected]);
 
   const oracleContractHref =
     asset &&
