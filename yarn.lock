@@ -1365,9 +1365,9 @@
     semver "^7.3.5"
 
 "@dotenvx/dotenvx@^1.26.2", "@dotenvx/dotenvx@^1.51.0":
-  version "1.52.0"
-  resolved "https://registry.yarnpkg.com/@dotenvx/dotenvx/-/dotenvx-1.52.0.tgz#39cb1a70eead336171d9de4cc9de4aa23b709547"
-  integrity sha512-CaQcc8JvtzQhUSm9877b6V4Tb7HCotkcyud9X2YwdqtQKwgljkMRwU96fVYKnzN3V0Hj74oP7Es+vZ0mS+Aa1w==
+  version "1.61.0"
+  resolved "https://registry.yarnpkg.com/@dotenvx/dotenvx/-/dotenvx-1.61.0.tgz#fc505cd62f49621407d8893d47444e05d1919c1d"
+  integrity sha512-utL3cpZoFzflyqUkjYbxYujI6STBTmO5LFn4bbin/NZnRWN6wQ7eErhr3/Vpa5h/jicPFC6kTa42r940mQftJQ==
   dependencies:
     commander "^11.1.0"
     dotenv "^17.2.1"
@@ -1378,6 +1378,7 @@
     object-treeify "1.1.33"
     picomatch "^4.0.2"
     which "^4.0.0"
+    yocto-spinner "^1.1.0"
 
 "@ecies/ciphers@^0.2.1":
   version "0.2.2"
@@ -19496,6 +19497,18 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+yocto-spinner@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/yocto-spinner/-/yocto-spinner-1.1.0.tgz#07ac2ae3c4a02b6a39c1842b7c775a779f041f06"
+  integrity sha512-/BY0AUXnS7IKO354uLLA2eRcWiqDifEbd6unXCsOxkFDAkhgUL3PH9X2bFoaU0YchnDXsF+iKleeTLJGckbXfA==
+  dependencies:
+    yoctocolors "^2.1.1"
+
+yoctocolors@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/yoctocolors/-/yoctocolors-2.1.2.tgz#d795f54d173494e7d8db93150cec0ed7f678c83a"
+  integrity sha512-CzhO+pFNo8ajLM2d2IW/R93ipy99LWjtwblvC1RsoSUMZgyLbYFr221TnSNT7GjGdYui6P459mw9JH/g/zW2ug==
 
 yup@^1.2.0:
   version "1.7.1"
