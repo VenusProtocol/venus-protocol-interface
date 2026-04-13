@@ -728,6 +728,7 @@
       "liquidity": "Likidite",
       "maxLtv": {
         "label": "Maks LTV",
+        "modeInfoHint": "Bu varlık için mevcut LTV seçeneklerini keşfetmek üzere <Link>Mod Bilgisi</Link> bölümüne gitmek için tıklayın.",
         "tooltip": "Maksimum LTV borç limitidir. {{maxLtv}} LTV'de, 1 {{tokenSymbol}} teminat {{userCollateralFactor}} {{tokenSymbol}} değerinde para borç almayı sağlar."
       },
       "price": "Fiyat",
