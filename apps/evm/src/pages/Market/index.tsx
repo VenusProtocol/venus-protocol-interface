@@ -46,13 +46,15 @@ const Page: React.FC = () => {
 
                 <InterestRateChart asset={asset} isIsolatedPoolMarket={pool.isIsolated} />
 
-                <EModeInfo
-                  eModeGroups={pool.eModeGroups}
-                  token={asset.vToken.underlyingToken}
-                  pool={pool}
-                />
+                <div id="mode-info" className="space-y-6">
+                  <EModeInfo
+                    eModeGroups={pool.eModeGroups}
+                    token={asset.vToken.underlyingToken}
+                    pool={pool}
+                  />
 
-                <MarketInfo asset={asset} />
+                  <MarketInfo asset={asset} />
+                </div>
               </div>
             </div>
           </>

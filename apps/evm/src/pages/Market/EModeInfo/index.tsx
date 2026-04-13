@@ -42,7 +42,7 @@ export const EModeInfo: React.FC<EModeInfoProps> = ({ eModeGroups, token, pool }
   }
 
   return (
-    <div id="mode-info" className="space-y-6">
+    <div className="space-y-6">
       {eModeAssetSettings.length > 0 && (
         <Mode
           title={t('market.eModeInfo.eMode.title')}
