@@ -62,5 +62,8 @@ export * from './Slider';
 export * from './IsolatedEModeGroupTooltip';
 export * from './TokenIcon';
 export * from './BalanceUpdates';
+export * from './LabeledValueUpdate';
 export * from './TokenListWrapper';
 export * from './Wrapper';
+export * from './LabeledSlider';
+export * from './AvailableBalance';

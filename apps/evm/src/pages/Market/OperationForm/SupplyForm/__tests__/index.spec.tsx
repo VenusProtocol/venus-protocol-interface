@@ -16,21 +16,21 @@ import { en } from 'libs/translations';
 import type { Asset, AssetBalanceMutation } from 'types';
 
 import MAX_UINT256 from 'constants/maxUint256';
+import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { replaceAssetsInPool } from 'pages/Market/OperationForm/__testUtils__/replaceAssetsInPool';
+import type { TxFormError } from 'types';
 import SupplyForm from '..';
 import {
   checkSubmitButtonIsDisabled,
   checkSubmitButtonIsEnabled,
 } from '../../__testUtils__/checkFns';
-import type { FormError } from '../../types';
-import { useCommonValidation } from '../../useCommonValidation';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useCollateral');
 vi.mock('hooks/useTokenApproval');
-vi.mock('../../useCommonValidation');
+vi.mock('hooks/useCommonValidation');
 
 const mockSupply = vi.fn();
 
@@ -120,7 +120,7 @@ describe('SupplyForm', () => {
   });
 
   it('disables form and displays a warning notice if the supply cap of this market has been reached', async () => {
-    const fakeError: FormError = {
+    const fakeError: TxFormError = {
       code: 'SUPPLY_CAP_ALREADY_REACHED',
       message: en.operationForm.error.supplyCapReached.replace('{{assetSupplyCap}}', '100 XVS'),
     };

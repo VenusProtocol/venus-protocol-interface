@@ -7,9 +7,9 @@ import MuiTableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 
 import { cn } from '@venusprotocol/ui';
-import { Icon } from '../Icon';
-import { useStyles } from './styles';
-import type { TableColumn } from './types';
+import { Icon } from '../../Icon';
+import { useStyles } from '../styles';
+import type { TableColumn } from '../types';
 
 interface HeadProps<R> {
   columns: TableColumn<R>[];
@@ -47,12 +47,12 @@ function Head<R>({
                 css={styles.tableSortLabel({ orderable: !!column.sortRows })}
                 active={active}
                 direction={active ? orderDirection : 'asc'}
-                onClick={controls && column.sortRows ? () => onRequestOrder(column) : undefined}
+                onClick={column.sortRows ? () => onRequestOrder(column) : undefined}
                 hideSortIcon={false}
                 // @ts-expect-error Override IconComponent with null so it doesn't render
                 IconComponent={null}
               >
-                <span>{column.label}</span>
+                <span className="whitespace-nowrap">{column.label}</span>
 
                 {controls && !!column.sortRows && (
                   <div css={styles.tableSortLabelIconsContainer}>

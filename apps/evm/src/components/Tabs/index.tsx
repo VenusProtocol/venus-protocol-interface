@@ -5,7 +5,7 @@ import { ButtonGroup } from '../ButtonGroup';
 
 export interface TabsProps {
   tabs: Tab[];
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary';
   onTabChange?: (newIndex: number) => void;
   navType?: TabNavType;
   initialActiveTabId?: string;
@@ -56,6 +56,7 @@ export const Tabs = ({
           <div
             className={cn(
               'flex text-sm gap-x-4 scrollbar-hidden overflow-y-auto sm:gap-x-6 md:overflow-y-visible',
+              variant === 'tertiary' && 'text-md sm:text-lg',
               headerClassName,
             )}
           >
@@ -66,11 +67,17 @@ export const Tabs = ({
                 key={tab.id}
                 className={cn(
                   'hover:text-white cursor-pointer',
+                  variant === 'secondary' && 'grow',
                   activeTab.id === tab.id ? 'text-white' : 'text-grey',
                   buttonClassName,
                 )}
               >
-                <p className="mb-2 font-semibold whitespace-nowrap transition-colors text-inherit">
+                <p
+                  className={cn(
+                    'mb-2 font-semibold whitespace-nowrap transition-colors text-inherit',
+                    variant === 'secondary' && 'text-center',
+                  )}
+                >
                   {tab.title}
                 </p>
 

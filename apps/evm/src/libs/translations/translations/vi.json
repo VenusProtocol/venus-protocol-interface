@@ -286,6 +286,9 @@
     "modalTitle": "Token {{ poolName }}",
     "supplyDescription": "Cung cấp {{tokenSymbol}} vào pool {{poolName}} sẽ cho phép bạn vay token chỉ từ pool này. <Button>Hiển thị tất cả thị trường</Button>"
   },
+  "availableBalance": {
+    "label": "Có thể dùng"
+  },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "Hình minh họa nền",
     "binanceLogoAltText": "Logo Binance",
@@ -1070,8 +1073,8 @@
     },
     "rightMaxButtonLabel": "TỐI ĐA",
     "riskSlider": {
-      "highRisk": "Rủi ro cao",
-      "lowRisk": "Rủi ro thấp"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "TỐI ĐA AN TOÀN",
     "submitButtonLabel": {

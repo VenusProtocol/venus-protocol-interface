@@ -58,6 +58,6 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignore": ["generated"]
+    "ignore": ["generated", ".claude/**"]
   }
 }

@@ -1,15 +1,15 @@
 import type { Swap, SwapQuote } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
-export const getSwapToTokenAmountReceivedTokens = (swap?: Swap | SwapQuote) => {
+export const getSwapToTokenAmount = (swap?: Swap | SwapQuote) => {
   if (swap) {
-    const swapToTokenAmountReceivedMantissa =
+    const swapToTokenAmountMantissa =
       swap.direction === 'exactAmountOut' || swap.direction === 'exact-out'
         ? swap.toTokenAmountReceivedMantissa
         : swap.expectedToTokenAmountReceivedMantissa;
 
     return convertMantissaToTokens({
-      value: swapToTokenAmountReceivedMantissa,
+      value: swapToTokenAmountMantissa,
       token: swap.toToken,
     });
   }

@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
-import { exactInSwapQuote } from '__mocks__/models/swap';
 import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
@@ -160,10 +159,7 @@ const cases: Case[] = [
     expectedErrorCode: 'SWAP_PRICE_IMPACT_TOO_HIGH',
     input: {
       pool: fakePool,
-      swapQuote: {
-        ...exactInSwapQuote,
-        priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE + 0.1,
-      },
+      swapPriceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE + 0.1,
       balanceMutations: fakeSupplyBalanceMutations,
     },
   },
@@ -171,10 +167,7 @@ const cases: Case[] = [
     expectedErrorCode: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT',
     input: {
       pool: fakePool,
-      swapQuote: {
-        ...exactInSwapQuote,
-        priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE + 0.1,
-      },
+      swapPriceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE + 0.1,
       userAcknowledgesHighPriceImpact: false,
       balanceMutations: fakeSupplyBalanceMutations,
     },

@@ -169,7 +169,9 @@ export interface AssetBalanceMutation {
   vTokenAddress: Address;
   amountTokens: BigNumber;
   action: 'borrow' | 'repay' | 'withdraw' | 'supply';
+  balanceTokens?: BigNumber;
   enableAsCollateralOfUser?: boolean;
+  label?: string;
 }
 
 export interface VaiBalanceMutation {
@@ -658,6 +660,25 @@ export interface ImportableAaveSupplyPosition extends ImportableSupplyPositionBa
 }
 
 export type ImportableSupplyPosition = ImportableAaveSupplyPosition;
+
+export type CommonTxFormErrorCode =
+  | 'SUPPLY_CAP_ALREADY_REACHED'
+  | 'BORROW_CAP_ALREADY_REACHED'
+  | 'HIGHER_THAN_BORROW_CAP'
+  | 'HIGHER_THAN_SUPPLY_CAP'
+  | 'SWAP_PRICE_IMPACT_TOO_HIGH'
+  | 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT'
+  | 'NO_SWAP_QUOTE_FOUND'
+  | 'HIGHER_THAN_LIQUIDITY'
+  | 'HIGHER_THAN_AVAILABLE_AMOUNT'
+  | 'HIGHER_THAN_REPAY_BALANCE'
+  | 'REQUIRES_RISK_ACKNOWLEDGEMENT'
+  | 'TOO_RISKY';
+
+export interface TxFormError<C extends string = never> {
+  code: CommonTxFormErrorCode | C;
+  message?: string;
+}
 
 export enum TxType {
   Mint = 'mint',
