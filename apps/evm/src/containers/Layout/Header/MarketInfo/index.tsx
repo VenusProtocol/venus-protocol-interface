@@ -38,16 +38,18 @@ export const MarketInfo = () => {
 
   const { chainId } = useChainId();
 
+  const { accountAddress } = useAccountAddress();
+
   const { data: getAssetData } = useGetAsset({
     vTokenAddress,
+    accountAddress,
   });
   const asset = getAssetData?.asset;
-
-  const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
   const { data: getPools } = useGetPool({
     poolComptrollerAddress,
+    accountAddress,
   });
   const pool = getPools?.pool;
 
@@ -64,11 +66,13 @@ export const MarketInfo = () => {
   }, [hasModeInfo]);
 
   const cells: CellProps[] = useMemo(() => {
+    const effectiveCollateralFactor = asset?.userCollateralFactor || asset?.collateralFactor;
+
     const readableMaxLtvPercentage = asset
       ? formatPercentageToReadableValue(
-          asset
+          effectiveCollateralFactor !== undefined
             ? // We use BigNumber to prevent issues with floating-point numbers
-              new BigNumber(asset.collateralFactor)
+              new BigNumber(effectiveCollateralFactor)
                 .multipliedBy(100)
                 .toNumber()
             : undefined,
@@ -96,7 +100,7 @@ export const MarketInfo = () => {
             <p>
               {t('layout.header.maxLtv.tooltip', {
                 maxLtv: readableMaxLtvPercentage,
-                userCollateralFactor: asset?.collateralFactor,
+                userCollateralFactor: effectiveCollateralFactor,
                 tokenSymbol: asset?.vToken.underlyingToken.symbol,
               })}
             </p>
@@ -107,7 +111,7 @@ export const MarketInfo = () => {
                   Link: (
                     <button
                       type="button"
-                      className="text-blue underline"
+                      className="text-blue underline cursor-pointer"
                       onClick={scrollToLtvOptions}
                     />
                   ),
