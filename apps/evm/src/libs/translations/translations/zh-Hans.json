@@ -1856,7 +1856,8 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "总存款",
-      "youDeposited": "你已存入"
+      "youDeposited": "你已存入",
+      "youStaked": "你已质押"
     },
     "filter": {
       "active": "进行中",

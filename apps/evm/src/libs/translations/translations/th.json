@@ -1856,7 +1856,8 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "ยอดฝากทั้งหมด",
-      "youDeposited": "คุณฝากแล้ว"
+      "youDeposited": "คุณฝากแล้ว",
+      "youStaked": "คุณสเตคแล้ว"
     },
     "filter": {
       "active": "กำลังใช้งาน",

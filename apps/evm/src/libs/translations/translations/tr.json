@@ -1857,7 +1857,8 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Toplam yatırılan",
-      "youDeposited": "Yatırım yaptınız"
+      "youDeposited": "Yatırım yaptınız",
+      "youStaked": "Stake yaptınız"
     },
     "filter": {
       "active": "Aktif",

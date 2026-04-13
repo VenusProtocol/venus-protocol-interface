@@ -70,8 +70,9 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle vaults cor
       "address": "0xe052823b4aefc6e230FAf46231A57d0905E30AE0",
       "chainId": 56,
       "decimals": 18,
+      "fullSymbol": "PT-clisBNB-25JUN2026",
       "iconSrc": "",
-      "symbol": "PT-clisBNB-25JUN2026",
+      "symbol": "BNB (Pendle PT)",
     },
     "rewardTokenPriceCents": "65348.52516038151",
     "stakedToken": {

@@ -59,18 +59,16 @@ export const usePositionTabData = ({
   const isStake = actionMode === 'deposit';
 
   // --- Form state ---
-  const initialFormValues: FormValues = useMemo(
-    () => ({ tokenAmount: '', fromToken: isStake ? vault.stakedToken : vault.rewardToken }),
-    [isStake, vault.rewardToken, vault.stakedToken],
-  );
+  const [formValues, setFormValues] = useState<FormValues>({
+    tokenAmount: '',
+    fromToken: isStake ? vault.stakedToken : vault.rewardToken,
+  });
 
-  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
-
-  // Reset form when wallet disconnects or action mode changes
-  // biome-ignore lint/correctness/useExhaustiveDependencies: also watch for wallet connect/disconnect
+  // Reset form when wallet changes or action mode switches
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset form on wallet or mode change only
   useEffect(() => {
-    setFormValues(initialFormValues);
-  }, [accountAddress, initialFormValues]);
+    setFormValues({ tokenAmount: '', fromToken: isStake ? vault.stakedToken : vault.rewardToken });
+  }, [accountAddress, isStake]);
 
   const toToken = isStake ? vault.rewardToken : vault.stakedToken;
 

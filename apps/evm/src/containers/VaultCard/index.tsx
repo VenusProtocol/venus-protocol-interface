@@ -1,8 +1,7 @@
 import { cn } from '@venusprotocol/ui';
-import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
-import { Card, Icon, LabeledInlineContent, NoticeWarning } from 'components';
+import { Card, Icon, InfoIcon, LabeledInlineContent, NoticeWarning } from 'components';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useNow } from 'hooks/useNow';
@@ -36,10 +35,12 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
   const { accountAddress } = useAccountAddress();
 
-  const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
-    token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
-    value: vault.userStakedMantissa || new BigNumber(0),
-  });
+  const readableUserStakedTokens = vault?.userStakedMantissa?.gt(0)
+    ? useConvertMantissaToReadableTokenString({
+        token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
+        value: vault.userStakedMantissa,
+      })
+    : undefined;
 
   const dailyEmissionMantissa =
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
@@ -74,13 +75,12 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
     setModalVisible(true);
   };
 
-  const footerLabel = (() => {
-    if (hasMatured) {
-      return t('vault.card.claimReward');
-    }
-
-    return t('vault.card.youDeposited');
-  })();
+  let footerLabel: string | undefined = t('vault.card.youDeposited');
+  if (hasMatured) {
+    footerLabel = t('vault.card.claimReward');
+  } else if (isLegacyVenusVault(vault)) {
+    footerLabel = t('vault.card.youStaked');
+  }
 
   return (
     <>
@@ -131,11 +131,17 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                 tooltip={t('vault.card.liquidityTooltip')}
               >
                 <div className="text-b1r text-end">
-                  <div className={cn('flex items-center gap-x-2')}>
+                  <div className={cn('flex items-center')}>
                     {formatTokensToReadableValue({
                       value: liquidityTokens,
                       token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
                     })}
+                    {isPendleVault(vault) && (
+                      <InfoIcon
+                        className="ml-2 inline-flex items-center"
+                        tooltip={vault.rewardToken.fullSymbol}
+                      />
+                    )}
                   </div>
                   <div className="text-light-grey">
                     {formatCentsToReadableValue({
@@ -217,13 +223,15 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
         </div>
 
         {/* Footer */}
-        <div className={cn('bg-cards px-4 sm:px-6 py-4 flex items-center justify-between')}>
-          <span className="text-b1s">{footerLabel}</span>
+        {readableUserStakedTokens && (
+          <div className={cn('bg-cards px-4 sm:px-6 py-4 flex items-center justify-between')}>
+            <span className="text-b1s">{footerLabel}</span>
 
-          <div className={cn('flex items-center gap-x-3 text-b1s')}>
-            <span>{readableUserStakedTokens}</span>
+            <div className={cn('flex items-center gap-x-3 text-b1s')}>
+              <span>{readableUserStakedTokens}</span>
+            </div>
           </div>
-        </div>
+        )}
       </Card>
 
       {isPendleVault(vault) && (

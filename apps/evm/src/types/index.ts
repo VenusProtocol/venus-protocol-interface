@@ -522,6 +522,7 @@ export type PendleVault = BaseVault & {
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   poolName: string;
+  rewardToken: Token & { fullSymbol: string };
 };
 
 export type Vault = VenusVault | PendleVault;

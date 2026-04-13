@@ -1856,7 +1856,8 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "総預金額",
-      "youDeposited": "預入済み"
+      "youDeposited": "預入済み",
+      "youStaked": "ステーキング済み"
     },
     "filter": {
       "active": "アクティブ",

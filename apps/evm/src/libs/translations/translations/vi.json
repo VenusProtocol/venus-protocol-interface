@@ -1856,7 +1856,8 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Tổng tiền gửi",
-      "youDeposited": "Bạn đã gửi"
+      "youDeposited": "Bạn đã gửi",
+      "youStaked": "Bạn đã stake"
     },
     "filter": {
       "active": "Đang hoạt động",

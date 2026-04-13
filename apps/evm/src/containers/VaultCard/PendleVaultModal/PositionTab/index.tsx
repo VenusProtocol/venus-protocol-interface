@@ -1,7 +1,14 @@
 import { TertiaryButton, cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 
-import { ButtonGroup, LabeledInlineContent, NoticeInfo, Slider, TokenTextField } from 'components';
+import {
+  ButtonGroup,
+  InfoIcon,
+  LabeledInlineContent,
+  NoticeInfo,
+  Slider,
+  TokenTextField,
+} from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { Link } from 'containers/Link';
@@ -232,6 +239,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
           tooltip={t('vault.modals.currentDepositedTooltip')}
         >
           {readableUserStaked}
+          <InfoIcon tooltip={vault.rewardToken.fullSymbol} className="ms-2" />
         </LabeledInlineContent>
 
         {vault.manager === VaultManager.Pendle && actionMode !== 'redeemAtMaturity' && (

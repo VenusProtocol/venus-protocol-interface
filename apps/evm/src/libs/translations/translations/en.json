@@ -1857,7 +1857,8 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Total deposited",
-      "youDeposited": "You deposited"
+      "youDeposited": "You deposited",
+      "youStaked": "You staked"
     },
     "filter": {
       "active": "Active",

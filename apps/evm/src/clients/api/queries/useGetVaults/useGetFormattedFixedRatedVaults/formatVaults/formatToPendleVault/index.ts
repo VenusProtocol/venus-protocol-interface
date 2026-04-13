@@ -55,6 +55,12 @@ export const formatToPendleVault = ({
     return undefined;
   }
 
+  const modifiedRewardToken = {
+    ...rewardToken,
+    symbol: `${stakedToken.symbol} (Pendle PT)`,
+    fullSymbol: `${rewardToken.symbol}`,
+  };
+
   const maturityDate = new Date(vaultData.maturityDate);
   const maturityTimestampMs = maturityDate.getTime();
 
@@ -68,7 +74,7 @@ export const formatToPendleVault = ({
   const result: PendleVault = {
     key: vaultData.id,
     stakedToken,
-    rewardToken,
+    rewardToken: modifiedRewardToken,
     stakingAprPercentage: new BigNumber(vaultData.fixedApyDecimal).shiftedBy(2).toNumber(),
     userStakedMantissa: convertTokensToMantissa({
       value: asset.userSupplyBalanceTokens,
