@@ -33,7 +33,7 @@ export const Mode: React.FC<ModeProps> = ({ title, eModeAssetSettings, pool }) =
         />
 
         {/* Table  view */}
-        <div className="px-2 hidden md:block lg:hidden 2xl:block">
+        <div className="px-2 hidden md:block lg:hidden 2xl:block max-h-104 overflow-y-auto">
           <Table
             className="border-0"
             variant="secondary"
