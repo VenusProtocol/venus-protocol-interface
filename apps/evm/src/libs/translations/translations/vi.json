@@ -728,7 +728,7 @@
       "liquidity": "Thanh khoản",
       "maxLtv": {
         "label": "LTV tối đa",
-        "modeInfoHint": "Nhấp để chuyển đến phần <Link>Thông tin chế độ</Link> để khám phá các tùy chọn LTV có sẵn cho tài sản này.",
+        "modeInfoHint": "<Link>Khám phá</Link> các tùy chọn LTV có sẵn.",
         "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
       },
       "price": "Giá",

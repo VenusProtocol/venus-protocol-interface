@@ -1,5 +1,6 @@
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
+export { default as scrollToElement } from './scrollToElement';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
 export { default as formatPercentageToReadableValue } from './formatPercentageToReadableValue';

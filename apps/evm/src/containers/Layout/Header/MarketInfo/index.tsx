@@ -17,9 +17,11 @@ import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useCallback, useMemo } from 'react';
 import { useParams } from 'react-router';
 import {
+  areTokensEqual,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   generateExplorerUrl,
+  scrollToElement,
 } from 'utilities';
 import type { Address } from 'viem';
 import { AddTokenToWalletDropdown } from './AddTokenToWalletDropdown';
@@ -49,9 +51,17 @@ export const MarketInfo = () => {
   });
   const pool = getPools?.pool;
 
-  const scrollToModeInfo = useCallback(() => {
-    document.getElementById('mode-info')?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+  const hasModeInfo =
+    !!asset &&
+    !!pool?.eModeGroups.some(group =>
+      group.assetSettings.some(s =>
+        areTokensEqual(asset.vToken.underlyingToken, s.vToken.underlyingToken),
+      ),
+    );
+
+  const scrollToLtvOptions = useCallback(() => {
+    scrollToElement(hasModeInfo ? 'mode-info' : 'market-info');
+  }, [hasModeInfo]);
 
   const cells: CellProps[] = useMemo(() => {
     const readableMaxLtvPercentage = asset
@@ -98,7 +108,7 @@ export const MarketInfo = () => {
                     <button
                       type="button"
                       className="text-blue underline"
-                      onClick={scrollToModeInfo}
+                      onClick={scrollToLtvOptions}
                     />
                   ),
                 }}
@@ -125,7 +135,7 @@ export const MarketInfo = () => {
         }),
       },
     ];
-  }, [asset, t, pool, scrollToModeInfo, Trans]);
+  }, [asset, t, pool, scrollToLtvOptions, Trans]);
 
   const oracleContractHref =
     asset &&

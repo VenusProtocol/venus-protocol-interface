@@ -148,7 +148,11 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
   ]);
 
   return (
-    <MarketCard title={t('asset.marketInfo.title')} data-testid={TEST_IDS.marketInfo}>
+    <MarketCard
+      id="market-info"
+      title={t('asset.marketInfo.title')}
+      data-testid={TEST_IDS.marketInfo}
+    >
       <ul className="m-0 p-0">
         {stats.map(stat => (
           <li
