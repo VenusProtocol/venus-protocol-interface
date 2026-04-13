@@ -41,6 +41,7 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
     tcsAccepted,
     setTcsAccepted,
     userStakedTokens,
+    maxRedeemTokens,
     availableTokens,
     handleSubmit,
     isFormValid,
@@ -67,6 +68,12 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
     ? t('vault.modals.textualWithTime', { date: vault.maturityDate })
     : PLACEHOLDER_KEY;
 
+  const totalYieldTokens = maxRedeemTokens?.minus(userStakedTokens);
+  const readableTotalYield = formatTokensToReadableValue({
+    value: totalYieldTokens,
+    token: vault.stakedToken,
+  });
+
   // --- Shared info rows used by claim, info, and refund ---
   const infoRows = (
     <>
@@ -88,7 +95,7 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
         label={t('vault.modals.totalYield')}
         tooltip={t('vault.modals.totalYieldTooltip')}
       >
-        <span className="text-b1s text-white">{PLACEHOLDER_KEY}</span>
+        <span className="text-b1s text-white">{readableTotalYield}</span>
       </LabeledInlineContent>
     </>
   );

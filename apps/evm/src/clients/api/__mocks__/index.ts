@@ -943,7 +943,7 @@ export const useWithdrawFromInstitutionalVault = vi.fn((options?: MutationObserv
   }),
 );
 
-export const useRepayToInstitutionalVault = vi.fn((options?: MutationObserverOptions) =>
+export const useRedeemToInstitutionalVault = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),
     ...options,

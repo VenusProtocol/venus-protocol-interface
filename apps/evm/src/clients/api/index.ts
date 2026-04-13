@@ -37,7 +37,7 @@ export * from './mutations/useStakeInPendleVault';
 export * from './mutations/useWithdrawFromPendleVault';
 export * from './mutations/useDepositToInstitutionalVault';
 export * from './mutations/useWithdrawFromInstitutionalVault';
-export * from './mutations/useRepayToInstitutionalVault';
+export * from './mutations/useRedeemToInstitutionalVault';
 
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
@@ -254,3 +254,6 @@ export * from './queries/getPendleSwapQuote/useGetPendleSwapQuote';
 
 export * from './queries/getFixedRatedVaultUserStakedTokens';
 export * from './queries/getFixedRatedVaultUserStakedTokens/useGetFixedRatedVaultUserStakedTokens';
+
+export * from './queries/getInstitutionalVaultMaxRedeemAmount';
+export * from './queries/getInstitutionalVaultMaxRedeemAmount/useGetInstitutionalVaultMaxRedeemAmount';

@@ -29,7 +29,7 @@ export const useGetFormattedFixedRatedVaults = (): UseGetFormattedFixedRatedVaul
   const isLoading = isVaultProductsLoading || isPoolsLoading || isUserStakedTokensLoading;
 
   const data =
-    vaultProducts && poolsData?.pools && userStakedAmounts
+    vaultProducts && poolsData?.pools
       ? formatVaults({
           vaultProducts,
           pools: poolsData.pools,

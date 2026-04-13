@@ -156,6 +156,7 @@ type PendleVault = AnalyticEvent & {
 
 type InstitutionalVaultTx = AnalyticEvent & {
   vaultAddress: Address;
+  accountAddress?: Address;
 };
 
 type EventMap = {

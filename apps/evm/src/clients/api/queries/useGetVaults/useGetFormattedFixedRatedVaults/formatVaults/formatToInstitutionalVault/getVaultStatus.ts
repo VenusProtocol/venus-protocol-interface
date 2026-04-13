@@ -57,6 +57,10 @@ export const getVaultStatus = ({
     return VaultStatus.Refund;
   }
 
+  if (vaultState === 9) {
+    return VaultStatus.Paused;
+  }
+
   if (vaultState === 10) {
     return VaultStatus.Inactive;
   }

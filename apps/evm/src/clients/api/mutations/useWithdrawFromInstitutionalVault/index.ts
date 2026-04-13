@@ -41,6 +41,7 @@ export const useWithdrawFromInstitutionalVault = (
     onConfirmed: () => {
       captureAnalyticEvent('Institutional vault withdraw', {
         vaultAddress,
+        accountAddress,
       });
 
       queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS] });

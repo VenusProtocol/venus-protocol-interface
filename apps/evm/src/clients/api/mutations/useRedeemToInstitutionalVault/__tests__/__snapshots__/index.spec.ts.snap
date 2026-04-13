@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`useRepayToInstitutionalVault > calls useSendTransaction with the correct parameters 2`] = `
+exports[`useRedeemToInstitutionalVault > calls useSendTransaction with the correct parameters 2`] = `
 [
   [
     {

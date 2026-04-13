@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   useDepositToInstitutionalVault,
   useGetBalanceOf,
-  useRepayToInstitutionalVault,
+  useGetInstitutionalVaultMaxRedeemAmount,
+  useRedeemToInstitutionalVault,
   useWithdrawFromInstitutionalVault,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
@@ -24,7 +25,8 @@ const getDisplayMode = (status: VaultStatus): DisplayMode => {
   if (
     status === VaultStatus.Earning ||
     status === VaultStatus.Pending ||
-    status === VaultStatus.Repaying
+    status === VaultStatus.Repaying ||
+    status === VaultStatus.Paused
   ) {
     return 'info';
   }
@@ -155,25 +157,27 @@ export const useInstitutionalPositionTabData = ({
   const { mutateAsync: depositToInstitutionalVault, isPending: isDepositing } =
     useDepositToInstitutionalVault({ vaultAddress });
 
+  const { mutateAsync: redeemFromInstitutionalVault, isPending: isRedeeming } =
+    useRedeemToInstitutionalVault({ vaultAddress });
+
   const { mutateAsync: withdrawFromInstitutionalVault, isPending: isWithdrawing } =
     useWithdrawFromInstitutionalVault({ vaultAddress });
 
-  const { mutateAsync: repayToInstitutionalVault, isPending: isRepaying } =
-    useRepayToInstitutionalVault({ vaultAddress });
+  const { data: maxRedeemData } = useGetInstitutionalVaultMaxRedeemAmount({ vaultAddress });
 
   // --- Submit handler (deposit mode) ---
   async function handleOnSubmit() {
-    const amountMantissa = convertTokensToMantissa({
-      value: new BigNumber(formValues.tokenAmount),
-      token: vault.stakedToken,
-    });
-
     if (displayMode === 'deposit') {
+      const amountMantissa = convertTokensToMantissa({
+        value: new BigNumber(formValues.tokenAmount),
+        token: vault.stakedToken,
+      });
+
       await depositToInstitutionalVault({ amountMantissa });
-    } else if (displayMode === 'claim' && vault.userStakedMantissa?.gt(0)) {
-      await repayToInstitutionalVault({ amountMantissa: vault.userStakedMantissa });
-    } else if (displayMode === 'refund' && vault.userStakedMantissa?.gt(0)) {
-      await withdrawFromInstitutionalVault({ amountMantissa: vault.userStakedMantissa });
+    } else if (displayMode === 'claim' && maxRedeemData?.amountMantissa?.gt(0)) {
+      await redeemFromInstitutionalVault({ amountMantissa: maxRedeemData?.amountMantissa });
+    } else if (displayMode === 'refund' && maxRedeemData?.amountMantissa.gt(0)) {
+      await withdrawFromInstitutionalVault({ amountMantissa: maxRedeemData.amountMantissa });
     }
 
     onClose?.();
@@ -248,14 +252,14 @@ export const useInstitutionalPositionTabData = ({
 
   // --- Derived submit state ---
   const isUserConnected = !!accountAddress;
-  const isSubmitting = isDepositing || isWithdrawing || isRepaying;
+  const isSubmitting = isDepositing || isWithdrawing || isRedeeming;
   const disableInput =
     !isUserConnected || isSubmitting || isApproveFromTokenLoading || isBalanceLoading;
   const disableSubmit =
-    !isFormValid ||
+    !isUserConnected ||
+    (displayMode === 'deposit' && (!isFormValid || !tcsAccepted)) ||
     isSubmitting ||
-    !tcsAccepted ||
-    (['claim', 'refund'].includes(displayMode) && !vault.userStakedMantissa?.gt(0));
+    (['claim', 'refund'].includes(displayMode) && !maxRedeemData?.amountMantissa?.gt(0));
 
   return {
     // Display mode
@@ -272,6 +276,12 @@ export const useInstitutionalPositionTabData = ({
 
     // Tokens
     userStakedTokens,
+    maxRedeemTokens: maxRedeemData?.amountMantissa
+      ? convertMantissaToTokens({
+          value: maxRedeemData?.amountMantissa,
+          token: vault.stakedToken,
+        })
+      : undefined,
     availableTokens,
     maxDepositCapacityTokens,
 

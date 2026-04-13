@@ -47,7 +47,7 @@ export const useForm = ({
   const handleSubmit = async (e?: React.SyntheticEvent) => {
     e?.preventDefault();
 
-    if (!isFormValid) {
+    if (isStake && !isFormValid) {
       return;
     }
 

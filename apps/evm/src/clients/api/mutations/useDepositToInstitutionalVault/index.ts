@@ -47,6 +47,7 @@ export const useDepositToInstitutionalVault = (
     onConfirmed: () => {
       captureAnalyticEvent('Institutional vault deposit', {
         vaultAddress,
+        accountAddress,
       });
 
       queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS] });

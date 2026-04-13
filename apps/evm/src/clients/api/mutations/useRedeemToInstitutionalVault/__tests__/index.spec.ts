@@ -5,7 +5,7 @@ import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
-import { useRepayToInstitutionalVault } from '..';
+import { useRedeemToInstitutionalVault } from '..';
 
 vi.mock('libs/contracts');
 
@@ -20,7 +20,7 @@ const fakeOptions = {
   waitForConfirmation: true,
 };
 
-describe('useRepayToInstitutionalVault', () => {
+describe('useRedeemToInstitutionalVault', () => {
   it('calls useSendTransaction with the correct parameters', async () => {
     const mockCaptureAnalyticEvent = vi.fn();
     (useAnalytics as Mock).mockImplementation(() => ({
@@ -28,7 +28,7 @@ describe('useRepayToInstitutionalVault', () => {
     }));
 
     renderHook(
-      () => useRepayToInstitutionalVault({ vaultAddress: fakeVaultAddress }, fakeOptions),
+      () => useRedeemToInstitutionalVault({ vaultAddress: fakeVaultAddress }, fakeOptions),
       { accountAddress: fakeAccountAddress },
     );
 
@@ -50,8 +50,10 @@ describe('useRepayToInstitutionalVault', () => {
         "address": "0x1234567890abcdef1234567890abcdef12345678",
         "args": [
           1000000000000000000n,
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
-        "functionName": "repay",
+        "functionName": "redeem",
       }
     `,
     );
@@ -60,13 +62,16 @@ describe('useRepayToInstitutionalVault', () => {
 
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Institutional vault repay', {
       vaultAddress: fakeVaultAddress,
+      accountAddress: fakeAccountAddress,
     });
 
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws when account address is not available', async () => {
-    renderHook(() => useRepayToInstitutionalVault({ vaultAddress: fakeVaultAddress }, fakeOptions));
+    renderHook(() =>
+      useRedeemToInstitutionalVault({ vaultAddress: fakeVaultAddress }, fakeOptions),
+    );
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 

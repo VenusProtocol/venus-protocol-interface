@@ -62,6 +62,7 @@ describe('useWithdrawFromInstitutionalVault', () => {
 
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Institutional vault withdraw', {
       vaultAddress: fakeVaultAddress,
+      accountAddress: fakeAccountAddress,
     });
 
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();

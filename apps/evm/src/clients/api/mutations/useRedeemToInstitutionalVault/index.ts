@@ -14,7 +14,7 @@ type RepayToInstitutionalVaultInput = {
 
 type Options = UseSendTransactionOptions<RepayToInstitutionalVaultInput>;
 
-export const useRepayToInstitutionalVault = (
+export const useRedeemToInstitutionalVault = (
   { vaultAddress }: { vaultAddress: Address },
   options?: Partial<Options>,
 ) => {
@@ -34,13 +34,14 @@ export const useRepayToInstitutionalVault = (
       return {
         abi: institutionalVaultAbi,
         address: vaultAddress,
-        functionName: 'repay' as const,
-        args: [BigInt(amountMantissa.toFixed())] as const,
+        functionName: 'redeem' as const,
+        args: [BigInt(amountMantissa.toFixed()), accountAddress, accountAddress] as const,
       };
     },
     onConfirmed: () => {
       captureAnalyticEvent('Institutional vault repay', {
         vaultAddress,
+        accountAddress,
       });
 
       queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS] });

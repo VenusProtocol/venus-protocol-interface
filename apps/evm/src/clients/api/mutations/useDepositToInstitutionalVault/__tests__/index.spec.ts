@@ -61,6 +61,7 @@ describe('useDepositToInstitutionalVault', () => {
 
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Institutional vault deposit', {
       vaultAddress: fakeVaultAddress,
+      accountAddress: fakeAccountAddress,
     });
 
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
