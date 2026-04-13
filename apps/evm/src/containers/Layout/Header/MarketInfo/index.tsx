@@ -14,7 +14,7 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router';
 import {
   areTokensEqual,
@@ -61,9 +61,7 @@ export const MarketInfo = () => {
       ),
     );
 
-  const scrollToLtvOptions = useCallback(() => {
-    scrollToElement(hasModeInfo ? 'mode-info' : 'market-info');
-  }, [hasModeInfo]);
+  const scrollToLtvOptions = () => scrollToElement('mode-info');
 
   const cells: CellProps[] = useMemo(() => {
     const effectiveCollateralFactor = asset?.userCollateralFactor || asset?.collateralFactor;
@@ -104,20 +102,22 @@ export const MarketInfo = () => {
                 tokenSymbol: asset?.vToken.underlyingToken.symbol,
               })}
             </p>
-            <p className="mt-2">
-              <Trans
-                i18nKey="layout.header.maxLtv.modeInfoHint"
-                components={{
-                  Link: (
-                    <button
-                      type="button"
-                      className="text-blue underline cursor-pointer"
-                      onClick={scrollToLtvOptions}
-                    />
-                  ),
-                }}
-              />
-            </p>
+            {hasModeInfo && (
+              <p className="mt-2">
+                <Trans
+                  i18nKey="layout.header.maxLtv.modeInfoHint"
+                  components={{
+                    Link: (
+                      <button
+                        type="button"
+                        className="text-blue underline cursor-pointer"
+                        onClick={scrollToLtvOptions}
+                      />
+                    ),
+                  }}
+                />
+              </p>
+            )}
           </div>
         ),
       },
@@ -139,7 +139,7 @@ export const MarketInfo = () => {
         }),
       },
     ];
-  }, [asset, t, pool, scrollToLtvOptions, Trans]);
+  }, [asset, t, pool, scrollToLtvOptions, Trans, hasModeInfo]);
 
   const oracleContractHref =
     asset &&
