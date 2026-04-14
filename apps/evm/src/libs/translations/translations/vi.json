@@ -1980,7 +1980,6 @@
       "message": "Không thể lấy đề xuất"
     },
     "for": "Ủng hộ",
-    "goToXvsSnapshot": "Đi tới XVS Snapshot",
     "omnichain": {
       "switchToBnb": "Chuyển sang BNB Chain",
       "votingOnlyEnabledOnBnb": "Bỏ phiếu chỉ khả dụng trên BNB Chain"

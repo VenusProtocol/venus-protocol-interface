@@ -1981,7 +1981,6 @@
       "message": "Teklifler alınamadı"
     },
     "for": "Lehte",
-    "goToXvsSnapshot": "XVS Snapshot'a git",
     "omnichain": {
       "switchToBnb": "BNB Chain'e geç",
       "votingOnlyEnabledOnBnb": "Oylama yalnızca BNB Chain üzerinde kullanılabilir"
