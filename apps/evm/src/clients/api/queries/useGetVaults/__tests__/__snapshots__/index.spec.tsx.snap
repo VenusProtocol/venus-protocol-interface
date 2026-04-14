@@ -35,6 +35,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userHasPendingWithdrawalsFromBeforeUpgrade": true,
     "userStakedCents": 2900,
     "userStakedMantissa": "29000000000000000000",
+    "vaultType": "venus",
   },
   {
     "category": "others",
@@ -69,6 +70,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userHasPendingWithdrawalsFromBeforeUpgrade": true,
     "userStakedCents": 2900,
     "userStakedMantissa": "29000000000000000000",
+    "vaultType": "venus",
   },
   {
     "category": "others",
@@ -103,6 +105,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userHasPendingWithdrawalsFromBeforeUpgrade": true,
     "userStakedCents": 2900,
     "userStakedMantissa": "29000000000000000000",
+    "vaultType": "venus",
   },
   {
     "category": "others",
@@ -137,6 +140,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userHasPendingWithdrawalsFromBeforeUpgrade": true,
     "userStakedCents": 2900,
     "userStakedMantissa": "29000000000000000000",
+    "vaultType": "venus",
   },
   {
     "category": "others",
@@ -171,6 +175,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "userHasPendingWithdrawalsFromBeforeUpgrade": true,
     "userStakedCents": 2900,
     "userStakedMantissa": "29000000000000000000",
+    "vaultType": "venus",
   },
   {
     "category": "stablecoins",
@@ -202,6 +207,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "totalStakedMantissa": "4000000000",
     "userStakedCents": 10000000,
     "userStakedMantissa": "1e+23",
+    "vaultType": "venus",
   },
 ]
 `;

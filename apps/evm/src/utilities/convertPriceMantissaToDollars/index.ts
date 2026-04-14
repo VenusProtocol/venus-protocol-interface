@@ -6,6 +6,6 @@ const convertPriceMantissaToDollars = ({
 }: {
   priceMantissa: BigNumber | string;
   decimals: number;
-}) => new BigNumber(priceMantissa).dividedBy(10 ** (36 - decimals));
+}) => new BigNumber(priceMantissa).shiftedBy(-36 + decimals);
 
 export default convertPriceMantissaToDollars;

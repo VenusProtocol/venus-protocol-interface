@@ -1,6 +1,9 @@
-import { VaultCategory, VaultManager, VaultStatus, type VenusVault } from 'types';
+import { VaultCategory, VaultManager, VaultStatus, VaultType, type VenusVault } from 'types';
 
-export type VaultData = Omit<VenusVault, 'key' | 'category' | 'manager' | 'managerIcon' | 'status'>;
+export type VaultData = Omit<
+  VenusVault,
+  'key' | 'category' | 'manager' | 'managerIcon' | 'status' | 'vaultType'
+>;
 
 export const formatToVenusVault = (vault: VaultData): VenusVault => {
   const venusVault: VenusVault = {
@@ -9,6 +12,7 @@ export const formatToVenusVault = (vault: VaultData): VenusVault => {
       vault.lockingPeriodMs || 0
     }`,
     category: vault.stakedToken.symbol === 'VAI' ? VaultCategory.Stablecoins : VaultCategory.Others,
+    vaultType: VaultType.Venus,
     manager: VaultManager.Venus,
     managerIcon: 'logoMobile' as const,
     status:

@@ -120,6 +120,7 @@ import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.jso
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import erc20Abi from './externalAbis/Erc20.json';
 
+import institutionalVaultAbi from './externalAbis/InstitutionalVault.json';
 import maximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import nexusAbi from './externalAbis/Nexus.json';
@@ -897,6 +898,13 @@ export const contracts: ContractConfig[] = [
     abi: pendlePtVaultAbi as Abi,
     address: {
       [ChainId.BSC_MAINNET]: '0x179bD219c2a20a49406C9AdA39634eDac1C7F656',
+    },
+  },
+  {
+    name: 'InstitutionalVault',
+    abi: institutionalVaultAbi as Abi,
+    address: {
+      [ChainId.BSC_TESTNET]: '0x5263D68786AaCfad74B9aa385A004c272548e8B7',
     },
   },
 ];

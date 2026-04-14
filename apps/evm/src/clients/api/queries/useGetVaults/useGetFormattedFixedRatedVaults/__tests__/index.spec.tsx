@@ -12,11 +12,13 @@ import { renderComponent } from 'testUtils/render';
 import type { Asset, Token, VToken } from 'types';
 import { VaultStatus } from 'types';
 
-import { useGetFixedRatedVaults } from 'clients/api';
+import { useGetFixedRatedVaultUserStakedTokens, useGetFixedRatedVaults } from 'clients/api';
 import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults/types';
-import { type UseGetPendleVaultsOutput, useGetFormattedFixedRatedVaults } from '../index';
+import {
+  type UseGetFormattedFixedRatedVaultsOutput,
+  useGetFormattedFixedRatedVaults,
+} from '../index';
 
-vi.mock('clients/api/queries/getFixedRatedVaults/useGetFixedRatedVaults');
 vi.mock('clients/api/queries/useGetPools');
 vi.mock('libs/tokens');
 
@@ -65,6 +67,23 @@ const fakeVaultProduct: GetFixedRatedVaultsOutput[number] = {
       maturityDate: '2026-06-25T00:00:00.000Z',
       createdAt: '2026-01-21T20:14:15.000Z',
       updatedAt: '2026-01-21T20:14:15.000Z',
+      tokenPrices: [
+        {
+          id: 'fake-price-1',
+          tokenAddress: '0xe052823b4aefc6e230FAf46231A57d0905E30AE0',
+          tokenWrappedAddress: null,
+          chainId: '56',
+          priceMantissa: '682687557196753800000000000000000000000',
+          priceSource: 'oracle',
+          priceOracleAddress: '0x0000000000000000000000000000000000000001',
+          mainOracleAddress: '0x0000000000000000000000000000000000000001',
+          mainOracleName: 'ResilientOracle',
+          isPriceInvalid: false,
+          hasErrorFetchingPrice: false,
+          createdAt: '2026-01-21T20:14:15.000Z',
+          updatedAt: '2026-01-21T20:14:15.000Z',
+        },
+      ],
     },
   ],
 };
@@ -158,6 +177,11 @@ describe('useGetFormattedFixedRatedVaults', () => {
       isLoading: false,
     });
 
+    (useGetFixedRatedVaultUserStakedTokens as Mock).mockReturnValue({
+      data: [{ vaultAddress: fakeVaultProduct.vaultAddress, tokensMantissa: undefined }],
+      isLoading: false,
+    });
+
     (useGetPools as Mock).mockReturnValue({
       data: fakePoolsData,
       isLoading: false,
@@ -165,7 +189,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
   });
 
   it('fetches and returns pendle vaults correctly', async () => {
-    let data: UseGetPendleVaultsOutput['data'] | undefined;
+    let data: UseGetFormattedFixedRatedVaultsOutput['data'] | undefined;
     let isLoading = false;
 
     const Wrapper = () => {
@@ -187,7 +211,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
       isLoading: true,
     });
 
-    let data: UseGetPendleVaultsOutput['data'] | undefined;
+    let data: UseGetFormattedFixedRatedVaultsOutput['data'] | undefined;
     let isLoading = false;
 
     const Wrapper = () => {
@@ -209,7 +233,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
       isLoading: true,
     });
 
-    let data: UseGetPendleVaultsOutput['data'] | undefined;
+    let data: UseGetFormattedFixedRatedVaultsOutput['data'] | undefined;
     let isLoading = false;
 
     const Wrapper = () => {
@@ -236,7 +260,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
       isLoading: false,
     });
 
-    let data: UseGetPendleVaultsOutput['data'] | undefined;
+    let data: UseGetFormattedFixedRatedVaultsOutput['data'] | undefined;
     let isLoading = false;
 
     const Wrapper = () => {
@@ -263,7 +287,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
       isLoading: false,
     });
 
-    let data: UseGetPendleVaultsOutput['data'] | undefined;
+    let data: UseGetFormattedFixedRatedVaultsOutput['data'] | undefined;
 
     const Wrapper = () => {
       ({ data } = useGetFormattedFixedRatedVaults());
@@ -280,7 +304,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
   });
 
   it('sets status to Earning when user has supply balance and before maturity', () => {
-    let data: UseGetPendleVaultsOutput['data'] | undefined;
+    let data: UseGetFormattedFixedRatedVaultsOutput['data'] | undefined;
 
     const Wrapper = () => {
       ({ data } = useGetFormattedFixedRatedVaults());

@@ -7,7 +7,7 @@ import { TokenIcon } from '../TokenIcon';
 
 export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
   label: React.ReactNode;
-  tooltip?: string;
+  tooltip?: React.ReactNode;
   children: React.ReactNode;
   invertTextColors?: boolean;
   iconSrc?: IconName | Token;
