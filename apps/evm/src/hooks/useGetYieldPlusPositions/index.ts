@@ -36,6 +36,25 @@ export const useGetYieldPlusPositions = ({ accountAddress }: { accountAddress?: 
       ...rawYieldPlusPosition.pool,
       assets: rawYieldPlusPosition.pool.assets.map(asset => {
         const sanitizedVTokenAddress = asset.vToken.address.toLowerCase() as Address;
+        const liveAsset = assetMapping[sanitizedVTokenAddress];
+
+        // [VPD-920 DEBUG] Prove tokenPriceCents is NOT synced from live pool
+        if (liveAsset && !asset.tokenPriceCents.isEqualTo(liveAsset.tokenPriceCents)) {
+          console.warn(
+            `[VPD-920] STALE PRICE DETECTED for ${asset.vToken.underlyingToken.symbol}`,
+            {
+              stale_tokenPriceCents: asset.tokenPriceCents.toFixed(),   // from getRawYieldPlusPositions (mount-only)
+              live_tokenPriceCents:  liveAsset.tokenPriceCents.toFixed(), // from useGetPools (refreshes every ~9-15s)
+              diff_pct: liveAsset.tokenPriceCents.minus(asset.tokenPriceCents)
+                .div(liveAsset.tokenPriceCents).multipliedBy(100).toFixed(2) + '%',
+            },
+          );
+        } else {
+          console.log(
+            `[VPD-920] price in sync for ${asset.vToken.underlyingToken.symbol}:`,
+            asset.tokenPriceCents.toFixed(),
+          );
+        }
 
         return {
           ...asset,

@@ -20,6 +20,18 @@ export const useSimulateYieldPlusMutations = ({
 
   const simulatedPool = data?.pool;
 
+  // [VPD-920 DEBUG] Log the tokenPriceCents that will be used in the liq price formula
+  if (simulatedPool) {
+    const shortAssetInSim = simulatedPool.assets.find(
+      a => a.vToken.address.toLowerCase() === position.shortAsset.vToken.address.toLowerCase(),
+    );
+    console.log('[VPD-920] shortAsset.tokenPriceCents entering formatToYieldPlusPosition:', {
+      symbol: position.shortAsset.vToken.underlyingToken.symbol,
+      tokenPriceCents: shortAssetInSim?.tokenPriceCents.toFixed(),
+      note: 'if this is stale, liq price will be wrong',
+    });
+  }
+
   const simulatedYieldPlusPosition =
     simulatedPool &&
     formatToYieldPlusPosition({

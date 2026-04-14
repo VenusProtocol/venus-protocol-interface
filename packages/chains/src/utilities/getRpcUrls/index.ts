@@ -14,7 +14,10 @@ export const getRpcUrls = ({
       `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
       `https://bnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
     ],
-    [ChainId.BSC_TESTNET]: [`https://bsc-testnet.nodereal.io/v1/${nodeRealApiKey}`],
+    [ChainId.BSC_TESTNET]: [
+      `https://bsc-testnet.nodereal.io/v1/${nodeRealApiKey}`,
+      'https://data-seed-prebsc-1-s1.bnbchain.org:8545',
+    ],
     [ChainId.OPBNB_MAINNET]: [
       `https://opbnb-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
       `https://opbnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
