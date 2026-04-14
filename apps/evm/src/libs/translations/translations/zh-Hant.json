@@ -1856,6 +1856,7 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "總存款",
+      "totalStaked": "總質押",
       "youDeposited": "你已存入",
       "youStaked": "你已質押"
     },
@@ -1880,11 +1881,13 @@
       "afterMaturityPendleDisclaimer": "請先透過提取按鈕將您的 PT 代幣提取到錢包，然後訪問 <Link>Pendle 官方</Link>網站贖回您的底層代幣。",
       "available": "可用",
       "claim": "領取",
+      "claimButtonDisabledLabel": "輸入有效領取金額",
       "connectWalletMessage": "請連接您的錢包以質押 / 提取 {{tokenSymbol}}",
       "convert": "轉換",
       "currentDeposited": "當前存入",
       "currentDepositedTooltip": "您當前在此金庫中鎖定並產生收益的資產數量。",
       "deposit": "存款",
+      "depositButtonDisabledLabel": "輸入有效存入金額",
       "effectiveFixedApr": "實際固定年化利率",
       "effectiveFixedAprPendleTooltip": "此金庫策略提供的年化固定收益，以包含複利的有效年化利率（APR）表示。",
       "error": {
@@ -1925,10 +1928,10 @@
       "pendleFee": "Pendle 費用",
       "positionTab": "持倉",
       "stakeTab": "質押",
-      "submitButtonDisabledLabel": "輸入有效申請金額",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "提取",
+      "withdrawButtonDisabledLabel": "輸入有效提取金額",
       "withdrawTab": "提取"
     },
     "overview": {

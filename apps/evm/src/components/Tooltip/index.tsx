@@ -33,6 +33,7 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
                 setIsTooltipOpened(true);
               }
               e.preventDefault();
+              e.stopPropagation();
             }}
           >
             {children}

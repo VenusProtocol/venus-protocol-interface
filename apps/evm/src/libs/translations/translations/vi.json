@@ -1856,6 +1856,7 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Tổng tiền gửi",
+      "totalStaked": "Tổng đã stake",
       "youDeposited": "Bạn đã gửi",
       "youStaked": "Bạn đã stake"
     },
@@ -1880,11 +1881,13 @@
       "afterMaturityPendleDisclaimer": "Vui lòng rút PT token về ví của bạn trước thông qua nút Rút, sau đó truy cập trang web <Link>Pendle chính thức</Link> để đổi lấy token cơ sở của bạn.",
       "available": "Có sẵn",
       "claim": "Nhận thưởng",
+      "claimButtonDisabledLabel": "Nhập số lượng hợp lệ để nhận thưởng",
       "connectWalletMessage": "Vui lòng kết nối ví của bạn để gửi / rút {{tokenSymbol}}",
       "convert": "Chuyển đổi",
       "currentDeposited": "Đang gửi hiện tại",
       "currentDepositedTooltip": "Số lượng tài sản của bạn hiện đang được khóa và sinh lời trong kho tiền này.",
       "deposit": "Gửi",
+      "depositButtonDisabledLabel": "Nhập số lượng hợp lệ để gửi",
       "effectiveFixedApr": "APR Cố Định Hiệu Quả",
       "effectiveFixedAprPendleTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
       "error": {
@@ -1925,10 +1928,10 @@
       "pendleFee": "Phí Pendle",
       "positionTab": "Vị thế",
       "stakeTab": "Stake",
-      "submitButtonDisabledLabel": "Nhập số tiền hợp lệ để yêu cầu",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "Rút",
+      "withdrawButtonDisabledLabel": "Nhập số lượng hợp lệ để rút",
       "withdrawTab": "Rút"
     },
     "overview": {

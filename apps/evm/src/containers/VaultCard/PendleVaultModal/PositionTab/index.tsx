@@ -121,13 +121,16 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
   }
 
   let actionLabel = t('vault.modals.claim');
+  let disabledLabel = t('vault.modals.claimButtonDisabledLabel');
 
   if (actionMode === 'deposit') {
     actionLabel = t('vault.modals.deposit');
+    disabledLabel = t('vault.modals.depositButtonDisabledLabel');
   }
 
   if (actionMode === 'withdraw' || actionMode === 'redeemAtMaturity') {
     actionLabel = t('vault.modals.withdraw');
+    disabledLabel = t('vault.modals.withdrawButtonDisabledLabel');
   }
 
   const connectWalletMessage = t('vault.modals.connectWalletMessage', {
@@ -285,7 +288,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
         >
           <SubmitButton
             approval={approval}
-            label={isFormValid ? actionLabel : t('vault.modals.submitButtonDisabledLabel')}
+            label={isFormValid ? actionLabel : disabledLabel}
             isFormValid={isFormValid}
             isLoading={isGetSwapQuoteLoading || isSubmitting}
             disabled={disableSubmit}

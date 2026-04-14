@@ -1857,6 +1857,7 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Total deposited",
+      "totalStaked": "Total staked",
       "youDeposited": "You deposited",
       "youStaked": "You staked"
     },
@@ -1881,11 +1882,13 @@
       "afterMaturityPendleDisclaimer": "Please withdraw your PT tokens to your wallet first via the Withdraw button, then visit the <Link>Pendle official</Link> website to redeem your underlying tokens.",
       "available": "Available",
       "claim": "Claim",
+      "claimButtonDisabledLabel": "Enter a valid amount to claim",
       "connectWalletMessage": "Please connect your wallet to deposit / withdraw {{tokenSymbol}}",
       "convert": "Convert",
       "currentDeposited": "Currently deposited",
       "currentDepositedTooltip": "The amount of your assets currently locked and earning in this vault.",
       "deposit": "Deposit",
+      "depositButtonDisabledLabel": "Enter a valid amount to deposit",
       "effectiveFixedApr": "Effective Fixed APR",
       "effectiveFixedAprPendleTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
       "error": {
@@ -1926,10 +1929,10 @@
       "pendleFee": "Pendle fee",
       "positionTab": "Position",
       "stakeTab": "Stake",
-      "submitButtonDisabledLabel": "Enter a valid amount to request",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "Withdraw",
+      "withdrawButtonDisabledLabel": "Enter a valid amount to withdraw",
       "withdrawTab": "Withdraw"
     },
     "overview": {

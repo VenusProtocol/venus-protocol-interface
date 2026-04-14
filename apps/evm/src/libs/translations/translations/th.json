@@ -1856,6 +1856,7 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "ยอดฝากทั้งหมด",
+      "totalStaked": "ยอดสเตคทั้งหมด",
       "youDeposited": "คุณฝากแล้ว",
       "youStaked": "คุณสเตคแล้ว"
     },
@@ -1880,11 +1881,13 @@
       "afterMaturityPendleDisclaimer": "กรุณาถอน PT token ไปยังวอลเล็ตของคุณก่อนผ่านปุ่มถอน จากนั้นไปที่เว็บไซต์<Link>Pendle อย่างเป็นทางการ</Link>เพื่อแลกรับ underlying token ของคุณ",
       "available": "ที่มีอยู่",
       "claim": "อ้างสิทธิ์",
+      "claimButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่ออ้างสิทธิ์",
       "connectWalletMessage": "กรุณาเชื่อมต่อกระเป๋าเงินของคุณเพื่อสเตค / ถอน {{tokenSymbol}}",
       "convert": "แปลง",
       "currentDeposited": "ยอดฝากปัจจุบัน",
       "currentDepositedTooltip": "จำนวนสินทรัพย์ของคุณที่ล็อคและสร้างรายได้อยู่ในห้องนิรภัยนี้",
       "deposit": "สเตค",
+      "depositButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อฝาก",
       "effectiveFixedApr": "APR คงที่ที่มีผล",
       "effectiveFixedAprPendleTooltip": "ผลตอบแทนคงที่รายปีที่เสนอโดยกลยุทธ์ vault นี้ แสดงเป็นอัตราร้อยละต่อปีที่มีผลซึ่งรวมดอกเบี้ยทบต้นแล้ว",
       "error": {
@@ -1925,10 +1928,10 @@
       "pendleFee": "ค่าธรรมเนียม Pendle",
       "positionTab": "ตำแหน่ง",
       "stakeTab": "สเตค",
-      "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อส่งคำขอ",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "ถอน",
+      "withdrawButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อถอน",
       "withdrawTab": "ถอน"
     },
     "overview": {

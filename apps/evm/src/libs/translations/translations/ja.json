@@ -1856,6 +1856,7 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "総預金額",
+      "totalStaked": "総ステーキング量",
       "youDeposited": "預入済み",
       "youStaked": "ステーキング済み"
     },
@@ -1880,11 +1881,13 @@
       "afterMaturityPendleDisclaimer": "まず「引き出し」ボタンからPTトークンをウォレットに引き出してから、<Link>Pendle公式</Link>ウェブサイトで原資産トークンを償還してください。",
       "available": "利用可能",
       "claim": "請求",
+      "claimButtonDisabledLabel": "請求する有効な金額を入力",
       "connectWalletMessage": "{{tokenSymbol}}をステーキング / 引き出しするにはウォレットを接続してください",
       "convert": "変換",
       "currentDeposited": "現在の預入額",
       "currentDepositedTooltip": "このボールトに現在ロックされ、収益を得ている資産の量です。",
       "deposit": "ステーキング",
+      "depositButtonDisabledLabel": "入金する有効な金額を入力",
       "effectiveFixedApr": "実質固定APR",
       "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
       "error": {
@@ -1925,10 +1928,10 @@
       "pendleFee": "Pendleフィー",
       "positionTab": "ポジション",
       "stakeTab": "ステーク",
-      "submitButtonDisabledLabel": "リクエストする数量を入力してください",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "引き出し",
+      "withdrawButtonDisabledLabel": "引き出す有効な金額を入力",
       "withdrawTab": "引き出し"
     },
     "overview": {

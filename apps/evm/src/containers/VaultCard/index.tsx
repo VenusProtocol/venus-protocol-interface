@@ -35,11 +35,13 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
   const { accountAddress } = useAccountAddress();
 
+  const readableUserStakedTokensString = useConvertMantissaToReadableTokenString({
+    token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
+    value: vault.userStakedMantissa,
+  });
+
   const readableUserStakedTokens = vault?.userStakedMantissa?.gt(0)
-    ? useConvertMantissaToReadableTokenString({
-        token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
-        value: vault.userStakedMantissa,
-      })
+    ? readableUserStakedTokensString
     : undefined;
 
   const dailyEmissionMantissa =
@@ -172,7 +174,14 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               </LabeledInlineContent>
             )}
 
-            <LabeledInlineContent label={t('vault.card.totalDeposited')} labelClassName="mb-auto">
+            <LabeledInlineContent
+              label={
+                isLegacyVenusVault(vault)
+                  ? t('vault.card.totalStaked')
+                  : t('vault.card.totalDeposited')
+              }
+              labelClassName="mb-auto"
+            >
               <div className="text-b1r text-end">
                 <div className={cn('flex items-center gap-x-2')}>
                   {convertMantissaToTokens({

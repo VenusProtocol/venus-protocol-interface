@@ -1857,6 +1857,7 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Toplam yatırılan",
+      "totalStaked": "Toplam stake",
       "youDeposited": "Yatırım yaptınız",
       "youStaked": "Stake yaptınız"
     },
@@ -1881,11 +1882,13 @@
       "afterMaturityPendleDisclaimer": "Lütfen önce Çek butonu ile PT tokenlarınızı cüzdanınıza çekin, ardından temel tokenlarınızı geri almak için <Link>Pendle resmi</Link> web sitesini ziyaret edin.",
       "available": "Mevcut",
       "claim": "Talep et",
+      "claimButtonDisabledLabel": "Talep etmek için geçerli bir miktar girin",
       "connectWalletMessage": "{{tokenSymbol}} yatırmak / çekmek için cüzdanınızı bağlayın",
       "convert": "Dönüştür",
       "currentDeposited": "Mevcut yatırılan",
       "currentDepositedTooltip": "Bu kasada şu anda kilitli olan ve kazanç sağlayan varlıklarınızın miktarı.",
       "deposit": "Yatır",
+      "depositButtonDisabledLabel": "Yatırmak için geçerli bir miktar girin",
       "effectiveFixedApr": "Efektif Sabit APR",
       "effectiveFixedAprPendleTooltip": "Bu kasa stratejisinin sunduğu yıllık sabit getiri; bileşik faiz dahil efektif Yıllık Yüzde Oranı (APR) olarak ifade edilmektedir.",
       "error": {
@@ -1926,10 +1929,10 @@
       "pendleFee": "Pendle Ücreti",
       "positionTab": "Pozisyon",
       "stakeTab": "Stake et",
-      "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "withdraw": "Çek",
+      "withdrawButtonDisabledLabel": "Çekmek için geçerli bir miktar girin",
       "withdrawTab": "Çek"
     },
     "overview": {
