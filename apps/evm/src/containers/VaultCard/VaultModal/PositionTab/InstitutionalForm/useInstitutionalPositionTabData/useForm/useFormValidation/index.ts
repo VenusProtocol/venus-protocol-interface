@@ -20,7 +20,7 @@ interface UseFormValidationOutput {
   formError?: FormError;
 }
 
-const useFormValidation = ({
+export const useFormValidation = ({
   formValues,
   availableTokens,
   token,
@@ -88,5 +88,3 @@ const useFormValidation = ({
     formError,
   };
 };
-
-export default useFormValidation;

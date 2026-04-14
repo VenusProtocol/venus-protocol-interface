@@ -11,6 +11,7 @@ import { VaultStatus } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 import { Footer } from '../Footer';
 import { StatusLabel } from '../StatusLabel';
+import { TimelineTooltips } from '../TimelineTooltips';
 import { TokenIconWithPeriod } from '../TokenIconWithPeriod';
 import { VaultModal } from '../VaultModal';
 import TEST_IDS from '../testIds';
@@ -77,10 +78,26 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
     setModalVisible(true);
   };
 
+  const DEPOSIT_LOW_THRESHOLD_PERCENTAGE = 20;
+  const DEPOSIT_HIGH_THRESHOLD_PERCENTAGE = 80;
+
+  let depositBarColorClassName = 'bg-blue';
+  if (depositPercentage < DEPOSIT_LOW_THRESHOLD_PERCENTAGE) {
+    depositBarColorClassName = 'bg-yellow';
+  } else if (depositPercentage >= DEPOSIT_HIGH_THRESHOLD_PERCENTAGE) {
+    depositBarColorClassName = 'bg-green';
+  }
+
   const footerLabel =
     vault.status === VaultStatus.Claim ? t('vault.card.claimReward') : t('vault.card.youDeposited');
 
   const displayName = `${vault.stakedToken.symbol} - ${vault.manager?.toUpperCase()}`;
+  const numOfDays =
+    vault?.lockEndDate && vault?.openEndDate
+      ? Math.ceil(
+          (vault.lockEndDate.getTime() - vault.openEndDate.getTime()) / (1000 * 60 * 60 * 24),
+        )
+      : undefined;
 
   return (
     <>
@@ -100,7 +117,7 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
             <div className="flex items-center gap-x-3">
               <TokenIconWithPeriod
                 token={{ ...vault.stakedToken, symbol: displayName }}
-                targetDate={vault.openEndDate}
+                targetDate={vault.lockEndDate}
                 size="xl"
                 data-testid={TEST_IDS.symbol}
               />
@@ -121,6 +138,7 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
             <LabeledInlineContent
               label={t('vault.card.effectiveFixedApr')}
               tooltip={t('vault.card.effectiveFixedAprTooltip')}
+              labelClassName="mb-auto"
             >
               <div className="flex items-center gap-x-1">
                 <span className="text-b1s text-green">
@@ -131,7 +149,12 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
 
             <LabeledInlineContent
               label={t('vault.card.totalDepositedMaxDeposit')}
-              tooltip={t('vault.card.totalDepositedMaxDepositTooltip')}
+              tooltip={
+                numOfDays
+                  ? t('vault.card.totalMaxDepositTooltipWithDays', { count: numOfDays })
+                  : t('vault.card.totalMaxDepositTooltip')
+              }
+              labelClassName="mb-auto"
             >
               <div className="text-b1r text-end">
                 <div className={cn('flex items-center justify-end gap-x-2')}>
@@ -140,10 +163,7 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
                 <div className={cn('flex items-center justify-end gap-x-3 mt-2')}>
                   <div className={cn('w-25 h-2 rounded-full overflow-hidden bg-dark-grey')}>
                     <div
-                      className={cn(
-                        'h-full rounded-full',
-                        depositPercentage >= 80 ? 'bg-green' : 'bg-blue',
-                      )}
+                      className={cn('h-full rounded-full', depositBarColorClassName)}
                       style={{ width: `${Math.min(depositPercentage, 100)}%` }}
                     />
                   </div>
@@ -152,20 +172,21 @@ export const InstitutionalVaultCard: React.FC<InstitutionalVaultCardProps> = ({
               </div>
             </LabeledInlineContent>
 
-            <LabeledInlineContent label={t('vault.card.minRequested')}>
+            <LabeledInlineContent label={t('vault.card.minRequested')} labelClassName="mb-auto">
               <span className="text-b1r">{minRequested}</span>
             </LabeledInlineContent>
 
             {formattedOpenEndDate && (
               <LabeledInlineContent
                 label={t('vault.card.depositWindowEnds')}
-                tooltip={t('vault.card.depositWindowEndsTooltip')}
+                tooltip={<TimelineTooltips vault={vault} />}
+                labelClassName="mb-auto"
               >
                 <span className="text-b1r">{formattedOpenEndDate}</span>
               </LabeledInlineContent>
             )}
 
-            <LabeledInlineContent label={t('vault.card.manager')}>
+            <LabeledInlineContent label={t('vault.card.manager')} labelClassName="mb-auto">
               <Icon name={vault.managerIcon} />
               <span className={cn('ms-2 text-b1r text-light-grey')}>
                 {vault.manager?.toUpperCase()}

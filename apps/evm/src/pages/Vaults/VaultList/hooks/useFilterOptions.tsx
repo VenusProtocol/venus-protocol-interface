@@ -75,6 +75,15 @@ export const useFilterOptions = () => {
       ),
       value: 'pendle',
     },
+    {
+      label: (
+        <div className="flex items-center gap-2">
+          <Icon name="ceefu" />
+          CEFFU
+        </div>
+      ),
+      value: 'ceefu',
+    },
   ];
 
   const statusOptions = [

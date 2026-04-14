@@ -1847,7 +1847,6 @@
       "currentDeposited": "現在の預入量",
       "dailyEmission": "日次報酬配布",
       "depositWindowEnds": "入金受付終了",
-      "depositWindowEndsTooltip": "このボールトへの入金期限です。この日付以降、入金受付は終了し、新たな入金は受け付けられません。",
       "effectiveFixedApr": "実質固定APR",
       "effectiveFixedAprTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
       "institutionalMinNotice": "{{date}} までに最低額に達しない場合、預金は自動的にこちらに返金されます。",
@@ -1863,7 +1862,8 @@
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "総預金額",
       "totalDepositedMaxDeposit": "総預金額 / 最大預金額",
-      "totalDepositedMaxDepositTooltip": "このボールトの現在の総預金額と最大預金容量の比較です。",
+      "totalMaxDepositTooltip": "ボールトが最低必要額に達した場合、最大目標額まで預入が継続されます。",
+      "totalMaxDepositTooltipWithDays_other": "ボールトが最低必要額に達した場合、最大目標額まで預入が継続されます。{{count}} 日間ステーキングすると報酬を受け取れます。それ以外の場合、資金は返金されます。",
       "youDeposited": "あなたの入金額",
       "youStaked": "ステーキング済み"
     },
@@ -1902,7 +1902,7 @@
       "depositWindowEnds": "預入ウィンドウ終了",
       "depositWindowEndsTooltip": "このボールトへの預入期限です。この日以降、預入ウィンドウは閉じられます。",
       "effectiveFixedApr": "実質固定APR",
-      "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
+      "effectiveFixedAprTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
       "error": {
         "amountTooLow": "入力金額が少なすぎます。",
         "depositWindowClosed": "このボールトの預入ウィンドウは閉じられました。",
@@ -1921,7 +1921,6 @@
       "institutionalTcsAgreement": "入金を進めることにより、<Link>利用規約</Link>に同意したものとみなされます",
       "maturityDate": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
-      "maturityDateTooltip": "固定利回りポジションが終了し、元本と獲得した利回りを引き出せる満期日です。",
       "maturityPendleDisclaimer": "満期前は、引き出し時に受け取る金額は Pendle の市場価格に依存します。満期後は、保有する PT トークンに基づいて 1:1 で引き出しが換金されます。",
       "max": "最大",
       "minReceived": "最小受取額",
@@ -1970,6 +1969,7 @@
       "textualWithTime": "{{date, textualWithTime}}",
       "totalYield": "合計利回り",
       "totalYieldTooltip": "このボールトポジションから獲得する推定合計利回りです。",
+      "totalYieldTooltipWithDays_other": "ボールトが最低必要額に達した場合、最大目標額まで預入が継続されます。{{count}} 日間ステーキングすると報酬を受け取れます。それ以外の場合、資金は返金されます。",
       "withdraw": "引き出し",
       "withdrawButtonDisabledLabel": "引き出す有効な金額を入力",
       "withdrawTab": "引き出し"

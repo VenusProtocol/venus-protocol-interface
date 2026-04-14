@@ -1847,7 +1847,6 @@
       "currentDeposited": "Đang gửi",
       "dailyEmission": "Phần thưởng hàng ngày",
       "depositWindowEnds": "Thời hạn nạp tiền",
-      "depositWindowEndsTooltip": "Thời hạn cuối cùng để nạp tiền vào vault này. Sau ngày này, cửa sổ nạp tiền sẽ đóng và không chấp nhận thêm khoản nạp nào.",
       "effectiveFixedApr": "APR Cố Định Hiệu Quả",
       "effectiveFixedAprTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
       "institutionalMinNotice": "Nếu không đạt mức tối thiểu trước {{date}}, tiền gửi sẽ được tự động hoàn trả tại đây.",
@@ -1863,7 +1862,8 @@
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Tổng tiền gửi",
       "totalDepositedMaxDeposit": "Tổng tiền gửi / Mức gửi tối đa",
-      "totalDepositedMaxDepositTooltip": "Tổng số tiền hiện đã gửi trong vault này so với sức chứa tối đa.",
+      "totalMaxDepositTooltip": "Nếu vault đạt mức tối thiểu yêu cầu, tiền gửi sẽ tiếp tục được chấp nhận đến mục tiêu tối đa.",
+      "totalMaxDepositTooltipWithDays_other": "Nếu vault đạt mức tối thiểu yêu cầu, tiền gửi sẽ tiếp tục được chấp nhận đến mục tiêu tối đa. Stake trong {{count}} ngày để nhận thưởng. Nếu không, tiền sẽ được hoàn trả.",
       "youDeposited": "Bạn đã nạp",
       "youStaked": "Bạn đã stake"
     },
@@ -1902,7 +1902,7 @@
       "depositWindowEnds": "Cửa sổ nạp kết thúc",
       "depositWindowEndsTooltip": "Hạn chót để nạp tiền vào vault này. Sau ngày này, cửa sổ nạp tiền sẽ đóng.",
       "effectiveFixedApr": "APR Cố Định Hiệu Quả",
-      "effectiveFixedAprPendleTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
+      "effectiveFixedAprTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
       "error": {
         "amountTooLow": "Số tiền nhập vào quá thấp.",
         "depositWindowClosed": "Cửa sổ nạp tiền của vault này đã đóng.",
@@ -1921,7 +1921,6 @@
       "institutionalTcsAgreement": "Bằng việc tiến hành nạp tiền, tôi đồng ý với <Link>Điều khoản và Điều kiện</Link>",
       "maturityDate": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
-      "maturityDateTooltip": "Ngày đáo hạn khi vị thế lợi suất cố định của bạn kết thúc và bạn có thể rút vốn gốc cùng lợi suất đã kiếm được.",
       "maturityPendleDisclaimer": "Trước khi đáo hạn, số tiền nhận được khi rút phụ thuộc vào giá thị trường Pendle. Sau khi đáo hạn, các khoản rút được quy đổi theo tỷ lệ 1:1 dựa trên số PT token bạn nắm giữ.",
       "max": "Tối đa",
       "minReceived": "Tối thiểu nhận được",
@@ -1970,6 +1969,7 @@
       "textualWithTime": "{{date, textualWithTime}}",
       "totalYield": "Tổng lợi suất",
       "totalYieldTooltip": "Tổng lợi suất ước tính bạn sẽ kiếm được từ vị thế vault này.",
+      "totalYieldTooltipWithDays_other": "Nếu vault đạt mức tối thiểu yêu cầu, tiền gửi sẽ tiếp tục được chấp nhận đến mục tiêu tối đa. Stake trong {{count}} ngày để nhận thưởng. Nếu không, tiền sẽ được hoàn trả.",
       "withdraw": "Rút",
       "withdrawButtonDisabledLabel": "Nhập số lượng hợp lệ để rút",
       "withdrawTab": "Rút"

@@ -47,7 +47,7 @@ type FixedRatedVaultUnderlyingToken = {
   maturityDate: string;
   createdAt: string;
   updatedAt: string;
-  tokenPrice: {
+  tokenPrices: {
     id: string;
     tokenAddress: Address;
     tokenWrappedAddress: Address | null;
@@ -61,7 +61,7 @@ type FixedRatedVaultUnderlyingToken = {
     hasErrorFetchingPrice: boolean;
     createdAt: string;
     updatedAt: string;
-  };
+  }[];
 };
 
 export type LoanVaultDetail = {

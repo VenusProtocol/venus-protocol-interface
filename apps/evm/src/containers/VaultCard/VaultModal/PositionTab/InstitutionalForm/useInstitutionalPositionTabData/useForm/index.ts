@@ -4,7 +4,7 @@ import { handleError } from 'libs/errors';
 import type { Token } from 'types';
 
 import type { FormError, FormValues } from './types';
-import useFormValidation from './useFormValidation';
+import { useFormValidation } from './useFormValidation';
 
 export type { FormValues, FormError, FormErrorCode } from './types';
 

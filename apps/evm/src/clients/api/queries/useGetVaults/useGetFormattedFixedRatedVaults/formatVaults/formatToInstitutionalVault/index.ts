@@ -1,4 +1,3 @@
-import type { Token } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import type {
   GetFixedRatedVaultUserStakedTokensOutput,
@@ -11,22 +10,22 @@ import {
   findTokenByAddress,
 } from 'utilities';
 
+import type { BaseInput } from '../types';
 import { getVaultStatus } from './getVaultStatus';
 
-export interface BaseInput {
-  tokens: Token[];
-  nowMs: number;
-}
+const CEEFU_MANAGER_LINK = 'https://www.matrixdock.com';
+
+export type FormatToInstitutionalVaultInput = BaseInput & {
+  vaultData: GetFixedRatedVaultsOutput[number];
+  userStakedAmount?: GetFixedRatedVaultUserStakedTokensOutput[number];
+};
 
 export const formatToInstitutionalVault = ({
   vaultData,
   tokens,
   userStakedAmount,
   nowMs,
-}: BaseInput & {
-  vaultData: GetFixedRatedVaultsOutput[number];
-  userStakedAmount?: GetFixedRatedVaultUserStakedTokensOutput[number];
-}) => {
+}: FormatToInstitutionalVaultInput) => {
   const loanVaultDetail = vaultData?.loanVaultDetail;
 
   const stakedToken = findTokenByAddress({
@@ -55,9 +54,9 @@ export const formatToInstitutionalVault = ({
     token: stakedToken,
   });
 
-  const stakedTokenPriceCents = vaultData.underlyingToken?.[0]?.tokenPrice?.priceMantissa
+  const stakedTokenPriceCents = vaultData.underlyingToken?.[0]?.tokenPrices?.[0]?.priceMantissa
     ? convertPriceMantissaToDollars({
-        priceMantissa: new BigNumber(vaultData.underlyingToken[0].tokenPrice.priceMantissa),
+        priceMantissa: new BigNumber(vaultData.underlyingToken[0].tokenPrices[0].priceMantissa),
         decimals: vaultData.underlyingToken?.[0]?.decimals,
       }).shiftedBy(2)
     : new BigNumber(100);
@@ -88,7 +87,7 @@ export const formatToInstitutionalVault = ({
     manager: VaultManager.Ceefu,
     managerIcon: 'ceefu' as const,
     managerAddress: loanVaultDetail.institutionAddress,
-    managerLink: 'https://www.matrixdock.com',
+    managerLink: CEEFU_MANAGER_LINK,
     status,
     lockingPeriodMs: maturityDate ? maturityDate.getTime() - nowMs : undefined,
     openEndDate: loanVaultDetail.openEndTime ? new Date(loanVaultDetail.openEndTime) : undefined,

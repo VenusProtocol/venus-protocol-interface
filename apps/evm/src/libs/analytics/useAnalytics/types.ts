@@ -243,7 +243,7 @@ type EventMap = {
 
   'Institutional vault deposit': InstitutionalVaultTx;
   'Institutional vault withdraw': InstitutionalVaultTx;
-  'Institutional vault repay': InstitutionalVaultTx;
+  'Institutional vault redeem': InstitutionalVaultTx;
 };
 
 export type AnalyticEventName = keyof EventMap;

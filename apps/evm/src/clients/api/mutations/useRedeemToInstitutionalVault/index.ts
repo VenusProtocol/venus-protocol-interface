@@ -8,11 +8,11 @@ import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Address } from 'viem';
 
-type RepayToInstitutionalVaultInput = {
+type RedeemFromInstitutionalVaultInput = {
   amountMantissa: BigNumber;
 };
 
-type Options = UseSendTransactionOptions<RepayToInstitutionalVaultInput>;
+type Options = UseSendTransactionOptions<RedeemFromInstitutionalVaultInput>;
 
 export const useRedeemToInstitutionalVault = (
   { vaultAddress }: { vaultAddress: Address },
@@ -23,7 +23,7 @@ export const useRedeemToInstitutionalVault = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fn: ({ amountMantissa }: RepayToInstitutionalVaultInput) => {
+    fn: ({ amountMantissa }: RedeemFromInstitutionalVaultInput) => {
       if (!accountAddress) {
         throw new VError({
           type: 'unexpected',
@@ -39,7 +39,7 @@ export const useRedeemToInstitutionalVault = (
       };
     },
     onConfirmed: () => {
-      captureAnalyticEvent('Institutional vault repay', {
+      captureAnalyticEvent('Institutional vault redeem', {
         vaultAddress,
         accountAddress,
       });
@@ -56,6 +56,17 @@ export const useRedeemToInstitutionalVault = (
           {
             chainId,
             accountAddress,
+          },
+        ],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_INSTITUTIONAL_VAULT_REWARD_AMOUNT,
+          {
+            chainId,
+            accountAddress,
+            vaultAddress,
           },
         ],
       });

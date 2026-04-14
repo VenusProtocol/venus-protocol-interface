@@ -1847,7 +1847,6 @@
       "currentDeposited": "当前存款",
       "dailyEmission": "每日奖励释放",
       "depositWindowEnds": "存款窗口截止",
-      "depositWindowEndsTooltip": "此金库的存款截止日期。此日期之后，存款窗口将关闭，不再接受新的存款。",
       "effectiveFixedApr": "实际固定年化利率",
       "effectiveFixedAprTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
       "institutionalMinNotice": "如果在 {{date}} 之前未达到最低要求，存款将自动退还至此处。",
@@ -1863,7 +1862,8 @@
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "总存款",
       "totalDepositedMaxDeposit": "总存款 / 最大存款",
-      "totalDepositedMaxDepositTooltip": "此金库当前总存款金额与最大存款容量的对比。",
+      "totalMaxDepositTooltip": "如果金库达到最低要求，存款将继续接受至最大目标。",
+      "totalMaxDepositTooltipWithDays_other": "如果金库达到最低要求，存款将继续接受至最大目标。质押 {{count}} 天即可领取奖励，否则资金将被退款。",
       "youDeposited": "您已存入",
       "youStaked": "你已质押"
     },
@@ -1902,7 +1902,7 @@
       "depositWindowEnds": "存款窗口截止",
       "depositWindowEndsTooltip": "此金库的存款截止日期。此日期之后，存款窗口将关闭。",
       "effectiveFixedApr": "实际固定年化利率",
-      "effectiveFixedAprPendleTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
+      "effectiveFixedAprTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
       "error": {
         "amountTooLow": "输入金额过低。",
         "depositWindowClosed": "此金库的存款窗口已关闭。",
@@ -1921,7 +1921,6 @@
       "institutionalTcsAgreement": "继续存款即表示我同意<Link>条款与条件</Link>",
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
-      "maturityDateTooltip": "您的固定收益头寸结束的到期日，届时您可以提取本金和已赚取的收益。",
       "maturityPendleDisclaimer": "到期前，提款时收到的金额取决于 Pendle 市场价格。到期后，提款将根据您持有的 PT 代币 1:1 赎回。",
       "max": "最大",
       "minReceived": "最低收到",
@@ -1970,6 +1969,7 @@
       "textualWithTime": "{{date, textualWithTime}}",
       "totalYield": "总收益",
       "totalYieldTooltip": "您将从此金库头寸中获得的预计总收益。",
+      "totalYieldTooltipWithDays_other": "如果金库达到最低要求，存款将继续接受至最大目标。质押 {{count}} 天即可领取奖励，否则资金将被退款。",
       "withdraw": "取款",
       "withdrawButtonDisabledLabel": "输入有效取款金额",
       "withdrawTab": "取款"

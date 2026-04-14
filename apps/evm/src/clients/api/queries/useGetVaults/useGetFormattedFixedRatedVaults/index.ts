@@ -19,7 +19,9 @@ export const useGetFormattedFixedRatedVaults = (): UseGetFormattedFixedRatedVaul
 
   const { data: userStakedAmounts, isLoading: isUserStakedTokensLoading } =
     useGetFixedRatedVaultUserStakedTokens({
-      vaultAddresses: (vaultProducts ?? []).map(vaultProduct => vaultProduct.vaultAddress),
+      vaultAddresses: (vaultProducts ?? [])
+        .filter(vaultProduct => vaultProduct.protocol === 'institutional-vault')
+        .map(vaultProduct => vaultProduct.vaultAddress),
     });
 
   const tokens = useGetTokens();

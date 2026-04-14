@@ -1,21 +1,23 @@
 import type { LoanVaultDetail } from 'clients/api';
 import { VaultStatus } from 'types';
 
-/*
-const VAULT_STATUS_MAPPING = {
-  0: VaultStatus.Pending,
-  1: VaultStatus.Pending,
-  2: VaultStatus.Deposit,
-  3: VaultStatus.Pending,
-  4: VaultStatus.Earning,
-  5: VaultStatus.Repaying,
-  6: VaultStatus.Pending,
-  7: VaultStatus.Claim,
-  8: VaultStatus.Refund,
-  9: VaultStatus.Paused,
-  10: VaultStatus.Inactive,
-};
-*/
+/**
+ * Vault state to status mapping:
+ *
+ * | vaultState | VaultStatus |
+ * |------------|-------------|
+ * | 0          | Pending     |
+ * | 1          | Pending     |
+ * | 2          | Deposit     |
+ * | 3          | Pending     |
+ * | 4          | Earning     |
+ * | 5          | Repaying    |
+ * | 6          | Pending     |
+ * | 7          | Claim       |
+ * | 8          | Refund      |
+ * | 9          | Paused      |
+ * | 10         | Inactive    |
+ */
 
 export const getVaultStatus = ({
   loanVaultDetail,

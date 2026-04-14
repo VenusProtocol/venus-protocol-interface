@@ -146,7 +146,7 @@ export const PendleForm: React.FC<PendleFormProps> = ({ vault, initialMode, onCl
           label={t('vault.modals.effectiveFixedApr')}
           tooltip={
             vault.manager === VaultManager.Pendle
-              ? t('vault.modals.effectiveFixedAprPendleTooltip')
+              ? t('vault.modals.effectiveFixedAprTooltip')
               : undefined
           }
         >
@@ -258,7 +258,7 @@ export const PendleForm: React.FC<PendleFormProps> = ({ vault, initialMode, onCl
         {isStake && (
           <LabeledInlineContent
             label={t('vault.modals.effectiveFixedApr')}
-            tooltip={t('vault.modals.effectiveFixedAprPendleTooltip')}
+            tooltip={t('vault.modals.effectiveFixedAprTooltip')}
           >
             <span className="text-b1s text-green">
               {formatPercentageToReadableValue(vault.stakingAprPercentage)}

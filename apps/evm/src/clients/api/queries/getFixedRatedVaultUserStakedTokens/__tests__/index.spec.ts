@@ -61,7 +61,7 @@ describe('getFixedRatedVaultUserStakedTokens', () => {
     });
   });
 
-  it('throws VError when a multicall result fails', async () => {
+  it('skips failed multicall results gracefully', async () => {
     const mockPublicClient = {
       multicall: vi.fn().mockResolvedValue([
         { status: 'success', result: 500000000000000000n },
@@ -69,12 +69,17 @@ describe('getFixedRatedVaultUserStakedTokens', () => {
       ]),
     } as unknown as PublicClient;
 
-    await expect(
-      getFixedRatedVaultUserStakedTokens({
-        accountAddress: fakeAccountAddress,
-        vaultAddresses: [...fakeVaultAddresses],
-        publicClient: mockPublicClient,
-      }),
-    ).rejects.toThrow();
+    const result = await getFixedRatedVaultUserStakedTokens({
+      accountAddress: fakeAccountAddress,
+      vaultAddresses: [...fakeVaultAddresses],
+      publicClient: mockPublicClient,
+    });
+
+    expect(result).toEqual([
+      {
+        vaultAddress: fakeVaultAddresses[0],
+        tokensMantissa: new BigNumber('500000000000000000'),
+      },
+    ]);
   });
 });

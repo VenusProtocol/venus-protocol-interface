@@ -60,7 +60,7 @@ describe('useRedeemToInstitutionalVault', () => {
 
     onConfirmed({ input: fakeInput });
 
-    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Institutional vault repay', {
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Institutional vault redeem', {
       vaultAddress: fakeVaultAddress,
       accountAddress: fakeAccountAddress,
     });

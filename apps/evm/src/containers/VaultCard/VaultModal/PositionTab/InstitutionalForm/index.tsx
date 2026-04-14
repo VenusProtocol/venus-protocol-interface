@@ -20,6 +20,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import { TimelineTooltips } from 'containers/VaultCard/TimelineTooltips';
 import { SubmitButton } from '../SubmitButton';
 import { useInstitutionalPositionTabData } from './useInstitutionalPositionTabData';
 
@@ -40,6 +41,7 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
     isUserConnected,
     tcsAccepted,
     setTcsAccepted,
+    lockDays,
     userStakedTokens,
     maxRedeemTokens,
     availableTokens,
@@ -77,23 +79,24 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
   // --- Shared info rows used by claim, info, and refund ---
   const infoRows = (
     <>
-      <LabeledInlineContent
-        label={t('vault.modals.currentStaked')}
-        tooltip={t('vault.modals.currentStakedTooltip')}
-      >
+      <LabeledInlineContent label={t('vault.modals.currentStaked')}>
         <span className="text-b1s text-white">{readableUserStaked}</span>
       </LabeledInlineContent>
 
       <LabeledInlineContent
         label={t('vault.modals.effectiveFixedApr')}
-        tooltip={t('vault.modals.effectiveFixedAprPendleTooltip')}
+        tooltip={t('vault.modals.effectiveFixedAprTooltip')}
       >
         <span className="text-b1s text-green">{readableApr}</span>
       </LabeledInlineContent>
 
       <LabeledInlineContent
         label={t('vault.modals.totalYield')}
-        tooltip={t('vault.modals.totalYieldTooltip')}
+        tooltip={
+          lockDays
+            ? t('vault.modals.totalYieldTooltipWithDays', { count: lockDays })
+            : t('vault.modals.totalYieldTooltip')
+        }
       >
         <span className="text-b1s text-white">{readableTotalYield}</span>
       </LabeledInlineContent>
@@ -108,7 +111,7 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
 
         <LabeledInlineContent
           label={t('vault.modals.maturityDate')}
-          tooltip={t('vault.modals.maturityDateTooltip')}
+          tooltip={<TimelineTooltips vault={vault} />}
         >
           <span className="text-b1s text-white">{formattedMaturityDate}</span>
         </LabeledInlineContent>
@@ -126,7 +129,7 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
 
         <LabeledInlineContent
           label={t('vault.modals.maturityDate')}
-          tooltip={t('vault.modals.maturityDateTooltip')}
+          tooltip={<TimelineTooltips vault={vault} />}
         >
           <span className="text-b1s text-white">{formattedMaturityDate}</span>
         </LabeledInlineContent>
@@ -288,7 +291,7 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
 
         <LabeledInlineContent
           label={t('vault.modals.effectiveFixedApr')}
-          tooltip={t('vault.modals.effectiveFixedAprPendleTooltip')}
+          tooltip={t('vault.modals.effectiveFixedAprTooltip')}
         >
           <span className="text-b1s text-green">{readableApr}</span>
         </LabeledInlineContent>
@@ -296,7 +299,7 @@ export const InstitutionalForm: React.FC<InstitutionalFormProps> = ({ vault, onC
         {vault.openEndDate && (
           <LabeledInlineContent
             label={t('vault.modals.depositWindowEnds')}
-            tooltip={t('vault.modals.depositWindowEndsTooltip')}
+            tooltip={<TimelineTooltips vault={vault} />}
           >
             <span className="text-b1s text-white">{formattedOpenEndDate}</span>
           </LabeledInlineContent>

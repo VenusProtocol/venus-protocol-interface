@@ -39,20 +39,19 @@ export const getFixedRatedVaultUserStakedTokens = async ({
     })),
   });
 
-  const userStakedTokens = results.map((result, index) => {
-    if (result.status === 'failure') {
-      throw new VError({
-        type: 'unexpected',
-        code: 'somethingWentWrong',
-        data: { exception: `Failed to fetch staked tokens for vault ${vaultAddresses[index]}` },
-      });
-    }
+  const userStakedTokens = results.reduce<GetFixedRatedVaultUserStakedTokensOutput>(
+    (acc, result, index) => {
+      if (result.status === 'success') {
+        acc.push({
+          vaultAddress: vaultAddresses[index],
+          tokensMantissa: new BigNumber(result.result.toString()),
+        });
+      }
 
-    return {
-      vaultAddress: vaultAddresses[index],
-      tokensMantissa: new BigNumber(result.result.toString()),
-    };
-  });
+      return acc;
+    },
+    [],
+  );
 
   return userStakedTokens;
 };

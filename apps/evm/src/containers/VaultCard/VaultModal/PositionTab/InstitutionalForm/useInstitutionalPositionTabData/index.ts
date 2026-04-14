@@ -82,6 +82,14 @@ export const useInstitutionalPositionTabData = ({
     });
   }, [vault.userStakedMantissa, vault.stakedToken]);
 
+  // Lock Period
+  const lockDays =
+    vault?.lockEndDate && vault?.openEndDate
+      ? Math.ceil(
+          (vault.lockEndDate.getTime() - vault.openEndDate.getTime()) / (1000 * 60 * 60 * 24),
+        )
+      : undefined;
+
   // --- Balances (deposit mode only) ---
   const { data: balanceData, isLoading: isBalanceLoading } = useGetBalanceOf(
     {
@@ -152,6 +160,8 @@ export const useInstitutionalPositionTabData = ({
   ]);
 
   // --- Mutation hooks ---
+  // claim mode  -> on-chain `redeem` (returns principal + yield after settlement)
+  // refund mode -> on-chain `withdraw` (returns principal when vault is cancelled)
   const vaultAddress = vault.vaultAddress ?? NULL_ADDRESS;
 
   const { mutateAsync: depositToInstitutionalVault, isPending: isDepositing } =
@@ -273,6 +283,7 @@ export const useInstitutionalPositionTabData = ({
     tcsAccepted,
     setTcsAccepted,
     isDepositWindowClosed,
+    lockDays,
 
     // Tokens
     userStakedTokens,

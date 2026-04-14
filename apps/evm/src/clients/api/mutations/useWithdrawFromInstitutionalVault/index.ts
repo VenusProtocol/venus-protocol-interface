@@ -59,6 +59,17 @@ export const useWithdrawFromInstitutionalVault = (
           },
         ],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_INSTITUTIONAL_VAULT_REWARD_AMOUNT,
+          {
+            chainId,
+            accountAddress,
+            vaultAddress,
+          },
+        ],
+      });
     },
     options,
   });

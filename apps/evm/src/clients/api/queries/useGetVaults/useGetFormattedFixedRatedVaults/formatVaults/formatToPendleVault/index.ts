@@ -4,7 +4,6 @@ import {
   type Asset,
   type PendleVault,
   type Pool,
-  type Token,
   VaultCategory,
   VaultManager,
   VaultStatus,
@@ -12,19 +11,19 @@ import {
 } from 'types';
 import { areAddressesEqual, convertTokensToMantissa, findTokenByAddress } from 'utilities';
 import type { Address } from 'viem';
+import type { BaseInput } from '../types';
 
-export interface BaseInput {
+export type FormatToPendleVaultInput = BaseInput & {
+  vaultData: GetFixedRatedVaultsOutput[number];
   pools: Pool[];
-  tokens: Token[];
-  nowMs: number;
-}
+};
 
 export const formatToPendleVault = ({
   vaultData,
   pools,
   tokens,
   nowMs,
-}: BaseInput & { vaultData: GetFixedRatedVaultsOutput[number] }) => {
+}: FormatToPendleVaultInput) => {
   let asset: Asset | undefined;
   let poolComptrollerContractAddress: Address | undefined;
   let poolName: string | undefined;
