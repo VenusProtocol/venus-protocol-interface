@@ -16,6 +16,9 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
     ? t('vault.modals.textualDate', { date: vault.vaultDeploymentDate })
     : PLACEHOLDER_KEY;
 
+  const managerLabel = 'PENDLE';
+  const managerIcon = 'pendle';
+
   return (
     <div className="flex flex-col gap-4">
       <p className="text-p2s text-white flex-1 pb-2">{t('vault.modals.overview.marketInfo')}</p>
@@ -29,8 +32,8 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
         tooltip={t('vault.modals.overview.managerTooltip')}
       >
         <div className="flex items-center gap-2">
-          <Icon name="pendle" className="size-4" />
-          <span className="text-b1r text-white">PENDLE</span>
+          <Icon name={managerIcon} className="size-4" />
+          <span className="text-b1r text-white">{managerLabel}</span>
           {vault.managerLink && (
             <Link href={vault.managerLink} target="_blank">
               <Icon
@@ -39,11 +42,8 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
               />
             </Link>
           )}
-          {vault.asset?.vToken?.underlyingToken?.address && (
-            <CopyAddressButton
-              address={vault.asset.vToken.underlyingToken.address}
-              className="text-light-grey"
-            />
+          {vault.managerAddress && (
+            <CopyAddressButton address={vault.managerAddress} className="text-light-grey" />
           )}
         </div>
       </LabeledInlineContent>
@@ -54,7 +54,7 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
         </p>
         <p className="text-b1r text-white">
           <Trans
-            i18nKey={'vault.modals.overview.riskDisclosureText'}
+            i18nKey="vault.modals.overview.riskDisclosureText"
             components={{
               br: <br />,
             }}

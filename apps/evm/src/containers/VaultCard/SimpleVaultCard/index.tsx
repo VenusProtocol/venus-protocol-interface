@@ -10,14 +10,13 @@ import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
-  isLegacyVenusVault,
-  isPendleVault,
 } from 'utilities';
 
-import { PendleVaultModal } from 'containers/VaultCard/PendleVaultModal';
+import { VaultModal } from 'containers/VaultCard/VaultModal';
 import { useState } from 'react';
 import { LegacyVaultModal } from '../LegacyVaultModal';
 import TEST_IDS from '../testIds';
+import { isLegacyVenusVault, isPendleVault } from '../utils';
 import { Cell } from './Cell';
 
 interface VaultCardSimplifiedProps {
@@ -26,7 +25,7 @@ interface VaultCardSimplifiedProps {
 }
 
 // Vault Card in Dashboard
-export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
+export const SimpleVaultCard: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
   const { t } = useTranslation();
 
   const [shouldShowModal, setShouldShowModal] = useState(false);
@@ -114,7 +113,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
       </Card>
 
       {isPendleVault(vault) && (
-        <PendleVaultModal vault={vault} isOpen={shouldShowModal} handleClose={hideModal} />
+        <VaultModal vault={vault} isOpen={shouldShowModal} handleClose={hideModal} />
       )}
 
       {isLegacyVenusVault(vault) && (

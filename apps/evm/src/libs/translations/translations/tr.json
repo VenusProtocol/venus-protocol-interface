@@ -1857,7 +1857,6 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Toplam yatırılan",
-      "totalStaked": "Toplam stake",
       "youDeposited": "Yatırım yaptınız",
       "youStaked": "Stake yaptınız"
     },
@@ -1872,6 +1871,7 @@
       "inputPlaceholder": "Varlık ara",
       "others": "Diğerleri",
       "paused": "Duraklatıldı",
+      "pending": "Beklemede",
       "refund": "İade",
       "repaying": "Geri ödeniyor",
       "stablecoins": "Stablecoin'ler",
@@ -1890,7 +1890,7 @@
       "deposit": "Yatır",
       "depositButtonDisabledLabel": "Yatırmak için geçerli bir miktar girin",
       "effectiveFixedApr": "Efektif Sabit APR",
-      "effectiveFixedAprPendleTooltip": "Bu kasa stratejisinin sunduğu yıllık sabit getiri; bileşik faiz dahil efektif Yıllık Yüzde Oranı (APR) olarak ifade edilmektedir.",
+      "effectiveFixedAprTooltip": "Bu kasa stratejisinin sunduğu yıllık sabit getiri, bileşik faiz dahil efektif Yıllık Yüzde Oranı (APR) olarak ifade edilir.",
       "error": {
         "amountTooLow": "Girilen miktar çok düşük.",
         "higherThanAvailable": "Girilen miktar mevcut {{tokenSymbol}} bakiyenizi aşıyor. Miktarı azaltın veya tüm bakiyenizi kullanmak için 'Maks' düğmesine tıklayın.",
@@ -1916,6 +1916,7 @@
         "riskDisclosureText": "Pendle, Temel Tokenlar (PT'ler) aracılığıyla sabit oranlı getiri sağlayan merkeziyetsiz bir getiri ticaret protokolüdür. Venus Sabit Faiz Kasası, PT'leri edinmek için mevduatları Pendle'ın altyapısı üzerinden yönlendirir ve bunlar Venus Core'a teminat olarak sağlanır.<br />Pendle yatırdığınız fonlara erişemez veya taşıyamaz olsa da bu kasayı kullanmak sizi her iki protokolden kaynaklanan risklere maruz bırakır. Bunlar arasında akıllı sözleşme güvenlik açıkları, oracle arızaları ve her iki protokolün de istismar edilmesi veya duraklatılması olasılığı yer alır. Erken para çekme işlemleri piyasa fiyatından gerçekleştirilir ve yatırılan tutardan daha az iade edilebilir. Sabit APY yatırım sırasında kilitlenir ve protokol düzeyindeki arızalara karşı koruma sağlamaz.",
         "strategy": {
           "pendleRouter": "Pendle Router",
+          "supply": "Sağla",
           "users": "Kullanıcılar",
           "venusCore": "Venus Core"
         },

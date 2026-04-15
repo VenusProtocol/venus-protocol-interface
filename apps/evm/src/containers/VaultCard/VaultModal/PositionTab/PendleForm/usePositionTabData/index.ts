@@ -19,7 +19,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { type PendleVault, VaultManager } from 'types';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
-import type { Approval } from '../SubmitButton/types';
+import type { Approval } from '../../SubmitButton/types';
 import { type FormValues, useForm } from './useForm';
 
 export type ActionMode = 'deposit' | 'withdraw' | 'redeemAtMaturity';

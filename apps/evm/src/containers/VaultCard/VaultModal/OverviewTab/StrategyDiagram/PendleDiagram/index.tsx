@@ -1,14 +1,14 @@
 import { cn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { PendleVault } from 'types';
-import { FlowArrow } from './FlowArrow';
-import { FlowNode } from './FlowNode';
+import { FlowArrow } from '../FlowArrow';
+import { FlowNode } from '../FlowNode';
 
-interface StrategyDiagramProps {
+interface PendleDiagramProps {
   vault: PendleVault;
 }
 
-export const StrategyDiagram: React.FC<StrategyDiagramProps> = ({ vault }) => {
+export const PendleDiagram: React.FC<PendleDiagramProps> = ({ vault }) => {
   const { t } = useTranslation();
 
   return (
@@ -20,17 +20,19 @@ export const StrategyDiagram: React.FC<StrategyDiagramProps> = ({ vault }) => {
       <FlowNode variant="line">{t('vault.modals.overview.strategy.users')}</FlowNode>
 
       <FlowArrow
-        leftContent={t('vault.modals.overview.supply')}
-        rightContent={vault.stakedToken.symbol}
+        leftContent={vault.manager.toUpperCase()}
+        rightContent={vault.rewardToken.symbol}
       />
 
       <FlowNode variant="primary">{t('vault.modals.overview.strategy.pendleRouter')}</FlowNode>
       <FlowArrow
-        leftContent={t('vault.modals.overview.supply')}
-        rightContent={vault.rewardToken.symbol}
+        leftContent={t('vault.modals.overview.supply', 'Supply')}
+        rightContent={vault.stakedToken.symbol}
       />
 
-      <FlowNode variant="line">{t('vault.modals.overview.strategy.venusCore')}</FlowNode>
+      <FlowNode variant="line">
+        {t('vault.modals.overview.strategy.supply')} {t('vault.modals.overview.strategy.venusCore')}
+      </FlowNode>
     </div>
   );
 };

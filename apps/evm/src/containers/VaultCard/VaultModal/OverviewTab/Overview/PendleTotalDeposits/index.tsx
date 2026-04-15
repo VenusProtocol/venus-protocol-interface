@@ -9,7 +9,7 @@ import { useGetMarketChartData } from 'hooks/useGetMarketChartData';
 import type { PendleVault } from 'types';
 import { SupplyChart } from './SupplyChart';
 
-export const TotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
+export const PendleTotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
   const { t } = useTranslation();
 
   const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>('month');

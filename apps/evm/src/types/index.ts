@@ -474,6 +474,7 @@ export enum VaultStatus {
   Repaying = 'repaying',
   Claim = 'claim',
   Paused = 'paused',
+  Pending = 'pending',
 }
 
 export enum VaultManager {

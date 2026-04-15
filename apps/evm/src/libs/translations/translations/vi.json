@@ -1856,7 +1856,6 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Tổng tiền gửi",
-      "totalStaked": "Tổng đã stake",
       "youDeposited": "Bạn đã gửi",
       "youStaked": "Bạn đã stake"
     },
@@ -1871,6 +1870,7 @@
       "inputPlaceholder": "Tìm kiếm tài sản",
       "others": "Khác",
       "paused": "Tạm dừng",
+      "pending": "Đang chờ",
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ",
       "stablecoins": "Stablecoin",
@@ -1889,7 +1889,7 @@
       "deposit": "Gửi",
       "depositButtonDisabledLabel": "Nhập số lượng hợp lệ để gửi",
       "effectiveFixedApr": "APR Cố Định Hiệu Quả",
-      "effectiveFixedAprPendleTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
+      "effectiveFixedAprTooltip": "Lợi suất cố định hàng năm được cung cấp bởi chiến lược vault này, được biểu thị dưới dạng Tỷ lệ Phần trăm Hàng năm (APR) hiệu quả đã bao gồm lãi kép.",
       "error": {
         "amountTooLow": "Số tiền nhập vào quá thấp.",
         "higherThanAvailable": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn. Giảm số tiền hoặc nhấn 'Tối đa' để sử dụng toàn bộ số dư.",
@@ -1915,6 +1915,7 @@
         "riskDisclosureText": "Pendle là một giao thức giao dịch lợi suất phi tập trung cho phép lợi suất cố định thông qua Token Gốc (PT). Venus Fixed Rate Vault chuyển tiền gửi qua cơ sở hạ tầng của Pendle để mua PT, sau đó được cung cấp cho Venus Core làm tài sản thế chấp.<br />Mặc dù Pendle không thể truy cập hoặc di chuyển tiền gửi của bạn, việc sử dụng kho này khiến bạn phải chịu rủi ro từ cả hai giao thức. Những rủi ro này bao gồm lỗ hổng hợp đồng thông minh, lỗi oracle và khả năng một trong hai giao thức bị khai thác hoặc tạm dừng. Rút tiền sớm được thực hiện theo giá thị trường và có thể nhận lại ít hơn số tiền đã gửi. APY cố định được khóa tại thời điểm gửi và không bảo vệ khỏi các lỗi ở cấp giao thức.",
         "strategy": {
           "pendleRouter": "Pendle Router",
+          "supply": "Cung cấp",
           "users": "Người dùng",
           "venusCore": "Venus Core"
         },

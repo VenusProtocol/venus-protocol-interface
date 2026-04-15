@@ -1856,7 +1856,6 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "总存款",
-      "totalStaked": "总质押",
       "youDeposited": "你已存入",
       "youStaked": "你已质押"
     },
@@ -1871,6 +1870,7 @@
       "inputPlaceholder": "搜索资产",
       "others": "其他",
       "paused": "已暂停",
+      "pending": "待定",
       "refund": "退款",
       "repaying": "还款中",
       "stablecoins": "稳定币",
@@ -1889,7 +1889,7 @@
       "deposit": "存款",
       "depositButtonDisabledLabel": "输入有效存入金额",
       "effectiveFixedApr": "实际固定年化利率",
-      "effectiveFixedAprPendleTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
+      "effectiveFixedAprTooltip": "该金库策略提供的年化固定收益率，以包含复利的实际年化利率（APR）表示。",
       "error": {
         "amountTooLow": "输入金额过低。",
         "higherThanAvailable": "金额超过您的可用{{tokenSymbol}}余额。请减少金额或点击 '最大' 使用全部余额。",
@@ -1915,6 +1915,7 @@
         "riskDisclosureText": "Pendle 是一个去中心化的收益交易协议，通过本金代币（PT）实现固定收益。Venus 固定利率金库通过 Pendle 的基础设施获取 PT，并将其作为抵押品供应给 Venus Core。<br />虽然 Pendle 无法访问或转移您的存款，但使用此金库会使您面临来自两个协议的风险。这些风险包括智能合约漏洞、预言机故障，以及任一协议被攻击或暂停的可能性。提前提款按市场价格执行，可能低于存入金额。固定 APY 在存入时锁定，无法防范协议层面的故障。",
         "strategy": {
           "pendleRouter": "Pendle Router",
+          "supply": "存款",
           "users": "用户",
           "venusCore": "Venus Core"
         },

@@ -22,20 +22,21 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import { SubmitButton } from '../SubmitButton';
+import type { ActionMode } from '../types';
 import { PendleConvertDetails } from './PendleConvertDetails';
-import { SubmitButton } from './SubmitButton';
-import { type ActionMode, usePositionTabData } from './usePositionTabData';
+import { usePositionTabData } from './usePositionTabData';
 
 const PENDLE_SITE =
   'https://app.pendle.finance/trade/dashboard/overview/positions?timeframe=allTime';
 
-export interface PositionTabProps {
+export interface PendleFormProps {
   vault: PendleVault;
   initialMode?: ActionMode;
   onClose?: () => void;
 }
 
-export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, onClose }) => {
+export const PendleForm: React.FC<PendleFormProps> = ({ vault, initialMode, onClose }) => {
   const { t, Trans } = useTranslation();
 
   const {
@@ -74,7 +75,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
 
   const readableUserStaked = formatTokensToReadableValue({
     value: userStakedTokens,
-    token: vault.rewardToken,
+    token: vault.stakedToken,
     maxDecimalPlaces: isStake ? undefined : 8,
   });
 
@@ -145,7 +146,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
           label={t('vault.modals.effectiveFixedApr')}
           tooltip={
             vault.manager === VaultManager.Pendle
-              ? t('vault.modals.effectiveFixedAprPendleTooltip')
+              ? t('vault.modals.effectiveFixedAprTooltip')
               : undefined
           }
         >
@@ -257,7 +258,7 @@ export const PositionTab: React.FC<PositionTabProps> = ({ vault, initialMode, on
         {isStake && (
           <LabeledInlineContent
             label={t('vault.modals.effectiveFixedApr')}
-            tooltip={t('vault.modals.effectiveFixedAprPendleTooltip')}
+            tooltip={t('vault.modals.effectiveFixedAprTooltip')}
           >
             <span className="text-b1s text-green">
               {formatPercentageToReadableValue(vault.stakingAprPercentage)}

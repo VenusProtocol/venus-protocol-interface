@@ -1857,7 +1857,6 @@
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Total deposited",
-      "totalStaked": "Total staked",
       "youDeposited": "You deposited",
       "youStaked": "You staked"
     },
@@ -1872,6 +1871,7 @@
       "inputPlaceholder": "Search asset",
       "others": "Others",
       "paused": "Paused",
+      "pending": "Pending",
       "refund": "Refund",
       "repaying": "Repaying",
       "stablecoins": "Stablecoins",
@@ -1890,7 +1890,7 @@
       "deposit": "Deposit",
       "depositButtonDisabledLabel": "Enter a valid amount to deposit",
       "effectiveFixedApr": "Effective Fixed APR",
-      "effectiveFixedAprPendleTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
+      "effectiveFixedAprTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
       "error": {
         "amountTooLow": "Input amount is too low.",
         "higherThanAvailable": "Amount exceeds your available {{tokenSymbol}} balance. Reduce the amount or click 'Max' to use your full balance.",
@@ -1916,6 +1916,7 @@
         "riskDisclosureText": "Pendle is a decentralised yield-trading protocol that enables fixed-rate yield through Principal Tokens (PTs). The Venus Fixed Rate Vault routes deposits through Pendle's infrastructure to acquire PTs, which are supplied to Venus Core as collateral. <br />While Pendle cannot access or move your deposited funds, using this vault exposes you to risks from both protocols. These include smart contract vulnerabilities, oracle failures, and the possibility of either protocol being exploited or paused. Early withdrawals are executed at market price and may return less than the amount deposited. Fixed APY is locked at deposit and does not protect against protocol-level failures.",
         "strategy": {
           "pendleRouter": "Pendle router",
+          "supply": "Supply",
           "users": "Users",
           "venusCore": "Venus Core"
         },

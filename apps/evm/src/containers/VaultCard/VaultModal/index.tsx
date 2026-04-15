@@ -6,14 +6,14 @@ import { TokenIconWithPeriod } from '../TokenIconWithPeriod';
 import { OverviewTab } from './OverviewTab';
 import { PositionTab } from './PositionTab';
 
-export interface PendleVaultModalProps {
+export interface VaultModalProps {
   vault: PendleVault;
   handleClose: () => void;
   initialMode?: 'deposit' | 'withdraw';
   isOpen: boolean;
 }
 
-export const PendleVaultModal: React.FC<PendleVaultModalProps> = ({
+export const VaultModal: React.FC<VaultModalProps> = ({
   vault,
   handleClose,
   initialMode = 'deposit',
