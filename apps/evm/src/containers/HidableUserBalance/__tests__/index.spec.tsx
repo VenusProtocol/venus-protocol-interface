@@ -1,5 +1,6 @@
 import { type Mock, vi } from 'vitest';
 
+import fakeAddress from '__mocks__/models/address';
 import { HIDDEN_BALANCE_KEY } from 'constants/placeholders';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { renderComponent } from 'testUtils/render';
@@ -20,6 +21,7 @@ describe('HidableUserBalance', () => {
       <HidableUserBalance>
         <span>{fakeChildrenText}</span>
       </HidableUserBalance>,
+      { accountAddress: fakeAddress },
     );
 
     expect(getByText(HIDDEN_BALANCE_KEY)).toBeInTheDocument();

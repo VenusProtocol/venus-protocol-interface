@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { CellGroup, type CellProps } from 'components';
 import { routes } from 'constants/routing';
+import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { Link } from 'containers/Link';
 import { VaultCardSimplified } from 'containers/Vault/VaultCard/Simplified';
 import { useTranslation } from 'libs/translations';
@@ -62,11 +63,19 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   const overviewCells: CellProps[] = [
     {
       label: t('dashboard.vaults.totalStakedValue'),
-      value: formatCentsToReadableValue({ value: totalStakedCents }),
+      value: (
+        <HidableUserBalance>
+          {formatCentsToReadableValue({ value: totalStakedCents })}
+        </HidableUserBalance>
+      ),
     },
     {
       label: t('dashboard.vaults.dailyEarnings'),
-      value: formatCentsToReadableValue({ value: dailyEarningsCents }),
+      value: (
+        <HidableUserBalance>
+          {formatCentsToReadableValue({ value: dailyEarningsCents })}
+        </HidableUserBalance>
+      ),
       tooltip: t('dashboard.vaults.dailyEarningsTooltip'),
     },
   ];

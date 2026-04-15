@@ -2,6 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 
 import { Card, TokenIcon, TokenIconWithSymbol } from 'components';
+import { HidableUserBalance } from 'containers/HidableUserBalance';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -87,7 +88,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
             {t('vault.card.currentDeposited')}
             <div className={cn('flex items-center text-p2s gap-2 text-light-grey-active')}>
               <TokenIcon token={vault.stakedToken} displayChain={false} size="lg" />
-              {readableUserStakedTokens}
+              <HidableUserBalance>{readableUserStakedTokens}</HidableUserBalance>
             </div>
           </div>
         ) : (
