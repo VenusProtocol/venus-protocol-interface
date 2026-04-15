@@ -1988,7 +1988,6 @@
       "message": "提案获取失败"
     },
     "for": "赞成",
-    "goToXvsSnapshot": "前往 XVS Snapshot 页面",
     "omnichain": {
       "switchToBnb": "切换到 BNB Chain",
       "votingOnlyEnabledOnBnb": "投票仅在 BNB Chain 上可用"

@@ -1988,7 +1988,6 @@
       "message": "提案の取得に失敗しました"
     },
     "for": "賛成",
-    "goToXvsSnapshot": "XVSスナップショットへ",
     "omnichain": {
       "switchToBnb": "BNB Chainに切り替える",
       "votingOnlyEnabledOnBnb": "投票はBNB Chainでのみ利用可能です"

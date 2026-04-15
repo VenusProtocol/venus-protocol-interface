@@ -1988,7 +1988,6 @@
       "message": "ดึงข้อเสนอไม่สำเร็จ"
     },
     "for": "เห็นด้วย",
-    "goToXvsSnapshot": "ไปยัง XVS Snapshot",
     "omnichain": {
       "switchToBnb": "สลับไปยัง BNB Chain",
       "votingOnlyEnabledOnBnb": "การโหวตใช้ได้เฉพาะบน BNB Chain เท่านั้น"

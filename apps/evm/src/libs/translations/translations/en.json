@@ -1989,7 +1989,6 @@
       "message": "Proposals failed to fetch"
     },
     "for": "For",
-    "goToXvsSnapshot": "Go to XVS Snapshot",
     "omnichain": {
       "switchToBnb": "Switch to BNB Chain",
       "votingOnlyEnabledOnBnb": "Voting is only available on BNB Chain"

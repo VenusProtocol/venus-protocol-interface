@@ -1988,7 +1988,6 @@
       "message": "提案獲取失敗"
     },
     "for": "贊成",
-    "goToXvsSnapshot": "前往 XVS 快照",
     "omnichain": {
       "switchToBnb": "切換到 BNB Chain",
       "votingOnlyEnabledOnBnb": "投票僅在 BNB Chain 上可用"
