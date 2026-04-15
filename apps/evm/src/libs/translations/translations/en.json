@@ -1945,6 +1945,21 @@
         "label": "Locking period"
       },
       "rightMaxButtonLabel": "MAX"
+    },
+    "venusModal": {
+      "calculatePrimeRewards": "Calculate your Prime rewards",
+      "estDailyEarning": "Est. daily earning",
+      "estEarnings": "Est. earnings",
+      "insufficientBalance": "Insufficient {{tokenSymbol}} balance",
+      "lockingPeriodTooltip": "The locking period is the delay between a withdrawal request and when the requested amount can actually be withdrawn from the vault.",
+      "primeQualification": "Staked: {{current}}/ {{target}}",
+      "primeQualificationsLabel": "Prime qualifications",
+      "primeStakeMessage": "Stake {{amount}} XVS more then wait {{days}} days to claim your Prime token and boost your earnings. <Link>Calculate your Prime rewards</Link>",
+      "unlockedXvsNotice": "You have unlocked XVS that's ready to be claimed.",
+      "venusVaultDescription": {
+        "vai": "Venus stablecoin",
+        "xvs": "Governance vault"
+      }
     }
   },
   "venusFluxBanner": {

@@ -1944,6 +1944,21 @@
         "label": "ระยะเวลาล็อก"
       },
       "rightMaxButtonLabel": "สูงสุด"
+    },
+    "venusModal": {
+      "calculatePrimeRewards": "คำนวณรางวัล Prime ของคุณ",
+      "estDailyEarning": "รายได้โดยประมาณต่อวัน",
+      "estEarnings": "รายได้โดยประมาณ",
+      "insufficientBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
+      "lockingPeriodTooltip": "ระยะเวลาล็อกคือช่วงเวลาระหว่างการร้องขอถอนและเมื่อจำนวนที่ร้องขอสามารถถอนออกจากห้องนิรภัยได้จริง",
+      "primeQualification": "สเตคแล้ว: {{current}}/ {{target}}",
+      "primeQualificationsLabel": "คุณสมบัติ Prime",
+      "primeStakeMessage": "สเตค {{amount}} XVS เพิ่มเติม แล้วรอ {{days}} วัน เพื่ออ้างสิทธิ์โทเคน Prime และเพิ่มรายได้ของคุณ <Link>คำนวณรางวัล Prime ของคุณ</Link>",
+      "unlockedXvsNotice": "คุณมี XVS ที่ปลดล็อกแล้วพร้อมให้อ้างสิทธิ์",
+      "venusVaultDescription": {
+        "vai": "Stablecoin ของ Venus",
+        "xvs": "ห้องนิรภัยการกำกับดูแล"
+      }
     }
   },
   "venusFluxBanner": {

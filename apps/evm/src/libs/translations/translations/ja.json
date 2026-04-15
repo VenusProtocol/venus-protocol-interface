@@ -1944,6 +1944,21 @@
         "label": "ロック期間"
       },
       "rightMaxButtonLabel": "最大"
+    },
+    "venusModal": {
+      "calculatePrimeRewards": "Prime報酬を計算する",
+      "estDailyEarning": "推定日次収益",
+      "estEarnings": "推定収益",
+      "insufficientBalance": "{{tokenSymbol}}の残高不足",
+      "lockingPeriodTooltip": "ロック期間とは、引き出しリクエストから実際にボールトから引き出し可能になるまでの遅延期間です。",
+      "primeQualification": "ステーキング済み: {{current}}/ {{target}}",
+      "primeQualificationsLabel": "Prime資格",
+      "primeStakeMessage": "あと{{amount}} XVSをステーキングし、{{days}}日間待つとPrimeトークンを請求して収益をブーストできます。<Link>Prime報酬を計算する</Link>",
+      "unlockedXvsNotice": "請求可能なロック解除済みXVSがあります。",
+      "venusVaultDescription": {
+        "vai": "Venusステーブルコイン",
+        "xvs": "ガバナンスボールト"
+      }
     }
   },
   "venusFluxBanner": {

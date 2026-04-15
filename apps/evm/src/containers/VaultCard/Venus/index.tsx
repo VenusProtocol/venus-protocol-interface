@@ -13,11 +13,10 @@ import {
   formatPercentageToReadableValue,
 } from 'utilities';
 import { Footer } from '../Footer';
-import { LegacyVaultModal } from '../LegacyVaultModal';
 import { StatusLabel } from '../StatusLabel';
 import { TokenIconWithPeriod } from '../TokenIconWithPeriod';
+import { VenusVaultModal } from '../VenusVaultModal';
 import TEST_IDS from '../testIds';
-import { isLegacyVenusVault } from '../utils';
 
 interface VenusVaultProps {
   vault: VenusVault;
@@ -153,13 +152,11 @@ export const VenusVaultCard: React.FC<VenusVaultProps> = ({ vault, className }) 
         )}
       </Card>
 
-      {isLegacyVenusVault(vault) && (
-        <LegacyVaultModal
-          vault={vault}
-          isOpen={modalVisible}
-          handleClose={() => setModalVisible(false)}
-        />
-      )}
+      <VenusVaultModal
+        vault={vault}
+        isOpen={modalVisible}
+        handleClose={() => setModalVisible(false)}
+      />
     </>
   );
 };

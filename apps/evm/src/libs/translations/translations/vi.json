@@ -1944,6 +1944,21 @@
         "label": "Thời gian khóa"
       },
       "rightMaxButtonLabel": "TỐI ĐA"
+    },
+    "venusModal": {
+      "calculatePrimeRewards": "Tính toán phần thưởng Prime của bạn",
+      "estDailyEarning": "Thu nhập ước tính hàng ngày",
+      "estEarnings": "Thu nhập ước tính",
+      "insufficientBalance": "Không đủ số dư {{tokenSymbol}}",
+      "lockingPeriodTooltip": "Thời gian khóa là khoảng thời gian giữa yêu cầu rút và thời điểm số tiền yêu cầu có thể thực sự được rút khỏi kho.",
+      "primeQualification": "Đã stake: {{current}}/ {{target}}",
+      "primeQualificationsLabel": "Điều kiện Prime",
+      "primeStakeMessage": "Stake thêm {{amount}} XVS rồi đợi {{days}} ngày để nhận token Prime và tăng thu nhập của bạn. <Link>Tính toán phần thưởng Prime của bạn</Link>",
+      "unlockedXvsNotice": "Bạn có XVS đã mở khóa sẵn sàng để nhận.",
+      "venusVaultDescription": {
+        "vai": "Stablecoin của Venus",
+        "xvs": "Kho quản trị"
+      }
     }
   },
   "venusFluxBanner": {

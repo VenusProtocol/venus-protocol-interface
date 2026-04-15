@@ -14,7 +14,7 @@ import {
 
 import { VaultModal } from 'containers/VaultCard/VaultModal';
 import { useState } from 'react';
-import { LegacyVaultModal } from '../LegacyVaultModal';
+import { VenusVaultModal } from '../VenusVaultModal';
 import TEST_IDS from '../testIds';
 import { isLegacyVenusVault, isPendleVault } from '../utils';
 import { Cell } from './Cell';
@@ -117,7 +117,7 @@ export const SimpleVaultCard: React.FC<VaultCardSimplifiedProps> = ({ vault, cla
       )}
 
       {isLegacyVenusVault(vault) && (
-        <LegacyVaultModal vault={vault} isOpen={shouldShowModal} handleClose={hideModal} />
+        <VenusVaultModal vault={vault} isOpen={shouldShowModal} handleClose={hideModal} />
       )}
     </>
   );

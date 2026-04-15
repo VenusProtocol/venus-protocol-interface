@@ -1945,6 +1945,21 @@
         "label": "Kilitlenme süresi"
       },
       "rightMaxButtonLabel": "MAKS"
+    },
+    "venusModal": {
+      "calculatePrimeRewards": "Prime ödüllerinizi hesaplayın",
+      "estDailyEarning": "Tahmini günlük kazanç",
+      "estEarnings": "Tahmini kazançlar",
+      "insufficientBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
+      "lockingPeriodTooltip": "Kilitlenme süresi, çekim talebi ile talep edilen tutarın kasadan fiilen çekilebileceği zaman arasındaki gecikmedir.",
+      "primeQualification": "Stake edilen: {{current}}/ {{target}}",
+      "primeQualificationsLabel": "Prime yeterlilikleri",
+      "primeStakeMessage": "{{amount}} XVS daha stake edin, ardından Prime tokeninizi talep etmek ve kazançlarınızı artırmak için {{days}} gün bekleyin. <Link>Prime ödüllerinizi hesaplayın</Link>",
+      "unlockedXvsNotice": "Talep edilmeye hazır kilidi açılmış XVS'niz var.",
+      "venusVaultDescription": {
+        "vai": "Venus stablecoin",
+        "xvs": "Yönetişim kasası"
+      }
     }
   },
   "venusFluxBanner": {

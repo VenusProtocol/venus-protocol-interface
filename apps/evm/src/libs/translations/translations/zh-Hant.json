@@ -1944,6 +1944,21 @@
         "label": "鎖定期"
       },
       "rightMaxButtonLabel": "最大"
+    },
+    "venusModal": {
+      "calculatePrimeRewards": "計算您的 Prime 獎勵",
+      "estDailyEarning": "預估每日收益",
+      "estEarnings": "預估收益",
+      "insufficientBalance": "{{tokenSymbol}} 餘額不足",
+      "lockingPeriodTooltip": "鎖定期是指從發起提取請求到實際可以從金庫中提取所請求金額之間的延遲時間。",
+      "primeQualification": "已質押: {{current}}/ {{target}}",
+      "primeQualificationsLabel": "Prime 資格",
+      "primeStakeMessage": "再質押 {{amount}} XVS，然後等待 {{days}} 天即可領取您的 Prime 代幣並提升收益。<Link>計算您的 Prime 獎勵</Link>",
+      "unlockedXvsNotice": "您有已解鎖的 XVS 可以領取。",
+      "venusVaultDescription": {
+        "vai": "Venus 穩定幣",
+        "xvs": "治理金庫"
+      }
     }
   },
   "venusFluxBanner": {

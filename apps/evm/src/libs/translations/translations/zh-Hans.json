@@ -1944,6 +1944,21 @@
         "label": "锁定期"
       },
       "rightMaxButtonLabel": "最大"
+    },
+    "venusModal": {
+      "calculatePrimeRewards": "计算您的 Prime 奖励",
+      "estDailyEarning": "预估每日收益",
+      "estEarnings": "预估收益",
+      "insufficientBalance": "{{tokenSymbol}} 余额不足",
+      "lockingPeriodTooltip": "锁定期是指从发起提取请求到实际可以从金库中提取所请求金额之间的延迟时间。",
+      "primeQualification": "已质押: {{current}}/ {{target}}",
+      "primeQualificationsLabel": "Prime 资格",
+      "primeStakeMessage": "再质押 {{amount}} XVS，然后等待 {{days}} 天即可领取您的 Prime 代币并提升收益。<Link>计算您的 Prime 奖励</Link>",
+      "unlockedXvsNotice": "您有已解锁的 XVS 可以领取。",
+      "venusVaultDescription": {
+        "vai": "Venus 稳定币",
+        "xvs": "治理金库"
+      }
     }
   },
   "venusFluxBanner": {
