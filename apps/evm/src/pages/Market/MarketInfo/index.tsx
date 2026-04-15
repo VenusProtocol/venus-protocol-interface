@@ -129,6 +129,24 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
         value: formatPercentageToReadableValue(asset.reserveFactor && asset.reserveFactor * 100),
       },
       {
+        label: t('market.marketInfo.stats.isBorrowableLabel'),
+        value: asset.isBorrowable
+          ? t('market.marketInfo.stats.yes')
+          : t('market.marketInfo.stats.no'),
+      },
+      {
+        label: t('market.marketInfo.stats.collateralFactorLabel'),
+        value: formatPercentageToReadableValue(asset.collateralFactor * 100),
+      },
+      {
+        label: t('market.marketInfo.stats.liquidationThresholdLabel'),
+        value: formatPercentageToReadableValue(asset.liquidationThresholdPercentage),
+      },
+      {
+        label: t('market.marketInfo.stats.liquidationPenaltyLabel'),
+        value: formatPercentageToReadableValue(asset.liquidationPenaltyPercentage),
+      },
+      {
         label: t('market.marketInfo.stats.exchangeRateLabel'),
         value: asset.exchangeRateVTokens
           ? t('market.marketInfo.stats.exchangeRateValue', {

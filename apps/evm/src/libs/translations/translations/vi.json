@@ -828,10 +828,12 @@
     },
     "eModeInfo": {
       "eMode": {
-        "title": "E-mode"
+        "title": "E-mode",
+        "tooltip": "Boosts capital efficiency for correlated assets (e.g. stablecoins, LSTs) with better collateral factors and lower liquidation costs."
       },
       "isolationMode": {
-        "title": "Chế độ cô lập"
+        "title": "Chế độ cô lập",
+        "tooltip": "A risk-containment mode for newer or more volatile assets."
       },
       "link": "Hiển thị tất cả thị trường",
       "table": {
@@ -856,13 +858,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "Số người vay",
+        "collateralFactorLabel": "Hệ số thế chấp (Core)",
         "dailyBorrowingInterestsLabel": "Lãi vay hằng ngày",
         "dailyDistribution": "Phân phối {{tokenSymbol}} hằng ngày",
         "dailySupplyingInterestsLabel": "Lãi cung cấp hằng ngày",
         "exchangeRateLabel": "Tỷ giá",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "isBorrowableLabel": "Có thể vay (Core)",
+        "liquidationPenaltyLabel": "Phạt thanh lý (Core)",
+        "liquidationThresholdLabel": "Ngưỡng thanh lý (Core)",
+        "no": "Không",
         "reserveFactorLabel": "Hệ số dự trữ",
-        "supplierCountLabel": "Số người cung cấp"
+        "supplierCountLabel": "Số người cung cấp",
+        "yes": "Có"
       }
     },
     "periodOption": {

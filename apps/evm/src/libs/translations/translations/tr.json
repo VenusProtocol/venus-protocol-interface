@@ -828,10 +828,12 @@
     },
     "eModeInfo": {
       "eMode": {
-        "title": "E-mode"
+        "title": "E-mode",
+        "tooltip": "Boosts capital efficiency for correlated assets (e.g. stablecoins, LSTs) with better collateral factors and lower liquidation costs."
       },
       "isolationMode": {
-        "title": "İzolasyon modu"
+        "title": "İzolasyon modu",
+        "tooltip": "A risk-containment mode for newer or more volatile assets."
       },
       "link": "Tüm piyasaları göster",
       "table": {
@@ -856,13 +858,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "Borç alan sayısı",
+        "collateralFactorLabel": "Teminat faktörü (Core)",
         "dailyBorrowingInterestsLabel": "Günlük borç faizi",
         "dailyDistribution": "Günlük {{tokenSymbol}} dağıtımı",
         "dailySupplyingInterestsLabel": "Günlük tedarik faizi",
         "exchangeRateLabel": "Döviz kuru",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "isBorrowableLabel": "Borç alınabilir (Core)",
+        "liquidationPenaltyLabel": "Tasfiye cezası (Core)",
+        "liquidationThresholdLabel": "Tasfiye eşiği (Core)",
+        "no": "Hayır",
         "reserveFactorLabel": "Rezerv faktörü",
-        "supplierCountLabel": "Sağlayan sayısı"
+        "supplierCountLabel": "Sağlayan sayısı",
+        "yes": "Evet"
       }
     },
     "periodOption": {
