@@ -728,6 +728,7 @@
       "liquidity": "流動性",
       "maxLtv": {
         "label": "最大LTV",
+        "modeInfoHint": "<Link>探索</Link> 利用可能な LTV オプション。",
         "tooltip": "最大LTVは借入限度です。{{maxLtv}} LTVで、1 {{tokenSymbol}}の担保により{{userCollateralFactor}} {{tokenSymbol}}相当の通貨を借りられます。"
       },
       "price": "価格",

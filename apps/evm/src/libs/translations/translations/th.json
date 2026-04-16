@@ -728,6 +728,7 @@
       "liquidity": "สภาพคล่อง",
       "maxLtv": {
         "label": "LTV สูงสุด",
+        "modeInfoHint": "<Link>สำรวจ</Link>ตัวเลือก LTV ที่มี",
         "tooltip": "LTV สูงสุดคือขีดจำกัดการยืม ที่ {{maxLtv}} LTV หลักประกัน 1 {{tokenSymbol}} สามารถยืมสกุลเงินมูลค่า {{userCollateralFactor}} {{tokenSymbol}} ได้"
       },
       "price": "ราคา",

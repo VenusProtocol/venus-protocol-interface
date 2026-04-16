@@ -90,8 +90,8 @@ export const useColumns = () => {
         formatPercentageToReadableValue(liquidationPenaltyPercentage),
       sortRows: (rowA, rowB, direction) =>
         compareNumbers(
-          rowB.liquidationPenaltyPercentage,
           rowA.liquidationPenaltyPercentage,
+          rowB.liquidationPenaltyPercentage,
           direction,
         ),
       align: 'right',

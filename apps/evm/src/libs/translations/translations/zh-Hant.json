@@ -728,6 +728,7 @@
       "liquidity": "流動性",
       "maxLtv": {
         "label": "最大 LTV",
+        "modeInfoHint": "<Link>探索</Link>可用的 LTV 選項。",
         "tooltip": "最大 LTV 即借款限額。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的抵押允許借入價值 {{userCollateralFactor}} {{tokenSymbol}} 的貨幣。"
       },
       "price": "價格",
