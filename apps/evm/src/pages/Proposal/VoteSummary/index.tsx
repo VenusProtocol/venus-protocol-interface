@@ -12,6 +12,8 @@ import { useTranslation } from 'libs/translations';
 import type { VotersDetails } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
+import { SwitchChain } from 'containers/SwitchChain';
+import { governanceChainId } from 'libs/wallet';
 import { useStyles } from './styles';
 
 interface VoteSummaryProps extends CardProps {
@@ -70,9 +72,11 @@ const VoteSummary = ({
         </div>
 
         {votingEnabled && (
-          <Button css={styles.button} onClick={openVoteModal}>
-            {label}
-          </Button>
+          <SwitchChain chainId={governanceChainId}>
+            <Button css={styles.button} onClick={openVoteModal}>
+              {label}
+            </Button>
+          </SwitchChain>
         )}
       </div>
 
