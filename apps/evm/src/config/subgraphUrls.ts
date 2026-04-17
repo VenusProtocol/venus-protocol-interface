@@ -10,7 +10,7 @@ export const getGovernanceSubgraphUrls = ({
   const subgraphUrls: {
     [chainId in ChainId]: string | undefined;
   } = {
-    [ChainId.BSC_MAINNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmRNDurj3yDRfmdf89Bv9MZASSr1fTSu9hdp3CgLTRY8rg`,
+    [ChainId.BSC_MAINNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmQhWQE1AvpLUaRZj2EprFw1GdpLkrXomuoTFmJFE18B23`,
     [ChainId.BSC_TESTNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmPFMfJqPwxqGrBMtqdFbQn4MpEG4nFfHeHCZP6r2fuLfW`,
     [ChainId.OPBNB_MAINNET]: `https://open-platform-ap.nodereal.io/${nodeRealApiKey}/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-governance-opbnb`,
     [ChainId.OPBNB_TESTNET]: undefined,
