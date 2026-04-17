@@ -3740,32 +3740,49 @@
   dependencies:
     "@types/mdx" "^2.0.0"
 
+"@metamask/7715-permission-types@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@metamask/7715-permission-types/-/7715-permission-types-0.3.0.tgz#ed11d8117809c6b042f86d06702b3c4ef9c826e9"
+  integrity sha512-+bqFNe6/YCe2LZapiVJO3/hn7BSJLExYT+cDJS1spJocPeVsTyURv3IjblZxRqTOv+igTwrYbh45LvdkgzxkZQ==
+
+"@metamask/abi-utils@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@metamask/abi-utils/-/abi-utils-3.0.0.tgz#2eab9cb895922b94305364d9111b6dde724f6f9b"
+  integrity sha512-a/l0DiSIr7+CBYVpHygUa3ztSlYLFCQMsklLna+t6qmNY9+eIO5TedNxhyIyvaJ+4cN7TLy0NQFbp9FV3X2ktg==
+  dependencies:
+    "@metamask/superstruct" "^3.1.0"
+    "@metamask/utils" "^11.0.1"
+
 "@metamask/delegation-abis@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@metamask/delegation-abis/-/delegation-abis-0.11.0.tgz#a87741512f954aad0aa134a3c7a52f093014687b"
   integrity sha512-tnNGFDLQ5jfgPhHJaT5JwvF759nja1iGAG00REbk1Ufir+TxjxTmF8L9MbJifZmUh4fnyqV4Ik6NAOYVNBPVBg==
 
-"@metamask/delegation-deployments@^0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@metamask/delegation-deployments/-/delegation-deployments-0.11.0.tgz#fa7a223232d86203f35213c6cca64cdce61a8a2c"
-  integrity sha512-RfeMr1Ct0givG7oOy1unwdb5lGttq9pape4OGz2mk8quG0KDqDi7cw3fzYc7wz9xFDZ2YrFanYRacaLTlqWS8g==
-
-"@metamask/delegation-toolkit@0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@metamask/delegation-toolkit/-/delegation-toolkit-0.11.0.tgz#5aa1c204b64e13f52274e5dfdb33594f399b409b"
-  integrity sha512-KQybftUahuPPjN842ejmVaJWg2rzHpSpvd+b6qtiOBypzJs7cgw1/f8QalHLugS1eyicEYLXwvRxjjufiG4wbg==
+"@metamask/delegation-core@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@metamask/delegation-core/-/delegation-core-0.2.0.tgz#94db8748983742e2db79a6d649e80d76c3c7d471"
+  integrity sha512-leP40qoxhTmexfeY/neZ9XkhmUiq8fHh3ax4wmmTB5CG6VuXStn2LzLz875RiBtjwU3c4IqaZljxvwC1dUuWVw==
   dependencies:
-    "@metamask/delegation-utils" "^0.11.0"
-    webauthn-p256 "^0.0.5"
+    "@metamask/abi-utils" "^3.0.0"
+    "@metamask/utils" "^11.4.0"
+    "@noble/hashes" "^1.8.0"
 
-"@metamask/delegation-utils@^0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@metamask/delegation-utils/-/delegation-utils-0.11.0.tgz#616ccc5528ab483937eb1138e982376da3d0ef4a"
-  integrity sha512-eg8icyDtbzwER/G3VvaiVUNiNr9GXxJXQMcFRbhm9tTMqWXpphYXk9edSungRF+QqYmXIytRiR2ChSHp0uNtew==
+"@metamask/delegation-deployments@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@metamask/delegation-deployments/-/delegation-deployments-0.12.0.tgz#d2c33ca7901326df71382b340cc4017b38db7c73"
+  integrity sha512-9SB5DhLAnbpIWbFxP3UKPXLhCt8iiRjBBjZ7hqF5dMXy9buBEDpCRg+FJYRxYRecwporrTVrv+NfKUyCbL2ncw==
+
+"@metamask/delegation-toolkit@0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@metamask/delegation-toolkit/-/delegation-toolkit-0.13.0.tgz#fd73bb9e1ae996a9ec204e1520354018227f1076"
+  integrity sha512-SVc2gcnKQ8KQodugfuXMs49pHO1x9AYw3Wmdg4yBEsgm5TF5zPpWFmAj+bOL8q+Fn+mHJAibFIrJBtS970G9Dw==
   dependencies:
+    "@metamask/7715-permission-types" "^0.3.0"
     "@metamask/delegation-abis" "^0.11.0"
-    "@metamask/delegation-deployments" "^0.11.0"
+    "@metamask/delegation-core" "^0.2.0"
+    "@metamask/delegation-deployments" "^0.12.0"
     buffer "^6.0.3"
+    webauthn-p256 "^0.0.10"
 
 "@metamask/eth-json-rpc-provider@^1.0.0":
   version "1.0.1"
@@ -3940,6 +3957,23 @@
   version "11.8.1"
   resolved "https://registry.yarnpkg.com/@metamask/utils/-/utils-11.8.1.tgz#27b5f1629ba2215269174a4450fc6949872f7279"
   integrity sha512-DIbsNUyqWLFgqJlZxi1OOCMYvI23GqFCvNJAtzv8/WXWzJfnJnvp1M24j7VvUe3URBi3S86UgQ7+7aWU9p/cnQ==
+  dependencies:
+    "@ethereumjs/tx" "^4.2.0"
+    "@metamask/superstruct" "^3.1.0"
+    "@noble/hashes" "^1.3.1"
+    "@scure/base" "^1.1.3"
+    "@types/debug" "^4.1.7"
+    "@types/lodash" "^4.17.20"
+    debug "^4.3.4"
+    lodash "^4.17.21"
+    pony-cause "^2.1.10"
+    semver "^7.5.4"
+    uuid "^9.0.1"
+
+"@metamask/utils@^11.4.0":
+  version "11.11.0"
+  resolved "https://registry.yarnpkg.com/@metamask/utils/-/utils-11.11.0.tgz#6675946df767da6cbe306c7b5e76685320a6c826"
+  integrity sha512-0nF2CWjWQr/m0Y2t2lJnBTU1/CZPPTvKvcESLplyWe/tyeb8zFOi/FeneDmaFnML6LYRIGZU6f+xR0jKAIUZfw==
   dependencies:
     "@ethereumjs/tx" "^4.2.0"
     "@metamask/superstruct" "^3.1.0"
@@ -19060,10 +19094,10 @@ web-vitals@^5.1.0:
   resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-5.1.0.tgz#2f117e92c8c4eeb107cb163cbb482ac20d685ebd"
   integrity sha512-ArI3kx5jI0atlTtmV0fWU3fjpLmq/nD3Zr1iFFlJLaqa5wLBkUSzINwBPySCX/8jRyjlmy1Volw1kz1g9XE4Jg==
 
-webauthn-p256@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/webauthn-p256/-/webauthn-p256-0.0.5.tgz#0baebd2ba8a414b21cc09c0d40f9dd0be96a06bd"
-  integrity sha512-drMGNWKdaixZNobeORVIqq7k5DsRC9FnG201K2QjeOoQLmtSDaSsVZdkg6n5jUALJKcAG++zBPJXmv6hy0nWFg==
+webauthn-p256@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/webauthn-p256/-/webauthn-p256-0.0.10.tgz#877e75abe8348d3e14485932968edf3325fd2fdd"
+  integrity sha512-EeYD+gmIT80YkSIDb2iWq0lq2zbHo1CxHlQTeJ+KkCILWpVy3zASH3ByD4bopzfk0uCwXxLqKGLqp2W4O28VFA==
   dependencies:
     "@noble/curves" "^1.4.0"
     "@noble/hashes" "^1.4.0"
