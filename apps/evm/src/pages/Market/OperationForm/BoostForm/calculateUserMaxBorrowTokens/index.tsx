@@ -13,7 +13,7 @@ export const calculateUserMaxBorrowTokens = ({
   );
 
   const userMaxBorrowTokens = userMaxBorrowCents
-    .div(borrowedAsset.tokenPriceCents)
+    .div(borrowedAsset.tokenBorrowPriceCents)
     .dp(borrowedAsset.vToken.underlyingToken.decimals);
 
   const marginWithBorrowCapTokens = borrowedAsset.borrowCapTokens.minus(

@@ -115,7 +115,7 @@ export const Card: React.FC<CardProps> = ({
       topContent={
         <CapThreshold
           type={type}
-          tokenPriceCents={asset.tokenPriceCents}
+          tokenPriceCents={type === 'supply' ? asset.tokenSupplyPriceCents : asset.tokenBorrowPriceCents}
           balanceTokens={type === 'supply' ? asset.supplyBalanceTokens : asset.borrowBalanceTokens}
           capTokens={type === 'supply' ? asset.supplyCapTokens : asset.borrowCapTokens}
           limitTokens={

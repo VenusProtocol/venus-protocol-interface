@@ -3,7 +3,7 @@ import { cn } from '@venusprotocol/ui';
 import { useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
-import { Card, Delimiter, Modal, Table, type TableProps } from 'components';
+import { Card, Delimiter, Modal, ProtectionModeIndicator, Table, type TableProps } from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
@@ -16,6 +16,7 @@ import { useAccountChainId, useChainId } from 'libs/wallet';
 // so moving it now could generate conflicts
 import { OperationForm } from 'pages/Market/OperationForm';
 import type { Asset, EModeGroup } from 'types';
+import { formatCentsToReadableValue } from 'utilities';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey } from './types';
@@ -216,7 +217,36 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       {selectedAsset && (
         <Modal
           isOpen={!!selectedAsset}
-          title={selectedAsset.vToken.underlyingToken.symbol}
+          title={
+            <span className="inline-flex items-center gap-x-2">
+              {selectedAsset.isProtectionModeEnabled && (
+                <ProtectionModeIndicator
+                  variant="icon"
+                  tooltip={
+                    <div>
+                      <p>
+                        {t('marketTable.assetColumn.protectionModeDetailCollateral', {
+                          collateralPrice: formatCentsToReadableValue({
+                            value: selectedAsset.tokenSupplyPriceCents,
+                            shorten: false,
+                          }),
+                        })}
+                      </p>
+                      <p className="mt-1">
+                        {t('marketTable.assetColumn.protectionModeDetailBorrow', {
+                          borrowPrice: formatCentsToReadableValue({
+                            value: selectedAsset.tokenBorrowPriceCents,
+                            shorten: false,
+                          }),
+                        })}
+                      </p>
+                    </div>
+                  }
+                />
+              )}
+              {selectedAsset.vToken.underlyingToken.symbol}
+            </span>
+          }
           handleClose={handleCloseMarketModal}
         >
           <OperationForm

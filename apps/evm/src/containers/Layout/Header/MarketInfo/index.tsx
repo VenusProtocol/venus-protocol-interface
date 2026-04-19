@@ -5,6 +5,7 @@ import {
   CellGroup,
   type CellProps,
   Icon,
+  ProtectionModeIndicator,
   Spinner,
   TokenIcon,
   Wrapper,
@@ -140,6 +141,32 @@ export const MarketInfo = () => {
                     <Icon name="shield" />
                   </Link>
                 </ButtonWrapper>
+              )}
+
+              {asset.isProtectionModeEnabled && (
+                <ProtectionModeIndicator
+                  variant="label"
+                  tooltip={
+                    <div>
+                      <p>
+                        {t('marketTable.assetColumn.protectionModeDetailCollateral', {
+                          collateralPrice: formatCentsToReadableValue({
+                            value: asset.tokenSupplyPriceCents,
+                            shorten: false,
+                          }),
+                        })}
+                      </p>
+                      <p className="mt-1">
+                        {t('marketTable.assetColumn.protectionModeDetailBorrow', {
+                          borrowPrice: formatCentsToReadableValue({
+                            value: asset.tokenBorrowPriceCents,
+                            shorten: false,
+                          }),
+                        })}
+                      </p>
+                    </div>
+                  }
+                />
               )}
             </div>
           ) : (

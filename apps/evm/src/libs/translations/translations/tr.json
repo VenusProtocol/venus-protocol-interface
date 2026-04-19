@@ -967,7 +967,12 @@
     "assetColumn": {
       "eMode": "Bu piyasa {{eModeGroupName}} E-modu grubunun bir parçasıdır",
       "isolationMode": "Bu piyasa {{eModeGroupName}} izolasyon modu grubunun bir parçasıdır",
-      "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı."
+      "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı.",
+      "protectionMode": "Protection Mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices.",
+      "protectionModeSupply": "This market is suffering volatility. The Protected Collateral Value is {{protectedValue}}. The conservative value used to determine your borrow power.",
+      "protectionModeBorrow": "This market is suffering volatility. The Protected Borrow Value is {{protectedValue}}. The conservative value that counts against your borrow power.",
+      "protectionModeDetailCollateral": "This market is suffering volatility. The Protected Collateral Price is {{collateralPrice}}. The conservative price used to determine your borrow power.",
+      "protectionModeDetailBorrow": "The Protected Borrow Price is {{borrowPrice}}. The conservative price used to calculate how many of this asset can be borrowed."
     },
     "columnKeys": {
       "asset": "Varlık",
@@ -1586,6 +1591,9 @@
     "cardsSelect": {
       "label": "Sırala"
     }
+  },
+  "protectionModeIndicator": {
+    "label": "Korumalı"
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

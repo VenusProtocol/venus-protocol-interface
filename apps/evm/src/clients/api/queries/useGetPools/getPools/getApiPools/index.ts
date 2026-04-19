@@ -145,6 +145,9 @@ export interface ApiTokenPrice {
   priceOracleAddress: Address | null;
   isPriceInvalid: boolean;
   hasErrorFetchingPrice: boolean;
+  isPriceProtected: boolean;
+  collateralPriceMantissa: string;
+  borrowPriceMantissa: string;
 }
 
 export interface ApiTokenMetadata {

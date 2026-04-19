@@ -6,6 +6,7 @@ import {
   InfoIcon,
   LayeredValues,
   ProgressBar,
+  ProtectionModeIndicator,
   type TableColumn,
   Toggle,
   TokenIconWithSymbol,
@@ -152,6 +153,13 @@ export const useColumns = ({
                 >
                   <EModeIcon className="size-5" isIsolated={userEModeGroup.isIsolated} />
                 </Tooltip>
+              )}
+
+              {asset.isProtectionModeEnabled && (
+                <ProtectionModeIndicator
+                  variant="icon"
+                  tokenName={asset.vToken.underlyingToken.symbol}
+                />
               )}
 
               {isPaused && (

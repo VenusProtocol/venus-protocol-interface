@@ -967,7 +967,12 @@
     "assetColumn": {
       "eMode": "該市場屬於 {{eModeGroupName}} E-mode組",
       "isolationMode": "該市場屬於 {{eModeGroupName}} 隔離模式組",
-      "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。"
+      "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。",
+      "protectionMode": "Protection Mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices.",
+      "protectionModeSupply": "This market is suffering volatility. The Protected Collateral Value is {{protectedValue}}. The conservative value used to determine your borrow power.",
+      "protectionModeBorrow": "This market is suffering volatility. The Protected Borrow Value is {{protectedValue}}. The conservative value that counts against your borrow power.",
+      "protectionModeDetailCollateral": "This market is suffering volatility. The Protected Collateral Price is {{collateralPrice}}. The conservative price used to determine your borrow power.",
+      "protectionModeDetailBorrow": "The Protected Borrow Price is {{borrowPrice}}. The conservative price used to calculate how many of this asset can be borrowed."
     },
     "columnKeys": {
       "asset": "資產",
@@ -1586,6 +1591,9 @@
     "cardsSelect": {
       "label": "排序"
     }
+  },
+  "protectionModeIndicator": {
+    "label": "已保護"
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
