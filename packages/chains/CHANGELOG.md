@@ -1,5 +1,12 @@
 # @venusprotocol/chains
 
+## 0.24.2
+
+### Patch Changes
+
+- 00dae25: automatically delete hosted images of old chains package versions
+- 046d317: update the PoolLens contract address on Ethereum
+
 ## 0.24.1
 
 ### Patch Changes
