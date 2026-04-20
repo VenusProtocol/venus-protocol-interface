@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "純資産",
-        "tooltip": "ボールトのステーキングと借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールトのステーキング、借入、ミント済みVAIを考慮した利用可能な純資産"
+        "tooltip": "ボールトの預入と借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールトの預入、借入、ミント済みVAIを考慮した利用可能な純資産"
       },
       "periodOption": {
         "oneYear": "1年",
@@ -61,10 +61,10 @@
         "mintedVai": "ミント済みVAI",
         "netApy": "実質APY",
         "netApyTooltip": "年間利息として受け取る供給残高の割合",
-        "netApyWithVaultStakeTooltip": "年間利息として受け取る供給残高とボールトステーキングの割合",
+        "netApyWithVaultStakeTooltip": "年間利息として受け取る供給残高とボールト預入の割合",
         "totalBorrow": "総借入",
         "totalSupply": "総供給",
-        "totalVaultStake": "ボールト総ステーキング量"
+        "totalVaultStake": "ボールト総預入量"
       },
       "title": "サマリー"
     },
@@ -186,7 +186,7 @@
         "defaultMerklRewardName": "Merkl報酬",
         "externalRewardDescription": "この外部プログラムからの報酬は、<AppLink>公式アプリ</AppLink>で請求できます。Venusプロトコルはこれらを保証せず、責任を負いません。",
         "intrinsicApy": {
-          "description": "原資産自体が生み出すネイティブ利回りです（例: ステーキング報酬）。この利回りは外部ソースに由来し、Venusプロトコルは保証しません。",
+          "description": "原資産自体が生み出すネイティブ利回りです（例: 預入報酬）。この利回りは外部ソースに由来し、Venusプロトコルは保証しません。",
           "name": "内在APY"
         },
         "offChainApy": {
@@ -218,10 +218,10 @@
       "logoAlt": "Primeロゴ",
       "tooltip": {
         "calculatorLink": "Prime報酬を計算",
-        "primeBorrowSimulation": "Primeにより、ユーザーの借入中央値{{borrowBalance}}とボールトステーキング{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeBorrowSimulation": "Primeにより、ユーザーの借入中央値{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
         "primeDocLink": "詳細を見る",
         "primeMarket": "PrimeによりAPYがブーストされます。",
-        "primeSupplySimulation": "Primeにより、ユーザーの供給中央値{{supplyBalance}}とボールトステーキング{{xvsStaked}}に基づきAPYがブーストされます。"
+        "primeSupplySimulation": "Primeにより、ユーザーの供給中央値{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
       }
     }
   },
@@ -231,7 +231,7 @@
     "distributionTooltip": "配布報酬は分散型のVenusコミュニティにより開始・実装されます。Venusプロトコルはこれらを保証せず、責任を負いません。",
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "内在APY",
-    "intrinsicApyTooltip": "資産自体から直接得られるAPY（例: ステーキングや外部報酬）で、Venusのレンディング利回りとは別です。Venusプロトコルはこれらを保証せず、責任を負いません。",
+    "intrinsicApyTooltip": "資産自体から直接得られるAPY（例: 預入や外部報酬）で、Venusのレンディング利回りとは別です。Venusプロトコルはこれらを保証せず、責任を負いません。",
     "netApy": {
       "label": "実質APY",
       "tooltip": "関係するすべてのマーケットのAPYの合計"
@@ -258,6 +258,7 @@
       "date": "日付",
       "supplyApy": "供給APY",
       "totalBorrow": "総借入",
+      "totalStaked": "総預入量",
       "totalSupply": "総供給"
     }
   },
@@ -285,6 +286,9 @@
     "borrowDescription": "{{poolName}}プールで担保として供給しているため、{{tokenSymbol}}を借りられます。<Button>すべてのトークンを表示</Button>",
     "modalTitle": "{{ poolName }} トークン",
     "supplyDescription": "{{poolName}}プールに{{tokenSymbol}}を供給すると、このプールのみからトークンを借りられるようになります。<Button>すべてのマーケットを表示</Button>"
+  },
+  "availableBalance": {
+    "label": "利用可能"
   },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "背景イラスト",
@@ -321,7 +325,7 @@
     },
     "errors": {
       "dailyTransactionLimitExceeded": {
-        "message": "宛先チェーンの24時間上限により、{{readableAmountTokens}}（{{readableAmountUsd}}）を超えてブリッジできません。この上限は{{ date, dd MMM yyyy h:mm a }}にリセットされます",
+        "message": "宛先チェーンの24時間上限により、{{readableAmountTokens}}（{{readableAmountUsd}}）を超えてブリッジできません。この上限は{{ date, textualWithTime }}にリセットされます",
         "submitButton": "日次上限を超える金額です"
       },
       "doesNotHaveEnoughNativeFunds": "{{tokenSymbol}}残高が不足しています",
@@ -415,7 +419,7 @@
       },
       "step3": {
         "description": "XVSをボールトに預け入れ、プロトコル収益による利回りを獲得しましょう。",
-        "title": "XVSをステーク"
+        "title": "XVSを預け入れ"
       },
       "uncompleted": "未完了"
     },
@@ -423,8 +427,8 @@
       "absolutePerformance": "絶対パフォーマンス",
       "netWorth": {
         "label": "純資産",
-        "tooltip": "ボールトステークと借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールトステーク、借入、ミント済みVAIを考慮した利用可能な純資産"
+        "tooltip": "ボールト預入と借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールト預入、借入、ミント済みVAIを考慮した利用可能な純資産"
       },
       "performanceChart": {
         "errorState": {
@@ -444,10 +448,10 @@
           "mintedVai": "ミント済みVAI",
           "netApy": "実質APY",
           "netApyTooltip": "総供給残高に対して年利として受け取る割合",
-          "netApyWithVaultStakeTooltip": "総供給とボールトステークに対して年利として受け取る割合",
+          "netApyWithVaultStakeTooltip": "総供給とボールト預入に対して年利として受け取る割合",
           "totalBorrow": "総借入",
           "totalSupply": "総供給",
-          "totalVaultStake": "ボールトステーク合計"
+          "totalVaultStake": "ボールト預入合計"
         },
         "title": "サマリー"
       },
@@ -472,7 +476,7 @@
     "vaults": {
       "dailyEarnings": "日次収益",
       "dailyEarningsTooltip": "すべてのアクティブなボールト全体での推定日次収益です。各ボールトの現在のレートまたは固定 APR に基づいています。実際の収益は異なる場合があります。",
-      "totalStakedValue": "総ステーク価値"
+      "totalStakedValue": "総預入額"
     }
   },
   "eModeBanner": {
@@ -1079,6 +1083,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
+      "0": "0%",
+      "100": "100%",
       "highRisk": "高リスク",
       "lowRisk": "低リスク"
     },
@@ -1159,12 +1165,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "Prime報酬の対象になるには、少なくとも{{minimumXvsStaked}} XVSをステーキングする必要があります。",
-        "label": "対象のステーキング済みXVS",
+        "error": "Prime報酬の対象になるには、少なくとも{{minimumXvsStaked}} XVSを預け入れる必要があります。",
+        "label": "対象の預入済みXVS",
         "tooltip": "Prime報酬の計算に最大{{maximumXvsStaked}}までが考慮されます"
       },
       "textField": {
-        "label": "ステーキング済みXVS"
+        "label": "預入済みXVS"
       }
     },
     "suppliedTokens": {
@@ -1186,8 +1192,8 @@
     "becomePrimeTitle": "Primeユーザーになれるようになりました",
     "claimButtonLabel": "Primeトークンを請求",
     "description": {
-      "primeCalculator": "さらに<WhiteText>{{stakeDelta}}</WhiteText>ステーキングして{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>Prime報酬を計算</Link>",
-      "primeDoc": "さらに<WhiteText>{{stakeDelta}}</WhiteText>ステーキングして{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>詳細を見る</Link>"
+      "primeCalculator": "さらに<WhiteText>{{stakeDelta}}</WhiteText>預け入れて{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>Prime報酬を計算</Link>",
+      "primeDoc": "さらに<WhiteText>{{stakeDelta}}</WhiteText>預け入れて{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>詳細を見る</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "Primeトークンはすべて請求済みです",
@@ -1195,10 +1201,10 @@
     },
     "progressBar": {
       "ariaLabel": "現在のPrime進捗",
-      "label": "ステーキング済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "預入済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "収益を最大<GreenText>{{percentage}}</GreenText>までブースト",
-    "stakeButtonLabel": "XVSのステーキング",
+    "stakeButtonLabel": "XVSを預け入れ",
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
@@ -1223,6 +1229,18 @@
     "pending": "保留",
     "queued": "キュー済み",
     "succeeded": "可決"
+  },
+  "requestWithdrawalFromVestingVaultForm": {
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "引き出しリクエストを見るにはウォレットを接続してください"
+      },
+      "emptyState": "現在、引き出し申請はありません",
+      "locked": "{{date, numericWithTime}}までロック",
+      "title": "引き出しリクエスト",
+      "unlocked": "ロック解除済み",
+      "withdrawButtonLabel": "ロック解除済み残高を引き出す"
+    }
   },
   "select": {
     "defaultLabel": "選択してください"
@@ -1505,13 +1523,6 @@
     "label": "支出上限",
     "labelTooltip": "これはこの資産の現在の支出上限です。さらに支出するには上限を取り消し、新しい上限を設定してください。",
     "revokeButtonTooltip": "支出上限を取り消す"
-  },
-  "stakeModal": {
-    "availableTokensLabel": "利用可能な{{tokenSymbol}}",
-    "connectWalletMessage": "{{tokenSymbol}}をステーキングするにはウォレットを接続してください",
-    "submitButtonDisabledLabel": "ステーキングする数量を入力してください",
-    "submitButtonLabel": "ステーキング",
-    "title": "{{tokenSymbol}}をステーキング"
   },
   "statsPage": {
     "illustrationAlt": "統計イラスト",
@@ -1831,23 +1842,27 @@
       "claimReward": "報酬を請求",
       "currentDeposited": "現在の預入量",
       "dailyEmission": "日次報酬配布",
+      "effectiveFixedApr": "実質固定APR",
+      "header": {
+        "maturityDate_other": "{{ date, textual }}（{{ count }}日）"
+      },
       "liquidity": "流動性",
       "liquidityTooltip": "このボールトの基盤となる Pendle 統合プール（またはストラテジー）に現在提供されている資産の総価値です。",
       "manager": "運用機関",
       "maturityDate": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
-      "numDays_other": "{{count}}日",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、預入、引き出しは無効になっています。",
-      "stake": "ステーキング",
-      "stakingApr": "{{stakeTokenName}} ステーキングAPR",
-      "textualDate": "{{date, textual}}",
+      "primeEligibility": "Prime資格",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "総預金額",
-      "totalStaked": "総ステーキング量",
-      "withdraw": "引き出し",
-      "youAreStake": "あなたのステーキング量",
-      "youDeposited": "預入済み"
+      "youDeposited": "預け入れ中"
     },
+    "category": {
+      "governance": "ガバナンス",
+      "stablecoins": "ステーブルコイン",
+      "yieldTokens": "イールドトークン"
+    },
+    "description": "シンプルに利回りを、確かなリターンを",
     "filter": {
       "active": "アクティブ",
       "allCategories": "全カテゴリ",
@@ -1857,23 +1872,19 @@
       "deposit": "預入",
       "earning": "収益中",
       "inputPlaceholder": "資産を検索",
-      "others": "その他",
       "paused": "停止中",
       "refund": "返金",
-      "repaying": "返済中",
-      "stablecoins": "ステーブルコイン",
-      "vaults": "ボールト",
-      "yieldTokens": "イールドトークン"
+      "repaying": "返済中"
     },
+    "header": "ボールト",
     "modals": {
       "afterMaturityPendleDisclaimer": "まず「引き出し」ボタンからPTトークンをウォレットに引き出してから、<Link>Pendle公式</Link>ウェブサイトで原資産トークンを償還してください。",
-      "available": "利用可能",
       "claim": "請求",
-      "connectWalletMessage": "{{tokenSymbol}}をステーキング / 引き出しするにはウォレットを接続してください",
+      "connectWalletMessage": "{{tokenSymbol}}を預け入れ / 引き出しするにはウォレットを接続してください",
       "convert": "変換",
       "currentDeposited": "現在の預入額",
       "currentDepositedTooltip": "このボールトに現在ロックされ、収益を得ている資産の量です。",
-      "deposit": "ステーキング",
+      "deposit": "預入",
       "effectiveFixedApr": "実質固定APR",
       "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
       "error": {
@@ -1881,7 +1892,7 @@
         "higherThanAvailable": "入力金額があなたの利用可能な{{tokenSymbol}}残高を超えています。金額を減らすか、「最大」をクリックして全残高を使用してください。",
         "invalidAmount": "入力金額が無効です。",
         "invalidAmountFromQuote": "入力金額がPendleマーケットで利用可能な流動性を超えています。金額を減らして再試行してください。",
-        "lowerThanMinimumAmount": "入力金額が少なすぎます。最低金額は {{amount}} USD 相当です。",
+        "lowerThanMinimumAmount": "入力金額が少なすぎます。許可される最小金額は {{amount}} USD 相当です。",
         "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。",
         "pendleApiError": "現在Pendleへのアクセスが集中しています。しばらくしてからもう一度お試しください。"
       },
@@ -1891,7 +1902,6 @@
       "maturityDate": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
       "maturityPendleDisclaimer": "満期前は、引き出し時に受け取る金額は Pendle の市場価格に依存します。満期後は、保有する PT トークンに基づいて 1:1 で引き出しが換金されます。",
-      "max": "最大",
       "minReceived": "最小受取額",
       "overview": {
         "manager": "運用機関",
@@ -1901,41 +1911,72 @@
         "riskDisclosureText": "Pendle は、プリンシパルトークン（PT）を通じて固定利回りを実現する分散型イールドトレーディングプロトコルです。Venus 固定金利ボールトは、Pendle のインフラストラクチャを通じて PT を取得し、Venus Core に担保として供給します。<br />Pendle があなたの預金にアクセスしたり移動させたりすることはできませんが、このボールトを利用することで両方のプロトコルからのリスクにさらされます。これにはスマートコントラクトの脆弱性、オラクルの障害、いずれかのプロトコルが悪用または停止される可能性が含まれます。満期前の引き出しは市場価格で実行され、預入額を下回る場合があります。固定 APY は預入時にロックされ、プロトコルレベルの障害に対する保護にはなりません。",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "供給",
           "users": "ユーザー",
           "venusCore": "Venus Core"
         },
         "strategyAllocation": "戦略配分",
         "supply": "供給",
-        "totalDeposited": "総ステーキング量",
-        "totalDeposits": "総預金額",
+        "totalDeposited": "総預金額",
         "vaultDeploymentDate": "ボールト展開日"
       },
       "overviewTab": "概要",
       "pendleFee": "Pendleフィー",
       "positionTab": "ポジション",
-      "submitButtonDisabledLabel": "リクエストする数量を入力してください",
+      "stakeTab": "預入",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "引き出し"
+      "withdraw": "引き出し",
+      "withdrawTab": "引き出し"
     },
     "overview": {
-      "bannerCoinIllustration": "{{token}} コインのイラスト",
-      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> をステークして <strong>{{apyPercentage}}</strong> APR を享受",
-      "bannerVaultIllustration": "ボールトのイラスト",
-      "description": "シンプルな利回り、確かな収益 — 複数のボールトに預けて、<strong>あなたのペースで</strong>資産を増やしましょう。",
-      "highestApr": "最高 APR",
-      "title": "ボールト",
-      "tokenTotalDeposited": "{{token}} 総預入量",
-      "tvl": "TVL",
-      "vaultCount": "ボールト"
-    },
-    "transactionForm": {
-      "lockingPeriod": {
-        "duration": "{{date, distanceToNow}}",
-        "label": "ロック期間"
+      "bannerVaultIllustration": "ボールトのイラスト"
+    }
+  },
+  "vaultCard": {
+    "vaultModal": {
+      "footer": {
+        "currentlyStaked": "現在の預入額",
+        "estimatedDailyEarnings": "推定日次収益",
+        "lockingPeriod": {
+          "duration": "{{date, distanceToNow}}",
+          "label": "ロック期間",
+          "tooltip": "ロック期間は、引き出し申請をしてから申請額を実際にボールトから引き出せるようになるまでの待機時間です。"
+        }
       },
-      "rightMaxButtonLabel": "最大"
+      "requestWithdrawalFromVestingVaultForm": {
+        "displayWithdrawalRequestListButton": {
+          "label": "引き出し申請一覧",
+          "tooltip": "請求可能なロック解除済みXVSがあります。"
+        },
+        "primeLossWarning": {
+          "message": "この金額を引き出すと、XVSボールトでの預入額がPrimeの対象に必要な最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。"
+        },
+        "requestWithdrawalField": {
+          "label": "引き出しを申請する"
+        },
+        "submitButton": {
+          "label": "引き出しを申請する"
+        }
+      },
+      "stakeForm": {
+        "depositField": {
+          "label": "預入"
+        },
+        "footer": {
+          "apr": "APR"
+        },
+        "submitButton": {
+          "label": "預入"
+        }
+      },
+      "withdrawFromVaiVault": {
+        "submitButton": {
+          "label": "引き出す"
+        },
+        "withdrawField": {
+          "label": "引き出す"
+        }
+      }
     }
   },
   "venusFluxBanner": {
@@ -2029,8 +2070,8 @@
     "youDelegatedTo": "ロックしたトークンを{{delegate}}に委任しました"
   },
   "voteProposalUi": {
-    "activeUntilDate": "アクティブ期限: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "canceledDate": "キャンセル: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "activeUntilDate": "アクティブ期限: <Date>{{ date, textualWithTime }}</Date>",
+    "canceledDate": "キャンセル: <Date>{{ date, textualWithTime }}</Date>",
     "command": {
       "actionButton": {
         "cancel": "キャンセル",
@@ -2070,23 +2111,23 @@
       "minutesIncluded": "{{minutes}}分 : {{seconds}}秒",
       "secondsIncluded": "{{seconds}}秒"
     },
-    "defeatedDate": "否決: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "defeatedDate": "否決: <Date>{{ date, textualWithTime }}</Date>",
     "description": "説明",
-    "executedDate": "実行済み: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "expiredDate": "期限切れ: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "executedDate": "実行済み: <Date>{{ date, textualWithTime }}</Date>",
+    "expiredDate": "期限切れ: <Date>{{ date, textualWithTime }}</Date>",
     "greenPulseAnimation": {
       "altText": "緑のパルスアニメーション"
     },
     "proposalState": {
-      "activeTimestamp": "アクティブ開始: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "canceledTimestamp": "キャンセル: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "defeatedTimestamp": "否決: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "executedTimestamp": "実行済み: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "expiredTimestamp": "期限切れ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "queuedTimestamp": "キュー: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "succeededTimestamp": "可決: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+      "activeTimestamp": "アクティブ開始: <Span>{{date, textualWithTime}}</Span>",
+      "canceledTimestamp": "キャンセル: <Span>{{date, textualWithTime}}</Span>",
+      "defeatedTimestamp": "否決: <Span>{{date, textualWithTime}}</Span>",
+      "executedTimestamp": "実行済み: <Span>{{date, textualWithTime}}</Span>",
+      "expiredTimestamp": "期限切れ: <Span>{{date, textualWithTime}}</Span>",
+      "queuedTimestamp": "キュー: <Span>{{date, textualWithTime}}</Span>",
+      "succeededTimestamp": "可決: <Span>{{date, textualWithTime}}</Span>"
     },
-    "queuedUntilDate": "キュー期限: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "queuedUntilDate": "キュー期限: <Date>{{ date, textualWithTime }}</Date>",
     "status": {
       "executedPayloads": "実行済みペイロード",
       "readyForExecution": "実行準備完了",
@@ -2097,8 +2138,8 @@
       "ariaLabelAgainst": "反対票",
       "ariaLabelFor": "賛成票"
     },
-    "timeUntilExecutable": "実行可能: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "timeUntilVotable": "投票開始: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilExecutable": "実行可能: <Date>{{ date, textualWithTime }}</Date>",
+    "timeUntilVotable": "投票開始: <Date>{{ date, textualWithTime }}</Date>",
     "voteStatus": {
       "abstained": "棄権",
       "notVoted": "未投票",
@@ -2152,46 +2193,5 @@
     "tooltip": {
       "address": "({{address}})"
     }
-  },
-  "withdrawFromVaiVaultModal": {
-    "availableTokensLabel": "利用可能な{{tokenSymbol}}",
-    "connectWalletMessage": "{{tokenSymbol}}を引き出すにはウォレットを接続してください",
-    "submitButtonDisabledLabel": "引き出す有効な金額を入力",
-    "submitButtonLabel": "引き出す",
-    "title": "{{tokenSymbol}}を引き出す"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "引き出し申請一覧",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "引き出すにはウォレットを接続してください"
-      },
-      "availableTokensLabel": "リクエスト可能な{{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "引き出し申請一覧",
-      "primeLossWarning": {
-        "message": "この金額を引き出すとXVSボールトのステーキングがPrime対象の最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。",
-        "submitButtonLabel": "Primeトークンを失って引き出しを申請する"
-      },
-      "submitButtonDisabledLabel": "引き出し申請する数量を入力してください",
-      "submitButtonLabel": "引き出しを申請する"
-    },
-    "requestWithdrawalTabTitle": "引き出しを申請する",
-    "title": "{{tokenSymbol}}を引き出す",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "引き出しリクエストを見るにはウォレットを接続してください"
-      },
-      "emptyState": "現在、引き出し申請はありません",
-      "itemContent": "{{date, dd.MM.yy h:mm a}}までロック"
-    },
-    "withdrawalRequestListTitle": "引き出し申請一覧",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "引き出すにはウォレットを接続してください"
-      },
-      "availableTokens": "利用可能な{{tokenSymbol}}",
-      "submitButton": "引き出す"
-    },
-    "withdrawTabTitle": "引き出す"
   }
 }

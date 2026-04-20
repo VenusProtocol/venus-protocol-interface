@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "Giá trị ròng",
-        "tooltip": "Tài sản ròng khả dụng sau khi tính đến stake vault và các khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến stake vault, các khoản vay và VAI đã đúc"
+        "tooltip": "Tài sản ròng khả dụng sau khi tính đến khoản gửi trong vault và các khoản vay",
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến khoản gửi trong vault, các khoản vay và VAI đã đúc"
       },
       "periodOption": {
         "oneYear": "1N",
@@ -61,10 +61,10 @@
         "mintedVai": "VAI đã đúc",
         "netApy": "APY ròng",
         "netApyTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp của bạn nhận được dưới dạng lãi hằng năm",
-        "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp và stake vault của bạn nhận được dưới dạng lãi hằng năm",
+        "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp và khoản gửi trong vault của bạn nhận được dưới dạng lãi hằng năm",
         "totalBorrow": "Tổng vay",
         "totalSupply": "Tổng cung cấp",
-        "totalVaultStake": "Tổng stake vault"
+        "totalVaultStake": "Tổng gửi trong vault"
       },
       "title": "Tóm tắt"
     },
@@ -115,7 +115,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "Chưa có vị thế staking"
+        "title": "Chưa có vị thế gửi"
       }
     }
   },
@@ -186,7 +186,7 @@
         "defaultMerklRewardName": "Phần thưởng Merkl",
         "externalRewardDescription": "Phần thưởng từ chương trình bên ngoài này có thể được nhận qua <AppLink>ứng dụng chính thức</AppLink> của họ. Venus protocol không đảm bảo và không chịu trách nhiệm.",
         "intrinsicApy": {
-          "description": "Lợi suất nội tại từ chính tài sản cơ sở — ví dụ phần thưởng staking. Lợi suất này đến từ các nguồn bên ngoài và không được Venus Protocol đảm bảo.",
+          "description": "Lợi suất nội tại từ chính tài sản cơ sở — ví dụ phần thưởng gửi. Lợi suất này đến từ các nguồn bên ngoài và không được Venus Protocol đảm bảo.",
           "name": "APY nội tại"
         },
         "offChainApy": {
@@ -218,10 +218,10 @@
       "logoAlt": "Logo Prime",
       "tooltip": {
         "calculatorLink": "Tính phần thưởng Prime của bạn",
-        "primeBorrowSimulation": "APY được boost bởi Prime dựa trên mức vay trung vị của người dùng {{borrowBalance}} và stake vault {{xvsStaked}}.",
+        "primeBorrowSimulation": "APY được boost bởi Prime dựa trên mức vay trung vị của người dùng {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}}.",
         "primeDocLink": "Tìm hiểu thêm",
         "primeMarket": "APY được boost bởi Prime.",
-        "primeSupplySimulation": "APY được boost bởi Prime dựa trên mức cung cấp trung vị của người dùng {{supplyBalance}} và stake vault {{xvsStaked}}."
+        "primeSupplySimulation": "APY được boost bởi Prime dựa trên mức cung cấp trung vị của người dùng {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}}."
       }
     }
   },
@@ -231,7 +231,7 @@
     "distributionTooltip": "Phần thưởng phân phối được khởi xướng và triển khai bởi cộng đồng Venus phi tập trung. Venus protocol không đảm bảo và không chịu trách nhiệm.",
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "APY nội tại",
-    "intrinsicApyTooltip": "APY nhận trực tiếp từ tài sản (ví dụ staking hoặc phần thưởng bên ngoài), tách biệt với lợi suất cho vay của Venus. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+    "intrinsicApyTooltip": "APY nhận trực tiếp từ tài sản (ví dụ gửi hoặc phần thưởng bên ngoài), tách biệt với lợi suất cho vay của Venus. Venus protocol không đảm bảo và không chịu trách nhiệm.",
     "netApy": {
       "label": "APY ròng",
       "tooltip": "Tổng APY của tất cả các thị trường liên quan"
@@ -258,6 +258,7 @@
       "date": "Ngày",
       "supplyApy": "APY cung cấp",
       "totalBorrow": "Tổng vay",
+      "totalStaked": "Tổng đã gửi",
       "totalSupply": "Tổng cung cấp"
     }
   },
@@ -285,6 +286,9 @@
     "borrowDescription": "Bạn có thể vay {{tokenSymbol}} theo mức cung cấp làm tài sản thế chấp trong pool {{poolName}}. <Button>Hiển thị tất cả token</Button>",
     "modalTitle": "Token {{ poolName }}",
     "supplyDescription": "Cung cấp {{tokenSymbol}} vào pool {{poolName}} sẽ cho phép bạn vay token chỉ từ pool này. <Button>Hiển thị tất cả thị trường</Button>"
+  },
+  "availableBalance": {
+    "label": "Có sẵn"
   },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "Hình minh họa nền",
@@ -321,7 +325,7 @@
     },
     "errors": {
       "dailyTransactionLimitExceeded": {
-        "message": "Bạn không thể bridge nhiều hơn {{readableAmountTokens}} ({{readableAmountUsd}}) trên chuỗi đích do giới hạn 24 giờ. Giới hạn này sẽ được đặt lại vào {{ date, dd MMM yyyy h:mm a }}",
+        "message": "Bạn không thể bridge nhiều hơn {{readableAmountTokens}} ({{readableAmountUsd}}) trên chuỗi đích do giới hạn 24 giờ. Giới hạn này sẽ được đặt lại vào {{ date, textualWithTime }}",
         "submitButton": "Số lượng nhập vượt quá giới hạn hàng ngày"
       },
       "doesNotHaveEnoughNativeFunds": "Không đủ số dư {{tokenSymbol}}",
@@ -415,7 +419,7 @@
       },
       "step3": {
         "description": "Gửi XVS vào vault và nhận lợi suất được tạo từ doanh thu của giao thức.",
-        "title": "Stake XVS"
+        "title": "Gửi XVS"
       },
       "uncompleted": "Chưa hoàn thành"
     },
@@ -423,8 +427,8 @@
       "absolutePerformance": "Hiệu suất tuyệt đối",
       "netWorth": {
         "label": "Giá trị ròng",
-        "tooltip": "Tài sản ròng khả dụng sau khi tính stake trong vault và khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính stake trong vault, khoản vay và VAI đã mint"
+        "tooltip": "Tài sản ròng khả dụng sau khi tính khoản gửi trong vault và khoản vay",
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính khoản gửi trong vault, khoản vay và VAI đã mint"
       },
       "performanceChart": {
         "errorState": {
@@ -444,10 +448,10 @@
           "mintedVai": "VAI đã mint",
           "netApy": "APY ròng",
           "netApyTooltip": "Tỷ lệ phần trăm trên tổng số dư cung của bạn nhận được dưới dạng lãi suất hằng năm",
-          "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm trên tổng số dư cung và stake trong vault của bạn nhận được dưới dạng lãi suất hằng năm",
+          "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm trên tổng số dư cung và khoản gửi trong vault của bạn nhận được dưới dạng lãi suất hằng năm",
           "totalBorrow": "Tổng số vay",
           "totalSupply": "Tổng số cung",
-          "totalVaultStake": "Tổng stake trong vault"
+          "totalVaultStake": "Tổng gửi trong vault"
         },
         "title": "Tóm tắt"
       },
@@ -472,7 +476,7 @@
     "vaults": {
       "dailyEarnings": "Thu nhập hàng ngày",
       "dailyEarningsTooltip": "Thu nhập hàng ngày ước tính của bạn trên tất cả các kho đang hoạt động, dựa trên lãi suất hiện tại hoặc APR cố định của mỗi kho. Thu nhập thực tế có thể khác nhau.",
-      "totalStakedValue": "Tổng giá trị đặt cược"
+      "totalStakedValue": "Tổng giá trị đã gửi"
     }
   },
   "eModeBanner": {
@@ -1079,6 +1083,8 @@
     },
     "rightMaxButtonLabel": "TỐI ĐA",
     "riskSlider": {
+      "0": "0%",
+      "100": "100%",
       "highRisk": "Rủi ro cao",
       "lowRisk": "Rủi ro thấp"
     },
@@ -1159,12 +1165,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "Để đủ điều kiện nhận thưởng Prime, cần stake tối thiểu {{minimumXvsStaked}} XVS.",
-        "label": "XVS stake đủ điều kiện",
+        "error": "Để đủ điều kiện nhận thưởng Prime, cần gửi tối thiểu {{minimumXvsStaked}} XVS.",
+        "label": "XVS gửi đủ điều kiện",
         "tooltip": "Tối đa {{maximumXvsStaked}} sẽ được tính cho phần thưởng Prime của bạn"
       },
       "textField": {
-        "label": "XVS đã stake"
+        "label": "XVS đã gửi"
       }
     },
     "suppliedTokens": {
@@ -1186,8 +1192,8 @@
     "becomePrimeTitle": "Bạn đã có thể trở thành người dùng Prime",
     "claimButtonLabel": "Nhận token Prime",
     "description": {
-      "primeCalculator": "Stake thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tính phần thưởng Prime của bạn</Link>",
-      "primeDoc": "Stake thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tìm hiểu thêm</Link>"
+      "primeCalculator": "Gửi thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tính phần thưởng Prime của bạn</Link>",
+      "primeDoc": "Gửi thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tìm hiểu thêm</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "Tất cả token Prime đã được nhận",
@@ -1195,10 +1201,10 @@
     },
     "progressBar": {
       "ariaLabel": "Tiến trình Prime hiện tại của bạn",
-      "label": "Đã stake: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "Đã gửi: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Tăng thu nhập lên đến <GreenText>{{percentage}}</GreenText>",
-    "stakeButtonLabel": "Stake XVS",
+    "stakeButtonLabel": "Gửi XVS",
     "tokensLeft": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_one": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_many": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
@@ -1223,6 +1229,18 @@
     "pending": "Đang chờ",
     "queued": "Queued - Đang trong hàng đợi",
     "succeeded": "Thành công"
+  },
+  "requestWithdrawalFromVestingVaultForm": {
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "Vui lòng kết nối ví để xem yêu cầu rút"
+      },
+      "emptyState": "Bạn không có yêu cầu rút đang hoạt động",
+      "locked": "Khóa đến {{date, numericWithTime}}",
+      "title": "Yêu cầu rút",
+      "unlocked": "Đã mở khóa",
+      "withdrawButtonLabel": "Rút số dư đã mở khóa"
+    }
   },
   "select": {
     "defaultLabel": "Chọn tùy chọn"
@@ -1505,13 +1523,6 @@
     "label": "Hạn mức chi tiêu",
     "labelTooltip": "Đây là hạn mức chi tiêu hiện tại của bạn cho tài sản này. Để chi tiêu nhiều hơn, hãy hủy hạn mức và đặt lại.",
     "revokeButtonTooltip": "Hủy hạn mức chi tiêu"
-  },
-  "stakeModal": {
-    "availableTokensLabel": "{{tokenSymbol}} có thể dùng",
-    "connectWalletMessage": "Vui lòng kết nối ví để stake {{tokenSymbol}}",
-    "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để stake",
-    "submitButtonLabel": "Stake",
-    "title": "Stake {{tokenSymbol}}"
   },
   "statsPage": {
     "illustrationAlt": "Hình minh họa thống kê",
@@ -1831,23 +1842,27 @@
       "claimReward": "Nhận thưởng",
       "currentDeposited": "Đang gửi",
       "dailyEmission": "Phần thưởng hàng ngày",
+      "effectiveFixedApr": "APR Cố Định Hiệu Quả",
+      "header": {
+        "maturityDate_other": "{{ date, textual }} ({{ count }} ngày)"
+      },
       "liquidity": "Thanh khoản",
       "liquidityTooltip": "Tổng giá trị tài sản hiện đang được cung cấp trong pool tích hợp Pendle (hoặc chiến lược) của kho này.",
       "manager": "Tổ chức quản lý",
       "maturityDate": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
-      "numDays_other": "{{count}} ngày",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, gửi tiền và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
-      "stake": "Stake",
-      "stakingApr": "APR stake {{stakeTokenName}}",
-      "textualDate": "{{date, textual}}",
+      "primeEligibility": "Điều kiện nhận Prime",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Tổng tiền gửi",
-      "totalStaked": "Tổng đã stake",
-      "withdraw": "Rút",
-      "youAreStake": "Bạn đang stake",
-      "youDeposited": "Bạn đã gửi"
+      "youDeposited": "Bạn đang gửi"
     },
+    "category": {
+      "governance": "Quản trị",
+      "stablecoins": "Stablecoin",
+      "yieldTokens": "Token lợi suất"
+    },
+    "description": "Lợi suất đơn giản, lợi nhuận thực chất",
     "filter": {
       "active": "Đang hoạt động",
       "allCategories": "Tất cả danh mục",
@@ -1857,17 +1872,13 @@
       "deposit": "Gửi",
       "earning": "Đang kiếm lợi nhuận",
       "inputPlaceholder": "Tìm kiếm tài sản",
-      "others": "Khác",
       "paused": "Tạm dừng",
       "refund": "Hoàn tiền",
-      "repaying": "Đang trả nợ",
-      "stablecoins": "Stablecoin",
-      "vaults": "Kho",
-      "yieldTokens": "Token lợi suất"
+      "repaying": "Đang trả nợ"
     },
+    "header": "Kho",
     "modals": {
       "afterMaturityPendleDisclaimer": "Vui lòng rút PT token về ví của bạn trước thông qua nút Rút, sau đó truy cập trang web <Link>Pendle chính thức</Link> để đổi lấy token cơ sở của bạn.",
-      "available": "Có sẵn",
       "claim": "Nhận thưởng",
       "connectWalletMessage": "Vui lòng kết nối ví của bạn để gửi / rút {{tokenSymbol}}",
       "convert": "Chuyển đổi",
@@ -1881,7 +1892,7 @@
         "higherThanAvailable": "Số tiền vượt quá số dư {{tokenSymbol}} hiện có của bạn. Giảm số tiền hoặc nhấn 'Tối đa' để sử dụng toàn bộ số dư.",
         "invalidAmount": "Số tiền nhập vào không hợp lệ.",
         "invalidAmountFromQuote": "Số tiền vượt quá thanh khoản có sẵn trên thị trường Pendle. Giảm số tiền và thử lại.",
-        "lowerThanMinimumAmount": "Số tiền nhập vào quá thấp. Số tiền tối thiểu tương đương {{amount}} USD.",
+        "lowerThanMinimumAmount": "Số tiền nhập vào quá thấp. Số tiền tối thiểu được phép tương đương {{amount}} USD.",
         "noSwapQuoteFound": "Không tìm thấy lệnh swap. Vui lòng cập nhật biểu mẫu.",
         "pendleApiError": "Pendle đang tạm thời quá tải. Vui lòng thử lại sau giây lát."
       },
@@ -1891,7 +1902,6 @@
       "maturityDate": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
       "maturityPendleDisclaimer": "Trước khi đáo hạn, số tiền nhận được khi rút phụ thuộc vào giá thị trường Pendle. Sau khi đáo hạn, các khoản rút được quy đổi theo tỷ lệ 1:1 dựa trên số PT token bạn nắm giữ.",
-      "max": "Tối đa",
       "minReceived": "Tối thiểu nhận được",
       "overview": {
         "manager": "Quản lý",
@@ -1901,41 +1911,72 @@
         "riskDisclosureText": "Pendle là một giao thức giao dịch lợi suất phi tập trung cho phép lợi suất cố định thông qua Token Gốc (PT). Venus Fixed Rate Vault chuyển tiền gửi qua cơ sở hạ tầng của Pendle để mua PT, sau đó được cung cấp cho Venus Core làm tài sản thế chấp.<br />Mặc dù Pendle không thể truy cập hoặc di chuyển tiền gửi của bạn, việc sử dụng kho này khiến bạn phải chịu rủi ro từ cả hai giao thức. Những rủi ro này bao gồm lỗ hổng hợp đồng thông minh, lỗi oracle và khả năng một trong hai giao thức bị khai thác hoặc tạm dừng. Rút tiền sớm được thực hiện theo giá thị trường và có thể nhận lại ít hơn số tiền đã gửi. APY cố định được khóa tại thời điểm gửi và không bảo vệ khỏi các lỗi ở cấp giao thức.",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "Cung cấp",
           "users": "Người dùng",
           "venusCore": "Venus Core"
         },
         "strategyAllocation": "Phân bổ chiến lược",
         "supply": "Cung cấp",
         "totalDeposited": "Tổng đã gửi",
-        "totalDeposits": "Tổng tiền gửi",
         "vaultDeploymentDate": "Ngày triển khai Kho"
       },
       "overviewTab": "Tổng quan",
       "pendleFee": "Phí Pendle",
       "positionTab": "Vị thế",
-      "submitButtonDisabledLabel": "Nhập số tiền hợp lệ để yêu cầu",
+      "stakeTab": "Gửi",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "Rút"
+      "withdraw": "Rút",
+      "withdrawTab": "Rút"
     },
     "overview": {
-      "bannerCoinIllustration": "Hình minh họa đồng {{token}}",
-      "bannerTitle": "Đặt cược <strong>{{tokenDashMarket}}</strong> để nhận <strong>{{apyPercentage}}</strong> APR",
-      "bannerVaultIllustration": "Hình minh họa kho",
-      "description": "Sinh lời đơn giản, lợi nhuận thực tế — gửi tiền vào nhiều kho và xem tài sản crypto của bạn tăng trưởng <strong>theo cách của bạn</strong>.",
-      "highestApr": "APR cao nhất",
-      "title": "Kho",
-      "tokenTotalDeposited": "Tổng {{token}} đã gửi",
-      "tvl": "TVL",
-      "vaultCount": "Kho"
-    },
-    "transactionForm": {
-      "lockingPeriod": {
-        "duration": "{{date, distanceToNow}}",
-        "label": "Thời gian khóa"
+      "bannerVaultIllustration": "Hình minh họa kho"
+    }
+  },
+  "vaultCard": {
+    "vaultModal": {
+      "footer": {
+        "currentlyStaked": "Đang gửi",
+        "estimatedDailyEarnings": "Thu nhập hằng ngày ước tính",
+        "lockingPeriod": {
+          "duration": "{{date, distanceToNow}}",
+          "label": "Thời gian khóa",
+          "tooltip": "Thời gian khóa là khoảng trễ giữa lúc gửi yêu cầu rút và lúc số tiền đã yêu cầu thực sự có thể được rút khỏi kho."
+        }
       },
-      "rightMaxButtonLabel": "TỐI ĐA"
+      "requestWithdrawalFromVestingVaultForm": {
+        "displayWithdrawalRequestListButton": {
+          "label": "Danh sách yêu cầu rút",
+          "tooltip": "Bạn có XVS đã được mở khóa và sẵn sàng để nhận."
+        },
+        "primeLossWarning": {
+          "message": "Bạn sẽ mất token Prime nếu rút số tiền này, vì khoản gửi của bạn trong kho XVS sẽ giảm xuống dưới mức tối thiểu {{minimumXvsStake}} cần có để đủ điều kiện nhận Prime."
+        },
+        "requestWithdrawalField": {
+          "label": "Yêu cầu rút"
+        },
+        "submitButton": {
+          "label": "Yêu cầu rút"
+        }
+      },
+      "stakeForm": {
+        "depositField": {
+          "label": "Gửi"
+        },
+        "footer": {
+          "apr": "APR"
+        },
+        "submitButton": {
+          "label": "Gửi"
+        }
+      },
+      "withdrawFromVaiVault": {
+        "submitButton": {
+          "label": "Rút"
+        },
+        "withdrawField": {
+          "label": "Rút"
+        }
+      }
     }
   },
   "venusFluxBanner": {
@@ -2029,8 +2070,8 @@
     "youDelegatedTo": "Bạn đã ủy quyền token đã khóa cho {{delegate}}"
   },
   "voteProposalUi": {
-    "activeUntilDate": "Hiệu lực đến: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "canceledDate": "Đã hủy: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "activeUntilDate": "Hiệu lực đến: <Date>{{ date, textualWithTime }}</Date>",
+    "canceledDate": "Đã hủy: <Date>{{ date, textualWithTime }}</Date>",
     "command": {
       "actionButton": {
         "cancel": "Hủy",
@@ -2070,23 +2111,23 @@
       "minutesIncluded": "{{minutes}}p : {{seconds}}s",
       "secondsIncluded": "{{seconds}}s"
     },
-    "defeatedDate": "Defeated - Bị bác bỏ: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "defeatedDate": "Defeated - Bị bác bỏ: <Date>{{ date, textualWithTime }}</Date>",
     "description": "Mô tả",
-    "executedDate": "Đã thực thi: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "expiredDate": "Hết hạn: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "executedDate": "Đã thực thi: <Date>{{ date, textualWithTime }}</Date>",
+    "expiredDate": "Hết hạn: <Date>{{ date, textualWithTime }}</Date>",
     "greenPulseAnimation": {
       "altText": "Hoạt ảnh nhịp xanh"
     },
     "proposalState": {
-      "activeTimestamp": "Hiệu lực từ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "canceledTimestamp": "Đã hủy: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "defeatedTimestamp": "Defeated - Bị bác bỏ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "executedTimestamp": "Đã thực thi: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "expiredTimestamp": "Hết hạn: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "queuedTimestamp": "Xếp hàng: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "succeededTimestamp": "Thành công: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+      "activeTimestamp": "Hiệu lực từ: <Span>{{date, textualWithTime}}</Span>",
+      "canceledTimestamp": "Đã hủy: <Span>{{date, textualWithTime}}</Span>",
+      "defeatedTimestamp": "Defeated - Bị bác bỏ: <Span>{{date, textualWithTime}}</Span>",
+      "executedTimestamp": "Đã thực thi: <Span>{{date, textualWithTime}}</Span>",
+      "expiredTimestamp": "Hết hạn: <Span>{{date, textualWithTime}}</Span>",
+      "queuedTimestamp": "Xếp hàng: <Span>{{date, textualWithTime}}</Span>",
+      "succeededTimestamp": "Thành công: <Span>{{date, textualWithTime}}</Span>"
     },
-    "queuedUntilDate": "Xếp hàng đến: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "queuedUntilDate": "Xếp hàng đến: <Date>{{ date, textualWithTime }}</Date>",
     "status": {
       "executedPayloads": "Payload đã thực thi",
       "readyForExecution": "Sẵn sàng thực thi",
@@ -2097,8 +2138,8 @@
       "ariaLabelAgainst": "phiếu phản đối",
       "ariaLabelFor": "phiếu ủng hộ"
     },
-    "timeUntilExecutable": "Thực thi vào: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "timeUntilVotable": "Bỏ phiếu bắt đầu: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilExecutable": "Thực thi vào: <Date>{{ date, textualWithTime }}</Date>",
+    "timeUntilVotable": "Bỏ phiếu bắt đầu: <Date>{{ date, textualWithTime }}</Date>",
     "voteStatus": {
       "abstained": "Bỏ phiếu trắng",
       "notVoted": "Chưa bỏ phiếu",
@@ -2152,46 +2193,5 @@
     "tooltip": {
       "address": "({{address}})"
     }
-  },
-  "withdrawFromVaiVaultModal": {
-    "availableTokensLabel": "{{tokenSymbol}} có thể dùng",
-    "connectWalletMessage": "Vui lòng kết nối ví để rút {{tokenSymbol}}",
-    "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để rút",
-    "submitButtonLabel": "Rút",
-    "title": "Rút {{tokenSymbol}}"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "Danh sách yêu cầu rút",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "Vui lòng kết nối ví để rút"
-      },
-      "availableTokensLabel": "{{tokenSymbol}} có thể yêu cầu",
-      "displayWithdrawalRequestListButton": "Danh sách yêu cầu rút",
-      "primeLossWarning": {
-        "message": "Bạn sẽ mất token Prime nếu rút số lượng này, vì stake trong XVS vault của bạn sẽ giảm xuống dưới mức tối thiểu {{minimumXvsStake}} để đủ điều kiện Prime.",
-        "submitButtonLabel": "Mất token Prime và yêu cầu rút"
-      },
-      "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để yêu cầu",
-      "submitButtonLabel": "Yêu cầu rút"
-    },
-    "requestWithdrawalTabTitle": "Yêu cầu rút",
-    "title": "Rút {{tokenSymbol}}",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "Vui lòng kết nối ví để xem yêu cầu rút"
-      },
-      "emptyState": "Bạn không có yêu cầu rút đang hoạt động",
-      "itemContent": "Khóa đến {{date, dd.MM.yy h:mm a}}"
-    },
-    "withdrawalRequestListTitle": "Danh sách yêu cầu rút",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "Vui lòng kết nối ví để rút"
-      },
-      "availableTokens": "{{tokenSymbol}} có thể dùng",
-      "submitButton": "Rút"
-    },
-    "withdrawTabTitle": "Rút"
   }
 }

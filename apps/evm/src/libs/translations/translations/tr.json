@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "Net değer",
-        "tooltip": "Vault stake'i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Vault stake'i, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+        "tooltip": "Vault yatırımı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Vault yatırımı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "periodOption": {
         "oneYear": "1Y",
@@ -61,10 +61,10 @@
         "mintedVai": "Basılmış VAI",
         "netApy": "Net APY",
         "netApyTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyenizin yüzdesi",
-        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyeniz ve vault stake'inizin yüzdesi",
+        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyeniz ve vault yatırımınızın yüzdesi",
         "totalBorrow": "Toplam borç",
         "totalSupply": "Toplam tedarik",
-        "totalVaultStake": "Toplam vault stake"
+        "totalVaultStake": "Toplam vault yatırımı"
       },
       "title": "Özet"
     },
@@ -115,7 +115,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "Henüz stake pozisyonu yok"
+        "title": "Henüz yatırım pozisyonu yok"
       }
     }
   },
@@ -186,7 +186,7 @@
         "defaultMerklRewardName": "Merkl ödülleri",
         "externalRewardDescription": "Bu dış programdaki ödüller <AppLink>resmi uygulaması</AppLink> üzerinden talep edilebilir. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
         "intrinsicApy": {
-          "description": "Dayanak varlığın kendi doğal getirisi — ör. staking ödülleri. Bu getiri dış kaynaklardan gelir ve Venus Protokolü tarafından garanti edilmez.",
+          "description": "Dayanak varlığın kendi doğal getirisi — ör. yatırma ödülleri. Bu getiri dış kaynaklardan gelir ve Venus Protokolü tarafından garanti edilmez.",
           "name": "İçsel APY"
         },
         "offChainApy": {
@@ -218,10 +218,10 @@
       "logoAlt": "Prime logosu",
       "tooltip": {
         "calculatorLink": "Prime ödüllerinizi hesaplayın",
-        "primeBorrowSimulation": "Prime ile APY, kullanıcıların medyan {{borrowBalance}} borcuna ve {{xvsStaked}} vault stake'ine göre artırılır.",
+        "primeBorrowSimulation": "Prime ile APY, kullanıcıların medyan {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
         "primeDocLink": "Daha fazla bilgi",
         "primeMarket": "Prime ile APY artırılır.",
-        "primeSupplySimulation": "Prime ile APY, kullanıcıların medyan {{supplyBalance}} tedarikine ve {{xvsStaked}} vault stake'ine göre artırılır."
+        "primeSupplySimulation": "Prime ile APY, kullanıcıların medyan {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır."
       }
     }
   },
@@ -231,7 +231,7 @@
     "distributionTooltip": "Dağıtım ödülleri merkeziyetsiz Venus topluluğu tarafından başlatılır ve uygulanır. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "İçsel APY",
-    "intrinsicApyTooltip": "Varlığın kendisinden doğrudan kazanılan APY (ör. staking veya dış ödüller), Venus borç verme getirilerinden bağımsızdır. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
+    "intrinsicApyTooltip": "Varlığın kendisinden doğrudan kazanılan APY (ör. yatırma veya dış ödüller), Venus borç verme getirilerinden bağımsızdır. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
     "netApy": {
       "label": "Net APY",
       "tooltip": "İlgili tüm piyasaların APY'lerinin toplamı"
@@ -258,6 +258,7 @@
       "date": "Tarih",
       "supplyApy": "Sağlama APY",
       "totalBorrow": "Toplam borç",
+      "totalStaked": "Toplam yatırılan",
       "totalSupply": "Toplam tedarik"
     }
   },
@@ -285,6 +286,9 @@
     "borrowDescription": "{{poolName}} havuzundaki teminatlı tedarikinize göre {{tokenSymbol}} borç alabilirsiniz. <Button>Tüm tokenları göster</Button>",
     "modalTitle": "{{ poolName }} tokenları",
     "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
+  },
+  "availableBalance": {
+    "label": "Mevcut"
   },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "Arka plan illüstrasyonu",
@@ -321,7 +325,7 @@
     },
     "errors": {
       "dailyTransactionLimitExceeded": {
-        "message": "24 saatlik limit nedeniyle hedef zincirde {{readableAmountTokens}} ({{readableAmountUsd}}) üzeri köprülenemez. Bu limit {{ date, dd MMM yyyy h:mm a }} tarihinde sıfırlanacak",
+        "message": "24 saatlik limit nedeniyle hedef zincirde {{readableAmountTokens}} ({{readableAmountUsd}}) üzeri köprülenemez. Bu limit {{ date, textualWithTime }} tarihinde sıfırlanacak",
         "submitButton": "Girilen miktar günlük limitin üzerinde"
       },
       "doesNotHaveEnoughNativeFunds": "Yetersiz {{tokenSymbol}} bakiyesi",
@@ -415,7 +419,7 @@
       },
       "step3": {
         "description": "XVS'yi vault'a yatırın ve protokol gelirleriyle desteklenen getiri kazanın.",
-        "title": "XVS stake et"
+        "title": "XVS yatır"
       },
       "uncompleted": "Tamamlanmadı"
     },
@@ -423,8 +427,8 @@
       "absolutePerformance": "Mutlak performans",
       "netWorth": {
         "label": "Net değer",
-        "tooltip": "Kasa stake’i ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Kasa stake’i, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+        "tooltip": "Kasa yatırımı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Kasa yatırımı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "performanceChart": {
         "errorState": {
@@ -444,10 +448,10 @@
           "mintedVai": "Basılmış VAI",
           "netApy": "Net APY",
           "netApyTooltip": "Toplam arz bakiyenizin yıllık faiz olarak alınan yüzdesi",
-          "netApyWithVaultStakeTooltip": "Toplam arz ve kasa stake’inizin yıllık faiz olarak alınan yüzdesi",
+          "netApyWithVaultStakeTooltip": "Toplam arz ve kasa yatırımınızın yıllık faiz olarak alınan yüzdesi",
           "totalBorrow": "Toplam borç",
           "totalSupply": "Toplam arz",
-          "totalVaultStake": "Toplam kasa stake’i"
+          "totalVaultStake": "Toplam kasa yatırımı"
         },
         "title": "Özet"
       },
@@ -472,7 +476,7 @@
     "vaults": {
       "dailyEarnings": "Günlük kazançlar",
       "dailyEarningsTooltip": "Tüm aktif kasalardaki tahmini günlük kazançlarınız; her kasanın mevcut oranına veya sabit APR'sine göre hesaplanır. Gerçek kazançlar değişebilir.",
-      "totalStakedValue": "Toplam stake değeri"
+      "totalStakedValue": "Toplam yatırılan değer"
     }
   },
   "eModeBanner": {
@@ -1079,6 +1083,8 @@
     },
     "rightMaxButtonLabel": "MAKS",
     "riskSlider": {
+      "0": "0%",
+      "100": "100%",
       "highRisk": "Yüksek risk",
       "lowRisk": "Düşük risk"
     },
@@ -1159,12 +1165,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "Prime ödüllerine uygun olmak için en az {{minimumXvsStaked}} XVS stake edilmelidir.",
-        "label": "Uygun stake edilmiş XVS",
+        "error": "Prime ödüllerine uygun olmak için en az {{minimumXvsStaked}} XVS yatırılmalıdır.",
+        "label": "Uygun yatırılmış XVS",
         "tooltip": "Prime ödülleriniz için en fazla {{maximumXvsStaked}} dikkate alınır"
       },
       "textField": {
-        "label": "Stake edilmiş XVS"
+        "label": "Yatırılmış XVS"
       }
     },
     "suppliedTokens": {
@@ -1186,8 +1192,8 @@
     "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",
     "claimButtonLabel": "Prime tokenını talep et",
     "description": {
-      "primeCalculator": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> stake edin ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Prime ödüllerinizi hesaplayın</Link>",
-      "primeDoc": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> stake edin ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Daha fazla bilgi</Link>"
+      "primeCalculator": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> yatırın ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Prime ödüllerinizi hesaplayın</Link>",
+      "primeDoc": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> yatırın ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Daha fazla bilgi</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "Tüm Prime tokenları talep edildi",
@@ -1195,10 +1201,10 @@
     },
     "progressBar": {
       "ariaLabel": "Mevcut Prime ilerlemeniz",
-      "label": "Stake edildi: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "Yatırıldı: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Kazancınızı <GreenText>{{percentage}}</GreenText> kadar artırın",
-    "stakeButtonLabel": "XVS stake et",
+    "stakeButtonLabel": "XVS yatır",
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
@@ -1223,6 +1229,18 @@
     "pending": "Beklemede",
     "queued": "Kuyrukta",
     "succeeded": "Başarılı"
+  },
+  "requestWithdrawalFromVestingVaultForm": {
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "Çekim taleplerinizi görmek için cüzdanınızı bağlayın"
+      },
+      "emptyState": "Aktif çekim talebiniz yok",
+      "locked": "{{date, numericWithTime}} tarihine kadar kilitli",
+      "title": "Çekim talepleri",
+      "unlocked": "Kilidi açıldı",
+      "withdrawButtonLabel": "Kilidi açılan bakiyeyi çek"
+    }
   },
   "select": {
     "defaultLabel": "Seçenek seçin"
@@ -1505,13 +1523,6 @@
     "label": "Harcama limiti",
     "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin.",
     "revokeButtonTooltip": "Harcama limitini iptal et"
-  },
-  "stakeModal": {
-    "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
-    "connectWalletMessage": "{{tokenSymbol}} stake etmek için cüzdanınızı bağlayın",
-    "submitButtonDisabledLabel": "Stake etmek için geçerli bir miktar girin",
-    "submitButtonLabel": "Stake et",
-    "title": "{{tokenSymbol}} stake et"
   },
   "statsPage": {
     "illustrationAlt": "İstatistik illüstrasyonu",
@@ -1831,24 +1842,28 @@
       "claimReward": "Ödülü talep et",
       "currentDeposited": "Mevcut yatırım",
       "dailyEmission": "Günlük ödül dağıtımı",
+      "effectiveFixedApr": "Efektif Sabit APR",
+      "header": {
+        "maturityDate_one": "{{ date, textual }} ({{ count }} gün)",
+        "maturityDate_other": "{{ date, textual }} ({{ count }} gün)"
+      },
       "liquidity": "Likidite",
       "liquidityTooltip": "Bu kasanın temelindeki Pendle entegre havuzunda (veya stratejisinde) şu anda sağlanan toplam varlık değeri.",
       "manager": "Yönetici kurum",
       "maturityDate": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
-      "numDays_one": "{{count}} gün",
-      "numDays_other": "{{count}} gün",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, yatırım ve çekim işlemleri devre dışı bırakılmıştır.",
-      "stake": "Stake et",
-      "stakingApr": "{{stakeTokenName}} Stake APR",
-      "textualDate": "{{date, textual}}",
+      "primeEligibility": "Prime uygunluğu",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "Toplam yatırılan",
-      "totalStaked": "Toplam Stake",
-      "withdraw": "Çek",
-      "youAreStake": "Stake ediyorsunuz",
-      "youDeposited": "Yatırım yaptınız"
+      "youDeposited": "Yatırım yapıyorsunuz"
     },
+    "category": {
+      "governance": "Yönetişim",
+      "stablecoins": "Stablecoin'ler",
+      "yieldTokens": "Getiri token'ları"
+    },
+    "description": "Getiri basit, kazançlar gerçek",
     "filter": {
       "active": "Aktif",
       "allCategories": "Tüm kategoriler",
@@ -1858,17 +1873,13 @@
       "deposit": "Yatır",
       "earning": "Kazanıyor",
       "inputPlaceholder": "Varlık ara",
-      "others": "Diğerleri",
       "paused": "Duraklatıldı",
       "refund": "İade",
-      "repaying": "Geri ödeniyor",
-      "stablecoins": "Stablecoin'ler",
-      "vaults": "Kasalar",
-      "yieldTokens": "Getiri token'ları"
+      "repaying": "Geri ödeniyor"
     },
+    "header": "Kasa",
     "modals": {
       "afterMaturityPendleDisclaimer": "Lütfen önce Çek butonu ile PT tokenlarınızı cüzdanınıza çekin, ardından temel tokenlarınızı geri almak için <Link>Pendle resmi</Link> web sitesini ziyaret edin.",
-      "available": "Mevcut",
       "claim": "Talep et",
       "connectWalletMessage": "{{tokenSymbol}} yatırmak / çekmek için cüzdanınızı bağlayın",
       "convert": "Dönüştür",
@@ -1882,7 +1893,7 @@
         "higherThanAvailable": "Girilen miktar mevcut {{tokenSymbol}} bakiyenizi aşıyor. Miktarı azaltın veya tüm bakiyenizi kullanmak için 'Maks' düğmesine tıklayın.",
         "invalidAmount": "Girilen miktar geçersiz.",
         "invalidAmountFromQuote": "Girilen miktar, Pendle piyasasındaki kullanılabilir likidityi aşıyor. Miktarı azaltın ve tekrar deneyin.",
-        "lowerThanMinimumAmount": "Girilen miktar çok düşük. Minimum miktar {{amount}} USD eşdeğeridir.",
+        "lowerThanMinimumAmount": "Girilen miktar çok düşük. İzin verilen minimum miktar {{amount}} USD değerine eşdeğerdir.",
         "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güelleyin.",
         "pendleApiError": "Pendle şu anda yoğun talep yaşıyor. Lütfen biraz sonra tekrar deneyin."
       },
@@ -1892,7 +1903,6 @@
       "maturityDate": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
       "maturityPendleDisclaimer": "Vade öncesinde, çekim sırasında alınan tutar Pendle piyasa fiyatlarına tabidir. Vade sonrasında, çekimler sahip olduğunuz PT token miktarına göre 1:1 oranında itfa edilir.",
-      "max": "Maks",
       "minReceived": "Min. Alınan",
       "overview": {
         "manager": "Yönetici kurum",
@@ -1902,41 +1912,72 @@
         "riskDisclosureText": "Pendle, Temel Tokenlar (PT'ler) aracılığıyla sabit oranlı getiri sağlayan merkeziyetsiz bir getiri ticaret protokolüdür. Venus Sabit Faiz Kasası, PT'leri edinmek için mevduatları Pendle'ın altyapısı üzerinden yönlendirir ve bunlar Venus Core'a teminat olarak sağlanır.<br />Pendle yatırdığınız fonlara erişemez veya taşıyamaz olsa da bu kasayı kullanmak sizi her iki protokolden kaynaklanan risklere maruz bırakır. Bunlar arasında akıllı sözleşme güvenlik açıkları, oracle arızaları ve her iki protokolün de istismar edilmesi veya duraklatılması olasılığı yer alır. Erken para çekme işlemleri piyasa fiyatından gerçekleştirilir ve yatırılan tutardan daha az iade edilebilir. Sabit APY yatırım sırasında kilitlenir ve protokol düzeyindeki arızalara karşı koruma sağlamaz.",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "Sağla",
           "users": "Kullanıcılar",
           "venusCore": "Venus Core"
         },
         "strategyAllocation": "Strateji Dağılımı",
         "supply": "Sağla",
         "totalDeposited": "Toplam Yatırım",
-        "totalDeposits": "Toplam Yatırımlar",
         "vaultDeploymentDate": "Kasa Başlangıç Tarihi"
       },
       "overviewTab": "Genel Bakış",
       "pendleFee": "Pendle Ücreti",
       "positionTab": "Pozisyon",
-      "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
+      "stakeTab": "Yatır",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "Çek"
+      "withdraw": "Çek",
+      "withdrawTab": "Çek"
     },
     "overview": {
-      "bannerCoinIllustration": "{{token}} para birimi görseli",
-      "bannerTitle": "<strong>{{tokenDashMarket}}</strong> yatırarak <strong>{{apyPercentage}}</strong> APR kazanın",
-      "bannerVaultIllustration": "Kasa görseli",
-      "description": "Verim basit, getiri gerçek — birden fazla kasaya yatırın ve kripto varlıklarınızın <strong>kendi koşullarınızda</strong> büyümesini izleyin.",
-      "highestApr": "En yüksek APR",
-      "title": "Kasalar",
-      "tokenTotalDeposited": "Toplam yatırılan {{token}}",
-      "tvl": "TVL",
-      "vaultCount": "Kasalar"
-    },
-    "transactionForm": {
-      "lockingPeriod": {
-        "duration": "{{date, distanceToNow}}",
-        "label": "Kilitlenme süresi"
+      "bannerVaultIllustration": "Kasa görseli"
+    }
+  },
+  "vaultCard": {
+    "vaultModal": {
+      "footer": {
+        "currentlyStaked": "Mevcut yatırılan",
+        "estimatedDailyEarnings": "Tahmini günlük kazanç",
+        "lockingPeriod": {
+          "duration": "{{date, distanceToNow}}",
+          "label": "Kilitlenme süresi",
+          "tooltip": "Kilitlenme süresi, çekim talebi ile talep edilen tutarın kasadan gerçekten çekilebildiği zaman arasındaki gecikmedir."
+        }
       },
-      "rightMaxButtonLabel": "MAKS"
+      "requestWithdrawalFromVestingVaultForm": {
+        "displayWithdrawalRequestListButton": {
+          "label": "Çekim talep listesi",
+          "tooltip": "Talep edilmeye hazır, kilidi açılmış XVS'niz var."
+        },
+        "primeLossWarning": {
+          "message": "Bu miktarı çekerseniz, XVS kasasındaki yatırımınız Prime için uygun olmak adına gereken minimum {{minimumXvsStake}} seviyesinin altına düşeceği için Prime tokenınızı kaybedersiniz."
+        },
+        "requestWithdrawalField": {
+          "label": "Çekim talep et"
+        },
+        "submitButton": {
+          "label": "Çekim talep et"
+        }
+      },
+      "stakeForm": {
+        "depositField": {
+          "label": "Yatır"
+        },
+        "footer": {
+          "apr": "APR"
+        },
+        "submitButton": {
+          "label": "Yatır"
+        }
+      },
+      "withdrawFromVaiVault": {
+        "submitButton": {
+          "label": "Çek"
+        },
+        "withdrawField": {
+          "label": "Çek"
+        }
+      }
     }
   },
   "venusFluxBanner": {
@@ -2030,8 +2071,8 @@
     "youDelegatedTo": "Kilitli tokenlarınızı {{delegate}}'e delege ettiniz"
   },
   "voteProposalUi": {
-    "activeUntilDate": "Aktif bitiş: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "canceledDate": "İptal: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "activeUntilDate": "Aktif bitiş: <Date>{{ date, textualWithTime }}</Date>",
+    "canceledDate": "İptal: <Date>{{ date, textualWithTime }}</Date>",
     "command": {
       "actionButton": {
         "cancel": "İptal",
@@ -2071,23 +2112,23 @@
       "minutesIncluded": "{{minutes}}dk : {{seconds}}sn",
       "secondsIncluded": "{{seconds}}sn"
     },
-    "defeatedDate": "Reddedildi: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "defeatedDate": "Reddedildi: <Date>{{ date, textualWithTime }}</Date>",
     "description": "Açıklama",
-    "executedDate": "Yürütüldü: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "expiredDate": "Süresi doldu: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "executedDate": "Yürütüldü: <Date>{{ date, textualWithTime }}</Date>",
+    "expiredDate": "Süresi doldu: <Date>{{ date, textualWithTime }}</Date>",
     "greenPulseAnimation": {
       "altText": "Yeşil nabız animasyonu"
     },
     "proposalState": {
-      "activeTimestamp": "Aktiften itibaren: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "canceledTimestamp": "İptal: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "defeatedTimestamp": "Reddedildi: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "executedTimestamp": "Yürütüldü: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "expiredTimestamp": "Süresi doldu: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "queuedTimestamp": "Kuyruğa alındı: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "succeededTimestamp": "Başarılı: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+      "activeTimestamp": "Aktiften itibaren: <Span>{{date, textualWithTime}}</Span>",
+      "canceledTimestamp": "İptal: <Span>{{date, textualWithTime}}</Span>",
+      "defeatedTimestamp": "Reddedildi: <Span>{{date, textualWithTime}}</Span>",
+      "executedTimestamp": "Yürütüldü: <Span>{{date, textualWithTime}}</Span>",
+      "expiredTimestamp": "Süresi doldu: <Span>{{date, textualWithTime}}</Span>",
+      "queuedTimestamp": "Kuyruğa alındı: <Span>{{date, textualWithTime}}</Span>",
+      "succeededTimestamp": "Başarılı: <Span>{{date, textualWithTime}}</Span>"
     },
-    "queuedUntilDate": "Kuyruk sonu: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "queuedUntilDate": "Kuyruk sonu: <Date>{{ date, textualWithTime }}</Date>",
     "status": {
       "executedPayloads": "Yürütülen payload'lar",
       "readyForExecution": "Yürütmeye hazır",
@@ -2098,8 +2139,8 @@
       "ariaLabelAgainst": "karşı oylar",
       "ariaLabelFor": "lehte oylar"
     },
-    "timeUntilExecutable": "Yürütülebilir: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "timeUntilVotable": "Oylama başlar: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilExecutable": "Yürütülebilir: <Date>{{ date, textualWithTime }}</Date>",
+    "timeUntilVotable": "Oylama başlar: <Date>{{ date, textualWithTime }}</Date>",
     "voteStatus": {
       "abstained": "Çekimser",
       "notVoted": "Oy kullanılmadı",
@@ -2153,46 +2194,5 @@
     "tooltip": {
       "address": "({{address}})"
     }
-  },
-  "withdrawFromVaiVaultModal": {
-    "availableTokensLabel": "Kullanılabilir {{tokenSymbol}}",
-    "connectWalletMessage": "{{tokenSymbol}} çekmek için cüzdanınızı bağlayın",
-    "submitButtonDisabledLabel": "Çekmek için geçerli bir miktar girin",
-    "submitButtonLabel": "Çek",
-    "title": "{{tokenSymbol}} çek"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "Çekim talep listesi",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
-      },
-      "availableTokensLabel": "Talep edilebilir {{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "Çekim talep listesi",
-      "primeLossWarning": {
-        "message": "Bu miktarı çekerseniz Prime tokenınızı kaybedersiniz; çünkü XVS vault'taki stake'iniz, Prime için gereken minimum {{minimumXvsStake}} seviyesinin altına düşer.",
-        "submitButtonLabel": "Prime tokenını kaybet ve çekim talep et"
-      },
-      "submitButtonDisabledLabel": "Talep için geçerli bir miktar girin",
-      "submitButtonLabel": "Çekim talep et"
-    },
-    "requestWithdrawalTabTitle": "Çekim talep et",
-    "title": "{{tokenSymbol}} çek",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "Çekim taleplerinizi görmek için cüzdanınızı bağlayın"
-      },
-      "emptyState": "Aktif çekim talebiniz yok",
-      "itemContent": "{{date, dd.MM.yy h:mm a}} tarihine kadar kilitli"
-    },
-    "withdrawalRequestListTitle": "Çekim talep listesi",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "Çekmek için cüzdanınızı bağlayın"
-      },
-      "availableTokens": "Kullanılabilir {{tokenSymbol}}",
-      "submitButton": "Çek"
-    },
-    "withdrawTabTitle": "Çek"
   }
 }

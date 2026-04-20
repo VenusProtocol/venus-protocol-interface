@@ -1,11 +1,10 @@
 import { useGetVaults } from 'clients/api';
-import { Page, Spinner, cn } from 'components';
+import { Page, Spinner } from 'components';
 import { useAccountAddress } from 'libs/wallet';
 
-import { Overview } from './Overview';
-import { Vaults } from './Vaults';
+import { VaultList } from './VaultList';
 
-const StakingPage: React.FC = () => {
+const VaultsPage: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const { data: vaults, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress,
@@ -17,13 +16,9 @@ const StakingPage: React.FC = () => {
 
   return (
     <Page>
-      <div className={cn('flex flex-col gap-6 sm:gap-12')}>
-        <Overview vaults={vaults} />
-
-        <Vaults vaults={vaults} />
-      </div>
+      <VaultList vaults={vaults} />
     </Page>
   );
 };
 
-export default StakingPage;
+export default VaultsPage;

@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PrimeEligibilityInlineContent > renders progress and the stake-more-then-wait tooltip 1`] = `"Prime eligibility100 XVS / 200 XVS50%"`;
+
+exports[`PrimeEligibilityInlineContent > renders progress and the stake-more-then-wait tooltip 2`] = `"Prime eligibility100 XVS / 200 XVS50%Deposit 100 XVS more then wait 5 days to claim your Prime token and boost your earnings. Calculate your Prime rewards"`;
+
+exports[`PrimeEligibilityInlineContent > renders the claim-ready tooltip when the user can already become Prime 1`] = `"Prime eligibility250 XVS / 200 XVS100%"`;
+
+exports[`PrimeEligibilityInlineContent > renders the claim-ready tooltip when the user can already become Prime 2`] = `"Prime eligibility250 XVS / 200 XVS100%You can now become a Prime user"`;
+
+exports[`PrimeEligibilityInlineContent > renders the wait-only tooltip when the user has enough XVS staked 1`] = `"Prime eligibility200 XVS / 200 XVS100%"`;
+
+exports[`PrimeEligibilityInlineContent > renders the wait-only tooltip when the user has enough XVS staked 2`] = `"Prime eligibility200 XVS / 200 XVS100%3 days until you can claim Prime rewards"`;
+
+exports[`PrimeEligibilityInlineContent > returns nothing when the XVS token is unavailable 1`] = `""`;
+
+exports[`PrimeEligibilityInlineContent > returns nothing when the user is already Prime 1`] = `""`;

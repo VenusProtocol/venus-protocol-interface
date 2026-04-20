@@ -1,4 +1,3 @@
-export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 export { default as scrollToElement } from './scrollToElement';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
@@ -62,3 +61,6 @@ export * from './addUserBorrowLimitShares';
 export * from './clampToZero';
 export * from './invalidatePendleVaultCaches';
 export * from './isPendleVault';
+export * from './isLegacyVenusVault';
+export * from './calculateDailyInterests';
+export * from './getVaultCategoryName';
