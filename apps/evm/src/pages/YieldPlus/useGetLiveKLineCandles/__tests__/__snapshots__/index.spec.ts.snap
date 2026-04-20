@@ -1,0 +1,176 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useGetLiveKLineCandles > ignores stale historical success responses after the source changes 1`] = `
+{
+  "changePercentage": undefined,
+  "priceCentsRatio": undefined,
+}
+`;
+
+exports[`useGetLiveKLineCandles > keeps changePercentage undefined when the comparison candle close is zero 1`] = `
+{
+  "changePercentage": undefined,
+  "priceCentsRatio": "5",
+}
+`;
+
+exports[`useGetLiveKLineCandles > loads and sorts historical candles on init and snapshots the returned state 1`] = `
+[
+  [
+    [
+      {
+        "close": 8,
+        "high": 8,
+        "low": 5,
+        "open": 6,
+        "timestamp": 1000,
+      },
+      {
+        "close": 10,
+        "high": 10,
+        "low": 7,
+        "open": 8,
+        "timestamp": 2000,
+      },
+    ],
+    {
+      "backward": false,
+      "forward": true,
+    },
+  ],
+]
+`;
+
+exports[`useGetLiveKLineCandles > loads and sorts historical candles on init and snapshots the returned state 2`] = `
+{
+  "changePercentage": 25,
+  "priceCentsRatio": "10",
+}
+`;
+
+exports[`useGetLiveKLineCandles > logs errors and returns an empty result for active failed requests 1`] = `
+[
+  [
+    [],
+    {
+      "backward": false,
+      "forward": false,
+    },
+  ],
+]
+`;
+
+exports[`useGetLiveKLineCandles > logs errors and returns an empty result for active failed requests 2`] = `
+{
+  "changePercentage": undefined,
+  "priceCentsRatio": undefined,
+}
+`;
+
+exports[`useGetLiveKLineCandles > logs stale request errors without calling the historical callback 1`] = `
+{
+  "changePercentage": undefined,
+  "priceCentsRatio": undefined,
+}
+`;
+
+exports[`useGetLiveKLineCandles > resets state when the source changes and ignores messages from the old subscription 1`] = `
+{
+  "afterOldMessage": {
+    "changePercentage": undefined,
+    "priceCentsRatio": undefined,
+  },
+  "afterSourceChange": {
+    "changePercentage": undefined,
+    "priceCentsRatio": undefined,
+  },
+}
+`;
+
+exports[`useGetLiveKLineCandles > returns candles for non-init loads without overwriting the historical baseline 1`] = `
+[
+  [
+    [
+      {
+        "close": 30,
+        "high": 0,
+        "low": 0,
+        "open": 0,
+        "timestamp": 3000,
+      },
+      {
+        "close": 40,
+        "high": 0,
+        "low": 0,
+        "open": 0,
+        "timestamp": 4000,
+      },
+    ],
+    {
+      "backward": false,
+      "forward": true,
+    },
+  ],
+]
+`;
+
+exports[`useGetLiveKLineCandles > returns candles for non-init loads without overwriting the historical baseline 2`] = `
+{
+  "after": {
+    "changePercentage": 25,
+    "priceCentsRatio": "10",
+  },
+  "before": {
+    "changePercentage": 25,
+    "priceCentsRatio": "10",
+  },
+}
+`;
+
+exports[`useGetLiveKLineCandles > subscribes to live candles, updates the same-period change, and ignores non-ohlc messages 1`] = `
+[
+  [
+    {
+      "close": 12,
+      "high": 0,
+      "low": 0,
+      "open": 0,
+      "timestamp": 2000,
+    },
+  ],
+]
+`;
+
+exports[`useGetLiveKLineCandles > subscribes to live candles, updates the same-period change, and ignores non-ohlc messages 2`] = `
+{
+  "afterNonOhlc": {
+    "changePercentage": 50,
+    "priceCentsRatio": "12",
+  },
+  "afterOhlc": {
+    "changePercentage": 50,
+    "priceCentsRatio": "12",
+  },
+}
+`;
+
+exports[`useGetLiveKLineCandles > updates the change percentage against the latest historical candle for a new live period 1`] = `
+[
+  [
+    {
+      "close": 11,
+      "high": 0,
+      "low": 0,
+      "open": 0,
+      "timestamp": 3000,
+    },
+  ],
+]
+`;
+
+exports[`useGetLiveKLineCandles > updates the change percentage against the latest historical candle for a new live period 2`] = `
+{
+  "changePercentage": 10,
+  "priceCentsRatio": "11",
+}
+`;

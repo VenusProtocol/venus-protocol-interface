@@ -1,0 +1,52 @@
+import { exactInSwapQuote as fakeSwapQuote } from '__mocks__/models/swap';
+import { vLisUSD, vUsdc } from '__mocks__/models/vTokens';
+import { queryClient } from 'clients/api/queryClient';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSendTransaction } from 'hooks/useSendTransaction';
+import { renderHook } from 'testUtils/render';
+import type { Mock } from 'vitest';
+import { useIncreaseYieldPlusPosition } from '..';
+
+vi.mock('libs/contracts');
+
+describe('useIncreaseYieldPlusPosition', () => {
+  const fakeInput = {
+    longVTokenAddress: vLisUSD.address,
+    shortVTokenAddress: vUsdc.address,
+    additionalPrincipalMantissa: 0n,
+    shortAmountMantissa: 50000000n,
+    minLongAmountMantissa: 49000000n,
+    swapQuote: fakeSwapQuote,
+  } as const;
+
+  it('calls useSendTransaction with correct parameters', async () => {
+    renderHook(() => useIncreaseYieldPlusPosition());
+
+    expect(useSendTransaction).toHaveBeenCalledWith({
+      fn: expect.any(Function),
+      onConfirmed: expect.any(Function),
+      options: undefined,
+    });
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(await fn(fakeInput)).toMatchSnapshot({
+      abi: expect.any(Array),
+    });
+
+    const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
+    await onConfirmed();
+
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
+  });
+
+  it('throws error when RelativePositionManager contract address is not found', async () => {
+    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
+
+    renderHook(() => useIncreaseYieldPlusPosition());
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    await expect(async () => fn(fakeInput)).rejects.toThrow('somethingWentWrong');
+  });
+});

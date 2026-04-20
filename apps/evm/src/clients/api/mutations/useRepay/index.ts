@@ -1,4 +1,4 @@
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import MAX_UINT256 from 'constants/maxUint256';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';

@@ -3,7 +3,7 @@ import fakeAccountAddress, {
 } from '__mocks__/models/address';
 import { vBnb, vWeth, vXvs } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
@@ -102,7 +102,7 @@ describe('useRepay', () => {
           "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
         ],
         "functionName": "repayBehalfExplicit",
-        "value": 10000001000000000n,
+        "value": 10001000000000000n,
       }
     `,
     );

@@ -17,6 +17,7 @@ export const useMenuItems = () => {
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
+  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlus' });
   const { marketsPagePath } = useGetMarketsPagePath();
   const { data: getPoolsData } = useGetPools();
   const pools = getPoolsData?.pools || [];
@@ -89,10 +90,16 @@ export const useMenuItems = () => {
     });
   }
 
+  if (yieldPlusRouteEnabled) {
+    menu.push({
+      to: routes.yieldPlus.path,
+      label: t('layout.menu.others.yieldPlus.label'),
+    });
+  }
+
   if (swapRouteEnabled) {
     menu.push({
       to: routes.swap.path,
-      iconName: 'convert',
       label: t('layout.menu.others.swap.label'),
     });
   }

@@ -2,7 +2,7 @@ import { ChainId } from '@venusprotocol/chains';
 import fakeAccountAddress, { altAddress as fakeSpenderAddress } from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
 import BigNumber from 'bignumber.js';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { renderHook } from 'testUtils/render';

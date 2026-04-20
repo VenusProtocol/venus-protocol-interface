@@ -88,13 +88,7 @@
           "all": "Tüm piyasalar"
         },
         "txType": {
-          "all": "Tüm işlemler",
-          "borrow": "Borç al",
-          "enterMarket": "Teminat etkin",
-          "exitMarket": "Teminat devre dışı",
-          "mint": "Sağla",
-          "redeem": "Çek",
-          "repay": "Geri ödeme"
+          "all": "Tüm işlemler"
         }
       },
       "today": "Bugün",
@@ -104,13 +98,21 @@
       },
       "txType": {
         "borrow": "Borç al",
-        "enterMarket": "Teminat etkin",
-        "exitMarket": "Teminat devre dışı",
+        "enterMarket": "Teminatı etkinleştir",
+        "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
+        "positionClosedWithLoss": "Kapat (zarar) • Yield+",
+        "positionClosedWithProfit": "Kapat (kâr) • Yield+",
+        "positionIncreased": "Artır • Yield+",
+        "positionOpened": "Aç • Yield+",
+        "positionReducedWithLoss": "Azaltıldı (zarar) • Yield+",
+        "positionReducedWithProfit": "Azaltıldı (kâr) • Yield+",
+        "principalSupplied": "Sağla • Yield+",
+        "principalWithdrawn": "Çek • Yield+",
+        "realizedPnl": "Gerçekleşen K/Z • Yield+",
         "redeem": "Çek",
-        "repay": "Geri ödeme"
+        "repay": "Geri öde"
       },
-      "view": "Görüntüle",
       "yesterday": "Dün"
     },
     "vaults": {
@@ -539,7 +541,7 @@
     "noMetaKey": "Dosyada meta veri bilgisi yok",
     "noParamsKey": "Dosyada parametre listesi yok",
     "noSignaturesKey": "Dosyada çağrı imzaları yok",
-    "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güncelleyin.",
+    "noSwapQuoteFound": "Swap bulunamadı.",
     "noTargetsKey": "Dosyada hedef listesi yok",
     "noTypeKey": "Dosyada teklifin türü belirtilmemiş",
     "proposalNotFound": "Teklif bulunamadı",
@@ -776,6 +778,9 @@
         "vai": {
           "description": "Venus'ün yerel sabit coinini mint edin.",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -1059,10 +1064,27 @@
       "higherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
       "higherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için harcama limitini iptal edin ve yeni bir limit ayarlayın.",
       "noCollateral": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce tokenları sağlayıp teminat olarak etkinleştirmelisiniz",
-      "noSwapQuoteFound": "Takas bulunamadı. Lütfen formu güncelleyin.",
+      "noSwapQuoteFound": "Swap bulunamadı.",
       "priceImpactTooHigh": "Fiyat etkisi çok yüksek",
       "supplyCapReached": "Bu havuz için {{assetSupplyCap}} tedarik limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
       "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Mevcut kaldıraçta maksimum pozisyon: {{ value }}",
+      "submitButtonLabel": "Onayla",
+      "title": "Kaldıraç oranı",
+      "warning": "Kaldıraç, sermaye kullanımınızı etkiler ve pozisyondan tamamen çıkana kadar değiştirilemez."
+    },
+    "managePositionsTabs": {
+      "collateral": "Teminat",
+      "position": "Pozisyon",
+      "positionsTabs": {
+        "increase": "Artır",
+        "reduce": "Azalt",
+        "supply": "Sağla",
+        "withdraw": "Çek"
+      }
     },
     "receiveNativeToken": {
       "label": "{{tokenSymbol}} al",
@@ -1084,9 +1106,7 @@
     "rightMaxButtonLabel": "MAKS",
     "riskSlider": {
       "0": "0%",
-      "100": "100%",
-      "highRisk": "Yüksek risk",
-      "lowRisk": "Düşük risk"
+      "100": "100%"
     },
     "safeMaxButtonLabel": "GÜVENLİ MAKS",
     "submitButtonLabel": {
@@ -1871,7 +1891,7 @@
       "allStates": "Tüm durumlar",
       "claim": "Talep et",
       "deposit": "Yatır",
-      "earning": "Kazanıyor",
+      "earning": "Kazanç",
       "inputPlaceholder": "Varlık ara",
       "paused": "Duraklatıldı",
       "refund": "İade",
@@ -2193,6 +2213,114 @@
     },
     "tooltip": {
       "address": "({{address}})"
+    }
+  },
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ görseli",
+      "learnMore": "Daha fazla bilgi",
+      "title": "Yield+ nedir?"
+    },
+    "closePositionModal": {
+      "title": "Kapat"
+    },
+    "longLiquidity": "Long likiditesi",
+    "longSupplyApy": "{{ longTokenSymbol }} sağlama APY",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Artır"
+      },
+      "invalidLiquidationPrice": "Yok",
+      "openForm": {
+        "collateral": "Teminat",
+        "dsaFieldLabel": "Teminat",
+        "dsaFieldPlaceholder": "Devam etmek için girin",
+        "entryPrice": "Giriş fiyatı",
+        "liquidationPrice": "Likidasyon fiyatı",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "Net APY",
+        "pnl": "Gerçekleşen K/Z",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Aç"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "Kapat",
+          "reduce": "Azalt"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Sağla"
+      },
+      "walletBalance": "Cüzdan bakiyesi",
+      "warning": {
+        "cannotBorrowShort": "Bu pozisyondaki short token için borç alma devre dışı bırakıldı",
+        "cannotRepayShort": "Bu pozisyondaki short token için geri ödeme devre dışı bırakıldı",
+        "cannotSupplyDsa": "Bu pozisyondaki teminat tokeni için sağlama devre dışı bırakıldı",
+        "cannotSupplyLong": "Bu pozisyondaki long token için sağlama devre dışı bırakıldı",
+        "cannotWithdrawDsa": "Bu pozisyondaki teminat tokeni için çekim devre dışı bırakıldı",
+        "cannotWithdrawLong": "Bu pozisyondaki long token için çekim devre dışı bırakıldı",
+        "notEnoughLeverage": "Bu token çifti, Yield+ pozisyonu açmak için gereken minimum kaldıraç oranı olan en az {{ minimumLeverageFactor }} değerine izin vermiyor"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Çek"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "Kapat",
+      "placeholder": {
+        "title": "Henüz pozisyon yok"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Teminat"
+        },
+        "healthFactor": {
+          "label": "Sağlık faktörü",
+          "tooltip": "Likidasyon < 1.0"
+        },
+        "netApy": {
+          "label": "Net APY"
+        },
+        "netValue": {
+          "label": "Net değer"
+        },
+        "title": "Durum"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "Bu pozisyonun giriş fiyat oranı (short varlık miktarı ÷ long varlık miktarı), girişten itibaren iki token arasındaki göreli değeri yansıtır"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Pozisyon"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "İşlemler"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} borç APY",
+    "shortLiquidity": "Short likiditesi",
+    "shortTokenSelect": {
+      "label": "Short"
     }
   }
 }

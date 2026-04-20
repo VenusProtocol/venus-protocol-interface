@@ -1,6 +1,6 @@
 import { type UseQueryOptions, type UseQueryResult, useQueries } from '@tanstack/react-query';
 
-import { type GetBalanceOfOutput, getBalanceOf } from 'clients/api';
+import { type GetBalanceOfOutput, getBalanceOf } from 'clients/api/queries/getBalanceOf';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetTokens } from 'libs/tokens';

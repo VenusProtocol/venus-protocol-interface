@@ -2,65 +2,56 @@ import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
-import compTrollerResponses from '__mocks__/contracts/legacyPoolComptroller';
-import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
+import {
+  fixedRatedVaults as mockFixedRateVaults,
+  vaults as mockVestingVaults,
+} from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
 
-import {
-  getBalanceOf,
-  getVaiVaultUserInfo,
-  getVenusVaiVaultDailyRate,
-  getXvsVaultPendingWithdrawalsBalance,
-  getXvsVaultPoolCount,
-  getXvsVaultPoolInfo,
-  getXvsVaultTotalAllocationPoints,
-  getXvsVaultUserInfo,
-  getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
-  getXvsVaultsTotalDailyDistributedXvs,
-} from 'clients/api';
-
-import { xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
 import { type UseGetVaultsOutput, useGetVaults } from '..';
+import { useGetFormattedFixedRatedVaults } from '../useGetFormattedFixedRatedVaults';
+import { useGetVaiVault } from '../useGetVaiVault';
+import { useGetVestingVaults } from '../useGetVestingVaults';
+
+vi.mock('../useGetFormattedFixedRatedVaults', () => ({
+  useGetFormattedFixedRatedVaults: vi.fn(),
+}));
+vi.mock('../useGetVaiVault', () => ({
+  useGetVaiVault: vi.fn(),
+}));
+vi.mock('../useGetVestingVaults', () => ({
+  useGetVestingVaults: vi.fn(),
+}));
+
+const { lockingPeriodMs: _lockingPeriodMs, ...vaiVault } = {
+  ...mockVestingVaults[1],
+  dailyEmissionCents: 0.0000005,
+  dailyEmissionMantissa: new BigNumber('5000000000'),
+  key: 'venus-VAI-XVS-0',
+  rewardTokenPriceCents: new BigNumber('100'),
+  stakedTokenPriceCents: new BigNumber('100'),
+  stakingAprPercentage: 45625,
+  totalStakedCents: 0.0000004,
+  totalStakedMantissa: new BigNumber('4000000000'),
+  userStakedCents: 10000000,
+  userStakedMantissa: new BigNumber('100000000000000000000000'),
+};
 
 describe('useGetVaults', () => {
   beforeEach(() => {
-    (global.fetch as Mock).mockImplementation(() =>
-      Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve({ result: [] }),
-      }),
-    );
-    (getXvsVaultPoolCount as Mock).mockImplementation(() => ({
-      poolCount: xvsVaultResponses.poolLength,
-    }));
-    (getXvsVaultPendingWithdrawalsBalance as Mock).mockImplementation(() => ({
-      balanceMantissa: new BigNumber('1000000000'),
-    }));
-    (getXvsVaultTotalAllocationPoints as Mock).mockImplementation(() => ({
-      totalAllocationPoints: new BigNumber(xvsVaultResponses.totalAllocPoints.toString()),
-    }));
-    (getXvsVaultsTotalDailyDistributedXvs as Mock).mockImplementation(() => ({
-      dailyDistributedXvs: new BigNumber('0.000000288'),
-    }));
-    (getVenusVaiVaultDailyRate as Mock).mockImplementation(() => ({
-      dailyRateMantissa: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),
-    }));
-    (getBalanceOf as Mock).mockImplementation(() => ({
-      balanceMantissa: new BigNumber('4000000000'),
-    }));
-    (getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade as Mock).mockImplementation(() => ({
-      userPendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber('100000'),
-    }));
-
-    (getVaiVaultUserInfo as Mock).mockImplementation(() => ({
-      stakedVaiMantissa: new BigNumber('100000000000000000000000'),
-    }));
-
-    (getXvsVaultPoolInfo as Mock).mockImplementation(() => xvsVaultPoolInfo);
-
-    (getXvsVaultUserInfo as Mock).mockImplementation(() => xvsVaultUserInfo);
+    (useGetVestingVaults as Mock).mockReturnValue({
+      data: mockVestingVaults,
+      isLoading: false,
+    });
+    (useGetVaiVault as Mock).mockReturnValue({
+      data: vaiVault,
+      isLoading: false,
+    });
+    (useGetFormattedFixedRatedVaults as Mock).mockReturnValue({
+      data: mockFixedRateVaults,
+      isLoading: false,
+    });
   });
 
   it('fetches and returns vaults correctly', async () => {
