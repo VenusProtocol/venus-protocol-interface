@@ -9,7 +9,7 @@ import { Tooltip } from '../Tooltip';
 
 export type ProtectionModeVariant = 'icon' | 'label';
 
-export type ProtectionModeTooltipType = 'detail' | 'supply' | 'borrow' | 'list';
+export type ProtectionModeTooltipType = 'supply' | 'borrow' | 'list';
 
 export interface ProtectionModeIndicatorProps {
   variant?: ProtectionModeVariant;
@@ -57,6 +57,7 @@ export const ProtectionModeIndicator: React.FC<ProtectionModeIndicatorProps> = (
           i18nKey="marketTable.assetColumn.protectionMode"
           components={{
             LearnMore: (
+              // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
               <a
                 href={VENUS_PROTECTION_MODE_DOC_URL}
                 className="text-blue underline"
@@ -69,7 +70,6 @@ export const ProtectionModeIndicator: React.FC<ProtectionModeIndicatorProps> = (
         />
       );
       break;
-    case 'detail':
     default:
       tooltipContent = (
         <Trans
