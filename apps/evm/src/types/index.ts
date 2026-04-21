@@ -157,8 +157,10 @@ export interface Asset {
   // connected
   userSupplyBalanceTokens: BigNumber;
   userSupplyBalanceCents: BigNumber;
+  userSupplyBalanceProtectedCents: BigNumber;
   userBorrowBalanceTokens: BigNumber;
   userBorrowBalanceCents: BigNumber;
+  userBorrowBalanceProtectedCents: BigNumber;
   userWalletBalanceTokens: BigNumber;
   userWalletBalanceCents: BigNumber;
   userCollateralFactor: number;
@@ -225,6 +227,8 @@ export interface Pool {
   userSupplyBalanceCents?: BigNumber;
   userBorrowBalanceCents?: BigNumber;
   userBorrowLimitCents?: BigNumber;
+  userBorrowLimitProtectedCents?: BigNumber;
+  userBorrowBalanceProtectedCents?: BigNumber;
   userLiquidationThresholdCents?: BigNumber;
   userYearlyEarningsCents?: BigNumber;
   userHealthFactor?: number;

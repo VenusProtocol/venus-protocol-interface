@@ -158,22 +158,27 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     // liquidated
 
     // Return 0 if borrow limit has already been reached
-    if (pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents)) {
+    if (
+      pool.userBorrowBalanceProtectedCents?.isGreaterThanOrEqualTo(
+        pool.userBorrowLimitProtectedCents ?? 0,
+      )
+    ) {
       return [new BigNumber(0), new BigNumber(0), new BigNumber(0)];
     }
 
-    const marginWithUserBorrowLimitTokens = pool.userBorrowLimitCents
-      .minus(pool.userBorrowBalanceCents)
+    // Hard withdraw limit (uses protected prices to match contract behavior)
+    const marginWithUserBorrowLimitTokens = (pool.userBorrowLimitProtectedCents ?? new BigNumber(0))
+      .minus(pool.userBorrowBalanceProtectedCents ?? 0)
       .dividedBy(asset.userCollateralFactor)
       .dividedBy(asset.tokenSupplyPriceCents);
 
     let marginWithUserSafeBorrowLimitTokens =
       // We base the safe borrow limit on the liquidation threshold because that's the base used to
-      // calculate the health factor
+      // calculate the health factor (spot-based)
       pool.userLiquidationThresholdCents
         .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_SAFE_MAX_THRESHOLD))
         .dividedBy(asset.userCollateralFactor)
-        .dividedBy(asset.tokenSupplyPriceCents);
+        .dividedBy(asset.tokenPriceCents);
 
     if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
       marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
@@ -181,11 +186,11 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
     let marginWithUserModerateRiskBorrowLimitTokens =
       // We base the safe borrow limit on the liquidation threshold because that's the base used to
-      // calculate the health factor
+      // calculate the health factor (spot-based)
       pool.userLiquidationThresholdCents
         .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_MODERATE_THRESHOLD))
         .dividedBy(asset.userCollateralFactor)
-        .dividedBy(asset.tokenSupplyPriceCents);
+        .dividedBy(asset.tokenPriceCents);
 
     if (marginWithUserModerateRiskBorrowLimitTokens.isLessThan(0)) {
       marginWithUserModerateRiskBorrowLimitTokens = new BigNumber(0);

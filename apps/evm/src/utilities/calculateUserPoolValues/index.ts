@@ -20,33 +20,33 @@ export const calculateUserPoolValues = ({
   let userBorrowBalanceCents = new BigNumber(0);
   let userSupplyBalanceCents = new BigNumber(0);
   let userBorrowLimitCents = new BigNumber(0);
+  let userBorrowLimitProtectedCents = new BigNumber(0);
+  let userBorrowBalanceProtectedCents = new BigNumber(0);
   let userLiquidationThresholdCents = new BigNumber(0);
-
-  // Spot-based values for health factor (liquidation uses spot prices)
-  let spotBorrowBalanceCents = new BigNumber(0);
-  let spotLiquidationThresholdCents = new BigNumber(0);
 
   assets.forEach(asset => {
     userBorrowBalanceCents = userBorrowBalanceCents.plus(asset.userBorrowBalanceCents);
     userSupplyBalanceCents = userSupplyBalanceCents.plus(asset.userSupplyBalanceCents);
-
-    const spotSupplyBalanceCents = asset.userSupplyBalanceTokens.multipliedBy(
-      asset.tokenPriceCents,
+    userBorrowBalanceProtectedCents = userBorrowBalanceProtectedCents.plus(
+      asset.userBorrowBalanceProtectedCents,
     );
-    const spotBorrowBalance = asset.userBorrowBalanceTokens.multipliedBy(asset.tokenPriceCents);
-    spotBorrowBalanceCents = spotBorrowBalanceCents.plus(spotBorrowBalance);
 
     if (asset.isCollateralOfUser) {
       const borrowLimitContribution = asset.userSupplyBalanceCents.multipliedBy(
         asset.userCollateralFactor,
       );
-      const liqThresholdContribution = spotSupplyBalanceCents.multipliedBy(
+      const protectedBorrowLimitContribution = asset.userSupplyBalanceProtectedCents.multipliedBy(
+        asset.userCollateralFactor,
+      );
+      const liqThresholdContribution = asset.userSupplyBalanceCents.multipliedBy(
         asset.userLiquidationThresholdPercentage / 100,
       );
 
       userBorrowLimitCents = userBorrowLimitCents.plus(borrowLimitContribution);
+      userBorrowLimitProtectedCents = userBorrowLimitProtectedCents.plus(
+        protectedBorrowLimitContribution,
+      );
       userLiquidationThresholdCents = userLiquidationThresholdCents.plus(liqThresholdContribution);
-      spotLiquidationThresholdCents = spotLiquidationThresholdCents.plus(liqThresholdContribution);
     }
   });
 
@@ -56,7 +56,6 @@ export const calculateUserPoolValues = ({
 
   if (userVaiBorrowBalanceCents && vaiBorrowAprPercentage && userYearlyEarningsCents) {
     userBorrowBalanceCents = userBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
-    spotBorrowBalanceCents = spotBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
 
     const userYearlyVaiInterestsCents = calculateYearlyInterests({
       balance: userVaiBorrowBalanceCents,
@@ -66,16 +65,19 @@ export const calculateUserPoolValues = ({
     userYearlyEarningsCents = userYearlyEarningsCents.minus(userYearlyVaiInterestsCents);
   }
 
-  // Health factor uses spot prices (matching contract LT path / liquidation)
+  // Health factor uses spot prices (userBorrowBalanceCents and userLiquidationThresholdCents are
+  // already spot-based since userSupplyBalanceCents and userBorrowBalanceCents use tokenPriceCents)
   const userHealthFactor = calculateHealthFactor({
-    liquidationThresholdCents: spotLiquidationThresholdCents.toNumber(),
-    borrowBalanceCents: spotBorrowBalanceCents.toNumber(),
+    liquidationThresholdCents: userLiquidationThresholdCents.toNumber(),
+    borrowBalanceCents: userBorrowBalanceCents.toNumber(),
   });
 
   return {
     userBorrowBalanceCents,
     userSupplyBalanceCents,
     userBorrowLimitCents,
+    userBorrowLimitProtectedCents,
+    userBorrowBalanceProtectedCents,
     userLiquidationThresholdCents,
     userHealthFactor,
     userYearlyEarningsCents,

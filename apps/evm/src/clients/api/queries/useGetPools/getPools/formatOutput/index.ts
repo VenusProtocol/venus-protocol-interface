@@ -280,8 +280,12 @@ export const formatOutput = ({
           })
         : new BigNumber(0);
 
-      const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenSupplyPriceCents);
-      const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenBorrowPriceCents);
+      const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
+      const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
+      const userSupplyBalanceProtectedCents =
+        userSupplyBalanceTokens.multipliedBy(tokenSupplyPriceCents);
+      const userBorrowBalanceProtectedCents =
+        userBorrowBalanceTokens.multipliedBy(tokenBorrowPriceCents);
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
       const asset: Asset = {
@@ -317,8 +321,10 @@ export const formatOutput = ({
         borrowPointDistributions,
         userSupplyBalanceTokens,
         userSupplyBalanceCents,
+        userSupplyBalanceProtectedCents,
         userBorrowBalanceTokens,
         userBorrowBalanceCents,
+        userBorrowBalanceProtectedCents,
         userWalletBalanceTokens,
         userWalletBalanceCents,
         userCollateralFactor,

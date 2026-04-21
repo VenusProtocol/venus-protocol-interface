@@ -3,9 +3,11 @@
 exports[`calculateUserPoolValues > returns the right data 1`] = `
 {
   "userBorrowBalanceCents": "9000",
+  "userBorrowBalanceProtectedCents": "9000",
   "userBorrowLimitCents": "13754",
+  "userBorrowLimitProtectedCents": "13754",
   "userHealthFactor": 1.52,
-  "userLiquidationThresholdCents": "13755.99846",
+  "userLiquidationThresholdCents": "13754",
   "userSupplyBalanceCents": "31507",
   "userYearlyEarningsCents": "1531.00666454662583935848",
 }
@@ -14,9 +16,11 @@ exports[`calculateUserPoolValues > returns the right data 1`] = `
 exports[`calculateUserPoolValues > returns the right data including VAI 1`] = `
 {
   "userBorrowBalanceCents": "9500",
+  "userBorrowBalanceProtectedCents": "9000",
   "userBorrowLimitCents": "13754",
+  "userBorrowLimitProtectedCents": "13754",
   "userHealthFactor": 1.44,
-  "userLiquidationThresholdCents": "13755.99846",
+  "userLiquidationThresholdCents": "13754",
   "userSupplyBalanceCents": "31507",
   "userYearlyEarningsCents": "1511.55666454662583935848",
 }

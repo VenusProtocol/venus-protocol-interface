@@ -8,7 +8,9 @@ import type { Asset, Pool } from 'types';
 export const fakePool: Pool = {
   ...poolData[0],
   userBorrowBalanceCents: new BigNumber(10),
+  userBorrowBalanceProtectedCents: new BigNumber(10),
   userBorrowLimitCents: new BigNumber(1000),
+  userBorrowLimitProtectedCents: new BigNumber(1000),
   userLiquidationThresholdCents: new BigNumber(1100),
 };
 
