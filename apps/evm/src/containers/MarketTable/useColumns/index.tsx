@@ -67,10 +67,12 @@ export const useColumns = ({
   columnKeys,
   collateralOnChange,
   userEModeGroup,
+  marketType,
 }: {
   columnKeys: ColumnKey[];
   collateralOnChange: (asset: Asset) => void;
   userEModeGroup?: EModeGroup;
+  marketType?: 'supply' | 'borrow';
 }) => {
   const { t, Trans } = useTranslation();
   const styles = useStyles();
@@ -159,9 +161,12 @@ export const useColumns = ({
               {asset.isProtectionModeEnabled && (
                 <ProtectionModeIndicator
                   variant="icon"
+                  tooltipType={marketType ?? 'list'}
                   tokenName={asset.vToken.underlyingToken.symbol}
                   tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
                   tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+                  userSupplyBalanceCents={asset.userSupplyBalanceCents}
+                  userBorrowBalanceCents={asset.userBorrowBalanceCents}
                 />
               )}
 

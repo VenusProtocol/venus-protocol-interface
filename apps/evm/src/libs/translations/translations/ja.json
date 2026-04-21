@@ -986,7 +986,7 @@
       "eMode": "このマーケットは{{eModeGroupName}}のEモードグループに含まれます",
       "isolationMode": "このマーケットは{{eModeGroupName}}の隔離モードグループに含まれます",
       "pausedAssetTooltip": "資産はVenusガバナンスにより停止されています。借入と供給が無効化されています。",
-      "protectionMode": "価格変動により、{{tokenName}} のプロテクションモードが有効になっています。担保価格と借入価格に影響します。",
+      "protectionMode": "価格変動により、{{tokenName}} のプロテクションモードが有効になっています。担保価格と借入価格に影響します。 <LearnMore>詳細はこちら</LearnMore>",
       "protectionModeSupply": "この市場は高いボラティリティを経験しています。保護された担保価値は {{protectedValue}} として計算され、借入可能額を決定するための保守的な価値です。",
       "protectionModeBorrow": "この市場は高いボラティリティを経験しています。保護された借入価値は {{protectedValue}} として計算され、借入可能額に対してカウントされる保守的な価値です。",
       "protectionModeDetail": "この市場は高いボラティリティを経験しています。保護された担保価格は {{collateralPrice}} — 借入可能額を決定するための保守的な価格です。 保護された借入価格は {{borrowPrice}} — この資産の借入可能量を計算するための保守的な価格です。"

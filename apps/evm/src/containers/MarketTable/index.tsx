@@ -108,6 +108,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     columnKeys,
     collateralOnChange: handleCollateralChange,
     userEModeGroup,
+    marketType,
   });
 
   const formattedInitialOrder = useMemo(() => {

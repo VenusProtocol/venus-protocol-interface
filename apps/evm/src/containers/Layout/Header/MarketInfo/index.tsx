@@ -79,6 +79,12 @@ export const MarketInfo = () => {
         )
       : undefined;
 
+    const readablePrice = formatCentsToReadableValue({
+      value: asset?.tokenPriceCents,
+      shorten: false,
+      maxDecimalPlaces: 6,
+    });
+
     return [
       {
         label: t('layout.header.supply'),
@@ -134,11 +140,20 @@ export const MarketInfo = () => {
       },
       {
         label: t('layout.header.price'),
-        value: formatCentsToReadableValue({
-          value: asset?.tokenPriceCents,
-          shorten: false,
-          maxDecimalPlaces: 6,
-        }),
+        value:
+          asset?.isProtectionModeEnabled ? (
+            <span className="inline-flex items-center gap-x-2">
+              <ProtectionModeIndicator
+                variant="icon"
+                tokenName={asset.vToken.underlyingToken.symbol}
+                tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+                tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+              />
+              {readablePrice}
+            </span>
+          ) : (
+            readablePrice
+        ),
       },
     ];
   }, [asset, t, pool, scrollToLtvOptions, Trans, hasModeInfo, isUserConnected]);
