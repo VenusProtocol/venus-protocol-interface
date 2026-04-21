@@ -146,26 +146,9 @@ export const MarketInfo = () => {
               {asset.isProtectionModeEnabled && (
                 <ProtectionModeIndicator
                   variant="label"
-                  tooltip={
-                    <div>
-                      <p>
-                        {t('marketTable.assetColumn.protectionModeDetailCollateral', {
-                          collateralPrice: formatCentsToReadableValue({
-                            value: asset.tokenSupplyPriceCents,
-                            shorten: false,
-                          }),
-                        })}
-                      </p>
-                      <p className="mt-1">
-                        {t('marketTable.assetColumn.protectionModeDetailBorrow', {
-                          borrowPrice: formatCentsToReadableValue({
-                            value: asset.tokenBorrowPriceCents,
-                            shorten: false,
-                          }),
-                        })}
-                      </p>
-                    </div>
-                  }
+                  tokenName={asset.vToken.underlyingToken.symbol}
+                  tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+                  tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
                 />
               )}
             </div>

@@ -1,6 +1,8 @@
 import { cn } from '@venusprotocol/ui';
+import type BigNumber from 'bignumber.js';
 
 import { useTranslation } from 'libs/translations';
+import { formatCentsToReadableValue } from 'utilities';
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 
@@ -8,35 +10,56 @@ export type ProtectionModeVariant = 'icon' | 'label';
 
 export interface ProtectionModeIndicatorProps {
   variant?: ProtectionModeVariant;
-  tooltip?: React.ReactNode;
-  tokenName?: string;
+  tokenName: string;
+  tokenSupplyPriceCents: BigNumber;
+  tokenBorrowPriceCents: BigNumber;
   className?: string;
 }
 
 export const ProtectionModeIndicator: React.FC<ProtectionModeIndicatorProps> = ({
   variant = 'icon',
-  tooltip,
   tokenName,
+  tokenSupplyPriceCents,
+  tokenBorrowPriceCents,
   className,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
-  const tooltipContent = tooltip ?? t('marketTable.assetColumn.protectionMode', { tokenName });
+  const values = {
+    tokenName,
+    collateralPrice: formatCentsToReadableValue({
+      value: tokenSupplyPriceCents,
+      shorten: false,
+    }),
+    borrowPrice: formatCentsToReadableValue({
+      value: tokenBorrowPriceCents,
+      shorten: false,
+    }),
+  };
 
-  if (variant === 'label') {
-    return (
-      <Tooltip className={cn('inline-flex items-center', className)} content={tooltipContent}>
+  const tooltipContent =
+    variant === 'label' ? (
+      <Trans
+        i18nKey="protectionModeIndicator.detailedTooltip"
+        components={{
+          LineBreak: <br />,
+        }}
+        values={values}
+      />
+    ) : (
+      t('protectionModeIndicator.detailedTooltip', values)
+    );
+
+  return (
+    <Tooltip className={cn('inline-flex items-center', className)} content={tooltipContent}>
+      {variant === 'label' ? (
         <span className="inline-flex items-center gap-x-1 rounded-full border border-green bg-green/10 px-2 py-0.5 text-xs text-offWhite">
           <Icon name="protectionShield" className="h-4 w-4" />
           <span>{t('protectionModeIndicator.label')}</span>
         </span>
-      </Tooltip>
-    );
-  }
-
-  return (
-    <Tooltip className={cn('inline-flex items-center', className)} content={tooltipContent}>
-      <Icon name="protectionShield" className="h-[18px] w-[18px]" />
+      ) : (
+        <Icon name="protectionShield" className="h-[18px] w-[18px]" />
+      )}
     </Tooltip>
   );
 };

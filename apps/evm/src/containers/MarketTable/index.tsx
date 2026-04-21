@@ -16,7 +16,6 @@ import { useAccountChainId, useChainId } from 'libs/wallet';
 // so moving it now could generate conflicts
 import { OperationForm } from 'pages/Market/OperationForm';
 import type { Asset, EModeGroup } from 'types';
-import { formatCentsToReadableValue } from 'utilities';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey } from './types';
@@ -222,26 +221,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
               {selectedAsset.isProtectionModeEnabled && (
                 <ProtectionModeIndicator
                   variant="icon"
-                  tooltip={
-                    <div>
-                      <p>
-                        {t('marketTable.assetColumn.protectionModeDetailCollateral', {
-                          collateralPrice: formatCentsToReadableValue({
-                            value: selectedAsset.tokenSupplyPriceCents,
-                            shorten: false,
-                          }),
-                        })}
-                      </p>
-                      <p className="mt-1">
-                        {t('marketTable.assetColumn.protectionModeDetailBorrow', {
-                          borrowPrice: formatCentsToReadableValue({
-                            value: selectedAsset.tokenBorrowPriceCents,
-                            shorten: false,
-                          }),
-                        })}
-                      </p>
-                    </div>
-                  }
+                  tokenName={selectedAsset.vToken.underlyingToken.symbol}
+                  tokenSupplyPriceCents={selectedAsset.tokenSupplyPriceCents}
+                  tokenBorrowPriceCents={selectedAsset.tokenBorrowPriceCents}
                 />
               )}
               {selectedAsset.vToken.underlyingToken.symbol}

@@ -159,6 +159,8 @@ export const useColumns = ({
                 <ProtectionModeIndicator
                   variant="icon"
                   tokenName={asset.vToken.underlyingToken.symbol}
+                  tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+                  tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
                 />
               )}
 

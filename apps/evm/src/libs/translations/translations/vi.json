@@ -971,8 +971,7 @@
       "protectionMode": "Chế độ Bảo vệ đang hoạt động cho {{tokenName}} do biến động giá, ảnh hưởng đến giá thế chấp và giá vay.",
       "protectionModeSupply": "Thị trường này đang trải qua biến động cao. Giá trị thế chấp được bảo vệ được tính là {{protectedValue}}, đại diện cho giá trị thận trọng được sử dụng để xác định hạn mức vay của bạn.",
       "protectionModeBorrow": "Thị trường này đang trải qua biến động cao. Giá trị vay được bảo vệ được tính là {{protectedValue}}, đại diện cho giá trị thận trọng tính vào hạn mức vay của bạn.",
-      "protectionModeDetailCollateral": "Thị trường này đang trải qua biến động cao. Giá thế chấp được bảo vệ là {{collateralPrice}} — giá thận trọng được sử dụng để xác định hạn mức vay của bạn.",
-      "protectionModeDetailBorrow": "Giá vay được bảo vệ là {{borrowPrice}} — giá thận trọng được sử dụng để tính số lượng tài sản này có thể vay."
+      "protectionModeDetail": "Thị trường này đang trải qua biến động cao. Giá thế chấp được bảo vệ là {{collateralPrice}} — giá thận trọng được sử dụng để xác định hạn mức vay của bạn. Giá vay được bảo vệ là {{borrowPrice}} — giá thận trọng được sử dụng để tính số lượng tài sản này có thể vay."
     },
     "columnKeys": {
       "asset": "Tài sản",
@@ -1593,7 +1592,8 @@
     }
   },
   "protectionModeIndicator": {
-    "label": "Đã bảo vệ"
+    "label": "Đã bảo vệ",
+    "detailedTooltip": "Thị trường này đang trải qua biến động cao. Giá thế chấp được bảo vệ là {{collateralPrice}} — giá thận trọng được sử dụng để xác định hạn mức vay của bạn.<LineBreak/>Giá vay được bảo vệ là {{borrowPrice}} — giá thận trọng được sử dụng để tính số lượng tài sản này có thể vay."
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

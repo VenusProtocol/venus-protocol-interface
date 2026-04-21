@@ -971,8 +971,7 @@
       "protectionMode": "Fiyat dalgalanması nedeniyle {{tokenName}} için Koruma Modu etkin, teminat ve borçlanma fiyatlarını etkilemektedir.",
       "protectionModeSupply": "Bu piyasa yüksek dalgalanma yaşamaktadır. Korumalı teminat değeri {{protectedValue}} olarak hesaplanmış olup, borçlanma gücünüzü belirlemek için kullanılan muhafazakâr değeri temsil eder.",
       "protectionModeBorrow": "Bu piyasa yüksek dalgalanma yaşamaktadır. Korumalı borçlanma değeri {{protectedValue}} olarak hesaplanmış olup, borçlanma gücünüze karşı sayılan muhafazakâr değeri temsil eder.",
-      "protectionModeDetailCollateral": "Bu piyasa yüksek dalgalanma yaşamaktadır. Korumalı Teminat Fiyatı {{collateralPrice}} — borçlanma gücünüzü belirlemek için kullanılan muhafazakâr fiyat.",
-      "protectionModeDetailBorrow": "Korumalı Borçlanma Fiyatı {{borrowPrice}} — bu varlıktan ne kadar borçlanılabileceğini hesaplamak için kullanılan muhafazakâr fiyat."
+      "protectionModeDetail": "Bu piyasa yüksek dalgalanma yaşamaktadır. Korumalı Teminat Fiyatı {{collateralPrice}} — borçlanma gücünüzü belirlemek için kullanılan muhafazakâr fiyat. Korumalı Borçlanma Fiyatı {{borrowPrice}} — bu varlıktan ne kadar borçlanılabileceğini hesaplamak için kullanılan muhafazakâr fiyat."
     },
     "columnKeys": {
       "asset": "Varlık",
@@ -1593,7 +1592,8 @@
     }
   },
   "protectionModeIndicator": {
-    "label": "Korumalı"
+    "label": "Korumalı",
+    "detailedTooltip": "Bu piyasa yüksek dalgalanma yaşamaktadır. Korumalı Teminat Fiyatı {{collateralPrice}} — borçlanma gücünüzü belirlemek için kullanılan muhafazakâr fiyat.<LineBreak/>Korumalı Borçlanma Fiyatı {{borrowPrice}} — bu varlıktan ne kadar borçlanılabileceğini hesaplamak için kullanılan muhafazakâr fiyat."
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
