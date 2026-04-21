@@ -93,3 +93,4 @@ export { default as pendle } from './pendle';
 export { default as stats } from './stats';
 export { default as diagramArrowDown } from './diagramArrowDown';
 export { default as protectionShield } from './protectionShield';
+export { default as resilientOracle } from './resilientOracle';

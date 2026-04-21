@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
 import {
-  ButtonWrapper,
   CellGroup,
   type CellProps,
   Icon,
@@ -170,17 +169,14 @@ export const MarketInfo = () => {
               </div>
 
               {oracleContractHref && (
-                <ButtonWrapper
-                  asChild
-                  size="xs"
-                  className="gap-x-2 inline-flex self-start shrink-0 bg-transparent text-blue"
+                <Link
+                  noStyle
+                  href={oracleContractHref}
+                  className="inline-flex items-center gap-x-2 self-start shrink-0 rounded-full bg-[rgba(30,36,49,0.5)] px-5 h-8 text-grey text-sm"
                 >
-                  <Link noStyle href={oracleContractHref}>
-                    <span>{t('layout.header.resilientOracle')}</span>
-
-                    <Icon name="shield" />
-                  </Link>
-                </ButtonWrapper>
+                  <span>{t('layout.header.resilientOracle')}</span>
+                  <Icon name="resilientOracle" className="h-5 w-5" />
+                </Link>
               )}
 
               {asset.isProtectionModeEnabled && (

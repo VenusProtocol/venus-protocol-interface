@@ -53,7 +53,7 @@ export const ProtectionModeIndicator: React.FC<ProtectionModeIndicatorProps> = (
   return (
     <Tooltip className={cn('inline-flex items-center', className)} content={tooltipContent}>
       {variant === 'label' ? (
-        <span className="inline-flex items-center gap-x-1 rounded-full border border-green bg-green/10 px-2 py-0.5 text-xs text-offWhite">
+        <span className="inline-flex items-center gap-x-2.5 rounded-full border border-green bg-green/10 px-3 h-[30px] text-sm text-offWhite">
           <Icon name="protectionShield" className="h-4 w-4" />
           <span>{t('protectionModeIndicator.label')}</span>
         </span>
