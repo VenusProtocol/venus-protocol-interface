@@ -130,6 +130,14 @@ export const formatOutput = ({
             )
           : convertDollarsToCents(tokenPriceDollars);
 
+      // TODO: remove debug logs
+      if (isProtectionModeEnabled) {
+        const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
+        console.log(
+          `[PROTECTION] ${vToken.underlyingToken.symbol}: spot=$${tokenPriceCents.dividedBy(100).toFixed(2)}, supplyPrice=$${tokenSupplyPriceCents.dividedBy(100).toFixed(2)}, borrowPrice=$${tokenBorrowPriceCents.dividedBy(100).toFixed(2)}`,
+        );
+      }
+
       const borrowCapTokens = convertMantissaToTokens({
         value: new BigNumber(market.borrowCapsMantissa),
         token: vToken.underlyingToken,

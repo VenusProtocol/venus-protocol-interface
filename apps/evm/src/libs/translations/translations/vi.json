@@ -968,11 +968,11 @@
       "eMode": "Thị trường này thuộc nhóm E-mode {{eModeGroupName}}",
       "isolationMode": "Thị trường này thuộc nhóm chế độ cô lập {{eModeGroupName}}",
       "pausedAssetTooltip": "Tài sản đã bị tạm dừng bởi Venus Governance. Việc vay và cung cấp đã bị vô hiệu hóa.",
-      "protectionMode": "Protection Mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices.",
-      "protectionModeSupply": "This market is suffering volatility. The Protected Collateral Value is {{protectedValue}}. The conservative value used to determine your borrow power.",
-      "protectionModeBorrow": "This market is suffering volatility. The Protected Borrow Value is {{protectedValue}}. The conservative value that counts against your borrow power.",
-      "protectionModeDetailCollateral": "This market is suffering volatility. The Protected Collateral Price is {{collateralPrice}}. The conservative price used to determine your borrow power.",
-      "protectionModeDetailBorrow": "The Protected Borrow Price is {{borrowPrice}}. The conservative price used to calculate how many of this asset can be borrowed."
+      "protectionMode": "Chế độ Bảo vệ đang hoạt động cho {{tokenName}} do biến động giá, ảnh hưởng đến giá thế chấp và giá vay.",
+      "protectionModeSupply": "Thị trường này đang trải qua biến động cao. Giá trị thế chấp được bảo vệ được tính là {{protectedValue}}, đại diện cho giá trị thận trọng được sử dụng để xác định hạn mức vay của bạn.",
+      "protectionModeBorrow": "Thị trường này đang trải qua biến động cao. Giá trị vay được bảo vệ được tính là {{protectedValue}}, đại diện cho giá trị thận trọng tính vào hạn mức vay của bạn.",
+      "protectionModeDetailCollateral": "Thị trường này đang trải qua biến động cao. Giá thế chấp được bảo vệ là {{collateralPrice}} — giá thận trọng được sử dụng để xác định hạn mức vay của bạn.",
+      "protectionModeDetailBorrow": "Giá vay được bảo vệ là {{borrowPrice}} — giá thận trọng được sử dụng để tính số lượng tài sản này có thể vay."
     },
     "columnKeys": {
       "asset": "Tài sản",

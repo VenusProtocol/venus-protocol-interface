@@ -968,11 +968,11 @@
       "eMode": "該市場屬於 {{eModeGroupName}} E-mode組",
       "isolationMode": "該市場屬於 {{eModeGroupName}} 隔離模式組",
       "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。",
-      "protectionMode": "Protection Mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices.",
-      "protectionModeSupply": "This market is suffering volatility. The Protected Collateral Value is {{protectedValue}}. The conservative value used to determine your borrow power.",
-      "protectionModeBorrow": "This market is suffering volatility. The Protected Borrow Value is {{protectedValue}}. The conservative value that counts against your borrow power.",
-      "protectionModeDetailCollateral": "This market is suffering volatility. The Protected Collateral Price is {{collateralPrice}}. The conservative price used to determine your borrow power.",
-      "protectionModeDetailBorrow": "The Protected Borrow Price is {{borrowPrice}}. The conservative price used to calculate how many of this asset can be borrowed."
+      "protectionMode": "由於價格波動，{{tokenName}} 的保護模式已啟動，影響其抵押和借款價格。",
+      "protectionModeSupply": "該市場正經歷高波動性。受保護的抵押品價值按 {{protectedValue}} 計算，代表用於確定您借款額度的保守價值。",
+      "protectionModeBorrow": "該市場正經歷高波動性。受保護的借款價值按 {{protectedValue}} 計算，代表計入您借款額度的保守價值。",
+      "protectionModeDetailCollateral": "該市場正經歷高波動性。受保護的抵押品價格為 {{collateralPrice}} — 用於確定您借款額度的保守價格。",
+      "protectionModeDetailBorrow": "受保護的借款價格為 {{borrowPrice}} — 用於計算可借入該資產數量的保守價格。"
     },
     "columnKeys": {
       "asset": "資產",

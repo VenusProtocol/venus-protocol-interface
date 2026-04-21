@@ -968,11 +968,11 @@
       "eMode": "ตลาดนี้เป็นส่วนหนึ่งของกลุ่ม E-mode {{eModeGroupName}}",
       "isolationMode": "ตลาดนี้เป็นส่วนหนึ่งของกลุ่มโหมดแยก {{eModeGroupName}}",
       "pausedAssetTooltip": "สินทรัพย์ถูกหยุดโดยการกำกับดูแลของ Venus การยืมและการฝากถูกปิดใช้งาน",
-      "protectionMode": "Protection Mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices.",
-      "protectionModeSupply": "This market is suffering volatility. The Protected Collateral Value is {{protectedValue}}. The conservative value used to determine your borrow power.",
-      "protectionModeBorrow": "This market is suffering volatility. The Protected Borrow Value is {{protectedValue}}. The conservative value that counts against your borrow power.",
-      "protectionModeDetailCollateral": "This market is suffering volatility. The Protected Collateral Price is {{collateralPrice}}. The conservative price used to determine your borrow power.",
-      "protectionModeDetailBorrow": "The Protected Borrow Price is {{borrowPrice}}. The conservative price used to calculate how many of this asset can be borrowed."
+      "protectionMode": "โหมดป้องกันเปิดใช้งานสำหรับ {{tokenName}} เนื่องจากความผันผวนของราคา ส่งผลต่อราคาหลักประกันและราคาการกู้ยืม",
+      "protectionModeSupply": "ตลาดนี้กำลังประสบความผันผวนสูง มูลค่าหลักประกันที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ",
+      "protectionModeBorrow": "ตลาดนี้กำลังประสบความผันผวนสูง มูลค่าการกู้ยืมที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่นับรวมในวงเงินกู้ยืมของคุณ",
+      "protectionModeDetailCollateral": "ตลาดนี้กำลังประสบความผันผวนสูง ราคาหลักประกันที่ได้รับการป้องกันคือ {{collateralPrice}} — ราคาที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ",
+      "protectionModeDetailBorrow": "ราคาการกู้ยืมที่ได้รับการป้องกันคือ {{borrowPrice}} — ราคาที่ระมัดระวังที่ใช้คำนวณจำนวนสินทรัพย์นี้ที่สามารถกู้ยืมได้"
     },
     "columnKeys": {
       "asset": "สินทรัพย์",

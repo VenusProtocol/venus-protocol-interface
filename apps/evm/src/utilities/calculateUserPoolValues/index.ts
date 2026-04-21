@@ -31,6 +31,18 @@ export const calculateUserPoolValues = ({
       asset.userBorrowBalanceProtectedCents,
     );
 
+    // TODO: remove debug logs
+    if (asset.isProtectionModeEnabled && asset.isCollateralOfUser) {
+      console.log(
+        `[PROTECTION] Asset ${asset.vToken.underlyingToken.symbol} collateral: supplyTokens=${asset.userSupplyBalanceTokens.toFixed(4)}, supplyBalanceCents(spot)=$${asset.userSupplyBalanceCents.dividedBy(100).toFixed(2)}, supplyBalanceProtectedCents=$${asset.userSupplyBalanceProtectedCents.dividedBy(100).toFixed(2)}, CF=${asset.userCollateralFactor}, LT=${asset.userLiquidationThresholdPercentage}%`,
+      );
+    }
+    if (asset.isProtectionModeEnabled && !asset.userBorrowBalanceCents.isZero()) {
+      console.log(
+        `[PROTECTION] Asset ${asset.vToken.underlyingToken.symbol} debt: borrowTokens=${asset.userBorrowBalanceTokens.toFixed(4)}, borrowBalanceCents(spot)=$${asset.userBorrowBalanceCents.dividedBy(100).toFixed(2)}, borrowBalanceProtectedCents=$${asset.userBorrowBalanceProtectedCents.dividedBy(100).toFixed(2)}`,
+      );
+    }
+
     if (asset.isCollateralOfUser) {
       const borrowLimitContribution = asset.userSupplyBalanceCents.multipliedBy(
         asset.userCollateralFactor,
@@ -68,6 +80,13 @@ export const calculateUserPoolValues = ({
     liquidationThresholdCents: userLiquidationThresholdCents.toNumber(),
     borrowBalanceCents: userBorrowBalanceCents.toNumber(),
   });
+
+  // TODO: remove debug logs
+  if (userBorrowBalanceCents.isGreaterThan(0)) {
+    console.log(
+      `[HF_DEBUG] healthFactor=${userHealthFactor}, liqThreshold(spot)=$${userLiquidationThresholdCents.dividedBy(100).toFixed(2)}, borrowBalance(spot)=$${userBorrowBalanceCents.dividedBy(100).toFixed(2)}, borrowLimit(spot)=$${userBorrowLimitCents.dividedBy(100).toFixed(2)}, borrowLimit(protected)=$${userBorrowLimitProtectedCents.dividedBy(100).toFixed(2)}, borrowBalance(protected)=$${userBorrowBalanceProtectedCents.dividedBy(100).toFixed(2)}`,
+    );
+  }
 
   return {
     userBorrowBalanceCents,

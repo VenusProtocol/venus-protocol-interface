@@ -968,11 +968,11 @@
       "eMode": "このマーケットは{{eModeGroupName}}のEモードグループに含まれます",
       "isolationMode": "このマーケットは{{eModeGroupName}}の隔離モードグループに含まれます",
       "pausedAssetTooltip": "資産はVenusガバナンスにより停止されています。借入と供給が無効化されています。",
-      "protectionMode": "Protection Mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices.",
-      "protectionModeSupply": "This market is suffering volatility. The Protected Collateral Value is {{protectedValue}}. The conservative value used to determine your borrow power.",
-      "protectionModeBorrow": "This market is suffering volatility. The Protected Borrow Value is {{protectedValue}}. The conservative value that counts against your borrow power.",
-      "protectionModeDetailCollateral": "This market is suffering volatility. The Protected Collateral Price is {{collateralPrice}}. The conservative price used to determine your borrow power.",
-      "protectionModeDetailBorrow": "The Protected Borrow Price is {{borrowPrice}}. The conservative price used to calculate how many of this asset can be borrowed."
+      "protectionMode": "価格変動により、{{tokenName}} のプロテクションモードが有効になっています。担保価格と借入価格に影響します。",
+      "protectionModeSupply": "この市場は高いボラティリティを経験しています。保護された担保価値は {{protectedValue}} として計算され、借入可能額を決定するための保守的な価値です。",
+      "protectionModeBorrow": "この市場は高いボラティリティを経験しています。保護された借入価値は {{protectedValue}} として計算され、借入可能額に対してカウントされる保守的な価値です。",
+      "protectionModeDetailCollateral": "この市場は高いボラティリティを経験しています。保護された担保価格は {{collateralPrice}} — 借入可能額を決定するための保守的な価格です。",
+      "protectionModeDetailBorrow": "保護された借入価格は {{borrowPrice}} — この資産の借入可能量を計算するための保守的な価格です。"
     },
     "columnKeys": {
       "asset": "資産",

@@ -969,10 +969,10 @@
       "isolationMode": "This market is part of the {{eModeGroupName}} isolation mode group",
       "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled.",
       "protectionMode": "Protection Mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices.",
-      "protectionModeSupply": "This market is suffering volatility. The Protected Collateral Value is {{protectedValue}}. The conservative value used to determine your borrow power.",
-      "protectionModeBorrow": "This market is suffering volatility. The Protected Borrow Value is {{protectedValue}}. The conservative value that counts against your borrow power.",
-      "protectionModeDetailCollateral": "This market is suffering volatility. The Protected Collateral Price is {{collateralPrice}}. The conservative price used to determine your borrow power.",
-      "protectionModeDetailBorrow": "The Protected Borrow Price is {{borrowPrice}}. The conservative price used to calculate how many of this asset can be borrowed."
+      "protectionModeSupply": "This market is experiencing high volatility. The protected collateral value is calculated as {{protectedValue}}, representing the conservative value used to determine your borrow power.",
+      "protectionModeBorrow": "This market is experiencing high volatility. The protected borrow value is calculated as {{protectedValue}}, representing the conservative value that counts against your borrow power.",
+      "protectionModeDetailCollateral": "This market is experiencing high volatility. The Protected Collateral Price is {{collateralPrice}} — the conservative price used to determine your borrow power.",
+      "protectionModeDetailBorrow": "The Protected Borrow Price is {{borrowPrice}} — the conservative price used to calculate how much of this asset can be borrowed."
     },
     "columnKeys": {
       "asset": "Asset",

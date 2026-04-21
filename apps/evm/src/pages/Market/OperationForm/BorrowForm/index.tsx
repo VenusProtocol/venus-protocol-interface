@@ -153,6 +153,36 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       marginWithUserModerateRiskBorrowLimitTokens = new BigNumber(0);
     }
 
+    // TODO: remove debug logs
+    {
+      const borrowLimitProtected = pool.userBorrowLimitProtectedCents ?? new BigNumber(0);
+      const borrowBalanceProtected = pool.userBorrowBalanceProtectedCents ?? new BigNumber(0);
+      const borrowLimitSpot = pool.userBorrowLimitCents ?? new BigNumber(0);
+      const borrowBalanceSpot = pool.userBorrowBalanceCents ?? new BigNumber(0);
+      const isProtected = asset.isProtectionModeEnabled;
+      console.log(
+        `[BORROW_DEBUG] ${asset.vToken.underlyingToken.symbol} protectionMode=${isProtected}`,
+      );
+      console.log(
+        `[BORROW_DEBUG]   prices: spot=$${asset.tokenPriceCents.dividedBy(100).toFixed(2)}, supplyPrice=$${asset.tokenSupplyPriceCents.dividedBy(100).toFixed(2)}, borrowPrice=$${asset.tokenBorrowPriceCents.dividedBy(100).toFixed(2)}`,
+      );
+      console.log(
+        `[BORROW_DEBUG]   borrowLimit: spot=$${borrowLimitSpot.dividedBy(100).toFixed(2)}, protected=$${borrowLimitProtected.dividedBy(100).toFixed(2)}`,
+      );
+      console.log(
+        `[BORROW_DEBUG]   borrowBalance: spot=$${borrowBalanceSpot.dividedBy(100).toFixed(2)}, protected=$${borrowBalanceProtected.dividedBy(100).toFixed(2)}`,
+      );
+      console.log(
+        `[BORROW_DEBUG]   hardLimitTokens=${marginWithUserBorrowLimitTokens.toFixed(4)} (protected limit - protected balance) / borrowPrice`,
+      );
+      console.log(
+        `[BORROW_DEBUG]   safeLimitTokens=${marginWithUserSafeBorrowLimitTokens.toFixed(4)} (spot-based, for HF)`,
+      );
+      console.log(
+        `[BORROW_DEBUG]   moderateLimitTokens=${marginWithUserModerateRiskBorrowLimitTokens.toFixed(4)} (spot-based, for HF)`,
+      );
+    }
+
     // Borrow cap limit
     const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.borrowBalanceTokens);
 
