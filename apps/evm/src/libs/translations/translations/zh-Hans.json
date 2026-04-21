@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "净值",
-        "tooltip": "在考虑金库质押和借贷后可用的净资产",
-        "tooltipWithVai": "在考虑金库质押、借贷和已铸造 VAI 后可用的净资产"
+        "tooltip": "在考虑金库存入和借贷后可用的净资产",
+        "tooltipWithVai": "在考虑金库存入、借贷和已铸造 VAI 后可用的净资产"
       },
       "periodOption": {
         "oneYear": "1年",
@@ -61,10 +61,10 @@
         "mintedVai": "已铸造 VAI",
         "netApy": "净 APY",
         "netApyTooltip": "以年化利息形式获得的总存款余额百分比",
-        "netApyWithVaultStakeTooltip": "以年化利息形式获得的总存款余额和金库质押百分比",
+        "netApyWithVaultStakeTooltip": "以年化利息形式获得的总存款余额和金库存入百分比",
         "totalBorrow": "总借款",
         "totalSupply": "总存款",
-        "totalVaultStake": "总金库质押"
+        "totalVaultStake": "总金库存入"
       },
       "title": "概览"
     },
@@ -88,13 +88,7 @@
           "all": "所有市场"
         },
         "txType": {
-          "all": "所有交易",
-          "borrow": "借款",
-          "enterMarket": "启用可抵押",
-          "exitMarket": "禁用可抵押",
-          "mint": "存款",
-          "redeem": "取款",
-          "repay": "偿还"
+          "all": "所有交易"
         }
       },
       "today": "今天",
@@ -104,13 +98,21 @@
       },
       "txType": {
         "borrow": "借款",
-        "enterMarket": "启用可抵押",
-        "exitMarket": "禁用可抵押",
+        "enterMarket": "启用抵押",
+        "exitMarket": "禁用抵押",
         "mint": "存款",
+        "positionClosedWithLoss": "平仓（亏损） • Yield+",
+        "positionClosedWithProfit": "平仓（盈利） • Yield+",
+        "positionIncreased": "增加 • Yield+",
+        "positionOpened": "开仓 • Yield+",
+        "positionReducedWithLoss": "减少（亏损） • Yield+",
+        "positionReducedWithProfit": "减少（盈利） • Yield+",
+        "principalSupplied": "存款 • Yield+",
+        "principalWithdrawn": "取款 • Yield+",
+        "realizedPnl": "已实现盈亏 • Yield+",
         "redeem": "取款",
-        "repay": "偿还"
+        "repay": "还款"
       },
-      "view": "查看",
       "yesterday": "昨天"
     },
     "vaults": {
@@ -186,7 +188,7 @@
         "defaultMerklRewardName": "Merkl 奖励",
         "externalRewardDescription": "该外部计划的奖励可通过其 <AppLink>官方应用</AppLink>领取。Venus 协议不作任何保证且不承担责任。",
         "intrinsicApy": {
-          "description": "标的资产本身产生的原生收益——例如质押奖励。该收益来自外部来源，不由 Venus 协议保证。",
+          "description": "标的资产本身产生的原生收益——例如存款奖励。该收益来自外部来源，不由 Venus 协议保证。",
           "name": "内在 APY"
         },
         "offChainApy": {
@@ -218,10 +220,10 @@
       "logoAlt": "Prime 标志",
       "tooltip": {
         "calculatorLink": "计算你的 Prime 奖励",
-        "primeBorrowSimulation": "Prime 加成基于用户借款中位数 {{borrowBalance}} 与金库质押 {{xvsStaked}} 提升 APY。",
+        "primeBorrowSimulation": "Prime 加成基于用户借款中位数 {{borrowBalance}} 与金库存入 {{xvsStaked}} 提升 APY。",
         "primeDocLink": "了解更多",
         "primeMarket": "Prime 提升 APY。",
-        "primeSupplySimulation": "Prime 加成基于用户存款中位数 {{supplyBalance}} 与金库质押 {{xvsStaked}} 提升 APY。"
+        "primeSupplySimulation": "Prime 加成基于用户存款中位数 {{supplyBalance}} 与金库存入 {{xvsStaked}} 提升 APY。"
       }
     }
   },
@@ -231,7 +233,7 @@
     "distributionTooltip": "分发奖励由去中心化的 Venus 社区发起并实施。Venus 协议不作任何保证且不承担责任。",
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "内在 APY",
-    "intrinsicApyTooltip": "直接来自资产本身的 APY（如质押或外部奖励），与 Venus 借贷收益分开。Venus 协议不作任何保证且不承担责任。",
+    "intrinsicApyTooltip": "直接来自资产本身的 APY（如存款或外部奖励），与 Venus 借贷收益分开。Venus 协议不作任何保证且不承担责任。",
     "netApy": {
       "label": "净 APY",
       "tooltip": "涉及的所有市场 APY 之和"
@@ -258,6 +260,7 @@
       "date": "日期",
       "supplyApy": "存款 APY",
       "totalBorrow": "总借款",
+      "totalStaked": "总存入",
       "totalSupply": "总存款"
     }
   },
@@ -285,6 +288,9 @@
     "borrowDescription": "根据你在 {{poolName}} 池中的可抵押存款，可借入 {{tokenSymbol}}。<Button>显示全部代币</Button>",
     "modalTitle": "{{ poolName }} 代币",
     "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
+  },
+  "availableBalance": {
+    "label": "可用"
   },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "背景插图",
@@ -321,7 +327,7 @@
     },
     "errors": {
       "dailyTransactionLimitExceeded": {
-        "message": "由于 24 小时限制，你无法在目标链上桥接超过 {{readableAmountTokens}}（{{readableAmountUsd}}）。该限制将在 {{ date, dd MMM yyyy h:mm a }} 重置",
+        "message": "由于 24 小时限制，你无法在目标链上桥接超过 {{readableAmountTokens}}（{{readableAmountUsd}}）。该限制将在 {{ date, textualWithTime }} 重置",
         "submitButton": "输入金额超过每日限额"
       },
       "doesNotHaveEnoughNativeFunds": "{{tokenSymbol}} 余额不足",
@@ -415,7 +421,7 @@
       },
       "step3": {
         "description": "将 XVS 存入金库，赚取由协议收入提供的收益。",
-        "title": "质押 XVS"
+        "title": "存入 XVS"
       },
       "uncompleted": "未完成"
     },
@@ -423,8 +429,8 @@
       "absolutePerformance": "绝对表现",
       "netWorth": {
         "label": "净值",
-        "tooltip": "在计入金库质押和借款后可用的净资产",
-        "tooltipWithVai": "在计入金库质押、借款和已铸 VAI 后可用的净资产"
+        "tooltip": "在计入金库存入和借款后可用的净资产",
+        "tooltipWithVai": "在计入金库存入、借款和已铸 VAI 后可用的净资产"
       },
       "performanceChart": {
         "errorState": {
@@ -443,11 +449,11 @@
           "dailyEarnings": "每日收益",
           "mintedVai": "已铸 VAI",
           "netApy": "净 APY",
-          "netApyTooltip": "您总存款余额与金库质押按年利息获得的百分比",
-          "netApyWithVaultStakeTooltip": "您总供应余额与金库质押按年利息获得的百分比",
+          "netApyTooltip": "您总存款余额与金库存入按年利息获得的百分比",
+          "netApyWithVaultStakeTooltip": "您总供应余额与金库存入按年利息获得的百分比",
           "totalBorrow": "总借款",
           "totalSupply": "总存款",
-          "totalVaultStake": "金库质押总额"
+          "totalVaultStake": "金库存入总额"
         },
         "title": "摘要"
       },
@@ -472,7 +478,7 @@
     "vaults": {
       "dailyEarnings": "每日收益",
       "dailyEarningsTooltip": "您在所有活跃金库中的每日预计收益，基于各金库的当前利率或固定 APR。实际收益可能有所变化。",
-      "totalStakedValue": "总质押价值"
+      "totalStakedValue": "总存入价值"
     }
   },
   "eModeBanner": {
@@ -535,7 +541,7 @@
     "noMetaKey": "文件中没有元数据信息",
     "noParamsKey": "文件中没有参数列表",
     "noSignaturesKey": "文件中没有调用签名",
-    "noSwapQuoteFound": "未找到兑换报价。请更新表单。",
+    "noSwapQuoteFound": "未找到兑换。",
     "noTargetsKey": "文件中没有目标列表",
     "noTypeKey": "文件中未指明提案类型",
     "proposalNotFound": "未找到提案",
@@ -728,6 +734,7 @@
       "liquidity": "流动性",
       "maxLtv": {
         "label": "最大 LTV",
+        "modeInfoHint": "<Link>探索</Link>可用的 LTV 选项。",
         "tooltip": "最大 LTV 即借款限额。在 {{maxLtv}} LTV 下，1 {{tokenSymbol}} 的可抵押允许借入价值 {{userCollateralFactor}} {{tokenSymbol}} 的货币。"
       },
       "price": "价格",
@@ -771,6 +778,9 @@
         "vai": {
           "description": "铸造 Venus 的原生稳定币。",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -828,10 +838,12 @@
     },
     "eModeInfo": {
       "eMode": {
-        "title": "E-mode"
+        "title": "E-mode",
+        "tooltip": "Boosts capital efficiency for correlated assets (e.g. stablecoins, LSTs) with better collateral factors and lower liquidation costs."
       },
       "isolationMode": {
-        "title": "隔离模式"
+        "title": "隔离模式",
+        "tooltip": "A risk-containment mode for newer or more volatile assets."
       },
       "link": "显示全部市场",
       "table": {
@@ -856,13 +868,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "借款人数",
+        "collateralFactorLabel": "抵押系数 (Core)",
         "dailyBorrowingInterestsLabel": "每日借款利息",
         "dailyDistribution": "每日分发 {{tokenSymbol}}",
         "dailySupplyingInterestsLabel": "每日存款利息",
         "exchangeRateLabel": "兑换率",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "isBorrowableLabel": "可借 (Core)",
+        "liquidationPenaltyLabel": "清算罚金 (Core)",
+        "liquidationThresholdLabel": "清算阈值 (Core)",
+        "no": "否",
         "reserveFactorLabel": "准备金系数",
-        "supplierCountLabel": "存款人数"
+        "supplierCountLabel": "存款人数",
+        "yes": "是"
       }
     },
     "periodOption": {
@@ -1050,10 +1068,27 @@
       "higherThanWalletBalance": "{{tokenSymbol}} 余额不足",
       "higherThanWalletSpendingLimit": "你输入的金额超过该资产的支出限额。请先撤销支出限额并设置新的限额后再继续交易。",
       "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
-      "noSwapQuoteFound": "未找到兑换报价。请更新表单。",
+      "noSwapQuoteFound": "未找到兑换。",
       "priceImpactTooHigh": "价格影响过高",
       "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
       "tooRisky": "该交易会导致账户被清算"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "当前杠杆下的最大仓位：{{ value }}",
+      "submitButtonLabel": "确认",
+      "title": "杠杆倍数",
+      "warning": "杠杆会影响你的资金利用率，并且在你完全平仓前无法更改。"
+    },
+    "managePositionsTabs": {
+      "collateral": "可抵押",
+      "position": "仓位",
+      "positionsTabs": {
+        "increase": "增加",
+        "reduce": "减少",
+        "supply": "存款",
+        "withdraw": "取款"
+      }
     },
     "receiveNativeToken": {
       "label": "接收 {{tokenSymbol}}",
@@ -1074,8 +1109,8 @@
     },
     "rightMaxButtonLabel": "最大",
     "riskSlider": {
-      "highRisk": "高风险",
-      "lowRisk": "低风险"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "安全最大值",
     "submitButtonLabel": {
@@ -1154,12 +1189,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "要符合 Prime 奖励资格，至少需质押 {{minimumXvsStaked}} XVS。",
-        "label": "合格质押 XVS",
+        "error": "要符合 Prime 奖励资格，至少需存入 {{minimumXvsStaked}} XVS。",
+        "label": "合格存入 XVS",
         "tooltip": "最多 {{maximumXvsStaked}} 将计入你的 Prime 奖励"
       },
       "textField": {
-        "label": "已质押 XVS"
+        "label": "已存入 XVS"
       }
     },
     "suppliedTokens": {
@@ -1181,8 +1216,8 @@
     "becomePrimeTitle": "你现在可以成为 Prime 用户",
     "claimButtonLabel": "领取 Prime 代币",
     "description": {
-      "primeCalculator": "再质押 <WhiteText>{{stakeDelta}}</WhiteText> 并等待 {{claimWaitingPeriod}} 即可领取 Prime 代币并提升收益。<Link>计算 Prime 奖励</Link>",
-      "primeDoc": "再质押 <WhiteText>{{stakeDelta}}</WhiteText> 并等待 {{claimWaitingPeriod}} 即可领取 Prime 代币并提升收益。<Link>了解更多</Link>"
+      "primeCalculator": "再存入 <WhiteText>{{stakeDelta}}</WhiteText> 并等待 {{claimWaitingPeriod}} 即可领取 Prime 代币并提升收益。<Link>计算 Prime 奖励</Link>",
+      "primeDoc": "再存入 <WhiteText>{{stakeDelta}}</WhiteText> 并等待 {{claimWaitingPeriod}} 即可领取 Prime 代币并提升收益。<Link>了解更多</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "所有 Prime 代币已被领取",
@@ -1190,10 +1225,10 @@
     },
     "progressBar": {
       "ariaLabel": "你的当前 Prime 进度",
-      "label": "已质押：<WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "已存入：<WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "将收益提升高达 <GreenText>{{percentage}}</GreenText>",
-    "stakeButtonLabel": "质押 XVS",
+    "stakeButtonLabel": "存入 XVS",
     "tokensLeft": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "tokensLeft_one": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "tokensLeft_many": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
@@ -1218,6 +1253,18 @@
     "pending": "待定",
     "queued": "排队中",
     "succeeded": "成功"
+  },
+  "requestWithdrawalFromVestingVaultForm": {
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "请连接钱包查看你的取款请求"
+      },
+      "emptyState": "你没有活跃的取款请求",
+      "locked": "锁定至 {{date, numericWithTime}}",
+      "title": "取款请求",
+      "unlocked": "已解锁",
+      "withdrawButtonLabel": "提取已解锁余额"
+    }
   },
   "select": {
     "defaultLabel": "选择选项"
@@ -1500,13 +1547,6 @@
     "label": "支出限额",
     "labelTooltip": "这是你当前对该资产的支出上限。如需更多支出，请撤销上限并重新设置。",
     "revokeButtonTooltip": "撤销支出限额"
-  },
-  "stakeModal": {
-    "availableTokensLabel": "可用 {{tokenSymbol}}",
-    "connectWalletMessage": "请连接钱包以质押 {{tokenSymbol}}",
-    "submitButtonDisabledLabel": "输入有效质押金额",
-    "submitButtonLabel": "质押",
-    "title": "质押 {{tokenSymbol}}"
   },
   "statsPage": {
     "illustrationAlt": "统计插图",
@@ -1830,23 +1870,27 @@
       "claimReward": "领取奖励",
       "currentDeposited": "当前存款",
       "dailyEmission": "每日奖励释放",
+      "effectiveFixedApr": "实际固定年化利率",
+      "header": {
+        "maturityDate_other": "{{ date, textual }}（{{ count }}天）"
+      },
       "liquidity": "流动性",
       "liquidityTooltip": "此金库底层 Pendle 集成资金池（或策略）中当前提供的资产总价值。",
       "manager": "管理机构",
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
-      "numDays_other": "{{count}} 天",
       "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、存入和提款功能已禁用，直至金库恢复运作。",
-      "stake": "质押",
-      "stakingApr": "{{stakeTokenName}} 质押 APR",
-      "textualDate": "{{date, textual}}",
+      "primeEligibility": "Prime 资格",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "总存款",
-      "totalStaked": "总质押",
-      "withdraw": "取款",
-      "youAreStake": "你正在质押",
-      "youDeposited": "你已存入"
+      "youDeposited": "你正在存入"
     },
+    "category": {
+      "governance": "治理",
+      "stablecoins": "稳定币",
+      "yieldTokens": "收益代币"
+    },
+    "description": "轻松获取收益，让回报真正落地",
     "filter": {
       "active": "进行中",
       "allCategories": "所有类别",
@@ -1856,19 +1900,15 @@
       "deposit": "存款",
       "earning": "收益中",
       "inputPlaceholder": "搜索资产",
-      "others": "其他",
       "paused": "已暂停",
       "refund": "退款",
-      "repaying": "还款中",
-      "stablecoins": "稳定币",
-      "vaults": "金库",
-      "yieldTokens": "收益代币"
+      "repaying": "还款中"
     },
+    "header": "金库",
     "modals": {
       "afterMaturityPendleDisclaimer": "请先通过取款按钮将您的 PT 代币提取到钱包，然后访问 <Link>Pendle 官方</Link>网站赎回您的底层代币。",
-      "available": "可用",
       "claim": "领取",
-      "connectWalletMessage": "请连接您的钱包以质押 / 提取 {{tokenSymbol}}",
+      "connectWalletMessage": "请连接您的钱包以存入 / 提取 {{tokenSymbol}}",
       "convert": "转换",
       "currentDeposited": "当前存入",
       "currentDepositedTooltip": "您当前在此金库中锁定并产生收益的资产数量。",
@@ -1880,7 +1920,7 @@
         "higherThanAvailable": "金额超过您的可用{{tokenSymbol}}余额。请减少金额或点击 '最大' 使用全部余额。",
         "invalidAmount": "输入金额无效。",
         "invalidAmountFromQuote": "输入金额超过Pendle市场的可用流动性。请减少金额后重试。",
-        "lowerThanMinimumAmount": "输入金额过低。最低金额应不少于 {{amount}} USD。",
+        "lowerThanMinimumAmount": "输入金额过低。允许的最低金额相当于 {{amount}} USD。",
         "noSwapQuoteFound": "未找到兑换报价，请更新表单。",
         "pendleApiError": "Pendle 当前请求量较大，请稍后再试。"
       },
@@ -1890,7 +1930,6 @@
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
       "maturityPendleDisclaimer": "到期前，提款时收到的金额取决于 Pendle 市场价格。到期后，提款将根据您持有的 PT 代币 1:1 赎回。",
-      "max": "最大",
       "minReceived": "最低收到",
       "overview": {
         "manager": "管理机构",
@@ -1900,41 +1939,72 @@
         "riskDisclosureText": "Pendle 是一个去中心化的收益交易协议，通过本金代币（PT）实现固定收益。Venus 固定利率金库通过 Pendle 的基础设施获取 PT，并将其作为抵押品供应给 Venus Core。<br />虽然 Pendle 无法访问或转移您的存款，但使用此金库会使您面临来自两个协议的风险。这些风险包括智能合约漏洞、预言机故障，以及任一协议被攻击或暂停的可能性。提前提款按市场价格执行，可能低于存入金额。固定 APY 在存入时锁定，无法防范协议层面的故障。",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "存款",
           "users": "用户",
           "venusCore": "Venus Core"
         },
         "strategyAllocation": "策略分配",
-        "supply": "存款",
+        "supply": "质押",
         "totalDeposited": "总存款",
-        "totalDeposits": "总存款",
         "vaultDeploymentDate": "金库部署日期"
       },
       "overviewTab": "概览",
       "pendleFee": "Pendle 费用",
       "positionTab": "持仓",
-      "submitButtonDisabledLabel": "输入有效申请金额",
+      "stakeTab": "存款",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "取款"
+      "withdraw": "取款",
+      "withdrawTab": "取款"
     },
     "overview": {
-      "bannerCoinIllustration": "{{token}} 硬币插图",
-      "bannerTitle": "质押 <strong>{{tokenDashMarket}}</strong> 享受 <strong>{{apyPercentage}}</strong> APR",
-      "bannerVaultIllustration": "金库插图",
-      "description": "收益化繁为简，回报触手可及 — 存入多个金库，<strong>按您的方式</strong>让加密资产增值。",
-      "highestApr": "最高 APR",
-      "title": "金库",
-      "tokenTotalDeposited": "{{token}} 总存入量",
-      "tvl": "TVL",
-      "vaultCount": "金库"
-    },
-    "transactionForm": {
-      "lockingPeriod": {
-        "duration": "{{date, distanceToNow}}",
-        "label": "锁定期"
+      "bannerVaultIllustration": "金库插图"
+    }
+  },
+  "vaultCard": {
+    "vaultModal": {
+      "footer": {
+        "currentlyStaked": "当前存入",
+        "estimatedDailyEarnings": "预估日收益",
+        "lockingPeriod": {
+          "duration": "{{date, distanceToNow}}",
+          "label": "锁定期",
+          "tooltip": "锁定期是指从提交取款请求到请求金额实际可从金库中取出的这段等待时间。"
+        }
       },
-      "rightMaxButtonLabel": "最大"
+      "requestWithdrawalFromVestingVaultForm": {
+        "displayWithdrawalRequestListButton": {
+          "label": "取款请求列表",
+          "tooltip": "你有已解锁的 XVS 可领取。"
+        },
+        "primeLossWarning": {
+          "message": "如果你提取该金额，你将失去 Prime 代币，因为你在 XVS 金库中的存入金额将低于获得 Prime 资格所需的最低值 {{minimumXvsStake}}。"
+        },
+        "requestWithdrawalField": {
+          "label": "申请取款"
+        },
+        "submitButton": {
+          "label": "申请取款"
+        }
+      },
+      "stakeForm": {
+        "depositField": {
+          "label": "存款"
+        },
+        "footer": {
+          "apr": "APR"
+        },
+        "submitButton": {
+          "label": "存款"
+        }
+      },
+      "withdrawFromVaiVault": {
+        "submitButton": {
+          "label": "取款"
+        },
+        "withdrawField": {
+          "label": "取款"
+        }
+      }
     }
   },
   "venusFluxBanner": {
@@ -1988,7 +2058,6 @@
       "message": "提案获取失败"
     },
     "for": "赞成",
-    "goToXvsSnapshot": "前往 XVS Snapshot 页面",
     "omnichain": {
       "switchToBnb": "切换到 BNB Chain",
       "votingOnlyEnabledOnBnb": "投票仅在 BNB Chain 上可用"
@@ -2029,8 +2098,8 @@
     "youDelegatedTo": "你已将锁定的代币委托给 {{delegate}}"
   },
   "voteProposalUi": {
-    "activeUntilDate": "有效期至：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "canceledDate": "已取消：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "activeUntilDate": "有效期至：<Date>{{ date, textualWithTime }}</Date>",
+    "canceledDate": "已取消：<Date>{{ date, textualWithTime }}</Date>",
     "command": {
       "actionButton": {
         "cancel": "取消",
@@ -2070,23 +2139,23 @@
       "minutesIncluded": "{{minutes}}分 : {{seconds}}秒",
       "secondsIncluded": "{{seconds}}秒"
     },
-    "defeatedDate": "已否决：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "defeatedDate": "已否决：<Date>{{ date, textualWithTime }}</Date>",
     "description": "描述",
-    "executedDate": "已执行：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "expiredDate": "已过期：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "executedDate": "已执行：<Date>{{ date, textualWithTime }}</Date>",
+    "expiredDate": "已过期：<Date>{{ date, textualWithTime }}</Date>",
     "greenPulseAnimation": {
       "altText": "绿色脉冲动画"
     },
     "proposalState": {
-      "activeTimestamp": "自 <Span>{{date, dd MMM yyyy HH:mm}}</Span> 起生效",
-      "canceledTimestamp": "已取消：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "defeatedTimestamp": "已否决：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "executedTimestamp": "已执行：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "expiredTimestamp": "已过期：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "queuedTimestamp": "已排队：<Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "succeededTimestamp": "已成功：<Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+      "activeTimestamp": "自 <Span>{{date, textualWithTime}}</Span> 起生效",
+      "canceledTimestamp": "已取消：<Span>{{date, textualWithTime}}</Span>",
+      "defeatedTimestamp": "已否决：<Span>{{date, textualWithTime}}</Span>",
+      "executedTimestamp": "已执行：<Span>{{date, textualWithTime}}</Span>",
+      "expiredTimestamp": "已过期：<Span>{{date, textualWithTime}}</Span>",
+      "queuedTimestamp": "已排队：<Span>{{date, textualWithTime}}</Span>",
+      "succeededTimestamp": "已成功：<Span>{{date, textualWithTime}}</Span>"
     },
-    "queuedUntilDate": "排队至：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "queuedUntilDate": "排队至：<Date>{{ date, textualWithTime }}</Date>",
     "status": {
       "executedPayloads": "已执行负载",
       "readyForExecution": "准备执行",
@@ -2097,8 +2166,8 @@
       "ariaLabelAgainst": "反对票",
       "ariaLabelFor": "赞成票"
     },
-    "timeUntilExecutable": "可执行于：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "timeUntilVotable": "投票开始：<Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilExecutable": "可执行于：<Date>{{ date, textualWithTime }}</Date>",
+    "timeUntilVotable": "投票开始：<Date>{{ date, textualWithTime }}</Date>",
     "voteStatus": {
       "abstained": "已弃权",
       "notVoted": "未投票",
@@ -2153,45 +2222,112 @@
       "address": "（{{address}}）"
     }
   },
-  "withdrawFromVaiVaultModal": {
-    "availableTokensLabel": "可用 {{tokenSymbol}}",
-    "connectWalletMessage": "请连接钱包以取款 {{tokenSymbol}}",
-    "submitButtonDisabledLabel": "输入有效取款金额",
-    "submitButtonLabel": "取款",
-    "title": "取款 {{tokenSymbol}}"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "取款请求列表",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "请连接钱包以取款"
-      },
-      "availableTokensLabel": "可请求 {{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "取款请求列表",
-      "primeLossWarning": {
-        "message": "如果取款该金额，你将失去 Prime 代币，因为你在 XVS 金库的质押将低于获得 Prime 的最低要求 {{minimumXvsStake}}。",
-        "submitButtonLabel": "失去 Prime 代币并申请取款"
-      },
-      "submitButtonDisabledLabel": "输入有效申请金额",
-      "submitButtonLabel": "申请取款"
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "Yield+ 插图",
+      "learnMore": "了解更多",
+      "title": "什么是 Yield+？"
     },
-    "requestWithdrawalTabTitle": "申请取款",
-    "title": "取款 {{tokenSymbol}}",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "请连接钱包查看你的取款请求"
-      },
-      "emptyState": "你没有活跃的取款请求",
-      "itemContent": "锁定至 {{date, dd.MM.yy h:mm a}}"
+    "closePositionModal": {
+      "title": "关闭"
     },
-    "withdrawalRequestListTitle": "取款请求列表",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "请连接钱包以取款"
-      },
-      "availableTokens": "可用 {{tokenSymbol}}",
-      "submitButton": "取款"
+    "longLiquidity": "多头流动性",
+    "longSupplyApy": "{{ longTokenSymbol }} 存款 APY",
+    "longTokenSelect": {
+      "label": "多头"
     },
-    "withdrawTabTitle": "取款"
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "增加"
+      },
+      "invalidLiquidationPrice": "不适用",
+      "openForm": {
+        "collateral": "可抵押",
+        "dsaFieldLabel": "可抵押",
+        "dsaFieldPlaceholder": "输入以继续",
+        "entryPrice": "开仓价",
+        "liquidationPrice": "清算价",
+        "long": "多头",
+        "longFieldLabel": "多头",
+        "netApy": "净 APY",
+        "pnl": "已实现盈亏",
+        "short": "空头",
+        "shortFieldLabel": "空头",
+        "submitButtonLabel": "开仓"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "关闭",
+          "reduce": "减少"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "存款"
+      },
+      "walletBalance": "钱包余额",
+      "warning": {
+        "cannotBorrowShort": "该仓位的空头代币借款已被禁用",
+        "cannotRepayShort": "该仓位的空头代币还款已被禁用",
+        "cannotSupplyDsa": "该仓位的抵押品代币存款已被禁用",
+        "cannotSupplyLong": "该仓位的多头代币存款已被禁用",
+        "cannotWithdrawDsa": "该仓位的抵押品代币取款已被禁用",
+        "cannotWithdrawLong": "该仓位的多头代币取款已被禁用",
+        "notEnoughLeverage": "该代币对不支持至少 {{ minimumLeverageFactor }} 的杠杆倍数，而这是开立 Yield+ 仓位所需的最低值"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "取款"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "关闭",
+      "placeholder": {
+        "title": "暂无仓位"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "可抵押"
+        },
+        "healthFactor": {
+          "label": "健康系数",
+          "tooltip": "清算阈值 < 1.0"
+        },
+        "netApy": {
+          "label": "净 APY"
+        },
+        "netValue": {
+          "label": "净值"
+        },
+        "title": "状态"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "该仓位的入场价格比率（空头资产数量 ÷ 多头资产数量），反映自入场以来两种代币之间的相对价值"
+        },
+        "liquidationPrice": {
+          "title": "清算价"
+        },
+        "longColumn": {
+          "title": "多头"
+        },
+        "pnlColumn": {
+          "title": "盈亏"
+        },
+        "positionColumn": {
+          "title": "仓位"
+        },
+        "shortColumn": {
+          "title": "空头"
+        }
+      },
+      "transactions": {
+        "title": "交易"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
+    "shortLiquidity": "空头流动性",
+    "shortTokenSelect": {
+      "label": "空头"
+    }
   }
 }

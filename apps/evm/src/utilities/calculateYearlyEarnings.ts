@@ -32,7 +32,7 @@ export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => 
     interestPercentage: combinedDistributionApys.totalBorrowApyPercentage,
   });
 
-  return supplyYearlyEarningsCents.minus(borrowYearlyInterestsCents).dp(0);
+  return supplyYearlyEarningsCents.minus(borrowYearlyInterestsCents);
 };
 
 export const calculateYearlyEarningsForAssets = ({ assets }: { assets: Asset[] }) => {

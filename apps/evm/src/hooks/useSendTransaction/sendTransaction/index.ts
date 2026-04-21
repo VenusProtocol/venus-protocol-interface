@@ -18,6 +18,7 @@ import {
   encodeFunctionData,
 } from 'viem';
 import { eip712WalletActions } from 'viem/zksync';
+import { generateTenderlySimulationUrl } from './generateTenderlySimulationUrl';
 
 const GAS_ESTIMATION_FAILED_ERROR = 'Gas estimation failed';
 export const GAS_LIMIT_BUFFER_PERCENTAGE = 35;
@@ -105,6 +106,18 @@ export const sendTransaction = async <
       address: txData.address,
     } as EncodeFunctionDataParameters),
   };
+
+  if (!gasless && config.environment !== 'production') {
+    const tenderlySimulationUrl = generateTenderlySimulationUrl({
+      txData,
+      chainId,
+      accountAddress,
+    });
+
+    if (tenderlySimulationUrl) {
+      console.log(`Tenderly simulation: ${tenderlySimulationUrl}`);
+    }
+  }
 
   if (!gasless) {
     // Estimate gas limit

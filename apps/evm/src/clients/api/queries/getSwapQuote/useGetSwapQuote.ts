@@ -1,9 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import { isEqual } from 'lodash-es';
 
 import FunctionKey from 'constants/functionKey';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import type { SwapQuoteError } from 'types';
+import type { ChainId, SwapQuoteError } from 'types';
 import callOrThrow from 'utilities/callOrThrow';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import {
@@ -20,15 +21,22 @@ export type TrimmedGetSwapQuoteInput =
   | Omit<GetExactOutSwapQuoteInput, 'chainId'>
   | Omit<GetApproximateOutSwapQuoteInput, 'chainId'>;
 
+type QueryKey = [
+  FunctionKey.GET_SWAP_QUOTE,
+  TrimmedGetSwapQuoteInput & {
+    chainId: ChainId;
+  },
+];
+
 type Options = QueryObserverOptions<
   GetSwapQuoteOutput,
   SwapQuoteError,
   GetSwapQuoteOutput,
   GetSwapQuoteOutput,
-  [FunctionKey.GET_SWAP_QUOTE, TrimmedGetSwapQuoteInput]
+  QueryKey
 >;
 
-const refetchInterval = generatePseudoRandomRefetchInterval();
+const refetchInterval = generatePseudoRandomRefetchInterval('fast');
 
 export const useGetSwapQuote = (input: TrimmedGetSwapQuoteInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
@@ -39,8 +47,10 @@ export const useGetSwapQuote = (input: TrimmedGetSwapQuoteInput, options?: Parti
   const wrappedFromToken = wbnb && wrapToken({ token: input.fromToken, wrappedToken: wbnb });
   const wrappedToToken = wbnb && wrapToken({ token: input.toToken, wrappedToken: wbnb });
 
+  const queryKey: QueryKey = [FunctionKey.GET_SWAP_QUOTE, { ...input, chainId }];
+
   return useQuery({
-    queryKey: [FunctionKey.GET_SWAP_QUOTE, input],
+    queryKey,
     queryFn: () =>
       callOrThrow(
         {
@@ -55,6 +65,8 @@ export const useGetSwapQuote = (input: TrimmedGetSwapQuoteInput, options?: Parti
           }),
       ),
     retry: false,
+    placeholderData: (previousData, previousQuery) =>
+      isEqual(queryKey, previousQuery?.queryKey) ? previousData : undefined,
     refetchInterval,
     ...options,
   });

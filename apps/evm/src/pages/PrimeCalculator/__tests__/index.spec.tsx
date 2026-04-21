@@ -147,7 +147,7 @@ describe('PrimeCalculator', () => {
     );
   });
 
-  it('informs the user the minimum XVS that must be staked if they input a lower amount', async () => {
+  it('informs the user the minimum XVS that must be deposited if they input a lower amount', async () => {
     const { getByTestId, getByText } = renderComponent(<PrimeCalculator />);
 
     const stakedAmountInput = await waitFor(
@@ -166,11 +166,11 @@ describe('PrimeCalculator', () => {
 
     // Check message is shown
     await waitFor(() =>
-      getByText('To be eligible for Prime rewards, at least 1000 XVS tokens must be staked.'),
+      getByText('To be eligible for Prime rewards, at least 1000 XVS tokens must be deposited.'),
     );
   });
 
-  it('informs the user the minimum XVS that must be staked if they input a lower amount', async () => {
+  it('informs the user the minimum XVS that must be deposited if they input a lower amount', async () => {
     const { getByTestId, getByText } = renderComponent(<PrimeCalculator />);
 
     const stakedAmountInput = await waitFor(
@@ -189,7 +189,7 @@ describe('PrimeCalculator', () => {
 
     // Check message is shown
     await waitFor(() =>
-      getByText('To be eligible for Prime rewards, at least 1000 XVS tokens must be staked.'),
+      getByText('To be eligible for Prime rewards, at least 1000 XVS tokens must be deposited.'),
     );
   });
 

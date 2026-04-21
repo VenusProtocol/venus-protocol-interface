@@ -13,7 +13,6 @@ import {
   ButtonWrapper,
   Card,
   Delimiter,
-  Icon,
   InfoIcon,
   NoticeInfo,
   PrimaryButton,
@@ -31,8 +30,6 @@ import config from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import DelegateModal from './DelegateModal';
 import TEST_IDS from './testIds';
-
-const XVS_SNAPSHOT_URL = 'https://snapshot.org/#/venus-xvs.eth';
 
 export interface VotingWalletProps {
   className?: string;
@@ -235,17 +232,6 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
               />
             </span>
           </Card>
-
-          <ButtonWrapper
-            variant="secondary"
-            className="text-white mt-6 w-full hover:no-underline"
-            asChild
-          >
-            <Link href={XVS_SNAPSHOT_URL}>
-              <Icon className="mr-2 h-6 w-6" name="lightning" />
-              {t('vote.goToXvsSnapshot')}
-            </Link>
-          </ButtonWrapper>
 
           <DelegateModal
             onClose={() => setDelegateModelIsOpen(false)}

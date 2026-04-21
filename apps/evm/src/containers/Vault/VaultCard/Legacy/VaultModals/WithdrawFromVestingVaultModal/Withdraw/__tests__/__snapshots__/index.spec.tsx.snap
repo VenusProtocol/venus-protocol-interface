@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Withdraw > fetches available tokens amount and displays it correctly 1`] = `"Available VAI3 VAI"`;

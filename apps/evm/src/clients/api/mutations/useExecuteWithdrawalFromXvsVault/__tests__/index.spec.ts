@@ -1,6 +1,6 @@
 import fakeAccountAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';

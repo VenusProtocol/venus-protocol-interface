@@ -22,6 +22,14 @@ import { fromUnixTime } from 'date-fns';
 import Bridge from '..';
 import TEST_IDS from '../testIds';
 
+vi.mock('hooks/useIsFeatureEnabled', async () => {
+  const actual = await vi.importActual<typeof import('hooks/useIsFeatureEnabled')>(
+    'hooks/useIsFeatureEnabled',
+  );
+
+  return actual;
+});
+
 const fakeDailyLimitResetTimestamp = new BigNumber('1705060800');
 const fakeMaxDailyLimitUsd = new BigNumber('100000000000000000000');
 // tests will run inside the 24 hour daily transaction window
@@ -67,12 +75,6 @@ describe('Bridge', () => {
     }));
     (useGetXvsBridgeStatus as Mock).mockImplementation(() => ({
       data: fakeBridgeStatusData,
-    }));
-
-    vi.mock('hooks/useIsFeatureEnabled', () => ({
-      featureFlags: {
-        bridgeRoute: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],
-      },
     }));
   });
 
@@ -337,7 +339,7 @@ describe('Bridge', () => {
     // Check the warning shown to the user
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-        `"You cannot bridge more than 0 XVS ($0) on the destination chain due to the 24-hour limit. This limit will be reset on Jan 13, 2024"`,
+        `"You cannot bridge more than 0 XVS ($0) on the destination chain due to the 24-hour limit. This limit will be reset on Jan 13, 2024 12:00 PM"`,
       ),
     );
 

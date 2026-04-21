@@ -5,7 +5,7 @@ import { InfoIcon } from 'components/InfoIcon';
 export interface CellProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string | number | React.ReactNode;
   label?: string;
-  tooltip?: string;
+  tooltip?: string | React.ReactNode;
 }
 
 export const Cell: React.FC<CellProps> = ({ className, tooltip, label, value, ...otherProps }) => (
@@ -18,6 +18,6 @@ export const Cell: React.FC<CellProps> = ({ className, tooltip, label, value, ..
       </div>
     )}
 
-    <p className="text-lg">{value}</p>
+    <p className="text-p3s">{value}</p>
   </div>
 );

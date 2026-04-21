@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';

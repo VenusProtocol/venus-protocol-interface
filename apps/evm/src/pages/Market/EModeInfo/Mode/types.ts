@@ -7,6 +7,7 @@ export interface ExtendedEModeAssetSettings extends EModeAssetSettings {
 
 export interface ModeProps {
   title: string;
+  tooltip?: string;
   pool: Pool;
   eModeAssetSettings: ExtendedEModeAssetSettings[];
 }

@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "มูลค่าสุทธิ",
-        "tooltip": "มูลค่าสุทธิของสินทรัพย์ที่ใช้ได้หลังคำนึงถึงการสเตคในวอลต์และการยืม",
-        "tooltipWithVai": "มูลค่าสุทธิของสินทรัพย์ที่ใช้ได้หลังคำนึงถึงการสเตคในวอลต์ การยืม และ VAI ที่ถูกมินต์แล้ว"
+        "tooltip": "มูลค่าสุทธิของสินทรัพย์ที่ใช้ได้หลังคำนึงถึงการฝากในวอลต์และการยืม",
+        "tooltipWithVai": "มูลค่าสุทธิของสินทรัพย์ที่ใช้ได้หลังคำนึงถึงการฝากในวอลต์ การยืม และ VAI ที่ถูกมินต์แล้ว"
       },
       "periodOption": {
         "oneYear": "1ปี",
@@ -61,10 +61,10 @@
         "mintedVai": "VAI ที่มินต์แล้ว",
         "netApy": "APY สุทธิ",
         "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมที่ได้รับเป็นดอกเบี้ยรายปี",
-        "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการสเตคในวอลต์ที่ได้รับเป็นดอกเบี้ยรายปี",
+        "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการฝากในวอลต์ที่ได้รับเป็นดอกเบี้ยรายปี",
         "totalBorrow": "ยอดยืมรวม",
         "totalSupply": "ยอดฝากรวม",
-        "totalVaultStake": "ยอดสเตคในวอลต์รวม"
+        "totalVaultStake": "ยอดฝากในวอลต์รวม"
       },
       "title": "สรุป"
     },
@@ -88,13 +88,7 @@
           "all": "ตลาดทั้งหมด"
         },
         "txType": {
-          "all": "ธุรกรรมทั้งหมด",
-          "borrow": "ยืม",
-          "enterMarket": "เปิดใช้หลักประกัน",
-          "exitMarket": "ปิดใช้หลักประกัน",
-          "mint": "ฝาก",
-          "redeem": "ถอน",
-          "repay": "การชำระคืน"
+          "all": "ธุรกรรมทั้งหมด"
         }
       },
       "today": "วันนี้",
@@ -107,10 +101,18 @@
         "enterMarket": "เปิดใช้หลักประกัน",
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
+        "positionClosedWithLoss": "ปิด (ขาดทุน) • Yield+",
+        "positionClosedWithProfit": "ปิด (กำไร) • Yield+",
+        "positionIncreased": "เพิ่ม • Yield+",
+        "positionOpened": "เปิด • Yield+",
+        "positionReducedWithLoss": "ลดลง (ขาดทุน) • Yield+",
+        "positionReducedWithProfit": "ลดลง (กำไร) • Yield+",
+        "principalSupplied": "ฝาก • Yield+",
+        "principalWithdrawn": "ถอน • Yield+",
+        "realizedPnl": "กำไร/ขาดทุนที่รับรู้ • Yield+",
         "redeem": "ถอน",
-        "repay": "การชำระคืน"
+        "repay": "ชำระคืน"
       },
-      "view": "ดู",
       "yesterday": "เมื่อวาน"
     },
     "vaults": {
@@ -186,7 +188,7 @@
         "defaultMerklRewardName": "รางวัล Merkl",
         "externalRewardDescription": "รางวัลจากโปรแกรมภายนอกนี้สามารถรับได้ผ่าน <AppLink>แอปอย่างเป็นทางการ</AppLink> โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
         "intrinsicApy": {
-          "description": "ผลตอบแทนพื้นฐานจากสินทรัพย์อ้างอิงเอง เช่น รางวัลการสเตค ผลตอบแทนนี้มาจากแหล่งภายนอกและไม่ได้รับการรับประกันจาก Venus Protocol.",
+          "description": "ผลตอบแทนพื้นฐานจากสินทรัพย์อ้างอิงเอง เช่น รางวัลการฝาก ผลตอบแทนนี้มาจากแหล่งภายนอกและไม่ได้รับการรับประกันจาก Venus Protocol.",
           "name": "APY พื้นฐาน"
         },
         "offChainApy": {
@@ -218,10 +220,10 @@
       "logoAlt": "โลโก้ Prime",
       "tooltip": {
         "calculatorLink": "คำนวณรางวัล Prime ของคุณ",
-        "primeBorrowSimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากการยืมค่ามัธยฐานของผู้ใช้ {{borrowBalance}} และการสเตคในวอลต์ {{xvsStaked}}.",
+        "primeBorrowSimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากการยืมค่ามัธยฐานของผู้ใช้ {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
         "primeDocLink": "เรียนรู้เพิ่มเติม",
         "primeMarket": "APY ถูกบูสต์ด้วย Prime.",
-        "primeSupplySimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากยอดฝากค่ามัธยฐานของผู้ใช้ {{supplyBalance}} และการสเตคในวอลต์ {{xvsStaked}}."
+        "primeSupplySimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากยอดฝากค่ามัธยฐานของผู้ใช้ {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}}."
       }
     }
   },
@@ -231,7 +233,7 @@
     "distributionTooltip": "รางวัลการแจกจ่ายถูกเริ่มและดำเนินการโดยชุมชน Venus แบบกระจายอำนาจ โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "APY พื้นฐาน",
-    "intrinsicApyTooltip": "APY ที่ได้โดยตรงจากสินทรัพย์เอง (เช่น การสเตคหรือรางวัลภายนอก) แยกจากผลตอบแทนการให้กู้ของ Venus โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+    "intrinsicApyTooltip": "APY ที่ได้โดยตรงจากสินทรัพย์เอง (เช่น การฝากหรือรางวัลภายนอก) แยกจากผลตอบแทนการให้กู้ของ Venus โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
     "netApy": {
       "label": "APY สุทธิ",
       "tooltip": "ผลรวมของ APY ของทุกตลาดที่เกี่ยวข้อง"
@@ -258,6 +260,7 @@
       "date": "วันที่",
       "supplyApy": "APY การฝาก",
       "totalBorrow": "ยอดยืมรวม",
+      "totalStaked": "ยอดฝากรวม",
       "totalSupply": "ยอดฝากรวม"
     }
   },
@@ -285,6 +288,9 @@
     "borrowDescription": "คุณสามารถยืม {{tokenSymbol}} ได้ตามยอดฝากที่เป็นหลักประกันในพูล {{poolName}} <Button>แสดงโทเคนทั้งหมด</Button>",
     "modalTitle": "โทเคน {{ poolName }}",
     "supplyDescription": "การฝาก {{tokenSymbol}} ในพูล {{poolName}} จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <Button>แสดงตลาดทั้งหมด</Button>"
+  },
+  "availableBalance": {
+    "label": "ใช้ได้"
   },
   "binanceWalletBanner": {
     "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
@@ -321,7 +327,7 @@
     },
     "errors": {
       "dailyTransactionLimitExceeded": {
-        "message": "คุณไม่สามารถบริดจ์มากกว่า {{readableAmountTokens}} ({{readableAmountUsd}}) ไปยังเชนปลายทางได้ เนื่องจากมีขีดจำกัด 24 ชั่วโมง ขีดจำกัดนี้จะรีเซ็ตใน {{ date, dd MMM yyyy h:mm a }}",
+        "message": "คุณไม่สามารถบริดจ์มากกว่า {{readableAmountTokens}} ({{readableAmountUsd}}) ไปยังเชนปลายทางได้ เนื่องจากมีขีดจำกัด 24 ชั่วโมง ขีดจำกัดนี้จะรีเซ็ตใน {{ date, textualWithTime }}",
         "submitButton": "จำนวนที่กรอกเกินขีดจำกัดรายวัน"
       },
       "doesNotHaveEnoughNativeFunds": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
@@ -415,7 +421,7 @@
       },
       "step3": {
         "description": "ฝาก XVS เข้าไปในวอลต์และรับผลตอบแทนที่ขับเคลื่อนด้วยรายได้ของโปรโตคอล",
-        "title": "สเตค XVS"
+        "title": "ฝาก XVS"
       },
       "uncompleted": "ยังไม่เสร็จ"
     },
@@ -423,8 +429,8 @@
       "absolutePerformance": "ผลการดำเนินงานแบบสัมบูรณ์",
       "netWorth": {
         "label": "มูลค่าสุทธิ",
-        "tooltip": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์และการยืม",
-        "tooltipWithVai": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการสเตคในวอลต์ การยืม และการมินต์ VAI"
+        "tooltip": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการฝากในวอลต์และการยืม",
+        "tooltipWithVai": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการฝากในวอลต์ การยืม และการมินต์ VAI"
       },
       "performanceChart": {
         "errorState": {
@@ -444,10 +450,10 @@
           "mintedVai": "VAI ที่มินต์แล้ว",
           "netApy": "APY สุทธิ",
           "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
-          "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการสเตคในวอลต์ของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการฝากในวอลต์ของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
           "totalBorrow": "ยอดยืมรวม",
           "totalSupply": "ยอดฝากรวม",
-          "totalVaultStake": "ยอดสเตคในวอลต์รวม"
+          "totalVaultStake": "ยอดฝากในวอลต์รวม"
         },
         "title": "สรุป"
       },
@@ -472,7 +478,7 @@
     "vaults": {
       "dailyEarnings": "รายได้รายวัน",
       "dailyEarningsTooltip": "รายได้รายวันโดยประมาณของคุณใน vault ที่ใช้งานอยู่ทั้งหมด โดยอิงจากอัตราปัจจุบันหรือ APR คงที่ของแต่ละ vault รายได้จริงอาจแตกต่างกัน",
-      "totalStakedValue": "มูลค่าสเตคทั้งหมด"
+      "totalStakedValue": "มูลค่าฝากทั้งหมด"
     }
   },
   "eModeBanner": {
@@ -535,7 +541,7 @@
     "noMetaKey": "ไม่มีข้อมูลเมตาในไฟล์",
     "noParamsKey": "ไฟล์ไม่มีรายการพารามิเตอร์",
     "noSignaturesKey": "ไม่มี call signatures ในไฟล์",
-    "noSwapQuoteFound": "ไม่พบสวอป โปรดอัปเดตฟอร์ม",
+    "noSwapQuoteFound": "ไม่พบการสวอป",
     "noTargetsKey": "ไฟล์ไม่มีรายการเป้าหมาย",
     "noTypeKey": "ไฟล์ไม่ได้ระบุประเภทของข้อเสนอ",
     "proposalNotFound": "ไม่พบข้อเสนอ",
@@ -728,6 +734,7 @@
       "liquidity": "สภาพคล่อง",
       "maxLtv": {
         "label": "LTV สูงสุด",
+        "modeInfoHint": "<Link>สำรวจ</Link>ตัวเลือก LTV ที่มี",
         "tooltip": "LTV สูงสุดคือขีดจำกัดการยืม ที่ {{maxLtv}} LTV หลักประกัน 1 {{tokenSymbol}} สามารถยืมสกุลเงินมูลค่า {{userCollateralFactor}} {{tokenSymbol}} ได้"
       },
       "price": "ราคา",
@@ -771,6 +778,9 @@
         "vai": {
           "description": "มินต์สเตเบิลคอยน์ประจำของ Venus",
           "label": "VAI"
+        },
+        "yieldPlus": {
+          "label": "Yield+"
         }
       },
       "settings": {
@@ -828,10 +838,12 @@
     },
     "eModeInfo": {
       "eMode": {
-        "title": "E-mode"
+        "title": "E-mode",
+        "tooltip": "Boosts capital efficiency for correlated assets (e.g. stablecoins, LSTs) with better collateral factors and lower liquidation costs."
       },
       "isolationMode": {
-        "title": "โหมดแยก"
+        "title": "โหมดแยก",
+        "tooltip": "A risk-containment mode for newer or more volatile assets."
       },
       "link": "แสดงทุกตลาด",
       "table": {
@@ -856,13 +868,19 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "จำนวนผู้ยืม",
+        "collateralFactorLabel": "ตัวคูณหลักประกัน (Core)",
         "dailyBorrowingInterestsLabel": "ดอกเบี้ยการยืมรายวัน",
         "dailyDistribution": "แจกจ่าย {{tokenSymbol}} รายวัน",
         "dailySupplyingInterestsLabel": "ดอกเบี้ยการฝากรายวัน",
         "exchangeRateLabel": "อัตราแลกเปลี่ยน",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "isBorrowableLabel": "ยืมได้ (Core)",
+        "liquidationPenaltyLabel": "บทลงโทษการชำระบัญชี (Core)",
+        "liquidationThresholdLabel": "เกณฑ์การชำระบัญชี (Core)",
+        "no": "ไม่",
         "reserveFactorLabel": "ตัวคูณสำรอง",
-        "supplierCountLabel": "จำนวนผู้ฝาก"
+        "supplierCountLabel": "จำนวนผู้ฝาก",
+        "yes": "ใช่"
       }
     },
     "periodOption": {
@@ -1050,10 +1068,27 @@
       "higherThanWalletBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
       "higherThanWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
       "noCollateral": "คุณต้องฝากโทเคนและเปิดใช้เป็นหลักประกันก่อนจึงจะยืม {{tokenSymbol}} จากพูลนี้ได้",
-      "noSwapQuoteFound": "ไม่พบสวอป โปรดอัปเดตฟอร์ม",
+      "noSwapQuoteFound": "ไม่พบการสวอป",
       "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป",
       "supplyCapReached": "ขีดจำกัดการฝากของ {{assetSupplyCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถฝากเข้าสู่ตลาดนี้ได้จนกว่าจะมีการถอนหรือเพิ่มขีดจำกัดการฝาก",
       "tooRisky": "ธุรกรรมนี้จะทำให้บัญชีของคุณถูกชำระบัญชี"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "สถานะสูงสุดที่เลเวอเรจปัจจุบัน: {{ value }}",
+      "submitButtonLabel": "ยืนยัน",
+      "title": "ตัวคูณเลเวอเรจ",
+      "warning": "เลเวอเรจส่งผลต่อการใช้เงินทุนของคุณ และจะไม่สามารถเปลี่ยนได้จนกว่าคุณจะปิดสถานะทั้งหมด"
+    },
+    "managePositionsTabs": {
+      "collateral": "หลักประกัน",
+      "position": "โพสิชัน",
+      "positionsTabs": {
+        "increase": "เพิ่ม",
+        "reduce": "ลด",
+        "supply": "ฝาก",
+        "withdraw": "ถอน"
+      }
     },
     "receiveNativeToken": {
       "label": "รับ {{tokenSymbol}}",
@@ -1074,8 +1109,8 @@
     },
     "rightMaxButtonLabel": "สูงสุด",
     "riskSlider": {
-      "highRisk": "ความเสี่ยงสูง",
-      "lowRisk": "ความเสี่ยงต่ำ"
+      "0": "0%",
+      "100": "100%"
     },
     "safeMaxButtonLabel": "สูงสุดแบบปลอดภัย",
     "submitButtonLabel": {
@@ -1154,12 +1189,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "เพื่อมีสิทธิรับรางวัล Prime ต้องสเตค XVS อย่างน้อย {{minimumXvsStaked}} โทเคน",
-        "label": "XVS ที่สเตคมีคุณสมบัติ",
+        "error": "เพื่อมีสิทธิรับรางวัล Prime ต้องฝาก XVS อย่างน้อย {{minimumXvsStaked}} โทเคน",
+        "label": "XVS ที่ฝากมีคุณสมบัติ",
         "tooltip": "จะนับสูงสุด {{maximumXvsStaked}} สำหรับรางวัล Prime ของคุณ"
       },
       "textField": {
-        "label": "สเตค XVS"
+        "label": "ฝาก XVS"
       }
     },
     "suppliedTokens": {
@@ -1181,8 +1216,8 @@
     "becomePrimeTitle": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว",
     "claimButtonLabel": "รับโทเคน Prime",
     "description": {
-      "primeCalculator": "สเตคเพิ่มอีก <WhiteText>{{stakeDelta}}</WhiteText> แล้วรอ {{claimWaitingPeriod}} เพื่อรับโทเคน Prime และบูสต์รายได้ของคุณ <Link>คำนวณรางวัล Prime ของคุณ</Link>",
-      "primeDoc": "สเตคเพิ่มอีก <WhiteText>{{stakeDelta}}</WhiteText> แล้วรอ {{claimWaitingPeriod}} เพื่อรับโทเคน Prime และบูสต์รายได้ของคุณ <Link>เรียนรู้เพิ่มเติม</Link>"
+      "primeCalculator": "ฝากเพิ่มอีก <WhiteText>{{stakeDelta}}</WhiteText> แล้วรอ {{claimWaitingPeriod}} เพื่อรับโทเคน Prime และบูสต์รายได้ของคุณ <Link>คำนวณรางวัล Prime ของคุณ</Link>",
+      "primeDoc": "ฝากเพิ่มอีก <WhiteText>{{stakeDelta}}</WhiteText> แล้วรอ {{claimWaitingPeriod}} เพื่อรับโทเคน Prime และบูสต์รายได้ของคุณ <Link>เรียนรู้เพิ่มเติม</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "โทเคน Prime ทั้งหมดถูกอ้างสิทธิ์แล้ว",
@@ -1190,10 +1225,10 @@
     },
     "progressBar": {
       "ariaLabel": "ความคืบหน้า Prime ปัจจุบันของคุณ",
-      "label": "สเตคแล้ว: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "ฝากแล้ว: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "เพิ่มรายได้ของคุณสูงสุด <GreenText>{{percentage}}</GreenText>",
-    "stakeButtonLabel": "สเตค XVS",
+    "stakeButtonLabel": "ฝาก XVS",
     "tokensLeft": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "tokensLeft_one": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
     "tokensLeft_many": "เหลือโทเคน Prime <WhiteText>{{count}}</WhiteText> โทเคน",
@@ -1218,6 +1253,18 @@
     "pending": "รอดำเนินการ",
     "queued": "เข้าคิวแล้ว",
     "succeeded": "สำเร็จ"
+  },
+  "requestWithdrawalFromVestingVaultForm": {
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อดูคำขอถอน"
+      },
+      "emptyState": "คุณไม่มีคำขอถอนที่ใช้งานอยู่",
+      "locked": "ล็อกจนถึง {{date, numericWithTime}}",
+      "title": "คำขอถอน",
+      "unlocked": "ปลดล็อกแล้ว",
+      "withdrawButtonLabel": "ถอนยอดคงเหลือที่ปลดล็อกแล้ว"
+    }
   },
   "select": {
     "defaultLabel": "เลือกตัวเลือก"
@@ -1500,13 +1547,6 @@
     "label": "ขีดจำกัดการใช้จ่าย",
     "labelTooltip": "นี่คือขีดจำกัดการใช้จ่ายปัจจุบันของสินทรัพย์นี้ หากต้องการใช้จ่ายมากขึ้น ให้ยกเลิกขีดจำกัดแล้วตั้งใหม่",
     "revokeButtonTooltip": "ยกเลิกขีดจำกัดการใช้จ่าย"
-  },
-  "stakeModal": {
-    "availableTokensLabel": "{{tokenSymbol}} ที่ใช้ได้",
-    "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อสเตค {{tokenSymbol}}",
-    "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อสเตค",
-    "submitButtonLabel": "สเตค",
-    "title": "สเตค {{tokenSymbol}}"
   },
   "statsPage": {
     "illustrationAlt": "ภาพประกอบสถิติ",
@@ -1830,23 +1870,27 @@
       "claimReward": "รับรางวัล",
       "currentDeposited": "ฝากอยู่ในปัจจุบัน",
       "dailyEmission": "รางวัลรายวัน",
+      "effectiveFixedApr": "APR คงที่ที่มีผล",
+      "header": {
+        "maturityDate_other": "{{ date, textual }} ({{ count }} วัน)"
+      },
       "liquidity": "สภาพคล่อง",
       "liquidityTooltip": "มูลค่ารวมของสินทรัพย์ที่ปัจจุบันให้บริการอยู่ใน pool ที่รองรับ Pendle (หรือกลยุทธ์) ของ vault นี้",
       "manager": "ผู้ดูแล",
       "maturityDate": "วันครบกำหนด",
       "maturityDatePendleTooltip": "วันสิ้นสุดของตำแหน่งผลตอบแทนคงที่นี้ (จาก Pendle) หลังจากวันนี้ คุณจะได้รับสินทรัพย์ต้นฉบับครบถ้วน (เงินต้น) ผลตอบแทนคงที่ที่ล็อคไว้หยุดที่นี่ ควรถือครองจนถึงวันนั้นเพื่อรับผลตอบแทนตามแผน",
-      "numDays_other": "{{count}} วัน",
       "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การฝาก และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
-      "stake": "สเตค",
-      "stakingApr": "APR การสเตค {{stakeTokenName}}",
-      "textualDate": "{{date, textual}}",
+      "primeEligibility": "สิทธิ์รับ Prime",
       "textualWithTime": "{{date, textualWithTime}}",
       "totalDeposited": "ยอดฝากทั้งหมด",
-      "totalStaked": "ยอดสเตครวม",
-      "withdraw": "ถอน",
-      "youAreStake": "คุณกำลังสเตคอยู่",
-      "youDeposited": "คุณฝากแล้ว"
+      "youDeposited": "คุณกำลังฝาก"
     },
+    "category": {
+      "governance": "การกำกับดูแล",
+      "stablecoins": "สเตเบิลคอยน์",
+      "yieldTokens": "โทเคนผลตอบแทน"
+    },
+    "description": "สร้างผลตอบแทนได้ง่าย ให้กำไรเกิดขึ้นจริง",
     "filter": {
       "active": "กำลังใช้งาน",
       "allCategories": "ทุกหมวดหมู่",
@@ -1856,23 +1900,19 @@
       "deposit": "ฝาก",
       "earning": "กำลังรับผลตอบแทน",
       "inputPlaceholder": "ค้นหาสินทรัพย์",
-      "others": "อื่นๆ",
       "paused": "หยุดชั่วคราว",
       "refund": "คืนเงิน",
-      "repaying": "กำลังชำระคืน",
-      "stablecoins": "สเตเบิลคอยน์",
-      "vaults": "คลัง",
-      "yieldTokens": "โทเคนผลตอบแทน"
+      "repaying": "กำลังชำระคืน"
     },
+    "header": "วอลต์",
     "modals": {
       "afterMaturityPendleDisclaimer": "กรุณาถอน PT token ไปยังวอลเล็ตของคุณก่อนผ่านปุ่มถอน จากนั้นไปที่เว็บไซต์<Link>Pendle อย่างเป็นทางการ</Link>เพื่อแลกรับ underlying token ของคุณ",
-      "available": "ที่มีอยู่",
       "claim": "อ้างสิทธิ์",
-      "connectWalletMessage": "กรุณาเชื่อมต่อกระเป๋าเงินของคุณเพื่อสเตค / ถอน {{tokenSymbol}}",
+      "connectWalletMessage": "กรุณาเชื่อมต่อกระเป๋าเงินของคุณเพื่อฝาก / ถอน {{tokenSymbol}}",
       "convert": "แปลง",
       "currentDeposited": "ยอดฝากปัจจุบัน",
       "currentDepositedTooltip": "จำนวนสินทรัพย์ของคุณที่ล็อคและสร้างรายได้อยู่ในห้องนิรภัยนี้",
-      "deposit": "สเตค",
+      "deposit": "ฝาก",
       "effectiveFixedApr": "APR คงที่ที่มีผล",
       "effectiveFixedAprPendleTooltip": "ผลตอบแทนคงที่รายปีที่เสนอโดยกลยุทธ์ vault นี้ แสดงเป็นอัตราร้อยละต่อปีที่มีผลซึ่งรวมดอกเบี้ยทบต้นแล้ว",
       "error": {
@@ -1880,7 +1920,7 @@
         "higherThanAvailable": "จำนวนเกินกว่ายอด {{tokenSymbol}} ที่ใช้ได้ของคุณ ลดจำนวนหรือคลิก 'สูงสุด' เพื่อใช้ยอดทั้งหมด",
         "invalidAmount": "จำนวนที่ป้อนไม่ถูกต้อง",
         "invalidAmountFromQuote": "จำนวนเกินกว่าสภาพคล่องที่ใช้ได้ในตลาด Pendle ลดจำนวนแล้วลองอีกครั้ง",
-        "lowerThanMinimumAmount": "จำนวนที่ป้อนต่ำเกินไป จำนวนขั้นต่ำเทียบเท่ากับ {{amount}} USD",
+        "lowerThanMinimumAmount": "จำนวนที่ป้อนต่ำเกินไป จำนวนขั้นต่ำที่อนุญาตเทียบเท่ากับ {{amount}} USD",
         "noSwapQuoteFound": "ไม่พบการสวอป กรุณาอัปเดตแบบฟอร์ม",
         "pendleApiError": "ขณะนี้มีการใช้งาน Pendle จำนวนมาก กรุณาลองใหม่อีกครั้งในภายหลัง"
       },
@@ -1890,7 +1930,6 @@
       "maturityDate": "วันครบกำหนด",
       "maturityDatePendleTooltip": "วันสิ้นสุดของตำแหน่งผลตอบแทนคงที่นี้ (จาก Pendle) หลังจากวันนี้ คุณจะได้รับสินทรัพย์ต้นฉบับครบถ้วน (เงินต้น) ผลตอบแทนคงที่ที่ล็อคไว้หยุดที่นี่ ควรถือครองจนถึงวันนั้นเพื่อรับผลตอบแทนตามแผน",
       "maturityPendleDisclaimer": "ก่อนครบกำหนด จำนวนเงินที่ได้รับเมื่อถอนขึ้นอยู่กับราคาตลาด Pendle หลังจากครบกำหนด การถอนจะถูกแลกตามจำนวน PT token ที่คุณถือครองในอัตรา 1:1",
-      "max": "สูงสุด",
       "minReceived": "ขั้นต่ำที่จะได้รับ",
       "overview": {
         "manager": "ผู้ดูแล",
@@ -1900,41 +1939,72 @@
         "riskDisclosureText": "Pendle เป็นโปรโตคอลการซื้อขายผลตอบแทนแบบกระจายศูนย์ที่ช่วยให้ได้รับผลตอบแทนอัตราคงที่ผ่าน Principal Tokens (PTs) Venus Fixed Rate Vault จะส่งเงินฝากผ่านโครงสร้างพื้นฐานของ Pendle เพื่อซื้อ PT ซึ่งจะถูกนำไปเป็นหลักประกันใน Venus Core<br />แม้ว่า Pendle จะไม่สามารถเข้าถึงหรือย้ายเงินฝากของคุณได้ แต่การใช้ vault นี้ทำให้คุณเผชิญกับความเสี่ยงจากทั้งสองโปรโตคอล ซึ่งรวมถึงช่องโหว่ของสัญญาอัจฉริยะ ความล้มเหลวของ oracle และความเป็นไปได้ที่โปรโตคอลใดโปรโตคอลหนึ่งจะถูกโจมตีหรือหยุดชั่วคราว การถอนก่อนกำหนดจะดำเนินการตามราคาตลาดและอาจได้รับคืนน้อยกว่าจำนวนที่ฝาก APY คงที่จะถูกล็อคไว้เมื่อฝากและไม่สามารถป้องกันความล้มเหลวในระดับโปรโตคอล",
         "strategy": {
           "pendleRouter": "Pendle Router",
-          "supply": "ฝาก",
           "users": "ผู้ใช้งาน",
           "venusCore": "Venus Core"
         },
         "strategyAllocation": "การจัดสรรกลยุทธ์",
         "supply": "ฝาก",
-        "totalDeposited": "ยอดสเตครวม",
-        "totalDeposits": "ยอดฝากทั้งหมด",
+        "totalDeposited": "ยอดฝากทั้งหมด",
         "vaultDeploymentDate": "วันเปิดตัว Vault"
       },
       "overviewTab": "ภาพรวม",
       "pendleFee": "ค่าธรรมเนียม Pendle",
       "positionTab": "ตำแหน่ง",
-      "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อส่งคำขอ",
+      "stakeTab": "ฝาก",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
-      "withdraw": "ถอน"
+      "withdraw": "ถอน",
+      "withdrawTab": "ถอน"
     },
     "overview": {
-      "bannerCoinIllustration": "ภาพประกอบเหรียญ {{token}}",
-      "bannerTitle": "สเตค <strong>{{tokenDashMarket}}</strong> เพื่อรับ APR <strong>{{apyPercentage}}</strong>",
-      "bannerVaultIllustration": "ภาพประกอบคลัง",
-      "description": "ผลตอบแทนที่เข้าใจง่าย กำไรที่แท้จริง — ฝากเงินในหลายคลังและดูสินทรัพย์คริปโตของคุณเติบโต<strong>ตามเงื่อนไขของคุณ</strong>",
-      "highestApr": "APR สูงสุด",
-      "title": "คลัง",
-      "tokenTotalDeposited": "{{token}} ยอดฝากรวม",
-      "tvl": "TVL",
-      "vaultCount": "คลัง"
-    },
-    "transactionForm": {
-      "lockingPeriod": {
-        "duration": "{{date, distanceToNow}}",
-        "label": "ระยะเวลาล็อก"
+      "bannerVaultIllustration": "ภาพประกอบคลัง"
+    }
+  },
+  "vaultCard": {
+    "vaultModal": {
+      "footer": {
+        "currentlyStaked": "ยอดฝากปัจจุบัน",
+        "estimatedDailyEarnings": "รายได้รายวันโดยประมาณ",
+        "lockingPeriod": {
+          "duration": "{{date, distanceToNow}}",
+          "label": "ระยะเวลาล็อก",
+          "tooltip": "ระยะเวลาล็อกคือช่วงเวลาหน่วงระหว่างการส่งคำขอถอนกับเวลาที่จำนวนเงินที่ขอสามารถถอนออกจาก vault ได้จริง"
+        }
       },
-      "rightMaxButtonLabel": "สูงสุด"
+      "requestWithdrawalFromVestingVaultForm": {
+        "displayWithdrawalRequestListButton": {
+          "label": "รายการคำขอถอน",
+          "tooltip": "คุณมี XVS ที่ปลดล็อกแล้วและพร้อมให้รับ"
+        },
+        "primeLossWarning": {
+          "message": "คุณจะสูญเสียโทเคน Prime หากถอนจำนวนนี้ เนื่องจากยอดฝากของคุณใน XVS vault จะต่ำกว่าขั้นต่ำ {{minimumXvsStake}} ที่ต้องมีเพื่อให้มีสิทธิ์ได้รับ Prime"
+        },
+        "requestWithdrawalField": {
+          "label": "ขอถอน"
+        },
+        "submitButton": {
+          "label": "ขอถอน"
+        }
+      },
+      "stakeForm": {
+        "depositField": {
+          "label": "ฝาก"
+        },
+        "footer": {
+          "apr": "APR"
+        },
+        "submitButton": {
+          "label": "ฝาก"
+        }
+      },
+      "withdrawFromVaiVault": {
+        "submitButton": {
+          "label": "ถอน"
+        },
+        "withdrawField": {
+          "label": "ถอน"
+        }
+      }
     }
   },
   "venusFluxBanner": {
@@ -1988,7 +2058,6 @@
       "message": "ดึงข้อเสนอไม่สำเร็จ"
     },
     "for": "เห็นด้วย",
-    "goToXvsSnapshot": "ไปยัง XVS Snapshot",
     "omnichain": {
       "switchToBnb": "สลับไปยัง BNB Chain",
       "votingOnlyEnabledOnBnb": "การโหวตใช้ได้เฉพาะบน BNB Chain เท่านั้น"
@@ -2029,8 +2098,8 @@
     "youDelegatedTo": "คุณได้มอบสิทธิ์โทเคนที่ล็อกไว้ให้กับ {{delegate}}"
   },
   "voteProposalUi": {
-    "activeUntilDate": "ใช้งานจนถึง: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "canceledDate": "ยกเลิกแล้ว: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "activeUntilDate": "ใช้งานจนถึง: <Date>{{ date, textualWithTime }}</Date>",
+    "canceledDate": "ยกเลิกแล้ว: <Date>{{ date, textualWithTime }}</Date>",
     "command": {
       "actionButton": {
         "cancel": "ยกเลิก",
@@ -2070,23 +2139,23 @@
       "minutesIncluded": "{{minutes}}น. : {{seconds}}วิ.",
       "secondsIncluded": "{{seconds}}วิ."
     },
-    "defeatedDate": "ถูกปฏิเสธ: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "defeatedDate": "ถูกปฏิเสธ: <Date>{{ date, textualWithTime }}</Date>",
     "description": "คำอธิบาย",
-    "executedDate": "ดำเนินการแล้ว: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "expiredDate": "หมดอายุ: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "executedDate": "ดำเนินการแล้ว: <Date>{{ date, textualWithTime }}</Date>",
+    "expiredDate": "หมดอายุ: <Date>{{ date, textualWithTime }}</Date>",
     "greenPulseAnimation": {
       "altText": "แอนิเมชันพัลส์สีเขียว"
     },
     "proposalState": {
-      "activeTimestamp": "ใช้งานตั้งแต่: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "canceledTimestamp": "ยกเลิก: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "defeatedTimestamp": "ถูกปฏิเสธ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "executedTimestamp": "ดำเนินการแล้ว: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "expiredTimestamp": "หมดอายุ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "queuedTimestamp": "เข้าคิว: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "succeededTimestamp": "สำเร็จ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+      "activeTimestamp": "ใช้งานตั้งแต่: <Span>{{date, textualWithTime}}</Span>",
+      "canceledTimestamp": "ยกเลิก: <Span>{{date, textualWithTime}}</Span>",
+      "defeatedTimestamp": "ถูกปฏิเสธ: <Span>{{date, textualWithTime}}</Span>",
+      "executedTimestamp": "ดำเนินการแล้ว: <Span>{{date, textualWithTime}}</Span>",
+      "expiredTimestamp": "หมดอายุ: <Span>{{date, textualWithTime}}</Span>",
+      "queuedTimestamp": "เข้าคิว: <Span>{{date, textualWithTime}}</Span>",
+      "succeededTimestamp": "สำเร็จ: <Span>{{date, textualWithTime}}</Span>"
     },
-    "queuedUntilDate": "เข้าคิวจนถึง: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "queuedUntilDate": "เข้าคิวจนถึง: <Date>{{ date, textualWithTime }}</Date>",
     "status": {
       "executedPayloads": "payload ที่ดำเนินการแล้ว",
       "readyForExecution": "พร้อมดำเนินการ",
@@ -2097,8 +2166,8 @@
       "ariaLabelAgainst": "เสียงคัดค้าน",
       "ariaLabelFor": "เสียงเห็นด้วย"
     },
-    "timeUntilExecutable": "ดำเนินการได้ที่: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "timeUntilVotable": "เริ่มโหวตที่: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilExecutable": "ดำเนินการได้ที่: <Date>{{ date, textualWithTime }}</Date>",
+    "timeUntilVotable": "เริ่มโหวตที่: <Date>{{ date, textualWithTime }}</Date>",
     "voteStatus": {
       "abstained": "งดออกเสียง",
       "notVoted": "ยังไม่ได้โหวต",
@@ -2153,45 +2222,112 @@
       "address": "({{address}})"
     }
   },
-  "withdrawFromVaiVaultModal": {
-    "availableTokensLabel": "{{tokenSymbol}} ที่ใช้ได้",
-    "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน {{tokenSymbol}}",
-    "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อถอน",
-    "submitButtonLabel": "ถอน",
-    "title": "ถอน {{tokenSymbol}}"
-  },
-  "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "รายการคำขอถอน",
-    "requestWithdrawalTab": {
-      "approveToken": {
-        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน"
-      },
-      "availableTokensLabel": "{{tokenSymbol}} ที่ขอได้",
-      "displayWithdrawalRequestListButton": "รายการคำขอถอน",
-      "primeLossWarning": {
-        "message": "คุณจะสูญเสียโทเคน Prime หากถอนจำนวนนี้ เนื่องจากการสเตคใน XVS vault ของคุณจะต่ำกว่าขั้นต่ำที่ต้องการ {{minimumXvsStake}} เพื่อมีสิทธิ์ Prime.",
-        "submitButtonLabel": "เสียโทเคน Prime และขอถอน"
-      },
-      "submitButtonDisabledLabel": "ป้อนจำนวนที่ถูกต้องเพื่อขอถอน",
-      "submitButtonLabel": "ขอถอน"
+  "yieldPlus": {
+    "banner": {
+      "illustrationAltText": "ภาพประกอบ Yield+",
+      "learnMore": "เรียนรู้เพิ่มเติม",
+      "title": "Yield+ คืออะไร?"
     },
-    "requestWithdrawalTabTitle": "ขอถอน",
-    "title": "ถอน {{tokenSymbol}}",
-    "withdrawalRequestList": {
-      "approveToken": {
-        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อดูคำขอถอน"
-      },
-      "emptyState": "คุณไม่มีคำขอถอนที่ใช้งานอยู่",
-      "itemContent": "ล็อกจนถึง {{date, dd.MM.yy h:mm a}}"
+    "closePositionModal": {
+      "title": "ปิด"
     },
-    "withdrawalRequestListTitle": "รายการคำขอถอน",
-    "withdrawTab": {
-      "approveToken": {
-        "connectWalletMessage": "โปรดเชื่อมต่อกระเป๋าเพื่อถอน"
-      },
-      "availableTokens": "{{tokenSymbol}} ที่ใช้ได้",
-      "submitButton": "ถอน"
+    "longLiquidity": "สภาพคล่องฝั่ง Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
+    "longTokenSelect": {
+      "label": "Long"
     },
-    "withdrawTabTitle": "ถอน"
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "เพิ่ม"
+      },
+      "invalidLiquidationPrice": "ไม่มี",
+      "openForm": {
+        "collateral": "หลักประกัน",
+        "dsaFieldLabel": "หลักประกัน",
+        "dsaFieldPlaceholder": "ป้อนข้อมูลเพื่อดำเนินการต่อ",
+        "entryPrice": "ราคาเปิด",
+        "liquidationPrice": "ราคาชำระบัญชี",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "APY สุทธิ",
+        "pnl": "กำไร/ขาดทุนที่รับรู้",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "เปิด"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "ปิด",
+          "reduce": "ลด"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "ฝาก"
+      },
+      "walletBalance": "ยอดคงเหลือในกระเป๋า",
+      "warning": {
+        "cannotBorrowShort": "การยืมโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotRepayShort": "การชำระคืนโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotSupplyDsa": "การฝากโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotSupplyLong": "การฝากโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotWithdrawDsa": "การถอนโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotWithdrawLong": "การถอนโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
+        "notEnoughLeverage": "คู่โทเค็นนี้ไม่รองรับตัวคูณเลเวอเรจอย่างน้อย {{ minimumLeverageFactor }} ซึ่งเป็นค่าขั้นต่ำที่จำเป็นสำหรับการเปิดโพสิชัน Yield+"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "ถอน"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "ปิด",
+      "placeholder": {
+        "title": "ยังไม่มีโพสิชัน"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "หลักประกัน"
+        },
+        "healthFactor": {
+          "label": "ตัวคูณความปลอดภัย",
+          "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
+        },
+        "netApy": {
+          "label": "APY สุทธิ"
+        },
+        "netValue": {
+          "label": "มูลค่าสุทธิ"
+        },
+        "title": "สถานะ"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "อัตราส่วนราคาเข้าของโพสิชันนี้ (จำนวนสินทรัพย์ Short ÷ จำนวนสินทรัพย์ Long) ซึ่งสะท้อนมูลค่าเปรียบเทียบระหว่างโทเค็นทั้งสองนับตั้งแต่ตอนเข้า"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "โพสิชัน"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "ธุรกรรม"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",
+    "shortLiquidity": "สภาพคล่องฝั่ง Short",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
   }
 }

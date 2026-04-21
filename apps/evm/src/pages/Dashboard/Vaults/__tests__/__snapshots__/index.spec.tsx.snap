@@ -1,5 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Vaults > displays content correctly 1`] = `"Total staked value$233Daily earnings< $0.01XVSAPR12.92%Total deposited400M XVS"`;
+exports[`Vaults > displays content correctly 1`] = `"Total deposited value$233Daily earnings< $0.01XVSAPR12.92%Total deposited400M XVS"`;
 
-exports[`Vaults > displays placeholder when there are no vaults to display 1`] = `"No staking positions yetConnect wallet"`;
+exports[`Vaults > displays placeholder when there are no vaults to display 1`] = `"No deposit positions yetConnect wallet"`;

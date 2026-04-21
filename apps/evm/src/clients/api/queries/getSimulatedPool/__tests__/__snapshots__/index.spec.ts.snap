@@ -724,7 +724,7 @@ exports[`getSimulatedPool > recalculates Prime APYs when a Prime market is mutat
     "userHealthFactor": 1.34,
     "userLiquidationThresholdCents": "13755.99846",
     "userSupplyBalanceCents": "40506.4276",
-    "userYearlyEarningsCents": "3981",
+    "userYearlyEarningsCents": "3983.42606023987551709467",
     "vai": {
       "borrowAprPercentage": "1.34",
       "token": {
@@ -1466,7 +1466,7 @@ exports[`getSimulatedPool > returns simulated pool with updated asset balances w
     "userHealthFactor": 1.9,
     "userLiquidationThresholdCents": "19510.02876",
     "userSupplyBalanceCents": "43015.0606",
-    "userYearlyEarningsCents": "1551",
+    "userYearlyEarningsCents": "1553.68238293127318913283",
     "vai": {
       "borrowAprPercentage": "1.34",
       "token": {
@@ -2208,7 +2208,7 @@ exports[`getSimulatedPool > returns simulated pool with updated asset balances w
     "userHealthFactor": 2.83,
     "userLiquidationThresholdCents": "28955.03174",
     "userSupplyBalanceCents": "40506.4276",
-    "userYearlyEarningsCents": "2070",
+    "userYearlyEarningsCents": "2072.87152700481440972041",
     "vai": {
       "borrowAprPercentage": "1.34",
       "token": {
@@ -2962,7 +2962,7 @@ exports[`getSimulatedPool > updates simulated VAI borrow balances when VAI mutat
     "userHealthFactor": 0.72,
     "userLiquidationThresholdCents": "13755.99846",
     "userSupplyBalanceCents": "31507",
-    "userYearlyEarningsCents": "1395",
+    "userYearlyEarningsCents": "1397.00666454662583935848",
     "vai": {
       "borrowAprPercentage": "1.34",
       "token": {

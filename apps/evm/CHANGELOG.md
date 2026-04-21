@@ -1,5 +1,33 @@
 # @venusprotocol/evm
 
+## 4.23.0
+
+### Minor Changes
+
+- 3ae2744: add Yield+ feature
+- c673a38: feat: add dashboard for BNB chain
+- be07077: vault list revamp
+- 5302c7b: introduce pendle vault
+- 07c30bb: add Pendle Vault ad banner
+- 0ebd5ce: feat: update AccountHealthBar to use liquidation threshold
+- 301cdf5: Updated governance subgraph ID
+
+### Patch Changes
+
+- 61e2ebd: feat: remove probable banner
+- ca3fcfd: hotfix: xvs pricing on zk chain
+- e30281c: prompt users to switch chain if necessary when voting
+- 17418eb: fix date formatting within translations
+- f393c3a: feat: 1.add scrollbar for mode table 2. auto scroll to mode info 3. use userCF when connected
+- 046d317: update the PoolLens contract address on Ethereum
+- 8327976: add share image
+- 50cd5e5: feat: add information on E-mode tooltip and market info
+- c3a1cfb: feat: Hide market & staking balance when user clicks "Hide"
+- 480c0db: remove snapshot button
+- Updated dependencies [00dae25]
+- Updated dependencies [046d317]
+  - @venusprotocol/chains@0.24.2
+
 ## 4.22.1
 
 ### Patch Changes

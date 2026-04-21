@@ -29,10 +29,12 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
           <div
             className={className}
             onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+
               if (!isMdOrUp) {
                 setIsTooltipOpened(true);
               }
-              e.preventDefault();
             }}
           >
             {children}
@@ -53,7 +55,7 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
         isOpen={isTooltipOpened && !isMdOrUp}
         handleClose={handleToggleDropdown}
       >
-        <div>{content}</div>
+        <div onClick={() => setIsTooltipOpened(false)}>{content}</div>
       </Modal>
     </Provider>
   );

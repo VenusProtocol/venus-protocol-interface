@@ -3,7 +3,8 @@ import i18next, { type Resource } from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
-import { type DateFormatType, supportedLanguages } from './constants';
+import { supportedLanguages } from './constants';
+import { resolveDateFormat } from './resolveDateFormat';
 
 export { default as en } from './translations/en.json';
 
@@ -38,22 +39,20 @@ const init = () => {
       interpolation: {
         escapeValue: false,
         format: (value, format, tag) => {
-          if (isDate(value)) {
-            const language =
-              supportedLanguages.find(language => language.bcp47Tag === tag) ?? defaultLanguage;
-            const options = { locale: language.locale };
-
-            if (format === 'distanceToNow') {
-              return formatDistanceStrict(value, new Date(), options);
-            }
-
-            const resolvedFormat: DateFormatType =
-              format && format in language.dateFormats ? (format as DateFormatType) : 'textual';
-
-            return formatDate(value, language.dateFormats[resolvedFormat], options);
+          if (!isDate(value)) {
+            return value;
           }
 
-          return value;
+          const language =
+            supportedLanguages.find(language => language.bcp47Tag === tag) ?? defaultLanguage;
+          const options = { locale: language.locale };
+          const resolvedFormat = resolveDateFormat(language, format);
+
+          if (resolvedFormat === 'distanceToNow') {
+            return formatDistanceStrict(value, new Date(), options);
+          }
+
+          return formatDate(value, resolvedFormat, options);
         },
       },
     });

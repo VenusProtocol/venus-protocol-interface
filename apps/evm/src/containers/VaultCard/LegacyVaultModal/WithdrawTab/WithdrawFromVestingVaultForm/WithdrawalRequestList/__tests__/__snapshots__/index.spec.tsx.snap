@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WithdrawalRequestList > disables withdrawal when all requests are still locked 1`] = `"Withdrawal requests1 XVSLocked until Jan 11, 2024 12:00 AMWithdraw unlocked balance"`;
+
+exports[`WithdrawalRequestList > fetches the connected user locked deposits and renders the empty state 1`] = `"Withdrawal requestsYou have no active withdrawal requests"`;
+
+exports[`WithdrawalRequestList > renders locked and unlocked requests and enables withdrawal when any request is unlocked 1`] = `"Withdrawal requests1 XVSUnlocked2 XVSLocked until Jan 11, 2024 12:00 AMWithdraw unlocked balance"`;

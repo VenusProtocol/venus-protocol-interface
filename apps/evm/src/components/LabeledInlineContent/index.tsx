@@ -7,11 +7,12 @@ import { TokenIcon } from '../TokenIcon';
 
 export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
   label: React.ReactNode;
-  tooltip?: string;
+  tooltip?: React.ReactNode;
   children: React.ReactNode;
   invertTextColors?: boolean;
   iconSrc?: IconName | Token;
   iconClassName?: string;
+  labelClassName?: string;
 }
 
 export const LabeledInlineContent = ({
@@ -22,10 +23,11 @@ export const LabeledInlineContent = ({
   invertTextColors = false,
   children,
   className,
+  labelClassName,
   ...otherContainerProps
 }: LabeledInlineContentProps) => (
   <div className={cn('flex w-full justify-between space-x-4', className)} {...otherContainerProps}>
-    <div className="flex items-center text-sm">
+    <div className={cn('flex items-center text-sm', labelClassName)}>
       {typeof iconSrc === 'string' && (
         <Icon name={iconSrc} className={cn('-mt-[2px] mr-2 h-5 w-5', iconClassName)} />
       )}

@@ -10,6 +10,9 @@ import {
 } from 'components';
 import type { Pool, Vault } from 'types';
 
+import { HIDDEN_BALANCE_KEY } from 'constants/placeholders';
+import { HidableUserBalance } from 'containers/HidableUserBalance';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import Section from '../../../Section';
@@ -39,6 +42,8 @@ export const Summary: React.FC<SummaryProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
+  const [userChainSettings] = useUserChainSettings();
+  const shouldHideBalances = userChainSettings.doNotShowUserBalances;
 
   const { netApyPercentage, dailyEarningsCents, totalVaultStakeCents } = useExtractData({
     pools: [pool],
@@ -61,7 +66,9 @@ export const Summary: React.FC<SummaryProps> = ({
   cells.push(
     {
       label: t('account.summary.cellGroup.netApy'),
-      value: formatPercentageToReadableValue(netApyPercentage),
+      value: (
+        <HidableUserBalance>{formatPercentageToReadableValue(netApyPercentage)}</HidableUserBalance>
+      ),
       tooltip: vaults
         ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
         : t('account.summary.cellGroup.netApyTooltip'),
@@ -72,17 +79,29 @@ export const Summary: React.FC<SummaryProps> = ({
     },
     {
       label: t('account.summary.cellGroup.dailyEarnings'),
-      value: formatCentsToReadableValue({ value: dailyEarningsCents }),
+      value: (
+        <HidableUserBalance>
+          {formatCentsToReadableValue({ value: dailyEarningsCents })}
+        </HidableUserBalance>
+      ),
       className: cellClassName,
     },
     {
       label: t('account.summary.cellGroup.totalSupply'),
-      value: formatCentsToReadableValue({ value: pool.userSupplyBalanceCents }),
+      value: (
+        <HidableUserBalance>
+          {formatCentsToReadableValue({ value: pool.userSupplyBalanceCents })}
+        </HidableUserBalance>
+      ),
       className: cellClassName,
     },
     {
       label: t('account.summary.cellGroup.totalBorrow'),
-      value: formatCentsToReadableValue({ value: pool.userBorrowBalanceCents }),
+      value: (
+        <HidableUserBalance>
+          {formatCentsToReadableValue({ value: pool.userBorrowBalanceCents })}
+        </HidableUserBalance>
+      ),
       className: cellClassName,
     },
   );
@@ -90,7 +109,11 @@ export const Summary: React.FC<SummaryProps> = ({
   if (totalVaultStakeCents) {
     cells.push({
       label: t('account.summary.cellGroup.totalVaultStake'),
-      value: formatCentsToReadableValue({ value: totalVaultStakeCents }),
+      value: (
+        <HidableUserBalance>
+          {formatCentsToReadableValue({ value: totalVaultStakeCents })}
+        </HidableUserBalance>
+      ),
       className: cellClassName,
     });
   }
@@ -102,6 +125,7 @@ export const Summary: React.FC<SummaryProps> = ({
           borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber() ?? 0}
           borrowLimitCents={pool.userBorrowLimitCents?.toNumber() ?? 0}
           liquidationThresholdCents={pool.userLiquidationThresholdCents?.toNumber()}
+          hideUserBalances={shouldHideBalances ? HIDDEN_BALANCE_KEY : undefined}
         />
       ),
       className: cellClassName,
@@ -130,7 +154,9 @@ export const Summary: React.FC<SummaryProps> = ({
         />
 
         {/* Account health */}
-        {displayAccountHealth && <div className="shrink-0">{cells[cells.length - 1].value}</div>}
+        {displayAccountHealth && (
+          <div className="shrink-0 min-w-96">{cells[cells.length - 1].value}</div>
+        )}
       </Card>
     </Section>
   );

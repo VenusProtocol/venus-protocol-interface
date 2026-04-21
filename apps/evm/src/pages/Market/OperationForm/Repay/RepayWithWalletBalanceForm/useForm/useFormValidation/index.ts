@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
+import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useTranslation } from 'libs/translations';
-import { useCommonValidation } from 'pages/Market/OperationForm/useCommonValidation';
 import type { AssetBalanceMutation, Pool, SwapQuote } from 'types';
-import type { FormError } from '../../../../types';
+import type { TxFormError } from 'types';
 import type { FormErrorCode, FormValues } from '../types';
 
 interface UseFormValidationInput {
@@ -21,7 +21,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formError?: TxFormError<FormErrorCode>;
 }
 
 export const useFormValidation = ({
@@ -41,13 +41,13 @@ export const useFormValidation = ({
   const commonFormError = useCommonValidation({
     pool,
     simulatedPool,
-    swapQuote,
     balanceMutations,
+    swapPriceImpactPercentage: swapQuote?.priceImpactPercentage,
     swapQuoteErrorCode,
     userAcknowledgesHighPriceImpact: formValues.acknowledgeHighPriceImpact,
   });
 
-  const formError: FormError<FormErrorCode> | undefined = (() => {
+  const formError: TxFormError<FormErrorCode> | undefined = (() => {
     if (commonFormError) {
       return commonFormError;
     }

@@ -8,7 +8,8 @@ export const formatToVenusVault = (vault: VaultData): VenusVault => {
     key: `${VaultManager.Venus}-${vault.stakedToken.symbol}-${vault.rewardToken.symbol}-${
       vault.lockingPeriodMs || 0
     }`,
-    category: vault.stakedToken.symbol === 'VAI' ? VaultCategory.Stablecoins : VaultCategory.Others,
+    category:
+      vault.stakedToken.symbol === 'XVS' ? VaultCategory.GOVERNANCE : VaultCategory.STABLECOINS,
     manager: VaultManager.Venus,
     managerIcon: 'logoMobile' as const,
     status:

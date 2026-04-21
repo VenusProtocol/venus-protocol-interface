@@ -3,7 +3,7 @@ import fakeAccountAddress, {
 } from '__mocks__/models/address';
 import { bnb, xvs } from '__mocks__/models/tokens';
 import BigNumber from 'bignumber.js';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import type { Mock } from 'vitest';
 import { invalidatePendleVaultCaches } from '..';

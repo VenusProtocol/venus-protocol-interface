@@ -1,5 +1,5 @@
 import fakeAccountAddress from '__mocks__/models/address';
-import { queryClient } from 'clients/api';
+import { queryClient } from 'clients/api/queryClient';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { renderHook } from 'testUtils/render';

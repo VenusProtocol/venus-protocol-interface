@@ -42,10 +42,11 @@ export const EModeInfo: React.FC<EModeInfoProps> = ({ eModeGroups, token, pool }
   }
 
   return (
-    <div className="space-y-6">
+    <div id="mode-info" className="space-y-6">
       {eModeAssetSettings.length > 0 && (
         <Mode
           title={t('market.eModeInfo.eMode.title')}
+          tooltip={t('market.eModeInfo.eMode.tooltip')}
           eModeAssetSettings={eModeAssetSettings}
           pool={pool}
         />
@@ -54,6 +55,7 @@ export const EModeInfo: React.FC<EModeInfoProps> = ({ eModeGroups, token, pool }
       {isolatedEModeAssetSettings.length > 0 && (
         <Mode
           title={t('market.eModeInfo.isolationMode.title')}
+          tooltip={t('market.eModeInfo.isolationMode.tooltip')}
           eModeAssetSettings={isolatedEModeAssetSettings}
           pool={pool}
         />

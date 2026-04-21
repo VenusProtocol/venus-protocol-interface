@@ -63,7 +63,7 @@ export const calculateUserPoolValues = ({
       interestPercentage: vaiBorrowAprPercentage,
     });
 
-    userYearlyEarningsCents = userYearlyEarningsCents.minus(userYearlyVaiInterestsCents).dp(0);
+    userYearlyEarningsCents = userYearlyEarningsCents.minus(userYearlyVaiInterestsCents);
   }
 
   // Health factor uses spot prices (matching contract LT path / liquidation)

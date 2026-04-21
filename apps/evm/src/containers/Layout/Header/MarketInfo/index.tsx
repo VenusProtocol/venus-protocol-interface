@@ -18,9 +18,11 @@ import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 import { useParams } from 'react-router';
 import {
+  areTokensEqual,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   generateExplorerUrl,
+  scrollToElement,
 } from 'utilities';
 import type { Address } from 'viem';
 import { AddTokenToWalletDropdown } from './AddTokenToWalletDropdown';
@@ -33,29 +35,45 @@ export const MarketInfo = () => {
     vTokenAddress: Address;
   }>();
 
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const { chainId } = useChainId();
 
+  const { accountAddress } = useAccountAddress();
+
   const { data: getAssetData } = useGetAsset({
     vTokenAddress,
+    accountAddress,
   });
   const asset = getAssetData?.asset;
-
-  const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
   const { data: getPools } = useGetPool({
     poolComptrollerAddress,
+    accountAddress,
   });
   const pool = getPools?.pool;
 
+  const hasModeInfo =
+    !!asset &&
+    !!pool?.eModeGroups.some(group =>
+      group.assetSettings.some(s =>
+        areTokensEqual(asset.vToken.underlyingToken, s.vToken.underlyingToken),
+      ),
+    );
+
+  const scrollToLtvOptions = () => scrollToElement('mode-info');
+
   const cells: CellProps[] = useMemo(() => {
+    const effectiveCollateralFactor = isUserConnected
+      ? asset?.userCollateralFactor
+      : asset?.collateralFactor;
+
     const readableMaxLtvPercentage = asset
       ? formatPercentageToReadableValue(
-          asset
+          effectiveCollateralFactor !== undefined
             ? // We use BigNumber to prevent issues with floating-point numbers
-              new BigNumber(asset.collateralFactor)
+              new BigNumber(effectiveCollateralFactor)
                 .multipliedBy(100)
                 .toNumber()
             : undefined,
@@ -78,11 +96,33 @@ export const MarketInfo = () => {
       {
         label: t('layout.header.maxLtv.label'),
         value: readableMaxLtvPercentage,
-        tooltip: t('layout.header.maxLtv.tooltip', {
-          maxLtv: readableMaxLtvPercentage,
-          userCollateralFactor: asset?.collateralFactor,
-          tokenSymbol: asset?.vToken.underlyingToken.symbol,
-        }),
+        tooltip: (
+          <div>
+            <p>
+              {t('layout.header.maxLtv.tooltip', {
+                maxLtv: readableMaxLtvPercentage,
+                userCollateralFactor: effectiveCollateralFactor,
+                tokenSymbol: asset?.vToken.underlyingToken.symbol,
+              })}
+            </p>
+            {hasModeInfo && (
+              <p className="mt-2">
+                <Trans
+                  i18nKey="layout.header.maxLtv.modeInfoHint"
+                  components={{
+                    Link: (
+                      <button
+                        type="button"
+                        className="text-blue underline cursor-pointer"
+                        onClick={scrollToLtvOptions}
+                      />
+                    ),
+                  }}
+                />
+              </p>
+            )}
+          </div>
+        ),
       },
       {
         label: t('layout.header.utilizationRate'),
@@ -102,7 +142,7 @@ export const MarketInfo = () => {
         }),
       },
     ];
-  }, [asset, t, pool]);
+  }, [asset, t, pool, scrollToLtvOptions, Trans, hasModeInfo, isUserConnected]);
 
   const oracleContractHref =
     asset &&
