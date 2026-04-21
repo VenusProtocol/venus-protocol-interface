@@ -6,7 +6,7 @@ exports[`BorrowForm > renders correct available amount when asset liquidity is t
 
 exports[`BorrowForm > renders correct available amount when user borrow limit is the limiting factor 1`] = `"Available990 XVS"`;
 
-exports[`BorrowForm > renders correct available amount when user health factor is the limiting factor 1`] = `"Available990 XVS"`;
+exports[`BorrowForm > renders correct available amount when user health factor is the limiting factor 1`] = `"Available0.01 XVS"`;
 
 exports[`BorrowForm > updates input value correctly when clicking on max button and asset borrow cap is the limiting factor 1`] = `"90"`;
 

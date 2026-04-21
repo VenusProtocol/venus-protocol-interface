@@ -82,4 +82,4 @@ exports[`BoostForm > renders correct available amount when asset liquidity is th
 
 exports[`BoostForm > renders correct available amount when user borrow limit is the limiting factor 1`] = `"Available10 XVS"`;
 
-exports[`BoostForm > renders correct available amount when user health factor is the limiting factor 1`] = `"Available10 XVS"`;
+exports[`BoostForm > renders correct available amount when user health factor is the limiting factor 1`] = `"Available0.05 XVS"`;

@@ -130,14 +130,6 @@ export const formatOutput = ({
             )
           : convertDollarsToCents(tokenPriceDollars);
 
-      // TODO: remove debug logs
-      if (isProtectionModeEnabled) {
-        const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
-        console.log(
-          `[PROTECTION] ${vToken.underlyingToken.symbol}: spot=$${tokenPriceCents.dividedBy(100).toFixed(2)}, supplyPrice=$${tokenSupplyPriceCents.dividedBy(100).toFixed(2)}, borrowPrice=$${tokenBorrowPriceCents.dividedBy(100).toFixed(2)}`,
-        );
-      }
-
       const borrowCapTokens = convertMantissaToTokens({
         value: new BigNumber(market.borrowCapsMantissa),
         token: vToken.underlyingToken,
@@ -288,12 +280,8 @@ export const formatOutput = ({
           })
         : new BigNumber(0);
 
-      const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
-      const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
-      const userSupplyBalanceProtectedCents =
-        userSupplyBalanceTokens.multipliedBy(tokenSupplyPriceCents);
-      const userBorrowBalanceProtectedCents =
-        userBorrowBalanceTokens.multipliedBy(tokenBorrowPriceCents);
+      const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenSupplyPriceCents);
+      const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenBorrowPriceCents);
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
       const asset: Asset = {
@@ -329,10 +317,8 @@ export const formatOutput = ({
         borrowPointDistributions,
         userSupplyBalanceTokens,
         userSupplyBalanceCents,
-        userSupplyBalanceProtectedCents,
         userBorrowBalanceTokens,
         userBorrowBalanceCents,
-        userBorrowBalanceProtectedCents,
         userWalletBalanceTokens,
         userWalletBalanceCents,
         userCollateralFactor,

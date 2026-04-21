@@ -101,20 +101,17 @@ export const getSimulatedPool = async ({
 
     let userSupplyBalanceTokens = asset.userSupplyBalanceTokens;
     let userSupplyBalanceCents = asset.userSupplyBalanceCents;
-    let userSupplyBalanceProtectedCents = asset.userSupplyBalanceProtectedCents;
     let userBorrowBalanceTokens = asset.userBorrowBalanceTokens;
     let userBorrowBalanceCents = asset.userBorrowBalanceCents;
-    let userBorrowBalanceProtectedCents = asset.userBorrowBalanceProtectedCents;
 
     let isCollateralOfUser = asset.isCollateralOfUser;
 
     assetBalanceMutations.forEach(({ action, amountTokens, enableAsCollateralOfUser }) => {
-      const amountCents = amountTokens.multipliedBy(asset.tokenPriceCents);
-      const protectedPrice =
+      const price =
         action === 'supply' || action === 'withdraw'
           ? asset.tokenSupplyPriceCents
           : asset.tokenBorrowPriceCents;
-      const protectedAmountCents = amountTokens.multipliedBy(protectedPrice);
+      const amountCents = amountTokens.multipliedBy(price);
 
       if (enableAsCollateralOfUser) {
         isCollateralOfUser = true;
@@ -127,8 +124,6 @@ export const getSimulatedPool = async ({
 
           supplyBalanceCents = supplyBalanceCents.plus(amountCents);
           userSupplyBalanceCents = userSupplyBalanceCents.plus(amountCents);
-          userSupplyBalanceProtectedCents =
-            userSupplyBalanceProtectedCents.plus(protectedAmountCents);
           break;
         case 'withdraw':
           supplyBalanceTokens = clampToZero({ value: supplyBalanceTokens.minus(amountTokens) });
@@ -140,9 +135,6 @@ export const getSimulatedPool = async ({
           userSupplyBalanceCents = clampToZero({
             value: userSupplyBalanceCents.minus(amountCents),
           });
-          userSupplyBalanceProtectedCents = clampToZero({
-            value: userSupplyBalanceProtectedCents.minus(protectedAmountCents),
-          });
           break;
         case 'borrow':
           borrowBalanceTokens = borrowBalanceTokens.plus(amountTokens);
@@ -150,8 +142,6 @@ export const getSimulatedPool = async ({
 
           borrowBalanceCents = borrowBalanceCents.plus(amountCents);
           userBorrowBalanceCents = userBorrowBalanceCents.plus(amountCents);
-          userBorrowBalanceProtectedCents =
-            userBorrowBalanceProtectedCents.plus(protectedAmountCents);
           break;
         case 'repay':
           borrowBalanceTokens = clampToZero({ value: borrowBalanceTokens.minus(amountTokens) });
@@ -162,9 +152,6 @@ export const getSimulatedPool = async ({
           borrowBalanceCents = clampToZero({ value: borrowBalanceCents.minus(amountCents) });
           userBorrowBalanceCents = clampToZero({
             value: userBorrowBalanceCents.minus(amountCents),
-          });
-          userBorrowBalanceProtectedCents = clampToZero({
-            value: userBorrowBalanceProtectedCents.minus(protectedAmountCents),
           });
           break;
       }
@@ -178,10 +165,8 @@ export const getSimulatedPool = async ({
       borrowBalanceCents,
       userSupplyBalanceTokens,
       userSupplyBalanceCents,
-      userSupplyBalanceProtectedCents,
       userBorrowBalanceTokens,
       userBorrowBalanceCents,
-      userBorrowBalanceProtectedCents,
       isCollateralOfUser,
     };
 

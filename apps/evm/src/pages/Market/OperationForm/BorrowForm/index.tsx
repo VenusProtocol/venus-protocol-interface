@@ -111,9 +111,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       !pool.userBorrowBalanceCents ||
       !pool.userBorrowLimitCents ||
       !pool.userLiquidationThresholdCents ||
-      pool.userBorrowBalanceProtectedCents?.isGreaterThanOrEqualTo(
-        pool.userBorrowLimitProtectedCents ?? 0,
-      ) ||
+      pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents) ||
       asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
     ) {
       return [new BigNumber(0), new BigNumber(0), new BigNumber(0)];
@@ -124,20 +122,20 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       // Convert to tokens
       .dividedBy(asset.tokenPriceCents);
 
-    // Borrow limit (uses protected prices to match contract behavior)
-    const marginWithUserBorrowLimitTokens = (pool.userBorrowLimitProtectedCents ?? new BigNumber(0))
-      .minus(pool.userBorrowBalanceProtectedCents ?? 0)
+    // Borrow limit
+    const marginWithUserBorrowLimitTokens = pool.userBorrowLimitCents
+      .minus(pool.userBorrowBalanceCents)
       // Convert to tokens
       .dividedBy(asset.tokenBorrowPriceCents);
 
     let marginWithUserSafeBorrowLimitTokens =
       // We base the safe borrow limit on the liquidation threshold because that's the base used to
-      // calculate the health factor (spot-based, since liquidation uses spot)
+      // calculate the health factor
       pool.userLiquidationThresholdCents
         .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)
         .minus(pool.userBorrowBalanceCents)
-        // Convert to tokens (spot, to match health factor pricing)
-        .dividedBy(asset.tokenPriceCents);
+        // Convert to tokens
+        .dividedBy(asset.tokenBorrowPriceCents);
 
     if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
       marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
@@ -146,41 +144,11 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
     let marginWithUserModerateRiskBorrowLimitTokens = pool.userLiquidationThresholdCents
       .div(HEALTH_FACTOR_MODERATE_THRESHOLD)
       .minus(pool.userBorrowBalanceCents)
-      // Convert to tokens (spot, to match health factor pricing)
-      .dividedBy(asset.tokenPriceCents);
+      // Convert to tokens
+      .dividedBy(asset.tokenBorrowPriceCents);
 
     if (marginWithUserModerateRiskBorrowLimitTokens.isLessThan(0)) {
       marginWithUserModerateRiskBorrowLimitTokens = new BigNumber(0);
-    }
-
-    // TODO: remove debug logs
-    {
-      const borrowLimitProtected = pool.userBorrowLimitProtectedCents ?? new BigNumber(0);
-      const borrowBalanceProtected = pool.userBorrowBalanceProtectedCents ?? new BigNumber(0);
-      const borrowLimitSpot = pool.userBorrowLimitCents ?? new BigNumber(0);
-      const borrowBalanceSpot = pool.userBorrowBalanceCents ?? new BigNumber(0);
-      const isProtected = asset.isProtectionModeEnabled;
-      console.log(
-        `[BORROW_DEBUG] ${asset.vToken.underlyingToken.symbol} protectionMode=${isProtected}`,
-      );
-      console.log(
-        `[BORROW_DEBUG]   prices: spot=$${asset.tokenPriceCents.dividedBy(100).toFixed(2)}, supplyPrice=$${asset.tokenSupplyPriceCents.dividedBy(100).toFixed(2)}, borrowPrice=$${asset.tokenBorrowPriceCents.dividedBy(100).toFixed(2)}`,
-      );
-      console.log(
-        `[BORROW_DEBUG]   borrowLimit: spot=$${borrowLimitSpot.dividedBy(100).toFixed(2)}, protected=$${borrowLimitProtected.dividedBy(100).toFixed(2)}`,
-      );
-      console.log(
-        `[BORROW_DEBUG]   borrowBalance: spot=$${borrowBalanceSpot.dividedBy(100).toFixed(2)}, protected=$${borrowBalanceProtected.dividedBy(100).toFixed(2)}`,
-      );
-      console.log(
-        `[BORROW_DEBUG]   hardLimitTokens=${marginWithUserBorrowLimitTokens.toFixed(4)} (protected limit - protected balance) / borrowPrice`,
-      );
-      console.log(
-        `[BORROW_DEBUG]   safeLimitTokens=${marginWithUserSafeBorrowLimitTokens.toFixed(4)} (spot-based, for HF)`,
-      );
-      console.log(
-        `[BORROW_DEBUG]   moderateLimitTokens=${marginWithUserModerateRiskBorrowLimitTokens.toFixed(4)} (spot-based, for HF)`,
-      );
     }
 
     // Borrow cap limit

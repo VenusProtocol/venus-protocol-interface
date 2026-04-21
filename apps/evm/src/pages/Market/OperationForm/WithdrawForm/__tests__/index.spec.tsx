@@ -303,9 +303,7 @@ describe('WithdrawForm', () => {
     const customFakePool: Pool = {
       ...fakePool,
       userBorrowBalanceCents: new BigNumber(500),
-      userBorrowBalanceProtectedCents: new BigNumber(500),
       userBorrowLimitCents: new BigNumber(1000),
-      userBorrowLimitProtectedCents: new BigNumber(1000),
       userSupplyBalanceCents: new BigNumber(1000),
       userLiquidationThresholdCents: new BigNumber(1100),
     };
