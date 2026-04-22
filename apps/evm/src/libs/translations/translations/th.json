@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "การแสดงสถานะปัจจุบันของบัญชีของคุณ",
     "borrowed": "ยอดยืม:",
+    "borrowedSpotTooltip": "มูลค่าการกู้ยืมนี้คำนวณจากราคา spot ของสินทรัพย์ที่กู้ยืม และจะใช้ในการกำหนดสถานะสุขภาพของบัญชีของคุณ",
     "liquidationThreshold": "เกณฑ์การชำระบัญชี：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = เกณฑ์การชำระบัญชี<LineBreak/>เมื่อยอดยืมของคุณถึงค่านี้ ตำแหน่งของคุณจะมีสิทธิ์ถูกชำระบัญชี<LineBreak/><LineBreak/>เรียนรู้เพิ่มเติมเกี่ยวกับ<Link>การคำนวณ</Link>",
-    "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืม:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืม:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "ยอดกู้ยืม (ป้องกัน):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} ของวงเงินกู้ยืมของคุณ)<LineBreak/><LineBreak/>ยอดกู้ยืม (Spot): {{borrowBalance}}<LineBreak/>วงเงินกู้ยืม: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "เริ่มตอนนี้"

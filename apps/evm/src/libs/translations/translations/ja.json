@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "現在のアカウント状態の表示",
     "borrowed": "借入額:",
+    "borrowedSpotTooltip": "この借入額は、借入資産のスポット価格に基づいて計算され、アカウントの健全性を判定するために使用されます。",
     "liquidationThreshold": "清算閾値：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾値<LineBreak/>借入残高がこの値に達すると、ポジションが清算対象になります。<LineBreak/><LineBreak/><Link>計算方法</Link>の詳細はこちら。",
-    "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借入限度:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借入限度:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "借入残高（保護）：<LineBreak/>{{borrowBalanceProtected}}（{{borrowLimitUsedPercentage}} 借入限度額の）<LineBreak/><LineBreak/>借入残高（スポット）：{{borrowBalance}}<LineBreak/>借入限度額：{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "今すぐ始める"

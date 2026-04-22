@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "當前賬戶狀態的表示",
     "borrowed": "已借：",
+    "borrowedSpotTooltip": "此借款價值基於借入資產的現貨價格計算，將用於確定您帳戶的健康狀態。",
     "liquidationThreshold": "清算閾值：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾值<LineBreak/>當您的借款餘額達到此值時，您的倉位將有資格被清算。<LineBreak/><LineBreak/>了解更多關於<Link>計算方式。</Link>",
-    "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（佔借款限額的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限額：<LineBreak/>{{borrowLimit}}"
+    "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（佔借款限額的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限額：<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "借款餘額（保護）：<LineBreak/>{{borrowBalanceProtected}}（{{borrowLimitUsedPercentage}} 佔您的借款額度）<LineBreak/><LineBreak/>借款餘額（現貨）：{{borrowBalance}}<LineBreak/>借款額度：{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "立即開始"

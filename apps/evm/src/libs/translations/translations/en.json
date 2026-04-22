@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
     "borrowed": "Borrowed:",
+    "borrowedSpotTooltip": "This borrow value is calculated based on the spot price of the borrowed asset and will be used to determine your account's health status.",
     "liquidationThreshold": "Liquidation threshold:",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
-    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "Borrow balance (Protection):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (Spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Start now"

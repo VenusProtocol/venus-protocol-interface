@@ -28,6 +28,11 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({ pool, simulatedPoo
           pool.userLiquidationThresholdCents?.toNumber() ??
           0
         }
+        borrowBalanceProtectedCents={
+          simulatedPool?.userBorrowBalanceProtectedCents?.toNumber() ??
+          pool.userBorrowBalanceProtectedCents?.toNumber()
+        }
+        userHasProtectionModeAssets={(simulatedPool ?? pool).userHasProtectionModeAssets}
       />
 
       <LabeledInlineContent

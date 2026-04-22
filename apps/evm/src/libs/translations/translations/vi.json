@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "Biểu diễn trạng thái hiện tại của tài khoản của bạn",
     "borrowed": "Đã vay:",
+    "borrowedSpotTooltip": "Giá trị vay này được tính dựa trên giá spot của tài sản vay và sẽ được sử dụng để xác định tình trạng sức khỏe tài khoản của bạn.",
     "liquidationThreshold": "Ngưỡng thanh lý:",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Ngưỡng thanh lý<LineBreak/>Khi số dư vay của bạn đạt đến giá trị này, vị thế của bạn sẽ đủ điều kiện bị thanh lý.<LineBreak/><LineBreak/>Tìm hiểu thêm về <Link>cách tính.</Link>",
-    "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "Số dư vay (Bảo vệ):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} hạn mức vay của bạn)<LineBreak/><LineBreak/>Số dư vay (Spot): {{borrowBalance}}<LineBreak/>Hạn mức vay: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Bắt đầu ngay"

@@ -231,6 +231,7 @@ export interface Pool {
   userBorrowBalanceProtectedCents?: BigNumber;
   userLiquidationThresholdCents?: BigNumber;
   userYearlyEarningsCents?: BigNumber;
+  userHasProtectionModeAssets?: boolean;
   userHealthFactor?: number;
   userEModeGroup?: EModeGroup;
 }
