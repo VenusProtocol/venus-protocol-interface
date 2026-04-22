@@ -690,6 +690,16 @@ export const useGetSwapQuote = vi.fn(() =>
   }),
 );
 
+export const getPendleSwapQuote = vi.fn();
+export const useGetPendleSwapQuote = vi.fn(
+  (_input: never, options?: Partial<QueryObserverOptions>) =>
+    useQuery({
+      queryKey: [FunctionKey.GET_PENDLE_SWAP_QUOTE],
+      queryFn: getPendleSwapQuote,
+      ...options,
+    }),
+);
+
 export const getMarketsTvl = vi.fn(async () => ({
   suppliedSumCents: '100000000000',
   borrowedSumCents: '10000000000',
@@ -783,6 +793,21 @@ export const useWithdraw = vi.fn((_variables: never, options?: MutationObserverO
     mutationFn: vi.fn(),
     ...options,
   }),
+);
+
+export const useStakeInPendleVault = vi.fn((_variables: never, options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useWithdrawFromPendleVault = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
 );
 
 export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOptions) =>

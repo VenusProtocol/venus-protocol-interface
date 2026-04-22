@@ -61,6 +61,9 @@ export const invalidatePendleVaultCaches = ({
     ],
   });
 
+  queryClient.invalidateQueries({
+    queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS, { chainId }],
+  });
   queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL] });
   queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_POOLS] });
   queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS] });

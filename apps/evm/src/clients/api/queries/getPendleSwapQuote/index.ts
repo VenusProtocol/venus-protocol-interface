@@ -30,7 +30,7 @@ export const getPendleSwapQuote = async ({
         value: amountTokens,
         token: fromToken,
       }),
-      slippagePercentage,
+      slippagePercentage: slippagePercentage / 100, // Despite the name, the backend actually expects a ratio (value between 0 and 1)
       receiverAddress,
     },
   });
