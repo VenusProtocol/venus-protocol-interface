@@ -989,6 +989,7 @@
       "isolationMode": "该市场属于 {{eModeGroupName}} 隔离模式组",
       "pausedAssetTooltip": "资产已被 Venus 治理暂停。借款与存款已禁用。",
       "protectionMode": "由于价格波动，{{tokenName}} 的保护模式已激活，影响其抵押和借款价格。 <LearnMore>了解更多</LearnMore>",
+      "protectionModePair": "由于价格波动，{{tokenName}} 的保护模式已激活，影响其抵押和借款价格。 <LearnMore>了解更多</LearnMore>",
       "protectionModeSupply": "该市场正经历高波动性。受保护的抵押品价值按 {{protectedValue}} 计算，代表用于确定您借款额度的保守价值。",
       "protectionModeBorrow": "该市场正经历高波动性。受保护的借款价值按 {{protectedValue}} 计算，代表计入您借款额度的保守价值。",
       "protectionModeDetail": "该市场正经历高波动性。受保护的抵押品价格为 {{collateralPrice}} — 用于确定您借款额度的保守价格。 受保护的借款价格为 {{borrowPrice}} — 用于计算可借入该资产数量的保守价格。"
@@ -1635,7 +1636,8 @@
   },
   "protectionModeIndicator": {
     "label": "已保护",
-    "detailedTooltip": "该市场正经历高波动性。受保护的抵押品价格为 {{collateralPrice}} — 用于确定您借款额度的保守价格。<LineBreak/>受保护的借款价格为 {{borrowPrice}} — 用于计算可借入该资产数量的保守价格。"
+    "detailedTooltip": "该市场正经历高波动性。受保护的抵押品价格为 {{collateralPrice}} — 用于确定您借款额度的保守价格。<LineBreak/>受保护的借款价格为 {{borrowPrice}} — 用于计算可借入该资产数量的保守价格。",
+    "pairTokenNames": "{{longToken}} 和 {{shortToken}}"
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

@@ -9,22 +9,32 @@ import { Tooltip } from '../Tooltip';
 
 export type ProtectionModeVariant = 'icon' | 'label';
 
-export type ProtectionModeTooltipType = 'supply' | 'borrow' | 'list';
+export type ProtectionModeTooltipType = 'supply' | 'borrow' | 'list' | 'pair';
 
 export interface ProtectionModeIndicatorProps {
   variant?: ProtectionModeVariant;
   tooltipType?: ProtectionModeTooltipType;
   tokenName: string;
-  tokenSupplyPriceCents: BigNumber;
-  tokenBorrowPriceCents: BigNumber;
+  tokenSupplyPriceCents?: BigNumber;
+  tokenBorrowPriceCents?: BigNumber;
   userSupplyBalanceCents?: BigNumber;
   userBorrowBalanceCents?: BigNumber;
   className?: string;
 }
 
+const LearnMoreLink = (
+  // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
+  <a
+    href={VENUS_PROTECTION_MODE_DOC_URL}
+    className="text-blue underline"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+);
+
 export const ProtectionModeIndicator: React.FC<ProtectionModeIndicatorProps> = ({
   variant = 'icon',
-  tooltipType = 'detail',
+  tooltipType,
   tokenName,
   tokenSupplyPriceCents,
   tokenBorrowPriceCents,
@@ -51,21 +61,20 @@ export const ProtectionModeIndicator: React.FC<ProtectionModeIndicatorProps> = (
         }),
       });
       break;
+    case 'pair':
+      tooltipContent = (
+        <Trans
+          i18nKey="marketTable.assetColumn.protectionModePair"
+          components={{ LearnMore: LearnMoreLink }}
+          values={{ tokenName }}
+        />
+      );
+      break;
     case 'list':
       tooltipContent = (
         <Trans
           i18nKey="marketTable.assetColumn.protectionMode"
-          components={{
-            LearnMore: (
-              // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
-              <a
-                href={VENUS_PROTECTION_MODE_DOC_URL}
-                className="text-blue underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            ),
-          }}
+          components={{ LearnMore: LearnMoreLink }}
           values={{ tokenName }}
         />
       );

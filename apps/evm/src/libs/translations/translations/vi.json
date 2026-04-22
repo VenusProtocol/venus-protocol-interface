@@ -989,6 +989,7 @@
       "isolationMode": "Thị trường này thuộc nhóm chế độ cô lập {{eModeGroupName}}",
       "pausedAssetTooltip": "Tài sản đã bị tạm dừng bởi Venus Governance. Việc vay và cung cấp đã bị vô hiệu hóa.",
       "protectionMode": "Chế độ Bảo vệ đang hoạt động cho {{tokenName}} do biến động giá, ảnh hưởng đến giá thế chấp và giá vay. <LearnMore>Tìm hiểu thêm</LearnMore>",
+      "protectionModePair": "Chế độ Bảo vệ đang hoạt động cho {{tokenName}} do biến động giá, ảnh hưởng đến giá thế chấp và giá vay. <LearnMore>Tìm hiểu thêm</LearnMore>",
       "protectionModeSupply": "Thị trường này đang trải qua biến động cao. Giá trị thế chấp được bảo vệ được tính là {{protectedValue}}, đại diện cho giá trị thận trọng được sử dụng để xác định hạn mức vay của bạn.",
       "protectionModeBorrow": "Thị trường này đang trải qua biến động cao. Giá trị vay được bảo vệ được tính là {{protectedValue}}, đại diện cho giá trị thận trọng tính vào hạn mức vay của bạn.",
       "protectionModeDetail": "Thị trường này đang trải qua biến động cao. Giá thế chấp được bảo vệ là {{collateralPrice}} — giá thận trọng được sử dụng để xác định hạn mức vay của bạn. Giá vay được bảo vệ là {{borrowPrice}} — giá thận trọng được sử dụng để tính số lượng tài sản này có thể vay."
@@ -1635,7 +1636,8 @@
   },
   "protectionModeIndicator": {
     "label": "Đã bảo vệ",
-    "detailedTooltip": "Thị trường này đang trải qua biến động cao. Giá thế chấp được bảo vệ là {{collateralPrice}} — giá thận trọng được sử dụng để xác định hạn mức vay của bạn.<LineBreak/>Giá vay được bảo vệ là {{borrowPrice}} — giá thận trọng được sử dụng để tính số lượng tài sản này có thể vay."
+    "detailedTooltip": "Thị trường này đang trải qua biến động cao. Giá thế chấp được bảo vệ là {{collateralPrice}} — giá thận trọng được sử dụng để xác định hạn mức vay của bạn.<LineBreak/>Giá vay được bảo vệ là {{borrowPrice}} — giá thận trọng được sử dụng để tính số lượng tài sản này có thể vay.",
+    "pairTokenNames": "cả {{longToken}} và {{shortToken}}"
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
