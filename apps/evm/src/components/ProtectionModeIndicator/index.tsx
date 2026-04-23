@@ -1,11 +1,11 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 
-import { VENUS_PROTECTION_MODE_DOC_URL } from 'constants/production';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
+import { LearnMoreLink } from './LearnMoreLink';
 
 export type ProtectionModeVariant = 'icon' | 'label';
 
@@ -21,16 +21,6 @@ export interface ProtectionModeIndicatorProps {
   userBorrowBalanceCents?: BigNumber;
   className?: string;
 }
-
-const LearnMoreLink = (
-  // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
-  <a
-    href={VENUS_PROTECTION_MODE_DOC_URL}
-    className="text-blue underline"
-    target="_blank"
-    rel="noopener noreferrer"
-  />
-);
 
 export const ProtectionModeIndicator: React.FC<ProtectionModeIndicatorProps> = ({
   variant = 'icon',
@@ -48,18 +38,30 @@ export const ProtectionModeIndicator: React.FC<ProtectionModeIndicatorProps> = (
 
   switch (tooltipType) {
     case 'supply':
-      tooltipContent = t('marketTable.assetColumn.protectionModeSupply', {
-        protectedValue: formatCentsToReadableValue({
-          value: userSupplyBalanceCents,
-        }),
-      });
+      tooltipContent = (
+        <Trans
+          i18nKey="marketTable.assetColumn.protectionModeSupply"
+          components={{ LineBreak: <br /> }}
+          values={{
+            protectedValue: formatCentsToReadableValue({
+              value: userSupplyBalanceCents,
+            }),
+          }}
+        />
+      );
       break;
     case 'borrow':
-      tooltipContent = t('marketTable.assetColumn.protectionModeBorrow', {
-        protectedValue: formatCentsToReadableValue({
-          value: userBorrowBalanceCents,
-        }),
-      });
+      tooltipContent = (
+        <Trans
+          i18nKey="marketTable.assetColumn.protectionModeBorrow"
+          components={{ LineBreak: <br /> }}
+          values={{
+            protectedValue: formatCentsToReadableValue({
+              value: userBorrowBalanceCents,
+            }),
+          }}
+        />
+      );
       break;
     case 'pair':
       tooltipContent = (

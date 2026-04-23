@@ -142,7 +142,7 @@
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "Borrow balance (Protection):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (Spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimit}}"
+    "tooltipProtection": "Borrow balance (protected):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Start now"
@@ -988,11 +988,10 @@
       "eMode": "This market is part of the {{eModeGroupName}} E-mode group",
       "isolationMode": "This market is part of the {{eModeGroupName}} isolation mode group",
       "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled.",
-      "protectionMode": "Protection Mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices. <LearnMore>Learn more</LearnMore>",
-      "protectionModePair": "Protection Mode is active for {{tokenName}} due to price volatility, affecting their collateral and borrow prices. <LearnMore>Learn more</LearnMore>",
-      "protectionModeSupply": "This market is experiencing high volatility. The protected collateral value is calculated as {{protectedValue}}, representing the conservative value used to determine your borrow power.",
-      "protectionModeBorrow": "This market is experiencing high volatility. The protected borrow value is calculated as {{protectedValue}}, representing the conservative value that counts against your borrow power.",
-      "protectionModeDetail": "This market is experiencing high volatility. The Protected Collateral Price is {{collateralPrice}} — the conservative price used to determine your borrow power. The Protected Borrow Price is {{borrowPrice}} — the conservative price used to calculate how much of this asset can be borrowed."
+      "protectionMode": "Protection mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices. <LearnMore>Learn more</LearnMore>",
+      "protectionModePair": "Protection mode is active for {{tokenName}} due to price volatility, affecting their collateral and borrow prices. <LearnMore>Learn more</LearnMore>",
+      "protectionModeSupply": "This market is experiencing high volatility.<LineBreak/><LineBreak/>The protected collateral value is calculated as {{protectedValue}}, representing the conservative value used to determine your borrow power.",
+      "protectionModeBorrow": "This market is experiencing high volatility.<LineBreak/><LineBreak/>The protected borrow value is calculated as {{protectedValue}}, representing the conservative value that counts against your borrow power."
     },
     "columnKeys": {
       "asset": "Asset",
@@ -1636,7 +1635,7 @@
   },
   "protectionModeIndicator": {
     "label": "Protected",
-    "detailedTooltip": "This market is experiencing high volatility. The Protected Collateral Price is {{collateralPrice}} — the conservative price used to determine your borrow power.<LineBreak/>The Protected Borrow Price is {{borrowPrice}} — the conservative price used to calculate how much of this asset can be borrowed.",
+    "detailedTooltip": "This market is experiencing high volatility.<LineBreak/><LineBreak/>The Protected Collateral Price is {{collateralPrice}}, the conservative price used to determine your borrow power.<LineBreak/><LineBreak/>The Protected Borrow Price is {{borrowPrice}}, the conservative price used to calculate how much of this asset can be borrowed.",
     "pairTokenNames": "both {{longToken}} and {{shortToken}}"
   },
   "tokenTextField": {

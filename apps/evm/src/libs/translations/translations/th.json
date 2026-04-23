@@ -142,7 +142,7 @@
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = เกณฑ์การชำระบัญชี<LineBreak/>เมื่อยอดยืมของคุณถึงค่านี้ ตำแหน่งของคุณจะมีสิทธิ์ถูกชำระบัญชี<LineBreak/><LineBreak/>เรียนรู้เพิ่มเติมเกี่ยวกับ<Link>การคำนวณ</Link>",
     "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืม:<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "ยอดกู้ยืม (ป้องกัน):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} ของวงเงินกู้ยืมของคุณ)<LineBreak/><LineBreak/>ยอดกู้ยืม (Spot): {{borrowBalance}}<LineBreak/>วงเงินกู้ยืม: {{borrowLimit}}"
+    "tooltipProtection": "ยอดกู้ยืม (ป้องกัน):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} ของวงเงินกู้ยืมของคุณ)<LineBreak/><LineBreak/>ยอดกู้ยืม (spot): {{borrowBalance}}<LineBreak/>วงเงินกู้ยืม: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "เริ่มตอนนี้"
@@ -990,9 +990,8 @@
       "pausedAssetTooltip": "สินทรัพย์ถูกหยุดโดยการกำกับดูแลของ Venus การยืมและการฝากถูกปิดใช้งาน",
       "protectionMode": "โหมดป้องกันเปิดใช้งานสำหรับ {{tokenName}} เนื่องจากความผันผวนของราคา ส่งผลต่อราคาหลักประกันและราคาการกู้ยืม <LearnMore>เรียนรู้เพิ่มเติม</LearnMore>",
       "protectionModePair": "โหมดป้องกันเปิดใช้งานสำหรับ {{tokenName}} เนื่องจากความผันผวนของราคา ส่งผลต่อราคาหลักประกันและราคาการกู้ยืม <LearnMore>เรียนรู้เพิ่มเติม</LearnMore>",
-      "protectionModeSupply": "ตลาดนี้กำลังประสบความผันผวนสูง มูลค่าหลักประกันที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ",
-      "protectionModeBorrow": "ตลาดนี้กำลังประสบความผันผวนสูง มูลค่าการกู้ยืมที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่นับรวมในวงเงินกู้ยืมของคุณ",
-      "protectionModeDetail": "ตลาดนี้กำลังประสบความผันผวนสูง ราคาหลักประกันที่ได้รับการป้องกันคือ {{collateralPrice}} — ราคาที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ ราคาการกู้ยืมที่ได้รับการป้องกันคือ {{borrowPrice}} — ราคาที่ระมัดระวังที่ใช้คำนวณจำนวนสินทรัพย์นี้ที่สามารถกู้ยืมได้"
+      "protectionModeSupply": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>มูลค่าหลักประกันที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ",
+      "protectionModeBorrow": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>มูลค่าการกู้ยืมที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่นับรวมในวงเงินกู้ยืมของคุณ"
     },
     "columnKeys": {
       "asset": "สินทรัพย์",
@@ -1636,7 +1635,7 @@
   },
   "protectionModeIndicator": {
     "label": "ป้องกันแล้ว",
-    "detailedTooltip": "ตลาดนี้กำลังประสบความผันผวนสูง ราคาหลักประกันที่ได้รับการป้องกันคือ {{collateralPrice}} — ราคาที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ<LineBreak/>ราคาการกู้ยืมที่ได้รับการป้องกันคือ {{borrowPrice}} — ราคาที่ระมัดระวังที่ใช้คำนวณจำนวนสินทรัพย์นี้ที่สามารถกู้ยืมได้",
+    "detailedTooltip": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>ราคาหลักประกันที่ได้รับการป้องกันคือ {{collateralPrice}} ราคาที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ<LineBreak/><LineBreak/>ราคาการกู้ยืมที่ได้รับการป้องกันคือ {{borrowPrice}} ราคาที่ระมัดระวังที่ใช้คำนวณจำนวนสินทรัพย์นี้ที่สามารถกู้ยืมได้",
     "pairTokenNames": "ทั้ง {{longToken}} และ {{shortToken}}"
   },
   "tokenTextField": {

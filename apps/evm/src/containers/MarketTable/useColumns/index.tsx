@@ -165,8 +165,8 @@ export const useColumns = ({
                   tokenName={asset.vToken.underlyingToken.symbol}
                   tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
                   tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
-                  userSupplyBalanceCents={asset.userSupplyBalanceCents}
-                  userBorrowBalanceCents={asset.userBorrowBalanceCents}
+                  userSupplyBalanceCents={asset.userSupplyBalanceProtectedCents}
+                  userBorrowBalanceCents={asset.userBorrowBalanceProtectedCents}
                 />
               )}
 

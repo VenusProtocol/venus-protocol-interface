@@ -72,15 +72,12 @@ export const calculateUserPoolValues = ({
     borrowBalanceCents: userBorrowBalanceCents.toNumber(),
   });
 
-  const userHasProtectionModeAssets = assets.some(asset => asset.isProtectionModeEnabled);
-
   return {
     userBorrowBalanceCents,
     userSupplyBalanceCents,
     userBorrowLimitCents,
     userBorrowLimitProtectedCents,
     userBorrowBalanceProtectedCents,
-    userHasProtectionModeAssets,
     userLiquidationThresholdCents,
     userHealthFactor,
     userYearlyEarningsCents,

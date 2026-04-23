@@ -108,6 +108,7 @@ export const formatOutput = ({
         decimals: vToken.underlyingToken.decimals,
       });
 
+      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
       const isProtectionModeEnabled = correspondingOraclePrice.isPriceProtected ?? false;
 
       const tokenSupplyPriceCents =
@@ -118,7 +119,7 @@ export const formatOutput = ({
                 decimals: vToken.underlyingToken.decimals,
               }),
             )
-          : convertDollarsToCents(tokenPriceDollars);
+          : tokenPriceCents;
 
       const tokenBorrowPriceCents =
         isProtectionModeEnabled && correspondingOraclePrice.borrowPriceMantissa
@@ -128,7 +129,7 @@ export const formatOutput = ({
                 decimals: vToken.underlyingToken.decimals,
               }),
             )
-          : convertDollarsToCents(tokenPriceDollars);
+          : tokenPriceCents;
 
       const borrowCapTokens = convertMantissaToTokens({
         value: new BigNumber(market.borrowCapsMantissa),
@@ -197,7 +198,6 @@ export const formatOutput = ({
         token: vToken.underlyingToken,
       });
 
-      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
       const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
       const reserveTokens = convertMantissaToTokens({

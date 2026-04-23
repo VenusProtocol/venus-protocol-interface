@@ -140,19 +140,18 @@ export const MarketInfo = () => {
       },
       {
         label: t('layout.header.price'),
-        value:
-          asset?.isProtectionModeEnabled ? (
-            <span className="inline-flex items-center gap-x-2">
+        value: (
+          <span className="inline-flex items-center gap-x-2">
+            {asset?.isProtectionModeEnabled && (
               <ProtectionModeIndicator
                 variant="icon"
                 tokenName={asset.vToken.underlyingToken.symbol}
                 tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
                 tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
               />
-              {readablePrice}
-            </span>
-          ) : (
-            readablePrice
+            )}
+            {readablePrice}
+          </span>
         ),
       },
     ];

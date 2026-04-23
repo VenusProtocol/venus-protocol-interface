@@ -24,7 +24,6 @@ export interface AccountHealthBarProps {
   borrowBalanceProtectedCents: number | undefined;
   borrowLimitCents: number | undefined;
   liquidationThresholdCents: number | undefined;
-  userHasProtectionModeAssets?: boolean;
   className?: string;
   hideUserBalances?: string;
 }
@@ -35,7 +34,6 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   borrowBalanceProtectedCents,
   borrowLimitCents,
   liquidationThresholdCents,
-  userHasProtectionModeAssets,
   hideUserBalances,
 }) => {
   const { t, Trans } = useTranslation();
@@ -84,6 +82,8 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     value: borrowBalanceProtectedCents,
   });
 
+  const isProtectionModeEnabled = borrowBalanceProtectedCents !== undefined && borrowBalanceCents !== undefined && borrowBalanceProtectedCents !== borrowBalanceCents;
+
   const tooltip = useMemo(
     () =>
       readableBorrowBalance !== PLACEHOLDER_KEY &&
@@ -91,7 +91,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       borrowBalanceCents &&
       borrowBalanceCents > 0 ? (
         <Trans
-          i18nKey={userHasProtectionModeAssets ? 'accountHealth.tooltipProtection' : 'accountHealth.tooltip'}
+          i18nKey={isProtectionModeEnabled ? 'accountHealth.tooltipProtection' : 'accountHealth.tooltip'}
           shouldUnescape
           components={{
             LineBreak: <br />,
@@ -111,7 +111,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       readableBorrowLimitUsedPercentage,
       readableBorrowLimit,
       hideUserBalances,
-      userHasProtectionModeAssets,
+      isProtectionModeEnabled,
       Trans,
     ],
   );
