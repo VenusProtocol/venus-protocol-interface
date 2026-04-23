@@ -1,5 +1,4 @@
 import { Carousel, CarouselItem } from 'components';
-import { BinanceWalletBanner } from './BinanceWalletBanner';
 import { BoostBanner } from './BoostBanner';
 import { IsolatedPoolsSunsetBanner } from './IsolatedPoolsSunsetBanner';
 import { PendleVaultBanner } from './PendleVaultBanner';
@@ -10,7 +9,6 @@ export const AdBanner: React.FC = () => {
     <VenusFluxBanner />,
     <PendleVaultBanner />,
     <BoostBanner />,
-    <BinanceWalletBanner />,
     <IsolatedPoolsSunsetBanner />,
   ];
 

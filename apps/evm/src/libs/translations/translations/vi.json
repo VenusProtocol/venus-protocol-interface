@@ -292,12 +292,6 @@
   "availableBalance": {
     "label": "Có sẵn"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "Hình minh họa nền",
-    "binanceLogoAltText": "Logo Binance",
-    "description": "Vay USDT và chia sẻ <Bold>$400,000</Bold> phần thưởng!",
-    "title": "Venus đã có trên Binance Wallet Earn."
-  },
   "boostBanner": {
     "description": "Đòn bẩy một lần nhấp để tăng lợi suất <White>tối đa 5x</White>.",
     "rocketAltText": "Hình minh họa tên lửa",

@@ -292,12 +292,6 @@
   "availableBalance": {
     "label": "可用"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "背景插图",
-    "binanceLogoAltText": "Binance 标志",
-    "description": "借入 USDT，分享 <Bold>$400,000</Bold> 奖励！",
-    "title": "Venus 已在 Binance Wallet Earn 上线。"
-  },
   "boostBanner": {
     "description": "一键杠杆提升收益 <White>最高 5 倍</White>。",
     "rocketAltText": "火箭插图",

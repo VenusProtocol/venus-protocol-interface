@@ -292,12 +292,6 @@
   "availableBalance": {
     "label": "利用可能"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "背景イラスト",
-    "binanceLogoAltText": "Binanceロゴ",
-    "description": "USDTを借りて<Bold>$400,000</Bold>の報酬を山分け！",
-    "title": "VenusがBinance Wallet Earnで利用可能になりました。"
-  },
   "boostBanner": {
     "description": "ワンクリックのレバレッジで利回りを<White>最大5倍</White>までブースト。",
     "rocketAltText": "ロケットのイラスト",
