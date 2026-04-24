@@ -2,4 +2,4 @@
 "@venusprotocol/evm": patch
 ---
 
-feat: remove offline banner
+feat: remove  BN earn campaign banner since offline
