@@ -8,6 +8,7 @@ import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { GaslessStatus } from './GaslessStatus';
 import { SunsetIndicator } from './SunsetIndicator';
+import { SunsetModal } from './SunsetModal';
 
 export interface ChainSelectProps
   extends Omit<SelectProps, 'value' | 'onChange' | 'options' | 'optionClassName'> {
@@ -21,8 +22,9 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
 
   const options = chains.map<SelectOption<ChainId>>(chain => ({
     label: ({ isRenderedInButton }) => {
-      const metadata = chainMetadata[chain.id as ChainId];
-      const showSunsetIndicator = isSunsetChain(chain.id as ChainId);
+      const chainId = chain.id as ChainId;
+      const metadata = chainMetadata[chainId];
+      const showSunsetIndicator = isSunsetChain(chainId);
 
       return (
         <div className="flex items-center">
@@ -44,15 +46,19 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
   }));
 
   return (
-    <Select
-      // When running in Safe Wallet app, it is responsible for the active chain
-      disabled={config.isSafeApp}
-      value={chainId}
-      onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
-      options={options}
-      menuPosition="right"
-      menuTitle={t('layout.chainSelect.label')}
-      {...props}
-    />
+    <>
+      <Select
+        // When running in Safe Wallet app, it is responsible for the active chain
+        disabled={config.isSafeApp}
+        value={chainId}
+        onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
+        options={options}
+        menuPosition="right"
+        menuTitle={t('layout.chainSelect.label')}
+        {...props}
+      />
+
+      <SunsetModal />
+    </>
   );
 };

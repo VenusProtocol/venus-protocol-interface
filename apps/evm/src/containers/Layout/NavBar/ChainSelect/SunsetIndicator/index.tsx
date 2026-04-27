@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
-import { useSunsetModalStore } from './store';
+import { useSunsetModalStore } from '../sunsetModalStore';
 
 export interface SunsetIndicatorProps {
   className?: string;
@@ -31,7 +31,7 @@ export const SunsetIndicator: React.FC<SunsetIndicatorProps> = ({ className }) =
       aria-label={t('layout.sunsetModal.indicatorAriaLabel')}
       className={cn('flex flex-none cursor-pointer items-center justify-center', className)}
     >
-      <Icon name="sunset" className="size-5 text-[#FF6A00]" />
+      <Icon name="sunset" className="size-5 text-orange" />
     </span>
   );
 };

@@ -1,6 +1,6 @@
 import { Modal } from 'components';
 import { useTranslation } from 'libs/translations';
-import { useSunsetModalStore } from '../SunsetIndicator/store';
+import { useSunsetModalStore } from '../sunsetModalStore';
 
 export const SunsetModal: React.FC = () => {
   const { t } = useTranslation();

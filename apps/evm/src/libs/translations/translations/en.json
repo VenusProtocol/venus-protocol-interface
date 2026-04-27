@@ -652,7 +652,7 @@
   "isolatedPoolsSunsetBanner": {
     "description": "Please withdraw or migrate all assets now",
     "illustrationAltText": "Illustration",
-    "title": "Isolated Pools Have Been Sunset"
+    "title": "Isolated pools have been sunset"
   },
   "landing": {
     "benefits": {
