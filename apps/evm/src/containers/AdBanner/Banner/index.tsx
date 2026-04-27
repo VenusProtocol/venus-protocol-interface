@@ -35,6 +35,11 @@ export const Banner: React.FC<BannerProps> = ({
     </div>
   );
 
+  const isInternalLink = learnMoreUrl.startsWith('/');
+  const linkProps = isInternalLink
+    ? { to: learnMoreUrl }
+    : { href: learnMoreUrl, target: '_blank' as const };
+
   return (
     <div
       className={cn(
@@ -53,7 +58,7 @@ export const Banner: React.FC<BannerProps> = ({
           </div>
 
           <ButtonWrapper size={isSmOrUp ? 'md' : 'xs'} className="px-5 md:px-6" asChild>
-            <Link to={learnMoreUrl} className="hover:no-underline active:no-underline text-white">
+            <Link {...linkProps} className="hover:no-underline active:no-underline text-white">
               {learnMoreLabel ?? t('adBanner.startNow')}
             </Link>
           </ButtonWrapper>
