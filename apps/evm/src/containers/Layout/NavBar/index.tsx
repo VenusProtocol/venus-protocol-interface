@@ -9,6 +9,7 @@ import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import { ChainSelect } from './ChainSelect';
+import { SunsetModal } from './ChainSelect/SunsetModal';
 import { ClaimRewardsButton } from './ClaimRewardsButton';
 import { ConnectButton } from './ConnectButton';
 import { MenuItem } from './MenuItem';
@@ -116,6 +117,8 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
 
         <Settings />
       </div>
+
+      <SunsetModal />
     </nav>
   );
 };

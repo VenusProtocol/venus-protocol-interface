@@ -1,8 +1,7 @@
+import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
 import { Banner } from '../Banner';
 import illustration from './illustration.png';
-
-const LEARN_MORE_URL = 'https://community.venus.io/t/isolated-pools-sunset/5603';
 
 export const IsolatedPoolsSunsetBanner: React.FC = () => {
   const { t, Trans } = useTranslation();
@@ -31,7 +30,8 @@ export const IsolatedPoolsSunsetBanner: React.FC = () => {
         </div>
       }
       contentContainerClassName="gap-x-1"
-      learnMoreUrl={LEARN_MORE_URL}
+      learnMoreUrl={routes.isolatedPools.path}
+      learnMoreLabel={t('adBanner.learnMore')}
     />
   );
 };

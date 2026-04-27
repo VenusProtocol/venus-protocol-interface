@@ -143,6 +143,7 @@
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借入限度:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
+    "learnMore": "詳細を見る",
     "startNow": "今すぐ始める"
   },
   "announcements": {
@@ -649,9 +650,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "報酬を請求してポジションを閉じてください",
+    "description": "すべての資産を引き出すか、今すぐ移行してください",
     "illustrationAltText": "イラスト",
-    "title": "隔離プールは終了予定です"
+    "title": "隔離プールは終了しました"
   },
   "landing": {
     "benefits": {
@@ -729,6 +730,11 @@
   "layout": {
     "chainSelect": {
       "label": "チェーンを選択"
+    },
+    "sunsetModal": {
+      "title": "終了",
+      "description": "このチェーンは終了しました。借入金を返済し、預け入れ資金を引き出してください。",
+      "indicatorAriaLabel": "終了したチェーンの通知"
     },
     "header": {
       "liquidity": "流動性",

@@ -143,6 +143,7 @@
     "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืม:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
+    "learnMore": "เรียนรู้เพิ่มเติม",
     "startNow": "เริ่มตอนนี้"
   },
   "announcements": {
@@ -649,9 +650,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "รับรางวัลของคุณและปิดตำแหน่งของคุณ",
+    "description": "โปรดถอนหรือย้ายสินทรัพย์ทั้งหมดตอนนี้",
     "illustrationAltText": "ภาพประกอบ",
-    "title": "พูลแบบแยกกำลังจะยุติการให้บริการ"
+    "title": "พูลแบบแยกได้ยุติการให้บริการแล้ว"
   },
   "landing": {
     "benefits": {
@@ -729,6 +730,11 @@
   "layout": {
     "chainSelect": {
       "label": "เลือกเชน"
+    },
+    "sunsetModal": {
+      "title": "ปิดให้บริการ",
+      "description": "เชนนี้ได้ปิดให้บริการแล้ว โปรดชำระคืนเงินกู้และถอนเงินฝากของคุณ",
+      "indicatorAriaLabel": "การแจ้งเตือนเชนที่ปิดให้บริการ"
     },
     "header": {
       "liquidity": "สภาพคล่อง",

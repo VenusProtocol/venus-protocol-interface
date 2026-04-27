@@ -143,6 +143,7 @@
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
+    "learnMore": "Tìm hiểu thêm",
     "startNow": "Bắt đầu ngay"
   },
   "announcements": {
@@ -649,9 +650,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "Nhận phần thưởng của bạn và đóng vị thế",
+    "description": "Vui lòng rút hoặc di chuyển tất cả tài sản ngay bây giờ",
     "illustrationAltText": "Hình minh họa",
-    "title": "Các pool cô lập đang được dừng"
+    "title": "Các pool cô lập đã ngừng hoạt động"
   },
   "landing": {
     "benefits": {
@@ -729,6 +730,11 @@
   "layout": {
     "chainSelect": {
       "label": "Chọn chain"
+    },
+    "sunsetModal": {
+      "title": "Ngừng hoạt động",
+      "description": "Chain này đã ngừng hoạt động. Vui lòng hoàn trả các khoản vay và rút tiền đã gửi của bạn.",
+      "indicatorAriaLabel": "Thông báo chain đã ngừng hoạt động"
     },
     "header": {
       "liquidity": "Thanh khoản",

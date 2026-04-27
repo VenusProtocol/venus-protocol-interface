@@ -143,6 +143,7 @@
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
+    "learnMore": "Daha fazla bilgi",
     "startNow": "Şimdi başla"
   },
   "announcements": {
@@ -649,9 +650,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "Ödüllerinizi talep edin ve pozisyonlarınızı kapatın",
+    "description": "Lütfen tüm varlıklarınızı şimdi çekin veya taşıyın",
     "illustrationAltText": "İllüstrasyon",
-    "title": "İzole havuzlar aşamalı olarak kapatılıyor"
+    "title": "İzole Havuzlar Kapatıldı"
   },
   "landing": {
     "benefits": {
@@ -729,6 +730,11 @@
   "layout": {
     "chainSelect": {
       "label": "Zincir seç"
+    },
+    "sunsetModal": {
+      "title": "Kapatıldı",
+      "description": "Bu zincir kapatıldı. Lütfen tüm borçlarınızı geri ödeyin ve mevduatınızı çekin.",
+      "indicatorAriaLabel": "Kapatılmış zincir bildirimi"
     },
     "header": {
       "liquidity": "Likidite",

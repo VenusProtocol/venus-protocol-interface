@@ -92,3 +92,4 @@ export { default as ceefu } from './ceefu';
 export { default as pendle } from './pendle';
 export { default as stats } from './stats';
 export { default as diagramArrowDown } from './diagramArrowDown';
+export { default as sunset } from './sunset';

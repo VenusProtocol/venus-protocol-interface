@@ -143,6 +143,7 @@
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（占借款限额的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
+    "learnMore": "了解更多",
     "startNow": "立即开始"
   },
   "announcements": {
@@ -649,9 +650,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "领取奖励并关闭你的仓位",
+    "description": "请立即提取或迁移所有资产",
     "illustrationAltText": "插图",
-    "title": "隔离池即将关闭"
+    "title": "隔离池已下线"
   },
   "landing": {
     "benefits": {
@@ -729,6 +730,11 @@
   "layout": {
     "chainSelect": {
       "label": "选择链"
+    },
+    "sunsetModal": {
+      "title": "已下线",
+      "description": "该链已下线。请偿还您的借款并提取已存入的资金。",
+      "indicatorAriaLabel": "已下线链提示"
     },
     "header": {
       "liquidity": "流动性",

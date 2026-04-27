@@ -143,6 +143,7 @@
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
+    "learnMore": "Learn more",
     "startNow": "Start now"
   },
   "announcements": {
@@ -649,9 +650,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "Claim your rewards and close your positions",
+    "description": "Please withdraw or migrate all assets now",
     "illustrationAltText": "Illustration",
-    "title": "Isolated pools are being sunsetted"
+    "title": "Isolated Pools Have Been Sunset"
   },
   "landing": {
     "benefits": {
@@ -729,6 +730,11 @@
   "layout": {
     "chainSelect": {
       "label": "Select chain"
+    },
+    "sunsetModal": {
+      "title": "Sunset",
+      "description": "This chain has been sunsetted. Please repay any borrows and withdraw your deposited funds.",
+      "indicatorAriaLabel": "Sunset chain notice"
     },
     "header": {
       "liquidity": "Liquidity",
