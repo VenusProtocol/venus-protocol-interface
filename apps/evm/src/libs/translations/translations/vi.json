@@ -731,11 +731,6 @@
     "chainSelect": {
       "label": "Chọn chain"
     },
-    "sunsetModal": {
-      "title": "Ngừng hoạt động",
-      "description": "Chain này đã ngừng hoạt động. Vui lòng hoàn trả các khoản vay và rút tiền đã gửi của bạn.",
-      "indicatorAriaLabel": "Thông báo chain đã ngừng hoạt động"
-    },
     "header": {
       "liquidity": "Thanh khoản",
       "maxLtv": {
@@ -764,10 +759,6 @@
         "governance": {
           "description": "Bỏ phiếu cho các đề xuất Venus bằng $XVS.",
           "label": "Quản trị"
-        },
-        "isolatedPools": {
-          "description": "Giao dịch tài sản trong các pool tách biệt khỏi thị trường lõi.",
-          "label": "Pools cô lập"
         },
         "label": "Khác",
         "port": {
@@ -809,6 +800,11 @@
     },
     "settingsModal": {
       "title": "Cài đặt"
+    },
+    "sunsetModal": {
+      "description": "Chain này đã ngừng hoạt động. Vui lòng hoàn trả các khoản vay và rút tiền đã gửi của bạn.",
+      "indicatorAriaLabel": "Thông báo chain đã ngừng hoạt động",
+      "title": "Ngừng hoạt động"
     },
     "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>"
   },

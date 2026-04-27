@@ -731,11 +731,6 @@
     "chainSelect": {
       "label": "選擇鏈"
     },
-    "sunsetModal": {
-      "title": "已下線",
-      "description": "該鏈已下線。請償還您的借款並提取已存入的資金。",
-      "indicatorAriaLabel": "已下線鏈提示"
-    },
     "header": {
       "liquidity": "流動性",
       "maxLtv": {
@@ -764,10 +759,6 @@
         "governance": {
           "description": "使用 $XVS 投票 Venus 提案。",
           "label": "治理"
-        },
-        "isolatedPools": {
-          "description": "在與核心市場隔離的池中交易資產。",
-          "label": "隔離池"
         },
         "label": "其他",
         "port": {
@@ -809,6 +800,11 @@
     },
     "settingsModal": {
       "title": "設置"
+    },
+    "sunsetModal": {
+      "description": "該鏈已下線。請償還您的借款並提取已存入的資金。",
+      "indicatorAriaLabel": "已下線鏈提示",
+      "title": "已下線"
     },
     "testEnvWarning": "這是測試環境。除測試外請勿進行任何交互。<Link>前往 Venus Protocol 官方網站</Link>"
   },

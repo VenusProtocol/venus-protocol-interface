@@ -731,11 +731,6 @@
     "chainSelect": {
       "label": "Zincir seç"
     },
-    "sunsetModal": {
-      "title": "Kapatıldı",
-      "description": "Bu zincir kapatıldı. Lütfen tüm borçlarınızı geri ödeyin ve mevduatınızı çekin.",
-      "indicatorAriaLabel": "Kapatılmış zincir bildirimi"
-    },
     "header": {
       "liquidity": "Likidite",
       "maxLtv": {
@@ -764,10 +759,6 @@
         "governance": {
           "description": "Venus tekliflerinde $XVS ile oy verin.",
           "label": "Yönetişim"
-        },
-        "isolatedPools": {
-          "description": "Ana piyasalardan izole havuzlarda varlık alıp satın.",
-          "label": "İzole havuzlar"
         },
         "label": "Diğerleri",
         "port": {
@@ -809,6 +800,11 @@
     },
     "settingsModal": {
       "title": "Ayarlar"
+    },
+    "sunsetModal": {
+      "description": "Bu zincir kapatıldı. Lütfen tüm borçlarınızı geri ödeyin ve mevduatınızı çekin.",
+      "indicatorAriaLabel": "Kapatılmış zincir bildirimi",
+      "title": "Kapatıldı"
     },
     "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>"
   },
