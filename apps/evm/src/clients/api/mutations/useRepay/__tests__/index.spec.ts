@@ -92,7 +92,8 @@ describe('useRepay', () => {
     expect(await fn(repayFullLoanInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeMaximillionContractAddress",
@@ -103,7 +104,8 @@ describe('useRepay', () => {
         "functionName": "repayBehalfExplicit",
         "value": 10000100000000000n,
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

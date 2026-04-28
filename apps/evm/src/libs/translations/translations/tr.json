@@ -101,15 +101,15 @@
         "enterMarket": "Teminatı etkinleştir",
         "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
-        "positionClosedWithLoss": "Kapat (zarar) • Yield+",
-        "positionClosedWithProfit": "Kapat (kâr) • Yield+",
-        "positionIncreased": "Artır • Yield+",
-        "positionOpened": "Aç • Yield+",
-        "positionReducedWithLoss": "Azaltıldı (zarar) • Yield+",
-        "positionReducedWithProfit": "Azaltıldı (kâr) • Yield+",
-        "principalSupplied": "Sağla • Yield+",
-        "principalWithdrawn": "Çek • Yield+",
-        "realizedPnl": "Gerçekleşen K/Z • Yield+",
+        "positionClosedWithLoss": "Kapat (zarar) • Trade",
+        "positionClosedWithProfit": "Kapat (kâr) • Trade",
+        "positionIncreased": "Artır • Trade",
+        "positionOpened": "Aç • Trade",
+        "positionReducedWithLoss": "Azaltıldı (zarar) • Trade",
+        "positionReducedWithProfit": "Azaltıldı (kâr) • Trade",
+        "principalSupplied": "Sağla • Trade",
+        "principalWithdrawn": "Çek • Trade",
+        "realizedPnl": "Gerçekleşen K/Z • Trade",
         "redeem": "Çek",
         "repay": "Geri öde"
       },
@@ -783,12 +783,12 @@
         "swap": {
           "label": "Takas"
         },
+        "trade": {
+          "label": "Trade"
+        },
         "vai": {
           "description": "Venus'ün yerel sabit coinini mint edin.",
           "label": "VAI"
-        },
-        "yieldPlus": {
-          "label": "Yield+"
         }
       },
       "settings": {
@@ -1638,6 +1638,115 @@
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
   },
+  "trade": {
+    "banner": {
+      "illustrationAltText": "Trade görseli",
+      "learnMore": "Daha fazla bilgi",
+      "title": "Trade nedir?"
+    },
+    "closePositionModal": {
+      "title": "Kapat"
+    },
+    "longLiquidity": "Long likiditesi",
+    "longSupplyApy": "{{ longTokenSymbol }} sağlama APY",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Artır"
+      },
+      "invalidLiquidationPrice": "Yok",
+      "openForm": {
+        "collateral": "Teminat",
+        "dsaFieldLabel": "Teminat",
+        "dsaFieldPlaceholder": "Devam etmek için girin",
+        "entryPrice": "Giriş fiyatı",
+        "liquidationPrice": "Likidasyon fiyatı",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "Net APY",
+        "pnl": "Gerçekleşen K/Z",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Aç"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "Kapat",
+          "reduce": "Azalt"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Sağla"
+      },
+      "walletBalance": "Cüzdan bakiyesi",
+      "warning": {
+        "cannotBorrowShort": "Bu pozisyondaki short token için borç alma devre dışı bırakıldı",
+        "cannotRepayShort": "Bu pozisyondaki short token için geri ödeme devre dışı bırakıldı",
+        "cannotSupplyDsa": "Bu pozisyondaki teminat tokeni için sağlama devre dışı bırakıldı",
+        "cannotSupplyLong": "Bu pozisyondaki long token için sağlama devre dışı bırakıldı",
+        "cannotWithdrawDsa": "Bu pozisyondaki teminat tokeni için çekim devre dışı bırakıldı",
+        "cannotWithdrawLong": "Bu pozisyondaki long token için çekim devre dışı bırakıldı",
+        "notEnoughLeverage": "Bu token çifti, Trade pozisyonu açmak için gereken minimum kaldıraç oranı olan en az {{ minimumLeverageFactor }} değerine izin vermiyor",
+        "txLikelyToFail": "Bu işlem, başarısız olma ihtimali yüksek düşük değerli swap'ler içeriyor"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Çek"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "Kapat",
+      "placeholder": {
+        "title": "Henüz pozisyon yok"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Teminat"
+        },
+        "healthFactor": {
+          "label": "Sağlık faktörü",
+          "tooltip": "Likidasyon < 1.0"
+        },
+        "netApy": {
+          "label": "Net APY"
+        },
+        "netValue": {
+          "label": "Net değer"
+        },
+        "title": "Durum"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "Bu pozisyonun giriş fiyat oranı (short varlık miktarı ÷ long varlık miktarı), girişten itibaren iki token arasındaki göreli değeri yansıtır"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Pozisyon"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "İşlemler"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} borç APY",
+    "shortLiquidity": "Short likiditesi",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Yönetici Kabulü (Bekleyen Yönetici) Kontrolü",
     "acceptPendingImplementationAddressCheck": "Bekleyen Uygulama Adresi Kabul Kontrolü",
@@ -2221,115 +2330,6 @@
     },
     "tooltip": {
       "address": "({{address}})"
-    }
-  },
-  "yieldPlus": {
-    "banner": {
-      "illustrationAltText": "Yield+ görseli",
-      "learnMore": "Daha fazla bilgi",
-      "title": "Yield+ nedir?"
-    },
-    "closePositionModal": {
-      "title": "Kapat"
-    },
-    "longLiquidity": "Long likiditesi",
-    "longSupplyApy": "{{ longTokenSymbol }} sağlama APY",
-    "longTokenSelect": {
-      "label": "Long"
-    },
-    "operationForm": {
-      "increaseForm": {
-        "submitButtonLabel": "Artır"
-      },
-      "invalidLiquidationPrice": "Yok",
-      "openForm": {
-        "collateral": "Teminat",
-        "dsaFieldLabel": "Teminat",
-        "dsaFieldPlaceholder": "Devam etmek için girin",
-        "entryPrice": "Giriş fiyatı",
-        "liquidationPrice": "Likidasyon fiyatı",
-        "long": "Long",
-        "longFieldLabel": "Long",
-        "netApy": "Net APY",
-        "pnl": "Gerçekleşen K/Z",
-        "short": "Short",
-        "shortFieldLabel": "Short",
-        "submitButtonLabel": "Aç"
-      },
-      "reduceForm": {
-        "submitButtonLabel": {
-          "close": "Kapat",
-          "reduce": "Azalt"
-        }
-      },
-      "supplyDsaForm": {
-        "submitButtonLabel": "Sağla"
-      },
-      "walletBalance": "Cüzdan bakiyesi",
-      "warning": {
-        "cannotBorrowShort": "Bu pozisyondaki short token için borç alma devre dışı bırakıldı",
-        "cannotRepayShort": "Bu pozisyondaki short token için geri ödeme devre dışı bırakıldı",
-        "cannotSupplyDsa": "Bu pozisyondaki teminat tokeni için sağlama devre dışı bırakıldı",
-        "cannotSupplyLong": "Bu pozisyondaki long token için sağlama devre dışı bırakıldı",
-        "cannotWithdrawDsa": "Bu pozisyondaki teminat tokeni için çekim devre dışı bırakıldı",
-        "cannotWithdrawLong": "Bu pozisyondaki long token için çekim devre dışı bırakıldı",
-        "notEnoughLeverage": "Bu token çifti, Yield+ pozisyonu açmak için gereken minimum kaldıraç oranı olan en az {{ minimumLeverageFactor }} değerine izin vermiyor",
-        "txLikelyToFail": "Bu işlem, başarısız olma ihtimali yüksek düşük değerli swap'ler içeriyor"
-      },
-      "withdrawDsaForm": {
-        "submitButtonLabel": "Çek"
-      }
-    },
-    "positions": {
-      "closeButtonLabel": "Kapat",
-      "placeholder": {
-        "title": "Henüz pozisyon yok"
-      },
-      "status": {
-        "collateralColumn": {
-          "label": "Teminat"
-        },
-        "healthFactor": {
-          "label": "Sağlık faktörü",
-          "tooltip": "Likidasyon < 1.0"
-        },
-        "netApy": {
-          "label": "Net APY"
-        },
-        "netValue": {
-          "label": "Net değer"
-        },
-        "title": "Durum"
-      },
-      "table": {
-        "entryPrice": {
-          "title": "EP",
-          "tooltip": "Bu pozisyonun giriş fiyat oranı (short varlık miktarı ÷ long varlık miktarı), girişten itibaren iki token arasındaki göreli değeri yansıtır"
-        },
-        "liquidationPrice": {
-          "title": "Liq."
-        },
-        "longColumn": {
-          "title": "Long"
-        },
-        "pnlColumn": {
-          "title": "PnL"
-        },
-        "positionColumn": {
-          "title": "Pozisyon"
-        },
-        "shortColumn": {
-          "title": "Short"
-        }
-      },
-      "transactions": {
-        "title": "İşlemler"
-      }
-    },
-    "shortBorrowApy": "{{ shortTokenSymbol }} borç APY",
-    "shortLiquidity": "Short likiditesi",
-    "shortTokenSelect": {
-      "label": "Short"
     }
   }
 }
