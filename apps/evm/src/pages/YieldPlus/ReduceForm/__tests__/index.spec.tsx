@@ -10,39 +10,63 @@ import {
   useCloseYieldPlusPositionWithProfit,
   useGetProportionalCloseTolerancePercentage,
   useGetSimulatedPool,
-  useGetSwapQuote,
+  useGetYieldPlusReduceSwapQuotes,
   useReduceYieldPlusPositionWithLoss,
   useReduceYieldPlusPositionWithProfit,
 } from 'clients/api';
-import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
-import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
+import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { ApproximateOutSwapQuote, ExactInSwapQuote, Pool, SwapQuote } from 'types';
+import type { ApproximateOutSwapQuote, ExactInSwapQuote, Pool, SwapQuoteError } from 'types';
 import { convertTokensToMantissa } from 'utilities';
-
 import { ReduceForm } from '..';
 
 vi.mock('hooks/useGetUserSlippageTolerance');
 
-const position = yieldPlusPositions[0];
+const basePosition = yieldPlusPositions[0];
 
+const makeCloseablePosition = () => ({
+  ...basePosition,
+  pool: {
+    ...basePosition.pool,
+    assets: basePosition.pool.assets.map(asset => {
+      const isPositionAsset = [
+        basePosition.dsaAsset.vToken.address,
+        basePosition.longAsset.vToken.address,
+        basePosition.shortAsset.vToken.address,
+      ].includes(asset.vToken.address);
+
+      return isPositionAsset
+        ? {
+            ...asset,
+            cashTokens: new BigNumber(1_000_000),
+          }
+        : asset;
+    }),
+  },
+  dsaAsset: {
+    ...basePosition.dsaAsset,
+    cashTokens: new BigNumber(1_000_000),
+  },
+  longAsset: {
+    ...basePosition.longAsset,
+    cashTokens: new BigNumber(1_000_000),
+  },
+  shortAsset: {
+    ...basePosition.shortAsset,
+    cashTokens: new BigNumber(1_000_000),
+  },
+});
+
+const position = makeCloseablePosition();
 const longToken = position.longAsset.vToken.underlyingToken;
 const shortToken = position.shortAsset.vToken.underlyingToken;
 const dsaToken = position.dsaAsset.vToken.underlyingToken;
 
-const bufferedFactor = new BigNumber(1).plus(FULL_REPAYMENT_BUFFER_PERCENTAGE);
-const smallestLongAmountTokens = new BigNumber(1).shiftedBy(-longToken.decimals);
-const smallestShortAmountTokens = new BigNumber(1).shiftedBy(-shortToken.decimals);
-const validShortAmountTokens = BigNumber.min(
-  position.shortBalanceTokens,
-  position.shortAsset.cashTokens,
-)
+const validShortAmountTokens = position.shortBalanceTokens
   .div(2)
   .dp(shortToken.decimals, BigNumber.ROUND_DOWN);
-
-type Scenario = 'profit' | 'loss' | 'noPnl';
 
 const getShortAmountInput = (container: HTMLElement) => {
   const input = container.querySelector(
@@ -76,54 +100,6 @@ const calculateLongAmountTokens = (shortAmountTokens: BigNumber) =>
     .multipliedBy(shortAmountTokens.div(position.shortBalanceTokens))
     .dp(longToken.decimals, BigNumber.ROUND_DOWN);
 
-const calculateShortAmountTokens = (longAmountTokens: BigNumber) =>
-  position.shortBalanceTokens
-    .multipliedBy(longAmountTokens.div(position.longBalanceTokens))
-    .dp(shortToken.decimals, BigNumber.ROUND_DOWN);
-
-const makeCloseablePosition = () => ({
-  ...position,
-  pool: {
-    ...position.pool,
-    assets: position.pool.assets.map(asset => {
-      const hasMatchingAsset =
-        asset.vToken.address === position.dsaAsset.vToken.address ||
-        asset.vToken.address === position.longAsset.vToken.address ||
-        asset.vToken.address === position.shortAsset.vToken.address;
-
-      return hasMatchingAsset
-        ? {
-            ...asset,
-            cashTokens: new BigNumber(1000000),
-          }
-        : asset;
-    }),
-  },
-  dsaAsset: {
-    ...position.dsaAsset,
-    cashTokens: new BigNumber(1000000),
-  },
-  longAsset: {
-    ...position.longAsset,
-    cashTokens: new BigNumber(1000000),
-  },
-  shortAsset: {
-    ...position.shortAsset,
-    cashTokens: new BigNumber(1000000),
-  },
-});
-
-const makeCloseablePositionWithEmptyShortBalance = () => {
-  const closeablePosition = makeCloseablePosition();
-
-  return {
-    ...closeablePosition,
-    shortBalanceTokens: new BigNumber(0),
-    shortBalanceCents: 0,
-    netValueCents: closeablePosition.dsaBalanceCents + closeablePosition.longBalanceCents,
-  };
-};
-
 const convertTokenAmountToMantissa = (value: BigNumber, token: ExactInSwapQuote['fromToken']) =>
   BigInt(
     convertTokensToMantissa({
@@ -133,15 +109,15 @@ const convertTokenAmountToMantissa = (value: BigNumber, token: ExactInSwapQuote[
   );
 
 const makeApproximateOutSwapQuote = ({
-  fromToken = longToken,
-  toToken = shortToken,
+  fromToken,
+  toToken,
   fromTokenAmountTokens,
-  expectedToTokenAmountTokens = new BigNumber(1),
+  expectedToTokenAmountTokens,
 }: {
-  fromToken?: ApproximateOutSwapQuote['fromToken'];
-  toToken?: ApproximateOutSwapQuote['toToken'];
+  fromToken: ApproximateOutSwapQuote['fromToken'];
+  toToken: ApproximateOutSwapQuote['toToken'];
   fromTokenAmountTokens: BigNumber;
-  expectedToTokenAmountTokens?: BigNumber;
+  expectedToTokenAmountTokens: BigNumber;
 }): ApproximateOutSwapQuote => ({
   ...approximateOutSwapQuote,
   fromToken,
@@ -186,12 +162,11 @@ const makeExactInSwapQuote = ({
   ),
 });
 
-const mockUseGetContractAddress = useGetContractAddress as Mock;
-const mockUseGetUserSlippageTolerance = useGetUserSlippageTolerance as Mock;
 const mockUseGetProportionalCloseTolerancePercentage =
   useGetProportionalCloseTolerancePercentage as Mock;
 const mockUseGetSimulatedPool = useGetSimulatedPool as Mock;
-const mockUseGetSwapQuote = useGetSwapQuote as Mock;
+const mockUseGetYieldPlusReduceSwapQuotes = useGetYieldPlusReduceSwapQuotes as Mock;
+const mockUseGetUserSlippageTolerance = useGetUserSlippageTolerance as Mock;
 const mockUseReduceYieldPlusPositionWithProfit = useReduceYieldPlusPositionWithProfit as Mock;
 const mockUseReduceYieldPlusPositionWithLoss = useReduceYieldPlusPositionWithLoss as Mock;
 const mockUseCloseYieldPlusPosition = useCloseYieldPlusPosition as Mock;
@@ -204,224 +179,75 @@ const mockCloseYieldPlusPosition = vi.fn();
 const mockCloseYieldPlusPositionWithProfit = vi.fn();
 const mockCloseYieldPlusPositionWithLoss = vi.fn();
 
+type ReduceSwapQuotesData = {
+  pnlDsaTokens: BigNumber;
+  repayWithProfitSwapQuote?: ReturnType<typeof makeApproximateOutSwapQuote>;
+  repayWithLossSwapQuote?: ReturnType<typeof makeExactInSwapQuote>;
+  profitSwapQuote?: ReturnType<typeof makeExactInSwapQuote>;
+  lossSwapQuote?: ReturnType<typeof makeApproximateOutSwapQuote>;
+};
+
+const setReadyState = ({
+  reduceSwapQuotesData,
+  reduceSwapQuotesError,
+  isLoading = false,
+  simulatedPool = position.pool,
+}: {
+  reduceSwapQuotesData?: ReduceSwapQuotesData;
+  reduceSwapQuotesError?: SwapQuoteError;
+  isLoading?: boolean;
+  simulatedPool?: Pool;
+} = {}) => {
+  mockUseGetUserSlippageTolerance.mockReturnValue({
+    userSlippageTolerancePercentage: 0.5,
+  });
+
+  mockUseGetProportionalCloseTolerancePercentage.mockReturnValue({
+    data: {
+      proportionalCloseTolerancePercentage: 2,
+    },
+  });
+
+  mockUseGetSimulatedPool.mockImplementation(({ pool }: { pool: Pool }) => ({
+    data: {
+      pool: simulatedPool || pool,
+    },
+    isLoading: false,
+  }));
+
+  mockUseGetYieldPlusReduceSwapQuotes.mockImplementation(() => ({
+    data: reduceSwapQuotesData,
+    error: reduceSwapQuotesError,
+    isLoading,
+  }));
+
+  mockUseReduceYieldPlusPositionWithProfit.mockImplementation(() => ({
+    mutateAsync: mockReduceYieldPlusPositionWithProfit,
+    isPending: false,
+  }));
+
+  mockUseReduceYieldPlusPositionWithLoss.mockImplementation(() => ({
+    mutateAsync: mockReduceYieldPlusPositionWithLoss,
+    isPending: false,
+  }));
+
+  mockUseCloseYieldPlusPosition.mockImplementation(() => ({
+    mutateAsync: mockCloseYieldPlusPosition,
+    isPending: false,
+  }));
+
+  mockUseCloseYieldPlusPositionWithProfit.mockImplementation(() => ({
+    mutateAsync: mockCloseYieldPlusPositionWithProfit,
+    isPending: false,
+  }));
+
+  mockUseCloseYieldPlusPositionWithLoss.mockImplementation(() => ({
+    mutateAsync: mockCloseYieldPlusPositionWithLoss,
+    isPending: false,
+  }));
+};
+
 describe('ReduceForm', () => {
-  const setReadyState = ({
-    scenario = 'profit',
-    repayWithLossSwapQuoteError,
-  }: {
-    scenario?: Scenario;
-    repayWithLossSwapQuoteError?: { code: string };
-  } = {}) => {
-    mockUseGetContractAddress.mockImplementation(({ name }: { name: string }) => ({
-      address: `0xfake${name}ContractAddress`,
-    }));
-
-    mockUseGetUserSlippageTolerance.mockReturnValue({
-      userSlippageTolerancePercentage: 0.5,
-    });
-
-    mockUseGetProportionalCloseTolerancePercentage.mockReturnValue({
-      data: {
-        proportionalCloseTolerancePercentage: 2,
-      },
-    });
-
-    mockUseGetSimulatedPool.mockImplementation(({ pool }: { pool: Pool }) => ({
-      data: {
-        pool,
-      },
-      isLoading: false,
-    }));
-
-    mockUseReduceYieldPlusPositionWithProfit.mockImplementation(() => ({
-      mutateAsync: mockReduceYieldPlusPositionWithProfit,
-      isPending: false,
-    }));
-
-    mockUseReduceYieldPlusPositionWithLoss.mockImplementation(() => ({
-      mutateAsync: mockReduceYieldPlusPositionWithLoss,
-      isPending: false,
-    }));
-
-    mockUseCloseYieldPlusPosition.mockImplementation(() => ({
-      mutateAsync: mockCloseYieldPlusPosition,
-      isPending: false,
-    }));
-
-    mockUseCloseYieldPlusPositionWithProfit.mockImplementation(() => ({
-      mutateAsync: mockCloseYieldPlusPositionWithProfit,
-      isPending: false,
-    }));
-
-    mockUseCloseYieldPlusPositionWithLoss.mockImplementation(() => ({
-      mutateAsync: mockCloseYieldPlusPositionWithLoss,
-      isPending: false,
-    }));
-
-    mockUseGetSwapQuote.mockImplementation(
-      ({
-        fromToken,
-        toToken,
-        direction,
-        fromTokenAmountTokens,
-        minToTokenAmountTokens,
-      }: {
-        fromToken: SwapQuote['fromToken'];
-        toToken: SwapQuote['toToken'];
-        direction: SwapQuote['direction'];
-        fromTokenAmountTokens?: BigNumber;
-        minToTokenAmountTokens?: BigNumber;
-      }) => {
-        const emptyResponse = {
-          data: undefined,
-          error: undefined,
-          isLoading: false,
-        };
-
-        if (
-          direction === 'approximate-out' &&
-          fromToken.address === longToken.address &&
-          toToken.address === shortToken.address
-        ) {
-          const bufferedShortAmountTokens = new BigNumber(minToTokenAmountTokens || 0);
-
-          if (bufferedShortAmountTokens.isZero()) {
-            return emptyResponse;
-          }
-
-          const shortAmountTokens = bufferedShortAmountTokens.div(bufferedFactor);
-          const longAmountTokens = calculateLongAmountTokens(shortAmountTokens);
-          const fromTokenAmountTokens =
-            scenario === 'profit'
-              ? longAmountTokens.div(2)
-              : scenario === 'noPnl'
-                ? longAmountTokens
-                : longAmountTokens.plus(smallestLongAmountTokens);
-
-          return {
-            data: {
-              swapQuote: makeApproximateOutSwapQuote({
-                fromToken: longToken,
-                toToken: shortToken,
-                fromTokenAmountTokens,
-                expectedToTokenAmountTokens: shortAmountTokens,
-              }),
-            },
-            error: undefined,
-            isLoading: false,
-          };
-        }
-
-        if (
-          direction === 'exact-in' &&
-          fromToken.address === longToken.address &&
-          toToken.address === shortToken.address
-        ) {
-          const longAmountTokens = new BigNumber(fromTokenAmountTokens || 0);
-
-          if (longAmountTokens.isZero()) {
-            return emptyResponse;
-          }
-
-          if (repayWithLossSwapQuoteError) {
-            return {
-              data: undefined,
-              error: repayWithLossSwapQuoteError,
-              isLoading: false,
-            };
-          }
-
-          if (scenario === 'noPnl') {
-            const minimumToTokenAmountTokens =
-              calculateShortAmountTokens(longAmountTokens).plus(smallestShortAmountTokens);
-
-            return {
-              data: {
-                swapQuote: makeExactInSwapQuote({
-                  fromToken: longToken,
-                  toToken: shortToken,
-                  fromTokenAmountTokens: longAmountTokens,
-                  minimumToTokenAmountTokens,
-                }),
-              },
-              error: undefined,
-              isLoading: false,
-            };
-          }
-
-          if (scenario !== 'loss') {
-            return emptyResponse;
-          }
-
-          return {
-            data: {
-              swapQuote: makeExactInSwapQuote({
-                fromToken: longToken,
-                toToken: shortToken,
-                fromTokenAmountTokens: longAmountTokens,
-                minimumToTokenAmountTokens: new BigNumber(0),
-              }),
-            },
-            error: undefined,
-            isLoading: false,
-          };
-        }
-
-        if (
-          direction === 'exact-in' &&
-          fromToken.address === longToken.address &&
-          toToken.address === dsaToken.address
-        ) {
-          const longProfitAmountDeltaTokens = new BigNumber(fromTokenAmountTokens || 0);
-
-          if (scenario !== 'profit' || longProfitAmountDeltaTokens.isZero()) {
-            return emptyResponse;
-          }
-
-          return {
-            data: {
-              swapQuote: makeExactInSwapQuote({
-                fromToken: longToken,
-                toToken: dsaToken,
-                fromTokenAmountTokens: longProfitAmountDeltaTokens,
-                minimumToTokenAmountTokens: new BigNumber(1),
-              }),
-            },
-            error: undefined,
-            isLoading: false,
-          };
-        }
-
-        if (
-          direction === 'approximate-out' &&
-          fromToken.address === dsaToken.address &&
-          toToken.address === shortToken.address
-        ) {
-          const requiredShortAmountTokens = new BigNumber(minToTokenAmountTokens || 0);
-
-          if (scenario !== 'loss' || requiredShortAmountTokens.isZero()) {
-            return emptyResponse;
-          }
-
-          return {
-            data: {
-              swapQuote: makeApproximateOutSwapQuote({
-                fromToken: dsaToken,
-                toToken: shortToken,
-                fromTokenAmountTokens: new BigNumber(1),
-                expectedToTokenAmountTokens: requiredShortAmountTokens,
-              }),
-            },
-            error: undefined,
-            isLoading: false,
-          };
-        }
-
-        return emptyResponse;
-      },
-    );
-  };
-
   beforeEach(() => {
     vi.clearAllMocks();
     setReadyState();
@@ -478,12 +304,12 @@ describe('ReduceForm', () => {
     await waitFor(() => expect(longAmountInput.value).toBe(expectedLongAmountTokens));
   });
 
-  it('shows no-swap error when the repay quote lookup fails', async () => {
+  it('shows no-swap error when the combined quote lookup fails', async () => {
     setReadyState({
-      scenario: 'loss',
-      repayWithLossSwapQuoteError: {
-        code: 'NO_SWAP_QUOTE_FOUND',
-      },
+      reduceSwapQuotesError: new VError({
+        type: 'swapQuote',
+        code: 'noSwapQuoteFound',
+      }),
     });
 
     const { container, getByText } = renderComponent(<ReduceForm position={position} />, {
@@ -501,7 +327,7 @@ describe('ReduceForm', () => {
     });
 
     await waitFor(() =>
-      expect(getByText(en.operationForm.error.noSwapQuoteFound)).toBeInTheDocument(),
+      expect(screen.getByText(en.operationForm.error.noSwapQuoteFound)).toBeInTheDocument(),
     );
   });
 
@@ -510,6 +336,7 @@ describe('ReduceForm', () => {
     const closeFractionPercentage = validShortAmountTokens
       .div(position.shortBalanceTokens)
       .multipliedBy(100)
+      .dp(2)
       .toNumber();
     const longAmountTokens = calculateLongAmountTokens(validShortAmountTokens);
     const repaySwapQuote = makeApproximateOutSwapQuote({
@@ -522,7 +349,15 @@ describe('ReduceForm', () => {
       fromToken: longToken,
       toToken: dsaToken,
       fromTokenAmountTokens: longAmountTokens.minus(longAmountTokens.div(2)),
-      minimumToTokenAmountTokens: new BigNumber(1),
+      minimumToTokenAmountTokens: new BigNumber(3),
+    });
+
+    setReadyState({
+      reduceSwapQuotesData: {
+        pnlDsaTokens: new BigNumber(3),
+        repayWithProfitSwapQuote: repaySwapQuote,
+        profitSwapQuote,
+      },
     });
 
     const { container, getByText } = renderComponent(<ReduceForm position={position} />, {
@@ -542,7 +377,7 @@ describe('ReduceForm', () => {
     await waitFor(() =>
       expect(
         getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.reduce),
-      ).not.toBeDisabled(),
+      ).toBeEnabled(),
     );
 
     fireEvent.click(
@@ -561,27 +396,32 @@ describe('ReduceForm', () => {
   });
 
   it('submits reduce position with loss when form is valid', async () => {
-    setReadyState({
-      scenario: 'loss',
-    });
-
     const shortAmountTokens = validShortAmountTokens.toFixed();
     const closeFractionPercentage = validShortAmountTokens
       .div(position.shortBalanceTokens)
       .multipliedBy(100)
+      .dp(2)
       .toNumber();
     const longAmountTokens = calculateLongAmountTokens(validShortAmountTokens);
     const repaySwapQuote = makeExactInSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
       fromTokenAmountTokens: longAmountTokens,
-      minimumToTokenAmountTokens: new BigNumber(0),
+      minimumToTokenAmountTokens: new BigNumber(1),
     });
     const lossSwapQuote = makeApproximateOutSwapQuote({
       fromToken: dsaToken,
       toToken: shortToken,
-      fromTokenAmountTokens: new BigNumber(1),
-      expectedToTokenAmountTokens: validShortAmountTokens.multipliedBy(bufferedFactor),
+      fromTokenAmountTokens: new BigNumber(2),
+      expectedToTokenAmountTokens: new BigNumber(1),
+    });
+
+    setReadyState({
+      reduceSwapQuotesData: {
+        pnlDsaTokens: new BigNumber(-2),
+        repayWithLossSwapQuote: repaySwapQuote,
+        lossSwapQuote,
+      },
     });
 
     const { container, getByText } = renderComponent(<ReduceForm position={position} />, {
@@ -601,7 +441,7 @@ describe('ReduceForm', () => {
     await waitFor(() =>
       expect(
         getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.reduce),
-      ).not.toBeDisabled(),
+      ).toBeEnabled(),
     );
 
     fireEvent.click(
@@ -619,22 +459,26 @@ describe('ReduceForm', () => {
     });
   });
 
-  it('submits reduce position without pnl when the long amount fully repays the short amount', async () => {
-    setReadyState({
-      scenario: 'noPnl',
-    });
-
+  it('submits reduce position without pnl when the repay quote fully covers the short amount', async () => {
     const shortAmountTokens = validShortAmountTokens.toFixed();
     const closeFractionPercentage = validShortAmountTokens
       .div(position.shortBalanceTokens)
       .multipliedBy(100)
+      .dp(2)
       .toNumber();
     const longAmountTokens = calculateLongAmountTokens(validShortAmountTokens);
     const repaySwapQuote = makeExactInSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
       fromTokenAmountTokens: longAmountTokens,
-      minimumToTokenAmountTokens: validShortAmountTokens.plus(smallestShortAmountTokens),
+      minimumToTokenAmountTokens: validShortAmountTokens,
+    });
+
+    setReadyState({
+      reduceSwapQuotesData: {
+        pnlDsaTokens: new BigNumber(0),
+        repayWithLossSwapQuote: repaySwapQuote,
+      },
     });
 
     const { container, getByText } = renderComponent(<ReduceForm position={position} />, {
@@ -654,7 +498,7 @@ describe('ReduceForm', () => {
     await waitFor(() =>
       expect(
         getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.reduce),
-      ).not.toBeDisabled(),
+      ).toBeEnabled(),
     );
 
     fireEvent.click(
@@ -672,7 +516,7 @@ describe('ReduceForm', () => {
   });
 
   it('submits close position with profit when form is valid', async () => {
-    const closeablePosition = makeCloseablePosition();
+    const closeFractionPercentage = new BigNumber(100).toNumber();
     const repaySwapQuote = makeApproximateOutSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
@@ -683,15 +527,20 @@ describe('ReduceForm', () => {
       fromToken: longToken,
       toToken: dsaToken,
       fromTokenAmountTokens: position.longBalanceTokens.minus(position.longBalanceTokens.div(2)),
-      minimumToTokenAmountTokens: new BigNumber(1),
+      minimumToTokenAmountTokens: new BigNumber(3),
     });
 
-    const { getByText } = renderComponent(
-      <ReduceForm position={closeablePosition} closePosition />,
-      {
-        accountAddress: closeablePosition.positionAccountAddress,
+    setReadyState({
+      reduceSwapQuotesData: {
+        pnlDsaTokens: new BigNumber(3),
+        repayWithProfitSwapQuote: repaySwapQuote,
+        profitSwapQuote,
       },
-    );
+    });
+
+    const { getByText } = renderComponent(<ReduceForm position={position} closePosition />, {
+      accountAddress: position.positionAccountAddress,
+    });
 
     await waitFor(() =>
       expect(
@@ -702,7 +551,7 @@ describe('ReduceForm', () => {
     await waitFor(() =>
       expect(
         getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close),
-      ).not.toBeDisabled(),
+      ).toBeEnabled(),
     );
 
     fireEvent.click(getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close));
@@ -710,77 +559,39 @@ describe('ReduceForm', () => {
     await waitFor(() => expect(mockCloseYieldPlusPositionWithProfit).toHaveBeenCalledTimes(1));
 
     expect(mockCloseYieldPlusPositionWithProfit).toHaveBeenCalledWith({
-      longVTokenAddress: closeablePosition.longAsset.vToken.address,
-      shortVTokenAddress: closeablePosition.shortAsset.vToken.address,
+      longVTokenAddress: position.longAsset.vToken.address,
+      shortVTokenAddress: position.shortAsset.vToken.address,
       repaySwapQuote,
       profitSwapQuote,
     });
-  });
-
-  it('submits close position with profit when the short balance is already zero', async () => {
-    const closeablePosition = makeCloseablePositionWithEmptyShortBalance();
-    const profitSwapQuote = makeExactInSwapQuote({
-      fromToken: longToken,
-      toToken: dsaToken,
-      fromTokenAmountTokens: closeablePosition.longBalanceTokens,
-      minimumToTokenAmountTokens: new BigNumber(1),
-    });
-
-    const { getByText } = renderComponent(
-      <ReduceForm position={closeablePosition} closePosition />,
-      {
-        accountAddress: closeablePosition.positionAccountAddress,
-      },
-    );
-
-    await waitFor(() =>
-      expect(
-        getByText(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close),
-      ).toBeInTheDocument(),
-    );
-
-    await waitFor(() =>
-      expect(
-        getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close),
-      ).not.toBeDisabled(),
-    );
-
-    fireEvent.click(getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close));
-
-    await waitFor(() => expect(mockCloseYieldPlusPositionWithProfit).toHaveBeenCalledTimes(1));
-
-    expect(mockCloseYieldPlusPositionWithProfit).toHaveBeenCalledWith({
-      longVTokenAddress: closeablePosition.longAsset.vToken.address,
-      shortVTokenAddress: closeablePosition.shortAsset.vToken.address,
-      profitSwapQuote,
-    });
+    expect(closeFractionPercentage).toBe(100);
   });
 
   it('submits close position with loss when form is valid', async () => {
-    setReadyState({
-      scenario: 'loss',
-    });
-
-    const closeablePosition = makeCloseablePosition();
     const repaySwapQuote = makeExactInSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
       fromTokenAmountTokens: position.longBalanceTokens,
-      minimumToTokenAmountTokens: new BigNumber(0),
+      minimumToTokenAmountTokens: new BigNumber(1),
     });
     const lossSwapQuote = makeApproximateOutSwapQuote({
       fromToken: dsaToken,
       toToken: shortToken,
-      fromTokenAmountTokens: new BigNumber(1),
-      expectedToTokenAmountTokens: position.shortBalanceTokens.multipliedBy(bufferedFactor),
+      fromTokenAmountTokens: new BigNumber(2),
+      expectedToTokenAmountTokens: new BigNumber(1),
     });
 
-    const { getByText } = renderComponent(
-      <ReduceForm position={closeablePosition} closePosition />,
-      {
-        accountAddress: closeablePosition.positionAccountAddress,
+    setReadyState({
+      reduceSwapQuotesData: {
+        pnlDsaTokens: new BigNumber(-2),
+        repayWithLossSwapQuote: repaySwapQuote,
+        lossSwapQuote,
       },
-    );
+    });
+
+    const { getByText } = renderComponent(<ReduceForm position={position} closePosition />, {
+      accountAddress: position.positionAccountAddress,
+    });
 
     await waitFor(() =>
       expect(
@@ -791,7 +602,7 @@ describe('ReduceForm', () => {
     await waitFor(() =>
       expect(
         getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close),
-      ).not.toBeDisabled(),
+      ).toBeEnabled(),
     );
 
     fireEvent.click(getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close));
@@ -799,33 +610,28 @@ describe('ReduceForm', () => {
     await waitFor(() => expect(mockCloseYieldPlusPositionWithLoss).toHaveBeenCalledTimes(1));
 
     expect(mockCloseYieldPlusPositionWithLoss).toHaveBeenCalledWith({
-      longVTokenAddress: closeablePosition.longAsset.vToken.address,
-      shortVTokenAddress: closeablePosition.shortAsset.vToken.address,
+      longVTokenAddress: position.longAsset.vToken.address,
+      shortVTokenAddress: position.shortAsset.vToken.address,
       repaySwapQuote,
       lossSwapQuote,
     });
   });
 
-  it('submits close position without pnl when the long amount fully repays the short amount', async () => {
-    setReadyState({
-      scenario: 'noPnl',
-    });
+  it('closes an empty position without requesting swap quotes', async () => {
+    const emptyPosition = {
+      ...position,
+      longBalanceTokens: new BigNumber(0),
+      longBalanceCents: 0,
+      shortBalanceTokens: new BigNumber(0),
+      shortBalanceCents: 0,
+      netValueCents: position.dsaBalanceCents,
+    };
 
-    const closeablePosition = makeCloseablePosition();
-    const repaySwapQuote = makeExactInSwapQuote({
-      fromToken: longToken,
-      toToken: shortToken,
-      fromTokenAmountTokens: closeablePosition.longBalanceTokens,
-      minimumToTokenAmountTokens:
-        closeablePosition.shortBalanceTokens.plus(smallestShortAmountTokens),
-    });
+    setReadyState();
 
-    const { getByText } = renderComponent(
-      <ReduceForm position={closeablePosition} closePosition />,
-      {
-        accountAddress: closeablePosition.positionAccountAddress,
-      },
-    );
+    const { getByText } = renderComponent(<ReduceForm position={emptyPosition} closePosition />, {
+      accountAddress: emptyPosition.positionAccountAddress,
+    });
 
     await waitFor(() =>
       expect(
@@ -836,17 +642,17 @@ describe('ReduceForm', () => {
     await waitFor(() =>
       expect(
         getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close),
-      ).not.toBeDisabled(),
+      ).toBeEnabled(),
     );
 
     fireEvent.click(getSubmitButton(en.yieldPlus.operationForm.reduceForm.submitButtonLabel.close));
 
-    await waitFor(() => expect(mockCloseYieldPlusPositionWithLoss).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(mockCloseYieldPlusPosition).toHaveBeenCalledTimes(1));
 
-    expect(mockCloseYieldPlusPositionWithLoss).toHaveBeenCalledWith({
-      longVTokenAddress: closeablePosition.longAsset.vToken.address,
-      shortVTokenAddress: closeablePosition.shortAsset.vToken.address,
-      repaySwapQuote,
+    expect(mockCloseYieldPlusPosition).toHaveBeenCalledWith({
+      longVTokenAddress: emptyPosition.longAsset.vToken.address,
+      shortVTokenAddress: emptyPosition.shortAsset.vToken.address,
     });
+    expect(mockUseGetYieldPlusReduceSwapQuotes).toHaveBeenCalled();
   });
 });

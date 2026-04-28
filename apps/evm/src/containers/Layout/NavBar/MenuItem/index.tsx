@@ -3,6 +3,7 @@ import { matchPath, useLocation } from 'react-router';
 
 import { AccordionAnimatedContent, Dropdown, Icon } from 'components';
 import { Link } from 'containers/Link';
+import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { MenuItem as MenuItemType, SubMenu } from '../types';
 import { SubMenuContent } from './SubMenuContent';
@@ -15,7 +16,7 @@ export interface MenuItemProps {
 
 export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-
+  const { t } = useTranslation();
   const { pathname } = useLocation();
 
   let isActive = false;
@@ -114,8 +115,19 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       </Dropdown>
     </div>
   ) : (
-    <Link to={item.to} href={item.href} onClick={onClick} className={sharedContainerClassName}>
-      {item.label}
+    <Link
+      to={item.to}
+      href={item.href}
+      onClick={onClick}
+      className={cn(sharedContainerClassName, 'flex items-center gap-x-2')}
+    >
+      <span>{item.label}</span>
+
+      {item.isBeta && (
+        <div className="bg-blue px-1.5 py-0.5 rounded-full text-b2s text-white">
+          {t('layout.menu.beta')}
+        </div>
+      )}
     </Link>
   );
 };

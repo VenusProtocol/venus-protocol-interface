@@ -653,6 +653,13 @@
     "illustrationAltText": "插圖",
     "title": "隔離池正在關閉"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "聚合定價",
+      "description": "價格數據僅供參考，已從多個來源聚合。實際鏈上 AMM 價格可能會有所不同。",
+      "title": "圖表資訊"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "直接在鏈上存取不可篡改的貨幣市場。",
@@ -743,6 +750,7 @@
       "utilizationRate": "利用率"
     },
     "menu": {
+      "beta": "beta",
       "dashboard": {
         "label": "儀表盤"
       },
@@ -2264,7 +2272,8 @@
         "cannotSupplyLong": "此倉位的多頭代幣供應已禁用",
         "cannotWithdrawDsa": "此倉位的抵押品代幣提取已禁用",
         "cannotWithdrawLong": "此倉位的多頭代幣提取已禁用",
-        "notEnoughLeverage": "此代幣對不支援至少 {{ minimumLeverageFactor }} 的槓桿倍數，而這是開立 Yield+ 倉位所需的最低值"
+        "notEnoughLeverage": "此代幣對不支援至少 {{ minimumLeverageFactor }} 的槓桿倍數，而這是開立 Yield+ 倉位所需的最低值",
+        "txLikelyToFail": "此交易涉及低價值兌換，可能會失敗"
       },
       "withdrawDsaForm": {
         "submitButtonLabel": "提取"

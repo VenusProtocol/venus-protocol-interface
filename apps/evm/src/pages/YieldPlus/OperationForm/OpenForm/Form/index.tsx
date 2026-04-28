@@ -87,9 +87,9 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
 
   // Update long amount when swap quote is fetched
   useEffect(() => {
-    const expectedLongAmountTokens = getSwapToTokenAmount(swapQuote);
+    if (swapQuote) {
+      const expectedLongAmountTokens = getSwapToTokenAmount(swapQuote);
 
-    if (expectedLongAmountTokens) {
       setFormValues(currentFormValues => {
         const isFormIncomplete =
           new BigNumber(currentFormValues.dsaAmountTokens || 0).isZero() ||
@@ -188,7 +188,7 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       repaySwapQuote={swapQuote}
-      repaySwapQuoteErrorCode={getSwapQuoteError?.code}
+      swapQuoteError={getSwapQuoteError ?? undefined}
       isLoading={isGetSwapQuoteLoading}
       position={position}
       formValues={formValues}

@@ -3,25 +3,26 @@ import type { DataLoader, DataLoaderGetBarsParams, KLineData } from 'klinecharts
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { getTokenPairKLineCandles } from 'clients/api';
-import { INTERVAL } from 'constants/klineCandles';
-import type { Token } from 'types';
+import type { ApiOhlcInterval, Token } from 'types';
 import { formatToCandle } from 'utilities';
 import { type WsKLineMessage, wsKLineClient } from './wsKLineClient';
 
 export const useGetLiveKLineCandles = ({
   baseToken,
   quoteToken,
+  interval,
   baseTokenPriceCents,
   quoteTokenPriceCents,
   rangeMs,
 }: {
   baseToken: Token;
   quoteToken: Token;
+  interval: ApiOhlcInterval;
   rangeMs: number;
   baseTokenPriceCents?: BigNumber;
   quoteTokenPriceCents?: BigNumber;
 }) => {
-  const sourceId = `${baseToken.address}-${quoteToken.address}-${rangeMs}`;
+  const sourceId = `${baseToken.address}-${quoteToken.address}-${rangeMs}-${interval}`;
   const activeSourceIdRef = useRef(sourceId);
   activeSourceIdRef.current = sourceId;
 
@@ -64,7 +65,7 @@ export const useGetLiveKLineCandles = ({
             quoteTokenAddress: quoteToken.address,
             startTimeMs,
             endTimeMs,
-            interval: INTERVAL,
+            interval,
           });
 
           const sortedCandles = [...candles].sort(
@@ -110,6 +111,7 @@ export const useGetLiveKLineCandles = ({
         wsKLineClient.subscribe({
           baseToken,
           quoteToken,
+          interval,
           onMessage: handleMessage,
         });
       },
@@ -121,13 +123,14 @@ export const useGetLiveKLineCandles = ({
         wsKLineClient.unsubscribe({
           baseToken,
           quoteToken,
+          interval,
           onMessage: liveSubscriptionRef.current,
         });
 
         liveSubscriptionRef.current = undefined;
       },
     }),
-    [baseToken, quoteToken, rangeMs, sourceId],
+    [baseToken, quoteToken, rangeMs, sourceId, interval],
   );
 
   const changePercentage = useMemo(() => {

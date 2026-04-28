@@ -1,4 +1,5 @@
 import { VError } from 'libs/errors';
+import { ApiOhlcInterval } from 'types';
 import { formatToCandle } from 'utilities';
 import { restService } from 'utilities/restService';
 import type {
@@ -14,7 +15,7 @@ export const getTokenPairKLineCandles = async ({
   quoteTokenAddress,
   startTimeMs,
   endTimeMs,
-  interval = '5m',
+  interval = ApiOhlcInterval['5m'],
 }: GetTokenPairKLineCandlesInput): Promise<GetTokenPairKLineCandlesOutput> => {
   const response = await restService<GetTokenPairKLineCandlesApiResponse>({
     endpoint: '/ohlc/history',

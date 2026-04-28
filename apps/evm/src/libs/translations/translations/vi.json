@@ -653,6 +653,13 @@
     "illustrationAltText": "Hình minh họa",
     "title": "Các pool cô lập đang được dừng"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "Định giá tổng hợp",
+      "description": "Dữ liệu giá được tổng hợp từ nhiều nguồn chỉ nhằm mục đích tham khảo. Giá AMM thực tế trên chuỗi có thể khác.",
+      "title": "Thông tin biểu đồ"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "Truy cập trực tiếp thị trường tiền tệ bất biến trên chuỗi.",
@@ -743,6 +750,7 @@
       "utilizationRate": "Tỷ lệ sử dụng"
     },
     "menu": {
+      "beta": "beta",
       "dashboard": {
         "label": "Bảng điều khiển"
       },
@@ -2264,7 +2272,8 @@
         "cannotSupplyLong": "Việc cung cấp token Long của vị thế này đã bị vô hiệu hóa",
         "cannotWithdrawDsa": "Việc rút token thế chấp của vị thế này đã bị vô hiệu hóa",
         "cannotWithdrawLong": "Việc rút token Long của vị thế này đã bị vô hiệu hóa",
-        "notEnoughLeverage": "Cặp token này không cho phép hệ số đòn bẩy ít nhất là {{ minimumLeverageFactor }}, đây là mức tối thiểu cần thiết để mở một vị thế Yield+"
+        "notEnoughLeverage": "Cặp token này không cho phép hệ số đòn bẩy ít nhất là {{ minimumLeverageFactor }}, đây là mức tối thiểu cần thiết để mở một vị thế Yield+",
+        "txLikelyToFail": "Giao dịch này liên quan đến các lệnh hoán đổi giá trị thấp có khả năng thất bại"
       },
       "withdrawDsaForm": {
         "submitButtonLabel": "Rút"
