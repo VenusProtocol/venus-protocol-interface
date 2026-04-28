@@ -143,7 +143,6 @@
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
-    "learnMore": "Daha fazla bilgi",
     "startNow": "Şimdi başla"
   },
   "announcements": {

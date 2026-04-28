@@ -22,7 +22,6 @@ export const IsolatedPoolsSunsetBanner: React.FC = () => {
       }
       contentContainerClassName="gap-x-1"
       learnMoreUrl={routes.isolatedPools.path}
-      learnMoreLabel={t('adBanner.learnMore')}
     />
   );
 };

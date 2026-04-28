@@ -143,7 +143,6 @@
     "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืม:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
-    "learnMore": "เรียนรู้เพิ่มเติม",
     "startNow": "เริ่มตอนนี้"
   },
   "announcements": {

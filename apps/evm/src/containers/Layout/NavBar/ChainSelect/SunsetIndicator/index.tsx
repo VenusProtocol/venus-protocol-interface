@@ -3,6 +3,8 @@ import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useSunsetModalStore } from '../sunsetModalStore';
 
+export { SunsetModal } from './SunsetModal';
+
 export interface SunsetIndicatorProps {
   className?: string;
 }

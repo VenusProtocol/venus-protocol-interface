@@ -143,7 +143,6 @@
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
-    "learnMore": "Learn more",
     "startNow": "Start now"
   },
   "announcements": {

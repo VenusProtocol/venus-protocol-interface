@@ -143,7 +143,6 @@
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（占借款限额的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
-    "learnMore": "了解更多",
     "startNow": "立即开始"
   },
   "announcements": {

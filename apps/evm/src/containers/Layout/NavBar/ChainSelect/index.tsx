@@ -2,13 +2,13 @@ import { chains as chainMetadata } from '@venusprotocol/chains';
 import { cn } from '@venusprotocol/ui';
 import { Select, type SelectOption, type SelectProps } from 'components';
 import config from 'config';
-import { isSunsetChain } from 'constants/sunsetChains';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
+import { isSunsetChain } from 'utilities/isSunsetChain';
 import { GaslessStatus } from './GaslessStatus';
-import { SunsetIndicator } from './SunsetIndicator';
-import { SunsetModal } from './SunsetModal';
+import { SunsetIndicator, SunsetModal } from './SunsetIndicator';
+import { useSunsetModalStore } from './sunsetModalStore';
 
 export interface ChainSelectProps
   extends Omit<SelectProps, 'value' | 'onChange' | 'options' | 'optionClassName'> {
@@ -19,6 +19,15 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
+  const openSunsetModal = useSunsetModalStore(state => state.open);
+
+  const handleChange = (newChainId: ChainId | string | number) => {
+    const id = Number(newChainId) as ChainId;
+    if (isSunsetChain(id)) {
+      openSunsetModal();
+    }
+    switchChain({ chainId: id });
+  };
 
   const options = chains.map<SelectOption<ChainId>>(chain => ({
     label: ({ isRenderedInButton }) => {
@@ -51,7 +60,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
         // When running in Safe Wallet app, it is responsible for the active chain
         disabled={config.isSafeApp}
         value={chainId}
-        onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
+        onChange={handleChange}
         options={options}
         menuPosition="right"
         menuTitle={t('layout.chainSelect.label')}

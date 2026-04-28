@@ -143,7 +143,6 @@
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}"
   },
   "adBanner": {
-    "learnMore": "Tìm hiểu thêm",
     "startNow": "Bắt đầu ngay"
   },
   "announcements": {
