@@ -12,7 +12,7 @@ exports[`RepayWithCollateralForm > lets user repay full loan using a swap 1`] = 
     "iconSrc": "fake-usdt-asset",
     "symbol": "USDT",
   },
-  "minToTokenAmountTokens": "1000.1",
+  "minToTokenAmountTokens": "1000.01",
   "recipientAddress": "0xfakeLeverageManagerContractAddress",
   "slippagePercentage": 0.5,
   "toToken": {
@@ -83,7 +83,7 @@ exports[`RepayWithCollateralForm > lets user repay full loan using a swap 2`] = 
 exports[`RepayWithCollateralForm > lets user repay full loan using the same collateral and repaid market 1`] = `
 [
   {
-    "amountMantissa": 1000100000000000000n,
+    "amountMantissa": 1000010000000000000n,
     "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
       "chainId": 97,

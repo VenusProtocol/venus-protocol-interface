@@ -41,11 +41,9 @@ export const Form: React.FC<FormProps> = ({
   balanceMutations,
   submitButtonLabel,
   repaySwapQuote,
-  repaySwapQuoteErrorCode,
+  swapQuoteError,
   profitSwapQuote,
-  profitSwapQuoteErrorCode,
   lossSwapQuote,
-  lossSwapQuoteErrorCode,
   isSubmitting,
   pnlDsaTokens,
   onSubmit,
@@ -114,11 +112,8 @@ export const Form: React.FC<FormProps> = ({
     });
   }
 
-  const firstSwapQuoteErrorCode =
-    repaySwapQuoteErrorCode || profitSwapQuoteErrorCode || lossSwapQuoteErrorCode;
-
   const weightedAveragePriceImpactPercentage =
-    !firstSwapQuoteErrorCode && weightedAveragePriceImpactItems.length > 0
+    !swapQuoteError && weightedAveragePriceImpactItems.length > 0
       ? calculateWeightedAverageSwapPriceImpact(weightedAveragePriceImpactItems)
       : undefined;
 
@@ -127,7 +122,7 @@ export const Form: React.FC<FormProps> = ({
     position,
     simulatedPosition,
     formValues,
-    firstSwapQuoteErrorCode,
+    swapQuoteError,
     averageSwapPriceImpactPercentage: weightedAveragePriceImpactPercentage,
     limitShortTokens,
     limitDsaTokens,
@@ -338,6 +333,20 @@ export const Form: React.FC<FormProps> = ({
   const shouldShowSwapDetails =
     isUpdatingCollateralBalance || isClosingPositionWithoutSwap ? false : true;
 
+  const swapQuotes = [];
+
+  if (repaySwapQuote) {
+    swapQuotes.push(repaySwapQuote);
+  }
+
+  if (profitSwapQuote) {
+    swapQuotes.push(profitSwapQuote);
+  }
+
+  if (lossSwapQuote) {
+    swapQuotes.push(lossSwapQuote);
+  }
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
       {action === 'close' && !isLoading && formError && (
@@ -484,6 +493,7 @@ export const Form: React.FC<FormProps> = ({
       <Footer
         isLoading={isLoading || isSubmitting}
         position={position}
+        swapQuotes={swapQuotes}
         simulatedPosition={simulatedPosition}
         swapPriceImpactPercentage={weightedAveragePriceImpactPercentage}
         swapFromToken={

@@ -6,6 +6,7 @@ import { yieldPlusPositions } from '__mocks__/models/yieldPlus';
 import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { VError } from 'libs/errors';
 import { useAccountAddress } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import { useFormValidation } from '..';
@@ -79,7 +80,7 @@ const renderUseFormValidation = (input: RenderInput = {}) => {
       ...formValues,
     },
     averageSwapPriceImpactPercentage: 0.1,
-    firstSwapQuoteErrorCode: undefined,
+    swapQuoteError: undefined,
     action: 'open',
     ...otherInput,
   };
@@ -112,6 +113,23 @@ describe('useFormValidation', () => {
 
     expect(result.current.isFormValid).toBe(false);
     expect(result.current.formError).toEqual(commonFormError);
+  });
+
+  it('passes the unified swapQuoteError message to common validation', () => {
+    const swapQuoteError = new VError({
+      type: 'swapQuote',
+      code: 'noSwapQuoteFound',
+    });
+
+    renderUseFormValidation({
+      swapQuoteError,
+    });
+
+    expect(mockUseCommonValidation).toHaveBeenCalledWith(
+      expect.objectContaining({
+        swapQuoteErrorCode: 'noSwapQuoteFound',
+      }),
+    );
   });
 
   it.each<{

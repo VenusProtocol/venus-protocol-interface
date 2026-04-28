@@ -653,6 +653,13 @@
     "illustrationAltText": "イラスト",
     "title": "隔離プールは終了予定です"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "集計価格",
+      "description": "価格データは参考用として複数のソースから集計されています。実際のオンチェーン AMM 価格は異なる場合があります。",
+      "title": "チャート情報"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "改ざん不能なマネーマーケットにオンチェーンで直接アクセス。",
@@ -743,6 +750,7 @@
       "utilizationRate": "利用率"
     },
     "menu": {
+      "beta": "TRANSLATION NEEDED",
       "dashboard": {
         "label": "ダッシュボード"
       },
@@ -2264,7 +2272,8 @@
         "cannotSupplyLong": "このポジションのロングトークンの供給は無効化されています",
         "cannotWithdrawDsa": "このポジションの担保トークンの引き出しは無効化されています",
         "cannotWithdrawLong": "このポジションのロングトークンの引き出しは無効化されています",
-        "notEnoughLeverage": "このトークンペアでは、Yield+ポジションを開くために必要な最低倍率である {{ minimumLeverageFactor }} 以上のレバレッジ倍率を利用できません"
+        "notEnoughLeverage": "このトークンペアでは、Yield+ポジションを開くために必要な最低倍率である {{ minimumLeverageFactor }} 以上のレバレッジ倍率を利用できません",
+        "txLikelyToFail": "この取引には失敗する可能性が高い少額スワップが含まれています"
       },
       "withdrawDsaForm": {
         "submitButtonLabel": "引き出し"

@@ -1,26 +1,21 @@
 import BigNumber from 'bignumber.js';
 import { useEffect, useMemo } from 'react';
 
-import { keepPreviousData } from '@tanstack/react-query';
 import {
   useCloseYieldPlusPosition,
   useCloseYieldPlusPositionWithLoss,
   useCloseYieldPlusPositionWithProfit,
-  useGetSwapQuote,
+  useGetYieldPlusReduceSwapQuotes,
   useReduceYieldPlusPositionWithLoss,
   useReduceYieldPlusPositionWithProfit,
 } from 'clients/api';
-import { NULL_ADDRESS } from 'constants/address';
-import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import useDebounceValue from 'hooks/useDebounceValue';
-import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { usePositionForm } from 'pages/YieldPlus/OperationForm/usePositionForm';
 import { PositionForm } from 'pages/YieldPlus/PositionForm';
 import type { AssetBalanceMutation, YieldPlusPosition } from 'types';
-import { convertMantissaToTokens, getSwapToTokenAmount } from 'utilities';
 import { store } from '../ClosePositionModal/store';
 
 export interface ReduceFormProps {
@@ -83,173 +78,29 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
     return debouncedShortAmountTokens.dividedBy(position.shortBalanceTokens);
   }, [debouncedShortAmountTokens, position.shortBalanceTokens, closePosition]);
 
-  const { address: leverageManagerContractAddress } = useGetContractAddress({
-    name: 'LeverageManager',
-  });
+  const closeFractionPercentage = reduceRatio.multipliedBy(100).dp(2).toNumber();
 
-  const { address: relativePositionManagerContractAddress } = useGetContractAddress({
-    name: 'RelativePositionManager',
-  });
-
-  const sharedOptions = closePosition
-    ? {
-        placeholderData: keepPreviousData,
-      }
-    : {};
-
-  // Repay (repay short using long) swap quote, in the case of a profit
-  const {
-    data: getRepayWithProfitSwapQuoteData,
-    error: getRepayWithProfitSwapQuoteError,
-    isLoading: isGetRepayWithProfitSwapQuoteLoading,
-  } = useGetSwapQuote(
+  const { data, isLoading, error } = useGetYieldPlusReduceSwapQuotes(
     {
-      fromToken: position.longAsset.vToken.underlyingToken,
-      toToken: position.shortAsset.vToken.underlyingToken,
-      minToTokenAmountTokens:
-        debouncedShortAmountTokens?.multipliedBy(
-          // Buff amount to account from accrued interests while the transaction is being mined
-          new BigNumber(1).plus(FULL_REPAYMENT_BUFFER_PERCENTAGE),
-        ) || new BigNumber(0),
-      direction: 'approximate-out',
-      recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+      dsaToken: position.dsaAsset.vToken.underlyingToken,
+      shortToken: position.shortAsset.vToken.underlyingToken,
+      shortAmountToRepayTokens: debouncedShortAmountTokens,
+      longToken: position.longAsset.vToken.underlyingToken,
+      longAmountToWithdrawTokens: longAmountTokens,
+      closeFractionPercentage,
+      isPositionShortBalanceZero: position.shortBalanceTokens.isZero(),
       slippagePercentage: userSlippageTolerancePercentage,
     },
     {
-      enabled: !!leverageManagerContractAddress && !!debouncedShortAmountTokens.isGreaterThan(0),
-      ...sharedOptions,
+      enabled: longAmountTokens?.isGreaterThan(0) || debouncedShortAmountTokens.isGreaterThan(0),
     },
   );
-  const repayWithProfitSwapQuote = getRepayWithProfitSwapQuoteData?.swapQuote;
 
-  const repayWithProfitSwapQuoteFromTokenAmountTokens =
-    repayWithProfitSwapQuote?.direction === 'approximate-out'
-      ? convertMantissaToTokens({
-          value: repayWithProfitSwapQuote.fromTokenAmountSoldMantissa,
-          token: repayWithProfitSwapQuote.fromToken,
-        })
-      : undefined;
-
-  // If longProfitAmountDeltaTokens is positive, then it means there's a profit
-  let longProfitAmountDeltaTokens: BigNumber | undefined;
-
-  if (position.shortBalanceTokens.isEqualTo(0)) {
-    // If the position has an empty short balance, then the leftover long is pure profit
-    longProfitAmountDeltaTokens = longAmountTokens;
-  } else {
-    // Otherwise the profit is based on the amount of extra long tokens obtained after repaying the
-    // short balance
-    longProfitAmountDeltaTokens =
-      repayWithProfitSwapQuoteFromTokenAmountTokens &&
-      longAmountTokens.minus(repayWithProfitSwapQuoteFromTokenAmountTokens);
-  }
-
-  const isProfitable = !!longProfitAmountDeltaTokens?.isGreaterThan(0);
-
-  // Repay (repay short using long) swap quote, in the case of a loss
-  const {
-    data: getRepayWithLossSwapQuoteData,
-    error: getRepayWithLossSwapQuoteError,
-    isLoading: isGetRepayWithLossSwapQuoteLoading,
-  } = useGetSwapQuote(
-    {
-      fromToken: position.longAsset.vToken.underlyingToken,
-      fromTokenAmountTokens: longAmountTokens,
-      toToken: position.shortAsset.vToken.underlyingToken,
-      direction: 'exact-in',
-      recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
-      slippagePercentage: userSlippageTolerancePercentage,
-    },
-    {
-      enabled: !!leverageManagerContractAddress && !!longAmountTokens.isGreaterThan(0),
-      ...sharedOptions,
-    },
-  );
-  const repayWithLossSwapQuote = getRepayWithLossSwapQuoteData?.swapQuote;
-
-  const repayWithLossSwapQuoteMinToTokenAmountTokens =
-    repayWithLossSwapQuote?.direction === 'exact-in'
-      ? convertMantissaToTokens({
-          value: repayWithLossSwapQuote.minimumToTokenAmountReceivedMantissa,
-          token: repayWithLossSwapQuote.toToken,
-        })
-      : undefined;
-
-  // If shortLossAmountDeltaTokens is positive, then it means there's a loss
-  const shortLossAmountDeltaTokens =
-    repayWithLossSwapQuoteMinToTokenAmountTokens &&
-    debouncedShortAmountTokens.minus(repayWithLossSwapQuoteMinToTokenAmountTokens);
-
-  // Profit swap quote (swap extra long to supply DSA = generate profit)
-  const {
-    data: getProfitSwapQuoteData,
-    error: getProfitSwapQuoteError,
-    isLoading: isGetProfitSwapQuoteLoading,
-  } = useGetSwapQuote(
-    {
-      fromToken: position.longAsset.vToken.underlyingToken,
-      fromTokenAmountTokens: longProfitAmountDeltaTokens || new BigNumber(0),
-      toToken: position.dsaAsset.vToken.underlyingToken,
-      direction: 'exact-in',
-      // When closing with a profit, the long assets need to be transferred to the
-      // RelativePositionManager contract
-      recipientAddress: relativePositionManagerContractAddress || NULL_ADDRESS,
-      slippagePercentage: userSlippageTolerancePercentage,
-    },
-    {
-      enabled: !!leverageManagerContractAddress && isProfitable,
-      ...sharedOptions,
-    },
-  );
-  const profitSwapQuote = getProfitSwapQuoteData?.swapQuote;
-
-  // Loss swap quote (swap DSA to repay short = repay loss)
-  const {
-    data: getLossSwapQuoteData,
-    error: getLossSwapQuoteError,
-    isLoading: isGetLossSwapQuoteLoading,
-  } = useGetSwapQuote(
-    {
-      fromToken: position.dsaAsset.vToken.underlyingToken,
-      toToken: position.shortAsset.vToken.underlyingToken,
-      minToTokenAmountTokens:
-        shortLossAmountDeltaTokens?.multipliedBy(
-          // Buff amount to account from accrued interests while the transaction is being mined
-          new BigNumber(1).plus(FULL_REPAYMENT_BUFFER_PERCENTAGE),
-        ) || new BigNumber(0),
-      direction: 'approximate-out',
-      recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
-      slippagePercentage: userSlippageTolerancePercentage,
-    },
-    {
-      enabled:
-        !!leverageManagerContractAddress &&
-        !isProfitable &&
-        !!shortLossAmountDeltaTokens?.isGreaterThan(0),
-      ...sharedOptions,
-    },
-  );
-  const lossSwapQuote = getLossSwapQuoteData?.swapQuote;
-
-  // Calculate actual PnL based on swaps
-  let pnlDsaTokens: BigNumber | undefined;
-
-  // Closing/Reducing with profit
-  if (isProfitable && profitSwapQuote?.direction === 'exact-in') {
-    pnlDsaTokens = getSwapToTokenAmount(profitSwapQuote);
-  }
-  // Closing/Reducing with loss
-  else if (!isProfitable && lossSwapQuote?.direction === 'approximate-out') {
-    pnlDsaTokens = convertMantissaToTokens({
-      value: lossSwapQuote.fromTokenAmountSoldMantissa,
-      token: lossSwapQuote.fromToken,
-    }).multipliedBy(-1);
-  }
-  // Closing/Reducing the position isn't generating profit, but it's not generating loss either (the
-  // long balance used is sufficient to repay the short balance portion)
-  else if (!isProfitable && shortLossAmountDeltaTokens?.isNegative()) {
-    pnlDsaTokens = new BigNumber(0);
-  }
+  const pnlDsaTokens = data?.pnlDsaTokens;
+  const repayWithProfitSwapQuote = data?.repayWithProfitSwapQuote;
+  const repayWithLossSwapQuote = data?.repayWithLossSwapQuote;
+  const profitSwapQuote = data?.profitSwapQuote;
+  const lossSwapQuote = data?.lossSwapQuote;
 
   // Update long amount when short amount is updated
   useEffect(() => {
@@ -360,7 +211,6 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
     }
 
     const isReducingWithProfit = pnlDsaTokens?.isPositive();
-    const closeFractionPercentage = reduceRatio.multipliedBy(100).toNumber();
 
     // Reduce with profit
     if (
@@ -460,29 +310,19 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
     isClosingPositionWithLoss ||
     isClosingEmptyPosition;
 
-  const isLoading =
-    isGetRepayWithProfitSwapQuoteLoading ||
-    isGetRepayWithLossSwapQuoteLoading ||
-    isGetProfitSwapQuoteLoading ||
-    isGetLossSwapQuoteLoading;
-
-  const repaySwapQuoteErrorCode = isProfitable
-    ? getRepayWithProfitSwapQuoteError?.code
-    : getRepayWithLossSwapQuoteError?.code;
-
-  const repaySwapQuote = isProfitable ? repayWithProfitSwapQuote : repayWithLossSwapQuote;
+  const repaySwapQuote = pnlDsaTokens?.isGreaterThan(0)
+    ? repayWithProfitSwapQuote
+    : repayWithLossSwapQuote;
 
   return (
     <PositionForm
       action={closePosition ? 'close' : 'reduce'}
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
+      swapQuoteError={error ?? undefined}
       repaySwapQuote={repaySwapQuote}
-      repaySwapQuoteErrorCode={repaySwapQuoteErrorCode}
       lossSwapQuote={lossSwapQuote}
-      lossSwapQuoteErrorCode={getLossSwapQuoteError?.code}
       profitSwapQuote={profitSwapQuote}
-      profitSwapQuoteErrorCode={getProfitSwapQuoteError?.code}
       isLoading={isLoading}
       position={position}
       formValues={formValues}

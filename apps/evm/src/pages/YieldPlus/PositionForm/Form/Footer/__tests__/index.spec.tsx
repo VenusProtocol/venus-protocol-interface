@@ -1,11 +1,13 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
+import { exactInSwapQuote } from '__mocks__/models/swap';
 import { yieldPlusPositions } from '__mocks__/models/yieldPlus';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import {
+  convertTokensToMantissa,
   formatCentsToReadableValue,
   formatHealthFactorToReadableValue,
   formatTokensToReadableValue,
@@ -19,6 +21,7 @@ const baseProps: FooterProps = {
   submitButtonLabel: 'Submit',
   isFormValid: true,
   balanceMutations: [],
+  swapQuotes: [],
 };
 
 const liquidationPriceLabel = t('yieldPlus.operationForm.openForm.liquidationPrice');
@@ -27,7 +30,32 @@ const pnlLabel = t('yieldPlus.operationForm.openForm.pnl');
 const netApyLabel = t('yieldPlus.operationForm.openForm.netApy');
 const borrowBalanceLabel = t('accountData.balanceUpdate.borrowBalance');
 const healthFactorLabel = t('yieldPlus.positions.status.healthFactor.label');
+const likelyToFailWarning = t('yieldPlus.operationForm.warning.txLikelyToFail');
 const riskyOperationTooltip = t('operationForm.acknowledgements.riskyOperation.tooltip');
+
+const likelyToFailSwapQuote = {
+  ...exactInSwapQuote,
+  fromToken: basePosition.shortAsset.vToken.underlyingToken,
+  toToken: basePosition.longAsset.vToken.underlyingToken,
+  fromTokenAmountSoldMantissa: BigInt(
+    convertTokensToMantissa({
+      value: new BigNumber('0.1'),
+      token: basePosition.shortAsset.vToken.underlyingToken,
+    }).toFixed(),
+  ),
+  expectedToTokenAmountReceivedMantissa: BigInt(
+    convertTokensToMantissa({
+      value: new BigNumber('0.1'),
+      token: basePosition.longAsset.vToken.underlyingToken,
+    }).toFixed(),
+  ),
+  minimumToTokenAmountReceivedMantissa: BigInt(
+    convertTokensToMantissa({
+      value: new BigNumber('0.1'),
+      token: basePosition.longAsset.vToken.underlyingToken,
+    }).toFixed(),
+  ),
+};
 
 describe('YieldPlus PositionForm Footer', () => {
   it('renders balance updates from the provided balance mutations', () => {
@@ -49,7 +77,15 @@ describe('YieldPlus PositionForm Footer', () => {
     expect(borrowBalanceRow?.textContent).toMatchInlineSnapshot(`"Borrow balance5051"`);
   });
 
-  it('renders the submit button and risky acknowledgement from the real submit section', async () => {
+  it('renders the likely-to-fail warning when a swap amount is below the threshold', () => {
+    renderComponent(<Footer {...baseProps} swapQuotes={[likelyToFailSwapQuote]} />, {
+      accountAddress: basePosition.positionAccountAddress,
+    });
+
+    expect(screen.getByText(likelyToFailWarning)).toBeInTheDocument();
+  });
+
+  it('renders the risky acknowledgement', async () => {
     const setAcknowledgeRisk = vi.fn();
 
     renderComponent(

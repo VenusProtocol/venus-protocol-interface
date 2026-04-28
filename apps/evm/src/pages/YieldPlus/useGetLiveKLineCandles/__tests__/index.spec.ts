@@ -4,9 +4,8 @@ import type { DataLoaderGetBarsParams, DataLoaderSubscribeBarParams, KLineData }
 import { usdc, usdt, wbnb } from '__mocks__/models/tokens';
 import type { ApiCandle } from 'clients/api';
 import { getTokenPairKLineCandles } from 'clients/api';
-import { INTERVAL } from 'constants/klineCandles';
 import { renderHook } from 'testUtils/render';
-import type { Token } from 'types';
+import { ApiOhlcInterval, type Token } from 'types';
 import type { Mock } from 'vitest';
 import { useGetLiveKLineCandles } from '..';
 import { wsKLineClient } from '../wsKLineClient';
@@ -28,6 +27,7 @@ vi.mock('../wsKLineClient', () => ({
 
 const fakeRangeMs = 60_000;
 const fakeBarsTimestamp = 1700000000000;
+const fakeInterval = ApiOhlcInterval['1h'];
 const fakeSymbol = {
   ticker: 'WBNB/USDC',
   pricePrecision: 2,
@@ -181,6 +181,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -224,6 +225,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -244,7 +246,7 @@ describe('useGetLiveKLineCandles', () => {
       quoteTokenAddress: quoteToken.address,
       startTimeMs: fakeBarsTimestamp - fakeRangeMs,
       endTimeMs: fakeBarsTimestamp,
-      interval: INTERVAL,
+      interval: fakeInterval,
     });
     expect(callback.mock.calls).toMatchSnapshot();
     expect(serializeHookState(result.current)).toMatchSnapshot();
@@ -277,6 +279,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -317,6 +320,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -343,6 +347,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -390,6 +395,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -434,6 +440,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -459,6 +466,7 @@ describe('useGetLiveKLineCandles', () => {
     expect(wsKLineClient.subscribe).toHaveBeenCalledWith({
       baseToken,
       quoteToken,
+      interval: fakeInterval,
       onMessage: expect.any(Function),
     });
 
@@ -504,6 +512,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -559,6 +568,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -579,6 +589,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );
@@ -614,6 +625,7 @@ describe('useGetLiveKLineCandles', () => {
     expect(wsKLineClient.unsubscribe).toHaveBeenCalledWith({
       baseToken,
       quoteToken,
+      interval: fakeInterval,
       onMessage,
     });
   });
@@ -634,6 +646,7 @@ describe('useGetLiveKLineCandles', () => {
       useGetLiveKLineCandles({
         baseToken,
         quoteToken,
+        interval: fakeInterval,
         rangeMs: fakeRangeMs,
       }),
     );

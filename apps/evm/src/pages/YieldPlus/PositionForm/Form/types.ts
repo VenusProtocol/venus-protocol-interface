@@ -2,6 +2,7 @@ import type {
   BalanceMutation,
   CommonTxFormErrorCode,
   SwapQuote,
+  SwapQuoteError,
   Token,
   TxFormError,
   YieldPlusPosition,
@@ -52,9 +53,7 @@ export interface FormProps {
   formError?: FormError;
   isLoading?: boolean;
   repaySwapQuote?: SwapQuote;
-  repaySwapQuoteErrorCode?: string;
   profitSwapQuote?: SwapQuote;
-  profitSwapQuoteErrorCode?: string;
   lossSwapQuote?: SwapQuote;
-  lossSwapQuoteErrorCode?: string;
+  swapQuoteError?: SwapQuoteError;
 }

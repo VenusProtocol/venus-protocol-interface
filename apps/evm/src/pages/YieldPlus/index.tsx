@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { Card, KLineChart, Page, Spinner } from 'components';
 import { ONE_DAY_MS } from 'constants/time';
+import { ApiOhlcInterval } from 'types';
 import { areAddressesEqual } from 'utilities';
 import { Banner } from './Banner';
 import { store } from './Banner/store';
@@ -24,6 +25,8 @@ const YieldPlus: React.FC = () => {
 
   const doNotShowBanner = store.use.doNotShowBanner();
 
+  const [interval, setInterval] = useState<ApiOhlcInterval>(ApiOhlcInterval['1h']);
+
   const {
     data: { borrowAssets, supplyAssets },
     isLoading: isGetYieldPlusAssetsLoading,
@@ -44,10 +47,24 @@ const YieldPlus: React.FC = () => {
   const { changePercentage, dataLoader, priceCentsRatio } = useGetLiveKLineCandles({
     baseToken: longToken,
     quoteToken: shortToken,
+    interval,
     baseTokenPriceCents: longAsset?.tokenPriceCents,
     quoteTokenPriceCents: shortAsset?.tokenPriceCents,
     rangeMs: ONE_DAY_MS,
   });
+
+  // Determine precision based on the token pair price
+  let pricePrecision = 6;
+
+  if (priceCentsRatio?.isLessThan(1)) {
+    const firstNonZeroIndex = priceCentsRatio
+      ?.toFixed()
+      .split('.')[1]
+      .match(/[1-9]\d*/)?.index;
+
+    pricePrecision =
+      firstNonZeroIndex && firstNonZeroIndex > 1 ? firstNonZeroIndex + 5 : pricePrecision;
+  }
 
   const isLoading = isGetYieldPlusAssetsLoading;
 
@@ -102,6 +119,9 @@ const YieldPlus: React.FC = () => {
               <KLineChart
                 dataLoader={dataLoader}
                 title={`${longToken.symbol}/${shortToken.symbol}`}
+                pricePrecision={pricePrecision}
+                interval={interval}
+                onIntervalChange={setInterval}
               />
             </Card>
 

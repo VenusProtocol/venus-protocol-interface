@@ -653,6 +653,13 @@
     "illustrationAltText": "İllüstrasyon",
     "title": "İzole havuzlar aşamalı olarak kapatılıyor"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "Toplu fiyatlama",
+      "description": "Fiyat verileri yalnızca referans amaçlı olarak birden çok kaynaktan bir araya getirilmiştir. Gerçek zincir üzerindeki AMM fiyatları farklılık gösterebilir.",
+      "title": "Grafik bilgisi"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "Değiştirilemez bir para piyasasına doğrudan zincir üzerinde erişin.",
@@ -743,6 +750,7 @@
       "utilizationRate": "Kullanım oranı"
     },
     "menu": {
+      "beta": "TRANSLATION NEEDED",
       "dashboard": {
         "label": "Gösterge paneli"
       },
@@ -2265,7 +2273,8 @@
         "cannotSupplyLong": "Bu pozisyondaki long token için sağlama devre dışı bırakıldı",
         "cannotWithdrawDsa": "Bu pozisyondaki teminat tokeni için çekim devre dışı bırakıldı",
         "cannotWithdrawLong": "Bu pozisyondaki long token için çekim devre dışı bırakıldı",
-        "notEnoughLeverage": "Bu token çifti, Yield+ pozisyonu açmak için gereken minimum kaldıraç oranı olan en az {{ minimumLeverageFactor }} değerine izin vermiyor"
+        "notEnoughLeverage": "Bu token çifti, Yield+ pozisyonu açmak için gereken minimum kaldıraç oranı olan en az {{ minimumLeverageFactor }} değerine izin vermiyor",
+        "txLikelyToFail": "Bu işlem, başarısız olma ihtimali yüksek düşük değerli swap'ler içeriyor"
       },
       "withdrawDsaForm": {
         "submitButtonLabel": "Çek"

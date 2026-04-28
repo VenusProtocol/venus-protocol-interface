@@ -605,6 +605,14 @@ export const useGetVTokenUtilizationRate = vi.fn(() =>
   }),
 );
 
+export const getYieldPlusReduceSwapQuotes = vi.fn();
+export const useGetYieldPlusReduceSwapQuotes = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_YIELD_PLUS_REDUCE_SWAP_QUOTES],
+    queryFn: getYieldPlusReduceSwapQuotes,
+  }),
+);
+
 export const getAddressDomainName = vi.fn(async () => undefined);
 export const useGetAddressDomainName = vi.fn(() =>
   useQuery({

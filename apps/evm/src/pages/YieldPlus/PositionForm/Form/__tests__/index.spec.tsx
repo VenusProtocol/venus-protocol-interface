@@ -15,7 +15,7 @@ import {
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { handleError } from 'libs/errors';
+import { VError, handleError } from 'libs/errors';
 import { en } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { calculateMaxLeverageFactor } from 'pages/YieldPlus/calculateMaxLeverageFactor';
@@ -56,7 +56,14 @@ vi.mock('@radix-ui/react-slider', () => ({
   Thumb: () => <div />,
 }));
 
-vi.mock('libs/errors');
+vi.mock('libs/errors', async importOriginal => {
+  const actual = await importOriginal<typeof import('libs/errors')>();
+
+  return {
+    ...actual,
+    handleError: vi.fn(),
+  };
+});
 
 const basePosition = yieldPlusPositions[0];
 const alternativePosition = yieldPlusPositions[1];
@@ -351,7 +358,10 @@ describe('YieldPlus PositionForm Form', () => {
   it('shows a no-swap error when quote lookup fails', async () => {
     const { container } = renderForm({
       repaySwapQuote: undefined,
-      repaySwapQuoteErrorCode: 'NO_SWAP_QUOTE_FOUND',
+      swapQuoteError: new VError({
+        type: 'swapQuote',
+        code: 'noSwapQuoteFound',
+      }),
     });
 
     await waitFor(() => expect(getDsaAmountInput(container)).toBeInTheDocument());

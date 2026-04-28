@@ -10,6 +10,7 @@ import {
   useGetSwapQuote,
   useIncreaseYieldPlusPosition,
 } from 'clients/api';
+import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import { calculateMaxBorrowShortTokens } from 'pages/YieldPlus/OperationForm/calculateMaxBorrowShortTokens';
 import { renderComponent } from 'testUtils/render';
@@ -48,7 +49,7 @@ describe('IncreaseForm', () => {
   }: {
     simulatedPool?: Pool;
     swapQuote?: SwapQuote;
-    swapQuoteError?: { code: string };
+    swapQuoteError?: Error;
   } = {}) => {
     mockUseGetProportionalCloseTolerancePercentage.mockImplementation(() => ({
       data: {
@@ -123,9 +124,10 @@ describe('IncreaseForm', () => {
   it('shows no-swap error when quote lookup fails', async () => {
     setReadyState({
       swapQuote: undefined,
-      swapQuoteError: {
-        code: 'NO_SWAP_QUOTE_FOUND',
-      },
+      swapQuoteError: new VError({
+        type: 'swapQuote',
+        code: 'noSwapQuoteFound',
+      }),
     });
 
     const { container, getByText } = renderComponent(<IncreaseForm position={position} />, {

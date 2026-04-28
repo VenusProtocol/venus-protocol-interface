@@ -1,6 +1,5 @@
 import type { Address } from 'viem';
 
-import { INTERVAL } from 'constants/klineCandles';
 import { logError } from 'libs/errors';
 import { WsClient } from 'libs/webSocket';
 import type { ApiOhlcInterval, Token } from 'types';
@@ -23,10 +22,12 @@ export class KLineCandleWsClient extends WsClient {
   subscribe({
     baseToken,
     quoteToken,
+    interval,
     onMessage,
   }: {
     baseToken: Token;
     quoteToken: Token;
+    interval: ApiOhlcInterval;
     onMessage: CandleCallback;
   }): void {
     const channelId = getChannelId({
@@ -42,7 +43,7 @@ export class KLineCandleWsClient extends WsClient {
         id: channelId,
         baseTokenAddress: baseToken.address,
         quoteTokenAddress: quoteToken.address,
-        interval: INTERVAL,
+        interval,
       } satisfies ApiWsSubMessage);
 
       this.openChannel({
@@ -57,10 +58,12 @@ export class KLineCandleWsClient extends WsClient {
   unsubscribe({
     baseToken,
     quoteToken,
+    interval,
     onMessage,
   }: {
     baseToken: Token;
     quoteToken: Token;
+    interval: ApiOhlcInterval;
     onMessage: CandleCallback;
   }): void {
     const channelId = getChannelId({
@@ -80,7 +83,7 @@ export class KLineCandleWsClient extends WsClient {
         id: channelId,
         baseTokenAddress: baseToken.address,
         quoteTokenAddress: quoteToken.address,
-        interval: INTERVAL,
+        interval,
       } satisfies ApiWsSubMessage);
 
       this.callbacks.delete(channelId);

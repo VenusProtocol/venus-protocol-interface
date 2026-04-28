@@ -261,5 +261,9 @@ export * from './queries/getFixedRatedVaults/useGetFixedRatedVaults';
 
 export * from './queries/getPendleSwapQuote';
 export * from './queries/getPendleSwapQuote/useGetPendleSwapQuote';
+
 export * from './queries/getRawYieldPlusPositions';
 export * from './queries/getRawYieldPlusPositions/useGetRawYieldPlusPositions';
+
+export * from './queries/getYieldPlusReduceSwapQuotes';
+export * from './queries/getYieldPlusReduceSwapQuotes/useGetYieldPlusReduceSwapQuotes';

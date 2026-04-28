@@ -94,6 +94,7 @@ export const useMenuItems = () => {
     menu.push({
       to: routes.yieldPlus.path,
       label: t('layout.menu.others.yieldPlus.label'),
+      isBeta: true,
     });
   }
 
