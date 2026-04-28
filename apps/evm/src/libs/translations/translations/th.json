@@ -101,15 +101,15 @@
         "enterMarket": "เปิดใช้หลักประกัน",
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
-        "positionClosedWithLoss": "ปิด (ขาดทุน) • Yield+",
-        "positionClosedWithProfit": "ปิด (กำไร) • Yield+",
-        "positionIncreased": "เพิ่ม • Yield+",
-        "positionOpened": "เปิด • Yield+",
-        "positionReducedWithLoss": "ลดลง (ขาดทุน) • Yield+",
-        "positionReducedWithProfit": "ลดลง (กำไร) • Yield+",
-        "principalSupplied": "ฝาก • Yield+",
-        "principalWithdrawn": "ถอน • Yield+",
-        "realizedPnl": "กำไร/ขาดทุนที่รับรู้ • Yield+",
+        "positionClosedWithLoss": "ปิด (ขาดทุน) • Trade",
+        "positionClosedWithProfit": "ปิด (กำไร) • Trade",
+        "positionIncreased": "เพิ่ม • Trade",
+        "positionOpened": "เปิด • Trade",
+        "positionReducedWithLoss": "ลดลง (ขาดทุน) • Trade",
+        "positionReducedWithProfit": "ลดลง (กำไร) • Trade",
+        "principalSupplied": "ฝาก • Trade",
+        "principalWithdrawn": "ถอน • Trade",
+        "realizedPnl": "กำไร/ขาดทุนที่รับรู้ • Trade",
         "redeem": "ถอน",
         "repay": "ชำระคืน"
       },
@@ -783,12 +783,12 @@
         "swap": {
           "label": "สวอป"
         },
+        "trade": {
+          "label": "Trade"
+        },
         "vai": {
           "description": "มินต์สเตเบิลคอยน์ประจำของ Venus",
           "label": "VAI"
-        },
-        "yieldPlus": {
-          "label": "Yield+"
         }
       },
       "settings": {
@@ -1638,6 +1638,115 @@
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
   },
+  "trade": {
+    "banner": {
+      "illustrationAltText": "ภาพประกอบ Trade",
+      "learnMore": "เรียนรู้เพิ่มเติม",
+      "title": "Trade คืออะไร?"
+    },
+    "closePositionModal": {
+      "title": "ปิด"
+    },
+    "longLiquidity": "สภาพคล่องฝั่ง Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "เพิ่ม"
+      },
+      "invalidLiquidationPrice": "ไม่มี",
+      "openForm": {
+        "collateral": "หลักประกัน",
+        "dsaFieldLabel": "หลักประกัน",
+        "dsaFieldPlaceholder": "ป้อนข้อมูลเพื่อดำเนินการต่อ",
+        "entryPrice": "ราคาเปิด",
+        "liquidationPrice": "ราคาชำระบัญชี",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "APY สุทธิ",
+        "pnl": "กำไร/ขาดทุนที่รับรู้",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "เปิด"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "ปิด",
+          "reduce": "ลด"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "ฝาก"
+      },
+      "walletBalance": "ยอดคงเหลือในกระเป๋า",
+      "warning": {
+        "cannotBorrowShort": "การยืมโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotRepayShort": "การชำระคืนโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotSupplyDsa": "การฝากโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotSupplyLong": "การฝากโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotWithdrawDsa": "การถอนโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
+        "cannotWithdrawLong": "การถอนโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
+        "notEnoughLeverage": "คู่โทเค็นนี้ไม่รองรับตัวคูณเลเวอเรจอย่างน้อย {{ minimumLeverageFactor }} ซึ่งเป็นค่าขั้นต่ำที่จำเป็นสำหรับการเปิดโพสิชัน Trade",
+        "txLikelyToFail": "ธุรกรรมนี้มีการสวอปมูลค่าต่ำที่มีแนวโน้มจะล้มเหลว"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "ถอน"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "ปิด",
+      "placeholder": {
+        "title": "ยังไม่มีโพสิชัน"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "หลักประกัน"
+        },
+        "healthFactor": {
+          "label": "ตัวคูณความปลอดภัย",
+          "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
+        },
+        "netApy": {
+          "label": "APY สุทธิ"
+        },
+        "netValue": {
+          "label": "มูลค่าสุทธิ"
+        },
+        "title": "สถานะ"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "อัตราส่วนราคาเข้าของโพสิชันนี้ (จำนวนสินทรัพย์ Short ÷ จำนวนสินทรัพย์ Long) ซึ่งสะท้อนมูลค่าเปรียบเทียบระหว่างโทเค็นทั้งสองนับตั้งแต่ตอนเข้า"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "โพสิชัน"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "ธุรกรรม"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",
+    "shortLiquidity": "สภาพคล่องฝั่ง Short",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "ยอมรับแอดมิน (แอดมินค้างอยู่) ตรวจสอบ",
     "acceptPendingImplementationAddressCheck": "ยอมรับที่อยู่ Implementation ที่ค้างอยู่ ตรวจสอบ",
@@ -2220,115 +2329,6 @@
     },
     "tooltip": {
       "address": "({{address}})"
-    }
-  },
-  "yieldPlus": {
-    "banner": {
-      "illustrationAltText": "ภาพประกอบ Yield+",
-      "learnMore": "เรียนรู้เพิ่มเติม",
-      "title": "Yield+ คืออะไร?"
-    },
-    "closePositionModal": {
-      "title": "ปิด"
-    },
-    "longLiquidity": "สภาพคล่องฝั่ง Long",
-    "longSupplyApy": "{{ longTokenSymbol }} APY การฝาก",
-    "longTokenSelect": {
-      "label": "Long"
-    },
-    "operationForm": {
-      "increaseForm": {
-        "submitButtonLabel": "เพิ่ม"
-      },
-      "invalidLiquidationPrice": "ไม่มี",
-      "openForm": {
-        "collateral": "หลักประกัน",
-        "dsaFieldLabel": "หลักประกัน",
-        "dsaFieldPlaceholder": "ป้อนข้อมูลเพื่อดำเนินการต่อ",
-        "entryPrice": "ราคาเปิด",
-        "liquidationPrice": "ราคาชำระบัญชี",
-        "long": "Long",
-        "longFieldLabel": "Long",
-        "netApy": "APY สุทธิ",
-        "pnl": "กำไร/ขาดทุนที่รับรู้",
-        "short": "Short",
-        "shortFieldLabel": "Short",
-        "submitButtonLabel": "เปิด"
-      },
-      "reduceForm": {
-        "submitButtonLabel": {
-          "close": "ปิด",
-          "reduce": "ลด"
-        }
-      },
-      "supplyDsaForm": {
-        "submitButtonLabel": "ฝาก"
-      },
-      "walletBalance": "ยอดคงเหลือในกระเป๋า",
-      "warning": {
-        "cannotBorrowShort": "การยืมโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
-        "cannotRepayShort": "การชำระคืนโทเค็น Short ของโพสิชันนี้ถูกปิดใช้งาน",
-        "cannotSupplyDsa": "การฝากโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
-        "cannotSupplyLong": "การฝากโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
-        "cannotWithdrawDsa": "การถอนโทเค็นหลักประกันของโพสิชันนี้ถูกปิดใช้งาน",
-        "cannotWithdrawLong": "การถอนโทเค็น Long ของโพสิชันนี้ถูกปิดใช้งาน",
-        "notEnoughLeverage": "คู่โทเค็นนี้ไม่รองรับตัวคูณเลเวอเรจอย่างน้อย {{ minimumLeverageFactor }} ซึ่งเป็นค่าขั้นต่ำที่จำเป็นสำหรับการเปิดโพสิชัน Yield+",
-        "txLikelyToFail": "ธุรกรรมนี้มีการสวอปมูลค่าต่ำที่มีแนวโน้มจะล้มเหลว"
-      },
-      "withdrawDsaForm": {
-        "submitButtonLabel": "ถอน"
-      }
-    },
-    "positions": {
-      "closeButtonLabel": "ปิด",
-      "placeholder": {
-        "title": "ยังไม่มีโพสิชัน"
-      },
-      "status": {
-        "collateralColumn": {
-          "label": "หลักประกัน"
-        },
-        "healthFactor": {
-          "label": "ตัวคูณความปลอดภัย",
-          "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
-        },
-        "netApy": {
-          "label": "APY สุทธิ"
-        },
-        "netValue": {
-          "label": "มูลค่าสุทธิ"
-        },
-        "title": "สถานะ"
-      },
-      "table": {
-        "entryPrice": {
-          "title": "EP",
-          "tooltip": "อัตราส่วนราคาเข้าของโพสิชันนี้ (จำนวนสินทรัพย์ Short ÷ จำนวนสินทรัพย์ Long) ซึ่งสะท้อนมูลค่าเปรียบเทียบระหว่างโทเค็นทั้งสองนับตั้งแต่ตอนเข้า"
-        },
-        "liquidationPrice": {
-          "title": "Liq."
-        },
-        "longColumn": {
-          "title": "Long"
-        },
-        "pnlColumn": {
-          "title": "PnL"
-        },
-        "positionColumn": {
-          "title": "โพสิชัน"
-        },
-        "shortColumn": {
-          "title": "Short"
-        }
-      },
-      "transactions": {
-        "title": "ธุรกรรม"
-      }
-    },
-    "shortBorrowApy": "{{ shortTokenSymbol }} APY การยืม",
-    "shortLiquidity": "สภาพคล่องฝั่ง Short",
-    "shortTokenSelect": {
-      "label": "Short"
     }
   }
 }
