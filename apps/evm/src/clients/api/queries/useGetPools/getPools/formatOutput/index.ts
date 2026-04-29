@@ -112,10 +112,10 @@ export const formatOutput = ({
       const isProtectionModeEnabled = correspondingOraclePrice.isPriceProtected ?? false;
 
       const tokenSupplyPriceCents =
-        isProtectionModeEnabled && correspondingOraclePrice.collateralPriceMantissa
+        isProtectionModeEnabled && correspondingOraclePrice.supplyPriceMantissa
           ? convertDollarsToCents(
               convertPriceMantissaToDollars({
-                priceMantissa: correspondingOraclePrice.collateralPriceMantissa,
+                priceMantissa: correspondingOraclePrice.supplyPriceMantissa,
                 decimals: vToken.underlyingToken.decimals,
               }),
             )

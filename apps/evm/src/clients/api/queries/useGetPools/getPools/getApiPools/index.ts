@@ -146,7 +146,7 @@ export interface ApiTokenPrice {
   isPriceInvalid: boolean;
   hasErrorFetchingPrice: boolean;
   isPriceProtected: boolean;
-  collateralPriceMantissa: string | null;
+  supplyPriceMantissa: string | null;
   borrowPriceMantissa: string | null;
 }
 
