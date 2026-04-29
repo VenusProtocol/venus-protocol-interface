@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.23.1
+
+### Patch Changes
+
+- 48432a6: fix Vault page illustration
+
 ## 4.23.0
 
 ### Minor Changes
