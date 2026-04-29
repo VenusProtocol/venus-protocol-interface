@@ -292,12 +292,6 @@
   "availableBalance": {
     "label": "Available"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "Background illustration",
-    "binanceLogoAltText": "Binance logo",
-    "description": "Borrow USDT and share <Bold>$400,000</Bold> in rewards!",
-    "title": "Venus is live on Binance Wallet Earn."
-  },
   "boostBanner": {
     "description": "One-click leverage to boost your yield <White>up to 5x</White>.",
     "rocketAltText": "Rocket illustration",
