@@ -292,12 +292,6 @@
   "availableBalance": {
     "label": "ใช้ได้"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "ภาพประกอบพื้นหลัง",
-    "binanceLogoAltText": "โลโก้ Binance",
-    "description": "ยืม USDT และร่วมแบ่งปันรางวัล <Bold>$400,000</Bold>!",
-    "title": "Venus เปิดให้ใช้งานบน Binance Wallet Earn แล้ว"
-  },
   "boostBanner": {
     "description": "เลเวอเรจคลิกเดียวเพื่อบูสต์ผลตอบแทนของคุณ <White>สูงสุด 5 เท่า</White>.",
     "rocketAltText": "ภาพประกอบจรวด",

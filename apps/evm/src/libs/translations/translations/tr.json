@@ -292,12 +292,6 @@
   "availableBalance": {
     "label": "Mevcut"
   },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "Arka plan illüstrasyonu",
-    "binanceLogoAltText": "Binance logosu",
-    "description": "USDT borç alın ve <Bold>$400,000</Bold> ödülü paylaşın!",
-    "title": "Venus, Binance Wallet Earn'da yayında."
-  },
   "boostBanner": {
     "description": "Tek tık kaldıraçla getirinizi <White>5 kata kadar</White> artırın.",
     "rocketAltText": "Roket illüstrasyonu",
