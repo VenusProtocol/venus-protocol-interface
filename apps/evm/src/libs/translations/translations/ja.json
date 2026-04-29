@@ -802,7 +802,6 @@
     },
     "sunsetModal": {
       "description": "このチェーンは終了しました。借入金を返済し、預け入れ資金を引き出してください。",
-      "indicatorAriaLabel": "終了したチェーンの通知",
       "title": "終了"
     },
     "testEnvWarning": "これはテスト環境です。テスト目的以外では操作しないでください。<Link>Venus Protocol公式サイトへ</Link>"

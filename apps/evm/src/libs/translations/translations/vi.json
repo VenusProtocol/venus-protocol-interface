@@ -802,7 +802,6 @@
     },
     "sunsetModal": {
       "description": "Chain này đã ngừng hoạt động. Vui lòng hoàn trả các khoản vay và rút tiền đã gửi của bạn.",
-      "indicatorAriaLabel": "Thông báo chain đã ngừng hoạt động",
       "title": "Ngừng hoạt động"
     },
     "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>"

@@ -802,7 +802,6 @@
     },
     "sunsetModal": {
       "description": "该链已下线。请偿还您的借款并提取已存入的资金。",
-      "indicatorAriaLabel": "已下线链提示",
       "title": "已下线"
     },
     "testEnvWarning": "这是测试环境。除测试外请勿进行任何交互。<Link>前往 Venus Protocol 官方网站</Link>"

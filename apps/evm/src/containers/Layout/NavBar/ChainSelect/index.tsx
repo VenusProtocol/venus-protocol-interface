@@ -31,9 +31,10 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
 
   const options = chains.map<SelectOption<ChainId>>(chain => ({
     label: ({ isRenderedInButton }) => {
-      const chainId = chain.id as ChainId;
-      const metadata = chainMetadata[chainId];
-      const showSunsetIndicator = isSunsetChain(chainId);
+      const optionChainId = chain.id as ChainId;
+      const metadata = chainMetadata[optionChainId];
+      const showSunsetIndicator = isSunsetChain(optionChainId);
+      const isActiveChain = optionChainId === chainId;
 
       return (
         <div className="flex items-center">
@@ -43,11 +44,13 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
             <span className={cn('flex ml-2 items-center gap-x-1')}>
               <span>{metadata.name}</span>
 
-              <GaslessStatus chainId={chain.id} displayLabel />
+              <GaslessStatus chainId={optionChainId} displayLabel />
             </span>
           )}
 
-          {showSunsetIndicator && <SunsetIndicator className="ml-2" />}
+          {showSunsetIndicator && (
+            <SunsetIndicator className="ml-2" interactive={!isActiveChain} />
+          )}
         </div>
       );
     },
