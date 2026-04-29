@@ -643,9 +643,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "Ödüllerinizi talep edin ve pozisyonlarınızı kapatın",
+    "description": "Lütfen tüm varlıklarınızı şimdi çekin veya taşıyın",
     "illustrationAltText": "İllüstrasyon",
-    "title": "İzole havuzlar aşamalı olarak kapatılıyor"
+    "title": "İzole havuzlar kapatıldı"
   },
   "landing": {
     "benefits": {
@@ -753,10 +753,6 @@
           "description": "Venus tekliflerinde $XVS ile oy verin.",
           "label": "Yönetişim"
         },
-        "isolatedPools": {
-          "description": "Ana piyasalardan izole havuzlarda varlık alıp satın.",
-          "label": "İzole havuzlar"
-        },
         "label": "Diğerleri",
         "port": {
           "description": "Borç verme pozisyonlarını gas'siz içe aktarın.",
@@ -797,6 +793,10 @@
     },
     "settingsModal": {
       "title": "Ayarlar"
+    },
+    "sunsetModal": {
+      "description": "Bu zincir kapatıldı. Lütfen tüm borçlarınızı geri ödeyin ve mevduatınızı çekin.",
+      "title": "Kapatıldı"
     },
     "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>"
   },

@@ -643,9 +643,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "報酬を請求してポジションを閉じてください",
+    "description": "すべての資産を引き出すか、今すぐ移行してください",
     "illustrationAltText": "イラスト",
-    "title": "隔離プールは終了予定です"
+    "title": "隔離プールは終了しました"
   },
   "landing": {
     "benefits": {
@@ -753,10 +753,6 @@
           "description": "Venusの提案に$XVSで投票。",
           "label": "ガバナンス"
         },
-        "isolatedPools": {
-          "description": "コアマーケットから隔離されたプールで資産を取引。",
-          "label": "隔離プール"
-        },
         "label": "その他",
         "port": {
           "description": "レンディングポジションをガスレスでインポート。",
@@ -797,6 +793,10 @@
     },
     "settingsModal": {
       "title": "設定"
+    },
+    "sunsetModal": {
+      "description": "このチェーンは終了しました。借入金を返済し、預け入れ資金を引き出してください。",
+      "title": "終了"
     },
     "testEnvWarning": "これはテスト環境です。テスト目的以外では操作しないでください。<Link>Venus Protocol公式サイトへ</Link>"
   },

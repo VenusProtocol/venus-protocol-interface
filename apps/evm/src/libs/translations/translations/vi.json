@@ -643,9 +643,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "Nhận phần thưởng của bạn và đóng vị thế",
+    "description": "Vui lòng rút hoặc di chuyển tất cả tài sản ngay bây giờ",
     "illustrationAltText": "Hình minh họa",
-    "title": "Các pool cô lập đang được dừng"
+    "title": "Các pool cô lập đã ngừng hoạt động"
   },
   "landing": {
     "benefits": {
@@ -753,10 +753,6 @@
           "description": "Bỏ phiếu cho các đề xuất Venus bằng $XVS.",
           "label": "Quản trị"
         },
-        "isolatedPools": {
-          "description": "Giao dịch tài sản trong các pool tách biệt khỏi thị trường lõi.",
-          "label": "Pools cô lập"
-        },
         "label": "Khác",
         "port": {
           "description": "Nhập các vị thế cho vay không cần gas.",
@@ -797,6 +793,10 @@
     },
     "settingsModal": {
       "title": "Cài đặt"
+    },
+    "sunsetModal": {
+      "description": "Chain này đã ngừng hoạt động. Vui lòng hoàn trả các khoản vay và rút tiền đã gửi của bạn.",
+      "title": "Ngừng hoạt động"
     },
     "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>"
   },

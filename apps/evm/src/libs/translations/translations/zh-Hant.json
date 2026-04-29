@@ -643,9 +643,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "領取獎勵並關閉你的倉位",
+    "description": "請立即提取或遷移所有資產",
     "illustrationAltText": "插圖",
-    "title": "隔離池正在關閉"
+    "title": "隔離池已下線"
   },
   "landing": {
     "benefits": {
@@ -753,10 +753,6 @@
           "description": "使用 $XVS 投票 Venus 提案。",
           "label": "治理"
         },
-        "isolatedPools": {
-          "description": "在與核心市場隔離的池中交易資產。",
-          "label": "隔離池"
-        },
         "label": "其他",
         "port": {
           "description": "免 Gas 匯入借貸部位。",
@@ -797,6 +793,10 @@
     },
     "settingsModal": {
       "title": "設置"
+    },
+    "sunsetModal": {
+      "description": "該鏈已下線。請償還您的借款並提取已存入的資金。",
+      "title": "已下線"
     },
     "testEnvWarning": "這是測試環境。除測試外請勿進行任何交互。<Link>前往 Venus Protocol 官方網站</Link>"
   },
