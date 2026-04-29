@@ -141,8 +141,8 @@
     "liquidationThreshold": "เกณฑ์การชำระบัญชี：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = เกณฑ์การชำระบัญชี<LineBreak/>เมื่อยอดยืมของคุณถึงค่านี้ ตำแหน่งของคุณจะมีสิทธิ์ถูกชำระบัญชี<LineBreak/><LineBreak/>เรียนรู้เพิ่มเติมเกี่ยวกับ<Link>การคำนวณ</Link>",
-    "tooltip": "ยอดยืมคงเหลือ:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของขีดจำกัดการยืมของคุณ)<LineBreak/><LineBreak/>ขีดจำกัดการยืม:<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "ยอดกู้ยืม (ป้องกัน):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} ของวงเงินกู้ยืมของคุณ)<LineBreak/><LineBreak/>ยอดกู้ยืม (spot): {{borrowBalance}}<LineBreak/>วงเงินกู้ยืม: {{borrowLimit}}"
+    "tooltip": "ยอดกู้ยืม:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของวงเงินกู้ยืม)<LineBreak/><LineBreak/>วงเงินกู้ยืม:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "ยอดกู้ยืม (ป้องกัน):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} ของวงเงินกู้ยืม)<LineBreak/><LineBreak/>ยอดกู้ยืม (สปอต): {{borrowBalance}}<LineBreak/>วงเงินกู้ยืม: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "เริ่มตอนนี้"
@@ -989,9 +989,9 @@
       "isolationMode": "ตลาดนี้เป็นส่วนหนึ่งของกลุ่มโหมดแยก {{eModeGroupName}}",
       "pausedAssetTooltip": "สินทรัพย์ถูกหยุดโดยการกำกับดูแลของ Venus การยืมและการฝากถูกปิดใช้งาน",
       "protectionMode": "โหมดป้องกันเปิดใช้งานสำหรับ {{tokenName}} เนื่องจากความผันผวนของราคา ส่งผลต่อราคาหลักประกันและราคาการกู้ยืม <LearnMore>เรียนรู้เพิ่มเติม</LearnMore>",
+      "protectionModeBorrow": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>มูลค่าการกู้ยืมที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่นับรวมในวงเงินกู้ยืมของคุณ",
       "protectionModePair": "โหมดป้องกันเปิดใช้งานสำหรับ {{tokenName}} เนื่องจากความผันผวนของราคา ส่งผลต่อราคาหลักประกันและราคาการกู้ยืม <LearnMore>เรียนรู้เพิ่มเติม</LearnMore>",
-      "protectionModeSupply": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>มูลค่าหลักประกันที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ",
-      "protectionModeBorrow": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>มูลค่าการกู้ยืมที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่นับรวมในวงเงินกู้ยืมของคุณ"
+      "protectionModeSupply": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>มูลค่าหลักประกันที่ได้รับการป้องกันคำนวณเป็น {{protectedValue}} ซึ่งเป็นมูลค่าที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ"
     },
     "columnKeys": {
       "asset": "สินทรัพย์",
@@ -1255,6 +1255,11 @@
     "pending": "รอดำเนินการ",
     "queued": "เข้าคิวแล้ว",
     "succeeded": "สำเร็จ"
+  },
+  "protectionModeIndicator": {
+    "detailedTooltip": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>ราคาหลักประกันที่ได้รับการป้องกันคือ {{collateralPrice}} ราคาที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ<LineBreak/><LineBreak/>ราคาการกู้ยืมที่ได้รับการป้องกันคือ {{borrowPrice}} ราคาที่ระมัดระวังที่ใช้คำนวณจำนวนสินทรัพย์นี้ที่สามารถกู้ยืมได้",
+    "label": "ป้องกันแล้ว",
+    "pairTokenNames": "ทั้ง {{longToken}} และ {{shortToken}}"
   },
   "requestWithdrawalFromVestingVaultForm": {
     "withdrawalRequestList": {
@@ -1632,11 +1637,6 @@
     "cardsSelect": {
       "label": "เรียงตาม"
     }
-  },
-  "protectionModeIndicator": {
-    "label": "ป้องกันแล้ว",
-    "detailedTooltip": "ตลาดนี้กำลังประสบความผันผวนสูง<LineBreak/><LineBreak/>ราคาหลักประกันที่ได้รับการป้องกันคือ {{collateralPrice}} ราคาที่ระมัดระวังที่ใช้กำหนดวงเงินกู้ยืมของคุณ<LineBreak/><LineBreak/>ราคาการกู้ยืมที่ได้รับการป้องกันคือ {{borrowPrice}} ราคาที่ระมัดระวังที่ใช้คำนวณจำนวนสินทรัพย์นี้ที่สามารถกู้ยืมได้",
-    "pairTokenNames": "ทั้ง {{longToken}} และ {{shortToken}}"
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

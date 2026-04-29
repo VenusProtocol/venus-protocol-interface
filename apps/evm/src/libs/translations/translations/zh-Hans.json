@@ -141,8 +141,8 @@
     "liquidationThreshold": "清算阈值：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算阈值<LineBreak/>当您的借款余额达到此值时，您的仓位将有资格被清算。<LineBreak/><LineBreak/>了解更多关于<Link>计算方式。</Link>",
-    "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（占借款限额的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "借款余额（保护）：<LineBreak/>{{borrowBalanceProtected}}（{{borrowLimitUsedPercentage}} 占您的借款额度）<LineBreak/><LineBreak/>借款余额（现货）：{{borrowBalance}}<LineBreak/>借款额度：{{borrowLimit}}"
+    "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（借款限额的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "借款余额（保护）：<LineBreak/>{{borrowBalanceProtected}}（借款限额的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款余额（现货）：{{borrowBalance}}<LineBreak/>借款限额：{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "立即开始"
@@ -989,9 +989,9 @@
       "isolationMode": "该市场属于 {{eModeGroupName}} 隔离模式组",
       "pausedAssetTooltip": "资产已被 Venus 治理暂停。借款与存款已禁用。",
       "protectionMode": "由于价格波动，{{tokenName}} 的保护模式已激活，影响其抵押和借款价格。 <LearnMore>了解更多</LearnMore>",
+      "protectionModeBorrow": "该市场正经历高波动性。<LineBreak/><LineBreak/>受保护的借款价值按 {{protectedValue}} 计算，代表计入您借款额度的保守价值。",
       "protectionModePair": "由于价格波动，{{tokenName}} 的保护模式已激活，影响其抵押和借款价格。 <LearnMore>了解更多</LearnMore>",
-      "protectionModeSupply": "该市场正经历高波动性。<LineBreak/><LineBreak/>受保护的抵押品价值按 {{protectedValue}} 计算，代表用于确定您借款额度的保守价值。",
-      "protectionModeBorrow": "该市场正经历高波动性。<LineBreak/><LineBreak/>受保护的借款价值按 {{protectedValue}} 计算，代表计入您借款额度的保守价值。"
+      "protectionModeSupply": "该市场正经历高波动性。<LineBreak/><LineBreak/>受保护的抵押品价值按 {{protectedValue}} 计算，代表用于确定您借款额度的保守价值。"
     },
     "columnKeys": {
       "asset": "资产",
@@ -1255,6 +1255,11 @@
     "pending": "待定",
     "queued": "排队中",
     "succeeded": "成功"
+  },
+  "protectionModeIndicator": {
+    "detailedTooltip": "该市场正经历高波动性。<LineBreak/><LineBreak/>受保护的抵押品价格为 {{collateralPrice}}，用于确定您借款额度的保守价格。<LineBreak/><LineBreak/>受保护的借款价格为 {{borrowPrice}}，用于计算可借入该资产数量的保守价格。",
+    "label": "已保护",
+    "pairTokenNames": "{{longToken}} 和 {{shortToken}}"
   },
   "requestWithdrawalFromVestingVaultForm": {
     "withdrawalRequestList": {
@@ -1632,11 +1637,6 @@
     "cardsSelect": {
       "label": "排序"
     }
-  },
-  "protectionModeIndicator": {
-    "label": "已保护",
-    "detailedTooltip": "该市场正经历高波动性。<LineBreak/><LineBreak/>受保护的抵押品价格为 {{collateralPrice}}，用于确定您借款额度的保守价格。<LineBreak/><LineBreak/>受保护的借款价格为 {{borrowPrice}}，用于计算可借入该资产数量的保守价格。",
-    "pairTokenNames": "{{longToken}} 和 {{shortToken}}"
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

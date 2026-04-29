@@ -141,8 +141,8 @@
     "liquidationThreshold": "清算閾値：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾値<LineBreak/>借入残高がこの値に達すると、ポジションが清算対象になります。<LineBreak/><LineBreak/><Link>計算方法</Link>の詳細はこちら。",
-    "tooltip": "借入残高:<LineBreak/>{{borrowBalance}}（借入限度の{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借入限度:<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "借入残高（保護）：<LineBreak/>{{borrowBalanceProtected}}（{{borrowLimitUsedPercentage}} 借入限度額の）<LineBreak/><LineBreak/>借入残高（スポット）：{{borrowBalance}}<LineBreak/>借入限度額：{{borrowLimit}}"
+    "tooltip": "借入残高:<LineBreak/>{{borrowBalance}} (借入限度額の{{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入限度額:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "借入残高（保護）:<LineBreak/>{{borrowBalanceProtected}} (借入限度額の{{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入残高（スポット）: {{borrowBalance}}<LineBreak/>借入限度額: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "今すぐ始める"
@@ -989,9 +989,9 @@
       "isolationMode": "このマーケットは{{eModeGroupName}}の隔離モードグループに含まれます",
       "pausedAssetTooltip": "資産はVenusガバナンスにより停止されています。借入と供給が無効化されています。",
       "protectionMode": "価格変動により、{{tokenName}} のプロテクションモードが有効になっています。担保価格と借入価格に影響します。 <LearnMore>詳細はこちら</LearnMore>",
+      "protectionModeBorrow": "この市場は高いボラティリティを経験しています。<LineBreak/><LineBreak/>保護された借入価値は {{protectedValue}} として計算され、借入可能額に対してカウントされる保守的な価値です。",
       "protectionModePair": "価格変動により、{{tokenName}} のプロテクションモードが有効になっています。担保価格と借入価格に影響します。 <LearnMore>詳細はこちら</LearnMore>",
-      "protectionModeSupply": "この市場は高いボラティリティを経験しています。<LineBreak/><LineBreak/>保護された担保価値は {{protectedValue}} として計算され、借入可能額を決定するための保守的な価値です。",
-      "protectionModeBorrow": "この市場は高いボラティリティを経験しています。<LineBreak/><LineBreak/>保護された借入価値は {{protectedValue}} として計算され、借入可能額に対してカウントされる保守的な価値です。"
+      "protectionModeSupply": "この市場は高いボラティリティを経験しています。<LineBreak/><LineBreak/>保護された担保価値は {{protectedValue}} として計算され、借入可能額を決定するための保守的な価値です。"
     },
     "columnKeys": {
       "asset": "資産",
@@ -1255,6 +1255,11 @@
     "pending": "保留",
     "queued": "キュー済み",
     "succeeded": "可決"
+  },
+  "protectionModeIndicator": {
+    "detailedTooltip": "この市場は高いボラティリティを経験しています。<LineBreak/><LineBreak/>保護された担保価格は {{collateralPrice}}，借入可能額を決定するための保守的な価格です。<LineBreak/><LineBreak/>保護された借入価格は {{borrowPrice}}，この資産の借入可能量を計算するための保守的な価格です。",
+    "label": "保護中",
+    "pairTokenNames": "{{longToken}} と {{shortToken}}"
   },
   "requestWithdrawalFromVestingVaultForm": {
     "withdrawalRequestList": {
@@ -1632,11 +1637,6 @@
     "cardsSelect": {
       "label": "並べ替え"
     }
-  },
-  "protectionModeIndicator": {
-    "label": "保護中",
-    "detailedTooltip": "この市場は高いボラティリティを経験しています。<LineBreak/><LineBreak/>保護された担保価格は {{collateralPrice}}，借入可能額を決定するための保守的な価格です。<LineBreak/><LineBreak/>保護された借入価格は {{borrowPrice}}，この資産の借入可能量を計算するための保守的な価格です。",
-    "pairTokenNames": "{{longToken}} と {{shortToken}}"
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
