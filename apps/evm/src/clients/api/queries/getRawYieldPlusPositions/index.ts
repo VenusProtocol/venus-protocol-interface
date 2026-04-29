@@ -2,7 +2,12 @@ import BigNumber from 'bignumber.js';
 
 import { VError, logError } from 'libs/errors';
 import type { YieldPlusPosition } from 'types';
-import { areAddressesEqual, formatToYieldPlusPosition, restService } from 'utilities';
+import {
+  areAddressesEqual,
+  convertTokensToMantissa,
+  formatToYieldPlusPosition,
+  restService,
+} from 'utilities';
 import { getPools } from '../useGetPools/getPools';
 import type {
   GetApiYieldPlusPositionsOutput,
@@ -70,15 +75,32 @@ export const getRawYieldPlusPositions = async ({
         return acc;
       }
 
+      const dsaAsset = pool.assets.find(asset =>
+        areAddressesEqual(asset.vToken.address, apiYieldPlusPosition.dsaVTokenAddress),
+      );
+
+      const userDsaAssetSupplyBalanceMantissa = dsaAsset
+        ? convertTokensToMantissa({
+            token: dsaAsset.vToken.underlyingToken,
+            value: dsaAsset.userSupplyBalanceTokens,
+          })
+        : undefined;
+
+      let dsaBalanceMantissa = new BigNumber(
+        apiYieldPlusPosition.capitalUtilization.suppliedPrincipalMantissa || 0,
+      );
+
+      if (userDsaAssetSupplyBalanceMantissa) {
+        dsaBalanceMantissa = BigNumber.min(userDsaAssetSupplyBalanceMantissa, dsaBalanceMantissa);
+      }
+
       const yieldPlusPosition = formatToYieldPlusPosition({
         chainId,
         positionAccountAddress: apiYieldPlusPosition.positionAccountAddress,
         dsaVTokenAddress: apiYieldPlusPosition.dsaVTokenAddress,
         longVTokenAddress: apiYieldPlusPosition.longVTokenAddress,
         shortVTokenAddress: apiYieldPlusPosition.shortVTokenAddress,
-        dsaBalanceMantissa: new BigNumber(
-          apiYieldPlusPosition.capitalUtilization.suppliedPrincipalMantissa || 0,
-        ),
+        dsaBalanceMantissa,
         leverageFactor: Number(apiYieldPlusPosition.effectiveLeverageRatio ?? 0),
         unrealizedPnlCents: apiYieldPlusPosition.pnl
           ? Number(apiYieldPlusPosition.pnl.unrealizedPnlUsd) * 100

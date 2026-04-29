@@ -16,7 +16,7 @@ export const useFormValidation = ({
   simulatedPosition,
   formValues,
   averageSwapPriceImpactPercentage,
-  firstSwapQuoteErrorCode,
+  swapQuoteError,
   limitShortTokens,
   limitDsaTokens,
   action,
@@ -29,7 +29,7 @@ export const useFormValidation = ({
   limitDsaTokens?: BigNumber;
   simulatedPosition?: YieldPlusPosition;
   averageSwapPriceImpactPercentage?: number;
-  firstSwapQuoteErrorCode?: string;
+  swapQuoteError?: Error;
 }) => {
   const { accountAddress } = useAccountAddress();
 
@@ -55,7 +55,7 @@ export const useFormValidation = ({
     simulatedPool: simulatedPosition?.pool,
     balanceMutations,
     swapPriceImpactPercentage: averageSwapPriceImpactPercentage,
-    swapQuoteErrorCode: firstSwapQuoteErrorCode,
+    swapQuoteErrorCode: swapQuoteError?.message,
     userAcknowledgesHighPriceImpact: formValues.acknowledgeHighPriceImpact,
     userAcknowledgesRisk: formValues.acknowledgeRisk,
   });

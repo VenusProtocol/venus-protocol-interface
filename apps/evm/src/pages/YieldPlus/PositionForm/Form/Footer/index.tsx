@@ -12,12 +12,14 @@ import { useTranslation } from 'libs/translations';
 import { AccountHealth } from 'pages/YieldPlus/AccountHealth';
 import { formatLiquidationPriceTokensToReadableValue } from 'pages/YieldPlus/formatLiquidationPriceTokensToReadableValue';
 import { Fragment } from 'react/jsx-runtime';
-import type { YieldPlusPosition } from 'types';
+import type { SwapQuote, YieldPlusPosition } from 'types';
 import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 import type { PositionFormAction } from '../..';
+import { LikelyToFailWarning } from './LikelyToFailWarning';
 
 export interface FooterProps extends TxFormSubmitButtonProps {
   position: YieldPlusPosition;
+  swapQuotes: SwapQuote[];
   pnlDsaTokens?: BigNumber;
   action?: PositionFormAction;
   simulatedPosition?: YieldPlusPosition;
@@ -27,6 +29,7 @@ export const Footer: React.FC<FooterProps> = ({
   submitButtonLabel,
   position,
   simulatedPosition,
+  swapQuotes,
   isFormValid,
   balanceMutations,
   className,
@@ -143,13 +146,17 @@ export const Footer: React.FC<FooterProps> = ({
         )}
       </div>
 
-      <TxFormSubmitButton
-        submitButtonLabel={submitButtonLabel}
-        balanceMutations={balanceMutations}
-        isFormValid={isFormValid}
-        simulatedPool={simulatedPosition?.pool}
-        {...otherSubmitButtonProps}
-      />
+      <div className="flex flex-col gap-y-4">
+        <LikelyToFailWarning position={position} swapQuotes={swapQuotes} />
+
+        <TxFormSubmitButton
+          submitButtonLabel={submitButtonLabel}
+          balanceMutations={balanceMutations}
+          isFormValid={isFormValid}
+          simulatedPool={simulatedPosition?.pool}
+          {...otherSubmitButtonProps}
+        />
+      </div>
     </div>
   );
 };

@@ -653,6 +653,13 @@
     "illustrationAltText": "插图",
     "title": "隔离池即将关闭"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "聚合定价",
+      "description": "价格数据仅供参考，已从多个来源聚合。实际链上 AMM 价格可能会有所不同。",
+      "title": "图表信息"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "直接在链上访问不可篡改的货币市场。",
@@ -743,6 +750,7 @@
       "utilizationRate": "利用率"
     },
     "menu": {
+      "beta": "beta",
       "dashboard": {
         "label": "仪表盘"
       },
@@ -2264,7 +2272,8 @@
         "cannotSupplyLong": "该仓位的多头代币存款已被禁用",
         "cannotWithdrawDsa": "该仓位的抵押品代币取款已被禁用",
         "cannotWithdrawLong": "该仓位的多头代币取款已被禁用",
-        "notEnoughLeverage": "该代币对不支持至少 {{ minimumLeverageFactor }} 的杠杆倍数，而这是开立 Yield+ 仓位所需的最低值"
+        "notEnoughLeverage": "该代币对不支持至少 {{ minimumLeverageFactor }} 的杠杆倍数，而这是开立 Yield+ 仓位所需的最低值",
+        "txLikelyToFail": "此交易涉及低价值兑换，可能会失败"
       },
       "withdrawDsaForm": {
         "submitButtonLabel": "取款"

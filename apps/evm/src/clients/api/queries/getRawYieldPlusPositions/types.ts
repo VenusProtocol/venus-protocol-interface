@@ -42,9 +42,9 @@ export interface ApiYieldPlusPosition {
   dsaVTokenAddress: Address;
   effectiveLeverageRatio: string | null;
   capitalUtilization: {
-    suppliedPrincipalMantissa: string;
-    capitalUtilizedMantissa: string;
-    withdrawableCapitalMantissa: string;
+    suppliedPrincipalMantissa: string | null;
+    capitalUtilizedMantissa: string | null;
+    withdrawableCapitalMantissa: string | null;
   };
 }
 

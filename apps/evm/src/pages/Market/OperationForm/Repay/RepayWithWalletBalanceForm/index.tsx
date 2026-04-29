@@ -289,7 +289,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   if (isUsingSwap && formValues.fixedRepayPercentage && fixedRepayBorrowBalanceTokens) {
     repayToTokenAmountTokens = fixedRepayBorrowBalanceTokens;
   } else if (isUsingSwap) {
-    repayToTokenAmountTokens = getSwapToTokenAmount(swapQuote) || new BigNumber(0);
+    repayToTokenAmountTokens = swapQuote ? getSwapToTokenAmount(swapQuote) : new BigNumber(0);
   }
 
   const isRepayingFullLoan = formValues.fixedRepayPercentage === 100;

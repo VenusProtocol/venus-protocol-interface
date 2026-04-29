@@ -653,6 +653,13 @@
     "illustrationAltText": "Illustration",
     "title": "Isolated pools are being sunsetted"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "Aggregate pricing",
+      "description": "Price data is aggregated from multiple sources for reference only. Actual on-chain AMM prices may vary.",
+      "title": "Chart information"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "Access an immutable money market directly on-chain.",
@@ -743,6 +750,7 @@
       "utilizationRate": "Utilization rate"
     },
     "menu": {
+      "beta": "beta",
       "dashboard": {
         "label": "Dashboard"
       },
@@ -2265,7 +2273,8 @@
         "cannotSupplyLong": "Supplying the long token of this position has been disabled",
         "cannotWithdrawDsa": "Withdrawing the collateral token of this position has been disabled",
         "cannotWithdrawLong": "Withdrawing the long token of this position has been disabled",
-        "notEnoughLeverage": "This token pair does not allow a leverage factor of at least {{ minimumLeverageFactor }}, which is the minimum required to open a Yield+ position"
+        "notEnoughLeverage": "This token pair does not allow a leverage factor of at least {{ minimumLeverageFactor }}, which is the minimum required to open a Yield+ position",
+        "txLikelyToFail": "This transaction involves low-value swaps that are likely to fail"
       },
       "withdrawDsaForm": {
         "submitButtonLabel": "Withdraw"

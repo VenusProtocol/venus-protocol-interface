@@ -12,6 +12,7 @@ import {
   useGetProportionalCloseTolerancePercentage,
 } from 'clients/api';
 import { useGetSimulatedPool, useGetSwapQuote, useOpenYieldPlusPosition } from 'clients/api';
+import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import {
   LONG_TOKEN_ADDRESS_PARAM_KEY,
@@ -103,7 +104,7 @@ describe('OpenForm', () => {
   }: {
     simulatedPool?: Pool;
     swapQuote?: SwapQuote;
-    swapQuoteError?: { code: string };
+    swapQuoteError?: Error;
   } = {}) => {
     mockUseGetPool.mockImplementation(() => ({
       data: {
@@ -206,9 +207,10 @@ describe('OpenForm', () => {
   it('shows no-swap error when quote lookup fails', async () => {
     setReadyState({
       swapQuote: undefined,
-      swapQuoteError: {
-        code: 'NO_SWAP_QUOTE_FOUND',
-      },
+      swapQuoteError: new VError({
+        type: 'swapQuote',
+        code: 'noSwapQuoteFound',
+      }),
     });
 
     const { container, getByText } = renderOpenForm({ accountAddress: fakeAccountAddress });

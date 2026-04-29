@@ -27,7 +27,7 @@ export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const { formValues, setFormValues } = usePositionForm({ position });
 
-  const { mutateAsync: IncreaseYieldPlusPosition, isPending: isSubmitting } =
+  const { mutateAsync: increaseYieldPlusPosition, isPending: isSubmitting } =
     useIncreaseYieldPlusPosition({
       waitForConfirmation: true,
     });
@@ -68,13 +68,15 @@ export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
 
   // Update long amount when swap quote is fetched
   useEffect(() => {
-    const expectedLongAmountTokens = getSwapToTokenAmount(swapQuote);
+    if (swapQuote) {
+      const expectedLongAmountTokens = getSwapToTokenAmount(swapQuote);
 
-    if (expectedLongAmountTokens) {
-      setFormValues(currentFormValues => ({
-        ...currentFormValues,
-        longAmountTokens: expectedLongAmountTokens.toFixed(),
-      }));
+      if (expectedLongAmountTokens) {
+        setFormValues(currentFormValues => ({
+          ...currentFormValues,
+          longAmountTokens: expectedLongAmountTokens.toFixed(),
+        }));
+      }
     }
   }, [setFormValues, swapQuote]);
 
@@ -130,7 +132,7 @@ export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
       });
     }
 
-    return IncreaseYieldPlusPosition({
+    return increaseYieldPlusPosition({
       longVTokenAddress: position.longAsset.vToken.address,
       shortVTokenAddress: position.shortAsset.vToken.address,
       additionalPrincipalMantissa: 0n,
@@ -146,7 +148,7 @@ export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       repaySwapQuote={swapQuote}
-      repaySwapQuoteErrorCode={getSwapQuoteError?.code}
+      swapQuoteError={getSwapQuoteError ?? undefined}
       isLoading={isGetSwapQuoteLoading}
       position={position}
       formValues={formValues}
