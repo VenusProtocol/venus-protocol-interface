@@ -48,9 +48,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
             </span>
           )}
 
-          {showSunsetIndicator && (
-            <SunsetIndicator className="ml-2" interactive={!isActiveChain} />
-          )}
+          {showSunsetIndicator && <SunsetIndicator className="ml-2" interactive={!isActiveChain} />}
         </div>
       );
     },
