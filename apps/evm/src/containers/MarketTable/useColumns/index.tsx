@@ -138,7 +138,7 @@ export const useColumns = ({
                 token={asset.vToken.underlyingToken}
                 displayChain={column === 'assetAndChain'}
                 size={column === 'assetAndChain' ? 'md' : 'xl'}
-                className="min-w-0"
+                className="min-w-[5.5rem]"
               />
 
               {userEModeGroup && isInUserEModeGroup && (
