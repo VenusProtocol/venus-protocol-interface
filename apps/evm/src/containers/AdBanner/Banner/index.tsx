@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
 import { ButtonWrapper } from 'components';
-import { Link } from 'containers/Link';
+import { Link, type LinkProps } from 'containers/Link';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 
@@ -10,6 +10,7 @@ export interface BannerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   description: React.ReactNode;
   illustration: React.ReactNode;
   learnMoreUrl: string;
+  learnMoreLinkProps?: Partial<LinkProps>;
   learnMoreLabel?: string;
   backgroundIllustration?: React.ReactNode;
   contentContainerClassName?: string;
@@ -19,6 +20,7 @@ export const Banner: React.FC<BannerProps> = ({
   className,
   contentContainerClassName,
   learnMoreUrl,
+  learnMoreLinkProps,
   learnMoreLabel,
   title,
   description,
@@ -37,8 +39,8 @@ export const Banner: React.FC<BannerProps> = ({
 
   const isInternalLink = learnMoreUrl.startsWith('/');
   const linkProps = isInternalLink
-    ? { to: learnMoreUrl }
-    : { href: learnMoreUrl, target: '_blank' as const };
+    ? { to: learnMoreUrl, ...learnMoreLinkProps }
+    : { href: learnMoreUrl, target: '_blank' as const, ...learnMoreLinkProps };
 
   return (
     <div
