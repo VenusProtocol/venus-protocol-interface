@@ -160,7 +160,13 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
 
       <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex lg:flex-col">
         <div className="flex items-center gap-x-2">
-          <TokenPair shortToken={shortToken} longToken={longToken} size="md" />
+          <TokenPair
+            shortToken={shortToken}
+            longToken={longToken}
+            isLongProtected={longAsset?.isProtectionModeEnabled}
+            isShortProtected={shortAsset?.isProtectionModeEnabled}
+            size="md"
+          />
 
           <div className="flex items-center gap-x-2">
             {readableDollarRatio && <p className="text-p3s">{readableDollarRatio}</p>}

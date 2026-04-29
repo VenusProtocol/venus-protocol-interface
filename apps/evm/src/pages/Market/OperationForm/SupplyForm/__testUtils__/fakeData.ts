@@ -16,6 +16,9 @@ export const fakeAsset = {
   userSupplyBalanceTokens: new BigNumber(1000),
   userWalletBalanceTokens: new BigNumber(10000000),
   tokenPriceCents: new BigNumber(100),
+  tokenSupplyPriceCents: new BigNumber(100),
+  tokenBorrowPriceCents: new BigNumber(100),
+  isProtectionModeEnabled: false,
 };
 
 export const fakeWethAsset: Asset = {

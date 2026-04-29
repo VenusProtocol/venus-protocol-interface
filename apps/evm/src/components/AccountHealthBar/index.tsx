@@ -21,6 +21,7 @@ const moderateBorrowLimitPercentage = 100 / HEALTH_FACTOR_MODERATE_THRESHOLD;
 
 export interface AccountHealthBarProps {
   borrowBalanceCents: number | undefined;
+  borrowBalanceProtectedCents: number | undefined;
   borrowLimitCents: number | undefined;
   liquidationThresholdCents: number | undefined;
   className?: string;
@@ -30,6 +31,7 @@ export interface AccountHealthBarProps {
 export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   className,
   borrowBalanceCents,
+  borrowBalanceProtectedCents,
   borrowLimitCents,
   liquidationThresholdCents,
   hideUserBalances,
@@ -76,6 +78,15 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     value: borrowBalanceCents,
   });
 
+  const readableBorrowBalanceProtected = formatCentsToReadableValue({
+    value: borrowBalanceProtectedCents,
+  });
+
+  const isProtectionModeEnabled =
+    borrowBalanceProtectedCents !== undefined &&
+    borrowBalanceCents !== undefined &&
+    borrowBalanceProtectedCents !== borrowBalanceCents;
+
   const tooltip = useMemo(
     () =>
       readableBorrowBalance !== PLACEHOLDER_KEY &&
@@ -83,12 +94,18 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       borrowBalanceCents &&
       borrowBalanceCents > 0 ? (
         <Trans
-          i18nKey="accountHealth.tooltip"
+          // Translation keys: do not remove this comment
+          // t('accountHealth.tooltip')
+          // t('accountHealth.tooltipProtection')
+          i18nKey={
+            isProtectionModeEnabled ? 'accountHealth.tooltipProtection' : 'accountHealth.tooltip'
+          }
           shouldUnescape
           components={{
             LineBreak: <br />,
           }}
           values={{
+            borrowBalanceProtected: hideUserBalances ?? readableBorrowBalanceProtected,
             borrowBalance: hideUserBalances ?? readableBorrowBalance,
             borrowLimitUsedPercentage: hideUserBalances ?? readableBorrowLimitUsedPercentage,
             borrowLimit: hideUserBalances ?? readableBorrowLimit,
@@ -98,9 +115,11 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     [
       borrowBalanceCents,
       readableBorrowBalance,
+      readableBorrowBalanceProtected,
       readableBorrowLimitUsedPercentage,
       readableBorrowLimit,
       hideUserBalances,
+      isProtectionModeEnabled,
       Trans,
     ],
   );
@@ -122,6 +141,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       <LabeledProgressBar
         greyLeftText={t('accountHealth.borrowed')}
         whiteLeftText={hideUserBalances ?? readableBorrowBalance}
+        leftInfoTooltip={t('accountHealth.borrowedSpotTooltip')}
         greyRightText={
           <>
             <p className="@sm:hidden">{t('accountHealth.liquidationThresholdShort')}</p>

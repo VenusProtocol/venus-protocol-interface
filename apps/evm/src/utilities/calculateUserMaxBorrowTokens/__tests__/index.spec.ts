@@ -9,6 +9,7 @@ describe('calculateUserMaxBorrowTokens', () => {
       borrowedAsset: {
         ...assetData[1],
         tokenPriceCents: new BigNumber(100),
+        tokenBorrowPriceCents: new BigNumber(100),
         borrowCapTokens: new BigNumber(1000),
         borrowBalanceTokens: new BigNumber(100),
         cashTokens: new BigNumber(1000),
@@ -66,6 +67,7 @@ describe('calculateUserMaxBorrowTokens', () => {
       borrowedAsset: {
         ...assetData[1],
         tokenPriceCents: new BigNumber('101.250031'),
+        tokenBorrowPriceCents: new BigNumber('101.250031'),
         borrowCapTokens: new BigNumber(1000),
         borrowBalanceTokens: new BigNumber(100),
         cashTokens: new BigNumber(1000),
