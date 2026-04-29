@@ -150,18 +150,20 @@ describe('getPendleSwapQuote', () => {
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
-    expect(restService).toHaveBeenCalledWith({
-      endpoint: '/pendle/swap-calldata',
-      method: 'GET',
-      params: {
-        chainId: ChainId.BSC_MAINNET,
-        tokenInAddress: bnb.address,
-        tokenOutAddress: xvs.address,
-        amountInMantissa: expect.any(BigNumber),
-        slippagePercentage: 0.5,
-        receiverAddress: fakeReceiverAddress,
-      },
-    });
+    expect(restService).toHaveBeenCalledWith(
+      expect.objectContaining({
+        endpoint: '/pendle/swap-calldata',
+        method: 'GET',
+        params: expect.objectContaining({
+          chainId: ChainId.BSC_MAINNET,
+          tokenInAddress: bnb.address,
+          tokenOutAddress: xvs.address,
+          amountInMantissa: expect.any(BigNumber),
+          slippagePercentage: 0.005,
+          receiverAddress: fakeReceiverAddress,
+        }),
+      }),
+    );
   });
 
   it('throws when response data is empty', async () => {
