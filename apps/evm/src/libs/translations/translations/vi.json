@@ -101,15 +101,15 @@
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",
         "mint": "Cung cấp",
-        "positionClosedWithLoss": "Đóng (lỗ) • Yield+",
-        "positionClosedWithProfit": "Đóng (lãi) • Yield+",
-        "positionIncreased": "Tăng • Yield+",
-        "positionOpened": "Mở • Yield+",
-        "positionReducedWithLoss": "Đã giảm (lỗ) • Yield+",
-        "positionReducedWithProfit": "Đã giảm (lãi) • Yield+",
-        "principalSupplied": "Cung cấp • Yield+",
-        "principalWithdrawn": "Rút • Yield+",
-        "realizedPnl": "Lãi/lỗ đã thực hiện • Yield+",
+        "positionClosedWithLoss": "Đóng (lỗ) • Trade",
+        "positionClosedWithProfit": "Đóng (lãi) • Trade",
+        "positionIncreased": "Tăng • Trade",
+        "positionOpened": "Mở • Trade",
+        "positionReducedWithLoss": "Đã giảm (lỗ) • Trade",
+        "positionReducedWithProfit": "Đã giảm (lãi) • Trade",
+        "principalSupplied": "Cung cấp • Trade",
+        "principalWithdrawn": "Rút • Trade",
+        "realizedPnl": "Lãi/lỗ đã thực hiện • Trade",
         "redeem": "Rút",
         "repay": "Hoàn trả"
       },
@@ -783,12 +783,12 @@
         "swap": {
           "label": "Hoán đổi"
         },
+        "trade": {
+          "label": "Trade"
+        },
         "vai": {
           "description": "Mint stablecoin gốc của Venus.",
           "label": "VAI"
-        },
-        "yieldPlus": {
-          "label": "Yield+"
         }
       },
       "settings": {
@@ -1638,6 +1638,115 @@
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
   },
+  "trade": {
+    "banner": {
+      "illustrationAltText": "Hình minh họa Trade",
+      "learnMore": "Tìm hiểu thêm",
+      "title": "Trade là gì?"
+    },
+    "closePositionModal": {
+      "title": "Đóng"
+    },
+    "longLiquidity": "Thanh khoản Long",
+    "longSupplyApy": "{{ longTokenSymbol }} APY cung cấp",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Tăng"
+      },
+      "invalidLiquidationPrice": "Không áp dụng",
+      "openForm": {
+        "collateral": "Tài sản thế chấp",
+        "dsaFieldLabel": "Tài sản thế chấp",
+        "dsaFieldPlaceholder": "Nhập để tiếp tục",
+        "entryPrice": "Giá vào lệnh",
+        "liquidationPrice": "Giá thanh lý",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "APY ròng",
+        "pnl": "Lãi/lỗ đã thực hiện",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Mở"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "Đóng",
+          "reduce": "Giảm"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Cung cấp"
+      },
+      "walletBalance": "Số dư ví",
+      "warning": {
+        "cannotBorrowShort": "Việc vay token Short của vị thế này đã bị vô hiệu hóa",
+        "cannotRepayShort": "Việc hoàn trả token Short của vị thế này đã bị vô hiệu hóa",
+        "cannotSupplyDsa": "Việc cung cấp token thế chấp của vị thế này đã bị vô hiệu hóa",
+        "cannotSupplyLong": "Việc cung cấp token Long của vị thế này đã bị vô hiệu hóa",
+        "cannotWithdrawDsa": "Việc rút token thế chấp của vị thế này đã bị vô hiệu hóa",
+        "cannotWithdrawLong": "Việc rút token Long của vị thế này đã bị vô hiệu hóa",
+        "notEnoughLeverage": "Cặp token này không cho phép hệ số đòn bẩy ít nhất là {{ minimumLeverageFactor }}, đây là mức tối thiểu cần thiết để mở một vị thế Trade",
+        "txLikelyToFail": "Giao dịch này liên quan đến các lệnh hoán đổi giá trị thấp có khả năng thất bại"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Rút"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "Đóng",
+      "placeholder": {
+        "title": "Chưa có vị thế"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Tài sản thế chấp"
+        },
+        "healthFactor": {
+          "label": "Hệ số an toàn",
+          "tooltip": "Thanh lý tại < 1.0"
+        },
+        "netApy": {
+          "label": "APY ròng"
+        },
+        "netValue": {
+          "label": "Giá trị ròng"
+        },
+        "title": "Trạng thái"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "Tỷ lệ giá vào lệnh của vị thế này (số lượng tài sản Short ÷ số lượng tài sản Long), phản ánh giá trị tương đối giữa hai token kể từ lúc vào lệnh"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Vị thế"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "Giao dịch"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} APY vay",
+    "shortLiquidity": "Thanh khoản Short",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Chấp nhận Admin Đang chờ Kiểm tra",
     "acceptPendingImplementationAddressCheck": "Chấp nhận địa chỉ triển khai đang chờ Kiểm tra",
@@ -2220,115 +2329,6 @@
     },
     "tooltip": {
       "address": "({{address}})"
-    }
-  },
-  "yieldPlus": {
-    "banner": {
-      "illustrationAltText": "Hình minh họa Yield+",
-      "learnMore": "Tìm hiểu thêm",
-      "title": "Yield+ là gì?"
-    },
-    "closePositionModal": {
-      "title": "Đóng"
-    },
-    "longLiquidity": "Thanh khoản Long",
-    "longSupplyApy": "{{ longTokenSymbol }} APY cung cấp",
-    "longTokenSelect": {
-      "label": "Long"
-    },
-    "operationForm": {
-      "increaseForm": {
-        "submitButtonLabel": "Tăng"
-      },
-      "invalidLiquidationPrice": "Không áp dụng",
-      "openForm": {
-        "collateral": "Tài sản thế chấp",
-        "dsaFieldLabel": "Tài sản thế chấp",
-        "dsaFieldPlaceholder": "Nhập để tiếp tục",
-        "entryPrice": "Giá vào lệnh",
-        "liquidationPrice": "Giá thanh lý",
-        "long": "Long",
-        "longFieldLabel": "Long",
-        "netApy": "APY ròng",
-        "pnl": "Lãi/lỗ đã thực hiện",
-        "short": "Short",
-        "shortFieldLabel": "Short",
-        "submitButtonLabel": "Mở"
-      },
-      "reduceForm": {
-        "submitButtonLabel": {
-          "close": "Đóng",
-          "reduce": "Giảm"
-        }
-      },
-      "supplyDsaForm": {
-        "submitButtonLabel": "Cung cấp"
-      },
-      "walletBalance": "Số dư ví",
-      "warning": {
-        "cannotBorrowShort": "Việc vay token Short của vị thế này đã bị vô hiệu hóa",
-        "cannotRepayShort": "Việc hoàn trả token Short của vị thế này đã bị vô hiệu hóa",
-        "cannotSupplyDsa": "Việc cung cấp token thế chấp của vị thế này đã bị vô hiệu hóa",
-        "cannotSupplyLong": "Việc cung cấp token Long của vị thế này đã bị vô hiệu hóa",
-        "cannotWithdrawDsa": "Việc rút token thế chấp của vị thế này đã bị vô hiệu hóa",
-        "cannotWithdrawLong": "Việc rút token Long của vị thế này đã bị vô hiệu hóa",
-        "notEnoughLeverage": "Cặp token này không cho phép hệ số đòn bẩy ít nhất là {{ minimumLeverageFactor }}, đây là mức tối thiểu cần thiết để mở một vị thế Yield+",
-        "txLikelyToFail": "Giao dịch này liên quan đến các lệnh hoán đổi giá trị thấp có khả năng thất bại"
-      },
-      "withdrawDsaForm": {
-        "submitButtonLabel": "Rút"
-      }
-    },
-    "positions": {
-      "closeButtonLabel": "Đóng",
-      "placeholder": {
-        "title": "Chưa có vị thế"
-      },
-      "status": {
-        "collateralColumn": {
-          "label": "Tài sản thế chấp"
-        },
-        "healthFactor": {
-          "label": "Hệ số an toàn",
-          "tooltip": "Thanh lý tại < 1.0"
-        },
-        "netApy": {
-          "label": "APY ròng"
-        },
-        "netValue": {
-          "label": "Giá trị ròng"
-        },
-        "title": "Trạng thái"
-      },
-      "table": {
-        "entryPrice": {
-          "title": "EP",
-          "tooltip": "Tỷ lệ giá vào lệnh của vị thế này (số lượng tài sản Short ÷ số lượng tài sản Long), phản ánh giá trị tương đối giữa hai token kể từ lúc vào lệnh"
-        },
-        "liquidationPrice": {
-          "title": "Liq."
-        },
-        "longColumn": {
-          "title": "Long"
-        },
-        "pnlColumn": {
-          "title": "PnL"
-        },
-        "positionColumn": {
-          "title": "Vị thế"
-        },
-        "shortColumn": {
-          "title": "Short"
-        }
-      },
-      "transactions": {
-        "title": "Giao dịch"
-      }
-    },
-    "shortBorrowApy": "{{ shortTokenSymbol }} APY vay",
-    "shortLiquidity": "Thanh khoản Short",
-    "shortTokenSelect": {
-      "label": "Short"
     }
   }
 }

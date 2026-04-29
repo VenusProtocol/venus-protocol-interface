@@ -101,15 +101,15 @@
         "enterMarket": "啟用抵押",
         "exitMarket": "禁用抵押",
         "mint": "供應",
-        "positionClosedWithLoss": "平倉（虧損） • Yield+",
-        "positionClosedWithProfit": "平倉（盈利） • Yield+",
-        "positionIncreased": "增加 • Yield+",
-        "positionOpened": "開倉 • Yield+",
-        "positionReducedWithLoss": "減少（虧損） • Yield+",
-        "positionReducedWithProfit": "減少（盈利） • Yield+",
-        "principalSupplied": "供應 • Yield+",
-        "principalWithdrawn": "提取 • Yield+",
-        "realizedPnl": "已實現盈虧 • Yield+",
+        "positionClosedWithLoss": "平倉（虧損） • Trade",
+        "positionClosedWithProfit": "平倉（盈利） • Trade",
+        "positionIncreased": "增加 • Trade",
+        "positionOpened": "開倉 • Trade",
+        "positionReducedWithLoss": "減少（虧損） • Trade",
+        "positionReducedWithProfit": "減少（盈利） • Trade",
+        "principalSupplied": "供應 • Trade",
+        "principalWithdrawn": "提取 • Trade",
+        "realizedPnl": "已實現盈虧 • Trade",
         "redeem": "提取",
         "repay": "還款"
       },
@@ -783,12 +783,12 @@
         "swap": {
           "label": "兌換"
         },
+        "trade": {
+          "label": "Trade"
+        },
         "vai": {
           "description": "鑄造 Venus 的原生穩定幣。",
           "label": "VAI"
-        },
-        "yieldPlus": {
-          "label": "Yield+"
         }
       },
       "settings": {
@@ -1638,6 +1638,115 @@
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
   },
+  "trade": {
+    "banner": {
+      "illustrationAltText": "Trade 插圖",
+      "learnMore": "瞭解更多",
+      "title": "什麼是 Trade？"
+    },
+    "closePositionModal": {
+      "title": "關閉"
+    },
+    "longLiquidity": "多頭流動性",
+    "longSupplyApy": "{{ longTokenSymbol }} 供應 APY",
+    "longTokenSelect": {
+      "label": "多頭"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "增加"
+      },
+      "invalidLiquidationPrice": "不適用",
+      "openForm": {
+        "collateral": "抵押",
+        "dsaFieldLabel": "抵押",
+        "dsaFieldPlaceholder": "輸入以繼續",
+        "entryPrice": "開倉價",
+        "liquidationPrice": "清算價",
+        "long": "多頭",
+        "longFieldLabel": "多頭",
+        "netApy": "淨 APY",
+        "pnl": "已實現盈虧",
+        "short": "空頭",
+        "shortFieldLabel": "空頭",
+        "submitButtonLabel": "開倉"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "關閉",
+          "reduce": "減少"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "供應"
+      },
+      "walletBalance": "錢包餘額",
+      "warning": {
+        "cannotBorrowShort": "此倉位的空頭代幣借款已禁用",
+        "cannotRepayShort": "此倉位的空頭代幣還款已禁用",
+        "cannotSupplyDsa": "此倉位的抵押品代幣供應已禁用",
+        "cannotSupplyLong": "此倉位的多頭代幣供應已禁用",
+        "cannotWithdrawDsa": "此倉位的抵押品代幣提取已禁用",
+        "cannotWithdrawLong": "此倉位的多頭代幣提取已禁用",
+        "notEnoughLeverage": "此代幣對不支援至少 {{ minimumLeverageFactor }} 的槓桿倍數，而這是開立 Trade 倉位所需的最低值",
+        "txLikelyToFail": "此交易涉及低價值兌換，可能會失敗"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "提取"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "關閉",
+      "placeholder": {
+        "title": "暫無倉位"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "抵押"
+        },
+        "healthFactor": {
+          "label": "健康係數",
+          "tooltip": "清算閾值 < 1.0"
+        },
+        "netApy": {
+          "label": "淨 APY"
+        },
+        "netValue": {
+          "label": "淨值"
+        },
+        "title": "狀態"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "此倉位的入場價格比率（空頭資產數量 ÷ 多頭資產數量），反映自入場以來兩種代幣之間的相對價值"
+        },
+        "liquidationPrice": {
+          "title": "清算價"
+        },
+        "longColumn": {
+          "title": "多頭"
+        },
+        "pnlColumn": {
+          "title": "盈虧"
+        },
+        "positionColumn": {
+          "title": "倉位"
+        },
+        "shortColumn": {
+          "title": "空頭"
+        }
+      },
+      "transactions": {
+        "title": "交易"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
+    "shortLiquidity": "空頭流動性",
+    "shortTokenSelect": {
+      "label": "空頭"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "接受管理員待定檢查",
     "acceptPendingImplementationAddressCheck": "接受待定實現地址檢查",
@@ -2220,115 +2329,6 @@
     },
     "tooltip": {
       "address": "（{{address}}）"
-    }
-  },
-  "yieldPlus": {
-    "banner": {
-      "illustrationAltText": "Yield+ 插圖",
-      "learnMore": "瞭解更多",
-      "title": "什麼是 Yield+？"
-    },
-    "closePositionModal": {
-      "title": "關閉"
-    },
-    "longLiquidity": "多頭流動性",
-    "longSupplyApy": "{{ longTokenSymbol }} 供應 APY",
-    "longTokenSelect": {
-      "label": "多頭"
-    },
-    "operationForm": {
-      "increaseForm": {
-        "submitButtonLabel": "增加"
-      },
-      "invalidLiquidationPrice": "不適用",
-      "openForm": {
-        "collateral": "抵押",
-        "dsaFieldLabel": "抵押",
-        "dsaFieldPlaceholder": "輸入以繼續",
-        "entryPrice": "開倉價",
-        "liquidationPrice": "清算價",
-        "long": "多頭",
-        "longFieldLabel": "多頭",
-        "netApy": "淨 APY",
-        "pnl": "已實現盈虧",
-        "short": "空頭",
-        "shortFieldLabel": "空頭",
-        "submitButtonLabel": "開倉"
-      },
-      "reduceForm": {
-        "submitButtonLabel": {
-          "close": "關閉",
-          "reduce": "減少"
-        }
-      },
-      "supplyDsaForm": {
-        "submitButtonLabel": "供應"
-      },
-      "walletBalance": "錢包餘額",
-      "warning": {
-        "cannotBorrowShort": "此倉位的空頭代幣借款已禁用",
-        "cannotRepayShort": "此倉位的空頭代幣還款已禁用",
-        "cannotSupplyDsa": "此倉位的抵押品代幣供應已禁用",
-        "cannotSupplyLong": "此倉位的多頭代幣供應已禁用",
-        "cannotWithdrawDsa": "此倉位的抵押品代幣提取已禁用",
-        "cannotWithdrawLong": "此倉位的多頭代幣提取已禁用",
-        "notEnoughLeverage": "此代幣對不支援至少 {{ minimumLeverageFactor }} 的槓桿倍數，而這是開立 Yield+ 倉位所需的最低值",
-        "txLikelyToFail": "此交易涉及低價值兌換，可能會失敗"
-      },
-      "withdrawDsaForm": {
-        "submitButtonLabel": "提取"
-      }
-    },
-    "positions": {
-      "closeButtonLabel": "關閉",
-      "placeholder": {
-        "title": "暫無倉位"
-      },
-      "status": {
-        "collateralColumn": {
-          "label": "抵押"
-        },
-        "healthFactor": {
-          "label": "健康係數",
-          "tooltip": "清算閾值 < 1.0"
-        },
-        "netApy": {
-          "label": "淨 APY"
-        },
-        "netValue": {
-          "label": "淨值"
-        },
-        "title": "狀態"
-      },
-      "table": {
-        "entryPrice": {
-          "title": "EP",
-          "tooltip": "此倉位的入場價格比率（空頭資產數量 ÷ 多頭資產數量），反映自入場以來兩種代幣之間的相對價值"
-        },
-        "liquidationPrice": {
-          "title": "清算價"
-        },
-        "longColumn": {
-          "title": "多頭"
-        },
-        "pnlColumn": {
-          "title": "盈虧"
-        },
-        "positionColumn": {
-          "title": "倉位"
-        },
-        "shortColumn": {
-          "title": "空頭"
-        }
-      },
-      "transactions": {
-        "title": "交易"
-      }
-    },
-    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
-    "shortLiquidity": "空頭流動性",
-    "shortTokenSelect": {
-      "label": "空頭"
     }
   }
 }
