@@ -82,7 +82,10 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     value: borrowBalanceProtectedCents,
   });
 
-  const isProtectionModeEnabled = borrowBalanceProtectedCents !== undefined && borrowBalanceCents !== undefined && borrowBalanceProtectedCents !== borrowBalanceCents;
+  const isProtectionModeEnabled =
+    borrowBalanceProtectedCents !== undefined &&
+    borrowBalanceCents !== undefined &&
+    borrowBalanceProtectedCents !== borrowBalanceCents;
 
   const tooltip = useMemo(
     () =>
@@ -91,7 +94,9 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       borrowBalanceCents &&
       borrowBalanceCents > 0 ? (
         <Trans
-          i18nKey={isProtectionModeEnabled ? 'accountHealth.tooltipProtection' : 'accountHealth.tooltip'}
+          i18nKey={
+            isProtectionModeEnabled ? 'accountHealth.tooltipProtection' : 'accountHealth.tooltip'
+          }
           shouldUnescape
           components={{
             LineBreak: <br />,
