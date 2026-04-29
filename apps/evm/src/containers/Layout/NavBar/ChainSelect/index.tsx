@@ -23,7 +23,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
 
   const handleChange = (newChainId: ChainId | string | number) => {
     const id = Number(newChainId) as ChainId;
-    if (isSunsetChain(id)) {
+    if (isSunsetChain(id) && id !== chainId) {
       openSunsetModal();
     }
     switchChain({ chainId: id });
