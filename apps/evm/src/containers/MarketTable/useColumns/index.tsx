@@ -133,12 +133,12 @@ export const useColumns = ({
 
         if (column === 'asset' || column === 'assetAndChain') {
           return (
-            <div className="flex min-w-0 items-center space-x-2">
+            <div className="flex min-w-0 items-center space-x-1">
               <TokenIconWithSymbol
                 token={asset.vToken.underlyingToken}
                 displayChain={column === 'assetAndChain'}
                 size={column === 'assetAndChain' ? 'md' : 'xl'}
-                className="min-w-[5.5rem]"
+                className="min-w-[5rem]"
               />
 
               {userEModeGroup && isInUserEModeGroup && (
