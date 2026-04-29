@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.23.2
+
+### Patch Changes
+
+- 8ca1773: feat: remove BN earn campaign banner since offline
+
 ## 4.23.1
 
 ### Patch Changes
