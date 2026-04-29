@@ -94,6 +94,9 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       borrowBalanceCents &&
       borrowBalanceCents > 0 ? (
         <Trans
+          // Translation keys: do not remove this comment
+          // t('accountHealth.tooltip')
+          // t('accountHealth.tooltipProtection')
           i18nKey={
             isProtectionModeEnabled ? 'accountHealth.tooltipProtection' : 'accountHealth.tooltip'
           }
