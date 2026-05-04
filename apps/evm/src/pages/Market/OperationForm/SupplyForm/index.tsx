@@ -275,9 +275,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
     asset.supplyCapTokens,
   ]);
 
-  let toTokenAmountTokens = isUsingSwap
-    ? getSwapToTokenAmount(swapQuote)
-    : debouncedFormAmountTokens;
+  let toTokenAmountTokens =
+    isUsingSwap && swapQuote ? getSwapToTokenAmount(swapQuote) : debouncedFormAmountTokens;
   toTokenAmountTokens = new BigNumber(toTokenAmountTokens || 0);
 
   const balanceMutations: AssetBalanceMutation[] = [

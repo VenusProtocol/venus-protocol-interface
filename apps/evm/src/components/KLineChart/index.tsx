@@ -1,26 +1,68 @@
 import { cn } from '@venusprotocol/ui';
-import { CHART_PERIOD } from 'constants/klineCandles';
 import { type DataLoader, dispose, init } from 'klinecharts';
-import { PRICE_DECIMALS } from 'pages/YieldPlus/constants';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import { Delimiter } from 'components/Delimiter';
+import { Icon } from 'components/Icon';
+import { Modal } from 'components/Modal';
+import { Select, type SelectOption } from 'components/Select';
+import { useTranslation } from 'libs/translations';
+import { ApiOhlcInterval } from 'types';
+import { convertIntervalToChartPeriod } from './convertIntervalToChartPeriod';
 import { rgb } from './rgb';
 
 export interface KLineChartProps {
   title: string;
+  interval: ApiOhlcInterval;
+  onIntervalChange: (newIntervaL: ApiOhlcInterval) => void;
   dataLoader: DataLoader;
+  pricePrecision: number;
   className?: string;
 }
 
-export const KLineChart: React.FC<KLineChartProps> = ({ className, dataLoader, title }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+export const KLineChart: React.FC<KLineChartProps> = ({
+  className,
+  dataLoader,
+  interval,
+  onIntervalChange,
+  pricePrecision,
+  title,
+}) => {
+  const { t } = useTranslation();
+
+  const [shouldShowDisclaimerModal, setShouldShowDisclaimerModal] = useState(false);
+  const showDisclaimerModal = () => setShouldShowDisclaimerModal(true);
+  const hideDisclaimerModal = () => setShouldShowDisclaimerModal(false);
+
+  const fullScreenContainerRef = useRef<HTMLDivElement | null>(null);
+  const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<ReturnType<typeof init> | null>(null);
 
+  const intervalOptions = Object.values(ApiOhlcInterval).map<SelectOption<ApiOhlcInterval>>(
+    intervalOption => ({
+      label: ({ isRenderedInButton }) => (
+        <span className={cn(isRenderedInButton && 'text-light-grey')}>{intervalOption}</span>
+      ),
+      value: intervalOption,
+    }),
+  );
+
+  const isFullScreenAvailable = document?.fullscreenEnabled || false;
+
+  const toggleFullScreenMode = () => {
+    if (document?.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      fullScreenContainerRef.current?.requestFullscreen();
+    }
+  };
+
   useEffect(() => {
-    if (!containerRef.current) {
+    if (!chartContainerRef.current) {
       return undefined;
     }
 
-    const chart = init(containerRef.current);
+    const chart = init(chartContainerRef.current);
 
     if (!chart) {
       return undefined;
@@ -108,7 +150,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({ className, dataLoader, t
       chart.resize();
     });
 
-    resizeObserver.observe(containerRef.current);
+    resizeObserver.observe(chartContainerRef.current);
 
     return () => {
       chartRef.current = null;
@@ -118,16 +160,63 @@ export const KLineChart: React.FC<KLineChartProps> = ({ className, dataLoader, t
   }, []);
 
   useEffect(() => {
-    chartRef.current?.setSymbol({ ticker: title, pricePrecision: PRICE_DECIMALS });
-  }, [title]);
+    chartRef.current?.setSymbol({ ticker: title, pricePrecision });
+  }, [title, pricePrecision]);
 
   useEffect(() => {
-    chartRef.current?.setPeriod(CHART_PERIOD);
-  }, []);
+    const period = convertIntervalToChartPeriod(interval);
+    chartRef.current?.setPeriod(period);
+  }, [interval]);
 
   useEffect(() => {
     chartRef.current?.setDataLoader(dataLoader);
   }, [dataLoader]);
 
-  return <div ref={containerRef} className={cn('w-full h-full bg-dark-blue', className)} />;
+  return (
+    <>
+      <div className="bg-dark-blue w-full h-full flex flex-col" ref={fullScreenContainerRef}>
+        <div className="flex items-center justify-between px-3 py-1">
+          <div className="flex items-center gap-x-3">
+            <Select
+              options={intervalOptions}
+              value={interval}
+              onChange={newInterval => onIntervalChange(newInterval as ApiOhlcInterval)}
+              size="small"
+              buttonClassName="py-0 px-2 h-7 bg-dark-blue-active"
+            />
+
+            <Delimiter vertical className="h-4.5 self-center" />
+
+            <button
+              type="button"
+              onClick={showDisclaimerModal}
+              className="cursor-pointer transition-colors text-b1r text-light-grey hover:text-blue"
+            >
+              {t('kLineChart.disclaimer.buttonLabel')}
+            </button>
+          </div>
+
+          {isFullScreenAvailable && (
+            <button
+              type="button"
+              onClick={toggleFullScreenMode}
+              className="cursor-pointer text-light-grey hover:text-blue"
+            >
+              <Icon name="fullScreen" className="size-6 transition-colors text-inherit" />
+            </button>
+          )}
+        </div>
+
+        <div className={cn('grow', className)} ref={chartContainerRef} />
+      </div>
+
+      <Modal
+        isOpen={shouldShowDisclaimerModal}
+        handleClose={hideDisclaimerModal}
+        title={t('kLineChart.disclaimer.title')}
+      >
+        <p>{t('kLineChart.disclaimer.description')}</p>
+      </Modal>
+    </>
+  );
 };

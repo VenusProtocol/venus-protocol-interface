@@ -101,15 +101,15 @@
         "enterMarket": "Enable collateral",
         "exitMarket": "Disable collateral",
         "mint": "Supply",
-        "positionClosedWithLoss": "Close (loss) • Yield+",
-        "positionClosedWithProfit": "Close (profit) • Yield+",
-        "positionIncreased": "Increase • Yield+",
-        "positionOpened": "Opened • Yield+",
-        "positionReducedWithLoss": "Reduced (loss) • Yield+",
-        "positionReducedWithProfit": "Reduced (profit) • Yield+",
-        "principalSupplied": "Supply • Yield+",
-        "principalWithdrawn": "Withdraw • Yield+",
-        "realizedPnl": "Realized PnL • Yield+",
+        "positionClosedWithLoss": "Close (loss) • Trade",
+        "positionClosedWithProfit": "Close (profit) • Trade",
+        "positionIncreased": "Increase • Trade",
+        "positionOpened": "Opened • Trade",
+        "positionReducedWithLoss": "Reduced (loss) • Trade",
+        "positionReducedWithProfit": "Reduced (profit) • Trade",
+        "principalSupplied": "Supply • Trade",
+        "principalWithdrawn": "Withdraw • Trade",
+        "realizedPnl": "Realized PnL • Trade",
         "redeem": "Withdraw",
         "repay": "Repay"
       },
@@ -647,6 +647,13 @@
     "illustrationAltText": "Illustration",
     "title": "Isolated pools are being sunsetted"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "Aggregate pricing",
+      "description": "Price data is aggregated from multiple sources for reference only. Actual on-chain AMM prices may vary.",
+      "title": "Chart information"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "Access an immutable money market directly on-chain.",
@@ -737,6 +744,7 @@
       "utilizationRate": "Utilization rate"
     },
     "menu": {
+      "beta": "beta",
       "dashboard": {
         "label": "Dashboard"
       },
@@ -769,12 +777,12 @@
         "swap": {
           "label": "Swap"
         },
+        "trade": {
+          "label": "Trade"
+        },
         "vai": {
           "description": "Mint the native stablecoin of Venus.",
           "label": "VAI"
-        },
-        "yieldPlus": {
-          "label": "Yield+"
         }
       },
       "settings": {
@@ -1624,6 +1632,115 @@
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
   },
+  "trade": {
+    "banner": {
+      "illustrationAltText": "Trade illustration",
+      "learnMore": "Learn more",
+      "title": "What is Trade?"
+    },
+    "closePositionModal": {
+      "title": "Close"
+    },
+    "longLiquidity": "Long liquidity",
+    "longSupplyApy": "{{ longTokenSymbol }} supply APY",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Increase"
+      },
+      "invalidLiquidationPrice": "N/A",
+      "openForm": {
+        "collateral": "Collateral",
+        "dsaFieldLabel": "Collateral",
+        "dsaFieldPlaceholder": "Enter to continue",
+        "entryPrice": "Entry price",
+        "liquidationPrice": "Liq. price",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "Net APY",
+        "pnl": "Realized PnL",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Open"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "Close",
+          "reduce": "Reduce"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Supply"
+      },
+      "walletBalance": "Wallet balance",
+      "warning": {
+        "cannotBorrowShort": "Borrowing the short token of this position has been disabled",
+        "cannotRepayShort": "Repaying the short token of this position has been disabled",
+        "cannotSupplyDsa": "Supplying the collateral token of this position has been disabled",
+        "cannotSupplyLong": "Supplying the long token of this position has been disabled",
+        "cannotWithdrawDsa": "Withdrawing the collateral token of this position has been disabled",
+        "cannotWithdrawLong": "Withdrawing the long token of this position has been disabled",
+        "notEnoughLeverage": "This token pair does not allow a leverage factor of at least {{ minimumLeverageFactor }}, which is the minimum required to open a Trade position",
+        "txLikelyToFail": "This transaction involves low-value swaps that are likely to fail"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Withdraw"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "Close",
+      "placeholder": {
+        "title": "No positions yet"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Collateral"
+        },
+        "healthFactor": {
+          "label": "Health factor",
+          "tooltip": "Liquidation at < 1.0"
+        },
+        "netApy": {
+          "label": "Net APY"
+        },
+        "netValue": {
+          "label": "Net value"
+        },
+        "title": "Status"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "The entry price ratio of this position (short asset amount ÷ long asset amount), reflecting the relative value between the two tokens from entry"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Position"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "Transactions"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} borrow APY",
+    "shortLiquidity": "Short liquidity",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
     "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",
@@ -2207,114 +2324,6 @@
     },
     "tooltip": {
       "address": "({{address}})"
-    }
-  },
-  "yieldPlus": {
-    "banner": {
-      "illustrationAltText": "Yield+ illustration",
-      "learnMore": "Learn more",
-      "title": "What is Yield+?"
-    },
-    "closePositionModal": {
-      "title": "Close"
-    },
-    "longLiquidity": "Long liquidity",
-    "longSupplyApy": "{{ longTokenSymbol }} supply APY",
-    "longTokenSelect": {
-      "label": "Long"
-    },
-    "operationForm": {
-      "increaseForm": {
-        "submitButtonLabel": "Increase"
-      },
-      "invalidLiquidationPrice": "N/A",
-      "openForm": {
-        "collateral": "Collateral",
-        "dsaFieldLabel": "Collateral",
-        "dsaFieldPlaceholder": "Enter to continue",
-        "entryPrice": "Entry price",
-        "liquidationPrice": "Liq. price",
-        "long": "Long",
-        "longFieldLabel": "Long",
-        "netApy": "Net APY",
-        "pnl": "Realized PnL",
-        "short": "Short",
-        "shortFieldLabel": "Short",
-        "submitButtonLabel": "Open"
-      },
-      "reduceForm": {
-        "submitButtonLabel": {
-          "close": "Close",
-          "reduce": "Reduce"
-        }
-      },
-      "supplyDsaForm": {
-        "submitButtonLabel": "Supply"
-      },
-      "walletBalance": "Wallet balance",
-      "warning": {
-        "cannotBorrowShort": "Borrowing the short token of this position has been disabled",
-        "cannotRepayShort": "Repaying the short token of this position has been disabled",
-        "cannotSupplyDsa": "Supplying the collateral token of this position has been disabled",
-        "cannotSupplyLong": "Supplying the long token of this position has been disabled",
-        "cannotWithdrawDsa": "Withdrawing the collateral token of this position has been disabled",
-        "cannotWithdrawLong": "Withdrawing the long token of this position has been disabled",
-        "notEnoughLeverage": "This token pair does not allow a leverage factor of at least {{ minimumLeverageFactor }}, which is the minimum required to open a Yield+ position"
-      },
-      "withdrawDsaForm": {
-        "submitButtonLabel": "Withdraw"
-      }
-    },
-    "positions": {
-      "closeButtonLabel": "Close",
-      "placeholder": {
-        "title": "No positions yet"
-      },
-      "status": {
-        "collateralColumn": {
-          "label": "Collateral"
-        },
-        "healthFactor": {
-          "label": "Health factor",
-          "tooltip": "Liquidation at < 1.0"
-        },
-        "netApy": {
-          "label": "Net APY"
-        },
-        "netValue": {
-          "label": "Net value"
-        },
-        "title": "Status"
-      },
-      "table": {
-        "entryPrice": {
-          "title": "EP",
-          "tooltip": "The entry price ratio of this position (short asset amount ÷ long asset amount), reflecting the relative value between the two tokens from entry"
-        },
-        "liquidationPrice": {
-          "title": "Liq."
-        },
-        "longColumn": {
-          "title": "Long"
-        },
-        "pnlColumn": {
-          "title": "PnL"
-        },
-        "positionColumn": {
-          "title": "Position"
-        },
-        "shortColumn": {
-          "title": "Short"
-        }
-      },
-      "transactions": {
-        "title": "Transactions"
-      }
-    },
-    "shortBorrowApy": "{{ shortTokenSymbol }} borrow APY",
-    "shortLiquidity": "Short liquidity",
-    "shortTokenSelect": {
-      "label": "Short"
     }
   }
 }

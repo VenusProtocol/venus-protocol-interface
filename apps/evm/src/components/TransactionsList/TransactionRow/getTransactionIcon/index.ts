@@ -5,16 +5,16 @@ import type { IconName } from '../../../Icon';
 export const getTransactionIcon = (txType: TxType): IconName => {
   switch (txType) {
     case 'enterMarket':
-    case 'positionOpened':
       return 'transactionCollateral';
     case 'exitMarket':
-    case 'positionClosedWithLoss':
-    case 'positionClosedWithProfit':
       return 'close';
     case 'supply':
     case 'repay':
     case 'principalSupplied':
     case 'positionIncreased':
+    case 'positionOpened':
+    case 'positionClosedWithLoss':
+    case 'positionClosedWithProfit':
       return 'transactionIn';
     default:
       return 'transactionOut';
