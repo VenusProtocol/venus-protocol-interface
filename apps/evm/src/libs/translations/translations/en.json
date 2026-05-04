@@ -2011,21 +2011,19 @@
     "header": "Vault",
     "modals": {
       "afterMaturityPendleDisclaimer": "Please withdraw your PT tokens to your wallet first via the Withdraw button, then visit the <Link>Pendle official</Link> website to redeem your underlying tokens.",
-      "claim": "Claim",
       "connectWalletMessage": "Please connect your wallet to interact with this vault",
       "convert": "Convert",
       "currentDeposited": "Currently deposited",
       "currentDepositedTooltip": "The amount of your assets currently locked and earning in this vault.",
       "deposit": "Deposit",
+      "depositTab": "Deposit",
       "effectiveFixedApr": "Effective fixed APR",
       "effectiveFixedAprPendleTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
       "error": {
         "amountTooLow": "Input amount is too low.",
-        "higherThanAvailable": "Amount exceeds your available {{tokenSymbol}} balance.",
-        "invalidAmount": "Input amount is invalid.",
         "invalidAmountFromQuote": "Amount exceeds available liquidity in the Pendle market.",
         "lowerThanMinimumAmount": "Input amount is too low. The minimum allowed amount is equivalent to {{amount}} USD.",
-        "noSwapQuoteFound": "No swap found. Please update the form.",
+        "noSwapQuoteFound": "No swap found.",
         "pendleApiError": "Temporarily experiencing high demand with Pendle. Please try again in a moment."
       },
       "estPenalty": "Est. penalty",

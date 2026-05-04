@@ -1,23 +1,28 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
+import { useEffect } from 'react';
 import { useForm as useRhfForm } from 'react-hook-form';
 import z from 'zod';
 
 import { useTranslation } from 'libs/translations';
-import { useEffect } from 'react';
 
 export interface FormValues {
   fromAmountTokens: string;
+  acknowledgeHighPriceImpact: boolean;
 }
 
 export const initialFormValues: FormValues = {
   fromAmountTokens: '',
+  acknowledgeHighPriceImpact: false,
 };
 
 export const useForm = ({
   limitFromTokens,
   walletSpendingLimitTokens,
-}: { limitFromTokens?: BigNumber; walletSpendingLimitTokens?: BigNumber }) => {
+}: {
+  limitFromTokens?: BigNumber;
+  walletSpendingLimitTokens?: BigNumber;
+}) => {
   const { t } = useTranslation();
 
   const formSchema = z
@@ -37,6 +42,7 @@ export const useForm = ({
             code: 'custom',
             message: t('operationForm.error.higherThanAvailableAmount'),
           });
+          return;
         }
 
         if (
@@ -47,6 +53,7 @@ export const useForm = ({
             code: 'custom',
             message: t('operationForm.error.higherThanWalletSpendingLimit'),
           });
+          return;
         }
       }),
     })
@@ -61,7 +68,7 @@ export const useForm = ({
   // biome-ignore lint/correctness/useExhaustiveDependencies: revalidate form when parameters change
   useEffect(() => {
     form.trigger('fromAmountTokens');
-  }, [limitFromTokens?.toFixed(), walletSpendingLimitTokens?.toFixed(), form.trigger]);
+  }, [form.trigger, limitFromTokens?.toFixed(), walletSpendingLimitTokens?.toFixed()]);
 
   return form;
 };
