@@ -33,7 +33,7 @@ type Options = QueryObserverOptions<
   QueryKey
 >;
 
-const refetchInterval = generatePseudoRandomRefetchInterval('fast');
+const refetchInterval = generatePseudoRandomRefetchInterval();
 
 export const useGetTradeReduceSwapQuotes = (
   input: TrimmedGetTradeReduceSwapQuotesInput,
