@@ -23,6 +23,7 @@ export interface AccountHealthBarProps {
   borrowBalanceCents: number | undefined;
   borrowBalanceProtectedCents: number | undefined;
   borrowLimitCents: number | undefined;
+  borrowLimitProtectedCents: number | undefined;
   liquidationThresholdCents: number | undefined;
   className?: string;
   hideUserBalances?: string;
@@ -33,6 +34,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   borrowBalanceCents,
   borrowBalanceProtectedCents,
   borrowLimitCents,
+  borrowLimitProtectedCents,
   liquidationThresholdCents,
   hideUserBalances,
 }) => {
@@ -82,10 +84,19 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     value: borrowBalanceProtectedCents,
   });
 
+  const protectedBorrowLimitUsedPercentage =
+    typeof borrowBalanceProtectedCents === 'number' &&
+    typeof borrowLimitProtectedCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowBalanceProtectedCents,
+          denominator: borrowLimitProtectedCents,
+        })
+      : undefined;
+
   const isProtectionModeEnabled =
-    borrowBalanceProtectedCents !== undefined &&
-    borrowBalanceCents !== undefined &&
-    borrowBalanceProtectedCents !== borrowBalanceCents;
+    borrowLimitUsedPercentage !== undefined &&
+    protectedBorrowLimitUsedPercentage !== undefined &&
+    borrowLimitUsedPercentage !== protectedBorrowLimitUsedPercentage;
 
   const tooltip = useMemo(
     () =>
@@ -108,6 +119,9 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
             borrowBalanceProtected: hideUserBalances ?? readableBorrowBalanceProtected,
             borrowBalance: hideUserBalances ?? readableBorrowBalance,
             borrowLimitUsedPercentage: hideUserBalances ?? readableBorrowLimitUsedPercentage,
+            protectedBorrowLimitUsedPercentage:
+              hideUserBalances ??
+              formatPercentageToReadableValue(protectedBorrowLimitUsedPercentage),
             borrowLimit: hideUserBalances ?? readableBorrowLimit,
           }}
         />

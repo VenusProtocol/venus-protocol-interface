@@ -142,7 +142,7 @@
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Ngưỡng thanh lý<LineBreak/>Khi số dư vay của bạn đạt đến giá trị này, vị thế của bạn sẽ đủ điều kiện bị thanh lý.<LineBreak/><LineBreak/>Tìm hiểu thêm về <Link>cách tính.</Link>",
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "Số dư vay (Bảo vệ):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Số dư vay (spot): {{borrowBalance}}<LineBreak/>Hạn mức vay: {{borrowLimit}}"
+    "tooltipProtection": "Hạn mức vay đã dùng (bảo vệ): {{protectedBorrowLimitUsedPercentage}}<LineBreak/>Hạn mức vay đã dùng (spot): {{borrowLimitUsedPercentage}}<LineBreak/><LineBreak/>Số dư vay (bảo vệ): {{borrowBalanceProtected}}<LineBreak/>Số dư vay (spot): {{borrowBalance}}<LineBreak/>Hạn mức vay: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Bắt đầu ngay"

@@ -39,6 +39,7 @@ export const AccountData: React.FC<AccountDataProps> = ({ pool, simulatedPool, c
             borrowBalanceCents={refPool.userBorrowBalanceCents?.toNumber()}
             borrowBalanceProtectedCents={refPool.userBorrowBalanceProtectedCents?.toNumber()}
             borrowLimitCents={refPool.userBorrowLimitCents?.toNumber()}
+            borrowLimitProtectedCents={refPool.userBorrowLimitProtectedCents?.toNumber()}
             liquidationThresholdCents={refPool.userLiquidationThresholdCents?.toNumber()}
           />
 

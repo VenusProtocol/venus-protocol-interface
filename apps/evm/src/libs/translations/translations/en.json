@@ -142,7 +142,7 @@
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "Borrow balance (protected):<LineBreak/>{{borrowBalanceProtected}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimit}}"
+    "tooltipProtection": "Borrow limit used (protected): {{protectedBorrowLimitUsedPercentage}}<LineBreak/>Borrow limit used (spot): {{borrowLimitUsedPercentage}}<LineBreak/><LineBreak/>Borrow balance (protected): {{borrowBalanceProtected}}<LineBreak/>Borrow balance (spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Start now"
