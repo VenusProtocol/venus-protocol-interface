@@ -131,6 +131,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       readableBorrowBalance,
       readableBorrowBalanceProtected,
       readableBorrowLimitUsedPercentage,
+      protectedBorrowLimitUsedPercentage,
       readableBorrowLimit,
       hideUserBalances,
       isProtectionModeEnabled,
