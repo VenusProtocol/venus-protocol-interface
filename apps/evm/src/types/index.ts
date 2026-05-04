@@ -3,7 +3,7 @@ import type { ChainId, Token, VToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
 import type { IconName } from 'components';
-import type { MARKET_TX_TYPES, YIELD_PLUS_TX_TYPES } from 'constants/marketTxTypes';
+import type { MARKET_TX_TYPES, TRADE_TX_TYPES } from 'constants/marketTxTypes';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -663,7 +663,7 @@ export interface ImportableAaveSupplyPosition extends ImportableSupplyPositionBa
 
 export type ImportableSupplyPosition = ImportableAaveSupplyPosition;
 
-export interface YieldPlusPosition {
+export interface TradePosition {
   chainId: ChainId;
   positionAccountAddress: Address;
   longAsset: Asset;
@@ -704,11 +704,11 @@ export interface TxFormError<C extends string = never> {
   message?: string;
 }
 
-export type YieldPlusTxType = (typeof YIELD_PLUS_TX_TYPES)[number];
+export type TradeTxType = (typeof TRADE_TX_TYPES)[number];
 
 export type MarketTxType = (typeof MARKET_TX_TYPES)[number];
 
-export type TxType = YieldPlusTxType | MarketTxType;
+export type TxType = TradeTxType | MarketTxType;
 
 export interface TxAmount {
   token: Token;
@@ -731,12 +731,12 @@ export interface MarketTx extends BaseTx {
   poolName: string;
   vToken: VToken;
 }
-export interface YieldPlusTx extends BaseTx {
-  txType: YieldPlusTxType;
+export interface TradeTx extends BaseTx {
+  txType: TradeTxType;
   cycleId: string;
 }
 
-export type Tx = MarketTx | YieldPlusTx;
+export type Tx = MarketTx | TradeTx;
 
 export enum ApiOhlcInterval {
   '1m' = '1m',
