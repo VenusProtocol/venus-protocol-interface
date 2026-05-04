@@ -101,15 +101,15 @@
         "enterMarket": "启用抵押",
         "exitMarket": "禁用抵押",
         "mint": "存款",
-        "positionClosedWithLoss": "平仓（亏损） • Yield+",
-        "positionClosedWithProfit": "平仓（盈利） • Yield+",
-        "positionIncreased": "增加 • Yield+",
-        "positionOpened": "开仓 • Yield+",
-        "positionReducedWithLoss": "减少（亏损） • Yield+",
-        "positionReducedWithProfit": "减少（盈利） • Yield+",
-        "principalSupplied": "存款 • Yield+",
-        "principalWithdrawn": "取款 • Yield+",
-        "realizedPnl": "已实现盈亏 • Yield+",
+        "positionClosedWithLoss": "平仓（亏损） • Trade",
+        "positionClosedWithProfit": "平仓（盈利） • Trade",
+        "positionIncreased": "增加 • Trade",
+        "positionOpened": "开仓 • Trade",
+        "positionReducedWithLoss": "减少（亏损） • Trade",
+        "positionReducedWithProfit": "减少（盈利） • Trade",
+        "principalSupplied": "存款 • Trade",
+        "principalWithdrawn": "取款 • Trade",
+        "realizedPnl": "已实现盈亏 • Trade",
         "redeem": "取款",
         "repay": "还款"
       },
@@ -293,12 +293,6 @@
   },
   "availableBalance": {
     "label": "可用"
-  },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "背景插图",
-    "binanceLogoAltText": "Binance 标志",
-    "description": "借入 USDT，分享 <Bold>$400,000</Bold> 奖励！",
-    "title": "Venus 已在 Binance Wallet Earn 上线。"
   },
   "boostBanner": {
     "description": "一键杠杆提升收益 <White>最高 5 倍</White>。",
@@ -655,6 +649,13 @@
     "illustrationAltText": "插图",
     "title": "隔离池即将关闭"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "聚合定价",
+      "description": "价格数据仅供参考，已从多个来源聚合。实际链上 AMM 价格可能会有所不同。",
+      "title": "图表信息"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "直接在链上访问不可篡改的货币市场。",
@@ -745,6 +746,7 @@
       "utilizationRate": "利用率"
     },
     "menu": {
+      "beta": "beta",
       "dashboard": {
         "label": "仪表盘"
       },
@@ -777,12 +779,12 @@
         "swap": {
           "label": "兑换"
         },
+        "trade": {
+          "label": "Trade"
+        },
         "vai": {
           "description": "铸造 Venus 的原生稳定币。",
           "label": "VAI"
-        },
-        "yieldPlus": {
-          "label": "Yield+"
         }
       },
       "settings": {
@@ -1641,6 +1643,115 @@
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
   },
+  "trade": {
+    "banner": {
+      "illustrationAltText": "Trade 插图",
+      "learnMore": "了解更多",
+      "title": "什么是 Trade？"
+    },
+    "closePositionModal": {
+      "title": "关闭"
+    },
+    "longLiquidity": "多头流动性",
+    "longSupplyApy": "{{ longTokenSymbol }} 存款 APY",
+    "longTokenSelect": {
+      "label": "多头"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "增加"
+      },
+      "invalidLiquidationPrice": "不适用",
+      "openForm": {
+        "collateral": "可抵押",
+        "dsaFieldLabel": "可抵押",
+        "dsaFieldPlaceholder": "输入以继续",
+        "entryPrice": "开仓价",
+        "liquidationPrice": "清算价",
+        "long": "多头",
+        "longFieldLabel": "多头",
+        "netApy": "净 APY",
+        "pnl": "已实现盈亏",
+        "short": "空头",
+        "shortFieldLabel": "空头",
+        "submitButtonLabel": "开仓"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "关闭",
+          "reduce": "减少"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "存款"
+      },
+      "walletBalance": "钱包余额",
+      "warning": {
+        "cannotBorrowShort": "该仓位的空头代币借款已被禁用",
+        "cannotRepayShort": "该仓位的空头代币还款已被禁用",
+        "cannotSupplyDsa": "该仓位的抵押品代币存款已被禁用",
+        "cannotSupplyLong": "该仓位的多头代币存款已被禁用",
+        "cannotWithdrawDsa": "该仓位的抵押品代币取款已被禁用",
+        "cannotWithdrawLong": "该仓位的多头代币取款已被禁用",
+        "notEnoughLeverage": "该代币对不支持至少 {{ minimumLeverageFactor }} 的杠杆倍数，而这是开立 Trade 仓位所需的最低值",
+        "txLikelyToFail": "此交易涉及低价值兑换，可能会失败"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "取款"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "关闭",
+      "placeholder": {
+        "title": "暂无仓位"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "可抵押"
+        },
+        "healthFactor": {
+          "label": "健康系数",
+          "tooltip": "清算阈值 < 1.0"
+        },
+        "netApy": {
+          "label": "净 APY"
+        },
+        "netValue": {
+          "label": "净值"
+        },
+        "title": "状态"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "该仓位的入场价格比率（空头资产数量 ÷ 多头资产数量），反映自入场以来两种代币之间的相对价值"
+        },
+        "liquidationPrice": {
+          "title": "清算价"
+        },
+        "longColumn": {
+          "title": "多头"
+        },
+        "pnlColumn": {
+          "title": "盈亏"
+        },
+        "positionColumn": {
+          "title": "仓位"
+        },
+        "shortColumn": {
+          "title": "空头"
+        }
+      },
+      "transactions": {
+        "title": "交易"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
+    "shortLiquidity": "空头流动性",
+    "shortTokenSelect": {
+      "label": "空头"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "接受管理员待定检查",
     "acceptPendingImplementationAddressCheck": "接受待定实现地址检查",
@@ -1910,18 +2021,16 @@
     "header": "金库",
     "modals": {
       "afterMaturityPendleDisclaimer": "请先通过取款按钮将您的 PT 代币提取到钱包，然后访问 <Link>Pendle 官方</Link>网站赎回您的底层代币。",
-      "claim": "领取",
       "connectWalletMessage": "请连接您的钱包以存入 / 提取 {{tokenSymbol}}",
       "convert": "转换",
       "currentDeposited": "当前存入",
       "currentDepositedTooltip": "您当前在此金库中锁定并产生收益的资产数量。",
       "deposit": "存款",
+      "depositTab": "存款",
       "effectiveFixedApr": "实际固定年化利率",
       "effectiveFixedAprPendleTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
       "error": {
         "amountTooLow": "输入金额过低。",
-        "higherThanAvailable": "金额超过您的可用{{tokenSymbol}}余额。请减少金额或点击 '最大' 使用全部余额。",
-        "invalidAmount": "输入金额无效。",
         "invalidAmountFromQuote": "输入金额超过Pendle市场的可用流动性。请减少金额后重试。",
         "lowerThanMinimumAmount": "输入金额过低。允许的最低金额相当于 {{amount}} USD。",
         "noSwapQuoteFound": "未找到兑换报价，请更新表单。",
@@ -2223,114 +2332,6 @@
     },
     "tooltip": {
       "address": "（{{address}}）"
-    }
-  },
-  "yieldPlus": {
-    "banner": {
-      "illustrationAltText": "Yield+ 插图",
-      "learnMore": "了解更多",
-      "title": "什么是 Yield+？"
-    },
-    "closePositionModal": {
-      "title": "关闭"
-    },
-    "longLiquidity": "多头流动性",
-    "longSupplyApy": "{{ longTokenSymbol }} 存款 APY",
-    "longTokenSelect": {
-      "label": "多头"
-    },
-    "operationForm": {
-      "increaseForm": {
-        "submitButtonLabel": "增加"
-      },
-      "invalidLiquidationPrice": "不适用",
-      "openForm": {
-        "collateral": "可抵押",
-        "dsaFieldLabel": "可抵押",
-        "dsaFieldPlaceholder": "输入以继续",
-        "entryPrice": "开仓价",
-        "liquidationPrice": "清算价",
-        "long": "多头",
-        "longFieldLabel": "多头",
-        "netApy": "净 APY",
-        "pnl": "已实现盈亏",
-        "short": "空头",
-        "shortFieldLabel": "空头",
-        "submitButtonLabel": "开仓"
-      },
-      "reduceForm": {
-        "submitButtonLabel": {
-          "close": "关闭",
-          "reduce": "减少"
-        }
-      },
-      "supplyDsaForm": {
-        "submitButtonLabel": "存款"
-      },
-      "walletBalance": "钱包余额",
-      "warning": {
-        "cannotBorrowShort": "该仓位的空头代币借款已被禁用",
-        "cannotRepayShort": "该仓位的空头代币还款已被禁用",
-        "cannotSupplyDsa": "该仓位的抵押品代币存款已被禁用",
-        "cannotSupplyLong": "该仓位的多头代币存款已被禁用",
-        "cannotWithdrawDsa": "该仓位的抵押品代币取款已被禁用",
-        "cannotWithdrawLong": "该仓位的多头代币取款已被禁用",
-        "notEnoughLeverage": "该代币对不支持至少 {{ minimumLeverageFactor }} 的杠杆倍数，而这是开立 Yield+ 仓位所需的最低值"
-      },
-      "withdrawDsaForm": {
-        "submitButtonLabel": "取款"
-      }
-    },
-    "positions": {
-      "closeButtonLabel": "关闭",
-      "placeholder": {
-        "title": "暂无仓位"
-      },
-      "status": {
-        "collateralColumn": {
-          "label": "可抵押"
-        },
-        "healthFactor": {
-          "label": "健康系数",
-          "tooltip": "清算阈值 < 1.0"
-        },
-        "netApy": {
-          "label": "净 APY"
-        },
-        "netValue": {
-          "label": "净值"
-        },
-        "title": "状态"
-      },
-      "table": {
-        "entryPrice": {
-          "title": "EP",
-          "tooltip": "该仓位的入场价格比率（空头资产数量 ÷ 多头资产数量），反映自入场以来两种代币之间的相对价值"
-        },
-        "liquidationPrice": {
-          "title": "清算价"
-        },
-        "longColumn": {
-          "title": "多头"
-        },
-        "pnlColumn": {
-          "title": "盈亏"
-        },
-        "positionColumn": {
-          "title": "仓位"
-        },
-        "shortColumn": {
-          "title": "空头"
-        }
-      },
-      "transactions": {
-        "title": "交易"
-      }
-    },
-    "shortBorrowApy": "{{ shortTokenSymbol }} 借款 APY",
-    "shortLiquidity": "空头流动性",
-    "shortTokenSelect": {
-      "label": "空头"
     }
   }
 }

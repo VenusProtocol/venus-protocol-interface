@@ -11,10 +11,10 @@ import { assetData } from '__mocks__/models/asset';
 import { importablePositions } from '__mocks__/models/importablePositions';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
+import { tradePositions } from '__mocks__/models/trade';
 import { transactions } from '__mocks__/models/transactions';
 import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
-import { yieldPlusPositions } from '__mocks__/models/yieldPlus';
 
 import FunctionKey from 'constants/functionKey';
 
@@ -605,6 +605,14 @@ export const useGetVTokenUtilizationRate = vi.fn(() =>
   }),
 );
 
+export const getTradeReduceSwapQuotes = vi.fn();
+export const useGetTradeReduceSwapQuotes = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_TRADE_REDUCE_SWAP_QUOTES],
+    queryFn: getTradeReduceSwapQuotes,
+  }),
+);
+
 export const getAddressDomainName = vi.fn(async () => undefined);
 export const useGetAddressDomainName = vi.fn(() =>
   useQuery({
@@ -690,6 +698,16 @@ export const useGetSwapQuote = vi.fn(() =>
   }),
 );
 
+export const getPendleSwapQuote = vi.fn();
+export const useGetPendleSwapQuote = vi.fn(
+  (_input: never, options?: Partial<QueryObserverOptions>) =>
+    useQuery({
+      queryKey: [FunctionKey.GET_PENDLE_SWAP_QUOTE],
+      queryFn: getPendleSwapQuote,
+      ...options,
+    }),
+);
+
 export const getMarketsTvl = vi.fn(async () => ({
   suppliedSumCents: '100000000000',
   borrowedSumCents: '10000000000',
@@ -716,13 +734,13 @@ export const useGetProposalCount = vi.fn(() =>
   }),
 );
 
-export const getRawYieldPlusPositions = vi.fn(async () => ({
-  positions: yieldPlusPositions,
+export const getRawTradePositions = vi.fn(async () => ({
+  positions: tradePositions,
 }));
-export const useGetRawYieldPlusPositions = vi.fn(() =>
+export const useGetRawTradePositions = vi.fn(() =>
   useQuery({
-    queryKey: [FunctionKey.GET_RAW_YIELD_PLUS_POSITIONS],
-    queryFn: getRawYieldPlusPositions,
+    queryKey: [FunctionKey.GET_RAW_TRADE_POSITIONS],
+    queryFn: getRawTradePositions,
   }),
 );
 
@@ -785,6 +803,21 @@ export const useWithdraw = vi.fn((_variables: never, options?: MutationObserverO
   }),
 );
 
+export const useStakeInPendleVault = vi.fn((_variables: never, options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useWithdrawFromPendleVault = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
 export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),
@@ -800,7 +833,21 @@ export const useOpenLeveragedPosition = vi.fn(
     }),
 );
 
-export const useOpenYieldPlusPosition = vi.fn(
+export const useOpenTradePosition = vi.fn((_variables: never, options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useCloseTradePosition = vi.fn((_variables: never, options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useCloseTradePositionWithLoss = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),
@@ -808,7 +855,7 @@ export const useOpenYieldPlusPosition = vi.fn(
     }),
 );
 
-export const useCloseYieldPlusPosition = vi.fn(
+export const useCloseTradePositionWithProfit = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),
@@ -816,7 +863,7 @@ export const useCloseYieldPlusPosition = vi.fn(
     }),
 );
 
-export const useCloseYieldPlusPositionWithLoss = vi.fn(
+export const useReduceTradePositionWithProfit = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),
@@ -824,7 +871,7 @@ export const useCloseYieldPlusPositionWithLoss = vi.fn(
     }),
 );
 
-export const useCloseYieldPlusPositionWithProfit = vi.fn(
+export const useReduceTradePositionWithLoss = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),
@@ -832,7 +879,7 @@ export const useCloseYieldPlusPositionWithProfit = vi.fn(
     }),
 );
 
-export const useReduceYieldPlusPositionWithProfit = vi.fn(
+export const useIncreaseTradePosition = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),
@@ -840,7 +887,7 @@ export const useReduceYieldPlusPositionWithProfit = vi.fn(
     }),
 );
 
-export const useReduceYieldPlusPositionWithLoss = vi.fn(
+export const useSupplyTradePositionCollateral = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),
@@ -848,23 +895,7 @@ export const useReduceYieldPlusPositionWithLoss = vi.fn(
     }),
 );
 
-export const useIncreaseYieldPlusPosition = vi.fn(
-  (_variables: never, options?: MutationObserverOptions) =>
-    useMutation({
-      mutationFn: vi.fn(),
-      ...options,
-    }),
-);
-
-export const useSupplyYieldPlusPositionCollateral = vi.fn(
-  (_variables: never, options?: MutationObserverOptions) =>
-    useMutation({
-      mutationFn: vi.fn(),
-      ...options,
-    }),
-);
-
-export const useWithdrawYieldPlusPositionCollateral = vi.fn(
+export const useWithdrawTradePositionCollateral = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),

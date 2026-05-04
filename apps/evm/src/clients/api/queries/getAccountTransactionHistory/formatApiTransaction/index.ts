@@ -1,9 +1,9 @@
-import { YIELD_PLUS_TX_TYPES } from 'constants/marketTxTypes';
-import type { MarketTxType, YieldPlusTxType } from 'types';
+import { TRADE_TX_TYPES } from 'constants/marketTxTypes';
+import type { MarketTxType, TradeTxType } from 'types';
 import type { ApiAccountHistoricalTransaction, VTokenAssetMapping } from '../types';
 import { convertToTxType } from './convertToTxType';
 import { formatToMarketTransaction } from './formatToMarketTransaction';
-import { formatToYieldPlusTransaction } from './formatToYieldPlusTransaction';
+import { formatToTradeTransaction } from './formatToTradeTransaction';
 
 export const formatApiTransaction = ({
   vTokenAssetMapping,
@@ -19,11 +19,11 @@ export const formatApiTransaction = ({
     return undefined;
   }
 
-  if (YIELD_PLUS_TX_TYPES.some(t => t === txType)) {
-    return formatToYieldPlusTransaction({
+  if (TRADE_TX_TYPES.some(t => t === txType)) {
+    return formatToTradeTransaction({
       vTokenAssetMapping,
       apiTransaction,
-      txType: txType as YieldPlusTxType,
+      txType: txType as TradeTxType,
     });
   }
 

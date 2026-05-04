@@ -101,15 +101,15 @@
         "enterMarket": "担保を有効化",
         "exitMarket": "担保を無効化",
         "mint": "供給",
-        "positionClosedWithLoss": "クローズ（損失） • Yield+",
-        "positionClosedWithProfit": "クローズ（利益） • Yield+",
-        "positionIncreased": "増加 • Yield+",
-        "positionOpened": "オープン • Yield+",
-        "positionReducedWithLoss": "減少（損失） • Yield+",
-        "positionReducedWithProfit": "減少（利益） • Yield+",
-        "principalSupplied": "供給 • Yield+",
-        "principalWithdrawn": "引き出し • Yield+",
-        "realizedPnl": "実現損益 • Yield+",
+        "positionClosedWithLoss": "クローズ（損失） • Trade",
+        "positionClosedWithProfit": "クローズ（利益） • Trade",
+        "positionIncreased": "増加 • Trade",
+        "positionOpened": "オープン • Trade",
+        "positionReducedWithLoss": "減少（損失） • Trade",
+        "positionReducedWithProfit": "減少（利益） • Trade",
+        "principalSupplied": "供給 • Trade",
+        "principalWithdrawn": "引き出し • Trade",
+        "realizedPnl": "実現損益 • Trade",
         "redeem": "引き出し",
         "repay": "返済"
       },
@@ -293,12 +293,6 @@
   },
   "availableBalance": {
     "label": "利用可能"
-  },
-  "binanceWalletBanner": {
-    "bgIllustrationAltText": "背景イラスト",
-    "binanceLogoAltText": "Binanceロゴ",
-    "description": "USDTを借りて<Bold>$400,000</Bold>の報酬を山分け！",
-    "title": "VenusがBinance Wallet Earnで利用可能になりました。"
   },
   "boostBanner": {
     "description": "ワンクリックのレバレッジで利回りを<White>最大5倍</White>までブースト。",
@@ -655,6 +649,13 @@
     "illustrationAltText": "イラスト",
     "title": "隔離プールは終了予定です"
   },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "集計価格",
+      "description": "価格データは参考用として複数のソースから集計されています。実際のオンチェーン AMM 価格は異なる場合があります。",
+      "title": "チャート情報"
+    }
+  },
   "landing": {
     "benefits": {
       "text1": "改ざん不能なマネーマーケットにオンチェーンで直接アクセス。",
@@ -745,6 +746,7 @@
       "utilizationRate": "利用率"
     },
     "menu": {
+      "beta": "beta",
       "dashboard": {
         "label": "ダッシュボード"
       },
@@ -777,12 +779,12 @@
         "swap": {
           "label": "スワップ"
         },
+        "trade": {
+          "label": "Trade"
+        },
         "vai": {
           "description": "Venusのネイティブステーブルコインをミント。",
           "label": "VAI"
-        },
-        "yieldPlus": {
-          "label": "Yield+"
         }
       },
       "settings": {
@@ -1641,6 +1643,115 @@
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
   },
+  "trade": {
+    "banner": {
+      "illustrationAltText": "Trade のイラスト",
+      "learnMore": "詳細を見る",
+      "title": "Trade とは？"
+    },
+    "closePositionModal": {
+      "title": "閉じる"
+    },
+    "longLiquidity": "ロング流動性",
+    "longSupplyApy": "{{ longTokenSymbol }} 供給APY",
+    "longTokenSelect": {
+      "label": "ロング"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "増加"
+      },
+      "invalidLiquidationPrice": "該当なし",
+      "openForm": {
+        "collateral": "担保",
+        "dsaFieldLabel": "担保",
+        "dsaFieldPlaceholder": "入力して続行",
+        "entryPrice": "エントリー価格",
+        "liquidationPrice": "清算価格",
+        "long": "ロング",
+        "longFieldLabel": "ロング",
+        "netApy": "実質APY",
+        "pnl": "実現損益",
+        "short": "ショート",
+        "shortFieldLabel": "ショート",
+        "submitButtonLabel": "オープン"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "閉じる",
+          "reduce": "減少"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "供給"
+      },
+      "walletBalance": "ウォレット残高",
+      "warning": {
+        "cannotBorrowShort": "このポジションのショートトークンの借入は無効化されています",
+        "cannotRepayShort": "このポジションのショートトークンの返済は無効化されています",
+        "cannotSupplyDsa": "このポジションの担保トークンの供給は無効化されています",
+        "cannotSupplyLong": "このポジションのロングトークンの供給は無効化されています",
+        "cannotWithdrawDsa": "このポジションの担保トークンの引き出しは無効化されています",
+        "cannotWithdrawLong": "このポジションのロングトークンの引き出しは無効化されています",
+        "notEnoughLeverage": "このトークンペアでは、Tradeポジションを開くために必要な最低倍率である {{ minimumLeverageFactor }} 以上のレバレッジ倍率を利用できません",
+        "txLikelyToFail": "この取引には失敗する可能性が高い少額スワップが含まれています"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "引き出し"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "閉じる",
+      "placeholder": {
+        "title": "まだポジションはありません"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "担保"
+        },
+        "healthFactor": {
+          "label": "健全性ファクター",
+          "tooltip": "清算ライン: < 1.0"
+        },
+        "netApy": {
+          "label": "実質APY"
+        },
+        "netValue": {
+          "label": "純資産"
+        },
+        "title": "ステータス"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "このポジションのエントリー価格比率（ショート資産量 ÷ ロング資産量）で、エントリー時点からの2つのトークン間の相対的な価値を示します"
+        },
+        "liquidationPrice": {
+          "title": "Liq."
+        },
+        "longColumn": {
+          "title": "ロング"
+        },
+        "pnlColumn": {
+          "title": "損益"
+        },
+        "positionColumn": {
+          "title": "ポジション"
+        },
+        "shortColumn": {
+          "title": "ショート"
+        }
+      },
+      "transactions": {
+        "title": "取引"
+      }
+    },
+    "shortBorrowApy": "{{ shortTokenSymbol }} 借入APY",
+    "shortLiquidity": "ショート流動性",
+    "shortTokenSelect": {
+      "label": "ショート"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "管理者承認（保留）チェック",
     "acceptPendingImplementationAddressCheck": "実装アドレス承認（保留）チェック",
@@ -1910,18 +2021,16 @@
     "header": "ボールト",
     "modals": {
       "afterMaturityPendleDisclaimer": "まず「引き出し」ボタンからPTトークンをウォレットに引き出してから、<Link>Pendle公式</Link>ウェブサイトで原資産トークンを償還してください。",
-      "claim": "請求",
       "connectWalletMessage": "{{tokenSymbol}}を預け入れ / 引き出しするにはウォレットを接続してください",
       "convert": "変換",
       "currentDeposited": "現在の預入額",
       "currentDepositedTooltip": "このボールトに現在ロックされ、収益を得ている資産の量です。",
       "deposit": "預入",
+      "depositTab": "預入",
       "effectiveFixedApr": "実質固定APR",
       "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
       "error": {
         "amountTooLow": "入力金額が少なすぎます。",
-        "higherThanAvailable": "入力金額があなたの利用可能な{{tokenSymbol}}残高を超えています。金額を減らすか、「最大」をクリックして全残高を使用してください。",
-        "invalidAmount": "入力金額が無効です。",
         "invalidAmountFromQuote": "入力金額がPendleマーケットで利用可能な流動性を超えています。金額を減らして再試行してください。",
         "lowerThanMinimumAmount": "入力金額が少なすぎます。許可される最小金額は {{amount}} USD 相当です。",
         "noSwapQuoteFound": "スワップが見つかりませんでした。フォームを更新してください。",
@@ -2223,114 +2332,6 @@
     },
     "tooltip": {
       "address": "({{address}})"
-    }
-  },
-  "yieldPlus": {
-    "banner": {
-      "illustrationAltText": "Yield+ のイラスト",
-      "learnMore": "詳細を見る",
-      "title": "Yield+ とは？"
-    },
-    "closePositionModal": {
-      "title": "閉じる"
-    },
-    "longLiquidity": "ロング流動性",
-    "longSupplyApy": "{{ longTokenSymbol }} 供給APY",
-    "longTokenSelect": {
-      "label": "ロング"
-    },
-    "operationForm": {
-      "increaseForm": {
-        "submitButtonLabel": "増加"
-      },
-      "invalidLiquidationPrice": "該当なし",
-      "openForm": {
-        "collateral": "担保",
-        "dsaFieldLabel": "担保",
-        "dsaFieldPlaceholder": "入力して続行",
-        "entryPrice": "エントリー価格",
-        "liquidationPrice": "清算価格",
-        "long": "ロング",
-        "longFieldLabel": "ロング",
-        "netApy": "実質APY",
-        "pnl": "実現損益",
-        "short": "ショート",
-        "shortFieldLabel": "ショート",
-        "submitButtonLabel": "オープン"
-      },
-      "reduceForm": {
-        "submitButtonLabel": {
-          "close": "閉じる",
-          "reduce": "減少"
-        }
-      },
-      "supplyDsaForm": {
-        "submitButtonLabel": "供給"
-      },
-      "walletBalance": "ウォレット残高",
-      "warning": {
-        "cannotBorrowShort": "このポジションのショートトークンの借入は無効化されています",
-        "cannotRepayShort": "このポジションのショートトークンの返済は無効化されています",
-        "cannotSupplyDsa": "このポジションの担保トークンの供給は無効化されています",
-        "cannotSupplyLong": "このポジションのロングトークンの供給は無効化されています",
-        "cannotWithdrawDsa": "このポジションの担保トークンの引き出しは無効化されています",
-        "cannotWithdrawLong": "このポジションのロングトークンの引き出しは無効化されています",
-        "notEnoughLeverage": "このトークンペアでは、Yield+ポジションを開くために必要な最低倍率である {{ minimumLeverageFactor }} 以上のレバレッジ倍率を利用できません"
-      },
-      "withdrawDsaForm": {
-        "submitButtonLabel": "引き出し"
-      }
-    },
-    "positions": {
-      "closeButtonLabel": "閉じる",
-      "placeholder": {
-        "title": "まだポジションはありません"
-      },
-      "status": {
-        "collateralColumn": {
-          "label": "担保"
-        },
-        "healthFactor": {
-          "label": "健全性ファクター",
-          "tooltip": "清算ライン: < 1.0"
-        },
-        "netApy": {
-          "label": "実質APY"
-        },
-        "netValue": {
-          "label": "純資産"
-        },
-        "title": "ステータス"
-      },
-      "table": {
-        "entryPrice": {
-          "title": "EP",
-          "tooltip": "このポジションのエントリー価格比率（ショート資産量 ÷ ロング資産量）で、エントリー時点からの2つのトークン間の相対的な価値を示します"
-        },
-        "liquidationPrice": {
-          "title": "Liq."
-        },
-        "longColumn": {
-          "title": "ロング"
-        },
-        "pnlColumn": {
-          "title": "損益"
-        },
-        "positionColumn": {
-          "title": "ポジション"
-        },
-        "shortColumn": {
-          "title": "ショート"
-        }
-      },
-      "transactions": {
-        "title": "取引"
-      }
-    },
-    "shortBorrowApy": "{{ shortTokenSymbol }} 借入APY",
-    "shortLiquidity": "ショート流動性",
-    "shortTokenSelect": {
-      "label": "ショート"
     }
   }
 }

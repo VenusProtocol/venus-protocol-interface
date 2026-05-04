@@ -1,5 +1,24 @@
 # @venusprotocol/evm
 
+## 4.24.1
+
+### Patch Changes
+
+- e63f013: refactor Pendle vault UI
+
+## 4.24.0
+
+### Minor Changes
+
+- cc5c3c6: rename Yield+ to Trade
+- cc5c3c6: improve Yield+ feature
+
+## 4.23.2
+
+### Patch Changes
+
+- 8ca1773: feat: remove BN earn campaign banner since offline
+
 ## 4.23.1
 
 ### Patch Changes
