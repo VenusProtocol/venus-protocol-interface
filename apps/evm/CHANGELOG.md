@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 4.24.0
+
+### Minor Changes
+
+- cc5c3c6: rename Yield+ to Trade
+- cc5c3c6: improve Yield+ feature
+
 ## 4.23.2
 
 ### Patch Changes
