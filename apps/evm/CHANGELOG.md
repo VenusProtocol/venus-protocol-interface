@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.24.1
+
+### Patch Changes
+
+- e63f013: refactor Pendle vault UI
+
 ## 4.24.0
 
 ### Minor Changes
