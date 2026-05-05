@@ -34,26 +34,26 @@ export interface ApiAccountHistoricalTransaction {
   amountUnderlyingMantissa: string | null;
   underlyingAddress: Address;
   underlyingTokenPriceMantissa: string | null;
-  tradePositionAccountAddress: Address | null;
-  tradeLongVTokenAddress: Address | null;
-  tradeShortVTokenAddress: Address | null;
-  tradeDsaVTokenAddress: Address | null;
-  tradeCycleId: string | null;
-  tradeEffectiveLeverageRatio: string | null;
-  tradeInitialPrincipalMantissa: string | null;
-  tradePrincipalAmountMantissa: string | null;
-  tradeNewTotalPrincipalMantissa: string | null;
-  tradeRemainingPrincipalMantissa: string | null;
-  tradeShortAmountMantissa: string | null;
-  tradeLongAmountMantissa: string | null;
-  tradeAdditionalPrincipalMantissa: string | null;
-  tradeCloseFractionBps: string | null;
-  tradeAmountRepaidMantissa: string | null;
-  tradeAmountRedeemedMantissa: string | null;
-  tradeAmountRedeemedDsaMantissa: string | null;
-  tradeLongDustRedeemedMantissa: string | null;
-  tradeAmountConvertedToProfitMantissa: string | null;
-  tradeDsaProfitAmountMantissa: string | null;
+  yieldPlusPositionAccountAddress: Address | null;
+  yieldPlusLongVTokenAddress: Address | null;
+  yieldPlusShortVTokenAddress: Address | null;
+  yieldPlusDsaVTokenAddress: Address | null;
+  yieldPlusCycleId: string | null;
+  yieldPlusEffectiveLeverageRatio: string | null;
+  yieldPlusInitialPrincipalMantissa: string | null;
+  yieldPlusPrincipalAmountMantissa: string | null;
+  yieldPlusNewTotalPrincipalMantissa: string | null;
+  yieldPlusRemainingPrincipalMantissa: string | null;
+  yieldPlusShortAmountMantissa: string | null;
+  yieldPlusLongAmountMantissa: string | null;
+  yieldPlusAdditionalPrincipalMantissa: string | null;
+  yieldPlusCloseFractionBps: string | null;
+  yieldPlusAmountRepaidMantissa: string | null;
+  yieldPlusAmountRedeemedMantissa: string | null;
+  yieldPlusAmountRedeemedDsaMantissa: string | null;
+  yieldPlusLongDustRedeemedMantissa: string | null;
+  yieldPlusAmountConvertedToProfitMantissa: string | null;
+  yieldPlusDsaProfitAmountMantissa: string | null;
 }
 
 export interface AccountTransactionHistoryApiResponse {
