@@ -85,8 +85,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
   });
 
   const protectedBorrowLimitUsedPercentage =
-    typeof borrowBalanceProtectedCents === 'number' &&
-    typeof borrowLimitProtectedCents === 'number'
+    typeof borrowBalanceProtectedCents === 'number' && typeof borrowLimitProtectedCents === 'number'
       ? calculatePercentage({
           numerator: borrowBalanceProtectedCents,
           denominator: borrowLimitProtectedCents,

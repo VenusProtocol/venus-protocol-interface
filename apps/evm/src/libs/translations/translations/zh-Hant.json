@@ -142,7 +142,7 @@
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾值<LineBreak/>當您的借款餘額達到此值時，您的倉位將有資格被清算。<LineBreak/><LineBreak/>了解更多關於<Link>計算方式。</Link>",
     "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（借款限額的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限額：<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "借款限額使用率（保護）：{{protectedBorrowLimitUsedPercentage}}<LineBreak/>借款限額使用率（現貨）：{{borrowLimitUsedPercentage}}<LineBreak/><LineBreak/>借款餘額（保護）：{{borrowBalanceProtected}}<LineBreak/>借款餘額（現貨）：{{borrowBalance}}<LineBreak/>借款限額：{{borrowLimit}}"
+    "tooltipProtection": "借款餘額（保護）：<LineBreak/>{{borrowBalanceProtected}}（借款限額的{{protectedBorrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款餘額（現貨）：{{borrowBalance}}<LineBreak/>借款限額：{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "立即開始"

@@ -142,7 +142,7 @@
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾値<LineBreak/>借入残高がこの値に達すると、ポジションが清算対象になります。<LineBreak/><LineBreak/><Link>計算方法</Link>の詳細はこちら。",
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}} (借入限度額の{{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入限度額:<LineBreak/>{{borrowLimit}}",
-    "tooltipProtection": "借入限度額使用率（保護）: {{protectedBorrowLimitUsedPercentage}}<LineBreak/>借入限度額使用率（スポット）: {{borrowLimitUsedPercentage}}<LineBreak/><LineBreak/>借入残高（保護）: {{borrowBalanceProtected}}<LineBreak/>借入残高（スポット）: {{borrowBalance}}<LineBreak/>借入限度額: {{borrowLimit}}"
+    "tooltipProtection": "借入残高（保護）:<LineBreak/>{{borrowBalanceProtected}} (借入限度額の{{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入残高（スポット）: {{borrowBalance}}<LineBreak/>借入限度額: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "今すぐ始める"
