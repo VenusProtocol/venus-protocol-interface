@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.26.0
+
+### Minor Changes
+
+- 0ec35cd: Updated cross-chain subsgraph URLs
+
 ## 4.25.0
 
 ### Minor Changes
