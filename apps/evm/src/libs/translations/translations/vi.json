@@ -1741,6 +1741,11 @@
       "label": "Short"
     }
   },
+  "tradeBanner": {
+    "description": "Giao dịch hiệu suất tương đối trên chuỗi",
+    "illustrationAltText": "Hình minh họa Trade",
+    "title": "Venus Trade hiện đã hoạt động"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Chấp nhận Admin Đang chờ Kiểm tra",
     "acceptPendingImplementationAddressCheck": "Chấp nhận địa chỉ triển khai đang chờ Kiểm tra",

@@ -1741,6 +1741,11 @@
       "label": "Short"
     }
   },
+  "tradeBanner": {
+    "description": "เทรดผลการดำเนินงานสัมพัทธ์บนเชน",
+    "illustrationAltText": "ภาพประกอบ Trade",
+    "title": "Venus Trade เปิดให้ใช้งานแล้ว"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "ยอมรับแอดมิน (แอดมินค้างอยู่) ตรวจสอบ",
     "acceptPendingImplementationAddressCheck": "ยอมรับที่อยู่ Implementation ที่ค้างอยู่ ตรวจสอบ",

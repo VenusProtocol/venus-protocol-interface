@@ -20,102 +20,118 @@ export const formatToTradeTransaction = ({
     accountAddress,
     contractAddress,
     chainId,
-    tradeLongVTokenAddress,
-    tradeShortVTokenAddress,
-    tradeDsaVTokenAddress,
-    tradePrincipalAmountMantissa,
-    tradeShortAmountMantissa,
-    tradeLongAmountMantissa,
-    tradeAmountRepaidMantissa,
-    tradeAmountRedeemedMantissa,
-    tradeAmountRedeemedDsaMantissa,
-    tradeDsaProfitAmountMantissa,
-    tradeCycleId,
+    yieldPlusLongVTokenAddress,
+    yieldPlusShortVTokenAddress,
+    yieldPlusDsaVTokenAddress,
+    yieldPlusPrincipalAmountMantissa,
+    yieldPlusShortAmountMantissa,
+    yieldPlusLongAmountMantissa,
+    yieldPlusAmountRepaidMantissa,
+    yieldPlusAmountRedeemedMantissa,
+    yieldPlusAmountRedeemedDsaMantissa,
+    yieldPlusDsaProfitAmountMantissa,
+    yieldPlusCycleId,
   } = apiTransaction;
 
   const amounts: TxAmount[] = [];
 
-  const dsaPoolAsset = tradeDsaVTokenAddress
-    ? vTokenAssetMapping[tradeDsaVTokenAddress.toLowerCase() as Address]
+  const dsaPoolAsset = yieldPlusDsaVTokenAddress
+    ? vTokenAssetMapping[yieldPlusDsaVTokenAddress.toLowerCase() as Address]
     : undefined;
 
-  const shortPoolAsset = tradeShortVTokenAddress
-    ? vTokenAssetMapping[tradeShortVTokenAddress.toLowerCase() as Address]
+  const shortPoolAsset = yieldPlusShortVTokenAddress
+    ? vTokenAssetMapping[yieldPlusShortVTokenAddress.toLowerCase() as Address]
     : undefined;
 
-  const longPoolAsset = tradeLongVTokenAddress
-    ? vTokenAssetMapping[tradeLongVTokenAddress.toLowerCase() as Address]
+  const longPoolAsset = yieldPlusLongVTokenAddress
+    ? vTokenAssetMapping[yieldPlusLongVTokenAddress.toLowerCase() as Address]
     : undefined;
-
-  if (tradePrincipalAmountMantissa && Number(tradePrincipalAmountMantissa) > 0 && dsaPoolAsset) {
-    amounts.push(
-      formatToAmount({
-        asset: dsaPoolAsset,
-        amountMantissa: tradePrincipalAmountMantissa,
-      }),
-    );
-  }
 
   if (
-    tradeAmountRedeemedDsaMantissa &&
-    Number(tradeAmountRedeemedDsaMantissa) > 0 &&
+    yieldPlusPrincipalAmountMantissa &&
+    Number(yieldPlusPrincipalAmountMantissa) > 0 &&
     dsaPoolAsset
   ) {
     amounts.push(
       formatToAmount({
         asset: dsaPoolAsset,
-        amountMantissa: BigInt(tradeAmountRedeemedDsaMantissa) * -1n,
+        amountMantissa: yieldPlusPrincipalAmountMantissa,
       }),
     );
   }
 
-  if (tradeDsaProfitAmountMantissa && Number(tradeDsaProfitAmountMantissa) > 0 && dsaPoolAsset) {
+  if (
+    yieldPlusAmountRedeemedDsaMantissa &&
+    Number(yieldPlusAmountRedeemedDsaMantissa) > 0 &&
+    dsaPoolAsset
+  ) {
     amounts.push(
       formatToAmount({
         asset: dsaPoolAsset,
-        amountMantissa: tradeDsaProfitAmountMantissa,
+        amountMantissa: BigInt(yieldPlusAmountRedeemedDsaMantissa) * -1n,
       }),
     );
   }
 
-  if (tradeLongAmountMantissa && Number(tradeLongAmountMantissa) > 0 && longPoolAsset) {
+  if (
+    yieldPlusDsaProfitAmountMantissa &&
+    Number(yieldPlusDsaProfitAmountMantissa) > 0 &&
+    dsaPoolAsset
+  ) {
+    amounts.push(
+      formatToAmount({
+        asset: dsaPoolAsset,
+        amountMantissa: yieldPlusDsaProfitAmountMantissa,
+      }),
+    );
+  }
+
+  if (yieldPlusLongAmountMantissa && Number(yieldPlusLongAmountMantissa) > 0 && longPoolAsset) {
     amounts.push(
       formatToAmount({
         asset: longPoolAsset,
-        amountMantissa: tradeLongAmountMantissa,
+        amountMantissa: yieldPlusLongAmountMantissa,
       }),
     );
   }
 
-  if (tradeAmountRedeemedMantissa && Number(tradeAmountRedeemedMantissa) > 0 && longPoolAsset) {
+  if (
+    yieldPlusAmountRedeemedMantissa &&
+    Number(yieldPlusAmountRedeemedMantissa) > 0 &&
+    longPoolAsset
+  ) {
     amounts.push(
       formatToAmount({
         asset: longPoolAsset,
-        amountMantissa: BigInt(tradeAmountRedeemedMantissa) * -1n,
+        amountMantissa: BigInt(yieldPlusAmountRedeemedMantissa) * -1n,
       }),
     );
   }
 
-  if (tradeShortAmountMantissa && Number(tradeShortAmountMantissa) > 0 && shortPoolAsset) {
+  if (yieldPlusShortAmountMantissa && Number(yieldPlusShortAmountMantissa) > 0 && shortPoolAsset) {
     amounts.push(
       formatToAmount({
         asset: shortPoolAsset,
-        amountMantissa: tradeShortAmountMantissa,
+        amountMantissa: yieldPlusShortAmountMantissa,
       }),
     );
   }
 
-  if (tradeAmountRepaidMantissa && Number(tradeAmountRepaidMantissa) > 0 && shortPoolAsset) {
+  if (
+    yieldPlusAmountRepaidMantissa &&
+    Number(yieldPlusAmountRepaidMantissa) > 0 &&
+    shortPoolAsset
+  ) {
     amounts.push(
       formatToAmount({
         asset: shortPoolAsset,
-        amountMantissa: BigInt(tradeAmountRepaidMantissa) * -1n,
+        amountMantissa: BigInt(yieldPlusAmountRepaidMantissa) * -1n,
       }),
     );
   }
 
   const transaction: TradeTx = {
-    cycleId: tradeCycleId || '1',
+    cycleId: yieldPlusCycleId || '1',
     txType,
     hash,
     blockTimestamp,

@@ -36,7 +36,7 @@ type Options = QueryObserverOptions<
   QueryKey
 >;
 
-const refetchInterval = generatePseudoRandomRefetchInterval('fast');
+const refetchInterval = generatePseudoRandomRefetchInterval();
 
 export const useGetSwapQuote = (input: TrimmedGetSwapQuoteInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();

@@ -1741,6 +1741,11 @@
       "label": "ショート"
     }
   },
+  "tradeBanner": {
+    "description": "オンチェーンで相対パフォーマンスを取引",
+    "illustrationAltText": "Trade イラスト",
+    "title": "Venus Trade が利用可能になりました"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "管理者承認（保留）チェック",
     "acceptPendingImplementationAddressCheck": "実装アドレス承認（保留）チェック",
