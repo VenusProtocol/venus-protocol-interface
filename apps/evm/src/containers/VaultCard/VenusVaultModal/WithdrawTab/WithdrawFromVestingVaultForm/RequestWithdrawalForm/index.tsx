@@ -101,6 +101,7 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
 
   const form = useForm({
     limitFromTokens,
+    fromToken: vault.stakedToken,
   });
 
   const fromAmountTokensFieldValue = form.watch('fromAmountTokens');

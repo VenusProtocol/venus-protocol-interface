@@ -63,6 +63,7 @@ export const StakeForm: React.FC<StakeFormProps> = ({ vault, onClose }) => {
   const form = useForm({
     limitFromTokens,
     walletSpendingLimitTokens,
+    fromToken,
   });
 
   const fromAmountTokensFieldValue = form.watch('fromAmountTokens');

@@ -82,10 +82,10 @@ export const Footer: React.FC<FooterProps> = ({
       <>
         <LabeledInlineContent
           key="apr"
-          label={t('vault.modals.effectiveFixedApr')}
-          tooltip={t('vault.modals.effectiveFixedAprPendleTooltip')}
+          label={t('vault.modals.targetApr')}
+          tooltip={t('vault.modals.targetAprTooltip')}
         >
-          {formatPercentageToReadableValue(vault.stakingAprPercentage)}
+          {formatPercentageToReadableValue(vault.stakeAprPercentage)}
         </LabeledInlineContent>
 
         <Delimiter />

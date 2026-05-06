@@ -11,6 +11,7 @@ import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
 import { useGetToken } from 'libs/tokens';
+import { en } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { renderComponent } from 'testUtils/render';
 import { formatTokensToReadableValue } from 'utilities';
@@ -95,7 +96,7 @@ describe('VenusVaultModal/Footer', () => {
 
     expect(getByText('APR')).toBeInTheDocument();
     expect(getByText('12.92%')).toBeInTheDocument();
-    expect(queryByText('Currently deposited')).not.toBeInTheDocument();
+    expect(queryByText(en.vaultCard.vaultModal.footer.currentlyStaked)).not.toBeInTheDocument();
     expect(queryByText('Est. daily earnings')).not.toBeInTheDocument();
     expect(queryByText('Locking period')).not.toBeInTheDocument();
     expect(
@@ -111,7 +112,8 @@ describe('VenusVaultModal/Footer', () => {
       },
     );
 
-    const currentlyStakedRow = getByText('Currently deposited').parentElement?.parentElement;
+    const currentlyStakedRow = getByText(en.vaultCard.vaultModal.footer.currentlyStaked)
+      .parentElement?.parentElement;
     const estimatedDailyEarningsRow = getByText('Est. daily earnings').parentElement?.parentElement;
 
     expect(currentlyStakedRow).toHaveTextContent('233 XVS');
@@ -135,7 +137,8 @@ describe('VenusVaultModal/Footer', () => {
       },
     );
 
-    const currentlyStakedRow = getByText('Currently deposited').parentElement?.parentElement;
+    const currentlyStakedRow = getByText(en.vaultCard.vaultModal.footer.currentlyStaked)
+      .parentElement?.parentElement;
     const estimatedDailyEarningsRow = getByText('Est. daily earnings').parentElement?.parentElement;
 
     expect(currentlyStakedRow).toHaveTextContent('233 XVS');
@@ -153,7 +156,8 @@ describe('VenusVaultModal/Footer', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    const currentlyStakedRow = getByText('Currently deposited').parentElement?.parentElement;
+    const currentlyStakedRow = getByText(en.vaultCard.vaultModal.footer.currentlyStaked)
+      .parentElement?.parentElement;
     const estimatedDailyEarningsRow = getByText('Est. daily earnings').parentElement?.parentElement;
 
     expect(currentlyStakedRow).toHaveTextContent('233 XVS');

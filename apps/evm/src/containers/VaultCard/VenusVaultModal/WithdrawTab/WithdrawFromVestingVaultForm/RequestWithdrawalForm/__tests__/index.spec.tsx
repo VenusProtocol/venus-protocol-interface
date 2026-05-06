@@ -109,7 +109,7 @@ describe('RequestWithdrawalForm', () => {
     expect(screen.queryByRole('button', { name: submitButtonLabel })).not.toBeInTheDocument();
   });
 
-  it('displays the requestable balance after subtracting active withdrawal requests', () => {
+  it('displays the requestable balance after subtracting active withdrawal requests', async () => {
     mockUseGetXvsVaultLockedDeposits.mockReturnValue({
       data: {
         lockedDeposits: [
@@ -128,7 +128,7 @@ describe('RequestWithdrawalForm', () => {
 
     renderRequestWithdrawalForm();
 
-    expect(screen.getByRole('button', { name: '80 XVS' })).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByRole('button', { name: '80 XVS' })).toBeInTheDocument());
   });
 
   it('shows the Prime loss warning when the entered amount crosses the threshold', async () => {
@@ -182,7 +182,7 @@ describe('RequestWithdrawalForm', () => {
       target: { value: '25' },
     });
 
-    const form = screen.getByRole('button', { name: submitButtonLabel }).closest('form');
+    const form = screen.getByRole('button', { name: /request withdrawal/i }).closest('form');
 
     expect(form).not.toBeNull();
 

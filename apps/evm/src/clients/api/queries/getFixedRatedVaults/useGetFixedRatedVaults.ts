@@ -21,7 +21,7 @@ export const useGetFixedRatedVaults = (options?: Partial<Options>) => {
 
   return useQuery({
     queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS, chainId],
-    queryFn: () => getFixedRatedVaults({ chainId }),
+    queryFn: () => getFixedRatedVaults({ chainId, includeExpired: true }),
     ...options,
   });
 };

@@ -1,4 +1,4 @@
-import { type PendleVault, type Vault, VaultManager } from 'types';
+import { type PendleVault, type Vault, VaultType } from 'types';
 
 export const isPendleVault = (vault: Vault): vault is PendleVault =>
-  vault.manager === VaultManager.Pendle;
+  vault.vaultType === VaultType.Pendle;

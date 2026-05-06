@@ -9,6 +9,7 @@ import { bnb } from '__mocks__/models/tokens';
 import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
 import { useGetBalanceOf, useGetPendleSwapQuote, useStakeInPendleVault } from 'clients/api';
 import type { GetPendleSwapQuoteOutput } from 'clients/api';
+import type { PendleVaultProtocolData } from 'clients/api/queries/getFixedRatedVaults/types';
 import { NULL_ADDRESS } from 'constants/address';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
@@ -16,18 +17,27 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { PendleVault, Token, VToken } from 'types';
-import { ChainId, VaultCategory, VaultManager, VaultStatus } from 'types';
+import { ChainId, VaultCategory, VaultStatus, VaultType, VaultVenue } from 'types';
 import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import type { Address } from 'viem';
 
 import { DepositForm } from '..';
 
 vi.mock('hooks/useGetUserSlippageTolerance');
+vi.mock('hooks/useDebounceValue', () => ({
+  default: (value: unknown) => value,
+}));
 
 const fakePendlePtVaultAddress = '0xfakePendlePtVaultContractAddress' as Address;
 const fakePendleMarketAddress = '0xfakePendleMarketAddress' as Address;
 const fakeWalletBalanceMantissa = new BigNumber('12000000000000000000');
 const fixedRatedVault = fixedRatedVaults[0];
+const protocolData = fixedRatedVault.protocolData as PendleVaultProtocolData;
+
+type GetPendleSwapQuoteCall = [
+  Parameters<typeof useGetPendleSwapQuote>[0],
+  Parameters<typeof useGetPendleSwapQuote>[1],
+];
 
 const ptClisBnbToken: Token = {
   chainId: ChainId.BSC_TESTNET,
@@ -56,16 +66,18 @@ const vault: PendleVault = {
   ...vaults[1],
   key: `${ChainId.BSC_TESTNET}-pendle-${fixedRatedVault.vaultAddress}`,
   category: VaultCategory.YIELD_TOKENS,
-  manager: VaultManager.Pendle,
-  managerIcon: 'pendle',
-  managerAddress: fixedRatedVault.protocolData.pendleMarketAddress as Address,
-  managerLink: `https://app.pendle.finance/trade/pools/${fixedRatedVault.protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`,
+  vaultType: VaultType.Pendle,
+  venue: VaultVenue.Pendle,
+  venueIconSrc: 'pendle',
+  venueAddress: protocolData.pendleMarketAddress as Address,
+  venueUrl: `https://app.pendle.finance/trade/pools/${protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`,
   status: VaultStatus.Deposit,
+  vaultAddress: fixedRatedVault.vaultAddress,
   stakedToken: bnb,
   rewardToken: ptClisBnbToken,
   maturityDate: new Date(fixedRatedVault.maturityDate),
-  vaultDeploymentDate: new Date(fixedRatedVault.protocolData.startDate),
-  liquidityCents: new BigNumber(fixedRatedVault.protocolData.liquidityCents),
+  vaultDeploymentDate: new Date(protocolData.startDate),
+  liquidityCents: new BigNumber(protocolData.liquidityCents),
   asset,
   poolComptrollerContractAddress: poolData[0].comptrollerAddress as Address,
   poolName: poolData[0].name,
@@ -127,7 +139,7 @@ describe('DepositForm', () => {
     await waitFor(() =>
       expect(screen.getByText(en.vault.modals.connectWalletMessage)).toBeInTheDocument(),
     );
-    expect(screen.queryByRole('spinbutton')).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('0.00')).not.toBeInTheDocument();
 
     expect(useGetBalanceOf).toHaveBeenCalledWith(
       {
@@ -146,6 +158,7 @@ describe('DepositForm', () => {
     renderComponent(<DepositForm vault={vault} onClose={vi.fn()} />, {
       accountAddress: fakeAccountAddress,
     });
+    const input = screen.getByPlaceholderText('0.00') as HTMLInputElement;
 
     const readableLimit = formatTokensToReadableValue({
       value: expectedLimit,
@@ -158,7 +171,7 @@ describe('DepositForm', () => {
       }),
     );
 
-    await waitFor(() => expect(screen.getByRole('spinbutton')).toHaveValue(3));
+    await waitFor(() => expect(input.value).toBe('3'));
     await waitFor(() =>
       expect(useTokenApproval).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -169,27 +182,19 @@ describe('DepositForm', () => {
       ),
     );
 
-    await waitFor(() => {
-      const lastCall = (useGetPendleSwapQuote as Mock).mock.lastCall;
+    expect(
+      (useGetPendleSwapQuote as Mock).mock.calls.some(call => {
+        const [quoteInput, quoteOptions] = call as GetPendleSwapQuoteCall;
 
-      expect(lastCall).toBeDefined();
-
-      const [quoteInput, quoteOptions] = lastCall as [
-        {
-          fromToken: Token;
-          toToken: Token;
-          amountTokens: BigNumber;
-          slippagePercentage: number;
-        },
-        { enabled?: boolean },
-      ];
-
-      expect(quoteInput.fromToken).toEqual(vault.stakedToken);
-      expect(quoteInput.toToken).toEqual(vault.rewardToken);
-      expect(quoteInput.amountTokens.toFixed()).toBe('3');
-      expect(quoteInput.slippagePercentage).toBe(0.5);
-      expect(quoteOptions).toEqual({ enabled: true });
-    });
+        return (
+          quoteInput.fromToken === vault.stakedToken &&
+          quoteInput.toToken === vault.rewardToken &&
+          quoteInput.amountTokens.toFixed() === '3' &&
+          quoteInput.slippagePercentage === 0.5 &&
+          quoteOptions?.enabled === true
+        );
+      }),
+    ).toBe(true);
   });
 
   it('submits the deposit with the swap quote and closes the modal', async () => {

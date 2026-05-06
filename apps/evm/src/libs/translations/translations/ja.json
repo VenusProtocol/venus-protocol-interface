@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "純資産",
-        "tooltip": "ボールトの預入と借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールトの預入、借入、ミント済みVAIを考慮した利用可能な純資産"
+        "tooltip": "ボールトの供給と借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールトの供給、借入、ミント済みVAIを考慮した利用可能な純資産"
       },
       "periodOption": {
         "oneYear": "1年",
@@ -61,10 +61,10 @@
         "mintedVai": "ミント済みVAI",
         "netApy": "実質APY",
         "netApyTooltip": "年間利息として受け取る供給残高の割合",
-        "netApyWithVaultStakeTooltip": "年間利息として受け取る供給残高とボールト預入の割合",
+        "netApyWithVaultStakeTooltip": "年間利息として受け取る供給残高とボールト供給の割合",
         "totalBorrow": "総借入",
         "totalSupply": "総供給",
-        "totalVaultStake": "ボールト総預入量"
+        "totalVaultStake": "ボールト総供給量"
       },
       "title": "サマリー"
     },
@@ -117,7 +117,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "まだステーキングポジションはありません"
+        "title": "まだ供給ポジションはありません"
       }
     }
   },
@@ -263,7 +263,7 @@
       "date": "日付",
       "supplyApy": "供給APY",
       "totalBorrow": "総借入",
-      "totalStaked": "総預入量",
+      "totalStaked": "総供給量",
       "totalSupply": "総供給"
     }
   },
@@ -438,8 +438,8 @@
         "title": "借入 / レバレッジ"
       },
       "step3": {
-        "description": "XVSをボールトに預け入れ、プロトコル収益による利回りを獲得しましょう。",
-        "title": "XVSを預け入れ"
+        "description": "XVSをボールトに供給し、プロトコル収益による利回りを獲得しましょう。",
+        "title": "XVSを供給"
       },
       "uncompleted": "未完了"
     },
@@ -447,8 +447,8 @@
       "absolutePerformance": "絶対パフォーマンス",
       "netWorth": {
         "label": "純資産",
-        "tooltip": "ボールト預入と借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールト預入、借入、ミント済みVAIを考慮した利用可能な純資産"
+        "tooltip": "ボールト供給と借入を考慮した利用可能な純資産",
+        "tooltipWithVai": "ボールト供給、借入、ミント済みVAIを考慮した利用可能な純資産"
       },
       "performanceChart": {
         "errorState": {
@@ -468,10 +468,10 @@
           "mintedVai": "ミント済みVAI",
           "netApy": "実質APY",
           "netApyTooltip": "総供給残高に対して年利として受け取る割合",
-          "netApyWithVaultStakeTooltip": "総供給とボールト預入に対して年利として受け取る割合",
+          "netApyWithVaultStakeTooltip": "総供給とボールト供給に対して年利として受け取る割合",
           "totalBorrow": "総借入",
           "totalSupply": "総供給",
-          "totalVaultStake": "ボールト預入合計"
+          "totalVaultStake": "ボールト総供給量"
         },
         "title": "サマリー"
       },
@@ -496,7 +496,7 @@
     "vaults": {
       "dailyEarnings": "日次収益",
       "dailyEarningsTooltip": "すべてのアクティブなボールト全体での推定日次収益です。各ボールトの現在のレートまたは固定 APR に基づいています。実際の収益は異なる場合があります。",
-      "totalStakedValue": "総預入額"
+      "totalStakedValue": "総供給額"
     }
   },
   "eModeBanner": {
@@ -1098,6 +1098,7 @@
       "noCollateral": "このプールから{{tokenSymbol}}を借りる前に、トークンを供給して担保として有効化する必要があります",
       "noSwapQuoteFound": "スワップが見つかりません。",
       "priceImpactTooHigh": "価格影響が高すぎます",
+      "smallerThanMinimumAmount": "一度に {{minAmount}} 未満を供給することはできません",
       "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
       "tooRisky": "この取引はアカウントが清算されます"
     },
@@ -1217,12 +1218,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "Prime報酬の対象になるには、少なくとも{{minimumXvsStaked}} XVSを預け入れる必要があります。",
-        "label": "対象の預入済みXVS",
+        "error": "Prime報酬の対象になるには、少なくとも{{minimumXvsStaked}} XVSを供給する必要があります。",
+        "label": "対象の供給済みXVS",
         "tooltip": "Prime報酬の計算に最大{{maximumXvsStaked}}までが考慮されます"
       },
       "textField": {
-        "label": "預入済みXVS"
+        "label": "供給済みXVS"
       }
     },
     "suppliedTokens": {
@@ -1244,8 +1245,8 @@
     "becomePrimeTitle": "Primeユーザーになれるようになりました",
     "claimButtonLabel": "Primeトークンを請求",
     "description": {
-      "primeCalculator": "さらに<WhiteText>{{stakeDelta}}</WhiteText>預け入れて{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>Prime報酬を計算</Link>",
-      "primeDoc": "さらに<WhiteText>{{stakeDelta}}</WhiteText>預け入れて{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>詳細を見る</Link>"
+      "primeCalculator": "さらに<WhiteText>{{stakeDelta}}</WhiteText>供給して{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>Prime報酬を計算</Link>",
+      "primeDoc": "さらに<WhiteText>{{stakeDelta}}</WhiteText>供給して{{claimWaitingPeriod}}待てばPrimeトークンを請求でき、収益がブーストされます。<Link>詳細を見る</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "Primeトークンはすべて請求済みです",
@@ -1253,10 +1254,10 @@
     },
     "progressBar": {
       "ariaLabel": "現在のPrime進捗",
-      "label": "預入済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "供給済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "収益を最大<GreenText>{{percentage}}</GreenText>までブースト",
-    "stakeButtonLabel": "XVSを預け入れ",
+    "stakeButtonLabel": "XVSを供給",
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> 枚のPrimeトークンが残っています",
@@ -2014,23 +2015,26 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
-      "claimReward": "報酬を請求",
-      "currentDeposited": "現在の預入量",
+      "currentDeposited": "現在の供給量",
       "dailyEmission": "日次報酬配布",
-      "effectiveFixedApr": "実質固定APR",
       "header": {
+        "fixedTermTitle": "{{ tokenSymbol }} 固定期間",
         "maturityDate_other": "{{ date, textual }}（{{ count }}日）"
       },
       "liquidity": "流動性",
       "liquidityTooltip": "このボールトの基盤となる Pendle 統合プール（またはストラテジー）に現在提供されている資産の総価値です。",
-      "manager": "運用機関",
       "maturityDate": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
-      "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、預入、引き出しは無効になっています。",
+      "minRequested": "最小リクエスト額",
+      "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、供給、引き出しは無効になっています。",
       "primeEligibility": "Prime資格",
+      "targetApr": "目標APR",
+      "targetAprTooltip": "このボールト戦略が目指す年率換算の目標報酬で、複利を含む目標年率（APR）として表されます。実際のリターンは変動し、相手方のパフォーマンスに依存します。元本にはリスクがあります。供給した金額を下回る金額しか受け取れない場合があります。",
       "textualWithTime": "{{date, textualWithTime}}",
-      "totalDeposited": "総預金額",
-      "youDeposited": "預け入れ中"
+      "totalDeposited": "総供給量",
+      "vaultVenueIcon": "Venusロゴ",
+      "venue": "プラットフォーム",
+      "youDeposited": "供給中"
     },
     "category": {
       "governance": "ガバナンス",
@@ -2041,27 +2045,31 @@
     "filter": {
       "active": "アクティブ",
       "allCategories": "全カテゴリ",
-      "allManagers": "全運用機関",
       "allStates": "すべての状態",
+      "allVenues": "全プラットフォーム",
       "claim": "請求",
-      "deposit": "預入",
-      "earning": "収益中",
+      "deposit": "供給",
+      "inactive": "非アクティブ",
       "inputPlaceholder": "資産を検索",
+      "liquidated": "清算済み",
+      "locked": "収益中",
       "paused": "停止中",
+      "pending": "保留",
       "refund": "返金",
       "repaying": "返済中"
     },
     "header": "ボールト",
     "modals": {
       "afterMaturityPendleDisclaimer": "まず「引き出し」ボタンからPTトークンをウォレットに引き出してから、<Link>Pendle公式</Link>ウェブサイトで原資産トークンを償還してください。",
-      "connectWalletMessage": "{{tokenSymbol}}を預け入れ / 引き出しするにはウォレットを接続してください",
+      "claim": "請求",
+      "connectWalletMessage": "このボールトを操作するにはウォレットを接続してください",
       "convert": "変換",
-      "currentDeposited": "現在の預入額",
+      "currentDeposited": "現在の供給量",
       "currentDepositedTooltip": "このボールトに現在ロックされ、収益を得ている資産の量です。",
-      "deposit": "預入",
-      "depositTab": "預入",
-      "effectiveFixedApr": "実質固定APR",
-      "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
+      "deposit": "供給",
+      "depositPeriodEnds": "供給期間終了",
+      "depositsPausedNotice": "資金は供給期間およびロック期間中ロックされ、請求期間または返金期間にのみ請求できます。実際の結果は相手方のパフォーマンスに依存し、元本にはリスクがあり、供給額を下回る金額しか受け取れない場合があります。",
+      "depositTab": "供給",
       "error": {
         "amountTooLow": "入力金額が少なすぎます。",
         "invalidAmountFromQuote": "入力金額がPendleマーケットで利用可能な流動性を超えています。金額を減らして再試行してください。",
@@ -2071,44 +2079,76 @@
       },
       "estPenalty": "推定ペナルティ",
       "estReceived": "推定受取額",
-      "estYield": "推定利回り",
+      "estYield": "推定報酬",
+      "institutionalDisclaimer": "資金は供給期間およびロック期間中ロックされ、請求期間または返金期間にのみ請求できます。実際の結果は相手方のパフォーマンスに依存し、元本にはリスクがあり、供給額を下回る金額しか受け取れない場合があります。",
+      "institutionalTcsAgreement": "続行することで、<Link>Venus Fixed-Term Vault利用規約</Link>に同意し、自分が制限対象者ではないことを表明します。制限対象者には、米国証券法1933年法のRegulation Sで定義される米国人、英国、カナダ、または中国本土に所在する者、通常居住する者、またはその国民、ならびにOFAC制裁対象法域に所在する、またはその制裁法の適用を受ける者が含まれます。完全な一覧は利用規約をご確認ください。",
+      "institutionalTimeline": {
+        "claimPeriod": "推定請求期間",
+        "depositPeriod": "供給期間",
+        "estimatedLockedPeriod": "推定ロック期間",
+        "estimatedRepayingPeriod": "推定返済期間",
+        "refundPeriod": "返金期間"
+      },
       "maturityDate": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
       "maturityPendleDisclaimer": "満期前は、引き出し時に受け取る金額は Pendle の市場価格に依存します。満期後は、保有する PT トークンに基づいて 1:1 で引き出しが換金されます。",
       "minReceived": "最小受取額",
       "overview": {
-        "manager": "運用機関",
-        "managerTooltip": "このボールトの基礎資産を管理するアドレスまたはチームです。預けた資産は彼らが管理する市場に配分され、市場状況に応じて償還や決済のスケジュールが更新される場合があります。",
+        "campaignTimeline": "キャンペーンタイムライン",
+        "collateral": "担保",
+        "loan": "ローン",
         "marketInfo": "マーケット情報",
         "marketRiskDisclosures": "マーケットリスク開示",
-        "riskDisclosureText": "Pendle は、プリンシパルトークン（PT）を通じて固定利回りを実現する分散型イールドトレーディングプロトコルです。Venus 固定金利ボールトは、Pendle のインフラストラクチャを通じて PT を取得し、Venus Core に担保として供給します。<br />Pendle があなたの預金にアクセスしたり移動させたりすることはできませんが、このボールトを利用することで両方のプロトコルからのリスクにさらされます。これにはスマートコントラクトの脆弱性、オラクルの障害、いずれかのプロトコルが悪用または停止される可能性が含まれます。満期前の引き出しは市場価格で実行され、預入額を下回る場合があります。固定 APY は預入時にロックされ、プロトコルレベルの障害に対する保護にはなりません。",
+        "riskDisclosureText": {
+          "matrixDock": "<Bold>元本毀損のリスクがあります</Bold>。目標利率は変動し、ボールトの運用実績に連動します。保証された利回りではありません。<Bold>払い戻される金額が預け入れ額を下回る場合があります</Bold>。決済時には、その時点でボールトが実際に保有している資産のうち、あなたの持分に応じた分を受け取ります。<Bold>資金はロックされます</Bold>。ロック期間が始まると、供給も引き出しもできません。資金が請求可能になるのは決済後のみです。<Bold>結果に影響する要因：</Bold>相手方のパフォーマンス、担保条件、スマートコントラクトの実行、オラクルの信頼性、決済結果。<Bold>法域による制限が適用されます</Bold>。このボールトは制限対象地域または制限対象者には提供されません。完全な一覧は利用規約をご確認ください。供給前に、このページのボールト条件と <TermsOfUseLink>利用規約</TermsOfUseLink> をご確認ください。",
+          "pendle": "Pendle は、元本トークン（PT）を通じて固定利率の利回りを実現する分散型イールド取引プロトコルです。Venus 固定利率ボールトは Pendle のインフラを通じて供給資産をルーティングし、PT を取得して Venus Core に担保として供給します。<br />Pendle は供給した資金にアクセスしたり移動したりできませんが、このボールトを利用すると両方のプロトコルに由来するリスクにさらされます。これには、スマートコントラクトの脆弱性、オラクル障害、いずれかのプロトコルが悪用されたり一時停止されたりする可能性が含まれます。満期前の引き出しは市場価格で実行され、供給額を下回る金額しか戻らない場合があります。固定 APY は供給時にロックされますが、プロトコルレベルの障害から保護するものではありません。"
+        },
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "ユーザー",
-          "venusCore": "Venus Core"
+          "venue": "プラットフォーム",
+          "venusCore": "Venus Core",
+          "venusVault": "Venusボールト"
         },
         "strategyAllocation": "戦略配分",
         "supply": "供給",
-        "totalDeposited": "総預金額",
-        "vaultDeploymentDate": "ボールト展開日"
+        "totalDeposited": "総供給量",
+        "vaultDeploymentDate": "ボールト展開日",
+        "vaultVenueIcon": "プラットフォームのロゴ",
+        "venue": "プラットフォーム",
+        "venueTooltip": "ロック期間中にこのボールトの基礎資産を保有し、振り分ける相手方です。供給された資産は事前に合意された条件で運用され、償還および決済のスケジュールはボールトに公開された予定に従い、それらのルールで定義された例外的な状況でのみ変更される場合があります。"
       },
       "overviewTab": "概要",
       "pendleFee": "Pendleフィー",
       "positionTab": "ポジション",
-      "stakeTab": "預入",
+      "stakeTab": "供給",
+      "targetApr": "目標APR",
+      "targetAprTooltip": "このボールト戦略が目指す年率換算の目標報酬で、複利を含む目標年率（APR）として表されます。実際のリターンは変動し、相手方のパフォーマンスに依存します。元本にはリスクがあります。供給した金額を下回る金額しか受け取れない場合があります。",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalTargetRewards": "目標報酬合計",
       "withdraw": "引き出し",
       "withdrawTab": "引き出し"
     },
     "overview": {
       "bannerVaultIllustration": "ボールトのイラスト"
+    },
+    "timeline": {
+      "description": {
+        "claim": "元本と獲得した利息の全額を引き出せます。",
+        "deposit": "この期間中、ユーザーは {{ tokenSymbol }} を自由に供給できます。",
+        "locked": "供給と請求は停止されます。ロック期間は、保留期間が終了し、資金の移転が完了すると開始されます。",
+        "refund": "元本を引き出せます。",
+        "repaying": "ボールトは満期を迎えました。元本と利息の精算が進行中です。この処理には通常 2〜3 日かかります。"
+      },
+      "tbd": "未定",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {
     "vaultModal": {
       "footer": {
-        "currentlyStaked": "現在の預入額",
+        "currentlyStaked": "現在の供給量",
         "estimatedDailyEarnings": "推定日次収益",
         "lockingPeriod": {
           "duration": "{{date, distanceToNow}}",
@@ -2122,7 +2162,7 @@
           "tooltip": "請求可能なロック解除済みXVSがあります。"
         },
         "primeLossWarning": {
-          "message": "この金額を引き出すと、XVSボールトでの預入額がPrimeの対象に必要な最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。"
+          "message": "この金額を引き出すと、XVSボールトでの供給額がPrimeの対象に必要な最低{{minimumXvsStake}}を下回るため、Primeトークンを失います。"
         },
         "requestWithdrawalField": {
           "label": "引き出しを申請する"
@@ -2133,13 +2173,13 @@
       },
       "stakeForm": {
         "depositField": {
-          "label": "預入"
+          "label": "供給"
         },
         "footer": {
           "apr": "APR"
         },
         "submitButton": {
-          "label": "預入"
+          "label": "供給"
         }
       },
       "withdrawFromVaiVault": {
@@ -2195,8 +2235,8 @@
     "delegateVotes": "委任票",
     "delegateVoting": "委任投票",
     "delegateYourVoting": "2. <Anchor>投票権を</Anchor>自分または他者に委任",
-    "depositXvs": "XVSを預け入れ",
-    "depositYourTokens": "1. <Link>トークンを預け入れ</Link>てXVS Vaultへ ",
+    "depositXvs": "XVSを供給",
+    "depositYourTokens": "1. <Link>トークンを供給</Link>してXVS Vaultへ ",
     "enterContactAddress": "連絡先アドレスを入力",
     "errorState": {
       "buttonLabel": "再試行",

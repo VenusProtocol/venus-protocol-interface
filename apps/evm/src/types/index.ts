@@ -2,7 +2,6 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
-import type { IconName } from 'components';
 import type { MARKET_TX_TYPES, TRADE_TX_TYPES } from 'constants/marketTxTypes';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
@@ -478,17 +477,27 @@ export interface Transaction {
 
 export enum VaultStatus {
   Active = 'active',
+  Inactive = 'inactive',
   Deposit = 'deposit',
-  Earning = 'earning',
+  Locked = 'locked',
+  Pending = 'pending',
   Refund = 'refund',
   Repaying = 'repaying',
   Claim = 'claim',
+  Liquidated = 'liquidated',
   Paused = 'paused',
 }
 
-export enum VaultManager {
+export enum VaultVenue {
   Venus = 'venus',
   Pendle = 'pendle',
+  Matrixdock = 'matrixdock',
+}
+
+export enum VaultType {
+  Venus = 'venus',
+  Pendle = 'pendle',
+  Institutional = 'institutional',
 }
 
 export enum VaultCategory {
@@ -498,22 +507,23 @@ export enum VaultCategory {
 }
 
 interface BaseVault {
+  vaultType: VaultType;
   category: VaultCategory;
-  manager: VaultManager;
-  managerIcon: IconName;
-  managerAddress?: Address;
+  venue: VaultVenue;
+  venueIconSrc: string;
   status: VaultStatus;
   key: string;
   stakedToken: Token;
   rewardToken: Token;
   stakedTokenPriceCents: BigNumber;
   rewardTokenPriceCents: BigNumber;
-  stakingAprPercentage: number;
-  totalStakedMantissa: BigNumber;
-  totalStakedCents: number;
+  stakeAprPercentage: number;
+  stakeBalanceMantissa: BigNumber;
+  stakeBalanceCents: number;
+  venueAddress?: Address;
+  userStakeBalanceMantissa?: BigNumber;
+  userStakeBalanceCents?: number;
   lockingPeriodMs?: number;
-  userStakedMantissa?: BigNumber;
-  userStakedCents?: number;
   poolIndex?: number;
 }
 
@@ -525,17 +535,37 @@ export type VenusVault = BaseVault & {
 };
 
 export type PendleVault = BaseVault & {
+  vaultAddress: Address;
   maturityDate: Date;
   liquidityCents: BigNumber;
   asset: Asset;
-  managerLink?: string;
-  vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   poolName: string;
   rewardToken: Token;
+  venueUrl?: string;
+  vaultDeploymentDate?: Date;
 };
 
-export type Vault = VenusVault | PendleVault;
+export type InstitutionalVault = BaseVault & {
+  vaultAddress: Address;
+  reserveFactor: number;
+  stakeLimitMantissa: BigNumber;
+  stakeMinMantissa: BigNumber;
+  userRedeemLimitMantissa: BigNumber;
+  venueUrl: string;
+  collateralToken: Token;
+  userYieldTokens?: BigNumber;
+  userWithdrawLimitMantissa: BigNumber;
+  userMinIndividualStakeMantissa?: BigNumber;
+  vaultDeploymentDate?: Date;
+  openStartDate?: Date;
+  openEndDate?: Date;
+  lockEndDate?: Date;
+  maturityDate?: Date;
+  settlementDate?: Date;
+};
+
+export type Vault = VenusVault | PendleVault | InstitutionalVault;
 
 export interface VoterAccount {
   address: Address;

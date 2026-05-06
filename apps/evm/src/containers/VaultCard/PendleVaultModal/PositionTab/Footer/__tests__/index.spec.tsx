@@ -7,7 +7,7 @@ import type { GetPendleSwapQuoteOutput } from 'clients/api';
 import { en, t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { PendleVault } from 'types';
-import { VaultCategory, VaultManager, VaultStatus } from 'types';
+import { VaultCategory, VaultStatus, VaultType, VaultVenue } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
@@ -19,11 +19,13 @@ import { Footer, type FooterProps } from '..';
 const baseVault: PendleVault = {
   ...vaults[0],
   category: VaultCategory.YIELD_TOKENS,
-  manager: VaultManager.Pendle,
-  managerIcon: 'logoMobile',
+  vaultType: VaultType.Pendle,
+  venue: VaultVenue.Pendle,
+  venueIconSrc: 'logoMobile',
   status: VaultStatus.Active,
   key: 'pendle-VAI-XVS-2026-06-25',
-  stakingAprPercentage: 3.39809766,
+  stakeAprPercentage: 3.39809766,
+  vaultAddress: '0x2222222222222222222222222222222222222222',
   maturityDate: new Date('2026-06-25T00:00:00.000Z'),
   liquidityCents: new BigNumber('742673002'),
   asset: assetData[0],
@@ -57,9 +59,9 @@ describe('Footer', () => {
   it('renders only the APR and maturity rows when the wallet is disconnected', () => {
     const { getByText, queryByText } = renderComponent(<Footer {...baseProps} />);
 
-    expect(getByText(en.vault.modals.effectiveFixedApr)).toBeInTheDocument();
+    expect(getByText(en.vault.modals.targetApr)).toBeInTheDocument();
     expect(
-      getByText(formatPercentageToReadableValue(baseVault.stakingAprPercentage)),
+      getByText(formatPercentageToReadableValue(baseVault.stakeAprPercentage)),
     ).toBeInTheDocument();
     expect(getByText(en.vault.modals.maturityDate)).toBeInTheDocument();
     expect(
@@ -119,7 +121,7 @@ describe('Footer', () => {
       })}`,
     );
     expect(estYieldRow).toHaveTextContent('7 XVS');
-    expect(getByText(en.vault.modals.effectiveFixedApr)).toBeInTheDocument();
+    expect(getByText(en.vault.modals.targetApr)).toBeInTheDocument();
   });
 
   it('renders penalty instead of APR on withdraw and hides conversion details without slippage', () => {
@@ -136,7 +138,7 @@ describe('Footer', () => {
     expect(currentDepositedRow).toHaveTextContent('123 XVS');
     expect(estPenaltyRow).toHaveTextContent('3 XVS');
 
-    expect(queryByText(en.vault.modals.effectiveFixedApr)).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.targetApr)).not.toBeInTheDocument();
     expect(queryByText(en.vault.modals.convert)).not.toBeInTheDocument();
   });
 

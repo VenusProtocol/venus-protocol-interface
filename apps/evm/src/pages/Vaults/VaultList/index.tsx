@@ -19,9 +19,9 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
     category: filterCategory,
     setCategory,
     categoryOptions,
-    manager: filterManager,
-    setManager,
-    managerOptions,
+    venue: filterVenue,
+    setVenue,
+    venueOptions,
     status: filterStatus,
     setStatus,
     statusOptions,
@@ -35,7 +35,7 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
   const filteredVaults = (vaults ?? []).filter(vault => {
     return (
       (filterCategory === ALL_OPTION_VALUE || filterCategory === vault.category) &&
-      (filterManager === ALL_OPTION_VALUE || filterManager === vault.manager) &&
+      (filterVenue === ALL_OPTION_VALUE || filterVenue === vault.venue) &&
       (filterStatus === ALL_OPTION_VALUE || filterStatus === vault.status) &&
       (!search || vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()))
     );
@@ -72,11 +72,11 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
               className="sm:flex-1/3 xl:flex-none"
               size="medium"
               placeLabelToLeft
-              options={managerOptions}
+              options={venueOptions}
               optionClassName={optionClassName}
               buttonClassName="sm:min-w-45"
-              value={filterManager}
-              onChange={newValue => setManager(newValue.toString())}
+              value={filterVenue}
+              onChange={newValue => setVenue(newValue.toString())}
             />
             <Select
               className="sm:flex-1/3 xl:flex-none"

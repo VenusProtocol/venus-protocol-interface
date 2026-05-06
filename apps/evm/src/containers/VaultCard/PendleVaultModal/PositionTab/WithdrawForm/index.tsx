@@ -48,7 +48,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
   const fromTokenPriceCents = vault.rewardTokenPriceCents;
 
   const userStakedTokens = convertMantissaToTokens({
-    value: vault.userStakedMantissa ?? new BigNumber(0),
+    value: vault.userStakeBalanceMantissa ?? new BigNumber(0),
     token: vault.asset.vToken.underlyingToken,
   });
 
@@ -56,6 +56,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
 
   const form = useForm({
     limitFromTokens,
+    fromToken,
   });
 
   const fromAmountTokensFieldValue = form.watch('fromAmountTokens') ?? '0';

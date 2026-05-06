@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {
   Button,
-  Drawer,
   type DrawerProps,
   Modal as MUIModal,
   type ModalProps as MUIModalProps,
@@ -13,7 +12,6 @@ import type { ReactElement } from 'react';
 import config from 'config';
 
 import { cn } from '@venusprotocol/ui';
-import { useIsSmDown } from 'hooks/responsive';
 import { Icon } from '../Icon';
 import { useModalStyles } from './styles';
 
@@ -25,7 +23,6 @@ export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open'> {
   handleBackAction?: () => void;
   title?: string | ReactElement | ReactElement[];
   noHorizontalPadding?: boolean;
-  useDrawerInXs?: boolean;
   anchor?: DrawerProps['anchor'];
 }
 
@@ -38,22 +35,15 @@ export const Modal: React.FC<ModalProps> = ({
   isOpen,
   title,
   noHorizontalPadding,
-  useDrawerInXs,
   anchor = 'bottom',
   ...otherModalProps
 }) => {
   const s = useModalStyles({ hasTitleComponent: Boolean(title), noHorizontalPadding });
-  const isMobile = useIsSmDown();
-
-  const showDrawer = isMobile && useDrawerInXs;
 
   const dom = (
     <div
       className={cn(
-        'flex flex-col overflow-auto outline-hidden bg-dark-blue rounded-xl border border-blue',
-        showDrawer
-          ? 'rounded-b-none'
-          : 'absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
+        'flex flex-col overflow-auto outline-hidden bg-dark-blue rounded-xl border border-blue absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
         className,
       )}
     >
@@ -84,11 +74,7 @@ export const Modal: React.FC<ModalProps> = ({
     </div>
   );
 
-  return showDrawer ? (
-    <Drawer anchor={anchor} open={isOpen} onClose={handleClose}>
-      {dom}
-    </Drawer>
-  ) : (
+  return (
     <MUIModal
       open={isOpen}
       onClose={handleClose}

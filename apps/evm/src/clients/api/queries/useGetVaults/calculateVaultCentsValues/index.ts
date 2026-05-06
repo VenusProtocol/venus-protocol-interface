@@ -7,26 +7,26 @@ export const calculateVaultCentsValues = ({
   rewardTokenDecimals,
   stakedTokenPriceCents,
   rewardTokenPriceCents,
-  totalStakedMantissa,
-  userStakedMantissa,
+  stakeBalanceMantissa,
+  userStakeBalanceMantissa,
   dailyEmissionMantissa,
 }: {
   stakedTokenDecimals: number;
   rewardTokenDecimals: number;
   stakedTokenPriceCents: BigNumber;
   rewardTokenPriceCents: BigNumber;
-  totalStakedMantissa: BigNumber;
-  userStakedMantissa?: BigNumber;
+  stakeBalanceMantissa: BigNumber;
+  userStakeBalanceMantissa?: BigNumber;
   dailyEmissionMantissa?: BigNumber;
 }) => ({
-  totalStakedCents: convertPriceMantissaToDollars({
-    priceMantissa: totalStakedMantissa.times(stakedTokenPriceCents),
+  stakeBalanceCents: convertPriceMantissaToDollars({
+    priceMantissa: stakeBalanceMantissa.times(stakedTokenPriceCents),
     decimals: stakedTokenDecimals,
   }).toNumber(),
-  userStakedCents:
-    userStakedMantissa !== undefined
+  userStakeBalanceCents:
+    userStakeBalanceMantissa !== undefined
       ? convertPriceMantissaToDollars({
-          priceMantissa: userStakedMantissa.times(stakedTokenPriceCents),
+          priceMantissa: userStakeBalanceMantissa.times(stakedTokenPriceCents),
           decimals: stakedTokenDecimals,
         }).toNumber()
       : undefined,

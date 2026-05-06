@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "Giá trị ròng",
-        "tooltip": "Tài sản ròng khả dụng sau khi tính đến khoản gửi trong vault và các khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến khoản gửi trong vault, các khoản vay và VAI đã đúc"
+        "tooltip": "Tài sản ròng khả dụng sau khi tính đến lượng cung cấp trong vault và các khoản vay",
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến lượng cung cấp trong vault, các khoản vay và VAI đã đúc"
       },
       "periodOption": {
         "oneYear": "1N",
@@ -61,10 +61,10 @@
         "mintedVai": "VAI đã đúc",
         "netApy": "APY ròng",
         "netApyTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp của bạn nhận được dưới dạng lãi hằng năm",
-        "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp và khoản gửi trong vault của bạn nhận được dưới dạng lãi hằng năm",
+        "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp và lượng cung cấp trong vault của bạn nhận được dưới dạng lãi hằng năm",
         "totalBorrow": "Tổng vay",
         "totalSupply": "Tổng cung cấp",
-        "totalVaultStake": "Tổng gửi trong vault"
+        "totalVaultStake": "Tổng cung cấp trong vault"
       },
       "title": "Tóm tắt"
     },
@@ -117,7 +117,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "Chưa có vị thế gửi"
+        "title": "Chưa có vị thế cung cấp"
       }
     }
   },
@@ -263,7 +263,7 @@
       "date": "Ngày",
       "supplyApy": "APY cung cấp",
       "totalBorrow": "Tổng vay",
-      "totalStaked": "Tổng đã gửi",
+      "totalStaked": "Tổng đã cung cấp",
       "totalSupply": "Tổng cung cấp"
     }
   },
@@ -438,8 +438,8 @@
         "title": "Vay / Đòn bẩy"
       },
       "step3": {
-        "description": "Gửi XVS vào vault và nhận lợi suất được tạo từ doanh thu của giao thức.",
-        "title": "Gửi XVS"
+        "description": "Cung cấp XVS vào vault và nhận lợi suất được tạo từ doanh thu của giao thức.",
+        "title": "Cung cấp XVS"
       },
       "uncompleted": "Chưa hoàn thành"
     },
@@ -447,8 +447,8 @@
       "absolutePerformance": "Hiệu suất tuyệt đối",
       "netWorth": {
         "label": "Giá trị ròng",
-        "tooltip": "Tài sản ròng khả dụng sau khi tính khoản gửi trong vault và khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính khoản gửi trong vault, khoản vay và VAI đã mint"
+        "tooltip": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault và khoản vay",
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault, khoản vay và VAI đã mint"
       },
       "performanceChart": {
         "errorState": {
@@ -468,10 +468,10 @@
           "mintedVai": "VAI đã mint",
           "netApy": "APY ròng",
           "netApyTooltip": "Tỷ lệ phần trăm trên tổng số dư cung của bạn nhận được dưới dạng lãi suất hằng năm",
-          "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm trên tổng số dư cung và khoản gửi trong vault của bạn nhận được dưới dạng lãi suất hằng năm",
+          "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm trên tổng số dư cung và lượng cung cấp trong vault của bạn nhận được dưới dạng lãi suất hằng năm",
           "totalBorrow": "Tổng số vay",
           "totalSupply": "Tổng số cung",
-          "totalVaultStake": "Tổng gửi trong vault"
+          "totalVaultStake": "Tổng cung cấp trong vault"
         },
         "title": "Tóm tắt"
       },
@@ -496,7 +496,7 @@
     "vaults": {
       "dailyEarnings": "Thu nhập hàng ngày",
       "dailyEarningsTooltip": "Thu nhập hàng ngày ước tính của bạn trên tất cả các kho đang hoạt động, dựa trên lãi suất hiện tại hoặc APR cố định của mỗi kho. Thu nhập thực tế có thể khác nhau.",
-      "totalStakedValue": "Tổng giá trị đã gửi"
+      "totalStakedValue": "Tổng giá trị đã cung cấp"
     }
   },
   "eModeBanner": {
@@ -1098,6 +1098,7 @@
       "noCollateral": "Bạn cần cung cấp token và bật làm tài sản thế chấp trước khi có thể vay {{tokenSymbol}} từ pool này",
       "noSwapQuoteFound": "Không tìm thấy giao dịch hoán đổi.",
       "priceImpactTooHigh": "Tác động giá quá cao",
+      "smallerThanMinimumAmount": "Bạn không thể cung cấp ít hơn {{minAmount}} trong một lần",
       "supplyCapReached": "Hạn mức cung cấp {{assetSupplyCap}} của pool này đã đạt. Bạn không thể cung cấp vào thị trường này cho đến khi có rút hoặc hạn mức cung cấp được tăng.",
       "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý"
     },
@@ -1217,12 +1218,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "Để đủ điều kiện nhận thưởng Prime, cần gửi tối thiểu {{minimumXvsStaked}} XVS.",
-        "label": "XVS gửi đủ điều kiện",
+        "error": "Để đủ điều kiện nhận thưởng Prime, cần cung cấp tối thiểu {{minimumXvsStaked}} XVS.",
+        "label": "XVS cung cấp đủ điều kiện",
         "tooltip": "Tối đa {{maximumXvsStaked}} sẽ được tính cho phần thưởng Prime của bạn"
       },
       "textField": {
-        "label": "XVS đã gửi"
+        "label": "XVS đã cung cấp"
       }
     },
     "suppliedTokens": {
@@ -1244,8 +1245,8 @@
     "becomePrimeTitle": "Bạn đã có thể trở thành người dùng Prime",
     "claimButtonLabel": "Nhận token Prime",
     "description": {
-      "primeCalculator": "Gửi thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tính phần thưởng Prime của bạn</Link>",
-      "primeDoc": "Gửi thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tìm hiểu thêm</Link>"
+      "primeCalculator": "Cung cấp thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tính phần thưởng Prime của bạn</Link>",
+      "primeDoc": "Cung cấp thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tìm hiểu thêm</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "Tất cả token Prime đã được nhận",
@@ -1253,10 +1254,10 @@
     },
     "progressBar": {
       "ariaLabel": "Tiến trình Prime hiện tại của bạn",
-      "label": "Đã gửi: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "Đã cung cấp: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Tăng thu nhập lên đến <GreenText>{{percentage}}</GreenText>",
-    "stakeButtonLabel": "Gửi XVS",
+    "stakeButtonLabel": "Cung cấp XVS",
     "tokensLeft": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_one": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
     "tokensLeft_many": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
@@ -2014,23 +2015,26 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
-      "claimReward": "Nhận thưởng",
-      "currentDeposited": "Đang gửi",
+      "currentDeposited": "Hiện đang cung cấp",
       "dailyEmission": "Phần thưởng hàng ngày",
-      "effectiveFixedApr": "APR Cố Định Hiệu Quả",
       "header": {
+        "fixedTermTitle": "{{ tokenSymbol }} Kỳ Hạn Cố Định",
         "maturityDate_other": "{{ date, textual }} ({{ count }} ngày)"
       },
       "liquidity": "Thanh khoản",
       "liquidityTooltip": "Tổng giá trị tài sản hiện đang được cung cấp trong pool tích hợp Pendle (hoặc chiến lược) của kho này.",
-      "manager": "Tổ chức quản lý",
       "maturityDate": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
-      "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, gửi tiền và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
+      "minRequested": "Tối thiểu yêu cầu",
+      "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, cung cấp và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
       "primeEligibility": "Điều kiện nhận Prime",
+      "targetApr": "APR mục tiêu",
+      "targetAprTooltip": "Phần thưởng mục tiêu theo năm mà chiến lược vault này hướng tới, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm mục tiêu có bao gồm lãi kép. Lợi nhuận thực tế có thể biến động và phụ thuộc vào hiệu suất của đối tác; vốn có rủi ro. Bạn có thể nhận lại ít hơn số đã cung cấp.",
       "textualWithTime": "{{date, textualWithTime}}",
-      "totalDeposited": "Tổng tiền gửi",
-      "youDeposited": "Bạn đang gửi"
+      "totalDeposited": "Tổng đã cung cấp",
+      "vaultVenueIcon": "Logo Venus",
+      "venue": "Nền tảng",
+      "youDeposited": "Bạn đã cung cấp"
     },
     "category": {
       "governance": "Quản trị",
@@ -2041,27 +2045,31 @@
     "filter": {
       "active": "Đang hoạt động",
       "allCategories": "Tất cả danh mục",
-      "allManagers": "Tất cả tổ chức quản lý",
       "allStates": "Tất cả trạng thái",
+      "allVenues": "Tất cả nền tảng",
       "claim": "Nhận thưởng",
-      "deposit": "Gửi",
-      "earning": "Đang kiếm lợi nhuận",
+      "deposit": "Cung cấp",
+      "inactive": "Không hoạt động",
       "inputPlaceholder": "Tìm kiếm tài sản",
+      "liquidated": "Đã thanh lý",
+      "locked": "Đang kiếm lợi nhuận",
       "paused": "Tạm dừng",
+      "pending": "Đang chờ",
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ"
     },
     "header": "Kho",
     "modals": {
       "afterMaturityPendleDisclaimer": "Vui lòng rút PT token về ví của bạn trước thông qua nút Rút, sau đó truy cập trang web <Link>Pendle chính thức</Link> để đổi lấy token cơ sở của bạn.",
-      "connectWalletMessage": "Vui lòng kết nối ví của bạn để gửi / rút {{tokenSymbol}}",
+      "claim": "Nhận thưởng",
+      "connectWalletMessage": "Vui lòng kết nối ví của bạn để tương tác với kho này",
       "convert": "Chuyển đổi",
-      "currentDeposited": "Đang gửi hiện tại",
+      "currentDeposited": "Hiện đang cung cấp",
       "currentDepositedTooltip": "Số lượng tài sản của bạn hiện đang được khóa và sinh lời trong kho tiền này.",
-      "deposit": "Gửi",
-      "depositTab": "Gửi",
-      "effectiveFixedApr": "APR Cố Định Hiệu Quả",
-      "effectiveFixedAprPendleTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
+      "deposit": "Cung cấp",
+      "depositPeriodEnds": "Giai đoạn cung cấp kết thúc",
+      "depositsPausedNotice": "Tài sản sẽ bị khóa trong giai đoạn Cung cấp và giai đoạn Khóa, và chỉ có thể được nhận trong giai đoạn Nhận hoặc Hoàn tiền. Kết quả thực tế phụ thuộc vào hiệu suất của đối tác; vốn có rủi ro và bạn có thể nhận lại ít hơn số đã cung cấp.",
+      "depositTab": "Cung cấp",
       "error": {
         "amountTooLow": "Số tiền nhập vào quá thấp.",
         "invalidAmountFromQuote": "Số tiền vượt quá thanh khoản có sẵn trên thị trường Pendle. Giảm số tiền và thử lại.",
@@ -2071,44 +2079,76 @@
       },
       "estPenalty": "Phạt ước tính",
       "estReceived": "Ước tính nhận được",
-      "estYield": "Lợi nhuận ước tính",
+      "estYield": "Phần thưởng ước tính",
+      "institutionalDisclaimer": "Tài sản sẽ bị khóa trong giai đoạn Cung cấp và giai đoạn Khóa, và chỉ có thể được nhận trong giai đoạn Nhận hoặc Hoàn tiền. Kết quả thực tế phụ thuộc vào hiệu suất của đối tác; vốn có rủi ro và bạn có thể nhận lại ít hơn số đã cung cấp.",
+      "institutionalTcsAgreement": "Bằng việc tiếp tục, tôi đồng ý với <Link>Điều khoản sử dụng của Venus Fixed-Term Vault</Link> và xác nhận rằng tôi không phải là người bị hạn chế. Người bị hạn chế bao gồm Công dân Hoa Kỳ (theo định nghĩa trong Regulation S của Đạo luật Chứng khoán Hoa Kỳ năm 1933), những người đang ở, thường trú tại hoặc là công dân của Vương quốc Anh, Canada hoặc Trung Quốc đại lục, và bất kỳ ai đang ở hoặc chịu sự điều chỉnh của luật trừng phạt của một khu vực tài phán bị OFAC trừng phạt. Xem Điều khoản sử dụng để biết danh sách đầy đủ.",
+      "institutionalTimeline": {
+        "claimPeriod": "Giai đoạn nhận ước tính",
+        "depositPeriod": "Giai đoạn cung cấp",
+        "estimatedLockedPeriod": "Giai đoạn khóa ước tính",
+        "estimatedRepayingPeriod": "Giai đoạn hoàn trả ước tính",
+        "refundPeriod": "Giai đoạn hoàn tiền"
+      },
       "maturityDate": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
       "maturityPendleDisclaimer": "Trước khi đáo hạn, số tiền nhận được khi rút phụ thuộc vào giá thị trường Pendle. Sau khi đáo hạn, các khoản rút được quy đổi theo tỷ lệ 1:1 dựa trên số PT token bạn nắm giữ.",
       "minReceived": "Tối thiểu nhận được",
       "overview": {
-        "manager": "Quản lý",
-        "managerTooltip": "Địa chỉ hoặc nhóm quản lý tài sản cơ sở của kho này. Tài sản được gửi sẽ được phân bổ vào các thị trường mà họ giám sát, và họ có thể cập nhật thời hạn mua lại hoặc thanh toán dựa trên điều kiện thị trường.",
+        "campaignTimeline": "Dòng thời gian chiến dịch",
+        "collateral": "Tài sản thế chấp",
+        "loan": "Khoản vay",
         "marketInfo": "Thông tin thị trường",
         "marketRiskDisclosures": "Công bố rủi ro thị trường",
-        "riskDisclosureText": "Pendle là một giao thức giao dịch lợi suất phi tập trung cho phép lợi suất cố định thông qua Token Gốc (PT). Venus Fixed Rate Vault chuyển tiền gửi qua cơ sở hạ tầng của Pendle để mua PT, sau đó được cung cấp cho Venus Core làm tài sản thế chấp.<br />Mặc dù Pendle không thể truy cập hoặc di chuyển tiền gửi của bạn, việc sử dụng kho này khiến bạn phải chịu rủi ro từ cả hai giao thức. Những rủi ro này bao gồm lỗ hổng hợp đồng thông minh, lỗi oracle và khả năng một trong hai giao thức bị khai thác hoặc tạm dừng. Rút tiền sớm được thực hiện theo giá thị trường và có thể nhận lại ít hơn số tiền đã gửi. APY cố định được khóa tại thời điểm gửi và không bảo vệ khỏi các lỗi ở cấp giao thức.",
+        "riskDisclosureText": {
+          "matrixDock": "<Bold>Vốn có rủi ro</Bold>. Mức lãi suất mục tiêu là biến động và gắn với hiệu suất của kho. Đây không phải là mức lợi nhuận được đảm bảo. <Bold>Bạn có thể nhận lại ít hơn số đã nạp vào</Bold>. Khi tất toán, bạn sẽ nhận phần tài sản mà kho thực sự nắm giữ tại thời điểm đó theo tỷ lệ sở hữu của mình. <Bold>Tiền của bạn sẽ bị khóa</Bold>. Khi giai đoạn khóa bắt đầu, bạn sẽ không thể cung cấp hoặc rút tài sản. Chỉ đến khi tất toán thì tiền mới có thể được nhận. <Bold>Những yếu tố ảnh hưởng đến kết quả:</Bold> hiệu suất của đối tác, điều kiện tài sản thế chấp, việc thực thi hợp đồng thông minh, độ tin cậy của oracle và kết quả tất toán. <Bold>Có áp dụng hạn chế theo khu vực pháp lý</Bold>. Kho này không dành cho các khu vực pháp lý bị hạn chế hoặc các đối tượng bị hạn chế. Vui lòng xem Điều khoản sử dụng để biết danh sách đầy đủ. Vui lòng xem <TermsOfUseLink>Điều khoản sử dụng</TermsOfUseLink> và các thông số của kho trên trang này trước khi cung cấp.",
+          "pendle": "Pendle là một giao thức giao dịch lợi nhuận phi tập trung cho phép tạo ra lợi nhuận lãi suất cố định thông qua Principal Tokens (PT). Venus Fixed Rate Vault định tuyến tài sản được cung cấp thông qua hạ tầng của Pendle để mua PT, sau đó các PT này được cung cấp vào Venus Core làm tài sản thế chấp. <br />Mặc dù Pendle không thể truy cập hoặc di chuyển số tài sản bạn đã cung cấp, việc sử dụng vault này khiến bạn chịu rủi ro từ cả hai giao thức. Các rủi ro này bao gồm lỗ hổng hợp đồng thông minh, sự cố oracle và khả năng một trong hai giao thức bị khai thác hoặc bị tạm dừng. Việc rút tiền sớm được thực hiện theo giá thị trường và có thể nhận lại ít hơn lượng đã cung cấp. APY cố định được khóa khi bạn cung cấp nhưng không bảo vệ khỏi các sự cố ở cấp độ giao thức."
+        },
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "Người dùng",
-          "venusCore": "Venus Core"
+          "venue": "Nền tảng",
+          "venusCore": "Venus Core",
+          "venusVault": "Kho Venus"
         },
         "strategyAllocation": "Phân bổ chiến lược",
         "supply": "Cung cấp",
-        "totalDeposited": "Tổng đã gửi",
-        "vaultDeploymentDate": "Ngày triển khai Kho"
+        "totalDeposited": "Tổng đã cung cấp",
+        "vaultDeploymentDate": "Ngày triển khai Kho",
+        "vaultVenueIcon": "Logo nền tảng",
+        "venue": "Nền tảng",
+        "venueTooltip": "Đây là đối tác nắm giữ và luân chuyển các tài sản cơ sở của kho trong thời gian khóa. Tài sản được cung cấp sẽ được triển khai theo các điều khoản đã thỏa thuận trước; lịch mua lại và tất toán tuân theo lịch đã công bố của kho và chỉ có thể thay đổi trong các trường hợp ngoại lệ được nêu trong các quy tắc đó."
       },
       "overviewTab": "Tổng quan",
       "pendleFee": "Phí Pendle",
       "positionTab": "Vị thế",
-      "stakeTab": "Gửi",
+      "stakeTab": "Cung cấp",
+      "targetApr": "APR mục tiêu",
+      "targetAprTooltip": "Phần thưởng mục tiêu theo năm mà chiến lược vault này hướng tới, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm mục tiêu có bao gồm lãi kép. Lợi nhuận thực tế có thể biến động và phụ thuộc vào hiệu suất của đối tác; vốn có rủi ro. Bạn có thể nhận lại ít hơn số đã cung cấp.",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalTargetRewards": "Tổng phần thưởng mục tiêu",
       "withdraw": "Rút",
       "withdrawTab": "Rút"
     },
     "overview": {
       "bannerVaultIllustration": "Hình minh họa kho"
+    },
+    "timeline": {
+      "description": {
+        "claim": "Toàn bộ tiền gốc và lãi đã kiếm được đều có thể rút.",
+        "deposit": "Người dùng có thể tự do cung cấp {{ tokenSymbol }} trong giai đoạn này.",
+        "locked": "Việc cung cấp và nhận đều bị tạm dừng. Giai đoạn Khóa bắt đầu sau khi Giai đoạn Chờ kết thúc và tiền đã được chuyển hoàn tất.",
+        "refund": "Có thể rút tiền gốc.",
+        "repaying": "Kho đã đáo hạn. Tiền gốc và lãi đang được tất toán. Quá trình này thường mất 2-3 ngày."
+      },
+      "tbd": "TBD",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {
     "vaultModal": {
       "footer": {
-        "currentlyStaked": "Đang gửi",
+        "currentlyStaked": "Hiện đang cung cấp",
         "estimatedDailyEarnings": "Thu nhập hằng ngày ước tính",
         "lockingPeriod": {
           "duration": "{{date, distanceToNow}}",
@@ -2122,7 +2162,7 @@
           "tooltip": "Bạn có XVS đã được mở khóa và sẵn sàng để nhận."
         },
         "primeLossWarning": {
-          "message": "Bạn sẽ mất token Prime nếu rút số tiền này, vì khoản gửi của bạn trong kho XVS sẽ giảm xuống dưới mức tối thiểu {{minimumXvsStake}} cần có để đủ điều kiện nhận Prime."
+          "message": "Bạn sẽ mất token Prime nếu rút số tiền này, vì lượng cung cấp của bạn trong kho XVS sẽ giảm xuống dưới mức tối thiểu {{minimumXvsStake}} cần có để đủ điều kiện nhận Prime."
         },
         "requestWithdrawalField": {
           "label": "Yêu cầu rút"
@@ -2133,13 +2173,13 @@
       },
       "stakeForm": {
         "depositField": {
-          "label": "Gửi"
+          "label": "Cung cấp"
         },
         "footer": {
           "apr": "APR"
         },
         "submitButton": {
-          "label": "Gửi"
+          "label": "Cung cấp"
         }
       },
       "withdrawFromVaiVault": {
@@ -2195,8 +2235,8 @@
     "delegateVotes": "Phiếu ủy quyền",
     "delegateVoting": "Bỏ phiếu ủy quyền",
     "delegateYourVoting": "2. <Anchor>Ủy quyền quyền bỏ phiếu</Anchor> cho chính bạn hoặc người khác",
-    "depositXvs": "Gửi XVS",
-    "depositYourTokens": "1. <Link>Gửi token của bạn</Link> vào XVS Vault ",
+    "depositXvs": "Cung cấp XVS",
+    "depositYourTokens": "1. <Link>Cung cấp token của bạn</Link> vào XVS Vault ",
     "enterContactAddress": "Nhập địa chỉ liên hệ",
     "errorState": {
       "buttonLabel": "Thử lại",

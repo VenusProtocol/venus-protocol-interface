@@ -7,7 +7,7 @@ import { getVaultCategoryName } from 'utilities/getVaultCategoryName';
 export const ALL_OPTION_VALUE = 'all';
 
 const CATEGORY_PARAM_KEY = 'category';
-const MANAGER_PARAM_KEY = 'manager';
+const VENUE_PARAM_KEY = 'venue';
 const STATUS_PARAM_KEY = 'status';
 
 export const useFilterOptions = () => {
@@ -15,7 +15,7 @@ export const useFilterOptions = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const category = searchParams.get(CATEGORY_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const manager = searchParams.get(MANAGER_PARAM_KEY) ?? ALL_OPTION_VALUE;
+  const venue = searchParams.get(VENUE_PARAM_KEY) ?? ALL_OPTION_VALUE;
   const status = searchParams.get(STATUS_PARAM_KEY) ?? ALL_OPTION_VALUE;
 
   const setCategory = (newVal: string) =>
@@ -24,10 +24,10 @@ export const useFilterOptions = () => {
       [CATEGORY_PARAM_KEY]: newVal,
     }));
 
-  const setManager = (newVal: string) =>
+  const setVenue = (newVal: string) =>
     setSearchParams(currentSearchParams => ({
       ...Object.fromEntries(currentSearchParams),
-      [MANAGER_PARAM_KEY]: newVal,
+      [VENUE_PARAM_KEY]: newVal,
     }));
 
   const setStatus = (newVal: string) =>
@@ -53,9 +53,9 @@ export const useFilterOptions = () => {
     }),
   );
 
-  const managerOptions = [
+  const venueOptions = [
     {
-      label: t('vault.filter.allManagers'),
+      label: t('vault.filter.allVenues'),
       value: ALL_OPTION_VALUE,
     },
     {
@@ -75,6 +75,15 @@ export const useFilterOptions = () => {
         </div>
       ),
       value: 'pendle',
+    },
+    {
+      label: (
+        <div className="flex items-center gap-2">
+          <Icon name="matrixdock" />
+          Matrixdock
+        </div>
+      ),
+      value: 'matrixdock',
     },
   ];
 
@@ -96,8 +105,8 @@ export const useFilterOptions = () => {
       value: 'refund',
     },
     {
-      label: t('vault.filter.earning'),
-      value: 'earning',
+      label: t('vault.filter.locked'),
+      value: 'locked',
     },
     {
       label: t('vault.filter.repaying'),
@@ -107,15 +116,27 @@ export const useFilterOptions = () => {
       label: t('vault.filter.claim'),
       value: 'claim',
     },
+    {
+      label: t('vault.filter.pending'),
+      value: 'pending',
+    },
+    {
+      label: t('vault.filter.inactive'),
+      value: 'inactive',
+    },
+    {
+      label: t('vault.filter.liquidated'),
+      value: 'liquidated',
+    },
   ];
 
   return {
     category,
     setCategory,
     categoryOptions,
-    manager,
-    setManager,
-    managerOptions,
+    venue,
+    setVenue,
+    venueOptions,
     status,
     setStatus,
     statusOptions,

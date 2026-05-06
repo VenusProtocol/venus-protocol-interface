@@ -5,25 +5,33 @@ import { useForm as useRhfForm } from 'react-hook-form';
 import z from 'zod';
 
 import { useTranslation } from 'libs/translations';
+import type { Token } from 'types';
+import { formatTokensToReadableValue } from 'utilities';
 
 export interface FormValues {
   fromAmountTokens: string;
-  acknowledgeHighPriceImpact: boolean;
 }
 
 export const initialFormValues: FormValues = {
   fromAmountTokens: '',
-  acknowledgeHighPriceImpact: false,
 };
 
 export const useForm = ({
+  fromToken,
+  minFromTokens,
   limitFromTokens,
   walletSpendingLimitTokens,
 }: {
+  fromToken: Token;
+  minFromTokens?: BigNumber;
   limitFromTokens?: BigNumber;
   walletSpendingLimitTokens?: BigNumber;
 }) => {
   const { t } = useTranslation();
+  const readableMinFromTokens = formatTokensToReadableValue({
+    value: minFromTokens,
+    token: fromToken,
+  });
 
   const formSchema = z
     .object({
@@ -33,6 +41,16 @@ export const useForm = ({
         if (value.isZero()) {
           ctx.addIssue({
             code: 'custom',
+          });
+          return;
+        }
+
+        if (minFromTokens && value.isLessThan(minFromTokens)) {
+          ctx.addIssue({
+            code: 'custom',
+            message: t('operationForm.error.smallerThanMinimumAmount', {
+              minAmount: readableMinFromTokens,
+            }),
           });
           return;
         }

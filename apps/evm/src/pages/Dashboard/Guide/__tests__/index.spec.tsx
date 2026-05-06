@@ -28,7 +28,7 @@ describe('Guide', () => {
     const customFakeVault: Vault = {
       ...vaults[0],
       stakedToken: xvs,
-      userStakedMantissa: new BigNumber('1000000000000000000'),
+      userStakeBalanceMantissa: new BigNumber('1000000000000000000'),
     };
 
     (useGetVaults as Mock).mockImplementation(() => ({
@@ -66,7 +66,7 @@ describe('Guide', () => {
     const customFakeVault: Vault = {
       ...vaults[0],
       stakedToken: xvs,
-      userStakedMantissa: new BigNumber(0),
+      userStakeBalanceMantissa: new BigNumber(0),
     };
 
     (useGetVaults as Mock).mockImplementation(() => ({

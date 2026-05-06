@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "Net değer",
-        "tooltip": "Vault yatırımı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Vault yatırımı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+        "tooltip": "Vault arzı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Vault arzı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "periodOption": {
         "oneYear": "1Y",
@@ -61,10 +61,10 @@
         "mintedVai": "Basılmış VAI",
         "netApy": "Net APY",
         "netApyTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyenizin yüzdesi",
-        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyeniz ve vault yatırımınızın yüzdesi",
+        "netApyWithVaultStakeTooltip": "Yıllık faiz olarak alınan toplam tedarik bakiyeniz ve vault arzınızın yüzdesi",
         "totalBorrow": "Toplam borç",
         "totalSupply": "Toplam tedarik",
-        "totalVaultStake": "Toplam vault yatırımı"
+        "totalVaultStake": "Toplam vault arzı"
       },
       "title": "Özet"
     },
@@ -117,7 +117,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "Henüz yatırım pozisyonu yok"
+        "title": "Henüz sağlama pozisyonu yok"
       }
     }
   },
@@ -263,7 +263,7 @@
       "date": "Tarih",
       "supplyApy": "Sağlama APY",
       "totalBorrow": "Toplam borç",
-      "totalStaked": "Toplam yatırılan",
+      "totalStaked": "Toplam sağlanan",
       "totalSupply": "Toplam tedarik"
     }
   },
@@ -438,8 +438,8 @@
         "title": "Borçlan / Kaldıraç"
       },
       "step3": {
-        "description": "XVS'yi vault'a yatırın ve protokol gelirleriyle desteklenen getiri kazanın.",
-        "title": "XVS yatır"
+        "description": "XVS'yi vault'a sağlayın ve protokol gelirleriyle desteklenen getiri kazanın.",
+        "title": "XVS sağla"
       },
       "uncompleted": "Tamamlanmadı"
     },
@@ -447,8 +447,8 @@
       "absolutePerformance": "Mutlak performans",
       "netWorth": {
         "label": "Net değer",
-        "tooltip": "Kasa yatırımı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Kasa yatırımı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+        "tooltip": "Kasa arzı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
+        "tooltipWithVai": "Kasa arzı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "performanceChart": {
         "errorState": {
@@ -468,10 +468,10 @@
           "mintedVai": "Basılmış VAI",
           "netApy": "Net APY",
           "netApyTooltip": "Toplam arz bakiyenizin yıllık faiz olarak alınan yüzdesi",
-          "netApyWithVaultStakeTooltip": "Toplam arz ve kasa yatırımınızın yıllık faiz olarak alınan yüzdesi",
+          "netApyWithVaultStakeTooltip": "Toplam arz ve kasa arzınızın yıllık faiz olarak alınan yüzdesi",
           "totalBorrow": "Toplam borç",
           "totalSupply": "Toplam arz",
-          "totalVaultStake": "Toplam kasa yatırımı"
+          "totalVaultStake": "Toplam kasa arzı"
         },
         "title": "Özet"
       },
@@ -496,7 +496,7 @@
     "vaults": {
       "dailyEarnings": "Günlük kazançlar",
       "dailyEarningsTooltip": "Tüm aktif kasalardaki tahmini günlük kazançlarınız; her kasanın mevcut oranına veya sabit APR'sine göre hesaplanır. Gerçek kazançlar değişebilir.",
-      "totalStakedValue": "Toplam yatırılan değer"
+      "totalStakedValue": "Toplam sağlanan değer"
     }
   },
   "eModeBanner": {
@@ -1098,6 +1098,7 @@
       "noCollateral": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce tokenları sağlayıp teminat olarak etkinleştirmelisiniz",
       "noSwapQuoteFound": "Swap bulunamadı.",
       "priceImpactTooHigh": "Fiyat etkisi çok yüksek",
+      "smallerThanMinimumAmount": "Bir seferde {{minAmount}} değerinden daha az sağlayamazsınız",
       "supplyCapReached": "Bu havuz için {{assetSupplyCap}} tedarik limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
       "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur"
     },
@@ -1217,12 +1218,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "Prime ödüllerine uygun olmak için en az {{minimumXvsStaked}} XVS yatırılmalıdır.",
-        "label": "Uygun yatırılmış XVS",
+        "error": "Prime ödüllerine uygun olmak için en az {{minimumXvsStaked}} XVS sağlanmalıdır.",
+        "label": "Uygun sağlanan XVS",
         "tooltip": "Prime ödülleriniz için en fazla {{maximumXvsStaked}} dikkate alınır"
       },
       "textField": {
-        "label": "Yatırılmış XVS"
+        "label": "Sağlanan XVS"
       }
     },
     "suppliedTokens": {
@@ -1244,8 +1245,8 @@
     "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",
     "claimButtonLabel": "Prime tokenını talep et",
     "description": {
-      "primeCalculator": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> yatırın ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Prime ödüllerinizi hesaplayın</Link>",
-      "primeDoc": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> yatırın ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Daha fazla bilgi</Link>"
+      "primeCalculator": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> sağlayın ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Prime ödüllerinizi hesaplayın</Link>",
+      "primeDoc": "Daha fazla <WhiteText>{{stakeDelta}}</WhiteText> sağlayın ve {{claimWaitingPeriod}} bekleyin, Prime tokenınızı talep edip kazancınızı artırın. <Link>Daha fazla bilgi</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "Tüm Prime tokenları talep edildi",
@@ -1253,10 +1254,10 @@
     },
     "progressBar": {
       "ariaLabel": "Mevcut Prime ilerlemeniz",
-      "label": "Yatırıldı: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "Sağlanan: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Kazancınızı <GreenText>{{percentage}}</GreenText> kadar artırın",
-    "stakeButtonLabel": "XVS yatır",
+    "stakeButtonLabel": "XVS sağla",
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> Prime token kaldı",
@@ -2014,24 +2015,27 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bu kasayla etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekmektedir.",
-      "claimReward": "Ödülü talep et",
-      "currentDeposited": "Mevcut yatırım",
+      "currentDeposited": "Mevcut sağlanan",
       "dailyEmission": "Günlük ödül dağıtımı",
-      "effectiveFixedApr": "Efektif Sabit APR",
       "header": {
+        "fixedTermTitle": "{{ tokenSymbol }} Sabit Vadeli",
         "maturityDate_one": "{{ date, textual }} ({{ count }} gün)",
         "maturityDate_other": "{{ date, textual }} ({{ count }} gün)"
       },
       "liquidity": "Likidite",
       "liquidityTooltip": "Bu kasanın temelindeki Pendle entegre havuzunda (veya stratejisinde) şu anda sağlanan toplam varlık değeri.",
-      "manager": "Yönetici kurum",
       "maturityDate": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
-      "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, yatırım ve çekim işlemleri devre dışı bırakılmıştır.",
+      "minRequested": "Min. talep edilen",
+      "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, sağlama ve çekim işlemleri devre dışı bırakılmıştır.",
       "primeEligibility": "Prime uygunluğu",
+      "targetApr": "Hedef APR",
+      "targetAprTooltip": "Bu kasa stratejisinin sunmayı hedeflediği yıllıklandırılmış hedef ödüldür; bileşik getiri dahil hedef Yıllık Yüzde Oranı (APR) olarak ifade edilir. Gerçek getiri değişkendir ve karşı taraf performansına bağlıdır; sermaye risk altındadır. Sağladığınız tutardan daha azını geri alabilirsiniz.",
       "textualWithTime": "{{date, textualWithTime}}",
-      "totalDeposited": "Toplam yatırılan",
-      "youDeposited": "Yatırım yapıyorsunuz"
+      "totalDeposited": "Toplam sağlanan",
+      "vaultVenueIcon": "Venus logosu",
+      "venue": "Platform",
+      "youDeposited": "Sağladınız"
     },
     "category": {
       "governance": "Yönetişim",
@@ -2042,27 +2046,31 @@
     "filter": {
       "active": "Aktif",
       "allCategories": "Tüm kategoriler",
-      "allManagers": "Tüm yönetici kurumlar",
       "allStates": "Tüm durumlar",
+      "allVenues": "Tüm platformlar",
       "claim": "Talep et",
-      "deposit": "Yatır",
-      "earning": "Kazanç",
+      "deposit": "Sağla",
+      "inactive": "Aktif değil",
       "inputPlaceholder": "Varlık ara",
+      "liquidated": "Tasfiye edildi",
+      "locked": "Kazanç",
       "paused": "Duraklatıldı",
+      "pending": "Beklemede",
       "refund": "İade",
       "repaying": "Geri ödeniyor"
     },
     "header": "Kasa",
     "modals": {
       "afterMaturityPendleDisclaimer": "Lütfen önce Çek butonu ile PT tokenlarınızı cüzdanınıza çekin, ardından temel tokenlarınızı geri almak için <Link>Pendle resmi</Link> web sitesini ziyaret edin.",
-      "connectWalletMessage": "{{tokenSymbol}} yatırmak / çekmek için cüzdanınızı bağlayın",
+      "claim": "Talep et",
+      "connectWalletMessage": "Bu kasayla etkileşime geçmek için lütfen cüzdanınızı bağlayın",
       "convert": "Dönüştür",
-      "currentDeposited": "Mevcut yatırılan",
+      "currentDeposited": "Mevcut sağlanan",
       "currentDepositedTooltip": "Bu kasada şu anda kilitli olan ve kazanç sağlayan varlıklarınızın miktarı.",
-      "deposit": "Yatır",
-      "depositTab": "Yatır",
-      "effectiveFixedApr": "Efektif Sabit APR",
-      "effectiveFixedAprPendleTooltip": "Bu kasa stratejisinin sunduğu yıllık sabit getiri; bileşik faiz dahil efektif Yıllık Yüzde Oranı (APR) olarak ifade edilmektedir.",
+      "deposit": "Sağla",
+      "depositPeriodEnds": "Sağlama dönemi sona eriyor",
+      "depositsPausedNotice": "Fonlar Sağlama ve Kilit dönemleri boyunca kilitlidir ve yalnızca Talep veya İade döneminde talep edilebilir. Gerçek sonuçlar karşı taraf performansına bağlıdır; sermaye risk altındadır ve sağladığınız tutardan daha azını geri alabilirsiniz.",
+      "depositTab": "Sağla",
       "error": {
         "amountTooLow": "Girilen miktar çok düşük.",
         "invalidAmountFromQuote": "Girilen miktar, Pendle piyasasındaki kullanılabilir likidityi aşıyor. Miktarı azaltın ve tekrar deneyin.",
@@ -2072,44 +2080,76 @@
       },
       "estPenalty": "Tahmini Ceza",
       "estReceived": "Tahmini Alınan",
-      "estYield": "Tahmini Getiri",
+      "estYield": "Tahmini Ödüller",
+      "institutionalDisclaimer": "Fonlar Sağlama ve Kilit dönemleri boyunca kilitlidir ve yalnızca Talep veya İade döneminde talep edilebilir. Gerçek sonuçlar karşı taraf performansına bağlıdır; sermaye risk altındadır ve sağladığınız tutardan daha azını geri alabilirsiniz.",
+      "institutionalTcsAgreement": "Devam ederek, <Link>Venus Fixed-Term Vault Kullanım Koşulları</Link>'nı kabul ettiğimi ve kısıtlı kişi olmadığımı beyan ederim. Kısıtlı kişiler arasında ABD Menkul Kıymetler Yasası 1933'ün Regulation S tanımındaki ABD Kişileri, Birleşik Krallık, Kanada veya Çin anakarasında bulunan, olağan olarak ikamet eden ya da bu ülkelerin vatandaşı olan kişiler ile OFAC yaptırımına tabi bir yargı alanında bulunan veya bu yaptırım yasalarına tabi olan kişiler yer alır. Tam liste için Kullanım Koşulları'na bakın.",
+      "institutionalTimeline": {
+        "claimPeriod": "Tahmini talep dönemi",
+        "depositPeriod": "Sağlama dönemi",
+        "estimatedLockedPeriod": "Tahmini kilit dönemi",
+        "estimatedRepayingPeriod": "Tahmini geri ödeme dönemi",
+        "refundPeriod": "İade dönemi"
+      },
       "maturityDate": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
       "maturityPendleDisclaimer": "Vade öncesinde, çekim sırasında alınan tutar Pendle piyasa fiyatlarına tabidir. Vade sonrasında, çekimler sahip olduğunuz PT token miktarına göre 1:1 oranında itfa edilir.",
       "minReceived": "Min. Alınan",
       "overview": {
-        "manager": "Yönetici kurum",
-        "managerTooltip": "Bu kasanın temel varlığını yöneten adres veya ekip. Yatırılan varlıklar, denetledikleri piyasalara tahsis edilir ve piyasa koşullarına göre itfa veya uzlaşma sürelerini güncelleyebilirler.",
+        "campaignTimeline": "Kampanya zaman çizelgesi",
+        "collateral": "Teminat",
+        "loan": "Kredi",
         "marketInfo": "Piyasa bilgisi",
         "marketRiskDisclosures": "Piyasa Risk Açıklamaları",
-        "riskDisclosureText": "Pendle, Temel Tokenlar (PT'ler) aracılığıyla sabit oranlı getiri sağlayan merkeziyetsiz bir getiri ticaret protokolüdür. Venus Sabit Faiz Kasası, PT'leri edinmek için mevduatları Pendle'ın altyapısı üzerinden yönlendirir ve bunlar Venus Core'a teminat olarak sağlanır.<br />Pendle yatırdığınız fonlara erişemez veya taşıyamaz olsa da bu kasayı kullanmak sizi her iki protokolden kaynaklanan risklere maruz bırakır. Bunlar arasında akıllı sözleşme güvenlik açıkları, oracle arızaları ve her iki protokolün de istismar edilmesi veya duraklatılması olasılığı yer alır. Erken para çekme işlemleri piyasa fiyatından gerçekleştirilir ve yatırılan tutardan daha az iade edilebilir. Sabit APY yatırım sırasında kilitlenir ve protokol düzeyindeki arızalara karşı koruma sağlamaz.",
+        "riskDisclosureText": {
+          "matrixDock": "<Bold>Sermaye risk altındadır</Bold>. Hedef oran değişkendir ve kasanın performansına bağlıdır. Bu garanti edilmiş bir getiri değildir. <Bold>Geri alacağınız tutar yatırdığınız tutardan daha düşük olabilir</Bold>. Uzlaşma sırasında, o anda kasanın fiilen elinde tuttuğu varlıkların payınıza düşen kısmını alırsınız. <Bold>Fonlarınız kilitlenecektir</Bold>. Kilitli dönem başladıktan sonra ne varlık sağlayabilir ne de çekebilirsiniz. Fonlar ancak uzlaşmada talep edilebilir hale gelir. <Bold>Sonuçları etkileyen unsurlar:</Bold> karşı taraf performansı, teminat koşulları, akıllı sözleşme yürütümü, oracle güvenilirliği ve uzlaşma sonuçları. <Bold>Yargı bölgesi kısıtlamaları geçerlidir</Bold>. Bu kasa, kısıtlı yargı bölgelerinde veya kısıtlı kişilere sunulmaz. Tam liste için Kullanım Koşulları'na bakın. Varlık sağlamadan önce lütfen bu sayfadaki kasa parametrelerini ve <TermsOfUseLink>Kullanım Koşulları</TermsOfUseLink>'nı inceleyin.",
+          "pendle": "Pendle, Anapara Token'ları (PT) aracılığıyla sabit oranlı getiri sağlayan merkeziyetsiz bir getiri ticareti protokolüdür. Venus Sabit Oran Kasası, PT edinmek için sağlanan varlıkları Pendle altyapısı üzerinden yönlendirir ve bunlar Venus Core'a teminat olarak sağlanır. <br />Pendle sağladığınız fonlara erişemese veya onları taşıyamasa da, bu kasayı kullanmak sizi her iki protokolden kaynaklanan risklere maruz bırakır. Bunlar arasında akıllı sözleşme açıkları, oracle arızaları ve protokollerden herhangi birinin istismar edilmesi veya durdurulması olasılığı bulunur. Erken çekimler piyasa fiyatından gerçekleştirilir ve sağlanan tutardan daha az geri dönebilir. Sabit APY sağlama sırasında kilitlenir, ancak protokol seviyesindeki arızalara karşı koruma sağlamaz."
+        },
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "Kullanıcılar",
-          "venusCore": "Venus Core"
+          "venue": "Platform",
+          "venusCore": "Venus Core",
+          "venusVault": "Venus kasası"
         },
         "strategyAllocation": "Strateji Dağılımı",
         "supply": "Sağla",
-        "totalDeposited": "Toplam Yatırım",
-        "vaultDeploymentDate": "Kasa Başlangıç Tarihi"
+        "totalDeposited": "Toplam sağlanan",
+        "vaultDeploymentDate": "Kasa Başlangıç Tarihi",
+        "vaultVenueIcon": "Platform logosu",
+        "venue": "Platform",
+        "venueTooltip": "Bu kasanın temel varlıklarını kilit süresi boyunca elinde tutan ve yönlendiren karşı taraftır. Sağlanan varlıklar önceden kararlaştırılmış şartlar altında kullanılır; itfa ve uzlaşma takvimi kasanın yayımlanmış planını izler ve yalnızca bu kurallarda tanımlanan istisnai durumlarda değişebilir."
       },
       "overviewTab": "Genel Bakış",
       "pendleFee": "Pendle Ücreti",
       "positionTab": "Pozisyon",
-      "stakeTab": "Yatır",
+      "stakeTab": "Sağla",
+      "targetApr": "Hedef APR",
+      "targetAprTooltip": "Bu kasa stratejisinin sunmayı hedeflediği yıllıklandırılmış hedef ödüldür; bileşik getiri dahil hedef Yıllık Yüzde Oranı (APR) olarak ifade edilir. Gerçek getiri değişkendir ve karşı taraf performansına bağlıdır; sermaye risk altındadır. Sağladığınız tutardan daha azını geri alabilirsiniz.",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalTargetRewards": "Toplam hedef ödüller",
       "withdraw": "Çek",
       "withdrawTab": "Çek"
     },
     "overview": {
       "bannerVaultIllustration": "Kasa görseli"
+    },
+    "timeline": {
+      "description": {
+        "claim": "Tüm anapara ve kazanılan faiz çekilebilir.",
+        "deposit": "Kullanıcılar bu dönemde {{ tokenSymbol }} varlığını serbestçe sağlayabilir.",
+        "locked": "Sağlama ve talep işlemleri duraklatılır. Kilit dönemi, Bekleme Dönemi sona erip fonlar tamamen aktarıldığında başlar.",
+        "refund": "Anapara çekilebilir.",
+        "repaying": "Kasa vadesine ulaştı. Anapara ve faiz tasfiye ediliyor. Bu süreç genellikle 2-3 gün sürer."
+      },
+      "tbd": "TBD",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {
     "vaultModal": {
       "footer": {
-        "currentlyStaked": "Mevcut yatırılan",
+        "currentlyStaked": "Mevcut sağlanan",
         "estimatedDailyEarnings": "Tahmini günlük kazanç",
         "lockingPeriod": {
           "duration": "{{date, distanceToNow}}",
@@ -2123,7 +2163,7 @@
           "tooltip": "Talep edilmeye hazır, kilidi açılmış XVS'niz var."
         },
         "primeLossWarning": {
-          "message": "Bu miktarı çekerseniz, XVS kasasındaki yatırımınız Prime için uygun olmak adına gereken minimum {{minimumXvsStake}} seviyesinin altına düşeceği için Prime tokenınızı kaybedersiniz."
+          "message": "Bu miktarı çekerseniz, XVS kasasındaki sağlanan tutarınız Prime için uygun olmak adına gereken minimum {{minimumXvsStake}} seviyesinin altına düşeceği için Prime tokenınızı kaybedersiniz."
         },
         "requestWithdrawalField": {
           "label": "Çekim talep et"
@@ -2134,13 +2174,13 @@
       },
       "stakeForm": {
         "depositField": {
-          "label": "Yatır"
+          "label": "Sağla"
         },
         "footer": {
           "apr": "APR"
         },
         "submitButton": {
-          "label": "Yatır"
+          "label": "Sağla"
         }
       },
       "withdrawFromVaiVault": {
@@ -2196,8 +2236,8 @@
     "delegateVotes": "Delege oyları",
     "delegateVoting": "Delege oylaması",
     "delegateYourVoting": "2. <Anchor>Oy gücünüzü</Anchor> kendinize veya başkasına delege edin",
-    "depositXvs": "XVS yatır",
-    "depositYourTokens": "1. <Link>Tokenlarınızı yatırın</Link> XVS Vault'a ",
+    "depositXvs": "XVS sağla",
+    "depositYourTokens": "1. <Link>Tokenlarınızı sağlayın</Link> XVS Vault'a ",
     "enterContactAddress": "İletişim adresi girin",
     "errorState": {
       "buttonLabel": "Yeniden dene",

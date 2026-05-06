@@ -1,23 +1,26 @@
 import { cn } from '@venusprotocol/ui';
 import { useState } from 'react';
 
-import { Card, Icon, LabeledInlineContent, LayeredValues, NoticeWarning } from 'components';
+import { Card, LabeledInlineContent, LayeredValues, NoticeWarning } from 'components';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { type Vault, VaultCategory, VaultManager, VaultStatus } from 'types';
+import { type Vault, VaultCategory, VaultStatus, VaultVenue } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  isInstitutionalVault,
   isLegacyVenusVault,
   isPendleVault,
 } from 'utilities';
+import { InstitutionalCheckpointInlineContent } from './InstitutionalCheckpointInlineContent';
+import { InstitutionalVaultModal } from './InstitutionalVaultModal';
 import { PendleVaultModal } from './PendleVaultModal';
 import { PrimeEligibilityInlineContent } from './PrimeEligibilityInlineContent';
+import { Progress } from './Progress';
 import { StatusLabel } from './StatusLabel';
 import { VaultName } from './VaultName';
 import { VenusVaultModal } from './VenusVaultModal';
@@ -29,7 +32,6 @@ export interface VaultProps {
 
 export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const { t } = useTranslation();
-  const now = useNow();
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -37,14 +39,13 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
   const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
     token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
-    value: vault.userStakedMantissa,
+    value: vault.userStakeBalanceMantissa,
   });
 
   const dailyEmissionMantissa =
     'dailyEmissionMantissa' in vault ? vault.dailyEmissionMantissa : undefined;
   const dailyEmissionCents = 'dailyEmissionCents' in vault ? vault.dailyEmissionCents : undefined;
 
-  // PT Token
   const liquidityCents = 'liquidityCents' in vault ? vault.liquidityCents : undefined;
   const liquidityTokens = liquidityCents
     ? liquidityCents?.div(
@@ -52,46 +53,38 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
       )
     : undefined;
 
-  const hasMatured =
-    'maturityDate' in vault && vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
-
   const formattedMaturityDate =
-    'maturityDate' in vault
+    'maturityDate' in vault && isPendleVault(vault) && vault.maturityDate
       ? t('vault.card.textualWithTime', {
           date: vault.maturityDate,
         })
       : undefined;
 
-  const isInteractive =
-    vault.status === VaultStatus.Active ||
-    vault.status === VaultStatus.Earning ||
-    vault.status === VaultStatus.Claim ||
-    (vault.manager === VaultManager.Pendle && vault.status === VaultStatus.Deposit);
+  const openModal = () => setModalVisible(true);
 
-  const openModal = () => {
-    setModalVisible(true);
-  };
+  const shouldDisplayInstitutionalMinRequested =
+    isInstitutionalVault(vault) && vault.stakeBalanceMantissa.lt(vault.stakeMinMantissa);
 
-  let footerLabel: string | undefined = t('vault.card.youDeposited');
-  if (hasMatured) {
-    footerLabel = t('vault.card.claimReward');
-  } else if (isLegacyVenusVault(vault)) {
-    footerLabel = t('vault.card.youDeposited');
-  }
+  const readableInstitutionalMinRequested = shouldDisplayInstitutionalMinRequested
+    ? formatTokensToReadableValue({
+        value: convertMantissaToTokens({
+          value: vault.stakeMinMantissa,
+          token: vault.stakedToken,
+        }),
+        token: vault.stakedToken,
+      })
+    : undefined;
 
   return (
     <>
       <Card
         className={cn(
-          'w-full flex flex-col p-0 overflow-hidden duration-250',
-          isInteractive ? 'cursor-pointer hover:border-blue' : 'cursor-not-allowed',
+          'w-full flex flex-col p-0 overflow-hidden duration-250 cursor-pointer hover:border-blue',
           className,
         )}
-        onClick={isInteractive ? openModal : undefined}
+        onClick={openModal}
       >
-        {/* Card body */}
         <div className={cn('bg-dark-blue p-3 sm:p-6 flex flex-col gap-4 sm:gap-6 flex-1')}>
-          {/* Header */}
           <div className={cn('flex items-center justify-between')}>
             <div className={cn('flex items-center gap-x-3')}>
               <VaultName vault={vault} className="min-h-10" />
@@ -107,19 +100,17 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             <StatusLabel status={vault.status} />
           </div>
 
-          {/* Stats */}
           <div className={cn('flex flex-col gap-y-4')}>
             <LabeledInlineContent
+              tooltip={vault.venue !== VaultVenue.Venus && t('vault.card.targetAprTooltip')}
               label={
-                vault.manager === VaultManager.Pendle
-                  ? t('vault.card.effectiveFixedApr')
-                  : t('vault.card.apr')
+                vault.venue !== VaultVenue.Venus ? t('vault.card.targetApr') : t('vault.card.apr')
               }
               labelClassName="mb-auto"
             >
               <LayeredValues
                 className="text-end"
-                topValue={formatPercentageToReadableValue(vault.stakingAprPercentage)}
+                topValue={formatPercentageToReadableValue(vault.stakeAprPercentage)}
                 topValueClassName="text-b1s"
               />
             </LabeledInlineContent>
@@ -164,29 +155,62 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               </LabeledInlineContent>
             )}
 
-            <LabeledInlineContent label={t('vault.card.totalDeposited')} labelClassName="mb-auto">
-              <LayeredValues
-                className="text-end"
-                topValue={convertMantissaToTokens({
-                  value: vault.totalStakedMantissa,
-                  token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
-                  returnInReadableFormat: true,
-                  addSymbol: true,
-                })}
-                bottomValue={formatCentsToReadableValue({
-                  value: vault.totalStakedCents,
-                })}
-                topValueClassName="text-b1r"
-                bottomValueClassName="text-light-grey"
-              />
+            <LabeledInlineContent
+              label={t('vault.card.totalDeposited')}
+              tooltip={
+                isInstitutionalVault(vault) ? t('vault.modals.institutionalDisclaimer') : undefined
+              }
+              labelClassName="mb-auto"
+            >
+              {isInstitutionalVault(vault) ? (
+                <Progress
+                  amountTokens={convertMantissaToTokens({
+                    value: vault.stakeBalanceMantissa,
+                    token: vault.stakedToken,
+                  })}
+                  maxTokens={convertMantissaToTokens({
+                    value: vault.stakeLimitMantissa,
+                    token: vault.stakedToken,
+                  })}
+                  token={vault.stakedToken}
+                  progressBarClassName={
+                    vault.status === VaultStatus.Refund ? 'bg-yellow' : undefined
+                  }
+                />
+              ) : (
+                <LayeredValues
+                  className="text-end"
+                  topValue={convertMantissaToTokens({
+                    value: vault.stakeBalanceMantissa,
+                    token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
+                    returnInReadableFormat: true,
+                    addSymbol: true,
+                  })}
+                  bottomValue={formatCentsToReadableValue({
+                    value: vault.stakeBalanceCents,
+                  })}
+                  topValueClassName="text-b1r"
+                  bottomValueClassName="text-light-grey"
+                />
+              )}
             </LabeledInlineContent>
+
+            {shouldDisplayInstitutionalMinRequested && readableInstitutionalMinRequested && (
+              <LabeledInlineContent label={t('vault.card.minRequested')} labelClassName="mb-auto">
+                <LayeredValues
+                  className="text-end"
+                  topValue={readableInstitutionalMinRequested}
+                  topValueClassName="text-b1r"
+                />
+              </LabeledInlineContent>
+            )}
 
             {formattedMaturityDate && (
               <LabeledInlineContent
                 label={t('vault.card.maturityDate')}
                 labelClassName="mb-auto"
                 tooltip={
-                  vault.manager === VaultManager.Pendle
+                  vault.venue === VaultVenue.Pendle
                     ? t('vault.card.maturityDatePendleTooltip')
                     : undefined
                 }
@@ -199,30 +223,33 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               </LabeledInlineContent>
             )}
 
+            {isInstitutionalVault(vault) && (
+              <InstitutionalCheckpointInlineContent vault={vault} labelClassName="mb-auto" />
+            )}
+
             {vault.category === VaultCategory.GOVERNANCE && <PrimeEligibilityInlineContent />}
 
-            <LabeledInlineContent label={t('vault.card.manager')} labelClassName="mb-auto">
-              <Icon name={vault.managerIcon} />
-              <span className="ms-2 text-b1r text-light-grey">{vault.manager?.toUpperCase()}</span>
+            <LabeledInlineContent label={t('vault.card.venue')} labelClassName="mb-auto">
+              <img src={vault.venueIconSrc} className="h-4" alt={t('vault.card.vaultVenueIcon')} />
             </LabeledInlineContent>
           </div>
 
-          {/* Warnings */}
           {vault.status === VaultStatus.Paused && (
             <NoticeWarning
               description={
-                'isPaused' in vault && vault.isPaused
+                !isInstitutionalVault(vault) && 'isPaused' in vault && vault.isPaused
                   ? t('vault.card.pausedWarning')
-                  : t('vault.card.blockingPendingWithdrawalsWarning')
+                  : isInstitutionalVault(vault)
+                    ? t('vault.card.pausedWarning')
+                    : t('vault.card.blockingPendingWithdrawalsWarning')
               }
             />
           )}
         </div>
 
-        {/* Footer */}
         {!!accountAddress && readableUserStakedTokens && (
           <div className={cn('bg-cards px-4 sm:px-6 py-4 flex items-center justify-between')}>
-            <span className="text-b1s">{footerLabel}</span>
+            <span className="text-b1s">{t('vault.card.youDeposited')}</span>
 
             <div className={cn('flex items-center gap-x-3 text-b1s')}>
               <span>{readableUserStakedTokens}</span>
@@ -241,6 +268,14 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
       {isLegacyVenusVault(vault) && (
         <VenusVaultModal
+          vault={vault}
+          isOpen={modalVisible}
+          handleClose={() => setModalVisible(false)}
+        />
+      )}
+
+      {isInstitutionalVault(vault) && (
+        <InstitutionalVaultModal
           vault={vault}
           isOpen={modalVisible}
           handleClose={() => setModalVisible(false)}

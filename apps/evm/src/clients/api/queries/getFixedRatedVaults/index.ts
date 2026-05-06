@@ -10,12 +10,14 @@ export * from './types';
 
 export const getFixedRatedVaults = async ({
   chainId,
+  includeExpired = true,
 }: GetFixedRatedVaultsInput): Promise<GetFixedRatedVaultsOutput> => {
   const response = await restService<GetFixedRatedVaultsResponse>({
     endpoint: '/fixed-rate-vaults',
     method: 'GET',
     params: {
       chainId,
+      includeExpired,
     },
   });
 
