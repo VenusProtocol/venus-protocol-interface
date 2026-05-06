@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useTimeline > returns the standard four-checkpoint timeline for non-refund vaults 1`] = `
+[
+  {
+    "description": "Apr 1, 2026 12:00 AM - Apr 8, 2026 12:00 AM",
+    "status": "passed",
+    "title": "Deposit period",
+  },
+  {
+    "description": "Apr 8, 2026 12:00 AM - Aug 29, 2026 12:00 AM",
+    "status": "passed",
+    "title": "Estimated earning period",
+  },
+  {
+    "description": "Aug 29, 2026 12:00 AM - Sep 1, 2026 12:00 AM",
+    "status": "ongoing",
+    "title": "Estimated repaying period",
+  },
+  {
+    "description": "Sep 1, 2026 12:00 AM",
+    "status": "upcoming",
+    "title": "Claim period",
+  },
+]
+`;
+
+exports[`useTimeline > uses the maturity date for repaying and tbd for claim when settlement date is unavailable 1`] = `
+[
+  {
+    "description": "Apr 1, 2026 12:00 AM - Apr 8, 2026 12:00 AM",
+    "status": "upcoming",
+    "title": "Deposit period",
+  },
+  {
+    "description": "Apr 8, 2026 12:00 AM - Aug 29, 2026 12:00 AM",
+    "status": "upcoming",
+    "title": "Estimated earning period",
+  },
+  {
+    "description": "Aug 29, 2026 12:00 AM - Sep 1, 2026 12:00 AM",
+    "status": "upcoming",
+    "title": "Estimated repaying period",
+  },
+  {
+    "description": "TBD",
+    "status": "upcoming",
+    "title": "Claim period",
+  },
+]
+`;

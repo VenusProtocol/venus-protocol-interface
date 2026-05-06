@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle vaults correctly 1`] = `
+exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle and ceffu vaults correctly 1`] = `
 [
   {
     "asset": {
@@ -74,6 +74,8 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle vaults cor
       "symbol": "PT-clisBNB-25JUN2026",
     },
     "rewardTokenPriceCents": "65348.52516038151",
+    "stakeBalanceCents": 742673002,
+    "stakeBalanceMantissa": "1.13645e+22",
     "stakedToken": {
       "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
       "chainId": 56,
@@ -85,11 +87,54 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle vaults cor
     "stakedTokenPriceCents": "66036.349666",
     "stakingAprPercentage": 3.39809766,
     "status": "earning",
-    "totalStakedCents": 742673002,
-    "totalStakedMantissa": "1.13645e+22",
-    "userStakedCents": 326742,
-    "userStakedMantissa": "5000000000000000000",
+    "userStakeBalanceCents": 326742,
+    "userStakeBalanceMantissa": "5000000000000000000",
+    "vaultAddress": "0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e",
     "vaultDeploymentDate": 2025-10-09T09:04:39.000Z,
+    "vaultType": "pendle",
+  },
+  {
+    "category": "stablecoins",
+    "fixedApyDecimal": "0.08",
+    "key": "97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7",
+    "lockEndDate": 2026-08-29T00:00:00.000Z,
+    "lockingPeriodMs": 2592000000,
+    "manager": "ceffu",
+    "managerAddress": "0x1111111111111111111111111111111111111111",
+    "managerIcon": "ceefu",
+    "managerLink": "https://www.ceffu.com",
+    "maturityDate": 2026-09-01T00:00:00.000Z,
+    "openEndDate": 2026-04-08T00:00:00.000Z,
+    "rewardToken": {
+      "address": "0x312e39c7641cE64BEccDe53613f07952258fa810",
+      "chainId": 97,
+      "decimals": 6,
+      "iconSrc": "",
+      "symbol": "MOCK_USDC",
+    },
+    "rewardTokenPriceCents": "100",
+    "settlementDate": 2026-09-01T00:00:00.000Z,
+    "stakeBalanceCents": 50000000,
+    "stakeBalanceMantissa": "500000000000",
+    "stakeLimitMantissa": "1000000000000",
+    "stakeMinMantissa": "100000000000",
+    "stakedToken": {
+      "address": "0x312e39c7641cE64BEccDe53613f07952258fa810",
+      "chainId": 97,
+      "decimals": 6,
+      "iconSrc": "",
+      "symbol": "MOCK_USDC",
+    },
+    "stakedTokenPriceCents": "100",
+    "stakingAprPercentage": 8,
+    "status": "pending",
+    "userRedeemLimitMantissa": "25000000",
+    "userStakeBalanceCents": 10000,
+    "userStakeBalanceMantissa": "100000000",
+    "userWithdrawLimitMantissa": "50000000",
+    "vaultAddress": "0x5263D68786AaCfad74B9aa385A004c272548e8B7",
+    "vaultDeploymentDate": 2026-04-01T00:00:00.000Z,
+    "vaultType": "institutional",
   },
 ]
 `;

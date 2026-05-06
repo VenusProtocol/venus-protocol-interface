@@ -85,6 +85,7 @@ describe('getFixedRatedVaults', () => {
       method: 'GET',
       params: {
         chainId: ChainId.BSC_MAINNET,
+        includeExpired: true,
       },
     });
   });

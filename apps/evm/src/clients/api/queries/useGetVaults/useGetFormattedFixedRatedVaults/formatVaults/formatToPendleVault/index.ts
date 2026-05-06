@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import type { GetFixedRatedVaultsOutput } from 'clients/api';
+import type { GetFixedRatedVaultsOutput, PendleVaultProtocolData } from 'clients/api';
 import {
   type Asset,
   type PendleVault,
@@ -8,22 +8,23 @@ import {
   VaultCategory,
   VaultManager,
   VaultStatus,
+  VaultType,
 } from 'types';
 import { areAddressesEqual, convertTokensToMantissa, findTokenByAddress } from 'utilities';
 import type { Address } from 'viem';
-
-export interface BaseInput {
-  pools: Pool[];
-  tokens: Token[];
-  nowMs: number;
-}
 
 export const formatToPendleVault = ({
   vaultData,
   pools,
   tokens,
   nowMs,
-}: BaseInput & { vaultData: GetFixedRatedVaultsOutput[number] }) => {
+}: {
+  pools: Pool[];
+  tokens: Token[];
+  nowMs: number;
+  vaultData: GetFixedRatedVaultsOutput[number];
+}) => {
+  const protocolData = vaultData.protocolData as PendleVaultProtocolData;
   let asset: Asset | undefined;
   let poolComptrollerContractAddress: Address | undefined;
   let poolName: string | undefined;
@@ -42,7 +43,7 @@ export const formatToPendleVault = ({
   }
 
   const stakedToken = findTokenByAddress({
-    address: vaultData.protocolData?.accountingAsset?.address ?? '',
+    address: protocolData.accountingAsset.address,
     tokens,
   });
 
@@ -67,32 +68,32 @@ export const formatToPendleVault = ({
 
   const result: PendleVault = {
     key: vaultData.id,
+    vaultType: VaultType.Pendle,
     stakedToken,
     rewardToken,
     stakingAprPercentage: new BigNumber(vaultData.fixedApyDecimal).shiftedBy(2).toNumber(),
-    userStakedMantissa: convertTokensToMantissa({
+    userStakeBalanceMantissa: convertTokensToMantissa({
       value: asset.userSupplyBalanceTokens,
       token: asset.vToken.underlyingToken,
     }),
-    totalStakedMantissa: convertTokensToMantissa({
+    stakeBalanceMantissa: convertTokensToMantissa({
       value: asset.supplyBalanceTokens,
       token: asset.vToken.underlyingToken,
     }),
-    totalStakedCents: asset.supplyBalanceCents.toNumber(),
-    userStakedCents: asset.userSupplyBalanceCents.toNumber(),
-    stakedTokenPriceCents: new BigNumber(
-      vaultData.protocolData?.accountingAsset?.priceUsd,
-    ).shiftedBy(2),
-    rewardTokenPriceCents: new BigNumber(vaultData.protocolData.ptTokenPriceUsd).shiftedBy(2),
+    stakeBalanceCents: asset.supplyBalanceCents.toNumber(),
+    userStakeBalanceCents: asset.userSupplyBalanceCents.toNumber(),
+    stakedTokenPriceCents: new BigNumber(protocolData.accountingAsset.priceUsd).shiftedBy(2),
+    rewardTokenPriceCents: new BigNumber(protocolData.ptTokenPriceUsd).shiftedBy(2),
     maturityDate,
-    vaultDeploymentDate: new Date(vaultData.protocolData?.startDate),
-    liquidityCents: new BigNumber(vaultData.protocolData.liquidityCents),
+    vaultDeploymentDate: new Date(protocolData.startDate),
+    liquidityCents: new BigNumber(protocolData.liquidityCents),
+    vaultAddress: vaultData.vaultAddress,
     category: VaultCategory.YIELD_TOKENS,
     manager: VaultManager.Pendle,
     managerIcon: 'pendle' as const,
-    managerAddress: vaultData.protocolData.pendleMarketAddress,
-    managerLink: vaultData.protocolData.pendleMarketAddress
-      ? `https://app.pendle.finance/trade/pools/${vaultData.protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`
+    managerAddress: protocolData.pendleMarketAddress,
+    managerLink: protocolData.pendleMarketAddress
+      ? `https://app.pendle.finance/trade/pools/${protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`
       : undefined,
     status,
     asset,

@@ -1,19 +1,28 @@
-import { Icon, LabeledInlineContent } from 'components';
+import { Icon, type IconName, LabeledInlineContent } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import type { PendleVault } from 'types';
 
-interface MarketInfoProps {
-  vault: PendleVault;
+export interface VaultOverviewMarketInfoProps {
+  vaultDeploymentDate?: Date;
+  manager: string;
+  managerIcon: IconName;
+  managerLink?: string;
+  copyAddress?: string;
 }
 
-export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
+export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = ({
+  vaultDeploymentDate,
+  manager,
+  managerIcon,
+  managerLink,
+  copyAddress,
+}) => {
   const { t, Trans } = useTranslation();
 
-  const formattedDeploymentDate = vault.vaultDeploymentDate
-    ? t('vault.modals.textualDate', { date: vault.vaultDeploymentDate })
+  const formattedDeploymentDate = vaultDeploymentDate
+    ? t('vault.modals.textualDate', { date: vaultDeploymentDate })
     : PLACEHOLDER_KEY;
 
   return (
@@ -29,22 +38,20 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
         tooltip={t('vault.modals.overview.managerTooltip')}
       >
         <div className="flex items-center gap-2">
-          <Icon name="pendle" className="size-4" />
-          <span className="text-b1r text-white">PENDLE</span>
-          {vault.managerLink && (
-            <Link href={vault.managerLink} target="_blank">
+          <Icon name={managerIcon} className="size-4" />
+
+          <span className="text-b1r text-white uppercase">{manager}</span>
+
+          {managerLink && (
+            <Link href={managerLink} target="_blank">
               <Icon
                 name="link"
                 className="text-light-grey hover:cursor-pointer hover:text-blue active:text-blue"
               />
             </Link>
           )}
-          {vault.asset?.vToken?.underlyingToken?.address && (
-            <CopyAddressButton
-              address={vault.asset.vToken.underlyingToken.address}
-              className="text-light-grey"
-            />
-          )}
+
+          {copyAddress && <CopyAddressButton address={copyAddress} className="text-light-grey" />}
         </div>
       </LabeledInlineContent>
 
@@ -52,9 +59,10 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ vault }) => {
         <p className="text-b1r text-grey mb-2">
           {t('vault.modals.overview.marketRiskDisclosures')}
         </p>
+
         <p className="text-b1r text-white">
           <Trans
-            i18nKey={'vault.modals.overview.riskDisclosureText'}
+            i18nKey="vault.modals.overview.riskDisclosureText"
             components={{
               br: <br />,
             }}

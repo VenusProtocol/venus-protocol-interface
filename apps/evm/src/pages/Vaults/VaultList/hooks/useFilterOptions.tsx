@@ -76,6 +76,15 @@ export const useFilterOptions = () => {
       ),
       value: 'pendle',
     },
+    {
+      label: (
+        <div className="flex items-center gap-2">
+          <Icon name="ceefu" />
+          CEFFU
+        </div>
+      ),
+      value: 'ceffu',
+    },
   ];
 
   const statusOptions = [
@@ -106,6 +115,18 @@ export const useFilterOptions = () => {
     {
       label: t('vault.filter.claim'),
       value: 'claim',
+    },
+    {
+      label: t('vault.filter.pending'),
+      value: 'pending',
+    },
+    {
+      label: t('vault.filter.inactive'),
+      value: 'inactive',
+    },
+    {
+      label: t('vault.filter.liquidated'),
+      value: 'liquidated',
     },
   ];
 

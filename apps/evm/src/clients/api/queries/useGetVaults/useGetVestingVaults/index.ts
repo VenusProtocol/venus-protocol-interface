@@ -239,7 +239,9 @@ export const useGetVestingVaults = (input?: {
       Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<VenusVault[]>(
         (acc, _item, poolIndex) => {
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
-          const userStakedMantissa = poolData[poolIndex]?.userInfos?.stakedAmountMantissa.minus(
+          const userStakeBalanceMantissa = poolData[
+            poolIndex
+          ]?.userInfos?.stakedAmountMantissa.minus(
             poolData[poolIndex]?.userInfos?.pendingWithdrawalsTotalAmountMantissa || 0,
           );
 
@@ -247,10 +249,10 @@ export const useGetVestingVaults = (input?: {
             poolData[poolIndex]?.userHasPendingWithdrawalsFromBeforeUpgrade;
 
           const pendingWithdrawalsMantissa = poolData[poolIndex]?.pendingWithdrawalsBalanceMantissa;
-          const totalStakedMantissaData = poolBalances[poolIndex];
+          const stakeBalanceMantissaData = poolBalances[poolIndex];
 
-          const totalStakedMantissa = totalStakedMantissaData
-            ? totalStakedMantissaData.balanceMantissa.minus(pendingWithdrawalsMantissa ?? 0)
+          const stakeBalanceMantissa = stakeBalanceMantissaData
+            ? stakeBalanceMantissaData.balanceMantissa.minus(pendingWithdrawalsMantissa ?? 0)
             : new BigNumber(0);
 
           const stakedToken =
@@ -283,7 +285,7 @@ export const useGetVestingVaults = (input?: {
           const stakingAprPercentage = dailyDistributedXvsMantissa
             ?.multipliedBy(DAYS_PER_YEAR)
             .div(
-              totalStakedMantissa.isGreaterThan(0) ? totalStakedMantissa : 1, // Prevent dividing by 0 if balance is 0
+              stakeBalanceMantissa.isGreaterThan(0) ? stakeBalanceMantissa : 1, // Prevent dividing by 0 if balance is 0
             )
             .multipliedBy(100)
             .toNumber();
@@ -292,21 +294,21 @@ export const useGetVestingVaults = (input?: {
             !!stakedToken &&
             lockingPeriodMs !== undefined &&
             dailyDistributedXvsMantissa !== undefined &&
-            totalStakedMantissaData !== undefined &&
+            stakeBalanceMantissaData !== undefined &&
             stakedTokenPriceCents !== undefined &&
             xvsPriceCents !== undefined &&
             stakingAprPercentage !== undefined &&
             getXvsVaultPausedData?.isVaultPaused !== undefined &&
             !!xvs
           ) {
-            const { totalStakedCents, userStakedCents, dailyEmissionCents } =
+            const { stakeBalanceCents, userStakeBalanceCents, dailyEmissionCents } =
               calculateVaultCentsValues({
                 stakedTokenDecimals: stakedToken.decimals,
                 rewardTokenDecimals: xvs.decimals,
                 stakedTokenPriceCents,
                 rewardTokenPriceCents: xvsPriceCents,
-                totalStakedMantissa,
-                userStakedMantissa,
+                stakeBalanceMantissa,
+                userStakeBalanceMantissa,
                 dailyEmissionMantissa: dailyDistributedXvsMantissa,
               });
 
@@ -323,11 +325,11 @@ export const useGetVestingVaults = (input?: {
               lockingPeriodMs,
               dailyEmissionMantissa: dailyDistributedXvsMantissa,
               dailyEmissionCents,
-              totalStakedMantissa,
-              totalStakedCents,
+              stakeBalanceMantissa,
+              stakeBalanceCents,
               stakingAprPercentage,
-              userStakedMantissa,
-              userStakedCents,
+              userStakeBalanceMantissa,
+              userStakeBalanceCents,
               poolIndex,
               userHasPendingWithdrawalsFromBeforeUpgrade,
             });

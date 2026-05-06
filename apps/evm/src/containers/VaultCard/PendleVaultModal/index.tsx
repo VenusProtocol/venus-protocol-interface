@@ -33,12 +33,7 @@ export const PendleVaultModal: React.FC<PendleVaultModalProps> = ({
   ];
 
   return (
-    <Modal
-      isOpen={isOpen}
-      handleClose={handleClose}
-      title={<VaultName vault={vault} />}
-      useDrawerInXs
-    >
+    <Modal isOpen={isOpen} handleClose={handleClose} title={<VaultName vault={vault} />}>
       <Tabs tabs={tabs} variant="secondary" buttonClassName="flex-1" />
     </Modal>
   );

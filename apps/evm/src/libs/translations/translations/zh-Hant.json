@@ -1987,6 +1987,7 @@
       "manager": "管理機構",
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益部位（來自 Pendle）的到期日。在此日期之後，您將收回全部原始資產（本金）。鎖定的固定收益在此停止，建議持有至此以獲得預期收益。",
+      "minRequested": "Min. requested",
       "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、存入和提款功能已禁用，直至金庫恢復運作。",
       "primeEligibility": "Prime 資格",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2007,22 +2008,30 @@
       "claim": "領取",
       "deposit": "存款",
       "earning": "收益中",
+      "inactive": "非活躍",
       "inputPlaceholder": "搜尋資產",
+      "liquidated": "已清算",
       "paused": "已暫停",
+      "pending": "待定",
       "refund": "退款",
       "repaying": "還款中"
     },
     "header": "金庫",
     "modals": {
       "afterMaturityPendleDisclaimer": "請先透過提取按鈕將您的 PT 代幣提取到錢包，然後訪問 <Link>Pendle 官方</Link>網站贖回您的底層代幣。",
+      "claim": "領取",
+      "claimPeriodStarts": "領取期開始",
       "connectWalletMessage": "請連接您的錢包以存入 / 提取 {{tokenSymbol}}",
       "convert": "轉換",
       "currentDeposited": "當前存入",
       "currentDepositedTooltip": "您當前在此金庫中鎖定並產生收益的資產數量。",
       "deposit": "存款",
+      "depositPeriodEnds": "存款期結束",
+      "depositsPausedNotice": "當該金庫處於固定利率生命週期推進過程中時，存款和提款將暫停。",
       "depositTab": "存款",
       "effectiveFixedApr": "實際固定年化利率",
       "effectiveFixedAprPendleTooltip": "此金庫策略提供的年化固定收益，以包含複利的有效年化利率（APR）表示。",
+      "effectiveFixedAprTooltip": "此金庫策略提供的年化固定收益，以包含複利的有效年化利率（APR）表示。",
       "error": {
         "amountTooLow": "輸入金額過低。",
         "invalidAmountFromQuote": "輸入金額超過Pendle市場的可用流動性。請減少金額後重試。",
@@ -2033,11 +2042,22 @@
       "estPenalty": "預計罰款",
       "estReceived": "預計收到",
       "estYield": "預計收益",
+      "institutionalDisclaimer": "如果金庫達到所需最低額度，存款將繼續進行直至達到最高目標。存入 {{lockingPeriod}} 後即可領取獎勵。否則，資金可退款。",
+      "institutionalTcsAgreement": "繼續存入即表示我同意機構金庫<Link>條款與條件</Link>。",
+      "institutionalTimeline": {
+        "claimPeriod": "領取期",
+        "depositPeriod": "存款期",
+        "estimatedEarningPeriod": "預計收益期",
+        "estimatedRepayingPeriod": "預計還款期",
+        "refundPeriod": "退款期"
+      },
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益部位（來自 Pendle）的到期日。在此日期之後，您將收回全部原始資產（本金）。鎖定的固定收益在此停止，建議持有至此以獲得預期收益。",
       "maturityPendleDisclaimer": "到期前，提款時收到的金額取決於 Pendle 市場價格。到期後，提款將根據您持有的 PT 代幣 1:1 贖回。",
       "minReceived": "最低收到",
       "overview": {
+        "campaignTimeline": "活動時間線",
+        "loan": "貸款",
         "manager": "管理機構",
         "managerTooltip": "管理此金庫基礎資產的地址或團隊。存入的資產會被分配到他們管理的市場中，他們可能會根據市場狀況更新贖回或結算時間。",
         "marketInfo": "市場資訊",
@@ -2046,7 +2066,8 @@
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "用戶",
-          "venusCore": "Venus Core"
+          "venusCore": "Venus Core",
+          "venusVault": "Venus 金庫"
         },
         "strategyAllocation": "策略分配",
         "supply": "供應",
@@ -2059,11 +2080,16 @@
       "stakeTab": "存款",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalYields": "總收益",
       "withdraw": "提取",
       "withdrawTab": "提取"
     },
     "overview": {
       "bannerVaultIllustration": "金庫插圖"
+    },
+    "timeline": {
+      "tbd": "待定",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {

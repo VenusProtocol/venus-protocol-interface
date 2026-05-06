@@ -52,7 +52,7 @@ const VoterLeaderboard: React.FC = () => {
 
   const totalStakedXvs = vestingVaults
     .filter(v => v.stakedToken.symbol === 'XVS')
-    .reduce((acc, v) => acc.plus(v.totalStakedMantissa), new BigNumber(0));
+    .reduce((acc, v) => acc.plus(v.stakeBalanceMantissa), new BigNumber(0));
 
   const {
     data: { voterAccounts, offset, total, limit } = {

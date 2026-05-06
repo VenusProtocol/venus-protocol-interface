@@ -1073,3 +1073,38 @@ export const useGetFixedRatedVaults = vi.fn(() => ({
 }));
 
 export const getFixedRatedVaults = vi.fn(async () => fixedRatedVaults);
+
+export const useGetFixedRatedVaultUserStakedTokens = vi.fn(() => ({
+  data: [],
+  isLoading: false,
+}));
+
+export const getFixedRatedVaultUserStakedTokens = vi.fn(async () => []);
+
+export const useGetInstitutionalVaultUserMetrics = vi.fn(() => ({
+  data: [],
+  isLoading: false,
+}));
+
+export const getInstitutionalVaultUserMetrics = vi.fn(async () => []);
+
+export const useStakeIntoInstitutionalVault = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useRedeemFromInstitutionalVault = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useWithdrawFromInstitutionalVault = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);

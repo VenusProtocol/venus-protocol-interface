@@ -31,7 +31,7 @@ export const Guide: React.FC = () => {
   const vaults = getVaultsData || [];
 
   const isUserStakingInXvsVault = vaults.some(
-    vault => vault.stakedToken.symbol === 'XVS' && vault.userStakedMantissa?.isGreaterThan(0),
+    vault => vault.stakedToken.symbol === 'XVS' && vault.userStakeBalanceMantissa?.isGreaterThan(0),
   );
   const isUserSupplying = pool?.userSupplyBalanceCents?.isGreaterThan(0) || false;
   const isUserBorrowing = pool?.userBorrowBalanceCents?.isGreaterThan(0) || false;

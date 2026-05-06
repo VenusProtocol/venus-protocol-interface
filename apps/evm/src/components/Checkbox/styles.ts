@@ -8,8 +8,8 @@ export const useStyles = () => {
       padding: 0;
 
       svg {
-        height: ${theme.spacing(6)};
-        width: ${theme.spacing(6)};
+        height: ${theme.spacing(5)};
+        width: ${theme.spacing(5)};
       }
       :hover {
         svg {

@@ -20,6 +20,7 @@ import { useNow } from 'hooks/useNow';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { PendleVault } from 'types';
+import { VaultType } from 'types';
 
 import type { Address } from 'viem';
 import { WithdrawForm } from '..';
@@ -45,11 +46,13 @@ type GetPendleSwapQuoteCall = [
 const vault: PendleVault = {
   ...vaults[1],
   key: 'pendle-test-vault',
+  vaultType: VaultType.Pendle,
   rewardToken: xvs,
   stakedToken: busd,
   rewardTokenPriceCents: new BigNumber(123),
   stakedTokenPriceCents: new BigNumber(456),
-  userStakedMantissa: new BigNumber('12000000000000000000'),
+  userStakeBalanceMantissa: new BigNumber('12000000000000000000'),
+  vaultAddress: '0x3333333333333333333333333333333333333333',
   maturityDate: new Date('2026-06-25T00:00:00.000Z'),
   liquidityCents: new BigNumber(1000000),
   asset: {

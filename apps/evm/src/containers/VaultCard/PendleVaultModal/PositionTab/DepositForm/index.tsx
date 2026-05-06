@@ -46,7 +46,7 @@ export const DepositForm: React.FC<DepositFormProps> = ({ vault, onClose }) => {
   const userWalletBalanceMantissa = getUserWalletBalanceData?.balanceMantissa;
 
   const userStakedTokens = convertMantissaToTokens({
-    value: vault.userStakedMantissa ?? new BigNumber(0),
+    value: vault.userStakeBalanceMantissa ?? new BigNumber(0),
     token: vault.asset.vToken.underlyingToken,
   });
 

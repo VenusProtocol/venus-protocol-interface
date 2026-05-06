@@ -1987,6 +1987,7 @@
       "manager": "運用機関",
       "maturityDate": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
+      "minRequested": "Min. requested",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、預入、引き出しは無効になっています。",
       "primeEligibility": "Prime資格",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2007,22 +2008,30 @@
       "claim": "請求",
       "deposit": "預入",
       "earning": "収益中",
+      "inactive": "非アクティブ",
       "inputPlaceholder": "資産を検索",
+      "liquidated": "清算済み",
       "paused": "停止中",
+      "pending": "保留",
       "refund": "返金",
       "repaying": "返済中"
     },
     "header": "ボールト",
     "modals": {
       "afterMaturityPendleDisclaimer": "まず「引き出し」ボタンからPTトークンをウォレットに引き出してから、<Link>Pendle公式</Link>ウェブサイトで原資産トークンを償還してください。",
+      "claim": "請求",
+      "claimPeriodStarts": "請求期間開始",
       "connectWalletMessage": "{{tokenSymbol}}を預け入れ / 引き出しするにはウォレットを接続してください",
       "convert": "変換",
       "currentDeposited": "現在の預入額",
       "currentDepositedTooltip": "このボールトに現在ロックされ、収益を得ている資産の量です。",
       "deposit": "預入",
+      "depositPeriodEnds": "預入期間終了",
+      "depositsPausedNotice": "このボールトが固定利回りのライフサイクルを進行している間は、預入と引き出しが一時停止されます。",
       "depositTab": "預入",
       "effectiveFixedApr": "実質固定APR",
       "effectiveFixedAprPendleTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
+      "effectiveFixedAprTooltip": "このボールトストラテジーが提供する年率換算の固定利回りで、複利を含む実質年利率（APR）として表されます。",
       "error": {
         "amountTooLow": "入力金額が少なすぎます。",
         "invalidAmountFromQuote": "入力金額がPendleマーケットで利用可能な流動性を超えています。金額を減らして再試行してください。",
@@ -2033,11 +2042,22 @@
       "estPenalty": "推定ペナルティ",
       "estReceived": "推定受取額",
       "estYield": "推定利回り",
+      "institutionalDisclaimer": "ボールトが必要最低額に達した場合、預入は最大目標額に達するまで継続されます。{{lockingPeriod}} 預け入れると報酬を請求できます。そうでない場合、資金は返金されます。",
+      "institutionalTcsAgreement": "預け入れを続行することで、機関投資家向けボールトの<Link>利用規約</Link>に同意したものとみなされます。",
+      "institutionalTimeline": {
+        "claimPeriod": "請求期間",
+        "depositPeriod": "預入期間",
+        "estimatedEarningPeriod": "予想収益期間",
+        "estimatedRepayingPeriod": "予想返済期間",
+        "refundPeriod": "返金期間"
+      },
       "maturityDate": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
       "maturityPendleDisclaimer": "満期前は、引き出し時に受け取る金額は Pendle の市場価格に依存します。満期後は、保有する PT トークンに基づいて 1:1 で引き出しが換金されます。",
       "minReceived": "最小受取額",
       "overview": {
+        "campaignTimeline": "キャンペーンタイムライン",
+        "loan": "ローン",
         "manager": "運用機関",
         "managerTooltip": "このボールトの基礎資産を管理するアドレスまたはチームです。預けた資産は彼らが管理する市場に配分され、市場状況に応じて償還や決済のスケジュールが更新される場合があります。",
         "marketInfo": "マーケット情報",
@@ -2046,7 +2066,8 @@
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "ユーザー",
-          "venusCore": "Venus Core"
+          "venusCore": "Venus Core",
+          "venusVault": "Venusボールト"
         },
         "strategyAllocation": "戦略配分",
         "supply": "供給",
@@ -2059,11 +2080,16 @@
       "stakeTab": "預入",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalYields": "総利回り",
       "withdraw": "引き出し",
       "withdrawTab": "引き出し"
     },
     "overview": {
       "bannerVaultIllustration": "ボールトのイラスト"
+    },
+    "timeline": {
+      "tbd": "未定",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {

@@ -34,6 +34,8 @@ export { default as predictions } from './predictions';
 export { default as wallet } from './wallet';
 export { default as check } from './check';
 export { default as checkInline } from './checkInline';
+export { default as checkInlineEmpty } from './checkInlineEmpty';
+export { default as checkInlineDotted } from './checkInlineDotted';
 export { default as mark } from './mark';
 export { default as arrowShaft } from './arrowShaft';
 export { default as notice } from './notice';

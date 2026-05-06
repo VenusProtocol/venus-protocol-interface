@@ -68,7 +68,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
   });
 
   const xvsVault = xvs && vaults.find(v => areTokensEqual(v.stakedToken, xvs));
-  const userStakedMantissa = xvsVault?.userStakedMantissa || new BigNumber(0);
+  const userStakeBalanceMantissa = xvsVault?.userStakeBalanceMantissa || new BigNumber(0);
 
   const { mutateAsync: setVoteDelegation, isPending: isVoteDelegationLoading } = useSetVoteDelegate(
     {
@@ -83,12 +83,12 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
   const readableXvsLocked = useMemo(
     () =>
       convertMantissaToTokens({
-        value: userStakedMantissa,
+        value: userStakeBalanceMantissa,
         token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [userStakedMantissa, xvs],
+    [userStakeBalanceMantissa, xvs],
   );
 
   const readableVoteWeight = useMemo(
@@ -109,7 +109,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
     isVoteDelegationLoading;
 
   const previouslyDelegated = !!delegate;
-  const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
+  const userHasLockedXVS = userStakeBalanceMantissa.isGreaterThan(0);
   const showDepositXvs =
     !isDataLoading && isUserConnected && !userHasLockedXVS && voteProposalFeatureEnabled;
   const showDelegateButton =
