@@ -1,12 +1,13 @@
 import { cn } from '@venusprotocol/ui';
 
 import { Card, Icon } from 'components';
+import { VENUS_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import illustrationSrc from './illustration.png';
 import { store } from './store';
 
-const LEARN_MORE_URL = ''; // TODO: add
+const LEARN_MORE_URL = `${VENUS_DOC_URL}/guides/trade`;
 
 export interface BannerProps {
   className?: string;
