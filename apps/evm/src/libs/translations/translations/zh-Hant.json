@@ -1741,6 +1741,11 @@
       "label": "空頭"
     }
   },
+  "tradeBanner": {
+    "description": "在鏈上交易相對表現",
+    "illustrationAltText": "Trade 插圖",
+    "title": "Venus Trade 現已上線"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "接受管理員待定檢查",
     "acceptPendingImplementationAddressCheck": "接受待定實現地址檢查",

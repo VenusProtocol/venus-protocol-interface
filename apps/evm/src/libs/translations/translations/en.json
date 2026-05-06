@@ -1741,6 +1741,11 @@
       "label": "Short"
     }
   },
+  "tradeBanner": {
+    "description": "Trade relative performance on-chain",
+    "illustrationAltText": "Trade illustration",
+    "title": "Venus Trade is live now"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
     "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",

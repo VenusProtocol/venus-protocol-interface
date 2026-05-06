@@ -1741,6 +1741,11 @@
       "label": "Short"
     }
   },
+  "tradeBanner": {
+    "description": "Göreli performansı zincir üzerinde trade edin",
+    "illustrationAltText": "Trade illüstrasyonu",
+    "title": "Venus Trade şimdi yayında"
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Yönetici Kabulü (Bekleyen Yönetici) Kontrolü",
     "acceptPendingImplementationAddressCheck": "Bekleyen Uygulama Adresi Kabul Kontrolü",
