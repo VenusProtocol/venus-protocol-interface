@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.25.0
+
+### Minor Changes
+
+- 2eb8aaa: enable Trade on BSC mainnet
+
 ## 4.24.1
 
 ### Patch Changes
