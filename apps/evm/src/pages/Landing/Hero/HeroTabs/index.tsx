@@ -60,24 +60,12 @@ export const HeroTabs: React.FC = () => {
     {
       title: t('landing.hero.supply'),
       id: 'supply',
-      content: topSupplyAsset && (
-        <TabContent
-          poolComptrollerContractAddress={corePoolComptrollerContractAddress}
-          asset={topSupplyAsset}
-          type="supply"
-        />
-      ),
+      content: topSupplyAsset && <TabContent asset={topSupplyAsset} type="supply" />,
     },
     {
       title: t('landing.hero.borrow'),
       id: 'borrow',
-      content: topBorrowAsset && (
-        <TabContent
-          poolComptrollerContractAddress={corePoolComptrollerContractAddress}
-          asset={topBorrowAsset}
-          type="borrow"
-        />
-      ),
+      content: topBorrowAsset && <TabContent asset={topBorrowAsset} type="borrow" />,
     },
   ];
 

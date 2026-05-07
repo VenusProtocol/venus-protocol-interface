@@ -1,5 +1,7 @@
 import { useGetMarketsTvl } from 'clients/api/queries/getMarketsTvl/useGetMarketsTvl';
-import { Wrapper } from 'components';
+import { ButtonWrapper, Wrapper } from 'components';
+import { Link } from 'containers/Link';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
@@ -16,6 +18,8 @@ export const Hero: React.FC = () => {
     shorten: false,
     maxDecimalPlaces: 0,
   });
+
+  const { marketsPagePath } = useGetMarketsPagePath();
 
   const isMdOrUp = useBreakpointUp('md');
 
@@ -52,6 +56,12 @@ export const Hero: React.FC = () => {
               <div className="text-p3s sm:text-p1s lg:text-p2s">{t('landing.hero.venusTvl')}</div>
 
               <div className="text-h5 sm:text-h3">{readableMarketsTvl}</div>
+
+              <ButtonWrapper asChild variant="primary" className="mt-6 py-2 px-20">
+                <Link to={marketsPagePath} noStyle>
+                  {t('landing.hero.startNow')}
+                </Link>
+              </ButtonWrapper>
             </div>
           </div>
 
