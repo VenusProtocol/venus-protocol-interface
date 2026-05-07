@@ -108,6 +108,29 @@ export const formatOutput = ({
         decimals: vToken.underlyingToken.decimals,
       });
 
+      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
+      const isProtectionModeEnabled = correspondingOraclePrice.isPriceProtected ?? false;
+
+      const tokenSupplyPriceCents =
+        isProtectionModeEnabled && correspondingOraclePrice.supplyPriceMantissa
+          ? convertDollarsToCents(
+              convertPriceMantissaToDollars({
+                priceMantissa: correspondingOraclePrice.supplyPriceMantissa,
+                decimals: vToken.underlyingToken.decimals,
+              }),
+            )
+          : tokenPriceCents;
+
+      const tokenBorrowPriceCents =
+        isProtectionModeEnabled && correspondingOraclePrice.borrowPriceMantissa
+          ? convertDollarsToCents(
+              convertPriceMantissaToDollars({
+                priceMantissa: correspondingOraclePrice.borrowPriceMantissa,
+                decimals: vToken.underlyingToken.decimals,
+              }),
+            )
+          : tokenPriceCents;
+
       const borrowCapTokens = convertMantissaToTokens({
         value: new BigNumber(market.borrowCapsMantissa),
         token: vToken.underlyingToken,
@@ -175,7 +198,6 @@ export const formatOutput = ({
         token: vToken.underlyingToken,
       });
 
-      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
       const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
       const reserveTokens = convertMantissaToTokens({
@@ -260,12 +282,19 @@ export const formatOutput = ({
 
       const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
       const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
+      const userSupplyBalanceProtectedCents =
+        userSupplyBalanceTokens.multipliedBy(tokenSupplyPriceCents);
+      const userBorrowBalanceProtectedCents =
+        userBorrowBalanceTokens.multipliedBy(tokenBorrowPriceCents);
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
       const asset: Asset = {
         vToken,
         disabledTokenActions,
         tokenPriceCents,
+        tokenSupplyPriceCents,
+        tokenBorrowPriceCents,
+        isProtectionModeEnabled,
         tokenPriceOracleAddress: correspondingOraclePrice.priceOracleAddress as Address,
         reserveFactor,
         collateralFactor,
@@ -292,8 +321,10 @@ export const formatOutput = ({
         borrowPointDistributions,
         userSupplyBalanceTokens,
         userSupplyBalanceCents,
+        userSupplyBalanceProtectedCents,
         userBorrowBalanceTokens,
         userBorrowBalanceCents,
+        userBorrowBalanceProtectedCents,
         userWalletBalanceTokens,
         userWalletBalanceCents,
         userCollateralFactor,

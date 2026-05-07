@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "Biểu diễn trạng thái hiện tại của tài khoản của bạn",
     "borrowed": "Đã vay:",
+    "borrowedSpotTooltip": "Giá trị vay này được tính dựa trên giá spot của tài sản vay và sẽ được sử dụng để xác định tình trạng sức khỏe tài khoản của bạn.",
     "liquidationThreshold": "Ngưỡng thanh lý:",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Ngưỡng thanh lý<LineBreak/>Khi số dư vay của bạn đạt đến giá trị này, vị thế của bạn sẽ đủ điều kiện bị thanh lý.<LineBreak/><LineBreak/>Tìm hiểu thêm về <Link>cách tính.</Link>",
-    "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "Số dư vay (Bảo vệ):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Số dư vay (spot): {{borrowBalance}}<LineBreak/>Hạn mức vay: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Bắt đầu ngay"
@@ -987,7 +989,11 @@
     "assetColumn": {
       "eMode": "Thị trường này thuộc nhóm E-mode {{eModeGroupName}}",
       "isolationMode": "Thị trường này thuộc nhóm chế độ cô lập {{eModeGroupName}}",
-      "pausedAssetTooltip": "Tài sản đã bị tạm dừng bởi Venus Governance. Việc vay và cung cấp đã bị vô hiệu hóa."
+      "pausedAssetTooltip": "Tài sản đã bị tạm dừng bởi Venus Governance. Việc vay và cung cấp đã bị vô hiệu hóa.",
+      "protectionMode": "Chế độ Bảo vệ đang hoạt động cho {{tokenName}} do biến động giá, ảnh hưởng đến giá thế chấp và giá vay. <LearnMore>Tìm hiểu thêm</LearnMore>",
+      "protectionModeBorrow": "Thị trường này đang trải qua biến động cao.<LineBreak/><LineBreak/> Giá trị vay được bảo vệ được tính là {{protectedValue}}, đại diện cho giá trị thận trọng tính vào hạn mức vay của bạn.",
+      "protectionModePair": "Chế độ Bảo vệ đang hoạt động cho {{tokenName}} do biến động giá, ảnh hưởng đến giá thế chấp và giá vay. <LearnMore>Tìm hiểu thêm</LearnMore>",
+      "protectionModeSupply": "Thị trường này đang trải qua biến động cao.<LineBreak/><LineBreak/> Giá trị thế chấp được bảo vệ được tính là {{protectedValue}}, đại diện cho giá trị thận trọng được sử dụng để xác định hạn mức vay của bạn."
     },
     "columnKeys": {
       "asset": "Tài sản",
@@ -1251,6 +1257,11 @@
     "pending": "Đang chờ",
     "queued": "Queued - Đang trong hàng đợi",
     "succeeded": "Thành công"
+  },
+  "protectionModeIndicator": {
+    "detailedTooltip": "Thị trường này đang trải qua biến động cao.<LineBreak/><LineBreak/>Giá thế chấp được bảo vệ là {{collateralPrice}}, giá thận trọng được sử dụng để xác định hạn mức vay của bạn.<LineBreak/><LineBreak/>Giá vay được bảo vệ là {{borrowPrice}}, giá thận trọng được sử dụng để tính số lượng tài sản này có thể vay.",
+    "label": "Đã bảo vệ",
+    "pairTokenNames": "cả {{longToken}} và {{shortToken}}"
   },
   "requestWithdrawalFromVestingVaultForm": {
     "withdrawalRequestList": {

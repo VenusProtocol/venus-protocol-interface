@@ -123,7 +123,9 @@ export const Summary: React.FC<SummaryProps> = ({
       value: (
         <AccountHealthBar
           borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber() ?? 0}
+          borrowBalanceProtectedCents={pool.userBorrowBalanceProtectedCents?.toNumber()}
           borrowLimitCents={pool.userBorrowLimitCents?.toNumber() ?? 0}
+          borrowLimitProtectedCents={pool.userBorrowLimitProtectedCents?.toNumber()}
           liquidationThresholdCents={pool.userLiquidationThresholdCents?.toNumber()}
           hideUserBalances={shouldHideBalances ? HIDDEN_BALANCE_KEY : undefined}
         />

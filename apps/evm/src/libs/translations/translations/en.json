@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
     "borrowed": "Borrowed:",
+    "borrowedSpotTooltip": "This borrow value is calculated based on the spot price of the borrowed asset and will be used to determine your account's health status.",
     "liquidationThreshold": "Liquidation threshold:",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
-    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "Borrow balance (protected):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Start now"
@@ -987,7 +989,11 @@
     "assetColumn": {
       "eMode": "This market is part of the {{eModeGroupName}} E-mode group",
       "isolationMode": "This market is part of the {{eModeGroupName}} isolation mode group",
-      "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled."
+      "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled.",
+      "protectionMode": "Protection mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices. <LearnMore>Learn more</LearnMore>",
+      "protectionModeBorrow": "This market is experiencing high volatility.<LineBreak/><LineBreak/>The protected borrow value is calculated as {{protectedValue}}, representing the conservative value that counts against your borrow power.",
+      "protectionModePair": "Protection mode is active for {{tokenName}} due to price volatility, affecting their collateral and borrow prices. <LearnMore>Learn more</LearnMore>",
+      "protectionModeSupply": "This market is experiencing high volatility.<LineBreak/><LineBreak/>The protected collateral value is calculated as {{protectedValue}}, representing the conservative value used to determine your borrow power."
     },
     "columnKeys": {
       "asset": "Asset",
@@ -1251,6 +1257,11 @@
     "pending": "Pending",
     "queued": "Queued",
     "succeeded": "Succeeded"
+  },
+  "protectionModeIndicator": {
+    "detailedTooltip": "This market is experiencing high volatility.<LineBreak/><LineBreak/>The Protected Collateral Price is {{collateralPrice}}, the conservative price used to determine your borrow power.<LineBreak/><LineBreak/>The Protected Borrow Price is {{borrowPrice}}, the conservative price used to calculate how much of this asset can be borrowed.",
+    "label": "Protected",
+    "pairTokenNames": "both {{longToken}} and {{shortToken}}"
   },
   "requestWithdrawalFromVestingVaultForm": {
     "withdrawalRequestList": {

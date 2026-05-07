@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
 import {
-  ButtonWrapper,
   CellGroup,
   type CellProps,
   Icon,
+  ProtectionModeIndicator,
   Spinner,
   TokenIcon,
   Wrapper,
@@ -79,6 +79,12 @@ export const MarketInfo = () => {
         )
       : undefined;
 
+    const readablePrice = formatCentsToReadableValue({
+      value: asset?.tokenPriceCents,
+      shorten: false,
+      maxDecimalPlaces: 6,
+    });
+
     return [
       {
         label: t('layout.header.supply'),
@@ -134,11 +140,19 @@ export const MarketInfo = () => {
       },
       {
         label: t('layout.header.price'),
-        value: formatCentsToReadableValue({
-          value: asset?.tokenPriceCents,
-          shorten: false,
-          maxDecimalPlaces: 6,
-        }),
+        value: (
+          <span className="inline-flex items-center gap-x-2">
+            {asset?.isProtectionModeEnabled && (
+              <ProtectionModeIndicator
+                variant="icon"
+                tokenName={asset.vToken.underlyingToken.symbol}
+                tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+                tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+              />
+            )}
+            {readablePrice}
+          </span>
+        ),
       },
     ];
   }, [asset, t, pool, scrollToLtvOptions, Trans, hasModeInfo, isUserConnected]);
@@ -169,17 +183,23 @@ export const MarketInfo = () => {
               </div>
 
               {oracleContractHref && (
-                <ButtonWrapper
-                  asChild
-                  size="xs"
-                  className="gap-x-2 inline-flex self-start shrink-0 bg-transparent text-blue"
+                <Link
+                  noStyle
+                  href={oracleContractHref}
+                  className="inline-flex items-center gap-x-2 self-start shrink-0 rounded-full bg-[rgba(30,36,49,0.5)] px-5 h-8 text-grey text-sm"
                 >
-                  <Link noStyle href={oracleContractHref}>
-                    <span>{t('layout.header.resilientOracle')}</span>
+                  <span>{t('layout.header.resilientOracle')}</span>
+                  <Icon name="resilientOracle" className="h-5 w-5" />
+                </Link>
+              )}
 
-                    <Icon name="shield" />
-                  </Link>
-                </ButtonWrapper>
+              {asset.isProtectionModeEnabled && (
+                <ProtectionModeIndicator
+                  variant="label"
+                  tokenName={asset.vToken.underlyingToken.symbol}
+                  tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+                  tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+                />
               )}
             </div>
           ) : (

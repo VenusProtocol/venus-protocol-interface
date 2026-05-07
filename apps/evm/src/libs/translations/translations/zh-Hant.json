@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "當前賬戶狀態的表示",
     "borrowed": "已借：",
+    "borrowedSpotTooltip": "此借款價值基於借入資產的現貨價格計算，將用於確定您帳戶的健康狀態。",
     "liquidationThreshold": "清算閾值：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾值<LineBreak/>當您的借款餘額達到此值時，您的倉位將有資格被清算。<LineBreak/><LineBreak/>了解更多關於<Link>計算方式。</Link>",
-    "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（佔借款限額的 {{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限額：<LineBreak/>{{borrowLimit}}"
+    "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（借款限額的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限額：<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "借款餘額（保護）：<LineBreak/>{{borrowBalanceProtected}}（借款限額的{{protectedBorrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款餘額（現貨）：{{borrowBalance}}<LineBreak/>借款限額：{{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "立即開始"
@@ -987,7 +989,11 @@
     "assetColumn": {
       "eMode": "該市場屬於 {{eModeGroupName}} E-mode組",
       "isolationMode": "該市場屬於 {{eModeGroupName}} 隔離模式組",
-      "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。"
+      "pausedAssetTooltip": "資產已被 Venus 治理暫停。借款與供應已禁用。",
+      "protectionMode": "由於價格波動，{{tokenName}} 的保護模式已啟動，影響其抵押和借款價格。 <LearnMore>了解更多</LearnMore>",
+      "protectionModeBorrow": "該市場正經歷高波動性。<LineBreak/><LineBreak/>受保護的借款價值按 {{protectedValue}} 計算，代表計入您借款額度的保守價值。",
+      "protectionModePair": "由於價格波動，{{tokenName}} 的保護模式已啟動，影響其抵押和借款價格。 <LearnMore>了解更多</LearnMore>",
+      "protectionModeSupply": "該市場正經歷高波動性。<LineBreak/><LineBreak/>受保護的抵押品價值按 {{protectedValue}} 計算，代表用於確定您借款額度的保守價值。"
     },
     "columnKeys": {
       "asset": "資產",
@@ -1251,6 +1257,11 @@
     "pending": "待定",
     "queued": "排隊中",
     "succeeded": "成功"
+  },
+  "protectionModeIndicator": {
+    "detailedTooltip": "該市場正經歷高波動性。<LineBreak/><LineBreak/>受保護的抵押品價格為 {{collateralPrice}}，用於確定您借款額度的保守價格。<LineBreak/><LineBreak/>受保護的借款價格為 {{borrowPrice}}，用於計算可借入該資產數量的保守價格。",
+    "label": "已保護",
+    "pairTokenNames": "{{longToken}} 和 {{shortToken}}"
   },
   "requestWithdrawalFromVestingVaultForm": {
     "withdrawalRequestList": {

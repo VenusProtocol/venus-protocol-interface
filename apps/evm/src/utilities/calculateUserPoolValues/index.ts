@@ -20,14 +20,22 @@ export const calculateUserPoolValues = ({
   let userBorrowBalanceCents = new BigNumber(0);
   let userSupplyBalanceCents = new BigNumber(0);
   let userBorrowLimitCents = new BigNumber(0);
+  let userBorrowLimitProtectedCents = new BigNumber(0);
+  let userBorrowBalanceProtectedCents = new BigNumber(0);
   let userLiquidationThresholdCents = new BigNumber(0);
 
   assets.forEach(asset => {
     userBorrowBalanceCents = userBorrowBalanceCents.plus(asset.userBorrowBalanceCents);
     userSupplyBalanceCents = userSupplyBalanceCents.plus(asset.userSupplyBalanceCents);
+    userBorrowBalanceProtectedCents = userBorrowBalanceProtectedCents.plus(
+      asset.userBorrowBalanceProtectedCents,
+    );
 
     if (asset.isCollateralOfUser) {
       const borrowLimitContribution = asset.userSupplyBalanceCents.multipliedBy(
+        asset.userCollateralFactor,
+      );
+      const protectedBorrowLimitContribution = asset.userSupplyBalanceProtectedCents.multipliedBy(
         asset.userCollateralFactor,
       );
       const liqThresholdContribution = asset.userSupplyBalanceCents.multipliedBy(
@@ -35,6 +43,9 @@ export const calculateUserPoolValues = ({
       );
 
       userBorrowLimitCents = userBorrowLimitCents.plus(borrowLimitContribution);
+      userBorrowLimitProtectedCents = userBorrowLimitProtectedCents.plus(
+        protectedBorrowLimitContribution,
+      );
       userLiquidationThresholdCents = userLiquidationThresholdCents.plus(liqThresholdContribution);
     }
   });
@@ -54,6 +65,8 @@ export const calculateUserPoolValues = ({
     userYearlyEarningsCents = userYearlyEarningsCents.minus(userYearlyVaiInterestsCents);
   }
 
+  // Health factor uses spot prices (userBorrowBalanceCents and userLiquidationThresholdCents are
+  // already spot-based since userSupplyBalanceCents and userBorrowBalanceCents use tokenPriceCents)
   const userHealthFactor = calculateHealthFactor({
     liquidationThresholdCents: userLiquidationThresholdCents.toNumber(),
     borrowBalanceCents: userBorrowBalanceCents.toNumber(),
@@ -63,6 +76,8 @@ export const calculateUserPoolValues = ({
     userBorrowBalanceCents,
     userSupplyBalanceCents,
     userBorrowLimitCents,
+    userBorrowLimitProtectedCents,
+    userBorrowBalanceProtectedCents,
     userLiquidationThresholdCents,
     userHealthFactor,
     userYearlyEarningsCents,

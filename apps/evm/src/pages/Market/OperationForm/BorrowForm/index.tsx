@@ -111,7 +111,9 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       !pool.userBorrowBalanceCents ||
       !pool.userBorrowLimitCents ||
       !pool.userLiquidationThresholdCents ||
-      pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents) ||
+      pool.userBorrowBalanceProtectedCents?.isGreaterThanOrEqualTo(
+        pool.userBorrowLimitProtectedCents ?? 0,
+      ) ||
       asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
     ) {
       return [new BigNumber(0), new BigNumber(0), new BigNumber(0)];
@@ -122,15 +124,15 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       // Convert to tokens
       .dividedBy(asset.tokenPriceCents);
 
-    // Borrow limit
-    const marginWithUserBorrowLimitTokens = pool.userBorrowLimitCents
-      .minus(pool.userBorrowBalanceCents)
+    // Borrow limit (uses protected prices to match contract behavior)
+    const marginWithUserBorrowLimitTokens = (pool.userBorrowLimitProtectedCents ?? new BigNumber(0))
+      .minus(pool.userBorrowBalanceProtectedCents ?? 0)
       // Convert to tokens
-      .dividedBy(asset.tokenPriceCents);
+      .dividedBy(asset.tokenBorrowPriceCents);
 
     let marginWithUserSafeBorrowLimitTokens =
       // We base the safe borrow limit on the liquidation threshold because that's the base used to
-      // calculate the health factor
+      // calculate the health factor (spot-based)
       pool.userLiquidationThresholdCents
         .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)
         .minus(pool.userBorrowBalanceCents)

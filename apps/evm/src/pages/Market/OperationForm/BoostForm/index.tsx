@@ -60,7 +60,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
   });
 
   const userBorrowingPowerCents = useMemo(
-    () => pool.userBorrowLimitCents?.minus(pool.userBorrowBalanceCents || 0),
+    () => pool.userBorrowLimitProtectedCents?.minus(pool.userBorrowBalanceProtectedCents || 0),
     [pool],
   );
 

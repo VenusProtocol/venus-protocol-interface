@@ -137,10 +137,12 @@
   "accountHealth": {
     "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
     "borrowed": "Borç alınan:",
+    "borrowedSpotTooltip": "Bu borçlanma değeri, borçlanılan varlığın spot fiyatına göre hesaplanır ve hesabınızın sağlık durumunu belirlemek için kullanılır.",
     "liquidationThreshold": "Tasfiye Eşiği:",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Tasfiye Eşiği<LineBreak/>Borç bakiyeniz bu değere ulaştığında, pozisyonunuz tasfiye edilmeye uygun hale gelir.<LineBreak/><LineBreak/><Link>Hesaplama</Link> hakkında daha fazla bilgi edinin.",
-    "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}}'i)<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}"
+    "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "Borç bakiyesi (Koruma):<LineBreak/>{{borrowBalanceProtected}} (borç limitinizin {{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>Borç bakiyesi (spot): {{borrowBalance}}<LineBreak/>Borç limiti: {{borrowLimit}}"
   },
   "adBanner": {
     "startNow": "Şimdi başla"
@@ -987,7 +989,11 @@
     "assetColumn": {
       "eMode": "Bu piyasa {{eModeGroupName}} E-modu grubunun bir parçasıdır",
       "isolationMode": "Bu piyasa {{eModeGroupName}} izolasyon modu grubunun bir parçasıdır",
-      "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı."
+      "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı.",
+      "protectionMode": "Fiyat dalgalanması nedeniyle {{tokenName}} için Koruma Modu etkin, teminat ve borçlanma fiyatlarını etkilemektedir. <LearnMore>Daha fazla bilgi</LearnMore>",
+      "protectionModeBorrow": "Bu piyasa yüksek dalgalanma yaşamaktadır.<LineBreak/><LineBreak/> Korumalı borçlanma değeri {{protectedValue}} olarak hesaplanmış olup, borçlanma gücünüze karşı sayılan muhafazakâr değeri temsil eder.",
+      "protectionModePair": "Fiyat dalgalanması nedeniyle {{tokenName}} için Koruma Modu etkin, teminat ve borçlanma fiyatlarını etkilemektedir. <LearnMore>Daha fazla bilgi</LearnMore>",
+      "protectionModeSupply": "Bu piyasa yüksek dalgalanma yaşamaktadır.<LineBreak/><LineBreak/> Korumalı teminat değeri {{protectedValue}} olarak hesaplanmış olup, borçlanma gücünüzü belirlemek için kullanılan muhafazakâr değeri temsil eder."
     },
     "columnKeys": {
       "asset": "Varlık",
@@ -1251,6 +1257,11 @@
     "pending": "Beklemede",
     "queued": "Kuyrukta",
     "succeeded": "Başarılı"
+  },
+  "protectionModeIndicator": {
+    "detailedTooltip": "Bu piyasa yüksek dalgalanma yaşamaktadır.<LineBreak/><LineBreak/>Korumalı Teminat Fiyatı {{collateralPrice}}, borçlanma gücünüzü belirlemek için kullanılan muhafazakâr fiyat.<LineBreak/><LineBreak/>Korumalı Borçlanma Fiyatı {{borrowPrice}}, bu varlıktan ne kadar borçlanılabileceğini hesaplamak için kullanılan muhafazakâr fiyat.",
+    "label": "Korumalı",
+    "pairTokenNames": "hem {{longToken}} hem de {{shortToken}}"
   },
   "requestWithdrawalFromVestingVaultForm": {
     "withdrawalRequestList": {
