@@ -9,6 +9,7 @@ import { bnb } from '__mocks__/models/tokens';
 import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
 import { useGetBalanceOf, useGetPendleSwapQuote, useStakeInPendleVault } from 'clients/api';
 import type { GetPendleSwapQuoteOutput } from 'clients/api';
+import type { PendleVaultProtocolData } from 'clients/api/queries/getFixedRatedVaults/types';
 import { NULL_ADDRESS } from 'constants/address';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
@@ -16,7 +17,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { PendleVault, Token, VToken } from 'types';
-import { ChainId, VaultCategory, VaultManager, VaultStatus } from 'types';
+import { ChainId, VaultCategory, VaultManager, VaultStatus, VaultType } from 'types';
 import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import type { Address } from 'viem';
 
@@ -28,6 +29,7 @@ const fakePendlePtVaultAddress = '0xfakePendlePtVaultContractAddress' as Address
 const fakePendleMarketAddress = '0xfakePendleMarketAddress' as Address;
 const fakeWalletBalanceMantissa = new BigNumber('12000000000000000000');
 const fixedRatedVault = fixedRatedVaults[0];
+const protocolData = fixedRatedVault.protocolData as PendleVaultProtocolData;
 
 const ptClisBnbToken: Token = {
   chainId: ChainId.BSC_TESTNET,
@@ -56,16 +58,18 @@ const vault: PendleVault = {
   ...vaults[1],
   key: `${ChainId.BSC_TESTNET}-pendle-${fixedRatedVault.vaultAddress}`,
   category: VaultCategory.YIELD_TOKENS,
+  vaultType: VaultType.Pendle,
   manager: VaultManager.Pendle,
   managerIcon: 'pendle',
-  managerAddress: fixedRatedVault.protocolData.pendleMarketAddress as Address,
-  managerLink: `https://app.pendle.finance/trade/pools/${fixedRatedVault.protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`,
+  managerAddress: protocolData.pendleMarketAddress as Address,
+  managerLink: `https://app.pendle.finance/trade/pools/${protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`,
   status: VaultStatus.Deposit,
+  vaultAddress: fixedRatedVault.vaultAddress,
   stakedToken: bnb,
   rewardToken: ptClisBnbToken,
   maturityDate: new Date(fixedRatedVault.maturityDate),
-  vaultDeploymentDate: new Date(fixedRatedVault.protocolData.startDate),
-  liquidityCents: new BigNumber(fixedRatedVault.protocolData.liquidityCents),
+  vaultDeploymentDate: new Date(protocolData.startDate),
+  liquidityCents: new BigNumber(protocolData.liquidityCents),
   asset,
   poolComptrollerContractAddress: poolData[0].comptrollerAddress as Address,
   poolName: poolData[0].name,

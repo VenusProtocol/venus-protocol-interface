@@ -1,6 +1,6 @@
 import type { PendleVault } from 'types';
 
-import { MarketInfo } from './MarketInfo';
+import { VaultOverviewMarketInfo } from 'containers/VaultCard/VaultOverviewMarketInfo';
 import { StrategyDiagram } from './StrategyDiagram';
 import { TotalDeposits } from './TotalDeposits';
 
@@ -15,7 +15,13 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ vault }) => {
 
       <StrategyDiagram vault={vault} />
 
-      <MarketInfo vault={vault} />
+      <VaultOverviewMarketInfo
+        vaultDeploymentDate={vault.vaultDeploymentDate}
+        manager={vault.manager}
+        managerIcon={vault.managerIcon}
+        managerLink={vault.managerLink}
+        copyAddress={vault.asset?.vToken?.underlyingToken?.address}
+      />
     </div>
   );
 };

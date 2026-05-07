@@ -184,7 +184,7 @@ describe('Governance', () => {
 
   it('prompts user to deposit XVS', async () => {
     const vaultsCopy = cloneDeep(vaults);
-    vaultsCopy[1].userStakedMantissa = new BigNumber(0);
+    vaultsCopy[1].userStakeBalanceMantissa = new BigNumber(0);
     (getCurrentVotes as Mock).mockImplementationOnce(() => ({
       votesMantissa: new BigNumber(0),
     }));
@@ -357,7 +357,7 @@ describe('Governance', () => {
 
   it('renders the delegate/redelegate button when voting is enabled', async () => {
     const vaultsCopy = cloneDeep(vaults);
-    vaultsCopy[1].userStakedMantissa = new BigNumber(1000);
+    vaultsCopy[1].userStakeBalanceMantissa = new BigNumber(1000);
     (useGetVestingVaults as Mock).mockImplementation(() => ({
       data: vaultsCopy,
       isLoading: false,

@@ -7,7 +7,7 @@ import {
   type PendleSwapQuoteError,
   useGetBalanceOf,
 } from 'clients/api';
-import { AvailableBalance, LabeledSlider, NoticeInfo, SpendingLimit } from 'components';
+import { AvailableBalance, Checkbox, LabeledSlider, NoticeInfo, SpendingLimit } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -19,7 +19,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 import { formatTokensToReadableValue } from 'utilities/formatTokensToReadableValue';
@@ -41,6 +41,7 @@ export interface TransactionFormProps {
   swapToToken?: Token;
   swapQuote?: GetPendleSwapQuoteOutput;
   swapQuoteError?: PendleSwapQuoteError;
+  acknowledgement?: React.ReactNode;
 }
 
 export const TransactionForm: React.FC<TransactionFormProps> = ({
@@ -58,9 +59,16 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   swapToToken,
   swapQuote,
   swapQuoteError,
+  acknowledgement,
 }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
+
+  const [isAcknowledgementChecked, setIsAcknowledgementChecked] = useState(false);
+
+  const [isUserAcknowledgingHighPriceImpact, setIsUserAcknowledgingHighPriceImpact] =
+    useState(false);
+
   const fromAmountTokensFieldValue = form.watch('fromAmountTokens');
   const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue || 0);
 
@@ -69,8 +77,6 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
     swapQuote?.priceImpactPercentage !== undefined &&
     swapQuote.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
     swapQuote.priceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE;
-
-  const isUserAcknowledgingHighPriceImpact = form.watch('acknowledgeHighPriceImpact');
 
   const approval: Approval | undefined =
     spenderAddress && fromAmountTokens.isGreaterThan(0)
@@ -187,6 +193,8 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
       await onSubmit();
 
       form.reset();
+      setIsAcknowledgementChecked(false);
+      setIsUserAcknowledgingHighPriceImpact(false);
     } catch (error) {
       handleError({ error });
     }
@@ -199,6 +207,10 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   if (requiresSwap) {
     const riskAcknowledged = !isHighPriceImpactSwap || isUserAcknowledgingHighPriceImpact;
     isFormValid = isFormValid && !!swapQuote && riskAcknowledged;
+  }
+
+  if (acknowledgement) {
+    isFormValid = isFormValid && isAcknowledgementChecked;
   }
 
   return (
@@ -231,15 +243,24 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
       {footer && <div>{footer}</div>}
 
+      {!!accountAddress && acknowledgement && (
+        <div className="flex items-center gap-2 cursor-pointer">
+          <Checkbox
+            value={isAcknowledgementChecked}
+            onChange={event => setIsAcknowledgementChecked(event.target.checked)}
+          />
+
+          <span className="text-b1r text-grey">{acknowledgement}</span>
+        </div>
+      )}
+
       <TxFormSubmitButton
         approval={approval}
         submitButtonLabel={submitButtonLabel}
         isFormValid={isFormValid}
         isLoading={isLoading}
         isUserAcknowledgingHighPriceImpact={isUserAcknowledgingHighPriceImpact}
-        setAcknowledgeHighPriceImpact={acknowledgeHighPriceImpact =>
-          form.setValue('acknowledgeHighPriceImpact', acknowledgeHighPriceImpact)
-        }
+        setAcknowledgeHighPriceImpact={setIsUserAcknowledgingHighPriceImpact}
         swapFromToken={swapFromToken}
         swapToToken={swapToToken}
         swapPriceImpactPercentage={swapQuote?.priceImpactPercentage}

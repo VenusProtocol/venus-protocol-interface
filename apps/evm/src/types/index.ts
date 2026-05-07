@@ -471,17 +471,27 @@ export interface Transaction {
 
 export enum VaultStatus {
   Active = 'active',
+  Inactive = 'inactive',
   Deposit = 'deposit',
   Earning = 'earning',
+  Pending = 'pending',
   Refund = 'refund',
   Repaying = 'repaying',
   Claim = 'claim',
+  Liquidated = 'liquidated',
   Paused = 'paused',
 }
 
 export enum VaultManager {
   Venus = 'venus',
   Pendle = 'pendle',
+  Ceffu = 'ceffu',
+}
+
+export enum VaultType {
+  Venus = 'venus',
+  Pendle = 'pendle',
+  Institutional = 'institutional',
 }
 
 export enum VaultCategory {
@@ -491,6 +501,7 @@ export enum VaultCategory {
 }
 
 interface BaseVault {
+  vaultType: VaultType;
   category: VaultCategory;
   manager: VaultManager;
   managerIcon: IconName;
@@ -502,11 +513,11 @@ interface BaseVault {
   stakedTokenPriceCents: BigNumber;
   rewardTokenPriceCents: BigNumber;
   stakingAprPercentage: number;
-  totalStakedMantissa: BigNumber;
-  totalStakedCents: number;
+  stakeBalanceMantissa: BigNumber;
+  stakeBalanceCents: number;
+  userStakeBalanceMantissa?: BigNumber;
+  userStakeBalanceCents?: number;
   lockingPeriodMs?: number;
-  userStakedMantissa?: BigNumber;
-  userStakedCents?: number;
   poolIndex?: number;
 }
 
@@ -522,13 +533,29 @@ export type PendleVault = BaseVault & {
   liquidityCents: BigNumber;
   asset: Asset;
   managerLink?: string;
+  vaultAddress: Address;
   vaultDeploymentDate?: Date;
   poolComptrollerContractAddress: Address;
   poolName: string;
   rewardToken: Token;
 };
 
-export type Vault = VenusVault | PendleVault;
+export type InstitutionalVault = BaseVault & {
+  managerLink?: string;
+  vaultAddress: Address;
+  fixedApyDecimal: string;
+  vaultDeploymentDate?: Date;
+  openEndDate?: Date;
+  lockEndDate?: Date;
+  maturityDate?: Date;
+  settlementDate?: Date;
+  stakeLimitMantissa: BigNumber;
+  stakeMinMantissa: BigNumber;
+  userRedeemLimitMantissa: BigNumber;
+  userWithdrawLimitMantissa: BigNumber;
+};
+
+export type Vault = VenusVault | PendleVault | InstitutionalVault;
 
 export interface VoterAccount {
   address: Address;

@@ -1988,6 +1988,7 @@
       "manager": "Yönetici kurum",
       "maturityDate": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
+      "minRequested": "Min. requested",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, yatırım ve çekim işlemleri devre dışı bırakılmıştır.",
       "primeEligibility": "Prime uygunluğu",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2008,22 +2009,30 @@
       "claim": "Talep et",
       "deposit": "Yatır",
       "earning": "Kazanç",
+      "inactive": "Aktif değil",
       "inputPlaceholder": "Varlık ara",
+      "liquidated": "Tasfiye edildi",
       "paused": "Duraklatıldı",
+      "pending": "Beklemede",
       "refund": "İade",
       "repaying": "Geri ödeniyor"
     },
     "header": "Kasa",
     "modals": {
       "afterMaturityPendleDisclaimer": "Lütfen önce Çek butonu ile PT tokenlarınızı cüzdanınıza çekin, ardından temel tokenlarınızı geri almak için <Link>Pendle resmi</Link> web sitesini ziyaret edin.",
+      "claim": "Talep et",
+      "claimPeriodStarts": "Talep dönemi başlıyor",
       "connectWalletMessage": "{{tokenSymbol}} yatırmak / çekmek için cüzdanınızı bağlayın",
       "convert": "Dönüştür",
       "currentDeposited": "Mevcut yatırılan",
       "currentDepositedTooltip": "Bu kasada şu anda kilitli olan ve kazanç sağlayan varlıklarınızın miktarı.",
       "deposit": "Yatır",
+      "depositPeriodEnds": "Yatırma dönemi sona eriyor",
+      "depositsPausedNotice": "Bu kasa sabit getirili yaşam döngüsünde ilerlerken yatırma ve çekme işlemleri duraklatılır.",
       "depositTab": "Yatır",
       "effectiveFixedApr": "Efektif Sabit APR",
       "effectiveFixedAprPendleTooltip": "Bu kasa stratejisinin sunduğu yıllık sabit getiri; bileşik faiz dahil efektif Yıllık Yüzde Oranı (APR) olarak ifade edilmektedir.",
+      "effectiveFixedAprTooltip": "Bu kasa stratejisinin sunduğu yıllık sabit getiri; bileşik faiz dahil efektif Yıllık Yüzde Oranı (APR) olarak ifade edilmektedir.",
       "error": {
         "amountTooLow": "Girilen miktar çok düşük.",
         "invalidAmountFromQuote": "Girilen miktar, Pendle piyasasındaki kullanılabilir likidityi aşıyor. Miktarı azaltın ve tekrar deneyin.",
@@ -2034,11 +2043,22 @@
       "estPenalty": "Tahmini Ceza",
       "estReceived": "Tahmini Alınan",
       "estYield": "Tahmini Getiri",
+      "institutionalDisclaimer": "Kasa gerekli minimuma ulaşırsa, yatırımlar maksimum hedefe kadar devam eder. Ödülleri talep etmek için {{lockingPeriod}} boyunca yatırım yapın. Aksi halde fonlar iade edilebilir.",
+      "institutionalTcsAgreement": "Yatırmaya devam ederek kurumsal kasa <Link>hüküm ve koşullarını</Link> kabul ediyorum.",
+      "institutionalTimeline": {
+        "claimPeriod": "Talep dönemi",
+        "depositPeriod": "Yatırma dönemi",
+        "estimatedEarningPeriod": "Tahmini kazanç dönemi",
+        "estimatedRepayingPeriod": "Tahmini geri ödeme dönemi",
+        "refundPeriod": "İade dönemi"
+      },
       "maturityDate": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
       "maturityPendleDisclaimer": "Vade öncesinde, çekim sırasında alınan tutar Pendle piyasa fiyatlarına tabidir. Vade sonrasında, çekimler sahip olduğunuz PT token miktarına göre 1:1 oranında itfa edilir.",
       "minReceived": "Min. Alınan",
       "overview": {
+        "campaignTimeline": "Kampanya zaman çizelgesi",
+        "loan": "Kredi",
         "manager": "Yönetici kurum",
         "managerTooltip": "Bu kasanın temel varlığını yöneten adres veya ekip. Yatırılan varlıklar, denetledikleri piyasalara tahsis edilir ve piyasa koşullarına göre itfa veya uzlaşma sürelerini güncelleyebilirler.",
         "marketInfo": "Piyasa bilgisi",
@@ -2047,7 +2067,8 @@
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "Kullanıcılar",
-          "venusCore": "Venus Core"
+          "venusCore": "Venus Core",
+          "venusVault": "Venus kasası"
         },
         "strategyAllocation": "Strateji Dağılımı",
         "supply": "Sağla",
@@ -2060,11 +2081,16 @@
       "stakeTab": "Yatır",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalYields": "Toplam Getiri",
       "withdraw": "Çek",
       "withdrawTab": "Çek"
     },
     "overview": {
       "bannerVaultIllustration": "Kasa görseli"
+    },
+    "timeline": {
+      "tbd": "TBD",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {

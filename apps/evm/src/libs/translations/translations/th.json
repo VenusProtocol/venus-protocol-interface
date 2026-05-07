@@ -1987,6 +1987,7 @@
       "manager": "ผู้ดูแล",
       "maturityDate": "วันครบกำหนด",
       "maturityDatePendleTooltip": "วันสิ้นสุดของตำแหน่งผลตอบแทนคงที่นี้ (จาก Pendle) หลังจากวันนี้ คุณจะได้รับสินทรัพย์ต้นฉบับครบถ้วน (เงินต้น) ผลตอบแทนคงที่ที่ล็อคไว้หยุดที่นี่ ควรถือครองจนถึงวันนั้นเพื่อรับผลตอบแทนตามแผน",
+      "minRequested": "Min. requested",
       "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การฝาก และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
       "primeEligibility": "สิทธิ์รับ Prime",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2007,22 +2008,30 @@
       "claim": "อ้างสิทธิ์",
       "deposit": "ฝาก",
       "earning": "กำลังรับผลตอบแทน",
+      "inactive": "ไม่ใช้งาน",
       "inputPlaceholder": "ค้นหาสินทรัพย์",
+      "liquidated": "ถูกชำระบัญชี",
       "paused": "หยุดชั่วคราว",
+      "pending": "รอดำเนินการ",
       "refund": "คืนเงิน",
       "repaying": "กำลังชำระคืน"
     },
     "header": "วอลต์",
     "modals": {
       "afterMaturityPendleDisclaimer": "กรุณาถอน PT token ไปยังวอลเล็ตของคุณก่อนผ่านปุ่มถอน จากนั้นไปที่เว็บไซต์<Link>Pendle อย่างเป็นทางการ</Link>เพื่อแลกรับ underlying token ของคุณ",
+      "claim": "อ้างสิทธิ์",
+      "claimPeriodStarts": "ระยะเวลาอ้างสิทธิ์เริ่มต้น",
       "connectWalletMessage": "กรุณาเชื่อมต่อกระเป๋าเงินของคุณเพื่อฝาก / ถอน {{tokenSymbol}}",
       "convert": "แปลง",
       "currentDeposited": "ยอดฝากปัจจุบัน",
       "currentDepositedTooltip": "จำนวนสินทรัพย์ของคุณที่ล็อคและสร้างรายได้อยู่ในห้องนิรภัยนี้",
       "deposit": "ฝาก",
+      "depositPeriodEnds": "ระยะเวลาฝากสิ้นสุด",
+      "depositsPausedNotice": "การฝากและถอนจะถูกหยุดชั่วคราวในขณะที่ vault นี้กำลังดำเนินไปตามวงจรอัตราคงที่",
       "depositTab": "ฝาก",
       "effectiveFixedApr": "APR คงที่ที่มีผล",
       "effectiveFixedAprPendleTooltip": "ผลตอบแทนคงที่รายปีที่เสนอโดยกลยุทธ์ vault นี้ แสดงเป็นอัตราร้อยละต่อปีที่มีผลซึ่งรวมดอกเบี้ยทบต้นแล้ว",
+      "effectiveFixedAprTooltip": "ผลตอบแทนคงที่รายปีที่เสนอโดยกลยุทธ์ vault นี้ แสดงเป็นอัตราร้อยละต่อปีที่มีผลซึ่งรวมดอกเบี้ยทบต้นแล้ว",
       "error": {
         "amountTooLow": "จำนวนที่ป้อนต่ำเกินไป",
         "invalidAmountFromQuote": "จำนวนเกินกว่าสภาพคล่องที่ใช้ได้ในตลาด Pendle ลดจำนวนแล้วลองอีกครั้ง",
@@ -2033,11 +2042,22 @@
       "estPenalty": "ค่าปรับโดยประมาณ",
       "estReceived": "ที่จะได้รับโดยประมาณ",
       "estYield": "ผลตอบแทนโดยประมาณ",
+      "institutionalDisclaimer": "หาก vault ถึงจำนวนขั้นต่ำที่กำหนด การฝากจะดำเนินต่อไปจนถึงเป้าหมายสูงสุด ฝากเป็นเวลา {{lockingPeriod}} เพื่ออ้างสิทธิ์รับรางวัล มิฉะนั้น เงินทุนสามารถขอคืนได้",
+      "institutionalTcsAgreement": "เมื่อดำเนินการฝากต่อ แสดงว่าฉันยอมรับ<Link>ข้อกำหนดและเงื่อนไข</Link>ของ institutional vault",
+      "institutionalTimeline": {
+        "claimPeriod": "ระยะเวลาอ้างสิทธิ์",
+        "depositPeriod": "ระยะเวลาฝาก",
+        "estimatedEarningPeriod": "ระยะเวลารับผลตอบแทนโดยประมาณ",
+        "estimatedRepayingPeriod": "ระยะเวลาชำระคืนโดยประมาณ",
+        "refundPeriod": "ระยะเวลาคืนเงิน"
+      },
       "maturityDate": "วันครบกำหนด",
       "maturityDatePendleTooltip": "วันสิ้นสุดของตำแหน่งผลตอบแทนคงที่นี้ (จาก Pendle) หลังจากวันนี้ คุณจะได้รับสินทรัพย์ต้นฉบับครบถ้วน (เงินต้น) ผลตอบแทนคงที่ที่ล็อคไว้หยุดที่นี่ ควรถือครองจนถึงวันนั้นเพื่อรับผลตอบแทนตามแผน",
       "maturityPendleDisclaimer": "ก่อนครบกำหนด จำนวนเงินที่ได้รับเมื่อถอนขึ้นอยู่กับราคาตลาด Pendle หลังจากครบกำหนด การถอนจะถูกแลกตามจำนวน PT token ที่คุณถือครองในอัตรา 1:1",
       "minReceived": "ขั้นต่ำที่จะได้รับ",
       "overview": {
+        "campaignTimeline": "ไทม์ไลน์แคมเปญ",
+        "loan": "เงินกู้",
         "manager": "ผู้ดูแล",
         "managerTooltip": "ที่อยู่หรือทีมที่จัดการสินทรัพย์อ้างอิงของ vault นี้ สินทรัพย์ที่ฝากจะถูกจัดสรรไปยังตลาดที่พวกเขาดูแล และพวกเขาอาจอัปเดตระยะเวลาการไถ่ถอนหรือการชำระบัญชีตามสภาวะตลาด",
         "marketInfo": "ข้อมูลตลาด",
@@ -2046,7 +2066,8 @@
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "ผู้ใช้งาน",
-          "venusCore": "Venus Core"
+          "venusCore": "Venus Core",
+          "venusVault": "วอลต์ Venus"
         },
         "strategyAllocation": "การจัดสรรกลยุทธ์",
         "supply": "ฝาก",
@@ -2059,11 +2080,16 @@
       "stakeTab": "ฝาก",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalYields": "ผลตอบแทนรวม",
       "withdraw": "ถอน",
       "withdrawTab": "ถอน"
     },
     "overview": {
       "bannerVaultIllustration": "ภาพประกอบคลัง"
+    },
+    "timeline": {
+      "tbd": "TBD",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {

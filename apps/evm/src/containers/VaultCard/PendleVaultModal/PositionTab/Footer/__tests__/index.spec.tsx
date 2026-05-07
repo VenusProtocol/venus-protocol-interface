@@ -7,7 +7,7 @@ import type { GetPendleSwapQuoteOutput } from 'clients/api';
 import { en, t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { PendleVault } from 'types';
-import { VaultCategory, VaultManager, VaultStatus } from 'types';
+import { VaultCategory, VaultManager, VaultStatus, VaultType } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
@@ -19,11 +19,13 @@ import { Footer, type FooterProps } from '..';
 const baseVault: PendleVault = {
   ...vaults[0],
   category: VaultCategory.YIELD_TOKENS,
+  vaultType: VaultType.Pendle,
   manager: VaultManager.Pendle,
   managerIcon: 'logoMobile',
   status: VaultStatus.Active,
   key: 'pendle-VAI-XVS-2026-06-25',
   stakingAprPercentage: 3.39809766,
+  vaultAddress: '0x2222222222222222222222222222222222222222',
   maturityDate: new Date('2026-06-25T00:00:00.000Z'),
   liquidityCents: new BigNumber('742673002'),
   asset: assetData[0],

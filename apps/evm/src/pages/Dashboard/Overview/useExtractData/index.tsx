@@ -27,7 +27,7 @@ export const useExtractData = ({
   if (vaults) {
     vaults.forEach(vault => {
       const vaultStakeCents = convertMantissaToTokens({
-        value: new BigNumber(vault.userStakedMantissa || 0),
+        value: new BigNumber(vault.userStakeBalanceMantissa || 0),
         token: vault.stakedToken,
       }).multipliedBy(vault.stakedToken.symbol === 'XVS' ? xvsPriceCents : vaiPriceCents);
 

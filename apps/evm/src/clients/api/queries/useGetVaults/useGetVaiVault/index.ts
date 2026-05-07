@@ -120,15 +120,16 @@ export const useGetVaiVault = ({
       .multipliedBy(100)
       .toNumber();
 
-    const { totalStakedCents, userStakedCents, dailyEmissionCents } = calculateVaultCentsValues({
-      stakedTokenDecimals: vai.decimals,
-      rewardTokenDecimals: xvs.decimals,
-      stakedTokenPriceCents,
-      rewardTokenPriceCents,
-      totalStakedMantissa: totalVaiStakedData.balanceMantissa,
-      userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
-      dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
-    });
+    const { stakeBalanceCents, userStakeBalanceCents, dailyEmissionCents } =
+      calculateVaultCentsValues({
+        stakedTokenDecimals: vai.decimals,
+        rewardTokenDecimals: xvs.decimals,
+        stakedTokenPriceCents,
+        rewardTokenPriceCents,
+        stakeBalanceMantissa: totalVaiStakedData.balanceMantissa,
+        userStakeBalanceMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
+        dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
+      });
 
     if (dailyEmissionCents === undefined) {
       return undefined;
@@ -142,11 +143,11 @@ export const useGetVaiVault = ({
       rewardTokenPriceCents,
       dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
       dailyEmissionCents,
-      totalStakedMantissa: totalVaiStakedData.balanceMantissa,
-      totalStakedCents,
+      stakeBalanceMantissa: totalVaiStakedData.balanceMantissa,
+      stakeBalanceCents,
       stakingAprPercentage,
-      userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
-      userStakedCents,
+      userStakeBalanceMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
+      userStakeBalanceCents,
     });
   }, [
     tokenPricesData,

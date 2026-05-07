@@ -1,8 +1,8 @@
 import { cn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { PendleVault } from 'types';
-import { FlowArrow } from './FlowArrow';
-import { FlowNode } from './FlowNode';
+import { FlowArrow } from '../../../FlowArrow';
+import { FlowNode } from '../../../FlowNode';
 
 interface StrategyDiagramProps {
   vault: PendleVault;

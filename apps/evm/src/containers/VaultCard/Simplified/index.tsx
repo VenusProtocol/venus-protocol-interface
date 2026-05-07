@@ -7,14 +7,17 @@ import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToR
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
+import { VaultStatus } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  isInstitutionalVault,
   isLegacyVenusVault,
   isPendleVault,
 } from 'utilities';
 
+import { InstitutionalVaultModal } from 'containers/VaultCard/InstitutionalVaultModal';
 import { PendleVaultModal } from 'containers/VaultCard/PendleVaultModal';
 import { useState } from 'react';
 import { VenusVaultModal } from '../VenusVaultModal';
@@ -39,13 +42,13 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
 
   const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
     token: displayToken,
-    value: vault.userStakedMantissa || new BigNumber(0),
+    value: vault.userStakeBalanceMantissa || new BigNumber(0),
     addSymbol: false,
   });
 
-  const isPaused = 'isPaused' in vault && vault.isPaused;
+  const isPaused = ('isPaused' in vault && vault.isPaused) || vault.status === VaultStatus.Inactive;
 
-  const canWithdraw = vault.userStakedMantissa?.gt(0);
+  const canWithdraw = vault.userStakeBalanceMantissa?.gt(0);
   const showHoldingsCard = accountAddress && canWithdraw;
 
   const dailyEmissionReadableValue =
@@ -59,12 +62,12 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
         })
       : undefined;
 
-  const totalDepositedReadableValue = vault.totalStakedMantissa ? (
+  const totalDepositedReadableValue = vault.stakeBalanceMantissa ? (
     <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
       <TokenIcon token={displayToken} displayChain={false} size="md" />
       {formatTokensToReadableValue({
         value: convertMantissaToTokens({
-          value: vault.totalStakedMantissa,
+          value: vault.stakeBalanceMantissa,
           token: displayToken,
         }),
         token: displayToken,
@@ -118,6 +121,10 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
 
       {isLegacyVenusVault(vault) && (
         <VenusVaultModal vault={vault} isOpen={shouldShowModal} handleClose={hideModal} />
+      )}
+
+      {isInstitutionalVault(vault) && (
+        <InstitutionalVaultModal vault={vault} isOpen={shouldShowModal} handleClose={hideModal} />
       )}
     </>
   );

@@ -8,12 +8,10 @@ import { useTranslation } from 'libs/translations';
 
 export interface FormValues {
   fromAmountTokens: string;
-  acknowledgeHighPriceImpact: boolean;
 }
 
 export const initialFormValues: FormValues = {
   fromAmountTokens: '',
-  acknowledgeHighPriceImpact: false,
 };
 
 export const useForm = ({

@@ -9,19 +9,27 @@ import { legacyCorePool } from '__mocks__/models/pools';
 import { useGetPools } from 'clients/api/queries/useGetPools';
 import { useGetTokens } from 'libs/tokens';
 import { renderComponent } from 'testUtils/render';
-import type { Asset, Token, VToken } from 'types';
-import { VaultStatus } from 'types';
+import type { Asset, InstitutionalVault, PendleVault, Token, VToken } from 'types';
+import { VaultStatus, VaultType } from 'types';
 
-import { useGetFixedRatedVaults } from 'clients/api';
+import {
+  useGetFixedRatedVaultUserStakedTokens,
+  useGetFixedRatedVaults,
+  useGetInstitutionalVaultUserMetrics,
+} from 'clients/api';
 import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults/types';
 import { type UseGetPendleVaultsOutput, useGetFormattedFixedRatedVaults } from '../index';
 
 vi.mock('clients/api/queries/getFixedRatedVaults/useGetFixedRatedVaults');
+vi.mock(
+  'clients/api/queries/getFixedRatedVaultUserStakedTokens/useGetFixedRatedVaultUserStakedTokens',
+);
+vi.mock('clients/api/queries/getInstitutionalVaultUserMetrics/useGetInstitutionalVaultUserMetrics');
 vi.mock('clients/api/queries/useGetPools');
 vi.mock('libs/tokens');
 
 // Real API response data from the /fixed-rate-vaults endpoint
-const fakeVaultProduct: GetFixedRatedVaultsOutput[number] = {
+const fakePendleVaultProduct: GetFixedRatedVaultsOutput[number] = {
   id: '56-pendle-0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
   chainId: '56',
   protocol: 'pendle',
@@ -65,6 +73,83 @@ const fakeVaultProduct: GetFixedRatedVaultsOutput[number] = {
       maturityDate: '2026-06-25T00:00:00.000Z',
       createdAt: '2026-01-21T20:14:15.000Z',
       updatedAt: '2026-01-21T20:14:15.000Z',
+      tokenPrices: [],
+    },
+  ],
+};
+
+const fakeCeffuVaultProduct: GetFixedRatedVaultsOutput[number] = {
+  id: '97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7',
+  chainId: '97',
+  protocol: 'institutional-vault',
+  vaultAddress: '0x5263D68786AaCfad74B9aa385A004c272548e8B7',
+  underlyingAssetAddress: '0x312e39c7641cE64BEccDe53613f07952258fa810',
+  fixedApyDecimal: '0.08',
+  maturityDate: '2026-09-01T00:00:00.000Z',
+  protocolData: {
+    collateralAssetAddress: '0xCC3933141a64E26C9317b19CE4BbB4ec2c333bc6',
+    institutionOperatorAddress: '0x1111111111111111111111111111111111111111',
+    latePenaltyRateMantissa: '0',
+    lockDurationSeconds: 2592000,
+    openDurationSeconds: 604800,
+    settlementWindowSeconds: 259200,
+  },
+  createdAt: '2026-04-01T00:00:00.000Z',
+  updatedAt: '2026-04-01T00:00:00.000Z',
+  loanVaultDetail: {
+    chainId: '97',
+    collateralAssetAddress: '0xCC3933141a64E26C9317b19CE4BbB4ec2c333bc6',
+    collateralValueCents: '0',
+    createdAt: '2026-04-01T00:00:00.000Z',
+    debtValueCents: '0',
+    fixedRateVaultId: '97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7',
+    id: 'loan-vault-detail-1',
+    institutionAddress: '0x1111111111111111111111111111111111111111',
+    latePenaltyRateMantissa: '0',
+    liquidationIncentiveMantissa: '0',
+    liquidationThresholdMantissa: '0',
+    liquidityMantissa: '500000000000',
+    lockEndTime: '2026-08-29T00:00:00.000Z',
+    maxBorrowCapMantissa: '1000000000000',
+    minBorrowCapMantissa: '100000000000',
+    openEndTime: '2026-04-08T00:00:00.000Z',
+    outstandingDebtMantissa: '0',
+    reserveFactorMantissa: '0',
+    settlementDeadline: '2026-09-01T00:00:00.000Z',
+    shortfallMantissa: '0',
+    supplyAssetAddress: '0x312e39c7641cE64BEccDe53613f07952258fa810',
+    totalOwedMantissa: '0',
+    totalRaisedMantissa: '500000000000',
+    updatedAt: '2026-04-01T00:00:00.000Z',
+    vaultState: 2,
+  },
+  underlyingToken: [
+    {
+      address: '0x312e39c7641cE64BEccDe53613f07952258fa810',
+      chainId: '97',
+      name: 'Mock USDC',
+      symbol: 'MOCK_USDC',
+      decimals: 6,
+      maturityDate: '2026-09-01T00:00:00.000Z',
+      createdAt: '2026-04-01T00:00:00.000Z',
+      updatedAt: '2026-04-01T00:00:00.000Z',
+      tokenPrices: [
+        {
+          id: 'fake-price-institutional',
+          tokenAddress: '0x312e39c7641cE64BEccDe53613f07952258fa810',
+          tokenWrappedAddress: null,
+          chainId: '97',
+          priceMantissa: '1000000000000000000000000000000',
+          priceSource: 'oracle',
+          priceOracleAddress: '0x0000000000000000000000000000000000000001',
+          mainOracleAddress: '0x0000000000000000000000000000000000000001',
+          mainOracleName: 'ResilientOracle',
+          isPriceInvalid: false,
+          hasErrorFetchingPrice: false,
+          createdAt: '2026-04-01T00:00:00.000Z',
+          updatedAt: '2026-04-01T00:00:00.000Z',
+        },
+      ],
     },
   ],
 };
@@ -85,6 +170,14 @@ const bnbToken: Token = {
   decimals: 18,
   symbol: 'BNB',
   isNative: true,
+  iconSrc: '',
+};
+
+const mockUsdcToken: Token = {
+  chainId: 97,
+  address: '0x312e39c7641cE64BEccDe53613f07952258fa810',
+  decimals: 6,
+  symbol: 'MOCK_USDC',
   iconSrc: '',
 };
 
@@ -149,12 +242,14 @@ const fakePoolsData = {
   ],
 };
 
+const fakeVaultProducts = [fakePendleVaultProduct, fakeCeffuVaultProduct];
+
 describe('useGetFormattedFixedRatedVaults', () => {
   beforeEach(() => {
-    (useGetTokens as Mock).mockReturnValue([ptClisbnb, bnbToken]);
+    (useGetTokens as Mock).mockReturnValue([ptClisbnb, bnbToken, mockUsdcToken]);
 
     (useGetFixedRatedVaults as Mock).mockReturnValue({
-      data: [fakeVaultProduct],
+      data: fakeVaultProducts,
       isLoading: false,
     });
 
@@ -162,9 +257,30 @@ describe('useGetFormattedFixedRatedVaults', () => {
       data: fakePoolsData,
       isLoading: false,
     });
+
+    (useGetFixedRatedVaultUserStakedTokens as Mock).mockReturnValue({
+      data: [
+        {
+          vaultAddress: fakeCeffuVaultProduct.vaultAddress,
+          tokensMantissa: new BigNumber('100000000'),
+        },
+      ],
+      isLoading: false,
+    });
+
+    (useGetInstitutionalVaultUserMetrics as Mock).mockReturnValue({
+      data: [
+        {
+          vaultAddress: fakeCeffuVaultProduct.vaultAddress,
+          maxRedeemAmountMantissa: new BigNumber('25000000'),
+          maxWithdrawAmountMantissa: new BigNumber('50000000'),
+        },
+      ],
+      isLoading: false,
+    });
   });
 
-  it('fetches and returns pendle vaults correctly', async () => {
+  it('fetches and returns pendle and ceffu vaults correctly', async () => {
     let data: UseGetPendleVaultsOutput['data'] | undefined;
     let isLoading = false;
 
@@ -178,6 +294,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
     });
 
     await waitFor(() => expect(!isLoading && data !== undefined).toBe(true));
+    expect(data).toHaveLength(2);
     expect(data).toMatchSnapshot();
   });
 
@@ -229,7 +346,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
     (useGetFixedRatedVaults as Mock).mockReturnValue({
       data: [
         {
-          ...fakeVaultProduct,
+          ...fakePendleVaultProduct,
           vaultAddress: '0x0000000000000000000000000000000000000000',
         },
       ],
@@ -256,7 +373,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
     (useGetFixedRatedVaults as Mock).mockReturnValue({
       data: [
         {
-          ...fakeVaultProduct,
+          ...fakePendleVaultProduct,
           maturityDate: '2020-01-01T00:00:00.000Z',
         },
       ],
@@ -275,8 +392,8 @@ describe('useGetFormattedFixedRatedVaults', () => {
     });
 
     expect(data).toBeDefined();
-    expect(data!.length).toBe(1);
-    expect(data![0].status).toBe(VaultStatus.Claim);
+    expect(data?.length).toBe(1);
+    expect(data?.[0].status).toBe(VaultStatus.Claim);
   });
 
   it('sets status to Earning when user has supply balance and before maturity', () => {
@@ -291,9 +408,34 @@ describe('useGetFormattedFixedRatedVaults', () => {
       accountAddress: fakeAddress,
     });
 
-    // pendleVaultAsset has userSupplyBalanceCents > 0 and maturity is in the future
-    expect(data).toBeDefined();
-    expect(data!.length).toBe(1);
-    expect(data![0].status).toBe(VaultStatus.Earning);
+    const pendleVault = data?.find(
+      (vault): vault is PendleVault => vault.vaultType === VaultType.Pendle,
+    );
+
+    expect(pendleVault).toBeDefined();
+    expect(pendleVault?.status).toBe(VaultStatus.Earning);
+  });
+
+  it('formats ceffu vault user metrics and status', () => {
+    let data: UseGetPendleVaultsOutput['data'] | undefined;
+
+    const Wrapper = () => {
+      ({ data } = useGetFormattedFixedRatedVaults());
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const ceffuVault = data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(ceffuVault).toBeDefined();
+    expect(ceffuVault?.status).toBe(VaultStatus.Pending);
+    expect(ceffuVault?.userStakeBalanceMantissa?.toFixed()).toBe('100000000');
+    expect(ceffuVault?.userRedeemLimitMantissa.toFixed()).toBe('25000000');
+    expect(ceffuVault?.userWithdrawLimitMantissa.toFixed()).toBe('50000000');
   });
 });

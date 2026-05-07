@@ -32,10 +32,10 @@ const { lockingPeriodMs: _lockingPeriodMs, ...vaiVault } = {
   rewardTokenPriceCents: new BigNumber('100'),
   stakedTokenPriceCents: new BigNumber('100'),
   stakingAprPercentage: 45625,
-  totalStakedCents: 0.0000004,
-  totalStakedMantissa: new BigNumber('4000000000'),
-  userStakedCents: 10000000,
-  userStakedMantissa: new BigNumber('100000000000000000000000'),
+  stakeBalanceCents: 0.0000004,
+  stakeBalanceMantissa: new BigNumber('4000000000'),
+  userStakeBalanceCents: 10000000,
+  userStakeBalanceMantissa: new BigNumber('100000000000000000000000'),
 };
 
 describe('useGetVaults', () => {

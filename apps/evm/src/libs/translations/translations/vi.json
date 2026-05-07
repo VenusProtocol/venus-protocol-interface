@@ -1987,6 +1987,7 @@
       "manager": "Tổ chức quản lý",
       "maturityDate": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
+      "minRequested": "Min. requested",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, gửi tiền và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
       "primeEligibility": "Điều kiện nhận Prime",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2007,22 +2008,30 @@
       "claim": "Nhận thưởng",
       "deposit": "Gửi",
       "earning": "Đang kiếm lợi nhuận",
+      "inactive": "Không hoạt động",
       "inputPlaceholder": "Tìm kiếm tài sản",
+      "liquidated": "Đã thanh lý",
       "paused": "Tạm dừng",
+      "pending": "Đang chờ",
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ"
     },
     "header": "Kho",
     "modals": {
       "afterMaturityPendleDisclaimer": "Vui lòng rút PT token về ví của bạn trước thông qua nút Rút, sau đó truy cập trang web <Link>Pendle chính thức</Link> để đổi lấy token cơ sở của bạn.",
+      "claim": "Nhận thưởng",
+      "claimPeriodStarts": "Giai đoạn nhận thưởng bắt đầu",
       "connectWalletMessage": "Vui lòng kết nối ví của bạn để gửi / rút {{tokenSymbol}}",
       "convert": "Chuyển đổi",
       "currentDeposited": "Đang gửi hiện tại",
       "currentDepositedTooltip": "Số lượng tài sản của bạn hiện đang được khóa và sinh lời trong kho tiền này.",
       "deposit": "Gửi",
+      "depositPeriodEnds": "Giai đoạn gửi tiền kết thúc",
+      "depositsPausedNotice": "Việc gửi và rút tiền sẽ bị tạm dừng trong khi kho này đang chuyển qua vòng đời lãi suất cố định của nó.",
       "depositTab": "Gửi",
       "effectiveFixedApr": "APR Cố Định Hiệu Quả",
       "effectiveFixedAprPendleTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
+      "effectiveFixedAprTooltip": "Lợi nhuận cố định hàng năm được cung cấp bởi chiến lược vault này, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm hiệu quả bao gồm cả lãi kép.",
       "error": {
         "amountTooLow": "Số tiền nhập vào quá thấp.",
         "invalidAmountFromQuote": "Số tiền vượt quá thanh khoản có sẵn trên thị trường Pendle. Giảm số tiền và thử lại.",
@@ -2033,11 +2042,22 @@
       "estPenalty": "Phạt ước tính",
       "estReceived": "Ước tính nhận được",
       "estYield": "Lợi nhuận ước tính",
+      "institutionalDisclaimer": "Nếu kho đạt mức tối thiểu yêu cầu, tiền gửi sẽ tiếp tục cho đến mục tiêu tối đa. Gửi trong {{lockingPeriod}} để nhận thưởng. Nếu không, tiền có thể được hoàn lại.",
+      "institutionalTcsAgreement": "Bằng việc tiếp tục gửi tiền, tôi đồng ý với <Link>điều khoản và điều kiện</Link> của kho tổ chức.",
+      "institutionalTimeline": {
+        "claimPeriod": "Giai đoạn nhận thưởng",
+        "depositPeriod": "Giai đoạn gửi tiền",
+        "estimatedEarningPeriod": "Giai đoạn sinh lời ước tính",
+        "estimatedRepayingPeriod": "Giai đoạn hoàn trả ước tính",
+        "refundPeriod": "Giai đoạn hoàn tiền"
+      },
       "maturityDate": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
       "maturityPendleDisclaimer": "Trước khi đáo hạn, số tiền nhận được khi rút phụ thuộc vào giá thị trường Pendle. Sau khi đáo hạn, các khoản rút được quy đổi theo tỷ lệ 1:1 dựa trên số PT token bạn nắm giữ.",
       "minReceived": "Tối thiểu nhận được",
       "overview": {
+        "campaignTimeline": "Dòng thời gian chiến dịch",
+        "loan": "Khoản vay",
         "manager": "Quản lý",
         "managerTooltip": "Địa chỉ hoặc nhóm quản lý tài sản cơ sở của kho này. Tài sản được gửi sẽ được phân bổ vào các thị trường mà họ giám sát, và họ có thể cập nhật thời hạn mua lại hoặc thanh toán dựa trên điều kiện thị trường.",
         "marketInfo": "Thông tin thị trường",
@@ -2046,7 +2066,8 @@
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "Người dùng",
-          "venusCore": "Venus Core"
+          "venusCore": "Venus Core",
+          "venusVault": "Kho Venus"
         },
         "strategyAllocation": "Phân bổ chiến lược",
         "supply": "Cung cấp",
@@ -2059,11 +2080,16 @@
       "stakeTab": "Gửi",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalYields": "Tổng lợi nhuận",
       "withdraw": "Rút",
       "withdrawTab": "Rút"
     },
     "overview": {
       "bannerVaultIllustration": "Hình minh họa kho"
+    },
+    "timeline": {
+      "tbd": "TBD",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {

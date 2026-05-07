@@ -53,7 +53,7 @@ export const Footer: React.FC<FooterProps> = ({ action, vault, fromAmountTokens 
 
   if (accountAddress && vault.manager === VaultManager.Venus) {
     const userStakedTokens = convertMantissaToTokens({
-      value: vault.userStakedMantissa || new BigNumber(0),
+      value: vault.userStakeBalanceMantissa || new BigNumber(0),
       token: vault.stakedToken,
     });
 

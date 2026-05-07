@@ -1,13 +1,12 @@
 import { LabeledInlineContent } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { formatWaitingPeriod } from 'containers/PrimeStatusBanner/formatWaitingPeriod';
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
-import { clampToZero, formatTokensToReadableValue } from 'utilities';
+import { clampToZero, formatTokensToReadableValue, formatWaitingPeriod } from 'utilities';
 import { Progress } from '../Progress';
 
 export interface PrimeEligibilityInlineContentProps {

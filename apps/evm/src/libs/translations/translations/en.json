@@ -1988,6 +1988,7 @@
       "manager": "Manager",
       "maturityDate": "Maturity date",
       "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
+      "minRequested": "Min. requested",
       "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, depositing, and withdrawing are disabled until the vault is unpaused",
       "primeEligibility": "Prime eligibility",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2008,22 +2009,30 @@
       "claim": "Claim",
       "deposit": "Deposit",
       "earning": "Earning",
+      "inactive": "Inactive",
       "inputPlaceholder": "Search asset",
+      "liquidated": "Liquidated",
       "paused": "Paused",
+      "pending": "Pending",
       "refund": "Refund",
       "repaying": "Repaying"
     },
-    "header": "Vault",
+    "header": "Vaults",
     "modals": {
       "afterMaturityPendleDisclaimer": "Please withdraw your PT tokens to your wallet first via the Withdraw button, then visit the <Link>Pendle official</Link> website to redeem your underlying tokens.",
+      "claim": "Claim",
+      "claimPeriodStarts": "Claim period starts",
       "connectWalletMessage": "Please connect your wallet to interact with this vault",
       "convert": "Convert",
       "currentDeposited": "Currently deposited",
       "currentDepositedTooltip": "The amount of your assets currently locked and earning in this vault.",
       "deposit": "Deposit",
+      "depositPeriodEnds": "Deposit period ends",
+      "depositsPausedNotice": "Deposits and withdrawals are paused while this vault is progressing through its fixed-rate lifecycle.",
       "depositTab": "Deposit",
       "effectiveFixedApr": "Effective fixed APR",
       "effectiveFixedAprPendleTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
+      "effectiveFixedAprTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
       "error": {
         "amountTooLow": "Input amount is too low.",
         "invalidAmountFromQuote": "Amount exceeds available liquidity in the Pendle market.",
@@ -2034,11 +2043,22 @@
       "estPenalty": "Est. penalty",
       "estReceived": "Est. received",
       "estYield": "Est. yield",
+      "institutionalDisclaimer": "If the vault reaches the minimum required, deposits continue up to the max target. Deposit for {{lockingPeriod}} to claim rewards. Otherwise, funds can be refunded.",
+      "institutionalTcsAgreement": "By proceeding to deposit, I agree to the institutional vault <Link>terms and conditions</Link>.",
+      "institutionalTimeline": {
+        "claimPeriod": "Claim period",
+        "depositPeriod": "Deposit period",
+        "estimatedEarningPeriod": "Estimated earning period",
+        "estimatedRepayingPeriod": "Estimated repaying period",
+        "refundPeriod": "Refund period"
+      },
       "maturityDate": "Maturity date",
       "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
       "maturityPendleDisclaimer": "Before maturity, the amount received upon withdrawal is subject to Pendle market prices. After maturity, withdrawals are redeemed 1:1 based on your PT token holdings.",
       "minReceived": "Min. received",
       "overview": {
+        "campaignTimeline": "Campaign timeline",
+        "loan": "Loan",
         "manager": "Manager",
         "managerTooltip": "The address or team that manages this underlying asset of this vault. Deposited assets are allocated to markets they oversee, and they may update redemption or settlement timelines based on market conditions.",
         "marketInfo": "Market info",
@@ -2047,7 +2067,8 @@
         "strategy": {
           "pendleRouter": "Pendle router",
           "users": "Users",
-          "venusCore": "Venus Core"
+          "venusCore": "Venus Core",
+          "venusVault": "Venus vault"
         },
         "strategyAllocation": "Strategy allocation",
         "supply": "Supply",
@@ -2060,11 +2081,16 @@
       "stakeTab": "Deposit",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalYields": "Total yields",
       "withdraw": "Withdraw",
       "withdrawTab": "Withdraw"
     },
     "overview": {
       "bannerVaultIllustration": "Vault illustration"
+    },
+    "timeline": {
+      "tbd": "TBD",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {

@@ -42,6 +42,9 @@ export * from './mutations/useWithdrawTradePositionCollateral';
 export * from './mutations/useRepayWithCollateral';
 export * from './mutations/useStakeInPendleVault';
 export * from './mutations/useWithdrawFromPendleVault';
+export * from './mutations/useStakeIntoInstitutionalVault';
+export * from './mutations/useRedeemFromInstitutionalVault';
+export * from './mutations/useWithdrawFromInstitutionalVault';
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
@@ -258,6 +261,10 @@ export * from './queries/getProposalCount/useGetProposalCount';
 
 export * from './queries/getFixedRatedVaults';
 export * from './queries/getFixedRatedVaults/useGetFixedRatedVaults';
+export * from './queries/getFixedRatedVaultUserStakedTokens';
+export * from './queries/getFixedRatedVaultUserStakedTokens/useGetFixedRatedVaultUserStakedTokens';
+export * from './queries/getInstitutionalVaultUserMetrics';
+export * from './queries/getInstitutionalVaultUserMetrics/useGetInstitutionalVaultUserMetrics';
 
 export * from './queries/getPendleSwapQuote';
 export * from './queries/getPendleSwapQuote/useGetPendleSwapQuote';
