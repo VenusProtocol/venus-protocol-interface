@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.27.0
+
+### Minor Changes
+
+- 6a1c388: enable vTHE withdraw
+
 ## 4.26.0
 
 ### Minor Changes
