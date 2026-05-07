@@ -74,7 +74,7 @@ export const HeroTabs: React.FC = () => {
   });
 
   return (
-    <div className={cn('flex flex-col w-full gap-3 sm:max-w-135.75')}>
+    <div className={cn('hidden xl:flex flex-col w-full gap-3 sm:max-w-135.75')}>
       <GlassCard>
         <ButtonGroup
           buttonLabels={tabs.map(({ title }) => title)}
