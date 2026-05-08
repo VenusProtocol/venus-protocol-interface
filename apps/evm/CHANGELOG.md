@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.28.0
+
+### Minor Changes
+
+- 06a2283: feat: sunset of chain Unichain, opBNB, and Optimism
+
 ## 4.27.0
 
 ### Minor Changes
