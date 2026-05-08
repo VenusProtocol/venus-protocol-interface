@@ -22,4 +22,5 @@ export interface DropdownProps {
   menuTitle?: string;
   menuPosition?: 'left' | 'right';
   menuClassName?: string;
+  triggerOnHover?: boolean;
 }

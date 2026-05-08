@@ -21,6 +21,7 @@ export const Dropdown = ({
   variant = 'primary',
   menuTitle,
   menuPosition = 'left',
+  triggerOnHover = false,
 }: DropdownProps) => {
   const { t } = useTranslation();
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
@@ -37,9 +38,13 @@ export const Dropdown = ({
           </div>
         )}
 
-        <div className="relative w-full">
-          {/* MD and up backdrop */}
-          {isDropdownOpened && (
+        <div
+          className="relative w-full"
+          onMouseEnter={triggerOnHover ? () => setIsDropdownOpened(true) : undefined}
+          onMouseLeave={triggerOnHover ? () => setIsDropdownOpened(false) : undefined}
+        >
+          {/* MD and up backdrop — click mode only */}
+          {isDropdownOpened && !triggerOnHover && (
             <div
               className="fixed bottom-0 left-0 right-0 top-0 hidden md:block z-50"
               onClick={() => setIsDropdownOpened(false)}
@@ -50,11 +55,19 @@ export const Dropdown = ({
 
           {/* XS to MD menu */}
           {isDropdownOpened && (
-            <div className="relative z-50 hidden min-w-full md:block">
+            <div
+              className={cn(
+                'z-50 hidden md:block min-w-full',
+                triggerOnHover
+                  ? cn('absolute top-full pt-2', menuPosition === 'right' ? 'right-0' : 'left-0')
+                  : 'relative',
+              )}
+            >
               <div
                 className={cn(
-                  'border-lightGrey bg-cards absolute top-2 min-w-full overflow-hidden border shadow',
-                  menuPosition === 'right' && 'right-0',
+                  'border-lightGrey bg-cards overflow-hidden border shadow',
+                  !triggerOnHover &&
+                    cn('absolute top-2 min-w-full', menuPosition === 'right' && 'right-0'),
                   variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
                   menuClassName,
                 )}
