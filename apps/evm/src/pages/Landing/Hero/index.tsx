@@ -1,8 +1,8 @@
 import { useGetMarketsTvl } from 'clients/api/queries/getMarketsTvl/useGetMarketsTvl';
 import { ButtonWrapper, Wrapper } from 'components';
 import { Link } from 'containers/Link';
-import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useBreakpointUp } from 'hooks/responsive';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import { Galaxy } from './Galaxy';
