@@ -30,6 +30,7 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => (
       columns={marketTableColumns}
       breakpoint="md"
       controls={true}
+      disableCardsSorting
     />
   </div>
 );
