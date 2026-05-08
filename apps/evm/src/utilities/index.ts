@@ -67,6 +67,6 @@ export * from './isLegacyVenusVault';
 export * from './calculateDailyInterests';
 export * from './getVaultCategoryName';
 export * from './getTransactionName';
-export * from './formatToYieldPlusPosition';
+export * from './formatToTradePosition';
 export * from './calculateUserMaxBorrowTokens';
 export * from './formatToCandle';

@@ -1,0 +1,189 @@
+import { cn } from '@venusprotocol/ui';
+import BigNumber from 'bignumber.js';
+import { useSearchParams } from 'react-router';
+
+import { Apy, CellGroup, type CellProps } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import { useTranslation } from 'libs/translations';
+import type { Asset, Token } from 'types';
+import {
+  areTokensEqual,
+  formatCentsToReadableValue,
+  formatPercentageToReadableValue,
+} from 'utilities';
+import { TokenPair } from '../TokenPair';
+import {
+  LONG_TOKEN_ADDRESS_PARAM_KEY,
+  PRICE_DECIMALS,
+  SHORT_TOKEN_ADDRESS_PARAM_KEY,
+} from '../constants';
+import { useGetTradeAssets } from '../useGetTradeAssets';
+import { useTokenPair } from '../useTokenPair';
+import { TokenSelect } from './TokenSelect';
+
+export interface PairInfoProps {
+  changePercentage?: number;
+  priceCentsRatio?: BigNumber;
+}
+
+export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCentsRatio }) => {
+  const { t } = useTranslation();
+  const { shortToken, longToken } = useTokenPair();
+  const [_, setSearchParams] = useSearchParams();
+
+  const setLongToken = (newLongToken: Token) => {
+    setSearchParams(currentSearchParams => ({
+      ...Object.fromEntries(currentSearchParams),
+      [LONG_TOKEN_ADDRESS_PARAM_KEY]: newLongToken.address,
+      // Prevent short and long tokens from being the same
+      [SHORT_TOKEN_ADDRESS_PARAM_KEY]: areTokensEqual(shortToken, newLongToken)
+        ? longToken.address
+        : shortToken.address,
+    }));
+  };
+
+  const setShortToken = (newShortToken: Token) =>
+    setSearchParams(currentSearchParams => ({
+      ...Object.fromEntries(currentSearchParams),
+      [SHORT_TOKEN_ADDRESS_PARAM_KEY]: newShortToken.address,
+      // Prevent short and long tokens from being the same
+      [LONG_TOKEN_ADDRESS_PARAM_KEY]: areTokensEqual(longToken, newShortToken)
+        ? shortToken.address
+        : longToken.address,
+    }));
+
+  const {
+    data: { borrowAssets, supplyAssets },
+  } = useGetTradeAssets();
+
+  const { longAsset, longTokens } = supplyAssets.reduce<{
+    longAsset?: Asset;
+    longTokens: Token[];
+  }>(
+    (acc, asset) => {
+      if (areTokensEqual(asset.vToken.underlyingToken, longToken)) {
+        acc.longAsset = asset;
+      }
+
+      return {
+        ...acc,
+        longTokens: [...acc.longTokens, asset.vToken.underlyingToken],
+      };
+    },
+    {
+      longAsset: undefined,
+      longTokens: [],
+    },
+  );
+
+  const { shortAsset, shortTokens } = borrowAssets.reduce<{
+    shortAsset?: Asset;
+    shortTokens: Token[];
+  }>(
+    (acc, asset) => {
+      if (areTokensEqual(asset.vToken.underlyingToken, shortToken)) {
+        acc.shortAsset = asset;
+      }
+
+      return {
+        ...acc,
+        shortTokens: [...acc.shortTokens, asset.vToken.underlyingToken],
+      };
+    },
+    {
+      shortAsset: undefined,
+      shortTokens: [],
+    },
+  );
+
+  const readableDollarRatio = priceCentsRatio
+    ?.dp(PRICE_DECIMALS, BigNumber.ROUND_HALF_CEIL)
+    .toFixed();
+
+  const readableChangePercentage =
+    changePercentage !== undefined ? formatPercentageToReadableValue(changePercentage) : undefined;
+
+  const cells: CellProps[] = [
+    {
+      label: t('trade.longLiquidity'),
+      value: formatCentsToReadableValue({
+        value: longAsset?.liquidityCents,
+      }),
+    },
+    {
+      label: t('trade.shortLiquidity'),
+      value: formatCentsToReadableValue({
+        value: shortAsset?.liquidityCents,
+      }),
+    },
+    {
+      label: t('trade.longSupplyApy', {
+        longTokenSymbol: longToken.symbol,
+      }),
+      value: longAsset ? (
+        <Apy asset={longAsset} type="supply" showPrimeSimulation={false} />
+      ) : (
+        PLACEHOLDER_KEY
+      ),
+    },
+    {
+      label: t('trade.shortBorrowApy', {
+        shortTokenSymbol: shortToken.symbol,
+      }),
+      value: shortAsset ? (
+        <Apy asset={shortAsset} type="borrow" showPrimeSimulation={false} />
+      ) : (
+        PLACEHOLDER_KEY
+      ),
+    },
+  ];
+
+  return (
+    <div className="flex flex-col gap-y-6 lg:flex-col lg:p-4 lg:rounded-lg lg:border lg:border-dark-blue-hover">
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <TokenSelect
+          type="long"
+          selectedToken={longToken}
+          tokens={longTokens}
+          onChangeSelectedToken={setLongToken}
+          data-testid="pair-info-long-token-select"
+        />
+
+        <TokenSelect
+          type="short"
+          selectedToken={shortToken}
+          tokens={shortTokens}
+          onChangeSelectedToken={setShortToken}
+          data-testid="pair-info-short-token-select"
+        />
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex lg:flex-col">
+        <div className="flex items-center gap-x-2">
+          <TokenPair shortToken={shortToken} longToken={longToken} size="md" />
+
+          <div className="flex items-center gap-x-2">
+            {readableDollarRatio && <p className="text-p3s">{readableDollarRatio}</p>}
+
+            {readableChangePercentage && (
+              <p
+                className={cn(
+                  'text-b1s',
+                  changePercentage === undefined || changePercentage >= 0
+                    ? 'text-green'
+                    : 'text-red',
+                )}
+              >
+                {readableChangePercentage}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="overflow-hidden">
+          <CellGroup variant="secondary" cells={cells} />
+        </div>
+      </div>
+    </div>
+  );
+};

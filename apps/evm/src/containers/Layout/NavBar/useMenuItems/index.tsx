@@ -16,7 +16,7 @@ export const useMenuItems = () => {
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
-  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlus' });
+  const tradeRouteEnabled = useIsFeatureEnabled({ name: 'trade' });
   const { marketsPagePath } = useGetMarketsPagePath();
 
   const menu: Array<MenuItem | SubMenu> = [];
@@ -87,10 +87,11 @@ export const useMenuItems = () => {
     });
   }
 
-  if (yieldPlusRouteEnabled) {
+  if (tradeRouteEnabled) {
     menu.push({
-      to: routes.yieldPlus.path,
-      label: t('layout.menu.others.yieldPlus.label'),
+      to: routes.trade.path,
+      label: t('layout.menu.others.trade.label'),
+      isBeta: true,
     });
   }
 

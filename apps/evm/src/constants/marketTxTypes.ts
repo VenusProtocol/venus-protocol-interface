@@ -7,7 +7,7 @@ export const MARKET_TX_TYPES = [
   'exitMarket',
 ] as const;
 
-export const YIELD_PLUS_TX_TYPES = [
+export const TRADE_TX_TYPES = [
   'positionClosedWithLoss',
   'positionClosedWithProfit',
   'positionOpened',
@@ -19,4 +19,4 @@ export const YIELD_PLUS_TX_TYPES = [
   'principalWithdrawn',
 ] as const;
 
-export const TX_TYPES = [...MARKET_TX_TYPES, ...YIELD_PLUS_TX_TYPES];
+export const TX_TYPES = [...MARKET_TX_TYPES, ...TRADE_TX_TYPES];

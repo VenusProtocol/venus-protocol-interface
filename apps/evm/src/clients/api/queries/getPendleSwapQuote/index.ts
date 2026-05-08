@@ -30,7 +30,7 @@ export const getPendleSwapQuote = async ({
         value: amountTokens,
         token: fromToken,
       }),
-      slippagePercentage,
+      slippagePercentage: slippagePercentage / 100, // Despite the name, the backend actually expects a ratio (value between 0 and 1)
       receiverAddress,
     },
   });
@@ -52,8 +52,8 @@ export const getPendleSwapQuote = async ({
 
   if (response.data && 'error' in response.data) {
     throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
+      type: 'pendleSwapQuote',
+      code: 'PENDLE_NO_ROUTE_FOUND',
       data: { exception: response.data },
     });
   }

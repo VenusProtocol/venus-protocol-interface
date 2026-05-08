@@ -53,6 +53,16 @@ exports[`usePendlePtVault > calls useSendTransaction with the correct parameters
   [
     {
       "queryKey": [
+        "GET_FIXED_RATED_VAULTS",
+        {
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
         "GET_V_TOKEN_BALANCES_ALL",
       ],
     },

@@ -7,6 +7,7 @@ export interface MenuItem {
   imgSrc?: string;
   iconName?: IconName;
   description?: string;
+  isBeta?: boolean;
 }
 
 export interface SubMenu {

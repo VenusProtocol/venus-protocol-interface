@@ -53,6 +53,16 @@ exports[`useWithdrawFromPendleVault > calls useSendTransaction with the correct 
   [
     {
       "queryKey": [
+        "GET_FIXED_RATED_VAULTS",
+        {
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
         "GET_V_TOKEN_BALANCES_ALL",
       ],
     },

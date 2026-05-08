@@ -31,7 +31,7 @@ describe('utilities/invalidatePendleVaultCaches', () => {
       poolComptrollerAddress: fakePoolComptrollerAddress,
     });
 
-    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(7);
+    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(8);
     expect((queryClient.invalidateQueries as Mock).mock.calls).toEqual([
       [
         {
@@ -81,6 +81,16 @@ describe('utilities/invalidatePendleVaultCaches', () => {
           ],
         },
       ],
+      [
+        {
+          queryKey: [
+            FunctionKey.GET_FIXED_RATED_VAULTS,
+            {
+              chainId: fakeChainId,
+            },
+          ],
+        },
+      ],
       [{ queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL] }],
       [{ queryKey: [FunctionKey.GET_POOLS] }],
       [{ queryKey: [FunctionKey.GET_FIXED_RATED_VAULTS] }],
@@ -94,7 +104,7 @@ describe('utilities/invalidatePendleVaultCaches', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(6);
+    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(7);
     expect((queryClient.invalidateQueries as Mock).mock.calls).toEqual([
       [
         {
@@ -127,6 +137,16 @@ describe('utilities/invalidatePendleVaultCaches', () => {
             {
               chainId: fakeChainId,
               accountAddress: fakeAccountAddress,
+            },
+          ],
+        },
+      ],
+      [
+        {
+          queryKey: [
+            FunctionKey.GET_FIXED_RATED_VAULTS,
+            {
+              chainId: fakeChainId,
             },
           ],
         },

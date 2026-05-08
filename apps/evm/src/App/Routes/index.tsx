@@ -31,14 +31,14 @@ const Stats = safeLazyLoad(() => import('pages/Stats'));
 const Skills = safeLazyLoad(() => import('pages/Skills'));
 const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
-const YieldPlus = safeLazyLoad(() => import('pages/YieldPlus'));
+const Trade = safeLazyLoad(() => import('pages/Trade'));
 
 const AppRoutes = () => {
   const location = useLocation();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
-  const yieldPlusRouteEnabled = useIsFeatureEnabled({ name: 'yieldPlus' });
+  const tradeRouteEnabled = useIsFeatureEnabled({ name: 'trade' });
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
@@ -180,12 +180,12 @@ const AppRoutes = () => {
           }
         />
 
-        {yieldPlusRouteEnabled && (
+        {tradeRouteEnabled && (
           <Route
-            path={Subdirectory.YIELD_PLUS}
+            path={Subdirectory.TRADE}
             element={
               <PageSuspense>
-                <YieldPlus />
+                <Trade />
               </PageSuspense>
             }
           />

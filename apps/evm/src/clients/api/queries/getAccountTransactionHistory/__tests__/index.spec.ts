@@ -16,7 +16,29 @@ const fakeInput = {
   page: 1,
 };
 
-const fakeYieldPlusFields = {
+const fakeYieldPlusFields: Pick<
+  ApiAccountHistoricalTransaction,
+  | 'yieldPlusPositionAccountAddress'
+  | 'yieldPlusLongVTokenAddress'
+  | 'yieldPlusShortVTokenAddress'
+  | 'yieldPlusDsaVTokenAddress'
+  | 'yieldPlusCycleId'
+  | 'yieldPlusEffectiveLeverageRatio'
+  | 'yieldPlusInitialPrincipalMantissa'
+  | 'yieldPlusPrincipalAmountMantissa'
+  | 'yieldPlusNewTotalPrincipalMantissa'
+  | 'yieldPlusRemainingPrincipalMantissa'
+  | 'yieldPlusShortAmountMantissa'
+  | 'yieldPlusLongAmountMantissa'
+  | 'yieldPlusAdditionalPrincipalMantissa'
+  | 'yieldPlusCloseFractionBps'
+  | 'yieldPlusAmountRepaidMantissa'
+  | 'yieldPlusAmountRedeemedMantissa'
+  | 'yieldPlusAmountRedeemedDsaMantissa'
+  | 'yieldPlusLongDustRedeemedMantissa'
+  | 'yieldPlusAmountConvertedToProfitMantissa'
+  | 'yieldPlusDsaProfitAmountMantissa'
+> = {
   yieldPlusPositionAccountAddress: null,
   yieldPlusLongVTokenAddress: null,
   yieldPlusShortVTokenAddress: null,
@@ -118,7 +140,7 @@ describe('getAccountTransactionHistory', () => {
     );
   });
 
-  it('formats yield plus and market transactions together', async () => {
+  it('formats trade and market transactions together', async () => {
     (restService as Mock).mockResolvedValue({
       data: {
         count: '2',

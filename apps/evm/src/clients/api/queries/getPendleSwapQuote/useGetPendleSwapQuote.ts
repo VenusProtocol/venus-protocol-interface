@@ -23,7 +23,7 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PENDLE_SWAP_QUOTE, GetPendleSwapQuoteInput]
 >;
 
-const refetchInterval = generatePseudoRandomRefetchInterval();
+const refetchInterval = generatePseudoRandomRefetchInterval('fast');
 
 export const useGetPendleSwapQuote = (
   input: TrimmedGetPendleSwapQuoteInput,

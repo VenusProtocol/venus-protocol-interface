@@ -1,0 +1,48 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useCloseTradePositionWithLoss > calls useSendTransaction with correct parameters 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0xfakeRelativePositionManagerContractAddress",
+  "args": [
+    "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+    "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+    {
+      "dsaAmountToRedeemForSecondSwap": 14000000n,
+      "longAmountToRedeemForFirstSwap": 49000000n,
+      "minAmountOutFirst": 50000000n,
+      "minAmountOutSecond": 13000000n,
+      "shortAmountToRepayForFirstSwap": 50000000n,
+      "swapDataFirst": "0x",
+      "swapDataSecond": "0x",
+    },
+  ],
+  "functionName": "closeWithLossAndDeactivate",
+}
+`;
+
+exports[`useCloseTradePositionWithLoss > calls useSendTransaction with correct parameters 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_RAW_TRADE_POSITIONS",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_ACCOUNT_TRANSACTION_HISTORY",
+      ],
+    },
+  ],
+]
+`;

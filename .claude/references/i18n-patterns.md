@@ -21,8 +21,8 @@ const { t } = useTranslation();
 
 ```typescript
 // Correct
-t('yieldPlus.title')
-t('yieldPlus.label.status')
+t('trade.title')
+t('trade.label.status')
 t('common.close') // only if this key already exists in Venus locales
 
 // Wrong
@@ -30,7 +30,7 @@ t('my-feature:title.pageHeader')
 t('label.status')
 ```
 
-Use feature-scoped dot-path keys (for example `yieldPlus.*`, `markets.*`, `dashboard.*`).
+Use feature-scoped dot-path keys (for example `trade.*`, `markets.*`, `dashboard.*`).
 
 ## Locale file location
 
@@ -44,8 +44,8 @@ Other locale files live in the same folder (`zh-Hans.json`, `zh-Hant.json`, etc.
 
 ```json
 {
-  "yieldPlus": {
-    "title": "Yield+",
+  "trade": {
+    "title": "Trade",
     "label": {
       "status": "Status"
     },
@@ -63,16 +63,16 @@ Avoid flat-only locale objects for new keys.
 ### Use `t()` for plain text and interpolation
 
 ```typescript
-t('yieldPlus.label.status')
-t('yieldPlus.greeting', { name: userName })
-t('yieldPlus.position.count', { count })
+t('trade.label.status')
+t('trade.greeting', { name: userName })
+t('trade.position.count', { count })
 ```
 
 ### Use `<Trans>` only when JSX is embedded in translated text
 
 ```tsx
 <Trans
-  i18nKey="yieldPlus.message.termsNotice"
+  i18nKey="trade.message.termsNotice"
   components={{
     link: <a href="/terms" target="_blank" rel="noreferrer" />,
   }}
@@ -85,7 +85,7 @@ Use i18next plural suffixes in locale JSON:
 
 ```json
 {
-  "yieldPlus": {
+  "trade": {
     "position": {
       "count_one": "{{count}} position",
       "count_other": "{{count}} positions"
@@ -95,8 +95,8 @@ Use i18next plural suffixes in locale JSON:
 ```
 
 ```typescript
-t('yieldPlus.position.count', { count: 1 });
-t('yieldPlus.position.count', { count: 5 });
+t('trade.position.count', { count: 1 });
+t('trade.position.count', { count: 5 });
 ```
 
 ## What NOT to translate
@@ -123,12 +123,12 @@ Prefer semantic keys over positional keys.
 
 Good:
 
-- `yieldPlus.header.title`
-- `yieldPlus.form.collateral.available`
-- `yieldPlus.table.emptyState`
+- `trade.header.title`
+- `trade.form.collateral.available`
+- `trade.table.emptyState`
 
 Avoid:
 
-- `yieldPlus.rightCard.topLeftText`
-- `yieldPlus.blueButtonText`
+- `trade.rightCard.topLeftText`
+- `trade.blueButtonText`
 - `temp.label1`

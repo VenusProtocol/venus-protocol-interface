@@ -16,12 +16,11 @@ import {
   isLegacyVenusVault,
   isPendleVault,
 } from 'utilities';
-import { LegacyVaultModal } from './LegacyVaultModal';
 import { PendleVaultModal } from './PendleVaultModal';
 import { PrimeEligibilityInlineContent } from './PrimeEligibilityInlineContent';
 import { StatusLabel } from './StatusLabel';
 import { VaultName } from './VaultName';
-import TEST_IDS from './testIds';
+import { VenusVaultModal } from './VenusVaultModal';
 
 export interface VaultProps {
   vault: Vault;
@@ -88,7 +87,6 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           isInteractive ? 'cursor-pointer hover:border-blue' : 'cursor-not-allowed',
           className,
         )}
-        data-testid={TEST_IDS.userStakedTokens}
         onClick={isInteractive ? openModal : undefined}
       >
         {/* Card body */}
@@ -96,7 +94,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           {/* Header */}
           <div className={cn('flex items-center justify-between')}>
             <div className={cn('flex items-center gap-x-3')}>
-              <VaultName vault={vault} data-testid={TEST_IDS.symbol} className="min-h-10" />
+              <VaultName vault={vault} className="min-h-10" />
 
               {accountAddress && (
                 <CopyAddressButton
@@ -242,7 +240,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
       )}
 
       {isLegacyVenusVault(vault) && (
-        <LegacyVaultModal
+        <VenusVaultModal
           vault={vault}
           isOpen={modalVisible}
           handleClose={() => setModalVisible(false)}

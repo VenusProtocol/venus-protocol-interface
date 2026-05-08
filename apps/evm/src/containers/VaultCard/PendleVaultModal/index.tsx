@@ -9,14 +9,12 @@ import { PositionTab } from './PositionTab';
 export interface PendleVaultModalProps {
   vault: PendleVault;
   handleClose: () => void;
-  initialMode?: 'deposit' | 'withdraw';
   isOpen: boolean;
 }
 
 export const PendleVaultModal: React.FC<PendleVaultModalProps> = ({
   vault,
   handleClose,
-  initialMode = 'deposit',
   isOpen,
 }) => {
   const { t } = useTranslation();
@@ -25,7 +23,7 @@ export const PendleVaultModal: React.FC<PendleVaultModalProps> = ({
     {
       id: 'position',
       title: t('vault.modals.positionTab'),
-      content: <PositionTab vault={vault} onClose={handleClose} initialMode={initialMode} />,
+      content: <PositionTab vault={vault} onClose={handleClose} />,
     },
     {
       id: 'overview',

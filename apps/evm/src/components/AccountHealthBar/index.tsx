@@ -14,6 +14,7 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_THRESHOLD,
 } from 'constants/healthFactor';
+import { VENUS_DOC_URL } from 'constants/production';
 import { LabeledProgressBar } from '../LabeledProgressBar';
 
 const safeBorrowLimitPercentage = 100 / HEALTH_FACTOR_SAFE_THRESHOLD;
@@ -137,7 +138,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
               Link: (
                 // biome-ignore lint/a11y/useAnchorContent: content is injected by Trans component
                 <a
-                  href="https://docs-v4.venus.io/guides/liquidation"
+                  href={`${VENUS_DOC_URL}/guides/liquidation`}
                   target="_blank"
                   rel="noreferrer"
                   style={{ color: theme.colors.blue, textDecoration: 'underline' }}
