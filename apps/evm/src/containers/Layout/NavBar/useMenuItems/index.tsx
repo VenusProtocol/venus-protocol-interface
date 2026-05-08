@@ -2,6 +2,7 @@ import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
+import { useGetPools } from 'clients/api';
 import { VENUS_FLUX_URL } from 'constants/production';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
@@ -18,6 +19,8 @@ export const useMenuItems = () => {
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
   const tradeRouteEnabled = useIsFeatureEnabled({ name: 'trade' });
   const { marketsPagePath } = useGetMarketsPagePath();
+  const { data: getPoolsData } = useGetPools();
+  const pools = getPoolsData?.pools || [];
 
   const menu: Array<MenuItem | SubMenu> = [];
 
@@ -99,6 +102,15 @@ export const useMenuItems = () => {
     menu.push({
       to: routes.swap.path,
       label: t('layout.menu.others.swap.label'),
+    });
+  }
+
+  if (pools.length > 1) {
+    othersSubMenuItems.push({
+      to: routes.isolatedPools.path,
+      iconName: 'fourDots',
+      label: t('layout.menu.others.isolatedPools.label'),
+      description: t('layout.menu.others.isolatedPools.description'),
     });
   }
 

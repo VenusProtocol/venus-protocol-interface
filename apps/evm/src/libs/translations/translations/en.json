@@ -643,9 +643,9 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "Please withdraw or migrate all assets now",
+    "description": "Claim your rewards and close your positions",
     "illustrationAltText": "Illustration",
-    "title": "Isolated pools have been sunset"
+    "title": "Isolated pools are being sunsetted"
   },
   "kLineChart": {
     "disclaimer": {
@@ -761,6 +761,10 @@
           "description": "Vote on Venus proposals with $XVS.",
           "label": "Governance"
         },
+        "isolatedPools": {
+          "description": "Trade assets in pools isolated from the core markets.",
+          "label": "Isolated pools"
+        },
         "label": "Others",
         "port": {
           "description": "Gasless import of lending positions.",
@@ -801,10 +805,6 @@
     },
     "settingsModal": {
       "title": "Settings"
-    },
-    "sunsetModal": {
-      "description": "This chain has been sunsetted. Please repay any borrows and withdraw your deposited funds.",
-      "title": "Sunset"
     },
     "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
   },
