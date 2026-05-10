@@ -16,27 +16,49 @@ const fakeInput = {
   page: 1,
 };
 
-const fakeTradeFields = {
-  tradePositionAccountAddress: null,
-  tradeLongVTokenAddress: null,
-  tradeShortVTokenAddress: null,
-  tradeDsaVTokenAddress: null,
-  tradeCycleId: null,
-  tradeEffectiveLeverageRatio: null,
-  tradeInitialPrincipalMantissa: null,
-  tradePrincipalAmountMantissa: null,
-  tradeNewTotalPrincipalMantissa: null,
-  tradeRemainingPrincipalMantissa: null,
-  tradeShortAmountMantissa: null,
-  tradeLongAmountMantissa: null,
-  tradeAdditionalPrincipalMantissa: null,
-  tradeCloseFractionBps: null,
-  tradeAmountRepaidMantissa: null,
-  tradeAmountRedeemedMantissa: null,
-  tradeAmountRedeemedDsaMantissa: null,
-  tradeLongDustRedeemedMantissa: null,
-  tradeAmountConvertedToProfitMantissa: null,
-  tradeDsaProfitAmountMantissa: null,
+const fakeYieldPlusFields: Pick<
+  ApiAccountHistoricalTransaction,
+  | 'yieldPlusPositionAccountAddress'
+  | 'yieldPlusLongVTokenAddress'
+  | 'yieldPlusShortVTokenAddress'
+  | 'yieldPlusDsaVTokenAddress'
+  | 'yieldPlusCycleId'
+  | 'yieldPlusEffectiveLeverageRatio'
+  | 'yieldPlusInitialPrincipalMantissa'
+  | 'yieldPlusPrincipalAmountMantissa'
+  | 'yieldPlusNewTotalPrincipalMantissa'
+  | 'yieldPlusRemainingPrincipalMantissa'
+  | 'yieldPlusShortAmountMantissa'
+  | 'yieldPlusLongAmountMantissa'
+  | 'yieldPlusAdditionalPrincipalMantissa'
+  | 'yieldPlusCloseFractionBps'
+  | 'yieldPlusAmountRepaidMantissa'
+  | 'yieldPlusAmountRedeemedMantissa'
+  | 'yieldPlusAmountRedeemedDsaMantissa'
+  | 'yieldPlusLongDustRedeemedMantissa'
+  | 'yieldPlusAmountConvertedToProfitMantissa'
+  | 'yieldPlusDsaProfitAmountMantissa'
+> = {
+  yieldPlusPositionAccountAddress: null,
+  yieldPlusLongVTokenAddress: null,
+  yieldPlusShortVTokenAddress: null,
+  yieldPlusDsaVTokenAddress: null,
+  yieldPlusCycleId: null,
+  yieldPlusEffectiveLeverageRatio: null,
+  yieldPlusInitialPrincipalMantissa: null,
+  yieldPlusPrincipalAmountMantissa: null,
+  yieldPlusNewTotalPrincipalMantissa: null,
+  yieldPlusRemainingPrincipalMantissa: null,
+  yieldPlusShortAmountMantissa: null,
+  yieldPlusLongAmountMantissa: null,
+  yieldPlusAdditionalPrincipalMantissa: null,
+  yieldPlusCloseFractionBps: null,
+  yieldPlusAmountRepaidMantissa: null,
+  yieldPlusAmountRedeemedMantissa: null,
+  yieldPlusAmountRedeemedDsaMantissa: null,
+  yieldPlusLongDustRedeemedMantissa: null,
+  yieldPlusAmountConvertedToProfitMantissa: null,
+  yieldPlusDsaProfitAmountMantissa: null,
 };
 
 describe('getAccountTransactionHistory', () => {
@@ -57,7 +79,7 @@ describe('getAccountTransactionHistory', () => {
           chainId: ChainId.BSC_TESTNET,
           underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
           underlyingTokenPriceMantissa: '1000130000000000000',
-          ...fakeTradeFields,
+          ...fakeYieldPlusFields,
         },
         {
           id: 'b0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e-119-56',
@@ -73,7 +95,7 @@ describe('getAccountTransactionHistory', () => {
           chainId: ChainId.BSC_TESTNET,
           underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
           underlyingTokenPriceMantissa: '1000391740000000000',
-          ...fakeTradeFields,
+          ...fakeYieldPlusFields,
         },
       ];
 
@@ -137,7 +159,7 @@ describe('getAccountTransactionHistory', () => {
             chainId: ChainId.BSC_TESTNET,
             underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
             underlyingTokenPriceMantissa: null,
-            ...fakeTradeFields,
+            ...fakeYieldPlusFields,
           },
           {
             id: 'borrow',
@@ -153,7 +175,7 @@ describe('getAccountTransactionHistory', () => {
             chainId: ChainId.BSC_TESTNET,
             underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
             underlyingTokenPriceMantissa: '1000130000000000000',
-            ...fakeTradeFields,
+            ...fakeYieldPlusFields,
           },
         ] satisfies ApiAccountHistoricalTransaction[],
       },

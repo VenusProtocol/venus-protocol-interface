@@ -1,5 +1,29 @@
 # @venusprotocol/evm
 
+## 4.28.0
+
+### Minor Changes
+
+- 06a2283: feat: sunset of chain Unichain, opBNB, and Optimism
+
+## 4.27.0
+
+### Minor Changes
+
+- 6a1c388: enable vTHE withdraw
+
+## 4.26.0
+
+### Minor Changes
+
+- 0ec35cd: Updated cross-chain subsgraph URLs
+
+## 4.25.0
+
+### Minor Changes
+
+- 2eb8aaa: enable Trade on BSC mainnet
+
 ## 4.24.1
 
 ### Patch Changes

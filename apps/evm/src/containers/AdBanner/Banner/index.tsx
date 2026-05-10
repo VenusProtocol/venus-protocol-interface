@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
 import { ButtonWrapper } from 'components';
-import { Link } from 'containers/Link';
+import { Link, type LinkProps } from 'containers/Link';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 
@@ -10,6 +10,7 @@ export interface BannerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   description: React.ReactNode;
   illustration: React.ReactNode;
   learnMoreUrl: string;
+  learnMoreLinkProps?: Partial<LinkProps>;
   learnMoreLabel?: string;
   backgroundIllustration?: React.ReactNode;
   contentContainerClassName?: string;
@@ -19,6 +20,7 @@ export const Banner: React.FC<BannerProps> = ({
   className,
   contentContainerClassName,
   learnMoreUrl,
+  learnMoreLinkProps,
   learnMoreLabel,
   title,
   description,
@@ -34,6 +36,11 @@ export const Banner: React.FC<BannerProps> = ({
       <p className="text-xs lg:text-sm">{description}</p>
     </div>
   );
+
+  const isInternalLink = learnMoreUrl.startsWith('/');
+  const linkProps = isInternalLink
+    ? { to: learnMoreUrl, ...learnMoreLinkProps }
+    : { href: learnMoreUrl, target: '_blank' as const, ...learnMoreLinkProps };
 
   return (
     <div
@@ -53,11 +60,7 @@ export const Banner: React.FC<BannerProps> = ({
           </div>
 
           <ButtonWrapper size={isSmOrUp ? 'md' : 'xs'} className="px-5 md:px-6" asChild>
-            <Link
-              href={learnMoreUrl}
-              target="_blank"
-              className="hover:no-underline active:no-underline text-white"
-            >
+            <Link {...linkProps} className="hover:no-underline active:no-underline text-white">
               {learnMoreLabel ?? t('adBanner.startNow')}
             </Link>
           </ButtonWrapper>

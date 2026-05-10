@@ -47,7 +47,8 @@ export const KLineChart: React.FC<KLineChartProps> = ({
     }),
   );
 
-  const isFullScreenAvailable = document?.fullscreenEnabled || false;
+  const isFullScreenAvailable =
+    typeof document !== 'undefined' ? document.fullscreenEnabled : false;
 
   const toggleFullScreenMode = () => {
     if (document?.fullscreenElement) {
@@ -174,7 +175,10 @@ export const KLineChart: React.FC<KLineChartProps> = ({
 
   return (
     <>
-      <div className="bg-dark-blue w-full h-full flex flex-col" ref={fullScreenContainerRef}>
+      <div
+        className="bg-dark-blue w-full h-full min-h-0 flex flex-col"
+        ref={fullScreenContainerRef}
+      >
         <div className="flex items-center justify-between px-3 py-1">
           <div className="flex items-center gap-x-3">
             <Select
@@ -207,7 +211,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
           )}
         </div>
 
-        <div className={cn('grow', className)} ref={chartContainerRef} />
+        <div className={cn('grow min-h-0 min-w-0', className)} ref={chartContainerRef} />
       </div>
 
       <Modal
