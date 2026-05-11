@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.28.1
+
+### Patch Changes
+
+- 0e0052d: fix: ignore sunset chain top borrow top supply filter
+
 ## 4.28.0
 
 ### Minor Changes
