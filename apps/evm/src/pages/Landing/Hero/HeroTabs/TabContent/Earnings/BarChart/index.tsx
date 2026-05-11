@@ -9,6 +9,7 @@ import type { CompoundedAmountDataPoint } from '../../types';
 const X_AXIS_DATA_KEY: keyof CompoundedAmountDataPoint = 'months';
 const Y_AXIS_DATA_KEY: keyof CompoundedAmountDataPoint = 'earningsCents';
 const INTERVAL = 6;
+const HIGHLIGHTED_MONTH_INDEX = 9;
 
 export interface ChartProps {
   data: CompoundedAmountDataPoint[];
@@ -17,6 +18,11 @@ export interface ChartProps {
 
 export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
   const { t } = useTranslation();
+
+  const styledData = data.map((entry, index) => ({
+    ...entry,
+    fill: index === HIGHLIGHTED_MONTH_INDEX ? theme.colors.blue : '#181D27',
+  }));
 
   return (
     <div className={cn('w-full h-47.5', className)}>
@@ -27,12 +33,11 @@ export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
             left: 0,
             right: 0,
           }}
-          data={data}
+          data={styledData}
           barGap={'8%'}
         >
           <Bar
             dataKey={Y_AXIS_DATA_KEY}
-            fill={'#181D27'}
             activeBar={{ fill: theme.colors.blue, stroke: theme.colors.blue }}
             radius={[9999, 9999, 9999, 9999]}
           />
