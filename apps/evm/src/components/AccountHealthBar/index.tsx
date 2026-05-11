@@ -49,6 +49,14 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
         })
       : undefined;
 
+  const protectedBorrowLimitUsedPercentage =
+    typeof borrowBalanceProtectedCents === 'number' && typeof borrowLimitProtectedCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowBalanceProtectedCents,
+          denominator: borrowLimitProtectedCents,
+        })
+      : undefined;
+
   const fillPercentage =
     typeof borrowBalanceCents === 'number' && typeof liquidationThresholdCents === 'number'
       ? calculatePercentage({
@@ -69,14 +77,6 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     formatPercentageToReadableValue(borrowLimitUsedPercentage);
   const sanitizedFillPercentage = fillPercentage || 0;
 
-  const readableBorrowLimit = formatCentsToReadableValue({
-    value: borrowLimitCents,
-  });
-
-  const readableLiquidationThreshold = formatCentsToReadableValue({
-    value: liquidationThresholdCents,
-  });
-
   const readableBorrowBalance = formatCentsToReadableValue({
     value: borrowBalanceCents,
   });
@@ -85,13 +85,17 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     value: borrowBalanceProtectedCents,
   });
 
-  const protectedBorrowLimitUsedPercentage =
-    typeof borrowBalanceProtectedCents === 'number' && typeof borrowLimitProtectedCents === 'number'
-      ? calculatePercentage({
-          numerator: borrowBalanceProtectedCents,
-          denominator: borrowLimitProtectedCents,
-        })
-      : undefined;
+  const readableBorrowLimit = formatCentsToReadableValue({
+    value: borrowLimitCents,
+  });
+
+  const readableBorrowLimitProtected = formatCentsToReadableValue({
+    value: borrowLimitProtectedCents,
+  });
+
+  const readableLiquidationThreshold = formatCentsToReadableValue({
+    value: liquidationThresholdCents,
+  });
 
   const isProtectionModeEnabled =
     borrowLimitUsedPercentage !== undefined &&
@@ -123,6 +127,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
               hideUserBalances ??
               formatPercentageToReadableValue(protectedBorrowLimitUsedPercentage),
             borrowLimit: hideUserBalances ?? readableBorrowLimit,
+            borrowLimitProtected: hideUserBalances ?? readableBorrowLimitProtected,
           }}
         />
       ) : undefined,
@@ -133,6 +138,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
       readableBorrowLimitUsedPercentage,
       protectedBorrowLimitUsedPercentage,
       readableBorrowLimit,
+      readableBorrowLimitProtected,
       hideUserBalances,
       isProtectionModeEnabled,
       Trans,
