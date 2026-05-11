@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.29.0
+
+### Minor Changes
+
+- dbf5ddb: feat: support protection mode
+
 ## 4.28.1
 
 ### Patch Changes
