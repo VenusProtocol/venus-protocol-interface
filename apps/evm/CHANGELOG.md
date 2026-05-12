@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.30.0
+
+### Minor Changes
+
+- 97a9add: fix issue with borrow capability incorrectly detected for isolated e-mode groups
+
 ## 4.29.0
 
 ### Minor Changes
