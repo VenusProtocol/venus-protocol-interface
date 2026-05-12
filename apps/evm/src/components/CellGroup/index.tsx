@@ -5,7 +5,7 @@ import { Cell, type CellProps } from '../Cell';
 
 export type { CellProps } from '../Cell';
 
-export type CellGroupVariant = 'primary' | 'secondary' | 'tertiary';
+export type CellGroupVariant = 'primary' | 'secondary';
 
 export interface CellGroupProps {
   cells: CellProps[];
@@ -21,13 +21,10 @@ export const CellGroup: React.FC<CellGroupProps> = ({
 }) => (
   <Card
     className={cn(
-      'min-w-0 border-0',
+      'min-w-0 border-0 p-0 gap-4 md:gap-x-6',
       variant === 'primary' &&
-        'p-4 grid grid-cols-2 rounded-xl gap-4 sm:flex sm:flex-wrap sm:gap-0 sm:px-6 sm:py-4',
-      variant === 'secondary' &&
-        'p-0 flex overflow-x-auto overflow-y-hidden scrollbar-hidden bg-transparent sm:p-0 md:p-0 xl:p-0',
-      variant === 'tertiary' &&
-        'gap-2 bg-transparent p-0 grid grid-cols-2 sm:p-0 xl:bg-cards xl:flex xl:p-6 xl:flex-wrap xl:rounded-xl xl:gap-x-0',
+        'flex overflow-x-auto overflow-y-hidden scrollbar-hidden bg-transparent',
+      variant === 'secondary' && 'grid grid-cols-2 xl:flex xl:flex-wrap xl:rounded-xl',
       className,
     )}
     {...containerProps}
@@ -36,14 +33,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
       <Cell
         key={`cell-group-item-${cell.label}`}
         {...cell}
-        className={cn(
-          'shrink-0 xl:bg-transparent',
-          variant === 'primary' && 'sm:px-6 sm:first-of-type:pl-0 sm:last-of-type:pr-0',
-          variant === 'secondary' && 'px-4 md:px-6 first-of-type:pl-0 last-of-type:pr-0',
-          variant === 'tertiary' &&
-            'bg-cards rounded-xl p-4 xl:py-0 xl:px-6 xl:rounded-none xl:first-of-type:pl-0 xl:last-of-type:pr-0',
-          cell.className,
-        )}
+        className={cn('shrink-0 xl:bg-transparent', cell.className)}
       />
     ))}
   </Card>

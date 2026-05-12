@@ -29,7 +29,6 @@ export const Header: React.FC<HeaderProps> = ({ pool, className }) => {
 
         <PoolStats
           pools={[pool]}
-          variant="secondary"
           className="xl:w-auto"
           stats={['supply', 'borrow', 'liquidity', 'assetCount']}
         />

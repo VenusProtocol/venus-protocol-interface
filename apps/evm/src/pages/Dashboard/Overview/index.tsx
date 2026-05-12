@@ -312,7 +312,7 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
         disabled={!accountAddress}
         onClick={toggleAccordion}
       >
-        <CellGroup variant="secondary" cells={graphCells} />
+        <CellGroup cells={graphCells} />
 
         {shouldShowAccountBreakdown && (
           <div className="flex items-center gap-x-3" data-testid={testIds.performanceChartPreview}>

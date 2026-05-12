@@ -139,7 +139,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
   ];
 
   return (
-    <div className="flex flex-col gap-y-6 lg:flex-col lg:p-4 lg:rounded-lg lg:border lg:border-dark-blue-hover">
+    <div className="flex flex-col gap-y-6 lg:p-4 lg:rounded-lg lg:border lg:border-dark-blue-hover">
       <div className="flex flex-col gap-3 sm:flex-row">
         <TokenSelect
           type="long"
@@ -158,7 +158,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         />
       </div>
 
-      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex lg:flex-col">
+      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex-col 2xl:flex-row">
         <div className="flex items-center gap-x-2">
           <TokenPair
             shortToken={shortToken}
@@ -187,7 +187,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         </div>
 
         <div className="overflow-hidden">
-          <CellGroup variant="secondary" cells={cells} />
+          <CellGroup cells={cells} />
         </div>
       </div>
     </div>

@@ -140,8 +140,8 @@ export const Summary: React.FC<SummaryProps> = ({
       <div className="space-y-4 md:space-y-6 xl:hidden">
         <CellGroup
           cells={displayAccountHealth ? cells.slice(0, cells.length - 1) : cells}
-          variant="tertiary"
-          className={cn('gap-3', displayAccountHealth ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
+          variant="secondary"
+          className={cn(displayAccountHealth ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
         />
 
         {displayAccountHealth && <Cell {...cells[cells.length - 1]} className={cellClassName} />}
@@ -152,7 +152,6 @@ export const Summary: React.FC<SummaryProps> = ({
         <CellGroup
           cells={displayAccountHealth ? cells.slice(0, cells.length - 1) : cells}
           className="w-full xl:p-0"
-          variant="secondary"
         />
 
         {/* Account health */}

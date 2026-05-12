@@ -82,7 +82,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
 
   return (
     <>
-      <CellGroup variant="secondary" cells={overviewCells} className="mb-6" />
+      <CellGroup cells={overviewCells} className="mb-6" />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3">
         {filteredVaults.map(vault => (
           <VaultCardSimplified vault={vault} key={vault.key} />
