@@ -55,19 +55,12 @@ export const Dropdown = ({
 
           {/* XS to MD menu */}
           {isDropdownOpened && (
-            <div
-              className={cn(
-                'z-50 hidden md:block min-w-full',
-                triggerOnHover
-                  ? cn('absolute top-full pt-2', menuPosition === 'right' ? 'right-0' : 'left-0')
-                  : 'relative',
-              )}
-            >
+            <div className="relative z-50 hidden min-w-full md:block">
               <div
                 className={cn(
-                  'border-lightGrey bg-cards overflow-hidden border shadow',
-                  !triggerOnHover &&
-                    cn('absolute top-2 min-w-full', menuPosition === 'right' && 'right-0'),
+                  'border-lightGrey bg-cards absolute min-w-full overflow-hidden border shadow',
+                  triggerOnHover ? 'top-0' : 'top-2',
+                  menuPosition === 'right' && 'right-0',
                   variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
                   menuClassName,
                 )}

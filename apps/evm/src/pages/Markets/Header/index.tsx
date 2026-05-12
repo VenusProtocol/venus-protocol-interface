@@ -24,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({ pool, className }) => {
       <div className="space-y-6 mb-6 sm:mb-12 xl:flex xl:space-y-0 xl:gap-x-6 xl:justify-between xl:items-center 2xl:mb-10">
         <div>
           <h1 className="text-p1s sm:text-h6">{title}</h1>
-          <p className="hidden sm:block text-1br">{description}</p>
+          <p className="hidden sm:block text-b1r">{description}</p>
         </div>
 
         <PoolStats
