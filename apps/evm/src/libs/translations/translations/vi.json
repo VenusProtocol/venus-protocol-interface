@@ -396,6 +396,21 @@
   "connectWallet": {
     "connectButton": "Kết nối ví"
   },
+  "contractErrors": {
+    "actionPaused": "This action is currently paused on this market.",
+    "insufficientLiquidity": "Not enough liquidity available for this operation.",
+    "insufficientCollateral": "Not enough collateral for this operation.",
+    "supplyCapExceeded": "Supply cap reached for this market.",
+    "borrowCapExceeded": "Borrow cap reached for this market.",
+    "tooMuchRepay": "Repay amount exceeds your outstanding borrow.",
+    "notice": {
+      "fallback": "Transaction would fail. Please check your inputs and try again.",
+      "errorLabel": "Error",
+      "copyDetails": "Copy details",
+      "showRawError": "Show raw error",
+      "hideRawError": "Hide raw error"
+    }
+  },
   "controls": {
     "pausedAssetsToggle": {
       "label": "Tài sản tạm dừng"

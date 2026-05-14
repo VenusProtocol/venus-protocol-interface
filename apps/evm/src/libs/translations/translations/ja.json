@@ -396,6 +396,21 @@
   "connectWallet": {
     "connectButton": "ウォレットを接続"
   },
+  "contractErrors": {
+    "actionPaused": "このマーケットでは現在この操作が一時停止されています。",
+    "insufficientLiquidity": "この操作に必要な流動性が不足しています。",
+    "insufficientCollateral": "この操作に必要な担保が不足しています。",
+    "supplyCapExceeded": "このマーケットの供給上限に達しました。",
+    "borrowCapExceeded": "このマーケットの借入上限に達しました。",
+    "tooMuchRepay": "返済額が未返済の借入額を超えています。",
+    "notice": {
+      "fallback": "トランザクションが失敗する可能性があります。入力内容をご確認の上、再度お試しください。",
+      "errorLabel": "エラー",
+      "copyDetails": "詳細をコピー",
+      "showRawError": "元のエラーを表示",
+      "hideRawError": "元のエラーを非表示"
+    }
+  },
   "controls": {
     "pausedAssetsToggle": {
       "label": "停止中の資産"
