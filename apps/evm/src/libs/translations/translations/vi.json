@@ -398,18 +398,18 @@
   },
   "contractErrors": {
     "actionPaused": "This action is currently paused on this market.",
-    "insufficientLiquidity": "Not enough liquidity available for this operation.",
-    "insufficientCollateral": "Not enough collateral for this operation.",
-    "supplyCapExceeded": "Supply cap reached for this market.",
     "borrowCapExceeded": "Borrow cap reached for this market.",
-    "tooMuchRepay": "Repay amount exceeds your outstanding borrow.",
+    "insufficientCollateral": "Not enough collateral for this operation.",
+    "insufficientLiquidity": "Not enough liquidity available for this operation.",
     "notice": {
-      "fallback": "Transaction would fail. Please check your inputs and try again.",
-      "errorLabel": "Error",
       "copyDetails": "Copy details",
-      "showRawError": "Show raw error",
-      "hideRawError": "Hide raw error"
-    }
+      "errorLabel": "Error",
+      "fallback": "Transaction would fail. Please check your inputs and try again.",
+      "hideRawError": "Hide raw error",
+      "showRawError": "Show raw error"
+    },
+    "supplyCapExceeded": "Supply cap reached for this market.",
+    "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
   },
   "controls": {
     "pausedAssetsToggle": {

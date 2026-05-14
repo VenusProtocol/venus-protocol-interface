@@ -398,18 +398,18 @@
   },
   "contractErrors": {
     "actionPaused": "該市場暫時禁用此操作。",
-    "insufficientLiquidity": "可用流動性不足以完成此操作。",
-    "insufficientCollateral": "抵押品不足以完成此操作。",
-    "supplyCapExceeded": "該市場已達到存款上限。",
     "borrowCapExceeded": "該市場已達到借款上限。",
-    "tooMuchRepay": "還款金額超過了你的未償借款。",
+    "insufficientCollateral": "抵押品不足以完成此操作。",
+    "insufficientLiquidity": "可用流動性不足以完成此操作。",
     "notice": {
-      "fallback": "交易將失敗，請檢查輸入後重試。",
-      "errorLabel": "錯誤",
       "copyDetails": "複製詳情",
-      "showRawError": "顯示原始錯誤",
-      "hideRawError": "隱藏原始錯誤"
-    }
+      "errorLabel": "錯誤",
+      "fallback": "交易將失敗，請檢查輸入後重試。",
+      "hideRawError": "隱藏原始錯誤",
+      "showRawError": "顯示原始錯誤"
+    },
+    "supplyCapExceeded": "該市場已達到存款上限。",
+    "tooMuchRepay": "還款金額超過了你的未償借款。"
   },
   "controls": {
     "pausedAssetsToggle": {
