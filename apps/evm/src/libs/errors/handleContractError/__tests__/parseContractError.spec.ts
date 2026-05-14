@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { BaseError, ContractFunctionRevertedError, encodeErrorResult } from 'viem';
+import { describe, expect, it } from 'vitest';
 
 import { isolatedPoolComptrollerAbi } from 'libs/contracts';
 
