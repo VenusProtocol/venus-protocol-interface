@@ -396,6 +396,19 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "contractErrors": {
+    "actionPaused": "This action is currently paused on this market.",
+    "marketNotListed": "This market is not listed.",
+    "tokenInsufficientBalance": "Insufficient token balance for this transfer.",
+    "tokenInsufficientCash": "Not enough liquidity in the protocol to fulfill this request.",
+    "notice": {
+      "fallback": "Transaction would fail. Please check your inputs and try again.",
+      "errorLabel": "Error",
+      "copyDetails": "Copy details",
+      "showRawError": "Show raw error",
+      "hideRawError": "Hide raw error"
+    }
+  },
   "controls": {
     "pausedAssetsToggle": {
       "label": "Paused assets"
