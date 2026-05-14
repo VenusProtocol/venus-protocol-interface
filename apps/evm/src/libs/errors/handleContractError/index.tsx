@@ -30,7 +30,8 @@ export const handleContractError = ({ error, parsed }: HandleContractErrorInput)
 
 const getFriendlyPhrase = (parsed: ParsedContractError): string | undefined => {
   const firstArg = parsed.args?.[0];
-  const isLegacyStringRevert = parsed.errorName === 'Error' && typeof firstArg === 'string';
-  const legacyReason = isLegacyStringRevert ? firstArg : undefined;
-  return legacyReason ?? customErrorPhrases[parsed.errorName];
+  if (parsed.errorName === 'Error' && typeof firstArg === 'string') {
+    return firstArg;
+  }
+  return customErrorPhrases[parsed.errorName];
 };

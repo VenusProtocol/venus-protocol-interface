@@ -397,19 +397,19 @@
     "connectButton": "Cüzdan bağla"
   },
   "contractErrors": {
-    "actionPaused": "This action is currently paused on this market.",
-    "borrowCapExceeded": "Borrow cap reached for this market.",
-    "insufficientCollateral": "Not enough collateral for this operation.",
-    "insufficientLiquidity": "Not enough liquidity available for this operation.",
+    "actionPaused": "Bu işlem şu anda bu pazarda duraklatıldı.",
+    "borrowCapExceeded": "Bu pazar için borçlanma üst sınırına ulaşıldı.",
+    "insufficientCollateral": "Bu işlem için yeterli teminat yok.",
+    "insufficientLiquidity": "Bu işlem için yeterli likidite mevcut değil.",
     "notice": {
-      "copyDetails": "Copy details",
-      "errorLabel": "Error",
-      "fallback": "Transaction would fail. Please check your inputs and try again.",
-      "hideRawError": "Hide raw error",
-      "showRawError": "Show raw error"
+      "copyDetails": "Ayrıntıları kopyala",
+      "errorLabel": "Hata",
+      "fallback": "İşlem başarısız olur. Lütfen girdilerinizi kontrol edip tekrar deneyin.",
+      "hideRawError": "Ham hatayı gizle",
+      "showRawError": "Ham hatayı göster"
     },
-    "supplyCapExceeded": "Supply cap reached for this market.",
-    "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
+    "supplyCapExceeded": "Bu pazar için arz üst sınırına ulaşıldı.",
+    "tooMuchRepay": "Geri ödeme tutarı bekleyen borç bakiyenizi aşıyor."
   },
   "controls": {
     "pausedAssetsToggle": {

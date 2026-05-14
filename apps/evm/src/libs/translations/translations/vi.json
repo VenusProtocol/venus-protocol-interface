@@ -397,19 +397,19 @@
     "connectButton": "Kết nối ví"
   },
   "contractErrors": {
-    "actionPaused": "This action is currently paused on this market.",
-    "borrowCapExceeded": "Borrow cap reached for this market.",
-    "insufficientCollateral": "Not enough collateral for this operation.",
-    "insufficientLiquidity": "Not enough liquidity available for this operation.",
+    "actionPaused": "Thao tác này hiện đang bị tạm dừng trên thị trường này.",
+    "borrowCapExceeded": "Đã đạt giới hạn vay cho thị trường này.",
+    "insufficientCollateral": "Không đủ tài sản thế chấp cho thao tác này.",
+    "insufficientLiquidity": "Không đủ thanh khoản cho thao tác này.",
     "notice": {
-      "copyDetails": "Copy details",
-      "errorLabel": "Error",
-      "fallback": "Transaction would fail. Please check your inputs and try again.",
-      "hideRawError": "Hide raw error",
-      "showRawError": "Show raw error"
+      "copyDetails": "Sao chép chi tiết",
+      "errorLabel": "Lỗi",
+      "fallback": "Giao dịch sẽ thất bại. Vui lòng kiểm tra dữ liệu nhập và thử lại.",
+      "hideRawError": "Ẩn lỗi thô",
+      "showRawError": "Hiện lỗi thô"
     },
-    "supplyCapExceeded": "Supply cap reached for this market.",
-    "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
+    "supplyCapExceeded": "Đã đạt giới hạn cung cấp cho thị trường này.",
+    "tooMuchRepay": "Số tiền trả vượt quá khoản vay còn lại của bạn."
   },
   "controls": {
     "pausedAssetsToggle": {

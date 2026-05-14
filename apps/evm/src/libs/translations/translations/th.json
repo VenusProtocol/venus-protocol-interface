@@ -397,19 +397,19 @@
     "connectButton": "เชื่อมต่อกระเป๋า"
   },
   "contractErrors": {
-    "actionPaused": "This action is currently paused on this market.",
-    "borrowCapExceeded": "Borrow cap reached for this market.",
-    "insufficientCollateral": "Not enough collateral for this operation.",
-    "insufficientLiquidity": "Not enough liquidity available for this operation.",
+    "actionPaused": "ขณะนี้การดำเนินการนี้ถูกระงับในตลาดนี้",
+    "borrowCapExceeded": "ถึงขีดจำกัดการกู้ยืมของตลาดนี้แล้ว",
+    "insufficientCollateral": "หลักประกันไม่เพียงพอสำหรับการดำเนินการนี้",
+    "insufficientLiquidity": "สภาพคล่องไม่เพียงพอสำหรับการดำเนินการนี้",
     "notice": {
-      "copyDetails": "Copy details",
-      "errorLabel": "Error",
-      "fallback": "Transaction would fail. Please check your inputs and try again.",
-      "hideRawError": "Hide raw error",
-      "showRawError": "Show raw error"
+      "copyDetails": "คัดลอกรายละเอียด",
+      "errorLabel": "ข้อผิดพลาด",
+      "fallback": "ธุรกรรมจะล้มเหลว โปรดตรวจสอบข้อมูลที่ป้อนและลองอีกครั้ง",
+      "hideRawError": "ซ่อนข้อผิดพลาดดิบ",
+      "showRawError": "แสดงข้อผิดพลาดดิบ"
     },
-    "supplyCapExceeded": "Supply cap reached for this market.",
-    "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
+    "supplyCapExceeded": "ถึงขีดจำกัดการฝากของตลาดนี้แล้ว",
+    "tooMuchRepay": "จำนวนเงินที่ชำระคืนเกินยอดค้างชำระของคุณ"
   },
   "controls": {
     "pausedAssetsToggle": {
