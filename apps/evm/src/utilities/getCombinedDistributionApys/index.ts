@@ -74,10 +74,12 @@ const getCombinedDistributionApys = ({
     ? borrow.apyPrimeSimulationPercentage
     : borrow.apyPrimePercentage;
 
-  const totalSupplyApyBoostPercentage =
-    supply.apyRewardsPercentage.plus(supplyPrimeBoostPercentage);
-  const totalBorrowApyBoostPercentage =
-    borrow.apyRewardsPercentage.plus(borrowPrimeBoostPercentage);
+  const totalSupplyApyBoostPercentage = supply.apyRewardsPercentage.plus(
+    supplyPrimeBoostPercentage,
+  );
+  const totalBorrowApyBoostPercentage = borrow.apyRewardsPercentage.plus(
+    borrowPrimeBoostPercentage,
+  );
 
   return {
     supplyApyRewardsPercentage: supply.apyRewardsPercentage,
