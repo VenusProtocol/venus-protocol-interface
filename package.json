@@ -3,17 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "packageManager": "yarn@4.14.1",
-  "workspaces": [
-    "packages/*",
-    "configs/*",
-    "apps/*"
-  ],
+  "workspaces": ["packages/*", "configs/*", "apps/*"],
   "scripts": {
     "start": "turbo run start",
     "generate": "turbo run generate",
     "lint": "turbo run lint",
     "lint:styles": "turbo run lint:styles",
-    "format": "biome check --apply .",
+    "format": "npx biome check --apply .",
     "test": "turbo run test --",
     "tsc": "turbo run tsc",
     "clean": "turbo run clean && rm -rf node_modules",

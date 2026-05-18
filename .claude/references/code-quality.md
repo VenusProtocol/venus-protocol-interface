@@ -187,8 +187,12 @@ Regenerate using project scripts (`yarn generate-*`, `yarn generate`) instead.
 ## Testing stack and expectations
 
 - Unit/integration tests use Vitest.
+- When writing tests within a workspace, first read its Vite config and setupTests files (if any) to
+  ensure the tests you write are aligned with them.
 - React rendering tests use Testing Library.
 - Test filenames in this repo use `*.spec.ts` / `*.spec.tsx`.
+- Tests should be run using the Node version specified in the repo `.nvmrc`.
+- Only mock components when absolutely necessary.
 
 ### Practical testing guidance
 

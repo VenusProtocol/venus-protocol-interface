@@ -1,6 +1,6 @@
-# Venus Protocol Interface - Claude Rules
+# Venus Protocol Interface - Rules
 
-Before generating or modifying code in this repository, Claude must read:
+Before generating or modifying code in this repository, you must read:
 
 1. `.claude/references/design-system.md`
 2. `.claude/references/api-patterns.md`
