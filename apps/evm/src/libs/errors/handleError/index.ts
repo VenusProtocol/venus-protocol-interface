@@ -26,12 +26,10 @@ export const handleError = ({ error }: HandleErrorInput) => {
     return;
   }
 
-  if (error instanceof BaseError) {
-    const parsed = parseContractError(error);
-    if (parsed) {
-      handleContractError({ error, parsed });
-      return;
-    }
+  const parsed = parseContractError(error);
+  if (parsed) {
+    handleContractError({ error: error as BaseError, parsed });
+    return;
   }
 
   let message = unexpectedErrorPhrases.somethingWentWrong;
