@@ -971,6 +971,7 @@
             "penalty": "Ceza",
             "threshold": "Eşik"
           },
+          "mobileSelectLabel": "TRANSLATION NEEDED",
           "searchPlaceholder": "Varlık veya grup ara"
         }
       },
@@ -1622,6 +1623,11 @@
   "switchChainNotice": {
     "buttonLabel": "{{chainName}} zincirine geç",
     "description": "Teminatları etkinleştirmek veya devre dışı bırakmak için cüzdanınızı {{chainName}} zincirine geçirmeniz gerekir"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "TRANSLATION NEEDED"
+    }
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

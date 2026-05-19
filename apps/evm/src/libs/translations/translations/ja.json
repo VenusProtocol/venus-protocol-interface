@@ -971,6 +971,7 @@
             "penalty": "ペナルティ",
             "threshold": "しきい値"
           },
+          "mobileSelectLabel": "TRANSLATION NEEDED",
           "searchPlaceholder": "資産またはグループを検索"
         }
       },
@@ -1622,6 +1623,11 @@
   "switchChainNotice": {
     "buttonLabel": "{{chainName}}に切り替える",
     "description": "担保の有効/無効を行うにはウォレットを{{chainName}}に切り替える必要があります"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "TRANSLATION NEEDED"
+    }
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

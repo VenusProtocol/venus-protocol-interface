@@ -48,7 +48,7 @@ export const Earnings: React.FC<EarningsProps> = ({ supplyApyPercentage, classNa
     <div className={cn('space-y-3', className)}>
       <EarningTabs data={data} className="sm:hidden" />
 
-      <BarChart className="hidden sm:block mt-12.5" data={data} />
+      <BarChart className="hidden sm:block mt-13" data={data} />
 
       <Row>
         <p className="text-b1r sm:text-p3r">{t('landing.hero.yearlyEarnings')}</p>

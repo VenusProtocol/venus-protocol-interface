@@ -971,6 +971,7 @@
             "penalty": "บทลงโทษ",
             "threshold": "เกณฑ์"
           },
+          "mobileSelectLabel": "TRANSLATION NEEDED",
           "searchPlaceholder": "ค้นหาสินทรัพย์หรือกลุ่ม"
         }
       },
@@ -1622,6 +1623,11 @@
   "switchChainNotice": {
     "buttonLabel": "สลับไปยัง {{chainName}}",
     "description": "คุณต้องสลับกระเป๋าไปยัง {{chainName}} เพื่อเปิดหรือปิดหลักประกัน"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "TRANSLATION NEEDED"
+    }
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
