@@ -971,7 +971,6 @@
             "penalty": "Ceza",
             "threshold": "Eşik"
           },
-          "mobileSelectLabel": "Sırala:",
           "searchPlaceholder": "Varlık veya grup ara"
         }
       },
@@ -1623,11 +1622,6 @@
   "switchChainNotice": {
     "buttonLabel": "{{chainName}} zincirine geç",
     "description": "Teminatları etkinleştirmek veya devre dışı bırakmak için cüzdanınızı {{chainName}} zincirine geçirmeniz gerekir"
-  },
-  "table": {
-    "cardsSelect": {
-      "label": "Sırala"
-    }
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

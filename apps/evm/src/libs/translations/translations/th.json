@@ -971,7 +971,6 @@
             "penalty": "บทลงโทษ",
             "threshold": "เกณฑ์"
           },
-          "mobileSelectLabel": "เรียงตาม:",
           "searchPlaceholder": "ค้นหาสินทรัพย์หรือกลุ่ม"
         }
       },
@@ -1623,11 +1622,6 @@
   "switchChainNotice": {
     "buttonLabel": "สลับไปยัง {{chainName}}",
     "description": "คุณต้องสลับกระเป๋าไปยัง {{chainName}} เพื่อเปิดหรือปิดหลักประกัน"
-  },
-  "table": {
-    "cardsSelect": {
-      "label": "เรียงตาม"
-    }
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

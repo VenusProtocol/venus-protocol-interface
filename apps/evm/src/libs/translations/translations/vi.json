@@ -971,7 +971,6 @@
             "penalty": "Phạt",
             "threshold": "Ngưỡng"
           },
-          "mobileSelectLabel": "Sắp xếp theo:",
           "searchPlaceholder": "Tìm tài sản hoặc nhóm"
         }
       },
@@ -1623,11 +1622,6 @@
   "switchChainNotice": {
     "buttonLabel": "Chuyển sang {{chainName}}",
     "description": "Bạn cần chuyển ví sang {{chainName}} để bật hoặc tắt tài sản thế chấp"
-  },
-  "table": {
-    "cardsSelect": {
-      "label": "Sắp xếp theo"
-    }
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"

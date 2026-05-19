@@ -971,7 +971,6 @@
             "penalty": "罰金",
             "threshold": "閾值"
           },
-          "mobileSelectLabel": "排序：",
           "searchPlaceholder": "搜尋資產或組"
         }
       },
@@ -1623,11 +1622,6 @@
   "switchChainNotice": {
     "buttonLabel": "切換到 {{chainName}}",
     "description": "你需要切換到 {{chainName}} 以啟用或禁用抵押品"
-  },
-  "table": {
-    "cardsSelect": {
-      "label": "排序"
-    }
   },
   "tokenTextField": {
     "valueDollars": "≈ {{ value }}"
