@@ -62,12 +62,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             {...item}
             items={item.items.map(i => ({
               ...i,
-              onClick: () => {
-                // Close submenu
-                setIsSubMenuOpen(false);
-
-                onClick();
-              },
+              onClick,
             }))}
           />
         </AccordionAnimatedContent>
