@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`useReduceTradePositionWithLoss > calls useSendTransaction with correct parameters 1`] = `
+exports[`useReduceTradePositionWithLoss > calls useSendTransaction with correct parameters when lossSwapQuote is provided 1`] = `
 {
   "abi": Any<Array>,
   "address": "0xfakeRelativePositionManagerContractAddress",
@@ -20,7 +20,7 @@ exports[`useReduceTradePositionWithLoss > calls useSendTransaction with correct 
 }
 `;
 
-exports[`useReduceTradePositionWithLoss > calls useSendTransaction with correct parameters 2`] = `
+exports[`useReduceTradePositionWithLoss > calls useSendTransaction with correct parameters when lossSwapQuote is provided 2`] = `
 [
   [
     {
@@ -37,4 +37,44 @@ exports[`useReduceTradePositionWithLoss > calls useSendTransaction with correct 
     },
   ],
 ]
+`;
+
+exports[`useReduceTradePositionWithLoss > defaults second swap parameters to zero values when optional loss inputs are omitted 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0xfakeRelativePositionManagerContractAddress",
+  "args": [
+    "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+    "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+    5000n,
+    49000000n,
+    50000000n,
+    50000000n,
+    "0x",
+    0n,
+    0n,
+    "0x",
+  ],
+  "functionName": "closeWithLoss",
+}
+`;
+
+exports[`useReduceTradePositionWithLoss > falls back to repayShortAmountMantissa when lossSwapQuote is not provided 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0xfakeRelativePositionManagerContractAddress",
+  "args": [
+    "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+    "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+    5000n,
+    49000000n,
+    50000000n,
+    50000000n,
+    "0x",
+    0n,
+    12000000n,
+    "0x",
+  ],
+  "functionName": "closeWithLoss",
+}
 `;

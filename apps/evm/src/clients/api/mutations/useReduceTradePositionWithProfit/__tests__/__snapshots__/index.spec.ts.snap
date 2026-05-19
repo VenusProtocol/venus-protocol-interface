@@ -37,3 +37,41 @@ exports[`useReduceTradePositionWithProfit > calls useSendTransaction with correc
   ],
 ]
 `;
+
+exports[`useReduceTradePositionWithProfit > defaults profit swap values to zero when optional profit inputs are omitted 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0xfakeRelativePositionManagerContractAddress",
+  "args": [
+    "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+    "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+    5000n,
+    49000000n,
+    50000000n,
+    "0x",
+    0n,
+    0n,
+    "0x",
+  ],
+  "functionName": "closeWithProfit",
+}
+`;
+
+exports[`useReduceTradePositionWithProfit > falls back to profitAmountMantissa when profitSwapQuote is not provided 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0xfakeRelativePositionManagerContractAddress",
+  "args": [
+    "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+    "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+    5000n,
+    49000000n,
+    50000000n,
+    "0x",
+    12000000n,
+    0n,
+    "0x",
+  ],
+  "functionName": "closeWithProfit",
+}
+`;

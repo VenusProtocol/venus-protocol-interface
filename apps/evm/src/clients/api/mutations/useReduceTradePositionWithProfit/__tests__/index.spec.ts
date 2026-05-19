@@ -1,9 +1,9 @@
 import { approximateOutSwapQuote, exactInSwapQuote } from '__mocks__/models/swap';
 import { vLisUSD, vUsdc } from '__mocks__/models/vTokens';
+import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
-import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { type ReduceTradePositionWithProfitInput, useReduceTradePositionWithProfit } from '..';
 
@@ -31,7 +31,7 @@ const fakeInput: ReduceTradePositionWithProfitInput = {
 
 describe('useReduceTradePositionWithProfit', () => {
   it('calls useSendTransaction with correct parameters', async () => {
-    renderHook(() => useReduceTradePositionWithProfit());
+    useReduceTradePositionWithProfit();
 
     expect(useSendTransaction).toHaveBeenCalledWith({
       fn: expect.any(Function),
@@ -51,10 +51,42 @@ describe('useReduceTradePositionWithProfit', () => {
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
+  it('falls back to profitAmountMantissa when profitSwapQuote is not provided', async () => {
+    useReduceTradePositionWithProfit();
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(
+      await fn({
+        ...fakeInput,
+        profitSwapQuote: undefined,
+        profitAmountMantissa: new BigNumber('12000000'),
+      }),
+    ).toMatchSnapshot({
+      abi: expect.any(Array),
+    });
+  });
+
+  it('defaults profit swap values to zero when optional profit inputs are omitted', async () => {
+    useReduceTradePositionWithProfit();
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(
+      await fn({
+        ...fakeInput,
+        profitSwapQuote: undefined,
+        profitAmountMantissa: undefined,
+      }),
+    ).toMatchSnapshot({
+      abi: expect.any(Array),
+    });
+  });
+
   it('throws error when RelativePositionManager contract address is not found', async () => {
     (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
 
-    renderHook(() => useReduceTradePositionWithProfit());
+    useReduceTradePositionWithProfit();
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
