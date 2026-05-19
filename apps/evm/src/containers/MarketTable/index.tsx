@@ -44,7 +44,6 @@ export interface MarketTableProps
   };
   marketType?: 'supply' | 'borrow';
   className?: string;
-  disableCardsSorting?: boolean;
 }
 
 export const MarketTable: React.FC<MarketTableProps> = ({
@@ -64,7 +63,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   isFetching,
   header,
   className,
-  disableCardsSorting = false,
   ...otherTableProps
 }) => {
   const styles = useStyles();
@@ -112,11 +110,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     userEModeGroup,
   });
 
-  const cardColumns = useMemo(
-    () => (disableCardsSorting ? columns.map(c => ({ ...c, sortRows: undefined })) : undefined),
-    [disableCardsSorting, columns],
-  );
-
   const formattedInitialOrder = useMemo(() => {
     if (!initialOrder) {
       return undefined;
@@ -154,7 +147,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         controls={controls}
         getRowHref={getRowHref}
         columns={columns}
-        cardColumns={cardColumns}
         data={filteredAssets}
         css={styles.cardContentGrid}
         className={cn(
