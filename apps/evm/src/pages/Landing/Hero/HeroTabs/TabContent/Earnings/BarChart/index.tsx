@@ -25,7 +25,7 @@ export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
   }));
 
   return (
-    <div className={cn('w-full h-47.5', className)}>
+    <div className={cn('w-full h-32', className)}>
       <ResponsiveContainer>
         <RCBarChart
           margin={{
