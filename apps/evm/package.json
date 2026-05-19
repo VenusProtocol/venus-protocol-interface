@@ -38,7 +38,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.1.7",
     "@rainbow-me/rainbowkit": "^2.2.10",
-    "@rhinestone/module-sdk": "0.2.7",
+    "@rhinestone/module-sdk": "0.4.0",
     "@sentry/react": "^10.19.0",
     "@sentry/vite-plugin": "^4.0.1",
     "@tailwindcss/vite": "^4.1.18",
