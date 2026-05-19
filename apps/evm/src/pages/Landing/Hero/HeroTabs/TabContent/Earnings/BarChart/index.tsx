@@ -20,11 +20,6 @@ export interface ChartProps {
 export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
   const { t } = useTranslation();
 
-  const styledData = data.map((entry, index) => ({
-    ...entry,
-    fill: index === HIGHLIGHTED_MONTH_INDEX ? theme.colors.blue : '#181D27',
-  }));
-
   // Bumping this key on mouseLeave re-mounts the Tooltip so its `defaultIndex` is re-applied —
   // otherwise Recharts only honors `defaultIndex` on first mount, and leaving the chart clears
   // the active tooltip without restoring the default.
@@ -39,12 +34,13 @@ export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
             left: 0,
             right: 0,
           }}
-          data={styledData}
+          data={data}
           barGap={'8%'}
           onMouseLeave={() => setTooltipResetKey(k => k + 1)}
         >
           <Bar
             dataKey={Y_AXIS_DATA_KEY}
+            fill={'#181D27'}
             activeBar={{ fill: theme.colors.blue, stroke: theme.colors.blue }}
             radius={[9999, 9999, 9999, 9999]}
           />

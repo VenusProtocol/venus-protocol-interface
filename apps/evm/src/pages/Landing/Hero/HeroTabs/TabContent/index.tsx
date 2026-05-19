@@ -67,6 +67,7 @@ export const TabContent: React.FC<TabContentProps> = ({ asset, type }) => {
           <span>{readableBaseAmount}</span>
 
           <InfoIcon
+            className="cursor-pointer"
             tooltip={
               <Trans
                 i18nKey="landing.hero.supplyTips"
