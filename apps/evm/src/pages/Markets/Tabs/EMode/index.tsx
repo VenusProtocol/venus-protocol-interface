@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Notice, type Order } from 'components';
+import { Notice, type Order, Select, type SelectOption, type SelectProps } from 'components';
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
@@ -26,6 +26,36 @@ export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups 
     orderDirection: 'desc',
   };
 
+  const [order, setOrder] = useState<Order<ExtendedEModeAssetSettings>>(initialOrder);
+
+  const selectOptions = columns.reduce<SelectOption[]>((acc, column) => {
+    if (!column.sortRows) {
+      return acc;
+    }
+
+    const option: SelectOption = {
+      value: column.key,
+      label: column.selectOptionLabel,
+    };
+
+    return [...acc, option];
+  }, []);
+
+  const selectedOption = order && selectOptions.find(option => option.value === order.orderBy.key);
+
+  const handleOrderChange: SelectProps['onChange'] = value => {
+    const newSelectedOption = selectOptions.find(option => option.value === value);
+    const orderBy =
+      newSelectedOption && columns.find(column => column.key === newSelectedOption.value);
+
+    if (orderBy) {
+      setOrder({
+        orderBy,
+        orderDirection: 'desc',
+      });
+    }
+  };
+
   const [searchValue, setSearchValue] = useState('');
 
   const filteredEModeGroups = filterEModeGroups({
@@ -47,6 +77,16 @@ export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups 
         showPausedAssetsToggle
       />
 
+      <Select
+        className="hidden"
+        label={t('markets.tabs.eMode.table.mobileSelectLabel')}
+        placeLabelToLeft
+        size="small"
+        options={selectOptions}
+        value={selectedOption?.value || selectOptions[0].value}
+        onChange={handleOrderChange}
+      />
+
       {filteredEModeGroups.map(extendedEModeGroup => (
         <EModeGroupComp
           key={extendedEModeGroup.id}
@@ -57,7 +97,7 @@ export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups 
           pool={pool}
           columns={columns}
           initialOrder={initialOrder}
-          mobileOrder={initialOrder}
+          mobileOrder={order}
         />
       ))}
     </div>
