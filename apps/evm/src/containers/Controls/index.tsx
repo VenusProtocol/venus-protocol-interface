@@ -34,7 +34,7 @@ export const Controls: React.FC<ControlsProps> = ({
     <div className="@container/controls">
       <div className="flex flex-col gap-y-3 @2xl:items-center @2xl:flex-row @2xl:justify-between">
         <TextField
-          size="xs"
+          size="sm"
           value={searchValue}
           onChange={handleSearchInputChange}
           placeholder={searchInputPlaceholder}
