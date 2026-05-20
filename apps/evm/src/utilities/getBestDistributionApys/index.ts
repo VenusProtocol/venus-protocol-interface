@@ -1,5 +1,3 @@
-import BigNumber from 'bignumber.js';
-
 import type { Asset } from 'types';
 import getCombinedDistributionApys from 'utilities/getCombinedDistributionApys';
 
