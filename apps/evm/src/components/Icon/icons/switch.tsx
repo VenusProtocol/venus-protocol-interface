@@ -12,16 +12,16 @@ const SvgSwitch = (props: SVGProps<SVGSVGElement>) => (
     <path
       d="M12 6.83331H1L4.14286 3.83331"
       stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M4 9.83331H15L11.8571 12.8333"
       stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

@@ -2,7 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router';
 
-import { Apy, CellGroup, type CellProps } from 'components';
+import { Apy, CellGroup, type CellProps, Icon } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Token } from 'types';
@@ -50,6 +50,13 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
       [LONG_TOKEN_ADDRESS_PARAM_KEY]: areTokensEqual(longToken, newShortToken)
         ? shortToken.address
         : longToken.address,
+    }));
+
+  const switchSelectedTokens = () =>
+    setSearchParams(currentSearchParams => ({
+      ...Object.fromEntries(currentSearchParams),
+      [SHORT_TOKEN_ADDRESS_PARAM_KEY]: longToken.address,
+      [LONG_TOKEN_ADDRESS_PARAM_KEY]: shortToken.address,
     }));
 
   const {
@@ -184,6 +191,15 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
               </p>
             )}
           </div>
+
+          <button
+            type="button"
+            className="cursor-pointer text-light-grey hover:text-blue"
+            onClick={switchSelectedTokens}
+            data-testid="pair-info-switch-tokens-button"
+          >
+            <Icon name="switch" className="text-inherit transition-colors" />
+          </button>
         </div>
 
         <div className="overflow-hidden">
