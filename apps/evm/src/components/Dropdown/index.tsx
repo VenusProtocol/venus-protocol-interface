@@ -83,25 +83,28 @@ export const Dropdown = ({
           {isDropdownOpened && (
             <div className="relative z-50 hidden min-w-full md:block">
               <div
-                className={cn(
-                  'border-lightGrey bg-cards absolute top-2 min-w-full overflow-hidden border shadow',
-                  menuPosition === 'right' && 'right-0',
-                  variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
-                  menuClassName,
-                )}
+                className={cn('pt-2 absolute min-w-full', menuPosition === 'right' && 'right-0')}
               >
-                {!!menuTitle && (
-                  <div
-                    className={cn(
-                      'text-grey w-full py-3 text-xs',
-                      variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
-                    )}
-                  >
-                    {menuTitle}
-                  </div>
-                )}
+                <div
+                  className={cn(
+                    'border-lightGrey bg-cards overflow-hidden border shadow',
+                    variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
+                    menuClassName,
+                  )}
+                >
+                  {!!menuTitle && (
+                    <div
+                      className={cn(
+                        'text-grey w-full py-3 text-xs',
+                        variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
+                      )}
+                    >
+                      {menuTitle}
+                    </div>
+                  )}
 
-                {optionsDom({ setIsDropdownOpened, optionClassName })}
+                  {optionsDom({ setIsDropdownOpened, optionClassName })}
+                </div>
               </div>
             </div>
           )}
