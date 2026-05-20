@@ -409,6 +409,7 @@
       "showRawError": "元のエラーを表示"
     },
     "supplyCapExceeded": "このマーケットの供給上限に達しました。",
+    "swapDeadlineExpire": "スワップの有効期限が切れました。もう一度お試しください。",
     "tooMuchRepay": "返済額が未返済の借入額を超えています。"
   },
   "controls": {

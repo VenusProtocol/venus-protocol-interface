@@ -409,6 +409,7 @@
       "showRawError": "Hiện lỗi thô"
     },
     "supplyCapExceeded": "Đã đạt giới hạn cung cấp cho thị trường này.",
+    "swapDeadlineExpire": "Phiên hoán đổi đã hết hạn. Vui lòng thử lại.",
     "tooMuchRepay": "Số tiền trả vượt quá khoản vay còn lại của bạn."
   },
   "controls": {

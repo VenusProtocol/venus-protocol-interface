@@ -409,6 +409,7 @@
       "showRawError": "显示原始错误"
     },
     "supplyCapExceeded": "该市场已达到存款上限。",
+    "swapDeadlineExpire": "兑换已超时，请重试。",
     "tooMuchRepay": "还款金额超过了你的未偿借款。"
   },
   "controls": {

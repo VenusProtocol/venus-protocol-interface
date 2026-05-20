@@ -409,6 +409,7 @@
       "showRawError": "Ham hatayı göster"
     },
     "supplyCapExceeded": "Bu pazar için arz üst sınırına ulaşıldı.",
+    "swapDeadlineExpire": "Takas süresi doldu. Lütfen tekrar deneyin.",
     "tooMuchRepay": "Geri ödeme tutarı bekleyen borç bakiyenizi aşıyor."
   },
   "controls": {

@@ -409,6 +409,7 @@
       "showRawError": "Show raw error"
     },
     "supplyCapExceeded": "Supply cap reached for this market.",
+    "swapDeadlineExpire": "Swap deadline expired. Please try again.",
     "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
   },
   "controls": {

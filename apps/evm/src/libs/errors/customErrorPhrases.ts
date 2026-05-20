@@ -7,4 +7,5 @@ export const customErrorPhrases: Record<string, string> = {
   SupplyCapExceeded: t('contractErrors.supplyCapExceeded'),
   BorrowCapExceeded: t('contractErrors.borrowCapExceeded'),
   TooMuchRepay: t('contractErrors.tooMuchRepay'),
+  SwapDeadlineExpire: t('contractErrors.swapDeadlineExpire'),
 };
