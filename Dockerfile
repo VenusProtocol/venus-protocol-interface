@@ -9,7 +9,7 @@ WORKDIR /usr/app
 
 COPY . .
 
-RUN yarn
+RUN corepack enable && yarn install --immutable
 
 COPY . .
 

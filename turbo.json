@@ -5,7 +5,7 @@
   "tasks": {
     "generate": {
       "cache": false,
-      "dependsOn": ["^generate"]
+      "dependsOn": ["^build"]
     },
     "postinstall": {
       "cache": false,
@@ -20,7 +20,7 @@
       "outputs": ["coverage/**/*"]
     },
     "build": {
-      "dependsOn": ["^build", "^postinstall"],
+      "dependsOn": ["^build", "generate"],
       "outputs": ["build/**/*"]
     },
     "lint": {

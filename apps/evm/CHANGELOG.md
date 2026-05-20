@@ -1,5 +1,23 @@
 # @venusprotocol/evm
 
+## 4.31.0
+
+### Minor Changes
+
+- 6cbc22a: Update yarn and add a minimal age for dependencies
+
+### Patch Changes
+
+- Updated dependencies [6cbc22a]
+  - @venusprotocol/chains@0.25.0
+  - @venusprotocol/ui@0.10.0
+
+## 4.30.0
+
+### Minor Changes
+
+- 97a9add: fix issue with borrow capability incorrectly detected for isolated e-mode groups
+
 ## 4.29.0
 
 ### Minor Changes
