@@ -24,11 +24,11 @@ export const ContractErrorNotice: React.FC<ContractErrorNoticeProps> = ({
   const headline = friendlyPhrase ?? t('contractErrors.notice.fallback');
 
   return (
-    <div className="space-y-3">
-      <p className="text-sm">{headline}</p>
+    <div className="space-y-2">
+      <p className="text-sm text-white">{headline}</p>
 
       {!hasFriendlyPhrase && (
-        <div className="rounded-lg bg-background-active px-3 py-2 font-mono text-xs break-all">
+        <div className="rounded-lg border border-dark-grey-hover bg-background/50 px-3 py-2 font-mono text-xs break-all">
           <span className="text-light-grey">{t('contractErrors.notice.errorLabel')}: </span>
           <span className="text-white">{errorName}</span>
           {signature && <span className="text-light-grey"> ({signature})</span>}
@@ -49,7 +49,7 @@ export const ContractErrorNotice: React.FC<ContractErrorNoticeProps> = ({
       {isRawVisible && (
         <pre
           className={cn(
-            'max-h-60 overflow-auto rounded-lg bg-background-active p-3',
+            'max-h-60 overflow-auto rounded-lg border border-dark-grey-hover bg-background/50 p-3',
             'font-mono text-xs text-white whitespace-pre-wrap break-all',
           )}
         >

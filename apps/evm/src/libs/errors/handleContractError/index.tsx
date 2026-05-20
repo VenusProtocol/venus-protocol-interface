@@ -21,7 +21,6 @@ export const handleContractError = ({ error, parsed }: HandleContractErrorInput)
 
   displayNotification({
     variant: 'error',
-    autoClose: false,
     description: (
       <ContractErrorNotice
         friendlyPhrase={friendlyPhrase}
