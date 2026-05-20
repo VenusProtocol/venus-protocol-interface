@@ -13,12 +13,18 @@ export interface HandleContractErrorInput {
 }
 
 export const handleContractError = ({ error, parsed }: HandleContractErrorInput) => {
+  const firstArg = parsed.args?.[0];
+  const friendlyPhrase =
+    parsed.errorName === 'Error' && typeof firstArg === 'string'
+      ? firstArg
+      : customErrorPhrases[parsed.errorName];
+
   displayNotification({
     variant: 'error',
     autoClose: false,
     description: (
       <ContractErrorNotice
-        friendlyPhrase={getFriendlyPhrase(parsed)}
+        friendlyPhrase={friendlyPhrase}
         errorName={parsed.errorName}
         signature={parsed.signature}
         rawMessage={error.message}
@@ -26,12 +32,4 @@ export const handleContractError = ({ error, parsed }: HandleContractErrorInput)
     ),
   });
   logError(error);
-};
-
-const getFriendlyPhrase = (parsed: ParsedContractError): string | undefined => {
-  const firstArg = parsed.args?.[0];
-  if (parsed.errorName === 'Error' && typeof firstArg === 'string') {
-    return firstArg;
-  }
-  return customErrorPhrases[parsed.errorName];
 };
