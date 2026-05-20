@@ -22,7 +22,7 @@ export const PositionForm: React.FC<FormProps> = ({ action, position, ...otherPr
   const canWithdrawLong = !position.longAsset.disabledTokenActions.includes('withdraw');
   const canBorrowShort =
     !position.shortAsset.disabledTokenActions.includes('borrow') &&
-    position.shortAsset.isBorrowableByUser;
+    position.shortAsset.isBorrowable;
   const canRepayShort = !position.shortAsset.disabledTokenActions.includes('repay');
 
   let warningMessage: undefined | string;
