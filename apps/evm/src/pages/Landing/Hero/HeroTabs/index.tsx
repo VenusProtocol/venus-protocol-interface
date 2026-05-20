@@ -7,7 +7,7 @@ import { type Tab, useTabs } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Asset } from 'types';
-import { getCombinedDistributionApys } from 'utilities';
+import { getBestDistributionApys } from 'utilities';
 import { isSunsetChain } from 'utilities/isSunsetChain';
 import { GlassCard } from './GlassCard';
 import { TabContent } from './TabContent';
@@ -29,13 +29,13 @@ export const HeroTabs: React.FC = () => {
   const poolAssets = getPoolData?.pool.assets ?? [];
 
   let topSupplyAsset: Asset | undefined;
-  let topSupplyAssetApys: ReturnType<typeof getCombinedDistributionApys> | undefined;
+  let topSupplyAssetApys: ReturnType<typeof getBestDistributionApys> | undefined;
 
   let topBorrowAsset: Asset | undefined;
-  let topBorrowAssetApys: ReturnType<typeof getCombinedDistributionApys> | undefined;
+  let topBorrowAssetApys: ReturnType<typeof getBestDistributionApys> | undefined;
 
   poolAssets.forEach(asset => {
-    const assetApys = getCombinedDistributionApys({ asset, usePrimeMax: true });
+    const assetApys = getBestDistributionApys({ asset });
 
     if (
       (ignoreDisabledActions || !asset.disabledTokenActions.includes('supply')) &&

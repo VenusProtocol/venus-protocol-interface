@@ -8,7 +8,7 @@ import type { Asset } from 'types';
 import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
-  getCombinedDistributionApys,
+  getBestDistributionApys,
 } from 'utilities';
 import { Row } from '../Row';
 import { Earnings } from './Earnings';
@@ -23,7 +23,7 @@ export interface TabContentProps {
 export const TabContent: React.FC<TabContentProps> = ({ asset, type }) => {
   const { t, Trans } = useTranslation();
 
-  const combinedApys = getCombinedDistributionApys({ asset, usePrimeMax: true });
+  const combinedApys = getBestDistributionApys({ asset });
 
   const readableApy = formatPercentageToReadableValue(
     type === 'supply'
