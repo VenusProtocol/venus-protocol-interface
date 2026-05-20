@@ -9,11 +9,24 @@ import {
 import {
   isolatedPoolComptrollerAbi,
   legacyPoolComptrollerAbi,
+  leverageManagerAbi,
   nativeTokenGatewayAbi,
+  nexusAbi,
+  nexusAccountFactoryAbi,
+  nexusBoostrapAbi,
+  omnichainGovernanceExecutorAbi,
+  pendlePtVaultAbi,
   primeAbi,
+  relativePositionManagerAbi,
+  resilientOracleAbi,
+  rewardsDistributorAbi,
+  swapRouterAbi,
   vBep20Abi,
   vBnbAbi,
   vaiControllerAbi,
+  xVSProxyOFTDestAbi,
+  xVSProxyOFTSrcAbi,
+  xvsTokenOmnichainAbi,
 } from 'libs/contracts';
 
 export interface ParsedContractError {
@@ -22,14 +35,34 @@ export interface ParsedContractError {
   signature?: Hex;
 }
 
-const VENUS_ABIS: Abi[] = [
+// ABIs scanned to decode raw revert data when viem has not pre-decoded it.
+// Includes all Venus contracts the frontend interacts with, plus third-party
+// contracts users can reach (smart accounts, swap, bridge).
+const KNOWN_ABIS: Abi[] = [
+  // Venus — core lending
   isolatedPoolComptrollerAbi,
   legacyPoolComptrollerAbi,
   vBep20Abi,
   vBnbAbi,
-  primeAbi,
   vaiControllerAbi,
+  // Venus — extras
+  primeAbi,
   nativeTokenGatewayAbi,
+  rewardsDistributorAbi,
+  swapRouterAbi,
+  leverageManagerAbi,
+  relativePositionManagerAbi,
+  pendlePtVaultAbi,
+  resilientOracleAbi,
+  // Venus — cross-chain / governance
+  xvsTokenOmnichainAbi,
+  xVSProxyOFTDestAbi,
+  xVSProxyOFTSrcAbi,
+  omnichainGovernanceExecutorAbi,
+  // Third-party — smart accounts
+  nexusAbi,
+  nexusAccountFactoryAbi,
+  nexusBoostrapAbi,
 ];
 
 const SELECTOR_LENGTH = 10;
@@ -74,7 +107,7 @@ const readRawRevertData = (error: BaseError): Hex | undefined => {
 };
 
 const decodeWithKnownAbis = (rawData: Hex, signature: Hex): ParsedContractError | undefined => {
-  for (const abi of VENUS_ABIS) {
+  for (const abi of KNOWN_ABIS) {
     try {
       const decoded = decodeErrorResult({ abi, data: rawData });
       return { errorName: decoded.errorName, args: decoded.args, signature };
