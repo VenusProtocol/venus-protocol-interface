@@ -971,7 +971,7 @@
             "penalty": "Ceza",
             "threshold": "Eşik"
           },
-          "mobileSelectLabel": "TRANSLATION NEEDED",
+          "mobileSelectLabel": "Sırala:",
           "searchPlaceholder": "Varlık veya grup ara"
         }
       },
@@ -1626,7 +1626,7 @@
   },
   "table": {
     "cardsSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Sırala"
     }
   },
   "tokenTextField": {

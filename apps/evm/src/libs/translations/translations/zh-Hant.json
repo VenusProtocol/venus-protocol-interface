@@ -971,7 +971,7 @@
             "penalty": "罰金",
             "threshold": "閾值"
           },
-          "mobileSelectLabel": "TRANSLATION NEEDED",
+          "mobileSelectLabel": "排序：",
           "searchPlaceholder": "搜尋資產或組"
         }
       },
@@ -1626,7 +1626,7 @@
   },
   "table": {
     "cardsSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "排序"
     }
   },
   "tokenTextField": {

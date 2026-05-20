@@ -971,7 +971,7 @@
             "penalty": "Phạt",
             "threshold": "Ngưỡng"
           },
-          "mobileSelectLabel": "TRANSLATION NEEDED",
+          "mobileSelectLabel": "Sắp xếp theo:",
           "searchPlaceholder": "Tìm tài sản hoặc nhóm"
         }
       },
@@ -1626,7 +1626,7 @@
   },
   "table": {
     "cardsSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Sắp xếp theo"
     }
   },
   "tokenTextField": {

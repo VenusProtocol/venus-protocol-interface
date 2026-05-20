@@ -971,7 +971,7 @@
             "penalty": "Penalty",
             "threshold": "Threshold"
           },
-          "mobileSelectLabel": "TRANSLATION NEEDED",
+          "mobileSelectLabel": "Sort by:",
           "searchPlaceholder": "Search asset or group"
         }
       },
@@ -1626,7 +1626,7 @@
   },
   "table": {
     "cardsSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Sort by"
     }
   },
   "tokenTextField": {

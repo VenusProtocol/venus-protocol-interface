@@ -971,7 +971,7 @@
             "penalty": "บทลงโทษ",
             "threshold": "เกณฑ์"
           },
-          "mobileSelectLabel": "TRANSLATION NEEDED",
+          "mobileSelectLabel": "เรียงตาม:",
           "searchPlaceholder": "ค้นหาสินทรัพย์หรือกลุ่ม"
         }
       },
@@ -1626,7 +1626,7 @@
   },
   "table": {
     "cardsSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "เรียงตาม"
     }
   },
   "tokenTextField": {
