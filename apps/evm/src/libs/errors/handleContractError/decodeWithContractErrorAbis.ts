@@ -28,7 +28,7 @@ import type { ParsedContractError } from './parseContractError';
 // ABIs scanned to decode raw revert data when viem has not pre-decoded it.
 // Includes all Venus contracts the frontend interacts with, plus third-party
 // contracts users can reach (smart accounts, swap, bridge).
-const KNOWN_ABIS: Abi[] = [
+const CONTRACT_ERROR_ABIS: Abi[] = [
   // Venus — core lending
   isolatedPoolComptrollerAbi,
   legacyPoolComptrollerAbi,
@@ -55,11 +55,11 @@ const KNOWN_ABIS: Abi[] = [
   nexusBoostrapAbi,
 ];
 
-export const decodeWithKnownAbis = (
+export const decodeWithContractErrorAbis = (
   rawData: Hex,
   signature: Hex,
 ): ParsedContractError | undefined => {
-  for (const abi of KNOWN_ABIS) {
+  for (const abi of CONTRACT_ERROR_ABIS) {
     try {
       const decoded = decodeErrorResult({ abi, data: rawData });
       return { errorName: decoded.errorName, args: decoded.args, signature };

@@ -1,7 +1,7 @@
 import { BaseError, type Hex } from 'viem';
 
 import { SELECTOR_LENGTH } from './constants';
-import { decodeWithKnownAbis } from './decodeWithKnownAbis';
+import { decodeWithContractErrorAbis } from './decodeWithContractErrorAbis';
 import { readPreDecodedRevert } from './readPreDecodedRevert';
 import { readRawRevertData } from './readRawRevertData';
 
@@ -28,6 +28,9 @@ export const parseContractError = (error: unknown): ParsedContractError | undefi
   }
   const signature = rawData.slice(0, SELECTOR_LENGTH) as Hex;
   return (
-    decodeWithKnownAbis(rawData, signature) ?? { errorName: 'UnknownContractError', signature }
+    decodeWithContractErrorAbis(rawData, signature) ?? {
+      errorName: 'UnknownContractError',
+      signature,
+    }
   );
 };
