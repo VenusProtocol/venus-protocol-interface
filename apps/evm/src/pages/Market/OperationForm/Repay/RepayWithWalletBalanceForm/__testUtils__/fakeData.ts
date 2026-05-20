@@ -8,6 +8,7 @@ import type { Asset, Pool, TokenBalance } from 'types';
 export const fakePool: Pool = {
   ...poolData[0],
   userBorrowBalanceCents: new BigNumber(10),
+  userBorrowBalanceProtectedCents: new BigNumber(10),
   userBorrowLimitCents: new BigNumber(1000),
 };
 
@@ -16,6 +17,9 @@ export const fakeAsset: Asset = {
   userBorrowBalanceTokens: new BigNumber(1000),
   userWalletBalanceTokens: new BigNumber(10000000),
   tokenPriceCents: new BigNumber(100),
+  tokenSupplyPriceCents: new BigNumber(100),
+  tokenBorrowPriceCents: new BigNumber(100),
+  isProtectionModeEnabled: false,
 };
 
 export const fakeWethAsset: Asset = {

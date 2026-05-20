@@ -9,6 +9,7 @@ export interface LabeledProgressBarProps extends ProgressBarProps {
   whiteLeftText?: string | React.ReactElement;
   greyRightText?: string | React.ReactElement;
   whiteRightText?: string;
+  leftInfoTooltip?: string | React.ReactNode;
   rightInfoTooltip?: string | React.ReactNode;
   className?: string;
 }
@@ -18,6 +19,7 @@ export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
   whiteRightText,
   greyLeftText,
   whiteLeftText,
+  leftInfoTooltip,
   rightInfoTooltip,
   className,
   ...progressBarProps
@@ -37,6 +39,10 @@ export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
             <Typography component="span" variant="small1" css={styles.inlineValue}>
               {whiteLeftText}
             </Typography>
+          )}
+
+          {leftInfoTooltip && (
+            <InfoIcon className="ml-1 inline-flex items-center" tooltip={leftInfoTooltip} />
           )}
         </div>
 

@@ -1,5 +1,11 @@
 # @venusprotocol/ui
 
+## 0.10.0
+
+### Minor Changes
+
+- 6cbc22a: Update yarn and add a minimal age for dependencies
+
 ## 0.9.0
 
 ### Minor Changes

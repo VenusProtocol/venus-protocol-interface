@@ -36,14 +36,9 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
     return <Spinner />;
   }
 
-  if (
-    asset.disabledTokenActions.includes(action) ||
-    ((action === 'borrow' || action === 'boost') && !asset.isBorrowable)
-  ) {
-    return <DisabledActionNotice token={vToken.underlyingToken} action={action} />;
-  }
+  const isBorrowAction = action === 'borrow' || action === 'boost';
 
-  if ((action === 'borrow' || action === 'boost') && !asset.isBorrowableByUser) {
+  if (isBorrowAction && !asset.isBorrowableByUser) {
     const components = {
       Link: (
         <EModeButton
@@ -55,7 +50,9 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
       ),
     };
 
-    return (
+    return asset.isBorrowable ? (
+      // If the asset is normally borrowable from the pool, then the user's E-mode group settings
+      // are preventing them from being able to borrow it
       <NoticeWarning
         description={
           pool.userEModeGroup?.isIsolated ? (
@@ -71,7 +68,13 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
           )
         }
       />
+    ) : (
+      <DisabledActionNotice token={vToken.underlyingToken} action={action} />
     );
+  }
+
+  if (asset.disabledTokenActions.includes(action)) {
+    return <DisabledActionNotice token={vToken.underlyingToken} action={action} />;
   }
 
   return children({ asset, pool });

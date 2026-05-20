@@ -6,6 +6,7 @@ import {
   InfoIcon,
   LayeredValues,
   ProgressBar,
+  ProtectionModeIndicator,
   type TableColumn,
   Toggle,
   TokenIconWithSymbol,
@@ -66,10 +67,12 @@ export const useColumns = ({
   columnKeys,
   collateralOnChange,
   userEModeGroup,
+  marketType,
 }: {
   columnKeys: ColumnKey[];
   collateralOnChange: (asset: Asset) => void;
   userEModeGroup?: EModeGroup;
+  marketType?: 'supply' | 'borrow';
 }) => {
   const { t, Trans } = useTranslation();
   const styles = useStyles();
@@ -130,12 +133,12 @@ export const useColumns = ({
 
         if (column === 'asset' || column === 'assetAndChain') {
           return (
-            <div className="flex min-w-0 items-center space-x-2">
+            <div className="flex min-w-0 items-center space-x-1">
               <TokenIconWithSymbol
                 token={asset.vToken.underlyingToken}
                 displayChain={column === 'assetAndChain'}
                 size={column === 'assetAndChain' ? 'md' : 'xl'}
-                className="min-w-0"
+                className="min-w-[5rem]"
               />
 
               {userEModeGroup && isInUserEModeGroup && (
@@ -153,6 +156,18 @@ export const useColumns = ({
                 >
                   <EModeIcon className="size-5" isIsolated={userEModeGroup.isIsolated} />
                 </Tooltip>
+              )}
+
+              {asset.isProtectionModeEnabled && (
+                <ProtectionModeIndicator
+                  variant="icon"
+                  tooltipType={marketType ?? 'list'}
+                  tokenName={asset.vToken.underlyingToken.symbol}
+                  tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+                  tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+                  userSupplyBalanceCents={asset.userSupplyBalanceProtectedCents}
+                  userBorrowBalanceCents={asset.userBorrowBalanceProtectedCents}
+                />
               )}
 
               {isPaused && (

@@ -10,6 +10,14 @@ Official monorepo for the [Venus protocol](https://venus.io) frontend apps.
 
 ### Install dependencies with yarn
 
+Yarn version is pinned via Corepack. Enable it once on your machine:
+
+```ssh
+corepack enable
+```
+
+Then install:
+
 ```ssh
 yarn
 ```

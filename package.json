@@ -2,7 +2,7 @@
   "name": "venusprotocol",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "yarn@1.22.21",
+  "packageManager": "yarn@4.14.1",
   "workspaces": [
     "packages/*",
     "configs/*",
@@ -20,7 +20,8 @@
     "build": "turbo run build",
     "extract-translations": "turbo run extract-translations",
     "changeset": "changeset",
-    "postinstall": "husky && turbo run generate"
+    "prepare": "husky",
+    "postinstall": "turbo run generate"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
@@ -37,6 +38,7 @@
   },
   "resolutions": {
     "react-error-overlay": "6.0.11",
-    "@emotion/styled": "^11.0.0"
+    "@emotion/styled": "^11.0.0",
+    "hono": "4.12.17"
   }
 }

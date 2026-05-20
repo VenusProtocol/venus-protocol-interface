@@ -1,5 +1,35 @@
 # @venusprotocol/evm
 
+## 4.31.0
+
+### Minor Changes
+
+- 6cbc22a: Update yarn and add a minimal age for dependencies
+
+### Patch Changes
+
+- Updated dependencies [6cbc22a]
+  - @venusprotocol/chains@0.25.0
+  - @venusprotocol/ui@0.10.0
+
+## 4.30.0
+
+### Minor Changes
+
+- 97a9add: fix issue with borrow capability incorrectly detected for isolated e-mode groups
+
+## 4.29.0
+
+### Minor Changes
+
+- dbf5ddb: feat: support protection mode
+
+## 4.28.1
+
+### Patch Changes
+
+- 0e0052d: fix: ignore sunset chain top borrow top supply filter
+
 ## 4.28.0
 
 ### Minor Changes

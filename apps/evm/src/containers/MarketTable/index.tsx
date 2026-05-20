@@ -3,7 +3,14 @@ import { cn } from '@venusprotocol/ui';
 import { useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
-import { Card, Delimiter, Modal, Table, type TableProps } from 'components';
+import {
+  Card,
+  Delimiter,
+  Modal,
+  ProtectionModeIndicator,
+  Table,
+  type TableProps,
+} from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
@@ -108,6 +115,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     columnKeys,
     collateralOnChange: handleCollateralChange,
     userEModeGroup,
+    marketType,
   });
 
   const formattedInitialOrder = useMemo(() => {
@@ -223,7 +231,19 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       {selectedAsset && (
         <Modal
           isOpen={!!selectedAsset}
-          title={selectedAsset.vToken.underlyingToken.symbol}
+          title={
+            <span className="inline-flex items-center gap-x-2">
+              {selectedAsset.isProtectionModeEnabled && (
+                <ProtectionModeIndicator
+                  variant="icon"
+                  tokenName={selectedAsset.vToken.underlyingToken.symbol}
+                  tokenSupplyPriceCents={selectedAsset.tokenSupplyPriceCents}
+                  tokenBorrowPriceCents={selectedAsset.tokenBorrowPriceCents}
+                />
+              )}
+              {selectedAsset.vToken.underlyingToken.symbol}
+            </span>
+          }
           handleClose={handleCloseMarketModal}
         >
           <OperationForm

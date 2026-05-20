@@ -57,6 +57,7 @@ export * from './ChartTooltipContent';
 export * from './ChartYAxisTick';
 export * from './InfoIcon';
 export * from './EModeIcon';
+export * from './ProtectionModeIndicator';
 export * from './MarketStatus';
 export * from './Slider';
 export * from './IsolatedEModeGroupTooltip';
