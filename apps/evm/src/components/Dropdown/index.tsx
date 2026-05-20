@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
 import { useBreakpointUp } from 'hooks/responsive';
@@ -29,32 +29,6 @@ export const Dropdown = ({
 
   const isMdOrUp = useBreakpointUp('md');
 
-  // Hover-close timer: delay close on mouseLeave so the cursor has time to cross the gap between
-  // the trigger and the dropdown menu without prematurely dismissing it.
-  const hoverCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const clearHoverCloseTimer = () => {
-    if (hoverCloseTimerRef.current) {
-      clearTimeout(hoverCloseTimerRef.current);
-      hoverCloseTimerRef.current = null;
-    }
-  };
-  const handleHoverEnter = () => {
-    clearHoverCloseTimer();
-    setIsDropdownOpened(true);
-  };
-  const handleHoverLeave = () => {
-    clearHoverCloseTimer();
-    hoverCloseTimerRef.current = setTimeout(() => setIsDropdownOpened(false), 200);
-  };
-  useEffect(
-    () => () => {
-      if (hoverCloseTimerRef.current) {
-        clearTimeout(hoverCloseTimerRef.current);
-      }
-    },
-    [],
-  );
-
   return (
     <>
       <div className={cn(placeLabelToLeft && 'inline-flex items-center', className)}>
@@ -66,8 +40,8 @@ export const Dropdown = ({
 
         <div
           className="relative w-full"
-          onMouseEnter={triggerOnHover ? handleHoverEnter : undefined}
-          onMouseLeave={triggerOnHover ? handleHoverLeave : undefined}
+          onMouseEnter={triggerOnHover ? () => setIsDropdownOpened(true) : undefined}
+          onMouseLeave={triggerOnHover ? () => setIsDropdownOpened(false) : undefined}
         >
           {/* MD and up backdrop — click mode only */}
           {isDropdownOpened && !triggerOnHover && (
