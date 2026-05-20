@@ -1,6 +1,6 @@
 import { type BaseError, ContractFunctionRevertedError } from 'viem';
 
-import type { ParsedContractError } from './parseContractError';
+import type { ParsedContractError } from '../parseContractError';
 
 export const readPreDecodedRevert = (error: BaseError): ParsedContractError | undefined => {
   const layer = error.walk(e => e instanceof ContractFunctionRevertedError);

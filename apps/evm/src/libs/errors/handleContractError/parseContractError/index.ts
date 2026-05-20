@@ -1,9 +1,9 @@
 import { BaseError, type Hex } from 'viem';
 
-import { SELECTOR_LENGTH } from './constants';
-import { decodeWithContractErrorAbis } from './decodeWithContractErrorAbis';
-import { readPreDecodedRevert } from './readPreDecodedRevert';
-import { readRawRevertData } from './readRawRevertData';
+import { SELECTOR_LENGTH } from '../constants';
+import { decodeWithContractErrorAbis } from '../decodeWithContractErrorAbis';
+import { readPreDecodedRevert } from '../readPreDecodedRevert';
+import { readRawRevertData } from '../readRawRevertData';
 
 export interface ParsedContractError {
   errorName: string;

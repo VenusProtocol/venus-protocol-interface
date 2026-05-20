@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { isolatedPoolComptrollerAbi } from 'libs/contracts';
 
-import { parseContractError } from '../parseContractError';
+import { parseContractError } from '..';
 
 describe('parseContractError', () => {
   it('decodes a viem ContractFunctionRevertedError that already carries decoded data', () => {
