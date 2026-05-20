@@ -53,12 +53,12 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
 
 export interface GetCombinedDistributionApysInput {
   asset: Asset;
-  usePrimeSimulation?: boolean;
+  usePrimeMax?: boolean;
 }
 
 const getCombinedDistributionApys = ({
   asset,
-  usePrimeSimulation = false,
+  usePrimeMax = false,
 }: GetCombinedDistributionApysInput) => {
   const supply = aggregatePercentages({
     distributions: asset.supplyTokenDistributions.filter(d => d.isActive),
@@ -67,11 +67,11 @@ const getCombinedDistributionApys = ({
     distributions: asset.borrowTokenDistributions.filter(d => d.isActive),
   });
 
-  const supplyPrimeBoostPercentage = usePrimeSimulation
-    ? supply.apyPrimeSimulationPercentage
+  const supplyPrimeBoostPercentage = usePrimeMax
+    ? BigNumber.maximum(supply.apyPrimePercentage, supply.apyPrimeSimulationPercentage)
     : supply.apyPrimePercentage;
-  const borrowPrimeBoostPercentage = usePrimeSimulation
-    ? borrow.apyPrimeSimulationPercentage
+  const borrowPrimeBoostPercentage = usePrimeMax
+    ? BigNumber.maximum(borrow.apyPrimePercentage, borrow.apyPrimeSimulationPercentage)
     : borrow.apyPrimePercentage;
 
   const totalSupplyApyBoostPercentage = supply.apyRewardsPercentage.plus(

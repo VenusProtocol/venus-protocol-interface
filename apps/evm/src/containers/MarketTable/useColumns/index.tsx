@@ -330,11 +330,11 @@ export const useColumns = ({
           : (rowA, rowB, direction) => {
               if (column === 'borrowApy' || column === 'labeledBorrowApy') {
                 const roaABorrowApy = rowA.borrowApyPercentage.minus(
-                  getCombinedDistributionApys({ asset: rowA, usePrimeSimulation: true })
+                  getCombinedDistributionApys({ asset: rowA, usePrimeMax: true })
                     .totalBorrowApyBoostPercentage,
                 );
                 const roaBBorrowApy = rowB.borrowApyPercentage.minus(
-                  getCombinedDistributionApys({ asset: rowB, usePrimeSimulation: true })
+                  getCombinedDistributionApys({ asset: rowB, usePrimeMax: true })
                     .totalBorrowApyBoostPercentage,
                 );
 
@@ -343,11 +343,11 @@ export const useColumns = ({
 
               if (column === 'supplyApy' || column === 'labeledSupplyApy') {
                 const roaASupplyApy = rowA.supplyApyPercentage.plus(
-                  getCombinedDistributionApys({ asset: rowA, usePrimeSimulation: true })
+                  getCombinedDistributionApys({ asset: rowA, usePrimeMax: true })
                     .totalSupplyApyBoostPercentage,
                 );
                 const roaBSupplyApy = rowB.supplyApyPercentage.plus(
-                  getCombinedDistributionApys({ asset: rowB, usePrimeSimulation: true })
+                  getCombinedDistributionApys({ asset: rowB, usePrimeMax: true })
                     .totalSupplyApyBoostPercentage,
                 );
 

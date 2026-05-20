@@ -23,7 +23,7 @@ export interface TabContentProps {
 export const TabContent: React.FC<TabContentProps> = ({ asset, type }) => {
   const { t, Trans } = useTranslation();
 
-  const combinedApys = getCombinedDistributionApys({ asset, usePrimeSimulation: true });
+  const combinedApys = getCombinedDistributionApys({ asset, usePrimeMax: true });
 
   const readableApy = formatPercentageToReadableValue(
     type === 'supply'

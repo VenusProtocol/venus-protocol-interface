@@ -35,7 +35,7 @@ export const HeroTabs: React.FC = () => {
   let topBorrowAssetApys: ReturnType<typeof getCombinedDistributionApys> | undefined;
 
   poolAssets.forEach(asset => {
-    const assetApys = getCombinedDistributionApys({ asset, usePrimeSimulation: true });
+    const assetApys = getCombinedDistributionApys({ asset, usePrimeMax: true });
 
     if (
       (ignoreDisabledActions || !asset.disabledTokenActions.includes('supply')) &&
