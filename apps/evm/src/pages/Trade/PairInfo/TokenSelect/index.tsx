@@ -1,13 +1,14 @@
 import { SelectButton, cn } from '@venusprotocol/ui';
 
-import { Icon, TokenIconWithSymbol, TokenListWrapper } from 'components';
+import { Icon, type OptionalTokenBalance, TokenIconWithSymbol, TokenListWrapper } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { Token } from 'types';
+import { compareBooleans } from 'utilities';
 
 export interface TokenSelectProps {
   selectedToken: Token;
-  tokens: Token[];
+  tokenBalances: OptionalTokenBalance[];
   onChangeSelectedToken: (token: Token) => void;
   type: 'long' | 'short';
   displayCommonTokenButtons?: boolean;
@@ -19,7 +20,7 @@ export interface TokenSelectProps {
 export const TokenSelect: React.FC<TokenSelectProps> = ({
   className,
   selectedToken,
-  tokens,
+  tokenBalances,
   onChangeSelectedToken,
   'data-testid': testId,
   type,
@@ -31,11 +32,15 @@ export const TokenSelect: React.FC<TokenSelectProps> = ({
   const showTokenList = () => setIsTokenListShown(true);
   const hideTokenList = () => setIsTokenListShown(false);
 
+  const sortedTokenBalances = [...tokenBalances].sort((a, b) =>
+    compareBooleans(a.isDeemed ?? false, b.isDeemed ?? false, 'asc'),
+  );
+
   return (
     <TokenListWrapper
       className={cn('w-full', className)}
       onTokenClick={onChangeSelectedToken}
-      tokenBalances={tokens.map(token => ({ token }))}
+      tokenBalances={sortedTokenBalances}
       onClose={hideTokenList}
       isListShown={isTokenListShown}
       selectedToken={selectedToken}

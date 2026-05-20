@@ -3,7 +3,6 @@ import { cn } from '@venusprotocol/ui';
 import { Icon, InfoIcon, LayeredValues, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import { TokenPair } from 'pages/Trade/TokenPair';
-import { formatLiquidationPriceTokensToReadableValue } from 'pages/Trade/formatLiquidationPriceTokensToReadableValue';
 import type { TradePosition } from 'types';
 import {
   compareBigNumbers,
@@ -13,6 +12,7 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
+import { LiquidationPrice } from './LiquidationPrice';
 
 export const useColumns = ({
   openPositionAccordionKeys,
@@ -165,19 +165,28 @@ export const useColumns = ({
     },
     {
       key: 'liquidationPrice',
-      label: t('trade.positions.table.liquidationPrice.title'),
+      label: (
+        <div className="flex items-center gap-x-1">
+          <span>{t('trade.positions.table.liquidationPrice.title')}</span>
+
+          <InfoIcon tooltip={t('trade.positions.table.liquidationPrice.tooltip')} />
+        </div>
+      ),
       selectOptionLabel: t('trade.positions.table.liquidationPrice.title'),
       sortRows: (rowA, rowB, direction) =>
         compareBigNumbers(rowA.liquidationPriceTokens, rowB.liquidationPriceTokens, direction),
       align: 'right',
-      renderCell: ({ shortAsset, liquidationPriceTokens }) => (
+      renderCell: ({ shortAsset, liquidationPriceTokens, pool }) => (
         <LayeredValues
           className="whitespace-nowrap"
-          topValue={formatLiquidationPriceTokensToReadableValue({
-            value: liquidationPriceTokens,
-            token: shortAsset.vToken.underlyingToken,
-            t,
-          })}
+          topValue={
+            <LiquidationPrice
+              liquidationPriceTokens={liquidationPriceTokens}
+              token={shortAsset.vToken.underlyingToken}
+              liquidationThresholdCents={pool.userLiquidationThresholdCents?.toNumber() ?? 0}
+              borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber() ?? 0}
+            />
+          }
         />
       ),
     },

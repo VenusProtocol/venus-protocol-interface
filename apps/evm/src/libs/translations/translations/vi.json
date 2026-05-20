@@ -1733,6 +1733,9 @@
         "collateralColumn": {
           "label": "Tài sản thế chấp"
         },
+        "collateralUtilizationColumn": {
+          "label": "Tỷ lệ sử dụng tài sản thế chấp"
+        },
         "healthFactor": {
           "label": "Hệ số an toàn",
           "tooltip": "Thanh lý tại < 1.0"
@@ -1748,10 +1751,11 @@
       "table": {
         "entryPrice": {
           "title": "EP",
-          "tooltip": "Tỷ lệ giá vào lệnh của vị thế này (số lượng tài sản Short ÷ số lượng tài sản Long), phản ánh giá trị tương đối giữa hai token kể từ lúc vào lệnh"
+          "tooltip": "Tỷ lệ giá vào lệnh của vị thế này (số lượng tài sản Short ÷ số lượng tài sản Long hoặc số lượng tài sản Long ÷ số lượng tài sản Short, tùy theo token cơ sở được chọn), phản ánh giá trị tương đối giữa hai token tại thời điểm vào lệnh."
         },
         "liquidationPrice": {
-          "title": "Liq."
+          "title": "Liq.",
+          "tooltip": "Giá thanh lý được tính dựa trên giá token cơ sở hiện tại và có thể thay đổi khi giá token cơ sở biến động. Hãy luôn theo dõi Health Factor (HF)."
         },
         "longColumn": {
           "title": "Long"

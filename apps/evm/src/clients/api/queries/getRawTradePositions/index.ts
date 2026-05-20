@@ -88,8 +88,13 @@ export const getRawTradePositions = async ({
       apiTradePosition.capitalUtilization.suppliedPrincipalMantissa || 0,
     );
 
+    let dsaUtilizedBalanceMantissa = new BigNumber(
+      apiTradePosition.capitalUtilization.capitalUtilizedMantissa || 0,
+    );
+
     if (userDsaAssetSupplyBalanceMantissa) {
       dsaBalanceMantissa = BigNumber.min(userDsaAssetSupplyBalanceMantissa, dsaBalanceMantissa);
+      dsaUtilizedBalanceMantissa = BigNumber.min(dsaUtilizedBalanceMantissa, dsaBalanceMantissa);
     }
 
     const tradePosition = formatToTradePosition({
@@ -99,6 +104,7 @@ export const getRawTradePositions = async ({
       longVTokenAddress: apiTradePosition.longVTokenAddress,
       shortVTokenAddress: apiTradePosition.shortVTokenAddress,
       dsaBalanceMantissa,
+      dsaUtilizedBalanceMantissa,
       leverageFactor: Number(apiTradePosition.effectiveLeverageRatio ?? 0),
       unrealizedPnlCents: apiTradePosition.pnl
         ? Number(apiTradePosition.pnl.unrealizedPnlUsd) * 100

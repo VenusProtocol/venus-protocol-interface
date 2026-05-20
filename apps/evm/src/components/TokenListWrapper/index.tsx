@@ -11,6 +11,7 @@ import { TextField } from '../TextField';
 import { getTokenListItemTestId } from './testIdGetters';
 
 export interface OptionalTokenBalance extends Omit<TokenBalance, 'balanceMantissa'> {
+  isDeemed?: boolean;
   balanceMantissa?: BigNumber;
 }
 
@@ -69,7 +70,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
 
         // If b is non-negative and a is negative, b comes first
         return 1;
-      }) as TokenBalance[],
+      }) as OptionalTokenBalance[],
     [tokenBalances],
   );
 
@@ -152,7 +153,10 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                     })
                   }
                 >
-                  <TokenIconWithSymbol token={tokenBalance.token} />
+                  <TokenIconWithSymbol
+                    token={tokenBalance.token}
+                    className={cn(tokenBalance.isDeemed && 'text-light-grey')}
+                  />
 
                   {tokenBalance.balanceMantissa && (
                     <Typography variant="small2" className="text-white">

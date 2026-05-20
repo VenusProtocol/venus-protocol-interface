@@ -1733,6 +1733,9 @@
         "collateralColumn": {
           "label": "抵押"
         },
+        "collateralUtilizationColumn": {
+          "label": "抵押品利用率"
+        },
         "healthFactor": {
           "label": "健康係數",
           "tooltip": "清算閾值 < 1.0"
@@ -1748,10 +1751,11 @@
       "table": {
         "entryPrice": {
           "title": "EP",
-          "tooltip": "此倉位的入場價格比率（空頭資產數量 ÷ 多頭資產數量），反映自入場以來兩種代幣之間的相對價值"
+          "tooltip": "此倉位的入場價格比率（空頭資產數量 ÷ 多頭資產數量，或多頭資產數量 ÷ 空頭資產數量，取決於所選基礎代幣），反映兩種代幣在入場時的相對價值。"
         },
         "liquidationPrice": {
-          "title": "清算價"
+          "title": "清算價",
+          "tooltip": "清算價格是根據當前基礎代幣價格計算，並可能隨著基礎代幣價格變動而改變。請始終留意健康係數（HF）。"
         },
         "longColumn": {
           "title": "多頭"

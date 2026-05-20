@@ -34,6 +34,11 @@ export const useSimulateTradeMutations = ({
     });
   }
 
+  const dsaUtilizedBalanceTokens = BigNumber.min(
+    position.dsaUtilizedBalanceTokens,
+    dsaBalanceTokens,
+  );
+
   const simulatedTradePosition =
     simulatedPool &&
     formatToTradePosition({
@@ -41,6 +46,10 @@ export const useSimulateTradeMutations = ({
       chainId: position.chainId,
       dsaBalanceMantissa: convertTokensToMantissa({
         value: dsaBalanceTokens,
+        token: position.dsaAsset.vToken.underlyingToken,
+      }),
+      dsaUtilizedBalanceMantissa: convertTokensToMantissa({
+        value: dsaUtilizedBalanceTokens,
         token: position.dsaAsset.vToken.underlyingToken,
       }),
       positionAccountAddress: position.positionAccountAddress,

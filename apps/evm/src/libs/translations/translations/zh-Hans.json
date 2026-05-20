@@ -1733,6 +1733,9 @@
         "collateralColumn": {
           "label": "可抵押"
         },
+        "collateralUtilizationColumn": {
+          "label": "抵押品利用率"
+        },
         "healthFactor": {
           "label": "健康系数",
           "tooltip": "清算阈值 < 1.0"
@@ -1748,10 +1751,11 @@
       "table": {
         "entryPrice": {
           "title": "EP",
-          "tooltip": "该仓位的入场价格比率（空头资产数量 ÷ 多头资产数量），反映自入场以来两种代币之间的相对价值"
+          "tooltip": "该仓位的入场价格比率（空头资产数量 ÷ 多头资产数量，或多头资产数量 ÷ 空头资产数量，具体取决于所选基础代币），反映两种代币在入场时的相对价值。"
         },
         "liquidationPrice": {
-          "title": "清算价"
+          "title": "清算价",
+          "tooltip": "清算价格基于当前基础代币价格计算，并可能随着基础代币价格变动而变化。请始终关注健康系数（HF）。"
         },
         "longColumn": {
           "title": "多头"

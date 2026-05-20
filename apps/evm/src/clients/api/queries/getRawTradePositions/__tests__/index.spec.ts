@@ -1,13 +1,14 @@
+import BigNumber from 'bignumber.js';
 import type { PublicClient } from 'viem';
 import type { Mock } from 'vitest';
 
 import fakeAddress, { altAddress } from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import tokens from '__mocks__/models/tokens';
-import { apiTradePositions, tradePositions } from '__mocks__/models/trade';
+import { apiTradePositions } from '__mocks__/models/trade';
 import { logError } from 'libs/errors';
 import { ChainId } from 'types';
-import { restService } from 'utilities';
+import { formatToTradePosition, restService } from 'utilities';
 import { type GetRawTradePositionsInput, getRawTradePositions } from '..';
 import { getPools } from '../../useGetPools/getPools';
 
@@ -32,6 +33,25 @@ const fakeInput: GetRawTradePositionsInput = {
   venusLensContractAddress: altAddress,
   tokens,
 };
+
+const formatApiTradePosition = (apiTradePosition: (typeof apiTradePositions)[number]) =>
+  formatToTradePosition({
+    pool: poolData[0],
+    chainId: fakeInput.chainId,
+    positionAccountAddress: apiTradePosition.positionAccountAddress,
+    dsaVTokenAddress: apiTradePosition.dsaVTokenAddress,
+    dsaBalanceMantissa: new BigNumber(
+      apiTradePosition.capitalUtilization.suppliedPrincipalMantissa || 0,
+    ),
+    dsaUtilizedBalanceMantissa: new BigNumber(
+      apiTradePosition.capitalUtilization.capitalUtilizedMantissa || 0,
+    ),
+    longVTokenAddress: apiTradePosition.longVTokenAddress,
+    shortVTokenAddress: apiTradePosition.shortVTokenAddress,
+    leverageFactor: Number(apiTradePosition.effectiveLeverageRatio ?? 0),
+    unrealizedPnlCents: Number(apiTradePosition.pnl?.unrealizedPnlUsd ?? 0) * 100,
+    unrealizedPnlPercentage: Number(apiTradePosition.pnl?.unrealizedPnlRatio ?? 0) * 100,
+  });
 
 describe('getRawTradePositions', () => {
   beforeEach(() => {
@@ -104,10 +124,10 @@ describe('getRawTradePositions', () => {
   it('returns positions in the correct format on success', async () => {
     const response = await getRawTradePositions(fakeInput);
 
-    const expectedPositions = tradePositions.slice(0, 2).map((position, index) => ({
-      ...position,
-      unrealizedPnlPercentage: Number(apiTradePositions[index].pnl?.unrealizedPnlRatio ?? 0) * 100,
-    }));
+    const expectedPositions = apiTradePositions
+      .slice(0, 2)
+      .map(formatApiTradePosition)
+      .filter(position => position !== undefined);
 
     expect(response).toEqual({
       positions: expectedPositions,
@@ -164,7 +184,7 @@ describe('getRawTradePositions', () => {
     const response = await getRawTradePositions(fakeInput);
 
     expect(response).toEqual({
-      positions: [tradePositions[0]],
+      positions: [formatApiTradePosition(apiTradePositions[0])],
     });
     expect(logError).toHaveBeenCalledTimes(1);
     expect(logError).toHaveBeenCalledWith(

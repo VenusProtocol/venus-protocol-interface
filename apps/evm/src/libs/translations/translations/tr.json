@@ -1733,6 +1733,9 @@
         "collateralColumn": {
           "label": "Teminat"
         },
+        "collateralUtilizationColumn": {
+          "label": "Teminat kullanım oranı"
+        },
         "healthFactor": {
           "label": "Sağlık faktörü",
           "tooltip": "Likidasyon < 1.0"
@@ -1748,10 +1751,11 @@
       "table": {
         "entryPrice": {
           "title": "EP",
-          "tooltip": "Bu pozisyonun giriş fiyat oranı (short varlık miktarı ÷ long varlık miktarı), girişten itibaren iki token arasındaki göreli değeri yansıtır"
+          "tooltip": "Bu pozisyonun giriş fiyat oranı (seçilen baz tokena bağlı olarak short varlık miktarı ÷ long varlık miktarı veya long varlık miktarı ÷ short varlık miktarı) olup, giriş anında iki token arasındaki göreli değeri yansıtır."
         },
         "liquidationPrice": {
-          "title": "Liq."
+          "title": "Liq.",
+          "tooltip": "Likidasyon fiyatı mevcut baz token fiyatına göre hesaplanır ve baz token fiyatı hareket ettikçe değişebilir. Sağlık Faktörünü (HF) her zaman takip edin."
         },
         "longColumn": {
           "title": "Long"

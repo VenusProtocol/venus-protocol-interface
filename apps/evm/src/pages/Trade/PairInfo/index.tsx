@@ -2,7 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router';
 
-import { Apy, CellGroup, type CellProps, Icon } from 'components';
+import { Apy, CellGroup, type CellProps, Icon, type OptionalTokenBalance } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Token } from 'types';
@@ -63,43 +63,53 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
     data: { borrowAssets, supplyAssets },
   } = useGetTradeAssets();
 
-  const { longAsset, longTokens } = supplyAssets.reduce<{
+  const { longAsset, longTokenBalances } = supplyAssets.reduce<{
     longAsset?: Asset;
-    longTokens: Token[];
+    longTokenBalances: OptionalTokenBalance[];
   }>(
     (acc, asset) => {
       if (areTokensEqual(asset.vToken.underlyingToken, longToken)) {
         acc.longAsset = asset;
       }
 
+      const tokenBalance: OptionalTokenBalance = {
+        token: asset.vToken.underlyingToken,
+        isDeemed: asset.disabledTokenActions.includes('supply'),
+      };
+
       return {
         ...acc,
-        longTokens: [...acc.longTokens, asset.vToken.underlyingToken],
+        longTokenBalances: [...acc.longTokenBalances, tokenBalance],
       };
     },
     {
       longAsset: undefined,
-      longTokens: [],
+      longTokenBalances: [],
     },
   );
 
-  const { shortAsset, shortTokens } = borrowAssets.reduce<{
+  const { shortAsset, shortTokenBalances } = borrowAssets.reduce<{
     shortAsset?: Asset;
-    shortTokens: Token[];
+    shortTokenBalances: OptionalTokenBalance[];
   }>(
     (acc, asset) => {
       if (areTokensEqual(asset.vToken.underlyingToken, shortToken)) {
         acc.shortAsset = asset;
       }
 
+      const tokenBalance: OptionalTokenBalance = {
+        token: asset.vToken.underlyingToken,
+        isDeemed: asset.disabledTokenActions.includes('borrow') || !asset.isBorrowable,
+      };
+
       return {
         ...acc,
-        shortTokens: [...acc.shortTokens, asset.vToken.underlyingToken],
+        shortTokenBalances: [...acc.shortTokenBalances, tokenBalance],
       };
     },
     {
       shortAsset: undefined,
-      shortTokens: [],
+      shortTokenBalances: [],
     },
   );
 
@@ -151,7 +161,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         <TokenSelect
           type="long"
           selectedToken={longToken}
-          tokens={longTokens}
+          tokenBalances={longTokenBalances}
           onChangeSelectedToken={setLongToken}
           data-testid="pair-info-long-token-select"
         />
@@ -159,7 +169,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         <TokenSelect
           type="short"
           selectedToken={shortToken}
-          tokens={shortTokens}
+          tokenBalances={shortTokenBalances}
           onChangeSelectedToken={setShortToken}
           data-testid="pair-info-short-token-select"
         />

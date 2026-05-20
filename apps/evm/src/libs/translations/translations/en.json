@@ -1733,6 +1733,9 @@
         "collateralColumn": {
           "label": "Collateral"
         },
+        "collateralUtilizationColumn": {
+          "label": "Collateral utilization"
+        },
         "healthFactor": {
           "label": "Health factor",
           "tooltip": "Liquidation at < 1.0"
@@ -1748,10 +1751,11 @@
       "table": {
         "entryPrice": {
           "title": "EP",
-          "tooltip": "The entry price ratio of this position (short asset amount ÷ long asset amount), reflecting the relative value between the two tokens from entry"
+          "tooltip": "The entry price ratio of this position (short asset amount ÷ long asset amount, or long asset amount ÷ short asset amount, depending on the selected base token), reflecting the relative value between the two tokens at entry."
         },
         "liquidationPrice": {
-          "title": "Liq."
+          "title": "Liq.",
+          "tooltip": "The liquidation price is calculated based on the current base token price and may change as the base token price moves. Always keep an eye on the Health Factor (HF)."
         },
         "longColumn": {
           "title": "Long"
