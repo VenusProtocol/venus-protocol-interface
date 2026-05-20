@@ -10,14 +10,15 @@ export interface GetBestDistributionApysInput {
 const getBestDistributionApys = ({ asset }: GetBestDistributionApysInput) => {
   const combined = getCombinedDistributionApys({ asset });
 
-  const supplyPrimeBoostPercentage = BigNumber.maximum(
-    combined.supplyApyPrimePercentage,
-    combined.supplyApyPrimeSimulationPercentage,
-  );
-  const borrowPrimeBoostPercentage = BigNumber.maximum(
-    combined.borrowApyPrimePercentage,
-    combined.borrowApyPrimeSimulationPercentage,
-  );
+  const isUserPrimeSupply = combined.supplyApyPrimePercentage.isGreaterThan(0);
+  const isUserPrimeBorrow = combined.borrowApyPrimePercentage.isGreaterThan(0);
+
+  const supplyPrimeBoostPercentage = isUserPrimeSupply
+    ? combined.supplyApyPrimePercentage
+    : combined.supplyApyPrimeSimulationPercentage;
+  const borrowPrimeBoostPercentage = isUserPrimeBorrow
+    ? combined.borrowApyPrimePercentage
+    : combined.borrowApyPrimeSimulationPercentage;
 
   const totalSupplyApyBoostPercentage = combined.supplyApyRewardsPercentage.plus(
     supplyPrimeBoostPercentage,
