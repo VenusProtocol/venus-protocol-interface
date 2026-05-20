@@ -1,31 +1,55 @@
 import type { Abi } from 'viem';
 
 import {
+  aavePoolAddressesProviderAbi,
+  aaveUiPoolDataProviderAbi,
+  aaveV3PoolAbi,
+  erc20Abi,
+  governorBravoDelegateAbi,
   isolatedPoolComptrollerAbi,
+  jumpRateModelAbi,
+  jumpRateModelV2Abi,
   legacyPoolComptrollerAbi,
   leverageManagerAbi,
+  maximillionAbi,
+  multicall3Abi,
   nativeTokenGatewayAbi,
   nexusAbi,
   nexusAccountFactoryAbi,
   nexusBoostrapAbi,
   omnichainGovernanceExecutorAbi,
+  pancakePairV2Abi,
   pendlePtVaultAbi,
+  poolLensAbi,
+  poolRegistryAbi,
   primeAbi,
   relativePositionManagerAbi,
   resilientOracleAbi,
   rewardsDistributorAbi,
   swapRouterAbi,
+  swapRouterV2Abi,
   vBep20Abi,
   vBnbAbi,
+  vTreasuryAbi,
+  vTreasuryV8Abi,
+  vaiAbi,
   vaiControllerAbi,
+  vaiVaultAbi,
+  venusLensAbi,
+  vrtAbi,
+  vrtConverterAbi,
   xVSProxyOFTDestAbi,
   xVSProxyOFTSrcAbi,
+  xvsAbi,
+  xvsStoreAbi,
   xvsTokenOmnichainAbi,
+  xvsVaultAbi,
+  xvsVestingAbi,
+  zyFiVaultAbi,
 } from 'libs/contracts';
 
 // ABIs scanned to decode raw revert data when viem has not pre-decoded it.
-// Includes all Venus contracts the frontend interacts with, plus third-party
-// contracts users can reach (smart accounts, swap, bridge).
+// Includes every contract the frontend may interact with (Venus + third-party).
 export const CONTRACT_ERROR_ABIS: Abi[] = [
   // Venus — core lending
   isolatedPoolComptrollerAbi,
@@ -33,22 +57,54 @@ export const CONTRACT_ERROR_ABIS: Abi[] = [
   vBep20Abi,
   vBnbAbi,
   vaiControllerAbi,
+  poolLensAbi,
+  poolRegistryAbi,
+  venusLensAbi,
   // Venus — extras
   primeAbi,
   nativeTokenGatewayAbi,
   rewardsDistributorAbi,
   swapRouterAbi,
+  swapRouterV2Abi as Abi, // generated ABI has a malformed constructor field
   leverageManagerAbi,
   relativePositionManagerAbi,
   pendlePtVaultAbi,
   resilientOracleAbi,
-  // Venus — cross-chain / governance
+  maximillionAbi,
+  // Venus — tokens
+  vaiAbi,
+  xvsAbi,
+  vrtAbi,
+  vrtConverterAbi,
+  // Venus — vaults / staking
+  vaiVaultAbi,
+  xvsVaultAbi,
+  xvsStoreAbi,
+  xvsVestingAbi,
+  zyFiVaultAbi,
+  // Venus — treasury
+  vTreasuryAbi,
+  vTreasuryV8Abi,
+  // Venus — interest rate models
+  jumpRateModelAbi,
+  jumpRateModelV2Abi,
+  // Venus — governance
+  governorBravoDelegateAbi,
+  omnichainGovernanceExecutorAbi,
+  // Venus — cross-chain
   xvsTokenOmnichainAbi,
   xVSProxyOFTDestAbi,
   xVSProxyOFTSrcAbi,
-  omnichainGovernanceExecutorAbi,
   // Third-party — smart accounts
   nexusAbi,
   nexusAccountFactoryAbi,
   nexusBoostrapAbi,
+  // Third-party — DeFi
+  aaveV3PoolAbi,
+  aaveUiPoolDataProviderAbi,
+  aavePoolAddressesProviderAbi,
+  pancakePairV2Abi,
+  // Generic
+  erc20Abi,
+  multicall3Abi,
 ];
