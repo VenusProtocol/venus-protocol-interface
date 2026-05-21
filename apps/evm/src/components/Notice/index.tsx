@@ -26,11 +26,11 @@ export const Notice = ({
 }: NoticeProps) => (
   <div
     className={cn(
-      'relative rounded-lg border backdrop-blur-lg transition-colors overflow-hidden',
-      (variant === 'info' || variant === 'loading') && 'bg-blue/10 border-lightGrey',
-      variant === 'error' && 'bg-red/10 border-red',
-      variant === 'success' && 'bg-green/10 border-green',
-      variant === 'warning' && 'bg-orange/10 border-orange',
+      'relative bg-background rounded-lg border transition-colors overflow-hidden',
+      (variant === 'info' || variant === 'loading') && 'border-lightGrey',
+      variant === 'error' && 'border-red',
+      variant === 'success' && 'border-green',
+      variant === 'warning' && 'border-orange',
       className,
     )}
     {...otherProps}
@@ -39,6 +39,10 @@ export const Notice = ({
       className={cn(
         'flex transition-colors ease-linear px-3 py-2',
         size === 'md' && 'md:px-4 md:py-3',
+        variant === 'info' && 'bg-blue/5',
+        variant === 'error' && 'bg-red/5',
+        variant === 'success' && 'bg-green/5',
+        variant === 'warning' && 'bg-orange/5',
       )}
     >
       <div className="flex grow overflow-hidden">
