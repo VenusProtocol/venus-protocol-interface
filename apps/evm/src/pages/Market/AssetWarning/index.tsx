@@ -13,8 +13,8 @@ import type { WarningType } from './types';
 export interface AssetWarningProps extends React.HTMLAttributes<HTMLDivElement> {
   type: WarningType;
   token: Token;
+  asset: Asset;
   pool?: Pool;
-  asset?: Asset;
   className?: string;
 }
 
@@ -38,7 +38,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
   }
 
   const description =
-    type === 'supply' && asset ? (
+    type === 'supply' ? (
       <SupplyNotification asset={asset} pool={pool} onShowAllMarkets={handleShowAssets} />
     ) : (
       <Trans

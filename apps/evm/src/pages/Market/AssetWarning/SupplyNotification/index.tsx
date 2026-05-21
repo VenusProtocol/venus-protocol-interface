@@ -53,7 +53,7 @@ export const SupplyNotification: React.FC<SupplyNotificationProps> = ({
   );
 
   if (!isAvailableInCore) {
-    let i18nKey: string;
+    let i18nKey: string | undefined;
 
     if (isAvailableInEMode && isAvailableInIsolation) {
       // t('assetWarning.modeOnly.eModeAndIsolation')
@@ -61,9 +61,13 @@ export const SupplyNotification: React.FC<SupplyNotificationProps> = ({
     } else if (isAvailableInEMode) {
       // t('assetWarning.modeOnly.eMode')
       i18nKey = 'assetWarning.modeOnly.eMode';
-    } else {
+    } else if (isAvailableInIsolation) {
       // t('assetWarning.modeOnly.isolation')
       i18nKey = 'assetWarning.modeOnly.isolation';
+    }
+
+    if (!i18nKey) {
+      return null;
     }
 
     return (
