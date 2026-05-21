@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 import { useTranslation } from 'libs/translations';
-import type { Pool, Token } from 'types';
+import type { Asset, Pool, Token } from 'types';
 
 import { Modal, Notice, TextButton } from 'components';
 import { MarketTable } from 'containers/MarketTable';
 import { useBreakpointUp } from 'hooks/responsive';
+import { SupplyNotification } from './SupplyNotification';
 import TEST_IDS from './testIds';
 import type { WarningType } from './types';
 
@@ -13,11 +14,13 @@ export interface AssetWarningProps extends React.HTMLAttributes<HTMLDivElement> 
   type: WarningType;
   token: Token;
   pool?: Pool;
+  asset?: Asset;
   className?: string;
 }
 
 export const AssetWarning: React.FC<AssetWarningProps> = ({
   pool,
+  asset,
   token,
   type,
   className,
@@ -27,11 +30,6 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
   const { t, Trans } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
 
-  const translationArgs = {
-    poolName: pool?.name,
-    tokenSymbol: token.symbol,
-  };
-
   const handleShowAssets = () => setShowAssets(true);
   const handleHideAssets = () => setShowAssets(false);
 
@@ -39,32 +37,28 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
     return null;
   }
 
+  const description =
+    type === 'supply' && asset ? (
+      <SupplyNotification asset={asset} pool={pool} onShowAllMarkets={handleShowAssets} />
+    ) : (
+      <Trans
+        // t('assetWarning.borrowDescription')
+        i18nKey="assetWarning.borrowDescription"
+        values={{ poolName: pool.name, tokenSymbol: token.symbol }}
+        components={{
+          Button: (
+            <TextButton
+              className="p-0 h-auto font-medium text-xs md:text-sm"
+              onClick={handleShowAssets}
+            />
+          ),
+        }}
+      />
+    );
+
   return (
     <div className={className} {...otherProps}>
-      <Notice
-        className="mb-2"
-        description={
-          <Trans
-            // Translation key: do not remove this comment
-            // t('assetWarning.borrowDescription')
-            // t('assetWarning.supplyDescription')
-            i18nKey={
-              type === 'borrow'
-                ? 'assetWarning.borrowDescription'
-                : 'assetWarning.supplyDescription'
-            }
-            values={translationArgs}
-            components={{
-              Button: (
-                <TextButton
-                  className="p-0 h-auto font-medium text-xs md:text-sm"
-                  onClick={handleShowAssets}
-                />
-              ),
-            }}
-          />
-        }
-      />
+      <Notice className="mb-2" description={description} />
 
       <Modal
         isOpen={showAssets}

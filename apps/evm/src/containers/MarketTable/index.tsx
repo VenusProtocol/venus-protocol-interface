@@ -42,6 +42,7 @@ export interface MarketTableProps
   columns: ColumnKey[];
   modalColumn?: boolean;
   userEModeGroup?: EModeGroup;
+  eModeGroups?: EModeGroup[];
   isolatedModeGroup?: EModeGroup;
   controls?: boolean;
   rowControl?: boolean;
@@ -60,6 +61,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   marketType,
   columns: columnKeys,
   userEModeGroup,
+  eModeGroups,
   isolatedModeGroup,
   initialOrder,
   breakpoint,
@@ -115,6 +117,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     columnKeys,
     collateralOnChange: handleCollateralChange,
     userEModeGroup,
+    eModeGroups,
     marketType,
   });
 
