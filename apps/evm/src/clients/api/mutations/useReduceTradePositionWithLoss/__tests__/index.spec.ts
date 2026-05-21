@@ -1,10 +1,11 @@
 import { approximateOutSwapQuote, exactInSwapQuote } from '__mocks__/models/swap';
 import { vLisUSD, vUsdc } from '__mocks__/models/vTokens';
+import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
-import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
+
 import { type ReduceTradePositionWithLossInput, useReduceTradePositionWithLoss } from '..';
 
 vi.mock('libs/contracts');
@@ -30,8 +31,8 @@ const fakeInput: ReduceTradePositionWithLossInput = {
 };
 
 describe('useReduceTradePositionWithLoss', () => {
-  it('calls useSendTransaction with correct parameters', async () => {
-    renderHook(() => useReduceTradePositionWithLoss());
+  it('calls useSendTransaction with correct parameters when lossSwapQuote is provided', () => {
+    useReduceTradePositionWithLoss();
 
     expect(useSendTransaction).toHaveBeenCalledWith({
       fn: expect.any(Function),
@@ -39,25 +40,56 @@ describe('useReduceTradePositionWithLoss', () => {
       options: undefined,
     });
 
-    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+    const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(fakeInput)).toMatchSnapshot({
+    expect(fn(fakeInput)).toMatchSnapshot({
       abi: expect.any(Array),
     });
 
-    const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
-    await onConfirmed();
+    onConfirmed();
 
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
-  it('throws error when RelativePositionManager contract address is not found', async () => {
-    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
-
-    renderHook(() => useReduceTradePositionWithLoss());
+  it('falls back to repayShortAmountMantissa when lossSwapQuote is not provided', () => {
+    useReduceTradePositionWithLoss();
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    await expect(async () => fn(fakeInput)).rejects.toThrow('somethingWentWrong');
+    expect(
+      fn({
+        ...fakeInput,
+        lossSwapQuote: undefined,
+        repayShortAmountMantissa: new BigNumber('12000000'),
+      }),
+    ).toMatchSnapshot({
+      abi: expect.any(Array),
+    });
+  });
+
+  it('defaults second swap parameters to zero values when optional loss inputs are omitted', () => {
+    useReduceTradePositionWithLoss();
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(
+      fn({
+        ...fakeInput,
+        lossSwapQuote: undefined,
+        repayShortAmountMantissa: undefined,
+      }),
+    ).toMatchSnapshot({
+      abi: expect.any(Array),
+    });
+  });
+
+  it('throws error when RelativePositionManager contract address is not found', () => {
+    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
+
+    useReduceTradePositionWithLoss();
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(() => fn(fakeInput)).toThrow('somethingWentWrong');
   });
 });

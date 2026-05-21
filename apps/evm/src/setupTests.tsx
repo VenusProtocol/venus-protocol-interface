@@ -13,6 +13,35 @@ import { NULL_ADDRESS } from 'constants/address';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { extractEnumValues } from 'utilities/extractEnumValues';
 
+const localStorageState = new Map<string, string>();
+
+const localStorageMock: Storage = {
+  clear: () => {
+    localStorageState.clear();
+  },
+  getItem: key => localStorageState.get(key) ?? null,
+  key: index => Array.from(localStorageState.keys())[index] ?? null,
+  get length() {
+    return localStorageState.size;
+  },
+  removeItem: key => {
+    localStorageState.delete(key);
+  },
+  setItem: (key, value) => {
+    localStorageState.set(key, value);
+  },
+};
+
+Object.defineProperty(window, 'localStorage', {
+  configurable: true,
+  value: window.localStorage ?? localStorageMock,
+});
+
+Object.defineProperty(globalThis, 'localStorage', {
+  configurable: true,
+  value: window.localStorage,
+});
+
 // Mock config
 vi.mock('config', async () => {
   const actual = await vi.importActual('config');
@@ -145,6 +174,7 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
 
 afterEach(() => {
   vi.useRealTimers();
+  window.localStorage.clear();
 
   (useTokenApproval as Mock).mockImplementation(() => useTokenApprovalOriginalOutput);
 });
