@@ -289,7 +289,13 @@
   "assetWarning": {
     "borrowDescription": "根据你在 {{poolName}} 池中的可抵押存款，可借入 {{tokenSymbol}}。<Button>显示全部代币</Button>",
     "modalTitle": "{{ poolName }} 代币",
-    "supplyDescription": "向 {{poolName}} 池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
+    "modeInfoHint": "<LineBreak/>访问<ModeInfoButton>模式信息</ModeInfoButton>区域以查看更多可用的组。",
+    "modeOnly": {
+      "eMode": "{{tokenSymbol}} 仅在 E-mode 中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用该组。",
+      "eModeAndIsolation": "{{tokenSymbol}} 仅在 E-mode 和隔离模式中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用一个组。",
+      "isolation": "{{tokenSymbol}} 仅在隔离模式中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用该组。"
+    },
+    "supplyDescription": "向核心池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
   },
   "availableBalance": {
     "label": "可用"
@@ -988,6 +994,8 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "该市场属于 {{eModeGroupName}} E-mode组",
+      "isolated": "隔离",
+      "isolatedTooltip": "该资产仅在对应的隔离模式中可用。",
       "isolationMode": "该市场属于 {{eModeGroupName}} 隔离模式组",
       "pausedAssetTooltip": "资产已被 Venus 治理暂停。借款与存款已禁用。",
       "protectionMode": "由于价格波动，{{tokenName}} 的保护模式已激活，影响其抵押和借款价格。 <LearnMore>了解更多</LearnMore>",

@@ -289,7 +289,13 @@
   "assetWarning": {
     "borrowDescription": "{{poolName}} havuzundaki teminatlı tedarikinize göre {{tokenSymbol}} borç alabilirsiniz. <Button>Tüm tokenları göster</Button>",
     "modalTitle": "{{ poolName }} tokenları",
-    "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
+    "modeInfoHint": "<LineBreak/>Mevcut diğer grupları keşfetmek için <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünü ziyaret edin.",
+    "modeOnly": {
+      "eMode": "{{tokenSymbol}} yalnızca E-modunda kullanılabilir. Grubu etkinleştirmek için <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünü ziyaret edin.",
+      "eModeAndIsolation": "{{tokenSymbol}} yalnızca E-modunda ve İzolasyon modunda kullanılabilir. Bir grubu etkinleştirmek için <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünü ziyaret edin.",
+      "isolation": "{{tokenSymbol}} yalnızca İzolasyon modunda kullanılabilir. Grubu etkinleştirmek için <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünü ziyaret edin."
+    },
+    "supplyDescription": "Core Pool'a {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },
   "availableBalance": {
     "label": "Mevcut"
@@ -988,6 +994,8 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "Bu piyasa {{eModeGroupName}} E-modu grubunun bir parçasıdır",
+      "isolated": "İzole",
+      "isolatedTooltip": "Bu varlık yalnızca ilgili izolasyon modunda kullanılabilir.",
       "isolationMode": "Bu piyasa {{eModeGroupName}} izolasyon modu grubunun bir parçasıdır",
       "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı.",
       "protectionMode": "Fiyat dalgalanması nedeniyle {{tokenName}} için Koruma Modu etkin, teminat ve borçlanma fiyatlarını etkilemektedir. <LearnMore>Daha fazla bilgi</LearnMore>",

@@ -289,7 +289,13 @@
   "assetWarning": {
     "borrowDescription": "Bạn có thể vay {{tokenSymbol}} theo mức cung cấp làm tài sản thế chấp trong pool {{poolName}}. <Button>Hiển thị tất cả token</Button>",
     "modalTitle": "Token {{ poolName }}",
-    "supplyDescription": "Cung cấp {{tokenSymbol}} vào pool {{poolName}} sẽ cho phép bạn vay token chỉ từ pool này. <Button>Hiển thị tất cả thị trường</Button>"
+    "modeInfoHint": "<LineBreak/>Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để khám phá thêm các nhóm khả dụng.",
+    "modeOnly": {
+      "eMode": "{{tokenSymbol}} chỉ khả dụng trong E-mode. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật nhóm.",
+      "eModeAndIsolation": "{{tokenSymbol}} chỉ khả dụng trong E-mode và chế độ cô lập. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật một nhóm.",
+      "isolation": "{{tokenSymbol}} chỉ khả dụng trong chế độ cô lập. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật nhóm."
+    },
+    "supplyDescription": "Cung cấp {{tokenSymbol}} vào Core Pool sẽ cho phép bạn vay token chỉ từ pool này. <Button>Hiển thị tất cả thị trường</Button>"
   },
   "availableBalance": {
     "label": "Có sẵn"
@@ -988,6 +994,8 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "Thị trường này thuộc nhóm E-mode {{eModeGroupName}}",
+      "isolated": "Cô lập",
+      "isolatedTooltip": "Tài sản này chỉ khả dụng trong chế độ cô lập tương ứng.",
       "isolationMode": "Thị trường này thuộc nhóm chế độ cô lập {{eModeGroupName}}",
       "pausedAssetTooltip": "Tài sản đã bị tạm dừng bởi Venus Governance. Việc vay và cung cấp đã bị vô hiệu hóa.",
       "protectionMode": "Chế độ Bảo vệ đang hoạt động cho {{tokenName}} do biến động giá, ảnh hưởng đến giá thế chấp và giá vay. <LearnMore>Tìm hiểu thêm</LearnMore>",
