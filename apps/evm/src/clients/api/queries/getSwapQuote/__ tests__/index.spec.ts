@@ -84,7 +84,7 @@ describe('getSwapQuote', () => {
             "symbol": "USDC",
           },
           "fromTokenAmountSoldMantissa": 1000000n,
-          "minimumToTokenAmountReceivedMantissa": 999950000000000000n,
+          "minimumToTokenAmountReceivedMantissa": 995000000000000000n,
           "priceImpactPercentage": 80,
           "toToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -137,7 +137,7 @@ describe('getSwapQuote', () => {
             "iconSrc": "fake-usdc-asset",
             "symbol": "USDC",
           },
-          "maximumFromTokenAmountSoldMantissa": 1000050n,
+          "maximumFromTokenAmountSoldMantissa": 1005000n,
           "priceImpactPercentage": 80,
           "toToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
