@@ -71,6 +71,7 @@ export function TableCards<R>({
     <div className={cn(!breakpoint && 'hidden', breakpoint && `block ${breakpoint}:hidden`)}>
       {controls && selectOptions.length > 0 && (
         <Select
+          className="max-sm:hidden"
           label={t('table.cardsSelect.label')}
           placeLabelToLeft
           options={selectOptions}

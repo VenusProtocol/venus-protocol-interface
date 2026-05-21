@@ -7,7 +7,7 @@ import { type Tab, useTabs } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Asset } from 'types';
-import { getCombinedDistributionApys } from 'utilities';
+import { getBestDistributionApys } from 'utilities';
 import { isSunsetChain } from 'utilities/isSunsetChain';
 import { GlassCard } from './GlassCard';
 import { TabContent } from './TabContent';
@@ -29,13 +29,13 @@ export const HeroTabs: React.FC = () => {
   const poolAssets = getPoolData?.pool.assets ?? [];
 
   let topSupplyAsset: Asset | undefined;
-  let topSupplyAssetApys: ReturnType<typeof getCombinedDistributionApys> | undefined;
+  let topSupplyAssetApys: ReturnType<typeof getBestDistributionApys> | undefined;
 
   let topBorrowAsset: Asset | undefined;
-  let topBorrowAssetApys: ReturnType<typeof getCombinedDistributionApys> | undefined;
+  let topBorrowAssetApys: ReturnType<typeof getBestDistributionApys> | undefined;
 
   poolAssets.forEach(asset => {
-    const assetApys = getCombinedDistributionApys({ asset });
+    const assetApys = getBestDistributionApys({ asset });
 
     if (
       (ignoreDisabledActions || !asset.disabledTokenActions.includes('supply')) &&
@@ -63,24 +63,12 @@ export const HeroTabs: React.FC = () => {
     {
       title: t('landing.hero.supply'),
       id: 'supply',
-      content: topSupplyAsset && (
-        <TabContent
-          poolComptrollerContractAddress={corePoolComptrollerContractAddress}
-          asset={topSupplyAsset}
-          type="supply"
-        />
-      ),
+      content: topSupplyAsset && <TabContent asset={topSupplyAsset} type="supply" />,
     },
     {
       title: t('landing.hero.borrow'),
       id: 'borrow',
-      content: topBorrowAsset && (
-        <TabContent
-          poolComptrollerContractAddress={corePoolComptrollerContractAddress}
-          asset={topBorrowAsset}
-          type="borrow"
-        />
-      ),
+      content: topBorrowAsset && <TabContent asset={topBorrowAsset} type="borrow" />,
     },
   ];
 
@@ -89,7 +77,7 @@ export const HeroTabs: React.FC = () => {
   });
 
   return (
-    <div className={cn('flex flex-col w-full gap-3 sm:max-w-135.75')}>
+    <div className={cn('hidden sm:flex flex-col w-full gap-3 sm:max-w-135.75')}>
       <GlassCard>
         <ButtonGroup
           buttonLabels={tabs.map(({ title }) => title)}

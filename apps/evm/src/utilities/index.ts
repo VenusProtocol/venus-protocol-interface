@@ -15,6 +15,7 @@ export { default as compareStrings } from './compareStrings';
 export { default as convertDollarsToCents } from './convertDollarsToCents';
 export { default as areTokensEqual } from './areTokensEqual';
 export { default as getCombinedDistributionApys } from './getCombinedDistributionApys';
+export { default as getBestDistributionApys } from './getBestDistributionApys';
 export { default as areAddressesEqual } from './areAddressesEqual';
 export { default as getSmartDecimalPlaces } from './getSmartDecimalPlaces';
 export { default as callOrThrow } from './callOrThrow';

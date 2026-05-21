@@ -1,4 +1,5 @@
 import { cn, theme } from '@venusprotocol/ui';
+import { useState } from 'react';
 import { Bar, BarChart as RCBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import { ChartYAxisTick, Icon } from 'components';
@@ -9,6 +10,7 @@ import type { CompoundedAmountDataPoint } from '../../types';
 const X_AXIS_DATA_KEY: keyof CompoundedAmountDataPoint = 'months';
 const Y_AXIS_DATA_KEY: keyof CompoundedAmountDataPoint = 'earningsCents';
 const INTERVAL = 6;
+const HIGHLIGHTED_MONTH_INDEX = 9;
 
 export interface ChartProps {
   data: CompoundedAmountDataPoint[];
@@ -18,8 +20,13 @@ export interface ChartProps {
 export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
   const { t } = useTranslation();
 
+  // Bumping this key on mouseLeave re-mounts the Tooltip so its `defaultIndex` is re-applied —
+  // otherwise Recharts only honors `defaultIndex` on first mount, and leaving the chart clears
+  // the active tooltip without restoring the default.
+  const [tooltipResetKey, setTooltipResetKey] = useState(0);
+
   return (
-    <div className={cn('w-full h-47.5', className)}>
+    <div className={cn('w-full h-32', className)}>
       <ResponsiveContainer>
         <RCBarChart
           margin={{
@@ -29,6 +36,7 @@ export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
           }}
           data={data}
           barGap={'8%'}
+          onMouseLeave={() => setTooltipResetKey(k => k + 1)}
         >
           <Bar
             dataKey={Y_AXIS_DATA_KEY}
@@ -55,6 +63,8 @@ export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
             axisLine={false}
             tickLine={false}
             hide={true}
+            width={0}
+            domain={[0, 'dataMax']}
             tickMargin={8}
             tick={({ payload, y }) => (
               <ChartYAxisTick
@@ -70,6 +80,8 @@ export const BarChart: React.FC<ChartProps> = ({ className, data }) => {
           />
 
           <Tooltip
+            key={tooltipResetKey}
+            defaultIndex={HIGHLIGHTED_MONTH_INDEX}
             isAnimationActive={false}
             cursor={{ stroke: 'transparent', fill: 'transparent' }}
             content={({ payload }) => {
