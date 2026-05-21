@@ -25,7 +25,7 @@ export const ContractErrorNotice: React.FC<ContractErrorNoticeProps> = ({
 
   return (
     <div className="space-y-2">
-      <p className="text-sm text-white">{headline}</p>
+      <p className="text-xs text-white md:text-sm">{headline}</p>
 
       {!hasFriendlyPhrase && (
         <div className="rounded-lg border border-dark-grey-hover bg-background/50 px-3 py-2 font-mono text-xs break-all">
