@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { AnimatePresence, motion } from 'motion/react';
 import { createPortal } from 'react-dom';
 
@@ -18,14 +19,19 @@ const NotificationCenter: React.FC = () => {
       data-testid={TEST_IDS.container}
     >
       <AnimatePresence mode="popLayout" initial={false}>
-        {notifications.map(({ id, ...otherNotificationProps }) => (
+        {notifications.map(({ id, variant = 'info', ...otherNotificationProps }) => (
           <motion.li
             key={id}
-            className="mb-2 last:mb-0"
+            className={cn(
+              'mb-2 last:mb-0 rounded-lg border backdrop-blur-lg overflow-hidden',
+              (variant === 'info' || variant === 'loading') && 'bg-blue/10 border-lightGrey',
+              variant === 'error' && 'bg-red/10 border-red',
+              variant === 'success' && 'bg-green/10 border-green',
+              variant === 'warning' && 'bg-orange/10 border-orange',
+            )}
             layout
-            initial={{ opacity: 0, x: '100%' }}
+            initial={{ x: '110%' }}
             animate={{
-              opacity: 1,
               x: 0,
               transition: {
                 x: {
@@ -36,7 +42,6 @@ const NotificationCenter: React.FC = () => {
                 opacity: {
                   ease: EASE,
                   duration: ANIMATION_BASE_DURATION_S,
-                  delay: (ANIMATION_BASE_DURATION_S * 1) / 3,
                 },
               },
             }}
@@ -49,7 +54,11 @@ const NotificationCenter: React.FC = () => {
               duration: ANIMATION_BASE_DURATION_S,
             }}
           >
-            <Notice {...otherNotificationProps} />
+            <Notice
+              variant={variant}
+              className="bg-transparent border-transparent backdrop-blur-none rounded-none"
+              {...otherNotificationProps}
+            />
           </motion.li>
         ))}
       </AnimatePresence>

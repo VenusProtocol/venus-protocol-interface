@@ -1,5 +1,10 @@
+import { BaseError } from 'viem';
+
 import { displayNotification } from 'libs/notifications';
+
 import { VError } from '../VError';
+import { handleContractError } from '../handleContractError';
+import { parseContractError } from '../handleContractError/parseContractError';
 import { isUserRejectedTxError } from '../isUserRejectedTxError';
 import { logError } from '../logError';
 import { unexpectedErrorPhrases } from '../unexpectedErrorPhrases';
@@ -18,6 +23,12 @@ export const handleError = ({ error }: HandleErrorInput) => {
   // Do nothing if error is about gasless transactions being unavailable, as in this case we display
   // an error modal instead
   if (error instanceof VError && error.code === 'gaslessTransactionNotAvailable') {
+    return;
+  }
+
+  const parsed = parseContractError(error);
+  if (parsed) {
+    handleContractError({ error: error as BaseError, parsed });
     return;
   }
 

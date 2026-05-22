@@ -396,6 +396,22 @@
   "connectWallet": {
     "connectButton": "เชื่อมต่อกระเป๋า"
   },
+  "contractErrors": {
+    "actionPaused": "ขณะนี้การดำเนินการนี้ถูกระงับในตลาดนี้",
+    "borrowCapExceeded": "ถึงขีดจำกัดการกู้ยืมของตลาดนี้แล้ว",
+    "insufficientCollateral": "หลักประกันไม่เพียงพอสำหรับการดำเนินการนี้",
+    "insufficientLiquidity": "สภาพคล่องไม่เพียงพอสำหรับการดำเนินการนี้",
+    "notice": {
+      "copyDetails": "คัดลอกรายละเอียด",
+      "errorLabel": "ข้อผิดพลาด",
+      "fallback": "ธุรกรรมจะล้มเหลว โปรดตรวจสอบข้อมูลที่ป้อนและลองอีกครั้ง",
+      "hideRawError": "ซ่อนข้อผิดพลาดดิบ",
+      "showRawError": "แสดงข้อผิดพลาดดิบ"
+    },
+    "supplyCapExceeded": "ถึงขีดจำกัดการฝากของตลาดนี้แล้ว",
+    "swapDeadlineExpire": "การสว็อปหมดเวลาแล้ว โปรดลองอีกครั้ง",
+    "tooMuchRepay": "จำนวนเงินที่ชำระคืนเกินยอดค้างชำระของคุณ"
+  },
   "controls": {
     "pausedAssetsToggle": {
       "label": "สินทรัพย์ที่หยุดไว้"

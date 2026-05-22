@@ -396,6 +396,22 @@
   "connectWallet": {
     "connectButton": "Kết nối ví"
   },
+  "contractErrors": {
+    "actionPaused": "Thao tác này hiện đang bị tạm dừng trên thị trường này.",
+    "borrowCapExceeded": "Đã đạt giới hạn vay cho thị trường này.",
+    "insufficientCollateral": "Không đủ tài sản thế chấp cho thao tác này.",
+    "insufficientLiquidity": "Không đủ thanh khoản cho thao tác này.",
+    "notice": {
+      "copyDetails": "Sao chép chi tiết",
+      "errorLabel": "Lỗi",
+      "fallback": "Giao dịch sẽ thất bại. Vui lòng kiểm tra dữ liệu nhập và thử lại.",
+      "hideRawError": "Ẩn lỗi thô",
+      "showRawError": "Hiện lỗi thô"
+    },
+    "supplyCapExceeded": "Đã đạt giới hạn cung cấp cho thị trường này.",
+    "swapDeadlineExpire": "Phiên hoán đổi đã hết hạn. Vui lòng thử lại.",
+    "tooMuchRepay": "Số tiền trả vượt quá khoản vay còn lại của bạn."
+  },
   "controls": {
     "pausedAssetsToggle": {
       "label": "Tài sản tạm dừng"

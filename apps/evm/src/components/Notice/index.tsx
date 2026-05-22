@@ -68,7 +68,7 @@ export const Notice = ({
           {title && <p className="text-sm font-semibold">{title}</p>}
 
           {!!description && (
-            <p className={cn('text-xs', size === 'md' && 'md:text-sm')}>{description}</p>
+            <div className={cn('text-xs', size === 'md' && 'md:text-sm')}>{description}</div>
           )}
         </div>
       </div>
