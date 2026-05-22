@@ -291,9 +291,9 @@
     "modalTitle": "Token {{ poolName }}",
     "modeInfoHint": "<LineBreak/>Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để khám phá thêm các nhóm khả dụng.",
     "modeOnly": {
-      "eMode": "{{tokenSymbol}} chỉ khả dụng trong E-mode. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật nhóm.",
-      "eModeAndIsolation": "{{tokenSymbol}} chỉ khả dụng trong E-mode và chế độ cô lập. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật một nhóm.",
-      "isolation": "{{tokenSymbol}} chỉ khả dụng trong chế độ cô lập. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật nhóm."
+      "eMode": "{{tokenSymbol}} chỉ khả dụng trong E-mode. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật nhóm, hoặc duyệt các tài sản khác trong <Button>Hiển thị tất cả thị trường</Button>.",
+      "eModeAndIsolation": "{{tokenSymbol}} chỉ khả dụng trong E-mode và chế độ cô lập. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật một trong các nhóm, hoặc duyệt các tài sản khác trong <Button>Hiển thị tất cả thị trường</Button>.",
+      "isolation": "{{tokenSymbol}} chỉ khả dụng trong chế độ cô lập. Truy cập phần <ModeInfoButton>Thông tin chế độ</ModeInfoButton> để bật nhóm, hoặc duyệt các tài sản khác trong <Button>Hiển thị tất cả thị trường</Button>."
     },
     "supplyDescription": "Cung cấp {{tokenSymbol}} vào Core Pool sẽ cho phép bạn vay token chỉ từ pool này. <Button>Hiển thị tất cả thị trường</Button>"
   },

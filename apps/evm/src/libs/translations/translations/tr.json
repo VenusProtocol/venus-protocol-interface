@@ -291,9 +291,9 @@
     "modalTitle": "{{ poolName }} tokenları",
     "modeInfoHint": "<LineBreak/>Mevcut diğer grupları keşfetmek için <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünü ziyaret edin.",
     "modeOnly": {
-      "eMode": "{{tokenSymbol}} yalnızca E-modunda kullanılabilir. Grubu etkinleştirmek için <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünü ziyaret edin.",
-      "eModeAndIsolation": "{{tokenSymbol}} yalnızca E-modunda ve İzolasyon modunda kullanılabilir. Bir grubu etkinleştirmek için <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünü ziyaret edin.",
-      "isolation": "{{tokenSymbol}} yalnızca İzolasyon modunda kullanılabilir. Grubu etkinleştirmek için <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünü ziyaret edin."
+      "eMode": "{{tokenSymbol}} yalnızca E-modunda kullanılabilir. <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünden grubu etkinleştirin veya <Button>Tüm piyasaları göster</Button> bölümünden diğer varlıklara göz atın.",
+      "eModeAndIsolation": "{{tokenSymbol}} yalnızca E-modunda ve İzolasyon modunda kullanılabilir. <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünden gruplardan birini etkinleştirin veya <Button>Tüm piyasaları göster</Button> bölümünden diğer varlıklara göz atın.",
+      "isolation": "{{tokenSymbol}} yalnızca İzolasyon modunda kullanılabilir. <ModeInfoButton>Mod bilgisi</ModeInfoButton> bölümünden grubu etkinleştirin veya <Button>Tüm piyasaları göster</Button> bölümünden diğer varlıklara göz atın."
     },
     "supplyDescription": "Core Pool'a {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
   },

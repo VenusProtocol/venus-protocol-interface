@@ -74,7 +74,7 @@ export const SupplyNotification: React.FC<SupplyNotificationProps> = ({
       <Trans
         i18nKey={i18nKey}
         values={{ tokenSymbol }}
-        components={{ ModeInfoButton: modeInfoButton }}
+        components={{ Button: showAllMarketsButton, ModeInfoButton: modeInfoButton }}
       />
     );
   }

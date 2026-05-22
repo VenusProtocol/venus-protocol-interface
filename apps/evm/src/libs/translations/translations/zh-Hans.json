@@ -291,9 +291,9 @@
     "modalTitle": "{{ poolName }} 代币",
     "modeInfoHint": "<LineBreak/>访问<ModeInfoButton>模式信息</ModeInfoButton>区域以查看更多可用的组。",
     "modeOnly": {
-      "eMode": "{{tokenSymbol}} 仅在 E-mode 中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用该组。",
-      "eModeAndIsolation": "{{tokenSymbol}} 仅在 E-mode 和隔离模式中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用一个组。",
-      "isolation": "{{tokenSymbol}} 仅在隔离模式中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用该组。"
+      "eMode": "{{tokenSymbol}} 仅在 E-mode 中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用该组，或在<Button>显示全部市场</Button>中浏览其他资产。",
+      "eModeAndIsolation": "{{tokenSymbol}} 仅在 E-mode 和隔离模式中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用其中一个组，或在<Button>显示全部市场</Button>中浏览其他资产。",
+      "isolation": "{{tokenSymbol}} 仅在隔离模式中可用。访问<ModeInfoButton>模式信息</ModeInfoButton>区域以启用该组，或在<Button>显示全部市场</Button>中浏览其他资产。"
     },
     "supplyDescription": "向核心池提供 {{tokenSymbol}} 将使你只能从该池借入代币。<Button>显示全部市场</Button>"
   },
