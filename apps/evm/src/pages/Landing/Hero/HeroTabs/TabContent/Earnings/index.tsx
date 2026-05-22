@@ -2,6 +2,7 @@ import type BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
 import { MONTHS_PER_YEAR } from 'constants/time';
+import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import { Row } from '../../Row';
@@ -18,6 +19,7 @@ export interface EarningsProps {
 
 export const Earnings: React.FC<EarningsProps> = ({ supplyApyPercentage, className }) => {
   const { t } = useTranslation();
+  const isSmOrUp = useBreakpointUp('sm');
 
   const data = Array.from(Array(MONTHS_PER_YEAR)).reduce<CompoundedAmountDataPoint[]>(
     (acc, _curr, index) => {
@@ -48,7 +50,7 @@ export const Earnings: React.FC<EarningsProps> = ({ supplyApyPercentage, classNa
     <div className={cn('space-y-3', className)}>
       <EarningTabs data={data} className="sm:hidden" />
 
-      <BarChart className="hidden sm:block" data={data} />
+      {isSmOrUp && <BarChart className="mt-13" data={data} />}
 
       <Row>
         <p className="text-b1r sm:text-p3r">{t('landing.hero.yearlyEarnings')}</p>

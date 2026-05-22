@@ -1,3 +1,4 @@
+import type BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 import { queryClient } from 'clients/api/queryClient';
@@ -14,7 +15,8 @@ export type ReduceTradePositionWithProfitInput = {
   shortVTokenAddress: Address;
   closeFractionPercentage: number;
   repaySwapQuote: ApproximateOutSwapQuote;
-  profitSwapQuote: ExactInSwapQuote;
+  profitSwapQuote?: ExactInSwapQuote;
+  profitAmountMantissa?: BigNumber;
 };
 
 type Options = UseSendTransactionOptions<ReduceTradePositionWithProfitInput>;
@@ -31,6 +33,7 @@ export const useReduceTradePositionWithProfit = (options?: Partial<Options>) => 
       closeFractionPercentage,
       repaySwapQuote,
       profitSwapQuote,
+      profitAmountMantissa,
     }: ReduceTradePositionWithProfitInput) => {
       if (!relativePositionManagerContractAddress) {
         throw new VError({
@@ -43,6 +46,14 @@ export const useReduceTradePositionWithProfit = (options?: Partial<Options>) => 
         percentage: closeFractionPercentage,
       });
 
+      let longAmountToRedeemForProfit = profitSwapQuote?.fromTokenAmountSoldMantissa;
+
+      if (longAmountToRedeemForProfit === undefined) {
+        longAmountToRedeemForProfit = profitAmountMantissa
+          ? BigInt(profitAmountMantissa.toFixed())
+          : 0n;
+      }
+
       return {
         abi: relativePositionManagerAbi,
         address: relativePositionManagerContractAddress,
@@ -54,9 +65,9 @@ export const useReduceTradePositionWithProfit = (options?: Partial<Options>) => 
           repaySwapQuote.fromTokenAmountSoldMantissa,
           repaySwapQuote.minimumToTokenAmountReceivedMantissa,
           repaySwapQuote.callData,
-          profitSwapQuote.fromTokenAmountSoldMantissa,
-          profitSwapQuote.minimumToTokenAmountReceivedMantissa,
-          profitSwapQuote.callData,
+          longAmountToRedeemForProfit,
+          profitSwapQuote?.minimumToTokenAmountReceivedMantissa ?? 0n,
+          profitSwapQuote?.callData ?? '0x',
         ],
       } as const;
     },

@@ -73,7 +73,7 @@ export const getSwapQuote = async ({
     direction: swapSpecificProps.direction,
     minAmountOutMantissa:
       'minAmountOutMantissa' in params ? BigInt(params.minAmountOutMantissa) : undefined,
-    slippagePercentage: Number(params.slippagePercentage),
+    slippagePercentage,
     fromToken,
     toToken,
   });

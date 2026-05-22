@@ -1,3 +1,4 @@
+import type BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 import { queryClient } from 'clients/api/queryClient';
@@ -13,6 +14,7 @@ export type CloseTradePositionWithLossInput = {
   shortVTokenAddress: Address;
   repaySwapQuote: ExactInSwapQuote;
   lossSwapQuote?: ApproximateOutSwapQuote;
+  repayShortAmountMantissa?: BigNumber;
 };
 
 type Options = UseSendTransactionOptions<CloseTradePositionWithLossInput>;
@@ -28,12 +30,21 @@ export const useCloseTradePositionWithLoss = (options?: Partial<Options>) => {
       shortVTokenAddress,
       repaySwapQuote,
       lossSwapQuote,
+      repayShortAmountMantissa,
     }: CloseTradePositionWithLossInput) => {
       if (!relativePositionManagerContractAddress) {
         throw new VError({
           type: 'unexpected',
           code: 'somethingWentWrong',
         });
+      }
+
+      let minAmountOutSecond = lossSwapQuote?.minimumToTokenAmountReceivedMantissa;
+
+      if (minAmountOutSecond === undefined) {
+        minAmountOutSecond = repayShortAmountMantissa
+          ? BigInt(repayShortAmountMantissa.toFixed())
+          : 0n;
       }
 
       return {
@@ -48,13 +59,9 @@ export const useCloseTradePositionWithLoss = (options?: Partial<Options>) => {
             shortAmountToRepayForFirstSwap: repaySwapQuote.minimumToTokenAmountReceivedMantissa,
             minAmountOutFirst: repaySwapQuote.minimumToTokenAmountReceivedMantissa,
             swapDataFirst: repaySwapQuote.callData,
-            dsaAmountToRedeemForSecondSwap: lossSwapQuote
-              ? lossSwapQuote.fromTokenAmountSoldMantissa
-              : 0n,
-            minAmountOutSecond: lossSwapQuote
-              ? lossSwapQuote.minimumToTokenAmountReceivedMantissa
-              : 0n,
-            swapDataSecond: lossSwapQuote ? lossSwapQuote.callData : '0x',
+            dsaAmountToRedeemForSecondSwap: lossSwapQuote?.fromTokenAmountSoldMantissa ?? 0n,
+            minAmountOutSecond,
+            swapDataSecond: lossSwapQuote?.callData ?? '0x',
           },
         ],
       } as const;

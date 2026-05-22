@@ -30,6 +30,7 @@ export const useMenuItems = () => {
       label: t('layout.menu.markets.label'),
       to: marketsPagePath,
       variant: 'secondary',
+      defaultOpenOnMobile: true,
       items: [
         {
           to: marketsPagePath,

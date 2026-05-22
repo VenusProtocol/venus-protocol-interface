@@ -78,7 +78,7 @@ export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups 
       />
 
       <Select
-        className="sm:hidden"
+        className="hidden"
         label={t('markets.tabs.eMode.table.mobileSelectLabel')}
         placeLabelToLeft
         size="small"

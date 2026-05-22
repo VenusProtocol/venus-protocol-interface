@@ -16,6 +16,7 @@ import { useTranslation } from 'libs/translations';
 import { usePositionForm } from 'pages/Trade/OperationForm/usePositionForm';
 import { PositionForm } from 'pages/Trade/PositionForm';
 import type { AssetBalanceMutation, TradePosition } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 import { store } from '../ClosePositionModal/store';
 
 export interface ReduceFormProps {
@@ -161,7 +162,7 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
     {
       type: 'asset',
       vTokenAddress: position.dsaAsset.vToken.address,
-      action: pnlDsaTokens?.isPositive() && !closePosition ? 'supply' : 'withdraw',
+      action: pnlDsaTokens?.isGreaterThan(0) && !closePosition ? 'supply' : 'withdraw',
       amountTokens: dsaBalanceUpdateTokens,
       balanceTokens: position.dsaBalanceTokens,
       label: t('trade.operationForm.openForm.collateral'),
@@ -197,34 +198,41 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
       });
     }
 
+    const profitAmountMantissa =
+      pnlDsaTokens &&
+      convertTokensToMantissa({
+        token: position.dsaAsset.vToken.underlyingToken,
+        value: pnlDsaTokens,
+      });
+
+    const sanitizedProfitSwapQuote =
+      profitSwapQuote?.direction === 'exact-in' ? profitSwapQuote : undefined;
+
     // Close position with empty short balance but non-empty long balance
-    if (
-      position.shortBalanceTokens.isZero() &&
-      closePosition &&
-      profitSwapQuote?.direction === 'exact-in'
-    ) {
+    if (position.shortBalanceTokens.isZero() && closePosition) {
       return closePositionWithProfit({
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
-        profitSwapQuote,
+        profitSwapQuote: sanitizedProfitSwapQuote,
+        profitAmountMantissa,
       });
     }
 
-    const isReducingWithProfit = pnlDsaTokens?.isPositive();
+    const isReducingWithProfit = pnlDsaTokens?.isGreaterThan(0);
 
     // Reduce with profit
     if (
       isReducingWithProfit &&
       !closePosition &&
-      repayWithProfitSwapQuote?.direction === 'approximate-out' &&
-      profitSwapQuote?.direction === 'exact-in'
+      repayWithProfitSwapQuote?.direction === 'approximate-out'
     ) {
       return reducePositionWithProfit({
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
         closeFractionPercentage,
         repaySwapQuote: repayWithProfitSwapQuote,
-        profitSwapQuote,
+        profitSwapQuote: sanitizedProfitSwapQuote,
+        profitAmountMantissa,
       });
     }
 
@@ -232,14 +240,14 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
     if (
       isReducingWithProfit &&
       closePosition &&
-      repayWithProfitSwapQuote?.direction === 'approximate-out' &&
-      profitSwapQuote?.direction === 'exact-in'
+      repayWithProfitSwapQuote?.direction === 'approximate-out'
     ) {
       return closePositionWithProfit({
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
         repaySwapQuote: repayWithProfitSwapQuote,
-        profitSwapQuote,
+        profitSwapQuote: sanitizedProfitSwapQuote,
+        profitAmountMantissa,
       });
     }
 
@@ -251,6 +259,11 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
     const isReducingWithoutPnl =
       pnlDsaTokens?.isZero() && repayWithLossSwapQuote?.direction === 'exact-in';
 
+    const repayShortAmountMantissa = convertTokensToMantissa({
+      token: position.shortAsset.vToken.underlyingToken,
+      value: debouncedShortAmountTokens,
+    });
+
     // Reduce with loss
     if (isReducingWithLoss && !closePosition) {
       return reducePositionWithLoss({
@@ -259,6 +272,7 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
         closeFractionPercentage,
         repaySwapQuote: repayWithLossSwapQuote,
         lossSwapQuote,
+        repayShortAmountMantissa,
       });
     }
 
@@ -269,6 +283,7 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
         shortVTokenAddress: position.shortAsset.vToken.address,
         repaySwapQuote: repayWithLossSwapQuote,
         lossSwapQuote,
+        repayShortAmountMantissa,
       });
     }
 
@@ -279,6 +294,7 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
         shortVTokenAddress: position.shortAsset.vToken.address,
         closeFractionPercentage,
         repaySwapQuote: repayWithLossSwapQuote,
+        repayShortAmountMantissa,
       });
     }
 
@@ -288,6 +304,7 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
         repaySwapQuote: repayWithLossSwapQuote,
+        repayShortAmountMantissa,
       });
     }
 

@@ -402,6 +402,22 @@
   "connectWallet": {
     "connectButton": "Cüzdan bağla"
   },
+  "contractErrors": {
+    "actionPaused": "Bu işlem şu anda bu pazarda duraklatıldı.",
+    "borrowCapExceeded": "Bu pazar için borçlanma üst sınırına ulaşıldı.",
+    "insufficientCollateral": "Bu işlem için yeterli teminat yok.",
+    "insufficientLiquidity": "Bu işlem için yeterli likidite mevcut değil.",
+    "notice": {
+      "copyDetails": "Ayrıntıları kopyala",
+      "errorLabel": "Hata",
+      "fallback": "İşlem başarısız olur. Lütfen girdilerinizi kontrol edip tekrar deneyin.",
+      "hideRawError": "Ham hatayı gizle",
+      "showRawError": "Ham hatayı göster"
+    },
+    "supplyCapExceeded": "Bu pazar için arz üst sınırına ulaşıldı.",
+    "swapDeadlineExpire": "Takas süresi doldu. Lütfen tekrar deneyin.",
+    "tooMuchRepay": "Geri ödeme tutarı bekleyen borç bakiyenizi aşıyor."
+  },
   "controls": {
     "pausedAssetsToggle": {
       "label": "Durdurulan varlıklar"

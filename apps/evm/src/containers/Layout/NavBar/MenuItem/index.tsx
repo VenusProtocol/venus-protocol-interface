@@ -15,7 +15,9 @@ export interface MenuItemProps {
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(
+    'items' in item ? !!item.defaultOpenOnMobile : false,
+  );
   const { t } = useTranslation();
   const { pathname } = useLocation();
 
@@ -37,14 +39,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
 
   return 'items' in item ? (
     <div>
-      {/* XL and up backdrop */}
-      {isSubMenuOpen && (
-        <div
-          className="fixed bottom-0 left-0 right-0 top-0 hidden z-50 xl:block"
-          onClick={() => setIsSubMenuOpen(false)}
-        />
-      )}
-
       {/* Mobile/tablet submenu */}
       <div className="xl:hidden">
         <button
@@ -68,12 +62,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             {...item}
             items={item.items.map(i => ({
               ...i,
-              onClick: () => {
-                // Close submenu
-                setIsSubMenuOpen(false);
-
-                onClick();
-              },
+              onClick,
             }))}
           />
         </AccordionAnimatedContent>
@@ -82,7 +71,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       {/* XL and up dropdown */}
       <Dropdown
         className="hidden xl:block"
-        menuClassName="top-7 shadow-none border-0 bg-background-active"
+        menuClassName="mt-5 shadow-none border-0 bg-background-active"
+        triggerOnHover
         optionsDom={({ setIsDropdownOpened }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({
             ...i,
@@ -97,7 +87,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           return <SubMenuContent {...item} items={items} />;
         }}
       >
-        {({ isDropdownOpened, handleToggleDropdown }) => (
+        {({ isDropdownOpened }) => (
           <button
             className={cn(
               sharedContainerClassName,
@@ -105,11 +95,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
               isDropdownOpened && 'xl:text-white xl:bg-dark-blue-active',
             )}
             type="button"
-            onClick={handleToggleDropdown}
           >
             <span>{item.label}</span>
 
-            <Icon name="chevronDown" className={cn('size-3', isSubMenuOpen && 'rotate-180')} />
+            <Icon name="chevronDown" className={cn('size-3', isDropdownOpened && 'rotate-180')} />
           </button>
         )}
       </Dropdown>

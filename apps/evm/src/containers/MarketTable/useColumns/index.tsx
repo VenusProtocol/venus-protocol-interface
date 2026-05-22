@@ -26,7 +26,7 @@ import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
-  getCombinedDistributionApys,
+  getBestDistributionApys,
   isAssetPaused,
   isCollateralActionDisabled,
 } from 'utilities';
@@ -371,10 +371,10 @@ export const useColumns = ({
           : (rowA, rowB, direction) => {
               if (column === 'borrowApy' || column === 'labeledBorrowApy') {
                 const roaABorrowApy = rowA.borrowApyPercentage.minus(
-                  getCombinedDistributionApys({ asset: rowA }).totalBorrowApyBoostPercentage,
+                  getBestDistributionApys({ asset: rowA }).totalBorrowApyBoostPercentage,
                 );
                 const roaBBorrowApy = rowB.borrowApyPercentage.minus(
-                  getCombinedDistributionApys({ asset: rowB }).totalBorrowApyBoostPercentage,
+                  getBestDistributionApys({ asset: rowB }).totalBorrowApyBoostPercentage,
                 );
 
                 return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
@@ -382,10 +382,10 @@ export const useColumns = ({
 
               if (column === 'supplyApy' || column === 'labeledSupplyApy') {
                 const roaASupplyApy = rowA.supplyApyPercentage.plus(
-                  getCombinedDistributionApys({ asset: rowA }).totalSupplyApyBoostPercentage,
+                  getBestDistributionApys({ asset: rowA }).totalSupplyApyBoostPercentage,
                 );
                 const roaBSupplyApy = rowB.supplyApyPercentage.plus(
-                  getCombinedDistributionApys({ asset: rowB }).totalSupplyApyBoostPercentage,
+                  getBestDistributionApys({ asset: rowB }).totalSupplyApyBoostPercentage,
                 );
 
                 return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);

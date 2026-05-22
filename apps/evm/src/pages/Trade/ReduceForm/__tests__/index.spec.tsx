@@ -100,13 +100,17 @@ const calculateLongAmountTokens = (shortAmountTokens: BigNumber) =>
     .multipliedBy(shortAmountTokens.div(position.shortBalanceTokens))
     .dp(longToken.decimals, BigNumber.ROUND_DOWN);
 
+const convertTokenAmountToMantissaBigNumber = (
+  value: BigNumber,
+  token: ExactInSwapQuote['fromToken'],
+) =>
+  convertTokensToMantissa({
+    value,
+    token,
+  });
+
 const convertTokenAmountToMantissa = (value: BigNumber, token: ExactInSwapQuote['fromToken']) =>
-  BigInt(
-    convertTokensToMantissa({
-      value,
-      token,
-    }).toFixed(),
-  );
+  BigInt(convertTokenAmountToMantissaBigNumber(value, token).toFixed());
 
 const makeApproximateOutSwapQuote = ({
   fromToken,
@@ -335,6 +339,7 @@ describe('ReduceForm', () => {
       .dp(2)
       .toNumber();
     const longAmountTokens = calculateLongAmountTokens(validShortAmountTokens);
+    const profitAmountMantissa = convertTokenAmountToMantissaBigNumber(new BigNumber(3), dsaToken);
     const repaySwapQuote = makeApproximateOutSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
@@ -386,6 +391,7 @@ describe('ReduceForm', () => {
       closeFractionPercentage,
       repaySwapQuote,
       profitSwapQuote,
+      profitAmountMantissa,
     });
   });
 
@@ -397,6 +403,10 @@ describe('ReduceForm', () => {
       .dp(2)
       .toNumber();
     const longAmountTokens = calculateLongAmountTokens(validShortAmountTokens);
+    const repayShortAmountMantissa = convertTokenAmountToMantissaBigNumber(
+      validShortAmountTokens,
+      shortToken,
+    );
     const repaySwapQuote = makeExactInSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
@@ -448,6 +458,7 @@ describe('ReduceForm', () => {
       closeFractionPercentage,
       repaySwapQuote,
       lossSwapQuote,
+      repayShortAmountMantissa,
     });
   });
 
@@ -459,6 +470,10 @@ describe('ReduceForm', () => {
       .dp(2)
       .toNumber();
     const longAmountTokens = calculateLongAmountTokens(validShortAmountTokens);
+    const repayShortAmountMantissa = convertTokenAmountToMantissaBigNumber(
+      validShortAmountTokens,
+      shortToken,
+    );
     const repaySwapQuote = makeExactInSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
@@ -502,11 +517,13 @@ describe('ReduceForm', () => {
       shortVTokenAddress: position.shortAsset.vToken.address,
       closeFractionPercentage,
       repaySwapQuote,
+      repayShortAmountMantissa,
     });
   });
 
   it('submits close position with profit when form is valid', async () => {
     const closeFractionPercentage = new BigNumber(100).toNumber();
+    const profitAmountMantissa = convertTokenAmountToMantissaBigNumber(new BigNumber(3), dsaToken);
     const repaySwapQuote = makeApproximateOutSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
@@ -553,11 +570,16 @@ describe('ReduceForm', () => {
       shortVTokenAddress: position.shortAsset.vToken.address,
       repaySwapQuote,
       profitSwapQuote,
+      profitAmountMantissa,
     });
     expect(closeFractionPercentage).toBe(100);
   });
 
   it('submits close position with loss when form is valid', async () => {
+    const repayShortAmountMantissa = convertTokenAmountToMantissaBigNumber(
+      position.shortBalanceTokens,
+      shortToken,
+    );
     const repaySwapQuote = makeExactInSwapQuote({
       fromToken: longToken,
       toToken: shortToken,
@@ -604,6 +626,107 @@ describe('ReduceForm', () => {
       shortVTokenAddress: position.shortAsset.vToken.address,
       repaySwapQuote,
       lossSwapQuote,
+      repayShortAmountMantissa,
+    });
+  });
+
+  it('submits close position without pnl when the repay quote fully covers the short amount', async () => {
+    const repayShortAmountMantissa = convertTokenAmountToMantissaBigNumber(
+      position.shortBalanceTokens,
+      shortToken,
+    );
+    const repaySwapQuote = makeExactInSwapQuote({
+      fromToken: longToken,
+      toToken: shortToken,
+      fromTokenAmountTokens: position.longBalanceTokens,
+      minimumToTokenAmountTokens: position.shortBalanceTokens,
+    });
+
+    setReadyState({
+      reduceSwapQuotesData: {
+        pnlDsaTokens: new BigNumber(0),
+        repayWithLossSwapQuote: repaySwapQuote,
+      },
+    });
+
+    const { getByText } = renderComponent(<ReduceForm position={position} closePosition />, {
+      accountAddress: position.positionAccountAddress,
+    });
+
+    await waitFor(() =>
+      expect(
+        getByText(en.trade.operationForm.reduceForm.submitButtonLabel.close),
+      ).toBeInTheDocument(),
+    );
+
+    await waitFor(() =>
+      expect(
+        getSubmitButton(en.trade.operationForm.reduceForm.submitButtonLabel.close),
+      ).toBeEnabled(),
+    );
+
+    fireEvent.click(getSubmitButton(en.trade.operationForm.reduceForm.submitButtonLabel.close));
+
+    await waitFor(() => expect(mockCloseTradePositionWithLoss).toHaveBeenCalledTimes(1));
+
+    expect(mockCloseTradePositionWithLoss).toHaveBeenCalledWith({
+      longVTokenAddress: position.longAsset.vToken.address,
+      shortVTokenAddress: position.shortAsset.vToken.address,
+      repaySwapQuote,
+      repayShortAmountMantissa,
+    });
+  });
+
+  it('closes a position with zero short balance using the profit path', async () => {
+    const positionWithZeroShortBalance = {
+      ...position,
+      shortBalanceTokens: new BigNumber(0),
+      shortBalanceCents: 0,
+      netValueCents: position.netValueCents + 300,
+    };
+    const profitAmountMantissa = convertTokenAmountToMantissaBigNumber(new BigNumber(3), dsaToken);
+    const profitSwapQuote = makeExactInSwapQuote({
+      fromToken: longToken,
+      toToken: dsaToken,
+      fromTokenAmountTokens: position.longBalanceTokens,
+      minimumToTokenAmountTokens: new BigNumber(3),
+    });
+
+    setReadyState({
+      reduceSwapQuotesData: {
+        pnlDsaTokens: new BigNumber(3),
+        profitSwapQuote,
+      },
+    });
+
+    const { getByText } = renderComponent(
+      <ReduceForm position={positionWithZeroShortBalance} closePosition />,
+      {
+        accountAddress: position.positionAccountAddress,
+      },
+    );
+
+    await waitFor(() =>
+      expect(
+        getByText(en.trade.operationForm.reduceForm.submitButtonLabel.close),
+      ).toBeInTheDocument(),
+    );
+
+    await waitFor(() =>
+      expect(
+        getSubmitButton(en.trade.operationForm.reduceForm.submitButtonLabel.close),
+      ).toBeEnabled(),
+    );
+
+    fireEvent.click(getSubmitButton(en.trade.operationForm.reduceForm.submitButtonLabel.close));
+
+    await waitFor(() => expect(mockCloseTradePositionWithProfit).toHaveBeenCalledTimes(1));
+
+    expect(mockCloseTradePositionWithProfit).toHaveBeenCalledWith({
+      longVTokenAddress: position.longAsset.vToken.address,
+      shortVTokenAddress: position.shortAsset.vToken.address,
+      profitSwapQuote,
+      profitAmountMantissa,
     });
   });
 

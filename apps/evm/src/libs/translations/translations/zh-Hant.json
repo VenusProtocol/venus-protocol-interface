@@ -402,6 +402,22 @@
   "connectWallet": {
     "connectButton": "連接錢包"
   },
+  "contractErrors": {
+    "actionPaused": "該市場暫時禁用此操作。",
+    "borrowCapExceeded": "該市場已達到借款上限。",
+    "insufficientCollateral": "抵押品不足以完成此操作。",
+    "insufficientLiquidity": "可用流動性不足以完成此操作。",
+    "notice": {
+      "copyDetails": "複製詳情",
+      "errorLabel": "錯誤",
+      "fallback": "交易將失敗，請檢查輸入後重試。",
+      "hideRawError": "隱藏原始錯誤",
+      "showRawError": "顯示原始錯誤"
+    },
+    "supplyCapExceeded": "該市場已達到存款上限。",
+    "swapDeadlineExpire": "兌換已超時，請重試。",
+    "tooMuchRepay": "還款金額超過了你的未償借款。"
+  },
   "controls": {
     "pausedAssetsToggle": {
       "label": "已暫停資產"

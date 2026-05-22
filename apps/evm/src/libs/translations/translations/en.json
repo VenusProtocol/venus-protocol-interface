@@ -402,6 +402,22 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "contractErrors": {
+    "actionPaused": "This action is currently paused on this market.",
+    "borrowCapExceeded": "Borrow cap reached for this market.",
+    "insufficientCollateral": "Not enough collateral for this operation.",
+    "insufficientLiquidity": "Not enough liquidity available for this operation.",
+    "notice": {
+      "copyDetails": "Copy details",
+      "errorLabel": "Error",
+      "fallback": "Transaction would fail. Please check your inputs and try again.",
+      "hideRawError": "Hide raw error",
+      "showRawError": "Show raw error"
+    },
+    "supplyCapExceeded": "Supply cap reached for this market.",
+    "swapDeadlineExpire": "Swap deadline expired. Please try again.",
+    "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
+  },
   "controls": {
     "pausedAssetsToggle": {
       "label": "Paused assets"

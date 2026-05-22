@@ -14,4 +14,5 @@ export interface SubMenu {
   label: string;
   items: MenuItem[];
   variant?: 'primary' | 'secondary';
+  defaultOpenOnMobile?: boolean;
 }

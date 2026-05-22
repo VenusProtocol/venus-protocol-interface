@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import type { ChainId, SwapQuote, Token } from 'types';
-import { convertMantissaToTokens, getSwapToTokenAmount } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens, getSwapToTokenAmount } from 'utilities';
 import { getSwapQuote } from '../getSwapQuote';
 
 export interface GetTradeReduceSwapQuotesInput {
@@ -126,7 +126,7 @@ export const getTradeReduceSwapQuotes = async ({
   let profitSwapQuote: SwapQuote | undefined;
   let lossSwapQuote: SwapQuote | undefined;
 
-  if (longProfitAmountDeltaTokens?.isGreaterThan(0)) {
+  if (longProfitAmountDeltaTokens?.isGreaterThan(0) && !areTokensEqual(longToken, dsaToken)) {
     // Profit swap quote (swap extra long to supply DSA = generate profit)
     const { swapQuote } = await getSwapQuote({
       ...shareSwapQuoteInput,
@@ -140,7 +140,11 @@ export const getTradeReduceSwapQuotes = async ({
     });
 
     profitSwapQuote = swapQuote;
-  } else if (shortLossAmountDeltaTokens?.isGreaterThan(0)) {
+  } else if (
+    longProfitAmountDeltaTokens?.isLessThanOrEqualTo(0) &&
+    shortLossAmountDeltaTokens?.isGreaterThan(0) &&
+    !areTokensEqual(dsaToken, shortToken)
+  ) {
     // Loss swap quote (swap DSA to repay short = repay loss)
     const { swapQuote } = await getSwapQuote({
       ...shareSwapQuoteInput,

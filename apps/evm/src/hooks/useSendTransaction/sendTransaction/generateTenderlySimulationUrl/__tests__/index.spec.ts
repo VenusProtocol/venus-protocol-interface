@@ -21,7 +21,7 @@ describe('generateTenderlySimulationUrl', () => {
     const url = new URL(tenderlySimulationUrl!);
 
     expect(url.origin + url.pathname).toBe(
-      'https://dashboard.tenderly.co/venus-labs/debug/simulator/new',
+      'https://dashboard.tenderly.co/venus-labs/frontend-debug/simulator/new',
     );
 
     expect(Object.fromEntries(url.searchParams.entries())).toEqual({
