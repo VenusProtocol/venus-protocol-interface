@@ -42,7 +42,6 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
       <SupplyNotification asset={asset} pool={pool} onShowAllMarkets={handleShowAssets} />
     ) : (
       <Trans
-        // t('assetWarning.borrowDescription')
         i18nKey="assetWarning.borrowDescription"
         values={{ poolName: pool.name, tokenSymbol: token.symbol }}
         components={{

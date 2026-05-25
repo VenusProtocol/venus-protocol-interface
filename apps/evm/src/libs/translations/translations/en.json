@@ -289,13 +289,13 @@
   "assetWarning": {
     "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool. <Button>Show all tokens</Button>",
     "modalTitle": "{{ poolName }} tokens",
-    "modeInfoHint": "<LineBreak/>Visit the <ModeInfoButton>Mode info</ModeInfoButton> section to explore more available groups.",
+    "modeInfoHint": "<LineBreak/>Visit the <ModeInfoButton>mode info</ModeInfoButton> section to explore more available groups.",
     "modeOnly": {
-      "eMode": "{{tokenSymbol}} is only available in E-mode. Visit the <ModeInfoButton>Mode info</ModeInfoButton> section to enable the group, or browse other assets in <Button>Show all markets</Button>.",
-      "eModeAndIsolation": "{{tokenSymbol}} is only available in E-mode and Isolation mode. Visit the <ModeInfoButton>Mode info</ModeInfoButton> section to enable one of the groups, or browse other assets in <Button>Show all markets</Button>.",
-      "isolation": "{{tokenSymbol}} is only available in Isolation mode. Visit the <ModeInfoButton>Mode info</ModeInfoButton> section to enable the group, or browse other assets in <Button>Show all markets</Button>."
+      "eMode": "{{tokenSymbol}} is only available in E-mode. Visit the <ModeInfoButton>mode info</ModeInfoButton> section to enable the group, or browse <ShowAllMarketsButton>other assets</ShowAllMarketsButton>.",
+      "eModeAndIsolation": "{{tokenSymbol}} is only available in E-mode and Isolation mode. Visit the <ModeInfoButton>mode info</ModeInfoButton> section to enable one of the groups, or browse <ShowAllMarketsButton>other assets</ShowAllMarketsButton>.",
+      "isolation": "{{tokenSymbol}} is only available in Isolation mode. Visit the <ModeInfoButton>mode info</ModeInfoButton> section to enable the group, or browse <ShowAllMarketsButton>other assets</ShowAllMarketsButton>."
     },
-    "supplyDescription": "Supplying {{tokenSymbol}} to the Core Pool lets you borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
+    "supplyDescription": "Supplying {{tokenSymbol}} to the Core Pool lets you borrow tokens from this pool exclusively. <ShowAllMarketsButton>Show all markets</ShowAllMarketsButton>"
   },
   "availableBalance": {
     "label": "Available"

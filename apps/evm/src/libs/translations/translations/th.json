@@ -291,11 +291,11 @@
     "modalTitle": "โทเคน {{ poolName }}",
     "modeInfoHint": "<LineBreak/>เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อสำรวจกลุ่มที่มีให้ใช้เพิ่มเติม",
     "modeOnly": {
-      "eMode": "{{tokenSymbol}} ใช้งานได้เฉพาะใน E-mode เท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่ม หรือเรียกดูสินทรัพย์อื่นใน <Button>แสดงตลาดทั้งหมด</Button>",
-      "eModeAndIsolation": "{{tokenSymbol}} ใช้งานได้เฉพาะใน E-mode และโหมดแยกเท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่มใดกลุ่มหนึ่ง หรือเรียกดูสินทรัพย์อื่นใน <Button>แสดงตลาดทั้งหมด</Button>",
-      "isolation": "{{tokenSymbol}} ใช้งานได้เฉพาะในโหมดแยกเท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่ม หรือเรียกดูสินทรัพย์อื่นใน <Button>แสดงตลาดทั้งหมด</Button>"
+      "eMode": "{{tokenSymbol}} ใช้งานได้เฉพาะใน E-mode เท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่ม หรือเรียกดู<ShowAllMarketsButton>สินทรัพย์อื่น</ShowAllMarketsButton>",
+      "eModeAndIsolation": "{{tokenSymbol}} ใช้งานได้เฉพาะใน E-mode และโหมดแยกเท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่มใดกลุ่มหนึ่ง หรือเรียกดู<ShowAllMarketsButton>สินทรัพย์อื่น</ShowAllMarketsButton>",
+      "isolation": "{{tokenSymbol}} ใช้งานได้เฉพาะในโหมดแยกเท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่ม หรือเรียกดู<ShowAllMarketsButton>สินทรัพย์อื่น</ShowAllMarketsButton>"
     },
-    "supplyDescription": "การฝาก {{tokenSymbol}} ใน Core Pool จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <Button>แสดงตลาดทั้งหมด</Button>"
+    "supplyDescription": "การฝาก {{tokenSymbol}} ใน Core Pool จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <ShowAllMarketsButton>แสดงตลาดทั้งหมด</ShowAllMarketsButton>"
   },
   "availableBalance": {
     "label": "ใช้ได้"

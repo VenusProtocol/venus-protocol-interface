@@ -10,6 +10,11 @@ export interface SupplyNotificationProps {
   onShowAllMarkets: () => void;
 }
 
+// Translation keys: do not remove this comment
+// t('assetWarning.modeOnly.eModeAndIsolation')
+// t('assetWarning.modeOnly.eMode')
+// t('assetWarning.modeOnly.isolation')
+
 export const SupplyNotification: React.FC<SupplyNotificationProps> = ({
   asset,
   pool,
@@ -52,51 +57,49 @@ export const SupplyNotification: React.FC<SupplyNotificationProps> = ({
     />
   );
 
-  if (!isAvailableInCore) {
-    let i18nKey: string | undefined;
-
-    if (isAvailableInEMode && isAvailableInIsolation) {
-      // t('assetWarning.modeOnly.eModeAndIsolation')
-      i18nKey = 'assetWarning.modeOnly.eModeAndIsolation';
-    } else if (isAvailableInEMode) {
-      // t('assetWarning.modeOnly.eMode')
-      i18nKey = 'assetWarning.modeOnly.eMode';
-    } else if (isAvailableInIsolation) {
-      // t('assetWarning.modeOnly.isolation')
-      i18nKey = 'assetWarning.modeOnly.isolation';
-    }
-
-    if (!i18nKey) {
-      return null;
-    }
+  if (isAvailableInCore) {
+    const hasMode = isAvailableInEMode || isAvailableInIsolation;
 
     return (
-      <Trans
-        i18nKey={i18nKey}
-        values={{ tokenSymbol }}
-        components={{ Button: showAllMarketsButton, ModeInfoButton: modeInfoButton }}
-      />
+      <>
+        <Trans
+          i18nKey="assetWarning.supplyDescription"
+          values={{ tokenSymbol }}
+          components={{ ShowAllMarketsButton: showAllMarketsButton }}
+        />
+
+        {hasMode && (
+          <Trans
+            i18nKey="assetWarning.modeInfoHint"
+            components={{ LineBreak: <br />, ModeInfoButton: modeInfoButton }}
+          />
+        )}
+      </>
     );
   }
 
-  const hasMode = isAvailableInEMode || isAvailableInIsolation;
+  let i18nKey: string | undefined;
+
+  if (isAvailableInEMode && isAvailableInIsolation) {
+    i18nKey = 'assetWarning.modeOnly.eModeAndIsolation';
+  } else if (isAvailableInEMode) {
+    i18nKey = 'assetWarning.modeOnly.eMode';
+  } else if (isAvailableInIsolation) {
+    i18nKey = 'assetWarning.modeOnly.isolation';
+  }
+
+  if (!i18nKey) {
+    return null;
+  }
 
   return (
-    <>
-      <Trans
-        // t('assetWarning.supplyDescription')
-        i18nKey="assetWarning.supplyDescription"
-        values={{ tokenSymbol }}
-        components={{ Button: showAllMarketsButton }}
-      />
-
-      {hasMode && (
-        <Trans
-          // t('assetWarning.modeInfoHint')
-          i18nKey="assetWarning.modeInfoHint"
-          components={{ LineBreak: <br />, ModeInfoButton: modeInfoButton }}
-        />
-      )}
-    </>
+    <Trans
+      i18nKey={i18nKey}
+      values={{ tokenSymbol }}
+      components={{
+        ShowAllMarketsButton: showAllMarketsButton,
+        ModeInfoButton: modeInfoButton,
+      }}
+    />
   );
 };

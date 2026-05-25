@@ -291,11 +291,11 @@
     "modalTitle": "{{ poolName }} トークン",
     "modeInfoHint": "<LineBreak/>利用可能なグループをさらに確認するには、<ModeInfoButton>モード情報</ModeInfoButton>セクションをご覧ください。",
     "modeOnly": {
-      "eMode": "{{tokenSymbol}}はEモードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでグループを有効にするか、<Button>すべてのマーケットを表示</Button>から他の資産を確認してください。",
-      "eModeAndIsolation": "{{tokenSymbol}}はEモードと隔離モードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでいずれかのグループを有効にするか、<Button>すべてのマーケットを表示</Button>から他の資産を確認してください。",
-      "isolation": "{{tokenSymbol}}は隔離モードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでグループを有効にするか、<Button>すべてのマーケットを表示</Button>から他の資産を確認してください。"
+      "eMode": "{{tokenSymbol}}はEモードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでグループを有効にするか、<ShowAllMarketsButton>他の資産</ShowAllMarketsButton>をご覧ください。",
+      "eModeAndIsolation": "{{tokenSymbol}}はEモードと隔離モードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでいずれかのグループを有効にするか、<ShowAllMarketsButton>他の資産</ShowAllMarketsButton>をご覧ください。",
+      "isolation": "{{tokenSymbol}}は隔離モードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでグループを有効にするか、<ShowAllMarketsButton>他の資産</ShowAllMarketsButton>をご覧ください。"
     },
-    "supplyDescription": "コアプールに{{tokenSymbol}}を供給すると、このプールからのみトークンを借りられます。<Button>すべてのマーケットを表示</Button>"
+    "supplyDescription": "コアプールに{{tokenSymbol}}を供給すると、このプールからのみトークンを借りられます。<ShowAllMarketsButton>すべてのマーケットを表示</ShowAllMarketsButton>"
   },
   "availableBalance": {
     "label": "利用可能"
