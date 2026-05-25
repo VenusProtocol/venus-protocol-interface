@@ -68,7 +68,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           </Link>
 
           {/* XL and up menu */}
-          <div className="hidden items-center gap-x-3 xl:flex">
+          <div className="hidden items-center gap-x-3 lg:flex">
             {menuItems.map(item => (
               <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
             ))}
@@ -82,14 +82,14 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
 
           <ConnectButton className="h-full max-w-xs flex-1 px-3" />
 
-          <NavButtonWrapper className="size-9 px-0 sm:size-12 xl:hidden" onClick={toggleMobileMenu}>
+          <NavButtonWrapper className="size-9 px-0 sm:size-12 lg:hidden" onClick={toggleMobileMenu}>
             <Icon
               name={isMobileMenuOpen ? 'closeRounded' : 'burger'}
               className={cn(isMobileMenuOpen ? 'text-light-grey size-3' : 'text-white')}
             />
           </NavButtonWrapper>
 
-          <SettingsButton className="h-full px-0 hidden xl:flex" />
+          <SettingsButton className="h-full px-0 hidden lg:flex" />
         </div>
       </div>
 
@@ -97,7 +97,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
       <div
         className={cn(
           isMobileMenuOpen ? 'fixed' : 'hidden',
-          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-[#000000] overflow-y-auto xl:hidden',
+          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-[#000000] overflow-y-auto lg:hidden',
         )}
       >
         <div className="flex items-center justify-between mb-5">

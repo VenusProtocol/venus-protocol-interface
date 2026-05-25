@@ -21,7 +21,7 @@ export const SettingsButton: React.FC<SettingsButtonProps> = ({ className }) => 
   return (
     <>
       <NavButtonWrapper
-        className={cn('size-9 sm:size-12 xl:hidden', className)}
+        className={cn('size-9 sm:size-12 lg:hidden', className)}
         onClick={openSettingsModal}
       >
         <Icon name="gearFull" className="text-light-grey" />
