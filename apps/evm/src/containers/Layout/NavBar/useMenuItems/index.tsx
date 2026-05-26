@@ -79,6 +79,14 @@ export const useMenuItems = () => {
     });
   }
 
+  if (swapRouteEnabled) {
+    othersSubMenuItems.push({
+      to: routes.swap.path,
+      iconName: 'convert',
+      label: t('layout.menu.others.swap.label'),
+    });
+  }
+
   if (accountAddress) {
     othersSubMenuItems.push({
       to: routes.port.path,
@@ -93,13 +101,6 @@ export const useMenuItems = () => {
       to: routes.trade.path,
       label: t('layout.menu.others.trade.label'),
       isBeta: true,
-    });
-  }
-
-  if (swapRouteEnabled) {
-    menu.push({
-      to: routes.swap.path,
-      label: t('layout.menu.others.swap.label'),
     });
   }
 

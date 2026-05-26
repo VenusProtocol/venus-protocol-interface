@@ -30,7 +30,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   }
 
   const sharedContainerClassName = cn(
-    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:bg-dark-blue-active lg:whitespace-nowrap',
+    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:bg-dark-blue-active lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
     isActive && 'lg:bg-dark-blue-active lg:text-white',
   );
 
@@ -113,7 +113,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       <span>{item.label}</span>
 
       {item.isBeta && (
-        <div className="bg-blue px-1.5 py-0.5 rounded-full text-b2s text-white">
+        <div className="bg-blue px-1.5 py-0.5 rounded-full text-b2s text-white hidden max-lg:inline-block xl:inline-block">
           {t('layout.menu.beta')}
         </div>
       )}

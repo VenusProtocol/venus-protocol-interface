@@ -47,12 +47,12 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
     <nav className="relative">
       <div
         className={cn(
-          'bg-background-active h-20 pr-5 flex items-center justify-between',
+          'group/navbar bg-background-active h-20 pr-5 flex items-center justify-between',
           className,
         )}
         {...containerProps}
       >
-        <div className="flex items-center gap-x-1">
+        <div className="flex items-center xl:gap-x-1">
           <Link
             className="flex h-full flex-none items-center justify-center px-5 py-6"
             to={routes.landing.path}
@@ -67,16 +67,16 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
             />
           </Link>
 
-          {/* XL and up menu */}
-          <div className="hidden items-center gap-x-3 lg:flex">
+          {/* LG and up menu */}
+          <div className="hidden items-center lg:flex xl:gap-x-3">
             {menuItems.map(item => (
               <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
             ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-x-2 h-9 sm:h-12">
-          <ClaimRewardsButton className="h-full hidden sm:flex" />
+        <div className="flex items-center gap-x-3 h-9 sm:h-12">
+          <ClaimRewardsButton className="h-full hidden sm:flex" data-rewards-button="true" />
 
           <ChainSelect buttonClassName="h-9 px-3 py-0 border-dark-blue sm:h-12" />
 
