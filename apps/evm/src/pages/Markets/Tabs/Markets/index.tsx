@@ -23,6 +23,7 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => (
       poolName={pool.name}
       poolComptrollerContractAddress={pool.comptrollerAddress}
       userEModeGroup={pool.userEModeGroup}
+      eModeGroups={pool.eModeGroups}
       initialOrder={{
         orderBy: 'labeledSupplyApy',
         orderDirection: 'desc',

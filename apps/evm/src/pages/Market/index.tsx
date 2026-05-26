@@ -24,6 +24,7 @@ const Page: React.FC = () => {
             <AssetWarning
               token={asset.vToken.underlyingToken}
               pool={pool}
+              asset={asset}
               type="supply"
               className="mb-6"
             />

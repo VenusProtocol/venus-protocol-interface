@@ -289,7 +289,13 @@
   "assetWarning": {
     "borrowDescription": "{{poolName}}プールで担保として供給しているため、{{tokenSymbol}}を借りられます。<Button>すべてのトークンを表示</Button>",
     "modalTitle": "{{ poolName }} トークン",
-    "supplyDescription": "{{poolName}}プールに{{tokenSymbol}}を供給すると、このプールのみからトークンを借りられるようになります。<Button>すべてのマーケットを表示</Button>"
+    "modeInfoHint": "<LineBreak/>利用可能なグループをさらに確認するには、<ModeInfoButton>モード情報</ModeInfoButton>セクションをご覧ください。",
+    "modeOnly": {
+      "eMode": "{{tokenSymbol}}はEモードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでグループを有効にするか、<ShowAllMarketsButton>他の資産</ShowAllMarketsButton>をご覧ください。",
+      "eModeAndIsolation": "{{tokenSymbol}}はEモードと隔離モードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでいずれかのグループを有効にするか、<ShowAllMarketsButton>他の資産</ShowAllMarketsButton>をご覧ください。",
+      "isolation": "{{tokenSymbol}}は隔離モードでのみ利用可能です。<ModeInfoButton>モード情報</ModeInfoButton>セクションでグループを有効にするか、<ShowAllMarketsButton>他の資産</ShowAllMarketsButton>をご覧ください。"
+    },
+    "supplyDescription": "コアプールに{{tokenSymbol}}を供給すると、このプールからのみトークンを借りられます。<ShowAllMarketsButton>すべてのマーケットを表示</ShowAllMarketsButton>"
   },
   "availableBalance": {
     "label": "利用可能"
@@ -1004,6 +1010,8 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "このマーケットは{{eModeGroupName}}のEモードグループに含まれます",
+      "isolated": "隔離",
+      "isolatedTooltip": "この資産は対応する隔離モードでのみ利用可能です。",
       "isolationMode": "このマーケットは{{eModeGroupName}}の隔離モードグループに含まれます",
       "pausedAssetTooltip": "資産はVenusガバナンスにより停止されています。借入と供給が無効化されています。",
       "protectionMode": "価格変動により、{{tokenName}} のプロテクションモードが有効になっています。担保価格と借入価格に影響します。 <LearnMore>詳細はこちら</LearnMore>",

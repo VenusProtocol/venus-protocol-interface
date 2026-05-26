@@ -14,6 +14,7 @@ describe('components/AssetWarning', () => {
       <AssetWarning
         token={fakePool.assets[0].vToken.underlyingToken}
         pool={fakePool}
+        asset={fakePool.assets[0]}
         type="supply"
       />,
     );
@@ -24,6 +25,7 @@ describe('components/AssetWarning', () => {
       <AssetWarning
         token={fakePool.assets[0].vToken.underlyingToken}
         pool={fakePool}
+        asset={fakePool.assets[0]}
         type="borrow"
       />,
     );

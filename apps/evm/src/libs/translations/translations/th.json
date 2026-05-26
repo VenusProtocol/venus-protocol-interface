@@ -289,7 +289,13 @@
   "assetWarning": {
     "borrowDescription": "คุณสามารถยืม {{tokenSymbol}} ได้ตามยอดฝากที่เป็นหลักประกันในพูล {{poolName}} <Button>แสดงโทเคนทั้งหมด</Button>",
     "modalTitle": "โทเคน {{ poolName }}",
-    "supplyDescription": "การฝาก {{tokenSymbol}} ในพูล {{poolName}} จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <Button>แสดงตลาดทั้งหมด</Button>"
+    "modeInfoHint": "<LineBreak/>เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อสำรวจกลุ่มที่มีให้ใช้เพิ่มเติม",
+    "modeOnly": {
+      "eMode": "{{tokenSymbol}} ใช้งานได้เฉพาะใน E-mode เท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่ม หรือเรียกดู<ShowAllMarketsButton>สินทรัพย์อื่น</ShowAllMarketsButton>",
+      "eModeAndIsolation": "{{tokenSymbol}} ใช้งานได้เฉพาะใน E-mode และโหมดแยกเท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่มใดกลุ่มหนึ่ง หรือเรียกดู<ShowAllMarketsButton>สินทรัพย์อื่น</ShowAllMarketsButton>",
+      "isolation": "{{tokenSymbol}} ใช้งานได้เฉพาะในโหมดแยกเท่านั้น เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อเปิดใช้งานกลุ่ม หรือเรียกดู<ShowAllMarketsButton>สินทรัพย์อื่น</ShowAllMarketsButton>"
+    },
+    "supplyDescription": "การฝาก {{tokenSymbol}} ใน Core Pool จะทำให้คุณยืมโทเคนได้เฉพาะจากพูลนี้ <ShowAllMarketsButton>แสดงตลาดทั้งหมด</ShowAllMarketsButton>"
   },
   "availableBalance": {
     "label": "ใช้ได้"
@@ -1004,6 +1010,8 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "ตลาดนี้เป็นส่วนหนึ่งของกลุ่ม E-mode {{eModeGroupName}}",
+      "isolated": "แยก",
+      "isolatedTooltip": "สินทรัพย์นี้ใช้งานได้เฉพาะในโหมดแยกที่เกี่ยวข้องเท่านั้น",
       "isolationMode": "ตลาดนี้เป็นส่วนหนึ่งของกลุ่มโหมดแยก {{eModeGroupName}}",
       "pausedAssetTooltip": "สินทรัพย์ถูกหยุดโดยการกำกับดูแลของ Venus การยืมและการฝากถูกปิดใช้งาน",
       "protectionMode": "โหมดป้องกันเปิดใช้งานสำหรับ {{tokenName}} เนื่องจากความผันผวนของราคา ส่งผลต่อราคาหลักประกันและราคาการกู้ยืม <LearnMore>เรียนรู้เพิ่มเติม</LearnMore>",

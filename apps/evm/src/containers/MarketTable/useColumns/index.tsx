@@ -4,11 +4,13 @@ import { cn } from '@venusprotocol/ui';
 import {
   EModeIcon,
   InfoIcon,
+  IsolatedAssetIndicator,
   LayeredValues,
   ProgressBar,
   ProtectionModeIndicator,
   type TableColumn,
   Toggle,
+  TokenIcon,
   TokenIconWithSymbol,
   Tooltip,
 } from 'components';
@@ -67,11 +69,13 @@ export const useColumns = ({
   columnKeys,
   collateralOnChange,
   userEModeGroup,
+  eModeGroups,
   marketType,
 }: {
   columnKeys: ColumnKey[];
   collateralOnChange: (asset: Asset) => void;
   userEModeGroup?: EModeGroup;
+  eModeGroups?: EModeGroup[];
   marketType?: 'supply' | 'borrow';
 }) => {
   const { t, Trans } = useTranslation();
@@ -132,14 +136,36 @@ export const useColumns = ({
         });
 
         if (column === 'asset' || column === 'assetAndChain') {
+          const showIsolatedIndicator =
+            column === 'asset' &&
+            asset.collateralFactor === 0 &&
+            !asset.isBorrowable &&
+            !!eModeGroups?.some(
+              group =>
+                group.isIsolated &&
+                group.assetSettings.some(settings => areTokensEqual(settings.vToken, asset.vToken)),
+            );
+
           return (
             <div className="flex min-w-0 items-center space-x-1">
-              <TokenIconWithSymbol
-                token={asset.vToken.underlyingToken}
-                displayChain={column === 'assetAndChain'}
-                size={column === 'assetAndChain' ? 'md' : 'xl'}
-                className="min-w-[5rem]"
-              />
+              {showIsolatedIndicator ? (
+                <div className="flex min-w-[5rem] items-center gap-x-3">
+                  <TokenIcon token={asset.vToken.underlyingToken} size="xl" className="shrink-0" />
+
+                  <div className="min-w-0">
+                    <p className="truncate font-semibold">{asset.vToken.underlyingToken.symbol}</p>
+
+                    <IsolatedAssetIndicator />
+                  </div>
+                </div>
+              ) : (
+                <TokenIconWithSymbol
+                  token={asset.vToken.underlyingToken}
+                  displayChain={column === 'assetAndChain'}
+                  size={column === 'assetAndChain' ? 'md' : 'xl'}
+                  className="min-w-[5rem]"
+                />
+              )}
 
               {userEModeGroup && isInUserEModeGroup && (
                 <Tooltip

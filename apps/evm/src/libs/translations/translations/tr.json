@@ -289,7 +289,13 @@
   "assetWarning": {
     "borrowDescription": "{{poolName}} havuzundaki teminatlı tedarikinize göre {{tokenSymbol}} borç alabilirsiniz. <Button>Tüm tokenları göster</Button>",
     "modalTitle": "{{ poolName }} tokenları",
-    "supplyDescription": "{{poolName}} havuzuna {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <Button>Tüm piyasaları göster</Button>"
+    "modeInfoHint": "<LineBreak/>Mevcut diğer grupları keşfetmek için <ModeInfoButton>mod bilgisi</ModeInfoButton> bölümünü ziyaret edin.",
+    "modeOnly": {
+      "eMode": "{{tokenSymbol}} yalnızca E-modunda kullanılabilir. <ModeInfoButton>mod bilgisi</ModeInfoButton> bölümünden grubu etkinleştirin veya <ShowAllMarketsButton>diğer varlıklara</ShowAllMarketsButton> göz atın.",
+      "eModeAndIsolation": "{{tokenSymbol}} yalnızca E-modunda ve İzolasyon modunda kullanılabilir. <ModeInfoButton>mod bilgisi</ModeInfoButton> bölümünden gruplardan birini etkinleştirin veya <ShowAllMarketsButton>diğer varlıklara</ShowAllMarketsButton> göz atın.",
+      "isolation": "{{tokenSymbol}} yalnızca İzolasyon modunda kullanılabilir. <ModeInfoButton>mod bilgisi</ModeInfoButton> bölümünden grubu etkinleştirin veya <ShowAllMarketsButton>diğer varlıklara</ShowAllMarketsButton> göz atın."
+    },
+    "supplyDescription": "Core Pool'a {{tokenSymbol}} tedarik etmek, yalnızca bu havuzdan token borç almanıza olanak tanır. <ShowAllMarketsButton>Tüm piyasaları göster</ShowAllMarketsButton>"
   },
   "availableBalance": {
     "label": "Mevcut"
@@ -1004,6 +1010,8 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "Bu piyasa {{eModeGroupName}} E-modu grubunun bir parçasıdır",
+      "isolated": "İzole",
+      "isolatedTooltip": "Bu varlık yalnızca ilgili izolasyon modunda kullanılabilir.",
       "isolationMode": "Bu piyasa {{eModeGroupName}} izolasyon modu grubunun bir parçasıdır",
       "pausedAssetTooltip": "Varlık Venus Yönetişimi tarafından duraklatıldı. Borç alma ve tedarik devre dışı bırakıldı.",
       "protectionMode": "Fiyat dalgalanması nedeniyle {{tokenName}} için Koruma Modu etkin, teminat ve borçlanma fiyatlarını etkilemektedir. <LearnMore>Daha fazla bilgi</LearnMore>",
