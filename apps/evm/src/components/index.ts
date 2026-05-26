@@ -60,6 +60,7 @@ export * from './EModeIcon';
 export * from './ProtectionModeIndicator';
 export * from './MarketStatus';
 export * from './Slider';
+export * from './IsolatedAssetIndicator';
 export * from './IsolatedEModeGroupTooltip';
 export * from './TokenIcon';
 export * from './BalanceUpdates';

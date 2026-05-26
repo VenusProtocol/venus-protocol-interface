@@ -289,7 +289,13 @@
   "assetWarning": {
     "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool. <Button>Show all tokens</Button>",
     "modalTitle": "{{ poolName }} tokens",
-    "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
+    "modeInfoHint": "<LineBreak/>Visit the <ModeInfoButton>mode info</ModeInfoButton> section to explore more available groups.",
+    "modeOnly": {
+      "eMode": "{{tokenSymbol}} is only available in E-mode. Visit the <ModeInfoButton>mode info</ModeInfoButton> section to enable the group, or browse <ShowAllMarketsButton>other assets</ShowAllMarketsButton>.",
+      "eModeAndIsolation": "{{tokenSymbol}} is only available in E-mode and Isolation mode. Visit the <ModeInfoButton>mode info</ModeInfoButton> section to enable one of the groups, or browse <ShowAllMarketsButton>other assets</ShowAllMarketsButton>.",
+      "isolation": "{{tokenSymbol}} is only available in Isolation mode. Visit the <ModeInfoButton>mode info</ModeInfoButton> section to enable the group, or browse <ShowAllMarketsButton>other assets</ShowAllMarketsButton>."
+    },
+    "supplyDescription": "Supplying {{tokenSymbol}} to the Core Pool lets you borrow tokens from this pool exclusively. <ShowAllMarketsButton>Show all markets</ShowAllMarketsButton>"
   },
   "availableBalance": {
     "label": "Available"
@@ -1004,6 +1010,8 @@
   "marketTable": {
     "assetColumn": {
       "eMode": "This market is part of the {{eModeGroupName}} E-mode group",
+      "isolated": "Isolated",
+      "isolatedTooltip": "This asset is only available in its corresponding isolation mode.",
       "isolationMode": "This market is part of the {{eModeGroupName}} isolation mode group",
       "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled.",
       "protectionMode": "Protection mode is active for {{tokenName}} due to price volatility, affecting its collateral and borrow prices. <LearnMore>Learn more</LearnMore>",
