@@ -13,12 +13,14 @@ export type RhfTokenTextFieldProps<TFormValues extends FieldValues> = {
   name: Path<TFormValues>;
   control: Control<TFormValues>;
   rules?: RegisterOptions;
+  hideErrorDescription?: boolean;
 } & Omit<TokenTextFieldProps, 'value' | 'onChange'>;
 
 export const RhfTokenTextField = <TFormValues extends FieldValues>({
   name,
   rules,
   control,
+  hideErrorDescription = false,
   ...tokenTextFieldProps
 }: RhfTokenTextFieldProps<TFormValues>) => {
   const formState = useFormState({ control });
@@ -39,6 +41,11 @@ export const RhfTokenTextField = <TFormValues extends FieldValues>({
             {...field}
             hasError={hasError}
             disabled={field.disabled || formState.isSubmitting || tokenTextFieldProps.disabled}
+            description={
+              !hideErrorDescription && hasError && fieldState.error ? (
+                <p className="text-red">{fieldState.error.message}</p>
+              ) : undefined
+            }
           />
         );
       }}

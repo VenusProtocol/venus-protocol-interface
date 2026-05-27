@@ -197,6 +197,7 @@ export const Repay: React.FC = () => {
           name="amountTokens"
           rules={{ required: true }}
           disabled={!isUserConnected}
+          hideErrorDescription
           token={vai}
           rightMaxButton={
             limitTokens

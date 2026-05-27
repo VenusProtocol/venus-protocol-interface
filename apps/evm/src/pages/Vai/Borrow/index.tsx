@@ -266,6 +266,7 @@ export const Borrow: React.FC = () => {
           name="amountTokens"
           rules={{ required: true }}
           disabled={!isUserConnected || isUserMissingPrimeToken}
+          hideErrorDescription
           token={vai}
           rightMaxButton={{
             label: t('vai.borrow.amountTokensInput.limitButtonLabel'),
