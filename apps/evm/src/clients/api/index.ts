@@ -320,3 +320,14 @@ export * from './queries/getRawTradePositions/useGetRawTradePositions';
 
 export * from './queries/getTradeReduceSwapQuotes';
 export * from './queries/getTradeReduceSwapQuotes/useGetTradeReduceSwapQuotes';
+
+export * from './queries/getRiskDashboardMarketAggregates';
+export * from './queries/getRiskDashboardMarketAggregates/useGetRiskDashboardMarketAggregates';
+export * from './queries/getRiskDashboardMarketSnapshots';
+export * from './queries/getRiskDashboardMarketSnapshots/useGetRiskDashboardMarketSnapshots';
+export * from './queries/getRiskDashboardWalletAggregates';
+export * from './queries/getRiskDashboardWalletAggregates/useGetRiskDashboardWalletAggregates';
+export * from './queries/getRiskDashboardTopWallets';
+export * from './queries/getRiskDashboardTopWallets/useGetRiskDashboardTopWallets';
+export * from './queries/getRiskDashboardTransactionsVolume';
+export * from './queries/getRiskDashboardTransactionsVolume/useGetRiskDashboardTransactionsVolume';
