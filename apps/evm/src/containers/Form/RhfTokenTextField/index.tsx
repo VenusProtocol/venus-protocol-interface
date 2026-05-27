@@ -39,11 +39,6 @@ export const RhfTokenTextField = <TFormValues extends FieldValues>({
             {...field}
             hasError={hasError}
             disabled={field.disabled || formState.isSubmitting || tokenTextFieldProps.disabled}
-            description={
-              hasError && fieldState.error ? (
-                <p className="text-red">{fieldState.error.message}</p>
-              ) : undefined
-            }
           />
         );
       }}
