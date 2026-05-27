@@ -47,12 +47,12 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
     <nav className="relative">
       <div
         className={cn(
-          'bg-background-active h-20 pr-5 flex items-center justify-between',
+          'group/navbar bg-background-active h-20 pr-5 flex items-center justify-between',
           className,
         )}
         {...containerProps}
       >
-        <div className="flex items-center gap-x-1">
+        <div className="flex items-center xl:gap-x-1">
           <Link
             className="flex h-full flex-none items-center justify-center px-5 py-6"
             to={routes.landing.path}
@@ -67,29 +67,29 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
             />
           </Link>
 
-          {/* XL and up menu */}
-          <div className="hidden items-center gap-x-3 xl:flex">
+          {/* LG and up menu */}
+          <div className="hidden items-center lg:flex xl:gap-x-3">
             {menuItems.map(item => (
               <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
             ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-x-2 h-9 sm:h-12">
-          <ClaimRewardsButton className="h-full hidden sm:flex" />
+        <div className="flex items-center gap-x-3 h-9 sm:h-12">
+          <ClaimRewardsButton className="h-full hidden sm:flex" data-rewards-button="true" />
 
           <ChainSelect buttonClassName="h-9 px-3 py-0 border-dark-blue sm:h-12" />
 
           <ConnectButton className="h-full max-w-xs flex-1 px-3" />
 
-          <NavButtonWrapper className="size-9 px-0 sm:size-12 xl:hidden" onClick={toggleMobileMenu}>
+          <NavButtonWrapper className="size-9 px-0 sm:size-12 lg:hidden" onClick={toggleMobileMenu}>
             <Icon
               name={isMobileMenuOpen ? 'closeRounded' : 'burger'}
               className={cn(isMobileMenuOpen ? 'text-light-grey size-3' : 'text-white')}
             />
           </NavButtonWrapper>
 
-          <SettingsButton className="h-full px-0 hidden xl:flex" />
+          <SettingsButton className="h-full px-0 hidden lg:flex" />
         </div>
       </div>
 
@@ -97,7 +97,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
       <div
         className={cn(
           isMobileMenuOpen ? 'fixed' : 'hidden',
-          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-[#000000] overflow-y-auto xl:hidden',
+          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-[#000000] overflow-y-auto lg:hidden',
         )}
       >
         <div className="flex items-center justify-between mb-5">

@@ -30,8 +30,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   }
 
   const sharedContainerClassName = cn(
-    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active xl:font-normal xl:px-4 xl:py-3 xl:rounded-lg xl:hover:text-white xl:hover:bg-dark-blue-active xl:whitespace-nowrap',
-    isActive && 'xl:bg-dark-blue-active xl:text-white',
+    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:bg-dark-blue-active lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
+    isActive && 'lg:bg-dark-blue-active lg:text-white',
   );
 
   // Toggle menu's open state
@@ -40,11 +40,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   return 'items' in item ? (
     <div>
       {/* Mobile/tablet submenu */}
-      <div className="xl:hidden">
+      <div className="lg:hidden">
         <button
           className={cn(
             sharedContainerClassName,
-            'flex items-center justify-between cursor-pointer xl:gap-x-2',
+            'flex items-center justify-between cursor-pointer lg:gap-x-2',
           )}
           type="button"
           onClick={onAccordionTriggerClick}
@@ -57,7 +57,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           />
         </button>
 
-        <AccordionAnimatedContent isOpen={isSubMenuOpen} className="pb-3 xl:hidden">
+        <AccordionAnimatedContent isOpen={isSubMenuOpen} className="pb-3 lg:hidden">
           <SubMenuContent
             {...item}
             items={item.items.map(i => ({
@@ -70,7 +70,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
 
       {/* XL and up dropdown */}
       <Dropdown
-        className="hidden xl:block"
+        className="hidden lg:block"
         menuClassName="mt-5 shadow-none border-0 bg-background-active"
         triggerOnHover
         optionsDom={({ setIsDropdownOpened }) => {
@@ -91,8 +91,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           <button
             className={cn(
               sharedContainerClassName,
-              'flex items-center justify-between cursor-pointer xl:gap-x-2',
-              isDropdownOpened && 'xl:text-white xl:bg-dark-blue-active',
+              'flex items-center justify-between cursor-pointer lg:gap-x-2',
+              isDropdownOpened && 'lg:text-white lg:bg-dark-blue-active',
             )}
             type="button"
           >
@@ -113,7 +113,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       <span>{item.label}</span>
 
       {item.isBeta && (
-        <div className="bg-blue px-1.5 py-0.5 rounded-full text-b2s text-white">
+        <div className="bg-blue px-1.5 py-0.5 rounded-full text-b2s text-white hidden max-lg:inline-block xl:inline-block">
           {t('layout.menu.beta')}
         </div>
       )}
