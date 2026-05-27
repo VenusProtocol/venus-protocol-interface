@@ -1,5 +1,11 @@
 # @venusprotocol/ui
 
+## 0.11.0
+
+### Minor Changes
+
+- 6ef99b9: improve Trade features
+
 ## 0.10.0
 
 ### Minor Changes

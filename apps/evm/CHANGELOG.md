@@ -1,5 +1,24 @@
 # @venusprotocol/evm
 
+## 4.32.0
+
+### Minor Changes
+
+- a860e2d: feat: support display contract error message for details
+- ac024de: feat: support isolated mode tag
+- 6ef99b9: improve Trade features
+- da2dcc7: feat: landing page ui update
+- 14a95bd: fix an issue with swap quote slippage
+- 15883d0: add token switch to Trade page
+- 557bb3c: fix issue with borrowable state
+- 3ca7600: support updated find-swap API endpoint
+
+### Patch Changes
+
+- c1e56e3: feat: full menu item on 1024-1280
+- Updated dependencies [6ef99b9]
+  - @venusprotocol/ui@0.11.0
+
 ## 4.31.0
 
 ### Minor Changes
