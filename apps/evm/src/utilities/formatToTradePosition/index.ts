@@ -12,6 +12,7 @@ export const formatToTradePosition = ({
   positionAccountAddress,
   dsaVTokenAddress,
   dsaBalanceMantissa,
+  dsaUtilizedBalanceMantissa,
   longVTokenAddress,
   shortVTokenAddress,
   leverageFactor,
@@ -23,6 +24,7 @@ export const formatToTradePosition = ({
   positionAccountAddress: Address;
   dsaVTokenAddress: Address;
   dsaBalanceMantissa: BigNumber;
+  dsaUtilizedBalanceMantissa: BigNumber;
   longVTokenAddress: Address;
   shortVTokenAddress: Address;
   leverageFactor: number;
@@ -56,6 +58,11 @@ export const formatToTradePosition = ({
     token: dsaAsset.vToken.underlyingToken,
   });
 
+  const dsaUtilizedBalanceTokens = convertMantissaToTokens({
+    value: dsaUtilizedBalanceMantissa,
+    token: dsaAsset.vToken.underlyingToken,
+  });
+
   const isLongAndDsaSameMarket = areTokensEqual(longAsset.vToken, dsaAsset.vToken);
 
   let longBalanceTokens = longAsset.userSupplyBalanceTokens;
@@ -68,6 +75,7 @@ export const formatToTradePosition = ({
   const shortBalanceTokens = shortAsset.userBorrowBalanceTokens;
 
   const dsaBalanceCents = dsaBalanceTokens.multipliedBy(dsaAsset.tokenPriceCents);
+  const dsaUtilizedBalanceCents = dsaUtilizedBalanceTokens.multipliedBy(dsaAsset.tokenPriceCents);
   const longBalanceCents = longBalanceTokens.multipliedBy(longAsset.tokenPriceCents);
   const shortBalanceCents = shortAsset.userBorrowBalanceCents;
 
@@ -133,6 +141,8 @@ export const formatToTradePosition = ({
     dsaAsset,
     dsaBalanceTokens,
     dsaBalanceCents: dsaBalanceCents.toNumber(),
+    dsaUtilizedBalanceTokens,
+    dsaUtilizedBalanceCents: dsaUtilizedBalanceCents.toNumber(),
     netValueCents,
     netApyPercentage,
     liquidationPriceTokens,

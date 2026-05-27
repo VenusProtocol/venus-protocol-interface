@@ -117,6 +117,10 @@ export const tradePositions: TradePosition[] = [
       value: xvsAsset.userSupplyBalanceTokens,
       token: xvsAsset.vToken.underlyingToken,
     }),
+    dsaUtilizedBalanceMantissa: convertTokensToMantissa({
+      value: xvsAsset.userSupplyBalanceTokens.minus(1),
+      token: xvsAsset.vToken.underlyingToken,
+    }),
     longVTokenAddress: usdtAsset.vToken.address,
     shortVTokenAddress: busdAsset.vToken.address,
     leverageFactor: 2,
@@ -132,6 +136,10 @@ export const tradePositions: TradePosition[] = [
       value: usdcAsset.userSupplyBalanceTokens,
       token: usdcAsset.vToken.underlyingToken,
     }),
+    dsaUtilizedBalanceMantissa: convertTokensToMantissa({
+      value: usdcAsset.userSupplyBalanceTokens.minus(1),
+      token: usdcAsset.vToken.underlyingToken,
+    }),
     longVTokenAddress: usdtAsset.vToken.address,
     shortVTokenAddress: busdAsset.vToken.address,
     leverageFactor: 3,
@@ -145,6 +153,10 @@ export const tradePositions: TradePosition[] = [
     dsaVTokenAddress: usdcAsset.vToken.address,
     dsaBalanceMantissa: convertTokensToMantissa({
       value: usdcAsset.userSupplyBalanceTokens,
+      token: usdcAsset.vToken.underlyingToken,
+    }),
+    dsaUtilizedBalanceMantissa: convertTokensToMantissa({
+      value: usdcAsset.userSupplyBalanceTokens.minus(1),
       token: usdcAsset.vToken.underlyingToken,
     }),
     longVTokenAddress: usdcAsset.vToken.address,

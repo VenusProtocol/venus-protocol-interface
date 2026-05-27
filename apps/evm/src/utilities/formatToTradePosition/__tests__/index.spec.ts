@@ -18,6 +18,10 @@ const baseInput: Parameters<typeof formatToTradePosition>[0] = {
     value: xvsAsset.userSupplyBalanceTokens,
     token: xvsAsset.vToken.underlyingToken,
   }),
+  dsaUtilizedBalanceMantissa: convertTokensToMantissa({
+    value: xvsAsset.userSupplyBalanceTokens.minus(1),
+    token: xvsAsset.vToken.underlyingToken,
+  }),
   longVTokenAddress: usdtAsset.vToken.address,
   shortVTokenAddress: busdAsset.vToken.address,
   leverageFactor: 2,

@@ -682,6 +682,8 @@ export interface TradePosition {
   dsaAsset: Asset;
   dsaBalanceTokens: BigNumber;
   dsaBalanceCents: number;
+  dsaUtilizedBalanceTokens: BigNumber;
+  dsaUtilizedBalanceCents: number;
   netValueCents: number;
   netApyPercentage: number;
   unrealizedPnlCents: number;

@@ -107,6 +107,8 @@ exports[`useGetNewTradePosition > returns a new base position built from the cor
   },
   "dsaBalanceCents": 0,
   "dsaBalanceTokens": "0",
+  "dsaUtilizedBalanceCents": 0,
+  "dsaUtilizedBalanceTokens": "0",
   "entryPriceTokens": "0",
   "leverageFactor": 2,
   "liquidationPriceTokens": "0",

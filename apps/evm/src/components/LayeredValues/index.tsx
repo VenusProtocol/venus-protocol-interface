@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
 export interface LayeredValuesProps {
-  topValue: string | number;
+  topValue: React.ReactNode;
   bottomValue?: string | number;
   className?: string;
   bottomValueClassName?: string;

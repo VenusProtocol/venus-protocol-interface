@@ -101,6 +101,7 @@ export const useGetNewTradePosition = () => {
           positionAccountAddress: NULL_ADDRESS,
           dsaVTokenAddress: dsaAsset.vToken.address,
           dsaBalanceMantissa: new BigNumber(0),
+          dsaUtilizedBalanceMantissa: new BigNumber(0),
           longVTokenAddress: longAsset.vToken.address,
           shortVTokenAddress: shortAsset.vToken.address,
           leverageFactor: BigNumber.min(maximumLeverageFactor, DEFAULT_LEVERAGE_FACTOR).toNumber(),
