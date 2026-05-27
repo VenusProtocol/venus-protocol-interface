@@ -1583,9 +1583,91 @@
   },
   "statsPage": {
     "illustrationAlt": "Stats illustration",
+    "marketKpis": {
+      "liquidity": "Liquidity",
+      "totalBorrows": "Total Borrows",
+      "totalSupply": "Total Supply",
+      "unavailable": "Market data unavailable.",
+      "utilization": "Utilization"
+    },
+    "historicalDominance": {
+      "borrows": {
+        "noData": "No historical snapshots yet.",
+        "ratioLabel": "Borrows / Liquidity",
+        "title": "Borrow Dominance over Time",
+        "unavailable": "Borrow dominance unavailable."
+      },
+      "supply": {
+        "noData": "No historical snapshots yet.",
+        "ratioLabel": "Supply / Liquidity",
+        "title": "Supply Dominance over Time",
+        "unavailable": "Supply dominance unavailable."
+      }
+    },
+    "historicalLiquidity": {
+      "noData": "No historical snapshots yet.",
+      "title": "Liquidity over Time",
+      "tooltipLabel": "Liquidity",
+      "unavailable": "Historical liquidity unavailable."
+    },
+    "historicalMarketChart": {
+      "borrows": {
+        "noData": "No historical snapshots yet.",
+        "title": "Borrows by Assets over Time",
+        "unavailable": "Historical borrows unavailable."
+      },
+      "others": "Others",
+      "supply": {
+        "noData": "No historical snapshots yet.",
+        "title": "Deposits by Assets over Time",
+        "unavailable": "Historical supply unavailable."
+      }
+    },
     "poweredBy": "Powered by <Link>{{provider}}</Link>",
     "subtitle": "Real-time risk parameters for Venus Protocol markets",
-    "title": "Venus Stats"
+    "title": "Venus Stats",
+    "topWallets": {
+      "noData": "No data yet.",
+      "topBorrowers": "Top Borrowers",
+      "topSuppliers": "Top Suppliers",
+      "tooltip": {
+        "borrow": "Borrow",
+        "supply": "Supply"
+      },
+      "unavailableBorrowers": "Top borrowers unavailable.",
+      "unavailableSuppliers": "Top suppliers unavailable."
+    },
+    "transactionsVolume": {
+      "legend": {
+        "borrow": "Borrow",
+        "liquidate": "Liquidate",
+        "mint": "Mint",
+        "redeem": "Redeem",
+        "repay": "Repay"
+      },
+      "subtitle": "Last {{days}} days · {{total}}",
+      "title": "Transactions Volume",
+      "tooltipTotal": "Total",
+      "unavailable": "Transactions volume unavailable."
+    },
+    "tabs": {
+      "liquidations": "Liquidations",
+      "markets": "Markets",
+      "overview": "Overview",
+      "wallets": "Wallets"
+    },
+    "walletKpis": {
+      "borrowersWithPositionAboveMinUsdValue": "Borrowers > $10",
+      "eligibleForLiquidation": "Wallets Eligible for Liquidation",
+      "suppliersWithPositionAboveMinUsdValue": "Suppliers > $10",
+      "totalBadDebt": "Total Bad Debt",
+      "totalBorrowers": "Total Borrowers",
+      "totalCollateralAtRisk": "Total Collateral at Risk",
+      "totalSuppliers": "Total Suppliers",
+      "unavailable": "Wallet data unavailable.",
+      "valueEligibleForLiquidation": "Value Eligible for Liquidation",
+      "walletsAtRisk": "Wallets at Risk"
+    }
   },
   "swap": {
     "errors": {

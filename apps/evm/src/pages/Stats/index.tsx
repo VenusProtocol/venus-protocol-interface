@@ -1,14 +1,51 @@
-import { Page } from 'components';
+import { Page, Tabs } from 'components';
+import { useTranslation } from 'libs/translations';
 import { Header } from './Header';
-import { StatsIframe } from './StatsIframe';
+import { HistoricalDominanceChart } from './HistoricalDominanceChart';
+import { HistoricalLiquidityChart } from './HistoricalLiquidityChart';
+import { HistoricalMarketChart } from './HistoricalMarketChart';
+import { MarketKpis } from './MarketKpis';
+import { TopWallets } from './TopWallets';
+import { TransactionsVolume } from './TransactionsVolume';
+import { WalletKpis } from './WalletKpis';
 
-const Stats: React.FC = () => (
-  <Page>
-    <div className="flex flex-col gap-6">
-      <Header />
-      <StatsIframe />
+const Overview: React.FC = () => (
+  <div className="flex flex-col gap-6 pb-12">
+    <MarketKpis />
+    <WalletKpis />
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <HistoricalMarketChart metric="supply" />
+      <HistoricalMarketChart metric="borrows" />
     </div>
-  </Page>
+    <HistoricalLiquidityChart />
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <HistoricalDominanceChart metric="supply" />
+      <HistoricalDominanceChart metric="borrows" />
+    </div>
+    <TopWallets />
+    <TransactionsVolume />
+  </div>
 );
+
+const Stats: React.FC = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Page>
+      <Header />
+      <Tabs
+        className="mt-6"
+        variant="tertiary"
+        navType="searchParam"
+        tabs={[
+          { id: 'overview', title: t('statsPage.tabs.overview'), content: <Overview /> },
+          { id: 'markets', title: t('statsPage.tabs.markets'), content: null },
+          { id: 'wallets', title: t('statsPage.tabs.wallets'), content: null },
+          { id: 'liquidations', title: t('statsPage.tabs.liquidations'), content: null },
+        ]}
+      />
+    </Page>
+  );
+};
 
 export default Stats;
