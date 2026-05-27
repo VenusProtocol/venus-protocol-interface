@@ -212,7 +212,7 @@ export const MarketInfo = () => {
             ...cell,
             className: 'p-0 bg-transparent',
           }))}
-          variant="tertiary"
+          variant="secondary"
           className="xl:p-0 xl:bg-transparent"
         />
       </Wrapper>

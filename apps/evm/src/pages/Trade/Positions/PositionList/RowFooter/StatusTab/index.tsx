@@ -38,7 +38,7 @@ export const StatusTab: React.FC<StatusTabProps> = ({ row }) => {
 
   return (
     <div className="flex flex-col gap-y-6 gap-x-12 justify-between md:flex-row lg:flex-col 2xl:flex-row">
-      <CellGroup variant="secondary" cells={cells} className="md:w-auto lg:w-full 2xl:w-auto" />
+      <CellGroup cells={cells} className="md:w-auto lg:w-full 2xl:w-auto" />
 
       <AccountHealth pool={row.pool} />
     </div>

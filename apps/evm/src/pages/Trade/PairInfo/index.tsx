@@ -2,7 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router';
 
-import { Apy, CellGroup, type CellProps } from 'components';
+import { Apy, CellGroup, type CellProps, Icon } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Token } from 'types';
@@ -50,6 +50,13 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
       [LONG_TOKEN_ADDRESS_PARAM_KEY]: areTokensEqual(longToken, newShortToken)
         ? shortToken.address
         : longToken.address,
+    }));
+
+  const switchSelectedTokens = () =>
+    setSearchParams(currentSearchParams => ({
+      ...Object.fromEntries(currentSearchParams),
+      [SHORT_TOKEN_ADDRESS_PARAM_KEY]: longToken.address,
+      [LONG_TOKEN_ADDRESS_PARAM_KEY]: shortToken.address,
     }));
 
   const {
@@ -139,7 +146,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
   ];
 
   return (
-    <div className="flex flex-col gap-y-6 lg:flex-col lg:p-4 lg:rounded-lg lg:border lg:border-dark-blue-hover">
+    <div className="flex flex-col gap-y-6 lg:p-4 lg:rounded-lg lg:border lg:border-dark-blue-hover">
       <div className="flex flex-col gap-3 sm:flex-row">
         <TokenSelect
           type="long"
@@ -158,7 +165,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         />
       </div>
 
-      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex lg:flex-col">
+      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex-col 2xl:flex-row">
         <div className="flex items-center gap-x-2">
           <TokenPair
             shortToken={shortToken}
@@ -184,10 +191,19 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
               </p>
             )}
           </div>
+
+          <button
+            type="button"
+            className="cursor-pointer text-light-grey hover:text-blue"
+            onClick={switchSelectedTokens}
+            data-testid="pair-info-switch-tokens-button"
+          >
+            <Icon name="switch" className="text-inherit transition-colors" />
+          </button>
         </div>
 
         <div className="overflow-hidden">
-          <CellGroup variant="secondary" cells={cells} />
+          <CellGroup cells={cells} />
         </div>
       </div>
     </div>

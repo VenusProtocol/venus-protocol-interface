@@ -31,6 +31,7 @@ vi.mock('../../useTokenPair', () => ({
 
 const longTokenSelectTestId = 'pair-info-long-token-select';
 const shortTokenSelectTestId = 'pair-info-short-token-select';
+const switchTokensButtonTestId = 'pair-info-switch-tokens-button';
 
 const defaultLongAsset = poolData[0].assets[2];
 const defaultShortAsset = poolData[0].assets[3];
@@ -203,6 +204,17 @@ describe('PairInfo', () => {
       type: 'short',
       token: defaultLongToken,
     });
+
+    await expectUpdatedSearchParams({
+      [LONG_TOKEN_ADDRESS_PARAM_KEY]: defaultShortToken.address,
+      [SHORT_TOKEN_ADDRESS_PARAM_KEY]: defaultLongToken.address,
+    });
+  });
+
+  it('updates search params when switching the selected tokens', async () => {
+    renderPairInfo();
+
+    fireEvent.click(screen.getByTestId(switchTokensButtonTestId));
 
     await expectUpdatedSearchParams({
       [LONG_TOKEN_ADDRESS_PARAM_KEY]: defaultShortToken.address,
