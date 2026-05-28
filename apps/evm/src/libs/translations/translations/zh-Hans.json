@@ -1711,6 +1711,22 @@
     "labelTooltip": "这是你当前对该资产的支出上限。如需更多支出，请撤销上限并重新设置。"
   },
   "statsPage": {
+    "eModeTable": {
+      "columns": {
+        "asset": "TRANSLATION NEEDED",
+        "borrowable": "TRANSLATION NEEDED",
+        "collateral": "TRANSLATION NEEDED",
+        "collateralFactor": "TRANSLATION NEEDED",
+        "group": "TRANSLATION NEEDED",
+        "liquidationIncentive": "TRANSLATION NEEDED",
+        "liquidationThreshold": "TRANSLATION NEEDED"
+      },
+      "no": "TRANSLATION NEEDED",
+      "noData": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "unavailable": "TRANSLATION NEEDED",
+      "yes": "TRANSLATION NEEDED"
+    },
     "historicalDominance": {
       "borrows": {
         "noData": "TRANSLATION NEEDED",
@@ -1751,6 +1767,46 @@
       "totalSupply": "TRANSLATION NEEDED",
       "unavailable": "TRANSLATION NEEDED",
       "utilization": "TRANSLATION NEEDED"
+    },
+    "marketsTable": {
+      "columns": {
+        "asset": "TRANSLATION NEEDED",
+        "bnbDebt": "TRANSLATION NEEDED",
+        "borrowApy": "TRANSLATION NEEDED",
+        "borrowCap": "TRANSLATION NEEDED",
+        "borrowCapFilled": "TRANSLATION NEEDED",
+        "liquidity": "TRANSLATION NEEDED",
+        "otherDebt": "TRANSLATION NEEDED",
+        "stablecoinDebt": "TRANSLATION NEEDED",
+        "supplyApy": "TRANSLATION NEEDED",
+        "supplyCap": "TRANSLATION NEEDED",
+        "supplyCapFilled": "TRANSLATION NEEDED",
+        "topBorrowerShare": "TRANSLATION NEEDED",
+        "topSupplierShare": "TRANSLATION NEEDED",
+        "totalBorrows": "TRANSLATION NEEDED",
+        "totalDebtAgainst": "TRANSLATION NEEDED",
+        "totalSupply": "TRANSLATION NEEDED",
+        "utilization": "TRANSLATION NEEDED"
+      },
+      "noData": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "unavailable": "TRANSLATION NEEDED"
+    },
+    "riskParametersTable": {
+      "columns": {
+        "asset": "TRANSLATION NEEDED",
+        "borrowCap": "TRANSLATION NEEDED",
+        "collateralFactor": "TRANSLATION NEEDED",
+        "liquidationIncentive": "TRANSLATION NEEDED",
+        "liquidationThreshold": "TRANSLATION NEEDED",
+        "price": "TRANSLATION NEEDED",
+        "reserveFactor": "TRANSLATION NEEDED",
+        "supplyCap": "TRANSLATION NEEDED",
+        "utilization": "TRANSLATION NEEDED"
+      },
+      "noData": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "unavailable": "TRANSLATION NEEDED"
     },
     "subtitle": "Venus Protocol 市场的实时风险参数",
     "tabs": {
