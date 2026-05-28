@@ -1727,6 +1727,62 @@
       "unavailable": "E-Mode data unavailable.",
       "yes": "Yes"
     },
+    "marketsTable": {
+      "columns": {
+        "asset": "Asset",
+        "bnbDebt": "BNB Debt",
+        "borrowApy": "Borrow APY",
+        "borrowCap": "Borrow Cap",
+        "borrowCapFilled": "Borrow Cap %",
+        "liquidity": "Liquidity",
+        "otherDebt": "Other Debt",
+        "stablecoinDebt": "Stablecoin Debt",
+        "supplyApy": "Supply APY",
+        "supplyCap": "Supply Cap",
+        "supplyCapFilled": "Supply Cap %",
+        "topBorrowerShare": "Top Borrower %",
+        "topSupplierShare": "Top Supplier %",
+        "totalBorrows": "Total Borrows",
+        "totalDebtAgainst": "Total Debt Against",
+        "totalSupply": "Total Supply",
+        "utilization": "Utilization"
+      },
+      "noData": "No market snapshot yet.",
+      "title": "Markets",
+      "unavailable": "Markets data unavailable."
+    },
+    "riskParametersTable": {
+      "columns": {
+        "asset": "Asset",
+        "borrowCap": "Borrow Cap",
+        "collateralFactor": "Collateral Factor",
+        "liquidationIncentive": "Liquidation Incentive",
+        "liquidationThreshold": "Liquidation Threshold",
+        "price": "Price",
+        "reserveFactor": "Reserve Factor",
+        "supplyCap": "Supply Cap",
+        "utilization": "Utilization"
+      },
+      "noData": "No market snapshot yet.",
+      "title": "Risk Parameters by Market",
+      "unavailable": "Risk parameters unavailable."
+    },
+    "eModeTable": {
+      "columns": {
+        "asset": "Asset",
+        "borrowable": "Borrowable",
+        "collateral": "Collateral",
+        "collateralFactor": "Collateral Factor",
+        "group": "E-Mode Group",
+        "liquidationIncentive": "Liquidation Incentive",
+        "liquidationThreshold": "Liquidation Threshold"
+      },
+      "no": "No",
+      "noData": "No E-Mode groups configured.",
+      "title": "E-Mode Groups",
+      "unavailable": "E-Mode data unavailable.",
+      "yes": "Yes"
+    },
     "historicalDominance": {
       "borrows": {
         "noData": "No historical snapshots yet.",
