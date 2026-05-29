@@ -2,6 +2,7 @@ import { Page, Tabs } from 'components';
 import { useTranslation } from 'libs/translations';
 import { EModeTable } from './EModeTable';
 import { Header } from './Header';
+import { Liquidations } from './Liquidations';
 import { HistoricalDominanceChart } from './HistoricalDominanceChart';
 import { HistoricalLiquidityChart } from './HistoricalLiquidityChart';
 import { HistoricalMarketChart } from './HistoricalMarketChart';
@@ -53,7 +54,7 @@ const Stats: React.FC = () => {
           { id: 'overview', title: t('statsPage.tabs.overview'), content: <Overview /> },
           { id: 'markets', title: t('statsPage.tabs.markets'), content: <Markets /> },
           { id: 'wallets', title: t('statsPage.tabs.wallets'), content: null },
-          { id: 'liquidations', title: t('statsPage.tabs.liquidations'), content: null },
+          { id: 'liquidations', title: t('statsPage.tabs.liquidations'), content: <Liquidations /> },
         ]}
       />
     </Page>
