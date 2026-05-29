@@ -1727,95 +1727,6 @@
       "unavailable": "E-Mode data unavailable.",
       "yes": "Yes"
     },
-    "marketsTable": {
-      "columns": {
-        "asset": "Asset",
-        "bnbDebt": "BNB Debt",
-        "borrowApy": "Borrow APY",
-        "borrowCap": "Borrow Cap",
-        "borrowCapFilled": "Borrow Cap %",
-        "liquidity": "Liquidity",
-        "otherDebt": "Other Debt",
-        "stablecoinDebt": "Stablecoin Debt",
-        "supplyApy": "Supply APY",
-        "supplyCap": "Supply Cap",
-        "supplyCapFilled": "Supply Cap %",
-        "topBorrowerShare": "Top Borrower %",
-        "topSupplierShare": "Top Supplier %",
-        "totalBorrows": "Total Borrows",
-        "totalDebtAgainst": "Total Debt Against",
-        "totalSupply": "Total Supply",
-        "utilization": "Utilization"
-      },
-      "noData": "No market snapshot yet.",
-      "title": "Markets",
-      "unavailable": "Markets data unavailable."
-    },
-    "liquidations": {
-      "dailyChart": {
-        "noData": "No liquidations in the selected period.",
-        "title": "Liquidations Activity",
-        "tooltip": {
-          "activeLiquidators": "Active Liquidators",
-          "collateralSeized": "Collateral Seized",
-          "count": "Liquidations",
-          "debtRepaid": "Debt Repaid"
-        },
-        "unavailable": "Daily liquidations unavailable."
-      },
-      "distributionChart": {
-        "byCollateralTitle": "Liquidations by Collateral Asset",
-        "byDebtTitle": "Liquidations by Debt Asset",
-        "noData": "No liquidations in the selected period.",
-        "unavailable": "Distribution unavailable."
-      },
-      "kpis": {
-        "activeLiquidators": "Active Liquidators",
-        "bonus": "Liquidation Bonus",
-        "collateralSeized": "Collateral Seized",
-        "count": "Liquidations",
-        "debtRepaid": "Debt Repaid",
-        "unavailable": "Liquidations data unavailable.",
-        "walletsWithBadDebt": "Wallets with Bad Debt"
-      },
-      "period": {
-        "24h": "24h",
-        "30d": "30d",
-        "7d": "7d"
-      }
-    },
-    "riskParametersTable": {
-      "columns": {
-        "asset": "Asset",
-        "borrowCap": "Borrow Cap",
-        "collateralFactor": "Collateral Factor",
-        "liquidationIncentive": "Liquidation Incentive",
-        "liquidationThreshold": "Liquidation Threshold",
-        "price": "Price",
-        "reserveFactor": "Reserve Factor",
-        "supplyCap": "Supply Cap",
-        "utilization": "Utilization"
-      },
-      "noData": "No market snapshot yet.",
-      "title": "Risk Parameters by Market",
-      "unavailable": "Risk parameters unavailable."
-    },
-    "eModeTable": {
-      "columns": {
-        "asset": "Asset",
-        "borrowable": "Borrowable",
-        "collateral": "Collateral",
-        "collateralFactor": "Collateral Factor",
-        "group": "E-Mode Group",
-        "liquidationIncentive": "Liquidation Incentive",
-        "liquidationThreshold": "Liquidation Threshold"
-      },
-      "no": "No",
-      "noData": "No E-Mode groups configured.",
-      "title": "E-Mode Groups",
-      "unavailable": "E-Mode data unavailable.",
-      "yes": "Yes"
-    },
     "historicalDominance": {
       "borrows": {
         "noData": "No historical snapshots yet.",
@@ -1850,6 +1761,43 @@
       }
     },
     "illustrationAlt": "Stats illustration",
+    "liquidations": {
+      "dailyChart": {
+        "noData": "No liquidations in the selected period.",
+        "title": "Liquidations Activity",
+        "tooltip": {
+          "activeLiquidators": "Active Liquidators",
+          "collateralSeized": "Collateral Seized",
+          "count": "Liquidations",
+          "debtRepaid": "Debt Repaid"
+        },
+        "unavailable": "Daily liquidations unavailable."
+      },
+      "distributionChart": {
+        "byCollateralTitle": "Liquidations by Collateral Asset",
+        "byDebtTitle": "Liquidations by Debt Asset",
+        "noData": "No liquidations in the selected period.",
+        "tooltip": {
+          "count": "Count",
+          "value": "Value"
+        },
+        "unavailable": "Distribution unavailable."
+      },
+      "kpis": {
+        "activeLiquidators": "Active Liquidators",
+        "bonus": "Liquidation Bonus",
+        "collateralSeized": "Collateral Seized",
+        "count": "Liquidations",
+        "debtRepaid": "Debt Repaid",
+        "unavailable": "Liquidations data unavailable.",
+        "walletsWithBadDebt": "Wallets with Bad Debt"
+      },
+      "period": {
+        "24h": "24h",
+        "30d": "30d",
+        "7d": "7d"
+      }
+    },
     "marketKpis": {
       "liquidity": "Liquidity",
       "totalBorrows": "Total Borrows",
