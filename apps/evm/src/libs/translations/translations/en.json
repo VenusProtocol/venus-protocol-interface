@@ -1751,6 +1751,39 @@
       "title": "Markets",
       "unavailable": "Markets data unavailable."
     },
+    "liquidations": {
+      "dailyChart": {
+        "noData": "No liquidations in the selected period.",
+        "title": "Liquidations Activity",
+        "tooltip": {
+          "activeLiquidators": "Active Liquidators",
+          "collateralSeized": "Collateral Seized",
+          "count": "Liquidations",
+          "debtRepaid": "Debt Repaid"
+        },
+        "unavailable": "Daily liquidations unavailable."
+      },
+      "distributionChart": {
+        "byCollateralTitle": "Liquidations by Collateral Asset",
+        "byDebtTitle": "Liquidations by Debt Asset",
+        "noData": "No liquidations in the selected period.",
+        "unavailable": "Distribution unavailable."
+      },
+      "kpis": {
+        "activeLiquidators": "Active Liquidators",
+        "bonus": "Liquidation Bonus",
+        "collateralSeized": "Collateral Seized",
+        "count": "Liquidations",
+        "debtRepaid": "Debt Repaid",
+        "unavailable": "Liquidations data unavailable.",
+        "walletsWithBadDebt": "Wallets with Bad Debt"
+      },
+      "period": {
+        "24h": "24h",
+        "30d": "30d",
+        "7d": "7d"
+      }
+    },
     "riskParametersTable": {
       "columns": {
         "asset": "Asset",
