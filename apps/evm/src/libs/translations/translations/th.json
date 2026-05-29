@@ -2153,9 +2153,9 @@
     }
   },
   "venusFluxBanner": {
-    "description": "ปล่อยให้สภาพคล่องของคุณ Flux แล้วดูผลตอบแทนเติบโต",
+    "description": "เฉพาะ 30 วันเท่านั้น เริ่ม 28 พ.ค. กับ <YellowText>Binance Wallet</YellowText>",
     "illustrationAltText": "ภาพประกอบ Venus Flux",
-    "title": "แบ่งปันเงินจูงใจ Venus Flux มูลค่า $1M"
+    "title": "รางวัล USDT มูลค่า $50K บน Venus Flux"
   },
   "vote": {
     "abstain": "งดออกเสียง",
