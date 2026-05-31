@@ -23,6 +23,15 @@ export const filterEModeGroups = ({
     const { assetSettings } = extendedEModeGroup;
     const groupNameMatches = searchMatches(extendedEModeGroup.name);
 
+    const mainAssetSymbol = extendedEModeGroup.name.split(' ')[0]?.toLowerCase();
+    const mainAssetSettings = assetSettings.find(
+      settings => settings.vToken.underlyingToken.symbol.toLowerCase() === mainAssetSymbol,
+    );
+
+    if (mainAssetSettings?.isPaused && !showPausedAssets) {
+      return acc;
+    }
+
     let hasUserAsset = false;
     let hasSearchMatch = false;
 

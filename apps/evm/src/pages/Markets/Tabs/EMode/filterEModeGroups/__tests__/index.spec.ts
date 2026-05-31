@@ -94,6 +94,71 @@ describe('filterEModeGroups', () => {
     expect(shownResult.map(g => g.id)).toEqual([stablecoinsGroup.id, defiGroup.id]);
   });
 
+  it('hides the whole isolation group when its main asset is paused and showPausedAssets is false', () => {
+    // eModeGroups[0] holds [XVS, USDC, USDT]; naming it "XVS Isolated" makes XVS its main asset.
+    const isolationGroup = extendGroup(eModeGroups[0], {
+      name: 'XVS Isolated',
+      isIsolated: true,
+      assetSettings: eModeGroups[0].assetSettings.map(settings => ({
+        ...settings,
+        isPaused: settings.vToken.underlyingToken.symbol === 'XVS',
+      })),
+    });
+
+    const hiddenResult = filterEModeGroups({
+      pool: fakePool,
+      extendedEModeGroups: [isolationGroup, defiGroup],
+      searchValue: '',
+      showPausedAssets: false,
+      showUserAssetsOnly: false,
+    });
+
+    // Whole group gone, only the unaffected group remains.
+    expect(hiddenResult.map(g => g.id)).toEqual([defiGroup.id]);
+
+    // Even a search matching a sibling asset keeps the group hidden.
+    const searchResult = filterEModeGroups({
+      pool: fakePool,
+      extendedEModeGroups: [isolationGroup, defiGroup],
+      searchValue: 'usdc',
+      showPausedAssets: false,
+      showUserAssetsOnly: false,
+    });
+
+    expect(searchResult.map(g => g.id)).toEqual([]);
+
+    // Turning the toggle on brings the whole group back.
+    const shownResult = filterEModeGroups({
+      pool: fakePool,
+      extendedEModeGroups: [isolationGroup, defiGroup],
+      searchValue: '',
+      showPausedAssets: true,
+      showUserAssetsOnly: false,
+    });
+
+    expect(shownResult.map(g => g.id)).toContain(isolationGroup.id);
+  });
+
+  it('does not hide the group when the label prefix matches no asset, even if an asset is paused', () => {
+    // "Stablecoins" has no leading asset symbol, so no main asset can be resolved.
+    const groupWithPausedAsset = extendGroup(eModeGroups[0], {
+      assetSettings: eModeGroups[0].assetSettings.map(settings => ({
+        ...settings,
+        isPaused: settings.vToken.underlyingToken.symbol === 'XVS',
+      })),
+    });
+
+    const result = filterEModeGroups({
+      pool: fakePool,
+      extendedEModeGroups: [groupWithPausedAsset],
+      searchValue: '',
+      showPausedAssets: false,
+      showUserAssetsOnly: false,
+    });
+
+    expect(result.map(g => g.id)).toEqual([groupWithPausedAsset.id]);
+  });
+
   it('filters to user assets only when showUserAssetsOnly is true', () => {
     const nonUserAsset = makeAsset(defiGroup.assetSettings[0].vToken.address, {
       userSupplyBalanceCents: new BigNumber(0),
