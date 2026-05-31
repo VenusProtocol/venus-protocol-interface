@@ -3,14 +3,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 
 import { useGetBalanceOf, useGetPool, useRepayVai } from 'clients/api';
-import {
-  Delimiter,
-  LabeledInlineContent,
-  NoticeError,
-  NoticeWarning,
-  SpendingLimit,
-  Spinner,
-} from 'components';
+import { Delimiter, LabeledInlineContent, NoticeWarning, SpendingLimit, Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import MAX_UINT256 from 'constants/maxUint256';
 import { AccountData } from 'containers/AccountData';
@@ -32,7 +25,7 @@ import formatPercentageToReadableValue from 'utilities/formatPercentageToReadabl
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
-import { ErrorCode, useForm } from './useForm';
+import { useForm } from './useForm';
 
 const userVaiBalanceRefetchInterval = generatePseudoRandomRefetchInterval();
 
@@ -127,26 +120,6 @@ export const Repay: React.FC = () => {
 
   const isRepayingFullLoan = !!userVaiBorrowBalanceTokens?.isEqualTo(debouncedInputAmountTokens);
 
-  const errorMessage = useMemo(() => {
-    const errorCode = formState.errors.amountTokens?.message;
-
-    if (errorCode === ErrorCode.HIGHER_THAN_WALLET_BALANCE) {
-      return t('vai.repay.notice.amountHigherThanWalletBalance', {
-        tokenSymbol: vai.symbol,
-      });
-    }
-
-    if (errorCode === ErrorCode.HIGHER_THAN_WALLET_SPENDING_LIMIT) {
-      return t('vai.repay.notice.amountHigherThanWalletSpendingLimit');
-    }
-
-    if (errorCode === ErrorCode.HIGHER_THAN_BORROW_BALANCE) {
-      return t('vai.repay.notice.amountHigherThanBorrowBalance');
-    }
-
-    return undefined;
-  }, [t, formState.errors.amountTokens, vai]);
-
   // Reset form when user disconnects their wallet
   useEffect(() => {
     if (!accountAddress) {
@@ -197,7 +170,6 @@ export const Repay: React.FC = () => {
           name="amountTokens"
           rules={{ required: true }}
           disabled={!isUserConnected}
-          hideErrorDescription
           token={vai}
           rightMaxButton={
             limitTokens
@@ -214,9 +186,7 @@ export const Repay: React.FC = () => {
           }
         />
 
-        {errorMessage && <NoticeError description={errorMessage} />}
-
-        {!errorMessage && isRepayingFullLoan && (
+        {!formState.errors.amountTokens && isRepayingFullLoan && (
           <NoticeWarning description={t('vai.repay.notice.fullRepaymentWarning')} />
         )}
       </div>
