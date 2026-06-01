@@ -23,12 +23,18 @@ export const filterEModeGroups = ({
     const { assetSettings } = extendedEModeGroup;
     const groupNameMatches = searchMatches(extendedEModeGroup.name);
 
+    // An isolation group is anchored by a "main asset", identified by the group
+    // label prefix (e.g. "FIL Isolated" -> "FIL"). When that main asset is
+    // delisted/paused, the whole isolation group should be hidden by default and
+    // only surface when the "Paused assets" toggle is on, so users keep no entry
+    // point into an effectively dead pool. This only applies to isolation groups
+    // — regular e-mode groups keep the per-asset paused filtering below.
     const mainAssetSymbol = extendedEModeGroup.name.split(' ')[0]?.toLowerCase();
     const mainAssetSettings = assetSettings.find(
       settings => settings.vToken.underlyingToken.symbol.toLowerCase() === mainAssetSymbol,
     );
 
-    if (mainAssetSettings?.isPaused && !showPausedAssets) {
+    if (extendedEModeGroup.isIsolated && mainAssetSettings?.isPaused && !showPausedAssets) {
       return acc;
     }
 

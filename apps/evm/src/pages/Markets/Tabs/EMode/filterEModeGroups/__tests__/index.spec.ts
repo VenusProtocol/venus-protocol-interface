@@ -139,6 +139,29 @@ describe('filterEModeGroups', () => {
     expect(shownResult.map(g => g.id)).toContain(isolationGroup.id);
   });
 
+  it('does not hide a non-isolated group even when its label prefix matches a paused asset', () => {
+    // Same XVS-paused setup, but the group is a regular (non-isolated) e-mode group,
+    // so the whole-group hide rule must not apply.
+    const nonIsolatedGroup = extendGroup(eModeGroups[0], {
+      name: 'XVS something',
+      isIsolated: false,
+      assetSettings: eModeGroups[0].assetSettings.map(settings => ({
+        ...settings,
+        isPaused: settings.vToken.underlyingToken.symbol === 'XVS',
+      })),
+    });
+
+    const result = filterEModeGroups({
+      pool: fakePool,
+      extendedEModeGroups: [nonIsolatedGroup],
+      searchValue: '',
+      showPausedAssets: false,
+      showUserAssetsOnly: false,
+    });
+
+    expect(result.map(g => g.id)).toEqual([nonIsolatedGroup.id]);
+  });
+
   it('does not hide the group when the label prefix matches no asset, even if an asset is paused', () => {
     // "Stablecoins" has no leading asset symbol, so no main asset can be resolved.
     const groupWithPausedAsset = extendGroup(eModeGroups[0], {
