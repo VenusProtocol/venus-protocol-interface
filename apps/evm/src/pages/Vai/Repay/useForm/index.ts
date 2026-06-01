@@ -5,14 +5,9 @@ import { useForm as useRhfForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 import { convertMantissaToTokens } from 'utilities';
 import type { FormValues } from '../types';
-
-export enum ErrorCode {
-  HIGHER_THAN_WALLET_BALANCE = 'HIGHER_THAN_WALLET_BALANCE',
-  HIGHER_THAN_BORROW_BALANCE = 'HIGHER_THAN_BORROW_BALANCE',
-  HIGHER_THAN_WALLET_SPENDING_LIMIT = 'HIGHER_THAN_WALLET_SPENDING_LIMIT',
-}
 
 export interface UseFormProps {
   userVaiWalletBalanceMantissa?: BigNumber;
@@ -25,6 +20,7 @@ export const useForm = ({
   userVaiBorrowBalanceTokens,
   userWalletSpendingLimitTokens,
 }: UseFormProps) => {
+  const { t } = useTranslation();
   const vai = useGetToken({
     symbol: 'VAI',
   })!;
@@ -65,7 +61,9 @@ export const useForm = ({
               !userVaiWalletBalanceTokens ||
               new BigNumber(userVaiWalletBalanceTokens).isGreaterThanOrEqualTo(value),
             {
-              message: ErrorCode.HIGHER_THAN_WALLET_BALANCE,
+              message: t('vai.repay.notice.amountHigherThanWalletBalance', {
+                tokenSymbol: vai.symbol,
+              }),
             },
           )
           .refine(
@@ -73,7 +71,7 @@ export const useForm = ({
               !userVaiBorrowBalanceTokens ||
               new BigNumber(userVaiBorrowBalanceTokens).isGreaterThanOrEqualTo(value),
             {
-              message: ErrorCode.HIGHER_THAN_BORROW_BALANCE,
+              message: t('vai.repay.notice.amountHigherThanBorrowBalance'),
             },
           )
           .refine(
@@ -82,11 +80,11 @@ export const useForm = ({
               userWalletSpendingLimitTokens.isEqualTo(0) ||
               new BigNumber(userWalletSpendingLimitTokens).isGreaterThanOrEqualTo(value),
             {
-              message: ErrorCode.HIGHER_THAN_WALLET_SPENDING_LIMIT,
+              message: t('vai.repay.notice.amountHigherThanWalletSpendingLimit'),
             },
           ),
       }) satisfies z.ZodType<FormValues>,
-    [userVaiWalletBalanceTokens, userVaiBorrowBalanceTokens, userWalletSpendingLimitTokens],
+    [userVaiWalletBalanceTokens, userVaiBorrowBalanceTokens, userWalletSpendingLimitTokens, t, vai],
   );
 
   const form = useRhfForm({

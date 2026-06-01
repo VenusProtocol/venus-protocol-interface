@@ -5,14 +5,13 @@ import { useForm as useRhfForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 import { calculateHealthFactor, convertMantissaToTokens } from 'utilities';
 
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import type { FormValues } from '../types';
 
 export enum ErrorCode {
-  HIGHER_THAN_LIQUIDITY = 'HIGHER_THAN_LIQUIDITY',
-  HIGHER_THAN_MINTABLE_AMOUNT = 'HIGHER_THAN_MINTABLE_AMOUNT',
   REQUIRES_RISK_ACKNOWLEDGEMENT = 'REQUIRES_RISK_ACKNOWLEDGEMENT',
 }
 
@@ -31,6 +30,7 @@ export const useForm = ({
   userLiquidationThresholdCents,
   vaiPriceCents,
 }: UseFormProps) => {
+  const { t } = useTranslation();
   const vai = useGetToken({
     symbol: 'VAI',
   })!;
@@ -61,7 +61,7 @@ export const useForm = ({
                 !vaiLiquidityTokens ||
                 new BigNumber(vaiLiquidityTokens).isGreaterThanOrEqualTo(value),
               {
-                message: ErrorCode.HIGHER_THAN_LIQUIDITY,
+                message: t('vai.borrow.notice.amountHigherThanLiquidity'),
               },
             )
             .refine(
@@ -69,7 +69,7 @@ export const useForm = ({
                 !accountMintableVaiTokens ||
                 new BigNumber(accountMintableVaiTokens).isGreaterThanOrEqualTo(value),
               {
-                message: ErrorCode.HIGHER_THAN_MINTABLE_AMOUNT,
+                message: t('vai.borrow.notice.amountHigherThanAccountMintableAmount'),
               },
             ),
           acknowledgeRisk: z.boolean(),
@@ -109,6 +109,7 @@ export const useForm = ({
       userBorrowBalanceCents,
       userLiquidationThresholdCents,
       vaiPriceCents,
+      t,
     ],
   );
 

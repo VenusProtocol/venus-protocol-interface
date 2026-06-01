@@ -13,7 +13,6 @@ import {
   AcknowledgementToggle,
   Delimiter,
   LabeledInlineContent,
-  NoticeError,
   NoticeWarning,
   Spinner,
 } from 'components';
@@ -45,7 +44,7 @@ import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import type { BalanceMutation } from 'types';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
-import { ErrorCode, useForm } from './useForm';
+import { useForm } from './useForm';
 
 export const Borrow: React.FC = () => {
   const { t, Trans } = useTranslation();
@@ -180,20 +179,6 @@ export const Borrow: React.FC = () => {
     token: vai,
   });
 
-  const errorMessage = useMemo(() => {
-    const errorCode = formState.errors.amountTokens?.message;
-
-    if (errorCode === ErrorCode.HIGHER_THAN_LIQUIDITY) {
-      return t('vai.borrow.notice.amountHigherThanLiquidity');
-    }
-
-    if (errorCode === ErrorCode.HIGHER_THAN_MINTABLE_AMOUNT) {
-      return t('vai.borrow.notice.amountHigherThanAccountMintableAmount');
-    }
-
-    return undefined;
-  }, [t, formState.errors.amountTokens]);
-
   const isRiskyOperation =
     simulatedPool?.userHealthFactor !== undefined &&
     simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
@@ -277,8 +262,6 @@ export const Borrow: React.FC = () => {
               }),
           }}
         />
-
-        {errorMessage && <NoticeError description={errorMessage} />}
       </div>
 
       <div className="space-y-3">
