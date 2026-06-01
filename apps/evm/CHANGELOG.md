@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.32.1
+
+### Patch Changes
+
+- 4cd37cd: feat: remove raw translate key on vai
+
 ## 4.32.0
 
 ### Minor Changes
