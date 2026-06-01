@@ -23,11 +23,12 @@ export const filterEModeGroups = ({
     const { assetSettings } = extendedEModeGroup;
     const groupNameMatches = searchMatches(extendedEModeGroup.name);
 
-    // Identify the isolation group's "main asset" from its label prefix (e.g. "FIL Isolated" -> "FIL");
-    // when that asset is paused, hide the whole group unless "Paused assets" is on.
-    const mainAssetSymbol = extendedEModeGroup.name.split(' ')[0]?.toLowerCase();
+    // An isolation group's label is its "main asset" symbol (e.g. "FIL"); when that asset
+    // is paused, hide the whole group unless "Paused assets" is on.
     const mainAssetSettings = assetSettings.find(
-      settings => settings.vToken.underlyingToken.symbol.toLowerCase() === mainAssetSymbol,
+      settings =>
+        settings.vToken.underlyingToken.symbol.toLowerCase() ===
+        extendedEModeGroup.name.toLowerCase(),
     );
 
     if (extendedEModeGroup.isIsolated && mainAssetSettings?.isPaused && !showPausedAssets) {
