@@ -245,8 +245,9 @@
     "primeApy": "Prime APY",
     "supplyApy": "供應 APY",
     "totalApy": {
+      "borrowApyLabel": "總借款 APY",
       "borrowApyTooltip": "借款 APY - 分發 APY",
-      "label": "總 APY",
+      "supplyApyLabel": "總供應 APY",
       "supplyApyTooltip": "供應 APY + 分發 APY"
     },
     "yieldToMaturityApy": "到期收益率 APY",
@@ -287,7 +288,6 @@
     }
   },
   "assetWarning": {
-    "borrowDescription": "根據你在 {{poolName}} 池中的抵押供應，可借入 {{tokenSymbol}}。<Button>顯示全部代幣</Button>",
     "modalTitle": "{{ poolName }} 代幣",
     "modeInfoHint": "<LineBreak/>前往<ModeInfoButton>模式資訊</ModeInfoButton>區域以查看更多可用的群組。",
     "modeOnly": {

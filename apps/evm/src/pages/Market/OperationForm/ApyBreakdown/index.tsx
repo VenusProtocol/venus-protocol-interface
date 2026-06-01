@@ -29,6 +29,7 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({
   renderType = 'block',
 }) => {
   const { t } = useTranslation();
+  const shouldShowNetApy = balanceMutations.length > 1;
 
   const { rows, totalApyPercentage } = balanceMutations.reduce<{
     rows: LabeledInlineContentProps[];
@@ -63,12 +64,19 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({
         asset: simulatedAsset ?? asset,
       });
 
+      let tmpTotalApyPercentage = acc.totalApyPercentage;
+
+      if (balanceMutation.action === 'supply' || balanceMutation.action === 'withdraw') {
+        tmpTotalApyPercentage = tmpTotalApyPercentage.plus(apys.totalSupplyApyPercentage);
+      } else {
+        tmpTotalApyPercentage = shouldShowNetApy
+          ? tmpTotalApyPercentage.minus(apys.totalBorrowApyPercentage)
+          : tmpTotalApyPercentage.plus(apys.totalBorrowApyPercentage);
+      }
+
       return {
         rows: acc.rows.concat(tempRows),
-        totalApyPercentage:
-          balanceMutation.action === 'supply' || balanceMutation.action === 'withdraw'
-            ? acc.totalApyPercentage.plus(apys.totalSupplyApyPercentage)
-            : acc.totalApyPercentage.minus(apys.totalBorrowApyPercentage),
+        totalApyPercentage: tmpTotalApyPercentage,
       };
     },
     {
@@ -79,14 +87,19 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({
 
   const readableTotalApy = formatPercentageToReadableValue(totalApyPercentage);
 
-  let label = t('apyBreakdown.totalApy.label');
+  let label: undefined | string;
   let tooltip: undefined | string;
 
-  if (balanceMutations.length > 1) {
+  if (shouldShowNetApy) {
     label = t('apyBreakdown.netApy.label');
     tooltip = t('apyBreakdown.netApy.tooltip');
   } else {
     const balanceMutationAction = balanceMutations[0]?.action;
+
+    label =
+      balanceMutationAction === 'supply' || balanceMutationAction === 'withdraw'
+        ? t('apyBreakdown.totalApy.supplyApyLabel')
+        : t('apyBreakdown.totalApy.borrowApyLabel');
 
     tooltip =
       balanceMutationAction === 'supply' || balanceMutationAction === 'withdraw'

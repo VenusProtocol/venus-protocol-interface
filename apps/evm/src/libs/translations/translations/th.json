@@ -245,8 +245,9 @@
     "primeApy": "APY Prime",
     "supplyApy": "APY การฝาก",
     "totalApy": {
+      "borrowApyLabel": "APY การยืมรวม",
       "borrowApyTooltip": "APY การยืม - APY การแจกจ่าย",
-      "label": "APY รวม",
+      "supplyApyLabel": "APY การฝากรวม",
       "supplyApyTooltip": "APY การฝาก + APY การแจกจ่าย"
     },
     "yieldToMaturityApy": "APY ถึงกำหนด",
@@ -287,7 +288,6 @@
     }
   },
   "assetWarning": {
-    "borrowDescription": "คุณสามารถยืม {{tokenSymbol}} ได้ตามยอดฝากที่เป็นหลักประกันในพูล {{poolName}} <Button>แสดงโทเคนทั้งหมด</Button>",
     "modalTitle": "โทเคน {{ poolName }}",
     "modeInfoHint": "<LineBreak/>เยี่ยมชมส่วน <ModeInfoButton>ข้อมูลโหมด</ModeInfoButton> เพื่อสำรวจกลุ่มที่มีให้ใช้เพิ่มเติม",
     "modeOnly": {
