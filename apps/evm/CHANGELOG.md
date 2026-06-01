@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.33.0
+
+### Minor Changes
+
+- 8b54530: update Flux banner
+
 ## 4.32.1
 
 ### Patch Changes
