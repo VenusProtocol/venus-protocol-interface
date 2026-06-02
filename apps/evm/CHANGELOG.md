@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.33.1
+
+### Patch Changes
+
+- 67d249d: feat: hidden assets if assets delist
+
 ## 4.33.0
 
 ### Minor Changes
