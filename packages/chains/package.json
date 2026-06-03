@@ -55,7 +55,7 @@
     "tsx": "^4.20.5",
     "typescript": "^5.1.6",
     "viem": "^2.23.1",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.0"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.51.0"
