@@ -31,7 +31,6 @@ import {
   formatTokensToReadableValue,
   getSwapToTokenAmount,
 } from 'utilities';
-import { ApyBreakdown } from '../../ApyBreakdown';
 import { Footer } from '../../Footer';
 import type { Approval } from '../../Footer/types';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
@@ -536,7 +535,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
           ))}
         </div>
 
-        {isUserConnected ? (
+        {isUserConnected && (
           <>
             <Notice
               isFormValid={isFormValid}
@@ -560,8 +559,6 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
               />
             </div>
           </>
-        ) : (
-          <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />
         )}
 
         <Footer
