@@ -9,6 +9,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { FormValues } from 'pages/Trade/PositionForm';
 import type { FormError, PositionFormAction } from 'pages/Trade/PositionForm';
 import type { BalanceMutation, TradePosition } from 'types';
+import { areTokensEqual } from 'utilities';
 
 export const useFormValidation = ({
   balanceMutations,
@@ -145,7 +146,16 @@ export const useFormValidation = ({
     const isMissingSwapPriceImpact = isUsingSwap && averageSwapPriceImpactPercentage === undefined;
     const isMissingSimulationData = !simulatedPosition || isMissingSwapPriceImpact;
 
-    if (!isClosingEmptyPosition && isMissingSimulationData) {
+    let requiresSwaps = !isClosingEmptyPosition && !isClosingPositionWithEmptyShortBalance;
+
+    if (isClosingPositionWithEmptyShortBalance) {
+      requiresSwaps = !areTokensEqual(
+        position.dsaAsset.vToken.underlyingToken,
+        position.longAsset.vToken.underlyingToken,
+      );
+    }
+
+    if (requiresSwaps && isMissingSimulationData) {
       return {
         code: 'MISSING_DATA',
       };
@@ -153,6 +163,7 @@ export const useFormValidation = ({
   }, [
     userDsaWalletBalanceTokens,
     position.dsaAsset.vToken,
+    position.longAsset.vToken,
     formValues.dsaAmountTokens,
     formValues.shortAmountTokens,
     formValues.longAmountTokens,

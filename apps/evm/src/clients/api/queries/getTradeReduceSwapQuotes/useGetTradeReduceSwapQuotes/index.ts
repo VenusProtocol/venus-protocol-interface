@@ -82,6 +82,7 @@ export const useGetTradeReduceSwapQuotes = (
 
       return isEqual(trimmedQueryParams, trimmedPreviousQueryParams) ? previousData : undefined;
     },
+    retry: false,
     refetchInterval,
     ...options,
   });

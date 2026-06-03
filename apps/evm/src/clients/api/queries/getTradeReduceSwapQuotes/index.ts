@@ -163,11 +163,19 @@ export const getTradeReduceSwapQuotes = async ({
   // Calculate actual PnL based on swaps
   let pnlDsaTokens = new BigNumber(0);
 
-  // Closing/Reducing with profit
-  if (profitSwapQuote?.direction === 'exact-in') {
+  // Closing/Reducing with profit when long token = DSA token
+  if (areTokensEqual(longToken, dsaToken) && longProfitAmountDeltaTokens?.isGreaterThan(0)) {
+    pnlDsaTokens = longProfitAmountDeltaTokens;
+  }
+  // Closing/Reducing with loss when short token = DSA token
+  else if (areTokensEqual(shortToken, dsaToken) && shortLossAmountDeltaTokens?.isGreaterThan(0)) {
+    pnlDsaTokens = shortLossAmountDeltaTokens.multipliedBy(-1);
+  }
+  // Closing/Reducing with profit when long token ≠ DSA token
+  else if (profitSwapQuote?.direction === 'exact-in') {
     pnlDsaTokens = getSwapToTokenAmount(profitSwapQuote);
   }
-  // Closing/Reducing with loss
+  // Closing/Reducing with loss  when short token ≠ DSA token
   else if (lossSwapQuote?.direction === 'approximate-out') {
     pnlDsaTokens = convertMantissaToTokens({
       value: lossSwapQuote.fromTokenAmountSoldMantissa,

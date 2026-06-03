@@ -264,4 +264,64 @@ describe('getTradeReduceSwapQuotes', () => {
     ).toBe('10');
     expect(result.pnlDsaTokens.toFixed()).toBe('3');
   });
+
+  it('returns direct positive pnl in dsa tokens without a profit swap when the long token matches the dsa token', async () => {
+    (getSwapQuote as Mock)
+      .mockResolvedValueOnce({
+        swapQuote: makeApproximateOutSwapQuote({
+          fromToken: busd,
+          toToken: usdc,
+          fromTokenAmountSoldMantissa: 3_000_000_000_000_000_000n,
+          minimumToTokenAmountReceivedMantissa: 5_000_000n,
+        }),
+      })
+      .mockResolvedValueOnce({
+        swapQuote: makeExactInSwapQuote({
+          fromToken: busd,
+          toToken: usdc,
+          fromTokenAmountSoldMantissa: 10_000_000_000_000_000_000n,
+          minimumToTokenAmountReceivedMantissa: 5_000_000n,
+        }),
+      });
+
+    const result = await getTradeReduceSwapQuotes({
+      ...sharedInput,
+      dsaToken: busd,
+      closeFractionPercentage: 50,
+    });
+
+    expect(getSwapQuote).toHaveBeenCalledTimes(2);
+    expect(result.pnlDsaTokens.toFixed()).toBe('7');
+    expect(result.profitSwapQuote).toBeUndefined();
+  });
+
+  it('returns direct negative dsa pnl without a loss swap when the short token matches the dsa token', async () => {
+    (getSwapQuote as Mock)
+      .mockResolvedValueOnce({
+        swapQuote: makeApproximateOutSwapQuote({
+          fromToken: busd,
+          toToken: usdc,
+          fromTokenAmountSoldMantissa: 10_000_000_000_000_000_000n,
+          minimumToTokenAmountReceivedMantissa: 5_000_000n,
+        }),
+      })
+      .mockResolvedValueOnce({
+        swapQuote: makeExactInSwapQuote({
+          fromToken: busd,
+          toToken: usdc,
+          fromTokenAmountSoldMantissa: 10_000_000_000_000_000_000n,
+          minimumToTokenAmountReceivedMantissa: 4_000_000n,
+        }),
+      });
+
+    const result = await getTradeReduceSwapQuotes({
+      ...sharedInput,
+      dsaToken: usdc,
+      closeFractionPercentage: 50,
+    });
+
+    expect(getSwapQuote).toHaveBeenCalledTimes(2);
+    expect(result.pnlDsaTokens.toFixed()).toBe('-1');
+    expect(result.lossSwapQuote).toBeUndefined();
+  });
 });
