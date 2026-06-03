@@ -1,4 +1,4 @@
-import { BaseError } from 'viem';
+import type { BaseError } from 'viem';
 
 import { displayNotification } from 'libs/notifications';
 
