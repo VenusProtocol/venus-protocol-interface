@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.33.3
+
+### Patch Changes
+
+- 843ce23: deduplicate APY breakdown display on repay with wallet balance form
+
 ## 4.33.2
 
 ### Patch Changes
