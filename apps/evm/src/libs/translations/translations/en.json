@@ -790,6 +790,10 @@
           "description": "Gasless import of lending positions.",
           "label": "Port"
         },
+        "primeLeaderboard": {
+          "description": "Track the top XVS stakers competing for Prime rewards.",
+          "label": "Prime Leaderboard"
+        },
         "stats": {
           "description": "Real-time Risk Parameters",
           "label": "Stats"
@@ -1239,6 +1243,10 @@
       "label": "Token"
     },
     "topMessage": "You can use the Prime calculator to estimate the rewards you'd receive from holding a Prime token based on your positions. <Link>Learn more</Link>"
+  },
+  "primeLeaderboard": {
+    "description": "Stake XVS into the governance vault and receive Prime rewards on top of your yields.",
+    "title": "Prime leaderboard"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Prime user",

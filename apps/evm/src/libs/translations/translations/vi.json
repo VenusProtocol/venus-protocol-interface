@@ -790,6 +790,10 @@
           "description": "Nhập các vị thế cho vay không cần gas.",
           "label": "Cổng"
         },
+        "primeLeaderboard": {
+          "description": "Theo dõi những người stake XVS hàng đầu đang cạnh tranh phần thưởng Prime.",
+          "label": "Bảng xếp hạng Prime"
+        },
         "stats": {
           "description": "Thông số rủi ro thời gian thực",
           "label": "Thống kê"
@@ -1239,6 +1243,10 @@
       "label": "Mã thông báo"
     },
     "topMessage": "Bạn có thể dùng máy tính Prime để ước tính phần thưởng nhận được khi nắm giữ token Prime dựa trên vị thế của mình. <Link>Tìm hiểu thêm</Link>"
+  },
+  "primeLeaderboard": {
+    "description": "Stake XVS vào governance vault và nhận thêm phần thưởng Prime bên cạnh lợi nhuận của bạn.",
+    "title": "Bảng xếp hạng Prime"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Bạn đã có thể trở thành người dùng Prime",

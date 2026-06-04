@@ -790,6 +790,10 @@
           "description": "レンディングポジションをガスレスでインポート。",
           "label": "ポート"
         },
+        "primeLeaderboard": {
+          "description": "Prime 報酬を競う上位の XVS ステーカーを確認できます。",
+          "label": "Prime リーダーボード"
+        },
         "stats": {
           "description": "リアルタイムリスクパラメータ",
           "label": "統計"
@@ -1239,6 +1243,10 @@
       "label": "トークン"
     },
     "topMessage": "Prime計算機で、保有ポジションに基づいてPrimeトークンから受け取れる報酬を見積もれます。<Link>詳細を見る</Link>"
+  },
+  "primeLeaderboard": {
+    "description": "ガバナンスボールトに XVS をステークして、利回りに加えて Prime 報酬を獲得しましょう。",
+    "title": "Prime リーダーボード"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Primeユーザーになれるようになりました",

@@ -26,6 +26,7 @@ const Vaults = safeLazyLoad(() => import('pages/Vaults'));
 const Voter = safeLazyLoad(() => import('pages/Voter'));
 const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
+const PrimeLeaderboard = safeLazyLoad(() => import('pages/PrimeLeaderboard'));
 const Bridge = safeLazyLoad(() => import('pages/Bridge'));
 const Stats = safeLazyLoad(() => import('pages/Stats'));
 const Skills = safeLazyLoad(() => import('pages/Skills'));
@@ -43,6 +44,7 @@ const AppRoutes = () => {
     name: 'primeCalculator',
   });
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
+  const primeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -230,6 +232,17 @@ const AppRoutes = () => {
             element={
               <PageSuspense>
                 <Stats />
+              </PageSuspense>
+            }
+          />
+        )}
+
+        {primeLeaderboardEnabled && (
+          <Route
+            path={Subdirectory.PRIME_LEADERBOARD}
+            element={
+              <PageSuspense>
+                <PrimeLeaderboard />
               </PageSuspense>
             }
           />

@@ -17,6 +17,7 @@ export const useMenuItems = () => {
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
   const tradeRouteEnabled = useIsFeatureEnabled({ name: 'trade' });
+  const primeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
   const { marketsPagePath } = useGetMarketsPagePath();
 
   const menu: Array<MenuItem | SubMenu> = [];
@@ -110,6 +111,15 @@ export const useMenuItems = () => {
       iconName: 'stats',
       label: t('layout.menu.others.stats.label'),
       description: t('layout.menu.others.stats.description'),
+    });
+  }
+
+  if (primeLeaderboardEnabled) {
+    othersSubMenuItems.push({
+      to: routes.primeLeaderboard.path,
+      iconName: 'crown',
+      label: t('layout.menu.others.primeLeaderboard.label'),
+      description: t('layout.menu.others.primeLeaderboard.description'),
     });
   }
 
