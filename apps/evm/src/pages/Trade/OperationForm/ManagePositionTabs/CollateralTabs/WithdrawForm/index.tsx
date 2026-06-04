@@ -34,20 +34,20 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ position }) => {
   const unusedCollateralCents = proportionalCloseTolerancePercentage
     ? calculateUnusedCollateralCents({
         dsaAmountTokens: position.dsaBalanceTokens,
-        dsaTokenPriceCents: position.dsaAsset.tokenPriceCents,
+        dsaTokenPriceCents: position.dsaAsset.tokenSupplyPriceCents,
         dsaTokenCollateralFactor: position.dsaAsset.userCollateralFactor,
         longAmountTokens: position.longBalanceTokens,
-        longTokenPriceCents: position.longAsset.tokenPriceCents,
+        longTokenPriceCents: position.longAsset.tokenSupplyPriceCents,
         longTokenCollateralFactor: position.longAsset.userCollateralFactor,
         shortAmountTokens: position.shortBalanceTokens,
-        shortTokenPriceCents: position.shortAsset.tokenPriceCents,
+        shortTokenPriceCents: position.shortAsset.tokenBorrowPriceCents,
         leverageFactor: position.leverageFactor,
         proportionalCloseTolerancePercentage,
       })
     : undefined;
 
   const limitDsaTokens = unusedCollateralCents
-    ?.dividedBy(position.dsaAsset.tokenPriceCents)
+    ?.dividedBy(position.dsaAsset.tokenSupplyPriceCents)
     .dp(position.dsaAsset.vToken.underlyingToken.decimals);
 
   const handleSubmit = async (formValues: FormValues) => {

@@ -14,7 +14,7 @@ import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import { calculateMaxBorrowShortTokens } from 'pages/Trade/OperationForm/calculateMaxBorrowShortTokens';
 import { renderComponent } from 'testUtils/render';
-import type { ExactInSwapQuote, Pool, SwapQuote } from 'types';
+import type { ExactInSwapQuote, Pool, SwapQuote, TradePosition } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 import { IncreaseForm } from '..';
 
@@ -26,6 +26,25 @@ if (!position) {
 
 const longAsset = position.longAsset;
 const shortAsset = position.shortAsset;
+
+const createProtectedPricePosition = (): TradePosition => ({
+  ...position,
+  dsaAsset: {
+    ...position.dsaAsset,
+    tokenPriceCents: new BigNumber(100),
+    tokenSupplyPriceCents: new BigNumber(80),
+  },
+  longAsset: {
+    ...position.longAsset,
+    tokenPriceCents: new BigNumber(100),
+    tokenSupplyPriceCents: new BigNumber(130),
+  },
+  shortAsset: {
+    ...position.shortAsset,
+    tokenPriceCents: new BigNumber(200),
+    tokenBorrowPriceCents: new BigNumber(250),
+  },
+});
 
 const defaultSwapQuote: ExactInSwapQuote = {
   ...exactInSwapQuote,
@@ -226,9 +245,13 @@ describe('IncreaseForm', () => {
   });
 
   it('clamps short amount when value is one unit above computed limit', async () => {
-    const { container, getByText } = renderComponent(<IncreaseForm position={position} />, {
-      accountAddress: position.positionAccountAddress,
-    });
+    const protectedPricePosition = createProtectedPricePosition();
+    const { container, getByText } = renderComponent(
+      <IncreaseForm position={protectedPricePosition} />,
+      {
+        accountAddress: protectedPricePosition.positionAccountAddress,
+      },
+    );
 
     await waitFor(() =>
       expect(getByText(en.trade.operationForm.increaseForm.submitButtonLabel)).toBeInTheDocument(),
@@ -243,32 +266,78 @@ describe('IncreaseForm', () => {
     }
 
     const maxShortCapacityTokens = calculateMaxBorrowShortTokens({
-      dsaAmountTokens: position.dsaBalanceTokens,
-      dsaTokenPriceCents: position.dsaAsset.tokenPriceCents,
-      dsaTokenCollateralFactor: position.dsaAsset.collateralFactor,
-      longAmountTokens: position.longBalanceTokens,
-      longTokenPriceCents: position.longAsset.tokenPriceCents,
-      longTokenCollateralFactor: position.longAsset.collateralFactor,
-      shortAmountTokens: position.shortBalanceTokens,
-      shortTokenPriceCents: position.shortAsset.tokenPriceCents,
-      leverageFactor: position.leverageFactor,
-      shortTokenDecimals: position.shortAsset.vToken.underlyingToken.decimals,
-      proportionalCloseTolerancePercentage: 0.1,
+      dsaAmountTokens: protectedPricePosition.dsaBalanceTokens,
+      dsaTokenPriceCents: protectedPricePosition.dsaAsset.tokenSupplyPriceCents,
+      dsaTokenCollateralFactor: protectedPricePosition.dsaAsset.collateralFactor,
+      longAmountTokens: protectedPricePosition.longBalanceTokens,
+      longTokenPriceCents: protectedPricePosition.longAsset.tokenSupplyPriceCents,
+      longTokenCollateralFactor: protectedPricePosition.longAsset.collateralFactor,
+      shortAmountTokens: protectedPricePosition.shortBalanceTokens,
+      shortTokenPriceCents: protectedPricePosition.shortAsset.tokenBorrowPriceCents,
+      leverageFactor: protectedPricePosition.leverageFactor,
+      shortTokenDecimals: protectedPricePosition.shortAsset.vToken.underlyingToken.decimals,
+      proportionalCloseTolerancePercentage: 2,
     });
 
     const smallestShortTokenUnit = new BigNumber(10).pow(
-      -position.shortAsset.vToken.underlyingToken.decimals,
+      -protectedPricePosition.shortAsset.vToken.underlyingToken.decimals,
     );
     const aboveLimit = maxShortCapacityTokens.plus(smallestShortTokenUnit);
 
     fireEvent.change(shortAmountInput, {
-      target: { value: aboveLimit.toFixed(position.shortAsset.vToken.underlyingToken.decimals) },
+      target: {
+        value: aboveLimit.toFixed(
+          protectedPricePosition.shortAsset.vToken.underlyingToken.decimals,
+        ),
+      },
     });
 
     await waitFor(() =>
-      expect(shortAmountInput.value).toBe(
-        maxShortCapacityTokens.toFixed(position.shortAsset.vToken.underlyingToken.decimals),
-      ),
+      expect(new BigNumber(shortAmountInput.value).isEqualTo(maxShortCapacityTokens)).toBe(true),
+    );
+  });
+
+  it('uses protected prices when clamping the short amount', async () => {
+    const protectedPricePosition = createProtectedPricePosition();
+    const { container, getByText } = renderComponent(
+      <IncreaseForm position={protectedPricePosition} />,
+      {
+        accountAddress: position.positionAccountAddress,
+      },
+    );
+
+    await waitFor(() =>
+      expect(getByText(en.trade.operationForm.increaseForm.submitButtonLabel)).toBeInTheDocument(),
+    );
+
+    const shortAmountInput = container.querySelector(
+      'input[name="shortAmountTokens"]',
+    ) as HTMLInputElement;
+
+    if (!shortAmountInput) {
+      throw new Error('Expected short amount input to be rendered');
+    }
+
+    const maxShortCapacityTokens = calculateMaxBorrowShortTokens({
+      dsaAmountTokens: protectedPricePosition.dsaBalanceTokens,
+      dsaTokenPriceCents: protectedPricePosition.dsaAsset.tokenSupplyPriceCents,
+      dsaTokenCollateralFactor: protectedPricePosition.dsaAsset.collateralFactor,
+      longAmountTokens: protectedPricePosition.longBalanceTokens,
+      longTokenPriceCents: protectedPricePosition.longAsset.tokenSupplyPriceCents,
+      longTokenCollateralFactor: protectedPricePosition.longAsset.collateralFactor,
+      shortAmountTokens: protectedPricePosition.shortBalanceTokens,
+      shortTokenPriceCents: protectedPricePosition.shortAsset.tokenBorrowPriceCents,
+      leverageFactor: protectedPricePosition.leverageFactor,
+      shortTokenDecimals: protectedPricePosition.shortAsset.vToken.underlyingToken.decimals,
+      proportionalCloseTolerancePercentage: 2,
+    });
+
+    fireEvent.change(shortAmountInput, {
+      target: { value: '9999' },
+    });
+
+    await waitFor(() =>
+      expect(new BigNumber(shortAmountInput.value).isEqualTo(maxShortCapacityTokens)).toBe(true),
     );
   });
 });

@@ -23,7 +23,7 @@ export interface LeverageFactorModalProps {
   longTokenPriceCents: BigNumber;
   longTokenCollateralFactor: number;
   dsaTokenCollateralFactor: number;
-  dsaTokenPriceCents?: number;
+  dsaTokenLimitPriceCents?: number;
   dsaAmountTokens?: BigNumber;
 }
 
@@ -32,7 +32,7 @@ export const LeverageFactorModal: React.FC<LeverageFactorModalProps> = ({
   maximumLeverageFactor,
   onChangeLeverageFactor,
   dsaAmountTokens,
-  dsaTokenPriceCents,
+  dsaTokenLimitPriceCents,
   dsaTokenCollateralFactor,
   longTokenPriceCents,
   longTokenCollateralFactor,
@@ -54,10 +54,10 @@ export const LeverageFactorModal: React.FC<LeverageFactorModalProps> = ({
   };
 
   const maximumShortAmountTokens =
-    dsaAmountTokens && typeof dsaTokenPriceCents === 'number'
+    dsaAmountTokens && typeof dsaTokenLimitPriceCents === 'number'
       ? calculateMaxBorrowShortTokens({
           dsaAmountTokens,
-          dsaTokenPriceCents,
+          dsaTokenPriceCents: dsaTokenLimitPriceCents,
           dsaTokenCollateralFactor,
           longAmountTokens: new BigNumber(0),
           longTokenPriceCents,

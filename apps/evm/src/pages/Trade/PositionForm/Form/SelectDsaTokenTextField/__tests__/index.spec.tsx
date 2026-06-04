@@ -105,11 +105,12 @@ const SelectDsaTokenTextFieldHarness: React.FC<RenderInput> = ({
   onChange = vi.fn(),
   hasError = false,
   tokenPriceCents = basePosition.dsaAsset.tokenPriceCents.toNumber(),
+  dsaTokenLimitPriceCents = basePosition.dsaAsset.tokenSupplyPriceCents.toNumber(),
   maximumLeverageFactor = 4,
   proportionalCloseTolerancePercentage = 2,
-  shortTokenPriceCents = basePosition.shortAsset.tokenPriceCents,
+  shortTokenPriceCents = basePosition.shortAsset.tokenBorrowPriceCents,
   shortTokenDecimals = basePosition.shortAsset.vToken.underlyingToken.decimals,
-  longTokenPriceCents = basePosition.longAsset.tokenPriceCents,
+  longTokenPriceCents = basePosition.longAsset.tokenSupplyPriceCents,
   longTokenCollateralFactor = basePosition.longAsset.userCollateralFactor,
   dsaTokenCollateralFactor = basePosition.dsaAsset.userCollateralFactor,
   label = en.trade.operationForm.openForm.dsaFieldLabel,
@@ -136,6 +137,7 @@ const SelectDsaTokenTextFieldHarness: React.FC<RenderInput> = ({
       onChange={onChange}
       hasError={hasError}
       tokenPriceCents={tokenPriceCents}
+      dsaTokenLimitPriceCents={dsaTokenLimitPriceCents}
       maximumLeverageFactor={maximumLeverageFactor}
       proportionalCloseTolerancePercentage={proportionalCloseTolerancePercentage}
       shortTokenPriceCents={shortTokenPriceCents}
@@ -233,13 +235,13 @@ describe('SelectDsaTokenTextField', () => {
     const dsaAmountTokens = new BigNumber('3');
     const maximumShortAmountTokens = calculateMaxBorrowShortTokens({
       dsaAmountTokens,
-      dsaTokenPriceCents: basePosition.dsaAsset.tokenPriceCents.toNumber(),
+      dsaTokenPriceCents: basePosition.dsaAsset.tokenSupplyPriceCents.toNumber(),
       dsaTokenCollateralFactor: basePosition.dsaAsset.userCollateralFactor,
       longAmountTokens: new BigNumber(0),
-      longTokenPriceCents: basePosition.longAsset.tokenPriceCents,
+      longTokenPriceCents: basePosition.longAsset.tokenSupplyPriceCents,
       longTokenCollateralFactor: basePosition.longAsset.userCollateralFactor,
       shortAmountTokens: new BigNumber(0),
-      shortTokenPriceCents: basePosition.shortAsset.tokenPriceCents,
+      shortTokenPriceCents: basePosition.shortAsset.tokenBorrowPriceCents,
       leverageFactor: basePosition.leverageFactor,
       shortTokenDecimals: basePosition.shortAsset.vToken.underlyingToken.decimals,
       proportionalCloseTolerancePercentage: 2,
@@ -251,6 +253,46 @@ describe('SelectDsaTokenTextField', () => {
 
     renderSelectDsaTokenTextField({
       value: dsaAmountTokens.toFixed(),
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: `${basePosition.leverageFactor}x` }));
+
+    await waitFor(() =>
+      expect(
+        screen.getByText(`Maximum position at current leverage: ${readableMaximumShortAmount}`),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('uses protected prices for the maximum position preview', async () => {
+    const dsaAmountTokens = new BigNumber('3');
+    const dsaTokenLimitPriceCents = 80;
+    const longTokenPriceCents = new BigNumber(130);
+    const shortTokenPriceCents = new BigNumber(250);
+    const maximumShortAmountTokens = calculateMaxBorrowShortTokens({
+      dsaAmountTokens,
+      dsaTokenPriceCents: dsaTokenLimitPriceCents,
+      dsaTokenCollateralFactor: basePosition.dsaAsset.userCollateralFactor,
+      longAmountTokens: new BigNumber(0),
+      longTokenPriceCents,
+      longTokenCollateralFactor: basePosition.longAsset.userCollateralFactor,
+      shortAmountTokens: new BigNumber(0),
+      shortTokenPriceCents,
+      leverageFactor: basePosition.leverageFactor,
+      shortTokenDecimals: basePosition.shortAsset.vToken.underlyingToken.decimals,
+      proportionalCloseTolerancePercentage: 2,
+    });
+    const readableMaximumShortAmount = formatTokensToReadableValue({
+      value: maximumShortAmountTokens,
+      token: basePosition.shortAsset.vToken.underlyingToken,
+    });
+
+    renderSelectDsaTokenTextField({
+      value: dsaAmountTokens.toFixed(),
+      tokenPriceCents: 100,
+      dsaTokenLimitPriceCents,
+      longTokenPriceCents,
+      shortTokenPriceCents,
     });
 
     fireEvent.click(screen.getByRole('button', { name: `${basePosition.leverageFactor}x` }));

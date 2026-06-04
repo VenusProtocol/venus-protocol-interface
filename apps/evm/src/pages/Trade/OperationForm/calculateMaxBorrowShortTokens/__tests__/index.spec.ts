@@ -64,4 +64,14 @@ describe('calculateMaxBorrowShortTokens', () => {
 
     expect(result.toFixed()).toMatchInlineSnapshot('"0"');
   });
+
+  it('supports passing distinct collateral supply and borrow prices', () => {
+    const result = calculateMaxBorrowShortTokens({
+      ...baseInput,
+      dsaTokenPriceCents: 80,
+      shortTokenPriceCents: 250,
+    });
+
+    expect(result.toFixed()).toMatchInlineSnapshot('"6.4"');
+  });
 });
