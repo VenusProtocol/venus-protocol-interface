@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.33.2
+
+### Patch Changes
+
+- de4762d: fix Pendle vault withdraw flow
+
 ## 4.33.1
 
 ### Patch Changes
