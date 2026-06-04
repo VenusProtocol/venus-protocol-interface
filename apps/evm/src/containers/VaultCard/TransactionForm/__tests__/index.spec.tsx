@@ -3,7 +3,8 @@ import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 import type { Mock } from 'vitest';
 
-import fakeAccountAddress from '__mocks__/models/address';
+import fakeAccountAddress, { altAddress as fakeDelegateeAddress } from '__mocks__/models/address';
+import fakePoolComptrollerContractAddress from '__mocks__/models/address';
 import { busd, xvs } from '__mocks__/models/tokens';
 import type { GetPendleSwapQuoteOutput } from 'clients/api';
 import { useGetBalanceOf } from 'clients/api';
@@ -13,6 +14,7 @@ import {
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
 import { useForm as useVaultForm } from 'containers/VaultCard/useForm';
+import useDelegateApproval from 'hooks/useDelegateApproval';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -31,6 +33,17 @@ const makeUseTokenApprovalOutput = (overrides: Partial<ReturnType<typeof useToke
     revokeWalletSpendingLimit: vi.fn().mockResolvedValue(undefined),
     ...overrides,
   }) as ReturnType<typeof useTokenApproval>;
+
+const makeUseDelegateApprovalOutput = (
+  overrides: Partial<ReturnType<typeof useDelegateApproval>> = {},
+) =>
+  ({
+    updatePoolDelegateStatus: vi.fn().mockResolvedValue(undefined),
+    isUpdateDelegateStatusLoading: false,
+    isDelegateApproved: true,
+    isDelegateApprovedLoading: false,
+    ...overrides,
+  }) as ReturnType<typeof useDelegateApproval>;
 
 const baseProps: Omit<TransactionFormProps, 'form'> = {
   fromToken: xvs,
@@ -84,6 +97,8 @@ const renderTransactionForm = ({
   };
 };
 
+vi.mock('hooks/useDelegateApproval');
+
 describe('TransactionForm', () => {
   beforeEach(() => {
     (useGetBalanceOf as Mock).mockReturnValue({
@@ -94,6 +109,7 @@ describe('TransactionForm', () => {
     });
 
     (useTokenApproval as Mock).mockReturnValue(makeUseTokenApprovalOutput());
+    (useDelegateApproval as Mock).mockReturnValue(makeUseDelegateApprovalOutput());
   });
 
   it('renders the disconnected state and skips the transaction fields', () => {
@@ -243,6 +259,67 @@ describe('TransactionForm', () => {
         name: baseProps.submitButtonLabel,
       }),
     ).toBeDisabled();
+  });
+
+  it('shows delegate approval steps when delegate approval is required', async () => {
+    const limitFromTokens = new BigNumber(12);
+
+    (useDelegateApproval as Mock).mockReturnValue(
+      makeUseDelegateApprovalOutput({
+        isDelegateApproved: false,
+      }),
+    );
+
+    renderTransactionForm({
+      props: {
+        limitFromTokens,
+        spenderAddress: undefined,
+        delegateeAddress: fakeDelegateeAddress as Address,
+        vaultPoolComptrollerContractAddress: fakePoolComptrollerContractAddress as Address,
+      },
+      walletSpendingLimitTokens: limitFromTokens,
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: '12 XVS' }));
+
+    await waitFor(() =>
+      expect(screen.getByText(en.approveDelegateSteps.step1)).toBeInTheDocument(),
+    );
+    expect(
+      screen.getByRole('button', {
+        name: en.approveDelegateSteps.approveDelegateButton.text,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(en.approveTokenSteps.step2)).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', {
+        name: baseProps.submitButtonLabel,
+      }),
+    ).toBeDisabled();
+  });
+
+  it('skips delegate approval when the vault comptroller address is not provided', async () => {
+    const limitFromTokens = new BigNumber(12);
+
+    renderTransactionForm({
+      props: {
+        limitFromTokens,
+        spenderAddress: undefined,
+        delegateeAddress: fakeDelegateeAddress as Address,
+      },
+      walletSpendingLimitTokens: limitFromTokens,
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: '12 XVS' }));
+
+    expect(screen.queryByText(en.approveDelegateSteps.step1)).not.toBeInTheDocument();
+    await waitFor(() =>
+      expect(
+        screen.getByRole('button', {
+          name: baseProps.submitButtonLabel,
+        }),
+      ).toBeEnabled(),
+    );
   });
 
   it('submits the form and resets the amount field on success', async () => {

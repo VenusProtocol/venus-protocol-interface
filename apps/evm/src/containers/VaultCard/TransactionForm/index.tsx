@@ -33,10 +33,12 @@ export interface TransactionFormProps {
   fromTokenFieldLabel: string;
   submitButtonLabel: string;
   onSubmit: () => Promise<unknown>;
+  vaultPoolComptrollerContractAddress?: Address;
   isLoading?: boolean;
   fromTokenPriceCents?: number;
   footer?: React.ReactNode;
   spenderAddress?: Address;
+  delegateeAddress?: Address;
   swapFromToken?: Token;
   swapToToken?: Token;
   swapQuote?: GetPendleSwapQuoteOutput;
@@ -50,6 +52,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   limitFromTokens,
   fromTokenFieldLabel,
   spenderAddress,
+  delegateeAddress,
   submitButtonLabel,
   onSubmit,
   isLoading: isLoadingProp = false,
@@ -58,9 +61,11 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   swapToToken,
   swapQuote,
   swapQuoteError,
+  vaultPoolComptrollerContractAddress,
 }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
+
   const fromAmountTokensFieldValue = form.watch('fromAmountTokens');
   const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue || 0);
 
@@ -72,14 +77,21 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
   const isUserAcknowledgingHighPriceImpact = form.watch('acknowledgeHighPriceImpact');
 
-  const approval: Approval | undefined =
-    spenderAddress && fromAmountTokens.isGreaterThan(0)
-      ? {
-          type: 'token',
-          spenderAddress,
-          token: fromToken,
-        }
-      : undefined;
+  let approval: Approval | undefined;
+
+  if (spenderAddress && fromAmountTokens.isGreaterThan(0)) {
+    approval = {
+      type: 'token',
+      spenderAddress,
+      token: fromToken,
+    };
+  } else if (delegateeAddress && vaultPoolComptrollerContractAddress) {
+    approval = {
+      type: 'delegate',
+      delegateeAddress,
+      poolComptrollerContractAddress: vaultPoolComptrollerContractAddress,
+    };
+  }
 
   const {
     isWalletSpendingLimitLoading,

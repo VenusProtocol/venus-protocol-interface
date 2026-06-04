@@ -18,6 +18,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { VError } from 'libs/errors';
 import { useAccountAddress } from 'libs/wallet';
 import type { PendleVaultAction } from '../../types';
@@ -35,6 +36,8 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
   const { accountAddress } = useAccountAddress();
   const { t, Trans } = useTranslation();
   const now = useNow();
+
+  const { address: pendlePtVaultAddress } = useGetContractAddress({ name: 'PendlePtVault' });
 
   const hasMatured = !!vault.maturityDate && now.getTime() > vault.maturityDate.getTime();
 
@@ -159,6 +162,8 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
         swapFromToken={actionMode !== 'redeemAtMaturity' ? fromToken : undefined}
         swapToToken={actionMode !== 'redeemAtMaturity' ? toToken : undefined}
         isLoading={isGetSwapQuoteLoading}
+        delegateeAddress={pendlePtVaultAddress}
+        vaultPoolComptrollerContractAddress={vault.poolComptrollerContractAddress}
         footer={
           <Footer
             actionMode={actionMode}
