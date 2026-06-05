@@ -103,13 +103,13 @@ export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
     typeof proportionalCloseTolerancePercentage === 'number'
       ? calculateMaxBorrowShortTokens({
           dsaAmountTokens: position.dsaBalanceTokens,
-          dsaTokenPriceCents: position.dsaAsset.tokenPriceCents,
+          dsaTokenPriceCents: position.dsaAsset.tokenSupplyPriceCents,
           dsaTokenCollateralFactor: position.dsaAsset.collateralFactor,
           longAmountTokens: position.longBalanceTokens,
-          longTokenPriceCents: position.longAsset.tokenPriceCents,
+          longTokenPriceCents: position.longAsset.tokenSupplyPriceCents,
           longTokenCollateralFactor: position.longAsset.collateralFactor,
           shortAmountTokens: position.shortBalanceTokens,
-          shortTokenPriceCents: position.shortAsset.tokenPriceCents,
+          shortTokenPriceCents: position.shortAsset.tokenBorrowPriceCents,
           leverageFactor: position.leverageFactor,
           shortTokenDecimals: position.shortAsset.vToken.underlyingToken.decimals,
           proportionalCloseTolerancePercentage,

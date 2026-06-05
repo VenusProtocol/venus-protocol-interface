@@ -15,7 +15,9 @@ import { LeverageFactorModal, type LeverageFactorModalProps } from './LeverageFa
 
 export interface SelectDsaTokenTextFieldProps
   extends Omit<SelectTokenTextFieldProps, 'tokenBalances'>,
-    Omit<LeverageFactorModalProps, 'onClose' | 'dsaAmountTokens' | 'dsaTokenPriceCents'> {}
+    Omit<LeverageFactorModalProps, 'onClose' | 'dsaAmountTokens' | 'dsaTokenLimitPriceCents'> {
+  dsaTokenLimitPriceCents: number;
+}
 
 export const SelectDsaTokenTextField: React.FC<SelectDsaTokenTextFieldProps> = ({
   selectedToken,
@@ -32,6 +34,7 @@ export const SelectDsaTokenTextField: React.FC<SelectDsaTokenTextFieldProps> = (
   dsaTokenCollateralFactor,
   value,
   tokenPriceCents,
+  dsaTokenLimitPriceCents,
   ...otherProps
 }) => {
   const { t } = useTranslation();
@@ -94,7 +97,7 @@ export const SelectDsaTokenTextField: React.FC<SelectDsaTokenTextFieldProps> = (
           longTokenCollateralFactor={longTokenCollateralFactor}
           dsaTokenCollateralFactor={dsaTokenCollateralFactor}
           dsaAmountTokens={value ? new BigNumber(value) : undefined}
-          dsaTokenPriceCents={tokenPriceCents}
+          dsaTokenLimitPriceCents={dsaTokenLimitPriceCents}
         />
       )}
     </>

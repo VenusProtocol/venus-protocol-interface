@@ -11,7 +11,7 @@ import {
 import { en } from 'libs/translations';
 import { calculateUnusedCollateralCents } from 'pages/Trade/OperationForm/calculateUnusedCollateralCents';
 import { renderComponent } from 'testUtils/render';
-import type { Pool } from 'types';
+import type { Pool, TradePosition } from 'types';
 import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { WithdrawForm } from '..';
 
@@ -26,6 +26,41 @@ const mockWithdrawTradePositionCollateral = vi.fn();
 
 const getDsaAmountInput = (container: HTMLElement) =>
   container.querySelector('input[name="dsaAmountTokens"]') as HTMLInputElement;
+
+const createProtectedPricePosition = (): TradePosition => ({
+  ...position,
+  dsaAsset: {
+    ...position.dsaAsset,
+    tokenPriceCents: new BigNumber(100),
+    tokenSupplyPriceCents: new BigNumber(80),
+  },
+  longAsset: {
+    ...position.longAsset,
+    tokenPriceCents: new BigNumber(100),
+    tokenSupplyPriceCents: new BigNumber(130),
+  },
+  shortAsset: {
+    ...position.shortAsset,
+    tokenPriceCents: new BigNumber(200),
+    tokenBorrowPriceCents: new BigNumber(250),
+  },
+});
+
+const calculateExpectedLimitDsaTokens = (positionToUse: TradePosition) =>
+  calculateUnusedCollateralCents({
+    dsaAmountTokens: positionToUse.dsaBalanceTokens,
+    dsaTokenPriceCents: positionToUse.dsaAsset.tokenSupplyPriceCents,
+    dsaTokenCollateralFactor: positionToUse.dsaAsset.userCollateralFactor,
+    longAmountTokens: positionToUse.longBalanceTokens,
+    longTokenPriceCents: positionToUse.longAsset.tokenSupplyPriceCents,
+    longTokenCollateralFactor: positionToUse.longAsset.userCollateralFactor,
+    shortAmountTokens: positionToUse.shortBalanceTokens,
+    shortTokenPriceCents: positionToUse.shortAsset.tokenBorrowPriceCents,
+    leverageFactor: positionToUse.leverageFactor,
+    proportionalCloseTolerancePercentage,
+  })
+    .dividedBy(positionToUse.dsaAsset.tokenSupplyPriceCents)
+    .dp(positionToUse.dsaAsset.vToken.underlyingToken.decimals);
 
 describe('WithdrawForm', () => {
   const setReadyState = ({ simulatedPool = position.pool }: { simulatedPool?: Pool } = {}) => {
@@ -91,20 +126,7 @@ describe('WithdrawForm', () => {
     );
 
     const dsaAmountInput = getDsaAmountInput(container);
-    const expectedLimitDsaTokens = calculateUnusedCollateralCents({
-      dsaAmountTokens: position.dsaBalanceTokens,
-      dsaTokenPriceCents: position.dsaAsset.tokenPriceCents,
-      dsaTokenCollateralFactor: position.dsaAsset.userCollateralFactor,
-      longAmountTokens: position.longBalanceTokens,
-      longTokenPriceCents: position.longAsset.tokenPriceCents,
-      longTokenCollateralFactor: position.longAsset.userCollateralFactor,
-      shortAmountTokens: position.shortBalanceTokens,
-      shortTokenPriceCents: position.shortAsset.tokenPriceCents,
-      leverageFactor: position.leverageFactor,
-      proportionalCloseTolerancePercentage,
-    })
-      .dividedBy(position.dsaAsset.tokenPriceCents)
-      .dp(position.dsaAsset.vToken.underlyingToken.decimals);
+    const expectedLimitDsaTokens = calculateExpectedLimitDsaTokens(position);
 
     const readableLimit = formatTokensToReadableValue({
       value: expectedLimitDsaTokens,
@@ -127,20 +149,7 @@ describe('WithdrawForm', () => {
       ).toBeInTheDocument(),
     );
 
-    const expectedLimitDsaTokens = calculateUnusedCollateralCents({
-      dsaAmountTokens: position.dsaBalanceTokens,
-      dsaTokenPriceCents: position.dsaAsset.tokenPriceCents,
-      dsaTokenCollateralFactor: position.dsaAsset.userCollateralFactor,
-      longAmountTokens: position.longBalanceTokens,
-      longTokenPriceCents: position.longAsset.tokenPriceCents,
-      longTokenCollateralFactor: position.longAsset.userCollateralFactor,
-      shortAmountTokens: position.shortBalanceTokens,
-      shortTokenPriceCents: position.shortAsset.tokenPriceCents,
-      leverageFactor: position.leverageFactor,
-      proportionalCloseTolerancePercentage,
-    })
-      .dividedBy(position.dsaAsset.tokenPriceCents)
-      .dp(position.dsaAsset.vToken.underlyingToken.decimals);
+    const expectedLimitDsaTokens = calculateExpectedLimitDsaTokens(position);
 
     const readableLimit = formatTokensToReadableValue({
       value: expectedLimitDsaTokens,
@@ -188,5 +197,25 @@ describe('WithdrawForm', () => {
     await waitFor(() => {
       expect(dsaAmountInput).toHaveValue(null);
     });
+  });
+
+  it('uses protected prices for the withdrawable collateral limit', async () => {
+    const protectedPricePosition = createProtectedPricePosition();
+    const { getByText } = renderComponent(<WithdrawForm position={protectedPricePosition} />, {
+      accountAddress: protectedPricePosition.positionAccountAddress,
+    });
+
+    await waitFor(() =>
+      expect(
+        getByText(en.trade.operationForm.withdrawDsaForm.submitButtonLabel),
+      ).toBeInTheDocument(),
+    );
+
+    const readableLimit = formatTokensToReadableValue({
+      value: calculateExpectedLimitDsaTokens(protectedPricePosition),
+      token: protectedPricePosition.dsaAsset.vToken.underlyingToken,
+    });
+
+    expect(getByText(readableLimit)).toBeInTheDocument();
   });
 });

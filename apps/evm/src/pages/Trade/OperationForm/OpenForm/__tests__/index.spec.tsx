@@ -14,6 +14,7 @@ import {
 import { useGetSimulatedPool, useGetSwapQuote, useOpenTradePosition } from 'clients/api';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
+import { calculateMaxBorrowShortTokens } from 'pages/Trade/OperationForm/calculateMaxBorrowShortTokens';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from 'pages/Trade/constants';
 import { renderComponent } from 'testUtils/render';
 import type { ExactInSwapQuote, Pool, SwapQuote } from 'types';
@@ -22,6 +23,37 @@ import { OpenForm } from '..';
 const longAsset = poolData[0].assets[2];
 const shortAsset = poolData[0].assets[3];
 const dsaAsset = poolData[0].assets[0];
+
+const createProtectedPricePool = (): Pool => ({
+  ...poolData[0],
+  assets: poolData[0].assets.map(asset => {
+    if (asset.vToken.address === dsaAsset.vToken.address) {
+      return {
+        ...asset,
+        tokenPriceCents: new BigNumber(100),
+        tokenSupplyPriceCents: new BigNumber(80),
+      };
+    }
+
+    if (asset.vToken.address === longAsset.vToken.address) {
+      return {
+        ...asset,
+        tokenPriceCents: new BigNumber(100),
+        tokenSupplyPriceCents: new BigNumber(130),
+      };
+    }
+
+    if (asset.vToken.address === shortAsset.vToken.address) {
+      return {
+        ...asset,
+        tokenPriceCents: new BigNumber(200),
+        tokenBorrowPriceCents: new BigNumber(250),
+      };
+    }
+
+    return asset;
+  }),
+});
 
 const getSwapQuote = ({
   priceImpactPercentage = 0.1,
@@ -355,6 +387,53 @@ describe('OpenForm', () => {
 
     await waitFor(() =>
       expect(new BigNumber(shortAmountInput.value).isLessThan(new BigNumber(9999))).toBe(true),
+    );
+  });
+
+  it('uses protected prices when clamping the short amount', async () => {
+    const protectedPricePool = createProtectedPricePool();
+    setReadyState({
+      simulatedPool: protectedPricePool,
+    });
+    mockUseGetPool.mockImplementation(() => ({
+      data: {
+        pool: protectedPricePool,
+      },
+      isLoading: false,
+    }));
+
+    const { container, getByText } = renderOpenForm({ accountAddress: fakeAccountAddress });
+
+    await waitFor(() =>
+      expect(getByText(en.trade.operationForm.openForm.submitButtonLabel)).toBeInTheDocument(),
+    );
+
+    const { dsaAmountInput, shortAmountInput } = getFormInputs(container);
+
+    fireEvent.change(dsaAmountInput, {
+      target: { value: '1' },
+    });
+
+    fireEvent.change(shortAmountInput, {
+      target: { value: '9999' },
+    });
+
+    const expectedLimitShortTokens = calculateMaxBorrowShortTokens({
+      dsaAmountTokens: new BigNumber(1),
+      dsaTokenPriceCents: new BigNumber(80),
+      dsaTokenCollateralFactor: dsaAsset.collateralFactor,
+      longAmountTokens: new BigNumber(0),
+      longTokenPriceCents: new BigNumber(130),
+      longTokenCollateralFactor: longAsset.collateralFactor,
+      shortAmountTokens: new BigNumber(0),
+      shortTokenPriceCents: new BigNumber(250),
+      leverageFactor: 2,
+      shortTokenDecimals: shortAsset.vToken.underlyingToken.decimals,
+      proportionalCloseTolerancePercentage: 2,
+    });
+
+    await waitFor(() =>
+      expect(new BigNumber(shortAmountInput.value).isEqualTo(expectedLimitShortTokens)).toBe(true),
     );
   });
 });

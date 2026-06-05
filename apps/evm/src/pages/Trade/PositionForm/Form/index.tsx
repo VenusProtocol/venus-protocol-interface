@@ -358,11 +358,12 @@ export const Form: React.FC<FormProps> = ({
           <SelectDsaTokenTextField
             {...dsaTokenTextFieldProps}
             proportionalCloseTolerancePercentage={proportionalCloseTolerancePercentage ?? 1}
-            shortTokenPriceCents={position.shortAsset.tokenPriceCents}
+            shortTokenPriceCents={position.shortAsset.tokenBorrowPriceCents}
             shortTokenDecimals={position.shortAsset.vToken.underlyingToken.decimals}
-            longTokenPriceCents={position.longAsset.tokenPriceCents}
+            longTokenPriceCents={position.longAsset.tokenSupplyPriceCents}
             longTokenCollateralFactor={position.longAsset.userCollateralFactor}
             dsaTokenCollateralFactor={position.dsaAsset.userCollateralFactor}
+            dsaTokenLimitPriceCents={position.dsaAsset.tokenSupplyPriceCents.toNumber()}
             selectedToken={formValues.dsaToken}
             leverageFactor={formValues.leverageFactor}
             maximumLeverageFactor={maximumLeverageFactor}
