@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.34.0
+
+### Minor Changes
+
+- 0eb4c22: implement Protection mode into the Trade page
+
 ## 4.33.3
 
 ### Patch Changes
