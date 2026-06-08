@@ -26,15 +26,15 @@ vi.mock('hooks/useGetUserSlippageTolerance');
 
 const basePosition = tradePositions[0];
 
-const makeCloseablePosition = () => ({
-  ...basePosition,
+const makeCloseablePosition = (targetPosition = basePosition) => ({
+  ...targetPosition,
   pool: {
-    ...basePosition.pool,
-    assets: basePosition.pool.assets.map(asset => {
+    ...targetPosition.pool,
+    assets: targetPosition.pool.assets.map(asset => {
       const isPositionAsset = [
-        basePosition.dsaAsset.vToken.address,
-        basePosition.longAsset.vToken.address,
-        basePosition.shortAsset.vToken.address,
+        targetPosition.dsaAsset.vToken.address,
+        targetPosition.longAsset.vToken.address,
+        targetPosition.shortAsset.vToken.address,
       ].includes(asset.vToken.address);
 
       return isPositionAsset
@@ -46,20 +46,21 @@ const makeCloseablePosition = () => ({
     }),
   },
   dsaAsset: {
-    ...basePosition.dsaAsset,
+    ...targetPosition.dsaAsset,
     cashTokens: new BigNumber(1_000_000),
   },
   longAsset: {
-    ...basePosition.longAsset,
+    ...targetPosition.longAsset,
     cashTokens: new BigNumber(1_000_000),
   },
   shortAsset: {
-    ...basePosition.shortAsset,
+    ...targetPosition.shortAsset,
     cashTokens: new BigNumber(1_000_000),
   },
 });
 
 const position = makeCloseablePosition();
+const sameDsaAndLongPosition = makeCloseablePosition(tradePositions[2]);
 const longToken = position.longAsset.vToken.underlyingToken;
 const shortToken = position.shortAsset.vToken.underlyingToken;
 const dsaToken = position.dsaAsset.vToken.underlyingToken;
@@ -727,6 +728,56 @@ describe('ReduceForm', () => {
       shortVTokenAddress: position.shortAsset.vToken.address,
       profitSwapQuote,
       profitAmountMantissa,
+    });
+  });
+
+  it('closes a position with zero short balance without a profit swap when dsa and long tokens match', async () => {
+    const remainingLongBalanceTokens = new BigNumber(10);
+    const positionWithZeroShortBalance = {
+      ...sameDsaAndLongPosition,
+      longBalanceTokens: remainingLongBalanceTokens,
+      longBalanceCents: remainingLongBalanceTokens
+        .multipliedBy(sameDsaAndLongPosition.longAsset.tokenPriceCents)
+        .toNumber(),
+      shortBalanceTokens: new BigNumber(0),
+      shortBalanceCents: 0,
+      netValueCents: sameDsaAndLongPosition.netValueCents + 300,
+    };
+
+    setReadyState({
+      reduceSwapQuotesData: {
+        pnlDsaTokens: new BigNumber(3),
+      },
+    });
+
+    const { getByText } = renderComponent(
+      <ReduceForm position={positionWithZeroShortBalance} closePosition />,
+      {
+        accountAddress: positionWithZeroShortBalance.positionAccountAddress,
+      },
+    );
+
+    await waitFor(() =>
+      expect(
+        getByText(en.trade.operationForm.reduceForm.submitButtonLabel.close),
+      ).toBeInTheDocument(),
+    );
+
+    await waitFor(() =>
+      expect(
+        getSubmitButton(en.trade.operationForm.reduceForm.submitButtonLabel.close),
+      ).toBeEnabled(),
+    );
+
+    fireEvent.click(getSubmitButton(en.trade.operationForm.reduceForm.submitButtonLabel.close));
+
+    await waitFor(() => expect(mockCloseTradePositionWithProfit).toHaveBeenCalledTimes(1));
+
+    expect(mockCloseTradePositionWithProfit).toHaveBeenCalledWith({
+      longVTokenAddress: positionWithZeroShortBalance.longAsset.vToken.address,
+      shortVTokenAddress: positionWithZeroShortBalance.shortAsset.vToken.address,
+      profitSwapQuote: undefined,
+      profitAmountMantissa: new BigNumber(0),
     });
   });
 

@@ -17,7 +17,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { MINIMUM_LEVERAGE_FACTOR } from 'pages/Trade/constants';
 import { useEffect } from 'react';
 import type { Token } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
+import { areTokensEqual, formatTokensToReadableValue } from 'utilities';
 import { calculateMaxLeverageFactor } from '../../calculateMaxLeverageFactor';
 import { Footer } from './Footer';
 import { SelectDsaTokenTextField } from './SelectDsaTokenTextField';
@@ -327,23 +327,26 @@ export const Form: React.FC<FormProps> = ({
 
   const isClosingPositionWithoutSwap =
     action === 'close' &&
-    position.shortBalanceTokens.isZero() &&
-    position.longBalanceTokens.isZero();
+    ((position.shortBalanceTokens.isZero() && position.longBalanceTokens.isZero()) ||
+      areTokensEqual(
+        position.longAsset.vToken.underlyingToken,
+        position.dsaAsset.vToken.underlyingToken,
+      ));
 
   const shouldShowSwapDetails =
     isUpdatingCollateralBalance || isClosingPositionWithoutSwap ? false : true;
 
   const swapQuotes = [];
 
-  if (repaySwapQuote) {
+  if (shouldShowSwapDetails && repaySwapQuote) {
     swapQuotes.push(repaySwapQuote);
   }
 
-  if (profitSwapQuote) {
+  if (shouldShowSwapDetails && profitSwapQuote) {
     swapQuotes.push(profitSwapQuote);
   }
 
-  if (lossSwapQuote) {
+  if (shouldShowSwapDetails && lossSwapQuote) {
     swapQuotes.push(lossSwapQuote);
   }
 

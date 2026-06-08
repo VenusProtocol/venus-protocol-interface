@@ -16,7 +16,7 @@ import { useTranslation } from 'libs/translations';
 import { usePositionForm } from 'pages/Trade/OperationForm/usePositionForm';
 import { PositionForm } from 'pages/Trade/PositionForm';
 import type { AssetBalanceMutation, TradePosition } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 import { store } from '../ClosePositionModal/store';
 
 export interface ReduceFormProps {
@@ -214,11 +214,21 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
         profitSwapQuote: sanitizedProfitSwapQuote,
-        profitAmountMantissa,
+        profitAmountMantissa:
+          // If DSA token = long token, then we don't indicate how much profit is to be made as the
+          // leftover long will simply be transferred to the user without going through a swap
+          areTokensEqual(
+            position.dsaAsset.vToken.underlyingToken,
+            position.longAsset.vToken.underlyingToken,
+          )
+            ? new BigNumber(0)
+            : profitAmountMantissa,
       });
     }
 
     const isReducingWithProfit = pnlDsaTokens?.isGreaterThan(0);
+    const isReducingWithLoss = pnlDsaTokens?.isLessThan(0);
+    const isReducingWithoutPnl = pnlDsaTokens?.isZero();
 
     // Reduce with profit
     if (
@@ -251,44 +261,43 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
       });
     }
 
-    const isReducingWithLoss =
-      pnlDsaTokens?.isLessThan(0) &&
-      repayWithLossSwapQuote?.direction === 'exact-in' &&
-      lossSwapQuote?.direction === 'approximate-out';
-
-    const isReducingWithoutPnl =
-      pnlDsaTokens?.isZero() && repayWithLossSwapQuote?.direction === 'exact-in';
-
     const repayShortAmountMantissa = convertTokensToMantissa({
       token: position.shortAsset.vToken.underlyingToken,
       value: debouncedShortAmountTokens,
     });
 
+    const sanitizedLossSwapQuote =
+      lossSwapQuote?.direction === 'approximate-out' ? lossSwapQuote : undefined;
+
     // Reduce with loss
-    if (isReducingWithLoss && !closePosition) {
+    if (isReducingWithLoss && !closePosition && repayWithLossSwapQuote?.direction === 'exact-in') {
       return reducePositionWithLoss({
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
         closeFractionPercentage,
         repaySwapQuote: repayWithLossSwapQuote,
-        lossSwapQuote,
+        lossSwapQuote: sanitizedLossSwapQuote,
         repayShortAmountMantissa,
       });
     }
 
     // Close with loss
-    if (isReducingWithLoss && closePosition) {
+    if (isReducingWithLoss && closePosition && repayWithLossSwapQuote?.direction === 'exact-in') {
       return closePositionWithLoss({
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
         repaySwapQuote: repayWithLossSwapQuote,
-        lossSwapQuote,
+        lossSwapQuote: sanitizedLossSwapQuote,
         repayShortAmountMantissa,
       });
     }
 
     // Reduce without PnL
-    if (isReducingWithoutPnl && !closePosition) {
+    if (
+      isReducingWithoutPnl &&
+      !closePosition &&
+      repayWithLossSwapQuote?.direction === 'exact-in'
+    ) {
       return reducePositionWithLoss({
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
@@ -299,7 +308,7 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
     }
 
     // Close without PnL
-    if (isReducingWithoutPnl && closePosition) {
+    if (isReducingWithoutPnl && closePosition && repayWithLossSwapQuote?.direction === 'exact-in') {
       return closePositionWithLoss({
         longVTokenAddress: position.longAsset.vToken.address,
         shortVTokenAddress: position.shortAsset.vToken.address,
