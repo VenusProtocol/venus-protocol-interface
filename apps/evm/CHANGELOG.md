@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 4.35.0
+
+### Minor Changes
+
+- c7c1003: update how total APYs are displayed
+
+### Patch Changes
+
+- cd07666: fix an issue where certain profitable positions can't be closed
+
 ## 4.34.0
 
 ### Minor Changes
