@@ -1,27 +1,28 @@
-import { TextButton } from '@venusprotocol/ui';
-
-import { useTranslation } from 'libs/translations';
+import type { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
-import { areTokensEqual, scrollToElement } from 'utilities';
+import { areTokensEqual } from 'utilities';
 
-export interface SupplyNotificationProps {
+export interface GetDescriptionInput {
   asset: Asset;
   pool: Pool;
-  onShowAllMarkets: () => void;
+  tokenSymbol: string;
+  Trans: ReturnType<typeof useTranslation>['Trans'];
+  showAllMarketsButton: React.ReactElement;
+  modeInfoButton: React.ReactElement;
 }
 
 // Translation keys: do not remove this comment
 // t('assetWarning.modeOnly.eModeAndIsolation')
 // t('assetWarning.modeOnly.eMode')
 // t('assetWarning.modeOnly.isolation')
-
-export const SupplyNotification: React.FC<SupplyNotificationProps> = ({
+export const getDescription = ({
   asset,
   pool,
-  onShowAllMarkets,
-}) => {
-  const { Trans } = useTranslation();
-
+  tokenSymbol,
+  Trans,
+  showAllMarketsButton,
+  modeInfoButton,
+}: GetDescriptionInput) => {
   const isAvailableInCore = !(asset.collateralFactor === 0 && !asset.isBorrowable);
 
   let isAvailableInEMode = false;
@@ -38,24 +39,15 @@ export const SupplyNotification: React.FC<SupplyNotificationProps> = ({
 
     if (group.isIsolated) {
       isAvailableInIsolation = true;
-    } else {
-      isAvailableInEMode = true;
+      continue;
     }
+
+    isAvailableInEMode = true;
   }
 
-  const tokenSymbol = asset.vToken.underlyingToken.symbol;
-  const handleScrollToModeInfo = () => scrollToElement('mode-info');
-
-  const showAllMarketsButton = (
-    <TextButton className="p-0 h-auto font-medium text-xs md:text-sm" onClick={onShowAllMarkets} />
-  );
-
-  const modeInfoButton = (
-    <TextButton
-      className="p-0 h-auto font-medium text-xs md:text-sm"
-      onClick={handleScrollToModeInfo}
-    />
-  );
+  if (!isAvailableInEMode && !isAvailableInCore && !isAvailableInIsolation) {
+    return undefined;
+  }
 
   if (isAvailableInCore) {
     const hasMode = isAvailableInEMode || isAvailableInIsolation;
@@ -78,18 +70,12 @@ export const SupplyNotification: React.FC<SupplyNotificationProps> = ({
     );
   }
 
-  let i18nKey: string | undefined;
+  let i18nKey = 'assetWarning.modeOnly.isolation';
 
   if (isAvailableInEMode && isAvailableInIsolation) {
     i18nKey = 'assetWarning.modeOnly.eModeAndIsolation';
   } else if (isAvailableInEMode) {
     i18nKey = 'assetWarning.modeOnly.eMode';
-  } else if (isAvailableInIsolation) {
-    i18nKey = 'assetWarning.modeOnly.isolation';
-  }
-
-  if (!i18nKey) {
-    return null;
   }
 
   return (

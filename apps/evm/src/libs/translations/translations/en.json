@@ -245,8 +245,9 @@
     "primeApy": "Prime APY",
     "supplyApy": "Supply APY",
     "totalApy": {
+      "borrowApyLabel": "Total borrow APY",
       "borrowApyTooltip": "Borrow APY - Distribution APYs",
-      "label": "Total APY",
+      "supplyApyLabel": "Total supply APY",
       "supplyApyTooltip": "Supply APY + Distribution APYs"
     },
     "yieldToMaturityApy": "Yield to maturity APY",
@@ -287,7 +288,6 @@
     }
   },
   "assetWarning": {
-    "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool. <Button>Show all tokens</Button>",
     "modalTitle": "{{ poolName }} tokens",
     "modeInfoHint": "<LineBreak/>Visit the <ModeInfoButton>mode info</ModeInfoButton> section to explore more available groups.",
     "modeOnly": {

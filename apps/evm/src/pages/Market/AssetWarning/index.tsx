@@ -1,63 +1,64 @@
+import { TextButton } from '@venusprotocol/ui';
 import { useState } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, Token } from 'types';
+import { scrollToElement } from 'utilities';
 
-import { Modal, Notice, TextButton } from 'components';
+import { Modal, Notice } from 'components';
 import { MarketTable } from 'containers/MarketTable';
 import { useBreakpointUp } from 'hooks/responsive';
-import { SupplyNotification } from './SupplyNotification';
+import { getDescription } from './getDescription';
 import TEST_IDS from './testIds';
-import type { WarningType } from './types';
 
 export interface AssetWarningProps extends React.HTMLAttributes<HTMLDivElement> {
-  type: WarningType;
   token: Token;
   asset: Asset;
-  pool?: Pool;
+  pool: Pool;
   className?: string;
 }
 
 export const AssetWarning: React.FC<AssetWarningProps> = ({
   pool,
   asset,
-  token,
-  type,
   className,
   ...otherProps
 }) => {
   const [showAssets, setShowAssets] = useState(false);
-  const { t, Trans } = useTranslation();
+  const { Trans, t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
 
   const handleShowAssets = () => setShowAssets(true);
   const handleHideAssets = () => setShowAssets(false);
+  const tokenSymbol = asset.vToken.underlyingToken.symbol;
+  const handleScrollToModeInfo = () => scrollToElement('mode-info');
 
-  if (!pool) {
-    return null;
+  const showAllMarketsButton = (
+    <TextButton className="p-0 h-auto font-medium text-xs md:text-sm" onClick={handleShowAssets} />
+  );
+
+  const modeInfoButton = (
+    <TextButton
+      className="p-0 h-auto font-medium text-xs md:text-sm"
+      onClick={handleScrollToModeInfo}
+    />
+  );
+  const description = getDescription({
+    asset,
+    pool,
+    tokenSymbol,
+    Trans,
+    showAllMarketsButton,
+    modeInfoButton,
+  });
+
+  if (!description) {
+    return undefined;
   }
-
-  const description =
-    type === 'supply' ? (
-      <SupplyNotification asset={asset} pool={pool} onShowAllMarkets={handleShowAssets} />
-    ) : (
-      <Trans
-        i18nKey="assetWarning.borrowDescription"
-        values={{ poolName: pool.name, tokenSymbol: token.symbol }}
-        components={{
-          Button: (
-            <TextButton
-              className="p-0 h-auto font-medium text-xs md:text-sm"
-              onClick={handleShowAssets}
-            />
-          ),
-        }}
-      />
-    );
 
   return (
     <div className={className} {...otherProps}>
-      <Notice className="mb-2" description={description} />
+      <Notice description={description} />
 
       <Modal
         isOpen={showAssets}
@@ -80,11 +81,11 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
           assets={pool.assets}
           userEModeGroup={pool.userEModeGroup}
           eModeGroups={pool.eModeGroups}
-          columns={['asset', type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy', 'liquidity']}
+          columns={['asset', 'supplyApy', 'liquidity']}
           size="sm"
           initialOrder={{
-            orderBy: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy',
-            orderDirection: type === 'supply' ? 'desc' : 'asc',
+            orderBy: 'supplyApy',
+            orderDirection: 'asc',
           }}
         />
       </Modal>

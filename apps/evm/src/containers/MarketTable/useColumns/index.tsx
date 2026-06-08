@@ -135,6 +135,47 @@ export const useColumns = ({
           disabledTokenActions: asset.disabledTokenActions,
         });
 
+        const indicatorsDom = (
+          <div className="flex items-center gap-x-3">
+            {userEModeGroup && isInUserEModeGroup && (
+              <Tooltip
+                className="inline-flex items-center"
+                content={
+                  userEModeGroup.isIsolated
+                    ? t('marketTable.assetColumn.isolationMode', {
+                        eModeGroupName: userEModeGroup.name,
+                      })
+                    : t('marketTable.assetColumn.eMode', {
+                        eModeGroupName: userEModeGroup.name,
+                      })
+                }
+              >
+                <EModeIcon className="size-5" isIsolated={userEModeGroup.isIsolated} />
+              </Tooltip>
+            )}
+
+            {asset.isProtectionModeEnabled && (
+              <ProtectionModeIndicator
+                variant="icon"
+                tooltipType={marketType ?? 'list'}
+                tokenName={asset.vToken.underlyingToken.symbol}
+                tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+                tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+                userSupplyBalanceCents={asset.userSupplyBalanceProtectedCents}
+                userBorrowBalanceCents={asset.userBorrowBalanceProtectedCents}
+              />
+            )}
+
+            {isPaused && (
+              <InfoIcon
+                iconClassName="text-orange"
+                iconName="attention"
+                tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
+              />
+            )}
+          </div>
+        );
+
         if (column === 'asset' || column === 'assetAndChain') {
           const showIsolatedIndicator =
             column === 'asset' &&
@@ -153,55 +194,28 @@ export const useColumns = ({
                   <TokenIcon token={asset.vToken.underlyingToken} size="xl" className="shrink-0" />
 
                   <div className="min-w-0">
-                    <p className="truncate font-semibold">{asset.vToken.underlyingToken.symbol}</p>
+                    <div className="flex items-center gap-x-1">
+                      <p className="truncate font-semibold">
+                        {asset.vToken.underlyingToken.symbol}
+                      </p>
+
+                      {indicatorsDom}
+                    </div>
 
                     <IsolatedAssetIndicator />
                   </div>
                 </div>
               ) : (
-                <TokenIconWithSymbol
-                  token={asset.vToken.underlyingToken}
-                  displayChain={column === 'assetAndChain'}
-                  size={column === 'assetAndChain' ? 'md' : 'xl'}
-                  className="min-w-[5rem]"
-                />
-              )}
+                <div className="flex items-center gap-x-1">
+                  <TokenIconWithSymbol
+                    token={asset.vToken.underlyingToken}
+                    displayChain={column === 'assetAndChain'}
+                    size={column === 'assetAndChain' ? 'md' : 'xl'}
+                    className="min-w-[5rem]"
+                  />
 
-              {userEModeGroup && isInUserEModeGroup && (
-                <Tooltip
-                  className="inline-flex items-center"
-                  content={
-                    userEModeGroup.isIsolated
-                      ? t('marketTable.assetColumn.isolationMode', {
-                          eModeGroupName: userEModeGroup.name,
-                        })
-                      : t('marketTable.assetColumn.eMode', {
-                          eModeGroupName: userEModeGroup.name,
-                        })
-                  }
-                >
-                  <EModeIcon className="size-5" isIsolated={userEModeGroup.isIsolated} />
-                </Tooltip>
-              )}
-
-              {asset.isProtectionModeEnabled && (
-                <ProtectionModeIndicator
-                  variant="icon"
-                  tooltipType={marketType ?? 'list'}
-                  tokenName={asset.vToken.underlyingToken.symbol}
-                  tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
-                  tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
-                  userSupplyBalanceCents={asset.userSupplyBalanceProtectedCents}
-                  userBorrowBalanceCents={asset.userBorrowBalanceProtectedCents}
-                />
-              )}
-
-              {isPaused && (
-                <InfoIcon
-                  iconClassName="text-orange"
-                  iconName="attention"
-                  tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
-                />
+                  {indicatorsDom}
+                </div>
               )}
             </div>
           );

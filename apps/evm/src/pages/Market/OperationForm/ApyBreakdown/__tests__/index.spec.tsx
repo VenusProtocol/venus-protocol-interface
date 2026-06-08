@@ -61,45 +61,61 @@ const fakeBalanceMutations: BalanceMutation[] = [
 ];
 
 describe('ApyBreakdown', () => {
+  it('renders a zero total when no mutations are provided', () => {
+    const { container } = renderComponent(<ApyBreakdown pool={fakePool} />);
+
+    expect(container.textContent).toBe('Total borrow APY0%');
+  });
+
+  it('ignores VAI mutations and offsets borrow APY against supply APY when calculating net APY', () => {
+    const { container } = renderComponent(
+      <ApyBreakdown
+        pool={fakePool}
+        simulatedPool={fakeSimulatedPool}
+        balanceMutations={[
+          fakeBalanceMutations[0],
+          fakeBalanceMutations[1],
+          fakeBalanceMutations[3],
+        ]}
+      />,
+    );
+
+    expect(container.textContent).toBe(
+      'Supply APY0.05%Distribution APY0.11%Borrow APY-4.97%Distribution APY0.52%Net APY7.66%',
+    );
+  });
+
   it.each([
-    { label: 'no mutations', simulatedPool: undefined, balanceMutations: undefined },
-    // Actions concerning multiple markets
-    {
-      label: 'multiple mutations',
-      simulatedPool: fakeSimulatedPool,
-      balanceMutations: [fakeBalanceMutations[0], fakeBalanceMutations[1], fakeBalanceMutations[3]],
-    },
-    // Supply to one market
     {
       label: 'supply',
-      simulatedPool: fakeSimulatedPool,
       balanceMutations: [fakeBalanceMutations[1]],
+      expectedTextContent: 'Supply APY0.05%Distribution APY0.11%Total supply APY1.16%',
     },
-    // Withdraw to one market
     {
       label: 'withdraw',
-      simulatedPool: fakeSimulatedPool,
       balanceMutations: [fakeBalanceMutations[2]],
+      expectedTextContent:
+        'Supply APY3.88%Distribution APY1.35%Prime APY0.75%1.75%Total supply APY7.99%',
     },
-    // Borrow from one market
     {
       label: 'borrow',
-      simulatedPool: fakeSimulatedPool,
       balanceMutations: [fakeBalanceMutations[3]],
+      expectedTextContent: 'Borrow APY-4.97%Distribution APY0.52%Total borrow APY-6.49%',
     },
-    // Repay to one market
     {
       label: 'repay',
-      simulatedPool: fakeSimulatedPool,
       balanceMutations: [fakeBalanceMutations[4]],
+      expectedTextContent: 'Borrow APY-4.97%Distribution APY0.52%Total borrow APY-6.49%',
     },
   ] satisfies {
     label: string;
-    simulatedPool?: Pool;
-    balanceMutations?: BalanceMutation[];
-  }[])('renders correct values: $label', async props => {
-    const { container } = renderComponent(<ApyBreakdown pool={fakePool} {...props} />);
+    balanceMutations: BalanceMutation[];
+    expectedTextContent: string;
+  }[])('renders the correct single-market breakdown for $label', props => {
+    const { container } = renderComponent(
+      <ApyBreakdown pool={fakePool} simulatedPool={fakeSimulatedPool} {...props} />,
+    );
 
-    expect(container.textContent).toMatchSnapshot();
+    expect(container.textContent).toBe(props.expectedTextContent);
   });
 });

@@ -245,8 +245,9 @@
     "primeApy": "APY Prime",
     "supplyApy": "APY cung cấp",
     "totalApy": {
+      "borrowApyLabel": "Tổng APY vay",
       "borrowApyTooltip": "APY vay - APY phân phối",
-      "label": "Tổng APY",
+      "supplyApyLabel": "Tổng APY cung cấp",
       "supplyApyTooltip": "APY cung cấp + APY phân phối"
     },
     "yieldToMaturityApy": "APY đến hạn",
@@ -287,7 +288,6 @@
     }
   },
   "assetWarning": {
-    "borrowDescription": "Bạn có thể vay {{tokenSymbol}} theo mức cung cấp làm tài sản thế chấp trong pool {{poolName}}. <Button>Hiển thị tất cả token</Button>",
     "modalTitle": "Token {{ poolName }}",
     "modeInfoHint": "<LineBreak/>Truy cập phần <ModeInfoButton>thông tin chế độ</ModeInfoButton> để khám phá thêm các nhóm khả dụng.",
     "modeOnly": {

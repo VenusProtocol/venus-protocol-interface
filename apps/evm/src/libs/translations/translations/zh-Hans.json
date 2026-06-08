@@ -245,8 +245,9 @@
     "primeApy": "Prime APY",
     "supplyApy": "存款 APY",
     "totalApy": {
+      "borrowApyLabel": "总借款 APY",
       "borrowApyTooltip": "借款 APY - 分发 APY",
-      "label": "总 APY",
+      "supplyApyLabel": "总存款 APY",
       "supplyApyTooltip": "存款 APY + 分发 APY"
     },
     "yieldToMaturityApy": "到期收益率 APY",
@@ -287,7 +288,6 @@
     }
   },
   "assetWarning": {
-    "borrowDescription": "根据你在 {{poolName}} 池中的可抵押存款，可借入 {{tokenSymbol}}。<Button>显示全部代币</Button>",
     "modalTitle": "{{ poolName }} 代币",
     "modeInfoHint": "<LineBreak/>访问<ModeInfoButton>模式信息</ModeInfoButton>区域以查看更多可用的组。",
     "modeOnly": {
