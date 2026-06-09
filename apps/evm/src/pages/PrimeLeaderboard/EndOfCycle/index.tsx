@@ -49,7 +49,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, className }) =>
             values={{ deadline }}
             components={{
               bold: <span className="text-b1s text-white" />,
-              summaryLink: <span className="text-blue underline" />,
+              summaryLink: <span className="text-b1s text-blue underline" />,
             }}
           />
         </p>
