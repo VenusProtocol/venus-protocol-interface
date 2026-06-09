@@ -16,8 +16,12 @@ vi.mock('../EndOfCycle', () => ({
   EndOfCycle: () => <div data-testid="end-of-cycle" />,
 }));
 
-vi.mock('../RewardCard', () => ({
-  RewardCard: ({ variant }: { variant: string }) => <div data-testid={`reward-card-${variant}`} />,
+vi.mock('../TotalRewardsCard', () => ({
+  TotalRewardsCard: () => <div data-testid="total-rewards-card" />,
+}));
+
+vi.mock('../UserRewardsCard', () => ({
+  UserRewardsCard: () => <div data-testid="user-rewards-card" />,
 }));
 
 vi.mock('../RewardTable', () => ({
@@ -38,8 +42,8 @@ describe('pages/PrimeLeaderboard', () => {
 
     expect(screen.getByTestId('hero')).toBeInTheDocument();
     expect(screen.getByTestId('end-of-cycle')).toBeInTheDocument();
-    expect(screen.getByTestId('reward-card-total')).toBeInTheDocument();
-    expect(screen.getByTestId('reward-card-user')).toBeInTheDocument();
+    expect(screen.getByTestId('total-rewards-card')).toBeInTheDocument();
+    expect(screen.getByTestId('user-rewards-card')).toBeInTheDocument();
     expect(screen.getByTestId('reward-table')).toBeInTheDocument();
     expect(screen.getByTestId('rank-card')).toBeInTheDocument();
     expect(screen.getByTestId('rank-table')).toBeInTheDocument();

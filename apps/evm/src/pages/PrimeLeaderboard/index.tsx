@@ -4,8 +4,9 @@ import { EndOfCycle } from './EndOfCycle';
 import { Hero } from './Hero';
 import { RankCard } from './RankCard';
 import { RankTable } from './RankTable';
-import { RewardCard } from './RewardCard';
 import { RewardTable } from './RewardTable';
+import { TotalRewardsCard } from './TotalRewardsCard';
+import { UserRewardsCard } from './UserRewardsCard';
 
 const PrimeLeaderboard: React.FC = () => (
   <Page>
@@ -29,9 +30,9 @@ const PrimeLeaderboard: React.FC = () => (
     <div className="relative mt-3 flex flex-col gap-3 lg:flex-row">
       <Card className="flex flex-col gap-2.5 border-dark-grey bg-background p-3 lg:grow">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <RewardCard variant="total" />
+          <TotalRewardsCard />
 
-          <RewardCard variant="user" />
+          <UserRewardsCard />
         </div>
 
         <RewardTable />
