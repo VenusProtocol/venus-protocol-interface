@@ -1251,6 +1251,17 @@
   },
   "primeLeaderboard": {
     "description": "สเตก XVS เข้าสู่ governance vault แล้วรับรางวัล Prime เพิ่มเติมจากผลตอบแทนของคุณ",
+    "endOfCycle": {
+      "days": "วัน",
+      "deadline": "{{date, MMMM d, yyyy HH:mm a}}",
+      "helper": "รักษาอันดับใน 500 อันดับแรกจนถึง <bold>{{deadline}}</bold> เพื่อรับรางวัล Prime ในรอบถัดไป <summaryLink>ดูสรุป Prime ของรอบที่แล้ว</summaryLink> เพื่อดูอันดับของคุณและรักษาความสามารถในการแข่งขัน",
+      "helperEnded": "รักษาอันดับใน 500 อันดับแรกจนถึง {{deadline}} เพื่อรับรางวัล Prime ในรอบถัดไป",
+      "hours": "ชม.",
+      "mins": "นาที",
+      "sec": "วินาที",
+      "title": "สิ้นสุดรอบ"
+    },
+    "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{distance}} ที่แล้ว",
     "title": "กระดานผู้นำ Prime"
   },
   "primeStatusBanner": {
