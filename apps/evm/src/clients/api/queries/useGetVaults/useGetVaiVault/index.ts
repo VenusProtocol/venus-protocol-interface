@@ -9,15 +9,15 @@ import {
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
 import type { VenusVault } from 'types';
-import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
+import { convertDollarsToCents } from 'utilities';
 import { checkIsXvsOnZk } from 'utilities/xvsPriceOnZk';
 import { XVS_FIXED_PRICE_CENTS } from 'utilities/xvsPriceOnZk/constants';
 import type { Address } from 'viem';
+import { calculateVaultAprPercentage } from '../calculateVaultAprPercentage';
 import { calculateVaultCentsValues } from '../calculateVaultCentsValues';
 import { formatToVenusVault } from '../formatToVenusVault';
 
@@ -105,30 +105,25 @@ export const useGetVaiVault = ({
     const stakedTokenPriceCents = convertDollarsToCents(tokenPricesData[1].tokenPriceUsd);
     const rewardTokenPriceCents = convertDollarsToCents(xvsPriceDollars);
 
-    const stakingAprPercentage = convertMantissaToTokens({
-      value: vaiVaultDailyRateData.dailyRateMantissa,
-      token: xvs,
-    })
-      .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
-      .multipliedBy(DAYS_PER_YEAR)
-      .dividedBy(
-        convertMantissaToTokens({
-          value: totalVaiStakedData.balanceMantissa,
-          token: vai,
-        }),
-      )
-      .multipliedBy(100)
-      .toNumber();
-
-    const { totalStakedCents, userStakedCents, dailyEmissionCents } = calculateVaultCentsValues({
-      stakedTokenDecimals: vai.decimals,
-      rewardTokenDecimals: xvs.decimals,
-      stakedTokenPriceCents,
-      rewardTokenPriceCents,
-      totalStakedMantissa: totalVaiStakedData.balanceMantissa,
-      userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
+    const stakeAprPercentage = calculateVaultAprPercentage({
       dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
+      rewardToken: xvs,
+      rewardTokenPriceCents,
+      stakeBalanceMantissa: totalVaiStakedData.balanceMantissa,
+      stakedToken: vai,
+      stakedTokenPriceCents,
     });
+
+    const { stakeBalanceCents, userStakeBalanceCents, dailyEmissionCents } =
+      calculateVaultCentsValues({
+        stakedTokenDecimals: vai.decimals,
+        rewardTokenDecimals: xvs.decimals,
+        stakedTokenPriceCents,
+        rewardTokenPriceCents,
+        stakeBalanceMantissa: totalVaiStakedData.balanceMantissa,
+        userStakeBalanceMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
+        dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
+      });
 
     if (dailyEmissionCents === undefined) {
       return undefined;
@@ -142,11 +137,11 @@ export const useGetVaiVault = ({
       rewardTokenPriceCents,
       dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
       dailyEmissionCents,
-      totalStakedMantissa: totalVaiStakedData.balanceMantissa,
-      totalStakedCents,
-      stakingAprPercentage,
-      userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
-      userStakedCents,
+      stakeBalanceMantissa: totalVaiStakedData.balanceMantissa,
+      stakeBalanceCents,
+      stakeAprPercentage,
+      userStakeBalanceMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
+      userStakeBalanceCents,
     });
   }, [
     tokenPricesData,

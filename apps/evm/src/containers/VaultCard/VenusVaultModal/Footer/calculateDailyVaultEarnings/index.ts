@@ -12,7 +12,7 @@ export const calculateDailyVaultEarnings = ({
 }) => {
   const yearlyEarnings = calculateYearlyInterests({
     balance,
-    interestPercentage: new BigNumber(vault.stakingAprPercentage),
+    interestPercentage: new BigNumber(vault.stakeAprPercentage),
   })
     // Convert to reward tokens
     .multipliedBy(vault.stakedTokenPriceCents)

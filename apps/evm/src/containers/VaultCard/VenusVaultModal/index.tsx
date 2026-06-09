@@ -29,12 +29,7 @@ export const VenusVaultModal: React.FC<VenusVaultModalProps> = ({ vault, handleC
   ];
 
   return (
-    <Modal
-      isOpen={isOpen}
-      handleClose={handleClose}
-      title={<VaultName vault={vault} />}
-      useDrawerInXs
-    >
+    <Modal isOpen={isOpen} handleClose={handleClose} title={<VaultName vault={vault} />}>
       <Tabs tabs={tabs} />
     </Modal>
   );

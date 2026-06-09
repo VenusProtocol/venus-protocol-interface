@@ -44,6 +44,7 @@ export const WithdrawFromVaiVaultForm: React.FC<WithdrawFromVaiVaultFormProps> =
 
   const form = useForm({
     limitFromTokens,
+    fromToken,
   });
 
   const fromAmountTokensFieldValue = form.watch('fromAmountTokens');

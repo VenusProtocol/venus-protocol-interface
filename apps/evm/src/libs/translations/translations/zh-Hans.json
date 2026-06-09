@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "净值",
-        "tooltip": "在考虑金库存入和借贷后可用的净资产",
-        "tooltipWithVai": "在考虑金库存入、借贷和已铸造 VAI 后可用的净资产"
+        "tooltip": "在考虑金库供应和借贷后可用的净资产",
+        "tooltipWithVai": "在考虑金库供应、借贷和已铸造 VAI 后可用的净资产"
       },
       "periodOption": {
         "oneYear": "1年",
@@ -61,10 +61,10 @@
         "mintedVai": "已铸造 VAI",
         "netApy": "净 APY",
         "netApyTooltip": "以年化利息形式获得的总存款余额百分比",
-        "netApyWithVaultStakeTooltip": "以年化利息形式获得的总存款余额和金库存入百分比",
+        "netApyWithVaultStakeTooltip": "以年化利息形式获得的总供应余额和金库供应百分比",
         "totalBorrow": "总借款",
         "totalSupply": "总存款",
-        "totalVaultStake": "总金库存入"
+        "totalVaultStake": "总金库供应"
       },
       "title": "概览"
     },
@@ -117,7 +117,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "尚无质押持仓"
+        "title": "尚无供应持仓"
       }
     }
   },
@@ -263,7 +263,7 @@
       "date": "日期",
       "supplyApy": "存款 APY",
       "totalBorrow": "总借款",
-      "totalStaked": "总存入",
+      "totalStaked": "总供应量",
       "totalSupply": "总存款"
     }
   },
@@ -438,8 +438,8 @@
         "title": "借款 / 杠杆"
       },
       "step3": {
-        "description": "将 XVS 存入金库，赚取由协议收入提供的收益。",
-        "title": "存入 XVS"
+        "description": "将 XVS 供应至金库，赚取由协议收入提供的收益。",
+        "title": "供应 XVS"
       },
       "uncompleted": "未完成"
     },
@@ -447,8 +447,8 @@
       "absolutePerformance": "绝对表现",
       "netWorth": {
         "label": "净值",
-        "tooltip": "在计入金库存入和借款后可用的净资产",
-        "tooltipWithVai": "在计入金库存入、借款和已铸 VAI 后可用的净资产"
+        "tooltip": "在计入金库供应和借款后可用的净资产",
+        "tooltipWithVai": "在计入金库供应、借款和已铸 VAI 后可用的净资产"
       },
       "performanceChart": {
         "errorState": {
@@ -468,10 +468,10 @@
           "mintedVai": "已铸 VAI",
           "netApy": "净 APY",
           "netApyTooltip": "您总存款余额与金库存入按年利息获得的百分比",
-          "netApyWithVaultStakeTooltip": "您总供应余额与金库存入按年利息获得的百分比",
+          "netApyWithVaultStakeTooltip": "您总供应余额与金库供应按年利息获得的百分比",
           "totalBorrow": "总借款",
           "totalSupply": "总存款",
-          "totalVaultStake": "金库存入总额"
+          "totalVaultStake": "金库供应总额"
         },
         "title": "摘要"
       },
@@ -496,7 +496,7 @@
     "vaults": {
       "dailyEarnings": "每日收益",
       "dailyEarningsTooltip": "您在所有活跃金库中的每日预计收益，基于各金库的当前利率或固定 APR。实际收益可能有所变化。",
-      "totalStakedValue": "总存入价值"
+      "totalStakedValue": "总供应价值"
     }
   },
   "eModeBanner": {
@@ -1098,6 +1098,7 @@
       "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
       "noSwapQuoteFound": "未找到兑换。",
       "priceImpactTooHigh": "价格影响过高",
+      "smallerThanMinimumAmount": "你不能一次存入少于 {{minAmount}}",
       "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
       "tooRisky": "该交易会导致账户被清算"
     },
@@ -1217,12 +1218,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "要符合 Prime 奖励资格，至少需存入 {{minimumXvsStaked}} XVS。",
-        "label": "合格存入 XVS",
+        "error": "要符合 Prime 奖励资格，至少需供应 {{minimumXvsStaked}} XVS。",
+        "label": "合格供应 XVS",
         "tooltip": "最多 {{maximumXvsStaked}} 将计入你的 Prime 奖励"
       },
       "textField": {
-        "label": "已存入 XVS"
+        "label": "已供应 XVS"
       }
     },
     "suppliedTokens": {
@@ -1244,8 +1245,8 @@
     "becomePrimeTitle": "你现在可以成为 Prime 用户",
     "claimButtonLabel": "领取 Prime 代币",
     "description": {
-      "primeCalculator": "再存入 <WhiteText>{{stakeDelta}}</WhiteText> 并等待 {{claimWaitingPeriod}} 即可领取 Prime 代币并提升收益。<Link>计算 Prime 奖励</Link>",
-      "primeDoc": "再存入 <WhiteText>{{stakeDelta}}</WhiteText> 并等待 {{claimWaitingPeriod}} 即可领取 Prime 代币并提升收益。<Link>了解更多</Link>"
+      "primeCalculator": "再供应 <WhiteText>{{stakeDelta}}</WhiteText> 并等待 {{claimWaitingPeriod}} 即可领取 Prime 代币并提升收益。<Link>计算 Prime 奖励</Link>",
+      "primeDoc": "再供应 <WhiteText>{{stakeDelta}}</WhiteText> 并等待 {{claimWaitingPeriod}} 即可领取 Prime 代币并提升收益。<Link>了解更多</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "所有 Prime 代币已被领取",
@@ -1253,10 +1254,10 @@
     },
     "progressBar": {
       "ariaLabel": "你的当前 Prime 进度",
-      "label": "已存入：<WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "已供应：<WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "将收益提升高达 <GreenText>{{percentage}}</GreenText>",
-    "stakeButtonLabel": "存入 XVS",
+    "stakeButtonLabel": "供应 XVS",
     "tokensLeft": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "tokensLeft_one": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
     "tokensLeft_many": "剩余 <WhiteText>{{count}}</WhiteText> 个 Prime 代币",
@@ -2014,23 +2015,26 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
-      "claimReward": "领取奖励",
-      "currentDeposited": "当前存款",
+      "currentDeposited": "当前已供应",
       "dailyEmission": "每日奖励释放",
-      "effectiveFixedApr": "实际固定年化利率",
       "header": {
+        "fixedTermTitle": "{{ tokenSymbol }} 固定期限",
         "maturityDate_other": "{{ date, textual }}（{{ count }}天）"
       },
       "liquidity": "流动性",
       "liquidityTooltip": "此金库底层 Pendle 集成资金池（或策略）中当前提供的资产总价值。",
-      "manager": "管理机构",
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
-      "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、存入和提款功能已禁用，直至金库恢复运作。",
+      "minRequested": "最小请求量",
+      "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、供应和提款功能已禁用，直至金库恢复运作。",
       "primeEligibility": "Prime 资格",
+      "targetApr": "目标 APR",
+      "targetAprTooltip": "此金库策略旨在实现的年化目标奖励，以包含复利的目标年化收益率（APR）表示。实际回报具有可变性，并取决于交易对手表现；本金存在风险。您收到的金额可能少于已供应的数量。",
       "textualWithTime": "{{date, textualWithTime}}",
-      "totalDeposited": "总存款",
-      "youDeposited": "你正在存入"
+      "totalDeposited": "总供应量",
+      "vaultVenueIcon": "Venus 标志",
+      "venue": "平台",
+      "youDeposited": "你已供应"
     },
     "category": {
       "governance": "治理",
@@ -2041,27 +2045,31 @@
     "filter": {
       "active": "进行中",
       "allCategories": "所有类别",
-      "allManagers": "所有管理机构",
       "allStates": "所有状态",
+      "allVenues": "所有平台",
       "claim": "领取",
-      "deposit": "存款",
-      "earning": "收益中",
+      "deposit": "供应",
+      "inactive": "非活跃",
       "inputPlaceholder": "搜索资产",
+      "liquidated": "已清算",
+      "locked": "收益中",
       "paused": "已暂停",
+      "pending": "待定",
       "refund": "退款",
       "repaying": "还款中"
     },
     "header": "金库",
     "modals": {
       "afterMaturityPendleDisclaimer": "请先通过取款按钮将您的 PT 代币提取到钱包，然后访问 <Link>Pendle 官方</Link>网站赎回您的底层代币。",
-      "connectWalletMessage": "请连接您的钱包以存入 / 提取 {{tokenSymbol}}",
+      "claim": "领取",
+      "connectWalletMessage": "请连接您的钱包以与此金库交互",
       "convert": "转换",
-      "currentDeposited": "当前存入",
+      "currentDeposited": "当前已供应",
       "currentDepositedTooltip": "您当前在此金库中锁定并产生收益的资产数量。",
-      "deposit": "存款",
-      "depositTab": "存款",
-      "effectiveFixedApr": "实际固定年化利率",
-      "effectiveFixedAprPendleTooltip": "此金库策略提供的年化固定收益，以包含复利的有效年化利率（APR）表示。",
+      "deposit": "供应",
+      "depositPeriodEnds": "供应期结束",
+      "depositsPausedNotice": "资金在供应期和锁定期内将被锁定，仅可在领取期或退款期领取。实际结果取决于交易对手表现，本金存在风险，您收到的金额可能少于已供应的数量。",
+      "depositTab": "供应",
       "error": {
         "amountTooLow": "输入金额过低。",
         "invalidAmountFromQuote": "输入金额超过Pendle市场的可用流动性。请减少金额后重试。",
@@ -2071,44 +2079,76 @@
       },
       "estPenalty": "预计罚款",
       "estReceived": "预计收到",
-      "estYield": "预计收益",
+      "estYield": "预计奖励",
+      "institutionalDisclaimer": "资金在供应期和锁定期内将被锁定，仅可在领取期或退款期领取。实际结果取决于交易对手表现，本金存在风险，您收到的金额可能少于已供应的数量。",
+      "institutionalTcsAgreement": "继续操作即表示我同意 <Link>Venus 固定期限金库使用条款</Link>，并声明我不是受限制人士。受限制人士包括美国人士（定义见 1933 年美国证券法 Regulation S）、位于英国、加拿大或中国大陆境内、通常居住于上述地区或拥有其国籍的人士，以及位于 OFAC 制裁司法管辖区内或受其制裁法律约束的任何人士。完整名单请参阅使用条款。",
+      "institutionalTimeline": {
+        "claimPeriod": "预计领取期",
+        "depositPeriod": "供应期",
+        "estimatedLockedPeriod": "预计锁定期",
+        "estimatedRepayingPeriod": "预计偿还期",
+        "refundPeriod": "退款期"
+      },
       "maturityDate": "到期日",
       "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
       "maturityPendleDisclaimer": "到期前，提款时收到的金额取决于 Pendle 市场价格。到期后，提款将根据您持有的 PT 代币 1:1 赎回。",
       "minReceived": "最低收到",
       "overview": {
-        "manager": "管理机构",
-        "managerTooltip": "管理此金库基础资产的地址或团队。存入的资产会被分配到他们管理的市场中，他们可能会根据市场状况更新赎回或结算时间。",
+        "campaignTimeline": "活动时间线",
+        "collateral": "抵押品",
+        "loan": "贷款",
         "marketInfo": "市场信息",
         "marketRiskDisclosures": "市场风险披露",
-        "riskDisclosureText": "Pendle 是一个去中心化的收益交易协议，通过本金代币（PT）实现固定收益。Venus 固定利率金库通过 Pendle 的基础设施获取 PT，并将其作为抵押品供应给 Venus Core。<br />虽然 Pendle 无法访问或转移您的存款，但使用此金库会使您面临来自两个协议的风险。这些风险包括智能合约漏洞、预言机故障，以及任一协议被攻击或暂停的可能性。提前提款按市场价格执行，可能低于存入金额。固定 APY 在存入时锁定，无法防范协议层面的故障。",
+        "riskDisclosureText": {
+          "matrixDock": "<Bold>本金存在风险</Bold>。目标利率是浮动的，并与金库表现挂钩，不构成保证收益。<Bold>您拿回的金额可能少于投入金额</Bold>。在结算时，您将按份额获得该时点金库实际持有资产中的相应部分。<Bold>您的资金将被锁定</Bold>。锁定期开始后，您将无法供应或提取。只有在结算后资金才可领取。<Bold>影响结果的因素：</Bold>交易对手表现、抵押条件、智能合约执行、预言机可靠性以及结算结果。<Bold>受司法辖区限制</Bold>。该金库不向受限司法辖区或受限人士开放。完整名单请参阅使用条款。供应前，请查看本页的 <TermsOfUseLink>使用条款</TermsOfUseLink> 和金库参数。",
+          "pendle": "Pendle 是一个去中心化收益交易协议，通过本金代币（PT）实现固定利率收益。Venus 固定利率金库通过 Pendle 的基础设施路由已供应的资产以获取 PT，并将其作为抵押品供应至 Venus Core。<br />虽然 Pendle 无法访问或转移您已供应的资金，但使用此金库会使您同时暴露于两个协议的风险。这些风险包括智能合约漏洞、预言机故障，以及任一协议被攻击或暂停的可能性。提前提款按市场价格执行，返还金额可能低于已供应金额。固定 APY 会在供应时锁定，但并不能防范协议层面的故障。"
+        },
         "strategy": {
           "pendleRouter": "Pendle Router",
           "users": "用户",
-          "venusCore": "Venus Core"
+          "venue": "平台",
+          "venusCore": "Venus Core",
+          "venusVault": "Venus 金库"
         },
         "strategyAllocation": "策略分配",
-        "supply": "质押",
-        "totalDeposited": "总存款",
-        "vaultDeploymentDate": "金库部署日期"
+        "supply": "供应",
+        "totalDeposited": "总供应量",
+        "vaultDeploymentDate": "金库部署日期",
+        "vaultVenueIcon": "平台标志",
+        "venue": "平台",
+        "venueTooltip": "在锁定期内持有并调配此金库底层资产的交易对手方。已供应的资产会按照预先约定的条款进行部署；赎回和结算时间表遵循金库公布的计划，只有在这些规则定义的特殊情况下才可能调整。"
       },
       "overviewTab": "概览",
       "pendleFee": "Pendle 费用",
       "positionTab": "持仓",
-      "stakeTab": "存款",
+      "stakeTab": "供应",
+      "targetApr": "目标 APR",
+      "targetAprTooltip": "此金库策略旨在实现的年化目标奖励，以包含复利的目标年化收益率（APR）表示。实际回报具有可变性，并取决于交易对手表现；本金存在风险。您收到的金额可能少于已供应的数量。",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalTargetRewards": "目标奖励总额",
       "withdraw": "取款",
       "withdrawTab": "取款"
     },
     "overview": {
       "bannerVaultIllustration": "金库插图"
+    },
+    "timeline": {
+      "description": {
+        "claim": "所有本金和已赚取的利息均可提取。",
+        "deposit": "用户可在此期间自由供应 {{ tokenSymbol }}。",
+        "locked": "供应和领取已暂停。锁定期将在待处理期结束且资金全部转移后开始。",
+        "refund": "本金可提取。",
+        "repaying": "金库已到期。本金和利息正在结算中。此过程通常需要 2-3 天。"
+      },
+      "tbd": "待定",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {
     "vaultModal": {
       "footer": {
-        "currentlyStaked": "当前存入",
+        "currentlyStaked": "当前已供应",
         "estimatedDailyEarnings": "预估日收益",
         "lockingPeriod": {
           "duration": "{{date, distanceToNow}}",
@@ -2122,7 +2162,7 @@
           "tooltip": "你有已解锁的 XVS 可领取。"
         },
         "primeLossWarning": {
-          "message": "如果你提取该金额，你将失去 Prime 代币，因为你在 XVS 金库中的存入金额将低于获得 Prime 资格所需的最低值 {{minimumXvsStake}}。"
+          "message": "如果你提取该金额，你将失去 Prime 代币，因为你在 XVS 金库中的供应金额将低于获得 Prime 资格所需的最低值 {{minimumXvsStake}}。"
         },
         "requestWithdrawalField": {
           "label": "申请取款"
@@ -2133,13 +2173,13 @@
       },
       "stakeForm": {
         "depositField": {
-          "label": "存款"
+          "label": "供应"
         },
         "footer": {
           "apr": "APR"
         },
         "submitButton": {
-          "label": "存款"
+          "label": "供应"
         }
       },
       "withdrawFromVaiVault": {
@@ -2195,8 +2235,8 @@
     "delegateVotes": "委托票数",
     "delegateVoting": "委托投票",
     "delegateYourVoting": "2. <Anchor>将你的投票权</Anchor>委托给自己或他人",
-    "depositXvs": "存入 XVS",
-    "depositYourTokens": "1. <Link>存入你的代币</Link> 到 XVS 金库 ",
+    "depositXvs": "供应 XVS",
+    "depositYourTokens": "1. <Link>供应你的代币</Link> 到 XVS 金库 ",
     "enterContactAddress": "输入联系地址",
     "errorState": {
       "buttonLabel": "重试",

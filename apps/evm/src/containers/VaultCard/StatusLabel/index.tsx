@@ -8,17 +8,14 @@ export interface StatusLabelProps extends HTMLAttributes<HTMLDivElement> {
   size?: 'md';
 }
 
-const commonClassName = cn(
-  'flex justify-center items-center border border-solid rounded-full py-1 px-3 text-light-grey-active text-b1r',
-);
-
 export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children, ...props }) => {
   const { t } = useTranslation();
 
   let variantClassName = '';
+
   switch (status) {
     case VaultStatus.Claim:
-    case VaultStatus.Earning:
+    case VaultStatus.Locked:
       variantClassName = cn('border-green bg-green/10');
       break;
     case VaultStatus.Refund:
@@ -33,6 +30,7 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
   }
 
   let label = '';
+
   switch (status) {
     case VaultStatus.Claim:
       label = t('vault.filter.claim');
@@ -46,19 +44,35 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
     case VaultStatus.Active:
       label = t('vault.filter.active');
       break;
-    case VaultStatus.Earning:
-      label = t('vault.filter.earning');
+    case VaultStatus.Locked:
+      label = t('vault.filter.locked');
       break;
     case VaultStatus.Paused:
       label = t('vault.filter.paused');
       break;
+    case VaultStatus.Pending:
+      label = t('vault.filter.pending');
+      break;
     case VaultStatus.Repaying:
       label = t('vault.filter.repaying');
+      break;
+    case VaultStatus.Inactive:
+      label = t('vault.filter.inactive');
+      break;
+    case VaultStatus.Liquidated:
+      label = t('vault.filter.liquidated');
       break;
   }
 
   return (
-    <div className={cn(commonClassName, variantClassName, className)} {...props}>
+    <div
+      className={cn(
+        'flex justify-center items-center border border-solid rounded-full py-1 px-3 text-light-grey-active text-b1r',
+        variantClassName,
+        className,
+      )}
+      {...props}
+    >
       {label}
     </div>
   );

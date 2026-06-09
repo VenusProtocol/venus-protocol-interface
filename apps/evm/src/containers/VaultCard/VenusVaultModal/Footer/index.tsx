@@ -14,7 +14,7 @@ import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { Fragment } from 'react/jsx-runtime';
-import { type Vault, VaultManager } from 'types';
+import { type Vault, VaultVenue } from 'types';
 import {
   clampToZero,
   convertMantissaToTokens,
@@ -51,9 +51,9 @@ export const Footer: React.FC<FooterProps> = ({ action, vault, fromAmountTokens 
 
   const items: LabeledInlineContentProps[] = [];
 
-  if (accountAddress && vault.manager === VaultManager.Venus) {
+  if (accountAddress && vault.venue === VaultVenue.Venus) {
     const userStakedTokens = convertMantissaToTokens({
-      value: vault.userStakedMantissa || new BigNumber(0),
+      value: vault.userStakeBalanceMantissa || new BigNumber(0),
       token: vault.stakedToken,
     });
 
@@ -128,7 +128,7 @@ export const Footer: React.FC<FooterProps> = ({ action, vault, fromAmountTokens 
 
   items.push({
     label: t('vaultCard.vaultModal.stakeForm.footer.apr'),
-    children: formatPercentageToReadableValue(vault.stakingAprPercentage),
+    children: formatPercentageToReadableValue(vault.stakeAprPercentage),
   });
 
   return (

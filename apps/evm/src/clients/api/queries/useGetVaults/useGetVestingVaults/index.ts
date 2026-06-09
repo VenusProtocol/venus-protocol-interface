@@ -12,7 +12,6 @@ import {
   useGetXvsVaultTotalAllocationPoints,
   useGetXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api';
-import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import type { VenusVault } from 'types';
 import { convertDollarsToCents, convertTokensToMantissa, indexBy } from 'utilities';
@@ -23,6 +22,7 @@ import { useChainId } from 'libs/wallet';
 import { checkIsXvsOnZk } from 'utilities/xvsPriceOnZk';
 import { XVS_FIXED_PRICE_CENTS } from 'utilities/xvsPriceOnZk/constants';
 import type { Address } from 'viem';
+import { calculateVaultAprPercentage } from '../calculateVaultAprPercentage';
 import { calculateVaultCentsValues } from '../calculateVaultCentsValues';
 import { formatToVenusVault } from '../formatToVenusVault';
 import { useGetXvsVaultPoolBalances } from './useGetXvsVaultPoolBalances';
@@ -239,7 +239,9 @@ export const useGetVestingVaults = (input?: {
       Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<VenusVault[]>(
         (acc, _item, poolIndex) => {
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
-          const userStakedMantissa = poolData[poolIndex]?.userInfos?.stakedAmountMantissa.minus(
+          const userStakeBalanceMantissa = poolData[
+            poolIndex
+          ]?.userInfos?.stakedAmountMantissa.minus(
             poolData[poolIndex]?.userInfos?.pendingWithdrawalsTotalAmountMantissa || 0,
           );
 
@@ -247,10 +249,10 @@ export const useGetVestingVaults = (input?: {
             poolData[poolIndex]?.userHasPendingWithdrawalsFromBeforeUpgrade;
 
           const pendingWithdrawalsMantissa = poolData[poolIndex]?.pendingWithdrawalsBalanceMantissa;
-          const totalStakedMantissaData = poolBalances[poolIndex];
+          const stakeBalanceMantissaData = poolBalances[poolIndex];
 
-          const totalStakedMantissa = totalStakedMantissaData
-            ? totalStakedMantissaData.balanceMantissa.minus(pendingWithdrawalsMantissa ?? 0)
+          const stakeBalanceMantissa = stakeBalanceMantissaData
+            ? stakeBalanceMantissaData.balanceMantissa.minus(pendingWithdrawalsMantissa ?? 0)
             : new BigNumber(0);
 
           const stakedToken =
@@ -280,62 +282,62 @@ export const useGetVestingVaults = (input?: {
               token: xvs!,
             });
 
-          const stakingAprPercentage = dailyDistributedXvsMantissa
-            ?.multipliedBy(DAYS_PER_YEAR)
-            .div(
-              totalStakedMantissa.isGreaterThan(0) ? totalStakedMantissa : 1, // Prevent dividing by 0 if balance is 0
-            )
-            .multipliedBy(100)
-            .toNumber();
-
           if (
-            !!stakedToken &&
-            lockingPeriodMs !== undefined &&
-            dailyDistributedXvsMantissa !== undefined &&
-            totalStakedMantissaData !== undefined &&
-            stakedTokenPriceCents !== undefined &&
-            xvsPriceCents !== undefined &&
-            stakingAprPercentage !== undefined &&
-            getXvsVaultPausedData?.isVaultPaused !== undefined &&
-            !!xvs
+            !stakedToken ||
+            lockingPeriodMs === undefined ||
+            dailyDistributedXvsMantissa === undefined ||
+            stakeBalanceMantissaData === undefined ||
+            stakedTokenPriceCents === undefined ||
+            xvsPriceCents === undefined ||
+            getXvsVaultPausedData?.isVaultPaused === undefined ||
+            !xvs
           ) {
-            const { totalStakedCents, userStakedCents, dailyEmissionCents } =
-              calculateVaultCentsValues({
-                stakedTokenDecimals: stakedToken.decimals,
-                rewardTokenDecimals: xvs.decimals,
-                stakedTokenPriceCents,
-                rewardTokenPriceCents: xvsPriceCents,
-                totalStakedMantissa,
-                userStakedMantissa,
-                dailyEmissionMantissa: dailyDistributedXvsMantissa,
-              });
-
-            if (dailyEmissionCents === undefined) {
-              return acc;
-            }
-
-            const vault = formatToVenusVault({
-              isPaused: getXvsVaultPausedData.isVaultPaused,
-              rewardToken: xvs,
-              stakedToken,
-              stakedTokenPriceCents,
-              rewardTokenPriceCents: xvsPriceCents,
-              lockingPeriodMs,
-              dailyEmissionMantissa: dailyDistributedXvsMantissa,
-              dailyEmissionCents,
-              totalStakedMantissa,
-              totalStakedCents,
-              stakingAprPercentage,
-              userStakedMantissa,
-              userStakedCents,
-              poolIndex,
-              userHasPendingWithdrawalsFromBeforeUpgrade,
-            });
-
-            return [...acc, vault];
+            return acc;
           }
 
-          return acc;
+          const stakeAprPercentage = calculateVaultAprPercentage({
+            dailyEmissionMantissa: dailyDistributedXvsMantissa,
+            rewardToken: xvs,
+            rewardTokenPriceCents: xvsPriceCents,
+            stakeBalanceMantissa,
+            stakedToken,
+            stakedTokenPriceCents,
+          });
+
+          const { stakeBalanceCents, userStakeBalanceCents, dailyEmissionCents } =
+            calculateVaultCentsValues({
+              stakedTokenDecimals: stakedToken.decimals,
+              rewardTokenDecimals: xvs.decimals,
+              stakedTokenPriceCents,
+              rewardTokenPriceCents: xvsPriceCents,
+              stakeBalanceMantissa,
+              userStakeBalanceMantissa,
+              dailyEmissionMantissa: dailyDistributedXvsMantissa,
+            });
+
+          if (dailyEmissionCents === undefined) {
+            return acc;
+          }
+
+          const vault = formatToVenusVault({
+            isPaused: getXvsVaultPausedData.isVaultPaused,
+            rewardToken: xvs,
+            stakedToken,
+            stakedTokenPriceCents,
+            rewardTokenPriceCents: xvsPriceCents,
+            lockingPeriodMs,
+            dailyEmissionMantissa: dailyDistributedXvsMantissa,
+            dailyEmissionCents,
+            stakeBalanceMantissa,
+            stakeBalanceCents,
+            stakeAprPercentage,
+            userStakeBalanceMantissa,
+            userStakeBalanceCents,
+            poolIndex,
+            userHasPendingWithdrawalsFromBeforeUpgrade,
+          });
+
+          return [...acc, vault];
         },
         [],
       ),

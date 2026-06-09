@@ -4,6 +4,7 @@ export * from './Accordion';
 export * from './AccordionAnimatedContent';
 export * from './ActiveVotingProgress';
 export * from './ButtonGroup';
+export * from './CapProgressCircle';
 export * from './Checkbox';
 export * from './Chip';
 export * from './Countdown';

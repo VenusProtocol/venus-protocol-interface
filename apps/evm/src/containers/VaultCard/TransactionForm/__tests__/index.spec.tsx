@@ -84,6 +84,7 @@ const renderTransactionForm = ({
 
   const TestComponent = () => {
     const form = useVaultForm({
+      fromToken: mergedProps.fromToken,
       limitFromTokens: mergedProps.limitFromTokens,
       walletSpendingLimitTokens,
     });
@@ -259,6 +260,40 @@ describe('TransactionForm', () => {
         name: baseProps.submitButtonLabel,
       }),
     ).toBeDisabled();
+  });
+
+  it('gates submission behind the optional acknowledgement', async () => {
+    const limitFromTokens = new BigNumber(12);
+
+    renderTransactionForm({
+      props: {
+        limitFromTokens,
+        acknowledgement: 'I agree',
+      },
+      walletSpendingLimitTokens: limitFromTokens,
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: '12 XVS' }));
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole('button', {
+          name: baseProps.submitButtonLabel,
+        }),
+      ).toBeDisabled(),
+    );
+
+    expect(screen.getByText('I agree')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('checkbox'));
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole('button', {
+          name: baseProps.submitButtonLabel,
+        }),
+      ).toBeEnabled(),
+    );
   });
 
   it('shows delegate approval steps when delegate approval is required', async () => {

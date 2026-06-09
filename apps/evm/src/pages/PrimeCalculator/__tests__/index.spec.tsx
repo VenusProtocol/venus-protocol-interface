@@ -166,30 +166,9 @@ describe('PrimeCalculator', () => {
 
     // Check message is shown
     await waitFor(() =>
-      getByText('To be eligible for Prime rewards, at least 1000 XVS tokens must be deposited.'),
-    );
-  });
-
-  it('informs the user the minimum XVS that must be deposited if they input a lower amount', async () => {
-    const { getByTestId, getByText } = renderComponent(<PrimeCalculator />);
-
-    const stakedAmountInput = await waitFor(
-      () => getByTestId(TEST_IDS.stakedAmountTokens) as HTMLInputElement,
-    );
-
-    // Check input's value
-    expect(stakedAmountInput.value).toEqual('');
-
-    // Change input's value
-    fireEvent.change(stakedAmountInput, {
-      target: { value: '100' },
-    });
-
-    fireEvent.blur(stakedAmountInput);
-
-    // Check message is shown
-    await waitFor(() =>
-      getByText('To be eligible for Prime rewards, at least 1000 XVS tokens must be deposited.'),
+      getByText(
+        en.primeCalculator.stakedTokens.infos.error.replace('{{minimumXvsStaked}}', '1000'),
+      ),
     );
   });
 

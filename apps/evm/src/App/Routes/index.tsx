@@ -31,6 +31,7 @@ const Stats = safeLazyLoad(() => import('pages/Stats'));
 const Skills = safeLazyLoad(() => import('pages/Skills'));
 const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
+const FixedTermVaultTermsOfUse = safeLazyLoad(() => import('pages/FixedTermVaultTermsOfUse'));
 const Trade = safeLazyLoad(() => import('pages/Trade'));
 
 const AppRoutes = () => {
@@ -258,6 +259,15 @@ const AppRoutes = () => {
           element={
             <PageSuspense>
               <TermsOfUse />
+            </PageSuspense>
+          }
+        />
+
+        <Route
+          path={Subdirectory.FIXED_TERM_VAULT_TERMS_OF_USE}
+          element={
+            <PageSuspense>
+              <FixedTermVaultTermsOfUse />
             </PageSuspense>
           }
         />

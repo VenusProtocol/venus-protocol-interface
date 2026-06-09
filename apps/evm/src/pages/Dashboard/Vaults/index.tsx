@@ -17,7 +17,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   const { t } = useTranslation();
 
   // Filter out vaults user has not staked in
-  const filteredVaults = vaults.filter(vault => vault.userStakedMantissa?.isGreaterThan(0));
+  const filteredVaults = vaults.filter(vault => vault.userStakeBalanceMantissa?.isGreaterThan(0));
 
   const filteredVaultsLength = filteredVaults.length;
 
@@ -45,19 +45,23 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
     );
   }
 
-  const { totalStakedCents, dailyEarningsCents } = filteredVaults.reduce(
+  const { stakeBalanceCents, dailyEarningsCents } = filteredVaults.reduce(
     (acc, curr) => {
       const userDailyEarningsCents =
-        curr.userStakedMantissa && curr.totalStakedMantissa.gt(0) && 'dailyEmissionCents' in curr
-          ? curr.userStakedMantissa.div(curr.totalStakedMantissa).times(curr.dailyEmissionCents)
+        curr.userStakeBalanceMantissa &&
+        curr.stakeBalanceMantissa.gt(0) &&
+        'dailyEmissionCents' in curr
+          ? curr.userStakeBalanceMantissa
+              .div(curr.stakeBalanceMantissa)
+              .times(curr.dailyEmissionCents)
           : new BigNumber(0);
 
       return {
-        totalStakedCents: acc.totalStakedCents.plus(curr.userStakedCents ?? 0),
+        stakeBalanceCents: acc.stakeBalanceCents.plus(curr.userStakeBalanceCents ?? 0),
         dailyEarningsCents: acc.dailyEarningsCents.plus(userDailyEarningsCents),
       };
     },
-    { totalStakedCents: new BigNumber(0), dailyEarningsCents: new BigNumber(0) },
+    { stakeBalanceCents: new BigNumber(0), dailyEarningsCents: new BigNumber(0) },
   );
 
   const overviewCells: CellProps[] = [
@@ -65,7 +69,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
       label: t('dashboard.vaults.totalStakedValue'),
       value: (
         <HidableUserBalance>
-          {formatCentsToReadableValue({ value: totalStakedCents })}
+          {formatCentsToReadableValue({ value: stakeBalanceCents })}
         </HidableUserBalance>
       ),
     },

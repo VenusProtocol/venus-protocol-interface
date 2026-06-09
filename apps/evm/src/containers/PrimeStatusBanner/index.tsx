@@ -21,10 +21,10 @@ import {
   clampToZero,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  formatWaitingPeriod,
 } from 'utilities';
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';
-import { formatWaitingPeriod } from './formatWaitingPeriod';
 import TEST_IDS from './testIds';
 
 export interface PrimeStatusBannerUiProps {

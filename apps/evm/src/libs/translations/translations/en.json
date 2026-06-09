@@ -28,8 +28,8 @@
       },
       "netWorth": {
         "label": "Net worth",
-        "tooltip": "Net available assets after accounting for vault deposit and borrowings",
-        "tooltipWithVai": "Net available assets after accounting for vault deposit, borrowings, and minted VAI"
+        "tooltip": "Net available assets after accounting for vault supply and borrowings",
+        "tooltipWithVai": "Net available assets after accounting for vault supply, borrowings, and minted VAI"
       },
       "periodOption": {
         "oneYear": "1Y",
@@ -61,10 +61,10 @@
         "mintedVai": "Minted VAI",
         "netApy": "Net APY",
         "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-        "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault deposit received as yearly interests",
+        "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault supply received as yearly interests",
         "totalBorrow": "Total borrow",
         "totalSupply": "Total supply",
-        "totalVaultStake": "Total vault deposit"
+        "totalVaultStake": "Total vault supply"
       },
       "title": "Summary"
     },
@@ -117,7 +117,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "No deposit positions yet"
+        "title": "No supply positions yet"
       }
     }
   },
@@ -222,10 +222,10 @@
       "logoAlt": "Prime logo",
       "tooltip": {
         "calculatorLink": "Calculate your Prime rewards",
-        "primeBorrowSimulation": "APY boosted by Prime based on the median user borrow of {{borrowBalance}} and vault deposit of {{xvsStaked}}.",
+        "primeBorrowSimulation": "APY boosted by Prime based on the median user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",
-        "primeSupplySimulation": "APY boosted by Prime based on the median user supply of {{supplyBalance}} and vault deposit of {{xvsStaked}}."
+        "primeSupplySimulation": "APY boosted by Prime based on the median user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
       }
     }
   },
@@ -263,7 +263,7 @@
       "date": "Date",
       "supplyApy": "Supply APY",
       "totalBorrow": "Total borrow",
-      "totalStaked": "Total deposited",
+      "totalStaked": "Total supplied",
       "totalSupply": "Total supply"
     }
   },
@@ -438,8 +438,8 @@
         "title": "Borrow / Leverage"
       },
       "step3": {
-        "description": "Deposit XVS to our vault and earn yield powered by Venus' revenue.",
-        "title": "Deposit XVS"
+        "description": "Supply XVS to our vault and earn yield powered by Venus' revenue.",
+        "title": "Supply XVS"
       },
       "uncompleted": "Uncompleted"
     },
@@ -447,8 +447,8 @@
       "absolutePerformance": "Absolute performance",
       "netWorth": {
         "label": "Net worth",
-        "tooltip": "Net available assets after accounting for vault deposit and borrowings",
-        "tooltipWithVai": "Net available assets after accounting for vault deposit, borrowings, and minted VAI"
+        "tooltip": "Net available assets after accounting for vault supply and borrowings",
+        "tooltipWithVai": "Net available assets after accounting for vault supply, borrowings, and minted VAI"
       },
       "performanceChart": {
         "errorState": {
@@ -468,10 +468,10 @@
           "mintedVai": "Minted VAI",
           "netApy": "Net APY",
           "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-          "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault deposit received as yearly interests",
+          "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault supply received as yearly interests",
           "totalBorrow": "Total borrow",
           "totalSupply": "Total supply",
-          "totalVaultStake": "Total vault deposit"
+          "totalVaultStake": "Total vault supply"
         },
         "title": "Summary"
       },
@@ -496,7 +496,7 @@
     "vaults": {
       "dailyEarnings": "Daily earnings",
       "dailyEarningsTooltip": "Your estimated daily earnings across all active vaults, based on each vault's current rate or fixed APR. Actual earnings may vary.",
-      "totalStakedValue": "Total deposited value"
+      "totalStakedValue": "Total supplied value"
     }
   },
   "eModeBanner": {
@@ -1098,6 +1098,7 @@
       "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "noSwapQuoteFound": "No swap found.",
       "priceImpactTooHigh": "Price impact too high",
+      "smallerThanMinimumAmount": "You cannot supply less than {{minAmount}} at once",
       "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "tooRisky": "This transaction would get your account liquidated"
     },
@@ -1217,12 +1218,12 @@
     },
     "stakedTokens": {
       "infos": {
-        "error": "To be eligible for Prime rewards, at least {{minimumXvsStaked}} XVS tokens must be deposited.",
-        "label": "Qualified deposited XVS",
+        "error": "To be eligible for Prime rewards, at least {{minimumXvsStaked}} XVS tokens must be supplied.",
+        "label": "Qualified supplied XVS",
         "tooltip": "Up to {{maximumXvsStaked}} will be taken into account for your Prime rewards"
       },
       "textField": {
-        "label": "Deposited XVS"
+        "label": "Supplied XVS"
       }
     },
     "suppliedTokens": {
@@ -1244,8 +1245,8 @@
     "becomePrimeTitle": "You can now become a Prime user",
     "claimButtonLabel": "Claim Prime token",
     "description": {
-      "primeCalculator": "Deposit <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Calculate your Prime rewards</Link>",
-      "primeDoc": "Deposit <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Learn more</Link>"
+      "primeCalculator": "Supply <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Calculate your Prime rewards</Link>",
+      "primeDoc": "Supply <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Learn more</Link>"
     },
     "noPrimeTokenWarning": {
       "text": "All Prime tokens have been claimed",
@@ -1253,10 +1254,10 @@
     },
     "progressBar": {
       "ariaLabel": "Your current Prime progression",
-      "label": "Deposited: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+      "label": "Supplied: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
-    "stakeButtonLabel": "Deposit XVS",
+    "stakeButtonLabel": "Supply XVS",
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> prime token left",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> prime token left",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
@@ -2014,24 +2015,28 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
-      "claimReward": "Claim reward",
-      "currentDeposited": "Currently deposited",
+      "currentDeposited": "Currently supplied",
       "dailyEmission": "Daily emission",
-      "effectiveFixedApr": "Effective fixed APR",
       "header": {
+        "fixedTermTitle": "{{ tokenSymbol }} Fixed-Term",
+        "maturityDate_zero": "{{ date, textual }}",
         "maturityDate_one": "{{ date, textual }} ({{ count }} day)",
         "maturityDate_other": "{{ date, textual }} ({{ count }} days)"
       },
       "liquidity": "Liquidity",
       "liquidityTooltip": "The total value of assets currently provided in this vault's underlying Pendle-integrated pool (or strategy).",
-      "manager": "Manager",
-      "maturityDate": "Maturity date",
+      "maturityDate": "Lock end date",
       "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
-      "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, depositing, and withdrawing are disabled until the vault is unpaused",
+      "minRequested": "Min. requested",
+      "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, supplying, and withdrawing are disabled until the vault is unpaused",
       "primeEligibility": "Prime eligibility",
+      "targetApr": "Target APR",
+      "targetAprTooltip": "The annualized target reward this vault strategy aims to deliver, expressed as a target Annual Percentage Rate with compounding included. Actual return is variable and depends on counterparty performance; capital is at risk and you may receive less than the amount you supplied.",
       "textualWithTime": "{{date, textualWithTime}}",
-      "totalDeposited": "Total deposited",
-      "youDeposited": "You deposited"
+      "totalDeposited": "Total supplied",
+      "vaultVenueIcon": "Venus logo",
+      "venue": "Venue",
+      "youDeposited": "You supplied"
     },
     "category": {
       "governance": "Governance",
@@ -2042,27 +2047,31 @@
     "filter": {
       "active": "Active",
       "allCategories": "All categories",
-      "allManagers": "All managers",
       "allStates": "All states",
+      "allVenues": "All venues",
       "claim": "Claim",
-      "deposit": "Deposit",
-      "earning": "Earning",
+      "deposit": "Supply",
+      "inactive": "Inactive",
       "inputPlaceholder": "Search asset",
+      "liquidated": "Liquidated",
+      "locked": "Locked",
       "paused": "Paused",
+      "pending": "Pending",
       "refund": "Refund",
       "repaying": "Repaying"
     },
-    "header": "Vault",
+    "header": "Vaults",
     "modals": {
       "afterMaturityPendleDisclaimer": "Please withdraw your PT tokens to your wallet first via the Withdraw button, then visit the <Link>Pendle official</Link> website to redeem your underlying tokens.",
+      "claim": "Claim",
       "connectWalletMessage": "Please connect your wallet to interact with this vault",
       "convert": "Convert",
-      "currentDeposited": "Currently deposited",
+      "currentDeposited": "Currently supplied",
       "currentDepositedTooltip": "The amount of your assets currently locked and earning in this vault.",
-      "deposit": "Deposit",
-      "depositTab": "Deposit",
-      "effectiveFixedApr": "Effective fixed APR",
-      "effectiveFixedAprPendleTooltip": "The annualized fixed yield offered by this vault strategy, expressed as an effective Annual Percentage Rate with compounding included.",
+      "deposit": "Supply",
+      "depositPeriodEnds": "Supply period ends",
+      "depositsPausedNotice": "Funds are locked during the Supply and Locked periods and can only be claimed during the Claim or Refund period. Actual outcomes depend on counterparty performance; capital is at risk and you may receive less than you supplied.",
+      "depositTab": "Supply",
       "error": {
         "amountTooLow": "Input amount is too low.",
         "invalidAmountFromQuote": "Amount exceeds available liquidity in the Pendle market.",
@@ -2072,44 +2081,76 @@
       },
       "estPenalty": "Est. penalty",
       "estReceived": "Est. received",
-      "estYield": "Est. yield",
-      "maturityDate": "Maturity date",
+      "estYield": "Est. rewards",
+      "institutionalDisclaimer": "Funds are locked during the Supply and Locked periods and can only be claimed during the Claim or Refund period. Actual outcomes depend on counterparty performance; capital is at risk and you may receive less than you supplied.",
+      "institutionalTcsAgreement": "By proceeding, I agree to the Venus Fixed-Term Vault <Link>Terms of Use</Link> and represent that I am not a restricted person. Restricted persons include US Persons (as defined under Regulation S of the US Securities Act of 1933), persons located in, ordinarily resident in, or nationals of the United Kingdom, Canada, or mainland China, and any person located in or subject to the sanctions laws of an OFAC-sanctioned jurisdiction. See the Terms of Use for the full list.",
+      "institutionalTimeline": {
+        "claimPeriod": "Estimated claim period",
+        "depositPeriod": "Supply period",
+        "estimatedLockedPeriod": "Estimated locked period",
+        "estimatedRepayingPeriod": "Estimated repaying period",
+        "refundPeriod": "Refund period"
+      },
+      "maturityDate": "Lock end date",
       "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
       "maturityPendleDisclaimer": "Before maturity, the amount received upon withdrawal is subject to Pendle market prices. After maturity, withdrawals are redeemed 1:1 based on your PT token holdings.",
       "minReceived": "Min. received",
       "overview": {
-        "manager": "Manager",
-        "managerTooltip": "The address or team that manages this underlying asset of this vault. Deposited assets are allocated to markets they oversee, and they may update redemption or settlement timelines based on market conditions.",
+        "campaignTimeline": "Campaign timeline",
+        "collateral": "Collateral",
+        "loan": "Loan",
         "marketInfo": "Market info",
         "marketRiskDisclosures": "Market risk disclosures",
-        "riskDisclosureText": "Pendle is a decentralised yield-trading protocol that enables fixed-rate yield through Principal Tokens (PTs). The Venus Fixed Rate Vault routes deposits through Pendle's infrastructure to acquire PTs, which are supplied to Venus Core as collateral. <br />While Pendle cannot access or move your deposited funds, using this vault exposes you to risks from both protocols. These include smart contract vulnerabilities, oracle failures, and the possibility of either protocol being exploited or paused. Early withdrawals are executed at market price and may return less than the amount deposited. Fixed APY is locked at deposit and does not protect against protocol-level failures.",
+        "riskDisclosureText": {
+          "matrixDock": "<Bold>Capital at risk</Bold>. The target rate is variable and linked to vault performance. It is not a guaranteed return. <Bold>You may get back less than you put in</Bold>. At settlement, you receive your share of whatever assets the vault actually holds at that time. <Bold>Your funds will be locked</Bold>. Once the locked period begins, you cannot supply or withdraw. Funds become claimable only at settlement. <Bold>What affects outcomes:</Bold> counterparty performance, collateral conditions, smart contract execution, oracle reliability, and settlement results. <Bold>Jurisdiction restrictions apply</Bold>. This vault is not available in restricted jurisdictions or to restricted persons. See the Terms of Use for the full list. Please review the <TermsOfUseLink>Terms of Use</TermsOfUseLink> and vault parameters on this page before supplying.",
+          "pendle": "Pendle is a decentralised yield-trading protocol that enables fixed-rate yield through Principal Tokens (PTs). The Venus Fixed Rate Vault routes supplied funds through Pendle's infrastructure to acquire PTs, which are supplied to Venus Core as collateral. <br />While Pendle cannot access or move your supplied funds, using this vault exposes you to risks from both protocols. These include smart contract vulnerabilities, oracle failures, and the possibility of either protocol being exploited or paused. Early withdrawals are executed at market price and may return less than the amount supplied. Fixed APY is locked when you supply and does not protect against protocol-level failures."
+        },
         "strategy": {
           "pendleRouter": "Pendle router",
           "users": "Users",
-          "venusCore": "Venus Core"
+          "venue": "Venue",
+          "venusCore": "Venus Core",
+          "venusVault": "Venus vault"
         },
         "strategyAllocation": "Strategy allocation",
         "supply": "Supply",
-        "totalDeposited": "Total deposited",
-        "vaultDeploymentDate": "Vault deployment date"
+        "totalDeposited": "Total supplied",
+        "vaultDeploymentDate": "Vault deployment date",
+        "vaultVenueIcon": "Venue logo",
+        "venue": "Venue",
+        "venueTooltip": "The counterparty that holds and routes this vault's underlying assets during the lock period. Supplied assets are deployed under pre-agreed terms; redemption and settlement timelines follow the vault's published schedule and may shift only under exceptional conditions defined in those rules."
       },
       "overviewTab": "Overview",
       "pendleFee": "Pendle fee",
       "positionTab": "Position",
-      "stakeTab": "Deposit",
+      "stakeTab": "Supply",
+      "targetApr": "Target APR",
+      "targetAprTooltip": "The annualized target reward this vault strategy aims to deliver, expressed as a target Annual Percentage Rate with compounding included. Actual return is variable and depends on counterparty performance; capital is at risk and you may receive less than the amount you supplied.",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalTargetRewards": "Total target rewards",
       "withdraw": "Withdraw",
       "withdrawTab": "Withdraw"
     },
     "overview": {
       "bannerVaultIllustration": "Vault illustration"
+    },
+    "timeline": {
+      "description": {
+        "claim": "All principal and earned interest are available for withdrawal.",
+        "deposit": "Users can freely supply {{ tokenSymbol }} during this period.",
+        "locked": "Supply and claims are paused. Locked begins once the Pending Period ends and funds are fully transferred.",
+        "refund": "Principal is available for withdrawal.",
+        "repaying": "The vault has matured. Principal and interest are being settled. This process typically takes 2-3 days."
+      },
+      "tbd": "TBD",
+      "textualWithTime": "{{date, textualWithTime}}"
     }
   },
   "vaultCard": {
     "vaultModal": {
       "footer": {
-        "currentlyStaked": "Currently deposited",
+        "currentlyStaked": "Currently supplied",
         "estimatedDailyEarnings": "Est. daily earnings",
         "lockingPeriod": {
           "duration": "{{date, distanceToNow}}",
@@ -2123,7 +2164,7 @@
           "tooltip": "You have unlocked XVS that's ready to be claimed."
         },
         "primeLossWarning": {
-          "message": "You will lose your Prime token if you withdraw this amount, as your deposit in the XVS vault will go below the minimum required of {{minimumXvsStake}} to be eligible for Prime."
+          "message": "You will lose your Prime token if you withdraw this amount, as your supplied amount in the XVS vault will go below the minimum required of {{minimumXvsStake}} to be eligible for Prime."
         },
         "requestWithdrawalField": {
           "label": "Request withdrawal"
@@ -2134,13 +2175,13 @@
       },
       "stakeForm": {
         "depositField": {
-          "label": "Deposit"
+          "label": "Supply"
         },
         "footer": {
           "apr": "APR"
         },
         "submitButton": {
-          "label": "Deposit"
+          "label": "Supply"
         }
       },
       "withdrawFromVaiVault": {
@@ -2196,8 +2237,8 @@
     "delegateVotes": "Delegate votes",
     "delegateVoting": "Delegate voting",
     "delegateYourVoting": "2. <Anchor>Delegate your voting power</Anchor> to yourself or somebody else",
-    "depositXvs": "Deposit XVS",
-    "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
+    "depositXvs": "Supply XVS",
+    "depositYourTokens": "1. <Link>Supply your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
     "errorState": {
       "buttonLabel": "Retry",

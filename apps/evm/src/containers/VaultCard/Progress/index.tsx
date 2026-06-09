@@ -12,6 +12,7 @@ export interface ProgressProps {
   amountTokens: BigNumber;
   maxTokens: BigNumber;
   className?: string;
+  progressBarClassName?: string;
 }
 
 export const Progress: React.FC<ProgressProps> = ({
@@ -19,6 +20,7 @@ export const Progress: React.FC<ProgressProps> = ({
   amountTokens,
   maxTokens,
   className,
+  progressBarClassName,
 }) => {
   let percentage = calculatePercentage({
     numerator: amountTokens.toNumber(),
@@ -41,6 +43,8 @@ export const Progress: React.FC<ProgressProps> = ({
     token,
   });
 
+  const progressBarColorClassName = percentage >= 80 ? 'bg-green' : 'bg-blue';
+
   return (
     <div className={cn('text-b1r', className)}>
       <div className="text-right">
@@ -50,7 +54,7 @@ export const Progress: React.FC<ProgressProps> = ({
       <div className="flex items-center justify-end gap-x-3">
         <div className="w-25 grow h-2 rounded-full overflow-hidden bg-dark-grey">
           <div
-            className="h-full rounded-full bg-green"
+            className={cn('h-full rounded-full', progressBarColorClassName, progressBarClassName)}
             style={{ width: `${Math.min(percentage, 100)}%` }}
           />
         </div>
