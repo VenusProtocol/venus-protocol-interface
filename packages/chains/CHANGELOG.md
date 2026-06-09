@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.26.0
+
+### Minor Changes
+
+- bd9d0ca: add institutional vaults
+
 ## 0.25.0
 
 ### Minor Changes

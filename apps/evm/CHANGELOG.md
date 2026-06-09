@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 4.36.0
+
+### Minor Changes
+
+- bd9d0ca: add institutional vaults
+
+### Patch Changes
+
+- Updated dependencies [bd9d0ca]
+  - @venusprotocol/chains@0.26.0
+
 ## 4.35.0
 
 ### Minor Changes
