@@ -1253,7 +1253,7 @@
     "description": "ガバナンスボールトに XVS をステークして、利回りに加えて Prime 報酬を獲得しましょう。",
     "endOfCycle": {
       "days": "日",
-      "deadline": "{{date, MMMM d, yyyy HH:mm a}}",
+      "deadline": "{{date, MMMM d, yyyy h:mm a}}",
       "helper": "<bold>{{deadline}}</bold> まで上位 500 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。<summaryLink>前回サイクルの Prime サマリーを見る</summaryLink>と、順位を確認して競争を有利に進められます。",
       "helperEnded": "{{deadline}} まで上位 500 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。",
       "hours": "時間",

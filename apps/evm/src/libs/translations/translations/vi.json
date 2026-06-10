@@ -1253,7 +1253,7 @@
     "description": "Stake XVS vào governance vault và nhận thêm phần thưởng Prime bên cạnh lợi nhuận của bạn.",
     "endOfCycle": {
       "days": "Ngày",
-      "deadline": "{{date, MMMM d, yyyy HH:mm a}}",
+      "deadline": "{{date, MMMM d, yyyy h:mm a}}",
       "helper": "Giữ vị trí trong top 500 đến <bold>{{deadline}}</bold> để nhận thưởng Prime trong chu kỳ tiếp theo. <summaryLink>Xem tổng kết Prime của chu kỳ trước</summaryLink> để theo dõi thứ hạng và duy trì tính cạnh tranh.",
       "helperEnded": "Giữ vị trí trong top 500 đến {{deadline}} để nhận thưởng Prime trong chu kỳ tiếp theo.",
       "hours": "Giờ",
