@@ -2024,6 +2024,7 @@
       "liquidity": "流动性",
       "liquidityTooltip": "此金库底层 Pendle 集成资金池（或策略）中当前提供的资产总价值。",
       "maturityDate": "到期日",
+      "maturityDatePendle": "到期日",
       "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
       "minRequested": "最小请求量",
       "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、供应和提款功能已禁用，直至金库恢复运作。",
@@ -2090,6 +2091,7 @@
         "refundPeriod": "退款期"
       },
       "maturityDate": "到期日",
+      "maturityDatePendle": "到期日",
       "maturityDatePendleTooltip": "此固定收益头寸（来自 Pendle）的到期日。在此日期之后，您将收回全部原始资产（本金）。锁定的固定收益在此停止，建议持有至此以获得预期收益。",
       "maturityPendleDisclaimer": "到期前，提款时收到的金额取决于 Pendle 市场价格。到期后，提款将根据您持有的 PT 代币 1:1 赎回。",
       "minReceived": "最低收到",

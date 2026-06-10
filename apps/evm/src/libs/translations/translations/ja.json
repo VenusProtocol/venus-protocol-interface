@@ -2024,6 +2024,7 @@
       "liquidity": "流動性",
       "liquidityTooltip": "このボールトの基盤となる Pendle 統合プール（またはストラテジー）に現在提供されている資産の総価値です。",
       "maturityDate": "満期日",
+      "maturityDatePendle": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
       "minRequested": "最小リクエスト額",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、供給、引き出しは無効になっています。",
@@ -2090,6 +2091,7 @@
         "refundPeriod": "返金期間"
       },
       "maturityDate": "満期日",
+      "maturityDatePendle": "満期日",
       "maturityDatePendleTooltip": "Pendle によるこの固定利回りポジションの終了日です。この日付以降、元の資産（元本）を全額受け取ることができます。ロックされた固定リターンはここで終了するため、計画した利回りを得るためにはそれまで保有することをお勧めします。",
       "maturityPendleDisclaimer": "満期前は、引き出し時に受け取る金額は Pendle の市場価格に依存します。満期後は、保有する PT トークンに基づいて 1:1 で引き出しが換金されます。",
       "minReceived": "最小受取額",

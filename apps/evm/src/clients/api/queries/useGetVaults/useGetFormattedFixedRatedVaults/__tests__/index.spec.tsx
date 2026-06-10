@@ -400,7 +400,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
     expect(data?.[0].status).toBe(VaultStatus.Claim);
   });
 
-  it('sets status to Locked when user has supply balance and before maturity', () => {
+  it('sets status to Deposit when user has supply balance and before maturity', () => {
     let data: UseGetPendleVaultsOutput['data'] | undefined;
 
     const Wrapper = () => {
@@ -417,7 +417,7 @@ describe('useGetFormattedFixedRatedVaults', () => {
     );
 
     expect(pendleVault).toBeDefined();
-    expect(pendleVault?.status).toBe(VaultStatus.Locked);
+    expect(pendleVault?.status).toBe(VaultStatus.Deposit);
   });
 
   it('formats matrixdock vault user metrics and status', () => {

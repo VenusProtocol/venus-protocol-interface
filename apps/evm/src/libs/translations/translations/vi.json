@@ -2024,6 +2024,7 @@
       "liquidity": "Thanh khoản",
       "liquidityTooltip": "Tổng giá trị tài sản hiện đang được cung cấp trong pool tích hợp Pendle (hoặc chiến lược) của kho này.",
       "maturityDate": "Ngày đáo hạn",
+      "maturityDatePendle": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
       "minRequested": "Tối thiểu yêu cầu",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, cung cấp và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
@@ -2090,6 +2091,7 @@
         "refundPeriod": "Giai đoạn hoàn tiền"
       },
       "maturityDate": "Ngày đáo hạn",
+      "maturityDatePendle": "Ngày đáo hạn",
       "maturityDatePendleTooltip": "Ngày kết thúc của vị thế lãi suất cố định này (từ Pendle). Sau ngày này, bạn sẽ nhận lại toàn bộ tài sản gốc (vốn). Lợi nhuận cố định đã khóa dừng tại đây - tốt nhất nên giữ đến lúc đó để đạt được lợi nhuận đã lên kế hoạch.",
       "maturityPendleDisclaimer": "Trước khi đáo hạn, số tiền nhận được khi rút phụ thuộc vào giá thị trường Pendle. Sau khi đáo hạn, các khoản rút được quy đổi theo tỷ lệ 1:1 dựa trên số PT token bạn nắm giữ.",
       "minReceived": "Tối thiểu nhận được",

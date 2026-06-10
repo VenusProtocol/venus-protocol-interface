@@ -87,7 +87,7 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle and matrix
       "symbol": "BNB",
     },
     "stakedTokenPriceCents": "66036.349666",
-    "status": "locked",
+    "status": "deposit",
     "userStakeBalanceCents": 326742,
     "userStakeBalanceMantissa": "5000000000000000000",
     "vaultAddress": "0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e",
