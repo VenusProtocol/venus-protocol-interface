@@ -239,6 +239,8 @@ const pendleVaultAsset: Asset = {
   borrowTokenDistributions: [],
   supplyPointDistributions: [],
   borrowPointDistributions: [],
+  isRestricted: false,
+  isGated: true,
 };
 
 const fakePoolsData = {

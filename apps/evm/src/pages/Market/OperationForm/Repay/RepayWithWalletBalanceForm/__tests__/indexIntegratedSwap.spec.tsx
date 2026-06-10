@@ -54,6 +54,8 @@ const makeIntegratedSwapPool = (
     fakeAsset,
     {
       ...fakeBusdAsset,
+      isRestricted: false,
+      isGated: false,
       userWalletBalanceTokens: busdBalanceTokens,
     },
   ]);

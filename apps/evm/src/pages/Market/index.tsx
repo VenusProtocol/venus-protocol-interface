@@ -2,7 +2,10 @@ import { Page as PageComp } from 'components';
 import { useParams } from 'react-router';
 import type { Address } from 'viem';
 
+import { routes } from 'constants/routing';
+import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
 import MarketLoader from 'containers/MarketLoader';
+import { useNavigate } from 'hooks/useNavigate';
 import AssetWarning from './AssetWarning';
 import { EModeInfo } from './EModeInfo';
 import { InterestRateChart } from './InterestRateChart';
@@ -15,6 +18,8 @@ const Page: React.FC = () => {
     vTokenAddress: Address;
     poolComptrollerAddress: Address;
   }>();
+
+  const { navigate } = useNavigate();
 
   return (
     <PageComp>
@@ -55,6 +60,10 @@ const Page: React.FC = () => {
                 <MarketInfo asset={asset} />
               </div>
             </div>
+
+            {asset.isGated && (
+              <GatedAssetAcknowledgementModal onReject={() => navigate(routes.landing.path)} />
+            )}
           </>
         )}
       </MarketLoader>

@@ -1,6 +1,7 @@
 import { SelectButton, cn } from '@venusprotocol/ui';
 
-import { Icon, type OptionalTokenBalance, TokenIconWithSymbol, TokenListWrapper } from 'components';
+import { Icon, TokenIconWithSymbol } from 'components';
+import { type OptionalTokenBalance, TokenListWrapper } from 'containers/TokenListWrapper';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { Token } from 'types';

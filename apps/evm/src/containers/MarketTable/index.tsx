@@ -13,9 +13,11 @@ import {
 } from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
+import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useCollateral } from 'hooks/useCollateral';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
@@ -81,6 +83,10 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const handleCloseMarketModal = () => setSelectedAsset(undefined);
 
   const { toggleCollateral } = useCollateral();
+
+  const [userChainSettings] = useUserChainSettings();
+  const shouldDisplayGatedAssetsAcknowledgementModal =
+    selectedAsset?.isGated && !userChainSettings.doNotShowGatedAssetModal;
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used
   const _isBreakpointUp = useBreakpointUp(breakpoint || '2xl');
@@ -231,9 +237,13 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         {...otherTableProps}
       />
 
-      {selectedAsset && (
+      {shouldDisplayGatedAssetsAcknowledgementModal && (
+        <GatedAssetAcknowledgementModal onReject={() => setSelectedAsset(undefined)} />
+      )}
+
+      {selectedAsset && !shouldDisplayGatedAssetsAcknowledgementModal && (
         <Modal
-          isOpen={!!selectedAsset}
+          isOpen
           title={
             <span className="inline-flex items-center gap-x-2">
               {selectedAsset.isProtectionModeEnabled && (

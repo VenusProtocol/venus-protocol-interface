@@ -86,6 +86,7 @@ export * from './queries/getVenusVaiVaultDailyRate/useGetVenusVaiVaultDailyRate'
 export * from './queries/useGetAsset';
 
 export * from './queries/useGetPools';
+export * from './queries/useGetIpLocation';
 
 export * from './queries/useGetPool';
 

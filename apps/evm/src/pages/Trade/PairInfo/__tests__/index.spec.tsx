@@ -3,7 +3,8 @@ import { useSearchParams } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
-import { getTokenListItemTestId } from 'components/TokenListWrapper/testIdGetters';
+import { getTokenListItemTestId } from 'containers/TokenListWrapper/getTokenListItemTestId';
+import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { Asset, Token } from 'types';
@@ -37,11 +38,17 @@ const defaultLongAsset = poolData[0].assets[2];
 const defaultShortAsset = poolData[0].assets[3];
 const alternativeLongAsset = poolData[0].assets[1];
 const alternativeShortAsset = poolData[0].assets[0];
+const nonGatedAssets = poolData[0].assets.map(asset => ({
+  ...asset,
+  isGated: false,
+  isRestricted: false,
+}));
 
 const defaultLongToken = defaultLongAsset.vToken.underlyingToken;
 const defaultShortToken = defaultShortAsset.vToken.underlyingToken;
 
 const mockSetSearchParams = vi.fn();
+const mockSetUserChainSettings = vi.fn();
 
 const setSearchParamsState = ({
   searchParams = new URLSearchParams(),
@@ -55,8 +62,8 @@ const setSearchParamsState = ({
 const setComponentState = ({
   longToken = defaultLongToken,
   shortToken = defaultShortToken,
-  supplyAssets = poolData[0].assets,
-  borrowAssets = poolData[0].assets,
+  supplyAssets = nonGatedAssets,
+  borrowAssets = nonGatedAssets,
   searchParams = new URLSearchParams({
     foo: 'bar',
     [LONG_TOKEN_ADDRESS_PARAM_KEY]: longToken.address,
@@ -142,6 +149,14 @@ const expectUpdatedSearchParams = async (
 
 describe('PairInfo', () => {
   beforeEach(() => {
+    mockSetSearchParams.mockReset();
+    mockSetUserChainSettings.mockReset();
+
+    (useUserChainSettings as Mock).mockReturnValue([
+      defaultUserChainSettings,
+      mockSetUserChainSettings,
+    ]);
+
     setComponentState();
   });
 
@@ -220,5 +235,28 @@ describe('PairInfo', () => {
       [LONG_TOKEN_ADDRESS_PARAM_KEY]: defaultShortToken.address,
       [SHORT_TOKEN_ADDRESS_PARAM_KEY]: defaultLongToken.address,
     });
+  });
+
+  it('opens the gated acknowledgement modal before updating search params for a gated token', async () => {
+    setComponentState({
+      supplyAssets: poolData[0].assets.map(asset =>
+        asset.vToken.address === alternativeLongAsset.vToken.address
+          ? {
+              ...asset,
+              isGated: true,
+            }
+          : asset,
+      ),
+    });
+
+    renderPairInfo();
+
+    selectPairInfoToken({
+      type: 'long',
+      token: alternativeLongAsset.vToken.underlyingToken,
+    });
+
+    expect(await screen.findByText(t('gatedAssetAcknowledgementModal.title'))).toBeInTheDocument();
+    expect(mockSetSearchParams).not.toHaveBeenCalled();
   });
 });

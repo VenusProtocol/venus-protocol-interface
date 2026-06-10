@@ -1,8 +1,8 @@
-import { useGetPool } from 'clients/api';
-import type { TokenBalance } from 'types';
-
-import { convertTokensToMantissa } from 'utilities';
 import type { Address } from 'viem';
+
+import { useGetPool } from 'clients/api';
+import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
+import { convertTokensToMantissa } from 'utilities';
 
 export const useGetSwapTokenUserBalances = ({
   poolComptrollerContractAddress,
@@ -17,13 +17,19 @@ export const useGetSwapTokenUserBalances = ({
   });
 
   const data = getPoolData?.pool.assets
-    ? getPoolData?.pool.assets.reduce<TokenBalance[]>((acc, poolAsset) => {
-        const tokenBalance: TokenBalance = {
+    ? getPoolData?.pool.assets.reduce<OptionalTokenBalance[]>((acc, poolAsset) => {
+        // Filter out restricted assets
+        if (poolAsset.isRestricted) {
+          return acc;
+        }
+
+        const tokenBalance: OptionalTokenBalance = {
           token: poolAsset.vToken.underlyingToken,
           balanceMantissa: convertTokensToMantissa({
             token: poolAsset.vToken.underlyingToken,
             value: poolAsset.userWalletBalanceTokens,
           }),
+          isGated: poolAsset.isGated,
         };
 
         return [...acc, tokenBalance];

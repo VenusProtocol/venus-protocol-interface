@@ -18,14 +18,14 @@ import {
   getDisabledTokenActions,
   isPoolIsolated,
 } from 'utilities';
-import type { PrimeApy, VTokenBalance } from '../../types';
-import type { ApiPool, ApiTokenPrice } from '../getApiPools';
+import type { PrimeApy, VTokenBalance } from '../../../types';
+import type { ApiPool, ApiTokenMetadata } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
 import { formatEModeGroups } from './formatEModeGroups';
 
 export const formatOutput = ({
   apiPools,
-  tokenPricesMapping,
+  tokenMetadataMapping,
   chainId,
   tokens,
   currentBlockNumber,
@@ -41,7 +41,7 @@ export const formatOutput = ({
 }: {
   chainId: ChainId;
   tokens: Token[];
-  tokenPricesMapping: Record<string, ApiTokenPrice[]>;
+  tokenMetadataMapping: Record<string, ApiTokenMetadata>;
   currentBlockNumber: bigint;
   apiPools: ApiPool[];
   userPoolEModeGroupIdMapping: Record<Address, number>;
@@ -81,10 +81,10 @@ export const formatOutput = ({
         return acc;
       }
 
+      const tokenMetadata = tokenMetadataMapping[market.underlyingAddress.toLowerCase()];
+
       // Get underlyingPriceMantissa from the tokens metadata
-      const correspondingOraclePrice = tokenPricesMapping[
-        market.underlyingAddress.toLowerCase()
-      ].find(
+      const correspondingOraclePrice = tokenMetadata?.tokenPrices.find(
         p =>
           p.priceOracleAddress &&
           areAddressesEqual(apiPool.priceOracleAddress, p.priceOracleAddress),
@@ -232,7 +232,7 @@ export const formatOutput = ({
         borrowPointDistributions,
       } = formatDistributions({
         blocksPerDay,
-        tokenPricesMapping,
+        tokenMetadataMapping,
         underlyingToken: vToken.underlyingToken,
         underlyingTokenPriceDollars: tokenPriceDollars,
         primeApy: userPrimeApyMap?.get(vToken.address),
@@ -331,6 +331,9 @@ export const formatOutput = ({
         userLiquidationThresholdPercentage,
         isBorrowable,
         isBorrowableByUser,
+        // These will be determined after fetching the IP location
+        isRestricted: false,
+        isGated: false,
         // This will be calculated after all assets have been formatted
         userBorrowLimitSharePercentage: 0,
         isCollateralOfUser,

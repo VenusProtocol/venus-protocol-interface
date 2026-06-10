@@ -8,14 +8,18 @@ import {
   vaiControllerAbi,
 } from 'libs/contracts';
 import type { Asset, TokenBalance } from 'types';
-import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../types';
+import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../../types';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 import { formatOutput } from './formatOutput';
-import { getApiPools } from './getApiPools';
+import { type ApiTokenMetadata, getApiPools } from './getApiPools';
 import { getUserCollateralAddresses } from './getUserCollateralAddresses';
 import { getUserPrimeApys } from './getUserPrimeApys';
 import { getUserTokenBalances } from './getUserTokenBalances';
 import { getUserVaiBorrowBalance } from './getUserVaiBorrowBalance';
+
+export interface GetPoolsQueryOutput extends GetPoolsOutput {
+  tokenMetadataMapping: Record<string, ApiTokenMetadata>;
+}
 
 export const getPools = async ({
   publicClient,
@@ -29,17 +33,17 @@ export const getPools = async ({
   venusLensContractAddress,
   tokens,
   isEModeFeatureEnabled,
-}: GetPoolsInput) => {
+}: GetPoolsInput): Promise<GetPoolsQueryOutput> => {
   const vai = tokens.find(token => token.symbol === 'VAI');
 
   const [
-    { pools: apiPools, tokenPricesMapping },
-    currentBlockNumber,
-    unsafePrimeVTokenAddresses,
-    primeMinimumXvsToStakeMantissa,
-    userPrimeToken,
-    vaiPriceMantissa,
-    vaiRepayRateMantissa,
+    apiPoolsResult,
+    currentBlockNumberResult,
+    unsafePrimeVTokenAddressesResult,
+    primeMinimumXvsToStakeMantissaResult,
+    userPrimeTokenResult,
+    vaiPriceMantissaResult,
+    vaiRepayRateMantissaResult,
   ] = await Promise.all([
     getApiPools({ chainId }),
     // Fetch current block number
@@ -85,8 +89,8 @@ export const getPools = async ({
       : undefined,
   ]);
 
-  const primeVTokenAddresses = unsafePrimeVTokenAddresses ?? [];
-  const isUserPrime = userPrimeToken?.[0] || false;
+  const primeVTokenAddresses = unsafePrimeVTokenAddressesResult ?? [];
+  const isUserPrime = userPrimeTokenResult?.[0] || false;
 
   let userCollateralVTokenAddresses: string[] | undefined;
   let userTokenBalances: TokenBalance[] | undefined;
@@ -107,12 +111,12 @@ export const getPools = async ({
         chainId,
         accountAddress,
         legacyPoolComptrollerContractAddress,
-        apiPools,
+        apiPools: apiPoolsResult.pools,
         publicClient,
       }),
       getUserTokenBalances({
         accountAddress,
-        apiPools,
+        apiPools: apiPoolsResult.pools,
         chainId,
         tokens,
         publicClient,
@@ -166,37 +170,40 @@ export const getPools = async ({
     chainId,
     isUserConnected: !!accountAddress,
     tokens,
-    currentBlockNumber,
-    apiPools,
-    tokenPricesMapping,
+    currentBlockNumber: currentBlockNumberResult,
+    apiPools: apiPoolsResult.pools,
+    tokenMetadataMapping: apiPoolsResult.tokenMetadataMapping,
     userPrimeApyMap,
     userCollateralVTokenAddresses,
     userVTokenBalances,
     userTokenBalances,
     userVaiBorrowBalanceMantissa,
     userPoolEModeGroupIdMapping,
-    vaiRepayRateMantissa,
-    vaiPriceMantissa,
+    vaiRepayRateMantissa: vaiRepayRateMantissaResult,
+    vaiPriceMantissa: vaiPriceMantissaResult,
   });
 
   // Add Prime simulations
   // TODO: get Prime simulations from API
   const xvs = tokens.find(token => token.symbol === 'XVS');
 
-  if (primeContractAddress && primeMinimumXvsToStakeMantissa && xvs) {
+  if (primeContractAddress && primeMinimumXvsToStakeMantissaResult && xvs) {
     await appendPrimeSimulationDistributions({
       assets: pools.reduce<Asset[]>((acc, pool) => acc.concat(pool.assets), []),
       primeContractAddress,
       primeVTokenAddresses,
-      primeMinimumXvsToStakeMantissa: new BigNumber(primeMinimumXvsToStakeMantissa.toString()),
+      primeMinimumXvsToStakeMantissa: new BigNumber(
+        primeMinimumXvsToStakeMantissaResult.toString(),
+      ),
       xvs,
       chainId,
       publicClient,
     });
   }
 
-  const output: GetPoolsOutput = {
+  const output: GetPoolsQueryOutput = {
     pools,
+    tokenMetadataMapping: apiPoolsResult.tokenMetadataMapping,
   };
 
   return output;

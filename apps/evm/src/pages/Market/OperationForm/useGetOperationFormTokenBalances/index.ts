@@ -1,7 +1,8 @@
 import type BigNumber from 'bignumber.js';
 import { useGetPool } from 'clients/api';
+import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 
-import type { Token, TokenAction, TokenBalance } from 'types';
+import type { Token, TokenAction } from 'types';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 import type { Address } from 'viem';
 
@@ -15,7 +16,7 @@ export interface UseGetOperationFormTokenBalancesInput {
 }
 
 export interface UseGetOperationFormTokenBalancesOutput {
-  tokenBalances: TokenBalance[];
+  tokenBalances: OptionalTokenBalance[];
   userWalletNativeTokenBalanceTokens?: BigNumber;
 }
 
@@ -37,7 +38,7 @@ export const useGetOperationFormTokenBalances = ({
   const wrappedUnderlyingToken = underlyingToken.tokenWrapped;
 
   let userWalletNativeTokenBalanceTokens: BigNumber | undefined;
-  const tokenBalances: TokenBalance[] = [];
+  const tokenBalances: OptionalTokenBalance[] = [];
 
   assets.forEach(asset => {
     const isWrappedToken = !!asset.vToken.underlyingToken.tokenWrapped;
@@ -52,13 +53,14 @@ export const useGetOperationFormTokenBalances = ({
 
     const isPaused = asset.disabledTokenActions.includes(action);
 
-    if (shouldIncludeTokenBalance && !isPaused) {
+    if (shouldIncludeTokenBalance && !isPaused && !asset.isRestricted) {
       tokenBalances.push({
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({
           token: asset.vToken.underlyingToken,
           value: asset.userWalletBalanceTokens,
         }),
+        isGated: asset.isGated,
       });
     }
 

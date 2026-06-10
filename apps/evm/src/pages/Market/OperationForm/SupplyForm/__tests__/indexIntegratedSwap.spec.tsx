@@ -78,6 +78,8 @@ const makeIntegratedSwapPool = (
     fakeAsset,
     {
       ...fakeBusdAsset,
+      isRestricted: false,
+      isGated: false,
       userWalletBalanceTokens: busdBalanceTokens,
       disabledTokenActions: [],
     },
@@ -246,6 +248,8 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
         ...customFakePool.assets.find(poolAsset =>
           areTokensEqual(poolAsset.vToken.underlyingToken, busd),
         )!,
+        isRestricted: false,
+        isGated: false,
         userWalletBalanceTokens: new BigNumber(FAKE_BUSD_BALANCE_TOKENS),
         disabledTokenActions: [],
       },

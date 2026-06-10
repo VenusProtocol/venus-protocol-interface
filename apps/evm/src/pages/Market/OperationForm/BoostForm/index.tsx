@@ -9,8 +9,6 @@ import {
   Icon,
   LabeledInlineContent,
   LabeledSlider,
-  type OptionalTokenBalance,
-  TokenListWrapper,
   TokenTextField,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
@@ -21,6 +19,7 @@ import {
 } from 'constants/swap';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwapDetails } from 'containers/SwapDetails';
+import { type OptionalTokenBalance, TokenListWrapper } from 'containers/TokenListWrapper';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
@@ -77,14 +76,16 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
                 asset.vToken.symbol === 'vBNB' ||
                 // Skip tokens that have reached their supply cap
                 asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens) ||
-                // Skip paused tokens
-                asset.disabledTokenActions.includes('supply')
+                // Skip paused  and restricted tokens
+                asset.disabledTokenActions.includes('supply') ||
+                asset.isRestricted
               ) {
                 return acc;
               }
 
               const tokenBalance: OptionalTokenBalance = {
                 token: asset.vToken.underlyingToken,
+                isGated: asset.isGated,
               };
 
               return [...acc, tokenBalance];

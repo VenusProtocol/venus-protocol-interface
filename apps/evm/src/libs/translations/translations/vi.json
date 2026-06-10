@@ -273,6 +273,7 @@
     }
   },
   "assetAccessor": {
+    "assetNotAvailable": "Tài sản này không khả dụng tại quốc gia của bạn",
     "disabledActionNotice": {
       "boost": "Tăng cường đã bị vô hiệu hóa cho thị trường này",
       "borrow": "Vay đã bị vô hiệu hóa cho thị trường này",
@@ -595,6 +596,12 @@
       "disabled": "Mạng này hỗ trợ giao dịch không gas, không cần phí, nhưng tính năng này hiện bị tắt trong cài đặt. Thêm thông tin <Link>tại đây</Link>",
       "enabled": "Giao dịch trên mạng này không cần gas, không mất phí. Thêm thông tin <Link>tại đây</Link>"
     }
+  },
+  "gatedAssetAcknowledgementModal": {
+    "acceptButtonLabel": "Tôi hiểu và xác nhận",
+    "description": "bStocks là chứng khoán được token hóa do BTECH Holdings Ltd (ADGM) phát hành. Thông tin được trình bày tại đây chỉ nhằm mục đích cung cấp thông tin và không cấu thành đề nghị, lời mời chào hoặc lời khuyên đầu tư. bStocks không được phân phối tại Hoa Kỳ, cho bất kỳ US Person nào, hoặc tại bất kỳ khu vực tài phán hạn chế nào khác. Đầu tư luôn đi kèm rủi ro; giá trị khoản đầu tư của bạn có thể giảm và bạn có thể không thu hồi được số tiền đã đầu tư. Để xem đầy đủ các công bố rủi ro, tài liệu pháp lý và danh sách các khu vực tài phán hạn chế, vui lòng truy cập <Link>bstocks.finance/prospectus</Link>.<LineBreak/><LineBreak/>Khi tiếp tục, bạn xác nhận rằng mình không phải là Restricted Person và việc truy cập sản phẩm này là hợp pháp trong khu vực tài phán của bạn.",
+    "rejectButtonLabel": "Tôi từ chối và rời đi",
+    "title": "Thông báo quan trọng"
   },
   "healthFactor": {
     "label": {

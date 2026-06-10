@@ -5,19 +5,19 @@ import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from './formatRewardDistribution';
 
+import { convertPriceMantissaToDollars } from 'utilities';
+import type { PrimeApy } from '../../../../types';
 import type {
   ApiPointsDistribution,
   ApiRewardDistributor,
-  ApiTokenPrice,
-} from 'clients/api/queries/useGetPools/getPools/getApiPools';
-import { convertPriceMantissaToDollars } from 'utilities';
-import type { PrimeApy } from '../../../types';
+  ApiTokenMetadata,
+} from '../../getApiPools';
 import { isDistributingRewards } from './isDistributingRewards';
 
 export type FormatDistributionsInput = {
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
-  tokenPricesMapping: Record<string, ApiTokenPrice[]>;
+  tokenMetadataMapping: Record<string, ApiTokenMetadata>;
   apiRewardsDistributors: ApiRewardDistributor[];
   apiPointsDistributions: ApiPointsDistribution[];
   currentBlockNumber: bigint;
@@ -32,7 +32,7 @@ export const formatDistributions = ({
   blocksPerDay,
   underlyingTokenPriceDollars,
   tokens,
-  tokenPricesMapping,
+  tokenMetadataMapping,
   apiRewardsDistributors,
   apiPointsDistributions,
   currentBlockNumber,
@@ -69,8 +69,10 @@ export const formatDistributions = ({
         return;
       }
 
-      const tokenPriceMapping = tokenPricesMapping[rewardTokenAddress.toLowerCase()];
-      tokenPriceMapping.sort((tp01, tp02) => {
+      const tokenPriceMapping =
+        tokenMetadataMapping[rewardTokenAddress.toLowerCase()]?.tokenPrices || [];
+
+      tokenPriceMapping?.sort((tp01, tp02) => {
         if (tp01.priceSource === tp02.priceSource) {
           return 0;
         }

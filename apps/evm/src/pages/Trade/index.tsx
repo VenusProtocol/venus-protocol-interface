@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { Card, KLineChart, Page, Spinner } from 'components';
+import { routes } from 'constants/routing';
 import { ONE_DAY_MS } from 'constants/time';
+import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
+import { useNavigate } from 'hooks/useNavigate';
 import { ApiOhlcInterval } from 'types';
 import { areAddressesEqual } from 'utilities';
 import { Banner } from './Banner';
@@ -18,6 +21,7 @@ import { useTokenPair } from './useTokenPair';
 
 const Trade: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { navigate } = useNavigate();
 
   const { shortToken, longToken, defaultLongToken, defaultShortToken } = useTokenPair();
   const shortTokenAddressParam = searchParams.get(SHORT_TOKEN_ADDRESS_PARAM_KEY);
@@ -60,7 +64,7 @@ const Trade: React.FC = () => {
     const firstNonZeroIndex = priceCentsRatio
       ?.toFixed()
       .split('.')[1]
-      .match(/[1-9]\d*/)?.index;
+      ?.match(/[1-9]\d*/)?.index;
 
     pricePrecision =
       firstNonZeroIndex && firstNonZeroIndex > 1 ? firstNonZeroIndex + 5 : pricePrecision;
@@ -131,7 +135,7 @@ const Trade: React.FC = () => {
           <div className="min-w-0 flex flex-col gap-y-6 relative overflow-hidden lg:self-start">
             {!doNotShowBanner && <Banner className="hidden lg:flex" />}
 
-            <Card className="border-blue bg-dark-blue p-6">
+            <Card className="border-blue bg-dark-blue p-6 lg:min-h-100">
               <OperationForm />
             </Card>
 
@@ -140,6 +144,10 @@ const Trade: React.FC = () => {
             <ClosePositionModal />
           </div>
         </div>
+      )}
+
+      {(shortAsset?.isGated || longAsset?.isGated) && (
+        <GatedAssetAcknowledgementModal onReject={() => navigate(routes.trade.path)} />
       )}
     </Page>
   );

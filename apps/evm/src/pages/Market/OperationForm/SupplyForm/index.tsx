@@ -237,7 +237,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool }) => {
     );
 
     return (
-      tokenBalance &&
+      tokenBalance?.balanceMantissa &&
       convertMantissaToTokens({
         value: tokenBalance.balanceMantissa,
         token: tokenBalance.token,

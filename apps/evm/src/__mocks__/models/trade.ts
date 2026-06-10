@@ -6,10 +6,21 @@ import fakeAddress, { altAddress } from './address';
 import { poolData } from './pools';
 
 const pool = poolData[0];
-const xvsAsset = pool.assets[0];
-const usdcAsset = pool.assets[1];
-const usdtAsset = pool.assets[2];
-const busdAsset = pool.assets[3];
+const tradePool = {
+  ...pool,
+  assets: pool.assets.map(asset =>
+    asset.vToken.address === pool.assets[3].vToken.address
+      ? {
+          ...asset,
+          isRestricted: false,
+        }
+      : asset,
+  ),
+};
+const xvsAsset = tradePool.assets[0];
+const usdcAsset = tradePool.assets[1];
+const usdtAsset = tradePool.assets[2];
+const busdAsset = tradePool.assets[3];
 
 export const apiTradePositions: ApiTradePosition[] = [
   {
@@ -109,7 +120,7 @@ export const apiTradePositions: ApiTradePosition[] = [
 
 export const tradePositions: TradePosition[] = [
   formatToTradePosition({
-    pool,
+    pool: tradePool,
     chainId: busdAsset.vToken.underlyingToken.chainId,
     positionAccountAddress: fakeAddress,
     dsaVTokenAddress: xvsAsset.vToken.address,
@@ -128,7 +139,7 @@ export const tradePositions: TradePosition[] = [
     unrealizedPnlPercentage: 0,
   })!,
   formatToTradePosition({
-    pool,
+    pool: tradePool,
     chainId: busdAsset.vToken.underlyingToken.chainId,
     positionAccountAddress: altAddress,
     dsaVTokenAddress: usdcAsset.vToken.address,
@@ -147,7 +158,7 @@ export const tradePositions: TradePosition[] = [
     unrealizedPnlPercentage: 1.2,
   })!,
   formatToTradePosition({
-    pool,
+    pool: tradePool,
     chainId: usdtAsset.vToken.underlyingToken.chainId,
     positionAccountAddress: altAddress,
     dsaVTokenAddress: usdcAsset.vToken.address,

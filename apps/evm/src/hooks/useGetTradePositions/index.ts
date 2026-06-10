@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 import { useGetPools, useGetRawTradePositions } from 'clients/api';
@@ -30,21 +31,20 @@ export const useGetTradePositions = ({ accountAddress }: { accountAddress?: Addr
     }),
   );
 
-  // Enrich raw Trade positions with user wallet balances
+  // Enrich raw Trade positions with user data
   const positions: TradePosition[] = rawTradePositions.map(rawTradePosition => {
     const pool: Pool = {
       ...rawTradePosition.pool,
-      assets: rawTradePosition.pool.assets.map(asset => {
-        const sanitizedVTokenAddress = asset.vToken.address.toLowerCase() as Address;
+      assets: rawTradePosition.pool.assets.map(positionAccountAsset => {
+        const sanitizedVTokenAddress = positionAccountAsset.vToken.address.toLowerCase() as Address;
+        const asset = assetMapping[sanitizedVTokenAddress];
 
         return {
-          ...asset,
-          userWalletBalanceTokens:
-            assetMapping[sanitizedVTokenAddress]?.userWalletBalanceTokens ||
-            asset.userWalletBalanceTokens,
-          userWalletBalanceCents:
-            assetMapping[sanitizedVTokenAddress]?.userWalletBalanceCents ||
-            asset.userWalletBalanceCents,
+          ...positionAccountAsset,
+          isRestricted: asset?.isRestricted || false,
+          isGated: asset?.isGated || false,
+          userWalletBalanceTokens: asset?.userWalletBalanceTokens || new BigNumber(0),
+          userWalletBalanceCents: asset?.userWalletBalanceCents || new BigNumber(0),
         };
       }),
     };

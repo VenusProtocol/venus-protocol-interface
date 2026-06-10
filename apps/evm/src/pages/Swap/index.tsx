@@ -20,11 +20,12 @@ import { VError, handleError } from 'libs/errors';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Swap, SwapError, TokenBalance } from 'types';
+import type { Swap, SwapError } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 import { SwapDetails } from './SwapDetails';
 
 import { NULL_ADDRESS } from 'constants/address';
+import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
@@ -45,7 +46,7 @@ export interface SwapPageUiProps
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   onSubmit: (swap: Swap) => Promise<unknown>;
   isSubmitting: boolean;
-  tokenBalances: TokenBalance[];
+  tokenBalances: OptionalTokenBalance[];
   isSwapLoading: boolean;
   revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
