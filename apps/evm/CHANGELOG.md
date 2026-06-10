@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.38.0
+
+### Minor Changes
+
+- e440ad3: fix deposit state of Pendle vaults
+
 ## 4.37.0
 
 ### Minor Changes
