@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.37.0
+
+### Minor Changes
+
+- 24aab0e: feat: add page structure for leaderboard
+
 ## 4.36.0
 
 ### Minor Changes
