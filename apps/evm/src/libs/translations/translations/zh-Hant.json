@@ -790,6 +790,10 @@
           "description": "免 Gas 匯入借貸部位。",
           "label": "端口"
         },
+        "primeLeaderboard": {
+          "description": "追蹤競逐 Prime 獎勵的頂尖 XVS 質押者。",
+          "label": "Prime 排行榜"
+        },
         "stats": {
           "description": "即時風險參數",
           "label": "統計"
@@ -1240,6 +1244,10 @@
       "label": "代幣"
     },
     "topMessage": "你可以使用 Prime 計算器基於持倉估算持有 Prime 代幣可獲得的獎勵。<Link>瞭解更多</Link>"
+  },
+  "primeLeaderboard": {
+    "description": "將 XVS 質押到治理金庫，在收益之上再賺取 Prime 獎勵。",
+    "title": "Prime 排行榜"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "你現在可以成為 Prime 用戶",

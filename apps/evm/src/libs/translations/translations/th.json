@@ -790,6 +790,10 @@
           "description": "นำเข้าตำแหน่งการให้กู้แบบไม่ใช้แก๊ส",
           "label": "พอร์ต"
         },
+        "primeLeaderboard": {
+          "description": "ติดตามผู้สเตก XVS อันดับต้น ๆ ที่กำลังแข่งขันเพื่อรับรางวัล Prime",
+          "label": "กระดานผู้นำ Prime"
+        },
         "stats": {
           "description": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์",
           "label": "สถิติ"
@@ -1240,6 +1244,10 @@
       "label": "โทเคน"
     },
     "topMessage": "คุณสามารถใช้เครื่องคำนวณ Prime เพื่อประเมินรางวัลที่คุณจะได้รับจากการถือโทเคน Prime ตามตำแหน่งของคุณ <Link>เรียนรู้เพิ่มเติม</Link>"
+  },
+  "primeLeaderboard": {
+    "description": "สเตก XVS เข้าสู่ governance vault แล้วรับรางวัล Prime เพิ่มเติมจากผลตอบแทนของคุณ",
+    "title": "กระดานผู้นำ Prime"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว",

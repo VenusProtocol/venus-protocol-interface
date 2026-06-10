@@ -790,6 +790,10 @@
           "description": "Borç verme pozisyonlarını gas'siz içe aktarın.",
           "label": "Port"
         },
+        "primeLeaderboard": {
+          "description": "Prime ödülleri için yarışan en iyi XVS stake edicilerini takip edin.",
+          "label": "Prime Lider Tablosu"
+        },
         "stats": {
           "description": "Gerçek zamanlı risk parametreleri",
           "label": "İstatistikler"
@@ -1240,6 +1244,10 @@
       "label": "Token"
     },
     "topMessage": "Prime hesaplayıcıyı, pozisyonlarınıza göre Prime tokenı tutmaktan alacağınız ödülleri tahmin etmek için kullanabilirsiniz. <Link>Daha fazla bilgi</Link>"
+  },
+  "primeLeaderboard": {
+    "description": "XVS’yi governance kasasına stake edin ve getirilerinize ek olarak Prime ödülleri kazanın.",
+    "title": "Prime lider tablosu"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",

@@ -790,6 +790,10 @@
           "description": "无 Gas 导入借贷仓位。",
           "label": "迁移"
         },
+        "primeLeaderboard": {
+          "description": "追踪竞逐 Prime 奖励的顶级 XVS 质押者。",
+          "label": "Prime 排行榜"
+        },
         "stats": {
           "description": "实时风险参数",
           "label": "统计"
@@ -1240,6 +1244,10 @@
       "label": "代币"
     },
     "topMessage": "你可以使用 Prime 计算器基于持仓估算持有 Prime 代币可获得的奖励。<Link>了解更多</Link>"
+  },
+  "primeLeaderboard": {
+    "description": "将 XVS 质押到治理金库，在收益之上再赚取 Prime 奖励。",
+    "title": "Prime 排行榜"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "你现在可以成为 Prime 用户",
