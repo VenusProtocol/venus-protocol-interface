@@ -176,7 +176,7 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-y-1">
+    <div className="flex flex-col gap-y-3">
       {isInitialLoading ? (
         <Spinner />
       ) : (

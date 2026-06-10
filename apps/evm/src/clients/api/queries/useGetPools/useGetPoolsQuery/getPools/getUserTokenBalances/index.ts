@@ -5,7 +5,7 @@ import { poolLensAbi, venusLensAbi } from 'libs/contracts';
 import type { ChainId, Token } from 'types';
 import { findTokenByAddress, isPoolIsolated } from 'utilities';
 import type { Address, PublicClient } from 'viem';
-import type { VTokenBalance } from '../../types';
+import type { VTokenBalance } from '../../../types';
 import type { ApiPool } from '../getApiPools';
 
 export const getUserTokenBalances = async ({

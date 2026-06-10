@@ -84,6 +84,8 @@ export const assetData: Asset[] = [
         extraInfoUrl: 'https://fake.url',
       },
     ],
+    isGated: false,
+    isRestricted: false,
   },
   {
     vToken: vUsdc,
@@ -180,6 +182,8 @@ export const assetData: Asset[] = [
     ],
     supplyPointDistributions: [],
     borrowPointDistributions: [],
+    isRestricted: false,
+    isGated: false,
   },
   {
     vToken: vUsdtCorePool,
@@ -272,6 +276,8 @@ export const assetData: Asset[] = [
         extraInfoUrl: 'https://fake.url',
       },
     ],
+    isGated: true,
+    isRestricted: false,
   },
   {
     vToken: vBusdCorePool,
@@ -376,5 +382,7 @@ export const assetData: Asset[] = [
       },
     ],
     borrowPointDistributions: [],
+    isGated: false,
+    isRestricted: true,
   },
 ];

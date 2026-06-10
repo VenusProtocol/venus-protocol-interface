@@ -273,6 +273,7 @@
     }
   },
   "assetAccessor": {
+    "assetNotAvailable": "TRANSLATION NEEDED",
     "disabledActionNotice": {
       "boost": "このマーケットではブーストが無効化されています",
       "borrow": "このマーケットでは借入が無効化されています",
@@ -595,6 +596,12 @@
       "disabled": "このネットワークは手数料不要のガスレス取引に対応していますが、この機能は設定で無効になっています。詳しくは<Link>こちら</Link>",
       "enabled": "このネットワークの取引はガスレスで手数料不要です。詳しくは<Link>こちら</Link>"
     }
+  },
+  "gatedAssetAcknowledgementModal": {
+    "acceptButtonLabel": "TRANSLATION NEEDED",
+    "description": "bStocksは、BTECH Holdings Ltd (ADGM) が発行するトークン化有価証券です。ここに記載された情報は情報提供のみを目的としており、募集、勧誘、または投資助言を構成するものではありません。bStocksは、米国、米国人、またはその他の制限された法域において配布されることを意図していません。投資にはリスクが伴います。投資価値が下落し、投資元本を回収できない場合があります。完全なリスク開示、法的文書、および制限された法域の一覧については、<Link>bstocks.finance/prospectus</Link>をご覧ください。<LineBreak/><LineBreak/>続行することにより、あなたは自らが制限対象者ではなく、この商品へのアクセスがあなたの法域において適法であることを確認したものとみなされます。",
+    "rejectButtonLabel": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
   },
   "healthFactor": {
     "label": {

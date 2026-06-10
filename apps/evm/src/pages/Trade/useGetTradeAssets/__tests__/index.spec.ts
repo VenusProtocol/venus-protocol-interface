@@ -167,4 +167,36 @@ describe('useGetTradeAssets', () => {
       dsaAssets: [],
     });
   });
+
+  it('filters restricted assets out of borrow, supply, and DSA lists', () => {
+    const restrictedAsset = {
+      ...poolData[0].assets[0],
+      isRestricted: true,
+    };
+    const unrestrictedAsset = poolData[0].assets[2];
+    const poolWithRestrictedAsset = {
+      ...poolData[0],
+      assets: [restrictedAsset, unrestrictedAsset],
+    };
+
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: poolWithRestrictedAsset,
+      },
+    }));
+
+    (useGetDsaVTokens as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        dsaVTokenAddresses: poolWithRestrictedAsset.assets.map(asset => asset.vToken.address),
+      },
+    }));
+
+    const { result } = renderHook(() => useGetTradeAssets());
+
+    expect(result.current.data.borrowAssets).toEqual([unrestrictedAsset]);
+    expect(result.current.data.supplyAssets).toEqual([unrestrictedAsset]);
+    expect(result.current.data.dsaAssets).toEqual([unrestrictedAsset]);
+  });
 });

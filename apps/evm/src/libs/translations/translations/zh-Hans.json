@@ -273,6 +273,7 @@
     }
   },
   "assetAccessor": {
+    "assetNotAvailable": "TRANSLATION NEEDED",
     "disabledActionNotice": {
       "boost": "该市场已禁用 Boost",
       "borrow": "该市场已禁用借款",
@@ -595,6 +596,12 @@
       "disabled": "该网络支持免 gas 交易且无需费用，但此功能目前在设置中被禁用。更多信息 <Link>这里</Link>",
       "enabled": "该网络上的交易免 gas 且无需费用。更多信息 <Link>这里</Link>"
     }
+  },
+  "gatedAssetAcknowledgementModal": {
+    "acceptButtonLabel": "TRANSLATION NEEDED",
+    "description": "bStocks 是由 BTECH Holdings Ltd (ADGM) 发行的代币化证券。此处展示的信息仅供参考，不构成任何要约、招揽或投资建议。bStocks 不面向美国、任何美国人士或任何其他受限制司法管辖区进行分发。投资存在风险，您的投资价值可能下跌，且您可能无法收回全部投资金额。有关完整的风险披露、法律文件以及受限制司法管辖区名单，请访问 <Link>bstocks.finance/prospectus</Link>。<LineBreak/><LineBreak/>继续操作即表示您确认自己不是受限制人士，并且在您所在的司法管辖区访问此产品是合法的。",
+    "rejectButtonLabel": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
   },
   "healthFactor": {
     "label": {

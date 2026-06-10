@@ -23,6 +23,7 @@ import {
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import {
@@ -83,6 +84,14 @@ const getLastUseGetSwapQuoteCallArgs = () =>
 
 describe('RepayWithCollateralForm', () => {
   beforeEach(() => {
+    (useUserChainSettings as Mock).mockReturnValue([
+      {
+        ...defaultUserChainSettings,
+        doNotShowGatedAssetModal: true,
+      },
+      vi.fn(),
+    ]);
+
     (useRepayWithCollateral as Mock).mockImplementation(() => ({
       mutateAsync: mockRepayWithCollateral,
     }));

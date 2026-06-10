@@ -12,7 +12,6 @@ import {
   AcknowledgementToggle,
   Icon,
   LabeledInlineContent,
-  type OptionalTokenBalance,
   SelectTokenTextField,
   TokenTextField,
 } from 'components';
@@ -24,6 +23,7 @@ import {
 } from 'constants/swap';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwapDetails } from 'containers/SwapDetails';
+import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
@@ -78,7 +78,9 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
         // Skip vBNB
         asset.vToken.symbol === 'vBNB' ||
         // Skip tokens for which user has no supply
-        asset.userSupplyBalanceCents.isEqualTo(0)
+        asset.userSupplyBalanceCents.isEqualTo(0) ||
+        // Skip restricted assets
+        asset.isRestricted
       ) {
         return acc;
       }
@@ -89,6 +91,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
           value: asset.userSupplyBalanceTokens,
           token: asset.vToken.underlyingToken,
         }),
+        isGated: asset.isGated,
       };
 
       return [...acc, tokenBalance];

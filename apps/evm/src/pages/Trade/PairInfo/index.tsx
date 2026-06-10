@@ -2,8 +2,9 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router';
 
-import { Apy, CellGroup, type CellProps, Icon, type OptionalTokenBalance } from 'components';
+import { Apy, CellGroup, type CellProps, Icon } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
+import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Token } from 'types';
 import {
@@ -75,6 +76,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
       const tokenBalance: OptionalTokenBalance = {
         token: asset.vToken.underlyingToken,
         isDeemed: asset.disabledTokenActions.includes('supply'),
+        isGated: asset.isGated,
       };
 
       return {
@@ -100,6 +102,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
       const tokenBalance: OptionalTokenBalance = {
         token: asset.vToken.underlyingToken,
         isDeemed: asset.disabledTokenActions.includes('borrow') || !asset.isBorrowable,
+        isGated: asset.isGated,
       };
 
       return {

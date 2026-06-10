@@ -43,6 +43,39 @@ describe('useGetSwapTokenUserBalances', () => {
       }),
     );
 
-    expect(result.current.data).toMatchSnapshot();
+    expect(result.current.data).toEqual([
+      expect.objectContaining({
+        token: assetData[0].vToken.underlyingToken,
+        isGated: false,
+      }),
+      expect.objectContaining({
+        token: assetData[1].vToken.underlyingToken,
+        isGated: false,
+      }),
+    ]);
+  });
+
+  it('filters out restricted assets and preserves gated asset metadata', () => {
+    (useGetPool as Mock).mockImplementation(() => ({
+      data: {
+        pool: {
+          assets: [assetData[2], assetData[3]],
+        },
+      },
+    }));
+
+    const { result } = renderHook(() =>
+      useGetSwapTokenUserBalances({
+        poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
+        accountAddress: fakeAccountAddress,
+      }),
+    );
+
+    expect(result.current.data).toEqual([
+      expect.objectContaining({
+        token: assetData[2].vToken.underlyingToken,
+        isGated: true,
+      }),
+    ]);
   });
 });

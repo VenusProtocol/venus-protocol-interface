@@ -233,6 +233,17 @@ export const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = vi.fn(() =>
   }),
 );
 
+export const getIpLocation = vi.fn(async () => ({
+  countryCode: 'US',
+}));
+export const useGetIpLocation = vi.fn((options?: Partial<QueryObserverOptions>) =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IP_LOCATION],
+    queryFn: getIpLocation,
+    ...options,
+  }),
+);
+
 export const useGetPools = vi.fn(() => ({
   isLoading: false,
   data: {

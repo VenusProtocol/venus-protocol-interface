@@ -5729,6 +5729,7 @@
       "name": "USDT",
       "symbol": "USDT",
       "decimals": 6,
+      "gatedCountries": ["FR"],
       "createdAt": "2025-07-08T13:47:41.000Z",
       "updatedAt": "2025-07-08T13:47:41.000Z",
       "tokenPrices": [
@@ -5921,6 +5922,7 @@
       "name": "BNB",
       "symbol": "BNB",
       "decimals": 18,
+      "restrictedCountries": ["FR"],
       "createdAt": "2025-07-08T13:47:41.000Z",
       "updatedAt": "2025-07-08T13:47:41.000Z",
       "tokenPrices": [

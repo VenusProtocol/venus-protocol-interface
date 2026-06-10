@@ -10,7 +10,7 @@ export const OperationForm: React.FC = () => {
   const isLoading = isGetSelectedPositionLoading;
 
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner className="self-center" />;
   }
 
   if (selectedPosition) {

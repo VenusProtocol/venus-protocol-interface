@@ -1,7 +1,6 @@
-import type { ChainId } from 'types';
+import type { ApiTokenPrice, ChainId } from 'types';
 import { restService } from 'utilities';
 import type { Address } from 'viem';
-import type { ApiTokenPrice } from '../../useGetPools/getPools/getApiPools';
 
 export interface GetApiTokenPriceInput {
   tokenAddresses: string[];

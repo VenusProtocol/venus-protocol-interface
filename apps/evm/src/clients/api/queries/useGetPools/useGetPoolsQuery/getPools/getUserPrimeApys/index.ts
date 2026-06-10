@@ -1,7 +1,7 @@
 import { primeAbi } from 'libs/contracts';
 import { convertAprBipsToApy } from 'utilities';
 import type { Address, PublicClient } from 'viem';
-import type { PrimeApy } from '../../types';
+import type { PrimeApy } from '../../../types';
 
 export const getUserPrimeApys = async ({
   publicClient,

@@ -277,7 +277,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   );
 
   fromTokenUserWalletBalanceTokens =
-    fromTokenUserWalletBalanceMantissa &&
+    fromTokenUserWalletBalanceMantissa?.balanceMantissa &&
     convertMantissaToTokens({
       value: fromTokenUserWalletBalanceMantissa.balanceMantissa,
       token: fromTokenUserWalletBalanceMantissa.token,

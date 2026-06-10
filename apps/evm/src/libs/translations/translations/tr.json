@@ -273,6 +273,7 @@
     }
   },
   "assetAccessor": {
+    "assetNotAvailable": "TRANSLATION NEEDED",
     "disabledActionNotice": {
       "boost": "Bu piyasada boost devre dışı",
       "borrow": "Bu piyasada borç alma devre dışı",
@@ -595,6 +596,12 @@
       "disabled": "Bu ağ, ücret gerektirmeyen gas'siz işlemleri destekler, ancak bu özellik ayarlarınızda şu anda devre dışı. Daha fazla bilgi <Link>burada</Link>",
       "enabled": "Bu ağdaki işlemler gas'sizdir, ücret gerekmez. Daha fazla bilgi <Link>burada</Link>"
     }
+  },
+  "gatedAssetAcknowledgementModal": {
+    "acceptButtonLabel": "TRANSLATION NEEDED",
+    "description": "bStocks, BTECH Holdings Ltd (ADGM) tarafından ihraç edilen tokenize menkul kıymetlerdir. Burada sunulan bilgiler yalnızca bilgilendirme amaçlıdır ve herhangi bir teklif, talep veya yatırım tavsiyesi teşkil etmez. bStocks, Amerika Birleşik Devletleri'nde, herhangi bir ABD Kişisi'ne veya diğer kısıtlı yargı bölgelerinde dağıtım amacıyla sunulmamaktadır. Yatırım risk içerir; yatırımınızın değeri düşebilir ve yatırdığınız tutarın tamamını geri alamayabilirsiniz. Risklere ilişkin tam açıklamalar, hukuki belgeler ve kısıtlı yargı bölgelerinin listesi için lütfen <Link>bstocks.finance/prospectus</Link> adresini ziyaret edin.<LineBreak/><LineBreak/>Devam ederek, Kısıtlı Kişi olmadığınızı ve bu ürüne erişimin bulunduğunuz yargı bölgesinde yasal olduğunu teyit edersiniz.",
+    "rejectButtonLabel": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
   },
   "healthFactor": {
     "label": {
