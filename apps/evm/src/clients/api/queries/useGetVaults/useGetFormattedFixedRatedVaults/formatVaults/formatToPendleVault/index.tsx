@@ -64,7 +64,7 @@ export const formatToPendleVault = ({
   if (nowMs >= maturityTimestampMs) {
     status = VaultStatus.Claim;
   } else if (nowMs < maturityTimestampMs && asset.userSupplyBalanceCents.gt(0)) {
-    status = VaultStatus.Locked;
+    status = VaultStatus.Deposit;
   }
 
   const result: PendleVault = {

@@ -112,7 +112,7 @@ export const Footer: React.FC<FooterProps> = ({
     <>
       <LabeledInlineContent
         key="maturityDate"
-        label={t('vault.modals.maturityDate')}
+        label={t('vault.modals.maturityDatePendle')}
         tooltip={t('vault.modals.maturityDatePendleTooltip')}
       >
         {t('vault.modals.textualWithTime', { date: vault.maturityDate })}

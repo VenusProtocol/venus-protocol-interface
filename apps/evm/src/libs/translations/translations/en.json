@@ -2034,6 +2034,7 @@
       "liquidity": "Liquidity",
       "liquidityTooltip": "The total value of assets currently provided in this vault's underlying Pendle-integrated pool (or strategy).",
       "maturityDate": "Lock end date",
+      "maturityDatePendle": "Maturity date",
       "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
       "minRequested": "Min. requested",
       "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, supplying, and withdrawing are disabled until the vault is unpaused",
@@ -2100,6 +2101,7 @@
         "refundPeriod": "Refund period"
       },
       "maturityDate": "Lock end date",
+      "maturityDatePendle": "Maturity date",
       "maturityDatePendleTooltip": "The end date of this fixed-yield position (from Pendle). After this date, you get back the full original asset (principal). The locked fixed return stops here, good to hold until then for the planned yield.",
       "maturityPendleDisclaimer": "Before maturity, the amount received upon withdrawal is subject to Pendle market prices. After maturity, withdrawals are redeemed 1:1 based on your PT token holdings.",
       "minReceived": "Min. received",

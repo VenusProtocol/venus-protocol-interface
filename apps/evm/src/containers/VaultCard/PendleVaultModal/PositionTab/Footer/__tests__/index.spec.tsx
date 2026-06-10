@@ -63,7 +63,7 @@ describe('Footer', () => {
     expect(
       getByText(formatPercentageToReadableValue(baseVault.stakeAprPercentage)),
     ).toBeInTheDocument();
-    expect(getByText(en.vault.modals.maturityDate)).toBeInTheDocument();
+    expect(getByText(en.vault.modals.maturityDatePendle)).toBeInTheDocument();
     expect(
       getByText(t('vault.modals.textualWithTime', { date: baseVault.maturityDate })),
     ).toBeInTheDocument();

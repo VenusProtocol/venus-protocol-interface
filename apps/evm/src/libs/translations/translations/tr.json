@@ -2033,6 +2033,7 @@
       "liquidity": "Likidite",
       "liquidityTooltip": "Bu kasanın temelindeki Pendle entegre havuzunda (veya stratejisinde) şu anda sağlanan toplam varlık değeri.",
       "maturityDate": "Vade Tarihi",
+      "maturityDatePendle": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
       "minRequested": "Min. talep edilen",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, sağlama ve çekim işlemleri devre dışı bırakılmıştır.",
@@ -2099,6 +2100,7 @@
         "refundPeriod": "İade dönemi"
       },
       "maturityDate": "Vade Tarihi",
+      "maturityDatePendle": "Vade Tarihi",
       "maturityDatePendleTooltip": "Bu sabit getirili pozisyonun (Pendle'dan) bitiş tarihidir. Bu tarihten sonra orijinal varlığın tamamını (anapara) geri alırsınız. Kilitli sabit getiri burada durur; planlanan getiriyi elde etmek için o tarihe kadar tutmanız önerilir.",
       "maturityPendleDisclaimer": "Vade öncesinde, çekim sırasında alınan tutar Pendle piyasa fiyatlarına tabidir. Vade sonrasında, çekimler sahip olduğunuz PT token miktarına göre 1:1 oranında itfa edilir.",
       "minReceived": "Min. Alınan",

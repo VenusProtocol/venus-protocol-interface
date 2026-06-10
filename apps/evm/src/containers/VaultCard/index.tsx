@@ -207,7 +207,11 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
             {formattedMaturityDate && (
               <LabeledInlineContent
-                label={t('vault.card.maturityDate')}
+                label={
+                  vault.venue === VaultVenue.Pendle
+                    ? t('vault.card.maturityDatePendle')
+                    : t('vault.card.maturityDate')
+                }
                 labelClassName="mb-auto"
                 tooltip={
                   vault.venue === VaultVenue.Pendle
