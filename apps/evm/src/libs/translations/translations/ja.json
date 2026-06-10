@@ -1247,7 +1247,10 @@
   },
   "primeLeaderboard": {
     "description": "ガバナンスボールトに XVS をステークして、利回りに加えて Prime 報酬を獲得しましょう。",
-    "title": "Prime リーダーボード"
+    "title": "Prime リーダーボード",
+    "totalRewards": {
+      "title": "今サイクルに分配された Prime 報酬の総額"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Primeユーザーになれるようになりました",

@@ -1247,7 +1247,10 @@
   },
   "primeLeaderboard": {
     "description": "Stake XVS into the governance vault and receive Prime rewards on top of your yields.",
-    "title": "Prime leaderboard"
+    "title": "Prime leaderboard",
+    "totalRewards": {
+      "title": "Total Prime rewards distributed this cycle"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Prime user",

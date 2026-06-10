@@ -46,3 +46,7 @@ Thumbs.db
 
 # AI development artifacts
 .ui-develop
+
+# local file
+*.local
+*.local.*

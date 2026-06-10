@@ -1247,7 +1247,10 @@
   },
   "primeLeaderboard": {
     "description": "XVS’yi governance kasasına stake edin ve getirilerinize ek olarak Prime ödülleri kazanın.",
-    "title": "Prime lider tablosu"
+    "title": "Prime lider tablosu",
+    "totalRewards": {
+      "title": "Bu döngüde dağıtılan toplam Prime ödülü"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",

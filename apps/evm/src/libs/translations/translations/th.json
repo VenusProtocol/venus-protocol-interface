@@ -1247,7 +1247,10 @@
   },
   "primeLeaderboard": {
     "description": "สเตก XVS เข้าสู่ governance vault แล้วรับรางวัล Prime เพิ่มเติมจากผลตอบแทนของคุณ",
-    "title": "กระดานผู้นำ Prime"
+    "title": "กระดานผู้นำ Prime",
+    "totalRewards": {
+      "title": "รางวัล Prime ทั้งหมดที่แจกในรอบนี้"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว",

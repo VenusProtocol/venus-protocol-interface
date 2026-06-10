@@ -1247,7 +1247,10 @@
   },
   "primeLeaderboard": {
     "description": "將 XVS 質押到治理金庫，在收益之上再賺取 Prime 獎勵。",
-    "title": "Prime 排行榜"
+    "title": "Prime 排行榜",
+    "totalRewards": {
+      "title": "本週期已分配的 Prime 總獎勵"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "你現在可以成為 Prime 用戶",

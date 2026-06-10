@@ -1247,7 +1247,10 @@
   },
   "primeLeaderboard": {
     "description": "Stake XVS vào governance vault và nhận thêm phần thưởng Prime bên cạnh lợi nhuận của bạn.",
-    "title": "Bảng xếp hạng Prime"
+    "title": "Bảng xếp hạng Prime",
+    "totalRewards": {
+      "title": "Tổng thưởng Prime đã phân phối trong chu kỳ này"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Bạn đã có thể trở thành người dùng Prime",
