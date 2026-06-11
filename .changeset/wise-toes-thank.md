@@ -2,4 +2,4 @@
 "@venusprotocol/evm": minor
 ---
 
-feat: support prime toatal rewards card
+feat: add Prime total rewards card
