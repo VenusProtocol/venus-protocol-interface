@@ -756,6 +756,10 @@
       "label": "选择链"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "立即探索",
+        "title": "USDT 固定期限金库现已在 BNB Chain 上线。目标 ≈5.4% APR。"
+      },
       "liquidity": "流动性",
       "maxLtv": {
         "label": "最大 LTV",

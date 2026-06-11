@@ -3,6 +3,7 @@
 exports[`useUserChainSettings > returns correct settings from the store 1`] = `
 {
   "doNotExpandGuide": false,
+  "doNotShowFixedRateVaultsAdBanner": false,
   "doNotShowImportPositionsModal": false,
   "doNotShowUserBalances": false,
   "gaslessTransactions": true,

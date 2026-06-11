@@ -159,6 +159,11 @@ type InstitutionalVaultTx = AnalyticEvent & {
   accountAddress?: Address;
 };
 
+type MarketsAdBanner = AnalyticEvent & {
+  productPromoted: string;
+  ctaUrl?: string;
+};
+
 type EventMap = {
   connect_wallet_initiated: AnalyticEvent;
   wallet_connected: AnalyticEvent;
@@ -243,6 +248,10 @@ type EventMap = {
   'Institutional vault deposit': InstitutionalVaultTx;
   'Institutional vault redeem': InstitutionalVaultTx;
   'Institutional vault withdraw': InstitutionalVaultTx;
+
+  promo_banner_viewed: MarketsAdBanner;
+  promo_banner_cta_click: MarketsAdBanner;
+  promo_banner_dismissed: MarketsAdBanner;
 };
 
 export type AnalyticEventName = keyof EventMap;
