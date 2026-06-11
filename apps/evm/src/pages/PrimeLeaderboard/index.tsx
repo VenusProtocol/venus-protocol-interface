@@ -18,6 +18,8 @@ const PrimeLeaderboard: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const tokens = useGetTokens();
 
+  // TODO: replace these placeholder tokens (currently the first tokens from the list, unrelated
+  // to the actual Prime reward markets) with the real markets returned by the API
   const marketRewards = tokens
     .slice(0, placeholderMarketRewardsCents.length)
     .map((token, index) => ({ token, rewardsCents: placeholderMarketRewardsCents[index] }));

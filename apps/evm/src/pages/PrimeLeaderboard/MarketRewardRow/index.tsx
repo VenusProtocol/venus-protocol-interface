@@ -14,21 +14,23 @@ export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
   rewardsCents,
   totalRewardsCents,
   children,
-}) => (
-  <div className="flex items-center">
-    <TokenIconWithSymbol token={token} className="shrink-0 text-b1s text-white" />
+}) => {
+  const progressPercentage =
+    totalRewardsCents > 0 ? Math.min(100, (rewardsCents / totalRewardsCents) * 100) : 0;
 
-    <span className="ml-auto text-p3r text-white">
-      {formatCentsToReadableValue({ value: rewardsCents })}
-    </span>
+  return (
+    <div className="flex items-center">
+      <TokenIconWithSymbol token={token} className="shrink-0 text-b1s text-white" />
 
-    <div className="ml-1 h-1.5 w-1/4 shrink-0 overflow-hidden rounded-full bg-lightGrey">
-      <div
-        className="h-full rounded-full bg-green"
-        style={{ width: `${Math.min(100, (rewardsCents / totalRewardsCents) * 100)}%` }}
-      />
+      <span className="ml-auto text-p3r text-white">
+        {formatCentsToReadableValue({ value: rewardsCents })}
+      </span>
+
+      <div className="ml-1 h-1.5 w-1/4 shrink-0 overflow-hidden rounded-full bg-lightGrey">
+        <div className="h-full rounded-full bg-green" style={{ width: `${progressPercentage}%` }} />
+      </div>
+
+      {children}
     </div>
-
-    {children}
-  </div>
-);
+  );
+};
