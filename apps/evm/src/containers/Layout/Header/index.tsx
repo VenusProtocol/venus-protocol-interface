@@ -2,15 +2,21 @@ import { cn } from '@venusprotocol/ui';
 import { useGetAsset } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useParams } from 'react-router';
 import type { Address } from 'viem';
 import { Breadcrumbs } from './Breadcrumbs';
 import { MarketInfo } from './MarketInfo';
+import { MarketsAdBanner } from './MarketsAdBanner';
 import { useIsOnMarketPage } from './useIsOnMarketPage';
+import { useIsOnMarketsPage } from './useIsOnMarketsPage';
 import { usePathNodes } from './usePathNodes';
 
 export const Header: React.FC = () => {
   const isOnMarketPage = useIsOnMarketPage();
+  const isOnMarketsPage = useIsOnMarketsPage();
+
+  const [userChainSettings] = useUserChainSettings();
 
   const { vTokenAddress = NULL_ADDRESS } = useParams<{
     vTokenAddress: Address;
@@ -27,7 +33,10 @@ export const Header: React.FC = () => {
 
   const pathNodes = usePathNodes();
 
-  if (pathNodes.length <= 1 && !isOnMarketPage) {
+  const shouldShowMarketsAdBanner =
+    isOnMarketsPage && !userChainSettings.doNotShowFixedRateVaultsAdBanner;
+
+  if (pathNodes.length <= 1 && !isOnMarketPage && !shouldShowMarketsAdBanner) {
     return undefined;
   }
 
@@ -48,9 +57,11 @@ export const Header: React.FC = () => {
     >
       <div className="relative">
         <div className="space-y-6 sm:space-y-8">
-          {pathNodes.length > 1 && <Breadcrumbs pathNodes={pathNodes} />}
+          {pathNodes.length > 1 && <Breadcrumbs pathNodes={pathNodes} className="pt-5 sm:pt-10" />}
 
           {isOnMarketPage && <MarketInfo />}
+
+          {shouldShowMarketsAdBanner && <MarketsAdBanner />}
         </div>
       </div>
     </header>

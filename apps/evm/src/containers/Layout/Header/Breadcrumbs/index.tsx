@@ -7,9 +7,10 @@ import type { PathNode } from '../usePathNodes';
 
 export interface BreadcrumbsProps {
   pathNodes: PathNode[];
+  className?: string;
 }
 
-export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ pathNodes }) => {
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ className, pathNodes }) => {
   const pathNodeDom = useMemo(
     () =>
       pathNodes.map((pathNode, index) => (
@@ -37,7 +38,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ pathNodes }) => {
   );
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <span className={cn('flex flex-wrap items-center', pathNodes.length === 1 && 'text-xl')}>
         {pathNodeDom}
       </span>

@@ -75,16 +75,15 @@ export const Layout: React.FC = () => {
       <TestEnvWarning className="shrink-0" />
 
       <div
-        className={cn(
-          'flex flex-col grow gap-y-10  overflow-x-hidden ',
-          !noWrapper && 'pt-5 sm:pt-10',
-        )}
+        className="flex flex-col grow overflow-x-hidden"
         id={PAGE_CONTAINER_ID}
         onScroll={handleScroll}
       >
         <Header />
 
-        <WrapperComp className="relative w-full shrink-0 grow">{contentDom}</WrapperComp>
+        <WrapperComp className={cn('relative w-full shrink-0 grow', !noWrapper && 'pt-5 sm:pt-10')}>
+          {contentDom}
+        </WrapperComp>
 
         <Footer ref={footerRef} />
       </div>

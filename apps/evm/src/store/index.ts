@@ -18,6 +18,7 @@ export interface UserChainSettings {
   slippageTolerancePercentage: string;
   doNotShowUserBalances: boolean;
   doNotExpandGuide: boolean;
+  doNotShowFixedRateVaultsAdBanner: boolean;
 }
 
 type UserSettings = Partial<Record<ChainId, Partial<UserChainSettings>>>;

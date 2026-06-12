@@ -756,6 +756,10 @@
       "label": "チェーンを選択"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "今すぐ見る",
+        "title": "USDT固定期間ボールトがBNB Chainで公開中。目標 ≈5.4% APR。"
+      },
       "liquidity": "流動性",
       "maxLtv": {
         "label": "最大LTV",
