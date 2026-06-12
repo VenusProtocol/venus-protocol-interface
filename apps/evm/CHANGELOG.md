@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.39.0
+
+### Minor Changes
+
+- d3765c8: add Markets page ad banner
+
 ## 4.38.0
 
 ### Minor Changes
