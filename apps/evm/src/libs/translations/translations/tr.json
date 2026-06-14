@@ -1254,20 +1254,6 @@
     "userRewards": {
       "marketActions": "Piyasa işlemlerini aç",
       "title": "Bu döngüdeki Prime ödülleriniz"
-    },
-    "rankTable": {
-      "columns": {
-        "wallet": "Cüzdan",
-        "primeScore": "Prime puanı"
-      },
-      "walletTooltip": "Kullanıcılar Prime puanına göre sıralanır. İlk 500 cüzdan bir sonraki döngüde Prime için uygun olur."
-    },
-    "rewardTable": {
-      "columns": {
-        "wallet": "Cüzdan",
-        "totalRewards": "Toplam ödüller",
-        "marketRewards": "{{symbol}} ödülleri"
-      }
     }
   },
   "primeStatusBanner": {

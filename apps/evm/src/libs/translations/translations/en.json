@@ -1254,20 +1254,6 @@
     "userRewards": {
       "marketActions": "Open market actions",
       "title": "Your Prime rewards this cycle"
-    },
-    "rankTable": {
-      "columns": {
-        "wallet": "Wallet",
-        "primeScore": "Prime score"
-      },
-      "walletTooltip": "Users ranked by Prime score. The top 500 wallets become eligible for Prime in the next cycle."
-    },
-    "rewardTable": {
-      "columns": {
-        "wallet": "Wallet",
-        "totalRewards": "Total rewards",
-        "marketRewards": "{{symbol}} rewards"
-      }
     }
   },
   "primeStatusBanner": {

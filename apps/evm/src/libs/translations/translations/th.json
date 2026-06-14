@@ -1254,20 +1254,6 @@
     "userRewards": {
       "marketActions": "เปิดการดำเนินการของตลาด",
       "title": "รางวัล Prime ของคุณในรอบนี้"
-    },
-    "rankTable": {
-      "columns": {
-        "wallet": "กระเป๋าเงิน",
-        "primeScore": "คะแนน Prime"
-      },
-      "walletTooltip": "ผู้ใช้จัดอันดับตามคะแนน Prime กระเป๋าเงิน 500 อันดับแรกจะมีสิทธิ์รับ Prime ในรอบถัดไป"
-    },
-    "rewardTable": {
-      "columns": {
-        "wallet": "กระเป๋าเงิน",
-        "totalRewards": "รางวัลทั้งหมด",
-        "marketRewards": "รางวัล {{symbol}}"
-      }
     }
   },
   "primeStatusBanner": {
