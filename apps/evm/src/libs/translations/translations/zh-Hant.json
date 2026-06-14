@@ -1250,6 +1250,24 @@
     "title": "Prime 排行榜",
     "totalRewards": {
       "title": "本週期已分配的 Prime 總獎勵"
+    },
+    "userRewards": {
+      "marketActions": "開啟市場操作",
+      "title": "你本週期的 Prime 獎勵"
+    },
+    "rankTable": {
+      "columns": {
+        "wallet": "錢包",
+        "primeScore": "Prime 分數"
+      },
+      "walletTooltip": "使用者依 Prime 分數排名。排名前 500 的錢包將在下個週期取得 Prime 資格。"
+    },
+    "rewardTable": {
+      "columns": {
+        "wallet": "錢包",
+        "totalRewards": "總獎勵",
+        "marketRewards": "{{symbol}} 獎勵"
+      }
     }
   },
   "primeStatusBanner": {

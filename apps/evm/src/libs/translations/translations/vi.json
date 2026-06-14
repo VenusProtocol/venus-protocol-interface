@@ -1250,6 +1250,24 @@
     "title": "Bảng xếp hạng Prime",
     "totalRewards": {
       "title": "Tổng thưởng Prime đã phân phối trong chu kỳ này"
+    },
+    "userRewards": {
+      "marketActions": "Mở thao tác thị trường",
+      "title": "Phần thưởng Prime của bạn trong chu kỳ này"
+    },
+    "rankTable": {
+      "columns": {
+        "wallet": "Ví",
+        "primeScore": "Điểm Prime"
+      },
+      "walletTooltip": "Người dùng được xếp hạng theo điểm Prime. 500 ví dẫn đầu sẽ đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
+    },
+    "rewardTable": {
+      "columns": {
+        "wallet": "Ví",
+        "totalRewards": "Tổng phần thưởng",
+        "marketRewards": "Phần thưởng {{symbol}}"
+      }
     }
   },
   "primeStatusBanner": {

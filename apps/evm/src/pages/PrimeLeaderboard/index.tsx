@@ -12,7 +12,9 @@ import { UserRewardsCard } from './UserRewardsCard';
 
 // TODO: use the reward pool data returned by the API
 const placeholderTotalRewardsCents = 46_230_000;
+const placeholderUserRewardsCents = 1_840_000;
 const placeholderMarketRewardsCents = [28_040_000, 17_190_000];
+const placeholderApyPercentage = 3.78;
 
 const PrimeLeaderboard: React.FC = () => {
   const { accountAddress } = useAccountAddress();
@@ -23,6 +25,11 @@ const PrimeLeaderboard: React.FC = () => {
   const marketRewards = tokens
     .slice(0, placeholderMarketRewardsCents.length)
     .map((token, index) => ({ token, rewardsCents: placeholderMarketRewardsCents[index] }));
+
+  const userMarketRewards = marketRewards.map(reward => ({
+    ...reward,
+    apyPercentage: placeholderApyPercentage,
+  }));
 
   const totalRewardsCard = (
     <TotalRewardsCard
@@ -56,7 +63,10 @@ const PrimeLeaderboard: React.FC = () => {
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {totalRewardsCard}
 
-              <UserRewardsCard />
+              <UserRewardsCard
+                totalRewardsCents={placeholderUserRewardsCents}
+                marketRewards={userMarketRewards}
+              />
             </div>
           ) : (
             totalRewardsCard

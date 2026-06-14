@@ -1250,6 +1250,24 @@
     "title": "Prime 排行榜",
     "totalRewards": {
       "title": "本周期已分配的 Prime 总奖励"
+    },
+    "userRewards": {
+      "marketActions": "打开市场操作",
+      "title": "你本周期的 Prime 奖励"
+    },
+    "rankTable": {
+      "columns": {
+        "wallet": "钱包",
+        "primeScore": "Prime 分数"
+      },
+      "walletTooltip": "用户按 Prime 分数排名。排名前 500 的钱包将在下个周期获得 Prime 资格。"
+    },
+    "rewardTable": {
+      "columns": {
+        "wallet": "钱包",
+        "totalRewards": "总奖励",
+        "marketRewards": "{{symbol}} 奖励"
+      }
     }
   },
   "primeStatusBanner": {

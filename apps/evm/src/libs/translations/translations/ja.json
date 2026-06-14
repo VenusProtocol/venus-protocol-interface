@@ -1250,6 +1250,24 @@
     "title": "Prime リーダーボード",
     "totalRewards": {
       "title": "今サイクルに分配された Prime 報酬の総額"
+    },
+    "userRewards": {
+      "marketActions": "マーケット操作を開く",
+      "title": "今サイクルのあなたの Prime 報酬"
+    },
+    "rankTable": {
+      "columns": {
+        "wallet": "ウォレット",
+        "primeScore": "Prime スコア"
+      },
+      "walletTooltip": "Prime スコア順のランキングです。上位 500 のウォレットが次のサイクルで Prime の対象になります。"
+    },
+    "rewardTable": {
+      "columns": {
+        "wallet": "ウォレット",
+        "totalRewards": "報酬合計",
+        "marketRewards": "{{symbol}} の報酬"
+      }
     }
   },
   "primeStatusBanner": {
