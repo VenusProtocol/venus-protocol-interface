@@ -1247,6 +1247,22 @@
   },
   "primeLeaderboard": {
     "description": "Stake XVS vào governance vault và nhận thêm phần thưởng Prime bên cạnh lợi nhuận của bạn.",
+    "lastCycleSummary": {
+      "eligibleMessage": "Bạn đủ điều kiện nhận Prime trong chu kỳ này. Hãy mở vị thế trong các thị trường Prime để nhận thêm phần thưởng.",
+      "notEligibleMessage": "Bạn không đủ điều kiện nhận Prime trong chu kỳ trước. Stake XVS để cạnh tranh Prime trong chu kỳ tiếp theo.",
+      "title": "Tóm tắt Prime chu kỳ trước",
+      "totalRewardsTitle": "Tổng phần thưởng Prime đã phân phối trong chu kỳ trước"
+    },
+    "rankCard": {
+      "connectPrompt": "Kết nối ví để kiểm tra điều kiện Prime của bạn.",
+      "eligible": "Bạn hiện đủ điều kiện nhận Prime trong chu kỳ tiếp theo",
+      "notEligible": "Bạn hiện không đủ điều kiện nhận Prime trong chu kỳ tiếp theo.",
+      "primeScoreLabel": "Điểm Prime",
+      "rankLabel": "Hạng của bạn",
+      "rulesButton": "Quy tắc",
+      "stakeButton": "Stake XVS",
+      "stakePrompt": "Stake XVS để cạnh tranh Prime."
+    },
     "title": "Bảng xếp hạng Prime",
     "totalRewards": {
       "title": "Tổng thưởng Prime đã phân phối trong chu kỳ này"

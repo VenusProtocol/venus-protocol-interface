@@ -1247,6 +1247,22 @@
   },
   "primeLeaderboard": {
     "description": "將 XVS 質押到治理金庫，在收益之上再賺取 Prime 獎勵。",
+    "lastCycleSummary": {
+      "eligibleMessage": "你在本週期已具備 Prime 資格。在 Prime 市場建倉以賺取額外獎勵。",
+      "notEligibleMessage": "你在上一週期未具備 Prime 資格。質押 XVS 以在下一週期競爭 Prime。",
+      "title": "上一週期 Prime 彙總",
+      "totalRewardsTitle": "上一週期分發的 Prime 總獎勵"
+    },
+    "rankCard": {
+      "connectPrompt": "連接錢包以查看你的 Prime 資格。",
+      "eligible": "你目前已具備下個週期的 Prime 資格",
+      "notEligible": "你目前不具備下個週期的 Prime 資格。",
+      "primeScoreLabel": "Prime 分數",
+      "rankLabel": "你的排名",
+      "rulesButton": "規則",
+      "stakeButton": "質押 XVS",
+      "stakePrompt": "質押 XVS 以競爭 Prime。"
+    },
     "title": "Prime 排行榜",
     "totalRewards": {
       "title": "本週期已分配的 Prime 總獎勵"

@@ -1247,6 +1247,22 @@
   },
   "primeLeaderboard": {
     "description": "สเตก XVS เข้าสู่ governance vault แล้วรับรางวัล Prime เพิ่มเติมจากผลตอบแทนของคุณ",
+    "lastCycleSummary": {
+      "eligibleMessage": "คุณมีสิทธิ์รับ Prime ในรอบนี้ เปิดสถานะในตลาด Prime เพื่อรับรางวัลเพิ่มเติม",
+      "notEligibleMessage": "คุณไม่มีสิทธิ์รับ Prime ในรอบที่แล้ว Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
+      "title": "สรุป Prime รอบที่แล้ว",
+      "totalRewardsTitle": "รางวัล Prime ทั้งหมดที่แจกจ่ายในรอบที่แล้ว"
+    },
+    "rankCard": {
+      "connectPrompt": "เชื่อมต่อกระเป๋าเงินเพื่อตรวจสอบสิทธิ์ Prime ของคุณ",
+      "eligible": "คุณมีสิทธิ์รับ Prime ในรอบถัดไป",
+      "notEligible": "คุณยังไม่มีสิทธิ์รับ Prime ในรอบถัดไป",
+      "primeScoreLabel": "คะแนน Prime",
+      "rankLabel": "อันดับของคุณ",
+      "rulesButton": "กฎ",
+      "stakeButton": "Stake XVS",
+      "stakePrompt": "Stake XVS เพื่อแข่งขันรับ Prime"
+    },
     "title": "กระดานผู้นำ Prime",
     "totalRewards": {
       "title": "รางวัล Prime ทั้งหมดที่แจกในรอบนี้"
