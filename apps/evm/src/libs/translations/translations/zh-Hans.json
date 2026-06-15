@@ -1254,14 +1254,14 @@
     "endOfCycle": {
       "days": "天",
       "deadline": "{{date, MMMM d, yyyy h:mm a}}",
-      "helper": "在 <bold>{{deadline}}</bold> 之前保持在前 500 名，即可在下个周期获得 Prime 奖励。<summaryLink>查看上个周期的 Prime 总结</summaryLink>，了解你的排名并保持竞争力。",
+      "helper": "在 <bold>{{deadline}}</bold> 之前保持在前 500 名，即可在下个周期获得 Prime 奖励。<summaryLink>查看上个周期的 Prime 总结</summaryLink>。",
       "helperEnded": "在 {{deadline}} 之前保持在前 500 名，即可在下个周期获得 Prime 奖励。",
       "hours": "时",
       "mins": "分",
       "sec": "秒",
       "title": "周期结束"
     },
-    "tablesRefreshNote": "每小时刷新 · 上次刷新：{{distance}}前",
+    "tablesRefreshNote": "每小时刷新 · 上次刷新：{{date, distanceToNow}}前",
     "title": "Prime 排行榜"
   },
   "primeStatusBanner": {

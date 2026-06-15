@@ -7,7 +7,7 @@ import { useTranslation } from 'libs/translations';
 import { Timer } from './Timer';
 
 export interface EndOfCycleProps {
-  endDate?: Date;
+  endDate: Date;
   className?: string;
 }
 
@@ -22,7 +22,7 @@ interface CountdownState {
 export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, className }) => {
   const { t, Trans } = useTranslation();
 
-  const deadline = endDate ? t('primeLeaderboard.endOfCycle.deadline', { date: endDate }) : '';
+  const deadline = t('primeLeaderboard.endOfCycle.deadline', { date: endDate });
 
   const renderCard = ({ days, hours, minutes, seconds, completed }: CountdownState) => (
     <Card
@@ -56,10 +56,6 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, className }) =>
       )}
     </Card>
   );
-
-  if (!endDate) {
-    return renderCard({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: true });
-  }
 
   return <ReactCountdown date={endDate} renderer={renderCard} />;
 };

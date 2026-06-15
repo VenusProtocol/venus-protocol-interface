@@ -1254,14 +1254,14 @@
     "endOfCycle": {
       "days": "Ngày",
       "deadline": "{{date, MMMM d, yyyy h:mm a}}",
-      "helper": "Giữ vị trí trong top 500 đến <bold>{{deadline}}</bold> để nhận thưởng Prime trong chu kỳ tiếp theo. <summaryLink>Xem tổng kết Prime của chu kỳ trước</summaryLink> để theo dõi thứ hạng và duy trì tính cạnh tranh.",
+      "helper": "Giữ vị trí trong top 500 đến <bold>{{deadline}}</bold> để nhận thưởng Prime trong chu kỳ tiếp theo. <summaryLink>Xem tổng kết Prime của chu kỳ trước</summaryLink>.",
       "helperEnded": "Giữ vị trí trong top 500 đến {{deadline}} để nhận thưởng Prime trong chu kỳ tiếp theo.",
       "hours": "Giờ",
       "mins": "Phút",
       "sec": "Giây",
       "title": "Kết thúc chu kỳ"
     },
-    "tablesRefreshNote": "Làm mới mỗi giờ · Lần làm mới cuối: {{distance}} trước",
+    "tablesRefreshNote": "Làm mới mỗi giờ · Lần làm mới cuối: {{date, distanceToNow}} trước",
     "title": "Bảng xếp hạng Prime"
   },
   "primeStatusBanner": {

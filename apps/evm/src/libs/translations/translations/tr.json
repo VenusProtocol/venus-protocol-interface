@@ -1254,14 +1254,14 @@
     "endOfCycle": {
       "days": "Gün",
       "deadline": "{{date, MMMM d, yyyy h:mm a}}",
-      "helper": "Sonraki döngüde Prime ödülleri kazanmak için <bold>{{deadline}}</bold> tarihine kadar ilk 500 içinde kalın. Sıralamanızı görmek ve rekabette kalmak için <summaryLink>geçen döngünün Prime özetini görüntüleyin</summaryLink>.",
+      "helper": "Sonraki döngüde Prime ödülleri kazanmak için <bold>{{deadline}}</bold> tarihine kadar ilk 500 içinde kalın. <summaryLink>Geçen döngünün Prime özetini görüntüleyin</summaryLink>.",
       "helperEnded": "Sonraki döngüde Prime ödülleri kazanmak için {{deadline}} tarihine kadar ilk 500 içinde kalın.",
       "hours": "Saat",
       "mins": "Dak.",
       "sec": "Sn.",
       "title": "Döngü sonu"
     },
-    "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{distance}} önce",
+    "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
     "title": "Prime lider tablosu"
   },
   "primeStatusBanner": {

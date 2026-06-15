@@ -2,6 +2,8 @@ import { Fragment } from 'react';
 
 import { useTranslation } from 'libs/translations';
 
+import { pad } from './pad';
+
 export interface TimerProps {
   days: number;
   hours: number;
@@ -11,8 +13,6 @@ export interface TimerProps {
 
 export const Timer: React.FC<TimerProps> = ({ days, hours, minutes, seconds }) => {
   const { t } = useTranslation();
-
-  const pad = (value: number) => String(value).padStart(2, '0');
 
   const segments = [
     { label: t('primeLeaderboard.endOfCycle.days'), value: days },

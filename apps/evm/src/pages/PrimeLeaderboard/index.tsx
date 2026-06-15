@@ -1,6 +1,6 @@
-import { endOfMonth } from 'date-fns';
+import { endOfMonth, subHours } from 'date-fns';
 
-import { Card, Page } from 'components';
+import { Card, Page, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
 
 import { EndOfCycle } from './EndOfCycle';
@@ -15,7 +15,7 @@ import { UserRewardsCard } from './UserRewardsCard';
 const endOfCycleDate = endOfMonth(new Date());
 
 // TODO: use the indexer's last refresh time returned by the API
-const lastRefreshDistance = '6h';
+const lastRefreshedAt = subHours(new Date(), 6);
 
 const PrimeLeaderboard: React.FC = () => {
   const { t } = useTranslation();
@@ -33,10 +33,17 @@ const PrimeLeaderboard: React.FC = () => {
 
       <Hero />
 
-      <EndOfCycle endDate={endOfCycleDate} className="relative mx-auto mt-8 w-full max-w-[467px]" />
+      {endOfCycleDate ? (
+        <EndOfCycle
+          endDate={endOfCycleDate}
+          className="relative mx-auto mt-8 w-full max-w-[467px]"
+        />
+      ) : (
+        <Spinner className="relative mx-auto mt-8" />
+      )}
 
       <p className="relative mt-4 text-right text-b2s text-light-grey">
-        {t('primeLeaderboard.tablesRefreshNote', { distance: lastRefreshDistance })}
+        {t('primeLeaderboard.tablesRefreshNote', { date: lastRefreshedAt })}
       </p>
 
       <div className="relative mt-3 flex flex-col gap-3 lg:flex-row">

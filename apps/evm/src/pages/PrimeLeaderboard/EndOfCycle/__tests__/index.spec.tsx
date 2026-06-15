@@ -13,8 +13,8 @@ describe('pages/PrimeLeaderboard/EndOfCycle', () => {
     expect(screen.getByText("See last cycle's Prime summary")).toBeInTheDocument();
   });
 
-  it('renders the ended state when no end date is provided', () => {
-    renderComponent(<EndOfCycle />);
+  it('renders the ended state for a past end date', () => {
+    renderComponent(<EndOfCycle endDate={new Date(Date.now() - ONE_DAY_MS)} />);
 
     expect(screen.getByText('End of cycle')).toBeInTheDocument();
     expect(screen.queryByText("See last cycle's Prime summary")).not.toBeInTheDocument();
