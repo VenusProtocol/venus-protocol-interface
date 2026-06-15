@@ -29,8 +29,8 @@ vi.mock('../RewardTable', () => ({
   RewardTable: () => <div data-testid="reward-table" />,
 }));
 
-vi.mock('../RankCard', () => ({
-  RankCard: () => <div data-testid="rank-card" />,
+vi.mock('../RankSection', () => ({
+  RankSection: () => <div data-testid="rank-card" />,
 }));
 
 vi.mock('../RankTable', () => ({

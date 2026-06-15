@@ -1,28 +1,16 @@
 import { Card, Page } from 'components';
-import { useAccountAddress, useAuthModal } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 
 import { EndOfCycle } from './EndOfCycle';
 import { Hero } from './Hero';
-import { type PrimeRankData, RankCard } from './RankCard';
+import { RankSection } from './RankSection';
 import { RankTable } from './RankTable';
 import { RewardTable } from './RewardTable';
 import { TotalRewardsSection } from './TotalRewardsSection';
 import { UserRewardsSection } from './UserRewardsSection';
 
-// TODO: replace this placeholder with the rank data returned by the API
-const placeholderRankData: PrimeRankData = {
-  hasStakedXvs: true,
-  isCandidate: true,
-  isPrime: true,
-  hasSupplied: true,
-  rank: 2,
-  primeScore: 542_500_000,
-  gapXvsTokens: 5_432,
-};
-
 const PrimeLeaderboard: React.FC = () => {
   const { accountAddress } = useAccountAddress();
-  const { openAuthModal } = useAuthModal();
 
   return (
     <Page>
@@ -59,11 +47,7 @@ const PrimeLeaderboard: React.FC = () => {
         </Card>
 
         <Card className="flex flex-col gap-2.5 border-dark-grey bg-background p-3 lg:w-107 lg:shrink-0">
-          <RankCard
-            isUserConnected={!!accountAddress}
-            onConnect={() => openAuthModal({ analyticVariant: 'primeLeaderboardRankCard' })}
-            rankData={placeholderRankData}
-          />
+          <RankSection />
 
           <RankTable />
         </Card>
