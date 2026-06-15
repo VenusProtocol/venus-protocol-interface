@@ -6,7 +6,7 @@ import { useAccountAddress } from 'libs/wallet';
 
 import { EndOfCycle } from './EndOfCycle';
 import { Hero } from './Hero';
-import { RankCard } from './RankCard';
+import { RankSection } from './RankSection';
 import { RankTable } from './RankTable';
 import { RewardTable } from './RewardTable';
 import { TotalRewardsSection } from './TotalRewardsSection';
@@ -64,7 +64,7 @@ const PrimeLeaderboard: React.FC = () => {
         </Card>
 
         <Card className="flex flex-col gap-2.5 border-dark-grey bg-background p-3 lg:w-107 lg:shrink-0">
-          <RankCard />
+          <RankSection />
 
           <RankTable />
         </Card>

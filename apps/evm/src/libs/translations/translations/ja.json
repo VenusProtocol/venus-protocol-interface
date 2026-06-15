@@ -1268,6 +1268,22 @@
       "totalRewardsTitle": "前サイクルに分配された Prime 報酬の合計",
       "userRewardsTitle": "前サイクルのあなたの Prime 報酬"
     },
+    "rankCard": {
+      "connectPrompt": "ウォレットを接続して Prime の対象かを確認してください。",
+      "eligible": "あなたは次のサイクルで Prime の対象です",
+      "eligibleSupplied": "おめでとうございます！前サイクルでトップ 500 に入り、Prime 報酬の対象になりました。",
+      "notEligible": "あなたは次のサイクルで Prime の対象ではありません。",
+      "primeScoreLabel": "Prime スコア",
+      "rankLabel": "あなたのランク",
+      "rulesButton": "ルール",
+      "stakeButton": "XVS をステーク",
+      "stakeMore": "次のサイクルで Prime を目指して、さらに XVS をステークしましょう。",
+      "stakePrompt": "XVS をステークして Prime を目指しましょう。",
+      "stakeToReachTop": "あと <Highlight>{{amount}} XVS</Highlight> をステークするとトップ #500 に入り、次のサイクルで Prime の対象になります。"
+    },
+    "rankFooter": {
+      "learnMore": "<leaderboardLink>Prime リーダーボード</leaderboardLink> で詳しく見る"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime スコア",
@@ -1281,6 +1297,21 @@
         "totalRewards": "報酬合計",
         "wallet": "ウォレット"
       }
+    },
+    "rulesModal": {
+      "boostColumn": "ブースト",
+      "boostMax": "{{boost}}（上限）",
+      "contribution": "各預け入れについて、あなたの貢献度は <highlight>XVS × ブースト × 保有日数</highlight> です。Prime の合計スコアは、すべての預け入れの合計です。",
+      "daysHeld": "{{range}} 日",
+      "daysHeldColumn": "保有日数",
+      "footer": "リーダーボードで上位を目指すには、より多くステークし、より長く保有しましょう。",
+      "intro1": "<highlight>Prime スコア</highlight> がリーダーボードでの順位を決めます。毎月 <highlight>上位 500 名</highlight> が Prime ホルダーとなり、月間報酬プールを分け合います。",
+      "intro2": "スコアは、ステークした XVS の <highlight>量</highlight> と <highlight>保有期間</highlight> の両方を評価します。各預け入れは、その経過期間に応じてロイヤルティブーストを獲得します：",
+      "point1": "<highlight>ブーストと日数はどちらも 90 日が上限です</highlight> —— それ以上保有しても XVS あたりのスコアはこれ以上増えません。",
+      "point2": "<highlight>出金する場合は？最新の預け入れが先に引き出されます。</highlight> 最も古く、ブーストが最も高いステークは保護されます。",
+      "point3": "スコアは <highlight>リアルタイム</highlight> で更新されます —— ただし Prime ステータスは <highlight>毎月のスナップショット</highlight> で確定します。",
+      "thingsToKnowTitle": "知っておくべきこと：",
+      "title": "ルール"
     },
     "tablesRefreshNote": "1時間ごとに更新 · 最終更新：{{date, distanceToNow}}前",
     "title": "Prime リーダーボード",
