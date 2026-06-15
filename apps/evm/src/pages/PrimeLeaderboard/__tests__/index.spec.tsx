@@ -28,8 +28,8 @@ vi.mock('../RewardTable', () => ({
   RewardTable: () => <div data-testid="reward-table" />,
 }));
 
-vi.mock('../RankCard', () => ({
-  RankCard: () => <div data-testid="rank-card" />,
+vi.mock('../RankSection', () => ({
+  RankSection: () => <div data-testid="rank-section" />,
 }));
 
 vi.mock('../RankTable', () => ({
@@ -45,7 +45,7 @@ describe('pages/PrimeLeaderboard', () => {
     expect(screen.getByTestId('total-rewards-card')).toBeInTheDocument();
     expect(screen.getByTestId('user-rewards-card')).toBeInTheDocument();
     expect(screen.getByTestId('reward-table')).toBeInTheDocument();
-    expect(screen.getByTestId('rank-card')).toBeInTheDocument();
+    expect(screen.getByTestId('rank-section')).toBeInTheDocument();
     expect(screen.getByTestId('rank-table')).toBeInTheDocument();
   });
 });

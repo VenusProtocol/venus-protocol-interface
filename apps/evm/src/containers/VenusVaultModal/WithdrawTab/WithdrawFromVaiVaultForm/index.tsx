@@ -2,12 +2,12 @@ import BigNumber from 'bignumber.js';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
+import { TransactionForm } from 'containers/VaultCard/TransactionForm';
 import { useForm } from 'containers/VaultCard/useForm';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { VenusVault } from 'types';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
-import { TransactionForm } from '../../../TransactionForm';
 import { Footer } from '../../Footer';
 
 export interface WithdrawFromVaiVaultFormProps {

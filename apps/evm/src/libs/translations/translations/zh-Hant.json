@@ -1251,6 +1251,37 @@
   },
   "primeLeaderboard": {
     "description": "將 XVS 質押到治理金庫，在收益之上再賺取 Prime 獎勵。",
+    "rankCard": {
+      "connectPrompt": "連接錢包以查看你的 Prime 資格。",
+      "eligible": "你目前已具備下個週期的 Prime 資格",
+      "eligibleSupplied": "恭喜！你在上個週期進入了前 500 名並獲得了 Prime 獎勵。",
+      "notEligible": "你目前不具備下個週期的 Prime 資格。",
+      "primeScoreLabel": "Prime 分數",
+      "rankLabel": "你的排名",
+      "rulesButton": "規則",
+      "stakeButton": "質押 XVS",
+      "stakeMore": "質押更多 XVS 以在下個週期競爭 Prime。",
+      "stakePrompt": "質押 XVS 以競爭 Prime。",
+      "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight> 即可進入前 #500，並在下個週期取得 Prime 資格。"
+    },
+    "rankFooter": {
+      "learnMore": "從 <leaderboardLink>Prime 排行榜</leaderboardLink> 了解更多"
+    },
+    "rulesModal": {
+      "boostColumn": "加成",
+      "boostMax": "{{boost}}（上限）",
+      "contribution": "對每筆存入，你的貢獻為 <highlight>XVS × 加成 × 持有天數</highlight>。你的 Prime 總分是所有存入的總和。",
+      "daysHeld": "{{range}} 天",
+      "daysHeldColumn": "持有天數",
+      "footer": "想在排行榜上更進一步：質押更多，持有更久。",
+      "intro1": "你的 <highlight>Prime 分數</highlight> 決定你在排行榜上的位置。每月 <highlight>前 500 名</highlight> 成為 Prime 持有者，共享當月獎勵池。",
+      "intro2": "你的分數同時獎勵你質押 XVS 的 <highlight>數量</highlight> 和 <highlight>時長</highlight>。每筆存入都會根據其存放時間獲得忠誠度加成：",
+      "point1": "<highlight>加成和計入天數均以 90 天為上限</highlight> —— 持有更久不會進一步提升每 XVS 的分數。",
+      "point2": "<highlight>提取時？最新的存入會被優先扣除。</highlight> 你最早、加成最高的質押會受到保護。",
+      "point3": "分數 <highlight>即時</highlight> 更新 —— 但你的 Prime 狀態在 <highlight>每月快照</highlight> 時鎖定。",
+      "thingsToKnowTitle": "需要了解的幾點：",
+      "title": "規則"
+    },
     "title": "Prime 排行榜"
   },
   "primeStatusBanner": {

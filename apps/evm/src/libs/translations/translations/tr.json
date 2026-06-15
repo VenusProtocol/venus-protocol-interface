@@ -1251,6 +1251,37 @@
   },
   "primeLeaderboard": {
     "description": "XVS’yi governance kasasına stake edin ve getirilerinize ek olarak Prime ödülleri kazanın.",
+    "rankCard": {
+      "connectPrompt": "Prime uygunluğunu görmek için cüzdanını bağla.",
+      "eligible": "Bir sonraki döngüde Prime için uygunsun",
+      "eligibleSupplied": "Tebrikler! Son döngüde ilk 500'e girdin ve Prime Ödülleri için uygun oldun.",
+      "notEligible": "Bir sonraki döngüde Prime için uygun değilsin.",
+      "primeScoreLabel": "Prime puanı",
+      "rankLabel": "Sıralaman",
+      "rulesButton": "Kurallar",
+      "stakeButton": "XVS stake et",
+      "stakeMore": "Bir sonraki döngüde Prime için yarışmak üzere daha fazla XVS stake et.",
+      "stakePrompt": "Prime için yarışmak üzere XVS stake et.",
+      "stakeToReachTop": "İlk #500'e girmek ve bir sonraki döngüde Prime için uygun olmak için <Highlight>{{amount}} XVS</Highlight> stake et."
+    },
+    "rankFooter": {
+      "learnMore": "<leaderboardLink>Prime Leaderboard</leaderboardLink> üzerinden daha fazla bilgi edinin"
+    },
+    "rulesModal": {
+      "boostColumn": "Artış",
+      "boostMax": "{{boost}} (maks.)",
+      "contribution": "Her yatırma için katkınız <highlight>XVS × artış × tutulan gün</highlight> şeklindedir. Toplam Prime puanınız tüm yatırmalarınızın toplamıdır.",
+      "daysHeld": "{{range}} gün",
+      "daysHeldColumn": "Tutulan gün",
+      "footer": "Liderlik tablosunda yükselmek için: daha fazla stake edin ve daha uzun süre tutun.",
+      "intro1": "<highlight>Prime puanınız</highlight> liderlik tablosundaki yerinizi belirler. Her ay <highlight>ilk 500</highlight> Prime sahibi olur ve aylık ödül havuzunu paylaşır.",
+      "intro2": "Puanınız hem stake ettiğiniz XVS <highlight>miktarını</highlight> hem de ne <highlight>kadar süre</highlight> tuttuğunuzu ödüllendirir. Her yatırma, ne kadar eski olduğuna göre bir sadakat artışı kazanır:",
+      "point1": "<highlight>Hem artış hem de gün sayısı 90 günle sınırlıdır</highlight> — daha uzun tutmak XVS başına puanı daha fazla artırmaz.",
+      "point2": "<highlight>Çekiyor musunuz? En yeni yatırmalarınız önce çıkar.</highlight> En eski, en yüksek artışlı stake’iniz korunur.",
+      "point3": "Puan <highlight>canlı</highlight> olarak güncellenir — ancak Prime durumunuz <highlight>aylık anlık görüntüde</highlight> sabitlenir.",
+      "thingsToKnowTitle": "Bilmeniz gereken birkaç şey:",
+      "title": "Kurallar"
+    },
     "title": "Prime lider tablosu"
   },
   "primeStatusBanner": {

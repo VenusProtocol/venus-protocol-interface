@@ -99,3 +99,5 @@ export { default as resilientOracle } from './resilientOracle';
 export { default as sunset } from './sunset';
 export { default as fullScreen } from './fullScreen';
 export { default as switch } from './switch';
+export { default as barChart } from './barChart';
+export { default as graduationCap } from './graduationCap';
