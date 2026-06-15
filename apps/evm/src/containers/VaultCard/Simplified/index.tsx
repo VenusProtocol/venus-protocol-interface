@@ -19,8 +19,8 @@ import {
 
 import { InstitutionalVaultModal } from 'containers/VaultCard/InstitutionalVaultModal';
 import { PendleVaultModal } from 'containers/VaultCard/PendleVaultModal';
-import { useState } from 'react';
 import { VenusVaultModal } from 'containers/VenusVaultModal';
+import { useState } from 'react';
 import { Cell } from './Cell';
 
 interface VaultCardSimplifiedProps {
