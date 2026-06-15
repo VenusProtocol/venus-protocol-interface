@@ -1,5 +1,4 @@
 import { Card, Page } from 'components';
-import { useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 
 import { EndOfCycle } from './EndOfCycle';
@@ -7,36 +6,11 @@ import { Hero } from './Hero';
 import { RankCard } from './RankCard';
 import { RankTable } from './RankTable';
 import { RewardTable } from './RewardTable';
-import { TotalRewardsCard } from './TotalRewardsCard';
-import { UserRewardsCard } from './UserRewardsCard';
-
-// TODO: use the reward pool data returned by the API
-const placeholderTotalRewardsCents = 46_230_000;
-const placeholderUserRewardsCents = 1_840_000;
-const placeholderMarketRewardsCents = [28_040_000, 17_190_000];
-const placeholderApyPercentage = 3.78;
+import { TotalRewardsSection } from './TotalRewardsSection';
+import { UserRewardsSection } from './UserRewardsSection';
 
 const PrimeLeaderboard: React.FC = () => {
   const { accountAddress } = useAccountAddress();
-  const tokens = useGetTokens();
-
-  // TODO: replace these placeholder tokens (currently the first tokens from the list, unrelated
-  // to the actual Prime reward markets) with the real markets returned by the API
-  const marketRewards = tokens
-    .slice(0, placeholderMarketRewardsCents.length)
-    .map((token, index) => ({ token, rewardsCents: placeholderMarketRewardsCents[index] }));
-
-  const userMarketRewards = marketRewards.map(reward => ({
-    ...reward,
-    apyPercentage: placeholderApyPercentage,
-  }));
-
-  const totalRewardsCard = (
-    <TotalRewardsCard
-      totalRewardsCents={placeholderTotalRewardsCents}
-      marketRewards={marketRewards}
-    />
-  );
 
   return (
     <Page>
@@ -61,15 +35,12 @@ const PrimeLeaderboard: React.FC = () => {
         <Card className="flex flex-col gap-2.5 border-dark-grey bg-background p-3 lg:grow">
           {accountAddress ? (
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {totalRewardsCard}
+              <TotalRewardsSection />
 
-              <UserRewardsCard
-                totalRewardsCents={placeholderUserRewardsCents}
-                marketRewards={userMarketRewards}
-              />
+              <UserRewardsSection />
             </div>
           ) : (
-            totalRewardsCard
+            <TotalRewardsSection />
           )}
 
           <RewardTable />
