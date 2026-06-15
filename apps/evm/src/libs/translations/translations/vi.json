@@ -1261,6 +1261,13 @@
       "sec": "Giây",
       "title": "Kết thúc chu kỳ"
     },
+    "lastCycleSummary": {
+      "eligibleMessage": "Bạn đủ điều kiện nhận Prime trong chu kỳ này. Hãy mở vị thế trong các thị trường Prime để nhận thêm phần thưởng.",
+      "notEligibleMessage": "Bạn không đủ điều kiện nhận Prime trong chu kỳ trước. Stake XVS để cạnh tranh Prime trong chu kỳ tiếp theo.",
+      "title": "Tóm tắt Prime chu kỳ trước",
+      "totalRewardsTitle": "Tổng phần thưởng Prime đã phân phối trong chu kỳ trước",
+      "userRewardsTitle": "Phần thưởng Prime của bạn trong chu kỳ trước"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Điểm Prime",

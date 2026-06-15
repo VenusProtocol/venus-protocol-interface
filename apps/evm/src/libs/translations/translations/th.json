@@ -1261,6 +1261,13 @@
       "sec": "วินาที",
       "title": "สิ้นสุดรอบ"
     },
+    "lastCycleSummary": {
+      "eligibleMessage": "คุณมีสิทธิ์รับ Prime ในรอบนี้ เปิดสถานะในตลาด Prime เพื่อรับรางวัลเพิ่มเติม",
+      "notEligibleMessage": "คุณไม่มีสิทธิ์รับ Prime ในรอบที่แล้ว Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
+      "title": "สรุป Prime รอบที่แล้ว",
+      "totalRewardsTitle": "รางวัล Prime ทั้งหมดที่แจกจ่ายในรอบที่แล้ว",
+      "userRewardsTitle": "รางวัล Prime ของคุณในรอบที่แล้ว"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "คะแนน Prime",

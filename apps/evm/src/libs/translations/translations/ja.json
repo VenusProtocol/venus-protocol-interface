@@ -1261,6 +1261,13 @@
       "sec": "秒",
       "title": "サイクル終了"
     },
+    "lastCycleSummary": {
+      "eligibleMessage": "今サイクルで Prime の対象になりました。Prime マーケットでポジションを取ると追加報酬を獲得できます。",
+      "notEligibleMessage": "前サイクルでは Prime の対象ではありませんでした。XVS をステークして次のサイクルで Prime を目指しましょう。",
+      "title": "前サイクルの Prime サマリー",
+      "totalRewardsTitle": "前サイクルに分配された Prime 報酬の合計",
+      "userRewardsTitle": "前サイクルのあなたの Prime 報酬"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime スコア",

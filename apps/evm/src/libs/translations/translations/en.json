@@ -1261,6 +1261,13 @@
       "sec": "Sec",
       "title": "End of cycle"
     },
+    "lastCycleSummary": {
+      "eligibleMessage": "You qualified for Prime in this cycle. Take positions in Prime markets to earn additional rewards.",
+      "notEligibleMessage": "You did not qualify for Prime during the last cycle. Stake XVS to compete for Prime in the next cycle.",
+      "title": "Last Cycle Prime Summary",
+      "totalRewardsTitle": "Total Prime rewards distributed during the last cycle",
+      "userRewardsTitle": "Your Prime rewards last cycle"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime score",

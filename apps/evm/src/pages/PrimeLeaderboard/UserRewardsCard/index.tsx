@@ -18,6 +18,7 @@ export interface UserMarketReward {
 export interface UserRewardsCardProps {
   totalRewardsCents: number;
   marketRewards: UserMarketReward[];
+  title?: React.ReactNode;
   // Replaces the default headline (Prime badge + total amount). Used by the rules modal to show a
   // contextual message instead of the amount
   content?: React.ReactNode;
@@ -30,6 +31,7 @@ export interface UserRewardsCardProps {
 export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   totalRewardsCents,
   marketRewards,
+  title,
   content,
   showMarketActions = true,
   className,
@@ -44,7 +46,9 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
       )}
     >
       <div>
-        <p className="text-b1r text-light-grey">{t('primeLeaderboard.userRewards.title')}</p>
+        <p className="text-b1r text-light-grey">
+          {title ?? t('primeLeaderboard.userRewards.title')}
+        </p>
 
         {content ?? (
           <div className="flex items-center gap-x-3">
