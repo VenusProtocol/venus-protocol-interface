@@ -1273,6 +1273,22 @@
       "title": "สรุป Prime รอบที่แล้ว",
       "userRewardsTitle": "รางวัล Prime ของคุณในรอบที่แล้ว"
     },
+    "rankCard": {
+      "connectPrompt": "เชื่อมต่อกระเป๋าเงินเพื่อตรวจสอบสิทธิ์ Prime ของคุณ",
+      "eligible": "คุณมีสิทธิ์รับ Prime ในรอบถัดไป",
+      "eligibleSupplied": "ยินดีด้วย! คุณอยู่ใน Top 500 ในรอบที่แล้วและมีสิทธิ์รับ Prime Rewards",
+      "notEligible": "คุณยังไม่มีสิทธิ์รับ Prime ในรอบถัดไป",
+      "primeScoreLabel": "คะแนน Prime",
+      "rankLabel": "อันดับของคุณ",
+      "rulesButton": "กฎ",
+      "stakeButton": "Stake XVS",
+      "stakeMore": "Stake XVS เพิ่มเพื่อแข่งขันรับ Prime ในรอบถัดไป",
+      "stakePrompt": "Stake XVS เพื่อแข่งขันรับ Prime",
+      "stakeToReachTop": "Stake อีก <Highlight>{{amount}} XVS</Highlight> เพื่อขึ้นไปอยู่ใน top #500 และมีสิทธิ์รับ Prime ในรอบถัดไป"
+    },
+    "rankFooter": {
+      "learnMore": "เรียนรู้เพิ่มเติมจาก <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "คะแนน Prime",
@@ -1287,6 +1303,21 @@
         "totalRewards": "รางวัลทั้งหมด",
         "wallet": "กระเป๋าเงิน"
       }
+    },
+    "rulesModal": {
+      "boostColumn": "ตัวคูณ",
+      "boostMax": "{{boost}} (สูงสุด)",
+      "contribution": "สำหรับการฝากแต่ละครั้ง การมีส่วนร่วมของคุณคือ <highlight>XVS × ตัวคูณ × จำนวนวันที่ถือ</highlight> คะแนน Prime รวมของคุณคือผลรวมของการฝากทั้งหมด",
+      "daysHeld": "{{range}} วัน",
+      "daysHeldColumn": "จำนวนวันที่ถือ",
+      "footer": "เพื่อไต่อันดับลีดเดอร์บอร์ด: stake มากขึ้นและถือนานขึ้น",
+      "intro1": "<highlight>คะแนน Prime</highlight> ของคุณกำหนดอันดับของคุณบนลีดเดอร์บอร์ด <highlight>500 อันดับแรก</highlight> ในแต่ละเดือนจะกลายเป็นผู้ถือ Prime และแบ่งปันพูลรางวัลรายเดือน",
+      "intro2": "คะแนนของคุณให้รางวัลทั้ง <highlight>จำนวน</highlight> XVS ที่คุณ stake และ <highlight>ระยะเวลา</highlight> ที่คุณถือ แต่ละการฝากจะได้รับตัวคูณความภักดีตามระยะเวลาที่ถือ:",
+      "point1": "<highlight>ทั้งตัวคูณและจำนวนวันถูกจำกัดที่ 90 วัน</highlight> — การถือนานกว่านั้นจะไม่เพิ่มคะแนนต่อ XVS อีก",
+      "point2": "<highlight>ถอนเงิน? เงินฝากล่าสุดของคุณจะถูกหักก่อน</highlight> เงิน stake ที่เก่าที่สุดและมีตัวคูณสูงสุดของคุณจะได้รับการปกป้อง",
+      "point3": "คะแนนอัปเดต <highlight>แบบเรียลไทม์</highlight> — แต่สถานะ Prime ของคุณจะถูกล็อกที่ <highlight>สแน็ปช็อตรายเดือน</highlight>",
+      "thingsToKnowTitle": "สิ่งที่ควรรู้:",
+      "title": "กฎ"
     },
     "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{date, distanceToNow}} ที่แล้ว",
     "title": "กระดานผู้นำ Prime",

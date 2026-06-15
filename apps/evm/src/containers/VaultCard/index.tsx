@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { Card, LabeledInlineContent, LayeredValues, NoticeWarning } from 'components';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
+import { VenusVaultModal } from 'containers/VenusVaultModal';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -23,7 +24,6 @@ import { PrimeEligibilityInlineContent } from './PrimeEligibilityInlineContent';
 import { Progress } from './Progress';
 import { StatusLabel } from './StatusLabel';
 import { VaultName } from './VaultName';
-import { VenusVaultModal } from './VenusVaultModal';
 
 export interface VaultProps {
   vault: Vault;

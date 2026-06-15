@@ -1273,6 +1273,22 @@
       "title": "Last Cycle Prime Summary",
       "userRewardsTitle": "Your Prime rewards last cycle"
     },
+    "rankCard": {
+      "connectPrompt": "Connect wallet to check your Prime eligibility.",
+      "eligible": "You are currently eligible for Prime during the next cycle.",
+      "eligibleSupplied": "Congrats! You're in the Top 500 during last cycle and qualified for Prime Rewards.",
+      "notEligible": "You are currently not eligible for Prime during the next cycle.",
+      "primeScoreLabel": "Prime score",
+      "rankLabel": "Your rank",
+      "rulesButton": "Rules",
+      "stakeButton": "Stake XVS",
+      "stakeMore": "Stake more XVS to compete for Prime during the next cycle.",
+      "stakePrompt": "Stake XVS to compete for Prime.",
+      "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> to reach the top #500 and become eligible for Prime during the next cycle."
+    },
+    "rankFooter": {
+      "learnMore": "Learn more from <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime score",
@@ -1287,6 +1303,21 @@
         "totalRewards": "Total rewards",
         "wallet": "Wallet"
       }
+    },
+    "rulesModal": {
+      "boostColumn": "Boost",
+      "boostMax": "{{boost}} (max)",
+      "contribution": "For each deposit, your contribution is <highlight>XVS × boost × days held</highlight>. Your total Prime score is the sum across all your deposits.",
+      "daysHeld": "{{range}} days",
+      "daysHeldColumn": "Days held",
+      "footer": "To climb the leaderboard: stake more, and hold longer.",
+      "intro1": "Your <highlight>Prime score</highlight> decides your spot on the leaderboard. The <highlight>Top 500</highlight> each month become Prime holders and share the monthly reward pool.",
+      "intro2": "Your score rewards both <highlight>how much</highlight> XVS you stake and <highlight>how long</highlight> you hold it. Each deposit earns a loyalty boost based on how old it is:",
+      "point1": "<highlight>Both the boost and the days count are capped at 90 days</highlight> — holding longer doesn't increase the score per XVS further.",
+      "point2": "<highlight>Withdrawing? Your newest deposits go first.</highlight> Your oldest, highest-boost stake is protected.",
+      "point3": "The score updates <highlight>live</highlight> — but your Prime status is locked in at the <highlight>monthly snapshot.</highlight>",
+      "thingsToKnowTitle": "A few things to know:",
+      "title": "Rules"
     },
     "tablesRefreshNote": "Refreshed hourly · Last refresh: {{date, distanceToNow}} ago",
     "title": "Prime leaderboard",

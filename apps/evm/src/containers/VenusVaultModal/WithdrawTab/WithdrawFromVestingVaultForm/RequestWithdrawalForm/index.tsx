@@ -11,8 +11,9 @@ import {
 } from 'clients/api';
 import { InfoIcon, NoticeWarning, Spinner, TextButton } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import { Footer } from 'containers/VaultCard/VenusVaultModal/Footer';
+import { TransactionForm } from 'containers/VaultCard/TransactionForm';
 import { useForm } from 'containers/VaultCard/useForm';
+import { Footer } from 'containers/VenusVaultModal/Footer';
 import { isBefore } from 'date-fns/isBefore';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useNow } from 'hooks/useNow';
@@ -21,7 +22,6 @@ import { useAccountAddress } from 'libs/wallet';
 import type { VenusVault } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
-import { TransactionForm } from '../../../../TransactionForm';
 
 export interface RequestWithdrawalFormProps {
   vault: VenusVault;
