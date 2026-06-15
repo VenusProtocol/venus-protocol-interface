@@ -1268,6 +1268,13 @@
       "sec": "Sn.",
       "title": "Döngü sonu"
     },
+    "lastCycleSummary": {
+      "eligibleMessage": "Bu döngüde Prime için uygun oldun. Ek ödül kazanmak için Prime piyasalarında pozisyon al.",
+      "notEligibleMessage": "Son döngüde Prime için uygun değildin. Bir sonraki döngüde Prime için yarışmak üzere XVS stake et.",
+      "title": "Son Döngü Prime Özeti",
+      "totalRewardsTitle": "Son döngüde dağıtılan toplam Prime ödülleri",
+      "userRewardsTitle": "Son döngüdeki Prime ödülleriniz"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime puanı",

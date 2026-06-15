@@ -85,6 +85,7 @@ export const LastCycleSummaryModal: React.FC<LastCycleSummaryModalProps> = ({
         />
 
         <UserRewardsCard
+          title={t('primeLeaderboard.lastCycleSummary.userRewardsTitle')}
           totalRewardsCents={placeholderUserRewardsCents}
           marketRewards={userMarketRewards}
           content={userRewardsContent}

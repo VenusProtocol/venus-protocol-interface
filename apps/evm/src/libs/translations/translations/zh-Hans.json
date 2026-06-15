@@ -1268,6 +1268,13 @@
       "sec": "秒",
       "title": "周期结束"
     },
+    "lastCycleSummary": {
+      "eligibleMessage": "你在本周期已具备 Prime 资格。在 Prime 市场建仓以赚取额外奖励。",
+      "notEligibleMessage": "你在上一周期未具备 Prime 资格。质押 XVS 以在下一周期竞争 Prime。",
+      "title": "上一周期 Prime 汇总",
+      "totalRewardsTitle": "上一周期分发的 Prime 总奖励",
+      "userRewardsTitle": "你上一周期的 Prime 奖励"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime 分数",

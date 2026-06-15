@@ -1268,6 +1268,13 @@
       "sec": "秒",
       "title": "週期結束"
     },
+    "lastCycleSummary": {
+      "eligibleMessage": "你在本週期已具備 Prime 資格。在 Prime 市場建倉以賺取額外獎勵。",
+      "notEligibleMessage": "你在上一週期未具備 Prime 資格。質押 XVS 以在下一週期競爭 Prime。",
+      "title": "上一週期 Prime 彙總",
+      "totalRewardsTitle": "上一週期分發的 Prime 總獎勵",
+      "userRewardsTitle": "你上一週期的 Prime 獎勵"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime 分數",

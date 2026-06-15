@@ -12,6 +12,6 @@ describe('pages/PrimeLeaderboard/LastCycleSummaryModal', () => {
     expect(
       screen.getByText('Total Prime rewards distributed during the last cycle'),
     ).toBeInTheDocument();
-    expect(screen.getByText('Your Prime rewards this cycle')).toBeInTheDocument();
+    expect(screen.getByText('Your Prime rewards last cycle')).toBeInTheDocument();
   });
 });
