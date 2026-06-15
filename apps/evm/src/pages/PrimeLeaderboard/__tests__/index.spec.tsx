@@ -17,12 +17,12 @@ vi.mock('../EndOfCycle', () => ({
   EndOfCycle: () => <div data-testid="end-of-cycle" />,
 }));
 
-vi.mock('../TotalRewardsCard', () => ({
-  TotalRewardsCard: () => <div data-testid="total-rewards-card" />,
+vi.mock('../TotalRewardsSection', () => ({
+  TotalRewardsSection: () => <div data-testid="total-rewards-section" />,
 }));
 
-vi.mock('../UserRewardsCard', () => ({
-  UserRewardsCard: () => <div data-testid="user-rewards-card" />,
+vi.mock('../UserRewardsSection', () => ({
+  UserRewardsSection: () => <div data-testid="user-rewards-section" />,
 }));
 
 vi.mock('../RewardTable', () => ({
@@ -43,8 +43,8 @@ describe('pages/PrimeLeaderboard', () => {
 
     expect(screen.getByTestId('hero')).toBeInTheDocument();
     expect(screen.getByTestId('end-of-cycle')).toBeInTheDocument();
-    expect(screen.getByTestId('total-rewards-card')).toBeInTheDocument();
-    expect(screen.getByTestId('user-rewards-card')).toBeInTheDocument();
+    expect(screen.getByTestId('total-rewards-section')).toBeInTheDocument();
+    expect(screen.getByTestId('user-rewards-section')).toBeInTheDocument();
     expect(screen.getByTestId('reward-table')).toBeInTheDocument();
     expect(screen.getByTestId('rank-card')).toBeInTheDocument();
     expect(screen.getByTestId('rank-table')).toBeInTheDocument();
@@ -53,7 +53,7 @@ describe('pages/PrimeLeaderboard', () => {
   it('hides the user rewards card when the wallet is not connected', () => {
     renderComponent(<PrimeLeaderboard />);
 
-    expect(screen.getByTestId('total-rewards-card')).toBeInTheDocument();
-    expect(screen.queryByTestId('user-rewards-card')).not.toBeInTheDocument();
+    expect(screen.getByTestId('total-rewards-section')).toBeInTheDocument();
+    expect(screen.queryByTestId('user-rewards-section')).not.toBeInTheDocument();
   });
 });
