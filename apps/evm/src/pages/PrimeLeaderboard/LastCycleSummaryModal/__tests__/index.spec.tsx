@@ -5,10 +5,10 @@ import { renderComponent } from 'testUtils/render';
 import { LastCycleSummaryModal } from '..';
 
 describe('pages/PrimeLeaderboard/LastCycleSummaryModal', () => {
-  it('renders the last cycle total and user Prime rewards', () => {
+  it('renders the last cycle total and user Prime rewards', async () => {
     renderComponent(<LastCycleSummaryModal isOpen handleClose={() => {}} />);
 
-    expect(screen.getByText('Last Cycle Prime Summary')).toBeInTheDocument();
+    expect(await screen.findByText('Last Cycle Prime Summary')).toBeInTheDocument();
     expect(
       screen.getByText('Total Prime rewards distributed during the last cycle'),
     ).toBeInTheDocument();

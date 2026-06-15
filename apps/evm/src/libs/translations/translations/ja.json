@@ -1256,12 +1256,15 @@
     "rankCard": {
       "connectPrompt": "ウォレットを接続して Prime の対象かを確認してください。",
       "eligible": "あなたは次のサイクルで Prime の対象です",
+      "eligibleSupplied": "おめでとうございます！前サイクルでトップ 500 に入り、Prime 報酬の対象になりました。",
       "notEligible": "あなたは次のサイクルで Prime の対象ではありません。",
       "primeScoreLabel": "Prime スコア",
       "rankLabel": "あなたのランク",
       "rulesButton": "ルール",
       "stakeButton": "XVS をステーク",
-      "stakePrompt": "XVS をステークして Prime を目指しましょう。"
+      "stakeMore": "次のサイクルで Prime を目指して、さらに XVS をステークしましょう。",
+      "stakePrompt": "XVS をステークして Prime を目指しましょう。",
+      "stakeToReachTop": "あと <Highlight>{{amount}} XVS</Highlight> をステークするとトップ #500 に入り、次のサイクルで Prime の対象になります。"
     },
     "title": "Prime リーダーボード",
     "totalRewards": {

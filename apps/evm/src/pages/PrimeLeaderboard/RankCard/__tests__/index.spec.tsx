@@ -1,13 +1,23 @@
 import { screen } from '@testing-library/react';
+import noop from 'noop-ts';
 
-import fakeAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { RankCard } from '..';
+import { type PrimeRankData, RankCard } from '..';
+
+const rankData: PrimeRankData = {
+  hasStakedXvs: true,
+  isCandidate: true,
+  isPrime: true,
+  hasSupplied: true,
+  rank: 2,
+  primeScore: 542_500_000,
+  gapXvsTokens: 5_432,
+};
 
 describe('pages/PrimeLeaderboard/RankCard', () => {
-  it('renders the rank, Prime score and actions when the wallet is connected', () => {
-    renderComponent(<RankCard />, { accountAddress: fakeAddress });
+  it('renders the rank, Prime score and actions when connected', () => {
+    renderComponent(<RankCard isUserConnected onConnect={noop} rankData={rankData} />);
 
     expect(screen.getByText('#2')).toBeInTheDocument();
     expect(screen.getByText('542.5M')).toBeInTheDocument();
@@ -15,8 +25,8 @@ describe('pages/PrimeLeaderboard/RankCard', () => {
     expect(screen.getByText('Rules')).toBeInTheDocument();
   });
 
-  it('prompts to connect the wallet when none is connected', () => {
-    renderComponent(<RankCard />);
+  it('prompts to connect the wallet when not connected', () => {
+    renderComponent(<RankCard isUserConnected={false} onConnect={noop} rankData={rankData} />);
 
     expect(screen.getByText('Connect wallet to check your Prime eligibility.')).toBeInTheDocument();
     expect(screen.queryByText('#2')).not.toBeInTheDocument();

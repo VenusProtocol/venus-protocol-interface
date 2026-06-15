@@ -1256,12 +1256,15 @@
     "rankCard": {
       "connectPrompt": "Prime uygunluğunu görmek için cüzdanını bağla.",
       "eligible": "Bir sonraki döngüde Prime için uygunsun",
+      "eligibleSupplied": "Tebrikler! Son döngüde ilk 500'e girdin ve Prime Ödülleri için uygun oldun.",
       "notEligible": "Bir sonraki döngüde Prime için uygun değilsin.",
       "primeScoreLabel": "Prime puanı",
       "rankLabel": "Sıralaman",
       "rulesButton": "Kurallar",
       "stakeButton": "XVS stake et",
-      "stakePrompt": "Prime için yarışmak üzere XVS stake et."
+      "stakeMore": "Bir sonraki döngüde Prime için yarışmak üzere daha fazla XVS stake et.",
+      "stakePrompt": "Prime için yarışmak üzere XVS stake et.",
+      "stakeToReachTop": "İlk #500'e girmek ve bir sonraki döngüde Prime için uygun olmak için <Highlight>{{amount}} XVS</Highlight> stake et."
     },
     "title": "Prime lider tablosu",
     "totalRewards": {

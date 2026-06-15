@@ -1256,12 +1256,15 @@
     "rankCard": {
       "connectPrompt": "連接錢包以查看你的 Prime 資格。",
       "eligible": "你目前已具備下個週期的 Prime 資格",
+      "eligibleSupplied": "恭喜！你在上個週期進入了前 500 名並獲得了 Prime 獎勵。",
       "notEligible": "你目前不具備下個週期的 Prime 資格。",
       "primeScoreLabel": "Prime 分數",
       "rankLabel": "你的排名",
       "rulesButton": "規則",
       "stakeButton": "質押 XVS",
-      "stakePrompt": "質押 XVS 以競爭 Prime。"
+      "stakeMore": "質押更多 XVS 以在下個週期競爭 Prime。",
+      "stakePrompt": "質押 XVS 以競爭 Prime。",
+      "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight> 即可進入前 #500，並在下個週期取得 Prime 資格。"
     },
     "title": "Prime 排行榜",
     "totalRewards": {

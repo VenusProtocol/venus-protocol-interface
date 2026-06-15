@@ -1255,13 +1255,16 @@
     },
     "rankCard": {
       "connectPrompt": "Connect wallet to check your Prime eligibility.",
-      "eligible": "You are currently eligible for Prime during the next cycle",
+      "eligible": "You are currently eligible for Prime during the next cycle.",
+      "eligibleSupplied": "Congrats! You're in the Top 500 during last cycle and qualified for Prime Rewards.",
       "notEligible": "You are currently not eligible for Prime during the next cycle.",
       "primeScoreLabel": "Prime score",
       "rankLabel": "Your rank",
       "rulesButton": "Rules",
       "stakeButton": "Stake XVS",
-      "stakePrompt": "Stake XVS to compete for Prime."
+      "stakeMore": "Stake more XVS to compete for Prime during the next cycle.",
+      "stakePrompt": "Stake XVS to compete for Prime.",
+      "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> to reach the top #500 and become eligible for Prime during the next cycle."
     },
     "title": "Prime leaderboard",
     "totalRewards": {

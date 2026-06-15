@@ -1256,12 +1256,15 @@
     "rankCard": {
       "connectPrompt": "Kết nối ví để kiểm tra điều kiện Prime của bạn.",
       "eligible": "Bạn hiện đủ điều kiện nhận Prime trong chu kỳ tiếp theo",
+      "eligibleSupplied": "Chúc mừng! Bạn đã vào Top 500 trong chu kỳ trước và đủ điều kiện nhận Prime Rewards.",
       "notEligible": "Bạn hiện không đủ điều kiện nhận Prime trong chu kỳ tiếp theo.",
       "primeScoreLabel": "Điểm Prime",
       "rankLabel": "Hạng của bạn",
       "rulesButton": "Quy tắc",
       "stakeButton": "Stake XVS",
-      "stakePrompt": "Stake XVS để cạnh tranh Prime."
+      "stakeMore": "Stake thêm XVS để cạnh tranh Prime trong chu kỳ tiếp theo.",
+      "stakePrompt": "Stake XVS để cạnh tranh Prime.",
+      "stakeToReachTop": "Stake thêm <Highlight>{{amount}} XVS</Highlight> để vào top #500 và đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
     },
     "title": "Bảng xếp hạng Prime",
     "totalRewards": {
