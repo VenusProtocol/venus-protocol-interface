@@ -1247,12 +1247,6 @@
   },
   "primeLeaderboard": {
     "description": "Stake XVS into the governance vault and receive Prime rewards on top of your yields.",
-    "lastCycleSummary": {
-      "eligibleMessage": "You qualified for Prime in this cycle. Take positions in Prime markets to earn additional rewards.",
-      "notEligibleMessage": "You did not qualify for Prime during the last cycle. Stake XVS to compete for Prime in the next cycle.",
-      "title": "Last Cycle Prime Summary",
-      "totalRewardsTitle": "Total Prime rewards distributed during the last cycle"
-    },
     "rankCard": {
       "connectPrompt": "Connect wallet to check your Prime eligibility.",
       "eligible": "You are currently eligible for Prime during the next cycle.",

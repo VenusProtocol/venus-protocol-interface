@@ -1247,12 +1247,6 @@
   },
   "primeLeaderboard": {
     "description": "将 XVS 质押到治理金库，在收益之上再赚取 Prime 奖励。",
-    "lastCycleSummary": {
-      "eligibleMessage": "你在本周期已具备 Prime 资格。在 Prime 市场建仓以赚取额外奖励。",
-      "notEligibleMessage": "你在上一周期未具备 Prime 资格。质押 XVS 以在下一周期竞争 Prime。",
-      "title": "上一周期 Prime 汇总",
-      "totalRewardsTitle": "上一周期分发的 Prime 总奖励"
-    },
     "rankCard": {
       "connectPrompt": "连接钱包以查看你的 Prime 资格。",
       "eligible": "你当前已具备下个周期的 Prime 资格",
