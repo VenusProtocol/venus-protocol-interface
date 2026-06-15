@@ -43,25 +43,32 @@ export const LastCycleSummaryModal: React.FC<LastCycleSummaryModalProps> = ({
     apyPercentage: placeholderApyPercentage,
   }));
 
-  const userRewardsContent = placeholderHasRewards ? undefined : (
-    <div className="flex items-center gap-x-3">
-      {placeholderIsEligible ? (
-        <PrimeRewardBadge />
-      ) : (
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-dark-blue-hover">
-          <Icon name="person" className="text-light-grey" />
-        </span>
-      )}
+  let userRewardsContent: React.ReactNode;
 
-      <p
-        className={cn('flex-1 text-b1r', placeholderIsEligible ? 'text-light-grey' : 'text-yellow')}
-      >
-        {placeholderIsEligible
-          ? t('primeLeaderboard.lastCycleSummary.eligibleMessage')
-          : t('primeLeaderboard.lastCycleSummary.notEligibleMessage')}
-      </p>
-    </div>
-  );
+  if (!placeholderHasRewards) {
+    userRewardsContent = (
+      <div className="flex items-center gap-x-3">
+        {placeholderIsEligible ? (
+          <PrimeRewardBadge />
+        ) : (
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-dark-blue-hover">
+            <Icon name="person" className="text-light-grey" />
+          </span>
+        )}
+
+        <p
+          className={cn(
+            'flex-1 text-b1r',
+            placeholderIsEligible ? 'text-light-grey' : 'text-yellow',
+          )}
+        >
+          {placeholderIsEligible
+            ? t('primeLeaderboard.lastCycleSummary.eligibleMessage')
+            : t('primeLeaderboard.lastCycleSummary.notEligibleMessage')}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <Modal
