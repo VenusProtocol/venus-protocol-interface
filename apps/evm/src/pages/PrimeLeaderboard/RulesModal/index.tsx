@@ -1,6 +1,8 @@
 import { Modal } from 'components';
 import { useTranslation } from 'libs/translations';
 
+import { BOOST_TIERS } from './constants';
+
 export interface RulesModalProps {
   isOpen: boolean;
   handleClose: () => void;
@@ -8,18 +10,6 @@ export interface RulesModalProps {
 
 export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) => {
   const { t, Trans } = useTranslation();
-
-  const highlight = <span className="text-b1s text-white" />;
-
-  const daysLabel = t('primeLeaderboard.rulesModal.days');
-  const maxLabel = t('primeLeaderboard.rulesModal.max');
-
-  const boostTiers = [
-    { range: '0 – 29', boost: '1.0×', isMax: false },
-    { range: '30 – 59', boost: '1.3×', isMax: false },
-    { range: '60 – 89', boost: '1.6×', isMax: false },
-    { range: '90+', boost: '2.0×', isMax: true },
-  ];
 
   return (
     <Modal
@@ -31,11 +21,17 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
       <div className="flex flex-col gap-6 text-b1r text-light-grey">
         <div>
           <p>
-            <Trans i18nKey="primeLeaderboard.rulesModal.intro1" components={{ highlight }} />
+            <Trans
+              i18nKey="primeLeaderboard.rulesModal.intro1"
+              components={{ highlight: <span className="text-b1s text-white" /> }}
+            />
           </p>
 
           <p>
-            <Trans i18nKey="primeLeaderboard.rulesModal.intro2" components={{ highlight }} />
+            <Trans
+              i18nKey="primeLeaderboard.rulesModal.intro2"
+              components={{ highlight: <span className="text-b1s text-white" /> }}
+            />
           </p>
         </div>
 
@@ -53,14 +49,14 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
           </thead>
 
           <tbody>
-            {boostTiers.map(tier => (
-              <tr key={tier.range}>
+            {BOOST_TIERS.map(({ range, boost, isMax }) => (
+              <tr key={range}>
                 <td className="border-b border-dark-grey px-3 py-2 text-b1r text-white">
-                  {`${tier.range} ${daysLabel}`}
+                  {t('primeLeaderboard.rulesModal.daysHeld', { range })}
                 </td>
 
                 <td className="border-b border-dark-grey px-3 py-2 text-b1r text-white">
-                  {tier.isMax ? `${tier.boost} (${maxLabel})` : tier.boost}
+                  {isMax ? t('primeLeaderboard.rulesModal.boostMax', { boost }) : boost}
                 </td>
               </tr>
             ))}
@@ -69,7 +65,10 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
 
         <div className="flex flex-col gap-1">
           <p>
-            <Trans i18nKey="primeLeaderboard.rulesModal.contribution" components={{ highlight }} />
+            <Trans
+              i18nKey="primeLeaderboard.rulesModal.contribution"
+              components={{ highlight: <span className="text-b1s text-white" /> }}
+            />
           </p>
 
           <div>
@@ -77,15 +76,24 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
 
             <ul className="list-disc pl-6">
               <li>
-                <Trans i18nKey="primeLeaderboard.rulesModal.point1" components={{ highlight }} />
+                <Trans
+                  i18nKey="primeLeaderboard.rulesModal.point1"
+                  components={{ highlight: <span className="text-b1s text-white" /> }}
+                />
               </li>
 
               <li>
-                <Trans i18nKey="primeLeaderboard.rulesModal.point2" components={{ highlight }} />
+                <Trans
+                  i18nKey="primeLeaderboard.rulesModal.point2"
+                  components={{ highlight: <span className="text-b1s text-white" /> }}
+                />
               </li>
 
               <li>
-                <Trans i18nKey="primeLeaderboard.rulesModal.point3" components={{ highlight }} />
+                <Trans
+                  i18nKey="primeLeaderboard.rulesModal.point3"
+                  components={{ highlight: <span className="text-b1s text-white" /> }}
+                />
               </li>
             </ul>
           </div>
