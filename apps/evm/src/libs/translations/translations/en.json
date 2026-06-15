@@ -1260,6 +1260,9 @@
       "stakePrompt": "Stake XVS to compete for Prime.",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> to reach the top #500 and become eligible for Prime during the next cycle."
     },
+    "rankFooter": {
+      "learnMore": "Learn more from <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+    },
     "rulesModal": {
       "boostColumn": "Boost",
       "boostMax": "{{boost}} (max)",

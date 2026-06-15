@@ -1260,6 +1260,9 @@
       "stakePrompt": "Stake XVS เพื่อแข่งขันรับ Prime",
       "stakeToReachTop": "Stake อีก <Highlight>{{amount}} XVS</Highlight> เพื่อขึ้นไปอยู่ใน top #500 และมีสิทธิ์รับ Prime ในรอบถัดไป"
     },
+    "rankFooter": {
+      "learnMore": "เรียนรู้เพิ่มเติมจาก <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+    },
     "rulesModal": {
       "boostColumn": "ตัวคูณ",
       "boostMax": "{{boost}} (สูงสุด)",

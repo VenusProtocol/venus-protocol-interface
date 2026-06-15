@@ -1,4 +1,12 @@
-import type { PrimeRankData } from '../RankCard';
+export interface PrimeRankData {
+  hasStakedXvs: boolean;
+  isCandidate: boolean;
+  isPrime: boolean;
+  hasSupplied: boolean;
+  rank: number;
+  primeScore: number;
+  gapXvsTokens: number;
+}
 
 // TODO: replace this placeholder with the rank data returned by the API
 const placeholderRankData: PrimeRankData = {

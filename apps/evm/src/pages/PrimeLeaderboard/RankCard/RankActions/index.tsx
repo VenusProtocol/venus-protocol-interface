@@ -1,23 +1,23 @@
-import { Button, ButtonWrapper } from '@venusprotocol/ui';
+import { Button } from '@venusprotocol/ui';
 import { useState } from 'react';
 
 import { Icon } from 'components';
-import { routes } from 'constants/routing';
-import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
 import { RulesModal } from '../../RulesModal';
+import { StakeXvsModal } from '../../StakeXvsModal';
 
 export const RankActions: React.FC = () => {
   const { t } = useTranslation();
   const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
+  const [isStakeModalOpen, setIsStakeModalOpen] = useState(false);
 
   return (
     <>
       <div className="flex gap-x-2.5">
-        <ButtonWrapper asChild className="flex-1">
-          <Link to={routes.vaults.path}>{t('primeLeaderboard.rankCard.stakeButton')}</Link>
-        </ButtonWrapper>
+        <Button className="flex-1" onClick={() => setIsStakeModalOpen(true)}>
+          {t('primeLeaderboard.rankCard.stakeButton')}
+        </Button>
 
         <Button variant="secondary" className="flex-1" onClick={() => setIsRulesModalOpen(true)}>
           <div className="flex items-center gap-x-2">
@@ -28,6 +28,8 @@ export const RankActions: React.FC = () => {
       </div>
 
       {isRulesModalOpen && <RulesModal isOpen handleClose={() => setIsRulesModalOpen(false)} />}
+
+      {isStakeModalOpen && <StakeXvsModal handleClose={() => setIsStakeModalOpen(false)} />}
     </>
   );
 };

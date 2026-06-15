@@ -1260,6 +1260,9 @@
       "stakePrompt": "質押 XVS 以競爭 Prime。",
       "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight> 即可進入前 #500，並在下個週期取得 Prime 資格。"
     },
+    "rankFooter": {
+      "learnMore": "從 <leaderboardLink>Prime 排行榜</leaderboardLink> 了解更多"
+    },
     "rulesModal": {
       "boostColumn": "加成",
       "boostMax": "{{boost}}（上限）",

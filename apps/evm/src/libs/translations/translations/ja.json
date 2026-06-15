@@ -1260,6 +1260,9 @@
       "stakePrompt": "XVS をステークして Prime を目指しましょう。",
       "stakeToReachTop": "あと <Highlight>{{amount}} XVS</Highlight> をステークするとトップ #500 に入り、次のサイクルで Prime の対象になります。"
     },
+    "rankFooter": {
+      "learnMore": "<leaderboardLink>Prime リーダーボード</leaderboardLink> で詳しく見る"
+    },
     "rulesModal": {
       "boostColumn": "ブースト",
       "boostMax": "{{boost}}（上限）",

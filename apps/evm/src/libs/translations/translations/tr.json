@@ -1260,6 +1260,9 @@
       "stakePrompt": "Prime için yarışmak üzere XVS stake et.",
       "stakeToReachTop": "İlk #500'e girmek ve bir sonraki döngüde Prime için uygun olmak için <Highlight>{{amount}} XVS</Highlight> stake et."
     },
+    "rankFooter": {
+      "learnMore": "<leaderboardLink>Prime Leaderboard</leaderboardLink> üzerinden daha fazla bilgi edinin"
+    },
     "rulesModal": {
       "boostColumn": "Artış",
       "boostMax": "{{boost}} (maks.)",

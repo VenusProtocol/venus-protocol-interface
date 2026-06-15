@@ -1,9 +1,10 @@
 import { screen } from '@testing-library/react';
 import noop from 'noop-ts';
 
+import type { PrimeRankData } from 'containers/PrimeRank/useGetPrimeRank';
 import { renderComponent } from 'testUtils/render';
 
-import { type PrimeRankData, RankCard } from '..';
+import { RankCard } from '..';
 
 const rankData: PrimeRankData = {
   hasStakedXvs: true,

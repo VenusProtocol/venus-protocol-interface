@@ -1,7 +1,7 @@
+import { useGetPrimeRank } from 'containers/PrimeRank/useGetPrimeRank';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 
 import { RankCard } from '../RankCard';
-import { useGetPrimeRank } from '../useGetPrimeRank';
 
 export interface RankSectionProps {
   className?: string;

@@ -1,22 +1,13 @@
 import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 
+import { EligibilityStatus } from 'containers/PrimeRank/EligibilityStatus';
+import type { PrimeRankData } from 'containers/PrimeRank/useGetPrimeRank';
 import { shortenValueWithSuffix } from 'utilities';
 
 import { ConnectPrompt } from './ConnectPrompt';
-import { EligibilityStatus } from './EligibilityStatus';
 import { RankActions } from './RankActions';
 import { RankSummary } from './RankSummary';
-
-export interface PrimeRankData {
-  hasStakedXvs: boolean;
-  isCandidate: boolean;
-  isPrime: boolean;
-  hasSupplied: boolean;
-  rank: number;
-  primeScore: number;
-  gapXvsTokens: number;
-}
 
 export interface RankCardProps {
   isUserConnected: boolean;

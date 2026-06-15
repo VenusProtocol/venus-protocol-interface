@@ -12,6 +12,8 @@ export interface EligibilityStatusProps {
   isPrime: boolean;
   hasSupplied: boolean;
   gapXvsTokens: number;
+  // Optional inline content appended to the end of the status message (e.g. a leaderboard link)
+  linkSlot?: React.ReactNode;
   className?: string;
 }
 
@@ -21,6 +23,7 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
   isPrime,
   hasSupplied,
   gapXvsTokens,
+  linkSlot,
   className,
 }) => {
   const { t, Trans } = useTranslation();
@@ -31,6 +34,7 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
     return (
       <p className={cn('text-b1r text-white', className)}>
         {t('primeLeaderboard.rankCard.eligibleSupplied')}
+        {linkSlot}
       </p>
     );
   }
@@ -39,6 +43,7 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
     return (
       <p className={cn('text-b1r text-green', className)}>
         {t('primeLeaderboard.rankCard.eligible')}
+        {linkSlot}
       </p>
     );
   }
@@ -60,7 +65,10 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
   return (
     <div className={className}>
       <p className="text-b1r text-yellow">{t('primeLeaderboard.rankCard.notEligible')}</p>
-      <p className="text-b1r text-white">{stakeMessage}</p>
+      <p className="text-b1r text-white">
+        {stakeMessage}
+        {linkSlot}
+      </p>
     </div>
   );
 };

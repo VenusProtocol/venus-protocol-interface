@@ -23,7 +23,7 @@ import { PrimeEligibilityInlineContent } from './PrimeEligibilityInlineContent';
 import { Progress } from './Progress';
 import { StatusLabel } from './StatusLabel';
 import { VaultName } from './VaultName';
-import { VenusVaultModal } from './VenusVaultModal';
+import { VenusVaultModal } from 'containers/VenusVaultModal';
 
 export interface VaultProps {
   vault: Vault;
