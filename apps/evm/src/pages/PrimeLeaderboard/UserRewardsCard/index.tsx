@@ -19,15 +19,20 @@ export interface UserMarketReward {
 export interface UserRewardsCardProps {
   totalRewardsCents: number;
   marketRewards: UserMarketReward[];
+  title?: React.ReactNode;
   // Replaces the default headline (Prime badge + total amount), e.g. an eligibility message
   content?: React.ReactNode;
+  // Toggles the per-market Prime APY and actions menu, hidden when the card is a read-only summary
+  showMarketActions?: boolean;
   className?: string;
 }
 
 export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   totalRewardsCents,
   marketRewards,
+  title,
   content,
+  showMarketActions = true,
   className,
 }) => {
   const { t } = useTranslation();
@@ -56,7 +61,9 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
       )}
     >
       <div className={cn(content && 'flex flex-col gap-1')}>
-        <p className="text-b1r text-light-grey">{t('primeLeaderboard.userRewards.title')}</p>
+        <p className="text-b1r text-light-grey">
+          {title ?? t('primeLeaderboard.userRewards.title')}
+        </p>
 
         {content ?? (
           <div className="flex items-center gap-x-3">
@@ -83,10 +90,17 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
             rewardsCents={rewardsCents}
             totalRewardsCents={totalRewardsCents}
           >
-            {asset && <Apy asset={asset} type="supply" className="ml-2" />}
+            {showMarketActions && (
+              <>
+                {asset && <Apy asset={asset} type="supply" className="ml-2" />}
 
-            {asset && poolComptrollerAddress && (
-              <MarketActionsButton asset={asset} poolComptrollerAddress={poolComptrollerAddress} />
+                {asset && poolComptrollerAddress && (
+                  <MarketActionsButton
+                    asset={asset}
+                    poolComptrollerAddress={poolComptrollerAddress}
+                  />
+                )}
+              </>
             )}
           </MarketRewardRow>
         ))}
