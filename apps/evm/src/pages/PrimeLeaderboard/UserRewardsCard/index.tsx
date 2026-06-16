@@ -6,6 +6,7 @@ import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 
+import { MarketActions } from '../MarketActions';
 import { MarketRewardRow } from '../MarketRewardRow';
 
 export interface UserMarketReward {
@@ -62,13 +63,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
               <span className="text-b1s">{formatPercentageToReadableValue(apyPercentage)}</span>
             </div>
 
-            <button
-              type="button"
-              aria-label={t('primeLeaderboard.userRewards.marketActions')}
-              className="ml-2 shrink-0"
-            >
-              <Icon name="dots" className="text-light-grey" />
-            </button>
+            <MarketActions token={token} />
           </MarketRewardRow>
         ))}
       </div>
