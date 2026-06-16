@@ -1261,6 +1261,20 @@
       "sec": "Sec",
       "title": "End of cycle"
     },
+    "rankTable": {
+      "columns": {
+        "primeScore": "Prime score",
+        "wallet": "Wallet"
+      },
+      "walletTooltip": "Users ranked by Prime score. The top 500 wallets become eligible for Prime in the next cycle."
+    },
+    "rewardTable": {
+      "columns": {
+        "marketRewards": "{{symbol}} rewards",
+        "totalRewards": "Total rewards",
+        "wallet": "Wallet"
+      }
+    },
     "tablesRefreshNote": "Refreshed hourly · Last refresh: {{date, distanceToNow}} ago",
     "title": "Prime leaderboard"
   },
