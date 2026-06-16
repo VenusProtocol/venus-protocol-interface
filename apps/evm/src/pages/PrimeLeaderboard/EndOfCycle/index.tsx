@@ -1,4 +1,4 @@
-import { cn } from '@venusprotocol/ui';
+import { Button, cn } from '@venusprotocol/ui';
 import ReactCountdown from 'react-countdown';
 
 import { Card } from 'components';
@@ -49,7 +49,10 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, className }) =>
             values={{ deadline }}
             components={{
               bold: <span className="text-b1s text-white" />,
-              summaryLink: <span className="text-b1s text-blue underline" />,
+              // TODO: open the last cycle summary modal once it's available
+              summaryLink: (
+                <Button variant="text" className="h-auto p-0 text-b1s text-blue underline" />
+              ),
             }}
           />
         </p>
