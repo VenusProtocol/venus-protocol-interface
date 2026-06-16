@@ -1,11 +1,9 @@
-import BigNumber from 'bignumber.js';
-
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import { shortenValueWithSuffix } from 'utilities';
 
 import { EligibilityStatus } from '../EligibilityStatus';
+import { getRankLabels } from '../getRankLabels';
 import { useGetPrimeRank } from '../useGetPrimeRank';
 
 export interface FooterProps {
@@ -15,13 +13,10 @@ export interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
   const { t, Trans } = useTranslation();
 
-  const { hasStakedXvs, isCandidate, isPrime, hasSupplied, rank, primeScore, gapXvsTokens } =
-    useGetPrimeRank();
+  const rankData = useGetPrimeRank();
+  const { hasStakedXvs, isCandidate, isPrime, hasSupplied, gapXvsTokens } = rankData;
 
-  const rankLabel = hasStakedXvs ? `#${rank}` : '#-';
-  const primeScoreLabel = hasStakedXvs
-    ? shortenValueWithSuffix({ value: new BigNumber(primeScore) })
-    : '-';
+  const { rankLabel, primeScoreLabel } = getRankLabels(rankData);
 
   return (
     <div className="flex flex-col gap-1 rounded-lg border border-dark-blue-hover p-3">
