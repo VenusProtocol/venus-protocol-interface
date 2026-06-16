@@ -1268,6 +1268,20 @@
       "sec": "秒",
       "title": "サイクル終了"
     },
+    "rankTable": {
+      "columns": {
+        "primeScore": "Prime スコア",
+        "wallet": "ウォレット"
+      },
+      "walletTooltip": "Prime スコア順のランキングです。上位 500 のウォレットが次のサイクルで Prime の対象になります。"
+    },
+    "rewardTable": {
+      "columns": {
+        "marketRewards": "{{symbol}} の報酬",
+        "totalRewards": "報酬合計",
+        "wallet": "ウォレット"
+      }
+    },
     "tablesRefreshNote": "1時間ごとに更新 · 最終更新：{{date, distanceToNow}}前",
     "title": "Prime リーダーボード"
   },
