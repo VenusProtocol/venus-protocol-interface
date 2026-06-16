@@ -1,22 +1,23 @@
 import { type SVGProps, useId } from 'react';
 
 const SvgBarChart = (props: SVGProps<SVGSVGElement>) => {
-  const maskId = useId();
+  const maskId = `bar-chart-${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
 
   return (
     <svg
       width="20"
       height="20"
-      viewBox="0 0 20 20"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <mask id={maskId} fill="white">
-        <rect x="12" width="8" height="20" rx="1.49998" />
+        <rect x="14" y="2" width="8" height="20" rx="1.49998" />
       </mask>
       <rect
-        x="12"
+        x="14"
+        y="2"
         width="8"
         height="20"
         rx="1.49998"
@@ -25,12 +26,12 @@ const SvgBarChart = (props: SVGProps<SVGSVGElement>) => {
         mask={`url(#${maskId})`}
       />
       <path
-        d="M7.5 8H12.5C12.7761 8 13 8.22387 13 8.5V19H7.5C7.22387 19 7 18.7761 7 18.5V8.5C7 8.22387 7.22387 8 7.5 8Z"
+        d="M9.5 10H14.5C14.7761 10 15 10.2239 15 10.5V21H9.5C9.22387 21 9 20.7761 9 20.5V10.5C9 10.2239 9.22387 10 9.5 10Z"
         stroke="currentColor"
         strokeWidth="2"
       />
       <path
-        d="M1.5 14H6.5C6.77613 14 7 14.2239 7 14.5V19H1.5C1.22387 19 1 18.7761 1 18.5V14.5C1 14.2239 1.22387 14 1.5 14Z"
+        d="M3.5 16H8.5C8.77613 16 9 16.2239 9 16.5V21H3.5C3.22387 21 3 20.7761 3 20.5V16.5C3 16.2239 3.22387 16 3.5 16Z"
         stroke="currentColor"
         strokeWidth="2"
       />
