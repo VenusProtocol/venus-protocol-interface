@@ -1,6 +1,6 @@
 import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import { type State, type UserChainSettings, store } from 'store';
+import { type State, type UserChainSettings, useStore } from 'store';
 
 export const defaultUserChainSettings: UserChainSettings = {
   gaslessTransactions: false,
@@ -17,14 +17,14 @@ export const useUserChainSettings = () => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
 
-  const userSettings = store.use.userSettings();
+  const userSettings = useStore(state => state.userSettings);
   const userChainSettings: UserChainSettings = {
     ...defaultUserChainSettings,
     ...userSettings[chainId],
     showUserAssetsOnly: !!accountAddress && !!userSettings[chainId]?.showUserAssetsOnly,
   };
 
-  const setUserSettings = store.use.setUserSettings();
+  const setUserSettings = useStore(state => state.setUserSettings);
 
   const setUserChainSettings = (input: Parameters<State['setUserSettings']>[0]['settings']) =>
     setUserSettings({

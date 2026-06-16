@@ -11,7 +11,7 @@ export interface State {
 
 const deepMerge = createDeepMerge({ all: true });
 
-const useStore = create<State>()(
+const store = create<State>()(
   persist(
     set => ({
       doNotShowBanner: false,
@@ -28,4 +28,4 @@ const useStore = create<State>()(
   ),
 );
 
-export const store = createStoreSelectors(useStore);
+export const useStore = createStoreSelectors(store);
