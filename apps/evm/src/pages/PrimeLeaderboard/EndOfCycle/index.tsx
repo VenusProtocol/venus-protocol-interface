@@ -1,9 +1,11 @@
 import { Button, cn } from '@venusprotocol/ui';
+import { useState } from 'react';
 import ReactCountdown from 'react-countdown';
 
 import { Card } from 'components';
 import { useTranslation } from 'libs/translations';
 
+import { LastCycleSummaryModal } from '../LastCycleSummaryModal';
 import { Timer } from './Timer';
 
 export interface EndOfCycleProps {
@@ -21,6 +23,7 @@ interface CountdownState {
 
 export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, className }) => {
   const { t, Trans } = useTranslation();
+  const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
 
   const deadline = t('primeLeaderboard.endOfCycle.deadline', { date: endDate });
 
@@ -49,9 +52,12 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, className }) =>
             values={{ deadline }}
             components={{
               bold: <span className="text-b1s text-white" />,
-              // TODO: open the last cycle summary modal once it's available
               summaryLink: (
-                <Button variant="text" className="h-auto p-0 text-b1s text-blue underline" />
+                <Button
+                  variant="text"
+                  onClick={() => setIsSummaryModalOpen(true)}
+                  className="h-auto p-0 text-b1s text-blue underline"
+                />
               ),
             }}
           />
@@ -60,5 +66,13 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, className }) =>
     </Card>
   );
 
-  return <ReactCountdown date={endDate} renderer={renderCard} />;
+  return (
+    <>
+      <ReactCountdown date={endDate} renderer={renderCard} />
+
+      {isSummaryModalOpen && (
+        <LastCycleSummaryModal isOpen handleClose={() => setIsSummaryModalOpen(false)} />
+      )}
+    </>
+  );
 };
