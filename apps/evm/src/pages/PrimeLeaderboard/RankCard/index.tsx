@@ -1,9 +1,8 @@
 import { cn } from '@venusprotocol/ui';
-import BigNumber from 'bignumber.js';
 
 import { EligibilityStatus } from 'containers/PrimeRank/EligibilityStatus';
+import { getRankLabels } from 'containers/PrimeRank/getRankLabels';
 import type { PrimeRankData } from 'containers/PrimeRank/useGetPrimeRank';
-import { shortenValueWithSuffix } from 'utilities';
 
 import { ConnectPrompt } from './ConnectPrompt';
 import { RankActions } from './RankActions';
@@ -32,13 +31,9 @@ export const RankCard: React.FC<RankCardProps> = ({
     );
   }
 
-  const { hasStakedXvs, isCandidate, isPrime, hasSupplied, rank, primeScore, gapXvsTokens } =
-    rankData;
+  const { hasStakedXvs, isCandidate, isPrime, hasSupplied, gapXvsTokens } = rankData;
 
-  const rankLabel = hasStakedXvs ? `#${rank}` : '#-';
-  const primeScoreLabel = hasStakedXvs
-    ? shortenValueWithSuffix({ value: new BigNumber(primeScore) })
-    : '-';
+  const { rankLabel, primeScoreLabel } = getRankLabels(rankData);
 
   return (
     <div className={cn(cardClassName, 'justify-between')}>
