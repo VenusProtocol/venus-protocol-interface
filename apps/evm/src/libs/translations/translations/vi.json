@@ -1276,7 +1276,14 @@
       }
     },
     "tablesRefreshNote": "Làm mới mỗi giờ · Lần làm mới cuối: {{date, distanceToNow}} trước",
-    "title": "Bảng xếp hạng Prime"
+    "title": "Bảng xếp hạng Prime",
+    "totalRewards": {
+      "title": "Tổng thưởng Prime đã phân phối trong chu kỳ này"
+    },
+    "userRewards": {
+      "marketActions": "Mở thao tác thị trường",
+      "title": "Phần thưởng Prime của bạn trong chu kỳ này"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Bạn đã có thể trở thành người dùng Prime",

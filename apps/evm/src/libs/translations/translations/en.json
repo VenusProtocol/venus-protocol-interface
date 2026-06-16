@@ -1276,7 +1276,14 @@
       }
     },
     "tablesRefreshNote": "Refreshed hourly · Last refresh: {{date, distanceToNow}} ago",
-    "title": "Prime leaderboard"
+    "title": "Prime leaderboard",
+    "totalRewards": {
+      "title": "Total Prime rewards distributed this cycle"
+    },
+    "userRewards": {
+      "marketActions": "Open market actions",
+      "title": "Your Prime rewards this cycle"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Prime user",

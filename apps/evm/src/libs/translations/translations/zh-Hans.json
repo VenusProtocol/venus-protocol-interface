@@ -1276,7 +1276,14 @@
       }
     },
     "tablesRefreshNote": "每小时刷新 · 上次刷新：{{date, distanceToNow}}前",
-    "title": "Prime 排行榜"
+    "title": "Prime 排行榜",
+    "totalRewards": {
+      "title": "本周期已分配的 Prime 总奖励"
+    },
+    "userRewards": {
+      "marketActions": "打开市场操作",
+      "title": "你本周期的 Prime 奖励"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "你现在可以成为 Prime 用户",

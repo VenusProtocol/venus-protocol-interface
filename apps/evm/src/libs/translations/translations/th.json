@@ -1276,7 +1276,14 @@
       }
     },
     "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{date, distanceToNow}} ที่แล้ว",
-    "title": "กระดานผู้นำ Prime"
+    "title": "กระดานผู้นำ Prime",
+    "totalRewards": {
+      "title": "รางวัล Prime ทั้งหมดที่แจกในรอบนี้"
+    },
+    "userRewards": {
+      "marketActions": "เปิดการดำเนินการของตลาด",
+      "title": "รางวัล Prime ของคุณในรอบนี้"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว",

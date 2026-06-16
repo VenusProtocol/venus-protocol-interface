@@ -2,14 +2,15 @@ import { endOfMonth, subHours } from 'date-fns';
 
 import { Card, Page, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 
 import { EndOfCycle } from './EndOfCycle';
 import { Hero } from './Hero';
 import { RankCard } from './RankCard';
 import { RankTable } from './RankTable';
 import { RewardTable } from './RewardTable';
-import { TotalRewardsCard } from './TotalRewardsCard';
-import { UserRewardsCard } from './UserRewardsCard';
+import { TotalRewardsSection } from './TotalRewardsSection';
+import { UserRewardsSection } from './UserRewardsSection';
 
 // TODO: use the cycle end date returned by the API
 const endOfCycleDate = endOfMonth(new Date());
@@ -19,6 +20,7 @@ const lastRefreshedAt = subHours(new Date(), 6);
 
 const PrimeLeaderboard: React.FC = () => {
   const { t } = useTranslation();
+  const { accountAddress } = useAccountAddress();
 
   return (
     <Page>
@@ -48,11 +50,15 @@ const PrimeLeaderboard: React.FC = () => {
 
       <div className="relative mt-3 flex flex-col gap-3 lg:flex-row">
         <Card className="flex flex-col gap-2.5 border-dark-grey bg-background p-3 lg:grow">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <TotalRewardsCard />
+          {accountAddress ? (
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <TotalRewardsSection />
 
-            <UserRewardsCard />
-          </div>
+              <UserRewardsSection />
+            </div>
+          ) : (
+            <TotalRewardsSection />
+          )}
 
           <RewardTable />
         </Card>

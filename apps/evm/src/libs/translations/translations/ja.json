@@ -1276,7 +1276,14 @@
       }
     },
     "tablesRefreshNote": "1時間ごとに更新 · 最終更新：{{date, distanceToNow}}前",
-    "title": "Prime リーダーボード"
+    "title": "Prime リーダーボード",
+    "totalRewards": {
+      "title": "今サイクルに分配された Prime 報酬の総額"
+    },
+    "userRewards": {
+      "marketActions": "マーケット操作を開く",
+      "title": "今サイクルのあなたの Prime 報酬"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Primeユーザーになれるようになりました",
