@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
@@ -9,31 +9,45 @@ type PaginationProps = {
   itemsCount: number;
   onChange: (newPageIndex: number) => void;
   itemsPerPageCount?: number;
+  // Search param key holding the active page, so several tables can paginate independently
+  paramKey?: string;
 };
 
 const PAGES_TO_SHOW_COUNT = 4;
 
-export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: PaginationProps) {
+export function usePagination({
+  itemsCount,
+  onChange,
+  itemsPerPageCount = 10,
+  paramKey = PAGE_PARAM_KEY,
+}: PaginationProps) {
   const { t } = useTranslation();
   const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const setPageParam = useCallback(
+    (page: string) =>
+      setSearchParams(currentSearchParams => ({
+        ...Object.fromEntries(currentSearchParams),
+        [paramKey]: page,
+      })),
+    [setSearchParams, paramKey],
+  );
+
   const [urlPageParam, activePageIndex] = useMemo(() => {
-    const pageParam = searchParams.get(PAGE_PARAM_KEY);
+    const pageParam = searchParams.get(paramKey);
     const pageIndex = pageParam ? +pageParam - 1 : 0;
 
     return [pageParam, pageIndex];
-  }, [searchParams]);
+  }, [searchParams, paramKey]);
 
   // Automatically set default page param if none was set
   useEffect(() => {
     if (urlPageParam === undefined) {
-      setSearchParams({
-        [PAGE_PARAM_KEY]: '1',
-      });
+      setPageParam('1');
     }
-  }, [urlPageParam, setSearchParams]);
+  }, [urlPageParam, setPageParam]);
 
   const [pagesCount, setPagesCount] = useState(0);
 
@@ -68,9 +82,7 @@ export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: 
     : activePageIndex + halfOfPagesCount;
 
   const handlePageChange = (pageIndex: number) => {
-    setSearchParams({
-      [PAGE_PARAM_KEY]: pageIndex.toString(),
-    });
+    setPageParam(pageIndex.toString());
 
     onChange(pageIndex);
 
