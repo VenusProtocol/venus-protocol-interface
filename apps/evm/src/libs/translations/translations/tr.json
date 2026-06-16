@@ -1284,7 +1284,14 @@
       }
     },
     "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
-    "title": "Prime lider tablosu"
+    "title": "Prime lider tablosu",
+    "totalRewards": {
+      "title": "Bu döngüde dağıtılan toplam Prime ödülü"
+    },
+    "userRewards": {
+      "marketActions": "Piyasa işlemlerini aç",
+      "title": "Bu döngüdeki Prime ödülleriniz"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",
