@@ -2,14 +2,16 @@ import { Button, cn } from '@venusprotocol/ui';
 import { useState } from 'react';
 import ReactCountdown from 'react-countdown';
 
-import { Card } from 'components';
+import { Card, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 
 import { LastCycleSummaryModal } from '../LastCycleSummaryModal';
 import { Timer } from './Timer';
 
 export interface EndOfCycleProps {
-  endDate: Date;
+  endDate?: Date;
+  isLoading?: boolean;
   className?: string;
 }
 
@@ -21,27 +23,39 @@ interface CountdownState {
   completed: boolean;
 }
 
-export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, className }) => {
+export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, className }) => {
   const { t, Trans } = useTranslation();
+  const { accountAddress } = useAccountAddress();
   const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
+
+  const cardClassName = cn(
+    'flex min-h-39 flex-col items-center justify-center gap-1 bg-background px-6 py-3',
+    className,
+  );
+
+  if (isLoading) {
+    return (
+      <Card className={cardClassName}>
+        <Spinner />
+      </Card>
+    );
+  }
+
+  if (!endDate) {
+    return null;
+  }
 
   const deadline = t('primeLeaderboard.endOfCycle.deadline', { date: endDate });
 
   const renderCard = ({ days, hours, minutes, seconds, completed }: CountdownState) => (
-    <Card
-      className={cn(
-        'flex flex-col items-center gap-1 px-6 py-3',
-        !completed && 'bg-background',
-        className,
-      )}
-    >
+    <Card className={cardClassName}>
       <p className={cn('w-40 text-center text-b1s text-white', !completed && 'uppercase')}>
         {t('primeLeaderboard.endOfCycle.title')}
       </p>
 
       <Timer days={days} hours={hours} minutes={minutes} seconds={seconds} />
 
-      {completed ? (
+      {completed || !accountAddress ? (
         <p className="text-center text-b1r text-light-grey">
           {t('primeLeaderboard.endOfCycle.helperEnded', { deadline })}
         </p>

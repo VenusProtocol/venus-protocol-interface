@@ -2,7 +2,7 @@ import { cn } from '@venusprotocol/ui';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
 import { useGetPools } from 'clients/api';
-import { Apy } from 'components';
+import { Apy, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
@@ -24,6 +24,7 @@ export interface UserRewardsCardProps {
   content?: React.ReactNode;
   // Toggles the per-market Prime APY and actions menu, hidden when the card is a read-only summary
   showMarketActions?: boolean;
+  isLoading?: boolean;
   className?: string;
 }
 
@@ -33,6 +34,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   title,
   content,
   showMarketActions = true,
+  isLoading,
   className,
 }) => {
   const { t } = useTranslation();
@@ -53,13 +55,18 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
     return { ...marketReward, asset, poolComptrollerAddress: pool?.comptrollerAddress };
   });
 
+  const cardClassName = cn('flex h-58 flex-col rounded-lg bg-background-active p-4', className);
+
+  if (isLoading) {
+    return (
+      <div className={cn(cardClassName, 'items-center justify-center')}>
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={cn(
-        'flex h-58 flex-col justify-between rounded-lg bg-background-active p-4',
-        className,
-      )}
-    >
+    <div className={cn(cardClassName, 'justify-between')}>
       <div className={cn(content && 'flex flex-col gap-1')}>
         <p className="text-b1r text-light-grey">
           {title ?? t('primeLeaderboard.userRewards.title')}

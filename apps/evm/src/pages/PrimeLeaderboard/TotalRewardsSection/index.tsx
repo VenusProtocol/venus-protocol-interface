@@ -6,12 +6,13 @@ export interface TotalRewardsSectionProps {
 }
 
 export const TotalRewardsSection: React.FC<TotalRewardsSectionProps> = ({ className }) => {
-  const { totalRewardsCents, marketRewards } = useGetPrimeTotalRewards();
+  const { isLoading, totalRewardsCents, marketRewards } = useGetPrimeTotalRewards();
 
   return (
     <TotalRewardsCard
       totalRewardsCents={totalRewardsCents}
       marketRewards={marketRewards}
+      isLoading={isLoading}
       className={className}
     />
   );

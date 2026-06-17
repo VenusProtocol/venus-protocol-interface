@@ -1,27 +1,18 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import type { Address } from 'viem';
 
+import { type PrimeLeaderboardEntry, useGetPrimeLeaderboard } from 'clients/api';
 import { InfoIcon, type TableColumn, Username } from 'components';
+import { useUrlPagination } from 'hooks/useUrlPagination';
+import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
+import { areAddressesEqual, convertMantissaToTokens, shortenValueWithSuffix } from 'utilities';
 
-import { PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
+import { ITEMS_PER_PAGE, PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
 import { RankBadge } from './RankBadge';
 
 const RANKS_PAGE_PARAM_KEY = 'ranksPage';
-
-interface PrimeRank {
-  rank: number;
-  address: Address;
-  primeScore: number;
-}
-
-// TODO: replace this placeholder ranking with the data returned by the API
-const placeholderRanks: PrimeRank[] = Array.from({ length: 150 }, (_, index) => ({
-  rank: index + 1,
-  address: '0xa1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8dD4d',
-  primeScore: 50_000,
-}));
 
 export interface RankTableProps {
   className?: string;
@@ -29,8 +20,17 @@ export interface RankTableProps {
 
 export const RankTable: React.FC<RankTableProps> = ({ className }) => {
   const { t } = useTranslation();
+  const xvs = useGetToken({ symbol: 'XVS' });
+  const { accountAddress } = useAccountAddress();
+  const { currentPage } = useUrlPagination({ paramKey: RANKS_PAGE_PARAM_KEY });
 
-  const columns: TableColumn<PrimeRank>[] = useMemo(
+  const { data, isLoading } = useGetPrimeLeaderboard({
+    page: currentPage + 1,
+    limit: ITEMS_PER_PAGE,
+  });
+  const entries = data?.entries ?? [];
+
+  const columns: TableColumn<PrimeLeaderboardEntry>[] = useMemo(
     () => [
       {
         key: 'wallet',
@@ -41,13 +41,17 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
           </span>
         ),
         selectOptionLabel: t('primeLeaderboard.rankTable.columns.wallet'),
-        renderCell: ({ rank, address }) => (
+        renderCell: ({ rank, userAddress }) => (
           <div className="flex items-center gap-x-2">
             {rank <= 3 && <RankBadge rank={rank} />}
 
             <span className="text-b1r text-white">#{rank}</span>
 
-            <Username address={address} className="text-b1r text-light-grey" />
+            <Username address={userAddress} className="text-b1r text-light-grey" />
+
+            {accountAddress && areAddressesEqual(userAddress, accountAddress) && (
+              <span className="size-2 shrink-0 rounded-full bg-blue" />
+            )}
           </div>
         ),
       },
@@ -56,27 +60,30 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
         label: t('primeLeaderboard.rankTable.columns.primeScore'),
         selectOptionLabel: t('primeLeaderboard.rankTable.columns.primeScore'),
         align: 'right',
-        sortRows: (rowA, rowB, direction) =>
-          direction === 'asc'
-            ? rowA.primeScore - rowB.primeScore
-            : rowB.primeScore - rowA.primeScore,
-        renderCell: ({ primeScore }) => (
-          <span className="text-b1r text-white">{new BigNumber(primeScore).toFormat()}</span>
+        renderCell: ({ effectiveStakeMantissa }) => (
+          <span className="text-b1r text-white">
+            {shortenValueWithSuffix({
+              value:
+                convertMantissaToTokens({
+                  value: new BigNumber(effectiveStakeMantissa),
+                  token: xvs,
+                }) ?? new BigNumber(0),
+            })}
+          </span>
         ),
       },
     ],
-    [t],
+    [t, xvs, accountAddress],
   );
-
-  const defaultSortColumn = columns.find(column => column.key === 'primeScore');
 
   return (
     <PrimeLeaderboardTable
       columns={columns}
-      data={placeholderRanks}
+      data={entries}
+      itemsCount={data?.total ?? 0}
       pageParamKey={RANKS_PAGE_PARAM_KEY}
       rowKeyExtractor={row => `prime-rank-table-row-${row.rank}`}
-      initialOrder={defaultSortColumn && { orderBy: defaultSortColumn, orderDirection: 'desc' }}
+      isFetching={isLoading}
       className={className}
     />
   );

@@ -1,6 +1,5 @@
-import { endOfMonth, subHours } from 'date-fns';
-
-import { Card, Page, Spinner } from 'components';
+import { useGetPrimeCurrentCycle, useGetPrimeLeaderboard } from 'clients/api';
+import { Card, Page } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 
@@ -12,15 +11,14 @@ import { RewardTable } from './RewardTable';
 import { TotalRewardsSection } from './TotalRewardsSection';
 import { UserRewardsSection } from './UserRewardsSection';
 
-// TODO: use the cycle end date returned by the API
-const endOfCycleDate = endOfMonth(new Date());
-
-// TODO: use the indexer's last refresh time returned by the API
-const lastRefreshedAt = subHours(new Date(), 6);
-
 const PrimeLeaderboard: React.FC = () => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
+  const { data: currentCycle, isLoading: isCurrentCycleLoading } = useGetPrimeCurrentCycle();
+  const { data: leaderboard } = useGetPrimeLeaderboard();
+
+  const endOfCycleDate = currentCycle?.cycle?.endsAt;
+  const lastRefreshedAt = leaderboard?.computedAt;
 
   return (
     <Page>
@@ -35,18 +33,17 @@ const PrimeLeaderboard: React.FC = () => {
 
       <Hero />
 
-      {endOfCycleDate ? (
-        <EndOfCycle
-          endDate={endOfCycleDate}
-          className="relative mx-auto mt-8 w-full max-w-[467px]"
-        />
-      ) : (
-        <Spinner className="relative mx-auto mt-8" />
-      )}
+      <EndOfCycle
+        endDate={endOfCycleDate}
+        isLoading={isCurrentCycleLoading}
+        className="relative mx-auto mt-8 w-full max-w-[467px]"
+      />
 
-      <p className="relative mt-4 text-right text-b2s text-light-grey">
-        {t('primeLeaderboard.tablesRefreshNote', { date: lastRefreshedAt })}
-      </p>
+      {lastRefreshedAt && (
+        <p className="relative mt-4 text-right text-b2s text-light-grey">
+          {t('primeLeaderboard.tablesRefreshNote', { date: lastRefreshedAt })}
+        </p>
+      )}
 
       <div className="relative mt-3 flex flex-col gap-3 lg:flex-row">
         <Card className="flex flex-col gap-2.5 border-dark-grey bg-background p-3 lg:grow">

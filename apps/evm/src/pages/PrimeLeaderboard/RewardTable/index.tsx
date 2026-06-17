@@ -1,31 +1,21 @@
 import { useMemo } from 'react';
-import type { Address } from 'viem';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
+import {
+  type PrimeRewardsLeaderboardEntry,
+  useGetPrimeCurrentCycle,
+  useGetPrimeRewardsLeaderboard,
+} from 'clients/api';
 import { type TableColumn, Username } from 'components';
+import { useUrlPagination } from 'hooks/useUrlPagination';
+import { useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { formatCentsToReadableValue } from 'utilities';
+import { useAccountAddress } from 'libs/wallet';
+import { areAddressesEqual, findTokenByAddress, formatCentsToReadableValue } from 'utilities';
 
-import { PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
-
-interface PrimeReward {
-  id: number;
-  address: Address;
-  totalRewardsCents: number;
-  usdtRewardsCents: number;
-  uRewardsCents: number;
-}
+import { ITEMS_PER_PAGE, PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
 
 const REWARDS_PAGE_PARAM_KEY = 'rewardsPage';
-
-// TODO: replace this placeholder list with the data returned by the API
-const placeholderRewards: PrimeReward[] = Array.from({ length: 150 }, (_reward, id) => ({
-  id,
-  address: '0xa1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8dD4d',
-  totalRewardsCents: 50_000,
-  usdtRewardsCents: 4_000_000,
-  uRewardsCents: 2_236_000,
-}));
 
 export interface RewardTableProps {
   className?: string;
@@ -33,21 +23,45 @@ export interface RewardTableProps {
 
 export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
   const { t } = useTranslation();
+  const tokens = useGetTokens();
+  const { accountAddress } = useAccountAddress();
+  const { currentPage } = useUrlPagination({ paramKey: REWARDS_PAGE_PARAM_KEY });
 
-  const columns: TableColumn<PrimeReward>[] = useMemo(
+  const { data: currentCycle } = useGetPrimeCurrentCycle();
+  const { data, isLoading } = useGetPrimeRewardsLeaderboard({
+    page: currentPage + 1,
+    limit: ITEMS_PER_PAGE,
+  });
+
+  const rewardTokens = useMemo(
+    () =>
+      (currentCycle?.pendingPool?.byRewardToken ?? []).flatMap(({ rewardTokenAddress }) => {
+        const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+        return token ? [token] : [];
+      }),
+    [currentCycle, tokens],
+  );
+
+  const columns: TableColumn<PrimeRewardsLeaderboardEntry>[] = useMemo(
     () => [
       {
         key: 'wallet',
         label: t('primeLeaderboard.rewardTable.columns.wallet'),
         selectOptionLabel: t('primeLeaderboard.rewardTable.columns.wallet'),
-        renderCell: ({ address }) => (
-          <span className="inline-flex rounded-lg bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)] p-px">
-            <span className="flex items-center gap-x-2 rounded-[7px] bg-background px-3 py-3">
-              <img src={primeLogoSrc} alt="" className="h-5 shrink-0" />
+        renderCell: ({ userAddress }) => (
+          <div className="flex items-center gap-x-3">
+            <span className="inline-flex rounded-lg bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)] p-px">
+              <span className="flex items-center gap-x-2 rounded-[7px] bg-background px-3 py-3">
+                <img src={primeLogoSrc} alt="" className="h-5 shrink-0" />
 
-              <Username address={address} className="text-b1s text-white" />
+                <Username address={userAddress} className="text-b1s text-white" />
+              </span>
             </span>
-          </span>
+
+            {accountAddress && areAddressesEqual(userAddress, accountAddress) && (
+              <span className="size-2 shrink-0 rounded-full bg-blue" />
+            )}
+          </div>
         ),
       },
       {
@@ -55,61 +69,43 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
         label: t('primeLeaderboard.rewardTable.columns.totalRewards'),
         selectOptionLabel: t('primeLeaderboard.rewardTable.columns.totalRewards'),
         align: 'right',
-        sortRows: (rowA, rowB, direction) =>
-          direction === 'asc'
-            ? rowA.totalRewardsCents - rowB.totalRewardsCents
-            : rowB.totalRewardsCents - rowA.totalRewardsCents,
-        renderCell: ({ totalRewardsCents }) => (
+        renderCell: ({ totalPendingUsdCents }) => (
           <span className="text-b1r text-white">
-            {formatCentsToReadableValue({ value: totalRewardsCents })}
+            {formatCentsToReadableValue({ value: Number(totalPendingUsdCents) })}
           </span>
         ),
       },
-      {
-        key: 'usdtRewards',
-        label: t('primeLeaderboard.rewardTable.columns.marketRewards', { symbol: 'USDT' }),
+      ...rewardTokens.map<TableColumn<PrimeRewardsLeaderboardEntry>>(token => ({
+        key: `reward-${token.address}`,
+        label: t('primeLeaderboard.rewardTable.columns.marketRewards', { symbol: token.symbol }),
         selectOptionLabel: t('primeLeaderboard.rewardTable.columns.marketRewards', {
-          symbol: 'USDT',
+          symbol: token.symbol,
         }),
         align: 'right',
-        sortRows: (rowA, rowB, direction) =>
-          direction === 'asc'
-            ? rowA.usdtRewardsCents - rowB.usdtRewardsCents
-            : rowB.usdtRewardsCents - rowA.usdtRewardsCents,
-        renderCell: ({ usdtRewardsCents }) => (
-          <span className="text-b1r text-white">
-            {formatCentsToReadableValue({ value: usdtRewardsCents })}
-          </span>
-        ),
-      },
-      {
-        key: 'uRewards',
-        label: t('primeLeaderboard.rewardTable.columns.marketRewards', { symbol: 'U' }),
-        selectOptionLabel: t('primeLeaderboard.rewardTable.columns.marketRewards', { symbol: 'U' }),
-        align: 'right',
-        sortRows: (rowA, rowB, direction) =>
-          direction === 'asc'
-            ? rowA.uRewardsCents - rowB.uRewardsCents
-            : rowB.uRewardsCents - rowA.uRewardsCents,
-        renderCell: ({ uRewardsCents }) => (
-          <span className="text-b1r text-white">
-            {formatCentsToReadableValue({ value: uRewardsCents })}
-          </span>
-        ),
-      },
-    ],
-    [t],
-  );
+        renderCell: ({ byRewardToken }) => {
+          const reward = byRewardToken.find(({ rewardTokenAddress }) =>
+            areAddressesEqual(rewardTokenAddress, token.address),
+          );
 
-  const defaultSortColumn = columns.find(column => column.key === 'totalRewards');
+          return (
+            <span className="text-b1r text-white">
+              {formatCentsToReadableValue({ value: reward ? Number(reward.pendingUsdCents) : 0 })}
+            </span>
+          );
+        },
+      })),
+    ],
+    [t, rewardTokens, accountAddress],
+  );
 
   return (
     <PrimeLeaderboardTable
       columns={columns}
-      data={placeholderRewards}
+      data={data?.entries ?? []}
+      itemsCount={data?.total ?? 0}
       pageParamKey={REWARDS_PAGE_PARAM_KEY}
-      rowKeyExtractor={row => `prime-reward-table-row-${row.id}`}
-      initialOrder={defaultSortColumn && { orderBy: defaultSortColumn, orderDirection: 'desc' }}
+      rowKeyExtractor={row => `prime-reward-table-row-${row.userAddress}`}
+      isFetching={isLoading}
       className={className}
     />
   );

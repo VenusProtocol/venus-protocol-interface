@@ -7,6 +7,7 @@ import PrimeLeaderboard from '..';
 vi.mock('components', () => ({
   Page: ({ children }: { children?: React.ReactNode }) => <div>{children}</div>,
   Card: ({ children }: { children?: React.ReactNode }) => <div>{children}</div>,
+  Spinner: () => <div data-testid="spinner" />,
 }));
 
 vi.mock('../Hero', () => ({
@@ -38,11 +39,11 @@ vi.mock('../RankTable', () => ({
 }));
 
 describe('pages/PrimeLeaderboard', () => {
-  it('renders every section when the wallet is connected', () => {
+  it('renders every section when the wallet is connected', async () => {
     renderComponent(<PrimeLeaderboard />, { accountAddress: fakeAddress });
 
     expect(screen.getByTestId('hero')).toBeInTheDocument();
-    expect(screen.getByTestId('end-of-cycle')).toBeInTheDocument();
+    expect(await screen.findByTestId('end-of-cycle')).toBeInTheDocument();
     expect(screen.getByTestId('total-rewards-section')).toBeInTheDocument();
     expect(screen.getByTestId('user-rewards-section')).toBeInTheDocument();
     expect(screen.getByTestId('reward-table')).toBeInTheDocument();

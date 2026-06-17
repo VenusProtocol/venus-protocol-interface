@@ -10,13 +10,14 @@ export interface RankSectionProps {
 export const RankSection: React.FC<RankSectionProps> = ({ className }) => {
   const { accountAddress } = useAccountAddress();
   const { openAuthModal } = useAuthModal();
-  const rankData = useGetPrimeRank();
+  const { isLoading, ...rankData } = useGetPrimeRank();
 
   return (
     <RankCard
       isUserConnected={!!accountAddress}
       onConnect={() => openAuthModal({ analyticVariant: 'primeLeaderboardRankCard' })}
       rankData={rankData}
+      isLoading={isLoading}
       className={className}
     />
   );

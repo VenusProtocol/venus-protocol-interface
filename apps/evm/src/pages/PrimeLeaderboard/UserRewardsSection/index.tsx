@@ -13,7 +13,7 @@ export interface UserRewardsSectionProps {
 
 export const UserRewardsSection: React.FC<UserRewardsSectionProps> = ({ className }) => {
   const { t } = useTranslation();
-  const { isPrime, totalRewardsCents, marketRewards } = useGetPrimeUserRewards();
+  const { isLoading, isPrime, totalRewardsCents, marketRewards } = useGetPrimeUserRewards();
 
   const hasRewards = totalRewardsCents > 0;
 
@@ -50,6 +50,7 @@ export const UserRewardsSection: React.FC<UserRewardsSectionProps> = ({ classNam
       totalRewardsCents={totalRewardsCents}
       marketRewards={marketRewards}
       content={content}
+      isLoading={isLoading}
       className={className}
     />
   );

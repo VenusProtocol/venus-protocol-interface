@@ -1,5 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
+import { Spinner } from 'components';
 import { EligibilityStatus } from 'containers/PrimeRank/EligibilityStatus';
 import { getRankLabels } from 'containers/PrimeRank/getRankLabels';
 import type { PrimeRankData } from 'containers/PrimeRank/useGetPrimeRank';
@@ -12,6 +13,7 @@ export interface RankCardProps {
   isUserConnected: boolean;
   onConnect: () => void;
   rankData: PrimeRankData;
+  isLoading?: boolean;
   className?: string;
 }
 
@@ -19,6 +21,7 @@ export const RankCard: React.FC<RankCardProps> = ({
   isUserConnected,
   onConnect,
   rankData,
+  isLoading,
   className,
 }) => {
   const cardClassName = cn('flex h-58 flex-col rounded-lg bg-background-active p-4', className);
@@ -27,6 +30,14 @@ export const RankCard: React.FC<RankCardProps> = ({
     return (
       <div className={cn(cardClassName, 'items-center justify-between')}>
         <ConnectPrompt onConnect={onConnect} />
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className={cn(cardClassName, 'items-center justify-center')}>
+        <Spinner />
       </div>
     );
   }

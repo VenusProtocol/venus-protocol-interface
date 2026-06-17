@@ -6,11 +6,11 @@ import { renderComponent } from 'testUtils/render';
 import { RankSection } from '..';
 
 describe('pages/PrimeLeaderboard/RankSection', () => {
-  it('renders the rank card with the data hook when connected', () => {
+  it('renders the rank card with the data hook when connected', async () => {
     renderComponent(<RankSection />, { accountAddress: fakeAddress });
 
-    expect(screen.getByText('#2')).toBeInTheDocument();
-    expect(screen.getByText('542.5M')).toBeInTheDocument();
+    expect(await screen.findByText('#2')).toBeInTheDocument();
+    expect(await screen.findByText('542.5M')).toBeInTheDocument();
   });
 
   it('prompts to connect the wallet when not connected', () => {
