@@ -1276,7 +1276,6 @@
     "rankCard": {
       "connectPrompt": "Prime uygunluğunu görmek için cüzdanını bağla.",
       "eligible": "Bir sonraki döngüde Prime için uygunsun",
-      "eligibleSupplied": "Tebrikler! Son döngüde ilk 500'e girdin ve Prime Ödülleri için uygun oldun.",
       "notEligible": "Bir sonraki döngüde Prime için uygun değilsin.",
       "primeScoreLabel": "Prime puanı",
       "rankLabel": "Sıralaman",

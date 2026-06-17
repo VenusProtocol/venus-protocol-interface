@@ -9,8 +9,6 @@ import { RankCard } from '..';
 const rankData: PrimeRankData = {
   hasStakedXvs: true,
   isCandidate: true,
-  isPrime: true,
-  hasSupplied: true,
   rank: 2,
   primeScore: 542_500_000,
   gapXvsTokens: 5_432,

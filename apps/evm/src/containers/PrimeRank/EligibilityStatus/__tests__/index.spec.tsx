@@ -7,24 +7,12 @@ import { EligibilityStatus } from '..';
 const baseProps = {
   hasStakedXvs: true,
   isCandidate: true,
-  isPrime: true,
-  hasSupplied: true,
   gapXvsTokens: 5_432,
 };
 
 describe('pages/PrimeLeaderboard/RankCard/EligibilityStatus', () => {
-  it('congratulates Prime users who supplied and are candidates', () => {
+  it('shows the eligible message for candidates', () => {
     renderComponent(<EligibilityStatus {...baseProps} />);
-
-    expect(
-      screen.getByText(
-        "Congrats! You're in the Top 500 during last cycle and qualified for Prime Rewards.",
-      ),
-    ).toBeInTheDocument();
-  });
-
-  it('shows the eligible message for candidates without Prime rewards', () => {
-    renderComponent(<EligibilityStatus {...baseProps} isPrime={false} />);
 
     expect(
       screen.getByText('You are currently eligible for Prime during the next cycle.'),

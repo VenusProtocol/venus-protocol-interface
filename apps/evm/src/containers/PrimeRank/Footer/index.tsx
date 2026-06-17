@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
   const { t, Trans } = useTranslation();
 
   const rankData = useGetPrimeRank();
-  const { hasStakedXvs, isCandidate, isPrime, hasSupplied, gapXvsTokens } = rankData;
+  const { hasStakedXvs, isCandidate, gapXvsTokens } = rankData;
 
   const { rankLabel, primeScoreLabel } = getRankLabels(rankData);
 
@@ -41,8 +41,6 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
       <EligibilityStatus
         hasStakedXvs={hasStakedXvs}
         isCandidate={isCandidate}
-        isPrime={isPrime}
-        hasSupplied={hasSupplied}
         gapXvsTokens={gapXvsTokens}
         linkSlot={
           !hideLeaderboardLink && (

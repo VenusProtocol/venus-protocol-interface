@@ -31,7 +31,7 @@ export const RankCard: React.FC<RankCardProps> = ({
     );
   }
 
-  const { hasStakedXvs, isCandidate, isPrime, hasSupplied, gapXvsTokens } = rankData;
+  const { hasStakedXvs, isCandidate, gapXvsTokens } = rankData;
 
   const { rankLabel, primeScoreLabel } = getRankLabels(rankData);
 
@@ -41,11 +41,8 @@ export const RankCard: React.FC<RankCardProps> = ({
         <RankSummary rankLabel={rankLabel} primeScoreLabel={primeScoreLabel} />
 
         <EligibilityStatus
-          className="mt-2"
           hasStakedXvs={hasStakedXvs}
           isCandidate={isCandidate}
-          isPrime={isPrime}
-          hasSupplied={hasSupplied}
           gapXvsTokens={gapXvsTokens}
         />
       </div>

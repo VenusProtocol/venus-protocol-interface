@@ -1276,7 +1276,6 @@
     "rankCard": {
       "connectPrompt": "连接钱包以查看你的 Prime 资格。",
       "eligible": "你当前已具备下个周期的 Prime 资格",
-      "eligibleSupplied": "恭喜！你在上个周期进入了前 500 名并获得了 Prime 奖励。",
       "notEligible": "你当前不具备下个周期的 Prime 资格。",
       "primeScoreLabel": "Prime 分数",
       "rankLabel": "你的排名",

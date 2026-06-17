@@ -9,8 +9,6 @@ const TOP_500_GAP_THRESHOLD_XVS = 100_000;
 export interface EligibilityStatusProps {
   hasStakedXvs: boolean;
   isCandidate: boolean;
-  isPrime: boolean;
-  hasSupplied: boolean;
   gapXvsTokens: number;
   // Optional inline content appended to the end of the status message (e.g. a leaderboard link)
   linkSlot?: React.ReactNode;
@@ -20,8 +18,6 @@ export interface EligibilityStatusProps {
 export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
   hasStakedXvs,
   isCandidate,
-  isPrime,
-  hasSupplied,
   gapXvsTokens,
   linkSlot,
   className,
@@ -29,15 +25,6 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
   const { t, Trans } = useTranslation();
 
   const isEligible = hasStakedXvs && isCandidate;
-
-  if (isEligible && isPrime && hasSupplied) {
-    return (
-      <p className={cn('text-b1r text-white', className)}>
-        {t('primeLeaderboard.rankCard.eligibleSupplied')}
-        {linkSlot}
-      </p>
-    );
-  }
 
   if (isEligible) {
     return (

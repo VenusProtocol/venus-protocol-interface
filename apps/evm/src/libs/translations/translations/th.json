@@ -1276,7 +1276,6 @@
     "rankCard": {
       "connectPrompt": "เชื่อมต่อกระเป๋าเงินเพื่อตรวจสอบสิทธิ์ Prime ของคุณ",
       "eligible": "คุณมีสิทธิ์รับ Prime ในรอบถัดไป",
-      "eligibleSupplied": "ยินดีด้วย! คุณอยู่ใน Top 500 ในรอบที่แล้วและมีสิทธิ์รับ Prime Rewards",
       "notEligible": "คุณยังไม่มีสิทธิ์รับ Prime ในรอบถัดไป",
       "primeScoreLabel": "คะแนน Prime",
       "rankLabel": "อันดับของคุณ",

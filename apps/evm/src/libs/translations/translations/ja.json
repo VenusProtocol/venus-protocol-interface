@@ -1276,7 +1276,6 @@
     "rankCard": {
       "connectPrompt": "ウォレットを接続して Prime の対象かを確認してください。",
       "eligible": "あなたは次のサイクルで Prime の対象です",
-      "eligibleSupplied": "おめでとうございます！前サイクルでトップ 500 に入り、Prime 報酬の対象になりました。",
       "notEligible": "あなたは次のサイクルで Prime の対象ではありません。",
       "primeScoreLabel": "Prime スコア",
       "rankLabel": "あなたのランク",
