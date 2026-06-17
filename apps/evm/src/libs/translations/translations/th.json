@@ -1269,8 +1269,6 @@
       "title": "สิ้นสุดรอบ"
     },
     "lastCycleSummary": {
-      "eligibleMessage": "คุณมีสิทธิ์รับ Prime ในรอบนี้ เปิดสถานะในตลาด Prime เพื่อรับรางวัลเพิ่มเติม",
-      "notEligibleMessage": "คุณไม่มีสิทธิ์รับ Prime ในรอบที่แล้ว Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
       "primeScoreLabel": "คะแนน Prime",
       "rankLabel": "อันดับของคุณ",
       "rankMissed": "ใกล้แล้ว! คุณไม่ได้อยู่ใน Top 500 ของรอบที่แล้ว เพิ่ม stake ของคุณเพื่อให้มีสิทธิ์ในรอบนี้",

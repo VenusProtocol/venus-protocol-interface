@@ -1269,8 +1269,6 @@
       "title": "サイクル終了"
     },
     "lastCycleSummary": {
-      "eligibleMessage": "今サイクルで Prime の対象になりました。Prime マーケットでポジションを取ると追加報酬を獲得できます。",
-      "notEligibleMessage": "前サイクルでは Prime の対象ではありませんでした。XVS をステークして次のサイクルで Prime を目指しましょう。",
       "primeScoreLabel": "Prime スコア",
       "rankLabel": "あなたのランク",
       "rankMissed": "あと一歩です!前サイクルでは上位 500 に入りませんでした。ステーク量を増やして今サイクルでの対象を目指しましょう。",

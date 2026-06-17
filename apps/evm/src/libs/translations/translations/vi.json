@@ -1269,8 +1269,6 @@
       "title": "Kết thúc chu kỳ"
     },
     "lastCycleSummary": {
-      "eligibleMessage": "Bạn đủ điều kiện nhận Prime trong chu kỳ này. Hãy mở vị thế trong các thị trường Prime để nhận thêm phần thưởng.",
-      "notEligibleMessage": "Bạn không đủ điều kiện nhận Prime trong chu kỳ trước. Stake XVS để cạnh tranh Prime trong chu kỳ tiếp theo.",
       "primeScoreLabel": "Điểm Prime",
       "rankLabel": "Hạng của bạn",
       "rankMissed": "Sắp được rồi! Bạn không nằm trong Top 500 của chu kỳ trước. Hãy tăng mức stake để đủ điều kiện trong chu kỳ này.",

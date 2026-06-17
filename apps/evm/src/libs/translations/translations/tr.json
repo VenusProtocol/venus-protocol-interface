@@ -1269,8 +1269,6 @@
       "title": "Döngü sonu"
     },
     "lastCycleSummary": {
-      "eligibleMessage": "Bu döngüde Prime için uygun oldun. Ek ödül kazanmak için Prime piyasalarında pozisyon al.",
-      "notEligibleMessage": "Son döngüde Prime için uygun değildin. Bir sonraki döngüde Prime için yarışmak üzere XVS stake et.",
       "primeScoreLabel": "Prime puanı",
       "rankLabel": "Sıralaman",
       "rankMissed": "Az kaldı! Son döngüde ilk 500 içinde değildin. Bu döngüde uygun olmak için stake'ini artır.",

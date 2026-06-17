@@ -1269,8 +1269,6 @@
       "title": "週期結束"
     },
     "lastCycleSummary": {
-      "eligibleMessage": "你在本週期已具備 Prime 資格。在 Prime 市場建倉以賺取額外獎勵。",
-      "notEligibleMessage": "你在上一週期未具備 Prime 資格。質押 XVS 以在下一週期競爭 Prime。",
       "primeScoreLabel": "Prime 分數",
       "rankLabel": "你的排名",
       "rankMissed": "就差一點!你未進入上一週期前 500。提升質押以在本週期獲得資格。",
