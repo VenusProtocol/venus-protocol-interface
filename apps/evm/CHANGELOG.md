@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.40.0
+
+### Minor Changes
+
+- 3dfebf5: feat: support end of cycle for prime
+
 ## 4.39.0
 
 ### Minor Changes
