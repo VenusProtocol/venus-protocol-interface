@@ -1,6 +1,7 @@
 import { VError } from 'libs/errors';
 import type { ChainId } from 'types';
 import { restService } from 'utilities';
+import type { Address } from 'viem';
 
 export interface PrimeCurrentCycle {
   cycleIndex: number;
@@ -11,11 +12,18 @@ export interface PrimeCurrentCycle {
   mintLimitUsed: number;
 }
 
+export interface PrimePendingRewardTokenTotal {
+  rewardTokenAddress: Address;
+  totalPendingUsdCents: string;
+  totalPendingMantissa: string;
+}
+
 export interface PrimePendingRewardPool {
   blockNumber: string;
   computedAt: Date;
   primeHolderCount: number;
   totalPendingUsdCents: string;
+  byRewardToken: PrimePendingRewardTokenTotal[];
 }
 
 export interface GetPrimeCurrentCycleInput {
@@ -41,6 +49,7 @@ interface PrimePendingRewardPoolResponse {
   computedAt: string;
   primeHolderCount: number;
   totalPendingUsdCents: string;
+  byRewardToken: PrimePendingRewardTokenTotal[];
 }
 
 interface GetPrimeCurrentCycleResponse {

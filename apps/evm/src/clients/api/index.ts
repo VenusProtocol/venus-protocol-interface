@@ -206,6 +206,9 @@ export * from './queries/getPrimeDistributionForMarket/useGetPrimeDistributionFo
 export * from './queries/getPrimeLeaderboard';
 export * from './queries/getPrimeLeaderboard/useGetPrimeLeaderboard';
 
+export * from './queries/getPrimeRewardsLeaderboard';
+export * from './queries/getPrimeRewardsLeaderboard/useGetPrimeRewardsLeaderboard';
+
 export * from './queries/getPrimeMinimumStake';
 export * from './queries/getPrimeMinimumStake/useGetPrimeMinimumStake';
 
