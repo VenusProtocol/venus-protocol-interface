@@ -1289,7 +1289,9 @@
       "title": "今サイクルに分配された Prime 報酬の総額"
     },
     "userRewards": {
+      "eligibleMessage": "今サイクルで Prime 報酬を分け合う対象になっています。下記の資産を供給して報酬を獲得しましょう。",
       "marketActions": "マーケット操作を開く",
+      "notEligibleMessage": "今サイクルでは Prime 報酬を分け合う対象ではありません。XVS をステークして次のサイクルで Prime を目指しましょう。",
       "title": "今サイクルのあなたの Prime 報酬"
     }
   },

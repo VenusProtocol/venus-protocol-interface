@@ -1289,7 +1289,9 @@
       "title": "本周期已分配的 Prime 总奖励"
     },
     "userRewards": {
+      "eligibleMessage": "你在本周期已具备分享 Prime 奖励的资格。在下方供给资产以分享奖励。",
       "marketActions": "打开市场操作",
+      "notEligibleMessage": "你在本周期暂不具备分享 Prime 奖励的资格。质押 XVS 以在下一周期竞争 Prime。",
       "title": "你本周期的 Prime 奖励"
     }
   },

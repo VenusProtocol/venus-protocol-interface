@@ -1289,7 +1289,9 @@
       "title": "Tổng thưởng Prime đã phân phối trong chu kỳ này"
     },
     "userRewards": {
+      "eligibleMessage": "Bạn hiện đủ điều kiện chia sẻ phần thưởng Prime trong chu kỳ này. Hãy cung cấp tài sản bên dưới để nhận phần thưởng.",
       "marketActions": "Mở thao tác thị trường",
+      "notEligibleMessage": "Bạn hiện KHÔNG đủ điều kiện chia sẻ phần thưởng Prime trong chu kỳ này. Stake XVS để cạnh tranh Prime cho chu kỳ tiếp theo.",
       "title": "Phần thưởng Prime của bạn trong chu kỳ này"
     }
   },

@@ -3,14 +3,15 @@ import { useGetTokens } from 'libs/tokens';
 import type { UserMarketReward } from '../UserRewardsCard';
 
 export interface UseGetPrimeUserRewardsOutput {
+  isPrime: boolean;
   totalRewardsCents: number;
   marketRewards: UserMarketReward[];
 }
 
 // TODO: replace these placeholder values with the data returned by the API
+const placeholderIsPrime = true;
 const placeholderTotalRewardsCents = 1_840_000;
 const placeholderMarketRewardsCents = [1_140_000, 700_000];
-const placeholderApyPercentage = 3.78;
 
 export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
   const tokens = useGetTokens();
@@ -21,10 +22,10 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
     .map((token, index) => ({
       token,
       rewardsCents: placeholderMarketRewardsCents[index],
-      apyPercentage: placeholderApyPercentage,
     }));
 
   return {
+    isPrime: placeholderIsPrime,
     totalRewardsCents: placeholderTotalRewardsCents,
     marketRewards,
   };
