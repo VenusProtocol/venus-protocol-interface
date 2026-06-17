@@ -9,8 +9,8 @@ export interface UseGetPrimeUserRewardsOutput {
 }
 
 // TODO: replace these placeholder values with the data returned by the API
-const placeholderIsPrime = false;
-const placeholderTotalRewardsCents = 0;
+const placeholderIsPrime = true;
+const placeholderTotalRewardsCents = 1_840_000;
 const placeholderMarketRewardsCents = [1_140_000, 700_000];
 
 export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
