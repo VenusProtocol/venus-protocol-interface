@@ -1271,8 +1271,12 @@
     "lastCycleSummary": {
       "eligibleMessage": "Bạn đủ điều kiện nhận Prime trong chu kỳ này. Hãy mở vị thế trong các thị trường Prime để nhận thêm phần thưởng.",
       "notEligibleMessage": "Bạn không đủ điều kiện nhận Prime trong chu kỳ trước. Stake XVS để cạnh tranh Prime trong chu kỳ tiếp theo.",
+      "primeScoreLabel": "Điểm Prime",
+      "rankLabel": "Hạng của bạn",
+      "rankMissed": "Sắp được rồi! Bạn không nằm trong Top 500 của chu kỳ trước. Hãy tăng mức stake để đủ điều kiện trong chu kỳ này.",
+      "rankNoStake": "Bạn chưa stake XVS ở chu kỳ trước. Hãy stake ngay để đủ điều kiện nhận Prime và kiếm thêm phần thưởng.",
+      "rankQualified": "Chúc mừng! Bạn nằm trong Top 500 ở chu kỳ trước và đủ điều kiện nhận phần thưởng Prime.",
       "title": "Tóm tắt Prime chu kỳ trước",
-      "totalRewardsTitle": "Tổng phần thưởng Prime đã phân phối trong chu kỳ trước",
       "userRewardsTitle": "Phần thưởng Prime của bạn trong chu kỳ trước"
     },
     "rankTable": {

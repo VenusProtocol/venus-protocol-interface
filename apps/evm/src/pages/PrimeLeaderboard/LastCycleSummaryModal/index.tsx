@@ -1,16 +1,17 @@
 import { cn } from '@venusprotocol/ui';
+import BigNumber from 'bignumber.js';
 
 import { Icon, Modal } from 'components';
 import { useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 
 import { PrimeRewardBadge } from '../PrimeRewardBadge';
-import { TotalRewardsCard } from '../TotalRewardsCard';
 import { UserRewardsCard } from '../UserRewardsCard';
+import { UserRankCard } from './UserRankCard';
 
 // TODO: replace these placeholder values with the data returned by the API
-const placeholderTotalRewardsCents = 46_230_000;
-const placeholderTotalMarketRewardsCents = [28_040_000, 17_190_000];
+const placeholderRank = 1222;
+const placeholderPrimeScore = new BigNumber(542_500_000);
 const placeholderUserRewardsCents = 1_840_000;
 const placeholderUserMarketRewardsCents = [1_140_000, 700_000];
 const placeholderApyPercentage = 3.78;
@@ -30,12 +31,7 @@ export const LastCycleSummaryModal: React.FC<LastCycleSummaryModalProps> = ({
   const tokens = useGetTokens();
 
   // TODO: replace these placeholder tokens with the real Prime markets returned by the API
-  const markets = tokens.slice(0, placeholderTotalMarketRewardsCents.length);
-
-  const totalMarketRewards = markets.map((token, index) => ({
-    token,
-    rewardsCents: placeholderTotalMarketRewardsCents[index],
-  }));
+  const markets = tokens.slice(0, placeholderUserMarketRewardsCents.length);
 
   const userMarketRewards = markets.map((token, index) => ({
     token,
@@ -78,11 +74,7 @@ export const LastCycleSummaryModal: React.FC<LastCycleSummaryModalProps> = ({
       className="max-w-113"
     >
       <div className="flex flex-col gap-3">
-        <TotalRewardsCard
-          title={t('primeLeaderboard.lastCycleSummary.totalRewardsTitle')}
-          totalRewardsCents={placeholderTotalRewardsCents}
-          marketRewards={totalMarketRewards}
-        />
+        <UserRankCard rank={placeholderRank} primeScore={placeholderPrimeScore} />
 
         <UserRewardsCard
           title={t('primeLeaderboard.lastCycleSummary.userRewardsTitle')}
