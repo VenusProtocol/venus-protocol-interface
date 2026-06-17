@@ -73,7 +73,7 @@ export const getTradeReduceSwapQuotes = async ({
         })
       : undefined,
     // Repay (repay short using long) swap quote, in the case of a loss
-    cappedLongAmountToWithdrawTokens.isGreaterThan(0)
+    shortAmountToRepayTokens.isGreaterThan(0) && cappedLongAmountToWithdrawTokens.isGreaterThan(0)
       ? getSwapQuote({
           ...shareSwapQuoteInput,
           fromToken: longToken,
