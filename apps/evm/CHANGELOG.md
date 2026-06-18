@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 4.40.1
+
+### Patch Changes
+
+- 0892e20: fix no swap quote found issue
+- 872d5d0: fix top footer margin
+- f5eeae7: prevent Trade page from fetching unnecessary swap quote
+
 ## 4.40.0
 
 ### Minor Changes
