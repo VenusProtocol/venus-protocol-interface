@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.41.0
+
+### Minor Changes
+
+- 2e77b3c: add geo-block
+
 ## 4.40.1
 
 ### Patch Changes
