@@ -1,5 +1,5 @@
 import { VError } from 'libs/errors';
-import type { ChainId } from 'types';
+import type { ApiTokenPrice, ChainId } from 'types';
 import { restService } from 'utilities/restService';
 import type { Address } from 'viem';
 import { formatPointDistribution } from './pointDistributions';
@@ -138,24 +138,14 @@ export interface ApiPool {
   eModeGroups?: ApiEModeGroup[];
 }
 
-export interface ApiTokenPrice {
-  tokenWrappedAddress: Address | null;
-  priceMantissa: string;
-  priceSource: 'oracle' | 'merkl' | 'coingecko';
-  priceOracleAddress: Address | null;
-  isPriceInvalid: boolean;
-  hasErrorFetchingPrice: boolean;
-  isPriceProtected: boolean;
-  supplyPriceMantissa: string | null;
-  borrowPriceMantissa: string | null;
-}
-
 export interface ApiTokenMetadata {
   address: Address;
   name: string;
   symbol: string;
   decimals: number;
   tokenPrices: ApiTokenPrice[];
+  gatedCountries?: string[];
+  restrictedCountries?: string[];
 }
 
 export interface GetApiPoolsResponse {
@@ -199,17 +189,17 @@ export const getApiPools = async ({
     });
   }
 
-  const tokenMetadata = payload.tokens || [];
-  const tokenPricesMapping: Record<Address, ApiTokenPrice[]> = tokenMetadata.reduce<{
-    [address: string]: ApiTokenPrice[];
-  }>((acc, tokenMetadata) => {
-    const { address: tokenAddress, tokenPrices } = tokenMetadata;
-
-    return {
+  const tokenMetadatas = payload.tokens || [];
+  const tokenMetadataMapping = tokenMetadatas.reduce<{
+    [address: string]: ApiTokenMetadata;
+  }>(
+    (acc, tokenMetadata) => ({
       ...acc,
-      [tokenAddress.toLowerCase()]: tokenPrices,
-    };
-  }, {});
+      [tokenMetadata.address.toLowerCase()]: tokenMetadata,
+    }),
+    {},
+  );
+
   const pools = (payload?.result || []).map(pool => ({
     ...pool,
     markets: pool.markets.map(market => ({
@@ -220,6 +210,6 @@ export const getApiPools = async ({
 
   return {
     pools,
-    tokenPricesMapping,
+    tokenMetadataMapping,
   };
 };

@@ -23,7 +23,7 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   action,
 }) => {
   const { accountAddress } = useAccountAddress();
-  const { Trans } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const { data: getPools } = useGetPool({
     poolComptrollerAddress,
@@ -34,6 +34,10 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
 
   if (!pool || !asset) {
     return <Spinner />;
+  }
+
+  if (asset.isRestricted) {
+    return <NoticeWarning description={t('assetAccessor.assetNotAvailable')} />;
   }
 
   const isBorrowAction = action === 'borrow' || action === 'boost';

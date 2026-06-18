@@ -10,10 +10,10 @@ import { logError } from 'libs/errors';
 import { ChainId } from 'types';
 import { formatToTradePosition, restService } from 'utilities';
 import { type GetRawTradePositionsInput, getRawTradePositions } from '..';
-import { getPools } from '../../useGetPools/getPools';
+import { getPools } from '../../useGetPools/useGetPoolsQuery/getPools';
 
 vi.mock('utilities/restService');
-vi.mock('../../useGetPools/getPools', () => ({
+vi.mock('../../useGetPools/useGetPoolsQuery/getPools', () => ({
   getPools: vi.fn(),
 }));
 vi.mock('libs/errors', async () => {

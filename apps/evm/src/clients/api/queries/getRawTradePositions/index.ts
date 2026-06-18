@@ -8,7 +8,7 @@ import {
   formatToTradePosition,
   restService,
 } from 'utilities';
-import { getPools } from '../useGetPools/getPools';
+import { getPools } from '../useGetPools/useGetPoolsQuery/getPools';
 import type {
   GetApiTradePositionsOutput,
   GetRawTradePositionsInput,

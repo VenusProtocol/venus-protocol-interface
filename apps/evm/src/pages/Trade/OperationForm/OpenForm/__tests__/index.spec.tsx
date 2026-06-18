@@ -23,10 +23,21 @@ import { OpenForm } from '..';
 const longAsset = poolData[0].assets[2];
 const shortAsset = poolData[0].assets[3];
 const dsaAsset = poolData[0].assets[0];
+const pool = {
+  ...poolData[0],
+  assets: poolData[0].assets.map(asset =>
+    asset.vToken.address === shortAsset.vToken.address
+      ? {
+          ...asset,
+          isRestricted: false,
+        }
+      : asset,
+  ),
+};
 
 const createProtectedPricePool = (): Pool => ({
-  ...poolData[0],
-  assets: poolData[0].assets.map(asset => {
+  ...pool,
+  assets: pool.assets.map(asset => {
     if (asset.vToken.address === dsaAsset.vToken.address) {
       return {
         ...asset,
@@ -137,7 +148,7 @@ describe('OpenForm', () => {
   } = {}) => {
     mockUseGetPool.mockImplementation(() => ({
       data: {
-        pool: poolData[0],
+        pool,
       },
       isLoading: false,
     }));

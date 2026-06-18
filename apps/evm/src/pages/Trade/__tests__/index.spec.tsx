@@ -69,6 +69,10 @@ vi.mock('../ClosePositionModal', () => ({
   ClosePositionModal: () => <div data-testid="close-position-modal" />,
 }));
 
+vi.mock('containers/GatedAssetAcknowledgementModal', () => ({
+  GatedAssetAcknowledgementModal: () => <div data-testid="gated-asset-acknowledgement-modal" />,
+}));
+
 const longAsset = poolData[0].assets[2];
 const shortAsset = poolData[0].assets[3];
 const otherAsset = poolData[0].assets[1];

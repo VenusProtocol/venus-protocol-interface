@@ -467,4 +467,25 @@ export const bscTestnet: Token[] = [
     symbol: 'MOCK_WBTC',
     iconSrc: iconSrcs.wbtc,
   },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x10d63B1203E5A0719AbbE927C8BFc87135b2F129',
+    decimals: 18,
+    symbol: 'TSLAB',
+    iconSrc: iconSrcs.tslab,
+  },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x8A7d8589A597619A7842d3BC284b9a5a276FaE56',
+    decimals: 18,
+    symbol: 'NVDAB',
+    iconSrc: iconSrcs.nvdab,
+  },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x6D9e91cB766259af42619c14c994E694E57e6E85',
+    decimals: 18,
+    symbol: 'SPCXB',
+    iconSrc: iconSrcs.spcxb,
+  },
 ];

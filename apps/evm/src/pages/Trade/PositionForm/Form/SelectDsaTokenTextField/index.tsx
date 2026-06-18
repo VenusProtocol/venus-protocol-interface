@@ -1,11 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import {
-  Button,
-  type OptionalTokenBalance,
-  SelectTokenTextField,
-  type SelectTokenTextFieldProps,
-} from 'components';
+import { Button, SelectTokenTextField, type SelectTokenTextFieldProps } from 'components';
+import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useGetTradeAssets } from 'pages/Trade/useGetTradeAssets';
@@ -52,13 +48,23 @@ export const SelectDsaTokenTextField: React.FC<SelectDsaTokenTextFieldProps> = (
     accountAddress,
   });
 
-  const tokenBalances = dsaAssets.map<OptionalTokenBalance>(asset => ({
-    token: asset.vToken.underlyingToken,
-    balanceMantissa: convertTokensToMantissa({
-      value: asset.userWalletBalanceTokens,
+  const tokenBalances = dsaAssets.reduce<OptionalTokenBalance[]>((acc, asset) => {
+    // Filter out restricted assets
+    if (asset.isRestricted) {
+      return acc;
+    }
+
+    const tokenBalance: OptionalTokenBalance = {
       token: asset.vToken.underlyingToken,
-    }),
-  }));
+      balanceMantissa: convertTokensToMantissa({
+        value: asset.userWalletBalanceTokens,
+        token: asset.vToken.underlyingToken,
+      }),
+      isGated: asset.isGated,
+    };
+
+    return [...acc, tokenBalance];
+  }, []);
 
   return (
     <>

@@ -5,6 +5,7 @@ import apiPoolsResponse from '__mocks__/api/pools.json';
 import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
 import { type GetTokenBalancesInput, getTokenBalances } from 'clients/api/queries/getTokenBalances';
+import { useGetIpLocation } from 'clients/api/queries/useGetIpLocation';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import {
@@ -29,9 +30,19 @@ vi.mock('utilities/restService');
 vi.mock('clients/api/queries/getTokenBalances', () => ({
   getTokenBalances: vi.fn(),
 }));
+vi.mock('clients/api/queries/useGetIpLocation', () => ({
+  useGetIpLocation: vi.fn(),
+}));
 
 describe('useGetPools', () => {
   beforeEach(() => {
+    (useGetIpLocation as Mock).mockReturnValue({
+      data: {
+        countryCode: 'US',
+      },
+      error: null,
+    });
+
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'eMode',
     );

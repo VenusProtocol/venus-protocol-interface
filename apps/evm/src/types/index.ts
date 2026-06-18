@@ -151,6 +151,8 @@ export interface Asset {
   disabledTokenActions: TokenAction[];
   borrowCapTokens: BigNumber;
   supplyCapTokens: BigNumber;
+  isRestricted: boolean;
+  isGated: boolean;
   // User-specific props
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
@@ -785,4 +787,16 @@ export enum ApiOhlcInterval {
   '1h' = '1h',
   '4h' = '4h',
   '1d' = '1d',
+}
+
+export interface ApiTokenPrice {
+  tokenWrappedAddress: Address | null;
+  priceMantissa: string;
+  priceSource: 'oracle' | 'merkl' | 'coingecko';
+  priceOracleAddress: Address | null;
+  isPriceInvalid: boolean;
+  hasErrorFetchingPrice: boolean;
+  isPriceProtected: boolean;
+  supplyPriceMantissa: string | null;
+  borrowPriceMantissa: string | null;
 }

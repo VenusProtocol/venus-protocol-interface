@@ -27,6 +27,10 @@ const fakePausedPool: Pool = {
 };
 
 describe('MarketTable', () => {
+  beforeEach(() => {
+    (useUserChainSettings as Mock).mockReturnValue([defaultUserChainSettings, vi.fn()]);
+  });
+
   it('renders with pool data', () => {
     const { container } = renderComponent(
       <MarketTable
@@ -185,5 +189,31 @@ describe('MarketTable', () => {
     fireEvent.click(rowControlButton as HTMLButtonElement);
 
     expect(await screen.findByTestId('operation-form')).toBeInTheDocument();
+  });
+
+  it('opens the acknowledgement modal instead of the operation form for gated assets', async () => {
+    const gatedAssets = poolData[0].assets.map((asset, index) =>
+      index === 0
+        ? {
+            ...asset,
+            isGated: true,
+          }
+        : asset,
+    );
+
+    const { container } = renderComponent(
+      <MarketTable
+        assets={gatedAssets}
+        poolName={poolData[0].name}
+        poolComptrollerContractAddress={poolData[0].comptrollerAddress}
+        columns={columns}
+        marketType="supply"
+      />,
+    );
+
+    fireEvent.click(container.querySelector('tbody button') as HTMLButtonElement);
+
+    expect(await screen.findByText(en.gatedAssetAcknowledgementModal.title)).toBeInTheDocument();
+    expect(screen.queryByTestId('operation-form')).not.toBeInTheDocument();
   });
 });

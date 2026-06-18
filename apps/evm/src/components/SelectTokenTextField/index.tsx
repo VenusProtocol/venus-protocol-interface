@@ -3,10 +3,10 @@ import { Typography } from '@mui/material';
 import { useState } from 'react';
 
 import { TertiaryButton } from '@venusprotocol/ui';
+import { type OptionalTokenBalance, TokenListWrapper } from 'containers/TokenListWrapper';
 import type { Token } from 'types';
 import { Icon } from '../Icon';
 import { TokenIcon } from '../TokenIcon';
-import { type OptionalTokenBalance, TokenListWrapper } from '../TokenListWrapper';
 import { TokenTextField, type TokenTextFieldProps } from '../TokenTextField';
 import { useStyles } from './styles';
 import {
@@ -56,30 +56,32 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
           token={selectedToken}
           disabled={disabled}
           value={value}
-          displayTokenIcon={false}
+          displayTokenIcon={tokenBalances.length <= 1}
           leftAdornment={
-            <TertiaryButton
-              onClick={handleButtonClick}
-              css={styles.getButton({ isTokenListShown })}
-              className="pl-2 pr-1 max-w-34 min-w-0"
-              contentClassName="min-w-0"
-              variant="tertiary"
-              disabled={disabled}
-              data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
-              size="sm"
-            >
-              <div className="flex min-w-0 grow items-center gap-x-2 overflow-hidden">
-                <TokenIcon token={selectedToken} className="h-5 w-5 shrink-0" />
+            tokenBalances.length > 1 ? (
+              <TertiaryButton
+                onClick={handleButtonClick}
+                css={styles.getButton({ isTokenListShown })}
+                className="pl-2 pr-1 max-w-34 min-w-0"
+                contentClassName="min-w-0"
+                variant="tertiary"
+                disabled={disabled}
+                data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
+                size="sm"
+              >
+                <div className="flex min-w-0 grow items-center gap-x-2 overflow-hidden">
+                  <TokenIcon token={selectedToken} className="h-5 w-5 shrink-0" />
 
-                <div className="min-w-0 grow truncate leading-none">{selectedToken.symbol}</div>
-              </div>
+                  <div className="min-w-0 grow truncate leading-none">{selectedToken.symbol}</div>
+                </div>
 
-              <Icon
-                css={styles.getArrowIcon({ isTokenListShown })}
-                name="arrowUp"
-                className="w-5 h-5 ml-1 shrink-0"
-              />
-            </TertiaryButton>
+                <Icon
+                  css={styles.getArrowIcon({ isTokenListShown })}
+                  name="arrowUp"
+                  className="w-5 h-5 ml-1 shrink-0"
+                />
+              </TertiaryButton>
+            ) : undefined
           }
           rightAdornment={
             rightMaxButton && (

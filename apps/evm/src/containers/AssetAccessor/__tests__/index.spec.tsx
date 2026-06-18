@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -62,6 +63,11 @@ const mockGetPool = (pool: Pool = fakePool) => {
 };
 
 describe('containers/AssetAccessor', () => {
+  beforeEach(() => {
+    mockGetPool();
+    mockTokenAnnouncement.mockImplementation(() => null);
+  });
+
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(
       <AssetAccessor {...borrowProps}>{() => <TestComponent />}</AssetAccessor>,
@@ -87,6 +93,25 @@ describe('containers/AssetAccessor', () => {
     );
 
     await waitFor(() => expect(getByText(fakeTokenAnnouncementText)).toBeInTheDocument());
+
+    expect(queryByText(fakeChildrenContent)).toBeNull();
+  });
+
+  it('renders a restricted asset notice when the asset is unavailable in the user country', async () => {
+    mockGetPool(
+      getCustomFakePool({
+        asset: {
+          isRestricted: true,
+          userBorrowBalanceCents: new BigNumber(1),
+        },
+      }),
+    );
+
+    const { getByText, queryByText } = renderComponent(
+      <AssetAccessor {...borrowProps}>{() => <TestComponent />}</AssetAccessor>,
+    );
+
+    await waitFor(() => expect(getByText(en.assetAccessor.assetNotAvailable)).toBeInTheDocument());
 
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });

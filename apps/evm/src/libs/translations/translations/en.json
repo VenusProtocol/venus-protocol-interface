@@ -273,6 +273,7 @@
     }
   },
   "assetAccessor": {
+    "assetNotAvailable": "This asset is not available in your country",
     "disabledActionNotice": {
       "boost": "Boosting has been disabled for this market",
       "borrow": "Borrowing has been disabled for this market",
@@ -595,6 +596,12 @@
       "disabled": "This network supports gas-free transactions, with no fees required, but this feature is currently disabled in your settings. More info <Link>here</Link>",
       "enabled": "Transactions on this network are gas-free, with no fees required. More info <Link>here</Link>"
     }
+  },
+  "gatedAssetAcknowledgementModal": {
+    "acceptButtonLabel": "I understand and confirm",
+    "description": "bStocks are tokenized securities issued by BTECH Holdings Ltd (ADGM). The information presented here is for informational purposes only and does not constitute an offer, solicitation, or investment advice. bStocks are not intended for distribution in the United States, to any US Person, or in any other restricted jurisdiction. Investing involves risk — the value of your investment may go down and you may not get back the amount invested. For full risk disclosures, legal documentation, and a list of restricted jurisdictions, please visit <Link>{{ url }}</Link>.<LineBreak/><LineBreak/>By proceeding, you confirm you are not a Restricted Person and that accessing this product is lawful in your jurisdiction.",
+    "rejectButtonLabel": "I reject & leave",
+    "title": "Important notice"
   },
   "healthFactor": {
     "label": {
