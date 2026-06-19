@@ -22,11 +22,11 @@ describe('useGetOperationFormTokenBalances', () => {
     });
   });
 
-  it('filters out restricted assets and preserves gated asset metadata', () => {
-    const allowedAsset = {
+  it('keeps the selected restricted asset, filters out other restricted assets, and preserves gated asset metadata', () => {
+    const restrictedUnderlyingAsset = {
       ...assetData[0],
       disabledTokenActions: [],
-      isRestricted: false,
+      isRestricted: true,
       isGated: false,
     };
     const gatedAsset = {
@@ -35,7 +35,7 @@ describe('useGetOperationFormTokenBalances', () => {
       isRestricted: false,
       isGated: true,
     };
-    const restrictedAsset = {
+    const restrictedNonUnderlyingAsset = {
       ...assetData[3],
       disabledTokenActions: [],
       isRestricted: true,
@@ -45,7 +45,7 @@ describe('useGetOperationFormTokenBalances', () => {
     (useGetPool as Mock).mockReturnValue({
       data: {
         pool: {
-          assets: [allowedAsset, gatedAsset, restrictedAsset],
+          assets: [restrictedUnderlyingAsset, gatedAsset, restrictedNonUnderlyingAsset],
         },
       },
     });
@@ -54,7 +54,7 @@ describe('useGetOperationFormTokenBalances', () => {
       useGetOperationFormTokenBalances({
         poolComptrollerContractAddress: fakeAccountAddress,
         accountAddress: fakeAccountAddress,
-        underlyingToken: allowedAsset.vToken.underlyingToken,
+        underlyingToken: restrictedUnderlyingAsset.vToken.underlyingToken,
         isIntegratedSwapFeatureEnabled: true,
         canWrapNativeToken: false,
         action: 'supply',
@@ -63,7 +63,7 @@ describe('useGetOperationFormTokenBalances', () => {
 
     expect(result.current.tokenBalances).toEqual([
       expect.objectContaining({
-        token: allowedAsset.vToken.underlyingToken,
+        token: restrictedUnderlyingAsset.vToken.underlyingToken,
         isGated: false,
         balanceMantissa: expect.any(BigNumber),
       }),

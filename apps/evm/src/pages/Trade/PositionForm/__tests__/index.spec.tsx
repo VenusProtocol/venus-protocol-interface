@@ -1,7 +1,11 @@
 import { screen } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
+import type { Mock } from 'vitest';
 
 import { tradePositions } from '__mocks__/models/trade';
+import { useGetProportionalCloseTolerancePercentage } from 'clients/api';
 import { en } from 'libs/translations';
+import { MINIMUM_LEVERAGE_FACTOR } from 'pages/Trade/constants';
 import { renderComponent } from 'testUtils/render';
 import type { TokenAction, TradePosition } from 'types';
 import { type FormProps, PositionForm } from '..';
@@ -22,6 +26,8 @@ vi.mock('../Form', () => ({
 }));
 
 const basePosition = tradePositions[0];
+const mockUseGetProportionalCloseTolerancePercentage =
+  useGetProportionalCloseTolerancePercentage as Mock;
 
 const baseProps: FormProps = {
   action: 'open',
@@ -43,26 +49,33 @@ const baseProps: FormProps = {
 };
 
 const getPosition = ({
-  dsaDisabledTokenActions = basePosition.dsaAsset.disabledTokenActions,
-  longDisabledTokenActions = basePosition.longAsset.disabledTokenActions,
-  shortDisabledTokenActions = basePosition.shortAsset.disabledTokenActions,
+  dsaAsset = {},
+  longAsset = {},
+  shortAsset = {},
 }: {
-  dsaDisabledTokenActions?: TokenAction[];
-  longDisabledTokenActions?: TokenAction[];
-  shortDisabledTokenActions?: TokenAction[];
+  dsaAsset?: Partial<TradePosition['dsaAsset']>;
+  longAsset?: Partial<TradePosition['longAsset']>;
+  shortAsset?: Partial<TradePosition['shortAsset']>;
 } = {}): TradePosition => ({
   ...basePosition,
   dsaAsset: {
     ...basePosition.dsaAsset,
-    disabledTokenActions: dsaDisabledTokenActions,
+    disabledTokenActions: [] as TokenAction[],
+    isRestricted: false,
+    ...dsaAsset,
   },
   longAsset: {
     ...basePosition.longAsset,
-    disabledTokenActions: longDisabledTokenActions,
+    disabledTokenActions: [] as TokenAction[],
+    isRestricted: false,
+    ...longAsset,
   },
   shortAsset: {
     ...basePosition.shortAsset,
-    disabledTokenActions: shortDisabledTokenActions,
+    disabledTokenActions: [] as TokenAction[],
+    isRestricted: false,
+    isBorrowable: true,
+    ...shortAsset,
   },
 });
 
@@ -75,8 +88,18 @@ const renderPositionForm = ({
 } = {}) => renderComponent(<PositionForm {...baseProps} action={action} position={position} />);
 
 describe('PositionForm', () => {
+  beforeEach(() => {
+    mockUseGetProportionalCloseTolerancePercentage.mockImplementation(() => ({
+      data: {
+        proportionalCloseTolerancePercentage: 2,
+      },
+    }));
+  });
+
   it('renders Form when no warning applies', () => {
-    renderPositionForm();
+    renderPositionForm({
+      position: getPosition(),
+    });
 
     expect(screen.getByTestId('position-form')).toBeInTheDocument();
     expect(screen.getByText(baseProps.action)).toBeInTheDocument();
@@ -88,42 +111,54 @@ describe('PositionForm', () => {
     {
       action: 'supplyDsa' as const,
       position: getPosition({
-        dsaDisabledTokenActions: ['supply'],
+        dsaAsset: {
+          disabledTokenActions: ['supply'],
+        },
       }),
       expectedWarning: en.trade.operationForm.warning.cannotSupplyDsa,
     },
     {
       action: 'withdrawDsa' as const,
       position: getPosition({
-        dsaDisabledTokenActions: ['withdraw'],
+        dsaAsset: {
+          disabledTokenActions: ['withdraw'],
+        },
       }),
       expectedWarning: en.trade.operationForm.warning.cannotWithdrawDsa,
     },
     {
       action: 'open' as const,
       position: getPosition({
-        longDisabledTokenActions: ['supply'],
+        longAsset: {
+          disabledTokenActions: ['supply'],
+        },
       }),
       expectedWarning: en.trade.operationForm.warning.cannotSupplyLong,
     },
     {
       action: 'close' as const,
       position: getPosition({
-        longDisabledTokenActions: ['withdraw'],
+        longAsset: {
+          disabledTokenActions: ['withdraw'],
+        },
       }),
       expectedWarning: en.trade.operationForm.warning.cannotWithdrawLong,
     },
     {
       action: 'increase' as const,
       position: getPosition({
-        shortDisabledTokenActions: ['borrow'],
+        shortAsset: {
+          disabledTokenActions: ['borrow'],
+        },
       }),
       expectedWarning: en.trade.operationForm.warning.cannotBorrowShort,
     },
     {
       action: 'reduce' as const,
       position: getPosition({
-        shortDisabledTokenActions: ['repay'],
+        shortAsset: {
+          disabledTokenActions: ['repay'],
+        },
       }),
       expectedWarning: en.trade.operationForm.warning.cannotRepayShort,
     },
@@ -144,14 +179,146 @@ describe('PositionForm', () => {
     renderPositionForm({
       action: 'close',
       position: getPosition({
-        dsaDisabledTokenActions: ['withdraw'],
-        longDisabledTokenActions: ['withdraw'],
-        shortDisabledTokenActions: ['repay'],
+        dsaAsset: {
+          disabledTokenActions: ['withdraw'],
+        },
+        longAsset: {
+          disabledTokenActions: ['withdraw'],
+        },
+        shortAsset: {
+          disabledTokenActions: ['repay'],
+        },
       }),
     });
 
     expect(screen.getByTestId('notice-warning')).toHaveTextContent(
       en.trade.operationForm.warning.cannotRepayShort,
+    );
+    expect(screen.queryByTestId('position-form')).not.toBeInTheDocument();
+  });
+
+  it.each([
+    {
+      action: 'supplyDsa' as const,
+      position: getPosition({
+        dsaAsset: {
+          isRestricted: true,
+        },
+      }),
+      expectedWarning: en.trade.operationForm.warning.cannotSupplyDsa,
+    },
+    {
+      action: 'withdrawDsa' as const,
+      position: getPosition({
+        dsaAsset: {
+          isRestricted: true,
+          userSupplyBalanceCents: new BigNumber(0),
+        },
+      }),
+      expectedWarning: en.trade.operationForm.warning.cannotWithdrawDsa,
+    },
+    {
+      action: 'open' as const,
+      position: getPosition({
+        longAsset: {
+          isRestricted: true,
+        },
+      }),
+      expectedWarning: en.trade.operationForm.warning.cannotSupplyLong,
+    },
+    {
+      action: 'increase' as const,
+      position: getPosition({
+        shortAsset: {
+          isRestricted: true,
+        },
+      }),
+      expectedWarning: en.trade.operationForm.warning.cannotBorrowShort,
+    },
+    {
+      action: 'reduce' as const,
+      position: getPosition({
+        shortAsset: {
+          isRestricted: true,
+          userBorrowBalanceCents: new BigNumber(0),
+        },
+      }),
+      expectedWarning: en.trade.operationForm.warning.cannotRepayShort,
+    },
+  ])(
+    'renders a warning for $action when the required token is restricted',
+    ({ action, position, expectedWarning }) => {
+      renderPositionForm({
+        action,
+        position,
+      });
+
+      expect(screen.getByTestId('notice-warning')).toHaveTextContent(expectedWarning);
+      expect(screen.queryByTestId('position-form')).not.toBeInTheDocument();
+    },
+  );
+
+  it('renders Form when closing a restricted position with existing balances', () => {
+    renderPositionForm({
+      action: 'close',
+      position: getPosition({
+        dsaAsset: {
+          isRestricted: true,
+          userSupplyBalanceCents: new BigNumber(1),
+        },
+        longAsset: {
+          isRestricted: true,
+          userSupplyBalanceCents: new BigNumber(1),
+        },
+        shortAsset: {
+          isRestricted: true,
+          userBorrowBalanceCents: new BigNumber(1),
+        },
+      }),
+    });
+
+    expect(screen.getByTestId('position-form')).toBeInTheDocument();
+    expect(screen.queryByTestId('notice-warning')).not.toBeInTheDocument();
+  });
+
+  it('renders Form when reducing a restricted position with existing balances', () => {
+    renderPositionForm({
+      action: 'reduce',
+      position: getPosition({
+        dsaAsset: {
+          isRestricted: true,
+          userSupplyBalanceCents: new BigNumber(1),
+        },
+        longAsset: {
+          isRestricted: true,
+          userSupplyBalanceCents: new BigNumber(1),
+        },
+        shortAsset: {
+          isRestricted: true,
+          userBorrowBalanceCents: new BigNumber(1),
+        },
+      }),
+    });
+
+    expect(screen.getByTestId('position-form')).toBeInTheDocument();
+    expect(screen.queryByTestId('notice-warning')).not.toBeInTheDocument();
+  });
+
+  it('renders a leverage warning for open when the pair cannot reach the minimum leverage factor', () => {
+    renderPositionForm({
+      action: 'open',
+      position: getPosition({
+        dsaAsset: {
+          collateralFactor: 0.2,
+        },
+        longAsset: {
+          collateralFactor: 0.2,
+        },
+      }),
+    });
+
+    expect(screen.getByTestId('notice-warning')).toHaveTextContent(
+      `This token pair does not allow a leverage factor of at least ${MINIMUM_LEVERAGE_FACTOR}`,
     );
     expect(screen.queryByTestId('position-form')).not.toBeInTheDocument();
   });

@@ -22,6 +22,7 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
+import useDelegateApproval from 'hooks/useDelegateApproval';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
@@ -31,13 +32,14 @@ import {
   checkSubmitButtonIsEnabled,
 } from 'pages/Market/OperationForm/__testUtils__/checkFns';
 import { renderComponent } from 'testUtils/render';
-import { type Asset, ChainId, type SwapQuote } from 'types';
+import { type Asset, ChainId, type Pool, type SwapQuote } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 import { RepayWithCollateralForm } from '..';
 import { fakeAsset, fakePool } from '../../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useTokenApproval');
+vi.mock('hooks/useDelegateApproval');
 
 const fakeRepaidAsset = fakeAsset;
 const fakeCollateralAsset = fakePool.assets[2];
@@ -84,6 +86,8 @@ const getLastUseGetSwapQuoteCallArgs = () =>
 
 describe('RepayWithCollateralForm', () => {
   beforeEach(() => {
+    mockRepayWithCollateral.mockReset();
+
     (useUserChainSettings as Mock).mockReturnValue([
       {
         ...defaultUserChainSettings,
@@ -95,6 +99,13 @@ describe('RepayWithCollateralForm', () => {
     (useRepayWithCollateral as Mock).mockImplementation(() => ({
       mutateAsync: mockRepayWithCollateral,
     }));
+
+    (useDelegateApproval as Mock).mockReturnValue({
+      isDelegateApproved: true,
+      isDelegateApprovedLoading: false,
+      isUpdateDelegateStatusLoading: false,
+      updatePoolDelegateStatus: vi.fn(),
+    });
 
     (useGetSwapQuote as Mock).mockImplementation(
       (input: TrimmedGetSwapQuoteInput, { enabled }: UseQueryOptions) => ({
@@ -765,6 +776,64 @@ describe('RepayWithCollateralForm', () => {
 
     await waitFor(() => expect(mockRepayWithCollateral).toHaveBeenCalledTimes(1));
     expect(mockRepayWithCollateral.mock.calls[0]).toMatchSnapshot();
+  });
+
+  it('lets user use a restricted asset as collateral when repaying that same market', async () => {
+    const restrictedRepaidAsset: Asset = {
+      ...fakeRepaidAsset,
+      isRestricted: true,
+    };
+    const restrictedPool: Pool = {
+      ...fakePool,
+      assets: fakePool.assets.map(asset =>
+        asset.vToken.address === restrictedRepaidAsset.vToken.address
+          ? {
+              ...asset,
+              isRestricted: true,
+            }
+          : asset,
+      ),
+    };
+
+    const { getByTestId, getByText, container } = renderComponent(
+      <RepayWithCollateralForm asset={restrictedRepaidAsset} pool={restrictedPool} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectCollateralTokenTextField,
+      token: restrictedRepaidAsset.vToken.underlyingToken,
+    });
+
+    const collateralTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectCollateralTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    fireEvent.change(collateralTokenInput, {
+      target: { value: 1 },
+    });
+
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.repay,
+    });
+
+    fireEvent.click(getByText(en.operationForm.submitButtonLabel.repay));
+
+    await waitFor(() => expect(mockRepayWithCollateral).toHaveBeenCalledTimes(1));
+    expect(mockRepayWithCollateral.mock.calls[0]).toEqual([
+      expect.objectContaining({
+        amountMantissa: 1000000000000000000n,
+        vToken: expect.objectContaining({
+          address: restrictedRepaidAsset.vToken.address,
+          underlyingToken: restrictedRepaidAsset.vToken.underlyingToken,
+        }),
+      }),
+    ]);
   });
 
   it('lets user repay full loan using a swap', async () => {

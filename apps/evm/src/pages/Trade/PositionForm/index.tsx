@@ -16,14 +16,34 @@ export const PositionForm: React.FC<FormProps> = ({ action, position, ...otherPr
   const proportionalCloseTolerancePercentage =
     getProportionalCloseTolerancePercentageData?.proportionalCloseTolerancePercentage;
 
-  const canSupplyDsa = !position.dsaAsset.disabledTokenActions.includes('supply');
-  const canWithdrawDsa = !position.dsaAsset.disabledTokenActions.includes('withdraw');
-  const canSupplyLong = !position.longAsset.disabledTokenActions.includes('supply');
-  const canWithdrawLong = !position.longAsset.disabledTokenActions.includes('withdraw');
+  const canSupplyDsa =
+    !position.dsaAsset.disabledTokenActions.includes('supply') && !position.dsaAsset.isRestricted;
+
+  const canWithdrawDsa =
+    !position.dsaAsset.disabledTokenActions.includes('withdraw') &&
+    (!position.dsaAsset.isRestricted ||
+      position.dsaAsset.userSupplyBalanceCents?.isGreaterThan(0) ||
+      action === 'close');
+
+  const canSupplyLong =
+    !position.longAsset.disabledTokenActions.includes('supply') && !position.longAsset.isRestricted;
+
+  const canWithdrawLong =
+    !position.longAsset.disabledTokenActions.includes('withdraw') &&
+    (!position.longAsset.isRestricted ||
+      position.longAsset.userSupplyBalanceCents?.isGreaterThan(0) ||
+      action === 'close');
+
   const canBorrowShort =
     !position.shortAsset.disabledTokenActions.includes('borrow') &&
-    position.shortAsset.isBorrowable;
-  const canRepayShort = !position.shortAsset.disabledTokenActions.includes('repay');
+    position.shortAsset.isBorrowable &&
+    !position.shortAsset.isRestricted;
+
+  const canRepayShort =
+    !position.shortAsset.disabledTokenActions.includes('repay') &&
+    (!position.shortAsset.isRestricted ||
+      position.shortAsset.userBorrowBalanceCents?.isGreaterThan(0) ||
+      action === 'close');
 
   let warningMessage: undefined | string;
 

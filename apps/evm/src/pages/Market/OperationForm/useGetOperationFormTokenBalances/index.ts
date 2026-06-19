@@ -53,7 +53,10 @@ export const useGetOperationFormTokenBalances = ({
 
     const isPaused = asset.disabledTokenActions.includes(action);
 
-    if (shouldIncludeTokenBalance && !isPaused && !asset.isRestricted) {
+    const isRestricted =
+      asset.isRestricted && !areTokensEqual(asset.vToken.underlyingToken, underlyingToken);
+
+    if (shouldIncludeTokenBalance && !isPaused && !isRestricted) {
       tokenBalances.push({
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({

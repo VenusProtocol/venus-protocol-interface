@@ -31,6 +31,16 @@ const supplyProps: Omit<AssetAccessorProps, 'children'> = {
   action: 'supply',
 };
 
+const withdrawProps: Omit<AssetAccessorProps, 'children'> = {
+  ...borrowProps,
+  action: 'withdraw',
+};
+
+const repayProps: Omit<AssetAccessorProps, 'children'> = {
+  ...borrowProps,
+  action: 'repay',
+};
+
 const fakeChildrenContent = 'Fake content';
 
 const TestComponent = () => <>{fakeChildrenContent}</>;
@@ -114,6 +124,44 @@ describe('containers/AssetAccessor', () => {
     await waitFor(() => expect(getByText(en.assetAccessor.assetNotAvailable)).toBeInTheDocument());
 
     expect(queryByText(fakeChildrenContent)).toBeNull();
+  });
+
+  it('renders children for a restricted asset when the user withdraws an existing supply position', async () => {
+    mockGetPool(
+      getCustomFakePool({
+        asset: {
+          isRestricted: true,
+          userSupplyBalanceCents: new BigNumber(1),
+        },
+      }),
+    );
+
+    const { getByText, queryByText } = renderComponent(
+      <AssetAccessor {...withdrawProps}>{() => <TestComponent />}</AssetAccessor>,
+    );
+
+    await waitFor(() => expect(getByText(fakeChildrenContent)).toBeInTheDocument());
+
+    expect(queryByText(en.assetAccessor.assetNotAvailable)).toBeNull();
+  });
+
+  it('renders children for a restricted asset when the user repays an existing borrow position', async () => {
+    mockGetPool(
+      getCustomFakePool({
+        asset: {
+          isRestricted: true,
+          userBorrowBalanceCents: new BigNumber(1),
+        },
+      }),
+    );
+
+    const { getByText, queryByText } = renderComponent(
+      <AssetAccessor {...repayProps}>{() => <TestComponent />}</AssetAccessor>,
+    );
+
+    await waitFor(() => expect(getByText(fakeChildrenContent)).toBeInTheDocument());
+
+    expect(queryByText(en.assetAccessor.assetNotAvailable)).toBeNull();
   });
 
   it('renders default token announcement if a disabled borrow action has no token announcement', async () => {

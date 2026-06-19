@@ -36,7 +36,17 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
     return <Spinner />;
   }
 
-  if (asset.isRestricted) {
+  let isActionRestricted = asset.isRestricted;
+
+  // Allow user to close a position with an asset that's now restricted for them
+  if (
+    (action === 'withdraw' && asset.userSupplyBalanceCents?.isGreaterThan(0)) ||
+    (action === 'repay' && asset.userBorrowBalanceCents?.isGreaterThan(0))
+  ) {
+    isActionRestricted = false;
+  }
+
+  if (isActionRestricted) {
     return <NoticeWarning description={t('assetAccessor.assetNotAvailable')} />;
   }
 

@@ -74,13 +74,16 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     // Sort by user supply balance
     .sort((a, b) => compareBigNumbers(a.userSupplyBalanceCents, b.userSupplyBalanceCents, 'desc'))
     .reduce<OptionalTokenBalance[]>((acc, asset) => {
+      // Allow user to use restricted collateral asset to repay the same asset
+      const isRestricted = asset.isRestricted && !areTokensEqual(asset.vToken, repaidAsset.vToken);
+
       if (
         // Skip vBNB
         asset.vToken.symbol === 'vBNB' ||
         // Skip tokens for which user has no supply
         asset.userSupplyBalanceCents.isEqualTo(0) ||
         // Skip restricted assets
-        asset.isRestricted
+        isRestricted
       ) {
         return acc;
       }

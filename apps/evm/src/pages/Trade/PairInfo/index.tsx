@@ -73,6 +73,10 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         acc.longAsset = asset;
       }
 
+      if (asset.isRestricted) {
+        return acc;
+      }
+
       const tokenBalance: OptionalTokenBalance = {
         token: asset.vToken.underlyingToken,
         isDeemed: asset.disabledTokenActions.includes('supply'),
@@ -97,6 +101,10 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
     (acc, asset) => {
       if (areTokensEqual(asset.vToken.underlyingToken, shortToken)) {
         acc.shortAsset = asset;
+      }
+
+      if (asset.isRestricted) {
+        return acc;
       }
 
       const tokenBalance: OptionalTokenBalance = {

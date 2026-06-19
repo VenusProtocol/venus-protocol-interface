@@ -26,7 +26,7 @@ export const useGetTradeAssets = (input?: { accountAddress?: Address }) => {
     !isGetPoolLoading && !isGetDsaVTokensLoading && !!corePool && !!dsaVTokenAddresses;
 
   const assets = isDataReady
-    ? corePool.assets.filter(asset => !asset.vToken.underlyingToken.isNative && !asset.isRestricted)
+    ? corePool.assets.filter(asset => !asset.vToken.underlyingToken.isNative)
     : [];
 
   const dsaAssets = isDataReady
