@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.42.0
+
+### Minor Changes
+
+- 07350e1: Added SPCXB, TSLAB and NVDAB to BNB mainnet
+
 ## 4.41.0
 
 ### Minor Changes
