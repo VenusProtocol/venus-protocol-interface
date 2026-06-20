@@ -502,4 +502,25 @@ export const bscMainnet: Token[] = [
     symbol: 'XAUm',
     iconSrc: iconSrcs.xaum,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x5b1910eAaD6450E50f816082Aa078C41F10C292f',
+    decimals: 18,
+    symbol: 'TSLAB',
+    iconSrc: iconSrcs.tslab,
+  },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x02Fca66C1D1aFB4E2A7884261eB00F63598a7436',
+    decimals: 18,
+    symbol: 'NVDAB',
+    iconSrc: iconSrcs.nvdab,
+  },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0xbe9D156892E55e7154BcD3cB0FEA677F9D3103E1',
+    decimals: 18,
+    symbol: 'SPCXB',
+    iconSrc: iconSrcs.spcxb,
+  },
 ];
