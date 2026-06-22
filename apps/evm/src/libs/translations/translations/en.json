@@ -1286,7 +1286,7 @@
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> to reach the top #500 and become eligible for Prime during the next cycle."
     },
     "rankFooter": {
-      "learnMore": "Learn more from <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+      "learnMore": "Learn more about the <leaderboardLink>Prime Leaderboard</leaderboardLink>"
     },
     "rankTable": {
       "columns": {
@@ -1306,15 +1306,15 @@
     "rulesModal": {
       "boostColumn": "Boost",
       "boostMax": "{{boost}} (max)",
-      "contribution": "For each deposit, your contribution is <highlight>XVS × boost × days held</highlight>. Your total Prime score is the sum across all your deposits.",
+      "contribution": "For each deposit, your contribution is <Highlight>XVS × boost × days held</Highlight>. Your total Prime score is the sum across all your deposits.",
       "daysHeld": "{{range}} days",
       "daysHeldColumn": "Days held",
       "footer": "To climb the leaderboard: stake more, and hold longer.",
-      "intro1": "Your <highlight>Prime score</highlight> decides your spot on the leaderboard. The <highlight>Top 500</highlight> each month become Prime holders and share the monthly reward pool.",
-      "intro2": "Your score rewards both <highlight>how much</highlight> XVS you stake and <highlight>how long</highlight> you hold it. Each deposit earns a loyalty boost based on how old it is:",
-      "point1": "<highlight>Both the boost and the days count are capped at 90 days</highlight> — holding longer doesn't increase the score per XVS further.",
-      "point2": "<highlight>Withdrawing? Your newest deposits go first.</highlight> Your oldest, highest-boost stake is protected.",
-      "point3": "The score updates <highlight>live</highlight> — but your Prime status is locked in at the <highlight>monthly snapshot.</highlight>",
+      "intro1": "Your <Highlight>Prime score</Highlight> decides your spot on the leaderboard. The <Highlight>Top 500</Highlight> each month become Prime holders and share the monthly reward pool.",
+      "intro2": "Your score rewards both <Highlight>how much</Highlight> XVS you stake and <Highlight>how long</Highlight> you hold it. Each deposit earns a loyalty boost based on how old it is:",
+      "point1": "<Highlight>Both the boost and the days count are capped at 90 days</Highlight> — holding longer doesn't increase the score per XVS further.",
+      "point2": "<Highlight>Withdrawing? Your newest deposits go first.</Highlight> Your oldest, highest-boost stake is protected.",
+      "point3": "The score updates <Highlight>live</Highlight> — but your Prime status is locked in at the <Highlight>monthly snapshot.</Highlight>",
       "thingsToKnowTitle": "A few things to know:",
       "title": "Rules"
     },

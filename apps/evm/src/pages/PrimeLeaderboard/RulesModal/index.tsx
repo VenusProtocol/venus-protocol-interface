@@ -23,14 +23,14 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
           <p>
             <Trans
               i18nKey="primeLeaderboard.rulesModal.intro1"
-              components={{ highlight: <span className="text-b1s text-white" /> }}
+              components={{ Highlight: <span className="text-b1s text-white" /> }}
             />
           </p>
 
           <p>
             <Trans
               i18nKey="primeLeaderboard.rulesModal.intro2"
-              components={{ highlight: <span className="text-b1s text-white" /> }}
+              components={{ Highlight: <span className="text-b1s text-white" /> }}
             />
           </p>
         </div>
@@ -67,7 +67,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
           <p>
             <Trans
               i18nKey="primeLeaderboard.rulesModal.contribution"
-              components={{ highlight: <span className="text-b1s text-white" /> }}
+              components={{ Highlight: <span className="text-b1s text-white" /> }}
             />
           </p>
 
@@ -78,21 +78,21 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
               <li>
                 <Trans
                   i18nKey="primeLeaderboard.rulesModal.point1"
-                  components={{ highlight: <span className="text-b1s text-white" /> }}
+                  components={{ Highlight: <span className="text-b1s text-white" /> }}
                 />
               </li>
 
               <li>
                 <Trans
                   i18nKey="primeLeaderboard.rulesModal.point2"
-                  components={{ highlight: <span className="text-b1s text-white" /> }}
+                  components={{ Highlight: <span className="text-b1s text-white" /> }}
                 />
               </li>
 
               <li>
                 <Trans
                   i18nKey="primeLeaderboard.rulesModal.point3"
-                  components={{ highlight: <span className="text-b1s text-white" /> }}
+                  components={{ Highlight: <span className="text-b1s text-white" /> }}
                 />
               </li>
             </ul>

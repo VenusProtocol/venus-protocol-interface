@@ -13,7 +13,7 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import { useForm as useVaultForm } from 'containers/VaultCard/useForm';
+import { useForm as useVaultForm } from 'containers/useForm';
 import useDelegateApproval from 'hooks/useDelegateApproval';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';

@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { TransactionForm } from 'containers/VaultCard/TransactionForm';
-import { useForm } from 'containers/VaultCard/useForm';
+import { TransactionForm } from 'containers/TransactionForm';
+import { useForm } from 'containers/useForm';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { VenusVault } from 'types';
