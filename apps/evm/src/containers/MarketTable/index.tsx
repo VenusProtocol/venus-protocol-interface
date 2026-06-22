@@ -3,14 +3,7 @@ import { cn } from '@venusprotocol/ui';
 import { useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
-import {
-  Card,
-  Delimiter,
-  Modal,
-  ProtectionModeIndicator,
-  Table,
-  type TableProps,
-} from 'components';
+import { Card, Modal, ProtectionModeIndicator, Table, type TableProps } from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
 import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
@@ -191,8 +184,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                           showPausedAssetsToggle
                         />
                       </div>
-
-                      {isBreakpointUp && <Delimiter />}
                     </div>
                   )}
                 </div>
