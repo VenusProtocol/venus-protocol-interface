@@ -38,7 +38,7 @@ export function Table<R>({
   placeholder,
   selectVariant,
   cellHeight,
-  variant,
+  variant = 'primary',
   tableLayout = 'fixed',
   renderRowFooter,
   renderRowControl,
