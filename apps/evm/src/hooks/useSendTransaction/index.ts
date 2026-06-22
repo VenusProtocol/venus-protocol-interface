@@ -7,7 +7,7 @@ import { type MutationObserverOptions, useMutation } from '@tanstack/react-query
 import type { TransactionType } from 'types';
 
 import { useGetPaymasterInfo } from 'clients/api';
-import { store as resendPayingGasModalStore } from 'containers/ResendPayingGasModal/store';
+import { useStore as useResendPayingGasModalStore } from 'containers/ResendPayingGasModal/store';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError, logError } from 'libs/errors';
@@ -92,7 +92,7 @@ export const useSendTransaction = <
   );
   const meeClient = data?.meeClient;
 
-  const openResendPayingGasModalStoreModal = resendPayingGasModalStore.use.openModal();
+  const openResendPayingGasModalStoreModal = useResendPayingGasModalStore(state => state.openModal);
 
   const [userChainSettings] = useUserChainSettings();
 

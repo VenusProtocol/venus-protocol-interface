@@ -1,7 +1,7 @@
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { t } from 'libs/translations';
-import { store } from 'pages/Trade/ClosePositionModal/store';
+import { useStore } from 'pages/Trade/ClosePositionModal/store';
 import { useTokenPair } from 'pages/Trade/useTokenPair';
 import { useSearchParams } from 'react-router';
 import { renderComponent } from 'testUtils/render';
@@ -93,7 +93,7 @@ const setComponentState = ({
 
   (useIsFeatureEnabled as Mock).mockReturnValue(false);
 
-  store.setState({
+  useStore.setState({
     isModalShown: false,
   });
 };
@@ -185,7 +185,7 @@ describe('PositionList', () => {
       shortTokenAddress: selectedPosition.shortAsset.vToken.underlyingToken.address,
     });
 
-    await waitFor(() => expect(store.getState().isModalShown).toBe(true));
+    await waitFor(() => expect(useStore.getState().isModalShown).toBe(true));
     expect(screen.queryByText(collateralLabel)).not.toBeInTheDocument();
   });
 });

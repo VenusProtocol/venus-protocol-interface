@@ -4,7 +4,7 @@ import { createStoreSelectors } from 'utilities/createStoreSelectors';
 
 import type { Notification, StoreState } from '../types';
 
-const useStore = create<StoreState>()(set => ({
+const store = create<StoreState>()(set => ({
   notifications: [],
 
   addNotification: input => {
@@ -41,4 +41,4 @@ const useStore = create<StoreState>()(set => ({
     })),
 }));
 
-export const store = createStoreSelectors(useStore);
+export const useStore = createStoreSelectors(store);
