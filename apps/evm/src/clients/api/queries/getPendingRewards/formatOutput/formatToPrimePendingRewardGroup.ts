@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import type { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
-import type { primeAbi } from 'libs/contracts';
+import type { primeV2Abi } from 'libs/contracts';
 import type { Address, ContractFunctionArgs, SimulateContractReturnType } from 'viem';
 import type { PrimePendingReward, PrimePendingRewardGroup } from '../types';
 
@@ -15,9 +15,9 @@ const formatToPrimePendingRewardGroup = ({
 }: {
   isPrimeContractPaused: boolean;
   primePendingRewards: SimulateContractReturnType<
-    typeof primeAbi,
+    typeof primeV2Abi,
     'getPendingRewards',
-    ContractFunctionArgs<typeof primeAbi, 'nonpayable' | 'payable', 'getPendingRewards'>
+    ContractFunctionArgs<typeof primeV2Abi, 'nonpayable' | 'payable', 'getPendingRewards'>
   >['result'];
   tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];

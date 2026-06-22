@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import { poolLensAbi, primeAbi, vaiVaultAbi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
+import { poolLensAbi, primeV2Abi, vaiVaultAbi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
 import { VError, logError } from 'libs/errors';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
@@ -26,7 +26,7 @@ export const getPendingRewards = async ({
   poolLensContractAddress,
   vaiVaultContractAddress,
   xvsVaultContractAddress,
-  primeContractAddress,
+  primeV2ContractAddress,
   chainId,
   merklCampaigns,
 }: GetPendingRewardsInput): Promise<GetPendingRewardsOutput> => {
@@ -156,17 +156,17 @@ export const getPendingRewards = async ({
   );
 
   const primePromises = Promise.allSettled([
-    primeContractAddress
+    primeV2ContractAddress
       ? publicClient.readContract({
-          abi: primeAbi,
-          address: primeContractAddress,
+          abi: primeV2Abi,
+          address: primeV2ContractAddress,
           functionName: 'paused',
         })
       : undefined,
-    primeContractAddress
+    primeV2ContractAddress
       ? publicClient.simulateContract({
-          abi: primeAbi,
-          address: primeContractAddress,
+          abi: primeV2Abi,
+          address: primeV2ContractAddress,
           functionName: 'getPendingRewards',
           args: [accountAddress],
         })

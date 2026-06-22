@@ -15,7 +15,7 @@ export interface GetPendingRewardsInput {
   xvsVaultContractAddress: Address;
   vaiVaultContractAddress?: Address;
   venusLensContractAddress?: Address;
-  primeContractAddress?: Address;
+  primeV2ContractAddress?: Address;
   legacyPoolComptrollerContractAddress?: Address;
 }
 

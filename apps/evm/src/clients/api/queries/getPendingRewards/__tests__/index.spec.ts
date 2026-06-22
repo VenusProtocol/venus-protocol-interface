@@ -131,7 +131,7 @@ describe('getPendingRewards', () => {
       poolLensContractAddress: fakePoolLensContractAddress,
       vaiVaultContractAddress: fakeVaiVaultContractAddress,
       xvsVaultContractAddress: fakeXvsVaultContractAddress,
-      primeContractAddress: fakePrimeContractAddress,
+      primeV2ContractAddress: fakePrimeContractAddress,
       chainId: ChainId.BSC_TESTNET,
       merklCampaigns: {},
     });

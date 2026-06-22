@@ -235,9 +235,6 @@ export * from './queries/getPrimeTokenLimit/useGetPrimeTokenLimit';
 export * from './queries/getPrimeMultiplierTiers';
 export * from './queries/getPrimeMultiplierTiers/useGetPrimeMultiplierTiers';
 
-export * from './queries/getPrimeOnChainPendingRewards';
-export * from './queries/getPrimeOnChainPendingRewards/useGetPrimeOnChainPendingRewards';
-
 export * from './queries/getVaiVaultPaused';
 export * from './queries/getVaiVaultPaused/useGetVaiVaultPaused';
 

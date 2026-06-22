@@ -70,8 +70,8 @@ export const useGetPendingRewards = (
   const { address: xvsVaultContractAddress } = useGetContractAddress({
     name: 'XvsVault',
   });
-  const { address: primeContractAddress } = useGetContractAddress({
-    name: 'Prime',
+  const { address: primeV2ContractAddress } = useGetContractAddress({
+    name: 'PrimeV2',
   });
 
   const isPrimeEnabled = useIsFeatureEnabled({
@@ -168,7 +168,7 @@ export const useGetPendingRewards = (
             venusLensContractAddress,
             vaiVaultContractAddress,
             tokens,
-            primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
+            primeV2ContractAddress: isPrimeEnabled ? primeV2ContractAddress : undefined,
             chainId,
             merklCampaigns,
             ...input,

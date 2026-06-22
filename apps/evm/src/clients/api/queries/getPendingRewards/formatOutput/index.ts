@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import type { Token } from 'types';
 
-import type { poolLensAbi, primeAbi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
+import type { poolLensAbi, primeV2Abi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
 import type {
   Address,
   ContractFunctionArgs,
@@ -72,9 +72,9 @@ const formatOutput = ({
   >;
   legacyPoolComptrollerContractAddress?: Address;
   primePendingRewards?: SimulateContractReturnType<
-    typeof primeAbi,
+    typeof primeV2Abi,
     'getPendingRewards',
-    ContractFunctionArgs<typeof primeAbi, 'nonpayable' | 'payable', 'getPendingRewards'>
+    ContractFunctionArgs<typeof primeV2Abi, 'nonpayable' | 'payable', 'getPendingRewards'>
   >['result'];
   merklPendingRewards: PendingExternalRewardSummary[];
 }): PendingRewardGroup[] => {
