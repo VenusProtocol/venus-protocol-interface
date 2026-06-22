@@ -1273,6 +1273,7 @@
         "primeScore": "Prime puanı",
         "wallet": "Cüzdan"
       },
+      "rankBadgeAlt": "{{rank}}. sıra rozeti",
       "walletTooltip": "Kullanıcılar Prime puanına göre sıralanır. İlk 500 cüzdan bir sonraki döngüde Prime için uygun olur."
     },
     "rewardTable": {

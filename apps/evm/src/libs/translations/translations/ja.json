@@ -1273,6 +1273,7 @@
         "primeScore": "Prime スコア",
         "wallet": "ウォレット"
       },
+      "rankBadgeAlt": "ランク {{rank}} バッジ",
       "walletTooltip": "Prime スコア順のランキングです。上位 500 のウォレットが次のサイクルで Prime の対象になります。"
     },
     "rewardTable": {

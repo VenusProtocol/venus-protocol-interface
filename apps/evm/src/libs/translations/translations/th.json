@@ -1273,6 +1273,7 @@
         "primeScore": "คะแนน Prime",
         "wallet": "กระเป๋าเงิน"
       },
+      "rankBadgeAlt": "ตราอันดับ {{rank}}",
       "walletTooltip": "ผู้ใช้จัดอันดับตามคะแนน Prime กระเป๋าเงิน 500 อันดับแรกจะมีสิทธิ์รับ Prime ในรอบถัดไป"
     },
     "rewardTable": {

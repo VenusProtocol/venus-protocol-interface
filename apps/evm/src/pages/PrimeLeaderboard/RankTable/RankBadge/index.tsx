@@ -1,5 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
+import { useTranslation } from 'libs/translations';
+
 import firstPlaceSrc from './firstPlace.svg';
 import secondPlaceSrc from './secondPlace.svg';
 import thirdPlaceSrc from './thirdPlace.svg';
@@ -16,11 +18,19 @@ export interface RankBadgeProps {
 }
 
 export const RankBadge: React.FC<RankBadgeProps> = ({ rank, className }) => {
+  const { t } = useTranslation();
+
   const src = badgeSrcs[rank];
 
   if (!src) {
     return null;
   }
 
-  return <img src={src} alt={`Rank ${rank} badge`} className={cn('size-5 shrink-0', className)} />;
+  return (
+    <img
+      src={src}
+      alt={t('primeLeaderboard.rankTable.rankBadgeAlt', { rank })}
+      className={cn('size-5 shrink-0', className)}
+    />
+  );
 };

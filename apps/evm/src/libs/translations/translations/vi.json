@@ -1273,6 +1273,7 @@
         "primeScore": "Điểm Prime",
         "wallet": "Ví"
       },
+      "rankBadgeAlt": "Huy hiệu hạng {{rank}}",
       "walletTooltip": "Người dùng được xếp hạng theo điểm Prime. 500 ví dẫn đầu sẽ đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
     },
     "rewardTable": {

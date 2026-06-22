@@ -1273,6 +1273,7 @@
         "primeScore": "Prime 分数",
         "wallet": "钱包"
       },
+      "rankBadgeAlt": "排名 {{rank}} 徽章",
       "walletTooltip": "用户按 Prime 分数排名。排名前 500 的钱包将在下个周期获得 Prime 资格。"
     },
     "rewardTable": {

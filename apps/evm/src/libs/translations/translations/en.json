@@ -1273,6 +1273,7 @@
         "primeScore": "Prime score",
         "wallet": "Wallet"
       },
+      "rankBadgeAlt": "Rank {{rank}} badge",
       "walletTooltip": "Users ranked by Prime score. The top 500 wallets become eligible for Prime in the next cycle."
     },
     "rewardTable": {
