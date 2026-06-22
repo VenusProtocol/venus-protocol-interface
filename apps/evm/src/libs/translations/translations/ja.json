@@ -1292,6 +1292,8 @@
       "eligibleMessage": "今サイクルで Prime 報酬を分け合う対象になっています。下記の資産を供給して報酬を獲得しましょう。",
       "marketActions": "マーケット操作を開く",
       "notEligibleMessage": "今サイクルでは Prime 報酬を分け合う対象ではありません。XVS をステークして次のサイクルで Prime を目指しましょう。",
+      "primeLogoAlt": "Venus Prime ロゴ",
+      "rewardShareAriaLabel": "報酬総額に占める割合",
       "title": "今サイクルのあなたの Prime 報酬"
     }
   },

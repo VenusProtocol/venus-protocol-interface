@@ -8,7 +8,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
 
-import { MarketActions } from '../MarketActions';
+import { MarketActionsButton } from '../MarketActionsButton';
 import { MarketRewardRow } from '../MarketRewardRow';
 
 export interface UserMarketReward {
@@ -34,6 +34,20 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   const { accountAddress } = useAccountAddress();
   const { data: getPoolsData } = useGetPools({ accountAddress });
 
+  const marketRewardsWithMarket = marketRewards.map(marketReward => {
+    const pool = getPoolsData?.pools.find(currentPool =>
+      currentPool.assets.some(poolAsset =>
+        areAddressesEqual(poolAsset.vToken.underlyingToken.address, marketReward.token.address),
+      ),
+    );
+
+    const asset = pool?.assets.find(poolAsset =>
+      areAddressesEqual(poolAsset.vToken.underlyingToken.address, marketReward.token.address),
+    );
+
+    return { ...marketReward, asset, poolComptrollerAddress: pool?.comptrollerAddress };
+  });
+
   return (
     <div
       className={cn(
@@ -47,7 +61,11 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
         {content ?? (
           <div className="flex items-center gap-x-3">
             <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-[#805c4e]">
-              <img src={primeLogoSrc} alt="" className="h-5" />
+              <img
+                src={primeLogoSrc}
+                alt={t('primeLeaderboard.userRewards.primeLogoAlt')}
+                className="h-5"
+              />
             </span>
 
             <p className="text-h5 text-white">
@@ -58,26 +76,20 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
       </div>
 
       <div className="flex flex-col gap-2">
-        {marketRewards.map(({ token, rewardsCents }) => {
-          const asset = getPoolsData?.pools
-            .flatMap(pool => pool.assets)
-            .find(poolAsset =>
-              areAddressesEqual(poolAsset.vToken.underlyingToken.address, token.address),
-            );
+        {marketRewardsWithMarket.map(({ token, rewardsCents, asset, poolComptrollerAddress }) => (
+          <MarketRewardRow
+            key={token.address}
+            token={token}
+            rewardsCents={rewardsCents}
+            totalRewardsCents={totalRewardsCents}
+          >
+            {asset && <Apy asset={asset} type="supply" className="ml-2" />}
 
-          return (
-            <MarketRewardRow
-              key={token.address}
-              token={token}
-              rewardsCents={rewardsCents}
-              totalRewardsCents={totalRewardsCents}
-            >
-              {asset && <Apy asset={asset} type="supply" className="ml-2" />}
-
-              <MarketActions token={token} />
-            </MarketRewardRow>
-          );
-        })}
+            {asset && poolComptrollerAddress && (
+              <MarketActionsButton asset={asset} poolComptrollerAddress={poolComptrollerAddress} />
+            )}
+          </MarketRewardRow>
+        ))}
       </div>
     </div>
   );

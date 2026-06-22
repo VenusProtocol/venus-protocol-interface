@@ -1292,6 +1292,8 @@
       "eligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygunsun. Ödülleri paylaşmak için aşağıdan varlık sağla.",
       "marketActions": "Piyasa işlemlerini aç",
       "notEligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygun değilsin. Sonraki döngüde Prime için yarışmak üzere XVS stake et.",
+      "primeLogoAlt": "Venus Prime logosu",
+      "rewardShareAriaLabel": "Toplam ödüllerdeki pay",
       "title": "Bu döngüdeki Prime ödülleriniz"
     }
   },

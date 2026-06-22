@@ -1,4 +1,5 @@
-import { TokenIconWithSymbol } from 'components';
+import { ProgressBar, TokenIconWithSymbol } from 'components';
+import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
@@ -15,6 +16,8 @@ export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
   totalRewardsCents,
   children,
 }) => {
+  const { t } = useTranslation();
+
   const progressPercentage =
     totalRewardsCents > 0 ? Math.min(100, (rewardsCents / totalRewardsCents) * 100) : 0;
 
@@ -26,8 +29,14 @@ export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
         {formatCentsToReadableValue({ value: rewardsCents })}
       </span>
 
-      <div className="ml-1 h-1.5 w-1/4 shrink-0 overflow-hidden rounded-full bg-lightGrey">
-        <div className="h-full rounded-full bg-green" style={{ width: `${progressPercentage}%` }} />
+      <div className="ml-1 w-1/4 shrink-0">
+        <ProgressBar
+          min={0}
+          max={100}
+          value={progressPercentage}
+          step={1}
+          ariaLabel={t('primeLeaderboard.userRewards.rewardShareAriaLabel')}
+        />
       </div>
 
       {children}

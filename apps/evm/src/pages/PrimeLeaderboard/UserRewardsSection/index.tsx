@@ -24,10 +24,14 @@ export const UserRewardsSection: React.FC<UserRewardsSectionProps> = ({ classNam
       <div className="flex items-center gap-x-3">
         {isPrime ? (
           <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-[#805c4e]">
-            <img src={primeLogoSrc} alt="" className="h-5" />
+            <img
+              src={primeLogoSrc}
+              alt={t('primeLeaderboard.userRewards.primeLogoAlt')}
+              className="h-5"
+            />
           </span>
         ) : (
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-dark-blue-hover">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-dark-blue-hover">
             <Icon name="person" className="text-light-grey" />
           </span>
         )}

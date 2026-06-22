@@ -1292,6 +1292,8 @@
       "eligibleMessage": "คุณมีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ จัดหาสินทรัพย์ด้านล่างเพื่อรับรางวัล",
       "marketActions": "เปิดการดำเนินการของตลาด",
       "notEligibleMessage": "คุณยังไม่มีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
+      "primeLogoAlt": "โลโก้ Venus Prime",
+      "rewardShareAriaLabel": "สัดส่วนของรางวัลทั้งหมด",
       "title": "รางวัล Prime ของคุณในรอบนี้"
     }
   },

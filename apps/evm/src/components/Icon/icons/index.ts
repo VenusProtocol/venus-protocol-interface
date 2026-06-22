@@ -67,7 +67,6 @@ export { default as shield2 } from './shield2';
 export { default as lightning2 } from './lightning2';
 export { default as graph } from './graph';
 export { default as star } from './star';
-export { default as sparkle } from './sparkle';
 export { default as download } from './download';
 export { default as arrowUpFull2 } from './arrowUpFull2';
 export { default as transactionFile } from './transactionFile';

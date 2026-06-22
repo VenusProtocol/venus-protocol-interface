@@ -1292,6 +1292,8 @@
       "eligibleMessage": "你在本周期已具备分享 Prime 奖励的资格。在下方供给资产以分享奖励。",
       "marketActions": "打开市场操作",
       "notEligibleMessage": "你在本周期暂不具备分享 Prime 奖励的资格。质押 XVS 以在下一周期竞争 Prime。",
+      "primeLogoAlt": "Venus Prime 标志",
+      "rewardShareAriaLabel": "占总奖励的比例",
       "title": "你本周期的 Prime 奖励"
     }
   },

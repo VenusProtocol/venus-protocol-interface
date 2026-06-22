@@ -1291,7 +1291,9 @@
     "userRewards": {
       "eligibleMessage": "You are currently eligible for sharing the Prime rewards during this cycle. Supply assets below to share the rewards.",
       "marketActions": "Open market actions",
-      "notEligibleMessage": "You are currently NOT eligible for sharing the Prime rewards during this cycle. Stake XVS to compete for Prime for next cycle.",
+      "notEligibleMessage": "You are currently NOT eligible for sharing the Prime rewards during this cycle. Stake XVS to compete for Prime in the next cycle.",
+      "primeLogoAlt": "Venus Prime logo",
+      "rewardShareAriaLabel": "Share of total rewards",
       "title": "Your Prime rewards this cycle"
     }
   },
