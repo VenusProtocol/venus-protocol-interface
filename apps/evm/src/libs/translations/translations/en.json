@@ -1270,10 +1270,10 @@
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime score",
-      "rankLabel": "Your rank",
-      "rankMissed": "Almost there! You weren't in last cycle's top 500. Boost your stake to qualify this cycle.",
-      "rankNoStake": "You didn't stake XVS last cycle. Stake now to qualify for Prime and earn extra rewards.",
-      "rankQualified": "Congrats! You're in the Top 500 during last cycle and qualified for Prime Rewards.",
+      "rankLabel": "You ranked",
+      "rankMissed": "Almost there! You weren't in the top 500 last cycle. Increase your stake to qualify this cycle.",
+      "rankNoStake": "You didn't stake XVS during the last cycle. Stake now to qualify for Prime in the next cycle and earn extra rewards.",
+      "rankQualified": "Congrats! You were in the top 500 during the last cycle and qualified for Prime rewards.",
       "title": "Last Cycle Prime Summary",
       "userRewardsTitle": "Your Prime rewards last cycle"
     },

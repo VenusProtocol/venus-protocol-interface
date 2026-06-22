@@ -9,7 +9,7 @@ describe('pages/PrimeLeaderboard/LastCycleSummaryModal', () => {
     renderComponent(<LastCycleSummaryModal isOpen handleClose={() => {}} />);
 
     expect(await screen.findByText('Last Cycle Prime Summary')).toBeInTheDocument();
-    expect(screen.getByText('Your rank')).toBeInTheDocument();
+    expect(screen.getByText('You ranked')).toBeInTheDocument();
     expect(screen.getByText('Your Prime rewards last cycle')).toBeInTheDocument();
   });
 });
