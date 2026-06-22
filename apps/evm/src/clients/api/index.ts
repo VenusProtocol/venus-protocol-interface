@@ -41,6 +41,7 @@ export * from './mutations/useSupplyTradePositionCollateral';
 export * from './mutations/useWithdrawTradePositionCollateral';
 export * from './mutations/useRepayWithCollateral';
 export * from './mutations/useStakeInPendleVault';
+export * from './mutations/useWithdrawAtMaturityFromPendleVault';
 export * from './mutations/useWithdrawFromPendleVault';
 export * from './mutations/useStakeIntoInstitutionalVault';
 export * from './mutations/useRedeemFromInstitutionalVault';

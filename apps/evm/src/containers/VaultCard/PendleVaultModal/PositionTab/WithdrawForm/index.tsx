@@ -3,13 +3,12 @@ import BigNumber from 'bignumber.js';
 import {
   useGetPendleSwapQuote,
   useGetVTokenBalance,
-  useWithdraw,
+  useWithdrawAtMaturityFromPendleVault,
   useWithdrawFromPendleVault,
 } from 'clients/api';
 import { NoticeInfo } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
-import { Link } from 'containers/Link';
 import { VaultForm } from 'containers/VaultForm';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
@@ -26,11 +25,9 @@ import {
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { VError } from 'libs/errors';
 import { useAccountAddress } from 'libs/wallet';
+import { useEffect, useMemo } from 'react';
 import type { PendleVaultAction } from '../../types';
 import { Footer } from '../Footer';
-
-const PENDLE_SITE_URL =
-  'https://app.pendle.finance/trade/dashboard/overview/positions?timeframe=allTime';
 
 export interface WithdrawFormProps {
   vault: PendleVault;
@@ -39,7 +36,7 @@ export interface WithdrawFormProps {
 
 export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) => {
   const { accountAddress } = useAccountAddress();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
   const now = useNow();
 
   const { address: pendlePtVaultAddress } = useGetContractAddress({ name: 'PendlePtVault' });
@@ -52,17 +49,30 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
   const toToken = vault.stakedToken;
   const fromTokenPriceCents = vault.rewardTokenPriceCents;
 
-  const userStakedTokens = convertMantissaToTokens({
-    value: vault.userStakeBalanceMantissa ?? new BigNumber(0),
-    token: vault.asset.vToken.underlyingToken,
-  });
+  const userStakedTokens = useMemo(
+    () =>
+      vault.userStakeBalanceMantissa &&
+      convertMantissaToTokens({
+        value: vault.userStakeBalanceMantissa,
+        token: vault.asset.vToken.underlyingToken,
+      }),
+    [vault.userStakeBalanceMantissa, vault.asset],
+  );
 
-  const limitFromTokens = userStakedTokens;
+  const limitFromTokens = new BigNumber(userStakedTokens ?? 0);
 
   const form = useVaultForm({
     limitFromTokens,
     fromToken,
   });
+
+  useEffect(() => {
+    if (hasMatured && userStakedTokens) {
+      form.setValue('fromAmountTokens', userStakedTokens.toFixed(), {
+        shouldValidate: true,
+      });
+    }
+  }, [form.setValue, userStakedTokens, hasMatured]);
 
   const fromAmountTokensFieldValue = form.watch('fromAmountTokens') ?? '0';
   const debouncedFromAmountTokens = useDebounceValue(fromAmountTokensFieldValue);
@@ -88,23 +98,23 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
   );
 
   const { mutateAsync: withdraw } = useWithdrawFromPendleVault({
-    pendleMarketAddress: swapQuote?.pendleMarketAddress ?? NULL_ADDRESS,
+    pendleMarketAddress: vault.venueAddress ?? NULL_ADDRESS,
+  });
+  const { mutateAsync: withdrawAtMaturity } = useWithdrawAtMaturityFromPendleVault({
+    pendleMarketAddress: vault.venueAddress ?? NULL_ADDRESS,
   });
 
-  const { mutateAsync: withdrawAfterMaturity } = useWithdraw();
-
-  // After maturity we redeem directly from the vToken (same flow as the Market page), so we need the
-  // user's actual vToken balance to initiate the transaction.
-  const { data: getVTokenBalanceData, isLoading: isGetVTokenBalanceLoading } = useGetVTokenBalance(
-    {
-      accountAddress: accountAddress ?? NULL_ADDRESS,
-      vTokenAddress: vault.asset.vToken.address,
-    },
-    {
-      enabled: !!accountAddress && hasMatured,
-    },
-  );
-  const vTokenBalanceMantissa = getVTokenBalanceData?.balanceMantissa;
+  const { data: getUserVTokenBalanceData, isLoading: isGetUserVTokenBalanceLoading } =
+    useGetVTokenBalance(
+      {
+        accountAddress: accountAddress ?? NULL_ADDRESS,
+        vTokenAddress: vault.asset.vToken.address,
+      },
+      {
+        enabled: !!accountAddress && hasMatured,
+      },
+    );
+  const userVTokenBalanceMantissa = getUserVTokenBalanceData?.balanceMantissa;
 
   const estimatedReceivedTokens = swapQuote?.estimatedReceivedTokensMantissa
     ? convertMantissaToTokens({
@@ -129,17 +139,19 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
         : PLACEHOLDER_KEY;
 
   const handleSubmit = async () => {
-    // Read the amount from the form directly instead of the closure variable: the closure can
-    // capture a stale value (empty string) from an earlier render, which would produce NaN.
-    const currentFromAmountTokens = form.getValues('fromAmountTokens') ?? '0';
-    const withdrawFull = currentFromAmountTokens === limitFromTokens.toFixed();
+    const currentFromAmountTokens = new BigNumber(fromAmountTokensFieldValue);
+    const withdrawFull = currentFromAmountTokens.isEqualTo(limitFromTokens);
 
-    const amountMantissa = convertTokensToMantissa({
-      value: new BigNumber(withdrawFull ? userStakedTokens : currentFromAmountTokens),
-      token: vault.asset.vToken,
-    });
+    // A full redeem needs the exact vToken balance, while a partial redeem (redeemUnderlying) needs
+    // the amount expressed in the underlying token's decimals
+    const amountMantissa = withdrawFull
+      ? userVTokenBalanceMantissa
+      : convertTokensToMantissa({
+          value: new BigNumber(fromAmountTokensFieldValue),
+          token: vault.asset.vToken,
+        });
 
-    if (!hasMatured && !swapQuote) {
+    if (!amountMantissa) {
       throw new VError({
         type: 'unexpected',
         code: 'somethingWentWrong',
@@ -147,44 +159,37 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
     }
 
     if (hasMatured) {
-      // A full redeem needs the exact vToken balance, while a partial redeem (redeemUnderlying)
-      // needs the amount expressed in the underlying token's decimals. This mirrors the Market page
-      // WithdrawForm logic and avoids the decimals mismatch that caused redeem reverts.
-      const withdrawAmountMantissa = withdrawFull
-        ? vTokenBalanceMantissa
-        : convertTokensToMantissa({
-            value: new BigNumber(currentFromAmountTokens),
-            token: vault.asset.vToken.underlyingToken,
-          });
-
-      if (!withdrawAmountMantissa) {
-        throw new VError({
-          type: 'unexpected',
-          code: 'somethingWentWrong',
-        });
-      }
-
-      await withdrawAfterMaturity({
-        poolName: vault.poolName,
-        poolComptrollerContractAddress: vault.poolComptrollerContractAddress,
-        vToken: vault.asset.vToken,
-        withdrawFullSupply: withdrawFull,
-        unwrap: fromToken.isNative,
-        amountMantissa: withdrawAmountMantissa,
-      });
-    } else if (swapQuote) {
-      await withdraw({
-        swapQuote,
-        type: 'withdraw',
+      await withdrawAtMaturity({
         fromToken,
         toToken,
         amountMantissa,
         vToken: vault.asset.vToken,
       });
+
+      onClose();
+
+      return;
     }
+
+    if (!swapQuote) {
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+      });
+    }
+
+    await withdraw({
+      swapQuote,
+      fromToken,
+      toToken,
+      amountMantissa,
+      vToken: vault.asset.vToken,
+    });
 
     onClose();
   };
+
+  const isLoading = isGetSwapQuoteLoading || (hasMatured && isGetUserVTokenBalanceLoading);
 
   return (
     <div className="space-y-4">
@@ -198,11 +203,12 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
         fromTokenPriceCents={fromTokenPriceCents.toNumber()}
         swapQuote={swapQuote}
         swapQuoteError={swapQuoteError ?? undefined}
-        swapFromToken={actionMode !== 'redeemAtMaturity' ? fromToken : undefined}
-        swapToToken={actionMode !== 'redeemAtMaturity' ? toToken : undefined}
-        isLoading={isGetSwapQuoteLoading || (hasMatured && isGetVTokenBalanceLoading)}
-        delegateeAddress={pendlePtVaultAddress}
+        swapFromToken={!hasMatured ? fromToken : undefined}
+        swapToToken={!hasMatured ? toToken : undefined}
+        isLoading={isLoading}
         vaultPoolComptrollerContractAddress={vault.poolComptrollerContractAddress}
+        disableFromAmountInput={hasMatured}
+        delegateeAddress={pendlePtVaultAddress}
         footer={
           <Footer
             actionMode={actionMode}
@@ -212,26 +218,13 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
             userStakedTokens={userStakedTokens}
             userSlippageTolerancePercentage={userSlippageTolerancePercentage}
             swapQuote={swapQuote}
-            estDiffAmountReadable={estDiffAmountReadable}
+            estDiffAmountReadable={!hasMatured ? estDiffAmountReadable : undefined}
           />
         }
       />
 
-      {!!accountAddress && (
-        <NoticeInfo
-          description={
-            hasMatured ? (
-              <Trans
-                i18nKey="vault.modals.afterMaturityPendleDisclaimer"
-                components={{
-                  Link: <Link href={PENDLE_SITE_URL} />,
-                }}
-              />
-            ) : (
-              t('vault.modals.maturityPendleDisclaimer')
-            )
-          }
-        />
+      {!!accountAddress && !hasMatured && (
+        <NoticeInfo description={t('vault.modals.maturityPendleDisclaimer')} />
       )}
     </div>
   );

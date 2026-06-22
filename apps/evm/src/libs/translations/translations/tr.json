@@ -2153,7 +2153,6 @@
     },
     "header": "Kasa",
     "modals": {
-      "afterMaturityPendleDisclaimer": "Lütfen önce Çek butonu ile PT tokenlarınızı cüzdanınıza çekin, ardından temel tokenlarınızı geri almak için <Link>Pendle resmi</Link> web sitesini ziyaret edin.",
       "claim": "Talep et",
       "connectWalletMessage": "Bu kasayla etkileşime geçmek için lütfen cüzdanınızı bağlayın",
       "convert": "Dönüştür",
@@ -2215,6 +2214,7 @@
       "overviewTab": "Genel Bakış",
       "pendleFee": "Pendle Ücreti",
       "positionTab": "Pozisyon",
+      "received": "Alınan",
       "stakeTab": "Sağla",
       "targetApr": "Hedef APR",
       "targetAprTooltip": "Bu kasa stratejisinin sunmayı hedeflediği yıllıklandırılmış hedef ödüldür; bileşik getiri dahil hedef Yıllık Yüzde Oranı (APR) olarak ifade edilir. Gerçek getiri değişkendir ve karşı taraf performansına bağlıdır; sermaye risk altındadır. Sağladığınız tutardan daha azını geri alabilirsiniz.",

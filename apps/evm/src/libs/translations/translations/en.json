@@ -2154,7 +2154,6 @@
     },
     "header": "Vaults",
     "modals": {
-      "afterMaturityPendleDisclaimer": "Please withdraw your PT tokens to your wallet first via the Withdraw button, then visit the <Link>Pendle official</Link> website to redeem your underlying tokens.",
       "claim": "Claim",
       "connectWalletMessage": "Please connect your wallet to interact with this vault",
       "convert": "Convert",
@@ -2216,6 +2215,7 @@
       "overviewTab": "Overview",
       "pendleFee": "Pendle fee",
       "positionTab": "Position",
+      "received": "Received",
       "stakeTab": "Supply",
       "targetApr": "Target APR",
       "targetAprTooltip": "The annualized target reward this vault strategy aims to deliver, expressed as a target Annual Percentage Rate with compounding included. Actual return is variable and depends on counterparty performance; capital is at risk and you may receive less than the amount you supplied.",

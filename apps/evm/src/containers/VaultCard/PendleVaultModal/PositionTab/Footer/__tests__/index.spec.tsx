@@ -142,11 +142,12 @@ describe('Footer', () => {
     expect(queryByText(en.vault.modals.convert)).not.toBeInTheDocument();
   });
 
-  it('does not render conversion details for redeem at maturity even when slippage is provided', () => {
+  it('renders the convert direction and received amount for redeem at maturity', () => {
     const { getByText, queryByText } = renderComponent(
       <Footer
         {...baseProps}
         actionMode="redeemAtMaturity"
+        estDiffAmountReadable={undefined}
         userSlippageTolerancePercentage={5}
         swapQuote={swapQuote}
       />,
@@ -156,7 +157,16 @@ describe('Footer', () => {
     );
 
     expect(getByText(en.vault.modals.currentDeposited)).toBeInTheDocument();
-    expect(getByText(en.vault.modals.estPenalty)).toBeInTheDocument();
-    expect(queryByText(en.vault.modals.convert)).not.toBeInTheDocument();
+    expect(getByText(en.vault.modals.convert)).toBeInTheDocument();
+    expect(getRow(getByText, 'Received')).toHaveTextContent(
+      formatTokensToReadableValue({
+        value: baseProps.userStakedTokens,
+        token: baseProps.toToken,
+      }),
+    );
+    expect(queryByText(en.vault.modals.estPenalty)).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.pendleFee)).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.minReceived)).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.estReceived)).not.toBeInTheDocument();
   });
 });

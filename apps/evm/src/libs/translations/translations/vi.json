@@ -2152,7 +2152,6 @@
     },
     "header": "Kho",
     "modals": {
-      "afterMaturityPendleDisclaimer": "Vui lòng rút PT token về ví của bạn trước thông qua nút Rút, sau đó truy cập trang web <Link>Pendle chính thức</Link> để đổi lấy token cơ sở của bạn.",
       "claim": "Nhận thưởng",
       "connectWalletMessage": "Vui lòng kết nối ví của bạn để tương tác với kho này",
       "convert": "Chuyển đổi",
@@ -2214,6 +2213,7 @@
       "overviewTab": "Tổng quan",
       "pendleFee": "Phí Pendle",
       "positionTab": "Vị thế",
+      "received": "Đã nhận",
       "stakeTab": "Cung cấp",
       "targetApr": "APR mục tiêu",
       "targetAprTooltip": "Phần thưởng mục tiêu theo năm mà chiến lược vault này hướng tới, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm mục tiêu có bao gồm lãi kép. Lợi nhuận thực tế có thể biến động và phụ thuộc vào hiệu suất của đối tác; vốn có rủi ro. Bạn có thể nhận lại ít hơn số đã cung cấp.",

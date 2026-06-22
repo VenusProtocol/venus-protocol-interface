@@ -829,6 +829,14 @@ export const useWithdrawFromPendleVault = vi.fn(
     }),
 );
 
+export const useWithdrawAtMaturityFromPendleVault = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
 export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),

@@ -17,10 +17,10 @@ export interface FooterProps {
   actionMode: PendleVaultAction;
   fromToken: Token;
   toToken: Token;
-  userStakedTokens: BigNumber;
+  estDiffAmountReadable?: string;
+  userStakedTokens?: BigNumber;
   userSlippageTolerancePercentage?: number;
   swapQuote?: GetPendleSwapQuoteOutput;
-  estDiffAmountReadable?: string;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -43,9 +43,7 @@ export const Footer: React.FC<FooterProps> = ({
   });
 
   const shouldShowConversionDetails =
-    accountAddress &&
-    actionMode !== 'redeemAtMaturity' &&
-    typeof userSlippageTolerancePercentage === 'number';
+    accountAddress && typeof userSlippageTolerancePercentage === 'number';
 
   const sections: ReactElement[] = [];
 
@@ -53,7 +51,6 @@ export const Footer: React.FC<FooterProps> = ({
     sections.push(
       <>
         <LabeledInlineContent
-          key="currentDeposited"
           label={t('vault.modals.currentDeposited')}
           tooltip={t('vault.modals.currentDepositedTooltip')}
         >
@@ -68,9 +65,10 @@ export const Footer: React.FC<FooterProps> = ({
   if (shouldShowConversionDetails) {
     sections.push(
       <PendleConvertDetails
-        key="convertDetails"
         fromToken={fromToken}
+        isMatured={actionMode === 'redeemAtMaturity'}
         toToken={toToken}
+        userStakedTokens={userStakedTokens}
         slippagePercentage={userSlippageTolerancePercentage}
         swapQuote={swapQuote}
       />,
@@ -93,11 +91,10 @@ export const Footer: React.FC<FooterProps> = ({
     );
   }
 
-  if (accountAddress) {
+  if (accountAddress && estDiffAmountReadable) {
     sections.push(
       <>
         <LabeledInlineContent
-          key="estimatedDifference"
           label={isStake ? t('vault.modals.estYield') : t('vault.modals.estPenalty')}
         >
           {estDiffAmountReadable}

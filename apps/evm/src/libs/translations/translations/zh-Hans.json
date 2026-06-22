@@ -2152,7 +2152,6 @@
     },
     "header": "金库",
     "modals": {
-      "afterMaturityPendleDisclaimer": "请先通过取款按钮将您的 PT 代币提取到钱包，然后访问 <Link>Pendle 官方</Link>网站赎回您的底层代币。",
       "claim": "领取",
       "connectWalletMessage": "请连接您的钱包以与此金库交互",
       "convert": "转换",
@@ -2214,6 +2213,7 @@
       "overviewTab": "概览",
       "pendleFee": "Pendle 费用",
       "positionTab": "持仓",
+      "received": "已收到",
       "stakeTab": "供应",
       "targetApr": "目标 APR",
       "targetAprTooltip": "此金库策略旨在实现的年化目标奖励，以包含复利的目标年化收益率（APR）表示。实际回报具有可变性，并取决于交易对手表现；本金存在风险。您收到的金额可能少于已供应的数量。",
