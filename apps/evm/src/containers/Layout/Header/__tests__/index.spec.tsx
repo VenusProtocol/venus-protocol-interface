@@ -22,9 +22,6 @@ vi.mock('../Breadcrumbs', () => ({
 vi.mock('../MarketInfo', () => ({
   MarketInfo: () => <div data-testid="market-info" />,
 }));
-vi.mock('../MarketsAdBanner', () => ({
-  MarketsAdBanner: () => <div data-testid="markets-ad-banner" />,
-}));
 
 describe('Header', () => {
   beforeEach(() => {
@@ -87,15 +84,6 @@ describe('Header', () => {
       backgroundColor: gradientAccentColor,
     });
     expect(screen.getByTestId('market-info')).toBeVisible();
-  });
-
-  it('renders the markets banner on markets pages', () => {
-    (useIsOnMarketsPage as Mock).mockReturnValue(true);
-
-    renderComponent(<Header />);
-
-    expect(screen.getByRole('banner')).toBeVisible();
-    expect(screen.getByTestId('markets-ad-banner')).toBeVisible();
   });
 
   it('falls back to the null address when the route has no vTokenAddress param', () => {
