@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.43.0
+
+### Minor Changes
+
+- 82e6ffc: update Table design
+
 ## 4.42.0
 
 ### Minor Changes
