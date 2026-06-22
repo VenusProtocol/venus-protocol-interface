@@ -1,12 +1,11 @@
-import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import type { Address } from 'viem';
 
-import { InfoIcon, Pagination, Table, type TableColumn, Username } from 'components';
-import { useUrlPagination } from 'hooks/useUrlPagination';
+import { InfoIcon, type TableColumn, Username } from 'components';
 import { useTranslation } from 'libs/translations';
 
+import { PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
 import { RankBadge } from './RankBadge';
 
 const RANKS_PAGE_PARAM_KEY = 'ranksPage';
@@ -16,8 +15,6 @@ interface PrimeRank {
   address: Address;
   primeScore: number;
 }
-
-const ITEMS_PER_PAGE = 10;
 
 // TODO: replace this placeholder ranking with the data returned by the API
 const placeholderRanks: PrimeRank[] = Array.from({ length: 150 }, (_, index) => ({
@@ -32,7 +29,6 @@ export interface RankTableProps {
 
 export const RankTable: React.FC<RankTableProps> = ({ className }) => {
   const { t } = useTranslation();
-  const { currentPage, setCurrentPage } = useUrlPagination({ paramKey: RANKS_PAGE_PARAM_KEY });
 
   const columns: TableColumn<PrimeRank>[] = useMemo(
     () => [
@@ -74,28 +70,14 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
 
   const defaultSortColumn = columns.find(column => column.key === 'primeScore');
 
-  const pageRanks = placeholderRanks.slice(
-    currentPage * ITEMS_PER_PAGE,
-    (currentPage + 1) * ITEMS_PER_PAGE,
-  );
-
   return (
-    <div className={cn('flex flex-col', className)}>
-      <Table
-        variant="primary"
-        className="border-0 p-0"
-        columns={columns}
-        data={pageRanks}
-        rowKeyExtractor={row => `prime-rank-table-row-${row.rank}`}
-        initialOrder={defaultSortColumn && { orderBy: defaultSortColumn, orderDirection: 'desc' }}
-      />
-
-      <Pagination
-        itemsCount={placeholderRanks.length}
-        itemsPerPageCount={ITEMS_PER_PAGE}
-        paramKey={RANKS_PAGE_PARAM_KEY}
-        onChange={setCurrentPage}
-      />
-    </div>
+    <PrimeLeaderboardTable
+      columns={columns}
+      data={placeholderRanks}
+      pageParamKey={RANKS_PAGE_PARAM_KEY}
+      rowKeyExtractor={row => `prime-rank-table-row-${row.rank}`}
+      initialOrder={defaultSortColumn && { orderBy: defaultSortColumn, orderDirection: 'desc' }}
+      className={className}
+    />
   );
 };

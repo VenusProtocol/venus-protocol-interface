@@ -1,12 +1,12 @@
-import { cn } from '@venusprotocol/ui';
 import { useMemo } from 'react';
 import type { Address } from 'viem';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
-import { Pagination, Table, type TableColumn, Username } from 'components';
-import { useUrlPagination } from 'hooks/useUrlPagination';
+import { type TableColumn, Username } from 'components';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
+
+import { PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
 
 interface PrimeReward {
   id: number;
@@ -16,7 +16,6 @@ interface PrimeReward {
   uRewardsCents: number;
 }
 
-const ITEMS_PER_PAGE = 10;
 const REWARDS_PAGE_PARAM_KEY = 'rewardsPage';
 
 // TODO: replace this placeholder list with the data returned by the API
@@ -34,7 +33,6 @@ export interface RewardTableProps {
 
 export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
   const { t } = useTranslation();
-  const { currentPage, setCurrentPage } = useUrlPagination({ paramKey: REWARDS_PAGE_PARAM_KEY });
 
   const columns: TableColumn<PrimeReward>[] = useMemo(
     () => [
@@ -105,28 +103,14 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
 
   const defaultSortColumn = columns.find(column => column.key === 'totalRewards');
 
-  const pageRewards = placeholderRewards.slice(
-    currentPage * ITEMS_PER_PAGE,
-    (currentPage + 1) * ITEMS_PER_PAGE,
-  );
-
   return (
-    <div className={cn('flex flex-col', className)}>
-      <Table
-        variant="primary"
-        className="border-0 p-0"
-        columns={columns}
-        data={pageRewards}
-        rowKeyExtractor={row => `prime-reward-table-row-${row.id}`}
-        initialOrder={defaultSortColumn && { orderBy: defaultSortColumn, orderDirection: 'desc' }}
-      />
-
-      <Pagination
-        itemsCount={placeholderRewards.length}
-        itemsPerPageCount={ITEMS_PER_PAGE}
-        paramKey={REWARDS_PAGE_PARAM_KEY}
-        onChange={setCurrentPage}
-      />
-    </div>
+    <PrimeLeaderboardTable
+      columns={columns}
+      data={placeholderRewards}
+      pageParamKey={REWARDS_PAGE_PARAM_KEY}
+      rowKeyExtractor={row => `prime-reward-table-row-${row.id}`}
+      initialOrder={defaultSortColumn && { orderBy: defaultSortColumn, orderDirection: 'desc' }}
+      className={className}
+    />
   );
 };

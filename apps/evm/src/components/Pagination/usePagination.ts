@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
-import { PAGE_PARAM_KEY } from 'hooks/useUrlPagination';
+import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 
 type PaginationProps = {
@@ -19,35 +19,17 @@ export function usePagination({
   itemsCount,
   onChange,
   itemsPerPageCount = 10,
-  paramKey = PAGE_PARAM_KEY,
+  paramKey = PAGE_PARAM_DEFAULT_KEY,
 }: PaginationProps) {
   const { t } = useTranslation();
   const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const setPageParam = useCallback(
-    (page: string) =>
-      setSearchParams(currentSearchParams => ({
-        ...Object.fromEntries(currentSearchParams),
-        [paramKey]: page,
-      })),
-    [setSearchParams, paramKey],
-  );
-
-  const [urlPageParam, activePageIndex] = useMemo(() => {
+  const activePageIndex = useMemo(() => {
     const pageParam = searchParams.get(paramKey);
-    const pageIndex = pageParam ? +pageParam - 1 : 0;
-
-    return [pageParam, pageIndex];
+    return pageParam ? +pageParam - 1 : 0;
   }, [searchParams, paramKey]);
-
-  // Automatically set default page param if none was set
-  useEffect(() => {
-    if (urlPageParam === undefined) {
-      setPageParam('1');
-    }
-  }, [urlPageParam, setPageParam]);
 
   const [pagesCount, setPagesCount] = useState(0);
 
@@ -82,8 +64,6 @@ export function usePagination({
     : activePageIndex + halfOfPagesCount;
 
   const handlePageChange = (pageIndex: number) => {
-    setPageParam(pageIndex.toString());
-
     onChange(pageIndex);
 
     scrollElem?.scrollTo({ behavior: 'instant', top: 0 });

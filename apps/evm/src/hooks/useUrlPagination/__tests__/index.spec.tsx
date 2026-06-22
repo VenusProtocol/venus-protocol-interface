@@ -4,7 +4,7 @@ import type { Mock } from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 
-import { PAGE_PARAM_KEY, useUrlPagination } from '..';
+import { PAGE_PARAM_DEFAULT_KEY, useUrlPagination } from '..';
 
 vi.mock('react-router', async () => {
   const actual = (await vi.importActual('react-router')) as any;
@@ -30,7 +30,7 @@ describe('useUrlPagination', () => {
 
   it('returns current page correctly when page param is set', () => {
     const mockSearchParams = new URLSearchParams();
-    mockSearchParams.set(PAGE_PARAM_KEY, '3');
+    mockSearchParams.set(PAGE_PARAM_DEFAULT_KEY, '3');
     const mockSetSearchParams = vi.fn();
 
     (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
@@ -42,7 +42,7 @@ describe('useUrlPagination', () => {
 
   it('sets the page index correctly', async () => {
     const mockSearchParams = new URLSearchParams({
-      [PAGE_PARAM_KEY]: '9999',
+      [PAGE_PARAM_DEFAULT_KEY]: '9999',
     });
     const mockSetSearchParams = vi.fn();
 
@@ -58,7 +58,7 @@ describe('useUrlPagination', () => {
 
     const mockSetSearchParamsInput = mockSetSearchParams.mock.calls[0][0];
     expect(mockSetSearchParamsInput(mockSearchParams)).toEqual({
-      [PAGE_PARAM_KEY]: '3',
+      [PAGE_PARAM_DEFAULT_KEY]: '3',
     });
   });
 });

@@ -7,7 +7,7 @@ export type UseUrlPaginationOutput = {
 };
 
 export const PAGE_PARAM_DEFAULT_VALUE = 1;
-export const PAGE_PARAM_KEY = 'page';
+export const PAGE_PARAM_DEFAULT_KEY = 'page';
 
 export interface UseUrlPaginationInput {
   // Search param key holding the active page, so several tables can paginate independently
@@ -15,7 +15,7 @@ export interface UseUrlPaginationInput {
 }
 
 export const useUrlPagination = ({
-  paramKey = PAGE_PARAM_KEY,
+  paramKey = PAGE_PARAM_DEFAULT_KEY,
 }: UseUrlPaginationInput = {}): UseUrlPaginationOutput => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageIndex = searchParams.get(paramKey) ?? undefined;

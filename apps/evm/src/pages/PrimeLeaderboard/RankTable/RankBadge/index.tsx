@@ -22,5 +22,5 @@ export const RankBadge: React.FC<RankBadgeProps> = ({ rank, className }) => {
     return null;
   }
 
-  return <img src={src} alt="" className={cn('size-5 shrink-0', className)} />;
+  return <img src={src} alt={`Rank ${rank} badge`} className={cn('size-5 shrink-0', className)} />;
 };
