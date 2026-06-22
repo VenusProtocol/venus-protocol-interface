@@ -27,6 +27,7 @@ interface PaginationProps {
   onChange: (newPageIndex: number) => void;
   initialPageIndex?: number;
   itemsPerPageCount?: number;
+  paramKey?: string;
   className?: string;
 }
 
@@ -35,6 +36,7 @@ export const Pagination = ({
   onChange,
   initialPageIndex,
   itemsPerPageCount,
+  paramKey,
   className,
 }: PaginationProps) => {
   const {
@@ -51,6 +53,7 @@ export const Pagination = ({
       onChange(newPageIndex + (initialPageIndex || 0));
     },
     itemsPerPageCount,
+    paramKey,
   });
 
   const styles = useStyles();

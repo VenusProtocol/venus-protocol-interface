@@ -2,38 +2,34 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
-import { PAGE_PARAM_KEY } from 'hooks/useUrlPagination';
+import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 
 type PaginationProps = {
   itemsCount: number;
   onChange: (newPageIndex: number) => void;
   itemsPerPageCount?: number;
+  // Search param key holding the active page, so several tables can paginate independently
+  paramKey?: string;
 };
 
 const PAGES_TO_SHOW_COUNT = 4;
 
-export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: PaginationProps) {
+export function usePagination({
+  itemsCount,
+  onChange,
+  itemsPerPageCount = 10,
+  paramKey = PAGE_PARAM_DEFAULT_KEY,
+}: PaginationProps) {
   const { t } = useTranslation();
   const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const [urlPageParam, activePageIndex] = useMemo(() => {
-    const pageParam = searchParams.get(PAGE_PARAM_KEY);
-    const pageIndex = pageParam ? +pageParam - 1 : 0;
-
-    return [pageParam, pageIndex];
-  }, [searchParams]);
-
-  // Automatically set default page param if none was set
-  useEffect(() => {
-    if (urlPageParam === undefined) {
-      setSearchParams({
-        [PAGE_PARAM_KEY]: '1',
-      });
-    }
-  }, [urlPageParam, setSearchParams]);
+  const activePageIndex = useMemo(() => {
+    const pageParam = searchParams.get(paramKey);
+    return pageParam ? +pageParam - 1 : 0;
+  }, [searchParams, paramKey]);
 
   const [pagesCount, setPagesCount] = useState(0);
 
@@ -68,10 +64,6 @@ export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: 
     : activePageIndex + halfOfPagesCount;
 
   const handlePageChange = (pageIndex: number) => {
-    setSearchParams({
-      [PAGE_PARAM_KEY]: pageIndex.toString(),
-    });
-
     onChange(pageIndex);
 
     scrollElem?.scrollTo({ behavior: 'instant', top: 0 });

@@ -1268,6 +1268,21 @@
       "sec": "Sn.",
       "title": "Döngü sonu"
     },
+    "rankTable": {
+      "columns": {
+        "primeScore": "Prime puanı",
+        "wallet": "Cüzdan"
+      },
+      "rankBadgeAlt": "{{rank}}. sıra rozeti",
+      "walletTooltip": "Kullanıcılar Prime puanına göre sıralanır. İlk 500 cüzdan bir sonraki döngüde Prime için uygun olur."
+    },
+    "rewardTable": {
+      "columns": {
+        "marketRewards": "{{symbol}} ödülleri",
+        "totalRewards": "Toplam ödüller",
+        "wallet": "Cüzdan"
+      }
+    },
     "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
     "title": "Prime lider tablosu"
   },

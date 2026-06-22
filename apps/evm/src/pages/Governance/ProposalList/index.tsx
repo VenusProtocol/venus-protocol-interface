@@ -24,7 +24,7 @@ import { routes } from 'constants/routing';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
-import { PAGE_PARAM_DEFAULT_VALUE, PAGE_PARAM_KEY } from 'hooks/useUrlPagination';
+import { PAGE_PARAM_DEFAULT_KEY, PAGE_PARAM_DEFAULT_VALUE } from 'hooks/useUrlPagination';
 import type { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -99,7 +99,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
       const params = {
         ...Object.fromEntries(currentSearchParams),
         ...newFiltering,
-        [PAGE_PARAM_KEY]: PAGE_PARAM_DEFAULT_VALUE, // Reset page param
+        [PAGE_PARAM_DEFAULT_KEY]: PAGE_PARAM_DEFAULT_VALUE, // Reset page param
       };
 
       const result: Record<string, string> = {};

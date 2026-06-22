@@ -1268,6 +1268,21 @@
       "sec": "秒",
       "title": "周期结束"
     },
+    "rankTable": {
+      "columns": {
+        "primeScore": "Prime 分数",
+        "wallet": "钱包"
+      },
+      "rankBadgeAlt": "排名 {{rank}} 徽章",
+      "walletTooltip": "用户按 Prime 分数排名。排名前 500 的钱包将在下个周期获得 Prime 资格。"
+    },
+    "rewardTable": {
+      "columns": {
+        "marketRewards": "{{symbol}} 奖励",
+        "totalRewards": "总奖励",
+        "wallet": "钱包"
+      }
+    },
     "tablesRefreshNote": "每小时刷新 · 上次刷新：{{date, distanceToNow}}前",
     "title": "Prime 排行榜"
   },

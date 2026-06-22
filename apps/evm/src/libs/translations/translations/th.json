@@ -1268,6 +1268,21 @@
       "sec": "วินาที",
       "title": "สิ้นสุดรอบ"
     },
+    "rankTable": {
+      "columns": {
+        "primeScore": "คะแนน Prime",
+        "wallet": "กระเป๋าเงิน"
+      },
+      "rankBadgeAlt": "ตราอันดับ {{rank}}",
+      "walletTooltip": "ผู้ใช้จัดอันดับตามคะแนน Prime กระเป๋าเงิน 500 อันดับแรกจะมีสิทธิ์รับ Prime ในรอบถัดไป"
+    },
+    "rewardTable": {
+      "columns": {
+        "marketRewards": "รางวัล {{symbol}}",
+        "totalRewards": "รางวัลทั้งหมด",
+        "wallet": "กระเป๋าเงิน"
+      }
+    },
     "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{date, distanceToNow}} ที่แล้ว",
     "title": "กระดานผู้นำ Prime"
   },
