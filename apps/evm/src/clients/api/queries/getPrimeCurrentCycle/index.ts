@@ -1,20 +1,11 @@
 import { VError } from 'libs/errors';
-import type { ChainId } from 'types';
+import type { ChainId, PrimeCycle, PrimeCycleStatus } from 'types';
 import { restService } from 'utilities';
 import type { Address } from 'viem';
 
-export interface PrimeCurrentCycle {
-  cycleIndex: number;
-  status: string;
-  startsAt: Date;
-  endsAt: Date;
-  anchorBlockNum: string | null;
-  mintLimitUsed: number;
-}
-
 export interface PrimePendingRewardTokenTotal {
   rewardTokenAddress: Address;
-  totalPendingUsdCents: string;
+  totalPendingCents: string;
   totalPendingMantissa: string;
 }
 
@@ -22,7 +13,7 @@ export interface PrimePendingRewardPool {
   blockNumber: string;
   computedAt: Date;
   primeHolderCount: number;
-  totalPendingUsdCents: string;
+  totalPendingCents: string;
   byRewardToken: PrimePendingRewardTokenTotal[];
 }
 
@@ -31,17 +22,23 @@ export interface GetPrimeCurrentCycleInput {
 }
 
 export interface GetPrimeCurrentCycleOutput {
-  cycle: PrimeCurrentCycle | null;
-  pendingPool: PrimePendingRewardPool | null;
+  cycle: PrimeCycle | undefined;
+  pendingPool: PrimePendingRewardPool | undefined;
 }
 
 interface PrimeCurrentCycleResponse {
   cycleIndex: number;
-  status: string;
+  status: PrimeCycleStatus;
   startsAt: string;
   endsAt: string;
   anchorBlockNum: string | null;
   mintLimitUsed: number;
+}
+
+interface PrimePendingRewardTokenTotalResponse {
+  rewardTokenAddress: Address;
+  totalPendingUsdCents: string;
+  totalPendingMantissa: string;
 }
 
 interface PrimePendingRewardPoolResponse {
@@ -49,7 +46,7 @@ interface PrimePendingRewardPoolResponse {
   computedAt: string;
   primeHolderCount: number;
   totalPendingUsdCents: string;
-  byRewardToken: PrimePendingRewardTokenTotal[];
+  byRewardToken: PrimePendingRewardTokenTotalResponse[];
 }
 
 interface GetPrimeCurrentCycleResponse {
@@ -84,15 +81,23 @@ export const getPrimeCurrentCycle = async ({
     cycle: payload.cycle
       ? {
           ...payload.cycle,
+          anchorBlockNum: payload.cycle.anchorBlockNum ?? undefined,
           startsAt: new Date(payload.cycle.startsAt),
           endsAt: new Date(payload.cycle.endsAt),
         }
-      : null,
+      : undefined,
     pendingPool: payload.pendingPool
       ? {
-          ...payload.pendingPool,
+          blockNumber: payload.pendingPool.blockNumber,
           computedAt: new Date(payload.pendingPool.computedAt),
+          primeHolderCount: payload.pendingPool.primeHolderCount,
+          totalPendingCents: payload.pendingPool.totalPendingUsdCents,
+          byRewardToken: payload.pendingPool.byRewardToken.map(token => ({
+            rewardTokenAddress: token.rewardTokenAddress,
+            totalPendingCents: token.totalPendingUsdCents,
+            totalPendingMantissa: token.totalPendingMantissa,
+          })),
         }
-      : null,
+      : undefined,
   };
 };

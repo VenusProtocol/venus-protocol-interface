@@ -34,7 +34,7 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
 
         const rewardsCents = (userRewards ?? [])
           .filter(reward => areAddressesEqual(reward.rewardTokenAddress, rewardTokenAddress))
-          .reduce((total, reward) => total + Number(reward.pendingUsdCents), 0);
+          .reduce((total, reward) => total + Number(reward.pendingCents), 0);
 
         return [{ token, rewardsCents }];
       }),
@@ -44,7 +44,7 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
   return {
     isLoading: isCurrentCycleLoading || isUserPendingRewardsLoading,
     isPrime: userPendingRewards?.isPrimeHolder ?? false,
-    totalRewardsCents: userPendingRewards ? Number(userPendingRewards.totalPendingUsdCents) : 0,
+    totalRewardsCents: userPendingRewards ? Number(userPendingRewards.totalPendingCents) : 0,
     marketRewards,
   };
 };

@@ -3,9 +3,9 @@ import BigNumber from 'bignumber.js';
 import {
   useGetPrimeEffectiveStake,
   useGetPrimeMinimumStake,
+  useGetPrimeTokenLimit,
   useGetPrimeUserPendingRewards,
 } from 'clients/api';
-import { PRIME_RANK_LIMIT } from 'constants/prime';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import { convertMantissaToTokens } from 'utilities';
@@ -28,6 +28,7 @@ export const useGetPrimeRank = (): PrimeRankData & { isLoading: boolean } => {
     accountAddress,
   });
   const { data: minimumStake, isLoading: isMinimumStakeLoading } = useGetPrimeMinimumStake();
+  const { data: tokenLimitData, isLoading: isTokenLimitLoading } = useGetPrimeTokenLimit();
 
   const stakedTokens = convertMantissaToTokens({
     value: effectiveStake?.totalStakedMantissa ?? new BigNumber(0),
@@ -36,8 +37,8 @@ export const useGetPrimeRank = (): PrimeRankData & { isLoading: boolean } => {
   const hasStakedXvs = !!stakedTokens?.isGreaterThan(0);
 
   const rank = userPendingRewards?.rank ?? 0;
-  const isCandidate =
-    hasStakedXvs && rank > 0 && rank <= (minimumStake?.tokenLimit ?? PRIME_RANK_LIMIT);
+  const rankLimit = minimumStake?.tokenLimit ?? tokenLimitData?.tokenLimit;
+  const isCandidate = hasStakedXvs && rank > 0 && rankLimit !== undefined && rank <= rankLimit;
 
   const primeScore =
     convertMantissaToTokens({
@@ -57,7 +58,11 @@ export const useGetPrimeRank = (): PrimeRankData & { isLoading: boolean } => {
     : 0;
 
   return {
-    isLoading: isUserPendingRewardsLoading || isEffectiveStakeLoading || isMinimumStakeLoading,
+    isLoading:
+      isUserPendingRewardsLoading ||
+      isEffectiveStakeLoading ||
+      isMinimumStakeLoading ||
+      isTokenLimitLoading,
     hasStakedXvs,
     isCandidate,
     rank,

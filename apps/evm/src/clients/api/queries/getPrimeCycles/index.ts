@@ -1,15 +1,6 @@
 import { VError } from 'libs/errors';
-import type { ChainId } from 'types';
+import type { ChainId, PrimeCycle } from 'types';
 import { restService } from 'utilities';
-
-export interface PrimeFinalizedCycle {
-  cycleIndex: number;
-  startsAt: Date;
-  endsAt: Date;
-  mintLimitUsed: number;
-  totalRewardPoolUsdCents: string | null;
-  finalizedAt: Date | null;
-}
 
 export interface GetPrimeCyclesInput {
   chainId: ChainId;
@@ -21,7 +12,7 @@ export interface GetPrimeCyclesOutput {
   page: number;
   limit: number;
   total: number;
-  cycles: PrimeFinalizedCycle[];
+  cycles: PrimeCycle[];
 }
 
 interface PrimeFinalizedCycleResponse {
@@ -69,11 +60,14 @@ export const getPrimeCycles = async ({
     page: payload.page,
     limit: payload.limit,
     total: payload.total,
-    cycles: payload.result.map(cycle => ({
-      ...cycle,
-      startsAt: new Date(cycle.startsAt),
-      endsAt: new Date(cycle.endsAt),
-      finalizedAt: cycle.finalizedAt ? new Date(cycle.finalizedAt) : null,
-    })),
+    cycles: payload.result.map(
+      ({ totalRewardPoolUsdCents, startsAt, endsAt, finalizedAt, ...cycle }) => ({
+        ...cycle,
+        totalRewardPoolCents: totalRewardPoolUsdCents ?? undefined,
+        startsAt: new Date(startsAt),
+        endsAt: new Date(endsAt),
+        finalizedAt: finalizedAt ? new Date(finalizedAt) : undefined,
+      }),
+    ),
   };
 };

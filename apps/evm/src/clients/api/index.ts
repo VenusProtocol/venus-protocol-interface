@@ -221,14 +221,16 @@ export * from './queries/getPrimeUserPendingRewards/useGetPrimeUserPendingReward
 export * from './queries/getPrimeCycles';
 export * from './queries/getPrimeCycles/useGetPrimeCycles';
 
-export * from './queries/getPrimePastCycle';
-export * from './queries/getPrimePastCycle/useGetPrimePastCycle';
+export * from './queries/getPrimeCycle';
+export * from './queries/getPrimeCycle/useGetPrimeCycle';
 
 export * from './queries/getPrimeUserCycleRewards';
 export * from './queries/getPrimeUserCycleRewards/useGetPrimeUserCycleRewards';
 
 export * from './queries/getPrimeEffectiveStake';
 export * from './queries/getPrimeEffectiveStake/useGetPrimeEffectiveStake';
+export * from './queries/getPrimeTokenLimit';
+export * from './queries/getPrimeTokenLimit/useGetPrimeTokenLimit';
 
 export * from './queries/getPrimeMultiplierTiers';
 export * from './queries/getPrimeMultiplierTiers/useGetPrimeMultiplierTiers';

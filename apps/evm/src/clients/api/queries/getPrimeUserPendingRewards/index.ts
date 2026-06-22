@@ -7,7 +7,7 @@ export interface PrimeUserPendingReward {
   marketAddress: Address;
   rewardTokenAddress: Address;
   pendingAmountMantissa: string;
-  pendingUsdCents: string;
+  pendingCents: string;
 }
 
 export interface GetPrimeUserPendingRewardsInput {
@@ -19,15 +19,30 @@ export interface GetPrimeUserPendingRewardsOutput {
   blockNumber: string | null;
   isPrimeHolder: boolean;
   rank: number | null;
-  totalPendingUsdCents: string;
+  totalPendingCents: string;
   rewards: PrimeUserPendingReward[];
+}
+
+interface PrimeUserPendingRewardResponse {
+  marketAddress: Address;
+  rewardTokenAddress: Address;
+  pendingAmountMantissa: string;
+  pendingUsdCents: string;
+}
+
+interface GetPrimeUserPendingRewardsResponse {
+  blockNumber: string | null;
+  isPrimeHolder: boolean;
+  rank: number | null;
+  totalPendingUsdCents: string;
+  rewards: PrimeUserPendingRewardResponse[];
 }
 
 export const getPrimeUserPendingRewards = async ({
   chainId,
   accountAddress,
 }: GetPrimeUserPendingRewardsInput): Promise<GetPrimeUserPendingRewardsOutput> => {
-  const response = await restService<GetPrimeUserPendingRewardsOutput>({
+  const response = await restService<GetPrimeUserPendingRewardsResponse>({
     endpoint: `/prime/users/${accountAddress}/pending-rewards`,
     method: 'GET',
     params: { chainId },
@@ -47,5 +62,14 @@ export const getPrimeUserPendingRewards = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return payload;
+  return {
+    blockNumber: payload.blockNumber,
+    isPrimeHolder: payload.isPrimeHolder,
+    rank: payload.rank,
+    totalPendingCents: payload.totalPendingUsdCents,
+    rewards: payload.rewards.map(({ pendingUsdCents, ...reward }) => ({
+      ...reward,
+      pendingCents: pendingUsdCents,
+    })),
+  };
 };

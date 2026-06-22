@@ -39,6 +39,11 @@ export const useGetPrimeUserCycleRewards = (
       callOrThrow({ accountAddress }, params =>
         getPrimeUserCycleRewards({ chainId, cycleIndex, ...params }),
       ),
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    staleTime: Number.POSITIVE_INFINITY,
+    gcTime: Number.POSITIVE_INFINITY,
     ...options,
     enabled: (options?.enabled === undefined || options?.enabled) && !!accountAddress,
   });

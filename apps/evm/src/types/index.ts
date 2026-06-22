@@ -800,3 +800,19 @@ export interface ApiTokenPrice {
   supplyPriceMantissa: string | null;
   borrowPriceMantissa: string | null;
 }
+
+export enum PrimeCycleStatus {
+  Active = 'active',
+  Finalized = 'finalized',
+}
+
+export interface PrimeCycle {
+  cycleIndex: number;
+  startsAt: Date;
+  endsAt: Date;
+  mintLimitUsed: number;
+  status?: PrimeCycleStatus;
+  anchorBlockNum?: string;
+  totalRewardPoolCents?: string;
+  finalizedAt?: Date;
+}

@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { useTranslation } from 'libs/translations';
 
 // Maximum XVS gap to the top #500 for which the exact amount left to stake is shown
-const TOP_500_GAP_THRESHOLD_XVS = 100_000;
+const TOP_500_GAP_THRESHOLD_XVS_TOKENS = 100_000;
 
 export interface EligibilityStatusProps {
   hasStakedXvs: boolean;
@@ -37,7 +37,7 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
 
   let stakeMessage: React.ReactNode = t('primeLeaderboard.rankCard.stakePrompt');
 
-  if (hasStakedXvs && gapXvsTokens <= TOP_500_GAP_THRESHOLD_XVS) {
+  if (hasStakedXvs && gapXvsTokens <= TOP_500_GAP_THRESHOLD_XVS_TOKENS) {
     stakeMessage = (
       <Trans
         i18nKey="primeLeaderboard.rankCard.stakeToReachTop"

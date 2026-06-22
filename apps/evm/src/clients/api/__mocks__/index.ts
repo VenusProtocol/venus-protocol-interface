@@ -528,7 +528,7 @@ export const getPrimeUserPendingRewards = vi.fn(async () => ({
   blockNumber: '1',
   isPrimeHolder: true,
   rank: 2,
-  totalPendingUsdCents: '1840000',
+  totalPendingCents: '1840000',
   rewards: [],
 }));
 export const useGetPrimeUserPendingRewards = vi.fn(() =>
@@ -546,6 +546,16 @@ export const useGetPrimeEffectiveStake = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_PRIME_EFFECTIVE_STAKE],
     queryFn: getPrimeEffectiveStake,
+  }),
+);
+
+export const getPrimeTokenLimit = vi.fn(async () => ({
+  tokenLimit: 500,
+}));
+export const useGetPrimeTokenLimit = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_TOKEN_LIMIT],
+    queryFn: getPrimeTokenLimit,
   }),
 );
 
@@ -578,16 +588,16 @@ export const getPrimeCurrentCycle = vi.fn(async () => ({
     blockNumber: '1',
     computedAt: new Date('2026-06-17T00:00:00Z'),
     primeHolderCount: 500,
-    totalPendingUsdCents: '46230000',
+    totalPendingCents: '46230000',
     byRewardToken: [
       {
         rewardTokenAddress: usdc.address,
-        totalPendingUsdCents: '28040000',
+        totalPendingCents: '28040000',
         totalPendingMantissa: '0',
       },
       {
         rewardTokenAddress: xvs.address,
-        totalPendingUsdCents: '17190000',
+        totalPendingCents: '17190000',
         totalPendingMantissa: '0',
       },
     ],
@@ -639,14 +649,14 @@ export const getPrimeRewardsLeaderboard = vi.fn(async () => ({
   entries: [
     {
       userAddress: fakeAddress,
-      totalPendingUsdCents: '50000',
+      totalPendingCents: '50000',
       byRewardToken: [
         {
           rewardTokenAddress: usdc.address,
-          pendingUsdCents: '4000000',
+          pendingCents: '4000000',
           pendingAmountMantissa: '0',
         },
-        { rewardTokenAddress: xvs.address, pendingUsdCents: '2236000', pendingAmountMantissa: '0' },
+        { rewardTokenAddress: xvs.address, pendingCents: '2236000', pendingAmountMantissa: '0' },
       ],
     },
   ],
@@ -658,14 +668,14 @@ export const useGetPrimeRewardsLeaderboard = vi.fn(() =>
   }),
 );
 
-export const getPrimePastCycle = vi.fn(async () => ({
+export const getPrimeCycle = vi.fn(async () => ({
   cycle: {
     cycleIndex: 1,
     status: 'finalized',
     startsAt: new Date('2026-05-01T00:00:00Z'),
     endsAt: new Date('2026-06-01T00:00:00Z'),
     mintLimitUsed: 0,
-    totalRewardPoolUsdCents: '46230000',
+    totalRewardPoolCents: '46230000',
     finalizedAt: new Date('2026-06-01T00:00:00Z'),
   },
   markets: [],
@@ -678,27 +688,27 @@ export const getPrimePastCycle = vi.fn(async () => ({
     },
   ],
 }));
-export const useGetPrimePastCycle = vi.fn(() =>
+export const useGetPrimeCycle = vi.fn(() =>
   useQuery({
-    queryKey: [FunctionKey.GET_PRIME_PAST_CYCLE],
-    queryFn: getPrimePastCycle,
+    queryKey: [FunctionKey.GET_PRIME_CYCLE],
+    queryFn: getPrimeCycle,
   }),
 );
 
 export const getPrimeUserCycleRewards = vi.fn(async () => ({
-  totalRewardUsdCents: '1840000',
+  totalRewardCents: '1840000',
   markets: [
     {
       marketAddress: usdc.address,
       rewardTokenAddress: usdc.address,
       totalRewardMantissa: '0',
-      totalRewardUsdCents: '1140000',
+      totalRewardCents: '1140000',
     },
     {
       marketAddress: xvs.address,
       rewardTokenAddress: xvs.address,
       totalRewardMantissa: '0',
-      totalRewardUsdCents: '700000',
+      totalRewardCents: '700000',
     },
   ],
 }));

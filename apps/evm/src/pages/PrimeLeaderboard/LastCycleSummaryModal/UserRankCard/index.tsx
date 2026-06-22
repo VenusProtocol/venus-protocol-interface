@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 
-import { PRIME_RANK_LIMIT } from 'constants/prime';
+import { useGetPrimeMinimumStake, useGetPrimeTokenLimit } from 'clients/api';
 import { useTranslation } from 'libs/translations';
 import { shortenValueWithSuffix } from 'utilities';
 
@@ -13,9 +13,12 @@ export interface UserRankCardProps {
 
 export const UserRankCard: React.FC<UserRankCardProps> = ({ rank, primeScore, className }) => {
   const { t } = useTranslation();
+  const { data: minimumStake } = useGetPrimeMinimumStake();
+  const { data: tokenLimitData } = useGetPrimeTokenLimit();
 
+  const rankLimit = minimumStake?.tokenLimit ?? tokenLimitData?.tokenLimit;
   const isRanked = rank !== undefined;
-  const isInTopRank = isRanked && rank <= PRIME_RANK_LIMIT;
+  const isInTopRank = isRanked && rankLimit !== undefined && rank <= rankLimit;
   const rankLabel = isRanked ? `#${rank}` : '#-';
   const primeScoreLabel =
     isRanked && primeScore ? shortenValueWithSuffix({ value: primeScore }) : '-';

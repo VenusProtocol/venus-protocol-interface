@@ -2,12 +2,15 @@ import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack
 
 import FunctionKey from 'constants/functionKey';
 import { useChainId } from 'libs/wallet';
+import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 
 import {
   type GetPrimeLeaderboardInput,
   type GetPrimeLeaderboardOutput,
   getPrimeLeaderboard,
 } from '.';
+
+const refetchInterval = generatePseudoRandomRefetchInterval('fast');
 
 type TrimmedInput = Omit<GetPrimeLeaderboardInput, 'chainId'>;
 
@@ -27,6 +30,7 @@ export const useGetPrimeLeaderboard = (input: TrimmedInput = {}, options?: Parti
     queryKey: [FunctionKey.GET_PRIME_LEADERBOARD, params],
     queryFn: () => getPrimeLeaderboard(params),
     placeholderData: keepPreviousData,
+    refetchInterval,
     ...options,
   });
 };

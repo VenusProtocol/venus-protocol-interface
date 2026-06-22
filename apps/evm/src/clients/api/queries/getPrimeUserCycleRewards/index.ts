@@ -7,7 +7,7 @@ export interface PrimeUserCycleRewardMarket {
   marketAddress: Address;
   rewardTokenAddress: Address;
   totalRewardMantissa: string;
-  totalRewardUsdCents: string;
+  totalRewardCents: string;
 }
 
 export interface GetPrimeUserCycleRewardsInput {
@@ -17,8 +17,20 @@ export interface GetPrimeUserCycleRewardsInput {
 }
 
 export interface GetPrimeUserCycleRewardsOutput {
-  totalRewardUsdCents: string | null;
+  totalRewardCents: string | null;
   markets: PrimeUserCycleRewardMarket[];
+}
+
+interface PrimeUserCycleRewardMarketResponse {
+  marketAddress: Address;
+  rewardTokenAddress: Address;
+  totalRewardMantissa: string;
+  totalRewardUsdCents: string;
+}
+
+interface GetPrimeUserCycleRewardsResponse {
+  totalRewardUsdCents: string | null;
+  markets: PrimeUserCycleRewardMarketResponse[];
 }
 
 export const getPrimeUserCycleRewards = async ({
@@ -26,7 +38,7 @@ export const getPrimeUserCycleRewards = async ({
   cycleIndex,
   accountAddress,
 }: GetPrimeUserCycleRewardsInput): Promise<GetPrimeUserCycleRewardsOutput> => {
-  const response = await restService<GetPrimeUserCycleRewardsOutput>({
+  const response = await restService<GetPrimeUserCycleRewardsResponse>({
     endpoint: `/prime/cycles/${cycleIndex}/users/${accountAddress}`,
     method: 'GET',
     params: { chainId },
@@ -46,5 +58,11 @@ export const getPrimeUserCycleRewards = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return payload;
+  return {
+    totalRewardCents: payload.totalRewardUsdCents,
+    markets: payload.markets.map(({ totalRewardUsdCents, ...market }) => ({
+      ...market,
+      totalRewardCents: totalRewardUsdCents,
+    })),
+  };
 };

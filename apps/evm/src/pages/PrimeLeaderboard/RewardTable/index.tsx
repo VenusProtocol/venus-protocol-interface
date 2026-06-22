@@ -69,9 +69,9 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
         label: t('primeLeaderboard.rewardTable.columns.totalRewards'),
         selectOptionLabel: t('primeLeaderboard.rewardTable.columns.totalRewards'),
         align: 'right',
-        renderCell: ({ totalPendingUsdCents }) => (
+        renderCell: ({ totalPendingCents }) => (
           <span className="text-b1r text-white">
-            {formatCentsToReadableValue({ value: Number(totalPendingUsdCents) })}
+            {formatCentsToReadableValue({ value: Number(totalPendingCents) })}
           </span>
         ),
       },
@@ -89,7 +89,7 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
 
           return (
             <span className="text-b1r text-white">
-              {formatCentsToReadableValue({ value: reward ? Number(reward.pendingUsdCents) : 0 })}
+              {formatCentsToReadableValue({ value: reward ? Number(reward.pendingCents) : 0 })}
             </span>
           );
         },

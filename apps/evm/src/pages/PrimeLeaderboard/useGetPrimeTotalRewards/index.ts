@@ -20,16 +20,16 @@ export const useGetPrimeTotalRewards = (): UseGetPrimeTotalRewardsOutput => {
 
   const marketRewards = useMemo<MarketReward[]>(
     () =>
-      (pendingPool?.byRewardToken ?? []).flatMap(({ rewardTokenAddress, totalPendingUsdCents }) => {
+      (pendingPool?.byRewardToken ?? []).flatMap(({ rewardTokenAddress, totalPendingCents }) => {
         const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
-        return token ? [{ token, rewardsCents: Number(totalPendingUsdCents) }] : [];
+        return token ? [{ token, rewardsCents: Number(totalPendingCents) }] : [];
       }),
     [pendingPool, tokens],
   );
 
   return {
     isLoading,
-    totalRewardsCents: pendingPool ? Number(pendingPool.totalPendingUsdCents) : 0,
+    totalRewardsCents: pendingPool ? Number(pendingPool.totalPendingCents) : 0,
     marketRewards,
   };
 };

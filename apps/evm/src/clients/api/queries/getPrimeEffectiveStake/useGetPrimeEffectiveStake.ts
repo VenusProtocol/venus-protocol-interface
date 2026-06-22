@@ -2,7 +2,6 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -33,7 +32,6 @@ export const useGetPrimeEffectiveStake = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const isPrimeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
   const { address: primeLeaderboardContractAddress } = useGetContractAddress({
     name: 'PrimeLeaderboard',
   });
@@ -45,9 +43,6 @@ export const useGetPrimeEffectiveStake = (
         getPrimeEffectiveStake({ publicClient, ...params }),
       ),
     ...options,
-    enabled:
-      (options?.enabled === undefined || options?.enabled) &&
-      isPrimeLeaderboardEnabled &&
-      !!accountAddress,
+    enabled: (options?.enabled === undefined || options?.enabled) && !!accountAddress,
   });
 };

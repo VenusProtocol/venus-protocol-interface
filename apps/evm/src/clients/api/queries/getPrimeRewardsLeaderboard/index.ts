@@ -5,13 +5,13 @@ import type { Address } from 'viem';
 
 export interface PrimeRewardTokenAmount {
   rewardTokenAddress: Address;
-  pendingUsdCents: string;
+  pendingCents: string;
   pendingAmountMantissa: string;
 }
 
 export interface PrimeRewardsLeaderboardEntry {
   userAddress: Address;
-  totalPendingUsdCents: string;
+  totalPendingCents: string;
   byRewardToken: PrimeRewardTokenAmount[];
 }
 
@@ -33,13 +33,25 @@ export interface GetPrimeRewardsLeaderboardOutput {
   entries: PrimeRewardsLeaderboardEntry[];
 }
 
+interface PrimeRewardTokenAmountResponse {
+  rewardTokenAddress: Address;
+  pendingUsdCents: string;
+  pendingAmountMantissa: string;
+}
+
+interface PrimeRewardsLeaderboardEntryResponse {
+  userAddress: Address;
+  totalPendingUsdCents: string;
+  byRewardToken: PrimeRewardTokenAmountResponse[];
+}
+
 interface GetPrimeRewardsLeaderboardResponse {
   blockNumber: string | null;
   computedAt: string | null;
   page: number;
   limit: number;
   total: number;
-  result: PrimeRewardsLeaderboardEntry[];
+  result: PrimeRewardsLeaderboardEntryResponse[];
 }
 
 export const getPrimeRewardsLeaderboard = async ({
@@ -81,6 +93,14 @@ export const getPrimeRewardsLeaderboard = async ({
     page: payload.page,
     limit: payload.limit,
     total: payload.total,
-    entries: payload.result,
+    entries: payload.result.map(entry => ({
+      userAddress: entry.userAddress,
+      totalPendingCents: entry.totalPendingUsdCents,
+      byRewardToken: entry.byRewardToken.map(token => ({
+        rewardTokenAddress: token.rewardTokenAddress,
+        pendingCents: token.pendingUsdCents,
+        pendingAmountMantissa: token.pendingAmountMantissa,
+      })),
+    })),
   };
 };
