@@ -10,7 +10,7 @@ import { Header } from './Header';
 import { NavBar } from './NavBar';
 import ScrollToTop from './ScrollToTop';
 import { TestEnvWarning } from './TestEnvWarning';
-import { useStore } from './store';
+import { store } from './store';
 
 const NO_WRAPPER_PATHNAMES = [Subdirectory.LANDING] as string[];
 
@@ -20,10 +20,10 @@ export const Layout: React.FC = () => {
 
   const { pathname } = useLocation();
 
-  const isCloseToBottomState = useStore(state => state.isCloseToBottom);
-  const setIsCloseToBottom = useStore(state => state.setIsCloseToBottom);
-  const setScrollToTopVisible = useStore(state => state.setScrollToTopVisible);
-  const isScrollToTopVisible = useStore(state => state.isScrollToTopVisible);
+  const isCloseToBottomState = store.use.isCloseToBottom();
+  const setIsCloseToBottom = store.use.setIsCloseToBottom();
+  const setScrollToTopVisible = store.use.setScrollToTopVisible();
+  const isScrollToTopVisible = store.use.isScrollToTopVisible();
   const viewportHeight = window.innerHeight;
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {

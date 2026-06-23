@@ -4,14 +4,14 @@ import { createPortal } from 'react-dom';
 
 import { Notice } from 'components/Notice';
 
-import { useStore } from '../store';
+import { store } from '../store';
 import TEST_IDS from './testIds';
 
 const ANIMATION_BASE_DURATION_S = 0.75;
 const EASE = [0.23, 1, 0.32, 1];
 
 const NotificationCenter: React.FC = () => {
-  const notifications = useStore(state => state.notifications);
+  const notifications = store.use.notifications();
 
   return createPortal(
     <ul

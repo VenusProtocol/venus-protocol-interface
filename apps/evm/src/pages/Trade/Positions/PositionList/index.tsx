@@ -2,7 +2,7 @@ import { Table } from 'components';
 import { useMemo, useState } from 'react';
 
 import { useTranslation } from 'libs/translations';
-import { useStore } from 'pages/Trade/ClosePositionModal/store';
+import { store } from 'pages/Trade/ClosePositionModal/store';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from 'pages/Trade/constants';
 import { useSearchParams } from 'react-router';
 import type { TradePosition } from 'types';
@@ -36,7 +36,7 @@ export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
     return <RowFooter row={row} isOpen={isOpen} />;
   };
 
-  const showClosePositionModal = useStore(state => state.showModal);
+  const showClosePositionModal = store.use.showModal();
 
   const renderRowControl = (row: TradePosition) => {
     const handleClick = (e: React.MouseEvent) => {

@@ -2,7 +2,7 @@ import { type ChainId, chains as chainMetadata } from '@venusprotocol/chains';
 
 import { Icon, Toggle } from 'components';
 import { useTranslation } from 'libs/translations';
-import { useStore } from 'store';
+import { store } from 'store';
 
 export interface GaslessTransactionSettingProps {
   chainId: ChainId;
@@ -13,8 +13,8 @@ export const GaslessTransactionSetting: React.FC<GaslessTransactionSettingProps>
 }) => {
   const { t } = useTranslation();
 
-  const userSettings = useStore(state => state.userSettings)[chainId];
-  const setUserSettings = useStore(state => state.setUserSettings);
+  const userSettings = store.use.userSettings()[chainId];
+  const setUserSettings = store.use.setUserSettings();
 
   const chainName = chainMetadata[chainId].name;
 

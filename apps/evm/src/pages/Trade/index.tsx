@@ -9,7 +9,7 @@ import { useNavigate } from 'hooks/useNavigate';
 import { ApiOhlcInterval } from 'types';
 import { areAddressesEqual } from 'utilities';
 import { Banner } from './Banner';
-import { useStore } from './Banner/store';
+import { store } from './Banner/store';
 import { ClosePositionModal } from './ClosePositionModal';
 import { OperationForm } from './OperationForm';
 import { PairInfo } from './PairInfo';
@@ -27,7 +27,7 @@ const Trade: React.FC = () => {
   const shortTokenAddressParam = searchParams.get(SHORT_TOKEN_ADDRESS_PARAM_KEY);
   const longTokenAddressParam = searchParams.get(LONG_TOKEN_ADDRESS_PARAM_KEY);
 
-  const doNotShowBanner = useStore(state => state.doNotShowBanner);
+  const doNotShowBanner = store.use.doNotShowBanner();
 
   const [chartInterval, setChartInterval] = useState<ApiOhlcInterval>(ApiOhlcInterval['1h']);
 

@@ -6,7 +6,7 @@ import type { Mock } from 'vitest';
 
 import { ClosePositionModal } from '..';
 import { useGetSelectedTradePosition } from '../../useGetSelectedTradePosition';
-import { useStore } from '../store';
+import { store } from '../store';
 
 vi.mock('components', () => ({
   Icon: () => <span data-testid="close-icon" />,
@@ -33,7 +33,7 @@ const selectedPosition = tradePositions[0];
 
 describe('ClosePositionModal', () => {
   beforeEach(() => {
-    useStore.setState({
+    store.setState({
       isModalShown: false,
     });
 
@@ -51,7 +51,7 @@ describe('ClosePositionModal', () => {
   });
 
   it('renders modal content when modal is shown', async () => {
-    useStore.setState({
+    store.setState({
       isModalShown: true,
     });
 
@@ -62,7 +62,7 @@ describe('ClosePositionModal', () => {
   });
 
   it('hides modal when close button is clicked', async () => {
-    useStore.setState({
+    store.setState({
       isModalShown: true,
     });
 
@@ -73,6 +73,6 @@ describe('ClosePositionModal', () => {
     await waitFor(() =>
       expect(screen.queryByTestId('close-position-form')).not.toBeInTheDocument(),
     );
-    expect(useStore.getState().isModalShown).toBe(false);
+    expect(store.getState().isModalShown).toBe(false);
   });
 });
