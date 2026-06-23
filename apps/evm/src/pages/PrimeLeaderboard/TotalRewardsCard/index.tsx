@@ -14,12 +14,14 @@ export interface MarketReward {
 export interface TotalRewardsCardProps {
   totalRewardsCents: number;
   marketRewards: MarketReward[];
+  title?: React.ReactNode;
   className?: string;
 }
 
 export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
   totalRewardsCents,
   marketRewards,
+  title,
   className,
 }) => {
   const { t } = useTranslation();
@@ -32,7 +34,9 @@ export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
       )}
     >
       <div>
-        <p className="text-b1r text-light-grey">{t('primeLeaderboard.totalRewards.title')}</p>
+        <p className="text-b1r text-light-grey">
+          {title ?? t('primeLeaderboard.totalRewards.title')}
+        </p>
 
         <p className="text-h5 text-white">
           {formatCentsToReadableValue({ value: totalRewardsCents })}

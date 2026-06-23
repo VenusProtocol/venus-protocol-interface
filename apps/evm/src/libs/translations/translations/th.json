@@ -1268,6 +1268,15 @@
       "sec": "วินาที",
       "title": "สิ้นสุดรอบ"
     },
+    "lastCycleSummary": {
+      "primeScoreLabel": "คะแนน Prime",
+      "rankLabel": "อันดับของคุณ",
+      "rankMissed": "ใกล้แล้ว! คุณไม่ได้อยู่ใน Top 500 ของรอบที่แล้ว เพิ่ม stake ของคุณเพื่อให้มีสิทธิ์ในรอบนี้",
+      "rankNoStake": "คุณไม่ได้ stake XVS ในรอบที่แล้ว Stake ตอนนี้เพื่อมีสิทธิ์รับ Prime และรับรางวัลเพิ่มเติม",
+      "rankQualified": "ยินดีด้วย! คุณอยู่ใน Top 500 ในรอบที่แล้วและมีสิทธิ์รับรางวัล Prime",
+      "title": "สรุป Prime รอบที่แล้ว",
+      "userRewardsTitle": "รางวัล Prime ของคุณในรอบที่แล้ว"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "คะแนน Prime",

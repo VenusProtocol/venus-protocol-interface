@@ -1268,6 +1268,15 @@
       "sec": "秒",
       "title": "週期結束"
     },
+    "lastCycleSummary": {
+      "primeScoreLabel": "Prime 分數",
+      "rankLabel": "你的排名",
+      "rankMissed": "就差一點!你未進入上一週期前 500。提升質押以在本週期獲得資格。",
+      "rankNoStake": "你在上一週期未質押 XVS。立即質押以獲得 Prime 資格並賺取額外獎勵。",
+      "rankQualified": "恭喜!你在上一週期位列前 500,已獲得 Prime 獎勵資格。",
+      "title": "上一週期 Prime 彙總",
+      "userRewardsTitle": "你上一週期的 Prime 獎勵"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime 分數",

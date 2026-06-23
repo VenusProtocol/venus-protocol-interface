@@ -1268,6 +1268,15 @@
       "sec": "秒",
       "title": "周期结束"
     },
+    "lastCycleSummary": {
+      "primeScoreLabel": "Prime 分数",
+      "rankLabel": "你的排名",
+      "rankMissed": "就差一点!你未进入上一周期前 500。提升质押以在本周期获得资格。",
+      "rankNoStake": "你在上一周期未质押 XVS。立即质押以获得 Prime 资格并赚取额外奖励。",
+      "rankQualified": "恭喜!你在上一周期位列前 500,已获得 Prime 奖励资格。",
+      "title": "上一周期 Prime 汇总",
+      "userRewardsTitle": "你上一周期的 Prime 奖励"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime 分数",
