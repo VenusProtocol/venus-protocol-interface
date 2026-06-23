@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDisconnect } from 'wagmi';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
-import { useGetPrimeToken } from 'clients/api';
+import { useGetIsUserPrime } from 'clients/api';
 import { Button, type ButtonProps, Icon, Modal, SecondaryButton, Username } from 'components';
 import config from 'config';
 import { useTranslation } from 'libs/translations';
@@ -41,12 +41,12 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({ className, ...othe
     closeAccountModal();
   };
 
-  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
+  const { data: isUserPrimeData, isLoading: isGetIsUserPrimeLoading } = useGetIsUserPrime({
     accountAddress,
   });
-  const isAccountPrime = !!getPrimeTokenData?.exists;
+  const isAccountPrime = !!isUserPrimeData?.isPrime;
 
-  if (isGetPrimeTokenLoading) {
+  if (isGetIsUserPrimeLoading) {
     return undefined;
   }
 

@@ -460,6 +460,16 @@ export const useGetPrimeToken = vi.fn(() =>
   }),
 );
 
+export const getIsUserPrime = vi.fn(async () => ({
+  isPrime: false,
+}));
+export const useGetIsUserPrime = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IS_USER_PRIME],
+    queryFn: getIsUserPrime,
+  }),
+);
+
 export const getPrimeStatus = vi.fn(async () => ({}));
 export const useGetPrimeStatus = vi.fn(() =>
   useQuery({

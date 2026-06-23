@@ -188,6 +188,8 @@ export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade/useG
 
 export * from './queries/getPrimeToken';
 export * from './queries/getPrimeToken/useGetPrimeToken';
+export * from './queries/getIsUserPrime';
+export * from './queries/getIsUserPrime/useGetIsUserPrime';
 
 export * from './queries/getHypotheticalPrimeApys';
 export * from './queries/getHypotheticalPrimeApys/useGetHypotheticalPrimeApys';
