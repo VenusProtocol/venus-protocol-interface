@@ -8,7 +8,7 @@ export interface State {
   hideModal: () => void;
 }
 
-const store = create<State>()(set => ({
+const useStore = create<State>()(set => ({
   isModalShown: false,
   showModal: () =>
     set(state => ({
@@ -22,4 +22,4 @@ const store = create<State>()(set => ({
     })),
 }));
 
-export const useStore = createStoreSelectors(store);
+export const store = createStoreSelectors(useStore);

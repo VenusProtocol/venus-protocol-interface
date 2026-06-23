@@ -211,7 +211,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
             onClick={switchSelectedTokens}
             data-testid="pair-info-switch-tokens-button"
           >
-            <Icon name="swap" className="text-inherit transition-colors" />
+            <Icon name="switch" className="text-inherit transition-colors" />
           </button>
         </div>
 

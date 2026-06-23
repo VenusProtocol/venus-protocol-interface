@@ -8,7 +8,7 @@ import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
-import { useStore } from 'store';
+import { store } from 'store';
 import { StepCard, type StepCardProps } from './StepCard';
 
 export const Guide: React.FC = () => {
@@ -37,7 +37,7 @@ export const Guide: React.FC = () => {
   const isUserBorrowing = pool?.userBorrowBalanceCents?.isGreaterThan(0) || false;
 
   const [userChainSettings] = useUserChainSettings();
-  const setUserSettings = useStore(state => state.setUserSettings);
+  const setUserSettings = store.use.setUserSettings();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {

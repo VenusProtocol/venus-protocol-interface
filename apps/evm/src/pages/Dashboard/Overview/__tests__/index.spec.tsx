@@ -3,7 +3,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import fakeAccountAddress from '__mocks__/models/address';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
-import * as storeModule from 'store';
+import { store } from 'store';
 import { renderComponent } from 'testUtils/render';
 import { Overview } from '..';
 import { testIds } from '../testIds';
@@ -48,12 +48,7 @@ describe('Overview', () => {
       vi.fn(),
     ]);
 
-    vi.spyOn(storeModule, 'useStore').mockImplementation((selector: any) =>
-      selector({
-        userSettings: {},
-        setUserSettings: mockSetUserSettings,
-      }),
-    );
+    vi.spyOn(store.use, 'setUserSettings').mockReturnValue(mockSetUserSettings);
 
     const { container, queryAllByRole } = renderComponent(<Overview />, {
       accountAddress: fakeAccountAddress,

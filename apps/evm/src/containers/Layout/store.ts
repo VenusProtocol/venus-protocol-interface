@@ -9,11 +9,11 @@ interface State {
   setIsCloseToBottom: (isCloseToBottom: State['isCloseToBottom']) => void;
 }
 
-const store = create<State>()(set => ({
+const useStore = create<State>()(set => ({
   isScrollToTopVisible: false,
   setScrollToTopVisible: (v: boolean) => set({ isScrollToTopVisible: v }),
   isCloseToBottom: false,
   setIsCloseToBottom: (v: boolean) => set({ isCloseToBottom: v }),
 }));
 
-export const useStore = createStoreSelectors(store);
+export const store = createStoreSelectors(useStore);
