@@ -108,11 +108,11 @@ describe('useClaimRewards', () => {
             },
             {
               "callData": "0x01",
-              "target": "0xfakePrimeContractAddress",
+              "target": "0xfakePrimeV2ContractAddress",
             },
             {
               "callData": "0x01",
-              "target": "0xfakePrimeContractAddress",
+              "target": "0xfakePrimeV2ContractAddress",
             },
           ],
         ],

@@ -31,7 +31,7 @@ export const useClaimRewards = (options?: Partial<Options>) => {
   });
 
   const { address: primeContractAddress } = useGetContractAddress({
-    name: 'Prime',
+    name: 'PrimeV2',
   });
   const { captureAnalyticEvent } = useAnalytics();
 
