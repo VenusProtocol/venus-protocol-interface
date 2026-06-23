@@ -68,6 +68,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
                   value: new BigNumber(effectiveStakeMantissa),
                   token: xvs,
                 }) ?? new BigNumber(0),
+              maxDecimalPlaces: 2,
             })}
           </span>
         ),
