@@ -16,7 +16,7 @@ export const initialFormValues: FormValues = {
   fromAmountTokens: '',
 };
 
-export const useForm = ({
+export const useVaultForm = ({
   fromToken,
   minFromTokens,
   limitFromTokens,
