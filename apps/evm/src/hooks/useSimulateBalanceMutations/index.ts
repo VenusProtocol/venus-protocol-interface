@@ -1,9 +1,8 @@
-import { useGetSimulatedPool } from 'clients/api';
-import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
-import { useGetToken } from 'libs/tokens';
+import { useGetPrimeVaultConfig, useGetSimulatedPool, useGetXvsVaultUserInfo } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
+import { useIsUserPrime } from 'hooks/useIsUserPrime';
 import { useAccountAddress } from 'libs/wallet';
 import type { BalanceMutation, Pool } from 'types';
-import { convertTokensToMantissa } from 'utilities';
 
 export const useSimulateBalanceMutations = ({
   balanceMutations,
@@ -13,22 +12,35 @@ export const useSimulateBalanceMutations = ({
   pool?: Pool;
 }) => {
   const { accountAddress } = useAccountAddress();
+  const hasAccount = !!accountAddress;
+  const { isUserPrime, isLoading: isUserPrimeLoading } = useIsUserPrime({ accountAddress });
+  const { data: primeVaultConfigData, isLoading: isPrimeVaultConfigLoading } =
+    useGetPrimeVaultConfig();
+  const poolIndex = primeVaultConfigData?.poolIndex;
+  const rewardTokenAddress = primeVaultConfigData?.rewardTokenAddress;
+  const shouldFetchXvsVaultUserInfo = hasAccount && poolIndex !== undefined && !!rewardTokenAddress;
 
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
+  const { data: xvsVaultUserInfoData, isLoading: isGetXvsVaultUserInfoLoading } =
+    useGetXvsVaultUserInfo(
+      {
+        accountAddress: accountAddress || NULL_ADDRESS,
+        rewardTokenAddress: rewardTokenAddress || NULL_ADDRESS,
+        poolIndex: poolIndex || 0,
+      },
+      {
+        enabled: shouldFetchXvsVaultUserInfo,
+      },
+    );
 
-  const {
-    data: { isUserPrime, userStakedXvsTokens },
-    isLoading: isGetUserPrimeInfoLoading,
-  } = useGetUserPrimeInfo({ accountAddress });
+  const userXvsStakedMantissa = xvsVaultUserInfoData?.stakedAmountMantissa.minus(
+    xvsVaultUserInfoData.pendingWithdrawalsTotalAmountMantissa,
+  );
 
-  const userXvsStakedMantissa =
-    xvs &&
-    convertTokensToMantissa({
-      value: userStakedXvsTokens,
-      token: xvs,
-    });
+  const isPrimeContextLoading =
+    hasAccount &&
+    (isPrimeVaultConfigLoading || (shouldFetchXvsVaultUserInfo && isGetXvsVaultUserInfoLoading));
+
+  const isSimulationLoading = isUserPrimeLoading || isPrimeContextLoading;
 
   const { data, isLoading: isGetSimulatedPoolLoading } = useGetSimulatedPool(
     {
@@ -39,14 +51,12 @@ export const useSimulateBalanceMutations = ({
       userXvsStakedMantissa,
     },
     {
-      enabled: !isGetUserPrimeInfoLoading,
+      enabled: !isSimulationLoading,
     },
   );
 
-  const isLoading = isGetUserPrimeInfoLoading || isGetSimulatedPoolLoading;
-
   return {
-    isLoading,
+    isLoading: isSimulationLoading || isGetSimulatedPoolLoading,
     data,
   };
 };

@@ -9,8 +9,8 @@ import {
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { Fragment } from 'react/jsx-runtime';
@@ -35,16 +35,14 @@ export const Footer: React.FC<FooterProps> = ({ action, vault, fromAmountTokens 
 
   const now = useNow();
 
-  const isPrimeEnabled = useIsFeatureEnabled({
-    name: 'prime',
-  });
+  const { primeVersion } = usePrimeVersion();
 
   const { data: getPrimeStatusData } = useGetPrimeStatus(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
-      enabled: !!accountAddress,
+      enabled: !!accountAddress && primeVersion === 1,
     },
   );
   const primePoolIndex = getPrimeStatusData?.xvsVaultPoolId;
@@ -141,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({ action, vault, fromAmountTokens 
         </Fragment>
       ))}
 
-      {isPrimeEnabled && primePoolIndex !== undefined && vault.poolIndex === primePoolIndex && (
+      {primeVersion === 1 && primePoolIndex !== undefined && vault.poolIndex === primePoolIndex && (
         <PrimeStatusBanner hidePromotionalTitle />
       )}
     </div>

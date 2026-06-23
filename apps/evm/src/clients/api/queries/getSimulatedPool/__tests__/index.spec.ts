@@ -110,7 +110,8 @@ describe('getSimulatedPool', () => {
     const result = await getSimulatedPool({
       publicClient: fakePublicClient,
       accountAddress: fakeAccountAddress,
-      primeContractAddress: fakePrimeContractAddress,
+      primeAprContractAddress: fakePrimeContractAddress,
+      primeVersion: 1,
       isUserPrime: true,
       userXvsStakedMantissa: new BigNumber(1000),
       pool: poolData[0],
@@ -139,6 +140,50 @@ describe('getSimulatedPool', () => {
     );
 
     expect(result).toMatchSnapshot();
+  });
+
+  it('recalculates Prime APYs with the Prime V2 lens when Prime V2 is enabled', async () => {
+    const readContractMock = vi.fn(async () => ({
+      supplyAPR: 3000n,
+      borrowAPR: 4000n,
+    }));
+
+    const fakePublicClient = {
+      readContract: readContractMock,
+    } as unknown as PublicClient;
+
+    const fakeBalanceMutations = generateAssetBalanceMutations({ asset: fakePrimeAsset });
+
+    await getSimulatedPool({
+      publicClient: fakePublicClient,
+      accountAddress: fakeAccountAddress,
+      primeAprContractAddress: fakePrimeContractAddress,
+      primeVersion: 2,
+      isUserPrime: true,
+      userXvsStakedMantissa: new BigNumber(1000),
+      pool: poolData[0],
+      balanceMutations: fakeBalanceMutations,
+    });
+
+    expect((readContractMock as Mock).mock.calls[0][0]).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "args": [
+          "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          2000000n,
+          190000000n,
+          1000n,
+        ],
+        "functionName": "estimateAPR",
+      }
+    `,
+    );
   });
 
   it('updates simulated VAI borrow balances when VAI mutations are provided', async () => {

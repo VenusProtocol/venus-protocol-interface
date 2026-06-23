@@ -816,3 +816,5 @@ export interface PrimeCycle {
   totalRewardPoolCents?: string;
   finalizedAt?: Date;
 }
+
+export type PrimeVersion = 1 | 2;

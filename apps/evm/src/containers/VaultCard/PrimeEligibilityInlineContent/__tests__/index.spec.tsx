@@ -4,13 +4,13 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
-import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
+import { useGetUserPrimeV1Info } from 'hooks/useGetUserPrimeV1Info';
 import { useGetToken } from 'libs/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import { PrimeEligibilityInlineContent } from '..';
 
-const mockUseGetUserPrimeInfo = useGetUserPrimeInfo as Mock;
+const mockUseGetUserPrimeV1Info = useGetUserPrimeV1Info as Mock;
 const mockUseGetToken = useGetToken as Mock;
 
 const makePrimeInfo = ({
@@ -41,7 +41,7 @@ describe('PrimeEligibilityInlineContent', () => {
     vi.setSystemTime(new Date('2024-01-10T00:00:00.000Z'));
 
     mockUseGetToken.mockReturnValue(xvs);
-    mockUseGetUserPrimeInfo.mockReturnValue(makePrimeInfo());
+    mockUseGetUserPrimeV1Info.mockReturnValue(makePrimeInfo());
   });
 
   const renderPrimeEligibility = () =>
@@ -60,7 +60,7 @@ describe('PrimeEligibilityInlineContent', () => {
   };
 
   it('returns nothing when the user is already Prime', () => {
-    mockUseGetUserPrimeInfo.mockReturnValue(
+    mockUseGetUserPrimeV1Info.mockReturnValue(
       makePrimeInfo({
         isUserPrime: true,
       }),
@@ -82,7 +82,7 @@ describe('PrimeEligibilityInlineContent', () => {
   it('renders progress and the stake-more-then-wait tooltip', async () => {
     const { container } = renderPrimeEligibility();
 
-    expect(mockUseGetUserPrimeInfo).toHaveBeenCalledWith({
+    expect(mockUseGetUserPrimeV1Info).toHaveBeenCalledWith({
       accountAddress: fakeAccountAddress,
     });
     expect(container.textContent).toMatchSnapshot();
@@ -93,7 +93,7 @@ describe('PrimeEligibilityInlineContent', () => {
   });
 
   it('renders the wait-only tooltip when the user has enough XVS staked', async () => {
-    mockUseGetUserPrimeInfo.mockReturnValue(
+    mockUseGetUserPrimeV1Info.mockReturnValue(
       makePrimeInfo({
         userStakedXvsTokens: new BigNumber('200'),
         minXvsToStakeForPrimeTokens: new BigNumber('200'),
@@ -110,7 +110,7 @@ describe('PrimeEligibilityInlineContent', () => {
   });
 
   it('renders the claim-ready tooltip when the user can already become Prime', async () => {
-    mockUseGetUserPrimeInfo.mockReturnValue(
+    mockUseGetUserPrimeV1Info.mockReturnValue(
       makePrimeInfo({
         userStakedXvsTokens: new BigNumber('250'),
         minXvsToStakeForPrimeTokens: new BigNumber('200'),

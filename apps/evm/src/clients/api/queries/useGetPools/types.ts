@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import type { ChainId, Pool, Token } from 'types';
+import type { ChainId, Pool, PrimeVersion, Token } from 'types';
 import type { Address, PublicClient } from 'viem';
 
 export interface VTokenBalance {
@@ -22,7 +22,10 @@ export interface GetPoolsInput {
   legacyPoolComptrollerContractAddress?: Address;
   venusLensContractAddress?: Address;
   vaiControllerContractAddress?: Address;
-  primeContractAddress?: Address;
+  primeV1ContractAddress?: Address;
+  primeV2ContractAddress?: Address;
+  primeV2LensContractAddress?: Address;
+  primeVersion?: PrimeVersion;
   resilientOracleContractAddress?: Address;
 }
 

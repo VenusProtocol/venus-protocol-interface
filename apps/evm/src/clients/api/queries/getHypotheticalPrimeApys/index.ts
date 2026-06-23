@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
 import type { Address, PublicClient } from 'viem';
 
-import { primeAbi } from 'libs/contracts';
+import { primeAbi, primeV2LensAbi } from 'libs/contracts';
+import type { PrimeVersion } from 'types';
 import {
   convertAprBipsToApy,
   convertDollarsToCents,
@@ -10,6 +11,7 @@ import {
 
 export interface GetHypotheticalPrimeApysInput {
   publicClient: PublicClient;
+  primeVersion: PrimeVersion;
   primeContractAddress: Address;
   accountAddress: Address;
   vTokenAddress: Address;
@@ -30,6 +32,7 @@ export interface GetHypotheticalPrimeApysOutput {
 
 export const getHypotheticalPrimeApys = async ({
   publicClient,
+  primeVersion,
   primeContractAddress,
   vTokenAddress,
   accountAddress,
@@ -48,7 +51,7 @@ export const getHypotheticalPrimeApys = async ({
     userScore,
   } = await publicClient.readContract({
     address: primeContractAddress,
-    abi: primeAbi,
+    abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
     functionName: 'estimateAPR',
     args: [
       vTokenAddress,

@@ -7,53 +7,56 @@ import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
-import { type GetIsUserPrimeOutput, getIsUserPrime } from '.';
 
-type UseGetIsUserPrimeInput = {
+import { type GetIsUserPrimeV2Output, getIsUserPrimeV2 } from '..';
+
+type UseGetIsUserPrimeV2Input = {
   accountAddress?: Address;
 };
 
-export type UseGetIsUserPrimeQueryKey = [
-  FunctionKey.GET_IS_USER_PRIME,
-  UseGetIsUserPrimeInput & {
+export type UseGetIsUserPrimeV2QueryKey = [
+  FunctionKey.GET_IS_USER_PRIME_V2,
+  UseGetIsUserPrimeV2Input & {
     chainId: ChainId;
   },
 ];
 
 type Options = QueryObserverOptions<
-  GetIsUserPrimeOutput,
+  GetIsUserPrimeV2Output,
   Error,
-  GetIsUserPrimeOutput,
-  GetIsUserPrimeOutput,
-  UseGetIsUserPrimeQueryKey
+  GetIsUserPrimeV2Output,
+  GetIsUserPrimeV2Output,
+  UseGetIsUserPrimeV2QueryKey
 >;
 
-export const useGetIsUserPrime = (input: UseGetIsUserPrimeInput, options?: Partial<Options>) => {
+export const useGetIsUserPrimeV2 = (
+  input: UseGetIsUserPrimeV2Input,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
+  const isPrimeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
   const { address: primeV2ContractAddress } = useGetContractAddress({
     name: 'PrimeV2',
   });
   const { publicClient } = usePublicClient();
 
   return useQuery({
-    queryKey: [FunctionKey.GET_IS_USER_PRIME, { ...input, chainId }],
-
+    queryKey: [FunctionKey.GET_IS_USER_PRIME_V2, { ...input, chainId }],
     queryFn: () =>
       callOrThrow(
         {
-          primeV2ContractAddress,
           accountAddress: input.accountAddress,
+          primeV2ContractAddress,
           publicClient,
         },
-        params => getIsUserPrime(params),
+        params => getIsUserPrimeV2(params),
       ),
-
     ...options,
-
     enabled:
-      (options?.enabled === undefined || options?.enabled) &&
+      (options?.enabled === undefined || options.enabled) &&
       !!input.accountAddress &&
-      isPrimeEnabled,
+      isPrimeEnabled &&
+      isPrimeLeaderboardEnabled,
   });
 };

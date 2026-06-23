@@ -14,12 +14,14 @@ import {
   useRequestWithdrawalFromXvsVault,
 } from 'clients/api';
 import { useNow } from 'hooks/useNow';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 
 import { RequestWithdrawalForm, type RequestWithdrawalFormProps } from '..';
 
 vi.mock('hooks/useNow');
+vi.mock('hooks/usePrimeVersion');
 
 const oneTokenMantissa = new BigNumber('1000000000000000000');
 const hundredTokensMantissa = oneTokenMantissa.multipliedBy(100);
@@ -48,6 +50,7 @@ describe('RequestWithdrawalForm', () => {
   const mockUseGetPrimeStatus = useGetPrimeStatus as Mock;
   const mockUseRequestWithdrawalFromXvsVault = useRequestWithdrawalFromXvsVault as Mock;
   const mockUseNow = useNow as Mock;
+  const mockUsePrimeVersion = usePrimeVersion as Mock;
 
   const renderRequestWithdrawalForm = (props: Partial<RequestWithdrawalFormProps> = {}) =>
     renderComponent(<RequestWithdrawalForm {...baseProps} {...props} />, {
@@ -56,6 +59,9 @@ describe('RequestWithdrawalForm', () => {
 
   beforeEach(() => {
     mockUseNow.mockReturnValue(new Date('2024-01-10T00:00:00.000Z'));
+    mockUsePrimeVersion.mockReturnValue({
+      primeVersion: 1,
+    });
 
     mockUseGetXvsVaultLockedDeposits.mockReturnValue({
       data: {

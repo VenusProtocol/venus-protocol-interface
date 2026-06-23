@@ -2,18 +2,17 @@ import type { PublicClient } from 'viem';
 
 import fakeAccountAddress from '__mocks__/models/address';
 
-import { getIsUserPrime } from '..';
+import { getIsUserPrimeV2 } from '..';
 
-describe('getIsUserPrime', () => {
-  it('returns the Prime holder status of the passed account', async () => {
+describe('getIsUserPrimeV2', () => {
+  it('returns PrimeV2 holder status of passed account', async () => {
     const fakePrimeV2ContractAddress = '0x0000000000000000000000000000000000000000' as const;
 
-    // Mock the publicClient
     const fakePublicClient = {
       readContract: vi.fn(async () => true),
     } as unknown as PublicClient;
 
-    const response = await getIsUserPrime({
+    const response = await getIsUserPrimeV2({
       accountAddress: fakeAccountAddress,
       primeV2ContractAddress: fakePrimeV2ContractAddress,
       publicClient: fakePublicClient,
@@ -27,6 +26,8 @@ describe('getIsUserPrime', () => {
       args: [fakeAccountAddress],
     });
 
-    expect(response).toEqual({ isPrime: true });
+    expect(response).toEqual({
+      isPrimeHolder: true,
+    });
   });
 });

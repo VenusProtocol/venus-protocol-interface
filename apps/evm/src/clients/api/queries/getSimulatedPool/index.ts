@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import type { Address, PublicClient } from 'viem';
 
+import type { PrimeVersion } from 'types';
 import type {
   Asset,
   AssetBalanceMutation,
@@ -23,7 +24,8 @@ export interface GetSimulatedPoolInput {
   balanceMutations: BalanceMutation[];
   pool?: Pool;
   accountAddress?: Address;
-  primeContractAddress?: Address;
+  primeAprContractAddress?: Address;
+  primeVersion?: PrimeVersion;
   isUserPrime?: boolean;
   userXvsStakedMantissa?: BigNumber;
 }
@@ -37,7 +39,8 @@ export const getSimulatedPool = async ({
   pool,
   accountAddress,
   publicClient,
-  primeContractAddress,
+  primeAprContractAddress,
+  primeVersion,
   isUserPrime = false,
   userXvsStakedMantissa,
 }: GetSimulatedPoolInput): Promise<GetSimulatedPoolOutput> => {
@@ -227,7 +230,8 @@ export const getSimulatedPool = async ({
   if (
     accountAddress &&
     isUserPrime &&
-    primeContractAddress &&
+    primeAprContractAddress &&
+    primeVersion &&
     userXvsStakedMantissa &&
     mutatedPrimeVTokenAddresses.length > 0
   ) {
@@ -235,7 +239,8 @@ export const getSimulatedPool = async ({
       assets: simulatedAssets,
       mutatedVTokenAddresses,
       accountAddress,
-      primeContractAddress,
+      primeAprContractAddress,
+      primeVersion,
       userXvsStakedMantissa,
       publicClient,
     });

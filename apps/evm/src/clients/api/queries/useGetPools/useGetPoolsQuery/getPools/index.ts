@@ -1,9 +1,10 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 import {
   legacyPoolComptrollerAbi,
   primeAbi,
+  primeV2Abi,
   resilientOracleAbi,
   vaiControllerAbi,
 } from 'libs/contracts';
@@ -25,7 +26,10 @@ export const getPools = async ({
   publicClient,
   chainId,
   accountAddress,
-  primeContractAddress,
+  primeV1ContractAddress,
+  primeV2ContractAddress,
+  primeV2LensContractAddress,
+  primeVersion,
   poolLensContractAddress,
   legacyPoolComptrollerContractAddress,
   vaiControllerContractAddress,
@@ -39,9 +43,10 @@ export const getPools = async ({
   const [
     apiPoolsResult,
     currentBlockNumberResult,
-    unsafePrimeVTokenAddressesResult,
-    primeMinimumXvsToStakeMantissaResult,
-    userPrimeTokenResult,
+    unsafePrimeV1VTokenAddressesResult,
+    unsafePrimeV2VTokenAddressesResult,
+    userPrimeV1TokenResult,
+    userPrimeV2TokenResult,
     vaiPriceMantissaResult,
     vaiRepayRateMantissaResult,
   ] = await Promise.all([
@@ -49,25 +54,33 @@ export const getPools = async ({
     // Fetch current block number
     publicClient.getBlockNumber(),
     // Prime related calls
-    primeContractAddress
+    primeVersion === 1 && primeV1ContractAddress
       ? publicClient.readContract({
           abi: primeAbi,
-          address: primeContractAddress,
+          address: primeV1ContractAddress,
           functionName: 'getAllMarkets',
         }) // TODO: get from API
       : undefined,
-    primeContractAddress
+    primeVersion === 2 && primeV2ContractAddress
       ? publicClient.readContract({
-          abi: primeAbi,
-          address: primeContractAddress,
-          functionName: 'MINIMUM_STAKED_XVS',
+          abi: primeV2Abi,
+          address: primeV2ContractAddress,
+          functionName: 'getAllMarkets',
         }) // TODO: get from API
       : undefined,
-    accountAddress && primeContractAddress
+    accountAddress && primeVersion === 1 && primeV1ContractAddress
       ? publicClient.readContract({
           abi: primeAbi,
-          address: primeContractAddress,
+          address: primeV1ContractAddress,
           functionName: 'tokens',
+          args: [accountAddress],
+        })
+      : undefined,
+    accountAddress && primeVersion === 2 && primeV2ContractAddress
+      ? publicClient.readContract({
+          abi: primeV2Abi,
+          address: primeV2ContractAddress,
+          functionName: 'isPrimeHolder',
           args: [accountAddress],
         })
       : undefined,
@@ -89,8 +102,14 @@ export const getPools = async ({
       : undefined,
   ]);
 
-  const primeVTokenAddresses = unsafePrimeVTokenAddressesResult ?? [];
-  const isUserPrime = userPrimeTokenResult?.[0] || false;
+  const primeVTokenAddresses =
+    (primeVersion === 1
+      ? unsafePrimeV1VTokenAddressesResult
+      : unsafePrimeV2VTokenAddressesResult) ?? [];
+
+  const isUserPrimeV1 = userPrimeV1TokenResult?.[0] ?? false;
+  const isUserPrimeV2 = !!userPrimeV2TokenResult;
+  const isUserPrime = primeVersion === 1 ? isUserPrimeV1 : isUserPrimeV2;
 
   let userCollateralVTokenAddresses: string[] | undefined;
   let userTokenBalances: TokenBalance[] | undefined;
@@ -104,7 +123,8 @@ export const getPools = async ({
       userCollaterals,
       userBalances,
       userVaiBorrowBalance,
-      userPrimeApys,
+      userPrimeV1Apys,
+      userPrimeV2Apys,
       userLegacyPoolEModeGroupIdResult,
     ] = await Promise.all([
       getUserCollateralAddresses({
@@ -130,11 +150,21 @@ export const getPools = async ({
             vaiControllerContractAddress,
           })
         : undefined,
-      isUserPrime && primeContractAddress
+      isUserPrime && primeVersion === 1 && primeV1ContractAddress
         ? getUserPrimeApys({
             accountAddress,
             publicClient,
-            primeContractAddress,
+            primeVersion,
+            primeContractAddress: primeV1ContractAddress,
+            primeVTokenAddresses,
+          })
+        : undefined,
+      isUserPrime && primeVersion === 2 && primeV2LensContractAddress
+        ? getUserPrimeApys({
+            accountAddress,
+            publicClient,
+            primeVersion,
+            primeContractAddress: primeV2LensContractAddress,
             primeVTokenAddresses,
           })
         : undefined,
@@ -152,7 +182,8 @@ export const getPools = async ({
     userVTokenBalances = userBalances.userVTokenBalances;
     userTokenBalances = userBalances.userTokenBalances;
     userVaiBorrowBalanceMantissa = userVaiBorrowBalance?.userVaiBorrowBalanceMantissa;
-    userPrimeApyMap = userPrimeApys?.userPrimeApyMap;
+    userPrimeApyMap =
+      primeVersion === 1 ? userPrimeV1Apys?.userPrimeApyMap : userPrimeV2Apys?.userPrimeApyMap;
     userLegacyPoolEModeGroupId = userLegacyPoolEModeGroupIdResult
       ? Number(userLegacyPoolEModeGroupIdResult)
       : undefined;
@@ -187,14 +218,15 @@ export const getPools = async ({
   // TODO: get Prime simulations from API
   const xvs = tokens.find(token => token.symbol === 'XVS');
 
-  if (primeContractAddress && primeMinimumXvsToStakeMantissaResult && xvs) {
+  const primeContractAddress =
+    primeVersion === 1 ? primeV1ContractAddress : primeV2LensContractAddress;
+
+  if (primeContractAddress && typeof primeVersion === 'number' && xvs) {
     await appendPrimeSimulationDistributions({
       assets: pools.reduce<Asset[]>((acc, pool) => acc.concat(pool.assets), []),
       primeContractAddress,
+      primeVersion,
       primeVTokenAddresses,
-      primeMinimumXvsToStakeMantissa: new BigNumber(
-        primeMinimumXvsToStakeMantissaResult.toString(),
-      ),
       xvs,
       chainId,
       publicClient,
