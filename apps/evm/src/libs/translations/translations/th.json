@@ -1284,7 +1284,18 @@
       }
     },
     "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{date, distanceToNow}} ที่แล้ว",
-    "title": "กระดานผู้นำ Prime"
+    "title": "กระดานผู้นำ Prime",
+    "totalRewards": {
+      "title": "รางวัล Prime ทั้งหมดที่แจกในรอบนี้"
+    },
+    "userRewards": {
+      "eligibleMessage": "คุณมีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ จัดหาสินทรัพย์ด้านล่างเพื่อรับรางวัล",
+      "marketActions": "เปิดการดำเนินการของตลาด",
+      "notEligibleMessage": "คุณยังไม่มีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
+      "primeLogoAlt": "โลโก้ Venus Prime",
+      "rewardShareAriaLabel": "สัดส่วนของรางวัลทั้งหมด",
+      "title": "รางวัล Prime ของคุณในรอบนี้"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว",

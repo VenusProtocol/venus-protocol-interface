@@ -1284,7 +1284,18 @@
       }
     },
     "tablesRefreshNote": "每小時刷新 · 上次刷新：{{date, distanceToNow}}前",
-    "title": "Prime 排行榜"
+    "title": "Prime 排行榜",
+    "totalRewards": {
+      "title": "本週期已分配的 Prime 總獎勵"
+    },
+    "userRewards": {
+      "eligibleMessage": "你在本週期已具備分享 Prime 獎勵的資格。在下方供給資產以分享獎勵。",
+      "marketActions": "開啟市場操作",
+      "notEligibleMessage": "你在本週期暫不具備分享 Prime 獎勵的資格。質押 XVS 以在下一週期競爭 Prime。",
+      "primeLogoAlt": "Venus Prime 標誌",
+      "rewardShareAriaLabel": "佔總獎勵的比例",
+      "title": "你本週期的 Prime 獎勵"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "你現在可以成為 Prime 用戶",

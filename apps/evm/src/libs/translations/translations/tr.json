@@ -1284,7 +1284,18 @@
       }
     },
     "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
-    "title": "Prime lider tablosu"
+    "title": "Prime lider tablosu",
+    "totalRewards": {
+      "title": "Bu döngüde dağıtılan toplam Prime ödülü"
+    },
+    "userRewards": {
+      "eligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygunsun. Ödülleri paylaşmak için aşağıdan varlık sağla.",
+      "marketActions": "Piyasa işlemlerini aç",
+      "notEligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygun değilsin. Sonraki döngüde Prime için yarışmak üzere XVS stake et.",
+      "primeLogoAlt": "Venus Prime logosu",
+      "rewardShareAriaLabel": "Toplam ödüllerdeki pay",
+      "title": "Bu döngüdeki Prime ödülleriniz"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",

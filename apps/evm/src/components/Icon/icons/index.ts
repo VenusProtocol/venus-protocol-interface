@@ -39,6 +39,7 @@ export { default as checkInlineDotted } from './checkInlineDotted';
 export { default as mark } from './mark';
 export { default as arrowShaft } from './arrowShaft';
 export { default as notice } from './notice';
+export { default as dotShortcut } from './dotShortcut';
 export { default as dots } from './dots';
 export { default as exclamation } from './exclamation';
 export { default as comment } from './comment';
