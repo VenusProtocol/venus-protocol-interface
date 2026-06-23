@@ -1319,6 +1319,10 @@
       "title": "Kurallar"
     },
     "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
+    "tabs": {
+      "ranking": "Sıralama",
+      "rewards": "Prime ödülleri"
+    },
     "title": "Prime lider tablosu",
     "totalRewards": {
       "title": "Bu döngüde dağıtılan toplam Prime ödülü"

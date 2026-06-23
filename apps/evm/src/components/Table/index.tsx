@@ -42,6 +42,7 @@ export function Table<R>({
   tableLayout = 'fixed',
   renderRowFooter,
   renderRowControl,
+  hideCardDelimiter,
   ...otherProps
 }: TableProps<R>) {
   const styles = useStyles({ cellHeight });
@@ -200,6 +201,7 @@ export function Table<R>({
             onOrderChange={setOrder}
             renderRowControl={renderRowControl}
             renderRowFooter={renderRowFooter}
+            hideCardDelimiter={hideCardDelimiter}
           />
         </>
       ) : (

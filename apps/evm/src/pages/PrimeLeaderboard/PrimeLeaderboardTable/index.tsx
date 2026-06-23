@@ -14,6 +14,8 @@ export interface PrimeLeaderboardTableProps<R> {
   rowKeyExtractor: (row: R) => string;
   isFetching?: boolean;
   initialOrder?: TableProps<R>['initialOrder'];
+  breakpoint?: TableProps<R>['breakpoint'];
+  hideCardDelimiter?: TableProps<R>['hideCardDelimiter'];
   className?: string;
 }
 
@@ -25,6 +27,8 @@ export function PrimeLeaderboardTable<R>({
   rowKeyExtractor,
   isFetching,
   initialOrder,
+  breakpoint,
+  hideCardDelimiter,
   className,
 }: PrimeLeaderboardTableProps<R>) {
   const { setCurrentPage } = useUrlPagination({ paramKey: pageParamKey });
@@ -33,6 +37,8 @@ export function PrimeLeaderboardTable<R>({
     <div className={cn('flex flex-col', className)}>
       <Table
         variant="primary"
+        breakpoint={breakpoint}
+        hideCardDelimiter={hideCardDelimiter}
         className="border-0 p-0"
         columns={columns}
         data={data}

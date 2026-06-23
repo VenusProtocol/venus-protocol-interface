@@ -27,6 +27,7 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
     orderDirection: 'asc' | 'desc';
   };
   cardClassName?: string;
+  hideCardDelimiter?: boolean;
   className?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
@@ -47,6 +48,7 @@ export interface TableCardProps<R>
   extends Pick<
     TableProps<R>,
     | 'cardClassName'
+    | 'hideCardDelimiter'
     | 'data'
     | 'rowKeyExtractor'
     | 'rowOnClick'

@@ -1319,6 +1319,10 @@
       "title": "规则"
     },
     "tablesRefreshNote": "每小时刷新 · 上次刷新：{{date, distanceToNow}}前",
+    "tabs": {
+      "ranking": "排名",
+      "rewards": "Prime 奖励"
+    },
     "title": "Prime 排行榜",
     "totalRewards": {
       "title": "本周期已分配的 Prime 总奖励"

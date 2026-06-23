@@ -1319,6 +1319,10 @@
       "title": "กฎ"
     },
     "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{date, distanceToNow}} ที่แล้ว",
+    "tabs": {
+      "ranking": "อันดับ",
+      "rewards": "รางวัล Prime"
+    },
     "title": "กระดานผู้นำ Prime",
     "totalRewards": {
       "title": "รางวัล Prime ทั้งหมดที่แจกในรอบนี้"

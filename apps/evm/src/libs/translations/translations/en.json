@@ -1319,6 +1319,10 @@
       "title": "Rules"
     },
     "tablesRefreshNote": "Refreshed hourly · Last refresh: {{date, distanceToNow}} ago",
+    "tabs": {
+      "ranking": "Ranking",
+      "rewards": "Prime rewards"
+    },
     "title": "Prime leaderboard",
     "totalRewards": {
       "title": "Total Prime rewards distributed this cycle"

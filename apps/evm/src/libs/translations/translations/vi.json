@@ -1319,6 +1319,10 @@
       "title": "Quy tắc"
     },
     "tablesRefreshNote": "Làm mới mỗi giờ · Lần làm mới cuối: {{date, distanceToNow}} trước",
+    "tabs": {
+      "ranking": "Xếp hạng",
+      "rewards": "Phần thưởng Prime"
+    },
     "title": "Bảng xếp hạng Prime",
     "totalRewards": {
       "title": "Tổng thưởng Prime đã phân phối trong chu kỳ này"
