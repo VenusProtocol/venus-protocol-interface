@@ -49,7 +49,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
 
   const renderCard = ({ days, hours, minutes, seconds, completed }: CountdownState) => (
     <Card className={cardClassName}>
-      <p className={cn('w-40 text-center text-b1s text-white', !completed && 'uppercase')}>
+      <p className="w-40 text-center text-b1s text-white">
         {t('primeLeaderboard.endOfCycle.title')}
       </p>
 
@@ -57,7 +57,11 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
 
       {completed || !accountAddress ? (
         <p className="text-center text-b1r text-light-grey">
-          {t('primeLeaderboard.endOfCycle.helperEnded', { deadline })}
+          <Trans
+            i18nKey="primeLeaderboard.endOfCycle.helperEnded"
+            values={{ deadline }}
+            components={{ bold: <span className="text-b1s text-white" /> }}
+          />
         </p>
       ) : (
         <p className="text-center text-b1r text-light-grey">

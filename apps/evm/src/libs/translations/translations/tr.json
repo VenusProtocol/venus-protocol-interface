@@ -1256,9 +1256,9 @@
     "description": "XVS’yi governance kasasına stake edin ve getirilerinize ek olarak Prime ödülleri kazanın.",
     "endOfCycle": {
       "days": "Gün",
-      "deadline": "{{date, MMMM d, yyyy h:mm a}}",
+      "deadline": "{{date, textualWithTime}}",
       "helper": "Sonraki döngüde Prime ödülleri kazanmak için <bold>{{deadline}}</bold> tarihine kadar ilk 500 içinde kalın. <summaryLink>Geçen döngünün Prime özetini görüntüleyin</summaryLink>.",
-      "helperEnded": "Sonraki döngüde Prime ödülleri kazanmak için {{deadline}} tarihine kadar ilk 500 içinde kalın.",
+      "helperEnded": "Sonraki döngüde Prime ödülleri kazanmak için <bold>{{deadline}}</bold> tarihine kadar ilk 500 içinde kalın.",
       "hours": "Saat",
       "mins": "Dak.",
       "sec": "Sn.",

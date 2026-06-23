@@ -41,7 +41,7 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
     stakeMessage = (
       <Trans
         i18nKey="primeLeaderboard.rankCard.stakeToReachTop"
-        values={{ amount: new BigNumber(gapXvsTokens).toFormat() }}
+        values={{ amount: new BigNumber(gapXvsTokens).toFormat(2) }}
         components={{ Highlight: <span className="text-b1s text-white" /> }}
       />
     );
