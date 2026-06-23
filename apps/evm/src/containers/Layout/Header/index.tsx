@@ -7,7 +7,6 @@ import { useParams } from 'react-router';
 import type { Address } from 'viem';
 import { Breadcrumbs } from './Breadcrumbs';
 import { MarketInfo } from './MarketInfo';
-import { MarketsAdBanner } from './MarketsAdBanner';
 import { useIsOnMarketPage } from './useIsOnMarketPage';
 import { useIsOnMarketsPage } from './useIsOnMarketsPage';
 import { usePathNodes } from './usePathNodes';
@@ -60,8 +59,6 @@ export const Header: React.FC = () => {
           {pathNodes.length > 1 && <Breadcrumbs pathNodes={pathNodes} className="pt-5 sm:pt-10" />}
 
           {isOnMarketPage && <MarketInfo />}
-
-          {shouldShowMarketsAdBanner && <MarketsAdBanner />}
         </div>
       </div>
     </header>
