@@ -13,7 +13,7 @@ import { areAddressesEqual, convertMantissaToTokens, shortenValueWithSuffix } fr
 import { ITEMS_PER_PAGE, PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
 import { RankBadge } from './RankBadge';
 
-const RANKS_PAGE_PARAM_KEY = 'ranksPage';
+export const RANKS_PAGE_PARAM_KEY = 'ranksPage';
 
 export interface RankTableProps {
   className?: string;

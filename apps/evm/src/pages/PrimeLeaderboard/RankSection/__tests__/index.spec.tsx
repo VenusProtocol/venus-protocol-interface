@@ -10,7 +10,8 @@ describe('pages/PrimeLeaderboard/RankSection', () => {
     renderComponent(<RankSection />, { accountAddress: fakeAddress });
 
     expect(await screen.findByText('#2')).toBeInTheDocument();
-    expect(await screen.findByText('542.5M')).toBeInTheDocument();
+    // The account is on the current rank table page, so the card reuses the table's Prime score
+    expect(await screen.findByText('613.5M')).toBeInTheDocument();
   });
 
   it('prompts to connect the wallet when not connected', () => {
