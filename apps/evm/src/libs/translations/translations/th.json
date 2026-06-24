@@ -1255,6 +1255,7 @@
   "primeLeaderboard": {
     "description": "สเตก XVS เข้าสู่ governance vault แล้วรับรางวัล Prime เพิ่มเติมจากผลตอบแทนของคุณ",
     "endOfCycle": {
+      "cycleEnded": "รอบปัจจุบันสิ้นสุดแล้ว รอบถัดไปจะเริ่มในไม่ช้า",
       "days": "วัน",
       "deadline": "{{date, textualWithTime}}",
       "helper": "รักษาอันดับใน 500 อันดับแรกจนถึง <Bold>{{deadline}}</Bold> เพื่อรับรางวัล Prime ในรอบถัดไป <SummaryLink>ดูสรุป Prime ของรอบที่แล้ว</SummaryLink>",

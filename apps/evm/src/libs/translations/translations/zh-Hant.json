@@ -1255,6 +1255,7 @@
   "primeLeaderboard": {
     "description": "將 XVS 質押到治理金庫，在收益之上再賺取 Prime 獎勵。",
     "endOfCycle": {
+      "cycleEnded": "目前週期已結束，下個週期即將開始。",
       "days": "天",
       "deadline": "{{date, textualWithTime}}",
       "helper": "在 <Bold>{{deadline}}</Bold> 之前保持在前 500 名，即可在下個週期獲得 Prime 獎勵。<SummaryLink>查看上個週期的 Prime 總結</SummaryLink>。",

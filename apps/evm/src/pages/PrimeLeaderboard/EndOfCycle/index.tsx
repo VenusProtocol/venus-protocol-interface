@@ -47,42 +47,48 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
 
   const deadline = t('primeLeaderboard.endOfCycle.deadline', { date: endDate });
 
-  const renderCard = ({ days, hours, minutes, seconds, completed }: CountdownState) => (
-    <Card className={cardClassName}>
-      <p className="w-40 text-center text-b1s text-white">
-        {t('primeLeaderboard.endOfCycle.title')}
-      </p>
+  const renderCard = ({ days, hours, minutes, seconds, completed }: CountdownState) => {
+    let helper: React.ReactNode = (
+      <Trans
+        i18nKey="primeLeaderboard.endOfCycle.helper"
+        values={{ deadline }}
+        components={{
+          Bold: <span className="text-b1s text-white" />,
+          SummaryLink: (
+            <Button
+              variant="text"
+              onClick={() => setIsSummaryModalOpen(true)}
+              className="h-auto p-0 text-b1s text-blue underline"
+            />
+          ),
+        }}
+      />
+    );
 
-      <Timer days={days} hours={hours} minutes={minutes} seconds={seconds} />
+    if (completed) {
+      helper = t('primeLeaderboard.endOfCycle.cycleEnded');
+    } else if (!accountAddress) {
+      helper = (
+        <Trans
+          i18nKey="primeLeaderboard.endOfCycle.helperEnded"
+          values={{ deadline }}
+          components={{ Bold: <span className="text-b1s text-white" /> }}
+        />
+      );
+    }
 
-      {completed || !accountAddress ? (
-        <p className="text-center text-b1r text-light-grey">
-          <Trans
-            i18nKey="primeLeaderboard.endOfCycle.helperEnded"
-            values={{ deadline }}
-            components={{ Bold: <span className="text-b1s text-white" /> }}
-          />
+    return (
+      <Card className={cardClassName}>
+        <p className="w-40 text-center text-b1s text-white">
+          {t('primeLeaderboard.endOfCycle.title')}
         </p>
-      ) : (
-        <p className="text-center text-b1r text-light-grey">
-          <Trans
-            i18nKey="primeLeaderboard.endOfCycle.helper"
-            values={{ deadline }}
-            components={{
-              Bold: <span className="text-b1s text-white" />,
-              SummaryLink: (
-                <Button
-                  variant="text"
-                  onClick={() => setIsSummaryModalOpen(true)}
-                  className="h-auto p-0 text-b1s text-blue underline"
-                />
-              ),
-            }}
-          />
-        </p>
-      )}
-    </Card>
-  );
+
+        <Timer days={days} hours={hours} minutes={minutes} seconds={seconds} />
+
+        <p className="text-center text-b1r text-light-grey">{helper}</p>
+      </Card>
+    );
+  };
 
   return (
     <>

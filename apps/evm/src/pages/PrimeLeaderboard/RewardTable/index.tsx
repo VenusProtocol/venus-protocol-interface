@@ -51,7 +51,7 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
         renderCell: ({ userAddress }) => (
           <div className="flex items-center gap-x-3">
             <span className="inline-flex rounded-lg bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)] p-px">
-              <span className="flex items-center gap-x-2 rounded-[7px] bg-background px-3 py-3">
+              <span className="flex w-[130px] items-center gap-x-2 rounded-[7px] bg-background px-3 py-3">
                 <img src={primeLogoSrc} alt="" className="h-5 shrink-0" />
 
                 <Username address={userAddress} className="text-b1s text-white" />

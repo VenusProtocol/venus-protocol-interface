@@ -1255,6 +1255,7 @@
   "primeLeaderboard": {
     "description": "Stake XVS into the governance vault and receive Prime rewards on top of your yields.",
     "endOfCycle": {
+      "cycleEnded": "The current cycle has ended. The next cycle will begin shortly.",
       "days": "Days",
       "deadline": "{{date, textualWithTime}}",
       "helper": "Stay in the top 500 until <Bold>{{deadline}}</Bold> to receive Prime rewards during the next cycle. <SummaryLink>See last cycle's Prime summary</SummaryLink>.",

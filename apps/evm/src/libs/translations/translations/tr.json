@@ -1255,6 +1255,7 @@
   "primeLeaderboard": {
     "description": "XVS’yi governance kasasına stake edin ve getirilerinize ek olarak Prime ödülleri kazanın.",
     "endOfCycle": {
+      "cycleEnded": "Mevcut döngü sona erdi. Sonraki döngü kısa süre içinde başlayacak.",
       "days": "Gün",
       "deadline": "{{date, textualWithTime}}",
       "helper": "Sonraki döngüde Prime ödülleri kazanmak için <Bold>{{deadline}}</Bold> tarihine kadar ilk 500 içinde kalın. <SummaryLink>Geçen döngünün Prime özetini görüntüleyin</SummaryLink>.",

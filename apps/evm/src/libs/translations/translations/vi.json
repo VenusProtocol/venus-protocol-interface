@@ -1255,6 +1255,7 @@
   "primeLeaderboard": {
     "description": "Stake XVS vào governance vault và nhận thêm phần thưởng Prime bên cạnh lợi nhuận của bạn.",
     "endOfCycle": {
+      "cycleEnded": "Chu kỳ hiện tại đã kết thúc. Chu kỳ tiếp theo sẽ sớm bắt đầu.",
       "days": "Ngày",
       "deadline": "{{date, textualWithTime}}",
       "helper": "Giữ vị trí trong top 500 đến <Bold>{{deadline}}</Bold> để nhận thưởng Prime trong chu kỳ tiếp theo. <SummaryLink>Xem tổng kết Prime của chu kỳ trước</SummaryLink>.",
