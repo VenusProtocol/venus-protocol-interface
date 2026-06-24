@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 

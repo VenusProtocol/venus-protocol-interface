@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Box from '@mui/material/Box';
 import MaterialSlider from '@mui/material/Slider';
 import type { SliderTypeMap } from '@mui/material/Slider/Slider';

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useWatch } from 'react-hook-form';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
@@ -77,10 +78,10 @@ export const StakeForm: React.FC<StakeFormProps> = ({
     fromToken,
   });
 
-  const fromAmountTokensFieldValue = form.watch('fromAmountTokens');
+  const fromAmountTokensFieldValue = useWatch({ control: form.control, name: 'fromAmountTokens' });
   const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue || 0);
 
-  const { stake } = useStakeInVault();
+  const { stake, isLoading } = useStakeInVault();
 
   const handleSubmit = async () => {
     const amountMantissa = convertTokensToMantissa({
@@ -108,6 +109,7 @@ export const StakeForm: React.FC<StakeFormProps> = ({
       spenderAddress={spenderAddress}
       fromToken={fromToken}
       form={form}
+      isLoading={isLoading}
       limitFromTokens={limitFromTokens}
       fromTokenFieldLabel={t('vaultCard.vaultModal.stakeForm.depositField.label')}
       submitButtonLabel={t('vaultCard.vaultModal.stakeForm.submitButton.label')}

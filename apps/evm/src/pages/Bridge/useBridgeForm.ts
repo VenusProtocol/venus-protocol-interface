@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
 import { fromUnixTime, isBefore } from 'date-fns';
 import { type MutableRefObject, useCallback, useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
 import {
@@ -256,7 +256,9 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
     defaultValues,
   });
 
-  const { fromChainId: formFromChainId, toChainId: formToChainId, amountTokens } = form.watch();
+  const formFromChainId = useWatch({ control: form.control, name: 'fromChainId' });
+  const formToChainId = useWatch({ control: form.control, name: 'toChainId' });
+  const amountTokens = useWatch({ control: form.control, name: 'amountTokens' });
 
   // save toChainId in a ref so it can be fed into the form's validation
   toChainIdRef.current = formToChainId;
@@ -291,7 +293,12 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
     }
   }, [chainId, form, formFromChainId]);
 
-  return { ...form, amountMantissa };
+  return {
+    ...form,
+    amountMantissa,
+    fromChainId: formFromChainId,
+    toChainId: formToChainId,
+  };
 };
 
 export default useBridgeForm;

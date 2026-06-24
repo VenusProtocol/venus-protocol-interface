@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Form, Formik } from 'formik';
 
 import { Modal, TextField } from 'components';

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
 import { PLACEHOLDER_KEY } from 'constants/placeholders';

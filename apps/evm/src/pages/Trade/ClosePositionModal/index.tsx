@@ -4,7 +4,7 @@ import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useGetSelectedTradePosition } from '../useGetSelectedTradePosition';
 import { Form } from './Form';
-import { store } from './store';
+import { useStore } from './store';
 
 const ANIMATION_BASE_DURATION_S = 0.75;
 const EASE = [0.23, 1, 0.32, 1];
@@ -15,8 +15,8 @@ export const ClosePositionModal: React.FC = () => {
   const { data } = useGetSelectedTradePosition();
   const selectedPosition = data?.position;
 
-  const isModalShown = store.use.isModalShown();
-  const hideModal = store.use.hideModal();
+  const isModalShown = useStore(state => state.isModalShown);
+  const hideModal = useStore(state => state.hideModal);
 
   return (
     <AnimatePresence initial={false}>

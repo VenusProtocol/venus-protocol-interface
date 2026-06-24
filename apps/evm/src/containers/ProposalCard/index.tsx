@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Card } from 'components';

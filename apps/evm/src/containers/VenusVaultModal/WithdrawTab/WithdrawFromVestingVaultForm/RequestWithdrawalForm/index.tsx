@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import {
   useGetPrimeStatus,
@@ -104,7 +105,7 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
     fromToken: vault.stakedToken,
   });
 
-  const fromAmountTokensFieldValue = form.watch('fromAmountTokens');
+  const fromAmountTokensFieldValue = useWatch({ control: form.control, name: 'fromAmountTokens' });
   const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue || 0);
 
   const readablePrimeMinimumXvsStake = useConvertMantissaToReadableTokenString({

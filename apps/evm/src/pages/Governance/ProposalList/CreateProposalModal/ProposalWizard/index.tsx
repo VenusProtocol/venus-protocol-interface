@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useFormikContext } from 'formik';
 import { useCallback } from 'react';
 import { Route, Routes } from 'react-router';
