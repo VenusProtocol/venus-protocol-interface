@@ -42,7 +42,7 @@ export function PrimeLeaderboardTable<R>({
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={containerRef} className={cn('flex flex-col', className)}>
+    <div ref={containerRef} className={cn('flex flex-1 flex-col justify-between', className)}>
       <Table
         variant="primary"
         breakpoint={breakpoint}
@@ -59,6 +59,7 @@ export function PrimeLeaderboardTable<R>({
       />
 
       <Pagination
+        className="mt-auto"
         itemsCount={itemsCount}
         itemsPerPageCount={ITEMS_PER_PAGE}
         paramKey={pageParamKey}
