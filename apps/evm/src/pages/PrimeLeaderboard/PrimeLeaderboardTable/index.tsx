@@ -1,4 +1,5 @@
 import { cn } from '@venusprotocol/ui';
+import { useRef } from 'react';
 
 import { Pagination, Table, type TableColumn, type TableProps } from 'components';
 import { useUrlPagination } from 'hooks/useUrlPagination';
@@ -38,9 +39,10 @@ export function PrimeLeaderboardTable<R>({
   className,
 }: PrimeLeaderboardTableProps<R>) {
   const { setCurrentPage } = useUrlPagination({ paramKey: pageParamKey });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={cn('flex flex-col', className)}>
+    <div ref={containerRef} className={cn('flex flex-col', className)}>
       <Table
         variant="primary"
         breakpoint={breakpoint}
@@ -61,6 +63,7 @@ export function PrimeLeaderboardTable<R>({
         itemsPerPageCount={ITEMS_PER_PAGE}
         paramKey={pageParamKey}
         onChange={setCurrentPage}
+        scrollToRef={containerRef}
       />
     </div>
   );
