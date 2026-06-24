@@ -28,6 +28,8 @@ export function Table<R>({
   title,
   minWidth,
   initialOrder,
+  order: orderProp,
+  onOrderChange,
   rowOnClick,
   getRowHref,
   rowKeyExtractor,
@@ -53,7 +55,16 @@ export function Table<R>({
   const _isBreakpointUp = useBreakpointUp(breakpoint || '2xl');
   const isBreakpointUp = !!breakpoint && _isBreakpointUp;
 
-  const [order, setOrder] = useState<Order<R> | undefined>(initialOrder);
+  const [internalOrder, setInternalOrder] = useState<Order<R> | undefined>(initialOrder);
+  const order = orderProp ?? internalOrder;
+
+  const updateOrder = (newOrder: Order<R>) => {
+    if (orderProp === undefined) {
+      setInternalOrder(newOrder);
+    }
+
+    onOrderChange?.(newOrder);
+  };
 
   const onRequestOrder = (column: TableColumn<R>) => {
     let newOrderDirection: 'asc' | 'desc' = 'desc';
@@ -62,10 +73,7 @@ export function Table<R>({
       newOrderDirection = order?.orderDirection === 'asc' ? 'desc' : 'asc';
     }
 
-    setOrder({
-      orderBy: column,
-      orderDirection: newOrderDirection,
-    });
+    updateOrder({ orderBy: column, orderDirection: newOrderDirection });
   };
 
   const sortedData = useMemo(() => {
@@ -198,7 +206,7 @@ export function Table<R>({
             columns={cardColumns || columns}
             breakpoint={breakpoint}
             order={order}
-            onOrderChange={setOrder}
+            onOrderChange={updateOrder}
             renderRowControl={renderRowControl}
             renderRowFooter={renderRowFooter}
             hideCardDelimiter={hideCardDelimiter}

@@ -14,6 +14,9 @@ export interface PrimeLeaderboardTableProps<R> {
   rowKeyExtractor: (row: R) => string;
   isFetching?: boolean;
   initialOrder?: TableProps<R>['initialOrder'];
+  order?: TableProps<R>['order'];
+  onOrderChange?: TableProps<R>['onOrderChange'];
+  controls?: TableProps<R>['controls'];
   breakpoint?: TableProps<R>['breakpoint'];
   hideCardDelimiter?: TableProps<R>['hideCardDelimiter'];
   className?: string;
@@ -27,6 +30,9 @@ export function PrimeLeaderboardTable<R>({
   rowKeyExtractor,
   isFetching,
   initialOrder,
+  order,
+  onOrderChange,
+  controls,
   breakpoint,
   hideCardDelimiter,
   className,
@@ -45,6 +51,9 @@ export function PrimeLeaderboardTable<R>({
         isFetching={isFetching}
         rowKeyExtractor={rowKeyExtractor}
         initialOrder={initialOrder}
+        order={order}
+        onOrderChange={onOrderChange}
+        controls={controls}
       />
 
       <Pagination

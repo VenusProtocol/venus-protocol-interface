@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import type { Address } from 'viem';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
 import {
@@ -6,7 +7,7 @@ import {
   useGetPrimeCurrentCycle,
   useGetPrimeRewardsLeaderboard,
 } from 'clients/api';
-import { type TableColumn, Username } from 'components';
+import { type Order, type TableColumn, Username } from 'components';
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -25,12 +26,19 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
   const { t } = useTranslation();
   const tokens = useGetTokens();
   const { accountAddress } = useAccountAddress();
-  const { currentPage } = useUrlPagination({ paramKey: REWARDS_PAGE_PARAM_KEY });
+  const { currentPage, setCurrentPage } = useUrlPagination({ paramKey: REWARDS_PAGE_PARAM_KEY });
+
+  const [sort, setSort] = useState<{ sortBy: 'total' | Address; order: 'asc' | 'desc' }>({
+    sortBy: 'total',
+    order: 'desc',
+  });
 
   const { data: currentCycle } = useGetPrimeCurrentCycle();
   const { data, isLoading } = useGetPrimeRewardsLeaderboard({
     page: currentPage + 1,
     limit: ITEMS_PER_PAGE,
+    sortBy: sort.sortBy,
+    order: sort.order,
   });
 
   const rewardTokens = useMemo(
@@ -65,10 +73,11 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
         ),
       },
       {
-        key: 'totalRewards',
+        key: 'total',
         label: t('primeLeaderboard.rewardTable.columns.totalRewards'),
         selectOptionLabel: t('primeLeaderboard.rewardTable.columns.totalRewards'),
         align: 'right',
+        sortable: true,
         renderCell: ({ totalPendingCents }) => (
           <span className="text-b1r text-white">
             {formatCentsToReadableValue({ value: Number(totalPendingCents) })}
@@ -76,12 +85,13 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
         ),
       },
       ...rewardTokens.map<TableColumn<PrimeRewardsLeaderboardEntry>>(token => ({
-        key: `reward-${token.address}`,
+        key: token.address,
         label: t('primeLeaderboard.rewardTable.columns.marketRewards', { symbol: token.symbol }),
         selectOptionLabel: t('primeLeaderboard.rewardTable.columns.marketRewards', {
           symbol: token.symbol,
         }),
         align: 'right',
+        sortable: true,
         renderCell: ({ byRewardToken }) => {
           const reward = byRewardToken.find(({ rewardTokenAddress }) =>
             areAddressesEqual(rewardTokenAddress, token.address),
@@ -98,6 +108,20 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
     [t, rewardTokens, accountAddress],
   );
 
+  const orderBy = columns.find(column => column.key === sort.sortBy);
+  const order = orderBy && { orderBy, orderDirection: sort.order };
+
+  const handleOrderChange = ({
+    orderBy: column,
+    orderDirection,
+  }: Order<PrimeRewardsLeaderboardEntry>) => {
+    setSort({
+      sortBy: column.key === 'total' ? 'total' : (column.key as Address),
+      order: orderDirection,
+    });
+    setCurrentPage(0);
+  };
+
   return (
     <PrimeLeaderboardTable
       columns={columns}
@@ -106,6 +130,9 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
       pageParamKey={REWARDS_PAGE_PARAM_KEY}
       rowKeyExtractor={row => `prime-reward-table-row-${row.userAddress}`}
       isFetching={isLoading}
+      controls
+      order={order}
+      onOrderChange={handleOrderChange}
       breakpoint="sm"
       hideCardDelimiter
       className={className}

@@ -11,6 +11,9 @@ export interface TableColumn<R> {
   selectOptionLabel: string;
   renderCell: (row: R, rowIndex: number) => React.ReactNode | string;
   sortRows?: (rowA: R, rowB: R, direction: 'asc' | 'desc') => number;
+  // Marks the column as sortable without client-side sorting, for server-sorted tables that report
+  // order changes through the table's onOrderChange callback
+  sortable?: boolean;
   align?: 'left' | 'center' | 'right';
 }
 
@@ -22,10 +25,16 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   breakpoint?: keyof (typeof BREAKPOINTS)['values'];
   cardColumns?: TableColumn<R>[];
   minWidth?: string;
+  // Initial sort for uncontrolled usage (client-side sorted tables)
   initialOrder?: {
     orderBy: TableColumn<R>;
     orderDirection: 'asc' | 'desc';
   };
+  // Controlled sort: when provided, the table reflects this order instead of its internal state
+  // (used together with onOrderChange for server-side sorting)
+  order?: Order<R>;
+  // Notified when the user changes the sort via a column header
+  onOrderChange?: (order: Order<R>) => void;
   cardClassName?: string;
   hideCardDelimiter?: boolean;
   className?: string;
