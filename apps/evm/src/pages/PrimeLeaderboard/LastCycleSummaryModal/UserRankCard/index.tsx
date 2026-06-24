@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 
-import { useGetPrimeMinimumStake, useGetPrimeTokenLimit } from 'clients/api';
+import { useGetPrimeRankLimit } from 'containers/PrimeRank/useGetPrimeRankLimit';
 import { useTranslation } from 'libs/translations';
 import { shortenValueWithSuffix } from 'utilities';
 
@@ -13,10 +13,8 @@ export interface UserRankCardProps {
 
 export const UserRankCard: React.FC<UserRankCardProps> = ({ rank, primeScore, className }) => {
   const { t } = useTranslation();
-  const { data: minimumStake } = useGetPrimeMinimumStake();
-  const { data: tokenLimitData } = useGetPrimeTokenLimit();
+  const rankLimit = useGetPrimeRankLimit();
 
-  const rankLimit = minimumStake?.tokenLimit ?? tokenLimitData?.tokenLimit;
   const isRanked = rank !== undefined;
   const isInTopRank = isRanked && rankLimit !== undefined && rank <= rankLimit;
   const rankLabel = isRanked ? `#${rank}` : '#-';
@@ -27,10 +25,10 @@ export const UserRankCard: React.FC<UserRankCardProps> = ({ rank, primeScore, cl
   let messageClassName = 'text-yellow';
 
   if (isInTopRank) {
-    message = t('primeLeaderboard.lastCycleSummary.rankQualified');
+    message = t('primeLeaderboard.lastCycleSummary.rankQualified', { limit: rankLimit });
     messageClassName = 'text-white';
   } else if (isRanked) {
-    message = t('primeLeaderboard.lastCycleSummary.rankMissed');
+    message = t('primeLeaderboard.lastCycleSummary.rankMissed', { limit: rankLimit });
   }
 
   return (

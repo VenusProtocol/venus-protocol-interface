@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ReactCountdown from 'react-countdown';
 
 import { Card, Spinner } from 'components';
+import { useGetPrimeRankLimit } from 'containers/PrimeRank/useGetPrimeRankLimit';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 
@@ -26,6 +27,7 @@ interface CountdownState {
 export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, className }) => {
   const { t, Trans } = useTranslation();
   const { accountAddress } = useAccountAddress();
+  const rankLimit = useGetPrimeRankLimit();
   const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
 
   const cardClassName = cn(
@@ -51,7 +53,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
     let helper: React.ReactNode = (
       <Trans
         i18nKey="primeLeaderboard.endOfCycle.helper"
-        values={{ deadline }}
+        values={{ deadline, limit: rankLimit }}
         components={{
           Bold: <span className="text-b1s text-white" />,
           SummaryLink: (
@@ -71,7 +73,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
       helper = (
         <Trans
           i18nKey="primeLeaderboard.endOfCycle.helperEnded"
-          values={{ deadline }}
+          values={{ deadline, limit: rankLimit }}
           components={{ Bold: <span className="text-b1s text-white" /> }}
         />
       );

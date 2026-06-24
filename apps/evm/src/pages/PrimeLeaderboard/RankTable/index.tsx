@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 import { type PrimeLeaderboardEntry, useGetPrimeLeaderboard } from 'clients/api';
 import { InfoIcon, type TableColumn, Username } from 'components';
+import { useGetPrimeRankLimit } from 'containers/PrimeRank/useGetPrimeRankLimit';
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -22,6 +23,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
   const { t } = useTranslation();
   const xvs = useGetToken({ symbol: 'XVS' });
   const { accountAddress } = useAccountAddress();
+  const rankLimit = useGetPrimeRankLimit();
   const { currentPage } = useUrlPagination({ paramKey: RANKS_PAGE_PARAM_KEY });
 
   const { data, isLoading } = useGetPrimeLeaderboard({
@@ -37,7 +39,9 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
         label: (
           <span className="inline-flex items-center gap-x-2">
             {t('primeLeaderboard.rankTable.columns.wallet')}
-            <InfoIcon tooltip={t('primeLeaderboard.rankTable.walletTooltip')} />
+            <InfoIcon
+              tooltip={t('primeLeaderboard.rankTable.walletTooltip', { limit: rankLimit })}
+            />
           </span>
         ),
         selectOptionLabel: t('primeLeaderboard.rankTable.columns.wallet'),
@@ -74,7 +78,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
         ),
       },
     ],
-    [t, xvs, accountAddress],
+    [t, xvs, accountAddress, rankLimit],
   );
 
   return (
