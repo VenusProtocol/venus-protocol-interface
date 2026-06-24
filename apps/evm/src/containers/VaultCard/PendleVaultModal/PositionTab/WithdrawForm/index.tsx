@@ -5,11 +5,11 @@ import { NoticeInfo } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Link } from 'containers/Link';
-import { TransactionForm } from 'containers/VaultCard/TransactionForm';
-import { useForm } from 'containers/VaultCard/useForm';
+import { VaultForm } from 'containers/VaultForm';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useNow } from 'hooks/useNow';
+import { useVaultForm } from 'hooks/useVaultForm';
 import { useTranslation } from 'libs/translations';
 import type { PendleVault } from 'types';
 import {
@@ -54,7 +54,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
 
   const limitFromTokens = userStakedTokens;
 
-  const form = useForm({
+  const form = useVaultForm({
     limitFromTokens,
     fromToken,
   });
@@ -150,7 +150,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
 
   return (
     <div className="space-y-4">
-      <TransactionForm
+      <VaultForm
         onSubmit={handleSubmit}
         form={form}
         fromToken={fromToken}

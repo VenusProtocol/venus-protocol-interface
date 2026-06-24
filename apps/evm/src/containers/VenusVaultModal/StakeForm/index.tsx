@@ -2,23 +2,34 @@ import BigNumber from 'bignumber.js';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { useForm } from 'containers/VaultCard/useForm';
+import { Footer as PrimeRankFooter } from 'containers/PrimeRank/Footer';
+import { VaultForm } from 'containers/VaultForm';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useVaultForm } from 'hooks/useVaultForm';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Vault } from 'types';
+import { type Vault, VaultCategory } from 'types';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
-import { TransactionForm } from '../../TransactionForm';
 import { Footer } from '../Footer';
 
 export interface StakeFormProps {
   vault: Vault;
   onClose: () => void;
+  hidePrimeLeaderboardLink?: boolean;
 }
 
-export const StakeForm: React.FC<StakeFormProps> = ({ vault, onClose }) => {
+export const StakeForm: React.FC<StakeFormProps> = ({
+  vault,
+  onClose,
+  hidePrimeLeaderboardLink,
+}) => {
   const { t } = useTranslation();
+
+  const isPrimeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
+  const showPrimeRankFooter =
+    isPrimeLeaderboardEnabled && vault.category === VaultCategory.GOVERNANCE;
   const { accountAddress } = useAccountAddress();
 
   const fromToken = vault.stakedToken;
@@ -60,7 +71,7 @@ export const StakeForm: React.FC<StakeFormProps> = ({ vault, onClose }) => {
 
   const limitFromTokens = userWalletBalanceTokens;
 
-  const form = useForm({
+  const form = useVaultForm({
     limitFromTokens,
     walletSpendingLimitTokens,
     fromToken,
@@ -92,7 +103,7 @@ export const StakeForm: React.FC<StakeFormProps> = ({ vault, onClose }) => {
   };
 
   return (
-    <TransactionForm
+    <VaultForm
       onSubmit={handleSubmit}
       spenderAddress={spenderAddress}
       fromToken={fromToken}
@@ -101,7 +112,13 @@ export const StakeForm: React.FC<StakeFormProps> = ({ vault, onClose }) => {
       fromTokenFieldLabel={t('vaultCard.vaultModal.stakeForm.depositField.label')}
       submitButtonLabel={t('vaultCard.vaultModal.stakeForm.submitButton.label')}
       fromTokenPriceCents={vault.stakedTokenPriceCents.toNumber()}
-      footer={<Footer action="stake" vault={vault} fromAmountTokens={fromAmountTokens} />}
+      footer={
+        showPrimeRankFooter ? (
+          <PrimeRankFooter hideLeaderboardLink={hidePrimeLeaderboardLink} />
+        ) : (
+          <Footer action="stake" vault={vault} fromAmountTokens={fromAmountTokens} />
+        )
+      }
     />
   );
 };

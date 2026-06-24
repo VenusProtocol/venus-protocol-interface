@@ -1273,6 +1273,21 @@
       "title": "Tóm tắt Prime chu kỳ trước",
       "userRewardsTitle": "Phần thưởng Prime của bạn trong chu kỳ trước"
     },
+    "rankCard": {
+      "connectPrompt": "Kết nối ví để kiểm tra điều kiện Prime của bạn.",
+      "eligible": "Bạn hiện đủ điều kiện nhận Prime trong chu kỳ tiếp theo",
+      "notEligible": "Bạn hiện không đủ điều kiện nhận Prime trong chu kỳ tiếp theo.",
+      "primeScoreLabel": "Điểm Prime",
+      "rankLabel": "Hạng của bạn",
+      "rulesButton": "Quy tắc",
+      "stakeButton": "Stake XVS",
+      "stakeMore": "Stake thêm XVS để cạnh tranh Prime trong chu kỳ tiếp theo.",
+      "stakePrompt": "Stake XVS để cạnh tranh Prime.",
+      "stakeToReachTop": "Stake thêm <Highlight>{{amount}} XVS</Highlight> để vào top #500 và đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
+    },
+    "rankFooter": {
+      "learnMore": "Tìm hiểu thêm từ <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Điểm Prime",
@@ -1287,6 +1302,21 @@
         "totalRewards": "Tổng phần thưởng",
         "wallet": "Ví"
       }
+    },
+    "rulesModal": {
+      "boostColumn": "Hệ số tăng",
+      "boostMax": "{{boost}} (tối đa)",
+      "contribution": "Với mỗi khoản nạp, đóng góp của bạn là <Highlight>XVS × hệ số tăng × số ngày nắm giữ</Highlight>. Tổng điểm Prime của bạn là tổng của tất cả các khoản nạp.",
+      "daysHeld": "{{range}} ngày",
+      "daysHeldColumn": "Số ngày nắm giữ",
+      "footer": "Để leo lên bảng xếp hạng: stake nhiều hơn và nắm giữ lâu hơn.",
+      "intro1": "<Highlight>Điểm Prime</Highlight> của bạn quyết định vị trí của bạn trên bảng xếp hạng. <Highlight>Top 500</Highlight> mỗi tháng sẽ trở thành người nắm giữ Prime và chia sẻ quỹ thưởng hàng tháng.",
+      "intro2": "Điểm số thưởng cho cả <Highlight>số lượng</Highlight> XVS bạn stake và <Highlight>thời gian</Highlight> bạn nắm giữ. Mỗi khoản nạp nhận được hệ số tăng trung thành dựa trên thời gian đã nắm giữ:",
+      "point1": "<Highlight>Cả hệ số tăng và số ngày đều giới hạn ở 90 ngày</Highlight> — nắm giữ lâu hơn không làm tăng thêm điểm trên mỗi XVS.",
+      "point2": "<Highlight>Rút tiền? Các khoản nạp mới nhất sẽ bị trừ trước.</Highlight> Khoản stake lâu nhất, có hệ số tăng cao nhất của bạn được bảo vệ.",
+      "point3": "Điểm số cập nhật <Highlight>theo thời gian thực</Highlight> — nhưng trạng thái Prime của bạn được chốt tại <Highlight>ảnh chụp hàng tháng.</Highlight>",
+      "thingsToKnowTitle": "Một vài điều cần biết:",
+      "title": "Quy tắc"
     },
     "tablesRefreshNote": "Làm mới mỗi giờ · Lần làm mới cuối: {{date, distanceToNow}} trước",
     "title": "Bảng xếp hạng Prime",
