@@ -1257,8 +1257,8 @@
     "endOfCycle": {
       "days": "Gün",
       "deadline": "{{date, textualWithTime}}",
-      "helper": "Sonraki döngüde Prime ödülleri kazanmak için <bold>{{deadline}}</bold> tarihine kadar ilk 500 içinde kalın. <summaryLink>Geçen döngünün Prime özetini görüntüleyin</summaryLink>.",
-      "helperEnded": "Sonraki döngüde Prime ödülleri kazanmak için <bold>{{deadline}}</bold> tarihine kadar ilk 500 içinde kalın.",
+      "helper": "Sonraki döngüde Prime ödülleri kazanmak için <Bold>{{deadline}}</Bold> tarihine kadar ilk 500 içinde kalın. <SummaryLink>Geçen döngünün Prime özetini görüntüleyin</SummaryLink>.",
+      "helperEnded": "Sonraki döngüde Prime ödülleri kazanmak için <Bold>{{deadline}}</Bold> tarihine kadar ilk 500 içinde kalın.",
       "hours": "Saat",
       "mins": "Dak.",
       "sec": "Sn.",
@@ -1286,7 +1286,7 @@
       "stakeToReachTop": "İlk #500'e girmek ve bir sonraki döngüde Prime için uygun olmak için <Highlight>{{amount}} XVS</Highlight> stake et."
     },
     "rankFooter": {
-      "learnMore": "<leaderboardLink>Prime Leaderboard</leaderboardLink> üzerinden daha fazla bilgi edinin"
+      "learnMore": "<LeaderboardLink>Prime Leaderboard</LeaderboardLink> üzerinden daha fazla bilgi edinin"
     },
     "rankTable": {
       "columns": {

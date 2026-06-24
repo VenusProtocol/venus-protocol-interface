@@ -1257,8 +1257,8 @@
     "endOfCycle": {
       "days": "天",
       "deadline": "{{date, textualWithTime}}",
-      "helper": "在 <bold>{{deadline}}</bold> 之前保持在前 500 名，即可在下個週期獲得 Prime 獎勵。<summaryLink>查看上個週期的 Prime 總結</summaryLink>。",
-      "helperEnded": "在 <bold>{{deadline}}</bold> 之前保持在前 500 名，即可在下個週期獲得 Prime 獎勵。",
+      "helper": "在 <Bold>{{deadline}}</Bold> 之前保持在前 500 名，即可在下個週期獲得 Prime 獎勵。<SummaryLink>查看上個週期的 Prime 總結</SummaryLink>。",
+      "helperEnded": "在 <Bold>{{deadline}}</Bold> 之前保持在前 500 名，即可在下個週期獲得 Prime 獎勵。",
       "hours": "時",
       "mins": "分",
       "sec": "秒",
@@ -1286,7 +1286,7 @@
       "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight> 即可進入前 #500，並在下個週期取得 Prime 資格。"
     },
     "rankFooter": {
-      "learnMore": "從 <leaderboardLink>Prime 排行榜</leaderboardLink> 了解更多"
+      "learnMore": "從 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
     },
     "rankTable": {
       "columns": {

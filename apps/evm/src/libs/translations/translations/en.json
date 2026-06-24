@@ -1257,8 +1257,8 @@
     "endOfCycle": {
       "days": "Days",
       "deadline": "{{date, textualWithTime}}",
-      "helper": "Stay in the top 500 until <bold>{{deadline}}</bold> to receive Prime rewards during the next cycle. <summaryLink>See last cycle's Prime summary</summaryLink>.",
-      "helperEnded": "Stay in the top 500 until <bold>{{deadline}}</bold> to receive Prime rewards during the next cycle.",
+      "helper": "Stay in the top 500 until <Bold>{{deadline}}</Bold> to receive Prime rewards during the next cycle. <SummaryLink>See last cycle's Prime summary</SummaryLink>.",
+      "helperEnded": "Stay in the top 500 until <Bold>{{deadline}}</Bold> to receive Prime rewards during the next cycle.",
       "hours": "Hours",
       "mins": "Mins",
       "sec": "Sec",
@@ -1286,7 +1286,7 @@
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> to reach the top #500 and become eligible for Prime during the next cycle."
     },
     "rankFooter": {
-      "learnMore": "Learn more about the <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+      "learnMore": "Learn more about the <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

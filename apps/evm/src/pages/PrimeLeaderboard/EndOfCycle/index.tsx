@@ -60,7 +60,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
           <Trans
             i18nKey="primeLeaderboard.endOfCycle.helperEnded"
             values={{ deadline }}
-            components={{ bold: <span className="text-b1s text-white" /> }}
+            components={{ Bold: <span className="text-b1s text-white" /> }}
           />
         </p>
       ) : (
@@ -69,8 +69,8 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
             i18nKey="primeLeaderboard.endOfCycle.helper"
             values={{ deadline }}
             components={{
-              bold: <span className="text-b1s text-white" />,
-              summaryLink: (
+              Bold: <span className="text-b1s text-white" />,
+              SummaryLink: (
                 <Button
                   variant="text"
                   onClick={() => setIsSummaryModalOpen(true)}

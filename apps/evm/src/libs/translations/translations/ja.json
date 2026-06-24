@@ -1257,8 +1257,8 @@
     "endOfCycle": {
       "days": "日",
       "deadline": "{{date, textualWithTime}}",
-      "helper": "<bold>{{deadline}}</bold> まで上位 500 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。<summaryLink>前回サイクルの Prime サマリーを見る</summaryLink>。",
-      "helperEnded": "<bold>{{deadline}}</bold> まで上位 500 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。",
+      "helper": "<Bold>{{deadline}}</Bold> まで上位 500 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。<SummaryLink>前回サイクルの Prime サマリーを見る</SummaryLink>。",
+      "helperEnded": "<Bold>{{deadline}}</Bold> まで上位 500 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。",
       "hours": "時間",
       "mins": "分",
       "sec": "秒",
@@ -1286,7 +1286,7 @@
       "stakeToReachTop": "あと <Highlight>{{amount}} XVS</Highlight> をステークするとトップ #500 に入り、次のサイクルで Prime の対象になります。"
     },
     "rankFooter": {
-      "learnMore": "<leaderboardLink>Prime リーダーボード</leaderboardLink> で詳しく見る"
+      "learnMore": "<LeaderboardLink>Prime リーダーボード</LeaderboardLink> で詳しく見る"
     },
     "rankTable": {
       "columns": {

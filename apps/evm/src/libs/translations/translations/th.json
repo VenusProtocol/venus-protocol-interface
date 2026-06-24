@@ -1257,8 +1257,8 @@
     "endOfCycle": {
       "days": "วัน",
       "deadline": "{{date, textualWithTime}}",
-      "helper": "รักษาอันดับใน 500 อันดับแรกจนถึง <bold>{{deadline}}</bold> เพื่อรับรางวัล Prime ในรอบถัดไป <summaryLink>ดูสรุป Prime ของรอบที่แล้ว</summaryLink>",
-      "helperEnded": "รักษาอันดับใน 500 อันดับแรกจนถึง <bold>{{deadline}}</bold> เพื่อรับรางวัล Prime ในรอบถัดไป",
+      "helper": "รักษาอันดับใน 500 อันดับแรกจนถึง <Bold>{{deadline}}</Bold> เพื่อรับรางวัล Prime ในรอบถัดไป <SummaryLink>ดูสรุป Prime ของรอบที่แล้ว</SummaryLink>",
+      "helperEnded": "รักษาอันดับใน 500 อันดับแรกจนถึง <Bold>{{deadline}}</Bold> เพื่อรับรางวัล Prime ในรอบถัดไป",
       "hours": "ชม.",
       "mins": "นาที",
       "sec": "วินาที",
@@ -1286,7 +1286,7 @@
       "stakeToReachTop": "Stake อีก <Highlight>{{amount}} XVS</Highlight> เพื่อขึ้นไปอยู่ใน top #500 และมีสิทธิ์รับ Prime ในรอบถัดไป"
     },
     "rankFooter": {
-      "learnMore": "เรียนรู้เพิ่มเติมจาก <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+      "learnMore": "เรียนรู้เพิ่มเติมจาก <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

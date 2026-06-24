@@ -54,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
                   <Trans
                     i18nKey="primeLeaderboard.rankFooter.learnMore"
                     components={{
-                      leaderboardLink: (
+                      LeaderboardLink: (
                         <Link className="text-blue underline" to={routes.primeLeaderboard.path} />
                       ),
                     }}
