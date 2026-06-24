@@ -23,7 +23,7 @@ export const MarketActionsButton: React.FC<MarketActionsButtonProps> = ({
       <button
         type="button"
         aria-label={t('primeLeaderboard.userRewards.marketActions')}
-        className="group ml-2 shrink-0 cursor-pointer"
+        className="group ml-2 flex shrink-0 cursor-pointer items-center"
         onClick={() => setIsModalOpen(true)}
       >
         <Icon

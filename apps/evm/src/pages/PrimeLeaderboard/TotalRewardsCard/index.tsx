@@ -29,7 +29,10 @@ export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const cardClassName = cn('flex h-58 flex-col rounded-lg bg-background-active p-4', className);
+  const cardClassName = cn(
+    'flex flex-col gap-y-3 rounded-lg bg-background-active p-4 min-h-[182px] lg:h-58',
+    className,
+  );
 
   if (isLoading) {
     return (

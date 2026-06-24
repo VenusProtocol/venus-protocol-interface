@@ -1256,9 +1256,9 @@
     "description": "สเตก XVS เข้าสู่ governance vault แล้วรับรางวัล Prime เพิ่มเติมจากผลตอบแทนของคุณ",
     "endOfCycle": {
       "days": "วัน",
-      "deadline": "{{date, MMMM d, yyyy h:mm a}}",
+      "deadline": "{{date, textualWithTime}}",
       "helper": "รักษาอันดับใน 500 อันดับแรกจนถึง <bold>{{deadline}}</bold> เพื่อรับรางวัล Prime ในรอบถัดไป <summaryLink>ดูสรุป Prime ของรอบที่แล้ว</summaryLink>",
-      "helperEnded": "รักษาอันดับใน 500 อันดับแรกจนถึง {{deadline}} เพื่อรับรางวัล Prime ในรอบถัดไป",
+      "helperEnded": "รักษาอันดับใน 500 อันดับแรกจนถึง <bold>{{deadline}}</bold> เพื่อรับรางวัล Prime ในรอบถัดไป",
       "hours": "ชม.",
       "mins": "นาที",
       "sec": "วินาที",
@@ -1319,6 +1319,10 @@
       "title": "กฎ"
     },
     "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{date, distanceToNow}} ที่แล้ว",
+    "tabs": {
+      "ranking": "อันดับ",
+      "rewards": "รางวัล Prime"
+    },
     "title": "กระดานผู้นำ Prime",
     "totalRewards": {
       "title": "รางวัล Prime ทั้งหมดที่แจกในรอบนี้"

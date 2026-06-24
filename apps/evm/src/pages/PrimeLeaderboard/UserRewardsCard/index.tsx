@@ -55,7 +55,10 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
     return { ...marketReward, asset, poolComptrollerAddress: pool?.comptrollerAddress };
   });
 
-  const cardClassName = cn('flex h-58 flex-col rounded-lg bg-background-active p-4', className);
+  const cardClassName = cn(
+    'flex flex-col gap-y-3 rounded-lg bg-background-active p-4 min-h-[182px] lg:h-58',
+    className,
+  );
 
   if (isLoading) {
     return (
@@ -96,20 +99,18 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
             token={token}
             rewardsCents={rewardsCents}
             totalRewardsCents={totalRewardsCents}
-          >
-            {showMarketActions && (
-              <>
-                {asset && <Apy asset={asset} type="supply" className="ml-2" />}
-
-                {asset && poolComptrollerAddress && (
-                  <MarketActionsButton
-                    asset={asset}
-                    poolComptrollerAddress={poolComptrollerAddress}
-                  />
-                )}
-              </>
-            )}
-          </MarketRewardRow>
+            apy={showMarketActions && asset && <Apy asset={asset} type="supply" />}
+            actions={
+              showMarketActions &&
+              asset &&
+              poolComptrollerAddress && (
+                <MarketActionsButton
+                  asset={asset}
+                  poolComptrollerAddress={poolComptrollerAddress}
+                />
+              )
+            }
+          />
         ))}
       </div>
     </div>

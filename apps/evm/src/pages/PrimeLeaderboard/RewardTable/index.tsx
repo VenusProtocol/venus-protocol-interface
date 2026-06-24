@@ -106,6 +106,8 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
       pageParamKey={REWARDS_PAGE_PARAM_KEY}
       rowKeyExtractor={row => `prime-reward-table-row-${row.userAddress}`}
       isFetching={isLoading}
+      breakpoint="sm"
+      hideCardDelimiter
       className={className}
     />
   );

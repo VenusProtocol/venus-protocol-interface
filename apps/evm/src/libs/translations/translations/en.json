@@ -1256,13 +1256,13 @@
     "description": "Stake XVS into the governance vault and receive Prime rewards on top of your yields.",
     "endOfCycle": {
       "days": "Days",
-      "deadline": "{{date, MMMM d, yyyy h:mm a}}",
+      "deadline": "{{date, textualWithTime}}",
       "helper": "Stay in the top 500 until <bold>{{deadline}}</bold> to receive Prime rewards during the next cycle. <summaryLink>See last cycle's Prime summary</summaryLink>.",
-      "helperEnded": "Stay in the top 500 until {{deadline}} to receive Prime rewards during the next cycle.",
+      "helperEnded": "Stay in the top 500 until <bold>{{deadline}}</bold> to receive Prime rewards during the next cycle.",
       "hours": "Hours",
       "mins": "Mins",
       "sec": "Sec",
-      "title": "End of cycle"
+      "title": "END OF CYCLE"
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime score",
@@ -1319,6 +1319,10 @@
       "title": "Rules"
     },
     "tablesRefreshNote": "Refreshed hourly · Last refresh: {{date, distanceToNow}} ago",
+    "tabs": {
+      "ranking": "Ranking",
+      "rewards": "Prime rewards"
+    },
     "title": "Prime leaderboard",
     "totalRewards": {
       "title": "Total Prime rewards distributed this cycle"

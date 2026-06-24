@@ -17,5 +17,5 @@ export const getRankLabels = ({
   rankLabel: hasStakedXvs ? `#${rank}` : '#—',
   primeScoreLabel: hasStakedXvs
     ? shortenValueWithSuffix({ value: new BigNumber(primeScore), maxDecimalPlaces: 2 })
-    : '0',
+    : '—',
 });

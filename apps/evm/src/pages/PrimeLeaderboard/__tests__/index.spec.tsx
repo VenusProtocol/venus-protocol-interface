@@ -8,6 +8,14 @@ vi.mock('components', () => ({
   Page: ({ children }: { children?: React.ReactNode }) => <div>{children}</div>,
   Card: ({ children }: { children?: React.ReactNode }) => <div>{children}</div>,
   Spinner: () => <div data-testid="spinner" />,
+  Icon: () => null,
+  Tabs: ({ tabs }: { tabs: { id: string; content: React.ReactNode }[] }) => (
+    <div>
+      {tabs.map(tab => (
+        <div key={tab.id}>{tab.content}</div>
+      ))}
+    </div>
+  ),
 }));
 
 vi.mock('../Hero', () => ({

@@ -7,9 +7,12 @@ import { MarketRewardRow } from '..';
 describe('pages/PrimeLeaderboard/MarketRewardRow', () => {
   it('renders the token, reward amount and trailing content', () => {
     renderComponent(
-      <MarketRewardRow token={usdc} rewardsCents={28_040_000} totalRewardsCents={46_230_000}>
-        <span>3.78%</span>
-      </MarketRewardRow>,
+      <MarketRewardRow
+        token={usdc}
+        rewardsCents={28_040_000}
+        totalRewardsCents={46_230_000}
+        apy={<span>3.78%</span>}
+      />,
     );
 
     expect(screen.getByText(usdc.symbol)).toBeInTheDocument();

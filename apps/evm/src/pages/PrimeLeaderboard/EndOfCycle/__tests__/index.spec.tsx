@@ -12,7 +12,7 @@ describe('pages/PrimeLeaderboard/EndOfCycle', () => {
       accountAddress: fakeAddress,
     });
 
-    expect(screen.getByText('End of cycle')).toBeInTheDocument();
+    expect(screen.getByText('END OF CYCLE')).toBeInTheDocument();
     expect(screen.getByText("See last cycle's Prime summary")).toBeInTheDocument();
   });
 
@@ -29,14 +29,14 @@ describe('pages/PrimeLeaderboard/EndOfCycle', () => {
   it('hides the last cycle summary link when the wallet is not connected', () => {
     renderComponent(<EndOfCycle endDate={new Date(Date.now() + 5 * ONE_DAY_MS)} />);
 
-    expect(screen.getByText('End of cycle')).toBeInTheDocument();
+    expect(screen.getByText('END OF CYCLE')).toBeInTheDocument();
     expect(screen.queryByText("See last cycle's Prime summary")).not.toBeInTheDocument();
   });
 
   it('renders the ended state for a past end date', () => {
     renderComponent(<EndOfCycle endDate={new Date(Date.now() - ONE_DAY_MS)} />);
 
-    expect(screen.getByText('End of cycle')).toBeInTheDocument();
+    expect(screen.getByText('END OF CYCLE')).toBeInTheDocument();
     expect(screen.queryByText("See last cycle's Prime summary")).not.toBeInTheDocument();
   });
 });
