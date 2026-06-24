@@ -11,7 +11,7 @@ import {
   useGetXvsVaultUserInfo,
 } from 'clients/api';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetUserPrimeInfo } from '..';
+import { useGetUserPrimeV1Info } from '..';
 
 const fakePrimeStatus = {
   claimWaitingPeriodSeconds: 600,
@@ -25,9 +25,9 @@ const fakePrimeStatus = {
   rewardTokenAddress: '',
 };
 
-vi.unmock('hooks/useGetUserPrimeInfo');
+vi.unmock('hooks/useGetUserPrimeV1Info');
 
-describe('useGetUserPrimeInfo', () => {
+describe('useGetUserPrimeV1Info', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
@@ -62,7 +62,7 @@ describe('useGetUserPrimeInfo', () => {
   });
 
   it('returns data in the correct format', async () => {
-    const { isLoading, data } = useGetUserPrimeInfo({
+    const { isLoading, data } = useGetUserPrimeV1Info({
       accountAddress: fakeAccountAddress,
     });
 

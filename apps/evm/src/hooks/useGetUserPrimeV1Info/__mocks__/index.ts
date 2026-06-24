@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-export const useGetUserPrimeInfo = vi.fn(() => ({
+export const useGetUserPrimeV1Info = vi.fn(() => ({
   isLoading: false,
   data: {
     isUserPrime: false,

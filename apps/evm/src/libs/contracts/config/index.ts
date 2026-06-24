@@ -129,6 +129,7 @@ import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
 import pendlePtVaultAbi from './externalAbis/PendlePtVault.json';
 import primeLeaderboardAbi from './externalAbis/PrimeLeaderboard.json';
 import primeV2Abi from './externalAbis/PrimeV2.json';
+import primeV2LensAbi from './externalAbis/PrimeV2Lens.json';
 import relativePositionManagerAbi from './externalAbis/RelativePositionManager.json';
 import swapRouterV2Abi from './externalAbis/SwapRouterV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
@@ -499,6 +500,13 @@ export const contracts: ContractConfig[] = [
     abi: primeV2Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xeC22366d2572e52BCB29B50C905b945BA421B9b2',
+    },
+  },
+  {
+    name: 'PrimeV2Lens',
+    abi: primeV2LensAbi as Abi,
+    address: {
+      [ChainId.BSC_TESTNET]: '0x13b3C3442e5fD642bc31D34db43d547E8C4322f7',
     },
   },
   {

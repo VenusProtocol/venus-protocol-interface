@@ -2,22 +2,22 @@ import type { Address, PublicClient } from 'viem';
 
 import { primeV2Abi } from 'libs/contracts';
 
-export interface GetIsUserPrimeInput {
+export interface GetIsUserPrimeV2Input {
   accountAddress: Address;
   primeV2ContractAddress: Address;
   publicClient: PublicClient;
 }
 
-export type GetIsUserPrimeOutput = {
-  isPrime: boolean;
-};
+export interface GetIsUserPrimeV2Output {
+  isPrimeHolder: boolean;
+}
 
-export const getIsUserPrime = async ({
-  publicClient,
-  primeV2ContractAddress,
+export const getIsUserPrimeV2 = async ({
   accountAddress,
-}: GetIsUserPrimeInput): Promise<GetIsUserPrimeOutput> => {
-  const isPrime = await publicClient.readContract({
+  primeV2ContractAddress,
+  publicClient,
+}: GetIsUserPrimeV2Input): Promise<GetIsUserPrimeV2Output> => {
+  const isPrimeHolder = await publicClient.readContract({
     address: primeV2ContractAddress,
     abi: primeV2Abi,
     functionName: 'isPrimeHolder',
@@ -25,6 +25,6 @@ export const getIsUserPrime = async ({
   });
 
   return {
-    isPrime,
+    isPrimeHolder,
   };
 };

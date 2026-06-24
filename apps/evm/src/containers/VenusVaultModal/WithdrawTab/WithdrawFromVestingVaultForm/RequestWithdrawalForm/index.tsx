@@ -17,6 +17,7 @@ import { useForm } from 'containers/useForm';
 import { isBefore } from 'date-fns/isBefore';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useNow } from 'hooks/useNow';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { VenusVault } from 'types';
@@ -40,6 +41,8 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
   const { mutateAsync: requestWithdrawalFromXvsVault } = useRequestWithdrawalFromXvsVault({
     waitForConfirmation: true,
   });
+
+  const { primeVersion } = usePrimeVersion();
 
   const poolIndex = vault.poolIndex || 0;
 
@@ -87,12 +90,23 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
     }
   });
 
-  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
-    accountAddress,
-  });
-  const { data: getPrimeStatusData, isLoading: isGetPrimeStatusLoading } = useGetPrimeStatus({
-    accountAddress,
-  });
+  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken(
+    {
+      accountAddress,
+    },
+    {
+      enabled: primeVersion === 1,
+    },
+  );
+
+  const { data: getPrimeStatusData, isLoading: isGetPrimeStatusLoading } = useGetPrimeStatus(
+    {
+      accountAddress,
+    },
+    {
+      enabled: primeVersion === 1,
+    },
+  );
 
   const limitFromTokens = convertMantissaToTokens({
     value: requestableAmountMantissa,
@@ -119,7 +133,12 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
       getPrimeStatusData?.xvsVaultPoolId === poolIndex &&
       fromAmountTokens.isGreaterThan(0);
 
-    if (!shouldDisplayPrimeWarning || !xvsVaultUserInfo) {
+    if (
+      primeVersion !== 1 ||
+      !shouldDisplayPrimeWarning ||
+      !xvsVaultUserInfo ||
+      !getPrimeStatusData?.primeMinimumStakedXvsMantissa
+    ) {
       return undefined;
     }
 
@@ -149,6 +168,7 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
     poolIndex,
     readablePrimeMinimumXvsStake,
     t,
+    primeVersion,
   ]);
 
   const isInitialLoading =

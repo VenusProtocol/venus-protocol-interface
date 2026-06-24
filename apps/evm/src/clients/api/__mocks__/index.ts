@@ -266,6 +266,11 @@ export const useGetSimulatedPool = vi.fn(() => ({
   },
 }));
 
+export const useGetPrimeVaultConfig = vi.fn(() => ({
+  isLoading: false,
+  data: undefined,
+}));
+
 export const useGetAsset = vi.fn(() => ({
   isLoading: false,
   data: {
@@ -483,6 +488,16 @@ export const useGetHypotheticalPrimeApys = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_HYPOTHETICAL_PRIME_APYS],
     queryFn: getHypotheticalPrimeApys,
+  }),
+);
+
+export const getIsUserPrimeV2 = vi.fn(async () => ({
+  isPrimeHolder: false,
+}));
+export const useGetIsUserPrimeV2 = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IS_USER_PRIME_V2],
+    queryFn: getIsUserPrimeV2,
   }),
 );
 

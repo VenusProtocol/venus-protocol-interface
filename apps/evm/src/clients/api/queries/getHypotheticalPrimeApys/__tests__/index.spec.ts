@@ -39,6 +39,7 @@ describe('getHypotheticalPrimeApys', () => {
     const response = await getHypotheticalPrimeApys({
       publicClient: fakePublicClient,
       primeContractAddress: fakePrimeContractAddress,
+      primeVersion: 1,
       accountAddress: fakeAccountAddress,
       vTokenAddress: vXvs.address,
       userXvsStakedMantissa: fakeUserXvsStakedMantissa,

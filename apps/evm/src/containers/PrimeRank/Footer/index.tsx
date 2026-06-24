@@ -2,6 +2,7 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
+import { Spinner } from 'components';
 import { EligibilityStatus } from '../EligibilityStatus';
 import { getRankLabels } from '../getRankLabels';
 import { useGetPrimeRank } from '../useGetPrimeRank';
@@ -14,50 +15,56 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
   const { t, Trans } = useTranslation();
 
   const rankData = useGetPrimeRank();
-  const { hasStakedXvs, isCandidate, gapXvsTokens } = rankData;
+  const { hasStakedXvs, isCandidate, gapXvsTokens, isLoading } = rankData;
 
   const { rankLabel, primeScoreLabel } = getRankLabels(rankData);
 
   return (
     <div className="flex flex-col gap-1 rounded-lg border border-dark-blue-hover p-3">
-      <div className="flex items-start justify-between">
-        <div className="flex flex-col">
-          <span className="text-b1r text-light-grey">
-            {t('primeLeaderboard.rankCard.rankLabel')}
-          </span>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="flex items-start justify-between">
+            <div className="flex flex-col">
+              <span className="text-b1r text-light-grey">
+                {t('primeLeaderboard.rankCard.rankLabel')}
+              </span>
 
-          <span className="text-p1s text-white">{rankLabel}</span>
-        </div>
+              <span className="text-p1s text-white">{rankLabel}</span>
+            </div>
 
-        <div className="flex flex-col items-end">
-          <span className="text-b1r text-light-grey">
-            {t('primeLeaderboard.rankCard.primeScoreLabel')}
-          </span>
+            <div className="flex flex-col items-end">
+              <span className="text-b1r text-light-grey">
+                {t('primeLeaderboard.rankCard.primeScoreLabel')}
+              </span>
 
-          <span className="text-p1s text-white">{primeScoreLabel}</span>
-        </div>
-      </div>
+              <span className="text-p1s text-white">{primeScoreLabel}</span>
+            </div>
+          </div>
 
-      <EligibilityStatus
-        hasStakedXvs={hasStakedXvs}
-        isCandidate={isCandidate}
-        gapXvsTokens={gapXvsTokens}
-        linkSlot={
-          !hideLeaderboardLink && (
-            <span className="text-white">
-              {' '}
-              <Trans
-                i18nKey="primeLeaderboard.rankFooter.learnMore"
-                components={{
-                  leaderboardLink: (
-                    <Link className="text-blue underline" to={routes.primeLeaderboard.path} />
-                  ),
-                }}
-              />
-            </span>
-          )
-        }
-      />
+          <EligibilityStatus
+            hasStakedXvs={hasStakedXvs}
+            isCandidate={isCandidate}
+            gapXvsTokens={gapXvsTokens}
+            linkSlot={
+              !hideLeaderboardLink && (
+                <span className="text-white">
+                  {' '}
+                  <Trans
+                    i18nKey="primeLeaderboard.rankFooter.learnMore"
+                    components={{
+                      leaderboardLink: (
+                        <Link className="text-blue underline" to={routes.primeLeaderboard.path} />
+                      ),
+                    }}
+                  />
+                </span>
+              )
+            }
+          />
+        </>
+      )}
     </div>
   );
 };

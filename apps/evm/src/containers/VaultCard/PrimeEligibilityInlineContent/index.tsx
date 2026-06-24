@@ -1,7 +1,7 @@
 import { LabeledInlineContent } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
+import { useGetUserPrimeV1Info } from 'hooks/useGetUserPrimeV1Info';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -31,7 +31,7 @@ export const PrimeEligibilityInlineContent: React.FC<PrimeEligibilityInlineConte
       claimWaitingPeriodSeconds,
       userClaimTimeRemainingSeconds,
     },
-  } = useGetUserPrimeInfo({ accountAddress });
+  } = useGetUserPrimeV1Info({ accountAddress });
 
   const stakeDeltaTokens = clampToZero({
     value: minXvsToStakeForPrimeTokens.minus(userStakedXvsTokens),

@@ -8,15 +8,14 @@ import { Card, PrimaryButton, ProgressBar } from 'components';
 import { VENUS_PRIME_DOC_URL } from 'constants/production';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useGetUserPrimeV1Info } from 'hooks/useGetUserPrimeV1Info';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import type { Token } from 'types';
-
-import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { useAccountAddress } from 'libs/wallet';
+import type { Token } from 'types';
 import {
   clampToZero,
   formatPercentageToReadableValue,
@@ -344,7 +343,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       userHighestPrimeSimulationApyBoostPercentage,
     },
     isLoading,
-  } = useGetUserPrimeInfo({ accountAddress });
+  } = useGetUserPrimeV1Info({ accountAddress });
 
   const { mutateAsync: claimPrimeToken, isPending: isClaimPrimeTokenLoading } = useClaimPrimeToken({
     waitForConfirmation: true,

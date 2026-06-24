@@ -1,8 +1,8 @@
 import type BigNumber from 'bignumber.js';
 import type { Address, PublicClient } from 'viem';
 
-import { primeAbi } from 'libs/contracts';
-import type { Asset, Token, TokenDistribution } from 'types';
+import { primeAbi, primeV2LensAbi } from 'libs/contracts';
+import type { Asset, PrimeVersion, Token, TokenDistribution } from 'types';
 import { convertAprBipsToApy, convertTokensToMantissa } from 'utilities';
 
 const toMantissa = ({
@@ -27,14 +27,16 @@ export const addUserPrimeApys = async ({
   mutatedVTokenAddresses,
   accountAddress,
   publicClient,
-  primeContractAddress,
+  primeAprContractAddress,
+  primeVersion,
   userXvsStakedMantissa,
 }: {
   assets: Asset[];
   mutatedVTokenAddresses: Address[];
   accountAddress: Address;
   publicClient: PublicClient;
-  primeContractAddress: Address;
+  primeAprContractAddress: Address;
+  primeVersion: PrimeVersion;
   userXvsStakedMantissa: BigNumber;
 }) => {
   const formattedAssets = await Promise.all(
@@ -44,8 +46,8 @@ export const addUserPrimeApys = async ({
       }
 
       const simulatedPrimeAprs = await publicClient.readContract({
-        abi: primeAbi,
-        address: primeContractAddress,
+        abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
+        address: primeAprContractAddress,
         functionName: 'estimateAPR',
         args: [
           asset.vToken.address,

@@ -8,6 +8,7 @@ import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import type { GetPoolsInput } from '../types';
 import { getPools } from './getPools';
 import type { GetPoolsQueryOutput } from './getPools';
@@ -44,10 +45,6 @@ export type UseGetPoolsQueryOptions = QueryObserverOptions<
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 export const useGetPoolsQuery = (input?: TrimmedInput, options?: UseGetPoolsQueryOptions) => {
-  const isPrimeEnabled = useIsFeatureEnabled({
-    name: 'prime',
-  });
-
   const isEModeFeatureEnabled = useIsFeatureEnabled({
     name: 'eMode',
   });
@@ -56,11 +53,20 @@ export const useGetPoolsQuery = (input?: TrimmedInput, options?: UseGetPoolsQuer
   const { chainId } = useChainId();
   const tokens = useGetTokens();
 
+  const { primeVersion } = usePrimeVersion();
+
   const { publicClient } = usePublicClient();
 
-  const { address: primeContractAddress } = useGetContractAddress({
+  const { address: primeV1ContractAddress } = useGetContractAddress({
     name: 'Prime',
   });
+  const { address: primeV2ContractAddress } = useGetContractAddress({
+    name: 'PrimeV2',
+  });
+  const { address: primeV2LensContractAddress } = useGetContractAddress({
+    name: 'PrimeV2Lens',
+  });
+
   const { address: poolLensContractAddress } = useGetContractAddress({
     name: 'PoolLens',
   });
@@ -89,7 +95,10 @@ export const useGetPoolsQuery = (input?: TrimmedInput, options?: UseGetPoolsQuer
         poolLensContractAddress,
         vaiControllerContractAddress,
         resilientOracleContractAddress,
-        primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
+        primeV1ContractAddress,
+        primeV2ContractAddress,
+        primeV2LensContractAddress,
+        primeVersion,
         isEModeFeatureEnabled,
         ...input,
       }),
