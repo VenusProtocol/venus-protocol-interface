@@ -42,7 +42,7 @@ export const useGetPrimeLastCycleSummary = (): UseGetPrimeLastCycleSummaryOutput
   );
 
   return {
-    rank: rankingEntry?.finalRank,
+    rank: userCycleRewards?.rank ?? undefined,
     primeScore: rankingEntry
       ? convertMantissaToTokens({
           value: new BigNumber(rankingEntry.finalEffectiveStakeMantissa),

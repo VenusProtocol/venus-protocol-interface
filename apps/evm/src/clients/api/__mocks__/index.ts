@@ -721,6 +721,7 @@ export const useGetPrimeCycle = vi.fn(() =>
 );
 
 export const getPrimeUserCycleRewards = vi.fn(async () => ({
+  rank: 2,
   totalRewardCents: '1840000',
   markets: [
     {

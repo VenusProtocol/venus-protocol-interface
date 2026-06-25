@@ -17,6 +17,7 @@ export interface GetPrimeUserCycleRewardsInput {
 }
 
 export interface GetPrimeUserCycleRewardsOutput {
+  rank: number | null;
   totalRewardCents: string | null;
   markets: PrimeUserCycleRewardMarket[];
 }
@@ -29,6 +30,7 @@ interface PrimeUserCycleRewardMarketResponse {
 }
 
 interface GetPrimeUserCycleRewardsResponse {
+  rank: number | null;
   totalRewardUsdCents: string | null;
   markets: PrimeUserCycleRewardMarketResponse[];
 }
@@ -59,6 +61,7 @@ export const getPrimeUserCycleRewards = async ({
   }
 
   return {
+    rank: payload.rank,
     totalRewardCents: payload.totalRewardUsdCents,
     markets: payload.markets.map(({ totalRewardUsdCents, ...market }) => ({
       ...market,

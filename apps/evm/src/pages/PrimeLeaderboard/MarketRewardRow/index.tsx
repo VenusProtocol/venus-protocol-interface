@@ -48,8 +48,9 @@ export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
           {formatCentsToReadableValue({ value: rewardsCents })}
         </span>
 
-        <div className={cn('ml-1 w-1/4 shrink-0', progressBarClassName)}>
+        <div className={cn('ml-1 flex w-1/4 shrink-0 items-center', progressBarClassName)}>
           <ProgressBar
+            className="w-full"
             min={0}
             max={100}
             value={progressPercentage}
