@@ -2,7 +2,7 @@ import type { Mock } from 'vitest';
 
 import { MAX_NOTIFICATIONS, displayNotification, hideNotification, updateNotification } from '..';
 import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
-import { useStore } from '../../store';
+import { store } from '../../store';
 import type { AddNotificationInput, UpdateNotificationInput } from '../../store/types';
 
 const fakeNotificationInput: AddNotificationInput = {
@@ -23,7 +23,7 @@ describe('utilities', async () => {
     global.clearTimeout = vi.fn();
 
     vi.mock('../../store', () => ({
-      useStore: {
+      store: {
         getState: vi.fn(() => ({
           notifications: fakeNotifications,
           removeNotification: removeNotificationMock,
@@ -39,22 +39,22 @@ describe('utilities', async () => {
       const newNotificationId = displayNotification(fakeNotificationInput);
 
       expect(newNotificationId).toBe(fakeNotificationInput.id);
-      expect(useStore.getState().addNotification).toHaveBeenCalledTimes(1);
-      expect(useStore.getState().addNotification).toHaveBeenCalledWith(fakeNotificationInput);
+      expect(store.getState().addNotification).toHaveBeenCalledTimes(1);
+      expect(store.getState().addNotification).toHaveBeenCalledWith(fakeNotificationInput);
 
       // Fast-forward until all timers have been executed
       vi.runAllTimers();
 
-      expect(useStore.getState().removeNotification).toBeCalledTimes(1);
-      expect(useStore.getState().removeNotification).toHaveBeenCalledWith({
+      expect(store.getState().removeNotification).toBeCalledTimes(1);
+      expect(store.getState().removeNotification).toHaveBeenCalledWith({
         id: fakeNotificationInput.id,
       });
     });
 
     it('removes the last notification from the store when the maximum number of notifications allowed has been reached', () => {
       // Add maximum amount of notifications allowed to store
-      const state = useStore.getState();
-      (useStore.getState as Mock).mockImplementation(() => ({
+      const state = store.getState();
+      (store.getState as Mock).mockImplementation(() => ({
         ...state,
         notifications: new Array(MAX_NOTIFICATIONS).fill(undefined).map((_, id) => ({
           id,
@@ -66,10 +66,10 @@ describe('utilities', async () => {
         description: 'Fake description',
       });
 
-      const { notifications } = useStore.getState();
+      const { notifications } = store.getState();
 
-      expect(useStore.getState().removeNotification).toHaveBeenCalledTimes(1);
-      expect(useStore.getState().removeNotification).toHaveBeenCalledWith({
+      expect(store.getState().removeNotification).toHaveBeenCalledTimes(1);
+      expect(store.getState().removeNotification).toHaveBeenCalledWith({
         id: notifications[notifications.length - 1].id,
       });
     });
@@ -82,13 +82,13 @@ describe('utilities', async () => {
       const newNotificationId = displayNotification(customFakeNotificationInput);
 
       expect(newNotificationId).toBe(customFakeNotificationInput.id);
-      expect(useStore.getState().addNotification).toHaveBeenCalledTimes(1);
-      expect(useStore.getState().addNotification).toHaveBeenCalledWith(customFakeNotificationInput);
+      expect(store.getState().addNotification).toHaveBeenCalledTimes(1);
+      expect(store.getState().addNotification).toHaveBeenCalledWith(customFakeNotificationInput);
 
       // Fast-forward until all timers have been executed
       vi.runAllTimers();
 
-      expect(useStore.getState().removeNotification).not.toHaveBeenCalledWith(1);
+      expect(store.getState().removeNotification).not.toHaveBeenCalledWith(1);
     });
   });
 
@@ -100,8 +100,8 @@ describe('utilities', async () => {
       // Check hide timeout is cleared
       expect(global.clearTimeout).toHaveBeenCalledTimes(1);
 
-      expect(useStore.getState().removeNotification).toHaveBeenCalledTimes(1);
-      expect(useStore.getState().removeNotification).toHaveBeenCalledWith({
+      expect(store.getState().removeNotification).toHaveBeenCalledTimes(1);
+      expect(store.getState().removeNotification).toHaveBeenCalledWith({
         id: fakeNotificationId,
       });
     });
@@ -120,14 +120,14 @@ describe('utilities', async () => {
       // Check hide timeout is cleared
       expect(global.clearTimeout).toHaveBeenCalledTimes(1);
 
-      expect(useStore.getState().updateNotification).toHaveBeenCalledTimes(1);
-      expect(useStore.getState().updateNotification).toHaveBeenCalledWith(fakeNotificationUpdate);
+      expect(store.getState().updateNotification).toHaveBeenCalledTimes(1);
+      expect(store.getState().updateNotification).toHaveBeenCalledWith(fakeNotificationUpdate);
 
       // Fast-forward until all timers have been executed
       vi.runAllTimers();
 
-      expect(useStore.getState().removeNotification).toHaveBeenCalledTimes(1);
-      expect(useStore.getState().removeNotification).toHaveBeenCalledWith({
+      expect(store.getState().removeNotification).toHaveBeenCalledTimes(1);
+      expect(store.getState().removeNotification).toHaveBeenCalledWith({
         id: fakeNotificationUpdate.id,
       });
     });
@@ -140,13 +140,13 @@ describe('utilities', async () => {
       const newNotificationId = displayNotification(customFakeNotificationInput);
 
       expect(newNotificationId).toBe(customFakeNotificationInput.id);
-      expect(useStore.getState().addNotification).toHaveBeenCalledTimes(1);
-      expect(useStore.getState().addNotification).toHaveBeenCalledWith(customFakeNotificationInput);
+      expect(store.getState().addNotification).toHaveBeenCalledTimes(1);
+      expect(store.getState().addNotification).toHaveBeenCalledWith(customFakeNotificationInput);
 
       // Fast-forward until all timers have been executed
       vi.runAllTimers();
 
-      expect(useStore.getState().removeNotification).not.toHaveBeenCalledWith(1);
+      expect(store.getState().removeNotification).not.toHaveBeenCalledWith(1);
     });
   });
 });

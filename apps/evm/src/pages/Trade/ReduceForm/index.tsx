@@ -17,7 +17,7 @@ import { usePositionForm } from 'pages/Trade/OperationForm/usePositionForm';
 import { PositionForm } from 'pages/Trade/PositionForm';
 import type { AssetBalanceMutation, TradePosition } from 'types';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
-import { useStore } from '../ClosePositionModal/store';
+import { store } from '../ClosePositionModal/store';
 
 export interface ReduceFormProps {
   position: TradePosition;
@@ -29,7 +29,7 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const { formValues, setFormValues } = usePositionForm({ position });
 
-  const hideClosePositionModal = useStore(state => state.hideModal);
+  const hideClosePositionModal = store.use.hideModal();
 
   const { mutateAsync: reducePositionWithProfit, isPending: isReducingPositionWithProfit } =
     useReduceTradePositionWithProfit({

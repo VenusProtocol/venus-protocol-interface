@@ -4,26 +4,26 @@ import {
 } from 'constants/swap';
 import { ChainId } from 'types';
 import { extractEnumValues } from 'utilities/extractEnumValues';
-import { initialUserSettings, useStore } from '..';
+import { initialUserSettings, store } from '..';
 
 const allChainIds = extractEnumValues(ChainId);
 
 describe('store', () => {
   describe('userSettings', () => {
     it('sets correct initial user settings', () => {
-      expect(useStore.getState().userSettings).toEqual(initialUserSettings);
+      expect(store.getState().userSettings).toEqual(initialUserSettings);
     });
   });
 
   describe('setUserSettings', () => {
     it('updates user settings correctly', () => {
-      useStore.getState().setUserSettings({
+      store.getState().setUserSettings({
         settings: {
           gaslessTransactions: false,
         },
       });
 
-      expect(useStore.getState().userSettings).toEqual(
+      expect(store.getState().userSettings).toEqual(
         allChainIds.reduce(
           (acc, chainId) => ({
             ...acc,
@@ -38,7 +38,7 @@ describe('store', () => {
     });
 
     it('updates user settings correctly when passing chainIds', () => {
-      useStore.getState().setUserSettings({
+      store.getState().setUserSettings({
         settings: {
           gaslessTransactions: false,
           doNotShowImportPositionsModal: true,
@@ -46,7 +46,7 @@ describe('store', () => {
         chainIds: [ChainId.BSC_TESTNET, ChainId.ARBITRUM_SEPOLIA],
       });
 
-      expect(useStore.getState().userSettings).toEqual({
+      expect(store.getState().userSettings).toEqual({
         ...initialUserSettings,
         [ChainId.BSC_TESTNET]: {
           gaslessTransactions: false,
@@ -62,7 +62,7 @@ describe('store', () => {
 
   describe('persist merge', () => {
     it('clamps persisted slippage tolerance above the maximum', () => {
-      const merge = useStore.persist.getOptions().merge;
+      const merge = store.persist.getOptions().merge;
 
       const mergedState = merge?.(
         {
@@ -75,9 +75,9 @@ describe('store', () => {
               slippageTolerancePercentage: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE),
             },
           },
-          setUserSettings: useStore.getState().setUserSettings,
+          setUserSettings: store.getState().setUserSettings,
         },
-        useStore.getInitialState(),
+        store.getInitialState(),
       );
 
       expect(mergedState?.userSettings[ChainId.BSC_TESTNET]).toEqual({

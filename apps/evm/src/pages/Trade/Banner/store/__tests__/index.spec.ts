@@ -1,17 +1,17 @@
-import { useStore } from '..';
+import { store } from '..';
 
 describe('store', () => {
   describe('doNotShowBanner', () => {
     it('sets correct initial props', () => {
-      expect(useStore.getState().doNotShowBanner).toMatchInlineSnapshot('false');
+      expect(store.getState().doNotShowBanner).toMatchInlineSnapshot('false');
     });
   });
 
   describe('hideBanner', () => {
     it('updates props correctly', () => {
-      useStore.getState().hideBanner();
+      store.getState().hideBanner();
 
-      expect(useStore.getState().doNotShowBanner).toMatchInlineSnapshot('true');
+      expect(store.getState().doNotShowBanner).toMatchInlineSnapshot('true');
     });
   });
 });

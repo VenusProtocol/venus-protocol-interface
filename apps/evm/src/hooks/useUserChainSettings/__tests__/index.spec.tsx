@@ -1,29 +1,30 @@
-import type { UserChainSettings } from 'store';
+import type { Mock } from 'vitest';
+
+import { store } from 'store';
 import { renderHook as renderHookWithContext } from 'testUtils/render';
 import { ChainId } from 'types';
 import { useUserChainSettings } from '..';
 
 vi.unmock('hooks/useUserChainSettings');
 
-const mockSetUserSettings = vi.fn();
-const mockStoreState = {
-  setUserSettings: mockSetUserSettings,
-  userSettings: {} as Partial<Record<ChainId, Partial<UserChainSettings>>>,
-};
-
 vi.mock('store', () => ({
-  useStore: vi.fn((selector: (state: typeof mockStoreState) => unknown) =>
-    selector(mockStoreState),
-  ),
+  store: {
+    use: {
+      setUserSettings: vi.fn(() => vi.fn()),
+      userSettings: vi.fn(() => ({
+        gaslessTransactions: true,
+      })),
+    },
+  },
 }));
 
 describe('useUserChainSettings', () => {
   it('returns correct settings from the store', () => {
-    mockStoreState.userSettings = {
+    (store.use.userSettings as Mock).mockReturnValue({
       [ChainId.BSC_TESTNET]: {
         gaslessTransactions: true,
       },
-    };
+    });
 
     const {
       result: {
@@ -35,7 +36,7 @@ describe('useUserChainSettings', () => {
   });
 
   it('calls setState when updating settings', () => {
-    mockSetUserSettings.mockReset();
+    (store.use.setUserSettings as Mock).mockReturnValue(vi.fn(() => vi.fn()));
 
     const {
       result: {
@@ -45,7 +46,7 @@ describe('useUserChainSettings', () => {
 
     setUserChainSettings({ gaslessTransactions: false });
 
-    expect(mockSetUserSettings).toHaveBeenCalledWith({
+    expect(store.use.setUserSettings()).toHaveBeenCalledWith({
       settings: {
         gaslessTransactions: false,
       },

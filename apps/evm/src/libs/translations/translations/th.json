@@ -763,10 +763,6 @@
       "label": "เลือกเชน"
     },
     "header": {
-      "dashboardAdBanner": {
-        "buttonLabel": "สำรวจเลย",
-        "title": "USDT Fixed-Term Vault เปิดให้ใช้งานแล้วบน BNB Chain เป้าหมาย ≈5.4% APR"
-      },
       "liquidity": "สภาพคล่อง",
       "maxLtv": {
         "label": "LTV สูงสุด",
@@ -1268,6 +1264,30 @@
       "sec": "วินาที",
       "title": "สิ้นสุดรอบ"
     },
+    "lastCycleSummary": {
+      "primeScoreLabel": "คะแนน Prime",
+      "rankLabel": "อันดับของคุณ",
+      "rankMissed": "ใกล้แล้ว! คุณไม่ได้อยู่ใน Top 500 ของรอบที่แล้ว เพิ่ม stake ของคุณเพื่อให้มีสิทธิ์ในรอบนี้",
+      "rankNoStake": "คุณไม่ได้ stake XVS ในรอบที่แล้ว Stake ตอนนี้เพื่อมีสิทธิ์รับ Prime และรับรางวัลเพิ่มเติม",
+      "rankQualified": "ยินดีด้วย! คุณอยู่ใน Top 500 ในรอบที่แล้วและมีสิทธิ์รับรางวัล Prime",
+      "title": "สรุป Prime รอบที่แล้ว",
+      "userRewardsTitle": "รางวัล Prime ของคุณในรอบที่แล้ว"
+    },
+    "rankCard": {
+      "connectPrompt": "เชื่อมต่อกระเป๋าเงินเพื่อตรวจสอบสิทธิ์ Prime ของคุณ",
+      "eligible": "คุณมีสิทธิ์รับ Prime ในรอบถัดไป",
+      "notEligible": "คุณยังไม่มีสิทธิ์รับ Prime ในรอบถัดไป",
+      "primeScoreLabel": "คะแนน Prime",
+      "rankLabel": "อันดับของคุณ",
+      "rulesButton": "กฎ",
+      "stakeButton": "Stake XVS",
+      "stakeMore": "Stake XVS เพิ่มเพื่อแข่งขันรับ Prime ในรอบถัดไป",
+      "stakePrompt": "Stake XVS เพื่อแข่งขันรับ Prime",
+      "stakeToReachTop": "Stake อีก <Highlight>{{amount}} XVS</Highlight> เพื่อขึ้นไปอยู่ใน top #500 และมีสิทธิ์รับ Prime ในรอบถัดไป"
+    },
+    "rankFooter": {
+      "learnMore": "เรียนรู้เพิ่มเติมจาก <leaderboardLink>Prime Leaderboard</leaderboardLink>"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "คะแนน Prime",
@@ -1283,8 +1303,34 @@
         "wallet": "กระเป๋าเงิน"
       }
     },
+    "rulesModal": {
+      "boostColumn": "ตัวคูณ",
+      "boostMax": "{{boost}} (สูงสุด)",
+      "contribution": "สำหรับการฝากแต่ละครั้ง การมีส่วนร่วมของคุณคือ <Highlight>XVS × ตัวคูณ × จำนวนวันที่ถือ</Highlight> คะแนน Prime รวมของคุณคือผลรวมของการฝากทั้งหมด",
+      "daysHeld": "{{range}} วัน",
+      "daysHeldColumn": "จำนวนวันที่ถือ",
+      "footer": "เพื่อไต่อันดับลีดเดอร์บอร์ด: stake มากขึ้นและถือนานขึ้น",
+      "intro1": "<Highlight>คะแนน Prime</Highlight> ของคุณกำหนดอันดับของคุณบนลีดเดอร์บอร์ด <Highlight>500 อันดับแรก</Highlight> ในแต่ละเดือนจะกลายเป็นผู้ถือ Prime และแบ่งปันพูลรางวัลรายเดือน",
+      "intro2": "คะแนนของคุณให้รางวัลทั้ง <Highlight>จำนวน</Highlight> XVS ที่คุณ stake และ <Highlight>ระยะเวลา</Highlight> ที่คุณถือ แต่ละการฝากจะได้รับตัวคูณความภักดีตามระยะเวลาที่ถือ:",
+      "point1": "<Highlight>ทั้งตัวคูณและจำนวนวันถูกจำกัดที่ 90 วัน</Highlight> — การถือนานกว่านั้นจะไม่เพิ่มคะแนนต่อ XVS อีก",
+      "point2": "<Highlight>ถอนเงิน? เงินฝากล่าสุดของคุณจะถูกหักก่อน</Highlight> เงิน stake ที่เก่าที่สุดและมีตัวคูณสูงสุดของคุณจะได้รับการปกป้อง",
+      "point3": "คะแนนอัปเดต <Highlight>แบบเรียลไทม์</Highlight> — แต่สถานะ Prime ของคุณจะถูกล็อกที่ <Highlight>สแน็ปช็อตรายเดือน</Highlight>",
+      "thingsToKnowTitle": "สิ่งที่ควรรู้:",
+      "title": "กฎ"
+    },
     "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{date, distanceToNow}} ที่แล้ว",
-    "title": "กระดานผู้นำ Prime"
+    "title": "กระดานผู้นำ Prime",
+    "totalRewards": {
+      "title": "รางวัล Prime ทั้งหมดที่แจกในรอบนี้"
+    },
+    "userRewards": {
+      "eligibleMessage": "คุณมีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ จัดหาสินทรัพย์ด้านล่างเพื่อรับรางวัล",
+      "marketActions": "เปิดการดำเนินการของตลาด",
+      "notEligibleMessage": "คุณยังไม่มีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
+      "primeLogoAlt": "โลโก้ Venus Prime",
+      "rewardShareAriaLabel": "สัดส่วนของรางวัลทั้งหมด",
+      "title": "รางวัล Prime ของคุณในรอบนี้"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "ตอนนี้คุณสามารถเป็นผู้ใช้ Prime ได้แล้ว",

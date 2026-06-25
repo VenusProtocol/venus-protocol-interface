@@ -763,10 +763,6 @@
       "label": "Zincir seç"
     },
     "header": {
-      "dashboardAdBanner": {
-        "buttonLabel": "Şimdi keşfet",
-        "title": "USDT Sabit Vadeli Kasa şimdi BNB Chain'de yayında. Hedef ≈%5,4 APR."
-      },
       "liquidity": "Likidite",
       "maxLtv": {
         "label": "Maks LTV",
@@ -1268,6 +1264,30 @@
       "sec": "Sn.",
       "title": "Döngü sonu"
     },
+    "lastCycleSummary": {
+      "primeScoreLabel": "Prime puanı",
+      "rankLabel": "Sıralaman",
+      "rankMissed": "Az kaldı! Son döngüde ilk 500 içinde değildin. Bu döngüde uygun olmak için stake'ini artır.",
+      "rankNoStake": "Son döngüde XVS stake etmedin. Prime için uygun olmak ve ek ödül kazanmak için şimdi stake et.",
+      "rankQualified": "Tebrikler! Son döngüde ilk 500 içindeydin ve Prime ödülleri için uygun oldun.",
+      "title": "Son Döngü Prime Özeti",
+      "userRewardsTitle": "Son döngüdeki Prime ödülleriniz"
+    },
+    "rankCard": {
+      "connectPrompt": "Prime uygunluğunu görmek için cüzdanını bağla.",
+      "eligible": "Bir sonraki döngüde Prime için uygunsun",
+      "notEligible": "Bir sonraki döngüde Prime için uygun değilsin.",
+      "primeScoreLabel": "Prime puanı",
+      "rankLabel": "Sıralaman",
+      "rulesButton": "Kurallar",
+      "stakeButton": "XVS stake et",
+      "stakeMore": "Bir sonraki döngüde Prime için yarışmak üzere daha fazla XVS stake et.",
+      "stakePrompt": "Prime için yarışmak üzere XVS stake et.",
+      "stakeToReachTop": "İlk #500'e girmek ve bir sonraki döngüde Prime için uygun olmak için <Highlight>{{amount}} XVS</Highlight> stake et."
+    },
+    "rankFooter": {
+      "learnMore": "<leaderboardLink>Prime Leaderboard</leaderboardLink> üzerinden daha fazla bilgi edinin"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime puanı",
@@ -1283,8 +1303,34 @@
         "wallet": "Cüzdan"
       }
     },
+    "rulesModal": {
+      "boostColumn": "Artış",
+      "boostMax": "{{boost}} (maks.)",
+      "contribution": "Her yatırma için katkınız <Highlight>XVS × artış × tutulan gün</Highlight> şeklindedir. Toplam Prime puanınız tüm yatırmalarınızın toplamıdır.",
+      "daysHeld": "{{range}} gün",
+      "daysHeldColumn": "Tutulan gün",
+      "footer": "Liderlik tablosunda yükselmek için: daha fazla stake edin ve daha uzun süre tutun.",
+      "intro1": "<Highlight>Prime puanınız</Highlight> liderlik tablosundaki yerinizi belirler. Her ay <Highlight>ilk 500</Highlight> Prime sahibi olur ve aylık ödül havuzunu paylaşır.",
+      "intro2": "Puanınız hem stake ettiğiniz XVS <Highlight>miktarını</Highlight> hem de ne <Highlight>kadar süre</Highlight> tuttuğunuzu ödüllendirir. Her yatırma, ne kadar eski olduğuna göre bir sadakat artışı kazanır:",
+      "point1": "<Highlight>Hem artış hem de gün sayısı 90 günle sınırlıdır</Highlight> — daha uzun tutmak XVS başına puanı daha fazla artırmaz.",
+      "point2": "<Highlight>Çekiyor musunuz? En yeni yatırmalarınız önce çıkar.</Highlight> En eski, en yüksek artışlı stake’iniz korunur.",
+      "point3": "Puan <Highlight>canlı</Highlight> olarak güncellenir — ancak Prime durumunuz <Highlight>aylık anlık görüntüde</Highlight> sabitlenir.",
+      "thingsToKnowTitle": "Bilmeniz gereken birkaç şey:",
+      "title": "Kurallar"
+    },
     "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
-    "title": "Prime lider tablosu"
+    "title": "Prime lider tablosu",
+    "totalRewards": {
+      "title": "Bu döngüde dağıtılan toplam Prime ödülü"
+    },
+    "userRewards": {
+      "eligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygunsun. Ödülleri paylaşmak için aşağıdan varlık sağla.",
+      "marketActions": "Piyasa işlemlerini aç",
+      "notEligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygun değilsin. Sonraki döngüde Prime için yarışmak üzere XVS stake et.",
+      "primeLogoAlt": "Venus Prime logosu",
+      "rewardShareAriaLabel": "Toplam ödüllerdeki pay",
+      "title": "Bu döngüdeki Prime ödülleriniz"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "Artık Prime kullanıcısı olabilirsiniz",

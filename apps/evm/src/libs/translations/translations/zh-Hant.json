@@ -763,10 +763,6 @@
       "label": "選擇鏈"
     },
     "header": {
-      "dashboardAdBanner": {
-        "buttonLabel": "立即探索",
-        "title": "USDT 固定期限金庫現已在 BNB Chain 上線。目標 ≈5.4% APR。"
-      },
       "liquidity": "流動性",
       "maxLtv": {
         "label": "最大 LTV",
@@ -1268,6 +1264,30 @@
       "sec": "秒",
       "title": "週期結束"
     },
+    "lastCycleSummary": {
+      "primeScoreLabel": "Prime 分數",
+      "rankLabel": "你的排名",
+      "rankMissed": "就差一點!你未進入上一週期前 500。提升質押以在本週期獲得資格。",
+      "rankNoStake": "你在上一週期未質押 XVS。立即質押以獲得 Prime 資格並賺取額外獎勵。",
+      "rankQualified": "恭喜!你在上一週期位列前 500,已獲得 Prime 獎勵資格。",
+      "title": "上一週期 Prime 彙總",
+      "userRewardsTitle": "你上一週期的 Prime 獎勵"
+    },
+    "rankCard": {
+      "connectPrompt": "連接錢包以查看你的 Prime 資格。",
+      "eligible": "你目前已具備下個週期的 Prime 資格",
+      "notEligible": "你目前不具備下個週期的 Prime 資格。",
+      "primeScoreLabel": "Prime 分數",
+      "rankLabel": "你的排名",
+      "rulesButton": "規則",
+      "stakeButton": "質押 XVS",
+      "stakeMore": "質押更多 XVS 以在下個週期競爭 Prime。",
+      "stakePrompt": "質押 XVS 以競爭 Prime。",
+      "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight> 即可進入前 #500，並在下個週期取得 Prime 資格。"
+    },
+    "rankFooter": {
+      "learnMore": "從 <leaderboardLink>Prime 排行榜</leaderboardLink> 了解更多"
+    },
     "rankTable": {
       "columns": {
         "primeScore": "Prime 分數",
@@ -1283,8 +1303,34 @@
         "wallet": "錢包"
       }
     },
+    "rulesModal": {
+      "boostColumn": "加成",
+      "boostMax": "{{boost}}（上限）",
+      "contribution": "對每筆存入，你的貢獻為 <Highlight>XVS × 加成 × 持有天數</Highlight>。你的 Prime 總分是所有存入的總和。",
+      "daysHeld": "{{range}} 天",
+      "daysHeldColumn": "持有天數",
+      "footer": "想在排行榜上更進一步：質押更多，持有更久。",
+      "intro1": "你的 <Highlight>Prime 分數</Highlight> 決定你在排行榜上的位置。每月 <Highlight>前 500 名</Highlight> 成為 Prime 持有者，共享當月獎勵池。",
+      "intro2": "你的分數同時獎勵你質押 XVS 的 <Highlight>數量</Highlight> 和 <Highlight>時長</Highlight>。每筆存入都會根據其存放時間獲得忠誠度加成：",
+      "point1": "<Highlight>加成和計入天數均以 90 天為上限</Highlight> —— 持有更久不會進一步提升每 XVS 的分數。",
+      "point2": "<Highlight>提取時？最新的存入會被優先扣除。</Highlight> 你最早、加成最高的質押會受到保護。",
+      "point3": "分數 <Highlight>即時</Highlight> 更新 —— 但你的 Prime 狀態在 <Highlight>每月快照</Highlight> 時鎖定。",
+      "thingsToKnowTitle": "需要了解的幾點：",
+      "title": "規則"
+    },
     "tablesRefreshNote": "每小時刷新 · 上次刷新：{{date, distanceToNow}}前",
-    "title": "Prime 排行榜"
+    "title": "Prime 排行榜",
+    "totalRewards": {
+      "title": "本週期已分配的 Prime 總獎勵"
+    },
+    "userRewards": {
+      "eligibleMessage": "你在本週期已具備分享 Prime 獎勵的資格。在下方供給資產以分享獎勵。",
+      "marketActions": "開啟市場操作",
+      "notEligibleMessage": "你在本週期暫不具備分享 Prime 獎勵的資格。質押 XVS 以在下一週期競爭 Prime。",
+      "primeLogoAlt": "Venus Prime 標誌",
+      "rewardShareAriaLabel": "佔總獎勵的比例",
+      "title": "你本週期的 Prime 獎勵"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "你現在可以成為 Prime 用戶",

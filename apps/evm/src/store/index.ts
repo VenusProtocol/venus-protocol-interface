@@ -44,7 +44,7 @@ export const initialUserSettings: UserSettings = {
   },
 };
 
-const store = create<State>()(
+const useStore = create<State>()(
   persist(
     immer(set => ({
       userSettings: initialUserSettings,
@@ -90,4 +90,4 @@ const store = create<State>()(
   ),
 );
 
-export const useStore = createStoreSelectors(store);
+export const store = createStoreSelectors(useStore);

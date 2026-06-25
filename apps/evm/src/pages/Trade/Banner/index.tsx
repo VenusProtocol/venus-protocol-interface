@@ -5,7 +5,7 @@ import { VENUS_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import illustrationSrc from './illustration.png';
-import { useStore } from './store';
+import { store } from './store';
 
 const LEARN_MORE_URL = `${VENUS_DOC_URL}/guides/trade`;
 
@@ -16,7 +16,7 @@ export interface BannerProps {
 export const Banner: React.FC<BannerProps> = ({ className }) => {
   const { t } = useTranslation();
 
-  const hideBanner = useStore(state => state.hideBanner);
+  const hideBanner = store.use.hideBanner();
 
   return (
     <Card className={cn('h-21 relative bg-dark-blue-active items-center flex p-6', className)}>

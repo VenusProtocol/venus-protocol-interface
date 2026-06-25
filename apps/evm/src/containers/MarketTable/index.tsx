@@ -3,20 +3,16 @@ import { cn } from '@venusprotocol/ui';
 import { useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
-import { Card, Modal, ProtectionModeIndicator, Table, type TableProps } from 'components';
+import { Card, Table, type TableProps } from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
-import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
+import { MarketFormModal } from 'containers/MarketFormModal';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useCollateral } from 'hooks/useCollateral';
-import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
-// TODO: move OperationForm to containers once it is stable. There's ongoing work happening on it,
-// so moving it now could generate conflicts
-import { OperationForm } from 'pages/Market/OperationForm';
 import type { Asset, EModeGroup } from 'types';
 import { RowControl } from './RowControl';
 import pauseIconSrc from './pause.svg';
@@ -76,10 +72,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const handleCloseMarketModal = () => setSelectedAsset(undefined);
 
   const { toggleCollateral } = useCollateral();
-
-  const [userChainSettings] = useUserChainSettings();
-  const shouldDisplayGatedAssetsAcknowledgementModal =
-    selectedAsset?.isGated && !userChainSettings.doNotShowGatedAssetModal;
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used
   const _isBreakpointUp = useBreakpointUp(breakpoint || '2xl');
@@ -228,33 +220,12 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         {...otherTableProps}
       />
 
-      {shouldDisplayGatedAssetsAcknowledgementModal && (
-        <GatedAssetAcknowledgementModal onReject={() => setSelectedAsset(undefined)} />
-      )}
-
-      {selectedAsset && !shouldDisplayGatedAssetsAcknowledgementModal && (
-        <Modal
-          isOpen
-          title={
-            <span className="inline-flex items-center gap-x-2">
-              {selectedAsset.isProtectionModeEnabled && (
-                <ProtectionModeIndicator
-                  variant="icon"
-                  tokenName={selectedAsset.vToken.underlyingToken.symbol}
-                  tokenSupplyPriceCents={selectedAsset.tokenSupplyPriceCents}
-                  tokenBorrowPriceCents={selectedAsset.tokenBorrowPriceCents}
-                />
-              )}
-              {selectedAsset.vToken.underlyingToken.symbol}
-            </span>
-          }
-          handleClose={handleCloseMarketModal}
-        >
-          <OperationForm
-            vToken={selectedAsset.vToken}
-            poolComptrollerAddress={poolComptrollerContractAddress}
-          />
-        </Modal>
+      {selectedAsset && (
+        <MarketFormModal
+          asset={selectedAsset}
+          poolComptrollerAddress={poolComptrollerContractAddress}
+          onClose={handleCloseMarketModal}
+        />
       )}
     </>
   );

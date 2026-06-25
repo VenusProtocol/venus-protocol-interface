@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 4.44.0
+
+### Minor Changes
+
+- d00d43f: remove Markets page ad banner
+
 ## 4.43.0
 
 ### Minor Changes

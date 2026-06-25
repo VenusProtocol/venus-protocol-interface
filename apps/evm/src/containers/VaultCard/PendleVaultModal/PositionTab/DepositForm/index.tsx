@@ -4,12 +4,12 @@ import { useMemo } from 'react';
 import { useGetBalanceOf, useGetPendleSwapQuote, useStakeInPendleVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
-import { TransactionForm } from 'containers/VaultCard/TransactionForm';
-import { useForm } from 'containers/VaultCard/useForm';
+import { VaultForm } from 'containers/VaultForm';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useVaultForm } from 'hooks/useVaultForm';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { PendleVault } from 'types';
@@ -78,7 +78,7 @@ export const DepositForm: React.FC<DepositFormProps> = ({ vault, onClose }) => {
     vault.asset.supplyCapTokens,
   ]);
 
-  const form = useForm({
+  const form = useVaultForm({
     limitFromTokens,
     walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
     fromToken,
@@ -149,7 +149,7 @@ export const DepositForm: React.FC<DepositFormProps> = ({ vault, onClose }) => {
     : PLACEHOLDER_KEY;
 
   return (
-    <TransactionForm
+    <VaultForm
       onSubmit={handleSubmit}
       form={form}
       fromToken={fromToken}
