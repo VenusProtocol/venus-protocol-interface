@@ -1,6 +1,6 @@
 {
   "name": "@venusprotocol/evm",
-  "version": "4.44.0",
+  "version": "5.0.0",
   "private": true,
   "scripts": {
     "start": "vite",
