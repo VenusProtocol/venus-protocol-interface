@@ -41,18 +41,16 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   const { accountAddress } = useAccountAddress();
   const { data: getPoolsData } = useGetPools({ accountAddress });
 
-  const marketRewardsWithMarket = marketRewards.map(marketReward => {
-    const pool = getPoolsData?.pools.find(currentPool =>
-      currentPool.assets.some(poolAsset =>
-        areAddressesEqual(poolAsset.vToken.underlyingToken.address, marketReward.token.address),
-      ),
-    );
+  // Prime reward tokens only carry an underlying address, and the same underlying can be listed in
+  // several pools, so the markets are resolved from the core pool where the Prime markets live
+  const corePool = getPoolsData?.pools.find(pool => !pool.isIsolated);
 
-    const asset = pool?.assets.find(poolAsset =>
+  const marketRewardsWithMarket = marketRewards.map(marketReward => {
+    const asset = corePool?.assets.find(poolAsset =>
       areAddressesEqual(poolAsset.vToken.underlyingToken.address, marketReward.token.address),
     );
 
-    return { ...marketReward, asset, poolComptrollerAddress: pool?.comptrollerAddress };
+    return { ...marketReward, asset, poolComptrollerAddress: corePool?.comptrollerAddress };
   });
 
   const cardClassName = cn(
@@ -99,6 +97,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
             token={token}
             rewardsCents={rewardsCents}
             totalRewardsCents={totalRewardsCents}
+            progressBarClassName="xl:w-8 2xl:w-1/4"
             apy={showMarketActions && asset && <Apy asset={asset} type="supply" />}
             actions={
               showMarketActions &&

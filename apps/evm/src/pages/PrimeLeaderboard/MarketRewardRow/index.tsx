@@ -11,6 +11,7 @@ export interface MarketRewardRowProps {
   totalRewardsCents: number;
   apy?: React.ReactNode;
   actions?: React.ReactNode;
+  progressBarClassName?: string;
 }
 
 export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
@@ -19,6 +20,7 @@ export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
   totalRewardsCents,
   apy,
   actions,
+  progressBarClassName,
 }) => {
   const { t } = useTranslation();
 
@@ -46,7 +48,7 @@ export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
           {formatCentsToReadableValue({ value: rewardsCents })}
         </span>
 
-        <div className="ml-1 w-1/4 shrink-0">
+        <div className={cn('ml-1 w-1/4 shrink-0', progressBarClassName)}>
           <ProgressBar
             min={0}
             max={100}
