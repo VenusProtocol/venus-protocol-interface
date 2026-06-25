@@ -25,7 +25,6 @@ export interface RewardsDistributorClaim {
 
 export interface PrimeClaim {
   contract: 'prime';
-  // Determines which Prime contract (V1 or V2) the rewards are claimed from
   primeVersion: PrimeVersion;
   vTokenAddressesWithPendingReward: Address[];
 }

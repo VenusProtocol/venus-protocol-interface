@@ -77,7 +77,6 @@ export const useGetPendingRewards = (
     name: 'PrimeV2',
   });
 
-  // Prime V1 and V2 are mutually exclusive: the leaderboard (V2) fully replaces V1 when enabled
   const { primeVersion } = usePrimeVersion();
   let primeContractAddress: Address | undefined;
   if (primeVersion === 1) {

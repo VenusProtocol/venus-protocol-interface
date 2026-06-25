@@ -163,7 +163,6 @@ export const getPendingRewards = async ({
     xvsVestingVaultPendingWithdrawalsBeforeUpgradePromises,
   );
 
-  // Prime V1 and V2 are mutually exclusive, so only the active version's contract is queried
   const primeAbiForVersion = primeVersion === 2 ? primeV2Abi : primeAbi;
   const primePromises = Promise.allSettled([
     primeContractAddress
