@@ -1,5 +1,12 @@
 import type BigNumber from 'bignumber.js';
-import { poolLensAbi, primeV2Abi, vaiVaultAbi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
+import {
+  poolLensAbi,
+  primeAbi,
+  primeV2Abi,
+  vaiVaultAbi,
+  venusLensAbi,
+  xvsVaultAbi,
+} from 'libs/contracts';
 import { VError, logError } from 'libs/errors';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
@@ -26,7 +33,8 @@ export const getPendingRewards = async ({
   poolLensContractAddress,
   vaiVaultContractAddress,
   xvsVaultContractAddress,
-  primeV2ContractAddress,
+  primeContractAddress,
+  primeVersion,
   chainId,
   merklCampaigns,
 }: GetPendingRewardsInput): Promise<GetPendingRewardsOutput> => {
@@ -155,18 +163,20 @@ export const getPendingRewards = async ({
     xvsVestingVaultPendingWithdrawalsBeforeUpgradePromises,
   );
 
+  // Prime V1 and V2 are mutually exclusive, so only the active version's contract is queried
+  const primeAbiForVersion = primeVersion === 2 ? primeV2Abi : primeAbi;
   const primePromises = Promise.allSettled([
-    primeV2ContractAddress
+    primeContractAddress
       ? publicClient.readContract({
-          abi: primeV2Abi,
-          address: primeV2ContractAddress,
+          abi: primeAbiForVersion,
+          address: primeContractAddress,
           functionName: 'paused',
         })
       : undefined,
-    primeV2ContractAddress
+    primeContractAddress
       ? publicClient.simulateContract({
-          abi: primeV2Abi,
-          address: primeV2ContractAddress,
+          abi: primeAbiForVersion,
+          address: primeContractAddress,
           functionName: 'getPendingRewards',
           args: [accountAddress],
         })
@@ -290,9 +300,10 @@ export const getPendingRewards = async ({
       xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults.map(extractSettledPromiseValue),
     tokenPriceMapping,
     primePendingRewards,
+    primeVersion,
+    isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) ?? false,
     isVaiVaultContractPaused: extractSettledPromiseValue(vaiVaultPausedResult) ?? false,
     isXvsVestingVaultContractPaused: xvsVestingVaultPausedResult,
-    isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) ?? false,
     merklPendingRewards,
   });
 

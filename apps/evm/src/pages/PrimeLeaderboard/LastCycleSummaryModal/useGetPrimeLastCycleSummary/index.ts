@@ -15,13 +15,17 @@ export interface UseGetPrimeLastCycleSummaryOutput {
   marketRewards: UserMarketReward[];
 }
 
-export const useGetPrimeLastCycleSummary = (): UseGetPrimeLastCycleSummaryOutput => {
+export const useGetPrimeLastCycleSummary = (
+  cycleIndex?: number,
+): UseGetPrimeLastCycleSummaryOutput => {
   const { accountAddress } = useAccountAddress();
   const tokens = useGetTokens();
   const xvs = useGetToken({ symbol: 'XVS' });
 
-  const { data: pastCycle } = useGetPrimeCycle({ cycleIndex: 'latest' });
-  const cycleIndex = pastCycle?.cycle?.cycleIndex;
+  const { data: pastCycle } = useGetPrimeCycle(
+    { cycleIndex: cycleIndex ?? 0 },
+    { enabled: cycleIndex !== undefined },
+  );
 
   const { data: userCycleRewards } = useGetPrimeUserCycleRewards(
     { cycleIndex: cycleIndex ?? 0, accountAddress },

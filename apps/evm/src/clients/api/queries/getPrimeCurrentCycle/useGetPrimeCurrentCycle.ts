@@ -9,6 +9,9 @@ import {
   getPrimeCurrentCycle,
 } from '.';
 
+const ENDED_REFETCH_INTERVAL_MS = 5_000;
+const ACTIVE_REFETCH_CAP_MS = 60 * 60 * 1000;
+
 type Options = QueryObserverOptions<
   GetPrimeCurrentCycleOutput,
   Error,
@@ -23,6 +26,14 @@ export const useGetPrimeCurrentCycle = (options?: Partial<Options>) => {
   return useQuery({
     queryKey: [FunctionKey.GET_PRIME_CURRENT_CYCLE, { chainId }],
     queryFn: () => getPrimeCurrentCycle({ chainId }),
+    refetchInterval: query => {
+      const endsAt = query.state.data?.cycle?.endsAt;
+      const msUntilEnd = endsAt ? endsAt.getTime() - Date.now() : 0;
+
+      return msUntilEnd > 0
+        ? Math.min(msUntilEnd + 1_000, ACTIVE_REFETCH_CAP_MS)
+        : ENDED_REFETCH_INTERVAL_MS;
+    },
     ...options,
   });
 };

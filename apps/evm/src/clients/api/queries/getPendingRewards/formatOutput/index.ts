@@ -1,19 +1,13 @@
 import BigNumber from 'bignumber.js';
 
-import type { Token } from 'types';
+import type { PrimeVersion, Token } from 'types';
 
-import type { poolLensAbi, primeV2Abi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
-import type {
-  Address,
-  ContractFunctionArgs,
-  ReadContractReturnType,
-  SimulateContractReturnType,
-} from 'viem';
+import type { poolLensAbi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
+import type { Address, ContractFunctionArgs, ReadContractReturnType } from 'viem';
 import type {
   PendingExternalRewardSummary,
   PendingInternalRewardSummary,
   PendingRewardGroup,
-  PrimePendingRewardGroup,
   XvsVestingVaultPendingRewardGroup,
 } from '../types';
 import formatToExternalPendingRewardGroup from './formatToExternalPendingRewardGroup';
@@ -35,6 +29,7 @@ const formatOutput = ({
   tokenPriceMapping,
   venusLensPendingRewards,
   primePendingRewards,
+  primeVersion,
   isPrimeContractPaused,
   isVaiVaultContractPaused,
   isXvsVestingVaultContractPaused,
@@ -54,7 +49,6 @@ const formatOutput = ({
   tokenPriceMapping: Record<string, BigNumber>;
   isVaiVaultContractPaused: boolean;
   isXvsVestingVaultContractPaused: boolean;
-  isPrimeContractPaused: boolean;
   vaiVaultPendingXvsMantissa?: bigint;
   venusLensPendingRewards?: ReadContractReturnType<
     typeof venusLensAbi,
@@ -71,11 +65,9 @@ const formatOutput = ({
     | undefined
   >;
   legacyPoolComptrollerContractAddress?: Address;
-  primePendingRewards?: SimulateContractReturnType<
-    typeof primeV2Abi,
-    'getPendingRewards',
-    ContractFunctionArgs<typeof primeV2Abi, 'nonpayable' | 'payable', 'getPendingRewards'>
-  >['result'];
+  primePendingRewards: readonly { rewardToken: Address; vToken: Address; amount: bigint }[];
+  primeVersion?: PrimeVersion;
+  isPrimeContractPaused: boolean;
   merklPendingRewards: PendingExternalRewardSummary[];
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
@@ -196,20 +188,19 @@ const formatOutput = ({
 
   pendingRewardGroups.push(...xvsVestingVaultPendingRewardGroups);
 
-  // Extract pending rewards from Prime
-  let primePendingRewardGroup: PrimePendingRewardGroup | undefined;
-
-  if (primePendingRewards) {
-    primePendingRewardGroup = formatToPrimePendingRewardGroup({
+  // Extract pending rewards from Prime (the active version, V1 or V2)
+  if (primeVersion !== undefined) {
+    const primePendingRewardGroup = formatToPrimePendingRewardGroup({
+      primeVersion,
       isPrimeContractPaused,
       primePendingRewards,
       tokenPriceMapping,
       tokens,
     });
-  }
 
-  if (primePendingRewardGroup) {
-    pendingRewardGroups.push(primePendingRewardGroup);
+    if (primePendingRewardGroup) {
+      pendingRewardGroups.push(primePendingRewardGroup);
+    }
   }
 
   const merklPendingRewardGroups = formatToExternalPendingRewardGroup({

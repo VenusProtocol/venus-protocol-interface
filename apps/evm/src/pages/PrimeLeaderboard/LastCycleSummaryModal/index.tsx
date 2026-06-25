@@ -6,16 +6,19 @@ import { UserRankCard } from './UserRankCard';
 import { useGetPrimeLastCycleSummary } from './useGetPrimeLastCycleSummary';
 
 export interface LastCycleSummaryModalProps {
+  cycleIndex?: number;
   isOpen: boolean;
   handleClose: () => void;
 }
 
 export const LastCycleSummaryModal: React.FC<LastCycleSummaryModalProps> = ({
+  cycleIndex,
   isOpen,
   handleClose,
 }) => {
   const { t } = useTranslation();
-  const { rank, primeScore, totalRewardsCents, marketRewards } = useGetPrimeLastCycleSummary();
+  const { rank, primeScore, totalRewardsCents, marketRewards } =
+    useGetPrimeLastCycleSummary(cycleIndex);
 
   return (
     <Modal

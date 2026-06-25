@@ -39,4 +39,13 @@ describe('pages/PrimeLeaderboard/EndOfCycle', () => {
     expect(screen.getByText('END OF CYCLE')).toBeInTheDocument();
     expect(screen.queryByText("See last cycle's Prime summary")).not.toBeInTheDocument();
   });
+
+  it('still renders the ended state when there is no end date (between cycles)', () => {
+    renderComponent(<EndOfCycle />, { accountAddress: fakeAddress });
+
+    expect(screen.getByText('END OF CYCLE')).toBeInTheDocument();
+    expect(
+      screen.getByText('The current cycle has ended. The next cycle will begin shortly.'),
+    ).toBeInTheDocument();
+  });
 });

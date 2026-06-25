@@ -12,6 +12,7 @@ import { Timer } from './Timer';
 
 export interface EndOfCycleProps {
   endDate?: Date;
+  lastCycleIndex?: number;
   isLoading?: boolean;
   className?: string;
 }
@@ -24,7 +25,12 @@ interface CountdownState {
   completed: boolean;
 }
 
-export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, className }) => {
+export const EndOfCycle: React.FC<EndOfCycleProps> = ({
+  endDate,
+  lastCycleIndex,
+  isLoading,
+  className,
+}) => {
   const { t, Trans } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const rankLimit = useGetPrimeRankLimit();
@@ -43,11 +49,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
     );
   }
 
-  if (!endDate) {
-    return null;
-  }
-
-  const deadline = t('primeLeaderboard.endOfCycle.deadline', { date: endDate });
+  const deadline = endDate ? t('primeLeaderboard.endOfCycle.deadline', { date: endDate }) : '';
 
   const renderCard = ({ days, hours, minutes, seconds, completed }: CountdownState) => {
     let helper: React.ReactNode = (
@@ -94,10 +96,19 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({ endDate, isLoading, clas
 
   return (
     <>
-      <ReactCountdown date={endDate} renderer={renderCard} />
+      {endDate ? (
+        <ReactCountdown key={endDate.getTime()} date={endDate} renderer={renderCard} />
+      ) : (
+        // Between cycles the current cycle endpoint returns null, so show the ended state at 00:00:00
+        renderCard({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: true })
+      )}
 
       {isSummaryModalOpen && (
-        <LastCycleSummaryModal isOpen handleClose={() => setIsSummaryModalOpen(false)} />
+        <LastCycleSummaryModal
+          cycleIndex={lastCycleIndex}
+          isOpen
+          handleClose={() => setIsSummaryModalOpen(false)}
+        />
       )}
     </>
   );

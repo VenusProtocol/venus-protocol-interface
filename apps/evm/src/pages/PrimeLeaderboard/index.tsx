@@ -16,6 +16,8 @@ const PrimeLeaderboard: React.FC = () => {
   const { data: currentCycle, isLoading: isCurrentCycleLoading } = useGetPrimeCurrentCycle();
 
   const endOfCycleDate = currentCycle?.cycle?.endsAt;
+  const currentCycleIndex = currentCycle?.cycle?.cycleIndex;
+  const lastCycleIndex = currentCycleIndex !== undefined ? currentCycleIndex - 1 : undefined;
 
   const tabs: Tab[] = [
     {
@@ -69,6 +71,7 @@ const PrimeLeaderboard: React.FC = () => {
 
       <EndOfCycle
         endDate={endOfCycleDate}
+        lastCycleIndex={lastCycleIndex}
         isLoading={isCurrentCycleLoading}
         className="relative mx-auto mt-8 w-full max-w-[467px]"
       />

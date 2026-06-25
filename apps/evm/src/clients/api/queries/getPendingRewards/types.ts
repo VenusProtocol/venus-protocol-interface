@@ -1,6 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-import type { ChainId, MerklDistribution, Token } from 'types';
+import type { ChainId, MerklDistribution, PrimeVersion, Token } from 'types';
 import type { Address, PublicClient } from 'viem';
 
 export interface GetPendingRewardsInput {
@@ -15,7 +15,8 @@ export interface GetPendingRewardsInput {
   xvsVaultContractAddress: Address;
   vaiVaultContractAddress?: Address;
   venusLensContractAddress?: Address;
-  primeV2ContractAddress?: Address;
+  primeContractAddress?: Address;
+  primeVersion?: PrimeVersion;
   legacyPoolComptrollerContractAddress?: Address;
 }
 
@@ -115,6 +116,7 @@ export interface PrimePendingReward {
 
 export interface PrimePendingRewardGroup {
   type: 'prime';
+  primeVersion: PrimeVersion;
   isDisabled: boolean;
   vTokenAddressesWithPendingReward: Address[];
   pendingRewards: PrimePendingReward[];

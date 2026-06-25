@@ -60,6 +60,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
   },
   {
     type: 'prime',
+    primeVersion: 2,
     isDisabled: false,
     vTokenAddressesWithPendingReward: [
       '0xcfc8a73f9c888eea9af9ccca24646e84a915510b',
