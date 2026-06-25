@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { TransactionForm } from 'containers/TransactionForm';
-import { useForm } from 'containers/useForm';
+import { VaultForm } from 'containers/VaultForm';
+import { useVaultForm } from 'hooks/useVaultForm';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { VenusVault } from 'types';
@@ -42,7 +42,7 @@ export const WithdrawFromVaiVaultForm: React.FC<WithdrawFromVaiVaultFormProps> =
 
   const { mutateAsync: withdraw } = useWithdrawFromVaiVault();
 
-  const form = useForm({
+  const form = useVaultForm({
     limitFromTokens,
     fromToken,
   });
@@ -68,7 +68,7 @@ export const WithdrawFromVaiVaultForm: React.FC<WithdrawFromVaiVaultFormProps> =
   };
 
   return (
-    <TransactionForm
+    <VaultForm
       onSubmit={handleSubmit}
       fromToken={fromToken}
       form={form}

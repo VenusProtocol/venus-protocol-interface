@@ -16,6 +16,7 @@ import {
 import { RhfTokenTextField } from 'containers/Form';
 import { type Approval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
 import useTokenApproval from 'hooks/useTokenApproval';
+import type { FormValues } from 'hooks/useVaultForm';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -23,10 +24,9 @@ import { useEffect, useState } from 'react';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 import { formatTokensToReadableValue } from 'utilities/formatTokensToReadableValue';
-import type { FormValues } from '../useForm';
 import { getPendleQuoteValidationMessage } from './getPendleQuoteValidationMessage';
 
-export interface TransactionFormProps {
+export interface VaultFormProps {
   form: UseFormReturn<FormValues>;
   fromToken: Token;
   limitFromTokens: BigNumber;
@@ -46,7 +46,7 @@ export interface TransactionFormProps {
   acknowledgement?: React.ReactNode;
 }
 
-export const TransactionForm: React.FC<TransactionFormProps> = ({
+export const VaultForm: React.FC<VaultFormProps> = ({
   fromToken,
   fromTokenPriceCents,
   form,

@@ -11,13 +11,13 @@ import {
 } from 'clients/api';
 import { InfoIcon, NoticeWarning, Spinner, TextButton } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import { TransactionForm } from 'containers/TransactionForm';
+import { VaultForm } from 'containers/VaultForm';
 import { Footer } from 'containers/VenusVaultModal/Footer';
-import { useForm } from 'containers/useForm';
 import { isBefore } from 'date-fns/isBefore';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useNow } from 'hooks/useNow';
 import { usePrimeVersion } from 'hooks/usePrimeVersion';
+import { useVaultForm } from 'hooks/useVaultForm';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { VenusVault } from 'types';
@@ -113,7 +113,7 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
     token: vault.stakedToken,
   });
 
-  const form = useForm({
+  const form = useVaultForm({
     limitFromTokens,
     fromToken: vault.stakedToken,
   });
@@ -200,7 +200,7 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
       {isInitialLoading ? (
         <Spinner />
       ) : (
-        <TransactionForm
+        <VaultForm
           onSubmit={handleSubmit}
           fromToken={vault.stakedToken}
           form={form}

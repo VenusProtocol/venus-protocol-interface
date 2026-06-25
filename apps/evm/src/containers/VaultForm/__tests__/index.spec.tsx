@@ -13,14 +13,14 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import { useForm as useVaultForm } from 'containers/useForm';
 import useDelegateApproval from 'hooks/useDelegateApproval';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useVaultForm } from 'hooks/useVaultForm';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import { formatTokensToReadableValue } from 'utilities/formatTokensToReadableValue';
 
-import { TransactionForm, type TransactionFormProps } from '..';
+import { VaultForm, type VaultFormProps } from '..';
 
 const makeUseTokenApprovalOutput = (overrides: Partial<ReturnType<typeof useTokenApproval>> = {}) =>
   ({
@@ -45,7 +45,7 @@ const makeUseDelegateApprovalOutput = (
     ...overrides,
   }) as ReturnType<typeof useDelegateApproval>;
 
-const baseProps: Omit<TransactionFormProps, 'form'> = {
+const baseProps: Omit<VaultFormProps, 'form'> = {
   fromToken: xvs,
   limitFromTokens: new BigNumber(100),
   fromTokenFieldLabel: 'Deposit',
@@ -70,7 +70,7 @@ const renderTransactionForm = ({
   walletSpendingLimitTokens = new BigNumber(40),
   ...options
 }: {
-  props?: Partial<Omit<TransactionFormProps, 'form'>>;
+  props?: Partial<Omit<VaultFormProps, 'form'>>;
   accountAddress?: string;
   walletSpendingLimitTokens?: BigNumber;
 } = {}) => {
@@ -89,7 +89,7 @@ const renderTransactionForm = ({
       walletSpendingLimitTokens,
     });
 
-    return <TransactionForm {...mergedProps} form={form} />;
+    return <VaultForm {...mergedProps} form={form} />;
   };
 
   return {
@@ -100,7 +100,7 @@ const renderTransactionForm = ({
 
 vi.mock('hooks/useDelegateApproval');
 
-describe('TransactionForm', () => {
+describe('VaultForm', () => {
   beforeEach(() => {
     (useGetBalanceOf as Mock).mockReturnValue({
       data: {
@@ -419,7 +419,7 @@ describe('TransactionForm', () => {
         swapQuoteError: {
           type: 'pendleSwapQuote',
           code: 'PENDLE_NO_ROUTE_FOUND',
-        } as TransactionFormProps['swapQuoteError'],
+        } as VaultFormProps['swapQuoteError'],
       },
       walletSpendingLimitTokens: new BigNumber(120),
     });

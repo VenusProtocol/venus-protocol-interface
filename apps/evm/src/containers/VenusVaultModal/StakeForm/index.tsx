@@ -3,11 +3,11 @@ import BigNumber from 'bignumber.js';
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { Footer as PrimeRankFooter } from 'containers/PrimeRank/Footer';
-import { TransactionForm } from 'containers/TransactionForm';
-import { useForm } from 'containers/useForm';
+import { VaultForm } from 'containers/VaultForm';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useVaultForm } from 'hooks/useVaultForm';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { type Vault, VaultCategory } from 'types';
@@ -71,7 +71,7 @@ export const StakeForm: React.FC<StakeFormProps> = ({
 
   const limitFromTokens = userWalletBalanceTokens;
 
-  const form = useForm({
+  const form = useVaultForm({
     limitFromTokens,
     walletSpendingLimitTokens,
     fromToken,
@@ -103,7 +103,7 @@ export const StakeForm: React.FC<StakeFormProps> = ({
   };
 
   return (
-    <TransactionForm
+    <VaultForm
       onSubmit={handleSubmit}
       spenderAddress={spenderAddress}
       fromToken={fromToken}

@@ -4,8 +4,8 @@ import { useGetBalanceOf, useStakeIntoInstitutionalVault } from 'clients/api';
 import { NoticeInfo } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { Link } from 'containers/Link';
-import { TransactionForm } from 'containers/TransactionForm';
-import { useForm } from 'containers/useForm';
+import { VaultForm } from 'containers/VaultForm';
+import { useVaultForm } from 'hooks/useVaultForm';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { InstitutionalVault } from 'types';
@@ -52,7 +52,7 @@ export const DepositForm: React.FC<DepositFormProps> = ({ vault, onClose }) => {
       token: vault.stakedToken,
     });
 
-  const form = useForm({
+  const form = useVaultForm({
     fromToken: vault.stakedToken,
     limitFromTokens,
     minFromTokens,
@@ -77,7 +77,7 @@ export const DepositForm: React.FC<DepositFormProps> = ({ vault, onClose }) => {
 
   return (
     <div className="space-y-4">
-      <TransactionForm
+      <VaultForm
         form={form}
         fromToken={vault.stakedToken}
         limitFromTokens={limitFromTokens}
