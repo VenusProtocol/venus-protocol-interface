@@ -11,6 +11,7 @@ import {
   type GetPendleSwapQuoteOutput,
   useGetBalanceOf,
   useGetPendleSwapQuote,
+  useGetVTokenBalance,
   useWithdraw,
   useWithdrawFromPendleVault,
 } from 'clients/api';
@@ -78,6 +79,7 @@ const maturedVault: PendleVault = {
 describe('WithdrawForm', () => {
   const mockUseGetBalanceOf = useGetBalanceOf as Mock;
   const mockUseGetPendleSwapQuote = useGetPendleSwapQuote as Mock;
+  const mockUseGetVTokenBalance = useGetVTokenBalance as Mock;
   const mockUseGetUserSlippageTolerance = useGetUserSlippageTolerance as Mock;
   const mockUseNow = useNow as Mock;
   const mockUseWithdraw = useWithdraw as Mock;
@@ -104,6 +106,14 @@ describe('WithdrawForm', () => {
     });
     mockUseWithdraw.mockReturnValue({
       mutateAsync: vi.fn().mockResolvedValue(undefined),
+    });
+    // After maturity a full withdraw redeems using the actual vToken balance, so this value is what
+    // the withdraw mutation should receive (not a value derived from the underlying amount).
+    mockUseGetVTokenBalance.mockReturnValue({
+      data: {
+        balanceMantissa: new BigNumber('1150000000'),
+      },
+      isLoading: false,
     });
   });
 
@@ -253,8 +263,9 @@ describe('WithdrawForm', () => {
       poolComptrollerContractAddress: maturedVault.poolComptrollerContractAddress,
       vToken: maturedVault.asset.vToken,
       withdrawFullSupply: true,
+      // Full withdraw redeems the actual vToken balance returned by useGetVTokenBalance.
       unwrap: true,
-      amountMantissa: new BigNumber('1200000000'),
+      amountMantissa: new BigNumber('1150000000'),
     });
     await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
   });

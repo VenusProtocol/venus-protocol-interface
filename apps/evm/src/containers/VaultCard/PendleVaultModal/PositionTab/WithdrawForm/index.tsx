@@ -95,7 +95,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
 
   // After maturity we redeem directly from the vToken (same flow as the Market page), so we need the
   // user's actual vToken balance to initiate the transaction.
-  const { data: getVTokenBalanceData } = useGetVTokenBalance(
+  const { data: getVTokenBalanceData, isLoading: isGetVTokenBalanceLoading } = useGetVTokenBalance(
     {
       accountAddress: accountAddress ?? NULL_ADDRESS,
       vTokenAddress: vault.asset.vToken.address,
@@ -200,7 +200,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
         swapQuoteError={swapQuoteError ?? undefined}
         swapFromToken={actionMode !== 'redeemAtMaturity' ? fromToken : undefined}
         swapToToken={actionMode !== 'redeemAtMaturity' ? toToken : undefined}
-        isLoading={isGetSwapQuoteLoading}
+        isLoading={isGetSwapQuoteLoading || (hasMatured && isGetVTokenBalanceLoading)}
         delegateeAddress={pendlePtVaultAddress}
         vaultPoolComptrollerContractAddress={vault.poolComptrollerContractAddress}
         footer={
