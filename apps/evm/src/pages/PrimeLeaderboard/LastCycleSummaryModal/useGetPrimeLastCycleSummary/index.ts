@@ -38,10 +38,12 @@ export const useGetPrimeLastCycleSummary = (
 
   const marketRewards = useMemo<UserMarketReward[]>(
     () =>
-      (userCycleRewards?.markets ?? []).flatMap(({ rewardTokenAddress, totalRewardCents }) => {
-        const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
-        return token ? [{ token, rewardsCents: Number(totalRewardCents) }] : [];
-      }),
+      (userCycleRewards?.markets ?? []).flatMap(
+        ({ marketAddress, rewardTokenAddress, totalRewardCents }) => {
+          const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+          return token ? [{ token, marketAddress, rewardsCents: Number(totalRewardCents) }] : [];
+        },
+      ),
     [userCycleRewards, tokens],
   );
 

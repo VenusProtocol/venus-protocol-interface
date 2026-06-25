@@ -16,6 +16,8 @@ export interface GetPrimeLeaderboardInput {
   page?: number;
   limit?: number;
   accountAddress?: Address;
+  // Sort direction of the prime score (effective stake) ranking
+  order?: 'asc' | 'desc';
 }
 
 export interface GetPrimeLeaderboardOutput {
@@ -41,6 +43,7 @@ export const getPrimeLeaderboard = async ({
   page,
   limit,
   accountAddress,
+  order,
 }: GetPrimeLeaderboardInput): Promise<GetPrimeLeaderboardOutput> => {
   const response = await restService<GetPrimeLeaderboardResponse>({
     endpoint: '/prime/leaderboard',
@@ -50,6 +53,7 @@ export const getPrimeLeaderboard = async ({
       page,
       limit,
       address: accountAddress,
+      order,
     },
   });
 

@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { type PrimeLeaderboardEntry, useGetPrimeLeaderboard } from 'clients/api';
-import { InfoIcon, type TableColumn, Username } from 'components';
+import { InfoIcon, type Order, type TableColumn, Username } from 'components';
 import { useGetPrimeRankLimit } from 'containers/PrimeRank/useGetPrimeRankLimit';
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useGetToken } from 'libs/tokens';
@@ -24,11 +24,14 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
   const xvs = useGetToken({ symbol: 'XVS' });
   const { accountAddress } = useAccountAddress();
   const rankLimit = useGetPrimeRankLimit();
-  const { currentPage } = useUrlPagination({ paramKey: RANKS_PAGE_PARAM_KEY });
+  const { currentPage, setCurrentPage } = useUrlPagination({ paramKey: RANKS_PAGE_PARAM_KEY });
+
+  const [order, setOrder] = useState<'asc' | 'desc'>('desc');
 
   const { data, isLoading } = useGetPrimeLeaderboard({
     page: currentPage + 1,
     limit: ITEMS_PER_PAGE,
+    order,
   });
   const entries = data?.entries ?? [];
 
@@ -64,6 +67,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
         label: t('primeLeaderboard.rankTable.columns.primeScore'),
         selectOptionLabel: t('primeLeaderboard.rankTable.columns.primeScore'),
         align: 'right',
+        sortable: true,
         renderCell: ({ effectiveStakeMantissa }) => (
           <span className="text-b1r text-white">
             {shortenValueWithSuffix({
@@ -81,6 +85,14 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
     [t, xvs, accountAddress, rankLimit],
   );
 
+  const orderBy = columns.find(column => column.key === 'primeScore');
+  const tableOrder = orderBy && { orderBy, orderDirection: order };
+
+  const handleOrderChange = ({ orderDirection }: Order<PrimeLeaderboardEntry>) => {
+    setOrder(orderDirection);
+    setCurrentPage(0);
+  };
+
   return (
     <PrimeLeaderboardTable
       columns={columns}
@@ -89,6 +101,8 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
       pageParamKey={RANKS_PAGE_PARAM_KEY}
       rowKeyExtractor={row => `prime-rank-table-row-${row.rank}`}
       isFetching={isLoading}
+      order={tableOrder}
+      onOrderChange={handleOrderChange}
       className={className}
     />
   );

@@ -7,12 +7,14 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
+import type { Address } from 'viem';
 
 import { MarketActionsButton } from '../MarketActionsButton';
 import { MarketRewardRow } from '../MarketRewardRow';
 
 export interface UserMarketReward {
   token: Token;
+  marketAddress: Address;
   rewardsCents: number;
 }
 
@@ -41,16 +43,18 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   const { accountAddress } = useAccountAddress();
   const { data: getPoolsData } = useGetPools({ accountAddress });
 
-  // Prime reward tokens only carry an underlying address, and the same underlying can be listed in
-  // several pools, so the markets are resolved from the core pool where the Prime markets live
-  const corePool = getPoolsData?.pools.find(pool => !pool.isIsolated);
-
   const marketRewardsWithMarket = marketRewards.map(marketReward => {
-    const asset = corePool?.assets.find(poolAsset =>
-      areAddressesEqual(poolAsset.vToken.underlyingToken.address, marketReward.token.address),
+    const pool = getPoolsData?.pools.find(currentPool =>
+      currentPool.assets.some(poolAsset =>
+        areAddressesEqual(poolAsset.vToken.address, marketReward.marketAddress),
+      ),
     );
 
-    return { ...marketReward, asset, poolComptrollerAddress: corePool?.comptrollerAddress };
+    const asset = pool?.assets.find(poolAsset =>
+      areAddressesEqual(poolAsset.vToken.address, marketReward.marketAddress),
+    );
+
+    return { ...marketReward, asset, poolComptrollerAddress: pool?.comptrollerAddress };
   });
 
   const cardClassName = cn(

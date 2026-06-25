@@ -32,11 +32,21 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
           return [];
         }
 
-        const rewardsCents = (userRewards ?? [])
-          .filter(reward => areAddressesEqual(reward.rewardTokenAddress, rewardTokenAddress))
-          .reduce((total, reward) => total + Number(reward.pendingCents), 0);
+        const tokenRewards = (userRewards ?? []).filter(reward =>
+          areAddressesEqual(reward.rewardTokenAddress, rewardTokenAddress),
+        );
 
-        return [{ token, rewardsCents }];
+        const marketAddress = tokenRewards[0]?.marketAddress;
+        if (!marketAddress) {
+          return [];
+        }
+
+        const rewardsCents = tokenRewards.reduce(
+          (total, reward) => total + Number(reward.pendingCents),
+          0,
+        );
+
+        return [{ token, marketAddress, rewardsCents }];
       }),
     [byRewardToken, userRewards, tokens],
   );
