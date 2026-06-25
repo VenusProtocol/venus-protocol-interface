@@ -18,6 +18,7 @@ export interface PrimeLeaderboardTableProps<R> {
   order?: TableProps<R>['order'];
   onOrderChange?: TableProps<R>['onOrderChange'];
   controls?: TableProps<R>['controls'];
+  tableLayout?: TableProps<R>['tableLayout'];
   breakpoint?: TableProps<R>['breakpoint'];
   hideCardDelimiter?: TableProps<R>['hideCardDelimiter'];
   className?: string;
@@ -34,6 +35,7 @@ export function PrimeLeaderboardTable<R>({
   order,
   onOrderChange,
   controls,
+  tableLayout,
   breakpoint,
   hideCardDelimiter,
   className,
@@ -46,6 +48,7 @@ export function PrimeLeaderboardTable<R>({
       <Table
         variant="primary"
         breakpoint={breakpoint}
+        tableLayout={tableLayout}
         hideCardDelimiter={hideCardDelimiter}
         className="border-0 p-0"
         columns={columns}
@@ -59,7 +62,6 @@ export function PrimeLeaderboardTable<R>({
       />
 
       <Pagination
-        className="mt-auto"
         itemsCount={itemsCount}
         itemsPerPageCount={ITEMS_PER_PAGE}
         paramKey={pageParamKey}

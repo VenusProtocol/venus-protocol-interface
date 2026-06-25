@@ -78,7 +78,7 @@ const PrimeLeaderboard: React.FC = () => {
           <RefreshNote />
 
           <div className="flex gap-3">
-            <div className="grow">
+            <div className="min-w-0 grow">
               <RewardsPanel />
             </div>
 

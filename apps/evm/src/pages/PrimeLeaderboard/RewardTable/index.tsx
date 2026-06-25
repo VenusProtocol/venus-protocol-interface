@@ -133,6 +133,7 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
       controls
       order={order}
       onOrderChange={handleOrderChange}
+      tableLayout="auto"
       breakpoint="sm"
       hideCardDelimiter
       className={className}
