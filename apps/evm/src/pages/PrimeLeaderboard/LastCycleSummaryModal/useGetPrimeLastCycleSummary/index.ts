@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useGetPrimeCycle, useGetPrimeUserCycleRewards } from 'clients/api';
+import { useGetPrimeUserCycleRewards } from 'clients/api';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import { areAddressesEqual, convertMantissaToTokens, findTokenByAddress } from 'utilities';
+import { convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
 import type { UserMarketReward } from '../../UserRewardsCard';
 
@@ -22,19 +22,10 @@ export const useGetPrimeLastCycleSummary = (
   const tokens = useGetTokens();
   const xvs = useGetToken({ symbol: 'XVS' });
 
-  const { data: pastCycle } = useGetPrimeCycle(
-    { cycleIndex: cycleIndex ?? 0 },
-    { enabled: cycleIndex !== undefined },
-  );
-
   const { data: userCycleRewards } = useGetPrimeUserCycleRewards(
     { cycleIndex: cycleIndex ?? 0, accountAddress },
     { enabled: cycleIndex !== undefined && !!accountAddress },
   );
-
-  const rankingEntry = accountAddress
-    ? pastCycle?.ranking.find(entry => areAddressesEqual(entry.userAddress, accountAddress))
-    : undefined;
 
   const marketRewards = useMemo<UserMarketReward[]>(
     () =>
@@ -49,9 +40,9 @@ export const useGetPrimeLastCycleSummary = (
 
   return {
     rank: userCycleRewards?.rank ?? undefined,
-    primeScore: rankingEntry
+    primeScore: userCycleRewards?.effectiveStakeMantissa
       ? convertMantissaToTokens({
-          value: new BigNumber(rankingEntry.finalEffectiveStakeMantissa),
+          value: new BigNumber(userCycleRewards.effectiveStakeMantissa),
           token: xvs,
         })
       : undefined,
