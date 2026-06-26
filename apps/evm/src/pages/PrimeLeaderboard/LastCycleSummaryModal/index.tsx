@@ -1,4 +1,4 @@
-import { Modal } from 'components';
+import { Modal, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
 
 import { UserRewardsCard } from '../UserRewardsCard';
@@ -17,7 +17,7 @@ export const LastCycleSummaryModal: React.FC<LastCycleSummaryModalProps> = ({
   handleClose,
 }) => {
   const { t } = useTranslation();
-  const { rank, primeScore, totalRewardsCents, marketRewards } =
+  const { isLoading, rank, primeScore, totalRewardsCents, marketRewards } =
     useGetPrimeLastCycleSummary(cycleIndex);
 
   return (
@@ -27,16 +27,22 @@ export const LastCycleSummaryModal: React.FC<LastCycleSummaryModalProps> = ({
       title={t('primeLeaderboard.lastCycleSummary.title')}
       className="max-w-113"
     >
-      <div className="flex flex-col gap-3">
-        <UserRankCard rank={rank} primeScore={primeScore} />
+      {isLoading ? (
+        <div className="flex min-h-[360px] items-center justify-center">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="flex min-h-[360px] flex-col gap-3">
+          <UserRankCard rank={rank} primeScore={primeScore} />
 
-        <UserRewardsCard
-          title={t('primeLeaderboard.lastCycleSummary.userRewardsTitle')}
-          totalRewardsCents={totalRewardsCents}
-          marketRewards={marketRewards}
-          showMarketActions={false}
-        />
-      </div>
+          <UserRewardsCard
+            title={t('primeLeaderboard.lastCycleSummary.userRewardsTitle')}
+            totalRewardsCents={totalRewardsCents}
+            marketRewards={marketRewards}
+            showMarketActions={false}
+          />
+        </div>
+      )}
     </Modal>
   );
 };

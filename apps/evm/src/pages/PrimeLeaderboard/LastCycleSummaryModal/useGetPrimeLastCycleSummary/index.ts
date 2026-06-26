@@ -9,6 +9,7 @@ import { convertMantissaToTokens, findTokenByAddress } from 'utilities';
 import type { UserMarketReward } from '../../UserRewardsCard';
 
 export interface UseGetPrimeLastCycleSummaryOutput {
+  isLoading: boolean;
   rank?: number;
   primeScore?: BigNumber;
   totalRewardsCents: number;
@@ -22,7 +23,7 @@ export const useGetPrimeLastCycleSummary = (
   const tokens = useGetTokens();
   const xvs = useGetToken({ symbol: 'XVS' });
 
-  const { data: userCycleRewards } = useGetPrimeUserCycleRewards(
+  const { data: userCycleRewards, isLoading } = useGetPrimeUserCycleRewards(
     { cycleIndex: cycleIndex ?? 0, accountAddress },
     { enabled: cycleIndex !== undefined && !!accountAddress },
   );
@@ -39,6 +40,7 @@ export const useGetPrimeLastCycleSummary = (
   );
 
   return {
+    isLoading,
     rank: userCycleRewards?.rank ?? undefined,
     primeScore: userCycleRewards?.effectiveStakeMantissa
       ? convertMantissaToTokens({
