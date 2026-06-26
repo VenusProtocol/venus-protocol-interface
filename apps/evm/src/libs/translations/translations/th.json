@@ -1283,6 +1283,7 @@
       "rulesButton": "กฎ",
       "stakeButton": "Stake XVS",
       "stakeMore": "Stake XVS เพิ่มเพื่อแข่งขันรับ Prime ในรอบถัดไป",
+      "stakeMoreToCompete": "Stake XVS เพิ่มเพื่อแข่งขันรับ Prime",
       "stakePrompt": "Stake XVS เพื่อแข่งขันรับ Prime",
       "stakeToReachTop": "Stake อีก <Highlight>{{amount}} XVS</Highlight> เพื่อขึ้นไปอยู่ใน top #{{limit}} และมีสิทธิ์รับ Prime ในรอบถัดไป"
     },

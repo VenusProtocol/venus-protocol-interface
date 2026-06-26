@@ -1283,6 +1283,7 @@
       "rulesButton": "Rules",
       "stakeButton": "Stake XVS",
       "stakeMore": "Stake more XVS to compete for Prime during the next cycle.",
+      "stakeMoreToCompete": "Stake more XVS to compete for Prime.",
       "stakePrompt": "Stake XVS to compete for Prime.",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> to reach the top #{{limit}} and become eligible for Prime during the next cycle."
     },

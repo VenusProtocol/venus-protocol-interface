@@ -1283,6 +1283,7 @@
       "rulesButton": "規則",
       "stakeButton": "質押 XVS",
       "stakeMore": "質押更多 XVS 以在下個週期競爭 Prime。",
+      "stakeMoreToCompete": "質押更多 XVS 以競爭 Prime。",
       "stakePrompt": "質押 XVS 以競爭 Prime。",
       "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight> 即可進入前 #{{limit}}，並在下個週期取得 Prime 資格。"
     },

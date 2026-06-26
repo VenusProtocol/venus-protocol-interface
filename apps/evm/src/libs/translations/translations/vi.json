@@ -1283,6 +1283,7 @@
       "rulesButton": "Quy tắc",
       "stakeButton": "Stake XVS",
       "stakeMore": "Stake thêm XVS để cạnh tranh Prime trong chu kỳ tiếp theo.",
+      "stakeMoreToCompete": "Stake thêm XVS để cạnh tranh Prime.",
       "stakePrompt": "Stake XVS để cạnh tranh Prime.",
       "stakeToReachTop": "Stake thêm <Highlight>{{amount}} XVS</Highlight> để vào top #{{limit}} và đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
     },

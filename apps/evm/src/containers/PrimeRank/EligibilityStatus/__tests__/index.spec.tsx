@@ -35,6 +35,12 @@ describe('pages/PrimeLeaderboard/RankCard/EligibilityStatus', () => {
     ).toBeInTheDocument();
   });
 
+  it('shows the compete message when the gap is unavailable', () => {
+    renderComponent(<EligibilityStatus {...baseProps} isCandidate={false} gapXvsTokens={0} />);
+
+    expect(screen.getByText('Stake more XVS to compete for Prime.')).toBeInTheDocument();
+  });
+
   it('prompts to stake when no XVS is staked', () => {
     renderComponent(<EligibilityStatus {...baseProps} hasStakedXvs={false} isCandidate={false} />);
 
