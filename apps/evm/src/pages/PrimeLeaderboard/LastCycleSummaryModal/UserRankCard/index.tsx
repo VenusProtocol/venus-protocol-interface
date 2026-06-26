@@ -19,7 +19,9 @@ export const UserRankCard: React.FC<UserRankCardProps> = ({ rank, primeScore, cl
   const isInTopRank = isRanked && rankLimit !== undefined && rank <= rankLimit;
   const rankLabel = isRanked ? `#${rank}` : '#-';
   const primeScoreLabel =
-    isRanked && primeScore ? shortenValueWithSuffix({ value: primeScore }) : '-';
+    isRanked && primeScore
+      ? shortenValueWithSuffix({ value: primeScore, maxDecimalPlaces: 2 })
+      : '-';
 
   let message = t('primeLeaderboard.lastCycleSummary.rankNoStake');
   let messageClassName = 'text-yellow';
