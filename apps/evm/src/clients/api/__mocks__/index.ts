@@ -574,6 +574,30 @@ export const useGetPrimeEffectiveStake = vi.fn(() =>
   }),
 );
 
+export const getPrimeMultiplierTiers = vi.fn(async () => ({
+  tiers: [
+    { durationSeconds: 2592000, multiplierMantissa: new BigNumber('1.3e18') },
+    { durationSeconds: 5184000, multiplierMantissa: new BigNumber('1.6e18') },
+    { durationSeconds: 7776000, multiplierMantissa: new BigNumber('2e18') },
+  ],
+}));
+export const useGetPrimeMultiplierTiers = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_MULTIPLIER_TIERS],
+    queryFn: getPrimeMultiplierTiers,
+  }),
+);
+
+export const getPrimeDeposits = vi.fn(async () => ({
+  deposits: [],
+}));
+export const useGetPrimeDeposits = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_DEPOSITS],
+    queryFn: getPrimeDeposits,
+  }),
+);
+
 export const getPrimeTokenLimit = vi.fn(async () => ({
   tokenLimit: 500,
 }));
@@ -591,6 +615,8 @@ export const getPrimeMinimumStake = vi.fn(async () => ({
   totalTokens: 500,
   mintThresholdMantissa: null,
   minimumStakeMantissa: new BigNumber('10000').multipliedBy(1e18).toFixed(),
+  lastPrimeHolderAddress: xvs.address,
+  lastPrimeHolderEffectiveStakeMantissa: new BigNumber('10000').multipliedBy(1e18).toFixed(),
   reason: 'last_position' as const,
 }));
 export const useGetPrimeMinimumStake = vi.fn(() =>

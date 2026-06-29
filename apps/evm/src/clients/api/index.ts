@@ -240,6 +240,8 @@ export * from './queries/getPrimeTokenLimit/useGetPrimeTokenLimit';
 
 export * from './queries/getPrimeMultiplierTiers';
 export * from './queries/getPrimeMultiplierTiers/useGetPrimeMultiplierTiers';
+export * from './queries/getPrimeDeposits';
+export * from './queries/getPrimeDeposits/useGetPrimeDeposits';
 
 export * from './queries/getVaiVaultPaused';
 export * from './queries/getVaiVaultPaused/useGetVaiVaultPaused';

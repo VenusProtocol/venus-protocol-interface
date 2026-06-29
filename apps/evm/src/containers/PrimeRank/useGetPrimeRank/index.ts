@@ -1,14 +1,19 @@
 import BigNumber from 'bignumber.js';
 
 import {
+  useGetPrimeCurrentCycle,
+  useGetPrimeDeposits,
   useGetPrimeEffectiveStake,
   useGetPrimeMinimumStake,
+  useGetPrimeMultiplierTiers,
   useGetPrimeTokenLimit,
   useGetPrimeUserPendingRewards,
 } from 'clients/api';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import { convertMantissaToTokens } from 'utilities';
+
+import { calculateStakeToReachTop } from '../calculateStakeToReachTop';
 
 export interface PrimeRankData {
   hasStakedXvs: boolean;
@@ -29,6 +34,12 @@ export const useGetPrimeRank = (): PrimeRankData & { isLoading: boolean } => {
   });
   const { data: minimumStake, isLoading: isMinimumStakeLoading } = useGetPrimeMinimumStake();
   const { data: tokenLimitData, isLoading: isTokenLimitLoading } = useGetPrimeTokenLimit();
+  const { data: currentCycle } = useGetPrimeCurrentCycle();
+  const { data: multiplierTiers } = useGetPrimeMultiplierTiers();
+  const { data: userDeposits } = useGetPrimeDeposits({ accountAddress });
+  const { data: targetDeposits } = useGetPrimeDeposits({
+    accountAddress: minimumStake?.lastPrimeHolderAddress ?? undefined,
+  });
 
   const stakedTokens = convertMantissaToTokens({
     value: effectiveStake?.totalStakedMantissa ?? new BigNumber(0),
@@ -46,16 +57,16 @@ export const useGetPrimeRank = (): PrimeRankData & { isLoading: boolean } => {
       token: xvs,
     })?.toNumber() ?? 0;
 
-  const bottomStakeTokens =
-    minimumStake?.reason === 'last_position'
-      ? convertMantissaToTokens({
-          value: new BigNumber(minimumStake.minimumStakeMantissa ?? 0),
-          token: xvs,
-        })
-      : undefined;
-  const gapXvsTokens = bottomStakeTokens
-    ? BigNumber.maximum(bottomStakeTokens.minus(stakedTokens ?? 0).plus(1), 0).toNumber()
-    : 0;
+  let gapXvsTokens = 0;
+  if (currentCycle?.cycle && multiplierTiers && userDeposits && targetDeposits) {
+    gapXvsTokens = calculateStakeToReachTop({
+      userDeposits: userDeposits.deposits,
+      targetDeposits: targetDeposits.deposits,
+      tiers: multiplierTiers.tiers,
+      cycleEndsAt: currentCycle.cycle.endsAt,
+      now: new Date(),
+    });
+  }
 
   return {
     isLoading:

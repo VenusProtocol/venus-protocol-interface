@@ -1,6 +1,7 @@
 import { VError } from 'libs/errors';
 import type { ChainId } from 'types';
 import { restService } from 'utilities';
+import type { Address } from 'viem';
 
 export type PrimeMinimumStakeReason = 'free_slot' | 'last_position' | 'unavailable';
 
@@ -15,6 +16,8 @@ export interface GetPrimeMinimumStakeOutput {
   totalTokens: number | null;
   mintThresholdMantissa: string | null;
   minimumStakeMantissa: string | null;
+  lastPrimeHolderAddress: Address | null;
+  lastPrimeHolderEffectiveStakeMantissa: string | null;
   reason: PrimeMinimumStakeReason;
 }
 
@@ -25,6 +28,8 @@ interface GetPrimeMinimumStakeResponse {
   totalTokens: number | null;
   mintThresholdMantissa: string | null;
   minimumStakeMantissa: string | null;
+  lastPrimeHolderAddress: Address | null;
+  lastPrimeHolderEffectiveStakeMantissa: string | null;
   reason: PrimeMinimumStakeReason;
 }
 
