@@ -23,7 +23,7 @@ export const UserRewardsSection: React.FC<UserRewardsSectionProps> = ({ classNam
 
   let content: React.ReactNode;
 
-  if (!hasRewards) {
+  if (!isUserPrime || !hasRewards) {
     content = (
       <div className="flex items-center gap-x-3">
         {isUserPrime ? (
