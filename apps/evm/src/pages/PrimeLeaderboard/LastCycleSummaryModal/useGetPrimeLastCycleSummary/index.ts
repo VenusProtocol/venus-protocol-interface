@@ -4,9 +4,11 @@ import { useMemo } from 'react';
 import { useGetPools, useGetPrimeUserCycleRewards } from 'clients/api';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import { areAddressesEqual, convertMantissaToTokens, findTokenByAddress } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import type { UserMarketReward } from '../../UserRewardsCard';
+import { buildPrimeMarketRewards } from '../../buildPrimeMarketRewards';
+import { resolvePrimeTotalRewardCents } from '../../resolvePrimeTotalRewardCents';
 
 export interface UseGetPrimeLastCycleSummaryOutput {
   isLoading: boolean;
@@ -32,38 +34,25 @@ export const useGetPrimeLastCycleSummary = (
   const marketRewards = useMemo<UserMarketReward[]>(() => {
     const assets = getPoolsData?.pools.flatMap(pool => pool.assets) ?? [];
 
-    return (userCycleRewards?.markets ?? []).flatMap(market => {
-      const token = findTokenByAddress({ address: market.rewardTokenAddress, tokens });
-      if (!token) {
-        return [];
-      }
+    const groups = (userCycleRewards?.markets ?? []).map(market => ({
+      rewardTokenAddress: market.rewardTokenAddress,
+      marketAddress: market.marketAddress,
+      entries: [
+        {
+          marketAddress: market.marketAddress,
+          amountMantissa: market.totalRewardMantissa,
+          fallbackCents: Number(market.totalRewardCents),
+        },
+      ],
+    }));
 
-      const asset = assets.find(poolAsset =>
-        areAddressesEqual(poolAsset.vToken.address, market.marketAddress),
-      );
-      const amountTokens = convertMantissaToTokens({
-        value: new BigNumber(market.totalRewardMantissa),
-        token,
-      });
-      const rewardsCents =
-        asset && amountTokens
-          ? amountTokens.multipliedBy(asset.tokenPriceCents).toNumber()
-          : Number(market.totalRewardCents);
-
-      return [{ token, marketAddress: market.marketAddress, rewardsCents }];
-    });
+    return buildPrimeMarketRewards({ groups, assets, tokens });
   }, [userCycleRewards, getPoolsData, tokens]);
 
   const apiTotalCents = userCycleRewards?.totalRewardCents
     ? Number(userCycleRewards.totalRewardCents)
     : 0;
-  const detailTotalCents = marketRewards.reduce(
-    (total, { rewardsCents }) => total + rewardsCents,
-    0,
-  );
-
-  // use the api total if it's greater than 1, otherwise use the detail total, since API returns 0 for small rewards
-  const totalRewardsCents = apiTotalCents >= 1 ? apiTotalCents : detailTotalCents;
+  const totalRewardsCents = resolvePrimeTotalRewardCents({ apiTotalCents, marketRewards });
 
   return {
     isLoading,
