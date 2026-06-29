@@ -11,7 +11,6 @@ import { resolvePrimeTotalRewardCents } from '../resolvePrimeTotalRewardCents';
 
 export interface UseGetPrimeUserRewardsOutput {
   isLoading: boolean;
-  isPrime: boolean;
   totalRewardsCents: number;
   marketRewards: UserMarketReward[];
 }
@@ -54,7 +53,6 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
 
   return {
     isLoading: isCurrentCycleLoading || isUserPendingRewardsLoading,
-    isPrime: userPendingRewards?.isPrimeHolder ?? false,
     totalRewardsCents,
     marketRewards,
   };

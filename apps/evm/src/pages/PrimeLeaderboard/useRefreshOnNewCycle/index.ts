@@ -10,6 +10,7 @@ const REFRESHED_FUNCTION_KEYS = [
   FunctionKey.GET_PRIME_MINIMUM_STAKE,
   FunctionKey.GET_PRIME_DEPOSITS,
   FunctionKey.GET_PRIME_LEADERBOARD,
+  FunctionKey.GET_IS_USER_PRIME_V2,
 ];
 
 export const useRefreshOnNewCycle = () => {
