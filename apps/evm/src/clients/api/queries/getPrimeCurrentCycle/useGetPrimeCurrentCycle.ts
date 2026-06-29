@@ -9,7 +9,7 @@ import {
   getPrimeCurrentCycle,
 } from '.';
 
-const ENDED_REFETCH_INTERVAL_MS = 5_000;
+const ENDED_REFETCH_INTERVAL_MS = 10_000;
 const ACTIVE_REFETCH_CAP_MS = 60 * 60 * 1000;
 
 type Options = QueryObserverOptions<

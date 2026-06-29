@@ -9,11 +9,14 @@ import { Hero } from './Hero';
 import { RankingPanel } from './RankingPanel';
 import { RefreshNote } from './RefreshNote';
 import { RewardsPanel } from './RewardsPanel';
+import { useRefreshOnNewCycle } from './useRefreshOnNewCycle';
 
 const PrimeLeaderboard: React.FC = () => {
   const { t } = useTranslation();
   const isXlUp = useBreakpointUp('xl');
   const { data: currentCycle, isLoading: isCurrentCycleLoading } = useGetPrimeCurrentCycle();
+
+  useRefreshOnNewCycle();
 
   const endOfCycleDate = currentCycle?.cycle?.endsAt;
   const currentCycleIndex = currentCycle?.cycle?.cycleIndex;
