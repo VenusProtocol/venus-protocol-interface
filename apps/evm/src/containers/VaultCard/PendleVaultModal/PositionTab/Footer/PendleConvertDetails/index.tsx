@@ -1,15 +1,22 @@
 import { cn } from '@venusprotocol/ui';
+import type BigNumber from 'bignumber.js';
 
 import type { GetPendleSwapQuoteOutput } from 'clients/api';
 import { Icon, LabeledInlineContent } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
-import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
+import {
+  convertMantissaToTokens,
+  formatCentsToReadableValue,
+  formatTokensToReadableValue,
+} from 'utilities';
 
 export interface ConvertDetailsProps {
   fromToken: Token;
+  isMatured: boolean;
   toToken: Token;
+  userStakedTokens?: BigNumber;
   slippagePercentage: number;
   swapQuote?: GetPendleSwapQuoteOutput;
   className?: string;
@@ -17,7 +24,9 @@ export interface ConvertDetailsProps {
 
 export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
   fromToken,
+  isMatured,
   toToken,
+  userStakedTokens,
   slippagePercentage,
   swapQuote,
   className,
@@ -49,6 +58,11 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
       })}`
     : PLACEHOLDER_KEY;
 
+  const readableReceived = formatTokensToReadableValue({
+    value: userStakedTokens,
+    token: toToken,
+  });
+
   return (
     <div className={cn('border border-lightGrey rounded-xl p-4 space-y-3', className)}>
       <LabeledInlineContent
@@ -64,15 +78,27 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
         </div>
       </LabeledInlineContent>
 
-      <LabeledInlineContent label={t('vault.modals.pendleFee')}>{readableFee}</LabeledInlineContent>
+      {isMatured && (
+        <LabeledInlineContent label={t('vault.modals.received')}>
+          {readableReceived}
+        </LabeledInlineContent>
+      )}
 
-      <LabeledInlineContent label={t('vault.modals.minReceived')}>
-        {readableMinReceived}
-      </LabeledInlineContent>
+      {!isMatured && (
+        <>
+          <LabeledInlineContent label={t('vault.modals.pendleFee')}>
+            {readableFee}
+          </LabeledInlineContent>
 
-      <LabeledInlineContent label={t('vault.modals.estReceived')}>
-        {readableEstimatedReceived}
-      </LabeledInlineContent>
+          <LabeledInlineContent label={t('vault.modals.minReceived')}>
+            {readableMinReceived}
+          </LabeledInlineContent>
+
+          <LabeledInlineContent label={t('vault.modals.estReceived')}>
+            {readableEstimatedReceived}
+          </LabeledInlineContent>
+        </>
+      )}
     </div>
   );
 };

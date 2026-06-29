@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 import type { PendleContractWithdrawCallParams } from 'clients/api';
 import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
@@ -7,10 +9,9 @@ import { pendlePtVaultAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
-import type { Address } from 'viem';
-import { invalidatePendleVaultCaches } from '../../../../utilities/invalidatePendleVaultCaches';
-import type { Options, TrimmedPendlePtVaultInput } from '../useStakeInPendleVault/types';
+import { invalidatePendleVaultCaches } from 'utilities/invalidatePendleVaultCaches';
 import { formatWithdrawParams } from './formatWithdrawParams';
+import type { Options, PendlePtVaultWithdrawInput } from './types';
 
 export const useWithdrawFromPendleVault = (
   {
@@ -31,7 +32,7 @@ export const useWithdrawFromPendleVault = (
   });
 
   return useSendTransaction({
-    fn: ({ swapQuote, type, fromToken, vToken }: TrimmedPendlePtVaultInput) => {
+    fn: ({ swapQuote, fromToken, vToken }: PendlePtVaultWithdrawInput) => {
       if (!pendlePtVaultContractAddress) {
         throw new VError({
           type: 'unexpected',
@@ -39,30 +40,16 @@ export const useWithdrawFromPendleVault = (
         });
       }
 
-      if (type === 'withdraw' && vToken) {
+      if (vToken) {
         return {
           abi: pendlePtVaultAbi,
           address: pendlePtVaultContractAddress,
           functionName: 'withdraw' as const,
-          args: formatWithdrawParams(
-            swapQuote.contractCallParams as PendleContractWithdrawCallParams,
-            {
-              fromToken,
-              vToken,
-            },
-          ),
-        } as const;
-      }
-
-      if (type === 'redeemAtMaturity' && vToken) {
-        return {
-          abi: pendlePtVaultAbi,
-          address: pendlePtVaultContractAddress,
-          functionName: 'redeemAtMaturity' as const,
-          args: formatWithdrawParams(
-            swapQuote.contractCallParams as PendleContractWithdrawCallParams,
-            { fromToken, vToken },
-          ),
+          args: formatWithdrawParams({
+            params: swapQuote.contractCallParams as PendleContractWithdrawCallParams,
+            fromToken,
+            vToken,
+          }) as never,
         } as const;
       }
 
@@ -72,7 +59,7 @@ export const useWithdrawFromPendleVault = (
       });
     },
     onConfirmed: async ({ input }) => {
-      captureAnalyticEvent(`Pendle vault ${input.type}`, {
+      captureAnalyticEvent('Pendle vault withdraw', {
         pendleMarketAddress,
         fromTokenSymbol: input.fromToken.symbol,
         fromTokenAmountTokens: convertMantissaToTokens({

@@ -15,6 +15,7 @@ import {
 } from 'constants/swap';
 import { RhfTokenTextField } from 'containers/Form';
 import { type Approval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
+import { useChain } from 'hooks/useChain';
 import useTokenApproval from 'hooks/useTokenApproval';
 import type { FormValues } from 'hooks/useVaultForm';
 import { handleError } from 'libs/errors';
@@ -34,6 +35,7 @@ export interface VaultFormProps {
   submitButtonLabel: string;
   onSubmit: () => Promise<unknown>;
   vaultPoolComptrollerContractAddress?: Address;
+  disableFromAmountInput?: boolean;
   isLoading?: boolean;
   fromTokenPriceCents?: number;
   footer?: React.ReactNode;
@@ -57,6 +59,7 @@ export const VaultForm: React.FC<VaultFormProps> = ({
   submitButtonLabel,
   onSubmit,
   isLoading: isLoadingProp = false,
+  disableFromAmountInput = false,
   footer,
   swapFromToken,
   swapToToken,
@@ -73,6 +76,7 @@ export const VaultForm: React.FC<VaultFormProps> = ({
   const [isUserAcknowledgingHighPriceImpact, setIsUserAcknowledgingHighPriceImpact] =
     useState(false);
 
+  const { corePoolComptrollerContractAddress } = useChain();
   const fromAmountTokensFieldValue = form.watch('fromAmountTokens');
   const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue || 0);
 
@@ -95,6 +99,12 @@ export const VaultForm: React.FC<VaultFormProps> = ({
       type: 'delegate',
       delegateeAddress,
       poolComptrollerContractAddress: vaultPoolComptrollerContractAddress,
+    };
+  } else if (delegateeAddress) {
+    approval = {
+      type: 'delegate',
+      delegateeAddress,
+      poolComptrollerContractAddress: corePoolComptrollerContractAddress,
     };
   }
 
@@ -234,21 +244,26 @@ export const VaultForm: React.FC<VaultFormProps> = ({
             name="fromAmountTokens"
             token={fromToken}
             tokenPriceCents={fromTokenPriceCents}
+            disabled={disableFromAmountInput}
           />
 
-          <AvailableBalance readableBalance={readableLimit} onClick={handleLimitClick} />
+          {!disableFromAmountInput && (
+            <>
+              <AvailableBalance readableBalance={readableLimit} onClick={handleLimitClick} />
 
-          {!!spenderAddress && (
-            <SpendingLimit
-              token={fromToken}
-              walletBalanceTokens={walletBalanceFromTokens}
-              walletSpendingLimitTokens={walletSpendingLimitTokens}
-              onRevoke={revokeWalletSpendingLimit}
-              isRevokeLoading={isRevokeWalletSpendingLimitLoading}
-            />
+              {!!spenderAddress && (
+                <SpendingLimit
+                  token={fromToken}
+                  walletBalanceTokens={walletBalanceFromTokens}
+                  walletSpendingLimitTokens={walletSpendingLimitTokens}
+                  onRevoke={revokeWalletSpendingLimit}
+                  isRevokeLoading={isRevokeWalletSpendingLimitLoading}
+                />
+              )}
+
+              <LabeledSlider value={sliderValue} onChange={handleSliderChange} />
+            </>
           )}
-
-          <LabeledSlider value={sliderValue} onChange={handleSliderChange} />
         </>
       )}
 

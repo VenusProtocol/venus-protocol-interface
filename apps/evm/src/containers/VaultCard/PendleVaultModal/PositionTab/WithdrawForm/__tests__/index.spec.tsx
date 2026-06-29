@@ -11,8 +11,12 @@ import {
   type GetPendleSwapQuoteOutput,
   useGetBalanceOf,
   useGetPendleSwapQuote,
+<<<<<<< HEAD
   useGetVTokenBalance,
   useWithdraw,
+=======
+  useWithdrawAtMaturityFromPendleVault,
+>>>>>>> a34931353 (feat: update withdraw from matured Pendle vault flow)
   useWithdrawFromPendleVault,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
@@ -82,7 +86,7 @@ describe('WithdrawForm', () => {
   const mockUseGetVTokenBalance = useGetVTokenBalance as Mock;
   const mockUseGetUserSlippageTolerance = useGetUserSlippageTolerance as Mock;
   const mockUseNow = useNow as Mock;
-  const mockUseWithdraw = useWithdraw as Mock;
+  const mockUseWithdrawAtMaturityFromPendleVault = useWithdrawAtMaturityFromPendleVault as Mock;
   const mockUseWithdrawFromPendleVault = useWithdrawFromPendleVault as Mock;
 
   beforeEach(() => {
@@ -104,7 +108,7 @@ describe('WithdrawForm', () => {
     mockUseWithdrawFromPendleVault.mockReturnValue({
       mutateAsync: vi.fn().mockResolvedValue(undefined),
     });
-    mockUseWithdraw.mockReturnValue({
+    mockUseWithdrawAtMaturityFromPendleVault.mockReturnValue({
       mutateAsync: vi.fn().mockResolvedValue(undefined),
     });
     // After maturity a full withdraw redeems using the actual vToken balance, so this value is what
@@ -200,7 +204,6 @@ describe('WithdrawForm', () => {
     await waitFor(() => expect(withdraw).toHaveBeenCalledTimes(1));
     expect(withdraw).toHaveBeenCalledWith({
       swapQuote: fakeSwapQuote,
-      type: 'withdraw',
       fromToken: vault.rewardToken,
       toToken: vault.stakedToken,
       amountMantissa: new BigNumber('1200000000'),
@@ -213,12 +216,12 @@ describe('WithdrawForm', () => {
     });
   });
 
-  it('redeems at maturity and links to Pendle for the final redemption step', async () => {
+  it('redeems at maturity without using the Pendle quote flow', async () => {
     const onClose = vi.fn();
-    const withdrawAfterMaturity = vi.fn().mockResolvedValue(undefined);
+    const withdrawAtMaturity = vi.fn().mockResolvedValue(undefined);
 
-    mockUseWithdraw.mockReturnValue({
-      mutateAsync: withdrawAfterMaturity,
+    mockUseWithdrawAtMaturityFromPendleVault.mockReturnValue({
+      mutateAsync: withdrawAtMaturity,
     });
 
     renderComponent(<WithdrawForm vault={maturedVault} onClose={onClose} />, {
@@ -226,16 +229,12 @@ describe('WithdrawForm', () => {
     });
 
     expect(screen.queryByText(en.vault.modals.maturityPendleDisclaimer)).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Pendle official' })).toHaveAttribute(
-      'href',
-      'https://app.pendle.finance/trade/dashboard/overview/positions?timeframe=allTime',
-    );
+    expect(screen.queryByRole('link', { name: 'Pendle official' })).not.toBeInTheDocument();
 
     const input = screen.getByPlaceholderText('0.00') as HTMLInputElement;
 
-    fireEvent.click(screen.getByRole('button', { name: '12 BNB' }));
-
     await waitFor(() => expect(input.value).toBe('12'));
+    expect(input).toBeDisabled();
     await waitFor(() =>
       expect(
         screen.getByRole('button', {
@@ -257,6 +256,7 @@ describe('WithdrawForm', () => {
       }),
     );
 
+<<<<<<< HEAD
     await waitFor(() => expect(withdrawAfterMaturity).toHaveBeenCalledTimes(1));
     expect(withdrawAfterMaturity).toHaveBeenCalledWith({
       poolName: maturedVault.poolName,
@@ -266,7 +266,19 @@ describe('WithdrawForm', () => {
       // Full withdraw redeems the actual vToken balance returned by useGetVTokenBalance.
       unwrap: true,
       amountMantissa: new BigNumber('1150000000'),
+=======
+    await waitFor(() => expect(withdrawAtMaturity).toHaveBeenCalledTimes(1));
+    expect(withdrawAtMaturity).toHaveBeenCalledWith({
+      fromToken: maturedVault.rewardToken,
+      toToken: maturedVault.stakedToken,
+      amountMantissa: new BigNumber('1200000000'),
+      vToken: maturedVault.asset.vToken,
+>>>>>>> a34931353 (feat: update withdraw from matured Pendle vault flow)
     });
     await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
+
+    expect(mockUseWithdrawAtMaturityFromPendleVault).toHaveBeenCalledWith({
+      pendleMarketAddress: maturedVault.venueAddress ?? NULL_ADDRESS,
+    });
   });
 });

@@ -1,8 +1,7 @@
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
-import type { ChainId } from 'types';
+import type { ChainId, Token } from 'types';
 import type { Address } from 'viem';
-import type { TrimmedPendlePtVaultInput } from '../../clients/api/mutations/useStakeInPendleVault/types';
 
 export const invalidatePendleVaultCaches = ({
   input,
@@ -10,7 +9,10 @@ export const invalidatePendleVaultCaches = ({
   accountAddress,
   poolComptrollerAddress,
 }: {
-  input: TrimmedPendlePtVaultInput;
+  input: {
+    fromToken: Token;
+    toToken: Token;
+  };
   chainId: ChainId;
   accountAddress?: string;
   poolComptrollerAddress?: Address;

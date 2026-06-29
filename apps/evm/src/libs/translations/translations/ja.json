@@ -2152,7 +2152,6 @@
     },
     "header": "ボールト",
     "modals": {
-      "afterMaturityPendleDisclaimer": "まず「引き出し」ボタンからPTトークンをウォレットに引き出してから、<Link>Pendle公式</Link>ウェブサイトで原資産トークンを償還してください。",
       "claim": "請求",
       "connectWalletMessage": "このボールトを操作するにはウォレットを接続してください",
       "convert": "変換",
@@ -2214,6 +2213,7 @@
       "overviewTab": "概要",
       "pendleFee": "Pendleフィー",
       "positionTab": "ポジション",
+      "received": "受取額",
       "stakeTab": "供給",
       "targetApr": "目標APR",
       "targetAprTooltip": "このボールト戦略が目指す年率換算の目標報酬で、複利を含む目標年率（APR）として表されます。実際のリターンは変動し、相手方のパフォーマンスに依存します。元本にはリスクがあります。供給した金額を下回る金額しか受け取れない場合があります。",
