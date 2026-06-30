@@ -63,12 +63,8 @@ const PrimeLeaderboard: React.FC = () => {
     <Page>
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 w-screen -translate-x-1/2"
-      >
-        <div className="absolute inset-x-0 -top-40 flex justify-center">
-          <div className="h-200 w-200 rounded-full bg-blue/30 blur-3xl" />
-        </div>
-      </div>
+        className="pointer-events-none absolute left-1/2 top-[200px] aspect-square w-[1200px] max-w-[150vw] -translate-x-1/2 -translate-y-1/2 bg-[url('/images/prime-leaderboard-bg.webp')] bg-contain bg-center bg-no-repeat"
+      />
 
       <Hero />
 
