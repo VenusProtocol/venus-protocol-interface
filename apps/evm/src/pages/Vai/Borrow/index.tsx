@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo } from 'react';
-import { Controller, type SubmitHandler } from 'react-hook-form';
+import { Controller, type SubmitHandler, useWatch } from 'react-hook-form';
 
 import {
   useGetMintableVai,
@@ -128,7 +128,7 @@ export const Borrow: React.FC = () => {
   }, [legacyPool?.vai?.tokenPriceCents, legacyPool, mintableVaiData, mintableVaiData, vai]);
 
   const {
-    form: { control, handleSubmit, watch, formState, setValue, reset, trigger },
+    form: { control, handleSubmit, formState, setValue, reset, trigger },
   } = useForm({
     ...mintableVaiData,
     vaiPriceCents: legacyPool?.vai?.tokenPriceCents,
@@ -136,7 +136,7 @@ export const Borrow: React.FC = () => {
     userLiquidationThresholdCents: legacyPool?.userLiquidationThresholdCents,
   });
 
-  const inputValue = watch('amountTokens');
+  const inputValue = useWatch({ control, name: 'amountTokens' });
   const _debouncedInputAmountTokens = useDebounceValue(inputValue);
   const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
 

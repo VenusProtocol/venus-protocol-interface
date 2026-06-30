@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import type { UseFormReturn } from 'react-hook-form';
+import { type UseFormReturn, useWatch } from 'react-hook-form';
 import type { Address } from 'viem';
 
 import {
@@ -73,7 +73,7 @@ export const VaultForm: React.FC<VaultFormProps> = ({
   const [isUserAcknowledgingHighPriceImpact, setIsUserAcknowledgingHighPriceImpact] =
     useState(false);
 
-  const fromAmountTokensFieldValue = form.watch('fromAmountTokens');
+  const fromAmountTokensFieldValue = useWatch({ control: form.control, name: 'fromAmountTokens' });
   const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue || 0);
 
   // Check if transaction is using a swap with a high price impact

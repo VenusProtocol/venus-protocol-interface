@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import type { Meta } from '@storybook/react';
 import { State } from 'react-powerplug';
 

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import type { ReactElement } from 'react';
 

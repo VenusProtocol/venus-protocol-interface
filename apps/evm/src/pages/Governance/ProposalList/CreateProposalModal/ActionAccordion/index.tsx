@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { FieldArray, useField } from 'formik';
 import { useState } from 'react';
 

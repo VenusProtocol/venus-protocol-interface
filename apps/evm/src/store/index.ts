@@ -4,7 +4,6 @@ import {
   MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
 import { ChainId } from 'types';
-import { createStoreSelectors } from 'utilities/createStoreSelectors';
 import { extractEnumValues } from 'utilities/extractEnumValues';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -44,7 +43,7 @@ export const initialUserSettings: UserSettings = {
   },
 };
 
-const useStore = create<State>()(
+export const useStore = create<State>()(
   persist(
     immer(set => ({
       userSettings: initialUserSettings,
@@ -89,5 +88,3 @@ const useStore = create<State>()(
     },
   ),
 );
-
-export const store = createStoreSelectors(useStore);

@@ -1,35 +1,35 @@
-import { store } from '..';
+import { useStore } from '..';
 
 describe('store', () => {
   beforeEach(() => {
-    store.setState({
+    useStore.setState({
       isModalShown: false,
     });
   });
 
   describe('isModalShown', () => {
     it('sets correct initial props', () => {
-      expect(store.getState().isModalShown).toMatchInlineSnapshot('false');
+      expect(useStore.getState().isModalShown).toMatchInlineSnapshot('false');
     });
   });
 
   describe('showModal', () => {
     it('updates props correctly', () => {
-      store.getState().showModal();
+      useStore.getState().showModal();
 
-      expect(store.getState().isModalShown).toMatchInlineSnapshot('true');
+      expect(useStore.getState().isModalShown).toMatchInlineSnapshot('true');
     });
   });
 
   describe('hideModal', () => {
     it('updates props correctly', () => {
-      store.setState({
+      useStore.setState({
         isModalShown: true,
       });
 
-      store.getState().hideModal();
+      useStore.getState().hideModal();
 
-      expect(store.getState().isModalShown).toMatchInlineSnapshot('false');
+      expect(useStore.getState().isModalShown).toMatchInlineSnapshot('false');
     });
   });
 });

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
 import { Card, type CardProps, InfoIcon, Username } from 'components';

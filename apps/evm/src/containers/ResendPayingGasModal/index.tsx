@@ -1,8 +1,8 @@
 import { Modal } from './Modal';
-import { store } from './store';
+import { useStore } from './store';
 
 const ResendPayingGasModal: React.FC = () => {
-  const lastFailedGaslessTransaction = store.use.lastFailedGaslessTransaction();
+  const lastFailedGaslessTransaction = useStore(state => state.lastFailedGaslessTransaction);
 
   if (lastFailedGaslessTransaction) {
     return <Modal lastFailedGaslessTransaction={lastFailedGaslessTransaction} />;

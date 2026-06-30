@@ -106,18 +106,17 @@ const BridgePage: React.FC = () => {
     control,
     handleSubmit,
     formState,
+    fromChainId,
     getValues,
-    watch,
     setValue,
     resetField,
+    toChainId,
     amountMantissa,
   } = useBridgeForm({
     toChainIdRef,
     walletBalanceTokens,
     xvs,
   });
-
-  const { fromChainId, toChainId } = watch();
 
   const { data: getXvsBridgeFeeEstimationData } = useGetXvsBridgeFeeEstimation(
     {

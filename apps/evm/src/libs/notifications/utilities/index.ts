@@ -1,4 +1,4 @@
-import { store } from '../store';
+import { useStore } from '../store';
 import type {
   AddNotificationInput,
   Notification,
@@ -14,7 +14,7 @@ const timeoutsMapping: {
 } = {};
 
 const setHideTimeout = ({ id }: { id: Notification['id'] }) => {
-  const { removeNotification } = store.getState();
+  const { removeNotification } = useStore.getState();
 
   // Automatically hide notification after a certain time
   timeoutsMapping[id] = setTimeout(() => removeNotification({ id }), DISPLAY_TIME_MS);
@@ -24,7 +24,7 @@ export const hideNotification = ({ id }: RemoveNotificationInput) => {
   // Clear hide timeout if one was set
   clearTimeout(timeoutsMapping[id]);
 
-  const { removeNotification } = store.getState();
+  const { removeNotification } = useStore.getState();
   removeNotification({ id });
 };
 
@@ -36,7 +36,7 @@ export const displayNotification = ({
   autoClose = true,
   ...addNotificationInput
 }: DisplayNotificationInput) => {
-  const { addNotification, notifications } = store.getState();
+  const { addNotification, notifications } = useStore.getState();
 
   // Remove last notification if we've reached the maximum allowed
   if (notifications.length >= MAX_NOTIFICATIONS) {
@@ -64,7 +64,7 @@ export const updateNotification = ({
   // Clear hide timeout if one was set
   clearTimeout(timeoutsMapping[updateNotificationInput.id]);
 
-  const { updateNotification: updateStoreNotification } = store.getState();
+  const { updateNotification: updateStoreNotification } = useStore.getState();
 
   // Update notification
   updateStoreNotification(updateNotificationInput);

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { truncateAddress } from 'utilities';
 
 import type { Address } from 'viem';

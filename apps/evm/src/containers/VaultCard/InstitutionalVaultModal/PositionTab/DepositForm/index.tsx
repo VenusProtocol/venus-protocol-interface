@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useWatch } from 'react-hook-form';
 
 import { useGetBalanceOf, useStakeIntoInstitutionalVault } from 'clients/api';
 import { NoticeInfo } from 'components';
@@ -58,7 +59,12 @@ export const DepositForm: React.FC<DepositFormProps> = ({ vault, onClose }) => {
     minFromTokens,
   });
 
-  const fromAmountTokens = new BigNumber(form.watch('fromAmountTokens') || 0);
+  const unsafeFromAmountTokensFieldValue = useWatch({
+    control: form.control,
+    name: 'fromAmountTokens',
+  });
+  const fromAmountTokensFieldValue = unsafeFromAmountTokensFieldValue ?? '0';
+  const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue);
 
   const { mutateAsync: stake, isPending: isStakeLoading } = useStakeIntoInstitutionalVault({
     vaultAddress: vault.vaultAddress,

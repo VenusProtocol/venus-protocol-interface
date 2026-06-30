@@ -2,8 +2,6 @@ import createDeepMerge from '@fastify/deepmerge';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { createStoreSelectors } from 'utilities';
-
 export interface State {
   doNotShowBanner: boolean;
   hideBanner: () => void;
@@ -11,7 +9,7 @@ export interface State {
 
 const deepMerge = createDeepMerge({ all: true });
 
-const useStore = create<State>()(
+export const useStore = create<State>()(
   persist(
     set => ({
       doNotShowBanner: false,
@@ -27,5 +25,3 @@ const useStore = create<State>()(
     },
   ),
 );
-
-export const store = createStoreSelectors(useStore);
