@@ -1285,7 +1285,7 @@
       "stakeMore": "Bir sonraki döngüde Prime için yarışmak üzere daha fazla XVS stake et.",
       "stakeMoreToCompete": "Prime için yarışmak üzere daha fazla XVS stake et.",
       "stakePrompt": "Prime için yarışmak üzere XVS stake et.",
-      "stakeToReachTop": "İlk #{{limit}}'e girmek ve bir sonraki döngüde Prime için uygun olmak için <Highlight>{{amount}} XVS</Highlight> stake et."
+      "stakeToReachTop": "Bu döngü sona ermeden ilk #{{limit}} arasına girip bir sonraki döngüde Prime için uygun olma şansı için <Highlight>{{amount}} XVS</Highlight> stake et."
     },
     "rankFooter": {
       "learnMore": "<LeaderboardLink>Prime Leaderboard</LeaderboardLink> üzerinden daha fazla bilgi edinin"
@@ -1296,7 +1296,7 @@
         "wallet": "Cüzdan"
       },
       "rankBadgeAlt": "{{rank}}. sıra rozeti",
-      "walletTooltip": "Kullanıcılar Prime puanına göre sıralanır. İlk {{limit}} cüzdan bir sonraki döngüde Prime için uygun olur."
+      "walletTooltip": "Sıralamalar zincir üzerinde hesaplanır, <BscScan>BscScan</BscScan> üzerinden doğrulayın"
     },
     "rewardTable": {
       "columns": {

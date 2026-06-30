@@ -1285,7 +1285,7 @@
       "stakeMore": "Stake thêm XVS để cạnh tranh Prime trong chu kỳ tiếp theo.",
       "stakeMoreToCompete": "Stake thêm XVS để cạnh tranh Prime.",
       "stakePrompt": "Stake XVS để cạnh tranh Prime.",
-      "stakeToReachTop": "Stake thêm <Highlight>{{amount}} XVS</Highlight> để vào top #{{limit}} và đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
+      "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> để có cơ hội lọt vào top #{{limit}} trước khi kết thúc chu kỳ này và đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
     },
     "rankFooter": {
       "learnMore": "Tìm hiểu thêm từ <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
@@ -1296,7 +1296,7 @@
         "wallet": "Ví"
       },
       "rankBadgeAlt": "Huy hiệu hạng {{rank}}",
-      "walletTooltip": "Người dùng được xếp hạng theo điểm Prime. {{limit}} ví dẫn đầu sẽ đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
+      "walletTooltip": "Thứ hạng được tính toán trên chuỗi, hãy xác minh trên <BscScan>BscScan</BscScan>"
     },
     "rewardTable": {
       "columns": {

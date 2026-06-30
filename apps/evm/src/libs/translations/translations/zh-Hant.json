@@ -1285,7 +1285,7 @@
       "stakeMore": "質押更多 XVS 以在下個週期競爭 Prime。",
       "stakeMoreToCompete": "質押更多 XVS 以競爭 Prime。",
       "stakePrompt": "質押 XVS 以競爭 Prime。",
-      "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight> 即可進入前 #{{limit}}，並在下個週期取得 Prime 資格。"
+      "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight>，有機會在本週期結束前進入前 #{{limit}}，並在下個週期取得 Prime 資格。"
     },
     "rankFooter": {
       "learnMore": "從 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
@@ -1296,7 +1296,7 @@
         "wallet": "錢包"
       },
       "rankBadgeAlt": "排名 {{rank}} 徽章",
-      "walletTooltip": "使用者依 Prime 分數排名。排名前 {{limit}} 的錢包將在下個週期取得 Prime 資格。"
+      "walletTooltip": "排名透過鏈上計算，可在 <BscScan>BscScan</BscScan> 上驗證"
     },
     "rewardTable": {
       "columns": {

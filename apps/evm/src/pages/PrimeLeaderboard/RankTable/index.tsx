@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 
 import { type PrimeLeaderboardEntry, useGetPrimeLeaderboard } from 'clients/api';
 import { InfoIcon, type Order, type TableColumn, Username } from 'components';
-import { useGetPrimeRankLimit } from 'containers/PrimeRank/useGetPrimeRankLimit';
+import { PRIME_RANK_VERIFICATION_BSC_SCAN_URL } from 'constants/production';
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -20,10 +20,9 @@ export interface RankTableProps {
 }
 
 export const RankTable: React.FC<RankTableProps> = ({ className }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const xvs = useGetToken({ symbol: 'XVS' });
   const { accountAddress } = useAccountAddress();
-  const rankLimit = useGetPrimeRankLimit();
   const { currentPage, setCurrentPage } = useUrlPagination({ paramKey: RANKS_PAGE_PARAM_KEY });
 
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
@@ -43,7 +42,22 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
           <span className="inline-flex items-center gap-x-2">
             {t('primeLeaderboard.rankTable.columns.wallet')}
             <InfoIcon
-              tooltip={t('primeLeaderboard.rankTable.walletTooltip', { limit: rankLimit })}
+              tooltip={
+                <Trans
+                  i18nKey="primeLeaderboard.rankTable.walletTooltip"
+                  components={{
+                    BscScan: (
+                      // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
+                      <a
+                        href={PRIME_RANK_VERIFICATION_BSC_SCAN_URL}
+                        className="text-blue underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      />
+                    ),
+                  }}
+                />
+              }
             />
           </span>
         ),
@@ -82,7 +96,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
         ),
       },
     ],
-    [t, xvs, accountAddress, rankLimit],
+    [t, Trans, xvs, accountAddress],
   );
 
   const orderBy = columns.find(column => column.key === 'primeScore');

@@ -4,6 +4,8 @@ export const VENUS_DOC_URL = 'https://docs-v4.venus.io';
 export const VENUS_PRIME_DOC_URL = `${VENUS_DOC_URL}/whats-new/prime-yield`;
 // TODO: update to the actual protection mode doc page once available
 export const VENUS_PROTECTION_MODE_DOC_URL = `${VENUS_DOC_URL}/risk/protection-mode`;
+// TODO: set the BscScan URL for verifying Prime ranks on-chain
+export const PRIME_RANK_VERIFICATION_BSC_SCAN_URL = '#';
 
 export const DISCORD_SERVER_URL = 'https://discord.com/servers/venus-protocol-912811548651708448';
 export const VENUS_COMMUNITY_URL = 'https://community.venus.io/';

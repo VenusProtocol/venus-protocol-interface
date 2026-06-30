@@ -1281,11 +1281,11 @@
       "primeScoreLabel": "Prime スコア",
       "rankLabel": "あなたのランク",
       "rulesButton": "ルール",
-      "stakeButton": "XVS をステーク",
+      "stakeButton": "ステーク",
       "stakeMore": "次のサイクルで Prime を目指して、さらに XVS をステークしましょう。",
       "stakeMoreToCompete": "Prime を目指して、さらに XVS をステークしましょう。",
       "stakePrompt": "XVS をステークして Prime を目指しましょう。",
-      "stakeToReachTop": "あと <Highlight>{{amount}} XVS</Highlight> をステークするとトップ #{{limit}} に入り、次のサイクルで Prime の対象になります。"
+      "stakeToReachTop": "<Highlight>{{amount}} XVS</Highlight> をステークすると、サイクル終了までにトップ #{{limit}} 入りを狙え、次回 Prime の対象になれます。"
     },
     "rankFooter": {
       "learnMore": "<LeaderboardLink>Prime リーダーボード</LeaderboardLink> で詳しく見る"
@@ -1296,7 +1296,7 @@
         "wallet": "ウォレット"
       },
       "rankBadgeAlt": "ランク {{rank}} バッジ",
-      "walletTooltip": "Prime スコア順のランキングです。上位 {{limit}} のウォレットが次のサイクルで Prime の対象になります。"
+      "walletTooltip": "ランキングはオンチェーンで計算されます。<BscScan>BscScan</BscScan> で確認できます"
     },
     "rewardTable": {
       "columns": {

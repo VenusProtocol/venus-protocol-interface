@@ -1285,7 +1285,7 @@
       "stakeMore": "Stake more XVS to compete for Prime during the next cycle.",
       "stakeMoreToCompete": "Stake more XVS to compete for Prime.",
       "stakePrompt": "Stake XVS to compete for Prime.",
-      "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> to reach the top #{{limit}} and become eligible for Prime during the next cycle."
+      "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> for a chance to break into the top #{{limit}} by cycle's end and qualify for Prime in the next one."
     },
     "rankFooter": {
       "learnMore": "Learn more about the <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
@@ -1296,7 +1296,7 @@
         "wallet": "Wallet"
       },
       "rankBadgeAlt": "Rank {{rank}} badge",
-      "walletTooltip": "Users ranked by Prime score. The top {{limit}} wallets become eligible for Prime in the next cycle."
+      "walletTooltip": "Ranks are computed on-chain, verify on <BscScan>BscScan</BscScan>"
     },
     "rewardTable": {
       "columns": {

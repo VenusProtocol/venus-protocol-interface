@@ -1285,7 +1285,7 @@
       "stakeMore": "Stake XVS เพิ่มเพื่อแข่งขันรับ Prime ในรอบถัดไป",
       "stakeMoreToCompete": "Stake XVS เพิ่มเพื่อแข่งขันรับ Prime",
       "stakePrompt": "Stake XVS เพื่อแข่งขันรับ Prime",
-      "stakeToReachTop": "Stake อีก <Highlight>{{amount}} XVS</Highlight> เพื่อขึ้นไปอยู่ใน top #{{limit}} และมีสิทธิ์รับ Prime ในรอบถัดไป"
+      "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> เพื่อมีโอกาสขึ้นไปอยู่ใน top #{{limit}} ก่อนสิ้นสุดรอบนี้ และมีสิทธิ์รับ Prime ในรอบถัดไป"
     },
     "rankFooter": {
       "learnMore": "เรียนรู้เพิ่มเติมจาก <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
@@ -1296,7 +1296,7 @@
         "wallet": "กระเป๋าเงิน"
       },
       "rankBadgeAlt": "ตราอันดับ {{rank}}",
-      "walletTooltip": "ผู้ใช้จัดอันดับตามคะแนน Prime กระเป๋าเงิน {{limit}} อันดับแรกจะมีสิทธิ์รับ Prime ในรอบถัดไป"
+      "walletTooltip": "อันดับคำนวณบนเชน ตรวจสอบได้ที่ <BscScan>BscScan</BscScan>"
     },
     "rewardTable": {
       "columns": {
