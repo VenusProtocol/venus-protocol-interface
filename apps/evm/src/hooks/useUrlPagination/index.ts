@@ -22,15 +22,10 @@ export const useUrlPagination = ({
 
   const setPageIndex = useCallback(
     (newPageIndex: string | number) =>
-      setSearchParams(
-        currentSearchParams => ({
-          ...Object.fromEntries(currentSearchParams),
-          [paramKey]: String(newPageIndex),
-        }),
-        {
-          replace: true,
-        },
-      ),
+      setSearchParams(currentSearchParams => ({
+        ...Object.fromEntries(currentSearchParams),
+        [paramKey]: String(newPageIndex),
+      })),
     [setSearchParams, paramKey],
   );
 
