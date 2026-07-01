@@ -25,7 +25,7 @@ describe('useUrlPagination', () => {
     const { result } = renderHook(() => useUrlPagination());
 
     expect(result.current.currentPage).toBe(0);
-    expect(mockSetSearchParams).toHaveBeenCalledWith(expect.any(Function), { replace: true });
+    expect(mockSetSearchParams).toHaveBeenCalledWith(expect.any(Function));
   });
 
   it('returns current page correctly when page param is set', () => {
@@ -52,9 +52,7 @@ describe('useUrlPagination', () => {
 
     result.current.setCurrentPage(2);
 
-    await waitFor(() =>
-      expect(mockSetSearchParams).toHaveBeenCalledWith(expect.any(Function), { replace: true }),
-    );
+    await waitFor(() => expect(mockSetSearchParams).toHaveBeenCalledWith(expect.any(Function)));
 
     const mockSetSearchParamsInput = mockSetSearchParams.mock.calls[0][0];
     expect(mockSetSearchParamsInput(mockSearchParams)).toEqual({
