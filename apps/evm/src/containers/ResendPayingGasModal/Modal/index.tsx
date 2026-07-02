@@ -2,7 +2,7 @@ import { Button, Icon, Modal as ModalComp, type ModalProps as ModalCompProps } f
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { store } from '../store';
+import { useStore } from '../store';
 import type { LastFailedGaslessTransaction } from '../types';
 
 export interface ModalProps<TMutateInput extends Record<string, unknown> | void>
@@ -15,7 +15,7 @@ export function Modal<TMutateInput extends Record<string, unknown> | void>({
   ...otherProps
 }: ModalProps<TMutateInput>) {
   const { t } = useTranslation();
-  const closeModal = store.use.closeModal();
+  const closeModal = useStore(state => state.closeModal);
   const { mutateAsync: sendTransaction, isPending: isSendingTransaction } = useSendTransaction<
     TMutateInput,
     any,

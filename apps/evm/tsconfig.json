@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "baseUrl": "./src",
+    "jsxImportSource": "@emotion/react",
     "types": ["vitest/globals"]
   },
   "exclude": ["coverage", "storybook-static", "dist", "node_modules"]

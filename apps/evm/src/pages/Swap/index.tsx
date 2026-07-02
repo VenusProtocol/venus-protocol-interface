@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { Card, Page } from 'components';
 import { useEffect, useMemo, useState } from 'react';

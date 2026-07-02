@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { cn } from '@venusprotocol/ui';
 
 import { Icon, type IconName } from '../Icon';

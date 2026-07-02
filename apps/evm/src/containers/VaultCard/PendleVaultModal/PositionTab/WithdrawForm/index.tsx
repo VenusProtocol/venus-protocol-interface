@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useWatch } from 'react-hook-form';
 
 import {
   useGetPendleSwapQuote,
@@ -64,7 +65,12 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ vault, onClose }) =>
     fromToken,
   });
 
-  const fromAmountTokensFieldValue = form.watch('fromAmountTokens') ?? '0';
+  const unsafeFromAmountTokensFieldValue = useWatch({
+    control: form.control,
+    name: 'fromAmountTokens',
+  });
+  const fromAmountTokensFieldValue = unsafeFromAmountTokensFieldValue ?? '0';
+
   const debouncedFromAmountTokens = useDebounceValue(fromAmountTokensFieldValue);
   const fromAmountTokens = new BigNumber(debouncedFromAmountTokens);
 

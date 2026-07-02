@@ -27,7 +27,7 @@ import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { store } from 'store';
+import { useStore } from 'store';
 import {
   convertDollarsToCents,
   formatCentsToReadableValue,
@@ -49,7 +49,7 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
   });
 
   const [userChainSettings] = useUserChainSettings();
-  const setUserSettings = store.use.setUserSettings();
+  const setUserSettings = useStore(state => state.setUserSettings);
 
   const toggleShowUserBalances = () =>
     setUserSettings({

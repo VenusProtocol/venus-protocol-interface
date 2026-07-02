@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import MuiCheckbox from '@mui/material/Checkbox';
 
 import { Icon } from '../Icon';

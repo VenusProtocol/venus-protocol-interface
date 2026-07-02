@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import type BigNumber from 'bignumber.js';
 import { useParams } from 'react-router';
 

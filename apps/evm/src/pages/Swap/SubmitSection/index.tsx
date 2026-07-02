@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
 import { cn } from '@venusprotocol/ui';

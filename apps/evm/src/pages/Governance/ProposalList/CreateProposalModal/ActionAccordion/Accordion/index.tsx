@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';

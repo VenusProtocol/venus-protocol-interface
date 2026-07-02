@@ -7,7 +7,7 @@ import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 import type { Token } from 'types';
 import Trade from '..';
-import { store } from '../Banner/store';
+import { useStore } from '../Banner/store';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from '../constants';
 import { useGetLiveKLineCandles } from '../useGetLiveKLineCandles';
 import { useGetTradeAssets } from '../useGetTradeAssets';
@@ -42,11 +42,11 @@ vi.mock('../useTokenPair', () => ({
 }));
 
 vi.mock('../Banner/store', () => ({
-  store: {
-    use: {
-      doNotShowBanner: vi.fn(),
-    },
-  },
+  useStore: vi.fn((selector: (state: { doNotShowBanner: boolean }) => unknown) =>
+    selector({
+      doNotShowBanner: false,
+    }),
+  ),
 }));
 
 vi.mock('../Banner', () => ({
@@ -132,7 +132,12 @@ const setPageState = (
     liveCandle: undefined,
   });
 
-  (store.use.doNotShowBanner as Mock).mockReturnValue(doNotShowBanner);
+  vi.mocked(useStore as unknown as Mock).mockImplementation(
+    (selector: (state: { doNotShowBanner: boolean }) => unknown) =>
+      selector({
+        doNotShowBanner,
+      }),
+  );
 };
 
 const expectSearchParamsToResetToDefaults = async () => {

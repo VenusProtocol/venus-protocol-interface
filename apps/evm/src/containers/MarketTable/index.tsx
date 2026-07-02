@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { cn } from '@venusprotocol/ui';
 import { useMemo, useState } from 'react';
 import type { Address } from 'viem';

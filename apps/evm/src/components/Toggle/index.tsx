@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Switch, { type SwitchProps } from '@mui/material/Switch';
 import { cn } from '@venusprotocol/ui';
 

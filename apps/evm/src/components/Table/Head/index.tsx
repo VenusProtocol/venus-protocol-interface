@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Box from '@mui/material/Box';
 import MuiTableCell from '@mui/material/TableCell';
 import MuiTableHead from '@mui/material/TableHead';

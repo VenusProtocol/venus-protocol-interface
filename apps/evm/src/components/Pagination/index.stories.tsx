@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import type { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 
