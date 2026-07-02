@@ -495,11 +495,11 @@ export const contracts: ContractConfig[] = [
     },
   },
   {
-    // TODO: source ABI and address from @venusprotocol/venus-protocol once PrimeV2 is published
     name: 'PrimeV2',
     abi: primeV2Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xeC22366d2572e52BCB29B50C905b945BA421B9b2',
+      [ChainId.BSC_MAINNET]: '0x059EabA8676b03e4e8f009eFb7F587C28450F50f',
     },
   },
   {
@@ -507,14 +507,15 @@ export const contracts: ContractConfig[] = [
     abi: primeV2LensAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0x13b3C3442e5fD642bc31D34db43d547E8C4322f7',
+      [ChainId.BSC_MAINNET]: '0x2f8c5e4562E22DB7908C56Bf99961C053436473c',
     },
   },
   {
-    // TODO: source ABI and address from @venusprotocol/venus-protocol once PrimeLeaderboard is published
     name: 'PrimeLeaderboard',
     abi: primeLeaderboardAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0x1a4408613eec291f2d338F7A88E9D550fa9cD8dC',
+      [ChainId.BSC_MAINNET]: '0x55e2ccF68B7A276dc28AfA107997b8B1Be932c0b',
     },
   },
   {
