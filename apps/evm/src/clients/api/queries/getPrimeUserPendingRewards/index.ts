@@ -6,8 +6,7 @@ import type { Address } from 'viem';
 export interface PrimeUserPendingReward {
   marketAddress: Address;
   rewardTokenAddress: Address;
-  pendingAmountMantissa: string;
-  pendingCents: string;
+  currentCycleUsdMantissa: string;
 }
 
 export interface GetPrimeUserPendingRewardsInput {
@@ -19,7 +18,7 @@ export interface GetPrimeUserPendingRewardsOutput {
   blockNumber: string | null;
   isPrimeHolder: boolean;
   rank: number | null;
-  totalPendingCents: string;
+  totalCurrentCycleUsdMantissa: string;
   rewards: PrimeUserPendingReward[];
 }
 
@@ -27,14 +26,24 @@ interface PrimeUserPendingRewardResponse {
   marketAddress: Address;
   rewardTokenAddress: Address;
   pendingAmountMantissa: string;
+  currentCycleAmountMantissa: string;
   pendingUsdCents: string;
+  pendingUsdMantissa: string;
+  currentCycleUsdCents: string;
+  currentCycleUsdMantissa: string;
 }
 
 interface GetPrimeUserPendingRewardsResponse {
+  chainId: string;
+  userAddress: Address;
   blockNumber: string | null;
   isPrimeHolder: boolean;
   rank: number | null;
+  cycleIndex: number;
   totalPendingUsdCents: string;
+  totalPendingUsdMantissa: string;
+  totalCurrentCycleUsdCents: string;
+  totalCurrentCycleUsdMantissa: string;
   rewards: PrimeUserPendingRewardResponse[];
 }
 
@@ -66,10 +75,11 @@ export const getPrimeUserPendingRewards = async ({
     blockNumber: payload.blockNumber,
     isPrimeHolder: payload.isPrimeHolder,
     rank: payload.rank,
-    totalPendingCents: payload.totalPendingUsdCents,
-    rewards: payload.rewards.map(({ pendingUsdCents, ...reward }) => ({
-      ...reward,
-      pendingCents: pendingUsdCents,
+    totalCurrentCycleUsdMantissa: payload.totalCurrentCycleUsdMantissa,
+    rewards: payload.rewards.map(reward => ({
+      marketAddress: reward.marketAddress,
+      rewardTokenAddress: reward.rewardTokenAddress,
+      currentCycleUsdMantissa: reward.currentCycleUsdMantissa,
     })),
   };
 };

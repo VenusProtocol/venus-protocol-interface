@@ -5,13 +5,12 @@ import type { Address } from 'viem';
 
 export interface PrimeRewardTokenAmount {
   rewardTokenAddress: Address;
-  pendingCents: string;
-  pendingAmountMantissa: string;
+  currentCycleUsdMantissa: string;
 }
 
 export interface PrimeRewardsLeaderboardEntry {
   userAddress: Address;
-  totalPendingCents: string;
+  totalCurrentCycleUsdMantissa: string;
   byRewardToken: PrimeRewardTokenAmount[];
 }
 
@@ -35,17 +34,25 @@ export interface GetPrimeRewardsLeaderboardOutput {
 
 interface PrimeRewardTokenAmountResponse {
   rewardTokenAddress: Address;
-  pendingUsdCents: string;
   pendingAmountMantissa: string;
+  currentCycleAmountMantissa: string;
+  pendingUsdCents: string;
+  pendingUsdMantissa: string;
+  currentCycleUsdCents: string;
+  currentCycleUsdMantissa: string;
 }
 
 interface PrimeRewardsLeaderboardEntryResponse {
   userAddress: Address;
   totalPendingUsdCents: string;
+  totalPendingUsdMantissa: string;
+  totalCurrentCycleUsdCents: string;
+  totalCurrentCycleUsdMantissa: string;
   byRewardToken: PrimeRewardTokenAmountResponse[];
 }
 
 interface GetPrimeRewardsLeaderboardResponse {
+  chainId: string;
   blockNumber: string | null;
   computedAt: string | null;
   page: number;
@@ -95,11 +102,10 @@ export const getPrimeRewardsLeaderboard = async ({
     total: payload.total,
     entries: payload.result.map(entry => ({
       userAddress: entry.userAddress,
-      totalPendingCents: entry.totalPendingUsdCents,
+      totalCurrentCycleUsdMantissa: entry.totalCurrentCycleUsdMantissa,
       byRewardToken: entry.byRewardToken.map(token => ({
         rewardTokenAddress: token.rewardTokenAddress,
-        pendingCents: token.pendingUsdCents,
-        pendingAmountMantissa: token.pendingAmountMantissa,
+        currentCycleUsdMantissa: token.currentCycleUsdMantissa,
       })),
     })),
   };

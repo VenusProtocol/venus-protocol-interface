@@ -553,7 +553,7 @@ export const getPrimeUserPendingRewards = vi.fn(async () => ({
   blockNumber: '1',
   isPrimeHolder: true,
   rank: 2,
-  totalPendingCents: '1840000',
+  totalCurrentCycleUsdMantissa: '18400000000000000000000',
   rewards: [],
 }));
 export const useGetPrimeUserPendingRewards = vi.fn(() =>
@@ -639,17 +639,15 @@ export const getPrimeCurrentCycle = vi.fn(async () => ({
     blockNumber: '1',
     computedAt: new Date('2026-06-17T00:00:00Z'),
     primeHolderCount: 500,
-    totalPendingCents: '46230000',
+    totalCurrentCycleUsdMantissa: '462300000000000000000000',
     byRewardToken: [
       {
         rewardTokenAddress: usdc.address,
-        totalPendingCents: '28040000',
-        totalPendingMantissa: '0',
+        totalCurrentCycleUsdMantissa: '280400000000000000000000',
       },
       {
         rewardTokenAddress: xvs.address,
-        totalPendingCents: '17190000',
-        totalPendingMantissa: '0',
+        totalCurrentCycleUsdMantissa: '171900000000000000000000',
       },
     ],
   },
@@ -700,14 +698,13 @@ export const getPrimeRewardsLeaderboard = vi.fn(async () => ({
   entries: [
     {
       userAddress: fakeAddress,
-      totalPendingCents: '50000',
+      totalCurrentCycleUsdMantissa: '500000000000000000000',
       byRewardToken: [
         {
           rewardTokenAddress: usdc.address,
-          pendingCents: '4000000',
-          pendingAmountMantissa: '0',
+          currentCycleUsdMantissa: '40000000000000000000000',
         },
-        { rewardTokenAddress: xvs.address, pendingCents: '2236000', pendingAmountMantissa: '0' },
+        { rewardTokenAddress: xvs.address, currentCycleUsdMantissa: '22360000000000000000000' },
       ],
     },
   ],
@@ -748,19 +745,18 @@ export const useGetPrimeCycle = vi.fn(() =>
 
 export const getPrimeUserCycleRewards = vi.fn(async () => ({
   rank: 2,
-  totalRewardCents: '1840000',
+  effectiveStakeMantissa: new BigNumber('542500000').multipliedBy(1e18).toFixed(),
+  totalRewardUsdMantissa: '18400000000000000000000',
   markets: [
     {
       marketAddress: usdc.address,
       rewardTokenAddress: usdc.address,
-      totalRewardMantissa: '0',
-      totalRewardCents: '1140000',
+      totalRewardUsdMantissa: '11400000000000000000000',
     },
     {
       marketAddress: xvs.address,
       rewardTokenAddress: xvs.address,
-      totalRewardMantissa: '0',
-      totalRewardCents: '700000',
+      totalRewardUsdMantissa: '7000000000000000000000',
     },
   ],
 }));

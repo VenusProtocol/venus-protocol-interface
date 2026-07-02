@@ -12,7 +12,12 @@ import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { areAddressesEqual, findTokenByAddress, formatCentsToReadableValue } from 'utilities';
+import {
+  areAddressesEqual,
+  convertUsdMantissaToCents,
+  findTokenByAddress,
+  formatCentsToReadableValue,
+} from 'utilities';
 
 import { ITEMS_PER_PAGE, PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
 
@@ -78,9 +83,11 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
         selectOptionLabel: t('primeLeaderboard.rewardTable.columns.totalRewards'),
         align: 'right',
         sortable: true,
-        renderCell: ({ totalPendingCents }) => (
+        renderCell: ({ totalCurrentCycleUsdMantissa }) => (
           <span className="text-b1r text-white">
-            {formatCentsToReadableValue({ value: Number(totalPendingCents) })}
+            {formatCentsToReadableValue({
+              value: convertUsdMantissaToCents(totalCurrentCycleUsdMantissa).toNumber(),
+            })}
           </span>
         ),
       },
@@ -99,7 +106,11 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
 
           return (
             <span className="text-b1r text-white">
-              {formatCentsToReadableValue({ value: reward ? Number(reward.pendingCents) : 0 })}
+              {formatCentsToReadableValue({
+                value: reward
+                  ? convertUsdMantissaToCents(reward.currentCycleUsdMantissa).toNumber()
+                  : 0,
+              })}
             </span>
           );
         },

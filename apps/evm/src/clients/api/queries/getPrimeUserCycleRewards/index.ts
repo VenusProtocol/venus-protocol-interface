@@ -6,8 +6,7 @@ import type { Address } from 'viem';
 export interface PrimeUserCycleRewardMarket {
   marketAddress: Address;
   rewardTokenAddress: Address;
-  totalRewardMantissa: string;
-  totalRewardCents: string;
+  totalRewardUsdMantissa: string;
 }
 
 export interface GetPrimeUserCycleRewardsInput {
@@ -19,7 +18,7 @@ export interface GetPrimeUserCycleRewardsInput {
 export interface GetPrimeUserCycleRewardsOutput {
   rank: number | null;
   effectiveStakeMantissa: string | null;
-  totalRewardCents: string | null;
+  totalRewardUsdMantissa: string | null;
   markets: PrimeUserCycleRewardMarket[];
 }
 
@@ -28,12 +27,17 @@ interface PrimeUserCycleRewardMarketResponse {
   rewardTokenAddress: Address;
   totalRewardMantissa: string;
   totalRewardUsdCents: string;
+  totalRewardUsdMantissa: string;
 }
 
 interface GetPrimeUserCycleRewardsResponse {
+  chainId: string;
+  cycleIndex: number;
+  userAddress: Address;
   rank: number | null;
   effectiveStakeMantissa: string | null;
   totalRewardUsdCents: string | null;
+  totalRewardUsdMantissa: string | null;
   markets: PrimeUserCycleRewardMarketResponse[];
 }
 
@@ -65,10 +69,11 @@ export const getPrimeUserCycleRewards = async ({
   return {
     rank: payload.rank,
     effectiveStakeMantissa: payload.effectiveStakeMantissa,
-    totalRewardCents: payload.totalRewardUsdCents,
-    markets: payload.markets.map(({ totalRewardUsdCents, ...market }) => ({
-      ...market,
-      totalRewardCents: totalRewardUsdCents,
+    totalRewardUsdMantissa: payload.totalRewardUsdMantissa,
+    markets: payload.markets.map(market => ({
+      marketAddress: market.marketAddress,
+      rewardTokenAddress: market.rewardTokenAddress,
+      totalRewardUsdMantissa: market.totalRewardUsdMantissa,
     })),
   };
 };

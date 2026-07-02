@@ -1,14 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useGetPools, useGetPrimeUserCycleRewards } from 'clients/api';
+import { useGetPrimeUserCycleRewards } from 'clients/api';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import { convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens, convertUsdMantissaToCents, findTokenByAddress } from 'utilities';
 
 import type { UserMarketReward } from '../../UserRewardsCard';
-import { buildPrimeMarketRewards } from '../../buildPrimeMarketRewards';
-import { resolvePrimeTotalRewardCents } from '../../resolvePrimeTotalRewardCents';
 
 export interface UseGetPrimeLastCycleSummaryOutput {
   isLoading: boolean;
@@ -29,30 +27,29 @@ export const useGetPrimeLastCycleSummary = (
     { cycleIndex: cycleIndex ?? 0, accountAddress },
     { enabled: cycleIndex !== undefined && !!accountAddress },
   );
-  const { data: getPoolsData } = useGetPools({ accountAddress });
 
-  const marketRewards = useMemo<UserMarketReward[]>(() => {
-    const assets = getPoolsData?.pools.flatMap(pool => pool.assets) ?? [];
+  const marketRewards = useMemo<UserMarketReward[]>(
+    () =>
+      (userCycleRewards?.markets ?? []).flatMap(market => {
+        const token = findTokenByAddress({ address: market.rewardTokenAddress, tokens });
+        if (!token) {
+          return [];
+        }
 
-    const groups = (userCycleRewards?.markets ?? []).map(market => ({
-      rewardTokenAddress: market.rewardTokenAddress,
-      marketAddress: market.marketAddress,
-      entries: [
-        {
-          marketAddress: market.marketAddress,
-          amountMantissa: market.totalRewardMantissa,
-          fallbackCents: Number(market.totalRewardCents),
-        },
-      ],
-    }));
+        return [
+          {
+            token,
+            marketAddress: market.marketAddress,
+            rewardsCents: convertUsdMantissaToCents(market.totalRewardUsdMantissa).toNumber(),
+          },
+        ];
+      }),
+    [userCycleRewards, tokens],
+  );
 
-    return buildPrimeMarketRewards({ groups, assets, tokens });
-  }, [userCycleRewards, getPoolsData, tokens]);
-
-  const apiTotalCents = userCycleRewards?.totalRewardCents
-    ? Number(userCycleRewards.totalRewardCents)
+  const totalRewardsCents = userCycleRewards?.totalRewardUsdMantissa
+    ? convertUsdMantissaToCents(userCycleRewards.totalRewardUsdMantissa).toNumber()
     : 0;
-  const totalRewardsCents = resolvePrimeTotalRewardCents({ apiTotalCents, marketRewards });
 
   return {
     isLoading,

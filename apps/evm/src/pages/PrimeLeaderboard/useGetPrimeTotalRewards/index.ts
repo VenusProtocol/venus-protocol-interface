@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { useGetPrimeCurrentCycle } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
-import { findTokenByAddress } from 'utilities';
+import { convertUsdMantissaToCents, findTokenByAddress } from 'utilities';
 
 import type { MarketReward } from '../TotalRewardsCard';
 
@@ -20,16 +20,27 @@ export const useGetPrimeTotalRewards = (): UseGetPrimeTotalRewardsOutput => {
 
   const marketRewards = useMemo<MarketReward[]>(
     () =>
-      (pendingPool?.byRewardToken ?? []).flatMap(({ rewardTokenAddress, totalPendingCents }) => {
-        const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
-        return token ? [{ token, rewardsCents: Number(totalPendingCents) }] : [];
-      }),
+      (pendingPool?.byRewardToken ?? []).flatMap(
+        ({ rewardTokenAddress, totalCurrentCycleUsdMantissa }) => {
+          const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+          return token
+            ? [
+                {
+                  token,
+                  rewardsCents: convertUsdMantissaToCents(totalCurrentCycleUsdMantissa).toNumber(),
+                },
+              ]
+            : [];
+        },
+      ),
     [pendingPool, tokens],
   );
 
   return {
     isLoading,
-    totalRewardsCents: pendingPool ? Number(pendingPool.totalPendingCents) : 0,
+    totalRewardsCents: pendingPool
+      ? convertUsdMantissaToCents(pendingPool.totalCurrentCycleUsdMantissa).toNumber()
+      : 0,
     marketRewards,
   };
 };

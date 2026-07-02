@@ -5,15 +5,14 @@ import type { Address } from 'viem';
 
 export interface PrimePendingRewardTokenTotal {
   rewardTokenAddress: Address;
-  totalPendingCents: string;
-  totalPendingMantissa: string;
+  totalCurrentCycleUsdMantissa: string;
 }
 
 export interface PrimePendingRewardPool {
   blockNumber: string;
   computedAt: Date;
   primeHolderCount: number;
-  totalPendingCents: string;
+  totalCurrentCycleUsdMantissa: string;
   byRewardToken: PrimePendingRewardTokenTotal[];
 }
 
@@ -37,15 +36,23 @@ interface PrimeCurrentCycleResponse {
 
 interface PrimePendingRewardTokenTotalResponse {
   rewardTokenAddress: Address;
-  totalPendingUsdCents: string;
   totalPendingMantissa: string;
+  totalCurrentCycleMantissa: string;
+  totalPendingUsdCents: string;
+  totalPendingUsdMantissa: string;
+  totalCurrentCycleUsdCents: string;
+  totalCurrentCycleUsdMantissa: string;
 }
 
 interface PrimePendingRewardPoolResponse {
   blockNumber: string;
   computedAt: string;
   primeHolderCount: number;
+  cycleIndex: number;
   totalPendingUsdCents: string;
+  totalPendingUsdMantissa: string;
+  totalCurrentCycleUsdCents: string;
+  totalCurrentCycleUsdMantissa: string;
   byRewardToken: PrimePendingRewardTokenTotalResponse[];
 }
 
@@ -91,11 +98,10 @@ export const getPrimeCurrentCycle = async ({
           blockNumber: payload.pendingPool.blockNumber,
           computedAt: new Date(payload.pendingPool.computedAt),
           primeHolderCount: payload.pendingPool.primeHolderCount,
-          totalPendingCents: payload.pendingPool.totalPendingUsdCents,
+          totalCurrentCycleUsdMantissa: payload.pendingPool.totalCurrentCycleUsdMantissa,
           byRewardToken: payload.pendingPool.byRewardToken.map(token => ({
             rewardTokenAddress: token.rewardTokenAddress,
-            totalPendingCents: token.totalPendingUsdCents,
-            totalPendingMantissa: token.totalPendingMantissa,
+            totalCurrentCycleUsdMantissa: token.totalCurrentCycleUsdMantissa,
           })),
         }
       : undefined,

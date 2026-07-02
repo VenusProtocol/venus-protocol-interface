@@ -1,13 +1,11 @@
 import { useMemo } from 'react';
 
-import { useGetPools, useGetPrimeCurrentCycle, useGetPrimeUserPendingRewards } from 'clients/api';
+import { useGetPrimeCurrentCycle, useGetPrimeUserPendingRewards } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import { areAddressesEqual } from 'utilities';
+import { areAddressesEqual, convertUsdMantissaToCents, findTokenByAddress } from 'utilities';
 
 import type { UserMarketReward } from '../UserRewardsCard';
-import { buildPrimeMarketRewards } from '../buildPrimeMarketRewards';
-import { resolvePrimeTotalRewardCents } from '../resolvePrimeTotalRewardCents';
 
 export interface UseGetPrimeUserRewardsOutput {
   isLoading: boolean;
@@ -21,35 +19,41 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
   const { data: currentCycle, isLoading: isCurrentCycleLoading } = useGetPrimeCurrentCycle();
   const { data: userPendingRewards, isLoading: isUserPendingRewardsLoading } =
     useGetPrimeUserPendingRewards({ accountAddress });
-  const { data: getPoolsData } = useGetPools({ accountAddress });
 
   const byRewardToken = currentCycle?.pendingPool?.byRewardToken;
   const userRewards = userPendingRewards?.rewards;
 
-  const marketRewards = useMemo<UserMarketReward[]>(() => {
-    const assets = getPoolsData?.pools.flatMap(pool => pool.assets) ?? [];
+  const marketRewards = useMemo<UserMarketReward[]>(
+    () =>
+      (byRewardToken ?? []).flatMap(({ rewardTokenAddress }) => {
+        const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+        if (!token) {
+          return [];
+        }
 
-    const groups = (byRewardToken ?? []).map(({ rewardTokenAddress }) => {
-      const tokenRewards = (userRewards ?? []).filter(reward =>
-        areAddressesEqual(reward.rewardTokenAddress, rewardTokenAddress),
-      );
+        const tokenRewards = (userRewards ?? []).filter(reward =>
+          areAddressesEqual(reward.rewardTokenAddress, rewardTokenAddress),
+        );
 
-      return {
-        rewardTokenAddress,
-        marketAddress: tokenRewards[0]?.marketAddress,
-        entries: tokenRewards.map(reward => ({
-          marketAddress: reward.marketAddress,
-          amountMantissa: reward.pendingAmountMantissa,
-          fallbackCents: Number(reward.pendingCents),
-        })),
-      };
-    });
+        const marketAddress = tokenRewards[0]?.marketAddress;
+        if (!marketAddress) {
+          return [];
+        }
 
-    return buildPrimeMarketRewards({ groups, assets, tokens });
-  }, [byRewardToken, userRewards, getPoolsData, tokens]);
+        const rewardsCents = tokenRewards.reduce(
+          (total, reward) =>
+            total + convertUsdMantissaToCents(reward.currentCycleUsdMantissa).toNumber(),
+          0,
+        );
 
-  const apiTotalCents = userPendingRewards ? Number(userPendingRewards.totalPendingCents) : 0;
-  const totalRewardsCents = resolvePrimeTotalRewardCents({ apiTotalCents, marketRewards });
+        return [{ token, marketAddress, rewardsCents }];
+      }),
+    [byRewardToken, userRewards, tokens],
+  );
+
+  const totalRewardsCents = userPendingRewards
+    ? convertUsdMantissaToCents(userPendingRewards.totalCurrentCycleUsdMantissa).toNumber()
+    : 0;
 
   return {
     isLoading: isCurrentCycleLoading || isUserPendingRewardsLoading,
