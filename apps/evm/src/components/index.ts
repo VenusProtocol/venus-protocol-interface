@@ -65,6 +65,7 @@ export * from './IsolatedAssetIndicator';
 export * from './IsolatedEModeGroupTooltip';
 export * from './TokenIcon';
 export * from './BalanceUpdates';
+export * from './BodyBackdrop';
 export * from './LabeledValueUpdate';
 export * from './TransactionsList';
 export * from './Wrapper';

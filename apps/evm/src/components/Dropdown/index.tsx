@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { cn } from '@venusprotocol/ui';
 import { useBreakpointUp } from 'hooks/responsive';
 
-import { useTranslation } from 'libs/translations';
 import { Modal } from '../Modal';
 import type { DropdownProps } from './types';
 
@@ -23,9 +22,8 @@ export const Dropdown = ({
   menuPosition = 'left',
   triggerOnHover = false,
 }: DropdownProps) => {
-  const { t } = useTranslation();
-  const [isDropdownOpened, setIsDropdownOpened] = useState(false);
-  const handleToggleDropdown = () => setIsDropdownOpened(!isDropdownOpened);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const handleToggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const isMdOrUp = useBreakpointUp('md');
 
@@ -40,28 +38,28 @@ export const Dropdown = ({
 
         <div
           className="relative w-full"
-          onMouseEnter={triggerOnHover ? () => setIsDropdownOpened(true) : undefined}
-          onMouseLeave={triggerOnHover ? () => setIsDropdownOpened(false) : undefined}
+          onMouseEnter={triggerOnHover && isMdOrUp ? () => setIsDropdownOpen(true) : undefined}
+          onMouseLeave={triggerOnHover && isMdOrUp ? () => setIsDropdownOpen(false) : undefined}
         >
           {/* MD and up backdrop — click mode only */}
-          {isDropdownOpened && !triggerOnHover && (
+          {isDropdownOpen && !triggerOnHover && (
             <div
               className="fixed bottom-0 left-0 right-0 top-0 hidden md:block z-50"
-              onClick={() => setIsDropdownOpened(false)}
+              onClick={() => setIsDropdownOpen(false)}
             />
           )}
 
-          {children({ isDropdownOpened, handleToggleDropdown })}
+          {children({ isDropdownOpen, handleToggleDropdown })}
 
           {/* XS to MD menu */}
-          {isDropdownOpened && (
+          {isDropdownOpen && (
             <div className="relative z-50 hidden min-w-full md:block">
               <div
                 className={cn('pt-2 absolute min-w-full', menuPosition === 'right' && 'right-0')}
               >
                 <div
                   className={cn(
-                    'border-lightGrey bg-cards overflow-hidden border shadow',
+                    'border-lightGrey bg-cards overflow-visible border shadow',
                     variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
                     menuClassName,
                   )}
@@ -77,7 +75,7 @@ export const Dropdown = ({
                     </div>
                   )}
 
-                  {optionsDom({ setIsDropdownOpened, optionClassName })}
+                  {optionsDom({ setIsDropdownOpen, optionClassName })}
                 </div>
               </div>
             </div>
@@ -87,13 +85,13 @@ export const Dropdown = ({
 
       {/* XS to MD menu */}
       <Modal
-        isOpen={isDropdownOpened && !isMdOrUp}
+        isOpen={isDropdownOpen && !isMdOrUp}
         handleClose={handleToggleDropdown}
         noHorizontalPadding
         onBlur={onBlur}
-        title={menuTitle || t('select.defaultLabel')}
+        title={menuTitle}
       >
-        {optionsDom({ setIsDropdownOpened, optionClassName })}
+        {optionsDom({ setIsDropdownOpen, optionClassName })}
       </Modal>
     </>
   );

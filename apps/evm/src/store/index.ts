@@ -19,6 +19,7 @@ export interface UserChainSettings {
   doNotExpandGuide: boolean;
   doNotShowFixedRateVaultsAdBanner: boolean;
   doNotShowGatedAssetModal: boolean;
+  doNotShowVipModal: boolean;
 }
 
 type UserSettings = Partial<Record<ChainId, Partial<UserChainSettings>>>;

@@ -144,6 +144,9 @@
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Số dư vay (Bảo vệ):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Số dư vay (spot): {{borrowBalance}}<LineBreak/>Hạn mức vay: {{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "Ngắt kết nối"
+  },
   "adBanner": {
     "startNow": "Bắt đầu ngay"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "Kết nối ví",
-    "disconnect": "Ngắt kết nối"
+    "vipLogoAlt": "Logo VIP"
   },
   "connectWallet": {
     "connectButton": "Kết nối ví"
@@ -445,6 +448,7 @@
       "uncompleted": "Chưa hoàn thành"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30 ngày hiệu suất tuyệt đối",
       "absolutePerformance": "Hiệu suất tuyệt đối",
       "netWorth": {
         "label": "Giá trị ròng",
@@ -1397,9 +1401,6 @@
       "withdrawButtonLabel": "Rút số dư đã mở khóa"
     }
   },
-  "select": {
-    "defaultLabel": "Chọn tùy chọn"
-  },
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Tìm tài sản"
@@ -2295,6 +2296,19 @@
     "description": "Chỉ trong 30 ngày. Ra mắt ngày 28 tháng 5 cùng <YellowText>Binance Wallet</YellowText>",
     "illustrationAltText": "Hình minh họa Venus Flux",
     "title": "Phần thưởng $50K USDT trên Venus Flux"
+  },
+  "vipModal": {
+    "backgroundAlt": "Hình minh họa nền",
+    "cancelButton": {
+      "label": "Không, cảm ơn"
+    },
+    "description": "Bạn là một phần của nhóm người dùng VIP Venus được chọn lọc. Đây là lời mời cá nhân của bạn vào kênh Venus. Chỉ dành cho các whale của Venus Protocol.",
+    "illustration": {
+      "header": "Bạn là <Linebreak/><Highlight>VIP</Highlight> của Venus Protocol"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "Tham gia nhóm Telegram riêng"
   },
   "vote": {
     "abstain": "Bỏ phiếu trắng",

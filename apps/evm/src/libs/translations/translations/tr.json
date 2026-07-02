@@ -144,6 +144,9 @@
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Borç bakiyesi (Koruma):<LineBreak/>{{borrowBalanceProtected}} (borç limitinizin {{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>Borç bakiyesi (spot): {{borrowBalance}}<LineBreak/>Borç limiti: {{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "Bağlantıyı kes"
+  },
   "adBanner": {
     "startNow": "Şimdi başla"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "Cüzdan bağla",
-    "disconnect": "Bağlantıyı kes"
+    "vipLogoAlt": "VIP logosu"
   },
   "connectWallet": {
     "connectButton": "Cüzdan bağla"
@@ -445,6 +448,7 @@
       "uncompleted": "Tamamlanmadı"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30G mutlak performans",
       "absolutePerformance": "Mutlak performans",
       "netWorth": {
         "label": "Net değer",
@@ -1397,9 +1401,6 @@
       "withdrawButtonLabel": "Kilidi açılan bakiyeyi çek"
     }
   },
-  "select": {
-    "defaultLabel": "Seçenek seçin"
-  },
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Varlık ara"
@@ -2296,6 +2297,19 @@
     "description": "Yalnızca 30 gün. 28 Mayıs'ta <YellowText>Binance Wallet</YellowText> ile yayında",
     "illustrationAltText": "Venus Flux illüstrasyonu",
     "title": "Venus Flux'ta $50K USDT ödülü"
+  },
+  "vipModal": {
+    "backgroundAlt": "Arka plan illüstrasyonu",
+    "cancelButton": {
+      "label": "Hayır, teşekkürler"
+    },
+    "description": "Seçkin Venus VIP kullanıcı grubunun bir parçasısınız. İşte Venus kanalına özel davetiniz. Yalnızca Venus Protocol balinaları için.",
+    "illustration": {
+      "header": "Siz bir Venus Protocol <Linebreak/><Highlight>VIP</Highlight>'siniz"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "Özel Telegram grubuna katıl"
   },
   "vote": {
     "abstain": "Çekimser",

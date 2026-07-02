@@ -5,34 +5,40 @@ import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserCha
 import { en } from 'libs/translations';
 import * as storeModule from 'store';
 import { renderComponent } from 'testUtils/render';
-import { Overview } from '..';
+import { AccountOverview } from '..';
 import { testIds } from '../testIds';
 
 vi.mock('hooks/useUserChainSettings');
 
-describe('Overview', () => {
+describe('AccountOverview', () => {
   it('displays correctly when user is not connected', async () => {
-    const { container } = renderComponent(<Overview />);
+    const { container } = renderComponent(<AccountOverview />);
 
     expect(container.textContent).toMatchSnapshot();
   });
 
   it('displays correctly when user is connected', async () => {
-    const { container, queryByTestId } = renderComponent(<Overview />, {
-      accountAddress: fakeAccountAddress,
-    });
+    const { container, queryByTestId } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
 
-    await waitFor(() => queryByTestId(testIds.performanceChartPreview));
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
 
     expect(container.textContent).toMatchSnapshot();
   });
 
   it('displays correctly when user is connected and accordion is expanded', async () => {
-    const { container, queryByTestId, getByText } = renderComponent(<Overview />, {
-      accountAddress: fakeAccountAddress,
-    });
+    const { container, queryByTestId, getByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
 
-    await waitFor(() => queryByTestId(testIds.performanceChartPreview));
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
 
     // Expand accordion
     fireEvent.click(getByText(en.dashboard.overview.absolutePerformance).closest('button')!);
@@ -55,14 +61,24 @@ describe('Overview', () => {
       }),
     );
 
-    const { container, queryAllByRole } = renderComponent(<Overview />, {
-      accountAddress: fakeAccountAddress,
-    });
+    const { container, queryAllByRole } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
 
     expect(container.textContent).toMatchSnapshot();
 
-    // Expand accordion
-    fireEvent.click(queryAllByRole('button')[0]);
+    const toggleBalancesButton = queryAllByRole('button').find(
+      button => !button.hasAttribute('disabled'),
+    );
+
+    if (!toggleBalancesButton) {
+      throw new Error('Expected balance visibility toggle button to be enabled');
+    }
+
+    fireEvent.click(toggleBalancesButton);
 
     expect(mockSetUserSettings).toHaveBeenCalledTimes(1);
     expect(mockSetUserSettings.mock.calls[0]).toMatchInlineSnapshot(`

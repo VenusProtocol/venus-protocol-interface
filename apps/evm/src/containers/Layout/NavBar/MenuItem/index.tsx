@@ -72,12 +72,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
         className="hidden lg:block"
         menuClassName="mt-5 shadow-none border-0 bg-background-active"
         triggerOnHover
-        optionsDom={({ setIsDropdownOpened }) => {
+        optionsDom={({ setIsDropdownOpen }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({
             ...i,
             onClick: () => {
               // Close dropdown
-              setIsDropdownOpened(false);
+              setIsDropdownOpen(false);
 
               onClick();
             },
@@ -86,18 +86,18 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           return <SubMenuContent {...item} items={items} />;
         }}
       >
-        {({ isDropdownOpened }) => (
+        {({ isDropdownOpen }) => (
           <button
             className={cn(
               sharedContainerClassName,
               'flex items-center justify-between cursor-pointer lg:gap-x-2',
-              isDropdownOpened && 'lg:text-white lg:bg-dark-blue-active',
+              isDropdownOpen && 'lg:text-white lg:bg-dark-blue-active',
             )}
             type="button"
           >
             <span>{item.label}</span>
 
-            <Icon name="chevronDown" className={cn('size-3', isDropdownOpened && 'rotate-180')} />
+            <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
           </button>
         )}
       </Dropdown>

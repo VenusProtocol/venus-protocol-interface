@@ -1,7 +1,8 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { useStore } from 'containers/Layout/store';
 import { useIsUserPrime } from 'hooks/useIsUserPrime';
 import { renderComponent } from 'testUtils/render';
 
@@ -16,6 +17,12 @@ vi.mock('wagmi', () => ({
 
 describe('ConnectButton', () => {
   beforeEach(() => {
+    useStore.setState({
+      isCloseToBottom: false,
+      isScrollToTopVisible: false,
+      openModal: undefined,
+    });
+
     (useIsUserPrime as Mock).mockReturnValue({
       isUserPrime: false,
       isLoading: false,
@@ -56,5 +63,26 @@ describe('ConnectButton', () => {
     });
 
     expect(container.firstChild).toBeNull();
+  });
+
+  it('stores the account modal open state in the shared layout store', async () => {
+    const { container, findByRole } = renderComponent(<ConnectButton />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const accountButton = container.querySelector('button.group') as HTMLButtonElement;
+
+    fireEvent.click(accountButton);
+
+    expect(useStore.getState().openModal).toBe('accountModal');
+    expect(
+      await findByRole('button', {
+        name: 'Disconnect',
+      }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(accountButton);
+
+    expect(useStore.getState().openModal).toBeUndefined();
   });
 });

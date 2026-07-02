@@ -1,6 +1,6 @@
 import { Outlet, matchPath, useLocation } from 'react-router';
 
-import { PAGE_CONTAINER_ID } from 'constants/layout';
+import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { Wrapper, cn } from 'components';
 import { Subdirectory } from 'constants/routing';
@@ -69,24 +69,32 @@ export const Layout: React.FC = () => {
   const WrapperComp = noWrapper ? 'div' : Wrapper;
 
   return (
-    <div className="h-dvh flex flex-col">
-      <NavBar className="shrink-0" />
+    <>
+      <div className="h-dvh flex flex-col">
+        <NavBar className="shrink-0" />
 
-      <TestEnvWarning className="shrink-0" />
+        <TestEnvWarning className="shrink-0" />
 
-      <div
-        className="flex flex-col grow overflow-x-hidden"
-        id={PAGE_CONTAINER_ID}
-        onScroll={handleScroll}
-      >
-        <Header />
+        <div
+          className="flex flex-col grow overflow-x-hidden"
+          id={PAGE_CONTAINER_ID}
+          onScroll={handleScroll}
+        >
+          <Header />
 
-        <WrapperComp className={cn('relative w-full shrink-0 grow', !noWrapper && 'pt-5 sm:pt-10')}>
-          {contentDom}
-        </WrapperComp>
+          <div className="relative flex grow flex-col">
+            <WrapperComp
+              className={cn('relative w-full shrink-0 grow', !noWrapper && 'pt-5 sm:pt-10')}
+            >
+              {contentDom}
+            </WrapperComp>
 
-        <Footer ref={footerRef} />
+            <div id={BODY_PORTAL_ID} />
+
+            <Footer ref={footerRef} />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };

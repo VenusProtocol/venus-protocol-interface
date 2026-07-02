@@ -26,22 +26,29 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
 import { useStore } from 'store';
 import {
   convertDollarsToCents,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
 } from 'utilities';
+import type { Address } from 'viem';
 import { DollarValueChange } from './DollarValueChange';
 import { GridCellGroup } from './GridCellGroup';
 import { PerformanceChart } from './PerformanceChart';
 import { testIds } from './testIds';
 import { useExtractData } from './useExtractData';
 
-export interface OverviewProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface AccountOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
+  showGraph?: boolean;
+  accountAddress?: Address;
+}
 
-export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
+export const AccountOverview: React.FC<AccountOverviewProps> = ({
+  showGraph = true,
+  accountAddress,
+  ...otherProps
+}) => {
   const { t } = useTranslation();
 
   const isVaiFeatureEnabled = useIsFeatureEnabled({
@@ -59,7 +66,6 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
     });
 
   const { corePoolComptrollerContractAddress } = useChain();
-  const { accountAddress } = useAccountAddress();
 
   const periodOptions: { label: string; value: AccountPerformanceHistoryPeriod }[] = [
     {
@@ -208,7 +214,9 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
       ),
     },
     {
-      label: t('dashboard.overview.absolutePerformance'),
+      label: showGraph
+        ? t('dashboard.overview.absolutePerformance')
+        : t('dashboard.overview.30DayAbsolutePerformance'),
       value: (
         <HidableUserBalance>
           <DollarValueChange value={absolutePerformanceCents} />
@@ -261,7 +269,8 @@ export const Overview: React.FC<OverviewProps> = ({ ...otherProps }) => {
     value: selectedDataPoint ? Number(selectedDataPoint.netWorthCents) : netWorthCents,
   });
 
-  const shouldShowAccountBreakdown = !!accountAddress && !userChainSettings.doNotShowUserBalances;
+  const shouldShowAccountBreakdown =
+    !!accountAddress && !userChainSettings.doNotShowUserBalances && showGraph;
 
   return (
     <div {...otherProps}>

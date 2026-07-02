@@ -11,7 +11,10 @@ import { SunsetIndicator, SunsetModal } from './SunsetIndicator';
 import { useSunsetModalStore } from './sunsetModalStore';
 
 export interface ChainSelectProps
-  extends Omit<SelectProps, 'value' | 'onChange' | 'options' | 'optionClassName'> {
+  extends Omit<
+    SelectProps,
+    'value' | 'onChange' | 'options' | 'optionClassName' | 'triggerOnHover'
+  > {
   buttonClassName?: string;
 }
 
@@ -65,6 +68,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
         options={options}
         menuPosition="right"
         menuTitle={t('layout.chainSelect.label')}
+        triggerOnHover
         {...props}
       />
 

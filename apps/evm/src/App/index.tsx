@@ -18,6 +18,7 @@ const AppVersionChecker = safeLazyLoad(() => import('containers/AppVersionChecke
 const GaslessChecker = safeLazyLoad(() => import('containers/GaslessChecker'));
 const ResendPayingGasModal = safeLazyLoad(() => import('containers/ResendPayingGasModal'));
 const ImportPositionsModal = safeLazyLoad(() => import('containers/ImportPositionsModal'));
+const VipModal = safeLazyLoad(() => import('containers/VipModal'));
 
 const App = () => (
   <>
@@ -56,6 +57,10 @@ const App = () => (
 
                 <Suspense>
                   <ImportPositionsModal />
+                </Suspense>
+
+                <Suspense>
+                  <VipModal />
                 </Suspense>
 
                 <ChainUpgradeHandler />
