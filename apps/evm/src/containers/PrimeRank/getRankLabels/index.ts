@@ -14,8 +14,8 @@ export const getRankLabels = ({
   rank,
   primeScore,
 }: Pick<PrimeRankData, 'hasStakedXvs' | 'rank' | 'primeScore'>): RankLabels => ({
-  rankLabel: hasStakedXvs ? `#${rank}` : '#-',
+  rankLabel: rank > 0 ? `#${rank}` : '#—',
   primeScoreLabel: hasStakedXvs
-    ? shortenValueWithSuffix({ value: new BigNumber(primeScore) })
-    : '-',
+    ? shortenValueWithSuffix({ value: new BigNumber(primeScore), maxDecimalPlaces: 2 })
+    : '—',
 });

@@ -1,5 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
+import { Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
@@ -15,6 +16,7 @@ export interface TotalRewardsCardProps {
   totalRewardsCents: number;
   marketRewards: MarketReward[];
   title?: React.ReactNode;
+  isLoading?: boolean;
   className?: string;
 }
 
@@ -22,17 +24,26 @@ export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
   totalRewardsCents,
   marketRewards,
   title,
+  isLoading,
   className,
 }) => {
   const { t } = useTranslation();
 
+  const cardClassName = cn(
+    'flex flex-col gap-y-3 rounded-lg bg-background-active p-4 min-h-[182px] lg:h-58',
+    className,
+  );
+
+  if (isLoading) {
+    return (
+      <div className={cn(cardClassName, 'items-center justify-center')}>
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={cn(
-        'flex h-58 flex-col justify-between rounded-lg bg-background-active p-4',
-        className,
-      )}
-    >
+    <div className={cn(cardClassName, 'justify-between')}>
       <div>
         <p className="text-b1r text-light-grey">
           {title ?? t('primeLeaderboard.totalRewards.title')}
@@ -43,7 +54,7 @@ export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
         </p>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex max-h-14 flex-col gap-2 overflow-y-auto pr-2">
         {marketRewards.map(({ token, rewardsCents }) => (
           <MarketRewardRow
             key={token.address}

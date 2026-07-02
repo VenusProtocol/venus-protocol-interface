@@ -102,3 +102,5 @@ export { default as fullScreen } from './fullScreen';
 export { default as switch } from './switch';
 export { default as barChart } from './barChart';
 export { default as graduationCap } from './graduationCap';
+export { default as medal } from './medal';
+export { default as trophy } from './trophy';

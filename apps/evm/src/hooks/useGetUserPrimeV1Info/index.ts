@@ -7,6 +7,7 @@ import {
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useGetToken } from 'libs/tokens';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
@@ -14,10 +15,12 @@ import type { Address } from 'viem';
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-export const useGetUserPrimeInfo = ({ accountAddress }: { accountAddress?: Address }) => {
+export const useGetUserPrimeV1Info = ({ accountAddress }: { accountAddress?: Address }) => {
   const isPrimeFeatureEnabled = useIsFeatureEnabled({
     name: 'prime',
   });
+  const { primeVersion } = usePrimeVersion();
+  const isPrimeV1Enabled = isPrimeFeatureEnabled && primeVersion === 1;
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -28,7 +31,7 @@ export const useGetUserPrimeInfo = ({ accountAddress }: { accountAddress?: Addre
       accountAddress,
     },
     {
-      enabled: isPrimeFeatureEnabled,
+      enabled: isPrimeV1Enabled,
     },
   );
   const isUserPrime = !!getPrimeTokenData?.exists;
@@ -38,7 +41,7 @@ export const useGetUserPrimeInfo = ({ accountAddress }: { accountAddress?: Addre
       accountAddress,
     },
     {
-      enabled: isPrimeFeatureEnabled,
+      enabled: isPrimeV1Enabled,
       refetchInterval,
     },
   );
@@ -77,7 +80,7 @@ export const useGetUserPrimeInfo = ({ accountAddress }: { accountAddress?: Addre
         poolIndex: primeStatusData?.xvsVaultPoolId || 0,
       },
       {
-        enabled: isPrimeFeatureEnabled && !!accountAddress && !!primeStatusData,
+        enabled: isPrimeV1Enabled && !!accountAddress && !!primeStatusData,
       },
     );
 

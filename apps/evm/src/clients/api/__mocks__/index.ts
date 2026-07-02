@@ -11,6 +11,7 @@ import { assetData } from '__mocks__/models/asset';
 import { importablePositions } from '__mocks__/models/importablePositions';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
+import { usdc, xvs } from '__mocks__/models/tokens';
 import { tradePositions } from '__mocks__/models/trade';
 import { transactions } from '__mocks__/models/transactions';
 import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
@@ -265,6 +266,11 @@ export const useGetSimulatedPool = vi.fn(() => ({
   },
 }));
 
+export const useGetPrimeVaultConfig = vi.fn(() => ({
+  isLoading: false,
+  data: undefined,
+}));
+
 export const useGetAsset = vi.fn(() => ({
   isLoading: false,
   data: {
@@ -459,6 +465,16 @@ export const useGetPrimeToken = vi.fn(() =>
   }),
 );
 
+export const getIsUserPrime = vi.fn(async () => ({
+  isPrime: false,
+}));
+export const useGetIsUserPrime = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IS_USER_PRIME],
+    queryFn: getIsUserPrime,
+  }),
+);
+
 export const getPrimeStatus = vi.fn(async () => ({}));
 export const useGetPrimeStatus = vi.fn(() =>
   useQuery({
@@ -472,6 +488,16 @@ export const useGetHypotheticalPrimeApys = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_HYPOTHETICAL_PRIME_APYS],
     queryFn: getHypotheticalPrimeApys,
+  }),
+);
+
+export const getIsUserPrimeV2 = vi.fn(async () => ({
+  isPrimeHolder: false,
+}));
+export const useGetIsUserPrimeV2 = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IS_USER_PRIME_V2],
+    queryFn: getIsUserPrimeV2,
   }),
 );
 
@@ -520,6 +546,224 @@ export const useGetPrimeEstimation = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_PRIME_ESTIMATION],
     queryFn: getPrimeEstimation,
+  }),
+);
+
+export const getPrimeUserPendingRewards = vi.fn(async () => ({
+  blockNumber: '1',
+  isPrimeHolder: true,
+  rank: 2,
+  totalCurrentCycleUsdMantissa: '18400000000000000000000',
+  rewards: [],
+}));
+export const useGetPrimeUserPendingRewards = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_USER_PENDING_REWARDS],
+    queryFn: getPrimeUserPendingRewards,
+  }),
+);
+
+export const getPrimeEffectiveStake = vi.fn(async () => ({
+  effectiveStakeMantissa: new BigNumber('542500000').multipliedBy(1e18),
+  totalStakedMantissa: new BigNumber('5432').multipliedBy(1e18),
+}));
+export const useGetPrimeEffectiveStake = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_EFFECTIVE_STAKE],
+    queryFn: getPrimeEffectiveStake,
+  }),
+);
+
+export const getPrimeMultiplierTiers = vi.fn(async () => ({
+  tiers: [
+    { durationSeconds: 2592000, multiplierMantissa: new BigNumber('1.3e18') },
+    { durationSeconds: 5184000, multiplierMantissa: new BigNumber('1.6e18') },
+    { durationSeconds: 7776000, multiplierMantissa: new BigNumber('2e18') },
+  ],
+}));
+export const useGetPrimeMultiplierTiers = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_MULTIPLIER_TIERS],
+    queryFn: getPrimeMultiplierTiers,
+  }),
+);
+
+export const getPrimeDeposits = vi.fn(async () => ({
+  deposits: [],
+}));
+export const useGetPrimeDeposits = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_DEPOSITS],
+    queryFn: getPrimeDeposits,
+  }),
+);
+
+export const getPrimeTokenLimit = vi.fn(async () => ({
+  tokenLimit: 500,
+}));
+export const useGetPrimeTokenLimit = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_TOKEN_LIMIT],
+    queryFn: getPrimeTokenLimit,
+  }),
+);
+
+export const getPrimeMinimumStake = vi.fn(async () => ({
+  blockNumber: '1',
+  computedAt: null,
+  tokenLimit: 500,
+  totalTokens: 500,
+  mintThresholdMantissa: null,
+  minimumStakeMantissa: new BigNumber('10000').multipliedBy(1e18).toFixed(),
+  lastPrimeHolderAddress: xvs.address,
+  lastPrimeHolderEffectiveStakeMantissa: new BigNumber('10000').multipliedBy(1e18).toFixed(),
+  reason: 'last_position' as const,
+}));
+export const useGetPrimeMinimumStake = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_MINIMUM_STAKE],
+    queryFn: getPrimeMinimumStake,
+  }),
+);
+
+export const getPrimeCurrentCycle = vi.fn(async () => ({
+  cycle: {
+    cycleIndex: 1,
+    status: 'active',
+    startsAt: new Date('2026-06-01T00:00:00Z'),
+    endsAt: new Date('2026-07-01T00:00:00Z'),
+    anchorBlockNum: null,
+    mintLimitUsed: 0,
+  },
+  pendingPool: {
+    blockNumber: '1',
+    computedAt: new Date('2026-06-17T00:00:00Z'),
+    primeHolderCount: 500,
+    totalCurrentCycleUsdMantissa: '462300000000000000000000',
+    byRewardToken: [
+      {
+        rewardTokenAddress: usdc.address,
+        totalCurrentCycleUsdMantissa: '280400000000000000000000',
+      },
+      {
+        rewardTokenAddress: xvs.address,
+        totalCurrentCycleUsdMantissa: '171900000000000000000000',
+      },
+    ],
+  },
+}));
+export const useGetPrimeCurrentCycle = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_CURRENT_CYCLE],
+    queryFn: getPrimeCurrentCycle,
+  }),
+);
+
+export const getPrimeLeaderboard = vi.fn(async () => ({
+  blockNumber: '1',
+  computedAt: new Date('2026-06-17T00:00:00Z'),
+  page: 1,
+  limit: 10,
+  total: 2,
+  entries: [
+    {
+      userAddress: fakeAddress,
+      rank: 1,
+      effectiveStakeMantissa: new BigNumber('613500000').multipliedBy(1e18).toFixed(),
+      totalStakedMantissa: '0',
+      isPrimeHolder: true,
+    },
+    {
+      userAddress: fakeAddress,
+      rank: 2,
+      effectiveStakeMantissa: new BigNumber('542500000').multipliedBy(1e18).toFixed(),
+      totalStakedMantissa: '0',
+      isPrimeHolder: true,
+    },
+  ],
+}));
+export const useGetPrimeLeaderboard = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_LEADERBOARD],
+    queryFn: getPrimeLeaderboard,
+  }),
+);
+
+export const getPrimeRewardsLeaderboard = vi.fn(async () => ({
+  blockNumber: '1',
+  computedAt: new Date('2026-06-17T00:00:00Z'),
+  page: 1,
+  limit: 10,
+  total: 1,
+  entries: [
+    {
+      userAddress: fakeAddress,
+      totalCurrentCycleUsdMantissa: '500000000000000000000',
+      byRewardToken: [
+        {
+          rewardTokenAddress: usdc.address,
+          currentCycleUsdMantissa: '40000000000000000000000',
+        },
+        { rewardTokenAddress: xvs.address, currentCycleUsdMantissa: '22360000000000000000000' },
+      ],
+    },
+  ],
+}));
+export const useGetPrimeRewardsLeaderboard = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_REWARDS_LEADERBOARD],
+    queryFn: getPrimeRewardsLeaderboard,
+  }),
+);
+
+export const getPrimeCycle = vi.fn(async () => ({
+  cycle: {
+    cycleIndex: 1,
+    status: 'finalized',
+    startsAt: new Date('2026-05-01T00:00:00Z'),
+    endsAt: new Date('2026-06-01T00:00:00Z'),
+    mintLimitUsed: 0,
+    totalRewardPoolCents: '46230000',
+    finalizedAt: new Date('2026-06-01T00:00:00Z'),
+  },
+  markets: [],
+  ranking: [
+    {
+      userAddress: fakeAddress,
+      finalRank: 1,
+      finalEffectiveStakeMantissa: new BigNumber('542500000').multipliedBy(1e18).toFixed(),
+      finalTotalStakedMantissa: '0',
+    },
+  ],
+}));
+export const useGetPrimeCycle = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_CYCLE],
+    queryFn: getPrimeCycle,
+  }),
+);
+
+export const getPrimeUserCycleRewards = vi.fn(async () => ({
+  rank: 2,
+  effectiveStakeMantissa: new BigNumber('542500000').multipliedBy(1e18).toFixed(),
+  totalRewardUsdMantissa: '18400000000000000000000',
+  markets: [
+    {
+      marketAddress: usdc.address,
+      rewardTokenAddress: usdc.address,
+      totalRewardUsdMantissa: '11400000000000000000000',
+    },
+    {
+      marketAddress: xvs.address,
+      rewardTokenAddress: xvs.address,
+      totalRewardUsdMantissa: '7000000000000000000000',
+    },
+  ],
+}));
+export const useGetPrimeUserCycleRewards = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PRIME_USER_CYCLE_REWARDS],
+    queryFn: getPrimeUserCycleRewards,
   }),
 );
 

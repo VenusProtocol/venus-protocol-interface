@@ -22,6 +22,7 @@ exports[`ClaimRewardsButton > it claims only selected and enabled rewards on sub
     },
     {
       "contract": "prime",
+      "primeVersion": 2,
       "vTokenAddressesWithPendingReward": [
         "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
         "0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61",
@@ -75,6 +76,7 @@ exports[`ClaimRewardsButton > it claims reward on submit button click and closes
     },
     {
       "contract": "prime",
+      "primeVersion": 2,
       "vTokenAddressesWithPendingReward": [
         "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
         "0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61",

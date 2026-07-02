@@ -1,23 +1,18 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 import { NULL_ADDRESS } from 'constants/address';
 import { primeAveragesForNetwork } from 'constants/prime';
-import { primeAbi } from 'libs/contracts';
-import type { Asset, ChainId, Token } from 'types';
-import {
-  areAddressesEqual,
-  convertAprBipsToApy,
-  convertMantissaToTokens,
-  convertTokensToMantissa,
-} from 'utilities';
+import { primeAbi, primeV2LensAbi } from 'libs/contracts';
+import type { Asset, ChainId, PrimeVersion, Token } from 'types';
+import { areAddressesEqual, convertAprBipsToApy, convertTokensToMantissa } from 'utilities';
 import type { Address, PublicClient } from 'viem';
 
 export interface ResolvePrimeSimulationDistributionsInput {
   publicClient: PublicClient;
   primeContractAddress: Address;
   primeVTokenAddresses: readonly Address[];
+  primeVersion: PrimeVersion;
   assets: Asset[];
   xvs: Token;
-  primeMinimumXvsToStakeMantissa: BigNumber;
   accountAddress?: Address;
   chainId: ChainId;
 }
@@ -26,18 +21,13 @@ export const appendPrimeSimulationDistributions = async ({
   publicClient,
   primeContractAddress,
   primeVTokenAddresses,
+  primeVersion,
   assets,
   xvs,
   accountAddress,
-  primeMinimumXvsToStakeMantissa,
   chainId,
-}: ResolvePrimeSimulationDistributionsInput) => {
-  const primeMinimumXvsToStakeTokens = convertMantissaToTokens({
-    value: primeMinimumXvsToStakeMantissa,
-    token: xvs,
-  });
-
-  return Promise.allSettled(
+}: ResolvePrimeSimulationDistributionsInput) =>
+  Promise.allSettled(
     primeVTokenAddresses.map(primeVTokenAddress => {
       const asset = assets.find(poolAsset =>
         areAddressesEqual(poolAsset.vToken.address, primeVTokenAddress),
@@ -67,14 +57,14 @@ export const appendPrimeSimulationDistributions = async ({
         });
 
         const averageXvsStakedTokens =
-          primeAveragesForNetwork[chainId]?.xvs[address] || primeMinimumXvsToStakeTokens;
+          primeAveragesForNetwork[chainId]?.xvs[address] || new BigNumber(1);
         const averageXvsStakedMantissa = convertTokensToMantissa({
           value: averageXvsStakedTokens,
           token: xvs,
         });
 
         const simulatedPrimeAprs = await publicClient.readContract({
-          abi: primeAbi,
+          abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
           address: primeContractAddress,
           functionName: 'estimateAPR',
           args: [
@@ -124,4 +114,3 @@ export const appendPrimeSimulationDistributions = async ({
       return promise();
     }),
   );
-};

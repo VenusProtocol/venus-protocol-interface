@@ -26,6 +26,7 @@ export function TableCards<R>({
   controls,
   renderRowFooter,
   renderRowControl,
+  hideCardDelimiter,
 }: TableCardProps<R>) {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -97,7 +98,7 @@ export function TableCards<R>({
 
               {renderRowFooter ? renderRowFooter(row, rowIndex) : undefined}
 
-              <Delimiter />
+              {!hideCardDelimiter && <Delimiter />}
 
               {otherColumns.map(column => (
                 <LabeledInlineContent key={`${rowKey}-${column.key}`} label={column.label}>

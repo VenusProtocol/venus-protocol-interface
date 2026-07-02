@@ -1,0 +1,105 @@
+[
+  {
+    "inputs": [{ "internalType": "address", "name": "primeV2_", "type": "address" }],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [{ "internalType": "int256", "name": "x", "type": "int256" }],
+    "name": "ExpTooLarge",
+    "type": "error"
+  },
+  { "inputs": [], "name": "InvalidAddress", "type": "error" },
+  { "inputs": [], "name": "InvalidFixedPoint", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "n", "type": "uint256" },
+      { "internalType": "uint256", "name": "d", "type": "uint256" }
+    ],
+    "name": "InvalidFraction",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "int256", "name": "x", "type": "int256" }],
+    "name": "LnNonRealResult",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "int256", "name": "x", "type": "int256" }],
+    "name": "LnTooLarge",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "market", "type": "address" },
+      { "internalType": "address", "name": "user", "type": "address" }
+    ],
+    "name": "calculateAPR",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "supplyAPR", "type": "uint256" },
+          { "internalType": "uint256", "name": "borrowAPR", "type": "uint256" },
+          { "internalType": "uint256", "name": "totalScore", "type": "uint256" },
+          { "internalType": "uint256", "name": "userScore", "type": "uint256" },
+          { "internalType": "uint256", "name": "xvsBalanceForScore", "type": "uint256" },
+          { "internalType": "uint256", "name": "capital", "type": "uint256" },
+          { "internalType": "uint256", "name": "cappedSupply", "type": "uint256" },
+          { "internalType": "uint256", "name": "cappedBorrow", "type": "uint256" },
+          { "internalType": "uint256", "name": "supplyCapUSD", "type": "uint256" },
+          { "internalType": "uint256", "name": "borrowCapUSD", "type": "uint256" }
+        ],
+        "internalType": "struct IPrimeV2.APRInfo",
+        "name": "aprInfo",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "market", "type": "address" },
+      { "internalType": "address", "name": "user", "type": "address" },
+      { "internalType": "uint256", "name": "borrow", "type": "uint256" },
+      { "internalType": "uint256", "name": "supply", "type": "uint256" },
+      { "internalType": "uint256", "name": "xvsStaked", "type": "uint256" }
+    ],
+    "name": "estimateAPR",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "supplyAPR", "type": "uint256" },
+          { "internalType": "uint256", "name": "borrowAPR", "type": "uint256" },
+          { "internalType": "uint256", "name": "totalScore", "type": "uint256" },
+          { "internalType": "uint256", "name": "userScore", "type": "uint256" },
+          { "internalType": "uint256", "name": "xvsBalanceForScore", "type": "uint256" },
+          { "internalType": "uint256", "name": "capital", "type": "uint256" },
+          { "internalType": "uint256", "name": "cappedSupply", "type": "uint256" },
+          { "internalType": "uint256", "name": "cappedBorrow", "type": "uint256" },
+          { "internalType": "uint256", "name": "supplyCapUSD", "type": "uint256" },
+          { "internalType": "uint256", "name": "borrowCapUSD", "type": "uint256" }
+        ],
+        "internalType": "struct IPrimeV2.APRInfo",
+        "name": "aprInfo",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "vToken", "type": "address" }],
+    "name": "incomeDistributionYearly",
+    "outputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "primeV2",
+    "outputs": [{ "internalType": "contract IPrimeV2WithStorage", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

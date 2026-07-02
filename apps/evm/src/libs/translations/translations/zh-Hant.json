@@ -1255,10 +1255,11 @@
   "primeLeaderboard": {
     "description": "將 XVS 質押到治理金庫，在收益之上再賺取 Prime 獎勵。",
     "endOfCycle": {
+      "cycleEnded": "目前週期已結束，下個週期即將開始。",
       "days": "天",
-      "deadline": "{{date, MMMM d, yyyy h:mm a}}",
-      "helper": "在 <bold>{{deadline}}</bold> 之前保持在前 500 名，即可在下個週期獲得 Prime 獎勵。<summaryLink>查看上個週期的 Prime 總結</summaryLink>。",
-      "helperEnded": "在 {{deadline}} 之前保持在前 500 名，即可在下個週期獲得 Prime 獎勵。",
+      "deadline": "{{date, textualWithTime}}",
+      "helper": "在 <Bold>{{deadline}}</Bold> 之前保持在前 {{limit}} 名，即可在下個週期獲得 Prime 獎勵。<SummaryLink>查看上個週期的 Prime 總結</SummaryLink>。",
+      "helperEnded": "在 <Bold>{{deadline}}</Bold> 之前保持在前 {{limit}} 名，即可在下個週期獲得 Prime 獎勵。",
       "hours": "時",
       "mins": "分",
       "sec": "秒",
@@ -1267,9 +1268,9 @@
     "lastCycleSummary": {
       "primeScoreLabel": "Prime 分數",
       "rankLabel": "你的排名",
-      "rankMissed": "就差一點!你未進入上一週期前 500。提升質押以在本週期獲得資格。",
+      "rankMissed": "就差一點!你未進入上一週期前 {{limit}}。提升質押以在本週期獲得資格。",
       "rankNoStake": "你在上一週期未質押 XVS。立即質押以獲得 Prime 資格並賺取額外獎勵。",
-      "rankQualified": "恭喜!你在上一週期位列前 500,已獲得 Prime 獎勵資格。",
+      "rankQualified": "恭喜!你在上一週期位列前 {{limit}},已獲得 Prime 獎勵資格。",
       "title": "上一週期 Prime 彙總",
       "userRewardsTitle": "你上一週期的 Prime 獎勵"
     },
@@ -1282,11 +1283,12 @@
       "rulesButton": "規則",
       "stakeButton": "質押 XVS",
       "stakeMore": "質押更多 XVS 以在下個週期競爭 Prime。",
+      "stakeMoreToCompete": "質押更多 XVS 以競爭 Prime。",
       "stakePrompt": "質押 XVS 以競爭 Prime。",
-      "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight> 即可進入前 #500，並在下個週期取得 Prime 資格。"
+      "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight>，有機會在本週期結束前進入前 #{{limit}}，並在下個週期取得 Prime 資格。"
     },
     "rankFooter": {
-      "learnMore": "從 <leaderboardLink>Prime 排行榜</leaderboardLink> 了解更多"
+      "learnMore": "從 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
     },
     "rankTable": {
       "columns": {
@@ -1294,7 +1296,7 @@
         "wallet": "錢包"
       },
       "rankBadgeAlt": "排名 {{rank}} 徽章",
-      "walletTooltip": "使用者依 Prime 分數排名。排名前 500 的錢包將在下個週期取得 Prime 資格。"
+      "walletTooltip": "排名透過鏈上計算，可在 <BscScan>BscScan</BscScan> 上驗證"
     },
     "rewardTable": {
       "columns": {
@@ -1310,7 +1312,7 @@
       "daysHeld": "{{range}} 天",
       "daysHeldColumn": "持有天數",
       "footer": "想在排行榜上更進一步：質押更多，持有更久。",
-      "intro1": "你的 <Highlight>Prime 分數</Highlight> 決定你在排行榜上的位置。每月 <Highlight>前 500 名</Highlight> 成為 Prime 持有者，共享當月獎勵池。",
+      "intro1": "你的 <Highlight>Prime 分數</Highlight> 決定你在排行榜上的位置。每月 <Highlight>前 {{limit}} 名</Highlight> 成為 Prime 持有者，共享當月獎勵池。",
       "intro2": "你的分數同時獎勵你質押 XVS 的 <Highlight>數量</Highlight> 和 <Highlight>時長</Highlight>。每筆存入都會根據其存放時間獲得忠誠度加成：",
       "point1": "<Highlight>加成和計入天數均以 90 天為上限</Highlight> —— 持有更久不會進一步提升每 XVS 的分數。",
       "point2": "<Highlight>提取時？最新的存入會被優先扣除。</Highlight> 你最早、加成最高的質押會受到保護。",
@@ -1319,6 +1321,10 @@
       "title": "規則"
     },
     "tablesRefreshNote": "每小時刷新 · 上次刷新：{{date, distanceToNow}}前",
+    "tabs": {
+      "ranking": "排名",
+      "rewards": "Prime 獎勵"
+    },
     "title": "Prime 排行榜",
     "totalRewards": {
       "title": "本週期已分配的 Prime 總獎勵"

@@ -15,6 +15,7 @@ export const formatToCalls = ({
   vaiVaultContractAddress,
   xvsVaultContractAddress,
   primeContractAddress,
+  primeV2ContractAddress,
 }: {
   claims: Claim[];
   accountAddress: Address;
@@ -22,6 +23,7 @@ export const formatToCalls = ({
   legacyPoolComptrollerContractAddress?: Address;
   vaiVaultContractAddress?: Address;
   primeContractAddress?: Address;
+  primeV2ContractAddress?: Address;
 }) =>
   claims.reduce<
     {
@@ -85,14 +87,21 @@ export const formatToCalls = ({
       ];
     }
 
-    if (claim.contract === 'prime' && !!primeContractAddress) {
+    if (claim.contract === 'prime') {
+      const primeTargetAddress =
+        claim.primeVersion === 2 ? primeV2ContractAddress : primeContractAddress;
+
+      if (!primeTargetAddress) {
+        return acc;
+      }
+
       const primeCalls = claim.vTokenAddressesWithPendingReward.map(vTokenAddress => ({
         callData: encodeFunctionData({
           abi: primeAbi,
           functionName: 'claimInterest',
           args: [vTokenAddress, accountAddress],
         }),
-        target: primeContractAddress,
+        target: primeTargetAddress,
       }));
 
       return [...acc, ...primeCalls];

@@ -2,17 +2,19 @@ import { cn } from '@venusprotocol/ui';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
 import { useGetPools } from 'clients/api';
-import { Apy } from 'components';
+import { Apy, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
+import type { Address } from 'viem';
 
 import { MarketActionsButton } from '../MarketActionsButton';
 import { MarketRewardRow } from '../MarketRewardRow';
 
 export interface UserMarketReward {
   token: Token;
+  marketAddress: Address;
   rewardsCents: number;
 }
 
@@ -24,6 +26,7 @@ export interface UserRewardsCardProps {
   content?: React.ReactNode;
   // Toggles the per-market Prime APY and actions menu, hidden when the card is a read-only summary
   showMarketActions?: boolean;
+  isLoading?: boolean;
   className?: string;
 }
 
@@ -33,6 +36,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   title,
   content,
   showMarketActions = true,
+  isLoading,
   className,
 }) => {
   const { t } = useTranslation();
@@ -42,24 +46,32 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   const marketRewardsWithMarket = marketRewards.map(marketReward => {
     const pool = getPoolsData?.pools.find(currentPool =>
       currentPool.assets.some(poolAsset =>
-        areAddressesEqual(poolAsset.vToken.underlyingToken.address, marketReward.token.address),
+        areAddressesEqual(poolAsset.vToken.address, marketReward.marketAddress),
       ),
     );
 
     const asset = pool?.assets.find(poolAsset =>
-      areAddressesEqual(poolAsset.vToken.underlyingToken.address, marketReward.token.address),
+      areAddressesEqual(poolAsset.vToken.address, marketReward.marketAddress),
     );
 
     return { ...marketReward, asset, poolComptrollerAddress: pool?.comptrollerAddress };
   });
 
+  const cardClassName = cn(
+    'flex flex-col gap-y-3 rounded-lg bg-background-active p-4 min-h-[182px] lg:h-58',
+    className,
+  );
+
+  if (isLoading) {
+    return (
+      <div className={cn(cardClassName, 'items-center justify-center')}>
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={cn(
-        'flex h-58 flex-col justify-between rounded-lg bg-background-active p-4',
-        className,
-      )}
-    >
+    <div className={cn(cardClassName, 'justify-between')}>
       <div className={cn(content && 'flex flex-col gap-1')}>
         <p className="text-b1r text-light-grey">
           {title ?? t('primeLeaderboard.userRewards.title')}
@@ -82,27 +94,26 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
         )}
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex max-h-14 flex-col gap-2 overflow-y-auto pr-2">
         {marketRewardsWithMarket.map(({ token, rewardsCents, asset, poolComptrollerAddress }) => (
           <MarketRewardRow
             key={token.address}
             token={token}
             rewardsCents={rewardsCents}
             totalRewardsCents={totalRewardsCents}
-          >
-            {showMarketActions && (
-              <>
-                {asset && <Apy asset={asset} type="supply" className="ml-2" />}
-
-                {asset && poolComptrollerAddress && (
-                  <MarketActionsButton
-                    asset={asset}
-                    poolComptrollerAddress={poolComptrollerAddress}
-                  />
-                )}
-              </>
-            )}
-          </MarketRewardRow>
+            progressBarClassName="xl:w-8 2xl:w-1/4"
+            apy={showMarketActions && asset && <Apy asset={asset} type="supply" />}
+            actions={
+              showMarketActions &&
+              asset &&
+              poolComptrollerAddress && (
+                <MarketActionsButton
+                  asset={asset}
+                  poolComptrollerAddress={poolComptrollerAddress}
+                />
+              )
+            }
+          />
         ))}
       </div>
     </div>

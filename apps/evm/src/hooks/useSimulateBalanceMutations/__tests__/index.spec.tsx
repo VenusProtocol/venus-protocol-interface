@@ -4,25 +4,35 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress, { altAddress as fakeVTokenAddress } from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { xvs } from '__mocks__/models/tokens';
-import { useGetSimulatedPool } from 'clients/api';
-import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
-import { useGetToken } from 'libs/tokens';
+import { useGetPrimeVaultConfig, useGetSimulatedPool, useGetXvsVaultUserInfo } from 'clients/api';
+import { useIsUserPrime } from 'hooks/useIsUserPrime';
 import { renderHook } from 'testUtils/render';
 import type { BalanceMutation } from 'types';
 import { useSimulateBalanceMutations } from '..';
 
 vi.unmock('hooks/useSimulateBalanceMutations');
+vi.mock('hooks/useIsUserPrime');
 
 describe('useSimulateBalanceMutations', () => {
   it('calls the right hooks and returns the right data', async () => {
-    (useGetToken as Mock).mockImplementation(() => xvs);
+    (useIsUserPrime as Mock).mockImplementation(() => ({
+      isUserPrime: true,
+      isLoading: false,
+    }));
 
-    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
+    (useGetPrimeVaultConfig as Mock).mockImplementation(() => ({
+      data: {
+        poolIndex: 1,
+        rewardTokenAddress: fakeVTokenAddress,
+      },
+      isLoading: false,
+    }));
+
+    (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
-        isUserPrime: true,
-        userStakedXvsTokens: new BigNumber('100'),
+        stakedAmountMantissa: new BigNumber('110000000000000000000'),
+        pendingWithdrawalsTotalAmountMantissa: new BigNumber('10000000000000000000'),
       },
     }));
 

@@ -1255,10 +1255,11 @@
   "primeLeaderboard": {
     "description": "XVS’yi governance kasasına stake edin ve getirilerinize ek olarak Prime ödülleri kazanın.",
     "endOfCycle": {
+      "cycleEnded": "Mevcut döngü sona erdi. Sonraki döngü kısa süre içinde başlayacak.",
       "days": "Gün",
-      "deadline": "{{date, MMMM d, yyyy h:mm a}}",
-      "helper": "Sonraki döngüde Prime ödülleri kazanmak için <bold>{{deadline}}</bold> tarihine kadar ilk 500 içinde kalın. <summaryLink>Geçen döngünün Prime özetini görüntüleyin</summaryLink>.",
-      "helperEnded": "Sonraki döngüde Prime ödülleri kazanmak için {{deadline}} tarihine kadar ilk 500 içinde kalın.",
+      "deadline": "{{date, textualWithTime}}",
+      "helper": "Sonraki döngüde Prime ödülleri kazanmak için <Bold>{{deadline}}</Bold> tarihine kadar ilk {{limit}} içinde kalın. <SummaryLink>Geçen döngünün Prime özetini görüntüleyin</SummaryLink>.",
+      "helperEnded": "Sonraki döngüde Prime ödülleri kazanmak için <Bold>{{deadline}}</Bold> tarihine kadar ilk {{limit}} içinde kalın.",
       "hours": "Saat",
       "mins": "Dak.",
       "sec": "Sn.",
@@ -1267,9 +1268,9 @@
     "lastCycleSummary": {
       "primeScoreLabel": "Prime puanı",
       "rankLabel": "Sıralaman",
-      "rankMissed": "Az kaldı! Son döngüde ilk 500 içinde değildin. Bu döngüde uygun olmak için stake'ini artır.",
+      "rankMissed": "Az kaldı! Son döngüde ilk {{limit}} içinde değildin. Bu döngüde uygun olmak için stake'ini artır.",
       "rankNoStake": "Son döngüde XVS stake etmedin. Prime için uygun olmak ve ek ödül kazanmak için şimdi stake et.",
-      "rankQualified": "Tebrikler! Son döngüde ilk 500 içindeydin ve Prime ödülleri için uygun oldun.",
+      "rankQualified": "Tebrikler! Son döngüde ilk {{limit}} içindeydin ve Prime ödülleri için uygun oldun.",
       "title": "Son Döngü Prime Özeti",
       "userRewardsTitle": "Son döngüdeki Prime ödülleriniz"
     },
@@ -1282,11 +1283,12 @@
       "rulesButton": "Kurallar",
       "stakeButton": "XVS stake et",
       "stakeMore": "Bir sonraki döngüde Prime için yarışmak üzere daha fazla XVS stake et.",
+      "stakeMoreToCompete": "Prime için yarışmak üzere daha fazla XVS stake et.",
       "stakePrompt": "Prime için yarışmak üzere XVS stake et.",
-      "stakeToReachTop": "İlk #500'e girmek ve bir sonraki döngüde Prime için uygun olmak için <Highlight>{{amount}} XVS</Highlight> stake et."
+      "stakeToReachTop": "Bu döngü sona ermeden ilk #{{limit}} arasına girip bir sonraki döngüde Prime için uygun olma şansı için <Highlight>{{amount}} XVS</Highlight> stake et."
     },
     "rankFooter": {
-      "learnMore": "<leaderboardLink>Prime Leaderboard</leaderboardLink> üzerinden daha fazla bilgi edinin"
+      "learnMore": "<LeaderboardLink>Prime Leaderboard</LeaderboardLink> üzerinden daha fazla bilgi edinin"
     },
     "rankTable": {
       "columns": {
@@ -1294,7 +1296,7 @@
         "wallet": "Cüzdan"
       },
       "rankBadgeAlt": "{{rank}}. sıra rozeti",
-      "walletTooltip": "Kullanıcılar Prime puanına göre sıralanır. İlk 500 cüzdan bir sonraki döngüde Prime için uygun olur."
+      "walletTooltip": "Sıralamalar zincir üzerinde hesaplanır, <BscScan>BscScan</BscScan> üzerinden doğrulayın"
     },
     "rewardTable": {
       "columns": {
@@ -1310,7 +1312,7 @@
       "daysHeld": "{{range}} gün",
       "daysHeldColumn": "Tutulan gün",
       "footer": "Liderlik tablosunda yükselmek için: daha fazla stake edin ve daha uzun süre tutun.",
-      "intro1": "<Highlight>Prime puanınız</Highlight> liderlik tablosundaki yerinizi belirler. Her ay <Highlight>ilk 500</Highlight> Prime sahibi olur ve aylık ödül havuzunu paylaşır.",
+      "intro1": "<Highlight>Prime puanınız</Highlight> liderlik tablosundaki yerinizi belirler. Her ay <Highlight>ilk {{limit}}</Highlight> Prime sahibi olur ve aylık ödül havuzunu paylaşır.",
       "intro2": "Puanınız hem stake ettiğiniz XVS <Highlight>miktarını</Highlight> hem de ne <Highlight>kadar süre</Highlight> tuttuğunuzu ödüllendirir. Her yatırma, ne kadar eski olduğuna göre bir sadakat artışı kazanır:",
       "point1": "<Highlight>Hem artış hem de gün sayısı 90 günle sınırlıdır</Highlight> — daha uzun tutmak XVS başına puanı daha fazla artırmaz.",
       "point2": "<Highlight>Çekiyor musunuz? En yeni yatırmalarınız önce çıkar.</Highlight> En eski, en yüksek artışlı stake’iniz korunur.",
@@ -1319,6 +1321,10 @@
       "title": "Kurallar"
     },
     "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
+    "tabs": {
+      "ranking": "Sıralama",
+      "rewards": "Prime ödülleri"
+    },
     "title": "Prime lider tablosu",
     "totalRewards": {
       "title": "Bu döngüde dağıtılan toplam Prime ödülü"

@@ -7,9 +7,10 @@ import { vaults } from '__mocks__/models/vaults';
 import { useClaimPrimeToken, useGetPrimeStatus } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import PRIME_STATUS_BANNER_TEST_IDS from 'containers/PrimeStatusBanner/testIds';
-import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
+import { useGetUserPrimeV1Info } from 'hooks/useGetUserPrimeV1Info';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useGetToken } from 'libs/tokens';
 import { en } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -19,6 +20,7 @@ import { Footer, type FooterProps } from '..';
 import { calculateDailyVaultEarnings } from '../calculateDailyVaultEarnings';
 
 vi.mock('hooks/useNow');
+vi.mock('hooks/usePrimeVersion');
 
 const baseVault = {
   ...vaults[1],
@@ -45,9 +47,10 @@ describe('VenusVaultModal/Footer', () => {
   const mockUseClaimPrimeToken = useClaimPrimeToken as Mock;
   const mockUseGetPrimeStatus = useGetPrimeStatus as Mock;
   const mockUseGetToken = useGetToken as Mock;
-  const mockUseGetUserPrimeInfo = useGetUserPrimeInfo as Mock;
+  const mockUseGetUserPrimeV1Info = useGetUserPrimeV1Info as Mock;
   const mockUseIsFeatureEnabled = useIsFeatureEnabled as Mock;
   const mockUseNow = useNow as Mock;
+  const mockUsePrimeVersion = usePrimeVersion as Mock;
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -58,12 +61,15 @@ describe('VenusVaultModal/Footer', () => {
     });
 
     mockUseNow.mockReturnValue(new Date('2024-01-10T00:00:00.000Z'));
+    mockUsePrimeVersion.mockReturnValue({
+      primeVersion: 1,
+    });
     mockUseIsFeatureEnabled.mockReturnValue(false);
     mockUseGetPrimeStatus.mockReturnValue({
       data: undefined,
     });
     mockUseGetToken.mockReturnValue(xvs);
-    mockUseGetUserPrimeInfo.mockReturnValue({
+    mockUseGetUserPrimeV1Info.mockReturnValue({
       data: {
         isUserPrime: false,
         claimedPrimeTokenCount: 0,

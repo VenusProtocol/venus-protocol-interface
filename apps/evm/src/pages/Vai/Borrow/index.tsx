@@ -5,7 +5,6 @@ import { Controller, type SubmitHandler } from 'react-hook-form';
 import {
   useGetMintableVai,
   useGetPool,
-  useGetPrimeToken,
   useGetVaiTreasuryPercentage,
   useMintVai,
 } from 'clients/api';
@@ -20,6 +19,7 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { VENUS_PRIME_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useIsUserPrime } from 'hooks/useIsUserPrime';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -62,10 +62,9 @@ export const Borrow: React.FC = () => {
   });
   const legacyPool = getLegacyPoolData?.pool;
 
-  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
+  const { isUserPrime, isLoading: isGetIsUserPrimeLoading } = useIsUserPrime({
     accountAddress,
   });
-  const isUserPrime = !!getPrimeTokenData?.exists;
   const isPrimeEnabled = useIsFeatureEnabled({
     name: 'prime',
   });
@@ -222,7 +221,7 @@ export const Borrow: React.FC = () => {
     [mintVai, reset, vai],
   );
 
-  const isInitialLoading = isGetMintableVaiLoading || isGetPrimeTokenLoading;
+  const isInitialLoading = isGetMintableVaiLoading || isGetIsUserPrimeLoading;
 
   if (isInitialLoading) {
     return <Spinner />;

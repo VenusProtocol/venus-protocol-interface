@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { type RefObject, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
@@ -9,8 +9,8 @@ type PaginationProps = {
   itemsCount: number;
   onChange: (newPageIndex: number) => void;
   itemsPerPageCount?: number;
-  // Search param key holding the active page, so several tables can paginate independently
   paramKey?: string;
+  scrollToRef?: RefObject<HTMLDivElement | null>;
 };
 
 const PAGES_TO_SHOW_COUNT = 4;
@@ -20,6 +20,7 @@ export function usePagination({
   onChange,
   itemsPerPageCount = 10,
   paramKey = PAGE_PARAM_DEFAULT_KEY,
+  scrollToRef,
 }: PaginationProps) {
   const { t } = useTranslation();
   const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
@@ -65,6 +66,11 @@ export function usePagination({
 
   const handlePageChange = (pageIndex: number) => {
     onChange(pageIndex);
+
+    if (scrollToRef?.current) {
+      scrollToRef.current.scrollIntoView({ behavior: 'instant', block: 'start' });
+      return;
+    }
 
     scrollElem?.scrollTo({ behavior: 'instant', top: 0 });
   };

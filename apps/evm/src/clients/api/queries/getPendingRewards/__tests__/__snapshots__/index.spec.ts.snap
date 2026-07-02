@@ -309,6 +309,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           },
         },
       ],
+      "primeVersion": 2,
       "type": "prime",
       "vTokenAddressesWithPendingReward": [
         "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",

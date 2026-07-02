@@ -1,4 +1,4 @@
-import type { Token } from 'types';
+import type { PrimeVersion, Token } from 'types';
 import type { Address } from 'viem';
 
 export interface VaiVaultClaim {
@@ -25,6 +25,7 @@ export interface RewardsDistributorClaim {
 
 export interface PrimeClaim {
   contract: 'prime';
+  primeVersion: PrimeVersion;
   vTokenAddressesWithPendingReward: Address[];
 }
 

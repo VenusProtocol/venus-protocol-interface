@@ -1,5 +1,12 @@
 import type BigNumber from 'bignumber.js';
-import { poolLensAbi, primeAbi, vaiVaultAbi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
+import {
+  poolLensAbi,
+  primeAbi,
+  primeV2Abi,
+  vaiVaultAbi,
+  venusLensAbi,
+  xvsVaultAbi,
+} from 'libs/contracts';
 import { VError, logError } from 'libs/errors';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
@@ -27,6 +34,7 @@ export const getPendingRewards = async ({
   vaiVaultContractAddress,
   xvsVaultContractAddress,
   primeContractAddress,
+  primeVersion,
   chainId,
   merklCampaigns,
 }: GetPendingRewardsInput): Promise<GetPendingRewardsOutput> => {
@@ -155,17 +163,18 @@ export const getPendingRewards = async ({
     xvsVestingVaultPendingWithdrawalsBeforeUpgradePromises,
   );
 
+  const primeAbiForVersion = primeVersion === 2 ? primeV2Abi : primeAbi;
   const primePromises = Promise.allSettled([
     primeContractAddress
       ? publicClient.readContract({
-          abi: primeAbi,
+          abi: primeAbiForVersion,
           address: primeContractAddress,
           functionName: 'paused',
         })
       : undefined,
     primeContractAddress
       ? publicClient.simulateContract({
-          abi: primeAbi,
+          abi: primeAbiForVersion,
           address: primeContractAddress,
           functionName: 'getPendingRewards',
           args: [accountAddress],
@@ -290,9 +299,10 @@ export const getPendingRewards = async ({
       xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults.map(extractSettledPromiseValue),
     tokenPriceMapping,
     primePendingRewards,
+    primeVersion,
+    isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) ?? false,
     isVaiVaultContractPaused: extractSettledPromiseValue(vaiVaultPausedResult) ?? false,
     isXvsVestingVaultContractPaused: xvsVestingVaultPausedResult,
-    isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) ?? false,
     merklPendingRewards,
   });
 
