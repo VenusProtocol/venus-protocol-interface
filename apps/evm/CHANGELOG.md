@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 5.0.1
+
+### Patch Changes
+
+- e2d913c: allow code tags to be displayed through the MarkdownViewer component
+
+## 5.0.0
+
+### Major Changes
+
+- a37cd48: fix: valuts page withdraw
+
 ## 4.44.0
 
 ### Minor Changes

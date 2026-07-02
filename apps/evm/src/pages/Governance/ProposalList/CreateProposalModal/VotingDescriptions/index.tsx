@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useTranslation } from 'libs/translations';
 
 import { FormikTextField } from 'containers/Form';

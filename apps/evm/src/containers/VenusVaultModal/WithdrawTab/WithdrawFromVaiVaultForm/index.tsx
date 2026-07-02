@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useWatch } from 'react-hook-form';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
@@ -47,7 +48,7 @@ export const WithdrawFromVaiVaultForm: React.FC<WithdrawFromVaiVaultFormProps> =
     fromToken,
   });
 
-  const fromAmountTokensFieldValue = form.watch('fromAmountTokens');
+  const fromAmountTokensFieldValue = useWatch({ control: form.control, name: 'fromAmountTokens' });
   const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue || 0);
 
   const handleSubmit = async () => {

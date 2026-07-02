@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Form, Formik, type useFormikContext } from 'formik';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router';

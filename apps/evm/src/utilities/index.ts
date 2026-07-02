@@ -23,7 +23,6 @@ export { default as callOrThrow } from './callOrThrow';
 export { default as convertPriceMantissaToDollars } from './convertPriceMantissaToDollars';
 export { default as convertFactorFromSmartContract } from './convertFactorFromSmartContract';
 export { default as findTokenByAddress } from './findTokenByAddress';
-export * from './createStoreSelectors';
 export * from './convertAprBipsToApy';
 export * from './convertPercentageToBps';
 export { default as extractSettledPromiseValue } from './extractSettledPromiseValue';

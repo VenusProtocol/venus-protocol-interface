@@ -2,7 +2,6 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { txData } from '__mocks__/models/transactionData';
 import { useGetPaymasterInfo } from 'clients/api';
-import { store } from 'containers/ResendPayingGasModal/store';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
@@ -25,6 +24,7 @@ vi.mock('../sendTransaction');
 
 const mockWalletClient = {} as unknown as WalletClient;
 const mockPublicClient = {} as unknown as PublicClient;
+const mockOpenModal = vi.fn();
 
 vi.mock('wagmi', async () => {
   const actual = await vi.importActual('wagmi');
@@ -38,9 +38,11 @@ vi.mock('wagmi', async () => {
 });
 
 vi.mock('containers/ResendPayingGasModal/store', () => ({
-  store: {
-    use: { openModal: vi.fn() },
-  },
+  useStore: vi.fn((selector: (state: { openModal: typeof mockOpenModal }) => unknown) =>
+    selector({
+      openModal: mockOpenModal,
+    }),
+  ),
 }));
 
 const fakeHookInput = {
@@ -52,6 +54,8 @@ const fakeMutationInput = {};
 
 describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
   beforeEach(() => {
+    mockOpenModal.mockReset();
+
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'gaslessTransactions',
     );
@@ -126,9 +130,6 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
       }),
     );
 
-    const openModalMock = vi.fn();
-    (store.use.openModal as Mock).mockImplementation(() => openModalMock);
-
     const customFakeHookInput = {
       ...fakeHookInput,
       options: {
@@ -160,8 +161,8 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
 
     expect(refetchMock).toHaveBeenCalledTimes(1);
 
-    expect(openModalMock).toHaveBeenCalledTimes(1);
-    expect(openModalMock).toHaveBeenCalledWith(
+    expect(mockOpenModal).toHaveBeenCalledTimes(1);
+    expect(mockOpenModal).toHaveBeenCalledWith(
       expect.objectContaining({
         lastFailedGaslessTransaction: {
           ...customFakeHookInput,

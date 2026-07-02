@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo } from 'react';
-import type { SubmitHandler } from 'react-hook-form';
+import { type SubmitHandler, useWatch } from 'react-hook-form';
 
 import { useGetBalanceOf, useGetPool, useRepayVai } from 'clients/api';
 import { Delimiter, LabeledInlineContent, NoticeWarning, SpendingLimit, Spinner } from 'components';
@@ -93,14 +93,14 @@ export const Repay: React.FC = () => {
 
   const {
     limitTokens,
-    form: { control, handleSubmit, watch, formState, setValue, reset },
+    form: { control, handleSubmit, formState, setValue, reset },
   } = useForm({
     userVaiWalletBalanceMantissa,
     userVaiBorrowBalanceTokens,
     userWalletSpendingLimitTokens,
   });
 
-  const inputValue = watch('amountTokens');
+  const inputValue = useWatch({ control, name: 'amountTokens' });
   const _debouncedInputAmountTokens = useDebounceValue(inputValue);
   const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
 

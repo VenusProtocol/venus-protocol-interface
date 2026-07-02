@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import type { Pool } from 'types';
 
 import { Summary } from './Summary';

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 

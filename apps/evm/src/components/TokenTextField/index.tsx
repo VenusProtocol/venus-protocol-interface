@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { type ButtonProps, TertiaryButton } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { forwardRef, useMemo } from 'react';

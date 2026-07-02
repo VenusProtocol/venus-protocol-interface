@@ -13,7 +13,21 @@ const TITLE_CLASSES = cn('text-grey mb-2 mt-4 font-semibold first:mt-0');
 export const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ className, content }) => (
   <Markdown
     className={className}
-    allowedElements={['h1', 'h2', 'h3', 'h4', 'p', 'a', 'ul', 'li', 'ol', 'strong', 'em']}
+    allowedElements={[
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'p',
+      'a',
+      'ul',
+      'li',
+      'ol',
+      'strong',
+      'em',
+      'code',
+      'pre',
+    ]}
     skipHtml
     components={{
       h1: ({ children, node, ...otherProps }) => (
@@ -35,6 +49,11 @@ export const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ className, conte
         <p {...otherProps} className="mb-4">
           {children}
         </p>
+      ),
+      code: ({ children, node, ...otherProps }) => (
+        <code {...otherProps} className="text-b1s">
+          {children}
+        </code>
       ),
       a: ({ children, node, ...otherProps }) => <Link {...otherProps}>{children}</Link>,
       ul: ({ children, node, ...otherProps }) => (

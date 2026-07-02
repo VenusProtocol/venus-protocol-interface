@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
 import { Spinner, cn } from '@venusprotocol/ui';

@@ -256,6 +256,12 @@ const fakeVaultProducts = [fakePendleVaultProduct, fakeMatrixdockVaultProduct];
 
 describe('useGetFormattedFixedRatedVaults', () => {
   beforeEach(() => {
+    // Freeze the clock to a date before the mocked vaults' maturity dates so the computed vault
+    // statuses stay deterministic. Only Date is faked so React Testing Library's waitFor (which
+    // relies on real timers) keeps working.
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2026-06-01T00:00:00.000Z'));
+
     (useGetTokens as Mock).mockReturnValue([
       ptClisbnb,
       bnbToken,
@@ -284,6 +290,10 @@ describe('useGetFormattedFixedRatedVaults', () => {
       ],
       isLoading: false,
     });
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('fetches and returns pendle and matrixdock vaults correctly', async () => {

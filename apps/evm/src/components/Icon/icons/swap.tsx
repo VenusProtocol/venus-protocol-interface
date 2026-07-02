@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-const SvgSwitch = (props: SVGProps<SVGSVGElement>) => (
+const SvgSwap = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width="16"
     height="16"
@@ -26,4 +26,4 @@ const SvgSwitch = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export default SvgSwitch;
+export default SvgSwap;

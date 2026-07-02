@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import { useGetBalanceOf, useGetPendleSwapQuote, useStakeInPendleVault } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
@@ -84,7 +85,12 @@ export const DepositForm: React.FC<DepositFormProps> = ({ vault, onClose }) => {
     fromToken,
   });
 
-  const fromAmountTokensFieldValue = form.watch('fromAmountTokens') ?? '0';
+  const unsafeFromAmountTokensFieldValue = useWatch({
+    control: form.control,
+    name: 'fromAmountTokens',
+  });
+  const fromAmountTokensFieldValue = unsafeFromAmountTokensFieldValue ?? '0';
+
   const debouncedFromAmountTokens = useDebounceValue(fromAmountTokensFieldValue);
   const fromAmountTokens = new BigNumber(debouncedFromAmountTokens);
 
