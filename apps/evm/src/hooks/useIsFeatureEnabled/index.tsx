@@ -144,7 +144,7 @@ export const featureFlags = {
   repayWithCollateral: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   statsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   trade: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  primeLeaderboard: [ChainId.BSC_TESTNET],
+  primeLeaderboard: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
