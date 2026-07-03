@@ -97,11 +97,10 @@ export const useMenuItems = () => {
     });
   }
 
-  if (tradeRouteEnabled) {
+  if (primeLeaderboardEnabled) {
     menu.push({
-      to: routes.trade.path,
-      label: t('layout.menu.others.trade.label'),
-      isBeta: true,
+      to: routes.primeLeaderboard.path,
+      label: t('layout.menu.prime.label'),
     });
   }
 
@@ -114,12 +113,13 @@ export const useMenuItems = () => {
     });
   }
 
-  if (primeLeaderboardEnabled) {
+  if (tradeRouteEnabled) {
     othersSubMenuItems.push({
-      to: routes.primeLeaderboard.path,
-      iconName: 'crown',
-      label: t('layout.menu.others.primeLeaderboard.label'),
-      description: t('layout.menu.others.primeLeaderboard.description'),
+      to: routes.trade.path,
+      iconName: 'trade',
+      label: t('layout.menu.others.trade.label'),
+      description: t('layout.menu.others.trade.description'),
+      isBeta: true,
     });
   }
 

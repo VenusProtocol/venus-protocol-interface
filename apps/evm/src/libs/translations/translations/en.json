@@ -797,10 +797,6 @@
           "description": "Gasless import of lending positions.",
           "label": "Port"
         },
-        "primeLeaderboard": {
-          "description": "Track the top XVS stakers competing for Prime rewards.",
-          "label": "Prime Leaderboard"
-        },
         "stats": {
           "description": "Real-time Risk Parameters",
           "label": "Stats"
@@ -809,12 +805,16 @@
           "label": "Swap"
         },
         "trade": {
+          "description": "Long one, short the other, earn the spread.",
           "label": "Trade"
         },
         "vai": {
           "description": "Mint the native stablecoin of Venus.",
           "label": "VAI"
         }
+      },
+      "prime": {
+        "label": "Prime"
       },
       "settings": {
         "gasLessTransactions": {

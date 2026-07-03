@@ -797,10 +797,6 @@
           "description": "นำเข้าตำแหน่งการให้กู้แบบไม่ใช้แก๊ส",
           "label": "พอร์ต"
         },
-        "primeLeaderboard": {
-          "description": "ติดตามผู้สเตก XVS อันดับต้น ๆ ที่กำลังแข่งขันเพื่อรับรางวัล Prime",
-          "label": "กระดานผู้นำ Prime"
-        },
         "stats": {
           "description": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์",
           "label": "สถิติ"
@@ -809,12 +805,16 @@
           "label": "สวอป"
         },
         "trade": {
+          "description": "ลองตัวหนึ่ง ช็อตอีกตัว ทำกำไรจากส่วนต่าง",
           "label": "Trade"
         },
         "vai": {
           "description": "มินต์สเตเบิลคอยน์ประจำของ Venus",
           "label": "VAI"
         }
+      },
+      "prime": {
+        "label": "Prime"
       },
       "settings": {
         "gasLessTransactions": {

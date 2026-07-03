@@ -4,6 +4,7 @@ import { Icon } from 'components';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { matchPath, useLocation } from 'react-router';
+import { BetaTag } from '../../../BetaTag';
 import type { MenuItem, SubMenu } from '../../../types';
 
 export interface SubMenuItemProps extends MenuItem {
@@ -18,6 +19,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
   description,
   imgSrc,
   iconName,
+  isBeta,
   onClick,
   variant,
 }) => {
@@ -62,15 +64,21 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
         )}
 
         <div className="flex flex-col">
-          <p
-            className={cn(
-              'font-semibold',
-              iconName ? 'text-light-grey transition-colors group-hover:text-white' : 'text-white',
-              isActive && 'text-white',
-            )}
-          >
-            {label}
-          </p>
+          <div className="flex items-center gap-x-2">
+            <p
+              className={cn(
+                'font-semibold',
+                iconName
+                  ? 'text-light-grey transition-colors group-hover:text-white'
+                  : 'text-white',
+                isActive && 'text-white',
+              )}
+            >
+              {label}
+            </p>
+
+            {isBeta && <BetaTag />}
+          </div>
 
           {!!description && <p className="text-light-grey text-xs">{description}</p>}
         </div>

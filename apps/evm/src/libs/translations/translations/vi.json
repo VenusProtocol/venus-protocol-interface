@@ -797,10 +797,6 @@
           "description": "Nhập các vị thế cho vay không cần gas.",
           "label": "Cổng"
         },
-        "primeLeaderboard": {
-          "description": "Theo dõi những người stake XVS hàng đầu đang cạnh tranh phần thưởng Prime.",
-          "label": "Bảng xếp hạng Prime"
-        },
         "stats": {
           "description": "Thông số rủi ro thời gian thực",
           "label": "Thống kê"
@@ -809,12 +805,16 @@
           "label": "Hoán đổi"
         },
         "trade": {
+          "description": "Long một bên, short bên kia, kiếm lời từ chênh lệch.",
           "label": "Trade"
         },
         "vai": {
           "description": "Mint stablecoin gốc của Venus.",
           "label": "VAI"
         }
+      },
+      "prime": {
+        "label": "Prime"
       },
       "settings": {
         "gasLessTransactions": {
