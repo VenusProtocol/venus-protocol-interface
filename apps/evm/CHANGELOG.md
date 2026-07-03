@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.2.0
+
+### Minor Changes
+
+- bc6a532: feat: change menu position
+
 ## 5.1.0
 
 ### Minor Changes
