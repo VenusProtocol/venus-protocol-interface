@@ -797,10 +797,6 @@
           "description": "免 Gas 匯入借貸部位。",
           "label": "端口"
         },
-        "primeLeaderboard": {
-          "description": "追蹤競逐 Prime 獎勵的頂尖 XVS 質押者。",
-          "label": "Prime 排行榜"
-        },
         "stats": {
           "description": "即時風險參數",
           "label": "統計"
@@ -809,12 +805,16 @@
           "label": "兌換"
         },
         "trade": {
+          "description": "做多一個、做空另一個,賺取價差。",
           "label": "Trade"
         },
         "vai": {
           "description": "鑄造 Venus 的原生穩定幣。",
           "label": "VAI"
         }
+      },
+      "prime": {
+        "label": "Prime"
       },
       "settings": {
         "gasLessTransactions": {

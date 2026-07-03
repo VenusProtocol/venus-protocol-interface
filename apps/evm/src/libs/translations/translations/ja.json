@@ -797,10 +797,6 @@
           "description": "レンディングポジションをガスレスでインポート。",
           "label": "ポート"
         },
-        "primeLeaderboard": {
-          "description": "Prime 報酬を競う上位の XVS ステーカーを確認できます。",
-          "label": "Prime リーダーボード"
-        },
         "stats": {
           "description": "リアルタイムリスクパラメータ",
           "label": "統計"
@@ -809,12 +805,16 @@
           "label": "スワップ"
         },
         "trade": {
+          "description": "一方をロング、もう一方をショートして、スプレッドで稼ぐ。",
           "label": "Trade"
         },
         "vai": {
           "description": "Venusのネイティブステーブルコインをミント。",
           "label": "VAI"
         }
+      },
+      "prime": {
+        "label": "Prime"
       },
       "settings": {
         "gasLessTransactions": {

@@ -797,10 +797,6 @@
           "description": "Borç verme pozisyonlarını gas'siz içe aktarın.",
           "label": "Port"
         },
-        "primeLeaderboard": {
-          "description": "Prime ödülleri için yarışan en iyi XVS stake edicilerini takip edin.",
-          "label": "Prime Lider Tablosu"
-        },
         "stats": {
           "description": "Gerçek zamanlı risk parametreleri",
           "label": "İstatistikler"
@@ -809,12 +805,16 @@
           "label": "Takas"
         },
         "trade": {
+          "description": "Birine long, diğerine short aç, aradaki farktan kazan.",
           "label": "Trade"
         },
         "vai": {
           "description": "Venus'ün yerel sabit coinini mint edin.",
           "label": "VAI"
         }
+      },
+      "prime": {
+        "label": "Prime"
       },
       "settings": {
         "gasLessTransactions": {

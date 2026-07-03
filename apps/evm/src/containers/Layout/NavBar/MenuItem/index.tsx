@@ -3,8 +3,8 @@ import { matchPath, useLocation } from 'react-router';
 
 import { AccordionAnimatedContent, Dropdown, Icon } from 'components';
 import { Link } from 'containers/Link';
-import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
+import { BetaTag } from '../BetaTag';
 import type { MenuItem as MenuItemType, SubMenu } from '../types';
 import { SubMenuContent } from './SubMenuContent';
 import type { SubMenuItemProps } from './SubMenuContent/SubMenuItem';
@@ -18,7 +18,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(
     'items' in item ? !!item.defaultOpenOnMobile : false,
   );
-  const { t } = useTranslation();
   const { pathname } = useLocation();
 
   let isActive = false;
@@ -112,11 +111,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
     >
       <span>{item.label}</span>
 
-      {item.isBeta && (
-        <div className="bg-blue px-1.5 py-0.5 rounded-full text-b2s text-white hidden max-lg:inline-block xl:inline-block">
-          {t('layout.menu.beta')}
-        </div>
-      )}
+      {item.isBeta && <BetaTag className="hidden max-lg:inline-block xl:inline-block" />}
     </Link>
   );
 };

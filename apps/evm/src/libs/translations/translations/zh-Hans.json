@@ -797,10 +797,6 @@
           "description": "无 Gas 导入借贷仓位。",
           "label": "迁移"
         },
-        "primeLeaderboard": {
-          "description": "追踪竞逐 Prime 奖励的顶级 XVS 质押者。",
-          "label": "Prime 排行榜"
-        },
         "stats": {
           "description": "实时风险参数",
           "label": "统计"
@@ -809,12 +805,16 @@
           "label": "兑换"
         },
         "trade": {
+          "description": "做多一个、做空另一个,赚取价差。",
           "label": "Trade"
         },
         "vai": {
           "description": "铸造 Venus 的原生稳定币。",
           "label": "VAI"
         }
+      },
+      "prime": {
+        "label": "Prime"
       },
       "settings": {
         "gasLessTransactions": {
