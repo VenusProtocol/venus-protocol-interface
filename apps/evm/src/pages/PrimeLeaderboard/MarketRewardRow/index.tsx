@@ -59,7 +59,7 @@ export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
           />
         </div>
 
-        {apy && <div className="ml-auto sm:ml-2">{apy}</div>}
+        {apy && <div className="inline-flex ml-auto sm:ml-2">{apy}</div>}
       </div>
     </div>
   );
