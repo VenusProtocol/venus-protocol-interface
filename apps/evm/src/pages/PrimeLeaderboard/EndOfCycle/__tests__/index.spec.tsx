@@ -33,9 +33,12 @@ describe('pages/PrimeLeaderboard/EndOfCycle', () => {
   });
 
   it('hides the last cycle summary link on the first cycle but keeps the sentence', () => {
-    renderComponent(<EndOfCycle endDate={new Date(Date.now() + 5 * ONE_DAY_MS)} lastCycleIndex={0} />, {
-      accountAddress: fakeAddress,
-    });
+    renderComponent(
+      <EndOfCycle endDate={new Date(Date.now() + 5 * ONE_DAY_MS)} lastCycleIndex={0} />,
+      {
+        accountAddress: fakeAddress,
+      },
+    );
 
     expect(screen.queryByText("See last cycle's Prime summary")).not.toBeInTheDocument();
     expect(screen.getByText(/to receive Prime rewards during the next cycle/)).toBeInTheDocument();
