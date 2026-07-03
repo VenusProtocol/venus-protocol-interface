@@ -36,6 +36,8 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({
   const rankLimit = useGetPrimeRankLimit();
   const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
 
+  const hasLastCycle = lastCycleIndex !== undefined && lastCycleIndex >= 1;
+
   const cardClassName = cn(
     'flex min-h-39 flex-col items-center justify-center gap-1 bg-background px-6 py-3',
     className,
@@ -71,7 +73,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({
 
     if (completed) {
       helper = t('primeLeaderboard.endOfCycle.cycleEnded');
-    } else if (!accountAddress) {
+    } else if (!accountAddress || !hasLastCycle) {
       helper = (
         <Trans
           i18nKey="primeLeaderboard.endOfCycle.helperEnded"
