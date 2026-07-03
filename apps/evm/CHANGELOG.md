@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.1.0
+
+### Minor Changes
+
+- 3d6ca37: handle migration to Prime V2
+
 ## 5.0.1
 
 ### Patch Changes
