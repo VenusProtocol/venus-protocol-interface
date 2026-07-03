@@ -8,22 +8,37 @@ const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 describe('pages/PrimeLeaderboard/EndOfCycle', () => {
   it('renders the active countdown state for a future end date', () => {
-    renderComponent(<EndOfCycle endDate={new Date(Date.now() + 5 * ONE_DAY_MS)} />, {
-      accountAddress: fakeAddress,
-    });
+    renderComponent(
+      <EndOfCycle endDate={new Date(Date.now() + 5 * ONE_DAY_MS)} lastCycleIndex={5} />,
+      {
+        accountAddress: fakeAddress,
+      },
+    );
 
     expect(screen.getByText('END OF CYCLE')).toBeInTheDocument();
     expect(screen.getByText("See last cycle's Prime summary")).toBeInTheDocument();
   });
 
   it('opens the last cycle summary modal from the helper link', async () => {
-    renderComponent(<EndOfCycle endDate={new Date(Date.now() + 5 * ONE_DAY_MS)} />, {
-      accountAddress: fakeAddress,
-    });
+    renderComponent(
+      <EndOfCycle endDate={new Date(Date.now() + 5 * ONE_DAY_MS)} lastCycleIndex={5} />,
+      {
+        accountAddress: fakeAddress,
+      },
+    );
 
     fireEvent.click(screen.getByText("See last cycle's Prime summary"));
 
     expect(await screen.findByText('Last Cycle Prime Summary')).toBeInTheDocument();
+  });
+
+  it('hides the last cycle summary link on the first cycle but keeps the sentence', () => {
+    renderComponent(<EndOfCycle endDate={new Date(Date.now() + 5 * ONE_DAY_MS)} lastCycleIndex={0} />, {
+      accountAddress: fakeAddress,
+    });
+
+    expect(screen.queryByText("See last cycle's Prime summary")).not.toBeInTheDocument();
+    expect(screen.getByText(/to receive Prime rewards during the next cycle/)).toBeInTheDocument();
   });
 
   it('hides the last cycle summary link when the wallet is not connected', () => {

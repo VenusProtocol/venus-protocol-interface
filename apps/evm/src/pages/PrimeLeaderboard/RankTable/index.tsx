@@ -3,12 +3,17 @@ import { useMemo, useState } from 'react';
 
 import { type PrimeLeaderboardEntry, useGetPrimeLeaderboard } from 'clients/api';
 import { InfoIcon, type Order, type TableColumn, Username } from 'components';
-import { PRIME_RANK_VERIFICATION_BSC_SCAN_URL } from 'constants/production';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
-import { areAddressesEqual, convertMantissaToTokens, shortenValueWithSuffix } from 'utilities';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import {
+  areAddressesEqual,
+  convertMantissaToTokens,
+  generateExplorerUrl,
+  shortenValueWithSuffix,
+} from 'utilities';
 
 import { ITEMS_PER_PAGE, PrimeLeaderboardTable } from '../PrimeLeaderboardTable';
 import { RankBadge } from './RankBadge';
@@ -23,7 +28,13 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
   const { t, Trans } = useTranslation();
   const xvs = useGetToken({ symbol: 'XVS' });
   const { accountAddress } = useAccountAddress();
+  const { chainId } = useChainId();
+  const { address: primeV2Address } = useGetContractAddress({ name: 'PrimeV2' });
   const { currentPage, setCurrentPage } = useUrlPagination({ paramKey: RANKS_PAGE_PARAM_KEY });
+
+  const rankVerificationUrl = primeV2Address
+    ? generateExplorerUrl({ hash: primeV2Address, chainId })
+    : undefined;
 
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
 
@@ -49,7 +60,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
                     BscScan: (
                       // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
                       <a
-                        href={PRIME_RANK_VERIFICATION_BSC_SCAN_URL}
+                        href={rankVerificationUrl}
                         className="text-blue underline"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -96,7 +107,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
         ),
       },
     ],
-    [t, Trans, xvs, accountAddress],
+    [t, Trans, xvs, accountAddress, rankVerificationUrl],
   );
 
   const orderBy = columns.find(column => column.key === 'primeScore');
