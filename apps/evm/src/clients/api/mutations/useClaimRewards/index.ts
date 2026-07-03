@@ -29,10 +29,13 @@ export const useClaimRewards = (options?: Partial<Options>) => {
   const { address: xvsVaultContractAddress } = useGetContractAddress({
     name: 'XvsVault',
   });
-
   const { address: primeContractAddress } = useGetContractAddress({
     name: 'Prime',
   });
+  const { address: primeV2ContractAddress } = useGetContractAddress({
+    name: 'PrimeV2',
+  });
+
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
@@ -51,6 +54,7 @@ export const useClaimRewards = (options?: Partial<Options>) => {
         vaiVaultContractAddress,
         xvsVaultContractAddress,
         primeContractAddress,
+        primeV2ContractAddress,
       });
 
       return {

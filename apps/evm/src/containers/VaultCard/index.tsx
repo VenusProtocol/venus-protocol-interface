@@ -5,6 +5,7 @@ import { Card, LabeledInlineContent, LayeredValues, NoticeWarning } from 'compon
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { VenusVaultModal } from 'containers/VenusVaultModal';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { type Vault, VaultCategory, VaultStatus, VaultVenue } from 'types';
@@ -36,6 +37,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const { accountAddress } = useAccountAddress();
+  const { primeVersion } = usePrimeVersion();
 
   const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
     token: isPendleVault(vault) ? vault.rewardToken : vault.stakedToken,
@@ -231,7 +233,9 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               <InstitutionalCheckpointInlineContent vault={vault} labelClassName="mb-auto" />
             )}
 
-            {vault.category === VaultCategory.GOVERNANCE && <PrimeEligibilityInlineContent />}
+            {vault.category === VaultCategory.GOVERNANCE && primeVersion === 1 && (
+              <PrimeEligibilityInlineContent />
+            )}
 
             <LabeledInlineContent label={t('vault.card.venue')} labelClassName="mb-auto">
               <img src={vault.venueIconSrc} className="h-4" alt={t('vault.card.vaultVenueIcon')} />

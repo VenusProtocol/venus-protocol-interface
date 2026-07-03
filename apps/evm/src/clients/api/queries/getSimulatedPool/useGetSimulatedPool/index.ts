@@ -2,13 +2,14 @@ import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack
 
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { type GetSimulatedPoolInput, type GetSimulatedPoolOutput, getSimulatedPool } from '..';
 
 type TrimmedSimulatedPoolInput = Omit<
   GetSimulatedPoolInput,
-  'primeContractAddress' | 'publicClient'
+  'primeAprContractAddress' | 'primeVersion' | 'publicClient'
 >;
 
 export type useGetSimulatedPoolQueryKey = [
@@ -34,10 +35,15 @@ export const useGetSimulatedPool = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-
+  const { primeVersion } = usePrimeVersion();
   const { address: primeContractAddress } = useGetContractAddress({
     name: 'Prime',
   });
+  const { address: primeV2LensContractAddress } = useGetContractAddress({
+    name: 'PrimeV2Lens',
+  });
+  const primeAprContractAddress =
+    primeVersion === 1 ? primeContractAddress : primeV2LensContractAddress;
 
   const serializedPool = JSON.stringify(input.pool, (_key, value) =>
     typeof value === 'bigint' ? value.toString() : value,
@@ -55,7 +61,8 @@ export const useGetSimulatedPool = (
     queryFn: () =>
       getSimulatedPool({
         ...input,
-        primeContractAddress,
+        primeAprContractAddress,
+        primeVersion,
         publicClient,
       }),
     placeholderData: keepPreviousData,

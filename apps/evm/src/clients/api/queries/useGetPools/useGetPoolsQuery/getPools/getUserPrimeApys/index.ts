@@ -1,4 +1,5 @@
-import { primeAbi } from 'libs/contracts';
+import { primeAbi, primeV2LensAbi } from 'libs/contracts';
+import type { PrimeVersion } from 'types';
 import { convertAprBipsToApy } from 'utilities';
 import type { Address, PublicClient } from 'viem';
 import type { PrimeApy } from '../../../types';
@@ -8,17 +9,19 @@ export const getUserPrimeApys = async ({
   primeContractAddress,
   accountAddress,
   primeVTokenAddresses,
+  primeVersion,
 }: {
   publicClient: PublicClient;
   primeContractAddress: Address;
   accountAddress: Address;
   primeVTokenAddresses: readonly Address[];
+  primeVersion: PrimeVersion;
 }) => {
   const primeAprs = await Promise.all(
     primeVTokenAddresses.map(primeVTokenAddress =>
       publicClient.readContract({
         address: primeContractAddress,
-        abi: primeAbi,
+        abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
         functionName: 'calculateAPR',
         args: [primeVTokenAddress, accountAddress],
       }),

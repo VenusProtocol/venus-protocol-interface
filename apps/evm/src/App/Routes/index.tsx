@@ -5,6 +5,7 @@ import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { Subdirectory, routes } from 'constants/routing';
 import { Layout } from 'containers/Layout';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 
 import { DISCORD_SERVER_URL } from 'constants/production';
 import { Redirect } from 'containers/Redirect';
@@ -46,6 +47,7 @@ const AppRoutes = () => {
   });
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
   const primeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
+  const { primeVersion } = usePrimeVersion();
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -124,7 +126,7 @@ const AppRoutes = () => {
           />
         </Route>
 
-        {primeCalculatorEnabled && (
+        {primeCalculatorEnabled && primeVersion === 1 && (
           <Route
             path={Subdirectory.PRIME_CALCULATOR}
             element={

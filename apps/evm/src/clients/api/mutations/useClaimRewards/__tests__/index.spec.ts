@@ -44,6 +44,7 @@ const fakeClaims = [
   },
   {
     contract: 'prime',
+    primeVersion: 2,
     vTokenAddressesWithPendingReward: [
       '0x37a0ac901578a7f05379fc43330b3d1e39d0c40c',
       '0x75a10f0c415dccca275e8cdd8447d291a6b86f06',
@@ -108,11 +109,11 @@ describe('useClaimRewards', () => {
             },
             {
               "callData": "0x01",
-              "target": "0xfakePrimeContractAddress",
+              "target": "0xfakePrimeV2ContractAddress",
             },
             {
               "callData": "0x01",
-              "target": "0xfakePrimeContractAddress",
+              "target": "0xfakePrimeV2ContractAddress",
             },
           ],
         ],

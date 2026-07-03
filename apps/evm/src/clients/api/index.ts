@@ -192,8 +192,14 @@ export * from './queries/getPrimeToken/useGetPrimeToken';
 export * from './queries/getHypotheticalPrimeApys';
 export * from './queries/getHypotheticalPrimeApys/useGetHypotheticalPrimeApys';
 
+export * from './queries/getIsUserPrimeV2';
+export * from './queries/getIsUserPrimeV2/useGetIsUserPrimeV2';
+
 export * from './queries/getPrimeStatus';
 export * from './queries/getPrimeStatus/useGetPrimeStatus';
+
+export * from './queries/getPrimeVaultConfig';
+export * from './queries/getPrimeVaultConfig/useGetPrimeVaultConfig';
 
 export * from './queries/getLatestAppVersion';
 export * from './queries/getLatestAppVersion/useGetLatestAppVersion';
@@ -202,6 +208,40 @@ export * from './queries/useGetPrimeEstimation';
 
 export * from './queries/getPrimeDistributionForMarket';
 export * from './queries/getPrimeDistributionForMarket/useGetPrimeDistributionForMarket';
+
+export * from './queries/getPrimeLeaderboard';
+export * from './queries/getPrimeLeaderboard/useGetPrimeLeaderboard';
+
+export * from './queries/getPrimeRewardsLeaderboard';
+export * from './queries/getPrimeRewardsLeaderboard/useGetPrimeRewardsLeaderboard';
+
+export * from './queries/getPrimeMinimumStake';
+export * from './queries/getPrimeMinimumStake/useGetPrimeMinimumStake';
+
+export * from './queries/getPrimeCurrentCycle';
+export * from './queries/getPrimeCurrentCycle/useGetPrimeCurrentCycle';
+
+export * from './queries/getPrimeUserPendingRewards';
+export * from './queries/getPrimeUserPendingRewards/useGetPrimeUserPendingRewards';
+
+export * from './queries/getPrimeCycles';
+export * from './queries/getPrimeCycles/useGetPrimeCycles';
+
+export * from './queries/getPrimeCycle';
+export * from './queries/getPrimeCycle/useGetPrimeCycle';
+
+export * from './queries/getPrimeUserCycleRewards';
+export * from './queries/getPrimeUserCycleRewards/useGetPrimeUserCycleRewards';
+
+export * from './queries/getPrimeEffectiveStake';
+export * from './queries/getPrimeEffectiveStake/useGetPrimeEffectiveStake';
+export * from './queries/getPrimeTokenLimit';
+export * from './queries/getPrimeTokenLimit/useGetPrimeTokenLimit';
+
+export * from './queries/getPrimeMultiplierTiers';
+export * from './queries/getPrimeMultiplierTiers/useGetPrimeMultiplierTiers';
+export * from './queries/getPrimeDeposits';
+export * from './queries/getPrimeDeposits/useGetPrimeDeposits';
 
 export * from './queries/getVaiVaultPaused';
 export * from './queries/getVaiVaultPaused/useGetVaiVaultPaused';

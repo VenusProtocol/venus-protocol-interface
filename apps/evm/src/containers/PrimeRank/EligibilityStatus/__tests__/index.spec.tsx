@@ -22,7 +22,7 @@ describe('pages/PrimeLeaderboard/RankCard/EligibilityStatus', () => {
   it('shows the exact XVS to stake when the gap to the top 500 is small', () => {
     renderComponent(<EligibilityStatus {...baseProps} isCandidate={false} gapXvsTokens={5_432} />);
 
-    expect(screen.getByText('5,432 XVS')).toBeInTheDocument();
+    expect(screen.getByText('5,432.00 XVS')).toBeInTheDocument();
   });
 
   it('shows a generic message when the gap to the top 500 is large', () => {
@@ -33,6 +33,12 @@ describe('pages/PrimeLeaderboard/RankCard/EligibilityStatus', () => {
     expect(
       screen.getByText('Stake more XVS to compete for Prime during the next cycle.'),
     ).toBeInTheDocument();
+  });
+
+  it('shows the compete message when the gap is unavailable', () => {
+    renderComponent(<EligibilityStatus {...baseProps} isCandidate={false} gapXvsTokens={0} />);
+
+    expect(screen.getByText('Stake more XVS to compete for Prime.')).toBeInTheDocument();
   });
 
   it('prompts to stake when no XVS is staked', () => {

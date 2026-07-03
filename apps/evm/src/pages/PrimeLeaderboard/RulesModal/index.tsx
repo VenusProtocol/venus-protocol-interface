@@ -1,4 +1,5 @@
 import { Modal } from 'components';
+import { useGetPrimeRankLimit } from 'containers/PrimeRank/useGetPrimeRankLimit';
 import { useTranslation } from 'libs/translations';
 
 import { BOOST_TIERS } from './constants';
@@ -10,6 +11,7 @@ export interface RulesModalProps {
 
 export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) => {
   const { t, Trans } = useTranslation();
+  const rankLimit = useGetPrimeRankLimit();
 
   return (
     <Modal
@@ -23,6 +25,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
           <p>
             <Trans
               i18nKey="primeLeaderboard.rulesModal.intro1"
+              values={{ limit: rankLimit }}
               components={{ Highlight: <span className="text-b1s text-white" /> }}
             />
           </p>

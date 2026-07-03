@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import type { ReactElement } from 'react';
+import type { ReactElement, RefObject } from 'react';
 
 import { Button } from '@venusprotocol/ui';
 import { Icon, type IconProps } from '../Icon';
@@ -27,6 +27,7 @@ interface PaginationProps {
   initialPageIndex?: number;
   itemsPerPageCount?: number;
   paramKey?: string;
+  scrollToRef?: RefObject<HTMLDivElement | null>;
   className?: string;
 }
 
@@ -36,6 +37,7 @@ export const Pagination = ({
   initialPageIndex,
   itemsPerPageCount,
   paramKey,
+  scrollToRef,
   className,
 }: PaginationProps) => {
   const {
@@ -53,6 +55,7 @@ export const Pagination = ({
     },
     itemsPerPageCount,
     paramKey,
+    scrollToRef,
   });
 
   const styles = useStyles();

@@ -101,4 +101,6 @@ export { default as sunset } from './sunset';
 export { default as fullScreen } from './fullScreen';
 export { default as barChart } from './barChart';
 export { default as graduationCap } from './graduationCap';
+export { default as medal } from './medal';
+export { default as trophy } from './trophy';
 export { default as swap } from './swap';

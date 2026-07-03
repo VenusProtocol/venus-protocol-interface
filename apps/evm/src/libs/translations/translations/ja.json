@@ -1255,10 +1255,11 @@
   "primeLeaderboard": {
     "description": "ガバナンスボールトに XVS をステークして、利回りに加えて Prime 報酬を獲得しましょう。",
     "endOfCycle": {
+      "cycleEnded": "現在のサイクルは終了しました。次のサイクルはまもなく開始されます。",
       "days": "日",
-      "deadline": "{{date, MMMM d, yyyy h:mm a}}",
-      "helper": "<bold>{{deadline}}</bold> まで上位 500 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。<summaryLink>前回サイクルの Prime サマリーを見る</summaryLink>。",
-      "helperEnded": "{{deadline}} まで上位 500 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。",
+      "deadline": "{{date, textualWithTime}}",
+      "helper": "<Bold>{{deadline}}</Bold> まで上位 {{limit}} 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。<SummaryLink>前回サイクルの Prime サマリーを見る</SummaryLink>。",
+      "helperEnded": "<Bold>{{deadline}}</Bold> まで上位 {{limit}} 位以内を維持すると、次のサイクルで Prime 報酬を獲得できます。",
       "hours": "時間",
       "mins": "分",
       "sec": "秒",
@@ -1267,9 +1268,9 @@
     "lastCycleSummary": {
       "primeScoreLabel": "Prime スコア",
       "rankLabel": "あなたのランク",
-      "rankMissed": "あと一歩です!前サイクルでは上位 500 に入りませんでした。ステーク量を増やして今サイクルでの対象を目指しましょう。",
+      "rankMissed": "あと一歩です!前サイクルでは上位 {{limit}} に入りませんでした。ステーク量を増やして今サイクルでの対象を目指しましょう。",
       "rankNoStake": "前サイクルでは XVS をステークしていませんでした。今すぐステークして Prime の対象になり、追加報酬を獲得しましょう。",
-      "rankQualified": "おめでとうございます!前サイクルで上位 500 に入り、Prime 報酬の対象になりました。",
+      "rankQualified": "おめでとうございます!前サイクルで上位 {{limit}} に入り、Prime 報酬の対象になりました。",
       "title": "前サイクルの Prime サマリー",
       "userRewardsTitle": "前サイクルのあなたの Prime 報酬"
     },
@@ -1280,13 +1281,14 @@
       "primeScoreLabel": "Prime スコア",
       "rankLabel": "あなたのランク",
       "rulesButton": "ルール",
-      "stakeButton": "XVS をステーク",
+      "stakeButton": "ステーク",
       "stakeMore": "次のサイクルで Prime を目指して、さらに XVS をステークしましょう。",
+      "stakeMoreToCompete": "Prime を目指して、さらに XVS をステークしましょう。",
       "stakePrompt": "XVS をステークして Prime を目指しましょう。",
-      "stakeToReachTop": "あと <Highlight>{{amount}} XVS</Highlight> をステークするとトップ #500 に入り、次のサイクルで Prime の対象になります。"
+      "stakeToReachTop": "<Highlight>{{amount}} XVS</Highlight> をステークすると、サイクル終了までにトップ #{{limit}} 入りを狙え、次回 Prime の対象になれます。"
     },
     "rankFooter": {
-      "learnMore": "<leaderboardLink>Prime リーダーボード</leaderboardLink> で詳しく見る"
+      "learnMore": "<LeaderboardLink>Prime リーダーボード</LeaderboardLink> で詳しく見る"
     },
     "rankTable": {
       "columns": {
@@ -1294,7 +1296,7 @@
         "wallet": "ウォレット"
       },
       "rankBadgeAlt": "ランク {{rank}} バッジ",
-      "walletTooltip": "Prime スコア順のランキングです。上位 500 のウォレットが次のサイクルで Prime の対象になります。"
+      "walletTooltip": "ランキングはオンチェーンで計算されます。<BscScan>BscScan</BscScan> で確認できます"
     },
     "rewardTable": {
       "columns": {
@@ -1310,7 +1312,7 @@
       "daysHeld": "{{range}} 日",
       "daysHeldColumn": "保有日数",
       "footer": "リーダーボードで上位を目指すには、より多くステークし、より長く保有しましょう。",
-      "intro1": "<Highlight>Prime スコア</Highlight> がリーダーボードでの順位を決めます。毎月 <Highlight>上位 500 名</Highlight> が Prime ホルダーとなり、月間報酬プールを分け合います。",
+      "intro1": "<Highlight>Prime スコア</Highlight> がリーダーボードでの順位を決めます。毎月 <Highlight>上位 {{limit}} 名</Highlight> が Prime ホルダーとなり、月間報酬プールを分け合います。",
       "intro2": "スコアは、ステークした XVS の <Highlight>量</Highlight> と <Highlight>保有期間</Highlight> の両方を評価します。各預け入れは、その経過期間に応じてロイヤルティブーストを獲得します：",
       "point1": "<Highlight>ブーストと日数はどちらも 90 日が上限です</Highlight> —— それ以上保有しても XVS あたりのスコアはこれ以上増えません。",
       "point2": "<Highlight>出金する場合は？最新の預け入れが先に引き出されます。</Highlight> 最も古く、ブーストが最も高いステークは保護されます。",
@@ -1319,6 +1321,10 @@
       "title": "ルール"
     },
     "tablesRefreshNote": "1時間ごとに更新 · 最終更新：{{date, distanceToNow}}前",
+    "tabs": {
+      "ranking": "ランキング",
+      "rewards": "Prime 報酬"
+    },
     "title": "Prime リーダーボード",
     "totalRewards": {
       "title": "今サイクルに分配された Prime 報酬の総額"

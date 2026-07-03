@@ -1,9 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ChainId } from 'types';
 
-// Maximum rank that qualifies for Prime during a cycle
-export const PRIME_RANK_LIMIT = 500;
-
 const bscTestnetPrimeMarketsAddresses = {
   vBTCB: '0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe',
   vUSDT: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',

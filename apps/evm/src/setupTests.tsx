@@ -85,7 +85,7 @@ vi.mock('hooks/useSendTransaction');
 vi.mock('hooks/useGetContractAddress');
 vi.mock('hooks/useUserChainSettings');
 vi.mock('hooks/useSimulateBalanceMutations');
-vi.mock('hooks/useGetUserPrimeInfo');
+vi.mock('hooks/useGetUserPrimeV1Info');
 vi.mock('clients/subgraph');
 vi.mock('libs/analytics');
 vi.mock('libs/tokens');

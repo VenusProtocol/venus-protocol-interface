@@ -21,6 +21,8 @@ import {
   fakeLegacyPoolComptrollerContractAddress,
   fakePoolLensContractAddress,
   fakePrimeContractAddress,
+  fakePrimeV2ContractAddress,
+  fakePrimeV2LensContractAddress,
   fakePublicClient,
   fakeResilientOracleContractAddress,
   fakeVaiControllerContractAddress,
@@ -75,6 +77,14 @@ describe('useGetPools', () => {
         address = fakePrimeContractAddress;
       }
 
+      if (name === 'PrimeV2') {
+        address = fakePrimeV2ContractAddress;
+      }
+
+      if (name === 'PrimeV2Lens') {
+        address = fakePrimeV2LensContractAddress;
+      }
+
       if (name === 'ResilientOracle') {
         address = fakeResilientOracleContractAddress;
       }
@@ -108,6 +118,54 @@ describe('useGetPools', () => {
 
     await waitFor(() => expect(result.current.data).toBeDefined());
     expect(result.current.data).toMatchSnapshot();
+  });
+
+  it('fetches Prime V2 distribution simulations if user is Prime', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabledInput) => name === 'prime' || name === 'primeLeaderboard',
+    );
+    (restService as Mock).mockImplementation(async ({ endpoint }: { endpoint: string }) => {
+      if (endpoint === '/prime/minimum-stake') {
+        return {
+          status: 200,
+          data: {
+            blockNumber: '123',
+            computedAt: '2024-01-01T00:00:00.000Z',
+            tokenLimit: 1000,
+            totalTokens: 1000,
+            mintThresholdMantissa: null,
+            minimumStakeMantissa: '1000000000000000000000',
+            reason: 'last_position',
+          },
+        };
+      }
+
+      return {
+        status: 200,
+        data: apiPoolsResponse,
+      };
+    });
+
+    const { result } = renderHook(() =>
+      useGetPools({
+        accountAddress: fakeAccountAddress,
+      }),
+    );
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+
+    const assets = result.current.data?.pools.flatMap(pool => pool.assets) ?? [];
+    const assetWithPrimeSimulation = assets.find(
+      asset =>
+        asset.supplyTokenDistributions.some(
+          distribution => distribution.type === 'primeSimulation',
+        ) ||
+        asset.borrowTokenDistributions.some(
+          distribution => distribution.type === 'primeSimulation',
+        ),
+    );
+
+    expect(assetWithPrimeSimulation).toBeDefined();
   });
 
   it('does not fetch Prime distributions if user is not Prime', async () => {

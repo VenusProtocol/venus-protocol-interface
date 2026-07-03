@@ -2,7 +2,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import FunctionKey from 'constants/functionKey';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, MerklDistribution } from 'types';
@@ -70,13 +70,20 @@ export const useGetPendingRewards = (
   const { address: xvsVaultContractAddress } = useGetContractAddress({
     name: 'XvsVault',
   });
-  const { address: primeContractAddress } = useGetContractAddress({
+  const { address: primeV1ContractAddress } = useGetContractAddress({
     name: 'Prime',
   });
-
-  const isPrimeEnabled = useIsFeatureEnabled({
-    name: 'prime',
+  const { address: primeV2ContractAddress } = useGetContractAddress({
+    name: 'PrimeV2',
   });
+
+  const { primeVersion } = usePrimeVersion();
+  let primeContractAddress: Address | undefined;
+  if (primeVersion === 1) {
+    primeContractAddress = primeV1ContractAddress;
+  } else if (primeVersion === 2) {
+    primeContractAddress = primeV2ContractAddress;
+  }
 
   const tokens = useGetTokens();
 
@@ -168,7 +175,8 @@ export const useGetPendingRewards = (
             venusLensContractAddress,
             vaiVaultContractAddress,
             tokens,
-            primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
+            primeContractAddress,
+            primeVersion,
             chainId,
             merklCampaigns,
             ...input,

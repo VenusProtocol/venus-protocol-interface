@@ -1,24 +1,22 @@
 import BigNumber from 'bignumber.js';
 
-import type { Token } from 'types';
+import type { PrimeVersion, Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
-import type { primeAbi } from 'libs/contracts';
-import type { Address, ContractFunctionArgs, SimulateContractReturnType } from 'viem';
+import type { Address } from 'viem';
 import type { PrimePendingReward, PrimePendingRewardGroup } from '../types';
 
+// V1 and V2 Prime contracts return the same getPendingRewards shape, so this formatter handles both
 const formatToPrimePendingRewardGroup = ({
+  primeVersion,
   isPrimeContractPaused,
   primePendingRewards,
   tokenPriceMapping,
   tokens,
 }: {
+  primeVersion: PrimeVersion;
   isPrimeContractPaused: boolean;
-  primePendingRewards: SimulateContractReturnType<
-    typeof primeAbi,
-    'getPendingRewards',
-    ContractFunctionArgs<typeof primeAbi, 'nonpayable' | 'payable', 'getPendingRewards'>
-  >['result'];
+  primePendingRewards: readonly { rewardToken: Address; vToken: Address; amount: bigint }[];
   tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
 }) => {
@@ -78,6 +76,7 @@ const formatToPrimePendingRewardGroup = ({
 
   const primePendingRewardGroup: PrimePendingRewardGroup = {
     type: 'prime',
+    primeVersion,
     isDisabled: isPrimeContractPaused,
     vTokenAddressesWithPendingReward,
     pendingRewards,

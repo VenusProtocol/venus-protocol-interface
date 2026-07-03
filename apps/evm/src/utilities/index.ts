@@ -13,6 +13,7 @@ export { default as compareBooleans } from './compareBooleans';
 export { default as compareNumbers } from './compareNumbers';
 export { default as compareStrings } from './compareStrings';
 export { default as convertDollarsToCents } from './convertDollarsToCents';
+export { default as convertUsdMantissaToCents } from './convertUsdMantissaToCents';
 export { default as areTokensEqual } from './areTokensEqual';
 export { default as getCombinedDistributionApys } from './getCombinedDistributionApys';
 export { default as getBestDistributionApys } from './getBestDistributionApys';

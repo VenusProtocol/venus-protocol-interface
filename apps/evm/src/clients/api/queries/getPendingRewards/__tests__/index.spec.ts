@@ -132,6 +132,7 @@ describe('getPendingRewards', () => {
       vaiVaultContractAddress: fakeVaiVaultContractAddress,
       xvsVaultContractAddress: fakeXvsVaultContractAddress,
       primeContractAddress: fakePrimeContractAddress,
+      primeVersion: 2,
       chainId: ChainId.BSC_TESTNET,
       merklCampaigns: {},
     });

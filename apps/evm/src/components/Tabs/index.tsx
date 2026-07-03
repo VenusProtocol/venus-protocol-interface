@@ -60,6 +60,7 @@ export const Tabs = ({
             className={cn(
               'flex text-sm gap-x-4 sm:gap-x-6',
               variant === 'tertiary' && 'text-md sm:text-lg',
+              headerClassName,
             )}
           >
             {tabs.map((tab, index) => (

@@ -69,12 +69,26 @@ export const fakeVaiControllerContractAddress = '0xfakeVaiControllerContract';
 export const fakeLegacyPoolComptrollerContractAddress =
   '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D';
 export const fakePrimeContractAddress = '0xfakePrimeContractAddress';
+export const fakePrimeV2ContractAddress = '0xfakePrimeV2ContractAddress';
+export const fakePrimeV2LensContractAddress = '0xfakePrimeV2LensContractAddress';
 export const fakeResilientOracleContractAddress = '0xfakeResilientOracleContractAddress';
 
 export const fakePublicClient = {
   getBlockNumber: vi.fn(async () => 123456789),
   readContract: vi.fn(async (input: ReadContractParameters) => {
     if (input.functionName === 'getAllMarkets' && input.address === fakePrimeContractAddress) {
+      return [
+        '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
+        '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
+        '0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0',
+        '0x74469281310195A04840Daf6EdF576F559a3dE80',
+        '0x3338988d0beb4419Acb8fE624218754053362D06',
+        '0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c',
+        '0x712774CBFFCBD60e9825871CcEFF2F917442b2c3',
+      ];
+    }
+
+    if (input.functionName === 'getAllMarkets' && input.address === fakePrimeV2ContractAddress) {
       return [
         '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
         '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
@@ -95,6 +109,10 @@ export const fakePublicClient = {
       return [isUserPrime, false];
     }
 
+    if (input.functionName === 'isPrimeHolder' && input.address === fakePrimeV2ContractAddress) {
+      return true;
+    }
+
     if (input.functionName === 'estimateAPR' && input.address === fakePrimeContractAddress) {
       return {
         borrowAPR: 20n,
@@ -102,7 +120,21 @@ export const fakePublicClient = {
       };
     }
 
+    if (input.functionName === 'estimateAPR' && input.address === fakePrimeV2LensContractAddress) {
+      return {
+        borrowAPR: 20n,
+        supplyAPR: 23n,
+      };
+    }
+
     if (input.functionName === 'calculateAPR' && input.address === fakePrimeContractAddress) {
+      return {
+        borrowAPR: 32n,
+        supplyAPR: 29n,
+      };
+    }
+
+    if (input.functionName === 'calculateAPR' && input.address === fakePrimeV2LensContractAddress) {
       return {
         borrowAPR: 32n,
         supplyAPR: 29n,

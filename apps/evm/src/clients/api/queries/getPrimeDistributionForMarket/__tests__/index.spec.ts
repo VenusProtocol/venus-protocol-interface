@@ -20,6 +20,7 @@ describe('getPrimeDistributionForMarket', () => {
     const response = await getPrimeDistributionForMarket({
       vTokenAddress: vUsdtCorePool.address,
       primeContractAddress: fakePrimeContractAddress as Address,
+      primeVersion: 1,
       publicClient: fakePublicClient,
     });
 

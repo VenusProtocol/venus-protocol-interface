@@ -6,7 +6,7 @@ import { LastCycleSummaryModal } from '..';
 
 describe('pages/PrimeLeaderboard/LastCycleSummaryModal', () => {
   it('renders the last cycle user rank and rewards', async () => {
-    renderComponent(<LastCycleSummaryModal isOpen handleClose={() => {}} />);
+    renderComponent(<LastCycleSummaryModal cycleIndex={378} isOpen handleClose={() => {}} />);
 
     expect(await screen.findByText('Last Cycle Prime Summary')).toBeInTheDocument();
     expect(screen.getByText('You ranked')).toBeInTheDocument();

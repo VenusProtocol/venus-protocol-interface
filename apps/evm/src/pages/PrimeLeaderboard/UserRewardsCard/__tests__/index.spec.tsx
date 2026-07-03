@@ -10,8 +10,16 @@ describe('pages/PrimeLeaderboard/UserRewardsCard', () => {
       <UserRewardsCard
         totalRewardsCents={1_840_000}
         marketRewards={[
-          { token: usdc, rewardsCents: 1_140_000 },
-          { token: xvs, rewardsCents: 700_000 },
+          {
+            token: usdc,
+            marketAddress: '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
+            rewardsCents: 1_140_000,
+          },
+          {
+            token: xvs,
+            marketAddress: '0x6d6F697e34145Bb95c54E77482d97cc261Dc237E',
+            rewardsCents: 700_000,
+          },
         ]}
       />,
     );

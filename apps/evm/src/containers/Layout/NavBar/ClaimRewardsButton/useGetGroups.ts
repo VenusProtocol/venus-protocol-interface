@@ -100,6 +100,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             claims: [
               {
                 contract: 'prime',
+                primeVersion: pendingRewardGroup.primeVersion,
                 vTokenAddressesWithPendingReward:
                   pendingRewardGroup.vTokenAddressesWithPendingReward,
               },

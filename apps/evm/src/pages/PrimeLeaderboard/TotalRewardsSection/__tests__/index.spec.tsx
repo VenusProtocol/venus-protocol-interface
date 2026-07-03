@@ -5,10 +5,12 @@ import { renderComponent } from 'testUtils/render';
 import { TotalRewardsSection } from '..';
 
 describe('pages/PrimeLeaderboard/TotalRewardsSection', () => {
-  it('renders the total Prime rewards from the data hook', () => {
+  it('renders the total Prime rewards from the data hook', async () => {
     renderComponent(<TotalRewardsSection />);
 
-    expect(screen.getByText('Total Prime rewards distributed this cycle')).toBeInTheDocument();
-    expect(screen.getByText('$462.3K')).toBeInTheDocument();
+    expect(
+      await screen.findByText('Total Prime rewards distributed this cycle'),
+    ).toBeInTheDocument();
+    expect(await screen.findByText('$462.3K')).toBeInTheDocument();
   });
 });

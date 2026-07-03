@@ -15,13 +15,7 @@ export const featureFlags = {
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
   ],
-  primeCalculator: [
-    ChainId.BSC_MAINNET,
-    ChainId.BSC_TESTNET,
-    ChainId.ETHEREUM,
-    ChainId.SEPOLIA,
-    ChainId.ARBITRUM_SEPOLIA,
-  ],
+  primeCalculator: [ChainId.ETHEREUM, ChainId.SEPOLIA, ChainId.ARBITRUM_SEPOLIA],
   tusdMigrationWarning: [ChainId.BSC_MAINNET],
   trxMigrationWarning: [ChainId.BSC_MAINNET],
   sxpDisablingWarning: [ChainId.BSC_MAINNET],
@@ -150,7 +144,7 @@ export const featureFlags = {
   repayWithCollateral: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   statsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   trade: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  primeLeaderboard: [ChainId.BSC_TESTNET],
+  primeLeaderboard: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
