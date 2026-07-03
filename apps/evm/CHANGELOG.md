@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.3.0
+
+### Minor Changes
+
+- 55678cf: simplify how simulated Prime APYs are generated
+
 ## 5.2.0
 
 ### Minor Changes
