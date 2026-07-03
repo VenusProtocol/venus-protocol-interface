@@ -94,7 +94,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
         )}
       </div>
 
-      <div className="flex max-h-14 flex-col gap-2 overflow-y-auto pr-2">
+      <div className="flex max-h-15 flex-col gap-2 overflow-y-auto">
         {marketRewardsWithMarket.map(({ token, rewardsCents, asset, poolComptrollerAddress }) => (
           <MarketRewardRow
             key={token.address}

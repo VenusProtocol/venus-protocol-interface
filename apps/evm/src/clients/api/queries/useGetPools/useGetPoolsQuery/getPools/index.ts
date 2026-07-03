@@ -228,7 +228,6 @@ export const getPools = async ({
       primeVersion,
       primeVTokenAddresses,
       xvs,
-      chainId,
       publicClient,
     });
   }

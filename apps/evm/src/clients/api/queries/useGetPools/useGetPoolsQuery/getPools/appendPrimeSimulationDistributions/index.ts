@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { NULL_ADDRESS } from 'constants/address';
-import { primeAveragesForNetwork } from 'constants/prime';
-import { primeAbi, primeV2LensAbi } from 'libs/contracts';
-import type { Asset, ChainId, PrimeVersion, Token } from 'types';
-import { areAddressesEqual, convertAprBipsToApy, convertTokensToMantissa } from 'utilities';
 import type { Address, PublicClient } from 'viem';
+
+import { NULL_ADDRESS } from 'constants/address';
+import { AVERAGE_USER_XVS_VAULT_STAKE_TOKENS } from 'constants/prime';
+import { primeAbi, primeV2LensAbi } from 'libs/contracts';
+import type { Asset, PrimeVersion, Token } from 'types';
+import { areAddressesEqual, convertAprBipsToApy, convertTokensToMantissa } from 'utilities';
 
 export interface ResolvePrimeSimulationDistributionsInput {
   publicClient: PublicClient;
@@ -14,7 +15,6 @@ export interface ResolvePrimeSimulationDistributionsInput {
   assets: Asset[];
   xvs: Token;
   accountAddress?: Address;
-  chainId: ChainId;
 }
 
 export const appendPrimeSimulationDistributions = async ({
@@ -25,7 +25,6 @@ export const appendPrimeSimulationDistributions = async ({
   assets,
   xvs,
   accountAddress,
-  chainId,
 }: ResolvePrimeSimulationDistributionsInput) =>
   Promise.allSettled(
     primeVTokenAddresses.map(primeVTokenAddress => {
@@ -38,28 +37,25 @@ export const appendPrimeSimulationDistributions = async ({
       }
 
       const promise = async () => {
-        const { address } = asset.vToken;
-        const averageBorrowBalanceTokens =
-          primeAveragesForNetwork[chainId]?.borrow[address] ||
-          asset.borrowBalanceTokens.dividedBy(asset.borrowerCount || 1);
+        const averageBorrowBalanceTokens = asset.borrowBalanceTokens.dividedBy(
+          asset.borrowerCount || 1,
+        );
 
         const averageBorrowBalanceMantissa = convertTokensToMantissa({
           value: averageBorrowBalanceTokens,
           token: asset.vToken.underlyingToken,
         });
 
-        const averageSupplyBalanceTokens =
-          primeAveragesForNetwork[chainId]?.supply[address] ||
-          asset.supplyBalanceTokens.dividedBy(asset.supplierCount || 1);
+        const averageSupplyBalanceTokens = asset.supplyBalanceTokens.dividedBy(
+          asset.supplierCount || 1,
+        );
         const averageSupplyBalanceMantissa = convertTokensToMantissa({
           value: averageSupplyBalanceTokens,
           token: asset.vToken.underlyingToken,
         });
 
-        const averageXvsStakedTokens =
-          primeAveragesForNetwork[chainId]?.xvs[address] || new BigNumber(1);
         const averageXvsStakedMantissa = convertTokensToMantissa({
-          value: averageXvsStakedTokens,
+          value: new BigNumber(AVERAGE_USER_XVS_VAULT_STAKE_TOKENS),
           token: xvs,
         });
 
@@ -79,7 +75,7 @@ export const appendPrimeSimulationDistributions = async ({
         const referenceValues = {
           userSupplyBalanceTokens: averageSupplyBalanceTokens,
           userBorrowBalanceTokens: averageBorrowBalanceTokens,
-          userXvsStakedTokens: averageXvsStakedTokens,
+          userXvsStakedTokens: new BigNumber(AVERAGE_USER_XVS_VAULT_STAKE_TOKENS),
         };
 
         if (simulatedPrimeAprs.borrowAPR > 0n) {
