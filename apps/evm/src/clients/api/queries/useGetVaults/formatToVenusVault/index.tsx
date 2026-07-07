@@ -1,5 +1,7 @@
+import { VenueName, getVenueConfig } from 'clients/api/queries/useGetVaults/getVenueConfig';
 import { VaultCategory, VaultStatus, VaultType, VaultVenue, type VenusVault } from 'types';
-import { getVenueIconSrc } from '../getVenueIconSrc';
+
+const venusVenue = getVenueConfig(VenueName.Venus);
 
 export type VaultData = Omit<
   VenusVault,
@@ -16,8 +18,8 @@ export const formatToVenusVault = (vault: VaultData): VenusVault => {
       vault.stakedToken.symbol === 'XVS' ? VaultCategory.GOVERNANCE : VaultCategory.STABLECOINS,
     vaultType: VaultType.Venus,
     venue: VaultVenue.Venus,
-    venueName: 'Venus',
-    venueIconSrc: getVenueIconSrc('Venus'),
+    venueName: venusVenue.name,
+    venueIconSrc: venusVenue.iconSrc,
     status:
       vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade
         ? VaultStatus.Paused

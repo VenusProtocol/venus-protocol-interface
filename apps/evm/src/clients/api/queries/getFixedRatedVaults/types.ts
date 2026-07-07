@@ -73,6 +73,7 @@ export type LoanVaultDetail = {
   debtValueCents: string;
   fixedRateVaultId: string;
   institutionAddress: Address;
+  institutionName: string | null;
   latePenaltyRateMantissa: string;
   liquidationIncentiveMantissa: string;
   liquidationThresholdMantissa: string;
@@ -98,7 +99,6 @@ type FixedRatedVault = {
   id: string;
   chainId: string;
   protocol: string;
-  venueName: string;
   vaultAddress: Address;
   underlyingAssetAddress: Address;
   fixedApyDecimal: string;

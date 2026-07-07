@@ -17,7 +17,6 @@ const fakeFixedRatedVaultsResponse: GetFixedRatedVaultsResponse = {
       id: '56-pendle-0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
       chainId: '56',
       protocol: 'pendle',
-      venueName: 'Pendle',
       vaultAddress: '0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
       underlyingAssetAddress: '0xe052823b4aefc6e230FAf46231A57d0905E30AE0',
       fixedApyDecimal: '0.0339809766',

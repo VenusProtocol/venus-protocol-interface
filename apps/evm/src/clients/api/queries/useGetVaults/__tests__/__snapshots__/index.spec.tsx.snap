@@ -65,7 +65,6 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     ],
     "updatedAt": "2026-03-15T15:38:02.000Z",
     "vaultAddress": "0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e",
-    "venueName": "Pendle",
   },
   {
     "chainId": "97",
@@ -81,6 +80,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
       "fixedRateVaultId": "97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7",
       "id": "loan-vault-detail-1",
       "institutionAddress": "0x1111111111111111111111111111111111111111",
+      "institutionName": "Matrixdock",
       "latePenaltyRateMantissa": "0",
       "liquidationIncentiveMantissa": "0",
       "liquidationThresholdMantissa": "0",
@@ -143,7 +143,6 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     ],
     "updatedAt": "2026-04-01T00:00:00.000Z",
     "vaultAddress": "0x5263D68786AaCfad74B9aa385A004c272548e8B7",
-    "venueName": "Matrixdock",
   },
   {
     "category": "stablecoins",

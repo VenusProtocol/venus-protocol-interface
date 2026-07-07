@@ -555,7 +555,7 @@ export type InstitutionalVault = BaseVault & {
   stakeLimitMantissa: BigNumber;
   stakeMinMantissa: BigNumber;
   userRedeemLimitMantissa: BigNumber;
-  venueUrl: string;
+  venueUrl?: string;
   collateralToken: Token;
   userYieldTokens?: BigNumber;
   userWithdrawLimitMantissa: BigNumber;

@@ -25,7 +25,6 @@ vi.mock('libs/tokens');
 const fakePendleVaultProduct: GetFixedRatedVaultsOutput[number] = {
   id: '56-pendle-0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
   chainId: '56',
-  venueName: 'Pendle',
   protocol: 'pendle',
   vaultAddress: '0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
   underlyingAssetAddress: '0xe052823b4aefc6e230FAf46231A57d0905E30AE0',
@@ -76,7 +75,6 @@ const fakeMatrixdockVaultProduct: GetFixedRatedVaultsOutput[number] = {
   id: '97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7',
   chainId: '97',
   protocol: 'institutional-vault',
-  venueName: 'Matrixdock',
   vaultAddress: '0x5263D68786AaCfad74B9aa385A004c272548e8B7',
   underlyingAssetAddress: '0x312e39c7641cE64BEccDe53613f07952258fa810',
   fixedApyDecimal: '0.08',
@@ -100,6 +98,7 @@ const fakeMatrixdockVaultProduct: GetFixedRatedVaultsOutput[number] = {
     fixedRateVaultId: '97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7',
     id: 'loan-vault-detail-1',
     institutionAddress: '0x1111111111111111111111111111111111111111',
+    institutionName: 'Matrixdock',
     latePenaltyRateMantissa: '0',
     liquidationIncentiveMantissa: '0',
     liquidationThresholdMantissa: '0',

@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import type { GetFixedRatedVaultsOutput, PendleVaultProtocolData } from 'clients/api';
+import { VenueName, getVenueConfig } from 'clients/api/queries/useGetVaults/getVenueConfig';
 import {
   type Asset,
   type PendleVault,
@@ -12,7 +13,8 @@ import {
 } from 'types';
 import { areAddressesEqual, convertTokensToMantissa, findTokenByAddress } from 'utilities';
 import type { Address } from 'viem';
-import { getVenueIconSrc } from '../../../getVenueIconSrc';
+
+const pendleVenue = getVenueConfig(VenueName.Pendle);
 
 export const formatToPendleVault = ({
   vaultData,
@@ -91,8 +93,8 @@ export const formatToPendleVault = ({
     vaultAddress: vaultData.vaultAddress,
     category: VaultCategory.YIELD_TOKENS,
     venue: VaultVenue.Pendle,
-    venueName: vaultData.venueName,
-    venueIconSrc: getVenueIconSrc(vaultData.venueName),
+    venueName: pendleVenue.name,
+    venueIconSrc: pendleVenue.iconSrc,
     venueAddress: protocolData.pendleMarketAddress,
     venueUrl: protocolData.pendleMarketAddress
       ? `https://app.pendle.finance/trade/pools/${protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`
