@@ -1676,8 +1676,7 @@
   },
   "spendingLimit": {
     "label": "支出上限",
-    "labelTooltip": "これはこの資産の現在の支出上限です。さらに支出するには上限を取り消し、新しい上限を設定してください。",
-    "revokeButtonTooltip": "支出上限を取り消す"
+    "labelTooltip": "これはこの資産の現在の支出上限です。さらに支出するには上限を取り消し、新しい上限を設定してください。"
   },
   "statsPage": {
     "illustrationAlt": "統計イラスト",

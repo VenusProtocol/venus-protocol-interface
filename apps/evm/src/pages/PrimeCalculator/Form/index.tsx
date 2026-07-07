@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import { Controller, useForm, useFormState, useWatch } from 'react-hook-form';
 import { useSearchParams } from 'react-router';
 import { z } from 'zod';
 
@@ -202,7 +202,7 @@ export const Form: React.FC = () => {
     [primeMinimumStakedXvsTokens],
   );
 
-  const { control, setValue, formState } = useForm<z.infer<typeof formSchema>>({
+  const { control, setValue } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     disabled: isGetPoolsLoading || isGetTokenPriceLoading,
     mode: 'onBlur',
@@ -212,6 +212,7 @@ export const Form: React.FC = () => {
       borrowedAmountTokens: '',
     },
   });
+  const { dirtyFields, isValid, isValidating } = useFormState({ control });
 
   useEffect(() => {
     const fn = () => {
@@ -227,7 +228,7 @@ export const Form: React.FC = () => {
           selectedAsset?.userSupplyBalanceTokens.isGreaterThan(0))
       ) {
         // only set stakedAmountXvsTokens if it wasn't previously edited
-        if (!formState.dirtyFields.stakedAmountXvsTokens) {
+        if (!dirtyFields.stakedAmountXvsTokens) {
           setValue('stakedAmountXvsTokens', userStakedXvsTokens.toFixed(), {
             shouldValidate: true,
           });
@@ -242,7 +243,7 @@ export const Form: React.FC = () => {
 
     fn();
   }, [
-    formState,
+    dirtyFields.stakedAmountXvsTokens,
     getXvsVaultUserInfoData,
     isGetPrimeStatusLoading,
     isGetPoolsLoading,
@@ -293,8 +294,8 @@ export const Form: React.FC = () => {
     {
       enabled:
         !!selectedAsset &&
-        formState.isValid &&
-        !formState.isValidating &&
+        isValid &&
+        !isValidating &&
         stakedAmountXvsMantissa.gte(primeMinimumStakedXvsMantissa),
     },
   );

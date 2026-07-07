@@ -1676,8 +1676,7 @@
   },
   "spendingLimit": {
     "label": "Harcama limiti",
-    "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin.",
-    "revokeButtonTooltip": "Harcama limitini iptal et"
+    "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin."
   },
   "statsPage": {
     "illustrationAlt": "İstatistik illüstrasyonu",

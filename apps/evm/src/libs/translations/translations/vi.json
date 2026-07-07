@@ -1676,8 +1676,7 @@
   },
   "spendingLimit": {
     "label": "Hạn mức chi tiêu",
-    "labelTooltip": "Đây là hạn mức chi tiêu hiện tại của bạn cho tài sản này. Để chi tiêu nhiều hơn, hãy hủy hạn mức và đặt lại.",
-    "revokeButtonTooltip": "Hủy hạn mức chi tiêu"
+    "labelTooltip": "Đây là hạn mức chi tiêu hiện tại của bạn cho tài sản này. Để chi tiêu nhiều hơn, hãy hủy hạn mức và đặt lại."
   },
   "statsPage": {
     "illustrationAlt": "Hình minh họa thống kê",
