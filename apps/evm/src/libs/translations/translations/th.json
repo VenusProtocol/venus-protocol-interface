@@ -2112,6 +2112,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนเงินที่รอดำเนินการให้เสร็จสิ้นก่อนจึงจะสามารถโต้ตอบกับ vault นี้ได้",
+      "collateral": "หลักประกัน",
       "currentDeposited": "ฝากอยู่ในปัจจุบัน",
       "dailyEmission": "รางวัลรายวัน",
       "header": {
@@ -2195,6 +2196,7 @@
       "overview": {
         "campaignTimeline": "ไทม์ไลน์แคมเปญ",
         "collateral": "หลักประกัน",
+        "contractAddress": "ที่อยู่สัญญา",
         "loan": "เงินกู้",
         "marketInfo": "ข้อมูลตลาด",
         "marketRiskDisclosures": "การเปิดเผยความเสี่ยงของตลาด",

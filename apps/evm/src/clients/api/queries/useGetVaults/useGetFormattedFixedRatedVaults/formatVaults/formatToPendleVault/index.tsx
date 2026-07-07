@@ -12,7 +12,7 @@ import {
 } from 'types';
 import { areAddressesEqual, convertTokensToMantissa, findTokenByAddress } from 'utilities';
 import type { Address } from 'viem';
-import pendleLogoSrc from './pendle.svg';
+import { getVenueIconSrc } from '../../../getVenueIconSrc';
 
 export const formatToPendleVault = ({
   vaultData,
@@ -91,7 +91,8 @@ export const formatToPendleVault = ({
     vaultAddress: vaultData.vaultAddress,
     category: VaultCategory.YIELD_TOKENS,
     venue: VaultVenue.Pendle,
-    venueIconSrc: pendleLogoSrc,
+    venueName: vaultData.venueName,
+    venueIconSrc: getVenueIconSrc(vaultData.venueName),
     venueAddress: protocolData.pendleMarketAddress,
     venueUrl: protocolData.pendleMarketAddress
       ? `https://app.pendle.finance/trade/pools/${protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`

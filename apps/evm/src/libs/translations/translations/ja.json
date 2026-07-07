@@ -2112,6 +2112,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
+      "collateral": "担保",
       "currentDeposited": "現在の供給量",
       "dailyEmission": "日次報酬配布",
       "header": {
@@ -2195,6 +2196,7 @@
       "overview": {
         "campaignTimeline": "キャンペーンタイムライン",
         "collateral": "担保",
+        "contractAddress": "コントラクトアドレス",
         "loan": "ローン",
         "marketInfo": "マーケット情報",
         "marketRiskDisclosures": "マーケットリスク開示",

@@ -2112,6 +2112,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
+      "collateral": "抵押品",
       "currentDeposited": "当前已供应",
       "dailyEmission": "每日奖励释放",
       "header": {
@@ -2195,6 +2196,7 @@
       "overview": {
         "campaignTimeline": "活动时间线",
         "collateral": "抵押品",
+        "contractAddress": "合约地址",
         "loan": "贷款",
         "marketInfo": "市场信息",
         "marketRiskDisclosures": "市场风险披露",

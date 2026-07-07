@@ -25,6 +25,7 @@ const baseVault = {
   vaultType: VaultType.Institutional,
   category: VaultCategory.STABLECOINS,
   venue: VaultVenue.Matrixdock,
+  venueName: 'Matrixdock',
   venueUrl: 'https://fake-venue-url.com',
   venueIconSrc: 'matrixdock',
   status: VaultStatus.Deposit,

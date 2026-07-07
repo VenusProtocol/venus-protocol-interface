@@ -512,6 +512,7 @@ interface BaseVault {
   vaultType: VaultType;
   category: VaultCategory;
   venue: VaultVenue;
+  venueName: string;
   venueIconSrc: string;
   status: VaultStatus;
   key: string;

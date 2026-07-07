@@ -2112,6 +2112,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
+      "collateral": "Collateral",
       "currentDeposited": "Currently supplied",
       "dailyEmission": "Daily emission",
       "header": {
@@ -2197,6 +2198,7 @@
       "overview": {
         "campaignTimeline": "Campaign timeline",
         "collateral": "Collateral",
+        "contractAddress": "Contract address",
         "loan": "Loan",
         "marketInfo": "Market info",
         "marketRiskDisclosures": "Market risk disclosures",

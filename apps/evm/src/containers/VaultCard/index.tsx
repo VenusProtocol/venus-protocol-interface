@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import { useState } from 'react';
 
-import { Card, LabeledInlineContent, LayeredValues, NoticeWarning } from 'components';
+import { Card, LabeledInlineContent, LayeredValues, NoticeWarning, TokenIcon } from 'components';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { VenusVaultModal } from 'containers/VenusVaultModal';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
@@ -237,9 +237,27 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               <PrimeEligibilityInlineContent />
             )}
 
-            <LabeledInlineContent label={t('vault.card.venue')} labelClassName="mb-auto">
-              <img src={vault.venueIconSrc} className="h-4" alt={t('vault.card.vaultVenueIcon')} />
-            </LabeledInlineContent>
+            {isInstitutionalVault(vault) && !!vault.collateralToken && (
+              <LabeledInlineContent label={t('vault.card.collateral')} labelClassName="mb-auto">
+                <div className="flex items-center text-b1r">
+                  <TokenIcon token={vault.collateralToken} className="mr-2 h-5 w-5" />
+                  {vault.collateralToken.symbol}
+                </div>
+              </LabeledInlineContent>
+            )}
+
+            {!!vault.venueName && !!vault.venueIconSrc && (
+              <LabeledInlineContent label={t('vault.card.venue')} labelClassName="mb-auto">
+                <div className="flex items-center text-b1r">
+                  <img
+                    src={vault.venueIconSrc}
+                    className="mr-2 h-5 w-5"
+                    alt={t('vault.card.vaultVenueIcon')}
+                  />
+                  {vault.venueName}
+                </div>
+              </LabeledInlineContent>
+            )}
           </div>
 
           {vault.status === VaultStatus.Paused && (

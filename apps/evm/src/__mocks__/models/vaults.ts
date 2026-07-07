@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults';
-import venusLogoSrc from 'clients/api/queries/useGetVaults/formatToVenusVault/venus.svg';
-import matrixdockLogoSrc from 'clients/api/queries/useGetVaults/useGetFormattedFixedRatedVaults/formatVaults/formatToInstitutionalVault/matrixdock.svg';
+import matrixdockLogoSrc from 'clients/api/queries/useGetVaults/getVenueIconSrc/matrixdock.svg';
+import venusLogoSrc from 'clients/api/queries/useGetVaults/getVenueIconSrc/venus.svg';
 
 import {
   type InstitutionalVault,
@@ -41,6 +41,7 @@ export const vaults: VenusVault[] = [
     category: VaultCategory.STABLECOINS,
     vaultType: VaultType.Venus,
     venue: VaultVenue.Venus,
+    venueName: 'Venus',
     venueIconSrc: venusLogoSrc,
     status: VaultStatus.Active,
     key: 'venus-VAI-XVS-300000',
@@ -62,6 +63,7 @@ export const vaults: VenusVault[] = [
     category: VaultCategory.GOVERNANCE,
     vaultType: VaultType.Venus,
     venue: VaultVenue.Venus,
+    venueName: 'Venus',
     venueIconSrc: venusLogoSrc,
     status: VaultStatus.Active,
     key: 'venus-XVS-XVS-300000',
@@ -73,6 +75,7 @@ export const fixedRatedVaults: GetFixedRatedVaultsOutput = [
     id: '56-pendle-0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
     chainId: '56',
     protocol: 'pendle',
+    venueName: 'Pendle',
     vaultAddress: '0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
     underlyingAssetAddress: '0xe052823b4aefc6e230FAf46231A57d0905E30AE0',
     fixedApyDecimal: '0.0339809766',
@@ -137,6 +140,7 @@ export const fixedRatedVaults: GetFixedRatedVaultsOutput = [
     id: '97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7',
     chainId: '97',
     protocol: 'institutional-vault',
+    venueName: 'Matrixdock',
     vaultAddress: '0x5263D68786AaCfad74B9aa385A004c272548e8B7',
     underlyingAssetAddress: '0x312e39c7641cE64BEccDe53613f07952258fa810',
     fixedApyDecimal: '0.08',
@@ -216,6 +220,7 @@ export const institutionalVault: InstitutionalVault = {
   vaultType: VaultType.Institutional,
   category: VaultCategory.STABLECOINS,
   venue: VaultVenue.Matrixdock,
+  venueName: 'Matrixdock',
   venueIconSrc: matrixdockLogoSrc,
   venueAddress: '0x1111111111111111111111111111111111111111',
   venueUrl: 'https://www.matrixdock.com/',

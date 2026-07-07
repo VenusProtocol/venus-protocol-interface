@@ -2112,6 +2112,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
+      "collateral": "Tài sản thế chấp",
       "currentDeposited": "Hiện đang cung cấp",
       "dailyEmission": "Phần thưởng hàng ngày",
       "header": {
@@ -2195,6 +2196,7 @@
       "overview": {
         "campaignTimeline": "Dòng thời gian chiến dịch",
         "collateral": "Tài sản thế chấp",
+        "contractAddress": "Địa chỉ hợp đồng",
         "loan": "Khoản vay",
         "marketInfo": "Thông tin thị trường",
         "marketRiskDisclosures": "Công bố rủi ro thị trường",

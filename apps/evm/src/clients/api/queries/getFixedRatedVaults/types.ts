@@ -98,6 +98,7 @@ type FixedRatedVault = {
   id: string;
   chainId: string;
   protocol: string;
+  venueName: string;
   vaultAddress: Address;
   underlyingAssetAddress: Address;
   fixedApyDecimal: string;

@@ -2112,6 +2112,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必須先完成待處理的提款才能與此金庫互動。",
+      "collateral": "抵押品",
       "currentDeposited": "當前已供應",
       "dailyEmission": "每日獎勵釋放",
       "header": {
@@ -2195,6 +2196,7 @@
       "overview": {
         "campaignTimeline": "活動時間線",
         "collateral": "抵押品",
+        "contractAddress": "合約地址",
         "loan": "貸款",
         "marketInfo": "市場資訊",
         "marketRiskDisclosures": "市場風險披露",

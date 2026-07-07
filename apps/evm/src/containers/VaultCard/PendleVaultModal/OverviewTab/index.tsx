@@ -17,7 +17,9 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ vault }) => {
 
       <VaultOverviewMarketInfo
         vaultDeploymentDate={vault.vaultDeploymentDate}
+        contractAddress={vault.vaultAddress}
         venue={vault.venue}
+        venueName={vault.venueName}
         venueIconSrc={vault.venueIconSrc}
         venueUrl={vault.venueUrl}
         copyAddress={vault.asset?.vToken?.underlyingToken?.address}

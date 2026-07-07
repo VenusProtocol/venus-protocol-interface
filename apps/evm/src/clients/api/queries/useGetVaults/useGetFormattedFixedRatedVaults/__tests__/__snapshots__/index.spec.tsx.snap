@@ -97,7 +97,8 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle and matrix
     "vaultType": "pendle",
     "venue": "pendle",
     "venueAddress": "0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5",
-    "venueIconSrc": "/src/clients/api/queries/useGetVaults/useGetFormattedFixedRatedVaults/formatVaults/formatToPendleVault/pendle.svg",
+    "venueIconSrc": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='20'%20height='20'%20viewBox='0%200%2020%2020'%20fill='none'%3e%3cg%20clip-path='url(%23clip0_3527_63128)'%3e%3cpath%20d='M9.997%2016.0132C14.4125%2016.0132%2017.992%2012.4285%2017.992%208.00659C17.992%203.58467%2014.4125%200%209.997%200C5.58146%200%202.00195%203.58467%202.00195%208.00659C2.00195%2012.4285%205.58146%2016.0132%209.997%2016.0132Z'%20fill='%23DEDEDE'/%3e%3cpath%20d='M6.39836%2020.0001C8.82751%2020.0001%2010.7967%2018.028%2010.7967%2015.5954C10.7967%2013.1627%208.82751%2011.1907%206.39836%2011.1907C3.96921%2011.1907%202%2013.1627%202%2015.5954C2%2018.028%203.96921%2020.0001%206.39836%2020.0001Z'%20fill='%231E4480'/%3e%3cpath%20d='M6.89723%2011.2348C9.0923%2011.482%2010.7987%2013.3466%2010.7988%2015.6109C10.7988%2015.7334%2010.7919%2015.8547%2010.7821%2015.9746C10.5238%2015.9998%2010.262%2016.0133%209.99713%2016.0133C7.22151%2016.0133%204.77651%2014.5965%203.34302%2012.446C4.02559%2011.7849%204.921%2011.3425%205.91668%2011.2334V1.12011C6.23036%200.933347%206.55778%200.767352%206.89723%200.624268V11.2348Z'%20fill='%23152E51'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_3527_63128'%3e%3crect%20width='20'%20height='20'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+    "venueName": "Pendle",
     "venueUrl": "https://app.pendle.finance/trade/pools/0x3c1a3d6b69a866444fe506f7d38a00a1c2d859c5/zap/in?chain=bnbchain",
   },
   {
@@ -149,7 +150,8 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle and matrix
     "vaultType": "institutional",
     "venue": "matrixdock",
     "venueAddress": "0x1111111111111111111111111111111111111111",
-    "venueIconSrc": "/src/clients/api/queries/useGetVaults/useGetFormattedFixedRatedVaults/formatVaults/formatToInstitutionalVault/matrixdock.svg",
+    "venueIconSrc": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='20'%20height='20'%20viewBox='0%200%2020%2020'%20fill='none'%3e%3cg%20clip-path='url(%23clip0_3527_63003)'%3e%3cpath%20d='M9.83677%202.73404L7.16064%201.33308L9.87192%20-0.182617L12.5831%201.33305L9.83677%202.73404Z'%20fill='white'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M1%204.81744L6.62506%201.66178L9.83291%203.34111L13.1655%201.64111L18.8311%204.81744V14.8174L9.91264%2019.8174L1%2014.8174V4.81744ZM9.91264%206.84642L13.1802%204.96841L15.9149%206.45995V12.6133L13.1802%2014.1169V7.92734L9.90678%209.81748L6.64506%207.92734V14.123L3.91037%2012.6194V6.46599L6.64506%204.96841L9.91264%206.84642Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_3527_63003'%3e%3crect%20width='20'%20height='20'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+    "venueName": "Matrixdock",
     "venueUrl": "https://www.matrixdock.com/",
   },
 ]

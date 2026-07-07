@@ -2112,6 +2112,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bu kasayla etkileşime geçmek için bekleyen çekimleri tamamlamanız gerekmektedir.",
+      "collateral": "Teminat",
       "currentDeposited": "Mevcut sağlanan",
       "dailyEmission": "Günlük ödül dağıtımı",
       "header": {
@@ -2196,6 +2197,7 @@
       "overview": {
         "campaignTimeline": "Kampanya zaman çizelgesi",
         "collateral": "Teminat",
+        "contractAddress": "Sözleşme adresi",
         "loan": "Kredi",
         "marketInfo": "Piyasa bilgisi",
         "marketRiskDisclosures": "Piyasa Risk Açıklamaları",

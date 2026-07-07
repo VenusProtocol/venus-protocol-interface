@@ -9,9 +9,9 @@ import {
   findTokenByAddress,
 } from 'utilities';
 
+import { getVenueIconSrc } from '../../../getVenueIconSrc';
 import { getUserYieldTokens } from './getUserYieldTokens';
 import { getVaultStatus } from './getVaultStatus';
-import matrixdockLogoSrc from './matrixdock.svg';
 
 export const formatToInstitutionalVault = ({
   vaultData,
@@ -123,7 +123,8 @@ export const formatToInstitutionalVault = ({
     vaultType: VaultType.Institutional,
     category: VaultCategory.STABLECOINS,
     venue: VaultVenue.Matrixdock,
-    venueIconSrc: matrixdockLogoSrc,
+    venueName: vaultData.venueName,
+    venueIconSrc: getVenueIconSrc(vaultData.venueName),
     venueAddress: loanVaultDetail.institutionAddress,
     venueUrl: 'https://www.matrixdock.com/',
     status,
