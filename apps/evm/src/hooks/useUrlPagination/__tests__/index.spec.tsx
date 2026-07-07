@@ -53,10 +53,11 @@ describe('useUrlPagination', () => {
     result.current.setCurrentPage(2);
 
     await waitFor(() =>
-      expect(mockSetSearchParams).toHaveBeenCalledWith(expect.any(Function), { replace: true }),
+      expect(mockSetSearchParams).toHaveBeenCalledWith(expect.any(Function), undefined),
     );
 
     const mockSetSearchParamsInput = mockSetSearchParams.mock.calls[0][0];
+    expect(mockSetSearchParams.mock.calls[0]).toHaveLength(2);
     expect(mockSetSearchParamsInput(mockSearchParams)).toEqual({
       [PAGE_PARAM_DEFAULT_KEY]: '3',
     });
