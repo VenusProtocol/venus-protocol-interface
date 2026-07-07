@@ -1,8 +1,11 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import { bnb, xvs } from '__mocks__/models/tokens';
-import { MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import {
+  MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
+  MINIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
+} from 'constants/swap';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { renderComponent } from 'testUtils/render';
 import { formatPercentageToReadableValue } from 'utilities';
@@ -44,7 +47,7 @@ describe('SwapDetails', () => {
     });
   });
 
-  it('lets user update slippage tolerance using input', () => {
+  it('lets user update slippage tolerance using input', async () => {
     const mockSetUserChainSettings = vi.fn();
 
     (useUserChainSettings as Mock).mockReturnValue([
@@ -66,26 +69,36 @@ describe('SwapDetails', () => {
       target: { value },
     });
 
-    expect(input).toHaveAttribute('max', String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE));
+    expect(input).not.toHaveAttribute('max');
     expect(mockSetUserChainSettings).toHaveBeenCalledWith({
       slippageTolerancePercentage: value,
     });
 
-    // Check decimals are validated
-    fireEvent.change(input, { target: { value: '0.1234' } });
-    expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
+    const invalidValue = String(MINIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE / 10);
 
-    // Check values with too many decimals are rejected even when above the input max
+    fireEvent.change(input, {
+      target: { value: invalidValue },
+    });
+
+    expect(input).toHaveValue(Number(invalidValue));
+    expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(input.parentElement?.parentElement).toHaveClass('border-red'));
+
     fireEvent.change(input, {
       target: { value: `${MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE}.111` },
     });
+
+    expect(input).toHaveValue(Number(`${MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE}.111`));
     expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(input.parentElement?.parentElement).toHaveClass('border-red'));
 
     fireEvent.change(input, {
       target: { value: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE) },
     });
+
     expect(mockSetUserChainSettings).toHaveBeenCalledWith({
       slippageTolerancePercentage: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE),
     });
+    await waitFor(() => expect(input.parentElement?.parentElement).not.toHaveClass('border-red'));
   });
 });
