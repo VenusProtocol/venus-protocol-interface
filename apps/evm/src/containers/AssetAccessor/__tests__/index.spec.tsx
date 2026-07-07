@@ -1,21 +1,16 @@
 import { waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPool } from 'clients/api';
-import { TokenAnnouncement } from 'containers/TokenAnnouncement';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { Asset, Pool } from 'types';
 
 import AssetAccessor, { type AssetAccessorProps } from '..';
 
-vi.mock('containers/TokenAnnouncement');
-
 const mockUseGetPool = useGetPool as Mock;
-const mockTokenAnnouncement = TokenAnnouncement as Mock;
 
 const fakePool = poolData[0];
 const fakeAsset = fakePool.assets[0];
@@ -65,7 +60,6 @@ const mockGetPool = (pool: Pool = fakePool) => {
 describe('containers/AssetAccessor', () => {
   beforeEach(() => {
     mockGetPool();
-    mockTokenAnnouncement.mockImplementation(() => null);
   });
 
   it('renders without crashing', async () => {
@@ -76,33 +70,11 @@ describe('containers/AssetAccessor', () => {
     await waitFor(() => expect(getByText(fakeChildrenContent)).toBeInTheDocument());
   });
 
-  it('renders token announcement if a disabled borrow action has an announcement for the token', async () => {
-    mockGetPool(
-      getCustomFakePool({
-        asset: {
-          disabledTokenActions: ['borrow'],
-        },
-      }),
-    );
-
-    const fakeTokenAnnouncementText = 'Fake token announcement';
-    mockTokenAnnouncement.mockImplementation(() => fakeTokenAnnouncementText);
-
-    const { getByText, queryByText } = renderComponent(
-      <AssetAccessor {...borrowProps}>{() => <TestComponent />}</AssetAccessor>,
-    );
-
-    await waitFor(() => expect(getByText(fakeTokenAnnouncementText)).toBeInTheDocument());
-
-    expect(queryByText(fakeChildrenContent)).toBeNull();
-  });
-
   it('renders a restricted asset notice when the asset is unavailable in the user country', async () => {
     mockGetPool(
       getCustomFakePool({
         asset: {
           isRestricted: true,
-          userBorrowBalanceCents: new BigNumber(1),
         },
       }),
     );
@@ -116,7 +88,7 @@ describe('containers/AssetAccessor', () => {
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 
-  it('renders default token announcement if a disabled borrow action has no token announcement', async () => {
+  it('renders default announcement if the borrow action is disabled', async () => {
     mockGetPool(
       getCustomFakePool({
         asset: {
@@ -124,8 +96,6 @@ describe('containers/AssetAccessor', () => {
         },
       }),
     );
-
-    mockTokenAnnouncement.mockImplementation(() => null);
 
     const { getByText, queryByText } = renderComponent(
       <AssetAccessor {...borrowProps}>{() => <TestComponent />}</AssetAccessor>,
@@ -138,7 +108,7 @@ describe('containers/AssetAccessor', () => {
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 
-  it('renders token announcement if a disabled non-borrow action has an announcement for the token', async () => {
+  it('renders default announcement if a non-borrow action is disabled', async () => {
     mockGetPool(
       getCustomFakePool({
         asset: {
@@ -147,14 +117,13 @@ describe('containers/AssetAccessor', () => {
       }),
     );
 
-    const fakeTokenAnnouncementText = 'Fake token announcement';
-    mockTokenAnnouncement.mockImplementation(() => fakeTokenAnnouncementText);
-
     const { getByText, queryByText } = renderComponent(
       <AssetAccessor {...supplyProps}>{() => <TestComponent />}</AssetAccessor>,
     );
 
-    await waitFor(() => expect(getByText(fakeTokenAnnouncementText)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(getByText(en.assetAccessor.disabledActionNotice.supply)).toBeInTheDocument(),
+    );
 
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });
@@ -168,9 +137,6 @@ describe('containers/AssetAccessor', () => {
         },
       }),
     );
-
-    mockTokenAnnouncement.mockImplementation(() => null);
-
     const { getByText, queryByText } = renderComponent(
       <AssetAccessor {...borrowProps}>{() => <TestComponent />}</AssetAccessor>,
     );
