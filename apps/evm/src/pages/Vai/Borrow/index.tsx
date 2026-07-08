@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo } from 'react';
-import { Controller, type SubmitHandler, useWatch } from 'react-hook-form';
+import { Controller, type SubmitHandler, useFormState, useWatch } from 'react-hook-form';
 
 import {
   useGetMintableVai,
@@ -127,13 +127,14 @@ export const Borrow: React.FC = () => {
   }, [legacyPool?.vai?.tokenPriceCents, legacyPool, mintableVaiData, mintableVaiData, vai]);
 
   const {
-    form: { control, handleSubmit, formState, setValue, reset, trigger },
+    form: { control, handleSubmit, setValue, reset, trigger },
   } = useForm({
     ...mintableVaiData,
     vaiPriceCents: legacyPool?.vai?.tokenPriceCents,
     userBorrowBalanceCents: legacyPool?.userBorrowBalanceCents,
     userLiquidationThresholdCents: legacyPool?.userLiquidationThresholdCents,
   });
+  const { errors } = useFormState({ control });
 
   const inputValue = useWatch({ control, name: 'amountTokens' });
   const _debouncedInputAmountTokens = useDebounceValue(inputValue);
@@ -181,7 +182,7 @@ export const Borrow: React.FC = () => {
   const isRiskyOperation =
     simulatedPool?.userHealthFactor !== undefined &&
     simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
-    !formState.errors.amountTokens;
+    !errors.amountTokens;
 
   // Trigger revalidation of acknowledgeRisk field when it is rendered or removed. This is a
   // workaround to make sure React Hook Form initializes the field correctly
@@ -319,7 +320,7 @@ export const Borrow: React.FC = () => {
         enabledLabel={t('vai.borrow.submitButton.borrowLabel')}
         disabledLabel={
           // Only show disabled label when error concerns the amount entered
-          formState.errors.acknowledgeRisk
+          errors.acknowledgeRisk
             ? t('vai.borrow.submitButton.borrowLabel')
             : t('vai.borrow.submitButton.enterValidAmountLabel')
         }

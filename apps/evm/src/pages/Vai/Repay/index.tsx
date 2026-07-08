@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo } from 'react';
-import { type SubmitHandler, useWatch } from 'react-hook-form';
+import { type SubmitHandler, useFormState, useWatch } from 'react-hook-form';
 
 import { useGetBalanceOf, useGetPool, useRepayVai } from 'clients/api';
 import { Delimiter, LabeledInlineContent, NoticeWarning, SpendingLimit, Spinner } from 'components';
@@ -93,12 +93,13 @@ export const Repay: React.FC = () => {
 
   const {
     limitTokens,
-    form: { control, handleSubmit, formState, setValue, reset },
+    form: { control, handleSubmit, setValue, reset },
   } = useForm({
     userVaiWalletBalanceMantissa,
     userVaiBorrowBalanceTokens,
     userWalletSpendingLimitTokens,
   });
+  const { errors } = useFormState({ control });
 
   const inputValue = useWatch({ control, name: 'amountTokens' });
   const _debouncedInputAmountTokens = useDebounceValue(inputValue);
@@ -186,7 +187,7 @@ export const Repay: React.FC = () => {
           }
         />
 
-        {!formState.errors.amountTokens && isRepayingFullLoan && (
+        {!errors.amountTokens && isRepayingFullLoan && (
           <NoticeWarning description={t('vai.repay.notice.fullRepaymentWarning')} />
         )}
       </div>

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { type UseFormReturn, useWatch } from 'react-hook-form';
+import { type UseFormReturn, useFormState, useWatch } from 'react-hook-form';
 import type { Address } from 'viem';
 
 import {
@@ -75,6 +75,7 @@ export const VaultForm: React.FC<VaultFormProps> = ({
 
   const fromAmountTokensFieldValue = useWatch({ control: form.control, name: 'fromAmountTokens' });
   const fromAmountTokens = new BigNumber(fromAmountTokensFieldValue || 0);
+  const { isSubmitting, isValid } = useFormState({ control: form.control });
 
   // Check if transaction is using a swap with a high price impact
   const isHighPriceImpactSwap =
@@ -165,11 +166,12 @@ export const VaultForm: React.FC<VaultFormProps> = ({
     token: fromToken,
   });
 
-  const handleLimitClick = () =>
+  const handleLimitClick = () => {
     form.setValue('fromAmountTokens', limitFromTokens.dp(fromToken.decimals).toFixed(), {
       shouldDirty: true,
       shouldValidate: true,
     });
+  };
 
   const handleSliderChange = (percentage: number) => {
     const amountTokens = limitFromTokens
@@ -192,7 +194,7 @@ export const VaultForm: React.FC<VaultFormProps> = ({
     isGetFromTokenWalletBalanceLoading ||
     isWalletSpendingLimitLoading ||
     isApproveTokenLoading ||
-    form.formState.isSubmitting ||
+    isSubmitting ||
     isLoadingProp;
 
   const handleSubmit = async () => {
@@ -211,7 +213,7 @@ export const VaultForm: React.FC<VaultFormProps> = ({
     }
   };
 
-  let isFormValid = form.formState.isValid;
+  let isFormValid = isValid;
 
   const requiresSwap = !!swapFromToken && !!swapToToken;
 

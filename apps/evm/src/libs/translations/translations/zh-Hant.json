@@ -1676,8 +1676,7 @@
   },
   "spendingLimit": {
     "label": "支出限額",
-    "labelTooltip": "這是你當前對該資產的支出上限。如需更多支出，請撤銷上限並重新設置。",
-    "revokeButtonTooltip": "撤銷支出限額"
+    "labelTooltip": "這是你當前對該資產的支出上限。如需更多支出，請撤銷上限並重新設置。"
   },
   "statsPage": {
     "illustrationAlt": "統計插圖",

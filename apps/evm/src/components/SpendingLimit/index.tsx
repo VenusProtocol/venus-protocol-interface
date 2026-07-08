@@ -2,7 +2,7 @@ import { TextButton } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 
 import { Spinner } from '@venusprotocol/ui';
-import { InfoIcon } from 'components/InfoIcon';
+import { Icon } from 'components/Icon';
 import { LabeledInlineContent } from 'components/LabeledInlineContent';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { handleError } from 'libs/errors';
@@ -66,11 +66,9 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
           <div>{readableWalletSpendingLimit}</div>
 
           <TextButton onClick={handleRevoke} className="text-red ml-2 h-auto p-0">
-            <InfoIcon
-              iconName="bin"
-              iconClassName="text-red h-5 w-5 transition-opacity hover:opacity-50 active:opacity-50"
-              tooltip={t('spendingLimit.revokeButtonTooltip')}
-              className="inline-flex"
+            <Icon
+              name="bin"
+              className="text-red h-5 w-5 transition-opacity hover:opacity-50 active:opacity-50"
             />
           </TextButton>
         </>

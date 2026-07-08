@@ -1676,8 +1676,7 @@
   },
   "spendingLimit": {
     "label": "Spending limit",
-    "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one.",
-    "revokeButtonTooltip": "Revoke spending limit"
+    "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
   },
   "statsPage": {
     "illustrationAlt": "Stats illustration",
