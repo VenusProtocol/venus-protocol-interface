@@ -216,6 +216,12 @@ export const HistoricalMarketChart: React.FC<HistoricalMarketChartProps> = ({ me
     [chartData],
   );
 
+  // t('statsPage.historicalMarketChart.supply.title')
+  // t('statsPage.historicalMarketChart.supply.unavailable')
+  // t('statsPage.historicalMarketChart.supply.noData')
+  // t('statsPage.historicalMarketChart.borrows.title')
+  // t('statsPage.historicalMarketChart.borrows.unavailable')
+  // t('statsPage.historicalMarketChart.borrows.noData')
   const title = t(`statsPage.historicalMarketChart.${metric}.title`);
   const unavailableMessage = t(`statsPage.historicalMarketChart.${metric}.unavailable`);
   const noDataMessage = t(`statsPage.historicalMarketChart.${metric}.noData`);

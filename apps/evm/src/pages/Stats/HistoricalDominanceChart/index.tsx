@@ -97,6 +97,14 @@ export const HistoricalDominanceChart: React.FC<HistoricalDominanceChartProps> =
     return points;
   }, [data, metric]);
 
+  // t('statsPage.historicalDominance.supply.title')
+  // t('statsPage.historicalDominance.supply.unavailable')
+  // t('statsPage.historicalDominance.supply.noData')
+  // t('statsPage.historicalDominance.supply.ratioLabel')
+  // t('statsPage.historicalDominance.borrows.title')
+  // t('statsPage.historicalDominance.borrows.unavailable')
+  // t('statsPage.historicalDominance.borrows.noData')
+  // t('statsPage.historicalDominance.borrows.ratioLabel')
   const title = t(`statsPage.historicalDominance.${metric}.title`);
   const unavailableMessage = t(`statsPage.historicalDominance.${metric}.unavailable`);
   const noDataMessage = t(`statsPage.historicalDominance.${metric}.noData`);
