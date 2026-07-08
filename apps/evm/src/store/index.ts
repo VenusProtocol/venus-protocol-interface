@@ -2,6 +2,7 @@ import createDeepMerge from '@fastify/deepmerge';
 import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
+  MINIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
 import { ChainId } from 'types';
 import { extractEnumValues } from 'utilities/extractEnumValues';
@@ -67,16 +68,23 @@ export const useStore = create<State>()(
         const state = deepMerge(current, persisted) as State;
 
         const userSettings = Object.entries(state.userSettings).reduce<UserSettings>(
-          (acc, [chainId, settings]) => ({
-            ...acc,
-            [chainId]: {
-              ...settings,
-              slippageTolerancePercentage:
-                Number(settings.slippageTolerancePercentage) > MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE
-                  ? DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE
-                  : settings.slippageTolerancePercentage,
-            },
-          }),
+          (acc, [chainId, settings]) => {
+            const parsedSlippageTolerancePercentage = Number(settings.slippageTolerancePercentage);
+            const isSlippageTolerancePercentageValid =
+              Number.isFinite(parsedSlippageTolerancePercentage) &&
+              parsedSlippageTolerancePercentage >= MINIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE &&
+              parsedSlippageTolerancePercentage <= MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE;
+
+            return {
+              ...acc,
+              [chainId]: {
+                ...settings,
+                slippageTolerancePercentage: isSlippageTolerancePercentageValid
+                  ? settings.slippageTolerancePercentage
+                  : String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
+              },
+            };
+          },
           state.userSettings,
         );
 

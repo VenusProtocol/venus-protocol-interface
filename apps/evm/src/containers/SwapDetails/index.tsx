@@ -1,28 +1,25 @@
 import { cn } from '@venusprotocol/ui';
+import { type ChangeEvent, useState } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 
-import {
-  ButtonGroup,
-  Icon,
-  LabeledInlineContent,
-  Modal,
-  TextField,
-  type TextFieldProps,
-} from 'components';
+import { ButtonGroup, Icon, LabeledInlineContent, Modal, TextField } from 'components';
 import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   HIGH_SLIPPAGE_PERCENTAGE,
-  MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
-import { useState } from 'react';
 import type { Token } from 'types';
-import { formatPercentageToReadableValue, getDecimals } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
+import { validateSlippageTolerancePercentage } from './validateSlippageTolerancePercentage';
 
 export const slippageToleranceOptions = ['0.1', String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE), '1'];
-const MAX_SLIPPAGE_TOLERANCE_DECIMALS = 2;
+
+interface FormValues {
+  slippageTolerancePercentage: string;
+}
 
 export interface SwapDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
   fromToken: Token;
@@ -41,6 +38,18 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
   const [isSlippageToleranceModalOpen, setIsSlippageToleranceModalOpen] = useState(false);
 
+  const { control, handleSubmit, reset, setValue } = useForm<FormValues>({
+    mode: 'onChange',
+    defaultValues: {
+      slippageTolerancePercentage: userChainSettings.slippageTolerancePercentage,
+    },
+  });
+
+  const slippageTolerancePercentage = useWatch({
+    control,
+    name: 'slippageTolerancePercentage',
+  });
+
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
 
   const readableUserSlippageTolerance = formatPercentageToReadableValue(
@@ -49,23 +58,39 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
 
   const readablePriceImpact = formatPercentageToReadableValue(priceImpactPercentage);
 
-  const openSlippageToleranceModal = () => setIsSlippageToleranceModalOpen(true);
-  const closeSlippageToleranceModal = () => setIsSlippageToleranceModalOpen(false);
+  const handleSlippageToleranceChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
 
-  const handlePriceImpactFieldChange: TextFieldProps['onChange'] = ({
-    currentTarget: { value },
-  }) => {
-    // Forbid values with more 2 decimals
-    const valueDecimals = getDecimals({ value });
+    setValue('slippageTolerancePercentage', value, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
 
-    if (valueDecimals <= MAX_SLIPPAGE_TOLERANCE_DECIMALS) {
+    if (validateSlippageTolerancePercentage(value)) {
       setUserChainSettings({
-        slippageTolerancePercentage: value,
+        slippageTolerancePercentage: Number.parseFloat(value).toString(),
       });
     }
   };
 
-  const handleSlippageToleranceModalFieldChange = ({ value }: { value: string }) => {
+  const openSlippageToleranceModal = () => {
+    reset({
+      slippageTolerancePercentage: userChainSettings.slippageTolerancePercentage,
+    });
+
+    setIsSlippageToleranceModalOpen(true);
+  };
+
+  const closeSlippageToleranceModal = () => {
+    setIsSlippageToleranceModalOpen(false);
+  };
+
+  const handleSlippageTolerancePresetClick = ({ value }: { value: string }) => {
+    setValue('slippageTolerancePercentage', value, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+
     setUserChainSettings({
       slippageTolerancePercentage: value,
     });
@@ -120,17 +145,17 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
           handleClose={closeSlippageToleranceModal}
           title={t('swapDetails.slippageToleranceModal.title')}
         >
-          <form className="space-y-6" onSubmit={closeSlippageToleranceModal}>
+          <form className="space-y-6" onSubmit={handleSubmit(closeSlippageToleranceModal)}>
             <p className="text-grey">{t('swapDetails.slippageToleranceModal.description')}</p>
 
             <div className="flex items-center justify-between gap-x-4">
               <ButtonGroup
                 buttonLabels={slippageToleranceOptions.map(formatPercentageToReadableValue)}
                 activeButtonIndex={slippageToleranceOptions.findIndex(
-                  value => Number(value) === Number(userSlippageTolerancePercentage),
+                  value => Number(value) === Number(slippageTolerancePercentage),
                 )}
                 onButtonClick={index =>
-                  handleSlippageToleranceModalFieldChange({
+                  handleSlippageTolerancePresetClick({
                     value: slippageToleranceOptions[index],
                   })
                 }
@@ -138,17 +163,25 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                 buttonClassName="px-0 max-w-90"
               />
 
-              <TextField
-                placeholder={String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE)}
-                step={0.01}
-                min={0}
-                max={MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE}
-                value={userChainSettings.slippageTolerancePercentage}
-                onChange={handlePriceImpactFieldChange}
-                type="number"
-                className="w-25 shrink-0"
-                inputContainerClassName="h-12"
-                autoFocus
+              <Controller
+                name="slippageTolerancePercentage"
+                control={control}
+                rules={{
+                  validate: value => !value || validateSlippageTolerancePercentage(value),
+                }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    placeholder={String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE)}
+                    step={0.01}
+                    type="number"
+                    className="w-25 shrink-0"
+                    inputContainerClassName="h-12"
+                    hasError={!!field.value && fieldState.invalid}
+                    autoFocus
+                    onChange={handleSlippageToleranceChange}
+                  />
+                )}
               />
             </div>
           </form>

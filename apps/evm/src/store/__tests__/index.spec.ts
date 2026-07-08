@@ -1,6 +1,7 @@
 import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
+  MINIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
 import { ChainId } from 'types';
 import { extractEnumValues } from 'utilities/extractEnumValues';
@@ -70,6 +71,12 @@ describe('store', () => {
             [ChainId.BSC_TESTNET]: {
               slippageTolerancePercentage: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE + 1),
             },
+            [ChainId.ARBITRUM_SEPOLIA]: {
+              slippageTolerancePercentage: String(MINIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE / 10),
+            },
+            [ChainId.OPBNB_MAINNET]: {
+              slippageTolerancePercentage: 'invalid',
+            },
             [ChainId.ZKSYNC_MAINNET]: {
               gaslessTransactions: false,
               slippageTolerancePercentage: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE),
@@ -81,7 +88,13 @@ describe('store', () => {
       );
 
       expect(mergedState?.userSettings[ChainId.BSC_TESTNET]).toEqual({
-        slippageTolerancePercentage: DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
+        slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
+      });
+      expect(mergedState?.userSettings[ChainId.ARBITRUM_SEPOLIA]).toEqual({
+        slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
+      });
+      expect(mergedState?.userSettings[ChainId.OPBNB_MAINNET]).toEqual({
+        slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
       });
       expect(mergedState?.userSettings[ChainId.ZKSYNC_MAINNET]).toEqual({
         gaslessTransactions: false,
