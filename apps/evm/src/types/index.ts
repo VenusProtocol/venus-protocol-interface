@@ -493,7 +493,7 @@ export enum VaultStatus {
 export enum VaultVenue {
   Venus = 'venus',
   Pendle = 'pendle',
-  Matrixdock = 'matrixdock',
+  Institution = 'institution',
 }
 
 export enum VaultType {

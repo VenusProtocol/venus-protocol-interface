@@ -48,7 +48,7 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
       />
     ) : (
       <Trans
-        i18nKey="vault.modals.overview.riskDisclosureText.matrixDock"
+        i18nKey="vault.modals.overview.riskDisclosureText.institution"
         components={{
           br: <br />,
           TermsOfUseLink: <Link to={routes.fixedTermVaultTermsOfUse.path} target="_blank" />,

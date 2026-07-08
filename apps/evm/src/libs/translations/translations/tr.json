@@ -2151,6 +2151,7 @@
       "deposit": "Sağla",
       "inactive": "Aktif değil",
       "inputPlaceholder": "Varlık ara",
+      "institution": "Kurum",
       "liquidated": "Tasfiye edildi",
       "locked": "Kazanç",
       "paused": "Duraklatıldı",
@@ -2202,7 +2203,7 @@
         "marketInfo": "Piyasa bilgisi",
         "marketRiskDisclosures": "Piyasa Risk Açıklamaları",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>Sermaye risk altındadır</Bold>. Hedef oran değişkendir ve kasanın performansına bağlıdır. Bu garanti edilmiş bir getiri değildir. <Bold>Geri alacağınız tutar yatırdığınız tutardan daha düşük olabilir</Bold>. Uzlaşma sırasında, o anda kasanın fiilen elinde tuttuğu varlıkların payınıza düşen kısmını alırsınız. <Bold>Fonlarınız kilitlenecektir</Bold>. Kilitli dönem başladıktan sonra ne varlık sağlayabilir ne de çekebilirsiniz. Fonlar ancak uzlaşmada talep edilebilir hale gelir. <Bold>Sonuçları etkileyen unsurlar:</Bold> karşı taraf performansı, teminat koşulları, akıllı sözleşme yürütümü, oracle güvenilirliği ve uzlaşma sonuçları. <Bold>Yargı bölgesi kısıtlamaları geçerlidir</Bold>. Bu kasa, kısıtlı yargı bölgelerinde veya kısıtlı kişilere sunulmaz. Tam liste için Kullanım Koşulları'na bakın. Varlık sağlamadan önce lütfen bu sayfadaki kasa parametrelerini ve <TermsOfUseLink>Kullanım Koşulları</TermsOfUseLink>'nı inceleyin.",
+          "institution": "<Bold>Sermaye risk altındadır</Bold>. Hedef oran değişkendir ve kasanın performansına bağlıdır. Bu garanti edilmiş bir getiri değildir. <Bold>Geri alacağınız tutar yatırdığınız tutardan daha düşük olabilir</Bold>. Uzlaşma sırasında, o anda kasanın fiilen elinde tuttuğu varlıkların payınıza düşen kısmını alırsınız. <Bold>Fonlarınız kilitlenecektir</Bold>. Kilitli dönem başladıktan sonra ne varlık sağlayabilir ne de çekebilirsiniz. Fonlar ancak uzlaşmada talep edilebilir hale gelir. <Bold>Sonuçları etkileyen unsurlar:</Bold> karşı taraf performansı, teminat koşulları, akıllı sözleşme yürütümü, oracle güvenilirliği ve uzlaşma sonuçları. <Bold>Yargı bölgesi kısıtlamaları geçerlidir</Bold>. Bu kasa, kısıtlı yargı bölgelerinde veya kısıtlı kişilere sunulmaz. Tam liste için Kullanım Koşulları'na bakın. Varlık sağlamadan önce lütfen bu sayfadaki kasa parametrelerini ve <TermsOfUseLink>Kullanım Koşulları</TermsOfUseLink>'nı inceleyin.",
           "pendle": "Pendle, Anapara Token'ları (PT) aracılığıyla sabit oranlı getiri sağlayan merkeziyetsiz bir getiri ticareti protokolüdür. Venus Sabit Oran Kasası, PT edinmek için sağlanan varlıkları Pendle altyapısı üzerinden yönlendirir ve bunlar Venus Core'a teminat olarak sağlanır. <br />Pendle sağladığınız fonlara erişemese veya onları taşıyamasa da, bu kasayı kullanmak sizi her iki protokolden kaynaklanan risklere maruz bırakır. Bunlar arasında akıllı sözleşme açıkları, oracle arızaları ve protokollerden herhangi birinin istismar edilmesi veya durdurulması olasılığı bulunur. Erken çekimler piyasa fiyatından gerçekleştirilir ve sağlanan tutardan daha az geri dönebilir. Sabit APY sağlama sırasında kilitlenir, ancak protokol seviyesindeki arızalara karşı koruma sağlamaz."
         },
         "strategy": {

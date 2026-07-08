@@ -22,7 +22,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ vault }) => {
         venueName={vault.venueName}
         venueIconSrc={vault.venueIconSrc}
         venueUrl={vault.venueUrl}
-        copyAddress={vault.asset?.vToken?.underlyingToken?.address}
+        copyAddress={vault.venueAddress}
       />
     </div>
   );

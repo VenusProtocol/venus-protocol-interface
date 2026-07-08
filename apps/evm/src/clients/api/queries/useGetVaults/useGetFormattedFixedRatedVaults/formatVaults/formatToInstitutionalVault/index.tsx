@@ -124,7 +124,7 @@ export const formatToInstitutionalVault = ({
     key: vaultData.id,
     vaultType: VaultType.Institutional,
     category: VaultCategory.STABLECOINS,
-    venue: VaultVenue.Matrixdock,
+    venue: VaultVenue.Institution,
     venueName: venue.name,
     venueIconSrc: venue.iconSrc,
     venueAddress: loanVaultDetail.institutionAddress,

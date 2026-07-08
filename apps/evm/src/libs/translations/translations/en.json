@@ -2152,6 +2152,7 @@
       "deposit": "Supply",
       "inactive": "Inactive",
       "inputPlaceholder": "Search asset",
+      "institution": "Institution",
       "liquidated": "Liquidated",
       "locked": "Locked",
       "paused": "Paused",
@@ -2203,7 +2204,7 @@
         "marketInfo": "Market info",
         "marketRiskDisclosures": "Market risk disclosures",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>Capital at risk</Bold>. The target rate is variable and linked to vault performance. It is not a guaranteed return. <Bold>You may get back less than you put in</Bold>. At settlement, you receive your share of whatever assets the vault actually holds at that time. <Bold>Your funds will be locked</Bold>. Once the locked period begins, you cannot supply or withdraw. Funds become claimable only at settlement. <Bold>What affects outcomes:</Bold> counterparty performance, collateral conditions, smart contract execution, oracle reliability, and settlement results. <Bold>Jurisdiction restrictions apply</Bold>. This vault is not available in restricted jurisdictions or to restricted persons. See the Terms of Use for the full list. Please review the <TermsOfUseLink>Terms of Use</TermsOfUseLink> and vault parameters on this page before supplying.",
+          "institution": "<Bold>Capital at risk</Bold>. The target rate is variable and linked to vault performance. It is not a guaranteed return. <Bold>You may get back less than you put in</Bold>. At settlement, you receive your share of whatever assets the vault actually holds at that time. <Bold>Your funds will be locked</Bold>. Once the locked period begins, you cannot supply or withdraw. Funds become claimable only at settlement. <Bold>What affects outcomes:</Bold> counterparty performance, collateral conditions, smart contract execution, oracle reliability, and settlement results. <Bold>Jurisdiction restrictions apply</Bold>. This vault is not available in restricted jurisdictions or to restricted persons. See the Terms of Use for the full list. Please review the <TermsOfUseLink>Terms of Use</TermsOfUseLink> and vault parameters on this page before supplying.",
           "pendle": "Pendle is a decentralised yield-trading protocol that enables fixed-rate yield through Principal Tokens (PTs). The Venus Fixed Rate Vault routes supplied funds through Pendle's infrastructure to acquire PTs, which are supplied to Venus Core as collateral. <br />While Pendle cannot access or move your supplied funds, using this vault exposes you to risks from both protocols. These include smart contract vulnerabilities, oracle failures, and the possibility of either protocol being exploited or paused. Early withdrawals are executed at market price and may return less than the amount supplied. Fixed APY is locked when you supply and does not protect against protocol-level failures."
         },
         "strategy": {

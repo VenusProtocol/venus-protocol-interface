@@ -218,7 +218,7 @@ export const fixedRatedVaults: GetFixedRatedVaultsOutput = [
 export const institutionalVault: InstitutionalVault = {
   vaultType: VaultType.Institutional,
   category: VaultCategory.STABLECOINS,
-  venue: VaultVenue.Matrixdock,
+  venue: VaultVenue.Institution,
   venueName: 'Matrixdock',
   venueIconSrc: matrixdockLogoSrc,
   venueAddress: '0x1111111111111111111111111111111111111111',

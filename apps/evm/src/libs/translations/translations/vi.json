@@ -2150,6 +2150,7 @@
       "deposit": "Cung cấp",
       "inactive": "Không hoạt động",
       "inputPlaceholder": "Tìm kiếm tài sản",
+      "institution": "Tổ chức",
       "liquidated": "Đã thanh lý",
       "locked": "Đang kiếm lợi nhuận",
       "paused": "Tạm dừng",
@@ -2201,7 +2202,7 @@
         "marketInfo": "Thông tin thị trường",
         "marketRiskDisclosures": "Công bố rủi ro thị trường",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>Vốn có rủi ro</Bold>. Mức lãi suất mục tiêu là biến động và gắn với hiệu suất của kho. Đây không phải là mức lợi nhuận được đảm bảo. <Bold>Bạn có thể nhận lại ít hơn số đã nạp vào</Bold>. Khi tất toán, bạn sẽ nhận phần tài sản mà kho thực sự nắm giữ tại thời điểm đó theo tỷ lệ sở hữu của mình. <Bold>Tiền của bạn sẽ bị khóa</Bold>. Khi giai đoạn khóa bắt đầu, bạn sẽ không thể cung cấp hoặc rút tài sản. Chỉ đến khi tất toán thì tiền mới có thể được nhận. <Bold>Những yếu tố ảnh hưởng đến kết quả:</Bold> hiệu suất của đối tác, điều kiện tài sản thế chấp, việc thực thi hợp đồng thông minh, độ tin cậy của oracle và kết quả tất toán. <Bold>Có áp dụng hạn chế theo khu vực pháp lý</Bold>. Kho này không dành cho các khu vực pháp lý bị hạn chế hoặc các đối tượng bị hạn chế. Vui lòng xem Điều khoản sử dụng để biết danh sách đầy đủ. Vui lòng xem <TermsOfUseLink>Điều khoản sử dụng</TermsOfUseLink> và các thông số của kho trên trang này trước khi cung cấp.",
+          "institution": "<Bold>Vốn có rủi ro</Bold>. Mức lãi suất mục tiêu là biến động và gắn với hiệu suất của kho. Đây không phải là mức lợi nhuận được đảm bảo. <Bold>Bạn có thể nhận lại ít hơn số đã nạp vào</Bold>. Khi tất toán, bạn sẽ nhận phần tài sản mà kho thực sự nắm giữ tại thời điểm đó theo tỷ lệ sở hữu của mình. <Bold>Tiền của bạn sẽ bị khóa</Bold>. Khi giai đoạn khóa bắt đầu, bạn sẽ không thể cung cấp hoặc rút tài sản. Chỉ đến khi tất toán thì tiền mới có thể được nhận. <Bold>Những yếu tố ảnh hưởng đến kết quả:</Bold> hiệu suất của đối tác, điều kiện tài sản thế chấp, việc thực thi hợp đồng thông minh, độ tin cậy của oracle và kết quả tất toán. <Bold>Có áp dụng hạn chế theo khu vực pháp lý</Bold>. Kho này không dành cho các khu vực pháp lý bị hạn chế hoặc các đối tượng bị hạn chế. Vui lòng xem Điều khoản sử dụng để biết danh sách đầy đủ. Vui lòng xem <TermsOfUseLink>Điều khoản sử dụng</TermsOfUseLink> và các thông số của kho trên trang này trước khi cung cấp.",
           "pendle": "Pendle là một giao thức giao dịch lợi nhuận phi tập trung cho phép tạo ra lợi nhuận lãi suất cố định thông qua Principal Tokens (PT). Venus Fixed Rate Vault định tuyến tài sản được cung cấp thông qua hạ tầng của Pendle để mua PT, sau đó các PT này được cung cấp vào Venus Core làm tài sản thế chấp. <br />Mặc dù Pendle không thể truy cập hoặc di chuyển số tài sản bạn đã cung cấp, việc sử dụng vault này khiến bạn chịu rủi ro từ cả hai giao thức. Các rủi ro này bao gồm lỗ hổng hợp đồng thông minh, sự cố oracle và khả năng một trong hai giao thức bị khai thác hoặc bị tạm dừng. Việc rút tiền sớm được thực hiện theo giá thị trường và có thể nhận lại ít hơn lượng đã cung cấp. APY cố định được khóa khi bạn cung cấp nhưng không bảo vệ khỏi các sự cố ở cấp độ giao thức."
         },
         "strategy": {

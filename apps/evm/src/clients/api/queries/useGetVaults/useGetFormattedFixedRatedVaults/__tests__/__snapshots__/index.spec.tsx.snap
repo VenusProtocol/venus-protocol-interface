@@ -148,7 +148,7 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle and matrix
     "vaultAddress": "0x5263D68786AaCfad74B9aa385A004c272548e8B7",
     "vaultDeploymentDate": 2026-04-01T00:00:00.000Z,
     "vaultType": "institutional",
-    "venue": "matrixdock",
+    "venue": "institution",
     "venueAddress": "0x1111111111111111111111111111111111111111",
     "venueIconSrc": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='20'%20height='20'%20viewBox='0%200%2020%2020'%20fill='none'%3e%3cg%20clip-path='url(%23clip0_3527_63003)'%3e%3cpath%20d='M9.83677%202.73404L7.16064%201.33308L9.87192%20-0.182617L12.5831%201.33305L9.83677%202.73404Z'%20fill='white'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M1%204.81744L6.62506%201.66178L9.83291%203.34111L13.1655%201.64111L18.8311%204.81744V14.8174L9.91264%2019.8174L1%2014.8174V4.81744ZM9.91264%206.84642L13.1802%204.96841L15.9149%206.45995V12.6133L13.1802%2014.1169V7.92734L9.90678%209.81748L6.64506%207.92734V14.123L3.91037%2012.6194V6.46599L6.64506%204.96841L9.91264%206.84642Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_3527_63003'%3e%3crect%20width='20'%20height='20'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
     "venueName": "Matrixdock",
