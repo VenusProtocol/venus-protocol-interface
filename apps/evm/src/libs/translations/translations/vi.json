@@ -1327,7 +1327,8 @@
     },
     "title": "Bảng xếp hạng Prime",
     "totalRewards": {
-      "title": "Tổng thưởng Prime đã phân phối trong chu kỳ này"
+      "title": "Tổng thưởng Prime đã phân phối",
+      "totalPoolLabel": "trên tổng <Highlight>{{amount}}</Highlight> phần thưởng chu kỳ này"
     },
     "userRewards": {
       "eligibleMessage": "Bạn hiện đủ điều kiện chia sẻ phần thưởng Prime trong chu kỳ này. Hãy cung cấp tài sản bên dưới để nhận phần thưởng.",

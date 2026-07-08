@@ -1327,7 +1327,8 @@
     },
     "title": "Prime 排行榜",
     "totalRewards": {
-      "title": "本週期已分配的 Prime 總獎勵"
+      "title": "已分配的 Prime 總獎勵",
+      "totalPoolLabel": "本週期總獎勵 <Highlight>{{amount}}</Highlight>"
     },
     "userRewards": {
       "eligibleMessage": "你在本週期已具備分享 Prime 獎勵的資格。在下方供給資產以分享獎勵。",

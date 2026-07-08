@@ -9,6 +9,7 @@ import type { MarketReward } from '../TotalRewardsCard';
 export interface UseGetPrimeTotalRewardsOutput {
   isLoading: boolean;
   totalRewardsCents: number;
+  totalPoolCents: number;
   marketRewards: MarketReward[];
 }
 
@@ -40,6 +41,9 @@ export const useGetPrimeTotalRewards = (): UseGetPrimeTotalRewardsOutput => {
     isLoading,
     totalRewardsCents: pendingPool
       ? convertUsdMantissaToCents(pendingPool.totalCurrentCycleUsdMantissa).toNumber()
+      : 0,
+    totalPoolCents: pendingPool
+      ? convertUsdMantissaToCents(pendingPool.currentEstimatedTotalUsdMantissa).toNumber()
       : 0,
     marketRewards,
   };

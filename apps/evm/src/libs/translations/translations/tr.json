@@ -1327,7 +1327,8 @@
     },
     "title": "Prime lider tablosu",
     "totalRewards": {
-      "title": "Bu döngüde dağıtılan toplam Prime ödülü"
+      "title": "Dağıtılan toplam Prime ödülü",
+      "totalPoolLabel": "bu döngüdeki toplam <Highlight>{{amount}}</Highlight> ödülden"
     },
     "userRewards": {
       "eligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygunsun. Ödülleri paylaşmak için aşağıdan varlık sağla.",

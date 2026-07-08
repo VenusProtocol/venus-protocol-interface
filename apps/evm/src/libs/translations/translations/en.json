@@ -1327,7 +1327,8 @@
     },
     "title": "Prime leaderboard",
     "totalRewards": {
-      "title": "Total Prime rewards distributed this cycle"
+      "title": "Total Prime rewards distributed",
+      "totalPoolLabel": "of <Highlight>{{amount}}</Highlight> total rewards this cycle"
     },
     "userRewards": {
       "eligibleMessage": "You are currently eligible for sharing the Prime rewards during this cycle. Supply assets below to share the rewards.",
