@@ -640,6 +640,7 @@ export const getPrimeCurrentCycle = vi.fn(async () => ({
     computedAt: new Date('2026-06-17T00:00:00Z'),
     primeHolderCount: 500,
     totalCurrentCycleUsdMantissa: '462300000000000000000000',
+    currentEstimatedTotalUsdMantissa: '600000000000000000000000',
     byRewardToken: [
       {
         rewardTokenAddress: usdc.address,
