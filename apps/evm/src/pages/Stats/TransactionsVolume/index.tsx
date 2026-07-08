@@ -19,6 +19,11 @@ import { roundUpToScale } from '../roundUpToScale';
 
 type TxKind = 'mint' | 'redeem' | 'borrow' | 'repay' | 'liquidate';
 
+// t('statsPage.transactionsVolume.legend.mint')
+// t('statsPage.transactionsVolume.legend.redeem')
+// t('statsPage.transactionsVolume.legend.borrow')
+// t('statsPage.transactionsVolume.legend.repay')
+// t('statsPage.transactionsVolume.legend.liquidate')
 const KIND_TRANSLATION_KEY: Record<TxKind, string> = {
   mint: 'statsPage.transactionsVolume.legend.mint',
   redeem: 'statsPage.transactionsVolume.legend.redeem',

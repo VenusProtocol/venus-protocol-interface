@@ -1711,10 +1711,91 @@
     "labelTooltip": "這是你當前對該資產的支出上限。如需更多支出，請撤銷上限並重新設置。"
   },
   "statsPage": {
+    "historicalDominance": {
+      "borrows": {
+        "noData": "TRANSLATION NEEDED",
+        "ratioLabel": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED",
+        "unavailable": "TRANSLATION NEEDED"
+      },
+      "supply": {
+        "noData": "TRANSLATION NEEDED",
+        "ratioLabel": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED",
+        "unavailable": "TRANSLATION NEEDED"
+      }
+    },
+    "historicalLiquidity": {
+      "noData": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "tooltipLabel": "TRANSLATION NEEDED",
+      "unavailable": "TRANSLATION NEEDED"
+    },
+    "historicalMarketChart": {
+      "borrows": {
+        "noData": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED",
+        "unavailable": "TRANSLATION NEEDED"
+      },
+      "others": "TRANSLATION NEEDED",
+      "supply": {
+        "noData": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED",
+        "unavailable": "TRANSLATION NEEDED"
+      }
+    },
     "illustrationAlt": "統計插圖",
-    "poweredBy": "由 <Link>{{provider}}</Link> 提供支持",
+    "marketKpis": {
+      "liquidity": "TRANSLATION NEEDED",
+      "totalBorrows": "TRANSLATION NEEDED",
+      "totalSupply": "TRANSLATION NEEDED",
+      "unavailable": "TRANSLATION NEEDED",
+      "utilization": "TRANSLATION NEEDED"
+    },
     "subtitle": "Venus Protocol 市場的即時風險參數",
-    "title": "Venus 統計"
+    "tabs": {
+      "liquidations": "TRANSLATION NEEDED",
+      "markets": "TRANSLATION NEEDED",
+      "overview": "TRANSLATION NEEDED",
+      "wallets": "TRANSLATION NEEDED"
+    },
+    "title": "Venus 統計",
+    "topWallets": {
+      "noData": "TRANSLATION NEEDED",
+      "tooltip": {
+        "borrow": "TRANSLATION NEEDED",
+        "supply": "TRANSLATION NEEDED"
+      },
+      "topBorrowers": "TRANSLATION NEEDED",
+      "topSuppliers": "TRANSLATION NEEDED",
+      "unavailableBorrowers": "TRANSLATION NEEDED",
+      "unavailableSuppliers": "TRANSLATION NEEDED"
+    },
+    "transactionsVolume": {
+      "legend": {
+        "borrow": "TRANSLATION NEEDED",
+        "liquidate": "TRANSLATION NEEDED",
+        "mint": "TRANSLATION NEEDED",
+        "redeem": "TRANSLATION NEEDED",
+        "repay": "TRANSLATION NEEDED"
+      },
+      "subtitle": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "tooltipTotal": "TRANSLATION NEEDED",
+      "unavailable": "TRANSLATION NEEDED"
+    },
+    "walletKpis": {
+      "borrowersWithPositionAboveMinUsdValue": "TRANSLATION NEEDED",
+      "eligibleForLiquidation": "TRANSLATION NEEDED",
+      "suppliersWithPositionAboveMinUsdValue": "TRANSLATION NEEDED",
+      "totalBadDebt": "TRANSLATION NEEDED",
+      "totalBorrowers": "TRANSLATION NEEDED",
+      "totalCollateralAtRisk": "TRANSLATION NEEDED",
+      "totalSuppliers": "TRANSLATION NEEDED",
+      "unavailable": "TRANSLATION NEEDED",
+      "valueEligibleForLiquidation": "TRANSLATION NEEDED",
+      "walletsAtRisk": "TRANSLATION NEEDED"
+    }
   },
   "swap": {
     "errors": {

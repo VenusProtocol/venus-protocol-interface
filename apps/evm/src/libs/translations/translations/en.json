@@ -1711,14 +1711,6 @@
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
   },
   "statsPage": {
-    "illustrationAlt": "Stats illustration",
-    "marketKpis": {
-      "liquidity": "Liquidity",
-      "totalBorrows": "Total Borrows",
-      "totalSupply": "Total Supply",
-      "unavailable": "Market data unavailable.",
-      "utilization": "Utilization"
-    },
     "historicalDominance": {
       "borrows": {
         "noData": "No historical snapshots yet.",
@@ -1752,17 +1744,30 @@
         "unavailable": "Historical supply unavailable."
       }
     },
-    "poweredBy": "Powered by <Link>{{provider}}</Link>",
+    "illustrationAlt": "Stats illustration",
+    "marketKpis": {
+      "liquidity": "Liquidity",
+      "totalBorrows": "Total Borrows",
+      "totalSupply": "Total Supply",
+      "unavailable": "Market data unavailable.",
+      "utilization": "Utilization"
+    },
     "subtitle": "Real-time risk parameters for Venus Protocol markets",
+    "tabs": {
+      "liquidations": "Liquidations",
+      "markets": "Markets",
+      "overview": "Overview",
+      "wallets": "Wallets"
+    },
     "title": "Venus Stats",
     "topWallets": {
       "noData": "No data yet.",
-      "topBorrowers": "Top Borrowers",
-      "topSuppliers": "Top Suppliers",
       "tooltip": {
         "borrow": "Borrow",
         "supply": "Supply"
       },
+      "topBorrowers": "Top Borrowers",
+      "topSuppliers": "Top Suppliers",
       "unavailableBorrowers": "Top borrowers unavailable.",
       "unavailableSuppliers": "Top suppliers unavailable."
     },
@@ -1778,12 +1783,6 @@
       "title": "Transactions Volume",
       "tooltipTotal": "Total",
       "unavailable": "Transactions volume unavailable."
-    },
-    "tabs": {
-      "liquidations": "Liquidations",
-      "markets": "Markets",
-      "overview": "Overview",
-      "wallets": "Wallets"
     },
     "walletKpis": {
       "borrowersWithPositionAboveMinUsdValue": "Borrowers > $10",
