@@ -2,12 +2,12 @@ import { Spinner, cn } from '@venusprotocol/ui';
 import { useSearchParams } from 'react-router';
 
 import { useGetPools } from 'clients/api';
-import { Page, TagGroup } from 'components';
+import { CellGroup, Page, TagGroup } from 'components';
 import { MarketTable, type MarketTableProps } from 'containers/MarketTable';
-import { PoolStats } from 'containers/PoolStats';
 import { Redirect } from 'containers/Redirect';
 import { useChain } from 'hooks/useChain';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { usePoolStats } from 'hooks/usePoolStats';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import type { Pool } from 'types';
@@ -88,6 +88,11 @@ export const IsolatedPools: React.FC = () => {
     };
   });
 
+  const cells = usePoolStats({
+    pools: selectedPool ? [selectedPool] : [],
+    stats: ['supply', 'borrow', 'liquidity', 'assetCount'],
+  });
+
   // Set default pool search param if none is present in the URL
   useEffect(() => {
     if (!selectedPool && !isGetPoolsLoading && pools.length > 0) {
@@ -124,11 +129,7 @@ export const IsolatedPools: React.FC = () => {
         />
       )}
 
-      <PoolStats
-        pools={selectedPool ? [selectedPool] : []}
-        stats={['supply', 'borrow', 'liquidity', 'assetCount']}
-        className="mb-4"
-      />
+      <CellGroup cells={cells} className="mb-4" />
 
       <MarketTable
         className="pt-0 border-0 lg:border"

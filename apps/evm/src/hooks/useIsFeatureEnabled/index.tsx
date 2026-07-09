@@ -145,6 +145,7 @@ export const featureFlags = {
   statsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   trade: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   primeLeaderboard: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  liquidityHub: [ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

@@ -15,9 +15,6 @@ export interface MenuItemProps {
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState(
-    'items' in item ? !!item.defaultOpenOnMobile : false,
-  );
   const { pathname } = useLocation();
 
   let isActive = false;
@@ -27,6 +24,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   } else if ('items' in item) {
     isActive = item.items.some(i => i.to && matchPath(i.to, pathname));
   }
+
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(
+    'items' in item ? isActive || !!item.defaultOpenOnMobile : false,
+  );
 
   const sharedContainerClassName = cn(
     'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:bg-dark-blue-active lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',

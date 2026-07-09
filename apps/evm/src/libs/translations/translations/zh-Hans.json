@@ -779,6 +779,9 @@
       "dashboard": {
         "label": "仪表盘"
       },
+      "earn": {
+        "label": "赚取"
+      },
       "label": "菜单",
       "markets": {
         "label": "市场"
@@ -846,6 +849,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "一次供应，自动分配至多个收益来源。",
+          "label": "流动性中心"
+        },
+        "vaults": {
+          "description": "面向目标奖励的单策略供应金库。",
+          "label": "金库"
+        },
         "venusCore": {
           "description": "经典借贷，轻松使用优化杠杆。",
           "label": "Venus Core"
@@ -859,6 +870,31 @@
   },
   "legal": {
     "lastUpdatedAt": "最后更新：{{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "根据治理策划的策略，在 Venus 协议的多个收益来源之间进行路由。收益会自动累积。",
+    "header": "流动性中心",
+    "stats": {
+      "hubs": "中心数",
+      "totalLiquidity": "总流动性",
+      "totalSupply": "总供应量"
+    },
+    "table": {
+      "columns": {
+        "asset": "资产",
+        "exposure": {
+          "selectionOptionLabel": "敞口",
+          "title": "敞口 <InfoIcon/>",
+          "tooltip": "该资产所借出到的各个来源中的抵押品"
+        },
+        "liquidity": "流动性",
+        "supplyApy": "供应 APY",
+        "totalSupply": "总供应量"
+      },
+      "search": {
+        "placeholder": "搜索资产"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "撰写",

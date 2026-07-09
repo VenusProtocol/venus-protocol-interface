@@ -6,6 +6,8 @@ import { VENUS_FLUX_URL } from 'constants/production';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import type { MenuItem, SubMenu } from '../types';
+import liquidityHubIconSrc from './liquidityHubIcon.svg';
+import vaultsIconSrc from './vaultsIcon.svg';
 import venusCoreIconSrc from './venusCoreIcon.png';
 import venusFluxIconSrc from './venusFluxIcon.png';
 
@@ -18,6 +20,7 @@ export const useMenuItems = () => {
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
   const tradeRouteEnabled = useIsFeatureEnabled({ name: 'trade' });
   const primeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
+  const liquidityHubEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
   const { marketsPagePath } = useGetMarketsPagePath();
 
   const menu: Array<MenuItem | SubMenu> = [];
@@ -29,9 +32,7 @@ export const useMenuItems = () => {
     },
     {
       label: t('layout.menu.markets.label'),
-      to: marketsPagePath,
       variant: 'secondary',
-      defaultOpenOnMobile: true,
       items: [
         {
           to: marketsPagePath,
@@ -47,10 +48,29 @@ export const useMenuItems = () => {
         },
       ],
     },
-    {
-      to: routes.vaults.path,
-      label: t('layout.menu.vaults.label'),
-    },
+    liquidityHubEnabled
+      ? {
+          label: t('layout.menu.earn.label'),
+          variant: 'secondary',
+          items: [
+            {
+              to: routes.liquidityHub.path,
+              imgSrc: liquidityHubIconSrc,
+              label: t('layouts.menu.markets.liquidityHub.label'),
+              description: t('layouts.menu.markets.liquidityHub.description'),
+            },
+            {
+              to: routes.vaults.path,
+              imgSrc: vaultsIconSrc,
+              label: t('layouts.menu.markets.vaults.label'),
+              description: t('layouts.menu.markets.vaults.description'),
+            },
+          ],
+        }
+      : {
+          to: routes.vaults.path,
+          label: t('layout.menu.vaults.label'),
+        },
   );
 
   const othersSubMenuItems: MenuItem[] = [

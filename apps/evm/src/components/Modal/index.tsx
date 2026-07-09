@@ -14,7 +14,7 @@ import { cn } from '@venusprotocol/ui';
 import { Icon } from '../Icon';
 import { useModalStyles } from './styles';
 
-export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open'> {
+export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open' | 'onClose'> {
   className?: string;
   buttonClassName?: string;
   isOpen: boolean;

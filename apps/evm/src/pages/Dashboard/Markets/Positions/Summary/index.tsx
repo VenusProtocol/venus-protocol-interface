@@ -140,7 +140,7 @@ export const Summary: React.FC<SummaryProps> = ({
       <div className="space-y-4 md:space-y-6 xl:hidden">
         <CellGroup
           cells={displayAccountHealth ? cells.slice(0, cells.length - 1) : cells}
-          variant="secondary"
+          grid
           className={cn(displayAccountHealth ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
         />
 

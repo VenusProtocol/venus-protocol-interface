@@ -73,3 +73,7 @@ export interface VToken extends Omit<Token, 'isNative' | 'iconSrc' | 'tokenWrapp
   decimals: 8; // VBep tokens all have 8 decimals
   underlyingToken: Token;
 }
+
+export interface VhToken extends Omit<Token, 'isNative' | 'iconSrc' | 'tokenWrapped'> {
+  underlyingToken: Token;
+}

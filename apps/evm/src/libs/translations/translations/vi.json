@@ -779,6 +779,9 @@
       "dashboard": {
         "label": "Bảng điều khiển"
       },
+      "earn": {
+        "label": "Kiếm lợi nhuận"
+      },
       "label": "Trình đơn",
       "markets": {
         "label": "Thị trường"
@@ -846,6 +849,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "Một lần cung cấp, tự động phân bổ qua nhiều nguồn lợi suất.",
+          "label": "Trung tâm thanh khoản"
+        },
+        "vaults": {
+          "description": "Kho cung cấp một chiến lược cho phần thưởng mục tiêu.",
+          "label": "Kho"
+        },
         "venusCore": {
           "description": "Cho vay và vay theo cách truyền thống với đòn bẩy dễ dùng, tối ưu.",
           "label": "Venus Core"
@@ -859,6 +870,31 @@
   },
   "legal": {
     "lastUpdatedAt": "Cập nhật lần cuối: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "Được định tuyến qua các nguồn lợi suất của Venus Protocol theo chính sách do quản trị lựa chọn. Lợi suất tự động tích lũy.",
+    "header": "Trung tâm thanh khoản",
+    "stats": {
+      "hubs": "Trung tâm",
+      "totalLiquidity": "Tổng thanh khoản",
+      "totalSupply": "Tổng cung cấp"
+    },
+    "table": {
+      "columns": {
+        "asset": "Tài sản",
+        "exposure": {
+          "selectionOptionLabel": "Mức tiếp xúc",
+          "title": "Mức tiếp xúc <InfoIcon/>",
+          "tooltip": "Tài sản thế chấp của từng nguồn mà tài sản này đang cho vay tới"
+        },
+        "liquidity": "Thanh khoản",
+        "supplyApy": "APY cung cấp",
+        "totalSupply": "Tổng cung cấp"
+      },
+      "search": {
+        "placeholder": "Tìm kiếm tài sản"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "Viết",

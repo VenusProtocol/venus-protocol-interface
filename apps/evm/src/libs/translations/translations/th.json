@@ -779,6 +779,9 @@
       "dashboard": {
         "label": "แดชบอร์ด"
       },
+      "earn": {
+        "label": "รับผลตอบแทน"
+      },
       "label": "เมนู",
       "markets": {
         "label": "ตลาด"
@@ -846,6 +849,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "ฝากครั้งเดียว ระบบจะกระจายอัตโนมัติไปยังหลายแหล่งผลตอบแทน",
+          "label": "ศูนย์สภาพคล่อง"
+        },
+        "vaults": {
+          "description": "วอลต์ฝากแบบกลยุทธ์เดียวสำหรับรางวัลเป้าหมาย",
+          "label": "คลัง"
+        },
         "venusCore": {
           "description": "การให้ยืมและการยืมแบบคลาสสิก พร้อมเลเวอเรจที่ใช้งานง่ายและปรับให้เหมาะสม",
           "label": "Venus Core"
@@ -859,6 +870,31 @@
   },
   "legal": {
     "lastUpdatedAt": "อัปเดตล่าสุด: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "ระบบจะจัดเส้นทางไปยังแหล่งผลตอบแทนของ Venus Protocol ภายใต้นโยบายที่คัดสรรโดยฝ่ายกำกับดูแล ผลตอบแทนจะสะสมโดยอัตโนมัติ",
+    "header": "ศูนย์สภาพคล่อง",
+    "stats": {
+      "hubs": "ศูนย์",
+      "totalLiquidity": "สภาพคล่องรวม",
+      "totalSupply": "ยอดฝากรวม"
+    },
+    "table": {
+      "columns": {
+        "asset": "สินทรัพย์",
+        "exposure": {
+          "selectionOptionLabel": "เอ็กซ์โพเชอร์",
+          "title": "เอ็กซ์โพเชอร์ <InfoIcon/>",
+          "tooltip": "หลักประกันของแต่ละแหล่งที่สินทรัพย์นี้ปล่อยกู้ไป"
+        },
+        "liquidity": "สภาพคล่อง",
+        "supplyApy": "ซัพพลาย APY",
+        "totalSupply": "ยอดฝากรวม"
+      },
+      "search": {
+        "placeholder": "ค้นหาสินทรัพย์"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "เขียน",

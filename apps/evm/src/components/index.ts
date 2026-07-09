@@ -74,3 +74,5 @@ export * from './LabeledValueUpdate';
 export * from './KLineChart';
 export * from './LabeledSlider';
 export * from './AvailableBalance';
+export * from './PageStatHeader';
+export * from './TableRowControl';
