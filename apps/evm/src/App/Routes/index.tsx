@@ -126,7 +126,7 @@ const AppRoutes = () => {
           />
         </Route>
 
-        {primeCalculatorEnabled && primeVersion === 1 && (
+        {primeCalculatorEnabled && (
           <Route
             path={Subdirectory.PRIME_CALCULATOR}
             element={
