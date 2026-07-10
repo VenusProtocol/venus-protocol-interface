@@ -1,6 +1,8 @@
-import { PoolStats } from 'containers/PoolStats';
+import { cn } from '@venusprotocol/ui';
+import { PageStatHeader } from 'components';
 import { TopMarkets } from 'containers/TopMarkets';
 import { useChain } from 'hooks/useChain';
+import { usePoolStats } from 'hooks/usePoolStats';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 import { areAddressesEqual } from 'utilities';
@@ -16,23 +18,17 @@ export const Header: React.FC<HeaderProps> = ({ pool, className }) => {
   const { corePoolComptrollerContractAddress } = useChain();
   const isCorePool = areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress);
 
+  const cells = usePoolStats({
+    pools: [pool],
+    stats: ['supply', 'borrow', 'liquidity', 'assetCount'],
+  });
+
   const title = isCorePool ? t('markets.header.venusCore.title') : pool.name;
   const description = isCorePool ? t('markets.header.venusCore.description') : undefined;
 
   return (
-    <div className={className}>
-      <div className="space-y-6 mb-6 sm:mb-12 xl:flex xl:space-y-0 xl:gap-x-6 xl:justify-between xl:items-center 2xl:mb-10">
-        <div>
-          <h1 className="text-p1s sm:text-h6">{title}</h1>
-          <p className="hidden sm:block text-b1r">{description}</p>
-        </div>
-
-        <PoolStats
-          pools={[pool]}
-          className="xl:w-auto"
-          stats={['supply', 'borrow', 'liquidity', 'assetCount']}
-        />
-      </div>
+    <div className={cn('space-y-6 sm:space-y-12 2xl:space-y-10', className)}>
+      <PageStatHeader title={title} description={description} cells={cells} />
 
       <TopMarkets variant="secondary" className="mb-3" />
     </div>

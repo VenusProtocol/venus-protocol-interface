@@ -779,6 +779,9 @@
       "dashboard": {
         "label": "Dashboard"
       },
+      "earn": {
+        "label": "Earn"
+      },
       "label": "Menu",
       "markets": {
         "label": "Markets"
@@ -846,6 +849,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "One supply, auto-allocated cross multiple yield sources.",
+          "label": "Liquidity Hub"
+        },
+        "vaults": {
+          "description": "Single-strategy supply vault for target rewards.",
+          "label": "Vaults"
+        },
         "venusCore": {
           "description": "Classic lending and borrowing with easy, optimized leverage.",
           "label": "Venus Core"
@@ -859,6 +870,31 @@
   },
   "legal": {
     "lastUpdatedAt": "Last updated: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "Routed across Venus protocol yield sources under a governance-curated policy. Yield accrues automatically.",
+    "header": "Liquidity Hub",
+    "stats": {
+      "hubs": "Hubs",
+      "totalLiquidity": "Total liquidity",
+      "totalSupply": "Total supply"
+    },
+    "table": {
+      "columns": {
+        "asset": "Asset",
+        "exposure": {
+          "selectionOptionLabel": "Exposure",
+          "title": "Exposure <InfoIcon/>",
+          "tooltip": "The collateral of each source the asset is lending to"
+        },
+        "liquidity": "Liquidity",
+        "supplyApy": "Supply APY",
+        "totalSupply": "Total supply"
+      },
+      "search": {
+        "placeholder": "Search asset"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",

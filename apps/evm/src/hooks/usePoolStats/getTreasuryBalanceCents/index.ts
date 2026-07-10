@@ -24,6 +24,7 @@ export const getTreasuryBalanceCents = ({
   }: { token: Token; amountTokens: BigNumber }) => {
     const tokenPriceCents = tokenPriceMapping[token.address.toLowerCase() as Address];
     const balanceCents = amountTokens.multipliedBy(tokenPriceCents ?? 0);
+
     return balanceCents;
   };
 

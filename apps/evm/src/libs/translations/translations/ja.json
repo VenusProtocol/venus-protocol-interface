@@ -779,6 +779,9 @@
       "dashboard": {
         "label": "ダッシュボード"
       },
+      "earn": {
+        "label": "獲得"
+      },
       "label": "メニュー",
       "markets": {
         "label": "マーケット"
@@ -846,6 +849,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "1回の供給で、複数の利回りソースに自動配分されます。",
+          "label": "流動性ハブ"
+        },
+        "vaults": {
+          "description": "目標報酬に向けた単一戦略の供給ボールト。",
+          "label": "ボールト"
+        },
         "venusCore": {
           "description": "最適化されたレバレッジを簡単に利用できるクラシックな貸借。",
           "label": "Venus Core"
@@ -859,6 +870,31 @@
   },
   "legal": {
     "lastUpdatedAt": "最終更新: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "ガバナンスが策定した方針のもとで、Venus Protocol の複数の利回りソースへルーティングされます。利回りは自動で積み上がります。",
+    "header": "流動性ハブ",
+    "stats": {
+      "hubs": "ハブ数",
+      "totalLiquidity": "総流動性",
+      "totalSupply": "総供給量"
+    },
+    "table": {
+      "columns": {
+        "asset": "資産",
+        "exposure": {
+          "selectionOptionLabel": "エクスポージャー",
+          "title": "エクスポージャー <InfoIcon/>",
+          "tooltip": "その資産が貸し出されている各ソースの担保"
+        },
+        "liquidity": "流動性",
+        "supplyApy": "供給 APY",
+        "totalSupply": "総供給量"
+      },
+      "search": {
+        "placeholder": "資産を検索"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "書く",

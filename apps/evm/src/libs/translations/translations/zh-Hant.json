@@ -779,6 +779,9 @@
       "dashboard": {
         "label": "儀表盤"
       },
+      "earn": {
+        "label": "賺取"
+      },
       "label": "菜單",
       "markets": {
         "label": "市場"
@@ -846,6 +849,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "一次供應，自動分配至多個收益來源。",
+          "label": "流動性中心"
+        },
+        "vaults": {
+          "description": "面向目標獎勵的單策略供應金庫。",
+          "label": "金庫"
+        },
         "venusCore": {
           "description": "經典借貸，輕鬆使用最佳化槓桿。",
           "label": "Venus Core"
@@ -859,6 +870,31 @@
   },
   "legal": {
     "lastUpdatedAt": "最後更新：{{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "根據治理策劃的策略，在 Venus 協議的多個收益來源之間進行路由。收益會自動累積。",
+    "header": "流動性中心",
+    "stats": {
+      "hubs": "中心數",
+      "totalLiquidity": "總流動性",
+      "totalSupply": "總供應量"
+    },
+    "table": {
+      "columns": {
+        "asset": "資產",
+        "exposure": {
+          "selectionOptionLabel": "敞口",
+          "title": "敞口 <InfoIcon/>",
+          "tooltip": "該資產所借出到的各個來源中的抵押品"
+        },
+        "liquidity": "流動性",
+        "supplyApy": "供應 APY",
+        "totalSupply": "總供應量"
+      },
+      "search": {
+        "placeholder": "搜尋資產"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "撰寫",

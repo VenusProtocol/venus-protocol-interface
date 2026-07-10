@@ -779,6 +779,9 @@
       "dashboard": {
         "label": "Gösterge paneli"
       },
+      "earn": {
+        "label": "Kazan"
+      },
       "label": "Menü",
       "markets": {
         "label": "Piyasalar"
@@ -846,6 +849,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "Tek bir sağlama, birden fazla getiri kaynağı arasında otomatik olarak dağıtılır.",
+          "label": "Likidite Merkezi"
+        },
+        "vaults": {
+          "description": "Hedef ödüller için tek stratejili sağlama kasası.",
+          "label": "Kasalar"
+        },
         "venusCore": {
           "description": "Kolay ve optimize edilmiş kaldıraçla klasik borç verme ve borç alma.",
           "label": "Venus Core"
@@ -859,6 +870,31 @@
   },
   "legal": {
     "lastUpdatedAt": "Son güncelleme: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "Yönetişim tarafından belirlenen bir politika altında Venus Protocol getiri kaynakları arasında yönlendirilir. Getiri otomatik olarak birikir.",
+    "header": "Likidite Merkezi",
+    "stats": {
+      "hubs": "Merkezler",
+      "totalLiquidity": "Toplam likidite",
+      "totalSupply": "Toplam arz"
+    },
+    "table": {
+      "columns": {
+        "asset": "Varlık",
+        "exposure": {
+          "selectionOptionLabel": "Maruziyet",
+          "title": "Maruziyet <InfoIcon/>",
+          "tooltip": "Varlığın borç verildiği her kaynağın teminatı"
+        },
+        "liquidity": "Likidite",
+        "supplyApy": "Sağlama APY",
+        "totalSupply": "Toplam arz"
+      },
+      "search": {
+        "placeholder": "Varlık ara"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "Yaz",

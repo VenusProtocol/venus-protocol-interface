@@ -2,7 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import { useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
-import { Card, Table, type TableProps } from 'components';
+import { Card, Table, type TableProps, TableRowControl } from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
 import { MarketFormModal } from 'containers/MarketFormModal';
@@ -13,7 +13,6 @@ import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
 import type { Asset, EModeGroup } from 'types';
-import { RowControl } from './RowControl';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey } from './types';
@@ -134,7 +133,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       setSelectedAsset(row);
     };
 
-    return <RowControl className="-ml-6" onClick={handleRowControlClick} />;
+    return <TableRowControl className="-ml-6" onClick={handleRowControlClick} />;
   };
 
   const getRowHref = (row: Asset) =>
@@ -150,32 +149,24 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         columns={columns}
         data={filteredAssets}
         css={styles.cardContentGrid}
-        className={cn(
-          isBreakpointUp && !title && 'pt-0 sm:pt-0',
-          !isBreakpointUp && 'border-0',
-          className,
-        )}
+        className={cn(title && 'pt-4 sm:pt-4', className)}
         title={title}
         rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
         initialOrder={formattedInitialOrder}
         header={
           (header || controls || (columnKeys.includes('collateral') && isOnWrongChain)) && (
-            <div className={cn('space-y-4', isBreakpointUp && 'pt-4')}>
+            <div className="space-y-4">
               {(controls || header) && (
                 <div className={cn('flow-root space-y-4', isBreakpointUp && 'space-y-0')}>
                   {header}
 
                   {controls && (
-                    <div className={cn(isBreakpointUp && '-mx-6')}>
-                      <div className={cn(isBreakpointUp && 'px-4 pb-4')}>
-                        <Controls
-                          searchValue={searchValue}
-                          onSearchValueChange={onSearchValueChange}
-                          searchInputPlaceholder={t('marketTable.search.placeholder')}
-                          showPausedAssetsToggle
-                        />
-                      </div>
-                    </div>
+                    <Controls
+                      searchValue={searchValue}
+                      onSearchValueChange={onSearchValueChange}
+                      searchInputPlaceholder={t('marketTable.search.placeholder')}
+                      showPausedAssetsToggle
+                    />
                   )}
                 </div>
               )}
