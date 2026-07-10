@@ -14,12 +14,12 @@ export const CollateralTabs: React.FC<CollateralTabsProps> = ({ position }) => {
 
   const tabs: Tab[] = [
     {
-      title: t('operationForm.managePositionsTabs.positionsTabs.supply'),
+      title: t('tradeOperationForm.managePositionsTabs.positionsTabs.supply'),
       id: 'supply',
       content: <SupplyForm position={position} />,
     },
     {
-      title: t('operationForm.managePositionsTabs.positionsTabs.withdraw'),
+      title: t('tradeOperationForm.managePositionsTabs.positionsTabs.withdraw'),
       id: 'withdraw',
       content: <WithdrawForm position={position} />,
     },

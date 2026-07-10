@@ -1,11 +1,10 @@
 import { useGetPool } from 'clients/api';
-import { NoticeWarning, Spinner } from 'components';
+import { EModeButton, NoticeWarning, Spinner } from 'components';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool, TokenAction, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useTranslation } from 'libs/translations';
-import { EModeButton } from 'pages/Market/OperationForm/BorrowForm/EModeBanner/EModeButton';
 import type { Address } from 'viem';
 import DisabledActionNotice from './DisabledActionNotice';
 

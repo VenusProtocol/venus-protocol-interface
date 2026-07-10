@@ -58,8 +58,8 @@ export const TxFormSubmitButton: React.FC<TxFormSubmitButtonProps> = ({
             <AcknowledgementToggle
               value={isUserAcknowledgingRisk}
               onChange={(_, checked) => setAcknowledgeRisk(checked)}
-              label={t('operationForm.acknowledgements.riskyOperation.label')}
-              tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
+              label={t('txFormSubmitButton.acknowledgements.riskyOperation.label')}
+              tooltip={t('txFormSubmitButton.acknowledgements.riskyOperation.tooltip')}
             />
           )}
 
@@ -69,8 +69,8 @@ export const TxFormSubmitButton: React.FC<TxFormSubmitButtonProps> = ({
             <AcknowledgementToggle
               value={isUserAcknowledgingHighPriceImpact}
               onChange={(_, checked) => setAcknowledgeHighPriceImpact(checked)}
-              label={t('operationForm.acknowledgements.highPriceImpact.label')}
-              tooltip={t('operationForm.acknowledgements.highPriceImpact.tooltip', {
+              label={t('txFormSubmitButton.acknowledgements.highPriceImpact.label')}
+              tooltip={t('txFormSubmitButton.acknowledgements.highPriceImpact.tooltip', {
                 priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
               })}
             />

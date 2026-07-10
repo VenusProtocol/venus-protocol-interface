@@ -164,7 +164,7 @@ describe('IncreaseForm', () => {
     });
 
     await waitFor(() =>
-      expect(getByText(en.operationForm.error.noSwapQuoteFound)).toBeInTheDocument(),
+      expect(getByText(en.marketForm.error.noSwapQuoteFound)).toBeInTheDocument(),
     );
   });
 

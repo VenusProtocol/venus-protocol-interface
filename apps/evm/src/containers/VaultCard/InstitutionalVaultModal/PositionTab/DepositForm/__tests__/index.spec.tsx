@@ -78,7 +78,7 @@ describe('DepositForm', () => {
   it('caps the available amount by the remaining capacity and renders the institutional copy', async () => {
     const expectedLimitTokens = new BigNumber(3);
     const minimumDepositTokens = new BigNumber(1);
-    const expectedMinimumDepositMessage = en.operationForm.error.smallerThanMinimumAmount.replace(
+    const expectedMinimumDepositMessage = en.marketForm.error.smallerThanMinimumAmount.replace(
       '{{minAmount}}',
       formatTokensToReadableValue({
         value: minimumDepositTokens,

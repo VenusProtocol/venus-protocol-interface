@@ -685,6 +685,10 @@
       "title": "Thông tin biểu đồ"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "Truy cập trực tiếp thị trường tiền tệ bất biến trên chuỗi.",
@@ -975,6 +979,92 @@
       "title": "Thông tin cung cấp"
     }
   },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Tôi xác nhận tác động giá cao",
+        "tooltip": "Giao dịch này dự kiến có tác động giá trên {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "Tôi xác nhận rủi ro liên quan",
+        "tooltip": "Hệ số an toàn của bạn sẽ thấp sau giao dịch này, làm tăng rủi ro thanh lý"
+      }
+    },
+    "availableAmount": "Có thể dùng",
+    "boostTabAltText": "Biểu tượng tên lửa",
+    "boostTabTitle": "Tăng cường",
+    "borrow": "Vay",
+    "borrowTabTitle": "Vay",
+    "collateral": "Tài sản thế chấp",
+    "collateralField": {
+      "label": "Tài sản thế chấp"
+    },
+    "error": {
+      "borrowCapReached": "Hạn mức vay {{assetBorrowCap}} của pool này đã đạt. Bạn không thể vay từ thị trường này cho đến khi các khoản vay được hoàn trả hoặc hạn mức vay được tăng.",
+      "higherThanAvailableAmount": "Số lượng nhập vượt quá số lượng có thể dùng",
+      "higherThanAvailableLiquidity": "Thanh khoản tài sản không đủ",
+      "higherThanBorrowBalance": "Số lượng nhập vượt quá số dư vay",
+      "higherThanBorrowCap": "Bạn không thể vay nhiều hơn {{userMaxBorrowAmount}} từ pool này vì hạn mức vay của thị trường là {{assetBorrowCap}} và hiện đang có {{assetBorrowBalance}} được vay.",
+      "higherThanRepayBalance": "Số lượng nhập vượt quá số dư hoàn trả",
+      "higherThanSupplyCap": "Bạn không thể cung cấp nhiều hơn {{userMaxSupplyAmount}} vào pool này vì hạn mức cung cấp của thị trường là {{assetSupplyCap}} và hiện đang có {{assetSupplyBalance}} được cung cấp.",
+      "higherThanWalletBalance": "Không đủ số dư {{tokenSymbol}}",
+      "higherThanWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
+      "noCollateral": "Bạn cần cung cấp token và bật làm tài sản thế chấp trước khi có thể vay {{tokenSymbol}} từ pool này",
+      "noSwapQuoteFound": "Không tìm thấy giao dịch hoán đổi.",
+      "priceImpactTooHigh": "Tác động giá quá cao",
+      "smallerThanMinimumAmount": "Bạn không thể cung cấp ít hơn {{minAmount}} trong một lần",
+      "supplyCapReached": "Hạn mức cung cấp {{assetSupplyCap}} của pool này đã đạt. Bạn không thể cung cấp vào thị trường này cho đến khi có rút hoặc hạn mức cung cấp được tăng.",
+      "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Vị thế tối đa ở mức đòn bẩy hiện tại: {{ value }}",
+      "submitButtonLabel": "Xác nhận",
+      "title": "Hệ số đòn bẩy",
+      "warning": "Đòn bẩy ảnh hưởng đến mức sử dụng vốn của bạn và không thể thay đổi cho đến khi bạn thoát hoàn toàn khỏi vị thế."
+    },
+    "receiveNativeToken": {
+      "label": "Nhận {{tokenSymbol}}",
+      "tooltip": "Unwrap {{wrappedNativeTokenSymbol}} đã vay sang {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "Khoản nợ cần trả"
+    },
+    "repay": {
+      "fullRepaymentWarning": "Giá trị giao dịch có thể cao hơn một chút so với số tiền vay hiện tại để bao gồm lãi phát sinh",
+      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
+    },
+    "repayTab": {
+      "collateralTabTitle": "Tài sản thế chấp",
+      "noCollateralWarning": "Bạn không có tài sản thế chấp để hoàn trả.",
+      "title": "Hoàn trả",
+      "walletBalanceTabTitle": "Ví"
+    },
+    "rightMaxButtonLabel": "TỐI ĐA",
+    "safeMaxButtonLabel": "TỐI ĐA AN TOÀN",
+    "submitButtonLabel": {
+      "boost": "Tăng cường",
+      "borrow": "Vay",
+      "enterValidAmount": "Nhập số lượng hợp lệ",
+      "repay": "Hoàn trả",
+      "supply": "Cung cấp",
+      "withdraw": "Rút"
+    },
+    "supply": "Cung cấp",
+    "supplyTabTitle": "Cung cấp",
+    "swapDetails": {
+      "label": {
+        "repay": "Bạn sẽ hoàn trả",
+        "supply": "Bạn sẽ cung cấp"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "Số dư ví",
+    "withdrawTabTitle": "Rút"
+  },
   "markets": {
     "eMode": {
       "table": {
@@ -1111,106 +1201,6 @@
     "search": {
       "placeholder": "Tìm tài sản"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "Tôi xác nhận tác động giá cao",
-        "tooltip": "Giao dịch này dự kiến có tác động giá trên {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "Tôi xác nhận rủi ro liên quan",
-        "tooltip": "Hệ số an toàn của bạn sẽ thấp sau giao dịch này, làm tăng rủi ro thanh lý"
-      }
-    },
-    "availableAmount": "Có thể dùng",
-    "boostTabAltText": "Biểu tượng tên lửa",
-    "boostTabTitle": "Tăng cường",
-    "borrow": "Vay",
-    "borrowTabTitle": "Vay",
-    "collateral": "Tài sản thế chấp",
-    "collateralField": {
-      "label": "Tài sản thế chấp"
-    },
-    "error": {
-      "borrowCapReached": "Hạn mức vay {{assetBorrowCap}} của pool này đã đạt. Bạn không thể vay từ thị trường này cho đến khi các khoản vay được hoàn trả hoặc hạn mức vay được tăng.",
-      "higherThanAvailableAmount": "Số lượng nhập vượt quá số lượng có thể dùng",
-      "higherThanAvailableLiquidity": "Thanh khoản tài sản không đủ",
-      "higherThanBorrowBalance": "Số lượng nhập vượt quá số dư vay",
-      "higherThanBorrowCap": "Bạn không thể vay nhiều hơn {{userMaxBorrowAmount}} từ pool này vì hạn mức vay của thị trường là {{assetBorrowCap}} và hiện đang có {{assetBorrowBalance}} được vay.",
-      "higherThanRepayBalance": "Số lượng nhập vượt quá số dư hoàn trả",
-      "higherThanSupplyCap": "Bạn không thể cung cấp nhiều hơn {{userMaxSupplyAmount}} vào pool này vì hạn mức cung cấp của thị trường là {{assetSupplyCap}} và hiện đang có {{assetSupplyBalance}} được cung cấp.",
-      "higherThanWalletBalance": "Không đủ số dư {{tokenSymbol}}",
-      "higherThanWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
-      "noCollateral": "Bạn cần cung cấp token và bật làm tài sản thế chấp trước khi có thể vay {{tokenSymbol}} từ pool này",
-      "noSwapQuoteFound": "Không tìm thấy giao dịch hoán đổi.",
-      "priceImpactTooHigh": "Tác động giá quá cao",
-      "smallerThanMinimumAmount": "Bạn không thể cung cấp ít hơn {{minAmount}} trong một lần",
-      "supplyCapReached": "Hạn mức cung cấp {{assetSupplyCap}} của pool này đã đạt. Bạn không thể cung cấp vào thị trường này cho đến khi có rút hoặc hạn mức cung cấp được tăng.",
-      "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "Vị thế tối đa ở mức đòn bẩy hiện tại: {{ value }}",
-      "submitButtonLabel": "Xác nhận",
-      "title": "Hệ số đòn bẩy",
-      "warning": "Đòn bẩy ảnh hưởng đến mức sử dụng vốn của bạn và không thể thay đổi cho đến khi bạn thoát hoàn toàn khỏi vị thế."
-    },
-    "managePositionsTabs": {
-      "collateral": "Tài sản thế chấp",
-      "position": "Vị thế",
-      "positionsTabs": {
-        "increase": "Tăng",
-        "reduce": "Giảm",
-        "supply": "Cung cấp",
-        "withdraw": "Rút"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "Nhận {{tokenSymbol}}",
-      "tooltip": "Unwrap {{wrappedNativeTokenSymbol}} đã vay sang {{nativeTokenSymbol}}"
-    },
-    "repaidField": {
-      "label": "Khoản nợ cần trả"
-    },
-    "repay": {
-      "fullRepaymentWarning": "Giá trị giao dịch có thể cao hơn một chút so với số tiền vay hiện tại để bao gồm lãi phát sinh",
-      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
-    },
-    "repayTab": {
-      "collateralTabTitle": "Tài sản thế chấp",
-      "noCollateralWarning": "Bạn không có tài sản thế chấp để hoàn trả.",
-      "title": "Hoàn trả",
-      "walletBalanceTabTitle": "Ví"
-    },
-    "rightMaxButtonLabel": "TỐI ĐA",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "TỐI ĐA AN TOÀN",
-    "submitButtonLabel": {
-      "boost": "Tăng cường",
-      "borrow": "Vay",
-      "enterValidAmount": "Nhập số lượng hợp lệ",
-      "repay": "Hoàn trả",
-      "supply": "Cung cấp",
-      "withdraw": "Rút"
-    },
-    "supply": "Cung cấp",
-    "supplyTabTitle": "Cung cấp",
-    "swapDetails": {
-      "label": {
-        "repay": "Bạn sẽ hoàn trả",
-        "supply": "Bạn sẽ cung cấp"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "Số dư ví",
-    "withdrawTabTitle": "Rút"
   },
   "pagination": {
     "itemOf": "Mục {{currentPageLastIndex}} trong {{itemsCount}}",
@@ -1918,6 +1908,18 @@
     "illustrationAltText": "Hình minh họa Trade",
     "title": "Venus Trade hiện đã hoạt động"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "Tài sản thế chấp",
+      "position": "Vị thế",
+      "positionsTabs": {
+        "increase": "Tăng",
+        "reduce": "Giảm",
+        "supply": "Cung cấp",
+        "withdraw": "Rút"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Chấp nhận Admin Đang chờ Kiểm tra",
     "acceptPendingImplementationAddressCheck": "Chấp nhận địa chỉ triển khai đang chờ Kiểm tra",
@@ -2089,6 +2091,18 @@
     },
     "success": {
       "title": "Giao dịch đã được xác nhận"
+    }
+  },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Tôi xác nhận tác động giá cao",
+        "tooltip": "Giao dịch này dự kiến có tác động giá trên {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "Tôi xác nhận rủi ro liên quan",
+        "tooltip": "Hệ số an toàn của bạn sẽ thấp sau giao dịch này, làm tăng rủi ro thanh lý"
+      }
     }
   },
   "vai": {
@@ -2324,6 +2338,11 @@
           "label": "Rút"
         }
       }
+    }
+  },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "Tác động giá quá cao"
     }
   },
   "venusFluxBanner": {

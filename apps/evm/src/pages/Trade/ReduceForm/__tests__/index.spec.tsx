@@ -328,7 +328,7 @@ describe('ReduceForm', () => {
     });
 
     await waitFor(() =>
-      expect(screen.getByText(en.operationForm.error.noSwapQuoteFound)).toBeInTheDocument(),
+      expect(screen.getByText(en.marketForm.error.noSwapQuoteFound)).toBeInTheDocument(),
     );
   });
 

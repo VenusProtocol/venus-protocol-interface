@@ -685,6 +685,10 @@
       "title": "图表信息"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "直接在链上访问不可篡改的货币市场。",
@@ -975,6 +979,92 @@
       "title": "存款信息"
     }
   },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "我已知悉高价格影响",
+        "tooltip": "该交易预计价格影响将超过 {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "我已知悉相关风险",
+        "tooltip": "此交易后你的健康系数将较低，清算风险增加"
+      }
+    },
+    "availableAmount": "可用",
+    "boostTabAltText": "火箭图标",
+    "boostTabTitle": "收益加成",
+    "borrow": "借款",
+    "borrowTabTitle": "借款",
+    "collateral": "可抵押",
+    "collateralField": {
+      "label": "可抵押"
+    },
+    "error": {
+      "borrowCapReached": "该池借款上限 {{assetBorrowCap}} 已达。除非还款或提高借款上限，否则无法再从该市场借款。",
+      "higherThanAvailableAmount": "输入金额超过可用金额",
+      "higherThanAvailableLiquidity": "资产流动性不足",
+      "higherThanBorrowBalance": "输入金额超过借款余额",
+      "higherThanBorrowCap": "该市场借款上限为 {{assetBorrowCap}}，当前已借 {{assetBorrowBalance}}，因此你无法从该池借款超过 {{userMaxBorrowAmount}}。",
+      "higherThanRepayBalance": "输入金额超过还款余额",
+      "higherThanSupplyCap": "该市场存款上限为 {{assetSupplyCap}}，当前已存款 {{assetSupplyBalance}}，因此你无法向该池存款超过 {{userMaxSupplyAmount}}。",
+      "higherThanWalletBalance": "{{tokenSymbol}} 余额不足",
+      "higherThanWalletSpendingLimit": "你输入的金额超过该资产的支出限额。请先撤销支出限额并设置新的限额后再继续交易。",
+      "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
+      "noSwapQuoteFound": "未找到兑换。",
+      "priceImpactTooHigh": "价格影响过高",
+      "smallerThanMinimumAmount": "你不能一次存入少于 {{minAmount}}",
+      "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
+      "tooRisky": "该交易会导致账户被清算"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "当前杠杆下的最大仓位：{{ value }}",
+      "submitButtonLabel": "确认",
+      "title": "杠杆倍数",
+      "warning": "杠杆会影响你的资金利用率，并且在你完全平仓前无法更改。"
+    },
+    "receiveNativeToken": {
+      "label": "接收 {{tokenSymbol}}",
+      "tooltip": "将借入的 {{wrappedNativeTokenSymbol}} 解包为 {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "待还债务"
+    },
+    "repay": {
+      "fullRepaymentWarning": "交易金额可能略高于当前借款金额以覆盖新产生的利息",
+      "swappingWithHighPriceImpactWarning": "该交易价格影响较高，可能意味着不利的兑换。请确保兑换率和兑换数量符合预期。"
+    },
+    "repayTab": {
+      "collateralTabTitle": "可抵押",
+      "noCollateralWarning": "你没有可用于还款的可抵押资产。",
+      "title": "还款",
+      "walletBalanceTabTitle": "钱包"
+    },
+    "rightMaxButtonLabel": "最大",
+    "safeMaxButtonLabel": "安全最大值",
+    "submitButtonLabel": {
+      "boost": "收益加成",
+      "borrow": "借款",
+      "enterValidAmount": "输入有效金额",
+      "repay": "还款",
+      "supply": "存款",
+      "withdraw": "取款"
+    },
+    "supply": "存款",
+    "supplyTabTitle": "存款",
+    "swapDetails": {
+      "label": {
+        "repay": "你将还款",
+        "supply": "你将存款"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "钱包余额",
+    "withdrawTabTitle": "取款"
+  },
   "markets": {
     "eMode": {
       "table": {
@@ -1111,106 +1201,6 @@
     "search": {
       "placeholder": "搜索资产"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "我已知悉高价格影响",
-        "tooltip": "该交易预计价格影响将超过 {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "我已知悉相关风险",
-        "tooltip": "此交易后你的健康系数将较低，清算风险增加"
-      }
-    },
-    "availableAmount": "可用",
-    "boostTabAltText": "火箭图标",
-    "boostTabTitle": "收益加成",
-    "borrow": "借款",
-    "borrowTabTitle": "借款",
-    "collateral": "可抵押",
-    "collateralField": {
-      "label": "可抵押"
-    },
-    "error": {
-      "borrowCapReached": "该池借款上限 {{assetBorrowCap}} 已达。除非还款或提高借款上限，否则无法再从该市场借款。",
-      "higherThanAvailableAmount": "输入金额超过可用金额",
-      "higherThanAvailableLiquidity": "资产流动性不足",
-      "higherThanBorrowBalance": "输入金额超过借款余额",
-      "higherThanBorrowCap": "该市场借款上限为 {{assetBorrowCap}}，当前已借 {{assetBorrowBalance}}，因此你无法从该池借款超过 {{userMaxBorrowAmount}}。",
-      "higherThanRepayBalance": "输入金额超过还款余额",
-      "higherThanSupplyCap": "该市场存款上限为 {{assetSupplyCap}}，当前已存款 {{assetSupplyBalance}}，因此你无法向该池存款超过 {{userMaxSupplyAmount}}。",
-      "higherThanWalletBalance": "{{tokenSymbol}} 余额不足",
-      "higherThanWalletSpendingLimit": "你输入的金额超过该资产的支出限额。请先撤销支出限额并设置新的限额后再继续交易。",
-      "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
-      "noSwapQuoteFound": "未找到兑换。",
-      "priceImpactTooHigh": "价格影响过高",
-      "smallerThanMinimumAmount": "你不能一次存入少于 {{minAmount}}",
-      "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
-      "tooRisky": "该交易会导致账户被清算"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "当前杠杆下的最大仓位：{{ value }}",
-      "submitButtonLabel": "确认",
-      "title": "杠杆倍数",
-      "warning": "杠杆会影响你的资金利用率，并且在你完全平仓前无法更改。"
-    },
-    "managePositionsTabs": {
-      "collateral": "可抵押",
-      "position": "仓位",
-      "positionsTabs": {
-        "increase": "增加",
-        "reduce": "减少",
-        "supply": "存款",
-        "withdraw": "取款"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "接收 {{tokenSymbol}}",
-      "tooltip": "将借入的 {{wrappedNativeTokenSymbol}} 解包为 {{nativeTokenSymbol}}"
-    },
-    "repaidField": {
-      "label": "待还债务"
-    },
-    "repay": {
-      "fullRepaymentWarning": "交易金额可能略高于当前借款金额以覆盖新产生的利息",
-      "swappingWithHighPriceImpactWarning": "该交易价格影响较高，可能意味着不利的兑换。请确保兑换率和兑换数量符合预期。"
-    },
-    "repayTab": {
-      "collateralTabTitle": "可抵押",
-      "noCollateralWarning": "你没有可用于还款的可抵押资产。",
-      "title": "还款",
-      "walletBalanceTabTitle": "钱包"
-    },
-    "rightMaxButtonLabel": "最大",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "安全最大值",
-    "submitButtonLabel": {
-      "boost": "收益加成",
-      "borrow": "借款",
-      "enterValidAmount": "输入有效金额",
-      "repay": "还款",
-      "supply": "存款",
-      "withdraw": "取款"
-    },
-    "supply": "存款",
-    "supplyTabTitle": "存款",
-    "swapDetails": {
-      "label": {
-        "repay": "你将还款",
-        "supply": "你将存款"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "钱包余额",
-    "withdrawTabTitle": "取款"
   },
   "pagination": {
     "itemOf": "第 {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条",
@@ -1918,6 +1908,18 @@
     "illustrationAltText": "Trade 插图",
     "title": "Venus Trade 现已上线"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "抵押品",
+      "position": "仓位",
+      "positionsTabs": {
+        "increase": "增加",
+        "reduce": "减少",
+        "supply": "供应",
+        "withdraw": "提取"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "接受管理员待定检查",
     "acceptPendingImplementationAddressCheck": "接受待定实现地址检查",
@@ -2089,6 +2091,18 @@
     },
     "success": {
       "title": "交易已确认"
+    }
+  },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "我已知悉高价格影响",
+        "tooltip": "该交易预计价格影响将超过 {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "我已知悉相关风险",
+        "tooltip": "此交易后你的健康系数将较低，清算风险增加"
+      }
     }
   },
   "vai": {
@@ -2324,6 +2338,11 @@
           "label": "取款"
         }
       }
+    }
+  },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "价格影响过高"
     }
   },
   "venusFluxBanner": {

@@ -233,7 +233,7 @@ describe('OpenForm', () => {
 
     await waitFor(() =>
       expect(
-        getByText(en.operationForm.error.higherThanWalletBalance.replace('{{tokenSymbol}}', 'XVS')),
+        getByText(en.marketForm.error.higherThanWalletBalance.replace('{{tokenSymbol}}', 'XVS')),
       ).toBeInTheDocument(),
     );
   });
@@ -260,7 +260,7 @@ describe('OpenForm', () => {
     });
 
     await waitFor(() =>
-      expect(getByText(en.operationForm.error.noSwapQuoteFound)).toBeInTheDocument(),
+      expect(getByText(en.marketForm.error.noSwapQuoteFound)).toBeInTheDocument(),
     );
   });
 
@@ -289,7 +289,7 @@ describe('OpenForm', () => {
     const submitButton = container.querySelector('button[type="submit"]') as HTMLButtonElement;
 
     await waitFor(() => expect(submitButton).toBeDisabled());
-    expect(getByText(en.operationForm.acknowledgements.riskyOperation.tooltip)).toBeInTheDocument();
+    expect(getByText(en.marketForm.acknowledgements.riskyOperation.tooltip)).toBeInTheDocument();
 
     const acknowledgementCheckbox = getByRole('checkbox') as HTMLInputElement;
     fireEvent.click(acknowledgementCheckbox);
@@ -327,7 +327,7 @@ describe('OpenForm', () => {
     await waitFor(() => expect(submitButton).toBeDisabled());
     expect(
       getByText(
-        en.operationForm.acknowledgements.highPriceImpact.tooltip.replace(
+        en.marketForm.acknowledgements.highPriceImpact.tooltip.replace(
           '{{priceImpactPercentage}}',
           '3',
         ),

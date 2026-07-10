@@ -685,6 +685,10 @@
       "title": "ข้อมูลกราฟ"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "เข้าถึงตลาดเงินที่ไม่สามารถเปลี่ยนแปลงได้โดยตรงบนเชน",
@@ -975,6 +979,92 @@
       "title": "ข้อมูลการฝาก"
     }
   },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "ฉันรับทราบผลกระทบต่อราคาที่สูง",
+        "tooltip": "ธุรกรรมนี้คาดว่าจะมีผลกระทบต่อราคามากกว่า {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "ฉันรับทราบความเสี่ยงที่เกี่ยวข้อง",
+        "tooltip": "ตัวคูณความปลอดภัยของคุณจะต่ำหลังธุรกรรมนี้ เพิ่มความเสี่ยงต่อการชำระบัญชี"
+      }
+    },
+    "availableAmount": "ใช้ได้",
+    "boostTabAltText": "ไอคอนจรวด",
+    "boostTabTitle": "บูสต์",
+    "borrow": "ยืม",
+    "borrowTabTitle": "ยืม",
+    "collateral": "หลักประกัน",
+    "collateralField": {
+      "label": "หลักประกัน"
+    },
+    "error": {
+      "borrowCapReached": "ขีดจำกัดการยืมของ {{assetBorrowCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถยืมจากตลาดนี้ได้จนกว่าจะมีการชำระคืนหรือเพิ่มขีดจำกัดการยืม",
+      "higherThanAvailableAmount": "จำนวนที่กรอกมากกว่าจำนวนที่ใช้ได้",
+      "higherThanAvailableLiquidity": "สภาพคล่องของสินทรัพย์ไม่เพียงพอ",
+      "higherThanBorrowBalance": "จำนวนที่กรอกมากกว่ายอดยืมคงเหลือ",
+      "higherThanBorrowCap": "คุณไม่สามารถยืมเกิน {{userMaxBorrowAmount}} จากพูลนี้ได้ เนื่องจากขีดจำกัดการยืมของตลาดนี้ตั้งไว้ที่ {{assetBorrowCap}} และมีการยืมไปแล้ว {{assetBorrowBalance}}",
+      "higherThanRepayBalance": "จำนวนที่กรอกมากกว่ายอดชำระคืนคงเหลือ",
+      "higherThanSupplyCap": "คุณไม่สามารถฝากเกิน {{userMaxSupplyAmount}} ในพูลนี้ได้ เนื่องจากขีดจำกัดการฝากของตลาดนี้ตั้งไว้ที่ {{assetSupplyCap}} และมีการฝากแล้ว {{assetSupplyBalance}}",
+      "higherThanWalletBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
+      "higherThanWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
+      "noCollateral": "คุณต้องฝากโทเคนและเปิดใช้เป็นหลักประกันก่อนจึงจะยืม {{tokenSymbol}} จากพูลนี้ได้",
+      "noSwapQuoteFound": "ไม่พบการสวอป",
+      "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป",
+      "smallerThanMinimumAmount": "คุณไม่สามารถฝากน้อยกว่า {{minAmount}} ต่อครั้งได้",
+      "supplyCapReached": "ขีดจำกัดการฝากของ {{assetSupplyCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถฝากเข้าสู่ตลาดนี้ได้จนกว่าจะมีการถอนหรือเพิ่มขีดจำกัดการฝาก",
+      "tooRisky": "ธุรกรรมนี้จะทำให้บัญชีของคุณถูกชำระบัญชี"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "สถานะสูงสุดที่เลเวอเรจปัจจุบัน: {{ value }}",
+      "submitButtonLabel": "ยืนยัน",
+      "title": "ตัวคูณเลเวอเรจ",
+      "warning": "เลเวอเรจส่งผลต่อการใช้เงินทุนของคุณ และจะไม่สามารถเปลี่ยนได้จนกว่าคุณจะปิดสถานะทั้งหมด"
+    },
+    "receiveNativeToken": {
+      "label": "รับ {{tokenSymbol}}",
+      "tooltip": "แกะห่อ {{wrappedNativeTokenSymbol}} ที่ยืมมาเป็น {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "หนี้ที่ต้องชำระคืน"
+    },
+    "repay": {
+      "fullRepaymentWarning": "มูลค่าธุรกรรมอาจสูงกว่ายอดยืมปัจจุบันเล็กน้อยเพื่อครอบคลุมดอกเบี้ยที่สะสมใหม่",
+      "swappingWithHighPriceImpactWarning": "ผลกระทบต่อราคาของธุรกรรมนี้สูง ซึ่งอาจบ่งชี้ถึงการสวอปที่ไม่เป็นประโยชน์ โปรดตรวจสอบอัตราแลกเปลี่ยนและจำนวนโทเคนให้ตรงกับที่คาดหวัง"
+    },
+    "repayTab": {
+      "collateralTabTitle": "หลักประกัน",
+      "noCollateralWarning": "คุณไม่มีหลักประกันสำหรับชำระคืน",
+      "title": "ชำระคืน",
+      "walletBalanceTabTitle": "กระเป๋า"
+    },
+    "rightMaxButtonLabel": "สูงสุด",
+    "safeMaxButtonLabel": "สูงสุดแบบปลอดภัย",
+    "submitButtonLabel": {
+      "boost": "บูสต์",
+      "borrow": "ยืม",
+      "enterValidAmount": "ป้อนจำนวนที่ถูกต้อง",
+      "repay": "ชำระคืน",
+      "supply": "ฝาก",
+      "withdraw": "ถอน"
+    },
+    "supply": "ฝาก",
+    "supplyTabTitle": "ฝาก",
+    "swapDetails": {
+      "label": {
+        "repay": "คุณจะชำระคืน",
+        "supply": "คุณจะฝาก"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "ยอดคงเหลือในกระเป๋า",
+    "withdrawTabTitle": "ถอน"
+  },
   "markets": {
     "eMode": {
       "table": {
@@ -1111,106 +1201,6 @@
     "search": {
       "placeholder": "ค้นหาสินทรัพย์"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "ฉันรับทราบผลกระทบต่อราคาที่สูง",
-        "tooltip": "ธุรกรรมนี้คาดว่าจะมีผลกระทบต่อราคามากกว่า {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "ฉันรับทราบความเสี่ยงที่เกี่ยวข้อง",
-        "tooltip": "ตัวคูณความปลอดภัยของคุณจะต่ำหลังธุรกรรมนี้ เพิ่มความเสี่ยงต่อการชำระบัญชี"
-      }
-    },
-    "availableAmount": "ใช้ได้",
-    "boostTabAltText": "ไอคอนจรวด",
-    "boostTabTitle": "บูสต์",
-    "borrow": "ยืม",
-    "borrowTabTitle": "ยืม",
-    "collateral": "หลักประกัน",
-    "collateralField": {
-      "label": "หลักประกัน"
-    },
-    "error": {
-      "borrowCapReached": "ขีดจำกัดการยืมของ {{assetBorrowCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถยืมจากตลาดนี้ได้จนกว่าจะมีการชำระคืนหรือเพิ่มขีดจำกัดการยืม",
-      "higherThanAvailableAmount": "จำนวนที่กรอกมากกว่าจำนวนที่ใช้ได้",
-      "higherThanAvailableLiquidity": "สภาพคล่องของสินทรัพย์ไม่เพียงพอ",
-      "higherThanBorrowBalance": "จำนวนที่กรอกมากกว่ายอดยืมคงเหลือ",
-      "higherThanBorrowCap": "คุณไม่สามารถยืมเกิน {{userMaxBorrowAmount}} จากพูลนี้ได้ เนื่องจากขีดจำกัดการยืมของตลาดนี้ตั้งไว้ที่ {{assetBorrowCap}} และมีการยืมไปแล้ว {{assetBorrowBalance}}",
-      "higherThanRepayBalance": "จำนวนที่กรอกมากกว่ายอดชำระคืนคงเหลือ",
-      "higherThanSupplyCap": "คุณไม่สามารถฝากเกิน {{userMaxSupplyAmount}} ในพูลนี้ได้ เนื่องจากขีดจำกัดการฝากของตลาดนี้ตั้งไว้ที่ {{assetSupplyCap}} และมีการฝากแล้ว {{assetSupplyBalance}}",
-      "higherThanWalletBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
-      "higherThanWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
-      "noCollateral": "คุณต้องฝากโทเคนและเปิดใช้เป็นหลักประกันก่อนจึงจะยืม {{tokenSymbol}} จากพูลนี้ได้",
-      "noSwapQuoteFound": "ไม่พบการสวอป",
-      "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป",
-      "smallerThanMinimumAmount": "คุณไม่สามารถฝากน้อยกว่า {{minAmount}} ต่อครั้งได้",
-      "supplyCapReached": "ขีดจำกัดการฝากของ {{assetSupplyCap}} สำหรับพูลนี้ถึงแล้ว คุณไม่สามารถฝากเข้าสู่ตลาดนี้ได้จนกว่าจะมีการถอนหรือเพิ่มขีดจำกัดการฝาก",
-      "tooRisky": "ธุรกรรมนี้จะทำให้บัญชีของคุณถูกชำระบัญชี"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "สถานะสูงสุดที่เลเวอเรจปัจจุบัน: {{ value }}",
-      "submitButtonLabel": "ยืนยัน",
-      "title": "ตัวคูณเลเวอเรจ",
-      "warning": "เลเวอเรจส่งผลต่อการใช้เงินทุนของคุณ และจะไม่สามารถเปลี่ยนได้จนกว่าคุณจะปิดสถานะทั้งหมด"
-    },
-    "managePositionsTabs": {
-      "collateral": "หลักประกัน",
-      "position": "โพสิชัน",
-      "positionsTabs": {
-        "increase": "เพิ่ม",
-        "reduce": "ลด",
-        "supply": "ฝาก",
-        "withdraw": "ถอน"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "รับ {{tokenSymbol}}",
-      "tooltip": "แกะห่อ {{wrappedNativeTokenSymbol}} ที่ยืมมาเป็น {{nativeTokenSymbol}}"
-    },
-    "repaidField": {
-      "label": "หนี้ที่ต้องชำระคืน"
-    },
-    "repay": {
-      "fullRepaymentWarning": "มูลค่าธุรกรรมอาจสูงกว่ายอดยืมปัจจุบันเล็กน้อยเพื่อครอบคลุมดอกเบี้ยที่สะสมใหม่",
-      "swappingWithHighPriceImpactWarning": "ผลกระทบต่อราคาของธุรกรรมนี้สูง ซึ่งอาจบ่งชี้ถึงการสวอปที่ไม่เป็นประโยชน์ โปรดตรวจสอบอัตราแลกเปลี่ยนและจำนวนโทเคนให้ตรงกับที่คาดหวัง"
-    },
-    "repayTab": {
-      "collateralTabTitle": "หลักประกัน",
-      "noCollateralWarning": "คุณไม่มีหลักประกันสำหรับชำระคืน",
-      "title": "ชำระคืน",
-      "walletBalanceTabTitle": "กระเป๋า"
-    },
-    "rightMaxButtonLabel": "สูงสุด",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "สูงสุดแบบปลอดภัย",
-    "submitButtonLabel": {
-      "boost": "บูสต์",
-      "borrow": "ยืม",
-      "enterValidAmount": "ป้อนจำนวนที่ถูกต้อง",
-      "repay": "ชำระคืน",
-      "supply": "ฝาก",
-      "withdraw": "ถอน"
-    },
-    "supply": "ฝาก",
-    "supplyTabTitle": "ฝาก",
-    "swapDetails": {
-      "label": {
-        "repay": "คุณจะชำระคืน",
-        "supply": "คุณจะฝาก"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "ยอดคงเหลือในกระเป๋า",
-    "withdrawTabTitle": "ถอน"
   },
   "pagination": {
     "itemOf": "รายการที่ {{currentPageLastIndex}} จาก {{itemsCount}}",
@@ -1918,6 +1908,18 @@
     "illustrationAltText": "ภาพประกอบ Trade",
     "title": "Venus Trade เปิดให้ใช้งานแล้ว"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "หลักประกัน",
+      "position": "ตำแหน่ง",
+      "positionsTabs": {
+        "increase": "เพิ่ม",
+        "reduce": "ลด",
+        "supply": "จัดหา",
+        "withdraw": "ถอนออก"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "ยอมรับแอดมิน (แอดมินค้างอยู่) ตรวจสอบ",
     "acceptPendingImplementationAddressCheck": "ยอมรับที่อยู่ Implementation ที่ค้างอยู่ ตรวจสอบ",
@@ -2089,6 +2091,18 @@
     },
     "success": {
       "title": "ยืนยันธุรกรรมแล้ว"
+    }
+  },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "ฉันรับทราบผลกระทบต่อราคาที่สูง",
+        "tooltip": "ธุรกรรมนี้คาดว่าจะมีผลกระทบต่อราคามากกว่า {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "ฉันรับทราบความเสี่ยงที่เกี่ยวข้อง",
+        "tooltip": "ตัวคูณความปลอดภัยของคุณจะต่ำหลังธุรกรรมนี้ เพิ่มความเสี่ยงต่อการชำระบัญชี"
+      }
     }
   },
   "vai": {
@@ -2324,6 +2338,11 @@
           "label": "ถอน"
         }
       }
+    }
+  },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป"
     }
   },
   "venusFluxBanner": {

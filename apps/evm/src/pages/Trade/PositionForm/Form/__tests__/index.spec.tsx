@@ -370,7 +370,7 @@ describe('Trade PositionForm Form', () => {
     });
 
     await waitFor(() =>
-      expect(screen.getByText(en.operationForm.error.noSwapQuoteFound)).toBeInTheDocument(),
+      expect(screen.getByText(en.marketForm.error.noSwapQuoteFound)).toBeInTheDocument(),
     );
   });
 
@@ -425,7 +425,7 @@ describe('Trade PositionForm Form', () => {
     await waitFor(() => expect(getSubmitButton()).toBeDisabled());
     expect(
       screen.getByText(
-        en.operationForm.acknowledgements.highPriceImpact.tooltip.replace(
+        en.marketForm.acknowledgements.highPriceImpact.tooltip.replace(
           '{{priceImpactPercentage}}',
           String(HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE),
         ),
@@ -469,7 +469,7 @@ describe('Trade PositionForm Form', () => {
 
     await waitFor(() => expect(getSubmitButton()).toBeDisabled());
     expect(
-      screen.getByText(en.operationForm.acknowledgements.riskyOperation.tooltip),
+      screen.getByText(en.marketForm.acknowledgements.riskyOperation.tooltip),
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('checkbox'));

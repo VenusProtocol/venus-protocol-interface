@@ -37,7 +37,6 @@ export const MarketActionsButton: React.FC<MarketActionsButtonProps> = ({
           asset={asset}
           poolComptrollerAddress={poolComptrollerAddress}
           onClose={() => setIsModalOpen(false)}
-          onSubmitSuccess={() => setIsModalOpen(false)}
         />
       )}
     </>

@@ -14,12 +14,12 @@ export const PositionTabs: React.FC<PositionTabsProps> = ({ position }) => {
 
   const tabs: Tab[] = [
     {
-      title: t('operationForm.managePositionsTabs.positionsTabs.increase'),
+      title: t('tradeOperationForm.managePositionsTabs.positionsTabs.increase'),
       id: 'increase',
       content: <IncreaseForm position={position} />,
     },
     {
-      title: t('operationForm.managePositionsTabs.positionsTabs.reduce'),
+      title: t('tradeOperationForm.managePositionsTabs.positionsTabs.reduce'),
       id: 'reduce',
       content: <ReduceForm position={position} />,
     },

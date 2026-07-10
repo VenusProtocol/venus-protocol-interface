@@ -218,8 +218,8 @@ describe('VaultForm', () => {
     );
 
     await waitFor(() => expect(input.value).toBe('100'));
-    expect(screen.getByText(en.operationForm.riskSlider['0'])).toBeInTheDocument();
-    expect(screen.getByText(en.operationForm.riskSlider['100'])).toBeInTheDocument();
+    expect(screen.getByText(en.labeledSlider['0'])).toBeInTheDocument();
+    expect(screen.getByText(en.labeledSlider['100'])).toBeInTheDocument();
     await waitFor(() =>
       expect(
         screen.getByRole('button', {
@@ -452,10 +452,10 @@ describe('VaultForm', () => {
     fireEvent.click(screen.getByRole('button', { name: '100 XVS' }));
 
     await waitFor(() =>
-      expect(screen.getByText(en.operationForm.error.priceImpactTooHigh)).toBeInTheDocument(),
+      expect(screen.getByText(en.vaultForm.error.priceImpactTooHigh)).toBeInTheDocument(),
     );
     expect(
-      screen.queryByText(en.operationForm.acknowledgements.highPriceImpact.label),
+      screen.queryByText(en.txFormSubmitButton.acknowledgements.highPriceImpact.label),
     ).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: baseProps.submitButtonLabel }));
