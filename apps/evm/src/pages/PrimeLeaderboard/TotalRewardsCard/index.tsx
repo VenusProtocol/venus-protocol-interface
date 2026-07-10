@@ -14,7 +14,7 @@ export interface MarketReward {
 
 export interface TotalRewardsCardProps {
   totalRewardsCents: number;
-  totalPoolCents: number;
+  totalEstimatedRewardsCents: number;
   marketRewards: MarketReward[];
   title?: React.ReactNode;
   isLoading?: boolean;
@@ -23,7 +23,7 @@ export interface TotalRewardsCardProps {
 
 export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
   totalRewardsCents,
-  totalPoolCents,
+  totalEstimatedRewardsCents,
   marketRewards,
   title,
   isLoading,
@@ -55,12 +55,12 @@ export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
           {formatCentsToReadableValue({ value: totalRewardsCents })}
         </p>
 
-        {!!totalPoolCents && (
-          <p className="text-b2r text-light-grey">
+        {!!totalEstimatedRewardsCents && (
+          <p className="text-b1r text-light-grey">
             <Trans
               i18nKey="primeLeaderboard.totalRewards.totalPoolLabel"
               components={{ Highlight: <span className="text-white" /> }}
-              values={{ amount: formatCentsToReadableValue({ value: totalPoolCents }) }}
+              values={{ amount: formatCentsToReadableValue({ value: totalEstimatedRewardsCents }) }}
             />
           </p>
         )}

@@ -9,7 +9,7 @@ describe('pages/PrimeLeaderboard/TotalRewardsCard', () => {
     renderComponent(
       <TotalRewardsCard
         totalRewardsCents={46_230_000}
-        totalPoolCents={60_000_000}
+        totalEstimatedRewardsCents={60_000_000}
         marketRewards={[
           { token: usdc, rewardsCents: 28_040_000 },
           { token: xvs, rewardsCents: 17_190_000 },
