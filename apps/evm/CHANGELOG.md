@@ -1,5 +1,20 @@
 # @venusprotocol/evm
 
+## 5.4.0
+
+### Minor Changes
+
+- d0df71a: Add base Liquidity Hub page and types
+- 8966a49: refactor slippage tolerance form
+- c2f3f1e: allow updating history when paginating
+
+### Patch Changes
+
+- ba91996: fix issue with memoized token announcements
+- 80f536d: use useFormState to read RHF state
+- Updated dependencies [d0df71a]
+  - @venusprotocol/chains@0.27.0
+
 ## 5.3.0
 
 ### Minor Changes
