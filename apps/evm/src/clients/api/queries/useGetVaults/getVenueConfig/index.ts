@@ -46,7 +46,7 @@ const venueNameByKey = Object.fromEntries(
   Object.values(VenueName).map(venueName => [venueName.toLowerCase(), venueName]),
 ) as Record<string, VenueName>;
 
-export const getVenueConfig = (venueName?: string | null): VenueConfig => {
+export const getVenueConfig = (venueName?: string): VenueConfig => {
   const key = (venueName ?? '').trim().toLowerCase();
 
   if (!key) {
@@ -56,7 +56,7 @@ export const getVenueConfig = (venueName?: string | null): VenueConfig => {
   const matchedVenueName = venueNameByKey[key];
 
   if (!matchedVenueName) {
-    return { name: venueName as string, iconSrc: DEFAULT_VENUE.iconSrc };
+    return { ...DEFAULT_VENUE, name: venueName as string };
   }
 
   return {

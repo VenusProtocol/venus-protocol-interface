@@ -41,7 +41,7 @@ export const formatToInstitutionalVault = ({
     return undefined;
   }
 
-  const venue = getVenueConfig(loanVaultDetail.institutionName);
+  const venue = getVenueConfig(loanVaultDetail.institutionName ?? undefined);
 
   const userStakeBalanceMantissa = userData?.tokensMantissa ?? new BigNumber(0);
   const stakeBalanceMantissa = new BigNumber(loanVaultDetail.totalRaisedMantissa);
