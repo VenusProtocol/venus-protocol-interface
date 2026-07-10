@@ -17,7 +17,7 @@ describe('pages/PrimeLeaderboard/TotalRewardsCard', () => {
       />,
     );
 
-    expect(screen.getByText('Total Prime rewards distributed')).toBeInTheDocument();
+    expect(screen.getByText('Total distributed Prime rewards')).toBeInTheDocument();
     expect(screen.getByText('$462.3K')).toBeInTheDocument();
     expect(screen.getByText('$600K')).toBeInTheDocument();
     expect(screen.getByText('$280.4K')).toBeInTheDocument();

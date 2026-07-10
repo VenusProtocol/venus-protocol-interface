@@ -1327,7 +1327,7 @@
     },
     "title": "Prime leaderboard",
     "totalRewards": {
-      "title": "Total Prime rewards distributed",
+      "title": "Total distributed Prime rewards",
       "totalPoolLabel": "of <Highlight>{{amount}}</Highlight> total rewards this cycle"
     },
     "userRewards": {
