@@ -28,10 +28,10 @@ export const StakeForm: React.FC<StakeFormProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const { accountAddress } = useAccountAddress();
   const isPrimeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
   const showPrimeRankFooter =
-    isPrimeLeaderboardEnabled && vault.category === VaultCategory.GOVERNANCE;
-  const { accountAddress } = useAccountAddress();
+    isPrimeLeaderboardEnabled && vault.category === VaultCategory.GOVERNANCE && !!accountAddress;
 
   const fromToken = vault.stakedToken;
 
