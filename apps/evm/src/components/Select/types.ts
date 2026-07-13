@@ -8,10 +8,10 @@ export interface SelectOption<TValue extends string | number = string | number> 
     | ((context: { isRenderedInButton: boolean }) => string | React.ReactNode);
 }
 
-export interface SelectProps<TValue extends string | number = string | number> {
+export interface SelectProps<TValue extends string | number = string | number>
+  extends Pick<DropdownProps, 'optionClassName' | 'triggerOnHover'> {
   value: TValue;
   options: SelectOption<TValue>[];
-  optionClassName?: DropdownProps['optionClassName'];
   onChange: (newValue: TValue) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   name?: string;

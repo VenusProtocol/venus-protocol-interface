@@ -144,6 +144,9 @@
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}} (借入限度額の{{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入限度額:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借入残高（保護）:<LineBreak/>{{borrowBalanceProtected}} (借入限度額の{{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入残高（スポット）: {{borrowBalance}}<LineBreak/>借入限度額: {{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "切断"
+  },
   "adBanner": {
     "startNow": "今すぐ始める"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "ウォレットを接続",
-    "disconnect": "接続を解除"
+    "vipLogoAlt": "VIP ロゴ"
   },
   "connectWallet": {
     "connectButton": "ウォレットを接続"
@@ -445,6 +448,7 @@
       "uncompleted": "未完了"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30日間の絶対パフォーマンス",
       "absolutePerformance": "絶対パフォーマンス",
       "netWorth": {
         "label": "純資産",
@@ -1433,9 +1437,6 @@
       "withdrawButtonLabel": "ロック解除済み残高を引き出す"
     }
   },
-  "select": {
-    "defaultLabel": "選択してください"
-  },
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "資産を検索"
@@ -2333,6 +2334,19 @@
     "description": "30日間限定。5月28日、<YellowText>Binance Wallet</YellowText>とともに開始",
     "illustrationAltText": "Venus Flux のイラスト",
     "title": "Venus Fluxで5万USDTの報酬"
+  },
+  "vipModal": {
+    "backgroundAlt": "背景イラスト",
+    "cancelButton": {
+      "label": "いいえ、結構です"
+    },
+    "description": "あなたは選ばれた Venus VIP ユーザーの一員です。これは Venus チャンネルへのあなた専用の招待です。Venus Protocol のクジラ限定です。",
+    "illustration": {
+      "header": "あなたは Venus Protocol の<Linebreak/><Highlight>VIP</Highlight>です"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "非公開 Telegram グループに参加"
   },
   "vote": {
     "abstain": "棄権",

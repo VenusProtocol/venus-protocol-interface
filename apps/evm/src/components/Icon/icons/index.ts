@@ -105,3 +105,4 @@ export { default as graduationCap } from './graduationCap';
 export { default as medal } from './medal';
 export { default as trophy } from './trophy';
 export { default as swap } from './swap';
+export { default as connect } from './connect';

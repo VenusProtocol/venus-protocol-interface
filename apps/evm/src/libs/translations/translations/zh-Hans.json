@@ -144,6 +144,9 @@
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（借款限额的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借款余额（保护）：<LineBreak/>{{borrowBalanceProtected}}（借款限额的{{protectedBorrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款余额（现货）：{{borrowBalance}}<LineBreak/>借款限额：{{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "断开连接"
+  },
   "adBanner": {
     "startNow": "立即开始"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "连接钱包",
-    "disconnect": "断开连接"
+    "vipLogoAlt": "VIP 标志"
   },
   "connectWallet": {
     "connectButton": "连接钱包"
@@ -445,6 +448,7 @@
       "uncompleted": "未完成"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30天绝对表现",
       "absolutePerformance": "绝对表现",
       "netWorth": {
         "label": "净值",
@@ -1433,9 +1437,6 @@
       "withdrawButtonLabel": "提取已解锁余额"
     }
   },
-  "select": {
-    "defaultLabel": "选择选项"
-  },
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "搜索资产"
@@ -2333,6 +2334,19 @@
     "description": "仅限30天。5月28日携手<YellowText>Binance Wallet</YellowText>上线",
     "illustrationAltText": "Venus Flux 插图",
     "title": "Venus Flux 上线 5 万 USDT 奖励"
+  },
+  "vipModal": {
+    "backgroundAlt": "背景插图",
+    "cancelButton": {
+      "label": "不，谢谢"
+    },
+    "description": "您是 Venus VIP 用户中的精选成员。这是您加入 Venus 频道的专属邀请。仅限 Venus Protocol 巨鲸。",
+    "illustration": {
+      "header": "您是 Venus Protocol <Linebreak/><Highlight>VIP</Highlight>"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "加入私人 Telegram 群组"
   },
   "vote": {
     "abstain": "弃权",

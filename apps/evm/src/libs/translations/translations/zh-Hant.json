@@ -144,6 +144,9 @@
     "tooltip": "借款餘額：<LineBreak/>{{borrowBalance}}（借款限額的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限額：<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借款餘額（保護）：<LineBreak/>{{borrowBalanceProtected}}（借款限額的{{protectedBorrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款餘額（現貨）：{{borrowBalance}}<LineBreak/>借款限額：{{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "斷開連接"
+  },
   "adBanner": {
     "startNow": "立即開始"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "連接錢包",
-    "disconnect": "斷開連接"
+    "vipLogoAlt": "VIP 標誌"
   },
   "connectWallet": {
     "connectButton": "連接錢包"
@@ -445,6 +448,7 @@
       "uncompleted": "未完成"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30天絕對表現",
       "absolutePerformance": "絕對表現",
       "netWorth": {
         "label": "淨值",
@@ -1433,9 +1437,6 @@
       "withdrawButtonLabel": "提取已解鎖餘額"
     }
   },
-  "select": {
-    "defaultLabel": "選擇選項"
-  },
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "搜索資產"
@@ -2333,6 +2334,19 @@
     "description": "僅限30天。5月28日攜手<YellowText>Binance Wallet</YellowText>上線",
     "illustrationAltText": "Venus Flux 插圖",
     "title": "Venus Flux 上線 5 萬 USDT 獎勵"
+  },
+  "vipModal": {
+    "backgroundAlt": "背景插圖",
+    "cancelButton": {
+      "label": "不，謝謝"
+    },
+    "description": "您是 Venus VIP 用戶中的精選成員。這是您加入 Venus 頻道的專屬邀請。僅限 Venus Protocol 巨鯨。",
+    "illustration": {
+      "header": "您是 Venus Protocol <Linebreak/><Highlight>VIP</Highlight>"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "加入私人 Telegram 群組"
   },
   "vote": {
     "abstain": "棄權",

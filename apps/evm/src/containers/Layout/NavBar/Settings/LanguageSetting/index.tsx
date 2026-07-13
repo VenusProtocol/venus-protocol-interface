@@ -18,6 +18,7 @@ export const LanguageSetting: React.FC = () => {
         onChange={tag => i18n.changeLanguage(tag as string)}
         options={selectOptions}
         dropdownClassName="lg:overflow-auto lg:max-h-48"
+        menuPosition="right"
       />
     </div>
   );

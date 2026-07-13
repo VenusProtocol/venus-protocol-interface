@@ -144,6 +144,9 @@
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Borrow balance (protected):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "Disconnect"
+  },
   "adBanner": {
     "startNow": "Start now"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "Connect wallet",
-    "disconnect": "Disconnect"
+    "vipLogoAlt": "VIP logo"
   },
   "connectWallet": {
     "connectButton": "Connect wallet"
@@ -445,6 +448,7 @@
       "uncompleted": "Uncompleted"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30D absolute performance",
       "absolutePerformance": "Absolute performance",
       "netWorth": {
         "label": "Net worth",
@@ -1433,9 +1437,6 @@
       "withdrawButtonLabel": "Withdraw unlocked balance"
     }
   },
-  "select": {
-    "defaultLabel": "Select option"
-  },
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Search asset"
@@ -2335,6 +2336,19 @@
     "description": "30 days only. Live May 28 with <YellowText>Binance Wallet</YellowText>",
     "illustrationAltText": "Venus Flux illustration",
     "title": "$50K USDT rewards on Venus Flux"
+  },
+  "vipModal": {
+    "backgroundAlt": "Background illustration",
+    "cancelButton": {
+      "label": "No, thanks"
+    },
+    "description": "You are part of a select group of VIP Venus users. Here's your personal invite to the Venus channel. Venus Protocol Whales only.",
+    "illustration": {
+      "header": "You're a Venus Protocol <Linebreak/><Highlight>VIP</Highlight>"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "Join private Telegram group"
   },
   "vote": {
     "abstain": "Abstain",

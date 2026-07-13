@@ -2,6 +2,7 @@
 // this adds jest-dom's custom assertions
 import '@testing-library/jest-dom';
 import initializeLibraries from 'initializeLibraries';
+import type { PropsWithChildren } from 'react';
 import type { Mock } from 'vitest';
 // Polyfill "window.fetch"
 import 'whatwg-fetch';
@@ -78,6 +79,19 @@ const mockedQueryClient = vi.hoisted(() => ({
 vi.mock('clients/api/queryClient', () => ({
   queryClient: mockedQueryClient,
 }));
+
+vi.mock('@rainbow-me/rainbowkit', async () => {
+  const actual = await vi.importActual('@rainbow-me/rainbowkit');
+
+  return {
+    ...actual,
+    RainbowKitProvider: ({ children }: PropsWithChildren) => children,
+    useConnectModal: () => ({
+      connectModalOpen: false,
+      openConnectModal: vi.fn(),
+    }),
+  };
+});
 
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
