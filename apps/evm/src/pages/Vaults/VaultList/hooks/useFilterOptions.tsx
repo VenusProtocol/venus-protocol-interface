@@ -4,6 +4,8 @@ import { useSearchParams } from 'react-router';
 import { VaultCategory } from 'types';
 import { getVaultCategoryName } from 'utilities/getVaultCategoryName';
 
+import institutionIconSrc from '../asset/institution.svg';
+
 export const ALL_OPTION_VALUE = 'all';
 
 const CATEGORY_PARAM_KEY = 'category';
@@ -79,11 +81,11 @@ export const useFilterOptions = () => {
     {
       label: (
         <div className="flex items-center gap-2">
-          <Icon name="matrixdock" />
-          Matrixdock
+          <img src={institutionIconSrc} className="size-4" alt="" />
+          {t('vault.filter.institution')}
         </div>
       ),
-      value: 'matrixdock',
+      value: 'institution',
     },
   ];
 

@@ -13,6 +13,7 @@ const baseLoanVaultDetail: LoanVaultDetail = {
   fixedRateVaultId: 'vault-1',
   id: 'detail-1',
   institutionAddress: '0x2222222222222222222222222222222222222222',
+  institutionName: 'Matrixdock',
   latePenaltyRateMantissa: '0',
   liquidationIncentiveMantissa: '0',
   liquidationThresholdMantissa: '0',

@@ -1,17 +1,20 @@
 import type { Address } from 'viem';
 
+import { TokenIcon } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { type Token, VaultVenue } from 'types';
-import { generateExplorerUrl } from 'utilities';
+import { generateExplorerUrl, truncateAddress } from 'utilities';
 import { Row } from './Row';
 
 export interface VaultOverviewMarketInfoProps {
   vaultDeploymentDate?: Date;
+  contractAddress?: Address;
   venue: string;
+  venueName: string;
   venueIconSrc: string;
   venueUrl?: string;
   copyAddress?: Address;
@@ -20,7 +23,9 @@ export interface VaultOverviewMarketInfoProps {
 
 export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = ({
   vaultDeploymentDate,
+  contractAddress,
   venue,
+  venueName,
   venueIconSrc,
   venueUrl,
   copyAddress,
@@ -43,7 +48,7 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
       />
     ) : (
       <Trans
-        i18nKey="vault.modals.overview.riskDisclosureText.matrixDock"
+        i18nKey="vault.modals.overview.riskDisclosureText.institution"
         components={{
           br: <br />,
           TermsOfUseLink: <Link to={routes.fixedTermVaultTermsOfUse.path} target="_blank" />,
@@ -55,6 +60,9 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
   const collateralUrl =
     collateralToken && generateExplorerUrl({ hash: collateralToken.address, chainId });
 
+  const contractAddressUrl =
+    contractAddress && generateExplorerUrl({ hash: contractAddress, chainId });
+
   return (
     <div className="flex flex-col gap-5">
       <p className="text-p2s text-white flex-1 pb-2">{t('vault.modals.overview.marketInfo')}</p>
@@ -62,14 +70,29 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
       <div className="flex flex-col gap-3">
         <Row label={t('vault.modals.overview.vaultDeploymentDate')}>{formattedDeploymentDate}</Row>
 
-        <Row
-          label={t('vault.modals.overview.venue')}
-          tooltip={t('vault.modals.overview.venueTooltip')}
-          url={venueUrl}
-          address={copyAddress}
-        >
-          <img src={venueIconSrc} className="h-4" alt={t('vault.modals.overview.vaultVenueIcon')} />
-        </Row>
+        {!!contractAddress && !!contractAddressUrl && (
+          <Row label={t('vault.modals.overview.contractAddress')} url={contractAddressUrl}>
+            {truncateAddress(contractAddress)}
+          </Row>
+        )}
+
+        {!!venueName && !!venueIconSrc && (
+          <Row
+            label={t('vault.modals.overview.venue')}
+            tooltip={t('vault.modals.overview.venueTooltip')}
+            url={venueUrl}
+            address={copyAddress}
+          >
+            <div className="flex items-center text-b1r">
+              <img
+                src={venueIconSrc}
+                className="mr-2 h-5 w-5"
+                alt={t('vault.modals.overview.vaultVenueIcon')}
+              />
+              {venueName}
+            </div>
+          </Row>
+        )}
 
         {collateralToken && !!collateralUrl && (
           <Row
@@ -77,7 +100,10 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
             url={collateralUrl}
             address={collateralToken.address}
           >
-            <span className="text-light-grey">{collateralToken.symbol}</span>
+            <div className="flex items-center text-b1r">
+              <TokenIcon token={collateralToken} className="mr-2 h-5 w-5" />
+              {collateralToken.symbol}
+            </div>
           </Row>
         )}
 

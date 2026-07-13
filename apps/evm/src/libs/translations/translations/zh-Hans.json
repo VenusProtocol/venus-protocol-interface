@@ -2147,6 +2147,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
+      "collateral": "抵押品",
       "currentDeposited": "当前已供应",
       "dailyEmission": "每日奖励释放",
       "header": {
@@ -2184,6 +2185,7 @@
       "deposit": "供应",
       "inactive": "非活跃",
       "inputPlaceholder": "搜索资产",
+      "institution": "机构",
       "liquidated": "已清算",
       "locked": "收益中",
       "paused": "已暂停",
@@ -2230,11 +2232,12 @@
       "overview": {
         "campaignTimeline": "活动时间线",
         "collateral": "抵押品",
+        "contractAddress": "合约地址",
         "loan": "贷款",
         "marketInfo": "市场信息",
         "marketRiskDisclosures": "市场风险披露",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>本金存在风险</Bold>。目标利率是浮动的，并与金库表现挂钩，不构成保证收益。<Bold>您拿回的金额可能少于投入金额</Bold>。在结算时，您将按份额获得该时点金库实际持有资产中的相应部分。<Bold>您的资金将被锁定</Bold>。锁定期开始后，您将无法供应或提取。只有在结算后资金才可领取。<Bold>影响结果的因素：</Bold>交易对手表现、抵押条件、智能合约执行、预言机可靠性以及结算结果。<Bold>受司法辖区限制</Bold>。该金库不向受限司法辖区或受限人士开放。完整名单请参阅使用条款。供应前，请查看本页的 <TermsOfUseLink>使用条款</TermsOfUseLink> 和金库参数。",
+          "institution": "<Bold>本金存在风险</Bold>。目标利率是浮动的，并与金库表现挂钩，不构成保证收益。<Bold>您拿回的金额可能少于投入金额</Bold>。在结算时，您将按份额获得该时点金库实际持有资产中的相应部分。<Bold>您的资金将被锁定</Bold>。锁定期开始后，您将无法供应或提取。只有在结算后资金才可领取。<Bold>影响结果的因素：</Bold>交易对手表现、抵押条件、智能合约执行、预言机可靠性以及结算结果。<Bold>受司法辖区限制</Bold>。该金库不向受限司法辖区或受限人士开放。完整名单请参阅使用条款。供应前，请查看本页的 <TermsOfUseLink>使用条款</TermsOfUseLink> 和金库参数。",
           "pendle": "Pendle 是一个去中心化收益交易协议，通过本金代币（PT）实现固定利率收益。Venus 固定利率金库通过 Pendle 的基础设施路由已供应的资产以获取 PT，并将其作为抵押品供应至 Venus Core。<br />虽然 Pendle 无法访问或转移您已供应的资金，但使用此金库会使您同时暴露于两个协议的风险。这些风险包括智能合约漏洞、预言机故障，以及任一协议被攻击或暂停的可能性。提前提款按市场价格执行，返还金额可能低于已供应金额。固定 APY 会在供应时锁定，但并不能防范协议层面的故障。"
         },
         "strategy": {

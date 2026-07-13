@@ -73,6 +73,7 @@ export type LoanVaultDetail = {
   debtValueCents: string;
   fixedRateVaultId: string;
   institutionAddress: Address;
+  institutionName: string | null;
   latePenaltyRateMantissa: string;
   liquidationIncentiveMantissa: string;
   liquidationThresholdMantissa: string;

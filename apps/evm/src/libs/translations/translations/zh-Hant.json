@@ -2147,6 +2147,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必須先完成待處理的提款才能與此金庫互動。",
+      "collateral": "抵押品",
       "currentDeposited": "當前已供應",
       "dailyEmission": "每日獎勵釋放",
       "header": {
@@ -2184,6 +2185,7 @@
       "deposit": "供應",
       "inactive": "非活躍",
       "inputPlaceholder": "搜尋資產",
+      "institution": "機構",
       "liquidated": "已清算",
       "locked": "收益中",
       "paused": "已暫停",
@@ -2230,11 +2232,12 @@
       "overview": {
         "campaignTimeline": "活動時間線",
         "collateral": "抵押品",
+        "contractAddress": "合約地址",
         "loan": "貸款",
         "marketInfo": "市場資訊",
         "marketRiskDisclosures": "市場風險披露",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>本金存在風險</Bold>。目標利率是浮動的，並與金庫表現掛鉤，不構成保證收益。<Bold>您拿回的金額可能少於投入金額</Bold>。在結算時，您將按持有比例獲得該時點金庫實際持有資產中的相應部分。<Bold>您的資金將被鎖定</Bold>。鎖定期開始後，您將無法供應或提取。只有在結算後資金才可領取。<Bold>影響結果的因素：</Bold>交易對手表現、抵押條件、智慧合約執行、預言機可靠性以及結算結果。<Bold>受司法轄區限制</Bold>。該金庫不向受限司法轄區或受限人士開放。完整名單請參閱使用條款。供應前，請查看本頁的 <TermsOfUseLink>使用條款</TermsOfUseLink> 和金庫參數。",
+          "institution": "<Bold>本金存在風險</Bold>。目標利率是浮動的，並與金庫表現掛鉤，不構成保證收益。<Bold>您拿回的金額可能少於投入金額</Bold>。在結算時，您將按持有比例獲得該時點金庫實際持有資產中的相應部分。<Bold>您的資金將被鎖定</Bold>。鎖定期開始後，您將無法供應或提取。只有在結算後資金才可領取。<Bold>影響結果的因素：</Bold>交易對手表現、抵押條件、智慧合約執行、預言機可靠性以及結算結果。<Bold>受司法轄區限制</Bold>。該金庫不向受限司法轄區或受限人士開放。完整名單請參閱使用條款。供應前，請查看本頁的 <TermsOfUseLink>使用條款</TermsOfUseLink> 和金庫參數。",
           "pendle": "Pendle 是一個去中心化收益交易協議，透過本金代幣（PT）提供固定利率收益。Venus 固定利率金庫會透過 Pendle 的基礎設施路由已供應的資產以取得 PT，並將其作為抵押品供應至 Venus Core。<br />雖然 Pendle 無法存取或移動您已供應的資金，但使用此金庫會讓您同時承受兩個協議的風險。這些風險包括智慧合約漏洞、預言機故障，以及任一協議遭到利用或暫停的可能性。提前提款會依市場價格執行，返還金額可能低於已供應金額。固定 APY 會在供應時鎖定，但無法防範協議層級的故障。"
         },
         "strategy": {

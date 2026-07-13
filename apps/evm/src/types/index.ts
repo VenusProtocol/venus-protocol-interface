@@ -493,7 +493,7 @@ export enum VaultStatus {
 export enum VaultVenue {
   Venus = 'venus',
   Pendle = 'pendle',
-  Matrixdock = 'matrixdock',
+  Institution = 'institution',
 }
 
 export enum VaultType {
@@ -512,6 +512,7 @@ interface BaseVault {
   vaultType: VaultType;
   category: VaultCategory;
   venue: VaultVenue;
+  venueName: string;
   venueIconSrc: string;
   status: VaultStatus;
   key: string;
@@ -554,7 +555,7 @@ export type InstitutionalVault = BaseVault & {
   stakeLimitMantissa: BigNumber;
   stakeMinMantissa: BigNumber;
   userRedeemLimitMantissa: BigNumber;
-  venueUrl: string;
+  venueUrl?: string;
   collateralToken: Token;
   userYieldTokens?: BigNumber;
   userWithdrawLimitMantissa: BigNumber;
