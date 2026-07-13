@@ -915,6 +915,17 @@
       }
     }
   },
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "安全な MAX",
+    "supplySubmitButtonLabel": "供給",
+    "supplyTab": {
+      "collateralTabTitle": "担保",
+      "walletTabTitle": "ウォレット"
+    },
+    "supplyTabTitle": "供給",
+    "withdrawTabTitle": "引き出し"
+  },
   "markdownEditor": {
     "markdownTabLabel": "書く",
     "placeholder": "プレビューする内容がありません",

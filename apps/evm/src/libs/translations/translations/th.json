@@ -915,6 +915,17 @@
       }
     }
   },
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "MAX แบบปลอดภัย",
+    "supplySubmitButtonLabel": "ฝาก",
+    "supplyTab": {
+      "collateralTabTitle": "หลักประกัน",
+      "walletTabTitle": "วอลเล็ต"
+    },
+    "supplyTabTitle": "ฝาก",
+    "withdrawTabTitle": "ถอน"
+  },
   "markdownEditor": {
     "markdownTabLabel": "เขียน",
     "placeholder": "ไม่มีเนื้อหาให้พรีวิว",

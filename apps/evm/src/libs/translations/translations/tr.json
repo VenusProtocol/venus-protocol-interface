@@ -915,6 +915,17 @@
       }
     }
   },
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "GÜVENLİ MAX",
+    "supplySubmitButtonLabel": "Sağla",
+    "supplyTab": {
+      "collateralTabTitle": "Teminat",
+      "walletTabTitle": "Cüzdan"
+    },
+    "supplyTabTitle": "Sağla",
+    "withdrawTabTitle": "Çek"
+  },
   "markdownEditor": {
     "markdownTabLabel": "Yaz",
     "placeholder": "Önizlenecek bir şey yok",
