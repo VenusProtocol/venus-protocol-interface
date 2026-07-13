@@ -14,6 +14,7 @@ export interface MarketReward {
 
 export interface TotalRewardsCardProps {
   totalRewardsCents: number;
+  totalEstimatedRewardsCents: number;
   marketRewards: MarketReward[];
   title?: React.ReactNode;
   isLoading?: boolean;
@@ -22,12 +23,13 @@ export interface TotalRewardsCardProps {
 
 export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
   totalRewardsCents,
+  totalEstimatedRewardsCents,
   marketRewards,
   title,
   isLoading,
   className,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const cardClassName = cn(
     'flex flex-col gap-y-3 rounded-lg bg-background-active p-4 min-h-[182px] lg:h-58',
@@ -52,6 +54,16 @@ export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
         <p className="text-h5 text-white">
           {formatCentsToReadableValue({ value: totalRewardsCents })}
         </p>
+
+        {!!totalEstimatedRewardsCents && (
+          <p className="text-b1r text-light-grey">
+            <Trans
+              i18nKey="primeLeaderboard.totalRewards.totalPoolLabel"
+              components={{ Highlight: <span className="text-white" /> }}
+              values={{ amount: formatCentsToReadableValue({ value: totalEstimatedRewardsCents }) }}
+            />
+          </p>
+        )}
       </div>
 
       <div className="flex max-h-15 flex-col gap-2 overflow-y-auto">

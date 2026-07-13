@@ -9,6 +9,7 @@ describe('pages/PrimeLeaderboard/TotalRewardsCard', () => {
     renderComponent(
       <TotalRewardsCard
         totalRewardsCents={46_230_000}
+        totalEstimatedRewardsCents={60_000_000}
         marketRewards={[
           { token: usdc, rewardsCents: 28_040_000 },
           { token: xvs, rewardsCents: 17_190_000 },
@@ -16,8 +17,9 @@ describe('pages/PrimeLeaderboard/TotalRewardsCard', () => {
       />,
     );
 
-    expect(screen.getByText('Total Prime rewards distributed this cycle')).toBeInTheDocument();
+    expect(screen.getByText('Total Prime rewards distributed')).toBeInTheDocument();
     expect(screen.getByText('$462.3K')).toBeInTheDocument();
+    expect(screen.getByText('$600K')).toBeInTheDocument();
     expect(screen.getByText('$280.4K')).toBeInTheDocument();
     expect(screen.getByText('$171.9K')).toBeInTheDocument();
     expect(screen.getByText(usdc.symbol)).toBeInTheDocument();

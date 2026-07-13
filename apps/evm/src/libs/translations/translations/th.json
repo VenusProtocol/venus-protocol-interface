@@ -1357,7 +1357,8 @@
     },
     "title": "กระดานผู้นำ Prime",
     "totalRewards": {
-      "title": "รางวัล Prime ทั้งหมดที่แจกในรอบนี้"
+      "title": "รางวัล Prime ทั้งหมดที่แจก",
+      "totalPoolLabel": "จากทั้งหมด <Highlight>{{amount}}</Highlight> ในรอบนี้"
     },
     "userRewards": {
       "eligibleMessage": "คุณมีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ จัดหาสินทรัพย์ด้านล่างเพื่อรับรางวัล",

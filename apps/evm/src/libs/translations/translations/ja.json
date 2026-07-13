@@ -1357,7 +1357,8 @@
     },
     "title": "Prime リーダーボード",
     "totalRewards": {
-      "title": "今サイクルに分配された Prime 報酬の総額"
+      "title": "分配された Prime 報酬の総額",
+      "totalPoolLabel": "今サイクルの総報酬 <Highlight>{{amount}}</Highlight> のうち"
     },
     "userRewards": {
       "eligibleMessage": "今サイクルで Prime 報酬を分け合う対象になっています。下記の資産を供給して報酬を獲得しましょう。",
