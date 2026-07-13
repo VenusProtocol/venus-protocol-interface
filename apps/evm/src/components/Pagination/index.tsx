@@ -66,9 +66,18 @@ export const Pagination = ({
 
   const iconProps: IconProps = { name: 'arrowRight' };
 
+  const isFirstPage = activePageIndex === 0;
+  const isLastPage = activePageIndex === pagesCount - 1;
+
   return (
     <div className={className} css={styles.root}>
       <Typography css={styles.itemsCountString}>{itemsCountString}</Typography>
+
+      {!isFirstPage && (
+        <PaginationButton onClick={() => goToPageByIndex(0)}>
+          <Icon css={styles.iconArrow} name="doubleChevronLeft" />
+        </PaginationButton>
+      )}
 
       {pagesArray.map((page, index) => {
         if (index === maxPageIndexToShow) {
@@ -101,6 +110,12 @@ export const Pagination = ({
           </PaginationButton>
         );
       })}
+
+      {!isLastPage && (
+        <PaginationButton onClick={() => goToPageByIndex(pagesCount - 1)}>
+          <Icon css={styles.iconArrow} name="doubleChevronRight" />
+        </PaginationButton>
+      )}
     </div>
   );
 };
