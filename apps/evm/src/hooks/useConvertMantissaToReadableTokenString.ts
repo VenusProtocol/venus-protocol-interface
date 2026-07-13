@@ -1,16 +1,18 @@
 import { useMemo } from 'react';
 
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
-import type { Token, VToken } from 'types';
+import type { Token, VToken, VhToken } from 'types';
 import { type ConvertMantissaToTokensInput, convertMantissaToTokens } from 'utilities';
 
 export interface UseConvertMantissaToReadableTokenStringInput<
-  TToken extends Token | VToken | undefined,
+  TToken extends Token | VToken | VhToken | undefined,
 > extends Omit<ConvertMantissaToTokensInput<TToken>, 'value' | 'returnInReadableFormat'> {
   value: ConvertMantissaToTokensInput<TToken>['value'] | undefined;
 }
 
-const useConvertMantissaToReadableTokenString = <TToken extends Token | VToken | undefined>(
+const useConvertMantissaToReadableTokenString = <
+  TToken extends Token | VToken | VhToken | undefined,
+>(
   params: UseConvertMantissaToReadableTokenStringInput<TToken>,
 ) =>
   useMemo(

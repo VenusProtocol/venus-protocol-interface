@@ -120,6 +120,7 @@ import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.jso
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import erc20Abi from './externalAbis/Erc20.json';
 
+import liquidityHubMigratorAbi from './externalAbis/LiquidityHubMigrator.json';
 import maximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import nexusAbi from './externalAbis/Nexus.json';
@@ -720,6 +721,13 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_MAINNET]: '0x1525D804DFff218DcC8B9359940F423209356C42', // TODO: get from package
       [ChainId.BSC_TESTNET]: '0x25dbA64B28F93cC40e9cAf9691266043fe1000a2', // TODO: get from package
+    },
+  },
+  {
+    name: 'LiquidityHubMigrator',
+    abi: liquidityHubMigratorAbi as Abi,
+    address: {
+      [ChainId.BSC_TESTNET]: '0x4B05b2a81f23E20ee36281a05dd7FF79e288B24E', // TODO: get from package
     },
   },
   // Generic Contracts

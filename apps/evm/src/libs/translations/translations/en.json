@@ -904,6 +904,17 @@
       }
     }
   },
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "SAFE MAX",
+    "supplySubmitButtonLabel": "Supply",
+    "supplyTab": {
+      "collateralTabTitle": "Collateral",
+      "walletTabTitle": "Wallet"
+    },
+    "supplyTabTitle": "Supply",
+    "withdrawTabTitle": "Withdraw"
+  },
   "markdownEditor": {
     "markdownTabLabel": "Write",
     "placeholder": "Nothing to preview",

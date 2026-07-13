@@ -904,6 +904,17 @@
       }
     }
   },
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "安全 MAX",
+    "supplySubmitButtonLabel": "供应",
+    "supplyTab": {
+      "collateralTabTitle": "抵押品",
+      "walletTabTitle": "钱包"
+    },
+    "supplyTabTitle": "供应",
+    "withdrawTabTitle": "提取"
+  },
   "markdownEditor": {
     "markdownTabLabel": "撰写",
     "placeholder": "没有可预览的内容",

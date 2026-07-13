@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { ONE_TRILLION } from 'constants/numbers';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
-import type { Token, VToken } from 'types';
+import type { Token, VToken, VhToken } from 'types';
 
 import shortenValueWithSuffix from '../shortenValueWithSuffix';
 
@@ -12,7 +12,7 @@ const MAX_DECIMALS = 6;
 
 export interface FormatTokensToReadableValueInput {
   value: BigNumber | undefined;
-  token: Token | VToken | undefined;
+  token: Token | VToken | VhToken | undefined;
   addSymbol?: boolean;
   roundingMode?: BigNumber.RoundingMode;
   maxDecimalPlaces?: number;

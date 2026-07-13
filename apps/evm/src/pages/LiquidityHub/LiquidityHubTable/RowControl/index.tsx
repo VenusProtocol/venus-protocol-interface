@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import { TableRowControl, type TableRowControlProps } from 'components';
-import type { LiquidityHub } from 'types';
-import { OperationModal } from './OperationModal';
+import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
+import type { VhToken } from 'types';
 
 export interface RowControlProps extends Omit<TableRowControlProps, 'onClick'> {
-  liquidityHub: LiquidityHub;
+  vhToken: VhToken;
 }
 
-export const RowControl: React.FC<RowControlProps> = ({ liquidityHub, ...otherProps }) => {
+export const RowControl: React.FC<RowControlProps> = ({ vhToken, ...otherProps }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCloseModal = () => setIsModalOpen(false);
@@ -24,7 +24,7 @@ export const RowControl: React.FC<RowControlProps> = ({ liquidityHub, ...otherPr
     <>
       <TableRowControl onClick={onClick} {...otherProps} />
 
-      {isModalOpen && <OperationModal liquidityHub={liquidityHub} handleClose={handleCloseModal} />}
+      {isModalOpen && <LiquidityHubFormModal vhToken={vhToken} handleClose={handleCloseModal} />}
     </>
   );
 };

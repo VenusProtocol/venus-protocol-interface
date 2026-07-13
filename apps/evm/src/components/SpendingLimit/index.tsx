@@ -4,10 +4,10 @@ import type BigNumber from 'bignumber.js';
 import { Spinner } from '@venusprotocol/ui';
 import { Icon } from 'components/Icon';
 import { LabeledInlineContent } from 'components/LabeledInlineContent';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
+import { formatTokensToReadableValue } from 'utilities';
 
 export interface SpendingLimitProps {
   token: Token;
@@ -36,7 +36,7 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
     }
   };
 
-  const readableWalletSpendingLimit = useFormatTokensToReadableValue({
+  const readableWalletSpendingLimit = formatTokensToReadableValue({
     value: walletSpendingLimitTokens,
     token,
   });

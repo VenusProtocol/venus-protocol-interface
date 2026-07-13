@@ -18,13 +18,14 @@ import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, BalanceMutation, Pool } from 'types';
-import { calculateHealthFactor, convertTokensToMantissa } from 'utilities';
+import {
+  calculateCollateralWithdrawLimits,
+  calculateHealthFactor,
+  convertTokensToMantissa,
+} from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
-import {
-  HEALTH_FACTOR_MODERATE_THRESHOLD,
-  HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
-} from 'constants/healthFactor';
+import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
@@ -132,85 +133,12 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     });
   }, [asset, pool, formValues.amountTokens]);
 
-  const [limitTokens, safeLimitTokens, moderateRiskMaxTokens] = useMemo(() => {
-    const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(
-      asset.tokenPriceCents,
-    );
-    // If asset isn't used as collateral user can withdraw the entire supply balance without
-    // affecting their borrow limit, if there's enough liquidity
-    const availableTokens = BigNumber.minimum(asset.userSupplyBalanceTokens, assetLiquidityTokens);
-
-    const isAssetCollateralizable =
-      asset.userCollateralFactor > 0 && asset.userLiquidationThresholdPercentage > 0;
-
-    if (
-      !asset.isCollateralOfUser ||
-      !isAssetCollateralizable ||
-      !pool.userBorrowLimitCents ||
-      !pool.userLiquidationThresholdCents ||
-      !pool.userBorrowBalanceCents ||
-      pool.userBorrowBalanceCents.isEqualTo(0)
-    ) {
-      return [availableTokens, availableTokens, availableTokens];
-    }
-
-    // Calculate how much token user can withdraw before they risk getting
-    // liquidated
-
-    // Return 0 if borrow limit has already been reached
-    if (
-      pool.userBorrowBalanceProtectedCents?.isGreaterThanOrEqualTo(
-        pool.userBorrowLimitProtectedCents ?? 0,
-      )
-    ) {
-      return [new BigNumber(0), new BigNumber(0), new BigNumber(0)];
-    }
-
-    // Hard withdraw limit (uses protected prices to match contract behavior)
-    const marginWithUserBorrowLimitTokens = (pool.userBorrowLimitProtectedCents ?? new BigNumber(0))
-      .minus(pool.userBorrowBalanceProtectedCents ?? 0)
-      .dividedBy(asset.userCollateralFactor)
-      .dividedBy(asset.tokenSupplyPriceCents);
-
-    let marginWithUserSafeBorrowLimitTokens =
-      // We base the safe borrow limit on the liquidation threshold because that's the base used to
-      // calculate the health factor (spot-based)
-      pool.userLiquidationThresholdCents
-        .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_SAFE_MAX_THRESHOLD))
-        .dividedBy(asset.userCollateralFactor)
-        .dividedBy(asset.tokenPriceCents);
-
-    if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
-      marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
-    }
-
-    let marginWithUserModerateRiskBorrowLimitTokens =
-      // We base the safe borrow limit on the liquidation threshold because that's the base used to
-      // calculate the health factor (spot-based)
-      pool.userLiquidationThresholdCents
-        .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_MODERATE_THRESHOLD))
-        .dividedBy(asset.userCollateralFactor)
-        .dividedBy(asset.tokenPriceCents);
-
-    if (marginWithUserModerateRiskBorrowLimitTokens.isLessThan(0)) {
-      marginWithUserModerateRiskBorrowLimitTokens = new BigNumber(0);
-    }
-
-    const maxTokens = BigNumber.min(availableTokens, marginWithUserBorrowLimitTokens).dp(
-      asset.vToken.underlyingToken.decimals,
-    );
-
-    const safeMaxTokens = BigNumber.min(maxTokens, marginWithUserSafeBorrowLimitTokens).dp(
-      asset.vToken.underlyingToken.decimals,
-    );
-
-    const moderateRiskMaxTokens = BigNumber.min(
-      maxTokens,
-      marginWithUserModerateRiskBorrowLimitTokens,
-    ).dp(asset.vToken.underlyingToken.decimals);
-
-    return [maxTokens, safeMaxTokens, moderateRiskMaxTokens];
-  }, [asset, pool]);
+  const { limitTokens, safeLimitTokens, moderateRiskMaxTokens } = calculateCollateralWithdrawLimits(
+    {
+      asset,
+      pool,
+    },
+  );
 
   const _debouncedInputAmountTokens = useDebounceValue(formValues.amountTokens);
   const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);

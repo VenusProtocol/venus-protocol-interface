@@ -36,7 +36,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const [searchValue, setSearchValue] = useState('');
 
   const renderRowControl = (liquidityHub: LiquidityHub) => {
-    return <RowControl className="-ml-6" liquidityHub={liquidityHub} />;
+    return <RowControl className="-ml-6" vhToken={liquidityHub.vhToken} />;
   };
 
   const filteredData = data.filter(row => {

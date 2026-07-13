@@ -904,6 +904,17 @@
       }
     }
   },
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "MAX an toàn",
+    "supplySubmitButtonLabel": "Cung cấp",
+    "supplyTab": {
+      "collateralTabTitle": "Tài sản thế chấp",
+      "walletTabTitle": "Ví"
+    },
+    "supplyTabTitle": "Cung cấp",
+    "withdrawTabTitle": "Rút"
+  },
   "markdownEditor": {
     "markdownTabLabel": "Viết",
     "placeholder": "Không có nội dung để xem trước",

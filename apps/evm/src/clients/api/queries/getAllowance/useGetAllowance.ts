@@ -2,12 +2,12 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { useChainId, usePublicClient } from 'libs/wallet';
-import type { ChainId, Token } from 'types';
+import type { ChainId, Token, VToken } from 'types';
 import type { Address } from 'viem';
 import { type GetAllowanceInput, type GetAllowanceOutput, getAllowance } from '.';
 
 type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'publicClient'> & {
-  token: Token;
+  token: Token | VToken;
 };
 
 export type UseGetAllowanceQueryKey = [
