@@ -19,8 +19,8 @@ export const LabeledSlider: React.FC<LabeledSliderProps> = ({
       <Slider disabled={disabled} value={value} onChange={onChange} max={100} step={1} />
 
       <div className="flex justify-between text-grey text-xs">
-        <p>{t('operationForm.riskSlider.0')}</p>
-        <p>{t('operationForm.riskSlider.100')}</p>
+        <p>{t('labeledSlider.0')}</p>
+        <p>{t('labeledSlider.100')}</p>
       </div>
     </div>
   );

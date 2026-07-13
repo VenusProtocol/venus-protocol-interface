@@ -689,6 +689,10 @@
       "title": "Grafik bilgisi"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "Değiştirilemez bir para piyasasına doğrudan zincir üzerinde erişin.",
@@ -979,6 +983,92 @@
       "title": "Sağlama bilgisi"
     }
   },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Yüksek fiyat etkisini kabul ediyorum",
+        "tooltip": "Bu işlemin fiyat etkisinin {{priceImpactPercentage}}% üzerinde olması bekleniyor"
+      },
+      "riskyOperation": {
+        "label": "İlgili riskleri kabul ediyorum",
+        "tooltip": "Bu işlemden sonra sağlık faktörünüz düşük olacak ve likidasyon riski artacaktır"
+      }
+    },
+    "availableAmount": "Kullanılabilir",
+    "boostTabAltText": "Roket ikonu",
+    "boostTabTitle": "Boost",
+    "borrow": "Borç al",
+    "borrowTabTitle": "Borç al",
+    "collateral": "Teminat",
+    "collateralField": {
+      "label": "Teminat"
+    },
+    "error": {
+      "borrowCapReached": "Bu havuz için {{assetBorrowCap}} borç limiti aşıldı. Krediler geri ödenene veya borç limiti artırılana kadar bu piyasadan borç alamazsınız.",
+      "higherThanAvailableAmount": "Girilen miktar kullanılabilir miktardan fazla",
+      "higherThanAvailableLiquidity": "Yetersiz varlık likiditesi",
+      "higherThanBorrowBalance": "Girilen miktar borç bakiyesinden fazla",
+      "higherThanBorrowCap": "Bu piyasanın borç limiti {{assetBorrowCap}} olarak ayarlı ve şu anda {{assetBorrowBalance}} borç alınmış olduğundan, bu havuzdan {{userMaxBorrowAmount}} üzeri borç alamazsınız.",
+      "higherThanRepayBalance": "Girilen miktar geri ödeme bakiyesinden fazla",
+      "higherThanSupplyCap": "Bu piyasanın tedarik limiti {{assetSupplyCap}} olarak ayarlı ve şu anda {{assetSupplyBalance}} sağlanmış olduğundan, bu havuza {{userMaxSupplyAmount}} üzeri sağlayamazsınız.",
+      "higherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
+      "higherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için harcama limitini iptal edin ve yeni bir limit ayarlayın.",
+      "noCollateral": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce tokenları sağlayıp teminat olarak etkinleştirmelisiniz",
+      "noSwapQuoteFound": "Swap bulunamadı.",
+      "priceImpactTooHigh": "Fiyat etkisi çok yüksek",
+      "smallerThanMinimumAmount": "Bir seferde {{minAmount}} değerinden daha az sağlayamazsınız",
+      "supplyCapReached": "Bu havuz için {{assetSupplyCap}} tedarik limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
+      "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Mevcut kaldıraçta maksimum pozisyon: {{ value }}",
+      "submitButtonLabel": "Onayla",
+      "title": "Kaldıraç oranı",
+      "warning": "Kaldıraç, sermaye kullanımınızı etkiler ve pozisyondan tamamen çıkana kadar değiştirilemez."
+    },
+    "receiveNativeToken": {
+      "label": "{{tokenSymbol}} al",
+      "tooltip": "Borç alınan {{wrappedNativeTokenSymbol}}'i {{nativeTokenSymbol}}'e dönüştür"
+    },
+    "repaidField": {
+      "label": "Ödenecek borç"
+    },
+    "repay": {
+      "fullRepaymentWarning": "Yeni biriken faizleri karşılamak için işlem değeri mevcut borç tutarından biraz daha yüksek olabilir",
+      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
+    },
+    "repayTab": {
+      "collateralTabTitle": "Teminat",
+      "noCollateralWarning": "Geri ödeme için hiç teminatınız yok.",
+      "title": "Geri öde",
+      "walletBalanceTabTitle": "Cüzdan"
+    },
+    "rightMaxButtonLabel": "MAKS",
+    "safeMaxButtonLabel": "GÜVENLİ MAKS",
+    "submitButtonLabel": {
+      "boost": "Boost",
+      "borrow": "Borç al",
+      "enterValidAmount": "Geçerli miktar girin",
+      "repay": "Geri öde",
+      "supply": "Sağla",
+      "withdraw": "Çek"
+    },
+    "supply": "Sağla",
+    "supplyTabTitle": "Sağla",
+    "swapDetails": {
+      "label": {
+        "repay": "Geri ödeyeceksiniz",
+        "supply": "Sağlayacaksınız"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "Cüzdan bakiyesi",
+    "withdrawTabTitle": "Çek"
+  },
   "markets": {
     "eMode": {
       "table": {
@@ -1115,106 +1205,6 @@
     "search": {
       "placeholder": "Varlık ara"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "Yüksek fiyat etkisini kabul ediyorum",
-        "tooltip": "Bu işlemin fiyat etkisinin {{priceImpactPercentage}}% üzerinde olması bekleniyor"
-      },
-      "riskyOperation": {
-        "label": "İlgili riskleri kabul ediyorum",
-        "tooltip": "Bu işlemden sonra sağlık faktörünüz düşük olacak ve likidasyon riski artacaktır"
-      }
-    },
-    "availableAmount": "Kullanılabilir",
-    "boostTabAltText": "Roket ikonu",
-    "boostTabTitle": "Boost",
-    "borrow": "Borç al",
-    "borrowTabTitle": "Borç al",
-    "collateral": "Teminat",
-    "collateralField": {
-      "label": "Teminat"
-    },
-    "error": {
-      "borrowCapReached": "Bu havuz için {{assetBorrowCap}} borç limiti aşıldı. Krediler geri ödenene veya borç limiti artırılana kadar bu piyasadan borç alamazsınız.",
-      "higherThanAvailableAmount": "Girilen miktar kullanılabilir miktardan fazla",
-      "higherThanAvailableLiquidity": "Yetersiz varlık likiditesi",
-      "higherThanBorrowBalance": "Girilen miktar borç bakiyesinden fazla",
-      "higherThanBorrowCap": "Bu piyasanın borç limiti {{assetBorrowCap}} olarak ayarlı ve şu anda {{assetBorrowBalance}} borç alınmış olduğundan, bu havuzdan {{userMaxBorrowAmount}} üzeri borç alamazsınız.",
-      "higherThanRepayBalance": "Girilen miktar geri ödeme bakiyesinden fazla",
-      "higherThanSupplyCap": "Bu piyasanın tedarik limiti {{assetSupplyCap}} olarak ayarlı ve şu anda {{assetSupplyBalance}} sağlanmış olduğundan, bu havuza {{userMaxSupplyAmount}} üzeri sağlayamazsınız.",
-      "higherThanWalletBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
-      "higherThanWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için harcama limitini iptal edin ve yeni bir limit ayarlayın.",
-      "noCollateral": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce tokenları sağlayıp teminat olarak etkinleştirmelisiniz",
-      "noSwapQuoteFound": "Swap bulunamadı.",
-      "priceImpactTooHigh": "Fiyat etkisi çok yüksek",
-      "smallerThanMinimumAmount": "Bir seferde {{minAmount}} değerinden daha az sağlayamazsınız",
-      "supplyCapReached": "Bu havuz için {{assetSupplyCap}} tedarik limiti aşıldı. Çekimler yapılana veya limit artırılana kadar bu piyasaya sağlayamazsınız.",
-      "tooRisky": "Bu işlem hesabınızın likide olmasına neden olur"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "Mevcut kaldıraçta maksimum pozisyon: {{ value }}",
-      "submitButtonLabel": "Onayla",
-      "title": "Kaldıraç oranı",
-      "warning": "Kaldıraç, sermaye kullanımınızı etkiler ve pozisyondan tamamen çıkana kadar değiştirilemez."
-    },
-    "managePositionsTabs": {
-      "collateral": "Teminat",
-      "position": "Pozisyon",
-      "positionsTabs": {
-        "increase": "Artır",
-        "reduce": "Azalt",
-        "supply": "Sağla",
-        "withdraw": "Çek"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "{{tokenSymbol}} al",
-      "tooltip": "Borç alınan {{wrappedNativeTokenSymbol}}'i {{nativeTokenSymbol}}'e dönüştür"
-    },
-    "repaidField": {
-      "label": "Ödenecek borç"
-    },
-    "repay": {
-      "fullRepaymentWarning": "Yeni biriken faizleri karşılamak için işlem değeri mevcut borç tutarından biraz daha yüksek olabilir",
-      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
-    },
-    "repayTab": {
-      "collateralTabTitle": "Teminat",
-      "noCollateralWarning": "Geri ödeme için hiç teminatınız yok.",
-      "title": "Geri öde",
-      "walletBalanceTabTitle": "Cüzdan"
-    },
-    "rightMaxButtonLabel": "MAKS",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "GÜVENLİ MAKS",
-    "submitButtonLabel": {
-      "boost": "Boost",
-      "borrow": "Borç al",
-      "enterValidAmount": "Geçerli miktar girin",
-      "repay": "Geri öde",
-      "supply": "Sağla",
-      "withdraw": "Çek"
-    },
-    "supply": "Sağla",
-    "supplyTabTitle": "Sağla",
-    "swapDetails": {
-      "label": {
-        "repay": "Geri ödeyeceksiniz",
-        "supply": "Sağlayacaksınız"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "Cüzdan bakiyesi",
-    "withdrawTabTitle": "Çek"
   },
   "pagination": {
     "itemOf": "{{itemsCount}} öğeden {{currentPageLastIndex}}",
@@ -1919,6 +1909,18 @@
     "illustrationAltText": "Trade illüstrasyonu",
     "title": "Venus Trade şimdi yayında"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "Teminat",
+      "position": "Pozisyon",
+      "positionsTabs": {
+        "increase": "Artır",
+        "reduce": "Azalt",
+        "supply": "Arz",
+        "withdraw": "Çek"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Yönetici Kabulü (Bekleyen Yönetici) Kontrolü",
     "acceptPendingImplementationAddressCheck": "Bekleyen Uygulama Adresi Kabul Kontrolü",
@@ -2090,6 +2092,18 @@
     },
     "success": {
       "title": "İşlem onaylandı"
+    }
+  },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Yüksek fiyat etkisini kabul ediyorum",
+        "tooltip": "Bu işlemin fiyat etkisinin {{priceImpactPercentage}}% üzerinde olması bekleniyor"
+      },
+      "riskyOperation": {
+        "label": "İlgili riskleri kabul ediyorum",
+        "tooltip": "Bu işlemden sonra sağlık faktörünüz düşük olacak ve likidasyon riski artacaktır"
+      }
     }
   },
   "vai": {
@@ -2329,6 +2343,11 @@
           "label": "Çek"
         }
       }
+    }
+  },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "Fiyat etkisi çok yüksek"
     }
   },
   "venusFluxBanner": {

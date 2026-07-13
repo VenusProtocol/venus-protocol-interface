@@ -31,7 +31,7 @@ const netApyLabel = t('trade.operationForm.openForm.netApy');
 const borrowBalanceLabel = t('accountData.balanceUpdate.borrowBalance');
 const healthFactorLabel = t('trade.positions.status.healthFactor.label');
 const likelyToFailWarning = t('trade.operationForm.warning.txLikelyToFail');
-const riskyOperationTooltip = t('operationForm.acknowledgements.riskyOperation.tooltip');
+const riskyOperationTooltip = t('marketForm.acknowledgements.riskyOperation.tooltip');
 
 const likelyToFailSwapQuote = {
   ...exactInSwapQuote,

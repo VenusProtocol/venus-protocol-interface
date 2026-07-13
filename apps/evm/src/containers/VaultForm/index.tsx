@@ -143,7 +143,7 @@ export const VaultForm: React.FC<VaultFormProps> = ({
     if (quoteValidationMessage) {
       errorMessage = quoteValidationMessage;
     } else if (isPriceImpactTooHigh) {
-      errorMessage = t('operationForm.error.priceImpactTooHigh');
+      errorMessage = t('vaultForm.error.priceImpactTooHigh');
     }
 
     if (errorMessage) {

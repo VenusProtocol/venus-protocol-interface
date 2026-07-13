@@ -236,6 +236,50 @@ export interface Pool {
   userEModeGroup?: EModeGroup;
 }
 
+export type LiquidityHubSourceType = 'core' | 'venusFlux'; // TODO: add actual values
+
+export interface LiquidityHubSource {
+  name: string;
+  address: Address;
+  type: LiquidityHubSourceType;
+  allocationTokens: BigNumber;
+  allocationCents: BigNumber;
+  allocationCapPercentage: BigNumber;
+  allocationCapTokens: BigNumber;
+  allocationCapCents: BigNumber;
+  liquidityTokens: BigNumber;
+  liquidityCents: BigNumber;
+  supplyApyPercentage: BigNumber;
+  paused: boolean;
+  collateralTokens: Token[];
+  lockEndDate: Date;
+}
+
+export interface LiquidityHub {
+  hubAddress: Address;
+  vhToken: VhToken;
+  tokenPriceCents: BigNumber;
+  tokenPriceOracleAddress: Address;
+  supplyBalanceTokens: BigNumber;
+  supplyBalanceCents: BigNumber;
+  liquidityTokens: BigNumber;
+  liquidityCents: BigNumber;
+  supplyCapTokens: BigNumber;
+  supplyApyPercentage: BigNumber;
+  performanceFeePercentage: BigNumber;
+  redeemFeePercentage: BigNumber;
+  pricePerShare: BigNumber;
+  supplierCount: number;
+  operatorName: string;
+  sources: LiquidityHubSource[];
+  // User-specific props
+  userWalletBalanceTokens?: BigNumber;
+  userWalletBalanceCents?: BigNumber;
+  userSupplyBalanceTokens?: BigNumber;
+  userSupplyBalanceCents?: BigNumber;
+  userVhTokenBalanceTokens?: BigNumber;
+}
+
 export enum RemoteProposalState {
   Pending,
   Bridged,
@@ -819,47 +863,3 @@ export interface PrimeCycle {
 }
 
 export type PrimeVersion = 1 | 2;
-
-export type LiquidityHubSourceType = 'core' | 'venusFlux'; // TODO: add actual values
-
-export interface LiquidityHubSource {
-  name: string;
-  address: Address;
-  type: LiquidityHubSourceType;
-  allocationTokens: BigNumber;
-  allocationCents: BigNumber;
-  allocationCapPercentage: BigNumber;
-  allocationCapTokens: BigNumber;
-  allocationCapCents: BigNumber;
-  liquidityTokens: BigNumber;
-  liquidityCents: BigNumber;
-  supplyApyPercentage: BigNumber;
-  paused: boolean;
-  collateralTokens: Token[];
-  lockEndDate: Date;
-}
-
-export interface LiquidityHub {
-  hubAddress: Address;
-  vhToken: VhToken;
-  tokenPriceCents: BigNumber;
-  tokenPriceOracleAddress: Address;
-  supplyBalanceTokens: BigNumber;
-  supplyBalanceCents: BigNumber;
-  liquidityTokens: BigNumber;
-  liquidityCents: BigNumber;
-  supplyCapTokens: BigNumber;
-  supplyApyPercentage: BigNumber;
-  performanceFeePercentage: BigNumber;
-  redeemFeePercentage: BigNumber;
-  pricePerShare: BigNumber;
-  supplierCount: number;
-  operatorName: string;
-  sources: LiquidityHubSource[];
-  // User-specific props
-  userWalletBalanceTokens?: BigNumber;
-  userWalletBalanceCents?: BigNumber;
-  userSupplyBalanceTokens?: BigNumber;
-  userSupplyBalanceCents?: BigNumber;
-  userVhTokenBalanceTokens?: BigNumber;
-}

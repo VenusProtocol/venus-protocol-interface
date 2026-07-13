@@ -14,12 +14,12 @@ export const ManagePositionTabs: React.FC<ManagePositionTabs> = ({ position }) =
 
   const tabs: Tab[] = [
     {
-      title: t('operationForm.managePositionsTabs.position'),
+      title: t('tradeOperationForm.managePositionsTabs.position'),
       id: 'position',
       content: <PositionTabs position={position} />,
     },
     {
-      title: t('operationForm.managePositionsTabs.collateral'),
+      title: t('tradeOperationForm.managePositionsTabs.collateral'),
       id: 'collateral',
       content: <CollateralTabs position={position} />,
     },

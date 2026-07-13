@@ -32,7 +32,7 @@ export const AccountData: React.FC<AccountDataProps> = ({ pool, simulatedPool, c
     !!simulatedPool?.userBorrowLimitCents?.isGreaterThan(0);
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn('space-y-4', className)}>
       {shouldShowHealth && (
         <div className="space-y-4">
           <MemoizedAccountHealthBar

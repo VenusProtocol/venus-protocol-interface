@@ -48,7 +48,7 @@ export const useVaultForm = ({
         if (minFromTokens && value.isLessThan(minFromTokens)) {
           ctx.addIssue({
             code: 'custom',
-            message: t('operationForm.error.smallerThanMinimumAmount', {
+            message: t('marketForm.error.smallerThanMinimumAmount', {
               minAmount: readableMinFromTokens,
             }),
           });
@@ -58,7 +58,7 @@ export const useVaultForm = ({
         if (limitFromTokens && value.isGreaterThan(limitFromTokens)) {
           ctx.addIssue({
             code: 'custom',
-            message: t('operationForm.error.higherThanAvailableAmount'),
+            message: t('marketForm.error.higherThanAvailableAmount'),
           });
           return;
         }
@@ -69,7 +69,7 @@ export const useVaultForm = ({
         ) {
           ctx.addIssue({
             code: 'custom',
-            message: t('operationForm.error.higherThanWalletSpendingLimit'),
+            message: t('marketForm.error.higherThanWalletSpendingLimit'),
           });
           return;
         }

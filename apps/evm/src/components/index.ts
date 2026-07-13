@@ -77,3 +77,4 @@ export * from './LabeledSlider';
 export * from './AvailableBalance';
 export * from './PageStatHeader';
 export * from './TableRowControl';
+export * from './EModeButton';

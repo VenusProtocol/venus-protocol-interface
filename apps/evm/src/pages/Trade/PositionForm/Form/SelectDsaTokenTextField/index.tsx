@@ -82,7 +82,7 @@ export const SelectDsaTokenTextField: React.FC<SelectDsaTokenTextFieldProps> = (
             onClick={openLeverageFactorModal}
             disabled={!accountAddress}
           >
-            {t('operationForm.leverageFactor', {
+            {t('marketForm.leverageFactor', {
               leverageFactor,
             })}
           </Button>

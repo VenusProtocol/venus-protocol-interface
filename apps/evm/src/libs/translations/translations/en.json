@@ -689,6 +689,10 @@
       "title": "Chart information"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "Access an immutable money market directly on-chain.",
@@ -979,6 +983,92 @@
       "title": "Supply info"
     }
   },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "I acknowledge the high price impact",
+        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+      }
+    },
+    "availableAmount": "Available",
+    "boostTabAltText": "Rocket icon",
+    "boostTabTitle": "Boost",
+    "borrow": "Borrow",
+    "borrowTabTitle": "Borrow",
+    "collateral": "Collateral",
+    "collateralField": {
+      "label": "Collateral"
+    },
+    "error": {
+      "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+      "higherThanAvailableAmount": "Amount entered higher than available amount",
+      "higherThanAvailableLiquidity": "Insufficient asset liquidity",
+      "higherThanBorrowBalance": "Amount entered higher than borrow balance",
+      "higherThanBorrowCap": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
+      "higherThanRepayBalance": "Amount entered higher than repay balance",
+      "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
+      "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
+      "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
+      "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
+      "noSwapQuoteFound": "No swap found.",
+      "priceImpactTooHigh": "Price impact too high",
+      "smallerThanMinimumAmount": "You cannot supply less than {{minAmount}} at once",
+      "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
+      "tooRisky": "This transaction would get your account liquidated"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Maximum position at current leverage: {{ value }}",
+      "submitButtonLabel": "Confirm",
+      "title": "Leverage factor",
+      "warning": "Leverage affects your capital utilization and cannot be changed until you fully exit the position."
+    },
+    "receiveNativeToken": {
+      "label": "Receive {{tokenSymbol}}",
+      "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "Debt to repay"
+    },
+    "repay": {
+      "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
+    },
+    "repayTab": {
+      "collateralTabTitle": "Collateral",
+      "noCollateralWarning": "You do not have any collateral to repay with.",
+      "title": "Repay",
+      "walletBalanceTabTitle": "Wallet"
+    },
+    "rightMaxButtonLabel": "MAX",
+    "safeMaxButtonLabel": "SAFE MAX",
+    "submitButtonLabel": {
+      "boost": "Boost",
+      "borrow": "Borrow",
+      "enterValidAmount": "Enter valid amount",
+      "repay": "Repay",
+      "supply": "Supply",
+      "withdraw": "Withdraw"
+    },
+    "supply": "Supply",
+    "supplyTabTitle": "Supply",
+    "swapDetails": {
+      "label": {
+        "repay": "You will repay",
+        "supply": "You will supply"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "Wallet balance",
+    "withdrawTabTitle": "Withdraw"
+  },
   "markets": {
     "eMode": {
       "table": {
@@ -1115,106 +1205,6 @@
     "search": {
       "placeholder": "Search asset"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "I acknowledge the high price impact",
-        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "I acknowledge the risks involved",
-        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
-      }
-    },
-    "availableAmount": "Available",
-    "boostTabAltText": "Rocket icon",
-    "boostTabTitle": "Boost",
-    "borrow": "Borrow",
-    "borrowTabTitle": "Borrow",
-    "collateral": "Collateral",
-    "collateralField": {
-      "label": "Collateral"
-    },
-    "error": {
-      "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
-      "higherThanAvailableAmount": "Amount entered higher than available amount",
-      "higherThanAvailableLiquidity": "Insufficient asset liquidity",
-      "higherThanBorrowBalance": "Amount entered higher than borrow balance",
-      "higherThanBorrowCap": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
-      "higherThanRepayBalance": "Amount entered higher than repay balance",
-      "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
-      "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
-      "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
-      "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
-      "noSwapQuoteFound": "No swap found.",
-      "priceImpactTooHigh": "Price impact too high",
-      "smallerThanMinimumAmount": "You cannot supply less than {{minAmount}} at once",
-      "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
-      "tooRisky": "This transaction would get your account liquidated"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "Maximum position at current leverage: {{ value }}",
-      "submitButtonLabel": "Confirm",
-      "title": "Leverage factor",
-      "warning": "Leverage affects your capital utilization and cannot be changed until you fully exit the position."
-    },
-    "managePositionsTabs": {
-      "collateral": "Collateral",
-      "position": "Position",
-      "positionsTabs": {
-        "increase": "Increase",
-        "reduce": "Reduce",
-        "supply": "Supply",
-        "withdraw": "Withdraw"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "Receive {{tokenSymbol}}",
-      "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
-    },
-    "repaidField": {
-      "label": "Debt to repay"
-    },
-    "repay": {
-      "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
-      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
-    },
-    "repayTab": {
-      "collateralTabTitle": "Collateral",
-      "noCollateralWarning": "You do not have any collateral to repay with.",
-      "title": "Repay",
-      "walletBalanceTabTitle": "Wallet"
-    },
-    "rightMaxButtonLabel": "MAX",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "SAFE MAX",
-    "submitButtonLabel": {
-      "boost": "Boost",
-      "borrow": "Borrow",
-      "enterValidAmount": "Enter valid amount",
-      "repay": "Repay",
-      "supply": "Supply",
-      "withdraw": "Withdraw"
-    },
-    "supply": "Supply",
-    "supplyTabTitle": "Supply",
-    "swapDetails": {
-      "label": {
-        "repay": "You will repay",
-        "supply": "You will supply"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "Wallet balance",
-    "withdrawTabTitle": "Withdraw"
   },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
@@ -1919,6 +1909,18 @@
     "illustrationAltText": "Trade illustration",
     "title": "Venus Trade is live now"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "Collateral",
+      "position": "Position",
+      "positionsTabs": {
+        "increase": "Increase",
+        "reduce": "Reduce",
+        "supply": "Supply",
+        "withdraw": "Withdraw"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
     "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",
@@ -2090,6 +2092,18 @@
     },
     "success": {
       "title": "Transaction confirmed"
+    }
+  },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "I acknowledge the high price impact",
+        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+      }
     }
   },
   "vai": {
@@ -2330,6 +2344,11 @@
           "label": "Withdraw"
         }
       }
+    }
+  },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "Price impact too high"
     }
   },
   "venusFluxBanner": {
