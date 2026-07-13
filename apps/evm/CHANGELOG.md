@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.5.0
+
+### Minor Changes
+
+- 3e6ed72: dynamic vaults name
+
 ## 5.4.0
 
 ### Minor Changes
