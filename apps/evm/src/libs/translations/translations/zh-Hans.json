@@ -222,10 +222,10 @@
       "logoAlt": "Prime 标志",
       "tooltip": {
         "calculatorLink": "计算你的 Prime 奖励",
-        "primeBorrowSimulation": "Prime 加成基于用户借款中位数 {{borrowBalance}} 与金库存入 {{xvsStaked}} 提升 APY。",
+        "primeBorrowSimulation": "Prime 加成基于用户借款平均值 {{borrowBalance}} 与金库存入 {{xvsStaked}} 提升 APY。",
         "primeDocLink": "了解更多",
         "primeMarket": "Prime 提升 APY。",
-        "primeSupplySimulation": "Prime 加成基于用户存款中位数 {{supplyBalance}} 与金库存入 {{xvsStaked}} 提升 APY。"
+        "primeSupplySimulation": "Prime 加成基于用户存款平均值 {{supplyBalance}} 与金库存入 {{xvsStaked}} 提升 APY。"
       }
     }
   },
