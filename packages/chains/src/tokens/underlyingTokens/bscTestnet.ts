@@ -488,4 +488,11 @@ export const bscTestnet: Token[] = [
     symbol: 'SPCXB',
     iconSrc: iconSrcs.spcxb,
   },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0xb52DE23C6D4be6Bb3E87fF64527E856Ab346FDf2',
+    decimals: 18,
+    symbol: 'SKHYB',
+    iconSrc: iconSrcs.skhyb,
+  },
 ];
