@@ -2,7 +2,7 @@ import { type RefObject, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
-import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
+import { PAGE_PARAM_DEFAULT_KEY, PAGE_PARAM_DEFAULT_VALUE } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 
 type PaginationProps = {
@@ -25,7 +25,7 @@ export function usePagination({
   const { t } = useTranslation();
   const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const activePageIndex = useMemo(() => {
     const pageParam = searchParams.get(paramKey);
@@ -38,6 +38,19 @@ export function usePagination({
   useEffect(() => {
     setPagesCount(Math.ceil(itemsCount / itemsPerPageCount));
   }, [itemsPerPageCount, itemsCount]);
+
+  /* Fall back to the first page when the URL points beyond the available pages */
+  useEffect(() => {
+    if (pagesCount > 0 && activePageIndex > pagesCount - 1) {
+      setSearchParams(
+        currentSearchParams => ({
+          ...Object.fromEntries(currentSearchParams),
+          [paramKey]: String(PAGE_PARAM_DEFAULT_VALUE),
+        }),
+        { replace: true },
+      );
+    }
+  }, [pagesCount, activePageIndex, paramKey, setSearchParams]);
 
   const isLastPage = activePageIndex === pagesCount - 1;
   const currentPageFirstIndex = activePageIndex * itemsPerPageCount;
