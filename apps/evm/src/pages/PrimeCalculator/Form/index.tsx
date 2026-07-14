@@ -22,6 +22,7 @@ import {
   TokenIconWithSymbol,
 } from 'components';
 import useDebounceValue from 'hooks/useDebounceValue';
+import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -50,6 +51,11 @@ export const Form: React.FC = () => {
   });
   const { accountAddress } = useAccountAddress();
 
+  // Prime v2 relies on a leaderboard model with no minimum/maximum XVS stake, so
+  // those v1-only staking limits are neutralized on v2
+  const { primeVersion } = usePrimeVersion();
+  const isPrimeV2 = primeVersion === 2;
+
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
@@ -62,8 +68,12 @@ export const Form: React.FC = () => {
     primeMaximumStakedXvsMantissa,
     primeMinimumStakedXvsTokens,
     primeMaximumStakedXvsTokens,
-  ] = useMemo(
-    () => [
+  ] = useMemo(() => {
+    if (isPrimeV2) {
+      return [new BigNumber(0), new BigNumber(0), new BigNumber(0), new BigNumber(0)];
+    }
+
+    return [
       getPrimeStatusData?.primeMinimumStakedXvsMantissa || new BigNumber(0),
       getPrimeStatusData?.primeMaximumStakedXvsMantissa || new BigNumber(0),
       convertMantissaToTokens({
@@ -74,9 +84,8 @@ export const Form: React.FC = () => {
         value: getPrimeStatusData?.primeMaximumStakedXvsMantissa || new BigNumber('0'),
         token: xvs,
       }),
-    ],
-    [getPrimeStatusData, xvs],
-  );
+    ];
+  }, [getPrimeStatusData, xvs, isPrimeV2]);
 
   const xvsVaultPoolIndex = getPrimeStatusData?.xvsVaultPoolId;
   const { data: getXvsVaultUserInfoData } = useGetXvsVaultUserInfo(
@@ -318,9 +327,8 @@ export const Form: React.FC = () => {
     return [borrowCapTokens, supplyCapTokens];
   }, [tokenPriceData?.tokenPriceUsd, primeEstimationData]);
 
-  const showInfoXvsMaximumStakedAmount = stakedAmountXvsMantissa.isGreaterThan(
-    primeMaximumStakedXvsMantissa,
-  );
+  const showInfoXvsMaximumStakedAmount =
+    !isPrimeV2 && stakedAmountXvsMantissa.isGreaterThan(primeMaximumStakedXvsMantissa);
 
   if (!xvs) {
     return null;

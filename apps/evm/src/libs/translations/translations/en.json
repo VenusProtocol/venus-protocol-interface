@@ -225,10 +225,10 @@
       "logoAlt": "Prime logo",
       "tooltip": {
         "calculatorLink": "Calculate your Prime rewards",
-        "primeBorrowSimulation": "APY boosted by Prime based on the median user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
+        "primeBorrowSimulation": "APY boosted by Prime based on the mean user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",
-        "primeSupplySimulation": "APY boosted by Prime based on the median user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
+        "primeSupplySimulation": "APY boosted by Prime based on the mean user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
       }
     }
   },

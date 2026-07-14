@@ -225,10 +225,10 @@
       "logoAlt": "Prime logosu",
       "tooltip": {
         "calculatorLink": "Prime ödüllerinizi hesaplayın",
-        "primeBorrowSimulation": "Prime ile APY, kullanıcıların medyan {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
+        "primeBorrowSimulation": "Prime ile APY, kullanıcıların ortalama {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
         "primeDocLink": "Daha fazla bilgi",
         "primeMarket": "Prime ile APY artırılır.",
-        "primeSupplySimulation": "Prime ile APY, kullanıcıların medyan {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır."
+        "primeSupplySimulation": "Prime ile APY, kullanıcıların ortalama {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır."
       }
     }
   },
