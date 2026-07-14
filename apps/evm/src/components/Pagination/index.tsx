@@ -99,7 +99,11 @@ export const Pagination = ({
       {pagesArray.map((page, index) => {
         if (index === maxPageIndexToShow) {
           return (
-            <PaginationButton key={page} onClick={() => goToPageByIndex(activePageIndex + 1)}>
+            <PaginationButton
+              key={page}
+              onClick={() => goToPageByIndex(activePageIndex + 1)}
+              ariaLabel={t('pagination.goToNextPage')}
+            >
               <Icon css={styles.iconArrow} {...iconProps} />
             </PaginationButton>
           );
@@ -107,7 +111,11 @@ export const Pagination = ({
 
         if (index === minPageIndexToShow) {
           return (
-            <PaginationButton key={page} onClick={() => goToPageByIndex(activePageIndex - 1)}>
+            <PaginationButton
+              key={page}
+              onClick={() => goToPageByIndex(activePageIndex - 1)}
+              ariaLabel={t('pagination.goToPreviousPage')}
+            >
               <Icon css={[styles.iconArrow, styles.iconReverted]} {...iconProps} />
             </PaginationButton>
           );

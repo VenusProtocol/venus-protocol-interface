@@ -1209,6 +1209,8 @@
   "pagination": {
     "goToFirstPage": "跳轉到第一頁",
     "goToLastPage": "跳轉到最後一頁",
+    "goToNextPage": "下一頁",
+    "goToPreviousPage": "上一頁",
     "itemOf": "第 {{currentPageLastIndex}} 條 / 共 {{itemsCount}} 條",
     "itemsOf": "第 {{firstItemNumber}} - {{currentPageLastIndex}} 條 / 共 {{itemsCount}} 條"
   },

@@ -161,8 +161,10 @@ export const Transactions: React.FC = () => {
     }
   }, [selectedContractAddress, sourceSelectOptions, setSearchParams]);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div ref={containerRef} className="grid grid-cols-1 gap-4">
       {accountAddress && (
         <div className="flex flex-row gap-3 md:gap-4">
           <Select
@@ -204,6 +206,7 @@ export const Transactions: React.FC = () => {
           itemsCount={historicalTxsData?.count || 0}
           itemsPerPageCount={ITEMS_PER_PAGE_COUNT}
           onChange={newValue => setPage(newValue.toString())}
+          scrollToRef={containerRef}
         />
       )}
     </div>

@@ -1209,6 +1209,8 @@
   "pagination": {
     "goToFirstPage": "ไปที่หน้าแรก",
     "goToLastPage": "ไปที่หน้าสุดท้าย",
+    "goToNextPage": "หน้าถัดไป",
+    "goToPreviousPage": "หน้าก่อนหน้า",
     "itemOf": "รายการที่ {{currentPageLastIndex}} จาก {{itemsCount}}",
     "itemsOf": "รายการที่ {{firstItemNumber}} - {{currentPageLastIndex}} จาก {{itemsCount}}"
   },
