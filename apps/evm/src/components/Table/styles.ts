@@ -14,27 +14,10 @@ export const useStyles = (props?: StylesProps) => {
   const theme = useTheme();
 
   return {
-    getRoot: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
-      padding-left: 0;
-      padding-right: 0;
-
-      ${breakpoint && theme.breakpoints.down(breakpoint)} {
-        background-color: transparent;
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-    `,
     getTitle: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
       margin-bottom: ${theme.spacing(2)};
       padding: ${theme.spacing(0, 4)};
 
-      ${breakpoint && theme.breakpoints.down(breakpoint)} {
-        padding: 0;
-      }
-    `,
-    getHeader: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
-      padding: ${theme.spacing(0, 6)};
-      
       ${breakpoint && theme.breakpoints.down(breakpoint)} {
         padding: 0;
       }

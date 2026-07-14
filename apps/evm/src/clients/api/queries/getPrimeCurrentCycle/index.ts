@@ -13,6 +13,7 @@ export interface PrimePendingRewardPool {
   computedAt: Date;
   primeHolderCount: number;
   totalCurrentCycleUsdMantissa: string;
+  currentEstimatedTotalUsdMantissa: string;
   byRewardToken: PrimePendingRewardTokenTotal[];
 }
 
@@ -42,6 +43,11 @@ interface PrimePendingRewardTokenTotalResponse {
   totalPendingUsdMantissa: string;
   totalCurrentCycleUsdCents: string;
   totalCurrentCycleUsdMantissa: string;
+  estimatedAmountMantissa: string;
+  currentEstimatedUsdCents: string;
+  currentEstimatedUsdMantissa: string;
+  cycleStartEstimatedUsdCents: string;
+  cycleStartEstimatedUsdMantissa: string;
 }
 
 interface PrimePendingRewardPoolResponse {
@@ -53,6 +59,10 @@ interface PrimePendingRewardPoolResponse {
   totalPendingUsdMantissa: string;
   totalCurrentCycleUsdCents: string;
   totalCurrentCycleUsdMantissa: string;
+  currentEstimatedTotalUsdCents: string;
+  currentEstimatedTotalUsdMantissa: string;
+  cycleStartEstimatedTotalUsdCents: string;
+  cycleStartEstimatedTotalUsdMantissa: string;
   byRewardToken: PrimePendingRewardTokenTotalResponse[];
 }
 
@@ -99,6 +109,7 @@ export const getPrimeCurrentCycle = async ({
           computedAt: new Date(payload.pendingPool.computedAt),
           primeHolderCount: payload.pendingPool.primeHolderCount,
           totalCurrentCycleUsdMantissa: payload.pendingPool.totalCurrentCycleUsdMantissa,
+          currentEstimatedTotalUsdMantissa: payload.pendingPool.currentEstimatedTotalUsdMantissa,
           byRewardToken: payload.pendingPool.byRewardToken.map(token => ({
             rewardTokenAddress: token.rewardTokenAddress,
             totalCurrentCycleUsdMantissa: token.totalCurrentCycleUsdMantissa,

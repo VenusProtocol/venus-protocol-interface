@@ -222,13 +222,13 @@ describe('SelectDsaTokenTextField', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText(en.operationForm.leverageFactorModal.submitButtonLabel),
+        screen.getByText(en.marketForm.leverageFactorModal.submitButtonLabel),
       ).toBeInTheDocument(),
     );
 
-    expect(screen.getByText(en.operationForm.leverageFactorModal.title)).toBeInTheDocument();
+    expect(screen.getByText(en.marketForm.leverageFactorModal.title)).toBeInTheDocument();
     expect(screen.getByTestId('slider')).toBeInTheDocument();
-    expect(screen.getByText(en.operationForm.leverageFactorModal.warning)).toBeInTheDocument();
+    expect(screen.getByText(en.marketForm.leverageFactorModal.warning)).toBeInTheDocument();
   });
 
   it('shows the maximum position at current leverage when a DSA amount is provided', async () => {
@@ -313,7 +313,7 @@ describe('SelectDsaTokenTextField', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText(en.operationForm.leverageFactorModal.submitButtonLabel),
+        screen.getByText(en.marketForm.leverageFactorModal.submitButtonLabel),
       ).toBeInTheDocument(),
     );
 
@@ -332,7 +332,7 @@ describe('SelectDsaTokenTextField', () => {
     });
 
     const confirmButton = screen.getByRole('button', {
-      name: en.operationForm.leverageFactorModal.submitButtonLabel,
+      name: en.marketForm.leverageFactorModal.submitButtonLabel,
     });
     const form = confirmButton.closest('form');
 
@@ -346,7 +346,7 @@ describe('SelectDsaTokenTextField', () => {
 
     await waitFor(() =>
       expect(
-        screen.queryByText(en.operationForm.leverageFactorModal.submitButtonLabel),
+        screen.queryByText(en.marketForm.leverageFactorModal.submitButtonLabel),
       ).not.toBeInTheDocument(),
     );
 

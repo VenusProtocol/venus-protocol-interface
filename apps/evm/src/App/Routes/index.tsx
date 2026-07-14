@@ -34,6 +34,7 @@ const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
 const FixedTermVaultTermsOfUse = safeLazyLoad(() => import('pages/FixedTermVaultTermsOfUse'));
 const Trade = safeLazyLoad(() => import('pages/Trade'));
+const LiquidityHub = safeLazyLoad(() => import('pages/LiquidityHub'));
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -46,6 +47,7 @@ const AppRoutes = () => {
   });
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
   const primeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
+  const liquidityHubEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -244,6 +246,17 @@ const AppRoutes = () => {
             element={
               <PageSuspense>
                 <PrimeLeaderboard />
+              </PageSuspense>
+            }
+          />
+        )}
+
+        {liquidityHubEnabled && (
+          <Route
+            path={Subdirectory.LIQUIDITY_HUB}
+            element={
+              <PageSuspense>
+                <LiquidityHub />
               </PageSuspense>
             }
           />

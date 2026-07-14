@@ -57,7 +57,7 @@ export const useCommonValidation = ({
     ) {
       return {
         code: 'SUPPLY_CAP_ALREADY_REACHED',
-        message: t('operationForm.error.supplyCapReached', {
+        message: t('marketForm.error.supplyCapReached', {
           assetSupplyCap: formatTokensToReadableValue({
             value: asset.supplyCapTokens,
             token: asset.vToken.underlyingToken,
@@ -74,7 +74,7 @@ export const useCommonValidation = ({
     ) {
       return {
         code: 'BORROW_CAP_ALREADY_REACHED',
-        message: t('operationForm.error.borrowCapReached', {
+        message: t('marketForm.error.borrowCapReached', {
           assetBorrowCap: formatTokensToReadableValue({
             value: asset.borrowCapTokens,
             token: asset.vToken.underlyingToken,
@@ -90,7 +90,7 @@ export const useCommonValidation = ({
       // User is trying to withdraw or borrow more than available liquidity
       return {
         code: 'HIGHER_THAN_LIQUIDITY',
-        message: t('operationForm.error.higherThanAvailableLiquidity'),
+        message: t('marketForm.error.higherThanAvailableLiquidity'),
       };
     }
 
@@ -101,7 +101,7 @@ export const useCommonValidation = ({
       // User is trying to withdraw more than their supply balance
       return {
         code: 'HIGHER_THAN_AVAILABLE_AMOUNT',
-        message: t('operationForm.error.higherThanAvailableAmount'),
+        message: t('marketForm.error.higherThanAvailableAmount'),
       };
     }
 
@@ -112,7 +112,7 @@ export const useCommonValidation = ({
       // User is trying to repay more than their borrow balance
       return {
         code: 'HIGHER_THAN_REPAY_BALANCE',
-        message: t('operationForm.error.higherThanRepayBalance'),
+        message: t('marketForm.error.higherThanRepayBalance'),
       };
     }
 
@@ -122,7 +122,7 @@ export const useCommonValidation = ({
     ) {
       return {
         code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
-        message: t('operationForm.error.priceImpactTooHigh'),
+        message: t('marketForm.error.priceImpactTooHigh'),
       };
     }
 
@@ -139,7 +139,7 @@ export const useCommonValidation = ({
     if (swapQuoteErrorCode) {
       return {
         code: 'NO_SWAP_QUOTE_FOUND',
-        message: t('operationForm.error.noSwapQuoteFound'),
+        message: t('marketForm.error.noSwapQuoteFound'),
       };
     }
 
@@ -151,7 +151,7 @@ export const useCommonValidation = ({
     ) {
       return {
         code: 'TOO_RISKY',
-        message: t('operationForm.error.tooRisky'),
+        message: t('marketForm.error.tooRisky'),
       };
     }
 
@@ -182,7 +182,7 @@ export const useCommonValidation = ({
     ) {
       return {
         code: 'HIGHER_THAN_SUPPLY_CAP',
-        message: t('operationForm.error.higherThanSupplyCap', {
+        message: t('marketForm.error.higherThanSupplyCap', {
           userMaxSupplyAmount: formatTokensToReadableValue({
             value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
             token: asset.vToken.underlyingToken,
@@ -208,7 +208,7 @@ export const useCommonValidation = ({
     ) {
       return {
         code: 'HIGHER_THAN_BORROW_CAP',
-        message: t('operationForm.error.higherThanBorrowCap', {
+        message: t('marketForm.error.higherThanBorrowCap', {
           userMaxBorrowAmount: formatTokensToReadableValue({
             value: asset.borrowCapTokens.minus(asset.borrowBalanceTokens),
             token: asset.vToken.underlyingToken,

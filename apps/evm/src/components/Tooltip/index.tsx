@@ -17,10 +17,10 @@ export interface TooltipProps extends TooltipPrimitiveProps {
 }
 
 export const Tooltip = ({ className, content, children, ...props }: TooltipProps) => {
-  const [isTooltipOpened, setIsTooltipOpened] = useState(false);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const isMdOrUp = useBreakpointUp('md');
 
-  const handleToggleDropdown = () => setIsTooltipOpened(!isTooltipOpened);
+  const handleToggleDropdown = () => setIsTooltipOpen(!isTooltipOpen);
 
   return (
     <Provider>
@@ -33,7 +33,7 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
               e.stopPropagation();
 
               if (!isMdOrUp) {
-                setIsTooltipOpened(true);
+                setIsTooltipOpen(true);
               }
             }}
           >
@@ -42,7 +42,7 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
         </Trigger>
         <TooltipContent
           onPointerDownOutside={e => e.preventDefault()}
-          className={cn('block p-3 z-9999 shadow', !isMdOrUp && 'hidden')}
+          className={cn('block p-3 z-99999 shadow', !isMdOrUp && 'hidden')}
         >
           {content}
           <Arrow className="fill-lightGrey w-[14px] h-[7px]" />
@@ -52,10 +52,10 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
       <Modal
         buttonClassName="right-3"
         onClick={e => e.stopPropagation()}
-        isOpen={isTooltipOpened && !isMdOrUp}
+        isOpen={isTooltipOpen && !isMdOrUp}
         handleClose={handleToggleDropdown}
       >
-        <div onClick={() => setIsTooltipOpened(false)}>{content}</div>
+        <div onClick={() => setIsTooltipOpen(false)}>{content}</div>
       </Modal>
     </Provider>
   );

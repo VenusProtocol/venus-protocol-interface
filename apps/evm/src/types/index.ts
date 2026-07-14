@@ -1,12 +1,12 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
-import type { ChainId, Token, VToken } from '@venusprotocol/chains';
+import type { ChainId, Token, VToken, VhToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
 import type { MARKET_TX_TYPES, TRADE_TX_TYPES } from 'constants/marketTxTypes';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
-export { ChainId, type Token, type VToken, type Chain } from '@venusprotocol/chains';
+export { ChainId, type Token, type VToken, type Chain, type VhToken } from '@venusprotocol/chains';
 
 export type NonNullableFields<T> = Required<{
   [P in keyof T]: NonNullable<T[P]>;
@@ -234,6 +234,50 @@ export interface Pool {
   userYearlyEarningsCents?: BigNumber;
   userHealthFactor?: number;
   userEModeGroup?: EModeGroup;
+}
+
+export type LiquidityHubSourceType = 'core' | 'venusFlux'; // TODO: add actual values
+
+export interface LiquidityHubSource {
+  name: string;
+  address: Address;
+  type: LiquidityHubSourceType;
+  allocationTokens: BigNumber;
+  allocationCents: BigNumber;
+  allocationCapPercentage: BigNumber;
+  allocationCapTokens: BigNumber;
+  allocationCapCents: BigNumber;
+  liquidityTokens: BigNumber;
+  liquidityCents: BigNumber;
+  supplyApyPercentage: BigNumber;
+  paused: boolean;
+  collateralTokens: Token[];
+  lockEndDate: Date;
+}
+
+export interface LiquidityHub {
+  hubAddress: Address;
+  vhToken: VhToken;
+  tokenPriceCents: BigNumber;
+  tokenPriceOracleAddress: Address;
+  supplyBalanceTokens: BigNumber;
+  supplyBalanceCents: BigNumber;
+  liquidityTokens: BigNumber;
+  liquidityCents: BigNumber;
+  supplyCapTokens: BigNumber;
+  supplyApyPercentage: BigNumber;
+  performanceFeePercentage: BigNumber;
+  redeemFeePercentage: BigNumber;
+  pricePerShare: BigNumber;
+  supplierCount: number;
+  operatorName: string;
+  sources: LiquidityHubSource[];
+  // User-specific props
+  userWalletBalanceTokens?: BigNumber;
+  userWalletBalanceCents?: BigNumber;
+  userSupplyBalanceTokens?: BigNumber;
+  userSupplyBalanceCents?: BigNumber;
+  userVhTokenBalanceTokens?: BigNumber;
 }
 
 export enum RemoteProposalState {
@@ -493,7 +537,7 @@ export enum VaultStatus {
 export enum VaultVenue {
   Venus = 'venus',
   Pendle = 'pendle',
-  Matrixdock = 'matrixdock',
+  Institution = 'institution',
 }
 
 export enum VaultType {
@@ -512,6 +556,7 @@ interface BaseVault {
   vaultType: VaultType;
   category: VaultCategory;
   venue: VaultVenue;
+  venueName: string;
   venueIconSrc: string;
   status: VaultStatus;
   key: string;
@@ -554,7 +599,7 @@ export type InstitutionalVault = BaseVault & {
   stakeLimitMantissa: BigNumber;
   stakeMinMantissa: BigNumber;
   userRedeemLimitMantissa: BigNumber;
-  venueUrl: string;
+  venueUrl?: string;
   collateralToken: Token;
   userYieldTokens?: BigNumber;
   userWithdrawLimitMantissa: BigNumber;

@@ -9,9 +9,9 @@ import {
   findTokenByAddress,
 } from 'utilities';
 
+import { getVenueConfig } from 'clients/api/queries/useGetVaults/getVenueConfig';
 import { getUserYieldTokens } from './getUserYieldTokens';
 import { getVaultStatus } from './getVaultStatus';
-import matrixdockLogoSrc from './matrixdock.svg';
 
 export const formatToInstitutionalVault = ({
   vaultData,
@@ -40,6 +40,8 @@ export const formatToInstitutionalVault = ({
   if (!stakedToken || !loanVaultDetail || !collateralToken) {
     return undefined;
   }
+
+  const venue = getVenueConfig(loanVaultDetail.institutionName ?? undefined);
 
   const userStakeBalanceMantissa = userData?.tokensMantissa ?? new BigNumber(0);
   const stakeBalanceMantissa = new BigNumber(loanVaultDetail.totalRaisedMantissa);
@@ -122,10 +124,11 @@ export const formatToInstitutionalVault = ({
     key: vaultData.id,
     vaultType: VaultType.Institutional,
     category: VaultCategory.STABLECOINS,
-    venue: VaultVenue.Matrixdock,
-    venueIconSrc: matrixdockLogoSrc,
+    venue: VaultVenue.Institution,
+    venueName: venue.name,
+    venueIconSrc: venue.iconSrc,
     venueAddress: loanVaultDetail.institutionAddress,
-    venueUrl: 'https://www.matrixdock.com/',
+    venueUrl: venue.url,
     status,
     stakedToken,
     rewardToken: stakedToken,

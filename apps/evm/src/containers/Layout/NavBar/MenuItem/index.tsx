@@ -15,9 +15,6 @@ export interface MenuItemProps {
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState(
-    'items' in item ? !!item.defaultOpenOnMobile : false,
-  );
   const { pathname } = useLocation();
 
   let isActive = false;
@@ -27,6 +24,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   } else if ('items' in item) {
     isActive = item.items.some(i => i.to && matchPath(i.to, pathname));
   }
+
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(
+    'items' in item ? isActive || !!item.defaultOpenOnMobile : false,
+  );
 
   const sharedContainerClassName = cn(
     'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:bg-dark-blue-active lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
@@ -72,12 +73,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
         className="hidden lg:block"
         menuClassName="mt-5 shadow-none border-0 bg-background-active"
         triggerOnHover
-        optionsDom={({ setIsDropdownOpened }) => {
+        optionsDom={({ setIsDropdownOpen }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({
             ...i,
             onClick: () => {
               // Close dropdown
-              setIsDropdownOpened(false);
+              setIsDropdownOpen(false);
 
               onClick();
             },
@@ -86,18 +87,18 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           return <SubMenuContent {...item} items={items} />;
         }}
       >
-        {({ isDropdownOpened }) => (
+        {({ isDropdownOpen }) => (
           <button
             className={cn(
               sharedContainerClassName,
               'flex items-center justify-between cursor-pointer lg:gap-x-2',
-              isDropdownOpened && 'lg:text-white lg:bg-dark-blue-active',
+              isDropdownOpen && 'lg:text-white lg:bg-dark-blue-active',
             )}
             type="button"
           >
             <span>{item.label}</span>
 
-            <Icon name="chevronDown" className={cn('size-3', isDropdownOpened && 'rotate-180')} />
+            <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
           </button>
         )}
       </Dropdown>

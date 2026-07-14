@@ -12,8 +12,8 @@ import { MarketTable } from '../index';
 import type { ColumnKey } from '../types';
 
 vi.mock('hooks/useCollateral');
-vi.mock('pages/Market/OperationForm', () => ({
-  OperationForm: () => <div data-testid="operation-form">Operation form</div>,
+vi.mock('containers/MarketForm', () => ({
+  MarketForm: () => <div data-testid="operation-form">Operation form</div>,
 }));
 
 const columns: ColumnKey[] = ['asset', 'supplyApy', 'borrowApy', 'collateral', 'userWalletBalance'];

@@ -38,12 +38,9 @@ export const GoToTokenContractDropdown: React.FC<GoToTokenContractProps> = ({
       optionsDom={optionsDom}
       menuTitle={t('interactive.goTo.modalTitle')}
     >
-      {({ isDropdownOpened, handleToggleDropdown }) => (
+      {({ isDropdownOpen, handleToggleDropdown }) => (
         <DropdownToggleButton handleToggleDropdown={handleToggleDropdown}>
-          <Icon
-            name="link"
-            className={cn('h-5 w-5 border-none', isDropdownOpened && 'text-blue')}
-          />
+          <Icon name="link" className={cn('h-5 w-5 border-none', isDropdownOpen && 'text-blue')} />
         </DropdownToggleButton>
       )}
     </Dropdown>

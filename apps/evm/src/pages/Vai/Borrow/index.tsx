@@ -305,8 +305,8 @@ export const Borrow: React.FC = () => {
           control={control}
           render={({ field }) => (
             <AcknowledgementToggle
-              label={t('operationForm.acknowledgements.riskyOperation.label')}
-              tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
+              label={t('marketForm.acknowledgements.riskyOperation.label')}
+              tooltip={t('marketForm.acknowledgements.riskyOperation.tooltip')}
               {...field}
             />
           )}

@@ -98,6 +98,7 @@ const fakeMatrixdockVaultProduct: GetFixedRatedVaultsOutput[number] = {
     fixedRateVaultId: '97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7',
     id: 'loan-vault-detail-1',
     institutionAddress: '0x1111111111111111111111111111111111111111',
+    institutionName: 'Matrixdock',
     latePenaltyRateMantissa: '0',
     liquidationIncentiveMantissa: '0',
     liquidationThresholdMantissa: '0',

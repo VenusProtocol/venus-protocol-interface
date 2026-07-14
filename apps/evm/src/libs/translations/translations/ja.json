@@ -144,6 +144,9 @@
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}} (借入限度額の{{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入限度額:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借入残高（保護）:<LineBreak/>{{borrowBalanceProtected}} (借入限度額の{{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入残高（スポット）: {{borrowBalance}}<LineBreak/>借入限度額: {{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "切断"
+  },
   "adBanner": {
     "startNow": "今すぐ始める"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "ウォレットを接続",
-    "disconnect": "接続を解除"
+    "vipLogoAlt": "VIP ロゴ"
   },
   "connectWallet": {
     "connectButton": "ウォレットを接続"
@@ -445,6 +448,7 @@
       "uncompleted": "未完了"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30日間の絶対パフォーマンス",
       "absolutePerformance": "絶対パフォーマンス",
       "netWorth": {
         "label": "純資産",
@@ -685,6 +689,10 @@
       "title": "チャート情報"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "改ざん不能なマネーマーケットにオンチェーンで直接アクセス。",
@@ -779,6 +787,9 @@
       "dashboard": {
         "label": "ダッシュボード"
       },
+      "earn": {
+        "label": "獲得"
+      },
       "label": "メニュー",
       "markets": {
         "label": "マーケット"
@@ -846,6 +857,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "1回の供給で、複数の利回りソースに自動配分されます。",
+          "label": "流動性ハブ"
+        },
+        "vaults": {
+          "description": "目標報酬に向けた単一戦略の供給ボールト。",
+          "label": "ボールト"
+        },
         "venusCore": {
           "description": "最適化されたレバレッジを簡単に利用できるクラシックな貸借。",
           "label": "Venus Core"
@@ -859,6 +878,31 @@
   },
   "legal": {
     "lastUpdatedAt": "最終更新: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "ガバナンスが策定した方針のもとで、Venus Protocol の複数の利回りソースへルーティングされます。利回りは自動で積み上がります。",
+    "header": "流動性ハブ",
+    "stats": {
+      "hubs": "ハブ数",
+      "totalLiquidity": "総流動性",
+      "totalSupply": "総供給量"
+    },
+    "table": {
+      "columns": {
+        "asset": "資産",
+        "exposure": {
+          "selectionOptionLabel": "エクスポージャー",
+          "title": "エクスポージャー <InfoIcon/>",
+          "tooltip": "その資産が貸し出されている各ソースの担保"
+        },
+        "liquidity": "流動性",
+        "supplyApy": "供給 APY",
+        "totalSupply": "総供給量"
+      },
+      "search": {
+        "placeholder": "資産を検索"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "書く",
@@ -938,6 +982,92 @@
     "supplyInfo": {
       "title": "供給情報"
     }
+  },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "高い価格影響を認識しました",
+        "tooltip": "この取引の価格影響は{{priceImpactPercentage}}%を超える見込みです"
+      },
+      "riskyOperation": {
+        "label": "リスクがあることを認識しました",
+        "tooltip": "この取引後の健全性ファクターが低くなり、清算リスクが高まります"
+      }
+    },
+    "availableAmount": "利用可能",
+    "boostTabAltText": "ロケットアイコン",
+    "boostTabTitle": "ブースト",
+    "borrow": "借入",
+    "borrowTabTitle": "借入",
+    "collateral": "担保",
+    "collateralField": {
+      "label": "担保"
+    },
+    "error": {
+      "borrowCapReached": "このプールの借入上限{{assetBorrowCap}}に達しました。返済されるか上限が引き上げられるまで、このマーケットから借入できません。",
+      "higherThanAvailableAmount": "入力額が利用可能額を超えています",
+      "higherThanAvailableLiquidity": "資産の流動性が不足しています",
+      "higherThanBorrowBalance": "入力額が借入残高を超えています",
+      "higherThanBorrowCap": "このマーケットの借入上限が{{assetBorrowCap}}で現在{{assetBorrowBalance}}が借りられているため、このプールから{{userMaxBorrowAmount}}以上借入できません。",
+      "higherThanRepayBalance": "入力額が返済残高を超えています",
+      "higherThanSupplyCap": "このマーケットの供給上限が{{assetSupplyCap}}で現在{{assetSupplyBalance}}が供給されているため、このプールに{{userMaxSupplyAmount}}以上供給できません。",
+      "higherThanWalletBalance": "{{tokenSymbol}}残高が不足しています",
+      "higherThanWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
+      "noCollateral": "このプールから{{tokenSymbol}}を借りる前に、トークンを供給して担保として有効化する必要があります",
+      "noSwapQuoteFound": "スワップが見つかりません。",
+      "priceImpactTooHigh": "価格影響が高すぎます",
+      "smallerThanMinimumAmount": "一度に {{minAmount}} 未満を供給することはできません",
+      "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
+      "tooRisky": "この取引はアカウントが清算されます"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "現在のレバレッジでの最大ポジション: {{ value }}",
+      "submitButtonLabel": "確認",
+      "title": "レバレッジ倍率",
+      "warning": "レバレッジは資本利用率に影響し、ポジションを完全に解消するまで変更できません。"
+    },
+    "receiveNativeToken": {
+      "label": "{{tokenSymbol}}を受け取る",
+      "tooltip": "借入した{{wrappedNativeTokenSymbol}}を{{nativeTokenSymbol}}にアンラップ"
+    },
+    "repaidField": {
+      "label": "返済する負債"
+    },
+    "repay": {
+      "fullRepaymentWarning": "新たに発生した利息を含めるため、取引値が現在の借入額よりわずかに高くなる可能性があります",
+      "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
+    },
+    "repayTab": {
+      "collateralTabTitle": "担保",
+      "noCollateralWarning": "返済に使える担保がありません。",
+      "title": "返済",
+      "walletBalanceTabTitle": "ウォレット"
+    },
+    "rightMaxButtonLabel": "最大",
+    "safeMaxButtonLabel": "安全な最大",
+    "submitButtonLabel": {
+      "boost": "ブースト",
+      "borrow": "借入",
+      "enterValidAmount": "有効な金額を入力",
+      "repay": "返済",
+      "supply": "供給",
+      "withdraw": "引き出し"
+    },
+    "supply": "供給",
+    "supplyTabTitle": "供給",
+    "swapDetails": {
+      "label": {
+        "repay": "返済する金額",
+        "supply": "供給する金額"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "ウォレット残高",
+    "withdrawTabTitle": "引き出し"
   },
   "markets": {
     "eMode": {
@@ -1075,106 +1205,6 @@
     "search": {
       "placeholder": "資産を検索"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "高い価格影響を認識しました",
-        "tooltip": "この取引の価格影響は{{priceImpactPercentage}}%を超える見込みです"
-      },
-      "riskyOperation": {
-        "label": "リスクがあることを認識しました",
-        "tooltip": "この取引後の健全性ファクターが低くなり、清算リスクが高まります"
-      }
-    },
-    "availableAmount": "利用可能",
-    "boostTabAltText": "ロケットアイコン",
-    "boostTabTitle": "ブースト",
-    "borrow": "借入",
-    "borrowTabTitle": "借入",
-    "collateral": "担保",
-    "collateralField": {
-      "label": "担保"
-    },
-    "error": {
-      "borrowCapReached": "このプールの借入上限{{assetBorrowCap}}に達しました。返済されるか上限が引き上げられるまで、このマーケットから借入できません。",
-      "higherThanAvailableAmount": "入力額が利用可能額を超えています",
-      "higherThanAvailableLiquidity": "資産の流動性が不足しています",
-      "higherThanBorrowBalance": "入力額が借入残高を超えています",
-      "higherThanBorrowCap": "このマーケットの借入上限が{{assetBorrowCap}}で現在{{assetBorrowBalance}}が借りられているため、このプールから{{userMaxBorrowAmount}}以上借入できません。",
-      "higherThanRepayBalance": "入力額が返済残高を超えています",
-      "higherThanSupplyCap": "このマーケットの供給上限が{{assetSupplyCap}}で現在{{assetSupplyBalance}}が供給されているため、このプールに{{userMaxSupplyAmount}}以上供給できません。",
-      "higherThanWalletBalance": "{{tokenSymbol}}残高が不足しています",
-      "higherThanWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
-      "noCollateral": "このプールから{{tokenSymbol}}を借りる前に、トークンを供給して担保として有効化する必要があります",
-      "noSwapQuoteFound": "スワップが見つかりません。",
-      "priceImpactTooHigh": "価格影響が高すぎます",
-      "smallerThanMinimumAmount": "一度に {{minAmount}} 未満を供給することはできません",
-      "supplyCapReached": "このプールの供給上限{{assetSupplyCap}}に達しました。引き出しが行われるか上限が引き上げられるまで、このマーケットに供給できません。",
-      "tooRisky": "この取引はアカウントが清算されます"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "現在のレバレッジでの最大ポジション: {{ value }}",
-      "submitButtonLabel": "確認",
-      "title": "レバレッジ倍率",
-      "warning": "レバレッジは資本利用率に影響し、ポジションを完全に解消するまで変更できません。"
-    },
-    "managePositionsTabs": {
-      "collateral": "担保",
-      "position": "ポジション",
-      "positionsTabs": {
-        "increase": "増加",
-        "reduce": "減少",
-        "supply": "供給",
-        "withdraw": "引き出し"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "{{tokenSymbol}}を受け取る",
-      "tooltip": "借入した{{wrappedNativeTokenSymbol}}を{{nativeTokenSymbol}}にアンラップ"
-    },
-    "repaidField": {
-      "label": "返済する負債"
-    },
-    "repay": {
-      "fullRepaymentWarning": "新たに発生した利息を含めるため、取引値が現在の借入額よりわずかに高くなる可能性があります",
-      "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
-    },
-    "repayTab": {
-      "collateralTabTitle": "担保",
-      "noCollateralWarning": "返済に使える担保がありません。",
-      "title": "返済",
-      "walletBalanceTabTitle": "ウォレット"
-    },
-    "rightMaxButtonLabel": "最大",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "安全な最大",
-    "submitButtonLabel": {
-      "boost": "ブースト",
-      "borrow": "借入",
-      "enterValidAmount": "有効な金額を入力",
-      "repay": "返済",
-      "supply": "供給",
-      "withdraw": "引き出し"
-    },
-    "supply": "供給",
-    "supplyTabTitle": "供給",
-    "swapDetails": {
-      "label": {
-        "repay": "返済する金額",
-        "supply": "供給する金額"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "ウォレット残高",
-    "withdrawTabTitle": "引き出し"
   },
   "pagination": {
     "itemOf": "{{itemsCount}}件中{{currentPageLastIndex}}件目",
@@ -1327,7 +1357,8 @@
     },
     "title": "Prime リーダーボード",
     "totalRewards": {
-      "title": "今サイクルに分配された Prime 報酬の総額"
+      "title": "分配された Prime 報酬の総額",
+      "totalPoolLabel": "今サイクルの総報酬 <Highlight>{{amount}}</Highlight> のうち"
     },
     "userRewards": {
       "eligibleMessage": "今サイクルで Prime 報酬を分け合う対象になっています。下記の資産を供給して報酬を獲得しましょう。",
@@ -1396,9 +1427,6 @@
       "unlocked": "ロック解除済み",
       "withdrawButtonLabel": "ロック解除済み残高を引き出す"
     }
-  },
-  "select": {
-    "defaultLabel": "選択してください"
   },
   "selectTokenTextField": {
     "searchInput": {
@@ -1882,6 +1910,18 @@
     "illustrationAltText": "Trade イラスト",
     "title": "Venus Trade が利用可能になりました"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "担保",
+      "position": "ポジション",
+      "positionsTabs": {
+        "increase": "増加",
+        "reduce": "減少",
+        "supply": "供給",
+        "withdraw": "出金"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "管理者承認（保留）チェック",
     "acceptPendingImplementationAddressCheck": "実装アドレス承認（保留）チェック",
@@ -2055,6 +2095,18 @@
       "title": "取引が確認されました"
     }
   },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "高い価格影響を認識しました",
+        "tooltip": "この取引の価格影響は{{priceImpactPercentage}}%を超える見込みです"
+      },
+      "riskyOperation": {
+        "label": "リスクがあることを認識しました",
+        "tooltip": "この取引後の健全性ファクターが低くなり、清算リスクが高まります"
+      }
+    }
+  },
   "vai": {
     "borrow": {
       "amountTokensInput": {
@@ -2111,6 +2163,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
+      "collateral": "担保",
       "currentDeposited": "現在の供給量",
       "dailyEmission": "日次報酬配布",
       "header": {
@@ -2148,6 +2201,7 @@
       "deposit": "供給",
       "inactive": "非アクティブ",
       "inputPlaceholder": "資産を検索",
+      "institution": "機関",
       "liquidated": "清算済み",
       "locked": "収益中",
       "paused": "停止中",
@@ -2194,11 +2248,12 @@
       "overview": {
         "campaignTimeline": "キャンペーンタイムライン",
         "collateral": "担保",
+        "contractAddress": "コントラクトアドレス",
         "loan": "ローン",
         "marketInfo": "マーケット情報",
         "marketRiskDisclosures": "マーケットリスク開示",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>元本毀損のリスクがあります</Bold>。目標利率は変動し、ボールトの運用実績に連動します。保証された利回りではありません。<Bold>払い戻される金額が預け入れ額を下回る場合があります</Bold>。決済時には、その時点でボールトが実際に保有している資産のうち、あなたの持分に応じた分を受け取ります。<Bold>資金はロックされます</Bold>。ロック期間が始まると、供給も引き出しもできません。資金が請求可能になるのは決済後のみです。<Bold>結果に影響する要因：</Bold>相手方のパフォーマンス、担保条件、スマートコントラクトの実行、オラクルの信頼性、決済結果。<Bold>法域による制限が適用されます</Bold>。このボールトは制限対象地域または制限対象者には提供されません。完全な一覧は利用規約をご確認ください。供給前に、このページのボールト条件と <TermsOfUseLink>利用規約</TermsOfUseLink> をご確認ください。",
+          "institution": "<Bold>元本毀損のリスクがあります</Bold>。目標利率は変動し、ボールトの運用実績に連動します。保証された利回りではありません。<Bold>払い戻される金額が預け入れ額を下回る場合があります</Bold>。決済時には、その時点でボールトが実際に保有している資産のうち、あなたの持分に応じた分を受け取ります。<Bold>資金はロックされます</Bold>。ロック期間が始まると、供給も引き出しもできません。資金が請求可能になるのは決済後のみです。<Bold>結果に影響する要因：</Bold>相手方のパフォーマンス、担保条件、スマートコントラクトの実行、オラクルの信頼性、決済結果。<Bold>法域による制限が適用されます</Bold>。このボールトは制限対象地域または制限対象者には提供されません。完全な一覧は利用規約をご確認ください。供給前に、このページのボールト条件と <TermsOfUseLink>利用規約</TermsOfUseLink> をご確認ください。",
           "pendle": "Pendle は、元本トークン（PT）を通じて固定利率の利回りを実現する分散型イールド取引プロトコルです。Venus 固定利率ボールトは Pendle のインフラを通じて供給資産をルーティングし、PT を取得して Venus Core に担保として供給します。<br />Pendle は供給した資金にアクセスしたり移動したりできませんが、このボールトを利用すると両方のプロトコルに由来するリスクにさらされます。これには、スマートコントラクトの脆弱性、オラクル障害、いずれかのプロトコルが悪用されたり一時停止されたりする可能性が含まれます。満期前の引き出しは市場価格で実行され、供給額を下回る金額しか戻らない場合があります。固定 APY は供給時にロックされますが、プロトコルレベルの障害から保護するものではありません。"
         },
         "strategy": {
@@ -2290,10 +2345,28 @@
       }
     }
   },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "価格影響が高すぎます"
+    }
+  },
   "venusFluxBanner": {
     "description": "30日間限定。5月28日、<YellowText>Binance Wallet</YellowText>とともに開始",
     "illustrationAltText": "Venus Flux のイラスト",
     "title": "Venus Fluxで5万USDTの報酬"
+  },
+  "vipModal": {
+    "backgroundAlt": "背景イラスト",
+    "cancelButton": {
+      "label": "いいえ、結構です"
+    },
+    "description": "あなたは選ばれた Venus VIP ユーザーの一員です。これは Venus チャンネルへのあなた専用の招待です。Venus Protocol のクジラ限定です。",
+    "illustration": {
+      "header": "あなたは Venus Protocol の<Linebreak/><Highlight>VIP</Highlight>です"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "非公開 Telegram グループに参加"
   },
   "vote": {
     "abstain": "棄権",

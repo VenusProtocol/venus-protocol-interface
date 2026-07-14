@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.27.0
+
+### Minor Changes
+
+- d0df71a: Add base Liquidity Hub page and types
+
 ## 0.26.0
 
 ### Minor Changes

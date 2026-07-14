@@ -383,25 +383,25 @@ export const useColumns = ({
           ? undefined
           : (rowA, rowB, direction) => {
               if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-                const roaABorrowApy = rowA.borrowApyPercentage.minus(
+                const rowABorrowApy = rowA.borrowApyPercentage.minus(
                   getBestDistributionApys({ asset: rowA }).totalBorrowApyBoostPercentage,
                 );
-                const roaBBorrowApy = rowB.borrowApyPercentage.minus(
+                const rowBBorrowApy = rowB.borrowApyPercentage.minus(
                   getBestDistributionApys({ asset: rowB }).totalBorrowApyBoostPercentage,
                 );
 
-                return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
+                return compareBigNumbers(rowABorrowApy, rowBBorrowApy, direction);
               }
 
               if (column === 'supplyApy' || column === 'labeledSupplyApy') {
-                const roaASupplyApy = rowA.supplyApyPercentage.plus(
+                const rowASupplyApy = rowA.supplyApyPercentage.plus(
                   getBestDistributionApys({ asset: rowA }).totalSupplyApyBoostPercentage,
                 );
-                const roaBSupplyApy = rowB.supplyApyPercentage.plus(
+                const rowBSupplyApy = rowB.supplyApyPercentage.plus(
                   getBestDistributionApys({ asset: rowB }).totalSupplyApyBoostPercentage,
                 );
 
-                return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);
+                return compareBigNumbers(rowASupplyApy, rowBSupplyApy, direction);
               }
 
               // Put rows of tokens that can't be enabled as collateral at the

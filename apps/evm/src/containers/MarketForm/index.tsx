@@ -1,0 +1,127 @@
+import type { Address } from 'viem';
+
+import { type ModalProps, Tabs } from 'components';
+import AssetAccessor from 'containers/AssetAccessor';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import type { Tab, TabNavType } from 'hooks/useTabs';
+import { useTranslation } from 'libs/translations';
+import type { VToken } from 'types';
+import BoostForm from './BoostForm';
+import BorrowForm from './BorrowForm';
+import { Repay } from './Repay';
+import SupplyForm from './SupplyForm';
+import WithdrawForm from './WithdrawForm';
+import rocketIconSrc from './rocket.svg';
+
+export interface MarketFormProps {
+  vToken: VToken;
+  poolComptrollerAddress: Address;
+  initialActiveTabId?: string;
+  onSubmitSuccess?: ModalProps['handleClose'];
+  navType?: TabNavType;
+}
+
+export const MarketForm: React.FC<MarketFormProps> = ({
+  onSubmitSuccess,
+  vToken,
+  poolComptrollerAddress,
+  initialActiveTabId,
+  navType,
+}) => {
+  const { t } = useTranslation();
+
+  const isLeveragedPositionsFeatureEnabled = useIsFeatureEnabled({
+    name: 'leveragedPositions',
+  });
+
+  const tabs: Tab[] = [
+    {
+      id: 'supply',
+      title: t('marketForm.supplyTabTitle'),
+      content: (
+        <AssetAccessor
+          vToken={vToken}
+          poolComptrollerAddress={poolComptrollerAddress}
+          action="supply"
+        >
+          {({ asset, pool }) => (
+            <SupplyForm asset={asset} pool={pool} onSubmitSuccess={onSubmitSuccess} />
+          )}
+        </AssetAccessor>
+      ),
+    },
+    {
+      id: 'withdraw',
+      title: t('marketForm.withdrawTabTitle'),
+      content: (
+        <AssetAccessor
+          vToken={vToken}
+          poolComptrollerAddress={poolComptrollerAddress}
+          action="withdraw"
+        >
+          {({ asset, pool }) => (
+            <WithdrawForm asset={asset} pool={pool} onSubmitSuccess={onSubmitSuccess} />
+          )}
+        </AssetAccessor>
+      ),
+    },
+    {
+      id: 'borrow',
+      title: t('marketForm.borrowTabTitle'),
+      content: (
+        <AssetAccessor
+          vToken={vToken}
+          poolComptrollerAddress={poolComptrollerAddress}
+          action="borrow"
+        >
+          {({ asset, pool }) => (
+            <BorrowForm asset={asset} pool={pool} onSubmitSuccess={onSubmitSuccess} />
+          )}
+        </AssetAccessor>
+      ),
+    },
+  ];
+
+  if (isLeveragedPositionsFeatureEnabled) {
+    tabs.push({
+      id: 'boost',
+      title: (
+        <div className="flex items-center gap-x-1">
+          <img src={rocketIconSrc} className="size-4" alt={t('marketForm.boostTabAltText')} />
+
+          <span className="text-[#65EEE0]">{t('marketForm.boostTabTitle')}</span>
+        </div>
+      ),
+      content: (
+        <AssetAccessor
+          vToken={vToken}
+          poolComptrollerAddress={poolComptrollerAddress}
+          action="boost"
+        >
+          {({ asset, pool }) => (
+            <BoostForm asset={asset} pool={pool} onSubmitSuccess={onSubmitSuccess} />
+          )}
+        </AssetAccessor>
+      ),
+    });
+  }
+
+  tabs.push({
+    id: 'repay',
+    title: t('marketForm.repayTab.title'),
+    content: (
+      <AssetAccessor vToken={vToken} poolComptrollerAddress={poolComptrollerAddress} action="repay">
+        {({ asset, pool }) => <Repay pool={pool} asset={asset} onSubmitSuccess={onSubmitSuccess} />}
+      </AssetAccessor>
+    ),
+  });
+
+  return (
+    <Tabs
+      tabs={tabs}
+      initialActiveTabId={initialActiveTabId}
+      navType={navType}
+      variant="secondary"
+    />
+  );
+};

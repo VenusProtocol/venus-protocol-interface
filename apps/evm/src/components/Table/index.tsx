@@ -44,6 +44,7 @@ export function Table<R>({
   renderRowFooter,
   renderRowControl,
   hideCardDelimiter,
+  className,
   ...otherProps
 }: TableProps<R>) {
   const styles = useStyles({ cellHeight });
@@ -86,21 +87,17 @@ export function Table<R>({
   }, [data, order]);
 
   return (
-    <Card css={styles.getRoot({ breakpoint })} {...otherProps}>
+    <Card
+      className={cn('p-0', breakpoint && !isBreakpointUp && 'bg-transparent border-0', className)}
+      {...otherProps}
+    >
       {title && (
         <div css={styles.getTitle({ breakpoint })} className="text-lg h-8">
           {title}
         </div>
       )}
 
-      {!!header && (
-        <div
-          css={styles.getHeader({ breakpoint })}
-          className={cn('mb-4', isBreakpointUp && 'mb-0')}
-        >
-          {header}
-        </div>
-      )}
+      {!!header && <div className={cn('mb-4', isBreakpointUp && 'mb-0 p-4')}>{header}</div>}
 
       {data.length > 0 || !placeholder ? (
         <>

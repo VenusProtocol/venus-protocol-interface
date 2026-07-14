@@ -116,7 +116,7 @@ describe('StakeForm', () => {
     });
 
     await waitFor(() =>
-      expect(getByText(en.operationForm.error.higherThanAvailableAmount)).toBeInTheDocument(),
+      expect(getByText(en.marketForm.error.higherThanAvailableAmount)).toBeInTheDocument(),
     );
   });
 
@@ -138,7 +138,7 @@ describe('StakeForm', () => {
     });
 
     await waitFor(() =>
-      expect(getByText(en.operationForm.error.higherThanWalletSpendingLimit)).toBeInTheDocument(),
+      expect(getByText(en.marketForm.error.higherThanWalletSpendingLimit)).toBeInTheDocument(),
     );
   });
 

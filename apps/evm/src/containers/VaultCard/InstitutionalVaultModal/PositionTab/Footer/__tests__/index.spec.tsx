@@ -24,7 +24,8 @@ const lockingPeriodMs = 2592000 * 1000;
 const baseVault = {
   vaultType: VaultType.Institutional,
   category: VaultCategory.STABLECOINS,
-  venue: VaultVenue.Matrixdock,
+  venue: VaultVenue.Institution,
+  venueName: 'Matrixdock',
   venueUrl: 'https://fake-venue-url.com',
   venueIconSrc: 'matrixdock',
   status: VaultStatus.Deposit,

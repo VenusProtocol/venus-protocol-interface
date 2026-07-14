@@ -144,6 +144,9 @@
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Borrow balance (protected):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "Disconnect"
+  },
   "adBanner": {
     "startNow": "Start now"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "Connect wallet",
-    "disconnect": "Disconnect"
+    "vipLogoAlt": "VIP logo"
   },
   "connectWallet": {
     "connectButton": "Connect wallet"
@@ -445,6 +448,7 @@
       "uncompleted": "Uncompleted"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30D absolute performance",
       "absolutePerformance": "Absolute performance",
       "netWorth": {
         "label": "Net worth",
@@ -685,6 +689,10 @@
       "title": "Chart information"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "Access an immutable money market directly on-chain.",
@@ -779,6 +787,9 @@
       "dashboard": {
         "label": "Dashboard"
       },
+      "earn": {
+        "label": "Earn"
+      },
       "label": "Menu",
       "markets": {
         "label": "Markets"
@@ -846,6 +857,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "One supply, auto-allocated cross multiple yield sources.",
+          "label": "Liquidity Hub"
+        },
+        "vaults": {
+          "description": "Single-strategy supply vault for target rewards.",
+          "label": "Vaults"
+        },
         "venusCore": {
           "description": "Classic lending and borrowing with easy, optimized leverage.",
           "label": "Venus Core"
@@ -859,6 +878,31 @@
   },
   "legal": {
     "lastUpdatedAt": "Last updated: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "Routed across Venus protocol yield sources under a governance-curated policy. Yield accrues automatically.",
+    "header": "Liquidity Hub",
+    "stats": {
+      "hubs": "Hubs",
+      "totalLiquidity": "Total liquidity",
+      "totalSupply": "Total supply"
+    },
+    "table": {
+      "columns": {
+        "asset": "Asset",
+        "exposure": {
+          "selectionOptionLabel": "Exposure",
+          "title": "Exposure <InfoIcon/>",
+          "tooltip": "The collateral of each source the asset is lending to"
+        },
+        "liquidity": "Liquidity",
+        "supplyApy": "Supply APY",
+        "totalSupply": "Total supply"
+      },
+      "search": {
+        "placeholder": "Search asset"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",
@@ -938,6 +982,92 @@
     "supplyInfo": {
       "title": "Supply info"
     }
+  },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "I acknowledge the high price impact",
+        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+      }
+    },
+    "availableAmount": "Available",
+    "boostTabAltText": "Rocket icon",
+    "boostTabTitle": "Boost",
+    "borrow": "Borrow",
+    "borrowTabTitle": "Borrow",
+    "collateral": "Collateral",
+    "collateralField": {
+      "label": "Collateral"
+    },
+    "error": {
+      "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+      "higherThanAvailableAmount": "Amount entered higher than available amount",
+      "higherThanAvailableLiquidity": "Insufficient asset liquidity",
+      "higherThanBorrowBalance": "Amount entered higher than borrow balance",
+      "higherThanBorrowCap": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
+      "higherThanRepayBalance": "Amount entered higher than repay balance",
+      "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
+      "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
+      "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
+      "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
+      "noSwapQuoteFound": "No swap found.",
+      "priceImpactTooHigh": "Price impact too high",
+      "smallerThanMinimumAmount": "You cannot supply less than {{minAmount}} at once",
+      "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
+      "tooRisky": "This transaction would get your account liquidated"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Maximum position at current leverage: {{ value }}",
+      "submitButtonLabel": "Confirm",
+      "title": "Leverage factor",
+      "warning": "Leverage affects your capital utilization and cannot be changed until you fully exit the position."
+    },
+    "receiveNativeToken": {
+      "label": "Receive {{tokenSymbol}}",
+      "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "Debt to repay"
+    },
+    "repay": {
+      "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
+    },
+    "repayTab": {
+      "collateralTabTitle": "Collateral",
+      "noCollateralWarning": "You do not have any collateral to repay with.",
+      "title": "Repay",
+      "walletBalanceTabTitle": "Wallet"
+    },
+    "rightMaxButtonLabel": "MAX",
+    "safeMaxButtonLabel": "SAFE MAX",
+    "submitButtonLabel": {
+      "boost": "Boost",
+      "borrow": "Borrow",
+      "enterValidAmount": "Enter valid amount",
+      "repay": "Repay",
+      "supply": "Supply",
+      "withdraw": "Withdraw"
+    },
+    "supply": "Supply",
+    "supplyTabTitle": "Supply",
+    "swapDetails": {
+      "label": {
+        "repay": "You will repay",
+        "supply": "You will supply"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "Wallet balance",
+    "withdrawTabTitle": "Withdraw"
   },
   "markets": {
     "eMode": {
@@ -1075,106 +1205,6 @@
     "search": {
       "placeholder": "Search asset"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "I acknowledge the high price impact",
-        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "I acknowledge the risks involved",
-        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
-      }
-    },
-    "availableAmount": "Available",
-    "boostTabAltText": "Rocket icon",
-    "boostTabTitle": "Boost",
-    "borrow": "Borrow",
-    "borrowTabTitle": "Borrow",
-    "collateral": "Collateral",
-    "collateralField": {
-      "label": "Collateral"
-    },
-    "error": {
-      "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
-      "higherThanAvailableAmount": "Amount entered higher than available amount",
-      "higherThanAvailableLiquidity": "Insufficient asset liquidity",
-      "higherThanBorrowBalance": "Amount entered higher than borrow balance",
-      "higherThanBorrowCap": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
-      "higherThanRepayBalance": "Amount entered higher than repay balance",
-      "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
-      "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
-      "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
-      "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
-      "noSwapQuoteFound": "No swap found.",
-      "priceImpactTooHigh": "Price impact too high",
-      "smallerThanMinimumAmount": "You cannot supply less than {{minAmount}} at once",
-      "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
-      "tooRisky": "This transaction would get your account liquidated"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "Maximum position at current leverage: {{ value }}",
-      "submitButtonLabel": "Confirm",
-      "title": "Leverage factor",
-      "warning": "Leverage affects your capital utilization and cannot be changed until you fully exit the position."
-    },
-    "managePositionsTabs": {
-      "collateral": "Collateral",
-      "position": "Position",
-      "positionsTabs": {
-        "increase": "Increase",
-        "reduce": "Reduce",
-        "supply": "Supply",
-        "withdraw": "Withdraw"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "Receive {{tokenSymbol}}",
-      "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
-    },
-    "repaidField": {
-      "label": "Debt to repay"
-    },
-    "repay": {
-      "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
-      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
-    },
-    "repayTab": {
-      "collateralTabTitle": "Collateral",
-      "noCollateralWarning": "You do not have any collateral to repay with.",
-      "title": "Repay",
-      "walletBalanceTabTitle": "Wallet"
-    },
-    "rightMaxButtonLabel": "MAX",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "SAFE MAX",
-    "submitButtonLabel": {
-      "boost": "Boost",
-      "borrow": "Borrow",
-      "enterValidAmount": "Enter valid amount",
-      "repay": "Repay",
-      "supply": "Supply",
-      "withdraw": "Withdraw"
-    },
-    "supply": "Supply",
-    "supplyTabTitle": "Supply",
-    "swapDetails": {
-      "label": {
-        "repay": "You will repay",
-        "supply": "You will supply"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "Wallet balance",
-    "withdrawTabTitle": "Withdraw"
   },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
@@ -1327,7 +1357,8 @@
     },
     "title": "Prime leaderboard",
     "totalRewards": {
-      "title": "Total Prime rewards distributed this cycle"
+      "title": "Total Prime rewards distributed",
+      "totalPoolLabel": "of <Highlight>{{amount}}</Highlight> total rewards this cycle"
     },
     "userRewards": {
       "eligibleMessage": "You are currently eligible for sharing the Prime rewards during this cycle. Supply assets below to share the rewards.",
@@ -1396,9 +1427,6 @@
       "unlocked": "Unlocked",
       "withdrawButtonLabel": "Withdraw unlocked balance"
     }
-  },
-  "select": {
-    "defaultLabel": "Select option"
   },
   "selectTokenTextField": {
     "searchInput": {
@@ -1882,6 +1910,18 @@
     "illustrationAltText": "Trade illustration",
     "title": "Venus Trade is live now"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "Collateral",
+      "position": "Position",
+      "positionsTabs": {
+        "increase": "Increase",
+        "reduce": "Reduce",
+        "supply": "Supply",
+        "withdraw": "Withdraw"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
     "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",
@@ -2055,6 +2095,18 @@
       "title": "Transaction confirmed"
     }
   },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "I acknowledge the high price impact",
+        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+      }
+    }
+  },
   "vai": {
     "borrow": {
       "amountTokensInput": {
@@ -2111,6 +2163,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
+      "collateral": "Collateral",
       "currentDeposited": "Currently supplied",
       "dailyEmission": "Daily emission",
       "header": {
@@ -2150,6 +2203,7 @@
       "deposit": "Supply",
       "inactive": "Inactive",
       "inputPlaceholder": "Search asset",
+      "institution": "Institution",
       "liquidated": "Liquidated",
       "locked": "Locked",
       "paused": "Paused",
@@ -2196,11 +2250,12 @@
       "overview": {
         "campaignTimeline": "Campaign timeline",
         "collateral": "Collateral",
+        "contractAddress": "Contract address",
         "loan": "Loan",
         "marketInfo": "Market info",
         "marketRiskDisclosures": "Market risk disclosures",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>Capital at risk</Bold>. The target rate is variable and linked to vault performance. It is not a guaranteed return. <Bold>You may get back less than you put in</Bold>. At settlement, you receive your share of whatever assets the vault actually holds at that time. <Bold>Your funds will be locked</Bold>. Once the locked period begins, you cannot supply or withdraw. Funds become claimable only at settlement. <Bold>What affects outcomes:</Bold> counterparty performance, collateral conditions, smart contract execution, oracle reliability, and settlement results. <Bold>Jurisdiction restrictions apply</Bold>. This vault is not available in restricted jurisdictions or to restricted persons. See the Terms of Use for the full list. Please review the <TermsOfUseLink>Terms of Use</TermsOfUseLink> and vault parameters on this page before supplying.",
+          "institution": "<Bold>Capital at risk</Bold>. The target rate is variable and linked to vault performance. It is not a guaranteed return. <Bold>You may get back less than you put in</Bold>. At settlement, you receive your share of whatever assets the vault actually holds at that time. <Bold>Your funds will be locked</Bold>. Once the locked period begins, you cannot supply or withdraw. Funds become claimable only at settlement. <Bold>What affects outcomes:</Bold> counterparty performance, collateral conditions, smart contract execution, oracle reliability, and settlement results. <Bold>Jurisdiction restrictions apply</Bold>. This vault is not available in restricted jurisdictions or to restricted persons. See the Terms of Use for the full list. Please review the <TermsOfUseLink>Terms of Use</TermsOfUseLink> and vault parameters on this page before supplying.",
           "pendle": "Pendle is a decentralised yield-trading protocol that enables fixed-rate yield through Principal Tokens (PTs). The Venus Fixed Rate Vault routes supplied funds through Pendle's infrastructure to acquire PTs, which are supplied to Venus Core as collateral. <br />While Pendle cannot access or move your supplied funds, using this vault exposes you to risks from both protocols. These include smart contract vulnerabilities, oracle failures, and the possibility of either protocol being exploited or paused. Early withdrawals are executed at market price and may return less than the amount supplied. Fixed APY is locked when you supply and does not protect against protocol-level failures."
         },
         "strategy": {
@@ -2292,10 +2347,28 @@
       }
     }
   },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "Price impact too high"
+    }
+  },
   "venusFluxBanner": {
     "description": "30 days only. Live May 28 with <YellowText>Binance Wallet</YellowText>",
     "illustrationAltText": "Venus Flux illustration",
     "title": "$50K USDT rewards on Venus Flux"
+  },
+  "vipModal": {
+    "backgroundAlt": "Background illustration",
+    "cancelButton": {
+      "label": "No, thanks"
+    },
+    "description": "You are part of a select group of VIP Venus users. Here's your personal invite to the Venus channel. Venus Protocol Whales only.",
+    "illustration": {
+      "header": "You're a Venus Protocol <Linebreak/><Highlight>VIP</Highlight>"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "Join private Telegram group"
   },
   "vote": {
     "abstain": "Abstain",

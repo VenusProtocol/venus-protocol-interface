@@ -6,9 +6,9 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
+import { AccountOverview } from '../../containers/AccountOverview';
 import { Guide } from './Guide';
 import { Markets } from './Markets';
-import { Overview } from './Overview';
 import { Settings } from './Settings';
 import { Transactions } from './Transactions';
 import { Vaults } from './Vaults';
@@ -78,7 +78,7 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="space-y-12 mb-12">
-        <Overview className="w-full" />
+        <AccountOverview className="w-full" accountAddress={accountAddress} />
 
         <Guide />
       </div>

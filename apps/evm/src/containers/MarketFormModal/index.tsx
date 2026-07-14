@@ -2,24 +2,20 @@ import type { Address } from 'viem';
 
 import { Modal, type ModalProps, ProtectionModeIndicator } from 'components';
 import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
+import { MarketForm } from 'containers/MarketForm';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-// TODO: import OperationForm from containers once it is stable. There's ongoing work happening on
-// it, so moving it now could generate conflicts
-import { OperationForm, type OperationFormProps } from 'pages/Market/OperationForm';
 import type { Asset } from 'types';
 
 export interface MarketFormModalProps {
   asset: Asset;
   poolComptrollerAddress: Address;
   onClose: ModalProps['handleClose'];
-  onSubmitSuccess?: OperationFormProps['onSubmitSuccess'];
 }
 
 export const MarketFormModal: React.FC<MarketFormModalProps> = ({
   asset,
   poolComptrollerAddress,
   onClose,
-  onSubmitSuccess,
 }) => {
   const [userChainSettings] = useUserChainSettings();
 
@@ -45,10 +41,10 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
       }
       handleClose={onClose}
     >
-      <OperationForm
+      <MarketForm
         vToken={asset.vToken}
         poolComptrollerAddress={poolComptrollerAddress}
-        onSubmitSuccess={onSubmitSuccess}
+        onSubmitSuccess={onClose}
       />
     </Modal>
   );

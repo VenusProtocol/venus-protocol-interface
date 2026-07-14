@@ -92,7 +92,7 @@ describe('TxFormSubmitButton', () => {
       setAcknowledgeRisk,
     });
 
-    expect(screen.getByText(en.operationForm.acknowledgements.riskyOperation.tooltip));
+    expect(screen.getByText(en.txFormSubmitButton.acknowledgements.riskyOperation.tooltip));
 
     fireEvent.click(screen.getByRole('checkbox'));
 
@@ -121,7 +121,7 @@ describe('TxFormSubmitButton', () => {
     });
 
     expect(
-      screen.queryByText(en.operationForm.acknowledgements.riskyOperation.tooltip),
+      screen.queryByText(en.txFormSubmitButton.acknowledgements.riskyOperation.tooltip),
     ).not.toBeInTheDocument();
   });
 
@@ -136,7 +136,7 @@ describe('TxFormSubmitButton', () => {
 
     expect(
       screen.getByText(
-        en.operationForm.acknowledgements.highPriceImpact.tooltip.replace(
+        en.txFormSubmitButton.acknowledgements.highPriceImpact.tooltip.replace(
           '{{priceImpactPercentage}}',
           `${HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE}`,
         ),
@@ -156,7 +156,7 @@ describe('TxFormSubmitButton', () => {
     });
 
     expect(
-      screen.queryByText(en.operationForm.acknowledgements.highPriceImpact.label),
+      screen.queryByText(en.txFormSubmitButton.acknowledgements.highPriceImpact.label),
     ).not.toBeInTheDocument();
   });
 

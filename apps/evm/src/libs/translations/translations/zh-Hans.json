@@ -144,6 +144,9 @@
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（借款限额的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借款余额（保护）：<LineBreak/>{{borrowBalanceProtected}}（借款限额的{{protectedBorrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款余额（现货）：{{borrowBalance}}<LineBreak/>借款限额：{{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "断开连接"
+  },
   "adBanner": {
     "startNow": "立即开始"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "连接钱包",
-    "disconnect": "断开连接"
+    "vipLogoAlt": "VIP 标志"
   },
   "connectWallet": {
     "connectButton": "连接钱包"
@@ -445,6 +448,7 @@
       "uncompleted": "未完成"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30天绝对表现",
       "absolutePerformance": "绝对表现",
       "netWorth": {
         "label": "净值",
@@ -685,6 +689,10 @@
       "title": "图表信息"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "直接在链上访问不可篡改的货币市场。",
@@ -779,6 +787,9 @@
       "dashboard": {
         "label": "仪表盘"
       },
+      "earn": {
+        "label": "赚取"
+      },
       "label": "菜单",
       "markets": {
         "label": "市场"
@@ -846,6 +857,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "一次供应，自动分配至多个收益来源。",
+          "label": "流动性中心"
+        },
+        "vaults": {
+          "description": "面向目标奖励的单策略供应金库。",
+          "label": "金库"
+        },
         "venusCore": {
           "description": "经典借贷，轻松使用优化杠杆。",
           "label": "Venus Core"
@@ -859,6 +878,31 @@
   },
   "legal": {
     "lastUpdatedAt": "最后更新：{{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "根据治理策划的策略，在 Venus 协议的多个收益来源之间进行路由。收益会自动累积。",
+    "header": "流动性中心",
+    "stats": {
+      "hubs": "中心数",
+      "totalLiquidity": "总流动性",
+      "totalSupply": "总供应量"
+    },
+    "table": {
+      "columns": {
+        "asset": "资产",
+        "exposure": {
+          "selectionOptionLabel": "敞口",
+          "title": "敞口 <InfoIcon/>",
+          "tooltip": "该资产所借出到的各个来源中的抵押品"
+        },
+        "liquidity": "流动性",
+        "supplyApy": "供应 APY",
+        "totalSupply": "总供应量"
+      },
+      "search": {
+        "placeholder": "搜索资产"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "撰写",
@@ -938,6 +982,92 @@
     "supplyInfo": {
       "title": "存款信息"
     }
+  },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "我已知悉高价格影响",
+        "tooltip": "该交易预计价格影响将超过 {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "我已知悉相关风险",
+        "tooltip": "此交易后你的健康系数将较低，清算风险增加"
+      }
+    },
+    "availableAmount": "可用",
+    "boostTabAltText": "火箭图标",
+    "boostTabTitle": "收益加成",
+    "borrow": "借款",
+    "borrowTabTitle": "借款",
+    "collateral": "可抵押",
+    "collateralField": {
+      "label": "可抵押"
+    },
+    "error": {
+      "borrowCapReached": "该池借款上限 {{assetBorrowCap}} 已达。除非还款或提高借款上限，否则无法再从该市场借款。",
+      "higherThanAvailableAmount": "输入金额超过可用金额",
+      "higherThanAvailableLiquidity": "资产流动性不足",
+      "higherThanBorrowBalance": "输入金额超过借款余额",
+      "higherThanBorrowCap": "该市场借款上限为 {{assetBorrowCap}}，当前已借 {{assetBorrowBalance}}，因此你无法从该池借款超过 {{userMaxBorrowAmount}}。",
+      "higherThanRepayBalance": "输入金额超过还款余额",
+      "higherThanSupplyCap": "该市场存款上限为 {{assetSupplyCap}}，当前已存款 {{assetSupplyBalance}}，因此你无法向该池存款超过 {{userMaxSupplyAmount}}。",
+      "higherThanWalletBalance": "{{tokenSymbol}} 余额不足",
+      "higherThanWalletSpendingLimit": "你输入的金额超过该资产的支出限额。请先撤销支出限额并设置新的限额后再继续交易。",
+      "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
+      "noSwapQuoteFound": "未找到兑换。",
+      "priceImpactTooHigh": "价格影响过高",
+      "smallerThanMinimumAmount": "你不能一次存入少于 {{minAmount}}",
+      "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
+      "tooRisky": "该交易会导致账户被清算"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "当前杠杆下的最大仓位：{{ value }}",
+      "submitButtonLabel": "确认",
+      "title": "杠杆倍数",
+      "warning": "杠杆会影响你的资金利用率，并且在你完全平仓前无法更改。"
+    },
+    "receiveNativeToken": {
+      "label": "接收 {{tokenSymbol}}",
+      "tooltip": "将借入的 {{wrappedNativeTokenSymbol}} 解包为 {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "待还债务"
+    },
+    "repay": {
+      "fullRepaymentWarning": "交易金额可能略高于当前借款金额以覆盖新产生的利息",
+      "swappingWithHighPriceImpactWarning": "该交易价格影响较高，可能意味着不利的兑换。请确保兑换率和兑换数量符合预期。"
+    },
+    "repayTab": {
+      "collateralTabTitle": "可抵押",
+      "noCollateralWarning": "你没有可用于还款的可抵押资产。",
+      "title": "还款",
+      "walletBalanceTabTitle": "钱包"
+    },
+    "rightMaxButtonLabel": "最大",
+    "safeMaxButtonLabel": "安全最大值",
+    "submitButtonLabel": {
+      "boost": "收益加成",
+      "borrow": "借款",
+      "enterValidAmount": "输入有效金额",
+      "repay": "还款",
+      "supply": "存款",
+      "withdraw": "取款"
+    },
+    "supply": "存款",
+    "supplyTabTitle": "存款",
+    "swapDetails": {
+      "label": {
+        "repay": "你将还款",
+        "supply": "你将存款"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "钱包余额",
+    "withdrawTabTitle": "取款"
   },
   "markets": {
     "eMode": {
@@ -1075,106 +1205,6 @@
     "search": {
       "placeholder": "搜索资产"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "我已知悉高价格影响",
-        "tooltip": "该交易预计价格影响将超过 {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "我已知悉相关风险",
-        "tooltip": "此交易后你的健康系数将较低，清算风险增加"
-      }
-    },
-    "availableAmount": "可用",
-    "boostTabAltText": "火箭图标",
-    "boostTabTitle": "收益加成",
-    "borrow": "借款",
-    "borrowTabTitle": "借款",
-    "collateral": "可抵押",
-    "collateralField": {
-      "label": "可抵押"
-    },
-    "error": {
-      "borrowCapReached": "该池借款上限 {{assetBorrowCap}} 已达。除非还款或提高借款上限，否则无法再从该市场借款。",
-      "higherThanAvailableAmount": "输入金额超过可用金额",
-      "higherThanAvailableLiquidity": "资产流动性不足",
-      "higherThanBorrowBalance": "输入金额超过借款余额",
-      "higherThanBorrowCap": "该市场借款上限为 {{assetBorrowCap}}，当前已借 {{assetBorrowBalance}}，因此你无法从该池借款超过 {{userMaxBorrowAmount}}。",
-      "higherThanRepayBalance": "输入金额超过还款余额",
-      "higherThanSupplyCap": "该市场存款上限为 {{assetSupplyCap}}，当前已存款 {{assetSupplyBalance}}，因此你无法向该池存款超过 {{userMaxSupplyAmount}}。",
-      "higherThanWalletBalance": "{{tokenSymbol}} 余额不足",
-      "higherThanWalletSpendingLimit": "你输入的金额超过该资产的支出限额。请先撤销支出限额并设置新的限额后再继续交易。",
-      "noCollateral": "在从该池借入 {{tokenSymbol}} 之前，你需要先存款代币并将其设为可抵押",
-      "noSwapQuoteFound": "未找到兑换。",
-      "priceImpactTooHigh": "价格影响过高",
-      "smallerThanMinimumAmount": "你不能一次存入少于 {{minAmount}}",
-      "supplyCapReached": "该池存款上限 {{assetSupplyCap}} 已达。除非有人取款或提高存款上限，否则无法再向该市场存款。",
-      "tooRisky": "该交易会导致账户被清算"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "当前杠杆下的最大仓位：{{ value }}",
-      "submitButtonLabel": "确认",
-      "title": "杠杆倍数",
-      "warning": "杠杆会影响你的资金利用率，并且在你完全平仓前无法更改。"
-    },
-    "managePositionsTabs": {
-      "collateral": "可抵押",
-      "position": "仓位",
-      "positionsTabs": {
-        "increase": "增加",
-        "reduce": "减少",
-        "supply": "存款",
-        "withdraw": "取款"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "接收 {{tokenSymbol}}",
-      "tooltip": "将借入的 {{wrappedNativeTokenSymbol}} 解包为 {{nativeTokenSymbol}}"
-    },
-    "repaidField": {
-      "label": "待还债务"
-    },
-    "repay": {
-      "fullRepaymentWarning": "交易金额可能略高于当前借款金额以覆盖新产生的利息",
-      "swappingWithHighPriceImpactWarning": "该交易价格影响较高，可能意味着不利的兑换。请确保兑换率和兑换数量符合预期。"
-    },
-    "repayTab": {
-      "collateralTabTitle": "可抵押",
-      "noCollateralWarning": "你没有可用于还款的可抵押资产。",
-      "title": "还款",
-      "walletBalanceTabTitle": "钱包"
-    },
-    "rightMaxButtonLabel": "最大",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "安全最大值",
-    "submitButtonLabel": {
-      "boost": "收益加成",
-      "borrow": "借款",
-      "enterValidAmount": "输入有效金额",
-      "repay": "还款",
-      "supply": "存款",
-      "withdraw": "取款"
-    },
-    "supply": "存款",
-    "supplyTabTitle": "存款",
-    "swapDetails": {
-      "label": {
-        "repay": "你将还款",
-        "supply": "你将存款"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "钱包余额",
-    "withdrawTabTitle": "取款"
   },
   "pagination": {
     "itemOf": "第 {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条",
@@ -1327,7 +1357,8 @@
     },
     "title": "Prime 排行榜",
     "totalRewards": {
-      "title": "本周期已分配的 Prime 总奖励"
+      "title": "已分配的 Prime 总奖励",
+      "totalPoolLabel": "本周期总奖励 <Highlight>{{amount}}</Highlight>"
     },
     "userRewards": {
       "eligibleMessage": "你在本周期已具备分享 Prime 奖励的资格。在下方供给资产以分享奖励。",
@@ -1396,9 +1427,6 @@
       "unlocked": "已解锁",
       "withdrawButtonLabel": "提取已解锁余额"
     }
-  },
-  "select": {
-    "defaultLabel": "选择选项"
   },
   "selectTokenTextField": {
     "searchInput": {
@@ -1882,6 +1910,18 @@
     "illustrationAltText": "Trade 插图",
     "title": "Venus Trade 现已上线"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "抵押品",
+      "position": "仓位",
+      "positionsTabs": {
+        "increase": "增加",
+        "reduce": "减少",
+        "supply": "供应",
+        "withdraw": "提取"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "接受管理员待定检查",
     "acceptPendingImplementationAddressCheck": "接受待定实现地址检查",
@@ -2055,6 +2095,18 @@
       "title": "交易已确认"
     }
   },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "我已知悉高价格影响",
+        "tooltip": "该交易预计价格影响将超过 {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "我已知悉相关风险",
+        "tooltip": "此交易后你的健康系数将较低，清算风险增加"
+      }
+    }
+  },
   "vai": {
     "borrow": {
       "amountTokensInput": {
@@ -2111,6 +2163,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
+      "collateral": "抵押品",
       "currentDeposited": "当前已供应",
       "dailyEmission": "每日奖励释放",
       "header": {
@@ -2148,6 +2201,7 @@
       "deposit": "供应",
       "inactive": "非活跃",
       "inputPlaceholder": "搜索资产",
+      "institution": "机构",
       "liquidated": "已清算",
       "locked": "收益中",
       "paused": "已暂停",
@@ -2194,11 +2248,12 @@
       "overview": {
         "campaignTimeline": "活动时间线",
         "collateral": "抵押品",
+        "contractAddress": "合约地址",
         "loan": "贷款",
         "marketInfo": "市场信息",
         "marketRiskDisclosures": "市场风险披露",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>本金存在风险</Bold>。目标利率是浮动的，并与金库表现挂钩，不构成保证收益。<Bold>您拿回的金额可能少于投入金额</Bold>。在结算时，您将按份额获得该时点金库实际持有资产中的相应部分。<Bold>您的资金将被锁定</Bold>。锁定期开始后，您将无法供应或提取。只有在结算后资金才可领取。<Bold>影响结果的因素：</Bold>交易对手表现、抵押条件、智能合约执行、预言机可靠性以及结算结果。<Bold>受司法辖区限制</Bold>。该金库不向受限司法辖区或受限人士开放。完整名单请参阅使用条款。供应前，请查看本页的 <TermsOfUseLink>使用条款</TermsOfUseLink> 和金库参数。",
+          "institution": "<Bold>本金存在风险</Bold>。目标利率是浮动的，并与金库表现挂钩，不构成保证收益。<Bold>您拿回的金额可能少于投入金额</Bold>。在结算时，您将按份额获得该时点金库实际持有资产中的相应部分。<Bold>您的资金将被锁定</Bold>。锁定期开始后，您将无法供应或提取。只有在结算后资金才可领取。<Bold>影响结果的因素：</Bold>交易对手表现、抵押条件、智能合约执行、预言机可靠性以及结算结果。<Bold>受司法辖区限制</Bold>。该金库不向受限司法辖区或受限人士开放。完整名单请参阅使用条款。供应前，请查看本页的 <TermsOfUseLink>使用条款</TermsOfUseLink> 和金库参数。",
           "pendle": "Pendle 是一个去中心化收益交易协议，通过本金代币（PT）实现固定利率收益。Venus 固定利率金库通过 Pendle 的基础设施路由已供应的资产以获取 PT，并将其作为抵押品供应至 Venus Core。<br />虽然 Pendle 无法访问或转移您已供应的资金，但使用此金库会使您同时暴露于两个协议的风险。这些风险包括智能合约漏洞、预言机故障，以及任一协议被攻击或暂停的可能性。提前提款按市场价格执行，返还金额可能低于已供应金额。固定 APY 会在供应时锁定，但并不能防范协议层面的故障。"
         },
         "strategy": {
@@ -2290,10 +2345,28 @@
       }
     }
   },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "价格影响过高"
+    }
+  },
   "venusFluxBanner": {
     "description": "仅限30天。5月28日携手<YellowText>Binance Wallet</YellowText>上线",
     "illustrationAltText": "Venus Flux 插图",
     "title": "Venus Flux 上线 5 万 USDT 奖励"
+  },
+  "vipModal": {
+    "backgroundAlt": "背景插图",
+    "cancelButton": {
+      "label": "不，谢谢"
+    },
+    "description": "您是 Venus VIP 用户中的精选成员。这是您加入 Venus 频道的专属邀请。仅限 Venus Protocol 巨鲸。",
+    "illustration": {
+      "header": "您是 Venus Protocol <Linebreak/><Highlight>VIP</Highlight>"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "加入私人 Telegram 群组"
   },
   "vote": {
     "abstain": "弃权",

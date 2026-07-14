@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults';
-import venusLogoSrc from 'clients/api/queries/useGetVaults/formatToVenusVault/venus.svg';
-import matrixdockLogoSrc from 'clients/api/queries/useGetVaults/useGetFormattedFixedRatedVaults/formatVaults/formatToInstitutionalVault/matrixdock.svg';
+import matrixdockLogoSrc from 'clients/api/queries/useGetVaults/getVenueConfig/matrixdock.svg';
+import venusLogoSrc from 'clients/api/queries/useGetVaults/getVenueConfig/venus.svg';
 
 import {
   type InstitutionalVault,
@@ -41,6 +41,7 @@ export const vaults: VenusVault[] = [
     category: VaultCategory.STABLECOINS,
     vaultType: VaultType.Venus,
     venue: VaultVenue.Venus,
+    venueName: 'Venus',
     venueIconSrc: venusLogoSrc,
     status: VaultStatus.Active,
     key: 'venus-VAI-XVS-300000',
@@ -62,6 +63,7 @@ export const vaults: VenusVault[] = [
     category: VaultCategory.GOVERNANCE,
     vaultType: VaultType.Venus,
     venue: VaultVenue.Venus,
+    venueName: 'Venus',
     venueIconSrc: venusLogoSrc,
     status: VaultStatus.Active,
     key: 'venus-XVS-XVS-300000',
@@ -160,6 +162,7 @@ export const fixedRatedVaults: GetFixedRatedVaultsOutput = [
       fixedRateVaultId: '97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7',
       id: 'loan-vault-detail-1',
       institutionAddress: '0x1111111111111111111111111111111111111111',
+      institutionName: 'Matrixdock',
       latePenaltyRateMantissa: '0',
       liquidationIncentiveMantissa: '0',
       liquidationThresholdMantissa: '0',
@@ -215,7 +218,8 @@ export const fixedRatedVaults: GetFixedRatedVaultsOutput = [
 export const institutionalVault: InstitutionalVault = {
   vaultType: VaultType.Institutional,
   category: VaultCategory.STABLECOINS,
-  venue: VaultVenue.Matrixdock,
+  venue: VaultVenue.Institution,
+  venueName: 'Matrixdock',
   venueIconSrc: matrixdockLogoSrc,
   venueAddress: '0x1111111111111111111111111111111111111111',
   venueUrl: 'https://www.matrixdock.com/',

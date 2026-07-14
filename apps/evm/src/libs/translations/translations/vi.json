@@ -144,6 +144,9 @@
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Số dư vay (Bảo vệ):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Số dư vay (spot): {{borrowBalance}}<LineBreak/>Hạn mức vay: {{borrowLimitProtected}}"
   },
+  "accountModal": {
+    "disconnectButtonLabel": "Ngắt kết nối"
+  },
   "adBanner": {
     "startNow": "Bắt đầu ngay"
   },
@@ -398,7 +401,7 @@
   },
   "connectButton": {
     "connect": "Kết nối ví",
-    "disconnect": "Ngắt kết nối"
+    "vipLogoAlt": "Logo VIP"
   },
   "connectWallet": {
     "connectButton": "Kết nối ví"
@@ -445,6 +448,7 @@
       "uncompleted": "Chưa hoàn thành"
     },
     "overview": {
+      "30DayAbsolutePerformance": "30 ngày hiệu suất tuyệt đối",
       "absolutePerformance": "Hiệu suất tuyệt đối",
       "netWorth": {
         "label": "Giá trị ròng",
@@ -685,6 +689,10 @@
       "title": "Thông tin biểu đồ"
     }
   },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
   "landing": {
     "benefits": {
       "text1": "Truy cập trực tiếp thị trường tiền tệ bất biến trên chuỗi.",
@@ -779,6 +787,9 @@
       "dashboard": {
         "label": "Bảng điều khiển"
       },
+      "earn": {
+        "label": "Kiếm lợi nhuận"
+      },
       "label": "Trình đơn",
       "markets": {
         "label": "Thị trường"
@@ -846,6 +857,14 @@
   "layouts": {
     "menu": {
       "markets": {
+        "liquidityHub": {
+          "description": "Một lần cung cấp, tự động phân bổ qua nhiều nguồn lợi suất.",
+          "label": "Trung tâm thanh khoản"
+        },
+        "vaults": {
+          "description": "Kho cung cấp một chiến lược cho phần thưởng mục tiêu.",
+          "label": "Kho"
+        },
         "venusCore": {
           "description": "Cho vay và vay theo cách truyền thống với đòn bẩy dễ dùng, tối ưu.",
           "label": "Venus Core"
@@ -859,6 +878,31 @@
   },
   "legal": {
     "lastUpdatedAt": "Cập nhật lần cuối: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "description": "Được định tuyến qua các nguồn lợi suất của Venus Protocol theo chính sách do quản trị lựa chọn. Lợi suất tự động tích lũy.",
+    "header": "Trung tâm thanh khoản",
+    "stats": {
+      "hubs": "Trung tâm",
+      "totalLiquidity": "Tổng thanh khoản",
+      "totalSupply": "Tổng cung cấp"
+    },
+    "table": {
+      "columns": {
+        "asset": "Tài sản",
+        "exposure": {
+          "selectionOptionLabel": "Mức tiếp xúc",
+          "title": "Mức tiếp xúc <InfoIcon/>",
+          "tooltip": "Tài sản thế chấp của từng nguồn mà tài sản này đang cho vay tới"
+        },
+        "liquidity": "Thanh khoản",
+        "supplyApy": "APY cung cấp",
+        "totalSupply": "Tổng cung cấp"
+      },
+      "search": {
+        "placeholder": "Tìm kiếm tài sản"
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "Viết",
@@ -938,6 +982,92 @@
     "supplyInfo": {
       "title": "Thông tin cung cấp"
     }
+  },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Tôi xác nhận tác động giá cao",
+        "tooltip": "Giao dịch này dự kiến có tác động giá trên {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "Tôi xác nhận rủi ro liên quan",
+        "tooltip": "Hệ số an toàn của bạn sẽ thấp sau giao dịch này, làm tăng rủi ro thanh lý"
+      }
+    },
+    "availableAmount": "Có thể dùng",
+    "boostTabAltText": "Biểu tượng tên lửa",
+    "boostTabTitle": "Tăng cường",
+    "borrow": "Vay",
+    "borrowTabTitle": "Vay",
+    "collateral": "Tài sản thế chấp",
+    "collateralField": {
+      "label": "Tài sản thế chấp"
+    },
+    "error": {
+      "borrowCapReached": "Hạn mức vay {{assetBorrowCap}} của pool này đã đạt. Bạn không thể vay từ thị trường này cho đến khi các khoản vay được hoàn trả hoặc hạn mức vay được tăng.",
+      "higherThanAvailableAmount": "Số lượng nhập vượt quá số lượng có thể dùng",
+      "higherThanAvailableLiquidity": "Thanh khoản tài sản không đủ",
+      "higherThanBorrowBalance": "Số lượng nhập vượt quá số dư vay",
+      "higherThanBorrowCap": "Bạn không thể vay nhiều hơn {{userMaxBorrowAmount}} từ pool này vì hạn mức vay của thị trường là {{assetBorrowCap}} và hiện đang có {{assetBorrowBalance}} được vay.",
+      "higherThanRepayBalance": "Số lượng nhập vượt quá số dư hoàn trả",
+      "higherThanSupplyCap": "Bạn không thể cung cấp nhiều hơn {{userMaxSupplyAmount}} vào pool này vì hạn mức cung cấp của thị trường là {{assetSupplyCap}} và hiện đang có {{assetSupplyBalance}} được cung cấp.",
+      "higherThanWalletBalance": "Không đủ số dư {{tokenSymbol}}",
+      "higherThanWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
+      "noCollateral": "Bạn cần cung cấp token và bật làm tài sản thế chấp trước khi có thể vay {{tokenSymbol}} từ pool này",
+      "noSwapQuoteFound": "Không tìm thấy giao dịch hoán đổi.",
+      "priceImpactTooHigh": "Tác động giá quá cao",
+      "smallerThanMinimumAmount": "Bạn không thể cung cấp ít hơn {{minAmount}} trong một lần",
+      "supplyCapReached": "Hạn mức cung cấp {{assetSupplyCap}} của pool này đã đạt. Bạn không thể cung cấp vào thị trường này cho đến khi có rút hoặc hạn mức cung cấp được tăng.",
+      "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Vị thế tối đa ở mức đòn bẩy hiện tại: {{ value }}",
+      "submitButtonLabel": "Xác nhận",
+      "title": "Hệ số đòn bẩy",
+      "warning": "Đòn bẩy ảnh hưởng đến mức sử dụng vốn của bạn và không thể thay đổi cho đến khi bạn thoát hoàn toàn khỏi vị thế."
+    },
+    "receiveNativeToken": {
+      "label": "Nhận {{tokenSymbol}}",
+      "tooltip": "Unwrap {{wrappedNativeTokenSymbol}} đã vay sang {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "Khoản nợ cần trả"
+    },
+    "repay": {
+      "fullRepaymentWarning": "Giá trị giao dịch có thể cao hơn một chút so với số tiền vay hiện tại để bao gồm lãi phát sinh",
+      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
+    },
+    "repayTab": {
+      "collateralTabTitle": "Tài sản thế chấp",
+      "noCollateralWarning": "Bạn không có tài sản thế chấp để hoàn trả.",
+      "title": "Hoàn trả",
+      "walletBalanceTabTitle": "Ví"
+    },
+    "rightMaxButtonLabel": "TỐI ĐA",
+    "safeMaxButtonLabel": "TỐI ĐA AN TOÀN",
+    "submitButtonLabel": {
+      "boost": "Tăng cường",
+      "borrow": "Vay",
+      "enterValidAmount": "Nhập số lượng hợp lệ",
+      "repay": "Hoàn trả",
+      "supply": "Cung cấp",
+      "withdraw": "Rút"
+    },
+    "supply": "Cung cấp",
+    "supplyTabTitle": "Cung cấp",
+    "swapDetails": {
+      "label": {
+        "repay": "Bạn sẽ hoàn trả",
+        "supply": "Bạn sẽ cung cấp"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "Số dư ví",
+    "withdrawTabTitle": "Rút"
   },
   "markets": {
     "eMode": {
@@ -1075,106 +1205,6 @@
     "search": {
       "placeholder": "Tìm tài sản"
     }
-  },
-  "operationForm": {
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "Tôi xác nhận tác động giá cao",
-        "tooltip": "Giao dịch này dự kiến có tác động giá trên {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "Tôi xác nhận rủi ro liên quan",
-        "tooltip": "Hệ số an toàn của bạn sẽ thấp sau giao dịch này, làm tăng rủi ro thanh lý"
-      }
-    },
-    "availableAmount": "Có thể dùng",
-    "boostTabAltText": "Biểu tượng tên lửa",
-    "boostTabTitle": "Tăng cường",
-    "borrow": "Vay",
-    "borrowTabTitle": "Vay",
-    "collateral": "Tài sản thế chấp",
-    "collateralField": {
-      "label": "Tài sản thế chấp"
-    },
-    "error": {
-      "borrowCapReached": "Hạn mức vay {{assetBorrowCap}} của pool này đã đạt. Bạn không thể vay từ thị trường này cho đến khi các khoản vay được hoàn trả hoặc hạn mức vay được tăng.",
-      "higherThanAvailableAmount": "Số lượng nhập vượt quá số lượng có thể dùng",
-      "higherThanAvailableLiquidity": "Thanh khoản tài sản không đủ",
-      "higherThanBorrowBalance": "Số lượng nhập vượt quá số dư vay",
-      "higherThanBorrowCap": "Bạn không thể vay nhiều hơn {{userMaxBorrowAmount}} từ pool này vì hạn mức vay của thị trường là {{assetBorrowCap}} và hiện đang có {{assetBorrowBalance}} được vay.",
-      "higherThanRepayBalance": "Số lượng nhập vượt quá số dư hoàn trả",
-      "higherThanSupplyCap": "Bạn không thể cung cấp nhiều hơn {{userMaxSupplyAmount}} vào pool này vì hạn mức cung cấp của thị trường là {{assetSupplyCap}} và hiện đang có {{assetSupplyBalance}} được cung cấp.",
-      "higherThanWalletBalance": "Không đủ số dư {{tokenSymbol}}",
-      "higherThanWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
-      "noCollateral": "Bạn cần cung cấp token và bật làm tài sản thế chấp trước khi có thể vay {{tokenSymbol}} từ pool này",
-      "noSwapQuoteFound": "Không tìm thấy giao dịch hoán đổi.",
-      "priceImpactTooHigh": "Tác động giá quá cao",
-      "smallerThanMinimumAmount": "Bạn không thể cung cấp ít hơn {{minAmount}} trong một lần",
-      "supplyCapReached": "Hạn mức cung cấp {{assetSupplyCap}} của pool này đã đạt. Bạn không thể cung cấp vào thị trường này cho đến khi có rút hoặc hạn mức cung cấp được tăng.",
-      "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý"
-    },
-    "leverageFactor": "{{ leverageFactor }}x",
-    "leverageFactorModal": {
-      "maximumShortAmount": "Vị thế tối đa ở mức đòn bẩy hiện tại: {{ value }}",
-      "submitButtonLabel": "Xác nhận",
-      "title": "Hệ số đòn bẩy",
-      "warning": "Đòn bẩy ảnh hưởng đến mức sử dụng vốn của bạn và không thể thay đổi cho đến khi bạn thoát hoàn toàn khỏi vị thế."
-    },
-    "managePositionsTabs": {
-      "collateral": "Tài sản thế chấp",
-      "position": "Vị thế",
-      "positionsTabs": {
-        "increase": "Tăng",
-        "reduce": "Giảm",
-        "supply": "Cung cấp",
-        "withdraw": "Rút"
-      }
-    },
-    "receiveNativeToken": {
-      "label": "Nhận {{tokenSymbol}}",
-      "tooltip": "Unwrap {{wrappedNativeTokenSymbol}} đã vay sang {{nativeTokenSymbol}}"
-    },
-    "repaidField": {
-      "label": "Khoản nợ cần trả"
-    },
-    "repay": {
-      "fullRepaymentWarning": "Giá trị giao dịch có thể cao hơn một chút so với số tiền vay hiện tại để bao gồm lãi phát sinh",
-      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
-    },
-    "repayTab": {
-      "collateralTabTitle": "Tài sản thế chấp",
-      "noCollateralWarning": "Bạn không có tài sản thế chấp để hoàn trả.",
-      "title": "Hoàn trả",
-      "walletBalanceTabTitle": "Ví"
-    },
-    "rightMaxButtonLabel": "TỐI ĐA",
-    "riskSlider": {
-      "0": "0%",
-      "100": "100%"
-    },
-    "safeMaxButtonLabel": "TỐI ĐA AN TOÀN",
-    "submitButtonLabel": {
-      "boost": "Tăng cường",
-      "borrow": "Vay",
-      "enterValidAmount": "Nhập số lượng hợp lệ",
-      "repay": "Hoàn trả",
-      "supply": "Cung cấp",
-      "withdraw": "Rút"
-    },
-    "supply": "Cung cấp",
-    "supplyTabTitle": "Cung cấp",
-    "swapDetails": {
-      "label": {
-        "repay": "Bạn sẽ hoàn trả",
-        "supply": "Bạn sẽ cung cấp"
-      },
-      "value": {
-        "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}"
-      }
-    },
-    "walletBalance": "Số dư ví",
-    "withdrawTabTitle": "Rút"
   },
   "pagination": {
     "itemOf": "Mục {{currentPageLastIndex}} trong {{itemsCount}}",
@@ -1327,7 +1357,8 @@
     },
     "title": "Bảng xếp hạng Prime",
     "totalRewards": {
-      "title": "Tổng thưởng Prime đã phân phối trong chu kỳ này"
+      "title": "Tổng thưởng Prime đã phân phối",
+      "totalPoolLabel": "trên tổng <Highlight>{{amount}}</Highlight> phần thưởng chu kỳ này"
     },
     "userRewards": {
       "eligibleMessage": "Bạn hiện đủ điều kiện chia sẻ phần thưởng Prime trong chu kỳ này. Hãy cung cấp tài sản bên dưới để nhận phần thưởng.",
@@ -1396,9 +1427,6 @@
       "unlocked": "Đã mở khóa",
       "withdrawButtonLabel": "Rút số dư đã mở khóa"
     }
-  },
-  "select": {
-    "defaultLabel": "Chọn tùy chọn"
   },
   "selectTokenTextField": {
     "searchInput": {
@@ -1882,6 +1910,18 @@
     "illustrationAltText": "Hình minh họa Trade",
     "title": "Venus Trade hiện đã hoạt động"
   },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "Tài sản thế chấp",
+      "position": "Vị thế",
+      "positionsTabs": {
+        "increase": "Tăng",
+        "reduce": "Giảm",
+        "supply": "Cung cấp",
+        "withdraw": "Rút"
+      }
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Chấp nhận Admin Đang chờ Kiểm tra",
     "acceptPendingImplementationAddressCheck": "Chấp nhận địa chỉ triển khai đang chờ Kiểm tra",
@@ -2055,6 +2095,18 @@
       "title": "Giao dịch đã được xác nhận"
     }
   },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Tôi xác nhận tác động giá cao",
+        "tooltip": "Giao dịch này dự kiến có tác động giá trên {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "Tôi xác nhận rủi ro liên quan",
+        "tooltip": "Hệ số an toàn của bạn sẽ thấp sau giao dịch này, làm tăng rủi ro thanh lý"
+      }
+    }
+  },
   "vai": {
     "borrow": {
       "amountTokensInput": {
@@ -2111,6 +2163,7 @@
     "card": {
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
+      "collateral": "Tài sản thế chấp",
       "currentDeposited": "Hiện đang cung cấp",
       "dailyEmission": "Phần thưởng hàng ngày",
       "header": {
@@ -2148,6 +2201,7 @@
       "deposit": "Cung cấp",
       "inactive": "Không hoạt động",
       "inputPlaceholder": "Tìm kiếm tài sản",
+      "institution": "Tổ chức",
       "liquidated": "Đã thanh lý",
       "locked": "Đang kiếm lợi nhuận",
       "paused": "Tạm dừng",
@@ -2194,11 +2248,12 @@
       "overview": {
         "campaignTimeline": "Dòng thời gian chiến dịch",
         "collateral": "Tài sản thế chấp",
+        "contractAddress": "Địa chỉ hợp đồng",
         "loan": "Khoản vay",
         "marketInfo": "Thông tin thị trường",
         "marketRiskDisclosures": "Công bố rủi ro thị trường",
         "riskDisclosureText": {
-          "matrixDock": "<Bold>Vốn có rủi ro</Bold>. Mức lãi suất mục tiêu là biến động và gắn với hiệu suất của kho. Đây không phải là mức lợi nhuận được đảm bảo. <Bold>Bạn có thể nhận lại ít hơn số đã nạp vào</Bold>. Khi tất toán, bạn sẽ nhận phần tài sản mà kho thực sự nắm giữ tại thời điểm đó theo tỷ lệ sở hữu của mình. <Bold>Tiền của bạn sẽ bị khóa</Bold>. Khi giai đoạn khóa bắt đầu, bạn sẽ không thể cung cấp hoặc rút tài sản. Chỉ đến khi tất toán thì tiền mới có thể được nhận. <Bold>Những yếu tố ảnh hưởng đến kết quả:</Bold> hiệu suất của đối tác, điều kiện tài sản thế chấp, việc thực thi hợp đồng thông minh, độ tin cậy của oracle và kết quả tất toán. <Bold>Có áp dụng hạn chế theo khu vực pháp lý</Bold>. Kho này không dành cho các khu vực pháp lý bị hạn chế hoặc các đối tượng bị hạn chế. Vui lòng xem Điều khoản sử dụng để biết danh sách đầy đủ. Vui lòng xem <TermsOfUseLink>Điều khoản sử dụng</TermsOfUseLink> và các thông số của kho trên trang này trước khi cung cấp.",
+          "institution": "<Bold>Vốn có rủi ro</Bold>. Mức lãi suất mục tiêu là biến động và gắn với hiệu suất của kho. Đây không phải là mức lợi nhuận được đảm bảo. <Bold>Bạn có thể nhận lại ít hơn số đã nạp vào</Bold>. Khi tất toán, bạn sẽ nhận phần tài sản mà kho thực sự nắm giữ tại thời điểm đó theo tỷ lệ sở hữu của mình. <Bold>Tiền của bạn sẽ bị khóa</Bold>. Khi giai đoạn khóa bắt đầu, bạn sẽ không thể cung cấp hoặc rút tài sản. Chỉ đến khi tất toán thì tiền mới có thể được nhận. <Bold>Những yếu tố ảnh hưởng đến kết quả:</Bold> hiệu suất của đối tác, điều kiện tài sản thế chấp, việc thực thi hợp đồng thông minh, độ tin cậy của oracle và kết quả tất toán. <Bold>Có áp dụng hạn chế theo khu vực pháp lý</Bold>. Kho này không dành cho các khu vực pháp lý bị hạn chế hoặc các đối tượng bị hạn chế. Vui lòng xem Điều khoản sử dụng để biết danh sách đầy đủ. Vui lòng xem <TermsOfUseLink>Điều khoản sử dụng</TermsOfUseLink> và các thông số của kho trên trang này trước khi cung cấp.",
           "pendle": "Pendle là một giao thức giao dịch lợi nhuận phi tập trung cho phép tạo ra lợi nhuận lãi suất cố định thông qua Principal Tokens (PT). Venus Fixed Rate Vault định tuyến tài sản được cung cấp thông qua hạ tầng của Pendle để mua PT, sau đó các PT này được cung cấp vào Venus Core làm tài sản thế chấp. <br />Mặc dù Pendle không thể truy cập hoặc di chuyển số tài sản bạn đã cung cấp, việc sử dụng vault này khiến bạn chịu rủi ro từ cả hai giao thức. Các rủi ro này bao gồm lỗ hổng hợp đồng thông minh, sự cố oracle và khả năng một trong hai giao thức bị khai thác hoặc bị tạm dừng. Việc rút tiền sớm được thực hiện theo giá thị trường và có thể nhận lại ít hơn lượng đã cung cấp. APY cố định được khóa khi bạn cung cấp nhưng không bảo vệ khỏi các sự cố ở cấp độ giao thức."
         },
         "strategy": {
@@ -2290,10 +2345,28 @@
       }
     }
   },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "Tác động giá quá cao"
+    }
+  },
   "venusFluxBanner": {
     "description": "Chỉ trong 30 ngày. Ra mắt ngày 28 tháng 5 cùng <YellowText>Binance Wallet</YellowText>",
     "illustrationAltText": "Hình minh họa Venus Flux",
     "title": "Phần thưởng $50K USDT trên Venus Flux"
+  },
+  "vipModal": {
+    "backgroundAlt": "Hình minh họa nền",
+    "cancelButton": {
+      "label": "Không, cảm ơn"
+    },
+    "description": "Bạn là một phần của nhóm người dùng VIP Venus được chọn lọc. Đây là lời mời cá nhân của bạn vào kênh Venus. Chỉ dành cho các whale của Venus Protocol.",
+    "illustration": {
+      "header": "Bạn là <Linebreak/><Highlight>VIP</Highlight> của Venus Protocol"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "Tham gia nhóm Telegram riêng"
   },
   "vote": {
     "abstain": "Bỏ phiếu trắng",

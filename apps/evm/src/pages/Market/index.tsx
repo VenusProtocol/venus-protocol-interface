@@ -4,6 +4,7 @@ import type { Address } from 'viem';
 
 import { routes } from 'constants/routing';
 import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
+import { MarketForm } from 'containers/MarketForm';
 import MarketLoader from 'containers/MarketLoader';
 import { useNavigate } from 'hooks/useNavigate';
 import AssetWarning from './AssetWarning';
@@ -11,7 +12,6 @@ import { EModeInfo } from './EModeInfo';
 import { InterestRateChart } from './InterestRateChart';
 import { MarketHistory } from './MarketHistory';
 import MarketInfo from './MarketInfo';
-import { OperationForm } from './OperationForm';
 
 const Page: React.FC = () => {
   const { vTokenAddress, poolComptrollerAddress } = useParams<{
@@ -35,7 +35,7 @@ const Page: React.FC = () => {
 
             <div className="space-y-6 lg:space-y-0 lg:gap-x-6 lg:grid lg:grid-cols-2 xl:grid-cols-[7fr_5fr]">
               <div className="w-auto self-start shrink-0 overflow-x-auto sm:p-6 sm:rounded-lg sm:border sm:border-blue sm:bg-dark-blue lg:order-2 lg:sticky lg:-top-4 lg:max-h-[calc(100vh-128px)]">
-                <OperationForm
+                <MarketForm
                   poolComptrollerAddress={pool.comptrollerAddress}
                   vToken={asset.vToken}
                   navType="searchParam"

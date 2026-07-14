@@ -5,8 +5,8 @@ import { renderComponent } from 'testUtils/render';
 
 import { MarketActionsButton } from '..';
 
-vi.mock('pages/Market/OperationForm', () => ({
-  OperationForm: () => <div data-testid="operation-form" />,
+vi.mock('containers/MarketFormModal', () => ({
+  MarketFormModal: () => <div data-testid="market-form-modal" />,
 }));
 
 describe('pages/PrimeLeaderboard/MarketActionsButton', () => {
@@ -19,6 +19,6 @@ describe('pages/PrimeLeaderboard/MarketActionsButton', () => {
 
     fireEvent.click(screen.getByLabelText('Open market actions'));
 
-    expect(await screen.findByTestId('operation-form')).toBeInTheDocument();
+    expect(await screen.findByTestId('market-form-modal')).toBeInTheDocument();
   });
 });

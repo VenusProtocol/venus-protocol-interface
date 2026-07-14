@@ -2,13 +2,13 @@ import type { FocusEventHandler } from 'react';
 
 export interface DropdownProps {
   children: ({
-    isDropdownOpened,
+    isDropdownOpen,
     handleToggleDropdown,
-  }: { isDropdownOpened: boolean; handleToggleDropdown: () => void }) => React.ReactNode;
+  }: { isDropdownOpen: boolean; handleToggleDropdown: () => void }) => React.ReactNode;
   onBlur?: FocusEventHandler<HTMLDivElement>;
   optionClassName?: string;
   optionsDom: (props: {
-    setIsDropdownOpened: (v: boolean) => void;
+    setIsDropdownOpen: (v: boolean) => void;
     optionClassName?: string;
   }) => React.ReactElement;
   name?: string;

@@ -41,7 +41,7 @@ describe('Vaults', () => {
 
   it('filters vaults from the url venue parameter', () => {
     const { getByText, queryByText } = renderComponent(<Staking />, {
-      routerInitialEntries: ['/?venue=matrixdock'],
+      routerInitialEntries: ['/?venue=institution'],
     });
 
     expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();

@@ -23,7 +23,7 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.address.name'));
 
   const optionsDom = useCallback(
-    ({ setIsDropdownOpened }: { setIsDropdownOpened: (v: boolean) => void }) => {
+    ({ setIsDropdownOpen }: { setIsDropdownOpen: (v: boolean) => void }) => {
       const { underlyingToken } = vToken;
 
       const addOrCopyTokenAction = (token: Token | VToken) => () => {
@@ -32,7 +32,7 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
         } else {
           copyToClipboard(token.address);
         }
-        setIsDropdownOpened(false);
+        setIsDropdownOpen(false);
       };
 
       return (
@@ -65,14 +65,14 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
           : t('interactive.copy.address.modalTitle')
       }
     >
-      {({ isDropdownOpened, handleToggleDropdown }) => (
+      {({ isDropdownOpen, handleToggleDropdown }) => (
         <DropdownToggleButton handleToggleDropdown={handleToggleDropdown}>
           <Icon
             name={isUserConnected ? 'wallet' : 'copy'}
             className={cn(
               'justify-center h-5 w-5',
               isUserConnected && 'ml-[2px]',
-              isDropdownOpened && 'text-blue',
+              isDropdownOpen && 'text-blue',
             )}
           />
         </DropdownToggleButton>

@@ -98,7 +98,7 @@ export const useFormValidation = ({
     if (action !== 'withdrawDsa' && dsaAmountTokens?.isGreaterThan(userDsaWalletBalanceTokens)) {
       return {
         code: 'HIGHER_THAN_WALLET_BALANCE',
-        message: t('operationForm.error.higherThanWalletBalance', {
+        message: t('marketForm.error.higherThanWalletBalance', {
           tokenSymbol: position.dsaAsset.vToken.underlyingToken.symbol,
         }),
       };
@@ -112,7 +112,7 @@ export const useFormValidation = ({
     ) {
       return {
         code: 'HIGHER_THAN_WALLET_SPENDING_LIMIT',
-        message: t('operationForm.error.higherThanWalletSpendingLimit'),
+        message: t('marketForm.error.higherThanWalletSpendingLimit'),
       };
     }
 
@@ -131,14 +131,14 @@ export const useFormValidation = ({
     if (limitShortTokens && shortAmountTokens?.isGreaterThan(limitShortTokens)) {
       return {
         code: 'HIGHER_THAN_AVAILABLE_SHORT_AMOUNT',
-        message: t('operationForm.error.higherThanAvailableAmount'),
+        message: t('marketForm.error.higherThanAvailableAmount'),
       };
     }
 
     if (limitDsaTokens && dsaAmountTokens?.isGreaterThan(limitDsaTokens)) {
       return {
         code: 'HIGHER_THAN_AVAILABLE_DSA_AMOUNT',
-        message: t('operationForm.error.higherThanAvailableAmount'),
+        message: t('marketForm.error.higherThanAvailableAmount'),
       };
     }
 
