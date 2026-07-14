@@ -1207,6 +1207,8 @@
     }
   },
   "pagination": {
+    "goToFirstPage": "Go to first page",
+    "goToLastPage": "Go to last page",
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },

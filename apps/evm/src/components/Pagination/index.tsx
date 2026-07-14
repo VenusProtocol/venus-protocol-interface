@@ -2,6 +2,7 @@ import Typography from '@mui/material/Typography';
 import type { ReactElement, RefObject } from 'react';
 
 import { Button } from '@venusprotocol/ui';
+import { useTranslation } from 'libs/translations';
 import { Icon, type IconProps } from '../Icon';
 import { useStyles } from './styles';
 import { usePagination } from './usePagination';
@@ -10,12 +11,24 @@ interface PaginationButtonProps {
   className?: string;
   onClick: () => void;
   children: number | ReactElement;
+  ariaLabel?: string;
 }
 
-const PaginationButton: React.FC<PaginationButtonProps> = ({ className, onClick, children }) => {
+const PaginationButton: React.FC<PaginationButtonProps> = ({
+  className,
+  onClick,
+  children,
+  ariaLabel,
+}) => {
   const styles = useStyles();
   return (
-    <Button variant="text" css={styles.button} className={className} onClick={onClick}>
+    <Button
+      variant="text"
+      css={styles.button}
+      className={className}
+      onClick={onClick}
+      aria-label={ariaLabel}
+    >
       {children}
     </Button>
   );
@@ -59,6 +72,7 @@ export const Pagination = ({
   });
 
   const styles = useStyles();
+  const { t } = useTranslation();
 
   if (pagesCount <= 1) {
     return null;
@@ -74,7 +88,10 @@ export const Pagination = ({
       <Typography css={styles.itemsCountString}>{itemsCountString}</Typography>
 
       {!isFirstPage && (
-        <PaginationButton onClick={() => goToPageByIndex(0)}>
+        <PaginationButton
+          onClick={() => goToPageByIndex(0)}
+          ariaLabel={t('pagination.goToFirstPage')}
+        >
           <Icon css={styles.iconArrow} name="doubleChevronLeft" />
         </PaginationButton>
       )}
@@ -112,7 +129,10 @@ export const Pagination = ({
       })}
 
       {!isLastPage && (
-        <PaginationButton onClick={() => goToPageByIndex(pagesCount - 1)}>
+        <PaginationButton
+          onClick={() => goToPageByIndex(pagesCount - 1)}
+          ariaLabel={t('pagination.goToLastPage')}
+        >
           <Icon css={styles.iconArrow} name="doubleChevronRight" />
         </PaginationButton>
       )}

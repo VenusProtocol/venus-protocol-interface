@@ -1207,6 +1207,8 @@
     }
   },
   "pagination": {
+    "goToFirstPage": "ไปที่หน้าแรก",
+    "goToLastPage": "ไปที่หน้าสุดท้าย",
     "itemOf": "รายการที่ {{currentPageLastIndex}} จาก {{itemsCount}}",
     "itemsOf": "รายการที่ {{firstItemNumber}} - {{currentPageLastIndex}} จาก {{itemsCount}}"
   },

@@ -1207,6 +1207,8 @@
     }
   },
   "pagination": {
+    "goToFirstPage": "跳转到第一页",
+    "goToLastPage": "跳转到最后一页",
     "itemOf": "第 {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条",
     "itemsOf": "第 {{firstItemNumber}} - {{currentPageLastIndex}} 条 / 共 {{itemsCount}} 条"
   },

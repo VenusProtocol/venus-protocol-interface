@@ -1207,6 +1207,8 @@
     }
   },
   "pagination": {
+    "goToFirstPage": "最初のページへ",
+    "goToLastPage": "最後のページへ",
     "itemOf": "{{itemsCount}}件中{{currentPageLastIndex}}件目",
     "itemsOf": "{{itemsCount}}件中{{firstItemNumber}} - {{currentPageLastIndex}}件"
   },

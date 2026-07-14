@@ -1207,6 +1207,8 @@
     }
   },
   "pagination": {
+    "goToFirstPage": "İlk sayfaya git",
+    "goToLastPage": "Son sayfaya git",
     "itemOf": "{{itemsCount}} öğeden {{currentPageLastIndex}}",
     "itemsOf": "{{itemsCount}} öğeden {{firstItemNumber}} - {{currentPageLastIndex}}"
   },
