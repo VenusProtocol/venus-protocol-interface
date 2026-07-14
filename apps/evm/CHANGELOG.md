@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 5.6.0
+
+### Minor Changes
+
+- 8ffcc28: only show Prime banner on XVS vault when user is connected
+- dd57487: add total reward info for reward card
+- dc78032: add VIP feature
+- 06055b4: support prime v2 calculator
+
+### Patch Changes
+
+- d3d501c: move market operation form to containers
+
 ## 5.5.0
 
 ### Minor Changes

@@ -225,10 +225,10 @@
       "logoAlt": "Logo Prime",
       "tooltip": {
         "calculatorLink": "Tính phần thưởng Prime của bạn",
-        "primeBorrowSimulation": "APY được boost bởi Prime dựa trên mức vay trung vị của người dùng {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}}.",
+        "primeBorrowSimulation": "APY được boost bởi Prime dựa trên mức vay trung bình của người dùng {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}}.",
         "primeDocLink": "Tìm hiểu thêm",
         "primeMarket": "APY được boost bởi Prime.",
-        "primeSupplySimulation": "APY được boost bởi Prime dựa trên mức cung cấp trung vị của người dùng {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}}."
+        "primeSupplySimulation": "APY được boost bởi Prime dựa trên mức cung cấp trung bình của người dùng {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}}."
       }
     }
   },
