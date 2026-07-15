@@ -1,12 +1,6 @@
-import { type Hex, keccak256, toBytes } from 'viem';
-
-// Canonical disclaimer the supplier agrees to via the acknowledgement checkbox on the
-// institutional (Fixed-Term) vault supply form. This exact text is the consented content:
-// its keccak256 hash is recorded on-chain on every supply through `depositWithConsent`
-// It must stay in sync with the displayed agreement (`vault.modals.institutionalTcsAgreement`).
-export const INSTITUTIONAL_VAULT_DISCLAIMER =
-  'By proceeding, I agree to the Venus Fixed-Term Vault Terms of Use and represent that I am not a restricted person. Restricted persons include US Persons (as defined under Regulation S of the US Securities Act of 1933), persons located in, ordinarily resident in, or nationals of the United Kingdom, Canada, or mainland China, and any person located in or subject to the sanctions laws of an OFAC-sanctioned jurisdiction. See the Terms of Use for the full list.';
-
-export const INSTITUTIONAL_VAULT_CONSENT_HASH: Hex = keccak256(
-  toBytes(INSTITUTIONAL_VAULT_DISCLAIMER),
-);
+// i18n key of the acknowledgement checkbox text on the institutional (Fixed-Term) vault supply
+// form. The exact disclaimer the supplier is shown (in their language, markup stripped) is hashed
+// at supply time and recorded on-chain through `depositWithConsent`, so the on-chain consent
+// record always matches the displayed agreement — including after the copy changes. The off-chain
+// hash<->text mapping is maintained by Operations.
+export const INSTITUTIONAL_VAULT_DISCLAIMER_I18N_KEY = 'vault.modals.institutionalTcsAgreement';
