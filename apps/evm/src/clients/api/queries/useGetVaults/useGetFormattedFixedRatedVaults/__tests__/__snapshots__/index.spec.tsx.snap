@@ -146,7 +146,7 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle and matrix
     "userStakeBalanceMantissa": "100000000",
     "userWithdrawLimitMantissa": "50000000",
     "vaultAddress": "0x5263D68786AaCfad74B9aa385A004c272548e8B7",
-    "vaultDeploymentDate": 2026-04-01T00:00:00.000Z,
+    "vaultDeploymentDate": 2026-03-20T00:00:00.000Z,
     "vaultType": "institutional",
     "venue": "institution",
     "venueAddress": "0x1111111111111111111111111111111111111111",
