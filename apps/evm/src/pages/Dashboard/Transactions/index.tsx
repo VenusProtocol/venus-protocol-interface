@@ -27,9 +27,14 @@ export const Transactions: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { chainId } = useChainId();
 
+  // The URL page is 1-based and user-editable, so we guard against invalid values
+  // (non-numeric, non-integer, below 1) and fall back to the first page. The upper
+  // bound (page above the total) is handled by the Pagination component.
   const pageStr = searchParams.get(PAGE_PARAM_KEY);
-  const pageNumber = pageStr ? Number(pageStr) : FIRST_PAGE;
-  const page = !Number.isNaN(pageNumber) ? pageNumber : undefined;
+  const parsedPage = pageStr === null ? undefined : Number(pageStr);
+  const isValidPage =
+    parsedPage !== undefined && Number.isInteger(parsedPage) && parsedPage >= FIRST_PAGE;
+  const page = isValidPage ? parsedPage : FIRST_PAGE;
 
   const txTypeStr = searchParams.get(TX_TYPE_PARAM_KEY) ?? ALL_OPTION_VALUE;
   const txType = TX_TYPES.find(type => type === txTypeStr);
@@ -60,6 +65,19 @@ export const Transactions: React.FC = () => {
       ...Object.fromEntries(currentSearchParams),
       [PAGE_PARAM_KEY]: newPage,
     }));
+
+  // Fall back to the first page when the page param is present but invalid (e.g. 0 or negative)
+  useEffect(() => {
+    if (pageStr !== null && !isValidPage) {
+      setSearchParams(
+        currentSearchParams => ({
+          ...Object.fromEntries(currentSearchParams),
+          [PAGE_PARAM_KEY]: String(FIRST_PAGE),
+        }),
+        { replace: true },
+      );
+    }
+  }, [pageStr, isValidPage, setSearchParams]);
 
   // Reset search params when detecting chain switch.
   const chainIdRef = useRef(chainId);
