@@ -1,4 +1,5 @@
 import type BigNumber from 'bignumber.js';
+import { INSTITUTIONAL_VAULT_CONSENT_HASH } from 'constants/institutionalVault';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { institutionalVaultAbi } from 'libs/contracts/abis/institutionalVaultAbi';
@@ -32,8 +33,12 @@ export const useStakeIntoInstitutionalVault = (
       return {
         abi: institutionalVaultAbi,
         address: vaultAddress,
-        functionName: 'deposit' as const,
-        args: [BigInt(amountMantissa.toFixed()), accountAddress] as const,
+        functionName: 'depositWithConsent' as const,
+        args: [
+          BigInt(amountMantissa.toFixed()),
+          accountAddress,
+          INSTITUTIONAL_VAULT_CONSENT_HASH,
+        ] as const,
       };
     },
     onConfirmed: () => {
