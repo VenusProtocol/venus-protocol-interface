@@ -1,5 +1,4 @@
 import type BigNumber from 'bignumber.js';
-import { INSTITUTIONAL_VAULT_DISCLAIMER_I18N_KEY } from 'constants/institutionalVault';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { institutionalVaultAbi } from 'libs/contracts/abis/institutionalVaultAbi';
@@ -35,7 +34,7 @@ export const useStakeIntoInstitutionalVault = (
       // Hash the exact disclaimer the user was shown (in their language), with the i18n component
       // markup stripped, and record it on-chain alongside the supply as the consent record. Hashing
       // the live text means the on-chain hash always matches the displayed copy, even if it changes.
-      const disclaimer = t(INSTITUTIONAL_VAULT_DISCLAIMER_I18N_KEY).replace(
+      const disclaimer = t('vault.modals.institutionalTcsAgreement').replace(
         /<\/?[a-zA-Z][^>]*>/g,
         '',
       );
