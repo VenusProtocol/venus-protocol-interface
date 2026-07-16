@@ -19,6 +19,7 @@ export interface GetRiskDashboardWalletAggregatesResponse {
   valueEligibleForLiquidationUsdCents: string;
   totalCollateralAtRiskUsdCents: string;
   totalBadDebtUsdCents: string;
+  walletsWithBadDebt: string;
 }
 
 const HEALTH_FACTOR_AT_RISK_DECIMAL = 1.125;

@@ -1761,6 +1761,43 @@
       }
     },
     "illustrationAlt": "İstatistik illüstrasyonu",
+    "liquidations": {
+      "dailyChart": {
+        "noData": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED",
+        "tooltip": {
+          "activeLiquidators": "TRANSLATION NEEDED",
+          "collateralSeized": "TRANSLATION NEEDED",
+          "count": "TRANSLATION NEEDED",
+          "debtRepaid": "TRANSLATION NEEDED"
+        },
+        "unavailable": "TRANSLATION NEEDED"
+      },
+      "distributionChart": {
+        "byCollateralTitle": "TRANSLATION NEEDED",
+        "byDebtTitle": "TRANSLATION NEEDED",
+        "noData": "TRANSLATION NEEDED",
+        "tooltip": {
+          "count": "TRANSLATION NEEDED",
+          "value": "TRANSLATION NEEDED"
+        },
+        "unavailable": "TRANSLATION NEEDED"
+      },
+      "kpis": {
+        "activeLiquidators": "TRANSLATION NEEDED",
+        "bonus": "TRANSLATION NEEDED",
+        "collateralSeized": "TRANSLATION NEEDED",
+        "count": "TRANSLATION NEEDED",
+        "debtRepaid": "TRANSLATION NEEDED",
+        "unavailable": "TRANSLATION NEEDED",
+        "walletsWithBadDebt": "TRANSLATION NEEDED"
+      },
+      "period": {
+        "24h": "TRANSLATION NEEDED",
+        "30d": "TRANSLATION NEEDED",
+        "7d": "TRANSLATION NEEDED"
+      }
+    },
     "marketKpis": {
       "liquidity": "TRANSLATION NEEDED",
       "totalBorrows": "TRANSLATION NEEDED",
