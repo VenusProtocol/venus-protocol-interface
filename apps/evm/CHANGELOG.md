@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.8.0
+
+### Minor Changes
+
+- f98084a: support first / last pagination
+
 ## 5.7.0
 
 ### Minor Changes
