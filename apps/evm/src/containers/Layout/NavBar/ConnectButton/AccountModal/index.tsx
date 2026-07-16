@@ -35,7 +35,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
 
       <div className="fixed top-20 bottom-0 left-0 right-0 z-99999 min-w-full sm:relative sm:top-0">
         <div className="absolute inset-0 right-0 min-w-full sm:pt-7 sm:left-auto sm:top-auto sm:bottom-auto">
-          <div className="w-full h-full bg-background-active p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:rounded-lg sm:border sm:border-blue">
+          <div className="w-full h-full bg-background-active p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:overflow-visible sm:rounded-lg sm:border sm:border-blue">
             <div className="flex flex-col gap-y-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-x-3">
