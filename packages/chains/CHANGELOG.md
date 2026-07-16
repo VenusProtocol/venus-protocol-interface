@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.28.0
+
+### Minor Changes
+
+- 47b13ac: add support for SKHYB + update bStock icons
+
 ## 0.27.0
 
 ### Minor Changes
