@@ -1351,6 +1351,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chainlink/contracts@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@chainlink/contracts@npm:0.8.0"
+  dependencies:
+    "@eth-optimism/contracts": "npm:^0.5.21"
+    "@openzeppelin/contracts": "npm:~4.3.3"
+    "@openzeppelin/contracts-upgradeable-4.7.3": "npm:@openzeppelin/contracts-upgradeable@v4.7.3"
+    "@openzeppelin/contracts-v0.7": "npm:@openzeppelin/contracts@v3.4.2"
+  checksum: 10c0/ecca110d5723c4c717a438dfaa8e767af76d70e2e6ea78d85ccf7a21161b2a464fb7a85c28536d1cf43dbd3822b5f5a8578a46ddfa366eeb56a3ce7777cce094
+  languageName: node
+  linkType: hard
+
 "@chainlink/contracts@npm:^0.5.1":
   version: 0.5.1
   resolution: "@chainlink/contracts@npm:0.5.1"
@@ -5315,6 +5327,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@layerzerolabs/lz-evm-messagelib-v2@npm:3.0.148":
+  version: 3.0.148
+  resolution: "@layerzerolabs/lz-evm-messagelib-v2@npm:3.0.148"
+  peerDependencies:
+    "@arbitrum/nitro-contracts": ^1.1.0
+    "@axelar-network/axelar-gmp-sdk-solidity": ^5.6.4
+    "@chainlink/contracts-ccip": ^0.7.6
+    "@eth-optimism/contracts": ^0.6.0
+    "@layerzerolabs/lz-evm-protocol-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-v1-0.7": ^3.0.148
+    "@openzeppelin/contracts": ^4.8.1 || ^5.0.0
+    "@openzeppelin/contracts-upgradeable": ^4.8.1 || ^5.0.0
+    hardhat-deploy: ^0.12.4
+    solidity-bytes-utils: ^0.8.0
+  peerDependenciesMeta:
+    "@arbitrum/nitro-contracts":
+      optional: true
+  checksum: 10c0/d50d21e2e50e3c1278090015e9c16de16160b198c36ed117584dea7cbc309d15174b4bbe061c86ec55383eeb4ec887d3cf72c5d09611174f794dccf25e1d8b46
+  languageName: node
+  linkType: hard
+
+"@layerzerolabs/lz-evm-protocol-v2@npm:3.0.148":
+  version: 3.0.148
+  resolution: "@layerzerolabs/lz-evm-protocol-v2@npm:3.0.148"
+  peerDependencies:
+    "@openzeppelin/contracts": ^4.8.1 || ^5.0.0
+    "@openzeppelin/contracts-upgradeable": ^4.8.1 || ^5.0.0
+    hardhat-deploy: ^0.12.4
+    solidity-bytes-utils: ^0.8.0
+  checksum: 10c0/cdb10bb87a6a0d3df9d4102409bcc12c3b087be6b08137c6d4c0529a1c0a9689d3b5eb325414de43831b1a06b8cdcbd313b6f6563356a77757bb67dfd220fb2a
+  languageName: node
+  linkType: hard
+
 "@layerzerolabs/lz-evm-sdk-v1-0.7@npm:^1.5.14":
   version: 1.5.16
   resolution: "@layerzerolabs/lz-evm-sdk-v1-0.7@npm:1.5.16"
@@ -5322,6 +5367,64 @@ __metadata:
     "@openzeppelin/contracts": "npm:3.4.2-solc-0.7"
     "@openzeppelin/contracts-upgradeable": "npm:3.4.2-solc-0.7"
   checksum: 10c0/0778fb8d3944148f9a902d09486b9df75a0c8a3e105f60a4fccc4910359b9fa3461495992e34b1203e82e8faef5189b4c7a61e78b2247515f0b33af3d4c0703e
+  languageName: node
+  linkType: hard
+
+"@layerzerolabs/oapp-evm-upgradeable@npm:0.1.3":
+  version: 0.1.3
+  resolution: "@layerzerolabs/oapp-evm-upgradeable@npm:0.1.3"
+  dependencies:
+    ethers: "npm:^5.7.2"
+  peerDependencies:
+    "@layerzerolabs/lz-evm-messagelib-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-protocol-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-v1-0.7": ^3.0.148
+    "@openzeppelin/contracts": ^4.8.1 || ^5.0.0
+    "@openzeppelin/contracts-upgradeable": ^4.8.1 || ^5.0.0
+  checksum: 10c0/8fd995812987aed35160378a45698e92b76e602de4271e13fd8921df432ebb09e27c7f6fdb4749b19b61031d6e5418c8de0af652b048a476692ce30920a3c7c9
+  languageName: node
+  linkType: hard
+
+"@layerzerolabs/oapp-evm@npm:0.4.1":
+  version: 0.4.1
+  resolution: "@layerzerolabs/oapp-evm@npm:0.4.1"
+  dependencies:
+    ethers: "npm:^5.7.2"
+  peerDependencies:
+    "@layerzerolabs/lz-evm-messagelib-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-protocol-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-v1-0.7": ^3.0.148
+    "@openzeppelin/contracts": ^4.8.1 || ^5.0.0
+    "@openzeppelin/contracts-upgradeable": ^4.8.1 || ^5.0.0
+  checksum: 10c0/d4b7c6e81e7cdf5d8c6503795eef7c389da1e3a08419b861d17d2a2ba6f4bb5072055721fe00233f5e88ebe2c6130862fbab9af1bc9a4dbe64bdc7cd1ba8e896
+  languageName: node
+  linkType: hard
+
+"@layerzerolabs/oft-evm-upgradeable@npm:4.0.2":
+  version: 4.0.2
+  resolution: "@layerzerolabs/oft-evm-upgradeable@npm:4.0.2"
+  peerDependencies:
+    "@layerzerolabs/lz-evm-messagelib-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-protocol-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-v1-0.7": ^3.0.148
+    "@layerzerolabs/oapp-evm": ^0.4.1
+    "@openzeppelin/contracts": ^4.8.1 || ^5.0.0
+    "@openzeppelin/contracts-upgradeable": ^4.8.1 || ^5.0.0
+  checksum: 10c0/fb7e846feac7d43225ed63f422bfbf10e8f1c47c8a28802cec8e15f95108db6a2ab3952f32b9efccd7123ca2a3d542c4a01bfedfcadd006e5ef8d8fb84684e70
+  languageName: node
+  linkType: hard
+
+"@layerzerolabs/oft-evm@npm:4.0.1":
+  version: 4.0.1
+  resolution: "@layerzerolabs/oft-evm@npm:4.0.1"
+  peerDependencies:
+    "@layerzerolabs/lz-evm-messagelib-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-protocol-v2": ^3.0.148
+    "@layerzerolabs/lz-evm-v1-0.7": ^3.0.148
+    "@layerzerolabs/oapp-evm": ^0.4.1
+    "@openzeppelin/contracts": ^4.8.1 || ^5.0.0
+    "@openzeppelin/contracts-upgradeable": ^4.8.1 || ^5.0.0
+  checksum: 10c0/d8ba5801d2c94c0e63419ab9511feb1c1103a8a6983b24a8049e00893037cefd005d36f5d8a6293ddb4b64a3b02e38c2ed55d64ad92feea5bc14d4e9607de837
   languageName: node
   linkType: hard
 
@@ -6792,10 +6895,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openzeppelin/contracts-upgradeable-4.7.3@npm:@openzeppelin/contracts-upgradeable@v4.7.3":
+  version: 4.7.3
+  resolution: "@openzeppelin/contracts-upgradeable@npm:4.7.3"
+  checksum: 10c0/8379684b04492ede34d5c1c77b2cb6d746bb5f3db988a4595952d91a76c4f7a4d07ae2663a5da37fad65b5414d0442544e1a9a7d0912e6612d08ba2078430203
+  languageName: node
+  linkType: hard
+
 "@openzeppelin/contracts-upgradeable@npm:3.4.2-solc-0.7":
   version: 3.4.2-solc-0.7
   resolution: "@openzeppelin/contracts-upgradeable@npm:3.4.2-solc-0.7"
   checksum: 10c0/24e5c3cb1679d3cb20f3ef9864ecc697107c62763610471450e313dd074e748420da6c55b68a1b82c55316f055cd00f5c029a15a9a614d775377e73c1534b6d2
+  languageName: node
+  linkType: hard
+
+"@openzeppelin/contracts-upgradeable@npm:4.9.3":
+  version: 4.9.3
+  resolution: "@openzeppelin/contracts-upgradeable@npm:4.9.3"
+  checksum: 10c0/e20ea16956cd33ca746a8ca274725f32541d947e787eea2f50116b92f458f33292ce40d3148e603ec731539cd833a75986dc346cc1189057bcd5c3755e95d600
   languageName: node
   linkType: hard
 
@@ -6824,6 +6941,13 @@ __metadata:
   version: 4.9.5
   resolution: "@openzeppelin/contracts@npm:4.9.5"
   checksum: 10c0/bf5b38320c09f33ecbd7bbf5f6dc8a3a94d3771ee4a1c0dcfc517c05bd03f61b3b3cb263c608e323780994b7686a21fdce2674ca5d127674c3292e5578335032
+  languageName: node
+  linkType: hard
+
+"@openzeppelin/contracts@npm:~4.3.3":
+  version: 4.3.3
+  resolution: "@openzeppelin/contracts@npm:4.3.3"
+  checksum: 10c0/5d871396e6a985c0ea8a36f475443eb3a20f728f85b5ef7e280d33fdb765d942764b25b3d04cb8d5108cd32912a3624aad0354a3d6311ea99e5dc1c8cfb20ed1
   languageName: node
   linkType: hard
 
@@ -7085,6 +7209,25 @@ __metadata:
   version: 0.2.1
   resolution: "@paulmillr/qr@npm:0.2.1"
   checksum: 10c0/6ca1171a7e870d948084dc0a51ca61fab4a2537c888e116cac2f3c622974a911559b212d0d0a79d57c69a8b396eb0168e3a6e46715f9881df241d78cdf081ef4
+  languageName: node
+  linkType: hard
+
+"@pendle/core-v2@npm:^6.5.0":
+  version: 6.7.1
+  resolution: "@pendle/core-v2@npm:6.7.1"
+  dependencies:
+    "@chainlink/contracts": "npm:0.8.0"
+    "@layerzerolabs/lz-evm-messagelib-v2": "npm:3.0.148"
+    "@layerzerolabs/lz-evm-protocol-v2": "npm:3.0.148"
+    "@layerzerolabs/oapp-evm": "npm:0.4.1"
+    "@layerzerolabs/oapp-evm-upgradeable": "npm:0.1.3"
+    "@layerzerolabs/oft-evm": "npm:4.0.1"
+    "@layerzerolabs/oft-evm-upgradeable": "npm:4.0.2"
+    "@openzeppelin/contracts": "npm:4.9.3"
+    "@openzeppelin/contracts-upgradeable": "npm:4.9.3"
+    ethers: "npm:^5.7.2"
+    solidity-bytes-utils: "npm:0.8.4"
+  checksum: 10c0/fee0fbf1400d38d618d449a74fa4526f9627ecc73a36550eb6aca0354055427a830d0acd2dabf3643e7a5f14c5de0f771f317d41713a9a0c14bcac25574d5f96
   languageName: node
   linkType: hard
 
@@ -10771,20 +10914,21 @@ __metadata:
   linkType: soft
 
 "@venusprotocol/venus-periphery@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@venusprotocol/venus-periphery@npm:1.1.0"
+  version: 1.2.0
+  resolution: "@venusprotocol/venus-periphery@npm:1.2.0"
   dependencies:
     "@nomiclabs/hardhat-ethers": "npm:^2.2.3"
     "@openzeppelin/contracts": "npm:^4.8.3"
     "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
     "@openzeppelin/hardhat-upgrades": "npm:^1.21.0"
+    "@pendle/core-v2": "npm:^6.5.0"
     "@solidity-parser/parser": "npm:^0.13.2"
     "@venusprotocol/solidity-utilities": "npm:2.0.3"
     ethers: "npm:^5.7.0"
     hardhat-deploy: "npm:^0.11.14"
     module-alias: "npm:^2.2.2"
     patch-package: "npm:^8.0.0"
-  checksum: 10c0/615a220f50b45908a18f0fef31e8bb3832c00b74851497d3b6a1f7a3ecbdf92f4c89710d9944ad566bae76acf44bcbeeae8c08811b39e8472a6d20af7dc26675
+  checksum: 10c0/ed7aaf68d4df43bbc785d04114f3a18d41b50684b3b3af2f01b3eb1f12376e5dac53fe71dedaf067170fa592ee6d4260f8c93f159ec9ec7a9943c78e08ccee0b
   languageName: node
   linkType: hard
 
@@ -24602,6 +24746,13 @@ __metadata:
   version: 0.4.49
   resolution: "solidity-ast@npm:0.4.49"
   checksum: 10c0/785047b14917969de6549f3f2c503243cc7a4b5f99de86be38fb0831d9e73737da7601a25f642d143bd1004f3d8fe6635cd168654b1a6b97b12a9e9e481ee887
+  languageName: node
+  linkType: hard
+
+"solidity-bytes-utils@npm:0.8.4":
+  version: 0.8.4
+  resolution: "solidity-bytes-utils@npm:0.8.4"
+  checksum: 10c0/a9cc2b96143a54dffce884162d5222dfed6ebb76a2e55a6b407facc2b73d59c83598691ba0f0fd452e90eb4519003cebe180bd94a7dcf0d3e0ce6b84046f2778
   languageName: node
   linkType: hard
 
