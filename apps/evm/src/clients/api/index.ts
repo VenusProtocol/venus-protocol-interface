@@ -323,6 +323,10 @@ export * from './queries/getTradeReduceSwapQuotes/useGetTradeReduceSwapQuotes';
 
 export * from './queries/getRiskDashboardMarketAggregates';
 export * from './queries/getRiskDashboardMarketAggregates/useGetRiskDashboardMarketAggregates';
+export * from './queries/getRiskDashboardMarkets';
+export * from './queries/getRiskDashboardMarkets/useGetRiskDashboardMarkets';
+export * from './queries/getRiskDashboardEModePools';
+export * from './queries/getRiskDashboardEModePools/useGetRiskDashboardEModePools';
 export * from './queries/getRiskDashboardMarketSnapshots';
 export * from './queries/getRiskDashboardMarketSnapshots/useGetRiskDashboardMarketSnapshots';
 export * from './queries/getRiskDashboardWalletAggregates';
