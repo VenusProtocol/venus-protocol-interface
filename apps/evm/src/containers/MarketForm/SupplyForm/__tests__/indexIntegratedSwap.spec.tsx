@@ -15,7 +15,7 @@ import {
 } from 'constants/swap';
 import { replaceAssetsInPool } from 'containers/MarketForm/__testUtils__/replaceAssetsInPool';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type {
@@ -271,7 +271,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       })),
     };
 
-    (useSimulateBalanceMutations as Mock).mockImplementation(
+    (useSimulatePoolMutations as Mock).mockImplementation(
       ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
         isLoading: false,
         data: {
@@ -531,7 +531,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       },
     ];
 
-    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+    expect(useSimulatePoolMutations).toHaveBeenCalledWith({
       pool: fakePool,
       balanceMutations: expectedBalanceMutations,
     });

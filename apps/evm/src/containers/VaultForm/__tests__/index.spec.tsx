@@ -184,7 +184,8 @@ describe('VaultForm', () => {
     expect(screen.getByText(en.spendingLimit.label)).toBeInTheDocument();
     expect(screen.getByText(readableSpendingLimit)).toBeInTheDocument();
 
-    const spendingLimitRow = screen.getByText(en.spendingLimit.label).parentElement?.parentElement;
+    const spendingLimitRow = screen.getByText(en.spendingLimit.label).parentElement?.parentElement
+      ?.parentElement?.parentElement;
 
     expect(spendingLimitRow).toBeInTheDocument();
 

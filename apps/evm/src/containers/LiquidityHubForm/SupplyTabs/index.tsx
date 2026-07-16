@@ -24,7 +24,7 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
     name: 'LiquidityHubMigrator',
   });
 
-  const { data: getPools, isLoading } = useGetPool({
+  const { data: getPools, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
     accountAddress,
   });
@@ -35,7 +35,7 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
     areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken.underlyingToken),
   );
 
-  if (isLoading) {
+  if (isGetPoolLoading) {
     return <Spinner />;
   }
 

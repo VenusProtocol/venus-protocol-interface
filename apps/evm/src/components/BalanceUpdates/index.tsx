@@ -2,66 +2,66 @@ import BigNumber from 'bignumber.js';
 
 import { LabeledValueUpdate, type LabeledValueUpdateProps } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { BalanceMutation, Pool } from 'types';
-import { areAddressesEqual, formatTokensToReadableValue } from 'utilities';
+import type { BalanceMutation, LiquidityHub, Pool, Token } from 'types';
+import { formatTokensToReadableValue } from 'utilities';
+
+import { getAssetBalanceUpdate } from './getAssetBalanceUpdate';
+import { getLiquidityHubBalanceUpdate } from './getLiquidityHubBalanceUpdate';
+
+export interface BalanceUpdate {
+  action: 'borrow' | 'repay' | 'withdraw' | 'supply';
+  amountTokens: BigNumber;
+  balanceTokens: BigNumber;
+  description?: string;
+  label: string;
+  token: Token;
+  tokenPriceCents: BigNumber;
+}
 
 export interface BalanceUpdatesProps {
-  pool: Pool;
+  pool?: Pool;
+  liquidityHubs?: LiquidityHub[];
   balanceMutations?: BalanceMutation[];
 }
 
-export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({ pool, balanceMutations = [] }) => {
+export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
+  pool,
+  liquidityHubs,
+  balanceMutations = [],
+}) => {
   const { t } = useTranslation();
 
   const balanceUpdateRows: LabeledValueUpdateProps[] = balanceMutations.reduce<
     LabeledValueUpdateProps[]
   >((acc, balanceMutation) => {
-    // Skip non-asset mutations
-    if (balanceMutation.type !== 'asset') {
+    let balanceUpdate: BalanceUpdate | undefined;
+
+    if (balanceMutation.type === 'asset') {
+      balanceUpdate = getAssetBalanceUpdate({ balanceMutation, pool, t });
+    } else if (balanceMutation.type === 'liquidityHub') {
+      balanceUpdate = getLiquidityHubBalanceUpdate({ balanceMutation, liquidityHubs, t });
+    }
+
+    if (!balanceUpdate) {
       return acc;
     }
 
-    const asset = pool.assets.find(asset =>
-      areAddressesEqual(asset.vToken.address, balanceMutation.vTokenAddress),
-    );
-
-    if (!asset) {
-      // This case should never happen
-      return acc;
-    }
-
-    let balanceTokens = balanceMutation.balanceTokens;
-
-    if (!balanceTokens) {
-      balanceTokens =
-        balanceMutation.action === 'borrow' || balanceMutation.action === 'repay'
-          ? asset.userBorrowBalanceTokens
-          : asset.userSupplyBalanceTokens;
-    }
+    const { action, amountTokens, balanceTokens, token, tokenPriceCents } = balanceUpdate;
 
     let simulatedBalanceTokens: BigNumber | undefined;
 
-    if (balanceMutation.amountTokens.isGreaterThan(0)) {
+    if (amountTokens.isGreaterThan(0)) {
       simulatedBalanceTokens =
-        balanceMutation.action === 'supply' || balanceMutation.action === 'borrow'
-          ? balanceTokens.plus(balanceMutation.amountTokens)
-          : balanceTokens.minus(balanceMutation.amountTokens);
+        action === 'supply' || action === 'borrow'
+          ? balanceTokens.plus(amountTokens)
+          : balanceTokens.minus(amountTokens);
 
       // Clamp balance to 0
       simulatedBalanceTokens = BigNumber.max(simulatedBalanceTokens, 0);
     }
 
-    let label = balanceMutation.label;
-
-    if (!label) {
-      label =
-        balanceMutation.action === 'borrow' || balanceMutation.action === 'repay'
-          ? t('accountData.balanceUpdate.borrowBalance')
-          : t('accountData.balanceUpdate.supplyBalance');
-    }
-
     const original = formatTokensToReadableValue({
-      token: asset.vToken.underlyingToken,
+      token,
       value: balanceTokens,
       addSymbol: false,
     });
@@ -69,7 +69,7 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({ pool, balanceMut
     const update =
       simulatedBalanceTokens &&
       formatTokensToReadableValue({
-        token: asset.vToken.underlyingToken,
+        token,
         value: simulatedBalanceTokens,
         addSymbol: false,
       });
@@ -79,13 +79,14 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({ pool, balanceMut
       : undefined;
 
     const deltaAmountCents = updateAmountTokens
-      ? asset.tokenPriceCents.times(updateAmountTokens)
+      ? tokenPriceCents.times(updateAmountTokens)
       : undefined;
 
     const row: LabeledValueUpdateProps = {
       deltaAmountCents,
-      iconSrc: asset.vToken.underlyingToken,
-      label,
+      iconSrc: token,
+      label: balanceUpdate.label,
+      description: balanceUpdate.description,
       original,
       update,
     };

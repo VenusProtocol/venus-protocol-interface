@@ -27,7 +27,7 @@ import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { VError } from 'libs/errors';
 
 import { useTranslation } from 'libs/translations';
@@ -253,7 +253,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     },
   ];
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+  const { data: getSimulatedPoolData } = useSimulatePoolMutations({
     pool,
     balanceMutations,
   });

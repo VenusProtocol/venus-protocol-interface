@@ -24,7 +24,7 @@ import {
 } from 'constants/swap';
 import { replaceAssetsInPool } from 'containers/MarketForm/__testUtils__/replaceAssetsInPool';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { en } from 'libs/translations';
 import type { SwapQuote } from 'types';
 
@@ -125,7 +125,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
       },
     }));
 
-    (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
+    (useSimulatePoolMutations as Mock).mockImplementation(({ pool }) => ({
       isLoading: false,
       data: { pool },
     }));

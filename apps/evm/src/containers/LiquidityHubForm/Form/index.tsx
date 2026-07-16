@@ -2,19 +2,24 @@ import type BigNumber from 'bignumber.js';
 
 import { liquidityHubs as fakeLiquidityHubs } from '__mocks__/models/liquidityHubs';
 import { useGetPool } from 'clients/api';
-import { Delimiter, TokenTextField } from 'components';
+import { BalanceUpdates, Delimiter, LabeledInlineContent, TokenTextField } from 'components';
+import { AccountLiquidityHubDailyEarnings } from 'containers/AccountLiquidityHubDailyEarnings';
+import { AccountPoolHealth } from 'containers/AccountPoolHealth';
 import { type TokenApproval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
 import { useChain } from 'hooks/useChain';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulateLiquidityHubMutations } from 'hooks/useSimulateLiquidityHubMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { AssetBalanceMutation, LiquidityHubBalanceMutation, VhToken } from 'types';
+import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
+import { formatPercentageToReadableValue, shouldShowAccountHealth } from 'utilities';
 import { type FormValues, useForm } from './useForm';
+import type { UseFormValidationInput } from './useForm/useFormValidation';
 
 export * from './useForm';
 
 export interface FormProps {
-  vhToken: VhToken;
+  liquidityHub: LiquidityHub;
   onSubmit: (formValues: FormValues) => Promise<unknown>;
   balanceMutations: Array<AssetBalanceMutation | LiquidityHubBalanceMutation>;
   formValues: FormValues;
@@ -27,10 +32,11 @@ export interface FormProps {
   rightMaxButtonLabel?: string;
   onSubmitSuccess?: () => void;
   approval?: TokenApproval;
+  validateForm?: UseFormValidationInput['validate'];
 }
 
 export const Form: React.FC<FormProps> = ({
-  vhToken,
+  liquidityHub,
   availableBalance,
   balanceMutations,
   onSubmit,
@@ -43,6 +49,7 @@ export const Form: React.FC<FormProps> = ({
   submitButtonLabel,
   isSubmitting,
   approval,
+  validateForm,
 }) => {
   const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useChain();
@@ -51,14 +58,11 @@ export const Form: React.FC<FormProps> = ({
 
   const { t } = useTranslation();
 
-  // TODO: fetch from the API
-  const liquidityHubs = fakeLiquidityHubs;
-
   const affectsCorePool = balanceMutations.some(
     balanceMutation => balanceMutation.type === 'asset',
   );
 
-  const { data: getPools } = useGetPool(
+  const { data: getPools, isLoading: isGetPoolLoading } = useGetPool(
     {
       poolComptrollerAddress: corePoolComptrollerContractAddress,
       accountAddress,
@@ -70,15 +74,25 @@ export const Form: React.FC<FormProps> = ({
 
   const pool = getPools?.pool;
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
-    pool,
-    balanceMutations,
-  });
+  const { data: getSimulatedPoolData, isLoading: isGetSimulatedPoolLoading } =
+    useSimulatePoolMutations({
+      pool,
+      balanceMutations,
+    });
   const simulatedPool = getSimulatedPoolData?.pool;
 
-  const { formError, isFormValid, handleSubmit } = useForm({
-    vhToken,
+  // TODO: fetch from API
+  const liquidityHubs = fakeLiquidityHubs;
+
+  const { liquidityHubs: simulatedLiquidityHubs } = useSimulateLiquidityHubMutations({
     liquidityHubs,
+    balanceMutations,
+  });
+
+  const { formError, isFormValid, handleSubmit } = useForm({
+    validate: validateForm,
+    liquidityHub,
+    limitTokens,
     pool,
     simulatedPool,
     balanceMutations,
@@ -97,44 +111,72 @@ export const Form: React.FC<FormProps> = ({
   const handleRightMaxButtonClick = () =>
     setFormValues(values => ({
       ...values,
-      amountTokens: (safeLimitTokens ?? limitTokens).dp(vhToken.decimals).toFixed(),
+      amountTokens: (safeLimitTokens ?? limitTokens).dp(liquidityHub.vhToken.decimals).toFixed(),
     }));
 
-  // TODO: wire up
-  const isLoading = false;
+  const isLoading = isGetPoolLoading || isGetSimulatedPoolLoading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <TokenTextField
-        name="amountTokens"
-        token={vhToken.underlyingToken}
-        value={formValues.amountTokens}
-        onChange={amountTokens =>
-          setFormValues(currentFormValues => ({
-            ...currentFormValues,
-            amountTokens,
-          }))
-        }
-        disabled={
-          !isUserConnected || isSubmitting || formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
-        }
-        rightMaxButton={{
-          label: rightMaxButtonLabel ?? t('liquidityHubForm.rightMaxButtonLabel'),
-          onClick: handleRightMaxButtonClick,
-        }}
-        hasError={
-          isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
-        }
-        description={
-          isUserConnected && !isSubmitting && !!formError?.message ? (
-            <p className="text-red">{formError.message}</p>
-          ) : undefined
-        }
-      />
+      {isUserConnected && (
+        <>
+          <TokenTextField
+            name="amountTokens"
+            token={liquidityHub.vhToken.underlyingToken}
+            value={formValues.amountTokens}
+            onChange={amountTokens =>
+              setFormValues(currentFormValues => ({
+                ...currentFormValues,
+                amountTokens,
+              }))
+            }
+            disabled={
+              !isUserConnected || isSubmitting || formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
+            }
+            rightMaxButton={{
+              label: rightMaxButtonLabel ?? t('liquidityHubForm.rightMaxButtonLabel'),
+              onClick: handleRightMaxButtonClick,
+            }}
+            hasError={
+              isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
+            }
+            description={
+              isUserConnected && !isSubmitting && !!formError?.message ? (
+                <p className="text-red">{formError.message}</p>
+              ) : undefined
+            }
+          />
 
-      {availableBalance}
+          {availableBalance}
+
+          <Delimiter />
+
+          <BalanceUpdates
+            pool={pool}
+            liquidityHubs={liquidityHubs}
+            balanceMutations={balanceMutations}
+          />
+
+          <Delimiter />
+        </>
+      )}
+
+      <LabeledInlineContent label={t('liquidityHubForm.supplyApy')}>
+        {formatPercentageToReadableValue(liquidityHub.supplyApyPercentage)}
+      </LabeledInlineContent>
 
       <Delimiter />
+
+      {pool &&
+        shouldShowAccountHealth({
+          pool,
+          simulatedPool,
+        }) && <AccountPoolHealth pool={pool} simulatedPool={simulatedPool} />}
+
+      <AccountLiquidityHubDailyEarnings
+        liquidityHubs={liquidityHubs}
+        simulatedLiquidityHubs={simulatedLiquidityHubs}
+      />
 
       <TxFormSubmitButton
         approval={approval}

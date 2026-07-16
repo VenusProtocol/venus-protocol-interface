@@ -61,7 +61,7 @@ const baseProps: FooterProps = {
 };
 
 const getRow = (getByText: (text: string) => HTMLElement, label: string) =>
-  getByText(label).parentElement?.parentElement;
+  getByText(label).parentElement?.parentElement?.parentElement?.parentElement;
 
 const openTooltip = async (row: HTMLElement) => {
   const tooltipTrigger = row.querySelector('svg');

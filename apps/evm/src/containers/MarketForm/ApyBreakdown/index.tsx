@@ -29,7 +29,10 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({
   renderType = 'block',
 }) => {
   const { t } = useTranslation();
-  const shouldShowNetApy = balanceMutations.length > 1;
+  const assetBalanceMutations = balanceMutations.filter(
+    balanceMutation => balanceMutation.type === 'asset',
+  );
+  const shouldShowNetApy = assetBalanceMutations.length > 1;
 
   const { rows, totalApyPercentage } = balanceMutations.reduce<{
     rows: LabeledInlineContentProps[];
@@ -94,7 +97,7 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({
     label = t('apyBreakdown.netApy.label');
     tooltip = t('apyBreakdown.netApy.tooltip');
   } else {
-    const balanceMutationAction = balanceMutations[0]?.action;
+    const balanceMutationAction = assetBalanceMutations[0]?.action;
 
     label =
       balanceMutationAction === 'supply' || balanceMutationAction === 'withdraw'

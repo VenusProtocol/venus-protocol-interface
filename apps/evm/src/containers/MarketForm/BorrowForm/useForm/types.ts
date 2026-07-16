@@ -1,4 +1,5 @@
-import type { CommonTxFormErrorCode, Token } from 'types';
+import type { Token } from 'types';
+import type { PoolBalanceMutationsErrorCode } from 'utilities';
 
 export interface FormValues {
   fromToken: Token;
@@ -7,4 +8,4 @@ export interface FormValues {
   acknowledgeRisk: boolean;
 }
 
-export type FormErrorCode = CommonTxFormErrorCode | 'EMPTY_TOKEN_AMOUNT' | 'NO_COLLATERALS';
+export type FormErrorCode = PoolBalanceMutationsErrorCode | 'EMPTY_TOKEN_AMOUNT' | 'NO_COLLATERALS';

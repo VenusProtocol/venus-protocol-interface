@@ -16,7 +16,7 @@ import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities'
 import { NULL_ADDRESS } from 'constants/address';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { useAnalytics } from 'libs/analytics';
 import { useAccountAddress } from 'libs/wallet';
 import { Footer } from '../Footer';
@@ -191,7 +191,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
     },
   ];
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+  const { data: getSimulatedPoolData } = useSimulatePoolMutations({
     pool,
     balanceMutations,
   });

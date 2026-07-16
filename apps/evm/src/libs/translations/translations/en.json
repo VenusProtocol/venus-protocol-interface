@@ -125,27 +125,30 @@
     "balanceUpdate": {
       "borrowBalance": "Borrow balance",
       "supplyBalance": "Supply balance"
-    },
-    "dailyEarnings": {
-      "label": "Daily earnings"
-    },
-    "healthFactor": {
-      "label": "Health factor",
-      "tooltip": "Liquidation at < 1.0"
     }
   },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
     "borrowed": "Borrowed:",
     "borrowedSpotTooltip": "This borrow value is calculated based on the spot price of the borrowed asset and will be used to determine your account's health status.",
+    "healthFactor": {
+      "label": "Health factor",
+      "tooltip": "Liquidation at < 1.0"
+    },
     "liquidationThreshold": "Liquidation threshold:",
     "liquidationThresholdShort": "LT:",
-    "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
+    "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation</Link>.",
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Borrow balance (protected):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "Daily earnings"
+  },
   "accountModal": {
     "disconnectButtonLabel": "Disconnect"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "Daily earnings"
   },
   "adBanner": {
     "startNow": "Start now"
@@ -880,8 +883,20 @@
     "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
   "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "Core pool",
+      "liquidityHub": "Liquidity Hub"
+    },
+    "error": {
+      "higherThanAvailableAmount": "Amount entered higher than available amount",
+      "higherThanAvailableLiquidity": "Insufficient hub liquidity",
+      "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this liquidity hub, as its supply cap is set at {{supplyCap}} and {{supplyBalance}} are currently being supplied to it.",
+      "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
+      "supplyCapReached": "The supply cap of {{supplyCap}} has been reached for this liquidity hub. You can not supply to it anymore until withdraws are made or its supply cap is increased."
+    },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "SAFE MAX",
+    "supplyApy": "Supply APY",
     "supplySubmitButtonLabel": "Supply",
     "supplyTab": {
       "collateralTabTitle": "Collateral",

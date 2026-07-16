@@ -15,7 +15,7 @@ import { type Asset, type AssetBalanceMutation, ChainId } from 'types';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import { replaceAssetsInPool } from 'containers/MarketForm/__testUtils__/replaceAssetsInPool';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import Supply from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -163,7 +163,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       },
     ];
 
-    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+    expect(useSimulatePoolMutations).toHaveBeenCalledWith({
       pool: fakePool,
       balanceMutations: expectedBalanceMutations,
     });

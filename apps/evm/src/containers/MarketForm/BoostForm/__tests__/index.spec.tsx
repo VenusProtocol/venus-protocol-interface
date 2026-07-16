@@ -18,7 +18,7 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -79,8 +79,8 @@ const testCases = [
 
 const mockOpenLeveragedPosition = vi.fn();
 
-vi.mock('hooks/useSimulateBalanceMutations', () => ({
-  useSimulateBalanceMutations: vi.fn(() => ({
+vi.mock('hooks/useSimulatePoolMutations', () => ({
+  useSimulatePoolMutations: vi.fn(() => ({
     isLoading: false,
     data: {
       pool: fakePool,
@@ -325,7 +325,7 @@ describe('BoostForm', () => {
   });
 
   it('disables submit button if position would liquidate user', async () => {
-    (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
+    (useSimulatePoolMutations as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: {
@@ -486,7 +486,7 @@ describe('BoostForm', () => {
   });
 
   it('prompts user to acknowledge risk if position would lower health factor to risky threshold', async () => {
-    (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
+    (useSimulatePoolMutations as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: {

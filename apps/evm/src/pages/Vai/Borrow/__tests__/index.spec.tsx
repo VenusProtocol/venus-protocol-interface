@@ -21,7 +21,7 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import type { BalanceMutation, Pool } from 'types';
 import { Borrow } from '..';
 
@@ -176,7 +176,7 @@ describe('Borrow', () => {
       userHealthFactor: HEALTH_FACTOR_MODERATE_THRESHOLD - 0.01,
     };
 
-    (useSimulateBalanceMutations as Mock).mockImplementation(
+    (useSimulatePoolMutations as Mock).mockImplementation(
       ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
         isLoading: false,
         data: {

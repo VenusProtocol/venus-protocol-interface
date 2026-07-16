@@ -3,18 +3,23 @@ import type { Mock } from 'vitest';
 
 import fakeAddress, { altAddress } from '__mocks__/models/address';
 import { tradePositions } from '__mocks__/models/trade';
-import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { VError } from 'libs/errors';
 import { useAccountAddress } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
+import { validatePoolBalanceMutations } from 'utilities';
 import { useFormValidation } from '..';
 import type { FormError, FormValues, PositionFormAction } from '../../types';
 
-vi.mock('hooks/useCommonValidation', () => ({
-  useCommonValidation: vi.fn(),
-}));
+vi.mock('utilities', async () => {
+  const actual = await vi.importActual('utilities');
+
+  return {
+    ...actual,
+    validatePoolBalanceMutations: vi.fn(),
+  };
+});
 
 const basePosition = tradePositions[0];
 const alternativePosition = tradePositions[1];
@@ -28,7 +33,7 @@ const baseFormValues: FormValues = {
   acknowledgeHighPriceImpact: false,
 };
 
-const mockUseCommonValidation = useCommonValidation as Mock;
+const mockValidatePoolBalanceMutations = validatePoolBalanceMutations as Mock;
 const mockUseGetContractAddress = useGetContractAddress as Mock;
 const mockUseTokenApproval = useTokenApproval as Mock;
 const mockUseAccountAddress = useAccountAddress as Mock;
@@ -59,7 +64,7 @@ const setHookState = ({
     walletSpendingLimitTokens,
   }));
 
-  mockUseCommonValidation.mockImplementation(() => commonFormError);
+  mockValidatePoolBalanceMutations.mockImplementation(() => commonFormError);
 };
 
 type UseFormValidationInput = Parameters<typeof useFormValidation>[0];
@@ -125,7 +130,7 @@ describe('useFormValidation', () => {
       swapQuoteError,
     });
 
-    expect(mockUseCommonValidation).toHaveBeenCalledWith(
+    expect(mockValidatePoolBalanceMutations).toHaveBeenCalledWith(
       expect.objectContaining({
         swapQuoteErrorCode: 'noSwapQuoteFound',
       }),

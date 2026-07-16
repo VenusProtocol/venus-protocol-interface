@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 
 import type { Asset, AssetBalanceMutation, Pool } from 'types';
 
-import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useTranslation } from 'libs/translations';
 import type { TxFormError } from 'types';
+import { validatePoolBalanceMutations } from 'utilities';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
@@ -32,7 +32,8 @@ const useFormValidation = ({
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
-  const commonFormError = useCommonValidation({
+  const commonFormError = validatePoolBalanceMutations({
+    t,
     pool,
     simulatedPool,
     balanceMutations,

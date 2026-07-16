@@ -125,27 +125,30 @@
     "balanceUpdate": {
       "borrowBalance": "Số dư vay",
       "supplyBalance": "Số dư cung cấp"
-    },
-    "dailyEarnings": {
-      "label": "Thu nhập hằng ngày"
-    },
-    "healthFactor": {
-      "label": "Hệ số an toàn",
-      "tooltip": "Thanh lý tại < 1.0"
     }
   },
   "accountHealth": {
     "accessibilityLabel": "Biểu diễn trạng thái hiện tại của tài khoản của bạn",
     "borrowed": "Đã vay:",
     "borrowedSpotTooltip": "Giá trị vay này được tính dựa trên giá spot của tài sản vay và sẽ được sử dụng để xác định tình trạng sức khỏe tài khoản của bạn.",
+    "healthFactor": {
+      "label": "Hệ số an toàn",
+      "tooltip": "Thanh lý tại < 1.0"
+    },
     "liquidationThreshold": "Ngưỡng thanh lý:",
     "liquidationThresholdShort": "LT:",
-    "liquidationThresholdTooltip": "LT = Ngưỡng thanh lý<LineBreak/>Khi số dư vay của bạn đạt đến giá trị này, vị thế của bạn sẽ đủ điều kiện bị thanh lý.<LineBreak/><LineBreak/>Tìm hiểu thêm về <Link>cách tính.</Link>",
+    "liquidationThresholdTooltip": "LT = Ngưỡng thanh lý<LineBreak/>Khi số dư vay của bạn đạt đến giá trị này, vị thế của bạn sẽ đủ điều kiện bị thanh lý.<LineBreak/><LineBreak/>Tìm hiểu thêm về <Link>cách tính</Link>.",
     "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Hạn mức vay:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Số dư vay (Bảo vệ):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} hạn mức vay)<LineBreak/><LineBreak/>Số dư vay (spot): {{borrowBalance}}<LineBreak/>Hạn mức vay: {{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "Thu nhập hằng ngày"
+  },
   "accountModal": {
     "disconnectButtonLabel": "Ngắt kết nối"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "Thu nhập hằng ngày"
   },
   "adBanner": {
     "startNow": "Bắt đầu ngay"
@@ -880,8 +883,20 @@
     "lastUpdatedAt": "Cập nhật lần cuối: {{ date, textual }}"
   },
   "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "Pool cốt lõi",
+      "liquidityHub": "Trung tâm thanh khoản"
+    },
+    "error": {
+      "higherThanAvailableAmount": "Số tiền nhập vào cao hơn số tiền khả dụng",
+      "higherThanAvailableLiquidity": "Thanh khoản của trung tâm không đủ",
+      "higherThanSupplyCap": "Bạn không thể cung cấp quá {{userMaxSupplyAmount}} vào trung tâm thanh khoản này, vì giới hạn cung cấp của nó được đặt ở {{supplyCap}} và hiện đã có {{supplyBalance}} đang được cung cấp vào đó.",
+      "higherThanWalletSpendingLimit": "Số tiền bạn nhập vượt quá giới hạn chi tiêu của bạn cho tài sản này. Vui lòng thu hồi giới hạn chi tiêu hiện tại rồi đặt giới hạn mới để tiếp tục giao dịch này.",
+      "supplyCapReached": "Giới hạn cung cấp {{supplyCap}} của trung tâm thanh khoản này đã đạt tới. Bạn không thể tiếp tục cung cấp cho đến khi có khoản rút ra hoặc giới hạn cung cấp được tăng lên."
+    },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "MAX an toàn",
+    "supplyApy": "APY cung cấp",
     "supplySubmitButtonLabel": "Cung cấp",
     "supplyTab": {
       "collateralTabTitle": "Tài sản thế chấp",
