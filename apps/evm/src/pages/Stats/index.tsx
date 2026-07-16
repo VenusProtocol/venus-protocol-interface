@@ -2,12 +2,13 @@ import { Page, Tabs } from 'components';
 import { useTranslation } from 'libs/translations';
 import { EModeTable } from './EModeTable';
 import { Header } from './Header';
-import { Liquidations } from './Liquidations';
 import { HistoricalDominanceChart } from './HistoricalDominanceChart';
 import { HistoricalLiquidityChart } from './HistoricalLiquidityChart';
 import { HistoricalMarketChart } from './HistoricalMarketChart';
+import { Liquidations } from './Liquidations';
 import { MarketKpis } from './MarketKpis';
 import { MarketsTable } from './MarketsTable';
+import { Rates } from './Rates';
 import { RiskParametersTable } from './RiskParametersTable';
 import { TopWallets } from './TopWallets';
 import { TransactionsVolume } from './TransactionsVolume';
@@ -54,7 +55,12 @@ const Stats: React.FC = () => {
           { id: 'overview', title: t('statsPage.tabs.overview'), content: <Overview /> },
           { id: 'markets', title: t('statsPage.tabs.markets'), content: <Markets /> },
           { id: 'wallets', title: t('statsPage.tabs.wallets'), content: null },
-          { id: 'liquidations', title: t('statsPage.tabs.liquidations'), content: <Liquidations /> },
+          {
+            id: 'liquidations',
+            title: t('statsPage.tabs.liquidations'),
+            content: <Liquidations />,
+          },
+          { id: 'rates', title: t('statsPage.tabs.rates'), content: <Rates /> },
         ]}
       />
     </Page>
