@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.7.0
+
+### Minor Changes
+
+- d6bc2c6: update depoly date
+
 ## 5.6.0
 
 ### Minor Changes
