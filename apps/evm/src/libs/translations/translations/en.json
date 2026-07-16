@@ -1829,6 +1829,46 @@
       "title": "Markets",
       "unavailable": "Markets data unavailable."
     },
+    "rates": {
+      "apyChart": {
+        "borrows": {
+          "noData": "No historical snapshots yet.",
+          "title": "Borrow APY by Asset over Time",
+          "unavailable": "Borrow APY unavailable."
+        },
+        "supply": {
+          "noData": "No historical snapshots yet.",
+          "title": "Supply APY by Asset over Time",
+          "unavailable": "Supply APY unavailable."
+        }
+      },
+      "dominance": {
+        "borrows": {
+          "noData": "No historical snapshots yet.",
+          "title": "Stablecoin Borrow Dominance over Time",
+          "unavailable": "Borrow dominance unavailable."
+        },
+        "supply": {
+          "noData": "No historical snapshots yet.",
+          "title": "Stablecoin Supply Dominance over Time",
+          "unavailable": "Supply dominance unavailable."
+        }
+      },
+      "stablecoinRates": {
+        "borrowLabel": "Borrow APY",
+        "noData": "No historical snapshots yet.",
+        "supplyLabel": "Supply APY",
+        "title": "Weighted Average Stablecoin Rates over Time",
+        "unavailable": "Stablecoin rates unavailable."
+      },
+      "totals": {
+        "borrowLabel": "Total Borrows",
+        "noData": "No historical snapshots yet.",
+        "supplyLabel": "Total Supply",
+        "title": "Total Stablecoin Supply vs Borrows over Time",
+        "unavailable": "Stablecoin totals unavailable."
+      }
+    },
     "riskParametersTable": {
       "columns": {
         "asset": "Asset",
@@ -1850,6 +1890,7 @@
       "liquidations": "Liquidations",
       "markets": "Markets",
       "overview": "Overview",
+      "rates": "Rates",
       "wallets": "Wallets"
     },
     "title": "Venus Stats",

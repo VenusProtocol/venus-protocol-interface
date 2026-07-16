@@ -1829,6 +1829,46 @@
       "title": "TRANSLATION NEEDED",
       "unavailable": "TRANSLATION NEEDED"
     },
+    "rates": {
+      "apyChart": {
+        "borrows": {
+          "noData": "TRANSLATION NEEDED",
+          "title": "TRANSLATION NEEDED",
+          "unavailable": "TRANSLATION NEEDED"
+        },
+        "supply": {
+          "noData": "TRANSLATION NEEDED",
+          "title": "TRANSLATION NEEDED",
+          "unavailable": "TRANSLATION NEEDED"
+        }
+      },
+      "dominance": {
+        "borrows": {
+          "noData": "TRANSLATION NEEDED",
+          "title": "TRANSLATION NEEDED",
+          "unavailable": "TRANSLATION NEEDED"
+        },
+        "supply": {
+          "noData": "TRANSLATION NEEDED",
+          "title": "TRANSLATION NEEDED",
+          "unavailable": "TRANSLATION NEEDED"
+        }
+      },
+      "stablecoinRates": {
+        "borrowLabel": "TRANSLATION NEEDED",
+        "noData": "TRANSLATION NEEDED",
+        "supplyLabel": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED",
+        "unavailable": "TRANSLATION NEEDED"
+      },
+      "totals": {
+        "borrowLabel": "TRANSLATION NEEDED",
+        "noData": "TRANSLATION NEEDED",
+        "supplyLabel": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED",
+        "unavailable": "TRANSLATION NEEDED"
+      }
+    },
     "riskParametersTable": {
       "columns": {
         "asset": "TRANSLATION NEEDED",
@@ -1850,6 +1890,7 @@
       "liquidations": "TRANSLATION NEEDED",
       "markets": "TRANSLATION NEEDED",
       "overview": "TRANSLATION NEEDED",
+      "rates": "TRANSLATION NEEDED",
       "wallets": "TRANSLATION NEEDED"
     },
     "title": "Venus İstatistikleri",
