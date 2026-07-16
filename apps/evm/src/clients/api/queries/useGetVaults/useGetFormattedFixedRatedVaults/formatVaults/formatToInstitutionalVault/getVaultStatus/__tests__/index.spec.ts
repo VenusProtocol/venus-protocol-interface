@@ -10,6 +10,7 @@ const baseLoanVaultDetail: LoanVaultDetail = {
   collateralValueCents: '0',
   createdAt: '2026-04-01T00:00:00.000Z',
   debtValueCents: '0',
+  deployedAtTimestamp: '2026-03-20T00:00:00.000Z',
   fixedRateVaultId: 'vault-1',
   id: 'detail-1',
   institutionAddress: '0x2222222222222222222222222222222222222222',

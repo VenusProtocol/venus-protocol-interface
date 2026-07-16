@@ -71,6 +71,7 @@ export type LoanVaultDetail = {
   collateralValueCents: string;
   createdAt: string;
   debtValueCents: string;
+  deployedAtTimestamp: string;
   fixedRateVaultId: string;
   institutionAddress: Address;
   institutionName: string | null;

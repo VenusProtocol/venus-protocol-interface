@@ -141,7 +141,9 @@ export const formatToInstitutionalVault = ({
     userStakeBalanceCents: userStakedTokens.times(stakedTokenPriceCents).toNumber(),
     userMinIndividualStakeMantissa,
     vaultAddress: vaultData.vaultAddress,
-    vaultDeploymentDate: new Date(vaultData.createdAt),
+    vaultDeploymentDate: loanVaultDetail.deployedAtTimestamp
+      ? new Date(loanVaultDetail.deployedAtTimestamp)
+      : undefined,
     openStartDate,
     openEndDate,
     lockEndDate,
