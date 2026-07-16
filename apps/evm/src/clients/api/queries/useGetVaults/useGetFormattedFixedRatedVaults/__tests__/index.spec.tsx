@@ -95,6 +95,7 @@ const fakeMatrixdockVaultProduct: GetFixedRatedVaultsOutput[number] = {
     collateralValueCents: '0',
     createdAt: '2026-04-01T00:00:00.000Z',
     debtValueCents: '0',
+    deployedAtTimestamp: '2026-03-20T00:00:00.000Z',
     fixedRateVaultId: '97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7',
     id: 'loan-vault-detail-1',
     institutionAddress: '0x1111111111111111111111111111111111111111',
