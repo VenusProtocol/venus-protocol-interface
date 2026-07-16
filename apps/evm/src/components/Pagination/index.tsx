@@ -42,6 +42,7 @@ interface PaginationProps {
   paramKey?: string;
   scrollToRef?: RefObject<HTMLDivElement | null>;
   className?: string;
+  pagesToShowCount?: number;
 }
 
 export const Pagination = ({
@@ -52,6 +53,7 @@ export const Pagination = ({
   paramKey,
   scrollToRef,
   className,
+  pagesToShowCount,
 }: PaginationProps) => {
   const {
     pagesCount,
@@ -69,6 +71,7 @@ export const Pagination = ({
     itemsPerPageCount,
     paramKey,
     scrollToRef,
+    pagesToShowCount,
   });
 
   const styles = useStyles();
