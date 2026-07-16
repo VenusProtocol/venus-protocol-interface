@@ -24,6 +24,7 @@ export { default as convertPriceMantissaToDollars } from './convertPriceMantissa
 export { default as convertFactorFromSmartContract } from './convertFactorFromSmartContract';
 export { default as findTokenByAddress } from './findTokenByAddress';
 export * from './convertAprBipsToApy';
+export * from './convertDecimalToPercentage';
 export * from './convertPercentageToBps';
 export { default as extractSettledPromiseValue } from './extractSettledPromiseValue';
 export { default as getUniqueTokenBalances } from './getUniqueTokenBalances';
