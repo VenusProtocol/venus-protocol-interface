@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.8.1
+
+### Patch Changes
+
+- 9f8a11b: improve modal stacking of AccountModal
+
 ## 5.8.0
 
 ### Minor Changes
