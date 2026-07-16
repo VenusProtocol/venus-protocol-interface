@@ -40,6 +40,22 @@ describe('useUrlPagination', () => {
     expect(result.current.currentPage).toBe(2);
   });
 
+  it.each(['0', '-1', 'abc', '1.5'])(
+    'falls back to the first page when the page param is invalid (%s)',
+    invalidPage => {
+      const mockSearchParams = new URLSearchParams();
+      mockSearchParams.set(PAGE_PARAM_DEFAULT_KEY, invalidPage);
+      const mockSetSearchParams = vi.fn();
+
+      (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
+
+      const { result } = renderHook(() => useUrlPagination());
+
+      expect(result.current.currentPage).toBe(0);
+      expect(mockSetSearchParams).toHaveBeenCalledWith(expect.any(Function), { replace: true });
+    },
+  );
+
   it('sets the page index correctly', async () => {
     const mockSearchParams = new URLSearchParams({
       [PAGE_PARAM_DEFAULT_KEY]: '9999',

@@ -1207,6 +1207,10 @@
     }
   },
   "pagination": {
+    "goToFirstPage": "Đến trang đầu",
+    "goToLastPage": "Đến trang cuối",
+    "goToNextPage": "Trang sau",
+    "goToPreviousPage": "Trang trước",
     "itemOf": "Mục {{currentPageLastIndex}} trong {{itemsCount}}",
     "itemsOf": "Mục {{firstItemNumber}} - {{currentPageLastIndex}} trong {{itemsCount}}"
   },

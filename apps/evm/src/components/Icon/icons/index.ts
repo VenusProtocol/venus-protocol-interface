@@ -15,6 +15,8 @@ export { default as checkboxBorder } from './checkboxBorder';
 export { default as checked } from './checked';
 export { default as chevronRight } from './chevronRight';
 export { default as chevronLeft } from './chevronLeft';
+export { default as doubleChevronLeft } from './doubleChevronLeft';
+export { default as doubleChevronRight } from './doubleChevronRight';
 export { default as longArrow } from './longArrow';
 export { default as discord } from './discord';
 export { default as x } from './x';

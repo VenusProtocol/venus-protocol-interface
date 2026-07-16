@@ -2,7 +2,7 @@ import { type RefObject, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
-import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
+import { PAGE_PARAM_DEFAULT_KEY, PAGE_PARAM_DEFAULT_VALUE } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 
 type PaginationProps = {
@@ -11,9 +11,10 @@ type PaginationProps = {
   itemsPerPageCount?: number;
   paramKey?: string;
   scrollToRef?: RefObject<HTMLDivElement | null>;
+  pagesToShowCount?: number;
 };
 
-const PAGES_TO_SHOW_COUNT = 4;
+const DEFAULT_PAGES_TO_SHOW_COUNT = 4;
 
 export function usePagination({
   itemsCount,
@@ -21,11 +22,12 @@ export function usePagination({
   itemsPerPageCount = 10,
   paramKey = PAGE_PARAM_DEFAULT_KEY,
   scrollToRef,
+  pagesToShowCount = DEFAULT_PAGES_TO_SHOW_COUNT,
 }: PaginationProps) {
   const { t } = useTranslation();
   const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const activePageIndex = useMemo(() => {
     const pageParam = searchParams.get(paramKey);
@@ -39,6 +41,19 @@ export function usePagination({
     setPagesCount(Math.ceil(itemsCount / itemsPerPageCount));
   }, [itemsPerPageCount, itemsCount]);
 
+  /* Fall back to the first page when the URL points beyond the available pages */
+  useEffect(() => {
+    if (pagesCount > 0 && activePageIndex > pagesCount - 1) {
+      setSearchParams(
+        currentSearchParams => ({
+          ...Object.fromEntries(currentSearchParams),
+          [paramKey]: String(PAGE_PARAM_DEFAULT_VALUE),
+        }),
+        { replace: true },
+      );
+    }
+  }, [pagesCount, activePageIndex, paramKey, setSearchParams]);
+
   const isLastPage = activePageIndex === pagesCount - 1;
   const currentPageFirstIndex = activePageIndex * itemsPerPageCount;
   const currentPageLastIndex = isLastPage ? itemsCount : currentPageFirstIndex + itemsPerPageCount;
@@ -51,17 +66,17 @@ export function usePagination({
   /* creating pages array */
   const pagesArray = Array.from({ length: pagesCount }, (_, i) => i + 1);
 
-  const halfOfPagesCount = Math.ceil(PAGES_TO_SHOW_COUNT / 2);
+  const halfOfPagesCount = Math.ceil(pagesToShowCount / 2);
   const lastPageIndex = pagesCount - 1;
   const isActivePageInEnd = activePageIndex > lastPageIndex - halfOfPagesCount;
   const isActivePageInStart = activePageIndex < halfOfPagesCount;
 
   const minPageIndexToShow = isActivePageInEnd
-    ? lastPageIndex - PAGES_TO_SHOW_COUNT
+    ? lastPageIndex - pagesToShowCount
     : activePageIndex - halfOfPagesCount;
 
   const maxPageIndexToShow = isActivePageInStart
-    ? PAGES_TO_SHOW_COUNT
+    ? pagesToShowCount
     : activePageIndex + halfOfPagesCount;
 
   const handlePageChange = (pageIndex: number) => {
