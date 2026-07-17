@@ -12,6 +12,7 @@ export { default as compareBigNumbers } from './compareBigNumbers';
 export { default as compareBooleans } from './compareBooleans';
 export { default as compareNumbers } from './compareNumbers';
 export { default as compareStrings } from './compareStrings';
+export { default as compareTokensBySymbol } from './compareTokensBySymbol';
 export { default as convertDollarsToCents } from './convertDollarsToCents';
 export { default as convertUsdMantissaToCents } from './convertUsdMantissaToCents';
 export { default as areTokensEqual } from './areTokensEqual';
