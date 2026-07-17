@@ -879,6 +879,17 @@
   "legal": {
     "lastUpdatedAt": "最終更新: {{ date, textual }}"
   },
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "安全な MAX",
+    "supplySubmitButtonLabel": "供給",
+    "supplyTab": {
+      "collateralTabTitle": "担保",
+      "walletTabTitle": "ウォレット"
+    },
+    "supplyTabTitle": "供給",
+    "withdrawTabTitle": "引き出し"
+  },
   "liquidityHubs": {
     "description": "ガバナンスが策定した方針のもとで、Venus Protocol の複数の利回りソースへルーティングされます。利回りは自動で積み上がります。",
     "header": "流動性ハブ",
@@ -903,17 +914,6 @@
         "placeholder": "資産を検索"
       }
     }
-  },
-  "liquidityHubForm": {
-    "rightMaxButtonLabel": "MAX",
-    "rightSafeMaxButtonLabel": "安全な MAX",
-    "supplySubmitButtonLabel": "供給",
-    "supplyTab": {
-      "collateralTabTitle": "担保",
-      "walletTabTitle": "ウォレット"
-    },
-    "supplyTabTitle": "供給",
-    "withdrawTabTitle": "引き出し"
   },
   "markdownEditor": {
     "markdownTabLabel": "書く",
