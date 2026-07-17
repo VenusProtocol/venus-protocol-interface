@@ -255,7 +255,7 @@ const AppRoutes = () => {
 
         {liquidityHubEnabled && (
           <Route
-            path={Subdirectory.LIQUIDITY_HUB}
+            path={Subdirectory.LIQUIDITY_HUBS}
             element={
               <PageSuspense>
                 <LiquidityHubs />

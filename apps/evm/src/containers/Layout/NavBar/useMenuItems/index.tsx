@@ -54,7 +54,7 @@ export const useMenuItems = () => {
           variant: 'secondary',
           items: [
             {
-              to: routes.liquidityHub.path,
+              to: routes.liquidityHubs.path,
               imgSrc: liquidityHubIconSrc,
               label: t('layouts.menu.markets.liquidityHub.label'),
               description: t('layouts.menu.markets.liquidityHub.description'),
