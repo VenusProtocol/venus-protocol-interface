@@ -879,7 +879,7 @@
   "legal": {
     "lastUpdatedAt": "最終更新: {{ date, textual }}"
   },
-  "liquidityHub": {
+  "liquidityHubs": {
     "description": "ガバナンスが策定した方針のもとで、Venus Protocol の複数の利回りソースへルーティングされます。利回りは自動で積み上がります。",
     "header": "流動性ハブ",
     "stats": {

@@ -35,7 +35,7 @@ const PrivacyPolicy = safeLazyLoad(() => import('pages/PrivacyPolicy'));
 const TermsOfUse = safeLazyLoad(() => import('pages/TermsOfUse'));
 const FixedTermVaultTermsOfUse = safeLazyLoad(() => import('pages/FixedTermVaultTermsOfUse'));
 const Trade = safeLazyLoad(() => import('pages/Trade'));
-const LiquidityHub = safeLazyLoad(() => import('pages/LiquidityHub'));
+const LiquidityHubs = safeLazyLoad(() => import('pages/LiquidityHubs'));
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -258,7 +258,7 @@ const AppRoutes = () => {
             path={Subdirectory.LIQUIDITY_HUB}
             element={
               <PageSuspense>
-                <LiquidityHub />
+                <LiquidityHubs />
               </PageSuspense>
             }
           />

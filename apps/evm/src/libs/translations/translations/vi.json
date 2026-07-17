@@ -879,7 +879,7 @@
   "legal": {
     "lastUpdatedAt": "Cập nhật lần cuối: {{ date, textual }}"
   },
-  "liquidityHub": {
+  "liquidityHubs": {
     "description": "Được định tuyến qua các nguồn lợi suất của Venus Protocol theo chính sách do quản trị lựa chọn. Lợi suất tự động tích lũy.",
     "header": "Trung tâm thanh khoản",
     "stats": {

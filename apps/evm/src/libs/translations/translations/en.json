@@ -879,7 +879,7 @@
   "legal": {
     "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
-  "liquidityHub": {
+  "liquidityHubs": {
     "description": "Routed across Venus protocol yield sources under a governance-curated policy. Yield accrues automatically.",
     "header": "Liquidity Hub",
     "stats": {

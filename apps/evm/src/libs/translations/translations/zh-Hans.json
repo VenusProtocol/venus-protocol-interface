@@ -879,7 +879,7 @@
   "legal": {
     "lastUpdatedAt": "最后更新：{{ date, textual }}"
   },
-  "liquidityHub": {
+  "liquidityHubs": {
     "description": "根据治理策划的策略，在 Venus 协议的多个收益来源之间进行路由。收益会自动累积。",
     "header": "流动性中心",
     "stats": {
