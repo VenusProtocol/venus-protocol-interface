@@ -66,6 +66,29 @@ Generate production builds
 yarn build
 ```
 
+## AI skills
+
+Launch the interactive AI client:
+
+```sh
+yarn ai
+```
+
+Use `/login` to connect an LLM provider and `Ctrl+L` to select a model. The client automatically
+loads the skills defined in `skills/`; run one with `/skill:<skill-name>`. Use `Ctrl+O` to collapse
+or expand tool output.
+
+For example:
+
+```text
+/skill:sync-translations
+```
+
+### sync-translations
+
+Runs translation extraction, fills entries marked `TRANSLATION NEEDED` from the English source, and
+updates other locales when English copy changed on the current branch.
+
 ## UI Development Skills
 
 ### ui-develop
