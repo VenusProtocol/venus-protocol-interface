@@ -1,0 +1,11 @@
+{
+  "collapseChangelog": true,
+  "enableInstallTelemetry": false,
+  "enableSkillCommands": true,
+  "hideThinkingBlock": true,
+  "quietStartup": true,
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3
+  }
+}
