@@ -88,7 +88,7 @@ export const formatToPendleVault = ({
     stakedTokenPriceCents: new BigNumber(protocolData.accountingAsset.priceUsd).shiftedBy(2),
     rewardTokenPriceCents: new BigNumber(protocolData.ptTokenPriceUsd).shiftedBy(2),
     maturityDate,
-    vaultDeploymentDate: new Date(protocolData.startDate),
+    vaultDeploymentDate: protocolData.startDate ? new Date(protocolData.startDate) : undefined,
     liquidityCents: new BigNumber(protocolData.liquidityCents),
     vaultAddress: vaultData.vaultAddress,
     category: VaultCategory.YIELD_TOKENS,

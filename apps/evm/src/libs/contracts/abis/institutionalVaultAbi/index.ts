@@ -18,6 +18,17 @@ export const institutionalVaultAbi = [
   },
   {
     type: 'function',
+    stateMutability: 'nonpayable',
+    name: 'depositWithConsent',
+    inputs: [
+      { name: 'assets', type: 'uint256', internalType: 'uint256' },
+      { name: 'receiver', type: 'address', internalType: 'address' },
+      { name: 'consentHash', type: 'bytes32', internalType: 'bytes32' },
+    ],
+    outputs: [{ name: 'shares', type: 'uint256', internalType: 'uint256' }],
+  },
+  {
+    type: 'function',
     stateMutability: 'view',
     name: 'maxRedeem',
     inputs: [{ name: 'owner', type: 'address', internalType: 'address' }],
