@@ -1,6 +1,6 @@
 import type { Token } from 'types';
 
-import compareTokensBySymbol from './compareTokensBySymbol';
+import compareTokensBySymbol from '..';
 
 const token = (symbol: string) => ({ symbol }) as unknown as Token;
 

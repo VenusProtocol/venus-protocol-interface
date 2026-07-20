@@ -1,6 +1,6 @@
 import type { Token } from 'types';
 
-import compareStrings from './compareStrings';
+import compareStrings from '../compareStrings';
 
 // Stable alphabetical (A→Z) ordering of tokens by symbol, so lists driven by backend order
 // (e.g. reward-magnitude order) don't reshuffle between refreshes.
