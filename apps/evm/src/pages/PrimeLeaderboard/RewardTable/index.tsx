@@ -14,6 +14,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import {
   areAddressesEqual,
+  compareTokensBySymbol,
   convertUsdMantissaToCents,
   findTokenByAddress,
   formatCentsToReadableValue,
@@ -48,10 +49,12 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
 
   const rewardTokens = useMemo(
     () =>
-      (currentCycle?.pendingPool?.byRewardToken ?? []).flatMap(({ rewardTokenAddress }) => {
-        const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
-        return token ? [token] : [];
-      }),
+      (currentCycle?.pendingPool?.byRewardToken ?? [])
+        .flatMap(({ rewardTokenAddress }) => {
+          const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+          return token ? [token] : [];
+        })
+        .sort(compareTokensBySymbol),
     [currentCycle, tokens],
   );
 
