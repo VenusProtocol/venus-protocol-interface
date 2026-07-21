@@ -2184,6 +2184,8 @@
       "minRequested": "Min. requested",
       "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, supplying, and withdrawing are disabled until the vault is unpaused",
       "primeEligibility": "Prime eligibility",
+      "remainingDays_one": "({{ count }} day)",
+      "remainingDays_other": "({{ count }} days)",
       "targetApr": "Target APR",
       "targetAprTooltip": "The annualized target reward this vault strategy aims to deliver, expressed as a target Annual Percentage Rate with compounding included. Actual return is variable and depends on counterparty performance; capital is at risk and you may receive less than the amount you supplied.",
       "textualWithTime": "{{date, textualWithTime}}",
