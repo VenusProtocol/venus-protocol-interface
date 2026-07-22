@@ -2182,6 +2182,7 @@
       "minRequested": "Tối thiểu yêu cầu",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, cung cấp và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
       "primeEligibility": "Điều kiện nhận Prime",
+      "remainingDays_other": "({{ count }} ngày)",
       "targetApr": "APR mục tiêu",
       "targetAprTooltip": "Phần thưởng mục tiêu theo năm mà chiến lược vault này hướng tới, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm mục tiêu có bao gồm lãi kép. Lợi nhuận thực tế có thể biến động và phụ thuộc vào hiệu suất của đối tác; vốn có rủi ro. Bạn có thể nhận lại ít hơn số đã cung cấp.",
       "textualWithTime": "{{date, textualWithTime}}",

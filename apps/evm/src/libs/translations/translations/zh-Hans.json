@@ -2182,6 +2182,7 @@
       "minRequested": "最小请求量",
       "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、供应和提款功能已禁用，直至金库恢复运作。",
       "primeEligibility": "Prime 资格",
+      "remainingDays_other": "({{ count }} 天)",
       "targetApr": "目标 APR",
       "targetAprTooltip": "此金库策略旨在实现的年化目标奖励，以包含复利的目标年化收益率（APR）表示。实际回报具有可变性，并取决于交易对手表现；本金存在风险。您收到的金额可能少于已供应的数量。",
       "textualWithTime": "{{date, textualWithTime}}",
