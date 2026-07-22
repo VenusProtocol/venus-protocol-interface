@@ -64,8 +64,13 @@ export const getAccountPerformanceHistory = async ({
     dataPoints: netWorthToday.data.performanceDataPoints,
   });
 
+  const combinedPerformanceHistory = [
+    ...formattedPerformanceHistory,
+    formattedNetWorthToday[1],
+  ].filter(dataPoint => !!dataPoint && Number.isFinite(dataPoint.blockTimestampMs));
+
   return {
-    performanceHistory: [...formattedPerformanceHistory, formattedNetWorthToday[1]],
-    startOfDayNetWorthCents: formattedNetWorthToday[0].netWorthCents,
+    performanceHistory: combinedPerformanceHistory,
+    startOfDayNetWorthCents: formattedNetWorthToday[0]?.netWorthCents ?? 0,
   };
 };

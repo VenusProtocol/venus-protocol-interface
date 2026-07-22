@@ -80,6 +80,39 @@ describe('getAccountPerformanceHistory', () => {
     expect(response).toMatchSnapshot();
   });
 
+  it('drops points without a valid timestamp when the net-worth endpoint returns a single point', async () => {
+    (restService as Mock).mockImplementation(({ endpoint }: { endpoint: string }) => {
+      const splitEndpoint = endpoint.split('/');
+      const endpointType = splitEndpoint[splitEndpoint.length - 1];
+
+      if (endpointType === 'performance') {
+        const performanceDataPoints: ApiAccountPerformanceHistoryDataPoint[] = [
+          { blockNumber: 1, blockTimestampMs: 1714828100000, netWorthCents: '10000' },
+          { blockNumber: 3, blockTimestampMs: 1714828200000, netWorthCents: '11000' },
+        ];
+
+        return { data: { performanceDataPoints } };
+      }
+
+      // Only the "now" point is returned, so the expected start-of-day point ([1]) is missing
+      if (endpointType === 'net-worth') {
+        const performanceDataPoints: ApiAccountPerformanceHistoryDataPoint[] = [
+          { blockNumber: 10, blockTimestampMs: 1714828700000, netWorthCents: '21000' },
+        ];
+
+        return { data: { performanceDataPoints } };
+      }
+    });
+
+    const response = await getAccountPerformanceHistory(fakeInput);
+
+    // No undefined/timestamp-less entry should leak into the chart data
+    expect(response.performanceHistory).toHaveLength(2);
+    expect(
+      response.performanceHistory.every(dataPoint => Number.isFinite(dataPoint.blockTimestampMs)),
+    ).toBe(true);
+  });
+
   it('throws on error in payload', async () => {
     (restService as Mock).mockResolvedValue({ data: { error: 'Some error' } });
 
