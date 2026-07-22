@@ -130,7 +130,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
           !isPaused && 'cursor-pointer hover:border-blue',
           className,
         )}
-        onClick={isPaused ? undefined : showModal}
+        onClick={isPaused || !showHoldingsCard ? undefined : showModal}
       >
         <div className="flex items-start justify-between gap-2">
           {showHoldingsCard ? (
