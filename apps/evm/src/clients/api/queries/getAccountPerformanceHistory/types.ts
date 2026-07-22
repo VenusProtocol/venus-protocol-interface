@@ -26,5 +26,5 @@ export interface GetAccountPerformanceHistoryInput {
 
 export interface GetAccountPerformanceHistoryOutput {
   performanceHistory: AccountPerformanceHistoryDataPoint[];
-  startOfDayNetWorthCents: number;
+  startOfDayNetWorthCents?: number;
 }

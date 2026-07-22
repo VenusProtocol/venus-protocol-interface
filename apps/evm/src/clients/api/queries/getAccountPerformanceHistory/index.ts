@@ -71,6 +71,6 @@ export const getAccountPerformanceHistory = async ({
 
   return {
     performanceHistory: combinedPerformanceHistory,
-    startOfDayNetWorthCents: formattedNetWorthToday[0]?.netWorthCents ?? 0,
+    startOfDayNetWorthCents: formattedNetWorthToday[0]?.netWorthCents,
   };
 };
