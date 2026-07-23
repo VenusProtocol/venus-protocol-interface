@@ -85,7 +85,7 @@
       },
       "selects": {
         "source": {
-          "all": "Tüm piyasalar"
+          "all": "Tüm kaynaklar"
         },
         "txType": {
           "all": "Tüm işlemler"

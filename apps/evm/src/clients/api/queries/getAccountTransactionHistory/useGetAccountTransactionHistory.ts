@@ -1,4 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 
 import FunctionKey from 'constants/functionKey';
 import { useChainId } from 'libs/wallet';
@@ -12,7 +13,7 @@ import { useGetPools } from '../useGetPools';
 
 type TrimmedGetAccountTransactionHistoryInput = Omit<
   GetAccountTransactionHistoryInput,
-  'chainId' | 'getPoolsData'
+  'chainId' | 'getPoolsData' | 'liquidityHubs'
 >;
 
 type Options = QueryObserverOptions<
@@ -37,6 +38,7 @@ export const useGetAccountTransactionHistory = (
   const extendedParams = {
     ...params,
     getPoolsData,
+    liquidityHubs, // TODO: fetch from API
     chainId,
   };
 

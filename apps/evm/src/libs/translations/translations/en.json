@@ -85,7 +85,7 @@
       },
       "selects": {
         "source": {
-          "all": "All markets"
+          "all": "All sources"
         },
         "txType": {
           "all": "All transactions"
@@ -925,7 +925,7 @@
         },
         "lockEndDateColumn": {
           "date": "{{date, textualWithTime}}",
-          "title": "Lock en date"
+          "title": "Lock end date"
         },
         "nameColumn": {
           "title": {

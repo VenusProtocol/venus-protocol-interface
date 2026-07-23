@@ -1,7 +1,7 @@
-import { MARKET_TX_TYPES } from 'constants/marketTxTypes';
 import { useTranslation } from 'libs/translations';
-import type { MarketTx, TradeTx, Tx } from 'types';
+import type { Tx } from 'types';
 import { Event, type EventProps } from './Event';
+import { formatToLiquidityHubTxEvents } from './formatToLiquidityHubTxEvents';
 import { formatToMarketTxEvents } from './formatToMarketTxEvents';
 import { formatToTradeTxEvents } from './formatToTradeTxEvents';
 
@@ -10,13 +10,20 @@ export interface EventsProps {
 }
 
 export const Events: React.FC<EventsProps> = ({ transaction }) => {
-  const { Trans } = useTranslation();
+  const { t, Trans } = useTranslation();
 
-  const events: EventProps[] = MARKET_TX_TYPES.some(t => t === transaction.txType)
-    ? formatToMarketTxEvents({ Trans, transaction: transaction as MarketTx })
-    : formatToTradeTxEvents({
-        transaction: transaction as TradeTx,
-      });
+  let events: EventProps[];
+
+  if ('vhToken' in transaction) {
+    events = formatToLiquidityHubTxEvents({
+      transaction,
+      t,
+    });
+  } else if ('vToken' in transaction) {
+    events = formatToMarketTxEvents({ Trans, transaction });
+  } else {
+    events = formatToTradeTxEvents({ transaction });
+  }
 
   return (
     <div className="grid grid-cols-2 gap-4 w-full sm:grid-cols-3">

@@ -1,7 +1,9 @@
 import { ChainId } from '@venusprotocol/chains';
 import fakeAddress from '__mocks__/models/address';
+import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { restService } from 'utilities';
+import type { Address } from 'viem';
 import { type Mock, vi } from 'vitest';
 import { type ApiAccountHistoricalTransaction, getAccountTransactionHistory } from '..';
 import { convertToTxType } from '../formatApiTransaction/convertToTxType';
@@ -12,6 +14,7 @@ const fakeInput = {
   accountAddress: fakeAddress,
   chainId: ChainId.BSC_TESTNET,
   getPoolsData: { pools: poolData },
+  liquidityHubs,
   contractAddress: undefined,
   page: 1,
 };
@@ -188,6 +191,64 @@ describe('getAccountTransactionHistory', () => {
       'positionOpened',
       'borrow',
     ]);
+  });
+
+  it('formats Liquidity Hub supply and withdrawal transactions', async () => {
+    const [liquidityHub] = liquidityHubs;
+    const commonTransactionFields = {
+      accountAddress: fakeAddress as Address,
+      amountUnderlyingMantissa: '1000000000000000000',
+      amountVTokenMantissa: '1000000000000000000',
+      blockNumber: '41604853',
+      chainId: ChainId.BSC_TESTNET,
+      contractAddress: liquidityHub.vhToken.address,
+      underlyingAddress: liquidityHub.vhToken.underlyingToken.address,
+      underlyingTokenPriceMantissa: '7000000000000000000',
+      ...fakeYieldPlusFields,
+    };
+
+    (restService as Mock).mockResolvedValue({
+      data: {
+        count: '2',
+        results: [
+          {
+            ...commonTransactionFields,
+            id: 'liquidity-hub-supply',
+            txHash: '0x3',
+            txIndex: 3,
+            txTimestamp: new Date('2024-08-25T04:17:09.000Z'),
+            txType: 'mint',
+          },
+          {
+            ...commonTransactionFields,
+            id: 'liquidity-hub-withdraw',
+            txHash: '0x4',
+            txIndex: 4,
+            txTimestamp: new Date('2024-08-26T04:17:09.000Z'),
+            txType: 'redeem',
+          },
+        ] satisfies ApiAccountHistoricalTransaction[],
+      },
+    });
+
+    const response = await getAccountTransactionHistory(fakeInput);
+
+    expect(response.transactions).toHaveLength(2);
+    expect(response.transactions).toEqual([
+      expect.objectContaining({
+        txType: 'supply',
+        vhToken: liquidityHub.vhToken,
+      }),
+      expect.objectContaining({
+        txType: 'withdraw',
+        vhToken: liquidityHub.vhToken,
+      }),
+    ]);
+
+    response.transactions.forEach(transaction => {
+      expect(transaction.amounts?.[0]?.amountTokens.isEqualTo(1)).toBe(true);
+      expect(transaction.amounts?.[0]?.amountCents).toBe(700);
+    });
   });
 
   it('throws on error in payload', async () => {
