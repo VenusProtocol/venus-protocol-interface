@@ -903,6 +903,7 @@
       "walletTabTitle": "Ví"
     },
     "supplyTabTitle": "Cung cấp",
+    "withdrawSubmitButtonLabel": "Rút",
     "withdrawTabTitle": "Rút"
   },
   "liquidityHubs": {

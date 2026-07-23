@@ -861,7 +861,7 @@
     "menu": {
       "markets": {
         "liquidityHub": {
-          "description": "One supply, auto-allocated cross multiple yield sources.",
+          "description": "One supply, auto-allocated across multiple yield sources.",
           "label": "Liquidity Hub"
         },
         "vaults": {
@@ -903,6 +903,7 @@
       "walletTabTitle": "Wallet"
     },
     "supplyTabTitle": "Supply",
+    "withdrawSubmitButtonLabel": "Withdraw",
     "withdrawTabTitle": "Withdraw"
   },
   "liquidityHubs": {

@@ -903,6 +903,7 @@
       "walletTabTitle": "Cüzdan"
     },
     "supplyTabTitle": "Sağla",
+    "withdrawSubmitButtonLabel": "Çek",
     "withdrawTabTitle": "Çek"
   },
   "liquidityHubs": {

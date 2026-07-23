@@ -903,6 +903,7 @@
       "walletTabTitle": "ウォレット"
     },
     "supplyTabTitle": "供給",
+    "withdrawSubmitButtonLabel": "引き出し",
     "withdrawTabTitle": "引き出し"
   },
   "liquidityHubs": {
