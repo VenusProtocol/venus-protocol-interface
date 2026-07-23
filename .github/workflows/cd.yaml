@@ -14,6 +14,7 @@ permissions:
   contents: write # to be able to publish a GitHub release
 
 env:
+  NODE_OPTIONS: "--max_old_space_size=4096"
   VITE_ENV: "ci"
   HOSTNAME: "app-ipfs.venus.io"
   CLI_NODE_REAL_API_KEY: ${{ secrets.CLI_NODE_REAL_API_KEY }}
