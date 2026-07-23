@@ -1,33 +1,31 @@
 import { format as formatDate, formatDistanceStrict, isDate } from 'date-fns';
-import i18next, { type Resource } from 'i18next';
+import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
 import { supportedLanguages } from './constants';
+import { enTranslations } from './loadTranslations';
 import { resolveDateFormat } from './resolveDateFormat';
+import { viteTranslationBackend } from './viteTranslationBackend';
 
 export { default as en } from './translations/en.json';
 
 export { supportedLanguages } from './constants';
 
-const resources = supportedLanguages.reduce<Resource>(
-  (acc, language) => ({
-    ...acc,
-    [language.bcp47Tag]: {
-      translation: language.translations,
-    },
-  }),
-  {},
-);
-
 export const defaultLanguage = supportedLanguages[0];
 
 const init = () => {
   i18next
+    .use(viteTranslationBackend)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-      resources,
+      resources: {
+        en: {
+          translation: enTranslations,
+        },
+      },
+      partialBundledLanguages: true,
       supportedLngs: supportedLanguages.map(language => language.bcp47Tag),
       fallbackLng: defaultLanguage.bcp47Tag,
       detection: {
