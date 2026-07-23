@@ -270,7 +270,8 @@
       "supplyApy": "Supply APY",
       "totalBorrow": "Total borrow",
       "totalStaked": "Total supplied",
-      "totalSupply": "Total supply"
+      "totalSupply": "Total supply",
+      "unitPrice": "Unit price"
     }
   },
   "asset": {
@@ -318,6 +319,7 @@
     "governance": "Governance",
     "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
+    "liquidityHubs": "Liquidity Hub",
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
@@ -774,6 +776,7 @@
       "label": "Select chain"
     },
     "header": {
+      "exposures": "Exposures",
       "liquidity": "Liquidity",
       "maxLtv": {
         "label": "Max LTV",
@@ -782,6 +785,7 @@
       },
       "price": "Price",
       "resilientOracle": "Resilient Oracle",
+      "suppliers": "Suppliers",
       "supply": "Supply",
       "utilizationRate": "Utilization rate"
     },
@@ -896,7 +900,6 @@
     },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "SAFE MAX",
-    "supplyApy": "Supply APY",
     "supplySubmitButtonLabel": "Supply",
     "supplyTab": {
       "collateralTabTitle": "Collateral",
@@ -939,7 +942,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "Total borrowed",
-      "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})<br />Borrow cap: {{capTokens}}"
+      "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})<LineBreak />Borrow cap: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "Borrow info"
@@ -996,6 +999,7 @@
       "sixMonths": "6M",
       "thirtyDays": "30D"
     },
+    "positionUnitPrice": "Position unit price ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "Current APY",
       "averageApy": "Average APY",

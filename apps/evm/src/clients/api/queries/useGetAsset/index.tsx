@@ -21,9 +21,14 @@ export const useGetAsset = ({
   vTokenAddress,
   accountAddress,
 }: UseGetAssetInput): UseGetAssetOutput => {
-  const { data: getPoolsData, isLoading } = useGetPools({
-    accountAddress,
-  });
+  const { data: getPoolsData, isLoading } = useGetPools(
+    {
+      accountAddress,
+    },
+    {
+      enabled: !!vTokenAddress,
+    },
+  );
 
   const asset = useMemo(() => {
     if (!getPoolsData?.pools || !vTokenAddress) {

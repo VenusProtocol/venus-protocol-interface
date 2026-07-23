@@ -2,7 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router';
 
-import { Apy, CellGroup, type CellProps, Icon } from 'components';
+import { AssetApy, CellGroup, type CellProps, Icon } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import { useTranslation } from 'libs/translations';
@@ -141,7 +141,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         longTokenSymbol: longToken.symbol,
       }),
       value: longAsset ? (
-        <Apy asset={longAsset} type="supply" showPrimeSimulation={false} />
+        <AssetApy asset={longAsset} type="supply" showPrimeSimulation={false} />
       ) : (
         PLACEHOLDER_KEY
       ),
@@ -151,7 +151,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         shortTokenSymbol: shortToken.symbol,
       }),
       value: shortAsset ? (
-        <Apy asset={shortAsset} type="borrow" showPrimeSimulation={false} />
+        <AssetApy asset={shortAsset} type="borrow" showPrimeSimulation={false} />
       ) : (
         PLACEHOLDER_KEY
       ),

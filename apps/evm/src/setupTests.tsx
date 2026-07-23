@@ -14,6 +14,10 @@ import { NULL_ADDRESS } from 'constants/address';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { extractEnumValues } from 'utilities/extractEnumValues';
 
+vi.mock('__mocks__/utilities/getTokenIconSrc', () => ({
+  getTokenIconSrc: ({ symbol }: { symbol: string }) => `fake-${symbol.toLowerCase()}-asset`,
+}));
+
 const localStorageState = new Map<string, string>();
 
 const localStorageMock: Storage = {

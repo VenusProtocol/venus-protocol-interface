@@ -270,7 +270,8 @@
       "supplyApy": "APY การฝาก",
       "totalBorrow": "ยอดยืมรวม",
       "totalStaked": "ยอดฝากรวม",
-      "totalSupply": "ยอดฝากรวม"
+      "totalSupply": "ยอดฝากรวม",
+      "unitPrice": "ราคาต่อหน่วย"
     }
   },
   "asset": {
@@ -318,6 +319,7 @@
     "governance": "การกำกับดูแล",
     "isolatedPools": "พูลแบบแยก",
     "leaderboard": "ลีดเดอร์บอร์ด",
+    "liquidityHubs": "ศูนย์สภาพคล่อง",
     "markets": "ตลาด",
     "primeCalculator": "เครื่องคำนวณ Prime",
     "proposal": "ข้อเสนอ #{{proposalId}}",
@@ -774,6 +776,7 @@
       "label": "เลือกเชน"
     },
     "header": {
+      "exposures": "เอ็กซ์โพเชอร์",
       "liquidity": "สภาพคล่อง",
       "maxLtv": {
         "label": "LTV สูงสุด",
@@ -782,6 +785,7 @@
       },
       "price": "ราคา",
       "resilientOracle": "ออราเคิลที่ยืดหยุ่น",
+      "suppliers": "ผู้ฝาก",
       "supply": "ฝาก",
       "utilizationRate": "อัตราการใช้งาน"
     },
@@ -896,7 +900,6 @@
     },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "MAX แบบปลอดภัย",
-    "supplyApy": "ซัพพลาย APY",
     "supplySubmitButtonLabel": "ฝาก",
     "supplyTab": {
       "collateralTabTitle": "หลักประกัน",
@@ -939,7 +942,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "ยอดยืมรวม",
-      "tooltip": "จำนวนสูงสุดที่ยืมได้คือ {{amountDollars}} ({{amountTokens}})<br />ขีดจำกัดการยืม: {{capTokens}}"
+      "tooltip": "จำนวนสูงสุดที่ยืมได้คือ {{amountDollars}} ({{amountTokens}})<LineBreak />ขีดจำกัดการยืม: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "ข้อมูลการยืม"
@@ -996,6 +999,7 @@
       "sixMonths": "6ด",
       "thirtyDays": "30ด"
     },
+    "positionUnitPrice": "ราคาต่อหน่วยของสถานะ ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "APY ปัจจุบัน",
       "averageApy": "APY เฉลี่ย",

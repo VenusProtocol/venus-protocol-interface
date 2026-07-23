@@ -8,6 +8,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { LiquidityHub } from 'types';
 import { areTokensEqual } from 'utilities';
 import { SupplyWithCollateralForm } from './SupplyWithCollateralForm';
+import { SupplyWithWalletForm } from './SupplyWithWalletForm';
 
 export interface SupplyTabsProps {
   liquidityHub: LiquidityHub;
@@ -40,7 +41,9 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
   }
 
   // TODO: add content
-  const walletTabDom = <></>;
+  const walletTabDom = (
+    <SupplyWithWalletForm liquidityHub={liquidityHub} onSubmitSuccess={onSubmitSuccess} />
+  );
 
   // Only render the "Supply with wallet balance" tab if there's no corresponding Core pool market
   // or the Liquidity Hub Migrator contract isn't supported on this chain

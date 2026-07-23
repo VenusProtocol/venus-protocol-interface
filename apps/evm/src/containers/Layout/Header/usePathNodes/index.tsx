@@ -10,6 +10,7 @@ import { useFormatTo } from 'hooks/useFormatTo';
 import { useTranslation } from 'libs/translations';
 import { POOL_COMPTROLLER_ADDRESS_PARAM_KEY } from 'pages/IsolatedPools';
 import { areAddressesEqual } from 'utilities';
+import LiquidityHubName from './LiquidityHubName';
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
 
@@ -29,6 +30,7 @@ export const usePathNodes = () => {
     let params: {
       poolComptrollerAddress?: Address;
       vTokenAddress?: Address;
+      vhTokenAddress?: Address;
       proposalId?: string;
       address?: Address;
     } = {};
@@ -91,6 +93,17 @@ export const usePathNodes = () => {
           dom = <VTokenSymbol vTokenAddress={params.vTokenAddress} />;
           break;
         }
+        case Subdirectory.LIQUIDITY_HUBS:
+          dom = t('breadcrumbs.liquidityHubs');
+          break;
+        case Subdirectory.LIQUIDITY_HUB:
+          hrefFragment = Subdirectory.LIQUIDITY_HUB.replace(
+            ':vhTokenAddress',
+            params.vhTokenAddress || '',
+          );
+
+          dom = <LiquidityHubName vhTokenAddress={params.vhTokenAddress} />;
+          break;
         case Subdirectory.GOVERNANCE:
           dom = t('breadcrumbs.governance');
           break;
