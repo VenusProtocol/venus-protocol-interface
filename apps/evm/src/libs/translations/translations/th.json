@@ -128,7 +128,6 @@
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "การแสดงสถานะปัจจุบันของบัญชีของคุณ",
     "borrowed": "ยอดยืม:",
     "borrowedSpotTooltip": "มูลค่าการกู้ยืมนี้คำนวณจากราคา spot ของสินทรัพย์ที่กู้ยืม และจะใช้ในการกำหนดสถานะสุขภาพของบัญชีของคุณ",
     "healthFactor": {
@@ -886,6 +885,76 @@
   "legal": {
     "lastUpdatedAt": "อัปเดตล่าสุด: {{ date, textual }}"
   },
+  "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "สัดส่วน"
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "เพดานแบบสัมบูรณ์",
+          "tooltip": "เพดานแบบสัมบูรณ์ของกลุ่มผลตอบแทน",
+          "unlimited": "ไม่จำกัด"
+        },
+        "capPercentageColumn": {
+          "title": "เพดาน"
+        },
+        "liquidityColumn": {
+          "title": "สภาพคล่อง"
+        },
+        "sourceColumn": {
+          "title": "แหล่งที่มา"
+        }
+      },
+      "title": "รายละเอียดการจัดสรร",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "สัดส่วน"
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "หลักประกัน"
+        },
+        "liquidityColumn": {
+          "title": "สภาพคล่อง"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "วันที่สิ้นสุดการล็อก"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "ตลาด",
+            "vault": "คลัง"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "ดอกเบี้ยจากการฝากรายวัน",
+        "exchangeRate": {
+          "title": "อัตราแลกเปลี่ยน",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "สัญญาศูนย์",
+        "operator": "ผู้ดำเนินการ",
+        "performanceFee": "ค่าธรรมเนียมผลการดำเนินงาน",
+        "redeemFee": "ค่าธรรมเนียมไถ่ถอน",
+        "riskDisclosures": {
+          "title": "การเปิดเผยความเสี่ยง",
+          "value": "<Span>การฝากเข้า ถอนออก หรือมีปฏิสัมพันธ์กับ Venus Liquidity Hub ในลักษณะอื่นใด ถือว่าคุณรับทราบและยอมรับว่า:</Span><Ul><Li>คุณกำลังโต้ตอบกับสมาร์ตคอนแทรกต์ที่ทำงานอัตโนมัติ Venus และบริษัทในเครือไม่รับประกันประสิทธิภาพ ความปลอดภัย หรือความพร้อมใช้งานของ Liquidity Hub หรือซอฟต์แวร์ สมาร์ตคอนแทรกต์ เครือข่ายบล็อกเชน หรือการผสานรวมกับบุคคลที่สามที่เกี่ยวข้องใด ๆ</Li><Li>การฝากสินทรัพย์เข้า Liquidity Hub ไม่ได้มอบอำนาจในการยืม และไม่ถือเป็นเงินฝาก เงินกู้ หรือผลิตภัณฑ์การลงทุน คุณอาจไม่สามารถถอนออกได้ตลอดเวลา และผลตอบแทนหากมีจะไม่ได้รับการรับประกัน</Li><Li>คุณยอมรับความเสี่ยงทั้งหมดที่เกี่ยวข้องกับการใช้ Liquidity Hub และเป็นผู้รับผิดชอบแต่เพียงผู้เดียวในการพิจารณาว่าสิ่งนี้เหมาะสมกับฐานะการเงิน ระดับการยอมรับความเสี่ยง และความสามารถทางเทคนิคของคุณหรือไม่ คุณมีหน้าที่ประเมินด้วยตนเองอย่างอิสระ รวมถึงตรวจสอบซอร์สโค้ดที่เกี่ยวข้องและการตั้งค่าบนเชน</Li><Li>Venus เป็นเพียงผู้ให้บริการเทคโนโลยีเท่านั้น และไม่ได้ให้บริการด้านการลงทุน ที่ปรึกษา ตัวแทนดูแลผลประโยชน์ หรือการรับฝากทรัพย์สิน รวมทั้งไม่ได้บริหารหรือถือครองทรัพย์สินของคุณ</Li></Ul><Span>การใช้งาน Liquidity Hub ของคุณอยู่ภายใต้ <Link>ข้อกำหนดการใช้งาน</Link></Span>"
+        },
+        "vhTokenContract": "สัญญา {{ vhTokenSymbol }}"
+      },
+      "title": "ข้อมูลศูนย์"
+    }
+  },
   "liquidityHubForm": {
     "balanceUpdates": {
       "corePool": "พูลหลัก",
@@ -1400,7 +1469,6 @@
       "marketActions": "เปิดการดำเนินการของตลาด",
       "notEligibleMessage": "คุณยังไม่มีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
       "primeLogoAlt": "โลโก้ Venus Prime",
-      "rewardShareAriaLabel": "สัดส่วนของรางวัลทั้งหมด",
       "title": "รางวัล Prime ของคุณในรอบนี้"
     }
   },
@@ -1416,7 +1484,6 @@
       "tooltip": "โทเคน Prime ทั้งหมด {{primeTokenLimit}} โทเคนถูกอ้างสิทธิ์แล้วในขณะนี้ บางส่วนอาจพร้อมใช้งานหากเจ้าของไม่เข้าเกณฑ์อีกต่อไปหรือหากมีการเพิ่มจำนวน"
     },
     "progressBar": {
-      "ariaLabel": "ความคืบหน้า Prime ปัจจุบันของคุณ",
       "label": "ฝากแล้ว: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "เพิ่มรายได้ของคุณสูงสุด <GreenText>{{percentage}}</GreenText>",
@@ -2476,7 +2543,6 @@
     "searchInput": {
       "placeholder": "ค้นหาข้อเสนอ"
     },
-    "summaryProgressBar": "แถบสรุปการโหวต - {{voteType}}",
     "totalLocked": "ยอดล็อกทั้งหมด",
     "toVoteYouShould": "หากต้องการโหวต คุณควร:",
     "voteAbstain": "โหวตงดออกเสียง",
@@ -2551,11 +2617,6 @@
       "executedPayloads": "payload ที่ดำเนินการแล้ว",
       "readyForExecution": "พร้อมดำเนินการ",
       "readyForQueuing": "พร้อมเข้าคิว"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "เสียงงดออกเสียง",
-      "ariaLabelAgainst": "เสียงคัดค้าน",
-      "ariaLabelFor": "เสียงเห็นด้วย"
     },
     "timeUntilExecutable": "ดำเนินการได้ที่: <Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "เริ่มโหวตที่: <Date>{{ date, textualWithTime }}</Date>",

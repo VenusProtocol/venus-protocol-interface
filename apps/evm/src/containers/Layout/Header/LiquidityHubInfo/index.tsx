@@ -5,8 +5,7 @@ import { useGetLiquidityHub } from 'clients/api';
 import { type CellProps, TokenGroup } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useTranslation } from 'libs/translations';
-import type { Token } from 'types';
-import { formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue, getLiquidityHubCollateralTokens } from 'utilities';
 import { TokenInfo } from '../TokenInfo';
 
 export const LiquidityHubInfo = () => {
@@ -21,10 +20,9 @@ export const LiquidityHubInfo = () => {
   });
   const liquidityHub = getLiquidityHubData?.liquidityHub;
 
-  const collateralTokens = (liquidityHub?.sources ?? []).reduce<Token[]>(
-    (acc, source) => acc.concat(source.collateralTokens),
-    [],
-  );
+  const collateralTokens = getLiquidityHubCollateralTokens({
+    yieldGroups: liquidityHub?.yieldGroups ?? [],
+  });
 
   const cells: CellProps[] = [
     {

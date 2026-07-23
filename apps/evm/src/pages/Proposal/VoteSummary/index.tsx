@@ -17,7 +17,7 @@ import { useStyles } from './styles';
 
 interface VoteSummaryProps extends CardProps {
   label: string;
-  progressBarColor: string;
+  progressBarClassName: string;
   votedValueMantissa?: BigNumber;
   votedTotalMantissa?: BigNumber;
   voters?: VotersDetails['result'];
@@ -29,7 +29,7 @@ interface VoteSummaryProps extends CardProps {
 const VoteSummary = ({
   openVoteModal,
   label,
-  progressBarColor,
+  progressBarClassName,
   votedTotalMantissa = new BigNumber(0),
   votedValueMantissa = new BigNumber(0),
   voters = [],
@@ -60,13 +60,15 @@ const VoteSummary = ({
           <LabeledProgressBar
             greyLeftText={label}
             whiteRightText={getVoteWeight(votedValueMantissa || new BigNumber(0))}
-            value={votedValueMantissa.toNumber()}
+            progressBars={[
+              {
+                value: votedValueMantissa.toNumber(),
+                className: progressBarClassName,
+              },
+            ]}
             min={0}
             // If there are no votes set a fallback to zero the progressbar
             max={votedTotalMantissa.toNumber() || 100}
-            step={1}
-            ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
-            progressBarColor={progressBarColor}
           />
         </div>
 

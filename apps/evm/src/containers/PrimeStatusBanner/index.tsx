@@ -247,9 +247,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
           <div className={cn('xl:max-w-[31.25rem]', !!title && 'sm:pl-14')}>
             <ProgressBar
               className="mb-2"
-              value={+userStakedXvsTokens.toFixed(0)}
-              step={1}
-              ariaLabel={t('primeStatusBanner.progressBar.ariaLabel')}
+              progressBars={[{ value: +userStakedXvsTokens.toFixed(0) }]}
               min={0}
               max={+minXvsToStakeForPrimeTokens.toFixed(0)}
             />

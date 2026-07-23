@@ -38,7 +38,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         renderCell: (voter, rowIndex) => (
           <Typography css={styles.inline} color="textPrimary" variant="small2" component="div">
             {rowIndex + 1 + offset}
-            <Username address={voter.address} ellipseBreakpoint="lg">
+            <Username address={voter.address}>
               {({ innerContent }) => (
                 <Link
                   to={routes.governanceVoter.path.replace(':address', voter.address)}

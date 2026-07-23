@@ -128,7 +128,6 @@
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
     "borrowed": "Borç alınan:",
     "borrowedSpotTooltip": "Bu borçlanma değeri, borçlanılan varlığın spot fiyatına göre hesaplanır ve hesabınızın sağlık durumunu belirlemek için kullanılır.",
     "healthFactor": {
@@ -886,6 +885,76 @@
   "legal": {
     "lastUpdatedAt": "Son güncelleme: {{ date, textual }}"
   },
+  "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "Tahsis"
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "Mutlak üst sınır",
+          "tooltip": "Bir getiri grubunun mutlak üst sınırı",
+          "unlimited": "Sınırsız"
+        },
+        "capPercentageColumn": {
+          "title": "Üst sınır"
+        },
+        "liquidityColumn": {
+          "title": "Likidite"
+        },
+        "sourceColumn": {
+          "title": "Kaynak"
+        }
+      },
+      "title": "Tahsis ayrıntıları",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "Tahsis"
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "Teminat"
+        },
+        "liquidityColumn": {
+          "title": "Likidite"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "Kilit bitiş tarihi"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "Piyasa",
+            "vault": "Kasa"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "Günlük tedarik faizi",
+        "exchangeRate": {
+          "title": "Döviz kuru",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "Merkez sözleşmesi",
+        "operator": "Operatör",
+        "performanceFee": "Performans ücreti",
+        "redeemFee": "İtfa ücreti",
+        "riskDisclosures": {
+          "title": "Risk açıklamaları",
+          "value": "<Span>Venus Likidite Merkezi'ne varlık sağlayarak, buradan çekim yaparak veya başka şekillerde etkileşim kurarak aşağıdakileri kabul etmiş ve onaylamış olursunuz:</Span><Ul><Li>Otonom akıllı sözleşmelerle etkileşim kuruyorsunuz. Venus ve bağlı kuruluşları, Likidite Merkezi'nin veya ilgili herhangi bir yazılımın, akıllı sözleşmenin, blokzincir ağının ya da üçüncü taraf entegrasyonunun performansını, güvenliğini veya kullanılabilirliğini garanti etmez.</Li><Li>Likidite Merkezi'ne varlık sağlamak borçlanma gücü vermez ve bir mevduat, kredi veya yatırım ürünü teşkil etmez. Her zaman çekim yapamayabilirsiniz ve varsa getiriler garanti edilmez.</Li><Li>Likidite Merkezi kullanımınızla ilişkili tüm riskleri üstlenirsiniz ve bunun mali durumunuz, risk toleransınız ve teknik yetkinlikleriniz açısından uygun olup olmadığını belirlemekten yalnızca siz sorumlusunuz. İlgili kaynak kodunu ve zincir üstü yapılandırmayı incelemek dahil kendi bağımsız değerlendirmenizi yapmakla yükümlüsünüz.</Li><Li>Venus yalnızca bir teknoloji sağlayıcısıdır; yatırım, danışmanlık, vekalet veya saklama hizmeti sunmaz ve varlıklarınızı yönetmez ya da elinde tutmaz.</Li></Ul><Span>Likidite Merkezi ile etkileşiminiz <Link>Kullanım Koşulları</Link>'na tabidir.</Span>"
+        },
+        "vhTokenContract": "{{ vhTokenSymbol }} sözleşmesi"
+      },
+      "title": "Merkez bilgisi"
+    }
+  },
   "liquidityHubForm": {
     "balanceUpdates": {
       "corePool": "Çekirdek havuz",
@@ -1400,7 +1469,6 @@
       "marketActions": "Piyasa işlemlerini aç",
       "notEligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygun değilsin. Sonraki döngüde Prime için yarışmak üzere XVS stake et.",
       "primeLogoAlt": "Venus Prime logosu",
-      "rewardShareAriaLabel": "Toplam ödüllerdeki pay",
       "title": "Bu döngüdeki Prime ödülleriniz"
     }
   },
@@ -1416,7 +1484,6 @@
       "tooltip": "{{primeTokenLimit}} Prime tokenının tamamı şu anda talep edildi. Sahipleri uygunluk kriterlerini karşılamazsa veya daha fazla eklersek bazıları kullanılabilir hale gelebilir."
     },
     "progressBar": {
-      "ariaLabel": "Mevcut Prime ilerlemeniz",
       "label": "Sağlanan: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Kazancınızı <GreenText>{{percentage}}</GreenText> kadar artırın",
@@ -2477,7 +2544,6 @@
     "searchInput": {
       "placeholder": "Teklif ara"
     },
-    "summaryProgressBar": "Oylama Özet İlerleme Çubuğu - {{voteType}}",
     "totalLocked": "Toplam kilitli",
     "toVoteYouShould": "Oy vermek için şunları yapmalısınız:",
     "voteAbstain": "Çekimser oy ver",
@@ -2552,11 +2618,6 @@
       "executedPayloads": "Yürütülen payload'lar",
       "readyForExecution": "Yürütmeye hazır",
       "readyForQueuing": "Kuyruğa almaya hazır"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "çekimser oylar",
-      "ariaLabelAgainst": "karşı oylar",
-      "ariaLabelFor": "lehte oylar"
     },
     "timeUntilExecutable": "Yürütülebilir: <Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "Oylama başlar: <Date>{{ date, textualWithTime }}</Date>",

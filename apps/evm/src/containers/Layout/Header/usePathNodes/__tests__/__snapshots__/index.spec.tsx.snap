@@ -47,7 +47,6 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
     >
       <Username
         address="0x3d759121234cd36F8124C21aFe1c6852d2bEd848"
-        ellipseBreakpoint="2xl"
         showCopyAddress={true}
         showProvider={false}
         showTooltip={false}

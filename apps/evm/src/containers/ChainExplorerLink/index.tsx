@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { cn } from '@venusprotocol/ui';
-import { type Breakpoint, EllipseAddress } from 'components/EllipseAddress';
+import { EllipseAddress } from 'components/EllipseAddress';
 import { Icon } from 'components/Icon';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
@@ -13,7 +13,6 @@ import type { Address } from 'viem';
 export interface ChainExplorerLinkProps {
   hash: string;
   chainId: ChainId;
-  ellipseBreakpoint?: Breakpoint;
   urlType?: UrlType;
   className?: string;
   text?: string;
@@ -25,7 +24,6 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
   className,
   urlType,
   text,
-  ellipseBreakpoint,
 }) => {
   const { t } = useTranslation();
 
@@ -41,12 +39,12 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
       return t('chainExplorerLink.content', { domainName });
     }
 
-    if (text && ellipseBreakpoint) {
-      return <EllipseAddress ellipseBreakpoint={ellipseBreakpoint} address={text as Address} />;
+    if (text) {
+      return <EllipseAddress address={text as Address} />;
     }
 
     return text;
-  }, [url, text, ellipseBreakpoint, t]);
+  }, [url, text, t]);
 
   return (
     <div className={cn('text-blue inline-block text-sm font-semibold', className)}>

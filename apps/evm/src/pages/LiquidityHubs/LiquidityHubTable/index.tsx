@@ -20,6 +20,7 @@ import {
   formatCentsToReadableValue,
   formatTokensToReadableValue,
   getCombinedApy,
+  getLiquidityHubCollateralTokens,
 } from 'utilities';
 import { RowControl } from './RowControl';
 
@@ -69,6 +70,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       key: 'totalSupply',
       label: t('liquidityHubs.table.columns.totalSupply'),
       selectOptionLabel: t('liquidityHubs.table.columns.totalSupply'),
+      align: 'right',
       sortRows: (rowA, rowB, direction) =>
         compareBigNumbers(rowA.supplyBalanceCents, rowB.supplyBalanceCents, direction),
       renderCell: ({ vhToken, supplyBalanceTokens, supplyBalanceCents }) => (
@@ -100,9 +102,10 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
         />
       ),
       selectOptionLabel: t('liquidityHubs.table.columns.exposure.selectionOptionLabel'),
-      renderCell: ({ sources }) => (
+      align: 'right',
+      renderCell: ({ yieldGroups }) => (
         <TokenGroup
-          tokens={sources.flatMap(source => source.collateralTokens)}
+          tokens={getLiquidityHubCollateralTokens({ yieldGroups })}
           removeDuplicates
           limit={5}
         />
@@ -112,6 +115,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       key: 'supplyApy',
       label: t('liquidityHubs.table.columns.supplyApy'),
       selectOptionLabel: t('liquidityHubs.table.columns.supplyApy'),
+      align: 'right',
       sortRows: (rowA, rowB, direction) =>
         compareBigNumbers(
           getCombinedApy({

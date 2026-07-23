@@ -10,7 +10,3 @@ export default {
 } as Meta<typeof EllipseAddress>;
 
 export const Default = () => <EllipseAddress address={fakeAddress} />;
-
-export const WithEllipseBreakpoint = () => (
-  <EllipseAddress address={fakeAddress} ellipseBreakpoint="md" />
-);

@@ -110,7 +110,6 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
                 text={createdTxHash}
                 urlType="tx"
                 hash={createdTxHash}
-                ellipseBreakpoint="2xl"
                 chainId={governanceChainId}
               />
             )}
