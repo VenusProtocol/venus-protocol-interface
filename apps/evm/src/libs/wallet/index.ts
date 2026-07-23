@@ -6,6 +6,7 @@ export * from './hooks/useAccountAddress';
 export * from './hooks/useAccountChainId';
 export * from './hooks/useSwitchChain';
 export * from './hooks/useChainId';
+export * from './hooks/useSyncWalletChainOnConnect';
 export * from './hooks/useAuthModal';
 export * from './hooks/useAddTokenToWallet';
 export * from './hooks/usePublicClient';

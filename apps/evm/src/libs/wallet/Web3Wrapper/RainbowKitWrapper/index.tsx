@@ -13,6 +13,7 @@ import { useAccount, useConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import { useTranslation } from 'libs/translations';
+import { useSyncWalletChainOnConnect } from 'libs/wallet/hooks/useSyncWalletChainOnConnect';
 
 export interface RainwbowKitWrapperProps extends PropsWithChildren {}
 
@@ -34,6 +35,27 @@ const rkTheme = merge(
     },
   } as Theme,
 );
+
+const ChainDebugLogger: React.FC = () => {
+  const { address, chainId, chain, status, connector } = useAccount();
+
+  useEffect(() => {
+    console.log(
+      `[CHAIN_DEBUG] wagmi:useAccount(raw) | status=${status} | walletChainId=${chainId} | chainName=${
+        chain?.name ?? 'unknown'
+      } | connector=${connector?.name ?? 'none'} | connectorId=${
+        connector?.id ?? 'none'
+      } | address=${address ?? 'none'}`,
+    );
+  }, [address, chainId, chain?.name, status, connector?.name, connector?.id]);
+
+  return null;
+};
+
+const WalletChainSync: React.FC = () => {
+  useSyncWalletChainOnConnect();
+  return null;
+};
 
 const ConnectionRecovery: React.FC = () => {
   const config = useConfig();
@@ -68,6 +90,8 @@ export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children
       }}
       theme={rkTheme}
     >
+      <ChainDebugLogger />
+      <WalletChainSync />
       <ConnectionRecovery />
       {children}
     </RainbowKitProvider>

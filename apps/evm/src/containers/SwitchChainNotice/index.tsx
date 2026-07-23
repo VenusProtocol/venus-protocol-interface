@@ -1,4 +1,6 @@
 import { chains } from '@venusprotocol/chains';
+import { useEffect } from 'react';
+
 import { Notice, TextButton } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId, useSwitchChain } from 'libs/wallet';
@@ -29,6 +31,13 @@ export const SwitchChainNotice: React.FC<SwitchChainNoticeProps> = ({
   const handleSwitchChain = () => switchChain({ chainId: targetChainId });
 
   const shouldShow = isUserConnected && isOnWrongChain;
+
+  // Change-gated so it only logs on transitions, not on every render.
+  useEffect(() => {
+    console.log(
+      `[CHAIN_DEBUG] SwitchChainNotice | currentChainId=${currentChainId} | targetChainId=${targetChainId} | accountChainId=${accountChainId} | shouldShow=${shouldShow}`,
+    );
+  }, [currentChainId, targetChainId, accountChainId, shouldShow]);
 
   if (!shouldShow) {
     return undefined;
