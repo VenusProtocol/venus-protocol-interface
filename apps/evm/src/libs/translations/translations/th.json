@@ -903,6 +903,7 @@
       "walletTabTitle": "วอลเล็ต"
     },
     "supplyTabTitle": "ฝาก",
+    "withdrawSubmitButtonLabel": "ถอน",
     "withdrawTabTitle": "ถอน"
   },
   "liquidityHubs": {

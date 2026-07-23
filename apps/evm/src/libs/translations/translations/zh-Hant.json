@@ -903,10 +903,11 @@
       "walletTabTitle": "錢包"
     },
     "supplyTabTitle": "供應",
+    "withdrawSubmitButtonLabel": "提取",
     "withdrawTabTitle": "提取"
   },
   "liquidityHubs": {
-    "description": "根據治理策劃的策略，在 Venus 協議的多個收益來源之間進行路由。收益會自動累積。",
+    "description": "根據治理制定的政策，在 Venus 協議的多個收益來源之間進行路由。收益會自動累積。",
     "header": "流動性中心",
     "stats": {
       "hubs": "中心數",
