@@ -79,6 +79,7 @@ import tokenBridgeZkSyncMainnetDeployments from '@venusprotocol/token-bridge/dep
 import tokenBridgeZkSyncSepoliaDeployments from '@venusprotocol/token-bridge/deployments/zksyncsepolia_addresses.json';
 import { abi as leverageManagerAbi } from '@venusprotocol/venus-periphery/artifacts/contracts/LeverageManager/LeverageStrategiesManager.sol/LeverageStrategiesManager.json';
 import venusPeripheryBscMainnetDeployments from '@venusprotocol/venus-periphery/deployments/bscmainnet_addresses.json';
+import venusPeripheryBscTestnetDeployments from '@venusprotocol/venus-periphery/deployments/bsctestnet_addresses.json';
 import { abi as legacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as vTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
 import { abi as vTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
@@ -499,24 +500,26 @@ export const contracts: ContractConfig[] = [
     name: 'PrimeV2',
     abi: primeV2Abi as Abi,
     address: {
-      [ChainId.BSC_TESTNET]: '0xeC22366d2572e52BCB29B50C905b945BA421B9b2',
-      [ChainId.BSC_MAINNET]: '0x059EabA8676b03e4e8f009eFb7F587C28450F50f',
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.PrimeV2_Proxy as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.PrimeV2_Proxy as Address,
     },
   },
   {
     name: 'PrimeV2Lens',
     abi: primeV2LensAbi as Abi,
     address: {
-      [ChainId.BSC_TESTNET]: '0x13b3C3442e5fD642bc31D34db43d547E8C4322f7',
-      [ChainId.BSC_MAINNET]: '0x2f8c5e4562E22DB7908C56Bf99961C053436473c',
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.PrimeLens as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.PrimeLens as Address,
     },
   },
   {
     name: 'PrimeLeaderboard',
     abi: primeLeaderboardAbi as Abi,
     address: {
-      [ChainId.BSC_TESTNET]: '0x1a4408613eec291f2d338F7A88E9D550fa9cD8dC',
-      [ChainId.BSC_MAINNET]: '0x55e2ccF68B7A276dc28AfA107997b8B1Be932c0b',
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses
+        .PrimeLeaderboard_Proxy as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses
+        .PrimeLeaderboard_Proxy as Address,
     },
   },
   {
@@ -712,15 +715,18 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_MAINNET]: venusPeripheryBscMainnetDeployments.addresses
         .LeverageStrategiesManager_Proxy as Address,
-      [ChainId.BSC_TESTNET]: '0x5187226337C95c4BE683D37Ffc66D41f5b6cE38f', // TODO: get from package
+      [ChainId.BSC_TESTNET]: venusPeripheryBscTestnetDeployments.addresses
+        .LeverageStrategiesManager_Proxy as Address,
     },
   },
   {
     name: 'RelativePositionManager',
     abi: relativePositionManagerAbi as Abi,
     address: {
-      [ChainId.BSC_MAINNET]: '0x1525D804DFff218DcC8B9359940F423209356C42', // TODO: get from package
-      [ChainId.BSC_TESTNET]: '0x25dbA64B28F93cC40e9cAf9691266043fe1000a2', // TODO: get from package
+      [ChainId.BSC_MAINNET]: venusPeripheryBscMainnetDeployments.addresses
+        .RelativePositionManager_Proxy as Address,
+      [ChainId.BSC_TESTNET]: venusPeripheryBscTestnetDeployments.addresses
+        .RelativePositionManager_Proxy as Address,
     },
   },
   {
@@ -780,7 +786,8 @@ export const contracts: ContractConfig[] = [
     name: 'SwapRouterV2',
     abi: swapRouterV2Abi as Abi,
     address: {
-      [ChainId.BSC_MAINNET]: '0xde7E4f67Af577F29e5F3B995f9e67FD425F73621',
+      [ChainId.BSC_MAINNET]: venusPeripheryBscMainnetDeployments.addresses
+        .SwapRouter_Proxy as Address,
     },
   },
   {
