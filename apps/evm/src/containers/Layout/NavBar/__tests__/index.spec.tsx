@@ -118,13 +118,13 @@ const renderNavBar = ({ accountAddress }: { accountAddress?: string } = {}) => {
     ...render(
       <MuiThemeProvider>
         <QueryClientProvider client={queryClient}>
-          <Web3Wrapper>
-            <MemoryRouter initialEntries={['/']}>
+          <MemoryRouter initialEntries={['/']}>
+            <Web3Wrapper>
               <Routes>
                 <Route path="*" element={<NavBar className="custom-nav" data-testid="nav-bar" />} />
               </Routes>
-            </MemoryRouter>
-          </Web3Wrapper>
+            </Web3Wrapper>
+          </MemoryRouter>
         </QueryClientProvider>
       </MuiThemeProvider>,
     ),

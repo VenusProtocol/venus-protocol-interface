@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "@biconomy/abstractjs": "^1.0.21",
+    "@binance/w3w-rainbow-connector-v2": "^1.0.8",
+    "@binance/w3w-wagmi-connector-v2": "^1.2.11",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fastify/deepmerge": "^3.1.0",
@@ -126,7 +128,7 @@
     "@venusprotocol/venus-periphery": "^1.1.0",
     "@venusprotocol/venus-protocol": "10.3.0",
     "@vitejs/plugin-react": "^6.0.2",
-    "@vitest/coverage-v8": "^2.1.5",
+    "@vitest/coverage-v8": "^3.1.1",
     "babel-plugin-react-compiler": "^1.0.0",
     "c8": "^10.0.0",
     "fs": "^0.0.1-security",
