@@ -1,0 +1,24 @@
+import { cn } from '@venusprotocol/ui';
+import { Button } from 'components';
+
+interface DropdownToggleButtonProps {
+  className?: string;
+  handleToggleDropdown: () => void;
+  children: React.ReactNode;
+}
+
+export const DropdownToggleButton = ({
+  className,
+  handleToggleDropdown,
+  children,
+}: DropdownToggleButtonProps) => (
+  <Button
+    onClick={handleToggleDropdown}
+    className={cn(
+      'p-0 border-transparent hover:border-transparent h-8 w-8 bg-background/40 hover:bg-background',
+      className,
+    )}
+  >
+    {children}
+  </Button>
+);
