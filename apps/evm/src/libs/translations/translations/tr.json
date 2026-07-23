@@ -2214,6 +2214,8 @@
       "minRequested": "Min. talep edilen",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, sağlama ve çekim işlemleri devre dışı bırakılmıştır.",
       "primeEligibility": "Prime uygunluğu",
+      "remainingDays_one": "({{ count }} gün)",
+      "remainingDays_other": "({{ count }} gün)",
       "targetApr": "Hedef APR",
       "targetAprTooltip": "Bu kasa stratejisinin sunmayı hedeflediği yıllıklandırılmış hedef ödüldür; bileşik getiri dahil hedef Yıllık Yüzde Oranı (APR) olarak ifade edilir. Gerçek getiri değişkendir ve karşı taraf performansına bağlıdır; sermaye risk altındadır. Sağladığınız tutardan daha azını geri alabilirsiniz.",
       "textualWithTime": "{{date, textualWithTime}}",

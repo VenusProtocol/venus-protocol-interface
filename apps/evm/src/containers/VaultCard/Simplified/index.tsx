@@ -3,7 +3,9 @@ import BigNumber from 'bignumber.js';
 
 import { Card, TokenIcon, TokenIconWithSymbol } from 'components';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
+import { StatusLabel } from 'containers/VaultCard/StatusLabel';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
@@ -20,6 +22,7 @@ import {
 import { InstitutionalVaultModal } from 'containers/VaultCard/InstitutionalVaultModal';
 import { PendleVaultModal } from 'containers/VaultCard/PendleVaultModal';
 import { VenusVaultModal } from 'containers/VenusVaultModal';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { Cell } from './Cell';
 
@@ -31,6 +34,7 @@ interface VaultCardSimplifiedProps {
 // Vault Card in Dashboard
 export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
   const { t } = useTranslation();
+  const now = useNow();
 
   const [shouldShowModal, setShouldShowModal] = useState(false);
 
@@ -43,7 +47,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
   const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
     token: displayToken,
     value: vault.userStakeBalanceMantissa || new BigNumber(0),
-    addSymbol: false,
+    addSymbol: true,
   });
 
   const isPaused = ('isPaused' in vault && vault.isPaused) || vault.status === VaultStatus.Inactive;
@@ -63,17 +67,60 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
       : undefined;
 
   const totalDepositedReadableValue = vault.stakeBalanceMantissa ? (
-    <div className={cn('flex items-center gap-2 text-light-grey-active text-p2s')}>
-      <TokenIcon token={displayToken} displayChain={false} size="md" />
-      {formatTokensToReadableValue({
-        value: convertMantissaToTokens({
-          value: vault.stakeBalanceMantissa,
+    <>
+      <TokenIcon token={displayToken} displayChain={false} size="md" className="shrink-0" />
+      <span className="truncate min-w-0">
+        {formatTokensToReadableValue({
+          value: convertMantissaToTokens({
+            value: vault.stakeBalanceMantissa,
+            token: displayToken,
+          }),
           token: displayToken,
-        }),
-        token: displayToken,
-      })}
-    </div>
+        })}
+      </span>
+    </>
   ) : undefined;
+
+  // Bottom-right cell content (state end date / emission), which varies per vault type and mirrors
+  // what the vault page shows. Right-aligned per design.
+  let stateEndTitle: ReactNode;
+  let stateEndContent: ReactNode;
+
+  if (isPendleVault(vault)) {
+    stateEndTitle = t('vault.card.maturityDatePendle');
+    stateEndContent = t('vault.modals.textualDate', { date: vault.maturityDate });
+  } else if (isInstitutionalVault(vault)) {
+    let label = t('vault.card.maturityDate');
+    let date = vault.maturityDate;
+    let withCountdown = false;
+
+    if (vault.status === VaultStatus.Refund) {
+      label = t('vault.modals.institutionalTimeline.refundPeriod');
+      date = vault.openEndDate;
+    } else if (vault.status === VaultStatus.Deposit) {
+      label = t('vault.modals.depositPeriodEnds');
+      date = vault.openEndDate;
+      withCountdown = true;
+    } else if (vault.status === VaultStatus.Pending) {
+      label = t('vault.modals.depositPeriodEnds');
+      date = vault.openEndDate;
+    } else if (vault.status === VaultStatus.Locked) {
+      withCountdown = true;
+    }
+
+    const remainingDays = date
+      ? Math.max(0, Math.ceil((date.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
+      : 0;
+
+    stateEndTitle =
+      withCountdown && date
+        ? `${label} ${t('vault.card.remainingDays', { count: remainingDays })}`
+        : label;
+    stateEndContent = date ? t('vault.modals.textualDate', { date }) : t('vault.timeline.tbd');
+  } else if (dailyEmissionReadableValue) {
+    stateEndTitle = t('vault.card.dailyEmission');
+    stateEndContent = dailyEmissionReadableValue;
+  }
 
   return (
     <>
@@ -83,35 +130,61 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
           !isPaused && 'cursor-pointer hover:border-blue',
           className,
         )}
-        onClick={isPaused ? undefined : showModal}
+        onClick={isPaused || !showHoldingsCard ? undefined : showModal}
       >
-        {showHoldingsCard ? (
-          <div className="text-b1r text-light-grey">
-            {t('vault.card.currentDeposited')}
-            <div className={cn('flex items-center text-p2s gap-2 text-light-grey-active')}>
-              <TokenIcon token={displayToken} displayChain={false} size="lg" />
-              <HidableUserBalance>{readableUserStakedTokens}</HidableUserBalance>
+        <div className="flex items-start justify-between gap-2">
+          {showHoldingsCard ? (
+            <div className="min-w-0 text-b1r text-light-grey">
+              {t('vault.card.currentDeposited')}
+              <div
+                className={cn('flex items-center text-p2s gap-2 text-light-grey-active min-w-0')}
+              >
+                <TokenIcon
+                  token={displayToken}
+                  displayChain={false}
+                  size="lg"
+                  className="shrink-0"
+                />
+                <span className="truncate min-w-0">
+                  <HidableUserBalance>{readableUserStakedTokens}</HidableUserBalance>
+                </span>
+              </div>
             </div>
-          </div>
-        ) : (
-          <TokenIconWithSymbol
-            token={vault.stakedToken}
-            displayChain={false}
-            size="lg"
-            className="text-p2s"
-          />
-        )}
-        <div className="flex">
+          ) : (
+            <TokenIconWithSymbol
+              token={vault.stakedToken}
+              displayChain={false}
+              size="lg"
+              className="min-w-0 text-p2s"
+            />
+          )}
+
+          <StatusLabel status={vault.status} className="shrink-0" />
+        </div>
+
+        <div className="flex gap-2">
           <Cell
             title={t('vault.card.apr')}
             content={formatPercentageToReadableValue(vault.stakeAprPercentage)}
           />
-          {showHoldingsCard && dailyEmissionReadableValue && (
-            <Cell title={t('vault.card.dailyEmission')} content={dailyEmissionReadableValue} />
-          )}
-          {!showHoldingsCard && totalDepositedReadableValue && (
-            <Cell title={t('vault.card.totalDeposited')} content={totalDepositedReadableValue} />
-          )}
+
+          {showHoldingsCard
+            ? stateEndContent && (
+                <Cell
+                  className="text-right"
+                  contentClassName="justify-end"
+                  title={stateEndTitle}
+                  content={stateEndContent}
+                />
+              )
+            : totalDepositedReadableValue && (
+                <Cell
+                  className="text-right"
+                  contentClassName="justify-end"
+                  title={t('vault.card.totalDeposited')}
+                  content={totalDepositedReadableValue}
+                />
+              )}
         </div>
       </Card>
 
