@@ -11253,7 +11253,7 @@ __metadata:
     "@venusprotocol/chains": "npm:*"
     "@venusprotocol/governance-contracts": "npm:2.13.0"
     "@venusprotocol/isolated-pools": "npm:4.3.0"
-    "@venusprotocol/oracle": "npm:2.14.0"
+    "@venusprotocol/oracle": "npm:2.16.0"
     "@venusprotocol/protocol-reserve": "npm:3.4.0"
     "@venusprotocol/stylelint-config": "npm:*"
     "@venusprotocol/token-bridge": "npm:2.7.0"
@@ -11412,7 +11412,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@venusprotocol/oracle@npm:2.14.0, @venusprotocol/oracle@npm:^2.12.0":
+"@venusprotocol/oracle@npm:2.16.0":
+  version: 2.16.0
+  resolution: "@venusprotocol/oracle@npm:2.16.0"
+  dependencies:
+    "@chainlink/contracts": "npm:^0.5.1"
+    "@defi-wonderland/smock": "npm:2.4.0"
+    "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.8"
+    "@openzeppelin/contracts": "npm:^4.6.0"
+    "@openzeppelin/contracts-upgradeable": "npm:^4.7.3"
+    "@venusprotocol/governance-contracts": "npm:^2.13.0"
+    "@venusprotocol/solidity-utilities": "npm:^2.0.0"
+    "@venusprotocol/venus-protocol": "npm:^9.7.0"
+    ethers: "npm:^5.6.8"
+    hardhat: "npm:2.22.18"
+    hardhat-deploy: "npm:^0.12.4"
+    module-alias: "npm:^2.2.2"
+    patch-package: "npm:^8.0.0"
+    solidity-docgen: "npm:^0.6.0-beta.29"
+  checksum: 10c0/647418715d602ec09121c307d27c0e26940fc9c76d0a97facd81eb7fe3b2b167d3bac1590ec91777560e1441f07b7003c95693ef4aa8884247c23f91e1f02383
+  languageName: node
+  linkType: hard
+
+"@venusprotocol/oracle@npm:^2.12.0":
   version: 2.14.0
   resolution: "@venusprotocol/oracle@npm:2.14.0"
   dependencies:
