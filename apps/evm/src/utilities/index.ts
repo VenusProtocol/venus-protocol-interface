@@ -73,4 +73,5 @@ export * from './getVaultCategoryName';
 export * from './getTransactionName';
 export * from './formatToTradePosition';
 export * from './calculateUserMaxBorrowTokens';
+export * from './calculateCollateralWithdrawLimits';
 export * from './formatToCandle';

@@ -879,7 +879,18 @@
   "legal": {
     "lastUpdatedAt": "最后更新：{{ date, textual }}"
   },
-  "liquidityHub": {
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "安全 MAX",
+    "supplySubmitButtonLabel": "供应",
+    "supplyTab": {
+      "collateralTabTitle": "抵押品",
+      "walletTabTitle": "钱包"
+    },
+    "supplyTabTitle": "供应",
+    "withdrawTabTitle": "提取"
+  },
+  "liquidityHubs": {
     "description": "根据治理策划的策略，在 Venus 协议的多个收益来源之间进行路由。收益会自动累积。",
     "header": "流动性中心",
     "stats": {

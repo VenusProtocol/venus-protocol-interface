@@ -879,7 +879,18 @@
   "legal": {
     "lastUpdatedAt": "Son güncelleme: {{ date, textual }}"
   },
-  "liquidityHub": {
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "GÜVENLİ MAX",
+    "supplySubmitButtonLabel": "Sağla",
+    "supplyTab": {
+      "collateralTabTitle": "Teminat",
+      "walletTabTitle": "Cüzdan"
+    },
+    "supplyTabTitle": "Sağla",
+    "withdrawTabTitle": "Çek"
+  },
+  "liquidityHubs": {
     "description": "Yönetişim tarafından belirlenen bir politika altında Venus Protocol getiri kaynakları arasında yönlendirilir. Getiri otomatik olarak birikir.",
     "header": "Likidite Merkezi",
     "stats": {

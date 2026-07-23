@@ -7,6 +7,7 @@ import fakeAddress from '__mocks__/models/address';
 import { exactInSwapQuote } from '__mocks__/models/swap';
 import { tradePositions } from '__mocks__/models/trade';
 import {
+  useGetBalanceOf,
   useGetDsaVTokens,
   useGetPool,
   useGetProportionalCloseTolerancePercentage,
@@ -204,6 +205,7 @@ const getSubmitButton = () => screen.getByRole('button', { name: submitButtonLab
 
 describe('Trade PositionForm Form', () => {
   const mockUseGetPool = useGetPool as Mock;
+  const mockUseGetBalanceOf = useGetBalanceOf as Mock;
   const mockUseGetDsaVTokens = useGetDsaVTokens as Mock;
   const mockUseGetSimulatedPool = useGetSimulatedPool as Mock;
   const mockUseGetProportionalCloseTolerancePercentage =
@@ -218,6 +220,7 @@ describe('Trade PositionForm Form', () => {
     contractAddress = fakeAddress,
     isTokenApproved = true,
     walletSpendingLimitTokens = new BigNumber('1000000'),
+    walletBalanceTokens = basePosition.dsaAsset.userWalletBalanceTokens,
   }: {
     pool?: Pool;
     simulatedPool?: Pool;
@@ -225,6 +228,7 @@ describe('Trade PositionForm Form', () => {
     contractAddress?: string;
     isTokenApproved?: boolean;
     walletSpendingLimitTokens?: BigNumber;
+    walletBalanceTokens?: BigNumber;
   } = {}) => {
     mockUseGetPool.mockImplementation(() => ({
       data: {
@@ -255,6 +259,18 @@ describe('Trade PositionForm Form', () => {
         proportionalCloseTolerancePercentage,
       },
     }));
+
+    mockUseGetBalanceOf.mockImplementation(
+      ({ token }: { token: FormProps['position']['dsaAsset']['vToken']['underlyingToken'] }) => ({
+        data: {
+          balanceMantissa: convertTokensToMantissa({
+            value: walletBalanceTokens,
+            token,
+          }),
+        },
+        isLoading: false,
+      }),
+    );
 
     mockUseGetContractAddress.mockImplementation(() => ({
       address: contractAddress,

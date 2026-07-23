@@ -4,12 +4,12 @@ import { useMemo } from 'react';
 import { useApproveToken, useGetAllowance } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { VError } from 'libs/errors';
-import type { Token } from 'types';
+import type { Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 import type { Address } from 'viem';
 
 export interface UseTokenApprovalInput {
-  token: Token;
+  token: Token | VToken;
   spenderAddress?: Address;
   accountAddress?: Address;
 }
@@ -34,6 +34,8 @@ const useTokenApproval = (
   { token, spenderAddress, accountAddress }: UseTokenApprovalInput,
   options?: UseTokenApprovalOptions,
 ): UseTokenApprovalOutput => {
+  const isNative = 'isNative' in token && token.isNative;
+
   const { data: getTokenAllowanceData, isLoading: isWalletSpendingLimitLoading } = useGetAllowance(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
@@ -45,7 +47,7 @@ const useTokenApproval = (
         (options?.enabled === undefined || options.enabled) &&
         !!spenderAddress &&
         !!accountAddress &&
-        !token.isNative,
+        !isNative,
     },
   );
 
@@ -61,7 +63,7 @@ const useTokenApproval = (
   );
 
   const isTokenApproved = useMemo(() => {
-    if (token.isNative) {
+    if (isNative) {
       return true;
     }
 
@@ -70,7 +72,7 @@ const useTokenApproval = (
     }
 
     return walletSpendingLimitTokens.isGreaterThan(0);
-  }, [token.isNative, walletSpendingLimitTokens]);
+  }, [isNative, walletSpendingLimitTokens]);
 
   const approveToken = async () => {
     if (!spenderAddress) {

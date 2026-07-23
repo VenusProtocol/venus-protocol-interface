@@ -4,7 +4,7 @@ import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
 import { useAddTokenToWallet } from 'libs/wallet';
 import { useCallback } from 'react';
-import type { Token, VToken } from 'types';
+import type { Token, VToken, VhToken } from 'types';
 import { DropdownToggleButton } from '../DropdownToggleButton';
 import { TokenDropdownOption } from '../TokenDropdownOption';
 
@@ -26,7 +26,7 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
     ({ setIsDropdownOpen }: { setIsDropdownOpen: (v: boolean) => void }) => {
       const { underlyingToken } = vToken;
 
-      const addOrCopyTokenAction = (token: Token | VToken) => () => {
+      const addOrCopyTokenAction = (token: Token | VToken | VhToken) => () => {
         if (isUserConnected) {
           addTokenToWallet(token);
         } else {

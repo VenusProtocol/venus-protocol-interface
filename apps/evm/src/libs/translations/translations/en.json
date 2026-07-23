@@ -879,7 +879,18 @@
   "legal": {
     "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
-  "liquidityHub": {
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "SAFE MAX",
+    "supplySubmitButtonLabel": "Supply",
+    "supplyTab": {
+      "collateralTabTitle": "Collateral",
+      "walletTabTitle": "Wallet"
+    },
+    "supplyTabTitle": "Supply",
+    "withdrawTabTitle": "Withdraw"
+  },
+  "liquidityHubs": {
     "description": "Routed across Venus protocol yield sources under a governance-curated policy. Yield accrues automatically.",
     "header": "Liquidity Hub",
     "stats": {

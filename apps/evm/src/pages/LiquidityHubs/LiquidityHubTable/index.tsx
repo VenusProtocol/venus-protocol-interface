@@ -36,7 +36,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const [searchValue, setSearchValue] = useState('');
 
   const renderRowControl = (liquidityHub: LiquidityHub) => {
-    return <RowControl className="-ml-6" liquidityHub={liquidityHub} />;
+    return <RowControl className="-ml-6" vhToken={liquidityHub.vhToken} />;
   };
 
   const filteredData = data.filter(row => {
@@ -59,14 +59,14 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const columns: TableColumn<LiquidityHub>[] = [
     {
       key: 'asset',
-      label: t('liquidityHub.table.columns.asset'),
-      selectOptionLabel: t('liquidityHub.table.columns.asset'),
+      label: t('liquidityHubs.table.columns.asset'),
+      selectOptionLabel: t('liquidityHubs.table.columns.asset'),
       renderCell: ({ vhToken }) => <TokenIconWithSymbol token={vhToken.underlyingToken} />,
     },
     {
       key: 'totalSupply',
-      label: t('liquidityHub.table.columns.totalSupply'),
-      selectOptionLabel: t('liquidityHub.table.columns.totalSupply'),
+      label: t('liquidityHubs.table.columns.totalSupply'),
+      selectOptionLabel: t('liquidityHubs.table.columns.totalSupply'),
       sortRows: (rowA, rowB, direction) =>
         compareBigNumbers(rowA.supplyBalanceCents, rowB.supplyBalanceCents, direction),
       renderCell: ({ vhToken, supplyBalanceTokens, supplyBalanceCents }) => (
@@ -86,34 +86,34 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       key: 'exposure',
       label: (
         <Trans
-          i18nKey="liquidityHub.table.columns.exposure.title"
+          i18nKey="liquidityHubs.table.columns.exposure.title"
           components={{
             InfoIcon: (
               <InfoIcon
-                tooltip={t('liquidityHub.table.columns.exposure.tooltip')}
+                tooltip={t('liquidityHubs.table.columns.exposure.tooltip')}
                 className="align-sub ml-1"
               />
             ),
           }}
         />
       ),
-      selectOptionLabel: t('liquidityHub.table.columns.exposure.selectionOptionLabel'),
+      selectOptionLabel: t('liquidityHubs.table.columns.exposure.selectionOptionLabel'),
       renderCell: ({ sources }) => (
         <TokenGroup tokens={sources.flatMap(source => source.collateralTokens)} limit={5} />
       ),
     },
     {
       key: 'supplyApy',
-      label: t('liquidityHub.table.columns.supplyApy'),
-      selectOptionLabel: t('liquidityHub.table.columns.supplyApy'),
+      label: t('liquidityHubs.table.columns.supplyApy'),
+      selectOptionLabel: t('liquidityHubs.table.columns.supplyApy'),
       sortRows: (rowA, rowB, direction) =>
         compareBigNumbers(rowA.supplyApyPercentage, rowB.supplyApyPercentage, direction),
       renderCell: ({ supplyApyPercentage }) => formatPercentageToReadableValue(supplyApyPercentage),
     },
     {
       key: 'liquidity',
-      label: t('liquidityHub.table.columns.liquidity'),
-      selectOptionLabel: t('liquidityHub.table.columns.liquidity'),
+      label: t('liquidityHubs.table.columns.liquidity'),
+      selectOptionLabel: t('liquidityHubs.table.columns.liquidity'),
       align: 'right',
       sortRows: (rowA, rowB, direction) =>
         compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction),
@@ -154,7 +154,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
           searchValue={searchValue}
           onSearchValueChange={setSearchValue}
           showPausedAssetsToggle={false}
-          searchInputPlaceholder={t('liquidityHub.table.search.placeholder')}
+          searchInputPlaceholder={t('liquidityHubs.table.search.placeholder')}
         />
       }
       {...otherProps}

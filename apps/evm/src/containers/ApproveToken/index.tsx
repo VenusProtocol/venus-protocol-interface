@@ -4,10 +4,10 @@ import { ApprovalSteps } from 'components';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Token } from 'types';
+import type { Token, VToken } from 'types';
 
 export interface ApproveTokenProps {
-  token: Token;
+  token: Token | VToken;
   spenderAddress: Address;
   secondStepButtonLabel: string;
   children: React.ReactNode;

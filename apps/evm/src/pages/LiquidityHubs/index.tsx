@@ -7,7 +7,7 @@ import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import { LiquidityHubTable } from './LiquidityHubTable';
 
-const LiquidityHub: React.FC = () => {
+const LiquidityHubs: React.FC = () => {
   const { t } = useTranslation();
 
   const { supplyBalanceCents, liquidityCents, count } = liquidityHubs.reduce(
@@ -26,19 +26,19 @@ const LiquidityHub: React.FC = () => {
 
   const cells: CellProps[] = [
     {
-      label: t('liquidityHub.stats.totalSupply'),
+      label: t('liquidityHubs.stats.totalSupply'),
       value: formatCentsToReadableValue({
         value: supplyBalanceCents,
       }),
     },
     {
-      label: t('liquidityHub.stats.totalLiquidity'),
+      label: t('liquidityHubs.stats.totalLiquidity'),
       value: formatCentsToReadableValue({
         value: liquidityCents,
       }),
     },
     {
-      label: t('liquidityHub.stats.hubs'),
+      label: t('liquidityHubs.stats.hubs'),
       value: count,
     },
   ];
@@ -47,8 +47,8 @@ const LiquidityHub: React.FC = () => {
     <Page>
       <div className="space-y-5 sm:space-y-12">
         <PageStatHeader
-          title={t('liquidityHub.header')}
-          description={t('liquidityHub.description')}
+          title={t('liquidityHubs.header')}
+          description={t('liquidityHubs.description')}
           cells={cells}
         />
 
@@ -58,4 +58,4 @@ const LiquidityHub: React.FC = () => {
   );
 };
 
-export default LiquidityHub;
+export default LiquidityHubs;

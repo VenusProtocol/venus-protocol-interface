@@ -181,13 +181,24 @@ export interface AssetBalanceMutation {
   label?: string;
 }
 
+export interface LiquidityHubBalanceMutation {
+  type: 'liquidityHub';
+  vhTokenAddress: Address;
+  amountTokens: BigNumber;
+  action: 'withdraw' | 'supply';
+  label?: string;
+}
+
 export interface VaiBalanceMutation {
   type: 'vai';
   amountTokens: BigNumber;
   action: 'borrow' | 'repay';
 }
 
-export type BalanceMutation = AssetBalanceMutation | VaiBalanceMutation;
+export type BalanceMutation =
+  | AssetBalanceMutation
+  | LiquidityHubBalanceMutation
+  | VaiBalanceMutation;
 
 export interface SwapRouterAddressMapping {
   [poolComptrollerAddress: string]: string;

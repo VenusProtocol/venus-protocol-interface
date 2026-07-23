@@ -36,8 +36,8 @@ export const useCommonValidation = ({
   for (let b = 0; b < balanceMutations.length; b++) {
     const balanceMutation = balanceMutations[b];
 
-    if (balanceMutation.type === 'vai') {
-      // Skip VAI balance mutations
+    if (balanceMutation.type !== 'asset') {
+      // Skip non-asset mutations
       continue;
     }
 

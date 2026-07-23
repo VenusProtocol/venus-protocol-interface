@@ -4,10 +4,12 @@ import type { Mock } from 'vitest';
 
 import { tradePositions } from '__mocks__/models/trade';
 import {
+  useGetBalanceOf,
   useGetProportionalCloseTolerancePercentage,
   useGetSimulatedPool,
   useSupplyTradePositionCollateral,
 } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { en } from 'libs/translations';
 import { useGetTradeAssets } from 'pages/Trade/useGetTradeAssets';
@@ -26,6 +28,7 @@ const mockUseGetProportionalCloseTolerancePercentage =
   useGetProportionalCloseTolerancePercentage as Mock;
 const mockUseGetSimulatedPool = useGetSimulatedPool as Mock;
 const mockUseSupplyTradePositionCollateral = useSupplyTradePositionCollateral as Mock;
+const mockUseGetBalanceOf = useGetBalanceOf as Mock;
 const mockUseGetContractAddress = useGetContractAddress as Mock;
 const mockUseGetTradeAssets = useGetTradeAssets as Mock;
 const mockSupplyTradePositionCollateral = vi.fn(async () => undefined);
@@ -57,6 +60,26 @@ const setReadyState = ({
     mutateAsync: mockSupplyTradePositionCollateral,
     isPending: false,
   }));
+
+  mockUseGetBalanceOf.mockImplementation(
+    (
+      { accountAddress }: { accountAddress: string },
+      options?: {
+        enabled?: boolean;
+      },
+    ) => ({
+      data:
+        options?.enabled && accountAddress !== NULL_ADDRESS
+          ? {
+              balanceMantissa: convertTokensToMantissa({
+                value: position.dsaAsset.userWalletBalanceTokens,
+                token: position.dsaAsset.vToken.underlyingToken,
+              }),
+            }
+          : undefined,
+      isLoading: false,
+    }),
+  );
 
   mockUseGetContractAddress.mockImplementation(() => ({
     address: position.positionAccountAddress,

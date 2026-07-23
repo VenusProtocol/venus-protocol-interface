@@ -1,62 +1,51 @@
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import type { Address } from 'viem';
 import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { tradePositions } from '__mocks__/models/trade';
-import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useGetBalanceOf } from 'clients/api';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en, t } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { useGetTradeAssets } from 'pages/Trade/useGetTradeAssets';
 import { renderComponent } from 'testUtils/render';
-import { formatTokensToReadableValue } from 'utilities';
+import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { WalletBalance } from '..';
 
-vi.mock('pages/Trade/useGetTradeAssets', () => ({
-  useGetTradeAssets: vi.fn(),
-}));
-
-const basePosition = tradePositions[0];
-const baseAsset = poolData[0].assets[0];
-const alternativeAsset = poolData[0].assets[2];
-const baseToken = basePosition.dsaAsset.vToken.underlyingToken;
+const baseToken = poolData[0].assets[0].vToken.underlyingToken;
+const baseWalletBalanceTokens = new BigNumber(100);
+const baseWalletBalanceMantissa = convertTokensToMantissa({
+  value: baseWalletBalanceTokens,
+  token: baseToken,
+});
 const baseWalletSpendingLimitTokens = new BigNumber(10);
 
-const mockUseGetTradeAssets = useGetTradeAssets as Mock;
-const mockUseGetContractAddress = useGetContractAddress as Mock;
+const mockUseGetBalanceOf = useGetBalanceOf as Mock;
 const mockUseTokenApproval = useTokenApproval as Mock;
 const mockUseAccountAddress = useAccountAddress as Mock;
 
 const setComponentState = ({
-  dsaAssets = [baseAsset, alternativeAsset],
-  contractAddress = fakeAddress,
   walletSpendingLimitTokens = baseWalletSpendingLimitTokens,
   revokeWalletSpendingLimit = vi.fn(async () => undefined),
   isRevokeWalletSpendingLimitLoading = false,
+  ...options
 }: {
-  dsaAssets?: (typeof poolData)[0]['assets'];
-  contractAddress?: string;
+  balanceMantissa?: BigNumber;
   walletSpendingLimitTokens?: BigNumber;
   revokeWalletSpendingLimit?: () => Promise<unknown>;
   isRevokeWalletSpendingLimitLoading?: boolean;
 } = {}) => {
-  mockUseGetTradeAssets.mockImplementation(() => ({
-    data: {
-      dsaAssets,
-      supplyAssets: [],
-      borrowAssets: [],
-    },
+  const balanceMantissa =
+    'balanceMantissa' in options ? options.balanceMantissa : baseWalletBalanceMantissa;
+
+  mockUseGetBalanceOf.mockImplementation(() => ({
+    data: balanceMantissa ? { balanceMantissa } : undefined,
     isLoading: false,
   }));
 
-  mockUseGetContractAddress.mockImplementation(() => ({
-    address: contractAddress,
-  }));
-
-  mockUseTokenApproval.mockImplementation(() => ({
-    walletSpendingLimitTokens,
+  mockUseTokenApproval.mockImplementation(({ spenderAddress }: { spenderAddress?: Address }) => ({
+    walletSpendingLimitTokens: spenderAddress ? walletSpendingLimitTokens : undefined,
     revokeWalletSpendingLimit,
     isRevokeWalletSpendingLimitLoading,
   }));
@@ -70,22 +59,29 @@ const renderWalletBalance = ({
   token = baseToken,
   accountAddress = fakeAddress,
   onBalanceClick = vi.fn(),
+  spenderAddress,
 }: {
   token?: typeof baseToken;
-  accountAddress?: string;
+  accountAddress?: Address;
   onBalanceClick?: (walletBalanceTokens: BigNumber) => unknown;
+  spenderAddress?: Address;
 } = {}) => {
-  if (!accountAddress) {
-    mockUseAccountAddress.mockImplementation(() => ({
-      accountAddress: undefined,
-    }));
-  }
+  mockUseAccountAddress.mockImplementation(() => ({
+    accountAddress,
+  }));
 
   return {
     onBalanceClick,
-    ...renderComponent(<WalletBalance token={token} onBalanceClick={onBalanceClick} />, {
-      accountAddress,
-    }),
+    ...renderComponent(
+      <WalletBalance
+        token={token}
+        onBalanceClick={onBalanceClick}
+        spenderAddress={spenderAddress}
+      />,
+      {
+        accountAddress,
+      },
+    ),
   };
 };
 
@@ -94,9 +90,9 @@ describe('WalletBalance', () => {
     setComponentState();
   });
 
-  it('renders the wallet balance and spending limit for the matching token', () => {
+  it('renders the wallet balance from queried balance data and spending limit', () => {
     const readableBalance = formatTokensToReadableValue({
-      value: baseAsset.userWalletBalanceTokens,
+      value: baseWalletBalanceTokens,
       token: baseToken,
     });
     const readableSpendingLimit = formatTokensToReadableValue({
@@ -104,7 +100,9 @@ describe('WalletBalance', () => {
       token: baseToken,
     });
 
-    renderWalletBalance();
+    renderWalletBalance({
+      spenderAddress: fakeAddress,
+    });
 
     expect(screen.getByText(t('trade.operationForm.walletBalance'))).toBeInTheDocument();
     expect(screen.getByRole('button', { name: readableBalance })).toBeInTheDocument();
@@ -112,41 +110,41 @@ describe('WalletBalance', () => {
     expect(screen.getByText(readableSpendingLimit)).toBeInTheDocument();
   });
 
-  it('looks up the wallet balance using the matching DSA asset token', () => {
-    const readableBalance = formatTokensToReadableValue({
-      value: alternativeAsset.userWalletBalanceTokens,
-      token: alternativeAsset.vToken.underlyingToken,
-    });
-
-    renderWalletBalance({
-      token: alternativeAsset.vToken.underlyingToken,
-    });
-
-    expect(screen.getByRole('button', { name: readableBalance })).toBeInTheDocument();
-  });
-
   it('calls onBalanceClick with the full wallet balance when clicking on available balance', async () => {
     const readableBalance = formatTokensToReadableValue({
-      value: baseAsset.userWalletBalanceTokens,
+      value: baseWalletBalanceTokens,
       token: baseToken,
     });
-    const { onBalanceClick } = renderWalletBalance();
+    const { onBalanceClick } = renderWalletBalance({
+      spenderAddress: fakeAddress,
+    });
 
     fireEvent.click(screen.getByRole('button', { name: readableBalance }));
 
-    await waitFor(() =>
-      expect(onBalanceClick).toHaveBeenCalledWith(baseAsset.userWalletBalanceTokens),
-    );
+    await waitFor(() => expect(onBalanceClick).toHaveBeenCalledWith(baseWalletBalanceTokens));
   });
 
-  it('passes the token approval inputs using the connected account and relative position manager address', () => {
-    renderWalletBalance();
+  it('passes spender address through to useTokenApproval', () => {
+    renderWalletBalance({
+      spenderAddress: fakeAddress,
+    });
 
     expect(mockUseTokenApproval).toHaveBeenCalledWith({
       token: baseToken,
       spenderAddress: fakeAddress,
       accountAddress: fakeAddress,
     });
+  });
+
+  it('does not show spending limit when spender address is omitted', () => {
+    renderWalletBalance();
+
+    expect(mockUseTokenApproval).toHaveBeenCalledWith({
+      token: baseToken,
+      spenderAddress: undefined,
+      accountAddress: fakeAddress,
+    });
+    expect(screen.queryByText(en.spendingLimit.label)).not.toBeInTheDocument();
   });
 
   it('lets user revoke their wallet spending limit', async () => {
@@ -156,7 +154,9 @@ describe('WalletBalance', () => {
       token: baseToken,
     });
 
-    renderWalletBalance();
+    renderWalletBalance({
+      spenderAddress: fakeAddress,
+    });
 
     const spendingLimitContainer =
       screen.getByText(readableSpendingLimit).parentElement?.parentElement;
@@ -170,16 +170,16 @@ describe('WalletBalance', () => {
     await waitFor(() => expect(revokeWalletSpendingLimit).toHaveBeenCalledTimes(1));
   });
 
-  it('disables balance click and hides spending limit when no matching asset is found', () => {
+  it('disables balance click and hides spending limit when no queried balance is found', () => {
     setComponentState({
-      dsaAssets: [alternativeAsset],
+      balanceMantissa: undefined,
     });
 
     const onBalanceClick = vi.fn();
 
     renderWalletBalance({
       onBalanceClick,
-      token: baseToken,
+      spenderAddress: fakeAddress,
     });
 
     const balanceButton = screen.getByRole('button');

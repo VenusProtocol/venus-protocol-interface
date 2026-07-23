@@ -879,7 +879,18 @@
   "legal": {
     "lastUpdatedAt": "อัปเดตล่าสุด: {{ date, textual }}"
   },
-  "liquidityHub": {
+  "liquidityHubForm": {
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "MAX แบบปลอดภัย",
+    "supplySubmitButtonLabel": "ฝาก",
+    "supplyTab": {
+      "collateralTabTitle": "หลักประกัน",
+      "walletTabTitle": "วอลเล็ต"
+    },
+    "supplyTabTitle": "ฝาก",
+    "withdrawTabTitle": "ถอน"
+  },
+  "liquidityHubs": {
     "description": "ระบบจะจัดเส้นทางไปยังแหล่งผลตอบแทนของ Venus Protocol ภายใต้นโยบายที่คัดสรรโดยฝ่ายกำกับดูแล ผลตอบแทนจะสะสมโดยอัตโนมัติ",
     "header": "ศูนย์สภาพคล่อง",
     "stats": {

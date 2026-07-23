@@ -36,8 +36,8 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({
     totalApyPercentage: BigNumber;
   }>(
     (acc, balanceMutation) => {
-      // Skip VAI mutations
-      if (balanceMutation.type === 'vai') {
+      // Skip non-asset mutations
+      if (balanceMutation.type !== 'asset') {
         return acc;
       }
 

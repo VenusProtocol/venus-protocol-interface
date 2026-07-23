@@ -16,8 +16,8 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({ pool, balanceMut
   const balanceUpdateRows: LabeledValueUpdateProps[] = balanceMutations.reduce<
     LabeledValueUpdateProps[]
   >((acc, balanceMutation) => {
-    // Skip VAI updates
-    if (balanceMutation.type === 'vai') {
+    // Skip non-asset mutations
+    if (balanceMutation.type !== 'asset') {
       return acc;
     }
 

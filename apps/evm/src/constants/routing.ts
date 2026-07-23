@@ -27,7 +27,7 @@ export enum Subdirectory {
   BRIDGE = 'bridge',
   STATS = 'stats',
   TRADE = 'trade',
-  LIQUIDITY_HUB = 'liquidity-hub',
+  LIQUIDITY_HUBS = 'liquidity-hubs',
 }
 
 const routeSubdirectories = {
@@ -59,7 +59,7 @@ const routeSubdirectories = {
   bridge: [Subdirectory.BRIDGE],
   stats: [Subdirectory.STATS],
   trade: [Subdirectory.TRADE],
-  liquidityHub: [Subdirectory.LIQUIDITY_HUB],
+  liquidityHubs: [Subdirectory.LIQUIDITY_HUBS],
 };
 
 export type RouteName = keyof typeof routeSubdirectories;

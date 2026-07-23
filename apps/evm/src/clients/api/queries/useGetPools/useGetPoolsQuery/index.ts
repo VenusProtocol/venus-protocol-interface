@@ -34,12 +34,14 @@ export type UseGetPoolsQueryKey = [
   },
 ];
 
-export type UseGetPoolsQueryOptions = QueryObserverOptions<
-  GetPoolsQueryOutput,
-  Error,
-  GetPoolsQueryOutput,
-  GetPoolsQueryOutput,
-  UseGetPoolsQueryKey
+export type UseGetPoolsQueryOptions = Partial<
+  QueryObserverOptions<
+    GetPoolsQueryOutput,
+    Error,
+    GetPoolsQueryOutput,
+    GetPoolsQueryOutput,
+    UseGetPoolsQueryKey
+  >
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval();

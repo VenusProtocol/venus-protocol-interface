@@ -7,17 +7,20 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { exactInSwapQuote } from '__mocks__/models/swap';
 import {
+  useGetBalanceOf,
   useGetDsaVTokens,
   useGetPool,
   useGetProportionalCloseTolerancePercentage,
 } from 'clients/api';
 import { useGetSimulatedPool, useGetSwapQuote, useOpenTradePosition } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import { calculateMaxBorrowShortTokens } from 'pages/Trade/OperationForm/calculateMaxBorrowShortTokens';
 import { LONG_TOKEN_ADDRESS_PARAM_KEY, SHORT_TOKEN_ADDRESS_PARAM_KEY } from 'pages/Trade/constants';
 import { renderComponent } from 'testUtils/render';
 import type { ExactInSwapQuote, Pool, SwapQuote } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 import { OpenForm } from '..';
 
 const longAsset = poolData[0].assets[2];
@@ -128,6 +131,7 @@ const enterFormValues = ({
 };
 
 describe('OpenForm', () => {
+  const mockUseGetBalanceOf = useGetBalanceOf as Mock;
   const mockUseGetPool = useGetPool as Mock;
   const mockUseGetDsaVTokens = useGetDsaVTokens as Mock;
   const mockUseGetProportionalCloseTolerancePercentage =
@@ -159,6 +163,26 @@ describe('OpenForm', () => {
       },
       isLoading: false,
     }));
+
+    mockUseGetBalanceOf.mockImplementation(
+      (
+        { accountAddress }: { accountAddress: string },
+        options?: {
+          enabled?: boolean;
+        },
+      ) => ({
+        data:
+          options?.enabled && accountAddress !== NULL_ADDRESS
+            ? {
+                balanceMantissa: convertTokensToMantissa({
+                  value: dsaAsset.userWalletBalanceTokens,
+                  token: dsaAsset.vToken.underlyingToken,
+                }),
+              }
+            : undefined,
+        isLoading: false,
+      }),
+    );
 
     mockUseGetProportionalCloseTolerancePercentage.mockImplementation(() => ({
       data: {
