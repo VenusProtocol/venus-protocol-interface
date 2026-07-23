@@ -51,7 +51,7 @@ export const Dropdown = ({
 
           {children({ isDropdownOpen, handleToggleDropdown })}
 
-          {/* XS to MD menu */}
+          {/* MD and up menu */}
           {isDropdownOpen && (
             <div className="relative z-50 hidden min-w-full md:block">
               <div
@@ -87,6 +87,14 @@ export const Dropdown = ({
       <Modal
         isOpen={isDropdownOpen && !isMdOrUp}
         handleClose={handleToggleDropdown}
+        backdropClassName="z-100000"
+        componentsProps={{
+          root: {
+            style: {
+              zIndex: 100001,
+            },
+          },
+        }}
         noHorizontalPadding
         onBlur={onBlur}
         title={menuTitle}

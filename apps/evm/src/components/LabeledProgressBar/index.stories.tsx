@@ -13,10 +13,8 @@ export const Default = () => (
     whiteLeftText="$5000"
     greyRightText="Minimum:"
     whiteRightText="$100"
-    value={50}
-    step={5}
+    progressBars={[{ value: 50 }]}
     marks={[{ value: 75 }]}
-    ariaLabel="Storybook slider"
     min={0}
     max={100}
   />

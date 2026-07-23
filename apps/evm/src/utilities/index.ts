@@ -72,6 +72,7 @@ export * from './isInstitutionalVault';
 export * from './calculateDailyInterests';
 export * from './getVaultCategoryName';
 export * from './getTransactionName';
+export * from './getLiquidityHubCollateralTokens';
 export * from './formatToTradePosition';
 export * from './calculateUserMaxBorrowTokens';
 export * from './calculateCollateralWithdrawLimits';

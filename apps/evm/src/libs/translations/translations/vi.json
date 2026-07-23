@@ -128,7 +128,6 @@
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "Biểu diễn trạng thái hiện tại của tài khoản của bạn",
     "borrowed": "Đã vay:",
     "borrowedSpotTooltip": "Giá trị vay này được tính dựa trên giá spot của tài sản vay và sẽ được sử dụng để xác định tình trạng sức khỏe tài khoản của bạn.",
     "healthFactor": {
@@ -886,6 +885,76 @@
   "legal": {
     "lastUpdatedAt": "Cập nhật lần cuối: {{ date, textual }}"
   },
+  "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "Phân bổ"
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "Trần tuyệt đối",
+          "tooltip": "Trần tuyệt đối của một nhóm lợi suất",
+          "unlimited": "Không giới hạn"
+        },
+        "capPercentageColumn": {
+          "title": "Trần"
+        },
+        "liquidityColumn": {
+          "title": "Thanh khoản"
+        },
+        "sourceColumn": {
+          "title": "Nguồn"
+        }
+      },
+      "title": "Chi tiết phân bổ",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "Phân bổ"
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "Tài sản thế chấp"
+        },
+        "liquidityColumn": {
+          "title": "Thanh khoản"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "Ngày kết thúc khóa"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "Thị trường",
+            "vault": "Kho"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "Lãi cung cấp hàng ngày",
+        "exchangeRate": {
+          "title": "Tỷ giá hối đoái",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "Hợp đồng hub",
+        "operator": "Nhà vận hành",
+        "performanceFee": "Phí hiệu suất",
+        "redeemFee": "Phí đổi lại",
+        "riskDisclosures": {
+          "title": "Công bố rủi ro",
+          "value": "<Span>Bằng việc cung cấp vào, rút khỏi hoặc tương tác theo cách khác với Venus Liquidity Hub, bạn xác nhận và đồng ý rằng:</Span><Ul><Li>Bạn đang tương tác với các hợp đồng thông minh tự vận hành. Venus và các bên liên kết không bảo đảm về hiệu suất, tính bảo mật hoặc khả dụng của Liquidity Hub hay bất kỳ phần mềm, hợp đồng thông minh, mạng blockchain hoặc tích hợp bên thứ ba liên quan nào.</Li><Li>Việc cung cấp tài sản vào Liquidity Hub không mang lại năng lực vay và không cấu thành sản phẩm tiền gửi, khoản vay hay đầu tư. Bạn có thể không rút được vào mọi thời điểm và lợi nhuận, nếu có, không được bảo đảm.</Li><Li>Bạn tự chịu mọi rủi ro liên quan đến việc sử dụng Liquidity Hub và hoàn toàn chịu trách nhiệm xác định liệu nó có phù hợp với hoàn cảnh tài chính, mức chấp nhận rủi ro và năng lực kỹ thuật của mình hay không. Bạn có trách nhiệm tự thực hiện đánh giá độc lập, bao gồm việc xem xét mã nguồn liên quan và cấu hình on-chain.</Li><Li>Venus chỉ là nhà cung cấp công nghệ, không cung cấp dịch vụ đầu tư, tư vấn, ủy thác hay lưu ký, đồng thời không quản lý hoặc nắm giữ tài sản của bạn.</Li></Ul><Span>Tương tác của bạn với Liquidity Hub được điều chỉnh bởi <Link>Điều khoản sử dụng</Link>.</Span>"
+        },
+        "vhTokenContract": "Hợp đồng {{ vhTokenSymbol }}"
+      },
+      "title": "Thông tin hub"
+    }
+  },
   "liquidityHubForm": {
     "balanceUpdates": {
       "corePool": "Pool cốt lõi",
@@ -1400,7 +1469,6 @@
       "marketActions": "Mở thao tác thị trường",
       "notEligibleMessage": "Bạn hiện KHÔNG đủ điều kiện chia sẻ phần thưởng Prime trong chu kỳ này. Stake XVS để cạnh tranh Prime cho chu kỳ tiếp theo.",
       "primeLogoAlt": "Logo Venus Prime",
-      "rewardShareAriaLabel": "Tỷ lệ trên tổng phần thưởng",
       "title": "Phần thưởng Prime của bạn trong chu kỳ này"
     }
   },
@@ -1416,7 +1484,6 @@
       "tooltip": "Tất cả {{primeTokenLimit}} token Prime hiện đã được nhận. Một số có thể khả dụng nếu chủ sở hữu không còn đủ điều kiện hoặc nếu chúng tôi thêm số lượng."
     },
     "progressBar": {
-      "ariaLabel": "Tiến trình Prime hiện tại của bạn",
       "label": "Đã cung cấp: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Tăng thu nhập lên đến <GreenText>{{percentage}}</GreenText>",
@@ -2476,7 +2543,6 @@
     "searchInput": {
       "placeholder": "Tìm đề xuất"
     },
-    "summaryProgressBar": "Thanh tiến độ tóm tắt bỏ phiếu - {{voteType}}",
     "totalLocked": "Tổng khóa",
     "toVoteYouShould": "Để bỏ phiếu bạn nên:",
     "voteAbstain": "Bỏ phiếu trắng",
@@ -2551,11 +2617,6 @@
       "executedPayloads": "Payload đã thực thi",
       "readyForExecution": "Sẵn sàng thực thi",
       "readyForQueuing": "Sẵn sàng xếp hàng"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "phiếu bỏ phiếu trắng",
-      "ariaLabelAgainst": "phiếu phản đối",
-      "ariaLabelFor": "phiếu ủng hộ"
     },
     "timeUntilExecutable": "Thực thi vào: <Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "Bỏ phiếu bắt đầu: <Date>{{ date, textualWithTime }}</Date>",

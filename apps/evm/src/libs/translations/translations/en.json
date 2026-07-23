@@ -128,7 +128,6 @@
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "Representation of the current state of your account",
     "borrowed": "Borrowed:",
     "borrowedSpotTooltip": "This borrow value is calculated based on the spot price of the borrowed asset and will be used to determine your account's health status.",
     "healthFactor": {
@@ -886,6 +885,76 @@
   "legal": {
     "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
+  "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "Alloc."
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "Cap abs.",
+          "tooltip": "The absolute cap of a yield group",
+          "unlimited": "Unlimited"
+        },
+        "capPercentageColumn": {
+          "title": "Cap"
+        },
+        "liquidityColumn": {
+          "title": "Liquidity"
+        },
+        "sourceColumn": {
+          "title": "Source"
+        }
+      },
+      "title": "Allocation details",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "Alloc."
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "Collateral"
+        },
+        "liquidityColumn": {
+          "title": "Liquidity"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "Lock en date"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "Market",
+            "vault": "Vault"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "Daily supplying interests",
+        "exchangeRate": {
+          "title": "Exchange rate",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "Hub contract",
+        "operator": "Operator",
+        "performanceFee": "Performance fee",
+        "redeemFee": "Redeem fee",
+        "riskDisclosures": {
+          "title": "Risk disclosures",
+          "value": "<Span>By supplying to, withdrawing from, or otherwise interacting with the Venus Liquidity Hub, you acknowledge and agree that:</Span><Ul><Li>You are interacting with autonomous smart contracts. Venus and its affiliates do not guarantee the performance, security, or availability of the Liquidity Hub or any related software, smart contracts, blockchain networks, or third-party integrations.</Li><Li>Supplying assets to the Liquidity Hub does not grant borrowing power and does not constitute a deposit, loan, or investment product. You may not be able to withdraw at all times, and returns, if any, are not guaranteed.</Li><Li>You assume all risks associated with your use of the Liquidity Hub and are solely responsible for determining whether it is appropriate for your financial circumstances, risk tolerance, and technical capabilities. You are responsible for conducting your own independent evaluation, including reviewing the relevant source code and on-chain configuration.</Li><Li>Venus is a technology provider only and does not provide investment, advisory, fiduciary, or custodial services, and does not manage or hold your assets.</Li></Ul><Span>Your interaction with the Liquidity Hub is governed by the <Link>Terms of Use</Link>.</Span>"
+        },
+        "vhTokenContract": "{{ vhTokenSymbol }} contract"
+      },
+      "title": "Hub info"
+    }
+  },
   "liquidityHubForm": {
     "balanceUpdates": {
       "corePool": "Core pool",
@@ -1400,7 +1469,6 @@
       "marketActions": "Open market actions",
       "notEligibleMessage": "You are currently NOT eligible for sharing the Prime rewards during this cycle. Stake XVS to compete for Prime in the next cycle.",
       "primeLogoAlt": "Venus Prime logo",
-      "rewardShareAriaLabel": "Share of total rewards",
       "title": "Your Prime rewards this cycle"
     }
   },
@@ -1416,7 +1484,6 @@
       "tooltip": "All {{primeTokenLimit}} Prime tokens are currently claimed. Some may become available if owners no longer meet the eligibility criteria or if we add more."
     },
     "progressBar": {
-      "ariaLabel": "Your current Prime progression",
       "label": "Supplied: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
@@ -2478,7 +2545,6 @@
     "searchInput": {
       "placeholder": "Search proposal"
     },
-    "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "voteAbstain": "Vote abstain",
@@ -2553,11 +2619,6 @@
       "executedPayloads": "Executed payloads",
       "readyForExecution": "Ready for execution",
       "readyForQueuing": "Ready for queuing"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "votes abstain",
-      "ariaLabelAgainst": "votes against",
-      "ariaLabelFor": "votes for"
     },
     "timeUntilExecutable": "Executable at: <Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "Voting starts at: <Date>{{ date, textualWithTime }}</Date>",

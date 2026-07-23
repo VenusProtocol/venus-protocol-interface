@@ -74,7 +74,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
 
   const readableBorrowLimitUsedPercentage =
     formatPercentageToReadableValue(borrowLimitUsedPercentage);
-  const sanitizedFillPercentage = fillPercentage || 0;
+  const sanitizedFillPercentage = Math.min(Math.max(fillPercentage || 0, 0), 100);
 
   const readableBorrowBalance = formatCentsToReadableValue({
     value: borrowBalanceCents,
@@ -144,16 +144,16 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     ],
   );
 
-  const progressBarColor = useMemo(() => {
+  const progressBarClassName = useMemo(() => {
     if (sanitizedFillPercentage <= safeBorrowLimitPercentage) {
-      return theme.colors.green;
+      return 'bg-green';
     }
 
     if (sanitizedFillPercentage <= moderateBorrowLimitPercentage) {
-      return theme.colors.yellow;
+      return 'bg-yellow';
     }
 
-    return theme.colors.red;
+    return 'bg-red';
   }, [sanitizedFillPercentage]);
 
   return (
@@ -186,18 +186,20 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
             }}
           />
         }
-        value={sanitizedFillPercentage}
+        progressBars={[
+          {
+            value: sanitizedFillPercentage,
+            className: progressBarClassName,
+          },
+        ]}
         marks={[
           { value: 80 },
           ...(markPercentage !== undefined
-            ? [{ value: Math.min(markPercentage, 99), color: theme.colors.white }]
+            ? [{ value: Math.min(markPercentage, 99), className: 'bg-white' }]
             : []),
         ]}
-        step={1}
-        ariaLabel={t('accountHealth.accessibilityLabel')}
         min={0}
         max={100}
-        progressBarColor={progressBarColor}
         tooltip={tooltip}
       />
     </div>

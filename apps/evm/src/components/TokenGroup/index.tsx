@@ -24,7 +24,7 @@ export const TokenGroup: React.FC<TokenGroupProps> = ({
   const filteredTokens = limit > 0 ? sanitizedTokens.slice(0, limit) : tokens;
 
   return (
-    <div className={cn('flex items-center', className)}>
+    <div className={cn('inline-flex items-center', className)}>
       {filteredTokens.map((token, index) => (
         <TokenIcon
           className={cn(index > 0 && '-ml-1')}

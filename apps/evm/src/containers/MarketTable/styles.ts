@@ -46,9 +46,6 @@ export const useStyles = () => {
         justify-content: flex-start;
       }
     `,
-    percentOfLimitProgressBar: css`
-      width: ${theme.spacing(13)};
-    `,
     white: css`
       color: ${theme.palette.text.primary};
     `,

@@ -128,7 +128,6 @@
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "當前賬戶狀態的表示",
     "borrowed": "已借：",
     "borrowedSpotTooltip": "此借款價值基於借入資產的現貨價格計算，將用於確定您帳戶的健康狀態。",
     "healthFactor": {
@@ -886,6 +885,76 @@
   "legal": {
     "lastUpdatedAt": "最後更新：{{ date, textual }}"
   },
+  "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "配比"
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "絕對上限",
+          "tooltip": "收益組的絕對上限",
+          "unlimited": "無上限"
+        },
+        "capPercentageColumn": {
+          "title": "上限"
+        },
+        "liquidityColumn": {
+          "title": "流動性"
+        },
+        "sourceColumn": {
+          "title": "來源"
+        }
+      },
+      "title": "分配詳情",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "配比"
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "抵押品"
+        },
+        "liquidityColumn": {
+          "title": "流動性"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "鎖定結束日期"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "市場",
+            "vault": "金庫"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "每日供應利息",
+        "exchangeRate": {
+          "title": "匯率",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "中心合約",
+        "operator": "營運方",
+        "performanceFee": "績效費",
+        "redeemFee": "贖回費",
+        "riskDisclosures": {
+          "title": "風險披露",
+          "value": "<Span>當您向 Venus 流動性中心供應資產、從中提取資產或以其他方式與其互動時，即表示您確認並同意：</Span><Ul><Li>您正在與自治運行的智能合約進行互動。Venus 及其關聯方不保證流動性中心或任何相關軟體、智能合約、區塊鏈網路或第三方整合的性能、安全性或可用性。</Li><Li>向流動性中心供應資產不會賦予借款能力，也不構成存款、貸款或投資產品。您可能無法隨時提取資產，且任何回報（如有）均不作保證。</Li><Li>您承擔與使用流動性中心相關的全部風險，並且僅由您自行判斷其是否適合您的財務狀況、風險承受能力和技術能力。您有責任自行進行獨立評估，包括審查相關原始碼和鏈上配置。</Li><Li>Venus 僅為技術提供方，不提供投資、顧問、受託或託管服務，也不管理或持有您的資產。</Li></Ul><Span>您與流動性中心的互動受 <Link>使用條款</Link> 約束。</Span>"
+        },
+        "vhTokenContract": "{{ vhTokenSymbol }} 合約"
+      },
+      "title": "中心資訊"
+    }
+  },
   "liquidityHubForm": {
     "balanceUpdates": {
       "corePool": "核心池",
@@ -1400,7 +1469,6 @@
       "marketActions": "開啟市場操作",
       "notEligibleMessage": "你在本週期暫不具備分享 Prime 獎勵的資格。質押 XVS 以在下一週期競爭 Prime。",
       "primeLogoAlt": "Venus Prime 標誌",
-      "rewardShareAriaLabel": "佔總獎勵的比例",
       "title": "你本週期的 Prime 獎勵"
     }
   },
@@ -1416,7 +1484,6 @@
       "tooltip": "目前所有 {{primeTokenLimit}} 個 Prime 代幣均已被領取。如果持有人不再符合資格或我們增加數量，可能會有部分可用。"
     },
     "progressBar": {
-      "ariaLabel": "你的當前 Prime 進度",
       "label": "已供應：<WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "將收益提升高達 <GreenText>{{percentage}}</GreenText>",
@@ -2476,7 +2543,6 @@
     "searchInput": {
       "placeholder": "搜索提案"
     },
-    "summaryProgressBar": "投票總結進度條 - {{voteType}}",
     "totalLocked": "總鎖定",
     "toVoteYouShould": "投票前你應：",
     "voteAbstain": "投票棄權",
@@ -2551,11 +2617,6 @@
       "executedPayloads": "已執行負載",
       "readyForExecution": "準備執行",
       "readyForQueuing": "準備排隊"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "棄權票",
-      "ariaLabelAgainst": "反對票",
-      "ariaLabelFor": "贊成票"
     },
     "timeUntilExecutable": "可執行於：<Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "投票開始：<Date>{{ date, textualWithTime }}</Date>",

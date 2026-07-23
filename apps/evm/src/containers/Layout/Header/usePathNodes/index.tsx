@@ -126,7 +126,6 @@ export const usePathNodes = () => {
                 showProvider={false}
                 showTooltip={false}
                 showCopyAddress
-                ellipseBreakpoint="2xl"
               />
             </div>
           );

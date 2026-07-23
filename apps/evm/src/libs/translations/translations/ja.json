@@ -128,7 +128,6 @@
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "現在のアカウント状態の表示",
     "borrowed": "借入額:",
     "borrowedSpotTooltip": "この借入額は、借入資産のスポット価格に基づいて計算され、アカウントの健全性を判定するために使用されます。",
     "healthFactor": {
@@ -886,6 +885,76 @@
   "legal": {
     "lastUpdatedAt": "最終更新: {{ date, textual }}"
   },
+  "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "配分"
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "絶対上限",
+          "tooltip": "利回りグループの絶対上限",
+          "unlimited": "無制限"
+        },
+        "capPercentageColumn": {
+          "title": "上限"
+        },
+        "liquidityColumn": {
+          "title": "流動性"
+        },
+        "sourceColumn": {
+          "title": "ソース"
+        }
+      },
+      "title": "配分の詳細",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "配分"
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "担保"
+        },
+        "liquidityColumn": {
+          "title": "流動性"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "ロック終了日"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "マーケット",
+            "vault": "ボールト"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "日次供給利息",
+        "exchangeRate": {
+          "title": "交換レート",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "ハブコントラクト",
+        "operator": "オペレーター",
+        "performanceFee": "パフォーマンス手数料",
+        "redeemFee": "償還手数料",
+        "riskDisclosures": {
+          "title": "リスク開示",
+          "value": "<Span>Venus流動性ハブに供給、引き出し、またはその他の形で関与することにより、以下を認識し同意したものとみなされます:</Span><Ul><Li>あなたは自律的に動作するスマートコントラクトとやり取りしています。Venusおよびその関連会社は、流動性ハブまたは関連ソフトウェア、スマートコントラクト、ブロックチェーンネットワーク、第三者連携の性能、安全性、可用性を保証しません。</Li><Li>流動性ハブに資産を供給しても、借入能力は付与されず、預金、貸付、投資商品を構成するものでもありません。常に引き出せるとは限らず、仮にリターンがあっても保証されません。</Li><Li>流動性ハブの利用に伴うすべてのリスクはあなたが負うものとし、それがあなたの財務状況、リスク許容度、技術的能力に照らして適切かどうかを判断する責任はあなたにあります。関連するソースコードやオンチェーン設定の確認を含め、独自に評価を行う責任があります。</Li><Li>Venusは技術提供者にすぎず、投資、助言、受託者、またはカストディサービスを提供せず、あなたの資産を管理または保有しません。</Li></Ul><Span>流動性ハブとのやり取りには<Link>利用規約</Link>が適用されます。</Span>"
+        },
+        "vhTokenContract": "{{ vhTokenSymbol }} コントラクト"
+      },
+      "title": "ハブ情報"
+    }
+  },
   "liquidityHubForm": {
     "balanceUpdates": {
       "corePool": "コアプール",
@@ -1400,7 +1469,6 @@
       "marketActions": "マーケット操作を開く",
       "notEligibleMessage": "今サイクルでは Prime 報酬を分け合う対象ではありません。XVS をステークして次のサイクルで Prime を目指しましょう。",
       "primeLogoAlt": "Venus Prime ロゴ",
-      "rewardShareAriaLabel": "報酬総額に占める割合",
       "title": "今サイクルのあなたの Prime 報酬"
     }
   },
@@ -1416,7 +1484,6 @@
       "tooltip": "{{primeTokenLimit}}枚のPrimeトークンは現在すべて請求済みです。保有者が条件を満たさなくなるか、追加が行われると利用可能になる場合があります。"
     },
     "progressBar": {
-      "ariaLabel": "現在のPrime進捗",
       "label": "供給済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "収益を最大<GreenText>{{percentage}}</GreenText>までブースト",
@@ -2476,7 +2543,6 @@
     "searchInput": {
       "placeholder": "提案を検索"
     },
-    "summaryProgressBar": "投票サマリー進捗バー - {{voteType}}",
     "totalLocked": "総ロック",
     "toVoteYouShould": "投票するには:",
     "voteAbstain": "棄権に投票",
@@ -2551,11 +2617,6 @@
       "executedPayloads": "実行済みペイロード",
       "readyForExecution": "実行準備完了",
       "readyForQueuing": "キュー準備完了"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "棄権票",
-      "ariaLabelAgainst": "反対票",
-      "ariaLabelFor": "賛成票"
     },
     "timeUntilExecutable": "実行可能: <Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "投票開始: <Date>{{ date, textualWithTime }}</Date>",
