@@ -1,7 +1,12 @@
 import BigNumber from 'bignumber.js';
 
 import type { BalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { areAddressesEqual, calculateYearlyInterests, clampToZero } from 'utilities';
+import {
+  areAddressesEqual,
+  calculateYearlyInterests,
+  clampToZero,
+  getCombinedApy,
+} from 'utilities';
 
 export interface UseSimulateLiquidityHubMutationsInput {
   liquidityHubs: LiquidityHub[];
@@ -61,9 +66,15 @@ export const useSimulateLiquidityHubMutations = ({
       liquidityHub.tokenPriceCents,
     );
 
+    const { totalApyPercentage } = getCombinedApy({
+      type: 'supply',
+      baseApyPercentage: liquidityHub.supplyApyPercentage,
+      tokenDistributions: liquidityHub.supplyTokenDistributions,
+    });
+
     const userYearlyEarningsCents = calculateYearlyInterests({
       balance: userSupplyBalanceCents,
-      interestPercentage: liquidityHub.supplyApyPercentage,
+      interestPercentage: totalApyPercentage,
     });
 
     const userVhTokenBalanceTokens = liquidityHub.pricePerShare.isZero()

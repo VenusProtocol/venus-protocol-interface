@@ -270,7 +270,8 @@
       "supplyApy": "存款 APY",
       "totalBorrow": "总借款",
       "totalStaked": "总供应量",
-      "totalSupply": "总存款"
+      "totalSupply": "总存款",
+      "unitPrice": "单价"
     }
   },
   "asset": {
@@ -318,6 +319,7 @@
     "governance": "治理",
     "isolatedPools": "隔离池",
     "leaderboard": "排行榜",
+    "liquidityHubs": "流动性中心",
     "markets": "市场",
     "primeCalculator": "Prime 计算器",
     "proposal": "提案 #{{proposalId}}",
@@ -774,6 +776,7 @@
       "label": "选择链"
     },
     "header": {
+      "exposures": "敞口",
       "liquidity": "流动性",
       "maxLtv": {
         "label": "最大 LTV",
@@ -782,6 +785,7 @@
       },
       "price": "价格",
       "resilientOracle": "弹性预言机",
+      "suppliers": "存款人",
       "supply": "存款",
       "utilizationRate": "利用率"
     },
@@ -896,7 +900,6 @@
     },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "安全 MAX",
-    "supplyApy": "供应 APY",
     "supplySubmitButtonLabel": "供应",
     "supplyTab": {
       "collateralTabTitle": "抵押品",
@@ -939,7 +942,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "总借款",
-      "tooltip": "可借最大金额为 {{amountDollars}}（{{amountTokens}}）<br />借款上限：{{capTokens}}"
+      "tooltip": "可借最大金额为 {{amountDollars}}（{{amountTokens}}）<LineBreak />借款上限：{{capTokens}}"
     },
     "borrowInfo": {
       "title": "借款信息"
@@ -996,6 +999,7 @@
       "sixMonths": "6个月",
       "thirtyDays": "30天"
     },
+    "positionUnitPrice": "仓位单价 ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "当前 APY",
       "averageApy": "平均 APY",

@@ -6,13 +6,14 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetPool } from 'clients/api';
+import { useGetBalanceOf, useGetPool } from 'clients/api';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { Pool } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 
 import { SupplyTabs } from '..';
 
@@ -20,6 +21,10 @@ const liquidityHub = liquidityHubs[0];
 const corePool = poolData[0];
 const corePoolAsset = assetData[0];
 const liquidityHubMigratorContractAddress = '0xfakeLiquidityHubMigratorContractAddress';
+const walletBalanceMantissa = convertTokensToMantissa({
+  value: liquidityHub.userWalletBalanceTokens ?? new BigNumber(0),
+  token: liquidityHub.vhToken.underlyingToken,
+});
 
 const makeUseTokenApprovalOutput = (overrides: Partial<ReturnType<typeof useTokenApproval>> = {}) =>
   ({
@@ -39,12 +44,20 @@ const renderSupplyTabs = (props: Partial<React.ComponentProps<typeof SupplyTabs>
   });
 
 describe('SupplyTabs', () => {
+  const mockUseGetBalanceOf = useGetBalanceOf as Mock;
   const mockUseGetPool = useGetPool as Mock;
   const mockUseGetContractAddress = useGetContractAddress as Mock;
   const mockUseSimulatePoolMutations = useSimulatePoolMutations as Mock;
   const mockUseTokenApproval = useTokenApproval as Mock;
 
   beforeEach(() => {
+    mockUseGetBalanceOf.mockReturnValue({
+      data: {
+        balanceMantissa: walletBalanceMantissa,
+      },
+      isLoading: false,
+    });
+
     mockUseGetPool.mockImplementation(() => ({
       data: {
         pool: corePool,
@@ -81,7 +94,7 @@ describe('SupplyTabs', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('does not render collateral supply controls when the core pool is missing', () => {
+  it('renders only the wallet supply form when the core pool is missing', () => {
     mockUseGetPool.mockReturnValue({
       data: undefined,
       isLoading: false,
@@ -95,13 +108,14 @@ describe('SupplyTabs', () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', {
+      screen.getByRole('button', {
         name: en.liquidityHubForm.supplySubmitButtonLabel,
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
+    expect(screen.getByText(en.trade.operationForm.walletBalance)).toBeInTheDocument();
   });
 
-  it('does not render collateral supply controls when no matching core pool asset is found', () => {
+  it('renders only the wallet supply form when no matching core pool asset is found', () => {
     const poolWithoutMatchingAsset = {
       ...corePool,
       assets: [assetData[1]],
@@ -121,9 +135,14 @@ describe('SupplyTabs', () => {
         name: en.liquidityHubForm.supplyTab.collateralTabTitle,
       }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.supplySubmitButtonLabel,
+      }),
+    ).toBeInTheDocument();
   });
 
-  it('does not render collateral supply controls when the migrator contract is unavailable', () => {
+  it('renders only the wallet supply form when the migrator contract is unavailable', () => {
     mockUseGetContractAddress.mockReturnValue({
       address: undefined,
     });
@@ -135,6 +154,11 @@ describe('SupplyTabs', () => {
         name: en.liquidityHubForm.supplyTab.collateralTabTitle,
       }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.supplySubmitButtonLabel,
+      }),
+    ).toBeInTheDocument();
   });
 
   it('renders wallet and collateral tabs when collateral supply is available', () => {

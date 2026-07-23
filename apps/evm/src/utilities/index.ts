@@ -16,6 +16,7 @@ export { default as compareTokensBySymbol } from './compareTokensBySymbol';
 export { default as convertDollarsToCents } from './convertDollarsToCents';
 export { default as convertUsdMantissaToCents } from './convertUsdMantissaToCents';
 export { default as areTokensEqual } from './areTokensEqual';
+export { default as getCombinedApy } from './getCombinedApy';
 export { default as getCombinedDistributionApys } from './getCombinedDistributionApys';
 export { default as getBestDistributionApys } from './getBestDistributionApys';
 export { default as areAddressesEqual } from './areAddressesEqual';

@@ -12,6 +12,7 @@ import {
   xvsCoreSource,
   xvsFluxSource,
 } from './liquidityHubSources';
+import { xvs } from './tokens';
 import { vhBusd, vhUsdc, vhUsdt, vhXvs } from './vhTokens';
 
 export const liquidityHubs: LiquidityHub[] = [
@@ -32,6 +33,15 @@ export const liquidityHubs: LiquidityHub[] = [
     supplierCount: 124,
     operatorName: 'Venus Core',
     sources: [xvsCoreSource, xvsFluxSource],
+    supplyTokenDistributions: [
+      {
+        type: 'venus',
+        token: xvs,
+        apyPercentage: new BigNumber(1.2),
+        dailyDistributedTokens: new BigNumber(150),
+        isActive: true,
+      },
+    ],
     userWalletBalanceTokens: new BigNumber(95),
     userWalletBalanceCents: new BigNumber(67925),
     userSupplyBalanceTokens: new BigNumber(42),
@@ -56,6 +66,15 @@ export const liquidityHubs: LiquidityHub[] = [
     supplierCount: 289,
     operatorName: 'Stable Strategies',
     sources: [usdcCoreSource, usdcFluxSource],
+    supplyTokenDistributions: [
+      {
+        type: 'venus',
+        token: xvs,
+        apyPercentage: new BigNumber(0.75),
+        dailyDistributedTokens: new BigNumber(75),
+        isActive: true,
+      },
+    ],
     userWalletBalanceTokens: new BigNumber(2500),
     userWalletBalanceCents: new BigNumber(250000),
     userSupplyBalanceTokens: new BigNumber(1200),
@@ -80,6 +99,7 @@ export const liquidityHubs: LiquidityHub[] = [
     supplierCount: 198,
     operatorName: 'Yield Relay',
     sources: [usdtCoreSource, usdtFluxSource],
+    supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(1800),
     userWalletBalanceCents: new BigNumber(180000),
     userSupplyBalanceTokens: new BigNumber(850),
@@ -104,6 +124,7 @@ export const liquidityHubs: LiquidityHub[] = [
     supplierCount: 164,
     operatorName: 'Reserve Engine',
     sources: [busdCoreSource, busdFluxSource],
+    supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(3200),
     userWalletBalanceCents: new BigNumber(320000),
     userSupplyBalanceTokens: new BigNumber(1400),

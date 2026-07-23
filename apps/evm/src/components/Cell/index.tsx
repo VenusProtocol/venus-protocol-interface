@@ -30,6 +30,6 @@ export const Cell: React.FC<CellProps> = ({
       </div>
     )}
 
-    <p className="text-p2s">{value}</p>
+    <div className="text-p2s">{value}</div>
   </div>
 );

@@ -1,9 +1,0 @@
-import { routes } from 'constants/routing';
-import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
-
-export const useIsOnMarketPage = () => {
-  const currentRoutePath = useGetCurrentRoutePath();
-  const isOnMarketPage = currentRoutePath === routes.market.path;
-
-  return isOnMarketPage;
-};

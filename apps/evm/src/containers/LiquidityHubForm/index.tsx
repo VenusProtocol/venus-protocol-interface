@@ -4,6 +4,7 @@ import type { Tab, TabNavType } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { VhToken } from 'types';
 import { SupplyTabs } from './SupplyTabs';
+import { WithdrawForm } from './WithdrawForm';
 
 export interface LiquidityHubFormProps {
   vhToken: VhToken;
@@ -37,8 +38,9 @@ export const LiquidityHubForm: React.FC<LiquidityHubFormProps> = ({
       title: t('liquidityHubForm.withdrawTabTitle'),
       content: (
         <LiquidityHubAccessor vhToken={vhToken}>
-          {/* TODO: add form */}
-          {({ liquidityHub }) => <>{liquidityHub.hubAddress}</>}
+          {({ liquidityHub }) => (
+            <WithdrawForm liquidityHub={liquidityHub} onSubmitSuccess={onSubmitSuccess} />
+          )}
         </LiquidityHubAccessor>
       ),
     },

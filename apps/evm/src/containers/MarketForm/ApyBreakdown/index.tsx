@@ -1,19 +1,9 @@
-import BigNumber from 'bignumber.js';
-
 import {
-  Accordion,
-  InfoIcon,
-  LabeledInlineContent,
-  type LabeledInlineContentProps,
-} from 'components';
-import { useTranslation } from 'libs/translations';
+  type ApyBreakdownItem,
+  ApyBreakdown as GenericApyBreakdown,
+} from 'components/ApyBreakdown';
 import type { BalanceMutation, Pool } from 'types';
-import {
-  areAddressesEqual,
-  formatPercentageToReadableValue,
-  getCombinedDistributionApys,
-} from 'utilities';
-import { formatRows } from './formatRows';
+import { areAddressesEqual } from 'utilities';
 
 export interface ApyBreakdownProps {
   pool: Pool;
@@ -28,114 +18,41 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({
   balanceMutations = [],
   renderType = 'block',
 }) => {
-  const { t } = useTranslation();
-  const assetBalanceMutations = balanceMutations.filter(
-    balanceMutation => balanceMutation.type === 'asset',
-  );
-  const shouldShowNetApy = assetBalanceMutations.length > 1;
+  const items = balanceMutations.reduce<ApyBreakdownItem[]>((acc, balanceMutation) => {
+    if (balanceMutation.type !== 'asset') {
+      return acc;
+    }
 
-  const { rows, totalApyPercentage } = balanceMutations.reduce<{
-    rows: LabeledInlineContentProps[];
-    totalApyPercentage: BigNumber;
-  }>(
-    (acc, balanceMutation) => {
-      // Skip non-asset mutations
-      if (balanceMutation.type !== 'asset') {
-        return acc;
-      }
-
-      const asset = pool.assets.find(a =>
-        areAddressesEqual(a.vToken.address, balanceMutation.vTokenAddress),
-      );
-
-      if (!asset) {
-        return acc;
-      }
-
-      const simulatedAsset = simulatedPool?.assets.find(a =>
-        areAddressesEqual(a.vToken.address, balanceMutation.vTokenAddress),
-      );
-
-      const tempRows = formatRows({
-        asset,
-        simulatedAsset,
-        balanceMutation,
-        t,
-      });
-
-      const apys = getCombinedDistributionApys({
-        asset: simulatedAsset ?? asset,
-      });
-
-      let tmpTotalApyPercentage = acc.totalApyPercentage;
-
-      if (balanceMutation.action === 'supply' || balanceMutation.action === 'withdraw') {
-        tmpTotalApyPercentage = tmpTotalApyPercentage.plus(apys.totalSupplyApyPercentage);
-      } else {
-        tmpTotalApyPercentage = shouldShowNetApy
-          ? tmpTotalApyPercentage.minus(apys.totalBorrowApyPercentage)
-          : tmpTotalApyPercentage.plus(apys.totalBorrowApyPercentage);
-      }
-
-      return {
-        rows: acc.rows.concat(tempRows),
-        totalApyPercentage: tmpTotalApyPercentage,
-      };
-    },
-    {
-      rows: [],
-      totalApyPercentage: new BigNumber(0),
-    },
-  );
-
-  const readableTotalApy = formatPercentageToReadableValue(totalApyPercentage);
-
-  let label: undefined | string;
-  let tooltip: undefined | string;
-
-  if (shouldShowNetApy) {
-    label = t('apyBreakdown.netApy.label');
-    tooltip = t('apyBreakdown.netApy.tooltip');
-  } else {
-    const balanceMutationAction = assetBalanceMutations[0]?.action;
-
-    label =
-      balanceMutationAction === 'supply' || balanceMutationAction === 'withdraw'
-        ? t('apyBreakdown.totalApy.supplyApyLabel')
-        : t('apyBreakdown.totalApy.borrowApyLabel');
-
-    tooltip =
-      balanceMutationAction === 'supply' || balanceMutationAction === 'withdraw'
-        ? t('apyBreakdown.totalApy.supplyApyTooltip')
-        : t('apyBreakdown.totalApy.borrowApyTooltip');
-  }
-
-  const rowsDom = rows.map((row, i) => <LabeledInlineContent {...row} key={`${row.label}-${i}`} />);
-
-  if (renderType === 'block') {
-    return (
-      <div className="space-y-2">
-        {rowsDom}
-
-        <LabeledInlineContent tooltip={tooltip} label={label}>
-          {readableTotalApy}
-        </LabeledInlineContent>
-      </div>
+    const asset = pool.assets.find(a =>
+      areAddressesEqual(a.vToken.address, balanceMutation.vTokenAddress),
     );
-  }
 
-  return (
-    <Accordion
-      title={
-        <div className="flex items-center gap-x-2">
-          <p className="text-sm">{label}</p>
+    if (!asset) {
+      return acc;
+    }
 
-          <InfoIcon className="inline-flex items-center" tooltip={tooltip} />
-        </div>
-      }
-      rightLabel={readableTotalApy}
-    >
-      <div className="space-y-2">{rowsDom}</div>
-    </Accordion>
-  );
+    const simulatedAsset = simulatedPool?.assets.find(a =>
+      areAddressesEqual(a.vToken.address, balanceMutation.vTokenAddress),
+    );
+    const isBorrow = balanceMutation.action === 'borrow' || balanceMutation.action === 'repay';
+
+    const item: ApyBreakdownItem = {
+      type: isBorrow ? 'borrow' : 'supply',
+      token: asset.vToken.underlyingToken,
+      baseApyPercentage: isBorrow ? asset.borrowApyPercentage : asset.supplyApyPercentage,
+      tokenDistributions: isBorrow
+        ? asset.borrowTokenDistributions
+        : asset.supplyTokenDistributions,
+      simulatedBaseApyPercentage: isBorrow
+        ? simulatedAsset?.borrowApyPercentage
+        : simulatedAsset?.supplyApyPercentage,
+      simulatedTokenDistributions: isBorrow
+        ? simulatedAsset?.borrowTokenDistributions
+        : simulatedAsset?.supplyTokenDistributions,
+    };
+
+    return [...acc, item];
+  }, []);
+
+  return <GenericApyBreakdown items={items} renderType={renderType} />;
 };

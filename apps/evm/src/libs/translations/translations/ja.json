@@ -270,7 +270,8 @@
       "supplyApy": "供給APY",
       "totalBorrow": "総借入",
       "totalStaked": "総供給量",
-      "totalSupply": "総供給"
+      "totalSupply": "総供給",
+      "unitPrice": "単価"
     }
   },
   "asset": {
@@ -318,6 +319,7 @@
     "governance": "ガバナンス",
     "isolatedPools": "隔離プール",
     "leaderboard": "リーダーボード",
+    "liquidityHubs": "流動性ハブ",
     "markets": "マーケット",
     "primeCalculator": "Prime計算機",
     "proposal": "提案 #{{proposalId}}",
@@ -774,6 +776,7 @@
       "label": "チェーンを選択"
     },
     "header": {
+      "exposures": "エクスポージャー",
       "liquidity": "流動性",
       "maxLtv": {
         "label": "最大LTV",
@@ -782,6 +785,7 @@
       },
       "price": "価格",
       "resilientOracle": "レジリエントオラクル",
+      "suppliers": "供給者",
       "supply": "供給",
       "utilizationRate": "利用率"
     },
@@ -896,7 +900,6 @@
     },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "安全な MAX",
-    "supplyApy": "供給 APY",
     "supplySubmitButtonLabel": "供給",
     "supplyTab": {
       "collateralTabTitle": "担保",
@@ -939,7 +942,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "総借入",
-      "tooltip": "借入可能な最大額は{{amountDollars}}（{{amountTokens}}）<br />借入上限: {{capTokens}}"
+      "tooltip": "借入可能な最大額は{{amountDollars}}（{{amountTokens}}）<LineBreak />借入上限: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "借入情報"
@@ -996,6 +999,7 @@
       "sixMonths": "6か月",
       "thirtyDays": "30日"
     },
+    "positionUnitPrice": "ポジション単価 ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "現在のAPY",
       "averageApy": "平均APY",

@@ -44,7 +44,7 @@ export const SupplyChart: React.FC<ApyChartProps> = ({ className, data, selected
       xAxisDataKey="timestampMs"
       yAxisDataKey="balanceNum"
       className={className}
-      formatXAxisValue={value => formatDate(value)}
+      formatXAxisValue={formatDate}
       formatYAxisValue={value =>
         formatCentsToReadableValue({
           value,

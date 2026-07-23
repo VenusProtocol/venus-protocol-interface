@@ -2,7 +2,13 @@ import type BigNumber from 'bignumber.js';
 
 import { liquidityHubs as fakeLiquidityHubs } from '__mocks__/models/liquidityHubs';
 import { useGetPool } from 'clients/api';
-import { BalanceUpdates, Delimiter, LabeledInlineContent, TokenTextField } from 'components';
+import {
+  ApyBreakdown,
+  type ApyBreakdownItem,
+  BalanceUpdates,
+  Delimiter,
+  TokenTextField,
+} from 'components';
 import { AccountLiquidityHubDailyEarnings } from 'containers/AccountLiquidityHubDailyEarnings';
 import { AccountPoolHealth } from 'containers/AccountPoolHealth';
 import { type TokenApproval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
@@ -11,9 +17,10 @@ import { useSimulateLiquidityHubMutations } from 'hooks/useSimulateLiquidityHubM
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
+import { useEffect } from 'react';
 import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { formatPercentageToReadableValue, shouldShowAccountHealth } from 'utilities';
-import { type FormValues, useForm } from './useForm';
+import { shouldShowAccountHealth } from 'utilities';
+import { type FormValues, initialFormValues, useForm } from './useForm';
 import type { UseFormValidationInput } from './useForm/useFormValidation';
 
 export * from './useForm';
@@ -72,7 +79,7 @@ export const Form: React.FC<FormProps> = ({
     },
   );
 
-  const pool = getPools?.pool;
+  const pool = affectsCorePool ? getPools?.pool : undefined;
 
   const { data: getSimulatedPoolData, isLoading: isGetSimulatedPoolLoading } =
     useSimulatePoolMutations({
@@ -89,6 +96,15 @@ export const Form: React.FC<FormProps> = ({
     balanceMutations,
   });
 
+  const apyBreakdownItems: ApyBreakdownItem[] = [
+    {
+      type: 'supply',
+      token: liquidityHub.vhToken.underlyingToken,
+      baseApyPercentage: liquidityHub.supplyApyPercentage,
+      tokenDistributions: liquidityHub.supplyTokenDistributions,
+    },
+  ];
+
   const { formError, isFormValid, handleSubmit } = useForm({
     validate: validateForm,
     liquidityHub,
@@ -101,6 +117,13 @@ export const Form: React.FC<FormProps> = ({
     onSubmit,
     onSubmitSuccess,
   });
+
+  // Reset form when user disconnects their wallet
+  useEffect(() => {
+    if (!accountAddress) {
+      setFormValues(initialFormValues);
+    }
+  }, [accountAddress, setFormValues]);
 
   const toggleAcknowledgeRisk = () =>
     setFormValues(values => ({
@@ -161,9 +184,10 @@ export const Form: React.FC<FormProps> = ({
         </>
       )}
 
-      <LabeledInlineContent label={t('liquidityHubForm.supplyApy')}>
-        {formatPercentageToReadableValue(liquidityHub.supplyApyPercentage)}
-      </LabeledInlineContent>
+      <ApyBreakdown
+        items={apyBreakdownItems}
+        renderType={isUserConnected ? 'accordion' : 'block'}
+      />
 
       <Delimiter />
 

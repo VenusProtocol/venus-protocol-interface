@@ -1,7 +1,6 @@
-import { liquidityHubs } from '__mocks__/models/liquidityHubs';
+import { useGetLiquidityHub } from 'clients/api';
 import { Spinner } from 'components';
 import type { LiquidityHub, VhToken } from 'types';
-import { areTokensEqual } from 'utilities';
 
 export interface LiquidityHubAccessorProps {
   vhToken: VhToken;
@@ -9,10 +8,10 @@ export interface LiquidityHubAccessorProps {
 }
 
 const LiquidityHubAccessor: React.FC<LiquidityHubAccessorProps> = ({ vhToken, children }) => {
-  // TODO: fetch from API
-  const liquidityHub = liquidityHubs.find(liquidityHub =>
-    areTokensEqual(vhToken, liquidityHub.vhToken),
-  );
+  const { data: getLiquidityHubData } = useGetLiquidityHub({
+    vhTokenAddress: vhToken.address,
+  });
+  const liquidityHub = getLiquidityHubData?.liquidityHub;
 
   if (!liquidityHub) {
     return <Spinner />;

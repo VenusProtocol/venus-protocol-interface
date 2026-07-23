@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
 
 import { type MarketHistoryPeriodType, useGetMarketHistory } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import type { ApyChartProps } from 'pages/Market/MarketHistory/Card/ApyChart';
-import type { VToken } from 'types';
+import type { MarketHistoryDataPoint, VToken } from 'types';
 
 export const useGetMarketChartData = ({
   vToken,
@@ -26,33 +24,32 @@ export const useGetMarketChartData = ({
     },
   );
 
-  const data = useMemo(() => {
-    const supplyChartData: ApyChartProps['data'] = [];
-    const borrowChartData: ApyChartProps['data'] = [];
+  const supplyChartData: MarketHistoryDataPoint[] = [];
+  const borrowChartData: MarketHistoryDataPoint[] = [];
 
-    [...marketSnapshotsData.marketSnapshots]
-      // Snapshots are already reversed, due to the negative slice
-      .forEach(marketSnapshot => {
-        const timestampMs = Number(marketSnapshot.blockTimestamp) * 1000;
+  [...marketSnapshotsData.marketSnapshots]
+    // Snapshots are already reversed, due to the negative slice
+    .forEach(marketSnapshot => {
+      const timestampMs = Number(marketSnapshot.blockTimestamp) * 1000;
 
-        supplyChartData.push({
-          apyPercentage: +marketSnapshot.supplyApy,
-          timestampMs,
-          balanceCents: new BigNumber(marketSnapshot.totalSupplyCents),
-        });
-
-        borrowChartData.push({
-          apyPercentage: +marketSnapshot.borrowApy,
-          timestampMs,
-          balanceCents: new BigNumber(marketSnapshot.totalBorrowCents),
-        });
+      supplyChartData.push({
+        apyPercentage: +marketSnapshot.supplyApy,
+        timestampMs,
+        balanceCents: new BigNumber(marketSnapshot.totalSupplyCents),
       });
 
-    return { supplyChartData, borrowChartData };
-  }, [marketSnapshotsData]);
+      borrowChartData.push({
+        apyPercentage: +marketSnapshot.borrowApy,
+        timestampMs,
+        balanceCents: new BigNumber(marketSnapshot.totalBorrowCents),
+      });
+    });
 
   return {
     isLoading,
-    data,
+    data: {
+      supplyChartData,
+      borrowChartData,
+    },
   };
 };

@@ -76,7 +76,7 @@ describe('useSimulateLiquidityHubMutations', () => {
     expect(simulatedLiquidityHub.supplyBalanceCents.toFixed()).toBe('10910900');
     expect(simulatedLiquidityHub.userSupplyBalanceTokens?.toFixed()).toBe('52');
     expect(simulatedLiquidityHub.userSupplyBalanceCents?.toFixed()).toBe('37180');
-    expect(simulatedLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('2305.16');
+    expect(simulatedLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('2751.32');
     expect(simulatedLiquidityHub.userVhTokenBalanceTokens?.toFixed()).toBe(
       new BigNumber(52).dividedBy(xvsLiquidityHub.pricePerShare).toFixed(),
     );
@@ -98,7 +98,7 @@ describe('useSimulateLiquidityHubMutations', () => {
     expect(simulatedLiquidityHub.supplyBalanceCents.toFixed()).toBe('10896600');
     expect(simulatedLiquidityHub.userSupplyBalanceTokens?.toFixed()).toBe('32');
     expect(simulatedLiquidityHub.userSupplyBalanceCents?.toFixed()).toBe('22880');
-    expect(simulatedLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('1418.56');
+    expect(simulatedLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('1693.12');
     expect(simulatedLiquidityHub.userVhTokenBalanceTokens?.toFixed()).toBe(
       new BigNumber(32).dividedBy(xvsLiquidityHub.pricePerShare).toFixed(),
     );
@@ -150,7 +150,7 @@ describe('useSimulateLiquidityHubMutations', () => {
     expect(simulatedXvsLiquidityHub.supplyBalanceCents.toFixed()).toBe('10905895');
     expect(simulatedXvsLiquidityHub.userSupplyBalanceTokens?.toFixed()).toBe('45');
     expect(simulatedXvsLiquidityHub.userSupplyBalanceCents?.toFixed()).toBe('32175');
-    expect(simulatedXvsLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('1994.85');
+    expect(simulatedXvsLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('2380.95');
     expect(simulatedXvsLiquidityHub.userVhTokenBalanceTokens?.toFixed()).toBe(
       new BigNumber(45).dividedBy(xvsLiquidityHub.pricePerShare).toFixed(),
     );
@@ -159,7 +159,7 @@ describe('useSimulateLiquidityHubMutations', () => {
     expect(simulatedUsdcLiquidityHub.supplyBalanceCents.toFixed()).toBe('35010000');
     expect(simulatedUsdcLiquidityHub.userSupplyBalanceTokens?.toFixed()).toBe('1300');
     expect(simulatedUsdcLiquidityHub.userSupplyBalanceCents?.toFixed()).toBe('130000');
-    expect(simulatedUsdcLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('5330');
+    expect(simulatedUsdcLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('6305');
     expect(simulatedUsdcLiquidityHub.userVhTokenBalanceTokens?.toFixed()).toBe(
       new BigNumber(1300).dividedBy(usdcLiquidityHub.pricePerShare).toFixed(),
     );
@@ -185,7 +185,7 @@ describe('useSimulateLiquidityHubMutations', () => {
     expect(simulatedLiquidityHub.supplyBalanceCents.toFixed()).toBe('10910900');
     expect(simulatedLiquidityHub.userSupplyBalanceTokens?.toFixed()).toBe('10');
     expect(simulatedLiquidityHub.userSupplyBalanceCents?.toFixed()).toBe('7150');
-    expect(simulatedLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('443.3');
+    expect(simulatedLiquidityHub.userYearlyEarningsCents?.toFixed()).toBe('529.1');
     expect(simulatedLiquidityHub.userVhTokenBalanceTokens?.toFixed()).toBe(
       new BigNumber(10).dividedBy(xvsLiquidityHub.pricePerShare).toFixed(),
     );

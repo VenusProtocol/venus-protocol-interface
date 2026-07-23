@@ -1,25 +1,18 @@
 import { theme } from '@venusprotocol/ui';
-import type BigNumber from 'bignumber.js';
 
+import type { MarketHistoryPeriodType } from 'clients/api';
+import { AreaChart } from 'components';
+import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
+import type { MarketHistoryDataPoint } from 'types';
 import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatToReadableDate,
 } from 'utilities';
 
-import type { MarketHistoryPeriodType } from 'clients/api';
-import { AreaChart } from 'components';
-import { useBreakpointUp } from 'hooks/responsive';
-
-export interface ApyChartItem {
-  apyPercentage: number;
-  timestampMs: number;
-  balanceCents: BigNumber;
-}
-
 export interface ApyChartProps {
-  data: ApyChartItem[];
+  data: MarketHistoryDataPoint[];
   type: 'supply' | 'borrow';
   selectedPeriod: MarketHistoryPeriodType;
   className?: string;
@@ -45,7 +38,7 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
       xAxisDataKey="timestampMs"
       yAxisDataKey="apyPercentage"
       className={className}
-      formatXAxisValue={value => formatDate(value)}
+      formatXAxisValue={formatDate}
       formatYAxisValue={formatPercentageToReadableValue}
       chartColor={chartColor}
       interval={chartInterval}
@@ -74,11 +67,3 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
     />
   );
 };
-
-export const SupplyApyChart: React.FC<Omit<ApyChartProps, 'type'>> = props => (
-  <ApyChart type="supply" {...props} />
-);
-
-export const BorrowApyChart: React.FC<Omit<ApyChartProps, 'type'>> = props => (
-  <ApyChart type="borrow" {...props} />
-);

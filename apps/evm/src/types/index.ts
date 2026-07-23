@@ -284,6 +284,7 @@ export interface LiquidityHub {
   supplierCount: number;
   operatorName: string;
   sources: LiquidityHubSource[];
+  supplyTokenDistributions: TokenDistribution[];
   // User-specific props
   userWalletBalanceTokens?: BigNumber;
   userWalletBalanceCents?: BigNumber;
@@ -493,6 +494,14 @@ export interface MarketSnapshot {
   supplyApy: string;
   totalBorrowCents: string;
   totalSupplyCents: string;
+}
+
+export interface LiquidityHubSnapshot {
+  blockNumber: string | number;
+  blockTimestamp: string | number;
+  supplyApy: string;
+  totalSupplyCents: string;
+  pricePerShare: string;
 }
 
 export type TransactionEvent =
@@ -862,3 +871,9 @@ export interface PrimeCycle {
 }
 
 export type PrimeVersion = 1 | 2;
+
+export interface MarketHistoryDataPoint {
+  apyPercentage: number;
+  timestampMs: number;
+  balanceCents: BigNumber;
+}

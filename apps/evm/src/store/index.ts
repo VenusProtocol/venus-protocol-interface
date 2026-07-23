@@ -18,7 +18,6 @@ export interface UserChainSettings {
   slippageTolerancePercentage: string;
   doNotShowUserBalances: boolean;
   doNotExpandGuide: boolean;
-  doNotShowFixedRateVaultsAdBanner: boolean;
   doNotShowGatedAssetModal: boolean;
   doNotShowVipModal: boolean;
 }

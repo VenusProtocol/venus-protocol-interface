@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { LabeledInlineContent } from 'components';
+import { LabeledInlineContent, MarketCard } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -11,7 +11,6 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
-import { MarketCard } from '../MarketCard';
 import TEST_IDS from '../testIds';
 import type { Stat } from '../types';
 

@@ -1,31 +1,40 @@
-import Typography from '@mui/material/Typography';
+import { cn } from '@venusprotocol/ui';
 
 import type { Token } from 'types';
 
 import { TokenIcon } from '../TokenIcon';
-import { useStyles } from './styles';
 
 export interface TokenGroupProps {
-  className?: string;
   tokens: Token[];
+  removeDuplicates?: boolean;
+  className?: string;
   limit?: number;
 }
 
-export const TokenGroup: React.FC<TokenGroupProps> = ({ className, tokens, limit = 0 }) => {
-  const styles = useStyles();
+export const TokenGroup: React.FC<TokenGroupProps> = ({
+  className,
+  tokens,
+  removeDuplicates,
+  limit = 0,
+}) => {
+  const sanitizedTokens = removeDuplicates
+    ? [...new Map(tokens.map(token => [token.address, token])).values()]
+    : tokens;
 
-  const filteredTokens = limit > 0 ? tokens.slice(0, limit) : tokens;
+  const filteredTokens = limit > 0 ? sanitizedTokens.slice(0, limit) : tokens;
 
   return (
-    <div css={styles.container} className={className}>
-      {filteredTokens.map(token => (
-        <TokenIcon css={styles.token} token={token} key={`token-group-item-${token.address}`} />
+    <div className={cn('flex items-center', className)}>
+      {filteredTokens.map((token, index) => (
+        <TokenIcon
+          className={cn(index > 0 && '-ml-1')}
+          token={token}
+          key={`token-group-item-${token.address}`}
+        />
       ))}
 
-      {limit > 0 && tokens.length > limit && (
-        <Typography variant="small2" css={styles.leftoverCount}>
-          +{tokens.length - limit}
-        </Typography>
+      {limit > 0 && sanitizedTokens.length > limit && (
+        <span className="text-b1r text-white ml-2">+{sanitizedTokens.length - limit}</span>
       )}
     </div>
   );

@@ -102,7 +102,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     },
   ];
 
-  const handleLimitClick = limitTokens?.isGreaterThan(0)
+  const handleLimitClick = limitTokens.isGreaterThan(0)
     ? () =>
         setFormValues(values => ({
           ...values,

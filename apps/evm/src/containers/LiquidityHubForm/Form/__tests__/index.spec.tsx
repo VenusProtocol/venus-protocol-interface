@@ -243,7 +243,7 @@ describe('LiquidityHubForm Form', () => {
     expect(balanceUpdate).toHaveTextContent('52');
     expect(dailyEarningsUpdate).not.toBeNull();
     expect(dailyEarningsUpdate).toHaveTextContent('$0.45');
-    expect(dailyEarningsUpdate).toHaveTextContent('$0.46');
+    expect(dailyEarningsUpdate).toHaveTextContent('$0.47');
   });
 
   it('renders the simulated core pool health for asset balance mutations', () => {
@@ -298,6 +298,23 @@ describe('LiquidityHubForm Form', () => {
     expect(screen.getByAltText('Spinner').closest('button')).toBeDisabled();
   });
 
+  it('renders the Liquidity Hub supply APY breakdown', () => {
+    renderForm();
+
+    const apyBreakdownToggle = screen.getByRole('button', {
+      name: new RegExp(en.apyBreakdown.totalApy.supplyApyLabel),
+    });
+
+    expect(apyBreakdownToggle).toHaveTextContent('7.4%');
+
+    fireEvent.click(apyBreakdownToggle);
+
+    expect(screen.getByText(en.apyBreakdown.supplyApy)).toBeInTheDocument();
+    expect(screen.getByText('6.2%')).toBeInTheDocument();
+    expect(screen.getByText(en.apyBreakdown.distributionApy)).toBeInTheDocument();
+    expect(screen.getByText('1.2%')).toBeInTheDocument();
+  });
+
   it('hides connected-only amount controls while disconnected', () => {
     mockUseAccountAddress.mockImplementation(() => ({
       accountAddress: undefined,
@@ -309,7 +326,7 @@ describe('LiquidityHubForm Form', () => {
 
     expect(document.querySelector('input[name="amountTokens"]')).not.toBeInTheDocument();
     expect(screen.queryByText('Available balance')).not.toBeInTheDocument();
-    expect(screen.getByText(en.liquidityHubForm.supplyApy)).toBeInTheDocument();
+    expect(screen.getByText(en.apyBreakdown.totalApy.supplyApyLabel)).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: en.connectWallet.connectButton }),
     ).toBeInTheDocument();

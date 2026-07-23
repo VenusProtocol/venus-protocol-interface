@@ -93,6 +93,30 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /isolat
 ]
 `;
 
+exports[`usePathNodes > outputs the right DOM based on the current path: /liquidity-hubs 1`] = `
+[
+  {
+    "dom": "Liquidity Hub",
+    "href": "liquidity-hubs",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /liquidity-hubs/0x2000000000000000000000000000000000000001 1`] = `
+[
+  {
+    "dom": "Liquidity Hub",
+    "href": "liquidity-hubs",
+  },
+  {
+    "dom": <LiquidityHubName
+      vhTokenAddress="0x2000000000000000000000000000000000000001"
+    />,
+    "href": "liquidity-hubs0x2000000000000000000000000000000000000001",
+  },
+]
+`;
+
 exports[`usePathNodes > outputs the right DOM based on the current path: /markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `
 [
   {

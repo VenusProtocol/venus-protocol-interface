@@ -1,4 +1,5 @@
 import {
+  Apy,
   InfoIcon,
   LayeredValues,
   type Order,
@@ -8,6 +9,7 @@ import {
   TokenGroup,
   TokenIconWithSymbol,
 } from 'components';
+import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
@@ -16,8 +18,8 @@ import type { LiquidityHub } from 'types';
 import {
   compareBigNumbers,
   formatCentsToReadableValue,
-  formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  getCombinedApy,
 } from 'utilities';
 import { RowControl } from './RowControl';
 
@@ -99,7 +101,11 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       ),
       selectOptionLabel: t('liquidityHubs.table.columns.exposure.selectionOptionLabel'),
       renderCell: ({ sources }) => (
-        <TokenGroup tokens={sources.flatMap(source => source.collateralTokens)} limit={5} />
+        <TokenGroup
+          tokens={sources.flatMap(source => source.collateralTokens)}
+          removeDuplicates
+          limit={5}
+        />
       ),
     },
     {
@@ -107,8 +113,33 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       label: t('liquidityHubs.table.columns.supplyApy'),
       selectOptionLabel: t('liquidityHubs.table.columns.supplyApy'),
       sortRows: (rowA, rowB, direction) =>
-        compareBigNumbers(rowA.supplyApyPercentage, rowB.supplyApyPercentage, direction),
-      renderCell: ({ supplyApyPercentage }) => formatPercentageToReadableValue(supplyApyPercentage),
+        compareBigNumbers(
+          getCombinedApy({
+            type: 'supply',
+            baseApyPercentage: rowA.supplyApyPercentage,
+            tokenDistributions: rowA.supplyTokenDistributions,
+          }).totalApyPercentage,
+          getCombinedApy({
+            type: 'supply',
+            baseApyPercentage: rowB.supplyApyPercentage,
+            tokenDistributions: rowB.supplyTokenDistributions,
+          }).totalApyPercentage,
+          direction,
+        ),
+      renderCell: ({
+        vhToken,
+        supplyApyPercentage,
+        supplyTokenDistributions,
+        userSupplyBalanceTokens,
+      }) => (
+        <Apy
+          type="supply"
+          token={vhToken.underlyingToken}
+          baseApyPercentage={supplyApyPercentage}
+          tokenDistributions={supplyTokenDistributions}
+          userBalanceTokens={userSupplyBalanceTokens}
+        />
+      ),
     },
     {
       key: 'liquidity',
@@ -137,6 +168,9 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
     orderDirection: 'desc',
   };
 
+  const getRowHref = (row: LiquidityHub) =>
+    routes.liquidityHub.path.replace(':vhTokenAddress', row.vhToken.address);
+
   return (
     <Table
       data={filteredData}
@@ -149,6 +183,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       className={className}
       renderRowControl={renderRowControl}
       initialOrder={initialOrder}
+      getRowHref={getRowHref}
       header={
         <Controls
           searchValue={searchValue}

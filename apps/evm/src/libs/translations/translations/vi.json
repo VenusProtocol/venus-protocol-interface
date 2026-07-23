@@ -270,7 +270,8 @@
       "supplyApy": "APY cung cấp",
       "totalBorrow": "Tổng vay",
       "totalStaked": "Tổng đã cung cấp",
-      "totalSupply": "Tổng cung cấp"
+      "totalSupply": "Tổng cung cấp",
+      "unitPrice": "Đơn giá"
     }
   },
   "asset": {
@@ -318,6 +319,7 @@
     "governance": "Quản trị",
     "isolatedPools": "Pools cô lập",
     "leaderboard": "Bảng xếp hạng",
+    "liquidityHubs": "Trung tâm thanh khoản",
     "markets": "Thị trường",
     "primeCalculator": "Máy tính Prime",
     "proposal": "Đề xuất #{{proposalId}}",
@@ -774,6 +776,7 @@
       "label": "Chọn chain"
     },
     "header": {
+      "exposures": "Mức độ tiếp xúc",
       "liquidity": "Thanh khoản",
       "maxLtv": {
         "label": "LTV tối đa",
@@ -782,6 +785,7 @@
       },
       "price": "Giá",
       "resilientOracle": "Oracle bền vững",
+      "suppliers": "Người cung cấp",
       "supply": "Cung cấp",
       "utilizationRate": "Tỷ lệ sử dụng"
     },
@@ -896,7 +900,6 @@
     },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "MAX an toàn",
-    "supplyApy": "APY cung cấp",
     "supplySubmitButtonLabel": "Cung cấp",
     "supplyTab": {
       "collateralTabTitle": "Tài sản thế chấp",
@@ -939,7 +942,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "Tổng vay",
-      "tooltip": "Số tiền tối đa có thể vay là {{amountDollars}} ({{amountTokens}})<br />Hạn mức vay: {{capTokens}}"
+      "tooltip": "Số tiền tối đa có thể vay là {{amountDollars}} ({{amountTokens}})<LineBreak />Hạn mức vay: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "Thông tin vay"
@@ -996,6 +999,7 @@
       "sixMonths": "6T",
       "thirtyDays": "30N"
     },
+    "positionUnitPrice": "Đơn giá vị thế ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "APY hiện tại",
       "averageApy": "APY trung bình",

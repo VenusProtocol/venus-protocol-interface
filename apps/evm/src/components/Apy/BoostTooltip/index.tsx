@@ -12,7 +12,7 @@ export interface BoostTooltipProps extends Omit<TooltipProps, 'content'> {
   type: 'supply' | 'borrow';
   token: Token;
   baseApyPercentage: BigNumber;
-  userBalanceTokens: BigNumber;
+  userBalanceTokens?: BigNumber;
   tokenDistributions: TokenDistribution[];
   pointDistributions: PointDistribution[];
   primeApyPercentage?: BigNumber;
@@ -123,7 +123,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
   }, []);
 
   // Add Prime distribution
-  if (primeApyPercentage && userBalanceTokens.isGreaterThan(0)) {
+  if (primeApyPercentage && userBalanceTokens?.isGreaterThan(0)) {
     listItems.push({
       name: t('apy.boost.tooltip.primeDistribution.name'),
       description: t('apy.boost.tooltip.primeDistribution.description'),

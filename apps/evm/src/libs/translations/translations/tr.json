@@ -270,7 +270,8 @@
       "supplyApy": "Sağlama APY",
       "totalBorrow": "Toplam borç",
       "totalStaked": "Toplam sağlanan",
-      "totalSupply": "Toplam tedarik"
+      "totalSupply": "Toplam tedarik",
+      "unitPrice": "Birim fiyat"
     }
   },
   "asset": {
@@ -318,6 +319,7 @@
     "governance": "Yönetişim",
     "isolatedPools": "İzole havuzlar",
     "leaderboard": "Liderlik tablosu",
+    "liquidityHubs": "Likidite Merkezi",
     "markets": "Piyasalar",
     "primeCalculator": "Prime hesaplayıcı",
     "proposal": "Teklif #{{proposalId}}",
@@ -774,6 +776,7 @@
       "label": "Zincir seç"
     },
     "header": {
+      "exposures": "Maruziyet",
       "liquidity": "Likidite",
       "maxLtv": {
         "label": "Maks LTV",
@@ -782,6 +785,7 @@
       },
       "price": "Fiyat",
       "resilientOracle": "Dayanıklı Oracle",
+      "suppliers": "Sağlayanlar",
       "supply": "Sağlama",
       "utilizationRate": "Kullanım oranı"
     },
@@ -896,7 +900,6 @@
     },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "GÜVENLİ MAX",
-    "supplyApy": "Sağlama APY",
     "supplySubmitButtonLabel": "Sağla",
     "supplyTab": {
       "collateralTabTitle": "Teminat",
@@ -939,7 +942,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "Toplam borç",
-      "tooltip": "Borç alınabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})<br />Borç limiti: {{capTokens}}"
+      "tooltip": "Borç alınabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})<LineBreak />Borç limiti: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "Borç bilgisi"
@@ -996,6 +999,7 @@
       "sixMonths": "6A",
       "thirtyDays": "30G"
     },
+    "positionUnitPrice": "Pozisyon birim fiyatı ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "Mevcut APY",
       "averageApy": "Ortalama APY",

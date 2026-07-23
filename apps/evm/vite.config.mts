@@ -12,6 +12,7 @@ import { version as APP_VERSION } from './src/constants/version';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const isTest = mode === 'test';
+
   const reactCompiler = isTest
     ? undefined
     : reactCompilerPreset({
