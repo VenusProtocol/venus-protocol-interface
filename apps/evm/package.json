@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "@biconomy/abstractjs": "^1.0.21",
+    "@binance/w3w-rainbow-connector-v2": "^1.0.8",
+    "@binance/w3w-wagmi-connector-v2": "^1.2.11",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fastify/deepmerge": "^3.1.0",
