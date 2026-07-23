@@ -1,7 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
 import { useTranslation } from 'libs/translations';
-import { useMemo } from 'react';
 import type { Tx } from 'types';
 import { generateExplorerUrl, getTransactionName } from 'utilities';
 import { Delimiter } from '../../Delimiter';
@@ -18,14 +17,10 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ transaction, cla
   const { chainId, txType, hash, blockTimestamp } = transaction;
   const { t } = useTranslation();
 
-  const transactionTitle = useMemo(
-    () =>
-      getTransactionName({
-        txType,
-        t,
-      }),
-    [t, txType],
-  );
+  const transactionTitle = getTransactionName({
+    transaction,
+    t,
+  });
 
   return (
     <a

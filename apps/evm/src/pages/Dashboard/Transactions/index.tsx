@@ -1,3 +1,4 @@
+import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { useGetAccountTransactionHistory, useGetPools } from 'clients/api';
 import {
   Pagination,
@@ -13,6 +14,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router';
+import type { Token } from 'types';
 import { getTransactionName } from 'utilities';
 import { type Address, isAddress } from 'viem';
 
@@ -102,6 +104,9 @@ export const Transactions: React.FC = () => {
   const isTransactionHistoryFeatureEnabled = useIsFeatureEnabled({
     name: 'transactionHistory',
   });
+  const isLiquidityHubFeatureEnabled = useIsFeatureEnabled({
+    name: 'liquidityHub',
+  });
 
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(
@@ -124,7 +129,7 @@ export const Transactions: React.FC = () => {
 
     const otherOptions: SelectOption<string>[] = MARKET_TX_TYPES.map(type => ({
       label: getTransactionName({
-        txType: type,
+        transaction: type,
         t,
       }),
       value: type,
@@ -148,7 +153,7 @@ export const Transactions: React.FC = () => {
       ) || [];
 
     const otherOptions: SelectOption<string>[] = [];
-    const tokenOptions = allAssets
+    const tokenOptions: Token[] = allAssets
       .map(a => ({
         symbol: `${a.vToken.underlyingToken.symbol} - ${a.poolName}`,
         iconSrc: a.vToken.underlyingToken.iconSrc,
@@ -158,6 +163,24 @@ export const Transactions: React.FC = () => {
       }))
       .sort((a, b) => a.symbol.localeCompare(b.symbol));
 
+    if (isLiquidityHubFeatureEnabled) {
+      const liquidityHubLabel = t('layouts.menu.markets.liquidityHub.label');
+
+      liquidityHubs.forEach(liquidityHub => {
+        const { vhToken } = liquidityHub;
+
+        tokenOptions.push({
+          symbol: `${vhToken.underlyingToken.symbol} - ${liquidityHubLabel}`,
+          iconSrc: vhToken.underlyingToken.iconSrc,
+          address: vhToken.address,
+          decimals: vhToken.decimals,
+          chainId: vhToken.chainId,
+        });
+      });
+
+      tokenOptions.sort((a, b) => a.symbol.localeCompare(b.symbol));
+    }
+
     for (const tokenOption of tokenOptions) {
       otherOptions.push({
         label: <TokenIconWithSymbol token={tokenOption} />,
@@ -166,7 +189,7 @@ export const Transactions: React.FC = () => {
     }
 
     return [allOption, ...otherOptions];
-  }, [t, poolData]);
+  }, [t, poolData, isLiquidityHubFeatureEnabled]);
 
   // Reset contract address filter if the value in the URL is incorrect
   useEffect(() => {

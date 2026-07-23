@@ -85,7 +85,7 @@
       },
       "selects": {
         "source": {
-          "all": "所有市場"
+          "all": "所有來源"
         },
         "txType": {
           "all": "所有交易"
