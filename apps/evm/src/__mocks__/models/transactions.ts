@@ -1,9 +1,27 @@
 import BigNumber from 'bignumber.js';
 import { usdt } from './tokens';
 import { vUsdtCorePool } from './vTokens';
+import { vhXvs } from './vhTokens';
 
 export const transactions = {
   transactions: [
+    {
+      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+      amounts: [
+        {
+          amountCents: 7150,
+          amountTokens: new BigNumber(10),
+          token: vhXvs.underlyingToken,
+        },
+      ],
+      blockNumber: '41604852',
+      blockTimestamp: new Date('2024-08-24T04:17:09.000Z'),
+      chainId: 97,
+      contractAddress: vhXvs.address,
+      hash: '0xca13a0f45b10dabd21b863b6b602c6d8776edd4c6b10fe65a0881d491f468f35',
+      txType: 'supply',
+      vhToken: vhXvs,
+    },
     {
       accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       amounts: [
