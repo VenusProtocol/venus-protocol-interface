@@ -1,4 +1,5 @@
-import type { CommonTxFormErrorCode, Token } from 'types';
+import type { Token } from 'types';
+import type { PoolBalanceMutationsErrorCode } from 'utilities';
 
 export interface FormValues {
   fromToken: Token;
@@ -7,7 +8,7 @@ export interface FormValues {
 }
 
 export type FormErrorCode =
-  | CommonTxFormErrorCode
+  | PoolBalanceMutationsErrorCode
   | 'EMPTY_TOKEN_AMOUNT'
   | 'HIGHER_THAN_WALLET_BALANCE'
   | 'HIGHER_THAN_WALLET_SPENDING_LIMIT'

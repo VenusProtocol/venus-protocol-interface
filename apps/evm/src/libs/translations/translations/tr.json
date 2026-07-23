@@ -125,27 +125,30 @@
     "balanceUpdate": {
       "borrowBalance": "Borç bakiyesi",
       "supplyBalance": "Sağlama bakiyesi"
-    },
-    "dailyEarnings": {
-      "label": "Günlük kazanç"
-    },
-    "healthFactor": {
-      "label": "Sağlık faktörü",
-      "tooltip": "Likidasyon < 1.0"
     }
   },
   "accountHealth": {
     "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
     "borrowed": "Borç alınan:",
     "borrowedSpotTooltip": "Bu borçlanma değeri, borçlanılan varlığın spot fiyatına göre hesaplanır ve hesabınızın sağlık durumunu belirlemek için kullanılır.",
+    "healthFactor": {
+      "label": "Sağlık faktörü",
+      "tooltip": "Likidasyon < 1.0"
+    },
     "liquidationThreshold": "Tasfiye Eşiği:",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Tasfiye Eşiği<LineBreak/>Borç bakiyeniz bu değere ulaştığında, pozisyonunuz tasfiye edilmeye uygun hale gelir.<LineBreak/><LineBreak/><Link>Hesaplama</Link> hakkında daha fazla bilgi edinin.",
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Borç bakiyesi (Koruma):<LineBreak/>{{borrowBalanceProtected}} (borç limitinizin {{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>Borç bakiyesi (spot): {{borrowBalance}}<LineBreak/>Borç limiti: {{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "Günlük kazanç"
+  },
   "accountModal": {
     "disconnectButtonLabel": "Bağlantıyı kes"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "Günlük kazanç"
   },
   "adBanner": {
     "startNow": "Şimdi başla"
@@ -880,8 +883,20 @@
     "lastUpdatedAt": "Son güncelleme: {{ date, textual }}"
   },
   "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "Çekirdek havuz",
+      "liquidityHub": "Likidite Merkezi"
+    },
+    "error": {
+      "higherThanAvailableAmount": "Girilen miktar kullanılabilir miktardan yüksek",
+      "higherThanAvailableLiquidity": "Merkez likiditesi yetersiz",
+      "higherThanSupplyCap": "Bu likidite merkezine {{userMaxSupplyAmount}} değerinden fazla sağlayamazsınız; çünkü arz limiti {{supplyCap}} olarak ayarlanmıştır ve şu anda {{supplyBalance}} sağlanmaktadır.",
+      "higherThanWalletSpendingLimit": "Girdiğiniz miktar, bu varlık için harcama limitinizi aşıyor. Bu işleme devam etmek için lütfen mevcut harcama limitinizi iptal edin ve ardından yeni bir limit belirleyin.",
+      "supplyCapReached": "Bu likidite merkezi için arz limiti {{supplyCap}} değerine ulaştı. Çekimler yapılana veya arz limiti artırılana kadar artık sağlayamazsınız."
+    },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "GÜVENLİ MAX",
+    "supplyApy": "Sağlama APY",
     "supplySubmitButtonLabel": "Sağla",
     "supplyTab": {
       "collateralTabTitle": "Teminat",

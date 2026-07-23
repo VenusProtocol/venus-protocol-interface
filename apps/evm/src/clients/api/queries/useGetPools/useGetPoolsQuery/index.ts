@@ -46,7 +46,10 @@ export type UseGetPoolsQueryOptions = Partial<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-export const useGetPoolsQuery = (input?: TrimmedInput, options?: UseGetPoolsQueryOptions) => {
+export const useGetPoolsQuery = (
+  input?: TrimmedInput,
+  options?: Partial<UseGetPoolsQueryOptions>,
+) => {
   const isEModeFeatureEnabled = useIsFeatureEnabled({
     name: 'eMode',
   });

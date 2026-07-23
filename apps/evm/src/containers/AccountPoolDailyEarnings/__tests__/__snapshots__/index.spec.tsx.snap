@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AccountPoolDailyEarnings > renders correctly 1`] = `"Daily earnings$1"`;
+
+exports[`AccountPoolDailyEarnings > renders correctly when passing a simulated pool 1`] = `"Daily earnings$1$1"`;

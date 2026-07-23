@@ -26,7 +26,7 @@ import {
   checkSubmitButtonIsDisabled,
   checkSubmitButtonIsEnabled,
 } from 'containers/MarketForm/__testUtils__/checkFns';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
@@ -108,7 +108,7 @@ describe('RepayWithCollateralForm', () => {
       }),
     );
 
-    (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
+    (useSimulatePoolMutations as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: fakePool,
@@ -352,7 +352,7 @@ describe('RepayWithCollateralForm', () => {
   });
 
   it('disables submit button if position would liquidate user', async () => {
-    (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
+    (useSimulatePoolMutations as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: {
@@ -483,7 +483,7 @@ describe('RepayWithCollateralForm', () => {
   });
 
   it('prompts user to acknowledge risk if position would lower health factor to risky threshold', async () => {
-    (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
+    (useSimulatePoolMutations as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: {

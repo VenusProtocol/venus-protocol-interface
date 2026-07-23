@@ -125,27 +125,30 @@
     "balanceUpdate": {
       "borrowBalance": "借入残高",
       "supplyBalance": "供給残高"
-    },
-    "dailyEarnings": {
-      "label": "日次収益"
-    },
-    "healthFactor": {
-      "label": "健全性ファクター",
-      "tooltip": "清算ライン: < 1.0"
     }
   },
   "accountHealth": {
     "accessibilityLabel": "現在のアカウント状態の表示",
     "borrowed": "借入額:",
     "borrowedSpotTooltip": "この借入額は、借入資産のスポット価格に基づいて計算され、アカウントの健全性を判定するために使用されます。",
+    "healthFactor": {
+      "label": "健全性ファクター",
+      "tooltip": "清算ライン: < 1.0"
+    },
     "liquidationThreshold": "清算閾値：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾値<LineBreak/>借入残高がこの値に達すると、ポジションが清算対象になります。<LineBreak/><LineBreak/><Link>計算方法</Link>の詳細はこちら。",
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}} (借入限度額の{{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入限度額:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借入残高（保護）:<LineBreak/>{{borrowBalanceProtected}} (借入限度額の{{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入残高（スポット）: {{borrowBalance}}<LineBreak/>借入限度額: {{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "日次収益"
+  },
   "accountModal": {
     "disconnectButtonLabel": "切断"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "日次収益"
   },
   "adBanner": {
     "startNow": "今すぐ始める"
@@ -880,8 +883,20 @@
     "lastUpdatedAt": "最終更新: {{ date, textual }}"
   },
   "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "コアプール",
+      "liquidityHub": "流動性ハブ"
+    },
+    "error": {
+      "higherThanAvailableAmount": "入力額が利用可能額を上回っています",
+      "higherThanAvailableLiquidity": "ハブの流動性が不足しています",
+      "higherThanSupplyCap": "この流動性ハブの供給上限は {{supplyCap}} に設定されており、現在 {{supplyBalance}} が供給されているため、{{userMaxSupplyAmount}} を超えて供給することはできません。",
+      "higherThanWalletSpendingLimit": "入力した金額がこの資産の支出上限を超えています。この取引を続行するには、現在の支出上限を取り消してから新しい上限を設定してください。",
+      "supplyCapReached": "この流動性ハブの供給上限 {{supplyCap}} に達しました。引き出しが行われるか、供給上限が引き上げられるまで、これ以上供給することはできません。"
+    },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "安全な MAX",
+    "supplyApy": "供給 APY",
     "supplySubmitButtonLabel": "供給",
     "supplyTab": {
       "collateralTabTitle": "担保",

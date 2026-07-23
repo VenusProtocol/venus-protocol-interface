@@ -29,7 +29,7 @@ import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { useAnalytics } from 'libs/analytics';
 import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
@@ -152,7 +152,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     },
   ];
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+  const { data: getSimulatedPoolData } = useSimulatePoolMutations({
     pool,
     balanceMutations,
   });

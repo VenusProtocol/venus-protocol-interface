@@ -75,3 +75,6 @@ export * from './formatToTradePosition';
 export * from './calculateUserMaxBorrowTokens';
 export * from './calculateCollateralWithdrawLimits';
 export * from './formatToCandle';
+export * from './validateLiquidityHubBalanceMutations';
+export * from './validatePoolBalanceMutations';
+export * from './shouldShowAccountHealth';

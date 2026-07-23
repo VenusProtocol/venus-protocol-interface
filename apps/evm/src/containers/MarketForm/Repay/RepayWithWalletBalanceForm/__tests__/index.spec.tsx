@@ -12,7 +12,7 @@ import { renderComponent } from 'testUtils/render';
 import { useGetPool, useRepay } from 'clients/api';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 
@@ -50,7 +50,7 @@ describe('RepayWithWalletBalanceForm', () => {
       },
     }));
 
-    (useSimulateBalanceMutations as Mock).mockImplementation(({ pool }) => ({
+    (useSimulatePoolMutations as Mock).mockImplementation(({ pool }) => ({
       isLoading: false,
       data: { pool },
     }));

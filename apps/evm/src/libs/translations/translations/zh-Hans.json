@@ -125,27 +125,30 @@
     "balanceUpdate": {
       "borrowBalance": "借款余额",
       "supplyBalance": "存款余额"
-    },
-    "dailyEarnings": {
-      "label": "每日收益"
-    },
-    "healthFactor": {
-      "label": "健康系数",
-      "tooltip": "清算阈值 < 1.0"
     }
   },
   "accountHealth": {
     "accessibilityLabel": "当前账户状态的表示",
     "borrowed": "已借：",
     "borrowedSpotTooltip": "此借款价值基于借入资产的现货价格计算，将用于确定您账户的健康状态。",
+    "healthFactor": {
+      "label": "健康系数",
+      "tooltip": "清算阈值 < 1.0"
+    },
     "liquidationThreshold": "清算阈值：",
     "liquidationThresholdShort": "LT:",
-    "liquidationThresholdTooltip": "LT = 清算阈值<LineBreak/>当您的借款余额达到此值时，您的仓位将有资格被清算。<LineBreak/><LineBreak/>了解更多关于<Link>计算方式。</Link>",
+    "liquidationThresholdTooltip": "LT = 清算阈值<LineBreak/>当您的借款余额达到此值时，您的仓位将有资格被清算。<LineBreak/><LineBreak/>了解更多关于<Link>计算方式</Link>。",
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（借款限额的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借款余额（保护）：<LineBreak/>{{borrowBalanceProtected}}（借款限额的{{protectedBorrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款余额（现货）：{{borrowBalance}}<LineBreak/>借款限额：{{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "每日收益"
+  },
   "accountModal": {
     "disconnectButtonLabel": "断开连接"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "每日收益"
   },
   "adBanner": {
     "startNow": "立即开始"
@@ -880,8 +883,20 @@
     "lastUpdatedAt": "最后更新：{{ date, textual }}"
   },
   "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "核心池",
+      "liquidityHub": "流动性中心"
+    },
+    "error": {
+      "higherThanAvailableAmount": "输入金额高于可用金额",
+      "higherThanAvailableLiquidity": "中心流动性不足",
+      "higherThanSupplyCap": "您不能向此流动性中心供应超过 {{userMaxSupplyAmount}}，因为其供应上限设置为 {{supplyCap}}，目前已有 {{supplyBalance}} 正在供应中。",
+      "higherThanWalletSpendingLimit": "您输入的金额超过了此资产的支出限额。请先撤销当前支出限额，再设置新的限额以继续此交易。",
+      "supplyCapReached": "此流动性中心的供应上限 {{supplyCap}} 已达到。在有提取发生或供应上限提高之前，您将无法继续供应。"
+    },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "安全 MAX",
+    "supplyApy": "供应 APY",
     "supplySubmitButtonLabel": "供应",
     "supplyTab": {
       "collateralTabTitle": "抵押品",

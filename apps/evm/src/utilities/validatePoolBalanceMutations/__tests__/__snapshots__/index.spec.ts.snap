@@ -1,0 +1,90 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'BORROW_CAP_ALREADY_REACHED' 1`] = `
+{
+  "code": "BORROW_CAP_ALREADY_REACHED",
+  "message": "The borrow cap of 1 XVS has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'HIGHER_THAN_AVAILABLE_AMOUNT' 1`] = `
+{
+  "code": "HIGHER_THAN_AVAILABLE_AMOUNT",
+  "message": "Amount entered higher than available amount",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'HIGHER_THAN_BORROW_CAP' 1`] = `
+{
+  "code": "HIGHER_THAN_BORROW_CAP",
+  "message": "You can not borrow more than 9 XVS from this pool, as the borrow cap for this market is set at 10 XVS and 1 XVS are currently being borrowed from it.",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'HIGHER_THAN_LIQUIDITY' 1`] = `
+{
+  "code": "HIGHER_THAN_LIQUIDITY",
+  "message": "Insufficient asset liquidity",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'HIGHER_THAN_LIQUIDITY' 2`] = `
+{
+  "code": "HIGHER_THAN_LIQUIDITY",
+  "message": "Insufficient asset liquidity",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'HIGHER_THAN_REPAY_BALANCE' 1`] = `
+{
+  "code": "HIGHER_THAN_REPAY_BALANCE",
+  "message": "Amount entered higher than repay balance",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'HIGHER_THAN_SUPPLY_CAP' 1`] = `
+{
+  "code": "HIGHER_THAN_SUPPLY_CAP",
+  "message": "You can not supply more than 0.5 XVS to this pool, as the supply cap for this market is set at 10 XVS and 9.5 XVS are currently being supplied to it.",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'NO_SWAP_QUOTE_FOUND' 1`] = `
+{
+  "code": "NO_SWAP_QUOTE_FOUND",
+  "message": "No swap found.",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'REQUIRES_RISK_ACKNOWLEDGEMENT' 1`] = `
+{
+  "code": "REQUIRES_RISK_ACKNOWLEDGEMENT",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDG…' 1`] = `
+{
+  "code": "REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'SUPPLY_CAP_ALREADY_REACHED' 1`] = `
+{
+  "code": "SUPPLY_CAP_ALREADY_REACHED",
+  "message": "The supply cap of 1 XVS has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'SWAP_PRICE_IMPACT_TOO_HIGH' 1`] = `
+{
+  "code": "SWAP_PRICE_IMPACT_TOO_HIGH",
+  "message": "Price impact too high",
+}
+`;
+
+exports[`validatePoolBalanceMutations > returns the right error based on passed arguments: 'TOO_RISKY' 1`] = `
+{
+  "code": "TOO_RISKY",
+  "message": "This transaction would get your account liquidated",
+}
+`;

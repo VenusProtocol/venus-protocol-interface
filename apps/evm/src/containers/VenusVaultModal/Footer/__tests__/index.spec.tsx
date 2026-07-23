@@ -119,8 +119,9 @@ describe('VenusVaultModal/Footer', () => {
     );
 
     const currentlyStakedRow = getByText(en.vaultCard.vaultModal.footer.currentlyStaked)
-      .parentElement?.parentElement;
-    const estimatedDailyEarningsRow = getByText('Est. daily earnings').parentElement?.parentElement;
+      .parentElement?.parentElement?.parentElement?.parentElement;
+    const estimatedDailyEarningsRow =
+      getByText('Est. daily earnings').parentElement?.parentElement?.parentElement?.parentElement;
 
     expect(currentlyStakedRow).toHaveTextContent('233 XVS');
     expect(currentlyStakedRow).toHaveTextContent('243 XVS');
@@ -144,8 +145,9 @@ describe('VenusVaultModal/Footer', () => {
     );
 
     const currentlyStakedRow = getByText(en.vaultCard.vaultModal.footer.currentlyStaked)
-      .parentElement?.parentElement;
-    const estimatedDailyEarningsRow = getByText('Est. daily earnings').parentElement?.parentElement;
+      .parentElement?.parentElement?.parentElement?.parentElement;
+    const estimatedDailyEarningsRow =
+      getByText('Est. daily earnings').parentElement?.parentElement?.parentElement?.parentElement;
 
     expect(currentlyStakedRow).toHaveTextContent('233 XVS');
     expect(currentlyStakedRow).toHaveTextContent('223 XVS');
@@ -163,8 +165,9 @@ describe('VenusVaultModal/Footer', () => {
     });
 
     const currentlyStakedRow = getByText(en.vaultCard.vaultModal.footer.currentlyStaked)
-      .parentElement?.parentElement;
-    const estimatedDailyEarningsRow = getByText('Est. daily earnings').parentElement?.parentElement;
+      .parentElement?.parentElement?.parentElement?.parentElement;
+    const estimatedDailyEarningsRow =
+      getByText('Est. daily earnings').parentElement?.parentElement?.parentElement?.parentElement;
 
     expect(currentlyStakedRow).toHaveTextContent('233 XVS');
     expect(estimatedDailyEarningsRow).toHaveTextContent(

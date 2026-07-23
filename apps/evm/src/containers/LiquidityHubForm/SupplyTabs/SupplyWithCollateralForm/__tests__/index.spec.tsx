@@ -7,10 +7,11 @@ import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPool } from 'clients/api';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
+import type { AssetBalanceMutation, LiquidityHubBalanceMutation } from 'types';
 import { calculateCollateralWithdrawLimits, formatTokensToReadableValue } from 'utilities';
 
 import { SupplyWithCollateralForm, type SupplyWithCollateralFormProps } from '..';
@@ -66,7 +67,7 @@ const getAmountInput = () => {
 
 describe('SupplyWithCollateralForm', () => {
   const mockUseGetPool = useGetPool as Mock;
-  const mockUseSimulateBalanceMutations = useSimulateBalanceMutations as Mock;
+  const mockUseSimulatePoolMutations = useSimulatePoolMutations as Mock;
   const mockUseTokenApproval = useTokenApproval as Mock;
 
   beforeEach(() => {
@@ -76,7 +77,7 @@ describe('SupplyWithCollateralForm', () => {
       },
     }));
 
-    mockUseSimulateBalanceMutations.mockImplementation(
+    mockUseSimulatePoolMutations.mockImplementation(
       ({ pool }: { pool: SupplyWithCollateralFormProps['corePool'] }) => ({
         data: {
           pool,
@@ -168,12 +169,13 @@ describe('SupplyWithCollateralForm', () => {
     const onSubmitSuccess = vi.fn();
 
     renderTransactionForm({
+      corePool: clickableLimitPool,
       onSubmitSuccess,
     });
 
     fireEvent.change(getAmountInput(), {
       target: {
-        value: '7',
+        value: '0.5',
       },
     });
 
@@ -187,16 +189,25 @@ describe('SupplyWithCollateralForm', () => {
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
   });
 
-  it('shows the approval steps when the collateral token is not approved', () => {
+  it('shows the approval steps when the collateral token is not approved', async () => {
     mockUseTokenApproval.mockReturnValue(
       makeUseTokenApprovalOutput({
         isTokenApproved: false,
+        walletSpendingLimitTokens: new BigNumber(0),
       }),
     );
 
-    renderTransactionForm();
+    renderTransactionForm({
+      corePool: clickableLimitPool,
+    });
 
-    expect(screen.getByText(en.approveTokenSteps.step1)).toBeInTheDocument();
+    fireEvent.change(getAmountInput(), {
+      target: {
+        value: '0.5',
+      },
+    });
+
+    await waitFor(() => expect(screen.getByText(en.approveTokenSteps.step1)).toBeInTheDocument());
     expect(
       screen.getByRole('button', {
         name: en.approveTokenSteps.approveTokenButton.text.replace(
@@ -232,5 +243,75 @@ describe('SupplyWithCollateralForm', () => {
         name: readableLimit,
       }),
     ).toBeDisabled();
+  });
+
+  it('shows a validation error when the amount exceeds the converted spending limit', async () => {
+    mockUseTokenApproval.mockReturnValue(
+      makeUseTokenApprovalOutput({
+        walletSpendingLimitTokens: new BigNumber(1),
+      }),
+    );
+
+    renderTransactionForm({
+      corePool: clickableLimitPool,
+    });
+
+    fireEvent.change(getAmountInput(), {
+      target: {
+        value: '1',
+      },
+    });
+
+    await waitFor(() =>
+      expect(
+        screen.getByText(en.liquidityHubForm.error.higherThanWalletSpendingLimit),
+      ).toBeInTheDocument(),
+    );
+    expect(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.supplySubmitButtonLabel,
+      }),
+    ).toBeDisabled();
+  });
+
+  it('simulates the collateral withdraw and Liquidity Hub supply balance mutations', async () => {
+    interface SimulatePoolMutationsInput {
+      balanceMutations: Array<AssetBalanceMutation | LiquidityHubBalanceMutation>;
+    }
+
+    renderTransactionForm({
+      corePool: clickableLimitPool,
+    });
+
+    fireEvent.change(getAmountInput(), {
+      target: {
+        value: '0.5',
+      },
+    });
+
+    await waitFor(() => {
+      const lastCallInput = mockUseSimulatePoolMutations.mock.calls.at(-1)?.[0] as
+        | SimulatePoolMutationsInput
+        | undefined;
+      const assetMutation = lastCallInput?.balanceMutations.find(
+        (balanceMutation): balanceMutation is AssetBalanceMutation =>
+          balanceMutation.type === 'asset',
+      );
+      const liquidityHubMutation = lastCallInput?.balanceMutations.find(
+        (balanceMutation): balanceMutation is LiquidityHubBalanceMutation =>
+          balanceMutation.type === 'liquidityHub',
+      );
+
+      expect(assetMutation).toMatchObject({
+        action: 'withdraw',
+        vTokenAddress: corePoolAsset.vToken.address,
+      });
+      expect(assetMutation?.amountTokens.isEqualTo('0.5')).toBe(true);
+      expect(liquidityHubMutation).toMatchObject({
+        action: 'supply',
+        vhTokenAddress: liquidityHub.vhToken.address,
+      });
+      expect(liquidityHubMutation?.amountTokens.isEqualTo('0.5')).toBe(true);
+    });
   });
 });

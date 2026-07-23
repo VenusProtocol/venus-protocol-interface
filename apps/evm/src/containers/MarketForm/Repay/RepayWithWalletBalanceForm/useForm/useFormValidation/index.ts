@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useTranslation } from 'libs/translations';
 import type { AssetBalanceMutation, Pool, SwapQuote } from 'types';
 import type { TxFormError } from 'types';
+import { validatePoolBalanceMutations } from 'utilities';
 import type { FormErrorCode, FormValues } from '../types';
 
 interface UseFormValidationInput {
@@ -38,7 +38,8 @@ export const useFormValidation = ({
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
-  const commonFormError = useCommonValidation({
+  const commonFormError = validatePoolBalanceMutations({
+    t,
     pool,
     simulatedPool,
     balanceMutations,

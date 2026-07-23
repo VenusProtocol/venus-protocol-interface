@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { handleError } from 'libs/errors';
 import type {
@@ -6,11 +6,14 @@ import type {
   LiquidityHub,
   LiquidityHubBalanceMutation,
   Pool,
-  VhToken,
+  TxFormError,
 } from 'types';
-
-import type { TxFormError } from 'types';
-import { useFormValidation } from './useFormValidation';
+import type {
+  LiquidityHubBalanceMutationsErrorCode,
+  PoolBalanceMutationsErrorCode,
+} from 'utilities';
+import { type UseFormValidationInput, useFormValidation } from './useFormValidation';
+import type { CommonCasesErrorCode } from './useFormValidation/validateCommonCases';
 
 export interface FormValues {
   amountTokens: string;
@@ -18,11 +21,9 @@ export interface FormValues {
 }
 
 export type FormErrorCode =
-  | 'SUPPLY_CAP_ALREADY_REACHED'
-  | 'HIGHER_THAN_AVAILABLE_AMOUNT'
-  | 'REQUIRES_RISK_ACKNOWLEDGEMENT'
-  | 'TOO_RISKY'
-  | 'EMPTY_TOKEN_AMOUNT'
+  | PoolBalanceMutationsErrorCode
+  | LiquidityHubBalanceMutationsErrorCode
+  | CommonCasesErrorCode
   | 'HIGHER_THAN_WALLET_BALANCE'
   | 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
 
@@ -32,18 +33,16 @@ export const initialFormValues: FormValues = {
 };
 
 export interface UseFormInput {
-  vhToken: VhToken;
-  liquidityHubs: LiquidityHub[];
+  liquidityHub: LiquidityHub;
   balanceMutations: Array<AssetBalanceMutation | LiquidityHubBalanceMutation>;
   onSubmit: (formValues: FormValues) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
+  limitTokens: BigNumber;
   pool?: Pool;
   onSubmitSuccess?: () => void;
   simulatedPool?: Pool;
-  isFromTokenApproved?: boolean;
-  fromTokenWalletSpendingLimitTokens?: BigNumber;
-  fromTokenUserWalletBalanceTokens?: BigNumber;
+  validate?: UseFormValidationInput['validate'];
 }
 
 interface UseFormOutput {
@@ -53,29 +52,25 @@ interface UseFormOutput {
 }
 
 export const useForm = ({
-  vhToken,
-  liquidityHubs,
+  liquidityHub,
   pool,
   simulatedPool,
   balanceMutations,
-  fromTokenUserWalletBalanceTokens = new BigNumber(0),
-  fromTokenWalletSpendingLimitTokens,
-  isFromTokenApproved,
   formValues,
   setFormValues,
   onSubmit,
   onSubmitSuccess,
+  limitTokens,
+  validate,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
-    vhToken,
-    liquidityHubs,
+    liquidityHub,
     pool,
     simulatedPool,
     balanceMutations,
     formValues,
-    isFromTokenApproved,
-    fromTokenWalletSpendingLimitTokens,
-    fromTokenUserWalletBalanceTokens,
+    limitTokens,
+    validate,
   });
 
   const handleSubmit = async (e?: React.SyntheticEvent) => {

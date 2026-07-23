@@ -125,27 +125,30 @@
     "balanceUpdate": {
       "borrowBalance": "ยอดยืมคงเหลือ",
       "supplyBalance": "ยอดฝากคงเหลือ"
-    },
-    "dailyEarnings": {
-      "label": "รายได้รายวัน"
-    },
-    "healthFactor": {
-      "label": "ตัวคูณความปลอดภัย",
-      "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
     }
   },
   "accountHealth": {
     "accessibilityLabel": "การแสดงสถานะปัจจุบันของบัญชีของคุณ",
     "borrowed": "ยอดยืม:",
     "borrowedSpotTooltip": "มูลค่าการกู้ยืมนี้คำนวณจากราคา spot ของสินทรัพย์ที่กู้ยืม และจะใช้ในการกำหนดสถานะสุขภาพของบัญชีของคุณ",
+    "healthFactor": {
+      "label": "ตัวคูณความปลอดภัย",
+      "tooltip": "ถูกชำระบัญชีเมื่อ < 1.0"
+    },
     "liquidationThreshold": "เกณฑ์การชำระบัญชี：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = เกณฑ์การชำระบัญชี<LineBreak/>เมื่อยอดยืมของคุณถึงค่านี้ ตำแหน่งของคุณจะมีสิทธิ์ถูกชำระบัญชี<LineBreak/><LineBreak/>เรียนรู้เพิ่มเติมเกี่ยวกับ<Link>การคำนวณ</Link>",
     "tooltip": "ยอดกู้ยืม:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} ของวงเงินกู้ยืม)<LineBreak/><LineBreak/>วงเงินกู้ยืม:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "ยอดกู้ยืม (ป้องกัน):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} ของวงเงินกู้ยืม)<LineBreak/><LineBreak/>ยอดกู้ยืม (สปอต): {{borrowBalance}}<LineBreak/>วงเงินกู้ยืม: {{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "รายได้รายวัน"
+  },
   "accountModal": {
     "disconnectButtonLabel": "ตัดการเชื่อมต่อ"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "รายได้รายวัน"
   },
   "adBanner": {
     "startNow": "เริ่มตอนนี้"
@@ -880,8 +883,20 @@
     "lastUpdatedAt": "อัปเดตล่าสุด: {{ date, textual }}"
   },
   "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "พูลหลัก",
+      "liquidityHub": "ศูนย์สภาพคล่อง"
+    },
+    "error": {
+      "higherThanAvailableAmount": "จำนวนที่ป้อนสูงกว่าจำนวนที่มีอยู่",
+      "higherThanAvailableLiquidity": "สภาพคล่องของศูนย์ไม่เพียงพอ",
+      "higherThanSupplyCap": "คุณไม่สามารถฝากเกิน {{userMaxSupplyAmount}} ไปยังศูนย์สภาพคล่องนี้ได้ เนื่องจากมีการกำหนดเพดานการฝากไว้ที่ {{supplyCap}} และขณะนี้มีการฝากอยู่แล้ว {{supplyBalance}}",
+      "higherThanWalletSpendingLimit": "จำนวนที่คุณป้อนเกินวงเงินการใช้จ่ายสำหรับสินทรัพย์นี้ โปรดยกเลิกวงเงินการใช้จ่ายเดิมแล้วตั้งค่าใหม่เพื่อดำเนินธุรกรรมนี้ต่อ",
+      "supplyCapReached": "เพดานการฝาก {{supplyCap}} ของศูนย์สภาพคล่องนี้ถึงขีดจำกัดแล้ว คุณจะไม่สามารถฝากเพิ่มได้จนกว่าจะมีการถอนออกหรือมีการเพิ่มเพดานการฝาก"
+    },
     "rightMaxButtonLabel": "MAX",
     "rightSafeMaxButtonLabel": "MAX แบบปลอดภัย",
+    "supplyApy": "ซัพพลาย APY",
     "supplySubmitButtonLabel": "ฝาก",
     "supplyTab": {
       "collateralTabTitle": "หลักประกัน",
