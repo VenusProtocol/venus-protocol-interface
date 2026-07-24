@@ -81,8 +81,6 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
     </>
   ) : undefined;
 
-  // Bottom-right cell content (state end date / emission), which varies per vault type and mirrors
-  // what the vault page shows. Right-aligned per design.
   let stateEndTitle: ReactNode;
   let stateEndContent: ReactNode;
 
@@ -126,7 +124,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
     <>
       <Card
         className={cn(
-          'w-full h-full flex flex-col p-3 gap-3 duration-200',
+          'w-full h-full flex flex-col p-6 gap-3 duration-200',
           !isPaused && 'cursor-pointer hover:border-blue',
           className,
         )}
