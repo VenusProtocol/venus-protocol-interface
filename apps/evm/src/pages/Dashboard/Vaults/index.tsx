@@ -30,7 +30,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
           to={routes.vaults.path}
           buttonSize="sm"
         />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3 mt-6">
           {(vaults ?? []).slice(0, 3).map(vault => (
             <Link
               to={routes.vaults.path}

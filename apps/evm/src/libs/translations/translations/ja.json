@@ -2213,6 +2213,7 @@
       "minRequested": "最小リクエスト額",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、供給、引き出しは無効になっています。",
       "primeEligibility": "Prime資格",
+      "remainingDays_other": "({{ count }}日)",
       "targetApr": "目標APR",
       "targetAprTooltip": "このボールト戦略が目指す年率換算の目標報酬で、複利を含む目標年率（APR）として表されます。実際のリターンは変動し、相手方のパフォーマンスに依存します。元本にはリスクがあります。供給した金額を下回る金額しか受け取れない場合があります。",
       "textualWithTime": "{{date, textualWithTime}}",

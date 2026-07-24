@@ -2213,6 +2213,7 @@
       "minRequested": "最小請求量",
       "pausedWarning": "此金庫目前已暫停。利率仍在累積，但領取、供應和提款功能已禁用，直至金庫恢復運作。",
       "primeEligibility": "Prime 資格",
+      "remainingDays_other": "({{ count }} 天)",
       "targetApr": "目標 APR",
       "targetAprTooltip": "此金庫策略旨在實現的年化目標獎勵，以包含複利的目標年化收益率（APR）表示。實際回報具有可變性，並取決於交易對手表現；本金存在風險。您收到的金額可能少於已供應的數量。",
       "textualWithTime": "{{date, textualWithTime}}",
