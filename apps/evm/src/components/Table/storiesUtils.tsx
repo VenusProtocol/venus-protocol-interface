@@ -1,6 +1,3 @@
-import { css } from '@emotion/react';
-import { useTheme } from '@mui/material';
-
 import { bnb, lisUsd, usdc, usdt, xvs } from '__mocks__/models/tokens';
 
 import { formatPercentageToReadableValue } from 'utilities';
@@ -8,40 +5,6 @@ import { formatPercentageToReadableValue } from 'utilities';
 import { Toggle } from '../Toggle';
 import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
 import type { TableColumn } from './types';
-
-export const useTableStyles = () => {
-  const theme = useTheme();
-
-  return {
-    table: css`
-      .table-card-content {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-
-      h4 {
-        display: initial;
-        ${theme.breakpoints.down('lg')} {
-          display: none;
-        }
-        ${theme.breakpoints.down('sm')} {
-          display: initial;
-        }
-      }
-    `,
-    tableCss: css`
-      display: initial;
-      ${theme.breakpoints.down('sm')} {
-        display: none;
-      }
-    `,
-    cardsCss: css`
-      display: none;
-      ${theme.breakpoints.down('sm')} {
-        display: initial;
-      }
-    `,
-  };
-};
 
 export const data = [
   {
@@ -56,7 +19,7 @@ export const data = [
   { token: xvs, apy: 0.15, wallet: 160, collateral: true },
 ];
 
-type Row = (typeof data)[number];
+export type Row = (typeof data)[number];
 
 export const columns: TableColumn<Row>[] = [
   {
