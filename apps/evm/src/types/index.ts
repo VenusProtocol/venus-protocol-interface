@@ -2,7 +2,11 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken, VhToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
-import type { MARKET_TX_TYPES, TRADE_TX_TYPES } from 'constants/marketTxTypes';
+import type {
+  LIQUIDITY_HUB_TX_TYPES,
+  MARKET_TX_TYPES,
+  TRADE_TX_TYPES,
+} from 'constants/marketTxTypes';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -816,7 +820,9 @@ export type TradeTxType = (typeof TRADE_TX_TYPES)[number];
 
 export type MarketTxType = (typeof MARKET_TX_TYPES)[number];
 
-export type TxType = TradeTxType | MarketTxType;
+export type LiquidityHubTxType = (typeof LIQUIDITY_HUB_TX_TYPES)[number];
+
+export type TxType = TradeTxType | MarketTxType | LiquidityHubTxType;
 
 export interface TxAmount {
   token: Token;
@@ -839,12 +845,18 @@ export interface MarketTx extends BaseTx {
   poolName: string;
   vToken: VToken;
 }
+
+export interface LiquidityHubTx extends BaseTx {
+  txType: LiquidityHubTxType;
+  vhToken: VhToken;
+}
+
 export interface TradeTx extends BaseTx {
   txType: TradeTxType;
   cycleId: string;
 }
 
-export type Tx = MarketTx | TradeTx;
+export type Tx = MarketTx | LiquidityHubTx | TradeTx;
 
 export enum ApiOhlcInterval {
   '1m' = '1m',
