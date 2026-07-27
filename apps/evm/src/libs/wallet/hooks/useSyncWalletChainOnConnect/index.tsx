@@ -10,7 +10,7 @@ import { useSwitchChain } from '../useSwitchChain';
 export const useSyncWalletChainOnConnect = () => {
   const { chainId: appChainId } = useChainId();
   const { chainId: walletChainId } = useAccountChainId();
-  const { status } = useAccount();
+  const { isConnected } = useAccount();
   const { connectModalOpen } = useConnectModal();
   const { switchChain } = useSwitchChain();
 
@@ -26,17 +26,10 @@ export const useSyncWalletChainOnConnect = () => {
   }, [connectModalOpen]);
 
   useEffect(() => {
-    if (config.isSafeApp) {
+    if (config.isSafeApp || !isConnected || !userConnectPendingRef.current) {
       return;
     }
 
-    if (status !== 'connected' || walletChainId === undefined) {
-      return;
-    }
-
-    if (!userConnectPendingRef.current) {
-      return;
-    }
     userConnectPendingRef.current = false;
 
     if (walletChainId === appChainIdRef.current) {
@@ -44,5 +37,5 @@ export const useSyncWalletChainOnConnect = () => {
     }
 
     switchChain({ chainId: appChainIdRef.current });
-  }, [status, walletChainId, switchChain]);
+  }, [isConnected, walletChainId, switchChain]);
 };
