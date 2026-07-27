@@ -7,8 +7,16 @@ import { useTranslation } from 'libs/translations';
 import { Card, LabeledInlineContent } from 'components';
 import { Delimiter } from '../../Delimiter';
 import { Select, type SelectOption, type SelectProps } from '../../Select';
-import { useStyles } from '../styles';
 import type { TableCardProps } from '../types';
+
+const cardsContainerBreakpointClassNames = {
+  xs: 'block xs:hidden',
+  sm: 'block sm:hidden',
+  md: 'block md:hidden',
+  lg: 'block lg:hidden',
+  xl: 'block xl:hidden',
+  '2xl': 'block 2xl:hidden',
+};
 
 export function TableCards<R>({
   cardClassName,
@@ -28,7 +36,6 @@ export function TableCards<R>({
   hideCardDelimiter,
 }: TableCardProps<R>) {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   const [titleColumn, ...otherColumns] = columns;
 
@@ -68,21 +75,25 @@ export function TableCards<R>({
   };
 
   return (
-    <div className={cn(!breakpoint && 'hidden', breakpoint && `block ${breakpoint}:hidden`)}>
+    <div
+      className={cn(
+        !breakpoint && 'hidden',
+        breakpoint && cardsContainerBreakpointClassNames[breakpoint],
+      )}
+    >
       {controls && selectOptions.length > 0 && (
         <Select
-          className="max-sm:hidden"
+          className="mb-4 w-56 max-sm:hidden"
           label={t('table.cardsSelect.label')}
           placeLabelToLeft
           options={selectOptions}
           value={selectedOption?.value || selectOptions[0].value}
           onChange={handleOrderChange}
-          css={styles.cardsSelect}
           variant={selectVariant}
         />
       )}
 
-      {isFetching && <Spinner css={styles.loader} />}
+      {isFetching && <Spinner className="mb-5" />}
 
       <div className="space-y-6">
         {data.map((row, rowIndex) => {
@@ -118,7 +129,7 @@ export function TableCards<R>({
               asChild
             >
               {getRowHref ? (
-                <Link css={styles.link} to={getRowHref(row)}>
+                <Link className="text-white hover:no-underline" to={getRowHref(row)} noStyle>
                   {content}
                 </Link>
               ) : (

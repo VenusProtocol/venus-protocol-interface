@@ -7,7 +7,6 @@ import { visuallyHidden } from '@mui/utils';
 
 import { cn } from '@venusprotocol/ui';
 import { Icon } from '../../Icon';
-import { useStyles } from '../styles';
 import type { TableColumn } from '../types';
 
 interface HeadProps<R> {
@@ -29,7 +28,6 @@ function Head<R>({
   controls,
   rowControlColumn,
 }: HeadProps<R>) {
-  const styles = useStyles();
   return (
     <MuiTableHead className={cn('h-14', className)}>
       <MuiTableRow>
@@ -44,7 +42,10 @@ function Head<R>({
               align={column.align}
             >
               <MuiTableSortLabel
-                css={styles.tableSortLabel({ orderable })}
+                className={cn(
+                  orderable ? 'cursor-pointer!' : 'cursor-auto!',
+                  'flex-row! [&_.MuiSvgIcon-root]:ml-2 [&_.MuiSvgIcon-root]:block [&_.MuiSvgIcon-root]:rotate-0 [&_.MuiTableSortLabel-iconDirectionDesc]:rotate-180 [&_span.MuiTableSortLabel-icon]:hidden [&.MuiTableSortLabel-root.Mui-active:hover]:text-grey [&.MuiTableSortLabel-root.Mui-active:hover_.MuiTableSortLabel-iconDirectionAsc]:opacity-50! [&.MuiTableSortLabel-root.Mui-active:hover_.MuiTableSortLabel-iconDirectionDesc]:opacity-50!',
+                )}
                 active={active}
                 direction={active ? orderDirection : 'asc'}
                 onClick={orderable ? () => onRequestOrder(column) : undefined}
@@ -52,23 +53,23 @@ function Head<R>({
                 // @ts-expect-error Override IconComponent with null so it doesn't render
                 IconComponent={null}
               >
-                <span className="whitespace-nowrap">{column.label}</span>
+                <span className="whitespace-nowrap text-grey">{column.label}</span>
 
                 {controls && orderable && (
-                  <div css={styles.tableSortLabelIconsContainer}>
+                  <div className="-mt-0.5">
                     <Icon
                       name="sort"
-                      css={styles.tableSortLabelIcon({
-                        active: active && orderDirection === 'asc',
-                      })}
-                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc size-2"
+                      className={cn(
+                        'MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc size-2 fill-white text-white',
+                        active && orderDirection === 'asc' && 'fill-green text-green',
+                      )}
                     />
                     <Icon
                       name="sort"
-                      css={styles.tableSortLabelIcon({
-                        active: active && orderDirection === 'desc',
-                      })}
-                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionDesc size-2"
+                      className={cn(
+                        'MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionDesc size-2 fill-white text-white',
+                        active && orderDirection === 'desc' && 'fill-green text-green',
+                      )}
                     />
                   </div>
                 )}

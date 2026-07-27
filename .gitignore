@@ -43,6 +43,3 @@ yarn-error.log
 # System Files
 .DS_Store
 Thumbs.db
-
-# AI development artifacts
-.ui-develop

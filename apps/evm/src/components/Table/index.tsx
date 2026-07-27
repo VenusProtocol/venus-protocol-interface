@@ -13,7 +13,6 @@ import { Card } from 'components/Card';
 import { useBreakpointUp } from 'hooks/responsive';
 import Head from './Head';
 import { TableCards } from './TableCards';
-import { useStyles } from './styles';
 import type { Order, TableColumn, TableProps } from './types';
 
 export * from './types';
@@ -47,9 +46,14 @@ export function Table<R>({
   className,
   ...otherProps
 }: TableProps<R>) {
-  const styles = useStyles({ cellHeight });
   const { formatTo } = useFormatTo();
   const totalColumns = columns.length + (renderRowControl ? 1 : 0);
+
+  let tableCellHeight = cellHeight ?? '1px';
+
+  if (typeof cellHeight === 'number') {
+    tableCellHeight = `${cellHeight}px`;
+  }
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used
   const _isBreakpointUp = useBreakpointUp(breakpoint || '2xl');
@@ -92,7 +96,17 @@ export function Table<R>({
       {...otherProps}
     >
       {title && (
-        <div css={styles.getTitle({ breakpoint })} className="text-lg h-8">
+        <div
+          className={cn(
+            'mb-2 h-8 px-4 text-lg',
+            breakpoint === 'xs' && 'max-xs:px-0',
+            breakpoint === 'sm' && 'max-sm:px-0',
+            breakpoint === 'md' && 'max-md:px-0',
+            breakpoint === 'lg' && 'max-lg:px-0',
+            breakpoint === 'xl' && 'max-xl:px-0',
+            breakpoint === '2xl' && 'max-2xl:px-0',
+          )}
+        >
           {title}
         </div>
       )}
@@ -101,8 +115,20 @@ export function Table<R>({
 
       {data.length > 0 || !placeholder ? (
         <>
-          <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
-            <MuiTable css={styles.table({ minWidth: minWidth ?? '0', tableLayout })}>
+          <MuiTableContainer
+            className={cn(
+              breakpoint === 'xs' && 'hidden xs:block',
+              breakpoint === 'sm' && 'hidden sm:block',
+              breakpoint === 'md' && 'hidden md:block',
+              breakpoint === 'lg' && 'hidden lg:block',
+              breakpoint === 'xl' && 'hidden xl:block',
+              breakpoint === '2xl' && 'hidden 2xl:block',
+            )}
+          >
+            <MuiTable
+              className="[&_.MuiTableCell-root]:border-0! [&_.MuiTableCell-root]:font-normal! [&_.MuiTableCell-root]:flex-row [&_.MuiTableCell-root]:text-[14px]! [&_.MuiTableCell-root]:normal-case [&_.MuiTableCell-root:first-of-type]:pl-4! [&_.MuiTableCell-root:last-child]:pr-4!"
+              sx={{ minWidth: minWidth ?? '0', tableLayout }}
+            >
               <Head
                 className={cn(variant === 'primary' && 'border-b border-dark-blue-hover')}
                 controls={controls}
@@ -117,7 +143,7 @@ export function Table<R>({
                 <tbody>
                   <tr>
                     <td colSpan={totalColumns}>
-                      <Spinner css={styles.loader} />
+                      <Spinner className="mb-5" />
                     </td>
                   </tr>
                 </tbody>
@@ -138,13 +164,12 @@ export function Table<R>({
                   return (
                     <Fragment key={rowKey}>
                       <MuiTableRow
-                        css={[
-                          styles.link,
-                          styles.getTableRow({
-                            clickable: !!getRowHref || !!rowOnClick,
-                            rounded: variant === 'secondary',
-                          }),
-                        ]}
+                        className={cn(
+                          'h-18 text-white hover:no-underline [&:hover:not(:has(button:hover))]:bg-background-hover! [&:hover:not(:has(button:hover))]:overflow-hidden',
+                          (!!getRowHref || !!rowOnClick) && 'cursor-pointer',
+                          variant === 'secondary' &&
+                            '[&>td:first-child]:rounded-l-lg [&>td:last-child]:rounded-r-lg',
+                        )}
                         onClick={
                           rowOnClick
                             ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)
@@ -159,7 +184,8 @@ export function Table<R>({
 
                           return (
                             <MuiTableCell
-                              css={styles.cellWrapper}
+                              className="overflow-hidden text-ellipsis px-4! py-0! [&:first-of-type>a]:pl-0 [&:last-of-type>a]:pr-0"
+                              sx={{ height: tableCellHeight }}
                               key={`${rowKey}-${column.key}`}
                               title={cellTitle}
                               align={column.align}
@@ -178,7 +204,7 @@ export function Table<R>({
 
                       {rowFooter !== undefined && rowFooter !== null && (
                         <MuiTableRow>
-                          <MuiTableCell colSpan={totalColumns} sx={{ p: 0 }}>
+                          <MuiTableCell className="p-0!" colSpan={totalColumns}>
                             {rowFooter}
                           </MuiTableCell>
                         </MuiTableRow>
