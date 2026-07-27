@@ -189,18 +189,22 @@ export const Form: React.FC<FormProps> = ({
         renderType={isUserConnected ? 'accordion' : 'block'}
       />
 
-      <Delimiter />
+      {isUserConnected && (
+        <>
+          <Delimiter />
 
-      {pool &&
-        shouldShowAccountHealth({
-          pool,
-          simulatedPool,
-        }) && <AccountPoolHealth pool={pool} simulatedPool={simulatedPool} />}
+          {pool &&
+            shouldShowAccountHealth({
+              pool,
+              simulatedPool,
+            }) && <AccountPoolHealth pool={pool} simulatedPool={simulatedPool} />}
 
-      <AccountLiquidityHubDailyEarnings
-        liquidityHubs={liquidityHubs}
-        simulatedLiquidityHubs={simulatedLiquidityHubs}
-      />
+          <AccountLiquidityHubDailyEarnings
+            liquidityHubs={liquidityHubs}
+            simulatedLiquidityHubs={simulatedLiquidityHubs}
+          />
+        </>
+      )}
 
       <TxFormSubmitButton
         approval={approval}

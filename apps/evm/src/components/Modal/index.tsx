@@ -16,6 +16,7 @@ import { useModalStyles } from './styles';
 
 export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open' | 'onClose'> {
   className?: string;
+  backdropClassName?: string;
   buttonClassName?: string;
   isOpen: boolean;
   handleClose?: () => void;
@@ -27,6 +28,7 @@ export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open' | 'onCl
 
 export const Modal: React.FC<ModalProps> = ({
   className,
+  backdropClassName,
   buttonClassName,
   children,
   componentsProps,
@@ -83,7 +85,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <>
-      {isOpen && <BodyBackdrop onClick={handleClose} />}
+      {isOpen && <BodyBackdrop className={backdropClassName} onClick={handleClose} />}
 
       <MUIModal
         open={isOpen}
@@ -98,6 +100,7 @@ export const Modal: React.FC<ModalProps> = ({
             className: cn('pointer-events-none', componentsProps?.root?.className),
             style: {
               zIndex: 99999,
+              ...componentsProps?.root?.style,
             },
           },
         }}

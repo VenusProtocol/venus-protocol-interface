@@ -1,5 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AccountModal > renders the blur layer into the body backdrop portal and closes when the outside layer is clicked 1`] = `"0x3d759121234cd36F8124C21aFe1c6852d2bEd8480x3d...d848Net worth-Today's change-30D absolute performance-Language (beta)EnglishJoin private Telegram groupDisconnect"`;
+exports[`AccountModal > renders the blur layer into the body backdrop portal and closes when the outside layer is clicked 1`] = `"0x3d...d848Net worth-Today's change-30D absolute performance-Language (beta)EnglishJoin private Telegram groupDisconnect"`;
 
-exports[`AccountModal > renders the connected account details, settings, and action links without the account overview graph 1`] = `"0x3d759121234cd36F8124C21aFe1c6852d2bEd8480x3d...d848Net worth-Today's change-30D absolute performance-Language (beta)EnglishJoin private Telegram groupDisconnect"`;
+exports[`AccountModal > renders the connected account details, settings, and action links without the account overview graph 1`] = `"0x3d...d848Net worth-Today's change-30D absolute performance-Language (beta)EnglishJoin private Telegram groupDisconnect"`;

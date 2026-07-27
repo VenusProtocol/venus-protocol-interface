@@ -368,10 +368,12 @@ export const useColumns = ({
                 <ProgressBar
                   min={0}
                   max={100}
-                  value={asset.userBorrowLimitSharePercentage}
-                  step={1}
-                  ariaLabel={t('marketTable.columnKeys.userBorrowLimitSharePercentage')}
-                  css={styles.percentOfLimitProgressBar}
+                  progressBars={[
+                    {
+                      value: Math.min(Math.max(asset.userBorrowLimitSharePercentage, 0), 100),
+                    },
+                  ]}
+                  className="w-13"
                 />
               </div>
             </HidableUserBalance>

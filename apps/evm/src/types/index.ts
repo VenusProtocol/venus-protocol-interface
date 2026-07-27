@@ -248,12 +248,27 @@ export interface Pool {
   userEModeGroup?: EModeGroup;
 }
 
-export type LiquidityHubSourceType = 'core' | 'venusFlux'; // TODO: add actual values
-
 export interface LiquidityHubSource {
   name: string;
   address: Address;
-  type: LiquidityHubSourceType;
+  allocationTokens: BigNumber;
+  allocationCents: BigNumber;
+  allocationCapCents: BigNumber;
+  liquidityTokens: BigNumber;
+  liquidityCents: BigNumber;
+  supplyApyPercentage: BigNumber;
+  supplyTokenDistributions: TokenDistribution[];
+  collateralTokens: Token[];
+  lockEndDate?: Date;
+}
+
+export type LiquidityHubYieldGroupType = 'venusCore' | 'venusFlux' | 'institutionCapital'; // TODO: add actual values
+
+export interface LiquidityHubYieldGroup {
+  address: Address;
+  type: LiquidityHubYieldGroupType;
+  name: string;
+  bgClassName: string;
   allocationTokens: BigNumber;
   allocationCents: BigNumber;
   allocationCapPercentage: BigNumber;
@@ -261,10 +276,9 @@ export interface LiquidityHubSource {
   allocationCapCents: BigNumber;
   liquidityTokens: BigNumber;
   liquidityCents: BigNumber;
-  supplyApyPercentage: BigNumber;
+  averageSupplyApyPercentage: BigNumber;
   paused: boolean;
-  collateralTokens: Token[];
-  lockEndDate: Date;
+  sources: LiquidityHubSource[];
 }
 
 export interface LiquidityHub {
@@ -283,8 +297,8 @@ export interface LiquidityHub {
   pricePerShare: BigNumber;
   supplierCount: number;
   operatorName: string;
-  sources: LiquidityHubSource[];
   supplyTokenDistributions: TokenDistribution[];
+  yieldGroups: LiquidityHubYieldGroup[];
   // User-specific props
   userWalletBalanceTokens?: BigNumber;
   userWalletBalanceCents?: BigNumber;

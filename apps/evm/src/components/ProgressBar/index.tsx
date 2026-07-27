@@ -1,113 +1,68 @@
-import Box from '@mui/material/Box';
-import MaterialSlider from '@mui/material/Slider';
-import type { SliderTypeMap } from '@mui/material/Slider/Slider';
-import { useCallback } from 'react';
-
-import { PALETTE } from 'App/MuiThemeProvider/muiTheme';
+import { cn } from '@venusprotocol/ui';
 
 import { Tooltip, type TooltipProps } from '../Tooltip';
-import { useStyles } from './styles';
+import { getProgressBarValuePercentage } from './getProgressBarValuePercentage';
+
+export interface ProgressBarData {
+  value: number;
+  className?: string;
+}
 
 export interface ProgressBarMark {
   value: number;
-  color?: string;
+  className?: string;
 }
 
 export interface ProgressBarProps {
-  value: number;
-  secondaryValue?: number;
+  progressBars: ProgressBarData[];
   marks?: ProgressBarMark[];
-  step: number;
-  ariaLabel: string;
   min: number;
   max: number;
   tooltip?: TooltipProps['content'];
   className?: string;
-  progressBarColor?: string;
 }
 
 export const ProgressBar = ({
-  value,
+  progressBars,
   marks,
-  step,
-  ariaLabel,
   min,
   max,
   tooltip,
   className,
-  progressBarColor = PALETTE.interactive.success,
 }: ProgressBarProps) => {
-  const safeValue = value < max ? value : max;
-
-  const sliderMarks = marks?.map(m => ({ value: m.value }));
-  const hasMarks = !!marks && marks.length > 0;
-
-  const styles = useStyles({
-    over: hasMarks ? safeValue > marks[0].value : false,
-    progressBarColor,
-  });
-
-  const renderMark = useCallback(
-    (
-      props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark'] & {
-        className?: string;
-        style?: React.CSSProperties;
-        'data-index'?: number;
-      },
-    ) => {
-      const index = props?.['data-index'] ?? 0;
-      const markColor = marks?.[index]?.color;
-
-      return (
-        <Box
-          component="span"
-          style={{ ...props?.style, ...(markColor ? { color: markColor } : {}) }}
-          className={props?.className}
-          css={styles.mark}
-        >
-          <span css={styles.tooltipHelper}>.</span>
-        </Box>
-      );
-    },
-    [styles.mark, styles.tooltipHelper, marks],
-  );
-
-  const renderTrack = useCallback(
-    (
-      props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track'] & {
-        className?: string;
-        style?: React.CSSProperties;
-      },
-    ) => {
-      const primaryRail = (
-        <Box style={props?.style} css={styles.trackWrapper}>
-          <Box className={props?.className} />
-        </Box>
-      );
-
-      return <>{primaryRail}</>;
-    },
-    [styles],
-  );
-
   const dom = (
-    <MaterialSlider
-      className={className}
-      css={styles.slider}
-      components={{
-        Thumb: undefined,
-        Mark: hasMarks ? renderMark : undefined,
-        Track: renderTrack,
-      }}
-      value={safeValue}
-      marks={sliderMarks}
-      step={step}
-      aria-label={ariaLabel}
-      min={min}
-      max={max}
-      size="medium"
-      disabled
-    />
+    <div className={cn('relative h-2 w-full rounded-full overflow-hidden bg-lightGrey', className)}>
+      {progressBars.map((progressBar, index) => {
+        const valuePercentage = getProgressBarValuePercentage({
+          value: progressBar.value,
+          min,
+          max,
+        });
+
+        return (
+          <div
+            key={index}
+            className={cn('absolute inset-y-0 left-0 rounded-full bg-green', progressBar.className)}
+            style={{ width: `${valuePercentage}%` }}
+          />
+        );
+      })}
+
+      {marks?.map((mark, index) => {
+        const valuePercentage = getProgressBarValuePercentage({ value: mark.value, min, max });
+
+        return (
+          <span
+            key={index}
+            className={cn(
+              'absolute top-1/2 z-30 h-2 w-1 -translate-x-px -translate-y-1/2 rounded-sm bg-red',
+              mark.className,
+            )}
+            style={{ left: `${valuePercentage}%` }}
+          />
+        );
+      })}
+    </div>
   );
 
   if (tooltip) {

@@ -1,5 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { LabeledInlineContent, MarketCard } from 'components';
+import {
+  MarketInfo as MarketInfoCard,
+  type MarketInfoProps as MarketInfoCardProps,
+} from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -12,7 +15,6 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 import TEST_IDS from '../testIds';
-import type { Stat } from '../types';
 
 export interface MarketInfoProps {
   asset: Asset;
@@ -39,7 +41,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
     [asset],
   );
 
-  const stats: Stat[] = useMemo(() => {
+  const stats: MarketInfoCardProps['items'] = useMemo(() => {
     if (!asset) {
       return [];
     }
@@ -87,7 +89,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
         label: t('market.marketInfo.stats.dailyDistribution', {
           tokenSymbol: rewardToken.symbol,
         }),
-        value: formatTokensToReadableValue({
+        children: formatTokensToReadableValue({
           value: dailyDistributedTokens,
           addSymbol: false,
           token: rewardToken,
@@ -99,11 +101,11 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
       ? [
           {
             label: t('market.marketInfo.stats.supplierCountLabel'),
-            value: asset.supplierCount ?? '-',
+            children: asset.supplierCount ?? '-',
           },
           {
             label: t('market.marketInfo.stats.borrowerCountLabel'),
-            value: asset.borrowerCount ?? '-',
+            children: asset.borrowerCount ?? '-',
           },
         ]
       : [];
@@ -112,42 +114,42 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
       ...participantCountRows,
       {
         label: t('market.marketInfo.stats.dailySupplyingInterestsLabel'),
-        value: formatCentsToReadableValue({
+        children: formatCentsToReadableValue({
           value: dailySupplyInterestsCents,
         }),
       },
       {
         label: t('market.marketInfo.stats.dailyBorrowingInterestsLabel'),
-        value: formatCentsToReadableValue({
+        children: formatCentsToReadableValue({
           value: dailyBorrowInterestsCents,
         }),
       },
       ...distributionRows,
       {
         label: t('market.marketInfo.stats.reserveFactorLabel'),
-        value: formatPercentageToReadableValue(asset.reserveFactor && asset.reserveFactor * 100),
+        children: formatPercentageToReadableValue(asset.reserveFactor && asset.reserveFactor * 100),
       },
       {
         label: t('market.marketInfo.stats.isBorrowableLabel'),
-        value: asset.isBorrowable
+        children: asset.isBorrowable
           ? t('market.marketInfo.stats.yes')
           : t('market.marketInfo.stats.no'),
       },
       {
         label: t('market.marketInfo.stats.collateralFactorLabel'),
-        value: formatPercentageToReadableValue(asset.collateralFactor * 100),
+        children: formatPercentageToReadableValue(asset.collateralFactor * 100),
       },
       {
         label: t('market.marketInfo.stats.liquidationThresholdLabel'),
-        value: formatPercentageToReadableValue(asset.liquidationThresholdPercentage),
+        children: formatPercentageToReadableValue(asset.liquidationThresholdPercentage),
       },
       {
         label: t('market.marketInfo.stats.liquidationPenaltyLabel'),
-        value: formatPercentageToReadableValue(asset.liquidationPenaltyPercentage),
+        children: formatPercentageToReadableValue(asset.liquidationPenaltyPercentage),
       },
       {
         label: t('market.marketInfo.stats.exchangeRateLabel'),
-        value: asset.exchangeRateVTokens
+        children: asset.exchangeRateVTokens
           ? t('market.marketInfo.stats.exchangeRateValue', {
               tokenSymbol: asset.vToken.underlyingToken.symbol,
               vTokenSymbol: asset.vToken.symbol,
@@ -165,20 +167,11 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
   ]);
 
   return (
-    <MarketCard title={t('asset.marketInfo.title')} data-testid={TEST_IDS.marketInfo}>
-      <ul className="m-0 p-0">
-        {stats.map(stat => (
-          <li
-            className="list-none py-3 px-0 border-b border-lightGrey last-of-type:border-b-0"
-            key={`market-info-stat-${stat.label}`}
-          >
-            <LabeledInlineContent label={stat.label}>
-              <span className="font-semibold">{stat.value}</span>
-            </LabeledInlineContent>
-          </li>
-        ))}
-      </ul>
-    </MarketCard>
+    <MarketInfoCard
+      title={t('asset.marketInfo.title')}
+      data-testid={TEST_IDS.marketInfo}
+      items={stats}
+    />
   );
 };
 

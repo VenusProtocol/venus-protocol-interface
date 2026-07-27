@@ -3,15 +3,15 @@ import BigNumber from 'bignumber.js';
 import type { LiquidityHub } from 'types';
 
 import {
-  busdCoreSource,
-  busdFluxSource,
-  usdcCoreSource,
-  usdcFluxSource,
-  usdtCoreSource,
-  usdtFluxSource,
-  xvsCoreSource,
-  xvsFluxSource,
-} from './liquidityHubSources';
+  busdCoreYieldGroup,
+  busdFluxYieldGroup,
+  usdcCoreYieldGroup,
+  usdcFluxYieldGroup,
+  usdtCoreYieldGroup,
+  usdtFluxYieldGroup,
+  xvsCoreYieldGroup,
+  xvsFluxYieldGroup,
+} from './liquidityHubYieldGroups';
 import { xvs } from './tokens';
 import { vhBusd, vhUsdc, vhUsdt, vhXvs } from './vhTokens';
 
@@ -32,7 +32,7 @@ export const liquidityHubs: LiquidityHub[] = [
     pricePerShare: new BigNumber(1.06),
     supplierCount: 124,
     operatorName: 'Venus Core',
-    sources: [xvsCoreSource, xvsFluxSource],
+    yieldGroups: [xvsCoreYieldGroup, xvsFluxYieldGroup],
     supplyTokenDistributions: [
       {
         type: 'venus',
@@ -65,7 +65,7 @@ export const liquidityHubs: LiquidityHub[] = [
     pricePerShare: new BigNumber(1.02),
     supplierCount: 289,
     operatorName: 'Stable Strategies',
-    sources: [usdcCoreSource, usdcFluxSource],
+    yieldGroups: [usdcCoreYieldGroup, usdcFluxYieldGroup],
     supplyTokenDistributions: [
       {
         type: 'venus',
@@ -98,7 +98,7 @@ export const liquidityHubs: LiquidityHub[] = [
     pricePerShare: new BigNumber(1.03),
     supplierCount: 198,
     operatorName: 'Yield Relay',
-    sources: [usdtCoreSource, usdtFluxSource],
+    yieldGroups: [usdtCoreYieldGroup, usdtFluxYieldGroup],
     supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(1800),
     userWalletBalanceCents: new BigNumber(180000),
@@ -123,7 +123,7 @@ export const liquidityHubs: LiquidityHub[] = [
     pricePerShare: new BigNumber(1.01),
     supplierCount: 164,
     operatorName: 'Reserve Engine',
-    sources: [busdCoreSource, busdFluxSource],
+    yieldGroups: [busdCoreYieldGroup, busdFluxYieldGroup],
     supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(3200),
     userWalletBalanceCents: new BigNumber(320000),

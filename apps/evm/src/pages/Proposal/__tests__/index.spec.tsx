@@ -36,6 +36,7 @@ import {
   RemoteProposalState,
   VoteSupport,
 } from 'types';
+import { truncateAddress } from 'utilities';
 
 import config from 'config';
 import { REDIRECT_TEST_CONTENT } from 'containers/Redirect/__mocks__';
@@ -351,17 +352,17 @@ describe('ProposalComp page', () => {
     const againstVoteSummary = await waitFor(async () =>
       within(screen.getByTestId(TEST_IDS.voteSummary.against)),
     );
-    againstVoteSummary.getByText(voters.result[0].address);
+    againstVoteSummary.getByText(truncateAddress(voters.result[0].address));
 
     const forVoteSummary = await waitFor(async () =>
       within(screen.getByTestId(TEST_IDS.voteSummary.for)),
     );
-    forVoteSummary.getByText(voters.result[1].address);
+    forVoteSummary.getByText(truncateAddress(voters.result[1].address));
 
     const abstainVoteSummary = await waitFor(async () =>
       within(screen.getByTestId(TEST_IDS.voteSummary.abstain)),
     );
-    abstainVoteSummary.getByText(voters.result[2].address);
+    abstainVoteSummary.getByText(truncateAddress(voters.result[2].address));
   });
 
   it.each([

@@ -105,7 +105,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           votedTotalMantissa={proposal.totalVotesMantissa}
           voters={proposal.forVotes}
           openVoteModal={() => setVoteModalType(1)}
-          progressBarColor={styles.successColor}
+          progressBarClassName="bg-green"
           votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.for}
         />
@@ -116,7 +116,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           votedTotalMantissa={proposal.totalVotesMantissa}
           voters={proposal.againstVotes}
           openVoteModal={() => setVoteModalType(0)}
-          progressBarColor={styles.againstColor}
+          progressBarClassName="bg-red"
           votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.against}
         />
@@ -127,7 +127,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           votedTotalMantissa={proposal.totalVotesMantissa}
           voters={proposal.abstainVotes}
           openVoteModal={() => setVoteModalType(2)}
-          progressBarColor={styles.abstainColor}
+          progressBarClassName="bg-grey"
           votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.abstain}
         />
