@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.10.1
+
+### Patch Changes
+
+- 363627d: upgrade React Router to v8
+
 ## 5.10.0
 
 ### Minor Changes
