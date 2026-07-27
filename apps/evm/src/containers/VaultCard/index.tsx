@@ -62,6 +62,13 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
         })
       : undefined;
 
+  const showRealizedApr =
+    isInstitutionalVault(vault) &&
+    (vault.status === VaultStatus.Claim || vault.status === VaultStatus.Liquidated);
+  const realizedAprReadable = isInstitutionalVault(vault)
+    ? formatPercentageToReadableValue(vault.realizedAprPercentage)
+    : undefined;
+
   const openModal = () => setModalVisible(true);
 
   const shouldDisplayInstitutionalMinRequested =
@@ -104,15 +111,29 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
 
           <div className={cn('flex flex-col gap-y-4')}>
             <LabeledInlineContent
-              tooltip={vault.venue !== VaultVenue.Venus && t('vault.card.targetAprTooltip')}
+              tooltip={
+                showRealizedApr
+                  ? t('vault.card.realizedAprTooltip')
+                  : vault.venue !== VaultVenue.Venus && t('vault.card.targetAprTooltip')
+              }
               label={
-                vault.venue !== VaultVenue.Venus ? t('vault.card.targetApr') : t('vault.card.apr')
+                showRealizedApr
+                  ? t('vault.card.realizedTargetApr')
+                  : vault.venue !== VaultVenue.Venus
+                    ? t('vault.card.targetApr')
+                    : t('vault.card.apr')
               }
               labelClassName="mb-auto"
             >
               <LayeredValues
                 className="text-end"
-                topValue={formatPercentageToReadableValue(vault.stakeAprPercentage)}
+                topValue={
+                  showRealizedApr
+                    ? `${realizedAprReadable} / ${formatPercentageToReadableValue(
+                        vault.stakeAprPercentage,
+                      )}`
+                    : formatPercentageToReadableValue(vault.stakeAprPercentage)
+                }
                 topValueClassName="text-b1s"
               />
             </LabeledInlineContent>

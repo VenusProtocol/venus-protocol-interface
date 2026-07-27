@@ -193,7 +193,7 @@ describe('InstitutionalVaultModal Footer', () => {
       },
     );
 
-    const totalTargetRewardsRow = getRow(getByText, en.vault.modals.totalTargetRewards);
+    const totalTargetRewardsRow = getRow(getByText, en.vault.modals.totalRealizedRewards);
 
     expect(totalTargetRewardsRow).toHaveTextContent(
       formatTokensToReadableValue({

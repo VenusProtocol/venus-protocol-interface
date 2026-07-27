@@ -155,6 +155,7 @@ export const formatToInstitutionalVault = ({
     ...(userYieldTokens !== undefined ? { userYieldTokens } : {}),
     userWithdrawLimitMantissa,
     reserveFactor,
+    realizedAprPercentage: loanVaultDetail.realizedAprPercentage,
     collateralToken,
     lockingPeriodMs:
       'lockDurationSeconds' in vaultData.protocolData

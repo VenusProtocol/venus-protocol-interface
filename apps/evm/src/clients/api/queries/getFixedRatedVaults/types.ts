@@ -86,6 +86,7 @@ export type LoanVaultDetail = {
   openStartTime: string;
   openEndTime: string;
   outstandingDebtMantissa: string;
+  realizedAprPercentage?: number;
   reserveFactorMantissa: string;
   settlementDeadline: string;
   shortfallMantissa: string;

@@ -636,6 +636,7 @@ export type PendleVault = BaseVault & {
 export type InstitutionalVault = BaseVault & {
   vaultAddress: Address;
   reserveFactor: number;
+  realizedAprPercentage?: number;
   stakeLimitMantissa: BigNumber;
   stakeMinMantissa: BigNumber;
   userRedeemLimitMantissa: BigNumber;
