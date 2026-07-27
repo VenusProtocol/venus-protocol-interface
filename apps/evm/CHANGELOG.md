@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 5.10.0
+
+### Minor Changes
+
+- e4c2a84: lazy load translation files
+- 62c483b: add support for Liquidity Hub transactions
+- cd20183: add hub info to Liquidity Hub page
+
+### Patch Changes
+
+- 6e7ea53: start refactoring Emotion CSS components
+
 ## 5.9.0
 
 ### Minor Changes
