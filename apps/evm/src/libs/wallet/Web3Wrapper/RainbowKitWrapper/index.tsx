@@ -1,11 +1,18 @@
-import { type Locale, RainbowKitProvider, type Theme, darkTheme } from '@rainbow-me/rainbowkit';
+import {
+  type Locale,
+  RainbowKitProvider,
+  type Theme,
+  darkTheme,
+  useConnectModal,
+} from '@rainbow-me/rainbowkit';
 import { theme } from '@venusprotocol/ui';
+import { reconnect as wagmiReconnect } from '@wagmi/core';
 import { merge } from 'lodash-es';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren, useEffect, useRef } from 'react';
+import { useAccount, useConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import { useTranslation } from 'libs/translations';
-import { useSyncWalletChainOnConnect } from 'libs/wallet/hooks/useSyncWalletChainOnConnect';
 
 export interface RainwbowKitWrapperProps extends PropsWithChildren {}
 
@@ -28,8 +35,25 @@ const rkTheme = merge(
   } as Theme,
 );
 
-const WalletChainSync: React.FC = () => {
-  useSyncWalletChainOnConnect();
+const ConnectionRecovery: React.FC = () => {
+  const config = useConfig();
+  const { connectModalOpen } = useConnectModal();
+  const { status } = useAccount();
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => {
+    if (!connectModalOpen || status !== 'connecting') {
+      clearTimeout(timerRef.current);
+      return;
+    }
+
+    timerRef.current = setTimeout(async () => {
+      await wagmiReconnect(config);
+    }, 5000);
+
+    return () => clearTimeout(timerRef.current);
+  }, [connectModalOpen, status, config]);
+
   return null;
 };
 
@@ -44,7 +68,7 @@ export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children
       }}
       theme={rkTheme}
     >
-      <WalletChainSync />
+      <ConnectionRecovery />
       {children}
     </RainbowKitProvider>
   );
