@@ -7,6 +7,10 @@ updates:
     schedule:
       interval: 'daily'
     ignore:
+      # Ignore non-slim @venusprotocol package upgrades
+      - dependency-name: "@venusprotocol/*"
+        versions: [">=0.0.0"]
+
       # Ignore all major updates
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
