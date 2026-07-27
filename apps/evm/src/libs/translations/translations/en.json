@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "Circular gradient",
+    "hubs": {
+      "placeholder": {
+        "title": "No liquidity hub positions yet"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borrowed",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "No supply or borrow positions yet"
+        "title": "No market positions yet"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "Summary"
     },
     "tabs": {
+      "hub": "Hub",
       "markets": "Markets",
       "settings": "Settings",
       "transactions": "Transactions",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "No supply positions yet"
+        "title": "No vault positions yet"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "Uncompleted"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "Daily earnings",
+      "dailyEarningsTooltip": "Your estimated daily earnings across all active liquidity hub positions, based on each hub's current APY. Actual earnings may vary.",
+      "totalSuppliedValue": "Total supplied value"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30D absolute performance",
       "absolutePerformance": "Absolute performance",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "Currently supplied",
+      "totalSupplied": "Total supplied"
     },
     "topMarkets": {
       "borrowButton": {
@@ -2266,7 +2283,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
       "collateral": "Collateral",
-      "currentDeposited": "Currently supplied",
       "dailyEmission": "Daily emission",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} Fixed-Term",
