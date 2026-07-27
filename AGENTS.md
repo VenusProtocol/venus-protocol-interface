@@ -38,3 +38,16 @@ Keep changes small, focused, and aligned with existing code patterns.
 - Keep data fetching/mutations in `apps/evm/src/clients/api` hooks.
 - Preserve existing behavior while applying visual fixes.
 - Do not change formula/data-flow logic unless explicitly required by plan.
+
+## External knowledge sources
+
+When relevant, use connected read-only project knowledge sources if the user has configured them:
+
+- GitHub: look up related issues, pull requests, discussions, and upstream repository files.
+- Notion: look up product specs, architecture notes, operational docs, and project documentation.
+- Jira: look up feature tickets, requirements, acceptance criteria, and implementation context.
+
+Use these sources when working on features, answering project questions, investigating how contracts
+or protocol flows work, or clarifying historical decisions. Prefer local repository code as the
+source of truth for implementation details. If an integration is unavailable, continue with the
+available local context and mention the limitation only when it matters.
