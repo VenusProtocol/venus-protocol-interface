@@ -85,7 +85,7 @@
       },
       "selects": {
         "source": {
-          "all": "すべてのマーケット"
+          "all": "すべてのソース"
         },
         "txType": {
           "all": "すべての取引"
@@ -125,27 +125,29 @@
     "balanceUpdate": {
       "borrowBalance": "借入残高",
       "supplyBalance": "供給残高"
-    },
-    "dailyEarnings": {
-      "label": "日次収益"
-    },
-    "healthFactor": {
-      "label": "健全性ファクター",
-      "tooltip": "清算ライン: < 1.0"
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "現在のアカウント状態の表示",
     "borrowed": "借入額:",
     "borrowedSpotTooltip": "この借入額は、借入資産のスポット価格に基づいて計算され、アカウントの健全性を判定するために使用されます。",
+    "healthFactor": {
+      "label": "健全性ファクター",
+      "tooltip": "清算ライン: < 1.0"
+    },
     "liquidationThreshold": "清算閾値：",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = 清算閾値<LineBreak/>借入残高がこの値に達すると、ポジションが清算対象になります。<LineBreak/><LineBreak/><Link>計算方法</Link>の詳細はこちら。",
     "tooltip": "借入残高:<LineBreak/>{{borrowBalance}} (借入限度額の{{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入限度額:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借入残高（保護）:<LineBreak/>{{borrowBalanceProtected}} (借入限度額の{{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>借入残高（スポット）: {{borrowBalance}}<LineBreak/>借入限度額: {{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "日次収益"
+  },
   "accountModal": {
     "disconnectButtonLabel": "切断"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "日次収益"
   },
   "adBanner": {
     "startNow": "今すぐ始める"
@@ -267,7 +269,8 @@
       "supplyApy": "供給APY",
       "totalBorrow": "総借入",
       "totalStaked": "総供給量",
-      "totalSupply": "総供給"
+      "totalSupply": "総供給",
+      "unitPrice": "単価"
     }
   },
   "asset": {
@@ -315,6 +318,7 @@
     "governance": "ガバナンス",
     "isolatedPools": "隔離プール",
     "leaderboard": "リーダーボード",
+    "liquidityHubs": "流動性ハブ",
     "markets": "マーケット",
     "primeCalculator": "Prime計算機",
     "proposal": "提案 #{{proposalId}}",
@@ -771,6 +775,7 @@
       "label": "チェーンを選択"
     },
     "header": {
+      "exposures": "エクスポージャー",
       "liquidity": "流動性",
       "maxLtv": {
         "label": "最大LTV",
@@ -779,6 +784,7 @@
       },
       "price": "価格",
       "resilientOracle": "レジリエントオラクル",
+      "suppliers": "供給者",
       "supply": "供給",
       "utilizationRate": "利用率"
     },
@@ -880,6 +886,99 @@
     "lastUpdatedAt": "最終更新: {{ date, textual }}"
   },
   "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "配分"
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "絶対上限",
+          "tooltip": "利回りグループの絶対上限",
+          "unlimited": "無制限"
+        },
+        "capPercentageColumn": {
+          "title": "上限"
+        },
+        "liquidityColumn": {
+          "title": "流動性"
+        },
+        "sourceColumn": {
+          "title": "ソース"
+        }
+      },
+      "title": "配分の詳細",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "配分"
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "担保"
+        },
+        "liquidityColumn": {
+          "title": "流動性"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "ロック終了日"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "マーケット",
+            "vault": "ボールト"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "日次供給利息",
+        "exchangeRate": {
+          "title": "交換レート",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "ハブコントラクト",
+        "operator": "オペレーター",
+        "performanceFee": "パフォーマンス手数料",
+        "redeemFee": "償還手数料",
+        "riskDisclosures": {
+          "title": "リスク開示",
+          "value": "<Span>Venus流動性ハブに供給、引き出し、またはその他の形で関与することにより、以下を認識し同意したものとみなされます:</Span><Ul><Li>あなたは自律的に動作するスマートコントラクトとやり取りしています。Venusおよびその関連会社は、流動性ハブまたは関連ソフトウェア、スマートコントラクト、ブロックチェーンネットワーク、第三者連携の性能、安全性、可用性を保証しません。</Li><Li>流動性ハブに資産を供給しても、借入能力は付与されず、預金、貸付、投資商品を構成するものでもありません。常に引き出せるとは限らず、仮にリターンがあっても保証されません。</Li><Li>流動性ハブの利用に伴うすべてのリスクはあなたが負うものとし、それがあなたの財務状況、リスク許容度、技術的能力に照らして適切かどうかを判断する責任はあなたにあります。関連するソースコードやオンチェーン設定の確認を含め、独自に評価を行う責任があります。</Li><Li>Venusは技術提供者にすぎず、投資、助言、受託者、またはカストディサービスを提供せず、あなたの資産を管理または保有しません。</Li></Ul><Span>流動性ハブとのやり取りには<Link>利用規約</Link>が適用されます。</Span>"
+        },
+        "vhTokenContract": "{{ vhTokenSymbol }} コントラクト"
+      },
+      "title": "ハブ情報"
+    }
+  },
+  "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "コアプール",
+      "liquidityHub": "流動性ハブ"
+    },
+    "error": {
+      "higherThanAvailableAmount": "入力額が利用可能額を上回っています",
+      "higherThanAvailableLiquidity": "ハブの流動性が不足しています",
+      "higherThanSupplyCap": "この流動性ハブの供給上限は {{supplyCap}} に設定されており、現在 {{supplyBalance}} が供給されているため、{{userMaxSupplyAmount}} を超えて供給することはできません。",
+      "higherThanWalletSpendingLimit": "入力した金額がこの資産の支出上限を超えています。この取引を続行するには、現在の支出上限を取り消してから新しい上限を設定してください。",
+      "supplyCapReached": "この流動性ハブの供給上限 {{supplyCap}} に達しました。引き出しが行われるか、供給上限が引き上げられるまで、これ以上供給することはできません。"
+    },
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "安全な MAX",
+    "supplySubmitButtonLabel": "供給",
+    "supplyTab": {
+      "collateralTabTitle": "担保",
+      "walletTabTitle": "ウォレット"
+    },
+    "supplyTabTitle": "供給",
+    "withdrawSubmitButtonLabel": "引き出し",
+    "withdrawTabTitle": "引き出し"
+  },
+  "liquidityHubs": {
     "description": "ガバナンスが策定した方針のもとで、Venus Protocol の複数の利回りソースへルーティングされます。利回りは自動で積み上がります。",
     "header": "流動性ハブ",
     "stats": {
@@ -912,7 +1011,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "総借入",
-      "tooltip": "借入可能な最大額は{{amountDollars}}（{{amountTokens}}）<br />借入上限: {{capTokens}}"
+      "tooltip": "借入可能な最大額は{{amountDollars}}（{{amountTokens}}）<LineBreak />借入上限: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "借入情報"
@@ -969,6 +1068,7 @@
       "sixMonths": "6か月",
       "thirtyDays": "30日"
     },
+    "positionUnitPrice": "ポジション単価 ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "現在のAPY",
       "averageApy": "平均APY",
@@ -1369,7 +1469,6 @@
       "marketActions": "マーケット操作を開く",
       "notEligibleMessage": "今サイクルでは Prime 報酬を分け合う対象ではありません。XVS をステークして次のサイクルで Prime を目指しましょう。",
       "primeLogoAlt": "Venus Prime ロゴ",
-      "rewardShareAriaLabel": "報酬総額に占める割合",
       "title": "今サイクルのあなたの Prime 報酬"
     }
   },
@@ -1385,7 +1484,6 @@
       "tooltip": "{{primeTokenLimit}}枚のPrimeトークンは現在すべて請求済みです。保有者が条件を満たさなくなるか、追加が行われると利用可能になる場合があります。"
     },
     "progressBar": {
-      "ariaLabel": "現在のPrime進捗",
       "label": "供給済み: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "収益を最大<GreenText>{{percentage}}</GreenText>までブースト",
@@ -2182,6 +2280,7 @@
       "minRequested": "最小リクエスト額",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、供給、引き出しは無効になっています。",
       "primeEligibility": "Prime資格",
+      "remainingDays_other": "({{ count }}日)",
       "targetApr": "目標APR",
       "targetAprTooltip": "このボールト戦略が目指す年率換算の目標報酬で、複利を含む目標年率（APR）として表されます。実際のリターンは変動し、相手方のパフォーマンスに依存します。元本にはリスクがあります。供給した金額を下回る金額しか受け取れない場合があります。",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2445,7 +2544,6 @@
     "searchInput": {
       "placeholder": "提案を検索"
     },
-    "summaryProgressBar": "投票サマリー進捗バー - {{voteType}}",
     "totalLocked": "総ロック",
     "toVoteYouShould": "投票するには:",
     "voteAbstain": "棄権に投票",
@@ -2520,11 +2618,6 @@
       "executedPayloads": "実行済みペイロード",
       "readyForExecution": "実行準備完了",
       "readyForQueuing": "キュー準備完了"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "棄権票",
-      "ariaLabelAgainst": "反対票",
-      "ariaLabelFor": "賛成票"
     },
     "timeUntilExecutable": "実行可能: <Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "投票開始: <Date>{{ date, textualWithTime }}</Date>",

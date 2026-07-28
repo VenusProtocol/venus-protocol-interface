@@ -9,6 +9,7 @@ import {
   type TokenTextFieldProps,
 } from 'components';
 import type { Approval } from 'containers/TxFormSubmitButton';
+import { WalletBalance } from 'containers/WalletBalance';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSimulateTradeMutations } from 'hooks/useSimulateTradePositionMutations';
 import { handleError } from 'libs/errors';
@@ -21,7 +22,6 @@ import { areTokensEqual, formatTokensToReadableValue } from 'utilities';
 import { calculateMaxLeverageFactor } from '../../calculateMaxLeverageFactor';
 import { Footer } from './Footer';
 import { SelectDsaTokenTextField } from './SelectDsaTokenTextField';
-import { WalletBalance } from './WalletBalance';
 import {
   type WeightedAveragePriceImpactItem,
   calculateWeightedAverageSwapPriceImpact,
@@ -388,6 +388,7 @@ export const Form: React.FC<FormProps> = ({
 
           <WalletBalance
             token={formValues.dsaToken}
+            spenderAddress={relativePositionManagerContractAddress}
             onBalanceClick={walletBalanceTokens =>
               setFormValues(currFormValues => ({
                 ...currFormValues,
@@ -407,6 +408,7 @@ export const Form: React.FC<FormProps> = ({
           {action === 'supplyDsa' ? (
             <WalletBalance
               token={formValues.dsaToken}
+              spenderAddress={relativePositionManagerContractAddress}
               onBalanceClick={walletBalanceTokens =>
                 setFormValues(currFormValues => ({
                   ...currFormValues,

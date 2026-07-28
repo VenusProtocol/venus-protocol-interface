@@ -1,32 +1,32 @@
 import { screen } from '@testing-library/react';
 import { useGetAsset } from 'clients/api';
-import { NULL_ADDRESS } from 'constants/address';
+import { routes } from 'constants/routing';
+import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
 import { Header } from '..';
-import { useIsOnMarketPage } from '../useIsOnMarketPage';
-import { useIsOnMarketsPage } from '../useIsOnMarketsPage';
 import { usePathNodes } from '../usePathNodes';
 
+vi.mock('hooks/useGetCurrentRoutePath');
 vi.mock('hooks/useImageAccentColor');
-vi.mock('../useIsOnMarketPage');
-vi.mock('../useIsOnMarketsPage');
 vi.mock('../usePathNodes');
 vi.mock('../Breadcrumbs', () => ({
   Breadcrumbs: ({ pathNodes }: { pathNodes: Array<{ href: string }> }) => (
     <div data-testid="breadcrumbs">{pathNodes.map(pathNode => pathNode.href).join(',')}</div>
   ),
 }));
-vi.mock('../MarketInfo', () => ({
-  MarketInfo: () => <div data-testid="market-info" />,
+vi.mock('../AssetInfo', () => ({
+  AssetInfo: () => <div data-testid="asset-info" />,
+}));
+vi.mock('../LiquidityHubInfo', () => ({
+  LiquidityHubInfo: () => <div data-testid="liquidity-hub-info" />,
 }));
 
 describe('Header', () => {
   beforeEach(() => {
-    (useIsOnMarketPage as Mock).mockReturnValue(false);
-    (useIsOnMarketsPage as Mock).mockReturnValue(false);
+    (useGetCurrentRoutePath as Mock).mockReturnValue(routes.dashboard.path);
     (usePathNodes as Mock).mockReturnValue([{ dom: 'Dashboard', href: '/dashboard' }]);
     (useGetAsset as Mock).mockReturnValue({ data: undefined });
     (useImageAccentColor as Mock).mockReturnValue({ color: undefined });
@@ -53,7 +53,7 @@ describe('Header', () => {
     const vTokenAddress = '0x1111111111111111111111111111111111111111';
     const gradientAccentColor = 'rgb(12, 34, 56)';
 
-    (useIsOnMarketPage as Mock).mockReturnValue(true);
+    (useGetCurrentRoutePath as Mock).mockReturnValue(routes.market.path);
     (useGetAsset as Mock).mockReturnValue({
       data: {
         asset: {
@@ -83,14 +83,23 @@ describe('Header', () => {
     expect(screen.getByRole('banner')).toHaveStyle({
       backgroundColor: gradientAccentColor,
     });
-    expect(screen.getByTestId('market-info')).toBeVisible();
+    expect(screen.getByTestId('asset-info')).toBeVisible();
   });
 
-  it('falls back to the null address when the route has no vTokenAddress param', () => {
-    renderComponent(<Header />);
+  it('renders liquidity hub info on liquidity hub pages', () => {
+    const vhTokenAddress = '0x2222222222222222222222222222222222222222';
 
-    expect(useGetAsset).toHaveBeenCalledWith({
-      vTokenAddress: NULL_ADDRESS,
+    (useGetCurrentRoutePath as Mock).mockReturnValue(routes.liquidityHub.path);
+    (usePathNodes as Mock).mockReturnValue([
+      { dom: 'Liquidity Hubs', href: '/liquidity-hubs' },
+      { dom: 'Liquidity Hub', href: `/liquidity-hubs/${vhTokenAddress}` },
+    ]);
+
+    renderComponent(<Header />, {
+      routePath: '/liquidity-hubs/:vhTokenAddress',
+      routerInitialEntries: [`/liquidity-hubs/${vhTokenAddress}`],
     });
+
+    expect(screen.getByTestId('liquidity-hub-info')).toBeVisible();
   });
 });

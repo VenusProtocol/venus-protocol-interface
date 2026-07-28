@@ -6,7 +6,7 @@ import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { type BalanceMutation, ChainId } from 'types';
 
 import { useBorrow } from 'clients/api';
@@ -86,7 +86,7 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       },
     ];
 
-    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+    expect(useSimulatePoolMutations).toHaveBeenCalledWith({
       pool: fakePool,
       balanceMutations: expectedBalanceMutations,
     });

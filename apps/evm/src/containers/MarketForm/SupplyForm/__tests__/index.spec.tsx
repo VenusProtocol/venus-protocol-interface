@@ -17,9 +17,9 @@ import type { Asset, AssetBalanceMutation } from 'types';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import { replaceAssetsInPool } from 'containers/MarketForm/__testUtils__/replaceAssetsInPool';
-import { useCommonValidation } from 'hooks/useCommonValidation';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import type { TxFormError } from 'types';
+import { validatePoolBalanceMutations } from 'utilities';
 import SupplyForm from '..';
 import {
   checkSubmitButtonIsDisabled,
@@ -30,7 +30,14 @@ import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useCollateral');
 vi.mock('hooks/useTokenApproval');
-vi.mock('hooks/useCommonValidation');
+vi.mock('utilities', async () => {
+  const actual = await vi.importActual('utilities');
+
+  return {
+    ...actual,
+    validatePoolBalanceMutations: vi.fn(),
+  };
+});
 
 const mockSupply = vi.fn();
 
@@ -125,7 +132,7 @@ describe('SupplyForm', () => {
       message: en.marketForm.error.supplyCapReached.replace('{{assetSupplyCap}}', '100 XVS'),
     };
 
-    (useCommonValidation as Mock).mockReturnValue(fakeError);
+    (validatePoolBalanceMutations as Mock).mockReturnValue(fakeError);
 
     const { getByText, getByTestId } = renderComponent(
       <SupplyForm pool={fakePool} asset={fakeAsset} />,
@@ -443,7 +450,7 @@ describe('SupplyForm', () => {
       },
     ];
 
-    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+    expect(useSimulatePoolMutations).toHaveBeenCalledWith({
       pool: fakePool,
       balanceMutations: expectedBalanceMutations,
     });
@@ -511,7 +518,7 @@ describe('SupplyForm', () => {
       },
     ];
 
-    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+    expect(useSimulatePoolMutations).toHaveBeenCalledWith({
       pool: fakePool,
       balanceMutations: expectedBalanceMutations,
     });

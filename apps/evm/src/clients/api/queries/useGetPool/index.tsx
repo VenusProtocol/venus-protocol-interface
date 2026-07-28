@@ -4,6 +4,7 @@ import { useGetPools } from 'clients/api/queries/useGetPools';
 import type { Pool } from 'types';
 import { areAddressesEqual } from 'utilities';
 import type { Address } from 'viem';
+import type { UseGetPoolsQueryOptions } from '../useGetPools/useGetPoolsQuery';
 
 export interface UseGetPoolInput {
   poolComptrollerAddress: Address;
@@ -17,13 +18,16 @@ export interface UseGetPoolOutput {
   };
 }
 
-export const useGetPool = ({
-  poolComptrollerAddress,
-  accountAddress,
-}: UseGetPoolInput): UseGetPoolOutput => {
-  const { data: getPoolsData, isLoading } = useGetPools({
-    accountAddress,
-  });
+export const useGetPool = (
+  { poolComptrollerAddress, accountAddress }: UseGetPoolInput,
+  options?: UseGetPoolsQueryOptions,
+): UseGetPoolOutput => {
+  const { data: getPoolsData, isLoading } = useGetPools(
+    {
+      accountAddress,
+    },
+    options,
+  );
 
   const pool = useMemo(
     () =>

@@ -53,7 +53,7 @@ const swapQuote: GetPendleSwapQuoteOutput = {
 };
 
 const getRow = (getByText: (text: string) => HTMLElement, label: string) =>
-  getByText(label).parentElement?.parentElement;
+  getByText(label).parentElement?.parentElement?.parentElement?.parentElement;
 
 describe('Footer', () => {
   it('renders only the APR and maturity rows when the wallet is disconnected', () => {

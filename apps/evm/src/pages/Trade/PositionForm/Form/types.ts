@@ -1,12 +1,12 @@
 import type {
   BalanceMutation,
-  CommonTxFormErrorCode,
   SwapQuote,
   SwapQuoteError,
   Token,
   TradePosition,
   TxFormError,
 } from 'types';
+import type { PoolBalanceMutationsErrorCode } from 'utilities';
 
 export interface FormValues {
   leverageFactor: number;
@@ -19,7 +19,7 @@ export interface FormValues {
 }
 
 export type FormErrorCode =
-  | CommonTxFormErrorCode
+  | PoolBalanceMutationsErrorCode
   | 'EMPTY_DSA_TOKEN_AMOUNT'
   | 'EMPTY_SHORT_TOKEN_AMOUNT'
   | 'HIGHER_THAN_WALLET_BALANCE'

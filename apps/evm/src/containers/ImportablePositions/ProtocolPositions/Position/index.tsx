@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import { useImportSupplyPosition } from 'clients/api';
-import { Apy, Button, Delimiter, Icon, TokenIcon } from 'components';
+import { AssetApy, Button, Delimiter, Icon, TokenIcon } from 'components';
 import { routes } from 'constants/routing';
 import { SwitchChain } from 'containers/SwitchChain';
 import {
@@ -141,7 +141,7 @@ export const Position: React.FC<PropositionProps> = ({
           </div>
 
           <ApyCell label={t('importPositionsModal.position.newApy.label')}>
-            <Apy asset={asset} type="supply" />
+            <AssetApy asset={asset} type="supply" />
           </ApyCell>
         </div>
 

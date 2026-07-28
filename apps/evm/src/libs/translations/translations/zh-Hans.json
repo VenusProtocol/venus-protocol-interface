@@ -85,7 +85,7 @@
       },
       "selects": {
         "source": {
-          "all": "所有市场"
+          "all": "所有来源"
         },
         "txType": {
           "all": "所有交易"
@@ -125,27 +125,29 @@
     "balanceUpdate": {
       "borrowBalance": "借款余额",
       "supplyBalance": "存款余额"
-    },
-    "dailyEarnings": {
-      "label": "每日收益"
-    },
-    "healthFactor": {
-      "label": "健康系数",
-      "tooltip": "清算阈值 < 1.0"
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "当前账户状态的表示",
     "borrowed": "已借：",
     "borrowedSpotTooltip": "此借款价值基于借入资产的现货价格计算，将用于确定您账户的健康状态。",
+    "healthFactor": {
+      "label": "健康系数",
+      "tooltip": "清算阈值 < 1.0"
+    },
     "liquidationThreshold": "清算阈值：",
     "liquidationThresholdShort": "LT:",
-    "liquidationThresholdTooltip": "LT = 清算阈值<LineBreak/>当您的借款余额达到此值时，您的仓位将有资格被清算。<LineBreak/><LineBreak/>了解更多关于<Link>计算方式。</Link>",
+    "liquidationThresholdTooltip": "LT = 清算阈值<LineBreak/>当您的借款余额达到此值时，您的仓位将有资格被清算。<LineBreak/><LineBreak/>了解更多关于<Link>计算方式</Link>。",
     "tooltip": "借款余额：<LineBreak/>{{borrowBalance}}（借款限额的{{borrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款限额：<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "借款余额（保护）：<LineBreak/>{{borrowBalanceProtected}}（借款限额的{{protectedBorrowLimitUsedPercentage}}）<LineBreak/><LineBreak/>借款余额（现货）：{{borrowBalance}}<LineBreak/>借款限额：{{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "每日收益"
+  },
   "accountModal": {
     "disconnectButtonLabel": "断开连接"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "每日收益"
   },
   "adBanner": {
     "startNow": "立即开始"
@@ -267,7 +269,8 @@
       "supplyApy": "存款 APY",
       "totalBorrow": "总借款",
       "totalStaked": "总供应量",
-      "totalSupply": "总存款"
+      "totalSupply": "总存款",
+      "unitPrice": "单价"
     }
   },
   "asset": {
@@ -315,6 +318,7 @@
     "governance": "治理",
     "isolatedPools": "隔离池",
     "leaderboard": "排行榜",
+    "liquidityHubs": "流动性中心",
     "markets": "市场",
     "primeCalculator": "Prime 计算器",
     "proposal": "提案 #{{proposalId}}",
@@ -771,6 +775,7 @@
       "label": "选择链"
     },
     "header": {
+      "exposures": "敞口",
       "liquidity": "流动性",
       "maxLtv": {
         "label": "最大 LTV",
@@ -779,6 +784,7 @@
       },
       "price": "价格",
       "resilientOracle": "弹性预言机",
+      "suppliers": "存款人",
       "supply": "存款",
       "utilizationRate": "利用率"
     },
@@ -880,7 +886,100 @@
     "lastUpdatedAt": "最后更新：{{ date, textual }}"
   },
   "liquidityHub": {
-    "description": "根据治理策划的策略，在 Venus 协议的多个收益来源之间进行路由。收益会自动累积。",
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "配比"
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "绝对上限",
+          "tooltip": "收益组的绝对上限",
+          "unlimited": "无限"
+        },
+        "capPercentageColumn": {
+          "title": "上限"
+        },
+        "liquidityColumn": {
+          "title": "流动性"
+        },
+        "sourceColumn": {
+          "title": "来源"
+        }
+      },
+      "title": "分配详情",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "配比"
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "抵押品"
+        },
+        "liquidityColumn": {
+          "title": "流动性"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "锁定结束日期"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "市场",
+            "vault": "金库"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "每日供应利息",
+        "exchangeRate": {
+          "title": "汇率",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "中心合约",
+        "operator": "运营方",
+        "performanceFee": "绩效费",
+        "redeemFee": "赎回费",
+        "riskDisclosures": {
+          "title": "风险披露",
+          "value": "<Span>当您向 Venus 流动性中心供应资产、从中提取资产或以其他方式与其交互时，即表示您确认并同意：</Span><Ul><Li>您正在与自治运行的智能合约进行交互。Venus 及其关联方不保证流动性中心或任何相关软件、智能合约、区块链网络或第三方集成的性能、安全性或可用性。</Li><Li>向流动性中心供应资产不会赋予借款能力，也不构成存款、贷款或投资产品。您可能无法随时提取资产，且任何回报（如有）均不作保证。</Li><Li>您承担与使用流动性中心相关的全部风险，并且仅由您自行判断其是否适合您的财务状况、风险承受能力和技术能力。您有责任自行进行独立评估，包括审查相关源代码和链上配置。</Li><Li>Venus 仅为技术提供方，不提供投资、顾问、受托或托管服务，也不管理或持有您的资产。</Li></Ul><Span>您与流动性中心的交互受 <Link>使用条款</Link> 约束。</Span>"
+        },
+        "vhTokenContract": "{{ vhTokenSymbol }} 合约"
+      },
+      "title": "中心信息"
+    }
+  },
+  "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "核心池",
+      "liquidityHub": "流动性中心"
+    },
+    "error": {
+      "higherThanAvailableAmount": "输入金额高于可用金额",
+      "higherThanAvailableLiquidity": "中心流动性不足",
+      "higherThanSupplyCap": "您不能向此流动性中心供应超过 {{userMaxSupplyAmount}}，因为其供应上限设置为 {{supplyCap}}，目前已有 {{supplyBalance}} 正在供应中。",
+      "higherThanWalletSpendingLimit": "您输入的金额超过了此资产的支出限额。请先撤销当前支出限额，再设置新的限额以继续此交易。",
+      "supplyCapReached": "此流动性中心的供应上限 {{supplyCap}} 已达到。在有提取发生或供应上限提高之前，您将无法继续供应。"
+    },
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "安全 MAX",
+    "supplySubmitButtonLabel": "供应",
+    "supplyTab": {
+      "collateralTabTitle": "抵押品",
+      "walletTabTitle": "钱包"
+    },
+    "supplyTabTitle": "供应",
+    "withdrawSubmitButtonLabel": "提取",
+    "withdrawTabTitle": "提取"
+  },
+  "liquidityHubs": {
+    "description": "根据治理制定的政策，在 Venus 协议的多个收益来源之间进行路由。收益会自动累积。",
     "header": "流动性中心",
     "stats": {
       "hubs": "中心数",
@@ -912,7 +1011,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "总借款",
-      "tooltip": "可借最大金额为 {{amountDollars}}（{{amountTokens}}）<br />借款上限：{{capTokens}}"
+      "tooltip": "可借最大金额为 {{amountDollars}}（{{amountTokens}}）<LineBreak />借款上限：{{capTokens}}"
     },
     "borrowInfo": {
       "title": "借款信息"
@@ -969,6 +1068,7 @@
       "sixMonths": "6个月",
       "thirtyDays": "30天"
     },
+    "positionUnitPrice": "仓位单价 ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "当前 APY",
       "averageApy": "平均 APY",
@@ -1369,7 +1469,6 @@
       "marketActions": "打开市场操作",
       "notEligibleMessage": "你在本周期暂不具备分享 Prime 奖励的资格。质押 XVS 以在下一周期竞争 Prime。",
       "primeLogoAlt": "Venus Prime 标志",
-      "rewardShareAriaLabel": "占总奖励的比例",
       "title": "你本周期的 Prime 奖励"
     }
   },
@@ -1385,7 +1484,6 @@
       "tooltip": "目前所有 {{primeTokenLimit}} 个 Prime 代币均已被领取。如果持有人不再符合资格或我们增加数量，可能会有部分可用。"
     },
     "progressBar": {
-      "ariaLabel": "你的当前 Prime 进度",
       "label": "已供应：<WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "将收益提升高达 <GreenText>{{percentage}}</GreenText>",
@@ -2182,6 +2280,7 @@
       "minRequested": "最小请求量",
       "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、供应和提款功能已禁用，直至金库恢复运作。",
       "primeEligibility": "Prime 资格",
+      "remainingDays_other": "({{ count }} 天)",
       "targetApr": "目标 APR",
       "targetAprTooltip": "此金库策略旨在实现的年化目标奖励，以包含复利的目标年化收益率（APR）表示。实际回报具有可变性，并取决于交易对手表现；本金存在风险。您收到的金额可能少于已供应的数量。",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2445,7 +2544,6 @@
     "searchInput": {
       "placeholder": "搜索提案"
     },
-    "summaryProgressBar": "投票总结进度条 - {{voteType}}",
     "totalLocked": "总锁定",
     "toVoteYouShould": "投票前你应：",
     "voteAbstain": "投票弃权",
@@ -2520,11 +2618,6 @@
       "executedPayloads": "已执行负载",
       "readyForExecution": "准备执行",
       "readyForQueuing": "准备排队"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "弃权票",
-      "ariaLabelAgainst": "反对票",
-      "ariaLabelFor": "赞成票"
     },
     "timeUntilExecutable": "可执行于：<Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "投票开始：<Date>{{ date, textualWithTime }}</Date>",

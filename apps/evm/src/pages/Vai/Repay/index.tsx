@@ -6,13 +6,14 @@ import { useGetBalanceOf, useGetPool, useRepayVai } from 'clients/api';
 import { Delimiter, LabeledInlineContent, NoticeWarning, SpendingLimit, Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import MAX_UINT256 from 'constants/maxUint256';
-import { AccountData } from 'containers/AccountData';
+import { AccountPoolDailyEarnings } from 'containers/AccountPoolDailyEarnings';
+import { AccountPoolHealth } from 'containers/AccountPoolHealth';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useChain } from 'hooks/useChain';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
@@ -23,6 +24,7 @@ import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import { convertTokensToMantissa } from 'utilities/convertTokensToMantissa';
 import formatPercentageToReadableValue from 'utilities/formatPercentageToReadableValue';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
+import { shouldShowAccountHealth } from 'utilities/shouldShowAccountHealth';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
 import { useForm } from './useForm';
@@ -113,7 +115,7 @@ export const Repay: React.FC = () => {
     },
   ];
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+  const { data: getSimulatedPoolData } = useSimulatePoolMutations({
     pool: legacyPool,
     balanceMutations,
   });
@@ -222,7 +224,11 @@ export const Repay: React.FC = () => {
         <>
           <Delimiter />
 
-          <AccountData pool={legacyPool} simulatedPool={simulatedPool} />
+          {shouldShowAccountHealth({ pool: legacyPool, simulatedPool }) && (
+            <AccountPoolHealth pool={legacyPool} simulatedPool={simulatedPool} />
+          )}
+
+          <AccountPoolDailyEarnings pool={legacyPool} simulatedPool={simulatedPool} />
         </>
       )}
 

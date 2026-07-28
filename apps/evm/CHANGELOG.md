@@ -1,5 +1,37 @@
 # @venusprotocol/evm
 
+## 5.10.1
+
+### Patch Changes
+
+- 363627d: upgrade React Router to v8
+
+## 5.10.0
+
+### Minor Changes
+
+- e4c2a84: lazy load translation files
+- 62c483b: add support for Liquidity Hub transactions
+- cd20183: add hub info to Liquidity Hub page
+
+### Patch Changes
+
+- 6e7ea53: start refactoring Emotion CSS components
+
+## 5.9.0
+
+### Minor Changes
+
+- b4aa95f: change vaults style for optimization phase2
+- 2a9f85e: add charts to Liquidity Hub market page
+- 4c6dbe3: add Liquidity Hub Supply with wallet and Withdraw forms
+- 15c0b38: add basic SupplyWithCollateralForm component
+- cb17207: update LiquidityHub object to support token distributions
+- 485c189: complete Liquidity Hub form component
+- d027928: add singular Liquidity Hub page skeleton
+- 32140d9: save disclaimer on chain
+- 4f26e07: add sort rule for assets
+
 ## 5.8.1
 
 ### Patch Changes

@@ -164,8 +164,6 @@ describe('NavBar', () => {
     expect(screen.getAllByAltText('Venus logo')).toHaveLength(2);
     expect(screen.getAllByText('Dashboard')).toHaveLength(2);
     expect(screen.getAllByText('Markets').length).toBeGreaterThan(1);
-    // On testnet the liquidityHub feature is enabled, so Vaults lives inside the "Earn" submenu
-    // rather than being a top-level item
     expect(screen.getAllByText('Earn').length).toBeGreaterThan(1);
     expect(screen.getByRole('button', { name: 'Connect wallet' })).toBeInTheDocument();
     expect(container.querySelector('button.hidden.lg\\:flex')).not.toBeNull();

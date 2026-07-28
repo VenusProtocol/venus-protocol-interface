@@ -2,7 +2,11 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken, VhToken } from '@venusprotocol/chains';
 import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
-import type { MARKET_TX_TYPES, TRADE_TX_TYPES } from 'constants/marketTxTypes';
+import type {
+  LIQUIDITY_HUB_TX_TYPES,
+  MARKET_TX_TYPES,
+  TRADE_TX_TYPES,
+} from 'constants/marketTxTypes';
 import type { VError } from 'libs/errors';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -171,23 +175,35 @@ export interface Asset {
   isCollateralOfUser: boolean;
 }
 
-export interface AssetBalanceMutation {
+export interface BalanceMutationBase {
+  amountTokens: BigNumber;
+  label?: string;
+  description?: string;
+}
+
+export interface AssetBalanceMutation extends BalanceMutationBase {
   type: 'asset';
   vTokenAddress: Address;
-  amountTokens: BigNumber;
   action: 'borrow' | 'repay' | 'withdraw' | 'supply';
   balanceTokens?: BigNumber;
   enableAsCollateralOfUser?: boolean;
-  label?: string;
 }
 
-export interface VaiBalanceMutation {
+export interface LiquidityHubBalanceMutation extends BalanceMutationBase {
+  type: 'liquidityHub';
+  vhTokenAddress: Address;
+  action: 'withdraw' | 'supply';
+}
+
+export interface VaiBalanceMutation extends BalanceMutationBase {
   type: 'vai';
-  amountTokens: BigNumber;
   action: 'borrow' | 'repay';
 }
 
-export type BalanceMutation = AssetBalanceMutation | VaiBalanceMutation;
+export type BalanceMutation =
+  | AssetBalanceMutation
+  | LiquidityHubBalanceMutation
+  | VaiBalanceMutation;
 
 export interface SwapRouterAddressMapping {
   [poolComptrollerAddress: string]: string;
@@ -236,12 +252,27 @@ export interface Pool {
   userEModeGroup?: EModeGroup;
 }
 
-export type LiquidityHubSourceType = 'core' | 'venusFlux'; // TODO: add actual values
-
 export interface LiquidityHubSource {
   name: string;
   address: Address;
-  type: LiquidityHubSourceType;
+  allocationTokens: BigNumber;
+  allocationCents: BigNumber;
+  allocationCapCents: BigNumber;
+  liquidityTokens: BigNumber;
+  liquidityCents: BigNumber;
+  supplyApyPercentage: BigNumber;
+  supplyTokenDistributions: TokenDistribution[];
+  collateralTokens: Token[];
+  lockEndDate?: Date;
+}
+
+export type LiquidityHubYieldGroupType = 'venusCore' | 'venusFlux' | 'institutionCapital'; // TODO: add actual values
+
+export interface LiquidityHubYieldGroup {
+  address: Address;
+  type: LiquidityHubYieldGroupType;
+  name: string;
+  bgClassName: string;
   allocationTokens: BigNumber;
   allocationCents: BigNumber;
   allocationCapPercentage: BigNumber;
@@ -249,10 +280,9 @@ export interface LiquidityHubSource {
   allocationCapCents: BigNumber;
   liquidityTokens: BigNumber;
   liquidityCents: BigNumber;
-  supplyApyPercentage: BigNumber;
+  averageSupplyApyPercentage: BigNumber;
   paused: boolean;
-  collateralTokens: Token[];
-  lockEndDate: Date;
+  sources: LiquidityHubSource[];
 }
 
 export interface LiquidityHub {
@@ -271,12 +301,14 @@ export interface LiquidityHub {
   pricePerShare: BigNumber;
   supplierCount: number;
   operatorName: string;
-  sources: LiquidityHubSource[];
+  supplyTokenDistributions: TokenDistribution[];
+  yieldGroups: LiquidityHubYieldGroup[];
   // User-specific props
   userWalletBalanceTokens?: BigNumber;
   userWalletBalanceCents?: BigNumber;
   userSupplyBalanceTokens?: BigNumber;
   userSupplyBalanceCents?: BigNumber;
+  userYearlyEarningsCents?: BigNumber;
   userVhTokenBalanceTokens?: BigNumber;
 }
 
@@ -480,6 +512,14 @@ export interface MarketSnapshot {
   supplyApy: string;
   totalBorrowCents: string;
   totalSupplyCents: string;
+}
+
+export interface LiquidityHubSnapshot {
+  blockNumber: string | number;
+  blockTimestamp: string | number;
+  supplyApy: string;
+  totalSupplyCents: string;
+  pricePerShare: string;
 }
 
 export type TransactionEvent =
@@ -771,22 +811,8 @@ export interface TradePosition {
   pool: Pool;
 }
 
-export type CommonTxFormErrorCode =
-  | 'SUPPLY_CAP_ALREADY_REACHED'
-  | 'BORROW_CAP_ALREADY_REACHED'
-  | 'HIGHER_THAN_BORROW_CAP'
-  | 'HIGHER_THAN_SUPPLY_CAP'
-  | 'SWAP_PRICE_IMPACT_TOO_HIGH'
-  | 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT'
-  | 'NO_SWAP_QUOTE_FOUND'
-  | 'HIGHER_THAN_LIQUIDITY'
-  | 'HIGHER_THAN_AVAILABLE_AMOUNT'
-  | 'HIGHER_THAN_REPAY_BALANCE'
-  | 'REQUIRES_RISK_ACKNOWLEDGEMENT'
-  | 'TOO_RISKY';
-
-export interface TxFormError<C extends string = never> {
-  code: CommonTxFormErrorCode | C;
+export interface TxFormError<C extends string = string> {
+  code: C;
   message?: string;
 }
 
@@ -794,7 +820,9 @@ export type TradeTxType = (typeof TRADE_TX_TYPES)[number];
 
 export type MarketTxType = (typeof MARKET_TX_TYPES)[number];
 
-export type TxType = TradeTxType | MarketTxType;
+export type LiquidityHubTxType = (typeof LIQUIDITY_HUB_TX_TYPES)[number];
+
+export type TxType = TradeTxType | MarketTxType | LiquidityHubTxType;
 
 export interface TxAmount {
   token: Token;
@@ -817,12 +845,18 @@ export interface MarketTx extends BaseTx {
   poolName: string;
   vToken: VToken;
 }
+
+export interface LiquidityHubTx extends BaseTx {
+  txType: LiquidityHubTxType;
+  vhToken: VhToken;
+}
+
 export interface TradeTx extends BaseTx {
   txType: TradeTxType;
   cycleId: string;
 }
 
-export type Tx = MarketTx | TradeTx;
+export type Tx = MarketTx | LiquidityHubTx | TradeTx;
 
 export enum ApiOhlcInterval {
   '1m' = '1m',
@@ -863,3 +897,9 @@ export interface PrimeCycle {
 }
 
 export type PrimeVersion = 1 | 2;
+
+export interface MarketHistoryDataPoint {
+  apyPercentage: number;
+  timestampMs: number;
+  balanceCents: BigNumber;
+}

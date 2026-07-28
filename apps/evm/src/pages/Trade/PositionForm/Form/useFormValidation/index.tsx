@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useCommonValidation } from 'hooks/useCommonValidation';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
@@ -9,7 +8,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { FormValues } from 'pages/Trade/PositionForm';
 import type { FormError, PositionFormAction } from 'pages/Trade/PositionForm';
 import type { BalanceMutation, TradePosition } from 'types';
-import { areTokensEqual } from 'utilities';
+import { areTokensEqual, validatePoolBalanceMutations } from 'utilities';
 
 export const useFormValidation = ({
   balanceMutations,
@@ -51,7 +50,8 @@ export const useFormValidation = ({
 
   const { t } = useTranslation();
 
-  const commonFormError = useCommonValidation({
+  const commonFormError = validatePoolBalanceMutations({
+    t,
     pool: position.pool,
     simulatedPool: simulatedPosition?.pool,
     balanceMutations,

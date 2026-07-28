@@ -8,6 +8,7 @@ import type {
   GetAccountTransactionHistoryInput,
   GetAccountTransactionHistoryOutput,
   VTokenAssetMapping,
+  VhTokenMapping,
 } from './types';
 
 export * from './types';
@@ -27,6 +28,7 @@ export const getAccountTransactionHistory = async ({
   contractAddress,
   positionAccountAddress,
   getPoolsData,
+  liquidityHubs,
   type,
   page,
 }: GetAccountTransactionHistoryInput): Promise<GetAccountTransactionHistoryOutput> => {
@@ -70,11 +72,18 @@ export const getAccountTransactionHistory = async ({
     return acc;
   }, {});
 
+  const vhTokenMapping = liquidityHubs.reduce<VhTokenMapping>((acc, liquidityHub) => {
+    acc[liquidityHub.vhToken.address.toLowerCase() as Address] = liquidityHub.vhToken;
+
+    return acc;
+  }, {});
+
   const formattedResponse = txsResponse.data.results.reduce<
     GetAccountTransactionHistoryOutput['transactions']
   >((acc, apiTransaction) => {
     const formattedTransaction = formatApiTransaction({
       vTokenAssetMapping,
+      vhTokenMapping,
       apiTransaction,
     });
 

@@ -1,11 +1,9 @@
+import { Button, cn } from '@venusprotocol/ui';
 import { forwardRef, useCallback, useMemo } from 'react';
 
 import { Dropdown } from '../Dropdown';
-
-import { Button } from '@venusprotocol/ui';
-import { cn } from '@venusprotocol/ui';
-import { renderLabel } from '../Dropdown/renderLabel';
 import { Icon } from '../Icon';
+import { renderLabel } from './renderLabel';
 import type { SelectProps } from './types';
 
 export * from './types';

@@ -34,17 +34,22 @@ export type UseGetPoolsQueryKey = [
   },
 ];
 
-export type UseGetPoolsQueryOptions = QueryObserverOptions<
-  GetPoolsQueryOutput,
-  Error,
-  GetPoolsQueryOutput,
-  GetPoolsQueryOutput,
-  UseGetPoolsQueryKey
+export type UseGetPoolsQueryOptions = Partial<
+  QueryObserverOptions<
+    GetPoolsQueryOutput,
+    Error,
+    GetPoolsQueryOutput,
+    GetPoolsQueryOutput,
+    UseGetPoolsQueryKey
+  >
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-export const useGetPoolsQuery = (input?: TrimmedInput, options?: UseGetPoolsQueryOptions) => {
+export const useGetPoolsQuery = (
+  input?: TrimmedInput,
+  options?: Partial<UseGetPoolsQueryOptions>,
+) => {
   const isEModeFeatureEnabled = useIsFeatureEnabled({
     name: 'eMode',
   });

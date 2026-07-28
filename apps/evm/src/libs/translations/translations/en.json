@@ -85,7 +85,7 @@
       },
       "selects": {
         "source": {
-          "all": "All markets"
+          "all": "All sources"
         },
         "txType": {
           "all": "All transactions"
@@ -125,27 +125,29 @@
     "balanceUpdate": {
       "borrowBalance": "Borrow balance",
       "supplyBalance": "Supply balance"
-    },
-    "dailyEarnings": {
-      "label": "Daily earnings"
-    },
-    "healthFactor": {
-      "label": "Health factor",
-      "tooltip": "Liquidation at < 1.0"
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "Representation of the current state of your account",
     "borrowed": "Borrowed:",
     "borrowedSpotTooltip": "This borrow value is calculated based on the spot price of the borrowed asset and will be used to determine your account's health status.",
+    "healthFactor": {
+      "label": "Health factor",
+      "tooltip": "Liquidation at < 1.0"
+    },
     "liquidationThreshold": "Liquidation threshold:",
     "liquidationThresholdShort": "LT:",
-    "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation.</Link>",
+    "liquidationThresholdTooltip": "LT = Liquidation Threshold<LineBreak/>When your borrow balance reaches this value, your position becomes eligible for liquidation.<LineBreak/><LineBreak/>Learn more about the <Link>calculation</Link>.",
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow limit:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Borrow balance (protected):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Borrow balance (spot): {{borrowBalance}}<LineBreak/>Borrow limit: {{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "Daily earnings"
+  },
   "accountModal": {
     "disconnectButtonLabel": "Disconnect"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "Daily earnings"
   },
   "adBanner": {
     "startNow": "Start now"
@@ -267,7 +269,8 @@
       "supplyApy": "Supply APY",
       "totalBorrow": "Total borrow",
       "totalStaked": "Total supplied",
-      "totalSupply": "Total supply"
+      "totalSupply": "Total supply",
+      "unitPrice": "Unit price"
     }
   },
   "asset": {
@@ -315,6 +318,7 @@
     "governance": "Governance",
     "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
+    "liquidityHubs": "Liquidity Hub",
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
@@ -771,6 +775,7 @@
       "label": "Select chain"
     },
     "header": {
+      "exposures": "Exposures",
       "liquidity": "Liquidity",
       "maxLtv": {
         "label": "Max LTV",
@@ -779,6 +784,7 @@
       },
       "price": "Price",
       "resilientOracle": "Resilient Oracle",
+      "suppliers": "Suppliers",
       "supply": "Supply",
       "utilizationRate": "Utilization rate"
     },
@@ -858,7 +864,7 @@
     "menu": {
       "markets": {
         "liquidityHub": {
-          "description": "One supply, auto-allocated cross multiple yield sources.",
+          "description": "One supply, auto-allocated across multiple yield sources.",
           "label": "Liquidity Hub"
         },
         "vaults": {
@@ -880,6 +886,99 @@
     "lastUpdatedAt": "Last updated: {{ date, textual }}"
   },
   "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "Alloc."
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "Cap abs.",
+          "tooltip": "The absolute cap of a yield group",
+          "unlimited": "Unlimited"
+        },
+        "capPercentageColumn": {
+          "title": "Cap"
+        },
+        "liquidityColumn": {
+          "title": "Liquidity"
+        },
+        "sourceColumn": {
+          "title": "Source"
+        }
+      },
+      "title": "Allocation details",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "Alloc."
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "Collateral"
+        },
+        "liquidityColumn": {
+          "title": "Liquidity"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "Lock end date"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "Market",
+            "vault": "Vault"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "Daily supplying interests",
+        "exchangeRate": {
+          "title": "Exchange rate",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "Hub contract",
+        "operator": "Operator",
+        "performanceFee": "Performance fee",
+        "redeemFee": "Redeem fee",
+        "riskDisclosures": {
+          "title": "Risk disclosures",
+          "value": "<Span>By supplying to, withdrawing from, or otherwise interacting with the Venus Liquidity Hub, you acknowledge and agree that:</Span><Ul><Li>You are interacting with autonomous smart contracts. Venus and its affiliates do not guarantee the performance, security, or availability of the Liquidity Hub or any related software, smart contracts, blockchain networks, or third-party integrations.</Li><Li>Supplying assets to the Liquidity Hub does not grant borrowing power and does not constitute a deposit, loan, or investment product. You may not be able to withdraw at all times, and returns, if any, are not guaranteed.</Li><Li>You assume all risks associated with your use of the Liquidity Hub and are solely responsible for determining whether it is appropriate for your financial circumstances, risk tolerance, and technical capabilities. You are responsible for conducting your own independent evaluation, including reviewing the relevant source code and on-chain configuration.</Li><Li>Venus is a technology provider only and does not provide investment, advisory, fiduciary, or custodial services, and does not manage or hold your assets.</Li></Ul><Span>Your interaction with the Liquidity Hub is governed by the <Link>Terms of Use</Link>.</Span>"
+        },
+        "vhTokenContract": "{{ vhTokenSymbol }} contract"
+      },
+      "title": "Hub info"
+    }
+  },
+  "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "Core pool",
+      "liquidityHub": "Liquidity Hub"
+    },
+    "error": {
+      "higherThanAvailableAmount": "Amount entered higher than available amount",
+      "higherThanAvailableLiquidity": "Insufficient hub liquidity",
+      "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this liquidity hub, as its supply cap is set at {{supplyCap}} and {{supplyBalance}} are currently being supplied to it.",
+      "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
+      "supplyCapReached": "The supply cap of {{supplyCap}} has been reached for this liquidity hub. You can not supply to it anymore until withdraws are made or its supply cap is increased."
+    },
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "SAFE MAX",
+    "supplySubmitButtonLabel": "Supply",
+    "supplyTab": {
+      "collateralTabTitle": "Collateral",
+      "walletTabTitle": "Wallet"
+    },
+    "supplyTabTitle": "Supply",
+    "withdrawSubmitButtonLabel": "Withdraw",
+    "withdrawTabTitle": "Withdraw"
+  },
+  "liquidityHubs": {
     "description": "Routed across Venus protocol yield sources under a governance-curated policy. Yield accrues automatically.",
     "header": "Liquidity Hub",
     "stats": {
@@ -912,7 +1011,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "Total borrowed",
-      "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})<br />Borrow cap: {{capTokens}}"
+      "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})<LineBreak />Borrow cap: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "Borrow info"
@@ -969,6 +1068,7 @@
       "sixMonths": "6M",
       "thirtyDays": "30D"
     },
+    "positionUnitPrice": "Position unit price ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "Current APY",
       "averageApy": "Average APY",
@@ -1369,7 +1469,6 @@
       "marketActions": "Open market actions",
       "notEligibleMessage": "You are currently NOT eligible for sharing the Prime rewards during this cycle. Stake XVS to compete for Prime in the next cycle.",
       "primeLogoAlt": "Venus Prime logo",
-      "rewardShareAriaLabel": "Share of total rewards",
       "title": "Your Prime rewards this cycle"
     }
   },
@@ -1385,7 +1484,6 @@
       "tooltip": "All {{primeTokenLimit}} Prime tokens are currently claimed. Some may become available if owners no longer meet the eligibility criteria or if we add more."
     },
     "progressBar": {
-      "ariaLabel": "Your current Prime progression",
       "label": "Supplied: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
@@ -2184,6 +2282,8 @@
       "minRequested": "Min. requested",
       "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, supplying, and withdrawing are disabled until the vault is unpaused",
       "primeEligibility": "Prime eligibility",
+      "remainingDays_one": "({{ count }} day)",
+      "remainingDays_other": "({{ count }} days)",
       "targetApr": "Target APR",
       "targetAprTooltip": "The annualized target reward this vault strategy aims to deliver, expressed as a target Annual Percentage Rate with compounding included. Actual return is variable and depends on counterparty performance; capital is at risk and you may receive less than the amount you supplied.",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2447,7 +2547,6 @@
     "searchInput": {
       "placeholder": "Search proposal"
     },
-    "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "voteAbstain": "Vote abstain",
@@ -2522,11 +2621,6 @@
       "executedPayloads": "Executed payloads",
       "readyForExecution": "Ready for execution",
       "readyForQueuing": "Ready for queuing"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "votes abstain",
-      "ariaLabelAgainst": "votes against",
-      "ariaLabelFor": "votes for"
     },
     "timeUntilExecutable": "Executable at: <Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "Voting starts at: <Date>{{ date, textualWithTime }}</Date>",

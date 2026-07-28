@@ -89,6 +89,8 @@ export * from './queries/useGetPools';
 export * from './queries/useGetIpLocation';
 
 export * from './queries/useGetPool';
+export * from './queries/getLiquidityHub';
+export * from './queries/getLiquidityHub/useGetLiquidityHub';
 
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';

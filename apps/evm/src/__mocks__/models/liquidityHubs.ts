@@ -3,15 +3,16 @@ import BigNumber from 'bignumber.js';
 import type { LiquidityHub } from 'types';
 
 import {
-  busdCoreSource,
-  busdFluxSource,
-  usdcCoreSource,
-  usdcFluxSource,
-  usdtCoreSource,
-  usdtFluxSource,
-  xvsCoreSource,
-  xvsFluxSource,
-} from './liquidityHubSources';
+  busdCoreYieldGroup,
+  busdFluxYieldGroup,
+  usdcCoreYieldGroup,
+  usdcFluxYieldGroup,
+  usdtCoreYieldGroup,
+  usdtFluxYieldGroup,
+  xvsCoreYieldGroup,
+  xvsFluxYieldGroup,
+} from './liquidityHubYieldGroups';
+import { xvs } from './tokens';
 import { vhBusd, vhUsdc, vhUsdt, vhXvs } from './vhTokens';
 
 export const liquidityHubs: LiquidityHub[] = [
@@ -31,12 +32,22 @@ export const liquidityHubs: LiquidityHub[] = [
     pricePerShare: new BigNumber(1.06),
     supplierCount: 124,
     operatorName: 'Venus Core',
-    sources: [xvsCoreSource, xvsFluxSource],
+    yieldGroups: [xvsCoreYieldGroup, xvsFluxYieldGroup],
+    supplyTokenDistributions: [
+      {
+        type: 'venus',
+        token: xvs,
+        apyPercentage: new BigNumber(1.2),
+        dailyDistributedTokens: new BigNumber(150),
+        isActive: true,
+      },
+    ],
     userWalletBalanceTokens: new BigNumber(95),
     userWalletBalanceCents: new BigNumber(67925),
     userSupplyBalanceTokens: new BigNumber(42),
     userSupplyBalanceCents: new BigNumber(30030),
-    userVhTokenBalanceTokens: new BigNumber(39.6),
+    userYearlyEarningsCents: new BigNumber('1861.86'),
+    userVhTokenBalanceTokens: new BigNumber('39.62264150943396226415'),
   },
   {
     hubAddress: '0x1000000000000000000000000000000000000002',
@@ -54,12 +65,22 @@ export const liquidityHubs: LiquidityHub[] = [
     pricePerShare: new BigNumber(1.02),
     supplierCount: 289,
     operatorName: 'Stable Strategies',
-    sources: [usdcCoreSource, usdcFluxSource],
+    yieldGroups: [usdcCoreYieldGroup, usdcFluxYieldGroup],
+    supplyTokenDistributions: [
+      {
+        type: 'venus',
+        token: xvs,
+        apyPercentage: new BigNumber(0.75),
+        dailyDistributedTokens: new BigNumber(75),
+        isActive: true,
+      },
+    ],
     userWalletBalanceTokens: new BigNumber(2500),
     userWalletBalanceCents: new BigNumber(250000),
     userSupplyBalanceTokens: new BigNumber(1200),
     userSupplyBalanceCents: new BigNumber(120000),
-    userVhTokenBalanceTokens: new BigNumber(1176.47),
+    userYearlyEarningsCents: new BigNumber(4920),
+    userVhTokenBalanceTokens: new BigNumber('1176.47058823529411764706'),
   },
   {
     hubAddress: '0x1000000000000000000000000000000000000003',
@@ -77,12 +98,14 @@ export const liquidityHubs: LiquidityHub[] = [
     pricePerShare: new BigNumber(1.03),
     supplierCount: 198,
     operatorName: 'Yield Relay',
-    sources: [usdtCoreSource, usdtFluxSource],
+    yieldGroups: [usdtCoreYieldGroup, usdtFluxYieldGroup],
+    supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(1800),
     userWalletBalanceCents: new BigNumber(180000),
     userSupplyBalanceTokens: new BigNumber(850),
     userSupplyBalanceCents: new BigNumber(85000),
-    userVhTokenBalanceTokens: new BigNumber(825.24),
+    userYearlyEarningsCents: new BigNumber('4122.5'),
+    userVhTokenBalanceTokens: new BigNumber('825.24271844660194174757'),
   },
   {
     hubAddress: '0x1000000000000000000000000000000000000004',
@@ -100,11 +123,13 @@ export const liquidityHubs: LiquidityHub[] = [
     pricePerShare: new BigNumber(1.01),
     supplierCount: 164,
     operatorName: 'Reserve Engine',
-    sources: [busdCoreSource, busdFluxSource],
+    yieldGroups: [busdCoreYieldGroup, busdFluxYieldGroup],
+    supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(3200),
     userWalletBalanceCents: new BigNumber(320000),
     userSupplyBalanceTokens: new BigNumber(1400),
     userSupplyBalanceCents: new BigNumber(140000),
-    userVhTokenBalanceTokens: new BigNumber(1386.14),
+    userYearlyEarningsCents: new BigNumber(5530),
+    userVhTokenBalanceTokens: new BigNumber('1386.13861386138613861386'),
   },
 ];

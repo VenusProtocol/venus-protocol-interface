@@ -23,7 +23,7 @@ import { type OptionalTokenBalance, TokenListWrapper } from 'containers/TokenLis
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { useAnalytics } from 'libs/analytics';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
@@ -232,7 +232,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
     },
   ];
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+  const { data: getSimulatedPoolData } = useSimulatePoolMutations({
     pool,
     balanceMutations,
   });

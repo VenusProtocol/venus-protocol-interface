@@ -1,6 +1,8 @@
 import { BalanceUpdates, Delimiter } from 'components';
-import { AccountData } from 'containers/AccountData';
+import { AccountPoolDailyEarnings } from 'containers/AccountPoolDailyEarnings';
+import { AccountPoolHealth } from 'containers/AccountPoolHealth';
 import type { BalanceMutation, Pool, Swap, SwapQuote, TokenAction } from 'types';
+import { shouldShowAccountHealth } from 'utilities';
 import { ApyBreakdown } from '../ApyBreakdown';
 import { SwapDetails } from './SwapDetails';
 
@@ -35,21 +37,25 @@ export const OperationDetails: React.FC<OperationDetailsProps> = ({
 
     <BalanceUpdates pool={pool} balanceMutations={balanceMutations} />
 
-    <Delimiter />
-
     {showApyBreakdown && (
       <>
+        <Delimiter />
+
         <ApyBreakdown
           pool={pool}
           simulatedPool={simulatedPool}
           balanceMutations={balanceMutations}
           renderType="accordion"
         />
-
-        <Delimiter />
       </>
     )}
 
-    <AccountData pool={pool} simulatedPool={simulatedPool} />
+    <Delimiter />
+
+    {shouldShowAccountHealth({ pool, simulatedPool }) && (
+      <AccountPoolHealth pool={pool} simulatedPool={simulatedPool} />
+    )}
+
+    <AccountPoolDailyEarnings pool={pool} simulatedPool={simulatedPool} />
   </div>
 );

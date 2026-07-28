@@ -1,6 +1,12 @@
 import { cn, theme } from '@venusprotocol/ui';
 import { useGetVTokenApySimulations } from 'clients/api';
-import { ChartTooltipContent, ChartYAxisTick, Spinner } from 'components';
+import {
+  ChartTooltipContent,
+  ChartYAxisTick,
+  MarketCard,
+  type MarketCardProps,
+  Spinner,
+} from 'components';
 import { useTranslation } from 'libs/translations';
 import {
   CartesianGrid,
@@ -14,7 +20,6 @@ import {
 } from 'recharts';
 import type { Asset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
-import { MarketCard, type MarketCardProps } from '../MarketCard';
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 

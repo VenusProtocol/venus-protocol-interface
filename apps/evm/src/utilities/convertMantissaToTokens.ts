@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import type { Token, VToken } from 'types';
+import type { Token, VToken, VhToken } from 'types';
 import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 
-export interface ConvertMantissaToTokensInput<TToken extends Token | VToken | undefined> {
+export interface ConvertMantissaToTokensInput<TToken extends Token | VToken | VhToken | undefined> {
   value: BigNumber | bigint;
   token: TToken | undefined;
   returnInReadableFormat?: boolean;
@@ -12,10 +12,12 @@ export interface ConvertMantissaToTokensInput<TToken extends Token | VToken | un
 
 export function convertMantissaToTokens(input: ConvertMantissaToTokensInput<undefined>): undefined;
 export function convertMantissaToTokens(
-  input: ConvertMantissaToTokensInput<Token | VToken> & { returnInReadableFormat: true },
+  input: ConvertMantissaToTokensInput<Token | VToken | VhToken> & { returnInReadableFormat: true },
 ): string;
 export function convertMantissaToTokens(
-  input: ConvertMantissaToTokensInput<Token | VToken> & { returnInReadableFormat?: false },
+  input: ConvertMantissaToTokensInput<Token | VToken | VhToken> & {
+    returnInReadableFormat?: false;
+  },
 ): BigNumber;
 
 export function convertMantissaToTokens({
@@ -24,7 +26,10 @@ export function convertMantissaToTokens({
   returnInReadableFormat = false,
   addSymbol = true,
   maxDecimalPlaces,
-}: ConvertMantissaToTokensInput<Token | VToken | undefined>): undefined | string | BigNumber {
+}: ConvertMantissaToTokensInput<Token | VToken | VhToken | undefined>):
+  | undefined
+  | string
+  | BigNumber {
   if (token === undefined) {
     return undefined;
   }

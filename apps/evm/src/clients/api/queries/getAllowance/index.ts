@@ -2,11 +2,11 @@ import type { Address, PublicClient } from 'viem';
 
 import BigNumber from 'bignumber.js';
 import { erc20Abi } from 'libs/contracts';
-import type { Token } from 'types';
+import type { Token, VToken } from 'types';
 
 export interface GetAllowanceInput {
   publicClient: PublicClient;
-  token: Token;
+  token: Token | VToken;
   accountAddress: Address;
   spenderAddress: Address;
 }

@@ -85,7 +85,7 @@
       },
       "selects": {
         "source": {
-          "all": "Tüm piyasalar"
+          "all": "Tüm kaynaklar"
         },
         "txType": {
           "all": "Tüm işlemler"
@@ -125,27 +125,29 @@
     "balanceUpdate": {
       "borrowBalance": "Borç bakiyesi",
       "supplyBalance": "Sağlama bakiyesi"
-    },
-    "dailyEarnings": {
-      "label": "Günlük kazanç"
-    },
-    "healthFactor": {
-      "label": "Sağlık faktörü",
-      "tooltip": "Likidasyon < 1.0"
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "Hesabınızın mevcut durumunun gösterimi",
     "borrowed": "Borç alınan:",
     "borrowedSpotTooltip": "Bu borçlanma değeri, borçlanılan varlığın spot fiyatına göre hesaplanır ve hesabınızın sağlık durumunu belirlemek için kullanılır.",
+    "healthFactor": {
+      "label": "Sağlık faktörü",
+      "tooltip": "Likidasyon < 1.0"
+    },
     "liquidationThreshold": "Tasfiye Eşiği:",
     "liquidationThresholdShort": "LT:",
     "liquidationThresholdTooltip": "LT = Tasfiye Eşiği<LineBreak/>Borç bakiyeniz bu değere ulaştığında, pozisyonunuz tasfiye edilmeye uygun hale gelir.<LineBreak/><LineBreak/><Link>Hesaplama</Link> hakkında daha fazla bilgi edinin.",
     "tooltip": "Borç bakiyesi:<LineBreak/>{{borrowBalance}} (borç limitinizin {{borrowLimitUsedPercentage}})<LineBreak/><LineBreak/>Borç limiti:<LineBreak/>{{borrowLimit}}",
     "tooltipProtection": "Borç bakiyesi (Koruma):<LineBreak/>{{borrowBalanceProtected}} (borç limitinizin {{protectedBorrowLimitUsedPercentage}})<LineBreak/><LineBreak/>Borç bakiyesi (spot): {{borrowBalance}}<LineBreak/>Borç limiti: {{borrowLimitProtected}}"
   },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "Günlük kazanç"
+  },
   "accountModal": {
     "disconnectButtonLabel": "Bağlantıyı kes"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "Günlük kazanç"
   },
   "adBanner": {
     "startNow": "Şimdi başla"
@@ -267,7 +269,8 @@
       "supplyApy": "Sağlama APY",
       "totalBorrow": "Toplam borç",
       "totalStaked": "Toplam sağlanan",
-      "totalSupply": "Toplam tedarik"
+      "totalSupply": "Toplam tedarik",
+      "unitPrice": "Birim fiyat"
     }
   },
   "asset": {
@@ -315,6 +318,7 @@
     "governance": "Yönetişim",
     "isolatedPools": "İzole havuzlar",
     "leaderboard": "Liderlik tablosu",
+    "liquidityHubs": "Likidite Merkezi",
     "markets": "Piyasalar",
     "primeCalculator": "Prime hesaplayıcı",
     "proposal": "Teklif #{{proposalId}}",
@@ -771,6 +775,7 @@
       "label": "Zincir seç"
     },
     "header": {
+      "exposures": "Maruziyet",
       "liquidity": "Likidite",
       "maxLtv": {
         "label": "Maks LTV",
@@ -779,6 +784,7 @@
       },
       "price": "Fiyat",
       "resilientOracle": "Dayanıklı Oracle",
+      "suppliers": "Sağlayanlar",
       "supply": "Sağlama",
       "utilizationRate": "Kullanım oranı"
     },
@@ -880,6 +886,99 @@
     "lastUpdatedAt": "Son güncelleme: {{ date, textual }}"
   },
   "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "Tahsis"
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "Mutlak üst sınır",
+          "tooltip": "Bir getiri grubunun mutlak üst sınırı",
+          "unlimited": "Sınırsız"
+        },
+        "capPercentageColumn": {
+          "title": "Üst sınır"
+        },
+        "liquidityColumn": {
+          "title": "Likidite"
+        },
+        "sourceColumn": {
+          "title": "Kaynak"
+        }
+      },
+      "title": "Tahsis ayrıntıları",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "Tahsis"
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "title": "Teminat"
+        },
+        "liquidityColumn": {
+          "title": "Likidite"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textualWithTime}}",
+          "title": "Kilit bitiş tarihi"
+        },
+        "nameColumn": {
+          "title": {
+            "market": "Piyasa",
+            "vault": "Kasa"
+          }
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "Günlük tedarik faizi",
+        "exchangeRate": {
+          "title": "Döviz kuru",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "hubContract": "Merkez sözleşmesi",
+        "operator": "Operatör",
+        "performanceFee": "Performans ücreti",
+        "redeemFee": "İtfa ücreti",
+        "riskDisclosures": {
+          "title": "Risk açıklamaları",
+          "value": "<Span>Venus Likidite Merkezi'ne varlık sağlayarak, buradan çekim yaparak veya başka şekillerde etkileşim kurarak aşağıdakileri kabul etmiş ve onaylamış olursunuz:</Span><Ul><Li>Otonom akıllı sözleşmelerle etkileşim kuruyorsunuz. Venus ve bağlı kuruluşları, Likidite Merkezi'nin veya ilgili herhangi bir yazılımın, akıllı sözleşmenin, blokzincir ağının ya da üçüncü taraf entegrasyonunun performansını, güvenliğini veya kullanılabilirliğini garanti etmez.</Li><Li>Likidite Merkezi'ne varlık sağlamak borçlanma gücü vermez ve bir mevduat, kredi veya yatırım ürünü teşkil etmez. Her zaman çekim yapamayabilirsiniz ve varsa getiriler garanti edilmez.</Li><Li>Likidite Merkezi kullanımınızla ilişkili tüm riskleri üstlenirsiniz ve bunun mali durumunuz, risk toleransınız ve teknik yetkinlikleriniz açısından uygun olup olmadığını belirlemekten yalnızca siz sorumlusunuz. İlgili kaynak kodunu ve zincir üstü yapılandırmayı incelemek dahil kendi bağımsız değerlendirmenizi yapmakla yükümlüsünüz.</Li><Li>Venus yalnızca bir teknoloji sağlayıcısıdır; yatırım, danışmanlık, vekalet veya saklama hizmeti sunmaz ve varlıklarınızı yönetmez ya da elinde tutmaz.</Li></Ul><Span>Likidite Merkezi ile etkileşiminiz <Link>Kullanım Koşulları</Link>'na tabidir.</Span>"
+        },
+        "vhTokenContract": "{{ vhTokenSymbol }} sözleşmesi"
+      },
+      "title": "Merkez bilgisi"
+    }
+  },
+  "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "Çekirdek havuz",
+      "liquidityHub": "Likidite Merkezi"
+    },
+    "error": {
+      "higherThanAvailableAmount": "Girilen miktar kullanılabilir miktardan yüksek",
+      "higherThanAvailableLiquidity": "Merkez likiditesi yetersiz",
+      "higherThanSupplyCap": "Bu likidite merkezine {{userMaxSupplyAmount}} değerinden fazla sağlayamazsınız; çünkü arz limiti {{supplyCap}} olarak ayarlanmıştır ve şu anda {{supplyBalance}} sağlanmaktadır.",
+      "higherThanWalletSpendingLimit": "Girdiğiniz miktar, bu varlık için harcama limitinizi aşıyor. Bu işleme devam etmek için lütfen mevcut harcama limitinizi iptal edin ve ardından yeni bir limit belirleyin.",
+      "supplyCapReached": "Bu likidite merkezi için arz limiti {{supplyCap}} değerine ulaştı. Çekimler yapılana veya arz limiti artırılana kadar artık sağlayamazsınız."
+    },
+    "rightMaxButtonLabel": "MAX",
+    "rightSafeMaxButtonLabel": "GÜVENLİ MAX",
+    "supplySubmitButtonLabel": "Sağla",
+    "supplyTab": {
+      "collateralTabTitle": "Teminat",
+      "walletTabTitle": "Cüzdan"
+    },
+    "supplyTabTitle": "Sağla",
+    "withdrawSubmitButtonLabel": "Çek",
+    "withdrawTabTitle": "Çek"
+  },
+  "liquidityHubs": {
     "description": "Yönetişim tarafından belirlenen bir politika altında Venus Protocol getiri kaynakları arasında yönlendirilir. Getiri otomatik olarak birikir.",
     "header": "Likidite Merkezi",
     "stats": {
@@ -912,7 +1011,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "Toplam borç",
-      "tooltip": "Borç alınabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})<br />Borç limiti: {{capTokens}}"
+      "tooltip": "Borç alınabilecek maksimum tutar {{amountDollars}} ({{amountTokens}})<LineBreak />Borç limiti: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "Borç bilgisi"
@@ -969,6 +1068,7 @@
       "sixMonths": "6A",
       "thirtyDays": "30G"
     },
+    "positionUnitPrice": "Pozisyon birim fiyatı ({{ vhTokenSymbol }})",
     "stats": {
       "apy": "Mevcut APY",
       "averageApy": "Ortalama APY",
@@ -1369,7 +1469,6 @@
       "marketActions": "Piyasa işlemlerini aç",
       "notEligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygun değilsin. Sonraki döngüde Prime için yarışmak üzere XVS stake et.",
       "primeLogoAlt": "Venus Prime logosu",
-      "rewardShareAriaLabel": "Toplam ödüllerdeki pay",
       "title": "Bu döngüdeki Prime ödülleriniz"
     }
   },
@@ -1385,7 +1484,6 @@
       "tooltip": "{{primeTokenLimit}} Prime tokenının tamamı şu anda talep edildi. Sahipleri uygunluk kriterlerini karşılamazsa veya daha fazla eklersek bazıları kullanılabilir hale gelebilir."
     },
     "progressBar": {
-      "ariaLabel": "Mevcut Prime ilerlemeniz",
       "label": "Sağlanan: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
     "promotionalTitle": "Kazancınızı <GreenText>{{percentage}}</GreenText> kadar artırın",
@@ -2183,6 +2281,8 @@
       "minRequested": "Min. talep edilen",
       "pausedWarning": "Bu kasa şu anda duraklatılmış durumda. Faiz oranları tahakkuk etmeye devam ediyor ancak kasa yeniden aktif olana kadar talep, sağlama ve çekim işlemleri devre dışı bırakılmıştır.",
       "primeEligibility": "Prime uygunluğu",
+      "remainingDays_one": "({{ count }} gün)",
+      "remainingDays_other": "({{ count }} gün)",
       "targetApr": "Hedef APR",
       "targetAprTooltip": "Bu kasa stratejisinin sunmayı hedeflediği yıllıklandırılmış hedef ödüldür; bileşik getiri dahil hedef Yıllık Yüzde Oranı (APR) olarak ifade edilir. Gerçek getiri değişkendir ve karşı taraf performansına bağlıdır; sermaye risk altındadır. Sağladığınız tutardan daha azını geri alabilirsiniz.",
       "textualWithTime": "{{date, textualWithTime}}",
@@ -2446,7 +2546,6 @@
     "searchInput": {
       "placeholder": "Teklif ara"
     },
-    "summaryProgressBar": "Oylama Özet İlerleme Çubuğu - {{voteType}}",
     "totalLocked": "Toplam kilitli",
     "toVoteYouShould": "Oy vermek için şunları yapmalısınız:",
     "voteAbstain": "Çekimser oy ver",
@@ -2521,11 +2620,6 @@
       "executedPayloads": "Yürütülen payload'lar",
       "readyForExecution": "Yürütmeye hazır",
       "readyForQueuing": "Kuyruğa almaya hazır"
-    },
-    "statusCard": {
-      "ariaLabelAbstain": "çekimser oylar",
-      "ariaLabelAgainst": "karşı oylar",
-      "ariaLabelFor": "lehte oylar"
     },
     "timeUntilExecutable": "Yürütülebilir: <Date>{{ date, textualWithTime }}</Date>",
     "timeUntilVotable": "Oylama başlar: <Date>{{ date, textualWithTime }}</Date>",

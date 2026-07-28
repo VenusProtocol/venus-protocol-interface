@@ -2,7 +2,7 @@ import { cn } from '@venusprotocol/ui';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
 import { useGetPools } from 'clients/api';
-import { Apy, Spinner } from 'components';
+import { AssetApy, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
@@ -102,7 +102,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
             rewardsCents={rewardsCents}
             totalRewardsCents={totalRewardsCents}
             progressBarClassName="xl:w-8 2xl:w-1/4"
-            apy={showMarketActions && asset && <Apy asset={asset} type="supply" />}
+            apy={showMarketActions && asset && <AssetApy asset={asset} type="supply" />}
             actions={
               showMarketActions &&
               asset &&

@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
 import {
+  AssetApy,
   EModeIcon,
   InfoIcon,
   IsolatedAssetIndicator,
@@ -13,7 +14,6 @@ import {
   TokenIconWithSymbol,
   Tooltip,
 } from 'components';
-import { Apy } from 'components';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
@@ -227,7 +227,7 @@ export const useColumns = ({
           column === 'labeledBorrowApy'
         ) {
           return (
-            <Apy
+            <AssetApy
               className={cn(isPaused && 'text-grey')}
               asset={asset}
               type={column === 'supplyApy' || column === 'labeledSupplyApy' ? 'supply' : 'borrow'}
@@ -368,10 +368,12 @@ export const useColumns = ({
                 <ProgressBar
                   min={0}
                   max={100}
-                  value={asset.userBorrowLimitSharePercentage}
-                  step={1}
-                  ariaLabel={t('marketTable.columnKeys.userBorrowLimitSharePercentage')}
-                  css={styles.percentOfLimitProgressBar}
+                  progressBars={[
+                    {
+                      value: Math.min(Math.max(asset.userBorrowLimitSharePercentage, 0), 100),
+                    },
+                  ]}
+                  className="w-13"
                 />
               </div>
             </HidableUserBalance>

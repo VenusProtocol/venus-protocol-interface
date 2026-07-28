@@ -1,0 +1,62 @@
+import { cn } from '@venusprotocol/ui';
+import type { ChainId, Token, VToken, VhToken } from 'types';
+import { generateExplorerUrl } from 'utilities';
+
+type ConditionalTokenDropdownOptionProps =
+  | {
+      onClick: () => void;
+      chainId?: never;
+      type: 'button';
+    }
+  | {
+      onClick?: () => void;
+      chainId: ChainId;
+      type: 'link';
+    };
+
+type TokenDropdownOptionProps = {
+  buttonClassName?: string;
+  className?: string;
+  token: Token | VToken | VhToken;
+  label: string;
+} & ConditionalTokenDropdownOptionProps;
+
+export const TokenDropdownOption = ({
+  chainId,
+  className,
+  onClick,
+  token,
+  label,
+  type,
+}: TokenDropdownOptionProps) => {
+  const wrapperClassName = cn(
+    'flex items-center justify-start py-3 px-4 text-left text-sm font-semibold flex-row gap-2 grow min-w-[180px] cursor-pointer hover:bg-lightGrey active:bg-lightGrey',
+    className,
+  );
+  const contentsDom = (
+    <>
+      {'iconSrc' in token ? (
+        <img className="w-5 max-w-none flex-none" src={token.iconSrc} alt={token.symbol} />
+      ) : undefined}
+      {label}
+    </>
+  );
+  const dom =
+    type === 'button' ? (
+      <span onClick={onClick} className={wrapperClassName}>
+        {contentsDom}
+      </span>
+    ) : (
+      <a
+        className={wrapperClassName}
+        href={generateExplorerUrl({ hash: token.address, chainId })}
+        target="_blank"
+        rel="noreferrer"
+        onClick={onClick}
+      >
+        {contentsDom}
+      </a>
+    );
+
+  return dom;
+};

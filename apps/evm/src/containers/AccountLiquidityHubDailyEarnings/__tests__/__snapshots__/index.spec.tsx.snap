@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AccountLiquidityHubDailyEarnings > renders correctly 1`] = `"Daily earnings$0.45"`;
+
+exports[`AccountLiquidityHubDailyEarnings > renders correctly when passing simulated liquidity hubs 1`] = `"Daily earnings$0.45$0.45"`;

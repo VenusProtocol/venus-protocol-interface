@@ -1,8 +1,10 @@
 import { BalanceUpdates, Delimiter } from 'components';
-import { AccountData } from 'containers/AccountData';
+import { AccountPoolDailyEarnings } from 'containers/AccountPoolDailyEarnings';
+import { AccountPoolHealth } from 'containers/AccountPoolHealth';
 import { TxFormSubmitButton } from 'containers/TxFormSubmitButton';
 import { useAccountAddress } from 'libs/wallet';
 import type { BalanceMutation, Pool, SwapQuote, Token } from 'types';
+import { shouldShowAccountHealth } from 'utilities';
 import { ApyBreakdown } from '../ApyBreakdown';
 import type { Approval } from './types';
 
@@ -52,22 +54,26 @@ export const Footer: React.FC<FooterProps> = ({
         <>
           <BalanceUpdates pool={pool} balanceMutations={balanceMutations} />
 
-          <Delimiter />
-
           {showApyBreakdown && (
             <>
+              <Delimiter />
+
               <ApyBreakdown
                 pool={pool}
                 simulatedPool={simulatedPool}
                 balanceMutations={balanceMutations}
                 renderType="accordion"
               />
-
-              <Delimiter />
             </>
           )}
 
-          <AccountData pool={pool} simulatedPool={simulatedPool} />
+          <Delimiter />
+
+          {shouldShowAccountHealth({ pool, simulatedPool }) && (
+            <AccountPoolHealth pool={pool} simulatedPool={simulatedPool} />
+          )}
+
+          <AccountPoolDailyEarnings pool={pool} simulatedPool={simulatedPool} />
         </>
       ) : (
         <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />

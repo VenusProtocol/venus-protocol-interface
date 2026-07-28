@@ -29,6 +29,7 @@ import {
   convertTokensToMantissa,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  shouldShowAccountHealth,
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -36,11 +37,12 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
-import { AccountData } from 'containers/AccountData';
+import { AccountPoolDailyEarnings } from 'containers/AccountPoolDailyEarnings';
+import { AccountPoolHealth } from 'containers/AccountPoolHealth';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useChain } from 'hooks/useChain';
 import useDebounceValue from 'hooks/useDebounceValue';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import type { BalanceMutation } from 'types';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
@@ -148,7 +150,7 @@ export const Borrow: React.FC = () => {
     },
   ];
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+  const { data: getSimulatedPoolData } = useSimulatePoolMutations({
     pool: legacyPool,
     balanceMutations,
   });
@@ -295,7 +297,11 @@ export const Borrow: React.FC = () => {
         <>
           <Delimiter />
 
-          <AccountData pool={legacyPool} simulatedPool={simulatedPool} />
+          {shouldShowAccountHealth({ pool: legacyPool, simulatedPool }) && (
+            <AccountPoolHealth pool={legacyPool} simulatedPool={simulatedPool} />
+          )}
+
+          <AccountPoolDailyEarnings pool={legacyPool} simulatedPool={simulatedPool} />
         </>
       )}
 

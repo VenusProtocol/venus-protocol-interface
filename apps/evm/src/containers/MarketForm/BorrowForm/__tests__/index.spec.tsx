@@ -12,7 +12,7 @@ import { type Asset, type BalanceMutation, ChainId, type Pool } from 'types';
 import { chains } from '@venusprotocol/chains';
 import { useBorrow } from 'clients/api';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import BorrowForm from '..';
 import { checkSubmitButtonIsDisabled } from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
@@ -76,7 +76,7 @@ const testCases = [
 
 describe('BorrowForm', () => {
   beforeEach(() => {
-    (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
+    (useSimulatePoolMutations as Mock).mockImplementation(() => ({
       isLoading: false,
       data: undefined,
     }));
@@ -259,7 +259,7 @@ describe('BorrowForm', () => {
       },
     });
 
-    (useSimulateBalanceMutations as Mock).mockImplementation(
+    (useSimulatePoolMutations as Mock).mockImplementation(
       ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
         isLoading: false,
         data: {
@@ -396,7 +396,7 @@ describe('BorrowForm', () => {
       userHealthFactor: HEALTH_FACTOR_MODERATE_THRESHOLD - 0.01,
     };
 
-    (useSimulateBalanceMutations as Mock).mockImplementation(
+    (useSimulatePoolMutations as Mock).mockImplementation(
       ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
         isLoading: false,
         data: {
@@ -442,7 +442,7 @@ describe('BorrowForm', () => {
       },
     ];
 
-    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+    expect(useSimulatePoolMutations).toHaveBeenCalledWith({
       pool: fakePool,
       balanceMutations: expectedBalanceMutations,
     });
@@ -496,7 +496,7 @@ describe('BorrowForm', () => {
       },
     ];
 
-    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+    expect(useSimulatePoolMutations).toHaveBeenCalledWith({
       pool: fakePool,
       balanceMutations: expectedBalanceMutations,
     });

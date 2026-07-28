@@ -1,8 +1,12 @@
 import type { Preview } from '@storybook/react';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { theme } from '@venusprotocol/ui';
 import { BrowserRouter } from 'react-router';
 import { MuiThemeProvider } from '../src/App/MuiThemeProvider';
+import { queryClient } from '../src/clients/api/queryClient';
 import initializeLibraries from '../src/initializeLibraries';
+import { AnalyticProvider } from '../src/libs/analytics';
+import { Web3Wrapper } from '../src/libs/wallet';
 
 import '../src/assets/styles/index.css';
 
@@ -13,9 +17,15 @@ const preview: Preview = {
     Story => (
       <BrowserRouter>
         <MuiThemeProvider>
-          <div style={{ padding: '40px' }}>
-            <Story />
-          </div>
+          <QueryClientProvider client={queryClient}>
+            <Web3Wrapper>
+              <AnalyticProvider>
+                <div style={{ padding: '40px' }}>
+                  <Story />
+                </div>
+              </AnalyticProvider>
+            </Web3Wrapper>
+          </QueryClientProvider>
         </MuiThemeProvider>
       </BrowserRouter>
     ),

@@ -31,8 +31,12 @@ vi.mock('containers/ConnectWallet', () => ({
   },
 }));
 
-vi.mock('containers/AccountData', () => ({
-  AccountData: () => <div data-testid="account-data" />,
+vi.mock('containers/AccountPoolHealth', () => ({
+  AccountPoolHealth: () => <div data-testid="account-pool-health" />,
+}));
+
+vi.mock('containers/AccountPoolDailyEarnings', () => ({
+  AccountPoolDailyEarnings: () => <div data-testid="account-pool-daily-earnings" />,
 }));
 
 const swapDetailsMock = vi.fn();
@@ -211,5 +215,15 @@ describe('Footer', () => {
     });
 
     expect(apyBreakdownMock).not.toHaveBeenCalled();
+  });
+
+  it('renders daily earnings without account health when health data is hidden', () => {
+    const { getByTestId, queryByTestId } = renderComponent(
+      <Footer {...baseProps} pool={poolData[1]} showApyBreakdown={false} />,
+      { accountAddress: fakeAccountAddress },
+    );
+
+    expect(getByTestId('account-pool-daily-earnings')).toBeInTheDocument();
+    expect(queryByTestId('account-pool-health')).not.toBeInTheDocument();
   });
 });

@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import type { BalanceMutation, Pool, Token } from 'types';
+import type { BalanceMutation, Pool, Token, VToken } from 'types';
 
 type ApprovalBase = {
   type: 'token' | 'delegate';
@@ -9,7 +9,7 @@ type ApprovalBase = {
 export type TokenApproval = ApprovalBase & {
   type: 'token';
   spenderAddress: Address;
-  token: Token;
+  token: Token | VToken;
 };
 
 export type DelegateApproval = ApprovalBase & {

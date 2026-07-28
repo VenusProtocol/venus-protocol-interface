@@ -1,6 +1,7 @@
 import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
+import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { renderHook } from 'testUtils/render';
 
@@ -41,6 +42,11 @@ describe('usePathNodes', () => {
     [routes.vaults.path, routes.vaults.path],
     [routes.swap.path, routes.swap.path],
     [routes.primeCalculator.path, routes.primeCalculator.path],
+    [routes.liquidityHubs.path, routes.liquidityHubs.path],
+    [
+      routes.liquidityHub.path.replace(':vhTokenAddress', liquidityHubs[0].vhToken.address),
+      routes.liquidityHub.path,
+    ],
   ])('outputs the right DOM based on the current path: %s', async (pathname, originalRoute) => {
     const { result } = renderHook(() => usePathNodes(), {
       routerInitialEntries: [pathname],

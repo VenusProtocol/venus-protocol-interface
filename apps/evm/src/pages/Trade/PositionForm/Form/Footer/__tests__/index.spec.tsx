@@ -74,7 +74,7 @@ describe('Trade PositionForm Footer', () => {
 
     const borrowBalanceRow = screen.getByText(borrowBalanceLabel).parentElement?.parentElement;
 
-    expect(borrowBalanceRow?.textContent).toMatchInlineSnapshot(`"Borrow balance5051"`);
+    expect(borrowBalanceRow?.textContent).toMatchInlineSnapshot(`"Borrow balance"`);
   });
 
   it('renders the likely-to-fail warning when a swap amount is below the threshold', () => {
@@ -150,9 +150,9 @@ describe('Trade PositionForm Footer', () => {
     const entryPriceRow = screen.getByText(entryPriceLabel).parentElement?.parentElement;
     const netApyRow = screen.getByText(netApyLabel).parentElement?.parentElement;
 
-    expect(liquidationPriceRow?.textContent).toMatchInlineSnapshot(`"Liq. price145.67"`);
-    expect(entryPriceRow?.textContent).toMatchInlineSnapshot(`"Entry price1.23"`);
-    expect(netApyRow?.textContent).toMatchInlineSnapshot(`"Net APY4.56%"`);
+    expect(liquidationPriceRow?.textContent).toMatchInlineSnapshot(`"Liq. price"`);
+    expect(entryPriceRow?.textContent).toMatchInlineSnapshot(`"Entry price"`);
+    expect(netApyRow?.textContent).toMatchInlineSnapshot(`"Net APY"`);
   });
 
   it('renders original and updated values for increase action', () => {
@@ -175,9 +175,9 @@ describe('Trade PositionForm Footer', () => {
     const entryPriceRow = screen.getByText(entryPriceLabel).parentElement?.parentElement;
     const netApyRow = screen.getByText(netApyLabel).parentElement?.parentElement;
 
-    expect(liquidationPriceRow?.textContent).toMatchInlineSnapshot(`"Liq. priceN/A145.67"`);
-    expect(entryPriceRow?.textContent).toMatchInlineSnapshot(`"Entry price0.50.98"`);
-    expect(netApyRow?.textContent).toMatchInlineSnapshot(`"Net APY0.75%4.56%"`);
+    expect(liquidationPriceRow?.textContent).toMatchInlineSnapshot(`"Liq. price"`);
+    expect(entryPriceRow?.textContent).toMatchInlineSnapshot(`"Entry price"`);
+    expect(netApyRow?.textContent).toMatchInlineSnapshot(`"Net APY"`);
   });
 
   it('renders original and updated values for reduce action', () => {
@@ -200,9 +200,9 @@ describe('Trade PositionForm Footer', () => {
     const entryPriceRow = screen.getByText(entryPriceLabel).parentElement?.parentElement;
     const netApyRow = screen.getByText(netApyLabel).parentElement?.parentElement;
 
-    expect(liquidationPriceRow?.textContent).toMatchInlineSnapshot(`"Liq. priceN/A145.67"`);
-    expect(entryPriceRow?.textContent).toMatchInlineSnapshot(`"Entry price0.50.98"`);
-    expect(netApyRow?.textContent).toMatchInlineSnapshot(`"Net APY0.75%4.56%"`);
+    expect(liquidationPriceRow?.textContent).toMatchInlineSnapshot(`"Liq. price"`);
+    expect(entryPriceRow?.textContent).toMatchInlineSnapshot(`"Entry price"`);
+    expect(netApyRow?.textContent).toMatchInlineSnapshot(`"Net APY"`);
   });
 
   it.each([

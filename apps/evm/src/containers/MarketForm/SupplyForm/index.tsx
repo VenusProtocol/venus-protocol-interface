@@ -18,7 +18,7 @@ import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { VError, handleError } from 'libs/errors';
@@ -289,7 +289,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
     },
   ];
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+  const { data: getSimulatedPoolData } = useSimulatePoolMutations({
     pool,
     balanceMutations,
   });

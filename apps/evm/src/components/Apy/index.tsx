@@ -1,44 +1,50 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
-import type { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
-import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
+import type {
+  PointDistribution,
+  PrimeDistribution,
+  PrimeSimulationDistribution,
+  Token,
+  TokenDistribution,
+} from 'types';
+import { formatPercentageToReadableValue, getCombinedApy } from 'utilities';
 import { BoostTooltip } from './BoostTooltip';
 import { PrimeBadge } from './PrimeBadge';
 
 export interface ApyProps {
-  asset: Asset;
   type: 'supply' | 'borrow';
+  token: Token;
+  baseApyPercentage: BigNumber;
+  tokenDistributions: TokenDistribution[];
+  pointDistributions?: PointDistribution[];
+  userBalanceTokens?: BigNumber;
+  isMuted?: boolean;
   showPrimeSimulation?: boolean;
   className?: string;
 }
 
-export const Apy: React.FC<ApyProps> = ({ asset, type, showPrimeSimulation = true, className }) => {
-  const combinedDistributionApys = getCombinedDistributionApys({ asset });
-
-  const baseApyPercentage =
-    type === 'supply' ? asset.supplyApyPercentage : asset.borrowApyPercentage;
-
-  const boostedApyPercentage =
-    type === 'supply'
-      ? combinedDistributionApys.totalSupplyApyPercentage
-      : combinedDistributionApys.totalBorrowApyPercentage;
-
-  const pointDistributions =
-    type === 'supply' ? asset.supplyPointDistributions : asset.borrowPointDistributions;
-
-  const userBalanceTokens =
-    type === 'supply' ? asset.userSupplyBalanceTokens : asset.userBorrowBalanceTokens;
-
-  const readableApy = formatPercentageToReadableValue(boostedApyPercentage);
-
+export const Apy: React.FC<ApyProps> = ({
+  type,
+  token,
+  baseApyPercentage,
+  tokenDistributions,
+  pointDistributions = [],
+  userBalanceTokens,
+  isMuted = false,
+  showPrimeSimulation = true,
+  className,
+}) => {
+  const combinedApy = getCombinedApy({
+    type,
+    baseApyPercentage,
+    tokenDistributions,
+  });
+  const readableApy = formatPercentageToReadableValue(combinedApy.totalApyPercentage);
   let primeDistribution: PrimeDistribution | undefined;
   let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
-  const tokenDistributions =
-    type === 'supply'
-      ? asset.supplyTokenDistributions.filter(d => d.isActive)
-      : asset.borrowTokenDistributions.filter(d => d.isActive);
+  const activeTokenDistributions = tokenDistributions.filter(distribution => distribution.isActive);
 
-  tokenDistributions.forEach(distribution => {
+  activeTokenDistributions.forEach(distribution => {
     if (distribution.type === 'prime') {
       primeDistribution = distribution;
     } else if (distribution.type === 'primeSimulation') {
@@ -47,38 +53,30 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, showPrimeSimulation = tru
   });
 
   const isPrimeAsset = !!(primeDistribution || primeSimulationDistribution);
-  const shouldBeGreyedOut = type === 'borrow' && !asset.isBorrowableByUser;
-
   let simulatedApyPercentage: BigNumber | undefined;
-  const isApyBoostedByPrime = !!primeDistribution && userBalanceTokens.isGreaterThan(0);
+  const isApyBoostedByPrime = !!primeDistribution && !!userBalanceTokens?.isGreaterThan(0);
 
   const isApyBoosted =
     isApyBoostedByPrime ||
-    !boostedApyPercentage.isEqualTo(baseApyPercentage) ||
+    !combinedApy.totalApyPercentage.isEqualTo(baseApyPercentage) ||
     pointDistributions.length > 0;
 
   if (isPrimeAsset && !isApyBoostedByPrime) {
     simulatedApyPercentage =
       type === 'supply'
-        ? combinedDistributionApys.totalSupplyApyPercentage.plus(
-            combinedDistributionApys.supplyApyPrimeSimulationPercentage,
-          )
-        : combinedDistributionApys.totalBorrowApyPercentage.minus(
-            combinedDistributionApys.borrowApyPrimeSimulationPercentage,
-          );
+        ? combinedApy.totalApyPercentage.plus(combinedApy.apyPrimeSimulationPercentage)
+        : combinedApy.totalApyPercentage.minus(combinedApy.apyPrimeSimulationPercentage);
   }
 
   return (
-    <div
-      className={cn('inline-flex gap-1 items-center', shouldBeGreyedOut && 'opacity-50', className)}
-    >
-      {isApyBoostedByPrime && <PrimeBadge type={type} token={asset.vToken.underlyingToken} />}
+    <div className={cn('inline-flex gap-1 items-center', isMuted && 'opacity-50', className)}>
+      {isApyBoostedByPrime && <PrimeBadge type={type} token={token} />}
 
       {isApyBoosted ? (
         <BoostTooltip
-          tokenDistributions={tokenDistributions}
+          tokenDistributions={activeTokenDistributions}
           pointDistributions={pointDistributions}
-          token={asset.vToken.underlyingToken}
+          token={token}
           type={type}
           baseApyPercentage={baseApyPercentage}
           userBalanceTokens={userBalanceTokens}
@@ -87,13 +85,13 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, showPrimeSimulation = tru
           <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
         </BoostTooltip>
       ) : (
-        <p className={cn(shouldBeGreyedOut && 'text-grey')}>{readableApy}</p>
+        <p className={cn(isMuted && 'text-grey')}>{readableApy}</p>
       )}
 
       {showPrimeSimulation && isPrimeAsset && !isApyBoostedByPrime && (
         <PrimeBadge
           type={type}
-          token={asset.vToken.underlyingToken}
+          token={token}
           simulationReferenceValues={primeSimulationDistribution?.referenceValues}
           simulatedApyPercentage={simulatedApyPercentage}
         />

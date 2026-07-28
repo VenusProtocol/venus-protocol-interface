@@ -9,6 +9,7 @@ import BigNumber from 'bignumber.js';
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { importablePositions } from '__mocks__/models/importablePositions';
+import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { usdc, xvs } from '__mocks__/models/tokens';
@@ -256,6 +257,17 @@ export const useGetPool = vi.fn(() => ({
   isLoading: false,
   data: {
     pool: poolData[0],
+  },
+}));
+
+export const getLiquidityHub = vi.fn(async () => ({
+  liquidityHub: liquidityHubs[0],
+}));
+
+export const useGetLiquidityHub = vi.fn(() => ({
+  isLoading: false,
+  data: {
+    liquidityHub: liquidityHubs[0],
   },
 }));
 

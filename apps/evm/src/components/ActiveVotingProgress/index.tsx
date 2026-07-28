@@ -1,7 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { theme } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
@@ -43,7 +42,6 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   );
 
   const defaultProgressbarProps = {
-    step: 1,
     min: 0,
     max: 100,
   };
@@ -55,12 +53,15 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
         label: t('vote.for'),
         value: getValueString({ valueMantissa: votedForMantissa, xvs }),
         progressBarProps: {
-          ariaLabel: t('voteProposalUi.statusCard.ariaLabelFor'),
-          value:
-            votedForMantissa
-              ?.dividedBy(votedTotalMantissa || 0)
-              .times(100)
-              .toNumber() || 0,
+          progressBars: [
+            {
+              value:
+                votedForMantissa
+                  ?.dividedBy(votedTotalMantissa || 0)
+                  .times(100)
+                  .toNumber() || 0,
+            },
+          ],
         },
       },
       {
@@ -68,13 +69,16 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
         label: t('vote.against'),
         value: getValueString({ valueMantissa: votedAgainstMantissa, xvs }),
         progressBarProps: {
-          progressBarColor: theme.colors.red,
-          ariaLabel: t('voteProposalUi.statusCard.ariaLabelAgainst'),
-          value:
-            votedAgainstMantissa
-              ?.dividedBy(votedTotalMantissa || 0)
-              .times(100)
-              .toNumber() || 0,
+          progressBars: [
+            {
+              value:
+                votedAgainstMantissa
+                  ?.dividedBy(votedTotalMantissa || 0)
+                  .times(100)
+                  .toNumber() || 0,
+              className: 'bg-red',
+            },
+          ],
         },
       },
       {
@@ -82,13 +86,16 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
         label: t('vote.abstain'),
         value: getValueString({ valueMantissa: abstainedMantissa, xvs }),
         progressBarProps: {
-          progressBarColor: theme.colors.grey,
-          ariaLabel: t('voteProposalUi.statusCard.ariaLabelAbstain'),
-          value:
-            abstainedMantissa
-              ?.dividedBy(votedTotalMantissa || 0)
-              .times(100)
-              .toNumber() || 0,
+          progressBars: [
+            {
+              value:
+                abstainedMantissa
+                  ?.dividedBy(votedTotalMantissa || 0)
+                  .times(100)
+                  .toNumber() || 0,
+              className: 'bg-grey',
+            },
+          ],
         },
       },
     ],

@@ -1,59 +1,36 @@
-import BigNumber from 'bignumber.js';
+import { useParams } from 'react-router';
+import type { Address } from 'viem';
 
-// TODO: fetch from API
-import { liquidityHubs } from '__mocks__/models/liquidityHubs';
-import { type CellProps, Page, PageStatHeader } from 'components';
-import { useTranslation } from 'libs/translations';
-import { formatCentsToReadableValue } from 'utilities';
-import { LiquidityHubTable } from './LiquidityHubTable';
+import { MarketPageGrid, Page } from 'components';
+import { LiquidityHubForm } from 'containers/LiquidityHubForm';
+import LiquidityHubLoader from 'containers/LiquidityHubLoader';
+import { AllocationDetails } from './AllocationDetails';
+import { LiquidityHubHistory } from './LiquidityHubHistory';
+import { LiquidityHubInfo } from './LiquidityHubInfo';
 
 const LiquidityHub: React.FC = () => {
-  const { t } = useTranslation();
-
-  const { supplyBalanceCents, liquidityCents, count } = liquidityHubs.reduce(
-    (acc, liquidityHub) => ({
-      ...acc,
-      supplyBalanceCents: acc.supplyBalanceCents.plus(liquidityHub.supplyBalanceCents),
-      liquidityCents: acc.liquidityCents.plus(liquidityHub.liquidityCents),
-      count: acc.count + 1,
-    }),
-    {
-      supplyBalanceCents: new BigNumber(0),
-      liquidityCents: new BigNumber(0),
-      count: 0,
-    },
-  );
-
-  const cells: CellProps[] = [
-    {
-      label: t('liquidityHub.stats.totalSupply'),
-      value: formatCentsToReadableValue({
-        value: supplyBalanceCents,
-      }),
-    },
-    {
-      label: t('liquidityHub.stats.totalLiquidity'),
-      value: formatCentsToReadableValue({
-        value: liquidityCents,
-      }),
-    },
-    {
-      label: t('liquidityHub.stats.hubs'),
-      value: count,
-    },
-  ];
+  const { vhTokenAddress } = useParams<{
+    vhTokenAddress: Address;
+  }>();
 
   return (
     <Page>
-      <div className="space-y-5 sm:space-y-12">
-        <PageStatHeader
-          title={t('liquidityHub.header')}
-          description={t('liquidityHub.description')}
-          cells={cells}
-        />
+      <LiquidityHubLoader vhTokenAddress={vhTokenAddress}>
+        {({ liquidityHub }) => (
+          <MarketPageGrid
+            form={<LiquidityHubForm navType="searchParam" vhToken={liquidityHub.vhToken} />}
+            content={
+              <div className="space-y-6">
+                <LiquidityHubHistory liquidityHub={liquidityHub} />
 
-        <LiquidityHubTable data={liquidityHubs} />
-      </div>
+                <AllocationDetails liquidityHub={liquidityHub} />
+
+                <LiquidityHubInfo liquidityHub={liquidityHub} />
+              </div>
+            }
+          />
+        )}
+      </LiquidityHubLoader>
     </Page>
   );
 };
