@@ -31,7 +31,17 @@ const connectors = connectorsForWallets(
       ],
     },
   ],
-  { appName: 'Venus', projectId: WALLET_CONNECT_PROJECT_ID },
+  {
+    appName: 'Venus',
+    projectId: WALLET_CONNECT_PROJECT_ID,
+    walletConnectParameters: {
+      qrModalOptions: {
+        themeVariables: {
+          '--wcm-z-index': '100000',
+        },
+      },
+    },
+  },
 );
 
 const config = createConfig({
