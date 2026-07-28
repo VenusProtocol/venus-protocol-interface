@@ -2455,11 +2455,6 @@
       "priceImpactTooHigh": "Fiyat etkisi çok yüksek"
     }
   },
-  "venusFluxBanner": {
-    "description": "Yalnızca 30 gün. 28 Mayıs'ta <YellowText>Binance Wallet</YellowText> ile yayında",
-    "illustrationAltText": "Venus Flux illüstrasyonu",
-    "title": "Venus Flux'ta $50K USDT ödülü"
-  },
   "vipModal": {
     "backgroundAlt": "Arka plan illüstrasyonu",
     "cancelButton": {
