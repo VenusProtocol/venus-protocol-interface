@@ -120,7 +120,7 @@ import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvid
 import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import erc20Abi from './externalAbis/Erc20.json';
-
+import liquidityHubAbi from './externalAbis/LiquidityHub.json';
 import liquidityHubMigratorAbi from './externalAbis/LiquidityHubMigrator.json';
 import maximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
@@ -764,6 +764,10 @@ export const contracts: ContractConfig[] = [
   {
     name: 'Erc20',
     abi: erc20Abi as Abi,
+  },
+  {
+    name: 'LiquidityHub',
+    abi: liquidityHubAbi as Abi,
   },
   {
     name: 'Xvs',

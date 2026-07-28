@@ -1,12 +1,14 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
+import { useSupplyToLiquidityHub } from 'clients/api';
 import type { TokenApproval } from 'containers/TxFormSubmitButton';
 import { WalletBalance } from 'containers/WalletBalance';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { LiquidityHub, LiquidityHubBalanceMutation } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../../Form';
 import type { UseFormValidationInput } from '../../Form/useForm/useFormValidation';
 
@@ -26,7 +28,7 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
   const approval: TokenApproval = {
     type: 'token',
     token: liquidityHub.vhToken.underlyingToken,
-    spenderAddress: liquidityHub.vhToken.address,
+    spenderAddress: liquidityHub.hubAddress,
   };
 
   const { walletSpendingLimitTokens } = useTokenApproval({
@@ -65,11 +67,20 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     }
   };
 
-  // TODO: wire up
-  const handleSubmit = async (_formValues: FormValues) => {};
+  const { mutateAsync: supplyToLiquidityHub, isPending: isSubmitting } = useSupplyToLiquidityHub();
 
-  // TODO: wire up
-  const isSubmitting = false;
+  const handleSubmit = async (submittedFormValues: FormValues) => {
+    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+    const amountMantissa = convertTokensToMantissa({
+      token: liquidityHub.vhToken.underlyingToken,
+      value: amountTokens,
+    });
+
+    await supplyToLiquidityHub({
+      liquidityHub,
+      amountMantissa,
+    });
+  };
 
   const balanceMutations: LiquidityHubBalanceMutation[] = [
     {
@@ -83,7 +94,7 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
   const availableBalanceDom = (
     <WalletBalance
       token={liquidityHub.vhToken.underlyingToken}
-      spenderAddress={liquidityHub.vhToken.address}
+      spenderAddress={liquidityHub.hubAddress}
       onBalanceClick={walletBalanceTokens =>
         setFormValues(currFormValues => ({
           ...currFormValues,

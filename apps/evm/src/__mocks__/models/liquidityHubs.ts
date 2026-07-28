@@ -17,7 +17,7 @@ import { vhBusd, vhUsdc, vhUsdt, vhXvs } from './vhTokens';
 
 export const liquidityHubs: LiquidityHub[] = [
   {
-    hubAddress: '0x1000000000000000000000000000000000000001',
+    hubAddress: vhXvs.address,
     vhToken: vhXvs,
     tokenPriceCents: new BigNumber(715),
     tokenPriceOracleAddress: '0x3000000000000000000000000000000000000001',
@@ -50,7 +50,7 @@ export const liquidityHubs: LiquidityHub[] = [
     userVhTokenBalanceTokens: new BigNumber('39.62264150943396226415'),
   },
   {
-    hubAddress: '0x1000000000000000000000000000000000000002',
+    hubAddress: vhUsdc.address,
     vhToken: vhUsdc,
     tokenPriceCents: new BigNumber(100),
     tokenPriceOracleAddress: '0x3000000000000000000000000000000000000002',
@@ -83,7 +83,7 @@ export const liquidityHubs: LiquidityHub[] = [
     userVhTokenBalanceTokens: new BigNumber('1176.47058823529411764706'),
   },
   {
-    hubAddress: '0x1000000000000000000000000000000000000003',
+    hubAddress: vhUsdt.address,
     vhToken: vhUsdt,
     tokenPriceCents: new BigNumber(100),
     tokenPriceOracleAddress: '0x3000000000000000000000000000000000000003',
@@ -108,7 +108,7 @@ export const liquidityHubs: LiquidityHub[] = [
     userVhTokenBalanceTokens: new BigNumber('825.24271844660194174757'),
   },
   {
-    hubAddress: '0x1000000000000000000000000000000000000004',
+    hubAddress: vhBusd.address,
     vhToken: vhBusd,
     tokenPriceCents: new BigNumber(100),
     tokenPriceOracleAddress: '0x3000000000000000000000000000000000000004',

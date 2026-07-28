@@ -5,7 +5,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetBalanceOf, useGetPool } from 'clients/api';
+import { useGetBalanceOf, useGetPool, useSupplyToLiquidityHub } from 'clients/api';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
@@ -56,12 +56,18 @@ const getAmountInput = () => {
 };
 
 describe('SupplyWithWalletForm', () => {
+  const mockUseSupplyToLiquidityHub = useSupplyToLiquidityHub as Mock;
   const mockUseGetBalanceOf = useGetBalanceOf as Mock;
   const mockUseGetPool = useGetPool as Mock;
   const mockUseSimulatePoolMutations = useSimulatePoolMutations as Mock;
   const mockUseTokenApproval = useTokenApproval as Mock;
 
   beforeEach(() => {
+    mockUseSupplyToLiquidityHub.mockReturnValue({
+      mutateAsync: vi.fn().mockResolvedValue(undefined),
+      isPending: false,
+    });
+
     mockUseGetBalanceOf.mockReturnValue({
       data: {
         balanceMantissa: walletBalanceMantissa,
@@ -113,7 +119,7 @@ describe('SupplyWithWalletForm', () => {
     );
     expect(mockUseTokenApproval).toHaveBeenCalledWith({
       token: underlyingToken,
-      spenderAddress: liquidityHub.vhToken.address,
+      spenderAddress: liquidityHub.hubAddress,
       accountAddress: fakeAccountAddress,
     });
   });
@@ -148,7 +154,13 @@ describe('SupplyWithWalletForm', () => {
   });
 
   it('submits through the embedded form, resets the amount, and calls onSubmitSuccess', async () => {
+    const supplyToLiquidityHub = vi.fn().mockResolvedValue(undefined);
     const onSubmitSuccess = vi.fn();
+
+    mockUseSupplyToLiquidityHub.mockReturnValue({
+      mutateAsync: supplyToLiquidityHub,
+      isPending: false,
+    });
 
     renderTransactionForm({ onSubmitSuccess });
 
@@ -164,6 +176,10 @@ describe('SupplyWithWalletForm', () => {
     );
 
     await waitFor(() => expect(getAmountInput().value).toBe(''));
+    expect(supplyToLiquidityHub).toHaveBeenCalledWith({
+      liquidityHub,
+      amountMantissa: new BigNumber('10000000000000000000'),
+    });
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
   });
 
