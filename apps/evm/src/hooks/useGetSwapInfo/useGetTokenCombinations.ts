@@ -29,15 +29,9 @@ const useGetTokenCombinations = ({
     symbol: 'WBNB',
   });
 
-  const baseTradeTokens = useMemo(
-    () =>
-      baseTradeTokenSymbols.has(chainId)
-        ? swapTokens.filter(token =>
-            (baseTradeTokenSymbols.get(chainId) || []).includes(token.symbol),
-          )
-        : [],
-    [swapTokens, chainId],
-  );
+  const baseTradeTokens = baseTradeTokenSymbols.has(chainId)
+    ? swapTokens.filter(token => (baseTradeTokenSymbols.get(chainId) || []).includes(token.symbol))
+    : [];
 
   return useMemo(() => {
     if (!wbnb) {

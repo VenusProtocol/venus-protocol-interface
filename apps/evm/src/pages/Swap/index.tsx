@@ -148,10 +148,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     [fromTokenUserBalanceMantissa, formValues.fromToken],
   );
 
-  const maxFromInput = useMemo(
-    () => new BigNumber(fromTokenUserBalanceTokens || 0).toFixed(),
-    [fromTokenUserBalanceTokens],
-  );
+  const maxFromInput = new BigNumber(fromTokenUserBalanceTokens || 0).toFixed();
 
   const handleSubmit = async () => {
     if (swap) {

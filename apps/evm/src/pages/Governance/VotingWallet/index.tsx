@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
 import {
@@ -80,27 +80,19 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
   const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const { t, Trans } = useTranslation();
 
-  const readableXvsLocked = useMemo(
-    () =>
-      convertMantissaToTokens({
-        value: userStakeBalanceMantissa,
-        token: xvs,
-        returnInReadableFormat: true,
-        addSymbol: false,
-      }),
-    [userStakeBalanceMantissa, xvs],
-  );
+  const readableXvsLocked = convertMantissaToTokens({
+    value: userStakeBalanceMantissa,
+    token: xvs,
+    returnInReadableFormat: true,
+    addSymbol: false,
+  });
 
-  const readableVoteWeight = useMemo(
-    () =>
-      convertMantissaToTokens({
-        value: votingWeightMantissa,
-        token: xvs,
-        returnInReadableFormat: true,
-        addSymbol: false,
-      }),
-    [votingWeightMantissa, xvs],
-  );
+  const readableVoteWeight = convertMantissaToTokens({
+    value: votingWeightMantissa,
+    token: xvs,
+    returnInReadableFormat: true,
+    addSymbol: false,
+  });
 
   const isDataLoading =
     areCurrentVotesLoading ||

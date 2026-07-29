@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { Spinner, cn } from '@venusprotocol/ui';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
@@ -39,27 +37,20 @@ export function TableCards<R>({
 
   const [titleColumn, ...otherColumns] = columns;
 
-  const selectOptions = useMemo(
-    () =>
-      columns.reduce((acc, column) => {
-        if (!column.sortRows) {
-          return acc;
-        }
+  const selectOptions = columns.reduce((acc, column) => {
+    if (!column.sortRows) {
+      return acc;
+    }
 
-        const option: SelectOption = {
-          value: column.key,
-          label: column.selectOptionLabel,
-        };
+    const option: SelectOption = {
+      value: column.key,
+      label: column.selectOptionLabel,
+    };
 
-        return [...acc, option];
-      }, [] as SelectOption[]),
-    [columns],
-  );
+    return [...acc, option];
+  }, [] as SelectOption[]);
 
-  const selectedOption = useMemo(
-    () => order && selectOptions.find(option => option.value === order.orderBy.key),
-    [order, selectOptions],
-  );
+  const selectedOption = order && selectOptions.find(option => option.value === order.orderBy.key);
 
   const handleOrderChange: SelectProps['onChange'] = value => {
     const newSelectedOption = selectOptions.find(option => option.value === value);

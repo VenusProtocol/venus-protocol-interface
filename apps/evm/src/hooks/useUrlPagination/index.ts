@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 
 export type UseUrlPaginationOutput = {
@@ -51,10 +51,7 @@ export const useUrlPagination = ({
     }
   }, [isValidPage, setPageIndex]);
 
-  const currentPage = useMemo(
-    () => (isValidPage && parsedPage !== undefined ? parsedPage - 1 : 0),
-    [isValidPage, parsedPage],
-  );
+  const currentPage = isValidPage && parsedPage !== undefined ? parsedPage - 1 : 0;
 
   const setCurrentPage = useCallback(
     (newPageIndex: number) => setPageIndex(newPageIndex + 1),

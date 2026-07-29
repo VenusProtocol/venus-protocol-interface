@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import { ProposalType } from 'types';
@@ -37,19 +36,16 @@ export const ErrorChip: React.FC<ChipProps> = ({ ...props }) => <Chip {...props}
 export const ProposalTypeChip: React.FC<ProposalTypeChipProps> = ({ proposalType, ...props }) => {
   const { t } = useTranslation();
 
-  const chipProps: Pick<ChipProps, 'text' | 'iconName'> = useMemo(
-    () =>
-      proposalType === ProposalType.FAST_TRACK
-        ? {
-            text: t('chip.proposalType.fastTrack'),
-            iconName: 'lightning',
-          }
-        : {
-            text: t('chip.proposalType.critical'),
-            iconName: 'fire',
-          },
-    [proposalType, t],
-  );
+  const chipProps: Pick<ChipProps, 'text' | 'iconName'> =
+    proposalType === ProposalType.FAST_TRACK
+      ? {
+          text: t('chip.proposalType.fastTrack'),
+          iconName: 'lightning',
+        }
+      : {
+          text: t('chip.proposalType.critical'),
+          iconName: 'fire',
+        };
 
   return <Chip {...chipProps} {...props} />;
 };

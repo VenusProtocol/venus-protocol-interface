@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
 
 import { useGetPrimeUserCycleRewards } from 'clients/api';
 import { useGetToken, useGetTokens } from 'libs/tokens';
@@ -28,24 +27,20 @@ export const useGetPrimeLastCycleSummary = (
     { enabled: cycleIndex !== undefined && !!accountAddress },
   );
 
-  const marketRewards = useMemo<UserMarketReward[]>(
-    () =>
-      (userCycleRewards?.markets ?? []).flatMap(market => {
-        const token = findTokenByAddress({ address: market.rewardTokenAddress, tokens });
-        if (!token) {
-          return [];
-        }
+  const marketRewards = (userCycleRewards?.markets ?? []).flatMap(market => {
+    const token = findTokenByAddress({ address: market.rewardTokenAddress, tokens });
+    if (!token) {
+      return [];
+    }
 
-        return [
-          {
-            token,
-            marketAddress: market.marketAddress,
-            rewardsCents: convertUsdMantissaToCents(market.totalRewardUsdMantissa).toNumber(),
-          },
-        ];
-      }),
-    [userCycleRewards, tokens],
-  );
+    return [
+      {
+        token,
+        marketAddress: market.marketAddress,
+        rewardsCents: convertUsdMantissaToCents(market.totalRewardUsdMantissa).toNumber(),
+      },
+    ];
+  });
 
   const totalRewardsCents = userCycleRewards?.totalRewardUsdMantissa
     ? convertUsdMantissaToCents(userCycleRewards.totalRewardUsdMantissa).toNumber()

@@ -1,5 +1,4 @@
 import { useNow } from 'hooks/useNow';
-import { useMemo } from 'react';
 import { isProposalExecutable } from 'utilities/isProposalExecutable';
 
 export type UseIsProposalExecutableProps = {
@@ -13,15 +12,11 @@ export const useIsProposalExecutable = ({
 }: UseIsProposalExecutableProps) => {
   const now = useNow();
 
-  const isExecutable = useMemo(
-    () =>
-      isProposalExecutable({
-        executionEtaDate,
-        isQueued,
-        now,
-      }),
-    [executionEtaDate, isQueued, now],
-  );
+  const isExecutable = isProposalExecutable({
+    executionEtaDate,
+    isQueued,
+    now,
+  });
 
   return {
     isExecutable,

@@ -1,5 +1,4 @@
 import { BigNumber } from 'bignumber.js';
-import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
@@ -33,74 +32,67 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const votedTotalMantissa = useMemo(
-    () =>
-      new BigNumber(votedForMantissa ?? 0)
-        .plus(votedAgainstMantissa ?? 0)
-        .plus(abstainedMantissa ?? 0),
-    [votedForMantissa, votedAgainstMantissa, abstainedMantissa],
-  );
+  const votedTotalMantissa = new BigNumber(votedForMantissa ?? 0)
+    .plus(votedAgainstMantissa ?? 0)
+    .plus(abstainedMantissa ?? 0);
 
   const defaultProgressbarProps = {
     min: 0,
     max: 100,
   };
 
-  const activeProposalVotingData = useMemo(
-    () => [
-      {
-        id: 'for',
-        label: t('vote.for'),
-        value: getValueString({ valueMantissa: votedForMantissa, xvs }),
-        progressBarProps: {
-          progressBars: [
-            {
-              value:
-                votedForMantissa
-                  ?.dividedBy(votedTotalMantissa || 0)
-                  .times(100)
-                  .toNumber() || 0,
-            },
-          ],
-        },
+  const activeProposalVotingData = [
+    {
+      id: 'for',
+      label: t('vote.for'),
+      value: getValueString({ valueMantissa: votedForMantissa, xvs }),
+      progressBarProps: {
+        progressBars: [
+          {
+            value:
+              votedForMantissa
+                ?.dividedBy(votedTotalMantissa || 0)
+                .times(100)
+                .toNumber() || 0,
+          },
+        ],
       },
-      {
-        id: 'against',
-        label: t('vote.against'),
-        value: getValueString({ valueMantissa: votedAgainstMantissa, xvs }),
-        progressBarProps: {
-          progressBars: [
-            {
-              value:
-                votedAgainstMantissa
-                  ?.dividedBy(votedTotalMantissa || 0)
-                  .times(100)
-                  .toNumber() || 0,
-              className: 'bg-red',
-            },
-          ],
-        },
+    },
+    {
+      id: 'against',
+      label: t('vote.against'),
+      value: getValueString({ valueMantissa: votedAgainstMantissa, xvs }),
+      progressBarProps: {
+        progressBars: [
+          {
+            value:
+              votedAgainstMantissa
+                ?.dividedBy(votedTotalMantissa || 0)
+                .times(100)
+                .toNumber() || 0,
+            className: 'bg-red',
+          },
+        ],
       },
-      {
-        id: 'abstain',
-        label: t('vote.abstain'),
-        value: getValueString({ valueMantissa: abstainedMantissa, xvs }),
-        progressBarProps: {
-          progressBars: [
-            {
-              value:
-                abstainedMantissa
-                  ?.dividedBy(votedTotalMantissa || 0)
-                  .times(100)
-                  .toNumber() || 0,
-              className: 'bg-grey',
-            },
-          ],
-        },
+    },
+    {
+      id: 'abstain',
+      label: t('vote.abstain'),
+      value: getValueString({ valueMantissa: abstainedMantissa, xvs }),
+      progressBarProps: {
+        progressBars: [
+          {
+            value:
+              abstainedMantissa
+                ?.dividedBy(votedTotalMantissa || 0)
+                .times(100)
+                .toNumber() || 0,
+            className: 'bg-grey',
+          },
+        ],
       },
-    ],
-    [votedForMantissa, votedAgainstMantissa, abstainedMantissa, xvs, votedTotalMantissa, t],
-  );
+    },
+  ];
 
   return (
     <div css={styles.votesWrapper}>

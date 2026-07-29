@@ -156,10 +156,8 @@ export const Borrow: React.FC = () => {
   });
   const simulatedPool = getSimulatedPoolData?.pool;
 
-  const feeTokens = useMemo(
-    () => feePercentage && debouncedInputAmountTokens.multipliedBy(feePercentage).dividedBy(100),
-    [feePercentage, debouncedInputAmountTokens],
-  );
+  const feeTokens =
+    feePercentage && debouncedInputAmountTokens.multipliedBy(feePercentage).dividedBy(100);
 
   const readableFee = useMemo(() => {
     if (!feePercentage || !feeTokens) {

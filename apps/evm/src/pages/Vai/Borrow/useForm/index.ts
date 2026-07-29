@@ -35,18 +35,12 @@ export const useForm = ({
     symbol: 'VAI',
   })!;
 
-  const vaiLiquidityTokens = useMemo(
-    () =>
-      vaiLiquidityMantissa && convertMantissaToTokens({ value: vaiLiquidityMantissa, token: vai }),
-    [vaiLiquidityMantissa, vai],
-  );
+  const vaiLiquidityTokens =
+    vaiLiquidityMantissa && convertMantissaToTokens({ value: vaiLiquidityMantissa, token: vai });
 
-  const accountMintableVaiTokens = useMemo(
-    () =>
-      accountMintableVaiMantissa &&
-      convertMantissaToTokens({ value: accountMintableVaiMantissa, token: vai }),
-    [accountMintableVaiMantissa, vai],
-  );
+  const accountMintableVaiTokens =
+    accountMintableVaiMantissa &&
+    convertMantissaToTokens({ value: accountMintableVaiMantissa, token: vai });
 
   const formSchema = useMemo(
     () =>
