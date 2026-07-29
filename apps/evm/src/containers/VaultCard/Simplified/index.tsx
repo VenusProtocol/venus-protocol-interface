@@ -9,7 +9,7 @@ import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
-import { VaultStatus } from 'types';
+import { VaultStatus, VaultVenue } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
@@ -87,6 +87,17 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
   const readableRealizedApr = isInstitutionalVault(vault)
     ? formatPercentageToReadableValue(vault.realizedAprPercentage)
     : undefined;
+  const isVenusVault = vault.venue === VaultVenue.Venus;
+
+  let aprTitle = isVenusVault ? t('vault.card.apr') : t('vault.card.targetApr');
+  let aprContent = formatPercentageToReadableValue(vault.stakeAprPercentage);
+
+  if (showRealizedApr) {
+    aprTitle = t('vault.card.realizedTargetApr');
+    aprContent = `${readableRealizedApr} / ${formatPercentageToReadableValue(
+      vault.stakeAprPercentage,
+    )}`;
+  }
 
   let stateEndTitle: ReactNode;
   let stateEndContent: ReactNode;
@@ -168,16 +179,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
         </div>
 
         <div className="flex gap-2">
-          <Cell
-            title={showRealizedApr ? t('vault.card.realizedTargetApr') : t('vault.card.apr')}
-            content={
-              showRealizedApr
-                ? `${readableRealizedApr} / ${formatPercentageToReadableValue(
-                    vault.stakeAprPercentage,
-                  )}`
-                : formatPercentageToReadableValue(vault.stakeAprPercentage)
-            }
-          />
+          <Cell title={aprTitle} content={aprContent} />
 
           {showHoldingsCard
             ? stateEndContent && (
