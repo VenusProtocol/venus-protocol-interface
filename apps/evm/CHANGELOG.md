@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 5.11.0
+
+### Minor Changes
+
+- 3ed1f00: update z-index in wallet connect
+
+## 5.10.1
+
+### Patch Changes
+
+- 363627d: upgrade React Router to v8
+
 ## 5.10.0
 
 ### Minor Changes

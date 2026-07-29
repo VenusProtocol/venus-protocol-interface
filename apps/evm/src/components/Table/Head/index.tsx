@@ -75,7 +75,7 @@ function Head<R>({
                 )}
 
                 {active && orderable && (
-                  <Box component="span" sx={visuallyHidden}>
+                  <Box component="span" sx={{ ...visuallyHidden }}>
                     {orderDirection === 'desc' ? 'sorted descending' : 'sorted ascending'}
                   </Box>
                 )}
