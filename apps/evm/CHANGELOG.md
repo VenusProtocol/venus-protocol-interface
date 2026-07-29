@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.12.0
+
+### Minor Changes
+
+- 4cdd430: change connector for BN wallet
+
 ## 5.11.0
 
 ### Minor Changes
