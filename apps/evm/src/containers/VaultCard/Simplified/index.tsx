@@ -81,6 +81,13 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
     </>
   ) : undefined;
 
+  const showRealizedApr =
+    isInstitutionalVault(vault) &&
+    (vault.status === VaultStatus.Claim || vault.status === VaultStatus.Liquidated);
+  const readableRealizedApr = isInstitutionalVault(vault)
+    ? formatPercentageToReadableValue(vault.realizedAprPercentage)
+    : undefined;
+
   let stateEndTitle: ReactNode;
   let stateEndContent: ReactNode;
 
@@ -162,8 +169,14 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
 
         <div className="flex gap-2">
           <Cell
-            title={t('vault.card.apr')}
-            content={formatPercentageToReadableValue(vault.stakeAprPercentage)}
+            title={showRealizedApr ? t('vault.card.realizedTargetApr') : t('vault.card.apr')}
+            content={
+              showRealizedApr
+                ? `${readableRealizedApr} / ${formatPercentageToReadableValue(
+                    vault.stakeAprPercentage,
+                  )}`
+                : formatPercentageToReadableValue(vault.stakeAprPercentage)
+            }
           />
 
           {showHoldingsCard
