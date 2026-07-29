@@ -1571,14 +1571,17 @@ __metadata:
   linkType: hard
 
 "@biconomy/abstractjs@npm:^1.0.21":
-  version: 1.0.22
-  resolution: "@biconomy/abstractjs@npm:1.0.22"
+  version: 1.2.5
+  resolution: "@biconomy/abstractjs@npm:1.2.5"
   peerDependencies:
     "@metamask/delegation-toolkit": ^0.11.0
-    "@rhinestone/module-sdk": 0.2.7
+    "@noble/curves": 2.0.1
+    "@openzeppelin/merkle-tree": 1.0.8
+    "@rhinestone/module-sdk": 0.4.0
+    "@safe-global/types-kit": 3.0.0
     typescript: ^5.8.2
     viem: ^2.26.2
-  checksum: 10c0/0d1be19bfb741422b363360b3a43fd6eeb18b06c42d7a22437e69c6bf39194961b69e3ae0fdea6ebf32d6acea1d9cb440496c8c41156a8a237a4c1da02b30dfa
+  checksum: 10c0/f8ac4c0499807f2ddfd08f6d0bcfb1ae0b44f0f94a70c91cafaad288986688b16dfe8bb229a0b09051507d3e21af59bebd6f767e4616e59fad8ef9be3d4b40cb
   languageName: node
   linkType: hard
 
