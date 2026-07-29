@@ -1,39 +1,11 @@
-import Typography from '@mui/material/Typography';
-import type { ReactElement, RefObject } from 'react';
+import type { RefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
-import { Button } from '@venusprotocol/ui';
+import { cn } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
 import { Icon, type IconProps } from '../Icon';
-import { useStyles } from './styles';
+import { PaginationButton } from './PaginationButton';
 import { usePagination } from './usePagination';
-
-interface PaginationButtonProps {
-  className?: string;
-  onClick: () => void;
-  children: number | ReactElement;
-  ariaLabel?: string;
-}
-
-const PaginationButton: React.FC<PaginationButtonProps> = ({
-  className,
-  onClick,
-  children,
-  ariaLabel,
-}) => {
-  const styles = useStyles();
-  return (
-    <Button
-      variant="text"
-      css={styles.button}
-      className={className}
-      onClick={onClick}
-      aria-label={ariaLabel}
-    >
-      {children}
-    </Button>
-  );
-};
 
 interface PaginationProps {
   itemsCount: number;
@@ -64,7 +36,6 @@ export const Pagination = ({
     scrollToRef,
   });
 
-  const styles = useStyles();
   const { t } = useTranslation();
 
   const currentPage = activePageIndex + 1;
@@ -125,15 +96,22 @@ export const Pagination = ({
   };
 
   return (
-    <div className={className} css={styles.root}>
-      <Typography css={styles.itemsCountString}>{itemsCountString}</Typography>
+    <div
+      className={cn(
+        'my-5 flex flex-wrap items-center justify-center sm:flex-nowrap sm:justify-end',
+        className,
+      )}
+    >
+      <p className="m-0 mb-2 w-full whitespace-nowrap text-center text-base sm:mr-2 sm:mb-0 sm:w-auto sm:text-left">
+        {itemsCountString}
+      </p>
 
       {!isFirstPage && (
         <PaginationButton
           onClick={() => goToPageByIndex(0)}
           ariaLabel={t('pagination.goToFirstPage')}
         >
-          <Icon css={styles.iconArrow} name="doubleChevronLeft" />
+          <Icon className="size-6 text-inherit" name="doubleChevronLeft" />
         </PaginationButton>
       )}
 
@@ -142,12 +120,12 @@ export const Pagination = ({
           onClick={() => goToPageByIndex(activePageIndex - 1)}
           ariaLabel={t('pagination.goToPreviousPage')}
         >
-          <Icon css={[styles.iconArrow, styles.iconReverted]} {...iconProps} />
+          <Icon className="size-6 rotate-180 text-inherit" {...iconProps} />
         </PaginationButton>
       )}
 
       <input
-        css={styles.input}
+        className="mx-1 size-8 cursor-pointer rounded border border-dark-blue-hover bg-transparent p-0 text-center text-white transition-colors duration-300 selection:bg-blue hover:border-blue focus:border-blue focus:outline-none"
         value={inputValue}
         inputMode="numeric"
         aria-label={t('pagination.currentPage')}
@@ -162,7 +140,7 @@ export const Pagination = ({
           onClick={() => goToPageByIndex(activePageIndex + 1)}
           ariaLabel={t('pagination.goToNextPage')}
         >
-          <Icon css={styles.iconArrow} {...iconProps} />
+          <Icon className="size-6 text-inherit" {...iconProps} />
         </PaginationButton>
       )}
 
@@ -171,7 +149,7 @@ export const Pagination = ({
           onClick={() => goToPageByIndex(pagesCount - 1)}
           ariaLabel={t('pagination.goToLastPage')}
         >
-          <Icon css={styles.iconArrow} name="doubleChevronRight" />
+          <Icon className="size-8 text-inherit" name="doubleChevronRight" />
         </PaginationButton>
       )}
     </div>

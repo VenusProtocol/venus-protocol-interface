@@ -1,113 +1,155 @@
-import {
-  Button,
-  type DrawerProps,
-  Modal as MUIModal,
-  type ModalProps as MUIModalProps,
-} from '@mui/material';
-import Fade from '@mui/material/Fade';
-import type { ReactElement } from 'react';
-
-import config from 'config';
+import { type FC, type HTMLAttributes, type ReactElement, useEffect, useId, useRef } from 'react';
 
 import { cn } from '@venusprotocol/ui';
-import { BodyBackdrop } from '../BodyBackdrop';
 import { Icon } from '../Icon';
-import { useModalStyles } from './styles';
+import { MODAL_BACKDROP_TEST_ID } from './testIds';
 
-export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open' | 'onClose'> {
+export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   className?: string;
   backdropClassName?: string;
   buttonClassName?: string;
+  rootClassName?: string;
   isOpen: boolean;
   handleClose?: () => void;
   handleBackAction?: () => void;
   title?: string | ReactElement | ReactElement[];
   noHorizontalPadding?: boolean;
-  anchor?: DrawerProps['anchor'];
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const Modal: FC<ModalProps> = ({
   className,
   backdropClassName,
   buttonClassName,
   children,
-  componentsProps,
+  rootClassName,
   handleClose,
   handleBackAction,
   isOpen,
   title,
   noHorizontalPadding,
-  anchor = 'bottom',
   ...otherModalProps
 }) => {
-  const s = useModalStyles({ hasTitleComponent: Boolean(title), noHorizontalPadding });
-
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
   const hasHeader = !!title || handleBackAction || handleClose;
 
-  const dom = (
-    <div
-      className={cn(
-        'pointer-events-auto flex flex-col overflow-auto outline-hidden bg-dark-blue rounded-xl border border-blue absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
-        !hasHeader && 'pt-4 md:pt-6',
-        className,
-      )}
-    >
-      {hasHeader && (
-        <div css={s.titleWrapper}>
-          {!!handleBackAction && (
-            <Button
-              css={s.backAction}
-              className={buttonClassName}
-              disableRipple
-              onClick={handleBackAction}
-            >
-              <Icon css={s.backArrow} name="arrowRight" />
-            </Button>
-          )}
-          <div css={s.titleComponent}>{title}</div>
+  useEffect(() => {
+    const dialog = dialogRef.current;
 
-          {handleClose && (
-            <Button
-              css={s.closeIcon}
-              className={cn('right-6', buttonClassName)}
-              disableRipple
-              onClick={handleClose}
-            >
-              <Icon name="close" className="size-6" />
-            </Button>
-          )}
-        </div>
-      )}
+    if (!dialog) {
+      return;
+    }
 
-      <div css={s.contentWrapper}>{children as React.ReactNode}</div>
-    </div>
-  );
+    const shouldOpenDialog = isOpen && !dialog.open;
+    const shouldCloseDialog = !isOpen && dialog.open;
+
+    if (!shouldOpenDialog && !shouldCloseDialog) {
+      return;
+    }
+
+    if (shouldOpenDialog && typeof dialog.showModal === 'function') {
+      dialog.showModal();
+      return;
+    }
+
+    if (shouldOpenDialog) {
+      dialog.setAttribute('open', '');
+      return;
+    }
+
+    if (typeof dialog.close === 'function') {
+      dialog.close();
+      return;
+    }
+
+    dialog.removeAttribute('open');
+  }, [isOpen]);
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
-    <>
-      {isOpen && <BodyBackdrop className={backdropClassName} onClick={handleClose} />}
-
-      <MUIModal
-        open={isOpen}
-        onClose={handleClose}
-        closeAfterTransition
-        hideBackdrop
-        disablePortal={config.environment === 'storybook'}
-        componentsProps={{
-          ...componentsProps,
-          root: {
-            ...(componentsProps?.root || {}),
-            className: cn('pointer-events-none', componentsProps?.root?.className),
-            style: {
-              zIndex: 99999,
-              ...componentsProps?.root?.style,
-            },
-          },
+    <dialog
+      aria-label={title ? undefined : 'Dialog'}
+      aria-labelledby={title ? titleId : undefined}
+      className="fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none overflow-visible border-0 bg-transparent p-0 text-white outline-hidden backdrop:bg-transparent"
+      ref={dialogRef}
+      onCancel={event => {
+        event.preventDefault();
+        handleClose?.();
+      }}
+    >
+      <div
+        className={cn('fixed inset-0 z-9999 backdrop-blur-xs', backdropClassName)}
+        data-testid={MODAL_BACKDROP_TEST_ID}
+        onClick={event => {
+          event.stopPropagation();
+          handleClose?.();
         }}
-        {...otherModalProps}
-      >
-        <Fade in={isOpen}>{dom}</Fade>
-      </MUIModal>
-    </>
+      />
+
+      <div className={cn('pointer-events-none fixed inset-0 z-99999', rootClassName)}>
+        <div
+          className={cn(
+            'pointer-events-auto absolute top-1/2 left-1/2 flex max-h-[calc(100%-2rem)] w-[calc(100%-2rem)] max-w-136 -translate-x-1/2 -translate-y-1/2 flex-col overflow-auto rounded-xl border border-blue bg-dark-blue outline-hidden',
+            !hasHeader && 'pt-4 md:pt-6',
+            className,
+          )}
+          {...otherModalProps}
+        >
+          {hasHeader && (
+            <div
+              className={cn(
+                'sticky top-0 z-10 flex items-center justify-center rounded-t-2xl px-6 pt-6',
+                title ? 'mb-4 bg-dark-blue pb-6 md:mb-0' : 'pb-0',
+              )}
+            >
+              {!!handleBackAction && (
+                <button
+                  className={cn(
+                    'absolute left-6 flex size-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
+                    buttonClassName,
+                  )}
+                  type="button"
+                  onClick={handleBackAction}
+                >
+                  <Icon name="arrowRight" className="size-6 rotate-180 text-white" />
+                </button>
+              )}
+
+              {title ? (
+                <h2
+                  className="m-0 flex min-h-6 items-center justify-center px-6 text-center text-lg"
+                  id={titleId}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div className="flex min-h-6 items-center justify-center px-6" />
+              )}
+
+              {!!handleClose && (
+                <button
+                  aria-label="Close"
+                  className={cn(
+                    'absolute right-6 top-1/2 -mt-3 flex size-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
+                    buttonClassName,
+                  )}
+                  type="button"
+                  onClick={handleClose}
+                >
+                  <Icon name="close" className="size-6" />
+                </button>
+              )}
+            </div>
+          )}
+
+          <div className={cn('pb-4 md:pb-6', noHorizontalPadding ? 'px-0' : 'px-4 md:px-6')}>
+            {children}
+          </div>
+        </div>
+      </div>
+    </dialog>
   );
 };

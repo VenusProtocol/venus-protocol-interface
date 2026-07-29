@@ -157,9 +157,7 @@ describe('ClaimRewardsButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     // Uncheck "Select all" checkbox
-    fireEvent.click(
-      within(getByTestId(TEST_IDS.claimRewardSelectAllCheckbox)).getByRole('checkbox'),
-    );
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardSelectAllCheckbox));
 
     // Check all groups were unselected
     within(getByTestId(TEST_IDS.claimRewardBreakdown))
@@ -187,9 +185,7 @@ describe('ClaimRewardsButton', () => {
     fireEvent.click(checkboxes[2]);
 
     // Check "Select all" checkbox
-    fireEvent.click(
-      within(getByTestId(TEST_IDS.claimRewardSelectAllCheckbox)).getByRole('checkbox'),
-    );
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardSelectAllCheckbox));
 
     // Check all groups were selected
     within(getByTestId(TEST_IDS.claimRewardBreakdown))

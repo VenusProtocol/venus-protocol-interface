@@ -1,7 +1,6 @@
-import Typography from '@mui/material/Typography';
+import { cn } from '@venusprotocol/ui';
 
 import { InfoIcon, ProgressBar, type ProgressBarProps } from '..';
-import { useStyles } from './styles';
 
 export interface LabeledProgressBarProps extends ProgressBarProps {
   greyLeftText?: string;
@@ -22,49 +21,32 @@ export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
   rightInfoTooltip,
   className,
   ...progressBarProps
-}) => {
-  const styles = useStyles();
-  return (
-    <>
-      <div className={className} css={styles.topProgressBarLegend}>
-        <div css={[styles.inlineContainer, styles.leftColumn]}>
-          {greyLeftText && (
-            <Typography component="span" variant="small2" css={styles.inlineLabel}>
-              {greyLeftText}
-            </Typography>
-          )}
+}) => (
+  <>
+    <div className={cn('mb-3 flex items-center justify-between', className)}>
+      <div className="mr-6 flex">
+        {greyLeftText && <span className="mr-1 text-sm text-grey">{greyLeftText}</span>}
 
-          {whiteLeftText && (
-            <Typography component="span" variant="small1" css={styles.inlineValue}>
-              {whiteLeftText}
-            </Typography>
-          )}
+        {whiteLeftText && <span className="text-sm font-semibold text-white">{whiteLeftText}</span>}
 
-          {leftInfoTooltip && (
-            <InfoIcon className="ml-1 inline-flex items-center" tooltip={leftInfoTooltip} />
-          )}
-        </div>
-
-        <div css={styles.inlineContainer}>
-          {greyRightText && (
-            <Typography component="span" variant="small2" css={styles.inlineLabel}>
-              {greyRightText}
-            </Typography>
-          )}
-
-          {whiteRightText && (
-            <Typography component="span" variant="small1" css={styles.inlineValue}>
-              {whiteRightText}
-            </Typography>
-          )}
-
-          {rightInfoTooltip && (
-            <InfoIcon className="ml-1 inline-flex items-center" tooltip={rightInfoTooltip} />
-          )}
-        </div>
+        {leftInfoTooltip && (
+          <InfoIcon className="ml-1 inline-flex items-center" tooltip={leftInfoTooltip} />
+        )}
       </div>
 
-      <ProgressBar {...progressBarProps} />
-    </>
-  );
-};
+      <div className="flex max-md:text-right">
+        {greyRightText && <span className="mr-1 text-sm text-grey">{greyRightText}</span>}
+
+        {whiteRightText && (
+          <span className="text-sm font-semibold text-white">{whiteRightText}</span>
+        )}
+
+        {rightInfoTooltip && (
+          <InfoIcon className="ml-1 inline-flex items-center" tooltip={rightInfoTooltip} />
+        )}
+      </div>
+    </div>
+
+    <ProgressBar {...progressBarProps} />
+  </>
+);
