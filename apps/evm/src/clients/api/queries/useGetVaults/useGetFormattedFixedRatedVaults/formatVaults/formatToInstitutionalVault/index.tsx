@@ -103,7 +103,7 @@ export const formatToInstitutionalVault = ({
     .toNumber();
 
   const realizedAprPercentage =
-    vaultData.realizedAprDecimal !== undefined
+    vaultData.realizedAprDecimal != null
       ? new BigNumber(vaultData.realizedAprDecimal).multipliedBy(100).toNumber()
       : undefined;
 

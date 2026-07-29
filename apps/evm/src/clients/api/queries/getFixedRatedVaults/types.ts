@@ -103,7 +103,7 @@ type FixedRatedVault = {
   vaultAddress: Address;
   underlyingAssetAddress: Address;
   fixedApyDecimal: string;
-  realizedAprDecimal?: string;
+  realizedAprDecimal?: string | null;
   maturityDate: string;
   protocolData: FixedRatedVaultProtocolData;
   createdAt: string;

@@ -491,4 +491,62 @@ describe('useGetFormattedFixedRatedVaults', () => {
     expect(institutionalVault?.status).toBe(VaultStatus.Liquidated);
     expect(institutionalVault?.userYieldTokens?.toFixed()).toBe('-50');
   });
+
+  it('computes realizedAprPercentage from realizedAprDecimal', () => {
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
+      data: [
+        {
+          ...fakeMatrixdockVaultProduct,
+          realizedAprDecimal: '0.054',
+        },
+      ],
+      isLoading: false,
+    });
+
+    let data: UseGetPendleVaultsOutput['data'] | undefined;
+
+    const Wrapper = () => {
+      ({ data } = useGetFormattedFixedRatedVaults());
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const institutionalVault = data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(institutionalVault?.realizedAprPercentage).toBe(5.4);
+  });
+
+  it('leaves realizedAprPercentage undefined when realizedAprDecimal is null', () => {
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
+      data: [
+        {
+          ...fakeMatrixdockVaultProduct,
+          realizedAprDecimal: null,
+        },
+      ],
+      isLoading: false,
+    });
+
+    let data: UseGetPendleVaultsOutput['data'] | undefined;
+
+    const Wrapper = () => {
+      ({ data } = useGetFormattedFixedRatedVaults());
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const institutionalVault = data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(institutionalVault?.realizedAprPercentage).toBeUndefined();
+  });
 });
