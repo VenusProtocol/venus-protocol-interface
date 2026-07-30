@@ -1,33 +1,33 @@
-import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { t } from 'libs/translations';
-import type { LiquidityHubTx } from 'types';
+import type { TxType } from 'types';
 import { getTransactionName } from '..';
 
 describe('getTransactionName', () => {
-  it('identifies Liquidity Hub transactions while keeping filter labels generic', () => {
-    const [liquidityHub] = liquidityHubs;
-    const transaction: LiquidityHubTx = {
-      accountAddress: '0x1000000000000000000000000000000000000000',
-      blockNumber: '1',
-      blockTimestamp: new Date('2026-01-01T00:00:00.000Z'),
-      chainId: liquidityHub.vhToken.chainId,
-      contractAddress: liquidityHub.vhToken.address,
-      hash: '0x1',
-      txType: 'supply',
-      vhToken: liquidityHub.vhToken,
-    };
-
+  it.each([
+    ['supply', 'Supply • Venus Core'],
+    ['repay', 'Repay • Venus Core'],
+    ['borrow', 'Borrow • Venus Core'],
+    ['withdraw', 'Withdraw • Venus Core'],
+    ['exitMarket', 'Disable collateral • Venus Core'],
+    ['enterMarket', 'Enable collateral • Venus Core'],
+    ['hubSupply', 'Supply • Liquidity Hub'],
+    ['hubSupplyFromCollateral', 'Migrate • Liquidity Hub'],
+    ['hubWithdraw', 'Withdraw • Liquidity Hub'],
+    ['principalSupplied', 'Supply • Trade'],
+    ['principalWithdrawn', 'Withdraw • Trade'],
+    ['positionOpened', 'Opened • Trade'],
+    ['profitConverted', 'Realized PnL • Trade'],
+    ['positionClosedWithProfit', 'Close (profit) • Trade'],
+    ['positionClosedWithLoss', 'Close (loss) • Trade'],
+    ['positionIncreased', 'Increase • Trade'],
+    ['positionReducedWithLoss', 'Reduced (loss) • Trade'],
+    ['positionReducedWithProfit', 'Reduced (profit) • Trade'],
+  ] satisfies [TxType, string][])('formats %s', (type, expectedName) => {
     expect(
       getTransactionName({
-        transaction: 'supply',
+        type,
         t,
       }),
-    ).toBe('Supply');
-    expect(
-      getTransactionName({
-        transaction,
-        t,
-      }),
-    ).toBe('Supply • Liquidity Hub');
+    ).toBe(expectedName);
   });
 });

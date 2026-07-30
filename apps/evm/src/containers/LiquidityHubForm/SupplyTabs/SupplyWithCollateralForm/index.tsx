@@ -42,10 +42,24 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   const [formValues, setFormValues] = useState(initialFormValues);
   const { accountAddress } = useAccountAddress();
 
-  const { limitTokens, safeLimitTokens } = calculateCollateralWithdrawLimits({
-    asset: corePoolAsset,
-    pool: corePool,
-  });
+  const { limitTokens: _limitTokens, safeLimitTokens: _safeLimitTokens } =
+    calculateCollateralWithdrawLimits({
+      asset: corePoolAsset,
+      pool: corePool,
+    });
+
+  // Take supply cap in consideration
+  const marginWithSupplyCapTokens = liquidityHub.supplyCapTokens.minus(
+    liquidityHub.supplyBalanceTokens,
+  );
+
+  let safeLimitTokens = BigNumber.min(_safeLimitTokens, marginWithSupplyCapTokens);
+  let limitTokens = BigNumber.min(_limitTokens, marginWithSupplyCapTokens);
+
+  if (liquidityHub.userSupplyCapTokens) {
+    safeLimitTokens = BigNumber.min(safeLimitTokens, liquidityHub.userSupplyCapTokens);
+    limitTokens = BigNumber.min(limitTokens, liquidityHub.userSupplyCapTokens);
+  }
 
   const approval: TokenApproval = {
     type: 'token',
@@ -124,7 +138,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     ? () =>
         setFormValues(values => ({
           ...values,
-          amountTokens: limitTokens.dp(liquidityHub.vhToken.decimals).toFixed(),
+          amountTokens: limitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
         }))
     : undefined;
 

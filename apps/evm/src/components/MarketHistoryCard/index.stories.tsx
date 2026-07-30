@@ -6,9 +6,9 @@ import { usdc } from '__mocks__/models/tokens';
 import { MarketHistoryCard } from '.';
 
 const historyData = [
-  { timestampMs: 1704067200000, apyPercentage: 2.2, balanceCents: new BigNumber(100000000) },
-  { timestampMs: 1706745600000, apyPercentage: 3.1, balanceCents: new BigNumber(120000000) },
-  { timestampMs: 1709251200000, apyPercentage: 2.8, balanceCents: new BigNumber(115000000) },
+  { blockTimestamp: 1704067200000, supplyApyPercentage: 2.2, totalSupplyCents: 100000000 },
+  { blockTimestamp: 1706745600000, supplyApyPercentage: 3.1, totalSupplyCents: 120000000 },
+  { blockTimestamp: 1709251200000, supplyApyPercentage: 2.8, totalSupplyCents: 115000000 },
 ];
 
 const meta = {

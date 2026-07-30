@@ -13,7 +13,7 @@ vi.mock('utilities/restService');
 const fakeInput = {
   accountAddress: fakeAddress,
   chainId: ChainId.BSC_TESTNET,
-  getPoolsData: { pools: poolData },
+  pools: poolData,
   liquidityHubs,
   contractAddress: undefined,
   page: 1,
@@ -82,6 +82,8 @@ describe('getAccountTransactionHistory', () => {
           chainId: ChainId.BSC_TESTNET,
           underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
           underlyingTokenPriceMantissa: '1000130000000000000',
+          migrationVTokenAddress: null,
+          migrationVTokenAmountMantissa: null,
           ...fakeYieldPlusFields,
         },
         {
@@ -98,6 +100,8 @@ describe('getAccountTransactionHistory', () => {
           chainId: ChainId.BSC_TESTNET,
           underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
           underlyingTokenPriceMantissa: '1000391740000000000',
+          migrationVTokenAddress: null,
+          migrationVTokenAmountMantissa: null,
           ...fakeYieldPlusFields,
         },
       ];
@@ -121,6 +125,9 @@ describe('getAccountTransactionHistory', () => {
     ['repay', 3],
     ['enterMarket', 4],
     ['exitMarket', 5],
+    ['hubSupply', 39],
+    ['hubWithdraw', 40],
+    ['hubSupplyFromCollateral', 41],
   ] as const)('sends %s as API filter %i', async (type, apiType) => {
     (restService as Mock).mockResolvedValue({
       data: {
@@ -162,6 +169,8 @@ describe('getAccountTransactionHistory', () => {
             chainId: ChainId.BSC_TESTNET,
             underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
             underlyingTokenPriceMantissa: null,
+            migrationVTokenAddress: null,
+            migrationVTokenAmountMantissa: null,
             ...fakeYieldPlusFields,
           },
           {
@@ -178,6 +187,8 @@ describe('getAccountTransactionHistory', () => {
             chainId: ChainId.BSC_TESTNET,
             underlyingAddress: '0xa11c8d9dc9b66e209ef60f0c8d969d3Cd988782c',
             underlyingTokenPriceMantissa: '1000130000000000000',
+            migrationVTokenAddress: null,
+            migrationVTokenAmountMantissa: null,
             ...fakeYieldPlusFields,
           },
         ] satisfies ApiAccountHistoricalTransaction[],
@@ -193,7 +204,7 @@ describe('getAccountTransactionHistory', () => {
     ]);
   });
 
-  it('formats Liquidity Hub supply and withdrawal transactions', async () => {
+  it('formats Liquidity Hub supply, withdrawal and migration transactions', async () => {
     const [liquidityHub] = liquidityHubs;
     const commonTransactionFields = {
       accountAddress: fakeAddress as Address,
@@ -204,12 +215,14 @@ describe('getAccountTransactionHistory', () => {
       contractAddress: liquidityHub.vhToken.address,
       underlyingAddress: liquidityHub.vhToken.underlyingToken.address,
       underlyingTokenPriceMantissa: '7000000000000000000',
+      migrationVTokenAddress: null,
+      migrationVTokenAmountMantissa: null,
       ...fakeYieldPlusFields,
     };
 
     (restService as Mock).mockResolvedValue({
       data: {
-        count: '2',
+        count: '3',
         results: [
           {
             ...commonTransactionFields,
@@ -217,7 +230,7 @@ describe('getAccountTransactionHistory', () => {
             txHash: '0x3',
             txIndex: 3,
             txTimestamp: new Date('2024-08-25T04:17:09.000Z'),
-            txType: 'mint',
+            txType: 'hub_supply',
           },
           {
             ...commonTransactionFields,
@@ -225,7 +238,15 @@ describe('getAccountTransactionHistory', () => {
             txHash: '0x4',
             txIndex: 4,
             txTimestamp: new Date('2024-08-26T04:17:09.000Z'),
-            txType: 'redeem',
+            txType: 'hub_withdraw',
+          },
+          {
+            ...commonTransactionFields,
+            id: 'liquidity-hub-migration',
+            txHash: '0x5',
+            txIndex: 5,
+            txTimestamp: new Date('2024-08-27T04:17:09.000Z'),
+            txType: 'hub_migration',
           },
         ] satisfies ApiAccountHistoricalTransaction[],
       },
@@ -233,22 +254,33 @@ describe('getAccountTransactionHistory', () => {
 
     const response = await getAccountTransactionHistory(fakeInput);
 
-    expect(response.transactions).toHaveLength(2);
+    expect(response.transactions).toHaveLength(3);
     expect(response.transactions).toEqual([
       expect.objectContaining({
-        txType: 'supply',
+        txType: 'hubSupply',
         vhToken: liquidityHub.vhToken,
       }),
       expect.objectContaining({
-        txType: 'withdraw',
+        txType: 'hubWithdraw',
+        vhToken: liquidityHub.vhToken,
+      }),
+      expect.objectContaining({
+        txType: 'hubSupplyFromCollateral',
         vhToken: liquidityHub.vhToken,
       }),
     ]);
 
-    response.transactions.forEach(transaction => {
+    response.transactions.slice(0, 2).forEach(transaction => {
       expect(transaction.amounts?.[0]?.amountTokens.isEqualTo(1)).toBe(true);
       expect(transaction.amounts?.[0]?.amountCents).toBe(700);
     });
+
+    const migrationTransaction = response.transactions[2];
+    expect(migrationTransaction.amounts).toHaveLength(2);
+    expect(migrationTransaction.amounts?.[0]?.amountTokens.isEqualTo(-1)).toBe(true);
+    expect(migrationTransaction.amounts?.[0]?.amountCents).toBe(-700);
+    expect(migrationTransaction.amounts?.[1]?.amountTokens.isEqualTo(1)).toBe(true);
+    expect(migrationTransaction.amounts?.[1]?.amountCents).toBe(700);
   });
 
   it('throws on error in payload', async () => {
@@ -285,6 +317,9 @@ describe('convertToTxType', () => {
     ['position_closed_with_loss', 'positionReducedWithLoss'],
     ['position_scaled', 'positionIncreased'],
     ['profit_converted', 'profitConverted'],
+    ['hub_supply', 'hubSupply'],
+    ['hub_withdraw', 'hubWithdraw'],
+    ['hub_migration', 'hubSupplyFromCollateral'],
   ] as const)('converts %s to %s', (apiTxType, txType) => {
     expect(convertToTxType(apiTxType)).toBe(txType);
   });

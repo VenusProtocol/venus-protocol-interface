@@ -74,7 +74,7 @@
       "title": "Tóm tắt"
     },
     "tabs": {
-      "hub": "Trung tâm",
+      "hubs": "Trung tâm",
       "markets": "Thị trường",
       "settings": "Cài đặt",
       "transactions": "Giao dịch",
@@ -98,6 +98,11 @@
         }
       },
       "today": "Hôm nay",
+      "txSource": {
+        "liquidityHub": "Trung tâm thanh khoản",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>Đã bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
         "exitMarket": "<Styled>Đã tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
@@ -107,15 +112,16 @@
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",
         "mint": "Cung cấp",
-        "positionClosedWithLoss": "Đóng (lỗ) • Trade",
-        "positionClosedWithProfit": "Đóng (lãi) • Trade",
-        "positionIncreased": "Tăng • Trade",
-        "positionOpened": "Mở • Trade",
-        "positionReducedWithLoss": "Đã giảm (lỗ) • Trade",
-        "positionReducedWithProfit": "Đã giảm (lãi) • Trade",
-        "principalSupplied": "Cung cấp • Trade",
-        "principalWithdrawn": "Rút • Trade",
-        "realizedPnl": "Lãi/lỗ đã thực hiện • Trade",
+        "mintFromCollateral": "Di chuyển",
+        "positionClosedWithLoss": "Đóng (lỗ)",
+        "positionClosedWithProfit": "Đóng (lãi)",
+        "positionIncreased": "Tăng",
+        "positionOpened": "Mở",
+        "positionReducedWithLoss": "Đã giảm (lỗ)",
+        "positionReducedWithProfit": "Đã giảm (lãi)",
+        "principalSupplied": "Cung cấp",
+        "principalWithdrawn": "Rút",
+        "realizedPnl": "Lãi/lỗ đã thực hiện",
         "redeem": "Rút",
         "repay": "Hoàn trả"
       },
@@ -817,6 +823,7 @@
       "markets": {
         "label": "Thị trường"
       },
+      "new": "Mới",
       "others": {
         "bridge": {
           "description": "Chuyển $XVS xuyên chuỗi trên Venus.",
@@ -949,6 +956,11 @@
             "market": "Thị trường",
             "vault": "Kho"
           }
+        },
+        "names": {
+          "core": "Venus Core",
+          "flux": "Venus Flux",
+          "frv": "Fixed Rate Vaults"
         }
       }
     },
@@ -961,6 +973,7 @@
         },
         "hubContract": "Hợp đồng hub",
         "operator": "Nhà vận hành",
+        "operatorName": "Venus DAO",
         "performanceFee": "Phí hiệu suất",
         "redeemFee": "Phí đổi lại",
         "riskDisclosures": {
@@ -970,6 +983,13 @@
         "vhTokenContract": "Hợp đồng {{ vhTokenSymbol }}"
       },
       "title": "Thông tin hub"
+    },
+    "periodOption": {
+      "all": "Tất cả",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "thirtyDays": "30D",
+      "threeMonths": "3M"
     }
   },
   "liquidityHubForm": {
@@ -2214,6 +2234,14 @@
     },
     "success": {
       "title": "Giao dịch đã được xác nhận"
+    }
+  },
+  "transactions": {
+    "liquidityHub": {
+      "label": "Trung tâm thanh khoản"
+    },
+    "venusCore": {
+      "label": "Venus Core"
     }
   },
   "txFormSubmitButton": {

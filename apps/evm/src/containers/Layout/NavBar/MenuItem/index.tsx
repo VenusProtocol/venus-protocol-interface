@@ -4,7 +4,7 @@ import { matchPath, useLocation } from 'react-router';
 import { AccordionAnimatedContent, Dropdown, Icon } from 'components';
 import { Link } from 'containers/Link';
 import { useState } from 'react';
-import { BetaTag } from '../BetaTag';
+import { Tag } from '../Tag';
 import type { MenuItem as MenuItemType, SubMenu } from '../types';
 import { SubMenuContent } from './SubMenuContent';
 import type { SubMenuItemProps } from './SubMenuContent/SubMenuItem';
@@ -49,7 +49,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           type="button"
           onClick={onAccordionTriggerClick}
         >
-          <span className="whitespace-nowrap">{item.label}</span>
+          <div className="flex items-center gap-x-2">
+            <span className="whitespace-nowrap">{item.label}</span>
+
+            {!!item.tagLabel && <Tag>{item.tagLabel}</Tag>}
+          </div>
 
           <Icon
             name="chevronDown"
@@ -91,7 +95,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           <button
             className={cn(
               sharedContainerClassName,
-              'flex items-center justify-between cursor-pointer lg:gap-x-2',
+              'relative flex items-center justify-between cursor-pointer lg:gap-x-2',
               isDropdownOpen && 'lg:text-white lg:bg-dark-blue-active',
             )}
             type="button"
@@ -99,6 +103,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             <span>{item.label}</span>
 
             <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
+
+            {!!item.tagLabel && (
+              <Tag className="absolute z-1 -top-2 -right-3 xl:-right-1">{item.tagLabel}</Tag>
+            )}
           </button>
         )}
       </Dropdown>
@@ -112,7 +120,9 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
     >
       <span>{item.label}</span>
 
-      {item.isBeta && <BetaTag className="inline-block lg:hidden xl:inline-block" />}
+      {item.tagLabel && (
+        <Tag className="inline-block lg:hidden xl:inline-block">{item.tagLabel}</Tag>
+      )}
     </Link>
   );
 };

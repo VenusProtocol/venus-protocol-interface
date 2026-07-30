@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { liquidityHubSnapshots } from '__mocks__/models/liquidityHubSnapshots';
-import type { MarketHistoryPeriodType } from 'clients/api';
+import { type LiquidityHubHistoryPeriod, useGetLiquidityHubHistory } from 'clients/api';
 import {
   Apy,
   ButtonGroup,
@@ -13,9 +12,9 @@ import {
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
-import type { LiquidityHub, MarketHistoryDataPoint } from 'types';
+import type { LiquidityHub } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
-import { UnitPriceChart, type UnitPriceHistoryDataPoint } from './UnitPriceChart';
+import { UnitPriceChart } from './UnitPriceChart';
 import { formatUnitPriceToReadableValue } from './formatUnitPriceToReadableValue';
 export interface LiquidityHubHistoryProps {
   liquidityHub: LiquidityHub;
@@ -23,36 +22,45 @@ export interface LiquidityHubHistoryProps {
 
 export const LiquidityHubHistory: React.FC<LiquidityHubHistoryProps> = ({ liquidityHub }) => {
   const { t } = useTranslation();
-  const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>('month');
+  const [selectedPeriod, setSelectedPeriod] = useState<LiquidityHubHistoryPeriod>('1m');
 
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
-
-  // TODO: fetch data from API
-  const supplyChartData: MarketHistoryDataPoint[] = liquidityHubSnapshots.map(snapshot => ({
-    apyPercentage: +snapshot.supplyApy,
-    timestampMs: Number(snapshot.blockTimestamp) * 1000,
-    balanceCents: new BigNumber(snapshot.totalSupplyCents),
-  }));
-
-  const unitPriceChartData: UnitPriceHistoryDataPoint[] = liquidityHubSnapshots.map(snapshot => ({
-    unitPrice: +snapshot.pricePerShare,
-    timestampMs: Number(snapshot.blockTimestamp) * 1000,
-  }));
-
-  const isLoading = false;
-
-  const periodOptions: MarketHistoryCardPeriodOption[] = [
+  const {
+    data: getLiquidityHubHistoryData = {
+      liquidityHubSnapshots: [],
+    },
+    isLoading,
+  } = useGetLiquidityHubHistory(
     {
-      label: t('market.periodOption.thirtyDays'),
-      value: 'month',
+      vhTokenAddress: liquidityHub.vhToken.address,
+      period: selectedPeriod,
     },
     {
-      label: t('market.periodOption.sixMonths'),
-      value: 'halfyear',
+      enabled: isApyChartsFeatureEnabled,
+    },
+  );
+  const { liquidityHubSnapshots } = getLiquidityHubHistoryData;
+
+  const periodOptions: MarketHistoryCardPeriodOption<LiquidityHubHistoryPeriod>[] = [
+    {
+      label: t('liquidityHub.periodOption.oneWeek'),
+      value: '1w',
     },
     {
-      label: t('market.periodOption.oneYear'),
-      value: 'year',
+      label: t('liquidityHub.periodOption.thirtyDays'),
+      value: '1m',
+    },
+    {
+      label: t('liquidityHub.periodOption.threeMonths'),
+      value: '3m',
+    },
+    {
+      label: t('liquidityHub.periodOption.oneYear'),
+      value: '1y',
+    },
+    {
+      label: t('liquidityHub.periodOption.all'),
+      value: 'all',
     },
   ];
 
@@ -106,7 +114,7 @@ export const LiquidityHubHistory: React.FC<LiquidityHubHistoryProps> = ({ liquid
         }}
         history={{
           type: 'supply',
-          data: supplyChartData,
+          data: liquidityHubSnapshots,
           isLoading: false,
           selectedPeriod,
           setSelectedPeriod,
@@ -139,7 +147,7 @@ export const LiquidityHubHistory: React.FC<LiquidityHubHistoryProps> = ({ liquid
         {isLoading && liquidityHubSnapshots.length === 0 && <Spinner />}
 
         {shouldDisplayHistory && (
-          <UnitPriceChart data={unitPriceChartData} selectedPeriod={selectedPeriod} />
+          <UnitPriceChart data={liquidityHubSnapshots} selectedPeriod={selectedPeriod} />
         )}
       </MarketCard>
     </div>

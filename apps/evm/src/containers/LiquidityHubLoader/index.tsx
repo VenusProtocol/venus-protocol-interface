@@ -1,10 +1,12 @@
+import type { Address } from 'viem';
+
 import { useGetLiquidityHub } from 'clients/api';
 import { Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { routes } from 'constants/routing';
 import { Redirect } from 'containers/Redirect';
+import { useAccountAddress } from 'libs/wallet';
 import type { LiquidityHub } from 'types';
-import type { Address } from 'viem';
 
 export interface LiquidityHubLoaderProps {
   children: (props: {
@@ -17,9 +19,12 @@ export const LiquidityHubLoader: React.FC<LiquidityHubLoaderProps> = ({
   vhTokenAddress,
   children,
 }) => {
+  const { accountAddress } = useAccountAddress();
+
   const { data: getLiquidityHubData, isLoading } = useGetLiquidityHub(
     {
       vhTokenAddress: vhTokenAddress || NULL_ADDRESS,
+      accountAddress,
     },
     {
       enabled: !!vhTokenAddress,

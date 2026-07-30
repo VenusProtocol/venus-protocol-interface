@@ -97,7 +97,14 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
   return (
     <div className="space-y-2">
       {balanceUpdateRows.map((row, index) => (
-        <LabeledValueUpdate key={row.label?.toString() ?? index} {...row} />
+        <LabeledValueUpdate
+          key={
+            row.label
+              ? `${row.label.toString()}-${row.original?.toString()}-${row.description?.toString()}`
+              : index
+          }
+          {...row}
+        />
       ))}
     </div>
   );

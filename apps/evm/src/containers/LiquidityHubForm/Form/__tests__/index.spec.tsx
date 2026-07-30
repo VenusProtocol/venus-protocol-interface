@@ -315,7 +315,7 @@ describe('LiquidityHubForm Form', () => {
     expect(screen.getByText('1.2%')).toBeInTheDocument();
   });
 
-  it('hides connected-only amount controls while disconnected', () => {
+  it('disables amount controls while disconnected', () => {
     mockUseAccountAddress.mockImplementation(() => ({
       accountAddress: undefined,
     }));
@@ -324,7 +324,12 @@ describe('LiquidityHubForm Form', () => {
       accountAddress: undefined,
     });
 
-    expect(document.querySelector('input[name="amountTokens"]')).not.toBeInTheDocument();
+    expect(getAmountInput()).toBeDisabled();
+    expect(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.rightMaxButtonLabel,
+      }),
+    ).toBeDisabled();
     expect(screen.queryByText('Available balance')).not.toBeInTheDocument();
     expect(screen.getByText(en.apyBreakdown.totalApy.supplyApyLabel)).toBeInTheDocument();
     expect(

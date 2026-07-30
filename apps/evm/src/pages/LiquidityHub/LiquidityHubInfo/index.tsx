@@ -38,14 +38,14 @@ export const LiquidityHubInfo: React.FC<LiquidityHubInfoProps> = ({ liquidityHub
   const stats: MarketInfoProps['items'] = [
     {
       label: t('liquidityHub.info.stats.operator'),
-      children: liquidityHub.operatorName,
+      children: t('liquidityHub.info.stats.operatorName'),
     },
     {
       label: t('liquidityHub.info.stats.hubContract'),
       children: (
         <ChainExplorerLink
-          hash={liquidityHub.hubAddress}
-          text={liquidityHub.hubAddress}
+          hash={liquidityHub.vhToken.address}
+          text={liquidityHub.vhToken.address}
           chainId={chainId}
         />
       ),

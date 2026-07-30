@@ -1,5 +1,3 @@
-import removeDuplicates from 'utilities/removeDuplicates';
-
 export const MARKET_TX_TYPES = [
   'supply',
   'borrow',
@@ -9,7 +7,11 @@ export const MARKET_TX_TYPES = [
   'exitMarket',
 ] as const;
 
-export const LIQUIDITY_HUB_TX_TYPES = ['supply', 'withdraw'] as const;
+export const LIQUIDITY_HUB_TX_TYPES = [
+  'hubSupply',
+  'hubSupplyFromCollateral',
+  'hubWithdraw',
+] as const;
 
 export const TRADE_TX_TYPES = [
   'positionClosedWithLoss',
@@ -23,8 +25,4 @@ export const TRADE_TX_TYPES = [
   'principalWithdrawn',
 ] as const;
 
-export const TX_TYPES = removeDuplicates([
-  ...MARKET_TX_TYPES,
-  ...LIQUIDITY_HUB_TX_TYPES,
-  ...TRADE_TX_TYPES,
-]);
+export const TX_TYPES = [...MARKET_TX_TYPES, ...LIQUIDITY_HUB_TX_TYPES, ...TRADE_TX_TYPES];

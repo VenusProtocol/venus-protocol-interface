@@ -1,5 +1,4 @@
 import { fireEvent, screen } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import { pendleVault } from '__mocks__/models/vaults';
@@ -28,9 +27,12 @@ const vault = pendleVault;
 
 const supplyChartData = [
   {
-    apyPercentage: 1,
-    balanceCents: new BigNumber(10000),
-    timestampMs: 1714828100000,
+    blockNumber: 1,
+    blockTimestamp: 1714828100000,
+    borrowApyPercentage: 1,
+    supplyApyPercentage: 1,
+    totalBorrowCents: 10000,
+    totalSupplyCents: 10000,
   },
 ];
 
@@ -55,8 +57,8 @@ describe('containers/VaultCard/PendleVaultModal/OverviewTab', () => {
     expect(screen.getByText(vault.venueName)).toBeInTheDocument();
     expect(mockAreaChart).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: [expect.objectContaining({ balanceNum: 10000 })],
-        yAxisDataKey: 'balanceNum',
+        data: supplyChartData,
+        yAxisDataKey: 'totalSupplyCents',
       }),
     );
   });

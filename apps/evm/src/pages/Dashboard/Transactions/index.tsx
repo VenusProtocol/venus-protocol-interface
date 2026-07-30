@@ -1,5 +1,4 @@
-import { liquidityHubs } from '__mocks__/models/liquidityHubs';
-import { useGetAccountTransactionHistory, useGetPools } from 'clients/api';
+import { useGetAccountTransactionHistory, useGetLiquidityHubs, useGetPools } from 'clients/api';
 import {
   Pagination,
   Select,
@@ -8,7 +7,7 @@ import {
   TransactionsList,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import { MARKET_TX_TYPES, TX_TYPES } from 'constants/marketTxTypes';
+import { LIQUIDITY_HUB_TX_TYPES, MARKET_TX_TYPES, TX_TYPES } from 'constants/marketTxTypes';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -108,6 +107,20 @@ export const Transactions: React.FC = () => {
     name: 'liquidityHub',
   });
 
+  const {
+    data: getLiquidityHubsData = {
+      liquidityHubs: [],
+    },
+  } = useGetLiquidityHubs(
+    {
+      accountAddress,
+    },
+    {
+      enabled: isLiquidityHubFeatureEnabled,
+    },
+  );
+  const { liquidityHubs } = getLiquidityHubsData;
+
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(
       {
@@ -127,9 +140,12 @@ export const Transactions: React.FC = () => {
       value: ALL_OPTION_VALUE,
     };
 
-    const otherOptions: SelectOption<string>[] = MARKET_TX_TYPES.map(type => ({
+    const otherOptions: SelectOption<string>[] = [
+      ...MARKET_TX_TYPES,
+      ...LIQUIDITY_HUB_TX_TYPES,
+    ].map(type => ({
       label: getTransactionName({
-        transaction: type,
+        type,
         t,
       }),
       value: type,
@@ -189,7 +205,7 @@ export const Transactions: React.FC = () => {
     }
 
     return [allOption, ...otherOptions];
-  }, [t, poolData, isLiquidityHubFeatureEnabled]);
+  }, [t, poolData, liquidityHubs, isLiquidityHubFeatureEnabled]);
 
   // Reset contract address filter if the value in the URL is incorrect
   useEffect(() => {

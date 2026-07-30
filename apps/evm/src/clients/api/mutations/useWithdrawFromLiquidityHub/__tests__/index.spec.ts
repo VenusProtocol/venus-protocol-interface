@@ -35,7 +35,7 @@ describe('useWithdrawFromLiquidityHub', () => {
 
     expect(fn(fakePartialInput)).toEqual({
       abi: expect.any(Array),
-      address: liquidityHub.hubAddress,
+      address: liquidityHub.vhToken.address,
       functionName: 'withdraw',
       args: [1000000000000000000n, fakeAccountAddress, fakeAccountAddress],
     });
@@ -61,7 +61,7 @@ describe('useWithdrawFromLiquidityHub', () => {
 
     expect(fn(fakeFullInput)).toEqual({
       abi: expect.any(Array),
-      address: liquidityHub.hubAddress,
+      address: liquidityHub.vhToken.address,
       functionName: 'redeem',
       args: [39622641509433962264n, fakeAccountAddress, fakeAccountAddress],
     });

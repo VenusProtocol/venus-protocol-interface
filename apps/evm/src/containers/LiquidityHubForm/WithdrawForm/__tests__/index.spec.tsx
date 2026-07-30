@@ -14,7 +14,14 @@ import { formatTokensToReadableValue } from 'utilities';
 
 import { WithdrawForm, type WithdrawFormProps } from '..';
 
-const liquidityHub = liquidityHubs[0];
+const baseLiquidityHub = liquidityHubs[0];
+const defaultWithdrawLimitTokens = baseLiquidityHub.userSupplyBalanceTokens ?? new BigNumber(0);
+const liquidityHub = {
+  ...baseLiquidityHub,
+  pricePerShare: new BigNumber(1),
+  userWithdrawCapTokens: defaultWithdrawLimitTokens,
+  userVhTokenMaxRedeemTokens: defaultWithdrawLimitTokens,
+};
 const underlyingToken = liquidityHub.vhToken.underlyingToken;
 
 const renderTransactionForm = (
@@ -62,14 +69,20 @@ describe('WithdrawForm', () => {
     }));
   });
 
-  it('renders the user supply balance as the withdrawal limit when it is lower than hub liquidity', () => {
-    const withdrawalLimitTokens = liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0);
+  it('renders the user withdraw cap as the withdrawal limit when it is lower than max redeem', () => {
+    const withdrawalLimitTokens = new BigNumber(5);
     const readableWithdrawalLimit = formatTokensToReadableValue({
       value: withdrawalLimitTokens,
       token: underlyingToken,
     });
 
-    renderTransactionForm();
+    renderTransactionForm({
+      liquidityHub: {
+        ...liquidityHub,
+        userWithdrawCapTokens: withdrawalLimitTokens,
+        userVhTokenMaxRedeemTokens: new BigNumber(100),
+      },
+    });
 
     expect(screen.getByText(en.availableBalance.label)).toBeInTheDocument();
     expect(
@@ -80,19 +93,20 @@ describe('WithdrawForm', () => {
     expect(screen.queryByText(en.spendingLimit.label)).not.toBeInTheDocument();
   });
 
-  it('renders hub liquidity as the withdrawal limit when it is lower than the user supply balance', () => {
-    const withdrawalLimitTokens = new BigNumber(5);
-    const liquidityHubWithLowLiquidity = {
+  it('renders the max redeem amount as the withdrawal limit when it is lower than the user withdraw cap', () => {
+    const withdrawalLimitTokens = new BigNumber(6);
+    const liquidityHubWithLowerMaxRedeem = {
       ...liquidityHub,
-      liquidityTokens: withdrawalLimitTokens,
-      userSupplyBalanceTokens: new BigNumber(100),
+      pricePerShare: new BigNumber(2),
+      userWithdrawCapTokens: new BigNumber(10),
+      userVhTokenMaxRedeemTokens: new BigNumber(3),
     };
     const readableWithdrawalLimit = formatTokensToReadableValue({
       value: withdrawalLimitTokens,
       token: underlyingToken,
     });
 
-    renderTransactionForm({ liquidityHub: liquidityHubWithLowLiquidity });
+    renderTransactionForm({ liquidityHub: liquidityHubWithLowerMaxRedeem });
 
     expect(
       screen.getByRole('button', {
@@ -102,7 +116,7 @@ describe('WithdrawForm', () => {
   });
 
   it('fills the input with the withdrawal limit when clicking the available balance', async () => {
-    const withdrawalLimitTokens = liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0);
+    const withdrawalLimitTokens = defaultWithdrawLimitTokens;
     const readableWithdrawalLimit = formatTokensToReadableValue({
       value: withdrawalLimitTokens,
       token: underlyingToken,
@@ -116,7 +130,7 @@ describe('WithdrawForm', () => {
   });
 
   it('fills the input with the withdrawal limit when clicking MAX', async () => {
-    const withdrawalLimitTokens = liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0);
+    const withdrawalLimitTokens = defaultWithdrawLimitTokens;
 
     renderTransactionForm();
 
@@ -128,7 +142,7 @@ describe('WithdrawForm', () => {
 
     await waitFor(() =>
       expect(getAmountInput().value).toBe(
-        withdrawalLimitTokens.dp(liquidityHub.vhToken.decimals).toFixed(),
+        withdrawalLimitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
       ),
     );
   });
@@ -177,7 +191,7 @@ describe('WithdrawForm', () => {
 
     fireEvent.change(getAmountInput(), {
       target: {
-        value: liquidityHub.userSupplyBalanceTokens?.toFixed(),
+        value: defaultWithdrawLimitTokens.toFixed(),
       },
     });
     fireEvent.click(
