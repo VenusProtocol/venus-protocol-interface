@@ -44,21 +44,23 @@ export const useStyles = () => {
       height: ${theme.spacing(8)};
       padding: 0;
       text-align: center;
-      background-color: ${theme.palette.background.paper};
+      background-color: transparent;
       color: ${theme.palette.text.primary};
       margin-left: ${theme.spacing(1)};
       margin-right: ${theme.spacing(1)};
-      border: 1px solid transparent;
+      border: 1px solid ${theme.palette.background.paper};
       border-radius: ${theme.shape.borderRadius.verySmall}px;
+      cursor: pointer;
       transition: border-color 0.3s;
 
+      &:hover,
       &:focus {
         outline: none;
-        border-color: ${theme.palette.primary.main};
+        border-color: rgb(var(--color-blue-rgb));
       }
 
       &::selection {
-        background-color: ${theme.palette.primary.main};
+        background-color: rgb(var(--color-blue-rgb));
       }
     `,
     iconArrow: css`
