@@ -1471,6 +1471,7 @@
       "thingsToKnowTitle": "需要了解的幾點：",
       "title": "規則"
     },
+    "rankCutoffNote": "排名 <Rank/> 目前持有 <Score/> Prime 分數，質押了 <Staked/>。",
     "tablesRefreshNote": "每小時刷新 · 上次刷新：{{date, distanceToNow}}前",
     "tabs": {
       "ranking": "排名",

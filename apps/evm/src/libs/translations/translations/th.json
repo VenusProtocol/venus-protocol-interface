@@ -1471,6 +1471,7 @@
       "thingsToKnowTitle": "สิ่งที่ควรรู้:",
       "title": "กฎ"
     },
+    "rankCutoffNote": "อันดับ <Rank/> ปัจจุบันถือครองคะแนน Prime <Score/> โดยมีการสเตก <Staked/>",
     "tablesRefreshNote": "รีเฟรชทุกชั่วโมง · รีเฟรชล่าสุด: {{date, distanceToNow}} ที่แล้ว",
     "tabs": {
       "ranking": "อันดับ",

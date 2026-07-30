@@ -1471,6 +1471,7 @@
       "thingsToKnowTitle": "Bilmeniz gereken birkaç şey:",
       "title": "Kurallar"
     },
+    "rankCutoffNote": "<Rank/>. sıra şu anda <Staked/> stake ederek <Score/> Prime puanına sahip.",
     "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
     "tabs": {
       "ranking": "Sıralama",

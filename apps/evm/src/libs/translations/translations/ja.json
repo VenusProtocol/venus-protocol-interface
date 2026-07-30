@@ -1471,6 +1471,7 @@
       "thingsToKnowTitle": "知っておくべきこと：",
       "title": "ルール"
     },
+    "rankCutoffNote": "ランク<Rank/>は現在、<Staked/>をステークし、<Score/>のPrimeスコアを保有しています。",
     "tablesRefreshNote": "1時間ごとに更新 · 最終更新：{{date, distanceToNow}}前",
     "tabs": {
       "ranking": "ランキング",

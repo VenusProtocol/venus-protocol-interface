@@ -1471,6 +1471,7 @@
       "thingsToKnowTitle": "A few things to know:",
       "title": "Rules"
     },
+    "rankCutoffNote": "Rank <Rank/> currently holds a <Score/> Prime score with <Staked/> staked.",
     "tablesRefreshNote": "Refreshed hourly · Last refresh: {{date, distanceToNow}} ago",
     "tabs": {
       "ranking": "Ranking",
