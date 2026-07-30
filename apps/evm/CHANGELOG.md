@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 5.13.0
+
+### Minor Changes
+
+- a30aeeb: wire Liquidity Hub forms to contracts
+- 56d50bf: add the Hubs tab to the Dashboard page
+
+### Patch Changes
+
+- 8aed6d7: remove Venus Flux ad banner
+
 ## 5.12.0
 
 ### Minor Changes
