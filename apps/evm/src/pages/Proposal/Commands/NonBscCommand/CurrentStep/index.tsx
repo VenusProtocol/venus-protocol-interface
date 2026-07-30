@@ -5,6 +5,7 @@ import { governanceChainId } from 'libs/wallet';
 import { type RemoteProposal, RemoteProposalState } from 'types';
 import generateExplorerUrl from 'utilities/generateExplorerUrl';
 import { Status, type StatusProps } from '../../Status';
+import { getPreviousStepDate } from './getPreviousStepDate';
 
 export interface CurrentStepProps extends React.HTMLAttributes<HTMLDivElement> {
   remoteProposal: RemoteProposal;
@@ -100,49 +101,12 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({
     t,
   ]);
 
-  const previousStepDate = useMemo(() => {
-    if (remoteProposal.state === RemoteProposalState.Bridged) {
-      return remoteProposal.bridgedDate;
-    }
+  const previousStepDate = getPreviousStepDate({ remoteProposal });
 
-    if (remoteProposal.state === RemoteProposalState.Failed) {
-      return remoteProposal.failedDate;
-    }
-
-    if (remoteProposal.state === RemoteProposalState.Canceled) {
-      return remoteProposal.canceledDate;
-    }
-
-    if (remoteProposal.state === RemoteProposalState.Queued) {
-      return remoteProposal.queuedDate;
-    }
-
-    if (remoteProposal.state === RemoteProposalState.Executed) {
-      return remoteProposal.executedDate;
-    }
-
-    if (remoteProposal.state === RemoteProposalState.Expired) {
-      return remoteProposal.expiredDate;
-    }
-  }, [
-    remoteProposal.state,
-    remoteProposal.bridgedDate,
-    remoteProposal.failedDate,
-    remoteProposal.canceledDate,
-    remoteProposal.queuedDate,
-    remoteProposal.executedDate,
-    remoteProposal.expiredDate,
-  ]);
-
-  const nextStepDate = useMemo(() => {
-    let tmpNextStepDate: Date | undefined;
-
-    if (remoteProposal.state === RemoteProposalState.Queued) {
-      tmpNextStepDate = remoteProposal.executionEtaDate;
-    }
-
-    return tmpNextStepDate;
-  }, [remoteProposal.state, remoteProposal.executionEtaDate]);
+  const nextStepDate =
+    remoteProposal.state === RemoteProposalState.Queued
+      ? remoteProposal.executionEtaDate
+      : undefined;
 
   return (
     <Status

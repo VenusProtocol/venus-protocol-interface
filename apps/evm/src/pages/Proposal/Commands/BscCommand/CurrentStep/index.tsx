@@ -5,6 +5,7 @@ import { governanceChainId } from 'libs/wallet';
 import { type Proposal, ProposalState } from 'types';
 import { generateExplorerUrl, getProposalStateLabel } from 'utilities';
 import { Status, type StatusProps } from '../../Status';
+import { getPreviousStepDate } from './getPreviousStepDate';
 
 export interface CurrentStepProps extends React.HTMLAttributes<HTMLDivElement> {
   proposal: Proposal;
@@ -63,44 +64,7 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({ proposal, ...otherProp
     proposal.executedTxHash,
   ]);
 
-  const previousStepDate = useMemo(() => {
-    if (proposal.state === ProposalState.Pending) {
-      return proposal.createdDate;
-    }
-
-    if (proposal.state === ProposalState.Canceled) {
-      return proposal.cancelDate;
-    }
-
-    if (proposal.state === ProposalState.Active) {
-      return proposal.startDate;
-    }
-
-    if (proposal.state === ProposalState.Defeated) {
-      return proposal.endDate;
-    }
-
-    if (proposal.state === ProposalState.Queued) {
-      return proposal.queuedDate;
-    }
-
-    if (proposal.state === ProposalState.Executed) {
-      return proposal.executedDate;
-    }
-
-    if (proposal.state === ProposalState.Expired) {
-      return proposal.expiredDate;
-    }
-  }, [
-    proposal.state,
-    proposal.createdDate,
-    proposal.cancelDate,
-    proposal.startDate,
-    proposal.endDate,
-    proposal.queuedDate,
-    proposal.executedDate,
-    proposal.expiredDate,
-  ]);
+  const previousStepDate = getPreviousStepDate({ proposal });
 
   const subDescription = useMemo(() => {
     if (proposal.state === ProposalState.Pending) {
