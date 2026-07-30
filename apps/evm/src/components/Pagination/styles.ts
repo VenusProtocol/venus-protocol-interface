@@ -48,7 +48,7 @@ export const useStyles = () => {
       color: ${theme.palette.text.primary};
       margin-left: ${theme.spacing(1)};
       margin-right: ${theme.spacing(1)};
-      border: 1px solid ${theme.palette.background.paper};
+      border: 1px solid rgb(var(--color-dark-blue-hover-rgb));
       border-radius: ${theme.shape.borderRadius.verySmall}px;
       cursor: pointer;
       transition: border-color 0.3s;
