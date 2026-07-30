@@ -12,7 +12,7 @@ import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
-import { VaultStatus } from 'types';
+import { VaultStatus, VaultVenue } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
@@ -79,6 +79,22 @@ export const VaultCard: React.FC<VaultCardProps> = ({ vault, className, to }) =>
     </div>
   ) : undefined;
 
+  const showRealizedApr = isInstitutionalVault(vault) && vault.isSettled;
+  const readableRealizedApr = isInstitutionalVault(vault)
+    ? formatPercentageToReadableValue(vault.realizedAprPercentage)
+    : undefined;
+  const isVenusVault = vault.venue === VaultVenue.Venus;
+
+  let aprLabel = isVenusVault ? t('dashboard.previewCard.apr') : t('vault.card.targetApr');
+  let aprValue = formatPercentageToReadableValue(vault.stakeAprPercentage);
+
+  if (showRealizedApr) {
+    aprLabel = t('vault.card.realizedTargetApr');
+    aprValue = `${readableRealizedApr} / ${formatPercentageToReadableValue(
+      vault.stakeAprPercentage,
+    )}`;
+  }
+
   let stateEndTitle: string | undefined;
   let stateEndContent: ReactNode;
 
@@ -120,8 +136,8 @@ export const VaultCard: React.FC<VaultCardProps> = ({ vault, className, to }) =>
 
   const cells: CellProps[] = [
     {
-      label: t('dashboard.previewCard.apr'),
-      value: formatPercentageToReadableValue(vault.stakeAprPercentage),
+      label: aprLabel,
+      value: aprValue,
     },
   ];
 
@@ -136,6 +152,7 @@ export const VaultCard: React.FC<VaultCardProps> = ({ vault, className, to }) =>
     cells.push({
       label: t('dashboard.previewCard.totalSupplied'),
       value: totalDepositedReadableValue,
+      className: '[&>*:last-child]:min-w-0 [&>*:last-child]:max-w-full',
     });
   }
 
