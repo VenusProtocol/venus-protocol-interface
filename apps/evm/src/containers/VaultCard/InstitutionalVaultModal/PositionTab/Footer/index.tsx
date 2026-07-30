@@ -41,8 +41,7 @@ export const Footer: React.FC<FooterProps> = ({ vault, fromAmountTokens }) => {
           lockingPeriodMs: vault.lockingPeriodMs,
         });
 
-  const showRealized =
-    vault.status === VaultStatus.Claim || vault.status === VaultStatus.Liquidated;
+  const showRealized = vault.isSettled;
 
   const items: Array<{ key: string; node: ReactNode }> = [];
 

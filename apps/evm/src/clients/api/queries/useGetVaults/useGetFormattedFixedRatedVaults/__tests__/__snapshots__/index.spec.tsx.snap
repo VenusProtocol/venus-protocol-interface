@@ -110,6 +110,7 @@ exports[`useGetFormattedFixedRatedVaults > fetches and returns pendle and matrix
       "iconSrc": "",
       "symbol": "MOCK_USDC",
     },
+    "isSettled": false,
     "key": "97-institutional-0x5263D68786AaCfad74B9aa385A004c272548e8B7",
     "lockEndDate": 2026-08-29T00:00:00.000Z,
     "lockingPeriodMs": 2592000000,

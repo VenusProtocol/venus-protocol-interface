@@ -81,9 +81,7 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
     </>
   ) : undefined;
 
-  const showRealizedApr =
-    isInstitutionalVault(vault) &&
-    (vault.status === VaultStatus.Claim || vault.status === VaultStatus.Liquidated);
+  const showRealizedApr = isInstitutionalVault(vault) && vault.isSettled;
   const readableRealizedApr = isInstitutionalVault(vault)
     ? formatPercentageToReadableValue(vault.realizedAprPercentage)
     : undefined;

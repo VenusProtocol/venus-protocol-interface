@@ -185,6 +185,7 @@ describe('InstitutionalVaultModal Footer', () => {
         vault={{
           ...baseVault,
           status: VaultStatus.Liquidated,
+          isSettled: true,
           userYieldTokens: new BigNumber(-40),
         }}
       />,
