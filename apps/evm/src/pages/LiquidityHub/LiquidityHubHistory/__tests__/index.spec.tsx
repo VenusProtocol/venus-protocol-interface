@@ -26,7 +26,7 @@ describe('LiquidityHubHistory', () => {
     expect(screen.getByText('1.06')).toBeInTheDocument();
     expect(
       screen.queryByRole('button', {
-        name: en.market.periodOption.thirtyDays,
+        name: en.liquidityHub.periodOption.thirtyDays,
       }),
     ).not.toBeInTheDocument();
   });
@@ -37,19 +37,19 @@ describe('LiquidityHubHistory', () => {
     renderComponent(<LiquidityHubHistory liquidityHub={liquidityHub} />);
 
     const thirtyDayButtons = screen.getAllByRole('button', {
-      name: en.market.periodOption.thirtyDays,
+      name: en.liquidityHub.periodOption.thirtyDays,
     });
-    const sixMonthButtons = screen.getAllByRole('button', {
-      name: en.market.periodOption.sixMonths,
+    const threeMonthButtons = screen.getAllByRole('button', {
+      name: en.liquidityHub.periodOption.threeMonths,
     });
 
     expect(thirtyDayButtons).toHaveLength(2);
-    expect(sixMonthButtons).toHaveLength(2);
+    expect(threeMonthButtons).toHaveLength(2);
     thirtyDayButtons.forEach(button => expect(button).toHaveClass('bg-blue'));
 
-    fireEvent.click(sixMonthButtons[1]);
+    fireEvent.click(threeMonthButtons[1]);
 
     thirtyDayButtons.forEach(button => expect(button).not.toHaveClass('bg-blue'));
-    sixMonthButtons.forEach(button => expect(button).toHaveClass('bg-blue'));
+    threeMonthButtons.forEach(button => expect(button).toHaveClass('bg-blue'));
   });
 });

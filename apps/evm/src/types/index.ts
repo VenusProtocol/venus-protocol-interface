@@ -257,7 +257,7 @@ export interface LiquidityHubSource {
   address: Address;
   allocationTokens: BigNumber;
   allocationCents: BigNumber;
-  allocationCapCents: BigNumber;
+  supplyCapCents: BigNumber;
   liquidityTokens: BigNumber;
   liquidityCents: BigNumber;
   supplyApyPercentage: BigNumber;
@@ -266,18 +266,19 @@ export interface LiquidityHubSource {
   lockEndDate?: Date;
 }
 
-export type LiquidityHubYieldGroupType = 'venusCore' | 'venusFlux' | 'institutionCapital'; // TODO: add actual values
+export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv';
 
 export interface LiquidityHubYieldGroup {
   address: Address;
   type: LiquidityHubYieldGroupType;
-  name: string;
+  nameTranslationKey: string;
+  iconSrc: string;
   bgClassName: string;
   allocationTokens: BigNumber;
   allocationCents: BigNumber;
   allocationCapPercentage: BigNumber;
-  allocationCapTokens: BigNumber;
-  allocationCapCents: BigNumber;
+  supplyCapTokens: BigNumber;
+  supplyCapCents: BigNumber;
   liquidityTokens: BigNumber;
   liquidityCents: BigNumber;
   averageSupplyApyPercentage: BigNumber;
@@ -286,23 +287,22 @@ export interface LiquidityHubYieldGroup {
 }
 
 export interface LiquidityHub {
-  hubAddress: Address;
   vhToken: VhToken;
   tokenPriceCents: BigNumber;
-  tokenPriceOracleAddress: Address;
   supplyBalanceTokens: BigNumber;
   supplyBalanceCents: BigNumber;
   liquidityTokens: BigNumber;
   liquidityCents: BigNumber;
   supplyCapTokens: BigNumber;
+  withdrawCapTokens: BigNumber;
   supplyApyPercentage: BigNumber;
   performanceFeePercentage: BigNumber;
   redeemFeePercentage: BigNumber;
   pricePerShare: BigNumber;
   supplierCount: number;
-  operatorName: string;
   supplyTokenDistributions: TokenDistribution[];
   yieldGroups: LiquidityHubYieldGroup[];
+  tokenPriceOracleAddress?: Address;
   // User-specific props
   userWalletBalanceTokens?: BigNumber;
   userWalletBalanceCents?: BigNumber;
@@ -310,6 +310,9 @@ export interface LiquidityHub {
   userSupplyBalanceCents?: BigNumber;
   userYearlyEarningsCents?: BigNumber;
   userVhTokenBalanceTokens?: BigNumber;
+  userVhTokenMaxRedeemTokens?: BigNumber;
+  userWithdrawCapTokens?: BigNumber;
+  userSupplyCapTokens?: BigNumber;
 }
 
 export enum RemoteProposalState {
@@ -505,21 +508,20 @@ export interface Market {
 }
 
 export interface MarketSnapshot {
-  // we are migrating these values to strings, as they are bigints instead of numbers
-  blockNumber: string | number;
-  blockTimestamp: string | number;
-  borrowApy: string;
-  supplyApy: string;
-  totalBorrowCents: string;
-  totalSupplyCents: string;
+  blockNumber: number;
+  blockTimestamp: number;
+  borrowApyPercentage: number;
+  supplyApyPercentage: number;
+  totalBorrowCents: number;
+  totalSupplyCents: number;
 }
 
 export interface LiquidityHubSnapshot {
-  blockNumber: string | number;
-  blockTimestamp: string | number;
-  supplyApy: string;
-  totalSupplyCents: string;
-  pricePerShare: string;
+  blockNumber: number;
+  blockTimestamp: number;
+  supplyApyPercentage: number;
+  totalSupplyCents: number;
+  pricePerShare: number;
 }
 
 export type TransactionEvent =
@@ -901,7 +903,144 @@ export interface PrimeCycle {
 export type PrimeVersion = 1 | 2;
 
 export interface MarketHistoryDataPoint {
-  apyPercentage: number;
-  timestampMs: number;
-  balanceCents: BigNumber;
+  blockTimestamp: number;
+  supplyApyPercentage?: number;
+  borrowApyPercentage?: number;
+  totalSupplyCents?: number;
+  totalBorrowCents?: number;
+}
+
+export type ApiRewardType = 'venus' | 'merkl' | 'intrinsic' | 'off-chain' | 'yield-to-maturity';
+
+export interface ApiReward {
+  marketAddress: Address;
+  rewardTokenAddress: Address;
+  lastRewardingSupplyBlockOrTimestamp: string;
+  lastRewardingBorrowBlockOrTimestamp: string;
+  supplySpeed: string;
+  borrowSpeed: string;
+  priceMantissa: string;
+  rewardsDistributorContractAddress: Address;
+  isActive: boolean;
+}
+
+export interface ApiVenusReward extends ApiReward {
+  rewardType: 'venus';
+  rewardDetails: null;
+}
+
+export interface ApiMerklReward extends ApiReward {
+  rewardType: 'merkl';
+  rewardDetails: {
+    appName: string;
+    claimUrl: string;
+    merklCampaignId: string;
+    description: string;
+    merklCampaignIdentifier: string;
+    tags: string[];
+  };
+}
+
+export interface ApiIntrinsicApyReward extends ApiReward {
+  rewardType: 'intrinsic';
+  rewardDetails: {
+    name: string;
+    description: string;
+  };
+}
+
+export type ApiOffChainApyReward = Omit<ApiIntrinsicApyReward, 'rewardType'> & {
+  rewardType: 'off-chain' | 'yield-to-maturity';
+};
+
+export type PointsProgram = 'ethena' | 'etherfi' | 'kelp' | 'solv' | 'aster';
+
+export interface ApiPointsDistribution {
+  action: 'supply' | 'borrow';
+  pointsProgram: PointsProgram;
+  title: string;
+  incentive?: string;
+  description?: string;
+  extraInfoUrl?: string;
+  startDate?: Date;
+  endDate?: Date;
+  logoUrl?: string;
+}
+
+export type ApiRewardDistributor =
+  | ApiVenusReward
+  | ApiMerklReward
+  | ApiIntrinsicApyReward
+  | ApiOffChainApyReward;
+
+export interface ApiLiquidityHubResource {
+  resourceAddress: Address;
+  adapterAddress: Address;
+  kind: LiquidityHubYieldGroupType;
+  name: string | null;
+  allocationMantissa: string;
+  allocationUsdMantissa: string | null;
+  apyRatio: string;
+  rewardsDistributors: ApiRewardDistributor[];
+  liquidityMantissa: string;
+  capMantissa: string | null;
+  capUsdMantissa: string | null;
+  isPaused: boolean;
+  lockEndTime: number | null;
+  exposure: Address[];
+}
+
+export interface ApiLiquidityHubYieldGroup {
+  yieldGroupAddress: Address;
+  kind: LiquidityHubYieldGroupType | null;
+  totalUnderlyingMantissa: string;
+  totalUnderlyingUsdMantissa: string | null;
+  spotApyRatio: string;
+  absoluteCapMantissa: string | null;
+  absoluteCapUsdMantissa: string | null;
+  percentageCapRatio: string;
+  effectiveCapMantissa: string | null;
+  maxDepositMantissa: string;
+  maxWithdrawMantissa: string;
+  isPaused: boolean;
+  depositQueuePosition: number | null;
+  withdrawQueuePosition: number | null;
+  resources: ApiLiquidityHubResource[];
+}
+
+export interface ApiLiquidityHub {
+  hubAddress: Address;
+  underlyingTokenAddress: Address;
+  name: string | null;
+  symbol: string | null;
+  hubTokenDecimals: number;
+  underlyingTokenDecimals: number;
+  tokenPriceOracleAddress: Address;
+  tokenPriceUsdMantissa: string | null;
+  totalUnderlyingMantissa: string;
+  totalUnderlyingUsdMantissa: string | null;
+  hubTokenSupplyMantissa: string;
+  exchangeRateMantissa: string;
+  pricePerShare: string;
+  blendedApyRatio: string;
+  rewardsDistributors: ApiRewardDistributor[];
+  supplyCapacityMantissa: string | null;
+  supplyCapacityUsdMantissa: string | null;
+  liquidityMantissa: string;
+  liquidityUsdMantissa: string | null;
+  suppliersCount: number | null;
+  maxWithdrawalSizeMantissa: string;
+  managementFeeRatio: string;
+  performanceFeeRatio: string;
+  redeemFeeRatio: string;
+  isPaused: boolean;
+  yieldGroups: ApiLiquidityHubYieldGroup[];
+  userWalletBalanceMantissa?: string | null;
+  userWalletBalanceUsdMantissa?: string | null;
+  userHubTokenBalanceMantissa?: string | null;
+  userUnderlyingBalanceMantissa?: string | null;
+  userUnderlyingBalanceUsdMantissa?: string | null;
+  userMaxDepositMantissa?: string | null;
+  userMaxRedeemMantissa?: string | null;
+  userMaxWithdrawMantissa?: string | null;
 }

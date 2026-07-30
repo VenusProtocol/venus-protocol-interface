@@ -119,7 +119,7 @@ describe('SupplyWithWalletForm', () => {
     );
     expect(mockUseTokenApproval).toHaveBeenCalledWith({
       token: underlyingToken,
-      spenderAddress: liquidityHub.hubAddress,
+      spenderAddress: liquidityHub.vhToken.address,
       accountAddress: fakeAccountAddress,
     });
   });
@@ -137,7 +137,16 @@ describe('SupplyWithWalletForm', () => {
     await waitFor(() => expect(getAmountInput().value).toBe(walletBalanceTokens.toFixed()));
   });
 
-  it('fills the input with the Liquidity Hub wallet balance when clicking MAX', async () => {
+  it('fills the input with the lowest supply limit when clicking MAX', async () => {
+    const supplyCapMarginTokens = liquidityHub.supplyCapTokens.minus(
+      liquidityHub.supplyBalanceTokens,
+    );
+    const expectedLimitTokens = BigNumber.min(
+      walletBalanceTokens,
+      walletSpendingLimitTokens,
+      supplyCapMarginTokens,
+    );
+
     renderTransactionForm();
 
     fireEvent.click(
@@ -148,7 +157,60 @@ describe('SupplyWithWalletForm', () => {
 
     await waitFor(() =>
       expect(getAmountInput().value).toBe(
-        walletBalanceTokens.dp(liquidityHub.vhToken.decimals).toFixed(),
+        expectedLimitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
+      ),
+    );
+  });
+
+  it('uses the supply cap margin as the MAX value when it is the lowest limit', async () => {
+    const supplyCapMarginTokens = new BigNumber(25);
+    const liquidityHubWithLowerSupplyCapMargin = {
+      ...liquidityHub,
+      supplyCapTokens: liquidityHub.supplyBalanceTokens.plus(supplyCapMarginTokens),
+    };
+
+    mockUseTokenApproval.mockReturnValue(
+      makeUseTokenApprovalOutput({
+        walletSpendingLimitTokens: new BigNumber(100),
+      }),
+    );
+
+    renderTransactionForm({
+      liquidityHub: liquidityHubWithLowerSupplyCapMargin,
+    });
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.rightMaxButtonLabel,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(getAmountInput().value).toBe(
+        supplyCapMarginTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
+      ),
+    );
+  });
+
+  it('uses the user supply cap as the MAX value when it is the lowest limit', async () => {
+    const userSupplyCapTokens = new BigNumber(10);
+
+    renderTransactionForm({
+      liquidityHub: {
+        ...liquidityHub,
+        userSupplyCapTokens,
+      },
+    });
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.rightMaxButtonLabel,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(getAmountInput().value).toBe(
+        userSupplyCapTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
       ),
     );
   });

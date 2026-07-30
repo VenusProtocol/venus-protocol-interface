@@ -1,5 +1,5 @@
 import { LIQUIDITY_HUB_TX_TYPES, TRADE_TX_TYPES } from 'constants/marketTxTypes';
-import type { LiquidityHubTxType, MarketTxType, TradeTxType } from 'types';
+import type { LiquidityHubTx, LiquidityHubTxType, MarketTxType, TradeTxType } from 'types';
 import type { ApiAccountHistoricalTransaction, VTokenAssetMapping, VhTokenMapping } from '../types';
 import { convertToTxType } from './convertToTxType';
 import { formatToLiquidityHubTransaction } from './formatToLiquidityHubTransaction';
@@ -16,6 +16,7 @@ export const formatApiTransaction = ({
   apiTransaction: ApiAccountHistoricalTransaction;
 }) => {
   const { txType: apiTxType } = apiTransaction;
+
   const txType = convertToTxType(apiTxType);
 
   if (!txType) {
@@ -30,16 +31,18 @@ export const formatApiTransaction = ({
     });
   }
 
+  let liquidityHubTransaction: LiquidityHubTx | undefined;
+
   if (LIQUIDITY_HUB_TX_TYPES.some(t => t === txType)) {
-    const liquidityHubTransaction = formatToLiquidityHubTransaction({
+    liquidityHubTransaction = formatToLiquidityHubTransaction({
       vhTokenMapping,
       apiTransaction,
       txType: txType as LiquidityHubTxType,
     });
+  }
 
-    if (liquidityHubTransaction) {
-      return liquidityHubTransaction;
-    }
+  if (liquidityHubTransaction) {
+    return liquidityHubTransaction;
   }
 
   return formatToMarketTransaction({

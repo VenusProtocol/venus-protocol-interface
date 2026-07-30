@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import type { TFunction } from 'i18next';
 
 import type { BalanceMutation, LiquidityHub } from 'types';
@@ -24,14 +25,14 @@ export const getLiquidityHubBalanceUpdate = ({
     areAddressesEqual(hub.vhToken.address, balanceMutation.vhTokenAddress),
   );
 
-  if (!liquidityHub?.userSupplyBalanceTokens) {
+  if (!liquidityHub) {
     return undefined;
   }
 
   return {
     action: balanceMutation.action,
     amountTokens: balanceMutation.amountTokens,
-    balanceTokens: liquidityHub.userSupplyBalanceTokens,
+    balanceTokens: liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0),
     description: balanceMutation.description,
     label: balanceMutation.label ?? t('accountData.balanceUpdate.supplyBalance'),
     token: liquidityHub.vhToken.underlyingToken,

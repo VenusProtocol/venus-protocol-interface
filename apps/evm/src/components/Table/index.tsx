@@ -143,7 +143,7 @@ export function Table<R>({
                 <tbody>
                   <tr>
                     <td colSpan={totalColumns}>
-                      <Spinner className="mb-5" />
+                      <Spinner className="my-5" />
                     </td>
                   </tr>
                 </tbody>

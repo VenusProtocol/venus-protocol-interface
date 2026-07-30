@@ -8,7 +8,7 @@ import { YieldGroupList } from './YieldGroupList';
 import { YieldGroupName } from './YieldGroupName';
 
 interface Allocation {
-  name: string;
+  nameTranslationKey: string;
   bgClassname: string;
   allocationPercentage: number;
 }
@@ -40,7 +40,7 @@ export const AllocationDetails: React.FC<AllocationDetailsProps> = ({ liquidityH
     allocationLeftPercentage -= allocationPercentage;
 
     const allocation: Allocation = {
-      name: yieldGroup.name,
+      nameTranslationKey: yieldGroup.nameTranslationKey,
       bgClassname: yieldGroup.bgClassName,
       allocationPercentage,
     };
@@ -73,8 +73,14 @@ export const AllocationDetails: React.FC<AllocationDetailsProps> = ({ liquidityH
           tooltip={
             <div className="space-y-1">
               {allocations.map(allocation => (
-                <div key={allocation.name} className="flex items-center justify-between space-x-6">
-                  <YieldGroupName name={allocation.name} bgClassName={allocation.bgClassname} />
+                <div
+                  key={allocation.nameTranslationKey}
+                  className="flex items-center justify-between space-x-6"
+                >
+                  <YieldGroupName
+                    name={t(allocation.nameTranslationKey)}
+                    bgClassName={allocation.bgClassname}
+                  />
 
                   <p>{formatPercentageToReadableValue(allocation.allocationPercentage)}</p>
                 </div>

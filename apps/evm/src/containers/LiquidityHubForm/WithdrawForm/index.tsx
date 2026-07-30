@@ -17,9 +17,13 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState(initialFormValues);
 
+  const userMaxRedeemTokens = liquidityHub.userVhTokenMaxRedeemTokens?.multipliedBy(
+    liquidityHub.pricePerShare,
+  );
+
   const limitTokens = BigNumber.min(
-    liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0),
-    liquidityHub.liquidityTokens,
+    liquidityHub.userWithdrawCapTokens ?? 0,
+    userMaxRedeemTokens ?? 0,
   );
 
   const fromAmountTokens = formValues.amountTokens
@@ -35,13 +39,15 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       token: liquidityHub.vhToken.underlyingToken,
       value: amountTokens,
     });
-    const userSupplyBalanceTokens = liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0);
-    const userVhTokenBalanceTokens = liquidityHub.userVhTokenBalanceTokens;
-    const withdrawFullSupply = amountTokens.isEqualTo(userSupplyBalanceTokens);
-    const userVhTokenBalanceMantissa = userVhTokenBalanceTokens
+
+    const withdrawFullSupply = amountTokens.isGreaterThanOrEqualTo(
+      userMaxRedeemTokens ?? Number.POSITIVE_INFINITY,
+    );
+
+    const userVhTokenBalanceMantissa = liquidityHub.userVhTokenBalanceTokens
       ? convertTokensToMantissa({
           token: liquidityHub.vhToken,
-          value: userVhTokenBalanceTokens,
+          value: liquidityHub.userVhTokenBalanceTokens,
         })
       : undefined;
 
@@ -66,7 +72,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     ? () =>
         setFormValues(values => ({
           ...values,
-          amountTokens: limitTokens.dp(liquidityHub.vhToken.decimals).toFixed(),
+          amountTokens: limitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
         }))
     : undefined;
 

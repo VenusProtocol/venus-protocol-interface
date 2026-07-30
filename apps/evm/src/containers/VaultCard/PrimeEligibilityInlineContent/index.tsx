@@ -105,11 +105,7 @@ export const PrimeEligibilityInlineContent: React.FC<PrimeEligibilityInlineConte
   }
 
   return (
-    <LabeledInlineContent
-      label={t('vault.card.primeEligibility')}
-      tooltip={tooltip}
-      labelClassName="mb-auto"
-    >
+    <LabeledInlineContent label={t('vault.card.primeEligibility')} tooltip={tooltip}>
       <Progress
         amountTokens={userStakedXvsTokens}
         maxTokens={minXvsToStakeForPrimeTokens}
