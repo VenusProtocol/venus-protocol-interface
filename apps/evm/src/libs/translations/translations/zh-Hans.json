@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "圆形渐变",
+    "hubs": {
+      "placeholder": {
+        "title": "暂无流动性中心仓位"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "已借入",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "尚无存款或借入持仓"
+        "title": "暂无市场持仓"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "概览"
     },
     "tabs": {
+      "hub": "中心",
       "markets": "市场",
       "settings": "设置",
       "transactions": "交易",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "尚无供应持仓"
+        "title": "暂无金库持仓"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "未完成"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "每日收益",
+      "dailyEarningsTooltip": "您在所有活跃流动性中心仓位中的每日预计收益，基于每个中心的当前 APY。实际收益可能有所变化。",
+      "totalSuppliedValue": "总供应价值"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30天绝对表现",
       "absolutePerformance": "绝对表现",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "当前已供应",
+      "totalSupplied": "总供应量"
     },
     "topMarkets": {
       "borrowButton": {
@@ -2266,7 +2283,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
       "collateral": "抵押品",
-      "currentDeposited": "当前已供应",
       "dailyEmission": "每日奖励释放",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} 固定期限",
@@ -2457,11 +2473,6 @@
     "error": {
       "priceImpactTooHigh": "价格影响过高"
     }
-  },
-  "venusFluxBanner": {
-    "description": "仅限30天。5月28日携手<YellowText>Binance Wallet</YellowText>上线",
-    "illustrationAltText": "Venus Flux 插图",
-    "title": "Venus Flux 上线 5 万 USDT 奖励"
   },
   "vipModal": {
     "backgroundAlt": "背景插图",

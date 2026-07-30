@@ -1,7 +1,14 @@
 import { cn } from '@venusprotocol/ui';
 import { useState } from 'react';
 
-import { Card, LabeledInlineContent, LayeredValues, NoticeWarning, TokenIcon } from 'components';
+import {
+  Card,
+  LabeledInlineContent,
+  LayeredValues,
+  NoticeWarning,
+  StatusLabel,
+  TokenIcon,
+} from 'components';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { VenusVaultModal } from 'containers/VenusVaultModal';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
@@ -23,7 +30,6 @@ import { InstitutionalVaultModal } from './InstitutionalVaultModal';
 import { PendleVaultModal } from './PendleVaultModal';
 import { PrimeEligibilityInlineContent } from './PrimeEligibilityInlineContent';
 import { Progress } from './Progress';
-import { StatusLabel } from './StatusLabel';
 import { VaultName } from './VaultName';
 
 export interface VaultProps {

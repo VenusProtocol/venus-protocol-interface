@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "Chuyển màu tròn",
+    "hubs": {
+      "placeholder": {
+        "title": "Chưa có vị thế trung tâm thanh khoản"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Đã vay",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "Chưa có vị thế cung cấp hoặc vay"
+        "title": "Chưa có vị thế thị trường"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "Tóm tắt"
     },
     "tabs": {
+      "hub": "Trung tâm",
       "markets": "Thị trường",
       "settings": "Cài đặt",
       "transactions": "Giao dịch",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "Chưa có vị thế cung cấp"
+        "title": "Chưa có vị thế trong kho"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "Chưa hoàn thành"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "Thu nhập hàng ngày",
+      "dailyEarningsTooltip": "Thu nhập hàng ngày ước tính của bạn trên tất cả vị thế trung tâm thanh khoản đang hoạt động, dựa trên APY hiện tại của từng trung tâm. Thu nhập thực tế có thể khác nhau.",
+      "totalSuppliedValue": "Tổng giá trị đã cung cấp"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30 ngày hiệu suất tuyệt đối",
       "absolutePerformance": "Hiệu suất tuyệt đối",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "Hiện đang cung cấp",
+      "totalSupplied": "Tổng đã cung cấp"
     },
     "topMarkets": {
       "borrowButton": {
@@ -2266,7 +2283,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
       "collateral": "Tài sản thế chấp",
-      "currentDeposited": "Hiện đang cung cấp",
       "dailyEmission": "Phần thưởng hàng ngày",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} Kỳ Hạn Cố Định",
@@ -2457,11 +2473,6 @@
     "error": {
       "priceImpactTooHigh": "Tác động giá quá cao"
     }
-  },
-  "venusFluxBanner": {
-    "description": "Chỉ trong 30 ngày. Ra mắt ngày 28 tháng 5 cùng <YellowText>Binance Wallet</YellowText>",
-    "illustrationAltText": "Hình minh họa Venus Flux",
-    "title": "Phần thưởng $50K USDT trên Venus Flux"
   },
   "vipModal": {
     "backgroundAlt": "Hình minh họa nền",

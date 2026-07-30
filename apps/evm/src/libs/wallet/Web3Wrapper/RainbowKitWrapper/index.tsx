@@ -13,6 +13,7 @@ import { useAccount, useConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet/hooks/useChainId';
 
 export interface RainwbowKitWrapperProps extends PropsWithChildren {}
 
@@ -59,9 +60,15 @@ const ConnectionRecovery: React.FC = () => {
 
 export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children }) => {
   const { language } = useTranslation();
+  // Connect the wallet on the app's current chain (from the URL) instead of
+  // letting RainbowKit default to the first configured chain. Without this the
+  // Binance connector always initialises its session on chains[0] (BSC), so
+  // connecting while on another chain (e.g. Ethereum) would only work on BSC.
+  const { chainId } = useChainId();
 
   return (
     <RainbowKitProvider
+      initialChain={chainId}
       locale={language.bcp47Tag as Locale}
       appInfo={{
         appName: 'Venus',
