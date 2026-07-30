@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "ไล่ระดับสีแบบวงกลม",
+    "hubs": {
+      "placeholder": {
+        "title": "ยังไม่มีตำแหน่งในศูนย์สภาพคล่อง"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "ยืมแล้ว",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "ยังไม่มีตำแหน่งฝากหรือยืม"
+        "title": "ยังไม่มีตำแหน่งในตลาด"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "สรุป"
     },
     "tabs": {
+      "hub": "ศูนย์",
       "markets": "ตลาด",
       "settings": "การตั้งค่า",
       "transactions": "ธุรกรรม",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "ยังไม่มีตำแหน่งฝาก"
+        "title": "ยังไม่มีตำแหน่งในคลัง"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "ยังไม่เสร็จ"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "รายได้รายวัน",
+      "dailyEarningsTooltip": "รายได้รายวันโดยประมาณของคุณในตำแหน่งศูนย์สภาพคล่องที่ใช้งานอยู่ทั้งหมด โดยอิงจาก APY ปัจจุบันของแต่ละศูนย์ รายได้จริงอาจแตกต่างกัน",
+      "totalSuppliedValue": "มูลค่าฝากทั้งหมด"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30 วันผลการดำเนินงานแบบสัมบูรณ์",
       "absolutePerformance": "ผลการดำเนินงานแบบสัมบูรณ์",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "ฝากอยู่ในปัจจุบัน",
+      "totalSupplied": "ยอดฝากทั้งหมด"
     },
     "topMarkets": {
       "borrowButton": {
@@ -2266,7 +2283,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนเงินที่รอดำเนินการให้เสร็จสิ้นก่อนจึงจะสามารถโต้ตอบกับ vault นี้ได้",
       "collateral": "หลักประกัน",
-      "currentDeposited": "ฝากอยู่ในปัจจุบัน",
       "dailyEmission": "รางวัลรายวัน",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} แบบกำหนดระยะเวลา",

@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "円形グラデーション",
+    "hubs": {
+      "placeholder": {
+        "title": "流動性ハブのポジションはまだありません"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "借入",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "まだ供給または借入のポジションはありません"
+        "title": "マーケットポジションはまだありません"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "サマリー"
     },
     "tabs": {
+      "hub": "ハブ",
       "markets": "マーケット",
       "settings": "設定",
       "transactions": "取引",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "まだ供給ポジションはありません"
+        "title": "ボールトポジションはまだありません"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "未完了"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "日次収益",
+      "dailyEarningsTooltip": "すべてのアクティブな流動性ハブポジション全体での推定日次収益です。各ハブの現在の APY に基づいています。実際の収益は異なる場合があります。",
+      "totalSuppliedValue": "総供給額"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30日間の絶対パフォーマンス",
       "absolutePerformance": "絶対パフォーマンス",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "現在の供給量",
+      "totalSupplied": "総供給量"
     },
     "topMarkets": {
       "borrowButton": {
@@ -2266,7 +2283,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
       "collateral": "担保",
-      "currentDeposited": "現在の供給量",
       "dailyEmission": "日次報酬配布",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} 固定期間",

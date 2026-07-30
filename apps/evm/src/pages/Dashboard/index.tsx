@@ -1,3 +1,4 @@
+import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { useGetPool, useGetVaults } from 'clients/api';
 import { Page, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
@@ -8,10 +9,13 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { AccountOverview } from '../../containers/AccountOverview';
 import { Guide } from './Guide';
+import { Hubs } from './Hubs';
 import { Markets } from './Markets';
 import { Settings } from './Settings';
 import { Transactions } from './Transactions';
 import { Vaults } from './Vaults';
+
+export { liquidityHubs };
 
 export const Dashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -22,6 +26,9 @@ export const Dashboard: React.FC = () => {
   });
   const isHistoricalTransactionsFeatureEnabled = useIsFeatureEnabled({
     name: 'transactionHistory',
+  });
+  const isLiquidityHubFeatureEnabled = useIsFeatureEnabled({
+    name: 'liquidityHub',
   });
 
   const { accountAddress } = useAccountAddress();
@@ -48,6 +55,14 @@ export const Dashboard: React.FC = () => {
       content: <Vaults vaults={vaults} />,
     },
   ];
+
+  if (isLiquidityHubFeatureEnabled) {
+    tabs.push({
+      title: t('account.tabs.hub'),
+      id: 'hub',
+      content: <Hubs liquidityHubs={liquidityHubs} />,
+    });
+  }
 
   if (isHistoricalTransactionsFeatureEnabled) {
     tabs.push({

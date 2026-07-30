@@ -2,4 +2,4 @@
 
 exports[`Vaults > displays content correctly 1`] = `"Total supplied value$233Daily earnings< $0.01XVSActiveAPR12.92%Total supplied400M XVS"`;
 
-exports[`Vaults > displays placeholder when there are no vaults to display 1`] = `"No supply positions yetConnect wallet"`;
+exports[`Vaults > displays placeholder when there are no vaults to display 1`] = `"No vault positions yetConnect wallet"`;

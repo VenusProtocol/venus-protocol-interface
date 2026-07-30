@@ -3,8 +3,10 @@ import { useTranslation } from 'libs/translations';
 import type { FC, HTMLAttributes } from 'react';
 import { VaultStatus } from 'types';
 
+type StatusLabelStatus = VaultStatus | 'supply';
+
 export interface StatusLabelProps extends HTMLAttributes<HTMLDivElement> {
-  status: VaultStatus;
+  status: StatusLabelStatus;
   size?: 'md';
 }
 
@@ -23,6 +25,7 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
       break;
     case VaultStatus.Deposit:
     case VaultStatus.Active:
+    case 'supply':
       variantClassName = cn('border-blue bg-blue/10');
       break;
     default:
@@ -61,6 +64,9 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
       break;
     case VaultStatus.Liquidated:
       label = t('vault.filter.liquidated');
+      break;
+    case 'supply':
+      label = t('dashboard.topMarkets.supplyButton.label');
       break;
   }
 

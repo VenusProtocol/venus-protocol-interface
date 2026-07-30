@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "圓形漸變",
+    "hubs": {
+      "placeholder": {
+        "title": "暫無流動性中心倉位"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "已借入",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "尚無供應或借入持倉"
+        "title": "暫無市場持倉"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "概覽"
     },
     "tabs": {
+      "hub": "中心",
       "markets": "市場",
       "settings": "設定",
       "transactions": "交易",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "尚無供應持倉"
+        "title": "暫無金庫持倉"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "未完成"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "每日收益",
+      "dailyEarningsTooltip": "您在所有活躍流動性中心倉位中的每日預計收益，基於每個中心的當前 APY。實際收益可能有所變化。",
+      "totalSuppliedValue": "總供應價值"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30天絕對表現",
       "absolutePerformance": "絕對表現",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "當前已供應",
+      "totalSupplied": "總供應量"
     },
     "topMarkets": {
       "borrowButton": {
@@ -2266,7 +2283,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必須先完成待處理的提款才能與此金庫互動。",
       "collateral": "抵押品",
-      "currentDeposited": "當前已供應",
       "dailyEmission": "每日獎勵釋放",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} 固定期限",

@@ -44,6 +44,7 @@ export * from './Cell';
 export * from './TokenGroup';
 export * from './TagGroup';
 export * from './SpendingLimit';
+export * from './StatusLabel';
 export * from './MarkdownEditor';
 export * from './MarkdownViewer';
 export * from './ErrorState';
