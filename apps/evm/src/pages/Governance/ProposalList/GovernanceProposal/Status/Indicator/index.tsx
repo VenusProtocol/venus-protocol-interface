@@ -1,6 +1,5 @@
 import { cn } from '@venusprotocol/ui';
 import { Icon, type IconName } from 'components';
-import { useMemo } from 'react';
 import { type Proposal, ProposalState } from 'types';
 
 export interface IndicatorProps
@@ -15,27 +14,23 @@ export const Indicator: React.FC<IndicatorProps> = ({
   className,
   ...otherProps
 }) => {
-  const [colorClass, iconName] = useMemo<[string, IconName]>(() => {
-    let tmpColorClass = 'bg-grey';
-    let tmpIconName: IconName = 'dots';
+  let colorClass = 'bg-grey';
+  let iconName: IconName = 'dots';
 
-    if (isExecutable) {
-      tmpColorClass = 'bg-orange';
-      tmpIconName = 'exclamation';
-    } else if (state === ProposalState.Executed) {
-      tmpColorClass = 'bg-green';
-      tmpIconName = 'mark';
-    } else if (
-      state === ProposalState.Defeated ||
-      state === ProposalState.Expired ||
-      state === ProposalState.Canceled
-    ) {
-      tmpColorClass = 'bg-red';
-      tmpIconName = 'close';
-    }
-
-    return [tmpColorClass, tmpIconName];
-  }, [state, isExecutable]);
+  if (isExecutable) {
+    colorClass = 'bg-orange';
+    iconName = 'exclamation';
+  } else if (state === ProposalState.Executed) {
+    colorClass = 'bg-green';
+    iconName = 'mark';
+  } else if (
+    state === ProposalState.Defeated ||
+    state === ProposalState.Expired ||
+    state === ProposalState.Canceled
+  ) {
+    colorClass = 'bg-red';
+    iconName = 'close';
+  }
 
   return (
     <div

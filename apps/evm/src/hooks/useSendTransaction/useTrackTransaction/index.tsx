@@ -1,5 +1,4 @@
 import type { GetSupertransactionReceiptPayloadWithReceipts } from '@biconomy/abstractjs';
-import { useCallback } from 'react';
 
 import config from 'config';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
@@ -44,117 +43,118 @@ export const useTrackTransaction = (input?: UseTrackTransactionInput) => {
   const { data } = useMeeClient({ chainId }, { enabled: transactionType === 'biconomy' });
   const meeClient = data?.meeClient;
 
-  const trackTransaction = useCallback(
-    async ({ transactionHash, onConfirmed, onReverted }: TrackTransactionInput) => {
-      let urlType: UrlType = 'tx';
-      if (transactionType === 'layerZero') {
-        urlType = 'layerZeroTx';
-      } else if (transactionType === 'biconomy') {
-        urlType = 'biconomyTx';
-      }
+  const trackTransaction = async ({
+    transactionHash,
+    onConfirmed,
+    onReverted,
+  }: TrackTransactionInput) => {
+    let urlType: UrlType = 'tx';
+    if (transactionType === 'layerZero') {
+      urlType = 'layerZeroTx';
+    } else if (transactionType === 'biconomy') {
+      urlType = 'biconomyTx';
+    }
 
-      let notificationId: Notification['id'] | undefined;
+    let notificationId: Notification['id'] | undefined;
 
-      // Display notification indicating transaction is being processed. Note that we don't display
-      // notifications when running in the Safe Wallet app, unless we're sending a transaction via
-      // Biconomy, because it has its own notification system for transactions.
-      if (!config.isSafeApp || transactionType === 'biconomy') {
-        notificationId = displayNotification({
-          id: transactionHash,
-          variant: 'loading',
-          autoClose: false,
-          title: t('transactionNotification.pending.title'),
-          description: (
-            <ChainExplorerLink chainId={chainId} hash={transactionHash} urlType={urlType} />
-          ),
-        });
-      }
+    // Display notification indicating transaction is being processed. Note that we don't display
+    // notifications when running in the Safe Wallet app, unless we're sending a transaction via
+    // Biconomy, because it has its own notification system for transactions.
+    if (!config.isSafeApp || transactionType === 'biconomy') {
+      notificationId = displayNotification({
+        id: transactionHash,
+        variant: 'loading',
+        autoClose: false,
+        title: t('transactionNotification.pending.title'),
+        description: (
+          <ChainExplorerLink chainId={chainId} hash={transactionHash} urlType={urlType} />
+        ),
+      });
+    }
 
-      let transactionReceipt:
-        | TransactionReceipt
-        | GetSupertransactionReceiptPayloadWithReceipts
-        | undefined;
+    let transactionReceipt:
+      | TransactionReceipt
+      | GetSupertransactionReceiptPayloadWithReceipts
+      | undefined;
 
-      try {
-        const { transactionReceipt: receipt } = await waitForTransaction({
-          chainId,
-          publicClient,
-          meeClient,
-          transactionType,
-          isRunningInSafeApp: config.isSafeApp,
-          hash: transactionHash,
-          confirmations: CONFIRMATIONS,
-          timeoutMs: TIMEOUT_MS,
-        });
+    try {
+      const { transactionReceipt: receipt } = await waitForTransaction({
+        chainId,
+        publicClient,
+        meeClient,
+        transactionType,
+        isRunningInSafeApp: config.isSafeApp,
+        hash: transactionHash,
+        confirmations: CONFIRMATIONS,
+        timeoutMs: TIMEOUT_MS,
+      });
 
-        transactionReceipt = receipt;
-      } catch (error) {
-        logError(
-          error instanceof VError && error.code === 'missingSafeWalletApiUrl'
-            ? "Could not retrieve transaction hash from Safe Wallet's API: missing Safe Wallet API URL"
-            : error,
-        );
-      }
+      transactionReceipt = receipt;
+    } catch (error) {
+      logError(
+        error instanceof VError && error.code === 'missingSafeWalletApiUrl'
+          ? "Could not retrieve transaction hash from Safe Wallet's API: missing Safe Wallet API URL"
+          : error,
+      );
+    }
 
-      const transactionStatus = getTransactionStatus({ transactionReceipt });
+    const transactionStatus = getTransactionStatus({ transactionReceipt });
 
-      if (!transactionStatus && notificationId !== undefined) {
-        // Update corresponding notification to say transaction receipt could not be fetched
-        updateNotification({
-          id: notificationId,
-          variant: 'warning',
-          title: t('transactionNotification.couldNotFetchReceipt.title'),
-        });
-      }
+    if (!transactionStatus && notificationId !== undefined) {
+      // Update corresponding notification to say transaction receipt could not be fetched
+      updateNotification({
+        id: notificationId,
+        variant: 'warning',
+        title: t('transactionNotification.couldNotFetchReceipt.title'),
+      });
+    }
 
-      if (!transactionStatus || !transactionReceipt) {
-        return;
-      }
+    if (!transactionStatus || !transactionReceipt) {
+      return;
+    }
 
-      let transactionSucceeded = transactionStatus === 'success';
+    let transactionSucceeded = transactionStatus === 'success';
 
-      const receipts =
-        'transactionStatus' in transactionReceipt
-          ? // Biconmy transactions can return multiple receipts (since they bundle multiple
-            // transactions together)
-            transactionReceipt.receipts
-          : [transactionReceipt];
+    const receipts =
+      'transactionStatus' in transactionReceipt
+        ? // Biconmy transactions can return multiple receipts (since they bundle multiple
+          // transactions together)
+          transactionReceipt.receipts
+        : [transactionReceipt];
 
-      // Check for non-reverting errors
-      try {
-        receipts.forEach(receipt => {
-          checkForComptrollerTransactionError(receipt);
-          checkForTokenTransactionError(receipt);
-          checkForVaiControllerTransactionError(receipt);
-          checkForVaiVaultTransactionError(receipt);
-          checkForXvsVaultProxyTransactionError(receipt);
-        });
-      } catch (_error) {
-        transactionSucceeded = false;
-      }
+    // Check for non-reverting errors
+    try {
+      receipts.forEach(receipt => {
+        checkForComptrollerTransactionError(receipt);
+        checkForTokenTransactionError(receipt);
+        checkForVaiControllerTransactionError(receipt);
+        checkForVaiVaultTransactionError(receipt);
+        checkForXvsVaultProxyTransactionError(receipt);
+      });
+    } catch (_error) {
+      transactionSucceeded = false;
+    }
 
-      if (notificationId) {
-        // Update corresponding notification
-        updateNotification({
-          id: notificationId,
-          variant: transactionSucceeded ? 'success' : 'error',
-          title: transactionSucceeded
-            ? t('transactionNotification.success.title')
-            : t('transactionNotification.failed.title'),
-        });
-      }
+    if (notificationId) {
+      // Update corresponding notification
+      updateNotification({
+        id: notificationId,
+        variant: transactionSucceeded ? 'success' : 'error',
+        title: transactionSucceeded
+          ? t('transactionNotification.success.title')
+          : t('transactionNotification.failed.title'),
+      });
+    }
 
-      if (transactionSucceeded) {
-        // Execute callback
-        await onConfirmed?.({ transactionHash, transactionReceipt });
-        return;
-      }
-
+    if (transactionSucceeded) {
       // Execute callback
-      await onReverted?.({ transactionHash });
-    },
-    [chainId, t, publicClient, transactionType, meeClient],
-  );
+      await onConfirmed?.({ transactionHash, transactionReceipt });
+      return;
+    }
+
+    // Execute callback
+    await onReverted?.({ transactionHash });
+  };
 
   return trackTransaction;
 };

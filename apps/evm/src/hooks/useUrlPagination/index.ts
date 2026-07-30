@@ -53,10 +53,7 @@ export const useUrlPagination = ({
 
   const currentPage = isValidPage && parsedPage !== undefined ? parsedPage - 1 : 0;
 
-  const setCurrentPage = useCallback(
-    (newPageIndex: number) => setPageIndex(newPageIndex + 1),
-    [setPageIndex],
-  );
+  const setCurrentPage = (newPageIndex: number) => setPageIndex(newPageIndex + 1);
 
   return { currentPage, setCurrentPage };
 };
