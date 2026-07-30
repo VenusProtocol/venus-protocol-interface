@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "Current page",
     "goToFirstPage": "Go to first page",
     "goToLastPage": "Go to last page",
     "goToNextPage": "Go to next page",

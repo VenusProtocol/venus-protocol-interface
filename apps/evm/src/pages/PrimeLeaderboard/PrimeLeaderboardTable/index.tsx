@@ -22,7 +22,6 @@ export interface PrimeLeaderboardTableProps<R> {
   breakpoint?: TableProps<R>['breakpoint'];
   hideCardDelimiter?: TableProps<R>['hideCardDelimiter'];
   className?: string;
-  pagesToShowCount?: number;
 }
 
 export function PrimeLeaderboardTable<R>({
@@ -40,7 +39,6 @@ export function PrimeLeaderboardTable<R>({
   breakpoint,
   hideCardDelimiter,
   className,
-  pagesToShowCount,
 }: PrimeLeaderboardTableProps<R>) {
   const { setCurrentPage } = useUrlPagination({ paramKey: pageParamKey });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -69,7 +67,6 @@ export function PrimeLeaderboardTable<R>({
         paramKey={pageParamKey}
         onChange={setCurrentPage}
         scrollToRef={containerRef}
-        pagesToShowCount={pagesToShowCount}
       />
     </div>
   );

@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "Trang hiện tại",
     "goToFirstPage": "Đến trang đầu",
     "goToLastPage": "Đến trang cuối",
     "goToNextPage": "Trang sau",

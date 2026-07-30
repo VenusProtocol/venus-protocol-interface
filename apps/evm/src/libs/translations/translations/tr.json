@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "Geçerli sayfa",
     "goToFirstPage": "İlk sayfaya git",
     "goToLastPage": "Son sayfaya git",
     "goToNextPage": "Sonraki sayfa",

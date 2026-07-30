@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "現在のページ",
     "goToFirstPage": "最初のページへ",
     "goToLastPage": "最後のページへ",
     "goToNextPage": "次のページへ",

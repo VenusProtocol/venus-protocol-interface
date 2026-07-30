@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "当前页",
     "goToFirstPage": "跳转到第一页",
     "goToLastPage": "跳转到最后一页",
     "goToNextPage": "下一页",

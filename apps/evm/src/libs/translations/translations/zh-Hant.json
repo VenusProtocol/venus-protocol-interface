@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "當前頁",
     "goToFirstPage": "跳轉到第一頁",
     "goToLastPage": "跳轉到最後一頁",
     "goToNextPage": "下一頁",

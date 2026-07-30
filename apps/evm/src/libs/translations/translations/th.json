@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "หน้าปัจจุบัน",
     "goToFirstPage": "ไปที่หน้าแรก",
     "goToLastPage": "ไปที่หน้าสุดท้าย",
     "goToNextPage": "หน้าถัดไป",

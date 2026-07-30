@@ -39,8 +39,27 @@ export const useStyles = () => {
         color: ${theme.palette.text.primary}!important;
       }
     `,
-    getButtonStyles: ({ isActive }: { isActive: boolean }) => css`
-      color: ${isActive ? theme.palette.text.primary : theme.palette.text.secondary};
+    input: css`
+      width: ${theme.spacing(8)};
+      height: ${theme.spacing(8)};
+      padding: 0;
+      text-align: center;
+      background-color: ${theme.palette.background.paper};
+      color: ${theme.palette.text.primary};
+      margin-left: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(1)};
+      border: 1px solid transparent;
+      border-radius: ${theme.shape.borderRadius.verySmall}px;
+      transition: border-color 0.3s;
+
+      &:focus {
+        outline: none;
+        border-color: ${theme.palette.primary.main};
+      }
+
+      &::selection {
+        background-color: ${theme.palette.primary.main};
+      }
     `,
     iconArrow: css`
       width: ${theme.shape.iconSize.xLarge}px;
@@ -49,11 +68,6 @@ export const useStyles = () => {
     `,
     iconReverted: css`
       transform: rotate(180deg);
-    `,
-    dots: css`
-      color: ${theme.palette.text.secondary};
-      margin-left: ${theme.spacing(1)};
-      margin-right: ${theme.spacing(1)};
     `,
   };
 };
