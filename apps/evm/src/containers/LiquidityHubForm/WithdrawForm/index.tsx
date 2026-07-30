@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
+import { useWithdrawFromLiquidityHub } from 'clients/api';
 import { AvailableBalance } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
+import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
 
 export interface WithdrawFormProps {
@@ -25,11 +26,32 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
-  // TODO: wire up
-  const handleSubmit = async (_formValues: FormValues) => {};
+  const { mutateAsync: withdrawFromLiquidityHub, isPending: isSubmitting } =
+    useWithdrawFromLiquidityHub();
 
-  // TODO: wire up
-  const isSubmitting = false;
+  const handleSubmit = async (submittedFormValues: FormValues) => {
+    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+    const amountMantissa = convertTokensToMantissa({
+      token: liquidityHub.vhToken.underlyingToken,
+      value: amountTokens,
+    });
+    const userSupplyBalanceTokens = liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0);
+    const userVhTokenBalanceTokens = liquidityHub.userVhTokenBalanceTokens;
+    const withdrawFullSupply = amountTokens.isEqualTo(userSupplyBalanceTokens);
+    const userVhTokenBalanceMantissa = userVhTokenBalanceTokens
+      ? convertTokensToMantissa({
+          token: liquidityHub.vhToken,
+          value: userVhTokenBalanceTokens,
+        })
+      : undefined;
+
+    await withdrawFromLiquidityHub({
+      liquidityHub,
+      amountMantissa,
+      withdrawFullSupply,
+      userVhTokenBalanceMantissa,
+    });
+  };
 
   const balanceMutations: LiquidityHubBalanceMutation[] = [
     {

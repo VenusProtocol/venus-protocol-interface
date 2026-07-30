@@ -137,7 +137,7 @@ export const Form: React.FC<FormProps> = ({
       amountTokens: (safeLimitTokens ?? limitTokens).dp(liquidityHub.vhToken.decimals).toFixed(),
     }));
 
-  const isLoading = isGetPoolLoading || isGetSimulatedPoolLoading;
+  const isLoading = isSubmitting || isGetPoolLoading || isGetSimulatedPoolLoading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
