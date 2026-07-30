@@ -2469,11 +2469,6 @@
       "priceImpactTooHigh": "価格影響が高すぎます"
     }
   },
-  "venusFluxBanner": {
-    "description": "30日間限定。5月28日、<YellowText>Binance Wallet</YellowText>とともに開始",
-    "illustrationAltText": "Venus Flux のイラスト",
-    "title": "Venus Fluxで5万USDTの報酬"
-  },
   "vipModal": {
     "backgroundAlt": "背景イラスト",
     "cancelButton": {

@@ -2469,11 +2469,6 @@
       "priceImpactTooHigh": "价格影响过高"
     }
   },
-  "venusFluxBanner": {
-    "description": "仅限30天。5月28日携手<YellowText>Binance Wallet</YellowText>上线",
-    "illustrationAltText": "Venus Flux 插图",
-    "title": "Venus Flux 上线 5 万 USDT 奖励"
-  },
   "vipModal": {
     "backgroundAlt": "背景插图",
     "cancelButton": {

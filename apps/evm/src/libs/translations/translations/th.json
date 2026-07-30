@@ -2469,11 +2469,6 @@
       "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป"
     }
   },
-  "venusFluxBanner": {
-    "description": "เฉพาะ 30 วันเท่านั้น เริ่ม 28 พ.ค. กับ <YellowText>Binance Wallet</YellowText>",
-    "illustrationAltText": "ภาพประกอบ Venus Flux",
-    "title": "รางวัล USDT มูลค่า $50K บน Venus Flux"
-  },
   "vipModal": {
     "backgroundAlt": "ภาพประกอบพื้นหลัง",
     "cancelButton": {

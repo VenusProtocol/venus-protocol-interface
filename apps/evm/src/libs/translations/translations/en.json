@@ -2472,11 +2472,6 @@
       "priceImpactTooHigh": "Price impact too high"
     }
   },
-  "venusFluxBanner": {
-    "description": "30 days only. Live May 28 with <YellowText>Binance Wallet</YellowText>",
-    "illustrationAltText": "Venus Flux illustration",
-    "title": "$50K USDT rewards on Venus Flux"
-  },
   "vipModal": {
     "backgroundAlt": "Background illustration",
     "cancelButton": {
