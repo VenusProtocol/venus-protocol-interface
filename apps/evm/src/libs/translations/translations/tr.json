@@ -1439,6 +1439,7 @@
       "stakePrompt": "Prime için yarışmak üzere XVS stake et.",
       "stakeToReachTop": "Bu döngü sona ermeden ilk #{{limit}} arasına girip bir sonraki döngüde Prime için uygun olma şansı için <Highlight>{{amount}} XVS</Highlight> stake et."
     },
+    "rankCutoffNote": "<Rank/>. sıra şu anda <Staked/> stake ederek <Score/> Prime puanına sahip.",
     "rankFooter": {
       "learnMore": "<LeaderboardLink>Prime Leaderboard</LeaderboardLink> üzerinden daha fazla bilgi edinin"
     },
@@ -1472,7 +1473,6 @@
       "thingsToKnowTitle": "Bilmeniz gereken birkaç şey:",
       "title": "Kurallar"
     },
-    "rankCutoffNote": "<Rank/>. sıra şu anda <Staked/> stake ederek <Score/> Prime puanına sahip.",
     "tablesRefreshNote": "Saatlik yenilenir · Son yenileme: {{date, distanceToNow}} önce",
     "tabs": {
       "ranking": "Sıralama",

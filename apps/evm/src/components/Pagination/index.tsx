@@ -69,10 +69,8 @@ export const Pagination = ({
 
   const currentPage = activePageIndex + 1;
   const [inputValue, setInputValue] = useState(String(currentPage));
-  // Set on Esc so the blur handler reverts instead of navigating
   const isCancellingRef = useRef(false);
 
-  // Keep the input in sync when the page changes via the arrows or external navigation
   useEffect(() => {
     setInputValue(String(currentPage));
   }, [currentPage]);
@@ -99,7 +97,6 @@ export const Pagination = ({
       return;
     }
 
-    // Clamp below 1 to the first page and above the count to the last page
     const targetPage = Math.min(Math.max(parsedPage, 1), pagesCount);
     setInputValue(String(targetPage));
 
@@ -115,7 +112,6 @@ export const Pagination = ({
       return;
     }
 
-    // Force the max page count while typing; a leading 0 is committed as page 1 on blur/Enter
     setInputValue(String(Math.min(Number(digitsOnly), pagesCount)));
   };
 

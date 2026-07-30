@@ -1439,6 +1439,7 @@
       "stakePrompt": "Stake XVS to compete for Prime.",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> for a chance to break into the top #{{limit}} by cycle's end and qualify for Prime in the next one."
     },
+    "rankCutoffNote": "Rank <Rank/> currently holds a <Score/> Prime score with <Staked/> staked.",
     "rankFooter": {
       "learnMore": "Learn more about the <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },
@@ -1472,7 +1473,6 @@
       "thingsToKnowTitle": "A few things to know:",
       "title": "Rules"
     },
-    "rankCutoffNote": "Rank <Rank/> currently holds a <Score/> Prime score with <Staked/> staked.",
     "tablesRefreshNote": "Refreshed hourly · Last refresh: {{date, distanceToNow}} ago",
     "tabs": {
       "ranking": "Ranking",

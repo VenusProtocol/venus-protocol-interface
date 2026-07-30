@@ -1439,6 +1439,7 @@
       "stakePrompt": "Stake XVS để cạnh tranh Prime.",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> để có cơ hội lọt vào top #{{limit}} trước khi kết thúc chu kỳ này và đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
     },
+    "rankCutoffNote": "Hạng <Rank/> hiện đang nắm giữ <Score/> điểm Prime với <Staked/> đã stake.",
     "rankFooter": {
       "learnMore": "Tìm hiểu thêm từ <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },
@@ -1472,7 +1473,6 @@
       "thingsToKnowTitle": "Một vài điều cần biết:",
       "title": "Quy tắc"
     },
-    "rankCutoffNote": "Hạng <Rank/> hiện đang nắm giữ <Score/> điểm Prime với <Staked/> đã stake.",
     "tablesRefreshNote": "Làm mới mỗi giờ · Lần làm mới cuối: {{date, distanceToNow}} trước",
     "tabs": {
       "ranking": "Xếp hạng",

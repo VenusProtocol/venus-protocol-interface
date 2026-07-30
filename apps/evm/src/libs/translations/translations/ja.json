@@ -1439,6 +1439,7 @@
       "stakePrompt": "XVS をステークして Prime を目指しましょう。",
       "stakeToReachTop": "<Highlight>{{amount}} XVS</Highlight> をステークすると、サイクル終了までにトップ #{{limit}} 入りを狙え、次回 Prime の対象になれます。"
     },
+    "rankCutoffNote": "ランク<Rank/>は現在、<Staked/>をステークし、<Score/>のPrimeスコアを保有しています。",
     "rankFooter": {
       "learnMore": "<LeaderboardLink>Prime リーダーボード</LeaderboardLink> で詳しく見る"
     },
@@ -1472,7 +1473,6 @@
       "thingsToKnowTitle": "知っておくべきこと：",
       "title": "ルール"
     },
-    "rankCutoffNote": "ランク<Rank/>は現在、<Staked/>をステークし、<Score/>のPrimeスコアを保有しています。",
     "tablesRefreshNote": "1時間ごとに更新 · 最終更新：{{date, distanceToNow}}前",
     "tabs": {
       "ranking": "ランキング",

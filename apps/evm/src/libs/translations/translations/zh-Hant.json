@@ -1439,6 +1439,7 @@
       "stakePrompt": "質押 XVS 以競爭 Prime。",
       "stakeToReachTop": "再質押 <Highlight>{{amount}} XVS</Highlight>，有機會在本週期結束前進入前 #{{limit}}，並在下個週期取得 Prime 資格。"
     },
+    "rankCutoffNote": "排名 <Rank/> 目前持有 <Score/> Prime 分數，質押了 <Staked/>。",
     "rankFooter": {
       "learnMore": "從 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
     },
@@ -1472,7 +1473,6 @@
       "thingsToKnowTitle": "需要了解的幾點：",
       "title": "規則"
     },
-    "rankCutoffNote": "排名 <Rank/> 目前持有 <Score/> Prime 分數，質押了 <Staked/>。",
     "tablesRefreshNote": "每小時刷新 · 上次刷新：{{date, distanceToNow}}前",
     "tabs": {
       "ranking": "排名",
