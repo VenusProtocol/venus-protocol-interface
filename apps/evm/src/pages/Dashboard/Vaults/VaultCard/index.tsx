@@ -152,6 +152,7 @@ export const VaultCard: React.FC<VaultCardProps> = ({ vault, className, to }) =>
     cells.push({
       label: t('dashboard.previewCard.totalSupplied'),
       value: totalDepositedReadableValue,
+      className: '[&>*:last-child]:min-w-0 [&>*:last-child]:max-w-full',
     });
   }
 
