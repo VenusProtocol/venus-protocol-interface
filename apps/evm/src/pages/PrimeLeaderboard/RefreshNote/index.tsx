@@ -1,8 +1,6 @@
-import {
-  useGetPrimeEffectiveStake,
-  useGetPrimeLeaderboard,
-  useGetPrimeMinimumStake,
-} from 'clients/api';
+import BigNumber from 'bignumber.js';
+
+import { useGetPrimeLeaderboard, useGetPrimeMinimumStake } from 'clients/api';
 import { NoticeInfo } from 'components';
 import { useGetPrimeRankLimit } from 'containers/PrimeRank/useGetPrimeRankLimit';
 import { useGetToken } from 'libs/tokens';
@@ -21,10 +19,6 @@ export const RefreshNote: React.FC = () => {
   const { data: minimumStake } = useGetPrimeMinimumStake();
   const rankLimit = useGetPrimeRankLimit();
 
-  const { data: lastPrimeHolderStake } = useGetPrimeEffectiveStake({
-    accountAddress: minimumStake?.lastPrimeHolderAddress ?? undefined,
-  });
-
   const lastRefreshedAt = leaderboard?.computedAt;
 
   if (!lastRefreshedAt) {
@@ -34,7 +28,8 @@ export const RefreshNote: React.FC = () => {
   const rankCutoff =
     minimumStake?.reason === 'last_position' &&
     rankLimit !== undefined &&
-    !!lastPrimeHolderStake &&
+    !!minimumStake.lastPrimeHolderEffectiveStakeMantissa &&
+    !!minimumStake.minimumStakeMantissa &&
     !!xvs ? (
       <p className="min-w-0 text-light-grey">
         <Trans
@@ -45,7 +40,7 @@ export const RefreshNote: React.FC = () => {
               <span className="font-semibold text-white">
                 {shortenValueWithSuffix({
                   value: convertMantissaToTokens({
-                    value: lastPrimeHolderStake.effectiveStakeMantissa,
+                    value: new BigNumber(minimumStake.lastPrimeHolderEffectiveStakeMantissa),
                     token: xvs,
                   }),
                   maxDecimalPlaces: 2,
@@ -56,7 +51,7 @@ export const RefreshNote: React.FC = () => {
               <span className="font-semibold text-white">
                 {formatTokensToReadableValue({
                   value: convertMantissaToTokens({
-                    value: lastPrimeHolderStake.totalStakedMantissa,
+                    value: new BigNumber(minimumStake.minimumStakeMantissa),
                     token: xvs,
                   }),
                   token: xvs,
