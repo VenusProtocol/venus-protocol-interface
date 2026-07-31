@@ -32,7 +32,10 @@ export const RefreshNote: React.FC = () => {
   }
 
   const rankCutoff =
-    rankLimit !== undefined && !!lastPrimeHolderStake && !!xvs ? (
+    minimumStake?.reason === 'last_position' &&
+    rankLimit !== undefined &&
+    !!lastPrimeHolderStake &&
+    !!xvs ? (
       <p className="min-w-0 text-light-grey">
         <Trans
           i18nKey="primeLeaderboard.rankCutoffNote"
