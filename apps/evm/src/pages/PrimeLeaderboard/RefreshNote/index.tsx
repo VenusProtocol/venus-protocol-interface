@@ -1,5 +1,3 @@
-import BigNumber from 'bignumber.js';
-
 import {
   useGetPrimeEffectiveStake,
   useGetPrimeLeaderboard,
@@ -34,10 +32,7 @@ export const RefreshNote: React.FC = () => {
   }
 
   const rankCutoff =
-    rankLimit !== undefined &&
-    !!minimumStake?.lastPrimeHolderEffectiveStakeMantissa &&
-    !!lastPrimeHolderStake &&
-    !!xvs ? (
+    rankLimit !== undefined && !!lastPrimeHolderStake && !!xvs ? (
       <p className="min-w-0 text-light-grey">
         <Trans
           i18nKey="primeLeaderboard.rankCutoffNote"
@@ -47,9 +42,10 @@ export const RefreshNote: React.FC = () => {
               <span className="font-semibold text-white">
                 {shortenValueWithSuffix({
                   value: convertMantissaToTokens({
-                    value: new BigNumber(minimumStake.lastPrimeHolderEffectiveStakeMantissa),
+                    value: lastPrimeHolderStake.effectiveStakeMantissa,
                     token: xvs,
                   }),
+                  maxDecimalPlaces: 2,
                 })}
               </span>
             ),
