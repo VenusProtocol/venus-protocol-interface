@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "Trang hiện tại",
     "goToFirstPage": "Đến trang đầu",
     "goToLastPage": "Đến trang cuối",
     "goToNextPage": "Trang sau",
@@ -1438,6 +1439,7 @@
       "stakePrompt": "Stake XVS để cạnh tranh Prime.",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> để có cơ hội lọt vào top #{{limit}} trước khi kết thúc chu kỳ này và đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
     },
+    "rankCutoffNote": "Hạng <Rank/> hiện đang nắm giữ <Score/> điểm Prime với <Staked/> đã stake.",
     "rankFooter": {
       "learnMore": "Tìm hiểu thêm từ <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },

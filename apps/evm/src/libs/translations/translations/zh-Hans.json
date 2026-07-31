@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "当前页",
     "goToFirstPage": "跳转到第一页",
     "goToLastPage": "跳转到最后一页",
     "goToNextPage": "下一页",
@@ -1438,6 +1439,7 @@
       "stakePrompt": "质押 XVS 以竞争 Prime。",
       "stakeToReachTop": "再质押 <Highlight>{{amount}} XVS</Highlight>，有机会在本周期结束前进入前 #{{limit}}，并在下个周期获得 Prime 资格。"
     },
+    "rankCutoffNote": "排名 <Rank/> 目前持有 <Score/> Prime 分数，质押了 <Staked/>。",
     "rankFooter": {
       "learnMore": "从 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
     },

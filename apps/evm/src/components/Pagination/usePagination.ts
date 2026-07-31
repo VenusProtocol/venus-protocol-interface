@@ -11,10 +11,7 @@ type PaginationProps = {
   itemsPerPageCount?: number;
   paramKey?: string;
   scrollToRef?: RefObject<HTMLDivElement | null>;
-  pagesToShowCount?: number;
 };
-
-const DEFAULT_PAGES_TO_SHOW_COUNT = 4;
 
 export function usePagination({
   itemsCount,
@@ -22,7 +19,6 @@ export function usePagination({
   itemsPerPageCount = 10,
   paramKey = PAGE_PARAM_DEFAULT_KEY,
   scrollToRef,
-  pagesToShowCount = DEFAULT_PAGES_TO_SHOW_COUNT,
 }: PaginationProps) {
   const { t } = useTranslation();
   const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
@@ -63,22 +59,6 @@ export function usePagination({
     ? t('pagination.itemOf', { currentPageLastIndex, itemsCount })
     : t('pagination.itemsOf', { firstItemNumber, currentPageLastIndex, itemsCount });
 
-  /* creating pages array */
-  const pagesArray = Array.from({ length: pagesCount }, (_, i) => i + 1);
-
-  const halfOfPagesCount = Math.ceil(pagesToShowCount / 2);
-  const lastPageIndex = pagesCount - 1;
-  const isActivePageInEnd = activePageIndex > lastPageIndex - halfOfPagesCount;
-  const isActivePageInStart = activePageIndex < halfOfPagesCount;
-
-  const minPageIndexToShow = isActivePageInEnd
-    ? lastPageIndex - pagesToShowCount
-    : activePageIndex - halfOfPagesCount;
-
-  const maxPageIndexToShow = isActivePageInStart
-    ? pagesToShowCount
-    : activePageIndex + halfOfPagesCount;
-
   const handlePageChange = (pageIndex: number) => {
     onChange(pageIndex);
 
@@ -95,8 +75,5 @@ export function usePagination({
     activePageIndex,
     itemsCountString,
     goToPageByIndex: handlePageChange,
-    pagesArray,
-    minPageIndexToShow,
-    maxPageIndexToShow,
   };
 }

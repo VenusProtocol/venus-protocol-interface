@@ -1324,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "หน้าปัจจุบัน",
     "goToFirstPage": "ไปที่หน้าแรก",
     "goToLastPage": "ไปที่หน้าสุดท้าย",
     "goToNextPage": "หน้าถัดไป",
@@ -1438,6 +1439,7 @@
       "stakePrompt": "Stake XVS เพื่อแข่งขันรับ Prime",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> เพื่อมีโอกาสขึ้นไปอยู่ใน top #{{limit}} ก่อนสิ้นสุดรอบนี้ และมีสิทธิ์รับ Prime ในรอบถัดไป"
     },
+    "rankCutoffNote": "อันดับ <Rank/> ปัจจุบันถือครองคะแนน Prime <Score/> โดยมีการสเตก <Staked/>",
     "rankFooter": {
       "learnMore": "เรียนรู้เพิ่มเติมจาก <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },

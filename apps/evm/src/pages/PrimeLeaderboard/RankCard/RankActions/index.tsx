@@ -14,14 +14,21 @@ export const RankActions: React.FC = () => {
 
   return (
     <>
-      <div className="flex gap-x-2.5">
-        <Button className="flex-1" onClick={() => setIsStakeModalOpen(true)}>
+      <div className="grid grid-cols-2 gap-x-2.5">
+        <Button
+          className="w-full min-w-0 overflow-hidden whitespace-nowrap px-6"
+          onClick={() => setIsStakeModalOpen(true)}
+        >
           {t('primeLeaderboard.rankCard.stakeButton')}
         </Button>
 
-        <Button variant="secondary" className="flex-1" onClick={() => setIsRulesModalOpen(true)}>
+        <Button
+          variant="secondary"
+          className="w-full min-w-0 overflow-hidden whitespace-nowrap"
+          onClick={() => setIsRulesModalOpen(true)}
+        >
           <div className="flex items-center gap-x-2">
-            <Icon name="graduationCap" className="size-5" />
+            <Icon name="graduationCap" className="size-5 shrink-0" />
             {t('primeLeaderboard.rankCard.rulesButton')}
           </div>
         </Button>
