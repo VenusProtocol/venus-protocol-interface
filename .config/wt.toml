@@ -1,0 +1,43 @@
+# Runs once, blocking, when a new worktree is created, before wt switch returns. Pipeline of 3
+# sequential steps: env files -> install -> start
+
+# Step 1: shared .env files
+[[pre-start]]
+env = """
+# Shared directory, sibling to all worktrees, holding the single source-of-truth .env files.
+mkdir -p {{ primary_worktree_path | dirname }}/.venus-env
+
+# Seed evm.env only if it doesn't exist yet. The first worktree created after this hook was
+# added copies whatever apps/evm/.env currently exists in the primary worktree (or creates
+# an empty file if there isn't one). Every worktree after that reuses this same file.
+if [ ! -f {{ primary_worktree_path | dirname }}/.venus-env/evm.env ]; then
+  if [ -f {{ primary_worktree_path }}/apps/evm/.env ]; then
+    cp {{ primary_worktree_path }}/apps/evm/.env {{ primary_worktree_path | dirname }}/.venus-env/evm.env
+  else
+    touch {{ primary_worktree_path | dirname }}/.venus-env/evm.env
+  fi
+fi
+
+# Same seeding logic for packages/chains/.env.
+if [ ! -f {{ primary_worktree_path | dirname }}/.venus-env/chains.env ]; then
+  if [ -f {{ primary_worktree_path }}/packages/chains/.env ]; then
+    cp {{ primary_worktree_path }}/packages/chains/.env {{ primary_worktree_path | dirname }}/.venus-env/chains.env
+  else
+    touch {{ primary_worktree_path | dirname }}/.venus-env/chains.env
+  fi
+fi
+
+# Point this worktree's .env files at the shared files instead of real files, so edits
+# in any worktree are visible in all of them immediately (same inode).
+ln -sf {{ primary_worktree_path | dirname }}/.venus-env/evm.env {{ worktree_path }}/apps/evm/.env
+ln -sf {{ primary_worktree_path | dirname }}/.venus-env/chains.env {{ worktree_path }}/packages/chains/.env
+"""
+
+# Step 2: install deps. Runs after env symlinks are in place, before start
+[[pre-start]]
+install = "yarn install"
+
+# Step 3: start the dev server. Blocks wt switch until you kill it, since yarn start never exits on
+# its own
+[[pre-start]]
+start = "yarn start"
