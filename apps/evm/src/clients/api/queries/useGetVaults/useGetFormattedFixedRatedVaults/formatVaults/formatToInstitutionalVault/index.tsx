@@ -102,6 +102,13 @@ export const formatToInstitutionalVault = ({
     .multipliedBy(new BigNumber(1).minus(reserveFactor))
     .toNumber();
 
+  const realizedAprPercentage =
+    vaultData.realizedAprDecimal != null
+      ? new BigNumber(vaultData.realizedAprDecimal).multipliedBy(100).toNumber()
+      : undefined;
+
+  const isSettled = loanVaultDetail.settlementAmountMantissa != null;
+
   const status = getVaultStatus({
     loanVaultDetail,
     userRedeemLimitMantissa,
@@ -155,6 +162,8 @@ export const formatToInstitutionalVault = ({
     ...(userYieldTokens !== undefined ? { userYieldTokens } : {}),
     userWithdrawLimitMantissa,
     reserveFactor,
+    isSettled,
+    realizedAprPercentage,
     collateralToken,
     lockingPeriodMs:
       'lockDurationSeconds' in vaultData.protocolData

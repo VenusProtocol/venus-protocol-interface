@@ -8,7 +8,10 @@ import { forwardRef } from 'react';
 const ScrollToTop = forwardRef<HTMLButtonElement>((_, ref) => {
   const isVisible = useStore(state => state.isScrollToTopVisible);
   const isCloseToBottom = useStore(state => state.isCloseToBottom);
-  const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
+
+  const handleScrollToTop = () => {
+    document.getElementById(PAGE_CONTAINER_ID)?.scrollTo({ behavior: 'smooth', top: 0 });
+  };
 
   return (
     <Button
@@ -18,7 +21,7 @@ const ScrollToTop = forwardRef<HTMLButtonElement>((_, ref) => {
         isVisible ? 'opacity-100' : 'pointer-events-none opacity-0',
         isCloseToBottom ? '-translate-y-[125%]' : 'translate-y-0',
       )}
-      onClick={() => scrollElem?.scrollTo({ behavior: 'smooth', top: 0 })}
+      onClick={handleScrollToTop}
     >
       <Icon className="h-3 w-[10px]" name="arrowUpFull" />
     </Button>

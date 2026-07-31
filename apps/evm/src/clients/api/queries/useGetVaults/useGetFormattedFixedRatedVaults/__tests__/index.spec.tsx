@@ -491,4 +491,131 @@ describe('useGetFormattedFixedRatedVaults', () => {
     expect(institutionalVault?.status).toBe(VaultStatus.Liquidated);
     expect(institutionalVault?.userYieldTokens?.toFixed()).toBe('-50');
   });
+
+  it('computes realizedAprPercentage from realizedAprDecimal', () => {
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
+      data: [
+        {
+          ...fakeMatrixdockVaultProduct,
+          realizedAprDecimal: '0.054',
+        },
+      ],
+      isLoading: false,
+    });
+
+    let data: UseGetPendleVaultsOutput['data'] | undefined;
+
+    const Wrapper = () => {
+      ({ data } = useGetFormattedFixedRatedVaults());
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const institutionalVault = data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(institutionalVault?.realizedAprPercentage).toBe(5.4);
+  });
+
+  it('leaves realizedAprPercentage undefined when realizedAprDecimal is null', () => {
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
+      data: [
+        {
+          ...fakeMatrixdockVaultProduct,
+          realizedAprDecimal: null,
+        },
+      ],
+      isLoading: false,
+    });
+
+    let data: UseGetPendleVaultsOutput['data'] | undefined;
+
+    const Wrapper = () => {
+      ({ data } = useGetFormattedFixedRatedVaults());
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const institutionalVault = data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(institutionalVault?.realizedAprPercentage).toBeUndefined();
+  });
+
+  it('flags a vault with a settlement amount as settled', () => {
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
+      data: [
+        {
+          ...fakeMatrixdockVaultProduct,
+          loanVaultDetail: {
+            ...fakeMatrixdockVaultProduct.loanVaultDetail!,
+            vaultState: 7,
+            settlementAmountMantissa: '10000000',
+          },
+        },
+      ],
+      isLoading: false,
+    });
+
+    let data: UseGetPendleVaultsOutput['data'] | undefined;
+
+    const Wrapper = () => {
+      ({ data } = useGetFormattedFixedRatedVaults());
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const institutionalVault = data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(institutionalVault?.isSettled).toBe(true);
+  });
+
+  it('does not flag a transient Claim vault (state 4, debt cleared, not yet settled) as settled', () => {
+    (useGetFixedRatedVaults as Mock).mockReturnValue({
+      data: [
+        {
+          ...fakeMatrixdockVaultProduct,
+          loanVaultDetail: {
+            ...fakeMatrixdockVaultProduct.loanVaultDetail!,
+            vaultState: 4,
+            lockEndTime: '2020-01-01T00:00:00.000Z',
+            outstandingDebtMantissa: '0',
+            settlementAmountMantissa: null,
+          },
+        },
+      ],
+      isLoading: false,
+    });
+
+    let data: UseGetPendleVaultsOutput['data'] | undefined;
+
+    const Wrapper = () => {
+      ({ data } = useGetFormattedFixedRatedVaults());
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const institutionalVault = data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(institutionalVault?.status).toBe(VaultStatus.Claim);
+    expect(institutionalVault?.isSettled).toBe(false);
+  });
 });

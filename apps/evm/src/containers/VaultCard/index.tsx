@@ -68,6 +68,23 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
         })
       : undefined;
 
+  const showRealizedApr = isInstitutionalVault(vault) && vault.isSettled;
+  const readableRealizedApr = isInstitutionalVault(vault)
+    ? formatPercentageToReadableValue(vault.realizedAprPercentage)
+    : undefined;
+  const readableTargetApr = formatPercentageToReadableValue(vault.stakeAprPercentage);
+  const isVenusVault = vault.venue === VaultVenue.Venus;
+
+  let aprLabel = isVenusVault ? t('vault.card.apr') : t('vault.card.targetApr');
+  let aprTooltip = isVenusVault ? undefined : t('vault.card.targetAprTooltip');
+  let aprValue = readableTargetApr;
+
+  if (showRealizedApr) {
+    aprLabel = t('vault.card.realizedTargetApr');
+    aprTooltip = t('vault.card.realizedAprTooltip');
+    aprValue = `${readableRealizedApr} / ${readableTargetApr}`;
+  }
+
   const openModal = () => setModalVisible(true);
 
   const shouldDisplayInstitutionalMinRequested =
@@ -109,16 +126,10 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           </div>
 
           <div className={cn('flex flex-col gap-y-4')}>
-            <LabeledInlineContent
-              tooltip={vault.venue !== VaultVenue.Venus && t('vault.card.targetAprTooltip')}
-              label={
-                vault.venue !== VaultVenue.Venus ? t('vault.card.targetApr') : t('vault.card.apr')
-              }
-              labelClassName="mb-auto"
-            >
+            <LabeledInlineContent tooltip={aprTooltip} label={aprLabel} labelClassName="mb-auto">
               <LayeredValues
                 className="text-end"
-                topValue={formatPercentageToReadableValue(vault.stakeAprPercentage)}
+                topValue={aprValue}
                 topValueClassName="text-b1s"
               />
             </LabeledInlineContent>
