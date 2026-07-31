@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.14.1
+
+### Patch Changes
+
+- 66dc6ab: update Prime tooltip translation
+
 ## 5.14.0
 
 ### Minor Changes
