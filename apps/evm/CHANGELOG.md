@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.15.0
+
+### Minor Changes
+
+- 3af9a08: feat: change pagination & add note info
+
 ## 5.14.1
 
 ### Patch Changes
