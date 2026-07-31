@@ -25,43 +25,48 @@ export const RefreshNote: React.FC = () => {
     return null;
   }
 
-  const rankCutoff =
+  const rankScoreMantissa = minimumStake?.lastPrimeHolderEffectiveStakeMantissa;
+  const benchmarkStakeMantissa = minimumStake?.minimumStakeMantissa;
+
+  const canShowRankCutoff =
     minimumStake?.reason === 'last_position' &&
     rankLimit !== undefined &&
-    !!minimumStake.lastPrimeHolderEffectiveStakeMantissa &&
-    !!minimumStake.minimumStakeMantissa &&
-    !!xvs ? (
-      <p className="min-w-0 text-light-grey">
-        <Trans
-          i18nKey="primeLeaderboard.rankCutoffNote"
-          components={{
-            Rank: <span className="font-semibold text-white">{`#${rankLimit}`}</span>,
-            Score: (
-              <span className="font-semibold text-white">
-                {shortenValueWithSuffix({
-                  value: convertMantissaToTokens({
-                    value: new BigNumber(minimumStake.lastPrimeHolderEffectiveStakeMantissa),
-                    token: xvs,
-                  }),
-                  maxDecimalPlaces: 2,
-                })}
-              </span>
-            ),
-            Staked: (
-              <span className="font-semibold text-white">
-                {formatTokensToReadableValue({
-                  value: convertMantissaToTokens({
-                    value: new BigNumber(minimumStake.minimumStakeMantissa),
-                    token: xvs,
-                  }),
+    !!rankScoreMantissa &&
+    !!benchmarkStakeMantissa &&
+    !!xvs;
+
+  const rankCutoff = canShowRankCutoff ? (
+    <p className="min-w-0 text-light-grey">
+      <Trans
+        i18nKey="primeLeaderboard.rankCutoffNote"
+        components={{
+          Rank: <span className="font-semibold text-white">{`#${rankLimit}`}</span>,
+          Score: (
+            <span className="font-semibold text-white">
+              {shortenValueWithSuffix({
+                value: convertMantissaToTokens({
+                  value: new BigNumber(rankScoreMantissa),
                   token: xvs,
-                })}
-              </span>
-            ),
-          }}
-        />
-      </p>
-    ) : null;
+                }),
+                maxDecimalPlaces: 2,
+              })}
+            </span>
+          ),
+          Staked: (
+            <span className="font-semibold text-white">
+              {formatTokensToReadableValue({
+                value: convertMantissaToTokens({
+                  value: new BigNumber(benchmarkStakeMantissa),
+                  token: xvs,
+                }),
+                token: xvs,
+              })}
+            </span>
+          ),
+        }}
+      />
+    </p>
+  ) : null;
 
   return (
     <NoticeInfo
