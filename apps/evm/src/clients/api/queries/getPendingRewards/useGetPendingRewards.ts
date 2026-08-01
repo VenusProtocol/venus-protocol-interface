@@ -36,6 +36,7 @@ export type UseGetPendingRewardsQueryKey = [
   FunctionKey.GET_PENDING_REWARDS,
   TrimmedGetPendingRewardsInput & {
     chainId: ChainId;
+    isolatedPoolComptrollerAddresses: Address[];
   },
 ];
 
@@ -150,7 +151,7 @@ export const useGetPendingRewards = (
   // Get XVS vesting vault pool count
   const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
     useGetXvsVaultPoolCount({
-      enabled: !!options?.enabled,
+      enabled: options?.enabled === undefined || !!options.enabled,
     });
   const xvsVestingVaultPoolCount = getXvsVaultPoolCountData?.poolCount || 0;
 
@@ -159,7 +160,14 @@ export const useGetPendingRewards = (
   const sortedIsolatedPoolComptrollerAddresses = [...isolatedPoolComptrollerAddresses].sort();
 
   return useQuery({
-    queryKey: [FunctionKey.GET_PENDING_REWARDS, { ...input, chainId }],
+    queryKey: [
+      FunctionKey.GET_PENDING_REWARDS,
+      {
+        ...input,
+        chainId,
+        isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,
+      },
+    ],
     queryFn: () =>
       callOrThrow(
         {
