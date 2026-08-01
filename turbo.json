@@ -7,10 +7,6 @@
       "cache": false,
       "dependsOn": ["^build"]
     },
-    "postinstall": {
-      "cache": false,
-      "dependsOn": ["^postinstall"]
-    },
     "start": {
       "cache": false,
       "persistent": true

@@ -36,8 +36,3 @@ ln -sf {{ primary_worktree_path | dirname }}/.venus-env/chains.env {{ worktree_p
 # Step 2: install deps. Runs after env symlinks are in place, before start
 [[pre-start]]
 install = "yarn install"
-
-# Step 3: start the dev server. Blocks wt switch until you kill it, since yarn start never exits on
-# its own
-[[pre-start]]
-start = "yarn start"

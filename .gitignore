@@ -36,7 +36,9 @@ npm-debug.log
 testem.log
 typings
 .turbo
-.yarn
+.yarn/*
+!.yarn/plugins/
+!.yarn/plugins/**
 storybook-static
 yarn-error.log
 
