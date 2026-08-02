@@ -140,6 +140,43 @@ describe('getPendingRewards', () => {
     expect(res).toMatchSnapshot();
   });
 
+  it('returns pool rewards when fetching the XVS vesting vault paused state fails', async () => {
+    const fakePublicClientWithFailedXvsVaultPausedCall = {
+      ...fakePublicClient,
+      readContract: vi.fn((params: ReadContractParams) => {
+        const isXvsVestingVaultPausedCall =
+          params.address === fakeXvsVaultContractAddress && params.functionName === 'vaultPaused';
+
+        if (isXvsVestingVaultPausedCall) {
+          return Promise.reject(new Error('failed to fetch paused state'));
+        }
+
+        return (fakePublicClient.readContract as unknown as Mock)(params);
+      }),
+    } as unknown as PublicClient;
+
+    const res = await getPendingRewards({
+      legacyPoolComptrollerContractAddress: fakeLegacyPoolComptrollerAddress,
+      isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
+      tokens,
+      xvsVestingVaultPoolCount: 1,
+      accountAddress: fakeAddress,
+      publicClient: fakePublicClientWithFailedXvsVaultPausedCall,
+      venusLensContractAddress: fakeVenusLensContractAddress,
+      poolLensContractAddress: fakePoolLensContractAddress,
+      vaiVaultContractAddress: fakeVaiVaultContractAddress,
+      xvsVaultContractAddress: fakeXvsVaultContractAddress,
+      chainId: ChainId.BSC_TESTNET,
+      merklCampaigns: {},
+    });
+
+    const xvsVestingVaultGroup = res.pendingRewardGroups.find(
+      pendingRewardGroup => pendingRewardGroup.type === 'xvsVestingVault',
+    );
+
+    expect(xvsVestingVaultGroup?.isDisabled).toBe(false);
+  });
+
   it('returns pool rewards of the user, including Merkl rewards, in the correct format on success', async () => {
     (restService as Mock).mockImplementation(async (input: RestServiceInput) => ({
       data: input.baseUrl === BASE_MERKL_API_URL ? [fakeMerklRewardsResponse] : apiPricesResponse,

@@ -3,21 +3,15 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
-import { poolData } from '__mocks__/models/pools';
-import { bnb } from '__mocks__/models/tokens';
-import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
+import { pendleBnbVault } from '__mocks__/models/vaults';
 import { useGetBalanceOf, useGetPendleSwapQuote, useStakeInPendleVault } from 'clients/api';
 import type { GetPendleSwapQuoteOutput } from 'clients/api';
-import type { PendleVaultProtocolData } from 'clients/api/queries/getFixedRatedVaults/types';
 import { NULL_ADDRESS } from 'constants/address';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { PendleVault, Token, VToken } from 'types';
-import { ChainId, VaultCategory, VaultStatus, VaultType, VaultVenue } from 'types';
 import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import type { Address } from 'viem';
 
@@ -31,57 +25,12 @@ vi.mock('hooks/useDebounceValue', () => ({
 const fakePendlePtVaultAddress = '0xfakePendlePtVaultContractAddress' as Address;
 const fakePendleMarketAddress = '0xfakePendleMarketAddress' as Address;
 const fakeWalletBalanceMantissa = new BigNumber('12000000000000000000');
-const fixedRatedVault = fixedRatedVaults[0];
-const protocolData = fixedRatedVault.protocolData as PendleVaultProtocolData;
-
 type GetPendleSwapQuoteCall = [
   Parameters<typeof useGetPendleSwapQuote>[0],
   Parameters<typeof useGetPendleSwapQuote>[1],
 ];
 
-const ptClisBnbToken: Token = {
-  chainId: ChainId.BSC_TESTNET,
-  address: '0xe052823b4aefc6e230FAf46231A57d0905E30AE0',
-  decimals: 18,
-  symbol: 'PT-clisBNB-25JUN2026',
-  iconSrc: '',
-};
-
-const vPtClisBnb: VToken = {
-  chainId: ChainId.BSC_TESTNET,
-  address: '0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e',
-  decimals: 8,
-  symbol: 'vPT-clisBNB-25JUN2026',
-  underlyingToken: ptClisBnbToken,
-};
-
-const asset = {
-  ...assetData[0],
-  vToken: vPtClisBnb,
-  supplyCapTokens: new BigNumber(5),
-  supplyBalanceTokens: new BigNumber(2),
-};
-
-const vault: PendleVault = {
-  ...vaults[1],
-  key: `${ChainId.BSC_TESTNET}-pendle-${fixedRatedVault.vaultAddress}`,
-  category: VaultCategory.YIELD_TOKENS,
-  vaultType: VaultType.Pendle,
-  venue: VaultVenue.Pendle,
-  venueIconSrc: 'pendle',
-  venueAddress: protocolData.pendleMarketAddress as Address,
-  venueUrl: `https://app.pendle.finance/trade/pools/${protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`,
-  status: VaultStatus.Deposit,
-  vaultAddress: fixedRatedVault.vaultAddress,
-  stakedToken: bnb,
-  rewardToken: ptClisBnbToken,
-  maturityDate: new Date(fixedRatedVault.maturityDate),
-  vaultDeploymentDate: new Date(protocolData.startDate),
-  liquidityCents: new BigNumber(protocolData.liquidityCents),
-  asset,
-  poolComptrollerContractAddress: poolData[0].comptrollerAddress as Address,
-  poolName: poolData[0].name,
-};
+const vault = pendleBnbVault;
 
 const fakeSwapQuote: GetPendleSwapQuoteOutput = {
   estimatedReceivedTokensMantissa: new BigNumber('3100000000000000000'),
@@ -144,7 +93,7 @@ describe('DepositForm', () => {
     expect(useGetBalanceOf).toHaveBeenCalledWith(
       {
         accountAddress: NULL_ADDRESS,
-        token: bnb,
+        token: vault.stakedToken,
       },
       {
         enabled: false,
