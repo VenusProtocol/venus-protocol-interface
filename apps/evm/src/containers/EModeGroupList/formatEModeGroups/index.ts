@@ -160,7 +160,7 @@ export const formatEModeGroups = ({
       }
 
       const aCanBeEnabled = a.userBlockingBorrowPositions.length === 0 && a.userHasEnoughCollateral;
-      const bCanBeEnabled = a.userBlockingBorrowPositions.length === 0 && a.userHasEnoughCollateral;
+      const bCanBeEnabled = b.userBlockingBorrowPositions.length === 0 && b.userHasEnoughCollateral;
 
       // Sort groups that can't be enabled last
       if (!aCanBeEnabled) {

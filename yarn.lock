@@ -24363,6 +24363,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "venusprotocol@workspace:."
   dependencies:
+    "@biomejs/biome": "npm:1.6.4"
     "@changesets/cli": "npm:^2.27.1"
     "@commitlint/config-conventional": "npm:19.8.1"
     "@earendil-works/pi-coding-agent": "npm:0.79.0"
