@@ -21,8 +21,7 @@
     "build": "turbo run build",
     "extract-translations": "turbo run extract-translations",
     "changeset": "changeset",
-    "prepare": "husky",
-    "postinstall": "turbo run generate"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "1.6.4",
