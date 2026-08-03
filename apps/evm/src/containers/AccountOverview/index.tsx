@@ -351,7 +351,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
             <div className="flex flex-col">
               <ButtonGroup
                 buttonLabels={periodOptions.map(p => p.label)}
-                className="gap-x-1 inline-flex ml-auto max-sm:w-fit"
+                className="gap-x-1 inline-flex ml-auto w-fit sm:w-auto"
                 buttonClassName="h-8 font-normal px-3"
                 activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
                 onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}

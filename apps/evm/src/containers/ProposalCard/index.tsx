@@ -1,12 +1,10 @@
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { cn } from '@venusprotocol/ui';
 import { Card } from 'components';
 
 import { Link } from 'containers/Link';
 import type { VoteSupport } from 'types';
 
 import { Chip } from '../../components/Chip';
-import { useStyles } from './styles';
 
 interface ProposalCardProps {
   className?: string;
@@ -31,15 +29,13 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
   footer,
   ...containerProps
 }) => {
-  const styles = useStyles();
-
   return (
-    <Card className={className} css={styles.root} asChild {...containerProps}>
-      <Link css={styles.link} to={linkTo}>
-        <Grid container>
-          <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
-            <div css={styles.cardHeader}>
-              <div css={styles.cardHeaderLeft}>
+    <Card className={cn('px-0 py-0 sm:px-4', className)} asChild {...containerProps}>
+      <Link className="hover:no-underline" to={linkTo}>
+        <div className="flex flex-wrap">
+          <div className="flex min-w-0 basis-full flex-col justify-between px-6 py-6 sm:basis-2/3 sm:pl-0">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
                 <Chip text={`#${proposalNumber}`} />
                 {headerLeftItem}
               </div>
@@ -47,16 +43,15 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
               {headerRightItem}
             </div>
 
-            <Typography variant="h4" css={styles.cardTitle} color="textPrimary">
-              {title}
-            </Typography>
+            <h4 className="mt-5 mb-6 line-clamp-2 text-lg text-white">{title}</h4>
 
             {footer}
-          </Grid>
-          <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
+          </div>
+
+          <div className="flex min-w-0 basis-full flex-row items-center justify-center border-lightGrey border-t p-6 sm:basis-1/3 sm:flex-col sm:border-l sm:border-t-0 sm:py-6 sm:pl-6 sm:pr-0">
             {contentRightItem}
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </Link>
     </Card>
   );
