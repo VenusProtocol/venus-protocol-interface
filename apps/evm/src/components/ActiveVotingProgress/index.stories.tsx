@@ -18,3 +18,17 @@ export default {
 type Story = StoryObj<typeof ActiveVotingProgress>;
 
 export const Default: Story = {};
+
+export const WithoutForVotes: Story = {
+  args: {
+    votedForMantissa: undefined,
+  },
+};
+
+export const ZeroVotes: Story = {
+  args: {
+    votedForMantissa: new BigNumber(0),
+    votedAgainstMantissa: new BigNumber(0),
+    abstainedMantissa: new BigNumber(0),
+  },
+};

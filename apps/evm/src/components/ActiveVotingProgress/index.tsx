@@ -6,7 +6,6 @@ import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { LabeledProgressBar } from '../LabeledProgressBar';
-import { useStyles } from './styles';
 
 interface ActiveVotingProgressProps {
   xvs?: Token;
@@ -30,7 +29,6 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   votedAgainstMantissa,
   abstainedMantissa,
 }) => {
-  const styles = useStyles();
   const { t } = useTranslation();
 
   const votedTotalMantissa = useMemo(
@@ -103,14 +101,14 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   );
 
   return (
-    <div css={styles.votesWrapper}>
+    <div className="flex w-full flex-col space-y-6">
       {activeProposalVotingData.map(({ id, label, value, progressBarProps }) => {
         if (!value) {
           return null;
         }
 
         return (
-          <div key={id} css={styles.bar}>
+          <div key={id}>
             <LabeledProgressBar
               greyLeftText={label}
               whiteRightText={value}

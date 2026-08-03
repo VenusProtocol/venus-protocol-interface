@@ -1,4 +1,3 @@
-import Typography from '@mui/material/Typography';
 import type { Meta, StoryFn } from '@storybook/react';
 
 import { Modal, type ModalProps } from '.';
@@ -11,12 +10,8 @@ export default {
 const Template: StoryFn<ModalProps> = (args: ModalProps) => <Modal {...args} />;
 const ModalContent = () => (
   <>
-    <Typography variant="h6" component="h2">
-      Text in a modal
-    </Typography>
-    <Typography sx={{ mt: 2 }}>
-      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-    </Typography>
+    <h2 className="text-lg font-medium leading-8">Text in a modal</h2>
+    <p className="mt-2">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
   </>
 );
 

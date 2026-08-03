@@ -22,3 +22,21 @@ export default {
 type Story = StoryObj<typeof ApprovalSteps>;
 
 export const Default: Story = {};
+
+export const Loading: Story = {
+  args: {
+    isApprovalActionLoading: true,
+  },
+};
+
+export const WithoutTooltip: Story = {
+  args: {
+    firstStepTooltip: undefined,
+  },
+};
+
+export const Content: Story = {
+  args: {
+    showApprovalSteps: false,
+  },
+};
