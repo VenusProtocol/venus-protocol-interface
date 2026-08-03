@@ -1,5 +1,4 @@
 import type BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
 
 import { Card, Delimiter, LabeledInlineContent } from 'components';
 import { VENUS_DOC_URL } from 'constants/production';
@@ -32,54 +31,30 @@ export const RewardDetails: React.FC<RewardDetailsProps> = ({
 }: RewardDetailsProps) => {
   const { t, Trans } = useTranslation();
 
-  const {
-    borrowApyPercentageReadable,
-    borrowedTokensReadable,
-    supplyApyPercentageReadable,
-    suppliedTokensReadable,
-    primeTokensDistributedAmountReadable,
-    userDailyPrimeRewardsReadable,
-  } = useMemo(() => {
-    const suppliedTokens = formatTokensToReadableValue({
-      value: userSuppliedTokens,
-      token,
-    });
-
-    const borrowedTokens = formatTokensToReadableValue({
-      value: userBorrowedTokens,
-      token,
-    });
-
-    const primeTokensDistributedAmount = formatTokensToReadableValue({
-      value: totalDailyRewards,
-      token,
-    });
-
-    const userDailyPrimeRewards = formatTokensToReadableValue({
-      value: userDailyRewards,
-      token,
-    });
-
-    const borrowApyPercentage = formatPercentageToReadableValue(primeBorrowApy?.multipliedBy(-1));
-    const supplyApyPercentage = formatPercentageToReadableValue(primeSupplyApy);
-
-    return {
-      borrowApyPercentageReadable: borrowApyPercentage,
-      borrowedTokensReadable: borrowedTokens,
-      supplyApyPercentageReadable: supplyApyPercentage,
-      suppliedTokensReadable: suppliedTokens,
-      primeTokensDistributedAmountReadable: primeTokensDistributedAmount,
-      userDailyPrimeRewardsReadable: userDailyPrimeRewards,
-    };
-  }, [
-    primeBorrowApy,
-    primeSupplyApy,
+  const suppliedTokensReadable = formatTokensToReadableValue({
+    value: userSuppliedTokens,
     token,
-    totalDailyRewards,
-    userBorrowedTokens,
-    userSuppliedTokens,
-    userDailyRewards,
-  ]);
+  });
+
+  const borrowedTokensReadable = formatTokensToReadableValue({
+    value: userBorrowedTokens,
+    token,
+  });
+
+  const primeTokensDistributedAmountReadable = formatTokensToReadableValue({
+    value: totalDailyRewards,
+    token,
+  });
+
+  const userDailyPrimeRewardsReadable = formatTokensToReadableValue({
+    value: userDailyRewards,
+    token,
+  });
+
+  const borrowApyPercentageReadable = formatPercentageToReadableValue(
+    primeBorrowApy?.multipliedBy(-1),
+  );
+  const supplyApyPercentageReadable = formatPercentageToReadableValue(primeSupplyApy);
 
   return (
     <Card>

@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material';
 import { cloneDeep } from 'lodash-es';
-import { useMemo } from 'react';
 
 import { Table, type TableColumn, Username } from 'components';
 import { routes } from 'constants/routing';
@@ -90,12 +89,9 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
     },
   ];
 
-  const cardColumns = useMemo(() => {
-    const newColumns = cloneDeep(columns);
-    newColumns[2].align = 'center';
-    newColumns[3].align = 'left';
-    return newColumns;
-  }, [columns]);
+  const cardColumns = cloneDeep(columns);
+  cardColumns[2].align = 'center';
+  cardColumns[3].align = 'left';
 
   return (
     <Table

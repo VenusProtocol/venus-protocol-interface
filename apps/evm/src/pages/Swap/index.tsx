@@ -28,6 +28,7 @@ import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
+import { getSelectedTokenBalances } from './getSelectedTokenBalances';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
@@ -76,28 +77,11 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { fromTokenUserBalanceMantissa, toTokenUserBalanceMantissa } = useMemo(
-    () =>
-      tokenBalances.reduce(
-        (acc, tokenBalance) => {
-          if (areTokensEqual(tokenBalance.token, formValues.fromToken)) {
-            acc.fromTokenUserBalanceMantissa = tokenBalance.balanceMantissa;
-          } else if (areTokensEqual(tokenBalance.token, formValues.toToken)) {
-            acc.toTokenUserBalanceMantissa = tokenBalance.balanceMantissa;
-          }
-
-          return acc;
-        },
-        {
-          fromTokenUserBalanceMantissa: undefined,
-          toTokenUserBalanceMantissa: undefined,
-        } as {
-          fromTokenUserBalanceMantissa?: BigNumber;
-          toTokenUserBalanceMantissa?: BigNumber;
-        },
-      ),
-    [tokenBalances, formValues.fromToken, formValues.toToken],
-  );
+  const { fromTokenUserBalanceMantissa, toTokenUserBalanceMantissa } = getSelectedTokenBalances({
+    tokenBalances,
+    fromToken: formValues.fromToken,
+    toToken: formValues.toToken,
+  });
 
   useEffect(() => {
     if (swap?.direction === 'exactAmountIn') {
@@ -168,21 +152,14 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   };
 
   // Define lists of tokens for each text field
-  const { fromTokenBalances, toTokenBalances } = useMemo(() => {
-    const fromTokenBalancesTmp = tokenBalances.filter(
-      tokenBalance =>
-        tokenBalance.token.address.toLowerCase() !== formValues.fromToken.address.toLowerCase(),
-    );
-    const toTokenBalancesTmp = tokenBalances.filter(
-      tokenBalance =>
-        tokenBalance.token.address.toLowerCase() !== formValues.toToken.address.toLowerCase(),
-    );
-
-    return {
-      fromTokenBalances: fromTokenBalancesTmp,
-      toTokenBalances: toTokenBalancesTmp,
-    };
-  }, [tokenBalances, formValues.fromToken.address, formValues.toToken.address]);
+  const fromTokenBalances = tokenBalances.filter(
+    tokenBalance =>
+      tokenBalance.token.address.toLowerCase() !== formValues.fromToken.address.toLowerCase(),
+  );
+  const toTokenBalances = tokenBalances.filter(
+    tokenBalance =>
+      tokenBalance.token.address.toLowerCase() !== formValues.toToken.address.toLowerCase(),
+  );
 
   const readableFromTokenUserBalance = useConvertMantissaToReadableTokenString({
     value: fromTokenUserBalanceMantissa,

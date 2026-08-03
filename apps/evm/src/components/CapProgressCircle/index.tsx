@@ -1,6 +1,6 @@
 import { theme } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
-import { useId, useMemo } from 'react';
+import { useId } from 'react';
 
 import type { Token } from 'types';
 import {
@@ -30,49 +30,31 @@ export const CapProgressCircle: React.FC<CapProgressCircleProps> = ({
 }) => {
   const gradientId = useId().replace(/:/g, '');
 
-  const {
-    readableLimitDollars,
-    readableLimitTokens,
-    readableThresholdPercentage,
-    readableValueDollars,
-    readableValueTokens,
-    thresholdPercentage,
-  } = useMemo(() => {
-    const valueCents = valueTokens.multipliedBy(tokenPriceCents);
-    const limitCents = limitTokens.multipliedBy(tokenPriceCents);
+  const valueCents = valueTokens.multipliedBy(tokenPriceCents);
+  const limitCents = limitTokens.multipliedBy(tokenPriceCents);
 
-    const tmpReadableValueDollars = formatCentsToReadableValue({
-      value: valueCents,
-    });
+  const readableValueDollars = formatCentsToReadableValue({
+    value: valueCents,
+  });
 
-    const tmpReadableValueTokens = formatTokensToReadableValue({
-      value: valueTokens,
-      token,
-      addSymbol: false,
-    });
+  const readableValueTokens = formatTokensToReadableValue({
+    value: valueTokens,
+    token,
+    addSymbol: false,
+  });
 
-    const tmpReadableLimitTokens = formatTokensToReadableValue({
-      value: limitTokens,
-      token,
-    });
+  const readableLimitTokens = formatTokensToReadableValue({
+    value: limitTokens,
+    token,
+  });
 
-    const tmpReadableLimitDollars = formatCentsToReadableValue({ value: limitCents });
+  const readableLimitDollars = formatCentsToReadableValue({ value: limitCents });
 
-    const thresholdPercentage = limitTokens.isEqualTo(0)
-      ? 100
-      : valueTokens.multipliedBy(100).div(limitTokens).toNumber();
+  const thresholdPercentage = limitTokens.isEqualTo(0)
+    ? 100
+    : valueTokens.multipliedBy(100).div(limitTokens).toNumber();
 
-    const tmpReadableThresholdPercentage = formatPercentageToReadableValue(thresholdPercentage);
-
-    return {
-      readableLimitDollars: tmpReadableLimitDollars,
-      readableLimitTokens: tmpReadableLimitTokens,
-      readableThresholdPercentage: tmpReadableThresholdPercentage,
-      readableValueDollars: tmpReadableValueDollars,
-      readableValueTokens: tmpReadableValueTokens,
-      thresholdPercentage,
-    };
-  }, [limitTokens, tokenPriceCents, token, valueTokens]);
+  const readableThresholdPercentage = formatPercentageToReadableValue(thresholdPercentage);
 
   const progressCircle = (
     <div className="relative flex items-center justify-center w-20 h-20">
