@@ -1,13 +1,19 @@
 import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
-import { institutionalVault, vaults as venusVaults } from '__mocks__/models/vaults';
+import fakeAccountAddress from '__mocks__/models/address';
+import { institutionalVault, pendleVault, vaults as venusVaults } from '__mocks__/models/vaults';
 import { useNow } from 'hooks/useNow';
 import { en, t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { InstitutionalVault, VenusVault } from 'types';
 import { VaultStatus } from 'types';
-import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
+import {
+  convertMantissaToTokens,
+  formatCentsToReadableValue,
+  formatPercentageToReadableValue,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { VaultCard } from '..';
 
 vi.mock('hooks/useNow');
@@ -27,6 +33,60 @@ describe('VaultCard', () => {
 
   beforeEach(() => {
     mockUseNow.mockReturnValue(new Date('2026-04-05T00:00:00.000Z'));
+  });
+
+  it('renders APR, daily emission, total deposited, and venue rows for Venus vaults', () => {
+    const vault = venusVaults[0];
+
+    const { getByText } = renderComponent(<VaultCard vault={vault} />);
+
+    expect(getByText(en.vault.card.apr)).toBeInTheDocument();
+    expect(
+      getByText(formatPercentageToReadableValue(vault.stakeAprPercentage)),
+    ).toBeInTheDocument();
+    expect(getByText(en.vault.card.dailyEmission)).toBeInTheDocument();
+    expect(getByText(en.vault.card.totalDeposited)).toBeInTheDocument();
+    expect(
+      getByText(formatCentsToReadableValue({ value: vault.stakeBalanceCents })),
+    ).toBeInTheDocument();
+    expect(getByText(en.vault.card.venue)).toBeInTheDocument();
+    expect(getByText(vault.venueName)).toBeInTheDocument();
+  });
+
+  it('renders connected wallet stake in the footer', () => {
+    const vault = venusVaults[1];
+
+    const { getByText } = renderComponent(<VaultCard vault={vault} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const readableUserStakedTokens = formatTokensToReadableValue({
+      value: convertMantissaToTokens({
+        value: vault.userStakeBalanceMantissa || new BigNumber(0),
+        token: vault.stakedToken,
+      }),
+      token: vault.stakedToken,
+    });
+
+    expect(getByText(en.vault.card.youDeposited)).toBeInTheDocument();
+    expect(getByText(readableUserStakedTokens)).toBeInTheDocument();
+  });
+
+  it('renders Pendle liquidity and maturity date rows', () => {
+    const { getByText } = renderComponent(<VaultCard vault={pendleVault} />);
+
+    expect(getByText(en.vault.card.targetApr)).toBeInTheDocument();
+    expect(
+      getByText(formatPercentageToReadableValue(pendleVault.stakeAprPercentage)),
+    ).toBeInTheDocument();
+    expect(getByText(en.vault.card.liquidity)).toBeInTheDocument();
+    expect(
+      getByText(formatCentsToReadableValue({ value: pendleVault.liquidityCents })),
+    ).toBeInTheDocument();
+    expect(getByText(en.vault.card.maturityDatePendle)).toBeInTheDocument();
+    expect(
+      getByText(t('vault.card.textualWithTime', { date: pendleVault.maturityDate })),
+    ).toBeInTheDocument();
   });
 
   it('renders the institutional checkpoint row for deposit periods', () => {

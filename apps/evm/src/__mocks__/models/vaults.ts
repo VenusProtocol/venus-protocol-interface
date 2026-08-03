@@ -1,12 +1,17 @@
 import BigNumber from 'bignumber.js';
-import type { GetFixedRatedVaultsOutput } from 'clients/api/queries/getFixedRatedVaults';
+import type {
+  GetFixedRatedVaultsOutput,
+  PendleVaultProtocolData,
+} from 'clients/api/queries/getFixedRatedVaults';
 import matrixdockLogoSrc from 'clients/api/queries/useGetVaults/getVenueConfig/matrixdock.svg';
 import venusLogoSrc from 'clients/api/queries/useGetVaults/getVenueConfig/venus.svg';
 
 import {
   type InstitutionalVault,
   type LockedDeposit,
+  type PendleVault,
   type Token,
+  type VToken,
   VaultCategory,
   VaultStatus,
   VaultType,
@@ -15,7 +20,8 @@ import {
 } from 'types';
 
 import type { Address } from 'viem';
-import { usdc, vai, xvs } from './tokens';
+import { assetData } from './asset';
+import { bnb, usdc, vai, xvs } from './tokens';
 
 const institutionalCollateralToken: Token = {
   chainId: 97,
@@ -215,6 +221,70 @@ export const fixedRatedVaults: GetFixedRatedVaultsOutput = [
     ],
   },
 ];
+
+export const pendleVault: PendleVault = {
+  ...vaults[0],
+  asset: assetData[0],
+  category: VaultCategory.YIELD_TOKENS,
+  key: 'pendle-VAI-XVS-2026-06-25',
+  liquidityCents: new BigNumber('742673002'),
+  maturityDate: new Date('2026-06-25T00:00:00.000Z'),
+  poolComptrollerContractAddress: '0x1111111111111111111111111111111111111111',
+  poolName: 'Core Pool',
+  stakeAprPercentage: 3.39809766,
+  status: VaultStatus.Active,
+  vaultAddress: '0x2222222222222222222222222222222222222222',
+  vaultDeploymentDate: new Date('2026-03-13T02:16:23.000Z'),
+  vaultType: VaultType.Pendle,
+  venue: VaultVenue.Pendle,
+  venueIconSrc: 'logoMobile',
+  venueName: 'Pendle',
+  venueUrl: 'https://www.pendle.finance/',
+};
+
+const fixedRatedPendleVault = fixedRatedVaults[0];
+const fixedRatedPendleVaultProtocolData =
+  fixedRatedPendleVault.protocolData as PendleVaultProtocolData;
+const ptClisBnbToken: Token = {
+  chainId: 97,
+  address: fixedRatedPendleVault.underlyingAssetAddress,
+  decimals: 18,
+  symbol: 'PT-clisBNB-25JUN2026',
+  iconSrc: '',
+};
+const vPtClisBnb: VToken = {
+  chainId: 97,
+  address: fixedRatedPendleVault.vaultAddress,
+  decimals: 8,
+  symbol: 'vPT-clisBNB-25JUN2026',
+  underlyingToken: ptClisBnbToken,
+};
+
+export const pendleBnbVault: PendleVault = {
+  ...vaults[1],
+  asset: {
+    ...assetData[0],
+    vToken: vPtClisBnb,
+    supplyCapTokens: new BigNumber(5),
+    supplyBalanceTokens: new BigNumber(2),
+  },
+  category: VaultCategory.YIELD_TOKENS,
+  key: `97-pendle-${fixedRatedPendleVault.vaultAddress}`,
+  liquidityCents: new BigNumber(fixedRatedPendleVaultProtocolData.liquidityCents),
+  maturityDate: new Date(fixedRatedPendleVault.maturityDate),
+  poolComptrollerContractAddress: '0x94d1820b2d1c7c7452a163983dc888cec546b77d',
+  poolName: 'Venus',
+  rewardToken: ptClisBnbToken,
+  stakedToken: bnb,
+  status: VaultStatus.Deposit,
+  vaultAddress: fixedRatedPendleVault.vaultAddress,
+  vaultDeploymentDate: new Date(fixedRatedPendleVaultProtocolData.startDate),
+  vaultType: VaultType.Pendle,
+  venue: VaultVenue.Pendle,
+  venueAddress: fixedRatedPendleVaultProtocolData.pendleMarketAddress,
+  venueIconSrc: 'pendle',
+  venueUrl: `https://app.pendle.finance/trade/pools/${fixedRatedPendleVaultProtocolData.pendleMarketAddress}/zap/in?chain=bnbchain`,
+};
 
 export const institutionalVault: InstitutionalVault = {
   vaultType: VaultType.Institutional,

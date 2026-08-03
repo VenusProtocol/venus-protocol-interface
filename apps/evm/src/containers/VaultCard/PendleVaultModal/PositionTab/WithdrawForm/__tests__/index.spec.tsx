@@ -3,10 +3,9 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
 import { bnb, busd, xvs } from '__mocks__/models/tokens';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
-import { vaults } from '__mocks__/models/vaults';
+import { pendleVault } from '__mocks__/models/vaults';
 import {
   type GetPendleSwapQuoteOutput,
   useGetBalanceOf,
@@ -21,8 +20,6 @@ import { useNow } from 'hooks/useNow';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { PendleVault } from 'types';
-import { VaultType } from 'types';
-
 import type { Address } from 'viem';
 import { WithdrawForm } from '..';
 
@@ -44,27 +41,26 @@ type GetPendleSwapQuoteCall = [
   Parameters<typeof useGetPendleSwapQuote>[1],
 ];
 
-const vault: PendleVault = {
-  ...vaults[1],
+const vault = {
+  ...pendleVault,
+  asset: {
+    ...pendleVault.asset,
+    vToken: vXvs,
+  },
   key: 'pendle-test-vault',
-  vaultType: VaultType.Pendle,
+  liquidityCents: new BigNumber(1000000),
+  maturityDate: new Date('2026-06-25T00:00:00.000Z'),
+  poolComptrollerContractAddress: '0xfakePoolComptrollerContractAddress' as Address,
+  poolName: 'Core Pool',
   rewardToken: xvs,
-  stakedToken: busd,
   rewardTokenPriceCents: new BigNumber(123),
+  stakedToken: busd,
   stakedTokenPriceCents: new BigNumber(456),
   userStakeBalanceMantissa: new BigNumber('12000000000000000000'),
   vaultAddress: '0x3333333333333333333333333333333333333333',
-  maturityDate: new Date('2026-06-25T00:00:00.000Z'),
-  liquidityCents: new BigNumber(1000000),
-  asset: {
-    ...assetData[0],
-    vToken: vXvs,
-  },
-  poolComptrollerContractAddress: '0xfakePoolComptrollerContractAddress' as Address,
-  poolName: 'Core Pool',
-  venueUrl: undefined,
   vaultDeploymentDate: new Date('2026-01-01T00:00:00.000Z'),
-};
+  venueUrl: undefined,
+} satisfies PendleVault;
 
 const maturedVault: PendleVault = {
   ...vault,

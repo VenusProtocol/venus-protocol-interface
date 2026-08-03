@@ -84,11 +84,13 @@ export const getPendingRewards = async ({
     ),
   );
 
-  const xvsVestingVaultPausedPromise = publicClient.readContract({
-    abi: xvsVaultAbi,
-    address: xvsVaultContractAddress,
-    functionName: 'vaultPaused',
-  });
+  const xvsVestingVaultPausedPromise = Promise.allSettled([
+    publicClient.readContract({
+      abi: xvsVaultAbi,
+      address: xvsVaultContractAddress,
+      functionName: 'vaultPaused',
+    }),
+  ]);
 
   const {
     xvsVestingVaultPoolInfosPromises,
@@ -205,7 +207,7 @@ export const getPendingRewards = async ({
   const [vaiVaultPendingXvsMantissaResult, vaiVaultPausedResult, venusLensPendingRewardsResult] =
     await vaiVaultVenusLensPromises;
   const isolatedPoolsPendingRewardsResults = await isolatedPoolsPendingRewardsPromises;
-  const xvsVestingVaultPausedResult = await xvsVestingVaultPausedPromise;
+  const [xvsVestingVaultPausedResult] = await xvsVestingVaultPausedPromise;
   const xvsVestingVaultPoolInfosResults = await xvsVestingVaultPoolInfosSettledPromises;
   const xvsVestingVaultPendingRewardResults = await xvsVestingVaultPendingRewardSettledPromises;
   const xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults =
@@ -302,7 +304,8 @@ export const getPendingRewards = async ({
     primeVersion,
     isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) ?? false,
     isVaiVaultContractPaused: extractSettledPromiseValue(vaiVaultPausedResult) ?? false,
-    isXvsVestingVaultContractPaused: xvsVestingVaultPausedResult,
+    isXvsVestingVaultContractPaused:
+      extractSettledPromiseValue(xvsVestingVaultPausedResult) ?? false,
     merklPendingRewards,
   });
 
