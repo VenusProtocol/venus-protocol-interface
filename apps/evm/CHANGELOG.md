@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.15.1
+
+### Patch Changes
+
+- d9afa6c: various fixes
+
 ## 5.15.0
 
 ### Minor Changes
