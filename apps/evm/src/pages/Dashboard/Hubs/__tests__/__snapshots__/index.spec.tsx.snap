@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Hubs > displays content correctly 1`] = `"Total supplied value$3.75KDaily earnings$0.45Currently supplied42 XVSSupplyAPY7.4%Daily earnings$0.05Currently supplied1.2K USDCSupplyAPY4.85%Daily earnings$0.13Currently supplied850 USDTSupplyAPY4.85%Daily earnings$0.11Currently supplied1.4K BUSDSupplyAPY3.95%Daily earnings$0.15"`;
+
+exports[`Hubs > displays placeholder when there are no hubs to display 1`] = `"No liquidity hub positions yetConnect walletXVSSupplyAPY7.4%Total supplied15.25K XVSUSDCSupplyAPY4.85%Total supplied350K USDCUSDTSupplyAPY4.85%Total supplied210K USDT"`;

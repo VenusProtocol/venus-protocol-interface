@@ -1,5 +1,6 @@
 import Typography from '@mui/material/Typography';
 import type { ReactElement, RefObject } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
@@ -42,7 +43,6 @@ interface PaginationProps {
   paramKey?: string;
   scrollToRef?: RefObject<HTMLDivElement | null>;
   className?: string;
-  pagesToShowCount?: number;
 }
 
 export const Pagination = ({
@@ -53,17 +53,8 @@ export const Pagination = ({
   paramKey,
   scrollToRef,
   className,
-  pagesToShowCount,
 }: PaginationProps) => {
-  const {
-    pagesCount,
-    activePageIndex,
-    goToPageByIndex,
-    itemsCountString,
-    pagesArray,
-    minPageIndexToShow,
-    maxPageIndexToShow,
-  } = usePagination({
+  const { pagesCount, activePageIndex, goToPageByIndex, itemsCountString } = usePagination({
     itemsCount,
     onChange: newPageIndex => {
       onChange(newPageIndex + (initialPageIndex || 0));
@@ -71,11 +62,18 @@ export const Pagination = ({
     itemsPerPageCount,
     paramKey,
     scrollToRef,
-    pagesToShowCount,
   });
 
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const currentPage = activePageIndex + 1;
+  const [inputValue, setInputValue] = useState(String(currentPage));
+  const isCancellingRef = useRef(false);
+
+  useEffect(() => {
+    setInputValue(String(currentPage));
+  }, [currentPage]);
 
   if (pagesCount <= 1) {
     return null;
@@ -85,6 +83,46 @@ export const Pagination = ({
 
   const isFirstPage = activePageIndex === 0;
   const isLastPage = activePageIndex === pagesCount - 1;
+
+  const commitInput = () => {
+    if (isCancellingRef.current) {
+      isCancellingRef.current = false;
+      setInputValue(String(currentPage));
+      return;
+    }
+
+    const parsedPage = Number(inputValue);
+    if (inputValue === '' || Number.isNaN(parsedPage)) {
+      setInputValue(String(currentPage));
+      return;
+    }
+
+    const targetPage = Math.min(Math.max(parsedPage, 1), pagesCount);
+    setInputValue(String(targetPage));
+
+    if (targetPage !== currentPage) {
+      goToPageByIndex(targetPage - 1);
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const digitsOnly = event.target.value.replace(/\D/g, '');
+    if (digitsOnly === '') {
+      setInputValue('');
+      return;
+    }
+
+    setInputValue(String(Math.min(Number(digitsOnly), pagesCount)));
+  };
+
+  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.currentTarget.blur();
+    } else if (event.key === 'Escape') {
+      isCancellingRef.current = true;
+      event.currentTarget.blur();
+    }
+  };
 
   return (
     <div className={className} css={styles.root}>
@@ -99,45 +137,34 @@ export const Pagination = ({
         </PaginationButton>
       )}
 
-      {pagesArray.map((page, index) => {
-        if (index === maxPageIndexToShow) {
-          return (
-            <PaginationButton
-              key={page}
-              onClick={() => goToPageByIndex(activePageIndex + 1)}
-              ariaLabel={t('pagination.goToNextPage')}
-            >
-              <Icon css={styles.iconArrow} {...iconProps} />
-            </PaginationButton>
-          );
-        }
+      {!isFirstPage && (
+        <PaginationButton
+          onClick={() => goToPageByIndex(activePageIndex - 1)}
+          ariaLabel={t('pagination.goToPreviousPage')}
+        >
+          <Icon css={[styles.iconArrow, styles.iconReverted]} {...iconProps} />
+        </PaginationButton>
+      )}
 
-        if (index === minPageIndexToShow) {
-          return (
-            <PaginationButton
-              key={page}
-              onClick={() => goToPageByIndex(activePageIndex - 1)}
-              ariaLabel={t('pagination.goToPreviousPage')}
-            >
-              <Icon css={[styles.iconArrow, styles.iconReverted]} {...iconProps} />
-            </PaginationButton>
-          );
-        }
+      <input
+        css={styles.input}
+        value={inputValue}
+        inputMode="numeric"
+        aria-label={t('pagination.currentPage')}
+        onChange={handleInputChange}
+        onKeyDown={handleInputKeyDown}
+        onFocus={event => event.target.select()}
+        onBlur={commitInput}
+      />
 
-        if (index < minPageIndexToShow || index > maxPageIndexToShow) {
-          return null;
-        }
-
-        return (
-          <PaginationButton
-            key={page}
-            onClick={() => goToPageByIndex(index)}
-            css={styles.getButtonStyles({ isActive: index === activePageIndex })}
-          >
-            {page}
-          </PaginationButton>
-        );
-      })}
+      {!isLastPage && (
+        <PaginationButton
+          onClick={() => goToPageByIndex(activePageIndex + 1)}
+          ariaLabel={t('pagination.goToNextPage')}
+        >
+          <Icon css={styles.iconArrow} {...iconProps} />
+        </PaginationButton>
+      )}
 
       {!isLastPage && (
         <PaginationButton

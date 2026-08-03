@@ -1,5 +1,40 @@
 # @venusprotocol/evm
 
+## 5.15.1
+
+### Patch Changes
+
+- d9afa6c: various fixes
+
+## 5.15.0
+
+### Minor Changes
+
+- 3af9a08: feat: change pagination & add note info
+
+## 5.14.1
+
+### Patch Changes
+
+- 66dc6ab: update Prime tooltip translation
+
+## 5.14.0
+
+### Minor Changes
+
+- af15902: show realized PnL for fixed vaults
+
+## 5.13.0
+
+### Minor Changes
+
+- a30aeeb: wire Liquidity Hub forms to contracts
+- 56d50bf: add the Hubs tab to the Dashboard page
+
+### Patch Changes
+
+- 8aed6d7: remove Venus Flux ad banner
+
 ## 5.12.0
 
 ### Minor Changes

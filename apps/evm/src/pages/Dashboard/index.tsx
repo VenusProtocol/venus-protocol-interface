@@ -1,27 +1,50 @@
+import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { useGetPool, useGetVaults } from 'clients/api';
 import { Page, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
 import { useChain } from 'hooks/useChain';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
+import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router';
 import { AccountOverview } from '../../containers/AccountOverview';
 import { Guide } from './Guide';
+import { Hubs } from './Hubs';
 import { Markets } from './Markets';
 import { Settings } from './Settings';
 import { Transactions } from './Transactions';
 import { Vaults } from './Vaults';
 
+export { liquidityHubs };
+
 export const Dashboard: React.FC = () => {
   const { t } = useTranslation();
   const { corePoolComptrollerContractAddress } = useChain();
+  const { chainId } = useChainId();
+  const [, setSearchParams] = useSearchParams();
+
+  const chainIdRef = useRef(chainId);
+  useEffect(() => {
+    if (chainId !== chainIdRef.current) {
+      chainIdRef.current = chainId;
+      setSearchParams(currentSearchParams => {
+        currentSearchParams.delete(PAGE_PARAM_DEFAULT_KEY);
+        return Object.fromEntries(currentSearchParams);
+      });
+    }
+  }, [chainId, setSearchParams]);
 
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({
     name: 'gaslessTransactions',
   });
   const isHistoricalTransactionsFeatureEnabled = useIsFeatureEnabled({
     name: 'transactionHistory',
+  });
+  const isLiquidityHubFeatureEnabled = useIsFeatureEnabled({
+    name: 'liquidityHub',
   });
 
   const { accountAddress } = useAccountAddress();
@@ -48,6 +71,14 @@ export const Dashboard: React.FC = () => {
       content: <Vaults vaults={vaults} />,
     },
   ];
+
+  if (isLiquidityHubFeatureEnabled) {
+    tabs.push({
+      title: t('account.tabs.hub'),
+      id: 'hub',
+      content: <Hubs liquidityHubs={liquidityHubs} />,
+    });
+  }
 
   if (isHistoricalTransactionsFeatureEnabled) {
     tabs.push({

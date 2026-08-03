@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "円形グラデーション",
+    "hubs": {
+      "placeholder": {
+        "title": "流動性ハブのポジションはまだありません"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "借入",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "まだ供給または借入のポジションはありません"
+        "title": "マーケットポジションはまだありません"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "サマリー"
     },
     "tabs": {
+      "hub": "ハブ",
       "markets": "マーケット",
       "settings": "設定",
       "transactions": "取引",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "まだ供給ポジションはありません"
+        "title": "ボールトポジションはまだありません"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "未完了"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "日次収益",
+      "dailyEarningsTooltip": "すべてのアクティブな流動性ハブポジション全体での推定日次収益です。各ハブの現在の APY に基づいています。実際の収益は異なる場合があります。",
+      "totalSuppliedValue": "総供給額"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30日間の絶対パフォーマンス",
       "absolutePerformance": "絶対パフォーマンス",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "現在の供給量",
+      "totalSupplied": "総供給量"
     },
     "topMarkets": {
       "borrowButton": {
@@ -1307,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "現在のページ",
     "goToFirstPage": "最初のページへ",
     "goToLastPage": "最後のページへ",
     "goToNextPage": "次のページへ",
@@ -1421,6 +1439,7 @@
       "stakePrompt": "XVS をステークして Prime を目指しましょう。",
       "stakeToReachTop": "<Highlight>{{amount}} XVS</Highlight> をステークすると、サイクル終了までにトップ #{{limit}} 入りを狙え、次回 Prime の対象になれます。"
     },
+    "rankCutoffNote": "ランク<Rank/>は現在、<Staked/>をステークし、<Score/>のPrimeスコアを保有しています。",
     "rankFooter": {
       "learnMore": "<LeaderboardLink>Prime リーダーボード</LeaderboardLink> で詳しく見る"
     },
@@ -2266,7 +2285,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "このボールトを操作するには、保留中の引き出しを完了する必要があります。",
       "collateral": "担保",
-      "currentDeposited": "現在の供給量",
       "dailyEmission": "日次報酬配布",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} 固定期間",
@@ -2280,6 +2298,8 @@
       "minRequested": "最小リクエスト額",
       "pausedWarning": "このボールトは現在一時停止中です。利率は引き続き発生していますが、ボールトが再開されるまで、請求、供給、引き出しは無効になっています。",
       "primeEligibility": "Prime資格",
+      "realizedAprTooltip": "決済時に供給者へ実際に分配された年率リターンで、ボールトへの返済額からプロトコル手数料を差し引いて算出されます。ローンが全額返済された場合は目標APRと等しく、清算によって決済された場合はそれより低くなります。",
+      "realizedTargetApr": "実績 / 目標APR",
       "remainingDays_other": "({{ count }}日)",
       "targetApr": "目標APR",
       "targetAprTooltip": "このボールト戦略が目指す年率換算の目標報酬で、複利を含む目標年率（APR）として表されます。実際のリターンは変動し、相手方のパフォーマンスに依存します。元本にはリスクがあります。供給した金額を下回る金額しか受け取れない場合があります。",
@@ -2377,11 +2397,14 @@
       "overviewTab": "概要",
       "pendleFee": "Pendleフィー",
       "positionTab": "ポジション",
+      "realizedApr": "実績APR",
+      "realizedAprTooltip": "決済時に供給者へ実際に分配された年率リターンで、ボールトへの返済額からプロトコル手数料を差し引いて算出されます。ローンが全額返済された場合は目標APRと等しく、清算によって決済された場合はそれより低くなります。",
       "stakeTab": "供給",
       "targetApr": "目標APR",
       "targetAprTooltip": "このボールト戦略が目指す年率換算の目標報酬で、複利を含む目標年率（APR）として表されます。実際のリターンは変動し、相手方のパフォーマンスに依存します。元本にはリスクがあります。供給した金額を下回る金額しか受け取れない場合があります。",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalRealizedRewards": "実績報酬合計",
       "totalTargetRewards": "目標報酬合計",
       "withdraw": "引き出し",
       "withdrawTab": "引き出し"
@@ -2452,11 +2475,6 @@
     "error": {
       "priceImpactTooHigh": "価格影響が高すぎます"
     }
-  },
-  "venusFluxBanner": {
-    "description": "30日間限定。5月28日、<YellowText>Binance Wallet</YellowText>とともに開始",
-    "illustrationAltText": "Venus Flux のイラスト",
-    "title": "Venus Fluxで5万USDTの報酬"
   },
   "vipModal": {
     "backgroundAlt": "背景イラスト",

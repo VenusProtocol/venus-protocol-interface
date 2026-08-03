@@ -6,7 +6,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetPool } from 'clients/api';
+import { useGetPool, useMigrateCoreSupplyToLiquidityHub } from 'clients/api';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
@@ -67,10 +67,16 @@ const getAmountInput = () => {
 
 describe('SupplyWithCollateralForm', () => {
   const mockUseGetPool = useGetPool as Mock;
+  const mockUseMigrateCoreSupplyToLiquidityHub = useMigrateCoreSupplyToLiquidityHub as Mock;
   const mockUseSimulatePoolMutations = useSimulatePoolMutations as Mock;
   const mockUseTokenApproval = useTokenApproval as Mock;
 
   beforeEach(() => {
+    mockUseMigrateCoreSupplyToLiquidityHub.mockReturnValue({
+      mutateAsync: vi.fn().mockResolvedValue(undefined),
+      isPending: false,
+    });
+
     mockUseGetPool.mockImplementation(() => ({
       data: {
         pool: corePool,
@@ -166,7 +172,13 @@ describe('SupplyWithCollateralForm', () => {
   });
 
   it('submits through the embedded form, resets the amount, and calls onSubmitSuccess', async () => {
+    const migrateCoreSupplyToLiquidityHub = vi.fn().mockResolvedValue(undefined);
     const onSubmitSuccess = vi.fn();
+
+    mockUseMigrateCoreSupplyToLiquidityHub.mockReturnValue({
+      mutateAsync: migrateCoreSupplyToLiquidityHub,
+      isPending: false,
+    });
 
     renderTransactionForm({
       corePool: clickableLimitPool,
@@ -186,6 +198,13 @@ describe('SupplyWithCollateralForm', () => {
     );
 
     await waitFor(() => expect(getAmountInput().value).toBe(''));
+    expect(migrateCoreSupplyToLiquidityHub).toHaveBeenCalledWith({
+      vhToken: liquidityHub.vhToken,
+      vToken: corePoolAsset.vToken,
+      exchangeRateVTokens: corePoolAsset.exchangeRateVTokens,
+      amountMantissa: new BigNumber('500000000000000000'),
+      liquidityHubMigratorContractAddress: spenderAddress,
+    });
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
   });
 

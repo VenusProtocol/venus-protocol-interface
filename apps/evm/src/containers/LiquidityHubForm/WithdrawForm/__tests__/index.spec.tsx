@@ -5,7 +5,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetPool } from 'clients/api';
+import { useGetPool, useWithdrawFromLiquidityHub } from 'clients/api';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -38,9 +38,15 @@ const getAmountInput = () => {
 
 describe('WithdrawForm', () => {
   const mockUseGetPool = useGetPool as Mock;
+  const mockUseWithdrawFromLiquidityHub = useWithdrawFromLiquidityHub as Mock;
   const mockUseSimulatePoolMutations = useSimulatePoolMutations as Mock;
 
   beforeEach(() => {
+    mockUseWithdrawFromLiquidityHub.mockReturnValue({
+      mutateAsync: vi.fn().mockResolvedValue(undefined),
+      isPending: false,
+    });
+
     mockUseGetPool.mockReturnValue({
       data: {
         pool: poolData[0],
@@ -128,7 +134,13 @@ describe('WithdrawForm', () => {
   });
 
   it('submits through the embedded form, resets the amount, and calls onSubmitSuccess', async () => {
+    const withdrawFromLiquidityHub = vi.fn().mockResolvedValue(undefined);
     const onSubmitSuccess = vi.fn();
+
+    mockUseWithdrawFromLiquidityHub.mockReturnValue({
+      mutateAsync: withdrawFromLiquidityHub,
+      isPending: false,
+    });
 
     renderTransactionForm({ onSubmitSuccess });
 
@@ -144,7 +156,44 @@ describe('WithdrawForm', () => {
     );
 
     await waitFor(() => expect(getAmountInput().value).toBe(''));
+    expect(withdrawFromLiquidityHub).toHaveBeenCalledWith({
+      liquidityHub,
+      amountMantissa: new BigNumber('10000000000000000000'),
+      withdrawFullSupply: false,
+      userVhTokenBalanceMantissa: new BigNumber('39622641509433962264'),
+    });
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  it('submits a full withdrawal as a redeem', async () => {
+    const withdrawFromLiquidityHub = vi.fn().mockResolvedValue(undefined);
+
+    mockUseWithdrawFromLiquidityHub.mockReturnValue({
+      mutateAsync: withdrawFromLiquidityHub,
+      isPending: false,
+    });
+
+    renderTransactionForm();
+
+    fireEvent.change(getAmountInput(), {
+      target: {
+        value: liquidityHub.userSupplyBalanceTokens?.toFixed(),
+      },
+    });
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.withdrawSubmitButtonLabel,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(withdrawFromLiquidityHub).toHaveBeenCalledWith({
+        liquidityHub,
+        amountMantissa: new BigNumber('42000000000000000000'),
+        withdrawFullSupply: true,
+        userVhTokenBalanceMantissa: new BigNumber('39622641509433962264'),
+      }),
+    );
   });
 
   it('shows a validation error when the amount exceeds hub liquidity', async () => {

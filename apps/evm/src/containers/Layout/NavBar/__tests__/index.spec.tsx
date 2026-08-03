@@ -90,7 +90,10 @@ const seedSharedQueryData = ({
   });
 
   queryClient.setQueryData(
-    [FunctionKey.GET_PENDING_REWARDS, { accountAddress, chainId: defaultChainId }],
+    [
+      FunctionKey.GET_PENDING_REWARDS,
+      { accountAddress, chainId: defaultChainId, isolatedPoolComptrollerAddresses: [] },
+    ],
     {
       pendingRewardGroups: [],
     },

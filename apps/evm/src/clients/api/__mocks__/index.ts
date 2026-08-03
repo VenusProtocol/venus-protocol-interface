@@ -1071,6 +1071,27 @@ export const useWithdraw = vi.fn((_variables: never, options?: MutationObserverO
   }),
 );
 
+export const useSupplyToLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useWithdrawFromLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useMigrateCoreSupplyToLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
 export const useStakeInPendleVault = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),

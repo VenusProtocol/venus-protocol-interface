@@ -237,6 +237,7 @@ export const institutionalVault: InstitutionalVault = {
   userStakeBalanceCents: 10000,
   vaultAddress: '0x5263D68786AaCfad74B9aa385A004c272548e8B7',
   reserveFactor: 0,
+  isSettled: false,
   vaultDeploymentDate: new Date('2026-04-01T00:00:00.000Z'),
   openStartDate: new Date('2026-04-07T00:00:00.000Z'),
   openEndDate: new Date('2026-04-08T00:00:00.000Z'),

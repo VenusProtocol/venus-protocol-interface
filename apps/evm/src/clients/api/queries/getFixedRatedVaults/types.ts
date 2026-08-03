@@ -87,6 +87,7 @@ export type LoanVaultDetail = {
   openEndTime: string;
   outstandingDebtMantissa: string;
   reserveFactorMantissa: string;
+  settlementAmountMantissa?: string | null;
   settlementDeadline: string;
   shortfallMantissa: string;
   supplyAssetAddress: Address;
@@ -103,6 +104,7 @@ type FixedRatedVault = {
   vaultAddress: Address;
   underlyingAssetAddress: Address;
   fixedApyDecimal: string;
+  realizedAprDecimal?: string | null;
   maturityDate: string;
   protocolData: FixedRatedVaultProtocolData;
   createdAt: string;

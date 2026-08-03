@@ -41,6 +41,8 @@ export const Footer: React.FC<FooterProps> = ({ vault, fromAmountTokens }) => {
           lockingPeriodMs: vault.lockingPeriodMs,
         });
 
+  const showRealized = vault.isSettled;
+
   const items: Array<{ key: string; node: ReactNode }> = [];
 
   if (accountAddress) {
@@ -73,10 +75,14 @@ export const Footer: React.FC<FooterProps> = ({ vault, fromAmountTokens }) => {
     key: 'targetApr',
     node: (
       <LabeledInlineContent
-        label={t('vault.modals.targetApr')}
-        tooltip={t('vault.modals.targetAprTooltip')}
+        label={showRealized ? t('vault.modals.realizedApr') : t('vault.modals.targetApr')}
+        tooltip={
+          showRealized ? t('vault.modals.realizedAprTooltip') : t('vault.modals.targetAprTooltip')
+        }
       >
-        {formatPercentageToReadableValue(vault.stakeAprPercentage)}
+        {showRealized
+          ? formatPercentageToReadableValue(vault.realizedAprPercentage)
+          : formatPercentageToReadableValue(vault.stakeAprPercentage)}
       </LabeledInlineContent>
     ),
   });
@@ -86,7 +92,11 @@ export const Footer: React.FC<FooterProps> = ({ vault, fromAmountTokens }) => {
       key: 'totalTargetRewards',
       node: (
         <LabeledInlineContent
-          label={t('vault.modals.totalTargetRewards')}
+          label={
+            showRealized
+              ? t('vault.modals.totalRealizedRewards')
+              : t('vault.modals.totalTargetRewards')
+          }
           tooltip={t('vault.modals.institutionalDisclaimer')}
         >
           <ValueUpdate

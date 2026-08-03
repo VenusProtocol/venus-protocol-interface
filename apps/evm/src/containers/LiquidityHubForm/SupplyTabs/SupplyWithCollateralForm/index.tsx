@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 import type { Address } from 'viem';
 
+import { useMigrateCoreSupplyToLiquidityHub } from 'clients/api';
 import { AvailableBalance, SpendingLimit } from 'components';
 import type { TokenApproval } from 'containers/TxFormSubmitButton';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -14,7 +15,11 @@ import type {
   LiquidityHubBalanceMutation,
   Pool,
 } from 'types';
-import { calculateCollateralWithdrawLimits, formatTokensToReadableValue } from 'utilities';
+import {
+  calculateCollateralWithdrawLimits,
+  convertTokensToMantissa,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../../Form';
 import type { UseFormValidationInput } from '../../Form/useForm/useFormValidation';
 
@@ -79,11 +84,24 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     }
   };
 
-  // TODO: wire up
-  const handleSubmit = async (_formValues: FormValues) => {};
+  const { mutateAsync: migrateCoreSupplyToLiquidityHub, isPending: isSubmitting } =
+    useMigrateCoreSupplyToLiquidityHub();
 
-  // TODO: wire up
-  const isSubmitting = false;
+  const handleSubmit = async (submittedFormValues: FormValues) => {
+    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+    const amountMantissa = convertTokensToMantissa({
+      token: liquidityHub.vhToken.underlyingToken,
+      value: amountTokens,
+    });
+
+    await migrateCoreSupplyToLiquidityHub({
+      vhToken: liquidityHub.vhToken,
+      vToken: corePoolAsset.vToken,
+      exchangeRateVTokens: corePoolAsset.exchangeRateVTokens,
+      amountMantissa,
+      liquidityHubMigratorContractAddress,
+    });
+  };
 
   const balanceMutations: Array<AssetBalanceMutation | LiquidityHubBalanceMutation> = [
     {

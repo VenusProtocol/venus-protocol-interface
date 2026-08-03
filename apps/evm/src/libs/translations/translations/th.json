@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "ไล่ระดับสีแบบวงกลม",
+    "hubs": {
+      "placeholder": {
+        "title": "ยังไม่มีตำแหน่งในศูนย์สภาพคล่อง"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "ยืมแล้ว",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "ยังไม่มีตำแหน่งฝากหรือยืม"
+        "title": "ยังไม่มีตำแหน่งในตลาด"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "สรุป"
     },
     "tabs": {
+      "hub": "ศูนย์",
       "markets": "ตลาด",
       "settings": "การตั้งค่า",
       "transactions": "ธุรกรรม",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "ยังไม่มีตำแหน่งฝาก"
+        "title": "ยังไม่มีตำแหน่งในคลัง"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "ยังไม่เสร็จ"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "รายได้รายวัน",
+      "dailyEarningsTooltip": "รายได้รายวันโดยประมาณของคุณในตำแหน่งศูนย์สภาพคล่องที่ใช้งานอยู่ทั้งหมด โดยอิงจาก APY ปัจจุบันของแต่ละศูนย์ รายได้จริงอาจแตกต่างกัน",
+      "totalSuppliedValue": "มูลค่าฝากทั้งหมด"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30 วันผลการดำเนินงานแบบสัมบูรณ์",
       "absolutePerformance": "ผลการดำเนินงานแบบสัมบูรณ์",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "ฝากอยู่ในปัจจุบัน",
+      "totalSupplied": "ยอดฝากทั้งหมด"
     },
     "topMarkets": {
       "borrowButton": {
@@ -1307,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "หน้าปัจจุบัน",
     "goToFirstPage": "ไปที่หน้าแรก",
     "goToLastPage": "ไปที่หน้าสุดท้าย",
     "goToNextPage": "หน้าถัดไป",
@@ -1421,6 +1439,7 @@
       "stakePrompt": "Stake XVS เพื่อแข่งขันรับ Prime",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> เพื่อมีโอกาสขึ้นไปอยู่ใน top #{{limit}} ก่อนสิ้นสุดรอบนี้ และมีสิทธิ์รับ Prime ในรอบถัดไป"
     },
+    "rankCutoffNote": "อันดับ <Rank/> ปัจจุบันถือครองคะแนน Prime <Score/> โดยมีการสเตก <Staked/>",
     "rankFooter": {
       "learnMore": "เรียนรู้เพิ่มเติมจาก <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },
@@ -2266,7 +2285,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "คุณต้องดำเนินการถอนเงินที่รอดำเนินการให้เสร็จสิ้นก่อนจึงจะสามารถโต้ตอบกับ vault นี้ได้",
       "collateral": "หลักประกัน",
-      "currentDeposited": "ฝากอยู่ในปัจจุบัน",
       "dailyEmission": "รางวัลรายวัน",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} แบบกำหนดระยะเวลา",
@@ -2280,6 +2298,8 @@
       "minRequested": "ขั้นต่ำที่ขอ",
       "pausedWarning": "vault นี้ถูกหยุดชั่วคราว อัตราดอกเบี้ยยังคงสะสมอยู่ แต่การอ้างสิทธิ์ การฝาก และการถอนเงินถูกปิดใช้งานจนกว่า vault จะกลับมาทำงานอีกครั้ง",
       "primeEligibility": "สิทธิ์รับ Prime",
+      "realizedAprTooltip": "ผลตอบแทนต่อปีที่แจกจ่ายให้ผู้ให้สภาพคล่องจริง ณ เวลาชำระบัญชี คำนวณจากจำนวนที่ชำระคืนให้ vault หักค่าธรรมเนียมโปรโตคอลแล้ว เท่ากับ APR เป้าหมายเมื่อชำระคืนเงินกู้เต็มจำนวน และต่ำกว่าหาก vault ถูกชำระบัญชีผ่านการบังคับชำระ",
+      "realizedTargetApr": "APR ที่ได้รับจริง / เป้าหมาย",
       "remainingDays_other": "({{ count }} วัน)",
       "targetApr": "APR เป้าหมาย",
       "targetAprTooltip": "รางวัลเป้าหมายต่อปีที่กลยุทธ์ vault นี้มุ่งหวังจะมอบให้ โดยแสดงเป็นอัตราร้อยละต่อปีเป้าหมายที่รวมดอกเบี้ยทบต้นแล้ว ผลตอบแทนจริงมีความผันแปรและขึ้นอยู่กับผลการดำเนินงานของคู่สัญญา เงินต้นมีความเสี่ยง คุณอาจได้รับคืนน้อยกว่าจำนวนที่คุณฝากไว้",
@@ -2377,11 +2397,14 @@
       "overviewTab": "ภาพรวม",
       "pendleFee": "ค่าธรรมเนียม Pendle",
       "positionTab": "ตำแหน่ง",
+      "realizedApr": "APR ที่ได้รับจริง",
+      "realizedAprTooltip": "ผลตอบแทนต่อปีที่แจกจ่ายให้ผู้ให้สภาพคล่องจริง ณ เวลาชำระบัญชี คำนวณจากจำนวนที่ชำระคืนให้ vault หักค่าธรรมเนียมโปรโตคอลแล้ว เท่ากับ APR เป้าหมายเมื่อชำระคืนเงินกู้เต็มจำนวน และต่ำกว่าหาก vault ถูกชำระบัญชีผ่านการบังคับชำระ",
       "stakeTab": "ฝาก",
       "targetApr": "APR เป้าหมาย",
       "targetAprTooltip": "รางวัลเป้าหมายต่อปีที่กลยุทธ์ vault นี้มุ่งหวังจะมอบให้ โดยแสดงเป็นอัตราร้อยละต่อปีเป้าหมายที่รวมดอกเบี้ยทบต้นแล้ว ผลตอบแทนจริงมีความผันแปรและขึ้นอยู่กับผลการดำเนินงานของคู่สัญญา เงินต้นมีความเสี่ยง คุณอาจได้รับคืนน้อยกว่าจำนวนที่คุณฝากไว้",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalRealizedRewards": "รางวัลที่ได้รับจริงทั้งหมด",
       "totalTargetRewards": "รางวัลเป้าหมายรวม",
       "withdraw": "ถอน",
       "withdrawTab": "ถอน"
@@ -2452,11 +2475,6 @@
     "error": {
       "priceImpactTooHigh": "ผลกระทบต่อราคาสูงเกินไป"
     }
-  },
-  "venusFluxBanner": {
-    "description": "เฉพาะ 30 วันเท่านั้น เริ่ม 28 พ.ค. กับ <YellowText>Binance Wallet</YellowText>",
-    "illustrationAltText": "ภาพประกอบ Venus Flux",
-    "title": "รางวัล USDT มูลค่า $50K บน Venus Flux"
   },
   "vipModal": {
     "backgroundAlt": "ภาพประกอบพื้นหลัง",

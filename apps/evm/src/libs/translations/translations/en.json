@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "Circular gradient",
+    "hubs": {
+      "placeholder": {
+        "title": "No liquidity hub positions yet"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borrowed",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "No supply or borrow positions yet"
+        "title": "No market positions yet"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "Summary"
     },
     "tabs": {
+      "hub": "Hub",
       "markets": "Markets",
       "settings": "Settings",
       "transactions": "Transactions",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "No supply positions yet"
+        "title": "No vault positions yet"
       }
     }
   },
@@ -227,10 +233,10 @@
       "logoAlt": "Prime logo",
       "tooltip": {
         "calculatorLink": "Calculate your Prime rewards",
-        "primeBorrowSimulation": "APY boosted by Prime based on the mean user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
+        "primeBorrowSimulation": "APY boosted by Prime based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",
-        "primeSupplySimulation": "APY boosted by Prime based on the mean user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
+        "primeSupplySimulation": "APY boosted by Prime based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "Uncompleted"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "Daily earnings",
+      "dailyEarningsTooltip": "Your estimated daily earnings across all active liquidity hub positions, based on each hub's current APY. Actual earnings may vary.",
+      "totalSuppliedValue": "Total supplied value"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30D absolute performance",
       "absolutePerformance": "Absolute performance",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "Currently supplied",
+      "totalSupplied": "Total supplied"
     },
     "topMarkets": {
       "borrowButton": {
@@ -1307,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "Current page",
     "goToFirstPage": "Go to first page",
     "goToLastPage": "Go to last page",
     "goToNextPage": "Go to next page",
@@ -1421,6 +1439,7 @@
       "stakePrompt": "Stake XVS to compete for Prime.",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> for a chance to break into the top #{{limit}} by cycle's end and qualify for Prime in the next one."
     },
+    "rankCutoffNote": "Rank <Rank/> currently holds a <Score/> Prime score with <Staked/> staked.",
     "rankFooter": {
       "learnMore": "Learn more about the <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },
@@ -2266,7 +2285,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
       "collateral": "Collateral",
-      "currentDeposited": "Currently supplied",
       "dailyEmission": "Daily emission",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} Fixed-Term",
@@ -2282,6 +2300,8 @@
       "minRequested": "Min. requested",
       "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, supplying, and withdrawing are disabled until the vault is unpaused",
       "primeEligibility": "Prime eligibility",
+      "realizedAprTooltip": "The annualized return actually distributed to suppliers at settlement, based on the amount repaid to the vault, net of protocol fees. Equals Target APR when the loan was repaid in full; lower if the vault was settled through liquidation.",
+      "realizedTargetApr": "Realized / Target APR",
       "remainingDays_one": "({{ count }} day)",
       "remainingDays_other": "({{ count }} days)",
       "targetApr": "Target APR",
@@ -2380,11 +2400,14 @@
       "overviewTab": "Overview",
       "pendleFee": "Pendle fee",
       "positionTab": "Position",
+      "realizedApr": "Realized APR",
+      "realizedAprTooltip": "The annualized return actually distributed to suppliers at settlement, based on the amount repaid to the vault, net of protocol fees. Equals Target APR when the loan was repaid in full; lower if the vault was settled through liquidation.",
       "stakeTab": "Supply",
       "targetApr": "Target APR",
       "targetAprTooltip": "The annualized target reward this vault strategy aims to deliver, expressed as a target Annual Percentage Rate with compounding included. Actual return is variable and depends on counterparty performance; capital is at risk and you may receive less than the amount you supplied.",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalRealizedRewards": "Total realized rewards",
       "totalTargetRewards": "Total target rewards",
       "withdraw": "Withdraw",
       "withdrawTab": "Withdraw"
@@ -2455,11 +2478,6 @@
     "error": {
       "priceImpactTooHigh": "Price impact too high"
     }
-  },
-  "venusFluxBanner": {
-    "description": "30 days only. Live May 28 with <YellowText>Binance Wallet</YellowText>",
-    "illustrationAltText": "Venus Flux illustration",
-    "title": "$50K USDT rewards on Venus Flux"
   },
   "vipModal": {
     "backgroundAlt": "Background illustration",

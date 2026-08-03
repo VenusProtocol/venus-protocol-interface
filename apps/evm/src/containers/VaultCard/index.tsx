@@ -1,7 +1,14 @@
 import { cn } from '@venusprotocol/ui';
 import { useState } from 'react';
 
-import { Card, LabeledInlineContent, LayeredValues, NoticeWarning, TokenIcon } from 'components';
+import {
+  Card,
+  LabeledInlineContent,
+  LayeredValues,
+  NoticeWarning,
+  StatusLabel,
+  TokenIcon,
+} from 'components';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { VenusVaultModal } from 'containers/VenusVaultModal';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
@@ -23,7 +30,6 @@ import { InstitutionalVaultModal } from './InstitutionalVaultModal';
 import { PendleVaultModal } from './PendleVaultModal';
 import { PrimeEligibilityInlineContent } from './PrimeEligibilityInlineContent';
 import { Progress } from './Progress';
-import { StatusLabel } from './StatusLabel';
 import { VaultName } from './VaultName';
 
 export interface VaultProps {
@@ -61,6 +67,23 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           date: vault.maturityDate,
         })
       : undefined;
+
+  const showRealizedApr = isInstitutionalVault(vault) && vault.isSettled;
+  const readableRealizedApr = isInstitutionalVault(vault)
+    ? formatPercentageToReadableValue(vault.realizedAprPercentage)
+    : undefined;
+  const readableTargetApr = formatPercentageToReadableValue(vault.stakeAprPercentage);
+  const isVenusVault = vault.venue === VaultVenue.Venus;
+
+  let aprLabel = isVenusVault ? t('vault.card.apr') : t('vault.card.targetApr');
+  let aprTooltip = isVenusVault ? undefined : t('vault.card.targetAprTooltip');
+  let aprValue = readableTargetApr;
+
+  if (showRealizedApr) {
+    aprLabel = t('vault.card.realizedTargetApr');
+    aprTooltip = t('vault.card.realizedAprTooltip');
+    aprValue = `${readableRealizedApr} / ${readableTargetApr}`;
+  }
 
   const openModal = () => setModalVisible(true);
 
@@ -103,16 +126,10 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           </div>
 
           <div className={cn('flex flex-col gap-y-4')}>
-            <LabeledInlineContent
-              tooltip={vault.venue !== VaultVenue.Venus && t('vault.card.targetAprTooltip')}
-              label={
-                vault.venue !== VaultVenue.Venus ? t('vault.card.targetApr') : t('vault.card.apr')
-              }
-              labelClassName="mb-auto"
-            >
+            <LabeledInlineContent tooltip={aprTooltip} label={aprLabel} labelClassName="mb-auto">
               <LayeredValues
                 className="text-end"
-                topValue={formatPercentageToReadableValue(vault.stakeAprPercentage)}
+                topValue={aprValue}
                 topValueClassName="text-b1s"
               />
             </LabeledInlineContent>

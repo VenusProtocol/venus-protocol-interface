@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "Chuyển màu tròn",
+    "hubs": {
+      "placeholder": {
+        "title": "Chưa có vị thế trung tâm thanh khoản"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Đã vay",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "Chưa có vị thế cung cấp hoặc vay"
+        "title": "Chưa có vị thế thị trường"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "Tóm tắt"
     },
     "tabs": {
+      "hub": "Trung tâm",
       "markets": "Thị trường",
       "settings": "Cài đặt",
       "transactions": "Giao dịch",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "Chưa có vị thế cung cấp"
+        "title": "Chưa có vị thế trong kho"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "Chưa hoàn thành"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "Thu nhập hàng ngày",
+      "dailyEarningsTooltip": "Thu nhập hàng ngày ước tính của bạn trên tất cả vị thế trung tâm thanh khoản đang hoạt động, dựa trên APY hiện tại của từng trung tâm. Thu nhập thực tế có thể khác nhau.",
+      "totalSuppliedValue": "Tổng giá trị đã cung cấp"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30 ngày hiệu suất tuyệt đối",
       "absolutePerformance": "Hiệu suất tuyệt đối",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "Hiện đang cung cấp",
+      "totalSupplied": "Tổng đã cung cấp"
     },
     "topMarkets": {
       "borrowButton": {
@@ -1307,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "Trang hiện tại",
     "goToFirstPage": "Đến trang đầu",
     "goToLastPage": "Đến trang cuối",
     "goToNextPage": "Trang sau",
@@ -1421,6 +1439,7 @@
       "stakePrompt": "Stake XVS để cạnh tranh Prime.",
       "stakeToReachTop": "Stake <Highlight>{{amount}} XVS</Highlight> để có cơ hội lọt vào top #{{limit}} trước khi kết thúc chu kỳ này và đủ điều kiện nhận Prime trong chu kỳ tiếp theo."
     },
+    "rankCutoffNote": "Hạng <Rank/> hiện đang nắm giữ <Score/> điểm Prime với <Staked/> đã stake.",
     "rankFooter": {
       "learnMore": "Tìm hiểu thêm từ <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },
@@ -2266,7 +2285,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "Bạn phải hoàn thành các lệnh rút tiền đang chờ xử lý để tương tác với kho này.",
       "collateral": "Tài sản thế chấp",
-      "currentDeposited": "Hiện đang cung cấp",
       "dailyEmission": "Phần thưởng hàng ngày",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} Kỳ Hạn Cố Định",
@@ -2280,6 +2298,8 @@
       "minRequested": "Tối thiểu yêu cầu",
       "pausedWarning": "Kho này hiện đang tạm dừng. Lãi suất vẫn đang tích lũy nhưng việc nhận thưởng, cung cấp và rút tiền bị vô hiệu hóa cho đến khi kho được mở lại.",
       "primeEligibility": "Điều kiện nhận Prime",
+      "realizedAprTooltip": "Lợi nhuận hàng năm thực tế được phân phối cho người cung cấp khi thanh toán, dựa trên số tiền hoàn trả cho kho, sau khi trừ phí giao thức. Bằng APR mục tiêu khi khoản vay được hoàn trả đầy đủ; thấp hơn nếu kho được thanh toán qua thanh lý.",
+      "realizedTargetApr": "APR thực nhận / mục tiêu",
       "remainingDays_other": "({{ count }} ngày)",
       "targetApr": "APR mục tiêu",
       "targetAprTooltip": "Phần thưởng mục tiêu theo năm mà chiến lược vault này hướng tới, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm mục tiêu có bao gồm lãi kép. Lợi nhuận thực tế có thể biến động và phụ thuộc vào hiệu suất của đối tác; vốn có rủi ro. Bạn có thể nhận lại ít hơn số đã cung cấp.",
@@ -2377,11 +2397,14 @@
       "overviewTab": "Tổng quan",
       "pendleFee": "Phí Pendle",
       "positionTab": "Vị thế",
+      "realizedApr": "APR thực nhận",
+      "realizedAprTooltip": "Lợi nhuận hàng năm thực tế được phân phối cho người cung cấp khi thanh toán, dựa trên số tiền hoàn trả cho kho, sau khi trừ phí giao thức. Bằng APR mục tiêu khi khoản vay được hoàn trả đầy đủ; thấp hơn nếu kho được thanh toán qua thanh lý.",
       "stakeTab": "Cung cấp",
       "targetApr": "APR mục tiêu",
       "targetAprTooltip": "Phần thưởng mục tiêu theo năm mà chiến lược vault này hướng tới, được thể hiện dưới dạng Tỷ lệ phần trăm hàng năm mục tiêu có bao gồm lãi kép. Lợi nhuận thực tế có thể biến động và phụ thuộc vào hiệu suất của đối tác; vốn có rủi ro. Bạn có thể nhận lại ít hơn số đã cung cấp.",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalRealizedRewards": "Tổng phần thưởng thực nhận",
       "totalTargetRewards": "Tổng phần thưởng mục tiêu",
       "withdraw": "Rút",
       "withdrawTab": "Rút"
@@ -2452,11 +2475,6 @@
     "error": {
       "priceImpactTooHigh": "Tác động giá quá cao"
     }
-  },
-  "venusFluxBanner": {
-    "description": "Chỉ trong 30 ngày. Ra mắt ngày 28 tháng 5 cùng <YellowText>Binance Wallet</YellowText>",
-    "illustrationAltText": "Hình minh họa Venus Flux",
-    "title": "Phần thưởng $50K USDT trên Venus Flux"
   },
   "vipModal": {
     "backgroundAlt": "Hình minh họa nền",

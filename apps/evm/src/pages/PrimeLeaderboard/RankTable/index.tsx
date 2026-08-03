@@ -3,7 +3,6 @@ import { useState } from 'react';
 
 import { type PrimeLeaderboardEntry, useGetPrimeLeaderboard } from 'clients/api';
 import { InfoIcon, type Order, type TableColumn, Username } from 'components';
-import { useBreakpointUp } from 'hooks/responsive';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useGetToken } from 'libs/tokens';
@@ -30,7 +29,6 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
   const xvs = useGetToken({ symbol: 'XVS' });
   const { accountAddress } = useAccountAddress();
 
-  const isXlUp = useBreakpointUp('xl');
   const { chainId } = useChainId();
   const { address: primeV2Address } = useGetContractAddress({ name: 'PrimeV2' });
   const { currentPage, setCurrentPage } = useUrlPagination({ paramKey: RANKS_PAGE_PARAM_KEY });
@@ -129,7 +127,6 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
       order={tableOrder}
       onOrderChange={handleOrderChange}
       className={className}
-      pagesToShowCount={isXlUp ? 2 : undefined}
     />
   );
 };

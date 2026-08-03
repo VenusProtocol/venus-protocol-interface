@@ -1,15 +1,18 @@
-import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
+import { type ReactNode, useState } from 'react';
+import type { To } from 'react-router';
 
-import { Card, TokenIcon, TokenIconWithSymbol } from 'components';
+import { type CellProps, StatusLabel, TokenIcon, TokenIconWithSymbol } from 'components';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
-import { StatusLabel } from 'containers/VaultCard/StatusLabel';
+import { InstitutionalVaultModal } from 'containers/VaultCard/InstitutionalVaultModal';
+import { PendleVaultModal } from 'containers/VaultCard/PendleVaultModal';
+import { VenusVaultModal } from 'containers/VenusVaultModal';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
-import { VaultStatus } from 'types';
+import { VaultStatus, VaultVenue } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,
@@ -18,21 +21,15 @@ import {
   isLegacyVenusVault,
   isPendleVault,
 } from 'utilities';
+import { PreviewCard, type PreviewCardProps } from '../../PreviewCard';
 
-import { InstitutionalVaultModal } from 'containers/VaultCard/InstitutionalVaultModal';
-import { PendleVaultModal } from 'containers/VaultCard/PendleVaultModal';
-import { VenusVaultModal } from 'containers/VenusVaultModal';
-import type { ReactNode } from 'react';
-import { useState } from 'react';
-import { Cell } from './Cell';
-
-interface VaultCardSimplifiedProps {
+interface VaultCardProps {
   vault: Vault;
   className?: string;
+  to?: To;
 }
 
-// Vault Card in Dashboard
-export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault, className }) => {
+export const VaultCard: React.FC<VaultCardProps> = ({ vault, className, to }) => {
   const { t } = useTranslation();
   const now = useNow();
 
@@ -67,8 +64,9 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
       : undefined;
 
   const totalDepositedReadableValue = vault.stakeBalanceMantissa ? (
-    <>
+    <div className="flex items-center justify-end gap-2 min-w-0">
       <TokenIcon token={displayToken} displayChain={false} size="md" className="shrink-0" />
+
       <span className="truncate min-w-0">
         {formatTokensToReadableValue({
           value: convertMantissaToTokens({
@@ -78,10 +76,26 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
           token: displayToken,
         })}
       </span>
-    </>
+    </div>
   ) : undefined;
 
-  let stateEndTitle: ReactNode;
+  const showRealizedApr = isInstitutionalVault(vault) && vault.isSettled;
+  const readableRealizedApr = isInstitutionalVault(vault)
+    ? formatPercentageToReadableValue(vault.realizedAprPercentage)
+    : undefined;
+  const isVenusVault = vault.venue === VaultVenue.Venus;
+
+  let aprLabel = isVenusVault ? t('dashboard.previewCard.apr') : t('vault.card.targetApr');
+  let aprValue = formatPercentageToReadableValue(vault.stakeAprPercentage);
+
+  if (showRealizedApr) {
+    aprLabel = t('vault.card.realizedTargetApr');
+    aprValue = `${readableRealizedApr} / ${formatPercentageToReadableValue(
+      vault.stakeAprPercentage,
+    )}`;
+  }
+
+  let stateEndTitle: string | undefined;
   let stateEndContent: ReactNode;
 
   if (isPendleVault(vault)) {
@@ -120,71 +134,73 @@ export const VaultCardSimplified: React.FC<VaultCardSimplifiedProps> = ({ vault,
     stateEndContent = dailyEmissionReadableValue;
   }
 
+  const cells: CellProps[] = [
+    {
+      label: aprLabel,
+      value: aprValue,
+    },
+  ];
+
+  if (showHoldingsCard && stateEndContent && stateEndTitle) {
+    cells.push({
+      label: stateEndTitle,
+      value: stateEndContent,
+    });
+  }
+
+  if (!showHoldingsCard && totalDepositedReadableValue) {
+    cells.push({
+      label: t('dashboard.previewCard.totalSupplied'),
+      value: totalDepositedReadableValue,
+      className: '[&>*:last-child]:min-w-0 [&>*:last-child]:max-w-full',
+    });
+  }
+
+  const previewCardBaseProps = {
+    className,
+    header: showHoldingsCard ? (
+      <div className="min-w-0 text-b1r text-light-grey">
+        <span>{t('dashboard.previewCard.currentlySupplied')}</span>
+
+        <div className="flex items-center text-p2s gap-2 text-light-grey-active min-w-0">
+          <TokenIcon token={displayToken} displayChain={false} size="lg" className="shrink-0" />
+
+          <span className="truncate min-w-0">
+            <HidableUserBalance>{readableUserStakedTokens}</HidableUserBalance>
+          </span>
+        </div>
+      </div>
+    ) : (
+      <TokenIconWithSymbol
+        token={vault.stakedToken}
+        displayChain={false}
+        size="lg"
+        className="min-w-0 text-p2s"
+      />
+    ),
+    status: <StatusLabel status={vault.status} className="shrink-0" />,
+    cells,
+  };
+
+  let previewCardProps: PreviewCardProps = previewCardBaseProps;
+
+  if (!isPaused && showHoldingsCard) {
+    previewCardProps = {
+      ...previewCardBaseProps,
+      onClick: showModal,
+    };
+  }
+
+  if (!isPaused && !showHoldingsCard && to) {
+    previewCardProps = {
+      ...previewCardBaseProps,
+      to,
+    };
+  }
+
   return (
     <>
-      <Card
-        className={cn(
-          'w-full h-full flex flex-col p-6 gap-3 duration-200',
-          !isPaused && 'cursor-pointer hover:border-blue',
-          className,
-        )}
-        onClick={isPaused || !showHoldingsCard ? undefined : showModal}
-      >
-        <div className="flex items-start justify-between gap-2">
-          {showHoldingsCard ? (
-            <div className="min-w-0 text-b1r text-light-grey">
-              {t('vault.card.currentDeposited')}
-              <div
-                className={cn('flex items-center text-p2s gap-2 text-light-grey-active min-w-0')}
-              >
-                <TokenIcon
-                  token={displayToken}
-                  displayChain={false}
-                  size="lg"
-                  className="shrink-0"
-                />
-                <span className="truncate min-w-0">
-                  <HidableUserBalance>{readableUserStakedTokens}</HidableUserBalance>
-                </span>
-              </div>
-            </div>
-          ) : (
-            <TokenIconWithSymbol
-              token={vault.stakedToken}
-              displayChain={false}
-              size="lg"
-              className="min-w-0 text-p2s"
-            />
-          )}
-
-          <StatusLabel status={vault.status} className="shrink-0" />
-        </div>
-
-        <div className="flex gap-2">
-          <Cell
-            title={t('vault.card.apr')}
-            content={formatPercentageToReadableValue(vault.stakeAprPercentage)}
-          />
-
-          {showHoldingsCard
-            ? stateEndContent && (
-                <Cell
-                  className="text-right"
-                  contentClassName="justify-end"
-                  title={stateEndTitle}
-                  content={stateEndContent}
-                />
-              )
-            : totalDepositedReadableValue && (
-                <Cell
-                  className="text-right"
-                  contentClassName="justify-end"
-                  title={t('vault.card.totalDeposited')}
-                  content={totalDepositedReadableValue}
-                />
-              )}
-        </div>
-      </Card>
+      <PreviewCard {...previewCardProps} />
 
       {isPendleVault(vault) && (
         <PendleVaultModal vault={vault} isOpen={shouldShowModal} handleClose={hideModal} />

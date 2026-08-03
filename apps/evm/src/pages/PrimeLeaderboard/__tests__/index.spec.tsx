@@ -9,6 +9,7 @@ vi.mock('components', () => ({
   Card: ({ children }: { children?: React.ReactNode }) => <div>{children}</div>,
   Spinner: () => <div data-testid="spinner" />,
   Icon: () => null,
+  NoticeInfo: ({ description }: { description?: React.ReactNode }) => <div>{description}</div>,
   Tabs: ({ tabs }: { tabs: { id: string; content: React.ReactNode }[] }) => (
     <div>
       {tabs.map(tab => (

@@ -14,17 +14,17 @@
     "generate": "turbo run generate",
     "lint": "turbo run lint",
     "lint:styles": "turbo run lint:styles",
-    "format": "npx biome check --apply .",
+    "format": "yarn biome check --apply .",
     "test": "turbo run test --",
     "tsc": "turbo run tsc",
     "clean": "turbo run clean && rm -rf node_modules",
     "build": "turbo run build",
     "extract-translations": "turbo run extract-translations",
     "changeset": "changeset",
-    "prepare": "husky",
-    "postinstall": "turbo run generate"
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.6.4",
     "@changesets/cli": "^2.27.1",
     "@commitlint/config-conventional": "19.8.1",
     "@earendil-works/pi-coding-agent": "0.79.0",

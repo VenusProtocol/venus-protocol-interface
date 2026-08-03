@@ -1,6 +1,11 @@
 {
   "account": {
     "circularGradient": "圆形渐变",
+    "hubs": {
+      "placeholder": {
+        "title": "暂无流动性中心仓位"
+      }
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "已借入",
@@ -45,7 +50,7 @@
     },
     "pools": {
       "placeholder": {
-        "title": "尚无存款或借入持仓"
+        "title": "暂无市场持仓"
       }
     },
     "settings": {
@@ -69,6 +74,7 @@
       "title": "概览"
     },
     "tabs": {
+      "hub": "中心",
       "markets": "市场",
       "settings": "设置",
       "transactions": "交易",
@@ -117,7 +123,7 @@
     },
     "vaults": {
       "placeholder": {
-        "title": "尚无供应持仓"
+        "title": "暂无金库持仓"
       }
     }
   },
@@ -451,6 +457,12 @@
       },
       "uncompleted": "未完成"
     },
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "每日收益",
+      "dailyEarningsTooltip": "您在所有活跃流动性中心仓位中的每日预计收益，基于每个中心的当前 APY。实际收益可能有所变化。",
+      "totalSuppliedValue": "总供应价值"
+    },
     "overview": {
       "30DayAbsolutePerformance": "30天绝对表现",
       "absolutePerformance": "绝对表现",
@@ -491,6 +503,11 @@
         "date": "{{ date, textual }}"
       },
       "xAxisValue": "{{ date, numeric }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "当前已供应",
+      "totalSupplied": "总供应量"
     },
     "topMarkets": {
       "borrowButton": {
@@ -1307,6 +1324,7 @@
     }
   },
   "pagination": {
+    "currentPage": "当前页",
     "goToFirstPage": "跳转到第一页",
     "goToLastPage": "跳转到最后一页",
     "goToNextPage": "下一页",
@@ -1421,6 +1439,7 @@
       "stakePrompt": "质押 XVS 以竞争 Prime。",
       "stakeToReachTop": "再质押 <Highlight>{{amount}} XVS</Highlight>，有机会在本周期结束前进入前 #{{limit}}，并在下个周期获得 Prime 资格。"
     },
+    "rankCutoffNote": "排名 <Rank/> 目前持有 <Score/> Prime 分数，质押了 <Staked/>。",
     "rankFooter": {
       "learnMore": "从 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
     },
@@ -2266,7 +2285,6 @@
       "apr": "APR",
       "blockingPendingWithdrawalsWarning": "您必须先完成待处理的提款才能与此金库互动。",
       "collateral": "抵押品",
-      "currentDeposited": "当前已供应",
       "dailyEmission": "每日奖励释放",
       "header": {
         "fixedTermTitle": "{{ tokenSymbol }} 固定期限",
@@ -2280,6 +2298,8 @@
       "minRequested": "最小请求量",
       "pausedWarning": "此金库目前已暂停。利率仍在累积，但领取、供应和提款功能已禁用，直至金库恢复运作。",
       "primeEligibility": "Prime 资格",
+      "realizedAprTooltip": "结算时实际分配给供应者的年化收益，基于偿还给金库的金额、扣除协议费后计算。贷款全额偿还时等于目标 APR；若金库通过清算结算则更低。",
+      "realizedTargetApr": "已实现 / 目标 APR",
       "remainingDays_other": "({{ count }} 天)",
       "targetApr": "目标 APR",
       "targetAprTooltip": "此金库策略旨在实现的年化目标奖励，以包含复利的目标年化收益率（APR）表示。实际回报具有可变性，并取决于交易对手表现；本金存在风险。您收到的金额可能少于已供应的数量。",
@@ -2377,11 +2397,14 @@
       "overviewTab": "概览",
       "pendleFee": "Pendle 费用",
       "positionTab": "持仓",
+      "realizedApr": "已实现 APR",
+      "realizedAprTooltip": "结算时实际分配给供应者的年化收益，基于偿还给金库的金额、扣除协议费后计算。贷款全额偿还时等于目标 APR；若金库通过清算结算则更低。",
       "stakeTab": "供应",
       "targetApr": "目标 APR",
       "targetAprTooltip": "此金库策略旨在实现的年化目标奖励，以包含复利的目标年化收益率（APR）表示。实际回报具有可变性，并取决于交易对手表现；本金存在风险。您收到的金额可能少于已供应的数量。",
       "textualDate": "{{date, textual}}",
       "textualWithTime": "{{date, textualWithTime}}",
+      "totalRealizedRewards": "已实现总奖励",
       "totalTargetRewards": "目标奖励总额",
       "withdraw": "取款",
       "withdrawTab": "取款"
@@ -2452,11 +2475,6 @@
     "error": {
       "priceImpactTooHigh": "价格影响过高"
     }
-  },
-  "venusFluxBanner": {
-    "description": "仅限30天。5月28日携手<YellowText>Binance Wallet</YellowText>上线",
-    "illustrationAltText": "Venus Flux 插图",
-    "title": "Venus Flux 上线 5 万 USDT 奖励"
   },
   "vipModal": {
     "backgroundAlt": "背景插图",
