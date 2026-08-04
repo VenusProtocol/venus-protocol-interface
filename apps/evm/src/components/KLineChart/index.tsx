@@ -31,6 +31,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
   const { t } = useTranslation();
 
   const [shouldShowDisclaimerModal, setShouldShowDisclaimerModal] = useState(false);
+  const [isFullScreenMode, setIsFullScreenMode] = useState(false);
   const showDisclaimerModal = () => setShouldShowDisclaimerModal(true);
   const hideDisclaimerModal = () => setShouldShowDisclaimerModal(false);
 
@@ -57,6 +58,23 @@ export const KLineChart: React.FC<KLineChartProps> = ({
       fullScreenContainerRef.current?.requestFullscreen();
     }
   };
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return undefined;
+    }
+
+    const handleFullscreenChange = () => {
+      setIsFullScreenMode(document.fullscreenElement === fullScreenContainerRef.current);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    handleFullscreenChange();
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   useEffect(() => {
     if (!chartContainerRef.current) {
@@ -179,7 +197,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
         className="bg-dark-blue w-full h-full min-h-0 flex flex-col"
         ref={fullScreenContainerRef}
       >
-        <div className="flex items-center justify-between px-3 py-1">
+        <div className="relative z-10 flex items-center justify-between px-3 py-1">
           <div className="flex items-center gap-x-3">
             <Select
               options={intervalOptions}
@@ -187,6 +205,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
               onChange={newInterval => onIntervalChange(newInterval as ApiOhlcInterval)}
               size="small"
               buttonClassName="py-0 px-2 h-7 bg-dark-blue-active"
+              modalPortalContainer={isFullScreenMode ? fullScreenContainerRef.current : undefined}
             />
 
             <Delimiter vertical className="h-4.5 self-center" />
@@ -211,7 +230,10 @@ export const KLineChart: React.FC<KLineChartProps> = ({
           )}
         </div>
 
-        <div className={cn('grow min-h-0 min-w-0', className)} ref={chartContainerRef} />
+        <div
+          className={cn('relative z-0 grow min-h-0 min-w-0', className)}
+          ref={chartContainerRef}
+        />
       </div>
 
       <Modal

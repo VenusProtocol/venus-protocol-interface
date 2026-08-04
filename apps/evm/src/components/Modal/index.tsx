@@ -15,6 +15,7 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   handleBackAction?: () => void;
   title?: string | ReactElement | ReactElement[];
   noHorizontalPadding?: boolean;
+  portalContainer?: Element | DocumentFragment | null;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -28,6 +29,7 @@ export const Modal: FC<ModalProps> = ({
   isOpen,
   title,
   noHorizontalPadding,
+  portalContainer,
   ...otherModalProps
 }) => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -51,7 +53,7 @@ export const Modal: FC<ModalProps> = ({
       aria-label={title ? undefined : 'Dialog'}
       aria-labelledby={title ? titleId : undefined}
       aria-modal="true"
-      className="fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none overflow-visible border-0 bg-transparent p-0 text-white outline-hidden backdrop:bg-transparent"
+      className="fixed inset-0 z-99999 m-0 h-dvh max-h-none w-dvw max-w-none overflow-visible border-0 bg-transparent p-0 text-white outline-hidden backdrop:bg-transparent"
       ref={rootRef}
       role="dialog"
       tabIndex={-1}
@@ -127,6 +129,6 @@ export const Modal: FC<ModalProps> = ({
         </div>
       </div>
     </div>,
-    document.body,
+    portalContainer ?? document.body,
   );
 };

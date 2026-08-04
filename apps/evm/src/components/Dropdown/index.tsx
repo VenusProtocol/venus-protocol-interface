@@ -21,6 +21,7 @@ export const Dropdown = ({
   menuTitle,
   menuPosition = 'left',
   triggerOnHover = false,
+  modalPortalContainer,
 }: DropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleToggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -92,6 +93,7 @@ export const Dropdown = ({
         noHorizontalPadding
         onBlur={onBlur}
         title={menuTitle}
+        portalContainer={modalPortalContainer}
       >
         {optionsDom({ setIsDropdownOpen, optionClassName })}
       </Modal>
