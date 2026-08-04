@@ -56,6 +56,8 @@ export const calculateUserPoolValues = ({
 
   if (userVaiBorrowBalanceCents && vaiBorrowAprPercentage && userYearlyEarningsCents) {
     userBorrowBalanceCents = userBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
+    userBorrowBalanceProtectedCents =
+      userBorrowBalanceProtectedCents.plus(userVaiBorrowBalanceCents);
 
     const userYearlyVaiInterestsCents = calculateYearlyInterests({
       balance: userVaiBorrowBalanceCents,

@@ -104,8 +104,8 @@ describe('utilities/calculateCollateralWithdrawLimits', () => {
 
     expectLimitsToEqual(limits, {
       limitTokens: new BigNumber(1000),
-      safeLimitTokens: new BigNumber(70),
-      moderateRiskMaxTokens: new BigNumber(75),
+      safeLimitTokens: new BigNumber(140),
+      moderateRiskMaxTokens: new BigNumber(150),
     });
   });
 
