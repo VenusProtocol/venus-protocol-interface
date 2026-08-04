@@ -16,7 +16,7 @@ exports[`calculateUserPoolValues > returns the right data 1`] = `
 exports[`calculateUserPoolValues > returns the right data including VAI 1`] = `
 {
   "userBorrowBalanceCents": "9500",
-  "userBorrowBalanceProtectedCents": "9000",
+  "userBorrowBalanceProtectedCents": "9500",
   "userBorrowLimitCents": "13754",
   "userBorrowLimitProtectedCents": "13754",
   "userHealthFactor": 1.44,

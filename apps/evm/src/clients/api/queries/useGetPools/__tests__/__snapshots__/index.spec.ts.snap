@@ -3428,7 +3428,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "isIsolated": false,
       "name": "Core Pool",
       "userBorrowBalanceCents": "19999299932759.6580216",
-      "userBorrowBalanceProtectedCents": "19999299932659.6580216",
+      "userBorrowBalanceProtectedCents": "19999299932759.6580216",
       "userBorrowLimitCents": "321988798902158.7477772",
       "userBorrowLimitProtectedCents": "321988798902158.7477772",
       "userEModeGroup": undefined,

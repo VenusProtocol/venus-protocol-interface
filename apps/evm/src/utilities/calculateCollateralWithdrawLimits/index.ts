@@ -5,6 +5,7 @@ import {
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
 import type { Asset, Pool } from 'types';
+import { clampToZero } from 'utilities/clampToZero';
 
 export interface CalculateCollateralWithdrawLimitsInput {
   asset: Asset;
@@ -60,24 +61,25 @@ export const calculateCollateralWithdrawLimits = ({
     .dividedBy(asset.userCollateralFactor)
     .dividedBy(asset.tokenSupplyPriceCents);
 
+  const userLiquidationThreshold = asset.userLiquidationThresholdPercentage / 100;
+
   const rawMarginWithUserSafeBorrowLimitTokens = pool.userLiquidationThresholdCents
     .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_SAFE_MAX_THRESHOLD))
-    .dividedBy(asset.userCollateralFactor)
+    .dividedBy(userLiquidationThreshold)
     .dividedBy(asset.tokenPriceCents);
 
-  const marginWithUserSafeBorrowLimitTokens = rawMarginWithUserSafeBorrowLimitTokens.isLessThan(0)
-    ? new BigNumber(0)
-    : rawMarginWithUserSafeBorrowLimitTokens;
+  const marginWithUserSafeBorrowLimitTokens = clampToZero({
+    value: rawMarginWithUserSafeBorrowLimitTokens,
+  });
 
   const rawMarginWithUserModerateRiskBorrowLimitTokens = pool.userLiquidationThresholdCents
     .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_MODERATE_THRESHOLD))
-    .dividedBy(asset.userCollateralFactor)
+    .dividedBy(userLiquidationThreshold)
     .dividedBy(asset.tokenPriceCents);
 
-  const marginWithUserModerateRiskBorrowLimitTokens =
-    rawMarginWithUserModerateRiskBorrowLimitTokens.isLessThan(0)
-      ? new BigNumber(0)
-      : rawMarginWithUserModerateRiskBorrowLimitTokens;
+  const marginWithUserModerateRiskBorrowLimitTokens = clampToZero({
+    value: rawMarginWithUserModerateRiskBorrowLimitTokens,
+  });
 
   const limitTokens = BigNumber.min(availableTokens, marginWithUserBorrowLimitTokens).dp(
     asset.vToken.underlyingToken.decimals,
