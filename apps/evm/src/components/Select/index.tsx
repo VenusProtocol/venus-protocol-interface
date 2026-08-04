@@ -21,6 +21,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       size = 'medium',
       variant,
       disabled = false,
+      modalPortalContainer,
       ...otherProps
     }: SelectProps,
     ref: React.Ref<HTMLInputElement>,
@@ -112,7 +113,13 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
     );
 
     return (
-      <Dropdown className={className} optionsDom={optionsDom} size={size} {...otherProps}>
+      <Dropdown
+        className={className}
+        modalPortalContainer={modalPortalContainer}
+        optionsDom={optionsDom}
+        size={size}
+        {...otherProps}
+      >
         {({ isDropdownOpen, handleToggleDropdown }) => (
           <Button
             onClick={handleToggleDropdown}

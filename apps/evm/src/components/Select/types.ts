@@ -9,7 +9,7 @@ export interface SelectOption<TValue extends string | number = string | number> 
 }
 
 export interface SelectProps<TValue extends string | number = string | number>
-  extends Pick<DropdownProps, 'optionClassName' | 'triggerOnHover'> {
+  extends Pick<DropdownProps, 'optionClassName' | 'triggerOnHover' | 'modalPortalContainer'> {
   value: TValue;
   options: SelectOption<TValue>[];
   onChange: (newValue: TValue) => void;
