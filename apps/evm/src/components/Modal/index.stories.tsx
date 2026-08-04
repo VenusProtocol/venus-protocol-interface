@@ -54,6 +54,33 @@ ModalWithNoHorizontalPadding.args = {
   noHorizontalPadding: true,
 };
 
+export const ModalWithoutHeader = Template.bind({});
+ModalWithoutHeader.args = {
+  isOpen: true,
+  children: <ModalContent />,
+};
+
+export const ModalWithCustomClasses = Template.bind({});
+ModalWithCustomClasses.args = {
+  handleClose: console.log,
+  handleBackAction: console.log,
+  isOpen: true,
+  children: <ModalContent />,
+  title: <>Title component</>,
+  backdropClassName: 'bg-dark-blue/40',
+  buttonClassName: 'text-blue hover:text-blue-light',
+  className: 'max-w-100 border-light-blue',
+  rootClassName: 'p-4',
+};
+
+export const ModalClosed = Template.bind({});
+ModalClosed.args = {
+  handleClose: console.log,
+  isOpen: false,
+  children: <ModalContent />,
+  title: <>Title component</>,
+};
+
 export const ModalWithScrollAndTitle = Template.bind({});
 ModalWithScrollAndTitle.args = {
   handleClose: console.log,

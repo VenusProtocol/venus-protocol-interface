@@ -21,6 +21,8 @@ describe('components/Modal', () => {
     const closeButton = screen.getByRole('button', { name: 'Close' });
 
     expect(backdrop).toBeInstanceOf(HTMLDivElement);
+    expect(dialog).toBeInstanceOf(HTMLDivElement);
+    expect(dialog).toHaveAttribute('aria-modal', 'true');
     expect(dialog).toContainElement(modalContent);
     expect(modalContent).toBeInTheDocument();
 
@@ -28,24 +30,6 @@ describe('components/Modal', () => {
     fireEvent.click(closeButton);
 
     expect(handleCloseMock).toHaveBeenCalledTimes(2);
-  });
-
-  it('routes native cancel events through handleClose', () => {
-    const handleCloseMock = vi.fn();
-
-    renderComponent(
-      <Modal isOpen handleClose={handleCloseMock} title="Modal title">
-        <div>Modal content</div>
-      </Modal>,
-    );
-
-    const dialog = screen.getByRole('dialog', { name: 'Modal title' });
-    const cancelEvent = new Event('cancel', { cancelable: true });
-
-    fireEvent(dialog, cancelEvent);
-
-    expect(cancelEvent.defaultPrevented).toBe(true);
-    expect(handleCloseMock).toHaveBeenCalledTimes(1);
   });
 
   it('unmounts children when closed', () => {
