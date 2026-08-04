@@ -1,4 +1,5 @@
 import { type FC, type HTMLAttributes, type ReactElement, useEffect, useId, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 import { cn } from '@venusprotocol/ui';
 import { Icon } from '../Icon';
@@ -29,56 +30,31 @@ export const Modal: FC<ModalProps> = ({
   noHorizontalPadding,
   ...otherModalProps
 }) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const hasHeader = !!title || handleBackAction || handleClose;
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-
-    if (!dialog) {
+    if (!isOpen) {
       return;
     }
 
-    const shouldOpenDialog = isOpen && !dialog.open;
-    const shouldCloseDialog = !isOpen && dialog.open;
-
-    if (!shouldOpenDialog && !shouldCloseDialog) {
-      return;
-    }
-
-    if (shouldOpenDialog && typeof dialog.showModal === 'function') {
-      dialog.showModal();
-      return;
-    }
-
-    if (shouldOpenDialog) {
-      dialog.setAttribute('open', '');
-      return;
-    }
-
-    if (typeof dialog.close === 'function') {
-      dialog.close();
-      return;
-    }
-
-    dialog.removeAttribute('open');
+    rootRef.current?.focus({ preventScroll: true });
   }, [isOpen]);
 
-  if (!isOpen) {
+  if (!isOpen || typeof document === 'undefined') {
     return null;
   }
 
-  return (
-    <dialog
+  return createPortal(
+    <div
       aria-label={title ? undefined : 'Dialog'}
       aria-labelledby={title ? titleId : undefined}
+      aria-modal="true"
       className="fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none overflow-visible border-0 bg-transparent p-0 text-white outline-hidden backdrop:bg-transparent"
-      ref={dialogRef}
-      onCancel={event => {
-        event.preventDefault();
-        handleClose?.();
-      }}
+      ref={rootRef}
+      role="dialog"
+      tabIndex={-1}
     >
       <div
         className={cn('fixed inset-0 z-9999 backdrop-blur-xs', backdropClassName)}
@@ -150,6 +126,7 @@ export const Modal: FC<ModalProps> = ({
           </div>
         </div>
       </div>
-    </dialog>
+    </div>,
+    document.body,
   );
 };
