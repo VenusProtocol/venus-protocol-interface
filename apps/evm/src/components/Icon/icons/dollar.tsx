@@ -9,10 +9,10 @@ const Dollar = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_648_11334)">
+    <g clipPath="url(#clip0_648_11334)">
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M10 0C15.5232 0 20 4.47676 20 10C20 15.5232 15.5232 20 10 20C4.47676 20 0 15.5232 0 10C0 4.47676 4.47676 0 10 0Z"
         fill="#1199FA"
       />

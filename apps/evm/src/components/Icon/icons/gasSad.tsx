@@ -19,7 +19,7 @@ const SvgGasSad = (props: SVGProps<SVGSVGElement>) => (
     <path
       d="M25 21V21C25 19.8954 24.1046 19 23 19L21 19C19.8954 19 19 19.8954 19 21V21"
       stroke="currentColor"
-      stroke-width="2"
+      strokeWidth="2"
     />
   </svg>
 );

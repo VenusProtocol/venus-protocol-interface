@@ -12,16 +12,16 @@ const SvgDownload = (props: SVGProps<SVGSVGElement>) => (
     <path
       d="M3 11.1733V16.1733C3 17.8302 4.34315 19.1733 6 19.1733H18C19.6569 19.1733 21 17.8302 21 16.1733V11.1733"
       stroke="#AAB3CA"
-      stroke-width="2"
-      stroke-linecap="round"
+      strokeWidth="2"
+      strokeLinecap="round"
     />
-    <path d="M12 4.17334L12 14.1733" stroke="#AAB3CA" stroke-width="2" stroke-linecap="round" />
+    <path d="M12 4.17334L12 14.1733" stroke="#AAB3CA" strokeWidth="2" strokeLinecap="round" />
     <path
       d="M15.5356 11.7089L12.0001 15.2444L8.46458 11.7089"
       stroke="#AAB3CA"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
