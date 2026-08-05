@@ -23,8 +23,8 @@ const EModeX = (props: SVGProps<SVGSVGElement>) => (
         y2="8"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#00F5A0" />
-        <stop offset="1" stop-color="#00D9F5" />
+        <stop stopColor="#00F5A0" />
+        <stop offset="1" stopColor="#00D9F5" />
       </linearGradient>
     </defs>
   </svg>

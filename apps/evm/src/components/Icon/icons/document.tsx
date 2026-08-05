@@ -16,7 +16,7 @@ const Document = (props: SVGProps<SVGSVGElement>) => (
       height="14.7"
       rx="3.35"
       stroke="currentColor"
-      stroke-width="1.3"
+      strokeWidth="1.3"
     />
     <rect x="6.31592" y="6.3999" width="7.36847" height="1.3" rx="0.65" fill="currentColor" />
     <rect x="6.31592" y="9.3999" width="7.36847" height="1.3" rx="0.65" fill="currentColor" />
