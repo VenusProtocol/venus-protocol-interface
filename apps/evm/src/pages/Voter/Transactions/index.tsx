@@ -1,16 +1,16 @@
-import { Typography } from '@mui/material';
+import { cn } from '@venusprotocol/ui';
 import { useMemo } from 'react';
 
-import { ButtonWrapper, Card, Icon, Spinner, Table, type TableColumn } from 'components';
+import { ButtonWrapper, Card, Spinner, Table, type TableColumn } from 'components';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
-import { type VoteDetail, VoteSupport } from 'types';
+import type { VoteDetail } from 'types';
 import { convertMantissaToTokens, generateExplorerUrl } from 'utilities';
 
 import { routes } from 'constants/routing';
-import { useStyles } from './styles';
+import { ActionCell } from './ActionCell';
 
 interface TransactionsProps {
   address: string;
@@ -23,7 +23,6 @@ export const Transactions: React.FC<TransactionsProps> = ({
   address,
   voterTransactions = [],
 }) => {
-  const styles = useStyles();
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const xvs = useGetToken({
@@ -36,39 +35,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         key: 'action',
         label: t('voterDetail.actions'),
         selectOptionLabel: t('voterDetail.actions'),
-        renderCell: transaction => {
-          switch (transaction.support) {
-            case VoteSupport.Against:
-              return (
-                <div css={styles.row}>
-                  <div css={[styles.icon, styles.against]}>
-                    <Icon name="close" />
-                  </div>
-                  {t('voterDetail.votedAgainst')}
-                </div>
-              );
-            case VoteSupport.For:
-              return (
-                <div css={styles.row}>
-                  <div css={[styles.icon, styles.for]}>
-                    <Icon name="mark" className="text-white" />
-                  </div>
-                  {t('voterDetail.votedFor')}
-                </div>
-              );
-            case VoteSupport.Abstain:
-              return (
-                <div css={styles.row}>
-                  <div css={[styles.icon, styles.abstain]}>
-                    <Icon name="dots" />
-                  </div>
-                  {t('voterDetail.votedAbstain')}
-                </div>
-              );
-            default:
-              return <></>;
-          }
-        },
+        renderCell: transaction => <ActionCell support={transaction.support} />,
       },
       {
         key: 'proposalId',
@@ -99,14 +66,12 @@ export const Transactions: React.FC<TransactionsProps> = ({
           }),
       },
     ],
-    [t, xvs, styles.abstain, styles.against, styles.for, styles.icon, styles.row],
+    [t, xvs],
   );
 
   return (
-    <Card css={styles.root} className={className}>
-      <Typography css={styles.horizontalPadding} variant="h4">
-        {t('voterDetail.transactions')}
-      </Typography>
+    <Card className={cn('flex flex-col border-0 bg-transparent px-0 py-6 sm:border', className)}>
+      <h2 className="mx-0 mb-6 text-p2s sm:mx-6 sm:mb-0">{t('voterDetail.transactions')}</h2>
 
       {voterTransactions?.length ? (
         <Table
@@ -114,10 +79,10 @@ export const Transactions: React.FC<TransactionsProps> = ({
           data={voterTransactions}
           rowKeyExtractor={row => `voter-transaction-table-row-${row.proposalId}`}
           breakpoint="sm"
-          css={styles.cardContentGrid}
+          className="border-0 bg-transparent py-4"
         />
       ) : (
-        <Spinner css={styles.spinner} />
+        <Spinner className="mb-4 xl:mb-0" />
       )}
 
       <ButtonWrapper
