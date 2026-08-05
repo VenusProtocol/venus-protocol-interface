@@ -1,5 +1,22 @@
 # @venusprotocol/evm
 
+## 5.16.0
+
+### Minor Changes
+
+- 99fcdca: fix issue with Trade chart + Arbitrum Sepolia RPC
+- 65a93ee: fallback to default chain ID
+- b053d09: update reachable amount
+- 5c1d7b7: fix console error in local env
+
+### Patch Changes
+
+- 1502b82: refactor shared components to use Tailwind CSS
+- f992605: fix modal stacking
+- dae1ec2: fix user related calculations
+- Updated dependencies [99fcdca]
+  - @venusprotocol/chains@0.29.0
+
 ## 5.15.1
 
 ### Patch Changes
