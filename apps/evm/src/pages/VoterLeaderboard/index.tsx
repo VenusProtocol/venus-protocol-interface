@@ -3,46 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useGetVestingVaults, useGetVoterAccounts } from 'clients/api';
 import { Page, Pagination } from 'components';
 import { useUrlPagination } from 'hooks/useUrlPagination';
-import type { VoterAccount } from 'types';
-
 import LeaderboardTable from './LeaderboardTable';
-import { useStyles } from './styles';
-
-interface VoterLeaderboardProps {
-  voterAccounts: VoterAccount[];
-  offset: number;
-  total: number | undefined;
-  limit: number | undefined;
-  isFetching: boolean;
-  setCurrentPage: (page: number) => void;
-}
-
-export const VoterLeaderboardUi: React.FC<VoterLeaderboardProps> = ({
-  voterAccounts,
-  offset,
-  total,
-  limit,
-  isFetching,
-  setCurrentPage,
-}) => {
-  const styles = useStyles();
-
-  return (
-    <div css={styles.root}>
-      <LeaderboardTable voterAccounts={voterAccounts} offset={offset} isFetching={isFetching} />
-
-      {total && (
-        <Pagination
-          itemsCount={total}
-          onChange={(nextIndex: number) => {
-            setCurrentPage(nextIndex);
-          }}
-          itemsPerPageCount={limit}
-        />
-      )}
-    </div>
-  );
-};
 
 const VoterLeaderboard: React.FC = () => {
   const { currentPage, setCurrentPage } = useUrlPagination();
@@ -69,14 +30,19 @@ const VoterLeaderboard: React.FC = () => {
 
   return (
     <Page>
-      <VoterLeaderboardUi
-        voterAccounts={voterAccounts}
-        offset={offset}
-        total={total}
-        limit={limit}
-        isFetching={isFetching}
-        setCurrentPage={setCurrentPage}
-      />
+      <div className="flex flex-col">
+        <LeaderboardTable voterAccounts={voterAccounts} offset={offset} isFetching={isFetching} />
+
+        {total && (
+          <Pagination
+            itemsCount={total}
+            onChange={(nextIndex: number) => {
+              setCurrentPage(nextIndex);
+            }}
+            itemsPerPageCount={limit}
+          />
+        )}
+      </div>
     </Page>
   );
 };

@@ -21,7 +21,6 @@ import {
 import type { Asset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
 import TEST_IDS from '../testIds';
-import { useStyles } from './styles';
 
 export interface InterestRateItem {
   utilizationRatePercentage: number;
@@ -41,7 +40,6 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
   isIsolatedPoolMarket,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   const {
     isLoading: isInterestRateChartDataLoading,
@@ -81,8 +79,8 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
       )}
 
       {interestRateChartData.apySimulations.length > 0 && (
-        <div className="-mr-[10px]">
-          <div className={cn('w-full h-62', className)}>
+        <div className="-mr-2.5">
+          <div className={cn('h-62 w-full', className)}>
             <ResponsiveContainer>
               <LineChart
                 data={interestRateChartData.apySimulations}
@@ -101,7 +99,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                   tickMargin={10}
                   tickCount={5}
                   type="number"
-                  className="text-xs"
+                  className="text-b2r"
                 />
 
                 <YAxis
@@ -112,7 +110,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                     <ChartYAxisTick value={formatPercentageToReadableValue(payload.value)} y={y} />
                   )}
                   stroke={theme.colors.grey}
-                  className="text-xs"
+                  className="text-b2r"
                   tickCount={10}
                 />
 
@@ -156,19 +154,19 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                 <Line
                   type="monotone"
                   dataKey="borrowApyPercentage"
-                  stroke={styles.lineBorrowApyColor}
+                  stroke={theme.colors.red}
                   strokeWidth={2}
                   isAnimationActive={false}
-                  activeDot={styles.lineActiveDot}
+                  activeDot={{ r: 6, strokeWidth: 0 }}
                   dot={false}
                 />
 
                 <Line
                   type="monotone"
                   dataKey="supplyApyPercentage"
-                  stroke={styles.lineSupplyApyColor}
+                  stroke={theme.colors.green}
                   strokeWidth={2}
-                  activeDot={styles.lineActiveDot}
+                  activeDot={{ r: 6, strokeWidth: 0 }}
                   isAnimationActive={false}
                   dot={false}
                 />
@@ -176,17 +174,21 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                 {typeof interestRateChartData.currentUtilizationRatePercentage === 'number' && (
                   <ReferenceLine
                     x={interestRateChartData.currentUtilizationRatePercentage}
-                    stroke={styles.referenceLineColor}
-                    // Note: we can not use the spread operator to extend
-                    // styles.referenceLineLabel because its type is not accepted for
-                    // that
-                    label={Object.assign(styles.referenceLineLabel || {}, {
+                    stroke={theme.colors.blue}
+                    label={{
+                      position: {
+                        y: -10,
+                        x: 48,
+                      },
+                      fill: theme.colors.white,
+                      fontSize: 14,
+                      fontWeight: 600,
                       value: t('interestRateChart.currentUtilizationRateLabelValue', {
                         percentage: formatPercentageToReadableValue(
                           interestRateChartData.currentUtilizationRatePercentage,
                         ),
                       }),
-                    })}
+                    }}
                     alwaysShow
                   />
                 )}

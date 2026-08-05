@@ -28,7 +28,7 @@ export const useColumns = () => {
       renderCell: ({ collateralFactor }) => (
         <Icon
           name={collateralFactor > 0 ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', collateralFactor > 0 ? 'text-green' : 'text-grey')}
+          className={cn('ml-auto size-5', collateralFactor > 0 ? 'text-green' : 'text-grey')}
         />
       ),
       sortRows: (rowA, rowB, direction) =>
@@ -42,7 +42,7 @@ export const useColumns = () => {
       renderCell: ({ isBorrowable }) => (
         <Icon
           name={isBorrowable ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-green' : 'text-grey')}
+          className={cn('ml-auto size-5', isBorrowable ? 'text-green' : 'text-grey')}
         />
       ),
       sortRows: (rowA, rowB, direction) =>

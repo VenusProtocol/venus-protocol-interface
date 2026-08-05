@@ -22,8 +22,6 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
   isWalletSpendingLimitLoading,
   isApproveTokenLoading,
   hideTokenEnablingStep,
-  className,
-  children,
   ...otherProps
 }) => {
   const { t } = useTranslation();
@@ -43,8 +41,6 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
       })}
       secondStepLabel={t('approveTokenSteps.step2')}
       {...otherProps}
-    >
-      {children}
-    </ApprovalSteps>
+    />
   );
 };

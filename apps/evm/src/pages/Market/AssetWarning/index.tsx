@@ -34,14 +34,11 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
   const handleScrollToModeInfo = () => scrollToElement('mode-info');
 
   const showAllMarketsButton = (
-    <TextButton className="p-0 h-auto font-medium text-xs md:text-sm" onClick={handleShowAssets} />
+    <TextButton className="h-auto p-0 text-b2s md:text-b1s" onClick={handleShowAssets} />
   );
 
   const modeInfoButton = (
-    <TextButton
-      className="p-0 h-auto font-medium text-xs md:text-sm"
-      onClick={handleScrollToModeInfo}
-    />
+    <TextButton className="h-auto p-0 text-b2s md:text-b1s" onClick={handleScrollToModeInfo} />
   );
   const description = getDescription({
     asset,

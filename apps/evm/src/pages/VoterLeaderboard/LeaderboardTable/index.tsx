@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material';
 import { cloneDeep } from 'lodash-es';
 import { useMemo } from 'react';
 
@@ -9,8 +8,6 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { VoterAccount } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
-
-import { useStyles } from './styles';
 
 export interface LeaderboardTableProps {
   voterAccounts: VoterAccount[];
@@ -24,7 +21,6 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
   isFetching,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
   const xvs = useGetToken({
     symbol: 'XVS',
   });
@@ -36,19 +32,19 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         label: t('voterLeaderboard.columns.rank'),
         selectOptionLabel: t('voterLeaderboard.columns.rank'),
         renderCell: (voter, rowIndex) => (
-          <Typography css={styles.inline} color="textPrimary" variant="small2" component="div">
+          <div className="flex text-b1r text-white">
             {rowIndex + 1 + offset}
             <Username address={voter.address}>
               {({ innerContent }) => (
                 <Link
                   to={routes.governanceVoter.path.replace(':address', voter.address)}
-                  css={styles.address}
+                  className="overflow-hidden text-ellipsis pl-8 hover:text-mediumBlue"
                 >
                   {innerContent}
                 </Link>
               )}
             </Username>
-          </Typography>
+          </div>
         ),
       },
       {
@@ -57,14 +53,14 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         selectOptionLabel: t('voterLeaderboard.columns.votes'),
         align: 'right',
         renderCell: voter => (
-          <Typography color="textPrimary" variant="small2">
+          <span className="text-b1r text-white">
             {convertMantissaToTokens({
               value: voter.votesMantissa,
               token: xvs,
               returnInReadableFormat: true,
               addSymbol: false,
             })}
-          </Typography>
+          </span>
         ),
       },
       {
@@ -73,9 +69,9 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         selectOptionLabel: t('voterLeaderboard.columns.voteWeight'),
         align: 'right',
         renderCell: voter => (
-          <Typography color="textPrimary" variant="small2">
+          <span className="text-b1r text-white">
             {formatPercentageToReadableValue(voter.voteWeightPercent)}
-          </Typography>
+          </span>
         ),
       },
       {
@@ -83,14 +79,10 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         label: t('voterLeaderboard.columns.proposalsVoted'),
         selectOptionLabel: t('voterLeaderboard.columns.proposalsVoted'),
         align: 'right',
-        renderCell: voter => (
-          <Typography color="textPrimary" variant="small2">
-            {voter.proposalsVoted}
-          </Typography>
-        ),
+        renderCell: voter => <span className="text-b1r text-white">{voter.proposalsVoted}</span>,
       },
     ],
-    [offset, xvs, t, styles.address, styles.inline],
+    [offset, xvs, t],
   );
 
   const cardColumns = useMemo(() => {
@@ -113,7 +105,6 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
       }}
       rowKeyExtractor={row => `voter-leaderboard-table-row-${row.address}`}
       breakpoint="xl"
-      css={styles.cardContentGrid}
     />
   );
 };

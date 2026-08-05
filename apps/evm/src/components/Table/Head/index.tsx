@@ -14,6 +14,7 @@ interface HeadProps<R> {
   controls: boolean;
   rowControlColumn: boolean;
   className?: string;
+  headCellClassName?: string;
 }
 
 function Head<R>({
@@ -22,6 +23,7 @@ function Head<R>({
   orderDirection,
   onRequestOrder,
   className,
+  headCellClassName,
   controls,
   rowControlColumn,
 }: HeadProps<R>) {
@@ -42,7 +44,12 @@ function Head<R>({
           }
 
           return (
-            <TableHeadCell key={column.key} align={column.align} aria-sort={ariaSortDirection}>
+            <TableHeadCell
+              key={column.key}
+              align={column.align}
+              className={headCellClassName}
+              aria-sort={ariaSortDirection}
+            >
               <button
                 type="button"
                 className={cn(
@@ -86,7 +93,7 @@ function Head<R>({
           );
         })}
 
-        {rowControlColumn && <TableHeadCell className="w-8" />}
+        {rowControlColumn && <TableHeadCell className={cn('w-8', headCellClassName)} />}
       </TableRow>
     </TableHeader>
   );

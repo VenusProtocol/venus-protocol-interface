@@ -48,9 +48,15 @@ export const Mode: React.FC<ModeProps> = ({ title, tooltip, eModeAssetSettings, 
           />
 
           {/* Table  view */}
-          <div className="hidden md:block lg:hidden 2xl:block max-h-104 overflow-y-auto [&_.MuiTableContainer-root]:overflow-visible! [&_thead]:sticky [&_thead]:top-0 [&_thead]:z-10 [&_thead_th]:bg-background">
+          <div
+            className="hidden overflow-y-auto md:block lg:hidden 2xl:block"
+            style={{ maxHeight: '26rem' }}
+          >
             <Table
               className="border-0"
+              tableContainerClassName="overflow-visible"
+              tableHeaderClassName="sticky top-0 z-10"
+              tableHeadCellClassName="bg-background"
               variant="secondary"
               columns={columns}
               data={eModeAssetSettings}

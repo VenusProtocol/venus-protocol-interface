@@ -146,7 +146,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         getRowHref={getRowHref}
         columns={columns}
         data={filteredAssets}
-        className={cn(title && 'pt-4 sm:pt-4', className)}
+        className={className}
         title={title}
         rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
         initialOrder={formattedInitialOrder}

@@ -26,7 +26,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
   },
   {
     "dom": "Leaderboard",
-    "href": "governanceleaderboard",
+    "href": "governance/leaderboard",
   },
 ]
 `;
@@ -39,7 +39,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
   },
   {
     "dom": "Leaderboard",
-    "href": "governanceleaderboard",
+    "href": "governance/leaderboard",
   },
   {
     "dom": <div
@@ -52,7 +52,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
         showTooltip={false}
       />
     </div>,
-    "href": "governanceleaderboardvoter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "href": "governance/leaderboard/voter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   },
 ]
 `;
@@ -65,7 +65,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
   },
   {
     "dom": "Proposal #1",
-    "href": "governanceproposal/:proposalId",
+    "href": "governance/proposal/:proposalId",
   },
 ]
 `;
@@ -78,7 +78,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
   },
   {
     "dom": "Proposal #",
-    "href": "governanceproposal/:proposalId",
+    "href": "governance/proposal/:proposalId",
   },
 ]
 `;
@@ -111,7 +111,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /liquid
     "dom": <LiquidityHubName
       vhTokenAddress="0x2000000000000000000000000000000000000001"
     />,
-    "href": "liquidity-hubs0x2000000000000000000000000000000000000001",
+    "href": "liquidity-hubs/0x2000000000000000000000000000000000000001",
   },
 ]
 `;
@@ -139,7 +139,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /market
     "dom": <VTokenSymbol
       vTokenAddress="0x6d6F697e34145Bb95c54E77482d97cc261Dc237E"
     />,
-    "href": "/isolated-pools/?pool=0x3d759121234cd36F8124C21aFe1c6852d2bEd848&undefined=970x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+    "href": "/isolated-pools/?pool=0x3d759121234cd36F8124C21aFe1c6852d2bEd848&undefined=97/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
   },
 ]
 `;

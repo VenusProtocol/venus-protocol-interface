@@ -125,14 +125,14 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
         <div className="flex flex-col grow sm:flex-row sm:gap-x-2 sm:items-end">
           <div className="sm:mb-2 sm:order-2">
             {selectedDataPoint ? (
-              <p className="text-sm">
+              <p className="text-b1r">
                 {t('account.performanceChart.dataPoint.date', {
                   date: new Date(selectedDataPoint.blockTimestampMs),
                 })}
               </p>
             ) : (
               <div className="flex gap-x-1 items-center">
-                <p className="text-sm text-grey">{t('account.performanceChart.netWorth.label')}</p>
+                <p className="text-b1r text-grey">{t('account.performanceChart.netWorth.label')}</p>
 
                 <InfoIcon
                   className="inline-flex"
@@ -213,7 +213,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
                 <>
                   <Spinner className="h-auto" />
 
-                  <p className="text-sm text-grey">
+                  <p className="text-b1r text-grey">
                     {t('account.performanceChart.placeholderText')}
                   </p>
                 </>

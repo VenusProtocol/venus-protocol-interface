@@ -2,7 +2,6 @@ import type { Pool } from 'types';
 
 import { Summary } from './Summary';
 import Tables from './Tables';
-import { useStyles } from './styles';
 
 export interface PositionsProps {
   pools: Pool[];
@@ -10,7 +9,6 @@ export interface PositionsProps {
 }
 
 export const Positions: React.FC<PositionsProps> = ({ pools, className }) => {
-  const styles = useStyles();
   const selectedPool = pools.find(pool => pool.name === 'Core Pool') || pools[0];
 
   const hasBorrowBalance = selectedPool?.userBorrowBalanceCents?.isGreaterThan(0);
@@ -21,7 +19,7 @@ export const Positions: React.FC<PositionsProps> = ({ pools, className }) => {
         pool={selectedPool}
         displayHealthFactor={hasBorrowBalance}
         displayAccountHealth={hasBorrowBalance}
-        css={styles.summary}
+        className="mb-10 md:mb-6"
       />
 
       <Tables pool={selectedPool} />

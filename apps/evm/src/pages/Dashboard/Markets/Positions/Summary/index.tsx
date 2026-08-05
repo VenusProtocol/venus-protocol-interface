@@ -29,8 +29,6 @@ export interface SummaryProps {
   className?: string;
 }
 
-const cellClassName = cn('bg-transparent px-0 max-xl:py-0 lg:border-r-dark-blue');
-
 export const Summary: React.FC<SummaryProps> = ({
   pool,
   vaults,
@@ -58,7 +56,7 @@ export const Summary: React.FC<SummaryProps> = ({
           label: t('account.summary.cellGroup.healthFactor'),
           value: <HealthFactorPill factor={pool.userHealthFactor || 0} showLabel />,
           tooltip: t('account.summary.cellGroup.healthFactorTooltip'),
-          className: cellClassName,
+          className: 'bg-transparent px-0 py-0 lg:border-r-dark-blue',
         },
       ]
     : [];
@@ -74,7 +72,7 @@ export const Summary: React.FC<SummaryProps> = ({
         : t('account.summary.cellGroup.netApyTooltip'),
       className: cn(
         typeof netApyPercentage === 'number' && netApyPercentage < 0 ? 'text-red' : 'text-green',
-        cellClassName,
+        'bg-transparent px-0 py-0 lg:border-r-dark-blue',
       ),
     },
     {
@@ -84,7 +82,7 @@ export const Summary: React.FC<SummaryProps> = ({
           {formatCentsToReadableValue({ value: dailyEarningsCents })}
         </HidableUserBalance>
       ),
-      className: cellClassName,
+      className: 'bg-transparent px-0 py-0 lg:border-r-dark-blue',
     },
     {
       label: t('account.summary.cellGroup.totalSupply'),
@@ -93,7 +91,7 @@ export const Summary: React.FC<SummaryProps> = ({
           {formatCentsToReadableValue({ value: pool.userSupplyBalanceCents })}
         </HidableUserBalance>
       ),
-      className: cellClassName,
+      className: 'bg-transparent px-0 py-0 lg:border-r-dark-blue',
     },
     {
       label: t('account.summary.cellGroup.totalBorrow'),
@@ -102,7 +100,7 @@ export const Summary: React.FC<SummaryProps> = ({
           {formatCentsToReadableValue({ value: pool.userBorrowBalanceCents })}
         </HidableUserBalance>
       ),
-      className: cellClassName,
+      className: 'bg-transparent px-0 py-0 lg:border-r-dark-blue',
     },
   );
 
@@ -114,7 +112,7 @@ export const Summary: React.FC<SummaryProps> = ({
           {formatCentsToReadableValue({ value: totalVaultStakeCents })}
         </HidableUserBalance>
       ),
-      className: cellClassName,
+      className: 'bg-transparent px-0 py-0 lg:border-r-dark-blue',
     });
   }
 
@@ -130,7 +128,7 @@ export const Summary: React.FC<SummaryProps> = ({
           hideUserBalances={shouldHideBalances ? HIDDEN_BALANCE_KEY : undefined}
         />
       ),
-      className: cellClassName,
+      className: 'bg-transparent px-0 py-0 lg:border-r-dark-blue',
     });
   }
 
@@ -144,11 +142,16 @@ export const Summary: React.FC<SummaryProps> = ({
           className={cn(displayAccountHealth ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
         />
 
-        {displayAccountHealth && <Cell {...cells[cells.length - 1]} className={cellClassName} />}
+        {displayAccountHealth && (
+          <Cell
+            {...cells[cells.length - 1]}
+            className="bg-transparent px-0 py-0 lg:border-r-dark-blue"
+          />
+        )}
       </div>
 
       {/* XL or above view */}
-      <Card className="justify-between border-0 p-0 hidden xl:flex">
+      <Card className="hidden justify-between border-0 p-0 xl:flex">
         <CellGroup
           cells={displayAccountHealth ? cells.slice(0, cells.length - 1) : cells}
           className="w-full xl:p-0"
@@ -156,7 +159,7 @@ export const Summary: React.FC<SummaryProps> = ({
 
         {/* Account health */}
         {displayAccountHealth && (
-          <div className="shrink-0 min-w-96">{cells[cells.length - 1].value}</div>
+          <div className="min-w-96 shrink-0">{cells[cells.length - 1].value}</div>
         )}
       </Card>
     </Section>

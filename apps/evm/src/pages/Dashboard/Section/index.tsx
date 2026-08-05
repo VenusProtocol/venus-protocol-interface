@@ -1,27 +1,15 @@
-import { Typography } from '@mui/material';
-
-import { useStyles } from './styles';
-
 export interface SectionProps {
   children: React.ReactNode;
   title?: string;
   className?: string;
 }
 
-export const Section: React.FC<SectionProps> = ({ title, className, children }) => {
-  const styles = useStyles();
+export const Section: React.FC<SectionProps> = ({ title, className, children }) => (
+  <div className={className}>
+    {!!title && <h2 className="mb-4 flex items-center text-xl">{title}</h2>}
 
-  return (
-    <div className={className}>
-      {!!title && (
-        <Typography css={styles.title} variant="h3">
-          {title}
-        </Typography>
-      )}
-
-      {children}
-    </div>
-  );
-};
+    {children}
+  </div>
+);
 
 export default Section;

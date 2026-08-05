@@ -40,7 +40,7 @@ export const EModeHeader: React.FC<EModeHeaderProps> = ({
       to={to}
     >
       <div className="flex items-center gap-x-1">
-        <div className={cn('w-5 h-5 rounded-full flex items-center justify-center bg-lightGrey')}>
+        <div className="flex size-5 items-center justify-center rounded-full bg-lightGrey">
           <img
             src={lightningIllustrationSrc}
             className="h-3"
@@ -48,7 +48,7 @@ export const EModeHeader: React.FC<EModeHeaderProps> = ({
           />
         </div>
 
-        <p className="text-sm font-semibold">
+        <p className="text-b1s">
           <Trans
             i18nKey="account.marketBreakdown.tables.eModeHeader.title"
             values={{

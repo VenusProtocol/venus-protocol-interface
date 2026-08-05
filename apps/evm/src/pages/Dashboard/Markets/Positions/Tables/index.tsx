@@ -1,23 +1,18 @@
-import { Typography } from '@mui/material';
-import { Card } from 'components';
-import { useMemo, useState } from 'react';
-
-import { ButtonGroup } from 'components';
+import { ButtonGroup, Card } from 'components';
 import { MarketTable, type MarketTableProps } from 'containers/MarketTable';
 import { useIsSmDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
+import { useMemo, useState } from 'react';
 import type { Pool } from 'types';
 
 import { EModeHeader } from './EModeHeader';
 import { IsolatedModeHeader } from './IsolatedModeHeader';
-import { useStyles } from './styles';
 
 export interface TablesProps {
   pool: Pool;
 }
 
 export const Tables: React.FC<TablesProps> = ({ pool }) => {
-  const styles = useStyles();
   const { t } = useTranslation();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
@@ -99,17 +94,18 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
           />
         </div>
       ) : (
-        <Card css={[styles.tabletContainer]} className="border-0">
-          <div css={styles.tabletHeader}>
+        <Card className="border-0 bg-transparent p-0 md:px-0 md:py-4">
+          <div className="mb-4 block p-0 md:mb-3 md:flex md:items-center md:justify-between md:px-6">
             <div className="items-center gap-x-2">
-              <Typography variant="h4" css={styles.tabletHeaderTitle}>
+              <h3 className="mb-4 text-p2s md:mb-0">
                 {t('account.marketBreakdown.tables.tabletTitle')}
-              </Typography>
+              </h3>
             </div>
 
             <ButtonGroup
               buttonSize="sm"
-              css={styles.tabletHeaderButtonGroup}
+              className="mb-4 md:mb-0"
+              buttonClassName="flex-1 px-5 md:flex-none"
               buttonLabels={[
                 t('account.marketBreakdown.tables.tabletSupplyTabTitle'),
                 t('account.marketBreakdown.tables.tabletBorrowTabTitle'),
@@ -128,19 +124,18 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
                   <IsolatedModeHeader
                     groupName={pool.userEModeGroup.name}
                     poolComptrollerContractAddress={pool.comptrollerAddress}
-                    className="max-sm:hidden"
+                    className="hidden sm:flex"
                   />
                 ) : (
                   <EModeHeader
                     eModeGroupName={pool.userEModeGroup.name}
                     poolComptrollerContractAddress={pool.comptrollerAddress}
-                    className="max-sm:hidden"
+                    className="hidden sm:flex"
                   />
                 ))
               }
               {...marketTableProps.supply}
-              css={styles.tabletMarketTable}
-              className="border-0"
+              className="border-0 p-0"
             />
           ) : (
             <MarketTable
@@ -151,19 +146,18 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
                   <IsolatedModeHeader
                     groupName={pool.userEModeGroup.name}
                     poolComptrollerContractAddress={pool.comptrollerAddress}
-                    className="max-sm:hidden"
+                    className="hidden sm:flex"
                   />
                 ) : (
                   <EModeHeader
                     eModeGroupName={pool.userEModeGroup.name}
                     poolComptrollerContractAddress={pool.comptrollerAddress}
-                    className="max-sm:hidden"
+                    className="hidden sm:flex"
                   />
                 ))
               }
               {...marketTableProps.borrow}
-              css={styles.tabletMarketTable}
-              className="border-0"
+              className="border-0 p-0"
             />
           )}
         </Card>

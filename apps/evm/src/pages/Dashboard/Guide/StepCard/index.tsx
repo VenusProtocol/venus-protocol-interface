@@ -47,10 +47,10 @@ export const StepCard: React.FC<StepCardProps> = ({
               {iconDom}
             </div>
 
-            <p className="font-semibold">{title}</p>
+            <p className="text-p3s">{title}</p>
           </div>
 
-          <p className={cn('text-light-grey text-xs', isCollapsed && 'hidden')}>{description}</p>
+          <p className={cn('text-b2r text-light-grey', isCollapsed && 'hidden')}>{description}</p>
         </div>
 
         <div
@@ -62,7 +62,7 @@ export const StepCard: React.FC<StepCardProps> = ({
         >
           {iconDom}
 
-          <p className="text-xs">
+          <p className="text-b2r">
             {isCompleted ? t('dashboard.guide.completed') : t('dashboard.guide.uncompleted')}
           </p>
         </div>

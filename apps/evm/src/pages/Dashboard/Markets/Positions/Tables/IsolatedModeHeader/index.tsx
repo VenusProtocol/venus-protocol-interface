@@ -42,7 +42,7 @@ export const IsolatedModeHeader: React.FC<IsolatedModeHeader> = ({
       <div className="flex items-center gap-x-1">
         <Icon name="isolated" className="size-5" />
 
-        <p className="text-sm font-semibold">
+        <p className="text-b1s">
           <Trans
             i18nKey="account.marketBreakdown.tables.isolatedModeHeader.title"
             values={{

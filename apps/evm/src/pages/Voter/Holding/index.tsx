@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 
 import { Card, Delimiter, Icon } from 'components';
@@ -6,8 +6,6 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-
-import { useStyles } from './styles';
 
 interface HoldingProps {
   className?: string;
@@ -24,7 +22,6 @@ export const Holding: React.FC<HoldingProps> = ({
   votesMantissa,
   delegating,
 }) => {
-  const styles = useStyles();
   const { t } = useTranslation();
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -43,32 +40,36 @@ export const Holding: React.FC<HoldingProps> = ({
   });
 
   return (
-    <Card css={styles.root} className={className}>
-      <Typography variant="h4" css={styles.title}>
-        {t('voterDetail.holding')}
-      </Typography>
-      <Typography variant="small2">{t('voterDetail.venusBalance')}</Typography>
-      <Typography variant="h4" css={styles.value}>
-        {readableVenusBalance}
-      </Typography>
-      <Delimiter css={styles.delimiter} />
-      <Typography variant="small2">{t('voterDetail.votes')}</Typography>
-      <div css={styles.voteSection}>
-        <Typography variant="h4" css={styles.value}>
-          {readableVotes}
-        </Typography>
-        <div css={styles.delegateSection}>
+    <Card className={cn('flex-col', className)}>
+      <h2 className="mb-8 text-p2s">{t('voterDetail.holding')}</h2>
+
+      <p className="text-b1r text-grey">{t('voterDetail.venusBalance')}</p>
+
+      <p className="mt-1 text-p2s">{readableVenusBalance}</p>
+
+      <Delimiter className="my-6" />
+
+      <p className="text-b1r text-grey">{t('voterDetail.votes')}</p>
+
+      <div className="flex flex-row items-center justify-between">
+        <p className="mt-1 text-p2s">{readableVotes}</p>
+
+        <div className="inline-flex flex-row items-center">
           <Icon name="person" />
-          <Typography variant="h4" color="textSecondary" css={styles.progressBarTitle}>
+
+          <p className="mt-1 ml-1 text-p2s text-grey">
             {delegateCount?.toString() || PLACEHOLDER_KEY}
-          </Typography>
+          </p>
         </div>
       </div>
-      <Delimiter css={styles.delimiter} />
-      <Typography variant="small2">{t('voterDetail.delegatingTo')}</Typography>
-      <Typography variant="h4" css={styles.value}>
+
+      <Delimiter className="my-6" />
+
+      <p className="text-b1r text-grey">{t('voterDetail.delegatingTo')}</p>
+
+      <p className="mt-1 text-p2s">
         {delegating ? t('voterDetail.delegated') : t('voterDetail.undelegated')}
-      </Typography>
+      </p>
     </Card>
   );
 };

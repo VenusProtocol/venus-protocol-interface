@@ -45,6 +45,9 @@ export function Table<R>({
   renderRowControl,
   hideCardDelimiter,
   className,
+  tableContainerClassName,
+  tableHeaderClassName,
+  tableHeadCellClassName,
   ...otherProps
 }: TableProps<R>) {
   const { formatTo } = useFormatTo();
@@ -103,7 +106,7 @@ export function Table<R>({
       {title && (
         <div
           className={cn(
-            'mb-2 h-8 text-p2s',
+            'pt-4 mb-2 h-8 text-p2s',
             breakpoint ? 'px-0' : 'px-4',
             breakpoint === 'xs' && 'xs:px-4',
             breakpoint === 'sm' && 'sm:px-4',
@@ -144,11 +147,16 @@ export function Table<R>({
               breakpoint === 'lg' && 'lg:block',
               breakpoint === 'xl' && 'xl:block',
               breakpoint === '2xl' && '2xl:block',
+              tableContainerClassName,
             )}
           >
             <TableElement style={{ minWidth: minwidth, tableLayout: tablelayout }}>
               <Head
-                className={cn(variant === 'primary' && 'border-b border-dark-blue-hover')}
+                className={cn(
+                  variant === 'primary' && 'border-b border-dark-blue-hover',
+                  tableHeaderClassName,
+                )}
+                headCellClassName={tableHeadCellClassName}
                 controls={controls}
                 columns={columns}
                 orderBy={order?.orderBy}
