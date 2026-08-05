@@ -8,7 +8,6 @@ import type { Swap, SwapError } from 'types';
 
 import { SwitchChain } from 'containers/SwitchChain';
 import type { FormError, FormValues } from '../types';
-import { useStyles } from './styles';
 
 export interface SubmitSectionProps {
   fromToken: FormValues['fromToken'];
@@ -42,7 +41,6 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   formErrors,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   const isSwappingWithHighPriceImpact = useMemo(
     () =>
@@ -121,7 +119,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
           isApproveTokenLoading={isApproveFromTokenLoading}
           isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
           secondStepButtonLabel={submitButtonLabel}
-          css={styles.container}
+          className="mt-8 md:mt-10"
         >
           {dom}
         </ApproveTokenSteps>

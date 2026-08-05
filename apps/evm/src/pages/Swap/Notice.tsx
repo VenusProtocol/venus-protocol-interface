@@ -3,7 +3,6 @@ import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
 
-import { useStyles } from './styles';
 import type { FormError } from './types';
 
 export interface NoticeProps {
@@ -13,15 +12,11 @@ export interface NoticeProps {
 
 const Notice: React.FC<NoticeProps> = ({ formErrors, swap }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   if (formErrors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_WALLET_SPENDING_LIMIT') {
     // User is trying to swap more than their spending limit allows
     return (
-      <NoticeError
-        css={styles.notice}
-        description={t('swap.errors.amountAboveWalletSpendingLimit')}
-      />
+      <NoticeError className="mt-3" description={t('swap.errors.amountAboveWalletSpendingLimit')} />
     );
   }
 
@@ -33,7 +28,7 @@ const Notice: React.FC<NoticeProps> = ({ formErrors, swap }) => {
     // User is trying to swap and supply with a high price impact
     return (
       <NoticeWarning
-        css={styles.notice}
+        className="mt-3"
         description={t('swap.warning.swappingWithHighPriceImpactWarning')}
       />
     );
