@@ -334,6 +334,7 @@ export const formatOutput = ({
         // These will be determined after fetching the IP location
         isRestricted: false,
         isGated: false,
+        category: market.category,
         // This will be calculated after all assets have been formatted
         userBorrowLimitSharePercentage: 0,
         isCollateralOfUser,
@@ -396,6 +397,7 @@ export const formatOutput = ({
       isIsolated,
       eModeGroups,
       userEModeGroup,
+      categories: apiPool.categories,
       vai: poolVai,
       assets: formattedAssets,
     };

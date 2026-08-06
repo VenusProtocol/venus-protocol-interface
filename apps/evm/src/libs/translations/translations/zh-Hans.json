@@ -433,6 +433,12 @@
     "tooMuchRepay": "还款金额超过了你的未偿借款。"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "全部类别",
+      "nCategories_other": "{{count}} 个类别",
+      "reset": "重置",
+      "title": "选择类别"
+    },
     "pausedAssetsToggle": {
       "label": "已暂停资产"
     },

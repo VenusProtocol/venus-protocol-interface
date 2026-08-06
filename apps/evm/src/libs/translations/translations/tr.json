@@ -433,6 +433,13 @@
     "tooMuchRepay": "Geri ödeme tutarı bekleyen borç bakiyenizi aşıyor."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "Tüm Kategoriler",
+      "nCategories_one": "{{count}} Kategori",
+      "nCategories_other": "{{count}} Kategori",
+      "reset": "Sıfırla",
+      "title": "Kategorileri Seç"
+    },
     "pausedAssetsToggle": {
       "label": "Durdurulan varlıklar"
     },

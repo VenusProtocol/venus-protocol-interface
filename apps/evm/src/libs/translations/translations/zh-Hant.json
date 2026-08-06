@@ -433,6 +433,12 @@
     "tooMuchRepay": "還款金額超過了你的未償借款。"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "全部類別",
+      "nCategories_other": "{{count}} 個類別",
+      "reset": "重置",
+      "title": "選擇類別"
+    },
     "pausedAssetsToggle": {
       "label": "已暫停資產"
     },

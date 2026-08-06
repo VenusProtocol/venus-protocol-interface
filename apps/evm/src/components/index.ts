@@ -86,3 +86,4 @@ export * from './MarketPageGrid';
 export * from './MarketHistoryCard';
 export * from './MarketCard';
 export * from './MarketInfo';
+export * from './MultiSelect';

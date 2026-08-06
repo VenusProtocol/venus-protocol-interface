@@ -433,6 +433,12 @@
     "tooMuchRepay": "จำนวนเงินที่ชำระคืนเกินยอดค้างชำระของคุณ"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "ทุกหมวดหมู่",
+      "nCategories_other": "{{count}} หมวดหมู่",
+      "reset": "รีเซ็ต",
+      "title": "เลือกหมวดหมู่"
+    },
     "pausedAssetsToggle": {
       "label": "สินทรัพย์ที่หยุดไว้"
     },

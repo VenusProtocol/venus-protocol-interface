@@ -12,7 +12,7 @@ import { useCollateral } from 'hooks/useCollateral';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, EModeGroup } from 'types';
+import type { Asset, EModeGroup, MarketCategory } from 'types';
 import pauseIconSrc from './pause.svg';
 import type { ColumnKey } from './types';
 import { useColumns } from './useColumns';
@@ -25,6 +25,7 @@ export interface MarketTableProps
     Omit<TableProps<Asset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
   > {
   assets: Asset[];
+  categories?: MarketCategory[];
   poolName: string;
   poolComptrollerContractAddress: Address;
   columns: ColumnKey[];
@@ -44,6 +45,7 @@ export interface MarketTableProps
 
 export const MarketTable: React.FC<MarketTableProps> = ({
   assets,
+  categories,
   poolName,
   poolComptrollerContractAddress,
   marketType,
@@ -78,10 +80,13 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     pausedAssetsExist,
     searchValue,
     onSearchValueChange,
+    selectedCategories,
+    onSelectedCategoriesChange,
     showPausedAssets,
   } = useControls({
     assets,
     applyUserSettings: controls,
+    poolComptrollerAddress: poolComptrollerContractAddress,
   });
 
   const { chainId: currentChainId } = useChainId();
@@ -163,6 +168,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                       onSearchValueChange={onSearchValueChange}
                       searchInputPlaceholder={t('marketTable.search.placeholder')}
                       showPausedAssetsToggle
+                      categories={categories}
+                      selectedCategories={selectedCategories}
+                      onSelectedCategoriesChange={onSelectedCategoriesChange}
                     />
                   )}
                 </div>
@@ -176,6 +184,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
           controls &&
           !isFetching &&
           !searchValue &&
+          selectedCategories.length === 0 &&
           filteredAssets.length === 0 &&
           pausedAssetsExist &&
           !showPausedAssets && (

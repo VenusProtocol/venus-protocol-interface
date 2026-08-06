@@ -433,6 +433,12 @@
     "tooMuchRepay": "Số tiền trả vượt quá khoản vay còn lại của bạn."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "Tất cả danh mục",
+      "nCategories_other": "{{count}} danh mục",
+      "reset": "Đặt lại",
+      "title": "Chọn danh mục"
+    },
     "pausedAssetsToggle": {
       "label": "Tài sản tạm dừng"
     },

@@ -74,6 +74,12 @@ export interface ApiMarketEModeSettings {
   poolId: number;
 }
 
+export interface ApiMarketCategory {
+  tag: string;
+  label: string;
+  order: number;
+}
+
 export interface ApiMarket {
   address: Address;
   symbol: string;
@@ -119,6 +125,7 @@ export interface ApiMarket {
   pointsDistributions: ApiPointsDistribution[];
   isBorrowable?: boolean;
   eModeSettings?: ApiMarketEModeSettings[];
+  category?: string;
 }
 
 export interface ApiEModeGroup {
@@ -136,6 +143,7 @@ export interface ApiPool {
   markets: ApiMarket[];
   priceOracleAddress: Address;
   eModeGroups?: ApiEModeGroup[];
+  categories?: ApiMarketCategory[];
 }
 
 export interface ApiTokenMetadata {
