@@ -86,6 +86,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   } = useControls({
     assets,
     applyUserSettings: controls,
+    poolComptrollerAddress: poolComptrollerContractAddress,
   });
 
   const { chainId: currentChainId } = useChainId();
@@ -183,6 +184,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
           controls &&
           !isFetching &&
           !searchValue &&
+          selectedCategories.length === 0 &&
           filteredAssets.length === 0 &&
           pausedAssetsExist &&
           !showPausedAssets && (

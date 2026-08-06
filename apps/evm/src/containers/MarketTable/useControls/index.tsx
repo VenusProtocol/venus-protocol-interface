@@ -1,25 +1,27 @@
 import { useState } from 'react';
+import type { Address } from 'viem';
 
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import { useChainId } from 'libs/wallet';
 import type { Asset } from 'types';
 import { isAssetPaused } from 'utilities';
 
 export const useControls = ({
   assets,
   applyUserSettings,
+  poolComptrollerAddress,
 }: {
   assets: Asset[];
   applyUserSettings: boolean;
+  poolComptrollerAddress: Address;
 }) => {
   const [searchValue, onSearchValueChange] = useState('');
   const [selectedCategories, onSelectedCategoriesChange] = useState<string[]>([]);
   const [userChainSettings] = useUserChainSettings();
-  const { chainId } = useChainId();
 
-  const [prevChainId, setPrevChainId] = useState(chainId);
-  if (chainId !== prevChainId) {
-    setPrevChainId(chainId);
+  const [prevPoolComptrollerAddress, setPrevPoolComptrollerAddress] =
+    useState(poolComptrollerAddress);
+  if (poolComptrollerAddress !== prevPoolComptrollerAddress) {
+    setPrevPoolComptrollerAddress(poolComptrollerAddress);
     onSelectedCategoriesChange([]);
   }
 
