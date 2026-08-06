@@ -9,7 +9,7 @@ const SvgEnsLogo = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_47_1749)">
+    <g clipPath="url(#clip0_47_1749)">
       <path
         d="M3.49441 6.7707C3.62296 7.04388 3.94435 7.59024 3.94435 7.59024L7.6242 1.5L4.04076 4.0068C3.83186 4.15142 3.6551 4.34425 3.52655 4.56922C3.18909 5.2602 3.18909 6.06366 3.49441 6.7707Z"
         fill="url(#paint0_linear_47_1749)"
@@ -40,9 +40,9 @@ const SvgEnsLogo = (props: SVGProps<SVGSVGElement>) => (
         y2="6.77069"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.58" stop-color="#A0A8D4" />
-        <stop offset="0.73" stop-color="#8791C7" />
-        <stop offset="0.91" stop-color="#6470B4" />
+        <stop offset="0.58" stopColor="#A0A8D4" />
+        <stop offset="0.73" stopColor="#8791C7" />
+        <stop offset="0.91" stopColor="#6470B4" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_47_1749"
@@ -52,9 +52,9 @@ const SvgEnsLogo = (props: SVGProps<SVGSVGElement>) => (
         y2="9.24361"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.58" stop-color="#A0A8D4" />
-        <stop offset="0.73" stop-color="#8791C7" />
-        <stop offset="0.91" stop-color="#6470B4" />
+        <stop offset="0.58" stopColor="#A0A8D4" />
+        <stop offset="0.73" stopColor="#8791C7" />
+        <stop offset="0.91" stopColor="#6470B4" />
       </linearGradient>
       <clipPath id="clip0_47_1749">
         <rect width="11.6823" height="13" fill="white" transform="translate(2 1.5)" />

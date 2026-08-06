@@ -1,13 +1,10 @@
 import BigNumber from 'bignumber.js';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
-import { vaults } from '__mocks__/models/vaults';
+import { pendleVault } from '__mocks__/models/vaults';
 import type { GetPendleSwapQuoteOutput } from 'clients/api';
 import { en, t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { PendleVault } from 'types';
-import { VaultCategory, VaultStatus, VaultType, VaultVenue } from 'types';
 import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
@@ -16,22 +13,7 @@ import {
 } from 'utilities';
 import { Footer, type FooterProps } from '..';
 
-const baseVault: PendleVault = {
-  ...vaults[0],
-  category: VaultCategory.YIELD_TOKENS,
-  vaultType: VaultType.Pendle,
-  venue: VaultVenue.Pendle,
-  venueIconSrc: 'logoMobile',
-  status: VaultStatus.Active,
-  key: 'pendle-VAI-XVS-2026-06-25',
-  stakeAprPercentage: 3.39809766,
-  vaultAddress: '0x2222222222222222222222222222222222222222',
-  maturityDate: new Date('2026-06-25T00:00:00.000Z'),
-  liquidityCents: new BigNumber('742673002'),
-  asset: assetData[0],
-  poolComptrollerContractAddress: '0x1111111111111111111111111111111111111111',
-  poolName: 'Core Pool',
-};
+const baseVault = pendleVault;
 
 const baseProps: FooterProps = {
   vault: baseVault,

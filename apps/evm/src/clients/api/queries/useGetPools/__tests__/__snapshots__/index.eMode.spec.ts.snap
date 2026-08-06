@@ -2063,7 +2063,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
       "isIsolated": false,
       "name": "Core Pool",
       "userBorrowBalanceCents": "19999299932759.6580216",
-      "userBorrowBalanceProtectedCents": "19999299932659.6580216",
+      "userBorrowBalanceProtectedCents": "19999299932759.6580216",
       "userBorrowLimitCents": "321988798486640.8408083",
       "userBorrowLimitProtectedCents": "321988798486640.8408083",
       "userEModeGroup": {
@@ -3486,7 +3486,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
       "isIsolated": false,
       "name": "Core Pool",
       "userBorrowBalanceCents": "19999299932759.6580216",
-      "userBorrowBalanceProtectedCents": "19999299932659.6580216",
+      "userBorrowBalanceProtectedCents": "19999299932759.6580216",
       "userBorrowLimitCents": "0",
       "userBorrowLimitProtectedCents": "0",
       "userEModeGroup": {
@@ -4908,7 +4908,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
       "isIsolated": false,
       "name": "Core Pool",
       "userBorrowBalanceCents": "19999299932759.6580216",
-      "userBorrowBalanceProtectedCents": "19999299932659.6580216",
+      "userBorrowBalanceProtectedCents": "19999299932759.6580216",
       "userBorrowLimitCents": "321988798902158.7477772",
       "userBorrowLimitProtectedCents": "321988798902158.7477772",
       "userEModeGroup": {

@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import type { MarketHistoryPeriodType } from 'clients/api';
 import { AssetApy, MarketHistoryCard, type MarketHistoryCardPeriodOption } from 'components';
 import { useGetMarketChartData } from 'hooks/useGetMarketChartData';
@@ -48,8 +49,13 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({ asset }) => {
     value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
   });
 
+  const reachableBorrowCapTokens = BigNumber.min(
+    asset.borrowCapTokens,
+    asset.borrowBalanceTokens.plus(asset.cashTokens),
+  );
+
   const availableBorrowTokens = clampToZero({
-    value: asset.borrowCapTokens.minus(asset.borrowBalanceTokens),
+    value: reachableBorrowCapTokens.minus(asset.borrowBalanceTokens),
   });
 
   const supplyCapThresholdTooltip = t('market.supplyCapThreshold.tooltip', {
@@ -134,7 +140,7 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({ asset }) => {
           token: asset.vToken.underlyingToken,
           title: t('market.borrowCapThreshold.title'),
           tokenPriceCents: asset.tokenPriceCents,
-          limitTokens: asset.borrowCapTokens,
+          limitTokens: reachableBorrowCapTokens,
           valueTokens: asset.borrowBalanceTokens,
           tooltip: <span className="whitespace-pre-line">{borrowCapThresholdTooltip}</span>,
         }}

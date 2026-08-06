@@ -1,46 +1,68 @@
-import type { Meta } from '@storybook/react';
-import { State } from 'react-powerplug';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { Toggle } from '.';
 
-export default {
+const meta = {
   title: 'Components/Toggle',
   component: Toggle,
-} as Meta<typeof Toggle>;
+} satisfies Meta<typeof Toggle>;
 
-const initialState: { value: boolean } = {
-  value: false,
+export default meta;
+
+type Story = StoryObj<typeof Toggle>;
+
+export const Default: Story = {
+  args: {
+    value: false,
+  },
 };
 
-export const Default = () => (
-  <State initial={initialState}>
-    {({ state, setState }) => (
-      <Toggle onChange={e => setState({ value: e.currentTarget.checked })} value={state.value} />
-    )}
-  </State>
-);
+export const Checked: Story = {
+  args: {
+    value: true,
+  },
+};
 
-export const WithIsDark = () => (
-  <State initial={initialState}>
-    {({ state, setState }) => (
-      <Toggle
-        isDark
-        onChange={e => setState({ value: e.currentTarget.checked })}
-        value={state.value}
-      />
-    )}
-  </State>
-);
+export const WithIsDark: Story = {
+  args: {
+    isDark: true,
+    value: false,
+  },
+};
 
-export const WithTooltipAndLabel = () => (
-  <State initial={initialState}>
-    {({ state, setState }) => (
-      <Toggle
-        onChange={e => setState({ value: e.currentTarget.checked })}
-        value={state.value}
-        tooltip="Fake tooltip"
-        label="Fake label"
-      />
-    )}
-  </State>
-);
+export const WithIsDarkChecked: Story = {
+  args: {
+    isDark: true,
+    value: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    value: false,
+  },
+};
+
+export const DisabledChecked: Story = {
+  args: {
+    disabled: true,
+    value: true,
+  },
+};
+
+export const WithTooltipAndLabel: Story = {
+  args: {
+    label: 'Fake label',
+    tooltip: 'Fake tooltip',
+    value: false,
+  },
+};
+
+export const WithTooltipAndLabelChecked: Story = {
+  args: {
+    label: 'Fake label',
+    tooltip: 'Fake tooltip',
+    value: true,
+  },
+};

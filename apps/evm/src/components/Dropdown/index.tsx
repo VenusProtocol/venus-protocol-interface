@@ -21,6 +21,7 @@ export const Dropdown = ({
   menuTitle,
   menuPosition = 'left',
   triggerOnHover = false,
+  modalPortalContainer,
 }: DropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleToggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -88,16 +89,11 @@ export const Dropdown = ({
         isOpen={isDropdownOpen && !isMdOrUp}
         handleClose={handleToggleDropdown}
         backdropClassName="z-100000"
-        componentsProps={{
-          root: {
-            style: {
-              zIndex: 100001,
-            },
-          },
-        }}
+        rootClassName="z-100001"
         noHorizontalPadding
         onBlur={onBlur}
         title={menuTitle}
+        portalContainer={modalPortalContainer}
       >
         {optionsDom({ setIsDropdownOpen, optionClassName })}
       </Modal>

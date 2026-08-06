@@ -14,7 +14,6 @@ import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
 import type { Asset, EModeGroup } from 'types';
 import pauseIconSrc from './pause.svg';
-import { useStyles } from './styles';
 import type { ColumnKey } from './types';
 import { useColumns } from './useColumns';
 import { useControls } from './useControls';
@@ -63,7 +62,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   className,
   ...otherTableProps
 }) => {
-  const styles = useStyles();
   const { t } = useTranslation();
 
   const [selectedAsset, setSelectedAsset] = useState<Asset>();
@@ -148,7 +146,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         getRowHref={getRowHref}
         columns={columns}
         data={filteredAssets}
-        css={styles.cardContentGrid}
         className={cn(title && 'pt-4 sm:pt-4', className)}
         title={title}
         rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}

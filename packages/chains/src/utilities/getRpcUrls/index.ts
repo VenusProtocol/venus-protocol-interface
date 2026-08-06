@@ -32,9 +32,7 @@ export const getRpcUrls = ({
       `https://open-platform.nodereal.io/${nodeRealApiKey}/arbitrum-nitro`,
       `https://arb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
     ],
-    [ChainId.ARBITRUM_SEPOLIA]: [
-      'https://rpc.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da',
-    ],
+    [ChainId.ARBITRUM_SEPOLIA]: [`https://arb-sepolia.g.alchemy.com/v2/${alchemyApiKey}`],
     [ChainId.ZKSYNC_MAINNET]: [
       `https://open-platform.nodereal.io/${nodeRealApiKey}/zksync`,
       `https://zksync-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,

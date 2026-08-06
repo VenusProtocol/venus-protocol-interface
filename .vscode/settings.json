@@ -20,7 +20,7 @@
     "editor.defaultFormatter": "vscode.css-language-features"
   },
   "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome"

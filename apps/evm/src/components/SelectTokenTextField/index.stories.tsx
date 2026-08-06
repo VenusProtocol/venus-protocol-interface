@@ -30,10 +30,17 @@ const tokenBalances: TokenBalance[] = [
   },
 ];
 
+const testId = 'select-token-text-field';
+
 const initialData: { value: string; token: Token } = {
   value: '',
   token: tokenBalances[0].token,
 };
+
+const moreTokenBalances: TokenBalance[] = chainTokens.slice(0, 6).map((token, index) => ({
+  token,
+  balanceMantissa: new BigNumber(`${index + 1}000000000000`),
+}));
 
 export const Default = () => (
   <State initial={initialData}>
@@ -44,6 +51,7 @@ export const Default = () => (
         onChange={value => setState({ value })}
         onChangeSelectedToken={token => setState({ token })}
         tokenBalances={tokenBalances}
+        data-testid={testId}
       />
     )}
   </State>
@@ -57,5 +65,42 @@ export const Disabled = () => (
     onChangeSelectedToken={noop}
     tokenBalances={tokenBalances}
     disabled
+    data-testid={testId}
+  />
+);
+
+export const SingleToken = () => (
+  <SelectTokenTextField
+    selectedToken={tokenBalances[0].token}
+    value="42"
+    onChange={noop}
+    onChangeSelectedToken={noop}
+    tokenBalances={[tokenBalances[0]]}
+    data-testid={testId}
+  />
+);
+
+export const WithMaxButtonAndDescription = () => (
+  <SelectTokenTextField
+    selectedToken={tokenBalances[1].token}
+    value="100"
+    onChange={noop}
+    onChangeSelectedToken={noop}
+    tokenBalances={tokenBalances}
+    rightMaxButton={{ label: 'MAX', onClick: noop }}
+    description="Available balance: 2,000 tokens"
+    data-testid={testId}
+  />
+);
+
+export const WithCommonTokenButtons = () => (
+  <SelectTokenTextField
+    selectedToken={moreTokenBalances[0].token}
+    value=""
+    onChange={noop}
+    onChangeSelectedToken={noop}
+    tokenBalances={moreTokenBalances}
+    displayCommonTokenButtons
+    data-testid={testId}
   />
 );

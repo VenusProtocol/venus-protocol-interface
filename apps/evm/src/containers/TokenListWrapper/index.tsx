@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material';
 import { type InputHTMLAttributes, useEffect, useMemo, useRef, useState } from 'react';
 
 import { SenaryButton, cn } from '@venusprotocol/ui';
@@ -193,14 +192,14 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                     />
 
                     {tokenBalance.balanceMantissa && (
-                      <Typography variant="small2" className="text-white">
+                      <span className="text-sm text-white">
                         {convertMantissaToTokens({
                           value: tokenBalance.balanceMantissa,
                           token: tokenBalance.token,
                           returnInReadableFormat: true,
                           addSymbol: false,
                         })}
-                      </Typography>
+                      </span>
                     )}
 
                     {!tokenBalance.balanceMantissa &&

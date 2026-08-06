@@ -1,10 +1,7 @@
-import { Typography } from '@mui/material';
-
 import { handleError } from 'libs/errors';
 
 import { PrimaryButton } from '@venusprotocol/ui';
 import { InfoIcon } from 'components/InfoIcon';
-import { useStyles } from './styles';
 
 export interface ApprovalStepsProps {
   children: React.ReactNode;
@@ -31,8 +28,6 @@ export const ApprovalSteps: React.FC<ApprovalStepsProps> = ({
   className,
   children,
 }) => {
-  const styles = useStyles();
-
   const handleApprovalAction = async () => {
     try {
       await approvalAction();
@@ -45,12 +40,10 @@ export const ApprovalSteps: React.FC<ApprovalStepsProps> = ({
     <div className={className}>
       {showApprovalSteps ? (
         <>
-          <div css={styles.buttonLabelContainer}>
-            <Typography variant="small1" component="label" css={styles.buttonLabel}>
-              {firstStepLabel}
-            </Typography>
+          <div className="mb-1 flex items-center">
+            <p className="text-sm font-semibold text-white">{firstStepLabel}</p>
 
-            {firstStepTooltip && <InfoIcon className="flex ml-2" tooltip={firstStepTooltip} />}
+            {firstStepTooltip && <InfoIcon className="ml-2 flex" tooltip={firstStepTooltip} />}
           </div>
 
           <PrimaryButton
@@ -61,10 +54,8 @@ export const ApprovalSteps: React.FC<ApprovalStepsProps> = ({
             {firstStepButtonLabel}
           </PrimaryButton>
 
-          <div css={styles.buttonLabelContainer}>
-            <Typography variant="small1" component="label" css={styles.buttonLabel}>
-              {secondStepLabel}
-            </Typography>
+          <div className="mb-1 flex items-center">
+            <p className="text-sm font-semibold text-white">{secondStepLabel}</p>
           </div>
 
           <PrimaryButton className="w-full" disabled>

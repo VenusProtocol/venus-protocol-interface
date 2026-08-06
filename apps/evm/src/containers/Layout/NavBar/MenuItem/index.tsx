@@ -112,7 +112,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
     >
       <span>{item.label}</span>
 
-      {item.isBeta && <BetaTag className="hidden max-lg:inline-block xl:inline-block" />}
+      {item.isBeta && <BetaTag className="inline-block lg:hidden xl:inline-block" />}
     </Link>
   );
 };

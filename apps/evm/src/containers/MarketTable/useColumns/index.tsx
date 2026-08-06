@@ -29,7 +29,6 @@ import {
   isAssetPaused,
   isCollateralActionDisabled,
 } from 'utilities';
-import { useStyles } from '../styles';
 import type { ColumnKey } from '../types';
 
 // Translation keys: do not remove this comment
@@ -78,7 +77,6 @@ export const useColumns = ({
   marketType?: 'supply' | 'borrow';
 }) => {
   const { t, Trans } = useTranslation();
-  const styles = useStyles();
   const { chainId: accountChainId } = useAccountChainId();
   const { chainId } = useChainId();
   const isAccountOnWrongChain = accountChainId !== chainId;
@@ -94,9 +92,7 @@ export const useColumns = ({
             InfoIcon: (
               <InfoIcon
                 tooltip={t('marketTable.columnTooltips.borrowApy')}
-                css={styles.getColumnLabelInfoIcon({
-                  hasRightMargin: column === 'labeledBorrowApy',
-                })}
+                className={cn('ml-1', column === 'labeledBorrowApy' && 'mr-1')}
               />
             ),
           }}
@@ -108,12 +104,7 @@ export const useColumns = ({
           i18nKey={`marketTable.columnKeys.${column}`}
           components={{
             InfoIcon: (
-              <InfoIcon
-                tooltip={t('marketTable.columnTooltips.supplyApy')}
-                css={styles.getColumnLabelInfoIcon({
-                  hasRightMargin: true,
-                })}
-              />
+              <InfoIcon tooltip={t('marketTable.columnTooltips.supplyApy')} className="ml-1 mr-1" />
             ),
           }}
         />
@@ -360,7 +351,7 @@ export const useColumns = ({
         if (column === 'userBorrowLimitSharePercentage') {
           return (
             <HidableUserBalance>
-              <div css={styles.userBorrowLimitSharePercentage}>
+              <div className="flex items-center justify-start sm:justify-end [&>:first-of-type]:mr-2">
                 <span className={cn(isPaused ? 'text-grey' : 'text-white')}>
                   {formatPercentageToReadableValue(asset.userBorrowLimitSharePercentage)}
                 </span>

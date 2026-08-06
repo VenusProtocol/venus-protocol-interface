@@ -1,22 +1,12 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import { BODY_PORTAL_ID } from 'constants/layout';
 import { renderComponent } from 'testUtils/render';
 
 import { Modal } from '..';
+import { MODAL_BACKDROP_TEST_ID } from '../testIds';
 
 describe('components/Modal', () => {
-  beforeEach(() => {
-    const backdropPortal = document.createElement('div');
-    backdropPortal.id = BODY_PORTAL_ID;
-    document.body.appendChild(backdropPortal);
-  });
-
-  afterEach(() => {
-    document.getElementById(BODY_PORTAL_ID)?.remove();
-  });
-
-  it('renders the body backdrop into the shared portal and closes when the backdrop is clicked', () => {
+  it('renders a dialog with a backdrop and closes when the backdrop is clicked', () => {
     const handleCloseMock = vi.fn();
 
     renderComponent(
@@ -25,24 +15,50 @@ describe('components/Modal', () => {
       </Modal>,
     );
 
-    const backdropPortal = document.getElementById(BODY_PORTAL_ID);
-    expect(backdropPortal).not.toBeNull();
-
-    const backdrop = backdropPortal!.firstElementChild;
+    const backdrop = screen.getByTestId(MODAL_BACKDROP_TEST_ID);
+    const dialog = screen.getByRole('dialog', { name: 'Modal title' });
     const modalContent = screen.getByText('Modal content');
-    const modalRoot = modalContent.closest('[role="presentation"]');
-    const dialog = modalContent.parentElement;
+    const closeButton = screen.getByRole('button', { name: 'Close' });
 
     expect(backdrop).toBeInstanceOf(HTMLDivElement);
-    expect(backdropPortal!.childElementCount).toBe(1);
-    expect(backdropPortal).toContainElement(backdrop as HTMLDivElement);
-    expect(modalContent).toBeInTheDocument();
-    expect(modalRoot).toContainElement(dialog);
-    expect(backdropPortal).not.toContainElement(modalContent);
     expect(dialog).toBeInstanceOf(HTMLDivElement);
+    expect(dialog).toHaveAttribute('aria-modal', 'true');
+    expect(dialog).toContainElement(modalContent);
+    expect(modalContent).toBeInTheDocument();
 
-    fireEvent.click(backdrop!);
+    fireEvent.click(backdrop);
+    fireEvent.click(closeButton);
 
-    expect(handleCloseMock).toHaveBeenCalledTimes(1);
+    expect(handleCloseMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('unmounts children when closed', () => {
+    const { rerender } = renderComponent(
+      <Modal isOpen title="Modal title">
+        <input aria-label="Delegate address" defaultValue="" />
+      </Modal>,
+    );
+
+    fireEvent.change(screen.getByLabelText('Delegate address'), {
+      target: { value: '0x123' },
+    });
+
+    expect(screen.getByLabelText('Delegate address')).toHaveValue('0x123');
+
+    rerender(
+      <Modal isOpen={false} title="Modal title">
+        <input aria-label="Delegate address" defaultValue="" />
+      </Modal>,
+    );
+
+    expect(screen.queryByLabelText('Delegate address')).not.toBeInTheDocument();
+
+    rerender(
+      <Modal isOpen title="Modal title">
+        <input aria-label="Delegate address" defaultValue="" />
+      </Modal>,
+    );
+
+    expect(screen.getByLabelText('Delegate address')).toHaveValue('');
   });
 });

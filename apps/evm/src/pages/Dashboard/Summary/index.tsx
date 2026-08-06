@@ -69,7 +69,7 @@ export const Summary: React.FC<SummaryProps> = ({
     });
   }
 
-  if (totalVaiBorrowBalanceCents) {
+  if (totalVaiBorrowBalanceCents?.gt(0)) {
     cells.push({
       label: t('account.summary.cellGroup.mintedVai'),
       value: formatCentsToReadableValue({ value: totalVaiBorrowBalanceCents }),

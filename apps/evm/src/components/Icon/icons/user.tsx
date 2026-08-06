@@ -12,7 +12,7 @@ const SvgUser = (props: SVGProps<SVGSVGElement>) => (
     <path
       d="M2 12C2 10.3431 3.34315 9 5 9H9C10.6569 9 12 10.3431 12 12C12 12.5523 11.5523 13 11 13H3C2.44772 13 2 12.5523 2 12Z"
       stroke="currentColor"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
 
     <ellipse cx="7" cy="5" rx="2" ry="2" stroke="currentColor" />

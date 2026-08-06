@@ -21,6 +21,12 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       size = 'medium',
       variant,
       disabled = false,
+      modalPortalContainer,
+      label,
+      placeLabelToLeft,
+      menuTitle,
+      menuPosition,
+      triggerOnHover,
       ...otherProps
     }: SelectProps,
     ref: React.Ref<HTMLInputElement>,
@@ -109,7 +115,18 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
     );
 
     return (
-      <Dropdown className={className} optionsDom={optionsDom} size={size} {...otherProps}>
+      <Dropdown
+        className={className}
+        modalPortalContainer={modalPortalContainer}
+        optionsDom={optionsDom}
+        size={size}
+        label={label}
+        placeLabelToLeft={placeLabelToLeft}
+        menuTitle={menuTitle}
+        menuPosition={menuPosition}
+        triggerOnHover={triggerOnHover}
+        {...otherProps}
+      >
         {({ isDropdownOpen, handleToggleDropdown }) => (
           <Button
             onClick={handleToggleDropdown}

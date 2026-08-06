@@ -9,14 +9,14 @@ const SvgMatrixdock = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_3292_40133)">
+    <g clipPath="url(#clip0_3292_40133)">
       <path
         d="M7.06875 2.33332L4.92786 1.21255L7.09687 0L9.26583 1.21253L7.06875 2.33332Z"
         fill="white"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M0 4.00004L4.50004 1.47552L7.06632 2.81898L9.73235 1.45898L14.2649 4.00004V12L7.1301 16L0 12V4.00004ZM7.1301 5.62322L9.74415 4.12082L11.9319 5.31405V10.2367L9.74415 11.4396V6.48795L7.12541 8.00006L4.51604 6.48795V11.4445L2.32829 10.2416V5.31888L4.51604 4.12082L7.1301 5.62322Z"
         fill="white"
       />
