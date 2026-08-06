@@ -1,39 +1,44 @@
 import { Button, cn } from '@venusprotocol/ui';
 
-import { Dropdown, Icon } from 'components';
-import { useTranslation } from 'libs/translations';
-import type { MarketCategory } from 'types';
+import { Dropdown } from '../Dropdown';
+import { Icon } from '../Icon';
 
-export interface CategoryDropdownProps {
-  categories: MarketCategory[];
-  selectedTags: string[];
-  onChange: (selectedTags: string[]) => void;
+export interface MultiSelectOption {
+  value: string;
+  label: React.ReactNode;
+}
+
+export interface MultiSelectProps {
+  options: MultiSelectOption[];
+  value: string[];
+  onChange: (value: string[]) => void;
+  placeholder: React.ReactNode;
+  renderCount: (count: number) => React.ReactNode;
+  title: React.ReactNode;
+  resetLabel: React.ReactNode;
   className?: string;
 }
 
-export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
-  categories,
-  selectedTags,
+export const MultiSelect: React.FC<MultiSelectProps> = ({
+  options,
+  value,
   onChange,
+  placeholder,
+  renderCount,
+  title,
+  resetLabel,
   className,
 }) => {
-  const { t } = useTranslation();
-
-  const sortedCategories = [...categories].sort((a, b) => a.order - b.order);
-
-  const toggleTag = (tag: string) =>
+  const toggle = (optionValue: string) =>
     onChange(
-      selectedTags.includes(tag)
-        ? selectedTags.filter(selectedTag => selectedTag !== tag)
-        : [...selectedTags, tag],
+      value.includes(optionValue) ? value.filter(v => v !== optionValue) : [...value, optionValue],
     );
 
-  let triggerLabel = t('controls.categoryFilter.allCategories');
-  if (selectedTags.length === 1) {
-    triggerLabel =
-      sortedCategories.find(category => category.tag === selectedTags[0])?.label ?? triggerLabel;
-  } else if (selectedTags.length > 1) {
-    triggerLabel = t('controls.categoryFilter.nCategories', { count: selectedTags.length });
+  let triggerLabel = placeholder;
+  if (value.length === 1) {
+    triggerLabel = options.find(option => option.value === value[0])?.label ?? placeholder;
+  } else if (value.length > 1) {
+    triggerLabel = renderCount(value.length);
   }
 
   return (
@@ -44,29 +49,29 @@ export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
       optionsDom={() => (
         <div className="min-w-full">
           <div className="flex h-12 items-center justify-between px-4 py-3">
-            <span className="text-b1r text-white">{t('controls.categoryFilter.title')}</span>
+            <span className="text-b1r text-white">{title}</span>
 
             <button
               type="button"
               onClick={() => onChange([])}
-              disabled={selectedTags.length === 0}
+              disabled={value.length === 0}
               className="text-blue text-b1r cursor-pointer underline disabled:cursor-default disabled:opacity-50"
             >
-              {t('controls.categoryFilter.reset')}
+              {resetLabel}
             </button>
           </div>
 
-          {sortedCategories.map(category => (
+          {options.map(option => (
             <button
-              key={category.tag}
+              key={option.value}
               type="button"
-              onClick={() => toggleTag(category.tag)}
+              onClick={() => toggle(option.value)}
               className="hover:bg-background-hover active:bg-background-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
             >
-              <span className="text-b1r whitespace-nowrap text-white">{category.label}</span>
+              <span className="text-b1r whitespace-nowrap text-white">{option.label}</span>
 
               <Icon
-                name={selectedTags.includes(category.tag) ? 'checked' : 'checkboxBorder'}
+                name={value.includes(option.value) ? 'checked' : 'checkboxBorder'}
                 className="size-5 shrink-0"
               />
             </button>
@@ -81,7 +86,7 @@ export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
           className={cn(
             'border-dark-blue-hover hover:border-light-grey active:bg-dark-blue relative h-12 w-full rounded-lg bg-transparent px-4 hover:bg-transparent',
             isDropdownOpen && 'bg-dark-blue-active border-blue',
-            selectedTags.length > 0 && 'border-blue',
+            value.length > 0 && 'border-blue',
           )}
         >
           <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
