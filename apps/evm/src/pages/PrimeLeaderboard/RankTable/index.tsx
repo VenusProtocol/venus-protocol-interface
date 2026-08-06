@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { type PrimeLeaderboardEntry, useGetPrimeLeaderboard } from 'clients/api';
 import { InfoIcon, type Order, type TableColumn, Username } from 'components';
@@ -46,70 +46,67 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
   });
   const entries = data?.entries ?? [];
 
-  const columns: TableColumn<PrimeLeaderboardEntry>[] = useMemo(
-    () => [
-      {
-        key: 'wallet',
-        label: (
-          <span className="inline-flex items-center gap-x-2">
-            {t('primeLeaderboard.rankTable.columns.wallet')}
-            <InfoIcon
-              tooltip={
-                <Trans
-                  i18nKey="primeLeaderboard.rankTable.walletTooltip"
-                  components={{
-                    BscScan: (
-                      // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
-                      <a
-                        href={rankVerificationUrl}
-                        className="text-blue underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      />
-                    ),
-                  }}
-                />
-              }
-            />
-          </span>
-        ),
-        selectOptionLabel: t('primeLeaderboard.rankTable.columns.wallet'),
-        renderCell: ({ rank, userAddress }) => (
-          <div className="flex items-center gap-x-2">
-            {rank <= 3 && <RankBadge rank={rank} />}
+  const columns: TableColumn<PrimeLeaderboardEntry>[] = [
+    {
+      key: 'wallet',
+      label: (
+        <span className="inline-flex items-center gap-x-2">
+          {t('primeLeaderboard.rankTable.columns.wallet')}
+          <InfoIcon
+            tooltip={
+              <Trans
+                i18nKey="primeLeaderboard.rankTable.walletTooltip"
+                components={{
+                  BscScan: (
+                    // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
+                    <a
+                      href={rankVerificationUrl}
+                      className="text-blue underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    />
+                  ),
+                }}
+              />
+            }
+          />
+        </span>
+      ),
+      selectOptionLabel: t('primeLeaderboard.rankTable.columns.wallet'),
+      renderCell: ({ rank, userAddress }) => (
+        <div className="flex items-center gap-x-2">
+          {rank <= 3 && <RankBadge rank={rank} />}
 
-            <span className="text-b1r text-white">#{rank}</span>
+          <span className="text-b1r text-white">#{rank}</span>
 
-            <Username address={userAddress} className="text-b1r text-light-grey" />
+          <Username address={userAddress} className="text-b1r text-light-grey" />
 
-            {accountAddress && areAddressesEqual(userAddress, accountAddress) && (
-              <span className="size-2 shrink-0 rounded-full bg-blue" />
-            )}
-          </div>
-        ),
-      },
-      {
-        key: 'primeScore',
-        label: t('primeLeaderboard.rankTable.columns.primeScore'),
-        selectOptionLabel: t('primeLeaderboard.rankTable.columns.primeScore'),
-        align: 'right',
-        sortable: true,
-        renderCell: ({ effectiveStakeMantissa }) => (
-          <span className="text-b1r text-white">
-            {shortenValueWithSuffix({
-              value:
-                convertMantissaToTokens({
-                  value: new BigNumber(effectiveStakeMantissa),
-                  token: xvs,
-                }) ?? new BigNumber(0),
-              maxDecimalPlaces: 2,
-            })}
-          </span>
-        ),
-      },
-    ],
-    [t, Trans, xvs, accountAddress, rankVerificationUrl],
-  );
+          {accountAddress && areAddressesEqual(userAddress, accountAddress) && (
+            <span className="size-2 shrink-0 rounded-full bg-blue" />
+          )}
+        </div>
+      ),
+    },
+    {
+      key: 'primeScore',
+      label: t('primeLeaderboard.rankTable.columns.primeScore'),
+      selectOptionLabel: t('primeLeaderboard.rankTable.columns.primeScore'),
+      align: 'right',
+      sortable: true,
+      renderCell: ({ effectiveStakeMantissa }) => (
+        <span className="text-b1r text-white">
+          {shortenValueWithSuffix({
+            value:
+              convertMantissaToTokens({
+                value: new BigNumber(effectiveStakeMantissa),
+                token: xvs,
+              }) ?? new BigNumber(0),
+            maxDecimalPlaces: 2,
+          })}
+        </span>
+      ),
+    },
+  ];
 
   const orderBy = columns.find(column => column.key === 'primeScore');
   const tableOrder = orderBy && { orderBy, orderDirection: order };

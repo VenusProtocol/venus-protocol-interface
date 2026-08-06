@@ -1,5 +1,4 @@
 import { useFormikContext } from 'formik';
-import { useCallback } from 'react';
 import { Route, Routes } from 'react-router';
 
 import { PrimaryButton } from 'components';
@@ -99,32 +98,18 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
   const formikContext = useFormikContext<FormValues>();
   const { errors } = formikContext;
 
-  const getErrorsByStep = useCallback(
-    (step: ProposalWizardSteps) => {
-      switch (step) {
-        case 'proposal-info':
-          return !!(errors.title || errors.description);
-        case 'proposal-descriptions':
-          return !!(
-            errors.forDescription ||
-            errors.abstainDescription ||
-            errors.againstDescription
-          );
-        case 'proposal-actions':
-          return !!errors.actions;
-        default:
-          return true;
-      }
-    },
-    [
-      errors.forDescription,
-      errors.abstainDescription,
-      errors.againstDescription,
-      errors.title,
-      errors.description,
-      errors.actions,
-    ],
-  );
+  const getErrorsByStep = (step: ProposalWizardSteps) => {
+    switch (step) {
+      case 'proposal-info':
+        return !!(errors.title || errors.description);
+      case 'proposal-descriptions':
+        return !!(errors.forDescription || errors.abstainDescription || errors.againstDescription);
+      case 'proposal-actions':
+        return !!errors.actions;
+      default:
+        return true;
+    }
+  };
 
   const buttonText =
     currentStep === 'proposal-preview'

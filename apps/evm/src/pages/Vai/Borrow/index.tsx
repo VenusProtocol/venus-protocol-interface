@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Controller, type SubmitHandler, useFormState, useWatch } from 'react-hook-form';
 
 import {
@@ -25,7 +25,6 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import {
-  convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
@@ -33,10 +32,7 @@ import {
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
-import {
-  HEALTH_FACTOR_MODERATE_THRESHOLD,
-  HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
-} from 'constants/healthFactor';
+import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { AccountPoolDailyEarnings } from 'containers/AccountPoolDailyEarnings';
 import { AccountPoolHealth } from 'containers/AccountPoolHealth';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
@@ -44,6 +40,7 @@ import { useChain } from 'hooks/useChain';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import type { BalanceMutation } from 'types';
+import { getLimitTokens } from './getLimitTokens';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
 import { useForm } from './useForm';
@@ -89,44 +86,7 @@ export const Borrow: React.FC = () => {
     },
   );
 
-  const [limitTokens, safeLimitTokens] = useMemo(() => {
-    // Return 0 values while asset is loading or if borrow limit has been reached
-    if (
-      !legacyPool?.vai?.tokenPriceCents ||
-      !legacyPool ||
-      legacyPool.userBorrowBalanceCents === undefined ||
-      !legacyPool.userBorrowLimitCents ||
-      legacyPool.userBorrowBalanceCents.isGreaterThanOrEqualTo(legacyPool.userBorrowLimitCents)
-    ) {
-      return [new BigNumber(0), new BigNumber(0)];
-    }
-
-    let marginWithUserSafeBorrowLimitTokens = legacyPool.userBorrowLimitCents
-      .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)
-      .minus(legacyPool.userBorrowBalanceCents)
-      // Convert to tokens
-      .dividedBy(legacyPool.vai.tokenPriceCents);
-
-    if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
-      marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
-    }
-
-    const maxTokens = convertMantissaToTokens({
-      value: BigNumber.min(
-        // Mintable limit
-        mintableVaiData?.accountMintableVaiMantissa || new BigNumber(0),
-        // Liquidities limit
-        mintableVaiData?.vaiLiquidityMantissa || new BigNumber(0),
-      ),
-      token: vai,
-    });
-
-    const safeMaxTokens = BigNumber.min(maxTokens, marginWithUserSafeBorrowLimitTokens).dp(
-      vai.decimals,
-    );
-
-    return [maxTokens, safeMaxTokens];
-  }, [legacyPool?.vai?.tokenPriceCents, legacyPool, mintableVaiData, mintableVaiData, vai]);
+  const [limitTokens, safeLimitTokens] = getLimitTokens({ legacyPool, mintableVaiData, vai });
 
   const {
     form: { control, handleSubmit, setValue, reset, trigger },
@@ -156,10 +116,8 @@ export const Borrow: React.FC = () => {
   });
   const simulatedPool = getSimulatedPoolData?.pool;
 
-  const feeTokens = useMemo(
-    () => feePercentage && debouncedInputAmountTokens.multipliedBy(feePercentage).dividedBy(100),
-    [feePercentage, debouncedInputAmountTokens],
-  );
+  const feeTokens =
+    feePercentage && debouncedInputAmountTokens.multipliedBy(feePercentage).dividedBy(100);
 
   const readableFee = useMemo(() => {
     if (!feePercentage || !feeTokens) {
@@ -205,24 +163,21 @@ export const Borrow: React.FC = () => {
     }
   }, [accountAddress, setValue]);
 
-  const onSubmit: SubmitHandler<FormValues> = useCallback(
-    async ({ amountTokens }) => {
-      const amountMantissa = convertTokensToMantissa({
-        value: new BigNumber(amountTokens),
-        token: vai,
-      });
+  const onSubmit: SubmitHandler<FormValues> = async ({ amountTokens }) => {
+    const amountMantissa = convertTokensToMantissa({
+      value: new BigNumber(amountTokens),
+      token: vai,
+    });
 
-      try {
-        await mintVai({ amountMantissa });
+    try {
+      await mintVai({ amountMantissa });
 
-        // Reset form on successful submission
-        reset();
-      } catch (error) {
-        handleError({ error });
-      }
-    },
-    [mintVai, reset, vai],
-  );
+      // Reset form on successful submission
+      reset();
+    } catch (error) {
+      handleError({ error });
+    }
+  };
 
   const isInitialLoading = isGetMintableVaiLoading || isGetIsUserPrimeLoading;
 

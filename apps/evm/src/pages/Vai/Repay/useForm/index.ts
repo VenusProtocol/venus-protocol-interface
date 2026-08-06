@@ -25,12 +25,9 @@ export const useForm = ({
     symbol: 'VAI',
   })!;
 
-  const userVaiWalletBalanceTokens = useMemo(
-    () =>
-      userVaiWalletBalanceMantissa &&
-      convertMantissaToTokens({ value: userVaiWalletBalanceMantissa, token: vai }),
-    [userVaiWalletBalanceMantissa, vai],
-  );
+  const userVaiWalletBalanceTokens =
+    userVaiWalletBalanceMantissa &&
+    convertMantissaToTokens({ value: userVaiWalletBalanceMantissa, token: vai });
 
   const limitTokens = useMemo(() => {
     if (!userVaiWalletBalanceTokens || !userVaiBorrowBalanceTokens) {

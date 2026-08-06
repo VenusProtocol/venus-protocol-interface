@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { type Claim, useClaimRewards } from 'clients/api';
 import { type ButtonProps, Icon, Modal } from 'components';
@@ -75,24 +75,17 @@ export const ClaimRewardsButton: React.FC<ClaimRewardsButtonProps> = ({ ...other
   const { t } = useTranslation();
   const isMdOrUp = useBreakpointUp('md');
 
-  const allRewardGroups = useMemo(
-    () => [...internalRewardsGroups, ...externalRewardsGroups],
-    [internalRewardsGroups, externalRewardsGroups],
-  );
+  const allRewardGroups = [...internalRewardsGroups, ...externalRewardsGroups];
 
-  const totalRewardsCents = useMemo(
-    () =>
-      allRewardGroups.reduce<BigNumber>(
-        (groupsAcc, g) =>
-          groupsAcc.plus(
-            g.pendingRewards.reduce<BigNumber>(
-              (acc, r) => acc.plus(r.rewardAmountCents || new BigNumber(0)),
-              new BigNumber(0),
-            ),
-          ),
-        new BigNumber(0),
+  const totalRewardsCents = allRewardGroups.reduce<BigNumber>(
+    (groupsAcc, g) =>
+      groupsAcc.plus(
+        g.pendingRewards.reduce<BigNumber>(
+          (acc, r) => acc.plus(r.rewardAmountCents || new BigNumber(0)),
+          new BigNumber(0),
+        ),
       ),
-    [allRewardGroups],
+    new BigNumber(0),
   );
 
   if (!allRewardGroups.length) {

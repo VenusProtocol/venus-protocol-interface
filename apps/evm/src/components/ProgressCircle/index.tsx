@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useTheme } from '@mui/material';
 import { cn } from '@venusprotocol/ui';
 
@@ -22,17 +20,10 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
 }) => {
   const theme = useTheme();
 
-  const { circumference, offset } = useMemo(() => {
-    const safeValue = value > 100 ? 100 : value;
-    const radius = sizePx / 2 - strokeWidthPx / 2;
-    const tmpCircumference = 2 * Math.PI * radius;
-    const tmpOffset = tmpCircumference * ((100 - safeValue) / 100);
-
-    return {
-      circumference: tmpCircumference,
-      offset: tmpOffset,
-    };
-  }, [value, sizePx, strokeWidthPx]);
+  const safeValue = value > 100 ? 100 : value;
+  const radius = sizePx / 2 - strokeWidthPx / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * ((100 - safeValue) / 100);
 
   return (
     <svg

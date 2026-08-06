@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { cn } from '@venusprotocol/ui';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import {
@@ -28,44 +26,35 @@ export interface SwapDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
 export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, className, ...otherProps }) => {
   const { t } = useTranslation();
 
-  const readableFromTokenAmountSold = useMemo(
-    () =>
-      swap &&
-      convertMantissaToTokens({
-        value:
-          swap.direction === 'exactAmountIn'
-            ? swap.fromTokenAmountSoldMantissa
-            : swap.maximumFromTokenAmountSoldMantissa,
-        token: swap.fromToken,
-        returnInReadableFormat: true,
-      }),
-    [swap],
-  );
+  const readableFromTokenAmountSold =
+    swap &&
+    convertMantissaToTokens({
+      value:
+        swap.direction === 'exactAmountIn'
+          ? swap.fromTokenAmountSoldMantissa
+          : swap.maximumFromTokenAmountSoldMantissa,
+      token: swap.fromToken,
+      returnInReadableFormat: true,
+    });
 
-  const readableToTokenAmountReceived = useMemo(
-    () =>
-      swap &&
-      convertMantissaToTokens({
-        value:
-          swap.direction === 'exactAmountIn'
-            ? swap.expectedToTokenAmountReceivedMantissa
-            : swap.toTokenAmountReceivedMantissa,
-        token: swap.toToken,
-        returnInReadableFormat: true,
-      }),
-    [swap],
-  );
+  const readableToTokenAmountReceived =
+    swap &&
+    convertMantissaToTokens({
+      value:
+        swap.direction === 'exactAmountIn'
+          ? swap.expectedToTokenAmountReceivedMantissa
+          : swap.toTokenAmountReceivedMantissa,
+      token: swap.toToken,
+      returnInReadableFormat: true,
+    });
 
-  const readableExchangeRate = useMemo(
-    () =>
-      swap &&
-      formatTokensToReadableValue({
-        value: swap.exchangeRate,
-        token: swap.toToken,
-        addSymbol: false,
-      }),
-    [swap],
-  );
+  const readableExchangeRate =
+    swap &&
+    formatTokensToReadableValue({
+      value: swap.exchangeRate,
+      token: swap.toToken,
+      addSymbol: false,
+    });
 
   const getLastLineLabel = () => {
     if (!swap) {
@@ -90,10 +79,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, className, ...ot
     });
   };
 
-  const readablePriceImpact = useMemo(
-    () => swap && formatPercentageToReadableValue(swap.priceImpactPercentage),
-    [swap],
-  );
+  const readablePriceImpact = swap && formatPercentageToReadableValue(swap.priceImpactPercentage);
 
   return (
     <div className={cn('space-y-2', className)} {...otherProps}>

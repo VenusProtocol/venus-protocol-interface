@@ -1,6 +1,5 @@
 import { Token as PSToken } from '@pancakeswap/sdk';
 import { flatMap } from 'lodash-es';
-import { useMemo } from 'react';
 
 import { useGetSwapTokens, useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
@@ -29,87 +28,79 @@ const useGetTokenCombinations = ({
     symbol: 'WBNB',
   });
 
-  const baseTradeTokens = useMemo(
-    () =>
-      baseTradeTokenSymbols.has(chainId)
-        ? swapTokens.filter(token =>
-            (baseTradeTokenSymbols.get(chainId) || []).includes(token.symbol),
-          )
-        : [],
-    [swapTokens, chainId],
+  const baseTradeTokens = baseTradeTokenSymbols.has(chainId)
+    ? swapTokens.filter(token => (baseTradeTokenSymbols.get(chainId) || []).includes(token.symbol))
+    : [];
+
+  if (!wbnb) {
+    return [];
+  }
+
+  const wrappedFromToken = wrapToken({ token: fromToken, wbnb });
+  const wrappedToToken = wrapToken({ token: toToken, wbnb });
+
+  const psFromToken = new PSToken(
+    chainId,
+    wrappedFromToken.address,
+    wrappedFromToken.decimals,
+    wrappedFromToken.symbol,
   );
 
-  return useMemo(() => {
-    if (!wbnb) {
-      return [];
-    }
+  const psToToken = new PSToken(
+    chainId,
+    wrappedToToken.address,
+    wrappedToToken.decimals,
+    wrappedToToken.symbol,
+  );
 
-    const wrappedFromToken = wrapToken({ token: fromToken, wbnb });
-    const wrappedToToken = wrapToken({ token: toToken, wbnb });
+  // Convert tokens to PancakeSwap token instances
+  const psBaseTradeTokens = [
+    ...baseTradeTokens.map(
+      token => new PSToken(chainId, token.address, token.decimals, token.symbol),
+    ),
+    // Add input tokens
+    psFromToken,
+    psToToken,
+  ];
 
-    const psFromToken = new PSToken(
-      chainId,
-      wrappedFromToken.address,
-      wrappedFromToken.decimals,
-      wrappedFromToken.symbol,
+  const baseCombinations: PSTokenCombination[] = flatMap(
+    psBaseTradeTokens,
+    (base): PSTokenCombination[] => psBaseTradeTokens.map(otherBase => [base, otherBase]),
+  );
+
+  const allCombinations = [
+    // The direct combination
+    [psFromToken, psToToken],
+    // fromToken against all bases
+    ...psBaseTradeTokens.map((token): PSTokenCombination => [psFromToken, token]),
+    // toToken against all bases
+    ...psBaseTradeTokens.map((token): PSTokenCombination => [psToToken, token]),
+    // Each base against all bases
+    ...baseCombinations,
+  ]
+    // Remove invalid combinations
+    .filter((tokens): tokens is PSTokenCombination => Boolean(tokens[0] && tokens[1]))
+    .filter(([t0, t1]) => t0.address !== t1.address)
+    // Remove duplicates
+    .reduce(
+      (acc, unfilteredCombination) =>
+        acc.find(
+          combination =>
+            (combination[0].address.toLowerCase() ===
+              unfilteredCombination[0].address.toLowerCase() &&
+              combination[1].address.toLowerCase() ===
+                unfilteredCombination[1].address.toLowerCase()) ||
+            (combination[0].address.toLowerCase() ===
+              unfilteredCombination[1].address.toLowerCase() &&
+              combination[1].address.toLowerCase() ===
+                unfilteredCombination[0].address.toLowerCase()),
+        )
+          ? acc
+          : [...acc, unfilteredCombination],
+      [] as PSTokenCombination[],
     );
 
-    const psToToken = new PSToken(
-      chainId,
-      wrappedToToken.address,
-      wrappedToToken.decimals,
-      wrappedToToken.symbol,
-    );
-
-    // Convert tokens to PancakeSwap token instances
-    const psBaseTradeTokens = [
-      ...baseTradeTokens.map(
-        token => new PSToken(chainId, token.address, token.decimals, token.symbol),
-      ),
-      // Add input tokens
-      psFromToken,
-      psToToken,
-    ];
-
-    const baseCombinations: PSTokenCombination[] = flatMap(
-      psBaseTradeTokens,
-      (base): PSTokenCombination[] => psBaseTradeTokens.map(otherBase => [base, otherBase]),
-    );
-
-    const allCombinations = [
-      // The direct combination
-      [psFromToken, psToToken],
-      // fromToken against all bases
-      ...psBaseTradeTokens.map((token): PSTokenCombination => [psFromToken, token]),
-      // toToken against all bases
-      ...psBaseTradeTokens.map((token): PSTokenCombination => [psToToken, token]),
-      // Each base against all bases
-      ...baseCombinations,
-    ]
-      // Remove invalid combinations
-      .filter((tokens): tokens is PSTokenCombination => Boolean(tokens[0] && tokens[1]))
-      .filter(([t0, t1]) => t0.address !== t1.address)
-      // Remove duplicates
-      .reduce(
-        (acc, unfilteredCombination) =>
-          acc.find(
-            combination =>
-              (combination[0].address.toLowerCase() ===
-                unfilteredCombination[0].address.toLowerCase() &&
-                combination[1].address.toLowerCase() ===
-                  unfilteredCombination[1].address.toLowerCase()) ||
-              (combination[0].address.toLowerCase() ===
-                unfilteredCombination[1].address.toLowerCase() &&
-                combination[1].address.toLowerCase() ===
-                  unfilteredCombination[0].address.toLowerCase()),
-          )
-            ? acc
-            : [...acc, unfilteredCombination],
-        [] as PSTokenCombination[],
-      );
-
-    return allCombinations;
-  }, [fromToken, toToken, chainId, baseTradeTokens, wbnb]);
+  return allCombinations;
 };
 
 export default useGetTokenCombinations;

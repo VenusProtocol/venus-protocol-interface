@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { Address } from 'viem';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
@@ -47,80 +47,73 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
     order: sort.order,
   });
 
-  const rewardTokens = useMemo(
-    () =>
-      (currentCycle?.pendingPool?.byRewardToken ?? [])
-        .flatMap(({ rewardTokenAddress }) => {
-          const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
-          return token ? [token] : [];
-        })
-        .sort(compareTokensBySymbol),
-    [currentCycle, tokens],
-  );
+  const rewardTokens = (currentCycle?.pendingPool?.byRewardToken ?? [])
+    .flatMap(({ rewardTokenAddress }) => {
+      const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+      return token ? [token] : [];
+    })
+    .sort(compareTokensBySymbol);
 
-  const columns: TableColumn<PrimeRewardsLeaderboardEntry>[] = useMemo(
-    () => [
-      {
-        key: 'wallet',
-        label: t('primeLeaderboard.rewardTable.columns.wallet'),
-        selectOptionLabel: t('primeLeaderboard.rewardTable.columns.wallet'),
-        renderCell: ({ userAddress }) => (
-          <div className="flex items-center gap-x-3">
-            <span className="inline-flex rounded-lg bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)] p-px">
-              <span className="flex min-w-[130px] items-center gap-x-2 rounded-[7px] bg-background px-3 py-3">
-                <img src={primeLogoSrc} alt="" className="h-5 shrink-0" />
+  const columns: TableColumn<PrimeRewardsLeaderboardEntry>[] = [
+    {
+      key: 'wallet',
+      label: t('primeLeaderboard.rewardTable.columns.wallet'),
+      selectOptionLabel: t('primeLeaderboard.rewardTable.columns.wallet'),
+      renderCell: ({ userAddress }) => (
+        <div className="flex items-center gap-x-3">
+          <span className="inline-flex rounded-lg bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)] p-px">
+            <span className="flex min-w-[130px] items-center gap-x-2 rounded-[7px] bg-background px-3 py-3">
+              <img src={primeLogoSrc} alt="" className="h-5 shrink-0" />
 
-                <Username address={userAddress} className="text-b1s text-white" />
-              </span>
+              <Username address={userAddress} className="text-b1s text-white" />
             </span>
+          </span>
 
-            {accountAddress && areAddressesEqual(userAddress, accountAddress) && (
-              <span className="size-2 shrink-0 rounded-full bg-blue" />
-            )}
-          </div>
-        ),
-      },
-      {
-        key: 'total',
-        label: t('primeLeaderboard.rewardTable.columns.totalRewards'),
-        selectOptionLabel: t('primeLeaderboard.rewardTable.columns.totalRewards'),
-        align: 'right',
-        sortable: true,
-        renderCell: ({ totalCurrentCycleUsdMantissa }) => (
+          {accountAddress && areAddressesEqual(userAddress, accountAddress) && (
+            <span className="size-2 shrink-0 rounded-full bg-blue" />
+          )}
+        </div>
+      ),
+    },
+    {
+      key: 'total',
+      label: t('primeLeaderboard.rewardTable.columns.totalRewards'),
+      selectOptionLabel: t('primeLeaderboard.rewardTable.columns.totalRewards'),
+      align: 'right',
+      sortable: true,
+      renderCell: ({ totalCurrentCycleUsdMantissa }) => (
+        <span className="text-b1r text-white">
+          {formatCentsToReadableValue({
+            value: convertUsdMantissaToCents(totalCurrentCycleUsdMantissa).toNumber(),
+          })}
+        </span>
+      ),
+    },
+    ...rewardTokens.map<TableColumn<PrimeRewardsLeaderboardEntry>>(token => ({
+      key: token.address,
+      label: t('primeLeaderboard.rewardTable.columns.marketRewards', { symbol: token.symbol }),
+      selectOptionLabel: t('primeLeaderboard.rewardTable.columns.marketRewards', {
+        symbol: token.symbol,
+      }),
+      align: 'right',
+      sortable: true,
+      renderCell: ({ byRewardToken }) => {
+        const reward = byRewardToken.find(({ rewardTokenAddress }) =>
+          areAddressesEqual(rewardTokenAddress, token.address),
+        );
+
+        return (
           <span className="text-b1r text-white">
             {formatCentsToReadableValue({
-              value: convertUsdMantissaToCents(totalCurrentCycleUsdMantissa).toNumber(),
+              value: reward
+                ? convertUsdMantissaToCents(reward.currentCycleUsdMantissa).toNumber()
+                : 0,
             })}
           </span>
-        ),
+        );
       },
-      ...rewardTokens.map<TableColumn<PrimeRewardsLeaderboardEntry>>(token => ({
-        key: token.address,
-        label: t('primeLeaderboard.rewardTable.columns.marketRewards', { symbol: token.symbol }),
-        selectOptionLabel: t('primeLeaderboard.rewardTable.columns.marketRewards', {
-          symbol: token.symbol,
-        }),
-        align: 'right',
-        sortable: true,
-        renderCell: ({ byRewardToken }) => {
-          const reward = byRewardToken.find(({ rewardTokenAddress }) =>
-            areAddressesEqual(rewardTokenAddress, token.address),
-          );
-
-          return (
-            <span className="text-b1r text-white">
-              {formatCentsToReadableValue({
-                value: reward
-                  ? convertUsdMantissaToCents(reward.currentCycleUsdMantissa).toNumber()
-                  : 0,
-              })}
-            </span>
-          );
-        },
-      })),
-    ],
-    [t, rewardTokens, accountAddress],
-  );
+    })),
+  ];
 
   const orderBy = columns.find(column => column.key === sort.sortBy);
   const order = orderBy && { orderBy, orderDirection: sort.order };

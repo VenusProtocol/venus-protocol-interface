@@ -11,6 +11,7 @@ import {
   useGetXvsVaultUserInfo,
 } from 'clients/api';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { renderHook } from 'testUtils/render';
 import { useGetUserPrimeV1Info } from '..';
 
 const fakePrimeStatus = {
@@ -62,12 +63,14 @@ describe('useGetUserPrimeV1Info', () => {
   });
 
   it('returns data in the correct format', async () => {
-    const { isLoading, data } = useGetUserPrimeV1Info({
-      accountAddress: fakeAccountAddress,
-    });
+    const { result } = renderHook(() =>
+      useGetUserPrimeV1Info({
+        accountAddress: fakeAccountAddress,
+      }),
+    );
 
-    await waitFor(() => expect(isLoading).toBe(false));
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(data).toMatchSnapshot();
+    expect(result.current.data).toMatchSnapshot();
   });
 });

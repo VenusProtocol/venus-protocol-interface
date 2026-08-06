@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { ButtonGroup, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
@@ -14,23 +14,20 @@ export const TotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
 
   const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>('month');
 
-  const periodOptions: { label: string; value: MarketHistoryPeriodType }[] = useMemo(
-    () => [
-      {
-        label: t('market.periodOption.thirtyDays'),
-        value: 'month',
-      },
-      {
-        label: t('market.periodOption.sixMonths'),
-        value: 'halfyear',
-      },
-      {
-        label: t('market.periodOption.oneYear'),
-        value: 'year',
-      },
-    ],
-    [t],
-  );
+  const periodOptions: { label: string; value: MarketHistoryPeriodType }[] = [
+    {
+      label: t('market.periodOption.thirtyDays'),
+      value: 'month',
+    },
+    {
+      label: t('market.periodOption.sixMonths'),
+      value: 'halfyear',
+    },
+    {
+      label: t('market.periodOption.oneYear'),
+      value: 'year',
+    },
+  ];
 
   const {
     data: { supplyChartData },

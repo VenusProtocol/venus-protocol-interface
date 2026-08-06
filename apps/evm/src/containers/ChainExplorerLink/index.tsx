@@ -27,10 +27,7 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const url = useMemo(
-    () => generateExplorerUrl({ hash, urlType, chainId }),
-    [hash, urlType, chainId],
-  );
+  const url = generateExplorerUrl({ hash, urlType, chainId });
 
   const content = useMemo(() => {
     if (!text) {

@@ -1,6 +1,5 @@
 import type { QueryObserverOptions } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
 
 import type { GetHypotheticalPrimeApysOutput } from 'clients/api/queries/getHypotheticalPrimeApys';
 import { useGetHypotheticalPrimeApys } from 'clients/api/queries/getHypotheticalPrimeApys/useGetHypotheticalPrimeApys';
@@ -85,85 +84,74 @@ export const useGetPrimeEstimation = (
     },
   );
 
-  const estimation = useMemo(() => {
-    let primeEstimation: UseGetPrimeEstimationOutput = {
-      dailyTokensDistributedAmount: undefined,
-      borrowedTokens: undefined,
-      borrowApyPercentage: undefined,
-      borrowCapTokens: undefined,
-      borrowCapCents: undefined,
-      suppliedTokens: undefined,
-      supplyApyPercentage: undefined,
-      supplyCapTokens: undefined,
-      supplyCapCents: undefined,
-      userDailyPrimeRewards: undefined,
+  let estimation: UseGetPrimeEstimationOutput = {
+    dailyTokensDistributedAmount: undefined,
+    borrowedTokens: undefined,
+    borrowApyPercentage: undefined,
+    borrowCapTokens: undefined,
+    borrowCapCents: undefined,
+    suppliedTokens: undefined,
+    supplyApyPercentage: undefined,
+    supplyCapTokens: undefined,
+    supplyCapCents: undefined,
+    userDailyPrimeRewards: undefined,
+  };
+
+  if (hypotheticalPrimeApysData && primeDistributionForMarketData && vToken && xvs) {
+    const {
+      borrowApyPercentage,
+      borrowCapMantissa,
+      borrowCapCents,
+      supplyApyPercentage,
+      supplyCapMantissa,
+      supplyCapCents,
+      userPrimeRewardsShare,
+    } = hypotheticalPrimeApysData;
+
+    const borrowedTokens = convertMantissaToTokens({
+      value: borrowedAmountMantissa,
+      token: vToken.underlyingToken,
+    });
+
+    const suppliedTokens = convertMantissaToTokens({
+      value: suppliedAmountMantissa,
+      token: vToken.underlyingToken,
+    });
+
+    const borrowCapTokens = convertMantissaToTokens({
+      value: new BigNumber(borrowCapMantissa.toString()),
+      token: vToken.underlyingToken,
+    });
+
+    const supplyCapTokens = convertMantissaToTokens({
+      value: new BigNumber(supplyCapMantissa.toString()),
+      token: vToken.underlyingToken,
+    });
+
+    const primeTokensDistributedAmount = convertMantissaToTokens({
+      value: primeDistributionForMarketData.totalDistributedMantissa,
+      token: vToken.underlyingToken,
+    });
+
+    const dailyTokensDistributedAmount = primeTokensDistributedAmount.dividedBy(DAYS_PER_YEAR);
+
+    const userDailyPrimeRewards = primeTokensDistributedAmount
+      .multipliedBy(userPrimeRewardsShare)
+      .dividedBy(DAYS_PER_YEAR);
+
+    estimation = {
+      dailyTokensDistributedAmount,
+      userDailyPrimeRewards,
+      borrowedTokens,
+      borrowApyPercentage,
+      borrowCapTokens,
+      borrowCapCents,
+      suppliedTokens,
+      supplyApyPercentage,
+      supplyCapTokens,
+      supplyCapCents,
     };
-
-    if (hypotheticalPrimeApysData && primeDistributionForMarketData && vToken && xvs) {
-      const {
-        borrowApyPercentage,
-        borrowCapMantissa,
-        borrowCapCents,
-        supplyApyPercentage,
-        supplyCapMantissa,
-        supplyCapCents,
-        userPrimeRewardsShare,
-      } = hypotheticalPrimeApysData;
-
-      const borrowedTokens = convertMantissaToTokens({
-        value: borrowedAmountMantissa,
-        token: vToken.underlyingToken,
-      });
-
-      const suppliedTokens = convertMantissaToTokens({
-        value: suppliedAmountMantissa,
-        token: vToken.underlyingToken,
-      });
-
-      const borrowCapTokens = convertMantissaToTokens({
-        value: new BigNumber(borrowCapMantissa.toString()),
-        token: vToken.underlyingToken,
-      });
-
-      const supplyCapTokens = convertMantissaToTokens({
-        value: new BigNumber(supplyCapMantissa.toString()),
-        token: vToken.underlyingToken,
-      });
-
-      const primeTokensDistributedAmount = convertMantissaToTokens({
-        value: primeDistributionForMarketData.totalDistributedMantissa,
-        token: vToken.underlyingToken,
-      });
-
-      const dailyTokensDistributedAmount = primeTokensDistributedAmount.dividedBy(DAYS_PER_YEAR);
-
-      const userDailyPrimeRewards = primeTokensDistributedAmount
-        .multipliedBy(userPrimeRewardsShare)
-        .dividedBy(DAYS_PER_YEAR);
-
-      primeEstimation = {
-        dailyTokensDistributedAmount,
-        userDailyPrimeRewards,
-        borrowedTokens,
-        borrowApyPercentage,
-        borrowCapTokens,
-        borrowCapCents,
-        suppliedTokens,
-        supplyApyPercentage,
-        supplyCapTokens,
-        supplyCapCents,
-      };
-    }
-
-    return primeEstimation;
-  }, [
-    borrowedAmountMantissa,
-    suppliedAmountMantissa,
-    primeDistributionForMarketData,
-    vToken,
-    xvs,
-    hypotheticalPrimeApysData,
-  ]);
+  }
 
   return {
     data: estimation,

@@ -2,10 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import { AccountHealthBar, HealthFactorPill, LabeledInlineContent, ValueUpdate } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
-import { memo } from 'react';
 import type { Pool } from 'types';
-
-const MemoizedAccountHealthBar = memo(AccountHealthBar);
 
 export interface AccountPoolHealthProps {
   pool: Pool;
@@ -24,7 +21,7 @@ export const AccountPoolHealth: React.FC<AccountPoolHealthProps> = ({
 
   return (
     <div className={cn('space-y-4', className)}>
-      <MemoizedAccountHealthBar
+      <AccountHealthBar
         borrowBalanceCents={refPool.userBorrowBalanceCents?.toNumber()}
         borrowBalanceProtectedCents={refPool.userBorrowBalanceProtectedCents?.toNumber()}
         borrowLimitCents={refPool.userBorrowLimitCents?.toNumber()}

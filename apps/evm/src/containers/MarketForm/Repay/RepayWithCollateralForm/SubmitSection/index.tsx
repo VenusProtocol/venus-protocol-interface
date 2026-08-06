@@ -1,5 +1,4 @@
 import { cn } from '@venusprotocol/ui';
-import { useMemo } from 'react';
 
 import { PrimaryButton } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
@@ -46,17 +45,12 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
 
   const approveDelegate = () => updatePoolDelegateStatus({ approvedStatus: true });
 
-  const submitButtonLabel = useMemo(() => {
-    if (
-      !isFormValid &&
-      formError?.code !== 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT' &&
-      formError?.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT'
-    ) {
-      return t('marketForm.submitButtonLabel.enterValidAmount');
-    }
-
-    return t('marketForm.submitButtonLabel.repay');
-  }, [isFormValid, t, formError?.code]);
+  const submitButtonLabel =
+    !isFormValid &&
+    formError?.code !== 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT' &&
+    formError?.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT'
+      ? t('marketForm.submitButtonLabel.enterValidAmount')
+      : t('marketForm.submitButtonLabel.repay');
 
   let dom = (
     <PrimaryButton

@@ -121,22 +121,19 @@ export const Transactions: React.FC = () => {
       },
     );
 
-  const txTypeSelectOptions = useMemo(() => {
-    const allOption: SelectOption<string> = {
+  const txTypeSelectOptions: SelectOption<string>[] = [
+    {
       label: t('account.transactions.selects.txType.all'),
       value: ALL_OPTION_VALUE,
-    };
-
-    const otherOptions: SelectOption<string>[] = MARKET_TX_TYPES.map(type => ({
+    },
+    ...MARKET_TX_TYPES.map(type => ({
       label: getTransactionName({
         transaction: type,
         t,
       }),
       value: type,
-    }));
-
-    return [allOption, ...otherOptions];
-  }, [t]);
+    })),
+  ];
 
   const sourceSelectOptions = useMemo(() => {
     const allOption: SelectOption<string> = {

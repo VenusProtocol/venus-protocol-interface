@@ -59,23 +59,19 @@ export const TopMarkets: React.FC<TopMarketProps> = ({ className, variant = 'pri
       .slice(0, 3);
   }, [topMarketsData, poolAssets]);
 
-  const topBorrowAssets = useMemo(
-    () =>
-      [...poolAssets]
-        .filter(asset => asset.isBorrowableByUser && !asset.disabledTokenActions.includes('borrow'))
-        .sort((assetA, assetB) => {
-          const assetABorrowApy = assetA.borrowApyPercentage.minus(
-            getCombinedDistributionApys({ asset: assetA }).totalBorrowApyBoostPercentage,
-          );
-          const assetBBorrowApy = assetB.borrowApyPercentage.minus(
-            getCombinedDistributionApys({ asset: assetB }).totalBorrowApyBoostPercentage,
-          );
+  const topBorrowAssets = [...poolAssets]
+    .filter(asset => asset.isBorrowableByUser && !asset.disabledTokenActions.includes('borrow'))
+    .sort((assetA, assetB) => {
+      const assetABorrowApy = assetA.borrowApyPercentage.minus(
+        getCombinedDistributionApys({ asset: assetA }).totalBorrowApyBoostPercentage,
+      );
+      const assetBBorrowApy = assetB.borrowApyPercentage.minus(
+        getCombinedDistributionApys({ asset: assetB }).totalBorrowApyBoostPercentage,
+      );
 
-          return compareBigNumbers(assetABorrowApy, assetBBorrowApy, 'asc');
-        })
-        .slice(0, 3),
-    [poolAssets],
-  );
+      return compareBigNumbers(assetABorrowApy, assetBBorrowApy, 'asc');
+    })
+    .slice(0, 3);
 
   const topAssets = type === 'supply' ? topSupplyAssets : topBorrowAssets;
 

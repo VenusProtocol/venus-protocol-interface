@@ -1,5 +1,5 @@
 import { Table } from 'components';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import { useStore } from 'pages/Trade/ClosePositionModal/store';
@@ -75,16 +75,11 @@ export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
     onPositionAccordionClick: handleAccordionClick,
     rowKeyExtractor,
   });
-  const initialOrder = useMemo(() => {
-    const orderByColumn = columns.find(column => column.key === 'pnl');
-
-    return (
-      orderByColumn && {
-        orderBy: orderByColumn,
-        orderDirection: 'desc' as const,
-      }
-    );
-  }, [columns]);
+  const orderByColumn = columns.find(column => column.key === 'pnl');
+  const initialOrder = orderByColumn && {
+    orderBy: orderByColumn,
+    orderDirection: 'desc' as const,
+  };
 
   return (
     <Table

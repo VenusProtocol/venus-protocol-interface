@@ -44,12 +44,9 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const isSwappingWithHighPriceImpact = useMemo(
-    () =>
-      !!swap?.priceImpactPercentage &&
-      swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
-    [swap?.priceImpactPercentage],
-  );
+  const isSwappingWithHighPriceImpact =
+    !!swap?.priceImpactPercentage &&
+    swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE;
 
   const submitButtonLabel = useMemo(() => {
     if (formErrors[0] === 'WRAPPING_UNSUPPORTED') {

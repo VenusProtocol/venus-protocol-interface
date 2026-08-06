@@ -5,12 +5,13 @@ import { ActiveVotingProgress, Countdown, ProposalTypeChip } from 'components';
 import { routes } from 'constants/routing';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { useTranslation } from 'libs/translations';
-import { type Proposal, ProposalState, ProposalType, type Token, VoteSupport } from 'types';
+import { type Proposal, ProposalState, ProposalType, type Token } from 'types';
 
 import { ProposalCard } from 'containers/ProposalCard';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import { Status } from './Status';
+import { getVoteStatusLabel } from './getVoteStatusLabel';
 import greenPulseAnimation from './greenPulseAnimation.gif';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -56,18 +57,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
     executionEtaDate,
   });
 
-  const voteStatusText = useMemo(() => {
-    switch (userVoteSupport) {
-      case VoteSupport.For:
-        return t('voteProposalUi.voteStatus.votedFor');
-      case VoteSupport.Against:
-        return t('voteProposalUi.voteStatus.votedAgainst');
-      case VoteSupport.Abstain:
-        return t('voteProposalUi.voteStatus.abstained');
-      default:
-        return t('voteProposalUi.voteStatus.notVoted');
-    }
-  }, [userVoteSupport, t]);
+  const voteStatusText = getVoteStatusLabel({ userVoteSupport, t });
 
   const [statusDate, statusKey] = useMemo(() => {
     switch (state) {

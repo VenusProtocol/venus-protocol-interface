@@ -1,7 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import { Icon, type IconName } from 'components';
 import { Link } from 'containers/Link';
-import { useMemo } from 'react';
 
 export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
   type: 'info' | 'success' | 'error';
@@ -19,17 +18,16 @@ export const Status: React.FC<StatusProps> = ({
   subDescription,
   ...otherProps
 }) => {
-  const [colorClass, iconName] = useMemo<[string, IconName]>(() => {
-    if (type === 'success') {
-      return ['text-green', 'mark'];
-    }
+  let colorClass = 'text-white';
+  let iconName: IconName = 'dots';
 
-    if (type === 'error') {
-      return ['text-red', 'close'];
-    }
-
-    return ['text-white', 'dots'];
-  }, [type]);
+  if (type === 'success') {
+    colorClass = 'text-green';
+    iconName = 'mark';
+  } else if (type === 'error') {
+    colorClass = 'text-red';
+    iconName = 'close';
+  }
 
   const statusDom = (
     <div className="flex items-center space-x-1">

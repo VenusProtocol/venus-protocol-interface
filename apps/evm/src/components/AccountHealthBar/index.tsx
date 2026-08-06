@@ -101,48 +101,33 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
     protectedBorrowLimitUsedPercentage !== undefined &&
     borrowLimitUsedPercentage !== protectedBorrowLimitUsedPercentage;
 
-  const tooltip = useMemo(
-    () =>
-      readableBorrowBalance !== PLACEHOLDER_KEY &&
-      readableBorrowLimitUsedPercentage !== PLACEHOLDER_KEY &&
-      borrowBalanceCents &&
-      borrowBalanceCents > 0 ? (
-        <Trans
-          // Translation keys: do not remove this comment
-          // t('accountHealth.tooltip')
-          // t('accountHealth.tooltipProtection')
-          i18nKey={
-            isProtectionModeEnabled ? 'accountHealth.tooltipProtection' : 'accountHealth.tooltip'
-          }
-          shouldUnescape
-          components={{
-            LineBreak: <br />,
-          }}
-          values={{
-            borrowBalanceProtected: hideUserBalances ?? readableBorrowBalanceProtected,
-            borrowBalance: hideUserBalances ?? readableBorrowBalance,
-            borrowLimitUsedPercentage: hideUserBalances ?? readableBorrowLimitUsedPercentage,
-            protectedBorrowLimitUsedPercentage:
-              hideUserBalances ??
-              formatPercentageToReadableValue(protectedBorrowLimitUsedPercentage),
-            borrowLimit: hideUserBalances ?? readableBorrowLimit,
-            borrowLimitProtected: hideUserBalances ?? readableBorrowLimitProtected,
-          }}
-        />
-      ) : undefined,
-    [
-      borrowBalanceCents,
-      readableBorrowBalance,
-      readableBorrowBalanceProtected,
-      readableBorrowLimitUsedPercentage,
-      protectedBorrowLimitUsedPercentage,
-      readableBorrowLimit,
-      readableBorrowLimitProtected,
-      hideUserBalances,
-      isProtectionModeEnabled,
-      Trans,
-    ],
-  );
+  const tooltip =
+    readableBorrowBalance !== PLACEHOLDER_KEY &&
+    readableBorrowLimitUsedPercentage !== PLACEHOLDER_KEY &&
+    borrowBalanceCents &&
+    borrowBalanceCents > 0 ? (
+      <Trans
+        // Translation keys: do not remove this comment
+        // t('accountHealth.tooltip')
+        // t('accountHealth.tooltipProtection')
+        i18nKey={
+          isProtectionModeEnabled ? 'accountHealth.tooltipProtection' : 'accountHealth.tooltip'
+        }
+        shouldUnescape
+        components={{
+          LineBreak: <br />,
+        }}
+        values={{
+          borrowBalanceProtected: hideUserBalances ?? readableBorrowBalanceProtected,
+          borrowBalance: hideUserBalances ?? readableBorrowBalance,
+          borrowLimitUsedPercentage: hideUserBalances ?? readableBorrowLimitUsedPercentage,
+          protectedBorrowLimitUsedPercentage:
+            hideUserBalances ?? formatPercentageToReadableValue(protectedBorrowLimitUsedPercentage),
+          borrowLimit: hideUserBalances ?? readableBorrowLimit,
+          borrowLimitProtected: hideUserBalances ?? readableBorrowLimitProtected,
+        }}
+      />
+    ) : undefined;
 
   const progressBarClassName = useMemo(() => {
     if (sanitizedFillPercentage <= safeBorrowLimitPercentage) {

@@ -27,19 +27,16 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
     name: 'marketParticipantCounts',
   });
 
-  const { dailySupplyInterestsCents, dailyBorrowInterestsCents } = useMemo(
-    () => ({
-      dailySupplyInterestsCents: asset.supplyBalanceCents
-        .multipliedBy(asset.supplyApyPercentage)
-        .div(100)
-        .div(DAYS_PER_YEAR),
-      dailyBorrowInterestsCents: asset.borrowBalanceCents
-        .multipliedBy(asset.borrowApyPercentage)
-        .div(100)
-        .div(DAYS_PER_YEAR),
-    }),
-    [asset],
-  );
+  const { dailySupplyInterestsCents, dailyBorrowInterestsCents } = {
+    dailySupplyInterestsCents: asset.supplyBalanceCents
+      .multipliedBy(asset.supplyApyPercentage)
+      .div(100)
+      .div(DAYS_PER_YEAR),
+    dailyBorrowInterestsCents: asset.borrowBalanceCents
+      .multipliedBy(asset.borrowApyPercentage)
+      .div(100)
+      .div(DAYS_PER_YEAR),
+  };
 
   const stats: MarketInfoCardProps['items'] = useMemo(() => {
     if (!asset) {
