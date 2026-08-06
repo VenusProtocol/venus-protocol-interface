@@ -1,4 +1,4 @@
-import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
+import type { theme } from '@venusprotocol/ui';
 import type { CSSProperties } from 'react';
 import type { To } from 'react-router';
 
@@ -22,7 +22,7 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   rowKeyExtractor: (row: R) => string;
   columns: TableColumn<R>[];
   tableLayout?: CSSProperties['tableLayout'];
-  breakpoint?: keyof (typeof BREAKPOINTS)['values'];
+  breakpoint?: keyof typeof theme.screens;
   cardColumns?: TableColumn<R>[];
   minWidth?: string;
   // Initial sort for uncontrolled usage (client-side sorted tables)

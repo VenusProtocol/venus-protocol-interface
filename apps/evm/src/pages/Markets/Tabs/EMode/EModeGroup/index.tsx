@@ -1,4 +1,4 @@
-import { Delimiter, type Order, Table, type TableColumn } from 'components';
+import { type Order, Table, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
 import type { Pool } from 'types';
 import type {
@@ -74,17 +74,15 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
         getRowHref={getRowHref}
         breakpoint="md"
         header={
-          <div className="-mx-6">
+          <div className="-mx-4">
             <Header
               pool={pool}
               eModeGroup={eModeGroup}
               userHasEnoughCollateral={userHasEnoughCollateral}
               userBlockingBorrowPositions={userBlockingBorrowPositions}
               hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
-              className="p-4"
+              className="px-4"
             />
-
-            <Delimiter />
           </div>
         }
       />
