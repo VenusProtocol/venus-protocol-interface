@@ -1,18 +1,19 @@
-import MuiTable from '@mui/material/Table';
-import MuiTableBody from '@mui/material/TableBody';
-import MuiTableCell from '@mui/material/TableCell';
-import MuiTableContainer from '@mui/material/TableContainer';
-import MuiTableRow from '@mui/material/TableRow';
 import { Spinner, cn } from '@venusprotocol/ui';
 import { Fragment, useMemo, useState } from 'react';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { useFormatTo } from 'hooks/useFormatTo';
 
 import { Card } from 'components/Card';
-import { useBreakpointUp } from 'hooks/responsive';
 import Head from './Head';
+import { TableBody } from './TableBody';
 import { TableCards } from './TableCards';
+import { TableCell } from './TableCell';
+import { TableContainer } from './TableContainer';
+import { TableElement } from './TableElement';
+import { TableRow } from './TableRow';
+import { getTableCellHeight } from './getTableCellHeight';
+import { isInteractiveElement } from './isInteractiveElement';
 import type { Order, TableColumn, TableProps } from './types';
 
 export * from './types';
@@ -24,7 +25,7 @@ export function Table<R>({
   cardColumns,
   data,
   title,
-  minWidth,
+  minWidth: unsafeMinWidth,
   initialOrder,
   order: orderProp,
   onOrderChange,
@@ -47,17 +48,11 @@ export function Table<R>({
   ...otherProps
 }: TableProps<R>) {
   const { formatTo } = useFormatTo();
+  const navigate = useNavigate();
   const totalColumns = columns.length + (renderRowControl ? 1 : 0);
-
-  let tableCellHeight = cellHeight ?? '1px';
-
-  if (typeof cellHeight === 'number') {
-    tableCellHeight = `${cellHeight}px`;
-  }
-
-  // The fallback breakpoint is just to satisfy TS here, it is not actually used
-  const _isBreakpointUp = useBreakpointUp(breakpoint || '2xl');
-  const isBreakpointUp = !!breakpoint && _isBreakpointUp;
+  const tablecellheight = getTableCellHeight(cellHeight);
+  const minwidth = unsafeMinWidth ?? '0';
+  const tablelayout = tableLayout;
 
   const [internalOrder, setInternalOrder] = useState<Order<R> | undefined>(initialOrder);
   const order = orderProp ?? internalOrder;
@@ -81,54 +76,77 @@ export function Table<R>({
   };
 
   const sortedData = useMemo(() => {
-    if (!order || !order.orderBy.sortRows) {
+    const sortRows = order?.orderBy.sortRows;
+
+    if (!order || !sortRows) {
       return data;
     }
 
-    return [...data].sort((rowA, rowB) =>
-      order.orderBy.sortRows!(rowA, rowB, order.orderDirection),
-    );
+    return [...data].sort((rowA, rowB) => sortRows(rowA, rowB, order.orderDirection));
   }, [data, order]);
 
   return (
     <Card
-      className={cn('p-0', breakpoint && !isBreakpointUp && 'bg-transparent border-0', className)}
+      className={cn(
+        'p-0',
+        breakpoint && 'border-0 bg-transparent',
+        breakpoint === 'xs' && 'xs:border xs:border-dark-blue-hover',
+        breakpoint === 'sm' && 'sm:border sm:border-dark-blue-hover',
+        breakpoint === 'md' && 'md:border md:border-dark-blue-hover',
+        breakpoint === 'lg' && 'lg:border lg:border-dark-blue-hover',
+        breakpoint === 'xl' && 'xl:border xl:border-dark-blue-hover',
+        breakpoint === '2xl' && '2xl:border 2xl:border-dark-blue-hover',
+        className,
+      )}
       {...otherProps}
     >
       {title && (
         <div
           className={cn(
-            'mb-2 h-8 px-4 text-lg',
-            breakpoint === 'xs' && 'max-xs:px-0',
-            breakpoint === 'sm' && 'max-sm:px-0',
-            breakpoint === 'md' && 'max-md:px-0',
-            breakpoint === 'lg' && 'max-lg:px-0',
-            breakpoint === 'xl' && 'max-xl:px-0',
-            breakpoint === '2xl' && 'max-2xl:px-0',
+            'mb-2 h-8 text-p2s',
+            breakpoint ? 'px-0' : 'px-4',
+            breakpoint === 'xs' && 'xs:px-4',
+            breakpoint === 'sm' && 'sm:px-4',
+            breakpoint === 'md' && 'md:px-4',
+            breakpoint === 'lg' && 'lg:px-4',
+            breakpoint === 'xl' && 'xl:px-4',
+            breakpoint === '2xl' && '2xl:px-4',
           )}
         >
           {title}
         </div>
       )}
 
-      {!!header && <div className={cn('mb-4', isBreakpointUp && 'mb-0 p-4')}>{header}</div>}
+      {!!header && (
+        <div
+          className={cn(
+            'mb-4',
+            breakpoint === 'xs' && 'xs:mb-0 xs:p-4',
+            breakpoint === 'sm' && 'sm:mb-0 sm:p-4',
+            breakpoint === 'md' && 'md:mb-0 md:p-4',
+            breakpoint === 'lg' && 'lg:mb-0 lg:p-4',
+            breakpoint === 'xl' && 'xl:mb-0 xl:p-4',
+            breakpoint === '2xl' && '2xl:mb-0 2xl:p-4',
+          )}
+        >
+          {header}
+        </div>
+      )}
 
       {data.length > 0 || !placeholder ? (
         <>
-          <MuiTableContainer
+          <TableContainer
             className={cn(
-              breakpoint === 'xs' && 'hidden xs:block',
-              breakpoint === 'sm' && 'hidden sm:block',
-              breakpoint === 'md' && 'hidden md:block',
-              breakpoint === 'lg' && 'hidden lg:block',
-              breakpoint === 'xl' && 'hidden xl:block',
-              breakpoint === '2xl' && 'hidden 2xl:block',
+              breakpoint && 'hidden',
+              breakpoint === 'xs' && 'xs:block',
+              breakpoint === 'sm' && 'sm:block',
+              breakpoint === 'md' && 'md:block',
+              breakpoint === 'lg' && 'lg:block',
+              breakpoint === 'xl' && 'xl:block',
+              breakpoint === '2xl' && '2xl:block',
             )}
           >
-            <MuiTable
-              className="[&_.MuiTableCell-root]:border-0! [&_.MuiTableCell-root]:font-normal! [&_.MuiTableCell-root]:flex-row [&_.MuiTableCell-root]:text-[14px]! [&_.MuiTableCell-root]:normal-case [&_.MuiTableCell-root:first-of-type]:pl-4! [&_.MuiTableCell-root:last-child]:pr-4!"
-              sx={{ minWidth: minWidth ?? '0', tableLayout }}
-            >
+            <TableElement style={{ minWidth: minwidth, tableLayout: tablelayout }}>
               <Head
                 className={cn(variant === 'primary' && 'border-b border-dark-blue-hover')}
                 controls={controls}
@@ -143,39 +161,47 @@ export function Table<R>({
                 <tbody>
                   <tr>
                     <td colSpan={totalColumns}>
-                      <Spinner className="mb-5" />
+                      <Spinner className="my-5" />
                     </td>
                   </tr>
                 </tbody>
               )}
 
-              <MuiTableBody>
+              <TableBody>
                 {sortedData.map((row, rowIndex) => {
                   const rowKey = rowKeyExtractor(row);
                   const rowFooter = renderRowFooter?.(row, rowIndex);
-
-                  const additionalProps = getRowHref
-                    ? {
-                        component: Link,
-                        to: formatTo({ to: getRowHref(row) }),
-                      }
-                    : {};
+                  const rowHref = getRowHref?.(row);
+                  const formattedRowHref = rowHref ? formatTo({ to: rowHref }) : undefined;
+                  const isRowLink = !!formattedRowHref;
+                  const isRowClickable = isRowLink || !!rowOnClick;
 
                   return (
                     <Fragment key={rowKey}>
-                      <MuiTableRow
+                      <TableRow
                         className={cn(
-                          'h-18 text-white hover:no-underline [&:hover:not(:has(button:hover))]:bg-background-hover! [&:hover:not(:has(button:hover))]:overflow-hidden',
-                          (!!getRowHref || !!rowOnClick) && 'cursor-pointer',
-                          variant === 'secondary' &&
-                            '[&>td:first-child]:rounded-l-lg [&>td:last-child]:rounded-r-lg',
+                          'h-18 text-white hover:bg-background-hover hover:no-underline',
+                          isRowClickable && 'cursor-pointer',
                         )}
                         onClick={
-                          rowOnClick
-                            ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)
+                          isRowClickable
+                            ? e => {
+                                if (isInteractiveElement(e.target)) {
+                                  return;
+                                }
+
+                                rowOnClick?.(e as unknown as React.MouseEvent<HTMLDivElement>, row);
+
+                                if (!formattedRowHref || e.defaultPrevented) {
+                                  return;
+                                }
+
+                                void navigate(formattedRowHref);
+                              }
                             : undefined
                         }
-                        {...additionalProps}
+                        role={isRowLink ? 'link' : undefined}
+                        tabIndex={isRowLink ? 0 : undefined}
                       >
                         {columns.map(column => {
                           const cellContent = column.renderCell(row, rowIndex);
@@ -183,38 +209,50 @@ export function Table<R>({
                             typeof cellContent === 'string' ? cellContent : undefined;
 
                           return (
-                            <MuiTableCell
-                              className="overflow-hidden text-ellipsis px-4! py-0! [&:first-of-type>a]:pl-0 [&:last-of-type>a]:pr-0"
-                              sx={{ height: tableCellHeight }}
+                            <TableCell
+                              className={cn(
+                                'overflow-hidden text-ellipsis',
+                                variant === 'secondary' && column === columns[0] && 'rounded-l-lg',
+                                variant === 'secondary' &&
+                                  !renderRowControl &&
+                                  column === columns[columns.length - 1] &&
+                                  'rounded-r-lg',
+                              )}
+                              style={{ height: tablecellheight }}
                               key={`${rowKey}-${column.key}`}
                               title={cellTitle}
                               align={column.align}
                             >
                               {cellContent}
-                            </MuiTableCell>
+                            </TableCell>
                           );
                         })}
 
                         {renderRowControl && (
-                          <MuiTableCell className="align-middle">
+                          <TableCell
+                            className={cn(
+                              'align-middle',
+                              variant === 'secondary' && 'rounded-r-lg',
+                            )}
+                          >
                             {renderRowControl(row, rowIndex)}
-                          </MuiTableCell>
+                          </TableCell>
                         )}
-                      </MuiTableRow>
+                      </TableRow>
 
                       {rowFooter !== undefined && rowFooter !== null && (
-                        <MuiTableRow>
-                          <MuiTableCell className="p-0!" colSpan={totalColumns}>
+                        <TableRow>
+                          <TableCell className="p-0" colSpan={totalColumns}>
                             {rowFooter}
-                          </MuiTableCell>
-                        </MuiTableRow>
+                          </TableCell>
+                        </TableRow>
                       )}
                     </Fragment>
                   );
                 })}
-              </MuiTableBody>
-            </MuiTable>
-          </MuiTableContainer>
+              </TableBody>
+            </TableElement>
+          </TableContainer>
 
           <TableCards
             controls={controls}

@@ -52,10 +52,11 @@ export const Markets: React.FC<MarketsProps> = ({ className }) => {
       <h2 className="text-2xl">{t('landing.markets.title')}</h2>
 
       <MarketTable
+        variant="secondary"
         controls={false}
         rowControl={false}
         selectVariant="quaternary"
-        className="border-0 p-0"
+        className="md:border-0"
         breakpoint="md"
         poolName={pool.name}
         poolComptrollerContractAddress={pool.comptrollerAddress}
