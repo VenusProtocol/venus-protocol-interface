@@ -9,15 +9,6 @@ import { Delimiter } from '../../Delimiter';
 import { Select, type SelectOption, type SelectProps } from '../../Select';
 import type { TableCardProps } from '../types';
 
-const cardsContainerBreakpointClassNames = {
-  xs: 'block xs:hidden',
-  sm: 'block sm:hidden',
-  md: 'block md:hidden',
-  lg: 'block lg:hidden',
-  xl: 'block xl:hidden',
-  '2xl': 'block 2xl:hidden',
-};
-
 export function TableCards<R>({
   cardClassName,
   data,
@@ -77,13 +68,18 @@ export function TableCards<R>({
   return (
     <div
       className={cn(
-        !breakpoint && 'hidden',
-        breakpoint && cardsContainerBreakpointClassNames[breakpoint],
+        breakpoint ? 'block' : 'hidden',
+        breakpoint === 'xs' && 'xs:hidden',
+        breakpoint === 'sm' && 'sm:hidden',
+        breakpoint === 'md' && 'md:hidden',
+        breakpoint === 'lg' && 'lg:hidden',
+        breakpoint === 'xl' && 'xl:hidden',
+        breakpoint === '2xl' && '2xl:hidden',
       )}
     >
       {controls && selectOptions.length > 0 && (
         <Select
-          className="mb-4 w-56 max-sm:hidden"
+          className="mb-4 hidden w-56 sm:block"
           label={t('table.cardsSelect.label')}
           placeLabelToLeft
           options={selectOptions}
