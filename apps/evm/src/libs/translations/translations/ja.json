@@ -433,6 +433,12 @@
     "tooMuchRepay": "返済額が未返済の借入額を超えています。"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "すべてのカテゴリー",
+      "nCategories_other": "{{count}} 件のカテゴリー",
+      "reset": "リセット",
+      "title": "カテゴリーを選択"
+    },
     "pausedAssetsToggle": {
       "label": "停止中の資産"
     },

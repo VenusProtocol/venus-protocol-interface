@@ -433,6 +433,13 @@
     "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "All Categories",
+      "nCategories_one": "{{count}} Category",
+      "nCategories_other": "{{count}} Categories",
+      "reset": "Reset",
+      "title": "Select Categories"
+    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },

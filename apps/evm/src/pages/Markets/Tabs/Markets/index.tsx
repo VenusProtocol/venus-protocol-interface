@@ -20,6 +20,7 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => (
   <div className="space-y-6">
     <MarketTable
       assets={pool.assets}
+      categories={pool.categories}
       poolName={pool.name}
       poolComptrollerContractAddress={pool.comptrollerAddress}
       userEModeGroup={pool.userEModeGroup}
