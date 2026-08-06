@@ -9,7 +9,6 @@ import { Page } from 'components';
 import History from './History';
 import Holding from './Holding';
 import Transactions from './Transactions';
-import { useStyles } from './styles';
 
 interface VoterUiProps {
   balanceMantissa: BigNumber | undefined;
@@ -38,20 +37,22 @@ export const VoterUi: React.FC<VoterUiProps> = ({
   limit,
   isHistoryFetching,
 }) => {
-  const styles = useStyles();
-
   return (
-    <div css={styles.root}>
-      <div css={styles.top}>
+    <div className="flex flex-1 flex-col">
+      <div className="mb-4 flex flex-1 flex-col sm:mb-10 xl:flex-row">
         <Holding
-          css={styles.topRowLeft}
+          className="flex flex-1 xl:mr-4"
           balanceMantissa={balanceMantissa}
           delegateCount={delegateCount}
           votesMantissa={votesMantissa}
           delegating={delegating}
         />
 
-        <Transactions css={styles.topRowRight} address={address} voterTransactions={latestVotes} />
+        <Transactions
+          className="mt-6 flex flex-1 xl:ml-4 xl:mt-0"
+          address={address}
+          voterTransactions={latestVotes}
+        />
       </div>
 
       <History

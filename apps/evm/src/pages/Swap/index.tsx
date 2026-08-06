@@ -28,7 +28,6 @@ import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
-import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -73,7 +72,6 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   tokenBalances,
   initialFormValues,
 }) => {
-  const styles = useStyles();
   const { t } = useTranslation();
 
   const { fromTokenUserBalanceMantissa, toTokenUserBalanceMantissa } = useMemo(
@@ -220,7 +218,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     }));
 
   return (
-    <Card css={styles.container}>
+    <Card className="mx-auto w-full max-w-full p-4 md:max-w-136 md:p-10">
       <ConnectWallet message={t('swapPage.connectWalletToSwap')} analyticVariant="swap">
         <SelectTokenTextField
           label={t('swapPage.fromTokenAmountField.label')}
@@ -249,18 +247,15 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             onClick: () => onFromInputChange(maxFromInput),
           }}
           tokenBalances={fromTokenBalances}
-          css={styles.selectTokenTextField}
+          className="mb-4"
         />
 
-        <div css={styles.getRow({ isLast: true })}>
+        <div className="mb-6">
           <Notice formErrors={formErrors} swap={swap} />
         </div>
 
-        <div css={styles.getRow({ isLast: true })}>
-          <LabeledInlineContent
-            label={t('swapPage.walletBalance')}
-            css={styles.getRow({ isLast: false })}
-          >
+        <div className="mb-6">
+          <LabeledInlineContent label={t('swapPage.walletBalance')} className="mb-3">
             {readableFromTokenUserBalance}
           </LabeledInlineContent>
 
@@ -280,7 +275,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           disabled={isSubmitting}
           data-testid={TEST_IDS.switchTokensButton}
         >
-          <Icon name="convert" css={styles.switchButtonIcon} />
+          <Icon name="convert" className="h-6 w-6 rotate-90 text-blue" />
         </TextButton>
 
         <SelectTokenTextField
@@ -315,21 +310,14 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             }))
           }
           tokenBalances={toTokenBalances}
-          css={styles.selectTokenTextField}
+          className="mb-4"
         />
 
-        <LabeledInlineContent
-          label={t('swapPage.walletBalance')}
-          css={styles.getRow({ isLast: true })}
-        >
+        <LabeledInlineContent label={t('swapPage.walletBalance')} className="mb-6">
           {readableToTokenUserBalance}
         </LabeledInlineContent>
 
-        <SwapDetails
-          swap={swap}
-          data-testid={TEST_IDS.swapDetails}
-          css={styles.getRow({ isLast: true })}
-        />
+        <SwapDetails swap={swap} data-testid={TEST_IDS.swapDetails} className="mb-6" />
 
         <SubmitSection
           onSubmit={handleSubmit}

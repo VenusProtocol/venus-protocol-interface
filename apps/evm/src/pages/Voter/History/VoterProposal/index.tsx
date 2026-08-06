@@ -1,14 +1,12 @@
-import Typography from '@mui/material/Typography';
+import { cn } from '@venusprotocol/ui';
 import type { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { ActiveChip, ActiveVotingProgress, BlueChip, ErrorChip, InactiveChip } from 'components';
 import { routes } from 'constants/routing';
+import { ProposalCard } from 'containers/ProposalCard';
 import { useTranslation } from 'libs/translations';
 import { ProposalState, type Token, VoteSupport } from 'types';
-
-import { ProposalCard } from 'containers/ProposalCard';
-import { useStyles } from './styles';
 
 interface VoterProposalProps {
   className?: string;
@@ -43,7 +41,6 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
   executedDate,
   xvs,
 }) => {
-  const styles = useStyles();
   const { t, Trans } = useTranslation();
   const voteChipText = useMemo(() => {
     switch (userVoteStatus) {
@@ -54,7 +51,9 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
       case VoteSupport.Abstain:
         return <InactiveChip text={t('voteProposalUi.voteStatus.abstained')} />;
       default:
-        return <Typography variant="small2">{t('voteProposalUi.voteStatus.notVoted')}</Typography>;
+        return (
+          <span className="text-b1r text-grey">{t('voteProposalUi.voteStatus.notVoted')}</span>
+        );
     }
   }, [userVoteStatus, t]);
 
@@ -67,7 +66,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.activeTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <span className="text-b1r text-white" />,
               }}
               values={{
                 date: createdDate,
@@ -82,7 +81,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.canceledTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <span className="text-b1r text-white" />,
               }}
               values={{
                 date: cancelDate,
@@ -97,7 +96,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.succeededTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <span className="text-b1r text-white" />,
               }}
               values={{
                 date: endDate,
@@ -112,7 +111,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.queuedTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <span className="text-b1r text-white" />,
               }}
               values={{
                 date: queuedDate,
@@ -127,7 +126,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.defeatedTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <span className="text-b1r text-white" />,
               }}
               values={{
                 date: endDate,
@@ -142,7 +141,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.expiredTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <span className="text-b1r text-white" />,
               }}
               values={{
                 date: endDate,
@@ -157,7 +156,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.executedTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <span className="text-b1r text-white" />,
               }}
               values={{
                 date: executedDate,
@@ -172,18 +171,13 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
 
   return (
     <ProposalCard
-      css={styles.root}
-      className={className}
+      className={cn('mt-6', className)}
       linkTo={routes.governanceProposal.path.replace(':proposalId', proposalNumber.toString())}
       proposalNumber={proposalNumber}
       headerLeftItem={stateChip}
       headerRightItem={voteChipText}
       title={proposalTitle}
-      footer={
-        <Typography variant="small2" component="span">
-          {stateTimestamp}
-        </Typography>
-      }
+      footer={<span className="text-b1r text-grey">{stateTimestamp}</span>}
       contentRightItem={
         <ActiveVotingProgress
           xvs={xvs}
