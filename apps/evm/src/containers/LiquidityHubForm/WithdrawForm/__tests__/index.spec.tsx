@@ -7,6 +7,7 @@ import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPool, useWithdrawFromLiquidityHub } from 'clients/api';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
+import { useAnalytics } from 'libs/analytics';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { BalanceMutation, LiquidityHubBalanceMutation, Pool } from 'types';
@@ -23,6 +24,7 @@ const liquidityHub = {
   userVhTokenMaxRedeemTokens: defaultWithdrawLimitTokens,
 };
 const underlyingToken = liquidityHub.vhToken.underlyingToken;
+const mockCaptureAnalyticEvent = vi.fn();
 
 const renderTransactionForm = (
   props: Partial<WithdrawFormProps> = {},
@@ -49,6 +51,11 @@ describe('WithdrawForm', () => {
   const mockUseSimulatePoolMutations = useSimulatePoolMutations as Mock;
 
   beforeEach(() => {
+    mockCaptureAnalyticEvent.mockClear();
+    (useAnalytics as Mock).mockReturnValue({
+      captureAnalyticEvent: mockCaptureAnalyticEvent,
+    });
+
     mockUseWithdrawFromLiquidityHub.mockReturnValue({
       mutateAsync: vi.fn().mockResolvedValue(undefined),
       isPending: false,
@@ -176,7 +183,62 @@ describe('WithdrawForm', () => {
       withdrawFullSupply: false,
       userVhTokenBalanceMantissa: new BigNumber('39622641509433962264'),
     });
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'withdraw_amount_set',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: underlyingToken.symbol,
+        maxSelected: false,
+      }),
+      {
+        debounced: true,
+      },
+    );
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'withdraw_initiated',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: underlyingToken.symbol,
+      }),
+    );
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'withdraw_signed',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: underlyingToken.symbol,
+      }),
+    );
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  it('tracks rejected withdraw transactions', async () => {
+    mockUseWithdrawFromLiquidityHub.mockReturnValue({
+      mutateAsync: vi.fn().mockRejectedValue(new Error('User rejected transaction')),
+      isPending: false,
+    });
+
+    renderTransactionForm();
+
+    fireEvent.change(getAmountInput(), {
+      target: {
+        value: '10',
+      },
+    });
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.withdrawSubmitButtonLabel,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+        'withdraw_rejected',
+        expect.objectContaining({
+          poolName: 'liquidity_hub',
+          assetSymbol: underlyingToken.symbol,
+        }),
+      ),
+    );
   });
 
   it('submits a full withdrawal as a redeem', async () => {

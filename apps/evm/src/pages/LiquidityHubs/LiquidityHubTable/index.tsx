@@ -14,6 +14,7 @@ import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
 import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { LiquidityHub } from 'types';
@@ -33,6 +34,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   ...otherProps
 }) => {
   const { t, Trans } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const [userChainSettings] = useUserChainSettings();
 
@@ -41,11 +43,19 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
 
   const handleCloseLiquidityHubModal = () => setSelectedLiquidityHub(undefined);
 
+  const captureHubSelectedAnalyticEvent = (liquidityHub: LiquidityHub) =>
+    captureAnalyticEvent('hub_selected', {
+      variant: 'liquidity_hubs_table',
+      assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+      chainID: liquidityHub.vhToken.chainId,
+    });
+
   const renderRowControl = (liquidityHub: LiquidityHub) => {
     const handleRowControlClick = (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
 
+      captureHubSelectedAnalyticEvent(liquidityHub);
       setSelectedLiquidityHub(liquidityHub);
     };
 
@@ -185,6 +195,9 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const getRowHref = (row: LiquidityHub) =>
     routes.liquidityHub.path.replace(':vhTokenAddress', row.vhToken.address);
 
+  const handleRowClick = (_e: React.MouseEvent<HTMLDivElement>, row: LiquidityHub) =>
+    captureHubSelectedAnalyticEvent(row);
+
   return (
     <>
       <Table
@@ -199,6 +212,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
         renderRowControl={renderRowControl}
         initialOrder={initialOrder}
         getRowHref={getRowHref}
+        rowOnClick={handleRowClick}
         header={
           <Controls
             searchValue={searchValue}

@@ -2,7 +2,9 @@ import { fireEvent, screen } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
+import { useAnalytics } from 'libs/analytics';
 import { renderComponent } from 'testUtils/render';
+import type { Mock } from 'vitest';
 import { LiquidityHubCard } from '..';
 
 vi.mock('containers/LiquidityHubFormModal', () => ({
@@ -23,6 +25,7 @@ vi.mock('containers/LiquidityHubFormModal', () => ({
 }));
 
 const liquidityHub = liquidityHubs[0];
+const mockCaptureAnalyticEvent = vi.fn();
 
 const liquidityHubWithoutUserSupplyBalance = {
   ...liquidityHub,
@@ -32,6 +35,13 @@ const liquidityHubWithoutUserSupplyBalance = {
 };
 
 describe('LiquidityHubCard', () => {
+  beforeEach(() => {
+    mockCaptureAnalyticEvent.mockClear();
+    (useAnalytics as Mock).mockReturnValue({
+      captureAnalyticEvent: mockCaptureAnalyticEvent,
+    });
+  });
+
   it('displays user supply balance and daily earnings when the user has a position', () => {
     const { container } = renderComponent(
       <LiquidityHubCard liquidityHub={liquidityHub} to="/liquidity-hubs/xvs" />,
@@ -49,10 +59,15 @@ describe('LiquidityHubCard', () => {
     fireEvent.click(screen.getByText('Currently supplied'));
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('hub_selected', {
+      assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+      chainID: liquidityHub.vhToken.chainId,
+      variant: 'dashboard_hubs_tab_position_card',
+    });
     expect(container.textContent).toMatchSnapshot();
   });
 
-  it('displays total supplied and links to the hub when the user has no position', () => {
+  it('displays total supplied, links to the hub, and tracks clicks when the user has no position', () => {
     const { container } = renderComponent(
       <LiquidityHubCard
         liquidityHub={liquidityHubWithoutUserSupplyBalance}
@@ -60,11 +75,18 @@ describe('LiquidityHubCard', () => {
       />,
     );
 
+    const link = screen.getByRole('link');
+
     expect(container.textContent).toMatchSnapshot();
-    expect(screen.getByRole('link')).toHaveAttribute(
-      'href',
-      expect.stringContaining('/liquidity-hubs/xvs?'),
-    );
-    expect(screen.getByRole('link')).toHaveAttribute('href', expect.stringContaining('97'));
+    expect(link).toHaveAttribute('href', expect.stringContaining('/liquidity-hubs/xvs?'));
+    expect(link).toHaveAttribute('href', expect.stringContaining('97'));
+
+    fireEvent.click(link);
+
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('hub_selected', {
+      assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+      chainID: liquidityHub.vhToken.chainId,
+      variant: 'dashboard_hubs_tab_preview_card',
+    });
   });
 });

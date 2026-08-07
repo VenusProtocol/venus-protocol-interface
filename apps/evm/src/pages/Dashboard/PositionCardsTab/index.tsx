@@ -10,6 +10,7 @@ export interface PositionCardsTabProps<Item> {
   placeholderIconName: IconName;
   placeholderTitle: string;
   placeholderRoute: string;
+  placeholderOnClick?: () => void;
   renderCard: (item: Item, isPreview: boolean) => ReactNode;
   getKey: (item: Item) => Key;
   previewItems?: Item[];
@@ -22,6 +23,7 @@ export const PositionCardsTab = <Item,>({
   placeholderIconName,
   placeholderTitle,
   placeholderRoute,
+  placeholderOnClick,
   renderCard,
   getKey,
   previewItems,
@@ -38,6 +40,7 @@ export const PositionCardsTab = <Item,>({
           title={placeholderTitle}
           to={placeholderRoute}
           buttonSize="sm"
+          onButtonClick={placeholderOnClick}
         />
 
         {visiblePreviewItems.length > 0 && (
