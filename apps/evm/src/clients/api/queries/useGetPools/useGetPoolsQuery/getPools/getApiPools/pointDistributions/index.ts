@@ -1,4 +1,4 @@
-import type { ApiPointsDistribution, PointsProgram } from '..';
+import type { ApiPointsDistribution, PointsProgram } from 'types';
 import asterPointsLogo from './asterPoints.svg';
 import ethenaPointsLogo from './ethenaPoints.svg';
 import etherfiPointsLogo from './etherfiPoints.svg';

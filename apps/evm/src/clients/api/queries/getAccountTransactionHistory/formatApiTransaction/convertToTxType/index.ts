@@ -17,6 +17,9 @@ const API_TX_TYPE_TO_TX_TYPE_MAP: Record<ApiTxType, TxType> = {
   repay: 'repay',
   enter_market: 'enterMarket',
   exit_market: 'exitMarket',
+  hub_supply: 'hubSupply',
+  hub_withdraw: 'hubWithdraw',
+  hub_migration: 'hubSupplyFromCollateral',
 };
 
 export const convertToTxType = (txType: string) =>

@@ -2,12 +2,23 @@ import { VError } from 'libs/errors';
 import type { MarketSnapshot, VToken } from 'types';
 import { restService } from 'utilities';
 
+import { formatApiMarketHistory } from './formatApiMarketHistory';
+
 export type MarketHistoryPeriodType = 'year' | 'halfyear' | 'month';
+
+export interface ApiMarketSnapshot {
+  blockNumber: string;
+  blockTimestamp: string;
+  borrowApy: string;
+  supplyApy: string;
+  totalBorrowCents: string | null;
+  totalSupplyCents: string | null;
+}
 
 export interface GetMarketHistoryResponse {
   asset: string;
   result: {
-    data: MarketSnapshot[];
+    data: ApiMarketSnapshot[];
   };
   updatedAt: string;
 }
@@ -43,9 +54,7 @@ export const getMarketHistory = async ({
     });
   }
 
-  const marketSnapshots = payload?.result?.data || [];
-
   return {
-    marketSnapshots,
+    marketSnapshots: formatApiMarketHistory(payload?.result?.data ?? []),
   };
 };

@@ -1,4 +1,4 @@
-import { Apy, LayeredValues, type TableColumn, TokenGroup } from 'components';
+import { Apy, ImgGroup, LayeredValues, type TableColumn } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubSource, LiquidityHubYieldGroup, Token } from 'types';
@@ -14,7 +14,7 @@ export const useColumns = ({
   const { t } = useTranslation();
 
   const nameColumnContent =
-    yieldGroup.type === 'institutionCapital'
+    yieldGroup.type === 'frv'
       ? t('liquidityHub.allocationDetails.yieldGroup.nameColumn.title.vault')
       : t('liquidityHub.allocationDetails.yieldGroup.nameColumn.title.market');
 
@@ -96,13 +96,17 @@ export const useColumns = ({
     });
   }
 
-  columns.push({
-    key: 'collateral',
-    label: t('liquidityHub.allocationDetails.yieldGroup.collateralColumn.title'),
-    selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.collateralColumn.title'),
-    align: 'right',
-    renderCell: ({ collateralTokens }) => <TokenGroup tokens={collateralTokens} limit={5} />,
-  });
+  if (yieldGroup.sources.some(source => source.collateralTokens.length > 0)) {
+    columns.push({
+      key: 'collateral',
+      label: t('liquidityHub.allocationDetails.yieldGroup.collateralColumn.title'),
+      selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.collateralColumn.title'),
+      align: 'right',
+      renderCell: ({ collateralTokens }) => (
+        <ImgGroup imgSrcs={collateralTokens.map(token => token.iconSrc)} limit={5} />
+      ),
+    });
+  }
 
   return columns;
 };

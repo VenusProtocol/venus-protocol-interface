@@ -74,7 +74,7 @@
       "title": "Summary"
     },
     "tabs": {
-      "hub": "Hub",
+      "hubs": "Hubs",
       "markets": "Markets",
       "settings": "Settings",
       "transactions": "Transactions",
@@ -98,6 +98,11 @@
         }
       },
       "today": "Today",
+      "txSource": {
+        "liquidityHub": "Liquidity Hub",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
         "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
@@ -107,15 +112,16 @@
         "enterMarket": "Enable collateral",
         "exitMarket": "Disable collateral",
         "mint": "Supply",
-        "positionClosedWithLoss": "Close (loss) • Trade",
-        "positionClosedWithProfit": "Close (profit) • Trade",
-        "positionIncreased": "Increase • Trade",
-        "positionOpened": "Opened • Trade",
-        "positionReducedWithLoss": "Reduced (loss) • Trade",
-        "positionReducedWithProfit": "Reduced (profit) • Trade",
-        "principalSupplied": "Supply • Trade",
-        "principalWithdrawn": "Withdraw • Trade",
-        "realizedPnl": "Realized PnL • Trade",
+        "mintFromCollateral": "Migrate",
+        "positionClosedWithLoss": "Close (loss)",
+        "positionClosedWithProfit": "Close (profit)",
+        "positionIncreased": "Increase",
+        "positionOpened": "Opened",
+        "positionReducedWithLoss": "Reduced (loss)",
+        "positionReducedWithProfit": "Reduced (profit)",
+        "principalSupplied": "Supply",
+        "principalWithdrawn": "Withdraw",
+        "realizedPnl": "Realized PnL",
         "redeem": "Withdraw",
         "repay": "Repay"
       },
@@ -817,6 +823,7 @@
       "markets": {
         "label": "Markets"
       },
+      "new": "New",
       "others": {
         "bridge": {
           "description": "Cross-chain $XVS transfers on Venus.",
@@ -949,6 +956,11 @@
             "market": "Market",
             "vault": "Vault"
           }
+        },
+        "names": {
+          "core": "Venus Core",
+          "flux": "Venus Flux",
+          "frv": "Fixed Rate Vaults"
         }
       }
     },
@@ -961,6 +973,7 @@
         },
         "hubContract": "Hub contract",
         "operator": "Operator",
+        "operatorName": "Venus DAO",
         "performanceFee": "Performance fee",
         "redeemFee": "Redeem fee",
         "riskDisclosures": {
@@ -970,6 +983,13 @@
         "vhTokenContract": "{{ vhTokenSymbol }} contract"
       },
       "title": "Hub info"
+    },
+    "periodOption": {
+      "all": "All",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "thirtyDays": "30D",
+      "threeMonths": "3M"
     }
   },
   "liquidityHubForm": {
@@ -2214,6 +2234,14 @@
     },
     "success": {
       "title": "Transaction confirmed"
+    }
+  },
+  "transactions": {
+    "liquidityHub": {
+      "label": "Liquidity hub"
+    },
+    "venusCore": {
+      "label": "Venus Core"
     }
   },
   "txFormSubmitButton": {

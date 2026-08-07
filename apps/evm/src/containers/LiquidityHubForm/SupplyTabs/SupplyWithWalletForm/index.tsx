@@ -28,7 +28,7 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
   const approval: TokenApproval = {
     type: 'token',
     token: liquidityHub.vhToken.underlyingToken,
-    spenderAddress: liquidityHub.hubAddress,
+    spenderAddress: liquidityHub.vhToken.address,
   };
 
   const { walletSpendingLimitTokens } = useTokenApproval({
@@ -37,7 +37,22 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     accountAddress,
   });
 
-  const limitTokens = liquidityHub.userWalletBalanceTokens ?? new BigNumber(0);
+  const marginWithSupplyCapTokens = liquidityHub.supplyCapTokens.minus(
+    liquidityHub.supplyBalanceTokens,
+  );
+
+  let limitTokens = BigNumber.min(
+    liquidityHub.userWalletBalanceTokens ?? 0,
+    marginWithSupplyCapTokens,
+  );
+
+  if (walletSpendingLimitTokens?.isGreaterThan(0)) {
+    limitTokens = BigNumber.min(limitTokens, walletSpendingLimitTokens);
+  }
+
+  if (liquidityHub.userSupplyCapTokens) {
+    limitTokens = BigNumber.min(limitTokens, liquidityHub.userSupplyCapTokens);
+  }
 
   const fromAmountTokens = formValues.amountTokens
     ? new BigNumber(formValues.amountTokens)
@@ -94,7 +109,7 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
   const availableBalanceDom = (
     <WalletBalance
       token={liquidityHub.vhToken.underlyingToken}
-      spenderAddress={liquidityHub.hubAddress}
+      spenderAddress={liquidityHub.vhToken.address}
       onBalanceClick={walletBalanceTokens =>
         setFormValues(currFormValues => ({
           ...currFormValues,

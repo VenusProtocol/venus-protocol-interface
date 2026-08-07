@@ -1,5 +1,5 @@
 import { VError } from 'libs/errors';
-import type { MarketTxType } from 'types';
+import type { TxType } from 'types';
 import { restService } from 'utilities';
 import { type Address, isAddress } from 'viem';
 import { formatApiTransaction } from './formatApiTransaction';
@@ -13,13 +13,16 @@ import type {
 
 export * from './types';
 
-export const MARKET_TX_TYPE_TO_API_FILTER: Record<MarketTxType, number> = {
+export const TX_TYPE_TO_API_FILTER: Partial<Record<TxType, number>> = {
   supply: 0,
   borrow: 1,
   withdraw: 2,
   repay: 3,
   enterMarket: 4,
   exitMarket: 5,
+  hubSupply: 39,
+  hubWithdraw: 40,
+  hubSupplyFromCollateral: 41,
 };
 
 export const getAccountTransactionHistory = async ({
@@ -27,14 +30,14 @@ export const getAccountTransactionHistory = async ({
   accountAddress,
   contractAddress,
   positionAccountAddress,
-  getPoolsData,
+  pools,
   liquidityHubs,
   type,
   page,
 }: GetAccountTransactionHistoryInput): Promise<GetAccountTransactionHistoryOutput> => {
   const apiType =
-    type && Object.prototype.hasOwnProperty.call(MARKET_TX_TYPE_TO_API_FILTER, type)
-      ? MARKET_TX_TYPE_TO_API_FILTER[type as keyof typeof MARKET_TX_TYPE_TO_API_FILTER]
+    type && Object.prototype.hasOwnProperty.call(TX_TYPE_TO_API_FILTER, type)
+      ? TX_TYPE_TO_API_FILTER[type]
       : undefined;
 
   const txsResponse = await restService<AccountTransactionHistoryApiResponse>({
@@ -61,7 +64,7 @@ export const getAccountTransactionHistory = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  const vTokenAssetMapping = (getPoolsData?.pools || []).reduce<VTokenAssetMapping>((acc, pool) => {
+  const vTokenAssetMapping = (pools || []).reduce<VTokenAssetMapping>((acc, pool) => {
     pool.assets.forEach(asset => {
       acc[asset.vToken.address.toLowerCase() as Address] = {
         ...asset,

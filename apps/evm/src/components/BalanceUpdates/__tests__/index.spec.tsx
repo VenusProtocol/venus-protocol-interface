@@ -1,4 +1,4 @@
-import { screen, within } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
@@ -90,7 +90,7 @@ describe('BalanceUpdates', () => {
     expect(row?.parentElement).toHaveTextContent('- $300.3');
   });
 
-  it('skips unsupported mutations and liquidity hubs without a user balance', () => {
+  it('skips unsupported mutations and defaults liquidity hubs without a user balance to zero', () => {
     const hubWithoutUserBalance: LiquidityHub = {
       ...liquidityHub,
       userSupplyBalanceTokens: undefined,
@@ -109,14 +109,17 @@ describe('BalanceUpdates', () => {
       },
     ];
 
-    const { container } = renderComponent(
+    renderComponent(
       <BalanceUpdates
         liquidityHubs={[hubWithoutUserBalance]}
         balanceMutations={balanceMutations}
       />,
     );
 
-    expect(within(container).queryByText('Supply balance')).not.toBeInTheDocument();
-    expect(container.firstChild).toBeEmptyDOMElement();
+    const row = screen.getByText('Supply balance').closest('.flex.w-full');
+
+    expect(row).toHaveTextContent('0');
+    expect(row).toHaveTextContent('1');
+    expect(row?.parentElement).toHaveTextContent('+ $7.15');
   });
 });

@@ -40,9 +40,7 @@ export const formatToMarketTxEvents = ({
   })();
 
   const description = primaryAmount
-    ? `${formatCentsToReadableValue({ value: primaryAmount.amountCents })} • ${
-        token.symbol
-      } • ${poolName}`
+    ? `${formatCentsToReadableValue({ value: primaryAmount.amountCents })} • ${poolName}`
     : poolName;
 
   const event: EventProps = {

@@ -89,6 +89,7 @@ describe('utilities/calculateCollateralWithdrawLimits', () => {
       asset: {
         ...fakeAsset,
         userCollateralFactor: 1,
+        userLiquidationThresholdPercentage: 50,
         tokenPriceCents: new BigNumber(1),
         tokenSupplyPriceCents: new BigNumber(1),
         userSupplyBalanceTokens: new BigNumber(1000),

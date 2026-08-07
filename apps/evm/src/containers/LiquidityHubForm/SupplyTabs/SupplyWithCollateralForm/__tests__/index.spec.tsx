@@ -94,11 +94,15 @@ describe('SupplyWithCollateralForm', () => {
     mockUseTokenApproval.mockReturnValue(makeUseTokenApprovalOutput());
   });
 
-  it('renders the available balance and converted spending limit using the collateral limits', () => {
-    const { limitTokens } = calculateCollateralWithdrawLimits({
+  it('renders the available balance and converted spending limit using the lowest supply limit', () => {
+    const { limitTokens: collateralLimitTokens } = calculateCollateralWithdrawLimits({
       asset: corePoolAsset,
       pool: clickableLimitPool,
     });
+    const supplyCapMarginTokens = liquidityHub.supplyCapTokens.minus(
+      liquidityHub.supplyBalanceTokens,
+    );
+    const limitTokens = BigNumber.min(collateralLimitTokens, supplyCapMarginTokens);
     const readableLimit = formatTokensToReadableValue({
       value: limitTokens,
       token: liquidityHub.vhToken.underlyingToken,
@@ -125,11 +129,15 @@ describe('SupplyWithCollateralForm', () => {
     });
   });
 
-  it('fills the input with the collateral withdrawal limit when clicking the available balance', async () => {
-    const { limitTokens } = calculateCollateralWithdrawLimits({
+  it('fills the input with the lowest supply limit when clicking the available balance', async () => {
+    const { limitTokens: collateralLimitTokens } = calculateCollateralWithdrawLimits({
       asset: corePoolAsset,
       pool: clickableLimitPool,
     });
+    const supplyCapMarginTokens = liquidityHub.supplyCapTokens.minus(
+      liquidityHub.supplyBalanceTokens,
+    );
+    const limitTokens = BigNumber.min(collateralLimitTokens, supplyCapMarginTokens);
     const readableLimit = formatTokensToReadableValue({
       value: limitTokens,
       token: liquidityHub.vhToken.underlyingToken,
@@ -146,15 +154,21 @@ describe('SupplyWithCollateralForm', () => {
     );
 
     await waitFor(() =>
-      expect(getAmountInput().value).toBe(limitTokens.dp(liquidityHub.vhToken.decimals).toFixed()),
+      expect(getAmountInput().value).toBe(
+        limitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
+      ),
     );
   });
 
   it('fills the input with the safe max value when clicking SAFE MAX', async () => {
-    const { safeLimitTokens } = calculateCollateralWithdrawLimits({
+    const { safeLimitTokens: collateralSafeLimitTokens } = calculateCollateralWithdrawLimits({
       asset: corePoolAsset,
       pool: corePool,
     });
+    const supplyCapMarginTokens = liquidityHub.supplyCapTokens.minus(
+      liquidityHub.supplyBalanceTokens,
+    );
+    const safeLimitTokens = BigNumber.min(collateralSafeLimitTokens, supplyCapMarginTokens);
 
     renderTransactionForm();
 
@@ -166,7 +180,68 @@ describe('SupplyWithCollateralForm', () => {
 
     await waitFor(() =>
       expect(getAmountInput().value).toBe(
-        safeLimitTokens.dp(liquidityHub.vhToken.decimals).toFixed(),
+        safeLimitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
+      ),
+    );
+  });
+
+  it('uses the supply cap margin as the available balance and SAFE MAX when it is the lowest limit', async () => {
+    const supplyCapMarginTokens = new BigNumber('0.5');
+    const liquidityHubWithLowerSupplyCapMargin = {
+      ...liquidityHub,
+      supplyCapTokens: liquidityHub.supplyBalanceTokens.plus(supplyCapMarginTokens),
+    };
+    const readableLimit = formatTokensToReadableValue({
+      value: supplyCapMarginTokens,
+      token: liquidityHub.vhToken.underlyingToken,
+    });
+
+    renderTransactionForm({
+      corePool: clickableLimitPool,
+      liquidityHub: liquidityHubWithLowerSupplyCapMargin,
+    });
+
+    expect(screen.getByRole('button', { name: readableLimit })).toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.rightSafeMaxButtonLabel,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(getAmountInput().value).toBe(
+        supplyCapMarginTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
+      ),
+    );
+  });
+
+  it('uses the user supply cap as the available balance and SAFE MAX when it is the lowest limit', async () => {
+    const userSupplyCapTokens = new BigNumber('0.25');
+    const readableLimit = formatTokensToReadableValue({
+      value: userSupplyCapTokens,
+      token: liquidityHub.vhToken.underlyingToken,
+    });
+
+    renderTransactionForm({
+      corePool: clickableLimitPool,
+      liquidityHub: {
+        ...liquidityHub,
+        userSupplyCapTokens,
+      },
+    });
+
+    expect(screen.getByRole('button', { name: readableLimit })).toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.rightSafeMaxButtonLabel,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(getAmountInput().value).toBe(
+        userSupplyCapTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
       ),
     );
   });

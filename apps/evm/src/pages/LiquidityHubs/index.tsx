@@ -1,14 +1,25 @@
 import BigNumber from 'bignumber.js';
 
-// TODO: fetch from API
-import { liquidityHubs } from '__mocks__/models/liquidityHubs';
+import { useGetLiquidityHubs } from 'clients/api';
 import { type CellProps, Page, PageStatHeader } from 'components';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
 import { LiquidityHubTable } from './LiquidityHubTable';
 
 const LiquidityHubs: React.FC = () => {
+  const { accountAddress } = useAccountAddress();
+
   const { t } = useTranslation();
+  const {
+    data: getLiquidityHubsData = {
+      liquidityHubs: [],
+    },
+    isLoading,
+  } = useGetLiquidityHubs({
+    accountAddress,
+  });
+  const { liquidityHubs } = getLiquidityHubsData;
 
   const { supplyBalanceCents, liquidityCents, count } = liquidityHubs.reduce(
     (acc, liquidityHub) => ({
@@ -52,7 +63,7 @@ const LiquidityHubs: React.FC = () => {
           cells={cells}
         />
 
-        <LiquidityHubTable data={liquidityHubs} />
+        <LiquidityHubTable data={liquidityHubs} isFetching={isLoading} />
       </div>
     </Page>
   );
