@@ -66,7 +66,7 @@ const SupportChatWidget: React.FC = () => {
                     isSessionAlive ? 'bg-[#3ddc97] shadow-[0_0_8px_#3ddc97]' : 'bg-[#6b7794]',
                   )}
                 />
-                {isSessionAlive ? 'Online · live market data' : 'Session closed'}
+                {isSessionAlive ? 'Online' : 'Session closed'}
               </p>
             </div>
 
@@ -121,10 +121,6 @@ const SupportChatWidget: React.FC = () => {
               Send
             </button>
           </form>
-
-          <p className="pb-2 text-center text-b3r text-[#8fa0c4] opacity-65">
-            Answers are reviewed before delivery · live Venus market data
-          </p>
         </div>
       )}
 
