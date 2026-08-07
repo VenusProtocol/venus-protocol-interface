@@ -132,12 +132,25 @@ const SupportChatWidget: React.FC = () => {
         type="button"
         aria-label="Open Venus assistant"
         className={cn(
-          'fixed bottom-6 right-4 z-50 rounded-full bg-[linear-gradient(135deg,#35a2ff,#7c5cff)] px-6 py-3 text-b1s text-white transition-transform duration-250',
+          'fixed bottom-6 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[linear-gradient(135deg,#4a9df5,#7c5cff)] text-[#0b1224] transition-transform duration-250',
           'shadow-[0_10px_34px_-6px_rgba(53,162,255,0.55)] hover:-translate-y-0.5 hover:scale-105',
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        Ask Venus
+        <span className="pointer-events-none absolute -inset-1.5 rounded-full border border-[rgba(74,157,245,0.45)]" />
+
+        <svg
+          className="h-6 w-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 4a8 8 0 1 1-7.1 11.7L4 20l4.3-.9A8 8 0 0 1 12 4z" />
+        </svg>
       </button>
     </>
   );
