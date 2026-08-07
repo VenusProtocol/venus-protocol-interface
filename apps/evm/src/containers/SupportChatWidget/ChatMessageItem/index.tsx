@@ -13,6 +13,7 @@ export interface ChatMessageItemProps {
   message: ChatMessage;
   onSendPrompt: (prompt: string) => void;
   onAction: (action: string) => void;
+  onOpenUrl: (url: string) => void;
   onRestart: () => void;
 }
 
@@ -20,6 +21,7 @@ export const ChatMessageItem: React.FC<ChatMessageItemProps> = ({
   message,
   onSendPrompt,
   onAction,
+  onOpenUrl,
   onRestart,
 }) => {
   const [visibleCharCount, setVisibleCharCount] = useState(
@@ -55,7 +57,7 @@ export const ChatMessageItem: React.FC<ChatMessageItemProps> = ({
       return;
     }
     if (cta.url) {
-      window.open(cta.url, '_blank', 'noreferrer');
+      onOpenUrl(cta.url);
     }
   };
 

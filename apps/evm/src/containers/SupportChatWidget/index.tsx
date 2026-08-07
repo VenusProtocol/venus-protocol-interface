@@ -23,7 +23,7 @@ const SupportChatWidget: React.FC = () => {
   const logRef = useRef<HTMLDivElement>(null);
 
   const { messages, isBusy, isSessionAlive, sendMessage, restartSession } = useChatConversation();
-  const { dispatchAction } = useChatAction();
+  const { dispatchAction, openUrl } = useChatAction();
 
   // Keep the newest message in view, including while the typewriter grows it
   useEffect(() => {
@@ -87,6 +87,7 @@ const SupportChatWidget: React.FC = () => {
                 message={message}
                 onSendPrompt={sendMessage}
                 onAction={dispatchAction}
+                onOpenUrl={openUrl}
                 onRestart={restartSession}
               />
             ))}
