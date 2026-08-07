@@ -2,6 +2,7 @@ import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
 import { liquidityHubMigratorAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -23,6 +24,7 @@ type Options = UseSendTransactionOptions<MigrateCoreSupplyToLiquidityHubInput>;
 export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
     // @ts-ignore mixing function calls messes up with the typing of useSendTransaction
@@ -86,6 +88,16 @@ export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) =
       >;
     },
     onConfirmed: ({ input }) => {
+      captureAnalyticEvent('Tokens supplied', {
+        poolName: 'liquidity_hub',
+        tokenSymbol: input.vhToken.underlyingToken.symbol,
+        tokenAmountTokens: convertMantissaToTokens({
+          token: input.vhToken.underlyingToken,
+          value: input.amountMantissa,
+        }).toNumber(),
+        fundingSource: 'core_pool_collateral',
+      });
+
       queryClient.invalidateQueries({
         queryKey: [
           FunctionKey.GET_LIQUIDITY_HUB,

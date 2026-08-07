@@ -2,10 +2,12 @@ import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
 import liquidityHubAbi from 'libs/contracts/config/externalAbis/LiquidityHub.json';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { LiquidityHub } from 'types';
+import { convertMantissaToTokens } from 'utilities';
 import type { Account, Address, Chain, WriteContractParameters } from 'viem';
 
 export type WithdrawFromLiquidityHubInput = {
@@ -20,6 +22,7 @@ type Options = UseSendTransactionOptions<WithdrawFromLiquidityHubInput>;
 export const useWithdrawFromLiquidityHub = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
     // @ts-ignore mixing function calls messes up with the typing of useSendTransaction
@@ -69,6 +72,16 @@ export const useWithdrawFromLiquidityHub = (options?: Partial<Options>) => {
       >;
     },
     onConfirmed: ({ input }) => {
+      captureAnalyticEvent('Tokens withdrawn', {
+        poolName: 'liquidity_hub',
+        tokenSymbol: input.liquidityHub.vhToken.underlyingToken.symbol,
+        tokenAmountTokens: convertMantissaToTokens({
+          token: input.liquidityHub.vhToken.underlyingToken,
+          value: input.amountMantissa,
+        }).toNumber(),
+        withdrewFullSupply: input.withdrawFullSupply === true,
+      });
+
       queryClient.invalidateQueries({
         queryKey: [
           FunctionKey.GET_LIQUIDITY_HUB,

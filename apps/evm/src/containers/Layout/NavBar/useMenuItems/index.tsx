@@ -8,12 +8,14 @@ import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
 import { VENUS_FLUX_URL } from 'constants/production';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import type { MenuItem, SubMenu } from '../types';
 
 export const useMenuItems = () => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
+  const { captureAnalyticEvent } = useAnalytics();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
@@ -62,6 +64,10 @@ export const useMenuItems = () => {
             label: t('layouts.menu.markets.liquidityHub.label'),
             tagLabel: t('layout.menu.new'),
             description: t('layouts.menu.markets.liquidityHub.description'),
+            onClick: () =>
+              captureAnalyticEvent('hub_navigation', {
+                variant: 'navigation_menu',
+              }),
           },
           {
             to: routes.vaults.path,

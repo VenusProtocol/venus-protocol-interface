@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`LiquidityHubCard > displays total supplied and links to the hub when the user has no position 1`] = `"XVSSupplyAPY7.4%Total supplied15.25K XVS"`;
+exports[`LiquidityHubCard > displays total supplied, links to the hub, and tracks clicks when the user has no position 1`] = `"XVSSupplyAPY7.4%Total supplied15.25K XVS"`;
 
 exports[`LiquidityHubCard > displays user supply balance and daily earnings when the user has a position 1`] = `"Currently supplied42 XVSSupplyAPY7.4%Daily earnings$0.05"`;
 

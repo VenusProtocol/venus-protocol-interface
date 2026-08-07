@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useWithdrawFromLiquidityHub } from '..';
@@ -19,7 +20,16 @@ const fakeFullInput = {
   userVhTokenBalanceMantissa: new BigNumber('39622641509433962264'),
 };
 
+const mockCaptureAnalyticEvent = vi.fn();
+
 describe('useWithdrawFromLiquidityHub', () => {
+  beforeEach(() => {
+    mockCaptureAnalyticEvent.mockClear();
+    (useAnalytics as Mock).mockReturnValue({
+      captureAnalyticEvent: mockCaptureAnalyticEvent,
+    });
+  });
+
   it('withdraws underlying tokens for partial withdrawals', () => {
     renderHook(() => useWithdrawFromLiquidityHub(), {
       accountAddress: fakeAccountAddress,
@@ -42,6 +52,12 @@ describe('useWithdrawFromLiquidityHub', () => {
 
     onConfirmed({ input: fakePartialInput });
 
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Tokens withdrawn', {
+      poolName: 'liquidity_hub',
+      tokenSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+      tokenAmountTokens: 1,
+      withdrewFullSupply: false,
+    });
     expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
       queryKey: [
         FunctionKey.GET_LIQUIDITY_HUB,
@@ -57,13 +73,22 @@ describe('useWithdrawFromLiquidityHub', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+    const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
     expect(fn(fakeFullInput)).toEqual({
       abi: expect.any(Array),
       address: liquidityHub.vhToken.address,
       functionName: 'redeem',
       args: [39622641509433962264n, fakeAccountAddress, fakeAccountAddress],
+    });
+
+    onConfirmed({ input: fakeFullInput });
+
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Tokens withdrawn', {
+      poolName: 'liquidity_hub',
+      tokenSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+      tokenAmountTokens: 1,
+      withdrewFullSupply: true,
     });
   });
 
