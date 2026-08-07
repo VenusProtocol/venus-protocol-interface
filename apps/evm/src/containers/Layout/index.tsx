@@ -4,6 +4,7 @@ import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { Wrapper, cn } from 'components';
 import { Subdirectory } from 'constants/routing';
+import { ChatActionDemo } from 'containers/ChatActionDemo';
 import { useRef } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -95,6 +96,8 @@ export const Layout: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <ChatActionDemo />
     </>
   );
 };
