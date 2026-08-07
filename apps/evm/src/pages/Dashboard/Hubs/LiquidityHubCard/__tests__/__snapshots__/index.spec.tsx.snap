@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LiquidityHubCard > displays total supplied and links to the hub when the user has no position 1`] = `"XVSSupplyAPY7.4%Total supplied15.25K XVS"`;
+
+exports[`LiquidityHubCard > displays user supply balance and daily earnings when the user has a position 1`] = `"Currently supplied42 XVSSupplyAPY7.4%Daily earnings$0.05"`;
+
+exports[`LiquidityHubCard > opens liquidity hub form modal when clicking a card with a user position 1`] = `"Currently supplied42 XVSSupplyAPY7.4%Daily earnings$0.05Liquidity Hub form modal for vhXVSClose"`;

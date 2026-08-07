@@ -1,5 +1,4 @@
 import { theme } from '@venusprotocol/ui';
-import type BigNumber from 'bignumber.js';
 
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue, formatToReadableDate } from 'utilities';
@@ -7,15 +6,10 @@ import { formatCentsToReadableValue, formatToReadableDate } from 'utilities';
 import type { MarketHistoryPeriodType } from 'clients/api';
 import { AreaChart } from 'components';
 import { useBreakpointUp } from 'hooks/responsive';
-
-export interface ApyChartItem {
-  apyPercentage: number;
-  timestampMs: number;
-  balanceCents: BigNumber;
-}
+import type { MarketHistoryDataPoint } from 'types';
 
 export interface ApyChartProps {
-  data: ApyChartItem[];
+  data: MarketHistoryDataPoint[];
   selectedPeriod: MarketHistoryPeriodType;
   className?: string;
 }
@@ -33,16 +27,11 @@ export const SupplyChart: React.FC<ApyChartProps> = ({ className, data, selected
 
   const chartInterval = isSmOrUp ? 5 : 3;
 
-  const formattedData = (data ?? []).map(item => ({
-    ...item,
-    balanceNum: item.balanceCents.toNumber(),
-  }));
-
   return (
     <AreaChart
-      data={formattedData}
-      xAxisDataKey="timestampMs"
-      yAxisDataKey="balanceNum"
+      data={data}
+      xAxisDataKey="blockTimestamp"
+      yAxisDataKey="totalSupplyCents"
       className={className}
       formatXAxisValue={formatDate}
       formatYAxisValue={value =>
@@ -55,12 +44,12 @@ export const SupplyChart: React.FC<ApyChartProps> = ({ className, data, selected
       formatTooltipItems={payload => [
         {
           label: t('apyChart.tooltipItemLabels.date'),
-          value: formatDate(payload.timestampMs, selectedPeriod),
+          value: formatDate(payload.blockTimestamp, selectedPeriod),
         },
         {
           label: t('apyChart.tooltipItemLabels.totalStaked'),
           value: formatCentsToReadableValue({
-            value: payload.balanceCents,
+            value: payload.totalSupplyCents,
           }),
         },
       ]}

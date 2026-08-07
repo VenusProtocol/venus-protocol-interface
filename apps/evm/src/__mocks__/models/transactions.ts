@@ -19,7 +19,7 @@ export const transactions = {
       chainId: 97,
       contractAddress: vhXvs.address,
       hash: '0xca13a0f45b10dabd21b863b6b602c6d8776edd4c6b10fe65a0881d491f468f35',
-      txType: 'supply',
+      txType: 'hubSupply',
       vhToken: vhXvs,
     },
     {

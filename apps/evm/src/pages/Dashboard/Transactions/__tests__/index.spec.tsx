@@ -5,8 +5,33 @@ import { useGetAccountTransactionHistory } from 'clients/api';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { Mock } from 'vitest';
+import { type Mock, vi } from 'vitest';
 import { Transactions } from '..';
+
+vi.mock('clients/api', async () => {
+  const { liquidityHubs } = await import('__mocks__/models/liquidityHubs');
+  const { poolData } = await import('__mocks__/models/pools');
+  const { transactions } = await import('__mocks__/models/transactions');
+
+  return {
+    useGetAccountTransactionHistory: vi.fn(() => ({
+      data: transactions,
+      isLoading: false,
+    })),
+    useGetLiquidityHubs: vi.fn(() => ({
+      data: {
+        liquidityHubs,
+      },
+      isLoading: false,
+    })),
+    useGetPools: vi.fn(() => ({
+      data: {
+        pools: poolData,
+      },
+      isLoading: false,
+    })),
+  };
+});
 
 describe('Transactions', () => {
   beforeEach(() => {
@@ -30,7 +55,13 @@ describe('Transactions', () => {
     const { container, getByText } = renderComponent(<Transactions />, {
       accountAddress: fakeAccountAddress,
     });
-    await waitFor(() => expect(getByText(en.account.transactions.txType.mint)));
+    await waitFor(() =>
+      expect(
+        getByText(
+          `${en.account.transactions.txType.mint} • ${en.account.transactions.txSource.liquidityHub}`,
+        ),
+      ),
+    );
 
     expect(container.textContent).toMatchSnapshot();
   });

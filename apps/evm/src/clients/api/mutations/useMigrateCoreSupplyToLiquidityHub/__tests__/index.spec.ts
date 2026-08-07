@@ -13,7 +13,7 @@ const liquidityHub = liquidityHubs[0];
 const corePoolAsset = assetData[0];
 const fakeInput = {
   vhToken: liquidityHub.vhToken,
-  hubAddress: liquidityHub.hubAddress,
+  hubAddress: liquidityHub.vhToken.address,
   vToken: corePoolAsset.vToken,
   exchangeRateVTokens: corePoolAsset.exchangeRateVTokens,
   amountMantissa: new BigNumber('1000000000000000000'),

@@ -35,7 +35,7 @@ describe('useSupplyToLiquidityHub', () => {
 
     expect(fn(fakeInput)).toEqual({
       abi: expect.any(Array),
-      address: liquidityHub.hubAddress,
+      address: liquidityHub.vhToken.address,
       functionName: 'deposit',
       args: [1000000000000000000n, fakeAccountAddress],
     });
@@ -57,7 +57,7 @@ describe('useSupplyToLiquidityHub', () => {
           chainId: ChainId.BSC_TESTNET,
           tokenAddress: liquidityHub.vhToken.underlyingToken.address,
           accountAddress: fakeAccountAddress,
-          spenderAddress: liquidityHub.hubAddress,
+          spenderAddress: liquidityHub.vhToken.address,
         },
       ],
     });

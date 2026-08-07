@@ -1,16 +1,18 @@
 import {
   Apy,
+  ImgGroup,
   InfoIcon,
   LayeredValues,
   type Order,
   Table,
   type TableColumn,
   type TableProps,
-  TokenGroup,
+  TableRowControl,
   TokenIconWithSymbol,
 } from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
+import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
@@ -20,9 +22,7 @@ import {
   formatCentsToReadableValue,
   formatTokensToReadableValue,
   getCombinedApy,
-  getLiquidityHubCollateralTokens,
 } from 'utilities';
-import { RowControl } from './RowControl';
 
 export interface LiquidityHubTableProps
   extends Omit<TableProps<LiquidityHub>, 'columns' | 'rowKeyExtractor'> {}
@@ -37,9 +37,19 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const [userChainSettings] = useUserChainSettings();
 
   const [searchValue, setSearchValue] = useState('');
+  const [selectedLiquidityHub, setSelectedLiquidityHub] = useState<LiquidityHub>();
+
+  const handleCloseLiquidityHubModal = () => setSelectedLiquidityHub(undefined);
 
   const renderRowControl = (liquidityHub: LiquidityHub) => {
-    return <RowControl className="-ml-6" vhToken={liquidityHub.vhToken} />;
+    const handleRowControlClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      setSelectedLiquidityHub(liquidityHub);
+    };
+
+    return <TableRowControl className="-ml-6" onClick={handleRowControlClick} />;
   };
 
   const filteredData = data.filter(row => {
@@ -104,8 +114,8 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       selectOptionLabel: t('liquidityHubs.table.columns.exposure.selectionOptionLabel'),
       align: 'right',
       renderCell: ({ yieldGroups }) => (
-        <TokenGroup
-          tokens={getLiquidityHubCollateralTokens({ yieldGroups })}
+        <ImgGroup
+          imgSrcs={yieldGroups.map(yieldGroup => yieldGroup.iconSrc)}
           removeDuplicates
           limit={5}
         />
@@ -176,27 +186,36 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
     routes.liquidityHub.path.replace(':vhTokenAddress', row.vhToken.address);
 
   return (
-    <Table
-      data={filteredData}
-      columns={columns}
-      rowKeyExtractor={row => row.vhToken.address}
-      controls
-      tableLayout="auto"
-      breakpoint="md"
-      hideCardDelimiter
-      className={className}
-      renderRowControl={renderRowControl}
-      initialOrder={initialOrder}
-      getRowHref={getRowHref}
-      header={
-        <Controls
-          searchValue={searchValue}
-          onSearchValueChange={setSearchValue}
-          showPausedAssetsToggle={false}
-          searchInputPlaceholder={t('liquidityHubs.table.search.placeholder')}
+    <>
+      <Table
+        data={filteredData}
+        columns={columns}
+        rowKeyExtractor={row => row.vhToken.address}
+        controls
+        tableLayout="auto"
+        breakpoint="md"
+        hideCardDelimiter
+        className={className}
+        renderRowControl={renderRowControl}
+        initialOrder={initialOrder}
+        getRowHref={getRowHref}
+        header={
+          <Controls
+            searchValue={searchValue}
+            onSearchValueChange={setSearchValue}
+            showPausedAssetsToggle={false}
+            searchInputPlaceholder={t('liquidityHubs.table.search.placeholder')}
+          />
+        }
+        {...otherProps}
+      />
+
+      {selectedLiquidityHub && (
+        <LiquidityHubFormModal
+          vhToken={selectedLiquidityHub.vhToken}
+          handleClose={handleCloseLiquidityHubModal}
         />
-      }
-      {...otherProps}
-    />
+      )}
+    </>
   );
 };
