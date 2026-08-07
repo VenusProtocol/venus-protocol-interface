@@ -2,7 +2,7 @@ import type { Address } from 'viem';
 
 import { Modal, type ModalProps, ProtectionModeIndicator } from 'components';
 import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
-import { MarketForm } from 'containers/MarketForm';
+import { MarketForm, type MarketFormProps } from 'containers/MarketForm';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import type { Asset } from 'types';
 
@@ -10,12 +10,14 @@ export interface MarketFormModalProps {
   asset: Asset;
   poolComptrollerAddress: Address;
   onClose: ModalProps['handleClose'];
+  initialActiveTabId?: MarketFormProps['initialActiveTabId'];
 }
 
 export const MarketFormModal: React.FC<MarketFormModalProps> = ({
   asset,
   poolComptrollerAddress,
   onClose,
+  initialActiveTabId,
 }) => {
   const [userChainSettings] = useUserChainSettings();
 
@@ -45,6 +47,7 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
         vToken={asset.vToken}
         poolComptrollerAddress={poolComptrollerAddress}
         onSubmitSuccess={onClose}
+        initialActiveTabId={initialActiveTabId}
       />
     </Modal>
   );

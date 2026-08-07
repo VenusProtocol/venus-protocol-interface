@@ -32,7 +32,10 @@ export const getRpcUrls = ({
       `https://open-platform.nodereal.io/${nodeRealApiKey}/arbitrum-nitro`,
       `https://arb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
     ],
-    [ChainId.ARBITRUM_SEPOLIA]: [`https://arb-sepolia.g.alchemy.com/v2/${alchemyApiKey}`],
+    [ChainId.ARBITRUM_SEPOLIA]: [
+      `https://arb-sepolia.g.alchemy.com/v2/${alchemyApiKey}`,
+      'https://sepolia-rollup.arbitrum.io/rpc',
+    ],
     [ChainId.ZKSYNC_MAINNET]: [
       `https://open-platform.nodereal.io/${nodeRealApiKey}/zksync`,
       `https://zksync-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
@@ -54,8 +57,14 @@ export const getRpcUrls = ({
       `https://base-sepolia.g.alchemy.com/v2/${alchemyApiKey}`,
       'https://sepolia.base.org',
     ],
-    [ChainId.UNICHAIN_MAINNET]: [`https://unichain-mainnet.g.alchemy.com/v2/${alchemyApiKey}`],
-    [ChainId.UNICHAIN_SEPOLIA]: [`https://unichain-sepolia.g.alchemy.com/v2/${alchemyApiKey}`],
+    [ChainId.UNICHAIN_MAINNET]: [
+      `https://unichain-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
+      'https://mainnet.unichain.org',
+    ],
+    [ChainId.UNICHAIN_SEPOLIA]: [
+      `https://unichain-sepolia.g.alchemy.com/v2/${alchemyApiKey}`,
+      'https://sepolia.unichain.org',
+    ],
   };
 
   return rpcUrls;

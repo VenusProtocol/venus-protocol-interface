@@ -20,6 +20,8 @@ const GaslessChecker = safeLazyLoad(() => import('containers/GaslessChecker'));
 const ResendPayingGasModal = safeLazyLoad(() => import('containers/ResendPayingGasModal'));
 const ImportPositionsModal = safeLazyLoad(() => import('containers/ImportPositionsModal'));
 const VipModal = safeLazyLoad(() => import('containers/VipModal'));
+const SupportChatWidget = safeLazyLoad(() => import('containers/SupportChatWidget'));
+const MarketFormModalHost = safeLazyLoad(() => import('containers/MarketFormModalHost'));
 
 const App = () => (
   <>
@@ -65,6 +67,14 @@ const App = () => (
                 </Suspense>
 
                 <UrlChainIdFallback />
+
+                <Suspense>
+                  <SupportChatWidget />
+                </Suspense>
+
+                <Suspense>
+                  <MarketFormModalHost />
+                </Suspense>
 
                 <ChainUpgradeHandler />
 

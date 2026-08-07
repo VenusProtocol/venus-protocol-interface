@@ -1,5 +1,6 @@
 import { cn } from '@venusprotocol/ui';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router';
 
 import {
   Card,
@@ -41,6 +42,28 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   const { t } = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Deep link: ?vault=<vault key or staked token symbol> opens this vault's
+  // modal (used by the support chat widget's in-app actions)
+  useEffect(() => {
+    const requestedVault = searchParams.get('vault');
+    if (!requestedVault) {
+      return;
+    }
+
+    const matchesVault =
+      requestedVault === vault.key ||
+      requestedVault.toLowerCase() === vault.stakedToken.symbol.toLowerCase();
+    if (!matchesVault) {
+      return;
+    }
+
+    setModalVisible(true);
+    const nextSearchParams = new URLSearchParams(searchParams);
+    nextSearchParams.delete('vault');
+    setSearchParams(nextSearchParams, { replace: true });
+  }, [searchParams, setSearchParams, vault.key, vault.stakedToken.symbol]);
 
   const { accountAddress } = useAccountAddress();
   const { primeVersion } = usePrimeVersion();
