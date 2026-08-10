@@ -17,6 +17,7 @@ import type {
 } from 'types';
 import {
   calculateCollateralWithdrawLimits,
+  convertMantissaToTokens,
   convertTokensToMantissa,
   formatTokensToReadableValue,
 } from 'utilities';
@@ -42,10 +43,24 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   const [formValues, setFormValues] = useState(initialFormValues);
   const { accountAddress } = useAccountAddress();
 
-  const { limitTokens, safeLimitTokens } = calculateCollateralWithdrawLimits({
-    asset: corePoolAsset,
-    pool: corePool,
-  });
+  const { limitTokens: _limitTokens, safeLimitTokens: _safeLimitTokens } =
+    calculateCollateralWithdrawLimits({
+      asset: corePoolAsset,
+      pool: corePool,
+    });
+
+  // Take supply cap in consideration
+  const marginWithSupplyCapTokens = liquidityHub.supplyCapTokens.minus(
+    liquidityHub.supplyBalanceTokens,
+  );
+
+  let safeLimitTokens = BigNumber.min(_safeLimitTokens, marginWithSupplyCapTokens);
+  let limitTokens = BigNumber.min(_limitTokens, marginWithSupplyCapTokens);
+
+  if (liquidityHub.userSupplyCapTokens) {
+    safeLimitTokens = BigNumber.min(safeLimitTokens, liquidityHub.userSupplyCapTokens);
+    limitTokens = BigNumber.min(limitTokens, liquidityHub.userSupplyCapTokens);
+  }
 
   const approval: TokenApproval = {
     type: 'token',
@@ -72,7 +87,25 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
+  // The minimum a use can migrate from the Core Pool is 1 wei, so we use the exchange rate to
+  // determine how much that represents in underlying tokens
+  const minFromAmountTokens = convertMantissaToTokens({
+    value: new BigNumber(1),
+    token: corePoolAsset.vToken,
+  }).dividedBy(corePoolAsset.exchangeRateVTokens);
+
   const handleValidateForm: UseFormValidationInput['validate'] = () => {
+    if (fromAmountTokens?.isLessThan(minFromAmountTokens)) {
+      return {
+        code: 'SMALLER_THAN_MINIMUM_AMOUNT',
+        message: t('liquidityHubForm.error.smallerThanMinimumAmount', {
+          minimumAmount: `${minFromAmountTokens.toFixed(
+            liquidityHub.vhToken.underlyingToken.decimals,
+          )} ${liquidityHub.vhToken.underlyingToken.symbol}`,
+        }),
+      };
+    }
+
     if (
       walletSpendingLimitTokens?.isGreaterThan(0) &&
       fromAmountTokens?.isGreaterThan(walletSpendingLimitTokens)
@@ -124,7 +157,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     ? () =>
         setFormValues(values => ({
           ...values,
-          amountTokens: limitTokens.dp(liquidityHub.vhToken.decimals).toFixed(),
+          amountTokens: limitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
         }))
     : undefined;
 

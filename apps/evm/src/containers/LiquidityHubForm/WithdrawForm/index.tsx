@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { useWithdrawFromLiquidityHub } from 'clients/api';
 import { AvailableBalance } from 'components';
+import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHub, LiquidityHubBalanceMutation } from 'types';
 import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
@@ -17,10 +18,17 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  const limitTokens = BigNumber.min(
-    liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0),
-    liquidityHub.liquidityTokens,
+  const userMaxRedeemTokens = liquidityHub.userVhTokenMaxRedeemTokens?.multipliedBy(
+    liquidityHub.pricePerShare,
   );
+
+  const limitTokens = BigNumber.min(
+    liquidityHub.userWithdrawCapTokens ?? 0,
+    userMaxRedeemTokens ?? 0,
+  )
+    // Apply buffer to account for accruing interests that lower the limits while a transaction is
+    // being executed
+    .multipliedBy(1 - TRANSACTION_BUFFER_PERCENTAGE);
 
   const fromAmountTokens = formValues.amountTokens
     ? new BigNumber(formValues.amountTokens)
@@ -35,13 +43,15 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       token: liquidityHub.vhToken.underlyingToken,
       value: amountTokens,
     });
-    const userSupplyBalanceTokens = liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0);
-    const userVhTokenBalanceTokens = liquidityHub.userVhTokenBalanceTokens;
-    const withdrawFullSupply = amountTokens.isEqualTo(userSupplyBalanceTokens);
-    const userVhTokenBalanceMantissa = userVhTokenBalanceTokens
+
+    const withdrawFullSupply = amountTokens.isGreaterThanOrEqualTo(
+      userMaxRedeemTokens ?? Number.POSITIVE_INFINITY,
+    );
+
+    const userVhTokenBalanceMantissa = liquidityHub.userVhTokenBalanceTokens
       ? convertTokensToMantissa({
           token: liquidityHub.vhToken,
-          value: userVhTokenBalanceTokens,
+          value: liquidityHub.userVhTokenBalanceTokens,
         })
       : undefined;
 
@@ -66,7 +76,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     ? () =>
         setFormValues(values => ({
           ...values,
-          amountTokens: limitTokens.dp(liquidityHub.vhToken.decimals).toFixed(),
+          amountTokens: limitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
         }))
     : undefined;
 

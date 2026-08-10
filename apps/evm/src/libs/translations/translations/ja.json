@@ -74,7 +74,7 @@
       "title": "サマリー"
     },
     "tabs": {
-      "hub": "ハブ",
+      "hubs": "ハブ",
       "markets": "マーケット",
       "settings": "設定",
       "transactions": "取引",
@@ -107,15 +107,15 @@
         "enterMarket": "担保を有効化",
         "exitMarket": "担保を無効化",
         "mint": "供給",
-        "positionClosedWithLoss": "クローズ（損失） • Trade",
-        "positionClosedWithProfit": "クローズ（利益） • Trade",
-        "positionIncreased": "増加 • Trade",
-        "positionOpened": "オープン • Trade",
-        "positionReducedWithLoss": "減少（損失） • Trade",
-        "positionReducedWithProfit": "減少（利益） • Trade",
-        "principalSupplied": "供給 • Trade",
-        "principalWithdrawn": "引き出し • Trade",
-        "realizedPnl": "実現損益 • Trade",
+        "positionClosedWithLoss": "クローズ（損失）",
+        "positionClosedWithProfit": "クローズ（利益）",
+        "positionIncreased": "増加",
+        "positionOpened": "オープン",
+        "positionReducedWithLoss": "減少（損失）",
+        "positionReducedWithProfit": "減少（利益）",
+        "principalSupplied": "供給",
+        "principalWithdrawn": "引き出し",
+        "realizedPnl": "実現損益",
         "redeem": "引き出し",
         "repay": "返済"
       },
@@ -817,6 +817,7 @@
       "markets": {
         "label": "マーケット"
       },
+      "new": "新規",
       "others": {
         "bridge": {
           "description": "Venusでのクロスチェーン$XVS転送。",
@@ -927,6 +928,7 @@
         }
       },
       "title": "配分の詳細",
+      "unallocated": "未割り当て",
       "yieldGroup": {
         "allocationColumn": {
           "title": "配分"
@@ -949,6 +951,11 @@
             "market": "マーケット",
             "vault": "ボールト"
           }
+        },
+        "names": {
+          "core": "Venus Core",
+          "flux": "Venus Flux",
+          "frv": "固定利率ボールト"
         }
       }
     },
@@ -961,6 +968,7 @@
         },
         "hubContract": "ハブコントラクト",
         "operator": "オペレーター",
+        "operatorName": "Venus DAO",
         "performanceFee": "パフォーマンス手数料",
         "redeemFee": "償還手数料",
         "riskDisclosures": {
@@ -970,6 +978,13 @@
         "vhTokenContract": "{{ vhTokenSymbol }} コントラクト"
       },
       "title": "ハブ情報"
+    },
+    "periodOption": {
+      "all": "すべて",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "thirtyDays": "30D",
+      "threeMonths": "3M"
     }
   },
   "liquidityHubForm": {
@@ -982,6 +997,7 @@
       "higherThanAvailableLiquidity": "ハブの流動性が不足しています",
       "higherThanSupplyCap": "この流動性ハブの供給上限は {{supplyCap}} に設定されており、現在 {{supplyBalance}} が供給されているため、{{userMaxSupplyAmount}} を超えて供給することはできません。",
       "higherThanWalletSpendingLimit": "入力した金額がこの資産の支出上限を超えています。この取引を続行するには、現在の支出上限を取り消してから新しい上限を設定してください。",
+      "smallerThanMinimumAmount": "{{minimumAmount}} 未満は移行できません",
       "supplyCapReached": "この流動性ハブの供給上限 {{supplyCap}} に達しました。引き出しが行われるか、供給上限が引き上げられるまで、これ以上供給することはできません。"
     },
     "rightMaxButtonLabel": "MAX",

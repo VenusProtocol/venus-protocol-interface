@@ -13,7 +13,6 @@ export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivE
   invertTextColors?: boolean;
   iconSrc?: IconName | Token;
   iconClassName?: string;
-  labelClassName?: string;
 }
 
 export const LabeledInlineContent = ({
@@ -25,11 +24,10 @@ export const LabeledInlineContent = ({
   children,
   className,
   description,
-  labelClassName,
   ...otherContainerProps
 }: LabeledInlineContentProps) => (
   <div className={cn('flex w-full justify-between space-x-4', className)} {...otherContainerProps}>
-    <div className={cn('flex items-center text-sm', labelClassName)}>
+    <div className="flex items-center mb-auto text-sm">
       <div className={cn('flex', !description && 'items-center')}>
         {typeof iconSrc === 'string' && (
           <Icon
@@ -58,7 +56,7 @@ export const LabeledInlineContent = ({
       {!!tooltip && <InfoIcon className="ml-2 inline-flex items-center" tooltip={tooltip} />}
     </div>
 
-    <div className={cn('flex items-center text-sm', invertTextColors ? 'text-grey' : 'text-white')}>
+    <div className={cn('flex text-sm', invertTextColors ? 'text-grey' : 'text-white')}>
       {children}
     </div>
   </div>

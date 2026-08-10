@@ -36,10 +36,12 @@ export const LabeledValueUpdate: React.FC<LabeledValueUpdateProps> = ({
   return (
     <div className={cn('flex flex-col items-end', className)}>
       <LabeledInlineContent {...otherProps}>
-        <ValueUpdate original={original} update={update} />
-      </LabeledInlineContent>
+        <div className="flex flex-col items-end">
+          <ValueUpdate original={original} update={update} />
 
-      {readableAmountDollars && <p className="text-grey text-sm">{readableAmountDollars}</p>}
+          {readableAmountDollars && <p className="text-grey text-sm">{readableAmountDollars}</p>}
+        </div>
+      </LabeledInlineContent>
     </div>
   );
 };

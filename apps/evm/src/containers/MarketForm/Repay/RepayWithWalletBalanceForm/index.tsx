@@ -11,7 +11,7 @@ import {
   TokenTextField,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
+import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
@@ -220,7 +220,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
             formValues.fixedRepayPercentage === 100
               ? // Buff amount if we are repaying a full loan to account for accrued interests while
                 // the transaction is being mined
-                formValues.fixedRepayPercentage + FULL_REPAYMENT_BUFFER_PERCENTAGE
+                formValues.fixedRepayPercentage + TRANSACTION_BUFFER_PERCENTAGE
               : formValues.fixedRepayPercentage,
         }),
       )

@@ -7,7 +7,7 @@ export interface MenuItem {
   imgSrc?: string;
   iconName?: IconName;
   description?: string;
-  isBeta?: boolean;
+  tagLabel?: string;
 }
 
 export interface SubMenu {
@@ -15,4 +15,5 @@ export interface SubMenu {
   items: MenuItem[];
   variant?: 'primary' | 'secondary';
   defaultOpenOnMobile?: boolean;
+  tagLabel?: string;
 }

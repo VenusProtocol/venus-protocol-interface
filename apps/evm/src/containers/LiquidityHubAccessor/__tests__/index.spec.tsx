@@ -21,12 +21,12 @@ describe('LiquidityHubAccessor', () => {
 
   it('renders children with the matching liquidity hub', () => {
     const children = vi.fn(({ liquidityHub }: { liquidityHub: (typeof liquidityHubs)[number] }) => (
-      <div>{liquidityHub.operatorName}</div>
+      <div>{liquidityHub.vhToken.symbol}</div>
     ));
 
     renderComponent(<LiquidityHubAccessor vhToken={vhXvs}>{children}</LiquidityHubAccessor>);
 
-    expect(screen.getByText(liquidityHubs[0].operatorName)).toBeInTheDocument();
+    expect(screen.getByText(liquidityHubs[0].vhToken.symbol)).toBeInTheDocument();
     expect(children).toHaveBeenCalledWith({
       liquidityHub: liquidityHubs[0],
     });

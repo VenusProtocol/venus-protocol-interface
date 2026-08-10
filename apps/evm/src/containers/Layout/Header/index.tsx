@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
   const isOnMarketPage = currentRoutePath === routes.market.path;
   const isOnLiquidityHubPage = currentRoutePath === routes.liquidityHub.path;
 
-  const { vTokenAddress = NULL_ADDRESS, vhTokenAddress = NULL_ADDRESS } = useParams<{
+  const { vTokenAddress, vhTokenAddress } = useParams<{
     vTokenAddress?: Address;
     vhTokenAddress?: Address;
   }>();

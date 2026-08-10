@@ -88,7 +88,6 @@ export const Form: React.FC<FormProps> = ({
     });
   const simulatedPool = getSimulatedPoolData?.pool;
 
-  // TODO: fetch from API
   const liquidityHubs = fakeLiquidityHubs;
 
   const { liquidityHubs: simulatedLiquidityHubs } = useSimulateLiquidityHubMutations({
@@ -134,42 +133,44 @@ export const Form: React.FC<FormProps> = ({
   const handleRightMaxButtonClick = () =>
     setFormValues(values => ({
       ...values,
-      amountTokens: (safeLimitTokens ?? limitTokens).dp(liquidityHub.vhToken.decimals).toFixed(),
+      amountTokens: (safeLimitTokens ?? limitTokens)
+        .dp(liquidityHub.vhToken.underlyingToken.decimals)
+        .toFixed(),
     }));
 
   const isLoading = isSubmitting || isGetPoolLoading || isGetSimulatedPoolLoading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <TokenTextField
+        name="amountTokens"
+        token={liquidityHub.vhToken.underlyingToken}
+        value={formValues.amountTokens}
+        onChange={amountTokens =>
+          setFormValues(currentFormValues => ({
+            ...currentFormValues,
+            amountTokens,
+          }))
+        }
+        disabled={
+          !isUserConnected || isSubmitting || formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
+        }
+        rightMaxButton={{
+          label: rightMaxButtonLabel ?? t('liquidityHubForm.rightMaxButtonLabel'),
+          onClick: handleRightMaxButtonClick,
+        }}
+        hasError={
+          isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
+        }
+        description={
+          isUserConnected && !isSubmitting && !!formError?.message ? (
+            <p className="text-red">{formError.message}</p>
+          ) : undefined
+        }
+      />
+
       {isUserConnected && (
         <>
-          <TokenTextField
-            name="amountTokens"
-            token={liquidityHub.vhToken.underlyingToken}
-            value={formValues.amountTokens}
-            onChange={amountTokens =>
-              setFormValues(currentFormValues => ({
-                ...currentFormValues,
-                amountTokens,
-              }))
-            }
-            disabled={
-              !isUserConnected || isSubmitting || formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
-            }
-            rightMaxButton={{
-              label: rightMaxButtonLabel ?? t('liquidityHubForm.rightMaxButtonLabel'),
-              onClick: handleRightMaxButtonClick,
-            }}
-            hasError={
-              isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
-            }
-            description={
-              isUserConnected && !isSubmitting && !!formError?.message ? (
-                <p className="text-red">{formError.message}</p>
-              ) : undefined
-            }
-          />
-
           {availableBalance}
 
           <Delimiter />

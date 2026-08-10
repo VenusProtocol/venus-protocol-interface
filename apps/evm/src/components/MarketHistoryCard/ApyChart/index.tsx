@@ -1,6 +1,5 @@
 import { theme } from '@venusprotocol/ui';
 
-import type { MarketHistoryPeriodType } from 'clients/api';
 import { AreaChart } from 'components';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
@@ -10,11 +9,12 @@ import {
   formatPercentageToReadableValue,
   formatToReadableDate,
 } from 'utilities';
+import type { ChartHistoryPeriod } from 'utilities/formatToReadableDate';
 
 export interface ApyChartProps {
   data: MarketHistoryDataPoint[];
   type: 'supply' | 'borrow';
-  selectedPeriod: MarketHistoryPeriodType;
+  selectedPeriod: ChartHistoryPeriod;
   className?: string;
 }
 
@@ -22,21 +22,30 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
   const { t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
 
-  const formatDate = (timestampMs: number, period?: MarketHistoryPeriodType) =>
+  const formatDate = (timestampMs: number, period?: ChartHistoryPeriod) =>
     formatToReadableDate({
       timestampMs,
       selectedPeriod: period,
       t,
     });
 
-  const chartColor = type === 'supply' ? theme.colors.green : theme.colors.red;
+  const isSupplyChart = type === 'supply';
+  const chartColor = isSupplyChart ? theme.colors.green : theme.colors.red;
   const chartInterval = isSmOrUp ? 5 : 3;
+  const apyDataKey = isSupplyChart ? 'supplyApyPercentage' : 'borrowApyPercentage';
+  const balanceDataKey = isSupplyChart ? 'totalSupplyCents' : 'totalBorrowCents';
+  const apyLabel = isSupplyChart
+    ? t('apyChart.tooltipItemLabels.supplyApy')
+    : t('apyChart.tooltipItemLabels.borrowApy');
+  const balanceLabel = isSupplyChart
+    ? t('apyChart.tooltipItemLabels.totalSupply')
+    : t('apyChart.tooltipItemLabels.totalBorrow');
 
   return (
     <AreaChart
       data={data}
-      xAxisDataKey="timestampMs"
-      yAxisDataKey="apyPercentage"
+      xAxisDataKey="blockTimestamp"
+      yAxisDataKey={apyDataKey}
       className={className}
       formatXAxisValue={formatDate}
       formatYAxisValue={formatPercentageToReadableValue}
@@ -45,22 +54,16 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
       formatTooltipItems={payload => [
         {
           label: t('apyChart.tooltipItemLabels.date'),
-          value: formatDate(payload.timestampMs, selectedPeriod),
+          value: formatDate(payload.blockTimestamp, selectedPeriod),
         },
         {
-          label:
-            type === 'supply'
-              ? t('apyChart.tooltipItemLabels.supplyApy')
-              : t('apyChart.tooltipItemLabels.borrowApy'),
-          value: formatPercentageToReadableValue(payload.apyPercentage),
+          label: apyLabel,
+          value: formatPercentageToReadableValue(payload[apyDataKey]),
         },
         {
-          label:
-            type === 'supply'
-              ? t('apyChart.tooltipItemLabels.totalSupply')
-              : t('apyChart.tooltipItemLabels.totalBorrow'),
+          label: balanceLabel,
           value: formatCentsToReadableValue({
-            value: payload.balanceCents,
+            value: payload[balanceDataKey],
           }),
         },
       ]}
