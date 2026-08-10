@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.16.2
+
+### Patch Changes
+
+- 3587f36: refactor Table component to use HTML tags and Tailwind CSS
+
 ## 5.16.1
 
 ### Patch Changes
