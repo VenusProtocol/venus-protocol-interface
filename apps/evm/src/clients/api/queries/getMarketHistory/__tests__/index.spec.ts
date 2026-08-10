@@ -2,14 +2,13 @@ import type { Mock } from 'vitest';
 
 import { vBusdCorePool } from '__mocks__/models/vTokens';
 
-import type { MarketSnapshot } from 'types';
 import { restService } from 'utilities';
 
 import { getMarketHistory } from '..';
 
 vi.mock('utilities/restService');
 
-const marketSnapshot: MarketSnapshot = {
+const apiMarketSnapshot = {
   blockNumber: '1',
   blockTimestamp: '1652593258',
   borrowApy: '2.0144969858718893',
@@ -21,7 +20,7 @@ const marketSnapshot: MarketSnapshot = {
 describe('getMarketHistory', () => {
   beforeEach(() => {
     (restService as Mock).mockImplementation(async () => ({
-      data: { result: { data: [marketSnapshot] } },
+      data: { result: { data: [apiMarketSnapshot] } },
     }));
   });
 
@@ -32,7 +31,16 @@ describe('getMarketHistory', () => {
     });
 
     expect(response).toEqual({
-      marketSnapshots: [marketSnapshot],
+      marketSnapshots: [
+        {
+          blockNumber: 1,
+          blockTimestamp: 1652593258 * 1000,
+          borrowApyPercentage: Number('2.0144969858718893'),
+          supplyApyPercentage: Number('0.000001537885451792'),
+          totalBorrowCents: Number('1000000000'),
+          totalSupplyCents: Number('1234567890'),
+        },
+      ],
     });
   });
 

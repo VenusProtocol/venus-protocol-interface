@@ -74,7 +74,7 @@
       "title": "สรุป"
     },
     "tabs": {
-      "hub": "ศูนย์",
+      "hubs": "ศูนย์",
       "markets": "ตลาด",
       "settings": "การตั้งค่า",
       "transactions": "ธุรกรรม",
@@ -98,6 +98,11 @@
         }
       },
       "today": "วันนี้",
+      "txSource": {
+        "liquidityHub": "ศูนย์สภาพคล่อง",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>เปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน",
         "exitMarket": "<Styled>ปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน"
@@ -107,15 +112,16 @@
         "enterMarket": "เปิดใช้หลักประกัน",
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
-        "positionClosedWithLoss": "ปิด (ขาดทุน) • Trade",
-        "positionClosedWithProfit": "ปิด (กำไร) • Trade",
-        "positionIncreased": "เพิ่ม • Trade",
-        "positionOpened": "เปิด • Trade",
-        "positionReducedWithLoss": "ลดลง (ขาดทุน) • Trade",
-        "positionReducedWithProfit": "ลดลง (กำไร) • Trade",
-        "principalSupplied": "ฝาก • Trade",
-        "principalWithdrawn": "ถอน • Trade",
-        "realizedPnl": "กำไร/ขาดทุนที่รับรู้ • Trade",
+        "mintFromCollateral": "ย้าย",
+        "positionClosedWithLoss": "ปิด (ขาดทุน)",
+        "positionClosedWithProfit": "ปิด (กำไร)",
+        "positionIncreased": "เพิ่ม",
+        "positionOpened": "เปิด",
+        "positionReducedWithLoss": "ลดลง (ขาดทุน)",
+        "positionReducedWithProfit": "ลดลง (กำไร)",
+        "principalSupplied": "ฝาก",
+        "principalWithdrawn": "ถอน",
+        "realizedPnl": "กำไร/ขาดทุนที่รับรู้",
         "redeem": "ถอน",
         "repay": "ชำระคืน"
       },
@@ -817,6 +823,7 @@
       "markets": {
         "label": "ตลาด"
       },
+      "new": "ใหม่",
       "others": {
         "bridge": {
           "description": "การโอน $XVS ข้ามเชนบน Venus",
@@ -949,6 +956,11 @@
             "market": "ตลาด",
             "vault": "คลัง"
           }
+        },
+        "names": {
+          "core": "Venus Core",
+          "flux": "Venus Flux",
+          "frv": "Fixed Rate Vaults"
         }
       }
     },
@@ -961,6 +973,7 @@
         },
         "hubContract": "สัญญาศูนย์",
         "operator": "ผู้ดำเนินการ",
+        "operatorName": "Venus DAO",
         "performanceFee": "ค่าธรรมเนียมผลการดำเนินงาน",
         "redeemFee": "ค่าธรรมเนียมไถ่ถอน",
         "riskDisclosures": {
@@ -970,6 +983,13 @@
         "vhTokenContract": "สัญญา {{ vhTokenSymbol }}"
       },
       "title": "ข้อมูลศูนย์"
+    },
+    "periodOption": {
+      "all": "ทั้งหมด",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "thirtyDays": "30D",
+      "threeMonths": "3M"
     }
   },
   "liquidityHubForm": {
@@ -982,6 +1002,7 @@
       "higherThanAvailableLiquidity": "สภาพคล่องของศูนย์ไม่เพียงพอ",
       "higherThanSupplyCap": "คุณไม่สามารถฝากเกิน {{userMaxSupplyAmount}} ไปยังศูนย์สภาพคล่องนี้ได้ เนื่องจากมีการกำหนดเพดานการฝากไว้ที่ {{supplyCap}} และขณะนี้มีการฝากอยู่แล้ว {{supplyBalance}}",
       "higherThanWalletSpendingLimit": "จำนวนที่คุณป้อนเกินวงเงินการใช้จ่ายสำหรับสินทรัพย์นี้ โปรดยกเลิกวงเงินการใช้จ่ายเดิมแล้วตั้งค่าใหม่เพื่อดำเนินธุรกรรมนี้ต่อ",
+      "smallerThanMinimumAmount": "TRANSLATION NEEDED",
       "supplyCapReached": "เพดานการฝาก {{supplyCap}} ของศูนย์สภาพคล่องนี้ถึงขีดจำกัดแล้ว คุณจะไม่สามารถฝากเพิ่มได้จนกว่าจะมีการถอนออกหรือมีการเพิ่มเพดานการฝาก"
     },
     "rightMaxButtonLabel": "MAX",
@@ -2214,6 +2235,14 @@
     },
     "success": {
       "title": "ยืนยันธุรกรรมแล้ว"
+    }
+  },
+  "transactions": {
+    "liquidityHub": {
+      "label": "ศูนย์สภาพคล่อง"
+    },
+    "venusCore": {
+      "label": "Venus Core"
     }
   },
   "txFormSubmitButton": {

@@ -2,7 +2,7 @@ import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { liquidityHubAbi } from 'libs/contracts';
+import liquidityHubAbi from 'libs/contracts/config/externalAbis/LiquidityHub.json';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { LiquidityHub } from 'types';
@@ -30,7 +30,7 @@ export const useSupplyToLiquidityHub = (options?: Partial<Options>) => {
 
       return {
         abi: liquidityHubAbi,
-        address: input.liquidityHub.hubAddress,
+        address: input.liquidityHub.vhToken.address,
         functionName: 'deposit',
         args: [BigInt(input.amountMantissa.toFixed()), accountAddress],
       } as WriteContractParameters<
@@ -78,7 +78,7 @@ export const useSupplyToLiquidityHub = (options?: Partial<Options>) => {
           {
             chainId,
             accountAddress,
-            tokenAddress: input.liquidityHub.hubAddress,
+            tokenAddress: input.liquidityHub.vhToken.address,
           },
         ],
       });
@@ -90,7 +90,7 @@ export const useSupplyToLiquidityHub = (options?: Partial<Options>) => {
             chainId,
             tokenAddress: input.liquidityHub.vhToken.underlyingToken.address,
             accountAddress,
-            spenderAddress: input.liquidityHub.hubAddress,
+            spenderAddress: input.liquidityHub.vhToken.address,
           },
         ],
       });

@@ -2,7 +2,7 @@ import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { liquidityHubAbi } from 'libs/contracts';
+import liquidityHubAbi from 'libs/contracts/config/externalAbis/LiquidityHub.json';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { LiquidityHub } from 'types';
@@ -32,15 +32,20 @@ export const useWithdrawFromLiquidityHub = (options?: Partial<Options>) => {
       }
 
       if (input.withdrawFullSupply) {
+        const { userVhTokenBalanceMantissa } = input;
+
+        if (!userVhTokenBalanceMantissa) {
+          throw new VError({
+            type: 'unexpected',
+            code: 'somethingWentWrong',
+          });
+        }
+
         return {
           abi: liquidityHubAbi,
-          address: input.liquidityHub.hubAddress,
+          address: input.liquidityHub.vhToken.address,
           functionName: 'redeem',
-          args: [
-            BigInt(input.userVhTokenBalanceMantissa!.toFixed()),
-            accountAddress,
-            accountAddress,
-          ],
+          args: [BigInt(userVhTokenBalanceMantissa.toFixed()), accountAddress, accountAddress],
         } as WriteContractParameters<
           typeof liquidityHubAbi,
           'redeem',
@@ -52,7 +57,7 @@ export const useWithdrawFromLiquidityHub = (options?: Partial<Options>) => {
 
       return {
         abi: liquidityHubAbi,
-        address: input.liquidityHub.hubAddress,
+        address: input.liquidityHub.vhToken.address,
         functionName: 'withdraw',
         args: [BigInt(input.amountMantissa.toFixed()), accountAddress, accountAddress],
       } as WriteContractParameters<
@@ -100,7 +105,7 @@ export const useWithdrawFromLiquidityHub = (options?: Partial<Options>) => {
           {
             chainId,
             accountAddress,
-            tokenAddress: input.liquidityHub.hubAddress,
+            tokenAddress: input.liquidityHub.vhToken.address,
           },
         ],
       });

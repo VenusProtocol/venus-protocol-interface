@@ -30,7 +30,7 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({ asset }) => {
     period: selectedPeriod,
   });
 
-  const periodOptions: MarketHistoryCardPeriodOption[] = [
+  const periodOptions: MarketHistoryCardPeriodOption<MarketHistoryPeriodType>[] = [
     {
       label: t('market.periodOption.thirtyDays'),
       value: 'month',

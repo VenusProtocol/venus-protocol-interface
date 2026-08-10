@@ -74,7 +74,7 @@
       "title": "Özet"
     },
     "tabs": {
-      "hub": "Merkez",
+      "hubs": "Merkezler",
       "markets": "Piyasalar",
       "settings": "Ayarlar",
       "transactions": "İşlemler",
@@ -98,6 +98,11 @@
         }
       },
       "today": "Bugün",
+      "txSource": {
+        "liquidityHub": "Likidite Merkezi",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
         "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
@@ -107,15 +112,16 @@
         "enterMarket": "Teminatı etkinleştir",
         "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
-        "positionClosedWithLoss": "Kapat (zarar) • Trade",
-        "positionClosedWithProfit": "Kapat (kâr) • Trade",
-        "positionIncreased": "Artır • Trade",
-        "positionOpened": "Aç • Trade",
-        "positionReducedWithLoss": "Azaltıldı (zarar) • Trade",
-        "positionReducedWithProfit": "Azaltıldı (kâr) • Trade",
-        "principalSupplied": "Sağla • Trade",
-        "principalWithdrawn": "Çek • Trade",
-        "realizedPnl": "Gerçekleşen K/Z • Trade",
+        "mintFromCollateral": "Taşı",
+        "positionClosedWithLoss": "Kapat (zarar)",
+        "positionClosedWithProfit": "Kapat (kâr)",
+        "positionIncreased": "Artır",
+        "positionOpened": "Aç",
+        "positionReducedWithLoss": "Azaltıldı (zarar)",
+        "positionReducedWithProfit": "Azaltıldı (kâr)",
+        "principalSupplied": "Sağla",
+        "principalWithdrawn": "Çek",
+        "realizedPnl": "Gerçekleşen K/Z",
         "redeem": "Çek",
         "repay": "Geri öde"
       },
@@ -817,6 +823,7 @@
       "markets": {
         "label": "Piyasalar"
       },
+      "new": "Yeni",
       "others": {
         "bridge": {
           "description": "Venus'ta zincirler arası $XVS transferleri.",
@@ -949,6 +956,11 @@
             "market": "Piyasa",
             "vault": "Kasa"
           }
+        },
+        "names": {
+          "core": "Venus Core",
+          "flux": "Venus Flux",
+          "frv": "Fixed Rate Vaults"
         }
       }
     },
@@ -961,6 +973,7 @@
         },
         "hubContract": "Merkez sözleşmesi",
         "operator": "Operatör",
+        "operatorName": "Venus DAO",
         "performanceFee": "Performans ücreti",
         "redeemFee": "İtfa ücreti",
         "riskDisclosures": {
@@ -970,6 +983,13 @@
         "vhTokenContract": "{{ vhTokenSymbol }} sözleşmesi"
       },
       "title": "Merkez bilgisi"
+    },
+    "periodOption": {
+      "all": "Tümü",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "thirtyDays": "30D",
+      "threeMonths": "3M"
     }
   },
   "liquidityHubForm": {
@@ -982,6 +1002,7 @@
       "higherThanAvailableLiquidity": "Merkez likiditesi yetersiz",
       "higherThanSupplyCap": "Bu likidite merkezine {{userMaxSupplyAmount}} değerinden fazla sağlayamazsınız; çünkü arz limiti {{supplyCap}} olarak ayarlanmıştır ve şu anda {{supplyBalance}} sağlanmaktadır.",
       "higherThanWalletSpendingLimit": "Girdiğiniz miktar, bu varlık için harcama limitinizi aşıyor. Bu işleme devam etmek için lütfen mevcut harcama limitinizi iptal edin ve ardından yeni bir limit belirleyin.",
+      "smallerThanMinimumAmount": "TRANSLATION NEEDED",
       "supplyCapReached": "Bu likidite merkezi için arz limiti {{supplyCap}} değerine ulaştı. Çekimler yapılana veya arz limiti artırılana kadar artık sağlayamazsınız."
     },
     "rightMaxButtonLabel": "MAX",
@@ -2214,6 +2235,14 @@
     },
     "success": {
       "title": "İşlem onaylandı"
+    }
+  },
+  "transactions": {
+    "liquidityHub": {
+      "label": "Likidite Merkezi"
+    },
+    "venusCore": {
+      "label": "Venus Core"
     }
   },
   "txFormSubmitButton": {

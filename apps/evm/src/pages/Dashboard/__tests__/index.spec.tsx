@@ -22,7 +22,7 @@ describe('Dashboard', () => {
     expect(container.textContent).toMatchSnapshot();
   });
 
-  it('displays Hub tab when the liquidity hub feature flag is enabled', async () => {
+  it('displays Hubs tab when the liquidity hub feature flag is enabled', async () => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'liquidityHub',
     );
@@ -31,6 +31,6 @@ describe('Dashboard', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    await waitFor(() => expect(getByText(en.account.tabs.hub)).toBeInTheDocument());
+    await waitFor(() => expect(getByText(en.account.tabs.hubs)).toBeInTheDocument());
   });
 });

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
-import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
+import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import type { ChainId, SwapQuote, Token } from 'types';
 import { areTokensEqual, convertMantissaToTokens, getSwapToTokenAmount } from 'utilities';
 import { getSwapQuote } from '../getSwapQuote';
@@ -54,7 +54,7 @@ export const getTradeReduceSwapQuotes = async ({
     // than the available long balance. TODO: check if this code is still necessary after the
     // backend updates
     cappedLongAmountToWithdrawTokens = cappedLongAmountToWithdrawTokens.multipliedBy(
-      new BigNumber(1).minus(FULL_REPAYMENT_BUFFER_PERCENTAGE),
+      new BigNumber(1).minus(TRANSACTION_BUFFER_PERCENTAGE),
     );
   }
 
@@ -67,7 +67,7 @@ export const getTradeReduceSwapQuotes = async ({
           toToken: shortToken,
           minToTokenAmountTokens: shortAmountToRepayTokens.multipliedBy(
             // Buff amount to account from accrued interests while the transaction is being mined
-            new BigNumber(1).plus(FULL_REPAYMENT_BUFFER_PERCENTAGE),
+            new BigNumber(1).plus(TRANSACTION_BUFFER_PERCENTAGE),
           ),
           direction: 'approximate-out',
         })
@@ -152,7 +152,7 @@ export const getTradeReduceSwapQuotes = async ({
       toToken: shortToken,
       minToTokenAmountTokens: shortLossAmountDeltaTokens.multipliedBy(
         // Buff amount to account for accrued interests while the transaction is being mined
-        new BigNumber(1).plus(FULL_REPAYMENT_BUFFER_PERCENTAGE),
+        new BigNumber(1).plus(TRANSACTION_BUFFER_PERCENTAGE),
       ),
       direction: 'approximate-out',
     });

@@ -1,4 +1,3 @@
-import type { MarketHistoryPeriodType } from 'clients/api';
 import {
   ButtonGroup,
   CapProgressCircle,
@@ -10,45 +9,52 @@ import {
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { MarketHistoryDataPoint } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
+import type { ChartHistoryPeriod } from 'utilities/formatToReadableDate';
 
 import { useTranslation } from 'libs/translations';
 import { ApyChart } from './ApyChart';
 
-export interface MarketHistoryCardPeriodOption {
+export interface MarketHistoryCardPeriodOption<
+  TPeriod extends ChartHistoryPeriod = ChartHistoryPeriod,
+> {
   label: string;
-  value: MarketHistoryPeriodType;
+  value: TPeriod;
 }
 
-export interface MarketHistoryCardHistory {
+export interface MarketHistoryCardHistory<TPeriod extends ChartHistoryPeriod = ChartHistoryPeriod> {
   type: 'supply' | 'borrow';
   data: MarketHistoryDataPoint[];
   isLoading: boolean;
-  selectedPeriod: MarketHistoryPeriodType;
-  setSelectedPeriod: (period: MarketHistoryPeriodType) => void;
-  periodOptions: MarketHistoryCardPeriodOption[];
+  selectedPeriod: TPeriod;
+  setSelectedPeriod: (period: TPeriod) => void;
+  periodOptions: MarketHistoryCardPeriodOption<TPeriod>[];
 }
 
-export interface MarketHistoryCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MarketHistoryCardProps<TPeriod extends ChartHistoryPeriod = ChartHistoryPeriod>
+  extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   cells: CellProps[];
   cap: CapProgressCircleProps;
-  history?: MarketHistoryCardHistory;
+  history?: MarketHistoryCardHistory<TPeriod>;
 }
 
-export const MarketHistoryCard: React.FC<MarketHistoryCardProps> = ({
+export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHistoryPeriod>({
   title,
   cells,
   cap,
   history,
   ...otherProps
-}) => {
+}: MarketHistoryCardProps<TPeriod>) => {
   const { t } = useTranslation();
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
 
-  const averageApy =
-    history && history.data.length > 0
-      ? history.data.reduce((acc, item) => acc + item.apyPercentage, 0) / history.data.length
-      : undefined;
+  let averageApy: number | undefined;
+
+  if (history && history.data.length > 0) {
+    const apyDataKey = history.type === 'supply' ? 'supplyApyPercentage' : 'borrowApyPercentage';
+    averageApy =
+      history.data.reduce((acc, item) => acc + (item[apyDataKey] ?? 0), 0) / history.data.length;
+  }
 
   const marketCardCells: CellProps[] = [];
 
@@ -62,24 +68,24 @@ export const MarketHistoryCard: React.FC<MarketHistoryCardProps> = ({
   marketCardCells.push(...cells);
 
   const shouldDisplayHistory = isApyChartsFeatureEnabled && !!history && history.data.length > 0;
+  const legends: { label: string; color: 'green' | 'red' }[] = [];
+
+  if (shouldDisplayHistory && history) {
+    const isSupplyHistory = history.type === 'supply';
+
+    legends.push({
+      label: isSupplyHistory ? t('market.legends.supplyApy') : t('market.legends.borrowApy'),
+      color: isSupplyHistory ? 'green' : 'red',
+    });
+  }
+
+  const marketCardLegends = legends.length > 0 ? legends : undefined;
 
   return (
     <MarketCard
       title={title}
       cells={marketCardCells}
-      legends={
-        shouldDisplayHistory
-          ? [
-              {
-                label:
-                  history.type === 'supply'
-                    ? t('market.legends.supplyApy')
-                    : t('market.legends.borrowApy'),
-                color: history.type === 'supply' ? 'green' : 'red',
-              },
-            ]
-          : undefined
-      }
+      legends={marketCardLegends}
       topContent={<CapProgressCircle {...cap} />}
       rightContent={
         shouldDisplayHistory ? (

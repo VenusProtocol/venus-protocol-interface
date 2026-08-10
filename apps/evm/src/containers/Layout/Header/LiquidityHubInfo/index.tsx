@@ -2,10 +2,10 @@ import { useParams } from 'react-router';
 import type { Address } from 'viem';
 
 import { useGetLiquidityHub } from 'clients/api';
-import { type CellProps, TokenGroup } from 'components';
+import { type CellProps, ImgGroup } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useTranslation } from 'libs/translations';
-import { formatCentsToReadableValue, getLiquidityHubCollateralTokens } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 import { TokenInfo } from '../TokenInfo';
 
 export const LiquidityHubInfo = () => {
@@ -19,10 +19,6 @@ export const LiquidityHubInfo = () => {
     vhTokenAddress,
   });
   const liquidityHub = getLiquidityHubData?.liquidityHub;
-
-  const collateralTokens = getLiquidityHubCollateralTokens({
-    yieldGroups: liquidityHub?.yieldGroups ?? [],
-  });
 
   const cells: CellProps[] = [
     {
@@ -51,7 +47,14 @@ export const LiquidityHubInfo = () => {
     },
     {
       label: t('layout.header.exposures'),
-      value: <TokenGroup tokens={collateralTokens} removeDuplicates limit={6} className="h-6.5" />,
+      value: (
+        <ImgGroup
+          imgSrcs={(liquidityHub?.yieldGroups ?? []).map(yieldGroup => yieldGroup.iconSrc)}
+          removeDuplicates
+          limit={6}
+          className="h-6.5"
+        />
+      ),
     },
   ];
 

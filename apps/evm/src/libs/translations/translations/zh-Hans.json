@@ -74,7 +74,7 @@
       "title": "概览"
     },
     "tabs": {
-      "hub": "中心",
+      "hubs": "中心",
       "markets": "市场",
       "settings": "设置",
       "transactions": "交易",
@@ -98,6 +98,11 @@
         }
       },
       "today": "今天",
+      "txSource": {
+        "liquidityHub": "流动性中心",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
         "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为可抵押"
@@ -107,15 +112,16 @@
         "enterMarket": "启用抵押",
         "exitMarket": "禁用抵押",
         "mint": "存款",
-        "positionClosedWithLoss": "平仓（亏损） • Trade",
-        "positionClosedWithProfit": "平仓（盈利） • Trade",
-        "positionIncreased": "增加 • Trade",
-        "positionOpened": "开仓 • Trade",
-        "positionReducedWithLoss": "减少（亏损） • Trade",
-        "positionReducedWithProfit": "减少（盈利） • Trade",
-        "principalSupplied": "存款 • Trade",
-        "principalWithdrawn": "取款 • Trade",
-        "realizedPnl": "已实现盈亏 • Trade",
+        "mintFromCollateral": "迁移",
+        "positionClosedWithLoss": "平仓（亏损）",
+        "positionClosedWithProfit": "平仓（盈利）",
+        "positionIncreased": "增加",
+        "positionOpened": "开仓",
+        "positionReducedWithLoss": "减少（亏损）",
+        "positionReducedWithProfit": "减少（盈利）",
+        "principalSupplied": "存款",
+        "principalWithdrawn": "取款",
+        "realizedPnl": "已实现盈亏",
         "redeem": "取款",
         "repay": "还款"
       },
@@ -817,6 +823,7 @@
       "markets": {
         "label": "市场"
       },
+      "new": "新",
       "others": {
         "bridge": {
           "description": "在 Venus 进行跨链 $XVS 转账。",
@@ -949,6 +956,11 @@
             "market": "市场",
             "vault": "金库"
           }
+        },
+        "names": {
+          "core": "Venus Core",
+          "flux": "Venus Flux",
+          "frv": "Fixed Rate Vaults"
         }
       }
     },
@@ -961,6 +973,7 @@
         },
         "hubContract": "中心合约",
         "operator": "运营方",
+        "operatorName": "Venus DAO",
         "performanceFee": "绩效费",
         "redeemFee": "赎回费",
         "riskDisclosures": {
@@ -970,6 +983,13 @@
         "vhTokenContract": "{{ vhTokenSymbol }} 合约"
       },
       "title": "中心信息"
+    },
+    "periodOption": {
+      "all": "全部",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "thirtyDays": "30D",
+      "threeMonths": "3M"
     }
   },
   "liquidityHubForm": {
@@ -982,6 +1002,7 @@
       "higherThanAvailableLiquidity": "中心流动性不足",
       "higherThanSupplyCap": "您不能向此流动性中心供应超过 {{userMaxSupplyAmount}}，因为其供应上限设置为 {{supplyCap}}，目前已有 {{supplyBalance}} 正在供应中。",
       "higherThanWalletSpendingLimit": "您输入的金额超过了此资产的支出限额。请先撤销当前支出限额，再设置新的限额以继续此交易。",
+      "smallerThanMinimumAmount": "TRANSLATION NEEDED",
       "supplyCapReached": "此流动性中心的供应上限 {{supplyCap}} 已达到。在有提取发生或供应上限提高之前，您将无法继续供应。"
     },
     "rightMaxButtonLabel": "MAX",
@@ -2214,6 +2235,14 @@
     },
     "success": {
       "title": "交易已确认"
+    }
+  },
+  "transactions": {
+    "liquidityHub": {
+      "label": "流动性中心"
+    },
+    "venusCore": {
+      "label": "Venus Core"
     }
   },
   "txFormSubmitButton": {

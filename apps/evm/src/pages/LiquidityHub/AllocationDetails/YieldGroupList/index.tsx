@@ -34,7 +34,7 @@ export const YieldGroupList: React.FC<YieldGroupListProps> = ({ liquidityHub }) 
 
   const columns = useColumns({ openPositionAccordionKeys, rowKeyExtractor });
 
-  const orderByColumn = columns.find(column => column.key === 'averageApy');
+  const orderByColumn = columns.find(column => column.key === 'allocation');
   const initialOrder = orderByColumn && {
     orderBy: orderByColumn,
     orderDirection: 'desc' as const,

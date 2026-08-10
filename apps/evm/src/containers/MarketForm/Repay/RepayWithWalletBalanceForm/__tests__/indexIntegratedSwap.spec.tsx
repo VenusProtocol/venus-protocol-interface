@@ -17,7 +17,7 @@ import {
 } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
+import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -547,7 +547,7 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
 
       const percentageWithBuffer =
         presetPercentage === 100
-          ? presetPercentage + FULL_REPAYMENT_BUFFER_PERCENTAGE
+          ? presetPercentage + TRANSACTION_BUFFER_PERCENTAGE
           : presetPercentage;
 
       const fakeToTokenAmountRepaidTokens = fakeAsset.userBorrowBalanceTokens

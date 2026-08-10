@@ -1,20 +1,15 @@
 import { theme } from '@venusprotocol/ui';
 
-import type { MarketHistoryPeriodType } from 'clients/api';
 import { AreaChart } from 'components';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
-import { formatToReadableDate } from 'utilities';
+import type { LiquidityHubSnapshot } from 'types';
+import { formatToReadableDate, type LiquidityHubHistoryPeriod } from 'utilities';
 import { formatUnitPriceToReadableValue } from '../formatUnitPriceToReadableValue';
 
-export interface UnitPriceHistoryDataPoint {
-  timestampMs: number;
-  unitPrice: number;
-}
-
 export interface UnitPriceChartProps {
-  data: UnitPriceHistoryDataPoint[];
-  selectedPeriod: MarketHistoryPeriodType;
+  data: LiquidityHubSnapshot[];
+  selectedPeriod: LiquidityHubHistoryPeriod;
   className?: string;
 }
 
@@ -26,7 +21,7 @@ export const UnitPriceChart: React.FC<UnitPriceChartProps> = ({
   const { t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
 
-  const formatDate = (timestampMs: number, period?: MarketHistoryPeriodType) =>
+  const formatDate = (timestampMs: number, period?: LiquidityHubHistoryPeriod) =>
     formatToReadableDate({
       timestampMs,
       selectedPeriod: period,
@@ -38,8 +33,8 @@ export const UnitPriceChart: React.FC<UnitPriceChartProps> = ({
   return (
     <AreaChart
       data={data}
-      xAxisDataKey="timestampMs"
-      yAxisDataKey="unitPrice"
+      xAxisDataKey="blockTimestamp"
+      yAxisDataKey="pricePerShare"
       className={className}
       formatXAxisValue={formatDate}
       formatYAxisValue={formatUnitPriceToReadableValue}
@@ -48,11 +43,11 @@ export const UnitPriceChart: React.FC<UnitPriceChartProps> = ({
       formatTooltipItems={payload => [
         {
           label: t('apyChart.tooltipItemLabels.date'),
-          value: formatDate(payload.timestampMs, selectedPeriod),
+          value: formatDate(payload.blockTimestamp, selectedPeriod),
         },
         {
           label: t('apyChart.tooltipItemLabels.unitPrice'),
-          value: formatUnitPriceToReadableValue(payload.unitPrice),
+          value: formatUnitPriceToReadableValue(payload.pricePerShare),
         },
       ]}
     />

@@ -1,13 +1,14 @@
 import type BigNumber from 'bignumber.js';
 
 import type {
+  ApiRewardType,
   GenericDistribution,
   MerklDistribution,
   RewardDistributorDistribution,
   Token,
   TokenDistribution,
 } from 'types';
-import { calculateYearlyPercentageRate } from 'utilities';
+import { calculateYearlyPercentageRate } from 'utilities/calculateYearlyPercentageRate';
 import type { Address } from 'viem';
 
 interface MerklRewardDetails {
@@ -23,8 +24,6 @@ interface GenericDistributionRewardDetails {
   description: string;
 }
 
-type ApiRewardType = 'venus' | 'merkl' | 'intrinsic' | 'off-chain' | 'yield-to-maturity';
-
 type FormatDistributionInput<TType extends ApiRewardType> = {
   rewardType: TType;
   isActive: boolean;
@@ -38,7 +37,7 @@ type FormatDistributionInput<TType extends ApiRewardType> = {
     : GenericDistributionRewardDetails | null;
 };
 
-const formatRewardDistribution = <TType extends ApiRewardType>({
+export const formatRewardDistribution = <TType extends ApiRewardType>({
   marketAddress,
   isActive,
   rewardType,
@@ -103,5 +102,3 @@ const formatRewardDistribution = <TType extends ApiRewardType>({
 
   return distribution;
 };
-
-export default formatRewardDistribution;

@@ -66,8 +66,17 @@ export const Hubs: React.FC<HubsProps> = ({ liquidityHubs }) => {
       placeholderIconName="hub"
       placeholderTitle={t('account.hubs.placeholder.title')}
       placeholderRoute={routes.liquidityHubs.path}
-      renderCard={liquidityHub => <LiquidityHubCard liquidityHub={liquidityHub} />}
-      getKey={liquidityHub => liquidityHub.hubAddress}
+      renderCard={(liquidityHub, isPreview) => (
+        <LiquidityHubCard
+          liquidityHub={liquidityHub}
+          to={
+            isPreview
+              ? routes.liquidityHub.path.replace(':vhTokenAddress', liquidityHub.vhToken.address)
+              : undefined
+          }
+        />
+      )}
+      getKey={liquidityHub => liquidityHub.vhToken.address}
     />
   );
 };

@@ -25,7 +25,8 @@ export type FormErrorCode =
   | LiquidityHubBalanceMutationsErrorCode
   | CommonCasesErrorCode
   | 'HIGHER_THAN_WALLET_BALANCE'
-  | 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
+  | 'HIGHER_THAN_WALLET_SPENDING_LIMIT'
+  | 'SMALLER_THAN_MINIMUM_AMOUNT';
 
 export const initialFormValues: FormValues = {
   amountTokens: '',
