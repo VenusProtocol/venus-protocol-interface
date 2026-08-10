@@ -69,8 +69,10 @@ export const Apy: React.FC<ApyProps> = ({
   }
 
   return (
-    <div className={cn('inline-flex gap-1 items-center', isMuted && 'opacity-50', className)}>
-      {isApyBoostedByPrime && <PrimeBadge type={type} token={token} />}
+    <div
+      className={cn('inline-flex gap-1 items-center flex-wrap', isMuted && 'opacity-50', className)}
+    >
+      {isApyBoostedByPrime && <PrimeBadge className="shrink-0" type={type} token={token} />}
 
       {isApyBoosted ? (
         <BoostTooltip
@@ -85,11 +87,12 @@ export const Apy: React.FC<ApyProps> = ({
           <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
         </BoostTooltip>
       ) : (
-        <p className={cn(isMuted && 'text-grey')}>{readableApy}</p>
+        <p className={cn('whitespace-nowrap shrink-0', isMuted && 'text-grey')}>{readableApy}</p>
       )}
 
       {showPrimeSimulation && isPrimeAsset && !isApyBoostedByPrime && (
         <PrimeBadge
+          className="shrink-0"
           type={type}
           token={token}
           simulationReferenceValues={primeSimulationDistribution?.referenceValues}

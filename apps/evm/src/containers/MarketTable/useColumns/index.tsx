@@ -111,11 +111,13 @@ export const useColumns = ({
       );
     }
 
+    const align = index === 0 ? 'left' : 'right';
+
     return {
       key: column,
       label: columnLabel,
       selectOptionLabel: t(`marketTable.columnSelectOptionLabel.${column}`),
-      align: index === 0 ? 'left' : 'right',
+      align,
       renderCell: asset => {
         const isInUserEModeGroup = (userEModeGroup?.assetSettings || []).some(a =>
           areTokensEqual(a.vToken, asset.vToken),
@@ -219,7 +221,7 @@ export const useColumns = ({
         ) {
           return (
             <AssetApy
-              className={cn(isPaused && 'text-grey')}
+              className={cn(isPaused && 'text-grey', align === 'right' && 'justify-end')}
               asset={asset}
               type={column === 'supplyApy' || column === 'labeledSupplyApy' ? 'supply' : 'borrow'}
             />

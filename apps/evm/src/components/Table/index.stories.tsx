@@ -62,6 +62,7 @@ export const SecondaryVariant = () => (
     )}
     variant="secondary"
     tableLayout="auto"
+    cellHeight="64px"
     size="sm"
     className="max-w-225 border-0"
   />
@@ -129,6 +130,32 @@ export const CardsWithCustomColumns = () => (
   />
 );
 
+const alignedColumns: TableColumn<Row>[] = orderableColumns.map(column => {
+  if (column.key === 'asset') {
+    return column;
+  }
+
+  if (column.key === 'apy') {
+    return { ...column, align: 'center' };
+  }
+
+  return { ...column, align: 'right' };
+});
+
+export const CustomCellHeightAndAlignment = () => (
+  <Table
+    data={data}
+    columns={alignedColumns}
+    title="Aligned Market Data"
+    rowKeyExtractor={row => row.token.address}
+    breakpoint="lg"
+    tableLayout="auto"
+    cellHeight="96px"
+    minWidth="720px"
+    className="max-w-225"
+  />
+);
+
 export const RowFooterAndLinks = () => (
   <Table
     data={data.slice(0, 3)}
@@ -154,6 +181,37 @@ export const RowFooterAndLinks = () => (
     className="max-w-225"
   />
 );
+
+export const ClickableRows = () => {
+  const [lastAction, setLastAction] = useState('Click a row or action button');
+
+  return (
+    <div className="space-y-4">
+      <p className="text-b1r text-grey">Last action: {lastAction}</p>
+
+      <Table
+        data={data.slice(0, 3)}
+        columns={orderableColumns}
+        rowKeyExtractor={row => row.token.address}
+        rowOnClick={(_, row) => setLastAction(`Clicked ${row.token.symbol} row`)}
+        renderRowControl={row => (
+          <Button
+            className="h-8 px-3"
+            onClick={e => {
+              e.stopPropagation();
+              setLastAction(`Clicked ${row.token.symbol} action`);
+            }}
+            variant="secondary"
+          >
+            Manage
+          </Button>
+        )}
+        breakpoint="lg"
+        className="max-w-225"
+      />
+    </div>
+  );
+};
 
 const serverSortableColumns: TableColumn<Row>[] = orderableColumns.map(column => ({
   ...column,
