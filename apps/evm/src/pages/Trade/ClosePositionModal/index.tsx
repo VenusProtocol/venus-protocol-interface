@@ -39,7 +39,7 @@ export const ClosePositionModal: React.FC = () => {
             ease: EASE,
             duration: ANIMATION_BASE_DURATION_S,
           }}
-          className="fixed inset-0 z-10 bg-background-active top-20 overflow-y-auto px-8 py-6 xl:rounded-lg xl:border xl:border-dark-blue-hover xl:absolute xl:top-0"
+          className="fixed inset-0 z-40 bg-background-active top-20 overflow-y-auto px-8 py-6 xl:rounded-lg xl:border xl:border-dark-blue-hover xl:absolute xl:top-0"
         >
           <div className="relative py-1 mb-6">
             <button
