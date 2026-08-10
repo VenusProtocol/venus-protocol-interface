@@ -19,7 +19,7 @@ const WELCOME_MESSAGE: Omit<ChatMessage, 'id'> = {
       prompt: 'Where can I get the best stablecoin yield on Venus right now?',
     },
     { label: 'What are fixed-rate vaults?', prompt: 'What are fixed-rate vaults on Venus?' },
-    { label: 'What is Venus Prime?', prompt: 'What is Venus Prime?' },
+    { label: 'What can I do with Venus?', prompt: 'What can I do with Venus?' },
   ],
 };
 
