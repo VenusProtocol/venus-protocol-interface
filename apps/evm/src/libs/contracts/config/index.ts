@@ -733,6 +733,7 @@ export const contracts: ContractConfig[] = [
     name: 'LiquidityHubMigrator',
     abi: liquidityHubMigratorAbi as Abi,
     address: {
+      [ChainId.BSC_MAINNET]: '0xfe6b8BEf1215C19Cd247FbF495ef560932F1Eb9B', // TODO: get from package
       [ChainId.BSC_TESTNET]: '0x4B05b2a81f23E20ee36281a05dd7FF79e288B24E', // TODO: get from package
     },
   },
