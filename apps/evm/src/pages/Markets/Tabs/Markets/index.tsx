@@ -1,5 +1,6 @@
 import { type ColumnKey, MarketTable } from 'containers/MarketTable';
 import { useChain } from 'hooks/useChain';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Pool } from 'types';
 import { areAddressesEqual } from 'utilities';
 
@@ -21,12 +22,13 @@ export interface MarketsProps {
 export const Markets: React.FC<MarketsProps> = ({ pool }) => {
   const { corePoolComptrollerContractAddress } = useChain();
   const isCorePool = areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress);
+  const areMarketCategoriesEnabled = useIsFeatureEnabled({ name: 'marketCategories' });
 
   return (
     <div className="space-y-6">
       <MarketTable
         assets={pool.assets}
-        categories={isCorePool ? pool.categories : undefined}
+        categories={areMarketCategoriesEnabled && isCorePool ? pool.categories : undefined}
         poolName={pool.name}
         poolComptrollerContractAddress={pool.comptrollerAddress}
         userEModeGroup={pool.userEModeGroup}

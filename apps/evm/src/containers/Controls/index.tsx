@@ -37,6 +37,10 @@ export const Controls: React.FC<ControlsProps> = ({
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchValueChange(changeEvent.currentTarget.value);
 
+  const sortedCategories = [...(categories ?? [])]
+    .sort((a, b) => a.order - b.order)
+    .map(category => ({ value: category.tag, label: category.label }));
+
   return (
     <div className="@container/controls">
       <div className="flex flex-col gap-y-3 @2xl:items-center @2xl:flex-row @2xl:justify-between">
@@ -50,11 +54,9 @@ export const Controls: React.FC<ControlsProps> = ({
             className="sm:grow @2xl:max-w-75"
           />
 
-          {!!categories?.length && onSelectedCategoriesChange && (
+          {!!sortedCategories.length && onSelectedCategoriesChange && (
             <MultiSelect
-              options={[...categories]
-                .sort((a, b) => a.order - b.order)
-                .map(category => ({ value: category.tag, label: category.label }))}
+              options={sortedCategories}
               value={selectedCategories}
               onChange={onSelectedCategoriesChange}
               placeholder={t('controls.categoryFilter.allCategories')}
