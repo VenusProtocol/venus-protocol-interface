@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useGetPrimeCurrentCycle } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
 import { compareTokensBySymbol, convertUsdMantissaToCents, findTokenByAddress } from 'utilities';
@@ -19,23 +17,19 @@ export const useGetPrimeTotalRewards = (): UseGetPrimeTotalRewardsOutput => {
 
   const pendingPool = currentCycle?.pendingPool;
 
-  const marketRewards = useMemo<MarketReward[]>(
-    () =>
-      (pendingPool?.byRewardToken ?? [])
-        .flatMap(({ rewardTokenAddress, totalCurrentCycleUsdMantissa }) => {
-          const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
-          return token
-            ? [
-                {
-                  token,
-                  rewardsCents: convertUsdMantissaToCents(totalCurrentCycleUsdMantissa).toNumber(),
-                },
-              ]
-            : [];
-        })
-        .sort((a, b) => compareTokensBySymbol(a.token, b.token)),
-    [pendingPool, tokens],
-  );
+  const marketRewards = (pendingPool?.byRewardToken ?? [])
+    .flatMap(({ rewardTokenAddress, totalCurrentCycleUsdMantissa }) => {
+      const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+      return token
+        ? [
+            {
+              token,
+              rewardsCents: convertUsdMantissaToCents(totalCurrentCycleUsdMantissa).toNumber(),
+            },
+          ]
+        : [];
+    })
+    .sort((a, b) => compareTokensBySymbol(a.token, b.token));
 
   return {
     isLoading,

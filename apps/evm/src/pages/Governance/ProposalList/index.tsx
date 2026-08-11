@@ -84,15 +84,12 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
   // Sync proposal filters with search params
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { proposalState: selectedProposalState, search: searchValue } = useMemo<Filtering>(
-    () => ({
-      [PROPOSAL_STATE_PARAM_KEY]: !searchParams.get(PROPOSAL_STATE_PARAM_KEY)
-        ? PROPOSAL_STATE_ALL_OPTION_VALUE
-        : +searchParams.get(PROPOSAL_STATE_PARAM_KEY)!,
-      [SEARCH_PARAM_KEY]: searchParams.get(SEARCH_PARAM_KEY) ?? '',
-    }),
-    [searchParams],
-  );
+  const selectedProposalState: Filtering[typeof PROPOSAL_STATE_PARAM_KEY] = !searchParams.get(
+    PROPOSAL_STATE_PARAM_KEY,
+  )
+    ? PROPOSAL_STATE_ALL_OPTION_VALUE
+    : +searchParams.get(PROPOSAL_STATE_PARAM_KEY)!;
+  const searchValue = searchParams.get(SEARCH_PARAM_KEY) ?? '';
 
   const updateFilters = (newFiltering: Partial<Filtering>) =>
     setSearchParams(currentSearchParams => {

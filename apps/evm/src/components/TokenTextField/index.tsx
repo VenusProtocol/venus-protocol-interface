@@ -1,6 +1,6 @@
 import { type ButtonProps, TertiaryButton } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
-import { forwardRef, useMemo } from 'react';
+import { forwardRef } from 'react';
 
 import type { Token } from 'types';
 
@@ -48,12 +48,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
     ref,
   ) => {
     const { t } = useTranslation();
-    const step = useMemo(() => {
-      const tmpOneTokenInMantissa = new BigNumber(10 ** token.decimals);
-      const tmpOneMantissaInTokens = new BigNumber(1).dividedBy(tmpOneTokenInMantissa);
-
-      return tmpOneMantissaInTokens.toFixed();
-    }, [token.decimals]);
+    const step = new BigNumber(1).dividedBy(new BigNumber(10 ** token.decimals)).toFixed();
 
     const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value: newValue } }) => {
       // Forbid values with more decimals than the token provided supports

@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import { useMemo } from 'react';
 
 import { ButtonWrapper, Card, Icon, Spinner, Table, type TableColumn } from 'components';
 import { Link } from 'containers/Link';
@@ -30,77 +29,74 @@ export const Transactions: React.FC<TransactionsProps> = ({
     symbol: 'XVS',
   });
 
-  const columns: TableColumn<VoteDetail>[] = useMemo(
-    () => [
-      {
-        key: 'action',
-        label: t('voterDetail.actions'),
-        selectOptionLabel: t('voterDetail.actions'),
-        renderCell: transaction => {
-          switch (transaction.support) {
-            case VoteSupport.Against:
-              return (
-                <div css={styles.row}>
-                  <div css={[styles.icon, styles.against]}>
-                    <Icon name="close" />
-                  </div>
-                  {t('voterDetail.votedAgainst')}
+  const columns: TableColumn<VoteDetail>[] = [
+    {
+      key: 'action',
+      label: t('voterDetail.actions'),
+      selectOptionLabel: t('voterDetail.actions'),
+      renderCell: transaction => {
+        switch (transaction.support) {
+          case VoteSupport.Against:
+            return (
+              <div css={styles.row}>
+                <div css={[styles.icon, styles.against]}>
+                  <Icon name="close" />
                 </div>
-              );
-            case VoteSupport.For:
-              return (
-                <div css={styles.row}>
-                  <div css={[styles.icon, styles.for]}>
-                    <Icon name="mark" className="text-white" />
-                  </div>
-                  {t('voterDetail.votedFor')}
+                {t('voterDetail.votedAgainst')}
+              </div>
+            );
+          case VoteSupport.For:
+            return (
+              <div css={styles.row}>
+                <div css={[styles.icon, styles.for]}>
+                  <Icon name="mark" className="text-white" />
                 </div>
-              );
-            case VoteSupport.Abstain:
-              return (
-                <div css={styles.row}>
-                  <div css={[styles.icon, styles.abstain]}>
-                    <Icon name="dots" />
-                  </div>
-                  {t('voterDetail.votedAbstain')}
+                {t('voterDetail.votedFor')}
+              </div>
+            );
+          case VoteSupport.Abstain:
+            return (
+              <div css={styles.row}>
+                <div css={[styles.icon, styles.abstain]}>
+                  <Icon name="dots" />
                 </div>
-              );
-            default:
-              return <></>;
-          }
-        },
+                {t('voterDetail.votedAbstain')}
+              </div>
+            );
+          default:
+            return <></>;
+        }
       },
-      {
-        key: 'proposalId',
-        label: t('voterDetail.proposalNumber'),
-        selectOptionLabel: t('voterDetail.proposalNumber'),
-        renderCell: transaction => (
-          <Link
-            to={routes.governanceProposal.path.replace(
-              ':proposalId',
-              transaction.proposalId.toString(),
-            )}
-            className="text-white underline hover:text-blue"
-          >
-            {transaction.proposalId}
-          </Link>
-        ),
-      },
-      {
-        key: 'amount',
-        label: t('voterDetail.amount'),
-        selectOptionLabel: t('voterDetail.amount'),
-        align: 'right',
-        renderCell: transaction =>
-          convertMantissaToTokens({
-            value: transaction.votesMantissa,
-            token: xvs,
-            returnInReadableFormat: true,
-          }),
-      },
-    ],
-    [t, xvs, styles.abstain, styles.against, styles.for, styles.icon, styles.row],
-  );
+    },
+    {
+      key: 'proposalId',
+      label: t('voterDetail.proposalNumber'),
+      selectOptionLabel: t('voterDetail.proposalNumber'),
+      renderCell: transaction => (
+        <Link
+          to={routes.governanceProposal.path.replace(
+            ':proposalId',
+            transaction.proposalId.toString(),
+          )}
+          className="text-white underline hover:text-blue"
+        >
+          {transaction.proposalId}
+        </Link>
+      ),
+    },
+    {
+      key: 'amount',
+      label: t('voterDetail.amount'),
+      selectOptionLabel: t('voterDetail.amount'),
+      align: 'right',
+      renderCell: transaction =>
+        convertMantissaToTokens({
+          value: transaction.votesMantissa,
+          token: xvs,
+          returnInReadableFormat: true,
+        }),
+    },
+  ];
 
   return (
     <Card css={styles.root} className={className}>

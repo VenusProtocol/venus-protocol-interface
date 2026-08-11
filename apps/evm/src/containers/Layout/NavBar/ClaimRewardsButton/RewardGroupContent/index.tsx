@@ -1,7 +1,7 @@
 import { LayeredValues, TokenIconWithSymbol } from 'components';
-import { useMemo } from 'react';
 import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
-import type { ExternalRewardsGroup, InternalRewardsGroup, PendingReward } from '../types';
+import type { ExternalRewardsGroup, InternalRewardsGroup } from '../types';
+import { groupPendingRewardsByToken } from './groupPendingRewardsByToken';
 
 export interface RewardGroupContentProps {
   rightTitleComponent: React.ReactNode;
@@ -12,24 +12,7 @@ export const RewardGroupContent: React.FC<RewardGroupContentProps> = ({
   rightTitleComponent,
   group,
 }: RewardGroupContentProps) => {
-  const pendingRewards = useMemo(() => {
-    const pendingRewardMapping = new Map<string, PendingReward>([]);
-
-    group.pendingRewards.forEach(pendingReward => {
-      const groupedPendingReward = pendingRewardMapping.get(pendingReward.rewardToken.address);
-      pendingRewardMapping.set(pendingReward.rewardToken.address, {
-        rewardToken: pendingReward.rewardToken,
-        rewardAmountMantissa: pendingReward.rewardAmountMantissa.plus(
-          groupedPendingReward?.rewardAmountMantissa || 0,
-        ),
-        rewardAmountCents: pendingReward.rewardAmountCents?.plus(
-          groupedPendingReward?.rewardAmountCents || 0,
-        ),
-      });
-    });
-
-    return Array.from(pendingRewardMapping.values());
-  }, [group.pendingRewards]);
+  const pendingRewards = groupPendingRewardsByToken({ pendingRewards: group.pendingRewards });
 
   return (
     <div>

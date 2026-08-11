@@ -31,10 +31,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
     }: SelectProps,
     ref: React.Ref<HTMLInputElement>,
   ) => {
-    const selectedOption = useMemo(
-      () => options.find(option => option.value === value),
-      [value, options],
-    );
+    const selectedOption = options.find(option => option.value === value);
 
     const buttonSizeClasses = useMemo(() => {
       if (size === 'large') {

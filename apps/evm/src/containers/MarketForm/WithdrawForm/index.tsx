@@ -73,10 +73,8 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   const { nativeToken } = useChain();
   const { captureAnalyticEvent } = useAnalytics();
 
-  const canUnwrapToNativeToken = useMemo(
-    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
-    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
-  );
+  const canUnwrapToNativeToken =
+    isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped;
 
   const handleToggleReceiveNativeToken = () => {
     setFormValues(currentFormValues => ({

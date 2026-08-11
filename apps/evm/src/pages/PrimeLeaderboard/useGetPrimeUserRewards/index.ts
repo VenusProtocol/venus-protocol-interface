@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useGetPrimeCurrentCycle, useGetPrimeUserPendingRewards } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
@@ -28,35 +26,31 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
   const byRewardToken = currentCycle?.pendingPool?.byRewardToken;
   const userRewards = userPendingRewards?.rewards;
 
-  const marketRewards = useMemo<UserMarketReward[]>(
-    () =>
-      (byRewardToken ?? [])
-        .flatMap(({ rewardTokenAddress }) => {
-          const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
-          if (!token) {
-            return [];
-          }
+  const marketRewards = (byRewardToken ?? [])
+    .flatMap(({ rewardTokenAddress }) => {
+      const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+      if (!token) {
+        return [];
+      }
 
-          const tokenRewards = (userRewards ?? []).filter(reward =>
-            areAddressesEqual(reward.rewardTokenAddress, rewardTokenAddress),
-          );
+      const tokenRewards = (userRewards ?? []).filter(reward =>
+        areAddressesEqual(reward.rewardTokenAddress, rewardTokenAddress),
+      );
 
-          const marketAddress = tokenRewards[0]?.marketAddress;
-          if (!marketAddress) {
-            return [];
-          }
+      const marketAddress = tokenRewards[0]?.marketAddress;
+      if (!marketAddress) {
+        return [];
+      }
 
-          const rewardsCents = tokenRewards.reduce(
-            (total, reward) =>
-              total + convertUsdMantissaToCents(reward.currentCycleUsdMantissa).toNumber(),
-            0,
-          );
+      const rewardsCents = tokenRewards.reduce(
+        (total, reward) =>
+          total + convertUsdMantissaToCents(reward.currentCycleUsdMantissa).toNumber(),
+        0,
+      );
 
-          return [{ token, marketAddress, rewardsCents }];
-        })
-        .sort((a, b) => compareTokensBySymbol(a.token, b.token)),
-    [byRewardToken, userRewards, tokens],
-  );
+      return [{ token, marketAddress, rewardsCents }];
+    })
+    .sort((a, b) => compareTokensBySymbol(a.token, b.token));
 
   const totalRewardsCents = userPendingRewards
     ? convertUsdMantissaToCents(userPendingRewards.totalCurrentCycleUsdMantissa).toNumber()

@@ -1,9 +1,8 @@
-import { useMemo } from 'react';
-
 import { useGetPools } from 'clients/api/queries/useGetPools';
 import type { Asset } from 'types';
-import { areAddressesEqual } from 'utilities';
 import type { Address } from 'viem';
+
+import { findAssetByVTokenAddress } from './findAssetByVTokenAddress';
 
 export interface UseGetAssetInput {
   vTokenAddress?: Address;
@@ -30,28 +29,7 @@ export const useGetAsset = ({
     },
   );
 
-  const asset = useMemo(() => {
-    if (!getPoolsData?.pools || !vTokenAddress) {
-      return undefined;
-    }
-
-    let matchingAsset: Asset | undefined;
-
-    for (let p = 0; p < getPoolsData.pools.length; p++) {
-      const pool = getPoolsData.pools[p];
-
-      matchingAsset = pool.assets.find(poolAsset =>
-        areAddressesEqual(poolAsset.vToken.address, vTokenAddress),
-      );
-
-      // Break loop if we find a matching asset
-      if (matchingAsset) {
-        break;
-      }
-    }
-
-    return matchingAsset;
-  }, [vTokenAddress, getPoolsData?.pools]);
+  const asset = findAssetByVTokenAddress({ pools: getPoolsData?.pools, vTokenAddress });
 
   return {
     isLoading,

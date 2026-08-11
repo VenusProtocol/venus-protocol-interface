@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { PrimaryButton } from 'components';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useTranslation } from 'libs/translations';
@@ -28,13 +26,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const submitButtonLabel = useMemo(() => {
-    if (!isFormValid && formError?.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT') {
-      return t('marketForm.submitButtonLabel.enterValidAmount');
-    }
-
-    return t('marketForm.submitButtonLabel.withdraw');
-  }, [isFormValid, t, formError?.code]);
+  const submitButtonLabel =
+    !isFormValid && formError?.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT'
+      ? t('marketForm.submitButtonLabel.enterValidAmount')
+      : t('marketForm.submitButtonLabel.withdraw');
 
   let dom = (
     <PrimaryButton

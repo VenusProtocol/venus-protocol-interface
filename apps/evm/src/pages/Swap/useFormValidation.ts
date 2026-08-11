@@ -76,19 +76,15 @@ const useFormValidation = ({
     swap,
   ]);
 
-  const wrapUnwrapErrors = useMemo(() => {
-    const errorsTmp: FormError[] = [];
+  const wrapUnwrapErrors: FormError[] = [];
 
-    if (formValues.fromToken.isNative && formValues.toToken.symbol === 'WBNB') {
-      errorsTmp.push('WRAPPING_UNSUPPORTED');
-    }
+  if (formValues.fromToken.isNative && formValues.toToken.symbol === 'WBNB') {
+    wrapUnwrapErrors.push('WRAPPING_UNSUPPORTED');
+  }
 
-    if (formValues.toToken.isNative && formValues.fromToken.symbol === 'WBNB') {
-      errorsTmp.push('UNWRAPPING_UNSUPPORTED');
-    }
-
-    return errorsTmp;
-  }, [formValues.fromToken, formValues.toToken]);
+  if (formValues.toToken.isNative && formValues.fromToken.symbol === 'WBNB') {
+    wrapUnwrapErrors.push('UNWRAPPING_UNSUPPORTED');
+  }
 
   const errors = wrapUnwrapErrors.concat(fromTokenAmountErrors);
   const isFormValid = !!swap && errors.length === 0;

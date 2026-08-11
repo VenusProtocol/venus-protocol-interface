@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material';
 import { cloneDeep } from 'lodash-es';
-import { useMemo } from 'react';
 
 import { Table, type TableColumn, Username } from 'components';
 import { routes } from 'constants/routing';
@@ -29,76 +28,70 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
     symbol: 'XVS',
   });
 
-  const columns: TableColumn<VoterAccount>[] = useMemo(
-    () => [
-      {
-        key: 'rank',
-        label: t('voterLeaderboard.columns.rank'),
-        selectOptionLabel: t('voterLeaderboard.columns.rank'),
-        renderCell: (voter, rowIndex) => (
-          <Typography css={styles.inline} color="textPrimary" variant="small2" component="div">
-            {rowIndex + 1 + offset}
-            <Username address={voter.address}>
-              {({ innerContent }) => (
-                <Link
-                  to={routes.governanceVoter.path.replace(':address', voter.address)}
-                  css={styles.address}
-                >
-                  {innerContent}
-                </Link>
-              )}
-            </Username>
-          </Typography>
-        ),
-      },
-      {
-        key: 'votes',
-        label: t('voterLeaderboard.columns.votes'),
-        selectOptionLabel: t('voterLeaderboard.columns.votes'),
-        align: 'right',
-        renderCell: voter => (
-          <Typography color="textPrimary" variant="small2">
-            {convertMantissaToTokens({
-              value: voter.votesMantissa,
-              token: xvs,
-              returnInReadableFormat: true,
-              addSymbol: false,
-            })}
-          </Typography>
-        ),
-      },
-      {
-        key: 'voteWeight',
-        label: t('voterLeaderboard.columns.voteWeight'),
-        selectOptionLabel: t('voterLeaderboard.columns.voteWeight'),
-        align: 'right',
-        renderCell: voter => (
-          <Typography color="textPrimary" variant="small2">
-            {formatPercentageToReadableValue(voter.voteWeightPercent)}
-          </Typography>
-        ),
-      },
-      {
-        key: 'proposalsVoted',
-        label: t('voterLeaderboard.columns.proposalsVoted'),
-        selectOptionLabel: t('voterLeaderboard.columns.proposalsVoted'),
-        align: 'right',
-        renderCell: voter => (
-          <Typography color="textPrimary" variant="small2">
-            {voter.proposalsVoted}
-          </Typography>
-        ),
-      },
-    ],
-    [offset, xvs, t, styles.address, styles.inline],
-  );
+  const columns: TableColumn<VoterAccount>[] = [
+    {
+      key: 'rank',
+      label: t('voterLeaderboard.columns.rank'),
+      selectOptionLabel: t('voterLeaderboard.columns.rank'),
+      renderCell: (voter, rowIndex) => (
+        <Typography css={styles.inline} color="textPrimary" variant="small2" component="div">
+          {rowIndex + 1 + offset}
+          <Username address={voter.address}>
+            {({ innerContent }) => (
+              <Link
+                to={routes.governanceVoter.path.replace(':address', voter.address)}
+                css={styles.address}
+              >
+                {innerContent}
+              </Link>
+            )}
+          </Username>
+        </Typography>
+      ),
+    },
+    {
+      key: 'votes',
+      label: t('voterLeaderboard.columns.votes'),
+      selectOptionLabel: t('voterLeaderboard.columns.votes'),
+      align: 'right',
+      renderCell: voter => (
+        <Typography color="textPrimary" variant="small2">
+          {convertMantissaToTokens({
+            value: voter.votesMantissa,
+            token: xvs,
+            returnInReadableFormat: true,
+            addSymbol: false,
+          })}
+        </Typography>
+      ),
+    },
+    {
+      key: 'voteWeight',
+      label: t('voterLeaderboard.columns.voteWeight'),
+      selectOptionLabel: t('voterLeaderboard.columns.voteWeight'),
+      align: 'right',
+      renderCell: voter => (
+        <Typography color="textPrimary" variant="small2">
+          {formatPercentageToReadableValue(voter.voteWeightPercent)}
+        </Typography>
+      ),
+    },
+    {
+      key: 'proposalsVoted',
+      label: t('voterLeaderboard.columns.proposalsVoted'),
+      selectOptionLabel: t('voterLeaderboard.columns.proposalsVoted'),
+      align: 'right',
+      renderCell: voter => (
+        <Typography color="textPrimary" variant="small2">
+          {voter.proposalsVoted}
+        </Typography>
+      ),
+    },
+  ];
 
-  const cardColumns = useMemo(() => {
-    const newColumns = cloneDeep(columns);
-    newColumns[2].align = 'center';
-    newColumns[3].align = 'left';
-    return newColumns;
-  }, [columns]);
+  const cardColumns = cloneDeep(columns);
+  cardColumns[2].align = 'center';
+  cardColumns[3].align = 'left';
 
   return (
     <Table
