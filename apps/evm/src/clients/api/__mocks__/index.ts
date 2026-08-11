@@ -260,6 +260,11 @@ export const useGetPool = vi.fn(() => ({
   },
 }));
 
+export const useGetChainIdsWithIsolatedPoolPosition = vi.fn(() => ({
+  isLoading: false,
+  chainIds: [],
+}));
+
 export const getLiquidityHub = vi.fn(async () => ({
   liquidityHub: liquidityHubs[0],
 }));

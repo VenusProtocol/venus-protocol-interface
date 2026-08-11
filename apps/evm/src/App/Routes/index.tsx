@@ -13,7 +13,6 @@ import { MarketRedirect } from './MarketRedirect';
 import PageSuspense from './PageSuspense';
 
 const Landing = safeLazyLoad(() => import('pages/Landing'));
-const IsolatedPools = safeLazyLoad(() => import('pages/IsolatedPools'));
 const Markets = safeLazyLoad(() => import('pages/Markets'));
 const Market = safeLazyLoad(() => import('pages/Market'));
 const Dashboard = safeLazyLoad(() => import('pages/Dashboard'));
@@ -95,17 +94,6 @@ const AppRoutes = () => {
             </PageSuspense>
           }
         />
-
-        <Route path={Subdirectory.ISOLATED_POOLS}>
-          <Route
-            index
-            element={
-              <PageSuspense>
-                <IsolatedPools />
-              </PageSuspense>
-            }
-          />
-        </Route>
 
         <Route path={Subdirectory.MARKETS}>
           <Route

@@ -4,6 +4,7 @@ import { TopMarkets } from 'containers/TopMarkets';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { Placeholder } from '../Placeholder';
+import { IsolatedPoolsDeprecationNotice } from './IsolatedPoolsDeprecationNotice';
 import { Positions } from './Positions';
 
 export interface MarketsProps {
@@ -23,6 +24,8 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
 
   return (
     <>
+      <IsolatedPoolsDeprecationNotice className="mb-4" />
+
       {userHasPositions ? (
         <Positions pools={[pool]} />
       ) : (

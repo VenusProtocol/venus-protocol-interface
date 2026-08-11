@@ -1,16 +1,10 @@
 import { Carousel, CarouselItem } from 'components';
 import { BoostBanner } from './BoostBanner';
-import { IsolatedPoolsSunsetBanner } from './IsolatedPoolsSunsetBanner';
 import { PendleVaultBanner } from './PendleVaultBanner';
 import { TradeBanner } from './TradeBanner';
 
 export const AdBanner: React.FC = () => {
-  const slides: React.ReactNode[] = [
-    <TradeBanner />,
-    <PendleVaultBanner />,
-    <BoostBanner />,
-    <IsolatedPoolsSunsetBanner />,
-  ];
+  const slides: React.ReactNode[] = [<TradeBanner />, <PendleVaultBanner />, <BoostBanner />];
 
   return (
     <Carousel autoPlay className="pt-4 -mt-4">
