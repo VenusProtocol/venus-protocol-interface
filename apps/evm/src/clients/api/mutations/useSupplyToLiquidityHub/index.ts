@@ -2,10 +2,12 @@ import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
 import liquidityHubAbi from 'libs/contracts/config/externalAbis/LiquidityHub.json';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { LiquidityHub } from 'types';
+import { convertMantissaToTokens } from 'utilities';
 import type { Account, Address, Chain, WriteContractParameters } from 'viem';
 
 export type SupplyToLiquidityHubInput = {
@@ -18,6 +20,7 @@ type Options = UseSendTransactionOptions<SupplyToLiquidityHubInput>;
 export const useSupplyToLiquidityHub = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
     fn: (input: SupplyToLiquidityHubInput) => {
@@ -42,6 +45,16 @@ export const useSupplyToLiquidityHub = (options?: Partial<Options>) => {
       >;
     },
     onConfirmed: ({ input }) => {
+      captureAnalyticEvent('Tokens supplied', {
+        poolName: 'liquidity_hub',
+        tokenSymbol: input.liquidityHub.vhToken.underlyingToken.symbol,
+        tokenAmountTokens: convertMantissaToTokens({
+          token: input.liquidityHub.vhToken.underlyingToken,
+          value: input.amountMantissa,
+        }).toNumber(),
+        fundingSource: 'wallet',
+      });
+
       queryClient.invalidateQueries({
         queryKey: [
           FunctionKey.GET_LIQUIDITY_HUB,

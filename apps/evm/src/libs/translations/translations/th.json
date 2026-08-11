@@ -934,6 +934,7 @@
         }
       },
       "title": "รายละเอียดการจัดสรร",
+      "unallocated": "ยังไม่ได้จัดสรร",
       "yieldGroup": {
         "allocationColumn": {
           "title": "สัดส่วน"

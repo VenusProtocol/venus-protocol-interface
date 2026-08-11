@@ -4,10 +4,13 @@ import { useState } from 'react';
 import { useWithdrawFromLiquidityHub } from 'clients/api';
 import { AvailableBalance } from 'components';
 import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
+import { useAnalytics } from 'libs/analytics';
+import { isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHub, LiquidityHubBalanceMutation } from 'types';
 import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
-import { Form, type FormValues, initialFormValues } from '../Form';
+import { calculateAmountDollars } from '../../MarketForm/calculateAmountDollars';
+import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../Form';
 
 export interface WithdrawFormProps {
   liquidityHub: LiquidityHub;
@@ -16,6 +19,7 @@ export interface WithdrawFormProps {
 
 export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubmitSuccess }) => {
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
 
   const userMaxRedeemTokens = liquidityHub.userVhTokenMaxRedeemTokens?.multipliedBy(
@@ -37,6 +41,32 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const { mutateAsync: withdrawFromLiquidityHub, isPending: isSubmitting } =
     useWithdrawFromLiquidityHub();
 
+  const getAnalyticData = (amountTokens: BigNumber | string) => ({
+    poolName: 'liquidity_hub',
+    assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+    usdAmount: calculateAmountDollars({
+      amountTokens,
+      tokenPriceCents: liquidityHub.tokenPriceCents,
+    }),
+  });
+
+  const captureAmountSetAnalyticEvent = ({ amountTokens, maxSelected }: AmountSetInput) => {
+    if (Number(amountTokens) <= 0) {
+      return;
+    }
+
+    captureAnalyticEvent(
+      'withdraw_amount_set',
+      {
+        ...getAnalyticData(amountTokens),
+        maxSelected,
+      },
+      {
+        debounced: true,
+      },
+    );
+  };
+
   const handleSubmit = async (submittedFormValues: FormValues) => {
     const amountTokens = new BigNumber(submittedFormValues.amountTokens);
     const amountMantissa = convertTokensToMantissa({
@@ -55,12 +85,26 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
         })
       : undefined;
 
-    await withdrawFromLiquidityHub({
-      liquidityHub,
-      amountMantissa,
-      withdrawFullSupply,
-      userVhTokenBalanceMantissa,
-    });
+    const analyticData = getAnalyticData(amountTokens);
+
+    try {
+      captureAnalyticEvent('withdraw_initiated', analyticData);
+
+      await withdrawFromLiquidityHub({
+        liquidityHub,
+        amountMantissa,
+        withdrawFullSupply,
+        userVhTokenBalanceMantissa,
+      });
+
+      captureAnalyticEvent('withdraw_signed', analyticData);
+    } catch (error) {
+      if (isUserRejectedTxError({ error })) {
+        captureAnalyticEvent('withdraw_rejected', analyticData);
+      }
+
+      throw error;
+    }
   };
 
   const balanceMutations: LiquidityHubBalanceMutation[] = [
@@ -73,11 +117,21 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   ];
 
   const handleLimitClick = limitTokens.isGreaterThan(0)
-    ? () =>
+    ? () => {
+        const amountTokens = limitTokens
+          .dp(liquidityHub.vhToken.underlyingToken.decimals)
+          .toFixed();
+
+        captureAmountSetAnalyticEvent({
+          amountTokens,
+          maxSelected: true,
+        });
+
         setFormValues(values => ({
           ...values,
-          amountTokens: limitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
-        }))
+          amountTokens,
+        }));
+      }
     : undefined;
 
   const readableLimit = formatTokensToReadableValue({
@@ -101,6 +155,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       submitButtonLabel={t('liquidityHubForm.withdrawSubmitButtonLabel')}
       limitTokens={limitTokens}
       availableBalance={availableBalanceDom}
+      onAmountSet={captureAmountSetAnalyticEvent}
     />
   );
 };

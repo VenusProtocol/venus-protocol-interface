@@ -24,6 +24,11 @@ import type { UseFormValidationInput } from './useForm/useFormValidation';
 
 export * from './useForm';
 
+export interface AmountSetInput {
+  amountTokens: BigNumber | string;
+  maxSelected: boolean;
+}
+
 export interface FormProps {
   liquidityHub: LiquidityHub;
   onSubmit: (formValues: FormValues) => Promise<unknown>;
@@ -39,6 +44,7 @@ export interface FormProps {
   onSubmitSuccess?: () => void;
   approval?: TokenApproval;
   validateForm?: UseFormValidationInput['validate'];
+  onAmountSet?: (input: AmountSetInput) => void;
 }
 
 export const Form: React.FC<FormProps> = ({
@@ -56,6 +62,7 @@ export const Form: React.FC<FormProps> = ({
   isSubmitting,
   approval,
   validateForm,
+  onAmountSet,
 }) => {
   const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useChain();
@@ -133,13 +140,21 @@ export const Form: React.FC<FormProps> = ({
       acknowledgeRisk: !values.acknowledgeRisk,
     }));
 
-  const handleRightMaxButtonClick = () =>
+  const handleRightMaxButtonClick = () => {
+    const amountTokens = (safeLimitTokens ?? limitTokens)
+      .dp(liquidityHub.vhToken.underlyingToken.decimals)
+      .toFixed();
+
+    onAmountSet?.({
+      amountTokens,
+      maxSelected: true,
+    });
+
     setFormValues(values => ({
       ...values,
-      amountTokens: (safeLimitTokens ?? limitTokens)
-        .dp(liquidityHub.vhToken.underlyingToken.decimals)
-        .toFixed(),
+      amountTokens,
     }));
+  };
 
   const isLoading =
     isSubmitting || isGetLiquidityHubsLoading || isGetPoolLoading || isGetSimulatedPoolLoading;
@@ -150,12 +165,17 @@ export const Form: React.FC<FormProps> = ({
         name="amountTokens"
         token={liquidityHub.vhToken.underlyingToken}
         value={formValues.amountTokens}
-        onChange={amountTokens =>
+        onChange={amountTokens => {
+          onAmountSet?.({
+            amountTokens,
+            maxSelected: false,
+          });
+
           setFormValues(currentFormValues => ({
             ...currentFormValues,
             amountTokens,
-          }))
-        }
+          }));
+        }}
         disabled={
           !isUserConnected || isSubmitting || formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
         }

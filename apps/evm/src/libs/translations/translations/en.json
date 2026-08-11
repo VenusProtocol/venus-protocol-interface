@@ -934,6 +934,7 @@
         }
       },
       "title": "Allocation details",
+      "unallocated": "Unallocated",
       "yieldGroup": {
         "allocationColumn": {
           "title": "Alloc."

@@ -934,6 +934,7 @@
         }
       },
       "title": "Tahsis ayrıntıları",
+      "unallocated": "Tahsis edilmemiş",
       "yieldGroup": {
         "allocationColumn": {
           "title": "Tahsis"

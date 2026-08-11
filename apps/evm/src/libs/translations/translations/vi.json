@@ -934,6 +934,7 @@
         }
       },
       "title": "Chi tiết phân bổ",
+      "unallocated": "Chưa phân bổ",
       "yieldGroup": {
         "allocationColumn": {
           "title": "Phân bổ"

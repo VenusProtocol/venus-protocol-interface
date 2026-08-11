@@ -5,11 +5,14 @@ import { useSupplyToLiquidityHub } from 'clients/api';
 import type { TokenApproval } from 'containers/TxFormSubmitButton';
 import { WalletBalance } from 'containers/WalletBalance';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useAnalytics } from 'libs/analytics';
+import { isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { LiquidityHub, LiquidityHubBalanceMutation } from 'types';
 import { convertTokensToMantissa } from 'utilities';
-import { Form, type FormValues, initialFormValues } from '../../Form';
+import { calculateAmountDollars } from '../../../MarketForm/calculateAmountDollars';
+import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../../Form';
 import type { UseFormValidationInput } from '../../Form/useForm/useFormValidation';
 
 export interface SupplyWithWalletFormProps {
@@ -22,6 +25,7 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
   onSubmitSuccess,
 }) => {
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
   const { accountAddress } = useAccountAddress();
 
@@ -84,17 +88,57 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
 
   const { mutateAsync: supplyToLiquidityHub, isPending: isSubmitting } = useSupplyToLiquidityHub();
 
+  const getAnalyticData = (amountTokens: BigNumber | string) => ({
+    poolName: 'liquidity_hub',
+    assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+    usdAmount: calculateAmountDollars({
+      amountTokens,
+      tokenPriceCents: liquidityHub.tokenPriceCents,
+    }),
+    fundingSource: 'wallet' as const,
+  });
+
+  const captureAmountSetAnalyticEvent = ({ amountTokens, maxSelected }: AmountSetInput) => {
+    if (Number(amountTokens) <= 0) {
+      return;
+    }
+
+    captureAnalyticEvent(
+      'supply_amount_set',
+      {
+        ...getAnalyticData(amountTokens),
+        maxSelected,
+      },
+      {
+        debounced: true,
+      },
+    );
+  };
+
   const handleSubmit = async (submittedFormValues: FormValues) => {
     const amountTokens = new BigNumber(submittedFormValues.amountTokens);
     const amountMantissa = convertTokensToMantissa({
       token: liquidityHub.vhToken.underlyingToken,
       value: amountTokens,
     });
+    const analyticData = getAnalyticData(amountTokens);
 
-    await supplyToLiquidityHub({
-      liquidityHub,
-      amountMantissa,
-    });
+    try {
+      captureAnalyticEvent('supply_initiated', analyticData);
+
+      await supplyToLiquidityHub({
+        liquidityHub,
+        amountMantissa,
+      });
+
+      captureAnalyticEvent('supply_signed', analyticData);
+    } catch (error) {
+      if (isUserRejectedTxError({ error })) {
+        captureAnalyticEvent('supply_rejected', analyticData);
+      }
+
+      throw error;
+    }
   };
 
   const balanceMutations: LiquidityHubBalanceMutation[] = [
@@ -110,12 +154,17 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     <WalletBalance
       token={liquidityHub.vhToken.underlyingToken}
       spenderAddress={liquidityHub.vhToken.address}
-      onBalanceClick={walletBalanceTokens =>
+      onBalanceClick={walletBalanceTokens => {
+        captureAmountSetAnalyticEvent({
+          amountTokens: walletBalanceTokens,
+          maxSelected: true,
+        });
+
         setFormValues(currFormValues => ({
           ...currFormValues,
           amountTokens: walletBalanceTokens.toFixed(),
-        }))
-      }
+        }));
+      }}
     />
   );
 
@@ -133,6 +182,7 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
       limitTokens={limitTokens}
       availableBalance={availableBalanceDom}
       validateForm={handleValidateForm}
+      onAmountSet={captureAmountSetAnalyticEvent}
     />
   );
 };

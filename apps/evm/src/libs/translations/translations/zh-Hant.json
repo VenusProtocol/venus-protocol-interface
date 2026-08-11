@@ -934,6 +934,7 @@
         }
       },
       "title": "分配詳情",
+      "unallocated": "未分配",
       "yieldGroup": {
         "allocationColumn": {
           "title": "配比"

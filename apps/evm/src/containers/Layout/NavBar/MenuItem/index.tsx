@@ -66,7 +66,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             {...item}
             items={item.items.map(i => ({
               ...i,
-              onClick,
+              onClick: () => {
+                i.onClick?.();
+                onClick();
+              },
             }))}
           />
         </AccordionAnimatedContent>
@@ -81,6 +84,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({
             ...i,
             onClick: () => {
+              i.onClick?.();
+
               // Close dropdown
               setIsDropdownOpen(false);
 
@@ -115,7 +120,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
     <Link
       to={item.to}
       href={item.href}
-      onClick={onClick}
+      onClick={() => {
+        item.onClick?.();
+        onClick();
+      }}
       className={cn(sharedContainerClassName, 'flex items-center gap-x-2')}
     >
       <span>{item.label}</span>

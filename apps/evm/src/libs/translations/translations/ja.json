@@ -934,6 +934,7 @@
         }
       },
       "title": "配分の詳細",
+      "unallocated": "未配分",
       "yieldGroup": {
         "allocationColumn": {
           "title": "配分"
