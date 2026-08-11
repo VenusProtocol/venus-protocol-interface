@@ -58,6 +58,9 @@ describe('useMigrateCoreSupplyToLiquidityHub', () => {
       ],
     });
     expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+      queryKey: [FunctionKey.GET_LIQUIDITY_HUBS],
+    });
+    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
       queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL],
     });
   });

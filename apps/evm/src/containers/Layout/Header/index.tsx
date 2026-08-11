@@ -4,6 +4,7 @@ import { NULL_ADDRESS } from 'constants/address';
 import { routes } from 'constants/routing';
 import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
+import { useAccountAddress } from 'libs/wallet';
 import { useParams } from 'react-router';
 import type { Address } from 'viem';
 import { AssetInfo } from './AssetInfo';
@@ -15,6 +16,8 @@ export const Header: React.FC = () => {
   const currentRoutePath = useGetCurrentRoutePath();
   const isOnMarketPage = currentRoutePath === routes.market.path;
   const isOnLiquidityHubPage = currentRoutePath === routes.liquidityHub.path;
+
+  const { accountAddress } = useAccountAddress();
 
   const { vTokenAddress, vhTokenAddress } = useParams<{
     vTokenAddress?: Address;
@@ -29,6 +32,7 @@ export const Header: React.FC = () => {
   const { data: getLiquidityHubData } = useGetLiquidityHub(
     {
       vhTokenAddress: vhTokenAddress || NULL_ADDRESS,
+      accountAddress,
     },
     {
       enabled: !!vhTokenAddress,

@@ -960,7 +960,7 @@
         "names": {
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "Fixed Rate Vaults"
+          "frv": "Fixed rate vaults"
         }
       }
     },
@@ -2239,7 +2239,7 @@
   },
   "transactions": {
     "liquidityHub": {
-      "label": "Liquidity hub"
+      "label": "Liquidity Hub"
     },
     "venusCore": {
       "label": "Venus Core"

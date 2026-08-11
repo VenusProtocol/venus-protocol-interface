@@ -1,6 +1,7 @@
 import { useGetAccountTransactionHistory } from 'clients/api';
 import { TransactionsList } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
+import { TRADE_TX_TYPES } from 'constants/marketTxTypes';
 import { useAccountAddress } from 'libs/wallet';
 import type { TradePosition } from 'types';
 
@@ -14,6 +15,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({ row }) => {
   const { data: getTransactionsData, isLoading } = useGetAccountTransactionHistory({
     accountAddress: accountAddress || NULL_ADDRESS,
     positionAccountAddress: row.positionAccountAddress,
+    types: TRADE_TX_TYPES,
   });
 
   const transactions = getTransactionsData?.transactions || [];

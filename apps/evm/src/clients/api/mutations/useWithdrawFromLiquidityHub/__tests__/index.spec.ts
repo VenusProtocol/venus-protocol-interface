@@ -50,6 +50,9 @@ describe('useWithdrawFromLiquidityHub', () => {
         },
       ],
     });
+    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+      queryKey: [FunctionKey.GET_LIQUIDITY_HUBS],
+    });
   });
 
   it('redeems shares for full withdrawals', () => {

@@ -1,10 +1,11 @@
 import { theme } from '@venusprotocol/ui';
 
+import type { LiquidityHubHistoryPeriod } from 'clients/api';
 import { AreaChart } from 'components';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubSnapshot } from 'types';
-import { formatToReadableDate, type LiquidityHubHistoryPeriod } from 'utilities';
+import { formatToReadableDate } from 'utilities';
 import { formatUnitPriceToReadableValue } from '../formatUnitPriceToReadableValue';
 
 export interface UnitPriceChartProps {

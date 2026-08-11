@@ -1,0 +1,102 @@
+{
+  "chainId": 97,
+  "result": [
+    {
+      "hubAddress": "0x2000000000000000000000000000000000000001",
+      "underlyingTokenAddress": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+      "name": "Venus USDC Liquidity Hub",
+      "symbol": "vhUSDC",
+      "hubTokenDecimals": 6,
+      "underlyingTokenDecimals": 6,
+      "tokenPriceOracleAddress": "0x4000000000000000000000000000000000000001",
+      "tokenPriceUsdMantissa": "2500000000000000000",
+      "totalUnderlyingMantissa": "1000000000",
+      "totalUnderlyingUsdMantissa": "2500000000000000000000",
+      "hubTokenSupplyMantissa": "980392157",
+      "exchangeRateMantissa": "1020000000000000000",
+      "pricePerShare": "1.02",
+      "blendedApyRatio": "0.05",
+      "rewardsDistributors": [
+        {
+          "marketAddress": "0x2000000000000000000000000000000000000001",
+          "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          "lastRewardingSupplyBlockOrTimestamp": "0",
+          "lastRewardingBorrowBlockOrTimestamp": "0",
+          "supplySpeed": "10000000000000000",
+          "borrowSpeed": "0",
+          "supplyApyRatio": "0.01",
+          "borrowApyRatio": "0",
+          "priceMantissa": "6000000000000000000",
+          "rewardsDistributorContractAddress": "0x8000000000000000000000000000000000000001",
+          "isActive": true,
+          "rewardType": "venus",
+          "rewardDetails": null
+        },
+        {
+          "marketAddress": "0x2000000000000000000000000000000000000001",
+          "rewardTokenAddress": "0x3000000000000000000000000000000000000001",
+          "lastRewardingSupplyBlockOrTimestamp": "0",
+          "lastRewardingBorrowBlockOrTimestamp": "0",
+          "supplySpeed": "10000000000000000",
+          "borrowSpeed": "0",
+          "supplyApyRatio": "0.01",
+          "borrowApyRatio": "0",
+          "priceMantissa": "6000000000000000000",
+          "rewardsDistributorContractAddress": "0x8000000000000000000000000000000000000002",
+          "isActive": true,
+          "rewardType": "venus",
+          "rewardDetails": null
+        }
+      ],
+      "supplyCapacityMantissa": "2000000000",
+      "supplyCapacityUsdMantissa": "5000000000000000000000",
+      "liquidityMantissa": "500000000",
+      "liquidityUsdMantissa": "1250000000000000000000",
+      "suppliersCount": 2,
+      "maxWithdrawalSizeMantissa": "500000000",
+      "managementFeeRatio": "0",
+      "performanceFeeRatio": "0.1",
+      "redeemFeeRatio": "0.01",
+      "isPaused": false,
+      "yieldGroups": [
+        {
+          "yieldGroupAddress": "0x5000000000000000000000000000000000000001",
+          "kind": "core",
+          "totalUnderlyingMantissa": "400000000",
+          "totalUnderlyingUsdMantissa": "1000000000000000000000",
+          "spotApyRatio": "0.04",
+          "absoluteCapMantissa": "800000000",
+          "absoluteCapUsdMantissa": "2000000000000000000000",
+          "percentageCapRatio": "0.4",
+          "effectiveCapMantissa": "800000000",
+          "maxDepositMantissa": "400000000",
+          "maxWithdrawMantissa": "300000000",
+          "isPaused": false,
+          "depositQueuePosition": null,
+          "withdrawQueuePosition": null,
+          "resources": [
+            {
+              "resourceAddress": "0x6000000000000000000000000000000000000001",
+              "adapterAddress": "0x7000000000000000000000000000000000000001",
+              "kind": "core",
+              "name": "Core market",
+              "allocationMantissa": "400000000",
+              "allocationUsdMantissa": "1000000000000000000000",
+              "apyRatio": "0.04",
+              "rewardsDistributors": [],
+              "liquidityMantissa": "300000000",
+              "capMantissa": "800000000",
+              "capUsdMantissa": "2000000000000000000000",
+              "isPaused": false,
+              "lockEndTime": null,
+              "exposure": [
+                "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "0x3000000000000000000000000000000000000001"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

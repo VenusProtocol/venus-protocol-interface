@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { liquidityHubSnapshots } from '__mocks__/models/liquidityHubSnapshots';
+import { type LiquidityHubHistoryPeriod, useGetLiquidityHubHistory } from 'clients/api';
 import {
   Apy,
   ButtonGroup,
@@ -13,11 +13,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { LiquidityHub } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatTokensToReadableValue,
-  type LiquidityHubHistoryPeriod,
-} from 'utilities';
+import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
 import { UnitPriceChart } from './UnitPriceChart';
 import { formatUnitPriceToReadableValue } from './formatUnitPriceToReadableValue';
 export interface LiquidityHubHistoryProps {
@@ -29,7 +25,21 @@ export const LiquidityHubHistory: React.FC<LiquidityHubHistoryProps> = ({ liquid
   const [selectedPeriod, setSelectedPeriod] = useState<LiquidityHubHistoryPeriod>('1m');
 
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
-  const isLoading = false;
+  const {
+    data: getLiquidityHubHistoryData = {
+      liquidityHubSnapshots: [],
+    },
+    isLoading,
+  } = useGetLiquidityHubHistory(
+    {
+      vhTokenAddress: liquidityHub.vhToken.address,
+      period: selectedPeriod,
+    },
+    {
+      enabled: isApyChartsFeatureEnabled,
+    },
+  );
+  const { liquidityHubSnapshots } = getLiquidityHubHistoryData;
 
   const periodOptions: MarketHistoryCardPeriodOption<LiquidityHubHistoryPeriod>[] = [
     {
@@ -105,7 +115,7 @@ export const LiquidityHubHistory: React.FC<LiquidityHubHistoryProps> = ({ liquid
         history={{
           type: 'supply',
           data: liquidityHubSnapshots,
-          isLoading: false,
+          isLoading,
           selectedPeriod,
           setSelectedPeriod,
           periodOptions,

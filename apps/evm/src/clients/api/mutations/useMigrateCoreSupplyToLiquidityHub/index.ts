@@ -96,6 +96,10 @@ export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) =
       });
 
       queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_LIQUIDITY_HUBS],
+      });
+
+      queryClient.invalidateQueries({
         queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL],
       });
 
