@@ -1323,6 +1323,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Vui lòng bật công tắc \"Tài sản tạm dừng\" để xem.",
       "imgAlt": "Biểu tượng tạm dừng",
+      "selectedCategoriesTitle": "Tất cả tài sản trong các danh mục đã chọn đã bị tạm dừng",
       "title": "Tất cả tài sản trong pool này đã bị tạm dừng"
     },
     "search": {

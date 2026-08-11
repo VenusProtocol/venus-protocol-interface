@@ -1324,6 +1324,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Görmek için \"Durdurulan Varlıklar\" anahtarını etkinleştirin.",
       "imgAlt": "Duraklatma ikonu",
+      "selectedCategoriesTitle": "Seçilen kategorilerdeki tüm varlıklar duraklatıldı",
       "title": "Bu havuzdaki tüm varlıklar duraklatıldı"
     },
     "search": {

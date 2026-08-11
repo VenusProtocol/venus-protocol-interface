@@ -1323,6 +1323,7 @@
     "pausedAssetsPlaceholder": {
       "description": "表示するには「停止中の資産」トグルを有効にしてください。",
       "imgAlt": "一時停止アイコン",
+      "selectedCategoriesTitle": "選択したカテゴリーの資産はすべて停止されています",
       "title": "このプールの資産はすべて停止されています"
     },
     "search": {

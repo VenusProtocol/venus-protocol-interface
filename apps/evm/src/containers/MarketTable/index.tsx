@@ -77,14 +77,15 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   const {
     assets: filteredAssets,
-    pausedAssetsExist,
+    categories: availableCategories,
+    hiddenPausedAssetsExist,
     searchValue,
     onSearchValueChange,
     selectedCategories,
     onSelectedCategoriesChange,
-    showPausedAssets,
   } = useControls({
     assets,
+    categories,
     applyUserSettings: controls,
     poolComptrollerAddress: poolComptrollerContractAddress,
   });
@@ -168,7 +169,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                       onSearchValueChange={onSearchValueChange}
                       searchInputPlaceholder={t('marketTable.search.placeholder')}
                       showPausedAssetsToggle
-                      categories={categories}
+                      categories={availableCategories}
                       selectedCategories={selectedCategories}
                       onSelectedCategoriesChange={onSelectedCategoriesChange}
                     />
@@ -184,10 +185,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
           controls &&
           !isFetching &&
           !searchValue &&
-          selectedCategories.length === 0 &&
           filteredAssets.length === 0 &&
-          pausedAssetsExist &&
-          !showPausedAssets && (
+          hiddenPausedAssetsExist && (
             <Card
               className={cn(
                 'flex flex-col items-center text-center py-16 border-0 sm:py-16',
@@ -201,7 +200,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
               />
 
               <h4 className="font-semibold mb-1">
-                {t('marketTable.pausedAssetsPlaceholder.title')}
+                {selectedCategories.length > 0
+                  ? t('marketTable.pausedAssetsPlaceholder.selectedCategoriesTitle')
+                  : t('marketTable.pausedAssetsPlaceholder.title')}
               </h4>
 
               <p className="text-sm text-grey">

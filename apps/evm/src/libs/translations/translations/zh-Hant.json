@@ -1323,6 +1323,7 @@
     "pausedAssetsPlaceholder": {
       "description": "請啟用“已暫停資產”開關以查看。",
       "imgAlt": "暫停圖標",
+      "selectedCategoriesTitle": "所選類別內所有資產已暫停",
       "title": "該池內所有資產已暫停"
     },
     "search": {

@@ -1324,6 +1324,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Please enable the \"Paused Assets\" toggle to view them.",
       "imgAlt": "Pause icon",
+      "selectedCategoriesTitle": "All assets in the selected categories have been paused",
       "title": "All assets in this pool have been paused"
     },
     "search": {
