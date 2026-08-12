@@ -16,6 +16,7 @@ export const formatApiTransaction = ({
   apiTransaction: ApiAccountHistoricalTransaction;
 }) => {
   const { txType: apiTxType } = apiTransaction;
+
   const txType = convertToTxType(apiTxType);
 
   if (!txType) {
@@ -31,15 +32,11 @@ export const formatApiTransaction = ({
   }
 
   if (LIQUIDITY_HUB_TX_TYPES.some(t => t === txType)) {
-    const liquidityHubTransaction = formatToLiquidityHubTransaction({
+    return formatToLiquidityHubTransaction({
       vhTokenMapping,
       apiTransaction,
       txType: txType as LiquidityHubTxType,
     });
-
-    if (liquidityHubTransaction) {
-      return liquidityHubTransaction;
-    }
   }
 
   return formatToMarketTransaction({

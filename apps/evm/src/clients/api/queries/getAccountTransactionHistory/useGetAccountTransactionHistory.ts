@@ -1,5 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import { liquidityHubs } from '__mocks__/models/liquidityHubs';
+import type { Address } from 'viem';
 
 import FunctionKey from 'constants/functionKey';
 import { useChainId } from 'libs/wallet';
@@ -9,11 +9,12 @@ import {
   type GetAccountTransactionHistoryOutput,
   getAccountTransactionHistory,
 } from '.';
+import { useGetLiquidityHubs } from '../getLiquidityHubs/useGetLiquidityHubs';
 import { useGetPools } from '../useGetPools';
 
 type TrimmedGetAccountTransactionHistoryInput = Omit<
   GetAccountTransactionHistoryInput,
-  'chainId' | 'getPoolsData' | 'liquidityHubs'
+  'chainId' | 'getPoolsData' | 'liquidityHubs' | 'pools' | 'liquidityHubs'
 >;
 
 type Options = QueryObserverOptions<
@@ -25,6 +26,8 @@ type Options = QueryObserverOptions<
     FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY,
     TrimmedGetAccountTransactionHistoryInput & {
       chainId: ChainId;
+      poolAddresses: Address[];
+      liquidityHubAddresses: Address[];
     },
   ]
 >;
@@ -35,15 +38,34 @@ export const useGetAccountTransactionHistory = (
 ) => {
   const { chainId } = useChainId();
   const { data: getPoolsData } = useGetPools();
+  const pools = getPoolsData?.pools ?? [];
+
+  const { data: getLiquidityHubsData } = useGetLiquidityHubs();
+  const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
+
+  // Sort addresses alphabetically to prevent unnecessary re-renders
+  const sortedPoolComptrollerAddresses = [...pools].map(pool => pool.comptrollerAddress).sort();
+  const sortedLiquidityHubAddresses = [...liquidityHubs]
+    .map(liquidityHub => liquidityHub.vhToken.address)
+    .sort();
+
   const extendedParams = {
     ...params,
-    getPoolsData,
-    liquidityHubs, // TODO: fetch from API
+    pools,
+    liquidityHubs,
     chainId,
   };
 
   return useQuery({
-    queryKey: [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY, { ...params, chainId }],
+    queryKey: [
+      FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY,
+      {
+        ...params,
+        chainId,
+        poolAddresses: sortedPoolComptrollerAddresses,
+        liquidityHubAddresses: sortedLiquidityHubAddresses,
+      },
+    ],
     queryFn: () => getAccountTransactionHistory(extendedParams),
     ...options,
   });

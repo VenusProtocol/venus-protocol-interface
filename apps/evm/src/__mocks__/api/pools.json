@@ -216,7 +216,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "0"
@@ -292,7 +294,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.10409585417764799",
+              "borrowApyRatio": "0.10394225255203636"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -368,7 +372,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "35.509315528273364",
+              "borrowApyRatio": "10000"
             }
           ],
           "liquidationThresholdMantissa": "605000000000000000"
@@ -444,7 +450,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.04265916277181359",
+              "borrowApyRatio": "0.034779741285413834"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -520,7 +528,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "10000",
+              "borrowApyRatio": "10000"
             }
           ],
           "liquidationThresholdMantissa": "550000000000000060"
@@ -596,7 +606,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "660000000000000000"
@@ -672,7 +684,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.00000000015544676657",
+              "borrowApyRatio": "0.00000000012732370713"
             }
           ],
           "liquidationThresholdMantissa": "660000000000000000"
@@ -748,7 +762,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.11245463771341658",
+              "borrowApyRatio": "0.29039381866653024"
             }
           ],
           "liquidationThresholdMantissa": "660000000000000000"
@@ -824,7 +840,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "605000000000000000"
@@ -900,7 +918,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.07001308615081525",
+              "borrowApyRatio": "0.0684156836344727"
             }
           ],
           "liquidationThresholdMantissa": "660000000000000000"
@@ -967,7 +987,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.30724999734873126",
+              "borrowApyRatio": "0.25012606428810425"
             }
           ],
           "liquidationThresholdMantissa": "660000000000000000"
@@ -1043,7 +1065,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "660000000000000000"
@@ -1119,7 +1143,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.030541879026908303",
+              "borrowApyRatio": "1.0547992175979579"
             }
           ],
           "liquidationThresholdMantissa": "605000000000000000"
@@ -1195,7 +1221,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.00000000181300530144",
+              "borrowApyRatio": "0.00000000177612924368"
             }
           ],
           "liquidationThresholdMantissa": "550000000000000060"
@@ -1271,7 +1299,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.1381146091339376",
+              "borrowApyRatio": "0.138310178726607"
             }
           ],
           "liquidationThresholdMantissa": "660000000000000000"
@@ -1347,7 +1377,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.11641029740718345",
+              "borrowApyRatio": "0.11561969397899086"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -1423,7 +1455,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "1.8417703593207628"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -1499,7 +1533,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0.00000049784627353944"
             }
           ],
           "liquidationThresholdMantissa": "891000000000000100"
@@ -1575,7 +1611,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.180617957752218",
+              "borrowApyRatio": "10000"
             }
           ],
           "liquidationThresholdMantissa": "660000000000000000"
@@ -1651,7 +1689,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "1529.1262017843564",
+              "borrowApyRatio": "1304.8970134436621"
             }
           ],
           "liquidationThresholdMantissa": "0"
@@ -1727,7 +1767,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "2200.3082494370738",
+              "borrowApyRatio": "10000"
             }
           ],
           "liquidationThresholdMantissa": "825000000000000100"
@@ -1794,7 +1836,9 @@
               "rewardsDistributorContractAddress": null,
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0.0040723946500604846",
+              "borrowApyRatio": "0.47073230745198956"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -1874,7 +1918,9 @@
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x4C94e67d239aD585275Fdd3246Ab82c8a2668564",
@@ -1889,7 +1935,9 @@
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x4C94e67d239aD585275Fdd3246Ab82c8a2668564",
@@ -1904,7 +1952,9 @@
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "550000000000000060"
@@ -1988,7 +2038,9 @@
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:13.000Z"
+              "updatedAt": "2024-09-03T22:24:13.000Z",
+              "supplyApyRatio": "0.32988424526283765",
+              "borrowApyRatio": "35.412749583668115"
             },
             {
               "marketAddress": "0x5e68913fbbfb91af30366ab1B21324410b49a308",
@@ -2003,7 +2055,9 @@
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:13.000Z"
+              "updatedAt": "2024-09-03T22:24:13.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x5e68913fbbfb91af30366ab1B21324410b49a308",
@@ -2018,7 +2072,9 @@
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:13.000Z"
+              "updatedAt": "2024-09-03T22:24:13.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "275000000000000030"
@@ -2102,7 +2158,9 @@
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
@@ -2117,7 +2175,9 @@
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
@@ -2132,7 +2192,9 @@
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -2199,7 +2261,9 @@
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E",
@@ -2214,7 +2278,9 @@
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E",
@@ -2229,7 +2295,9 @@
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "715000000000000000"
@@ -2296,7 +2364,9 @@
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:13.000Z"
+              "updatedAt": "2024-09-03T22:24:13.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xb677e080148368EeeE70fA3865d07E92c6500174",
@@ -2311,7 +2381,9 @@
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xb677e080148368EeeE70fA3865d07E92c6500174",
@@ -2326,7 +2398,9 @@
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:13.000Z"
+              "updatedAt": "2024-09-03T22:24:13.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "275000000000000030"
@@ -2393,7 +2467,9 @@
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a",
@@ -2408,7 +2484,9 @@
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a",
@@ -2423,7 +2501,9 @@
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "275000000000000030"
@@ -2490,7 +2570,9 @@
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xe237aA131E7B004aC88CB808Fa56AF3dc4C408f1",
@@ -2505,7 +2587,9 @@
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "10000",
+              "borrowApyRatio": "10000"
             },
             {
               "marketAddress": "0xe237aA131E7B004aC88CB808Fa56AF3dc4C408f1",
@@ -2520,7 +2604,9 @@
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "220000000000000030"
@@ -2604,7 +2690,9 @@
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6",
@@ -2619,7 +2707,9 @@
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6",
@@ -2634,7 +2724,9 @@
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "36.78453649972198",
+              "borrowApyRatio": "10000"
             }
           ],
           "liquidationThresholdMantissa": "0"
@@ -2714,7 +2806,9 @@
               "rewardsDistributorContractAddress": "0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
@@ -2729,7 +2823,9 @@
               "rewardsDistributorContractAddress": "0x66E213a4b8ba1c8D62cAa4649C7177E29321E262",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -2796,7 +2892,9 @@
               "rewardsDistributorContractAddress": "0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x1958035231E125830bA5d17D168cEa07Bb42184a",
@@ -2811,7 +2909,9 @@
               "rewardsDistributorContractAddress": "0x66E213a4b8ba1c8D62cAa4649C7177E29321E262",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "4.2916200625602966",
+              "borrowApyRatio": "193.0531066946347"
             }
           ],
           "liquidationThresholdMantissa": "275000000000000030"
@@ -2878,7 +2978,9 @@
               "rewardsDistributorContractAddress": "0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a",
@@ -2893,7 +2995,9 @@
               "rewardsDistributorContractAddress": "0x66E213a4b8ba1c8D62cAa4649C7177E29321E262",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "715000000000000000"
@@ -2960,7 +3064,9 @@
               "rewardsDistributorContractAddress": "0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "10000",
+              "borrowApyRatio": "10000"
             },
             {
               "marketAddress": "0xef470AbC365F88e4582D8027172a392C473A5B53",
@@ -2975,7 +3081,9 @@
               "rewardsDistributorContractAddress": "0x66E213a4b8ba1c8D62cAa4649C7177E29321E262",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "275000000000000030"
@@ -3087,7 +3195,9 @@
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
@@ -3102,7 +3212,9 @@
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
@@ -3117,7 +3229,9 @@
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -3199,7 +3313,9 @@
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
@@ -3214,7 +3330,9 @@
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
@@ -3229,7 +3347,9 @@
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "495000000000000060"
@@ -3311,7 +3431,9 @@
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47",
@@ -3326,7 +3448,9 @@
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47",
@@ -3341,7 +3465,9 @@
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "385000000000000000"
@@ -3423,7 +3549,9 @@
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x644A149853E5507AdF3e682218b8AC86cdD62951",
@@ -3438,7 +3566,9 @@
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0.3653303361811342",
+              "borrowApyRatio": "8.489508923643305"
             },
             {
               "marketAddress": "0x644A149853E5507AdF3e682218b8AC86cdD62951",
@@ -3453,7 +3583,9 @@
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:14.000Z"
+              "updatedAt": "2024-09-03T22:24:14.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "385000000000000000"
@@ -3535,7 +3667,9 @@
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0.7715498680432533",
+              "borrowApyRatio": "0.24841497862097995"
             },
             {
               "marketAddress": "0x75aa42c832a8911B77219DbeBABBB40040d16987",
@@ -3550,7 +3684,9 @@
               "rewardsDistributorContractAddress": "0x8Ad2Ad29e4e2C0606644Be51c853A7A4a3078F85",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x75aa42c832a8911B77219DbeBABBB40040d16987",
@@ -3565,7 +3701,9 @@
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "385000000000000000"
@@ -3664,7 +3802,9 @@
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD",
@@ -3679,7 +3819,9 @@
               "rewardsDistributorContractAddress": "0x8Ad2Ad29e4e2C0606644Be51c853A7A4a3078F85",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD",
@@ -3694,7 +3836,9 @@
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "715000000000000000"
@@ -3776,7 +3920,9 @@
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xeffE7874C345aE877c1D893cd5160DDD359b24dA",
@@ -3791,7 +3937,9 @@
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xeffE7874C345aE877c1D893cd5160DDD359b24dA",
@@ -3806,7 +3954,9 @@
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0.6486486202358677",
+              "borrowApyRatio": "10000"
             }
           ],
           "liquidationThresholdMantissa": "957000000000000100"
@@ -3886,7 +4036,9 @@
               "rewardsDistributorContractAddress": "0x34e14e4A5f5de28f8e58aeD296068ce5c3C25C4c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-08-29T02:03:12.000Z"
+              "updatedAt": "2024-08-29T02:03:12.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
@@ -3998,7 +4150,9 @@
               "rewardsDistributorContractAddress": "0x34e14e4A5f5de28f8e58aeD296068ce5c3C25C4c",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-08-29T02:03:12.000Z"
+              "updatedAt": "2024-08-29T02:03:12.000Z",
+              "supplyApyRatio": "10000",
+              "borrowApyRatio": "10000"
             }
           ],
           "liquidationThresholdMantissa": "330000000000000000"
@@ -4078,7 +4232,9 @@
               "rewardsDistributorContractAddress": "0x78d32FC46e5025c29e3BA03Fcf2840323351F26a",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
@@ -4093,7 +4249,9 @@
               "rewardsDistributorContractAddress": "0x2aBEf3602B688493fe698EF11D27DCa43a0CE4BE",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "6.549904832278658",
+              "borrowApyRatio": "4189.525581156313"
             }
           ],
           "liquidationThresholdMantissa": "715000000000000000"
@@ -4177,7 +4335,9 @@
               "rewardsDistributorContractAddress": "0x78d32FC46e5025c29e3BA03Fcf2840323351F26a",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x3338988d0beb4419Acb8fE624218754053362D06",
@@ -4192,7 +4352,9 @@
               "rewardsDistributorContractAddress": "0xb0269d68CfdCc30Cb7Cd2E0b52b08Fa7Ffd3079b",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:15.000Z"
+              "updatedAt": "2024-09-03T22:24:15.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -4259,7 +4421,9 @@
               "rewardsDistributorContractAddress": "0x78d32FC46e5025c29e3BA03Fcf2840323351F26a",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "10000"
             },
             {
               "marketAddress": "0x4E1D35166776825402d50AfE4286c500027211D1",
@@ -4274,7 +4438,9 @@
               "rewardsDistributorContractAddress": "0xb0269d68CfdCc30Cb7Cd2E0b52b08Fa7Ffd3079b",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "825000000000000100"
@@ -4341,7 +4507,9 @@
               "rewardsDistributorContractAddress": "0x78d32FC46e5025c29e3BA03Fcf2840323351F26a",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4",
@@ -4356,7 +4524,9 @@
               "rewardsDistributorContractAddress": "0x2aBEf3602B688493fe698EF11D27DCa43a0CE4BE",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "715000000000000000"
@@ -4436,7 +4606,9 @@
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x410286c43a525E1DCC7468a9B091C111C8324cd1",
@@ -4451,7 +4623,9 @@
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x410286c43a525E1DCC7468a9B091C111C8324cd1",
@@ -4466,7 +4640,9 @@
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "10000",
+              "borrowApyRatio": "10000"
             },
             {
               "marketAddress": "0x410286c43a525E1DCC7468a9B091C111C8324cd1",
@@ -4481,7 +4657,9 @@
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-08-29T00:03:17.000Z"
+              "updatedAt": "2024-08-29T00:03:17.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "275000000000000030"
@@ -4548,7 +4726,9 @@
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-08-29T00:03:17.000Z"
+              "updatedAt": "2024-08-29T00:03:17.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
@@ -4563,7 +4743,9 @@
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-08-29T00:03:17.000Z"
+              "updatedAt": "2024-08-29T00:03:17.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
@@ -4578,7 +4760,9 @@
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-08-29T00:03:17.000Z"
+              "updatedAt": "2024-08-29T00:03:17.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
@@ -4593,7 +4777,9 @@
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-08-29T00:03:17.000Z"
+              "updatedAt": "2024-08-29T00:03:17.000Z",
+              "supplyApyRatio": "10000",
+              "borrowApyRatio": "10000"
             }
           ],
           "liquidationThresholdMantissa": "275000000000000030"
@@ -4660,7 +4846,9 @@
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
@@ -4675,7 +4863,9 @@
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
@@ -4690,7 +4880,9 @@
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
@@ -4705,7 +4897,9 @@
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-08-29T00:03:17.000Z"
+              "updatedAt": "2024-08-29T00:03:17.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "880000000000000100"
@@ -4789,7 +4983,9 @@
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "10000",
+              "borrowApyRatio": "10000"
             },
             {
               "marketAddress": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
@@ -4804,7 +5000,9 @@
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
@@ -4819,7 +5017,9 @@
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
@@ -4834,7 +5034,9 @@
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
-              "updatedAt": "2024-08-29T00:03:17.000Z"
+              "updatedAt": "2024-08-29T00:03:17.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "715000000000000000"
@@ -4901,7 +5103,9 @@
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:04.000Z"
+              "updatedAt": "2024-09-03T22:24:04.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xEe543D5de2Dbb5b07675Fc72831A2f1812428393",
@@ -4916,7 +5120,9 @@
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:04.000Z"
+              "updatedAt": "2024-09-03T22:24:04.000Z",
+              "supplyApyRatio": "10000",
+              "borrowApyRatio": "10000"
             },
             {
               "marketAddress": "0xEe543D5de2Dbb5b07675Fc72831A2f1812428393",
@@ -4931,7 +5137,9 @@
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-09-03T22:24:16.000Z"
+              "updatedAt": "2024-09-03T22:24:16.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             },
             {
               "marketAddress": "0xEe543D5de2Dbb5b07675Fc72831A2f1812428393",
@@ -4946,7 +5154,9 @@
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
-              "updatedAt": "2024-08-29T00:03:17.000Z"
+              "updatedAt": "2024-08-29T00:03:17.000Z",
+              "supplyApyRatio": "0",
+              "borrowApyRatio": "0"
             }
           ],
           "liquidationThresholdMantissa": "275000000000000030"

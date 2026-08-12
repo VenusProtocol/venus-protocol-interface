@@ -98,6 +98,11 @@
         }
       },
       "today": "Bugün",
+      "txSource": {
+        "liquidityHub": "Likidite Merkezi",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
         "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
@@ -107,6 +112,7 @@
         "enterMarket": "Teminatı etkinleştir",
         "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
+        "mintFromCollateral": "Taşı",
         "positionClosedWithLoss": "Kapat (zarar)",
         "positionClosedWithProfit": "Kapat (kâr)",
         "positionIncreased": "Artır",
@@ -913,8 +919,8 @@
           "title": "APY"
         },
         "capDollarsColumn": {
-          "title": "Mutlak üst sınır",
-          "tooltip": "Bir getiri grubunun mutlak üst sınırı",
+          "title": "Etkin üst sınır",
+          "tooltip": "Bir getiri grubunun etkin üst sınırı",
           "unlimited": "Sınırsız"
         },
         "capPercentageColumn": {
@@ -2230,6 +2236,14 @@
     },
     "success": {
       "title": "İşlem onaylandı"
+    }
+  },
+  "transactions": {
+    "liquidityHub": {
+      "label": "Likidite Merkezi"
+    },
+    "venusCore": {
+      "label": "Venus Core"
     }
   },
   "txFormSubmitButton": {

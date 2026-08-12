@@ -1,5 +1,6 @@
 import { useGetLiquidityHub } from 'clients/api';
 import { Spinner } from 'components';
+import { useAccountAddress } from 'libs/wallet';
 import type { LiquidityHub, VhToken } from 'types';
 
 export interface LiquidityHubAccessorProps {
@@ -8,8 +9,11 @@ export interface LiquidityHubAccessorProps {
 }
 
 const LiquidityHubAccessor: React.FC<LiquidityHubAccessorProps> = ({ vhToken, children }) => {
+  const { accountAddress } = useAccountAddress();
+
   const { data: getLiquidityHubData } = useGetLiquidityHub({
     vhTokenAddress: vhToken.address,
+    accountAddress,
   });
   const liquidityHub = getLiquidityHubData?.liquidityHub;
 

@@ -1,5 +1,4 @@
-import { liquidityHubs } from '__mocks__/models/liquidityHubs';
-import { useGetPool, useGetVaults } from 'clients/api';
+import { useGetLiquidityHubs, useGetPool, useGetVaults } from 'clients/api';
 import { Page, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
 import { useChain } from 'hooks/useChain';
@@ -17,8 +16,6 @@ import { Markets } from './Markets';
 import { Settings } from './Settings';
 import { Transactions } from './Transactions';
 import { Vaults } from './Vaults';
-
-export { liquidityHubs };
 
 export const Dashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -59,6 +56,21 @@ export const Dashboard: React.FC = () => {
   });
   const vaults = getVaultsData || [];
 
+  const {
+    data: getLiquidityHubsData = {
+      liquidityHubs: [],
+    },
+    isLoading: isGetLiquidityHubsLoading,
+  } = useGetLiquidityHubs(
+    {
+      accountAddress,
+    },
+    {
+      enabled: isLiquidityHubFeatureEnabled,
+    },
+  );
+  const { liquidityHubs } = getLiquidityHubsData;
+
   const tabs: Tab[] = [
     {
       title: t('account.tabs.markets'),
@@ -96,7 +108,7 @@ export const Dashboard: React.FC = () => {
     });
   }
 
-  const isFetching = isGetPoolLoading || isGetVaultsLoading;
+  const isFetching = isGetPoolLoading || isGetVaultsLoading || isGetLiquidityHubsLoading;
 
   if (isFetching) {
     return <Spinner />;

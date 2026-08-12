@@ -1,4 +1,3 @@
-import type BigNumber from 'bignumber.js';
 import { isBefore } from 'date-fns';
 import type { ApiPointsDistribution, ApiRewardDistributor, PointDistribution, Token } from 'types';
 import { formatApiRewardDistributors } from 'utilities/formatApiRewardDistributors';
@@ -6,13 +5,10 @@ import { formatApiRewardDistributors } from 'utilities/formatApiRewardDistributo
 import type { PrimeApy } from '../../../../types';
 
 export type FormatDistributionsInput = {
-  underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
   apiRewardsDistributors: ApiRewardDistributor[];
   apiPointsDistributions: ApiPointsDistribution[];
   currentBlockNumber: bigint;
-  supplyBalanceTokens: BigNumber;
-  borrowBalanceTokens: BigNumber;
   underlyingToken: Token;
   primeApy?: PrimeApy;
   blocksPerDay?: number;
@@ -20,24 +16,16 @@ export type FormatDistributionsInput = {
 
 export const formatDistributions = ({
   blocksPerDay,
-  underlyingTokenPriceDollars,
   tokens,
   apiRewardsDistributors,
   apiPointsDistributions,
   currentBlockNumber,
-  supplyBalanceTokens,
-  borrowBalanceTokens,
   underlyingToken,
   primeApy,
 }: FormatDistributionsInput) => {
-  const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
-  const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
-
   const { supplyTokenDistributions, borrowTokenDistributions } = formatApiRewardDistributors({
     apiRewardDistributors: apiRewardsDistributors,
     tokens,
-    supplyBalanceDollars,
-    borrowBalanceDollars,
     blocksPerDay,
     currentBlockNumber,
   });

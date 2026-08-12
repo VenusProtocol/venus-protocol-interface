@@ -6422,6 +6422,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openzeppelin/contracts-upgradeable@npm:^4.9.6":
+  version: 4.9.6
+  resolution: "@openzeppelin/contracts-upgradeable@npm:4.9.6"
+  checksum: 10c0/c2bbd28130f630601fdae0eda6aea170f9a730b1f31b069c9029b7131d3e0c05041821c75555039488a340cb2c0eb848a1ce0921553bc2c5cdd5be2b56dd427d
+  languageName: node
+  linkType: hard
+
+"@openzeppelin/contracts@npm:^4.9.6":
+  version: 4.9.6
+  resolution: "@openzeppelin/contracts@npm:4.9.6"
+  checksum: 10c0/f834b000778f634a260ed5507827cc67c0922557a1f57e1d76cf7ace061fea171aaf16640ba2e54fd7ed2cc629a9d706bc671a9692d2bb9a9469ea6154de6e8c
+  languageName: node
+  linkType: hard
+
 "@oxc-project/types@npm:=0.107.0":
   version: 0.107.0
   resolution: "@oxc-project/types@npm:0.107.0"
@@ -9854,6 +9868,7 @@ __metadata:
     "@venusprotocol/chains": "npm:*"
     "@venusprotocol/governance-contracts": "npm:2.15.0-slim"
     "@venusprotocol/isolated-pools": "npm:4.4.0-slim"
+    "@venusprotocol/liquidity-hub": "npm:1.0.0"
     "@venusprotocol/oracle": "npm:2.16.0-slim"
     "@venusprotocol/protocol-reserve": "npm:3.5.0-slim"
     "@venusprotocol/stylelint-config": "npm:*"
@@ -9946,6 +9961,21 @@ __metadata:
   version: 4.4.0-slim
   resolution: "@venusprotocol/isolated-pools@npm:4.4.0-slim"
   checksum: 10c0/139e77c375475af85ea96e6417535c5bf21d4c1aca8117a8af658c18be1852e1e3867a52ae33fe1afa574acabdfaf4fd87f7c8890c2037c8cbe1d1a2eee40e00
+  languageName: node
+  linkType: hard
+
+"@venusprotocol/liquidity-hub@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@venusprotocol/liquidity-hub@npm:1.0.0"
+  dependencies:
+    "@openzeppelin/contracts": "npm:^4.9.6"
+    "@openzeppelin/contracts-upgradeable": "npm:^4.9.6"
+  peerDependencies:
+    "@venusprotocol/governance-contracts": ^2.14.0
+  peerDependenciesMeta:
+    "@venusprotocol/governance-contracts":
+      optional: true
+  checksum: 10c0/4131f2cc3c641a16384e0149843512f3ac601e29f32608b2d760d279076fb33c16dc36ae9225b6240c4f3cc75650ad7aa0f1e1035fac11339ed217afe55bb1d6
   languageName: node
   linkType: hard
 

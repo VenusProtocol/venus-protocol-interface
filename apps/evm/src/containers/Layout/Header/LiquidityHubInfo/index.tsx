@@ -5,17 +5,20 @@ import { useGetLiquidityHub } from 'clients/api';
 import { type CellProps, ImgGroup } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
 import { TokenInfo } from '../TokenInfo';
 
 export const LiquidityHubInfo = () => {
   const { t } = useTranslation();
+  const { accountAddress } = useAccountAddress();
 
   const { vhTokenAddress = NULL_ADDRESS } = useParams<{
     vhTokenAddress: Address;
   }>();
 
   const { data: getLiquidityHubData } = useGetLiquidityHub({
+    accountAddress,
     vhTokenAddress,
   });
   const liquidityHub = getLiquidityHubData?.liquidityHub;

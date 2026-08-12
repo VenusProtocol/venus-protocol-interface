@@ -1,4 +1,4 @@
-import type { LiquidityHubTx, LiquidityHubTxType } from 'types';
+import type { LiquidityHubTx, LiquidityHubTxType, TxAmount } from 'types';
 import {
   convertDollarsToCents,
   convertMantissaToTokens,
@@ -28,6 +28,7 @@ export const formatToLiquidityHubTransaction = ({
   } = apiTransaction;
 
   const vhToken = vhTokenMapping[contractAddress.toLowerCase() as Address];
+
   if (!vhToken) {
     return undefined;
   }
@@ -48,16 +49,30 @@ export const formatToLiquidityHubTransaction = ({
     : undefined;
 
   const tokenPriceCents = tokenPriceDollars ? convertDollarsToCents(tokenPriceDollars) : undefined;
-  const amounts =
-    amountTokens && tokenPriceCents
-      ? [
-          {
-            token,
-            amountTokens,
-            amountCents: amountTokens.multipliedBy(tokenPriceCents).toNumber(),
-          },
-        ]
-      : undefined;
+
+  const amounts: TxAmount[] = [];
+
+  if (amountTokens && tokenPriceCents) {
+    amounts.push({
+      token,
+      amountTokens,
+      amountCents: amountTokens.multipliedBy(tokenPriceCents).toNumber(),
+    });
+  }
+
+  // Handle migration transaction
+  const primaryAmount = amounts[0];
+  if (txType === 'hubSupplyFromCollateral' && primaryAmount) {
+    amounts.unshift({
+      ...primaryAmount,
+      amountTokens: primaryAmount.amountTokens.multipliedBy(-1),
+      amountCents: -primaryAmount.amountCents,
+    });
+  }
+
+  if (amounts.length === 0) {
+    return undefined;
+  }
 
   return {
     txType,

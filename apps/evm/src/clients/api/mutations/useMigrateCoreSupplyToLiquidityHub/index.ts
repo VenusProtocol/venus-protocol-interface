@@ -1,20 +1,18 @@
 import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { liquidityHubMigratorAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { VToken, VhToken } from 'types';
-import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 import type { Account, Address, Chain, WriteContractParameters } from 'viem';
 
 export type MigrateCoreSupplyToLiquidityHubInput = {
   vhToken: VhToken;
   vToken: VToken;
-  exchangeRateVTokens: BigNumber;
-  amountMantissa: BigNumber;
-  liquidityHubMigratorContractAddress?: Address;
+  vTokenAmountMantissa: BigNumber;
   minSharesMantissa?: BigNumber;
 };
 
@@ -23,33 +21,28 @@ type Options = UseSendTransactionOptions<MigrateCoreSupplyToLiquidityHubInput>;
 export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
+  const { address: liquidityHubMigratorContractAddress } = useGetContractAddress({
+    name: 'LiquidityHubMigrator',
+  });
 
   return useSendTransaction({
     // @ts-ignore mixing function calls messes up with the typing of useSendTransaction
     fn: (input: MigrateCoreSupplyToLiquidityHubInput) => {
-      if (!accountAddress || !input.liquidityHubMigratorContractAddress) {
+      if (!accountAddress || !liquidityHubMigratorContractAddress) {
         throw new VError({
           type: 'unexpected',
           code: 'somethingWentWrong',
         });
       }
 
-      const amountTokens = convertMantissaToTokens({
-        token: input.vToken.underlyingToken,
-        value: input.amountMantissa,
-      });
-      const vTokenAmountTokens = amountTokens.times(input.exchangeRateVTokens);
-      const vTokenAmountMantissa = convertTokensToMantissa({
-        token: input.vToken,
-        value: vTokenAmountTokens,
-      });
+      const vTokenAmountMantissa = input.vTokenAmountMantissa;
       const minSharesMantissa = input.minSharesMantissa;
       const minShares = minSharesMantissa ? BigInt(minSharesMantissa.toFixed()) : 0n;
 
       if (input.vToken.underlyingToken.isNative) {
         return {
           abi: liquidityHubMigratorAbi,
-          address: input.liquidityHubMigratorContractAddress,
+          address: liquidityHubMigratorContractAddress,
           functionName: 'migrateFromCoreBNB',
           args: [
             BigInt(vTokenAmountMantissa.toFixed()),
@@ -68,7 +61,7 @@ export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) =
 
       return {
         abi: liquidityHubMigratorAbi,
-        address: input.liquidityHubMigratorContractAddress,
+        address: liquidityHubMigratorContractAddress,
         functionName: 'migrateFromCore',
         args: [
           input.vToken.address,
@@ -93,6 +86,10 @@ export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) =
             vhTokenAddress: input.vhToken.address,
           },
         ],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_LIQUIDITY_HUBS],
       });
 
       queryClient.invalidateQueries({
@@ -131,7 +128,7 @@ export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) =
             chainId,
             tokenAddress: input.vToken.address,
             accountAddress,
-            spenderAddress: input.liquidityHubMigratorContractAddress,
+            spenderAddress: liquidityHubMigratorContractAddress,
           },
         ],
       });

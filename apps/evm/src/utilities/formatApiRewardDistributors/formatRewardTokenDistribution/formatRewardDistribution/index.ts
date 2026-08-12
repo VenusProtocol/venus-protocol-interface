@@ -8,7 +8,6 @@ import type {
   Token,
   TokenDistribution,
 } from 'types';
-import { calculateYearlyPercentageRate } from 'utilities/calculateYearlyPercentageRate';
 import type { Address } from 'viem';
 
 interface MerklRewardDetails {
@@ -29,9 +28,8 @@ type FormatDistributionInput<TType extends ApiRewardType> = {
   isActive: boolean;
   marketAddress: Address;
   rewardToken: Token;
-  rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;
-  balanceDollars: BigNumber;
+  apyPercentage: BigNumber;
   rewardDetails: TType extends 'merkl'
     ? MerklRewardDetails
     : GenericDistributionRewardDetails | null;
@@ -42,23 +40,10 @@ export const formatRewardDistribution = <TType extends ApiRewardType>({
   isActive,
   rewardType,
   rewardToken,
-  rewardTokenPriceDollars,
   dailyDistributedRewardTokens,
-  balanceDollars,
   rewardDetails,
+  apyPercentage,
 }: FormatDistributionInput<TType>): TokenDistribution => {
-  // Convert distribution to dollars
-  const dailyDistributedDollars =
-    dailyDistributedRewardTokens.multipliedBy(rewardTokenPriceDollars);
-
-  // Calculate APY
-  const apyPercentage = calculateYearlyPercentageRate({
-    dailyPercentageRate: dailyDistributedDollars.div(
-      // Set default balance of 1 to prevent division by 0 when balance is 0
-      balanceDollars.isEqualTo(0) ? 1 : balanceDollars,
-    ),
-  });
-
   const baseProps = {
     type: rewardType,
     token: rewardToken,
