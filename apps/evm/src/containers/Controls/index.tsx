@@ -54,7 +54,7 @@ export const Controls: React.FC<ControlsProps> = ({
             className="sm:grow @2xl:max-w-75"
           />
 
-          {!!sortedCategories.length && onSelectedCategoriesChange && (
+          {sortedCategories.length > 1 && onSelectedCategoriesChange && (
             <MultiSelect
               options={sortedCategories}
               value={selectedCategories}
