@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Address } from 'viem';
 
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import type { Asset } from 'types';
+import type { Asset, MarketCategory } from 'types';
 import { isAssetPaused } from 'utilities';
 
 const OTHERS_CATEGORY_TAG = 'others';
@@ -29,13 +29,13 @@ export const useControls = ({
 
   const { showPausedAssets, showUserAssetsOnly } = userChainSettings;
 
-  const categories = new Set<string>();
+  const categoriesByTag = new Map<string, MarketCategory>();
   const filteredAssets: Asset[] = [];
   let hiddenPausedAssetsExist = false;
 
   assets.forEach(asset => {
-    if (asset.category) {
-      categories.add(asset.category);
+    if (asset.category && !categoriesByTag.has(asset.category.tag)) {
+      categoriesByTag.set(asset.category.tag, asset.category);
     }
 
     const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
@@ -54,7 +54,7 @@ export const useControls = ({
 
     if (
       selectedCategories.length > 0 &&
-      !selectedCategories.includes(asset.category ?? OTHERS_CATEGORY_TAG)
+      !selectedCategories.includes(asset.category?.tag ?? OTHERS_CATEGORY_TAG)
     ) {
       return;
     }
@@ -73,7 +73,7 @@ export const useControls = ({
 
   return {
     assets: filteredAssets,
-    categories: [...categories],
+    categories: [...categoriesByTag.values()],
     searchValue,
     onSearchValueChange,
     selectedCategories,
