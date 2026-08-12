@@ -157,7 +157,7 @@ export interface Asset {
   supplyCapTokens: BigNumber;
   isRestricted: boolean;
   isGated: boolean;
-  category?: string;
+  category?: MarketCategory;
   // User-specific props
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
@@ -246,7 +246,6 @@ export interface Pool {
   isIsolated: boolean;
   assets: Asset[];
   eModeGroups: EModeGroup[];
-  categories?: MarketCategory[];
   vai?: PoolVai;
   // User-specific props
   userSupplyBalanceCents?: BigNumber;

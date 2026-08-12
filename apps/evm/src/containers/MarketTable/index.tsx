@@ -12,7 +12,7 @@ import { useCollateral } from 'hooks/useCollateral';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, EModeGroup, MarketCategory } from 'types';
+import type { Asset, EModeGroup } from 'types';
 import pauseIconSrc from './pause.svg';
 import type { ColumnKey } from './types';
 import { useColumns } from './useColumns';
@@ -25,7 +25,7 @@ export interface MarketTableProps
     Omit<TableProps<Asset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
   > {
   assets: Asset[];
-  categories?: MarketCategory[];
+  categoryFilter?: boolean;
   poolName: string;
   poolComptrollerContractAddress: Address;
   columns: ColumnKey[];
@@ -45,7 +45,7 @@ export interface MarketTableProps
 
 export const MarketTable: React.FC<MarketTableProps> = ({
   assets,
-  categories,
+  categoryFilter = false,
   poolName,
   poolComptrollerContractAddress,
   marketType,
@@ -77,7 +77,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   const {
     assets: filteredAssets,
-    categories: availableCategories,
+    categories,
     hiddenPausedAssetsExist,
     searchValue,
     onSearchValueChange,
@@ -85,7 +85,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     onSelectedCategoriesChange,
   } = useControls({
     assets,
-    categories,
     applyUserSettings: controls,
     poolComptrollerAddress: poolComptrollerContractAddress,
   });
@@ -169,7 +168,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                       onSearchValueChange={onSearchValueChange}
                       searchInputPlaceholder={t('marketTable.search.placeholder')}
                       showPausedAssetsToggle
-                      categories={availableCategories}
+                      categories={categoryFilter ? categories : undefined}
                       selectedCategories={selectedCategories}
                       onSelectedCategoriesChange={onSelectedCategoriesChange}
                     />

@@ -5,14 +5,14 @@ import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import type { Asset, MarketCategory } from 'types';
 import { isAssetPaused } from 'utilities';
 
+const OTHERS_CATEGORY_TAG = 'others';
+
 export const useControls = ({
   assets,
-  categories,
   applyUserSettings,
   poolComptrollerAddress,
 }: {
   assets: Asset[];
-  categories?: MarketCategory[];
   applyUserSettings: boolean;
   poolComptrollerAddress: Address;
 }) => {
@@ -29,13 +29,13 @@ export const useControls = ({
 
   const { showPausedAssets, showUserAssetsOnly } = userChainSettings;
 
-  const assetCategoryTags = new Set<string>();
+  const categoriesByTag = new Map<string, MarketCategory>();
   const filteredAssets: Asset[] = [];
   let hiddenPausedAssetsExist = false;
 
   assets.forEach(asset => {
-    if (asset.category) {
-      assetCategoryTags.add(asset.category);
+    if (asset.category && !categoriesByTag.has(asset.category.tag)) {
+      categoriesByTag.set(asset.category.tag, asset.category);
     }
 
     const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
@@ -54,7 +54,7 @@ export const useControls = ({
 
     if (
       selectedCategories.length > 0 &&
-      (!asset.category || !selectedCategories.includes(asset.category))
+      !selectedCategories.includes(asset.category?.tag ?? OTHERS_CATEGORY_TAG)
     ) {
       return;
     }
@@ -73,7 +73,7 @@ export const useControls = ({
 
   return {
     assets: filteredAssets,
-    categories: categories?.filter(category => assetCategoryTags.has(category.tag)),
+    categories: [...categoriesByTag.values()],
     searchValue,
     onSearchValueChange,
     selectedCategories,
