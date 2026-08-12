@@ -4,14 +4,13 @@ import { MultiSelect, TextField, Toggle } from 'components';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { MarketCategory } from 'types';
 
 export interface ControlsProps {
   searchValue: string;
   onSearchValueChange: (newValue: string) => void;
   searchInputPlaceholder: string;
   showPausedAssetsToggle: boolean;
-  categories?: MarketCategory[];
+  categories?: string[];
   selectedCategories?: string[];
   onSelectedCategoriesChange?: (selectedTags: string[]) => void;
 }
@@ -38,8 +37,8 @@ export const Controls: React.FC<ControlsProps> = ({
     onSearchValueChange(changeEvent.currentTarget.value);
 
   const sortedCategories = [...(categories ?? [])]
-    .sort((a, b) => a.order - b.order)
-    .map(category => ({ value: category.tag, label: category.label }));
+    .sort()
+    .map(category => ({ value: category, label: category }));
 
   return (
     <div className="@container/controls">
