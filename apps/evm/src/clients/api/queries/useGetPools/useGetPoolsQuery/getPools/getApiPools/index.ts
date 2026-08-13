@@ -125,6 +125,7 @@ export interface ApiMarket {
   pointsDistributions: ApiPointsDistribution[];
   isBorrowable?: boolean;
   eModeSettings?: ApiMarketEModeSettings[];
+  category?: string;
   marketCategory?: ApiMarketCategory;
 }
 

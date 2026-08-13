@@ -30,14 +30,17 @@ export const useControls = ({
   const { showPausedAssets, showUserAssetsOnly } = userChainSettings;
 
   const categoriesByTag = new Map<string, MarketCategory>();
+
+  assets.forEach(asset => {
+    if (asset.marketCategory && !categoriesByTag.has(asset.marketCategory.tag)) {
+      categoriesByTag.set(asset.marketCategory.tag, asset.marketCategory);
+    }
+  });
+
   const filteredAssets: Asset[] = [];
   let hiddenPausedAssetsExist = false;
 
   assets.forEach(asset => {
-    if (asset.category && !categoriesByTag.has(asset.category.tag)) {
-      categoriesByTag.set(asset.category.tag, asset.category);
-    }
-
     const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
 
     if (applyUserSettings && !isUserAsset && showUserAssetsOnly) {
@@ -54,7 +57,11 @@ export const useControls = ({
 
     if (
       selectedCategories.length > 0 &&
-      !selectedCategories.includes(asset.category?.tag ?? OTHERS_CATEGORY_TAG)
+      !selectedCategories.includes(
+        asset.category && categoriesByTag.has(asset.category)
+          ? asset.category
+          : OTHERS_CATEGORY_TAG,
+      )
     ) {
       return;
     }
