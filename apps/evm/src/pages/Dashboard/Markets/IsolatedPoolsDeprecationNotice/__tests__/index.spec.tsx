@@ -21,8 +21,16 @@ describe('IsolatedPoolsDeprecationNotice', () => {
 
     const { container } = renderComponent(<IsolatedPoolsDeprecationNotice />);
 
-    expect(container.textContent).toContain('BNB Chain, Ethereum');
+    expect(container.textContent).toContain('BNB Chain and Ethereum');
     expect(container.textContent).toContain('Learn more');
+  });
+
+  it('formats the chain list with the locale separator', () => {
+    mockOutput({ chainIds: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.ARBITRUM_ONE] });
+
+    const { container } = renderComponent(<IsolatedPoolsDeprecationNotice />);
+
+    expect(container.textContent).toContain('BNB Chain, Ethereum, and Arbitrum One');
   });
 
   it('renders nothing when the user has no isolated position', () => {

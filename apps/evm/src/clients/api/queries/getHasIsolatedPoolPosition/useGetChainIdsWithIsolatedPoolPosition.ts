@@ -49,7 +49,7 @@ export const useGetChainIdsWithIsolatedPoolPosition = () => {
 
   const output: UseGetChainIdsWithIsolatedPoolPositionOutput = {
     chainIds: queryableChainIds.filter((_chainId, index) => results[index]?.data?.hasPosition),
-    isLoading: results.some(result => result.isLoading),
+    isLoading: results.length > 0 && results.every(result => result.isLoading),
   };
 
   return output;

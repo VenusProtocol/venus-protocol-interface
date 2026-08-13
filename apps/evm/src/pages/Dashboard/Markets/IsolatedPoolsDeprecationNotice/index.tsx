@@ -14,7 +14,7 @@ export interface IsolatedPoolsDeprecationNoticeProps {
 export const IsolatedPoolsDeprecationNotice: React.FC<IsolatedPoolsDeprecationNoticeProps> = ({
   className,
 }) => {
-  const { Trans } = useTranslation();
+  const { Trans, language } = useTranslation();
   const { chainIds, isLoading } = useGetChainIdsWithIsolatedPoolPosition();
   const [isDismissed, setIsDismissed] = useState(false);
 
@@ -22,7 +22,9 @@ export const IsolatedPoolsDeprecationNotice: React.FC<IsolatedPoolsDeprecationNo
     return undefined;
   }
 
-  const chainNames = chainIds.map(chainId => chains[chainId].name).join(', ');
+  const chainNames = new Intl.ListFormat(language.bcp47Tag, { type: 'conjunction' }).format(
+    chainIds.map(chainId => chains[chainId].name),
+  );
   const dismiss = () => setIsDismissed(true);
 
   return (
