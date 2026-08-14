@@ -88,7 +88,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "10.394225255203636",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -134,7 +134,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "10.409585417764799",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -187,7 +187,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "3.4779741285413834",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -233,7 +233,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "4.265916277181359",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -354,7 +354,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "184.17703593207628",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -400,7 +400,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -452,7 +452,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000049784627353943",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -498,7 +498,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1121,7 +1121,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "418952.5581156313",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -1159,7 +1159,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "654.9904832278658",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -1463,7 +1463,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "4.5507854979459195",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "750.0000384",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1509,7 +1509,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "4.557332423626859",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "750.0000384",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1562,7 +1562,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "1.5504225938399507",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "4499.9999712",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1608,7 +1608,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "1.8976857898711286",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "4499.9999712",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1729,7 +1729,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "60.05736904547958",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "1499.9999904",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1775,7 +1775,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "1499.9999904",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1827,7 +1827,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000022403074795285",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "1499.9999904",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1873,7 +1873,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "1499.9999904",
               "isActive": true,
               "rewardDetails": undefined,
@@ -2486,7 +2486,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "4267.887652021992",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "107.142857142857136",
               "isActive": false,
               "rewardDetails": undefined,
@@ -2524,7 +2524,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "148.69983759681423",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "107.142857142857136",
               "isActive": false,
               "rewardDetails": undefined,
@@ -2828,7 +2828,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "10.394225255203636",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -2874,7 +2874,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "10.409585417764799",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -2927,7 +2927,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "3.4779741285413834",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -2973,7 +2973,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "4.265916277181359",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3094,7 +3094,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "184.17703593207628",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3140,7 +3140,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3192,7 +3192,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000049784627353943",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3238,7 +3238,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3435,7 +3435,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "18013536135148.493847144136023756",
+      "userYearlyEarningsCents": "0.96360829680947114632",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -3863,7 +3863,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "418952.5581156313",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -3901,7 +3901,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "654.9904832278658",
+              "apyPercentage": "NaN",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,

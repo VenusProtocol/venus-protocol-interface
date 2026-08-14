@@ -15,9 +15,8 @@ interface FormatRewardTokenDistributionInput {
   marketAddress: ApiRewardDistributor['marketAddress'];
   rewardType: ApiRewardDistributor['rewardType'];
   rewardToken: Token;
-  rewardTokenPriceDollars: BigNumber;
-  balanceDollars: BigNumber;
   rewardDetails: ApiRewardDistributor['rewardDetails'];
+  apyPercentage: BigNumber;
 }
 
 export const formatRewardTokenDistribution = ({
@@ -30,9 +29,8 @@ export const formatRewardTokenDistribution = ({
   marketAddress,
   rewardType,
   rewardToken,
-  rewardTokenPriceDollars,
-  balanceDollars,
   rewardDetails,
+  apyPercentage,
 }: FormatRewardTokenDistributionInput): TokenDistribution | undefined => {
   const isReward = Number(rateMantissa) > 0;
 
@@ -63,9 +61,8 @@ export const formatRewardTokenDistribution = ({
     marketAddress,
     rewardType,
     rewardToken,
-    rewardTokenPriceDollars,
     dailyDistributedRewardTokens,
-    balanceDollars,
     rewardDetails,
+    apyPercentage,
   });
 };

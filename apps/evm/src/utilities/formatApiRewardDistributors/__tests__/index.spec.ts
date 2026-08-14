@@ -1,5 +1,3 @@
-import BigNumber from 'bignumber.js';
-
 import { xvs } from '__mocks__/models/tokens';
 import type { ApiIntrinsicApyReward, ApiMerklReward, ApiVenusReward } from 'types';
 
@@ -15,6 +13,8 @@ const apiVenusRewardDistributor: ApiVenusReward = {
   lastRewardingBorrowBlockOrTimestamp: '0',
   supplySpeed: '10000000000000000',
   borrowSpeed: '20000000000000000',
+  supplyApyRatio: '0.01',
+  borrowApyRatio: '0.02',
   priceMantissa: '2000000000000000000',
   rewardsDistributorContractAddress,
   isActive: true,
@@ -22,29 +22,23 @@ const apiVenusRewardDistributor: ApiVenusReward = {
   rewardDetails: null,
 };
 
-const supplyBalanceDollars = new BigNumber(100);
-const borrowBalanceDollars = new BigNumber(200);
-
 describe('formatApiRewardDistributors', () => {
-  it('uses the distributor price mantissa to calculate APY', () => {
-    const { supplyTokenDistributions } = formatApiRewardDistributors({
+  it('uses the API reward APY ratios', () => {
+    const { supplyTokenDistributions, borrowTokenDistributions } = formatApiRewardDistributors({
       apiRewardDistributors: [apiVenusRewardDistributor],
       tokens: [xvs],
-      supplyBalanceDollars,
-      borrowBalanceDollars,
       blocksPerDay: 1,
       currentBlockNumber: 1n,
     });
 
-    expect(supplyTokenDistributions[0].apyPercentage.toFixed()).toBe('7.572268515731784');
+    expect(supplyTokenDistributions[0].apyPercentage.toFixed()).toBe('1');
+    expect(borrowTokenDistributions[0].apyPercentage.toFixed()).toBe('2');
   });
 
   it('filters out unknown reward tokens', () => {
     const { supplyTokenDistributions, borrowTokenDistributions } = formatApiRewardDistributors({
       apiRewardDistributors: [apiVenusRewardDistributor],
       tokens: [],
-      supplyBalanceDollars,
-      borrowBalanceDollars,
       blocksPerDay: 1,
       currentBlockNumber: 1n,
     });
@@ -57,8 +51,6 @@ describe('formatApiRewardDistributors', () => {
     const { supplyTokenDistributions, borrowTokenDistributions } = formatApiRewardDistributors({
       apiRewardDistributors: [apiVenusRewardDistributor],
       tokens: [xvs],
-      supplyBalanceDollars,
-      borrowBalanceDollars,
       blocksPerDay: 1,
       currentBlockNumber: 1n,
     });
@@ -108,8 +100,6 @@ describe('formatApiRewardDistributors', () => {
     const { supplyTokenDistributions } = formatApiRewardDistributors({
       apiRewardDistributors: [apiMerklRewardDistributor, apiIntrinsicRewardDistributor],
       tokens: [xvs],
-      supplyBalanceDollars,
-      borrowBalanceDollars,
       blocksPerDay: 1,
       currentBlockNumber: 1n,
     });

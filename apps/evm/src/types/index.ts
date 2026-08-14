@@ -477,6 +477,8 @@ export interface RewardsDistributor {
   lastRewardingBorrowBlockOrTimestamp: BigNumber;
   supplySpeed: BigNumber;
   borrowSpeed: BigNumber;
+  supplyApyPercentage: BigNumber;
+  borrowApyPercentage: BigNumber;
   priceMantissa: BigNumber;
   rewardsDistributorContractAddress: string;
 }
@@ -919,6 +921,8 @@ export interface ApiReward {
   lastRewardingBorrowBlockOrTimestamp: string;
   supplySpeed: string;
   borrowSpeed: string;
+  supplyApyRatio: string;
+  borrowApyRatio: string;
   priceMantissa: string;
   rewardsDistributorContractAddress: Address;
   isActive: boolean;

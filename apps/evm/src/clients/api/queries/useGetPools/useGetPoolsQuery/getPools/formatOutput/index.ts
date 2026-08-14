@@ -233,11 +233,8 @@ export const formatOutput = ({
       } = formatDistributions({
         blocksPerDay,
         underlyingToken: vToken.underlyingToken,
-        underlyingTokenPriceDollars: tokenPriceDollars,
         primeApy: userPrimeApyMap?.get(vToken.address),
         tokens,
-        supplyBalanceTokens,
-        borrowBalanceTokens,
         currentBlockNumber,
         apiRewardsDistributors: market.rewardsDistributors,
         apiPointsDistributions: market.pointsDistributions,

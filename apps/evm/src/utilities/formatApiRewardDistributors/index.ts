@@ -1,15 +1,11 @@
-import type BigNumber from 'bignumber.js';
-
 import type { ApiRewardDistributor, Token, TokenDistribution } from 'types';
-import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
+import { convertRatioToPercentage } from 'utilities/convertRatioToPercentage';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import { formatRewardTokenDistribution } from './formatRewardTokenDistribution';
 
 export interface FormatApiRewardDistributorsInput {
   apiRewardDistributors: ApiRewardDistributor[];
   tokens: Token[];
-  supplyBalanceDollars: BigNumber;
-  borrowBalanceDollars: BigNumber;
   blocksPerDay?: number;
   currentBlockNumber?: bigint;
 }
@@ -22,8 +18,6 @@ export interface FormatApiRewardDistributorsOutput {
 export const formatApiRewardDistributors = ({
   apiRewardDistributors,
   tokens,
-  supplyBalanceDollars,
-  borrowBalanceDollars,
   blocksPerDay,
   currentBlockNumber,
 }: FormatApiRewardDistributorsInput): FormatApiRewardDistributorsOutput => {
@@ -34,13 +28,14 @@ export const formatApiRewardDistributors = ({
     marketAddress,
     rewardType,
     rewardTokenAddress,
-    priceMantissa,
     isActive,
     lastRewardingSupplyBlockOrTimestamp,
     lastRewardingBorrowBlockOrTimestamp,
     supplySpeed,
     borrowSpeed,
     rewardDetails,
+    supplyApyRatio,
+    borrowApyRatio,
   } of apiRewardDistributors) {
     const rewardToken = findTokenByAddress({
       tokens,
@@ -52,10 +47,7 @@ export const formatApiRewardDistributors = ({
     }
 
     const isChainTimeBased = !blocksPerDay;
-    const rewardTokenPriceDollars = convertPriceMantissaToDollars({
-      priceMantissa,
-      decimals: rewardToken.decimals,
-    });
+
     const isTimeBasedOrMerklReward = isChainTimeBased || rewardType === 'merkl';
     const rewardTokenDistributionInput = {
       isActive,
@@ -65,7 +57,6 @@ export const formatApiRewardDistributors = ({
       marketAddress,
       rewardType,
       rewardToken,
-      rewardTokenPriceDollars,
       rewardDetails,
     };
 
@@ -73,7 +64,7 @@ export const formatApiRewardDistributors = ({
       ...rewardTokenDistributionInput,
       lastRewardingBlockOrTimestamp: lastRewardingSupplyBlockOrTimestamp,
       rateMantissa: supplySpeed,
-      balanceDollars: supplyBalanceDollars,
+      apyPercentage: convertRatioToPercentage(supplyApyRatio),
     });
 
     if (supplyTokenDistribution) {
@@ -84,7 +75,7 @@ export const formatApiRewardDistributors = ({
       ...rewardTokenDistributionInput,
       lastRewardingBlockOrTimestamp: lastRewardingBorrowBlockOrTimestamp,
       rateMantissa: borrowSpeed,
-      balanceDollars: borrowBalanceDollars,
+      apyPercentage: convertRatioToPercentage(borrowApyRatio),
     });
 
     if (borrowTokenDistribution) {
