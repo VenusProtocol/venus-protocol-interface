@@ -495,4 +495,11 @@ export const bscTestnet: Token[] = [
     symbol: 'SKHYB',
     iconSrc: iconSrcs.skhyb,
   },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0xCbfDC27d225Dd3F58DD19C3d37347d043458dcC8',
+    decimals: 18,
+    symbol: 'hBNB',
+    iconSrc: iconSrcs.defaultToken,
+  },
 ];
