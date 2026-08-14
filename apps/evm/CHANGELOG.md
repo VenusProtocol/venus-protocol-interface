@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.17.0
+
+### Minor Changes
+
+- 41bc2e0: improve Liquidity Hub UI
+
 ## 5.16.2
 
 ### Patch Changes
