@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.30.0
+
+### Minor Changes
+
+- df4cd99: add support for hBNB on BSC testnet + add default token icon
+
 ## 0.29.0
 
 ### Minor Changes
