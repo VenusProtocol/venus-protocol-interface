@@ -3,14 +3,19 @@ import BigNumber from 'bignumber.js';
 import { Card, ProgressBar, type ProgressBarData } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHub } from 'types';
-import { formatPercentageToReadableValue } from 'utilities';
+import { clampToZero, compareBigNumbers, formatPercentageToReadableValue } from 'utilities';
 import { YieldGroupList } from './YieldGroupList';
 import { YieldGroupName } from './YieldGroupName';
 
+// DO NOT REMOVE COMMENT: needed by i18next to extract translation keys
+// t('liquidityHub.allocationDetails.yieldGroup.names.core')
+// t('liquidityHub.allocationDetails.yieldGroup.names.flux')
+// t('liquidityHub.allocationDetails.yieldGroup.names.frv')
+
 interface Allocation {
-  name: string;
+  nameTranslationKey: string;
   bgClassname: string;
-  allocationPercentage: number;
+  allocationPercentage: BigNumber;
 }
 
 export interface AllocationDetailsProps {
@@ -25,41 +30,61 @@ export const AllocationDetails: React.FC<AllocationDetailsProps> = ({ liquidityH
     new BigNumber(0),
   );
 
-  let allocationLeftPercentage = 100;
+  const totalSupplyBalanceCents = liquidityHub.supplyBalanceCents;
+  const hasSupplyBalance = totalSupplyBalanceCents.isGreaterThan(0);
 
-  const allocations = liquidityHub.yieldGroups.reduce<Allocation[]>((acc, yieldGroup, index) => {
-    const allocationPercentage =
-      index === liquidityHub.yieldGroups.length - 1
-        ? allocationLeftPercentage
-        : yieldGroup.allocationCents
-            .multipliedBy(100)
-            .dividedBy(totalAllocationCents)
-            .dp(0)
-            .toNumber();
+  const unallocatedCents = clampToZero({
+    value: totalSupplyBalanceCents.minus(totalAllocationCents),
+  });
 
-    allocationLeftPercentage -= allocationPercentage;
+  const allocations = liquidityHub.yieldGroups.map<Allocation>(yieldGroup => {
+    let allocationPercentage = new BigNumber(0);
 
-    const allocation: Allocation = {
-      name: yieldGroup.name,
+    if (hasSupplyBalance) {
+      allocationPercentage = yieldGroup.allocationCents
+        .multipliedBy(100)
+        .dividedBy(totalSupplyBalanceCents);
+    }
+
+    return {
+      nameTranslationKey: yieldGroup.nameTranslationKey,
       bgClassname: yieldGroup.bgClassName,
       allocationPercentage,
     };
+  });
 
-    return [...acc, allocation];
-  }, []);
+  let progressBarValuePercentage = new BigNumber(0);
 
   const progressBars: ProgressBarData[] = allocations
-    .map((allocation, index) => {
-      const lastAllocationPosition = allocations
-        .slice(0, index)
-        .reduce((acc, allocation) => acc + allocation.allocationPercentage, 0);
+    .map(allocation => {
+      progressBarValuePercentage = progressBarValuePercentage.plus(allocation.allocationPercentage);
 
       return {
-        value: lastAllocationPosition + allocation.allocationPercentage,
+        value: progressBarValuePercentage.toNumber(),
         className: allocation.bgClassname,
       };
     })
     .reverse();
+
+  let unallocatedPercentage = new BigNumber(0);
+
+  if (hasSupplyBalance) {
+    unallocatedPercentage = unallocatedCents.multipliedBy(100).dividedBy(totalSupplyBalanceCents);
+  }
+
+  if (unallocatedPercentage.isGreaterThan(0)) {
+    allocations.push({
+      // Translation key: do not remove this comment
+      // t('liquidityHub.allocationDetails.unallocated')
+      nameTranslationKey: 'liquidityHub.allocationDetails.unallocated',
+      bgClassname: 'bg-lightGrey',
+      allocationPercentage: unallocatedPercentage,
+    });
+  }
+
+  allocations.sort((a, b) =>
+    compareBigNumbers(a.allocationPercentage, b.allocationPercentage, 'desc'),
+  );
 
   return (
     <Card className="space-y-6 px-0 pt-6 pb-2">
@@ -73,8 +98,14 @@ export const AllocationDetails: React.FC<AllocationDetailsProps> = ({ liquidityH
           tooltip={
             <div className="space-y-1">
               {allocations.map(allocation => (
-                <div key={allocation.name} className="flex items-center justify-between space-x-6">
-                  <YieldGroupName name={allocation.name} bgClassName={allocation.bgClassname} />
+                <div
+                  key={allocation.nameTranslationKey}
+                  className="flex items-center justify-between space-x-6 whitespace-nowrap"
+                >
+                  <YieldGroupName
+                    name={t(allocation.nameTranslationKey)}
+                    bgClassName={allocation.bgClassname}
+                  />
 
                   <p>{formatPercentageToReadableValue(allocation.allocationPercentage)}</p>
                 </div>

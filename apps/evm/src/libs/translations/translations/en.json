@@ -74,7 +74,7 @@
       "title": "Summary"
     },
     "tabs": {
-      "hub": "Hub",
+      "hubs": "Hubs",
       "markets": "Markets",
       "settings": "Settings",
       "transactions": "Transactions",
@@ -107,15 +107,15 @@
         "enterMarket": "Enable collateral",
         "exitMarket": "Disable collateral",
         "mint": "Supply",
-        "positionClosedWithLoss": "Close (loss) • Trade",
-        "positionClosedWithProfit": "Close (profit) • Trade",
-        "positionIncreased": "Increase • Trade",
-        "positionOpened": "Opened • Trade",
-        "positionReducedWithLoss": "Reduced (loss) • Trade",
-        "positionReducedWithProfit": "Reduced (profit) • Trade",
-        "principalSupplied": "Supply • Trade",
-        "principalWithdrawn": "Withdraw • Trade",
-        "realizedPnl": "Realized PnL • Trade",
+        "positionClosedWithLoss": "Close (loss)",
+        "positionClosedWithProfit": "Close (profit)",
+        "positionIncreased": "Increase",
+        "positionOpened": "Opened",
+        "positionReducedWithLoss": "Reduced (loss)",
+        "positionReducedWithProfit": "Reduced (profit)",
+        "principalSupplied": "Supply",
+        "principalWithdrawn": "Withdraw",
+        "realizedPnl": "Realized PnL",
         "redeem": "Withdraw",
         "repay": "Repay"
       },
@@ -817,6 +817,7 @@
       "markets": {
         "label": "Markets"
       },
+      "new": "New",
       "others": {
         "bridge": {
           "description": "Cross-chain $XVS transfers on Venus.",
@@ -927,6 +928,7 @@
         }
       },
       "title": "Allocation details",
+      "unallocated": "Unallocated",
       "yieldGroup": {
         "allocationColumn": {
           "title": "Alloc."
@@ -949,6 +951,11 @@
             "market": "Market",
             "vault": "Vault"
           }
+        },
+        "names": {
+          "core": "Venus Core",
+          "flux": "Venus Flux",
+          "frv": "Fixed rate vault"
         }
       }
     },
@@ -961,6 +968,7 @@
         },
         "hubContract": "Hub contract",
         "operator": "Operator",
+        "operatorName": "Venus DAO",
         "performanceFee": "Performance fee",
         "redeemFee": "Redeem fee",
         "riskDisclosures": {
@@ -970,6 +978,13 @@
         "vhTokenContract": "{{ vhTokenSymbol }} contract"
       },
       "title": "Hub info"
+    },
+    "periodOption": {
+      "all": "All",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "thirtyDays": "30D",
+      "threeMonths": "3M"
     }
   },
   "liquidityHubForm": {
@@ -982,6 +997,7 @@
       "higherThanAvailableLiquidity": "Insufficient hub liquidity",
       "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this liquidity hub, as its supply cap is set at {{supplyCap}} and {{supplyBalance}} are currently being supplied to it.",
       "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
+      "smallerThanMinimumAmount": "You can not migrate less than {{minimumAmount}}",
       "supplyCapReached": "The supply cap of {{supplyCap}} has been reached for this liquidity hub. You can not supply to it anymore until withdraws are made or its supply cap is increased."
     },
     "rightMaxButtonLabel": "MAX",

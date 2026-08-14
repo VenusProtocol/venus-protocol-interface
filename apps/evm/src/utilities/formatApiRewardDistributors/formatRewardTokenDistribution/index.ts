@@ -1,0 +1,71 @@
+import type BigNumber from 'bignumber.js';
+
+import type { ApiRewardDistributor, Token, TokenDistribution } from 'types';
+import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
+import { formatRewardDistribution } from './formatRewardDistribution';
+import { isDistributingRewards } from './isDistributingRewards';
+
+interface FormatRewardTokenDistributionInput {
+  isActive: boolean;
+  isTimeBasedOrMerklReward: boolean;
+  lastRewardingBlockOrTimestamp: string;
+  currentBlockNumber?: bigint;
+  rateMantissa: string;
+  blocksPerDay?: number;
+  marketAddress: ApiRewardDistributor['marketAddress'];
+  rewardType: ApiRewardDistributor['rewardType'];
+  rewardToken: Token;
+  rewardTokenPriceDollars: BigNumber;
+  balanceDollars: BigNumber;
+  rewardDetails: ApiRewardDistributor['rewardDetails'];
+}
+
+export const formatRewardTokenDistribution = ({
+  isActive,
+  isTimeBasedOrMerklReward,
+  lastRewardingBlockOrTimestamp,
+  currentBlockNumber,
+  rateMantissa,
+  blocksPerDay,
+  marketAddress,
+  rewardType,
+  rewardToken,
+  rewardTokenPriceDollars,
+  balanceDollars,
+  rewardDetails,
+}: FormatRewardTokenDistributionInput): TokenDistribution | undefined => {
+  const isReward = Number(rateMantissa) > 0;
+
+  if (!isReward) {
+    return undefined;
+  }
+
+  const lastRewardingTimestamp = isTimeBasedOrMerklReward
+    ? +lastRewardingBlockOrTimestamp
+    : undefined;
+  const lastRewardingBlock = isTimeBasedOrMerklReward ? undefined : +lastRewardingBlockOrTimestamp;
+
+  const isDistributingReward = isDistributingRewards({
+    isTimeBasedOrMerklReward,
+    lastRewardingTimestamp,
+    lastRewardingBlock,
+    currentBlockNumber,
+  });
+
+  const dailyDistributedRewardTokens = calculateDailyTokenRate({
+    rateMantissa,
+    decimals: rewardToken.decimals,
+    blocksPerDay,
+  });
+
+  return formatRewardDistribution({
+    isActive: isActive && isDistributingReward,
+    marketAddress,
+    rewardType,
+    rewardToken,
+    rewardTokenPriceDollars,
+    dailyDistributedRewardTokens,
+    balanceDollars,
+    rewardDetails,
+  });
+};

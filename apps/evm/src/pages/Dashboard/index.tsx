@@ -74,7 +74,7 @@ export const Dashboard: React.FC = () => {
 
   if (isLiquidityHubFeatureEnabled) {
     tabs.push({
-      title: t('account.tabs.hub'),
+      title: t('account.tabs.hubs'),
       id: 'hub',
       content: <Hubs liquidityHubs={liquidityHubs} />,
     });

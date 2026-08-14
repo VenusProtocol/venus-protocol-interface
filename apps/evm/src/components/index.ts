@@ -41,7 +41,7 @@ export * from './SelectTokenTextField';
 export * from './InfoIcon';
 export * from './CellGroup';
 export * from './Cell';
-export * from './TokenGroup';
+export * from './ImgGroup';
 export * from './TagGroup';
 export * from './SpendingLimit';
 export * from './StatusLabel';

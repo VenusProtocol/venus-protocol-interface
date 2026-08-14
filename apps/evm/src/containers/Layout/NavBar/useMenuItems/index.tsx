@@ -2,14 +2,14 @@ import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
+import liquidityHubIconSrc from 'assets/img/liquidityHubIcon.svg';
+import vaultsIconSrc from 'assets/img/vaultsIcon.svg';
+import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
+import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
 import { VENUS_FLUX_URL } from 'constants/production';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import type { MenuItem, SubMenu } from '../types';
-import liquidityHubIconSrc from './liquidityHubIcon.svg';
-import vaultsIconSrc from './vaultsIcon.svg';
-import venusCoreIconSrc from './venusCoreIcon.png';
-import venusFluxIconSrc from './venusFluxIcon.png';
 
 export const useMenuItems = () => {
   const { t } = useTranslation();
@@ -25,53 +25,60 @@ export const useMenuItems = () => {
 
   const menu: Array<MenuItem | SubMenu> = [];
 
-  menu.push(
-    {
-      to: routes.dashboard.path,
-      label: t('layout.menu.dashboard.label'),
-    },
-    {
-      label: t('layout.menu.markets.label'),
-      variant: 'secondary',
-      items: [
-        {
-          to: marketsPagePath,
-          imgSrc: venusCoreIconSrc,
-          label: t('layouts.menu.markets.venusCore.label'),
-          description: t('layouts.menu.markets.venusCore.description'),
-        },
-        {
-          href: VENUS_FLUX_URL,
-          imgSrc: venusFluxIconSrc,
-          label: t('layouts.menu.markets.venusFlux.label'),
-          description: t('layouts.menu.markets.venusFlux.description'),
-        },
-      ],
-    },
-    liquidityHubEnabled
-      ? {
-          label: t('layout.menu.earn.label'),
-          variant: 'secondary',
-          items: [
-            {
-              to: routes.liquidityHubs.path,
-              imgSrc: liquidityHubIconSrc,
-              label: t('layouts.menu.markets.liquidityHub.label'),
-              description: t('layouts.menu.markets.liquidityHub.description'),
-            },
-            {
-              to: routes.vaults.path,
-              imgSrc: vaultsIconSrc,
-              label: t('layouts.menu.markets.vaults.label'),
-              description: t('layouts.menu.markets.vaults.description'),
-            },
-          ],
-        }
-      : {
-          to: routes.vaults.path,
-          label: t('layout.menu.vaults.label'),
-        },
-  );
+  menu.push({
+    to: routes.dashboard.path,
+    label: t('layout.menu.dashboard.label'),
+  });
+
+  const marketsSubMenu: SubMenu = {
+    label: t('layout.menu.markets.label'),
+    variant: 'secondary',
+    items: [
+      {
+        to: marketsPagePath,
+        imgSrc: venusCoreIconSrc,
+        label: t('layouts.menu.markets.venusCore.label'),
+        description: t('layouts.menu.markets.venusCore.description'),
+      },
+      {
+        href: VENUS_FLUX_URL,
+        imgSrc: venusFluxIconSrc,
+        label: t('layouts.menu.markets.venusFlux.label'),
+        description: t('layouts.menu.markets.venusFlux.description'),
+      },
+    ],
+  };
+
+  if (liquidityHubEnabled) {
+    menu.push(
+      {
+        label: t('layout.menu.earn.label'),
+        variant: 'secondary',
+        tagLabel: t('layout.menu.new'),
+        items: [
+          {
+            to: routes.liquidityHubs.path,
+            imgSrc: liquidityHubIconSrc,
+            label: t('layouts.menu.markets.liquidityHub.label'),
+            tagLabel: t('layout.menu.new'),
+            description: t('layouts.menu.markets.liquidityHub.description'),
+          },
+          {
+            to: routes.vaults.path,
+            imgSrc: vaultsIconSrc,
+            label: t('layouts.menu.markets.vaults.label'),
+            description: t('layouts.menu.markets.vaults.description'),
+          },
+        ],
+      },
+      marketsSubMenu,
+    );
+  } else {
+    menu.push(marketsSubMenu, {
+      to: routes.vaults.path,
+      label: t('layout.menu.vaults.label'),
+    });
+  }
 
   const othersSubMenuItems: MenuItem[] = [
     {
@@ -139,7 +146,7 @@ export const useMenuItems = () => {
       iconName: 'trade',
       label: t('layout.menu.others.trade.label'),
       description: t('layout.menu.others.trade.description'),
-      isBeta: true,
+      tagLabel: t('layout.menu.beta'),
     });
   }
 

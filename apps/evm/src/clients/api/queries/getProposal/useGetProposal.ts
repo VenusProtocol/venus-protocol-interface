@@ -69,7 +69,7 @@ export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial
           }),
       ),
     refetchInterval,
-    initialData: {
+    initialData: cachedProposal && {
       proposal: cachedProposal,
     },
     refetchOnMount: false,

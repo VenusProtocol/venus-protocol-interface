@@ -4,7 +4,7 @@ import { Icon } from 'components';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { matchPath, useLocation } from 'react-router';
-import { BetaTag } from '../../../BetaTag';
+import { Tag } from '../../../Tag';
 import type { MenuItem, SubMenu } from '../../../types';
 
 export interface SubMenuItemProps extends MenuItem {
@@ -19,7 +19,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
   description,
   imgSrc,
   iconName,
-  isBeta,
+  tagLabel,
   onClick,
   variant,
 }) => {
@@ -77,7 +77,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
               {label}
             </p>
 
-            {isBeta && <BetaTag />}
+            {!!tagLabel && <Tag>{tagLabel}</Tag>}
           </div>
 
           {!!description && <p className="text-light-grey text-xs">{description}</p>}

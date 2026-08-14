@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { FULL_REPAYMENT_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
+import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 
 export const buffer = ({
   amountMantissa,
-  bufferPercentage = FULL_REPAYMENT_BUFFER_PERCENTAGE,
+  bufferPercentage = TRANSACTION_BUFFER_PERCENTAGE,
 }: { amountMantissa: bigint; bufferPercentage?: number }) =>
   BigInt(
     new BigNumber(amountMantissa)

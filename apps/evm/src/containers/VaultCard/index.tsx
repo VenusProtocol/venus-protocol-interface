@@ -126,7 +126,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
           </div>
 
           <div className={cn('flex flex-col gap-y-4')}>
-            <LabeledInlineContent tooltip={aprTooltip} label={aprLabel} labelClassName="mb-auto">
+            <LabeledInlineContent tooltip={aprTooltip} label={aprLabel}>
               <LayeredValues
                 className="text-end"
                 topValue={aprValue}
@@ -137,7 +137,6 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             {liquidityCents && (
               <LabeledInlineContent
                 label={t('vault.card.liquidity')}
-                labelClassName="mb-auto"
                 tooltip={t('vault.card.liquidityTooltip')}
               >
                 <LayeredValues
@@ -156,7 +155,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             )}
 
             {dailyEmissionMantissa && (
-              <LabeledInlineContent label={t('vault.card.dailyEmission')} labelClassName="mb-auto">
+              <LabeledInlineContent label={t('vault.card.dailyEmission')}>
                 <LayeredValues
                   className="text-end"
                   topValue={convertMantissaToTokens({
@@ -179,7 +178,6 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               tooltip={
                 isInstitutionalVault(vault) ? t('vault.modals.institutionalDisclaimer') : undefined
               }
-              labelClassName="mb-auto"
             >
               {isInstitutionalVault(vault) ? (
                 <Progress
@@ -215,7 +213,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             </LabeledInlineContent>
 
             {shouldDisplayInstitutionalMinRequested && readableInstitutionalMinRequested && (
-              <LabeledInlineContent label={t('vault.card.minRequested')} labelClassName="mb-auto">
+              <LabeledInlineContent label={t('vault.card.minRequested')}>
                 <LayeredValues
                   className="text-end"
                   topValue={readableInstitutionalMinRequested}
@@ -231,7 +229,6 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                     ? t('vault.card.maturityDatePendle')
                     : t('vault.card.maturityDate')
                 }
-                labelClassName="mb-auto"
                 tooltip={
                   vault.venue === VaultVenue.Pendle
                     ? t('vault.card.maturityDatePendleTooltip')
@@ -246,16 +243,14 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
               </LabeledInlineContent>
             )}
 
-            {isInstitutionalVault(vault) && (
-              <InstitutionalCheckpointInlineContent vault={vault} labelClassName="mb-auto" />
-            )}
+            {isInstitutionalVault(vault) && <InstitutionalCheckpointInlineContent vault={vault} />}
 
             {vault.category === VaultCategory.GOVERNANCE && primeVersion === 1 && (
               <PrimeEligibilityInlineContent />
             )}
 
             {isInstitutionalVault(vault) && !!vault.collateralToken && (
-              <LabeledInlineContent label={t('vault.card.collateral')} labelClassName="mb-auto">
+              <LabeledInlineContent label={t('vault.card.collateral')}>
                 <div className="flex items-center text-b1r">
                   <TokenIcon token={vault.collateralToken} className="mr-2 h-5 w-5" />
                   {vault.collateralToken.symbol}
@@ -264,7 +259,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             )}
 
             {!!vault.venueName && !!vault.venueIconSrc && (
-              <LabeledInlineContent label={t('vault.card.venue')} labelClassName="mb-auto">
+              <LabeledInlineContent label={t('vault.card.venue')}>
                 <div className="flex items-center text-b1r">
                   <img
                     src={vault.venueIconSrc}

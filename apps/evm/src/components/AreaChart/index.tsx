@@ -11,6 +11,8 @@ import {
 } from 'recharts';
 import type { DataKey, Margin } from 'recharts/types/util/types';
 
+import { getXAxisTicks } from './getXAxisTicks';
+
 export interface AreaChartProps<T extends Record<string, any>> {
   data: T[];
   xAxisDataKey: DataKey<T>;
@@ -23,6 +25,7 @@ export interface AreaChartProps<T extends Record<string, any>> {
   onMouseLeave?: () => void;
   formatTooltipItems?: (value: T) => ChartTooltipContentItem[];
   areaChartMargin?: Margin;
+  /** Maximum number of labels to display on the X axis. */
   interval?: number;
   displayAxes?: boolean;
   displayToolTip?: boolean;
@@ -51,6 +54,7 @@ export const AreaChart = <T extends Record<string, any>>({
   // using unique ids)
   const baseId = useUID();
   const gradientId = `gradient-${baseId}`;
+  const xAxisTicks = getXAxisTicks({ data, interval, xAxisDataKey });
 
   return (
     <div className={cn('w-full h-62', className)}>
@@ -86,10 +90,10 @@ export const AreaChart = <T extends Record<string, any>>({
               tickFormatter={formatXAxisValue}
               stroke={theme.colors.grey}
               tickMargin={8}
-              tickCount={data.length}
-              interval={
-                typeof interval === 'number' ? Math.round(data.length / interval) : undefined
-              }
+              tickCount={xAxisTicks?.length ?? data.length}
+              ticks={xAxisTicks}
+              interval={xAxisTicks ? 0 : undefined}
+              padding={{ left: 0, right: 24 }}
               className="text-xs"
             />
           )}

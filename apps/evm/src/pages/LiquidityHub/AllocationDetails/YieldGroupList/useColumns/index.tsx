@@ -24,7 +24,9 @@ export const useColumns = ({
       key: 'source',
       label: t('liquidityHub.allocationDetails.table.sourceColumn.title'),
       selectOptionLabel: t('liquidityHub.allocationDetails.table.sourceColumn.title'),
-      renderCell: row => <YieldGroupName name={row.name} bgClassName={row.bgClassName} />,
+      renderCell: row => (
+        <YieldGroupName name={t(row.nameTranslationKey)} bgClassName={row.bgClassName} />
+      ),
     },
     {
       key: 'allocation',
@@ -85,7 +87,7 @@ export const useColumns = ({
       ),
       selectOptionLabel: t('liquidityHub.allocationDetails.table.capDollarsColumn.title'),
       sortRows: (rowA, rowB, direction) =>
-        compareBigNumbers(rowA.allocationCapCents, rowB.allocationCapCents, direction),
+        compareBigNumbers(rowA.supplyCapCents, rowB.supplyCapCents, direction),
       align: 'right',
       renderCell: row => {
         const isOpen = openPositionAccordionKeys.includes(rowKeyExtractor(row));
@@ -93,8 +95,8 @@ export const useColumns = ({
         return (
           <div className="inline-flex items-center gap-x-2">
             <span>
-              {row.allocationCapCents.isFinite()
-                ? formatCentsToReadableValue({ value: row.allocationCapCents })
+              {row.supplyCapCents.isFinite()
+                ? formatCentsToReadableValue({ value: row.supplyCapCents })
                 : t('liquidityHub.allocationDetails.table.capDollarsColumn.unlimited')}
             </span>
 

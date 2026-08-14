@@ -1,68 +1,8 @@
 import { VError } from 'libs/errors';
-import type { ApiTokenPrice, ChainId } from 'types';
+import type { ApiPointsDistribution, ApiRewardDistributor, ApiTokenPrice, ChainId } from 'types';
 import { restService } from 'utilities/restService';
 import type { Address } from 'viem';
 import { formatPointDistribution } from './pointDistributions';
-
-interface ApiReward {
-  marketAddress: Address;
-  rewardTokenAddress: Address;
-  lastRewardingSupplyBlockOrTimestamp: string;
-  lastRewardingBorrowBlockOrTimestamp: string;
-  supplySpeed: string;
-  borrowSpeed: string;
-  rewardsDistributorContractAddress: Address;
-  isActive: boolean;
-}
-
-interface ApiVenusReward extends ApiReward {
-  rewardType: 'venus';
-  rewardDetails: null;
-}
-
-interface ApiMerklReward extends ApiReward {
-  rewardType: 'merkl';
-  rewardDetails: {
-    appName: string;
-    claimUrl: string;
-    merklCampaignId: string;
-    description: string;
-    merklCampaignIdentifier: string;
-    tags: string[];
-  };
-}
-
-interface ApiIntrinsicApyReward extends ApiReward {
-  rewardType: 'intrinsic';
-  rewardDetails: {
-    name: string;
-    description: string;
-  };
-}
-
-type ApiOffChainApyReward = Omit<ApiIntrinsicApyReward, 'type'> & {
-  rewardType: 'intrinsic';
-};
-
-export type PointsProgram = 'ethena' | 'etherfi' | 'kelp' | 'solv' | 'aster';
-
-export interface ApiPointsDistribution {
-  action: 'supply' | 'borrow';
-  pointsProgram: PointsProgram;
-  title: string;
-  incentive?: string;
-  description?: string;
-  extraInfoUrl?: string;
-  startDate?: Date;
-  endDate?: Date;
-  logoUrl?: string;
-}
-
-export type ApiRewardDistributor =
-  | ApiVenusReward
-  | ApiMerklReward
-  | ApiIntrinsicApyReward
-  | ApiOffChainApyReward;
 
 export interface ApiMarketEModeSettings {
   marketAddress: Address;

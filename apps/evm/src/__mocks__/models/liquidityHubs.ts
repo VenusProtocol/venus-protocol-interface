@@ -17,7 +17,6 @@ import { vhBusd, vhUsdc, vhUsdt, vhXvs } from './vhTokens';
 
 export const liquidityHubs: LiquidityHub[] = [
   {
-    hubAddress: vhXvs.address,
     vhToken: vhXvs,
     tokenPriceCents: new BigNumber(715),
     tokenPriceOracleAddress: '0x3000000000000000000000000000000000000001',
@@ -26,12 +25,12 @@ export const liquidityHubs: LiquidityHub[] = [
     liquidityTokens: new BigNumber(12000),
     liquidityCents: new BigNumber(8580000),
     supplyCapTokens: new BigNumber(25000),
+    withdrawCapTokens: new BigNumber(1000),
     supplyApyPercentage: new BigNumber(6.2),
     performanceFeePercentage: new BigNumber(10),
     redeemFeePercentage: new BigNumber(1),
     pricePerShare: new BigNumber(1.06),
     supplierCount: 124,
-    operatorName: 'Venus Core',
     yieldGroups: [xvsCoreYieldGroup, xvsFluxYieldGroup],
     supplyTokenDistributions: [
       {
@@ -50,7 +49,6 @@ export const liquidityHubs: LiquidityHub[] = [
     userVhTokenBalanceTokens: new BigNumber('39.62264150943396226415'),
   },
   {
-    hubAddress: vhUsdc.address,
     vhToken: vhUsdc,
     tokenPriceCents: new BigNumber(100),
     tokenPriceOracleAddress: '0x3000000000000000000000000000000000000002',
@@ -59,12 +57,12 @@ export const liquidityHubs: LiquidityHub[] = [
     liquidityTokens: new BigNumber(290000),
     liquidityCents: new BigNumber(29000000),
     supplyCapTokens: new BigNumber(500000),
+    withdrawCapTokens: new BigNumber(100000),
     supplyApyPercentage: new BigNumber(4.1),
     performanceFeePercentage: new BigNumber(8),
     redeemFeePercentage: new BigNumber(0),
     pricePerShare: new BigNumber(1.02),
     supplierCount: 289,
-    operatorName: 'Stable Strategies',
     yieldGroups: [usdcCoreYieldGroup, usdcFluxYieldGroup],
     supplyTokenDistributions: [
       {
@@ -83,7 +81,6 @@ export const liquidityHubs: LiquidityHub[] = [
     userVhTokenBalanceTokens: new BigNumber('1176.47058823529411764706'),
   },
   {
-    hubAddress: vhUsdt.address,
     vhToken: vhUsdt,
     tokenPriceCents: new BigNumber(100),
     tokenPriceOracleAddress: '0x3000000000000000000000000000000000000003',
@@ -92,12 +89,12 @@ export const liquidityHubs: LiquidityHub[] = [
     liquidityTokens: new BigNumber(166000),
     liquidityCents: new BigNumber(16600000),
     supplyCapTokens: new BigNumber(320000),
+    withdrawCapTokens: new BigNumber(100000),
     supplyApyPercentage: new BigNumber(4.85),
     performanceFeePercentage: new BigNumber(9),
     redeemFeePercentage: new BigNumber(1.2),
     pricePerShare: new BigNumber(1.03),
     supplierCount: 198,
-    operatorName: 'Yield Relay',
     yieldGroups: [usdtCoreYieldGroup, usdtFluxYieldGroup],
     supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(1800),
@@ -108,7 +105,6 @@ export const liquidityHubs: LiquidityHub[] = [
     userVhTokenBalanceTokens: new BigNumber('825.24271844660194174757'),
   },
   {
-    hubAddress: vhBusd.address,
     vhToken: vhBusd,
     tokenPriceCents: new BigNumber(100),
     tokenPriceOracleAddress: '0x3000000000000000000000000000000000000004',
@@ -117,12 +113,12 @@ export const liquidityHubs: LiquidityHub[] = [
     liquidityTokens: new BigNumber(141000),
     liquidityCents: new BigNumber(14100000),
     supplyCapTokens: new BigNumber(260000),
+    withdrawCapTokens: new BigNumber(100000),
     supplyApyPercentage: new BigNumber(3.95),
     performanceFeePercentage: new BigNumber(7.5),
     redeemFeePercentage: new BigNumber(0),
     pricePerShare: new BigNumber(1.01),
     supplierCount: 164,
-    operatorName: 'Reserve Engine',
     yieldGroups: [busdCoreYieldGroup, busdFluxYieldGroup],
     supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(3200),
