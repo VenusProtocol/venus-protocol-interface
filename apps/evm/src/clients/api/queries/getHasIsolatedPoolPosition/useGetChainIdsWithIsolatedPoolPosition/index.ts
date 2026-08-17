@@ -2,12 +2,14 @@ import { useQueries } from '@tanstack/react-query';
 import { chains } from '@venusprotocol/chains';
 
 import FunctionKey from 'constants/functionKey';
-import { ISOLATED_POOL_CHAIN_IDS } from 'constants/isolatedPoolChains';
 import { getContractAddress } from 'libs/contracts';
 import { useAccountAddress, usePublicClients } from 'libs/wallet';
-import type { ChainId } from 'types';
+import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
-import { getHasIsolatedPoolPosition } from '.';
+import { extractEnumValues } from 'utilities/extractEnumValues';
+import { getHasIsolatedPoolPosition } from '..';
+
+const allChainIds = extractEnumValues(ChainId);
 
 export interface UseGetChainIdsWithIsolatedPoolPositionOutput {
   chainIds: ChainId[];
@@ -16,9 +18,9 @@ export interface UseGetChainIdsWithIsolatedPoolPositionOutput {
 
 export const useGetChainIdsWithIsolatedPoolPosition = () => {
   const { accountAddress } = useAccountAddress();
-  const { publicClients } = usePublicClients({ chainIds: ISOLATED_POOL_CHAIN_IDS });
+  const { publicClients } = usePublicClients({ chainIds: allChainIds });
 
-  const queryableChainIds = ISOLATED_POOL_CHAIN_IDS.filter(chainId => !!publicClients[chainId]);
+  const queryableChainIds = allChainIds.filter(chainId => !!publicClients[chainId]);
 
   const results = useQueries({
     queries: queryableChainIds.map(chainId => {

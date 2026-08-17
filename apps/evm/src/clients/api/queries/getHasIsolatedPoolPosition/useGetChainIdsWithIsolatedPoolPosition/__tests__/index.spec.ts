@@ -5,10 +5,10 @@ import fakeAddress from '__mocks__/models/address';
 import { usePublicClients } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';
-import { getHasIsolatedPoolPosition } from '..';
-import { useGetChainIdsWithIsolatedPoolPosition } from '../useGetChainIdsWithIsolatedPoolPosition';
+import { useGetChainIdsWithIsolatedPoolPosition } from '..';
+import { getHasIsolatedPoolPosition } from '../..';
 
-vi.mock('../index.ts');
+vi.mock('../../index.ts');
 
 const renderUseGetChainIdsWithIsolatedPoolPosition = () =>
   renderHook(() => useGetChainIdsWithIsolatedPoolPosition(), { accountAddress: fakeAddress });
