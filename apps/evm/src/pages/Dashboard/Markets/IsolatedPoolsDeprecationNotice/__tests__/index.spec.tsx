@@ -1,4 +1,3 @@
-import { fireEvent } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import { useGetChainIdsWithIsolatedPoolPosition } from 'clients/api';
@@ -64,13 +63,11 @@ describe('IsolatedPoolsDeprecationNotice', () => {
     expect(container.textContent).toBe('');
   });
 
-  it('lets the user dismiss it for the session', () => {
+  it('does not render a close button', () => {
     mockOutput({ chainIds: [ChainId.BSC_MAINNET] });
 
-    const { container, getByRole } = renderComponent(<IsolatedPoolsDeprecationNotice />);
+    const { queryByRole } = renderComponent(<IsolatedPoolsDeprecationNotice />);
 
-    fireEvent.click(getByRole('button'));
-
-    expect(container.textContent).toBe('');
+    expect(queryByRole('button')).toBeNull();
   });
 });

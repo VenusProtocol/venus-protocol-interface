@@ -1,5 +1,4 @@
 import { chains } from '@venusprotocol/chains';
-import { useState } from 'react';
 
 import { useGetChainIdsWithIsolatedPoolPosition } from 'clients/api';
 import { NoticeWarning } from 'components';
@@ -16,21 +15,18 @@ export const IsolatedPoolsDeprecationNotice: React.FC<IsolatedPoolsDeprecationNo
 }) => {
   const { Trans, language } = useTranslation();
   const { chainIds, isLoading } = useGetChainIdsWithIsolatedPoolPosition();
-  const [isDismissed, setIsDismissed] = useState(false);
 
-  if (isLoading || isDismissed || chainIds.length === 0) {
+  if (isLoading || chainIds.length === 0) {
     return undefined;
   }
 
   const chainNames = new Intl.ListFormat(language.bcp47Tag, { type: 'conjunction' }).format(
     chainIds.map(chainId => chains[chainId].name),
   );
-  const dismiss = () => setIsDismissed(true);
 
   return (
     <NoticeWarning
       className={className}
-      onClose={dismiss}
       description={
         <Trans
           i18nKey="account.isolatedPoolsDeprecationNotice.description"
