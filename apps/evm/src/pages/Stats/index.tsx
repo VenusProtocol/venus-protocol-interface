@@ -1,10 +1,13 @@
 import { Page, Tabs } from 'components';
 import { useTranslation } from 'libs/translations';
+import { EModeTable } from './EModeTable';
 import { Header } from './Header';
 import { HistoricalDominanceChart } from './HistoricalDominanceChart';
 import { HistoricalLiquidityChart } from './HistoricalLiquidityChart';
 import { HistoricalMarketChart } from './HistoricalMarketChart';
 import { MarketKpis } from './MarketKpis';
+import { MarketsTable } from './MarketsTable';
+import { RiskParametersTable } from './RiskParametersTable';
 import { TopWallets } from './TopWallets';
 import { TransactionsVolume } from './TransactionsVolume';
 import { WalletKpis } from './WalletKpis';
@@ -27,6 +30,15 @@ const Overview: React.FC = () => (
   </div>
 );
 
+const Markets: React.FC = () => (
+  <div className="flex flex-col gap-6 pb-12">
+    <MarketsTable />
+    <RiskParametersTable />
+    <EModeTable />
+    <TransactionsVolume />
+  </div>
+);
+
 const Stats: React.FC = () => {
   const { t } = useTranslation();
 
@@ -39,7 +51,7 @@ const Stats: React.FC = () => {
         navType="searchParam"
         tabs={[
           { id: 'overview', title: t('statsPage.tabs.overview'), content: <Overview /> },
-          { id: 'markets', title: t('statsPage.tabs.markets'), content: null },
+          { id: 'markets', title: t('statsPage.tabs.markets'), content: <Markets /> },
           { id: 'wallets', title: t('statsPage.tabs.wallets'), content: null },
           { id: 'liquidations', title: t('statsPage.tabs.liquidations'), content: null },
         ]}

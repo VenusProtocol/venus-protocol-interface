@@ -360,6 +360,7 @@ export const TopWalletsTable: React.FC<TopWalletsTableProps> = ({ kind, limit = 
               const meta = marketMetaByAddress[market];
               const label = meta?.symbol ?? truncateAddress(market);
               const bgColor = colorByMarket[market] ?? theme.colors.grey;
+
               return (
                 <div key={market} className="flex items-center gap-2">
                   <span
