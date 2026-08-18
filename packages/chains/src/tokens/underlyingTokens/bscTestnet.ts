@@ -502,4 +502,11 @@ export const bscTestnet: Token[] = [
     symbol: 'hBNB',
     iconSrc: iconSrcs.hBNB,
   },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x7e4F548Dcd550f6F6a563AC9267d58f20cD135b4',
+    decimals: 18,
+    symbol: 'qhBNB',
+    iconSrc: iconSrcs.defaultToken,
+  },
 ];
