@@ -977,6 +977,12 @@ export type ApiRewardDistributor =
   | ApiIntrinsicApyReward
   | ApiOffChainApyReward;
 
+export interface ApiLiquidityHubExposure {
+  tokenAddress: Address;
+  liquidationThresholdMantissa: string;
+  collateralResourceAddress: Address;
+}
+
 export interface ApiLiquidityHubResource {
   resourceAddress: Address;
   adapterAddress: Address;
@@ -991,7 +997,7 @@ export interface ApiLiquidityHubResource {
   capUsdMantissa: string | null;
   isPaused: boolean;
   lockEndTime: number | null;
-  exposure: Address[];
+  exposure: ApiLiquidityHubExposure[];
 }
 
 export interface ApiLiquidityHubYieldGroup {

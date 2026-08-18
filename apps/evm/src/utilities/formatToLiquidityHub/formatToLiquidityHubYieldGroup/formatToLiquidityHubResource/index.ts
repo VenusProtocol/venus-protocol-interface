@@ -18,7 +18,7 @@ export const formatToLiquidityHubResource = ({
   tokenPriceCents: BigNumber;
 }): LiquidityHubSource => {
   const collateralTokens = tokens.filter(token =>
-    apiResource.exposure.some(tokenAddress => areAddressesEqual(token.address, tokenAddress)),
+    apiResource.exposure.some(({ tokenAddress }) => areAddressesEqual(token.address, tokenAddress)),
   );
 
   const resourceLockEndDate = apiResource.lockEndTime
