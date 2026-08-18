@@ -500,6 +500,6 @@ export const bscTestnet: Token[] = [
     address: '0xCbfDC27d225Dd3F58DD19C3d37347d043458dcC8',
     decimals: 18,
     symbol: 'hBNB',
-    iconSrc: iconSrcs.defaultToken,
+    iconSrc: iconSrcs.hBNB,
   },
 ];
