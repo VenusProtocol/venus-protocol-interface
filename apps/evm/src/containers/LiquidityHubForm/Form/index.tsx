@@ -1,7 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-import { liquidityHubs as fakeLiquidityHubs } from '__mocks__/models/liquidityHubs';
-import { useGetPool } from 'clients/api';
+import { useGetLiquidityHubs, useGetPool } from 'clients/api';
 import {
   ApyBreakdown,
   type ApyBreakdownItem,
@@ -88,7 +87,11 @@ export const Form: React.FC<FormProps> = ({
     });
   const simulatedPool = getSimulatedPoolData?.pool;
 
-  const liquidityHubs = fakeLiquidityHubs;
+  const { data: getLiquidityHubsData, isLoading: isGetLiquidityHubsLoading } = useGetLiquidityHubs({
+    accountAddress,
+  });
+
+  const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
 
   const { liquidityHubs: simulatedLiquidityHubs } = useSimulateLiquidityHubMutations({
     liquidityHubs,
@@ -138,7 +141,8 @@ export const Form: React.FC<FormProps> = ({
         .toFixed(),
     }));
 
-  const isLoading = isSubmitting || isGetPoolLoading || isGetSimulatedPoolLoading;
+  const isLoading =
+    isSubmitting || isGetLiquidityHubsLoading || isGetPoolLoading || isGetSimulatedPoolLoading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

@@ -125,6 +125,7 @@
     "@types/styled-components": "^5.1.26",
     "@venusprotocol/governance-contracts": "2.15.0-slim",
     "@venusprotocol/isolated-pools": "4.4.0-slim",
+    "@venusprotocol/liquidity-hub": "1.0.0",
     "@venusprotocol/oracle": "2.16.0-slim",
     "@venusprotocol/protocol-reserve": "3.5.0-slim",
     "@venusprotocol/stylelint-config": "*",

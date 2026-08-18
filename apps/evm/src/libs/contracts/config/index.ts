@@ -41,6 +41,8 @@ import isolatedPoolsUnichainMainnetDeployments from '@venusprotocol/isolated-poo
 import isolatedPoolsUnichainSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/unichainsepolia_addresses.json';
 import isolatedPoolsZkSyncMainnetDeployments from '@venusprotocol/isolated-pools/deployments/zksyncmainnet_addresses.json';
 import isolatedPoolsZkSyncSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/zksyncsepolia_addresses.json';
+import liquidityHubBscMainnetDeployments from '@venusprotocol/liquidity-hub/deployments/bscmainnet_addresses.json';
+import liquidityHubBscTestnetDeployments from '@venusprotocol/liquidity-hub/deployments/bsctestnet_addresses.json';
 import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
 import venusOracleArbitrumOneDeployments from '@venusprotocol/oracle/deployments/arbitrumone_addresses.json';
 import venusOracleArbitrumSepoliaDeployments from '@venusprotocol/oracle/deployments/arbitrumsepolia_addresses.json';
@@ -733,7 +735,8 @@ export const contracts: ContractConfig[] = [
     name: 'LiquidityHubMigrator',
     abi: liquidityHubMigratorAbi as Abi,
     address: {
-      [ChainId.BSC_TESTNET]: '0x4B05b2a81f23E20ee36281a05dd7FF79e288B24E', // TODO: get from package
+      [ChainId.BSC_MAINNET]: liquidityHubBscMainnetDeployments.addresses.Migrator as Address,
+      [ChainId.BSC_TESTNET]: liquidityHubBscTestnetDeployments.addresses.Migrator as Address,
     },
   },
   // Generic Contracts

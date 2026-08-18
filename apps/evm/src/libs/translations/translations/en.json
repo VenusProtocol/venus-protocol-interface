@@ -98,6 +98,11 @@
         }
       },
       "today": "Today",
+      "txSource": {
+        "liquidityHub": "Liquidity Hub",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
         "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
@@ -107,6 +112,7 @@
         "enterMarket": "Enable collateral",
         "exitMarket": "Disable collateral",
         "mint": "Supply",
+        "mintFromCollateral": "Migrate",
         "positionClosedWithLoss": "Close (loss)",
         "positionClosedWithProfit": "Close (profit)",
         "positionIncreased": "Increase",
@@ -913,8 +919,8 @@
           "title": "APY"
         },
         "capDollarsColumn": {
-          "title": "Cap abs.",
-          "tooltip": "The absolute cap of a yield group",
+          "title": "Eff. cap",
+          "tooltip": "The effective cap of a yield group",
           "unlimited": "Unlimited"
         },
         "capPercentageColumn": {
@@ -937,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "Asset",
+            "liquidationThreshold": "Liquidation threshold"
+          },
           "title": "Collateral"
         },
         "liquidityColumn": {
@@ -2232,6 +2242,14 @@
       "title": "Transaction confirmed"
     }
   },
+  "transactions": {
+    "liquidityHub": {
+      "label": "Liquidity Hub"
+    },
+    "venusCore": {
+      "label": "Venus Core"
+    }
+  },
   "txFormSubmitButton": {
     "acknowledgements": {
       "highPriceImpact": {
@@ -2711,5 +2729,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "Protocol"
   }
 }

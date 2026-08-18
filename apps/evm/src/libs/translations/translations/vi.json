@@ -98,6 +98,11 @@
         }
       },
       "today": "Hôm nay",
+      "txSource": {
+        "liquidityHub": "Trung tâm thanh khoản",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>Đã bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
         "exitMarket": "<Styled>Đã tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
@@ -107,6 +112,7 @@
         "enterMarket": "Bật tài sản thế chấp",
         "exitMarket": "Tắt tài sản thế chấp",
         "mint": "Cung cấp",
+        "mintFromCollateral": "Di chuyển",
         "positionClosedWithLoss": "Đóng (lỗ)",
         "positionClosedWithProfit": "Đóng (lãi)",
         "positionIncreased": "Tăng",
@@ -913,8 +919,8 @@
           "title": "APY"
         },
         "capDollarsColumn": {
-          "title": "Trần tuyệt đối",
-          "tooltip": "Trần tuyệt đối của một nhóm lợi suất",
+          "title": "Trần hiệu dụng",
+          "tooltip": "Trần hiệu dụng của một nhóm lợi suất",
           "unlimited": "Không giới hạn"
         },
         "capPercentageColumn": {
@@ -937,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "Tài sản",
+            "liquidationThreshold": "Ngưỡng thanh lý"
+          },
           "title": "Tài sản thế chấp"
         },
         "liquidityColumn": {
@@ -2232,6 +2242,14 @@
       "title": "Giao dịch đã được xác nhận"
     }
   },
+  "transactions": {
+    "liquidityHub": {
+      "label": "Trung tâm thanh khoản"
+    },
+    "venusCore": {
+      "label": "Venus Core"
+    }
+  },
   "txFormSubmitButton": {
     "acknowledgements": {
       "highPriceImpact": {
@@ -2708,5 +2726,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "Giao thức"
   }
 }

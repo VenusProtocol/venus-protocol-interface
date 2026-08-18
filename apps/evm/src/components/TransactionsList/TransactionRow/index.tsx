@@ -18,7 +18,7 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ transaction, cla
   const { t } = useTranslation();
 
   const transactionTitle = getTransactionName({
-    transaction,
+    type: transaction.txType,
     t,
   });
 

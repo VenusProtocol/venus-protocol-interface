@@ -522,7 +522,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000049784627353943",
+              "apyPercentage": "0.000049784627353944",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -799,7 +799,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "18013536135148.493847144136023756",
+      "userYearlyEarningsCents": "18013536135148.493847244136022756",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -2159,7 +2159,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000049784627353943",
+              "apyPercentage": "0.000049784627353944",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -2460,7 +2460,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "19239274460091.44005578303976431459",
+      "userYearlyEarningsCents": "19239274460091.44005588303976331459",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -3824,7 +3824,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000049784627353943",
+              "apyPercentage": "0.000049784627353944",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -4091,7 +4091,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "18013536135148.493847144136023756",
+      "userYearlyEarningsCents": "18013536135148.493847244136022756",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {

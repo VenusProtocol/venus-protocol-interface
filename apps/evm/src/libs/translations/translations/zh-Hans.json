@@ -98,6 +98,11 @@
         }
       },
       "today": "今天",
+      "txSource": {
+        "liquidityHub": "流动性中心",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
         "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为可抵押"
@@ -107,6 +112,7 @@
         "enterMarket": "启用抵押",
         "exitMarket": "禁用抵押",
         "mint": "存款",
+        "mintFromCollateral": "迁移",
         "positionClosedWithLoss": "平仓（亏损）",
         "positionClosedWithProfit": "平仓（盈利）",
         "positionIncreased": "增加",
@@ -913,8 +919,8 @@
           "title": "APY"
         },
         "capDollarsColumn": {
-          "title": "绝对上限",
-          "tooltip": "收益组的绝对上限",
+          "title": "有效上限",
+          "tooltip": "收益组的有效上限",
           "unlimited": "无限"
         },
         "capPercentageColumn": {
@@ -937,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "资产",
+            "liquidationThreshold": "清算阈值"
+          },
           "title": "抵押品"
         },
         "liquidityColumn": {
@@ -2232,6 +2242,14 @@
       "title": "交易已确认"
     }
   },
+  "transactions": {
+    "liquidityHub": {
+      "label": "流动性中心"
+    },
+    "venusCore": {
+      "label": "Venus Core"
+    }
+  },
   "txFormSubmitButton": {
     "acknowledgements": {
       "highPriceImpact": {
@@ -2708,5 +2726,8 @@
     "tooltip": {
       "address": "（{{address}}）"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "协议"
   }
 }

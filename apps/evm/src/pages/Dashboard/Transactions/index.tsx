@@ -1,5 +1,4 @@
-import { liquidityHubs } from '__mocks__/models/liquidityHubs';
-import { useGetAccountTransactionHistory, useGetPools } from 'clients/api';
+import { useGetAccountTransactionHistory, useGetLiquidityHubs, useGetPools } from 'clients/api';
 import {
   Pagination,
   Select,
@@ -8,7 +7,7 @@ import {
   TransactionsList,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import { MARKET_TX_TYPES, TX_TYPES } from 'constants/marketTxTypes';
+import { TX_TYPES } from 'constants/marketTxTypes';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -41,6 +40,7 @@ export const Transactions: React.FC = () => {
   const txTypeStr = searchParams.get(TX_TYPE_PARAM_KEY) ?? ALL_OPTION_VALUE;
   const txType = TX_TYPES.find(type => type === txTypeStr);
   const selectedTxType = txType ?? ALL_OPTION_VALUE;
+  const selectedTransactionTypes = txType ? [txType] : TX_TYPES;
 
   const selectedContractAddress = searchParams.get(CONTRACT_ADDRESS_PARAM_KEY)
     ? (searchParams.get(CONTRACT_ADDRESS_PARAM_KEY) as Address)
@@ -108,13 +108,27 @@ export const Transactions: React.FC = () => {
     name: 'liquidityHub',
   });
 
+  const {
+    data: getLiquidityHubsData = {
+      liquidityHubs: [],
+    },
+  } = useGetLiquidityHubs(
+    {
+      accountAddress,
+    },
+    {
+      enabled: isLiquidityHubFeatureEnabled,
+    },
+  );
+  const { liquidityHubs } = getLiquidityHubsData;
+
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(
       {
         accountAddress: accountAddress || NULL_ADDRESS,
         page,
         contractAddress: isAddress(selectedContractAddress) ? selectedContractAddress : undefined,
-        type: txType,
+        types: selectedTransactionTypes,
       },
       {
         enabled: !!accountAddress && isTransactionHistoryFeatureEnabled,
@@ -126,9 +140,9 @@ export const Transactions: React.FC = () => {
       label: t('account.transactions.selects.txType.all'),
       value: ALL_OPTION_VALUE,
     },
-    ...MARKET_TX_TYPES.map(type => ({
+    ...TX_TYPES.map(type => ({
       label: getTransactionName({
-        transaction: type,
+        type,
         t,
       }),
       value: type,
@@ -186,7 +200,7 @@ export const Transactions: React.FC = () => {
     }
 
     return [allOption, ...otherOptions];
-  }, [t, poolData, isLiquidityHubFeatureEnabled]);
+  }, [t, poolData, liquidityHubs, isLiquidityHubFeatureEnabled]);
 
   // Reset contract address filter if the value in the URL is incorrect
   useEffect(() => {

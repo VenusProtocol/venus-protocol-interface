@@ -62,7 +62,6 @@ export const SecondaryVariant = () => (
     )}
     variant="secondary"
     tableLayout="auto"
-    cellHeight="64px"
     size="sm"
     className="max-w-225 border-0"
   />
@@ -126,32 +125,6 @@ export const CardsWithCustomColumns = () => (
     breakpoint="xl"
     cardClassName="border-lightGrey"
     selectVariant="secondary"
-    className="max-w-225"
-  />
-);
-
-const alignedColumns: TableColumn<Row>[] = orderableColumns.map(column => {
-  if (column.key === 'asset') {
-    return column;
-  }
-
-  if (column.key === 'apy') {
-    return { ...column, align: 'center' };
-  }
-
-  return { ...column, align: 'right' };
-});
-
-export const CustomCellHeightAndAlignment = () => (
-  <Table
-    data={data}
-    columns={alignedColumns}
-    title="Aligned Market Data"
-    rowKeyExtractor={row => row.token.address}
-    breakpoint="lg"
-    tableLayout="auto"
-    cellHeight="96px"
-    minWidth="720px"
     className="max-w-225"
   />
 );

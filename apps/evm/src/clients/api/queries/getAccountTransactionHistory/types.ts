@@ -1,7 +1,6 @@
 import type { ChainId } from '@venusprotocol/chains';
-import type { Asset, LiquidityHub, Tx, TxType, VhToken } from 'types';
+import type { Asset, LiquidityHub, Pool, Tx, TxType, VhToken } from 'types';
 import type { Address } from 'viem';
-import type { GetPoolsOutput } from '../useGetPools/types';
 
 export type ApiTxType =
   | 'principal_supplied'
@@ -18,7 +17,10 @@ export type ApiTxType =
   | 'redeem'
   | 'repay'
   | 'enter_market'
-  | 'exit_market';
+  | 'exit_market'
+  | 'hub_supply'
+  | 'hub_withdraw'
+  | 'hub_migration';
 
 export interface ApiAccountHistoricalTransaction {
   id: string;
@@ -54,6 +56,8 @@ export interface ApiAccountHistoricalTransaction {
   yieldPlusLongDustRedeemedMantissa: string | null;
   yieldPlusAmountConvertedToProfitMantissa: string | null;
   yieldPlusDsaProfitAmountMantissa: string | null;
+  migrationVTokenAddress: Address | null;
+  migrationVTokenAmountMantissa: string | null;
 }
 
 export interface AccountTransactionHistoryApiResponse {
@@ -64,11 +68,11 @@ export interface AccountTransactionHistoryApiResponse {
 export interface GetAccountTransactionHistoryInput {
   accountAddress: string;
   chainId: ChainId;
-  getPoolsData: GetPoolsOutput | undefined;
+  pools: Pool[];
   liquidityHubs: LiquidityHub[];
   positionAccountAddress?: Address;
   contractAddress?: Address;
-  type?: TxType;
+  types: readonly TxType[];
   page?: number;
 }
 

@@ -1,6 +1,5 @@
 import {
   Apy,
-  ImgGroup,
   InfoIcon,
   LayeredValues,
   type Order,
@@ -9,6 +8,7 @@ import {
   type TableProps,
   TableRowControl,
   TokenIconWithSymbol,
+  YieldGroups,
 } from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
@@ -113,13 +113,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       ),
       selectOptionLabel: t('liquidityHubs.table.columns.exposure.selectionOptionLabel'),
       align: 'right',
-      renderCell: ({ yieldGroups }) => (
-        <ImgGroup
-          imgSrcs={yieldGroups.map(yieldGroup => yieldGroup.iconSrc)}
-          removeDuplicates
-          limit={5}
-        />
-      ),
+      renderCell: ({ yieldGroups }) => <YieldGroups yieldGroups={yieldGroups} />,
     },
     {
       key: 'supplyApy',

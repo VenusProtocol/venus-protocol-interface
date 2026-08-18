@@ -1,6 +1,4 @@
-import type { MarketHistoryPeriodType } from 'clients/api';
-
-export type LiquidityHubHistoryPeriod = '1w' | '1m' | '3m' | '1y' | 'all';
+import type { LiquidityHubHistoryPeriod, MarketHistoryPeriodType } from 'clients/api';
 
 export type ChartHistoryPeriod = MarketHistoryPeriodType | LiquidityHubHistoryPeriod;
 

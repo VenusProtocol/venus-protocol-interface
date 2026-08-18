@@ -6,6 +6,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { useGetBalanceOf, useGetPool, useSupplyToLiquidityHub } from 'clients/api';
+import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
@@ -23,6 +24,8 @@ const walletBalanceMantissa = convertTokensToMantissa({
   token: underlyingToken,
 });
 const walletSpendingLimitTokens = new BigNumber(40);
+const applyTransactionBuffer = (value: BigNumber) =>
+  value.multipliedBy(1 - TRANSACTION_BUFFER_PERCENTAGE);
 
 const makeUseTokenApprovalOutput = (overrides: Partial<ReturnType<typeof useTokenApproval>> = {}) =>
   ({
@@ -192,8 +195,9 @@ describe('SupplyWithWalletForm', () => {
     );
   });
 
-  it('uses the user supply cap as the MAX value when it is the lowest limit', async () => {
+  it('uses the buffered user supply cap as the MAX value when it is the lowest limit', async () => {
     const userSupplyCapTokens = new BigNumber(10);
+    const expectedLimitTokens = applyTransactionBuffer(userSupplyCapTokens);
 
     renderTransactionForm({
       liquidityHub: {
@@ -210,7 +214,7 @@ describe('SupplyWithWalletForm', () => {
 
     await waitFor(() =>
       expect(getAmountInput().value).toBe(
-        userSupplyCapTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
+        expectedLimitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
       ),
     );
   });

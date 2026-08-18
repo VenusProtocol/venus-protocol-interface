@@ -19,8 +19,8 @@ const pageMocks = vi.hoisted(() => ({
   Governance: () => <div>Governance page</div>,
   IsolatedPools: () => <div>Isolated pools page</div>,
   Landing: () => <div>Landing page</div>,
-  LiquidityHub: () => <div>Liquidity hub page</div>,
-  LiquidityHubs: () => <div>Liquidity hubs page</div>,
+  LiquidityHub: () => <div>Liquidity Hub page</div>,
+  LiquidityHubs: () => <div>Liquidity Hubs page</div>,
   Market: () => <div>Market page</div>,
   Markets: () => <div>Markets page</div>,
   Port: () => <div>Port page</div>,
@@ -138,8 +138,8 @@ describe('AppRoutes', () => {
     [routes.primeCalculator.path, 'Prime calculator page'],
     [routes.stats.path, 'Stats page'],
     [routes.primeLeaderboard.path, 'Prime leaderboard page'],
-    [routes.liquidityHubs.path, 'Liquidity hubs page'],
-    ['/liquidity-hubs/0x0000000000000000000000000000000000000004', 'Liquidity hub page'],
+    [routes.liquidityHubs.path, 'Liquidity Hubs page'],
+    ['/liquidity-hubs/0x0000000000000000000000000000000000000004', 'Liquidity Hub page'],
   ])('renders enabled feature route %s', async (path, pageText) => {
     renderRoutes(path);
 

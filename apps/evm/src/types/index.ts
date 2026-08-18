@@ -252,6 +252,11 @@ export interface Pool {
   userEModeGroup?: EModeGroup;
 }
 
+export interface LiquidityHubSourceCollateral {
+  token: Token;
+  liquidationThresholdPercentage: BigNumber;
+}
+
 export interface LiquidityHubSource {
   name: string;
   address: Address;
@@ -262,7 +267,7 @@ export interface LiquidityHubSource {
   liquidityCents: BigNumber;
   supplyApyPercentage: BigNumber;
   supplyTokenDistributions: TokenDistribution[];
-  collateralTokens: Token[];
+  collaterals: LiquidityHubSourceCollateral[];
   lockEndDate?: Date;
 }
 
@@ -477,6 +482,8 @@ export interface RewardsDistributor {
   lastRewardingBorrowBlockOrTimestamp: BigNumber;
   supplySpeed: BigNumber;
   borrowSpeed: BigNumber;
+  supplyApyPercentage: BigNumber;
+  borrowApyPercentage: BigNumber;
   priceMantissa: BigNumber;
   rewardsDistributorContractAddress: string;
 }
@@ -919,6 +926,8 @@ export interface ApiReward {
   lastRewardingBorrowBlockOrTimestamp: string;
   supplySpeed: string;
   borrowSpeed: string;
+  supplyApyRatio: string;
+  borrowApyRatio: string;
   priceMantissa: string;
   rewardsDistributorContractAddress: Address;
   isActive: boolean;
@@ -973,6 +982,12 @@ export type ApiRewardDistributor =
   | ApiIntrinsicApyReward
   | ApiOffChainApyReward;
 
+export interface ApiLiquidityHubExposure {
+  tokenAddress: Address;
+  collateralResourceAddress: Address;
+  liquidationThresholdMantissa?: string;
+}
+
 export interface ApiLiquidityHubResource {
   resourceAddress: Address;
   adapterAddress: Address;
@@ -987,7 +1002,7 @@ export interface ApiLiquidityHubResource {
   capUsdMantissa: string | null;
   isPaused: boolean;
   lockEndTime: number | null;
-  exposure: Address[];
+  exposure: ApiLiquidityHubExposure[];
 }
 
 export interface ApiLiquidityHubYieldGroup {

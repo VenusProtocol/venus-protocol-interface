@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
 import { useSupplyToLiquidityHub } from 'clients/api';
+import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
 import type { TokenApproval } from 'containers/TxFormSubmitButton';
 import { WalletBalance } from 'containers/WalletBalance';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -50,8 +51,13 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     limitTokens = BigNumber.min(limitTokens, walletSpendingLimitTokens);
   }
 
-  if (liquidityHub.userSupplyCapTokens) {
-    limitTokens = BigNumber.min(limitTokens, liquidityHub.userSupplyCapTokens);
+  const userSupplyCapTokens = formatUserMaxTokenValue({
+    value: liquidityHub.userSupplyCapTokens,
+    decimals: liquidityHub.vhToken.underlyingToken.decimals,
+  });
+
+  if (userSupplyCapTokens) {
+    limitTokens = BigNumber.min(limitTokens, userSupplyCapTokens);
   }
 
   const fromAmountTokens = formValues.amountTokens
