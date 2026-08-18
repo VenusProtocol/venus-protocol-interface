@@ -509,11 +509,4 @@ export const bscTestnet: Token[] = [
     symbol: 'qhBNB',
     iconSrc: iconSrcs.defaultToken,
   },
-  {
-    chainId: ChainId.BSC_TESTNET,
-    address: '0x01Cb4F9F2fE69E739b0235FC02385Fc825003ba1',
-    decimals: 18,
-    symbol: 'feedPriceOracle',
-    iconSrc: iconSrcs.defaultToken,
-  },
 ];
