@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 import type { Address } from 'viem';
 
 import { useGetLiquidityHub } from 'clients/api';
-import { type CellProps, ImgGroup } from 'components';
+import { type CellProps, YieldGroups } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -50,14 +50,7 @@ export const LiquidityHubInfo = () => {
     },
     {
       label: t('layout.header.exposures'),
-      value: (
-        <ImgGroup
-          imgSrcs={(liquidityHub?.yieldGroups ?? []).map(yieldGroup => yieldGroup.iconSrc)}
-          removeDuplicates
-          limit={6}
-          className="h-6.5"
-        />
-      ),
+      value: <YieldGroups yieldGroups={liquidityHub?.yieldGroups ?? []} className="h-full" />,
     },
   ];
 

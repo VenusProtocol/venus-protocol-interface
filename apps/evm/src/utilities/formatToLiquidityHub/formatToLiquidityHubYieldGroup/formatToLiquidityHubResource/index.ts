@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import type { ApiLiquidityHubResource, LiquidityHubSource, Token } from 'types';
 import { areAddressesEqual } from 'utilities/areAddressesEqual';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
+import convertPercentageFromSmartContract from 'utilities/convertPercentageFromSmartContract';
 import convertUsdMantissaToCents from 'utilities/convertUsdMantissaToCents';
 import { formatApiRewardDistributors } from 'utilities/formatApiRewardDistributors';
 
@@ -17,8 +18,25 @@ export const formatToLiquidityHubResource = ({
   underlyingToken: Token;
   tokenPriceCents: BigNumber;
 }): LiquidityHubSource => {
-  const collateralTokens = tokens.filter(token =>
-    apiResource.exposure.some(({ tokenAddress }) => areAddressesEqual(token.address, tokenAddress)),
+  const collaterals = apiResource.exposure.reduce<LiquidityHubSource['collaterals']>(
+    (acc, exposure) => {
+      const token = tokens.find(t => areAddressesEqual(t.address, exposure.tokenAddress));
+
+      if (!token || !exposure.liquidationThresholdMantissa) {
+        return acc;
+      }
+
+      return [
+        ...acc,
+        {
+          token,
+          liquidationThresholdPercentage: new BigNumber(
+            convertPercentageFromSmartContract(exposure.liquidationThresholdMantissa),
+          ),
+        },
+      ];
+    },
+    [],
   );
 
   const resourceLockEndDate = apiResource.lockEndTime
@@ -75,7 +93,7 @@ export const formatToLiquidityHubResource = ({
     liquidityCents,
     supplyApyPercentage: new BigNumber(apiResource.apyRatio).multipliedBy(100),
     supplyTokenDistributions,
-    collateralTokens,
+    collaterals,
     lockEndDate: resourceLockEndDate,
   };
 };

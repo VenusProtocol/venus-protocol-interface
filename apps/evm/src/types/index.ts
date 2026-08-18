@@ -252,6 +252,11 @@ export interface Pool {
   userEModeGroup?: EModeGroup;
 }
 
+export interface LiquidityHubSourceCollateral {
+  token: Token;
+  liquidationThresholdPercentage: BigNumber;
+}
+
 export interface LiquidityHubSource {
   name: string;
   address: Address;
@@ -262,7 +267,7 @@ export interface LiquidityHubSource {
   liquidityCents: BigNumber;
   supplyApyPercentage: BigNumber;
   supplyTokenDistributions: TokenDistribution[];
-  collateralTokens: Token[];
+  collaterals: LiquidityHubSourceCollateral[];
   lockEndDate?: Date;
 }
 
@@ -979,8 +984,8 @@ export type ApiRewardDistributor =
 
 export interface ApiLiquidityHubExposure {
   tokenAddress: Address;
-  liquidationThresholdMantissa: string;
   collateralResourceAddress: Address;
+  liquidationThresholdMantissa?: string;
 }
 
 export interface ApiLiquidityHubResource {

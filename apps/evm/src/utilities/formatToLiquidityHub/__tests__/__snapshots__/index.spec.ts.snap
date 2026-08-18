@@ -281,13 +281,16 @@ exports[`formatToLiquidityHub > formats yield groups 1`] = `
           "address": "0x6000000000000000000000000000000000000001",
           "allocationCents": "100000",
           "allocationTokens": "400",
-          "collateralTokens": [
+          "collaterals": [
             {
-              "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "chainId": 97,
-              "decimals": 18,
-              "iconSrc": "fake-xvs-asset",
-              "symbol": "XVS",
+              "liquidationThresholdPercentage": "60",
+              "token": {
+                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                "chainId": 97,
+                "decimals": 18,
+                "iconSrc": "fake-xvs-asset",
+                "symbol": "XVS",
+              },
             },
           ],
           "liquidityCents": "75000",

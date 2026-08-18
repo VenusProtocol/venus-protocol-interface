@@ -943,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "资产",
+            "liquidationThreshold": "清算阈值"
+          },
           "title": "抵押品"
         },
         "liquidityColumn": {
@@ -2722,5 +2726,8 @@
     "tooltip": {
       "address": "（{{address}}）"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "协议"
   }
 }

@@ -943,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "Varlık",
+            "liquidationThreshold": "Likidasyon eşiği"
+          },
           "title": "Teminat"
         },
         "liquidityColumn": {
@@ -2724,5 +2728,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "Protokol"
   }
 }

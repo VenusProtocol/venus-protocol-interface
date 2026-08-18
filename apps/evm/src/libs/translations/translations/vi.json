@@ -943,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "Tài sản",
+            "liquidationThreshold": "Ngưỡng thanh lý"
+          },
           "title": "Tài sản thế chấp"
         },
         "liquidityColumn": {
@@ -2722,5 +2726,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "Giao thức"
   }
 }

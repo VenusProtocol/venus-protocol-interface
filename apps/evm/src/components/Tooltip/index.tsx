@@ -13,10 +13,17 @@ import { TooltipContent } from './TooltipContent';
 
 export interface TooltipProps extends TooltipPrimitiveProps {
   className?: string;
+  contentClassName?: string;
   content: string | React.ReactNode;
 }
 
-export const Tooltip = ({ className, content, children, ...props }: TooltipProps) => {
+export const Tooltip = ({
+  className,
+  content,
+  children,
+  contentClassName,
+  ...props
+}: TooltipProps) => {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const isMdOrUp = useBreakpointUp('md');
 
@@ -40,12 +47,26 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
             {children}
           </div>
         </Trigger>
+
         <TooltipContent
           onPointerDownOutside={e => e.preventDefault()}
-          className={cn('block p-3 z-99999 shadow', !isMdOrUp && 'hidden')}
+          className={cn(
+            'block overflow-visible p-3 z-99999 bg-dark-blue border border-blue',
+            !isMdOrUp && 'hidden',
+            contentClassName,
+          )}
         >
           {content}
-          <Arrow className="fill-lightGrey w-[14px] h-[7px]" />
+
+          <Arrow asChild>
+            <svg className="h-[7px] w-[14px] -translate-y-px overflow-visible" aria-hidden>
+              <path
+                d="M0 0L15 10L30 0"
+                className="fill-dark-blue stroke-blue stroke-2"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Arrow>
         </TooltipContent>
       </TooltipPrimitive>
 

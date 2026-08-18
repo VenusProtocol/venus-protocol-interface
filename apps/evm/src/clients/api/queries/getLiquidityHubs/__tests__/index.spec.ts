@@ -32,7 +32,11 @@ describe('getLiquidityHubs', () => {
     expect(liquidityHub.performanceFeePercentage.toFixed()).toBe('10');
     expect(liquidityHub.pricePerShare.toFixed()).toBe('1.02');
     expect(liquidityHub.supplyTokenDistributions).toHaveLength(1);
-    expect(liquidityHub.yieldGroups[0].sources[0].collateralTokens).toEqual([xvs]);
+    expect(liquidityHub.yieldGroups[0].sources[0].collaterals).toHaveLength(1);
+    expect(liquidityHub.yieldGroups[0].sources[0].collaterals[0].token).toEqual(xvs);
+    expect(
+      liquidityHub.yieldGroups[0].sources[0].collaterals[0].liquidationThresholdPercentage.toFixed(),
+    ).toBe('60');
   });
 
   it('calls the API-backed liquidity hubs endpoint', async () => {

@@ -943,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "Asset",
+            "liquidationThreshold": "Liquidation threshold"
+          },
           "title": "Collateral"
         },
         "liquidityColumn": {
@@ -2725,5 +2729,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "Protocol"
   }
 }

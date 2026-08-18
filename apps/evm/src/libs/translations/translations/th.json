@@ -943,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "สินทรัพย์",
+            "liquidationThreshold": "เกณฑ์การชำระบัญชี"
+          },
           "title": "หลักประกัน"
         },
         "liquidityColumn": {
@@ -2722,5 +2726,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "โปรโตคอล"
   }
 }

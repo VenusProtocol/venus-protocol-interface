@@ -943,6 +943,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "資産",
+            "liquidationThreshold": "清算しきい値"
+          },
           "title": "担保"
         },
         "liquidityColumn": {
@@ -2722,5 +2726,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "プロトコル"
   }
 }
