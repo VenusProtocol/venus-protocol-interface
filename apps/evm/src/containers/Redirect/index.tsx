@@ -26,5 +26,5 @@ export const Redirect: React.FC<RedirectProps> = ({ to }) => {
     navigate({ pathname, search }, { replace: true });
   }, [location.pathname, location.search, pathname, search, navigate]);
 
-  return null;
+  return undefined;
 };

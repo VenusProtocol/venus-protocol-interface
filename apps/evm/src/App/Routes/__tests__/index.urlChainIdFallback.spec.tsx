@@ -29,7 +29,13 @@ const removedPageRoute = '/isolated-pools';
 const LocationDisplay = () => {
   const { pathname, search } = useLocation();
 
-  return <div data-testid="location">{`${pathname}${search}`}</div>;
+  return (
+    <>
+      <div data-testid="pathname">{pathname}</div>
+
+      <div data-testid="search">{search}</div>
+    </>
+  );
 };
 
 // Mirrors how the app renders these components
@@ -55,10 +61,13 @@ describe('AppRoutes with an unsupported chain ID', () => {
 
     expect(await screen.findByText('Landing page')).toBeInTheDocument();
 
+    // routes.landing.path is "/", so the pathname is matched exactly to make sure the user is
+    // not left on the route that does not exist anymore
     await waitFor(() =>
-      expect(screen.getByTestId('location')).toHaveTextContent(routes.landing.path),
+      expect(screen.getByTestId('pathname')).toHaveTextContent(
+        new RegExp(`^${routes.landing.path}$`),
+      ),
     );
-    expect(screen.getByTestId('location')).not.toHaveTextContent(removedPageRoute);
   });
 
   it('stays on the current page and falls back to the default chain when the route exists', async () => {
@@ -67,9 +76,12 @@ describe('AppRoutes with an unsupported chain ID', () => {
     expect(await screen.findByText('Dashboard page')).toBeInTheDocument();
 
     await waitFor(() =>
-      expect(screen.getByTestId('location')).toHaveTextContent(
-        `${routes.dashboard.path}?${CHAIN_ID_SEARCH_PARAM}=${defaultChain.id}`,
+      expect(screen.getByTestId('search')).toHaveTextContent(
+        `?${CHAIN_ID_SEARCH_PARAM}=${defaultChain.id}`,
       ),
+    );
+    expect(screen.getByTestId('pathname')).toHaveTextContent(
+      new RegExp(`^${routes.dashboard.path}$`),
     );
   });
 });
