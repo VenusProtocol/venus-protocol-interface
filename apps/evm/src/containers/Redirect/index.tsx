@@ -13,11 +13,6 @@ export const Redirect: React.FC<RedirectProps> = ({ to }) => {
 
   const { pathname, search } = formatTo({ to });
 
-  // We navigate in an effect instead of rendering a Navigate component so the redirection
-  // also happens when the location changes while this component is still mounted. Other
-  // components, such as UrlChainIdFallback, replace the search params of the location they
-  // were rendered with, which would otherwise revert this redirection and leave the user on
-  // a route that does not exist
   useEffect(() => {
     if (location.pathname === pathname && location.search === search) {
       return;
