@@ -90,8 +90,16 @@
               "isPaused": false,
               "lockEndTime": null,
               "exposure": [
-                "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "0x3000000000000000000000000000000000000001"
+                {
+                  "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                  "liquidationThresholdMantissa": "500000000000000000",
+                  "collateralResourceAddress": "0x8000000000000000000000000000000000000001"
+                },
+                {
+                  "tokenAddress": "0x3000000000000000000000000000000000000001",
+                  "liquidationThresholdMantissa": "600000000000000000",
+                  "collateralResourceAddress": "0x8000000000000000000000000000000000000002"
+                }
               ]
             }
           ]

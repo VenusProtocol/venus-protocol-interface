@@ -991,7 +991,11 @@ export interface ApiLiquidityHubResource {
   capUsdMantissa: string | null;
   isPaused: boolean;
   lockEndTime: number | null;
-  exposure: Address[];
+  exposure: {
+    tokenAddress: Address;
+    liquidationThresholdMantissa: string;
+    collateralResourceAddress: Address;
+  }[];
 }
 
 export interface ApiLiquidityHubYieldGroup {
