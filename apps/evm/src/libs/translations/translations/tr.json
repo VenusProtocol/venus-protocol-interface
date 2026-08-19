@@ -6,6 +6,9 @@
         "title": "Henüz likidite merkezi pozisyonu yok"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "İzole havuzlar tamamen kullanımdan kaldırıldı. {{chainNames}} üzerinde hâlâ pozisyonlarınız var. Borçlarınızı ödeyin ve varlıklarınızı çekin. <LearnMore>Daha fazla bilgi</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borçlanılan",
@@ -322,7 +325,6 @@
     "bridge": "Köprü",
     "dashboard": "Gösterge paneli",
     "governance": "Yönetişim",
-    "isolatedPools": "İzole havuzlar",
     "leaderboard": "Liderlik tablosu",
     "liquidityHubs": "Likidite Merkezi",
     "markets": "Piyasalar",
@@ -704,11 +706,6 @@
       "supplyApy": "Sağlama APY",
       "utilizationRate": "Kullanım oranı"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Lütfen tüm varlıklarınızı şimdi çekin veya taşıyın",
-    "illustrationAltText": "İllüstrasyon",
-    "title": "İzole havuzlar kapatıldı"
   },
   "kLineChart": {
     "disclaimer": {

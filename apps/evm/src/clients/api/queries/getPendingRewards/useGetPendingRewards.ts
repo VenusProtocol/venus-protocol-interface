@@ -88,7 +88,6 @@ export const useGetPendingRewards = (
 
   const tokens = useGetTokens();
 
-  // Get Comptroller addresses of isolated pools
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress: input.accountAddress || undefined,
   });

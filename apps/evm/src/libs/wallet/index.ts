@@ -10,4 +10,5 @@ export * from './hooks/useSyncWalletChainOnConnect';
 export * from './hooks/useAuthModal';
 export * from './hooks/useAddTokenToWallet';
 export * from './hooks/usePublicClient';
+export * from './hooks/usePublicClients';
 export * from './hooks/useMeeClient';

@@ -6,6 +6,9 @@
         "title": "流動性ハブのポジションはまだありません"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "分離プールは完全に廃止されました。{{chainNames}} にまだポジションがあります。借入を返済し、資産を引き出してください。<LearnMore>詳細はこちら</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "借入",
@@ -322,7 +325,6 @@
     "bridge": "ブリッジ",
     "dashboard": "ダッシュボード",
     "governance": "ガバナンス",
-    "isolatedPools": "隔離プール",
     "leaderboard": "リーダーボード",
     "liquidityHubs": "流動性ハブ",
     "markets": "マーケット",
@@ -703,11 +705,6 @@
       "supplyApy": "供給APY",
       "utilizationRate": "利用率"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "すべての資産を引き出すか、今すぐ移行してください",
-    "illustrationAltText": "イラスト",
-    "title": "隔離プールは終了しました"
   },
   "kLineChart": {
     "disclaimer": {

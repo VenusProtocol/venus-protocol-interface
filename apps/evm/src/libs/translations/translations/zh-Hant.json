@@ -6,6 +6,9 @@
         "title": "暫無流動性中心倉位"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "隔離池已完全棄用。您在 {{chainNames}} 上仍有部位。請償還所有借款並提取您的資產。<LearnMore>了解更多</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "已借入",
@@ -322,7 +325,6 @@
     "bridge": "跨鏈橋",
     "dashboard": "儀表盤",
     "governance": "治理",
-    "isolatedPools": "隔離池",
     "leaderboard": "排行榜",
     "liquidityHubs": "流動性中心",
     "markets": "市場",
@@ -703,11 +705,6 @@
       "supplyApy": "供應 APY",
       "utilizationRate": "利用率"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "請立即提取或遷移所有資產",
-    "illustrationAltText": "插圖",
-    "title": "隔離池已下線"
   },
   "kLineChart": {
     "disclaimer": {

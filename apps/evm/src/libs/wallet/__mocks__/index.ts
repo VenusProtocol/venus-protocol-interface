@@ -2,6 +2,7 @@ export * from 'libs/wallet/chains';
 
 export * from 'libs/wallet/Web3Wrapper/__mocks__';
 export * from 'libs/wallet/hooks/usePublicClient/__mocks__';
+export * from 'libs/wallet/hooks/usePublicClients/__mocks__';
 export * from 'libs/wallet/hooks/useAccountAddress/__mocks__';
 export * from 'libs/wallet/hooks/useAccountChainId/__mocks__';
 export * from 'libs/wallet/hooks/useSwitchChain/__mocks__';

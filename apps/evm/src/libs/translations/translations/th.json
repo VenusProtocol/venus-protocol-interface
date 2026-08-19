@@ -6,6 +6,9 @@
         "title": "ยังไม่มีตำแหน่งในศูนย์สภาพคล่อง"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "พูลแบบแยกถูกยกเลิกโดยสมบูรณ์แล้ว คุณยังมีสถานะบน {{chainNames}} โปรดชำระคืนเงินกู้และถอนสินทรัพย์ของคุณ <LearnMore>ดูข้อมูลเพิ่มเติม</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "ยืมแล้ว",
@@ -322,7 +325,6 @@
     "bridge": "บริดจ์",
     "dashboard": "แดชบอร์ด",
     "governance": "การกำกับดูแล",
-    "isolatedPools": "พูลแบบแยก",
     "leaderboard": "ลีดเดอร์บอร์ด",
     "liquidityHubs": "ศูนย์สภาพคล่อง",
     "markets": "ตลาด",
@@ -703,11 +705,6 @@
       "supplyApy": "APY การฝาก",
       "utilizationRate": "อัตราการใช้งาน"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "โปรดถอนหรือย้ายสินทรัพย์ทั้งหมดตอนนี้",
-    "illustrationAltText": "ภาพประกอบ",
-    "title": "พูลแบบแยกได้ยุติการให้บริการแล้ว"
   },
   "kLineChart": {
     "disclaimer": {

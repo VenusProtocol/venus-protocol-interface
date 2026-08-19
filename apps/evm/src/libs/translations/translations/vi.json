@@ -6,6 +6,9 @@
         "title": "Chưa có vị thế trung tâm thanh khoản"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "Các pool cô lập đã bị ngừng hoàn toàn. Bạn vẫn còn vị thế trên {{chainNames}}. Hãy trả hết khoản vay và rút tài sản của bạn. <LearnMore>Tìm hiểu thêm</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Đã vay",
@@ -322,7 +325,6 @@
     "bridge": "Cầu nối",
     "dashboard": "Bảng điều khiển",
     "governance": "Quản trị",
-    "isolatedPools": "Pools cô lập",
     "leaderboard": "Bảng xếp hạng",
     "liquidityHubs": "Trung tâm thanh khoản",
     "markets": "Thị trường",
@@ -703,11 +705,6 @@
       "supplyApy": "APY cung cấp",
       "utilizationRate": "Tỷ lệ sử dụng"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Vui lòng rút hoặc di chuyển tất cả tài sản ngay bây giờ",
-    "illustrationAltText": "Hình minh họa",
-    "title": "Các pool cô lập đã ngừng hoạt động"
   },
   "kLineChart": {
     "disclaimer": {

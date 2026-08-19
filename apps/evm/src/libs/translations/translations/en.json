@@ -6,6 +6,9 @@
         "title": "No liquidity hub positions yet"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "Isolated pools have been fully deprecated. You still have positions on {{chainNames}}. Repay any borrows and withdraw your assets. <LearnMore>Learn more</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borrowed",
@@ -322,7 +325,6 @@
     "bridge": "Bridge",
     "dashboard": "Dashboard",
     "governance": "Governance",
-    "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
     "liquidityHubs": "Liquidity Hub",
     "markets": "Markets",
@@ -704,11 +706,6 @@
       "supplyApy": "Supply APY",
       "utilizationRate": "Utilization rate"
     }
-  },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Please withdraw or migrate all assets now",
-    "illustrationAltText": "Illustration",
-    "title": "Isolated pools have been sunset"
   },
   "kLineChart": {
     "disclaimer": {
