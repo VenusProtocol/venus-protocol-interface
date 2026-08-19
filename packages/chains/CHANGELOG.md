@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.31.0
+
+### Minor Changes
+
+- e49100e: feat: update hBnb address
+
 ## 0.30.0
 
 ### Minor Changes
