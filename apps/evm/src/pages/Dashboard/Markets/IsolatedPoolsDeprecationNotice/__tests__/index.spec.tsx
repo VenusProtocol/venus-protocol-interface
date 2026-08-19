@@ -1,7 +1,7 @@
 import type { Mock } from 'vitest';
 
 import { useGetChainIdsWithIsolatedPoolPosition } from 'clients/api';
-import { VENUS_ISOLATED_POOLS_DEPRECATION_DOC_URL } from 'constants/production';
+import { VENUS_ISOLATED_E_MODE_DOC_URL } from 'constants/production';
 import { renderComponent } from 'testUtils/render';
 import { ChainId } from 'types';
 import { IsolatedPoolsDeprecationNotice } from '..';
@@ -25,18 +25,16 @@ describe('IsolatedPoolsDeprecationNotice', () => {
     expect(container.textContent).toContain('Learn more');
   });
 
-  it('points the "Learn more" link to the isolated pools deprecation guide', () => {
+  it('points the "Learn more" link to the isolated E-mode guide', () => {
     mockOutput({ chainIds: [ChainId.BSC_MAINNET] });
 
     const { getByText } = renderComponent(<IsolatedPoolsDeprecationNotice />);
 
     expect(getByText('Learn more')).toHaveAttribute(
       'href',
-      'https://docs-v4.venus.io/guides/isolated-pools-deprecation',
+      'https://docs-v4.venus.io/guides/isolated-e-mode',
     );
-    expect(VENUS_ISOLATED_POOLS_DEPRECATION_DOC_URL).toBe(
-      'https://docs-v4.venus.io/guides/isolated-pools-deprecation',
-    );
+    expect(VENUS_ISOLATED_E_MODE_DOC_URL).toBe('https://docs-v4.venus.io/guides/isolated-e-mode');
   });
 
   it('formats the chain list with the locale separator', () => {

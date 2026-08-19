@@ -2,7 +2,7 @@ import { chains } from '@venusprotocol/chains';
 
 import { useGetChainIdsWithIsolatedPoolPosition } from 'clients/api';
 import { NoticeWarning } from 'components';
-import { VENUS_ISOLATED_POOLS_DEPRECATION_DOC_URL } from 'constants/production';
+import { VENUS_ISOLATED_E_MODE_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
@@ -32,9 +32,7 @@ export const IsolatedPoolsDeprecationNotice: React.FC<IsolatedPoolsDeprecationNo
           i18nKey="account.isolatedPoolsDeprecationNotice.description"
           values={{ chainNames }}
           components={{
-            LearnMore: (
-              <Link className="underline" href={VENUS_ISOLATED_POOLS_DEPRECATION_DOC_URL} />
-            ),
+            LearnMore: <Link className="underline" href={VENUS_ISOLATED_E_MODE_DOC_URL} />,
           }}
         />
       }
