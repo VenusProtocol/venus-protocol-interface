@@ -537,4 +537,11 @@ export const bscMainnet: Token[] = [
     symbol: 'hBNB',
     iconSrc: iconSrcs.hBNB,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x1775504c5873e179Ea2f8ABFcE3861EC74D159bc',
+    decimals: 18,
+    symbol: 'CASH+',
+    iconSrc: iconSrcs.cashPlus,
+  },
 ];
