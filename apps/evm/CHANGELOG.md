@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.18.0
+
+### Minor Changes
+
+- 65e56f7: add category for markets
+
 ## 5.17.0
 
 ### Minor Changes
