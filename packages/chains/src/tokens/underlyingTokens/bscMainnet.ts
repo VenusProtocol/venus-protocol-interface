@@ -530,4 +530,18 @@ export const bscMainnet: Token[] = [
     symbol: 'SKHYB',
     iconSrc: iconSrcs.skhyb,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0xa1EceF1e53410202E9Eea1f8Fe4E7B1C0081f770',
+    decimals: 18,
+    symbol: 'hBNB',
+    iconSrc: iconSrcs.hBNB,
+  },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x1775504c5873e179Ea2f8ABFcE3861EC74D159bc',
+    decimals: 18,
+    symbol: 'CASH+',
+    iconSrc: iconSrcs.cashPlus,
+  },
 ];
