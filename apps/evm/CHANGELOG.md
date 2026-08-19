@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 5.19.0
+
+### Minor Changes
+
+- f30b269: remove isolated pools support
+
+### Patch Changes
+
+- 1315a83: read token distribution APYs from supplyApyRatio and borrowApyRatio properties
+
 ## 5.18.0
 
 ### Minor Changes
