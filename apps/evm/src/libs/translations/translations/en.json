@@ -2062,6 +2062,32 @@
       "unavailable": "Wallet data unavailable.",
       "valueEligibleForLiquidation": "Value Eligible for Liquidation",
       "walletsAtRisk": "Wallets at Risk"
+    },
+    "walletsTable": {
+      "columns": {
+        "badDebt": "Bad Debt",
+        "badDebtDuration": "Bad Debt Duration",
+        "borrow": "Borrow",
+        "collateral": "Collateral",
+        "healthFactor": "Health Factor",
+        "supply": "Supply",
+        "suppliedAssets": "Supplied Assets",
+        "wallet": "Wallet"
+      },
+      "filters": {
+        "borrowedAssets": "Borrowed assets",
+        "market": "Market",
+        "minPosition": "Min position",
+        "riskStatus": "Risk status",
+        "suppliedAssets": "Supplied assets"
+      },
+      "noData": "No wallets match the selected filters.",
+      "riskStatus": {
+        "all": "All",
+        "atRisk": "At risk",
+        "badDebt": "Bad debt",
+        "eligibleForLiquidation": "Eligible for liquidation"
+      }
     }
   },
   "swap": {

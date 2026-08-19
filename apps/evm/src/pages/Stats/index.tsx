@@ -13,6 +13,7 @@ import { RiskParametersTable } from './RiskParametersTable';
 import { TopWallets } from './TopWallets';
 import { TransactionsVolume } from './TransactionsVolume';
 import { WalletKpis } from './WalletKpis';
+import { Wallets } from './Wallets';
 
 const Overview: React.FC = () => (
   <div className="flex flex-col gap-6 pb-12">
@@ -54,7 +55,7 @@ const Stats: React.FC = () => {
         tabs={[
           { id: 'overview', title: t('statsPage.tabs.overview'), content: <Overview /> },
           { id: 'markets', title: t('statsPage.tabs.markets'), content: <Markets /> },
-          { id: 'wallets', title: t('statsPage.tabs.wallets'), content: null },
+          { id: 'wallets', title: t('statsPage.tabs.wallets'), content: <Wallets /> },
           {
             id: 'liquidations',
             title: t('statsPage.tabs.liquidations'),
