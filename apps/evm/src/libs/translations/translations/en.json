@@ -433,6 +433,13 @@
     "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "All Categories",
+      "nCategories_one": "{{count}} Category",
+      "nCategories_other": "{{count}} Categories",
+      "reset": "Reset",
+      "title": "Select Categories"
+    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },
@@ -1333,6 +1340,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Please enable the \"Paused Assets\" toggle to view them.",
       "imgAlt": "Pause icon",
+      "selectedCategoriesTitle": "All assets in the selected categories have been paused",
       "title": "All assets in this pool have been paused"
     },
     "search": {

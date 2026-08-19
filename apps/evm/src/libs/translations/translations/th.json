@@ -433,6 +433,12 @@
     "tooMuchRepay": "จำนวนเงินที่ชำระคืนเกินยอดค้างชำระของคุณ"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "ทุกหมวดหมู่",
+      "nCategories_other": "{{count}} หมวดหมู่",
+      "reset": "รีเซ็ต",
+      "title": "เลือกหมวดหมู่"
+    },
     "pausedAssetsToggle": {
       "label": "สินทรัพย์ที่หยุดไว้"
     },
@@ -1333,6 +1339,7 @@
     "pausedAssetsPlaceholder": {
       "description": "โปรดเปิดสวิตช์ \"สินทรัพย์ที่หยุดไว้\" เพื่อดู",
       "imgAlt": "ไอคอนหยุด",
+      "selectedCategoriesTitle": "สินทรัพย์ทั้งหมดในหมวดหมู่ที่เลือกถูกหยุดแล้ว",
       "title": "สินทรัพย์ทั้งหมดในพูลนี้ถูกหยุดแล้ว"
     },
     "search": {

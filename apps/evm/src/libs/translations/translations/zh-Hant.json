@@ -433,6 +433,12 @@
     "tooMuchRepay": "還款金額超過了你的未償借款。"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "全部類別",
+      "nCategories_other": "{{count}} 個類別",
+      "reset": "重置",
+      "title": "選擇類別"
+    },
     "pausedAssetsToggle": {
       "label": "已暫停資產"
     },
@@ -1333,6 +1339,7 @@
     "pausedAssetsPlaceholder": {
       "description": "請啟用“已暫停資產”開關以查看。",
       "imgAlt": "暫停圖標",
+      "selectedCategoriesTitle": "所選類別內所有資產已暫停",
       "title": "該池內所有資產已暫停"
     },
     "search": {
