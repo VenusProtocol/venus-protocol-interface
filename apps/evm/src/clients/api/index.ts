@@ -342,5 +342,7 @@ export * from './queries/getRiskDashboardWalletAggregates';
 export * from './queries/getRiskDashboardWalletAggregates/useGetRiskDashboardWalletAggregates';
 export * from './queries/getRiskDashboardTopWallets';
 export * from './queries/getRiskDashboardTopWallets/useGetRiskDashboardTopWallets';
+export * from './queries/getRiskDashboardWallets';
+export * from './queries/getRiskDashboardWallets/useGetRiskDashboardWallets';
 export * from './queries/getRiskDashboardTransactionsVolume';
 export * from './queries/getRiskDashboardTransactionsVolume/useGetRiskDashboardTransactionsVolume';
