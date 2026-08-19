@@ -1,7 +1,6 @@
 import type { Mock } from 'vitest';
 
 import { useGetChainIdsWithIsolatedPoolPosition } from 'clients/api';
-import { VENUS_ISOLATED_E_MODE_DOC_URL } from 'constants/production';
 import { renderComponent } from 'testUtils/render';
 import { ChainId } from 'types';
 import { IsolatedPoolsDeprecationNotice } from '..';
@@ -34,7 +33,6 @@ describe('IsolatedPoolsDeprecationNotice', () => {
       'href',
       'https://docs-v4.venus.io/guides/isolated-e-mode',
     );
-    expect(VENUS_ISOLATED_E_MODE_DOC_URL).toBe('https://docs-v4.venus.io/guides/isolated-e-mode');
   });
 
   it('formats the chain list with the locale separator', () => {
