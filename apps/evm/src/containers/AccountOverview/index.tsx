@@ -233,7 +233,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
         ? t('dashboard.overview.summary.cellGroup.netApyWithVaultStakeTooltip')
         : t('dashboard.overview.summary.cellGroup.netApyTooltip'),
       className:
-        typeof userNetApyPercentage === 'number' && userNetApyPercentage < 0
+        typeof userNetApyPercentage === 'number' && userNetApyPercentage > 0
           ? 'text-red'
           : 'text-green',
     },
