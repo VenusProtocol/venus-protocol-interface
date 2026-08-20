@@ -47,6 +47,18 @@ describe('AccountOverview net APY color', () => {
   });
 
   it('displays a positive net APY in blue', async () => {
+    const poolWithPositiveYearlyEarnings = {
+      ...poolData[0],
+      userYearlyEarningsCents: new BigNumber(36500),
+    } satisfies Pool;
+
+    mockUseGetPool.mockReturnValue({
+      isLoading: false,
+      data: {
+        pool: poolWithPositiveYearlyEarnings,
+      },
+    });
+
     await renderExpandedAccountOverview();
 
     expect(getNetApyCell()).toHaveClass('text-blue');
