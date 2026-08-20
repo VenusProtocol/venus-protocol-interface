@@ -142,6 +142,87 @@ describe('formatToLiquidityHub', () => {
     expect(result?.yieldGroups[0]?.supplyCapCents.isEqualTo(100000)).toBe(true);
   });
 
+  it('maps agency ratings onto the fund sources of a yield group', () => {
+    const [apiYieldGroup] = (liquidityHubsResponse.result[0] as ApiLiquidityHub).yieldGroups;
+
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...(liquidityHubsResponse.result[0] as ApiLiquidityHub),
+        yieldGroups: [
+          {
+            ...apiYieldGroup,
+            kind: 'centrifuge',
+            resources: [
+              {
+                ...apiYieldGroup.resources[0],
+                ratings: [
+                  { agency: "Moody's", value: 'Aa-bf', reportUrl: 'https://moodys.example/report' },
+                  { agency: 'Brand New Agency', value: null, reportUrl: null },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      tokens: [usdc, xvs],
+    });
+
+    const ratings = result?.yieldGroups[0]?.sources[0]?.ratings;
+
+    expect(ratings).toHaveLength(2);
+
+    // agency names and rating strings are passed through untouched
+    expect(ratings?.[0]?.agencyName).toBe("Moody's");
+    expect(ratings?.[0]?.value).toBe('Aa-bf');
+    expect(ratings?.[0]?.reportUrl).toBe('https://moodys.example/report');
+
+    // a missing rating or report url becomes undefined, so the cell falls back to the placeholder
+    // and the row renders without being clickable
+    expect(ratings?.[1]?.value).toBeUndefined();
+    expect(ratings?.[1]?.reportUrl).toBeUndefined();
+
+    // every agency resolves to an icon, known to the FE or not, so the cell never breaks
+    expect(ratings?.[0]?.agencyIconSrc).toBeTruthy();
+    expect(ratings?.[1]?.agencyIconSrc).toBeTruthy();
+  });
+
+  it('skips ratings that carry no agency name', () => {
+    const [apiYieldGroup] = (liquidityHubsResponse.result[0] as ApiLiquidityHub).yieldGroups;
+
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...(liquidityHubsResponse.result[0] as ApiLiquidityHub),
+        yieldGroups: [
+          {
+            ...apiYieldGroup,
+            resources: [
+              {
+                ...apiYieldGroup.resources[0],
+                ratings: [
+                  { agency: '', value: 'AAA', reportUrl: null },
+                  { agency: 'Particula', value: 'AAA', reportUrl: null },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      tokens: [usdc, xvs],
+    });
+
+    expect(result?.yieldGroups[0]?.sources[0]?.ratings).toHaveLength(1);
+    expect(result?.yieldGroups[0]?.sources[0]?.ratings[0]?.agencyName).toBe('Particula');
+  });
+
+  it('leaves fund sources without ratings when the API omits them', () => {
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: liquidityHubsResponse.result[0] as ApiLiquidityHub,
+      tokens: [usdc, xvs],
+    });
+
+    expect(result?.yieldGroups[0]?.sources[0]?.ratings).toEqual([]);
+  });
+
   it('does not calculate user yearly earnings without a user supply balance', () => {
     const result = formatToLiquidityHub({
       apiLiquidityHub,

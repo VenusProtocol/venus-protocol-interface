@@ -958,14 +958,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "TRANSLATION NEEDED",
             "market": "市场",
             "vault": "金库"
           }
         },
         "names": {
+          "centrifuge": "TRANSLATION NEEDED",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "固定利率金库"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "TRANSLATION NEEDED",
+            "rating": "TRANSLATION NEEDED"
+          },
+          "title": "TRANSLATION NEEDED",
+          "tooltip": "TRANSLATION NEEDED"
         }
       }
     },

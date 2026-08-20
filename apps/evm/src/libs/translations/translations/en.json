@@ -958,14 +958,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "Fund",
             "market": "Market",
             "vault": "Vault"
           }
         },
         "names": {
+          "centrifuge": "Centrifuge funds",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "Fixed rate vault"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "Agency",
+            "rating": "Rating"
+          },
+          "title": "CRA",
+          "tooltip": "The independent agency that issued this rating."
         }
       }
     },

@@ -6,6 +6,7 @@ import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import convertPercentageFromSmartContract from 'utilities/convertPercentageFromSmartContract';
 import convertUsdMantissaToCents from 'utilities/convertUsdMantissaToCents';
 import { formatApiRewardDistributors } from 'utilities/formatApiRewardDistributors';
+import { PLACEHOLDER_AGENCY_ICON_SRC, agencyIconSrcByNameKey, getAgencyNameKey } from './constants';
 
 export const formatToLiquidityHubResource = ({
   apiResource,
@@ -33,6 +34,29 @@ export const formatToLiquidityHubResource = ({
           liquidationThresholdPercentage: new BigNumber(
             convertPercentageFromSmartContract(exposure.liquidationThresholdMantissa),
           ),
+        },
+      ];
+    },
+    [],
+  );
+
+  // Rating strings and agency names are rendered verbatim: agency-specific notation (Moody's `-bf`
+  // suffix, S&P's `f` / `S1+` volatility pairing) carries meaning and must not be reformatted.
+  const ratings = (apiResource.ratings ?? []).reduce<LiquidityHubSource['ratings']>(
+    (acc, apiRating) => {
+      if (!apiRating.agency) {
+        return acc;
+      }
+
+      return [
+        ...acc,
+        {
+          agencyName: apiRating.agency,
+          agencyIconSrc:
+            agencyIconSrcByNameKey[getAgencyNameKey(apiRating.agency)] ??
+            PLACEHOLDER_AGENCY_ICON_SRC,
+          value: apiRating.value ?? undefined,
+          reportUrl: apiRating.reportUrl ?? undefined,
         },
       ];
     },
@@ -94,6 +118,7 @@ export const formatToLiquidityHubResource = ({
     supplyApyPercentage: new BigNumber(apiResource.apyRatio).multipliedBy(100),
     supplyTokenDistributions,
     collaterals,
+    ratings,
     lockEndDate: resourceLockEndDate,
   };
 };

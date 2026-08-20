@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import placeholderIconSrc from 'assets/img/placeholderIcon.svg';
 import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
 import type { LiquidityHubYieldGroup } from 'types';
@@ -11,6 +12,8 @@ import {
   usdcFluxSource,
   usdtCoreSource,
   usdtFluxSource,
+  usdtJaaaFundSource,
+  usdtJtrsyFundSource,
   xvsCoreSource,
   xvsFluxSource,
 } from './liquidityHubSources';
@@ -159,6 +162,24 @@ export const busdFluxYieldGroup: LiquidityHubYieldGroup = {
   sources: [busdFluxSource],
 };
 
+export const usdtCentrifugeYieldGroup: LiquidityHubYieldGroup = {
+  address: '0x5000000000000000000000000000000000000009',
+  type: 'centrifuge',
+  nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.centrifuge',
+  iconSrc: placeholderIconSrc,
+  bgClassName: 'bg-red',
+  allocationTokens: usdtJtrsyFundSource.allocationTokens.plus(usdtJaaaFundSource.allocationTokens),
+  allocationCents: usdtJtrsyFundSource.allocationCents.plus(usdtJaaaFundSource.allocationCents),
+  allocationCapPercentage: new BigNumber(15),
+  supplyCapTokens: new BigNumber(50000),
+  supplyCapCents: new BigNumber(5000000),
+  liquidityTokens: usdtJtrsyFundSource.liquidityTokens.plus(usdtJaaaFundSource.liquidityTokens),
+  liquidityCents: usdtJtrsyFundSource.liquidityCents.plus(usdtJaaaFundSource.liquidityCents),
+  averageSupplyApyPercentage: new BigNumber(4.2),
+  paused: false,
+  sources: [usdtJtrsyFundSource, usdtJaaaFundSource],
+};
+
 export const liquidityHubYieldGroups = [
   xvsCoreYieldGroup,
   xvsFluxYieldGroup,
@@ -168,4 +189,5 @@ export const liquidityHubYieldGroups = [
   usdtFluxYieldGroup,
   busdCoreYieldGroup,
   busdFluxYieldGroup,
+  usdtCentrifugeYieldGroup,
 ];

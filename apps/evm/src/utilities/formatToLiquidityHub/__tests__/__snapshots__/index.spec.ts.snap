@@ -297,6 +297,7 @@ exports[`formatToLiquidityHub > formats yield groups 1`] = `
           "liquidityTokens": "300",
           "lockEndDate": undefined,
           "name": "Core market",
+          "ratings": [],
           "supplyApyPercentage": "4",
           "supplyCapCents": "200000",
           "supplyTokenDistributions": [],

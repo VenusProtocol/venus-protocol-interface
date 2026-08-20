@@ -1,6 +1,4 @@
-import { cn } from '@venusprotocol/ui';
-
-import { ImgGroup, Table, type TableColumn, TokenIconWithSymbol, Tooltip } from 'components';
+import { ImgGroupTooltip, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubSourceCollateral } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
@@ -37,23 +35,14 @@ export const CollateralGroup: React.FC<CollateralGroupProps> = ({ collaterals, c
   ];
 
   return (
-    <Tooltip
-      content={
-        <Table
-          data={collaterals}
-          rowKeyExtractor={row => row.token.address}
-          columns={columns}
-          variant="secondary"
-          tableLayout="auto"
-          className="border-0 p-0"
-          tableRowClassName="h-12"
-          tableHeaderClassName="h-12"
-        />
-      }
-      className={cn('inline-flex', className)}
-      contentClassName="max-w-none p-0 max-h-49 overflow-y-auto"
-    >
-      <ImgGroup imgSrcs={collaterals.map(({ token }) => token.iconSrc)} limit={5} />
-    </Tooltip>
+    <ImgGroupTooltip
+      imgSrcs={collaterals.map(({ token }) => token.iconSrc)}
+      data={collaterals}
+      rowKeyExtractor={row => row.token.address}
+      columns={columns}
+      tableLayout="auto"
+      className={className}
+      contentClassName="max-w-none"
+    />
   );
 };

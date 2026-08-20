@@ -1,3 +1,4 @@
+import placeholderIconSrc from 'assets/img/placeholderIcon.svg';
 import vaultsIconSrc from 'assets/img/vaultsIcon.svg';
 import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
@@ -27,5 +28,13 @@ export const metadataByType: Record<
     nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.frv',
     iconSrc: vaultsIconSrc,
     bgClassName: 'bg-orange',
+  },
+  centrifuge: {
+    // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
+    // t('liquidityHub.allocationDetails.yieldGroup.names.centrifuge')
+    nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.centrifuge',
+    // TODO: replace with the Centrifuge brand icon once design provides the export (VPD-1880)
+    iconSrc: placeholderIconSrc,
+    bgClassName: 'bg-red',
   },
 };

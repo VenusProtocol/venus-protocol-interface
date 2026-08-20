@@ -958,14 +958,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "TRANSLATION NEEDED",
             "market": "ตลาด",
             "vault": "คลัง"
           }
         },
         "names": {
+          "centrifuge": "TRANSLATION NEEDED",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "คลังอัตราคงที่"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "TRANSLATION NEEDED",
+            "rating": "TRANSLATION NEEDED"
+          },
+          "title": "TRANSLATION NEEDED",
+          "tooltip": "TRANSLATION NEEDED"
         }
       }
     },
