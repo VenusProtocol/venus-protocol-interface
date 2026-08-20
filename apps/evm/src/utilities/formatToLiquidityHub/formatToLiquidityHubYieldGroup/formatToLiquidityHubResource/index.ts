@@ -6,7 +6,7 @@ import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import convertPercentageFromSmartContract from 'utilities/convertPercentageFromSmartContract';
 import convertUsdMantissaToCents from 'utilities/convertUsdMantissaToCents';
 import { formatApiRewardDistributors } from 'utilities/formatApiRewardDistributors';
-import { PLACEHOLDER_AGENCY_ICON_SRC, agencyIconSrcByNameKey, getAgencyNameKey } from './constants';
+import { getAgencyIconSrc } from './getAgencyIconSrc';
 
 export const formatToLiquidityHubResource = ({
   apiResource,
@@ -52,9 +52,7 @@ export const formatToLiquidityHubResource = ({
         ...acc,
         {
           agencyName: apiRating.agency,
-          agencyIconSrc:
-            agencyIconSrcByNameKey[getAgencyNameKey(apiRating.agency)] ??
-            PLACEHOLDER_AGENCY_ICON_SRC,
+          agencyIconSrc: getAgencyIconSrc(apiRating.agency),
           value: apiRating.value ?? undefined,
           reportUrl: apiRating.reportUrl ?? undefined,
         },

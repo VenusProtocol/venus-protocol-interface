@@ -12,7 +12,6 @@ export interface ImgGroupTooltipProps<R> {
   rowOnClick?: TableProps<R>['rowOnClick'];
   tableLayout?: TableProps<R>['tableLayout'];
   removeDuplicates?: boolean;
-  imgLimit?: number;
   className?: string;
   contentClassName?: string;
 }
@@ -29,7 +28,6 @@ export function ImgGroupTooltip<R>({
   rowOnClick,
   tableLayout,
   removeDuplicates,
-  imgLimit = 5,
   className,
   contentClassName,
 }: ImgGroupTooltipProps<R>) {
@@ -52,7 +50,7 @@ export function ImgGroupTooltip<R>({
       className={cn('inline-flex', className)}
       contentClassName={cn('p-0', contentClassName)}
     >
-      <ImgGroup imgSrcs={imgSrcs} removeDuplicates={removeDuplicates} limit={imgLimit} />
+      <ImgGroup imgSrcs={imgSrcs} removeDuplicates={removeDuplicates} limit={5} />
     </Tooltip>
   );
 }
