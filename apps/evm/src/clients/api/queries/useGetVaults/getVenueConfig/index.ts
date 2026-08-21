@@ -1,7 +1,9 @@
+import assetoIconSrc from './asseto.png';
 import cactusIconSrc from './cactus.svg';
 import ceffuIconSrc from './ceffu.svg';
 import matrixdockIconSrc from './matrixdock.svg';
 import pendleIconSrc from './pendle.svg';
+import solvIconSrc from './solv.svg';
 import venusIconSrc from './venus.svg';
 
 export enum VenueName {
@@ -10,6 +12,8 @@ export enum VenueName {
   Matrixdock = 'Matrixdock',
   Ceffu = 'Ceffu',
   Cactus = 'Cactus',
+  Solv = 'Solv(Ceffu custody)',
+  Asseto = 'Asseto',
 }
 
 export interface VenueConfig {
@@ -24,6 +28,8 @@ const iconSrcByVenueName: Record<VenueName, string> = {
   [VenueName.Matrixdock]: matrixdockIconSrc,
   [VenueName.Ceffu]: ceffuIconSrc,
   [VenueName.Cactus]: cactusIconSrc,
+  [VenueName.Solv]: solvIconSrc,
+  [VenueName.Asseto]: assetoIconSrc,
 };
 
 const urlByVenueName: Record<VenueName, string> = {
@@ -32,6 +38,8 @@ const urlByVenueName: Record<VenueName, string> = {
   [VenueName.Matrixdock]: 'https://www.matrixdock.com/',
   [VenueName.Ceffu]: 'https://www.ceffu.com/',
   [VenueName.Cactus]: 'https://www.cactuscustody.com/',
+  [VenueName.Solv]: 'https://www.solv.finance',
+  [VenueName.Asseto]: 'https://asseto.finance/',
 };
 
 export const DEFAULT_VENUE_NAME = VenueName.Venus;
