@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.20.0
+
+### Minor Changes
+
+- 3bbcc19: update vault ordering
+
 ## 5.19.0
 
 ### Minor Changes
