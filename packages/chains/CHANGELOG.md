@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.31.1
+
+### Patch Changes
+
+- d22d3c1: add support for vceBTC and Solv venue
+
 ## 0.31.0
 
 ### Minor Changes

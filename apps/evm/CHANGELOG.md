@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 5.20.1
+
+### Patch Changes
+
+- d22d3c1: add support for vceBTC and Solv venue
+- Updated dependencies [d22d3c1]
+  - @venusprotocol/chains@0.31.1
+
 ## 5.20.0
 
 ### Minor Changes
