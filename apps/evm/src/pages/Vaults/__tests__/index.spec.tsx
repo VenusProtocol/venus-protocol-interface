@@ -1,14 +1,14 @@
 import { fireEvent } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
-import { institutionalVault, vaults as venusVaults } from '__mocks__/models/vaults';
+import { institutionalVault, pendleBnbVault, vaults as venusVaults } from '__mocks__/models/vaults';
 import { en, t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import { type InstitutionalVault, VaultStatus } from 'types';
 
 import { useGetVaults } from 'clients/api';
 
-import Staking from '..';
+import VaultsPage from '..';
 
 describe('Vaults', () => {
   const fakeVaults = [institutionalVault, ...venusVaults];
@@ -29,7 +29,7 @@ describe('Vaults', () => {
   });
 
   it('renders vaults correctly', () => {
-    const { getByText } = renderComponent(<Staking />);
+    const { getByText } = renderComponent(<VaultsPage />);
 
     expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
     expect(
@@ -39,8 +39,31 @@ describe('Vaults', () => {
     expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
   });
 
+  it('renders vaults in priority order', () => {
+    const [vaiVault, xvsVault] = venusVaults;
+
+    (useGetVaults as Mock).mockImplementation(() => ({
+      data: [xvsVault, vaiVault, institutionalVault, pendleBnbVault],
+      isLoading: false,
+    }));
+
+    const { container } = renderComponent(<VaultsPage />);
+    const vaultTitles = Array.from(container.querySelectorAll(titleSelector)).map(
+      element => element.textContent,
+    );
+
+    expect(vaultTitles).toEqual([
+      pendleBnbVault.stakedToken.symbol,
+      t('vault.card.header.fixedTermTitle', {
+        tokenSymbol: institutionalVault.stakedToken.symbol,
+      }),
+      vaiVault.stakedToken.symbol,
+      xvsVault.stakedToken.symbol,
+    ]);
+  });
+
   it('filters vaults from the url venue parameter', () => {
-    const { getByText, queryByText } = renderComponent(<Staking />, {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?venue=institution'],
     });
 
@@ -50,7 +73,7 @@ describe('Vaults', () => {
   });
 
   it('filters vaults from the url category parameter', () => {
-    const { getByText, queryByText } = renderComponent(<Staking />, {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?category=governance'],
     });
 
@@ -60,7 +83,7 @@ describe('Vaults', () => {
   });
 
   it('filters vaults by token symbol search', () => {
-    const { getByPlaceholderText, getByText, queryByText } = renderComponent(<Staking />);
+    const { getByPlaceholderText, getByText, queryByText } = renderComponent(<VaultsPage />);
 
     fireEvent.change(getByPlaceholderText(en.vault.filter.inputPlaceholder), {
       target: { value: 'xvs' },
@@ -82,7 +105,7 @@ describe('Vaults', () => {
       isLoading: false,
     }));
 
-    const { getAllByText, queryByText } = renderComponent(<Staking />, {
+    const { getAllByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?status=liquidated'],
     });
 

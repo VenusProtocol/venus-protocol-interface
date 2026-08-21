@@ -3,6 +3,7 @@ import { Page, Spinner } from 'components';
 import { useAccountAddress } from 'libs/wallet';
 
 import { VaultList } from './VaultList';
+import { useSortVaults } from './useSortVaults';
 
 const VaultsPage: React.FC = () => {
   const { accountAddress } = useAccountAddress();
@@ -10,13 +11,18 @@ const VaultsPage: React.FC = () => {
     accountAddress,
   });
 
-  if (isGetVaultsLoading || !vaults || vaults.length === 0) {
+  // Sort vaults
+  const sortedVaults = useSortVaults({
+    vaults,
+  });
+
+  if (isGetVaultsLoading || sortedVaults.length === 0) {
     return <Spinner />;
   }
 
   return (
     <Page>
-      <VaultList vaults={vaults} />
+      <VaultList vaults={sortedVaults} />
     </Page>
   );
 };
