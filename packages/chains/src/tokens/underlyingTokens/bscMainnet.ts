@@ -544,4 +544,11 @@ export const bscMainnet: Token[] = [
     symbol: 'CASH+',
     iconSrc: iconSrcs.cashPlus,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0xAB7D138c6e6fF1bfD3ac871d0dB08f9442Ce927F',
+    decimals: 18,
+    symbol: 'vceBTC',
+    iconSrc: iconSrcs.vceBTC,
+  },
 ];
