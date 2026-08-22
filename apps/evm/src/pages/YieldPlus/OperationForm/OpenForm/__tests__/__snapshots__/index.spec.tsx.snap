@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OpenForm > renders form when data is ready 1`] = `"Collateral2xXVSWallet balance100 XVSLongUSDTShortBUSDAvailable0 BUSD0%100%Collateral0Long0Short0Liq. price0.625Entry price0.5Net APY1.56%Borrowed:$123.33LT:Liquidation threshold:$1.92K..Health factor> 10015.62HealthyOpenSlippage tolerance0.5%Price impact0.1%"`;
