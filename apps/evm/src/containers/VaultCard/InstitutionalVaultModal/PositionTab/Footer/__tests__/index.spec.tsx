@@ -325,7 +325,7 @@ describe('InstitutionalVaultModal Footer', () => {
         {...baseProps}
         vault={{
           ...baseVault,
-          status: VaultStatus.Active,
+          status: VaultStatus.Deposit,
           openEndDate: undefined,
         }}
       />,
@@ -337,12 +337,14 @@ describe('InstitutionalVaultModal Footer', () => {
   });
 
   it('renders the maturity date row after the deposit period ends', () => {
+    mockUseNow.mockReturnValue(new Date('2026-04-09T00:00:00.000Z'));
+
     const { getByText, queryByText } = renderComponent(
       <Footer
         {...baseProps}
         vault={{
           ...baseVault,
-          status: VaultStatus.Active,
+          status: VaultStatus.Locked,
         }}
       />,
     );

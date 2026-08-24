@@ -49,7 +49,7 @@ export const vaults: VenusVault[] = [
     venue: VaultVenue.Venus,
     venueName: 'Venus',
     venueIconSrc: venusLogoSrc,
-    status: VaultStatus.Active,
+    status: VaultStatus.Deposit,
     key: 'venus-VAI-XVS-300000',
   },
   {
@@ -71,7 +71,7 @@ export const vaults: VenusVault[] = [
     venue: VaultVenue.Venus,
     venueName: 'Venus',
     venueIconSrc: venusLogoSrc,
-    status: VaultStatus.Active,
+    status: VaultStatus.Deposit,
     key: 'venus-XVS-XVS-300000',
   },
 ];
@@ -232,7 +232,7 @@ export const pendleVault: PendleVault = {
   poolComptrollerContractAddress: '0x1111111111111111111111111111111111111111',
   poolName: 'Core Pool',
   stakeAprPercentage: 3.39809766,
-  status: VaultStatus.Active,
+  status: VaultStatus.Deposit,
   vaultAddress: '0x2222222222222222222222222222222222222222',
   vaultDeploymentDate: new Date('2026-03-13T02:16:23.000Z'),
   vaultType: VaultType.Pendle,

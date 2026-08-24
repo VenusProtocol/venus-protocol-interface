@@ -47,10 +47,10 @@ describe('useSortVaults', () => {
       key: 'pending-vault',
       status: VaultStatus.Pending,
     } satisfies InstitutionalVault;
-    const activeVault = {
+    const higherAprDepositVault = {
       ...institutionalVault,
-      key: 'active-vault',
-      status: VaultStatus.Active,
+      key: 'higher-apr-deposit-vault',
+      status: VaultStatus.Deposit,
       stakeAprPercentage: 100,
     } satisfies InstitutionalVault;
     const [vaiVault, xvsVault] = venusVaults;
@@ -58,7 +58,7 @@ describe('useSortVaults', () => {
     const { result } = renderHook(() =>
       useSortVaults({
         vaults: [
-          activeVault,
+          higherAprDepositVault,
           xvsVault,
           vaiVault,
           pendingVault,
@@ -72,6 +72,7 @@ describe('useSortVaults', () => {
     );
 
     expect(result.current.map(vault => vault.key)).toEqual([
+      higherAprDepositVault.key,
       depositVault.key,
       higherAprRefundVault.key,
       refundVault.key,
@@ -80,7 +81,6 @@ describe('useSortVaults', () => {
       pendingVault.key,
       vaiVault.key,
       xvsVault.key,
-      activeVault.key,
     ]);
   });
 });
