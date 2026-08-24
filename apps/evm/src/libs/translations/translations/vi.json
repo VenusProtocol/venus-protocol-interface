@@ -795,6 +795,10 @@
       "label": "Chọn chain"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Khám phá ngay",
+        "title": "USDT Fixed-Term Vault hiện đã ra mắt trên BNB Chain. Mục tiêu ≈5,4% APR."
+      },
       "exposures": "Mức độ tiếp xúc",
       "liquidity": "Thanh khoản",
       "maxLtv": {

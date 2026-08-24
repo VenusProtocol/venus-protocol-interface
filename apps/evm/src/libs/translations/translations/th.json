@@ -795,6 +795,10 @@
       "label": "เลือกเชน"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "สำรวจเลย",
+        "title": "USDT Fixed-Term Vault เปิดให้ใช้งานแล้วบน BNB Chain เป้าหมาย ≈4.2% APR"
+      },
       "exposures": "เอ็กซ์โพเชอร์",
       "liquidity": "สภาพคล่อง",
       "maxLtv": {

@@ -2,12 +2,13 @@ import { useParams } from 'react-router';
 import type { Address } from 'viem';
 
 import { useGetPool } from 'clients/api';
-import { Page, Spinner } from 'components';
+import { Page, Spinner, Wrapper } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useAccountAddress } from 'libs/wallet';
 import { Header } from './Header';
+import { MarketsAdBanner } from './MarketsAdBanner';
 import { Tabs } from './Tabs';
 
 export const Markets: React.FC = () => {
@@ -31,15 +32,19 @@ export const Markets: React.FC = () => {
 
   return (
     <Page>
-      {pool ? (
-        <div className="space-y-6 sm:space-y-12">
-          <Header pool={pool} />
+      <MarketsAdBanner />
 
-          <Tabs pool={pool} />
-        </div>
-      ) : (
-        <Spinner />
-      )}
+      <Wrapper className="pt-5 sm:pt-10">
+        {pool ? (
+          <div className="space-y-6 sm:space-y-12">
+            <Header pool={pool} />
+
+            <Tabs pool={pool} />
+          </div>
+        ) : (
+          <Spinner />
+        )}
+      </Wrapper>
     </Page>
   );
 };
