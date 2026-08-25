@@ -4,6 +4,8 @@ import { restService } from 'utilities';
 
 import type { ApiLiquidityHub } from 'types';
 import { formatToLiquidityHub } from 'utilities/formatToLiquidityHub';
+// TODO: REMOVE ME (VPD-1880)
+import { mockCentrifugeYieldGroup } from 'utilities/formatToLiquidityHub/mockCentrifugeYieldGroup';
 import type { Address } from 'viem';
 
 export interface GetLiquidityHubInput {
@@ -51,7 +53,11 @@ export const getLiquidityHub = async ({
   }
 
   const liquidityHub = payload.hub
-    ? formatToLiquidityHub({ apiLiquidityHub: payload.hub, tokens })
+    ? formatToLiquidityHub({
+        // TODO: REMOVE ME (VPD-1880)
+        apiLiquidityHub: mockCentrifugeYieldGroup(payload.hub),
+        tokens,
+      })
     : undefined;
 
   return {

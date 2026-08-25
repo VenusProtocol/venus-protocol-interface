@@ -44,11 +44,11 @@ export function ImgGroupTooltip<R>({
           className="border-0 p-0"
           tableRowClassName="h-12"
           tableHeaderClassName="sticky top-0 z-10 h-12 bg-dark-blue"
-          tableContainerClassName="max-h-49"
+          tableContainerClassName="max-h-49 rounded-md"
         />
       }
       className={cn('inline-flex', className)}
-      contentClassName={cn('p-0', contentClassName)}
+      contentClassName={cn('p-1.5', contentClassName)}
     >
       <ImgGroup imgSrcs={imgSrcs} removeDuplicates={removeDuplicates} limit={5} />
     </Tooltip>
