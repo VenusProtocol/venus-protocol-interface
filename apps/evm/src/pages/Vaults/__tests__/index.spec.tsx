@@ -1,4 +1,5 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { useLocation } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { institutionalVault, pendleBnbVault, vaults as venusVaults } from '__mocks__/models/vaults';
@@ -101,7 +102,6 @@ describe('Vaults', () => {
 
     expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
     expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
-    // One badge on each of the 2 Venus vault cards, plus the state filter button
     expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
     expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
   });
@@ -113,9 +113,25 @@ describe('Vaults', () => {
 
     expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
     expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
-    // One badge on each of the 2 Venus vault cards, plus the state filter button
     expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
     expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('rewrites the legacy active status parameter in the url', async () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    renderComponent(
+      <>
+        <VaultsPage />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: ['/?status=active'] },
+    );
+
+    await waitFor(() =>
+      expect(screen.getByTestId('search')).toHaveTextContent(`status=${VaultStatus.Deposit}`),
+    );
   });
 
   it('filters vaults from the url status parameter', () => {
