@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.20.2
+
+### Patch Changes
+
+- 7f2f653: Add fixed-term vault promotional banner to the Markets page.
+
 ## 5.20.1
 
 ### Patch Changes
