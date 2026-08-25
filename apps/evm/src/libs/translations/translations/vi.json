@@ -6,6 +6,9 @@
         "title": "Chưa có vị thế trung tâm thanh khoản"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "Các pool cô lập đã bị ngừng hoàn toàn. Bạn vẫn còn vị thế trên {{chainNames}}. Hãy trả hết khoản vay và rút tài sản của bạn. <LearnMore>Tìm hiểu thêm</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Đã vay",
@@ -328,7 +331,6 @@
     "bridge": "Cầu nối",
     "dashboard": "Bảng điều khiển",
     "governance": "Quản trị",
-    "isolatedPools": "Pools cô lập",
     "leaderboard": "Bảng xếp hạng",
     "liquidityHubs": "Trung tâm thanh khoản",
     "markets": "Thị trường",
@@ -439,6 +441,12 @@
     "tooMuchRepay": "Số tiền trả vượt quá khoản vay còn lại của bạn."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "Tất cả danh mục",
+      "nCategories_other": "{{count}} danh mục",
+      "reset": "Đặt lại",
+      "title": "Chọn danh mục"
+    },
     "pausedAssetsToggle": {
       "label": "Tài sản tạm dừng"
     },
@@ -704,11 +712,6 @@
       "utilizationRate": "Tỷ lệ sử dụng"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Vui lòng rút hoặc di chuyển tất cả tài sản ngay bây giờ",
-    "illustrationAltText": "Hình minh họa",
-    "title": "Các pool cô lập đã ngừng hoạt động"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Định giá tổng hợp",
@@ -798,6 +801,10 @@
       "label": "Chọn chain"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Khám phá ngay",
+        "title": "USDT Fixed-Term Vault hiện đã ra mắt trên BNB Chain. Mục tiêu ≈4,2% APR."
+      },
       "exposures": "Mức độ tiếp xúc",
       "liquidity": "Thanh khoản",
       "maxLtv": {
@@ -1343,6 +1350,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Vui lòng bật công tắc \"Tài sản tạm dừng\" để xem.",
       "imgAlt": "Biểu tượng tạm dừng",
+      "selectedCategoriesTitle": "Tất cả tài sản trong các danh mục đã chọn đã bị tạm dừng",
       "title": "Tất cả tài sản trong pool này đã bị tạm dừng"
     },
     "search": {

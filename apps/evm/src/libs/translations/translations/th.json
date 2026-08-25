@@ -6,6 +6,9 @@
         "title": "ยังไม่มีตำแหน่งในศูนย์สภาพคล่อง"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "พูลแบบแยกถูกยกเลิกโดยสมบูรณ์แล้ว คุณยังมีสถานะบน {{chainNames}} โปรดชำระคืนเงินกู้และถอนสินทรัพย์ของคุณ <LearnMore>ดูข้อมูลเพิ่มเติม</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "ยืมแล้ว",
@@ -328,7 +331,6 @@
     "bridge": "บริดจ์",
     "dashboard": "แดชบอร์ด",
     "governance": "การกำกับดูแล",
-    "isolatedPools": "พูลแบบแยก",
     "leaderboard": "ลีดเดอร์บอร์ด",
     "liquidityHubs": "ศูนย์สภาพคล่อง",
     "markets": "ตลาด",
@@ -439,6 +441,12 @@
     "tooMuchRepay": "จำนวนเงินที่ชำระคืนเกินยอดค้างชำระของคุณ"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "ทุกหมวดหมู่",
+      "nCategories_other": "{{count}} หมวดหมู่",
+      "reset": "รีเซ็ต",
+      "title": "เลือกหมวดหมู่"
+    },
     "pausedAssetsToggle": {
       "label": "สินทรัพย์ที่หยุดไว้"
     },
@@ -704,11 +712,6 @@
       "utilizationRate": "อัตราการใช้งาน"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "โปรดถอนหรือย้ายสินทรัพย์ทั้งหมดตอนนี้",
-    "illustrationAltText": "ภาพประกอบ",
-    "title": "พูลแบบแยกได้ยุติการให้บริการแล้ว"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "การกำหนดราคาแบบรวม",
@@ -798,6 +801,10 @@
       "label": "เลือกเชน"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "สำรวจเลย",
+        "title": "USDT Fixed-Term Vault เปิดให้ใช้งานแล้วบน BNB Chain เป้าหมาย ≈4.2% APR"
+      },
       "exposures": "เอ็กซ์โพเชอร์",
       "liquidity": "สภาพคล่อง",
       "maxLtv": {
@@ -1343,6 +1350,7 @@
     "pausedAssetsPlaceholder": {
       "description": "โปรดเปิดสวิตช์ \"สินทรัพย์ที่หยุดไว้\" เพื่อดู",
       "imgAlt": "ไอคอนหยุด",
+      "selectedCategoriesTitle": "สินทรัพย์ทั้งหมดในหมวดหมู่ที่เลือกถูกหยุดแล้ว",
       "title": "สินทรัพย์ทั้งหมดในพูลนี้ถูกหยุดแล้ว"
     },
     "search": {

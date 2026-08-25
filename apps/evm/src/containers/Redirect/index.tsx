@@ -1,5 +1,6 @@
 import { useFormatTo } from 'hooks/useFormatTo';
-import { Navigate } from 'react-router';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
 export interface RedirectProps {
   to: string;
@@ -7,7 +8,18 @@ export interface RedirectProps {
 
 export const Redirect: React.FC<RedirectProps> = ({ to }) => {
   const { formatTo } = useFormatTo();
-  const formattedTo = formatTo({ to });
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  return <Navigate to={formattedTo} replace />;
+  const { pathname, search } = formatTo({ to });
+
+  useEffect(() => {
+    if (location.pathname === pathname && location.search === search) {
+      return;
+    }
+
+    navigate({ pathname, search }, { replace: true });
+  }, [location.pathname, location.search, pathname, search, navigate]);
+
+  return undefined;
 };

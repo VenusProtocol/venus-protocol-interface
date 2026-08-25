@@ -87,3 +87,4 @@ export * from './MarketHistoryCard';
 export * from './MarketCard';
 export * from './MarketInfo';
 export * from './YieldGroups';
+export * from './MultiSelect';

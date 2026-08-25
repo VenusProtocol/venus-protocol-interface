@@ -6,6 +6,9 @@
         "title": "暂无流动性中心仓位"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "隔离池已完全弃用。您在 {{chainNames}} 上仍有仓位。请偿还所有借款并提取您的资产。<LearnMore>了解更多</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "已借入",
@@ -328,7 +331,6 @@
     "bridge": "跨链桥",
     "dashboard": "仪表盘",
     "governance": "治理",
-    "isolatedPools": "隔离池",
     "leaderboard": "排行榜",
     "liquidityHubs": "流动性中心",
     "markets": "市场",
@@ -439,6 +441,12 @@
     "tooMuchRepay": "还款金额超过了你的未偿借款。"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "全部类别",
+      "nCategories_other": "{{count}} 个类别",
+      "reset": "重置",
+      "title": "选择类别"
+    },
     "pausedAssetsToggle": {
       "label": "已暂停资产"
     },
@@ -704,11 +712,6 @@
       "utilizationRate": "利用率"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "请立即提取或迁移所有资产",
-    "illustrationAltText": "插图",
-    "title": "隔离池已下线"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "聚合定价",
@@ -798,6 +801,10 @@
       "label": "选择链"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "立即探索",
+        "title": "USDT 固定期限金库现已在 BNB Chain 上线。目标 ≈4.2% APR。"
+      },
       "exposures": "敞口",
       "liquidity": "流动性",
       "maxLtv": {
@@ -1343,6 +1350,7 @@
     "pausedAssetsPlaceholder": {
       "description": "请启用“已暂停资产”开关以查看。",
       "imgAlt": "暂停图标",
+      "selectedCategoriesTitle": "所选类别内所有资产已暂停",
       "title": "该池内所有资产已暂停"
     },
     "search": {

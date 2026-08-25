@@ -25,6 +25,7 @@ export interface MarketTableProps
     Omit<TableProps<Asset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
   > {
   assets: Asset[];
+  categoryFilter?: boolean;
   poolName: string;
   poolComptrollerContractAddress: Address;
   columns: ColumnKey[];
@@ -44,6 +45,7 @@ export interface MarketTableProps
 
 export const MarketTable: React.FC<MarketTableProps> = ({
   assets,
+  categoryFilter = false,
   poolName,
   poolComptrollerContractAddress,
   marketType,
@@ -75,13 +77,16 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   const {
     assets: filteredAssets,
-    pausedAssetsExist,
+    categories,
+    hiddenPausedAssetsExist,
     searchValue,
     onSearchValueChange,
-    showPausedAssets,
+    selectedCategories,
+    onSelectedCategoriesChange,
   } = useControls({
     assets,
     applyUserSettings: controls,
+    poolComptrollerAddress: poolComptrollerContractAddress,
   });
 
   const { chainId: currentChainId } = useChainId();
@@ -163,6 +168,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                       onSearchValueChange={onSearchValueChange}
                       searchInputPlaceholder={t('marketTable.search.placeholder')}
                       showPausedAssetsToggle
+                      categories={categoryFilter ? categories : undefined}
+                      selectedCategories={selectedCategories}
+                      onSelectedCategoriesChange={onSelectedCategoriesChange}
                     />
                   )}
                 </div>
@@ -177,8 +185,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
           !isFetching &&
           !searchValue &&
           filteredAssets.length === 0 &&
-          pausedAssetsExist &&
-          !showPausedAssets && (
+          hiddenPausedAssetsExist && (
             <Card
               className={cn(
                 'flex flex-col items-center text-center py-16 border-0 sm:py-16',
@@ -192,7 +199,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
               />
 
               <h4 className="font-semibold mb-1">
-                {t('marketTable.pausedAssetsPlaceholder.title')}
+                {selectedCategories.length > 0
+                  ? t('marketTable.pausedAssetsPlaceholder.selectedCategoriesTitle')
+                  : t('marketTable.pausedAssetsPlaceholder.title')}
               </h4>
 
               <p className="text-sm text-grey">

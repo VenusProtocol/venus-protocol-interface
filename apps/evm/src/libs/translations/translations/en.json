@@ -6,6 +6,9 @@
         "title": "No liquidity hub positions yet"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "Isolated pools have been fully deprecated. You still have positions on {{chainNames}}. Repay any borrows and withdraw your assets. <LearnMore>Learn more</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borrowed",
@@ -328,7 +331,6 @@
     "bridge": "Bridge",
     "dashboard": "Dashboard",
     "governance": "Governance",
-    "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
     "liquidityHubs": "Liquidity Hub",
     "markets": "Markets",
@@ -439,6 +441,13 @@
     "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "All Categories",
+      "nCategories_one": "{{count}} Category",
+      "nCategories_other": "{{count}} Categories",
+      "reset": "Reset",
+      "title": "Select Categories"
+    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },
@@ -704,11 +713,6 @@
       "utilizationRate": "Utilization rate"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Please withdraw or migrate all assets now",
-    "illustrationAltText": "Illustration",
-    "title": "Isolated pools have been sunset"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Aggregate pricing",
@@ -798,6 +802,10 @@
       "label": "Select chain"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Explore now",
+        "title": "USDT Fixed-Term Vault Now Live on BNB Chain. Target ≈4.2% APR."
+      },
       "exposures": "Exposures",
       "liquidity": "Liquidity",
       "maxLtv": {
@@ -1343,6 +1351,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Please enable the \"Paused Assets\" toggle to view them.",
       "imgAlt": "Pause icon",
+      "selectedCategoriesTitle": "All assets in the selected categories have been paused",
       "title": "All assets in this pool have been paused"
     },
     "search": {

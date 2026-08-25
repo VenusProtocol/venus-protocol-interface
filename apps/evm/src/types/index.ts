@@ -157,6 +157,8 @@ export interface Asset {
   supplyCapTokens: BigNumber;
   isRestricted: boolean;
   isGated: boolean;
+  category?: string;
+  marketCategory?: MarketCategory;
   // User-specific props
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
@@ -231,6 +233,12 @@ export interface PoolVai {
   borrowAprPercentage: BigNumber;
   userBorrowBalanceTokens?: BigNumber;
   userBorrowBalanceCents?: BigNumber;
+}
+
+export interface MarketCategory {
+  tag: string;
+  label: string;
+  order: number;
 }
 
 export interface Pool {

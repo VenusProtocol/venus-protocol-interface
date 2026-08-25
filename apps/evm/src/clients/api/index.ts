@@ -65,6 +65,9 @@ export * from './queries/getVTokenBalance/useGetVTokenBalance';
 export * from './queries/getPendingRewards';
 export * from './queries/getPendingRewards/useGetPendingRewards';
 
+export * from './queries/getHasIsolatedPoolPosition';
+export * from './queries/getHasIsolatedPoolPosition/useGetChainIdsWithIsolatedPoolPosition';
+
 export * from './queries/getIsAddressAuthorized';
 export * from './queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 

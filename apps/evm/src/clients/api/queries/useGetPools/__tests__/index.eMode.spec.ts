@@ -95,7 +95,7 @@ describe('useGetPools', () => {
   });
 
   it('fetches and formats E-mode groups associated with each pool', async () => {
-    const { result } = renderHook(() => useGetPools());
+    const { result } = renderHook(() => useGetPools({ includeIsolatedPools: true }));
 
     await waitFor(() => expect(result.current.data).toBeDefined());
     expect(result.current.data).toMatchSnapshot();
@@ -105,6 +105,7 @@ describe('useGetPools', () => {
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
       }),
     );
 
@@ -135,6 +136,7 @@ describe('useGetPools', () => {
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
       }),
     );
 
@@ -165,6 +167,7 @@ describe('useGetPools', () => {
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
       }),
     );
 

@@ -30,7 +30,6 @@ describe('usePathNodes', () => {
     ],
     [routes.governanceProposal.path.replace(':proposalId', '1'), routes.governanceProposal.path],
     [routes.governanceVoter.path.replace(':address', fakeAddress), routes.governanceVoter.path],
-    [routes.isolatedPools.path, routes.isolatedPools.path],
     [routes.markets.path.replace(':poolComptrollerAddress', fakeAddress), routes.markets.path],
     [
       routes.market.path

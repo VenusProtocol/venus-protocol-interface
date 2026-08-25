@@ -100,6 +100,7 @@ export const Transactions: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const { data: poolData } = useGetPools({
     accountAddress,
+    includeIsolatedPools: true,
   });
   const isTransactionHistoryFeatureEnabled = useIsFeatureEnabled({
     name: 'transactionHistory',

@@ -1,5 +1,41 @@
 # @venusprotocol/evm
 
+## 5.20.2
+
+### Patch Changes
+
+- 7f2f653: Add fixed-term vault promotional banner to the Markets page.
+
+## 5.20.1
+
+### Patch Changes
+
+- d22d3c1: add support for vceBTC and Solv venue
+- Updated dependencies [d22d3c1]
+  - @venusprotocol/chains@0.31.1
+
+## 5.20.0
+
+### Minor Changes
+
+- 3bbcc19: update vault ordering
+
+## 5.19.0
+
+### Minor Changes
+
+- f30b269: remove isolated pools support
+
+### Patch Changes
+
+- 1315a83: read token distribution APYs from supplyApyRatio and borrowApyRatio properties
+
+## 5.18.0
+
+### Minor Changes
+
+- 65e56f7: add category for markets
+
 ## 5.17.0
 
 ### Minor Changes

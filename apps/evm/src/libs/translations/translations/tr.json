@@ -6,6 +6,9 @@
         "title": "Henüz likidite merkezi pozisyonu yok"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "İzole havuzlar tamamen kullanımdan kaldırıldı. {{chainNames}} üzerinde hâlâ pozisyonlarınız var. Borçlarınızı ödeyin ve varlıklarınızı çekin. <LearnMore>Daha fazla bilgi</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borçlanılan",
@@ -328,7 +331,6 @@
     "bridge": "Köprü",
     "dashboard": "Gösterge paneli",
     "governance": "Yönetişim",
-    "isolatedPools": "İzole havuzlar",
     "leaderboard": "Liderlik tablosu",
     "liquidityHubs": "Likidite Merkezi",
     "markets": "Piyasalar",
@@ -439,6 +441,13 @@
     "tooMuchRepay": "Geri ödeme tutarı bekleyen borç bakiyenizi aşıyor."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "Tüm Kategoriler",
+      "nCategories_one": "{{count}} Kategori",
+      "nCategories_other": "{{count}} Kategori",
+      "reset": "Sıfırla",
+      "title": "Kategorileri Seç"
+    },
     "pausedAssetsToggle": {
       "label": "Durdurulan varlıklar"
     },
@@ -704,11 +713,6 @@
       "utilizationRate": "Kullanım oranı"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Lütfen tüm varlıklarınızı şimdi çekin veya taşıyın",
-    "illustrationAltText": "İllüstrasyon",
-    "title": "İzole havuzlar kapatıldı"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Toplu fiyatlama",
@@ -798,6 +802,10 @@
       "label": "Zincir seç"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Şimdi keşfet",
+        "title": "USDT Sabit Vadeli Kasa şimdi BNB Chain'de yayında. Hedef ≈%4,2 APR."
+      },
       "exposures": "Maruziyet",
       "liquidity": "Likidite",
       "maxLtv": {
@@ -1343,6 +1351,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Görmek için \"Durdurulan Varlıklar\" anahtarını etkinleştirin.",
       "imgAlt": "Duraklatma ikonu",
+      "selectedCategoriesTitle": "Seçilen kategorilerdeki tüm varlıklar duraklatıldı",
       "title": "Bu havuzdaki tüm varlıklar duraklatıldı"
     },
     "search": {

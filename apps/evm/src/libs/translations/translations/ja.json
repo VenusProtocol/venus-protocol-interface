@@ -6,6 +6,9 @@
         "title": "流動性ハブのポジションはまだありません"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "分離プールは完全に廃止されました。{{chainNames}} にまだポジションがあります。借入を返済し、資産を引き出してください。<LearnMore>詳細はこちら</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "借入",
@@ -328,7 +331,6 @@
     "bridge": "ブリッジ",
     "dashboard": "ダッシュボード",
     "governance": "ガバナンス",
-    "isolatedPools": "隔離プール",
     "leaderboard": "リーダーボード",
     "liquidityHubs": "流動性ハブ",
     "markets": "マーケット",
@@ -439,6 +441,12 @@
     "tooMuchRepay": "返済額が未返済の借入額を超えています。"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "すべてのカテゴリー",
+      "nCategories_other": "{{count}} 件のカテゴリー",
+      "reset": "リセット",
+      "title": "カテゴリーを選択"
+    },
     "pausedAssetsToggle": {
       "label": "停止中の資産"
     },
@@ -704,11 +712,6 @@
       "utilizationRate": "利用率"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "すべての資産を引き出すか、今すぐ移行してください",
-    "illustrationAltText": "イラスト",
-    "title": "隔離プールは終了しました"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "集計価格",
@@ -798,6 +801,10 @@
       "label": "チェーンを選択"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "今すぐ見る",
+        "title": "USDT固定期間ボールトがBNB Chainで公開中。目標 ≈4.2% APR。"
+      },
       "exposures": "エクスポージャー",
       "liquidity": "流動性",
       "maxLtv": {
@@ -1343,6 +1350,7 @@
     "pausedAssetsPlaceholder": {
       "description": "表示するには「停止中の資産」トグルを有効にしてください。",
       "imgAlt": "一時停止アイコン",
+      "selectedCategoriesTitle": "選択したカテゴリーの資産はすべて停止されています",
       "title": "このプールの資産はすべて停止されています"
     },
     "search": {
