@@ -24,7 +24,6 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
       variantClassName = cn('border-yellow bg-yellow/10');
       break;
     case VaultStatus.Deposit:
-    case VaultStatus.Active:
     case 'supply':
       variantClassName = cn('border-blue bg-blue/10');
       break;
@@ -42,10 +41,8 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
       label = t('vault.filter.refund');
       break;
     case VaultStatus.Deposit:
+    case 'supply':
       label = t('vault.filter.deposit');
-      break;
-    case VaultStatus.Active:
-      label = t('vault.filter.active');
       break;
     case VaultStatus.Locked:
       label = t('vault.filter.locked');
@@ -64,9 +61,6 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
       break;
     case VaultStatus.Liquidated:
       label = t('vault.filter.liquidated');
-      break;
-    case 'supply':
-      label = t('dashboard.topMarkets.supplyButton.label');
       break;
   }
 

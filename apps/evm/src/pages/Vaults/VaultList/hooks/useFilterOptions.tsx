@@ -1,7 +1,7 @@
 import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useSearchParams } from 'react-router';
-import { VaultCategory } from 'types';
+import { VaultCategory, VaultStatus } from 'types';
 import { getVaultCategoryName } from 'utilities/getVaultCategoryName';
 
 import institutionIconSrc from '../asset/institution.svg';
@@ -12,13 +12,18 @@ const CATEGORY_PARAM_KEY = 'category';
 const VENUE_PARAM_KEY = 'venue';
 const STATUS_PARAM_KEY = 'status';
 
+// The "active" state was merged into the deposit state, so we redirect links that were shared while
+// it still existed
+const LEGACY_ACTIVE_STATUS_VALUE = 'active';
+
 export const useFilterOptions = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const category = searchParams.get(CATEGORY_PARAM_KEY) ?? ALL_OPTION_VALUE;
   const venue = searchParams.get(VENUE_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const status = searchParams.get(STATUS_PARAM_KEY) ?? ALL_OPTION_VALUE;
+  const statusParam = searchParams.get(STATUS_PARAM_KEY) ?? ALL_OPTION_VALUE;
+  const status = statusParam === LEGACY_ACTIVE_STATUS_VALUE ? VaultStatus.Deposit : statusParam;
 
   const setCategory = (newVal: string) =>
     setSearchParams(currentSearchParams => ({
@@ -97,10 +102,6 @@ export const useFilterOptions = () => {
     {
       label: t('vault.filter.deposit'),
       value: 'deposit',
-    },
-    {
-      label: t('vault.filter.active'),
-      value: 'active',
     },
     {
       label: t('vault.filter.refund'),

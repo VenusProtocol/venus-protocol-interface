@@ -2339,7 +2339,6 @@
     },
     "description": "Getiri basit, kazançlar gerçek",
     "filter": {
-      "active": "Aktif",
       "allCategories": "Tüm kategoriler",
       "allStates": "Tüm durumlar",
       "allVenues": "Tüm platformlar",

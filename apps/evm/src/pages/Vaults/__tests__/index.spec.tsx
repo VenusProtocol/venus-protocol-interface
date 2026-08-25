@@ -94,6 +94,30 @@ describe('Vaults', () => {
     expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
   });
 
+  it('lists Venus vaults under the supply status', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?status=deposit'],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    // One badge on each of the 2 Venus vault cards, plus the state filter button
+    expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('redirects the legacy active status parameter to the supply status', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?status=active'],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    // One badge on each of the 2 Venus vault cards, plus the state filter button
+    expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
   it('filters vaults from the url status parameter', () => {
     const liquidatedInstitutionalVault = {
       ...institutionalVault,

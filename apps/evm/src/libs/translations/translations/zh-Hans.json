@@ -2336,7 +2336,6 @@
     },
     "description": "轻松获取收益，让回报真正落地",
     "filter": {
-      "active": "进行中",
       "allCategories": "所有类别",
       "allStates": "所有状态",
       "allVenues": "所有平台",

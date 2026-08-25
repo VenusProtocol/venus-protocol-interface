@@ -47,10 +47,10 @@ describe('useSortVaults', () => {
       key: 'pending-vault',
       status: VaultStatus.Pending,
     } satisfies InstitutionalVault;
-    const activeVault = {
+    const inactiveVault = {
       ...institutionalVault,
-      key: 'active-vault',
-      status: VaultStatus.Active,
+      key: 'inactive-vault',
+      status: VaultStatus.Inactive,
       stakeAprPercentage: 100,
     } satisfies InstitutionalVault;
     const [vaiVault, xvsVault] = venusVaults;
@@ -58,7 +58,7 @@ describe('useSortVaults', () => {
     const { result } = renderHook(() =>
       useSortVaults({
         vaults: [
-          activeVault,
+          inactiveVault,
           xvsVault,
           vaiVault,
           pendingVault,
@@ -80,7 +80,7 @@ describe('useSortVaults', () => {
       pendingVault.key,
       vaiVault.key,
       xvsVault.key,
-      activeVault.key,
+      inactiveVault.key,
     ]);
   });
 });

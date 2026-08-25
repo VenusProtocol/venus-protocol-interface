@@ -59,7 +59,7 @@ const pendleVault: PendleVault = {
   poolComptrollerContractAddress: '0x1111111111111111111111111111111111111111',
   poolName: 'Core Pool',
   stakeAprPercentage: 3.39809766,
-  status: VaultStatus.Active,
+  status: VaultStatus.Deposit,
   userStakeBalanceMantissa: new BigNumber('1000000000000000000'),
   vaultAddress: '0x2222222222222222222222222222222222222222',
   vaultType: VaultType.Pendle,
