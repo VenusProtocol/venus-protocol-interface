@@ -3,7 +3,7 @@ import { Outlet, matchPath, useLocation } from 'react-router';
 import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { Wrapper, cn } from 'components';
-import { Subdirectory } from 'constants/routing';
+import { Subdirectory, routes } from 'constants/routing';
 import { useRef } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -12,7 +12,7 @@ import ScrollToTop from './ScrollToTop';
 import { TestEnvWarning } from './TestEnvWarning';
 import { useStore } from './store';
 
-const NO_WRAPPER_PATHNAMES = [Subdirectory.LANDING] as string[];
+const NO_WRAPPER_PATHNAMES = [Subdirectory.LANDING, routes.markets.path] as string[];
 
 export const Layout: React.FC = () => {
   const scrollToTopRef = useRef<HTMLButtonElement>(null);

@@ -796,6 +796,10 @@
       "label": "Select chain"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Explore now",
+        "title": "USDT Fixed-Term Vault Now Live on BNB Chain. Target ≈4.2% APR."
+      },
       "exposures": "Exposures",
       "liquidity": "Liquidity",
       "maxLtv": {

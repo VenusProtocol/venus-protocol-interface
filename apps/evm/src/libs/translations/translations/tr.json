@@ -796,6 +796,10 @@
       "label": "Zincir seç"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Şimdi keşfet",
+        "title": "USDT Sabit Vadeli Kasa şimdi BNB Chain'de yayında. Hedef ≈%4,2 APR."
+      },
       "exposures": "Maruziyet",
       "liquidity": "Likidite",
       "maxLtv": {
