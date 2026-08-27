@@ -41,7 +41,6 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
       label = t('vault.filter.refund');
       break;
     case VaultStatus.Deposit:
-    case 'supply':
       label = t('vault.filter.deposit');
       break;
     case VaultStatus.Locked:
@@ -61,6 +60,9 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
       break;
     case VaultStatus.Liquidated:
       label = t('vault.filter.liquidated');
+      break;
+    case 'supply':
+      label = t('dashboard.topMarkets.supplyButton.label');
       break;
   }
 
