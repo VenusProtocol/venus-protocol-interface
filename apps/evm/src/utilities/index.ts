@@ -11,6 +11,7 @@ export { default as parseFunctionSignature } from './parseFunctionSignature';
 export { default as compareBigNumbers } from './compareBigNumbers';
 export { default as compareBooleans } from './compareBooleans';
 export { default as compareNumbers } from './compareNumbers';
+export { default as compareNumbersWithMissingLast } from './compareNumbersWithMissingLast';
 export { default as compareStrings } from './compareStrings';
 export { default as compareTokensBySymbol } from './compareTokensBySymbol';
 export { default as convertDollarsToCents } from './convertDollarsToCents';

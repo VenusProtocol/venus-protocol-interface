@@ -181,4 +181,74 @@ describe('useSortVaults', () => {
 
     expect(result.current.map(v => v.key)).toEqual(['bigger-tvl', 'smaller-tvl']);
   });
+
+  it('sorts a vault with a NaN APY figure to the bottom of its tier', () => {
+    const nanApr = {
+      ...institutionalVault,
+      key: 'nan-apr',
+      status: VaultStatus.Refund,
+      stakeAprPercentage: Number.NaN,
+    } satisfies InstitutionalVault;
+    const middleApr = {
+      ...institutionalVault,
+      key: 'middle-apr',
+      status: VaultStatus.Refund,
+      stakeAprPercentage: 4.5,
+    } satisfies InstitutionalVault;
+    const highestApr = {
+      ...institutionalVault,
+      key: 'highest-apr',
+      status: VaultStatus.Refund,
+      stakeAprPercentage: 9,
+    } satisfies InstitutionalVault;
+
+    const { result } = renderHook(() => useSortVaults({ vaults: [nanApr, middleApr, highestApr] }));
+
+    expect(result.current.map(v => v.key)).toEqual(['highest-apr', 'middle-apr', 'nan-apr']);
+  });
+
+  it('sorts a vault with an invalid deployment date to the bottom of an APY tie', () => {
+    const invalidDate = {
+      ...institutionalVault,
+      key: 'invalid-date',
+      status: VaultStatus.Refund,
+      stakeAprPercentage: 5,
+      vaultDeploymentDate: new Date('not-a-date'),
+    } satisfies InstitutionalVault;
+    const validDate = {
+      ...institutionalVault,
+      key: 'valid-date',
+      status: VaultStatus.Refund,
+      stakeAprPercentage: 5,
+      vaultDeploymentDate: new Date('2026-01-01T00:00:00.000Z'),
+    } satisfies InstitutionalVault;
+
+    const { result } = renderHook(() => useSortVaults({ vaults: [invalidDate, validDate] }));
+
+    expect(result.current.map(v => v.key)).toEqual(['valid-date', 'invalid-date']);
+  });
+
+  it('sorts a vault with a NaN TVL to the bottom of an APY and deployment date tie', () => {
+    const deploymentDate = new Date('2026-01-01T00:00:00.000Z');
+    const nanTvl = {
+      ...institutionalVault,
+      key: 'nan-tvl',
+      status: VaultStatus.Refund,
+      stakeAprPercentage: 5,
+      vaultDeploymentDate: deploymentDate,
+      stakeBalanceCents: Number.NaN,
+    } satisfies InstitutionalVault;
+    const knownTvl = {
+      ...institutionalVault,
+      key: 'known-tvl',
+      status: VaultStatus.Refund,
+      stakeAprPercentage: 5,
+      vaultDeploymentDate: deploymentDate,
+      stakeBalanceCents: 100,
+    } satisfies InstitutionalVault;
+
+    const { result } = renderHook(() => useSortVaults({ vaults: [nanTvl, knownTvl] }));
+
+    expect(result.current.map(v => v.key)).toEqual(['known-tvl', 'nan-tvl']);
+  });
 });

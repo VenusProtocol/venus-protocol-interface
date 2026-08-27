@@ -1,5 +1,6 @@
 import { useGetToken } from 'libs/tokens';
 import type { Vault } from 'types';
+import { compareNumbersWithMissingLast } from 'utilities';
 import { getVaultApyPercentage } from './getVaultApyPercentage';
 import { getVaultDeploymentTimestampMs } from './getVaultDeploymentTimestampMs';
 import { getVaultTier } from './getVaultTier';
@@ -14,51 +15,33 @@ export const useSortVaults = ({ vaults }: { vaults: Vault[] }) => {
   });
 
   return [...vaults].sort((a, b) => {
-    const aTier = getVaultTier({ vault: a, xvs, vai });
-    const bTier = getVaultTier({ vault: b, xvs, vai });
+    const tierComparison =
+      getVaultTier({ vault: a, xvs, vai }) - getVaultTier({ vault: b, xvs, vai });
 
-    if (aTier !== bTier) {
-      return aTier - bTier;
+    if (tierComparison !== 0) {
+      return tierComparison;
     }
 
-    const aApyPercentage = getVaultApyPercentage({ vault: a });
-    const bApyPercentage = getVaultApyPercentage({ vault: b });
+    const apyComparison = compareNumbersWithMissingLast(
+      getVaultApyPercentage({ vault: a }),
+      getVaultApyPercentage({ vault: b }),
+      'desc',
+    );
 
-    if (aApyPercentage === undefined && bApyPercentage !== undefined) {
-      return 1;
+    if (apyComparison !== 0) {
+      return apyComparison;
     }
 
-    if (bApyPercentage === undefined && aApyPercentage !== undefined) {
-      return -1;
+    const deploymentComparison = compareNumbersWithMissingLast(
+      getVaultDeploymentTimestampMs({ vault: a }),
+      getVaultDeploymentTimestampMs({ vault: b }),
+      'desc',
+    );
+
+    if (deploymentComparison !== 0) {
+      return deploymentComparison;
     }
 
-    if (
-      aApyPercentage !== undefined &&
-      bApyPercentage !== undefined &&
-      aApyPercentage !== bApyPercentage
-    ) {
-      return bApyPercentage - aApyPercentage;
-    }
-
-    const aDeploymentTimestampMs = getVaultDeploymentTimestampMs({ vault: a });
-    const bDeploymentTimestampMs = getVaultDeploymentTimestampMs({ vault: b });
-
-    if (aDeploymentTimestampMs === undefined && bDeploymentTimestampMs !== undefined) {
-      return 1;
-    }
-
-    if (bDeploymentTimestampMs === undefined && aDeploymentTimestampMs !== undefined) {
-      return -1;
-    }
-
-    if (
-      aDeploymentTimestampMs !== undefined &&
-      bDeploymentTimestampMs !== undefined &&
-      aDeploymentTimestampMs !== bDeploymentTimestampMs
-    ) {
-      return bDeploymentTimestampMs - aDeploymentTimestampMs;
-    }
-
-    return b.stakeBalanceCents - a.stakeBalanceCents;
+    return compareNumbersWithMissingLast(a.stakeBalanceCents, b.stakeBalanceCents, 'desc');
   });
 };
