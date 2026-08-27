@@ -138,12 +138,16 @@ export const useFilterOptions = () => {
       value: 'pending',
     },
     {
-      label: t('vault.filter.inactive'),
-      value: 'inactive',
+      label: t('vault.filter.paused'),
+      value: 'paused',
     },
     {
       label: t('vault.filter.liquidated'),
       value: 'liquidated',
+    },
+    {
+      label: t('vault.filter.inactive'),
+      value: 'inactive',
     },
   ];
 
