@@ -748,6 +748,7 @@
       "borrow": "Borrow",
       "earned": "Earned",
       "earnedAmount": "Earned {{amount}}",
+      "earnNow": "Earn now",
       "from": "From {{percentage}}",
       "highestApy": "Highest APY",
       "monthNo": "Month {{number}}",
@@ -821,6 +822,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "Borrow"
+      },
       "dashboard": {
         "label": "Dashboard"
       },
@@ -828,9 +832,6 @@
         "label": "Earn"
       },
       "label": "Menu",
-      "markets": {
-        "label": "Markets"
-      },
       "new": "New",
       "others": {
         "bridge": {

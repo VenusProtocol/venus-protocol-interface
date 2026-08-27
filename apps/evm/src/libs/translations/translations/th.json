@@ -747,6 +747,7 @@
       "borrow": "ยืม",
       "earned": "ได้รับ",
       "earnedAmount": "ได้รับ {{amount}}",
+      "earnNow": "TRANSLATION NEEDED",
       "from": "จาก {{percentage}}",
       "highestApy": "APY สูงสุด",
       "monthNo": "เดือน {{number}}",
@@ -820,6 +821,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "TRANSLATION NEEDED"
+      },
       "dashboard": {
         "label": "แดชบอร์ด"
       },
@@ -827,9 +831,6 @@
         "label": "รับผลตอบแทน"
       },
       "label": "เมนู",
-      "markets": {
-        "label": "ตลาด"
-      },
       "new": "ใหม่",
       "others": {
         "bridge": {
