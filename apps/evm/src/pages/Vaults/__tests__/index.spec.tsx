@@ -95,13 +95,15 @@ describe('Vaults', () => {
     expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
   });
 
-  it('excludes Venus vaults from the supply status', () => {
-    const { queryByText } = renderComponent(<VaultsPage />, {
+  it('lists Venus vaults under the supply status', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?status=deposit'],
     });
 
-    expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
-    expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
   });
 
   it('keeps Venus vaults reachable under the paused status', () => {
@@ -126,12 +128,14 @@ describe('Vaults', () => {
   });
 
   it('redirects the legacy active status parameter to the supply status', () => {
-    const { queryByText } = renderComponent(<VaultsPage />, {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?status=active'],
     });
 
-    expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
-    expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
   });
 
   it('rewrites the legacy active status parameter in the url', async () => {

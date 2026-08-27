@@ -2,8 +2,7 @@ import { Select, TextField, type TextFieldProps, cn } from 'components';
 import { VaultCard } from 'containers/VaultCard';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
-import { type Vault, VaultStatus } from 'types';
-import { isLegacyVenusVault } from 'utilities';
+import type { Vault } from 'types';
 
 import bannerVault from './asset/banner-vault.png';
 import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
@@ -34,16 +33,10 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
   };
 
   const filteredVaults = (vaults ?? []).filter(vault => {
-    const isExcludedFromSupplyFilter =
-      filterStatus === VaultStatus.Deposit && isLegacyVenusVault(vault);
-    const matchesStatus =
-      filterStatus === ALL_OPTION_VALUE ||
-      (filterStatus === vault.status && !isExcludedFromSupplyFilter);
-
     return (
       (filterCategory === ALL_OPTION_VALUE || filterCategory === vault.category) &&
       (filterVenue === ALL_OPTION_VALUE || filterVenue === vault.venue) &&
-      matchesStatus &&
+      (filterStatus === ALL_OPTION_VALUE || filterStatus === vault.status) &&
       (!search || vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()))
     );
   });
