@@ -48,7 +48,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
     ref,
   ) => {
     const { t } = useTranslation();
-    const step = new BigNumber(1).dividedBy(new BigNumber(10 ** token.decimals)).toFixed();
+    const step = new BigNumber(1).shiftedBy(-token.decimals).toFixed();
 
     const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value: newValue } }) => {
       // Forbid values with more decimals than the token provided supports
