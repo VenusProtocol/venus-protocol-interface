@@ -8,6 +8,7 @@ import { renderComponent } from 'testUtils/render';
 import {
   useBridgeXvs,
   useGetBalanceOf,
+  useGetXvsBridgeDestinationLimits,
   useGetXvsBridgeFeeEstimation,
   useGetXvsBridgeMintStatus,
   useGetXvsBridgeStatus,
@@ -44,6 +45,35 @@ const fakeBridgeStatusData = {
   totalTransferredLast24HourUsd: new BigNumber('0'),
   maxSingleTransactionLimitUsd: new BigNumber('100000000000000000000'),
 };
+
+const fakeOpenLaneLimitMantissa = new BigNumber('20000000000000000000000');
+
+// marks every lane other than the passed ones as closed on-chain (single transaction limit of 0)
+const mockOpenBridgeLanes = (openChainIds: ChainId[]) =>
+  (useGetXvsBridgeDestinationLimits as Mock).mockImplementation(
+    ({ toChainIds }: { toChainIds: ChainId[] }) => ({
+      data: {
+        maxSingleTransactionLimitMantissas: toChainIds.reduce(
+          (acc, toChainId) => ({
+            ...acc,
+            [toChainId]: openChainIds.includes(toChainId)
+              ? fakeOpenLaneLimitMantissa
+              : new BigNumber(0),
+          }),
+          {},
+        ),
+      },
+    }),
+  );
+
+const closedTestnetLaneChainIds = [
+  ChainId.SEPOLIA,
+  ChainId.ARBITRUM_SEPOLIA,
+  ChainId.ZKSYNC_SEPOLIA,
+  ChainId.OPTIMISM_SEPOLIA,
+  ChainId.BASE_SEPOLIA,
+  ChainId.UNICHAIN_SEPOLIA,
+];
 
 const switchChainMock = vi.fn(
   ({ chainId, callback }: { chainId: ChainId; callback: () => void }) => {
@@ -471,6 +501,85 @@ describe('Bridge', () => {
     );
 
     await waitFor(() => expect(submitButton).toBeEnabled());
+  });
+
+  it('does not offer a destination chain whose bridge lane is closed on-chain', async () => {
+    mockOpenBridgeLanes([ChainId.OPBNB_TESTNET]);
+
+    const { getByTestId, getAllByText, queryByText } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    // the default destination (Sepolia) is closed, so the form moves onto the only open lane
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
+        String(ChainId.OPBNB_TESTNET),
+      ),
+    );
+
+    // open the "To" dropdown
+    fireEvent.click(getByTestId(TEST_IDS.toChainIdSelect).closest('button')!);
+
+    // the open lane is listed as an option, on top of being the selected one
+    await waitFor(() =>
+      expect(getAllByText(chains[ChainId.OPBNB_TESTNET].name).length).toBeGreaterThan(1),
+    );
+
+    // none of the closed lanes is offered
+    for (const closedChainId of closedTestnetLaneChainIds) {
+      expect(queryByText(chains[closedChainId].name)).toBeNull();
+    }
+  });
+
+  it('offers every configured destination chain while the lane limits are unknown', async () => {
+    (useGetXvsBridgeDestinationLimits as Mock).mockImplementation(() => ({
+      data: undefined,
+    }));
+
+    const { getByTestId, getAllByText } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
+        String(ChainId.SEPOLIA),
+      ),
+    );
+
+    fireEvent.click(getByTestId(TEST_IDS.toChainIdSelect).closest('button')!);
+
+    await waitFor(() =>
+      expect(getAllByText(chains[ChainId.OPBNB_TESTNET].name).length).toBeGreaterThan(0),
+    );
+
+    for (const chainId of closedTestnetLaneChainIds) {
+      expect(getAllByText(chains[chainId].name).length).toBeGreaterThan(0);
+    }
+  });
+
+  it('keeps the configured destination chains when no lane out of the source chain is open', async () => {
+    mockOpenBridgeLanes([]);
+
+    const { getByTestId, getAllByText } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    // narrowing the list to nothing would leave the select without a selected option, so the
+    // destinations are kept and the amount field reports the actual on-chain limit instead
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
+        String(ChainId.SEPOLIA),
+      ),
+    );
+
+    fireEvent.click(getByTestId(TEST_IDS.toChainIdSelect).closest('button')!);
+
+    await waitFor(() =>
+      expect(getAllByText(chains[ChainId.OPBNB_TESTNET].name).length).toBeGreaterThan(0),
+    );
   });
 
   describe('when running in Safe Wallet app', () => {

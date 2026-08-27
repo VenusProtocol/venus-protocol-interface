@@ -266,6 +266,9 @@ export * from './queries/getXvsBridgeStatus/useGetXvsBridgeStatus';
 export * from './queries/getXvsBridgeMintStatus';
 export * from './queries/getXvsBridgeMintStatus/useGetXvsBridgeMintStatus';
 
+export * from './queries/getXvsBridgeDestinationLimits';
+export * from './queries/getXvsBridgeDestinationLimits/useGetXvsBridgeDestinationLimits';
+
 export * from './queries/getPoolDelegateApprovalStatus';
 export * from './queries/getPoolDelegateApprovalStatus/useGetPoolDelegateApprovalStatus';
 

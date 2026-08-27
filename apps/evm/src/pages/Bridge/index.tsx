@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Controller, useFormState } from 'react-hook-form';
 import type { Chain } from 'viem';
 
@@ -37,6 +37,7 @@ import { ChainSelect, getOptionsFromChainsList } from './ChainSelect';
 import { bridgeChains } from './constants';
 import LayerZeroLogo from './layerZeroLogo.svg?react';
 import TEST_IDS from './testIds';
+import useBridgeDestinationChains from './useBridgeDestinationChains';
 import useBridgeForm from './useBridgeForm';
 
 const BRIDGE_DOC_URL = `${VENUS_DOC_URL}/guides/xvs-bridge`;
@@ -265,16 +266,26 @@ const BridgePage: React.FC = () => {
     xvs,
   ]);
 
+  // only the destinations whose OFT lane is open on-chain can be bridged to. The source chain is
+  // left untouched so that users holding XVS on a chain with no open lane can still reach this page
+  const { destinationChains, areLimitsKnown } = useBridgeDestinationChains({ fromChainId });
+
   // build the list of chains that can be selected
   const [fromChainIdOptions, toChainIdOptions] = useMemo(() => {
     const fromChains = getOptionsFromChainsList(
       bridgeChains.filter(c => c.id !== toChainId) as [Chain, ...Chain[]],
     );
-    const otherChains = getOptionsFromChainsList(
-      bridgeChains.filter(c => c.id !== fromChainId) as [Chain, ...Chain[]],
-    );
+    const otherChains = getOptionsFromChainsList(destinationChains as [Chain, ...Chain[]]);
     return [fromChains, otherChains];
-  }, [fromChainId, toChainId]);
+  }, [destinationChains, toChainId]);
+
+  // the default destination is picked before the lane limits are known, so it can land on a closed
+  // lane. Move the form onto an open one, otherwise the select renders no selected option
+  useEffect(() => {
+    if (areLimitsKnown && !destinationChains.some(c => c.id === toChainId)) {
+      setValue('toChainId', destinationChains[0].id as ChainId, { shouldValidate: true });
+    }
+  }, [areLimitsKnown, destinationChains, toChainId, setValue]);
 
   if (!nativeToken || !xvs) {
     return <Spinner />;

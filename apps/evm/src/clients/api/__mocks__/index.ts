@@ -19,6 +19,7 @@ import { fixedRatedVaults, vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
 
 import FunctionKey from 'constants/functionKey';
+import { LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
 
 import { proposals } from '__mocks__/models/proposals';
 import type { Token, VToken } from 'types';
@@ -857,6 +858,24 @@ export const useGetXvsBridgeMintStatus = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_XVS_BRIDGE_MINT_STATUS],
     queryFn: getXvsBridgeMintStatus,
+  }),
+);
+
+// by default every lane is open, so specs that do not care about lane limits see the full list of
+// bridge destinations
+export const getXvsBridgeDestinationLimits = vi.fn(async () => ({
+  maxSingleTransactionLimitMantissas: Object.keys(LAYER_ZERO_CHAIN_IDS).reduce(
+    (acc, chainId) => ({
+      ...acc,
+      [chainId]: new BigNumber('20000000000000000000000'),
+    }),
+    {},
+  ),
+}));
+export const useGetXvsBridgeDestinationLimits = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_XVS_BRIDGE_DESTINATION_LIMITS],
+    queryFn: getXvsBridgeDestinationLimits,
   }),
 );
 

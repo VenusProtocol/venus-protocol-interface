@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getXvsBridgeDestinationLimits > reads the single transaction limit of every passed destination lane 1`] = `
+{
+  "maxSingleTransactionLimitMantissas": {
+    "1": "2e+22",
+    "204": "2e+22",
+  },
+}
+`;
