@@ -64,7 +64,7 @@ describe('TokenTextField', () => {
     expect(input.step).toBe(oneMantissaInXvs.toFixed());
   });
 
-  it('passes a valid step down to the TextField component for tokens with more than 20 decimals', async () => {
+  it('disables the native step check for tokens with more decimals than browsers can validate', async () => {
     const { getByTestId } = renderComponent(
       <TokenTextField
         token={{ ...xvs, decimals: 24 }}
@@ -76,7 +76,7 @@ describe('TokenTextField', () => {
 
     const input = getByTestId(testId) as HTMLInputElement;
 
-    expect(input.step).toBe('0.000000000000000000000001');
+    expect(input.step).toBe('any');
   });
 
   it('renders max button and updates value to provided value when clicking on it', async () => {

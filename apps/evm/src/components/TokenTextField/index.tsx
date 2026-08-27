@@ -8,6 +8,7 @@ import { useTranslation } from 'libs/translations';
 import formatCentsToReadableValue from 'utilities/formatCentsToReadableValue';
 import { getDecimals } from 'utilities/getDecimals';
 import { TextField, type TextFieldProps } from '../TextField';
+import { getStep } from './getStep';
 
 export interface RightMaxButton extends Omit<ButtonProps, 'variant' | 'children' | 'small'> {
   label: string;
@@ -48,7 +49,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
     ref,
   ) => {
     const { t } = useTranslation();
-    const step = new BigNumber(1).shiftedBy(-token.decimals).toFixed();
+    const step = getStep({ decimals: token.decimals });
 
     const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value: newValue } }) => {
       // Forbid values with more decimals than the token provided supports
