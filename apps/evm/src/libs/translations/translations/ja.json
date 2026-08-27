@@ -747,7 +747,7 @@
       "borrow": "借入",
       "earned": "獲得済み",
       "earnedAmount": "獲得済み {{amount}}",
-      "earnNow": "TRANSLATION NEEDED",
+      "earnNow": "今すぐ運用する",
       "from": "{{percentage}}から",
       "highestApy": "最高APY",
       "monthNo": "第{{number}}月",
@@ -822,7 +822,7 @@
     "menu": {
       "beta": "beta",
       "borrow": {
-        "label": "TRANSLATION NEEDED"
+        "label": "借入"
       },
       "dashboard": {
         "label": "ダッシュボード"

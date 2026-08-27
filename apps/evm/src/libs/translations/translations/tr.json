@@ -748,7 +748,7 @@
       "borrow": "Borç al",
       "earned": "Kazanılan",
       "earnedAmount": "Kazanılan {{amount}}",
-      "earnNow": "TRANSLATION NEEDED",
+      "earnNow": "Şimdi kazan",
       "from": "{{percentage}}'den",
       "highestApy": "En yüksek APY",
       "monthNo": "{{number}}. ay",
@@ -823,7 +823,7 @@
     "menu": {
       "beta": "beta",
       "borrow": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Borç al"
       },
       "dashboard": {
         "label": "Gösterge paneli"

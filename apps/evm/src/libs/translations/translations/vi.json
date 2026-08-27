@@ -747,7 +747,7 @@
       "borrow": "Vay",
       "earned": "Đã kiếm",
       "earnedAmount": "Đã kiếm {{amount}}",
-      "earnNow": "TRANSLATION NEEDED",
+      "earnNow": "Kiếm lợi nhuận ngay",
       "from": "Từ {{percentage}}",
       "highestApy": "APY cao nhất",
       "monthNo": "Tháng {{number}}",
@@ -822,7 +822,7 @@
     "menu": {
       "beta": "beta",
       "borrow": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Vay"
       },
       "dashboard": {
         "label": "Bảng điều khiển"

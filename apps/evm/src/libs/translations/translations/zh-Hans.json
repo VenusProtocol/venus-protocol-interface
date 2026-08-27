@@ -747,7 +747,7 @@
       "borrow": "借款",
       "earned": "已赚取",
       "earnedAmount": "已赚取 {{amount}}",
-      "earnNow": "TRANSLATION NEEDED",
+      "earnNow": "立即赚取",
       "from": "来自 {{percentage}}",
       "highestApy": "最高 APY",
       "monthNo": "第 {{number}} 个月",
@@ -822,7 +822,7 @@
     "menu": {
       "beta": "beta",
       "borrow": {
-        "label": "TRANSLATION NEEDED"
+        "label": "借款"
       },
       "dashboard": {
         "label": "仪表盘"

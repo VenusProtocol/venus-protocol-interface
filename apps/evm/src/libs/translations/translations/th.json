@@ -747,7 +747,7 @@
       "borrow": "ยืม",
       "earned": "ได้รับ",
       "earnedAmount": "ได้รับ {{amount}}",
-      "earnNow": "TRANSLATION NEEDED",
+      "earnNow": "รับผลตอบแทนตอนนี้",
       "from": "จาก {{percentage}}",
       "highestApy": "APY สูงสุด",
       "monthNo": "เดือน {{number}}",
@@ -822,7 +822,7 @@
     "menu": {
       "beta": "beta",
       "borrow": {
-        "label": "TRANSLATION NEEDED"
+        "label": "ยืม"
       },
       "dashboard": {
         "label": "แดชบอร์ด"
