@@ -2340,7 +2340,6 @@
     },
     "description": "Lợi suất đơn giản, lợi nhuận thực chất",
     "filter": {
-      "active": "Đang hoạt động",
       "allCategories": "Tất cả danh mục",
       "allStates": "Tất cả trạng thái",
       "allVenues": "Tất cả nền tảng",

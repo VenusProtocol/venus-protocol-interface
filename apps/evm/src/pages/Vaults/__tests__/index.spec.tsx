@@ -1,4 +1,5 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { useLocation } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { institutionalVault, pendleBnbVault, vaults as venusVaults } from '__mocks__/models/vaults';
@@ -94,6 +95,66 @@ describe('Vaults', () => {
     expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
   });
 
+  it('lists Venus vaults under the supply status', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?status=deposit'],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('keeps Venus vaults reachable under the paused status', () => {
+    const pausedVenusVault = {
+      ...venusVaults[0],
+      isPaused: true,
+      status: VaultStatus.Paused,
+    };
+
+    (useGetVaults as Mock).mockImplementation(() => ({
+      data: [institutionalVault, pausedVenusVault],
+      isLoading: false,
+    }));
+
+    const { getByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?status=paused'],
+    });
+
+    expect(
+      getByText(pausedVenusVault.stakedToken.symbol, { selector: titleSelector }),
+    ).toBeInTheDocument();
+  });
+
+  it('redirects the legacy active status parameter to the supply status', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?status=active'],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('rewrites the legacy active status parameter in the url', async () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    renderComponent(
+      <>
+        <VaultsPage />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: ['/?status=active'] },
+    );
+
+    await waitFor(() =>
+      expect(screen.getByTestId('search')).toHaveTextContent(`status=${VaultStatus.Deposit}`),
+    );
+  });
+
   it('filters vaults from the url status parameter', () => {
     const liquidatedInstitutionalVault = {
       ...institutionalVault,
@@ -112,5 +173,25 @@ describe('Vaults', () => {
     expect(getAllByText(en.vault.filter.liquidated)).toHaveLength(2);
     expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
     expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+  });
+
+  it.each([
+    ['an empty status parameter', '/?status='],
+    ['an unknown status parameter', '/?status=not-a-real-state'],
+  ])('falls back to all states with %s', (_label, initialEntry) => {
+    const { getByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: [initialEntry],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(
+      getByText(
+        t('vault.card.header.fixedTermTitle', {
+          tokenSymbol: institutionalVault.stakedToken.symbol,
+        }),
+        { selector: titleSelector },
+      ),
+    ).toBeInTheDocument();
   });
 });

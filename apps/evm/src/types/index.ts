@@ -574,7 +574,6 @@ export interface Transaction {
 }
 
 export enum VaultStatus {
-  Active = 'active',
   Inactive = 'inactive',
   Deposit = 'deposit',
   Locked = 'locked',

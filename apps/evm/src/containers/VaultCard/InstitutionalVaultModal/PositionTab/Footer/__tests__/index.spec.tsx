@@ -325,7 +325,7 @@ describe('InstitutionalVaultModal Footer', () => {
         {...baseProps}
         vault={{
           ...baseVault,
-          status: VaultStatus.Active,
+          status: VaultStatus.Locked,
           openEndDate: undefined,
         }}
       />,
@@ -342,7 +342,7 @@ describe('InstitutionalVaultModal Footer', () => {
         {...baseProps}
         vault={{
           ...baseVault,
-          status: VaultStatus.Active,
+          status: VaultStatus.Locked,
         }}
       />,
     );

@@ -2340,7 +2340,6 @@
     },
     "description": "シンプルに利回りを、確かなリターンを",
     "filter": {
-      "active": "アクティブ",
       "allCategories": "全カテゴリ",
       "allStates": "すべての状態",
       "allVenues": "全プラットフォーム",

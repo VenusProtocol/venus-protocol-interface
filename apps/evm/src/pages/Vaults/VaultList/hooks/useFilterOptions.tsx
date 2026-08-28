@@ -1,7 +1,8 @@
 import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
-import { VaultCategory } from 'types';
+import { VaultCategory, VaultStatus } from 'types';
 import { getVaultCategoryName } from 'utilities/getVaultCategoryName';
 
 import institutionIconSrc from '../asset/institution.svg';
@@ -12,13 +13,40 @@ const CATEGORY_PARAM_KEY = 'category';
 const VENUE_PARAM_KEY = 'venue';
 const STATUS_PARAM_KEY = 'status';
 
+const LEGACY_ACTIVE_STATUS_VALUE = 'active';
+
+const SELECTABLE_STATUS_VALUES: string[] = [ALL_OPTION_VALUE, ...Object.values(VaultStatus)];
+
 export const useFilterOptions = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const category = searchParams.get(CATEGORY_PARAM_KEY) ?? ALL_OPTION_VALUE;
   const venue = searchParams.get(VENUE_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const status = searchParams.get(STATUS_PARAM_KEY) ?? ALL_OPTION_VALUE;
+  const statusParam = searchParams.get(STATUS_PARAM_KEY);
+  const isLegacyStatus = statusParam === LEGACY_ACTIVE_STATUS_VALUE;
+
+  let status: string = ALL_OPTION_VALUE;
+
+  if (isLegacyStatus) {
+    status = VaultStatus.Deposit;
+  } else if (statusParam && SELECTABLE_STATUS_VALUES.includes(statusParam)) {
+    status = statusParam;
+  }
+
+  useEffect(() => {
+    if (!isLegacyStatus) {
+      return;
+    }
+
+    setSearchParams(
+      currentSearchParams => ({
+        ...Object.fromEntries(currentSearchParams),
+        [STATUS_PARAM_KEY]: VaultStatus.Deposit,
+      }),
+      { replace: true },
+    );
+  }, [isLegacyStatus, setSearchParams]);
 
   const setCategory = (newVal: string) =>
     setSearchParams(currentSearchParams => ({
@@ -99,10 +127,6 @@ export const useFilterOptions = () => {
       value: 'deposit',
     },
     {
-      label: t('vault.filter.active'),
-      value: 'active',
-    },
-    {
       label: t('vault.filter.refund'),
       value: 'refund',
     },
@@ -123,12 +147,16 @@ export const useFilterOptions = () => {
       value: 'pending',
     },
     {
-      label: t('vault.filter.inactive'),
-      value: 'inactive',
+      label: t('vault.filter.paused'),
+      value: 'paused',
     },
     {
       label: t('vault.filter.liquidated'),
       value: 'liquidated',
+    },
+    {
+      label: t('vault.filter.inactive'),
+      value: 'inactive',
     },
   ];
 

@@ -2344,7 +2344,6 @@
     },
     "description": "Yield made simple, returns made real",
     "filter": {
-      "active": "Active",
       "allCategories": "All categories",
       "allStates": "All states",
       "allVenues": "All venues",

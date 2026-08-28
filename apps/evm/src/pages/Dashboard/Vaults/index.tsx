@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import type { CellProps } from 'components';
 import { routes } from 'constants/routing';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
+import { useSortVaults } from 'hooks/useSortVaults';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
@@ -14,6 +15,8 @@ export interface VaultsProps {
 
 export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
   const { t } = useTranslation();
+
+  const sortedVaults = useSortVaults({ vaults });
 
   const { stakeBalanceCents, dailyEarningsCents } = vaults.reduce(
     (acc, curr) => {
@@ -61,7 +64,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
 
   return (
     <PositionCardsTab
-      items={vaults}
+      items={sortedVaults}
       activePositionFilter={vault => vault.userStakeBalanceMantissa?.isGreaterThan(0) === true}
       summaryCells={summaryCells}
       placeholderIconName="vault"

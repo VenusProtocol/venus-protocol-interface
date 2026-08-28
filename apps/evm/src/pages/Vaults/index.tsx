@@ -2,8 +2,8 @@ import { useGetVaults } from 'clients/api';
 import { Page, Spinner } from 'components';
 import { useAccountAddress } from 'libs/wallet';
 
+import { useSortVaults } from 'hooks/useSortVaults';
 import { VaultList } from './VaultList';
-import { useSortVaults } from './useSortVaults';
 
 const VaultsPage: React.FC = () => {
   const { accountAddress } = useAccountAddress();
