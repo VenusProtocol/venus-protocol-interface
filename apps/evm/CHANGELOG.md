@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.21.0
+
+### Minor Changes
+
+- 5f6dc6e: feat: add rename and sort order logic for vaults
+
 ## 5.20.2
 
 ### Patch Changes
