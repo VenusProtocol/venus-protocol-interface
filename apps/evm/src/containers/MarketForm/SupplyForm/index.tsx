@@ -262,7 +262,11 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
     if (!isUsingSwap) {
       const marginWithSupplyCapTokens = asset.supplyCapTokens.isEqualTo(0)
         ? new BigNumber(0)
-        : asset.supplyCapTokens.minus(asset.supplyBalanceTokens);
+        : asset.supplyCapTokens
+            .minus(asset.supplyBalanceTokens)
+            // supplyBalanceTokens is derived from a division, so it carries more decimals than the
+            // token supports. Round down to keep the amount representable and under the cap.
+            .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
 
       amountTokens = BigNumber.min(amountTokens, marginWithSupplyCapTokens);
     }
@@ -274,6 +278,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
     fromTokenUserWalletBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
     asset.supplyCapTokens,
+    asset.vToken.underlyingToken.decimals,
   ]);
 
   let toTokenAmountTokens =
