@@ -2350,10 +2350,19 @@
       "institution": "Tổ chức",
       "liquidated": "Đã thanh lý",
       "locked": "Đang kiếm lợi nhuận",
+      "nCategories_other": "TRANSLATION NEEDED",
+      "noResults": "TRANSLATION NEEDED",
+      "nStates_other": "TRANSLATION NEEDED",
+      "nVenues_other": "TRANSLATION NEEDED",
       "paused": "Tạm dừng",
       "pending": "Đang chờ",
       "refund": "Hoàn tiền",
-      "repaying": "Đang trả nợ"
+      "repaying": "Đang trả nợ",
+      "reset": "TRANSLATION NEEDED",
+      "resetFilters": "TRANSLATION NEEDED",
+      "selectCategories": "TRANSLATION NEEDED",
+      "selectStates": "TRANSLATION NEEDED",
+      "selectVenues": "TRANSLATION NEEDED"
     },
     "header": "Kho",
     "modals": {

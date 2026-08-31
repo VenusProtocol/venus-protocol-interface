@@ -1,13 +1,14 @@
-import { Select, TextField, type TextFieldProps, cn } from 'components';
+import { MultiSelect, TextField, type TextFieldProps, cn } from 'components';
 import { VaultCard } from 'containers/VaultCard';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
 import type { Vault } from 'types';
 
+import { NoResults } from './NoResults';
 import bannerVault from './asset/banner-vault.png';
-import { ALL_OPTION_VALUE, useFilterOptions } from './hooks/useFilterOptions';
+import { useFilterOptions } from './hooks/useFilterOptions';
 
-const optionClassName = cn('px-3 h-10 scrollbar-track-cards');
+const multiSelectClassName = cn('sm:flex-1/3 sm:min-w-45 xl:flex-none');
 
 interface VaultListProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];
@@ -16,15 +17,16 @@ interface VaultListProps extends HTMLAttributes<HTMLDivElement> {
 export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) => {
   const { t } = useTranslation();
   const {
-    category: filterCategory,
-    setCategory,
+    categories: filterCategories,
+    setCategories,
     categoryOptions,
-    venue: filterVenue,
-    setVenue,
+    venues: filterVenues,
+    setVenues,
     venueOptions,
-    status: filterStatus,
-    setStatus,
+    statuses: filterStatuses,
+    setStatuses,
     statusOptions,
+    reset: resetFilters,
   } = useFilterOptions();
 
   const [search, setSearch] = useState('');
@@ -32,11 +34,18 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
     setSearch(e.currentTarget?.value);
   };
 
+  const handleResetAll = () => {
+    resetFilters();
+    setSearch('');
+  };
+
+  // An empty group means no constraint: values are OR-ed within a group, and groups are
+  // AND-ed together
   const filteredVaults = (vaults ?? []).filter(vault => {
     return (
-      (filterCategory === ALL_OPTION_VALUE || filterCategory === vault.category) &&
-      (filterVenue === ALL_OPTION_VALUE || filterVenue === vault.venue) &&
-      (filterStatus === ALL_OPTION_VALUE || filterStatus === vault.status) &&
+      (filterCategories.length === 0 || filterCategories.includes(vault.category)) &&
+      (filterVenues.length === 0 || filterVenues.includes(vault.venue)) &&
+      (filterStatuses.length === 0 || filterStatuses.includes(vault.status)) &&
       (!search || vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()))
     );
   });
@@ -57,38 +66,6 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
         </div>
 
         <div className="flex flex-col xl:flex-row xl:items-center gap-3">
-          <div className="grid grid-cols-2 sm:flex gap-3 w-full xl:w-fit">
-            <Select
-              className="sm:flex-1/3 xl:flex-none"
-              size="medium"
-              placeLabelToLeft
-              options={categoryOptions}
-              optionClassName={optionClassName}
-              buttonClassName="sm:min-w-45"
-              value={filterCategory}
-              onChange={newValue => setCategory(newValue.toString())}
-            />
-            <Select
-              className="sm:flex-1/3 xl:flex-none"
-              size="medium"
-              placeLabelToLeft
-              options={venueOptions}
-              optionClassName={optionClassName}
-              buttonClassName="sm:min-w-45"
-              value={filterVenue}
-              onChange={newValue => setVenue(newValue.toString())}
-            />
-            <Select
-              className="sm:flex-1/3 xl:flex-none"
-              size="medium"
-              placeLabelToLeft
-              options={statusOptions}
-              optionClassName={optionClassName}
-              buttonClassName="sm:min-w-45"
-              value={filterStatus}
-              onChange={newValue => setStatus(newValue.toString())}
-            />
-          </div>
           <TextField
             value={search}
             onChange={onChange}
@@ -97,14 +74,51 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
             placeholder={t('vault.filter.inputPlaceholder')}
             className="w-full xl:w-75"
           />
+
+          <div className="grid grid-cols-2 sm:flex gap-3 w-full xl:w-fit">
+            <MultiSelect
+              className={multiSelectClassName}
+              options={categoryOptions}
+              value={filterCategories}
+              onChange={setCategories}
+              placeholder={t('vault.filter.allCategories')}
+              renderCount={count => t('vault.filter.nCategories', { count })}
+              title={t('vault.filter.selectCategories')}
+              resetLabel={t('vault.filter.reset')}
+            />
+            <MultiSelect
+              className={multiSelectClassName}
+              options={venueOptions}
+              value={filterVenues}
+              onChange={setVenues}
+              placeholder={t('vault.filter.allVenues')}
+              renderCount={count => t('vault.filter.nVenues', { count })}
+              title={t('vault.filter.selectVenues')}
+              resetLabel={t('vault.filter.reset')}
+            />
+            <MultiSelect
+              className={multiSelectClassName}
+              options={statusOptions}
+              value={filterStatuses}
+              onChange={setStatuses}
+              placeholder={t('vault.filter.allStates')}
+              renderCount={count => t('vault.filter.nStates', { count })}
+              title={t('vault.filter.selectStates')}
+              resetLabel={t('vault.filter.reset')}
+            />
+          </div>
         </div>
       </div>
 
-      <div className={cn('relative grid grid-cols-1 xl:grid-cols-3 gap-3', className)} {...props}>
-        {filteredVaults.map(vault => (
-          <VaultCard vault={vault} key={vault.key} />
-        ))}
-      </div>
+      {filteredVaults.length === 0 ? (
+        <NoResults onReset={handleResetAll} />
+      ) : (
+        <div className={cn('relative grid grid-cols-1 xl:grid-cols-3 gap-3', className)} {...props}>
+          {filteredVaults.map(vault => (
+            <VaultCard vault={vault} key={vault.key} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

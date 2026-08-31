@@ -2350,10 +2350,19 @@
       "institution": "机构",
       "liquidated": "已清算",
       "locked": "收益中",
+      "nCategories_other": "TRANSLATION NEEDED",
+      "noResults": "TRANSLATION NEEDED",
+      "nStates_other": "TRANSLATION NEEDED",
+      "nVenues_other": "TRANSLATION NEEDED",
       "paused": "已暂停",
       "pending": "待定",
       "refund": "退款",
-      "repaying": "还款中"
+      "repaying": "还款中",
+      "reset": "TRANSLATION NEEDED",
+      "resetFilters": "TRANSLATION NEEDED",
+      "selectCategories": "TRANSLATION NEEDED",
+      "selectStates": "TRANSLATION NEEDED",
+      "selectVenues": "TRANSLATION NEEDED"
     },
     "header": "金库",
     "modals": {

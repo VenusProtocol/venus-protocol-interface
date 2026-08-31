@@ -2353,10 +2353,22 @@
       "institution": "Kurum",
       "liquidated": "Tasfiye edildi",
       "locked": "Kazanç",
+      "nCategories_one": "TRANSLATION NEEDED",
+      "nCategories_other": "TRANSLATION NEEDED",
+      "noResults": "TRANSLATION NEEDED",
+      "nStates_one": "TRANSLATION NEEDED",
+      "nStates_other": "TRANSLATION NEEDED",
+      "nVenues_one": "TRANSLATION NEEDED",
+      "nVenues_other": "TRANSLATION NEEDED",
       "paused": "Duraklatıldı",
       "pending": "Beklemede",
       "refund": "İade",
-      "repaying": "Geri ödeniyor"
+      "repaying": "Geri ödeniyor",
+      "reset": "TRANSLATION NEEDED",
+      "resetFilters": "TRANSLATION NEEDED",
+      "selectCategories": "TRANSLATION NEEDED",
+      "selectStates": "TRANSLATION NEEDED",
+      "selectVenues": "TRANSLATION NEEDED"
     },
     "header": "Kasa",
     "modals": {

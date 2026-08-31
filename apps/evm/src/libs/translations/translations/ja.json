@@ -2350,10 +2350,19 @@
       "institution": "機関",
       "liquidated": "清算済み",
       "locked": "収益中",
+      "nCategories_other": "TRANSLATION NEEDED",
+      "noResults": "TRANSLATION NEEDED",
+      "nStates_other": "TRANSLATION NEEDED",
+      "nVenues_other": "TRANSLATION NEEDED",
       "paused": "停止中",
       "pending": "保留",
       "refund": "返金",
-      "repaying": "返済中"
+      "repaying": "返済中",
+      "reset": "TRANSLATION NEEDED",
+      "resetFilters": "TRANSLATION NEEDED",
+      "selectCategories": "TRANSLATION NEEDED",
+      "selectStates": "TRANSLATION NEEDED",
+      "selectVenues": "TRANSLATION NEEDED"
     },
     "header": "ボールト",
     "modals": {

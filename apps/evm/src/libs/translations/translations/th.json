@@ -2350,10 +2350,19 @@
       "institution": "สถาบัน",
       "liquidated": "ถูกชำระบัญชี",
       "locked": "กำลังรับผลตอบแทน",
+      "nCategories_other": "TRANSLATION NEEDED",
+      "noResults": "TRANSLATION NEEDED",
+      "nStates_other": "TRANSLATION NEEDED",
+      "nVenues_other": "TRANSLATION NEEDED",
       "paused": "หยุดชั่วคราว",
       "pending": "รอดำเนินการ",
       "refund": "คืนเงิน",
-      "repaying": "กำลังชำระคืน"
+      "repaying": "กำลังชำระคืน",
+      "reset": "TRANSLATION NEEDED",
+      "resetFilters": "TRANSLATION NEEDED",
+      "selectCategories": "TRANSLATION NEEDED",
+      "selectStates": "TRANSLATION NEEDED",
+      "selectVenues": "TRANSLATION NEEDED"
     },
     "header": "วอลต์",
     "modals": {

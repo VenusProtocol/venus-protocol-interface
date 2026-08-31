@@ -2,37 +2,99 @@ import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
-import { VaultCategory, VaultStatus } from 'types';
+import { VaultCategory, VaultStatus, VaultVenue } from 'types';
 import { getVaultCategoryName } from 'utilities/getVaultCategoryName';
 
 import institutionIconSrc from '../asset/institution.svg';
-
-export const ALL_OPTION_VALUE = 'all';
 
 const CATEGORY_PARAM_KEY = 'category';
 const VENUE_PARAM_KEY = 'venue';
 const STATUS_PARAM_KEY = 'status';
 
+const PARAM_VALUE_SEPARATOR = ',';
+
 const LEGACY_ACTIVE_STATUS_VALUE = 'active';
 
-const SELECTABLE_STATUS_VALUES: string[] = [ALL_OPTION_VALUE, ...Object.values(VaultStatus)];
+const SELECTABLE_CATEGORY_VALUES: string[] = Object.values(VaultCategory);
+const SELECTABLE_VENUE_VALUES: string[] = Object.values(VaultVenue);
+// Listed in the order the design displays them, which also drives the order of
+// the values we serialize back into the URL
+const SELECTABLE_STATUS_VALUES: string[] = [
+  VaultStatus.Deposit,
+  VaultStatus.Refund,
+  VaultStatus.Locked,
+  VaultStatus.Repaying,
+  VaultStatus.Claim,
+  VaultStatus.Pending,
+  VaultStatus.Inactive,
+  VaultStatus.Liquidated,
+  VaultStatus.Paused,
+];
+
+const readParamValues = (searchParams: URLSearchParams, key: string) =>
+  (searchParams.get(key) ?? '')
+    .split(PARAM_VALUE_SEPARATOR)
+    .map(value => value.trim())
+    .filter(value => value.length > 0);
+
+// Selecting the values from the reference list rather than from the URL keeps unknown
+// values out, deduplicates, and guarantees a stable order whatever the URL contains
+const parseParamValues = ({
+  searchParams,
+  key,
+  selectableValues,
+}: {
+  searchParams: URLSearchParams;
+  key: string;
+  selectableValues: string[];
+}) => {
+  const paramValues = readParamValues(searchParams, key);
+  return selectableValues.filter(selectableValue => paramValues.includes(selectableValue));
+};
 
 export const useFilterOptions = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const category = searchParams.get(CATEGORY_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const venue = searchParams.get(VENUE_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const statusParam = searchParams.get(STATUS_PARAM_KEY);
-  const isLegacyStatus = statusParam === LEGACY_ACTIVE_STATUS_VALUE;
+  const categories = parseParamValues({
+    searchParams,
+    key: CATEGORY_PARAM_KEY,
+    selectableValues: SELECTABLE_CATEGORY_VALUES,
+  });
 
-  let status: string = ALL_OPTION_VALUE;
+  const venues = parseParamValues({
+    searchParams,
+    key: VENUE_PARAM_KEY,
+    selectableValues: SELECTABLE_VENUE_VALUES,
+  });
 
-  if (isLegacyStatus) {
-    status = VaultStatus.Deposit;
-  } else if (statusParam && SELECTABLE_STATUS_VALUES.includes(statusParam)) {
-    status = statusParam;
-  }
+  const rawStatusValues = readParamValues(searchParams, STATUS_PARAM_KEY);
+  const isLegacyStatus = rawStatusValues.includes(LEGACY_ACTIVE_STATUS_VALUE);
+  const statusValues = rawStatusValues.map(value =>
+    value === LEGACY_ACTIVE_STATUS_VALUE ? VaultStatus.Deposit : value,
+  );
+  const statuses = SELECTABLE_STATUS_VALUES.filter(selectableValue =>
+    statusValues.includes(selectableValue),
+  );
+  const serializedStatuses = statuses.join(PARAM_VALUE_SEPARATOR);
+
+  // Filter changes replace the current history entry rather than pushing a new one, so
+  // going back leaves the page instead of stepping through every option that was toggled
+  const setParamValues = (key: string, newValues: string[]) =>
+    setSearchParams(
+      currentSearchParams => {
+        const newSearchParams = Object.fromEntries(currentSearchParams);
+
+        if (newValues.length === 0) {
+          delete newSearchParams[key];
+        } else {
+          newSearchParams[key] = newValues.join(PARAM_VALUE_SEPARATOR);
+        }
+
+        return newSearchParams;
+      },
+      { replace: true },
+    );
 
   useEffect(() => {
     if (!isLegacyStatus) {
@@ -40,54 +102,48 @@ export const useFilterOptions = () => {
     }
 
     setSearchParams(
-      currentSearchParams => ({
-        ...Object.fromEntries(currentSearchParams),
-        [STATUS_PARAM_KEY]: VaultStatus.Deposit,
-      }),
+      currentSearchParams => {
+        const newSearchParams = Object.fromEntries(currentSearchParams);
+
+        if (serializedStatuses) {
+          newSearchParams[STATUS_PARAM_KEY] = serializedStatuses;
+        } else {
+          delete newSearchParams[STATUS_PARAM_KEY];
+        }
+
+        return newSearchParams;
+      },
       { replace: true },
     );
-  }, [isLegacyStatus, setSearchParams]);
+  }, [isLegacyStatus, serializedStatuses, setSearchParams]);
 
-  const setCategory = (newVal: string) =>
-    setSearchParams(currentSearchParams => ({
-      ...Object.fromEntries(currentSearchParams),
-      [CATEGORY_PARAM_KEY]: newVal,
-    }));
+  const setCategories = (newValues: string[]) => setParamValues(CATEGORY_PARAM_KEY, newValues);
+  const setVenues = (newValues: string[]) => setParamValues(VENUE_PARAM_KEY, newValues);
+  const setStatuses = (newValues: string[]) => setParamValues(STATUS_PARAM_KEY, newValues);
 
-  const setVenue = (newVal: string) =>
-    setSearchParams(currentSearchParams => ({
-      ...Object.fromEntries(currentSearchParams),
-      [VENUE_PARAM_KEY]: newVal,
-    }));
+  const reset = () =>
+    setSearchParams(
+      currentSearchParams => {
+        const newSearchParams = Object.fromEntries(currentSearchParams);
 
-  const setStatus = (newVal: string) =>
-    setSearchParams(currentSearchParams => ({
-      ...Object.fromEntries(currentSearchParams),
-      [STATUS_PARAM_KEY]: newVal,
-    }));
+        delete newSearchParams[CATEGORY_PARAM_KEY];
+        delete newSearchParams[VENUE_PARAM_KEY];
+        delete newSearchParams[STATUS_PARAM_KEY];
 
-  const categoryOptions = [
-    {
-      label: t('vault.filter.allCategories'),
-      value: ALL_OPTION_VALUE,
-    },
-  ];
+        return newSearchParams;
+      },
+      { replace: true },
+    );
 
-  Object.values(VaultCategory).forEach(category =>
-    categoryOptions.push({
-      label: getVaultCategoryName({
-        category,
-        t,
-      }),
-      value: category,
+  const categoryOptions = Object.values(VaultCategory).map(category => ({
+    label: getVaultCategoryName({
+      category,
+      t,
     }),
-  );
+    value: category,
+  }));
 
   const venueOptions = [
-    {
-      label: t('vault.filter.allVenues'),
-      value: ALL_OPTION_VALUE,
-    },
     {
       label: (
         <div className="flex items-center gap-2">
@@ -95,7 +151,7 @@ export const useFilterOptions = () => {
           Venus
         </div>
       ),
-      value: 'venus',
+      value: VaultVenue.Venus,
     },
     {
       label: (
@@ -104,7 +160,7 @@ export const useFilterOptions = () => {
           Pendle
         </div>
       ),
-      value: 'pendle',
+      value: VaultVenue.Pendle,
     },
     {
       label: (
@@ -113,62 +169,59 @@ export const useFilterOptions = () => {
           {t('vault.filter.institution')}
         </div>
       ),
-      value: 'institution',
+      value: VaultVenue.Institution,
     },
   ];
 
   const statusOptions = [
     {
-      label: t('vault.filter.allStates'),
-      value: ALL_OPTION_VALUE,
-    },
-    {
       label: t('vault.filter.deposit'),
-      value: 'deposit',
+      value: VaultStatus.Deposit,
     },
     {
       label: t('vault.filter.refund'),
-      value: 'refund',
+      value: VaultStatus.Refund,
     },
     {
       label: t('vault.filter.locked'),
-      value: 'locked',
+      value: VaultStatus.Locked,
     },
     {
       label: t('vault.filter.repaying'),
-      value: 'repaying',
+      value: VaultStatus.Repaying,
     },
     {
       label: t('vault.filter.claim'),
-      value: 'claim',
+      value: VaultStatus.Claim,
     },
     {
       label: t('vault.filter.pending'),
-      value: 'pending',
-    },
-    {
-      label: t('vault.filter.paused'),
-      value: 'paused',
-    },
-    {
-      label: t('vault.filter.liquidated'),
-      value: 'liquidated',
+      value: VaultStatus.Pending,
     },
     {
       label: t('vault.filter.inactive'),
-      value: 'inactive',
+      value: VaultStatus.Inactive,
+    },
+    {
+      label: t('vault.filter.liquidated'),
+      value: VaultStatus.Liquidated,
+    },
+    {
+      label: t('vault.filter.paused'),
+      value: VaultStatus.Paused,
     },
   ];
 
   return {
-    category,
-    setCategory,
+    categories,
+    setCategories,
     categoryOptions,
-    venue,
-    setVenue,
+    venues,
+    setVenues,
     venueOptions,
-    status,
-    setStatus,
+    statuses,
+    setStatuses,
     statusOptions,
+    reset,
   };
 };

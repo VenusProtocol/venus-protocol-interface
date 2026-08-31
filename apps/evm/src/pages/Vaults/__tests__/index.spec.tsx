@@ -1,5 +1,5 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigationType } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { institutionalVault, pendleBnbVault, vaults as venusVaults } from '__mocks__/models/vaults';
@@ -14,6 +14,12 @@ import VaultsPage from '..';
 describe('Vaults', () => {
   const fakeVaults = [institutionalVault, ...venusVaults];
   const titleSelector = 'p.truncate.text-b1s';
+
+  // A filter label can also appear on the vault cards, and an open dropdown renders its
+  // options in both the desktop menu and the mobile modal. The trigger is always the first
+  // button carrying the label, and the modal copy of an option always the last one.
+  const getFilterTrigger = (label: string) => screen.getAllByRole('button', { name: label })[0];
+  const getFilterOption = (label: string) => screen.getAllByRole('button', { name: label }).at(-1)!;
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -173,6 +179,130 @@ describe('Vaults', () => {
     expect(getAllByText(en.vault.filter.liquidated)).toHaveLength(2);
     expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
     expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+  });
+
+  it('combines values within a group with OR', () => {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: [`/?status=${VaultStatus.Deposit},${VaultStatus.Pending}`],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
+
+    // The trigger reflects the two selected states rather than either label
+    expect(getByText(t('vault.filter.nStates', { count: 2 }))).toBeInTheDocument();
+    expect(queryByText(en.vault.filter.allStates)).not.toBeInTheDocument();
+  });
+
+  it('combines groups with AND', () => {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=stablecoins&venue=venus'],
+    });
+
+    // VAI is the only stablecoins vault hosted on the Venus venue
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('ignores unknown values within a group', () => {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?venue=institution,not-a-real-venue'],
+    });
+
+    expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
+    expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
+  });
+
+  it('labels a trigger with the selected option when a group holds a single value', () => {
+    const { getByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance'],
+    });
+
+    expect(getFilterTrigger(en.vault.category.governance)).toBeInTheDocument();
+    expect(getByText(en.vault.filter.allVenues)).toBeInTheDocument();
+    expect(getByText(en.vault.filter.allStates)).toBeInTheDocument();
+  });
+
+  it('lets user select several values from a group', () => {
+    const { getByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance'],
+    });
+
+    fireEvent.click(getFilterTrigger(en.vault.category.governance));
+    fireEvent.click(getFilterOption(en.vault.category.stablecoins));
+
+    expect(getByText(t('vault.filter.nCategories', { count: 2 }))).toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+  });
+
+  it('lets user clear a single group from its reset link', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance&venue=venus'],
+    });
+
+    fireEvent.click(getFilterTrigger(en.vault.category.governance));
+    fireEvent.click(getAllByText(en.vault.filter.reset)[0]);
+
+    expect(getByText(en.vault.filter.allCategories)).toBeInTheDocument();
+    // The venue group is left untouched, so the institutional vault stays filtered out
+    expect(queryByText(en.vault.filter.allVenues)).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+  });
+
+  it('replaces the history entry when a filter changes', () => {
+    const NavigationTypeDisplay = () => (
+      <div data-testid="navigation-type">{useNavigationType()}</div>
+    );
+
+    renderComponent(
+      <>
+        <VaultsPage />
+
+        <NavigationTypeDisplay />
+      </>,
+    );
+
+    fireEvent.click(getFilterTrigger(en.vault.filter.allCategories));
+    fireEvent.click(getFilterOption(en.vault.category.governance));
+
+    expect(screen.getByTestId('navigation-type')).toHaveTextContent('REPLACE');
+  });
+
+  it('shows the no results state when no vault matches the filters', () => {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance&venue=institution'],
+    });
+
+    expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
+    expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('clears every group and the search field from the no results state', () => {
+    const { getByPlaceholderText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance'],
+    });
+
+    const searchInput = getByPlaceholderText(en.vault.filter.inputPlaceholder);
+    fireEvent.change(searchInput, { target: { value: 'vai' } });
+
+    expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
+
+    fireEvent.click(getByText(en.vault.filter.resetFilters));
+
+    expect(queryByText(en.vault.filter.noResults)).not.toBeInTheDocument();
+    expect(searchInput).toHaveValue('');
+    expect(getByText(en.vault.filter.allCategories)).toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
   });
 
   it.each([
