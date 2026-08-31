@@ -119,7 +119,7 @@ const Trade: React.FC = () => {
 
             {!doNotShowBanner && <Banner className="lg:hidden" />}
 
-            <Card className="p-0 overflow-hidden bg-dark-blue h-80 shrink-0 lg:h-114">
+            <Card className="p-0 overflow-hidden bg-dark-blue h-80 shrink-0 lg:h-114 isolate">
               <KLineChart
                 dataLoader={dataLoader}
                 title={`${longToken.symbol}/${shortToken.symbol}`}
