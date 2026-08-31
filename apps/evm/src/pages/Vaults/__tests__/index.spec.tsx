@@ -181,6 +181,53 @@ describe('Vaults', () => {
     expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
   });
 
+  it.each([
+    ['mixed with another state', '/?status=active,pending', 'deposit,pending'],
+    ['duplicated by its modern value', '/?status=active,deposit', 'deposit'],
+    ['listed after another state', '/?status=pending,active', 'deposit,pending'],
+  ])(
+    'rewrites the legacy active status parameter when %s',
+    async (_label, initialEntry, expected) => {
+      const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+      renderComponent(
+        <>
+          <VaultsPage />
+
+          <SearchDisplay />
+        </>,
+        { routerInitialEntries: [initialEntry] },
+      );
+
+      await waitFor(() =>
+        expect(
+          new URLSearchParams(screen.getByTestId('search').textContent ?? '').get('status'),
+        ).toBe(expected),
+      );
+    },
+  );
+
+  it('persists every selected value of a group in the url', () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    renderComponent(
+      <>
+        <VaultsPage />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: [`/?status=${VaultStatus.Pending}`] },
+    );
+
+    fireEvent.click(getFilterTrigger(en.vault.filter.pending));
+    fireEvent.click(getFilterOption(en.vault.filter.deposit));
+
+    expect(
+      new URLSearchParams(screen.getByTestId('search').textContent ?? '').get('status'),
+      // Serialized in the order the options are displayed, not the order they were picked
+    ).toBe(`${VaultStatus.Deposit},${VaultStatus.Pending}`);
+  });
+
   it('combines values within a group with OR', () => {
     const { getByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: [`/?status=${VaultStatus.Deposit},${VaultStatus.Pending}`],

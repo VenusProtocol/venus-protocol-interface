@@ -2356,7 +2356,7 @@
       "locked": "Locked",
       "nCategories_one": "{{count}} Category",
       "nCategories_other": "{{count}} Categories",
-      "noResults": "No Vaults match your filters",
+      "noResults": "No vaults match your filters",
       "nStates_one": "{{count}} State",
       "nStates_other": "{{count}} States",
       "nVenues_one": "{{count}} Venue",

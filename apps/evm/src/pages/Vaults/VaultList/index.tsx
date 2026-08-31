@@ -8,7 +8,7 @@ import { NoResults } from './NoResults';
 import bannerVault from './asset/banner-vault.png';
 import { useFilterOptions } from './hooks/useFilterOptions';
 
-const multiSelectClassName = cn('sm:flex-1/3 sm:min-w-45 xl:flex-none');
+const multiSelectClassName = 'sm:flex-1/3 sm:min-w-45 xl:flex-none';
 
 interface VaultListProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];
