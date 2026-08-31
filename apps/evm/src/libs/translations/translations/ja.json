@@ -101,6 +101,11 @@
         }
       },
       "today": "今日",
+      "txSource": {
+        "liquidityHub": "流動性ハブ",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "{{vTokenSymbol}}を担保として<Styled>有効化</Styled>",
         "exitMarket": "{{vTokenSymbol}}を担保として<Styled>無効化</Styled>"
@@ -110,6 +115,7 @@
         "enterMarket": "担保を有効化",
         "exitMarket": "担保を無効化",
         "mint": "供給",
+        "mintFromCollateral": "移行",
         "positionClosedWithLoss": "クローズ（損失）",
         "positionClosedWithProfit": "クローズ（利益）",
         "positionIncreased": "増加",
@@ -741,6 +747,7 @@
       "borrow": "借入",
       "earned": "獲得済み",
       "earnedAmount": "獲得済み {{amount}}",
+      "earnNow": "今すぐ運用する",
       "from": "{{percentage}}から",
       "highestApy": "最高APY",
       "monthNo": "第{{number}}月",
@@ -814,6 +821,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "借入"
+      },
       "dashboard": {
         "label": "ダッシュボード"
       },
@@ -821,9 +831,6 @@
         "label": "獲得"
       },
       "label": "メニュー",
-      "markets": {
-        "label": "マーケット"
-      },
       "new": "新規",
       "others": {
         "bridge": {
@@ -920,8 +927,8 @@
           "title": "APY"
         },
         "capDollarsColumn": {
-          "title": "絶対上限",
-          "tooltip": "利回りグループの絶対上限",
+          "title": "実効上限",
+          "tooltip": "利回りグループの実効上限",
           "unlimited": "無制限"
         },
         "capPercentageColumn": {
@@ -944,6 +951,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "資産",
+            "liquidationThreshold": "清算しきい値"
+          },
           "title": "担保"
         },
         "liquidityColumn": {
@@ -2240,6 +2251,14 @@
       "title": "取引が確認されました"
     }
   },
+  "transactions": {
+    "liquidityHub": {
+      "label": "流動性ハブ"
+    },
+    "venusCore": {
+      "label": "Venus Core"
+    }
+  },
   "txFormSubmitButton": {
     "acknowledgements": {
       "highPriceImpact": {
@@ -2715,5 +2734,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "プロトコル"
   }
 }

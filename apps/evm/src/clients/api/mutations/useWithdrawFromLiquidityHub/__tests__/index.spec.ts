@@ -50,6 +50,9 @@ describe('useWithdrawFromLiquidityHub', () => {
         },
       ],
     });
+    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+      queryKey: [FunctionKey.GET_LIQUIDITY_HUBS],
+    });
   });
 
   it('redeems shares for full withdrawals', () => {
@@ -64,6 +67,54 @@ describe('useWithdrawFromLiquidityHub', () => {
       address: liquidityHub.vhToken.address,
       functionName: 'redeem',
       args: [39622641509433962264n, fakeAccountAddress, fakeAccountAddress],
+    });
+  });
+
+  it('redeems shares for full withdrawals when the hub allows redeeming the entire balance', () => {
+    renderHook(() => useWithdrawFromLiquidityHub(), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(
+      fn({
+        ...fakeFullInput,
+        liquidityHub: {
+          ...liquidityHub,
+          userVhTokenBalanceTokens: new BigNumber('39.62264150943396226415'),
+          userVhTokenMaxRedeemTokens: new BigNumber('39.62264150943396226415'),
+        },
+      }),
+    ).toEqual({
+      abi: expect.any(Array),
+      address: liquidityHub.vhToken.address,
+      functionName: 'redeem',
+      args: [39622641509433962264n, fakeAccountAddress, fakeAccountAddress],
+    });
+  });
+
+  it('withdraws the requested amount when maxRedeem is lower than the share balance', () => {
+    renderHook(() => useWithdrawFromLiquidityHub(), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(
+      fn({
+        ...fakeFullInput,
+        liquidityHub: {
+          ...liquidityHub,
+          userVhTokenBalanceTokens: new BigNumber('39.62264150943396226415'),
+          userVhTokenMaxRedeemTokens: new BigNumber('1'),
+        },
+      }),
+    ).toEqual({
+      abi: expect.any(Array),
+      address: liquidityHub.vhToken.address,
+      functionName: 'withdraw',
+      args: [1000000000000000000n, fakeAccountAddress, fakeAccountAddress],
     });
   });
 

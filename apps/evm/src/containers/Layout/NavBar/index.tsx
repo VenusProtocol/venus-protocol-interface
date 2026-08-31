@@ -10,6 +10,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import { useStore } from '../store';
+import TEST_IDS from '../testIds';
 import { ChainSelect } from './ChainSelect';
 import { ClaimRewardsButton } from './ClaimRewardsButton';
 import { ConnectButton } from './ConnectButton';
@@ -17,7 +18,7 @@ import { MenuItem } from './MenuItem';
 import { NavButtonWrapper } from './NavButtonWrapper';
 import { Settings } from './Settings';
 import { SettingsButton } from './SettingsButton';
-import { useMenuItems } from './useMenuItems';
+import { useDashboardMenuItem, useMenuItems } from './useMenuItems';
 
 export type NavBarProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -57,6 +58,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
   }, [isMobileMenuOpen]);
 
   const menuItems = useMenuItems();
+  const dashboardMenuItem = useDashboardMenuItem();
 
   return (
     <nav className="relative">
@@ -83,14 +85,20 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           </Link>
 
           {/* LG and up menu */}
-          <div className="hidden items-center lg:flex xl:gap-x-3">
+          <div className="hidden items-center lg:flex xl:gap-x-3" data-testid={TEST_IDS.navBarMenu}>
             {menuItems.map(item => (
               <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
             ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-x-3 h-9 sm:h-12">
+        <div className="flex items-center gap-x-3 h-9 sm:h-12" data-testid={TEST_IDS.navBarActions}>
+          {/* Sits to the left of the reward claim button, and only from the breakpoint the desktop
+              menu appears at: below that, the dashboard is reachable from the mobile menu */}
+          <div className="hidden items-center lg:flex">
+            <MenuItem item={dashboardMenuItem} onClick={closeMobileMenu} />
+          </div>
+
           <ClaimRewardsButton className="h-full hidden sm:flex" data-rewards-button="true" />
 
           <ChainSelect buttonClassName="h-10 px-3 py-0 bg-dark-blue border-dark-blue-disabled/50 hover:bg-dark-blue-hover hover:border-dark-blue-disabled/50 hover:no-underline active:bg-dark-blue-hover sm:h-12" />
@@ -123,7 +131,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         </div>
 
         <div className="mb-2">
-          {menuItems.map(item => (
+          {[dashboardMenuItem, ...menuItems].map(item => (
             <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
           ))}
         </div>

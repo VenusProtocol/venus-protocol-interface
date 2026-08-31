@@ -12,7 +12,6 @@ import { TableCell } from './TableCell';
 import { TableContainer } from './TableContainer';
 import { TableElement } from './TableElement';
 import { TableRow } from './TableRow';
-import { getTableCellHeight } from './getTableCellHeight';
 import { isInteractiveElement } from './isInteractiveElement';
 import type { Order, TableColumn, TableProps } from './types';
 
@@ -38,19 +37,19 @@ export function Table<R>({
   header,
   placeholder,
   selectVariant,
-  cellHeight,
   variant = 'primary',
   tableLayout = 'fixed',
   renderRowFooter,
   renderRowControl,
   hideCardDelimiter,
   className,
+  tableRowClassName,
+  tableHeaderClassName,
   ...otherProps
 }: TableProps<R>) {
   const { formatTo } = useFormatTo();
   const navigate = useNavigate();
   const totalColumns = columns.length + (renderRowControl ? 1 : 0);
-  const tablecellheight = getTableCellHeight(cellHeight);
   const minwidth = unsafeMinWidth ?? '0';
   const tablelayout = tableLayout;
 
@@ -148,7 +147,10 @@ export function Table<R>({
           >
             <TableElement style={{ minWidth: minwidth, tableLayout: tablelayout }}>
               <Head
-                className={cn(variant === 'primary' && 'border-b border-dark-blue-hover')}
+                className={cn(
+                  variant === 'primary' && 'border-b border-dark-blue-hover',
+                  tableHeaderClassName,
+                )}
                 controls={controls}
                 columns={columns}
                 orderBy={order?.orderBy}
@@ -182,6 +184,7 @@ export function Table<R>({
                         className={cn(
                           'h-18 text-white hover:bg-background-hover hover:no-underline',
                           isRowClickable && 'cursor-pointer',
+                          tableRowClassName,
                         )}
                         onClick={
                           isRowClickable
@@ -218,7 +221,6 @@ export function Table<R>({
                                   column === columns[columns.length - 1] &&
                                   'rounded-r-lg',
                               )}
-                              style={{ height: tablecellheight }}
                               key={`${rowKey}-${column.key}`}
                               title={cellTitle}
                               align={column.align}

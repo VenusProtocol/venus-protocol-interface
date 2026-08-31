@@ -90,7 +90,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "10.394225255203636",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -138,7 +138,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "10.409585417764799",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -191,7 +191,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "3.4779741285413834",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -239,7 +239,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "4.265916277181359",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -362,7 +362,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "184.17703593207628",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -410,7 +410,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -462,7 +462,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0.000049784627353944",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -510,7 +510,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1143,7 +1143,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "418952.5581156313",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -1183,7 +1183,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "654.9904832278658",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -1493,7 +1493,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "10.394225255203636",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1541,7 +1541,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "10.409585417764799",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1594,7 +1594,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "3.4779741285413834",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1642,7 +1642,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "4.265916277181359",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1765,7 +1765,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "184.17703593207628",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1813,7 +1813,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1865,7 +1865,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0.000049784627353944",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -1913,7 +1913,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -2156,7 +2156,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678335296.7162417198132219932718",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "0.96360829680947114632",
+      "userYearlyEarningsCents": "18013536135148.493847244136022756",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -2594,7 +2594,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "418952.5581156313",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -2634,7 +2634,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "654.9904832278658",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -2944,7 +2944,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "10.394225255203636",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -2992,7 +2992,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "10.409585417764799",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3045,7 +3045,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "3.4779741285413834",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3093,7 +3093,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "4.265916277181359",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3216,7 +3216,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "184.17703593207628",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3264,7 +3264,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3316,7 +3316,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0.000049784627353944",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3364,7 +3364,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -3606,7 +3606,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
       "userHealthFactor": 0,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "0.96360829680947114632",
+      "userYearlyEarningsCents": "18013536135148.493847244136022756",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -4044,7 +4044,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "418952.5581156313",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -4084,7 +4084,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "654.9904832278658",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -4394,7 +4394,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "10.394225255203636",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -4442,7 +4442,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "10.409585417764799",
               "dailyDistributedTokens": "1666.666752",
               "isActive": true,
               "rewardDetails": undefined,
@@ -4495,7 +4495,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "3.4779741285413834",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -4543,7 +4543,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "4.265916277181359",
               "dailyDistributedTokens": "9999.999936",
               "isActive": true,
               "rewardDetails": undefined,
@@ -4666,7 +4666,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "184.17703593207628",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -4714,7 +4714,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -4766,7 +4766,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0.000049784627353944",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -4814,7 +4814,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "0",
               "dailyDistributedTokens": "3333.333312",
               "isActive": true,
               "rewardDetails": undefined,
@@ -5057,7 +5057,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
       "userHealthFactor": 17.71,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
-      "userYearlyEarningsCents": "0.96360829680947114632",
+      "userYearlyEarningsCents": "18013536135148.493847244136022756",
       "vai": {
         "borrowAprPercentage": "10.51905",
         "token": {
@@ -5495,7 +5495,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "418952.5581156313",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,
@@ -5535,7 +5535,7 @@ exports[`useGetPools > uses pool settings if user has an inactive E-mode group e
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "NaN",
+              "apyPercentage": "654.9904832278658",
               "dailyDistributedTokens": "238.09523809523808",
               "isActive": false,
               "rewardDetails": undefined,

@@ -22,7 +22,10 @@ export const xvsCoreSource: LiquidityHubSource = {
       isActive: true,
     },
   ],
-  collateralTokens: [xvs, usdc],
+  collaterals: [
+    { token: xvs, liquidationThresholdPercentage: new BigNumber(60) },
+    { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
+  ],
   lockEndDate: new Date('2026-08-01T00:00:00.000Z'),
 };
 
@@ -44,7 +47,10 @@ export const xvsFluxSource: LiquidityHubSource = {
       isActive: true,
     },
   ],
-  collateralTokens: [xvs, usdt],
+  collaterals: [
+    { token: xvs, liquidationThresholdPercentage: new BigNumber(60) },
+    { token: usdt, liquidationThresholdPercentage: new BigNumber(80) },
+  ],
   lockEndDate: new Date('2026-09-15T00:00:00.000Z'),
 };
 
@@ -66,7 +72,11 @@ export const usdcCoreSource: LiquidityHubSource = {
       isActive: true,
     },
   ],
-  collateralTokens: [usdc, usdt, busd],
+  collaterals: [
+    { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
+    { token: usdt, liquidationThresholdPercentage: new BigNumber(80) },
+    { token: busd, liquidationThresholdPercentage: new BigNumber(80) },
+  ],
   lockEndDate: new Date('2026-07-22T00:00:00.000Z'),
 };
 
@@ -88,7 +98,10 @@ export const usdcFluxSource: LiquidityHubSource = {
       isActive: true,
     },
   ],
-  collateralTokens: [usdc, lisUsd],
+  collaterals: [
+    { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
+    { token: lisUsd, liquidationThresholdPercentage: new BigNumber(75) },
+  ],
   lockEndDate: new Date('2026-10-10T00:00:00.000Z'),
 };
 
@@ -110,7 +123,10 @@ export const usdtCoreSource: LiquidityHubSource = {
       isActive: true,
     },
   ],
-  collateralTokens: [usdt, usdc],
+  collaterals: [
+    { token: usdt, liquidationThresholdPercentage: new BigNumber(80) },
+    { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
+  ],
   lockEndDate: new Date('2026-08-20T00:00:00.000Z'),
 };
 
@@ -132,7 +148,10 @@ export const usdtFluxSource: LiquidityHubSource = {
       isActive: true,
     },
   ],
-  collateralTokens: [usdt, xvs],
+  collaterals: [
+    { token: usdt, liquidationThresholdPercentage: new BigNumber(80) },
+    { token: xvs, liquidationThresholdPercentage: new BigNumber(60) },
+  ],
   lockEndDate: new Date('2026-11-01T00:00:00.000Z'),
 };
 
@@ -154,7 +173,10 @@ export const busdCoreSource: LiquidityHubSource = {
       isActive: true,
     },
   ],
-  collateralTokens: [busd, usdc],
+  collaterals: [
+    { token: busd, liquidationThresholdPercentage: new BigNumber(80) },
+    { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
+  ],
   lockEndDate: new Date('2026-07-30T00:00:00.000Z'),
 };
 
@@ -176,7 +198,10 @@ export const busdFluxSource: LiquidityHubSource = {
       isActive: true,
     },
   ],
-  collateralTokens: [busd, lisUsd],
+  collaterals: [
+    { token: busd, liquidationThresholdPercentage: new BigNumber(80) },
+    { token: lisUsd, liquidationThresholdPercentage: new BigNumber(75) },
+  ],
   lockEndDate: new Date('2026-09-05T00:00:00.000Z'),
 };
 

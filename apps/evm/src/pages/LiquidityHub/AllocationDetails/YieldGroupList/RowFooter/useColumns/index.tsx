@@ -1,8 +1,9 @@
-import { Apy, ImgGroup, LayeredValues, type TableColumn } from 'components';
+import { Apy, LayeredValues, type TableColumn } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubSource, LiquidityHubYieldGroup, Token } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
+import { CollateralGroup } from './CollateralGroup';
 
 export const useColumns = ({
   yieldGroup,
@@ -96,15 +97,13 @@ export const useColumns = ({
     });
   }
 
-  if (yieldGroup.sources.some(source => source.collateralTokens.length > 0)) {
+  if (yieldGroup.sources.some(source => source.collaterals.length > 0)) {
     columns.push({
       key: 'collateral',
       label: t('liquidityHub.allocationDetails.yieldGroup.collateralColumn.title'),
       selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.collateralColumn.title'),
       align: 'right',
-      renderCell: ({ collateralTokens }) => (
-        <ImgGroup imgSrcs={collateralTokens.map(token => token.iconSrc)} limit={5} />
-      ),
+      renderCell: ({ collaterals }) => <CollateralGroup collaterals={collaterals} />,
     });
   }
 

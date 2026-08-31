@@ -48,11 +48,14 @@ export * from './mutations/useWithdrawFromPendleVault';
 export * from './mutations/useStakeIntoInstitutionalVault';
 export * from './mutations/useRedeemFromInstitutionalVault';
 export * from './mutations/useWithdrawFromInstitutionalVault';
+
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
+
 export * from './queries/getProportionalCloseTolerancePercentage';
 export * from './queries/getProportionalCloseTolerancePercentage/useGetProportionalCloseTolerancePercentage';
+
 export * from './queries/getDsaVTokens';
 export * from './queries/getDsaVTokens/useGetDsaVTokens';
 
@@ -95,8 +98,15 @@ export * from './queries/useGetPools';
 export * from './queries/useGetIpLocation';
 
 export * from './queries/useGetPool';
+
+export * from './queries/getLiquidityHubs';
+export * from './queries/getLiquidityHubs/useGetLiquidityHubs';
+
 export * from './queries/getLiquidityHub';
 export * from './queries/getLiquidityHub/useGetLiquidityHub';
+
+export * from './queries/getLiquidityHubHistory';
+export * from './queries/getLiquidityHubHistory/useGetLiquidityHubHistory';
 
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';

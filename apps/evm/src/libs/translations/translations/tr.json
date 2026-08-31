@@ -101,6 +101,11 @@
         }
       },
       "today": "Bugün",
+      "txSource": {
+        "liquidityHub": "Likidite Merkezi",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
         "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
@@ -110,6 +115,7 @@
         "enterMarket": "Teminatı etkinleştir",
         "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
+        "mintFromCollateral": "Taşı",
         "positionClosedWithLoss": "Kapat (zarar)",
         "positionClosedWithProfit": "Kapat (kâr)",
         "positionIncreased": "Artır",
@@ -742,6 +748,7 @@
       "borrow": "Borç al",
       "earned": "Kazanılan",
       "earnedAmount": "Kazanılan {{amount}}",
+      "earnNow": "Şimdi kazan",
       "from": "{{percentage}}'den",
       "highestApy": "En yüksek APY",
       "monthNo": "{{number}}. ay",
@@ -815,6 +822,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "Borç al"
+      },
       "dashboard": {
         "label": "Gösterge paneli"
       },
@@ -822,9 +832,6 @@
         "label": "Kazan"
       },
       "label": "Menü",
-      "markets": {
-        "label": "Piyasalar"
-      },
       "new": "Yeni",
       "others": {
         "bridge": {
@@ -921,8 +928,8 @@
           "title": "APY"
         },
         "capDollarsColumn": {
-          "title": "Mutlak üst sınır",
-          "tooltip": "Bir getiri grubunun mutlak üst sınırı",
+          "title": "Etkin üst sınır",
+          "tooltip": "Bir getiri grubunun etkin üst sınırı",
           "unlimited": "Sınırsız"
         },
         "capPercentageColumn": {
@@ -945,6 +952,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "Varlık",
+            "liquidationThreshold": "Likidasyon eşiği"
+          },
           "title": "Teminat"
         },
         "liquidityColumn": {
@@ -2241,6 +2252,14 @@
       "title": "İşlem onaylandı"
     }
   },
+  "transactions": {
+    "liquidityHub": {
+      "label": "Likidite Merkezi"
+    },
+    "venusCore": {
+      "label": "Venus Core"
+    }
+  },
   "txFormSubmitButton": {
     "acknowledgements": {
       "highPriceImpact": {
@@ -2718,5 +2737,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "Protokol"
   }
 }

@@ -1,48 +1,98 @@
 import type { TFunction } from 'i18next';
-import type { Tx, TxType } from 'types';
+import type { TxType } from 'types';
 
 export interface GetTransactionNameInput {
-  transaction: Tx | TxType;
+  type: TxType;
   t: TFunction;
 }
 
-export const getTransactionName = ({ transaction, t }: GetTransactionNameInput) => {
-  const txType = typeof transaction === 'string' ? transaction : transaction.txType;
-  const liquidityHubSuffix =
-    typeof transaction !== 'string' && 'vhToken' in transaction
-      ? ` • ${t('layouts.menu.markets.liquidityHub.label')}`
-      : '';
+export const getTransactionName = ({ type, t }: GetTransactionNameInput) => {
+  let name = '';
+  let suffix = '';
 
-  switch (txType) {
+  switch (type) {
     case 'supply':
-      return `${t('account.transactions.txType.mint')}${liquidityHubSuffix}`;
     case 'repay':
-      return t('account.transactions.txType.repay');
     case 'borrow':
-      return t('account.transactions.txType.borrow');
     case 'withdraw':
-      return `${t('account.transactions.txType.redeem')}${liquidityHubSuffix}`;
     case 'exitMarket':
-      return t('account.transactions.txType.exitMarket');
     case 'enterMarket':
-      return t('account.transactions.txType.enterMarket');
+      suffix = t('account.transactions.txSource.venusCore');
+      break;
+    case 'hubSupply':
+    case 'hubSupplyFromCollateral':
+    case 'hubWithdraw':
+      suffix = t('account.transactions.txSource.liquidityHub');
+      break;
     case 'principalSupplied':
-      return t('account.transactions.txType.principalSupplied');
     case 'principalWithdrawn':
-      return t('account.transactions.txType.principalWithdrawn');
     case 'positionOpened':
-      return t('account.transactions.txType.positionOpened');
     case 'profitConverted':
-      return t('account.transactions.txType.realizedPnl');
     case 'positionClosedWithProfit':
-      return t('account.transactions.txType.positionClosedWithProfit');
     case 'positionClosedWithLoss':
-      return t('account.transactions.txType.positionClosedWithLoss');
     case 'positionIncreased':
-      return t('account.transactions.txType.positionIncreased');
     case 'positionReducedWithLoss':
-      return t('account.transactions.txType.positionReducedWithLoss');
     case 'positionReducedWithProfit':
-      return t('account.transactions.txType.positionReducedWithProfit');
+      suffix = t('account.transactions.txSource.trade');
+      break;
   }
+
+  switch (type) {
+    case 'supply':
+    case 'hubSupply':
+      name = t('account.transactions.txType.mint');
+      break;
+    case 'hubSupplyFromCollateral':
+      name = t('account.transactions.txType.mintFromCollateral');
+      break;
+    case 'repay':
+      name = t('account.transactions.txType.repay');
+      break;
+    case 'borrow':
+      name = t('account.transactions.txType.borrow');
+      break;
+    case 'withdraw':
+    case 'hubWithdraw':
+      name = t('account.transactions.txType.redeem');
+      break;
+    case 'exitMarket':
+      name = t('account.transactions.txType.exitMarket');
+      break;
+    case 'enterMarket':
+      name = t('account.transactions.txType.enterMarket');
+      break;
+    case 'principalSupplied':
+      name = t('account.transactions.txType.principalSupplied');
+      break;
+    case 'principalWithdrawn':
+      name = t('account.transactions.txType.principalWithdrawn');
+      break;
+    case 'positionOpened':
+      name = t('account.transactions.txType.positionOpened');
+      break;
+    case 'profitConverted':
+      name = t('account.transactions.txType.realizedPnl');
+      break;
+    case 'positionClosedWithProfit':
+      name = t('account.transactions.txType.positionClosedWithProfit');
+      break;
+    case 'positionClosedWithLoss':
+      name = t('account.transactions.txType.positionClosedWithLoss');
+      break;
+    case 'positionIncreased':
+      name = t('account.transactions.txType.positionIncreased');
+      break;
+    case 'positionReducedWithLoss':
+      name = t('account.transactions.txType.positionReducedWithLoss');
+      break;
+    case 'positionReducedWithProfit':
+      name = t('account.transactions.txType.positionReducedWithProfit');
+      break;
+  }
+
+  if (suffix) {
+    name += ` • ${suffix}`;
+  }
+
+  return name;
 };

@@ -3,11 +3,11 @@ import { useState } from 'react';
 
 import { useWithdrawFromLiquidityHub } from 'clients/api';
 import { AvailableBalance } from 'components';
-import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHub, LiquidityHubBalanceMutation } from 'types';
 import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
+import { formatUserMaxTokenValue } from '../formatUserMaxTokenValue';
 
 export interface WithdrawFormProps {
   liquidityHub: LiquidityHub;
@@ -18,17 +18,19 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  const userMaxRedeemTokens = liquidityHub.userVhTokenMaxRedeemTokens?.multipliedBy(
-    liquidityHub.pricePerShare,
-  );
+  const userMaxRedeemTokens = formatUserMaxTokenValue({
+    value: liquidityHub.userVhTokenMaxRedeemTokens?.multipliedBy(liquidityHub.pricePerShare),
+    decimals: liquidityHub.vhToken.underlyingToken.decimals,
+  });
 
-  const limitTokens = BigNumber.min(
-    liquidityHub.userWithdrawCapTokens ?? 0,
-    userMaxRedeemTokens ?? 0,
-  )
-    // Apply buffer to account for accruing interests that lower the limits while a transaction is
-    // being executed
-    .multipliedBy(1 - TRANSACTION_BUFFER_PERCENTAGE);
+  // Apply buffer to account for accruing interests that lower the limits while a transaction is
+  // being executed
+  const userWithdrawCapTokens = formatUserMaxTokenValue({
+    value: liquidityHub.userWithdrawCapTokens,
+    decimals: liquidityHub.vhToken.underlyingToken.decimals,
+  });
+
+  const limitTokens = BigNumber.min(userWithdrawCapTokens ?? 0, userMaxRedeemTokens ?? 0);
 
   const fromAmountTokens = formValues.amountTokens
     ? new BigNumber(formValues.amountTokens)
