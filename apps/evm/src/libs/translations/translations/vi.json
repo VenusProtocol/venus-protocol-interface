@@ -747,6 +747,7 @@
       "borrow": "Vay",
       "earned": "Đã kiếm",
       "earnedAmount": "Đã kiếm {{amount}}",
+      "earnNow": "Kiếm lợi nhuận ngay",
       "from": "Từ {{percentage}}",
       "highestApy": "APY cao nhất",
       "monthNo": "Tháng {{number}}",
@@ -820,6 +821,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "Vay"
+      },
       "dashboard": {
         "label": "Bảng điều khiển"
       },
@@ -827,9 +831,6 @@
         "label": "Kiếm lợi nhuận"
       },
       "label": "Trình đơn",
-      "markets": {
-        "label": "Thị trường"
-      },
       "new": "Mới",
       "others": {
         "bridge": {

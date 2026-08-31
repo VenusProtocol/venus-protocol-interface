@@ -747,6 +747,7 @@
       "borrow": "借款",
       "earned": "已赚取",
       "earnedAmount": "已赚取 {{amount}}",
+      "earnNow": "立即赚取",
       "from": "来自 {{percentage}}",
       "highestApy": "最高 APY",
       "monthNo": "第 {{number}} 个月",
@@ -820,6 +821,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "借款"
+      },
       "dashboard": {
         "label": "仪表盘"
       },
@@ -827,9 +831,6 @@
         "label": "赚取"
       },
       "label": "菜单",
-      "markets": {
-        "label": "市场"
-      },
       "new": "新",
       "others": {
         "bridge": {

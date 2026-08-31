@@ -747,6 +747,7 @@
       "borrow": "借入",
       "earned": "獲得済み",
       "earnedAmount": "獲得済み {{amount}}",
+      "earnNow": "今すぐ運用する",
       "from": "{{percentage}}から",
       "highestApy": "最高APY",
       "monthNo": "第{{number}}月",
@@ -820,6 +821,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "借入"
+      },
       "dashboard": {
         "label": "ダッシュボード"
       },
@@ -827,9 +831,6 @@
         "label": "獲得"
       },
       "label": "メニュー",
-      "markets": {
-        "label": "マーケット"
-      },
       "new": "新規",
       "others": {
         "bridge": {
