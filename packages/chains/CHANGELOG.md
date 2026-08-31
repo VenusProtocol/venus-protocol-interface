@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.31.2
+
+### Patch Changes
+
+- 293d3be: add support for the Venus Hub receipt tokens vhUSDT, vhUSDC and vhU
+
 ## 0.31.1
 
 ### Patch Changes
