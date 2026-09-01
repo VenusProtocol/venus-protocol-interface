@@ -213,6 +213,10 @@
           "description": "原資産自体が生み出すネイティブ利回りです（例: 預入報酬）。この利回りは外部ソースに由来し、Venusプロトコルは保証しません。",
           "name": "内在APY"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "TRANSLATION NEEDED",
+          "name": "TRANSLATION NEEDED"
+        },
         "offChainApy": {
           "description": "エアドロップやプロモーションなど第三者によるオフチェーン活動からの追加利回りです。この利回りはVenusプロトコルによって保証されません。",
           "name": "オフチェーンAPY"
@@ -256,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "内在APY",
     "intrinsicApyTooltip": "資産自体から直接得られるAPY（例: 預入や外部報酬）で、Venusのレンディング利回りとは別です。Venusプロトコルはこれらを保証せず、責任を負いません。",
+    "liquidityHubIntrinsicApy": "TRANSLATION NEEDED",
+    "liquidityHubIntrinsicApyTooltip": "TRANSLATION NEEDED",
     "netApy": {
       "label": "実質APY",
       "tooltip": "関係するすべてのマーケットのAPYの合計"

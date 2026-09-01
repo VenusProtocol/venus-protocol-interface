@@ -213,6 +213,10 @@
           "description": "Dayanak varlığın kendi doğal getirisi — ör. yatırma ödülleri. Bu getiri dış kaynaklardan gelir ve Venus Protokolü tarafından garanti edilmez.",
           "name": "İçsel APY"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "TRANSLATION NEEDED",
+          "name": "TRANSLATION NEEDED"
+        },
         "offChainApy": {
           "description": "Airdrop veya promosyon kampanyaları gibi üçüncü taraflarca yönetilen zincir dışı faaliyetlerden ek getiri. Bu getiri Venus Protokolü tarafından garanti edilmez.",
           "name": "Zincir dışı APY"
@@ -256,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "İçsel APY",
     "intrinsicApyTooltip": "Varlığın kendisinden doğrudan kazanılan APY (ör. yatırma veya dış ödüller), Venus borç verme getirilerinden bağımsızdır. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
+    "liquidityHubIntrinsicApy": "TRANSLATION NEEDED",
+    "liquidityHubIntrinsicApyTooltip": "TRANSLATION NEEDED",
     "netApy": {
       "label": "Net APY",
       "tooltip": "İlgili tüm piyasaların APY'lerinin toplamı"
