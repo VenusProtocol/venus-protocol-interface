@@ -24,7 +24,10 @@ describe('Vaults', () => {
   const getFilterOption = (label: string) => screen.getAllByRole('button', { name: label }).at(-1)!;
 
   // Mirrors useSwitchChain: the chain the app resolves changes, and the new chain is
-  // written to the url
+  // written to the url. The mock has to be overridden from inside the handler rather than
+  // from beforeEach, because renderComponent's wrapper re-applies its own implementation on
+  // every wrapper render; MemoryRouter lives inside that wrapper, so a navigation never
+  // re-renders it and the override sticks
   const ChainSwitcher: React.FC<{ chainId: ChainId }> = ({ chainId }) => {
     const [, setSearchParams] = useSearchParams();
 
