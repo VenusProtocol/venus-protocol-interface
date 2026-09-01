@@ -1,11 +1,13 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { useLocation, useNavigationType } from 'react-router';
+import { useLocation, useNavigate, useNavigationType, useSearchParams } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { institutionalVault, pendleBnbVault, vaults as venusVaults } from '__mocks__/models/vaults';
 import { en, t } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { renderComponent } from 'testUtils/render';
-import { type InstitutionalVault, VaultStatus } from 'types';
+import { ChainId, type InstitutionalVault, VaultStatus } from 'types';
 
 import { useGetVaults } from 'clients/api';
 
@@ -20,6 +22,32 @@ describe('Vaults', () => {
   // button carrying the label, and the modal copy of an option always the last one.
   const getFilterTrigger = (label: string) => screen.getAllByRole('button', { name: label })[0];
   const getFilterOption = (label: string) => screen.getAllByRole('button', { name: label }).at(-1)!;
+
+  // Mirrors useSwitchChain: the chain the app resolves changes, and the new chain is
+  // written to the url. The mock has to be overridden from inside the handler rather than
+  // from beforeEach, because renderComponent's wrapper re-applies its own implementation on
+  // every wrapper render; MemoryRouter lives inside that wrapper, so a navigation never
+  // re-renders it and the override sticks
+  const ChainSwitcher: React.FC<{ chainId: ChainId }> = ({ chainId }) => {
+    const [, setSearchParams] = useSearchParams();
+
+    const handleClick = () => {
+      (useChainId as Mock).mockReturnValue({ chainId });
+
+      setSearchParams(currentSearchParams => {
+        const newSearchParams = new URLSearchParams(currentSearchParams);
+        newSearchParams.set(CHAIN_ID_SEARCH_PARAM, String(chainId));
+
+        return newSearchParams;
+      });
+    };
+
+    return (
+      <button type="button" onClick={handleClick}>
+        switch chain
+      </button>
+    );
+  };
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -350,6 +378,149 @@ describe('Vaults', () => {
     expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
     expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
     expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
+  });
+
+  it('resets the filters and the search field when the chain changes', () => {
+    const { getByPlaceholderText, getByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.SEPOLIA} />
+      </>,
+      { routerInitialEntries: ['/?category=governance&venue=venus'] },
+    );
+
+    fireEvent.change(getByPlaceholderText(en.vault.filter.inputPlaceholder), {
+      target: { value: 'xvs' },
+    });
+
+    expect(getFilterTrigger(en.vault.category.governance)).toBeInTheDocument();
+
+    fireEvent.click(getByText('switch chain'));
+
+    expect(getByText(en.vault.filter.allCategories)).toBeInTheDocument();
+    expect(getByText(en.vault.filter.allVenues)).toBeInTheDocument();
+    expect(getByText(en.vault.filter.allStates)).toBeInTheDocument();
+    expect(getByPlaceholderText(en.vault.filter.inputPlaceholder)).toHaveValue('');
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
+  });
+
+  it('clears the filter parameters from the url when the chain changes', () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    const { getByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.SEPOLIA} />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: ['/?category=governance&venue=venus'] },
+    );
+
+    fireEvent.click(getByText('switch chain'));
+
+    const searchParams = new URLSearchParams(screen.getByTestId('search').textContent ?? '');
+
+    expect(searchParams.get('category')).toBeNull();
+    expect(searchParams.get('venue')).toBeNull();
+    // Only the filters are cleared, the chain the user switched to is kept
+    expect(searchParams.get(CHAIN_ID_SEARCH_PARAM)).toBe(String(ChainId.SEPOLIA));
+  });
+
+  it("resets the filters while the new chain's vaults are still loading", () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    const { getByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.SEPOLIA} />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: ['/?category=governance&venue=venus'] },
+    );
+
+    // The page falls back to a spinner while the new chain's vaults load, which unmounts
+    // VaultList: the reset has to happen above it
+    (useGetVaults as Mock).mockImplementation(() => ({
+      data: [],
+      isLoading: true,
+    }));
+
+    fireEvent.click(getByText('switch chain'));
+
+    const searchParams = new URLSearchParams(screen.getByTestId('search').textContent ?? '');
+
+    expect(searchParams.get('category')).toBeNull();
+    expect(searchParams.get('venue')).toBeNull();
+  });
+
+  it('keeps the filters restored by a back navigation', () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    const BackButton = ({ chainId }: { chainId: ChainId }) => {
+      const navigate = useNavigate();
+
+      const handleClick = () => {
+        (useChainId as Mock).mockReturnValue({ chainId });
+        navigate(-1);
+      };
+
+      return (
+        <button type="button" onClick={handleClick}>
+          go back
+        </button>
+      );
+    };
+
+    const { getByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.SEPOLIA} />
+
+        <BackButton chainId={ChainId.BSC_TESTNET} />
+
+        <SearchDisplay />
+      </>,
+      {
+        routerInitialEntries: [
+          `/?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}&category=governance`,
+        ],
+      },
+    );
+
+    fireEvent.click(getByText('switch chain'));
+    fireEvent.click(getByText('go back'));
+
+    // Going back restores the entry the filters belonged to, so it must be left alone
+    // rather than rewritten in place
+    expect(
+      new URLSearchParams(screen.getByTestId('search').textContent ?? '').get('category'),
+    ).toBe('governance');
+    expect(getFilterTrigger(en.vault.category.governance)).toBeInTheDocument();
+  });
+
+  it('keeps the filters coming from the url when the chain does not change', () => {
+    const { getByText, queryByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.BSC_TESTNET} />
+      </>,
+      { routerInitialEntries: ['/?category=governance'] },
+    );
+
+    fireEvent.click(getByText('switch chain'));
+
+    expect(getFilterTrigger(en.vault.category.governance)).toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
   });
 
   it.each([
