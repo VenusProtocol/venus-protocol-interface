@@ -1,5 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
+import { logError } from 'libs/errors';
 import type {
   ApiRewardType,
   GenericDistribution,
@@ -89,6 +90,10 @@ export const formatRewardDistribution = <TType extends ApiRewardType>({
 
     return distribution;
   }
+
+  logError(
+    `Could not format reward distribution of type "${rewardType}" for market ${marketAddress}`,
+  );
 
   return undefined;
 };
