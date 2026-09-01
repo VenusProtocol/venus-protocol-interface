@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js';
 import { poolData } from '__mocks__/models/pools';
 import { routes } from 'constants/routing';
 import { en } from 'libs/translations';
+import { Route } from 'react-router';
 import { renderComponent } from 'testUtils/render';
 import type { TokenDistribution } from 'types';
 import { BoostTooltip } from '..';
@@ -73,6 +74,7 @@ describe('BoostTooltip', () => {
           pointDistributions={[]}
         />
       </button>,
+      { otherRoutes: <Route path={routes.liquidityHubs.path} element={<div />} /> },
     );
 
     fireEvent.click(getByRole('link', { name: 'Venus Liquidity Hub' }));
@@ -87,7 +89,7 @@ describe('BoostTooltip', () => {
 
     expect(container.textContent).not.toContain('AppLink');
     expect(container.textContent).toContain(
-      'The native yield earned by supplying the underlying asset to the Venus Liquidity Hub.',
+      en.apy.boost.tooltip.liquidityHubIntrinsicApy.description.replace(/<\/?AppLink>/g, ''),
     );
   });
 

@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js';
 import { poolData } from '__mocks__/models/pools';
 import { routes } from 'constants/routing';
 import { en } from 'libs/translations';
+import { Route } from 'react-router';
 import { renderComponent } from 'testUtils/render';
 import type { TokenDistribution } from 'types';
 import { ApyBreakdown, type ApyBreakdownItem } from '..';
@@ -60,6 +61,7 @@ describe('ApyBreakdown - Liquidity Hub intrinsic APY', () => {
       <button type="button" onClick={onRowClick}>
         <ApyBreakdown items={[item]} />
       </button>,
+      { otherRoutes: <Route path={routes.liquidityHubs.path} element={<div />} /> },
     );
 
     fireEvent.click(getByRole('link', { name: 'Venus Liquidity Hub' }));
@@ -73,7 +75,7 @@ describe('ApyBreakdown - Liquidity Hub intrinsic APY', () => {
     // The <AppLink> markup must not leak into the rendered copy
     expect(container.textContent).not.toContain('AppLink');
     expect(container.textContent).toContain(
-      'The native yield earned by supplying the underlying asset to the Venus Liquidity Hub.',
+      en.apyBreakdown.liquidityHubIntrinsicApyTooltip.replace(/<\/?AppLink>/g, ''),
     );
   });
 });
