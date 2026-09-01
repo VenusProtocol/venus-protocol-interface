@@ -120,6 +120,17 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
 
       return listItems.push(distribution);
     }
+
+    if (d.type === 'liquidity-hub-intrinsic') {
+      const distribution: DistributionProps = {
+        name: t('apy.boost.tooltip.liquidityHubIntrinsicApy.name'),
+        description: t('apy.boost.tooltip.liquidityHubIntrinsicApy.description'),
+        value: formatPercentageToReadableValue(d.apyPercentage),
+        logoSrc: d.token.iconSrc,
+      };
+
+      return listItems.push(distribution);
+    }
   }, []);
 
   // Add Prime distribution

@@ -213,6 +213,10 @@
           "description": "原資産自体が生み出すネイティブ利回りです（例: 預入報酬）。この利回りは外部ソースに由来し、Venusプロトコルは保証しません。",
           "name": "内在APY"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "Venus流動性ハブに原資産を供給することで得られるネイティブ利回りです。vhTokenは請求可能な報酬ではなく、上昇する償還レートを通じてこの利回りを蓄積します——出金時に自動的に受け取れます。",
+          "name": "流動性ハブ内在APY"
+        },
         "offChainApy": {
           "description": "エアドロップやプロモーションなど第三者によるオフチェーン活動からの追加利回りです。この利回りはVenusプロトコルによって保証されません。",
           "name": "オフチェーンAPY"
@@ -256,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "内在APY",
     "intrinsicApyTooltip": "資産自体から直接得られるAPY（例: 預入や外部報酬）で、Venusのレンディング利回りとは別です。Venusプロトコルはこれらを保証せず、責任を負いません。",
+    "liquidityHubIntrinsicApy": "流動性ハブ内在APY",
+    "liquidityHubIntrinsicApyTooltip": "Venus流動性ハブに原資産を供給することで得られるネイティブ利回りです。vhTokenは請求可能な報酬ではなく、上昇する償還レートを通じてこの利回りを蓄積します——出金時に自動的に受け取れます。",
     "netApy": {
       "label": "実質APY",
       "tooltip": "関係するすべてのマーケットのAPYの合計"

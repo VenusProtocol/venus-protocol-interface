@@ -97,7 +97,7 @@ export interface MerklDistribution {
 }
 
 export interface GenericDistribution {
-  type: 'intrinsic' | 'off-chain' | 'yield-to-maturity';
+  type: 'intrinsic' | 'off-chain' | 'yield-to-maturity' | 'liquidity-hub-intrinsic';
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
@@ -924,7 +924,13 @@ export interface MarketHistoryDataPoint {
   totalBorrowCents?: number;
 }
 
-export type ApiRewardType = 'venus' | 'merkl' | 'intrinsic' | 'off-chain' | 'yield-to-maturity';
+export type ApiRewardType =
+  | 'venus'
+  | 'merkl'
+  | 'intrinsic'
+  | 'off-chain'
+  | 'yield-to-maturity'
+  | 'liquidity-hub-intrinsic';
 
 export interface ApiReward {
   marketAddress: Address;
@@ -966,7 +972,7 @@ export interface ApiIntrinsicApyReward extends ApiReward {
 }
 
 export type ApiOffChainApyReward = Omit<ApiIntrinsicApyReward, 'rewardType'> & {
-  rewardType: 'off-chain' | 'yield-to-maturity';
+  rewardType: 'off-chain' | 'yield-to-maturity' | 'liquidity-hub-intrinsic';
 };
 
 export type PointsProgram = 'ethena' | 'etherfi' | 'kelp' | 'solv' | 'aster';

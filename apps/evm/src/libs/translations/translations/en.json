@@ -213,6 +213,10 @@
           "description": "The native yield from the underlying asset itself — for example, deposit rewards. This yield originates from external sources and is not guaranteed by Venus Protocol.",
           "name": "Intrinsic APY"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "The native yield earned by supplying the underlying asset to the Venus Liquidity Hub. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
+          "name": "Liquidity Hub intrinsic APY"
+        },
         "offChainApy": {
           "description": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. This yield is not guaranteed by Venus Protocol.",
           "name": "Off-chain APY"
@@ -256,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "Intrinsic APY",
     "intrinsicApyTooltip": "APY earned directly from the asset itself (e.g. depositing or external rewards), separate from Venus lending yield. The Venus protocol does not guarantee them and accepts no liability.",
+    "liquidityHubIntrinsicApy": "Liquidity Hub intrinsic APY",
+    "liquidityHubIntrinsicApyTooltip": "The native yield earned by supplying the underlying asset to the Venus Liquidity Hub. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
     "netApy": {
       "label": "Net APY",
       "tooltip": "Sum of the APYs of all the markets involved"
