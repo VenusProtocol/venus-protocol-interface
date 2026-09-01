@@ -214,7 +214,7 @@
           "name": "İçsel APY"
         },
         "liquidityHubIntrinsicApy": {
-          "description": "Dayanak varlığı Venus Likidite Merkezi'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
+          "description": "Dayanak varlığı <AppLink>Venus Likidite Merkezi</AppLink>'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
           "name": "Likidite Merkezi içsel APY"
         },
         "offChainApy": {
@@ -261,7 +261,7 @@
     "intrinsicApy": "İçsel APY",
     "intrinsicApyTooltip": "Varlığın kendisinden doğrudan kazanılan APY (ör. yatırma veya dış ödüller), Venus borç verme getirilerinden bağımsızdır. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
     "liquidityHubIntrinsicApy": "Likidite Merkezi içsel APY",
-    "liquidityHubIntrinsicApyTooltip": "Dayanak varlığı Venus Likidite Merkezi'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
+    "liquidityHubIntrinsicApyTooltip": "Dayanak varlığı <AppLink>Venus Likidite Merkezi</AppLink>'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
     "netApy": {
       "label": "Net APY",
       "tooltip": "İlgili tüm piyasaların APY'lerinin toplamı"

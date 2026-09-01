@@ -214,7 +214,7 @@
           "name": "内在 APY"
         },
         "liquidityHubIntrinsicApy": {
-          "description": "通过向 Venus 流动性中心提供标的资产而获得的原生收益。vhToken 通过不断上升的赎回率累积该收益，而非可领取的奖励——您在提取时会自动获得。",
+          "description": "通过向 <AppLink>Venus 流动性中心</AppLink>提供标的资产而获得的原生收益。vhToken 通过不断上升的赎回率累积该收益，而非可领取的奖励——您在提取时会自动获得。",
           "name": "流动性中心内在 APY"
         },
         "offChainApy": {
@@ -261,7 +261,7 @@
     "intrinsicApy": "内在 APY",
     "intrinsicApyTooltip": "直接来自资产本身的 APY（如存款或外部奖励），与 Venus 借贷收益分开。Venus 协议不作任何保证且不承担责任。",
     "liquidityHubIntrinsicApy": "流动性中心内在 APY",
-    "liquidityHubIntrinsicApyTooltip": "通过向 Venus 流动性中心提供标的资产而获得的原生收益。vhToken 通过不断上升的赎回率累积该收益，而非可领取的奖励——您在提取时会自动获得。",
+    "liquidityHubIntrinsicApyTooltip": "通过向 <AppLink>Venus 流动性中心</AppLink>提供标的资产而获得的原生收益。vhToken 通过不断上升的赎回率累积该收益，而非可领取的奖励——您在提取时会自动获得。",
     "netApy": {
       "label": "净 APY",
       "tooltip": "涉及的所有市场 APY 之和"
