@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.23.0
+
+### Minor Changes
+
+- 8123292: Display the intrinsic APY of vh markets
+
 ## 5.22.0
 
 ### Minor Changes
