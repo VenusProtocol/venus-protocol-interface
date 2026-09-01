@@ -43,7 +43,7 @@ export const formatRewardDistribution = <TType extends ApiRewardType>({
   dailyDistributedRewardTokens,
   rewardDetails,
   apyPercentage,
-}: FormatDistributionInput<TType>): TokenDistribution => {
+}: FormatDistributionInput<TType>): TokenDistribution | undefined => {
   const baseProps = {
     type: rewardType,
     token: rewardToken,
@@ -66,7 +66,8 @@ export const formatRewardDistribution = <TType extends ApiRewardType>({
   if (
     (rewardType === 'intrinsic' ||
       rewardType === 'off-chain' ||
-      rewardType === 'yield-to-maturity') &&
+      rewardType === 'yield-to-maturity' ||
+      rewardType === 'liquidity-hub-intrinsic') &&
     rewardDetails
   ) {
     const distribution: GenericDistribution = {
@@ -79,11 +80,15 @@ export const formatRewardDistribution = <TType extends ApiRewardType>({
     return distribution;
   }
 
-  const distribution: RewardDistributorDistribution = {
-    ...baseProps,
-    isActive,
-    type: 'venus',
-  };
+  if (rewardType === 'venus') {
+    const distribution: RewardDistributorDistribution = {
+      ...baseProps,
+      isActive,
+      type: 'venus',
+    };
 
-  return distribution;
+    return distribution;
+  }
+
+  return undefined;
 };

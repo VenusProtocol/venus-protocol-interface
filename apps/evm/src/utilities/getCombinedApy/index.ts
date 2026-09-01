@@ -25,7 +25,8 @@ const getCombinedApy = ({ type, baseApyPercentage, tokenDistributions }: GetComb
           distribution.type === 'merkl' ||
           distribution.type === 'intrinsic' ||
           distribution.type === 'off-chain' ||
-          distribution.type === 'yield-to-maturity'
+          distribution.type === 'yield-to-maturity' ||
+          distribution.type === 'liquidity-hub-intrinsic'
         ) {
           return {
             ...acc,

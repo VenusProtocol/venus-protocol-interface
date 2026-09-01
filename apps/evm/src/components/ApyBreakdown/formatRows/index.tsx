@@ -54,6 +54,10 @@ export const formatRows = ({
         label = t('apyBreakdown.yieldToMaturityApy');
       }
 
+      if (distribution.type === 'liquidity-hub-intrinsic') {
+        label = t('apyBreakdown.liquidityHubIntrinsicApy');
+      }
+
       let children: React.ReactNode;
 
       if (distribution.type === 'prime') {
@@ -90,6 +94,10 @@ export const formatRows = ({
 
       if (distribution.type === 'yield-to-maturity') {
         tooltip = t('apyBreakdown.yieldToMaturityApyTooltip');
+      }
+
+      if (distribution.type === 'liquidity-hub-intrinsic') {
+        tooltip = t('apyBreakdown.liquidityHubIntrinsicApyTooltip');
       }
 
       const row: LabeledInlineContentProps = {
