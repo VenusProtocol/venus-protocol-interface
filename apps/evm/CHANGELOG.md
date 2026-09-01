@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.23.1
+
+### Patch Changes
+
+- f8e04ac: Hide the fixed-term vault promotional banner on the Markets page
+
 ## 5.23.0
 
 ### Minor Changes
