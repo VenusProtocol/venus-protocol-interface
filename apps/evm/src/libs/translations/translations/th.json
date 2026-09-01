@@ -214,8 +214,8 @@
           "name": "APY พื้นฐาน"
         },
         "liquidityHubIntrinsicApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "ผลตอบแทนพื้นฐานที่ได้จากการจัดหาสินทรัพย์อ้างอิงให้กับ Venus Liquidity Hub vhToken สะสมผลตอบแทนนี้ผ่านอัตราการไถ่ถอนที่เพิ่มขึ้น แทนที่จะเป็นรางวัลที่เรียกรับได้ — คุณจะได้รับโดยอัตโนมัติเมื่อถอน",
+          "name": "APY พื้นฐานของ Liquidity Hub"
         },
         "offChainApy": {
           "description": "ผลตอบแทนเพิ่มเติมจากกิจกรรมนอกเชน เช่น airdrop หรือแคมเปญโปรโมชัน ที่จัดการโดยบุคคลที่สาม ผลตอบแทนนี้ไม่รับประกันโดย Venus Protocol.",
@@ -260,8 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "APY พื้นฐาน",
     "intrinsicApyTooltip": "APY ที่ได้โดยตรงจากสินทรัพย์เอง (เช่น การฝากหรือรางวัลภายนอก) แยกจากผลตอบแทนการให้กู้ของ Venus โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
-    "liquidityHubIntrinsicApy": "TRANSLATION NEEDED",
-    "liquidityHubIntrinsicApyTooltip": "TRANSLATION NEEDED",
+    "liquidityHubIntrinsicApy": "APY พื้นฐานของ Liquidity Hub",
+    "liquidityHubIntrinsicApyTooltip": "ผลตอบแทนพื้นฐานที่ได้จากการจัดหาสินทรัพย์อ้างอิงให้กับ Venus Liquidity Hub vhToken สะสมผลตอบแทนนี้ผ่านอัตราการไถ่ถอนที่เพิ่มขึ้น แทนที่จะเป็นรางวัลที่เรียกรับได้ — คุณจะได้รับโดยอัตโนมัติเมื่อถอน",
     "netApy": {
       "label": "APY สุทธิ",
       "tooltip": "ผลรวมของ APY ของทุกตลาดที่เกี่ยวข้อง"

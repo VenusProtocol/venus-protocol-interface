@@ -214,8 +214,8 @@
           "name": "內在 APY"
         },
         "liquidityHubIntrinsicApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "透過向 Venus 流動性中心提供標的資產而獲得的原生收益。vhToken 透過不斷上升的贖回率累積該收益，而非可領取的獎勵——您在提取時會自動獲得。",
+          "name": "流動性中心內在 APY"
         },
         "offChainApy": {
           "description": "來自空投或推廣活動等第三方管理的鏈下活動的額外收益。該收益不由 Venus 協議保證。",
@@ -260,8 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "內在 APY",
     "intrinsicApyTooltip": "直接來自資產本身的 APY（如存款或外部獎勵），與 Venus 借貸收益分開。Venus 協議不作任何保證且不承擔責任。",
-    "liquidityHubIntrinsicApy": "TRANSLATION NEEDED",
-    "liquidityHubIntrinsicApyTooltip": "TRANSLATION NEEDED",
+    "liquidityHubIntrinsicApy": "流動性中心內在 APY",
+    "liquidityHubIntrinsicApyTooltip": "透過向 Venus 流動性中心提供標的資產而獲得的原生收益。vhToken 透過不斷上升的贖回率累積該收益，而非可領取的獎勵——您在提取時會自動獲得。",
     "netApy": {
       "label": "淨 APY",
       "tooltip": "涉及的所有市場 APY 之和"
