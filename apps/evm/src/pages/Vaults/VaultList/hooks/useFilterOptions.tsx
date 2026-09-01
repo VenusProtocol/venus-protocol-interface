@@ -5,11 +5,9 @@ import { useSearchParams } from 'react-router';
 import { VaultCategory, VaultStatus, VaultVenue } from 'types';
 import { getVaultCategoryName } from 'utilities/getVaultCategoryName';
 
+import { CATEGORY_PARAM_KEY, STATUS_PARAM_KEY, VENUE_PARAM_KEY } from '../../constants';
+import { deleteFilterSearchParams } from '../../utilities/deleteFilterSearchParams';
 import institutionIconSrc from '../asset/institution.svg';
-
-const CATEGORY_PARAM_KEY = 'category';
-const VENUE_PARAM_KEY = 'venue';
-const STATUS_PARAM_KEY = 'status';
 
 const PARAM_VALUE_SEPARATOR = ',';
 
@@ -194,19 +192,7 @@ export const useFilterOptions = () => {
   const setStatuses = (newValues: string[]) =>
     setParamValues(STATUS_PARAM_KEY, newValues, selectableStatuses);
 
-  const reset = () =>
-    setSearchParams(
-      currentSearchParams => {
-        const newSearchParams = new URLSearchParams(currentSearchParams);
-
-        newSearchParams.delete(CATEGORY_PARAM_KEY);
-        newSearchParams.delete(VENUE_PARAM_KEY);
-        newSearchParams.delete(STATUS_PARAM_KEY);
-
-        return newSearchParams;
-      },
-      { replace: true },
-    );
+  const reset = () => setSearchParams(deleteFilterSearchParams, { replace: true });
 
   return {
     categories,
