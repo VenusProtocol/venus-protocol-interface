@@ -48,14 +48,14 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       menuClassName="bg-background border-blue"
       optionsDom={() => (
         <div className="min-w-full">
-          <div className="flex h-12 items-center justify-between px-4 py-3">
-            <span className="text-b1r text-white">{title}</span>
+          <div className="flex h-12 items-center justify-between gap-3 px-4 py-3">
+            <span className="text-b1r truncate text-white">{title}</span>
 
             <button
               type="button"
               onClick={() => onChange([])}
               disabled={value.length === 0}
-              className="text-blue text-b1r cursor-pointer underline disabled:cursor-default disabled:opacity-50"
+              className="text-blue text-b1r shrink-0 cursor-pointer disabled:cursor-default disabled:opacity-50"
             >
               {resetLabel}
             </button>
