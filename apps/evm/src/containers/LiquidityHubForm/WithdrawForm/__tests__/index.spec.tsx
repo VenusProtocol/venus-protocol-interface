@@ -182,7 +182,7 @@ describe('WithdrawForm', () => {
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
   });
 
-  it('submits the buffered withdrawal limit without redeeming the full supply', async () => {
+  it('submits the buffered withdrawal limit and redeems the full supply when max redeem is reached', async () => {
     const withdrawFromLiquidityHub = vi.fn().mockResolvedValue(undefined);
     const withdrawalLimitTokens = applyTransactionBuffer(defaultWithdrawLimitTokens);
 
@@ -208,7 +208,7 @@ describe('WithdrawForm', () => {
       expect(withdrawFromLiquidityHub).toHaveBeenCalledWith({
         liquidityHub,
         amountMantissa: new BigNumber('41958000000000000000'),
-        withdrawFullSupply: false,
+        withdrawFullSupply: true,
         userVhTokenBalanceMantissa: new BigNumber('39622641509433962264'),
       }),
     );

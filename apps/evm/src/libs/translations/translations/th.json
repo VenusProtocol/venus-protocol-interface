@@ -101,6 +101,11 @@
         }
       },
       "today": "วันนี้",
+      "txSource": {
+        "liquidityHub": "ศูนย์สภาพคล่อง",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>เปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน",
         "exitMarket": "<Styled>ปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน"
@@ -110,6 +115,7 @@
         "enterMarket": "เปิดใช้หลักประกัน",
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
+        "mintFromCollateral": "ย้าย",
         "positionClosedWithLoss": "ปิด (ขาดทุน)",
         "positionClosedWithProfit": "ปิด (กำไร)",
         "positionIncreased": "เพิ่ม",
@@ -741,6 +747,7 @@
       "borrow": "ยืม",
       "earned": "ได้รับ",
       "earnedAmount": "ได้รับ {{amount}}",
+      "earnNow": "รับผลตอบแทนตอนนี้",
       "from": "จาก {{percentage}}",
       "highestApy": "APY สูงสุด",
       "monthNo": "เดือน {{number}}",
@@ -814,6 +821,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "ยืม"
+      },
       "dashboard": {
         "label": "แดชบอร์ด"
       },
@@ -821,9 +831,6 @@
         "label": "รับผลตอบแทน"
       },
       "label": "เมนู",
-      "markets": {
-        "label": "ตลาด"
-      },
       "new": "ใหม่",
       "others": {
         "bridge": {
@@ -920,8 +927,8 @@
           "title": "APY"
         },
         "capDollarsColumn": {
-          "title": "เพดานแบบสัมบูรณ์",
-          "tooltip": "เพดานแบบสัมบูรณ์ของกลุ่มผลตอบแทน",
+          "title": "เพดานที่มีผล",
+          "tooltip": "เพดานที่มีผลของกลุ่มผลตอบแทน",
           "unlimited": "ไม่จำกัด"
         },
         "capPercentageColumn": {
@@ -944,6 +951,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "สินทรัพย์",
+            "liquidationThreshold": "เกณฑ์การชำระบัญชี"
+          },
           "title": "หลักประกัน"
         },
         "liquidityColumn": {
@@ -2240,6 +2251,14 @@
       "title": "ยืนยันธุรกรรมแล้ว"
     }
   },
+  "transactions": {
+    "liquidityHub": {
+      "label": "ศูนย์สภาพคล่อง"
+    },
+    "venusCore": {
+      "label": "Venus Core"
+    }
+  },
   "txFormSubmitButton": {
     "acknowledgements": {
       "highPriceImpact": {
@@ -2724,5 +2743,8 @@
     "tooltip": {
       "address": "({{address}})"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "โปรโตคอล"
   }
 }

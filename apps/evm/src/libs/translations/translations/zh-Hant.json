@@ -101,6 +101,11 @@
         }
       },
       "today": "今天",
+      "txSource": {
+        "liquidityHub": "流動性中心",
+        "trade": "Trade",
+        "venusCore": "Venus Core"
+      },
       "txText": {
         "enterMarket": "<Styled>啟用</Styled> {{vTokenSymbol}} 作為抵押",
         "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作為抵押"
@@ -110,6 +115,7 @@
         "enterMarket": "啟用抵押",
         "exitMarket": "禁用抵押",
         "mint": "供應",
+        "mintFromCollateral": "遷移",
         "positionClosedWithLoss": "平倉（虧損）",
         "positionClosedWithProfit": "平倉（盈利）",
         "positionIncreased": "增加",
@@ -741,6 +747,7 @@
       "borrow": "借款",
       "earned": "已賺取",
       "earnedAmount": "已賺取 {{amount}}",
+      "earnNow": "立即賺取",
       "from": "來自 {{percentage}}",
       "highestApy": "最高 APY",
       "monthNo": "第 {{number}} 個月",
@@ -814,6 +821,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "借款"
+      },
       "dashboard": {
         "label": "儀表盤"
       },
@@ -821,9 +831,6 @@
         "label": "賺取"
       },
       "label": "菜單",
-      "markets": {
-        "label": "市場"
-      },
       "new": "新",
       "others": {
         "bridge": {
@@ -920,8 +927,8 @@
           "title": "APY"
         },
         "capDollarsColumn": {
-          "title": "絕對上限",
-          "tooltip": "收益組的絕對上限",
+          "title": "有效上限",
+          "tooltip": "收益組的有效上限",
           "unlimited": "無上限"
         },
         "capPercentageColumn": {
@@ -944,6 +951,10 @@
           "title": "APY"
         },
         "collateralColumn": {
+          "group": {
+            "asset": "資產",
+            "liquidationThreshold": "清算閾值"
+          },
           "title": "抵押品"
         },
         "liquidityColumn": {
@@ -2240,6 +2251,14 @@
       "title": "交易已確認"
     }
   },
+  "transactions": {
+    "liquidityHub": {
+      "label": "流動性中心"
+    },
+    "venusCore": {
+      "label": "Venus Core"
+    }
+  },
   "txFormSubmitButton": {
     "acknowledgements": {
       "highPriceImpact": {
@@ -2724,5 +2743,8 @@
     "tooltip": {
       "address": "（{{address}}）"
     }
+  },
+  "yieldsGroups": {
+    "protocol": "協議"
   }
 }

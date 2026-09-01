@@ -9,6 +9,7 @@ export const getTransactionIcon = (txType: TxType): IconName => {
     case 'exitMarket':
       return 'close';
     case 'supply':
+    case 'hubSupply':
     case 'repay':
     case 'principalSupplied':
     case 'positionIncreased':

@@ -60,6 +60,8 @@ export const fakeApiTradeTransaction: ApiAccountHistoricalTransaction = {
   yieldPlusLongDustRedeemedMantissa: null,
   yieldPlusAmountConvertedToProfitMantissa: null,
   yieldPlusDsaProfitAmountMantissa: '125000000000000000',
+  migrationVTokenAddress: null,
+  migrationVTokenAmountMantissa: null,
 };
 
 describe('formatToTradeTransaction', () => {

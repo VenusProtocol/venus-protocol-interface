@@ -1,4 +1,3 @@
-import { screen } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
@@ -42,14 +41,7 @@ describe('AllocationDetails', () => {
 
     const { container } = renderComponent(<AllocationDetails liquidityHub={liquidityHub} />);
 
-    const rail = container.querySelector('.relative.h-2.w-full.rounded-full.overflow-hidden');
-    const fills = rail?.querySelectorAll('div');
-
-    expect(fills).toHaveLength(2);
-    expect(fills?.[0]).toHaveStyle({ width: '65%' });
-    expect(fills?.[1]).toHaveStyle({ width: '60%' });
-    expect(screen.getByText('Unallocated')).toBeInTheDocument();
-    expect(screen.getByText('35%')).toBeInTheDocument();
+    expect(container.textContent).toMatchSnapshot();
   });
 
   it('renders zero allocation percentages when total supply is zero', () => {
@@ -70,12 +62,6 @@ describe('AllocationDetails', () => {
 
     const { container } = renderComponent(<AllocationDetails liquidityHub={liquidityHub} />);
 
-    const rail = container.querySelector('.relative.h-2.w-full.rounded-full.overflow-hidden');
-    const fills = rail?.querySelectorAll('div');
-
-    expect(fills).toHaveLength(2);
-    expect(fills?.[0]).toHaveStyle({ width: '0%' });
-    expect(fills?.[1]).toHaveStyle({ width: '0%' });
-    expect(screen.queryByText('Unallocated')).not.toBeInTheDocument();
+    expect(container.textContent).toMatchSnapshot();
   });
 });

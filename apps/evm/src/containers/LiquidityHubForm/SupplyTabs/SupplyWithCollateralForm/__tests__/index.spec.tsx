@@ -6,7 +6,8 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetPool, useMigrateCoreSupplyToLiquidityHub } from 'clients/api';
+import { useGetPool, useGetVTokenBalance, useMigrateCoreSupplyToLiquidityHub } from 'clients/api';
+import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
@@ -15,6 +16,7 @@ import type { AssetBalanceMutation, LiquidityHubBalanceMutation } from 'types';
 import {
   calculateCollateralWithdrawLimits,
   convertMantissaToTokens,
+  convertTokensToMantissa,
   formatTokensToReadableValue,
 } from 'utilities';
 
@@ -69,8 +71,22 @@ const getAmountInput = () => {
   return input;
 };
 
+const getFormattedUserMaxTokenValue = (value: BigNumber) => {
+  const formattedValue = formatUserMaxTokenValue({
+    value,
+    decimals: liquidityHub.vhToken.underlyingToken.decimals,
+  });
+
+  if (!formattedValue) {
+    throw new Error('Expected formatted max token value');
+  }
+
+  return formattedValue;
+};
+
 describe('SupplyWithCollateralForm', () => {
   const mockUseGetPool = useGetPool as Mock;
+  const mockUseGetVTokenBalance = useGetVTokenBalance as Mock;
   const mockUseMigrateCoreSupplyToLiquidityHub = useMigrateCoreSupplyToLiquidityHub as Mock;
   const mockUseSimulatePoolMutations = useSimulatePoolMutations as Mock;
   const mockUseTokenApproval = useTokenApproval as Mock;
@@ -86,6 +102,13 @@ describe('SupplyWithCollateralForm', () => {
         pool: corePool,
       },
     }));
+
+    mockUseGetVTokenBalance.mockReturnValue({
+      data: {
+        balanceMantissa: new BigNumber('446302631097'),
+      },
+      isLoading: false,
+    });
 
     mockUseSimulatePoolMutations.mockImplementation(
       ({ pool }: { pool: SupplyWithCollateralFormProps['corePool'] }) => ({
@@ -189,14 +212,15 @@ describe('SupplyWithCollateralForm', () => {
     );
   });
 
-  it('uses the supply cap margin as the available balance and SAFE MAX when it is the lowest limit', async () => {
+  it('uses the formatted supply cap margin as the available balance and SAFE MAX when it is the lowest limit', async () => {
     const supplyCapMarginTokens = new BigNumber('0.5');
+    const formattedSupplyCapMarginTokens = getFormattedUserMaxTokenValue(supplyCapMarginTokens);
     const liquidityHubWithLowerSupplyCapMargin = {
       ...liquidityHub,
-      supplyCapTokens: liquidityHub.supplyBalanceTokens.plus(supplyCapMarginTokens),
+      userSupplyCapTokens: supplyCapMarginTokens,
     };
     const readableLimit = formatTokensToReadableValue({
-      value: supplyCapMarginTokens,
+      value: formattedSupplyCapMarginTokens,
       token: liquidityHub.vhToken.underlyingToken,
     });
 
@@ -214,16 +238,15 @@ describe('SupplyWithCollateralForm', () => {
     );
 
     await waitFor(() =>
-      expect(getAmountInput().value).toBe(
-        supplyCapMarginTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
-      ),
+      expect(getAmountInput().value).toBe(formattedSupplyCapMarginTokens.toFixed()),
     );
   });
 
   it('uses the user supply cap as the available balance and SAFE MAX when it is the lowest limit', async () => {
     const userSupplyCapTokens = new BigNumber('0.25');
+    const formattedUserSupplyCapTokens = getFormattedUserMaxTokenValue(userSupplyCapTokens);
     const readableLimit = formatTokensToReadableValue({
-      value: userSupplyCapTokens,
+      value: formattedUserSupplyCapTokens,
       token: liquidityHub.vhToken.underlyingToken,
     });
 
@@ -244,9 +267,7 @@ describe('SupplyWithCollateralForm', () => {
     );
 
     await waitFor(() =>
-      expect(getAmountInput().value).toBe(
-        userSupplyCapTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
-      ),
+      expect(getAmountInput().value).toBe(formattedUserSupplyCapTokens.toFixed()),
     );
   });
 
@@ -277,14 +298,82 @@ describe('SupplyWithCollateralForm', () => {
     );
 
     await waitFor(() => expect(getAmountInput().value).toBe(''));
+    const vTokenAmountTokens = new BigNumber('0.5').times(corePoolAsset.exchangeRateVTokens);
+    const vTokenAmountMantissa = convertTokensToMantissa({
+      token: corePoolAsset.vToken,
+      value: vTokenAmountTokens,
+    });
+
     expect(migrateCoreSupplyToLiquidityHub).toHaveBeenCalledWith({
       vhToken: liquidityHub.vhToken,
       vToken: corePoolAsset.vToken,
-      exchangeRateVTokens: corePoolAsset.exchangeRateVTokens,
-      amountMantissa: new BigNumber('500000000000000000'),
-      liquidityHubMigratorContractAddress: spenderAddress,
+      vTokenAmountMantissa,
     });
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses the exact vToken balance when migrating the full Core supply', async () => {
+    const migrateCoreSupplyToLiquidityHub = vi.fn().mockResolvedValue(undefined);
+    const vTokenBalanceMantissa = new BigNumber('12240516899');
+
+    mockUseMigrateCoreSupplyToLiquidityHub.mockReturnValue({
+      mutateAsync: migrateCoreSupplyToLiquidityHub,
+      isPending: false,
+    });
+    mockUseGetVTokenBalance.mockReturnValue({
+      data: {
+        balanceMantissa: vTokenBalanceMantissa,
+      },
+      isLoading: false,
+    });
+    mockUseTokenApproval.mockReturnValue(
+      makeUseTokenApprovalOutput({
+        walletSpendingLimitTokens: new BigNumber('1000000'),
+      }),
+    );
+
+    const corePoolAssetWithLiquidity = {
+      ...corePoolAsset,
+      cashTokens: new BigNumber('1000'),
+      liquidityCents: new BigNumber('1000000'),
+    };
+    const corePoolWithLiquidity = {
+      ...clickableLimitPool,
+      assets: clickableLimitPool.assets.map(asset =>
+        asset.vToken.address === corePoolAsset.vToken.address ? corePoolAssetWithLiquidity : asset,
+      ),
+    };
+
+    mockUseGetPool.mockImplementation(() => ({
+      data: {
+        pool: corePoolWithLiquidity,
+      },
+    }));
+
+    renderTransactionForm({
+      corePool: corePoolWithLiquidity,
+      corePoolAsset: corePoolAssetWithLiquidity,
+    });
+
+    fireEvent.change(getAmountInput(), {
+      target: {
+        value: corePoolAsset.userSupplyBalanceTokens.toFixed(),
+      },
+    });
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.supplySubmitButtonLabel,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(migrateCoreSupplyToLiquidityHub).toHaveBeenCalledWith({
+        vhToken: liquidityHub.vhToken,
+        vToken: corePoolAsset.vToken,
+        vTokenAmountMantissa: vTokenBalanceMantissa,
+      }),
+    );
   });
 
   it('shows the approval steps when the collateral token is not approved', async () => {

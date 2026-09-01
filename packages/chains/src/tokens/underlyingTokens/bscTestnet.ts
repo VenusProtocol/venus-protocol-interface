@@ -509,4 +509,18 @@ export const bscTestnet: Token[] = [
     symbol: 'qhBNB',
     iconSrc: iconSrcs.defaultToken,
   },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x7cE6ADF754D0eC81A6CF8ACd9C7454F45077dc61',
+    decimals: 12,
+    symbol: 'vSHARE',
+    iconSrc: iconSrcs.vhUSDT,
+  },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x1fdD7eAFC771DA154B67Ca372FB80Ff78D7774D2',
+    decimals: 24,
+    symbol: 'vhTUSD',
+    iconSrc: iconSrcs.vhUSDT,
+  },
 ];

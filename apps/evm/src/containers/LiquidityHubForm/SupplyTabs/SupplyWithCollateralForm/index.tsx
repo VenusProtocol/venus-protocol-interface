@@ -2,10 +2,13 @@ import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 import type { Address } from 'viem';
 
-import { useMigrateCoreSupplyToLiquidityHub } from 'clients/api';
+import { useGetVTokenBalance, useMigrateCoreSupplyToLiquidityHub } from 'clients/api';
 import { AvailableBalance, SpendingLimit } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
+import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
 import type { TokenApproval } from 'containers/TxFormSubmitButton';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type {
@@ -43,23 +46,19 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   const [formValues, setFormValues] = useState(initialFormValues);
   const { accountAddress } = useAccountAddress();
 
-  const { limitTokens: _limitTokens, safeLimitTokens: _safeLimitTokens } =
-    calculateCollateralWithdrawLimits({
-      asset: corePoolAsset,
-      pool: corePool,
-    });
+  let { limitTokens, safeLimitTokens } = calculateCollateralWithdrawLimits({
+    asset: corePoolAsset,
+    pool: corePool,
+  });
 
-  // Take supply cap in consideration
-  const marginWithSupplyCapTokens = liquidityHub.supplyCapTokens.minus(
-    liquidityHub.supplyBalanceTokens,
-  );
+  const userSupplyCapTokens = formatUserMaxTokenValue({
+    value: liquidityHub.userSupplyCapTokens,
+    decimals: liquidityHub.vhToken.underlyingToken.decimals,
+  });
 
-  let safeLimitTokens = BigNumber.min(_safeLimitTokens, marginWithSupplyCapTokens);
-  let limitTokens = BigNumber.min(_limitTokens, marginWithSupplyCapTokens);
-
-  if (liquidityHub.userSupplyCapTokens) {
-    safeLimitTokens = BigNumber.min(safeLimitTokens, liquidityHub.userSupplyCapTokens);
-    limitTokens = BigNumber.min(limitTokens, liquidityHub.userSupplyCapTokens);
+  if (userSupplyCapTokens) {
+    safeLimitTokens = BigNumber.min(safeLimitTokens, userSupplyCapTokens);
+    limitTokens = BigNumber.min(limitTokens, userSupplyCapTokens);
   }
 
   const approval: TokenApproval = {
@@ -87,6 +86,30 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
+  const isMigratingFullCoreSupply = !!fromAmountTokens?.isEqualTo(
+    corePoolAsset.userSupplyBalanceTokens,
+  );
+
+  const { data: getVTokenBalanceData } = useGetVTokenBalance(
+    {
+      accountAddress: accountAddress || NULL_ADDRESS,
+      vTokenAddress: corePoolAsset.vToken.address,
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
+
+  const userWalletVTokenBalanceMantissa = getVTokenBalanceData?.balanceMantissa;
+
+  const fromAmountVTokens =
+    isMigratingFullCoreSupply && userWalletVTokenBalanceMantissa
+      ? convertMantissaToTokens({
+          token: corePoolAsset.vToken,
+          value: userWalletVTokenBalanceMantissa,
+        })
+      : fromAmountTokens?.times(corePoolAsset.exchangeRateVTokens);
+
   // The minimum a use can migrate from the Core Pool is 1 wei, so we use the exchange rate to
   // determine how much that represents in underlying tokens
   const minFromAmountTokens = convertMantissaToTokens({
@@ -107,8 +130,8 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     }
 
     if (
-      walletSpendingLimitTokens?.isGreaterThan(0) &&
-      fromAmountTokens?.isGreaterThan(walletSpendingLimitTokens)
+      walletSpendingLimitVTokens?.isGreaterThan(0) &&
+      fromAmountVTokens?.isGreaterThan(walletSpendingLimitVTokens)
     ) {
       return {
         code: 'HIGHER_THAN_WALLET_SPENDING_LIMIT',
@@ -121,18 +144,26 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     useMigrateCoreSupplyToLiquidityHub();
 
   const handleSubmit = async (submittedFormValues: FormValues) => {
-    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
-    const amountMantissa = convertTokensToMantissa({
-      token: liquidityHub.vhToken.underlyingToken,
-      value: amountTokens,
-    });
+    const vTokenAmountMantissa = isMigratingFullCoreSupply
+      ? userWalletVTokenBalanceMantissa
+      : convertTokensToMantissa({
+          token: corePoolAsset.vToken,
+          value: new BigNumber(submittedFormValues.amountTokens).times(
+            corePoolAsset.exchangeRateVTokens,
+          ),
+        });
+
+    if (!vTokenAmountMantissa) {
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+      });
+    }
 
     await migrateCoreSupplyToLiquidityHub({
       vhToken: liquidityHub.vhToken,
       vToken: corePoolAsset.vToken,
-      exchangeRateVTokens: corePoolAsset.exchangeRateVTokens,
-      amountMantissa,
-      liquidityHubMigratorContractAddress,
+      vTokenAmountMantissa,
     });
   };
 

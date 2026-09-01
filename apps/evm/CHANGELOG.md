@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 5.22.0
+
+### Minor Changes
+
+- aa2bfe2: connect Liquidity Hub to API
+
+### Patch Changes
+
+- Updated dependencies [293d3be]
+  - @venusprotocol/chains@0.31.2
+
 ## 5.21.0
 
 ### Minor Changes

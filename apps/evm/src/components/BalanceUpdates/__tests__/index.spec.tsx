@@ -26,7 +26,7 @@ describe('BalanceUpdates', () => {
         action: 'supply',
         amountTokens: new BigNumber(2),
         vhTokenAddress: liquidityHub.vhToken.address,
-        label: 'Liquidity hub balance',
+        label: 'Liquidity Hub balance',
       },
     ];
 
@@ -44,7 +44,7 @@ describe('BalanceUpdates', () => {
     expect(rows[0]).toHaveTextContent('Core pool balance');
     expect(rows[0]).toHaveTextContent('90');
     expect(rows[0]).toHaveTextContent('88');
-    expect(rows[1]).toHaveTextContent('Liquidity hub balance');
+    expect(rows[1]).toHaveTextContent('Liquidity Hub balance');
     expect(rows[1]).toHaveTextContent('42');
     expect(rows[1]).toHaveTextContent('44');
   });
@@ -76,14 +76,14 @@ describe('BalanceUpdates', () => {
       action: 'withdraw',
       amountTokens: new BigNumber(100),
       vhTokenAddress: liquidityHub.vhToken.address,
-      label: 'Liquidity hub balance',
+      label: 'Liquidity Hub balance',
     };
 
     renderComponent(
       <BalanceUpdates liquidityHubs={liquidityHubs} balanceMutations={[balanceMutation]} />,
     );
 
-    const row = screen.getByText('Liquidity hub balance').closest('.flex.w-full');
+    const row = screen.getByText('Liquidity Hub balance').closest('.flex.w-full');
 
     expect(row).toHaveTextContent('42');
     expect(row).toHaveTextContent('0');

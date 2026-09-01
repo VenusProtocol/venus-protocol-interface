@@ -551,4 +551,25 @@ export const bscMainnet: Token[] = [
     symbol: 'vceBTC',
     iconSrc: iconSrcs.vceBTC,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x18AfDACF30F8671021dec4b78297E39d2FE87226',
+    decimals: 24,
+    symbol: 'vhUSDT',
+    iconSrc: iconSrcs.vhUSDT,
+  },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x9D2D9592cF8DFbf59107fAab703d08494BE14617',
+    decimals: 24,
+    symbol: 'vhUSDC',
+    iconSrc: iconSrcs.vhUSDC,
+  },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x0e5AA174d4F31b757a237eb1999DE151596788B0',
+    decimals: 24,
+    symbol: 'vhU',
+    iconSrc: iconSrcs.vhU,
+  },
 ];

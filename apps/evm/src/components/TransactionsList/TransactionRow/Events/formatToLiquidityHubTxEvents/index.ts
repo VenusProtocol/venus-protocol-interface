@@ -10,26 +10,26 @@ export const formatToLiquidityHubTxEvents = ({
   transaction: LiquidityHubTx;
   t: TFunction;
 }) => {
-  const { amounts, vhToken } = transaction;
-  const primaryAmount = amounts?.[0];
-  const token = vhToken.underlyingToken;
-  const liquidityHubLabel = t('layouts.menu.markets.liquidityHub.label');
+  const amounts = transaction.amounts || [];
 
-  const title = formatTokensToReadableValue({
-    token,
-    value: primaryAmount?.amountTokens,
+  return amounts.map<EventProps>((amount, index) => {
+    let description = formatCentsToReadableValue({
+      value: amount.amountCents,
+    });
+
+    if (amounts.length > 1) {
+      description += ` • ${
+        index === 0 ? t('transactions.venusCore.label') : t('transactions.liquidityHub.label')
+      }`;
+    }
+
+    return {
+      token: amount.token,
+      title: formatTokensToReadableValue({
+        token: amount.token,
+        value: amount.amountTokens,
+      }),
+      description,
+    };
   });
-  const description = primaryAmount
-    ? `${formatCentsToReadableValue({
-        value: primaryAmount.amountCents,
-      })} • ${token.symbol} • ${liquidityHubLabel}`
-    : liquidityHubLabel;
-
-  const event: EventProps = {
-    token,
-    title,
-    description,
-  };
-
-  return [event];
 };

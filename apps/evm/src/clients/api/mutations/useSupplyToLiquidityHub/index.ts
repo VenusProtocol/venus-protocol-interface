@@ -52,6 +52,10 @@ export const useSupplyToLiquidityHub = (options?: Partial<Options>) => {
       });
 
       queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_LIQUIDITY_HUBS],
+      });
+
+      queryClient.invalidateQueries({
         queryKey: [
           FunctionKey.GET_TOKEN_BALANCES,
           {

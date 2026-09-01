@@ -51,6 +51,9 @@ describe('useSupplyToLiquidityHub', () => {
       ],
     });
     expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+      queryKey: [FunctionKey.GET_LIQUIDITY_HUBS],
+    });
+    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
       queryKey: [
         FunctionKey.GET_TOKEN_ALLOWANCE,
         {

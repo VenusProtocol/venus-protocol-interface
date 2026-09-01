@@ -20,7 +20,7 @@ export const ImgGroup: React.FC<ImgGroupProps> = ({
     <div className={cn('inline-flex items-center', className)}>
       {filteredImgSrcs.map((imgSrc, index) => (
         <img
-          alt=""
+          alt={imgSrc}
           className={cn('size-5', index > 0 && '-ml-1')}
           src={imgSrc}
           key={`img-group-item-${imgSrc}-${index}`}
