@@ -1,5 +1,8 @@
 import type { TFunction } from 'i18next';
 
+import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
+import type { useTranslation } from 'libs/translations';
 import { formatPercentageToReadableValue } from 'utilities';
 import type { ApyBreakdownItem } from '..';
 import type { LabeledInlineContentProps } from '../../LabeledInlineContent';
@@ -8,9 +11,11 @@ import { ValueUpdate } from '../../ValueUpdate';
 export const formatRows = ({
   item,
   t,
+  Trans,
 }: {
   item: ApyBreakdownItem;
   t: TFunction<'translation', undefined>;
+  Trans: ReturnType<typeof useTranslation>['Trans'];
 }) => {
   const rows: LabeledInlineContentProps[] = [
     {
@@ -97,7 +102,14 @@ export const formatRows = ({
       }
 
       if (distribution.type === 'liquidity-hub-intrinsic') {
-        tooltip = t('apyBreakdown.liquidityHubIntrinsicApyTooltip');
+        tooltip = (
+          <Trans
+            i18nKey="apyBreakdown.liquidityHubIntrinsicApyTooltip"
+            components={{
+              AppLink: <Link to={routes.liquidityHubs.path} onClick={e => e.stopPropagation()} />,
+            }}
+          />
+        );
       }
 
       const row: LabeledInlineContentProps = {

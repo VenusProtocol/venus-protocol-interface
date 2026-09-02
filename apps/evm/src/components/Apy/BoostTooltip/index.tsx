@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 import { Tooltip, type TooltipProps } from 'components';
+import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type { PointDistribution, Token, TokenDistribution } from 'types';
@@ -124,7 +125,14 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
     if (d.type === 'liquidity-hub-intrinsic') {
       const distribution: DistributionProps = {
         name: t('apy.boost.tooltip.liquidityHubIntrinsicApy.name'),
-        description: t('apy.boost.tooltip.liquidityHubIntrinsicApy.description'),
+        description: (
+          <Trans
+            i18nKey="apy.boost.tooltip.liquidityHubIntrinsicApy.description"
+            components={{
+              AppLink: <Link to={routes.liquidityHubs.path} onClick={e => e.stopPropagation()} />,
+            }}
+          />
+        ),
         value: formatPercentageToReadableValue(d.apyPercentage),
         logoSrc: d.token.iconSrc,
       };

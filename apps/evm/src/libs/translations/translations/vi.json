@@ -214,7 +214,7 @@
           "name": "APY nội tại"
         },
         "liquidityHubIntrinsicApy": {
-          "description": "Lợi suất nội tại nhận được khi cung cấp tài sản cơ sở vào Trung tâm thanh khoản của Venus. vhToken tích lũy lợi suất này thông qua tỷ lệ quy đổi tăng dần thay vì phần thưởng có thể nhận — bạn nhận được tự động khi rút.",
+          "description": "Lợi suất nội tại nhận được khi cung cấp tài sản cơ sở vào <AppLink>Trung tâm thanh khoản của Venus</AppLink>. vhToken tích lũy lợi suất này thông qua tỷ lệ quy đổi tăng dần thay vì phần thưởng có thể nhận — bạn nhận được tự động khi rút.",
           "name": "APY nội tại của Trung tâm thanh khoản"
         },
         "offChainApy": {
@@ -261,7 +261,7 @@
     "intrinsicApy": "APY nội tại",
     "intrinsicApyTooltip": "APY nhận trực tiếp từ tài sản (ví dụ gửi hoặc phần thưởng bên ngoài), tách biệt với lợi suất cho vay của Venus. Venus protocol không đảm bảo và không chịu trách nhiệm.",
     "liquidityHubIntrinsicApy": "APY nội tại của Trung tâm thanh khoản",
-    "liquidityHubIntrinsicApyTooltip": "Lợi suất nội tại nhận được khi cung cấp tài sản cơ sở vào Trung tâm thanh khoản của Venus. vhToken tích lũy lợi suất này thông qua tỷ lệ quy đổi tăng dần thay vì phần thưởng có thể nhận — bạn nhận được tự động khi rút.",
+    "liquidityHubIntrinsicApyTooltip": "Lợi suất nội tại nhận được khi cung cấp tài sản cơ sở vào <AppLink>Trung tâm thanh khoản của Venus</AppLink>. vhToken tích lũy lợi suất này thông qua tỷ lệ quy đổi tăng dần thay vì phần thưởng có thể nhận — bạn nhận được tự động khi rút.",
     "netApy": {
       "label": "APY ròng",
       "tooltip": "Tổng APY của tất cả các thị trường liên quan"
