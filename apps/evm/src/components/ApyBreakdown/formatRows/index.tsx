@@ -1,6 +1,7 @@
+import type BigNumber from 'bignumber.js';
 import type { TFunction } from 'i18next';
 
-import { formatPercentageToReadableValue } from 'utilities';
+import { formatDistributionApyToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import type { ApyBreakdownItem } from '..';
 import type { LabeledInlineContentProps } from '../../LabeledInlineContent';
 import { ValueUpdate } from '../../ValueUpdate';
@@ -12,6 +13,9 @@ export const formatRows = ({
   item: ApyBreakdownItem;
   t: TFunction<'translation', undefined>;
 }) => {
+  const formatDistributionApy = (apyPercentage: BigNumber) =>
+    formatDistributionApyToReadableValue({ apyPercentage, type: item.type });
+
   const rows: LabeledInlineContentProps[] = [
     {
       label: item.type === 'borrow' ? t('apyBreakdown.borrowApy') : t('apyBreakdown.supplyApy'),
@@ -25,7 +29,15 @@ export const formatRows = ({
   const distributionRows = item.tokenDistributions
     .filter(distribution => distribution.type !== 'primeSimulation' && distribution.isActive)
     .reduce<LabeledInlineContentProps[]>((acc, distribution) => {
-      if (distribution.type !== 'prime' && distribution.apyPercentage.isEqualTo(0)) {
+      const collateralGate =
+        distribution.type === 'merkl' ? distribution.collateralGate : undefined;
+      const isMissingRequiredCollateral = !!collateralGate && !collateralGate.isUserEligible;
+
+      if (
+        distribution.type !== 'prime' &&
+        distribution.apyPercentage.isEqualTo(0) &&
+        !isMissingRequiredCollateral
+      ) {
         return acc;
       }
 
@@ -67,15 +79,22 @@ export const formatRows = ({
 
         children = (
           <ValueUpdate
-            original={formatPercentageToReadableValue(distribution.apyPercentage)}
+            original={formatDistributionApy(distribution.apyPercentage)}
             update={
               simulatedPrimeDistribution &&
-              formatPercentageToReadableValue(simulatedPrimeDistribution.apyPercentage)
+              formatDistributionApy(simulatedPrimeDistribution.apyPercentage)
             }
           />
         );
+      } else if (isMissingRequiredCollateral) {
+        // Muted, as this rate is not part of the total until the user provides the collateral
+        children = (
+          <span className="text-grey">
+            {formatDistributionApy(collateralGate.maxApyPercentage)}
+          </span>
+        );
       } else {
-        children = formatPercentageToReadableValue(distribution.apyPercentage);
+        children = formatDistributionApy(distribution.apyPercentage);
       }
 
       let tooltip = undefined;
@@ -98,6 +117,12 @@ export const formatRows = ({
 
       if (distribution.type === 'liquidity-hub-intrinsic') {
         tooltip = t('apyBreakdown.liquidityHubIntrinsicApyTooltip');
+      }
+
+      if (isMissingRequiredCollateral) {
+        tooltip = t('apyBreakdown.collateralGatedMerklApyTooltip', {
+          tokenSymbol: item.token.symbol,
+        });
       }
 
       const row: LabeledInlineContentProps = {

@@ -10,6 +10,7 @@ import {
 } from 'libs/contracts';
 import type { Asset, TokenBalance } from 'types';
 import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../../types';
+import { appendMerklCollateralGates } from './appendMerklCollateralGates';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 import { formatOutput } from './formatOutput';
 import { type ApiTokenMetadata, getApiPools } from './getApiPools';
@@ -213,6 +214,9 @@ export const getPools = async ({
     vaiRepayRateMantissa: vaiRepayRateMantissaResult,
     vaiPriceMantissa: vaiPriceMantissaResult,
   });
+
+  // Resolve per-user reward APYs of collateral-gated Merkl campaigns
+  appendMerklCollateralGates({ pools });
 
   // Add Prime simulations
   // TODO: get Prime simulations from API

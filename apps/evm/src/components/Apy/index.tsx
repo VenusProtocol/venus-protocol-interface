@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 import type {
+  MerklDistribution,
   PointDistribution,
   PrimeDistribution,
   PrimeSimulationDistribution,
@@ -9,6 +10,7 @@ import type {
 } from 'types';
 import { formatPercentageToReadableValue, getCombinedApy } from 'utilities';
 import { BoostTooltip } from './BoostTooltip';
+import { MerklBadge } from './MerklBadge';
 import { PrimeBadge } from './PrimeBadge';
 
 export interface ApyProps {
@@ -42,6 +44,7 @@ export const Apy: React.FC<ApyProps> = ({
   const readableApy = formatPercentageToReadableValue(combinedApy.totalApyPercentage);
   let primeDistribution: PrimeDistribution | undefined;
   let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
+  let gatedMerklDistribution: MerklDistribution | undefined;
   const activeTokenDistributions = tokenDistributions.filter(distribution => distribution.isActive);
 
   activeTokenDistributions.forEach(distribution => {
@@ -49,6 +52,11 @@ export const Apy: React.FC<ApyProps> = ({
       primeDistribution = distribution;
     } else if (distribution.type === 'primeSimulation') {
       primeSimulationDistribution = distribution;
+    } else if (
+      distribution.type === 'merkl' &&
+      distribution.collateralGate?.isUserEligible === false
+    ) {
+      gatedMerklDistribution = distribution;
     }
   });
 
@@ -68,37 +76,58 @@ export const Apy: React.FC<ApyProps> = ({
         : combinedApy.totalApyPercentage.minus(combinedApy.apyPrimeSimulationPercentage);
   }
 
+  const distributionListProps = {
+    type,
+    token,
+    baseApyPercentage,
+    userBalanceTokens,
+    tokenDistributions: activeTokenDistributions,
+    pointDistributions,
+    primeApyPercentage: primeDistribution?.apyPercentage,
+  };
+
+  // The Merkl badge takes over the badge slot whenever both could show
+  let badgeDom: React.ReactNode;
+
+  if (gatedMerklDistribution?.collateralGate) {
+    badgeDom = (
+      <MerklBadge
+        className="shrink-0"
+        simulatedApyPercentage={combinedApy.totalApyPercentage.minus(
+          gatedMerklDistribution.collateralGate.maxApyPercentage,
+        )}
+        {...distributionListProps}
+      />
+    );
+  } else if (showPrimeSimulation && isPrimeAsset && !isApyBoostedByPrime) {
+    badgeDom = (
+      <PrimeBadge
+        className="shrink-0"
+        type={type}
+        token={token}
+        simulationReferenceValues={primeSimulationDistribution?.referenceValues}
+        simulatedApyPercentage={simulatedApyPercentage}
+      />
+    );
+  }
+
   return (
     <div
       className={cn('inline-flex gap-1 items-center flex-wrap', isMuted && 'opacity-50', className)}
     >
-      {isApyBoostedByPrime && <PrimeBadge className="shrink-0" type={type} token={token} />}
+      {isApyBoostedByPrime && !gatedMerklDistribution && (
+        <PrimeBadge className="shrink-0" type={type} token={token} />
+      )}
 
       {isApyBoosted ? (
-        <BoostTooltip
-          tokenDistributions={activeTokenDistributions}
-          pointDistributions={pointDistributions}
-          token={token}
-          type={type}
-          baseApyPercentage={baseApyPercentage}
-          userBalanceTokens={userBalanceTokens}
-          primeApyPercentage={primeDistribution?.apyPercentage}
-        >
+        <BoostTooltip {...distributionListProps}>
           <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
         </BoostTooltip>
       ) : (
         <p className={cn('whitespace-nowrap shrink-0', isMuted && 'text-grey')}>{readableApy}</p>
       )}
 
-      {showPrimeSimulation && isPrimeAsset && !isApyBoostedByPrime && (
-        <PrimeBadge
-          className="shrink-0"
-          type={type}
-          token={token}
-          simulationReferenceValues={primeSimulationDistribution?.referenceValues}
-          simulatedApyPercentage={simulatedApyPercentage}
-        />
-      )}
+      {badgeDom}
     </div>
   );
 };

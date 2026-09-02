@@ -207,6 +207,9 @@
           "description": "Lãi tích lũy khi vay tài sản này từ Venus Protocol.",
           "name": "APY vay"
         },
+        "collateralGatedMerklReward": {
+          "description": "Mức thưởng tối đa trên thị trường này. Nó chỉ áp dụng khi khoản vay {{tokenSymbol}} của bạn được thế chấp bằng bStock, và vị thế của bạn hiện chưa đủ điều kiện."
+        },
         "defaultMerklRewardName": "Phần thưởng Merkl",
         "externalRewardDescription": "Phần thưởng từ chương trình bên ngoài này có thể được nhận qua <AppLink>ứng dụng chính thức</AppLink> của họ. Venus protocol không đảm bảo và không chịu trách nhiệm.",
         "intrinsicApy": {
@@ -242,6 +245,12 @@
         }
       }
     },
+    "merklBadge": {
+      "logoAlt": "Logo chiến dịch Merkl",
+      "tooltip": {
+        "leadLine": "Thế chấp khoản vay của bạn bằng bStock để đưa APY vay về {{apy}}."
+      }
+    },
     "primeBadge": {
       "logoAlt": "Logo Prime",
       "tooltip": {
@@ -255,6 +264,7 @@
   },
   "apyBreakdown": {
     "borrowApy": "APY vay",
+    "collateralGatedMerklApyTooltip": "Mức thưởng tối đa trên thị trường này. Nó chỉ áp dụng khi khoản vay {{tokenSymbol}} của bạn được thế chấp bằng bStock, nên chưa được tính vào tổng của bạn.",
     "distributionApy": "APY phân phối",
     "distributionTooltip": "Phần thưởng phân phối được khởi xướng và triển khai bởi cộng đồng Venus phi tập trung. Venus protocol không đảm bảo và không chịu trách nhiệm.",
     "externalDistributionApy": "{{description}} APY",

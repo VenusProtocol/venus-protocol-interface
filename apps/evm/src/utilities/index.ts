@@ -3,6 +3,7 @@ export { default as scrollToElement } from './scrollToElement';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
 export { default as formatPercentageToReadableValue } from './formatPercentageToReadableValue';
+export { formatDistributionApyToReadableValue } from './formatDistributionApyToReadableValue';
 export { default as convertTokensToMantissa } from './convertTokensToMantissa';
 export { default as indexBy } from './indexBy';
 export { default as notUndefined } from './notUndefined';

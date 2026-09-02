@@ -207,6 +207,9 @@
           "description": "The accruing interest when borrowing this asset from the Venus Protocol.",
           "name": "Borrow APY"
         },
+        "collateralGatedMerklReward": {
+          "description": "The maximum reward rate on this market. It applies only while your {{tokenSymbol}} borrow is collateralized by bStock, and your position is not eligible yet."
+        },
         "defaultMerklRewardName": "Merkl rewards",
         "externalRewardDescription": "Rewards from this external program can be claimed through their <AppLink>official app</AppLink>. The Venus protocol does not guarantee them and accepts no liability.",
         "intrinsicApy": {
@@ -242,6 +245,12 @@
         }
       }
     },
+    "merklBadge": {
+      "logoAlt": "Merkl campaign logo",
+      "tooltip": {
+        "leadLine": "Collateralize your borrow with bStock to bring your borrow APY to {{apy}}."
+      }
+    },
     "primeBadge": {
       "logoAlt": "Prime logo",
       "tooltip": {
@@ -255,6 +264,7 @@
   },
   "apyBreakdown": {
     "borrowApy": "Borrow APY",
+    "collateralGatedMerklApyTooltip": "The maximum reward rate on this market. It applies only while your {{tokenSymbol}} borrow is collateralized by bStock, so it is not counted in your total yet.",
     "distributionApy": "Distribution APY",
     "distributionTooltip": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
     "externalDistributionApy": "{{description}} APY",

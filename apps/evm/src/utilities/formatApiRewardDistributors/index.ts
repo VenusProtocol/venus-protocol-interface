@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import type { ApiRewardDistributor, Token, TokenDistribution } from 'types';
 import { convertRatioToPercentage } from 'utilities/convertRatioToPercentage';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -49,6 +50,17 @@ export const formatApiRewardDistributors = ({
     const isChainTimeBased = !blocksPerDay;
 
     const isTimeBasedOrMerklReward = isChainTimeBased || rewardType === 'merkl';
+
+    // Collateral-gated Merkl campaigns distribute no supply or borrow speed. Merkl reports a
+    // campaign-wide APR instead, which is then refined per user based on their positions
+    // Both address lists are required: without the collateral list no user could ever qualify
+    const merklRewardDetails = rewardType === 'merkl' ? rewardDetails : undefined;
+    const collateralGatedCampaignAprPercentage =
+      merklRewardDetails?.eligibleBorrowMarketAddresses?.length &&
+      merklRewardDetails.participatingCollateralAddresses?.length
+        ? new BigNumber(merklRewardDetails.apr ?? 0)
+        : undefined;
+
     const rewardTokenDistributionInput = {
       isActive,
       isTimeBasedOrMerklReward,
@@ -73,9 +85,11 @@ export const formatApiRewardDistributors = ({
 
     const borrowTokenDistribution = formatRewardTokenDistribution({
       ...rewardTokenDistributionInput,
+      isCollateralGatedCampaign: !!collateralGatedCampaignAprPercentage,
       lastRewardingBlockOrTimestamp: lastRewardingBorrowBlockOrTimestamp,
       rateMantissa: borrowSpeed,
-      apyPercentage: convertRatioToPercentage(borrowApyRatio),
+      apyPercentage:
+        collateralGatedCampaignAprPercentage ?? convertRatioToPercentage(borrowApyRatio),
     });
 
     if (borrowTokenDistribution) {
