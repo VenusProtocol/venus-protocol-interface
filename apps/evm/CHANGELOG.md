@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.26.0
+
+### Minor Changes
+
+- c40831f: fix: remove buffer
+
 ## 5.25.0
 
 ### Minor Changes
