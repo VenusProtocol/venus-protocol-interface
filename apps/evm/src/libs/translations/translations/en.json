@@ -991,8 +991,8 @@
           "title": "Exchange rate",
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
-        "hubContract": "Hub contract",
         "operator": "Operator",
+        "operatorAddress": "Operator address",
         "operatorName": "Venus DAO",
         "performanceFee": "Performance fee",
         "redeemFee": "Redeem fee",

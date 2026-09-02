@@ -990,8 +990,8 @@
           "title": "汇率",
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
-        "hubContract": "中心合约",
         "operator": "运营方",
+        "operatorAddress": "TRANSLATION NEEDED",
         "operatorName": "Venus DAO",
         "performanceFee": "绩效费",
         "redeemFee": "赎回费",

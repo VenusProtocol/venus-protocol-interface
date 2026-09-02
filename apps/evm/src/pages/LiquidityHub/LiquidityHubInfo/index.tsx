@@ -1,6 +1,8 @@
 import { cn } from '@venusprotocol/ui';
 
+import { useGetLiquidityHubOperatorAddress } from 'clients/api';
 import { MarketInfo, type MarketInfoProps } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { routes } from 'constants/routing';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
@@ -22,6 +24,11 @@ export const LiquidityHubInfo: React.FC<LiquidityHubInfoProps> = ({ liquidityHub
   const { t, Trans } = useTranslation();
   const { chainId } = useChainId();
 
+  const { data: getLiquidityHubOperatorAddressData } = useGetLiquidityHubOperatorAddress({
+    vhTokenAddress: liquidityHub.vhToken.address,
+  });
+  const operatorAddress = getLiquidityHubOperatorAddressData?.operatorAddress;
+
   const { totalApyPercentage } = getCombinedApy({
     type: 'supply',
     baseApyPercentage: liquidityHub.supplyApyPercentage,
@@ -41,13 +48,11 @@ export const LiquidityHubInfo: React.FC<LiquidityHubInfoProps> = ({ liquidityHub
       children: t('liquidityHub.info.stats.operatorName'),
     },
     {
-      label: t('liquidityHub.info.stats.hubContract'),
-      children: (
-        <ChainExplorerLink
-          hash={liquidityHub.vhToken.address}
-          text={liquidityHub.vhToken.address}
-          chainId={chainId}
-        />
+      label: t('liquidityHub.info.stats.operatorAddress'),
+      children: operatorAddress ? (
+        <ChainExplorerLink hash={operatorAddress} text={operatorAddress} chainId={chainId} />
+      ) : (
+        PLACEHOLDER_KEY
       ),
     },
     {

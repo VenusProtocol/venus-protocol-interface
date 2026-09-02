@@ -990,8 +990,8 @@
           "title": "Tỷ giá hối đoái",
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
-        "hubContract": "Hợp đồng hub",
         "operator": "Nhà vận hành",
+        "operatorAddress": "TRANSLATION NEEDED",
         "operatorName": "Venus DAO",
         "performanceFee": "Phí hiệu suất",
         "redeemFee": "Phí đổi lại",
