@@ -207,6 +207,9 @@
           "description": "ดอกเบี้ยที่เกิดขึ้นเมื่อยืมสินทรัพย์นี้จากโปรโตคอล Venus",
           "name": "APY การยืม"
         },
+        "collateralGatedMerklReward": {
+          "description": "อัตรารางวัลสูงสุดในตลาดนี้ ใช้ได้เฉพาะเมื่อการกู้ยืม {{tokenSymbol}} ของคุณใช้ bStock เป็นหลักประกัน และสถานะของคุณยังไม่ผ่านเกณฑ์"
+        },
         "defaultMerklRewardName": "รางวัล Merkl",
         "externalRewardDescription": "รางวัลจากโปรแกรมภายนอกนี้สามารถรับได้ผ่าน <AppLink>แอปอย่างเป็นทางการ</AppLink> โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
         "intrinsicApy": {
@@ -242,6 +245,12 @@
         }
       }
     },
+    "merklBadge": {
+      "logoAlt": "โลโก้แคมเปญ Merkl",
+      "tooltip": {
+        "leadLine": "ใช้ bStock เป็นหลักประกันสำหรับการกู้ยืมของคุณ เพื่อให้ APY การกู้ยืมเป็น {{apy}}"
+      }
+    },
     "primeBadge": {
       "logoAlt": "โลโก้ Prime",
       "tooltip": {
@@ -255,6 +264,7 @@
   },
   "apyBreakdown": {
     "borrowApy": "APY การยืม",
+    "collateralGatedMerklApyTooltip": "อัตรารางวัลสูงสุดในตลาดนี้ ใช้ได้เฉพาะเมื่อการกู้ยืม {{tokenSymbol}} ของคุณใช้ bStock เป็นหลักประกัน จึงยังไม่ถูกนับรวมในยอดรวมของคุณ",
     "distributionApy": "APY การแจกจ่าย",
     "distributionTooltip": "รางวัลการแจกจ่ายถูกเริ่มและดำเนินการโดยชุมชน Venus แบบกระจายอำนาจ โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
     "externalDistributionApy": "{{description}} APY",

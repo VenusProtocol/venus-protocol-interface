@@ -207,6 +207,9 @@
           "description": "Venusプロトコルからこの資産を借りる際に発生する利息です。",
           "name": "借入APY"
         },
+        "collateralGatedMerklReward": {
+          "description": "このマーケットの最大報酬レートです。{{tokenSymbol}}の借入がbStockを担保としている場合にのみ適用され、現在のポジションはまだ対象外です。"
+        },
         "defaultMerklRewardName": "Merkl報酬",
         "externalRewardDescription": "この外部プログラムからの報酬は、<AppLink>公式アプリ</AppLink>で請求できます。Venusプロトコルはこれらを保証せず、責任を負いません。",
         "intrinsicApy": {
@@ -242,6 +245,12 @@
         }
       }
     },
+    "merklBadge": {
+      "logoAlt": "Merklキャンペーンロゴ",
+      "tooltip": {
+        "leadLine": "bStockを担保にして借り入れると、借入APYが{{apy}}になります。"
+      }
+    },
     "primeBadge": {
       "logoAlt": "Primeロゴ",
       "tooltip": {
@@ -255,6 +264,7 @@
   },
   "apyBreakdown": {
     "borrowApy": "借入APY",
+    "collateralGatedMerklApyTooltip": "このマーケットの最大報酬レートです。{{tokenSymbol}}の借入がbStockを担保としている場合にのみ適用されるため、まだ合計には含まれていません。",
     "distributionApy": "配布APY",
     "distributionTooltip": "配布報酬は分散型のVenusコミュニティにより開始・実装されます。Venusプロトコルはこれらを保証せず、責任を負いません。",
     "externalDistributionApy": "{{description}} APY",

@@ -17,6 +17,7 @@ import {
   calculateYearlyEarningsForAssets,
   clampToZero,
 } from 'utilities';
+import { withMerklCollateralGates } from '../useGetPools/useGetPoolsQuery/getPools/withMerklCollateralGates';
 import { addUserPrimeApys } from './addUserPrimeApys';
 
 export interface GetSimulatedPoolInput {
@@ -212,6 +213,10 @@ export const getSimulatedPool = async ({
       }
     });
   }
+
+  // Collateral-gated Merkl rewards depend on the user's position, so they have to be resolved
+  // again against the simulated balances before earnings are derived from them
+  simulatedAssets = withMerklCollateralGates({ assets: simulatedAssets });
 
   const userPoolValues = calculateUserPoolValues({
     assets: simulatedAssets,

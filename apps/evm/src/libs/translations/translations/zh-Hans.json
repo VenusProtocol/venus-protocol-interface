@@ -207,6 +207,9 @@
           "description": "在 Venus 协议中借入该资产时产生的利息。",
           "name": "借款 APY"
         },
+        "collateralGatedMerklReward": {
+          "description": "该市场的最高奖励率。仅当你的 {{tokenSymbol}} 借款以 bStock 作为抵押时才适用，你当前的仓位尚不符合条件。"
+        },
         "defaultMerklRewardName": "Merkl 奖励",
         "externalRewardDescription": "该外部计划的奖励可通过其 <AppLink>官方应用</AppLink>领取。Venus 协议不作任何保证且不承担责任。",
         "intrinsicApy": {
@@ -242,6 +245,12 @@
         }
       }
     },
+    "merklBadge": {
+      "logoAlt": "Merkl 活动标志",
+      "tooltip": {
+        "leadLine": "使用 bStock 为你的借款提供抵押，即可将借款 APY 变为 {{apy}}。"
+      }
+    },
     "primeBadge": {
       "logoAlt": "Prime 标志",
       "tooltip": {
@@ -255,6 +264,7 @@
   },
   "apyBreakdown": {
     "borrowApy": "借款 APY",
+    "collateralGatedMerklApyTooltip": "该市场的最高奖励率。仅当你的 {{tokenSymbol}} 借款以 bStock 作为抵押时才适用，因此尚未计入你的总计。",
     "distributionApy": "分发 APY",
     "distributionTooltip": "分发奖励由去中心化的 Venus 社区发起并实施。Venus 协议不作任何保证且不承担责任。",
     "externalDistributionApy": "{{description}} APY",

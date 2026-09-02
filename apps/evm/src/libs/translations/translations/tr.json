@@ -207,6 +207,9 @@
           "description": "Venus Protokolünden bu varlığı borç alırken biriken faiz.",
           "name": "Borç APY"
         },
+        "collateralGatedMerklReward": {
+          "description": "Bu piyasadaki maksimum ödül oranı. Yalnızca {{tokenSymbol}} borcunuz bStock ile teminatlandırıldığında geçerlidir ve pozisyonunuz henüz uygun değil."
+        },
         "defaultMerklRewardName": "Merkl ödülleri",
         "externalRewardDescription": "Bu dış programdaki ödüller <AppLink>resmi uygulaması</AppLink> üzerinden talep edilebilir. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
         "intrinsicApy": {
@@ -242,6 +245,12 @@
         }
       }
     },
+    "merklBadge": {
+      "logoAlt": "Merkl kampanya logosu",
+      "tooltip": {
+        "leadLine": "Borcunuzu bStock ile teminatlandırarak borç APY’nizi {{apy}} seviyesine getirin."
+      }
+    },
     "primeBadge": {
       "logoAlt": "Prime logosu",
       "tooltip": {
@@ -255,6 +264,7 @@
   },
   "apyBreakdown": {
     "borrowApy": "Borç APY",
+    "collateralGatedMerklApyTooltip": "Bu piyasadaki maksimum ödül oranı. Yalnızca {{tokenSymbol}} borcunuz bStock ile teminatlandırıldığında geçerli olduğundan henüz toplamınıza dahil edilmez.",
     "distributionApy": "Dağıtım APY",
     "distributionTooltip": "Dağıtım ödülleri merkeziyetsiz Venus topluluğu tarafından başlatılır ve uygulanır. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
     "externalDistributionApy": "{{description}} APY",
