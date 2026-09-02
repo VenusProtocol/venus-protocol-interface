@@ -2,4 +2,4 @@
 "@venusprotocol/evm": minor
 ---
 
-feat: update heathy bar z-index
+feat: update health bar z-index
