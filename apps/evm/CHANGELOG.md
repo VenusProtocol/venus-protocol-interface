@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.25.0
+
+### Minor Changes
+
+- c19bb9d: feat: update health bar z-index
+
 ## 5.24.0
 
 ### Minor Changes
