@@ -10,7 +10,6 @@ import {
 } from 'libs/contracts';
 import type { Asset, TokenBalance } from 'types';
 import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../../types';
-import { appendMerklCollateralGates } from './appendMerklCollateralGates';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 import { formatOutput } from './formatOutput';
 import { type ApiTokenMetadata, getApiPools } from './getApiPools';
@@ -18,6 +17,7 @@ import { getUserCollateralAddresses } from './getUserCollateralAddresses';
 import { getUserPrimeApys } from './getUserPrimeApys';
 import { getUserTokenBalances } from './getUserTokenBalances';
 import { getUserVaiBorrowBalance } from './getUserVaiBorrowBalance';
+import { withMerklCollateralGates } from './withMerklCollateralGates';
 
 export interface GetPoolsQueryOutput extends GetPoolsOutput {
   tokenMetadataMapping: Record<string, ApiTokenMetadata>;
@@ -198,7 +198,7 @@ export const getPools = async ({
       userLegacyPoolEModeGroupId;
   }
 
-  const pools = formatOutput({
+  const formattedPools = formatOutput({
     chainId,
     isUserConnected: !!accountAddress,
     tokens,
@@ -215,8 +215,10 @@ export const getPools = async ({
     vaiPriceMantissa: vaiPriceMantissaResult,
   });
 
-  // Resolve per-user reward APYs of collateral-gated Merkl campaigns
-  appendMerklCollateralGates({ pools });
+  const pools = formattedPools.map(pool => {
+    const assets = withMerklCollateralGates({ assets: pool.assets });
+    return assets === pool.assets ? pool : { ...pool, assets };
+  });
 
   // Add Prime simulations
   // TODO: get Prime simulations from API

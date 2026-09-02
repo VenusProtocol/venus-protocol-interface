@@ -93,6 +93,27 @@ export const formatRows = ({
             {formatDistributionApy(collateralGate.maxApyPercentage)}
           </span>
         );
+      } else if (distribution.type === 'merkl' && collateralGate) {
+        // Position-dependent, so it moves with the simulated balances the way Prime APY does
+        const simulatedDistribution = item.simulatedTokenDistributions?.find(
+          simulated =>
+            simulated.type === 'merkl' &&
+            simulated.rewardDetails.merklCampaignIdentifier ===
+              distribution.rewardDetails.merklCampaignIdentifier,
+        );
+
+        const hasMoved =
+          !!simulatedDistribution &&
+          !simulatedDistribution.apyPercentage.isEqualTo(distribution.apyPercentage);
+
+        children = (
+          <ValueUpdate
+            original={formatDistributionApy(distribution.apyPercentage)}
+            update={
+              hasMoved ? formatDistributionApy(simulatedDistribution.apyPercentage) : undefined
+            }
+          />
+        );
       } else {
         children = formatDistributionApy(distribution.apyPercentage);
       }
