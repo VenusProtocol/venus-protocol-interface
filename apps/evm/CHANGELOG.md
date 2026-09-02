@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.24.0
+
+### Minor Changes
+
+- 230dbcc: Link the Venus Liquidity Hub mention in the Liquidity Hub intrinsic APY tooltip to the Liquidity Hubs page
+
 ## 5.23.1
 
 ### Patch Changes
