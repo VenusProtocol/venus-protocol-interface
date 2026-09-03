@@ -531,14 +531,9 @@
       "totalSupplied": "Total supplied"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "Borrow"
-      },
-      "interactiveTitle": "Spotlight ( <Group><SupplyButton>Supply</SupplyButton>/<BorrowButton>Borrow</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Supply"
-      },
-      "textTitle": "Spotlight"
+      }
     },
     "vaults": {
       "dailyEarnings": "Daily earnings",

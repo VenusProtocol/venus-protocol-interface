@@ -530,14 +530,9 @@
       "totalSupplied": "Tổng đã cung cấp"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "Vay"
-      },
-      "interactiveTitle": "Điểm nổi bật ( <Group><SupplyButton>cung cấp</SupplyButton>/<BorrowButton>vay</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Cung cấp"
-      },
-      "textTitle": "Điểm nổi bật"
+      }
     },
     "vaults": {
       "dailyEarnings": "Thu nhập hàng ngày",

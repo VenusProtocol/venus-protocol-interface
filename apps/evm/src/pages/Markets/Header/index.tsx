@@ -1,6 +1,4 @@
-import { cn } from '@venusprotocol/ui';
 import { PageStatHeader } from 'components';
-import { TopMarkets } from 'containers/TopMarkets';
 import { useChain } from 'hooks/useChain';
 import { usePoolStats } from 'hooks/usePoolStats';
 import { useTranslation } from 'libs/translations';
@@ -27,10 +25,6 @@ export const Header: React.FC<HeaderProps> = ({ pool, className }) => {
   const description = isCorePool ? t('markets.header.venusCore.description') : undefined;
 
   return (
-    <div className={cn('space-y-6 sm:space-y-12 2xl:space-y-10', className)}>
-      <PageStatHeader title={title} description={description} cells={cells} />
-
-      <TopMarkets variant="secondary" className="mb-3" />
-    </div>
+    <PageStatHeader title={title} description={description} cells={cells} className={className} />
   );
 };

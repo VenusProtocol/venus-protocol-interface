@@ -111,9 +111,6 @@ export * from './queries/getLiquidityHubHistory/useGetLiquidityHubHistory';
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';
 
-export * from './queries/getTopMarkets';
-export * from './queries/getTopMarkets/useGetTopMarkets';
-
 export * from './queries/getTokenPairKLineCandles';
 export * from './queries/getTokenPairKLineCandles/useGetTokenPairKLineCandles';
 

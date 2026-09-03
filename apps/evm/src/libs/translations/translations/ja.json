@@ -530,14 +530,9 @@
       "totalSupplied": "総供給量"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "借入"
-      },
-      "interactiveTitle": "スポットライト ( <Group><SupplyButton>供給</SupplyButton>/<BorrowButton>借入</BorrowButton></Group> )",
       "supplyButton": {
         "label": "供給"
-      },
-      "textTitle": "スポットライト"
+      }
     },
     "vaults": {
       "dailyEarnings": "日次収益",

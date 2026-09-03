@@ -531,14 +531,9 @@
       "totalSupplied": "Toplam sağlanan"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "Borç al"
-      },
-      "interactiveTitle": "Öne çıkanlar ( <Group><SupplyButton>sağlama</SupplyButton>/<BorrowButton>borç</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Sağla"
-      },
-      "textTitle": "Öne çıkanlar"
+      }
     },
     "vaults": {
       "dailyEarnings": "Günlük kazançlar",

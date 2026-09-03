@@ -530,14 +530,9 @@
       "totalSupplied": "ยอดฝากทั้งหมด"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "ยืม"
-      },
-      "interactiveTitle": "ไฮไลต์ ( <Group><SupplyButton>ฝาก</SupplyButton>/<BorrowButton>ยืม</BorrowButton></Group> )",
       "supplyButton": {
         "label": "ฝาก"
-      },
-      "textTitle": "ไฮไลต์"
+      }
     },
     "vaults": {
       "dailyEarnings": "รายได้รายวัน",
