@@ -530,14 +530,9 @@
       "totalSupplied": "总供应量"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "借款"
-      },
-      "interactiveTitle": "焦点 ( <Group><SupplyButton>存款</SupplyButton>/<BorrowButton>借款</BorrowButton></Group> )",
       "supplyButton": {
         "label": "存款"
-      },
-      "textTitle": "焦点"
+      }
     },
     "vaults": {
       "dailyEarnings": "每日收益",

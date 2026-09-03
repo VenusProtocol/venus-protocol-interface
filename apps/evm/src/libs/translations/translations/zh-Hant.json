@@ -530,14 +530,9 @@
       "totalSupplied": "總供應量"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "借款"
-      },
-      "interactiveTitle": "焦點 ( <Group><SupplyButton>供應</SupplyButton>/<BorrowButton>借款</BorrowButton></Group> )",
       "supplyButton": {
         "label": "供應"
-      },
-      "textTitle": "焦點"
+      }
     },
     "vaults": {
       "dailyEarnings": "每日收益",
