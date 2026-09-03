@@ -5,6 +5,7 @@ import { Link } from 'containers/Link';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { ErrorBoundary } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import { Galaxy } from './Galaxy';
@@ -32,7 +33,11 @@ export const Hero: React.FC = () => {
   return (
     <div className="relative h-auto xl:min-h-175 w-full bg-background-active mb-10 lg:mb-15">
       {/* We use JS to conditionally render the galaxy background so that it does not load on mobile, where it won't be displayed anyway */}
-      {isMdOrUp && <Galaxy />}
+      {isMdOrUp && (
+        <ErrorBoundary>
+          <Galaxy />
+        </ErrorBoundary>
+      )}
 
       <Wrapper className="flex flex-col start-0 end-0">
         <div className="flex flex-col items-center xl:flex-row xl:justify-between xl:items-center gap-6 w-full py-15 z-1">
