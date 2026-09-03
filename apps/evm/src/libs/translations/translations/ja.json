@@ -990,8 +990,8 @@
           "title": "交換レート",
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
-        "hubContract": "ハブコントラクト",
         "operator": "オペレーター",
+        "operatorAddress": "TRANSLATION NEEDED",
         "operatorName": "Venus DAO",
         "performanceFee": "パフォーマンス手数料",
         "redeemFee": "償還手数料",

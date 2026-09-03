@@ -108,6 +108,9 @@ export * from './queries/getLiquidityHub/useGetLiquidityHub';
 export * from './queries/getLiquidityHubHistory';
 export * from './queries/getLiquidityHubHistory/useGetLiquidityHubHistory';
 
+export * from './queries/getLiquidityHubOperatorAddress';
+export * from './queries/getLiquidityHubOperatorAddress/useGetLiquidityHubOperatorAddress';
+
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';
 
