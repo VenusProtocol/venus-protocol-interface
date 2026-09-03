@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.27.0
+
+### Minor Changes
+
+- aec70bb: fix: add error boundary for webGL deni
+
 ## 5.26.0
 
 ### Minor Changes
