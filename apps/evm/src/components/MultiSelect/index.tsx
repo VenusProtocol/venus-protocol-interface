@@ -45,7 +45,9 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     <Dropdown
       className={className}
       menuPosition="right"
-      menuClassName="bg-background border-blue"
+      // Clip the options to the menu's rounded corners, so the hover highlight of the last
+      // option does not bleed past the border
+      menuClassName="bg-background border-blue overflow-hidden"
       optionsDom={() => (
         <div className="min-w-full">
           <div className="flex h-12 items-center justify-between gap-3 px-4 py-3">
