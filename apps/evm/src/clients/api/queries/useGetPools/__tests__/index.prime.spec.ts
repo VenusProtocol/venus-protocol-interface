@@ -113,6 +113,7 @@ describe('useGetPools', () => {
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
       }),
     );
 
@@ -149,6 +150,7 @@ describe('useGetPools', () => {
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
       }),
     );
 
@@ -188,6 +190,7 @@ describe('useGetPools', () => {
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
       }),
     );
 
@@ -221,6 +224,7 @@ describe('useGetPools', () => {
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
       }),
     );
 

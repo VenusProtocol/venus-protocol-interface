@@ -1,18 +1,53 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { useLocation, useNavigate, useNavigationType, useSearchParams } from 'react-router';
 import type { Mock } from 'vitest';
 
-import { institutionalVault, vaults as venusVaults } from '__mocks__/models/vaults';
+import { institutionalVault, pendleBnbVault, vaults as venusVaults } from '__mocks__/models/vaults';
 import { en, t } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { renderComponent } from 'testUtils/render';
-import { type InstitutionalVault, VaultStatus } from 'types';
+import { ChainId, type InstitutionalVault, VaultStatus } from 'types';
 
 import { useGetVaults } from 'clients/api';
 
-import Staking from '..';
+import VaultsPage from '..';
 
 describe('Vaults', () => {
   const fakeVaults = [institutionalVault, ...venusVaults];
   const titleSelector = 'p.truncate.text-b1s';
+
+  // A filter label can also appear on the vault cards, and an open dropdown renders its
+  // options in both the desktop menu and the mobile modal. The trigger is always the first
+  // button carrying the label, and the modal copy of an option always the last one.
+  const getFilterTrigger = (label: string) => screen.getAllByRole('button', { name: label })[0];
+  const getFilterOption = (label: string) => screen.getAllByRole('button', { name: label }).at(-1)!;
+
+  // Mirrors useSwitchChain: the chain the app resolves changes, and the new chain is
+  // written to the url. The mock has to be overridden from inside the handler rather than
+  // from beforeEach, because renderComponent's wrapper re-applies its own implementation on
+  // every wrapper render; MemoryRouter lives inside that wrapper, so a navigation never
+  // re-renders it and the override sticks
+  const ChainSwitcher: React.FC<{ chainId: ChainId }> = ({ chainId }) => {
+    const [, setSearchParams] = useSearchParams();
+
+    const handleClick = () => {
+      (useChainId as Mock).mockReturnValue({ chainId });
+
+      setSearchParams(currentSearchParams => {
+        const newSearchParams = new URLSearchParams(currentSearchParams);
+        newSearchParams.set(CHAIN_ID_SEARCH_PARAM, String(chainId));
+
+        return newSearchParams;
+      });
+    };
+
+    return (
+      <button type="button" onClick={handleClick}>
+        switch chain
+      </button>
+    );
+  };
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -29,7 +64,7 @@ describe('Vaults', () => {
   });
 
   it('renders vaults correctly', () => {
-    const { getByText } = renderComponent(<Staking />);
+    const { getByText } = renderComponent(<VaultsPage />);
 
     expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
     expect(
@@ -39,8 +74,31 @@ describe('Vaults', () => {
     expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
   });
 
+  it('renders vaults in priority order', () => {
+    const [vaiVault, xvsVault] = venusVaults;
+
+    (useGetVaults as Mock).mockImplementation(() => ({
+      data: [xvsVault, vaiVault, institutionalVault, pendleBnbVault],
+      isLoading: false,
+    }));
+
+    const { container } = renderComponent(<VaultsPage />);
+    const vaultTitles = Array.from(container.querySelectorAll(titleSelector)).map(
+      element => element.textContent,
+    );
+
+    expect(vaultTitles).toEqual([
+      pendleBnbVault.stakedToken.symbol,
+      t('vault.card.header.fixedTermTitle', {
+        tokenSymbol: institutionalVault.stakedToken.symbol,
+      }),
+      vaiVault.stakedToken.symbol,
+      xvsVault.stakedToken.symbol,
+    ]);
+  });
+
   it('filters vaults from the url venue parameter', () => {
-    const { getByText, queryByText } = renderComponent(<Staking />, {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?venue=institution'],
     });
 
@@ -50,7 +108,7 @@ describe('Vaults', () => {
   });
 
   it('filters vaults from the url category parameter', () => {
-    const { getByText, queryByText } = renderComponent(<Staking />, {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?category=governance'],
     });
 
@@ -60,7 +118,7 @@ describe('Vaults', () => {
   });
 
   it('filters vaults by token symbol search', () => {
-    const { getByPlaceholderText, getByText, queryByText } = renderComponent(<Staking />);
+    const { getByPlaceholderText, getByText, queryByText } = renderComponent(<VaultsPage />);
 
     fireEvent.change(getByPlaceholderText(en.vault.filter.inputPlaceholder), {
       target: { value: 'xvs' },
@@ -69,6 +127,66 @@ describe('Vaults', () => {
     expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
     expect(queryByText('MATRIXDOCK')).not.toBeInTheDocument();
     expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+  });
+
+  it('lists Venus vaults under the supply status', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?status=deposit'],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('keeps Venus vaults reachable under the paused status', () => {
+    const pausedVenusVault = {
+      ...venusVaults[0],
+      isPaused: true,
+      status: VaultStatus.Paused,
+    };
+
+    (useGetVaults as Mock).mockImplementation(() => ({
+      data: [institutionalVault, pausedVenusVault],
+      isLoading: false,
+    }));
+
+    const { getByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?status=paused'],
+    });
+
+    expect(
+      getByText(pausedVenusVault.stakedToken.symbol, { selector: titleSelector }),
+    ).toBeInTheDocument();
+  });
+
+  it('redirects the legacy active status parameter to the supply status', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?status=active'],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getAllByText(en.vault.filter.deposit)).toHaveLength(3);
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('rewrites the legacy active status parameter in the url', async () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    renderComponent(
+      <>
+        <VaultsPage />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: ['/?status=active'] },
+    );
+
+    await waitFor(() =>
+      expect(screen.getByTestId('search')).toHaveTextContent(`status=${VaultStatus.Deposit}`),
+    );
   });
 
   it('filters vaults from the url status parameter', () => {
@@ -82,12 +200,346 @@ describe('Vaults', () => {
       isLoading: false,
     }));
 
-    const { getAllByText, queryByText } = renderComponent(<Staking />, {
+    const { getAllByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?status=liquidated'],
     });
 
     expect(getAllByText(en.vault.filter.liquidated)).toHaveLength(2);
     expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
     expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+  });
+
+  it.each([
+    ['mixed with another state', '/?status=active,pending', 'deposit,pending'],
+    ['duplicated by its modern value', '/?status=active,deposit', 'deposit'],
+    ['listed after another state', '/?status=pending,active', 'deposit,pending'],
+  ])(
+    'rewrites the legacy active status parameter when %s',
+    async (_label, initialEntry, expected) => {
+      const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+      renderComponent(
+        <>
+          <VaultsPage />
+
+          <SearchDisplay />
+        </>,
+        { routerInitialEntries: [initialEntry] },
+      );
+
+      await waitFor(() =>
+        expect(
+          new URLSearchParams(screen.getByTestId('search').textContent ?? '').get('status'),
+        ).toBe(expected),
+      );
+    },
+  );
+
+  it('persists every selected value of a group in the url', () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    renderComponent(
+      <>
+        <VaultsPage />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: [`/?status=${VaultStatus.Pending}`] },
+    );
+
+    fireEvent.click(getFilterTrigger(en.vault.filter.pending));
+    fireEvent.click(getFilterOption(en.vault.filter.deposit));
+
+    expect(
+      new URLSearchParams(screen.getByTestId('search').textContent ?? '').get('status'),
+      // Serialized in the order the options are displayed, not the order they were picked
+    ).toBe(`${VaultStatus.Deposit},${VaultStatus.Pending}`);
+  });
+
+  it('combines values within a group with OR', () => {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: [`/?status=${VaultStatus.Deposit},${VaultStatus.Pending}`],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
+
+    // The trigger reflects the two selected states rather than either label
+    expect(getByText(t('vault.filter.nStates', { count: 2 }))).toBeInTheDocument();
+    expect(queryByText(en.vault.filter.allStates)).not.toBeInTheDocument();
+  });
+
+  it('combines groups with AND', () => {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=stablecoins&venue=venus'],
+    });
+
+    // VAI is the only stablecoins vault hosted on the Venus venue
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('ignores unknown values within a group', () => {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?venue=institution,not-a-real-venue'],
+    });
+
+    expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
+    expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
+  });
+
+  it('labels a trigger with the selected option when a group holds a single value', () => {
+    const { getByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance'],
+    });
+
+    expect(getFilterTrigger(en.vault.category.governance)).toBeInTheDocument();
+    expect(getByText(en.vault.filter.allVenues)).toBeInTheDocument();
+    expect(getByText(en.vault.filter.allStates)).toBeInTheDocument();
+  });
+
+  it('lets user select several values from a group', () => {
+    const { getByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance'],
+    });
+
+    fireEvent.click(getFilterTrigger(en.vault.category.governance));
+    fireEvent.click(getFilterOption(en.vault.category.stablecoins));
+
+    expect(getByText(t('vault.filter.nCategories', { count: 2 }))).toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+  });
+
+  it('lets user clear a single group from its reset link', () => {
+    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance&venue=venus'],
+    });
+
+    fireEvent.click(getFilterTrigger(en.vault.category.governance));
+    fireEvent.click(getAllByText(en.vault.filter.reset)[0]);
+
+    expect(getByText(en.vault.filter.allCategories)).toBeInTheDocument();
+    // The venue group is left untouched, so the institutional vault stays filtered out
+    expect(queryByText(en.vault.filter.allVenues)).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+  });
+
+  it('replaces the history entry when a filter changes', () => {
+    const NavigationTypeDisplay = () => (
+      <div data-testid="navigation-type">{useNavigationType()}</div>
+    );
+
+    renderComponent(
+      <>
+        <VaultsPage />
+
+        <NavigationTypeDisplay />
+      </>,
+    );
+
+    fireEvent.click(getFilterTrigger(en.vault.filter.allCategories));
+    fireEvent.click(getFilterOption(en.vault.category.governance));
+
+    expect(screen.getByTestId('navigation-type')).toHaveTextContent('REPLACE');
+  });
+
+  it('shows the no results state when no vault matches the filters', () => {
+    const { getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance&venue=institution'],
+    });
+
+    expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
+    expect(queryByText('XVS', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
+  });
+
+  it('clears every group and the search field from the no results state', () => {
+    const { getByPlaceholderText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: ['/?category=governance'],
+    });
+
+    const searchInput = getByPlaceholderText(en.vault.filter.inputPlaceholder);
+    fireEvent.change(searchInput, { target: { value: 'vai' } });
+
+    expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
+
+    fireEvent.click(getByText(en.vault.filter.resetFilters));
+
+    expect(queryByText(en.vault.filter.noResults)).not.toBeInTheDocument();
+    expect(searchInput).toHaveValue('');
+    expect(getByText(en.vault.filter.allCategories)).toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
+  });
+
+  it('resets the filters and the search field when the chain changes', () => {
+    const { getByPlaceholderText, getByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.SEPOLIA} />
+      </>,
+      { routerInitialEntries: ['/?category=governance&venue=venus'] },
+    );
+
+    fireEvent.change(getByPlaceholderText(en.vault.filter.inputPlaceholder), {
+      target: { value: 'xvs' },
+    });
+
+    expect(getFilterTrigger(en.vault.category.governance)).toBeInTheDocument();
+
+    fireEvent.click(getByText('switch chain'));
+
+    expect(getByText(en.vault.filter.allCategories)).toBeInTheDocument();
+    expect(getByText(en.vault.filter.allVenues)).toBeInTheDocument();
+    expect(getByText(en.vault.filter.allStates)).toBeInTheDocument();
+    expect(getByPlaceholderText(en.vault.filter.inputPlaceholder)).toHaveValue('');
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText(en.vault.modals.depositPeriodEnds)).toBeInTheDocument();
+  });
+
+  it('clears the filter parameters from the url when the chain changes', () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    const { getByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.SEPOLIA} />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: ['/?category=governance&venue=venus'] },
+    );
+
+    fireEvent.click(getByText('switch chain'));
+
+    const searchParams = new URLSearchParams(screen.getByTestId('search').textContent ?? '');
+
+    expect(searchParams.get('category')).toBeNull();
+    expect(searchParams.get('venue')).toBeNull();
+    // Only the filters are cleared, the chain the user switched to is kept
+    expect(searchParams.get(CHAIN_ID_SEARCH_PARAM)).toBe(String(ChainId.SEPOLIA));
+  });
+
+  it("resets the filters while the new chain's vaults are still loading", () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    const { getByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.SEPOLIA} />
+
+        <SearchDisplay />
+      </>,
+      { routerInitialEntries: ['/?category=governance&venue=venus'] },
+    );
+
+    // The page falls back to a spinner while the new chain's vaults load, which unmounts
+    // VaultList: the reset has to happen above it
+    (useGetVaults as Mock).mockImplementation(() => ({
+      data: [],
+      isLoading: true,
+    }));
+
+    fireEvent.click(getByText('switch chain'));
+
+    const searchParams = new URLSearchParams(screen.getByTestId('search').textContent ?? '');
+
+    expect(searchParams.get('category')).toBeNull();
+    expect(searchParams.get('venue')).toBeNull();
+  });
+
+  it('keeps the filters restored by a back navigation', () => {
+    const SearchDisplay = () => <div data-testid="search">{useLocation().search}</div>;
+
+    const BackButton = ({ chainId }: { chainId: ChainId }) => {
+      const navigate = useNavigate();
+
+      const handleClick = () => {
+        (useChainId as Mock).mockReturnValue({ chainId });
+        navigate(-1);
+      };
+
+      return (
+        <button type="button" onClick={handleClick}>
+          go back
+        </button>
+      );
+    };
+
+    const { getByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.SEPOLIA} />
+
+        <BackButton chainId={ChainId.BSC_TESTNET} />
+
+        <SearchDisplay />
+      </>,
+      {
+        routerInitialEntries: [
+          `/?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}&category=governance`,
+        ],
+      },
+    );
+
+    fireEvent.click(getByText('switch chain'));
+    fireEvent.click(getByText('go back'));
+
+    // Going back restores the entry the filters belonged to, so it must be left alone
+    // rather than rewritten in place
+    expect(
+      new URLSearchParams(screen.getByTestId('search').textContent ?? '').get('category'),
+    ).toBe('governance');
+    expect(getFilterTrigger(en.vault.category.governance)).toBeInTheDocument();
+  });
+
+  it('keeps the filters coming from the url when the chain does not change', () => {
+    const { getByText, queryByText } = renderComponent(
+      <>
+        <VaultsPage />
+
+        <ChainSwitcher chainId={ChainId.BSC_TESTNET} />
+      </>,
+      { routerInitialEntries: ['/?category=governance'] },
+    );
+
+    fireEvent.click(getByText('switch chain'));
+
+    expect(getFilterTrigger(en.vault.category.governance)).toBeInTheDocument();
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(queryByText('VAI', { selector: titleSelector })).not.toBeInTheDocument();
+  });
+
+  it.each([
+    ['an empty status parameter', '/?status='],
+    ['an unknown status parameter', '/?status=not-a-real-state'],
+  ])('falls back to all states with %s', (_label, initialEntry) => {
+    const { getByText } = renderComponent(<VaultsPage />, {
+      routerInitialEntries: [initialEntry],
+    });
+
+    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
+    expect(
+      getByText(
+        t('vault.card.header.fixedTermTitle', {
+          tokenSymbol: institutionalVault.stakedToken.symbol,
+        }),
+        { selector: titleSelector },
+      ),
+    ).toBeInTheDocument();
   });
 });

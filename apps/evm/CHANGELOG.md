@@ -1,5 +1,94 @@
 # @venusprotocol/evm
 
+## 5.27.0
+
+### Minor Changes
+
+- aec70bb: fix: add error boundary for webGL deni
+
+## 5.26.0
+
+### Minor Changes
+
+- c40831f: fix: remove buffer
+
+## 5.25.0
+
+### Minor Changes
+
+- c19bb9d: feat: update health bar z-index
+
+## 5.24.0
+
+### Minor Changes
+
+- 230dbcc: Link the Venus Liquidity Hub mention in the Liquidity Hub intrinsic APY tooltip to the Liquidity Hubs page
+
+## 5.23.1
+
+### Patch Changes
+
+- f8e04ac: Hide the fixed-term vault promotional banner on the Markets page
+
+## 5.23.0
+
+### Minor Changes
+
+- 8123292: Display the intrinsic APY of vh markets
+
+## 5.22.0
+
+### Minor Changes
+
+- aa2bfe2: connect Liquidity Hub to API
+
+### Patch Changes
+
+- Updated dependencies [293d3be]
+  - @venusprotocol/chains@0.31.2
+
+## 5.21.0
+
+### Minor Changes
+
+- 5f6dc6e: feat: add rename and sort order logic for vaults
+
+## 5.20.2
+
+### Patch Changes
+
+- 7f2f653: Add fixed-term vault promotional banner to the Markets page.
+
+## 5.20.1
+
+### Patch Changes
+
+- d22d3c1: add support for vceBTC and Solv venue
+- Updated dependencies [d22d3c1]
+  - @venusprotocol/chains@0.31.1
+
+## 5.20.0
+
+### Minor Changes
+
+- 3bbcc19: update vault ordering
+
+## 5.19.0
+
+### Minor Changes
+
+- f30b269: remove isolated pools support
+
+### Patch Changes
+
+- 1315a83: read token distribution APYs from supplyApyRatio and borrowApyRatio properties
+
+## 5.18.0
+
+### Minor Changes
+
+- 65e56f7: add category for markets
+
 ## 5.17.0
 
 ### Minor Changes

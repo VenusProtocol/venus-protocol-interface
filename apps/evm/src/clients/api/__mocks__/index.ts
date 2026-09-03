@@ -89,14 +89,6 @@ export const useGetMarketHistory = vi.fn(() =>
   }),
 );
 
-export const getTopMarkets = vi.fn();
-export const useGetTopMarkets = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_TOP_MARKETS],
-    queryFn: getTopMarkets,
-  }),
-);
-
 export const getTokenPairKLineCandles = vi.fn(() => ({
   candles: [],
 }));
@@ -270,6 +262,11 @@ export const useGetLiquidityHubs = vi.fn(() => ({
   data: {
     liquidityHubs,
   },
+}));
+
+export const useGetChainIdsWithIsolatedPoolPosition = vi.fn(() => ({
+  isLoading: false,
+  chainIds: [],
 }));
 
 export const getLiquidityHub = vi.fn(async () => ({

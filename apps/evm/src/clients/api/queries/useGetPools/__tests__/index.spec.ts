@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/dom';
+import { chains } from '@venusprotocol/chains';
 import type { Mock } from 'vitest';
 
 import apiPoolsResponse from '__mocks__/api/pools.json';
@@ -105,7 +106,7 @@ describe('useGetPools', () => {
   });
 
   it('returns pools in the correct format', async () => {
-    const { result } = renderHook(() => useGetPools());
+    const { result } = renderHook(() => useGetPools({ includeIsolatedPools: true }));
 
     await waitFor(() => expect(result.current.data).toBeDefined());
     expect(result.current.data).toMatchSnapshot();
@@ -115,6 +116,7 @@ describe('useGetPools', () => {
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
       }),
     );
 
@@ -122,8 +124,41 @@ describe('useGetPools', () => {
     expect(result.current.data).toMatchSnapshot();
   });
 
-  it('returns pools with time based reward rates in the correct format', async () => {
+  it('excludes isolated pools by default', async () => {
+    const { result } = renderHook(() => useGetPools());
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+
+    expect(result.current.data?.pools.map(pool => pool.comptrollerAddress)).toEqual([
+      chains[ChainId.BSC_TESTNET].corePoolComptrollerContractAddress,
+    ]);
+  });
+
+  it('keeps the Core pool of chains on which it runs on the isolated pools contracts', async () => {
+    const { corePoolComptrollerContractAddress } = chains[ChainId.ARBITRUM_SEPOLIA];
+
+    (restService as Mock).mockImplementation(async () => ({
+      status: 200,
+      data: {
+        ...apiPoolsResponse,
+        result: [{ ...apiPoolsResponse.result[0], address: corePoolComptrollerContractAddress }],
+      },
+    }));
+
     const { result } = renderHook(() => useGetPools(), {
+      chainId: ChainId.ARBITRUM_SEPOLIA,
+    });
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+
+    expect(result.current.data?.pools.map(pool => pool.comptrollerAddress)).toEqual([
+      corePoolComptrollerContractAddress,
+    ]);
+    expect(result.current.data?.pools[0].isIsolated).toBe(true);
+  });
+
+  it('returns pools with time based reward rates in the correct format', async () => {
+    const { result } = renderHook(() => useGetPools({ includeIsolatedPools: true }), {
       chainId: ChainId.ARBITRUM_SEPOLIA,
     });
 
@@ -139,7 +174,7 @@ describe('useGetPools', () => {
       error: null,
     });
 
-    const { result } = renderHook(() => useGetPools());
+    const { result } = renderHook(() => useGetPools({ includeIsolatedPools: true }));
 
     await waitFor(() => expect(result.current.data).toBeDefined());
 
@@ -159,7 +194,7 @@ describe('useGetPools', () => {
   });
 
   it('leaves restricted and gated flags disabled for allowed countries', async () => {
-    const { result } = renderHook(() => useGetPools());
+    const { result } = renderHook(() => useGetPools({ includeIsolatedPools: true }));
 
     await waitFor(() => expect(result.current.data).toBeDefined());
 
@@ -184,7 +219,7 @@ describe('useGetPools', () => {
       error: null,
     });
 
-    const { result, rerender } = renderHook(() => useGetPools());
+    const { result, rerender } = renderHook(() => useGetPools({ includeIsolatedPools: true }));
 
     await waitFor(() => expect(result.current.data).toBeDefined());
 

@@ -23,7 +23,7 @@ export const formatToVenusVault = (vault: VaultData): VenusVault => {
     status:
       vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade
         ? VaultStatus.Paused
-        : VaultStatus.Active,
+        : VaultStatus.Deposit,
   };
 
   return venusVault;

@@ -97,7 +97,7 @@ export interface MerklDistribution {
 }
 
 export interface GenericDistribution {
-  type: 'intrinsic' | 'off-chain' | 'yield-to-maturity';
+  type: 'intrinsic' | 'off-chain' | 'yield-to-maturity' | 'liquidity-hub-intrinsic';
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
@@ -157,6 +157,8 @@ export interface Asset {
   supplyCapTokens: BigNumber;
   isRestricted: boolean;
   isGated: boolean;
+  category?: string;
+  marketCategory?: MarketCategory;
   // User-specific props
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
@@ -231,6 +233,12 @@ export interface PoolVai {
   borrowAprPercentage: BigNumber;
   userBorrowBalanceTokens?: BigNumber;
   userBorrowBalanceCents?: BigNumber;
+}
+
+export interface MarketCategory {
+  tag: string;
+  label: string;
+  order: number;
 }
 
 export interface Pool {
@@ -579,7 +587,6 @@ export interface Transaction {
 }
 
 export enum VaultStatus {
-  Active = 'active',
   Inactive = 'inactive',
   Deposit = 'deposit',
   Locked = 'locked',
@@ -925,7 +932,13 @@ export interface MarketHistoryDataPoint {
   totalBorrowCents?: number;
 }
 
-export type ApiRewardType = 'venus' | 'merkl' | 'intrinsic' | 'off-chain' | 'yield-to-maturity';
+export type ApiRewardType =
+  | 'venus'
+  | 'merkl'
+  | 'intrinsic'
+  | 'off-chain'
+  | 'yield-to-maturity'
+  | 'liquidity-hub-intrinsic';
 
 export interface ApiReward {
   marketAddress: Address;
@@ -967,7 +980,7 @@ export interface ApiIntrinsicApyReward extends ApiReward {
 }
 
 export type ApiOffChainApyReward = Omit<ApiIntrinsicApyReward, 'rewardType'> & {
-  rewardType: 'off-chain' | 'yield-to-maturity';
+  rewardType: 'off-chain' | 'yield-to-maturity' | 'liquidity-hub-intrinsic';
 };
 
 export type PointsProgram = 'ethena' | 'etherfi' | 'kelp' | 'solv' | 'aster';

@@ -6,6 +6,9 @@
         "title": "ยังไม่มีตำแหน่งในศูนย์สภาพคล่อง"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "พูลแบบแยกถูกยกเลิกโดยสมบูรณ์แล้ว คุณยังมีสถานะบน {{chainNames}} โปรดชำระคืนเงินกู้และถอนสินทรัพย์ของคุณ <LearnMore>ดูข้อมูลเพิ่มเติม</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "ยืมแล้ว",
@@ -210,6 +213,10 @@
           "description": "ผลตอบแทนพื้นฐานจากสินทรัพย์อ้างอิงเอง เช่น รางวัลการฝาก ผลตอบแทนนี้มาจากแหล่งภายนอกและไม่ได้รับการรับประกันจาก Venus Protocol.",
           "name": "APY พื้นฐาน"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "ผลตอบแทนพื้นฐานที่ได้จากการจัดหาสินทรัพย์อ้างอิงให้กับ <AppLink>Venus Liquidity Hub</AppLink> vhToken สะสมผลตอบแทนนี้ผ่านอัตราการไถ่ถอนที่เพิ่มขึ้น แทนที่จะเป็นรางวัลที่เรียกรับได้ — คุณจะได้รับโดยอัตโนมัติเมื่อถอน",
+          "name": "APY พื้นฐานของ Liquidity Hub"
+        },
         "offChainApy": {
           "description": "ผลตอบแทนเพิ่มเติมจากกิจกรรมนอกเชน เช่น airdrop หรือแคมเปญโปรโมชัน ที่จัดการโดยบุคคลที่สาม ผลตอบแทนนี้ไม่รับประกันโดย Venus Protocol.",
           "name": "APY นอกเชน"
@@ -253,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "APY พื้นฐาน",
     "intrinsicApyTooltip": "APY ที่ได้โดยตรงจากสินทรัพย์เอง (เช่น การฝากหรือรางวัลภายนอก) แยกจากผลตอบแทนการให้กู้ของ Venus โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+    "liquidityHubIntrinsicApy": "APY พื้นฐานของ Liquidity Hub",
+    "liquidityHubIntrinsicApyTooltip": "ผลตอบแทนพื้นฐานที่ได้จากการจัดหาสินทรัพย์อ้างอิงให้กับ <AppLink>Venus Liquidity Hub</AppLink> vhToken สะสมผลตอบแทนนี้ผ่านอัตราการไถ่ถอนที่เพิ่มขึ้น แทนที่จะเป็นรางวัลที่เรียกรับได้ — คุณจะได้รับโดยอัตโนมัติเมื่อถอน",
     "netApy": {
       "label": "APY สุทธิ",
       "tooltip": "ผลรวมของ APY ของทุกตลาดที่เกี่ยวข้อง"
@@ -328,7 +337,6 @@
     "bridge": "บริดจ์",
     "dashboard": "แดชบอร์ด",
     "governance": "การกำกับดูแล",
-    "isolatedPools": "พูลแบบแยก",
     "leaderboard": "ลีดเดอร์บอร์ด",
     "liquidityHubs": "ศูนย์สภาพคล่อง",
     "markets": "ตลาด",
@@ -439,6 +447,12 @@
     "tooMuchRepay": "จำนวนเงินที่ชำระคืนเกินยอดค้างชำระของคุณ"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "ทุกหมวดหมู่",
+      "nCategories_other": "{{count}} หมวดหมู่",
+      "reset": "รีเซ็ต",
+      "title": "เลือกหมวดหมู่"
+    },
     "pausedAssetsToggle": {
       "label": "สินทรัพย์ที่หยุดไว้"
     },
@@ -516,14 +530,9 @@
       "totalSupplied": "ยอดฝากทั้งหมด"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "ยืม"
-      },
-      "interactiveTitle": "ไฮไลต์ ( <Group><SupplyButton>ฝาก</SupplyButton>/<BorrowButton>ยืม</BorrowButton></Group> )",
       "supplyButton": {
         "label": "ฝาก"
-      },
-      "textTitle": "ไฮไลต์"
+      }
     },
     "vaults": {
       "dailyEarnings": "รายได้รายวัน",
@@ -704,11 +713,6 @@
       "utilizationRate": "อัตราการใช้งาน"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "โปรดถอนหรือย้ายสินทรัพย์ทั้งหมดตอนนี้",
-    "illustrationAltText": "ภาพประกอบ",
-    "title": "พูลแบบแยกได้ยุติการให้บริการแล้ว"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "การกำหนดราคาแบบรวม",
@@ -744,6 +748,7 @@
       "borrow": "ยืม",
       "earned": "ได้รับ",
       "earnedAmount": "ได้รับ {{amount}}",
+      "earnNow": "รับผลตอบแทนตอนนี้",
       "from": "จาก {{percentage}}",
       "highestApy": "APY สูงสุด",
       "monthNo": "เดือน {{number}}",
@@ -798,6 +803,10 @@
       "label": "เลือกเชน"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "สำรวจเลย",
+        "title": "USDT Fixed-Term Vault เปิดให้ใช้งานแล้วบน BNB Chain เป้าหมาย ≈4.2% APR"
+      },
       "exposures": "เอ็กซ์โพเชอร์",
       "liquidity": "สภาพคล่อง",
       "maxLtv": {
@@ -813,6 +822,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "ยืม"
+      },
       "dashboard": {
         "label": "แดชบอร์ด"
       },
@@ -820,9 +832,6 @@
         "label": "รับผลตอบแทน"
       },
       "label": "เมนู",
-      "markets": {
-        "label": "ตลาด"
-      },
       "new": "ใหม่",
       "others": {
         "bridge": {
@@ -1353,6 +1362,7 @@
     "pausedAssetsPlaceholder": {
       "description": "โปรดเปิดสวิตช์ \"สินทรัพย์ที่หยุดไว้\" เพื่อดู",
       "imgAlt": "ไอคอนหยุด",
+      "selectedCategoriesTitle": "สินทรัพย์ทั้งหมดในหมวดหมู่ที่เลือกถูกหยุดแล้ว",
       "title": "สินทรัพย์ทั้งหมดในพูลนี้ถูกหยุดแล้ว"
     },
     "search": {
@@ -2360,7 +2370,6 @@
     },
     "description": "สร้างผลตอบแทนได้ง่าย ให้กำไรเกิดขึ้นจริง",
     "filter": {
-      "active": "กำลังใช้งาน",
       "allCategories": "ทุกหมวดหมู่",
       "allStates": "สถานะทั้งหมด",
       "allVenues": "แพลตฟอร์มทั้งหมด",
@@ -2371,10 +2380,19 @@
       "institution": "สถาบัน",
       "liquidated": "ถูกชำระบัญชี",
       "locked": "กำลังรับผลตอบแทน",
+      "nCategories_other": "{{count}} หมวดหมู่",
+      "noResults": "ไม่มีวอลต์ที่ตรงกับตัวกรองของคุณ",
+      "nStates_other": "{{count}} สถานะ",
+      "nVenues_other": "{{count}} แพลตฟอร์ม",
       "paused": "หยุดชั่วคราว",
       "pending": "รอดำเนินการ",
       "refund": "คืนเงิน",
-      "repaying": "กำลังชำระคืน"
+      "repaying": "กำลังชำระคืน",
+      "reset": "รีเซ็ต",
+      "resetFilters": "รีเซ็ตตัวกรอง",
+      "selectCategories": "เลือกหมวดหมู่",
+      "selectStates": "เลือกสถานะ",
+      "selectVenues": "เลือกแพลตฟอร์ม"
     },
     "header": "วอลต์",
     "modals": {

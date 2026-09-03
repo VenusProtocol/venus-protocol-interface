@@ -1,8 +1,11 @@
 import { useGetMarketsTvl } from 'clients/api/queries/getMarketsTvl/useGetMarketsTvl';
 import { ButtonWrapper, Wrapper } from 'components';
+import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { ErrorBoundary } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import { Galaxy } from './Galaxy';
@@ -21,12 +24,20 @@ export const Hero: React.FC = () => {
 
   const { marketsPagePath } = useGetMarketsPagePath();
 
+  // The liquidity hub gets top billing where it exists. It is not deployed on every chain, and the
+  // same flag gates its route, so elsewhere the call to action still points at the core markets
+  const liquidityHubEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
+
   const isMdOrUp = useBreakpointUp('md');
 
   return (
     <div className="relative h-auto xl:min-h-175 w-full bg-background-active mb-10 lg:mb-15">
       {/* We use JS to conditionally render the galaxy background so that it does not load on mobile, where it won't be displayed anyway */}
-      {isMdOrUp && <Galaxy />}
+      {isMdOrUp && (
+        <ErrorBoundary>
+          <Galaxy />
+        </ErrorBoundary>
+      )}
 
       <Wrapper className="flex flex-col start-0 end-0">
         <div className="flex flex-col items-center xl:flex-row xl:justify-between xl:items-center gap-6 w-full py-15 z-1">
@@ -58,8 +69,11 @@ export const Hero: React.FC = () => {
               <div className="text-h5 sm:text-h3">{readableMarketsTvl}</div>
 
               <ButtonWrapper asChild variant="primary" className="mt-6 py-2 px-20">
-                <Link to={marketsPagePath} noStyle>
-                  {t('landing.hero.startNow')}
+                <Link
+                  to={liquidityHubEnabled ? routes.liquidityHubs.path : marketsPagePath}
+                  noStyle
+                >
+                  {liquidityHubEnabled ? t('landing.hero.earnNow') : t('landing.hero.startNow')}
                 </Link>
               </ButtonWrapper>
             </div>

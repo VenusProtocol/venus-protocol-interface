@@ -17,7 +17,6 @@ const pageMocks = vi.hoisted(() => ({
   Dashboard: () => <div>Dashboard page</div>,
   FixedTermVaultTermsOfUse: () => <div>Fixed term vault terms page</div>,
   Governance: () => <div>Governance page</div>,
-  IsolatedPools: () => <div>Isolated pools page</div>,
   Landing: () => <div>Landing page</div>,
   LiquidityHub: () => <div>Liquidity Hub page</div>,
   LiquidityHubs: () => <div>Liquidity Hubs page</div>,
@@ -57,7 +56,6 @@ vi.mock('pages/Bridge', () => ({ default: pageMocks.Bridge }));
 vi.mock('pages/Dashboard', () => ({ default: pageMocks.Dashboard }));
 vi.mock('pages/FixedTermVaultTermsOfUse', () => ({ default: pageMocks.FixedTermVaultTermsOfUse }));
 vi.mock('pages/Governance', () => ({ default: pageMocks.Governance }));
-vi.mock('pages/IsolatedPools', () => ({ default: pageMocks.IsolatedPools }));
 vi.mock('pages/Landing', () => ({ default: pageMocks.Landing }));
 vi.mock('pages/LiquidityHub', () => ({ default: pageMocks.LiquidityHub }));
 vi.mock('pages/LiquidityHubs', () => ({ default: pageMocks.LiquidityHubs }));
@@ -108,7 +106,6 @@ describe('AppRoutes', () => {
     ['/', 'Landing page'],
     [routes.dashboard.path, 'Dashboard page'],
     [routes.port.path, 'Port page'],
-    [routes.isolatedPools.path, 'Isolated pools page'],
     ['/markets/0x0000000000000000000000000000000000000001', 'Markets page'],
     [
       '/markets/0x0000000000000000000000000000000000000001/0x0000000000000000000000000000000000000002',

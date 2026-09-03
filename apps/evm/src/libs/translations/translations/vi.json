@@ -6,6 +6,9 @@
         "title": "Chưa có vị thế trung tâm thanh khoản"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "Các pool cô lập đã bị ngừng hoàn toàn. Bạn vẫn còn vị thế trên {{chainNames}}. Hãy trả hết khoản vay và rút tài sản của bạn. <LearnMore>Tìm hiểu thêm</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Đã vay",
@@ -210,6 +213,10 @@
           "description": "Lợi suất nội tại từ chính tài sản cơ sở — ví dụ phần thưởng gửi. Lợi suất này đến từ các nguồn bên ngoài và không được Venus Protocol đảm bảo.",
           "name": "APY nội tại"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "Lợi suất nội tại nhận được khi cung cấp tài sản cơ sở vào <AppLink>Trung tâm thanh khoản của Venus</AppLink>. vhToken tích lũy lợi suất này thông qua tỷ lệ quy đổi tăng dần thay vì phần thưởng có thể nhận — bạn nhận được tự động khi rút.",
+          "name": "APY nội tại của Trung tâm thanh khoản"
+        },
         "offChainApy": {
           "description": "Lợi suất bổ sung từ các hoạt động off-chain như airdrop hoặc chiến dịch khuyến mãi do bên thứ ba quản lý. Lợi suất này không được Venus Protocol đảm bảo.",
           "name": "APY off-chain"
@@ -253,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "APY nội tại",
     "intrinsicApyTooltip": "APY nhận trực tiếp từ tài sản (ví dụ gửi hoặc phần thưởng bên ngoài), tách biệt với lợi suất cho vay của Venus. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+    "liquidityHubIntrinsicApy": "APY nội tại của Trung tâm thanh khoản",
+    "liquidityHubIntrinsicApyTooltip": "Lợi suất nội tại nhận được khi cung cấp tài sản cơ sở vào <AppLink>Trung tâm thanh khoản của Venus</AppLink>. vhToken tích lũy lợi suất này thông qua tỷ lệ quy đổi tăng dần thay vì phần thưởng có thể nhận — bạn nhận được tự động khi rút.",
     "netApy": {
       "label": "APY ròng",
       "tooltip": "Tổng APY của tất cả các thị trường liên quan"
@@ -328,7 +337,6 @@
     "bridge": "Cầu nối",
     "dashboard": "Bảng điều khiển",
     "governance": "Quản trị",
-    "isolatedPools": "Pools cô lập",
     "leaderboard": "Bảng xếp hạng",
     "liquidityHubs": "Trung tâm thanh khoản",
     "markets": "Thị trường",
@@ -439,6 +447,12 @@
     "tooMuchRepay": "Số tiền trả vượt quá khoản vay còn lại của bạn."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "Tất cả danh mục",
+      "nCategories_other": "{{count}} danh mục",
+      "reset": "Đặt lại",
+      "title": "Chọn danh mục"
+    },
     "pausedAssetsToggle": {
       "label": "Tài sản tạm dừng"
     },
@@ -516,14 +530,9 @@
       "totalSupplied": "Tổng đã cung cấp"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "Vay"
-      },
-      "interactiveTitle": "Điểm nổi bật ( <Group><SupplyButton>cung cấp</SupplyButton>/<BorrowButton>vay</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Cung cấp"
-      },
-      "textTitle": "Điểm nổi bật"
+      }
     },
     "vaults": {
       "dailyEarnings": "Thu nhập hàng ngày",
@@ -704,11 +713,6 @@
       "utilizationRate": "Tỷ lệ sử dụng"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Vui lòng rút hoặc di chuyển tất cả tài sản ngay bây giờ",
-    "illustrationAltText": "Hình minh họa",
-    "title": "Các pool cô lập đã ngừng hoạt động"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Định giá tổng hợp",
@@ -744,6 +748,7 @@
       "borrow": "Vay",
       "earned": "Đã kiếm",
       "earnedAmount": "Đã kiếm {{amount}}",
+      "earnNow": "Kiếm lợi nhuận ngay",
       "from": "Từ {{percentage}}",
       "highestApy": "APY cao nhất",
       "monthNo": "Tháng {{number}}",
@@ -798,6 +803,10 @@
       "label": "Chọn chain"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Khám phá ngay",
+        "title": "USDT Fixed-Term Vault hiện đã ra mắt trên BNB Chain. Mục tiêu ≈4,2% APR."
+      },
       "exposures": "Mức độ tiếp xúc",
       "liquidity": "Thanh khoản",
       "maxLtv": {
@@ -813,6 +822,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "Vay"
+      },
       "dashboard": {
         "label": "Bảng điều khiển"
       },
@@ -820,9 +832,6 @@
         "label": "Kiếm lợi nhuận"
       },
       "label": "Trình đơn",
-      "markets": {
-        "label": "Thị trường"
-      },
       "new": "Mới",
       "others": {
         "bridge": {
@@ -1353,6 +1362,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Vui lòng bật công tắc \"Tài sản tạm dừng\" để xem.",
       "imgAlt": "Biểu tượng tạm dừng",
+      "selectedCategoriesTitle": "Tất cả tài sản trong các danh mục đã chọn đã bị tạm dừng",
       "title": "Tất cả tài sản trong pool này đã bị tạm dừng"
     },
     "search": {
@@ -2360,7 +2370,6 @@
     },
     "description": "Lợi suất đơn giản, lợi nhuận thực chất",
     "filter": {
-      "active": "Đang hoạt động",
       "allCategories": "Tất cả danh mục",
       "allStates": "Tất cả trạng thái",
       "allVenues": "Tất cả nền tảng",
@@ -2371,10 +2380,19 @@
       "institution": "Tổ chức",
       "liquidated": "Đã thanh lý",
       "locked": "Đang kiếm lợi nhuận",
+      "nCategories_other": "{{count}} danh mục",
+      "noResults": "Không có kho nào khớp với bộ lọc của bạn",
+      "nStates_other": "{{count}} trạng thái",
+      "nVenues_other": "{{count}} nền tảng",
       "paused": "Tạm dừng",
       "pending": "Đang chờ",
       "refund": "Hoàn tiền",
-      "repaying": "Đang trả nợ"
+      "repaying": "Đang trả nợ",
+      "reset": "Đặt lại",
+      "resetFilters": "Đặt lại bộ lọc",
+      "selectCategories": "Chọn danh mục",
+      "selectStates": "Chọn trạng thái",
+      "selectVenues": "Chọn nền tảng"
     },
     "header": "Kho",
     "modals": {

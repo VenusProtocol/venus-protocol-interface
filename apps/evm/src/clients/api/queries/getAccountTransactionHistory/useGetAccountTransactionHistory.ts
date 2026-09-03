@@ -37,7 +37,7 @@ export const useGetAccountTransactionHistory = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const { data: getPoolsData } = useGetPools();
+  const { data: getPoolsData } = useGetPools({ includeIsolatedPools: true });
   const pools = getPoolsData?.pools ?? [];
 
   const { data: getLiquidityHubsData } = useGetLiquidityHubs();

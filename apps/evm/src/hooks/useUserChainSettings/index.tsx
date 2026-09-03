@@ -12,6 +12,7 @@ export const defaultUserChainSettings: UserChainSettings = {
   doNotExpandGuide: false,
   doNotShowGatedAssetModal: false,
   doNotShowVipModal: false,
+  doNotShowFixedRateVaultsAdBanner: true,
 };
 
 export const useUserChainSettings = () => {

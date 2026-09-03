@@ -6,6 +6,9 @@
         "title": "流動性ハブのポジションはまだありません"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "分離プールは完全に廃止されました。{{chainNames}} にまだポジションがあります。借入を返済し、資産を引き出してください。<LearnMore>詳細はこちら</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "借入",
@@ -210,6 +213,10 @@
           "description": "原資産自体が生み出すネイティブ利回りです（例: 預入報酬）。この利回りは外部ソースに由来し、Venusプロトコルは保証しません。",
           "name": "内在APY"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "<AppLink>Venus流動性ハブ</AppLink>に原資産を供給することで得られるネイティブ利回りです。vhTokenは請求可能な報酬ではなく、上昇する償還レートを通じてこの利回りを蓄積します——出金時に自動的に受け取れます。",
+          "name": "流動性ハブ内在APY"
+        },
         "offChainApy": {
           "description": "エアドロップやプロモーションなど第三者によるオフチェーン活動からの追加利回りです。この利回りはVenusプロトコルによって保証されません。",
           "name": "オフチェーンAPY"
@@ -253,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "内在APY",
     "intrinsicApyTooltip": "資産自体から直接得られるAPY（例: 預入や外部報酬）で、Venusのレンディング利回りとは別です。Venusプロトコルはこれらを保証せず、責任を負いません。",
+    "liquidityHubIntrinsicApy": "流動性ハブ内在APY",
+    "liquidityHubIntrinsicApyTooltip": "<AppLink>Venus流動性ハブ</AppLink>に原資産を供給することで得られるネイティブ利回りです。vhTokenは請求可能な報酬ではなく、上昇する償還レートを通じてこの利回りを蓄積します——出金時に自動的に受け取れます。",
     "netApy": {
       "label": "実質APY",
       "tooltip": "関係するすべてのマーケットのAPYの合計"
@@ -328,7 +337,6 @@
     "bridge": "ブリッジ",
     "dashboard": "ダッシュボード",
     "governance": "ガバナンス",
-    "isolatedPools": "隔離プール",
     "leaderboard": "リーダーボード",
     "liquidityHubs": "流動性ハブ",
     "markets": "マーケット",
@@ -439,6 +447,12 @@
     "tooMuchRepay": "返済額が未返済の借入額を超えています。"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "すべてのカテゴリー",
+      "nCategories_other": "{{count}} 件のカテゴリー",
+      "reset": "リセット",
+      "title": "カテゴリーを選択"
+    },
     "pausedAssetsToggle": {
       "label": "停止中の資産"
     },
@@ -516,14 +530,9 @@
       "totalSupplied": "総供給量"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "借入"
-      },
-      "interactiveTitle": "スポットライト ( <Group><SupplyButton>供給</SupplyButton>/<BorrowButton>借入</BorrowButton></Group> )",
       "supplyButton": {
         "label": "供給"
-      },
-      "textTitle": "スポットライト"
+      }
     },
     "vaults": {
       "dailyEarnings": "日次収益",
@@ -704,11 +713,6 @@
       "utilizationRate": "利用率"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "すべての資産を引き出すか、今すぐ移行してください",
-    "illustrationAltText": "イラスト",
-    "title": "隔離プールは終了しました"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "集計価格",
@@ -744,6 +748,7 @@
       "borrow": "借入",
       "earned": "獲得済み",
       "earnedAmount": "獲得済み {{amount}}",
+      "earnNow": "今すぐ運用する",
       "from": "{{percentage}}から",
       "highestApy": "最高APY",
       "monthNo": "第{{number}}月",
@@ -798,6 +803,10 @@
       "label": "チェーンを選択"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "今すぐ見る",
+        "title": "USDT固定期間ボールトがBNB Chainで公開中。目標 ≈4.2% APR。"
+      },
       "exposures": "エクスポージャー",
       "liquidity": "流動性",
       "maxLtv": {
@@ -813,6 +822,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "借入"
+      },
       "dashboard": {
         "label": "ダッシュボード"
       },
@@ -820,9 +832,6 @@
         "label": "獲得"
       },
       "label": "メニュー",
-      "markets": {
-        "label": "マーケット"
-      },
       "new": "新規",
       "others": {
         "bridge": {
@@ -1353,6 +1362,7 @@
     "pausedAssetsPlaceholder": {
       "description": "表示するには「停止中の資産」トグルを有効にしてください。",
       "imgAlt": "一時停止アイコン",
+      "selectedCategoriesTitle": "選択したカテゴリーの資産はすべて停止されています",
       "title": "このプールの資産はすべて停止されています"
     },
     "search": {
@@ -2360,7 +2370,6 @@
     },
     "description": "シンプルに利回りを、確かなリターンを",
     "filter": {
-      "active": "アクティブ",
       "allCategories": "全カテゴリ",
       "allStates": "すべての状態",
       "allVenues": "全プラットフォーム",
@@ -2371,10 +2380,19 @@
       "institution": "機関",
       "liquidated": "清算済み",
       "locked": "収益中",
+      "nCategories_other": "{{count}} 件のカテゴリ",
+      "noResults": "条件に一致するボールトはありません",
+      "nStates_other": "{{count}} 件の状態",
+      "nVenues_other": "{{count}} 件のプラットフォーム",
       "paused": "停止中",
       "pending": "保留",
       "refund": "返金",
-      "repaying": "返済中"
+      "repaying": "返済中",
+      "reset": "リセット",
+      "resetFilters": "フィルターをリセット",
+      "selectCategories": "カテゴリを選択",
+      "selectStates": "状態を選択",
+      "selectVenues": "プラットフォームを選択"
     },
     "header": "ボールト",
     "modals": {

@@ -5,11 +5,7 @@ import type { Address } from 'viem';
 import { Username } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { Subdirectory, routes } from 'constants/routing';
-import { useChain } from 'hooks/useChain';
-import { useFormatTo } from 'hooks/useFormatTo';
 import { useTranslation } from 'libs/translations';
-import { POOL_COMPTROLLER_ADDRESS_PARAM_KEY } from 'pages/IsolatedPools';
-import { areAddressesEqual } from 'utilities';
 import LiquidityHubName from './LiquidityHubName';
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
@@ -22,8 +18,6 @@ export interface PathNode {
 export const usePathNodes = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { corePoolComptrollerContractAddress } = useChain();
-  const { formatTo } = useFormatTo();
 
   const pathNodes = useMemo(() => {
     // Get active route
@@ -62,28 +56,11 @@ export const usePathNodes = () => {
         case Subdirectory.DASHBOARD:
           dom = t('breadcrumbs.dashboard');
           break;
-        case Subdirectory.ISOLATED_POOLS:
-          dom = t('breadcrumbs.isolatedPools');
-          break;
         case Subdirectory.MARKETS:
-          if (
-            params.poolComptrollerAddress &&
-            areAddressesEqual(params.poolComptrollerAddress, corePoolComptrollerContractAddress)
-          ) {
-            hrefFragment = Subdirectory.MARKETS.replace(
-              ':poolComptrollerAddress',
-              params.poolComptrollerAddress || '',
-            );
-          } else {
-            const { search, pathname } = formatTo({
-              to: {
-                pathname: routes.isolatedPools.path,
-                search: `${POOL_COMPTROLLER_ADDRESS_PARAM_KEY}=${params.poolComptrollerAddress}`,
-              },
-            });
-
-            hrefFragment = `${pathname}/${search}`;
-          }
+          hrefFragment = Subdirectory.MARKETS.replace(
+            ':poolComptrollerAddress',
+            params.poolComptrollerAddress || '',
+          );
 
           dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress || NULL_ADDRESS} />;
           break;
@@ -161,7 +138,7 @@ export const usePathNodes = () => {
           ]
         : acc;
     }, []);
-  }, [pathname, t, corePoolComptrollerContractAddress, formatTo]);
+  }, [pathname, t]);
 
   return pathNodes;
 };

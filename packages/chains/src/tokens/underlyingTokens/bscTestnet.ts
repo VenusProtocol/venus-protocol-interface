@@ -500,6 +500,27 @@ export const bscTestnet: Token[] = [
     address: '0xCbfDC27d225Dd3F58DD19C3d37347d043458dcC8',
     decimals: 18,
     symbol: 'hBNB',
+    iconSrc: iconSrcs.hBNB,
+  },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x7e4F548Dcd550f6F6a563AC9267d58f20cD135b4',
+    decimals: 18,
+    symbol: 'qhBNB',
     iconSrc: iconSrcs.defaultToken,
+  },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x7cE6ADF754D0eC81A6CF8ACd9C7454F45077dc61',
+    decimals: 12,
+    symbol: 'vSHARE',
+    iconSrc: iconSrcs.vhUSDT,
+  },
+  {
+    chainId: ChainId.BSC_TESTNET,
+    address: '0x1fdD7eAFC771DA154B67Ca372FB80Ff78D7774D2',
+    decimals: 24,
+    symbol: 'vhTUSD',
+    iconSrc: iconSrcs.vhUSDT,
   },
 ];

@@ -11,6 +11,15 @@ import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import type { MenuItem, SubMenu } from '../types';
 
+export const useDashboardMenuItem = (): MenuItem => {
+  const { t } = useTranslation();
+
+  return {
+    to: routes.dashboard.path,
+    label: t('layout.menu.dashboard.label'),
+  };
+};
+
 export const useMenuItems = () => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
@@ -25,13 +34,8 @@ export const useMenuItems = () => {
 
   const menu: Array<MenuItem | SubMenu> = [];
 
-  menu.push({
-    to: routes.dashboard.path,
-    label: t('layout.menu.dashboard.label'),
-  });
-
-  const marketsSubMenu: SubMenu = {
-    label: t('layout.menu.markets.label'),
+  const borrowSubMenu: SubMenu = {
+    label: t('layout.menu.borrow.label'),
     variant: 'secondary',
     items: [
       {
@@ -71,10 +75,10 @@ export const useMenuItems = () => {
           },
         ],
       },
-      marketsSubMenu,
+      borrowSubMenu,
     );
   } else {
-    menu.push(marketsSubMenu, {
+    menu.push(borrowSubMenu, {
       to: routes.vaults.path,
       label: t('layout.menu.vaults.label'),
     });

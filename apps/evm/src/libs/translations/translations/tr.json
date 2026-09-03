@@ -6,6 +6,9 @@
         "title": "Henüz likidite merkezi pozisyonu yok"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "İzole havuzlar tamamen kullanımdan kaldırıldı. {{chainNames}} üzerinde hâlâ pozisyonlarınız var. Borçlarınızı ödeyin ve varlıklarınızı çekin. <LearnMore>Daha fazla bilgi</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borçlanılan",
@@ -210,6 +213,10 @@
           "description": "Dayanak varlığın kendi doğal getirisi — ör. yatırma ödülleri. Bu getiri dış kaynaklardan gelir ve Venus Protokolü tarafından garanti edilmez.",
           "name": "İçsel APY"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "Dayanak varlığı <AppLink>Venus Likidite Merkezi</AppLink>'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
+          "name": "Likidite Merkezi içsel APY"
+        },
         "offChainApy": {
           "description": "Airdrop veya promosyon kampanyaları gibi üçüncü taraflarca yönetilen zincir dışı faaliyetlerden ek getiri. Bu getiri Venus Protokolü tarafından garanti edilmez.",
           "name": "Zincir dışı APY"
@@ -253,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "İçsel APY",
     "intrinsicApyTooltip": "Varlığın kendisinden doğrudan kazanılan APY (ör. yatırma veya dış ödüller), Venus borç verme getirilerinden bağımsızdır. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
+    "liquidityHubIntrinsicApy": "Likidite Merkezi içsel APY",
+    "liquidityHubIntrinsicApyTooltip": "Dayanak varlığı <AppLink>Venus Likidite Merkezi</AppLink>'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
     "netApy": {
       "label": "Net APY",
       "tooltip": "İlgili tüm piyasaların APY'lerinin toplamı"
@@ -328,7 +337,6 @@
     "bridge": "Köprü",
     "dashboard": "Gösterge paneli",
     "governance": "Yönetişim",
-    "isolatedPools": "İzole havuzlar",
     "leaderboard": "Liderlik tablosu",
     "liquidityHubs": "Likidite Merkezi",
     "markets": "Piyasalar",
@@ -439,6 +447,13 @@
     "tooMuchRepay": "Geri ödeme tutarı bekleyen borç bakiyenizi aşıyor."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "Tüm Kategoriler",
+      "nCategories_one": "{{count}} Kategori",
+      "nCategories_other": "{{count}} Kategori",
+      "reset": "Sıfırla",
+      "title": "Kategorileri Seç"
+    },
     "pausedAssetsToggle": {
       "label": "Durdurulan varlıklar"
     },
@@ -516,14 +531,9 @@
       "totalSupplied": "Toplam sağlanan"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "Borç al"
-      },
-      "interactiveTitle": "Öne çıkanlar ( <Group><SupplyButton>sağlama</SupplyButton>/<BorrowButton>borç</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Sağla"
-      },
-      "textTitle": "Öne çıkanlar"
+      }
     },
     "vaults": {
       "dailyEarnings": "Günlük kazançlar",
@@ -704,11 +714,6 @@
       "utilizationRate": "Kullanım oranı"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Lütfen tüm varlıklarınızı şimdi çekin veya taşıyın",
-    "illustrationAltText": "İllüstrasyon",
-    "title": "İzole havuzlar kapatıldı"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Toplu fiyatlama",
@@ -744,6 +749,7 @@
       "borrow": "Borç al",
       "earned": "Kazanılan",
       "earnedAmount": "Kazanılan {{amount}}",
+      "earnNow": "Şimdi kazan",
       "from": "{{percentage}}'den",
       "highestApy": "En yüksek APY",
       "monthNo": "{{number}}. ay",
@@ -798,6 +804,10 @@
       "label": "Zincir seç"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Şimdi keşfet",
+        "title": "USDT Sabit Vadeli Kasa şimdi BNB Chain'de yayında. Hedef ≈%4,2 APR."
+      },
       "exposures": "Maruziyet",
       "liquidity": "Likidite",
       "maxLtv": {
@@ -813,6 +823,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "Borç al"
+      },
       "dashboard": {
         "label": "Gösterge paneli"
       },
@@ -820,9 +833,6 @@
         "label": "Kazan"
       },
       "label": "Menü",
-      "markets": {
-        "label": "Piyasalar"
-      },
       "new": "Yeni",
       "others": {
         "bridge": {
@@ -1353,6 +1363,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Görmek için \"Durdurulan Varlıklar\" anahtarını etkinleştirin.",
       "imgAlt": "Duraklatma ikonu",
+      "selectedCategoriesTitle": "Seçilen kategorilerdeki tüm varlıklar duraklatıldı",
       "title": "Bu havuzdaki tüm varlıklar duraklatıldı"
     },
     "search": {
@@ -2362,7 +2373,6 @@
     },
     "description": "Getiri basit, kazançlar gerçek",
     "filter": {
-      "active": "Aktif",
       "allCategories": "Tüm kategoriler",
       "allStates": "Tüm durumlar",
       "allVenues": "Tüm platformlar",
@@ -2373,10 +2383,22 @@
       "institution": "Kurum",
       "liquidated": "Tasfiye edildi",
       "locked": "Kazanç",
+      "nCategories_one": "{{count}} Kategori",
+      "nCategories_other": "{{count}} Kategori",
+      "noResults": "Filtrelerinize uyan kasa bulunamadı",
+      "nStates_one": "{{count}} Durum",
+      "nStates_other": "{{count}} Durum",
+      "nVenues_one": "{{count}} Platform",
+      "nVenues_other": "{{count}} Platform",
       "paused": "Duraklatıldı",
       "pending": "Beklemede",
       "refund": "İade",
-      "repaying": "Geri ödeniyor"
+      "repaying": "Geri ödeniyor",
+      "reset": "Sıfırla",
+      "resetFilters": "Filtreleri sıfırla",
+      "selectCategories": "Kategorileri seç",
+      "selectStates": "Durumları seç",
+      "selectVenues": "Platformları seç"
     },
     "header": "Kasa",
     "modals": {

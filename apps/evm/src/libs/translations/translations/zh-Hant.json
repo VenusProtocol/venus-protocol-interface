@@ -6,6 +6,9 @@
         "title": "暫無流動性中心倉位"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "隔離池已完全棄用。您在 {{chainNames}} 上仍有部位。請償還所有借款並提取您的資產。<LearnMore>了解更多</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "已借入",
@@ -210,6 +213,10 @@
           "description": "標的資產本身產生的原生收益——例如存款獎勵。該收益來自外部來源，不由 Venus 協議保證。",
           "name": "內在 APY"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "透過向 <AppLink>Venus 流動性中心</AppLink>提供標的資產而獲得的原生收益。vhToken 透過不斷上升的贖回率累積該收益，而非可領取的獎勵——您在提取時會自動獲得。",
+          "name": "流動性中心內在 APY"
+        },
         "offChainApy": {
           "description": "來自空投或推廣活動等第三方管理的鏈下活動的額外收益。該收益不由 Venus 協議保證。",
           "name": "鏈下 APY"
@@ -253,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "內在 APY",
     "intrinsicApyTooltip": "直接來自資產本身的 APY（如存款或外部獎勵），與 Venus 借貸收益分開。Venus 協議不作任何保證且不承擔責任。",
+    "liquidityHubIntrinsicApy": "流動性中心內在 APY",
+    "liquidityHubIntrinsicApyTooltip": "透過向 <AppLink>Venus 流動性中心</AppLink>提供標的資產而獲得的原生收益。vhToken 透過不斷上升的贖回率累積該收益，而非可領取的獎勵——您在提取時會自動獲得。",
     "netApy": {
       "label": "淨 APY",
       "tooltip": "涉及的所有市場 APY 之和"
@@ -328,7 +337,6 @@
     "bridge": "跨鏈橋",
     "dashboard": "儀表盤",
     "governance": "治理",
-    "isolatedPools": "隔離池",
     "leaderboard": "排行榜",
     "liquidityHubs": "流動性中心",
     "markets": "市場",
@@ -439,6 +447,12 @@
     "tooMuchRepay": "還款金額超過了你的未償借款。"
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "全部類別",
+      "nCategories_other": "{{count}} 個類別",
+      "reset": "重置",
+      "title": "選擇類別"
+    },
     "pausedAssetsToggle": {
       "label": "已暫停資產"
     },
@@ -516,14 +530,9 @@
       "totalSupplied": "總供應量"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "借款"
-      },
-      "interactiveTitle": "焦點 ( <Group><SupplyButton>供應</SupplyButton>/<BorrowButton>借款</BorrowButton></Group> )",
       "supplyButton": {
         "label": "供應"
-      },
-      "textTitle": "焦點"
+      }
     },
     "vaults": {
       "dailyEarnings": "每日收益",
@@ -704,11 +713,6 @@
       "utilizationRate": "利用率"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "請立即提取或遷移所有資產",
-    "illustrationAltText": "插圖",
-    "title": "隔離池已下線"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "聚合定價",
@@ -744,6 +748,7 @@
       "borrow": "借款",
       "earned": "已賺取",
       "earnedAmount": "已賺取 {{amount}}",
+      "earnNow": "立即賺取",
       "from": "來自 {{percentage}}",
       "highestApy": "最高 APY",
       "monthNo": "第 {{number}} 個月",
@@ -798,6 +803,10 @@
       "label": "選擇鏈"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "立即探索",
+        "title": "USDT 固定期限金庫現已在 BNB Chain 上線。目標 ≈4.2% APR。"
+      },
       "exposures": "敞口",
       "liquidity": "流動性",
       "maxLtv": {
@@ -813,6 +822,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "借款"
+      },
       "dashboard": {
         "label": "儀表盤"
       },
@@ -820,9 +832,6 @@
         "label": "賺取"
       },
       "label": "菜單",
-      "markets": {
-        "label": "市場"
-      },
       "new": "新",
       "others": {
         "bridge": {
@@ -1353,6 +1362,7 @@
     "pausedAssetsPlaceholder": {
       "description": "請啟用“已暫停資產”開關以查看。",
       "imgAlt": "暫停圖標",
+      "selectedCategoriesTitle": "所選類別內所有資產已暫停",
       "title": "該池內所有資產已暫停"
     },
     "search": {
@@ -2360,7 +2370,6 @@
     },
     "description": "輕鬆獲得收益，讓回報真正實現",
     "filter": {
-      "active": "進行中",
       "allCategories": "所有類別",
       "allStates": "所有狀態",
       "allVenues": "所有平台",
@@ -2371,10 +2380,19 @@
       "institution": "機構",
       "liquidated": "已清算",
       "locked": "收益中",
+      "nCategories_other": "{{count}} 個類別",
+      "noResults": "沒有符合篩選條件的金庫",
+      "nStates_other": "{{count}} 個狀態",
+      "nVenues_other": "{{count}} 個平台",
       "paused": "已暫停",
       "pending": "待定",
       "refund": "退款",
-      "repaying": "還款中"
+      "repaying": "還款中",
+      "reset": "重置",
+      "resetFilters": "重置篩選",
+      "selectCategories": "選擇類別",
+      "selectStates": "選擇狀態",
+      "selectVenues": "選擇平台"
     },
     "header": "金庫",
     "modals": {

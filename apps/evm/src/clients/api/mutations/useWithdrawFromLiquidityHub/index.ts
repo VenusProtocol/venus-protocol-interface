@@ -32,7 +32,7 @@ export const useWithdrawFromLiquidityHub = (options?: Partial<Options>) => {
       }
 
       if (input.withdrawFullSupply) {
-        const { userVhTokenBalanceMantissa } = input;
+        const { userVhTokenBalanceMantissa, liquidityHub } = input;
 
         if (!userVhTokenBalanceMantissa) {
           throw new VError({
@@ -41,18 +41,30 @@ export const useWithdrawFromLiquidityHub = (options?: Partial<Options>) => {
           });
         }
 
-        return {
-          abi: liquidityHubAbi,
-          address: input.liquidityHub.vhToken.address,
-          functionName: 'redeem',
-          args: [BigInt(userVhTokenBalanceMantissa.toFixed()), accountAddress, accountAddress],
-        } as WriteContractParameters<
-          typeof liquidityHubAbi,
-          'redeem',
-          readonly [bigint, Address, Address],
-          Chain,
-          Account
-        >;
+        // Redeeming the entire share balance is only valid when the hub currently allows it.
+        // Withdrawal size limits or a liquidity shortage can lower maxRedeem below that balance,
+        // in which case the requested amount is withdrawn instead.
+        const canRedeemFullBalance =
+          !liquidityHub.userVhTokenMaxRedeemTokens ||
+          !liquidityHub.userVhTokenBalanceTokens ||
+          liquidityHub.userVhTokenBalanceTokens.isLessThanOrEqualTo(
+            liquidityHub.userVhTokenMaxRedeemTokens,
+          );
+
+        if (canRedeemFullBalance) {
+          return {
+            abi: liquidityHubAbi,
+            address: liquidityHub.vhToken.address,
+            functionName: 'redeem',
+            args: [BigInt(userVhTokenBalanceMantissa.toFixed()), accountAddress, accountAddress],
+          } as WriteContractParameters<
+            typeof liquidityHubAbi,
+            'redeem',
+            readonly [bigint, Address, Address],
+            Chain,
+            Account
+          >;
+        }
       }
 
       return {

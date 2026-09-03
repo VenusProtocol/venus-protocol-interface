@@ -5,4 +5,6 @@ export default {
   claimExternalRewardBreakdown: 'layout-claim-external-reward-breakdown',
   claimRewardSubmitButton: 'layout-claim-reward-submit-button',
   claimRewardExternalRewards: 'layout-claim-reward-external-rewards',
+  navBarMenu: 'layout-nav-bar-menu',
+  navBarActions: 'layout-nav-bar-actions',
 };

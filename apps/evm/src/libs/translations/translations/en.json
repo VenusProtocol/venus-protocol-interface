@@ -6,6 +6,9 @@
         "title": "No liquidity hub positions yet"
       }
     },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "Isolated pools have been fully deprecated. You still have positions on {{chainNames}}. Repay any borrows and withdraw your assets. <LearnMore>Learn more</LearnMore>"
+    },
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borrowed",
@@ -210,6 +213,10 @@
           "description": "The native yield from the underlying asset itself — for example, deposit rewards. This yield originates from external sources and is not guaranteed by Venus Protocol.",
           "name": "Intrinsic APY"
         },
+        "liquidityHubIntrinsicApy": {
+          "description": "The native yield earned by supplying the underlying asset to the <AppLink>Venus Liquidity Hub</AppLink>. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
+          "name": "Liquidity Hub intrinsic APY"
+        },
         "offChainApy": {
           "description": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. This yield is not guaranteed by Venus Protocol.",
           "name": "Off-chain APY"
@@ -253,6 +260,8 @@
     "externalDistributionApy": "{{description}} APY",
     "intrinsicApy": "Intrinsic APY",
     "intrinsicApyTooltip": "APY earned directly from the asset itself (e.g. depositing or external rewards), separate from Venus lending yield. The Venus protocol does not guarantee them and accepts no liability.",
+    "liquidityHubIntrinsicApy": "Liquidity Hub intrinsic APY",
+    "liquidityHubIntrinsicApyTooltip": "The native yield earned by supplying the underlying asset to the <AppLink>Venus Liquidity Hub</AppLink>. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
     "netApy": {
       "label": "Net APY",
       "tooltip": "Sum of the APYs of all the markets involved"
@@ -328,7 +337,6 @@
     "bridge": "Bridge",
     "dashboard": "Dashboard",
     "governance": "Governance",
-    "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
     "liquidityHubs": "Liquidity Hub",
     "markets": "Markets",
@@ -439,6 +447,13 @@
     "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
   },
   "controls": {
+    "categoryFilter": {
+      "allCategories": "All Categories",
+      "nCategories_one": "{{count}} Category",
+      "nCategories_other": "{{count}} Categories",
+      "reset": "Reset",
+      "title": "Select Categories"
+    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },
@@ -516,14 +531,9 @@
       "totalSupplied": "Total supplied"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "Borrow"
-      },
-      "interactiveTitle": "Spotlight ( <Group><SupplyButton>Supply</SupplyButton>/<BorrowButton>Borrow</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Supply"
-      },
-      "textTitle": "Spotlight"
+      }
     },
     "vaults": {
       "dailyEarnings": "Daily earnings",
@@ -704,11 +714,6 @@
       "utilizationRate": "Utilization rate"
     }
   },
-  "isolatedPoolsSunsetBanner": {
-    "description": "Please withdraw or migrate all assets now",
-    "illustrationAltText": "Illustration",
-    "title": "Isolated pools have been sunset"
-  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Aggregate pricing",
@@ -744,6 +749,7 @@
       "borrow": "Borrow",
       "earned": "Earned",
       "earnedAmount": "Earned {{amount}}",
+      "earnNow": "Earn now",
       "from": "From {{percentage}}",
       "highestApy": "Highest APY",
       "monthNo": "Month {{number}}",
@@ -798,6 +804,10 @@
       "label": "Select chain"
     },
     "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Explore now",
+        "title": "USDT Fixed-Term Vault Now Live on BNB Chain. Target ≈4.2% APR."
+      },
       "exposures": "Exposures",
       "liquidity": "Liquidity",
       "maxLtv": {
@@ -813,6 +823,9 @@
     },
     "menu": {
       "beta": "beta",
+      "borrow": {
+        "label": "Borrow"
+      },
       "dashboard": {
         "label": "Dashboard"
       },
@@ -820,9 +833,6 @@
         "label": "Earn"
       },
       "label": "Menu",
-      "markets": {
-        "label": "Markets"
-      },
       "new": "New",
       "others": {
         "bridge": {
@@ -1353,6 +1363,7 @@
     "pausedAssetsPlaceholder": {
       "description": "Please enable the \"Paused Assets\" toggle to view them.",
       "imgAlt": "Pause icon",
+      "selectedCategoriesTitle": "All assets in the selected categories have been paused",
       "title": "All assets in this pool have been paused"
     },
     "search": {
@@ -2363,7 +2374,6 @@
     },
     "description": "Yield made simple, returns made real",
     "filter": {
-      "active": "Active",
       "allCategories": "All categories",
       "allStates": "All states",
       "allVenues": "All venues",
@@ -2374,10 +2384,22 @@
       "institution": "Institution",
       "liquidated": "Liquidated",
       "locked": "Locked",
+      "nCategories_one": "{{count}} Category",
+      "nCategories_other": "{{count}} Categories",
+      "noResults": "No vaults match your filters",
+      "nStates_one": "{{count}} State",
+      "nStates_other": "{{count}} States",
+      "nVenues_one": "{{count}} Venue",
+      "nVenues_other": "{{count}} Venues",
       "paused": "Paused",
       "pending": "Pending",
       "refund": "Refund",
-      "repaying": "Repaying"
+      "repaying": "Repaying",
+      "reset": "Reset",
+      "resetFilters": "Reset filters",
+      "selectCategories": "Select categories",
+      "selectStates": "Select states",
+      "selectVenues": "Select venues"
     },
     "header": "Vaults",
     "modals": {
