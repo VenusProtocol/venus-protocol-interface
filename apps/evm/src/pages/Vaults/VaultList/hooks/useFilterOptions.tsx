@@ -2,92 +2,52 @@ import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
-import { VaultCategory, VaultStatus } from 'types';
+import { VaultCategory, VaultStatus, VaultVenue } from 'types';
 import { getVaultCategoryName } from 'utilities/getVaultCategoryName';
 
+import { CATEGORY_PARAM_KEY, STATUS_PARAM_KEY, VENUE_PARAM_KEY } from '../../constants';
+import { deleteFilterSearchParams } from '../../utilities/deleteFilterSearchParams';
 import institutionIconSrc from '../asset/institution.svg';
 
-export const ALL_OPTION_VALUE = 'all';
-
-const CATEGORY_PARAM_KEY = 'category';
-const VENUE_PARAM_KEY = 'venue';
-const STATUS_PARAM_KEY = 'status';
+const PARAM_VALUE_SEPARATOR = ',';
 
 const LEGACY_ACTIVE_STATUS_VALUE = 'active';
 
-const SELECTABLE_STATUS_VALUES: string[] = [ALL_OPTION_VALUE, ...Object.values(VaultStatus)];
+const readParamValues = (searchParams: URLSearchParams, key: string) =>
+  (searchParams.get(key) ?? '')
+    .split(PARAM_VALUE_SEPARATOR)
+    .map(value => value.trim())
+    .filter(value => value.length > 0);
+
+// Selecting the values from the option list rather than from the URL keeps unknown values
+// out, deduplicates, and orders the selection the way the options are displayed, whatever
+// the URL contains
+const parseParamValues = <TValue extends string>({
+  searchParams,
+  key,
+  selectableValues,
+}: {
+  searchParams: URLSearchParams;
+  key: string;
+  selectableValues: TValue[];
+}) => {
+  const paramValues = readParamValues(searchParams, key);
+  return selectableValues.filter(selectableValue => paramValues.includes(selectableValue));
+};
 
 export const useFilterOptions = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const category = searchParams.get(CATEGORY_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const venue = searchParams.get(VENUE_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const statusParam = searchParams.get(STATUS_PARAM_KEY);
-  const isLegacyStatus = statusParam === LEGACY_ACTIVE_STATUS_VALUE;
-
-  let status: string = ALL_OPTION_VALUE;
-
-  if (isLegacyStatus) {
-    status = VaultStatus.Deposit;
-  } else if (statusParam && SELECTABLE_STATUS_VALUES.includes(statusParam)) {
-    status = statusParam;
-  }
-
-  useEffect(() => {
-    if (!isLegacyStatus) {
-      return;
-    }
-
-    setSearchParams(
-      currentSearchParams => ({
-        ...Object.fromEntries(currentSearchParams),
-        [STATUS_PARAM_KEY]: VaultStatus.Deposit,
-      }),
-      { replace: true },
-    );
-  }, [isLegacyStatus, setSearchParams]);
-
-  const setCategory = (newVal: string) =>
-    setSearchParams(currentSearchParams => ({
-      ...Object.fromEntries(currentSearchParams),
-      [CATEGORY_PARAM_KEY]: newVal,
-    }));
-
-  const setVenue = (newVal: string) =>
-    setSearchParams(currentSearchParams => ({
-      ...Object.fromEntries(currentSearchParams),
-      [VENUE_PARAM_KEY]: newVal,
-    }));
-
-  const setStatus = (newVal: string) =>
-    setSearchParams(currentSearchParams => ({
-      ...Object.fromEntries(currentSearchParams),
-      [STATUS_PARAM_KEY]: newVal,
-    }));
-
-  const categoryOptions = [
-    {
-      label: t('vault.filter.allCategories'),
-      value: ALL_OPTION_VALUE,
-    },
-  ];
-
-  Object.values(VaultCategory).forEach(category =>
-    categoryOptions.push({
-      label: getVaultCategoryName({
-        category,
-        t,
-      }),
-      value: category,
+  const categoryOptions = Object.values(VaultCategory).map(category => ({
+    label: getVaultCategoryName({
+      category,
+      t,
     }),
-  );
+    value: category,
+  }));
 
   const venueOptions = [
-    {
-      label: t('vault.filter.allVenues'),
-      value: ALL_OPTION_VALUE,
-    },
     {
       label: (
         <div className="flex items-center gap-2">
@@ -95,7 +55,7 @@ export const useFilterOptions = () => {
           Venus
         </div>
       ),
-      value: 'venus',
+      value: VaultVenue.Venus,
     },
     {
       label: (
@@ -104,7 +64,7 @@ export const useFilterOptions = () => {
           Pendle
         </div>
       ),
-      value: 'pendle',
+      value: VaultVenue.Pendle,
     },
     {
       label: (
@@ -113,62 +73,137 @@ export const useFilterOptions = () => {
           {t('vault.filter.institution')}
         </div>
       ),
-      value: 'institution',
+      value: VaultVenue.Institution,
     },
   ];
 
+  // Listed in the order the design displays them, which also drives the order of the
+  // values we serialize back into the URL
   const statusOptions = [
     {
-      label: t('vault.filter.allStates'),
-      value: ALL_OPTION_VALUE,
-    },
-    {
       label: t('vault.filter.deposit'),
-      value: 'deposit',
+      value: VaultStatus.Deposit,
     },
     {
       label: t('vault.filter.refund'),
-      value: 'refund',
+      value: VaultStatus.Refund,
     },
     {
       label: t('vault.filter.locked'),
-      value: 'locked',
+      value: VaultStatus.Locked,
     },
     {
       label: t('vault.filter.repaying'),
-      value: 'repaying',
+      value: VaultStatus.Repaying,
     },
     {
       label: t('vault.filter.claim'),
-      value: 'claim',
+      value: VaultStatus.Claim,
     },
     {
       label: t('vault.filter.pending'),
-      value: 'pending',
-    },
-    {
-      label: t('vault.filter.paused'),
-      value: 'paused',
-    },
-    {
-      label: t('vault.filter.liquidated'),
-      value: 'liquidated',
+      value: VaultStatus.Pending,
     },
     {
       label: t('vault.filter.inactive'),
-      value: 'inactive',
+      value: VaultStatus.Inactive,
+    },
+    {
+      label: t('vault.filter.liquidated'),
+      value: VaultStatus.Liquidated,
+    },
+    {
+      label: t('vault.filter.paused'),
+      value: VaultStatus.Paused,
     },
   ];
 
+  const selectableCategories = categoryOptions.map(({ value }) => value);
+  const selectableVenues = venueOptions.map(({ value }) => value);
+  const selectableStatuses = statusOptions.map(({ value }) => value);
+
+  const categories = parseParamValues({
+    searchParams,
+    key: CATEGORY_PARAM_KEY,
+    selectableValues: selectableCategories,
+  });
+
+  const venues = parseParamValues({
+    searchParams,
+    key: VENUE_PARAM_KEY,
+    selectableValues: selectableVenues,
+  });
+
+  const rawStatusValues = readParamValues(searchParams, STATUS_PARAM_KEY);
+  const isLegacyStatus = rawStatusValues.includes(LEGACY_ACTIVE_STATUS_VALUE);
+  const statusValues = rawStatusValues.map(value =>
+    value === LEGACY_ACTIVE_STATUS_VALUE ? VaultStatus.Deposit : value,
+  );
+  const statuses = selectableStatuses.filter(selectableValue =>
+    statusValues.includes(selectableValue),
+  );
+  const serializedStatuses = statuses.join(PARAM_VALUE_SEPARATOR);
+
+  // Filter changes replace the current history entry rather than pushing a new one, so
+  // going back leaves the page instead of stepping through every option that was toggled
+  const setParamValues = (key: string, newValues: string[], selectableValues: string[]) =>
+    setSearchParams(
+      currentSearchParams => {
+        const newSearchParams = new URLSearchParams(currentSearchParams);
+        // Serialized in the order the options are displayed rather than the order the
+        // boxes were ticked, so the same selection always produces the same URL
+        const orderedValues = selectableValues.filter(selectableValue =>
+          newValues.includes(selectableValue),
+        );
+
+        if (orderedValues.length === 0) {
+          newSearchParams.delete(key);
+        } else {
+          newSearchParams.set(key, orderedValues.join(PARAM_VALUE_SEPARATOR));
+        }
+
+        return newSearchParams;
+      },
+      { replace: true },
+    );
+
+  useEffect(() => {
+    if (!isLegacyStatus) {
+      return;
+    }
+
+    // The legacy value always maps to a selectable status, so there is always something
+    // left to write back
+    setSearchParams(
+      currentSearchParams => {
+        const newSearchParams = new URLSearchParams(currentSearchParams);
+        newSearchParams.set(STATUS_PARAM_KEY, serializedStatuses);
+
+        return newSearchParams;
+      },
+      { replace: true },
+    );
+  }, [isLegacyStatus, serializedStatuses, setSearchParams]);
+
+  const setCategories = (newValues: string[]) =>
+    setParamValues(CATEGORY_PARAM_KEY, newValues, selectableCategories);
+  const setVenues = (newValues: string[]) =>
+    setParamValues(VENUE_PARAM_KEY, newValues, selectableVenues);
+  const setStatuses = (newValues: string[]) =>
+    setParamValues(STATUS_PARAM_KEY, newValues, selectableStatuses);
+
+  const reset = () => setSearchParams(deleteFilterSearchParams, { replace: true });
+
   return {
-    category,
-    setCategory,
+    categories,
+    setCategories,
     categoryOptions,
-    venue,
-    setVenue,
+    venues,
+    setVenues,
     venueOptions,
-    status,
-    setStatus,
+    statuses,
+    setStatuses,
     statusOptions,
+    reset,
   };
 };

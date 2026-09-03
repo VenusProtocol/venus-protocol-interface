@@ -2370,10 +2370,19 @@
       "institution": "機関",
       "liquidated": "清算済み",
       "locked": "収益中",
+      "nCategories_other": "{{count}} 件のカテゴリ",
+      "noResults": "条件に一致するボールトはありません",
+      "nStates_other": "{{count}} 件の状態",
+      "nVenues_other": "{{count}} 件のプラットフォーム",
       "paused": "停止中",
       "pending": "保留",
       "refund": "返金",
-      "repaying": "返済中"
+      "repaying": "返済中",
+      "reset": "リセット",
+      "resetFilters": "フィルターをリセット",
+      "selectCategories": "カテゴリを選択",
+      "selectStates": "状態を選択",
+      "selectVenues": "プラットフォームを選択"
     },
     "header": "ボールト",
     "modals": {

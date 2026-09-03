@@ -2370,10 +2370,19 @@
       "institution": "机构",
       "liquidated": "已清算",
       "locked": "收益中",
+      "nCategories_other": "{{count}} 个类别",
+      "noResults": "没有符合筛选条件的金库",
+      "nStates_other": "{{count}} 个状态",
+      "nVenues_other": "{{count}} 个平台",
       "paused": "已暂停",
       "pending": "待定",
       "refund": "退款",
-      "repaying": "还款中"
+      "repaying": "还款中",
+      "reset": "重置",
+      "resetFilters": "重置筛选",
+      "selectCategories": "选择类别",
+      "selectStates": "选择状态",
+      "selectVenues": "选择平台"
     },
     "header": "金库",
     "modals": {

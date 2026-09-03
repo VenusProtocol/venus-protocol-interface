@@ -2370,10 +2370,19 @@
       "institution": "Tổ chức",
       "liquidated": "Đã thanh lý",
       "locked": "Đang kiếm lợi nhuận",
+      "nCategories_other": "{{count}} danh mục",
+      "noResults": "Không có kho nào khớp với bộ lọc của bạn",
+      "nStates_other": "{{count}} trạng thái",
+      "nVenues_other": "{{count}} nền tảng",
       "paused": "Tạm dừng",
       "pending": "Đang chờ",
       "refund": "Hoàn tiền",
-      "repaying": "Đang trả nợ"
+      "repaying": "Đang trả nợ",
+      "reset": "Đặt lại",
+      "resetFilters": "Đặt lại bộ lọc",
+      "selectCategories": "Chọn danh mục",
+      "selectStates": "Chọn trạng thái",
+      "selectVenues": "Chọn nền tảng"
     },
     "header": "Kho",
     "modals": {

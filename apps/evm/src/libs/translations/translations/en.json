@@ -2374,10 +2374,22 @@
       "institution": "Institution",
       "liquidated": "Liquidated",
       "locked": "Locked",
+      "nCategories_one": "{{count}} Category",
+      "nCategories_other": "{{count}} Categories",
+      "noResults": "No vaults match your filters",
+      "nStates_one": "{{count}} State",
+      "nStates_other": "{{count}} States",
+      "nVenues_one": "{{count}} Venue",
+      "nVenues_other": "{{count}} Venues",
       "paused": "Paused",
       "pending": "Pending",
       "refund": "Refund",
-      "repaying": "Repaying"
+      "repaying": "Repaying",
+      "reset": "Reset",
+      "resetFilters": "Reset filters",
+      "selectCategories": "Select categories",
+      "selectStates": "Select states",
+      "selectVenues": "Select venues"
     },
     "header": "Vaults",
     "modals": {
