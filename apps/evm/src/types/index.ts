@@ -265,6 +265,13 @@ export interface LiquidityHubSourceCollateral {
   liquidationThresholdPercentage: BigNumber;
 }
 
+export interface LiquidityHubSourceRating {
+  agencyName: string;
+  agencyIconSrc: string;
+  value?: string;
+  reportUrl?: string;
+}
+
 export interface LiquidityHubSource {
   name: string;
   address: Address;
@@ -276,10 +283,11 @@ export interface LiquidityHubSource {
   supplyApyPercentage: BigNumber;
   supplyTokenDistributions: TokenDistribution[];
   collaterals: LiquidityHubSourceCollateral[];
+  ratings: LiquidityHubSourceRating[];
   lockEndDate?: Date;
 }
 
-export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv';
+export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv' | 'centrifuge';
 
 export interface LiquidityHubYieldGroup {
   address: Address;
@@ -1001,6 +1009,15 @@ export interface ApiLiquidityHubExposure {
   liquidationThresholdMantissa?: string;
 }
 
+export interface ApiLiquidityHubCreditRating {
+  agencyKey: string;
+  agencyName: string;
+  agencyIconUrl: string | null;
+  agencyWebsiteUrl: string | null;
+  ratingLabel: string | null;
+  ratingSourceUrl: string | null;
+}
+
 export interface ApiLiquidityHubResource {
   resourceAddress: Address;
   adapterAddress: Address;
@@ -1016,6 +1033,7 @@ export interface ApiLiquidityHubResource {
   isPaused: boolean;
   lockEndTime: number | null;
   exposure: ApiLiquidityHubExposure[];
+  creditRatings?: ApiLiquidityHubCreditRating[] | null;
 }
 
 export interface ApiLiquidityHubYieldGroup {

@@ -967,14 +967,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "TRANSLATION NEEDED",
             "market": "Thị trường",
             "vault": "Kho"
           }
         },
         "names": {
+          "centrifuge": "TRANSLATION NEEDED",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "Kho lãi suất cố định"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "TRANSLATION NEEDED",
+            "rating": "TRANSLATION NEEDED"
+          },
+          "title": "TRANSLATION NEEDED",
+          "tooltip": "TRANSLATION NEEDED"
         }
       }
     },

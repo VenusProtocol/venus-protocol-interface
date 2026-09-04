@@ -968,14 +968,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "TRANSLATION NEEDED",
             "market": "Piyasa",
             "vault": "Kasa"
           }
         },
         "names": {
+          "centrifuge": "TRANSLATION NEEDED",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "Sabit oran kasası"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "TRANSLATION NEEDED",
+            "rating": "TRANSLATION NEEDED"
+          },
+          "title": "TRANSLATION NEEDED",
+          "tooltip": "TRANSLATION NEEDED"
         }
       }
     },
