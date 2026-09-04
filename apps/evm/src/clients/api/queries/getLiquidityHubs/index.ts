@@ -4,8 +4,6 @@ import { VError } from 'libs/errors';
 import type { ApiLiquidityHub, ChainId, LiquidityHub, Token } from 'types';
 import { restService } from 'utilities';
 import { formatToLiquidityHub } from 'utilities/formatToLiquidityHub';
-// TODO: REMOVE ME (VPD-1880)
-import { mockCentrifugeYieldGroup } from 'utilities/formatToLiquidityHub/mockCentrifugeYieldGroup';
 
 export interface GetLiquidityHubsInput {
   chainId: ChainId;
@@ -50,11 +48,7 @@ export const getLiquidityHubs = async ({
 
   const liquidityHubs =
     payload.result?.reduce<GetLiquidityHubsOutput['liquidityHubs']>((acc, apiLiquidityHub) => {
-      const liquidityHub = formatToLiquidityHub({
-        // TODO: REMOVE ME (VPD-1880)
-        apiLiquidityHub: mockCentrifugeYieldGroup(apiLiquidityHub),
-        tokens,
-      });
+      const liquidityHub = formatToLiquidityHub({ apiLiquidityHub, tokens });
 
       if (liquidityHub) {
         acc.push(liquidityHub);

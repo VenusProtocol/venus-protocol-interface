@@ -1009,10 +1009,13 @@ export interface ApiLiquidityHubExposure {
   liquidationThresholdMantissa?: string;
 }
 
-export interface ApiLiquidityHubRating {
-  agency: string;
-  value: string | null;
-  reportUrl: string | null;
+export interface ApiLiquidityHubCreditRating {
+  agencyKey: string;
+  agencyName: string;
+  agencyIconUrl: string | null;
+  agencyWebsiteUrl: string | null;
+  ratingLabel: string | null;
+  ratingSourceUrl: string | null;
 }
 
 export interface ApiLiquidityHubResource {
@@ -1030,7 +1033,7 @@ export interface ApiLiquidityHubResource {
   isPaused: boolean;
   lockEndTime: number | null;
   exposure: ApiLiquidityHubExposure[];
-  ratings?: ApiLiquidityHubRating[] | null;
+  creditRatings?: ApiLiquidityHubCreditRating[] | null;
 }
 
 export interface ApiLiquidityHubYieldGroup {

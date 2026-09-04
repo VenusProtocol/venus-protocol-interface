@@ -1,12 +1,13 @@
 import BigNumber from 'bignumber.js';
 
+import placeholderIconSrc from 'assets/img/placeholderIcon.svg';
+
 import type { ApiLiquidityHubResource, LiquidityHubSource, Token } from 'types';
 import { areAddressesEqual } from 'utilities/areAddressesEqual';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
 import convertPercentageFromSmartContract from 'utilities/convertPercentageFromSmartContract';
 import convertUsdMantissaToCents from 'utilities/convertUsdMantissaToCents';
 import { formatApiRewardDistributors } from 'utilities/formatApiRewardDistributors';
-import { getAgencyIconSrc } from './getAgencyIconSrc';
 
 export const formatToLiquidityHubResource = ({
   apiResource,
@@ -40,21 +41,21 @@ export const formatToLiquidityHubResource = ({
     [],
   );
 
-  // Rating strings and agency names are rendered verbatim: agency-specific notation (Moody's `-bf`
+  // Rating labels and agency names are rendered verbatim: agency-specific notation (Moody's `-bf`
   // suffix, S&P's `f` / `S1+` volatility pairing) carries meaning and must not be reformatted.
-  const ratings = (apiResource.ratings ?? []).reduce<LiquidityHubSource['ratings']>(
-    (acc, apiRating) => {
-      if (!apiRating.agency) {
+  const ratings = (apiResource.creditRatings ?? []).reduce<LiquidityHubSource['ratings']>(
+    (acc, apiCreditRating) => {
+      if (!apiCreditRating.agencyName) {
         return acc;
       }
 
       return [
         ...acc,
         {
-          agencyName: apiRating.agency,
-          agencyIconSrc: getAgencyIconSrc(apiRating.agency),
-          value: apiRating.value ?? undefined,
-          reportUrl: apiRating.reportUrl ?? undefined,
+          agencyName: apiCreditRating.agencyName,
+          agencyIconSrc: apiCreditRating.agencyIconUrl ?? placeholderIconSrc,
+          value: apiCreditRating.ratingLabel ?? undefined,
+          reportUrl: apiCreditRating.ratingSourceUrl ?? undefined,
         },
       ];
     },
