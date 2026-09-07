@@ -5,11 +5,11 @@ import { SenaryButton, Tooltip, type TooltipProps } from 'components';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import { useTranslation } from 'libs/translations';
 import { DistributionList, type DistributionListProps } from '../DistributionList';
-import { MerklIcon } from './MerklIcon';
+import { CampaignIcon } from './CampaignIcon';
 
 export interface MerklBadgeProps
   extends Omit<TooltipProps, 'content' | 'children'>,
-    DistributionListProps {
+    Omit<DistributionListProps, 'showEstimatedRewards'> {
   simulatedApyPercentage: BigNumber;
 }
 
@@ -20,6 +20,7 @@ export const MerklBadge: React.FC<MerklBadgeProps> = ({
   baseApyPercentage,
   userBalanceTokens,
   primeApyPercentage,
+  primeSimulationDistribution,
   tokenDistributions,
   pointDistributions,
   className,
@@ -44,17 +45,19 @@ export const MerklBadge: React.FC<MerklBadgeProps> = ({
             baseApyPercentage={baseApyPercentage}
             userBalanceTokens={userBalanceTokens}
             primeApyPercentage={primeApyPercentage}
+            primeSimulationDistribution={primeSimulationDistribution}
             tokenDistributions={tokenDistributions}
             pointDistributions={pointDistributions}
+            showEstimatedRewards
           />
         </div>
       }
       {...otherProps}
     >
-      <SenaryButton className="border-[#85ccff] hover:border-[#acdcff] h-6 rounded-full p-1 whitespace-nowrap shrink-0">
-        <MerklIcon className="mr-1" />
+      <SenaryButton className="border-[#ffe4aa] hover:border-[#ffd370] h-6 rounded-full p-1 whitespace-nowrap font-semibold shrink-0">
+        <CampaignIcon className="mr-1" />
 
-        <span className="bg-[linear-gradient(153deg,#4eaaec_9%,#acdcff_48%,#5caae2_87%)] bg-clip-text text-transparent">
+        <span className="bg-[linear-gradient(17deg,#ffe4aa_5%,#ffd370_36%,#fae2b6_68%,#f2d081_106%)] bg-clip-text text-transparent">
           {readableApy}
         </span>
       </SenaryButton>

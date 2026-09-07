@@ -4,7 +4,9 @@ import { useTranslation } from 'libs/translations';
 import { DistributionList, type DistributionListProps } from '../DistributionList';
 import starsIconSrc from './stars.svg';
 
-export interface BoostTooltipProps extends Omit<TooltipProps, 'content'>, DistributionListProps {}
+export interface BoostTooltipProps
+  extends Omit<TooltipProps, 'content'>,
+    Omit<DistributionListProps, 'showEstimatedRewards'> {}
 
 export const BoostTooltip: React.FC<BoostTooltipProps> = ({
   className,
@@ -13,6 +15,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
   baseApyPercentage,
   userBalanceTokens,
   primeApyPercentage,
+  primeSimulationDistribution,
   tokenDistributions,
   pointDistributions,
   children,
@@ -30,6 +33,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
           baseApyPercentage={baseApyPercentage}
           userBalanceTokens={userBalanceTokens}
           primeApyPercentage={primeApyPercentage}
+          primeSimulationDistribution={primeSimulationDistribution}
           tokenDistributions={tokenDistributions}
           pointDistributions={pointDistributions}
         />

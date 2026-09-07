@@ -1,16 +1,16 @@
 import { cn } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
-import merklLogoSrc from './merklLogo.svg';
+import campaignLogoSrc from './campaignLogo.svg';
 
-export type MerklIconProps = Omit<React.HTMLAttributes<HTMLImageElement>, 'alt' | 'src'>;
+export type CampaignIconProps = Omit<React.HTMLAttributes<HTMLImageElement>, 'alt' | 'src'>;
 
-export const MerklIcon: React.FC<MerklIconProps> = ({ className, ...otherProps }) => {
+export const CampaignIcon: React.FC<CampaignIconProps> = ({ className, ...otherProps }) => {
   const { t } = useTranslation();
 
   return (
     <img
       {...otherProps}
-      src={merklLogoSrc}
+      src={campaignLogoSrc}
       alt={t('apy.merklBadge.logoAlt')}
       className={cn('h-4', className)}
     />

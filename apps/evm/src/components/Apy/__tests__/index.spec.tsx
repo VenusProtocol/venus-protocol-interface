@@ -39,6 +39,25 @@ const buildGatedMerklDistribution = (isUserEligible: boolean): TokenDistribution
   },
 });
 
+const buildPrimeDistribution = (apyPercentage: number): TokenDistribution => ({
+  type: 'prime',
+  token,
+  apyPercentage: new BigNumber(apyPercentage),
+  isActive: true,
+});
+
+const primeSimulationDistribution: TokenDistribution = {
+  type: 'primeSimulation',
+  token,
+  apyPercentage: new BigNumber(1),
+  isActive: true,
+  referenceValues: {
+    userSupplyBalanceTokens: new BigNumber(0),
+    userBorrowBalanceTokens: new BigNumber(0),
+    userXvsStakedTokens: new BigNumber(0),
+  },
+};
+
 describe('Apy', () => {
   it('renders a base APY without a boost', () => {
     const { getByText, queryByAltText } = renderComponent(
@@ -220,30 +239,103 @@ describe('Apy', () => {
     expect(queryByAltText(en.apy.merklBadge.logoAlt)).not.toBeInTheDocument();
   });
 
-  it('hides the Prime badge when a Merkl badge is also displayed', () => {
-    const { getByAltText, queryByAltText } = renderComponent(
+  describe.each([
+    {
+      name: 'campaign eligible, Prime not eligible',
+      tokenDistributions: [buildGatedMerklDistribution(true), primeSimulationDistribution],
+      userBalanceTokens: undefined,
+      // -2% - 3%
+      expectedApy: '-5%',
+      expectedApyIsBoosted: true,
+      expectedBadgeLogoAlt: en.apy.primeBadge.logoAlt,
+      // -2% - 3% - 1%
+      expectedBadgeApy: '-6%',
+    },
+    {
+      name: 'campaign and Prime both eligible',
+      tokenDistributions: [buildGatedMerklDistribution(true), buildPrimeDistribution(2)],
+      userBalanceTokens: new BigNumber(1),
+      // -2% - 3% - 2%
+      expectedApy: '-7%',
+      expectedApyIsBoosted: true,
+      expectedBadgeLogoAlt: undefined,
+      expectedBadgeApy: undefined,
+    },
+    {
+      name: 'campaign not eligible, Prime eligible',
+      tokenDistributions: [buildGatedMerklDistribution(false), buildPrimeDistribution(2)],
+      userBalanceTokens: new BigNumber(1),
+      // -2% - 2%
+      expectedApy: '-4%',
+      expectedApyIsBoosted: true,
+      expectedBadgeLogoAlt: en.apy.merklBadge.logoAlt,
+      // -2% - 2% - 7%
+      expectedBadgeApy: '-11%',
+    },
+    {
+      name: 'campaign and Prime both not eligible',
+      tokenDistributions: [buildGatedMerklDistribution(false), primeSimulationDistribution],
+      userBalanceTokens: undefined,
+      expectedApy: '-2%',
+      expectedApyIsBoosted: false,
+      expectedBadgeLogoAlt: en.apy.merklBadge.logoAlt,
+      // -2% - 7% - 1%
+      expectedBadgeApy: '-10%',
+    },
+  ])(
+    'borrow APY with a collateral-gated campaign and Prime: $name',
+    ({
+      tokenDistributions,
+      userBalanceTokens,
+      expectedApy,
+      expectedApyIsBoosted,
+      expectedBadgeLogoAlt,
+      expectedBadgeApy,
+    }) => {
+      it('renders the expected APY and badge', () => {
+        const { getByText, queryByText, getByAltText, queryByAltText } = renderComponent(
+          <Apy
+            type="borrow"
+            token={token}
+            baseApyPercentage={new BigNumber(-2)}
+            tokenDistributions={tokenDistributions}
+            userBalanceTokens={userBalanceTokens}
+          />,
+        );
+
+        expect(getByText(expectedApy)).toBeInTheDocument();
+
+        if (expectedApyIsBoosted) {
+          expect(getByAltText(en.apy.boost.iconAlt)).toBeInTheDocument();
+        } else {
+          expect(queryByAltText(en.apy.boost.iconAlt)).not.toBeInTheDocument();
+        }
+
+        if (expectedBadgeLogoAlt && expectedBadgeApy) {
+          expect(getByAltText(expectedBadgeLogoAlt)).toBeInTheDocument();
+          expect(getByText(expectedBadgeApy)).toBeInTheDocument();
+        } else {
+          expect(queryByAltText(en.apy.merklBadge.logoAlt)).not.toBeInTheDocument();
+          expect(queryByText('-6%')).not.toBeInTheDocument();
+        }
+      });
+    },
+  );
+
+  it('keeps the Prime icon next to the APY when the campaign badge is displayed', () => {
+    const { getByAltText } = renderComponent(
       <Apy
         type="borrow"
         token={token}
         baseApyPercentage={new BigNumber(-2)}
-        tokenDistributions={[
-          buildGatedMerklDistribution(false),
-          {
-            type: 'primeSimulation',
-            token,
-            apyPercentage: new BigNumber(1),
-            isActive: true,
-            referenceValues: {
-              userSupplyBalanceTokens: new BigNumber(0),
-              userBorrowBalanceTokens: new BigNumber(0),
-              userXvsStakedTokens: new BigNumber(0),
-            },
-          },
-        ]}
+        tokenDistributions={[buildGatedMerklDistribution(false), buildPrimeDistribution(0)]}
+        userBalanceTokens={new BigNumber(1)}
       />,
     );
 
+    // A Prime borrower earning no Prime APY yet still owns the boosted treatment
+    expect(getByAltText(en.apy.boost.iconAlt)).toBeInTheDocument();
+    expect(getByAltText(en.apy.primeBadge.logoAlt)).toBeInTheDocument();
     expect(getByAltText(en.apy.merklBadge.logoAlt)).toBeInTheDocument();
-    expect(queryByAltText(en.apy.primeBadge.logoAlt)).not.toBeInTheDocument();
   });
 });

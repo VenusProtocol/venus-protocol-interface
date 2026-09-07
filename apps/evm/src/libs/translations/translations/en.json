@@ -246,9 +246,9 @@
       }
     },
     "merklBadge": {
-      "logoAlt": "Merkl campaign logo",
+      "logoAlt": "Campaign logo",
       "tooltip": {
-        "leadLine": "Collateralize your borrow with bStock to bring your borrow APY to {{apy}}."
+        "leadLine": "At the maximum reward rate below, your borrow APY would be {{apy}}."
       }
     },
     "primeBadge": {

@@ -76,6 +76,9 @@ export const Apy: React.FC<ApyProps> = ({
         : combinedApy.totalApyPercentage.minus(combinedApy.apyPrimeSimulationPercentage);
   }
 
+  const shownPrimeSimulationDistribution =
+    showPrimeSimulation && !isApyBoostedByPrime ? primeSimulationDistribution : undefined;
+
   const distributionListProps = {
     type,
     token,
@@ -84,18 +87,26 @@ export const Apy: React.FC<ApyProps> = ({
     tokenDistributions: activeTokenDistributions,
     pointDistributions,
     primeApyPercentage: primeDistribution?.apyPercentage,
+    primeSimulationDistribution: shownPrimeSimulationDistribution,
   };
 
-  // The Merkl badge takes over the badge slot whenever both could show
+  // Only one badge fits the slot: the campaign takes it while the user cannot earn it yet,
+  // otherwise the Prime simulation does
   let badgeDom: React.ReactNode;
 
   if (gatedMerklDistribution?.collateralGate) {
+    // The badge advertises the APY the user would get once they qualify, so every reward they are
+    // not earning yet comes off it
+    const missedApyPercentage = shownPrimeSimulationDistribution
+      ? gatedMerklDistribution.collateralGate.maxApyPercentage.plus(
+          shownPrimeSimulationDistribution.apyPercentage,
+        )
+      : gatedMerklDistribution.collateralGate.maxApyPercentage;
+
     badgeDom = (
       <MerklBadge
         className="shrink-0"
-        simulatedApyPercentage={combinedApy.totalApyPercentage.minus(
-          gatedMerklDistribution.collateralGate.maxApyPercentage,
-        )}
+        simulatedApyPercentage={combinedApy.totalApyPercentage.minus(missedApyPercentage)}
         {...distributionListProps}
       />
     );
@@ -115,9 +126,7 @@ export const Apy: React.FC<ApyProps> = ({
     <div
       className={cn('inline-flex gap-1 items-center flex-wrap', isMuted && 'opacity-50', className)}
     >
-      {isApyBoostedByPrime && !gatedMerklDistribution && (
-        <PrimeBadge className="shrink-0" type={type} token={token} />
-      )}
+      {isApyBoostedByPrime && <PrimeBadge className="shrink-0" type={type} token={token} />}
 
       {isApyBoosted ? (
         <BoostTooltip {...distributionListProps}>

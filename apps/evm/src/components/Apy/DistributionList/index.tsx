@@ -1,8 +1,14 @@
 import type BigNumber from 'bignumber.js';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import type { PointDistribution, Token, TokenDistribution } from 'types';
+import type {
+  PointDistribution,
+  PrimeSimulationDistribution,
+  Token,
+  TokenDistribution,
+} from 'types';
 import { formatDistributionApyToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import { SimulationText } from '../PrimeBadge/SimulationText';
 import { Distribution, type DistributionProps } from './Distribution';
 
 export interface DistributionListProps {
@@ -13,6 +19,10 @@ export interface DistributionListProps {
   pointDistributions: PointDistribution[];
   userBalanceTokens?: BigNumber;
   primeApyPercentage?: BigNumber;
+  primeSimulationDistribution?: PrimeSimulationDistribution;
+  // Also lists the rewards the user is not earning yet, at the rate they would get once they
+  // qualify. Reserved for the badges that advertise those rewards
+  showEstimatedRewards?: boolean;
 }
 
 export const DistributionList: React.FC<DistributionListProps> = ({
@@ -21,8 +31,10 @@ export const DistributionList: React.FC<DistributionListProps> = ({
   baseApyPercentage,
   userBalanceTokens,
   primeApyPercentage,
+  primeSimulationDistribution,
   tokenDistributions,
   pointDistributions,
+  showEstimatedRewards = false,
 }) => {
   const { t, Trans } = useTranslation();
 
@@ -57,8 +69,8 @@ export const DistributionList: React.FC<DistributionListProps> = ({
     const collateralGate = d.type === 'merkl' ? d.collateralGate : undefined;
     const isMissingRequiredCollateral = !!collateralGate && !collateralGate.isUserEligible;
 
-    // Filter out 0% distributions, unless the user is only missing the required collateral
-    if (d.apyPercentage.isEqualTo(0) && !isMissingRequiredCollateral) {
+    // Filter out 0% distributions, unless we are advertising the rate the user is missing out on
+    if (d.apyPercentage.isEqualTo(0) && !(isMissingRequiredCollateral && showEstimatedRewards)) {
       return;
     }
 
@@ -149,6 +161,19 @@ export const DistributionList: React.FC<DistributionListProps> = ({
       name: t('apy.boost.tooltip.primeDistribution.name'),
       description: t('apy.boost.tooltip.primeDistribution.description'),
       value: formatDistributionApy(primeApyPercentage),
+      logoSrc: token.iconSrc,
+    });
+  } else if (showEstimatedRewards && primeSimulationDistribution?.apyPercentage.isGreaterThan(0)) {
+    listItems.push({
+      name: t('apy.boost.tooltip.primeDistribution.name'),
+      description: (
+        <SimulationText
+          token={token}
+          type={type}
+          referenceValues={primeSimulationDistribution.referenceValues}
+        />
+      ),
+      value: formatDistributionApy(primeSimulationDistribution.apyPercentage),
       logoSrc: token.iconSrc,
     });
   }
