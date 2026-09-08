@@ -1,12 +1,13 @@
 import fakeAccountAddress from '__mocks__/models/address';
 import { usdt } from '__mocks__/models/tokens';
-import { useGetPrimeCurrentCycle, useGetPrimeUserPendingRewards } from 'clients/api';
+import { useGetPrimeUserPendingRewards } from 'clients/api';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
 import { useGetPrimeUserRewards } from '..';
 
 const fakeMarketAddress = '0xfD5840Cd36d94D7229439859C0112a4185BC0255';
+const fakeOtherMarketAddress = '0x6bCa74586218dB34cdB402295796b79663d816e9';
 
 const EMITTING_SPEED_MANTISSA = '11111111111111111';
 const ACTIVE_MULTIPLIER_MANTISSA = '2000000000000000000';
@@ -14,35 +15,20 @@ const ACTIVE_MULTIPLIER_MANTISSA = '2000000000000000000';
 const ONE_DOLLAR_MANTISSA = '1000000000000000000';
 const ACCRUED_MANTISSA = '380270000000000000000';
 
-const mockApis = ({
-  tokenDistributionSpeedMantissa,
-  supplyMultiplierMantissa,
-  borrowMultiplierMantissa,
-  currentCycleUsdMantissa,
-}: {
+interface FakeReward {
+  marketAddress: string;
+  rewardTokenAddress: string;
+  currentCycleUsdMantissa: string;
   tokenDistributionSpeedMantissa?: string;
   supplyMultiplierMantissa?: string;
   borrowMultiplierMantissa?: string;
-  currentCycleUsdMantissa: string;
-}) => {
-  (useGetPrimeCurrentCycle as Mock).mockReturnValue({
-    data: { pendingPool: { byRewardToken: [{ rewardTokenAddress: usdt.address }] } },
-    isLoading: false,
-  });
+}
 
+const mockApi = (rewards: FakeReward[]) => {
   (useGetPrimeUserPendingRewards as Mock).mockReturnValue({
     data: {
-      totalCurrentCycleUsdMantissa: currentCycleUsdMantissa,
-      rewards: [
-        {
-          marketAddress: fakeMarketAddress,
-          rewardTokenAddress: usdt.address,
-          currentCycleUsdMantissa,
-          tokenDistributionSpeedMantissa,
-          supplyMultiplierMantissa,
-          borrowMultiplierMantissa,
-        },
-      ],
+      totalCurrentCycleUsdMantissa: ONE_DOLLAR_MANTISSA,
+      rewards,
     },
     isLoading: false,
   });
@@ -90,8 +76,8 @@ describe('pages/PrimeLeaderboard/useGetPrimeUserRewards', () => {
       currentCycleUsdMantissa: ONE_DOLLAR_MANTISSA,
       expectedSide: undefined,
     },
-  ])('renders the market with side "$expectedSide" when $name', input => {
-    mockApis(input);
+  ])('renders the market with side "$expectedSide" when $name', ({ expectedSide, ...reward }) => {
+    mockApi([{ marketAddress: fakeMarketAddress, rewardTokenAddress: usdt.address, ...reward }]);
 
     const { result } = renderHook(() => useGetPrimeUserRewards(), {
       accountAddress: fakeAccountAddress,
@@ -99,24 +85,44 @@ describe('pages/PrimeLeaderboard/useGetPrimeUserRewards', () => {
 
     expect(result.current.marketRewards).toHaveLength(1);
     expect(result.current.marketRewards[0].marketAddress).toBe(fakeMarketAddress);
-    expect(result.current.marketRewards[0].side).toBe(input.expectedSide);
+    expect(result.current.marketRewards[0].side).toBe(expectedSide);
   });
 
-  // Whether a market without emissions is worth surfacing is decided by the API, which omits it
-  // from the response: the hook renders every market it is given.
-  it('renders a market whose emissions stopped and has nothing accrued', () => {
-    mockApis({
-      tokenDistributionSpeedMantissa: '0',
-      supplyMultiplierMantissa: ACTIVE_MULTIPLIER_MANTISSA,
-      borrowMultiplierMantissa: '0',
-      currentCycleUsdMantissa: '0',
-    });
+  // Prime multipliers are configured per market, so markets sharing a reward token must not be
+  // collapsed into one row: each keeps its own side and its own amount.
+  it('keeps one row per market when a reward token incentivizes several markets', () => {
+    mockApi([
+      {
+        marketAddress: fakeMarketAddress,
+        rewardTokenAddress: usdt.address,
+        currentCycleUsdMantissa: ONE_DOLLAR_MANTISSA,
+        tokenDistributionSpeedMantissa: EMITTING_SPEED_MANTISSA,
+        supplyMultiplierMantissa: ACTIVE_MULTIPLIER_MANTISSA,
+        borrowMultiplierMantissa: '0',
+      },
+      {
+        marketAddress: fakeOtherMarketAddress,
+        rewardTokenAddress: usdt.address,
+        currentCycleUsdMantissa: ACCRUED_MANTISSA,
+        tokenDistributionSpeedMantissa: EMITTING_SPEED_MANTISSA,
+        supplyMultiplierMantissa: '0',
+        borrowMultiplierMantissa: ACTIVE_MULTIPLIER_MANTISSA,
+      },
+    ]);
 
     const { result } = renderHook(() => useGetPrimeUserRewards(), {
       accountAddress: fakeAccountAddress,
     });
 
-    expect(result.current.marketRewards).toHaveLength(1);
-    expect(result.current.marketRewards[0].side).toBe('supply');
+    expect(
+      result.current.marketRewards.map(({ marketAddress, side, rewardsCents }) => ({
+        marketAddress,
+        side,
+        rewardsCents,
+      })),
+    ).toEqual([
+      { marketAddress: fakeMarketAddress, side: 'supply', rewardsCents: 100 },
+      { marketAddress: fakeOtherMarketAddress, side: 'borrow', rewardsCents: 38027 },
+    ]);
   });
 });
