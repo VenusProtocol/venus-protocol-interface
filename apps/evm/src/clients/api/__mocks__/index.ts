@@ -89,14 +89,6 @@ export const useGetMarketHistory = vi.fn(() =>
   }),
 );
 
-export const getTopMarkets = vi.fn();
-export const useGetTopMarkets = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_TOP_MARKETS],
-    queryFn: getTopMarkets,
-  }),
-);
-
 export const getTokenPairKLineCandles = vi.fn(() => ({
   candles: [],
 }));

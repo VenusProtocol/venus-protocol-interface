@@ -20,7 +20,7 @@ describe('ProgressBar', () => {
     const rail = container.firstElementChild;
     const fill = rail?.querySelector('div');
 
-    expect(rail).toHaveClass('custom-class', 'bg-lightGrey');
+    expect(rail).toHaveClass('custom-class', 'bg-lightGrey', 'isolate');
     expect(fill).toHaveClass('bg-green');
     expect(fill).toHaveStyle({ width: '50%' });
   });
@@ -72,6 +72,29 @@ describe('ProgressBar', () => {
     expect(marks[0]).toHaveStyle({ left: '75%' });
     expect(marks[1]).toHaveClass('bg-white');
     expect(marks[1]).toHaveStyle({ left: '25%' });
+  });
+
+  it('renders marks after the fills in DOM order', () => {
+    const { container } = render(
+      <ProgressBar progressBars={[{ value: 90 }]} marks={[{ value: 75 }]} min={0} max={100} />,
+    );
+
+    const railChildren = Array.from(container.firstElementChild?.children ?? []);
+
+    expect(railChildren.map(child => child.tagName)).toEqual(['DIV', 'SPAN']);
+  });
+
+  it('does not apply a z-index to marks', () => {
+    const { container } = render(
+      <ProgressBar progressBars={[{ value: 90 }]} marks={[{ value: 75 }]} min={0} max={100} />,
+    );
+
+    // Marks paint above the fills through DOM order alone. A z-index on them used to escape the
+    // rail and render them on top of overlays sharing the rail's stacking context, such as the
+    // token list dropdown of a market form.
+    const mark = container.querySelector('span');
+
+    expect(Array.from(mark?.classList ?? []).some(name => /^-?z-/.test(name))).toBe(false);
   });
 
   it('wraps the rail in a tooltip when content is provided', () => {

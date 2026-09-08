@@ -1,6 +1,5 @@
 import type { Pool } from 'types';
 
-import { TopMarkets } from 'containers/TopMarkets';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useTranslation } from 'libs/translations';
 import { Placeholder } from '../Placeholder';
@@ -36,7 +35,6 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
           buttonSize="sm"
         />
       )}
-      <TopMarkets variant="secondary" className="mb-3 mt-6" />
     </>
   );
 };

@@ -217,7 +217,7 @@
           "name": "İçsel APY"
         },
         "liquidityHubIntrinsicApy": {
-          "description": "Dayanak varlığı Venus Likidite Merkezi'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
+          "description": "Dayanak varlığı <AppLink>Venus Likidite Merkezi</AppLink>'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
           "name": "Likidite Merkezi içsel APY"
         },
         "offChainApy": {
@@ -271,7 +271,7 @@
     "intrinsicApy": "İçsel APY",
     "intrinsicApyTooltip": "Varlığın kendisinden doğrudan kazanılan APY (ör. yatırma veya dış ödüller), Venus borç verme getirilerinden bağımsızdır. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
     "liquidityHubIntrinsicApy": "Likidite Merkezi içsel APY",
-    "liquidityHubIntrinsicApyTooltip": "Dayanak varlığı Venus Likidite Merkezi'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
+    "liquidityHubIntrinsicApyTooltip": "Dayanak varlığı <AppLink>Venus Likidite Merkezi</AppLink>'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
     "netApy": {
       "label": "Net APY",
       "tooltip": "İlgili tüm piyasaların APY'lerinin toplamı"
@@ -541,14 +541,9 @@
       "totalSupplied": "Toplam sağlanan"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "Borç al"
-      },
-      "interactiveTitle": "Öne çıkanlar ( <Group><SupplyButton>sağlama</SupplyButton>/<BorrowButton>borç</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Sağla"
-      },
-      "textTitle": "Öne çıkanlar"
+      }
     },
     "vaults": {
       "dailyEarnings": "Günlük kazançlar",
@@ -2388,10 +2383,22 @@
       "institution": "Kurum",
       "liquidated": "Tasfiye edildi",
       "locked": "Kazanç",
+      "nCategories_one": "{{count}} Kategori",
+      "nCategories_other": "{{count}} Kategori",
+      "noResults": "Filtrelerinize uyan kasa bulunamadı",
+      "nStates_one": "{{count}} Durum",
+      "nStates_other": "{{count}} Durum",
+      "nVenues_one": "{{count}} Platform",
+      "nVenues_other": "{{count}} Platform",
       "paused": "Duraklatıldı",
       "pending": "Beklemede",
       "refund": "İade",
-      "repaying": "Geri ödeniyor"
+      "repaying": "Geri ödeniyor",
+      "reset": "Sıfırla",
+      "resetFilters": "Filtreleri sıfırla",
+      "selectCategories": "Kategorileri seç",
+      "selectStates": "Durumları seç",
+      "selectVenues": "Platformları seç"
     },
     "header": "Kasa",
     "modals": {

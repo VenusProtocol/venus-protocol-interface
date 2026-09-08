@@ -1,4 +1,5 @@
 import type BigNumber from 'bignumber.js';
+import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type {
@@ -20,8 +21,7 @@ export interface DistributionListProps {
   userBalanceTokens?: BigNumber;
   primeApyPercentage?: BigNumber;
   primeSimulationDistribution?: PrimeSimulationDistribution;
-  // Also lists the rewards the user is not earning yet, at the rate they would get once they
-  // qualify. Reserved for the badges that advertise those rewards
+  // Also lists the rewards the user has not qualified for yet, at their advertised rate
   showEstimatedRewards?: boolean;
 }
 
@@ -69,7 +69,7 @@ export const DistributionList: React.FC<DistributionListProps> = ({
     const collateralGate = d.type === 'merkl' ? d.collateralGate : undefined;
     const isMissingRequiredCollateral = !!collateralGate && !collateralGate.isUserEligible;
 
-    // Filter out 0% distributions, unless we are advertising the rate the user is missing out on
+    // 0% rows are noise, unless we are advertising a rate the user has not qualified for
     if (d.apyPercentage.isEqualTo(0) && !(isMissingRequiredCollateral && showEstimatedRewards)) {
       return;
     }
@@ -146,7 +146,14 @@ export const DistributionList: React.FC<DistributionListProps> = ({
     if (d.type === 'liquidity-hub-intrinsic') {
       const distribution: DistributionProps = {
         name: t('apy.boost.tooltip.liquidityHubIntrinsicApy.name'),
-        description: t('apy.boost.tooltip.liquidityHubIntrinsicApy.description'),
+        description: (
+          <Trans
+            i18nKey="apy.boost.tooltip.liquidityHubIntrinsicApy.description"
+            components={{
+              AppLink: <Link to={routes.liquidityHubs.path} onClick={e => e.stopPropagation()} />,
+            }}
+          />
+        ),
         value: formatDistributionApy(d.apyPercentage),
         logoSrc: d.token.iconSrc,
       };
@@ -155,7 +162,6 @@ export const DistributionList: React.FC<DistributionListProps> = ({
     }
   });
 
-  // Add Prime distribution
   if (primeApyPercentage && userBalanceTokens?.isGreaterThan(0)) {
     listItems.push({
       name: t('apy.boost.tooltip.primeDistribution.name'),

@@ -3,8 +3,7 @@ import BigNumber from 'bignumber.js';
 import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
 
-// Collateral only backs borrows made within the same pool, so callers pass the assets of a
-// single pool. Returns the same references when nothing changed, to preserve referential equality.
+// Collateral only backs borrows made within the same pool, so callers pass a single pool's assets
 export const withMerklCollateralGates = ({ assets }: { assets: Asset[] }): Asset[] => {
   let changed = false;
 
@@ -24,8 +23,7 @@ export const withMerklCollateralGates = ({ assets }: { assets: Asset[] }): Asset
 
       const maxApyPercentage = new BigNumber(aprPercentage);
 
-      // Leaving the gate unset hides the badge and the reward row: there is nothing to
-      // advertise when the campaign is not gated or reports no rate
+      // No gate means no badge and no reward row: there is nothing to advertise
       if (eligibleBorrowMarketAddresses.length === 0 || !maxApyPercentage.isGreaterThan(0)) {
         return distribution;
       }

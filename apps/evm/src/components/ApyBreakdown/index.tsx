@@ -23,7 +23,7 @@ export interface ApyBreakdownProps {
 }
 
 export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({ items = [], renderType = 'block' }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const shouldShowNetApy = items.length > 1;
 
   const { rows, totalApyPercentage } = items.reduce<{
@@ -53,7 +53,7 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({ items = [], renderTy
           : acc.totalApyPercentage.plus(itemTotalApyPercentage);
 
       return {
-        rows: acc.rows.concat(formatRows({ item, t })),
+        rows: acc.rows.concat(formatRows({ item, t, Trans })),
         totalApyPercentage,
       };
     },

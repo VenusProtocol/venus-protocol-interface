@@ -217,7 +217,6 @@ describe('Apy', () => {
     );
 
     expect(getByText('-2%')).toBeInTheDocument();
-    // -2% - 7%
     expect(getByText('-9%')).toBeInTheDocument();
     expect(getByAltText(en.apy.merklBadge.logoAlt)).toBeInTheDocument();
     expect(queryByAltText(en.apy.boost.iconAlt)).not.toBeInTheDocument();
@@ -233,7 +232,6 @@ describe('Apy', () => {
       />,
     );
 
-    // -2% - 3%
     expect(getByText('-5%')).toBeInTheDocument();
     expect(getByAltText(en.apy.boost.iconAlt)).toBeInTheDocument();
     expect(queryByAltText(en.apy.merklBadge.logoAlt)).not.toBeInTheDocument();
@@ -244,18 +242,15 @@ describe('Apy', () => {
       name: 'campaign eligible, Prime not eligible',
       tokenDistributions: [buildGatedMerklDistribution(true), primeSimulationDistribution],
       userBalanceTokens: undefined,
-      // -2% - 3%
       expectedApy: '-5%',
       expectedApyIsBoosted: true,
       expectedBadgeLogoAlt: en.apy.primeBadge.logoAlt,
-      // -2% - 3% - 1%
       expectedBadgeApy: '-6%',
     },
     {
       name: 'campaign and Prime both eligible',
       tokenDistributions: [buildGatedMerklDistribution(true), buildPrimeDistribution(2)],
       userBalanceTokens: new BigNumber(1),
-      // -2% - 3% - 2%
       expectedApy: '-7%',
       expectedApyIsBoosted: true,
       expectedBadgeLogoAlt: undefined,
@@ -265,11 +260,9 @@ describe('Apy', () => {
       name: 'campaign not eligible, Prime eligible',
       tokenDistributions: [buildGatedMerklDistribution(false), buildPrimeDistribution(2)],
       userBalanceTokens: new BigNumber(1),
-      // -2% - 2%
       expectedApy: '-4%',
       expectedApyIsBoosted: true,
       expectedBadgeLogoAlt: en.apy.merklBadge.logoAlt,
-      // -2% - 2% - 7%
       expectedBadgeApy: '-11%',
     },
     {
@@ -279,7 +272,6 @@ describe('Apy', () => {
       expectedApy: '-2%',
       expectedApyIsBoosted: false,
       expectedBadgeLogoAlt: en.apy.merklBadge.logoAlt,
-      // -2% - 7% - 1%
       expectedBadgeApy: '-10%',
     },
   ])(
@@ -333,7 +325,6 @@ describe('Apy', () => {
       />,
     );
 
-    // A Prime borrower earning no Prime APY yet still owns the boosted treatment
     expect(getByAltText(en.apy.boost.iconAlt)).toBeInTheDocument();
     expect(getByAltText(en.apy.primeBadge.logoAlt)).toBeInTheDocument();
     expect(getByAltText(en.apy.merklBadge.logoAlt)).toBeInTheDocument();

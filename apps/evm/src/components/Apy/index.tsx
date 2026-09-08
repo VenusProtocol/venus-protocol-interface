@@ -90,13 +90,11 @@ export const Apy: React.FC<ApyProps> = ({
     primeSimulationDistribution: shownPrimeSimulationDistribution,
   };
 
-  // Only one badge fits the slot: the campaign takes it while the user cannot earn it yet,
-  // otherwise the Prime simulation does
+  // Only one badge fits: the campaign takes the slot until the user qualifies for it
   let badgeDom: React.ReactNode;
 
   if (gatedMerklDistribution?.collateralGate) {
-    // The badge advertises the APY the user would get once they qualify, so every reward they are
-    // not earning yet comes off it
+    // The badge advertises the APY once qualified, so unearned rewards all come off it
     const missedApyPercentage = shownPrimeSimulationDistribution
       ? gatedMerklDistribution.collateralGate.maxApyPercentage.plus(
           shownPrimeSimulationDistribution.apyPercentage,

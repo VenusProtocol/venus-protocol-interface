@@ -214,8 +214,7 @@ export const getSimulatedPool = async ({
     });
   }
 
-  // Collateral-gated Merkl rewards depend on the user's position, so they have to be resolved
-  // again against the simulated balances before earnings are derived from them
+  // These rewards depend on the user's position, so they are resolved again against the simulation
   simulatedAssets = withMerklCollateralGates({ assets: simulatedAssets });
 
   const userPoolValues = calculateUserPoolValues({
