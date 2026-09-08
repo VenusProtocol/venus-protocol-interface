@@ -12,10 +12,16 @@ import type { Address } from 'viem';
 import { MarketActionsButton } from '../MarketActionsButton';
 import { MarketRewardRow } from '../MarketRewardRow';
 
+// Which side of the market the Prime emissions are allocated to for the current cycle. Optional
+// because the read-only cycle summary has no market actions, and because the API exposing the
+// emission config is not deployed everywhere yet: both cases fall back to the supply side.
+export type PrimeRewardSide = 'supply' | 'borrow' | 'both';
+
 export interface UserMarketReward {
   token: Token;
   marketAddress: Address;
   rewardsCents: number;
+  side?: PrimeRewardSide;
 }
 
 export interface UserRewardsCardProps {
@@ -95,26 +101,34 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
       </div>
 
       <div className="flex max-h-15 flex-col gap-2 overflow-y-auto">
-        {marketRewardsWithMarket.map(({ token, rewardsCents, asset, poolComptrollerAddress }) => (
-          <MarketRewardRow
-            key={token.address}
-            token={token}
-            rewardsCents={rewardsCents}
-            totalRewardsCents={totalRewardsCents}
-            progressBarClassName="xl:w-8 2xl:w-1/4"
-            apy={showMarketActions && asset && <AssetApy asset={asset} type="supply" />}
-            actions={
-              showMarketActions &&
-              asset &&
-              poolComptrollerAddress && (
-                <MarketActionsButton
-                  asset={asset}
-                  poolComptrollerAddress={poolComptrollerAddress}
-                />
-              )
-            }
-          />
-        ))}
+        {marketRewardsWithMarket.map(
+          ({ token, rewardsCents, asset, poolComptrollerAddress, side = 'supply' }) => {
+            // A market incentivized on both sides shows its supply APY, per the PRD state table.
+            const apyType = side === 'borrow' ? 'borrow' : 'supply';
+
+            return (
+              <MarketRewardRow
+                key={token.address}
+                token={token}
+                rewardsCents={rewardsCents}
+                totalRewardsCents={totalRewardsCents}
+                progressBarClassName="xl:w-8 2xl:w-1/4"
+                apy={showMarketActions && asset && <AssetApy asset={asset} type={apyType} />}
+                actions={
+                  showMarketActions &&
+                  asset &&
+                  poolComptrollerAddress && (
+                    <MarketActionsButton
+                      asset={asset}
+                      poolComptrollerAddress={poolComptrollerAddress}
+                      side={side}
+                    />
+                  )
+                }
+              />
+            );
+          },
+        )}
       </div>
     </div>
   );

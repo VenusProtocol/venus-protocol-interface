@@ -1535,8 +1535,12 @@
       "totalPoolLabel": "今サイクルの総報酬 <Highlight>{{amount}}</Highlight> のうち"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "{{tokenSymbol}}を借入すると、このPrime APYを獲得できます。",
+        "bothTooltip": "{{tokenSymbol}}を供給または借入すると、このPrime APYを獲得できます。",
+        "supplyTooltip": "{{tokenSymbol}}を供給すると、このPrime APYを獲得できます。"
+      },
       "eligibleMessage": "今サイクルで Prime 報酬を分け合う対象になっています。下記の資産を供給して報酬を獲得しましょう。",
-      "marketActions": "マーケット操作を開く",
       "notEligibleMessage": "今サイクルでは Prime 報酬を分け合う対象ではありません。XVS をステークして次のサイクルで Prime を目指しましょう。",
       "primeLogoAlt": "Venus Prime ロゴ",
       "title": "今サイクルのあなたの Prime 報酬"

@@ -7,6 +7,11 @@ export interface PrimeUserPendingReward {
   marketAddress: Address;
   rewardTokenAddress: Address;
   currentCycleUsdMantissa: string;
+  // Undefined until the API exposing the Prime emission config is deployed on every environment. When
+  // undefined, consumers keep the pre-existing behavior instead of treating the market as unincentivized.
+  tokenDistributionSpeedMantissa?: string;
+  supplyMultiplierMantissa?: string;
+  borrowMultiplierMantissa?: string;
 }
 
 export interface GetPrimeUserPendingRewardsInput {
@@ -31,6 +36,9 @@ interface PrimeUserPendingRewardResponse {
   pendingUsdMantissa: string;
   currentCycleUsdCents: string;
   currentCycleUsdMantissa: string;
+  tokenDistributionSpeedMantissa?: string | null;
+  supplyMultiplierMantissa?: string | null;
+  borrowMultiplierMantissa?: string | null;
 }
 
 interface GetPrimeUserPendingRewardsResponse {
@@ -80,6 +88,9 @@ export const getPrimeUserPendingRewards = async ({
       marketAddress: reward.marketAddress,
       rewardTokenAddress: reward.rewardTokenAddress,
       currentCycleUsdMantissa: reward.currentCycleUsdMantissa,
+      tokenDistributionSpeedMantissa: reward.tokenDistributionSpeedMantissa ?? undefined,
+      supplyMultiplierMantissa: reward.supplyMultiplierMantissa ?? undefined,
+      borrowMultiplierMantissa: reward.borrowMultiplierMantissa ?? undefined,
     })),
   };
 };

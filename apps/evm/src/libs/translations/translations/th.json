@@ -1535,8 +1535,12 @@
       "totalPoolLabel": "จากทั้งหมด <Highlight>{{amount}}</Highlight> ในรอบนี้"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "ยืม {{tokenSymbol}} เพื่อรับ Prime APY นี้",
+        "bothTooltip": "ฝากหรือยืม {{tokenSymbol}} เพื่อรับ Prime APY นี้",
+        "supplyTooltip": "ฝาก {{tokenSymbol}} เพื่อรับ Prime APY นี้"
+      },
       "eligibleMessage": "คุณมีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ จัดหาสินทรัพย์ด้านล่างเพื่อรับรางวัล",
-      "marketActions": "เปิดการดำเนินการของตลาด",
       "notEligibleMessage": "คุณยังไม่มีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
       "primeLogoAlt": "โลโก้ Venus Prime",
       "title": "รางวัล Prime ของคุณในรอบนี้"

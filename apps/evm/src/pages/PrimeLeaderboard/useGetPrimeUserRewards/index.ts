@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { useGetPrimeCurrentCycle, useGetPrimeUserPendingRewards } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
@@ -8,7 +9,7 @@ import {
   findTokenByAddress,
 } from 'utilities';
 
-import type { UserMarketReward } from '../UserRewardsCard';
+import type { PrimeRewardSide, UserMarketReward } from '../UserRewardsCard';
 
 export interface UseGetPrimeUserRewardsOutput {
   isLoading: boolean;
@@ -48,7 +49,51 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
         0,
       );
 
-      return [{ token, marketAddress, rewardsCents }];
+      const emissionConfigs = tokenRewards.flatMap(
+        ({
+          tokenDistributionSpeedMantissa,
+          supplyMultiplierMantissa,
+          borrowMultiplierMantissa,
+        }) => {
+          if (
+            tokenDistributionSpeedMantissa === undefined ||
+            supplyMultiplierMantissa === undefined ||
+            borrowMultiplierMantissa === undefined
+          ) {
+            return [];
+          }
+
+          return [
+            { tokenDistributionSpeedMantissa, supplyMultiplierMantissa, borrowMultiplierMantissa },
+          ];
+        },
+      );
+
+      // The emission config is not served on every environment yet, so anything short of a full set
+      // on every entry keeps the market rendered the way it was before the card became side-aware.
+      if (emissionConfigs.length !== tokenRewards.length) {
+        return [{ token, marketAddress, rewardsCents }];
+      }
+
+      const isSupplyIncentivized = emissionConfigs.some(
+        ({ tokenDistributionSpeedMantissa, supplyMultiplierMantissa }) =>
+          new BigNumber(tokenDistributionSpeedMantissa).isGreaterThan(0) &&
+          new BigNumber(supplyMultiplierMantissa).isGreaterThan(0),
+      );
+      const isBorrowIncentivized = emissionConfigs.some(
+        ({ tokenDistributionSpeedMantissa, borrowMultiplierMantissa }) =>
+          new BigNumber(tokenDistributionSpeedMantissa).isGreaterThan(0) &&
+          new BigNumber(borrowMultiplierMantissa).isGreaterThan(0),
+      );
+
+      let side: PrimeRewardSide = 'supply';
+      if (isSupplyIncentivized && isBorrowIncentivized) {
+        side = 'both';
+      } else if (isBorrowIncentivized) {
+        side = 'borrow';
+      }
+
+      return [{ token, marketAddress, rewardsCents, side }];
     })
     .sort((a, b) => compareTokensBySymbol(a.token, b.token));
 

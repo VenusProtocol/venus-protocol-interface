@@ -1536,8 +1536,12 @@
       "totalPoolLabel": "of <Highlight>{{amount}}</Highlight> total rewards this cycle"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "Borrow {{tokenSymbol}} to earn this Prime APY.",
+        "bothTooltip": "Supply or borrow {{tokenSymbol}} to earn this Prime APY.",
+        "supplyTooltip": "Supply {{tokenSymbol}} to earn this Prime APY."
+      },
       "eligibleMessage": "You are currently eligible for sharing the Prime rewards during this cycle. Supply assets below to share the rewards.",
-      "marketActions": "Open market actions",
       "notEligibleMessage": "You are currently NOT eligible for sharing the Prime rewards during this cycle. Stake XVS to compete for Prime in the next cycle.",
       "primeLogoAlt": "Venus Prime logo",
       "title": "Your Prime rewards this cycle"

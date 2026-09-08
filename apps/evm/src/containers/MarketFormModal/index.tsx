@@ -9,12 +9,14 @@ import type { Asset } from 'types';
 export interface MarketFormModalProps {
   asset: Asset;
   poolComptrollerAddress: Address;
+  initialActiveTabId?: string;
   onClose: ModalProps['handleClose'];
 }
 
 export const MarketFormModal: React.FC<MarketFormModalProps> = ({
   asset,
   poolComptrollerAddress,
+  initialActiveTabId,
   onClose,
 }) => {
   const [userChainSettings] = useUserChainSettings();
@@ -44,6 +46,7 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
       <MarketForm
         vToken={asset.vToken}
         poolComptrollerAddress={poolComptrollerAddress}
+        initialActiveTabId={initialActiveTabId}
         onSubmitSuccess={onClose}
       />
     </Modal>
