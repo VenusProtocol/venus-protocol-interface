@@ -88,8 +88,6 @@ describe('pages/PrimeLeaderboard/useGetPrimeUserRewards', () => {
     expect(result.current.marketRewards[0].side).toBe(expectedSide);
   });
 
-  // Prime multipliers are configured per market, so markets sharing a reward token must not be
-  // collapsed into one row: each keeps its own side and its own amount.
   it('keeps one row per market when a reward token incentivizes several markets', () => {
     mockApi([
       {

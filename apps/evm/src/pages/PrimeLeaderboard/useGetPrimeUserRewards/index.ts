@@ -17,8 +17,7 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
   const tokens = useGetTokens();
   const { data: userPendingRewards, isLoading } = useGetPrimeUserPendingRewards({ accountAddress });
 
-  // One row per market: Prime multipliers are configured per market, so a reward token shared by
-  // several markets must not be collapsed into a single row.
+  // Multipliers are set per market, so markets sharing a reward token stay on separate rows.
   const marketRewards = (userPendingRewards?.rewards ?? [])
     .flatMap(
       ({
@@ -36,8 +35,6 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
 
         const rewardsCents = convertUsdMantissaToCents(currentCycleUsdMantissa).toNumber();
 
-        // The emission config is not served on every environment yet, so an incomplete set keeps
-        // the market rendered the way it was before the card became side-aware.
         if (
           tokenDistributionSpeedMantissa === undefined ||
           supplyMultiplierMantissa === undefined ||
