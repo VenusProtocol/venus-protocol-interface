@@ -316,6 +316,7 @@ export interface LiquidityHub {
   supplyTokenDistributions: TokenDistribution[];
   yieldGroups: LiquidityHubYieldGroup[];
   tokenPriceOracleAddress?: Address;
+  operatorAddress?: Address;
   // User-specific props
   userWalletBalanceTokens?: BigNumber;
   userWalletBalanceCents?: BigNumber;
@@ -1043,6 +1044,7 @@ export interface ApiLiquidityHub {
   symbol: string | null;
   hubTokenDecimals: number;
   underlyingTokenDecimals: number;
+  operatorAddress: Address | null;
   tokenPriceOracleAddress: Address;
   tokenPriceUsdMantissa: string | null;
   totalUnderlyingMantissa: string;

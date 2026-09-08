@@ -991,7 +991,7 @@
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
         "operator": "运营方",
-        "operatorAddress": "TRANSLATION NEEDED",
+        "operatorAddress": "运营方地址",
         "operatorName": "Venus DAO",
         "performanceFee": "绩效费",
         "redeemFee": "赎回费",

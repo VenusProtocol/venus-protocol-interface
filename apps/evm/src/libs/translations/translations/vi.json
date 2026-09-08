@@ -991,7 +991,7 @@
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
         "operator": "Nhà vận hành",
-        "operatorAddress": "TRANSLATION NEEDED",
+        "operatorAddress": "Địa chỉ nhà vận hành",
         "operatorName": "Venus DAO",
         "performanceFee": "Phí hiệu suất",
         "redeemFee": "Phí đổi lại",

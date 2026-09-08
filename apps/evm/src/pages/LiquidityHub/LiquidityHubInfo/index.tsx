@@ -1,6 +1,5 @@
 import { cn } from '@venusprotocol/ui';
 
-import { useGetLiquidityHubOperatorAddress } from 'clients/api';
 import { MarketInfo, type MarketInfoProps } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { routes } from 'constants/routing';
@@ -24,11 +23,6 @@ export const LiquidityHubInfo: React.FC<LiquidityHubInfoProps> = ({ liquidityHub
   const { t, Trans } = useTranslation();
   const { chainId } = useChainId();
 
-  const { data: getLiquidityHubOperatorAddressData } = useGetLiquidityHubOperatorAddress({
-    vhTokenAddress: liquidityHub.vhToken.address,
-  });
-  const operatorAddress = getLiquidityHubOperatorAddressData?.operatorAddress;
-
   const { totalApyPercentage } = getCombinedApy({
     type: 'supply',
     baseApyPercentage: liquidityHub.supplyApyPercentage,
@@ -49,8 +43,12 @@ export const LiquidityHubInfo: React.FC<LiquidityHubInfoProps> = ({ liquidityHub
     },
     {
       label: t('liquidityHub.info.stats.operatorAddress'),
-      children: operatorAddress ? (
-        <ChainExplorerLink hash={operatorAddress} text={operatorAddress} chainId={chainId} />
+      children: liquidityHub.operatorAddress ? (
+        <ChainExplorerLink
+          hash={liquidityHub.operatorAddress}
+          text={liquidityHub.operatorAddress}
+          chainId={chainId}
+        />
       ) : (
         PLACEHOLDER_KEY
       ),

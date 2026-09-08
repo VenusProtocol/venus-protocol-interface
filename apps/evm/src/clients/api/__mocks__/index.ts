@@ -299,17 +299,6 @@ export const useGetLiquidityHubHistory = vi.fn(() => ({
   },
 }));
 
-export const getLiquidityHubOperatorAddress = vi.fn(async () => ({
-  operatorAddress: fakeAddress,
-}));
-
-export const useGetLiquidityHubOperatorAddress = vi.fn(() => ({
-  isLoading: false,
-  data: {
-    operatorAddress: fakeAddress,
-  },
-}));
-
 export const useGetSimulatedPool = vi.fn(() => ({
   isLoading: false,
   data: {

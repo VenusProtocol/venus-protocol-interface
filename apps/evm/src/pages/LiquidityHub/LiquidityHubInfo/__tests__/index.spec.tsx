@@ -1,50 +1,40 @@
 import { screen } from '@testing-library/react';
-import type { Mock } from 'vitest';
 
-import fakeAddress from '__mocks__/models/address';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
-import { useGetLiquidityHubOperatorAddress } from 'clients/api';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import { ChainId } from 'types';
+import { ChainId, type LiquidityHub } from 'types';
 import { generateExplorerUrl, truncateAddress } from 'utilities';
 import { LiquidityHubInfo } from '..';
 
-const liquidityHub = liquidityHubs[0];
+const operatorAddress = '0x4000000000000000000000000000000000000001';
+const liquidityHub: LiquidityHub = { ...liquidityHubs[0], operatorAddress };
 
-const renderLiquidityHubInfo = () =>
-  renderComponent(<LiquidityHubInfo liquidityHub={liquidityHub} />, {
+const renderLiquidityHubInfo = (input = liquidityHub) =>
+  renderComponent(<LiquidityHubInfo liquidityHub={input} />, {
     chainId: ChainId.BSC_TESTNET,
   });
 
 describe('LiquidityHubInfo', () => {
-  const mockUseGetLiquidityHubOperatorAddress = useGetLiquidityHubOperatorAddress as Mock;
-
-  it('renders the operator address, linking to the chain explorer', () => {
+  it('renders the operator address returned by the API, linking to the chain explorer', () => {
     renderLiquidityHubInfo();
 
-    expect(mockUseGetLiquidityHubOperatorAddress).toHaveBeenCalledWith({
-      vhTokenAddress: liquidityHub.vhToken.address,
-    });
     expect(screen.getByText(en.liquidityHub.info.stats.operatorAddress)).toBeInTheDocument();
-    expect(screen.getByText(truncateAddress(fakeAddress))).toBeInTheDocument();
 
     const operatorAddressLink = screen
-      .getByText(truncateAddress(fakeAddress))
+      .getByText(truncateAddress(operatorAddress))
       .closest('a') as HTMLAnchorElement;
 
     expect(operatorAddressLink).toHaveAttribute(
       'href',
-      generateExplorerUrl({ hash: fakeAddress, chainId: ChainId.BSC_TESTNET }),
+      generateExplorerUrl({ hash: operatorAddress, chainId: ChainId.BSC_TESTNET }),
     );
   });
 
   it('does not render the hub contract row anymore', () => {
     renderLiquidityHubInfo();
 
-    // The hub contract address is identical to the vhToken contract address, so the only remaining
-    // row displaying it is the vhToken one
     expect(screen.getAllByText(truncateAddress(liquidityHub.vhToken.address)).length).toBe(1);
     expect(
       screen.getByText(
@@ -56,16 +46,10 @@ describe('LiquidityHubInfo', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders a placeholder while the operator address has not been fetched', () => {
-    mockUseGetLiquidityHubOperatorAddress.mockReturnValue({
-      isLoading: true,
-      data: undefined,
-    });
-
-    renderLiquidityHubInfo();
+  it('renders a placeholder when the API returns no operator address', () => {
+    renderLiquidityHubInfo({ ...liquidityHub, operatorAddress: undefined });
 
     expect(screen.getByText(en.liquidityHub.info.stats.operatorAddress)).toBeInTheDocument();
     expect(screen.getByText(PLACEHOLDER_KEY)).toBeInTheDocument();
-    expect(screen.queryByText(truncateAddress(fakeAddress))).toBeNull();
   });
 });
