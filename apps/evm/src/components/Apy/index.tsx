@@ -21,6 +21,8 @@ export interface ApyProps {
   userBalanceTokens?: BigNumber;
   isMuted?: boolean;
   showPrimeSimulation?: boolean;
+  // The Prime page already identifies itself, so it turns the leading Prime icon off
+  showPrimeIcon?: boolean;
   className?: string;
 }
 
@@ -33,6 +35,7 @@ export const Apy: React.FC<ApyProps> = ({
   userBalanceTokens,
   isMuted = false,
   showPrimeSimulation = true,
+  showPrimeIcon = true,
   className,
 }) => {
   const combinedApy = getCombinedApy({
@@ -121,7 +124,9 @@ export const Apy: React.FC<ApyProps> = ({
     <div
       className={cn('inline-flex gap-1 items-center flex-wrap', isMuted && 'opacity-50', className)}
     >
-      {isApyBoostedByPrime && <PrimeBadge className="shrink-0" type={type} token={token} />}
+      {isApyBoostedByPrime && showPrimeIcon && (
+        <PrimeBadge className="shrink-0" type={type} token={token} />
+      )}
 
       {isApyBoosted ? (
         <BoostTooltip {...distributionListProps}>

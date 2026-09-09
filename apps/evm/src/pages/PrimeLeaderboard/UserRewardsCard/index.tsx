@@ -108,8 +108,11 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
                 token={token}
                 rewardsCents={rewardsCents}
                 totalRewardsCents={totalRewardsCents}
-                progressBarClassName="xl:w-8 2xl:w-1/4"
-                apy={showMarketActions && asset && <AssetApy asset={asset} type={apyType} />}
+                progressBarClassName="xl:w-[50px]"
+                apy={
+                  showMarketActions &&
+                  asset && <AssetApy asset={asset} type={apyType} showPrimeIcon={false} />
+                }
                 actions={
                   showMarketActions &&
                   asset &&
