@@ -217,7 +217,7 @@
           "name": "内在 APY"
         },
         "liquidityHubIntrinsicApy": {
-          "description": "通过向 Venus 流动性中心提供标的资产而获得的原生收益。vhToken 通过不断上升的赎回率累积该收益，而非可领取的奖励——您在提取时会自动获得。",
+          "description": "通过向 <AppLink>Venus 流动性中心</AppLink>提供标的资产而获得的原生收益。vhToken 通过不断上升的赎回率累积该收益，而非可领取的奖励——您在提取时会自动获得。",
           "name": "流动性中心内在 APY"
         },
         "offChainApy": {
@@ -271,7 +271,7 @@
     "intrinsicApy": "内在 APY",
     "intrinsicApyTooltip": "直接来自资产本身的 APY（如存款或外部奖励），与 Venus 借贷收益分开。Venus 协议不作任何保证且不承担责任。",
     "liquidityHubIntrinsicApy": "流动性中心内在 APY",
-    "liquidityHubIntrinsicApyTooltip": "通过向 Venus 流动性中心提供标的资产而获得的原生收益。vhToken 通过不断上升的赎回率累积该收益，而非可领取的奖励——您在提取时会自动获得。",
+    "liquidityHubIntrinsicApyTooltip": "通过向 <AppLink>Venus 流动性中心</AppLink>提供标的资产而获得的原生收益。vhToken 通过不断上升的赎回率累积该收益，而非可领取的奖励——您在提取时会自动获得。",
     "netApy": {
       "label": "净 APY",
       "tooltip": "涉及的所有市场 APY 之和"
@@ -540,14 +540,9 @@
       "totalSupplied": "总供应量"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "借款"
-      },
-      "interactiveTitle": "焦点 ( <Group><SupplyButton>存款</SupplyButton>/<BorrowButton>借款</BorrowButton></Group> )",
       "supplyButton": {
         "label": "存款"
-      },
-      "textTitle": "焦点"
+      }
     },
     "vaults": {
       "dailyEarnings": "每日收益",
@@ -2389,10 +2384,19 @@
       "institution": "机构",
       "liquidated": "已清算",
       "locked": "收益中",
+      "nCategories_other": "{{count}} 个类别",
+      "noResults": "没有符合筛选条件的金库",
+      "nStates_other": "{{count}} 个状态",
+      "nVenues_other": "{{count}} 个平台",
       "paused": "已暂停",
       "pending": "待定",
       "refund": "退款",
-      "repaying": "还款中"
+      "repaying": "还款中",
+      "reset": "重置",
+      "resetFilters": "重置筛选",
+      "selectCategories": "选择类别",
+      "selectStates": "选择状态",
+      "selectVenues": "选择平台"
     },
     "header": "金库",
     "modals": {

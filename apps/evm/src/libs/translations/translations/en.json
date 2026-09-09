@@ -217,7 +217,7 @@
           "name": "Intrinsic APY"
         },
         "liquidityHubIntrinsicApy": {
-          "description": "The native yield earned by supplying the underlying asset to the Venus Liquidity Hub. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
+          "description": "The native yield earned by supplying the underlying asset to the <AppLink>Venus Liquidity Hub</AppLink>. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
           "name": "Liquidity Hub intrinsic APY"
         },
         "offChainApy": {
@@ -271,7 +271,7 @@
     "intrinsicApy": "Intrinsic APY",
     "intrinsicApyTooltip": "APY earned directly from the asset itself (e.g. depositing or external rewards), separate from Venus lending yield. The Venus protocol does not guarantee them and accepts no liability.",
     "liquidityHubIntrinsicApy": "Liquidity Hub intrinsic APY",
-    "liquidityHubIntrinsicApyTooltip": "The native yield earned by supplying the underlying asset to the Venus Liquidity Hub. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
+    "liquidityHubIntrinsicApyTooltip": "The native yield earned by supplying the underlying asset to the <AppLink>Venus Liquidity Hub</AppLink>. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
     "netApy": {
       "label": "Net APY",
       "tooltip": "Sum of the APYs of all the markets involved"
@@ -541,14 +541,9 @@
       "totalSupplied": "Total supplied"
     },
     "topMarkets": {
-      "borrowButton": {
-        "label": "Borrow"
-      },
-      "interactiveTitle": "Spotlight ( <Group><SupplyButton>Supply</SupplyButton>/<BorrowButton>Borrow</BorrowButton></Group> )",
       "supplyButton": {
         "label": "Supply"
-      },
-      "textTitle": "Spotlight"
+      }
     },
     "vaults": {
       "dailyEarnings": "Daily earnings",
@@ -2393,10 +2388,22 @@
       "institution": "Institution",
       "liquidated": "Liquidated",
       "locked": "Locked",
+      "nCategories_one": "{{count}} Category",
+      "nCategories_other": "{{count}} Categories",
+      "noResults": "No vaults match your filters",
+      "nStates_one": "{{count}} State",
+      "nStates_other": "{{count}} States",
+      "nVenues_one": "{{count}} Venue",
+      "nVenues_other": "{{count}} Venues",
       "paused": "Paused",
       "pending": "Pending",
       "refund": "Refund",
-      "repaying": "Repaying"
+      "repaying": "Repaying",
+      "reset": "Reset",
+      "resetFilters": "Reset filters",
+      "selectCategories": "Select categories",
+      "selectStates": "Select states",
+      "selectVenues": "Select venues"
     },
     "header": "Vaults",
     "modals": {

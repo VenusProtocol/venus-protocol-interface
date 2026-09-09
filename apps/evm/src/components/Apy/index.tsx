@@ -1,7 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 import type {
-  MerklDistribution,
   PointDistribution,
   PrimeDistribution,
   PrimeSimulationDistribution,
@@ -44,7 +43,7 @@ export const Apy: React.FC<ApyProps> = ({
   const readableApy = formatPercentageToReadableValue(combinedApy.totalApyPercentage);
   let primeDistribution: PrimeDistribution | undefined;
   let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
-  let gatedMerklDistribution: MerklDistribution | undefined;
+  const gatedMerklApyPercentages: BigNumber[] = [];
   const activeTokenDistributions = tokenDistributions.filter(distribution => distribution.isActive);
 
   activeTokenDistributions.forEach(distribution => {
@@ -56,7 +55,7 @@ export const Apy: React.FC<ApyProps> = ({
       distribution.type === 'merkl' &&
       distribution.collateralGate?.isUserEligible === false
     ) {
-      gatedMerklDistribution = distribution;
+      gatedMerklApyPercentages.push(distribution.collateralGate.maxApyPercentage);
     }
   });
 
@@ -90,18 +89,14 @@ export const Apy: React.FC<ApyProps> = ({
     primeSimulationDistribution: shownPrimeSimulationDistribution,
   };
 
-  // Only one badge fits the slot: the campaign takes it while the user cannot earn it yet,
-  // otherwise the Prime simulation does
+  // Only one badge fits: the campaign takes the slot until the user qualifies for it
   let badgeDom: React.ReactNode;
 
-  if (gatedMerklDistribution?.collateralGate) {
-    // The badge advertises the APY the user would get once they qualify, so every reward they are
-    // not earning yet comes off it
-    const missedApyPercentage = shownPrimeSimulationDistribution
-      ? gatedMerklDistribution.collateralGate.maxApyPercentage.plus(
-          shownPrimeSimulationDistribution.apyPercentage,
-        )
-      : gatedMerklDistribution.collateralGate.maxApyPercentage;
+  if (gatedMerklApyPercentages.length > 0) {
+    // The badge advertises the APY once qualified, so every unearned reward comes off it
+    const missedApyPercentage = gatedMerklApyPercentages
+      .reduce((acc, apyPercentage) => acc.plus(apyPercentage))
+      .plus(shownPrimeSimulationDistribution?.apyPercentage ?? 0);
 
     badgeDom = (
       <MerklBadge

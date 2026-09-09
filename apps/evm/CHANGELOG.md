@@ -1,5 +1,29 @@
 # @venusprotocol/evm
 
+## 5.27.0
+
+### Minor Changes
+
+- aec70bb: fix: add error boundary for webGL deni
+
+## 5.26.0
+
+### Minor Changes
+
+- c40831f: fix: remove buffer
+
+## 5.25.0
+
+### Minor Changes
+
+- c19bb9d: feat: update health bar z-index
+
+## 5.24.0
+
+### Minor Changes
+
+- 230dbcc: Link the Venus Liquidity Hub mention in the Liquidity Hub intrinsic APY tooltip to the Liquidity Hubs page
+
 ## 5.23.1
 
 ### Patch Changes

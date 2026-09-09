@@ -6,7 +6,6 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPool, useWithdrawFromLiquidityHub } from 'clients/api';
-import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -24,8 +23,6 @@ const liquidityHub = {
   userVhTokenMaxRedeemTokens: defaultWithdrawLimitTokens,
 };
 const underlyingToken = liquidityHub.vhToken.underlyingToken;
-const applyTransactionBuffer = (value: BigNumber) =>
-  value.multipliedBy(1 - TRANSACTION_BUFFER_PERCENTAGE);
 
 const renderTransactionForm = (
   props: Partial<WithdrawFormProps> = {},
@@ -75,7 +72,7 @@ describe('WithdrawForm', () => {
   it('renders the user withdraw cap as the withdrawal limit when it is lower than max redeem', () => {
     const withdrawalLimitTokens = new BigNumber(5);
     const readableWithdrawalLimit = formatTokensToReadableValue({
-      value: applyTransactionBuffer(withdrawalLimitTokens),
+      value: withdrawalLimitTokens,
       token: underlyingToken,
     });
 
@@ -105,7 +102,7 @@ describe('WithdrawForm', () => {
       userVhTokenMaxRedeemTokens: new BigNumber(3),
     };
     const readableWithdrawalLimit = formatTokensToReadableValue({
-      value: applyTransactionBuffer(withdrawalLimitTokens),
+      value: withdrawalLimitTokens,
       token: underlyingToken,
     });
 
@@ -119,7 +116,7 @@ describe('WithdrawForm', () => {
   });
 
   it('fills the input with the withdrawal limit when clicking the available balance', async () => {
-    const withdrawalLimitTokens = applyTransactionBuffer(defaultWithdrawLimitTokens);
+    const withdrawalLimitTokens = defaultWithdrawLimitTokens;
     const readableWithdrawalLimit = formatTokensToReadableValue({
       value: withdrawalLimitTokens,
       token: underlyingToken,
@@ -133,7 +130,7 @@ describe('WithdrawForm', () => {
   });
 
   it('fills the input with the withdrawal limit when clicking MAX', async () => {
-    const withdrawalLimitTokens = applyTransactionBuffer(defaultWithdrawLimitTokens);
+    const withdrawalLimitTokens = defaultWithdrawLimitTokens;
 
     renderTransactionForm();
 
@@ -182,9 +179,9 @@ describe('WithdrawForm', () => {
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
   });
 
-  it('submits the buffered withdrawal limit and redeems the full supply when max redeem is reached', async () => {
+  it('submits the withdrawal limit and redeems the full supply when max redeem is reached', async () => {
     const withdrawFromLiquidityHub = vi.fn().mockResolvedValue(undefined);
-    const withdrawalLimitTokens = applyTransactionBuffer(defaultWithdrawLimitTokens);
+    const withdrawalLimitTokens = defaultWithdrawLimitTokens;
 
     mockUseWithdrawFromLiquidityHub.mockReturnValue({
       mutateAsync: withdrawFromLiquidityHub,
@@ -207,7 +204,7 @@ describe('WithdrawForm', () => {
     await waitFor(() =>
       expect(withdrawFromLiquidityHub).toHaveBeenCalledWith({
         liquidityHub,
-        amountMantissa: new BigNumber('41958000000000000000'),
+        amountMantissa: new BigNumber('42000000000000000000'),
         withdrawFullSupply: true,
         userVhTokenBalanceMantissa: new BigNumber('39622641509433962264'),
       }),

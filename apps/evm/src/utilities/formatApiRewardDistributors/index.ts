@@ -51,8 +51,7 @@ export const formatApiRewardDistributors = ({
 
     const isTimeBasedOrMerklReward = isChainTimeBased || rewardType === 'merkl';
 
-    // Collateral-gated Merkl campaigns distribute no supply or borrow speed. Merkl reports a
-    // campaign-wide APR instead, which is then refined per user based on their positions
+    // Gated campaigns report no speed, only a campaign-wide APR that is refined per user later
     // Both address lists are required: without the collateral list no user could ever qualify
     const merklRewardDetails = rewardType === 'merkl' ? rewardDetails : undefined;
     const collateralGatedCampaignAprPercentage =
