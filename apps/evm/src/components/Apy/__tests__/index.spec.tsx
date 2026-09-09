@@ -16,7 +16,10 @@ const venusDistribution: TokenDistribution = {
   isActive: true,
 };
 
-const buildGatedMerklDistribution = (isUserEligible: boolean): TokenDistribution => ({
+const buildGatedMerklDistribution = (
+  isUserEligible: boolean,
+  { maxApyPercentage = 7, merklCampaignIdentifier = '0xfake' } = {},
+): TokenDistribution => ({
   type: 'merkl',
   token,
   apyPercentage: isUserEligible ? new BigNumber(3) : new BigNumber(0),
@@ -24,16 +27,16 @@ const buildGatedMerklDistribution = (isUserEligible: boolean): TokenDistribution
   isActive: true,
   collateralGate: {
     isUserEligible,
-    maxApyPercentage: new BigNumber(7),
+    maxApyPercentage: new BigNumber(maxApyPercentage),
   },
   rewardDetails: {
     appName: 'Merkl',
     claimUrl: 'https://app.merkl.xyz/',
     marketAddress: assetData[0].vToken.address,
-    merklCampaignIdentifier: '0xfake',
+    merklCampaignIdentifier,
     description: 'Merkl campaign',
     tags: [],
-    aprPercentage: 7,
+    aprPercentage: maxApyPercentage,
     participatingCollateralAddresses: ['0x0000000000000000000000000000000000000001'],
     eligibleBorrowMarketAddresses: [assetData[0].vToken.address],
   },
@@ -313,6 +316,30 @@ describe('Apy', () => {
       });
     },
   );
+
+  it('sums every campaign the user has not qualified for into the badge', () => {
+    const { getByText } = renderComponent(
+      <Apy
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[
+          buildGatedMerklDistribution(false, {
+            maxApyPercentage: 7,
+            merklCampaignIdentifier: '0xfirst',
+          }),
+          buildGatedMerklDistribution(false, {
+            maxApyPercentage: 5,
+            merklCampaignIdentifier: '0xsecond',
+          }),
+          primeSimulationDistribution,
+        ]}
+      />,
+    );
+
+    expect(getByText('-2%')).toBeInTheDocument();
+    expect(getByText('-15%')).toBeInTheDocument();
+  });
 
   it('keeps the Prime icon next to the APY when the campaign badge is displayed', () => {
     const { getByAltText } = renderComponent(

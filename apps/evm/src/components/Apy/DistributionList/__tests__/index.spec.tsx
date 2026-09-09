@@ -67,6 +67,56 @@ describe('DistributionList', () => {
     expect(getByText('-1%')).toBeInTheDocument();
   });
 
+  it('lists every campaign the user has not qualified for', () => {
+    const secondCampaign: TokenDistribution = {
+      ...gatedMerklDistribution,
+      collateralGate: { isUserEligible: false, maxApyPercentage: new BigNumber(5) },
+      rewardDetails: {
+        ...gatedMerklDistribution.rewardDetails,
+        merklCampaignIdentifier: '0xsecond',
+      },
+    };
+
+    const { getByText } = renderComponent(
+      <DistributionList
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[gatedMerklDistribution, secondCampaign]}
+        pointDistributions={[]}
+        showEstimatedRewards
+      />,
+    );
+
+    expect(getByText('-7%')).toBeInTheDocument();
+    expect(getByText('-5%')).toBeInTheDocument();
+  });
+
+  it('lists every campaign the user has not qualified for', () => {
+    const secondCampaign: TokenDistribution = {
+      ...gatedMerklDistribution,
+      collateralGate: { isUserEligible: false, maxApyPercentage: new BigNumber(5) },
+      rewardDetails: {
+        ...gatedMerklDistribution.rewardDetails,
+        merklCampaignIdentifier: '0xsecond',
+      },
+    };
+
+    const { getByText } = renderComponent(
+      <DistributionList
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[gatedMerklDistribution, secondCampaign]}
+        pointDistributions={[]}
+        showEstimatedRewards
+      />,
+    );
+
+    expect(getByText('-7%')).toBeInTheDocument();
+    expect(getByText('-5%')).toBeInTheDocument();
+  });
+
   it('leaves out the rates the user is not earning yet otherwise', () => {
     const { getByText, queryByText } = renderComponent(
       <DistributionList
