@@ -3,12 +3,12 @@ import BigNumber from 'bignumber.js';
 import { assetData } from '__mocks__/models/asset';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { PrimeSimulationDistribution, TokenDistribution } from 'types';
+import type { MerklDistribution, PrimeSimulationDistribution, TokenDistribution } from 'types';
 import { DistributionList } from '..';
 
 const token = assetData[0].vToken.underlyingToken;
 
-const gatedMerklDistribution: TokenDistribution = {
+const gatedMerklDistribution: MerklDistribution = {
   type: 'merkl',
   token,
   apyPercentage: new BigNumber(0),
@@ -26,6 +26,7 @@ const gatedMerklDistribution: TokenDistribution = {
     description: 'Merkl campaign',
     tags: [],
     aprPercentage: 7,
+    eligibleBorrowAmountUsd: 46379,
     participatingCollateralAddresses: ['0x0000000000000000000000000000000000000001'],
     eligibleBorrowMarketAddresses: [assetData[0].vToken.address],
   },
@@ -92,29 +93,77 @@ describe('DistributionList', () => {
     expect(getByText('-5%')).toBeInTheDocument();
   });
 
-  it('lists every campaign the user has not qualified for', () => {
-    const secondCampaign: TokenDistribution = {
-      ...gatedMerklDistribution,
-      collateralGate: { isUserEligible: false, maxApyPercentage: new BigNumber(5) },
-      rewardDetails: {
-        ...gatedMerklDistribution.rewardDetails,
-        merklCampaignIdentifier: '0xsecond',
-      },
-    };
-
-    const { getByText } = renderComponent(
+  it('describes an unearned campaign by its eligible amount and collateral, without the claim disclaimer', () => {
+    const { getByText, queryByText } = renderComponent(
       <DistributionList
         type="borrow"
         token={token}
         baseApyPercentage={new BigNumber(-2)}
-        tokenDistributions={[gatedMerklDistribution, secondCampaign]}
+        tokenDistributions={[gatedMerklDistribution]}
         pointDistributions={[]}
         showEstimatedRewards
       />,
     );
 
-    expect(getByText('-7%')).toBeInTheDocument();
-    expect(getByText('-5%')).toBeInTheDocument();
+    expect(
+      getByText(/calculated on the current eligible borrow amount of \$46.37K/),
+    ).toBeInTheDocument();
+    expect(getByText(/collateralized by bStock/)).toBeInTheDocument();
+    expect(queryByText(/claimed through their/)).not.toBeInTheDocument();
+  });
+
+  it('falls back to a placeholder when the API does not serve the eligible amount', () => {
+    const { getByText, queryByText } = renderComponent(
+      <DistributionList
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[
+          {
+            ...gatedMerklDistribution,
+            rewardDetails: {
+              ...gatedMerklDistribution.rewardDetails,
+              eligibleBorrowAmountUsd: undefined,
+            },
+          },
+        ]}
+        pointDistributions={[]}
+        showEstimatedRewards
+      />,
+    );
+
+    expect(getByText(/eligible borrow amount of -\./)).toBeInTheDocument();
+    expect(queryByText(/\$0/)).not.toBeInTheDocument();
+  });
+
+  it('links to the Prime calculator from the estimated Prime row only', () => {
+    const simulated = renderComponent(
+      <DistributionList
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[primeSimulationDistribution]}
+        primeSimulationDistribution={primeSimulationDistribution}
+        pointDistributions={[]}
+        showEstimatedRewards
+      />,
+    );
+
+    expect(simulated.container.querySelector('a')).toBeInTheDocument();
+
+    const earned = renderComponent(
+      <DistributionList
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[]}
+        primeApyPercentage={new BigNumber(3)}
+        userBalanceTokens={new BigNumber(1)}
+        pointDistributions={[]}
+      />,
+    );
+
+    expect(earned.container.querySelector('a')).not.toBeInTheDocument();
   });
 
   it('leaves out the rates the user is not earning yet otherwise', () => {

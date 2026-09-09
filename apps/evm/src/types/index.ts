@@ -99,6 +99,7 @@ export interface MerklDistribution {
     tags: string[];
     aprPercentage?: number;
     // Only served for collateral-gated campaigns
+    eligibleBorrowAmountUsd?: number;
     participatingCollateralAddresses?: Address[];
     eligibleBorrowMarketAddresses?: Address[];
   };
@@ -970,6 +971,7 @@ export interface ApiMerklReward extends ApiReward {
     tags: string[];
     apr?: number;
     // Only served for collateral-gated campaigns
+    tvlUsd?: number;
     participatingCollateralAddresses?: Address[];
     eligibleBorrowMarketAddresses?: Address[];
   };

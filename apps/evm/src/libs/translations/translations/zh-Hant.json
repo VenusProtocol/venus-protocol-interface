@@ -208,7 +208,7 @@
           "name": "借款 APY"
         },
         "collateralGatedMerklReward": {
-          "description": "該市場的最高獎勵率。僅當你的 {{tokenSymbol}} 借款以 bStock 作為抵押時才適用，你當前的倉位尚不符合條件。"
+          "description": "該市場的最高獎勵率，按當前符合條件的借款金額 {{amount}} 計算。僅當你的 {{tokenSymbol}} 借款以 bStock 作為抵押時才適用 —— 你當前的倉位尚不符合條件。"
         },
         "defaultMerklRewardName": "Merkl 獎勵",
         "externalRewardDescription": "該外部計劃的獎勵可通過其 <AppLink>官方應用</AppLink>領取。Venus 協議不作任何保證且不承擔責任。",
@@ -264,7 +264,6 @@
   },
   "apyBreakdown": {
     "borrowApy": "借款 APY",
-    "collateralGatedMerklApyTooltip": "該市場的最高獎勵率。僅當你的 {{tokenSymbol}} 借款以 bStock 作為抵押時才適用，因此尚未計入你的總計。",
     "distributionApy": "分發 APY",
     "distributionTooltip": "分發獎勵由去中心化的 Venus 社區發起並實施。Venus 協議不作任何保證且不承擔責任。",
     "externalDistributionApy": "{{description}} APY",

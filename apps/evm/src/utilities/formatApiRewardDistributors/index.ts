@@ -54,10 +54,12 @@ export const formatApiRewardDistributors = ({
     // Gated campaigns report no speed, only a campaign-wide APR that is refined per user later
     // Both address lists are required: without the collateral list no user could ever qualify
     const merklRewardDetails = rewardType === 'merkl' ? rewardDetails : undefined;
+    const campaignAprPercentage = new BigNumber(merklRewardDetails?.apr ?? 0);
     const collateralGatedCampaignAprPercentage =
       merklRewardDetails?.eligibleBorrowMarketAddresses?.length &&
-      merklRewardDetails.participatingCollateralAddresses?.length
-        ? new BigNumber(merklRewardDetails.apr ?? 0)
+      merklRewardDetails.participatingCollateralAddresses?.length &&
+      campaignAprPercentage.isGreaterThan(0)
+        ? campaignAprPercentage
         : undefined;
 
     const rewardTokenDistributionInput = {

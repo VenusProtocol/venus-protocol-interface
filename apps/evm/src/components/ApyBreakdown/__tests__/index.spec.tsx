@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
-import type { TokenDistribution } from 'types';
+import type { MerklDistribution, TokenDistribution } from 'types';
 import { ApyBreakdown, type ApyBreakdownItem } from '..';
 
 const bumpTokenDistributions = ({
@@ -34,6 +34,37 @@ const borrowItem: ApyBreakdownItem = {
     tokenDistributions: fakeAssets[2].borrowTokenDistributions,
   }),
 };
+
+const buildGatedMerklDistribution = (isUserEligible: boolean): MerklDistribution => ({
+  type: 'merkl',
+  token: fakeAssets[2].vToken.underlyingToken,
+  apyPercentage: isUserEligible ? new BigNumber(3) : new BigNumber(0),
+  dailyDistributedTokens: new BigNumber(0),
+  isActive: true,
+  collateralGate: {
+    isUserEligible,
+    maxApyPercentage: new BigNumber(7),
+  },
+  rewardDetails: {
+    appName: 'Merkl',
+    claimUrl: 'https://app.merkl.xyz/',
+    marketAddress: fakeAssets[2].vToken.address,
+    merklCampaignIdentifier: '0xfake',
+    description: 'Merkl campaign',
+    tags: [],
+    aprPercentage: 7,
+    eligibleBorrowAmountUsd: 46379,
+    participatingCollateralAddresses: ['0x0000000000000000000000000000000000000001'],
+    eligibleBorrowMarketAddresses: [fakeAssets[2].vToken.address],
+  },
+});
+
+const buildGatedBorrowItem = (isUserEligible: boolean): ApyBreakdownItem => ({
+  type: 'borrow',
+  token: fakeAssets[2].vToken.underlyingToken,
+  baseApyPercentage: new BigNumber(-4),
+  tokenDistributions: [buildGatedMerklDistribution(isUserEligible)],
+});
 
 describe('ApyBreakdown', () => {
   it('renders a zero borrow total when no items are provided', () => {
@@ -115,6 +146,35 @@ describe('ApyBreakdown', () => {
     const { container } = renderComponent(<ApyBreakdown items={[item]} />);
 
     expect(container.textContent).toBe('Supply APY2%Total supply APY2%');
+  });
+
+  it('lists a campaign the user qualifies for and folds it into the total', () => {
+    const { container } = renderComponent(<ApyBreakdown items={[buildGatedBorrowItem(true)]} />);
+
+    expect(container.textContent).toBe('Borrow APY-4%Merkl campaign APY-3%Total borrow APY-7%');
+  });
+
+  it('leaves out a campaign the user has not qualified for', () => {
+    const { container } = renderComponent(<ApyBreakdown items={[buildGatedBorrowItem(false)]} />);
+
+    expect(container.textContent).toBe('Borrow APY-4%Total borrow APY-4%');
+  });
+
+  it('brings the campaign row back when the simulated amounts make the user qualify', () => {
+    const item: ApyBreakdownItem = {
+      ...buildGatedBorrowItem(false),
+      simulatedTokenDistributions: [
+        {
+          ...buildGatedMerklDistribution(true),
+          apyPercentage: new BigNumber(5),
+        },
+      ],
+    };
+
+    const { container } = renderComponent(<ApyBreakdown items={[item]} />);
+
+    // the row shows 0% -> -5%, the same figure the total already uses
+    expect(container.textContent).toBe('Borrow APY-4%Merkl campaign APY0%-5%Total borrow APY-9%');
   });
 
   it('renders the total as an accordion title', () => {

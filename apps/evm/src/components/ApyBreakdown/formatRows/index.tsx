@@ -4,6 +4,7 @@ import type { TFunction } from 'i18next';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import type { useTranslation } from 'libs/translations';
+import type { MerklDistribution } from 'types';
 import { formatDistributionApyToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import type { ApyBreakdownItem } from '..';
 import type { LabeledInlineContentProps } from '../../LabeledInlineContent';
@@ -31,17 +32,41 @@ export const formatRows = ({
     },
   ];
 
+  const findSimulatedMerklDistribution = (distribution: MerklDistribution) =>
+    item.simulatedTokenDistributions?.find(
+      simulated =>
+        simulated.type === 'merkl' &&
+        simulated.rewardDetails.merklCampaignIdentifier ===
+          distribution.rewardDetails.merklCampaignIdentifier,
+    );
+
   const distributionRows = item.tokenDistributions
     .filter(distribution => distribution.type !== 'primeSimulation' && distribution.isActive)
     .reduce<LabeledInlineContentProps[]>((acc, distribution) => {
       const collateralGate =
         distribution.type === 'merkl' ? distribution.collateralGate : undefined;
-      const isMissingRequiredCollateral = !!collateralGate && !collateralGate.isUserEligible;
+
+      // The simulated amounts can make the user qualify, which is what the total already reflects
+      const simulatedMerklDistribution =
+        distribution.type === 'merkl' ? findSimulatedMerklDistribution(distribution) : undefined;
+      const simulatedCollateralGate =
+        simulatedMerklDistribution?.type === 'merkl'
+          ? simulatedMerklDistribution.collateralGate
+          : undefined;
+
+      // A campaign the user has not qualified for is advertised on the badge, not in the breakdown
+      if (
+        collateralGate &&
+        !collateralGate.isUserEligible &&
+        !simulatedCollateralGate?.isUserEligible
+      ) {
+        return acc;
+      }
 
       if (
         distribution.type !== 'prime' &&
         distribution.apyPercentage.isEqualTo(0) &&
-        !isMissingRequiredCollateral
+        !simulatedCollateralGate?.isUserEligible
       ) {
         return acc;
       }
@@ -91,21 +116,9 @@ export const formatRows = ({
             }
           />
         );
-      } else if (isMissingRequiredCollateral) {
-        // Muted, as this rate is not part of the total until the user provides the collateral
-        children = (
-          <span className="text-grey">
-            {formatDistributionApy(collateralGate.maxApyPercentage)}
-          </span>
-        );
       } else if (distribution.type === 'merkl' && collateralGate) {
         // Position-dependent, so it moves with the simulated balances the way Prime APY does
-        const simulatedDistribution = item.simulatedTokenDistributions?.find(
-          simulated =>
-            simulated.type === 'merkl' &&
-            simulated.rewardDetails.merklCampaignIdentifier ===
-              distribution.rewardDetails.merklCampaignIdentifier,
-        );
+        const simulatedDistribution = simulatedMerklDistribution;
 
         const hasMoved =
           !!simulatedDistribution &&
@@ -150,12 +163,6 @@ export const formatRows = ({
             }}
           />
         );
-      }
-
-      if (isMissingRequiredCollateral) {
-        tooltip = t('apyBreakdown.collateralGatedMerklApyTooltip', {
-          tokenSymbol: item.token.symbol,
-        });
       }
 
       const row: LabeledInlineContentProps = {
