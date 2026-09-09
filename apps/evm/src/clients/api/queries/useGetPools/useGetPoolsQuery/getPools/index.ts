@@ -17,7 +17,6 @@ import { getUserCollateralAddresses } from './getUserCollateralAddresses';
 import { getUserPrimeApys } from './getUserPrimeApys';
 import { getUserTokenBalances } from './getUserTokenBalances';
 import { getUserVaiBorrowBalance } from './getUserVaiBorrowBalance';
-import { withMerklCollateralGates } from './withMerklCollateralGates';
 
 export interface GetPoolsQueryOutput extends GetPoolsOutput {
   tokenMetadataMapping: Record<string, ApiTokenMetadata>;
@@ -198,7 +197,7 @@ export const getPools = async ({
       userLegacyPoolEModeGroupId;
   }
 
-  const formattedPools = formatOutput({
+  const pools = formatOutput({
     chainId,
     isUserConnected: !!accountAddress,
     tokens,
@@ -213,11 +212,6 @@ export const getPools = async ({
     userPoolEModeGroupIdMapping,
     vaiRepayRateMantissa: vaiRepayRateMantissaResult,
     vaiPriceMantissa: vaiPriceMantissaResult,
-  });
-
-  const pools = formattedPools.map(pool => {
-    const assets = withMerklCollateralGates({ assets: pool.assets });
-    return assets === pool.assets ? pool : { ...pool, assets };
   });
 
   // Add Prime simulations
