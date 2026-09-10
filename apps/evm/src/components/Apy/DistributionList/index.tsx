@@ -13,6 +13,7 @@ import {
   formatDistributionApyToReadableValue,
   formatPercentageToReadableValue,
 } from 'utilities';
+import type { Address } from 'viem';
 import { CalculatorLink } from '../PrimeBadge/CalculatorLink';
 import { SimulationText } from '../PrimeBadge/SimulationText';
 import { Distribution, type DistributionProps } from './Distribution';
@@ -26,6 +27,7 @@ export interface DistributionListProps {
   userBalanceTokens?: BigNumber;
   primeApyPercentage?: BigNumber;
   primeSimulationDistribution?: PrimeSimulationDistribution;
+  vTokenAddress?: Address;
   // Also lists the rewards the user has not qualified for yet, at their advertised rate
   showEstimatedRewards?: boolean;
 }
@@ -39,6 +41,7 @@ export const DistributionList: React.FC<DistributionListProps> = ({
   primeSimulationDistribution,
   tokenDistributions,
   pointDistributions,
+  vTokenAddress,
   showEstimatedRewards = false,
 }) => {
   const { t, Trans } = useTranslation();
@@ -197,7 +200,7 @@ export const DistributionList: React.FC<DistributionListProps> = ({
             />
           </p>
 
-          <CalculatorLink />
+          <CalculatorLink vTokenAddress={vTokenAddress} />
         </>
       ),
       value: formatDistributionApy(primeSimulationDistribution.apyPercentage),

@@ -3,8 +3,15 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
+import { QUERY_PARAM_TOKEN_ADDRESS } from 'pages/PrimeCalculator/Form';
+import type { Address } from 'viem';
 
-export const CalculatorLink: React.FC = () => {
+export interface CalculatorLinkProps {
+  // Preselects the market in the calculator, so each row links to its own numbers
+  vTokenAddress?: Address;
+}
+
+export const CalculatorLink: React.FC<CalculatorLinkProps> = ({ vTokenAddress }) => {
   const { t } = useTranslation();
 
   const isPrimeCalculatorEnabled = useIsFeatureEnabled({
@@ -12,7 +19,14 @@ export const CalculatorLink: React.FC = () => {
   });
 
   return isPrimeCalculatorEnabled ? (
-    <Link to={routes.primeCalculator.path} onClick={e => e.stopPropagation()}>
+    <Link
+      to={
+        vTokenAddress
+          ? `${routes.primeCalculator.path}?${QUERY_PARAM_TOKEN_ADDRESS}=${vTokenAddress}`
+          : routes.primeCalculator.path
+      }
+      onClick={e => e.stopPropagation()}
+    >
       {t('apy.primeBadge.tooltip.calculatorLink')}
     </Link>
   ) : (

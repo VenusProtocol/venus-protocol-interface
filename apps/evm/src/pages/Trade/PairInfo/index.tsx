@@ -141,7 +141,12 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         longTokenSymbol: longToken.symbol,
       }),
       value: longAsset ? (
-        <AssetApy asset={longAsset} type="supply" showPrimeSimulation={false} />
+        <AssetApy
+          asset={longAsset}
+          type="supply"
+          showPrimeSimulation={false}
+          showCampaignRewards={false}
+        />
       ) : (
         PLACEHOLDER_KEY
       ),
@@ -151,7 +156,12 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         shortTokenSymbol: shortToken.symbol,
       }),
       value: shortAsset ? (
-        <AssetApy asset={shortAsset} type="borrow" showPrimeSimulation={false} />
+        <AssetApy
+          asset={shortAsset}
+          type="borrow"
+          showPrimeSimulation={false}
+          showCampaignRewards={false}
+        />
       ) : (
         PLACEHOLDER_KEY
       ),

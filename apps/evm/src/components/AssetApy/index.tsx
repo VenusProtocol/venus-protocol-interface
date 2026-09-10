@@ -6,6 +6,7 @@ export interface AssetApyProps {
   type: ApyProps['type'];
   showPrimeSimulation?: boolean;
   showPrimeIcon?: boolean;
+  showCampaignRewards?: boolean;
   className?: string;
 }
 
@@ -14,6 +15,7 @@ export const AssetApy: React.FC<AssetApyProps> = ({
   type,
   showPrimeSimulation,
   showPrimeIcon,
+  showCampaignRewards,
   className,
 }) => {
   const isBorrow = type === 'borrow';
@@ -33,6 +35,8 @@ export const AssetApy: React.FC<AssetApyProps> = ({
       isMuted={isBorrow && !asset.isBorrowableByUser}
       showPrimeSimulation={showPrimeSimulation}
       showPrimeIcon={showPrimeIcon}
+      showCampaignRewards={showCampaignRewards}
+      vTokenAddress={asset.vToken.address}
       className={className}
     />
   );

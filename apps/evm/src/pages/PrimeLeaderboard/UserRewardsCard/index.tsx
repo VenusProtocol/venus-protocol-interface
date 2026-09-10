@@ -99,12 +99,19 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
 
       <div className="flex max-h-15 flex-col gap-2 overflow-y-auto">
         {marketRewardsWithMarket.map(
-          ({ token, rewardsCents, asset, poolComptrollerAddress, side = 'supply' }) => {
+          ({
+            token,
+            marketAddress,
+            rewardsCents,
+            asset,
+            poolComptrollerAddress,
+            side = 'supply',
+          }) => {
             const apyType = side === 'borrow' ? 'borrow' : 'supply';
 
             return (
               <MarketRewardRow
-                key={token.address}
+                key={`${marketAddress}-${side}`}
                 token={token}
                 rewardsCents={rewardsCents}
                 totalRewardsCents={totalRewardsCents}

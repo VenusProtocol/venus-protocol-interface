@@ -4,6 +4,7 @@ import { cn } from '@venusprotocol/ui';
 import { Tooltip, type TooltipProps } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { PrimeSimulationDistribution, Token } from 'types';
+import type { Address } from 'viem';
 import { CalculatorLink } from './CalculatorLink';
 import { PrimeApy } from './PrimeApy';
 import { PrimeIcon } from './PrimeIcon';
@@ -14,6 +15,7 @@ export interface PrimeBadgeProps extends Omit<TooltipProps, 'content' | 'childre
   type: 'supply' | 'borrow';
   simulationReferenceValues?: PrimeSimulationDistribution['referenceValues'];
   simulatedApyPercentage?: BigNumber;
+  vTokenAddress?: Address;
   className?: string;
 }
 
@@ -22,6 +24,7 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
   simulationReferenceValues,
   simulatedApyPercentage,
   type,
+  vTokenAddress,
   className,
   ...otherProps
 }) => {
@@ -44,7 +47,7 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
             )}
           </p>
 
-          <CalculatorLink />
+          <CalculatorLink vTokenAddress={vTokenAddress} />
         </>
       }
       {...otherProps}
