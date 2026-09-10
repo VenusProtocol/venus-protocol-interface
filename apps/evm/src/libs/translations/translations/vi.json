@@ -967,14 +967,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "Quỹ",
             "market": "Thị trường",
             "vault": "Kho"
           }
         },
         "names": {
+          "centrifuge": "Các quỹ Centrifuge",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "Kho lãi suất cố định"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "Tổ chức xếp hạng",
+            "rating": "Xếp hạng"
+          },
+          "title": "CRA",
+          "tooltip": "Tổ chức xếp hạng độc lập đã đưa ra xếp hạng này."
         }
       }
     },

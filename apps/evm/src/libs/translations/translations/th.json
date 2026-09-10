@@ -967,14 +967,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "กองทุน",
             "market": "ตลาด",
             "vault": "คลัง"
           }
         },
         "names": {
+          "centrifuge": "กองทุน Centrifuge",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "คลังอัตราคงที่"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "หน่วยงานจัดอันดับ",
+            "rating": "อันดับความน่าเชื่อถือ"
+          },
+          "title": "CRA",
+          "tooltip": "หน่วยงานจัดอันดับอิสระที่ให้อันดับความน่าเชื่อถือนี้"
         }
       }
     },

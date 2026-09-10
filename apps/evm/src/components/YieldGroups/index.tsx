@@ -1,6 +1,4 @@
-import { cn } from '@venusprotocol/ui';
-
-import { ImgGroup, Table, type TableColumn, Tooltip } from 'components';
+import { ImgGroupTooltip, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubYieldGroup } from 'types';
 
@@ -37,26 +35,13 @@ export const YieldGroups: React.FC<YieldGroupsProps> = ({ yieldGroups, className
   ];
 
   return (
-    <Tooltip
-      content={
-        <Table
-          data={yieldGroups}
-          rowKeyExtractor={row => row.address}
-          columns={columns}
-          variant="secondary"
-          className="border-0 p-0"
-          tableRowClassName="h-12"
-          tableHeaderClassName="h-12"
-        />
-      }
-      className={cn('inline-flex', className)}
-      contentClassName="p-0 max-h-49 overflow-y-auto"
-    >
-      <ImgGroup
-        imgSrcs={yieldGroups.map(yieldGroup => yieldGroup.iconSrc)}
-        removeDuplicates
-        limit={5}
-      />
-    </Tooltip>
+    <ImgGroupTooltip
+      imgSrcs={yieldGroups.map(yieldGroup => yieldGroup.iconSrc)}
+      data={yieldGroups}
+      rowKeyExtractor={row => row.address}
+      columns={columns}
+      removeDuplicates
+      className={className}
+    />
   );
 };

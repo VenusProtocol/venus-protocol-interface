@@ -967,14 +967,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "基金",
             "market": "市場",
             "vault": "金庫"
           }
         },
         "names": {
+          "centrifuge": "Centrifuge 基金",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "固定利率金庫"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "評級機構",
+            "rating": "評級"
+          },
+          "title": "CRA",
+          "tooltip": "給出該評級的獨立評級機構。"
         }
       }
     },
