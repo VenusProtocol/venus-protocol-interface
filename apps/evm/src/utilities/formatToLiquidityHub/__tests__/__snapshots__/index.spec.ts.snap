@@ -4,6 +4,7 @@ exports[`formatToLiquidityHub > calculates user yearly earnings from the user su
 {
   "liquidityCents": "10000",
   "liquidityTokens": "100",
+  "operatorAddress": "0x4000000000000000000000000000000000000001",
   "performanceFeePercentage": "0",
   "pricePerShare": "1",
   "redeemFeePercentage": "0",
@@ -46,6 +47,7 @@ exports[`formatToLiquidityHub > does not calculate user yearly earnings without 
 {
   "liquidityCents": "10000",
   "liquidityTokens": "100",
+  "operatorAddress": "0x4000000000000000000000000000000000000001",
   "performanceFeePercentage": "0",
   "pricePerShare": "1",
   "redeemFeePercentage": "0",
@@ -88,6 +90,7 @@ exports[`formatToLiquidityHub > falls back to the token balance and token price 
 {
   "liquidityCents": "10000",
   "liquidityTokens": "100",
+  "operatorAddress": "0x4000000000000000000000000000000000000001",
   "performanceFeePercentage": "0",
   "pricePerShare": "1",
   "redeemFeePercentage": "0",
@@ -130,6 +133,7 @@ exports[`formatToLiquidityHub > formats a Liquidity Hub 1`] = `
 {
   "liquidityCents": "10000",
   "liquidityTokens": "100",
+  "operatorAddress": "0x4000000000000000000000000000000000000001",
   "performanceFeePercentage": "0",
   "pricePerShare": "1",
   "redeemFeePercentage": "0",
@@ -172,6 +176,7 @@ exports[`formatToLiquidityHub > formats user-specific supply and withdrawal caps
 {
   "liquidityCents": "10000",
   "liquidityTokens": "100",
+  "operatorAddress": "0x4000000000000000000000000000000000000001",
   "performanceFeePercentage": "0",
   "pricePerShare": "1",
   "redeemFeePercentage": "0",
@@ -214,6 +219,7 @@ exports[`formatToLiquidityHub > formats yield groups 1`] = `
 {
   "liquidityCents": "125000",
   "liquidityTokens": "500",
+  "operatorAddress": "0x5000000000000000000000000000000000000001",
   "performanceFeePercentage": "10",
   "pricePerShare": "1.02",
   "redeemFeePercentage": "1",
@@ -314,6 +320,7 @@ exports[`formatToLiquidityHub > includes active supply reward APYs 1`] = `
 {
   "liquidityCents": "10000",
   "liquidityTokens": "100",
+  "operatorAddress": "0x4000000000000000000000000000000000000001",
   "performanceFeePercentage": "0",
   "pricePerShare": "1",
   "redeemFeePercentage": "0",
@@ -371,6 +378,7 @@ exports[`formatToLiquidityHub > returns zero yearly earnings for an explicit zer
 {
   "liquidityCents": "10000",
   "liquidityTokens": "100",
+  "operatorAddress": "0x4000000000000000000000000000000000000001",
   "performanceFeePercentage": "0",
   "pricePerShare": "1",
   "redeemFeePercentage": "0",

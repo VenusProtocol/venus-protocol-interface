@@ -985,8 +985,8 @@
           "title": "อัตราแลกเปลี่ยน",
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
-        "hubContract": "สัญญาศูนย์",
         "operator": "ผู้ดำเนินการ",
+        "operatorAddress": "ที่อยู่ผู้ดำเนินการ",
         "operatorName": "Venus DAO",
         "performanceFee": "ค่าธรรมเนียมผลการดำเนินงาน",
         "redeemFee": "ค่าธรรมเนียมไถ่ถอน",

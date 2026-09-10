@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
 import { MarketInfo, type MarketInfoProps } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { routes } from 'constants/routing';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
@@ -41,13 +42,15 @@ export const LiquidityHubInfo: React.FC<LiquidityHubInfoProps> = ({ liquidityHub
       children: t('liquidityHub.info.stats.operatorName'),
     },
     {
-      label: t('liquidityHub.info.stats.hubContract'),
-      children: (
+      label: t('liquidityHub.info.stats.operatorAddress'),
+      children: liquidityHub.operatorAddress ? (
         <ChainExplorerLink
-          hash={liquidityHub.vhToken.address}
-          text={liquidityHub.vhToken.address}
+          hash={liquidityHub.operatorAddress}
+          text={liquidityHub.operatorAddress}
           chainId={chainId}
         />
+      ) : (
+        PLACEHOLDER_KEY
       ),
     },
     {

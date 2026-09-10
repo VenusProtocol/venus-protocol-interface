@@ -985,8 +985,8 @@
           "title": "匯率",
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
-        "hubContract": "中心合約",
         "operator": "營運方",
+        "operatorAddress": "營運方地址",
         "operatorName": "Venus DAO",
         "performanceFee": "績效費",
         "redeemFee": "贖回費",

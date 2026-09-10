@@ -986,8 +986,8 @@
           "title": "Döviz kuru",
           "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
         },
-        "hubContract": "Merkez sözleşmesi",
         "operator": "Operatör",
+        "operatorAddress": "Operatör adresi",
         "operatorName": "Venus DAO",
         "performanceFee": "Performans ücreti",
         "redeemFee": "İtfa ücreti",

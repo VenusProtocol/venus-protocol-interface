@@ -143,6 +143,7 @@ export const formatToLiquidityHub = ({
     vhToken,
     tokenPriceCents,
     tokenPriceOracleAddress: apiLiquidityHub.tokenPriceOracleAddress,
+    operatorAddress: apiLiquidityHub.operatorAddress ?? undefined,
     supplyBalanceTokens,
     supplyBalanceCents,
     liquidityTokens,
