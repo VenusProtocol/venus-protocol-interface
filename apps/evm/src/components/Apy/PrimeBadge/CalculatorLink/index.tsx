@@ -1,9 +1,8 @@
 import { VENUS_PRIME_DOC_URL } from 'constants/production';
-import { routes } from 'constants/routing';
+import { PRIME_CALCULATOR_TOKEN_ADDRESS_PARAM, routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import { QUERY_PARAM_TOKEN_ADDRESS } from 'pages/PrimeCalculator/Form';
 import type { Address } from 'viem';
 
 export interface CalculatorLinkProps {
@@ -22,7 +21,7 @@ export const CalculatorLink: React.FC<CalculatorLinkProps> = ({ vTokenAddress })
     <Link
       to={
         vTokenAddress
-          ? `${routes.primeCalculator.path}?${QUERY_PARAM_TOKEN_ADDRESS}=${vTokenAddress}`
+          ? `${routes.primeCalculator.path}?${PRIME_CALCULATOR_TOKEN_ADDRESS_PARAM}=${vTokenAddress}`
           : routes.primeCalculator.path
       }
       onClick={e => e.stopPropagation()}
