@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.28.0
+
+### Minor Changes
+
+- bec6fd7: Replace the Hub contract row with the operator address in the Liquidity Hub info section
+
 ## 5.27.0
 
 ### Minor Changes
