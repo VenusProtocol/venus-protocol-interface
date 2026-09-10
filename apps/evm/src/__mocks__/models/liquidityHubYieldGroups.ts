@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import placeholderIconSrc from 'assets/img/placeholderIcon.svg';
+import centrifugeIconSrc from 'assets/img/centrifugeIcon.svg';
 import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
 import type { LiquidityHubYieldGroup } from 'types';
@@ -166,7 +166,7 @@ export const usdtCentrifugeYieldGroup: LiquidityHubYieldGroup = {
   address: '0x5000000000000000000000000000000000000009',
   type: 'centrifuge',
   nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.centrifuge',
-  iconSrc: placeholderIconSrc,
+  iconSrc: centrifugeIconSrc,
   bgClassName: 'bg-red',
   allocationTokens: usdtJtrsyFundSource.allocationTokens.plus(usdtJaaaFundSource.allocationTokens),
   allocationCents: usdtJtrsyFundSource.allocationCents.plus(usdtJaaaFundSource.allocationCents),
