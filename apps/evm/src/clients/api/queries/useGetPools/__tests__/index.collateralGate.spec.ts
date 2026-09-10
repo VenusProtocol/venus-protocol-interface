@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/dom';
-import { chains } from '@venusprotocol/chains';
 import type { Mock } from 'vitest';
 
 import apiPoolsResponse from '__mocks__/api/pools.json';
@@ -13,7 +12,6 @@ import {
 } from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
-import { ChainId } from 'types';
 import { restService } from 'utilities/restService';
 import { useGetPools } from '..';
 import {
@@ -32,22 +30,6 @@ vi.mock('clients/api/queries/getTokenBalances', () => ({
 vi.mock('clients/api/queries/useGetIpLocation', () => ({
   useGetIpLocation: vi.fn(),
 }));
-
-const findAssetByVTokenSymbol = ({
-  symbol,
-  pools,
-}: {
-  symbol: string;
-  pools?: {
-    assets: {
-      vToken: {
-        symbol: string;
-      };
-      isRestricted: boolean;
-      isGated: boolean;
-    }[];
-  }[];
-}) => pools?.flatMap(pool => pool.assets).find(asset => asset.vToken.symbol === symbol);
 
 describe('useGetPools collateral-gated campaigns', () => {
   beforeEach(() => {
@@ -105,13 +87,34 @@ describe('useGetPools collateral-gated campaigns', () => {
     );
   });
 
-
   it('derives the pool totals from the gated rate, not the campaign maximum', async () => {
     const corePool = apiPoolsResponse.result[0];
     const market = corePool.markets.find(m => m.underlyingSymbol === 'USDT')!;
-    const merklDistributor = market.rewardsDistributors.find(r => r.rewardType === 'merkl')!;
+    // clone a distributor the chain already knows, so the reward token resolves
+    const template = market.rewardsDistributors.find(r => r.rewardType === 'venus')!;
 
-    // A campaign the user cannot qualify for: they hold none of the participating collateral
+    const gatedDistributor = {
+      ...template,
+      rewardType: 'merkl',
+      supplySpeed: '0',
+      borrowSpeed: '0',
+      supplyApyRatio: '0',
+      borrowApyRatio: '0',
+      rewardDetails: {
+        appName: 'Merkl',
+        claimUrl: 'https://app.merkl.xyz/',
+        merklCampaignId: 'campaign-id',
+        merklCampaignIdentifier: '0xgated',
+        description: 'Merkl campaign',
+        tags: [],
+        apr: 1000,
+        tvlUsd: 1000,
+        // the user holds none of this collateral, so they cannot qualify
+        participatingCollateralAddresses: ['0x0000000000000000000000000000000000000001'],
+        eligibleBorrowMarketAddresses: [market.address],
+      },
+    };
+
     const gatedResponse = {
       ...apiPoolsResponse,
       result: apiPoolsResponse.result.map(pool =>
@@ -122,25 +125,7 @@ describe('useGetPools collateral-gated campaigns', () => {
               markets: pool.markets.map(m =>
                 m !== market
                   ? m
-                  : {
-                      ...m,
-                      rewardsDistributors: m.rewardsDistributors.map(r =>
-                        r !== merklDistributor
-                          ? r
-                          : {
-                              ...r,
-                              rewardTokenAddress: m.underlyingAddress,
-                              rewardDetails: {
-                                ...r.rewardDetails,
-                                apr: 1000,
-                                participatingCollateralAddresses: [
-                                  '0x0000000000000000000000000000000000000001',
-                                ],
-                                eligibleBorrowMarketAddresses: [m.address],
-                              },
-                            },
-                      ),
-                    },
+                  : { ...m, rewardsDistributors: [...m.rewardsDistributors, gatedDistributor] },
               ),
             },
       ),
@@ -155,22 +140,17 @@ describe('useGetPools collateral-gated campaigns', () => {
     await waitFor(() => expect(result.current.data).toBeDefined());
 
     const pool = result.current.data!.pools[0];
-    const asset = pool.assets.find(a => a.vToken.underlyingToken.symbol === 'USDT')!;
+    const asset = pool.assets.find(a => a.vToken.address === market.address)!;
     const merklDistribution = asset.borrowTokenDistributions.find(d => d.type === 'merkl');
-
-
-    console.log('BORROW', asset.borrowTokenDistributions.map(d => `${d.type}:${d.apyPercentage.toFixed()}:${d.type === 'merkl' ? JSON.stringify(d.rewardDetails.aprPercentage) + ':' + JSON.stringify(!!d.collateralGate) : ''}`));
-    console.log('COLLAT', asset.isCollateralOfUser, 'BORROWCENTS', asset.userBorrowBalanceCents.toFixed());
 
     // the campaign is advertised at its maximum
     expect(merklDistribution?.collateralGate?.isUserEligible).toBe(false);
     expect(merklDistribution?.collateralGate?.maxApyPercentage.toFixed()).toBe('1000');
-    // but the user earns nothing from it, and the pool totals must agree
+    // but the user earns nothing from it
     expect(merklDistribution?.apyPercentage.toFixed()).toBe('0');
 
+    // and the pool totals must agree: the campaign maximum alone would dwarf this
     const yearlyEarningsFromMax = asset.userBorrowBalanceCents.multipliedBy(10);
-    expect(
-      pool.userYearlyEarningsCents!.abs().isLessThan(yearlyEarningsFromMax.abs()),
-    ).toBe(true);
+    expect(pool.userYearlyEarningsCents!.abs().isLessThan(yearlyEarningsFromMax.abs())).toBe(true);
   });
 });
