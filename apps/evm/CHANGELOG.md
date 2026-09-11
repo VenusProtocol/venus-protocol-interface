@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.29.0
+
+### Minor Changes
+
+- 10056e2: display the per-user reward APY of collateral-gated Merkl borrow campaigns
+
 ## 5.28.0
 
 ### Minor Changes
