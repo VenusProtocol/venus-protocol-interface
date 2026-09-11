@@ -18,6 +18,7 @@ interface MerklRewardDetails {
   claimUrl: string;
   tags: string[];
   apr?: number;
+  tvlUsd?: number;
   participatingCollateralAddresses?: Address[];
   eligibleBorrowMarketAddresses?: Address[];
 }
@@ -57,13 +58,18 @@ export const formatRewardDistribution = <TType extends ApiRewardType>({
   };
 
   if (rewardType === 'merkl' && rewardDetails) {
-    const { apr, ...merklRewardDetails } = rewardDetails as MerklRewardDetails;
+    const { apr, tvlUsd, ...merklRewardDetails } = rewardDetails as MerklRewardDetails;
 
     const distribution: MerklDistribution = {
       ...baseProps,
       type: 'merkl',
       isActive,
-      rewardDetails: { ...merklRewardDetails, marketAddress, aprPercentage: apr },
+      rewardDetails: {
+        ...merklRewardDetails,
+        marketAddress,
+        aprPercentage: apr,
+        eligibleBorrowAmountUsd: tvlUsd,
+      },
     };
 
     return distribution;

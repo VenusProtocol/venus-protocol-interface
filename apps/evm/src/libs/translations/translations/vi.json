@@ -208,7 +208,7 @@
           "name": "APY vay"
         },
         "collateralGatedMerklReward": {
-          "description": "Mức thưởng tối đa trên thị trường này. Nó chỉ áp dụng khi khoản vay {{tokenSymbol}} của bạn được thế chấp bằng bStock, và vị thế của bạn hiện chưa đủ điều kiện."
+          "description": "Mức thưởng tối đa trên thị trường này, được tính trên số dư vay đủ điều kiện hiện tại là {{amount}}. Nó chỉ áp dụng khi khoản vay {{tokenSymbol}} của bạn được thế chấp bằng bStock, và vị thế của bạn hiện chưa đủ điều kiện."
         },
         "defaultMerklRewardName": "Phần thưởng Merkl",
         "externalRewardDescription": "Phần thưởng từ chương trình bên ngoài này có thể được nhận qua <AppLink>ứng dụng chính thức</AppLink> của họ. Venus protocol không đảm bảo và không chịu trách nhiệm.",
@@ -264,7 +264,6 @@
   },
   "apyBreakdown": {
     "borrowApy": "APY vay",
-    "collateralGatedMerklApyTooltip": "Mức thưởng tối đa trên thị trường này. Nó chỉ áp dụng khi khoản vay {{tokenSymbol}} của bạn được thế chấp bằng bStock, nên chưa được tính vào tổng của bạn.",
     "distributionApy": "APY phân phối",
     "distributionTooltip": "Phần thưởng phân phối được khởi xướng và triển khai bởi cộng đồng Venus phi tập trung. Venus protocol không đảm bảo và không chịu trách nhiệm.",
     "externalDistributionApy": "{{description}} APY",
@@ -1530,8 +1529,12 @@
       "totalPoolLabel": "trên tổng <Highlight>{{amount}}</Highlight> phần thưởng chu kỳ này"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "Vay {{tokenSymbol}} để nhận Prime APY này.",
+        "bothTooltip": "Cung cấp hoặc vay {{tokenSymbol}} để nhận Prime APY này.",
+        "supplyTooltip": "Cung cấp {{tokenSymbol}} để nhận Prime APY này."
+      },
       "eligibleMessage": "Bạn hiện đủ điều kiện chia sẻ phần thưởng Prime trong chu kỳ này. Hãy cung cấp tài sản bên dưới để nhận phần thưởng.",
-      "marketActions": "Mở thao tác thị trường",
       "notEligibleMessage": "Bạn hiện KHÔNG đủ điều kiện chia sẻ phần thưởng Prime trong chu kỳ này. Stake XVS để cạnh tranh Prime cho chu kỳ tiếp theo.",
       "primeLogoAlt": "Logo Venus Prime",
       "title": "Phần thưởng Prime của bạn trong chu kỳ này"

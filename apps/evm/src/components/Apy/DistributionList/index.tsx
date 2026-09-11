@@ -1,4 +1,4 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
@@ -8,7 +8,13 @@ import type {
   Token,
   TokenDistribution,
 } from 'types';
-import { formatDistributionApyToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import {
+  formatCentsToReadableValue,
+  formatDistributionApyToReadableValue,
+  formatPercentageToReadableValue,
+} from 'utilities';
+import type { Address } from 'viem';
+import { CalculatorLink } from '../PrimeBadge/CalculatorLink';
 import { SimulationText } from '../PrimeBadge/SimulationText';
 import { Distribution, type DistributionProps } from './Distribution';
 
@@ -21,6 +27,7 @@ export interface DistributionListProps {
   userBalanceTokens?: BigNumber;
   primeApyPercentage?: BigNumber;
   primeSimulationDistribution?: PrimeSimulationDistribution;
+  vTokenAddress?: Address;
   // Also lists the rewards the user has not qualified for yet, at their advertised rate
   showEstimatedRewards?: boolean;
 }
@@ -34,6 +41,7 @@ export const DistributionList: React.FC<DistributionListProps> = ({
   primeSimulationDistribution,
   tokenDistributions,
   pointDistributions,
+  vTokenAddress,
   showEstimatedRewards = false,
 }) => {
   const { t, Trans } = useTranslation();
@@ -77,6 +85,9 @@ export const DistributionList: React.FC<DistributionListProps> = ({
     }
 
     if (d.type === 'merkl') {
+      // The rate is quoted against this amount, which the API does not always serve
+      const { eligibleBorrowAmountUsd } = d.rewardDetails;
+
       const distribution = {
         key: d.rewardDetails.merklCampaignIdentifier,
         name: d.rewardDetails.description || t('apy.boost.tooltip.defaultMerklRewardName'),
@@ -84,19 +95,16 @@ export const DistributionList: React.FC<DistributionListProps> = ({
           isMissingRequiredCollateral ? collateralGate.maxApyPercentage : d.apyPercentage,
         ),
         logoSrc: d.token.iconSrc,
-        description: isMissingRequiredCollateral ? (
-          <>
-            <p>
-              {t('apy.boost.tooltip.collateralGatedMerklReward.description', {
-                tokenSymbol: token.symbol,
-              })}
-            </p>
-
-            <p>{renderExternalRewardDescription(d.rewardDetails.claimUrl)}</p>
-          </>
-        ) : (
-          renderExternalRewardDescription(d.rewardDetails.claimUrl)
-        ),
+        description: isMissingRequiredCollateral
+          ? t('apy.boost.tooltip.collateralGatedMerklReward.description', {
+              amount: formatCentsToReadableValue({
+                value: eligibleBorrowAmountUsd
+                  ? new BigNumber(eligibleBorrowAmountUsd).multipliedBy(100)
+                  : undefined,
+              }),
+              tokenSymbol: token.symbol,
+            })
+          : renderExternalRewardDescription(d.rewardDetails.claimUrl),
       };
 
       return listItems.push(distribution);
@@ -183,11 +191,17 @@ export const DistributionList: React.FC<DistributionListProps> = ({
       key: 'primeSimulation',
       name: t('apy.boost.tooltip.primeDistribution.name'),
       description: (
-        <SimulationText
-          token={token}
-          type={type}
-          referenceValues={primeSimulationDistribution.referenceValues}
-        />
+        <>
+          <p>
+            <SimulationText
+              token={token}
+              type={type}
+              referenceValues={primeSimulationDistribution.referenceValues}
+            />
+          </p>
+
+          <CalculatorLink vTokenAddress={vTokenAddress} />
+        </>
       ),
       value: formatDistributionApy(primeSimulationDistribution.apyPercentage),
       logoSrc: token.iconSrc,

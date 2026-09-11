@@ -21,6 +21,7 @@ import {
   Spinner,
   TokenIconWithSymbol,
 } from 'components';
+import { PRIME_CALCULATOR_TOKEN_ADDRESS_PARAM } from 'constants/routing';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { usePrimeVersion } from 'hooks/usePrimeVersion';
 import { useGetToken } from 'libs/tokens';
@@ -42,7 +43,7 @@ import { Field } from './Field';
 import { RewardDetails } from './RewardDetails';
 import { validateNumericString } from './validateNumericString';
 
-export const QUERY_PARAM_TOKEN_ADDRESS = 'tokenAddress';
+export const QUERY_PARAM_TOKEN_ADDRESS = PRIME_CALCULATOR_TOKEN_ADDRESS_PARAM;
 
 export const Form: React.FC = () => {
   const { t } = useTranslation();

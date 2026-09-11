@@ -208,7 +208,7 @@
           "name": "借款 APY"
         },
         "collateralGatedMerklReward": {
-          "description": "该市场的最高奖励率。仅当你的 {{tokenSymbol}} 借款以 bStock 作为抵押时才适用，你当前的仓位尚不符合条件。"
+          "description": "该市场的最高奖励率，按当前符合条件的借款金额 {{amount}} 计算。仅当你的 {{tokenSymbol}} 借款以 bStock 作为抵押时才适用 —— 你当前的仓位尚不符合条件。"
         },
         "defaultMerklRewardName": "Merkl 奖励",
         "externalRewardDescription": "该外部计划的奖励可通过其 <AppLink>官方应用</AppLink>领取。Venus 协议不作任何保证且不承担责任。",
@@ -264,7 +264,6 @@
   },
   "apyBreakdown": {
     "borrowApy": "借款 APY",
-    "collateralGatedMerklApyTooltip": "该市场的最高奖励率。仅当你的 {{tokenSymbol}} 借款以 bStock 作为抵押时才适用，因此尚未计入你的总计。",
     "distributionApy": "分发 APY",
     "distributionTooltip": "分发奖励由去中心化的 Venus 社区发起并实施。Venus 协议不作任何保证且不承担责任。",
     "externalDistributionApy": "{{description}} APY",
@@ -1530,8 +1529,12 @@
       "totalPoolLabel": "本周期总奖励 <Highlight>{{amount}}</Highlight>"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "借款 {{tokenSymbol}} 即可获得此 Prime APY。",
+        "bothTooltip": "存款或借款 {{tokenSymbol}} 即可获得此 Prime APY。",
+        "supplyTooltip": "存款 {{tokenSymbol}} 即可获得此 Prime APY。"
+      },
       "eligibleMessage": "你在本周期已具备分享 Prime 奖励的资格。在下方供给资产以分享奖励。",
-      "marketActions": "打开市场操作",
       "notEligibleMessage": "你在本周期暂不具备分享 Prime 奖励的资格。质押 XVS 以在下一周期竞争 Prime。",
       "primeLogoAlt": "Venus Prime 标志",
       "title": "你本周期的 Prime 奖励"

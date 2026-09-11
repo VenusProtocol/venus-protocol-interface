@@ -8,6 +8,7 @@ import type {
   TokenDistribution,
 } from 'types';
 import { formatPercentageToReadableValue, getCombinedApy } from 'utilities';
+import type { Address } from 'viem';
 import { BoostTooltip } from './BoostTooltip';
 import { MerklBadge } from './MerklBadge';
 import { PrimeBadge } from './PrimeBadge';
@@ -21,6 +22,11 @@ export interface ApyProps {
   userBalanceTokens?: BigNumber;
   isMuted?: boolean;
   showPrimeSimulation?: boolean;
+  // The Prime page already identifies itself, so it turns the leading Prime icon off
+  showPrimeIcon?: boolean;
+  // Trade positions are out of the campaigns' scope, so that page leaves them out entirely
+  showCampaignRewards?: boolean;
+  vTokenAddress?: Address;
   className?: string;
 }
 
@@ -33,18 +39,27 @@ export const Apy: React.FC<ApyProps> = ({
   userBalanceTokens,
   isMuted = false,
   showPrimeSimulation = true,
+  showPrimeIcon = true,
+  showCampaignRewards = true,
+  vTokenAddress,
   className,
 }) => {
+  const shownDistributions = showCampaignRewards
+    ? tokenDistributions
+    : tokenDistributions.filter(
+        distribution => distribution.type !== 'merkl' || !distribution.collateralGate,
+      );
+
   const combinedApy = getCombinedApy({
     type,
     baseApyPercentage,
-    tokenDistributions,
+    tokenDistributions: shownDistributions,
   });
   const readableApy = formatPercentageToReadableValue(combinedApy.totalApyPercentage);
   let primeDistribution: PrimeDistribution | undefined;
   let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
   const gatedMerklApyPercentages: BigNumber[] = [];
-  const activeTokenDistributions = tokenDistributions.filter(distribution => distribution.isActive);
+  const activeTokenDistributions = shownDistributions.filter(distribution => distribution.isActive);
 
   activeTokenDistributions.forEach(distribution => {
     if (distribution.type === 'prime') {
@@ -87,6 +102,7 @@ export const Apy: React.FC<ApyProps> = ({
     pointDistributions,
     primeApyPercentage: primeDistribution?.apyPercentage,
     primeSimulationDistribution: shownPrimeSimulationDistribution,
+    vTokenAddress,
   };
 
   // Only one badge fits: the campaign takes the slot until the user qualifies for it
@@ -113,6 +129,7 @@ export const Apy: React.FC<ApyProps> = ({
         token={token}
         simulationReferenceValues={primeSimulationDistribution?.referenceValues}
         simulatedApyPercentage={simulatedApyPercentage}
+        vTokenAddress={vTokenAddress}
       />
     );
   }
@@ -121,7 +138,9 @@ export const Apy: React.FC<ApyProps> = ({
     <div
       className={cn('inline-flex gap-1 items-center flex-wrap', isMuted && 'opacity-50', className)}
     >
-      {isApyBoostedByPrime && <PrimeBadge className="shrink-0" type={type} token={token} />}
+      {isApyBoostedByPrime && showPrimeIcon && (
+        <PrimeBadge className="shrink-0" type={type} token={token} vTokenAddress={vTokenAddress} />
+      )}
 
       {isApyBoosted ? (
         <BoostTooltip {...distributionListProps}>

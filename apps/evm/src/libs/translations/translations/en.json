@@ -208,7 +208,7 @@
           "name": "Borrow APY"
         },
         "collateralGatedMerklReward": {
-          "description": "The maximum reward rate on this market. It applies only while your {{tokenSymbol}} borrow is collateralized by bStock, and your position is not eligible yet."
+          "description": "The maximum reward rate on this market, calculated on the current eligible borrow amount of {{amount}}. It applies only while your {{tokenSymbol}} borrow is collateralized by bStock — your position isn't eligible yet."
         },
         "defaultMerklRewardName": "Merkl rewards",
         "externalRewardDescription": "Rewards from this external program can be claimed through their <AppLink>official app</AppLink>. The Venus protocol does not guarantee them and accepts no liability.",
@@ -264,7 +264,6 @@
   },
   "apyBreakdown": {
     "borrowApy": "Borrow APY",
-    "collateralGatedMerklApyTooltip": "The maximum reward rate on this market. It applies only while your {{tokenSymbol}} borrow is collateralized by bStock, so it is not counted in your total yet.",
     "distributionApy": "Distribution APY",
     "distributionTooltip": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
     "externalDistributionApy": "{{description}} APY",
@@ -1531,8 +1530,12 @@
       "totalPoolLabel": "of <Highlight>{{amount}}</Highlight> total rewards this cycle"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "Borrow {{tokenSymbol}} to earn this Prime APY.",
+        "bothTooltip": "Supply or borrow {{tokenSymbol}} to earn this Prime APY.",
+        "supplyTooltip": "Supply {{tokenSymbol}} to earn this Prime APY."
+      },
       "eligibleMessage": "You are currently eligible for sharing the Prime rewards during this cycle. Supply assets below to share the rewards.",
-      "marketActions": "Open market actions",
       "notEligibleMessage": "You are currently NOT eligible for sharing the Prime rewards during this cycle. Stake XVS to compete for Prime in the next cycle.",
       "primeLogoAlt": "Venus Prime logo",
       "title": "Your Prime rewards this cycle"

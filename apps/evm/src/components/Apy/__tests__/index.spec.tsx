@@ -341,6 +341,38 @@ describe('Apy', () => {
     expect(getByText('-15%')).toBeInTheDocument();
   });
 
+  it('hides the leading Prime icon when asked to', () => {
+    const { getByText, queryByAltText } = renderComponent(
+      <Apy
+        type="supply"
+        token={token}
+        baseApyPercentage={new BigNumber(2)}
+        tokenDistributions={[buildPrimeDistribution(1)]}
+        userBalanceTokens={new BigNumber(1)}
+        showPrimeIcon={false}
+      />,
+    );
+
+    expect(getByText('3%')).toBeInTheDocument();
+    expect(queryByAltText(en.apy.primeBadge.logoAlt)).not.toBeInTheDocument();
+  });
+
+  it('leaves collateral-gated campaigns out entirely when asked to', () => {
+    const { getByText, queryByAltText } = renderComponent(
+      <Apy
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[buildGatedMerklDistribution(false), venusDistribution]}
+        showCampaignRewards={false}
+      />,
+    );
+
+    // only the Venus distribution is folded in, and no campaign badge is offered
+    expect(getByText('-3%')).toBeInTheDocument();
+    expect(queryByAltText(en.apy.merklBadge.logoAlt)).not.toBeInTheDocument();
+  });
+
   it('keeps the Prime icon next to the APY when the campaign badge is displayed', () => {
     const { getByAltText } = renderComponent(
       <Apy
