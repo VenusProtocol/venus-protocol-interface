@@ -8,6 +8,7 @@ import { isDistributingRewards } from './isDistributingRewards';
 interface FormatRewardTokenDistributionInput {
   isActive: boolean;
   isTimeBasedOrMerklReward: boolean;
+  isCollateralGatedCampaign?: boolean;
   lastRewardingBlockOrTimestamp: string;
   currentBlockNumber?: bigint;
   rateMantissa: string;
@@ -22,6 +23,7 @@ interface FormatRewardTokenDistributionInput {
 export const formatRewardTokenDistribution = ({
   isActive,
   isTimeBasedOrMerklReward,
+  isCollateralGatedCampaign = false,
   lastRewardingBlockOrTimestamp,
   currentBlockNumber,
   rateMantissa,
@@ -32,7 +34,7 @@ export const formatRewardTokenDistribution = ({
   rewardDetails,
   apyPercentage,
 }: FormatRewardTokenDistributionInput): TokenDistribution | undefined => {
-  const isReward = Number(rateMantissa) > 0;
+  const isReward = isCollateralGatedCampaign || Number(rateMantissa) > 0;
 
   if (!isReward) {
     return undefined;

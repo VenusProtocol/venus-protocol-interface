@@ -207,6 +207,9 @@
           "description": "Venusプロトコルからこの資産を借りる際に発生する利息です。",
           "name": "借入APY"
         },
+        "collateralGatedMerklReward": {
+          "description": "このマーケットの最大報酬レートです。現在の対象借入額 {{amount}} を基準に算出されています。{{tokenSymbol}}の借入がbStockを担保としている場合にのみ適用され、現在のポジションはまだ対象外です。"
+        },
         "defaultMerklRewardName": "Merkl報酬",
         "externalRewardDescription": "この外部プログラムからの報酬は、<AppLink>公式アプリ</AppLink>で請求できます。Venusプロトコルはこれらを保証せず、責任を負いません。",
         "intrinsicApy": {
@@ -240,6 +243,12 @@
           "description": "基礎資産を用いて割引価格でPTトークンを購入し、満期まで保有することで得られる年率換算リターンを表します。Venusプロトコルはこれを保証せず、責任を負いません。",
           "name": "満期利回りAPY"
         }
+      }
+    },
+    "merklBadge": {
+      "logoAlt": "Merklキャンペーンロゴ",
+      "tooltip": {
+        "leadLine": "bStockを担保にして借り入れると、借入APYが{{apy}}になります。"
       }
     },
     "primeBadge": {
@@ -1520,8 +1529,12 @@
       "totalPoolLabel": "今サイクルの総報酬 <Highlight>{{amount}}</Highlight> のうち"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "{{tokenSymbol}}を借入すると、このPrime APYを獲得できます。",
+        "bothTooltip": "{{tokenSymbol}}を供給または借入すると、このPrime APYを獲得できます。",
+        "supplyTooltip": "{{tokenSymbol}}を供給すると、このPrime APYを獲得できます。"
+      },
       "eligibleMessage": "今サイクルで Prime 報酬を分け合う対象になっています。下記の資産を供給して報酬を獲得しましょう。",
-      "marketActions": "マーケット操作を開く",
       "notEligibleMessage": "今サイクルでは Prime 報酬を分け合う対象ではありません。XVS をステークして次のサイクルで Prime を目指しましょう。",
       "primeLogoAlt": "Venus Prime ロゴ",
       "title": "今サイクルのあなたの Prime 報酬"

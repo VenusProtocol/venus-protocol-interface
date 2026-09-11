@@ -207,6 +207,9 @@
           "description": "Venus Protokolünden bu varlığı borç alırken biriken faiz.",
           "name": "Borç APY"
         },
+        "collateralGatedMerklReward": {
+          "description": "Bu piyasadaki maksimum ödül oranı, {{amount}} tutarındaki mevcut uygun borç miktarı üzerinden hesaplanır. Yalnızca {{tokenSymbol}} borcunuz bStock ile teminatlandırıldığında geçerlidir ve pozisyonunuz henüz uygun değil."
+        },
         "defaultMerklRewardName": "Merkl ödülleri",
         "externalRewardDescription": "Bu dış programdaki ödüller <AppLink>resmi uygulaması</AppLink> üzerinden talep edilebilir. Venus protokolü bunları garanti etmez ve sorumluluk kabul etmez.",
         "intrinsicApy": {
@@ -240,6 +243,12 @@
           "description": "Bu getiri, dayanak varlık kullanılarak PT tokenlarının indirimli fiyatla satın alınıp vade sonuna kadar elde tutulmasından kaynaklanan yıllıklandırılmış getiriyi ifade eder. Venus Protokolü bu getiriyi garanti etmez ve sorumluluk kabul etmez.",
           "name": "Vade sonu APY"
         }
+      }
+    },
+    "merklBadge": {
+      "logoAlt": "Merkl kampanya logosu",
+      "tooltip": {
+        "leadLine": "Borcunuzu bStock ile teminatlandırarak borç APY’nizi {{apy}} seviyesine getirin."
       }
     },
     "primeBadge": {
@@ -1521,8 +1530,12 @@
       "totalPoolLabel": "bu döngüdeki toplam <Highlight>{{amount}}</Highlight> ödülden"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "Bu Prime APY'yi kazanmak için {{tokenSymbol}} borç alın.",
+        "bothTooltip": "Bu Prime APY'yi kazanmak için {{tokenSymbol}} sağlayın veya borç alın.",
+        "supplyTooltip": "Bu Prime APY'yi kazanmak için {{tokenSymbol}} sağlayın."
+      },
       "eligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygunsun. Ödülleri paylaşmak için aşağıdan varlık sağla.",
-      "marketActions": "Piyasa işlemlerini aç",
       "notEligibleMessage": "Bu döngüde Prime ödüllerini paylaşmaya uygun değilsin. Sonraki döngüde Prime için yarışmak üzere XVS stake et.",
       "primeLogoAlt": "Venus Prime logosu",
       "title": "Bu döngüdeki Prime ödülleriniz"

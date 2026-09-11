@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import type { ApiRewardDistributor, Token, TokenDistribution } from 'types';
 import { convertRatioToPercentage } from 'utilities/convertRatioToPercentage';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -49,6 +50,18 @@ export const formatApiRewardDistributors = ({
     const isChainTimeBased = !blocksPerDay;
 
     const isTimeBasedOrMerklReward = isChainTimeBased || rewardType === 'merkl';
+
+    // Gated campaigns report no speed, only a campaign-wide APR that is refined per user later
+    // Both address lists are required: without the collateral list no user could ever qualify
+    const merklRewardDetails = rewardType === 'merkl' ? rewardDetails : undefined;
+    const campaignAprPercentage = new BigNumber(merklRewardDetails?.apr ?? 0);
+    const collateralGatedCampaignAprPercentage =
+      merklRewardDetails?.eligibleBorrowMarketAddresses?.length &&
+      merklRewardDetails.participatingCollateralAddresses?.length &&
+      campaignAprPercentage.isGreaterThan(0)
+        ? campaignAprPercentage
+        : undefined;
+
     const rewardTokenDistributionInput = {
       isActive,
       isTimeBasedOrMerklReward,
@@ -73,9 +86,11 @@ export const formatApiRewardDistributors = ({
 
     const borrowTokenDistribution = formatRewardTokenDistribution({
       ...rewardTokenDistributionInput,
+      isCollateralGatedCampaign: !!collateralGatedCampaignAprPercentage,
       lastRewardingBlockOrTimestamp: lastRewardingBorrowBlockOrTimestamp,
       rateMantissa: borrowSpeed,
-      apyPercentage: convertRatioToPercentage(borrowApyRatio),
+      apyPercentage:
+        collateralGatedCampaignAprPercentage ?? convertRatioToPercentage(borrowApyRatio),
     });
 
     if (borrowTokenDistribution) {

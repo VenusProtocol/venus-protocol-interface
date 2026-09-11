@@ -207,6 +207,9 @@
           "description": "The accruing interest when borrowing this asset from the Venus Protocol.",
           "name": "Borrow APY"
         },
+        "collateralGatedMerklReward": {
+          "description": "The maximum reward rate on this market, calculated on the current eligible borrow amount of {{amount}}. It applies only while your {{tokenSymbol}} borrow is collateralized by bStock — your position isn't eligible yet."
+        },
         "defaultMerklRewardName": "Merkl rewards",
         "externalRewardDescription": "Rewards from this external program can be claimed through their <AppLink>official app</AppLink>. The Venus protocol does not guarantee them and accepts no liability.",
         "intrinsicApy": {
@@ -240,6 +243,12 @@
           "description": "This yield represents the annualized return from buying PT tokens at a discount using the underlying asset and holding them until maturity. This yield is not guaranteed by Venus Protocol.",
           "name": "Yield to maturity APY"
         }
+      }
+    },
+    "merklBadge": {
+      "logoAlt": "Campaign logo",
+      "tooltip": {
+        "leadLine": "At the maximum reward rate below, your borrow APY would be {{apy}}."
       }
     },
     "primeBadge": {
@@ -1521,8 +1530,12 @@
       "totalPoolLabel": "of <Highlight>{{amount}}</Highlight> total rewards this cycle"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "Borrow {{tokenSymbol}} to earn this Prime APY.",
+        "bothTooltip": "Supply or borrow {{tokenSymbol}} to earn this Prime APY.",
+        "supplyTooltip": "Supply {{tokenSymbol}} to earn this Prime APY."
+      },
       "eligibleMessage": "You are currently eligible for sharing the Prime rewards during this cycle. Supply assets below to share the rewards.",
-      "marketActions": "Open market actions",
       "notEligibleMessage": "You are currently NOT eligible for sharing the Prime rewards during this cycle. Stake XVS to compete for Prime in the next cycle.",
       "primeLogoAlt": "Venus Prime logo",
       "title": "Your Prime rewards this cycle"

@@ -1,9 +1,11 @@
+import type BigNumber from 'bignumber.js';
 import type { TFunction } from 'i18next';
 
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import type { useTranslation } from 'libs/translations';
-import { formatPercentageToReadableValue } from 'utilities';
+import type { MerklDistribution } from 'types';
+import { formatDistributionApyToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import type { ApyBreakdownItem } from '..';
 import type { LabeledInlineContentProps } from '../../LabeledInlineContent';
 import { ValueUpdate } from '../../ValueUpdate';
@@ -17,6 +19,9 @@ export const formatRows = ({
   t: TFunction<'translation', undefined>;
   Trans: ReturnType<typeof useTranslation>['Trans'];
 }) => {
+  const formatDistributionApy = (apyPercentage: BigNumber) =>
+    formatDistributionApyToReadableValue({ apyPercentage, type: item.type });
+
   const rows: LabeledInlineContentProps[] = [
     {
       label: item.type === 'borrow' ? t('apyBreakdown.borrowApy') : t('apyBreakdown.supplyApy'),
@@ -27,10 +32,42 @@ export const formatRows = ({
     },
   ];
 
+  const findSimulatedMerklDistribution = (distribution: MerklDistribution) =>
+    item.simulatedTokenDistributions?.find(
+      simulated =>
+        simulated.type === 'merkl' &&
+        simulated.rewardDetails.merklCampaignIdentifier ===
+          distribution.rewardDetails.merklCampaignIdentifier,
+    );
+
   const distributionRows = item.tokenDistributions
     .filter(distribution => distribution.type !== 'primeSimulation' && distribution.isActive)
     .reduce<LabeledInlineContentProps[]>((acc, distribution) => {
-      if (distribution.type !== 'prime' && distribution.apyPercentage.isEqualTo(0)) {
+      const collateralGate =
+        distribution.type === 'merkl' ? distribution.collateralGate : undefined;
+
+      // The simulated amounts can make the user qualify, which is what the total already reflects
+      const simulatedMerklDistribution =
+        distribution.type === 'merkl' ? findSimulatedMerklDistribution(distribution) : undefined;
+      const simulatedCollateralGate =
+        simulatedMerklDistribution?.type === 'merkl'
+          ? simulatedMerklDistribution.collateralGate
+          : undefined;
+
+      // A campaign the user has not qualified for is advertised on the badge, not in the breakdown
+      if (
+        collateralGate &&
+        !collateralGate.isUserEligible &&
+        !simulatedCollateralGate?.isUserEligible
+      ) {
+        return acc;
+      }
+
+      if (
+        distribution.type !== 'prime' &&
+        distribution.apyPercentage.isEqualTo(0) &&
+        !simulatedCollateralGate?.isUserEligible
+      ) {
         return acc;
       }
 
@@ -72,15 +109,31 @@ export const formatRows = ({
 
         children = (
           <ValueUpdate
-            original={formatPercentageToReadableValue(distribution.apyPercentage)}
+            original={formatDistributionApy(distribution.apyPercentage)}
             update={
               simulatedPrimeDistribution &&
-              formatPercentageToReadableValue(simulatedPrimeDistribution.apyPercentage)
+              formatDistributionApy(simulatedPrimeDistribution.apyPercentage)
+            }
+          />
+        );
+      } else if (distribution.type === 'merkl' && collateralGate) {
+        // Position-dependent, so it moves with the simulated balances the way Prime APY does
+        const simulatedDistribution = simulatedMerklDistribution;
+
+        const hasMoved =
+          !!simulatedDistribution &&
+          !simulatedDistribution.apyPercentage.isEqualTo(distribution.apyPercentage);
+
+        children = (
+          <ValueUpdate
+            original={formatDistributionApy(distribution.apyPercentage)}
+            update={
+              hasMoved ? formatDistributionApy(simulatedDistribution.apyPercentage) : undefined
             }
           />
         );
       } else {
-        children = formatPercentageToReadableValue(distribution.apyPercentage);
+        children = formatDistributionApy(distribution.apyPercentage);
       }
 
       let tooltip = undefined;

@@ -207,6 +207,9 @@
           "description": "ดอกเบี้ยที่เกิดขึ้นเมื่อยืมสินทรัพย์นี้จากโปรโตคอล Venus",
           "name": "APY การยืม"
         },
+        "collateralGatedMerklReward": {
+          "description": "อัตรารางวัลสูงสุดในตลาดนี้ คำนวณจากยอดกู้ยืมที่เข้าเกณฑ์ในปัจจุบัน {{amount}} ใช้ได้เฉพาะเมื่อการกู้ยืม {{tokenSymbol}} ของคุณใช้ bStock เป็นหลักประกัน และสถานะของคุณยังไม่ผ่านเกณฑ์"
+        },
         "defaultMerklRewardName": "รางวัล Merkl",
         "externalRewardDescription": "รางวัลจากโปรแกรมภายนอกนี้สามารถรับได้ผ่าน <AppLink>แอปอย่างเป็นทางการ</AppLink> โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
         "intrinsicApy": {
@@ -240,6 +243,12 @@
           "description": "ผลตอบแทนนี้หมายถึงผลตอบแทนแบบต่อปีจากการซื้อโทเคน PT ด้วยส่วนลดโดยใช้สินทรัพย์อ้างอิงและถือไว้จนถึงวันครบกำหนด ผลตอบแทนนี้ไม่รับประกันโดย Venus Protocol.",
           "name": "APY ถึงกำหนด"
         }
+      }
+    },
+    "merklBadge": {
+      "logoAlt": "โลโก้แคมเปญ Merkl",
+      "tooltip": {
+        "leadLine": "ใช้ bStock เป็นหลักประกันสำหรับการกู้ยืมของคุณ เพื่อให้ APY การกู้ยืมเป็น {{apy}}"
       }
     },
     "primeBadge": {
@@ -1520,8 +1529,12 @@
       "totalPoolLabel": "จากทั้งหมด <Highlight>{{amount}}</Highlight> ในรอบนี้"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "ยืม {{tokenSymbol}} เพื่อรับ Prime APY นี้",
+        "bothTooltip": "ฝากหรือยืม {{tokenSymbol}} เพื่อรับ Prime APY นี้",
+        "supplyTooltip": "ฝาก {{tokenSymbol}} เพื่อรับ Prime APY นี้"
+      },
       "eligibleMessage": "คุณมีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ จัดหาสินทรัพย์ด้านล่างเพื่อรับรางวัล",
-      "marketActions": "เปิดการดำเนินการของตลาด",
       "notEligibleMessage": "คุณยังไม่มีสิทธิ์ร่วมรับรางวัล Prime ในรอบนี้ Stake XVS เพื่อแข่งขันรับ Prime ในรอบถัดไป",
       "primeLogoAlt": "โลโก้ Venus Prime",
       "title": "รางวัล Prime ของคุณในรอบนี้"

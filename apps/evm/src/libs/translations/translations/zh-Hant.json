@@ -207,6 +207,9 @@
           "description": "在 Venus 協議中借入該資產時產生的利息。",
           "name": "借款 APY"
         },
+        "collateralGatedMerklReward": {
+          "description": "該市場的最高獎勵率，按當前符合條件的借款金額 {{amount}} 計算。僅當你的 {{tokenSymbol}} 借款以 bStock 作為抵押時才適用 —— 你當前的倉位尚不符合條件。"
+        },
         "defaultMerklRewardName": "Merkl 獎勵",
         "externalRewardDescription": "該外部計劃的獎勵可通過其 <AppLink>官方應用</AppLink>領取。Venus 協議不作任何保證且不承擔責任。",
         "intrinsicApy": {
@@ -240,6 +243,12 @@
           "description": "該收益表示使用標的資產折價購買 PT 代幣並持有至到期所獲得的年化回報。Venus 協議不作任何保證且不承擔責任。",
           "name": "到期收益率 APY"
         }
+      }
+    },
+    "merklBadge": {
+      "logoAlt": "Merkl 活動標誌",
+      "tooltip": {
+        "leadLine": "使用 bStock 為你的借款提供抵押，即可將借款 APY 變為 {{apy}}。"
       }
     },
     "primeBadge": {
@@ -1520,8 +1529,12 @@
       "totalPoolLabel": "本週期總獎勵 <Highlight>{{amount}}</Highlight>"
     },
     "userRewards": {
+      "cta": {
+        "borrowTooltip": "借款 {{tokenSymbol}} 即可獲得此 Prime APY。",
+        "bothTooltip": "供應或借款 {{tokenSymbol}} 即可獲得此 Prime APY。",
+        "supplyTooltip": "供應 {{tokenSymbol}} 即可獲得此 Prime APY。"
+      },
       "eligibleMessage": "你在本週期已具備分享 Prime 獎勵的資格。在下方供給資產以分享獎勵。",
-      "marketActions": "開啟市場操作",
       "notEligibleMessage": "你在本週期暫不具備分享 Prime 獎勵的資格。質押 XVS 以在下一週期競爭 Prime。",
       "primeLogoAlt": "Venus Prime 標誌",
       "title": "你本週期的 Prime 獎勵"

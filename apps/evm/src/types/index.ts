@@ -86,6 +86,10 @@ export interface MerklDistribution {
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
   isActive: boolean;
+  collateralGate?: {
+    isUserEligible: boolean;
+    maxApyPercentage: BigNumber;
+  };
   rewardDetails: {
     appName: string;
     claimUrl: string;
@@ -93,6 +97,11 @@ export interface MerklDistribution {
     merklCampaignIdentifier: string;
     description: string;
     tags: string[];
+    aprPercentage?: number;
+    // Only served for collateral-gated campaigns
+    eligibleBorrowAmountUsd?: number;
+    participatingCollateralAddresses?: Address[];
+    eligibleBorrowMarketAddresses?: Address[];
   };
 }
 
@@ -961,6 +970,11 @@ export interface ApiMerklReward extends ApiReward {
     description: string;
     merklCampaignIdentifier: string;
     tags: string[];
+    apr?: number;
+    // Only served for collateral-gated campaigns
+    tvlUsd?: number;
+    participatingCollateralAddresses?: Address[];
+    eligibleBorrowMarketAddresses?: Address[];
   };
 }
 
