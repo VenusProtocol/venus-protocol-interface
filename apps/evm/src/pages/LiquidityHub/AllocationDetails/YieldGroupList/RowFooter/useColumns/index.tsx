@@ -29,20 +29,6 @@ export const useColumns = ({
       renderCell: row => row.name,
     },
     {
-      key: 'apy',
-      label: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
-      selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
-      align: 'right',
-      renderCell: ({ supplyApyPercentage, supplyTokenDistributions }) => (
-        <Apy
-          type="supply"
-          token={underlyingToken}
-          baseApyPercentage={supplyApyPercentage}
-          tokenDistributions={supplyTokenDistributions}
-        />
-      ),
-    },
-    {
       key: 'allocation',
       label: t('liquidityHub.allocationDetails.yieldGroup.allocationColumn.title'),
       selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.allocationColumn.title'),
@@ -77,6 +63,20 @@ export const useColumns = ({
           bottomValue={formatCentsToReadableValue({
             value: liquidityCents,
           })}
+        />
+      ),
+    },
+    {
+      key: 'apy',
+      label: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
+      selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
+      align: 'right',
+      renderCell: ({ supplyApyPercentage, supplyTokenDistributions }) => (
+        <Apy
+          type="supply"
+          token={underlyingToken}
+          baseApyPercentage={supplyApyPercentage}
+          tokenDistributions={supplyTokenDistributions}
         />
       ),
     },
