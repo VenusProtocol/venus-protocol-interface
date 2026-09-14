@@ -22,9 +22,13 @@ const renderRowFooter = (row: LiquidityHubYieldGroup) =>
   renderComponent(<RowFooter row={row} underlyingToken={underlyingToken} isOpen />);
 
 const getColumnLabels = () =>
-  screen.getAllByRole('columnheader').map(columnHeader => columnHeader.textContent);
+  screen
+    .getAllByRole('columnheader')
+    .map(columnHeader => columnHeader.querySelector('span')?.textContent);
 
 describe('RowFooter', () => {
+  // The shared metrics must sit in the same relative position as in the parent
+  // table rendered by YieldGroupList/useColumns.
   it('lists columns in the same order as the parent table', () => {
     renderRowFooter({
       ...coreYieldGroup,
@@ -38,7 +42,7 @@ describe('RowFooter', () => {
     expect(getColumnLabels()).toEqual(['Market', 'Alloc.', 'Liquidity', 'APY']);
   });
 
-  it('appends the lock end date and collateral columns after the shared ones', () => {
+  it('labels the name column as a vault and appends the lock end date and collateral columns for frv groups', () => {
     renderRowFooter({
       ...coreYieldGroup,
       type: 'frv',
