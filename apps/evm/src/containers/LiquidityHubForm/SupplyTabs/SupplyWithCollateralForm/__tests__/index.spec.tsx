@@ -10,6 +10,7 @@ import { useGetPool, useGetVTokenBalance, useMigrateCoreSupplyToLiquidityHub } f
 import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useAnalytics } from 'libs/analytics';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { AssetBalanceMutation, LiquidityHubBalanceMutation } from 'types';
@@ -26,6 +27,7 @@ const liquidityHub = liquidityHubs[0];
 const corePool = poolData[0];
 const corePoolAsset = assetData[0];
 const spenderAddress = '0xfakeSpenderAddress000000000000000000000001';
+const mockCaptureAnalyticEvent = vi.fn();
 
 const makeUseTokenApprovalOutput = (overrides: Partial<ReturnType<typeof useTokenApproval>> = {}) =>
   ({
@@ -92,6 +94,11 @@ describe('SupplyWithCollateralForm', () => {
   const mockUseTokenApproval = useTokenApproval as Mock;
 
   beforeEach(() => {
+    mockCaptureAnalyticEvent.mockClear();
+    (useAnalytics as Mock).mockReturnValue({
+      captureAnalyticEvent: mockCaptureAnalyticEvent,
+    });
+
     mockUseMigrateCoreSupplyToLiquidityHub.mockReturnValue({
       mutateAsync: vi.fn().mockResolvedValue(undefined),
       isPending: false,
@@ -304,11 +311,41 @@ describe('SupplyWithCollateralForm', () => {
       value: vTokenAmountTokens,
     });
 
-    expect(migrateCoreSupplyToLiquidityHub).toHaveBeenCalledWith({
-      vhToken: liquidityHub.vhToken,
-      vToken: corePoolAsset.vToken,
-      vTokenAmountMantissa,
-    });
+    expect(migrateCoreSupplyToLiquidityHub).toHaveBeenCalledWith(
+      expect.objectContaining({
+        vhToken: liquidityHub.vhToken,
+        vToken: corePoolAsset.vToken,
+        vTokenAmountMantissa,
+      }),
+    );
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'supply_amount_set',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+        maxSelected: false,
+        fundingSource: 'core_pool_collateral',
+      }),
+      {
+        debounced: true,
+      },
+    );
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'supply_initiated',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+        fundingSource: 'core_pool_collateral',
+      }),
+    );
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'supply_signed',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+        fundingSource: 'core_pool_collateral',
+      }),
+    );
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
   });
 
@@ -368,11 +405,46 @@ describe('SupplyWithCollateralForm', () => {
     );
 
     await waitFor(() =>
-      expect(migrateCoreSupplyToLiquidityHub).toHaveBeenCalledWith({
-        vhToken: liquidityHub.vhToken,
-        vToken: corePoolAsset.vToken,
-        vTokenAmountMantissa: vTokenBalanceMantissa,
+      expect(migrateCoreSupplyToLiquidityHub).toHaveBeenCalledWith(
+        expect.objectContaining({
+          vhToken: liquidityHub.vhToken,
+          vToken: corePoolAsset.vToken,
+          vTokenAmountMantissa: vTokenBalanceMantissa,
+        }),
+      ),
+    );
+  });
+
+  it('tracks rejected collateral supply transactions', async () => {
+    mockUseMigrateCoreSupplyToLiquidityHub.mockReturnValue({
+      mutateAsync: vi.fn().mockRejectedValue(new Error('User rejected transaction')),
+      isPending: false,
+    });
+
+    renderTransactionForm({
+      corePool: clickableLimitPool,
+    });
+
+    fireEvent.change(getAmountInput(), {
+      target: {
+        value: '0.5',
+      },
+    });
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.supplySubmitButtonLabel,
       }),
+    );
+
+    await waitFor(() =>
+      expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+        'supply_rejected',
+        expect.objectContaining({
+          poolName: 'liquidity_hub',
+          assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+          fundingSource: 'core_pool_collateral',
+        }),
+      ),
     );
   });
 

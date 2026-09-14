@@ -3,6 +3,7 @@ import type { CellProps } from 'components';
 import { routes } from 'constants/routing';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHub } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
@@ -15,6 +16,7 @@ export interface HubsProps {
 
 export const Hubs: React.FC<HubsProps> = ({ liquidityHubs }) => {
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const { supplyBalanceCents, dailyEarningsCents } = liquidityHubs.reduce(
     (acc, liquidityHub) => {
@@ -66,6 +68,11 @@ export const Hubs: React.FC<HubsProps> = ({ liquidityHubs }) => {
       placeholderIconName="hub"
       placeholderTitle={t('account.hubs.placeholder.title')}
       placeholderRoute={routes.liquidityHubs.path}
+      placeholderOnClick={() =>
+        captureAnalyticEvent('hub_navigation', {
+          variant: 'dashboard_hubs_tabs_placeholder',
+        })
+      }
       renderCard={(liquidityHub, isPreview) => (
         <LiquidityHubCard
           liquidityHub={liquidityHub}
