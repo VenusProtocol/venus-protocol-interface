@@ -61,14 +61,9 @@ export const Dashboard: React.FC = () => {
       liquidityHubs: [],
     },
     isLoading: isGetLiquidityHubsLoading,
-  } = useGetLiquidityHubs(
-    {
-      accountAddress,
-    },
-    {
-      enabled: isLiquidityHubFeatureEnabled,
-    },
-  );
+  } = useGetLiquidityHubs({
+    accountAddress,
+  });
   const { liquidityHubs } = getLiquidityHubsData;
 
   const tabs: Tab[] = [
