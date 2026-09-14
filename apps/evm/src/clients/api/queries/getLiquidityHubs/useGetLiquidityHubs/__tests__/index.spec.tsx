@@ -67,18 +67,32 @@ describe('useGetLiquidityHubs', () => {
     ).toEqual(fakeOutput);
   });
 
-  it('does not fetch when the Liquidity Hub feature is disabled on the current chain', async () => {
+  it('does not fetch when the Liquidity Hub feature is disabled', async () => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name !== 'liquidityHub',
     );
 
     const getLiquidityHubsSpy = vi.spyOn(getLiquidityHubsQueries, 'getLiquidityHubs');
 
-    const { result } = renderHook(
-      () => useGetLiquidityHubs({ accountAddress: fakeAccountAddress }),
-      {
-        chainId: ChainId.ETHEREUM,
-      },
+    const { result } = renderHook(() =>
+      useGetLiquidityHubs({ accountAddress: fakeAccountAddress }),
+    );
+
+    await waitFor(() => expect(result.current.fetchStatus).toBe('idle'));
+
+    expect(getLiquidityHubsSpy).not.toHaveBeenCalled();
+    expect(result.current.data).toBeUndefined();
+  });
+
+  it('does not fetch when the caller enables the query but the feature is disabled', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabledInput) => name !== 'liquidityHub',
+    );
+
+    const getLiquidityHubsSpy = vi.spyOn(getLiquidityHubsQueries, 'getLiquidityHubs');
+
+    const { result } = renderHook(() =>
+      useGetLiquidityHubs({ accountAddress: fakeAccountAddress }, { enabled: true }),
     );
 
     await waitFor(() => expect(result.current.fetchStatus).toBe('idle'));
