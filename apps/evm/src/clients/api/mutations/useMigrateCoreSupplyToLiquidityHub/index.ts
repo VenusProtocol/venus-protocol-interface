@@ -3,16 +3,19 @@ import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
 import { liquidityHubMigratorAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { VToken, VhToken } from 'types';
+import { convertMantissaToTokens } from 'utilities';
 import type { Account, Address, Chain, WriteContractParameters } from 'viem';
 
 export type MigrateCoreSupplyToLiquidityHubInput = {
   vhToken: VhToken;
   vToken: VToken;
   vTokenAmountMantissa: BigNumber;
+  underlyingAmountMantissa: BigNumber;
   minSharesMantissa?: BigNumber;
 };
 
@@ -24,6 +27,7 @@ export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) =
   const { address: liquidityHubMigratorContractAddress } = useGetContractAddress({
     name: 'LiquidityHubMigrator',
   });
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
     // @ts-ignore mixing function calls messes up with the typing of useSendTransaction
@@ -79,6 +83,16 @@ export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) =
       >;
     },
     onConfirmed: ({ input }) => {
+      captureAnalyticEvent('Tokens supplied', {
+        poolName: 'liquidity_hub',
+        tokenSymbol: input.vhToken.underlyingToken.symbol,
+        tokenAmountTokens: convertMantissaToTokens({
+          token: input.vhToken.underlyingToken,
+          value: input.underlyingAmountMantissa,
+        }).toNumber(),
+        fundingSource: 'core_pool_collateral',
+      });
+
       queryClient.invalidateQueries({
         queryKey: [
           FunctionKey.GET_LIQUIDITY_HUB,

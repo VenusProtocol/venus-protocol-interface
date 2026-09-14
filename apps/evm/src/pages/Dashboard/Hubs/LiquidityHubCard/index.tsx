@@ -6,6 +6,7 @@ import { type CellProps, StatusLabel, TokenIcon, TokenIconWithSymbol } from 'com
 import { DAYS_PER_YEAR } from 'constants/time';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHub } from 'types';
 import {
@@ -28,6 +29,8 @@ export const LiquidityHubCard: React.FC<LiquidityHubCardProps> = ({
   to,
 }) => {
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
+
   const underlyingToken = liquidityHub.vhToken.underlyingToken;
   const userSupplyBalanceTokens = liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0);
   const userSupplyBalanceCents = liquidityHub.userSupplyBalanceCents ?? new BigNumber(0);
@@ -36,7 +39,20 @@ export const LiquidityHubCard: React.FC<LiquidityHubCardProps> = ({
 
   const [shouldShowModal, setShouldShowModal] = useState(false);
 
-  const showModal = () => setShouldShowModal(true);
+  const analyticData = {
+    assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+    chainID: liquidityHub.vhToken.chainId,
+  };
+
+  const showModal = () => {
+    captureAnalyticEvent('hub_selected', {
+      ...analyticData,
+      variant: 'dashboard_hubs_tab_position_card',
+    });
+
+    setShouldShowModal(true);
+  };
+
   const hideModal = () => setShouldShowModal(false);
 
   const { totalApyPercentage } = getCombinedApy({
@@ -129,6 +145,11 @@ export const LiquidityHubCard: React.FC<LiquidityHubCardProps> = ({
     previewCardProps = {
       ...previewCardBaseProps,
       to,
+      onClick: () =>
+        captureAnalyticEvent('hub_selected', {
+          ...analyticData,
+          variant: 'dashboard_hubs_tab_preview_card',
+        }),
     };
   }
 

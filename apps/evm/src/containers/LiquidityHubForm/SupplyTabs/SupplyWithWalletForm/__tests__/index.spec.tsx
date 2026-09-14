@@ -9,6 +9,7 @@ import { useGetBalanceOf, useGetPool, useSupplyToLiquidityHub } from 'clients/ap
 import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useAnalytics } from 'libs/analytics';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { BalanceMutation, LiquidityHubBalanceMutation, Pool } from 'types';
@@ -26,6 +27,8 @@ const walletBalanceMantissa = convertTokensToMantissa({
 const walletSpendingLimitTokens = new BigNumber(40);
 const applyTransactionBuffer = (value: BigNumber) =>
   value.multipliedBy(1 - TRANSACTION_BUFFER_PERCENTAGE);
+
+const mockCaptureAnalyticEvent = vi.fn();
 
 const makeUseTokenApprovalOutput = (overrides: Partial<ReturnType<typeof useTokenApproval>> = {}) =>
   ({
@@ -66,6 +69,11 @@ describe('SupplyWithWalletForm', () => {
   const mockUseTokenApproval = useTokenApproval as Mock;
 
   beforeEach(() => {
+    mockCaptureAnalyticEvent.mockClear();
+    (useAnalytics as Mock).mockReturnValue({
+      captureAnalyticEvent: mockCaptureAnalyticEvent,
+    });
+
     mockUseSupplyToLiquidityHub.mockReturnValue({
       mutateAsync: vi.fn().mockResolvedValue(undefined),
       isPending: false,
@@ -246,7 +254,66 @@ describe('SupplyWithWalletForm', () => {
       liquidityHub,
       amountMantissa: new BigNumber('10000000000000000000'),
     });
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'supply_amount_set',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: underlyingToken.symbol,
+        maxSelected: false,
+        fundingSource: 'wallet',
+      }),
+      {
+        debounced: true,
+      },
+    );
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'supply_initiated',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: underlyingToken.symbol,
+        fundingSource: 'wallet',
+      }),
+    );
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+      'supply_signed',
+      expect.objectContaining({
+        poolName: 'liquidity_hub',
+        assetSymbol: underlyingToken.symbol,
+        fundingSource: 'wallet',
+      }),
+    );
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  it('tracks rejected wallet supply transactions', async () => {
+    mockUseSupplyToLiquidityHub.mockReturnValue({
+      mutateAsync: vi.fn().mockRejectedValue(new Error('User rejected transaction')),
+      isPending: false,
+    });
+
+    renderTransactionForm();
+
+    fireEvent.change(getAmountInput(), {
+      target: {
+        value: '10',
+      },
+    });
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.supplySubmitButtonLabel,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
+        'supply_rejected',
+        expect.objectContaining({
+          poolName: 'liquidity_hub',
+          assetSymbol: underlyingToken.symbol,
+          fundingSource: 'wallet',
+        }),
+      ),
+    );
   });
 
   it('shows a validation error when the amount exceeds the wallet balance', async () => {

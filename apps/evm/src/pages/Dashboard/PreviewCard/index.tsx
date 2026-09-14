@@ -10,16 +10,15 @@ interface PreviewCardBaseProps {
   status?: ReactNode;
   cells: CellProps[];
   className?: string;
+  onClick?: () => void;
 }
 
 type PreviewCardActionProps =
   | {
-      onClick?: () => void;
       to?: undefined;
       chainId?: undefined;
     }
   | {
-      onClick?: undefined;
       to: To;
       chainId?: ChainId;
     };

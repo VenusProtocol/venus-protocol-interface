@@ -15,18 +15,32 @@ type AnalyticEvent = CommonProps & {
   variant?: string;
 };
 
+type FundingSource = 'wallet' | 'core_pool_collateral';
+
 type AmountTx = AnalyticEvent & {
   poolName: string;
   assetSymbol: string;
   usdAmount: number;
 };
 
+type SupplyAmountTx = AmountTx & {
+  fundingSource?: FundingSource;
+};
+
 type AmountSet = AmountTx & {
   maxSelected: boolean;
 };
 
-type BorrowWithdrawAmountSet = AmountSet & {
+type SupplyAmountSet = AmountSet & {
+  fundingSource?: FundingSource;
+};
+
+type BorrowAmountSet = AmountSet & {
   safeBorrowLimitExceeded: boolean;
+};
+
+type WithdrawAmountSet = AmountSet & {
+  safeBorrowLimitExceeded?: boolean;
 };
 
 type RepayAmountSet = AmountSet & {
@@ -54,6 +68,7 @@ type Supply = AnalyticEvent & {
   poolName: string;
   tokenSymbol: string;
   tokenAmountTokens: number;
+  fundingSource?: FundingSource;
 };
 
 type Withdraw = AnalyticEvent & {
@@ -164,27 +179,32 @@ type MarketsAdBanner = AnalyticEvent & {
   ctaUrl?: string;
 };
 
+type HubSelected = AnalyticEvent & {
+  assetSymbol: string;
+  chainID: ChainId;
+};
+
 type EventMap = {
   connect_wallet_initiated: AnalyticEvent;
   wallet_connected: AnalyticEvent;
   wallet_disconnected: AnalyticEvent;
   wallet_switched: AnalyticEvent;
 
-  supply_amount_set: AmountSet;
-  supply_initiated: AmountTx;
-  supply_rejected: AmountTx;
-  supply_signed: AmountTx;
+  supply_amount_set: SupplyAmountSet;
+  supply_initiated: SupplyAmountTx;
+  supply_rejected: SupplyAmountTx;
+  supply_signed: SupplyAmountTx;
   'Tokens supplied': Supply;
 
-  withdraw_amount_set: BorrowWithdrawAmountSet;
-  withdraw_risks_acknowledged: BorrowWithdrawAmountSet;
+  withdraw_amount_set: WithdrawAmountSet;
+  withdraw_risks_acknowledged: WithdrawAmountSet;
   withdraw_initiated: AmountTx;
   withdraw_rejected: AmountTx;
   withdraw_signed: AmountTx;
   'Tokens withdrawn': Withdraw;
 
-  borrow_amount_set: BorrowWithdrawAmountSet;
-  borrow_risks_acknowledged: BorrowWithdrawAmountSet;
+  borrow_amount_set: BorrowAmountSet;
+  borrow_risks_acknowledged: BorrowAmountSet;
   borrow_initiated: AmountTx;
   borrow_rejected: AmountTx;
   borrow_signed: AmountTx;
@@ -224,6 +244,8 @@ type EventMap = {
   'Position imported': PositionImport;
 
   e_mode_navigation: AnalyticEvent;
+  hub_navigation: AnalyticEvent;
+  hub_selected: HubSelected;
   e_mode_learn_more_click: AnalyticEvent;
   e_mode_open_positions_modal: AnalyticEvent;
   e_mode_click_repay_positions_modal: EModeClickRepayPositionsModal;
