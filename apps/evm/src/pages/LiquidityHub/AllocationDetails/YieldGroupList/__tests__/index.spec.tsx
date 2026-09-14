@@ -58,15 +58,12 @@ describe('YieldGroupList', () => {
 
     expect(screen.getAllByText('Janus Henderson AAA CLO Fund').length).toBeGreaterThan(1);
 
-    // the name column is labelled per group type
     expect(screen.getAllByText('Fund').length).toBeGreaterThan(0);
     expect(screen.queryByText('Vault')).not.toBeInTheDocument();
     expect(screen.queryByText('Market')).not.toBeInTheDocument();
 
-    // the CRA column shows up because these funds carry agency ratings
     expect(screen.getAllByText('CRA').length).toBeGreaterThan(0);
 
-    // ...while the collateral column stays out, since these funds have no collateral
     expect(screen.queryByText('Collateral')).not.toBeInTheDocument();
   });
 

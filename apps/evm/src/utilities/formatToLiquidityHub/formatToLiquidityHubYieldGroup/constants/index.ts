@@ -37,3 +37,7 @@ export const metadataByType: Record<
     bgClassName: 'bg-red',
   },
 };
+
+export const isKnownYieldGroupKind = (
+  kind: LiquidityHubYieldGroupType | null,
+): kind is LiquidityHubYieldGroupType | null => kind === null || kind in metadataByType;

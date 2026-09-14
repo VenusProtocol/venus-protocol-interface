@@ -185,20 +185,15 @@ describe('formatToLiquidityHub', () => {
 
     expect(ratings).toHaveLength(2);
 
-    // agency names and rating labels are passed through untouched
     expect(ratings?.[0]?.agencyName).toBe("Moody's Ratings");
     expect(ratings?.[0]?.value).toBe('Aa-bf');
     expect(ratings?.[0]?.reportUrl).toBe('https://moodys.example/report');
 
-    // the logo comes straight from the API
     expect(ratings?.[0]?.agencyIconSrc).toBe('https://static.example/moodys.jpeg');
 
-    // a missing rating or report url becomes undefined, so the cell falls back to the placeholder
-    // and the row renders without being clickable
     expect(ratings?.[1]?.value).toBeUndefined();
     expect(ratings?.[1]?.reportUrl).toBeUndefined();
 
-    // an agency the API sends no logo for falls back to the placeholder, so the cell never breaks
     expect(ratings?.[1]?.agencyIconSrc).toBeTruthy();
   });
 

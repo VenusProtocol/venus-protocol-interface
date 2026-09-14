@@ -9,8 +9,11 @@ export default {
   component: ImgGroup,
 } as Meta<typeof ImgGroup>;
 
-const imgSrcs = [usdt, eth, usdc, xvs, bnb, lisUsd].map(token => token.iconSrc);
+const imgs = [usdt, eth, usdc, xvs, bnb, lisUsd].map(token => ({
+  src: token.iconSrc,
+  alt: token.symbol,
+}));
 
-export const Default = () => <ImgGroup imgSrcs={imgSrcs} />;
+export const Default = () => <ImgGroup imgs={imgs} />;
 
-export const WithLimit = () => <ImgGroup imgSrcs={imgSrcs} limit={3} />;
+export const WithLimit = () => <ImgGroup imgs={imgs} limit={3} />;

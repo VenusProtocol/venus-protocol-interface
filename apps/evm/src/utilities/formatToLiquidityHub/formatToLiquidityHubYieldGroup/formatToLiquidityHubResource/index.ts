@@ -41,8 +41,6 @@ export const formatToLiquidityHubResource = ({
     [],
   );
 
-  // Rating labels and agency names are rendered verbatim: agency-specific notation (Moody's `-bf`
-  // suffix, S&P's `f` / `S1+` volatility pairing) carries meaning and must not be reformatted.
   const ratings = (apiResource.creditRatings ?? []).reduce<LiquidityHubSource['ratings']>(
     (acc, apiCreditRating) => {
       if (!apiCreditRating.agencyName) {

@@ -44,6 +44,7 @@ export function Table<R>({
   hideCardDelimiter,
   className,
   tableRowClassName,
+  getRowClassName,
   tableHeaderClassName,
   tableContainerClassName,
   ...otherProps
@@ -187,6 +188,7 @@ export function Table<R>({
                           'h-18 text-white hover:bg-background-hover hover:no-underline',
                           isRowClickable && 'cursor-pointer',
                           tableRowClassName,
+                          getRowClassName?.(row),
                         )}
                         onClick={
                           isRowClickable

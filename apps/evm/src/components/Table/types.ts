@@ -39,9 +39,8 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   hideCardDelimiter?: boolean;
   className?: string;
   tableRowClassName?: string;
+  getRowClassName?: (row: R) => string | undefined;
   tableHeaderClassName?: string;
-  // Applied to the element that owns the table's overflow. Constrain its height here (rather than on
-  // an ancestor) when the header needs to stay sticky while the body scrolls
   tableContainerClassName?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;

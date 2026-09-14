@@ -1,31 +1,29 @@
 import { cn } from '@venusprotocol/ui';
 
-import { ImgGroup } from '../ImgGroup';
+import { ImgGroup, type ImgGroupItem } from '../ImgGroup';
 import { Table, type TableColumn, type TableProps } from '../Table';
 import { Tooltip } from '../Tooltip';
 
 export interface ImgGroupTooltipProps<R> {
-  imgSrcs: string[];
+  imgs: ImgGroupItem[];
   data: R[];
   columns: TableColumn<R>[];
   rowKeyExtractor: (row: R) => string;
   rowOnClick?: TableProps<R>['rowOnClick'];
+  getRowClassName?: TableProps<R>['getRowClassName'];
   tableLayout?: TableProps<R>['tableLayout'];
   removeDuplicates?: boolean;
   className?: string;
   contentClassName?: string;
 }
 
-// Shared icon-stack trigger with a tabular popover, used wherever a cell needs to condense a list of
-// entities (yield group exposure, source collaterals, fund rating agencies) into stacked icons. The
-// header stays visible while the rows scroll, and the popover flips rather than clipping since
-// Tooltip is collision-aware
 export function ImgGroupTooltip<R>({
-  imgSrcs,
+  imgs,
   data,
   columns,
   rowKeyExtractor,
   rowOnClick,
+  getRowClassName,
   tableLayout,
   removeDuplicates,
   className,
@@ -39,6 +37,7 @@ export function ImgGroupTooltip<R>({
           rowKeyExtractor={rowKeyExtractor}
           columns={columns}
           rowOnClick={rowOnClick}
+          getRowClassName={getRowClassName}
           variant="secondary"
           tableLayout={tableLayout}
           className="border-0 p-0"
@@ -50,7 +49,7 @@ export function ImgGroupTooltip<R>({
       className={cn('inline-flex', className)}
       contentClassName={cn('p-1.5', contentClassName)}
     >
-      <ImgGroup imgSrcs={imgSrcs} removeDuplicates={removeDuplicates} limit={5} />
+      <ImgGroup imgs={imgs} removeDuplicates={removeDuplicates} limit={5} />
     </Tooltip>
   );
 }

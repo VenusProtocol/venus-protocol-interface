@@ -36,7 +36,10 @@ export const YieldGroups: React.FC<YieldGroupsProps> = ({ yieldGroups, className
 
   return (
     <ImgGroupTooltip
-      imgSrcs={yieldGroups.map(yieldGroup => yieldGroup.iconSrc)}
+      imgs={yieldGroups.map(yieldGroup => ({
+        src: yieldGroup.iconSrc,
+        alt: t(yieldGroup.nameTranslationKey),
+      }))}
       data={yieldGroups}
       rowKeyExtractor={row => row.address}
       columns={columns}

@@ -36,7 +36,7 @@ export const CollateralGroup: React.FC<CollateralGroupProps> = ({ collaterals, c
 
   return (
     <ImgGroupTooltip
-      imgSrcs={collaterals.map(({ token }) => token.iconSrc)}
+      imgs={collaterals.map(({ token }) => ({ src: token.iconSrc, alt: token.symbol }))}
       data={collaterals}
       rowKeyExtractor={row => row.token.address}
       columns={columns}

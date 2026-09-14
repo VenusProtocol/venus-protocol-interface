@@ -5,7 +5,6 @@ import { renderComponent } from 'testUtils/render';
 import type { LiquidityHubSourceRating } from 'types';
 import { RatingGroup } from '..';
 
-// Renders the popover content inline so the agency rows can be asserted without driving Radix hover
 vi.mock('components/Tooltip', () => ({
   Tooltip: ({ children, content }: { children: React.ReactNode; content: React.ReactNode }) => (
     <div>
@@ -29,7 +28,6 @@ const spGlobalRating: LiquidityHubSourceRating = {
   reportUrl: 'https://www.spglobal.com/ratings/report',
 };
 
-// The popover renders a table and a card list of the same rows, so assertions are scoped to the table
 const renderRatingGroup = (ratings: LiquidityHubSourceRating[]) => {
   const view = renderComponent(<RatingGroup ratings={ratings} />);
   const table = view.container.querySelector('table');
@@ -44,7 +42,6 @@ describe('RatingGroup', () => {
     expect(within(table!).getByText("Moody's Ratings")).toBeInTheDocument();
     expect(within(table!).getByText('S&P Global Ratings')).toBeInTheDocument();
 
-    // Agency notation is opaque: it must reach the DOM exactly as the API returned it
     expect(within(table!).getByText('Aa-bf')).toBeInTheDocument();
     expect(within(table!).getByText('AAAf/S1+')).toBeInTheDocument();
   });
@@ -63,7 +60,6 @@ describe('RatingGroup', () => {
   it('renders an icon per agency in the trigger stack', () => {
     const { container } = renderRatingGroup([moodysRating, spGlobalRating]);
 
-    // the mocked Tooltip renders the popover content first and the trigger last
     const triggerStack = container.firstElementChild?.lastElementChild;
 
     expect(triggerStack?.querySelectorAll('img')).toHaveLength(2);
