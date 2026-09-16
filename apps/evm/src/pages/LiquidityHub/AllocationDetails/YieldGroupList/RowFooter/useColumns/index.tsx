@@ -3,6 +3,7 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubSource, LiquidityHubYieldGroup, Token } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
+import { COLUMN_WIDTHS } from '../../../columnWidths';
 import { CollateralGroup } from './CollateralGroup';
 
 export const useColumns = ({
@@ -91,7 +92,7 @@ export const useColumns = ({
       renderCell: ({ lockEndDate }) =>
         lockEndDate ? (
           <LayeredValues
-            className="text-end"
+            className="text-end whitespace-nowrap"
             topValue={t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.date', {
               date: lockEndDate,
             })}
@@ -112,6 +113,7 @@ export const useColumns = ({
       selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.collateralColumn.title'),
       align: 'right',
       renderCell: ({ collaterals }) => <CollateralGroup collaterals={collaterals} />,
+      colSpan: COLUMN_WIDTHS.length - columns.length,
     });
   }
 

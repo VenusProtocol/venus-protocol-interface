@@ -20,6 +20,7 @@ export * from './types';
 export function Table<R>({
   controls = true,
   columns,
+  columnWidths,
   cardClassName,
   cardColumns,
   data,
@@ -146,6 +147,14 @@ export function Table<R>({
             )}
           >
             <TableElement style={{ minWidth: minwidth, tableLayout: tablelayout }}>
+              {columnWidths && (
+                <colgroup>
+                  {columnWidths.map((columnwidth, columnIndex) => (
+                    <col key={`${columnIndex}-${columnwidth}`} style={{ width: columnwidth }} />
+                  ))}
+                </colgroup>
+              )}
+
               <Head
                 className={cn(
                   variant === 'primary' && 'border-b border-dark-blue-hover',
@@ -224,6 +233,7 @@ export function Table<R>({
                               key={`${rowKey}-${column.key}`}
                               title={cellTitle}
                               align={column.align}
+                              colSpan={column.colSpan}
                             >
                               {cellContent}
                             </TableCell>

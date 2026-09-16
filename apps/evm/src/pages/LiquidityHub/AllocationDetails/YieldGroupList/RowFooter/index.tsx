@@ -1,5 +1,6 @@
 import { AccordionAnimatedContent, Table } from 'components';
 import type { LiquidityHubSource, LiquidityHubYieldGroup, Token } from 'types';
+import { COLUMN_WIDTHS } from '../../columnWidths';
 import { CardList } from './CardList';
 import { useColumns } from './useColumns';
 
@@ -35,11 +36,12 @@ export const RowFooter: React.FC<RowFooterProps> = ({ row, underlyingToken, isOp
       <div className="hidden md:block lg:hidden 2xl:block">
         <Table
           columns={columns}
+          columnWidths={COLUMN_WIDTHS}
           data={row.sources}
           rowKeyExtractor={rowKeyExtractor}
           initialOrder={initialOrder}
           variant="primary"
-          tableLayout="auto"
+          tableLayout="fixed"
           className="bg-dark-blue"
         />
       </div>
