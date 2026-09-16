@@ -89,11 +89,19 @@ export const useColumns = ({
       selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.title'),
       align: 'right',
       renderCell: ({ lockEndDate }) =>
-        lockEndDate
-          ? t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.date', {
+        lockEndDate ? (
+          <LayeredValues
+            className="text-end"
+            topValue={t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.date', {
               date: lockEndDate,
-            })
-          : PLACEHOLDER_KEY,
+            })}
+            bottomValue={t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.time', {
+              date: lockEndDate,
+            })}
+          />
+        ) : (
+          PLACEHOLDER_KEY
+        ),
     });
   }
 

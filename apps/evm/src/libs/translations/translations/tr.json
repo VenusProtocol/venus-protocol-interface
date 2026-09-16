@@ -972,7 +972,8 @@
           "title": "Likidite"
         },
         "lockEndDateColumn": {
-          "date": "{{date, textualWithTime}}",
+          "date": "{{date, textual}}",
+          "time": "{{date, time}}",
           "title": "Kilit bitiş tarihi"
         },
         "nameColumn": {

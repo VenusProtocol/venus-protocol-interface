@@ -972,7 +972,8 @@
           "title": "Liquidity"
         },
         "lockEndDateColumn": {
-          "date": "{{date, textualWithTime}}",
+          "date": "{{date, textual}}",
+          "time": "{{date, time}}",
           "title": "Lock end date"
         },
         "nameColumn": {

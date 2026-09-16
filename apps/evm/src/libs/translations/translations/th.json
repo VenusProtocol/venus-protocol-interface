@@ -971,7 +971,8 @@
           "title": "สภาพคล่อง"
         },
         "lockEndDateColumn": {
-          "date": "{{date, textualWithTime}}",
+          "date": "{{date, textual}}",
+          "time": "{{date, time}}",
           "title": "วันที่สิ้นสุดการล็อก"
         },
         "nameColumn": {

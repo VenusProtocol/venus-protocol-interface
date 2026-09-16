@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
+import { t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { LiquidityHubYieldGroup } from 'types';
 import { RowFooter } from '..';
@@ -56,5 +57,28 @@ describe('RowFooter', () => {
       'Lock end date',
       'Collateral',
     ]);
+  });
+
+  it('renders the lock end date above its time', () => {
+    renderRowFooter({
+      ...coreYieldGroup,
+      type: 'frv',
+    });
+
+    const [{ lockEndDate }] = coreYieldGroup.sources;
+
+    const dateDoms = screen.getAllByText(
+      t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.date', { date: lockEndDate }),
+    );
+
+    expect(dateDoms.length).toBeGreaterThan(0);
+
+    for (const dateDom of dateDoms) {
+      expect(dateDom.nextElementSibling).toHaveTextContent(
+        t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.time', {
+          date: lockEndDate,
+        }),
+      );
+    }
   });
 });
