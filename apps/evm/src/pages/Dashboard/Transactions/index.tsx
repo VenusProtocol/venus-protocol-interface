@@ -113,14 +113,9 @@ export const Transactions: React.FC = () => {
     data: getLiquidityHubsData = {
       liquidityHubs: [],
     },
-  } = useGetLiquidityHubs(
-    {
-      accountAddress,
-    },
-    {
-      enabled: isLiquidityHubFeatureEnabled,
-    },
-  );
+  } = useGetLiquidityHubs({
+    accountAddress,
+  });
   const { liquidityHubs } = getLiquidityHubsData;
 
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
