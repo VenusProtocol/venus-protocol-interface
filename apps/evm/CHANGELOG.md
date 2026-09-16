@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 5.30.0
+
+### Minor Changes
+
+- 9a3fe63: fix: skip api calling on unsupport chains
+- 24ffc2a: restrict the transaction history feature to BNB Chain
+
 ## 5.29.0
 
 ### Minor Changes
