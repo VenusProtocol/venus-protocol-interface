@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import type { DataKey, Margin } from 'recharts/types/util/types';
 
+import { SectionErrorBoundary } from '../SectionErrorBoundary';
 import { getXAxisTicks } from './getXAxisTicks';
 
 export interface AreaChartProps<T extends Record<string, any>> {
@@ -32,7 +33,7 @@ export interface AreaChartProps<T extends Record<string, any>> {
   className?: string;
 }
 
-export const AreaChart = <T extends Record<string, any>>({
+const AreaChartContent = <T extends Record<string, any>>({
   className,
   data,
   chartColor,
@@ -140,3 +141,11 @@ export const AreaChart = <T extends Record<string, any>>({
     </div>
   );
 };
+
+// Charts depend on the shape of remote data (e.g. a period with fewer points than expected), so an
+// unexpected payload must not take down the page embedding the chart.
+export const AreaChart = <T extends Record<string, any>>(props: AreaChartProps<T>) => (
+  <SectionErrorBoundary className="my-4">
+    <AreaChartContent {...props} />
+  </SectionErrorBoundary>
+);
