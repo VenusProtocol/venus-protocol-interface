@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { CompactTableCardList, Table } from 'components';
 import type { LiquidityHub, LiquidityHubYieldGroup } from 'types';
+import { COLUMN_WIDTHS } from '../columnWidths';
 import { RowFooter } from './RowFooter';
 import { useColumns } from './useColumns';
 
@@ -55,12 +56,13 @@ export const YieldGroupList: React.FC<YieldGroupListProps> = ({ liquidityHub }) 
       <div className="hidden md:block lg:hidden 2xl:block">
         <Table
           columns={columns}
+          columnWidths={COLUMN_WIDTHS}
           data={liquidityHub.yieldGroups}
           rowKeyExtractor={rowKeyExtractor}
           initialOrder={initialOrder}
           variant="secondary"
           className="border-0"
-          tableLayout="auto"
+          tableLayout="fixed"
           rowOnClick={(_event, row) => handleRowClick(row)}
           renderRowFooter={renderRowFooter}
           size="sm"

@@ -42,7 +42,12 @@ function Head<R>({
           }
 
           return (
-            <TableHeadCell key={column.key} align={column.align} aria-sort={ariaSortDirection}>
+            <TableHeadCell
+              key={column.key}
+              align={column.align}
+              colSpan={column.colSpan}
+              aria-sort={ariaSortDirection}
+            >
               <button
                 type="button"
                 className={cn(

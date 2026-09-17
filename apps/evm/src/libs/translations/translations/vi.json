@@ -971,7 +971,8 @@
           "title": "Thanh khoản"
         },
         "lockEndDateColumn": {
-          "date": "{{date, textualWithTime}}",
+          "date": "{{date, textual}}",
+          "time": "{{date, time}}",
           "title": "Ngày kết thúc khóa"
         },
         "nameColumn": {

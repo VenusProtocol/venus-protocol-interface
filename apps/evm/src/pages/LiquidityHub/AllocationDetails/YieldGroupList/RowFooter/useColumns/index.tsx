@@ -3,6 +3,7 @@ import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubSource, LiquidityHubYieldGroup, Token } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
+import { COLUMN_WIDTHS } from '../../../columnWidths';
 import { CollateralGroup } from './CollateralGroup';
 
 export const useColumns = ({
@@ -27,20 +28,6 @@ export const useColumns = ({
       label: nameColumnContent,
       selectOptionLabel: nameColumnContent,
       renderCell: row => row.name,
-    },
-    {
-      key: 'apy',
-      label: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
-      selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
-      align: 'right',
-      renderCell: ({ supplyApyPercentage, supplyTokenDistributions }) => (
-        <Apy
-          type="supply"
-          token={underlyingToken}
-          baseApyPercentage={supplyApyPercentage}
-          tokenDistributions={supplyTokenDistributions}
-        />
-      ),
     },
     {
       key: 'allocation',
@@ -80,6 +67,20 @@ export const useColumns = ({
         />
       ),
     },
+    {
+      key: 'apy',
+      label: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
+      selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
+      align: 'right',
+      renderCell: ({ supplyApyPercentage, supplyTokenDistributions }) => (
+        <Apy
+          type="supply"
+          token={underlyingToken}
+          baseApyPercentage={supplyApyPercentage}
+          tokenDistributions={supplyTokenDistributions}
+        />
+      ),
+    },
   ];
 
   if (shouldDisplayLockEndDate) {
@@ -89,11 +90,19 @@ export const useColumns = ({
       selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.title'),
       align: 'right',
       renderCell: ({ lockEndDate }) =>
-        lockEndDate
-          ? t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.date', {
+        lockEndDate ? (
+          <LayeredValues
+            className="text-end whitespace-nowrap"
+            topValue={t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.date', {
               date: lockEndDate,
-            })
-          : PLACEHOLDER_KEY,
+            })}
+            bottomValue={t('liquidityHub.allocationDetails.yieldGroup.lockEndDateColumn.time', {
+              date: lockEndDate,
+            })}
+          />
+        ) : (
+          PLACEHOLDER_KEY
+        ),
     });
   }
 
@@ -104,6 +113,7 @@ export const useColumns = ({
       selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.collateralColumn.title'),
       align: 'right',
       renderCell: ({ collaterals }) => <CollateralGroup collaterals={collaterals} />,
+      colSpan: COLUMN_WIDTHS.length - columns.length,
     });
   }
 
