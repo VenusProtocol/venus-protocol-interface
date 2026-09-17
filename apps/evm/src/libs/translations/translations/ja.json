@@ -454,6 +454,7 @@
       "showRawError": "元のエラーを表示"
     },
     "supplyCapExceeded": "このマーケットの供給上限に達しました。",
+    "supplyNotAllowed": "このマーケットは許可された供給者からの預け入れのみ受け付けます。",
     "swapDeadlineExpire": "スワップの有効期限が切れました。もう一度お試しください。",
     "tooMuchRepay": "返済額が未返済の借入額を超えています。"
   },
@@ -1886,6 +1887,37 @@
   "spokeCollateralGroup": {
     "asset": "資産",
     "maxLtv": "最大LTV"
+  },
+  "spokeForm": {
+    "borrow": {
+      "submitButtonLabel": "借りる",
+      "tabTitle": "借入",
+      "zeroCollateralNotice": "このプールから {{tokenSymbol}} を借りるには、先に担保を<SupplyLink>供給</SupplyLink>してください。"
+    },
+    "borrowModalTitle": "{{poolName}} プールから {{tokenSymbol}} を借りる",
+    "collateralTabTitle": "担保",
+    "error": {
+      "borrowDisabled": "このマーケットの借入は現在停止中です",
+      "higherThanAvailableAmount": "金額が利用可能残高を超えています",
+      "supplyDisabled": "この担保の供給は現在停止中です"
+    },
+    "loanTabTitle": "ローン",
+    "repay": {
+      "submitButtonLabel": "返済する",
+      "tabTitle": "返済",
+      "walletBalanceLabel": "ウォレット残高"
+    },
+    "rightMaxButtonLabel": "最大",
+    "safeMaxButtonLabel": "安全上限",
+    "supply": {
+      "submitButtonLabel": "供給する",
+      "tabTitle": "供給",
+      "walletBalanceLabel": "ウォレット残高"
+    },
+    "withdraw": {
+      "submitButtonLabel": "引き出す",
+      "tabTitle": "引き出し"
+    }
   },
   "spokeMarket": {
     "borrowCapThreshold": {

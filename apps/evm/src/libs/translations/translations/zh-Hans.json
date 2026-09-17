@@ -454,6 +454,7 @@
       "showRawError": "显示原始错误"
     },
     "supplyCapExceeded": "该市场已达到存款上限。",
+    "supplyNotAllowed": "该市场只接受白名单地址存入。",
     "swapDeadlineExpire": "兑换已超时，请重试。",
     "tooMuchRepay": "还款金额超过了你的未偿借款。"
   },
@@ -1886,6 +1887,37 @@
   "spokeCollateralGroup": {
     "asset": "资产",
     "maxLtv": "最高抵押率"
+  },
+  "spokeForm": {
+    "borrow": {
+      "submitButtonLabel": "借款",
+      "tabTitle": "借款",
+      "zeroCollateralNotice": "您需要先<SupplyLink>供应</SupplyLink>抵押品，才能从该资金池借出 {{tokenSymbol}}。"
+    },
+    "borrowModalTitle": "从 {{poolName}} 池借出 {{tokenSymbol}}",
+    "collateralTabTitle": "抵押品",
+    "error": {
+      "borrowDisabled": "该市场的借款当前已暂停",
+      "higherThanAvailableAmount": "金额超出可用余额",
+      "supplyDisabled": "该抵押品的供应当前已暂停"
+    },
+    "loanTabTitle": "借贷",
+    "repay": {
+      "submitButtonLabel": "还款",
+      "tabTitle": "还款",
+      "walletBalanceLabel": "钱包余额"
+    },
+    "rightMaxButtonLabel": "全部",
+    "safeMaxButtonLabel": "安全上限",
+    "supply": {
+      "submitButtonLabel": "供应",
+      "tabTitle": "供应",
+      "walletBalanceLabel": "钱包余额"
+    },
+    "withdraw": {
+      "submitButtonLabel": "提取",
+      "tabTitle": "提取"
+    }
   },
   "spokeMarket": {
     "borrowCapThreshold": {

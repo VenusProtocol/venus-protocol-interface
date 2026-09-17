@@ -9,6 +9,7 @@ export interface TabsProps {
   onTabChange?: (newIndex: number) => void;
   navType?: TabNavType;
   initialActiveTabId?: string;
+  activeTabId?: string;
   className?: string;
   headerClassName?: string;
   buttonClassName?: string;
@@ -19,6 +20,7 @@ export const Tabs = ({
   variant = 'primary',
   onTabChange,
   initialActiveTabId,
+  activeTabId,
   className,
   headerClassName,
   buttonClassName,
@@ -28,6 +30,7 @@ export const Tabs = ({
     tabs,
     navType,
     initialActiveTabId,
+    activeTabId,
   });
 
   const handleChange = (index: number, e?: React.MouseEvent) => {

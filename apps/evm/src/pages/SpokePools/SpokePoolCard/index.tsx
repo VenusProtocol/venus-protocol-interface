@@ -1,5 +1,9 @@
-import { HealthFactorPill, Table, type TableProps } from 'components';
+import { useState } from 'react';
+
+import { HealthFactorPill, Table, type TableProps, TableRowControl } from 'components';
 import { routes } from 'constants/routing';
+import { SpokeFormModal } from 'containers/SpokeFormModal';
+import { useTranslation } from 'libs/translations';
 import type { SpokeAsset, SpokePool } from 'types';
 
 import { useColumns } from './useColumns';
@@ -17,36 +21,67 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
   collaterals,
   ...otherProps
 }) => {
+  const { t } = useTranslation();
   const columns = useColumns({ collaterals });
+  const [selectedAsset, setSelectedAsset] = useState<SpokeAsset>();
 
   const getRowHref = (asset: SpokeAsset) =>
     routes.spokeMarket.path
       .replace(':spokePoolComptrollerAddress', spokePool.comptrollerAddress)
       .replace(':spokeVTokenAddress', asset.vToken.address);
 
-  return (
-    <Table
-      data={loanAssets}
-      columns={columns}
-      rowKeyExtractor={asset => asset.vToken.address}
-      controls
-      tableLayout="auto"
-      breakpoint="md"
-      hideCardDelimiter
-      getRowHref={getRowHref}
-      header={
-        <div className="flex items-start justify-between gap-x-4">
-          <div>
-            <p className="text-p2s">{spokePool.name}</p>
-            <p className="text-b1r text-grey">{spokePool.description}</p>
-          </div>
+  const renderRowControl = (asset: SpokeAsset) => {
+    const handleClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-          {spokePool.userHealthFactor !== undefined && (
-            <HealthFactorPill factor={spokePool.userHealthFactor} showLabel />
-          )}
-        </div>
-      }
-      {...otherProps}
-    />
+      setSelectedAsset(asset);
+    };
+
+    return <TableRowControl className="-ml-6" onClick={handleClick} />;
+  };
+
+  return (
+    <>
+      <Table
+        data={loanAssets}
+        columns={columns}
+        rowKeyExtractor={asset => asset.vToken.address}
+        controls
+        tableLayout="auto"
+        breakpoint="md"
+        hideCardDelimiter
+        getRowHref={getRowHref}
+        renderRowControl={renderRowControl}
+        header={
+          <div className="flex items-start justify-between gap-x-4">
+            <div>
+              <p className="text-p2s">{spokePool.name}</p>
+              <p className="text-b1r text-grey">{spokePool.description}</p>
+            </div>
+
+            {spokePool.userHealthFactor !== undefined && (
+              <HealthFactorPill factor={spokePool.userHealthFactor} showLabel />
+            )}
+          </div>
+        }
+        {...otherProps}
+      />
+
+      {selectedAsset && (
+        <SpokeFormModal
+          title={t('spokeForm.borrowModalTitle', {
+            tokenSymbol: selectedAsset.vToken.underlyingToken.symbol,
+            poolName: spokePool.name,
+          })}
+          spokePool={spokePool}
+          asset={selectedAsset}
+          initialLoanTabId={
+            selectedAsset.disabledTokenActions.includes('borrow') ? 'repay' : 'borrow'
+          }
+          handleClose={() => setSelectedAsset(undefined)}
+        />
+      )}
+    </>
   );
 };
