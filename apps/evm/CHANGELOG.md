@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.31.0
+
+### Minor Changes
+
+- 142f6c4: update table sort order
+
 ## 5.30.0
 
 ### Minor Changes
