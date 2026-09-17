@@ -42,6 +42,7 @@ export * from './InfoIcon';
 export * from './CellGroup';
 export * from './Cell';
 export * from './ImgGroup';
+export * from './ImgGroupTooltip';
 export * from './TagGroup';
 export * from './SpendingLimit';
 export * from './StatusLabel';

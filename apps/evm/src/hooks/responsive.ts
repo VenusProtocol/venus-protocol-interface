@@ -8,6 +8,8 @@ export const useBreakpointDown = (breakpoint: Breakpoint) => {
   return useMediaQuery(theme.breakpoints.down(breakpoint));
 };
 
+export const useHasHoverPointer = () => useMediaQuery('(hover: hover) and (pointer: fine)');
+
 export const useBreakpointUp = (breakpoint: Breakpoint) => {
   const theme = useTheme();
 

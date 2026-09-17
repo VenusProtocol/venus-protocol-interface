@@ -7,7 +7,7 @@ import {
 } from '@radix-ui/react-tooltip';
 import { cn } from '@venusprotocol/ui';
 import { Modal } from 'components/Modal';
-import { useBreakpointUp } from 'hooks/responsive';
+import { useHasHoverPointer } from 'hooks/responsive';
 import { useState } from 'react';
 import { TooltipContent } from './TooltipContent';
 
@@ -25,7 +25,7 @@ export const Tooltip = ({
   ...props
 }: TooltipProps) => {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-  const isMdOrUp = useBreakpointUp('md');
+  const hasHoverPointer = useHasHoverPointer();
 
   const handleToggleDropdown = () => setIsTooltipOpen(!isTooltipOpen);
 
@@ -39,7 +39,7 @@ export const Tooltip = ({
               e.preventDefault();
               e.stopPropagation();
 
-              if (!isMdOrUp) {
+              if (!hasHoverPointer) {
                 setIsTooltipOpen(true);
               }
             }}
@@ -52,7 +52,7 @@ export const Tooltip = ({
           onPointerDownOutside={e => e.preventDefault()}
           className={cn(
             'block overflow-visible p-3 z-99999 bg-dark-blue border border-blue',
-            !isMdOrUp && 'hidden',
+            !hasHoverPointer && 'hidden',
             contentClassName,
           )}
         >
@@ -73,7 +73,7 @@ export const Tooltip = ({
       <Modal
         buttonClassName="right-3"
         onClick={e => e.stopPropagation()}
-        isOpen={isTooltipOpen && !isMdOrUp}
+        isOpen={isTooltipOpen && !hasHoverPointer}
         handleClose={handleToggleDropdown}
       >
         <div onClick={() => setIsTooltipOpen(false)}>{content}</div>

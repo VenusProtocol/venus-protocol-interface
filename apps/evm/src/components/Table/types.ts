@@ -39,7 +39,9 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   hideCardDelimiter?: boolean;
   className?: string;
   tableRowClassName?: string;
+  getRowClassName?: (row: R) => string | undefined;
   tableHeaderClassName?: string;
+  tableContainerClassName?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
   renderRowFooter?: (row: R, rowIndex: number) => React.ReactNode | string;
