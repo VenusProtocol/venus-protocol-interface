@@ -36,6 +36,7 @@ const Trade = safeLazyLoad(() => import('pages/Trade'));
 const LiquidityHubs = safeLazyLoad(() => import('pages/LiquidityHubs'));
 const LiquidityHub = safeLazyLoad(() => import('pages/LiquidityHub'));
 const SpokePools = safeLazyLoad(() => import('pages/SpokePools'));
+const SpokeMarket = safeLazyLoad(() => import('pages/SpokeMarket'));
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -265,14 +266,27 @@ const AppRoutes = () => {
         )}
 
         {spokeEnabled && (
-          <Route
-            path={Subdirectory.SPOKE_POOLS}
-            element={
-              <PageSuspense>
-                <SpokePools />
-              </PageSuspense>
-            }
-          />
+          <Route path={Subdirectory.SPOKE_POOLS}>
+            <Route
+              index
+              element={
+                <PageSuspense>
+                  <SpokePools />
+                </PageSuspense>
+              }
+            />
+
+            <Route path={Subdirectory.SPOKE_POOL}>
+              <Route
+                path={Subdirectory.SPOKE_MARKET}
+                element={
+                  <PageSuspense>
+                    <SpokeMarket />
+                  </PageSuspense>
+                }
+              />
+            </Route>
+          </Route>
         )}
 
         <Route

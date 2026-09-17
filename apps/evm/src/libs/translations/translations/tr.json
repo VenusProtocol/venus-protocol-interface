@@ -351,6 +351,7 @@
     "markets": "Piyasalar",
     "primeCalculator": "Prime hesaplayıcı",
     "proposal": "Teklif #{{proposalId}}",
+    "spokeMarket": "{{poolName}} içindeki {{tokenSymbol}}",
     "spokePools": "Spoke",
     "swap": "Takas",
     "vai": "VAI",
@@ -1883,11 +1884,50 @@
     "label": "Harcama limiti",
     "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin."
   },
-  "spokePools": {
-    "collateralGroup": {
-      "asset": "Varlık",
-      "maxLtv": "Azami LTV"
+  "spokeCollateralGroup": {
+    "asset": "Varlık",
+    "maxLtv": "Azami LTV"
+  },
+  "spokeMarket": {
+    "borrowCapThreshold": {
+      "title": "Toplam borç alınan",
+      "tooltip": "Borç alınabilecek azami tutar {{amountDollars}} ({{amountTokens}})<LineBreak />Borç üst sınırı: {{capTokens}}"
     },
+    "borrowInfo": {
+      "averageApy": "Ortalama APY",
+      "currentApy": "Güncel APY",
+      "title": "Borç bilgisi"
+    },
+    "header": {
+      "collateral": "Teminat",
+      "liquidity": "Likidite",
+      "price": "Fiyat",
+      "supply": "Arz"
+    },
+    "loanInfo": {
+      "borrowerCount": "Borç alan sayısı",
+      "dailyBorrowInterests": "Günlük borç faizi",
+      "marketContract": "Pazar sözleşmesi",
+      "reserveFactor": "Rezerv faktörü",
+      "suppliable": "Arz edilebilir",
+      "suppliableNo": "Hayır",
+      "suppliableYes": "Evet",
+      "title": "Kredi bilgisi"
+    },
+    "supportedCollateral": {
+      "capacity": "{{supplied}}/{{cap}}",
+      "columns": {
+        "capacityFilled": "Doluluk",
+        "collateral": "Teminat",
+        "liquidationThreshold": "Tasfiye eşiği",
+        "maxLtv": "Azami LTV",
+        "penalty": "Tasfiye cezası",
+        "supplied": "Sağlanan"
+      },
+      "title": "Desteklenen teminatlar"
+    }
+  },
+  "spokePools": {
     "description": "Özel pazarlarda sağladığınız teminat karşılığında varlık borç alın.",
     "filter": {
       "allCollaterals": "Tüm teminatlar",

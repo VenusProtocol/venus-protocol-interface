@@ -20,8 +20,8 @@ import {
 } from 'recharts';
 import type { Asset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
-import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 export interface InterestRateItem {
   utilizationRatePercentage: number;

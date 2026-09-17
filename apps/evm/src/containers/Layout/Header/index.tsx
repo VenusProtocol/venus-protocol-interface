@@ -10,12 +10,14 @@ import type { Address } from 'viem';
 import { AssetInfo } from './AssetInfo';
 import { Breadcrumbs } from './Breadcrumbs';
 import { LiquidityHubInfo } from './LiquidityHubInfo';
+import { SpokeMarketInfo } from './SpokeMarketInfo';
 import { usePathNodes } from './usePathNodes';
 
 export const Header: React.FC = () => {
   const currentRoutePath = useGetCurrentRoutePath();
   const isOnMarketPage = currentRoutePath === routes.market.path;
   const isOnLiquidityHubPage = currentRoutePath === routes.liquidityHub.path;
+  const isOnSpokeMarketPage = currentRoutePath === routes.spokeMarket.path;
 
   const { accountAddress } = useAccountAddress();
 
@@ -75,6 +77,8 @@ export const Header: React.FC = () => {
           {isOnMarketPage && <AssetInfo />}
 
           {isOnLiquidityHubPage && <LiquidityHubInfo />}
+
+          {isOnSpokeMarketPage && <SpokeMarketInfo />}
         </div>
       </div>
     </header>

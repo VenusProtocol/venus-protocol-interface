@@ -351,6 +351,7 @@
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
+    "spokeMarket": "{{tokenSymbol}} in {{poolName}}",
     "spokePools": "Spoke",
     "swap": "Swap",
     "vai": "VAI",
@@ -1883,11 +1884,50 @@
     "label": "Spending limit",
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
   },
-  "spokePools": {
-    "collateralGroup": {
-      "asset": "Asset",
-      "maxLtv": "Max LTV"
+  "spokeCollateralGroup": {
+    "asset": "Asset",
+    "maxLtv": "Max LTV"
+  },
+  "spokeMarket": {
+    "borrowCapThreshold": {
+      "title": "Total borrowed",
+      "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})<LineBreak />Borrow cap: {{capTokens}}"
     },
+    "borrowInfo": {
+      "averageApy": "Average APY",
+      "currentApy": "Current APY",
+      "title": "Borrow info"
+    },
+    "header": {
+      "collateral": "Collateral",
+      "liquidity": "Liquidity",
+      "price": "Price",
+      "supply": "Supply"
+    },
+    "loanInfo": {
+      "borrowerCount": "# of borrowers",
+      "dailyBorrowInterests": "Daily borrow interests",
+      "marketContract": "Market contract",
+      "reserveFactor": "Reserve factor",
+      "suppliable": "Suppliable",
+      "suppliableNo": "No",
+      "suppliableYes": "Yes",
+      "title": "Loan info"
+    },
+    "supportedCollateral": {
+      "capacity": "{{supplied}}/{{cap}}",
+      "columns": {
+        "capacityFilled": "Capacity filled",
+        "collateral": "Collateral",
+        "liquidationThreshold": "Liquidation threshold",
+        "maxLtv": "Max LTV",
+        "penalty": "Penalty",
+        "supplied": "Supplied"
+      },
+      "title": "Supported collateral"
+    }
+  },
+  "spokePools": {
     "description": "Borrow assets against your supplied collateral from dedicated markets.",
     "filter": {
       "allCollaterals": "All collaterals",

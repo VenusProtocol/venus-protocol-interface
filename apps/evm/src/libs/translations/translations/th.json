@@ -351,6 +351,7 @@
     "markets": "ตลาด",
     "primeCalculator": "เครื่องคำนวณ Prime",
     "proposal": "ข้อเสนอ #{{proposalId}}",
+    "spokeMarket": "{{tokenSymbol}} ใน {{poolName}}",
     "spokePools": "Spoke",
     "swap": "สวอป",
     "vai": "VAI",
@@ -1882,11 +1883,50 @@
     "label": "ขีดจำกัดการใช้จ่าย",
     "labelTooltip": "นี่คือขีดจำกัดการใช้จ่ายปัจจุบันของสินทรัพย์นี้ หากต้องการใช้จ่ายมากขึ้น ให้ยกเลิกขีดจำกัดแล้วตั้งใหม่"
   },
-  "spokePools": {
-    "collateralGroup": {
-      "asset": "สินทรัพย์",
-      "maxLtv": "LTV สูงสุด"
+  "spokeCollateralGroup": {
+    "asset": "สินทรัพย์",
+    "maxLtv": "LTV สูงสุด"
+  },
+  "spokeMarket": {
+    "borrowCapThreshold": {
+      "title": "ยอดกู้ทั้งหมด",
+      "tooltip": "ยอดที่กู้ได้สูงสุดคือ {{amountDollars}} ({{amountTokens}})<LineBreak />เพดานการกู้: {{capTokens}}"
     },
+    "borrowInfo": {
+      "averageApy": "APY เฉลี่ย",
+      "currentApy": "APY ปัจจุบัน",
+      "title": "ข้อมูลการกู้"
+    },
+    "header": {
+      "collateral": "หลักประกัน",
+      "liquidity": "สภาพคล่อง",
+      "price": "ราคา",
+      "supply": "ยอดฝาก"
+    },
+    "loanInfo": {
+      "borrowerCount": "จำนวนผู้กู้",
+      "dailyBorrowInterests": "ดอกเบี้ยกู้ต่อวัน",
+      "marketContract": "สัญญาตลาด",
+      "reserveFactor": "อัตราสำรอง",
+      "suppliable": "ฝากได้",
+      "suppliableNo": "ไม่ได้",
+      "suppliableYes": "ได้",
+      "title": "ข้อมูลสินเชื่อ"
+    },
+    "supportedCollateral": {
+      "capacity": "{{supplied}}/{{cap}}",
+      "columns": {
+        "capacityFilled": "ความจุที่ใช้",
+        "collateral": "หลักประกัน",
+        "liquidationThreshold": "เกณฑ์การชำระบัญชี",
+        "maxLtv": "LTV สูงสุด",
+        "penalty": "ค่าปรับการชำระบัญชี",
+        "supplied": "ฝากแล้ว"
+      },
+      "title": "หลักประกันที่รองรับ"
+    }
+  },
+  "spokePools": {
     "description": "ยืมสินทรัพย์โดยใช้หลักประกันที่คุณฝากไว้ในตลาดเฉพาะ",
     "filter": {
       "allCollaterals": "หลักประกันทั้งหมด",

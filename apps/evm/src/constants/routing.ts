@@ -29,8 +29,8 @@ export enum Subdirectory {
   LIQUIDITY_HUBS = 'liquidity-hubs',
   LIQUIDITY_HUB = ':vhTokenAddress',
   SPOKE_POOLS = 'spoke',
-  SPOKE_POOL = ':poolComptrollerAddress',
-  SPOKE_MARKET = ':vTokenAddress',
+  SPOKE_POOL = ':spokePoolComptrollerAddress',
+  SPOKE_MARKET = ':spokeVTokenAddress',
 }
 
 const routeSubdirectories = {

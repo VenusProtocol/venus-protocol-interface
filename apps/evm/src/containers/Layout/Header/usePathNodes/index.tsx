@@ -8,6 +8,7 @@ import { Subdirectory, routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
 import LiquidityHubName from './LiquidityHubName';
 import PoolName from './PoolName';
+import { SpokeMarketName } from './SpokeMarketName';
 import VTokenSymbol from './VTokenSymbol';
 
 export interface PathNode {
@@ -25,6 +26,8 @@ export const usePathNodes = () => {
       poolComptrollerAddress?: Address;
       vTokenAddress?: Address;
       vhTokenAddress?: Address;
+      spokePoolComptrollerAddress?: Address;
+      spokeVTokenAddress?: Address;
       proposalId?: string;
       address?: Address;
     } = {};
@@ -75,6 +78,25 @@ export const usePathNodes = () => {
           break;
         case Subdirectory.SPOKE_POOLS:
           dom = t('breadcrumbs.spokePools');
+          break;
+        case Subdirectory.SPOKE_POOL:
+          hrefFragment = Subdirectory.SPOKE_POOL.replace(
+            ':spokePoolComptrollerAddress',
+            params.spokePoolComptrollerAddress || '',
+          );
+          break;
+        case Subdirectory.SPOKE_MARKET:
+          hrefFragment = Subdirectory.SPOKE_MARKET.replace(
+            ':spokeVTokenAddress',
+            params.spokeVTokenAddress || '',
+          );
+
+          dom = (
+            <SpokeMarketName
+              spokePoolComptrollerAddress={params.spokePoolComptrollerAddress}
+              spokeVTokenAddress={params.spokeVTokenAddress}
+            />
+          );
           break;
         case Subdirectory.LIQUIDITY_HUB:
           hrefFragment = Subdirectory.LIQUIDITY_HUB.replace(
