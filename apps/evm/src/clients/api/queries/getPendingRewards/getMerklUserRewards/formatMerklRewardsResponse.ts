@@ -9,7 +9,16 @@ export const formatMerklRewardsPayload = (
   apiPayload: GetMerklUserRewardsResponse,
   merklCampaigns: Record<string, MerklDistribution[]>,
 ): PendingExternalRewardSummary[] => {
-  const allDistributions = Object.values(merklCampaigns).flat();
+  // A campaign covering several markets is listed once per market, but Merkl grants its reward once
+  const distributionsByCampaignId = Object.values(merklCampaigns)
+    .flat()
+    .reduce<Record<string, MerklDistribution>>((acc, distribution) => {
+      const campaignId = distribution.rewardDetails.merklCampaignIdentifier.toLowerCase();
+
+      return acc[campaignId] ? acc : { ...acc, [campaignId]: distribution };
+    }, {});
+
+  const allDistributions = Object.values(distributionsByCampaignId);
 
   // list all Merkl campaign ids and their corresponding reward token
   const campaignIdRewardTokenMapping = allDistributions.reduce<Record<string, Token>>(
