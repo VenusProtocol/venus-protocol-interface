@@ -30,6 +30,7 @@ export const useMenuItems = () => {
   const tradeRouteEnabled = useIsFeatureEnabled({ name: 'trade' });
   const primeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
   const liquidityHubEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
+  const spokeEnabled = useIsFeatureEnabled({ name: 'spoke' });
   const { marketsPagePath } = useGetMarketsPagePath();
 
   const menu: Array<MenuItem | SubMenu> = [];
@@ -52,6 +53,16 @@ export const useMenuItems = () => {
       },
     ],
   };
+
+  if (spokeEnabled) {
+    borrowSubMenu.items.splice(1, 0, {
+      to: routes.spokePools.path,
+      imgSrc: venusCoreIconSrc,
+      label: t('layouts.menu.markets.venusSpoke.label'),
+      tagLabel: t('layout.menu.new'),
+      description: t('layouts.menu.markets.venusSpoke.description'),
+    });
+  }
 
   if (liquidityHubEnabled) {
     menu.push(

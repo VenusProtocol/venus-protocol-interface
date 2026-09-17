@@ -28,6 +28,9 @@ export enum Subdirectory {
   TRADE = 'trade',
   LIQUIDITY_HUBS = 'liquidity-hubs',
   LIQUIDITY_HUB = ':vhTokenAddress',
+  SPOKE_POOLS = 'spoke',
+  SPOKE_POOL = ':poolComptrollerAddress',
+  SPOKE_MARKET = ':vTokenAddress',
 }
 
 const routeSubdirectories = {
@@ -60,6 +63,8 @@ const routeSubdirectories = {
   trade: [Subdirectory.TRADE],
   liquidityHubs: [Subdirectory.LIQUIDITY_HUBS],
   liquidityHub: [Subdirectory.LIQUIDITY_HUBS, Subdirectory.LIQUIDITY_HUB],
+  spokePools: [Subdirectory.SPOKE_POOLS],
+  spokeMarket: [Subdirectory.SPOKE_POOLS, Subdirectory.SPOKE_POOL, Subdirectory.SPOKE_MARKET],
 };
 
 export type RouteName = keyof typeof routeSubdirectories;

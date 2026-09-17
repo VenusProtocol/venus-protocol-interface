@@ -73,6 +73,9 @@ export const usePathNodes = () => {
         case Subdirectory.LIQUIDITY_HUBS:
           dom = t('breadcrumbs.liquidityHubs');
           break;
+        case Subdirectory.SPOKE_POOLS:
+          dom = t('breadcrumbs.spokePools');
+          break;
         case Subdirectory.LIQUIDITY_HUB:
           hrefFragment = Subdirectory.LIQUIDITY_HUB.replace(
             ':vhTokenAddress',

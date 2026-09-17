@@ -351,6 +351,7 @@
     "markets": "ตลาด",
     "primeCalculator": "เครื่องคำนวณ Prime",
     "proposal": "ข้อเสนอ #{{proposalId}}",
+    "spokePools": "Spoke",
     "swap": "สวอป",
     "vai": "VAI",
     "vaults": "คลัง"
@@ -920,6 +921,10 @@
         "venusFlux": {
           "description": "การให้ยืมและการยืมที่ใช้ทุนอย่างมีประสิทธิภาพเพื่อผลตอบแทนที่ดีที่สุด",
           "label": "Venus Flux"
+        },
+        "venusSpoke": {
+          "description": "กู้ยืมด้วยหลักประกันเฉพาะในพูลที่ได้รับเงินทุนจาก Hub",
+          "label": "Venus Spoke"
         }
       }
     }
@@ -1876,6 +1881,56 @@
   "spendingLimit": {
     "label": "ขีดจำกัดการใช้จ่าย",
     "labelTooltip": "นี่คือขีดจำกัดการใช้จ่ายปัจจุบันของสินทรัพย์นี้ หากต้องการใช้จ่ายมากขึ้น ให้ยกเลิกขีดจำกัดแล้วตั้งใหม่"
+  },
+  "spokePools": {
+    "collateralGroup": {
+      "asset": "สินทรัพย์",
+      "maxLtv": "LTV สูงสุด"
+    },
+    "description": "ยืมสินทรัพย์โดยใช้หลักประกันที่คุณฝากไว้ในตลาดเฉพาะ",
+    "filter": {
+      "allCollaterals": "หลักประกันทั้งหมด",
+      "allLoanAssets": "สินทรัพย์กู้ทั้งหมด",
+      "allPools": "พูลทั้งหมด",
+      "nCollaterals_one": "{{count}} หลักประกัน",
+      "nCollaterals_other": "{{count}} หลักประกัน",
+      "nLoanAssets_one": "{{count}} สินทรัพย์กู้",
+      "nLoanAssets_other": "{{count}} สินทรัพย์กู้",
+      "noResults": "ไม่มีตลาดที่ตรงกับตัวกรองของคุณ",
+      "nPools_one": "{{count}} พูล",
+      "nPools_other": "{{count}} พูล",
+      "reset": "รีเซ็ต",
+      "resetFilters": "รีเซ็ตตัวกรอง",
+      "searchPlaceholder": "ค้นหาสินทรัพย์",
+      "selectCollaterals": "เลือกหลักประกัน",
+      "selectLoanAssets": "เลือกสินทรัพย์กู้",
+      "selectPools": "เลือกพูล"
+    },
+    "header": "Venus Spoke",
+    "stats": {
+      "availableLiquidity": "สภาพคล่องที่ใช้ได้",
+      "pools": "พูล",
+      "totalBorrow": "ยอดกู้รวม"
+    },
+    "table": {
+      "columns": {
+        "borrowApy": {
+          "selectOptionLabel": "APY การกู้",
+          "title": "APY การกู้ <InfoIcon/>",
+          "tooltip": "ต้นทุนรายปีในการกู้ยืมสินทรัพย์นี้"
+        },
+        "borrowed": "ยืมแล้ว",
+        "collateral": {
+          "selectOptionLabel": "หลักประกัน",
+          "title": "หลักประกัน <InfoIcon/>",
+          "tooltip": "สินทรัพย์ที่พูลนี้รับเป็นหลักประกัน พร้อม LTV สูงสุด"
+        },
+        "liquidity": "สภาพคล่อง",
+        "loanAsset": "สินทรัพย์กู้",
+        "totalBorrow": "ยอดกู้รวม"
+      },
+      "paused": "หยุดชั่วคราว"
+    }
   },
   "statsPage": {
     "illustrationAlt": "ภาพประกอบสถิติ",

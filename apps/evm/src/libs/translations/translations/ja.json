@@ -351,6 +351,7 @@
     "markets": "マーケット",
     "primeCalculator": "Prime計算機",
     "proposal": "提案 #{{proposalId}}",
+    "spokePools": "Spoke",
     "swap": "スワップ",
     "vai": "VAI",
     "vaults": "ボールト"
@@ -920,6 +921,10 @@
         "venusFlux": {
           "description": "最適な利回りのための資本効率の高い貸借。",
           "label": "Venus Flux"
+        },
+        "venusSpoke": {
+          "description": "Hubが流動性を供給するプールで、専用担保を使って借り入れます。",
+          "label": "Venus Spoke"
         }
       }
     }
@@ -1876,6 +1881,56 @@
   "spendingLimit": {
     "label": "支出上限",
     "labelTooltip": "これはこの資産の現在の支出上限です。さらに支出するには上限を取り消し、新しい上限を設定してください。"
+  },
+  "spokePools": {
+    "collateralGroup": {
+      "asset": "資産",
+      "maxLtv": "最大LTV"
+    },
+    "description": "専用マーケットに預けた担保を使って資産を借り入れます。",
+    "filter": {
+      "allCollaterals": "すべての担保",
+      "allLoanAssets": "すべての借入資産",
+      "allPools": "すべてのプール",
+      "nCollaterals_one": "{{count}} 件の担保",
+      "nCollaterals_other": "{{count}} 件の担保",
+      "nLoanAssets_one": "{{count}} 件の借入資産",
+      "nLoanAssets_other": "{{count}} 件の借入資産",
+      "noResults": "条件に一致するマーケットがありません",
+      "nPools_one": "{{count}} 件のプール",
+      "nPools_other": "{{count}} 件のプール",
+      "reset": "リセット",
+      "resetFilters": "フィルターをリセット",
+      "searchPlaceholder": "資産を検索",
+      "selectCollaterals": "担保を選択",
+      "selectLoanAssets": "借入資産を選択",
+      "selectPools": "プールを選択"
+    },
+    "header": "Venus Spoke",
+    "stats": {
+      "availableLiquidity": "利用可能な流動性",
+      "pools": "プール数",
+      "totalBorrow": "総借入額"
+    },
+    "table": {
+      "columns": {
+        "borrowApy": {
+          "selectOptionLabel": "借入APY",
+          "title": "借入APY <InfoIcon/>",
+          "tooltip": "この資産を借り入れる年間コストです。"
+        },
+        "borrowed": "借入額",
+        "collateral": {
+          "selectOptionLabel": "担保",
+          "title": "担保 <InfoIcon/>",
+          "tooltip": "このプールが担保として受け入れる資産と最大LTVです。"
+        },
+        "liquidity": "流動性",
+        "loanAsset": "借入資産",
+        "totalBorrow": "総借入額"
+      },
+      "paused": "停止中"
+    }
   },
   "statsPage": {
     "illustrationAlt": "統計イラスト",
