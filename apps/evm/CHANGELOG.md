@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.32.0
+
+### Minor Changes
+
+- 3811682: fix: count a Merkl campaign once when it covers several markets
+
 ## 5.31.0
 
 ### Minor Changes
