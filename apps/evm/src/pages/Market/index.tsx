@@ -4,12 +4,13 @@ import type { Address } from 'viem';
 import { MarketPageGrid, Page as PageComp } from 'components';
 import { routes } from 'constants/routing';
 import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
+import { InterestRateChart } from 'containers/InterestRateChart';
 import { MarketForm } from 'containers/MarketForm';
 import MarketLoader from 'containers/MarketLoader';
 import { useNavigate } from 'hooks/useNavigate';
 import AssetWarning from './AssetWarning';
 import { EModeInfo } from './EModeInfo';
-import { InterestRateChart } from './InterestRateChart';
+
 import { MarketHistory } from './MarketHistory';
 import MarketInfo from './MarketInfo';
 

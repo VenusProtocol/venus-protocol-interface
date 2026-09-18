@@ -1,4 +1,5 @@
 import { HealthFactorPill, Table, type TableProps } from 'components';
+import { routes } from 'constants/routing';
 import type { SpokeAsset, SpokePool } from 'types';
 
 import { useColumns } from './useColumns';
@@ -18,6 +19,11 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
 }) => {
   const columns = useColumns({ collaterals });
 
+  const getRowHref = (asset: SpokeAsset) =>
+    routes.spokeMarket.path
+      .replace(':spokePoolComptrollerAddress', spokePool.comptrollerAddress)
+      .replace(':spokeVTokenAddress', asset.vToken.address);
+
   return (
     <Table
       data={loanAssets}
@@ -27,6 +33,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
       tableLayout="auto"
       breakpoint="md"
       hideCardDelimiter
+      getRowHref={getRowHref}
       header={
         <div className="flex items-start justify-between gap-x-4">
           <div>

@@ -1,29 +1,35 @@
 import { cn } from '@venusprotocol/ui';
 
-import { ImgGroup, Table, type TableColumn, TokenIconWithSymbol, Tooltip } from 'components';
+import { ImgGroup } from 'components/ImgGroup';
+import { Table, type TableColumn } from 'components/Table';
+import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
+import { Tooltip } from 'components/Tooltip';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
 
-export interface CollateralGroupProps {
+export interface SpokeCollateralGroupProps {
   collaterals: SpokeAsset[];
   className?: string;
 }
 
-export const CollateralGroup: React.FC<CollateralGroupProps> = ({ collaterals, className }) => {
+export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
+  collaterals,
+  className,
+}) => {
   const { t } = useTranslation();
 
   const columns: TableColumn<SpokeAsset>[] = [
     {
       key: 'asset',
-      label: t('spokePools.collateralGroup.asset'),
-      selectOptionLabel: t('spokePools.collateralGroup.asset'),
+      label: t('spokeCollateralGroup.asset'),
+      selectOptionLabel: t('spokeCollateralGroup.asset'),
       renderCell: collateral => <TokenIconWithSymbol token={collateral.vToken.underlyingToken} />,
     },
     {
       key: 'maxLtv',
-      label: t('spokePools.collateralGroup.maxLtv'),
-      selectOptionLabel: t('spokePools.collateralGroup.maxLtv'),
+      label: t('spokeCollateralGroup.maxLtv'),
+      selectOptionLabel: t('spokeCollateralGroup.maxLtv'),
       align: 'right',
       renderCell: collateral => formatPercentageToReadableValue(collateral.collateralFactor * 100),
     },

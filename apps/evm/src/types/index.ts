@@ -271,6 +271,8 @@ export interface Pool {
 
 export interface SpokeAsset extends Asset {
   isSupplyAllowlistEnabled: boolean;
+  averageBorrowApyPercentage: BigNumber;
+  hubSupplyBalanceCents: BigNumber;
 }
 
 export interface SpokePool extends Omit<Pool, 'assets'> {
