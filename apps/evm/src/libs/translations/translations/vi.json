@@ -61,6 +61,34 @@
         "switchLabel": "Bật giao dịch không gas trên {{chainName}}"
       }
     },
+    "spoke": {
+      "borrowed": {
+        "columns": {
+          "apy": "APY",
+          "asset": "Tài sản",
+          "balance": "Số dư",
+          "limitShare": "% hạn mức"
+        },
+        "title": "Đã vay"
+      },
+      "corePoolPill": "Nhóm Core",
+      "summary": {
+        "borrowApy": "APY vay",
+        "dailyBorrowInterest": "Lãi vay hằng ngày",
+        "healthFactor": "Chỉ số sức khỏe",
+        "totalBorrow": "Tổng vay",
+        "totalSupply": "Tổng cung cấp"
+      },
+      "supplied": {
+        "columns": {
+          "asset": "Tài sản",
+          "balance": "Số dư",
+          "liquidationThreshold": "Ngưỡng thanh lý",
+          "maxLtv": "LTV tối đa"
+        },
+        "title": "Đã cung cấp"
+      }
+    },
     "summary": {
       "cellGroup": {
         "dailyEarnings": "Thu nhập hằng ngày",
@@ -1895,6 +1923,7 @@
       "zeroCollateralNotice": "Bạn cần <SupplyLink>cung cấp</SupplyLink> tài sản thế chấp trước khi vay {{tokenSymbol}} từ nhóm này."
     },
     "borrowModalTitle": "Vay {{tokenSymbol}} từ nhóm {{poolName}}",
+    "collateralModalTitle": "Quản lý tài sản thế chấp trong nhóm {{poolName}}",
     "collateralTabTitle": "Tài sản thế chấp",
     "error": {
       "borrowDisabled": "Việc vay ở thị trường này hiện đang tạm dừng",
