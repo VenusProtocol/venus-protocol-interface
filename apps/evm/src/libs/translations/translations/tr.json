@@ -351,6 +351,7 @@
     "markets": "Piyasalar",
     "primeCalculator": "Prime hesaplayıcı",
     "proposal": "Teklif #{{proposalId}}",
+    "spokePools": "Spoke",
     "swap": "Takas",
     "vai": "VAI",
     "vaults": "Kasalar"
@@ -921,6 +922,10 @@
         "venusFlux": {
           "description": "En iyi getiri için sermaye verimli borç verme ve borç alma.",
           "label": "Venus Flux"
+        },
+        "venusSpoke": {
+          "description": "Hub tarafından fonlanan havuzlarda özel teminatla borç alın.",
+          "label": "Venus Spoke"
         }
       }
     }
@@ -1877,6 +1882,56 @@
   "spendingLimit": {
     "label": "Harcama limiti",
     "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin."
+  },
+  "spokePools": {
+    "collateralGroup": {
+      "asset": "Varlık",
+      "maxLtv": "Azami LTV"
+    },
+    "description": "Özel pazarlarda sağladığınız teminat karşılığında varlık borç alın.",
+    "filter": {
+      "allCollaterals": "Tüm teminatlar",
+      "allLoanAssets": "Tüm borç varlıkları",
+      "allPools": "Tüm havuzlar",
+      "nCollaterals_one": "{{count}} teminat",
+      "nCollaterals_other": "{{count}} teminat",
+      "nLoanAssets_one": "{{count}} borç varlığı",
+      "nLoanAssets_other": "{{count}} borç varlığı",
+      "noResults": "Filtrelerinizle eşleşen pazar yok",
+      "nPools_one": "{{count}} havuz",
+      "nPools_other": "{{count}} havuz",
+      "reset": "Sıfırla",
+      "resetFilters": "Filtreleri sıfırla",
+      "searchPlaceholder": "Varlık ara",
+      "selectCollaterals": "Teminat seç",
+      "selectLoanAssets": "Borç varlığı seç",
+      "selectPools": "Havuz seç"
+    },
+    "header": "Venus Spoke",
+    "stats": {
+      "availableLiquidity": "Kullanılabilir likidite",
+      "pools": "Havuzlar",
+      "totalBorrow": "Toplam borç"
+    },
+    "table": {
+      "columns": {
+        "borrowApy": {
+          "selectOptionLabel": "Borç APY",
+          "title": "Borç APY <InfoIcon/>",
+          "tooltip": "Bu varlığı borç almanın yıllık maliyeti."
+        },
+        "borrowed": "Borç alınan",
+        "collateral": {
+          "selectOptionLabel": "Teminat",
+          "title": "Teminat <InfoIcon/>",
+          "tooltip": "Bu havuzun teminat olarak kabul ettiği varlıklar ve azami LTV değerleri."
+        },
+        "liquidity": "Likidite",
+        "loanAsset": "Borç varlığı",
+        "totalBorrow": "Toplam borç"
+      },
+      "paused": "Duraklatıldı"
+    }
   },
   "statsPage": {
     "illustrationAlt": "İstatistik illüstrasyonu",

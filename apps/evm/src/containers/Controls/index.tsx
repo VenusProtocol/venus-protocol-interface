@@ -1,4 +1,5 @@
-import type { InputHTMLAttributes } from 'react';
+import { cn } from '@venusprotocol/ui';
+import type { InputHTMLAttributes, ReactNode } from 'react';
 
 import { MultiSelect, TextField, Toggle } from 'components';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -14,6 +15,7 @@ export interface ControlsProps {
   categories?: MarketCategory[];
   selectedCategories?: string[];
   onSelectedCategoriesChange?: (selectedTags: string[]) => void;
+  filters?: ReactNode;
 }
 
 export const Controls: React.FC<ControlsProps> = ({
@@ -24,6 +26,7 @@ export const Controls: React.FC<ControlsProps> = ({
   categories,
   selectedCategories = [],
   onSelectedCategoriesChange,
+  filters,
 }) => {
   const { t } = useTranslation();
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
@@ -44,7 +47,9 @@ export const Controls: React.FC<ControlsProps> = ({
   return (
     <div className="@container/controls">
       <div className="flex flex-col gap-y-3 @2xl:items-center @2xl:flex-row @2xl:justify-between">
-        <div className="flex flex-col gap-3 sm:flex-row @2xl:grow @2xl:max-w-142">
+        <div
+          className={cn('flex flex-col gap-3 sm:flex-row @2xl:grow', !filters && '@2xl:max-w-142')}
+        >
           <TextField
             size="sm"
             value={searchValue}
@@ -53,6 +58,8 @@ export const Controls: React.FC<ControlsProps> = ({
             leftIconSrc="magnifier"
             className="sm:grow @2xl:max-w-75"
           />
+
+          {filters}
 
           {sortedCategories.length > 1 && onSelectedCategoriesChange && (
             <MultiSelect

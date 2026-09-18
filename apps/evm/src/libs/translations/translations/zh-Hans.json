@@ -351,6 +351,7 @@
     "markets": "市场",
     "primeCalculator": "Prime 计算器",
     "proposal": "提案 #{{proposalId}}",
+    "spokePools": "Spoke",
     "swap": "兑换",
     "vai": "VAI",
     "vaults": "金库"
@@ -920,6 +921,10 @@
         "venusFlux": {
           "description": "高资本效率的借贷，以获得最佳收益。",
           "label": "Venus Flux"
+        },
+        "venusSpoke": {
+          "description": "在由 Hub 提供流动性的资金池中，使用专属抵押品借款。",
+          "label": "Venus Spoke"
         }
       }
     }
@@ -1876,6 +1881,56 @@
   "spendingLimit": {
     "label": "支出限额",
     "labelTooltip": "这是你当前对该资产的支出上限。如需更多支出，请撤销上限并重新设置。"
+  },
+  "spokePools": {
+    "collateralGroup": {
+      "asset": "资产",
+      "maxLtv": "最高抵押率"
+    },
+    "description": "使用您在专属市场中提供的抵押品借出资产。",
+    "filter": {
+      "allCollaterals": "全部抵押品",
+      "allLoanAssets": "全部借贷资产",
+      "allPools": "全部资金池",
+      "nCollaterals_one": "{{count}} 个抵押品",
+      "nCollaterals_other": "{{count}} 个抵押品",
+      "nLoanAssets_one": "{{count}} 个借贷资产",
+      "nLoanAssets_other": "{{count}} 个借贷资产",
+      "noResults": "没有符合筛选条件的市场",
+      "nPools_one": "{{count}} 个资金池",
+      "nPools_other": "{{count}} 个资金池",
+      "reset": "重置",
+      "resetFilters": "重置筛选",
+      "searchPlaceholder": "搜索资产",
+      "selectCollaterals": "选择抵押品",
+      "selectLoanAssets": "选择借贷资产",
+      "selectPools": "选择资金池"
+    },
+    "header": "Venus Spoke",
+    "stats": {
+      "availableLiquidity": "可用流动性",
+      "pools": "资金池",
+      "totalBorrow": "总借款"
+    },
+    "table": {
+      "columns": {
+        "borrowApy": {
+          "selectOptionLabel": "借款 APY",
+          "title": "借款 APY <InfoIcon/>",
+          "tooltip": "借入该资产的年化成本。"
+        },
+        "borrowed": "已借",
+        "collateral": {
+          "selectOptionLabel": "抵押品",
+          "title": "抵押品 <InfoIcon/>",
+          "tooltip": "该资金池接受的抵押品及其最高抵押率。"
+        },
+        "liquidity": "流动性",
+        "loanAsset": "借贷资产",
+        "totalBorrow": "总借款"
+      },
+      "paused": "已暂停"
+    }
   },
   "statsPage": {
     "illustrationAlt": "统计插图",

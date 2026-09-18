@@ -35,6 +35,7 @@ const FixedTermVaultTermsOfUse = safeLazyLoad(() => import('pages/FixedTermVault
 const Trade = safeLazyLoad(() => import('pages/Trade'));
 const LiquidityHubs = safeLazyLoad(() => import('pages/LiquidityHubs'));
 const LiquidityHub = safeLazyLoad(() => import('pages/LiquidityHub'));
+const SpokePools = safeLazyLoad(() => import('pages/SpokePools'));
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -48,6 +49,7 @@ const AppRoutes = () => {
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
   const primeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
   const liquidityHubEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
+  const spokeEnabled = useIsFeatureEnabled({ name: 'spoke' });
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -260,6 +262,17 @@ const AppRoutes = () => {
               }
             />
           </Route>
+        )}
+
+        {spokeEnabled && (
+          <Route
+            path={Subdirectory.SPOKE_POOLS}
+            element={
+              <PageSuspense>
+                <SpokePools />
+              </PageSuspense>
+            }
+          />
         )}
 
         <Route
