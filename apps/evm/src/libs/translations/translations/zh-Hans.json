@@ -61,6 +61,34 @@
         "switchLabel": "在 {{chainName}} 上启用免 gas 交易"
       }
     },
+    "spoke": {
+      "borrowed": {
+        "columns": {
+          "apy": "APY",
+          "asset": "资产",
+          "balance": "余额",
+          "limitShare": "额度占比"
+        },
+        "title": "已借款"
+      },
+      "corePoolPill": "核心池",
+      "summary": {
+        "borrowApy": "借款 APY",
+        "dailyBorrowInterest": "每日借款利息",
+        "healthFactor": "健康度",
+        "totalBorrow": "总借款",
+        "totalSupply": "总供应"
+      },
+      "supplied": {
+        "columns": {
+          "asset": "资产",
+          "balance": "余额",
+          "liquidationThreshold": "清算阈值",
+          "maxLtv": "最高抵押率"
+        },
+        "title": "已供应"
+      }
+    },
     "summary": {
       "cellGroup": {
         "dailyEarnings": "每日收益",
@@ -1895,6 +1923,7 @@
       "zeroCollateralNotice": "您需要先<SupplyLink>供应</SupplyLink>抵押品，才能从该资金池借出 {{tokenSymbol}}。"
     },
     "borrowModalTitle": "从 {{poolName}} 池借出 {{tokenSymbol}}",
+    "collateralModalTitle": "管理 {{poolName}} 池的抵押品",
     "collateralTabTitle": "抵押品",
     "error": {
       "borrowDisabled": "该市场的借款当前已暂停",

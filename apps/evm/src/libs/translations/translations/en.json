@@ -61,6 +61,34 @@
         "switchLabel": "Enable gasless transactions on {{chainName}}"
       }
     },
+    "spoke": {
+      "borrowed": {
+        "columns": {
+          "apy": "APY",
+          "asset": "Asset",
+          "balance": "Balance",
+          "limitShare": "% of limit"
+        },
+        "title": "Borrowed"
+      },
+      "corePoolPill": "Core Pool",
+      "summary": {
+        "borrowApy": "Borrow APY",
+        "dailyBorrowInterest": "Daily borrowing interests",
+        "healthFactor": "Health factor",
+        "totalBorrow": "Total borrow",
+        "totalSupply": "Total supply"
+      },
+      "supplied": {
+        "columns": {
+          "asset": "Asset",
+          "balance": "Balance",
+          "liquidationThreshold": "LT",
+          "maxLtv": "Max LTV"
+        },
+        "title": "Supplied"
+      }
+    },
     "summary": {
       "cellGroup": {
         "dailyEarnings": "Daily earnings",
@@ -1896,6 +1924,7 @@
       "zeroCollateralNotice": "You need to <SupplyLink>supply</SupplyLink> tokens before you can borrow {{tokenSymbol}} from this pool."
     },
     "borrowModalTitle": "Borrow {{tokenSymbol}} from {{poolName}} pool",
+    "collateralModalTitle": "Manage collateral in {{poolName}} pool",
     "collateralTabTitle": "Collateral",
     "error": {
       "borrowDisabled": "Borrowing is currently paused for this market",
@@ -1938,7 +1967,7 @@
     },
     "loanInfo": {
       "borrowerCount": "# of borrowers",
-      "dailyBorrowInterests": "Daily borrow interests",
+      "dailyBorrowInterests": "Daily borrowing interests",
       "marketContract": "Market contract",
       "reserveFactor": "Reserve factor",
       "suppliable": "Suppliable",

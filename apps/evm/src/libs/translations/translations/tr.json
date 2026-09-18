@@ -61,6 +61,34 @@
         "switchLabel": "{{chainName}} üzerinde gas'siz işlemleri etkinleştir"
       }
     },
+    "spoke": {
+      "borrowed": {
+        "columns": {
+          "apy": "APY",
+          "asset": "Varlık",
+          "balance": "Bakiye",
+          "limitShare": "Limitin %'si"
+        },
+        "title": "Borç alınan"
+      },
+      "corePoolPill": "Çekirdek Havuz",
+      "summary": {
+        "borrowApy": "Borç APY",
+        "dailyBorrowInterest": "Günlük borç faizi",
+        "healthFactor": "Sağlık faktörü",
+        "totalBorrow": "Toplam borç",
+        "totalSupply": "Toplam arz"
+      },
+      "supplied": {
+        "columns": {
+          "asset": "Varlık",
+          "balance": "Bakiye",
+          "liquidationThreshold": "Tasfiye eşiği",
+          "maxLtv": "Azami LTV"
+        },
+        "title": "Sağlanan"
+      }
+    },
     "summary": {
       "cellGroup": {
         "dailyEarnings": "Günlük kazanç",
@@ -1896,6 +1924,7 @@
       "zeroCollateralNotice": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce teminat <SupplyLink>arz etmelisiniz</SupplyLink>."
     },
     "borrowModalTitle": "{{poolName}} havuzundan {{tokenSymbol}} borç al",
+    "collateralModalTitle": "{{poolName}} havuzundaki teminatı yönet",
     "collateralTabTitle": "Teminat",
     "error": {
       "borrowDisabled": "Bu pazarda borç alma şu anda duraklatıldı",
