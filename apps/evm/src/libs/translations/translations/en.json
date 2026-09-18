@@ -624,7 +624,8 @@
     "walletNotConnected": "Wallet not connected"
   },
   "errorState": {
-    "defaultMessage": "An error occurred"
+    "defaultMessage": "An error occurred",
+    "buttonLabel": "Retry"
   },
   "footer": {
     "links": {

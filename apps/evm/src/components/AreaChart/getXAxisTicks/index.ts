@@ -34,15 +34,14 @@ export const getXAxisTicks = <T extends Record<string, any>>({
     }
   }
 
-  const ticks = xAxisTickIndexes.map(dataIndex => {
-    const dataPoint = data[dataIndex];
-
-    if (typeof xAxisDataKey === 'function') {
-      return xAxisDataKey(dataPoint);
-    }
-
-    return dataPoint[xAxisDataKey as string];
-  });
+  const ticks = xAxisTickIndexes
+    .map(dataIndex => data[dataIndex])
+    .filter(dataPoint => !!dataPoint)
+    .map(dataPoint =>
+      typeof xAxisDataKey === 'function'
+        ? xAxisDataKey(dataPoint)
+        : dataPoint[xAxisDataKey as string],
+    );
 
   return ticks;
 };

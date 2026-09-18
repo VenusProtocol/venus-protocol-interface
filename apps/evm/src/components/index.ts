@@ -48,6 +48,7 @@ export * from './StatusLabel';
 export * from './MarkdownEditor';
 export * from './MarkdownViewer';
 export * from './ErrorState';
+export * from './SectionErrorBoundary';
 export * from './Pill';
 export * from './Apy';
 export * from './ApyBreakdown';

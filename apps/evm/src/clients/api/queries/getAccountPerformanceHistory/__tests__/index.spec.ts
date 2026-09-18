@@ -80,6 +80,54 @@ describe('getAccountPerformanceHistory', () => {
     expect(response).toMatchSnapshot();
   });
 
+  it('does not add an undefined data point when the net-worth endpoint omits the current point', async () => {
+    (restService as Mock).mockImplementation(({ endpoint }: { endpoint: string }) => {
+      const splitEndpoint = endpoint.split('/');
+      const endpointType = splitEndpoint[splitEndpoint.length - 1];
+
+      if (endpointType === 'performance') {
+        return {
+          data: {
+            performanceDataPoints: [
+              {
+                blockNumber: 1,
+                blockTimestampMs: 1714828100000,
+                netWorthCents: '10000',
+              },
+            ] satisfies ApiAccountPerformanceHistoryDataPoint[],
+          },
+        };
+      }
+
+      return {
+        data: {
+          performanceDataPoints: [
+            {
+              blockNumber: 6,
+              blockTimestampMs: 1714828450000,
+              netWorthCents: '8500',
+            },
+          ] satisfies ApiAccountPerformanceHistoryDataPoint[],
+        },
+      };
+    });
+
+    const response = await getAccountPerformanceHistory(fakeInput);
+
+    expect(response.performanceHistory).toHaveLength(1);
+    expect(response.performanceHistory.every(dataPoint => !!dataPoint)).toBe(true);
+    expect(response.startOfDayNetWorthCents).toBe(8500);
+  });
+
+  it('returns an undefined start of day net worth when the net-worth endpoint returns no point', async () => {
+    (restService as Mock).mockResolvedValue({ data: { performanceDataPoints: [] } });
+
+    const response = await getAccountPerformanceHistory(fakeInput);
+
+    expect(response.performanceHistory).toEqual([]);
+    expect(response.startOfDayNetWorthCents).toBeUndefined();
+  });
+
   it('throws on error in payload', async () => {
     (restService as Mock).mockResolvedValue({ data: { error: 'Some error' } });
 

@@ -623,7 +623,8 @@
     "walletNotConnected": "ウォレットが接続されていません"
   },
   "errorState": {
-    "defaultMessage": "エラーが発生しました"
+    "defaultMessage": "エラーが発生しました",
+    "buttonLabel": "再試行"
   },
   "footer": {
     "links": {
