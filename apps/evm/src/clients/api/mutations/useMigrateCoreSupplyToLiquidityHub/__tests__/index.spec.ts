@@ -8,6 +8,7 @@ import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useMigrateCoreSupplyToLiquidityHub } from '..';
@@ -19,6 +20,7 @@ const fakeInput = {
   vhToken: liquidityHub.vhToken,
   vToken: corePoolAsset.vToken,
   vTokenAmountMantissa: new BigNumber('12240516899'),
+  underlyingAmountMantissa: new BigNumber('1000000000000000000'),
 };
 const fakeNativeInput = {
   ...fakeInput,
@@ -27,7 +29,16 @@ const fakeNativeInput = {
   minSharesMantissa: new BigNumber(123),
 };
 
+const mockCaptureAnalyticEvent = vi.fn();
+
 describe('useMigrateCoreSupplyToLiquidityHub', () => {
+  beforeEach(() => {
+    mockCaptureAnalyticEvent.mockClear();
+    (useAnalytics as Mock).mockReturnValue({
+      captureAnalyticEvent: mockCaptureAnalyticEvent,
+    });
+  });
+
   it('calls useSendTransaction with the correct parameters', () => {
     renderHook(() => useMigrateCoreSupplyToLiquidityHub(), {
       accountAddress: fakeAccountAddress,
@@ -56,6 +67,12 @@ describe('useMigrateCoreSupplyToLiquidityHub', () => {
 
     onConfirmed({ input: fakeInput });
 
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Tokens supplied', {
+      poolName: 'liquidity_hub',
+      tokenSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+      tokenAmountTokens: 1,
+      fundingSource: 'core_pool_collateral',
+    });
     expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
       queryKey: [
         FunctionKey.GET_LIQUIDITY_HUB,

@@ -5,6 +5,7 @@ import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useSupplyToLiquidityHub } from '..';
@@ -19,7 +20,16 @@ const fakeOptions = {
   waitForConfirmation: true,
 };
 
+const mockCaptureAnalyticEvent = vi.fn();
+
 describe('useSupplyToLiquidityHub', () => {
+  beforeEach(() => {
+    mockCaptureAnalyticEvent.mockClear();
+    (useAnalytics as Mock).mockReturnValue({
+      captureAnalyticEvent: mockCaptureAnalyticEvent,
+    });
+  });
+
   it('calls useSendTransaction with the correct parameters', () => {
     renderHook(() => useSupplyToLiquidityHub(fakeOptions), {
       accountAddress: fakeAccountAddress,
@@ -42,6 +52,12 @@ describe('useSupplyToLiquidityHub', () => {
 
     onConfirmed({ input: fakeInput });
 
+    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Tokens supplied', {
+      poolName: 'liquidity_hub',
+      tokenSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+      tokenAmountTokens: 1,
+      fundingSource: 'wallet',
+    });
     expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
       queryKey: [
         FunctionKey.GET_LIQUIDITY_HUB,
