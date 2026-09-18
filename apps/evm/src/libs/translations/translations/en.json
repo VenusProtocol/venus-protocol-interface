@@ -454,6 +454,7 @@
       "showRawError": "Show raw error"
     },
     "supplyCapExceeded": "Supply cap reached for this market.",
+    "supplyNotAllowed": "This market only accepts deposits from approved suppliers.",
     "swapDeadlineExpire": "Swap deadline expired. Please try again.",
     "tooMuchRepay": "Repay amount exceeds your outstanding borrow."
   },
@@ -1887,6 +1888,37 @@
   "spokeCollateralGroup": {
     "asset": "Asset",
     "maxLtv": "Max LTV"
+  },
+  "spokeForm": {
+    "borrow": {
+      "submitButtonLabel": "Borrow",
+      "tabTitle": "Borrow",
+      "zeroCollateralNotice": "You need to <SupplyLink>supply</SupplyLink> tokens before you can borrow {{tokenSymbol}} from this pool."
+    },
+    "borrowModalTitle": "Borrow {{tokenSymbol}} from {{poolName}} pool",
+    "collateralTabTitle": "Collateral",
+    "error": {
+      "borrowDisabled": "Borrowing is currently paused for this market",
+      "higherThanAvailableAmount": "Amount exceeds the available balance",
+      "supplyDisabled": "Supplying is currently paused for this collateral"
+    },
+    "loanTabTitle": "Loan",
+    "repay": {
+      "submitButtonLabel": "Repay",
+      "tabTitle": "Repay",
+      "walletBalanceLabel": "Wallet balance"
+    },
+    "rightMaxButtonLabel": "MAX",
+    "safeMaxButtonLabel": "SAFE MAX",
+    "supply": {
+      "submitButtonLabel": "Supply",
+      "tabTitle": "Supply",
+      "walletBalanceLabel": "Wallet balance"
+    },
+    "withdraw": {
+      "submitButtonLabel": "Withdraw",
+      "tabTitle": "Withdraw"
+    }
   },
   "spokeMarket": {
     "borrowCapThreshold": {

@@ -454,6 +454,7 @@
       "showRawError": "แสดงข้อผิดพลาดดิบ"
     },
     "supplyCapExceeded": "ถึงขีดจำกัดการฝากของตลาดนี้แล้ว",
+    "supplyNotAllowed": "ตลาดนี้รับฝากเฉพาะจากผู้ที่ได้รับอนุญาตเท่านั้น",
     "swapDeadlineExpire": "การสว็อปหมดเวลาแล้ว โปรดลองอีกครั้ง",
     "tooMuchRepay": "จำนวนเงินที่ชำระคืนเกินยอดค้างชำระของคุณ"
   },
@@ -1886,6 +1887,37 @@
   "spokeCollateralGroup": {
     "asset": "สินทรัพย์",
     "maxLtv": "LTV สูงสุด"
+  },
+  "spokeForm": {
+    "borrow": {
+      "submitButtonLabel": "กู้",
+      "tabTitle": "กู้",
+      "zeroCollateralNotice": "คุณต้อง<SupplyLink>ฝาก</SupplyLink>หลักประกันก่อนจึงจะกู้ {{tokenSymbol}} จากพูลนี้ได้"
+    },
+    "borrowModalTitle": "กู้ {{tokenSymbol}} จากพูล {{poolName}}",
+    "collateralTabTitle": "หลักประกัน",
+    "error": {
+      "borrowDisabled": "การกู้ในตลาดนี้ถูกหยุดชั่วคราว",
+      "higherThanAvailableAmount": "จำนวนเกินยอดคงเหลือที่ใช้ได้",
+      "supplyDisabled": "การฝากหลักประกันนี้ถูกหยุดชั่วคราว"
+    },
+    "loanTabTitle": "สินเชื่อ",
+    "repay": {
+      "submitButtonLabel": "ชำระคืน",
+      "tabTitle": "ชำระคืน",
+      "walletBalanceLabel": "ยอดคงเหลือในกระเป๋า"
+    },
+    "rightMaxButtonLabel": "สูงสุด",
+    "safeMaxButtonLabel": "ระดับปลอดภัย",
+    "supply": {
+      "submitButtonLabel": "ฝาก",
+      "tabTitle": "ฝาก",
+      "walletBalanceLabel": "ยอดคงเหลือในกระเป๋า"
+    },
+    "withdraw": {
+      "submitButtonLabel": "ถอน",
+      "tabTitle": "ถอน"
+    }
   },
   "spokeMarket": {
     "borrowCapThreshold": {

@@ -7,6 +7,8 @@ export interface UseTabsInput<T extends Tab> {
   tabs: T[];
   navType?: TabNavType;
   initialActiveTabId?: string;
+  // When set, the caller owns the active tab and this hook stops tracking it
+  activeTabId?: string;
 }
 
 export interface Tab extends Record<string, any> {
@@ -21,11 +23,14 @@ export const useTabs = <T extends Tab>({
   tabs,
   navType = 'state',
   initialActiveTabId,
+  activeTabId: controlledActiveTabId,
 }: UseTabsInput<T>) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [stateActiveTabId, setStateActiveTabId] = useState(initialActiveTabId ?? tabs[0].id);
 
-  const activeTabId = navType === 'state' ? stateActiveTabId : searchParams.get(TAB_PARAM_KEY);
+  const uncontrolledActiveTabId =
+    navType === 'state' ? stateActiveTabId : searchParams.get(TAB_PARAM_KEY);
+  const activeTabId = controlledActiveTabId ?? uncontrolledActiveTabId;
   const activeTab = tabs.find(tab => tab.id === activeTabId) || tabs[0];
 
   const setActiveTab = ({ id }: { id: string }) => {
@@ -45,11 +50,15 @@ export const useTabs = <T extends Tab>({
   };
 
   useEffect(() => {
+    if (controlledActiveTabId) {
+      return;
+    }
+
     // Set tab param to URL if none has been set or if it's invalid
     if (!activeTabId || !tabs.find(tab => tab.id === activeTabId)) {
       setActiveTab({ id: initialActiveTabId ?? tabs[0].id });
     }
-  }, [activeTabId, setActiveTab, tabs, initialActiveTabId]);
+  }, [activeTabId, controlledActiveTabId, setActiveTab, tabs, initialActiveTabId]);
 
   return {
     activeTab,

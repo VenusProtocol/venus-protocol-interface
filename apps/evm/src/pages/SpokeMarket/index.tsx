@@ -3,6 +3,7 @@ import type { Address } from 'viem';
 
 import { MarketPageGrid, Page } from 'components';
 import { InterestRateChart } from 'containers/InterestRateChart';
+import { SpokeForm } from 'containers/SpokeForm';
 import { SpokeMarketLoader } from 'containers/SpokeMarketLoader';
 
 import { BorrowInfo } from './BorrowInfo';
@@ -23,8 +24,7 @@ const SpokeMarket: React.FC = () => {
       >
         {({ spokePool, asset }) => (
           <MarketPageGrid
-            // The operate widget lands here in VPD-2069
-            form={<div />}
+            form={<SpokeForm spokePool={spokePool} asset={asset} navType="searchParam" />}
             content={
               <div className="space-y-6">
                 <BorrowInfo asset={asset} />

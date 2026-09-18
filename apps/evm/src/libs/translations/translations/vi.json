@@ -454,6 +454,7 @@
       "showRawError": "Hiện lỗi thô"
     },
     "supplyCapExceeded": "Đã đạt giới hạn cung cấp cho thị trường này.",
+    "supplyNotAllowed": "Thị trường này chỉ nhận tiền gửi từ các địa chỉ được phê duyệt.",
     "swapDeadlineExpire": "Phiên hoán đổi đã hết hạn. Vui lòng thử lại.",
     "tooMuchRepay": "Số tiền trả vượt quá khoản vay còn lại của bạn."
   },
@@ -1886,6 +1887,37 @@
   "spokeCollateralGroup": {
     "asset": "Tài sản",
     "maxLtv": "LTV tối đa"
+  },
+  "spokeForm": {
+    "borrow": {
+      "submitButtonLabel": "Vay",
+      "tabTitle": "Vay",
+      "zeroCollateralNotice": "Bạn cần <SupplyLink>cung cấp</SupplyLink> tài sản thế chấp trước khi vay {{tokenSymbol}} từ nhóm này."
+    },
+    "borrowModalTitle": "Vay {{tokenSymbol}} từ nhóm {{poolName}}",
+    "collateralTabTitle": "Tài sản thế chấp",
+    "error": {
+      "borrowDisabled": "Việc vay ở thị trường này hiện đang tạm dừng",
+      "higherThanAvailableAmount": "Số tiền vượt quá số dư khả dụng",
+      "supplyDisabled": "Việc cung cấp tài sản thế chấp này hiện đang tạm dừng"
+    },
+    "loanTabTitle": "Khoản vay",
+    "repay": {
+      "submitButtonLabel": "Trả nợ",
+      "tabTitle": "Trả nợ",
+      "walletBalanceLabel": "Số dư ví"
+    },
+    "rightMaxButtonLabel": "TỐI ĐA",
+    "safeMaxButtonLabel": "MỨC AN TOÀN",
+    "supply": {
+      "submitButtonLabel": "Cung cấp",
+      "tabTitle": "Cung cấp",
+      "walletBalanceLabel": "Số dư ví"
+    },
+    "withdraw": {
+      "submitButtonLabel": "Rút",
+      "tabTitle": "Rút"
+    }
   },
   "spokeMarket": {
     "borrowCapThreshold": {
