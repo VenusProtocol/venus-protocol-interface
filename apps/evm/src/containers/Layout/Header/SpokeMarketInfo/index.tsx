@@ -3,6 +3,7 @@ import type { Address } from 'viem';
 
 import { type CellProps, SpokeCollateralGroup } from 'components';
 import { useGetSpokeMarket } from 'hooks/useGetSpokeMarket';
+import { useSelectedSpokeCollateral } from 'hooks/useSelectedSpokeCollateral';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import { TokenInfo } from '../TokenInfo';
@@ -19,6 +20,8 @@ export const SpokeMarketInfo: React.FC = () => {
     spokeVTokenAddress,
   });
   const collaterals = spokePool?.assets.filter(({ isBorrowable }) => !isBorrowable) ?? [];
+
+  const { selectCollateral } = useSelectedSpokeCollateral({ collaterals });
 
   const cells: CellProps[] = [
     {
@@ -39,7 +42,7 @@ export const SpokeMarketInfo: React.FC = () => {
     },
     {
       label: t('spokeMarket.header.collateral'),
-      value: <SpokeCollateralGroup collaterals={collaterals} />,
+      value: <SpokeCollateralGroup collaterals={collaterals} onRowClick={selectCollateral} />,
     },
   ];
 
