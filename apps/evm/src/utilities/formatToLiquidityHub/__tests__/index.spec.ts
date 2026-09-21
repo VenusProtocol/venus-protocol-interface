@@ -1,6 +1,6 @@
 import liquidityHubsResponse from '__mocks__/api/liquidityHubs.json';
 import { usdc, xvs } from '__mocks__/models/tokens';
-import type { ApiLiquidityHub, ApiVenusReward } from 'types';
+import type { ApiLiquidityHub, ApiLiquidityHubYieldGroup, ApiVenusReward } from 'types';
 
 import { formatToLiquidityHub } from '..';
 
@@ -154,6 +154,45 @@ describe('formatToLiquidityHub', () => {
 
     expect(result?.yieldGroups[0]?.supplyCapTokens.isEqualTo(400)).toBe(true);
     expect(result?.yieldGroups[0]?.supplyCapCents.isEqualTo(100000)).toBe(true);
+  });
+
+  it('filters out yield groups whose kind is not recognized', () => {
+    const apiLiquidityHubWithYieldGroups = liquidityHubsResponse.result[0] as ApiLiquidityHub;
+    const [apiYieldGroup] = apiLiquidityHubWithYieldGroups.yieldGroups;
+
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...apiLiquidityHubWithYieldGroups,
+        yieldGroups: [
+          apiYieldGroup,
+          {
+            ...apiYieldGroup,
+            yieldGroupAddress: '0x5000000000000000000000000000000000000002',
+            kind: 'centrifuge' as ApiLiquidityHubYieldGroup['kind'],
+          },
+        ],
+      },
+      tokens: [usdc, xvs],
+    });
+
+    expect(result?.yieldGroups).toHaveLength(1);
+    expect(result?.yieldGroups[0]?.type).toBe('core');
+  });
+
+  it('keeps yield groups that come without a kind and treats them as core', () => {
+    const apiLiquidityHubWithYieldGroups = liquidityHubsResponse.result[0] as ApiLiquidityHub;
+    const [apiYieldGroup] = apiLiquidityHubWithYieldGroups.yieldGroups;
+
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...apiLiquidityHubWithYieldGroups,
+        yieldGroups: [{ ...apiYieldGroup, kind: null }],
+      },
+      tokens: [usdc, xvs],
+    });
+
+    expect(result?.yieldGroups).toHaveLength(1);
+    expect(result?.yieldGroups[0]?.type).toBe('core');
   });
 
   it('does not calculate user yearly earnings without a user supply balance', () => {
