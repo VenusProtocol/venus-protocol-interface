@@ -1907,7 +1907,6 @@
     "borrowModalTitle": "Vay {{tokenSymbol}} từ nhóm {{poolName}}",
     "collateralTabTitle": "Tài sản thế chấp",
     "error": {
-      "borrowDisabled": "Việc vay ở thị trường này hiện đang tạm dừng",
       "higherThanAvailableAmount": "Số tiền vượt quá số dư khả dụng",
       "supplyDisabled": "Việc cung cấp tài sản thế chấp này hiện đang tạm dừng"
     },

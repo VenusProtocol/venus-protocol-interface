@@ -12,6 +12,7 @@ export const SpokeFormModal: React.FC<SpokeFormModalProps> = ({
   initialCollateralTabId,
   initialLoanTabId,
   preselectedCollateral,
+  collateralOnly,
   handleClose,
   ...otherProps
 }) => (
@@ -23,6 +24,7 @@ export const SpokeFormModal: React.FC<SpokeFormModalProps> = ({
       initialCollateralTabId={initialCollateralTabId}
       initialLoanTabId={initialLoanTabId}
       preselectedCollateral={preselectedCollateral}
+      collateralOnly={collateralOnly}
       onSubmitSuccess={handleClose}
     />
   </Modal>

@@ -1908,7 +1908,6 @@
     "borrowModalTitle": "{{poolName}} havuzundan {{tokenSymbol}} borç al",
     "collateralTabTitle": "Teminat",
     "error": {
-      "borrowDisabled": "Bu pazarda borç alma şu anda duraklatıldı",
       "higherThanAvailableAmount": "Tutar kullanılabilir bakiyeyi aşıyor",
       "supplyDisabled": "Bu teminatın arzı şu anda duraklatıldı"
     },

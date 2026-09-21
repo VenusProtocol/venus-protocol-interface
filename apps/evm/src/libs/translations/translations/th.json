@@ -1907,7 +1907,6 @@
     "borrowModalTitle": "กู้ {{tokenSymbol}} จากพูล {{poolName}}",
     "collateralTabTitle": "หลักประกัน",
     "error": {
-      "borrowDisabled": "การกู้ในตลาดนี้ถูกหยุดชั่วคราว",
       "higherThanAvailableAmount": "จำนวนเกินยอดคงเหลือที่ใช้ได้",
       "supplyDisabled": "การฝากหลักประกันนี้ถูกหยุดชั่วคราว"
     },

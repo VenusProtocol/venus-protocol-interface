@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
-import { type ApyBreakdownItem, AvailableBalance } from 'components';
+import { type ApyBreakdownItem, AvailableBalance, NoticeWarning } from 'components';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool } from 'types';
@@ -34,6 +34,11 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 
   const { limitTokens, safeLimitTokens } = getBorrowLimits({ spokePool, asset });
 
+  // Borrowing being paused leaves nothing to fill in, so the notice stands in for the form
+  if (isBorrowDisabled) {
+    return <NoticeWarning description={t('assetAccessor.disabledActionNotice.borrow')} />;
+  }
+
   const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
@@ -62,15 +67,9 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
         }))
     : undefined;
 
-  const validateForm = () => {
-    if (isBorrowDisabled) {
-      return { code: 'ACTION_DISABLED' as const, message: t('spokeForm.error.borrowDisabled') };
-    }
-
-    if (!hasCollateralSupplied) {
-      return { code: 'NO_COLLATERAL_SUPPLIED' as const };
-    }
-  };
+  const validateForm = hasCollateralSupplied
+    ? undefined
+    : () => ({ code: 'NO_COLLATERAL_SUPPLIED' as const });
 
   const availableBalanceDom = (
     <AvailableBalance
