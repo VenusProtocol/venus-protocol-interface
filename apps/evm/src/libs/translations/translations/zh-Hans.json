@@ -1935,6 +1935,7 @@
     "borrowModalTitle": "从 {{poolName}} 池借出 {{tokenSymbol}}",
     "collateralModalTitle": "管理 {{poolName}} 池的抵押品",
     "collateralTabTitle": "抵押品",
+    "dailyBorrowInterest": "每日借款利息",
     "error": {
       "higherThanAvailableAmount": "金额超出可用余额",
       "supplyDisabled": "该抵押品的供应当前已暂停"
