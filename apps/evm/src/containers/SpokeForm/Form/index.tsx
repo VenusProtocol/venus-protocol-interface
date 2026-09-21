@@ -182,7 +182,9 @@ export const Form: React.FC<FormProps> = ({
 
       <TxFormSubmitButton
         approval={approval}
-        submitButtonLabel={submitButtonLabel}
+        submitButtonLabel={
+          isFormValid ? submitButtonLabel : t('spokeForm.enterValidAmountButtonLabel')
+        }
         isFormValid={isFormValid}
         isLoading={isSubmitting || isGetSimulatedPoolLoading}
         isUserAcknowledgingRisk={formValues.acknowledgeRisk}

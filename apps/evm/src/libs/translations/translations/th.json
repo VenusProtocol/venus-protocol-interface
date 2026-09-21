@@ -1936,6 +1936,7 @@
     "collateralModalTitle": "จัดการหลักประกันในพูล {{poolName}}",
     "collateralTabTitle": "หลักประกัน",
     "dailyBorrowInterest": "ดอกเบี้ยกู้ต่อวัน",
+    "enterValidAmountButtonLabel": "กรอกจำนวนที่ถูกต้อง",
     "error": {
       "higherThanAvailableAmount": "จำนวนเกินยอดคงเหลือที่ใช้ได้",
       "supplyDisabled": "การฝากหลักประกันนี้ถูกหยุดชั่วคราว"

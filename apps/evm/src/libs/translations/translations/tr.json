@@ -1937,6 +1937,7 @@
     "collateralModalTitle": "{{poolName}} havuzundaki teminatı yönet",
     "collateralTabTitle": "Teminat",
     "dailyBorrowInterest": "Günlük borç faizi",
+    "enterValidAmountButtonLabel": "Geçerli bir tutar girin",
     "error": {
       "higherThanAvailableAmount": "Tutar kullanılabilir bakiyeyi aşıyor",
       "supplyDisabled": "Bu teminatın arzı şu anda duraklatıldı"

@@ -1936,6 +1936,7 @@
     "collateralModalTitle": "{{poolName}} プールの担保を管理",
     "collateralTabTitle": "担保",
     "dailyBorrowInterest": "1日あたりの借入利息",
+    "enterValidAmountButtonLabel": "有効な金額を入力してください",
     "error": {
       "higherThanAvailableAmount": "金額が利用可能残高を超えています",
       "supplyDisabled": "この担保の供給は現在停止中です"

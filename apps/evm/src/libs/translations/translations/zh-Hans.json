@@ -1936,6 +1936,7 @@
     "collateralModalTitle": "管理 {{poolName}} 池的抵押品",
     "collateralTabTitle": "抵押品",
     "dailyBorrowInterest": "每日借款利息",
+    "enterValidAmountButtonLabel": "请输入有效金额",
     "error": {
       "higherThanAvailableAmount": "金额超出可用余额",
       "supplyDisabled": "该抵押品的供应当前已暂停"
