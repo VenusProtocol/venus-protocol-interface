@@ -27,6 +27,8 @@ export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) 
         apiKey={config.posthog.apiKey}
         options={{
           api_host: config.posthog.hostUrl,
+          // RouteChangeTracker sends $pageview itself, so the automatic one would double count
+          capture_pageview: false,
           persistence: 'memory',
           name: APP_VERSION,
           before_send: appendHash,
