@@ -1,10 +1,11 @@
-import { Apy, LayeredValues, type TableColumn } from 'components';
+import { Apy, InfoIcon, LayeredValues, type TableColumn } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubSource, LiquidityHubYieldGroup, Token } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
 import { COLUMN_WIDTHS } from '../../../columnWidths';
 import { CollateralGroup } from './CollateralGroup';
+import { RatingGroup } from './RatingGroup';
 
 export const useColumns = ({
   yieldGroup,
@@ -15,10 +16,13 @@ export const useColumns = ({
 }) => {
   const { t } = useTranslation();
 
-  const nameColumnContent =
-    yieldGroup.type === 'frv'
-      ? t('liquidityHub.allocationDetails.yieldGroup.nameColumn.title.vault')
-      : t('liquidityHub.allocationDetails.yieldGroup.nameColumn.title.market');
+  let nameColumnContent = t('liquidityHub.allocationDetails.yieldGroup.nameColumn.title.market');
+
+  if (yieldGroup.type === 'frv') {
+    nameColumnContent = t('liquidityHub.allocationDetails.yieldGroup.nameColumn.title.vault');
+  } else if (yieldGroup.type === 'centrifuge') {
+    nameColumnContent = t('liquidityHub.allocationDetails.yieldGroup.nameColumn.title.fund');
+  }
 
   const shouldDisplayLockEndDate = yieldGroup.sources.some(source => !!source.lockEndDate);
 
@@ -114,6 +118,22 @@ export const useColumns = ({
       align: 'right',
       renderCell: ({ collaterals }) => <CollateralGroup collaterals={collaterals} />,
       colSpan: COLUMN_WIDTHS.length - columns.length,
+    });
+  }
+
+  if (yieldGroup.sources.some(source => source.ratings.length > 0)) {
+    columns.push({
+      key: 'rating',
+      label: (
+        <div className="inline-flex items-center gap-x-2">
+          <span>{t('liquidityHub.allocationDetails.yieldGroup.ratingColumn.title')}</span>
+
+          <InfoIcon tooltip={t('liquidityHub.allocationDetails.yieldGroup.ratingColumn.tooltip')} />
+        </div>
+      ),
+      selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.ratingColumn.title'),
+      align: 'right',
+      renderCell: ({ ratings }) => <RatingGroup ratings={ratings} />,
     });
   }
 

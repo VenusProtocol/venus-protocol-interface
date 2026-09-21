@@ -1,3 +1,4 @@
+import centrifugeIconSrc from 'assets/img/centrifugeIcon.svg';
 import vaultsIconSrc from 'assets/img/vaultsIcon.svg';
 import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
@@ -28,4 +29,15 @@ export const metadataByType: Record<
     iconSrc: vaultsIconSrc,
     bgClassName: 'bg-orange',
   },
+  centrifuge: {
+    // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
+    // t('liquidityHub.allocationDetails.yieldGroup.names.centrifuge')
+    nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.centrifuge',
+    iconSrc: centrifugeIconSrc,
+    bgClassName: 'bg-red',
+  },
 };
+
+export const isKnownYieldGroupKind = (
+  kind: LiquidityHubYieldGroupType | null,
+): kind is LiquidityHubYieldGroupType | null => kind === null || kind in metadataByType;

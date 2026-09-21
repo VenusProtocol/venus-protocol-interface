@@ -982,14 +982,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "基金",
             "market": "市場",
             "vault": "金庫"
           }
         },
         "names": {
+          "centrifuge": "Centrifuge 基金",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "固定利率金庫"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "評級機構",
+            "rating": "評級"
+          },
+          "title": "CRA",
+          "tooltip": "給出該評級的獨立評級機構。"
         }
       }
     },
@@ -1882,11 +1892,11 @@
     "label": "支出限額",
     "labelTooltip": "這是你當前對該資產的支出上限。如需更多支出，請撤銷上限並重新設置。"
   },
+  "spokeCollateralGroup": {
+    "asset": "資產",
+    "maxLtv": "最高抵押率"
+  },
   "spokePools": {
-    "collateralGroup": {
-      "asset": "資產",
-      "maxLtv": "最高抵押率"
-    },
     "description": "使用您在專屬市場中提供的抵押品借出資產。",
     "filter": {
       "allCollaterals": "全部抵押品",

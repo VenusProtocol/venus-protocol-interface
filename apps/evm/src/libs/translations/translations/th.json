@@ -982,14 +982,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "กองทุน",
             "market": "ตลาด",
             "vault": "คลัง"
           }
         },
         "names": {
+          "centrifuge": "กองทุน Centrifuge",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "คลังอัตราคงที่"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "หน่วยงานจัดอันดับ",
+            "rating": "อันดับความน่าเชื่อถือ"
+          },
+          "title": "CRA",
+          "tooltip": "หน่วยงานจัดอันดับอิสระที่ให้อันดับความน่าเชื่อถือนี้"
         }
       }
     },
@@ -1882,11 +1892,11 @@
     "label": "ขีดจำกัดการใช้จ่าย",
     "labelTooltip": "นี่คือขีดจำกัดการใช้จ่ายปัจจุบันของสินทรัพย์นี้ หากต้องการใช้จ่ายมากขึ้น ให้ยกเลิกขีดจำกัดแล้วตั้งใหม่"
   },
+  "spokeCollateralGroup": {
+    "asset": "สินทรัพย์",
+    "maxLtv": "LTV สูงสุด"
+  },
   "spokePools": {
-    "collateralGroup": {
-      "asset": "สินทรัพย์",
-      "maxLtv": "LTV สูงสุด"
-    },
     "description": "ยืมสินทรัพย์โดยใช้หลักประกันที่คุณฝากไว้ในตลาดเฉพาะ",
     "filter": {
       "allCollaterals": "หลักประกันทั้งหมด",

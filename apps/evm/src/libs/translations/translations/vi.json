@@ -982,14 +982,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "Quỹ",
             "market": "Thị trường",
             "vault": "Kho"
           }
         },
         "names": {
+          "centrifuge": "Các quỹ Centrifuge",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "Kho lãi suất cố định"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "Tổ chức xếp hạng",
+            "rating": "Xếp hạng"
+          },
+          "title": "CRA",
+          "tooltip": "Tổ chức xếp hạng độc lập đã đưa ra xếp hạng này."
         }
       }
     },
@@ -1882,11 +1892,11 @@
     "label": "Hạn mức chi tiêu",
     "labelTooltip": "Đây là hạn mức chi tiêu hiện tại của bạn cho tài sản này. Để chi tiêu nhiều hơn, hãy hủy hạn mức và đặt lại."
   },
+  "spokeCollateralGroup": {
+    "asset": "Tài sản",
+    "maxLtv": "LTV tối đa"
+  },
   "spokePools": {
-    "collateralGroup": {
-      "asset": "Tài sản",
-      "maxLtv": "LTV tối đa"
-    },
     "description": "Vay tài sản bằng tài sản thế chấp bạn đã cung cấp trong các thị trường chuyên biệt.",
     "filter": {
       "allCollaterals": "Tất cả tài sản thế chấp",

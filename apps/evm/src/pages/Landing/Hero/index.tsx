@@ -5,6 +5,7 @@ import { Link } from 'containers/Link';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useAnalytics } from 'libs/analytics';
 import { ErrorBoundary } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
@@ -14,6 +15,7 @@ import CoinIconRow from './coinIconRow.svg';
 
 export const Hero: React.FC = () => {
   const { t, Trans } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const { data: getMarketsTvlData } = useGetMarketsTvl();
   const readableMarketsTvl = formatCentsToReadableValue({
@@ -72,6 +74,10 @@ export const Hero: React.FC = () => {
                 <Link
                   to={liquidityHubEnabled ? routes.liquidityHubs.path : marketsPagePath}
                   noStyle
+                  onClick={() =>
+                    liquidityHubEnabled &&
+                    captureAnalyticEvent('hub_navigation', { variant: 'landing_hero' })
+                  }
                 >
                   {liquidityHubEnabled ? t('landing.hero.earnNow') : t('landing.hero.startNow')}
                 </Link>

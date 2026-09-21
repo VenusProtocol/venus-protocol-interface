@@ -983,14 +983,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "Fund",
             "market": "Market",
             "vault": "Vault"
           }
         },
         "names": {
+          "centrifuge": "Centrifuge funds",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "Fixed rate vault"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "Agency",
+            "rating": "Rating"
+          },
+          "title": "CRA",
+          "tooltip": "The independent agency that issued this rating."
         }
       }
     },
@@ -1883,11 +1893,11 @@
     "label": "Spending limit",
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
   },
+  "spokeCollateralGroup": {
+    "asset": "Asset",
+    "maxLtv": "Max LTV"
+  },
   "spokePools": {
-    "collateralGroup": {
-      "asset": "Asset",
-      "maxLtv": "Max LTV"
-    },
     "description": "Borrow assets against your supplied collateral from dedicated markets.",
     "filter": {
       "allCollaterals": "All collaterals",

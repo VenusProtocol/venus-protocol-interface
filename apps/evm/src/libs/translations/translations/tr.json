@@ -983,14 +983,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "Fon",
             "market": "Piyasa",
             "vault": "Kasa"
           }
         },
         "names": {
+          "centrifuge": "Centrifuge fonları",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "Sabit oran kasası"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "Kuruluş",
+            "rating": "Derecelendirme"
+          },
+          "title": "CRA",
+          "tooltip": "Bu derecelendirmeyi veren bağımsız derecelendirme kuruluşu."
         }
       }
     },
@@ -1883,11 +1893,11 @@
     "label": "Harcama limiti",
     "labelTooltip": "Bu, bu varlık için mevcut harcama limitinizdir. Daha fazla harcamak için limiti iptal edip yeni bir limit belirleyin."
   },
+  "spokeCollateralGroup": {
+    "asset": "Varlık",
+    "maxLtv": "Azami LTV"
+  },
   "spokePools": {
-    "collateralGroup": {
-      "asset": "Varlık",
-      "maxLtv": "Azami LTV"
-    },
     "description": "Özel pazarlarda sağladığınız teminat karşılığında varlık borç alın.",
     "filter": {
       "allCollaterals": "Tüm teminatlar",

@@ -45,7 +45,9 @@ export function Table<R>({
   hideCardDelimiter,
   className,
   tableRowClassName,
+  getRowClassName,
   tableHeaderClassName,
+  tableContainerClassName,
   ...otherProps
 }: TableProps<R>) {
   const { formatTo } = useFormatTo();
@@ -144,6 +146,7 @@ export function Table<R>({
               breakpoint === 'lg' && 'lg:block',
               breakpoint === 'xl' && 'xl:block',
               breakpoint === '2xl' && '2xl:block',
+              tableContainerClassName,
             )}
           >
             <TableElement style={{ minWidth: minwidth, tableLayout: tablelayout }}>
@@ -194,6 +197,7 @@ export function Table<R>({
                           'h-18 text-white hover:bg-background-hover hover:no-underline',
                           isRowClickable && 'cursor-pointer',
                           tableRowClassName,
+                          getRowClassName?.(row),
                         )}
                         onClick={
                           isRowClickable

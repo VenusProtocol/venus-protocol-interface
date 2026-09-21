@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 5.34.0
+
+### Minor Changes
+
+- 172d2ec: support Centrifuge funds and their credit ratings in Liquidity Hub
+
+## 5.33.0
+
+### Minor Changes
+
+- 40b72d1: add analytics to Liquidity Hub feature
+
 ## 5.32.0
 
 ### Minor Changes

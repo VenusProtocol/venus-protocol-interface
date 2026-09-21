@@ -1,6 +1,4 @@
-import { cn } from '@venusprotocol/ui';
-
-import { ImgGroup, Table, type TableColumn, TokenIconWithSymbol, Tooltip } from 'components';
+import { ImgGroupTooltip, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
@@ -16,41 +14,32 @@ export const CollateralGroup: React.FC<CollateralGroupProps> = ({ collaterals, c
   const columns: TableColumn<SpokeAsset>[] = [
     {
       key: 'asset',
-      label: t('spokePools.collateralGroup.asset'),
-      selectOptionLabel: t('spokePools.collateralGroup.asset'),
+      label: t('spokeCollateralGroup.asset'),
+      selectOptionLabel: t('spokeCollateralGroup.asset'),
       renderCell: collateral => <TokenIconWithSymbol token={collateral.vToken.underlyingToken} />,
     },
     {
       key: 'maxLtv',
-      label: t('spokePools.collateralGroup.maxLtv'),
-      selectOptionLabel: t('spokePools.collateralGroup.maxLtv'),
+      label: t('spokeCollateralGroup.maxLtv'),
+      selectOptionLabel: t('spokeCollateralGroup.maxLtv'),
       align: 'right',
       renderCell: collateral => formatPercentageToReadableValue(collateral.collateralFactor * 100),
     },
   ];
 
   return (
-    <Tooltip
-      content={
-        <Table
-          data={collaterals}
-          rowKeyExtractor={row => row.vToken.address}
-          columns={columns}
-          variant="secondary"
-          tableLayout="auto"
-          className="border-0 p-0"
-          tableRowClassName="h-12"
-          tableHeaderClassName="h-12"
-        />
-      }
-      className={cn('inline-flex', className)}
-      contentClassName="max-w-none p-0 max-h-49 overflow-y-auto"
-    >
-      <ImgGroup
-        imgSrcs={collaterals.map(({ vToken }) => vToken.underlyingToken.iconSrc)}
-        removeDuplicates
-        limit={5}
-      />
-    </Tooltip>
+    <ImgGroupTooltip
+      imgs={collaterals.map(({ vToken }) => ({
+        src: vToken.underlyingToken.iconSrc,
+        alt: vToken.underlyingToken.symbol,
+      }))}
+      data={collaterals}
+      rowKeyExtractor={row => row.vToken.address}
+      columns={columns}
+      tableLayout="auto"
+      removeDuplicates
+      className={className}
+      contentClassName="max-w-none"
+    />
   );
 };

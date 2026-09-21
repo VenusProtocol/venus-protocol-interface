@@ -982,14 +982,24 @@
         },
         "nameColumn": {
           "title": {
+            "fund": "ファンド",
             "market": "マーケット",
             "vault": "ボールト"
           }
         },
         "names": {
+          "centrifuge": "Centrifuge ファンド",
           "core": "Venus Core",
           "flux": "Venus Flux",
           "frv": "固定利率ボールト"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "格付機関",
+            "rating": "格付け"
+          },
+          "title": "CRA",
+          "tooltip": "この格付けを付与した独立系格付機関です。"
         }
       }
     },
@@ -1882,11 +1892,11 @@
     "label": "支出上限",
     "labelTooltip": "これはこの資産の現在の支出上限です。さらに支出するには上限を取り消し、新しい上限を設定してください。"
   },
+  "spokeCollateralGroup": {
+    "asset": "資産",
+    "maxLtv": "最大LTV"
+  },
   "spokePools": {
-    "collateralGroup": {
-      "asset": "資産",
-      "maxLtv": "最大LTV"
-    },
     "description": "専用マーケットに預けた担保を使って資産を借り入れます。",
     "filter": {
       "allCollaterals": "すべての担保",
