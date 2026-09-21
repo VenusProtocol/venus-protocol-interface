@@ -1,7 +1,12 @@
 import { cn } from '@venusprotocol/ui';
 
+export interface ImgGroupItem {
+  src: string;
+  alt: string;
+}
+
 export interface ImgGroupProps {
-  imgSrcs: string[];
+  imgs: ImgGroupItem[];
   removeDuplicates?: boolean;
   className?: string;
   limit?: number;
@@ -9,26 +14,28 @@ export interface ImgGroupProps {
 
 export const ImgGroup: React.FC<ImgGroupProps> = ({
   className,
-  imgSrcs,
+  imgs,
   removeDuplicates,
   limit = 0,
 }) => {
-  const sanitizedImgSrcs = removeDuplicates ? [...new Set(imgSrcs)] : imgSrcs;
-  const filteredImgSrcs = limit > 0 ? sanitizedImgSrcs.slice(0, limit) : sanitizedImgSrcs;
+  const sanitizedImgs = removeDuplicates
+    ? imgs.filter((img, index) => imgs.findIndex(other => other.src === img.src) === index)
+    : imgs;
+  const filteredImgs = limit > 0 ? sanitizedImgs.slice(0, limit) : sanitizedImgs;
 
   return (
     <div className={cn('inline-flex items-center', className)}>
-      {filteredImgSrcs.map((imgSrc, index) => (
+      {filteredImgs.map((img, index) => (
         <img
-          alt={imgSrc}
+          alt={img.alt}
           className={cn('size-5', index > 0 && '-ml-1')}
-          src={imgSrc}
-          key={`img-group-item-${imgSrc}-${index}`}
+          src={img.src}
+          key={`img-group-item-${img.src}-${index}`}
         />
       ))}
 
-      {limit > 0 && sanitizedImgSrcs.length > limit && (
-        <span className="text-b1r text-white ml-2">+{sanitizedImgSrcs.length - limit}</span>
+      {limit > 0 && sanitizedImgs.length > limit && (
+        <span className="text-b1r text-white ml-2">+{sanitizedImgs.length - limit}</span>
       )}
     </div>
   );

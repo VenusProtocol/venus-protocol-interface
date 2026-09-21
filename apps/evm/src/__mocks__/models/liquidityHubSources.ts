@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import placeholderIconSrc from 'assets/img/placeholderIcon.svg';
 import type { LiquidityHubSource } from 'types';
 
 import { busd, lisUsd, usdc, usdt, xvs } from './tokens';
@@ -26,6 +27,7 @@ export const xvsCoreSource: LiquidityHubSource = {
     { token: xvs, liquidationThresholdPercentage: new BigNumber(60) },
     { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
   ],
+  ratings: [],
   lockEndDate: new Date('2026-08-01T00:00:00.000Z'),
 };
 
@@ -51,6 +53,7 @@ export const xvsFluxSource: LiquidityHubSource = {
     { token: xvs, liquidationThresholdPercentage: new BigNumber(60) },
     { token: usdt, liquidationThresholdPercentage: new BigNumber(80) },
   ],
+  ratings: [],
   lockEndDate: new Date('2026-09-15T00:00:00.000Z'),
 };
 
@@ -77,6 +80,7 @@ export const usdcCoreSource: LiquidityHubSource = {
     { token: usdt, liquidationThresholdPercentage: new BigNumber(80) },
     { token: busd, liquidationThresholdPercentage: new BigNumber(80) },
   ],
+  ratings: [],
   lockEndDate: new Date('2026-07-22T00:00:00.000Z'),
 };
 
@@ -102,6 +106,7 @@ export const usdcFluxSource: LiquidityHubSource = {
     { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
     { token: lisUsd, liquidationThresholdPercentage: new BigNumber(75) },
   ],
+  ratings: [],
   lockEndDate: new Date('2026-10-10T00:00:00.000Z'),
 };
 
@@ -127,6 +132,7 @@ export const usdtCoreSource: LiquidityHubSource = {
     { token: usdt, liquidationThresholdPercentage: new BigNumber(80) },
     { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
   ],
+  ratings: [],
   lockEndDate: new Date('2026-08-20T00:00:00.000Z'),
 };
 
@@ -152,6 +158,7 @@ export const usdtFluxSource: LiquidityHubSource = {
     { token: usdt, liquidationThresholdPercentage: new BigNumber(80) },
     { token: xvs, liquidationThresholdPercentage: new BigNumber(60) },
   ],
+  ratings: [],
   lockEndDate: new Date('2026-11-01T00:00:00.000Z'),
 };
 
@@ -177,6 +184,7 @@ export const busdCoreSource: LiquidityHubSource = {
     { token: busd, liquidationThresholdPercentage: new BigNumber(80) },
     { token: usdc, liquidationThresholdPercentage: new BigNumber(80) },
   ],
+  ratings: [],
   lockEndDate: new Date('2026-07-30T00:00:00.000Z'),
 };
 
@@ -202,7 +210,66 @@ export const busdFluxSource: LiquidityHubSource = {
     { token: busd, liquidationThresholdPercentage: new BigNumber(80) },
     { token: lisUsd, liquidationThresholdPercentage: new BigNumber(75) },
   ],
+  ratings: [],
   lockEndDate: new Date('2026-09-05T00:00:00.000Z'),
+};
+
+export const usdtJtrsyFundSource: LiquidityHubSource = {
+  name: 'Janus Henderson Anemoy Treasury Fund',
+  address: '0x4000000000000000000000000000000000000009',
+  allocationTokens: new BigNumber(14590),
+  allocationCents: new BigNumber(1459000),
+  supplyCapCents: new BigNumber(3000000),
+  liquidityTokens: new BigNumber(9100),
+  liquidityCents: new BigNumber(910000),
+  supplyApyPercentage: new BigNumber(3.58),
+  supplyTokenDistributions: [],
+  collaterals: [],
+  ratings: [
+    {
+      agencyName: "Moody's Ratings",
+      agencyIconSrc: placeholderIconSrc,
+      value: 'Aa-bf',
+      reportUrl:
+        'https://www.moodys.com/research/Moodys-Ratings-assigns-a-Aa-bf-Bond-Fund-rating-to-Anemoy-Assessment-Announcement--PR_495362',
+    },
+    {
+      agencyName: 'Particula',
+      agencyIconSrc: placeholderIconSrc,
+      value: 'A+',
+      reportUrl:
+        'https://particula.io/rating-reports/particula-rating-report-anemoy-ltf-september-2024',
+    },
+    {
+      agencyName: 'S&P Global Ratings',
+      agencyIconSrc: placeholderIconSrc,
+      value: 'AAAf/S1+',
+      reportUrl:
+        'https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3534006',
+    },
+  ],
+};
+
+export const usdtJaaaFundSource: LiquidityHubSource = {
+  name: 'Janus Henderson AAA CLO Fund',
+  address: '0x400000000000000000000000000000000000000a',
+  allocationTokens: new BigNumber(9720),
+  allocationCents: new BigNumber(972000),
+  supplyCapCents: new BigNumber(2000000),
+  liquidityTokens: new BigNumber(5400),
+  liquidityCents: new BigNumber(540000),
+  supplyApyPercentage: new BigNumber(5.12),
+  supplyTokenDistributions: [],
+  collaterals: [],
+  ratings: [
+    {
+      agencyName: 'Particula',
+      agencyIconSrc: placeholderIconSrc,
+      value: 'AAA',
+      reportUrl:
+        'https://particula.io/rating-reports/particula-rating-report-anemoy-jaaa-november-2025',
+    },
+  ],
 };
 
 export const liquidityHubSources = [
@@ -214,4 +281,6 @@ export const liquidityHubSources = [
   usdtFluxSource,
   busdCoreSource,
   busdFluxSource,
+  usdtJtrsyFundSource,
+  usdtJaaaFundSource,
 ];
