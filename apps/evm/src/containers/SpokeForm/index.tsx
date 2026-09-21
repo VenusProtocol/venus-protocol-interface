@@ -20,6 +20,9 @@ export interface SpokeFormProps {
   initialCollateralTabId?: 'supply' | 'withdraw';
   initialLoanTabId?: 'borrow' | 'repay';
   preselectedCollateral?: SpokeAsset;
+  // Renders the collateral side on its own, without the Collateral / Loan tabs, which is how
+  // the PRD packages the "Manage collateral" modal
+  collateralOnly?: boolean;
   onSubmitSuccess?: () => void;
   navType?: TabNavType;
 }
@@ -31,6 +34,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
   initialCollateralTabId = 'supply',
   initialLoanTabId = 'borrow',
   preselectedCollateral,
+  collateralOnly = false,
   onSubmitSuccess,
   navType = 'state',
 }) => {
@@ -138,7 +142,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
     return loanTabsDom;
   }
 
-  if (loanTabs.length === 0) {
+  if (collateralOnly || loanTabs.length === 0) {
     return collateralTabsDom;
   }
 

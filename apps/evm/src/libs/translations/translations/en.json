@@ -1937,7 +1937,6 @@
     "collateralModalTitle": "Manage collateral in {{poolName}} pool",
     "collateralTabTitle": "Collateral",
     "error": {
-      "borrowDisabled": "Borrowing is currently paused for this market",
       "higherThanAvailableAmount": "Amount exceeds the available balance",
       "supplyDisabled": "Supplying is currently paused for this collateral"
     },

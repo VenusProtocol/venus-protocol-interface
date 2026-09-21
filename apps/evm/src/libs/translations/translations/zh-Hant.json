@@ -1936,7 +1936,6 @@
     "collateralModalTitle": "管理 {{poolName}} 池的抵押品",
     "collateralTabTitle": "抵押品",
     "error": {
-      "borrowDisabled": "該市場的借款目前已暫停",
       "higherThanAvailableAmount": "金額超出可用餘額",
       "supplyDisabled": "該抵押品的供應目前已暫停"
     },

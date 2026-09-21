@@ -1936,7 +1936,6 @@
     "collateralModalTitle": "{{poolName}} プールの担保を管理",
     "collateralTabTitle": "担保",
     "error": {
-      "borrowDisabled": "このマーケットの借入は現在停止中です",
       "higherThanAvailableAmount": "金額が利用可能残高を超えています",
       "supplyDisabled": "この担保の供給は現在停止中です"
     },
