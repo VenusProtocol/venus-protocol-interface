@@ -48,45 +48,57 @@ function Head<R>({
               colSpan={column.colSpan}
               aria-sort={ariaSortDirection}
             >
-              <button
-                type="button"
-                className={cn(
+              {(() => {
+                const content = (
+                  <>
+                    <span className="whitespace-nowrap text-grey">{column.label}</span>
+
+                    {controls && orderable && (
+                      <div className="-mt-0.5 ml-2">
+                        <Icon
+                          name="sort"
+                          className={cn(
+                            'block size-2 fill-white text-white',
+                            active && orderDirection === 'asc' && 'fill-green text-green',
+                          )}
+                        />
+                        <Icon
+                          name="sort"
+                          className={cn(
+                            'block size-2 rotate-180 fill-white text-white',
+                            active && orderDirection === 'desc' && 'fill-green text-green',
+                          )}
+                        />
+                      </div>
+                    )}
+
+                    {active && orderable && (
+                      <span className="sr-only">
+                        {orderDirection === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                      </span>
+                    )}
+                  </>
+                );
+
+                const contentClassName = cn(
                   'inline-flex items-center border-0 bg-transparent p-0 align-middle text-b1r text-grey normal-case',
-                  'disabled:text-grey',
                   orderable ? 'cursor-pointer' : 'cursor-auto',
                   column.align === 'center' && 'justify-center',
                   column.align === 'right' && 'justify-end',
-                )}
-                disabled={!orderable}
-                onClick={orderable ? () => onRequestOrder(column) : undefined}
-              >
-                <span className="whitespace-nowrap text-grey">{column.label}</span>
+                );
 
-                {controls && orderable && (
-                  <div className="-mt-0.5 ml-2">
-                    <Icon
-                      name="sort"
-                      className={cn(
-                        'block size-2 fill-white text-white',
-                        active && orderDirection === 'asc' && 'fill-green text-green',
-                      )}
-                    />
-                    <Icon
-                      name="sort"
-                      className={cn(
-                        'block size-2 rotate-180 fill-white text-white',
-                        active && orderDirection === 'desc' && 'fill-green text-green',
-                      )}
-                    />
-                  </div>
-                )}
-
-                {active && orderable && (
-                  <span className="sr-only">
-                    {orderDirection === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </span>
-                )}
-              </button>
+                return orderable ? (
+                  <button
+                    type="button"
+                    className={contentClassName}
+                    onClick={() => onRequestOrder(column)}
+                  >
+                    {content}
+                  </button>
+                ) : (
+                  <div className={contentClassName}>{content}</div>
+                );
+              })()}
             </TableHeadCell>
           );
         })}

@@ -9,6 +9,7 @@ import convertUsdMantissaToCents from 'utilities/convertUsdMantissaToCents';
 import { formatApiRewardDistributors } from 'utilities/formatApiRewardDistributors';
 import getCombinedApy from 'utilities/getCombinedApy';
 import { formatToLiquidityHubYieldGroup } from './formatToLiquidityHubYieldGroup';
+import { isKnownYieldGroupKind } from './formatToLiquidityHubYieldGroup/constants';
 
 export const formatToLiquidityHub = ({
   apiLiquidityHub,
@@ -117,9 +118,11 @@ export const formatToLiquidityHub = ({
   const pricePerShare = new BigNumber(apiLiquidityHub.pricePerShare);
   const supplyApyPercentage = convertRatioToPercentage(apiLiquidityHub.blendedApyRatio);
 
-  const yieldGroups = apiLiquidityHub.yieldGroups.map(apiYieldGroup =>
-    formatToLiquidityHubYieldGroup({ apiYieldGroup, tokens, underlyingToken, tokenPriceCents }),
-  );
+  const yieldGroups = apiLiquidityHub.yieldGroups
+    .filter(apiYieldGroup => isKnownYieldGroupKind(apiYieldGroup.kind))
+    .map(apiYieldGroup =>
+      formatToLiquidityHubYieldGroup({ apiYieldGroup, tokens, underlyingToken, tokenPriceCents }),
+    );
 
   const { supplyTokenDistributions } = formatApiRewardDistributors({
     apiRewardDistributors: apiLiquidityHub.rewardsDistributors,

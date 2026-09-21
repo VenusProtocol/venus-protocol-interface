@@ -8,6 +8,7 @@ export interface MenuItem {
   iconName?: IconName;
   description?: string;
   tagLabel?: string;
+  onClick?: () => void;
 }
 
 export interface SubMenu {
