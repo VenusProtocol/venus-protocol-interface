@@ -22,12 +22,12 @@ export const spokePools: SpokePool[] = [
     description: 'Borrow against bStock assets.',
     isIsolated: true,
     eModeGroups: [],
-    userSupplyBalanceCents: new BigNumber(161040),
+    userSupplyBalanceCents: new BigNumber(858000),
     userBorrowBalanceCents: new BigNumber(126432),
-    userBorrowLimitCents: new BigNumber(128832),
-    userLiquidationThresholdCents: new BigNumber(141715),
-    userYearlyEarningsCents: new BigNumber(-5766),
-    userHealthFactor: 8.4,
+    userBorrowLimitCents: new BigNumber(429000),
+    userLiquidationThresholdCents: new BigNumber(514800),
+    userYearlyEarningsCents: new BigNumber(-5753),
+    userHealthFactor: 4.07,
     assets: [
       buildSpokeAsset({
         vToken: vUsdtSpokeBstock,
