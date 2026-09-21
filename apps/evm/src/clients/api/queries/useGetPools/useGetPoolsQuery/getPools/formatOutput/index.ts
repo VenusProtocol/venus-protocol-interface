@@ -20,6 +20,7 @@ import {
 } from 'utilities';
 import type { PrimeApy, VTokenBalance } from '../../../types';
 import type { ApiPool, ApiTokenMetadata } from '../getApiPools';
+import { withMerklCollateralGates } from '../withMerklCollateralGates';
 import { formatDistributions } from './formatDistributions';
 import { formatEModeGroups } from './formatEModeGroups';
 
@@ -375,15 +376,18 @@ export const formatOutput = ({
       );
     }
 
+    // Gate the campaigns before the pool totals are derived, so they use the rates the user earns
+    const gatedAssets = withMerklCollateralGates({ assets });
+
     const userPoolValues = calculateUserPoolValues({
-      assets,
+      assets: gatedAssets,
       userVaiBorrowBalanceCents: poolVai?.userBorrowBalanceCents,
       vaiBorrowAprPercentage: poolVai?.borrowAprPercentage,
     });
 
     // Calculate userBorrowLimitSharePercentage for each asset
     const { assets: formattedAssets } = addUserBorrowLimitShares({
-      assets,
+      assets: gatedAssets,
       userBorrowLimitCents: userPoolValues.userBorrowLimitCents,
     });
 

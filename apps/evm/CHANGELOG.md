@@ -1,5 +1,42 @@
 # @venusprotocol/evm
 
+## 5.33.0
+
+### Minor Changes
+
+- 40b72d1: add analytics to Liquidity Hub feature
+
+## 5.32.0
+
+### Minor Changes
+
+- 3811682: fix: count a Merkl campaign once when it covers several markets
+
+## 5.31.0
+
+### Minor Changes
+
+- 142f6c4: update table sort order
+
+## 5.30.0
+
+### Minor Changes
+
+- 9a3fe63: fix: skip api calling on unsupport chains
+- 24ffc2a: restrict the transaction history feature to BNB Chain
+
+## 5.29.0
+
+### Minor Changes
+
+- 10056e2: display the per-user reward APY of collateral-gated Merkl borrow campaigns
+
+## 5.28.0
+
+### Minor Changes
+
+- bec6fd7: Replace the Hub contract row with the operator address in the Liquidity Hub info section
+
 ## 5.27.0
 
 ### Minor Changes

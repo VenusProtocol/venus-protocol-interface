@@ -109,3 +109,6 @@ export { default as trophy } from './trophy';
 export { default as swap } from './swap';
 export { default as connect } from './connect';
 export { default as hub } from './hub';
+export { default as vaultArrowUp } from './vaultArrowUp';
+export { default as vaultArrowDown } from './vaultArrowDown';
+export { default as vaultArrowUpDown } from './vaultArrowUpDown';

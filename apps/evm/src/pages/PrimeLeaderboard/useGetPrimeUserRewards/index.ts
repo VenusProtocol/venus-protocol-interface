@@ -1,14 +1,10 @@
-import { useGetPrimeCurrentCycle, useGetPrimeUserPendingRewards } from 'clients/api';
+import BigNumber from 'bignumber.js';
+import { useGetPrimeUserPendingRewards } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import {
-  areAddressesEqual,
-  compareTokensBySymbol,
-  convertUsdMantissaToCents,
-  findTokenByAddress,
-} from 'utilities';
+import { compareTokensBySymbol, convertUsdMantissaToCents, findTokenByAddress } from 'utilities';
 
-import type { UserMarketReward } from '../UserRewardsCard';
+import type { PrimeRewardSide, UserMarketReward } from '../UserRewardsCard';
 
 export interface UseGetPrimeUserRewardsOutput {
   isLoading: boolean;
@@ -19,37 +15,50 @@ export interface UseGetPrimeUserRewardsOutput {
 export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
   const { accountAddress } = useAccountAddress();
   const tokens = useGetTokens();
-  const { data: currentCycle, isLoading: isCurrentCycleLoading } = useGetPrimeCurrentCycle();
-  const { data: userPendingRewards, isLoading: isUserPendingRewardsLoading } =
-    useGetPrimeUserPendingRewards({ accountAddress });
+  const { data: userPendingRewards, isLoading } = useGetPrimeUserPendingRewards({ accountAddress });
 
-  const byRewardToken = currentCycle?.pendingPool?.byRewardToken;
-  const userRewards = userPendingRewards?.rewards;
+  // Multipliers are set per market, so markets sharing a reward token stay on separate rows.
+  const marketRewards = (userPendingRewards?.rewards ?? [])
+    .flatMap(
+      ({
+        marketAddress,
+        rewardTokenAddress,
+        currentCycleUsdMantissa,
+        tokenDistributionSpeedMantissa,
+        supplyMultiplierMantissa,
+        borrowMultiplierMantissa,
+      }) => {
+        const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
+        if (!token) {
+          return [];
+        }
 
-  const marketRewards = (byRewardToken ?? [])
-    .flatMap(({ rewardTokenAddress }) => {
-      const token = findTokenByAddress({ address: rewardTokenAddress, tokens });
-      if (!token) {
-        return [];
-      }
+        const rewardsCents = convertUsdMantissaToCents(currentCycleUsdMantissa).toNumber();
 
-      const tokenRewards = (userRewards ?? []).filter(reward =>
-        areAddressesEqual(reward.rewardTokenAddress, rewardTokenAddress),
-      );
+        if (
+          tokenDistributionSpeedMantissa === undefined ||
+          supplyMultiplierMantissa === undefined ||
+          borrowMultiplierMantissa === undefined
+        ) {
+          return [{ token, marketAddress, rewardsCents }];
+        }
 
-      const marketAddress = tokenRewards[0]?.marketAddress;
-      if (!marketAddress) {
-        return [];
-      }
+        const isEmitting = new BigNumber(tokenDistributionSpeedMantissa).isGreaterThan(0);
+        const isSupplyIncentivized =
+          isEmitting && new BigNumber(supplyMultiplierMantissa).isGreaterThan(0);
+        const isBorrowIncentivized =
+          isEmitting && new BigNumber(borrowMultiplierMantissa).isGreaterThan(0);
 
-      const rewardsCents = tokenRewards.reduce(
-        (total, reward) =>
-          total + convertUsdMantissaToCents(reward.currentCycleUsdMantissa).toNumber(),
-        0,
-      );
+        let side: PrimeRewardSide = 'supply';
+        if (isSupplyIncentivized && isBorrowIncentivized) {
+          side = 'both';
+        } else if (isBorrowIncentivized) {
+          side = 'borrow';
+        }
 
-      return [{ token, marketAddress, rewardsCents }];
-    })
+        return [{ token, marketAddress, rewardsCents, side }];
+      },
+    )
     .sort((a, b) => compareTokensBySymbol(a.token, b.token));
 
   const totalRewardsCents = userPendingRewards
@@ -57,7 +66,7 @@ export const useGetPrimeUserRewards = (): UseGetPrimeUserRewardsOutput => {
     : 0;
 
   return {
-    isLoading: isCurrentCycleLoading || isUserPendingRewardsLoading,
+    isLoading,
     totalRewardsCents,
     marketRewards,
   };

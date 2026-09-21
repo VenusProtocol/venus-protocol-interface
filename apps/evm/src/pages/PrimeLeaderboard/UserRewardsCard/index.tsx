@@ -12,10 +12,13 @@ import type { Address } from 'viem';
 import { MarketActionsButton } from '../MarketActionsButton';
 import { MarketRewardRow } from '../MarketRewardRow';
 
+export type PrimeRewardSide = 'supply' | 'borrow' | 'both';
+
 export interface UserMarketReward {
   token: Token;
   marketAddress: Address;
   rewardsCents: number;
+  side?: PrimeRewardSide;
 }
 
 export interface UserRewardsCardProps {
@@ -95,26 +98,43 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
       </div>
 
       <div className="flex max-h-15 flex-col gap-2 overflow-y-auto">
-        {marketRewardsWithMarket.map(({ token, rewardsCents, asset, poolComptrollerAddress }) => (
-          <MarketRewardRow
-            key={token.address}
-            token={token}
-            rewardsCents={rewardsCents}
-            totalRewardsCents={totalRewardsCents}
-            progressBarClassName="xl:w-8 2xl:w-1/4"
-            apy={showMarketActions && asset && <AssetApy asset={asset} type="supply" />}
-            actions={
-              showMarketActions &&
-              asset &&
-              poolComptrollerAddress && (
-                <MarketActionsButton
-                  asset={asset}
-                  poolComptrollerAddress={poolComptrollerAddress}
-                />
-              )
-            }
-          />
-        ))}
+        {marketRewardsWithMarket.map(
+          ({
+            token,
+            marketAddress,
+            rewardsCents,
+            asset,
+            poolComptrollerAddress,
+            side = 'supply',
+          }) => {
+            const apyType = side === 'borrow' ? 'borrow' : 'supply';
+
+            return (
+              <MarketRewardRow
+                key={`${marketAddress}-${side}`}
+                token={token}
+                rewardsCents={rewardsCents}
+                totalRewardsCents={totalRewardsCents}
+                progressBarClassName="xl:w-[50px]"
+                apy={
+                  showMarketActions &&
+                  asset && <AssetApy asset={asset} type={apyType} showPrimeIcon={false} />
+                }
+                actions={
+                  showMarketActions &&
+                  asset &&
+                  poolComptrollerAddress && (
+                    <MarketActionsButton
+                      asset={asset}
+                      poolComptrollerAddress={poolComptrollerAddress}
+                      side={side}
+                    />
+                  )
+                }
+              />
+            );
+          },
+        )}
       </div>
     </div>
   );

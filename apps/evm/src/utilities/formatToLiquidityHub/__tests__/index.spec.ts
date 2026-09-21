@@ -6,6 +6,7 @@ import { formatToLiquidityHub } from '..';
 
 const hubAddress = '0x1000000000000000000000000000000000000001';
 const tokenPriceOracleAddress = '0x2000000000000000000000000000000000000001';
+const operatorAddress = '0x4000000000000000000000000000000000000001';
 const rewardsDistributorContractAddress = '0x3000000000000000000000000000000000000001';
 
 const apiLiquidityHub: ApiLiquidityHub = {
@@ -15,6 +16,7 @@ const apiLiquidityHub: ApiLiquidityHub = {
   symbol: 'vhUSDC',
   hubTokenDecimals: 18,
   underlyingTokenDecimals: usdc.decimals,
+  operatorAddress,
   tokenPriceOracleAddress,
   tokenPriceUsdMantissa: '1000000000000000000',
   totalUnderlyingMantissa: '200000000',
@@ -61,6 +63,18 @@ describe('formatToLiquidityHub', () => {
     });
 
     expect(result).toMatchSnapshot();
+  });
+
+  it('leaves the operator address undefined when the API does not return one', () => {
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...apiLiquidityHub,
+        operatorAddress: null,
+      },
+      tokens: [usdc],
+    });
+
+    expect(result?.operatorAddress).toBeUndefined();
   });
 
   it('formats user-specific supply and withdrawal caps', () => {

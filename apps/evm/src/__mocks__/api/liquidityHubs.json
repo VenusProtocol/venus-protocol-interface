@@ -8,6 +8,7 @@
       "symbol": "vhUSDC",
       "hubTokenDecimals": 6,
       "underlyingTokenDecimals": 6,
+      "operatorAddress": "0x5000000000000000000000000000000000000001",
       "tokenPriceOracleAddress": "0x4000000000000000000000000000000000000001",
       "tokenPriceUsdMantissa": "2500000000000000000",
       "totalUnderlyingMantissa": "1000000000",

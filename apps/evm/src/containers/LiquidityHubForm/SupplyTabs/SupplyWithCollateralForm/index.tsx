@@ -8,7 +8,8 @@ import { NULL_ADDRESS } from 'constants/address';
 import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
 import type { TokenApproval } from 'containers/TxFormSubmitButton';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { VError } from 'libs/errors';
+import { useAnalytics } from 'libs/analytics';
+import { VError, isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type {
@@ -24,7 +25,8 @@ import {
   convertTokensToMantissa,
   formatTokensToReadableValue,
 } from 'utilities';
-import { Form, type FormValues, initialFormValues } from '../../Form';
+import { calculateAmountDollars } from '../../../MarketForm/calculateAmountDollars';
+import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../../Form';
 import type { UseFormValidationInput } from '../../Form/useForm/useFormValidation';
 
 export interface SupplyWithCollateralFormProps {
@@ -43,6 +45,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   corePool,
 }) => {
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
   const { accountAddress } = useAccountAddress();
 
@@ -143,14 +146,41 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   const { mutateAsync: migrateCoreSupplyToLiquidityHub, isPending: isSubmitting } =
     useMigrateCoreSupplyToLiquidityHub();
 
+  const getAnalyticData = (amountTokens: BigNumber | string) => ({
+    poolName: 'liquidity_hub',
+    assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+    usdAmount: calculateAmountDollars({
+      amountTokens,
+      tokenPriceCents: liquidityHub.tokenPriceCents,
+    }),
+    fundingSource: 'collateral' as const,
+  });
+
+  const captureAmountSetAnalyticEvent = ({ amountTokens, maxSelected }: AmountSetInput) => {
+    if (Number(amountTokens) <= 0) {
+      return;
+    }
+
+    captureAnalyticEvent(
+      'supply_amount_set',
+      {
+        ...getAnalyticData(amountTokens),
+        maxSelected,
+      },
+      {
+        debounced: true,
+      },
+    );
+  };
+
   const handleSubmit = async (submittedFormValues: FormValues) => {
+    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+
     const vTokenAmountMantissa = isMigratingFullCoreSupply
       ? userWalletVTokenBalanceMantissa
       : convertTokensToMantissa({
           token: corePoolAsset.vToken,
-          value: new BigNumber(submittedFormValues.amountTokens).times(
-            corePoolAsset.exchangeRateVTokens,
-          ),
+          value: amountTokens.times(corePoolAsset.exchangeRateVTokens),
         });
 
     if (!vTokenAmountMantissa) {
@@ -160,11 +190,29 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
       });
     }
 
-    await migrateCoreSupplyToLiquidityHub({
-      vhToken: liquidityHub.vhToken,
-      vToken: corePoolAsset.vToken,
-      vTokenAmountMantissa,
-    });
+    const analyticData = getAnalyticData(amountTokens);
+
+    try {
+      captureAnalyticEvent('supply_initiated', analyticData);
+
+      await migrateCoreSupplyToLiquidityHub({
+        vhToken: liquidityHub.vhToken,
+        vToken: corePoolAsset.vToken,
+        vTokenAmountMantissa,
+        underlyingAmountMantissa: convertTokensToMantissa({
+          token: liquidityHub.vhToken.underlyingToken,
+          value: amountTokens,
+        }),
+      });
+
+      captureAnalyticEvent('supply_signed', analyticData);
+    } catch (error) {
+      if (isUserRejectedTxError({ error })) {
+        captureAnalyticEvent('supply_rejected', analyticData);
+      }
+
+      throw error;
+    }
   };
 
   const balanceMutations: Array<AssetBalanceMutation | LiquidityHubBalanceMutation> = [
@@ -185,11 +233,21 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   ];
 
   const handleLimitClick = limitTokens.isGreaterThan(0)
-    ? () =>
+    ? () => {
+        const amountTokens = limitTokens
+          .dp(liquidityHub.vhToken.underlyingToken.decimals)
+          .toFixed();
+
+        captureAmountSetAnalyticEvent({
+          amountTokens,
+          maxSelected: true,
+        });
+
         setFormValues(values => ({
           ...values,
-          amountTokens: limitTokens.dp(liquidityHub.vhToken.underlyingToken.decimals).toFixed(),
-        }))
+          amountTokens,
+        }));
+      }
     : undefined;
 
   const readableLimit = formatTokensToReadableValue({
@@ -227,6 +285,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
       safeLimitTokens={safeLimitTokens}
       availableBalance={availableBalanceDom}
       validateForm={handleValidateForm}
+      onAmountSet={captureAmountSetAnalyticEvent}
     />
   );
 };

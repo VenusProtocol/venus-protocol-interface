@@ -84,3 +84,6 @@ export const routes = Object.keys(routeSubdirectories).reduce<Routes>(
       : obj,
   {} as Routes,
 );
+
+// Preselects a market on the Prime calculator page
+export const PRIME_CALCULATOR_TOKEN_ADDRESS_PARAM = 'tokenAddress';

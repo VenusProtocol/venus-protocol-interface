@@ -81,7 +81,7 @@ describe('ApyBreakdown', () => {
     );
 
     expect(container.textContent).toBe(
-      'Supply APY0.05%Distribution APY0.11%Borrow APY-4.97%Distribution APY0.52%Net APY7.66%',
+      'Supply APY0.05%Distribution APY0.11%Borrow APY-4.97%Distribution APY-0.52%Net APY7.66%',
     );
   });
 
@@ -100,12 +100,12 @@ describe('ApyBreakdown', () => {
     {
       label: 'borrow',
       balanceMutations: [fakeBalanceMutations[3]],
-      expectedTextContent: 'Borrow APY-4.97%Distribution APY0.52%Total borrow APY-6.49%',
+      expectedTextContent: 'Borrow APY-4.97%Distribution APY-0.52%Total borrow APY-6.49%',
     },
     {
       label: 'repay',
       balanceMutations: [fakeBalanceMutations[4]],
-      expectedTextContent: 'Borrow APY-4.97%Distribution APY0.52%Total borrow APY-6.49%',
+      expectedTextContent: 'Borrow APY-4.97%Distribution APY-0.52%Total borrow APY-6.49%',
     },
   ] satisfies {
     label: string;

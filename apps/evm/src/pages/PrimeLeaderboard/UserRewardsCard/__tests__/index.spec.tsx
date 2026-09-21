@@ -29,6 +29,33 @@ describe('pages/PrimeLeaderboard/UserRewardsCard', () => {
     expect(screen.getByText(usdc.symbol)).toBeInTheDocument();
   });
 
+  it('keeps rows apart when two markets pay out the same reward token', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    renderComponent(
+      <UserRewardsCard
+        totalRewardsCents={1_840_000}
+        marketRewards={[
+          {
+            token: usdc,
+            marketAddress: '0xfD5840Cd36d94D7229439859C0112a4185BC0255',
+            rewardsCents: 1_140_000,
+          },
+          {
+            token: usdc,
+            marketAddress: '0x3d5E269787d562b74aCC55F18Bd26C5D09Fa245E',
+            rewardsCents: 700_000,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getAllByText(usdc.symbol)).toHaveLength(2);
+    expect(consoleError.mock.calls.some(args => args.join(' ').includes('same key'))).toBe(false);
+
+    consoleError.mockRestore();
+  });
+
   it('renders the provided content instead of the default headline', () => {
     renderComponent(
       <UserRewardsCard

@@ -136,6 +136,41 @@ describe('formatApiRewardDistributors', () => {
     });
   });
 
+  it.each([
+    { name: 'a positive campaign APR is served as a gated reward', apr: 7, expectedLength: 1 },
+    { name: 'a zero campaign APR is treated as no campaign', apr: 0, expectedLength: 0 },
+    { name: 'a negative campaign APR is treated as no campaign', apr: -5, expectedLength: 0 },
+  ])('$name', ({ apr, expectedLength }) => {
+    const apiGatedMerklRewardDistributor: ApiMerklReward = {
+      ...apiVenusRewardDistributor,
+      rewardType: 'merkl',
+      supplySpeed: '0',
+      borrowSpeed: '0',
+      supplyApyRatio: '0',
+      borrowApyRatio: '0',
+      rewardDetails: {
+        appName: 'Merkl',
+        claimUrl: 'https://example.com/claim',
+        merklCampaignId: 'campaign-id',
+        description: 'Merkl rewards',
+        merklCampaignIdentifier: 'campaign-identifier',
+        tags: [],
+        apr,
+        participatingCollateralAddresses: ['0x3000000000000000000000000000000000000001'],
+        eligibleBorrowMarketAddresses: [marketAddress],
+      },
+    };
+
+    const { borrowTokenDistributions } = formatApiRewardDistributors({
+      apiRewardDistributors: [apiGatedMerklRewardDistributor],
+      tokens: [xvs],
+      blocksPerDay: 1,
+      currentBlockNumber: 1n,
+    });
+
+    expect(borrowTokenDistributions).toHaveLength(expectedLength);
+  });
+
   it('formats the intrinsic APY of Liquidity Hub markets', () => {
     const apiLiquidityHubIntrinsicRewardDistributor: ApiOffChainApyReward = {
       ...apiVenusRewardDistributor,

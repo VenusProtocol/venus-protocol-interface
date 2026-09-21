@@ -13,7 +13,7 @@ import { useRefreshOnNewCycle } from './useRefreshOnNewCycle';
 
 const PrimeLeaderboard: React.FC = () => {
   const { t } = useTranslation();
-  const isXlUp = useBreakpointUp('xl');
+  const isSideBySide = useBreakpointUp('2xl');
   const { data: currentCycle, isLoading: isCurrentCycleLoading } = useGetPrimeCurrentCycle();
 
   useRefreshOnNewCycle();
@@ -75,7 +75,7 @@ const PrimeLeaderboard: React.FC = () => {
         className="relative mx-auto mt-8 w-full max-w-[467px]"
       />
 
-      {isXlUp ? (
+      {isSideBySide ? (
         <div className="relative mt-10 space-y-3">
           <RefreshNote />
 
