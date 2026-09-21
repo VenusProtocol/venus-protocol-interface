@@ -9,12 +9,15 @@ import {
   cn,
 } from 'components';
 import { HIDDEN_BALANCE_KEY } from 'constants/placeholders';
-import { DAYS_PER_YEAR } from 'constants/time';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import type { SpokePool } from 'types';
-import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import {
+  calculateDailyBorrowInterestCents,
+  formatCentsToReadableValue,
+  formatPercentageToReadableValue,
+} from 'utilities';
 
 export interface SummaryRowProps {
   spokePool: SpokePool;
@@ -47,10 +50,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
         .dividedBy(totalBorrowCents)
     : new BigNumber(0);
 
-  const dailyBorrowInterestsCents = totalBorrowCents
-    .multipliedBy(weightedBorrowApyPercentage)
-    .div(100)
-    .div(DAYS_PER_YEAR);
+  const dailyBorrowInterestsCents = calculateDailyBorrowInterestCents({ assets: spokePool.assets });
 
   const cells: CellProps[] = [
     {
