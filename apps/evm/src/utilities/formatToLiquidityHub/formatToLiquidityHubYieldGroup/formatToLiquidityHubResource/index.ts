@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js';
 
+import placeholderIconSrc from 'assets/img/placeholderIcon.svg';
+
 import type { ApiLiquidityHubResource, LiquidityHubSource, Token } from 'types';
 import { areAddressesEqual } from 'utilities/areAddressesEqual';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
@@ -33,6 +35,25 @@ export const formatToLiquidityHubResource = ({
           liquidationThresholdPercentage: new BigNumber(
             convertPercentageFromSmartContract(exposure.liquidationThresholdMantissa),
           ),
+        },
+      ];
+    },
+    [],
+  );
+
+  const ratings = (apiResource.creditRatings ?? []).reduce<LiquidityHubSource['ratings']>(
+    (acc, apiCreditRating) => {
+      if (!apiCreditRating.agencyName) {
+        return acc;
+      }
+
+      return [
+        ...acc,
+        {
+          agencyName: apiCreditRating.agencyName,
+          agencyIconSrc: apiCreditRating.agencyIconUrl ?? placeholderIconSrc,
+          value: apiCreditRating.ratingLabel ?? undefined,
+          reportUrl: apiCreditRating.ratingSourceUrl ?? undefined,
         },
       ];
     },
@@ -94,6 +115,7 @@ export const formatToLiquidityHubResource = ({
     supplyApyPercentage: new BigNumber(apiResource.apyRatio).multipliedBy(100),
     supplyTokenDistributions,
     collaterals,
+    ratings,
     lockEndDate: resourceLockEndDate,
   };
 };

@@ -1,9 +1,6 @@
-import { cn } from '@venusprotocol/ui';
-
-import { ImgGroup } from 'components/ImgGroup';
-import { Table, type TableColumn } from 'components/Table';
+import { ImgGroupTooltip } from 'components/ImgGroupTooltip';
+import type { TableColumn } from 'components/Table';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
-import { Tooltip } from 'components/Tooltip';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
@@ -36,27 +33,18 @@ export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
   ];
 
   return (
-    <Tooltip
-      content={
-        <Table
-          data={collaterals}
-          rowKeyExtractor={row => row.vToken.address}
-          columns={columns}
-          variant="secondary"
-          tableLayout="auto"
-          className="border-0 p-0"
-          tableRowClassName="h-12"
-          tableHeaderClassName="h-12"
-        />
-      }
-      className={cn('inline-flex', className)}
-      contentClassName="max-w-none p-0 max-h-49 overflow-y-auto"
-    >
-      <ImgGroup
-        imgSrcs={collaterals.map(({ vToken }) => vToken.underlyingToken.iconSrc)}
-        removeDuplicates
-        limit={5}
-      />
-    </Tooltip>
+    <ImgGroupTooltip
+      imgs={collaterals.map(({ vToken }) => ({
+        src: vToken.underlyingToken.iconSrc,
+        alt: vToken.underlyingToken.symbol,
+      }))}
+      data={collaterals}
+      rowKeyExtractor={row => row.vToken.address}
+      columns={columns}
+      tableLayout="auto"
+      removeDuplicates
+      className={className}
+      contentClassName="max-w-none"
+    />
   );
 };

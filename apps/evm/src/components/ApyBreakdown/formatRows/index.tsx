@@ -14,10 +14,12 @@ export const formatRows = ({
   item,
   t,
   Trans,
+  onLiquidityHubLinkClick,
 }: {
   item: ApyBreakdownItem;
   t: TFunction<'translation', undefined>;
   Trans: ReturnType<typeof useTranslation>['Trans'];
+  onLiquidityHubLinkClick?: () => void;
 }) => {
   const formatDistributionApy = (apyPercentage: BigNumber) =>
     formatDistributionApyToReadableValue({ apyPercentage, type: item.type });
@@ -159,7 +161,15 @@ export const formatRows = ({
           <Trans
             i18nKey="apyBreakdown.liquidityHubIntrinsicApyTooltip"
             components={{
-              AppLink: <Link to={routes.liquidityHubs.path} onClick={e => e.stopPropagation()} />,
+              AppLink: (
+                <Link
+                  to={routes.liquidityHubs.path}
+                  onClick={e => {
+                    e.stopPropagation();
+                    onLiquidityHubLinkClick?.();
+                  }}
+                />
+              ),
             }}
           />
         );
