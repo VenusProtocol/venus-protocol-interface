@@ -119,7 +119,14 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
     : [];
 
   const collateralTabsDom = (
-    <Tabs tabs={collateralTabs} initialActiveTabId={initialCollateralTabId} variant="primary" />
+    <Tabs
+      // Remounts on a new preselection so the leaf forms pick it up, which their initial state
+      // alone would not do
+      key={initialCollateral?.vToken.address}
+      tabs={collateralTabs}
+      initialActiveTabId={initialCollateralTabId}
+      variant="primary"
+    />
   );
 
   const loanTabsDom = (
