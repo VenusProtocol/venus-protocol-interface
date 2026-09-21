@@ -1907,6 +1907,7 @@
     "borrowModalTitle": "從 {{poolName}} 池借出 {{tokenSymbol}}",
     "collateralTabTitle": "抵押品",
     "dailyBorrowInterest": "每日借款利息",
+    "enterValidAmountButtonLabel": "請輸入有效金額",
     "error": {
       "higherThanAvailableAmount": "金額超出可用餘額",
       "supplyDisabled": "該抵押品的供應目前已暫停"
