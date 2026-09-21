@@ -22,6 +22,9 @@ export const Content: React.FC<ContentProps> = ({ spokePool, asset }) => {
     <MarketPageGrid
       form={
         <SpokeForm
+          // A different market is a different form, so the tabs start from the PRD default
+          // rather than carrying the previous market's selection over
+          key={asset.vToken.address}
           spokePool={spokePool}
           asset={asset}
           preselectedCollateral={selectedCollateral}
