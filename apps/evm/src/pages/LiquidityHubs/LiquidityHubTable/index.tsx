@@ -47,7 +47,6 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
     captureAnalyticEvent('hub_selected', {
       variant: 'liquidity_hubs_table',
       assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
-      chainID: liquidityHub.vhToken.chainId,
     });
 
   const renderRowControl = (liquidityHub: LiquidityHub) => {

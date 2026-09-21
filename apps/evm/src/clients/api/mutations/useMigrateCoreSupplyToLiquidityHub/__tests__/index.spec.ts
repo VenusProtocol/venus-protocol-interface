@@ -71,7 +71,7 @@ describe('useMigrateCoreSupplyToLiquidityHub', () => {
       poolName: 'liquidity_hub',
       tokenSymbol: liquidityHub.vhToken.underlyingToken.symbol,
       tokenAmountTokens: 1,
-      fundingSource: 'core_pool_collateral',
+      fundingSource: 'collateral',
     });
     expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
       queryKey: [

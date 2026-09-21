@@ -70,7 +70,7 @@ export const Hubs: React.FC<HubsProps> = ({ liquidityHubs }) => {
       placeholderRoute={routes.liquidityHubs.path}
       placeholderOnClick={() =>
         captureAnalyticEvent('hub_navigation', {
-          variant: 'dashboard_hubs_tabs_placeholder',
+          variant: 'dashboard_cta',
         })
       }
       renderCard={(liquidityHub, isPreview) => (

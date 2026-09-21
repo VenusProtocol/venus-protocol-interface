@@ -26,7 +26,7 @@ describe('useMenuItems', () => {
     liquidityHubItem?.onClick?.();
 
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('hub_navigation', {
-      variant: 'navigation_menu',
+      variant: 'topbar_earn_dropdown',
     });
   });
 });

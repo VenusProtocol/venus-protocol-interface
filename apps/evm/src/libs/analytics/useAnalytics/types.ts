@@ -15,7 +15,7 @@ type AnalyticEvent = CommonProps & {
   variant?: string;
 };
 
-type FundingSource = 'wallet' | 'core_pool_collateral';
+type FundingSource = 'wallet' | 'collateral';
 
 type AmountTx = AnalyticEvent & {
   poolName: string;
@@ -181,7 +181,6 @@ type MarketsAdBanner = AnalyticEvent & {
 
 type HubSelected = AnalyticEvent & {
   assetSymbol: string;
-  chainID: ChainId;
 };
 
 type EventMap = {

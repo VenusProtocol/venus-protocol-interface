@@ -37,7 +37,6 @@ describe('LiquidityHubTable', () => {
 
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('hub_selected', {
       assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
-      chainID: liquidityHub.vhToken.chainId,
       variant: 'liquidity_hubs_table',
     });
   });

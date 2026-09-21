@@ -70,7 +70,7 @@ export const useMenuItems = () => {
             description: t('layouts.menu.markets.liquidityHub.description'),
             onClick: () =>
               captureAnalyticEvent('hub_navigation', {
-                variant: 'navigation_menu',
+                variant: 'topbar_earn_dropdown',
               }),
           },
           {

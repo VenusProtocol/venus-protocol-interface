@@ -90,7 +90,7 @@ export const useMigrateCoreSupplyToLiquidityHub = (options?: Partial<Options>) =
           token: input.vhToken.underlyingToken,
           value: input.underlyingAmountMantissa,
         }).toNumber(),
-        fundingSource: 'core_pool_collateral',
+        fundingSource: 'collateral',
       });
 
       queryClient.invalidateQueries({

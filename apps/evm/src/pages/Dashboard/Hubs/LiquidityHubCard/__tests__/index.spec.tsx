@@ -61,7 +61,6 @@ describe('LiquidityHubCard', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument();
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('hub_selected', {
       assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
-      chainID: liquidityHub.vhToken.chainId,
       variant: 'dashboard_hubs_tab_position_card',
     });
     expect(container.textContent).toMatchSnapshot();
@@ -85,7 +84,6 @@ describe('LiquidityHubCard', () => {
 
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('hub_selected', {
       assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
-      chainID: liquidityHub.vhToken.chainId,
       variant: 'dashboard_hubs_tab_preview_card',
     });
   });

@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import type { Token, TokenDistribution } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
@@ -24,6 +25,7 @@ export interface ApyBreakdownProps {
 
 export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({ items = [], renderType = 'block' }) => {
   const { t, Trans } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
   const shouldShowNetApy = items.length > 1;
 
   const { rows, totalApyPercentage } = items.reduce<{
@@ -53,7 +55,15 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({ items = [], renderTy
           : acc.totalApyPercentage.plus(itemTotalApyPercentage);
 
       return {
-        rows: acc.rows.concat(formatRows({ item, t, Trans })),
+        rows: acc.rows.concat(
+          formatRows({
+            item,
+            t,
+            Trans,
+            onLiquidityHubLinkClick: () =>
+              captureAnalyticEvent('hub_navigation', { variant: 'market_page' }),
+          }),
+        ),
         totalApyPercentage,
       };
     },

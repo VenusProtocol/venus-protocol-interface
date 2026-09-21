@@ -53,7 +53,7 @@ describe('Hubs', () => {
     fireEvent.click(cta);
 
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('hub_navigation', {
-      variant: 'dashboard_hubs_tabs_placeholder',
+      variant: 'dashboard_cta',
     });
   });
 });

@@ -41,7 +41,6 @@ export const LiquidityHubCard: React.FC<LiquidityHubCardProps> = ({
 
   const analyticData = {
     assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
-    chainID: liquidityHub.vhToken.chainId,
   };
 
   const showModal = () => {

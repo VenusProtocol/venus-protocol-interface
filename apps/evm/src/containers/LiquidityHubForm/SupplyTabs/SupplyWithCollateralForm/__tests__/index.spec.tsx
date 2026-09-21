@@ -324,7 +324,7 @@ describe('SupplyWithCollateralForm', () => {
         poolName: 'liquidity_hub',
         assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
         maxSelected: false,
-        fundingSource: 'core_pool_collateral',
+        fundingSource: 'collateral',
       }),
       {
         debounced: true,
@@ -335,7 +335,7 @@ describe('SupplyWithCollateralForm', () => {
       expect.objectContaining({
         poolName: 'liquidity_hub',
         assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
-        fundingSource: 'core_pool_collateral',
+        fundingSource: 'collateral',
       }),
     );
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
@@ -343,7 +343,7 @@ describe('SupplyWithCollateralForm', () => {
       expect.objectContaining({
         poolName: 'liquidity_hub',
         assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
-        fundingSource: 'core_pool_collateral',
+        fundingSource: 'collateral',
       }),
     );
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
@@ -442,7 +442,7 @@ describe('SupplyWithCollateralForm', () => {
         expect.objectContaining({
           poolName: 'liquidity_hub',
           assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
-          fundingSource: 'core_pool_collateral',
+          fundingSource: 'collateral',
         }),
       ),
     );

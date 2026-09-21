@@ -153,7 +153,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
       amountTokens,
       tokenPriceCents: liquidityHub.tokenPriceCents,
     }),
-    fundingSource: 'core_pool_collateral' as const,
+    fundingSource: 'collateral' as const,
   });
 
   const captureAmountSetAnalyticEvent = ({ amountTokens, maxSelected }: AmountSetInput) => {

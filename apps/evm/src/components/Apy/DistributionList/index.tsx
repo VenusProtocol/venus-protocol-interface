@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import type {
   PointDistribution,
@@ -45,6 +46,7 @@ export const DistributionList: React.FC<DistributionListProps> = ({
   showEstimatedRewards = false,
 }) => {
   const { t, Trans } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const formatDistributionApy = (apyPercentage: BigNumber) =>
     formatDistributionApyToReadableValue({ apyPercentage, type });
@@ -166,7 +168,15 @@ export const DistributionList: React.FC<DistributionListProps> = ({
           <Trans
             i18nKey="apy.boost.tooltip.liquidityHubIntrinsicApy.description"
             components={{
-              AppLink: <Link to={routes.liquidityHubs.path} onClick={e => e.stopPropagation()} />,
+              AppLink: (
+                <Link
+                  to={routes.liquidityHubs.path}
+                  onClick={e => {
+                    e.stopPropagation();
+                    captureAnalyticEvent('hub_navigation', { variant: 'market_page' });
+                  }}
+                />
+              ),
             }}
           />
         ),
