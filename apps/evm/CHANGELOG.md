@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.33.0
+
+### Minor Changes
+
+- 40b72d1: add analytics to Liquidity Hub feature
+
 ## 5.32.0
 
 ### Minor Changes
