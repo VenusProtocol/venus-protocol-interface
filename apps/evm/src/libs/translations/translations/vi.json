@@ -1906,6 +1906,7 @@
     },
     "borrowModalTitle": "Vay {{tokenSymbol}} từ nhóm {{poolName}}",
     "collateralTabTitle": "Tài sản thế chấp",
+    "dailyBorrowInterest": "Lãi vay hằng ngày",
     "error": {
       "higherThanAvailableAmount": "Số tiền vượt quá số dư khả dụng",
       "supplyDisabled": "Việc cung cấp tài sản thế chấp này hiện đang tạm dừng"

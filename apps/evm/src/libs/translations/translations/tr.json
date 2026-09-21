@@ -1907,6 +1907,7 @@
     },
     "borrowModalTitle": "{{poolName}} havuzundan {{tokenSymbol}} borç al",
     "collateralTabTitle": "Teminat",
+    "dailyBorrowInterest": "Günlük borç faizi",
     "error": {
       "higherThanAvailableAmount": "Tutar kullanılabilir bakiyeyi aşıyor",
       "supplyDisabled": "Bu teminatın arzı şu anda duraklatıldı"

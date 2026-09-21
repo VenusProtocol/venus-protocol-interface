@@ -1906,6 +1906,7 @@
     },
     "borrowModalTitle": "{{poolName}} プールから {{tokenSymbol}} を借りる",
     "collateralTabTitle": "担保",
+    "dailyBorrowInterest": "1日あたりの借入利息",
     "error": {
       "higherThanAvailableAmount": "金額が利用可能残高を超えています",
       "supplyDisabled": "この担保の供給は現在停止中です"

@@ -114,6 +114,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
       limitTokens={limitTokens}
       availableBalance={availableBalanceDom}
       apyBreakdownItems={apyBreakdownItems}
+      showDailyBorrowInterest
       belowAmountInput={percentageChips}
       approval={{
         type: 'token',

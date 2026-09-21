@@ -1903,10 +1903,11 @@
     "borrow": {
       "submitButtonLabel": "Borrow",
       "tabTitle": "Borrow",
-      "zeroCollateralNotice": "You need to <SupplyLink>supply</SupplyLink> tokens before you can borrow {{tokenSymbol}} from this pool."
+      "zeroCollateralNotice": "You need to <SupplyLink>Supply</SupplyLink> tokens before you can borrow {{tokenSymbol}} from this pool."
     },
     "borrowModalTitle": "Borrow {{tokenSymbol}} from {{poolName}} pool",
     "collateralTabTitle": "Collateral",
+    "dailyBorrowInterest": "Daily borrowing interest",
     "error": {
       "higherThanAvailableAmount": "Amount exceeds the available balance",
       "supplyDisabled": "Supplying is currently paused for this collateral"

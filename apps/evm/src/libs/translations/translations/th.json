@@ -1906,6 +1906,7 @@
     },
     "borrowModalTitle": "กู้ {{tokenSymbol}} จากพูล {{poolName}}",
     "collateralTabTitle": "หลักประกัน",
+    "dailyBorrowInterest": "ดอกเบี้ยกู้ต่อวัน",
     "error": {
       "higherThanAvailableAmount": "จำนวนเกินยอดคงเหลือที่ใช้ได้",
       "supplyDisabled": "การฝากหลักประกันนี้ถูกหยุดชั่วคราว"

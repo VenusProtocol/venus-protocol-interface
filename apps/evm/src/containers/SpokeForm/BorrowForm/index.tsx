@@ -102,6 +102,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
       safeLimitTokens={safeLimitTokens}
       availableBalance={availableBalanceDom}
       apyBreakdownItems={apyBreakdownItems}
+      showDailyBorrowInterest
       validateForm={validateForm}
       belowAmountInput={
         hasCollateralSupplied ? undefined : (

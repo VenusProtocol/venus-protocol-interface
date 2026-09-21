@@ -17,6 +17,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokePool, Token } from 'types';
 import { shouldShowAccountHealth } from 'utilities';
+import { DailyBorrowInterest } from './DailyBorrowInterest';
 import { type FormValues, initialFormValues, useForm } from './useForm';
 import type { UseFormValidationInput } from './useForm/useFormValidation';
 
@@ -40,6 +41,7 @@ export interface FormProps {
   validateForm?: UseFormValidationInput['validate'];
   apyBreakdownItems?: ApyBreakdownItem[];
   belowAmountInput?: React.ReactNode;
+  showDailyBorrowInterest?: boolean;
   tokenBalances?: OptionalTokenBalance[];
   onChangeSelectedToken?: (token: Token) => void;
 }
@@ -62,6 +64,7 @@ export const Form: React.FC<FormProps> = ({
   validateForm,
   apyBreakdownItems = [],
   belowAmountInput,
+  showDailyBorrowInterest,
   tokenBalances,
   onChangeSelectedToken,
 }) => {
@@ -170,6 +173,10 @@ export const Form: React.FC<FormProps> = ({
           <Delimiter />
 
           <AccountPoolHealth pool={spokePool} simulatedPool={simulatedPool} />
+
+          {showDailyBorrowInterest && (
+            <DailyBorrowInterest spokePool={spokePool} simulatedPool={simulatedPool} />
+          )}
         </>
       )}
 
