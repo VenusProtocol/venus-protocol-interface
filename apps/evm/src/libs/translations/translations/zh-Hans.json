@@ -1936,7 +1936,6 @@
       "tooltip": "当前最多可借 {{amountDollars}}（{{amountTokens}}）<LineBreak />借款上限：{{capTokens}}"
     },
     "borrowInfo": {
-      "averageApy": "平均 APY",
       "currentApy": "当前 APY",
       "title": "借款信息"
     },

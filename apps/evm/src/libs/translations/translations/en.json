@@ -1937,7 +1937,6 @@
       "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})<LineBreak />Borrow cap: {{capTokens}}"
     },
     "borrowInfo": {
-      "averageApy": "Average APY",
       "currentApy": "Current APY",
       "title": "Borrow info"
     },
