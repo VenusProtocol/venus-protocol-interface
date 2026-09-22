@@ -8,3 +8,5 @@ export const FILTER_PARAM_KEYS = [
   COLLATERAL_PARAM_KEY,
   POOL_PARAM_KEY,
 ] as const;
+
+export const PARAM_VALUE_SEPARATOR = ',';
