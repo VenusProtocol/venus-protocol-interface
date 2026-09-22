@@ -1985,6 +1985,13 @@
       "suppliableYes": "可能",
       "title": "ローン情報"
     },
+    "periodOption": {
+      "all": "すべて",
+      "oneMonth": "1M",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "threeMonths": "3M"
+    },
     "supportedCollateral": {
       "capacity": "{{supplied}}/{{cap}}",
       "columns": {
