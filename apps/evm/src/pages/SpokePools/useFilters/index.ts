@@ -5,33 +5,14 @@ import {
   COLLATERAL_PARAM_KEY,
   FILTER_PARAM_KEYS,
   LOAN_ASSET_PARAM_KEY,
+  PARAM_VALUE_SEPARATOR,
   POOL_PARAM_KEY,
 } from '../constants';
-
-const PARAM_VALUE_SEPARATOR = ',';
+import { parseParamValues } from './parseParamValues';
 
 export interface UseFiltersInput {
   spokePools: SpokePool[];
 }
-
-// Selecting from the option list rather than from the URL keeps unknown values out,
-// deduplicates, and orders the selection the way the options are displayed
-const parseParamValues = ({
-  searchParams,
-  key,
-  selectableValues,
-}: {
-  searchParams: URLSearchParams;
-  key: string;
-  selectableValues: string[];
-}) => {
-  const paramValues = (searchParams.get(key) ?? '')
-    .split(PARAM_VALUE_SEPARATOR)
-    .map(value => value.trim())
-    .filter(value => value.length > 0);
-
-  return selectableValues.filter(selectableValue => paramValues.includes(selectableValue));
-};
 
 export const useFilters = ({ spokePools }: UseFiltersInput) => {
   const [searchParams, setSearchParams] = useSearchParams();
