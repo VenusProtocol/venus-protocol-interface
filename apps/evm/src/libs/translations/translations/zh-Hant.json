@@ -924,7 +924,7 @@
           "label": "Venus Flux"
         },
         "venusSpoke": {
-          "description": "在由 Hub 提供流動性的資金池中，使用專屬抵押品借款。",
+          "description": "以你供應的抵押品，從專屬市場借出資產。",
           "label": "Venus Spoke"
         }
       }
