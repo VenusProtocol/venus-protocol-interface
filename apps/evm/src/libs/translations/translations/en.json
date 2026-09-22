@@ -1991,10 +1991,13 @@
       "columns": {
         "capacityFilled": "Capacity filled",
         "collateral": "Collateral",
-        "liquidationThreshold": "Liquidation threshold",
+        "liquidationThreshold": "LT <InfoIcon />",
         "maxLtv": "Max LTV",
         "penalty": "Penalty",
         "supplied": "Supplied"
+      },
+      "columnTooltips": {
+        "liquidationThreshold": "Liquidation threshold"
       },
       "title": "Supported collateral"
     }

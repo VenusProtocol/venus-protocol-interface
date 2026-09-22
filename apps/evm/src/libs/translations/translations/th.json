@@ -1995,6 +1995,9 @@
         "penalty": "ค่าปรับการชำระบัญชี",
         "supplied": "ฝากแล้ว"
       },
+      "columnTooltips": {
+        "liquidationThreshold": "เกณฑ์การชำระบัญชี"
+      },
       "title": "หลักประกันที่รองรับ"
     }
   },

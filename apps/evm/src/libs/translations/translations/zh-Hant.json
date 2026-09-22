@@ -1995,6 +1995,9 @@
         "penalty": "清算罰金",
         "supplied": "已供應"
       },
+      "columnTooltips": {
+        "liquidationThreshold": "清算閾值"
+      },
       "title": "支援的抵押品"
     }
   },
