@@ -59,6 +59,7 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
 
   return (
     <Table
+      className="pt-4"
       title={t('account.spoke.supplied.title')}
       data={collaterals}
       columns={columns}

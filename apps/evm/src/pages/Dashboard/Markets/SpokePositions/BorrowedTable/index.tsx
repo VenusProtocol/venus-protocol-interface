@@ -103,6 +103,7 @@ export const BorrowedTable: React.FC<BorrowedTableProps> = ({
 
   return (
     <Table
+      className="pt-4"
       title={t('account.spoke.borrowed.title')}
       data={loanAssets}
       columns={columns}
