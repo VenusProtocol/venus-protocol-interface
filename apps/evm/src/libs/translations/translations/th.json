@@ -1956,6 +1956,13 @@
       "suppliableYes": "ได้",
       "title": "ข้อมูลสินเชื่อ"
     },
+    "periodOption": {
+      "all": "ทั้งหมด",
+      "oneMonth": "1M",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "threeMonths": "3M"
+    },
     "supportedCollateral": {
       "capacity": "{{supplied}}/{{cap}}",
       "columns": {

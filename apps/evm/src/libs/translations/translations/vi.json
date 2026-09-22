@@ -1956,6 +1956,13 @@
       "suppliableYes": "Có",
       "title": "Thông tin khoản vay"
     },
+    "periodOption": {
+      "all": "Tất cả",
+      "oneMonth": "1M",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "threeMonths": "3M"
+    },
     "supportedCollateral": {
       "capacity": "{{supplied}}/{{cap}}",
       "columns": {

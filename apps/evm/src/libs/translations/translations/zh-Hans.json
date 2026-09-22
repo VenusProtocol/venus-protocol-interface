@@ -1956,6 +1956,13 @@
       "suppliableYes": "是",
       "title": "贷款信息"
     },
+    "periodOption": {
+      "all": "全部",
+      "oneMonth": "1M",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "threeMonths": "3M"
+    },
     "supportedCollateral": {
       "capacity": "{{supplied}}/{{cap}}",
       "columns": {
