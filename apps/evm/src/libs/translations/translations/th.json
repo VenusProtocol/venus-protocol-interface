@@ -1965,7 +1965,6 @@
       "tooltip": "ยอดที่กู้ได้สูงสุดคือ {{amountDollars}} ({{amountTokens}})<LineBreak />เพดานการกู้: {{capTokens}}"
     },
     "borrowInfo": {
-      "averageApy": "APY เฉลี่ย",
       "currentApy": "APY ปัจจุบัน",
       "title": "ข้อมูลการกู้"
     },

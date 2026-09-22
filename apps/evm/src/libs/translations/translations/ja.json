@@ -1965,7 +1965,6 @@
       "tooltip": "現在の借入可能額は {{amountDollars}}（{{amountTokens}}）です<LineBreak />借入上限：{{capTokens}}"
     },
     "borrowInfo": {
-      "averageApy": "平均APY",
       "currentApy": "現在のAPY",
       "title": "借入情報"
     },
