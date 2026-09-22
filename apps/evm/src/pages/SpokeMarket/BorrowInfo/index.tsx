@@ -1,8 +1,13 @@
 import BigNumber from 'bignumber.js';
+import { useMemo, useState } from 'react';
 
-import { MarketHistoryCard } from 'components';
+import type { LiquidityHubHistoryPeriod } from 'clients/api';
+import { MarketHistoryCard, type MarketHistoryCardPeriodOption } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
+
+// TODO: fetch from API (VPD-2071)
+import { getSpokeMarketHistory } from '__mocks__/models/spokeMarketHistory';
 import {
   clampToZero,
   formatCentsToReadableValue,
@@ -16,6 +21,20 @@ export interface BorrowInfoProps {
 
 export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
   const { t, Trans } = useTranslation();
+  const [selectedPeriod, setSelectedPeriod] = useState<LiquidityHubHistoryPeriod>('1m');
+
+  const periodOptions: MarketHistoryCardPeriodOption<LiquidityHubHistoryPeriod>[] = [
+    { label: t('spokeMarket.periodOption.oneWeek'), value: '1w' },
+    { label: t('spokeMarket.periodOption.oneMonth'), value: '1m' },
+    { label: t('spokeMarket.periodOption.threeMonths'), value: '3m' },
+    { label: t('spokeMarket.periodOption.oneYear'), value: '1y' },
+    { label: t('spokeMarket.periodOption.all'), value: 'all' },
+  ];
+
+  const history = useMemo(
+    () => getSpokeMarketHistory({ asset, period: selectedPeriod }),
+    [asset, selectedPeriod],
+  );
 
   const reachableBorrowCapTokens = BigNumber.min(
     asset.borrowCapTokens,
@@ -53,10 +72,6 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
       title={t('spokeMarket.borrowInfo.title')}
       cells={[
         {
-          label: t('spokeMarket.borrowInfo.averageApy'),
-          value: formatPercentageToReadableValue(asset.averageBorrowApyPercentage),
-        },
-        {
           label: t('spokeMarket.borrowInfo.currentApy'),
           value: formatPercentageToReadableValue(asset.borrowApyPercentage),
         },
@@ -68,6 +83,14 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
         limitTokens: reachableBorrowCapTokens,
         valueTokens: asset.borrowBalanceTokens,
         tooltip: <span className="whitespace-pre-line">{borrowCapThresholdTooltip}</span>,
+      }}
+      history={{
+        type: 'borrow',
+        data: history,
+        isLoading: false,
+        selectedPeriod,
+        setSelectedPeriod,
+        periodOptions,
       }}
     />
   );

@@ -1924,6 +1924,13 @@
       "suppliableYes": "Yes",
       "title": "Loan info"
     },
+    "periodOption": {
+      "all": "All",
+      "oneMonth": "1M",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "threeMonths": "3M"
+    },
     "supportedCollateral": {
       "capacity": "{{supplied}}/{{cap}}",
       "columns": {
