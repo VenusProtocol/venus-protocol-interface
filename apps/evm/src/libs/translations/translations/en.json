@@ -954,7 +954,7 @@
           "label": "Venus Flux"
         },
         "venusSpoke": {
-          "description": "Borrow against dedicated collateral in Hub-funded pools.",
+          "description": "Borrow assets against your supplied collateral from dedicated market.",
           "label": "Venus Spoke"
         }
       }
