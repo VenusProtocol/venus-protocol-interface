@@ -923,7 +923,7 @@
           "label": "Venus Flux"
         },
         "venusSpoke": {
-          "description": "Vay bằng tài sản thế chấp chuyên biệt trong các nhóm được Hub cấp vốn.",
+          "description": "Vay tài sản từ thị trường chuyên biệt bằng tài sản thế chấp bạn đã cung cấp.",
           "label": "Venus Spoke"
         }
       }

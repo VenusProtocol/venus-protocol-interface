@@ -923,7 +923,7 @@
           "label": "Venus Flux"
         },
         "venusSpoke": {
-          "description": "Hubが流動性を供給するプールで、専用担保を使って借り入れます。",
+          "description": "供給した担保を使って、専用マーケットから資産を借り入れます。",
           "label": "Venus Spoke"
         }
       }

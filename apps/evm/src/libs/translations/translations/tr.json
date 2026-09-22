@@ -924,7 +924,7 @@
           "label": "Venus Flux"
         },
         "venusSpoke": {
-          "description": "Hub tarafından fonlanan havuzlarda özel teminatla borç alın.",
+          "description": "Sağladığınız teminatla özel piyasadan varlık ödünç alın.",
           "label": "Venus Spoke"
         }
       }
