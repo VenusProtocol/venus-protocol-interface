@@ -1903,7 +1903,6 @@
       "tooltip": "Số tiền tối đa có thể vay là {{amountDollars}} ({{amountTokens}})<LineBreak />Hạn mức vay: {{capTokens}}"
     },
     "borrowInfo": {
-      "averageApy": "APY trung bình",
       "currentApy": "APY hiện tại",
       "title": "Thông tin vay"
     },

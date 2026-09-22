@@ -1904,7 +1904,6 @@
       "tooltip": "Borç alınabilecek azami tutar {{amountDollars}} ({{amountTokens}})<LineBreak />Borç üst sınırı: {{capTokens}}"
     },
     "borrowInfo": {
-      "averageApy": "Ortalama APY",
       "currentApy": "Güncel APY",
       "title": "Borç bilgisi"
     },
