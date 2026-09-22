@@ -1933,6 +1933,9 @@
         "penalty": "Phí thanh lý",
         "supplied": "Đã cung cấp"
       },
+      "columnTooltips": {
+        "liquidationThreshold": "Ngưỡng thanh lý"
+      },
       "title": "Tài sản thế chấp được hỗ trợ"
     }
   },

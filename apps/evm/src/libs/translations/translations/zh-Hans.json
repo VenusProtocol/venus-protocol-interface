@@ -1933,6 +1933,9 @@
         "penalty": "清算罚金",
         "supplied": "已供应"
       },
+      "columnTooltips": {
+        "liquidationThreshold": "清算阈值"
+      },
       "title": "支持的抵押品"
     }
   },

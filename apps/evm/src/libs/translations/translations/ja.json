@@ -1933,6 +1933,9 @@
         "penalty": "清算ペナルティ",
         "supplied": "供給済み"
       },
+      "columnTooltips": {
+        "liquidationThreshold": "清算閾値"
+      },
       "title": "対応担保"
     }
   },

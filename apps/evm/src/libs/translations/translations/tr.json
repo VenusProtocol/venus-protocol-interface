@@ -1934,6 +1934,9 @@
         "penalty": "Tasfiye cezası",
         "supplied": "Sağlanan"
       },
+      "columnTooltips": {
+        "liquidationThreshold": "Tasfiye eşiği"
+      },
       "title": "Desteklenen teminatlar"
     }
   },

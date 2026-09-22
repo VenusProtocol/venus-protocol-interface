@@ -1,4 +1,10 @@
-import { LayeredValues, ProgressBar, type TableColumn, TokenIconWithSymbol } from 'components';
+import {
+  InfoIcon,
+  LayeredValues,
+  ProgressBar,
+  type TableColumn,
+  TokenIconWithSymbol,
+} from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
@@ -10,7 +16,7 @@ import {
 } from 'utilities';
 
 export const useColumns = () => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const columns: TableColumn<SpokeAsset>[] = [
     {
@@ -49,8 +55,20 @@ export const useColumns = () => {
     },
     {
       key: 'liquidationThreshold',
-      label: t('spokeMarket.supportedCollateral.columns.liquidationThreshold'),
-      selectOptionLabel: t('spokeMarket.supportedCollateral.columns.liquidationThreshold'),
+      label: (
+        <Trans
+          i18nKey="spokeMarket.supportedCollateral.columns.liquidationThreshold"
+          components={{
+            InfoIcon: (
+              <InfoIcon
+                className="ml-1"
+                tooltip={t('spokeMarket.supportedCollateral.columnTooltips.liquidationThreshold')}
+              />
+            ),
+          }}
+        />
+      ),
+      selectOptionLabel: t('spokeMarket.supportedCollateral.columnTooltips.liquidationThreshold'),
       align: 'right',
       renderCell: asset => formatPercentageToReadableValue(asset.liquidationThresholdPercentage),
     },
