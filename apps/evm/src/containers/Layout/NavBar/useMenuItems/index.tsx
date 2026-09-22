@@ -3,6 +3,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
 import liquidityHubIconSrc from 'assets/img/liquidityHubIcon.svg';
+import spokeIconSrc from 'assets/img/spokeIcon.svg';
 import vaultsIconSrc from 'assets/img/vaultsIcon.svg';
 import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
@@ -59,7 +60,7 @@ export const useMenuItems = () => {
   if (spokeEnabled) {
     borrowSubMenu.items.splice(1, 0, {
       to: routes.spokePools.path,
-      imgSrc: venusCoreIconSrc,
+      imgSrc: spokeIconSrc,
       label: t('layouts.menu.markets.venusSpoke.label'),
       tagLabel: t('layout.menu.new'),
       description: t('layouts.menu.markets.venusSpoke.description'),
