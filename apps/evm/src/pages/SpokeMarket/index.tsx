@@ -3,6 +3,9 @@ import type { Address } from 'viem';
 
 import { MarketPageGrid, Page } from 'components';
 import { InterestRateChart } from 'containers/InterestRateChart';
+
+// TODO: fetch from API (VPD-2071)
+import { getSpokeIrmSimulations } from '__mocks__/models/spokeIrm';
 import { SpokeMarketLoader } from 'containers/SpokeMarketLoader';
 
 import { BorrowInfo } from './BorrowInfo';
@@ -33,7 +36,11 @@ const SpokeMarket: React.FC = () => {
                   collaterals={spokePool.assets.filter(({ isBorrowable }) => !isBorrowable)}
                 />
 
-                <InterestRateChart asset={asset} isIsolatedPoolMarket />
+                <InterestRateChart
+                  asset={asset}
+                  isIsolatedPoolMarket
+                  simulations={getSpokeIrmSimulations({ asset })}
+                />
 
                 <LoanInfo asset={asset} />
               </div>
