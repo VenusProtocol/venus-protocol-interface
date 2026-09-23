@@ -44,9 +44,9 @@ export const LoanInfo: React.FC<LoanInfoProps> = ({ asset }) => {
     },
     {
       label: t('spokeMarket.loanInfo.suppliable'),
-      children: asset.isSupplyAllowlistEnabled
-        ? t('spokeMarket.loanInfo.suppliableNo')
-        : t('spokeMarket.loanInfo.suppliableYes'),
+      children: asset.isSuppliable
+        ? t('spokeMarket.loanInfo.suppliableYes')
+        : t('spokeMarket.loanInfo.suppliableNo'),
     },
   ];
 
