@@ -351,6 +351,7 @@
     "markets": "市場",
     "primeCalculator": "Prime 計算器",
     "proposal": "提案 #{{proposalId}}",
+    "spokeMarket": "{{poolName}} 池的 {{tokenSymbol}}",
     "spokePools": "Spoke",
     "swap": "兌換",
     "vai": "VAI",
@@ -1895,6 +1896,54 @@
   "spokeCollateralGroup": {
     "asset": "資產",
     "maxLtv": "最高抵押率"
+  },
+  "spokeMarket": {
+    "borrowCapThreshold": {
+      "title": "已借總額",
+      "tooltip": "目前最多可借 {{amountDollars}}（{{amountTokens}}）<LineBreak />借款上限：{{capTokens}}"
+    },
+    "borrowInfo": {
+      "currentApy": "目前 APY",
+      "title": "借款資訊"
+    },
+    "header": {
+      "collateral": "抵押品",
+      "liquidity": "流動性",
+      "price": "價格",
+      "supply": "供應量"
+    },
+    "loanInfo": {
+      "borrowerCount": "借款人數",
+      "dailyBorrowInterests": "每日借款利息",
+      "marketContract": "市場合約",
+      "reserveFactor": "儲備金率",
+      "suppliable": "可供應",
+      "suppliableNo": "否",
+      "suppliableYes": "是",
+      "title": "貸款資訊"
+    },
+    "periodOption": {
+      "all": "全部",
+      "oneMonth": "1M",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "threeMonths": "3M"
+    },
+    "supportedCollateral": {
+      "capacity": "{{supplied}}/{{cap}}",
+      "columns": {
+        "capacityFilled": "容量佔用",
+        "collateral": "抵押品",
+        "liquidationThreshold": "清算門檻",
+        "maxLtv": "最高抵押率",
+        "penalty": "清算罰金",
+        "supplied": "已供應"
+      },
+      "columnTooltips": {
+        "liquidationThreshold": "清算閾值"
+      },
+      "title": "支援的抵押品"
+    }
   },
   "spokePools": {
     "description": "使用您在專屬市場中提供的抵押品借出資產。",

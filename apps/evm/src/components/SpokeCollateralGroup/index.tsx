@@ -1,14 +1,19 @@
-import { ImgGroupTooltip, type TableColumn, TokenIconWithSymbol } from 'components';
+import { ImgGroupTooltip } from 'components/ImgGroupTooltip';
+import type { TableColumn } from 'components/Table';
+import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
 
-export interface CollateralGroupProps {
+export interface SpokeCollateralGroupProps {
   collaterals: SpokeAsset[];
   className?: string;
 }
 
-export const CollateralGroup: React.FC<CollateralGroupProps> = ({ collaterals, className }) => {
+export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
+  collaterals,
+  className,
+}) => {
   const { t } = useTranslation();
 
   const columns: TableColumn<SpokeAsset>[] = [

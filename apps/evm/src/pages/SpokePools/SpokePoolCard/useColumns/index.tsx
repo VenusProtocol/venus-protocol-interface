@@ -3,6 +3,7 @@ import {
   InfoIcon,
   LayeredValues,
   Pill,
+  SpokeCollateralGroup,
   type TableColumn,
   TokenIconWithSymbol,
 } from 'components';
@@ -15,8 +16,6 @@ import {
   formatTokensToReadableValue,
   isAssetPaused,
 } from 'utilities';
-
-import { CollateralGroup } from '../CollateralGroup';
 
 export interface UseColumnsInput {
   collaterals: SpokeAsset[];
@@ -125,7 +124,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
       ),
       selectOptionLabel: t('spokePools.table.columns.collateral.selectOptionLabel'),
       align: 'right',
-      renderCell: () => <CollateralGroup collaterals={collaterals} />,
+      renderCell: () => <SpokeCollateralGroup collaterals={collaterals} />,
     },
     {
       key: 'totalBorrow',

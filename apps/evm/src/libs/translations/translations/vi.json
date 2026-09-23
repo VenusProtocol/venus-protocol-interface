@@ -351,6 +351,7 @@
     "markets": "Thị trường",
     "primeCalculator": "Máy tính Prime",
     "proposal": "Đề xuất #{{proposalId}}",
+    "spokeMarket": "{{tokenSymbol}} trong {{poolName}}",
     "spokePools": "Spoke",
     "swap": "Hoán đổi",
     "vai": "VAI",
@@ -1895,6 +1896,54 @@
   "spokeCollateralGroup": {
     "asset": "Tài sản",
     "maxLtv": "LTV tối đa"
+  },
+  "spokeMarket": {
+    "borrowCapThreshold": {
+      "title": "Tổng đã vay",
+      "tooltip": "Số tiền tối đa có thể vay là {{amountDollars}} ({{amountTokens}})<LineBreak />Hạn mức vay: {{capTokens}}"
+    },
+    "borrowInfo": {
+      "currentApy": "APY hiện tại",
+      "title": "Thông tin vay"
+    },
+    "header": {
+      "collateral": "Tài sản thế chấp",
+      "liquidity": "Thanh khoản",
+      "price": "Giá",
+      "supply": "Cung cấp"
+    },
+    "loanInfo": {
+      "borrowerCount": "Số người vay",
+      "dailyBorrowInterests": "Lãi vay hằng ngày",
+      "marketContract": "Hợp đồng thị trường",
+      "reserveFactor": "Hệ số dự trữ",
+      "suppliable": "Có thể cung cấp",
+      "suppliableNo": "Không",
+      "suppliableYes": "Có",
+      "title": "Thông tin khoản vay"
+    },
+    "periodOption": {
+      "all": "Tất cả",
+      "oneMonth": "1M",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "threeMonths": "3M"
+    },
+    "supportedCollateral": {
+      "capacity": "{{supplied}}/{{cap}}",
+      "columns": {
+        "capacityFilled": "Mức lấp đầy",
+        "collateral": "Tài sản thế chấp",
+        "liquidationThreshold": "Ngưỡng thanh lý",
+        "maxLtv": "LTV tối đa",
+        "penalty": "Phí thanh lý",
+        "supplied": "Đã cung cấp"
+      },
+      "columnTooltips": {
+        "liquidationThreshold": "Ngưỡng thanh lý"
+      },
+      "title": "Tài sản thế chấp được hỗ trợ"
+    }
   },
   "spokePools": {
     "description": "Vay tài sản bằng tài sản thế chấp bạn đã cung cấp trong các thị trường chuyên biệt.",

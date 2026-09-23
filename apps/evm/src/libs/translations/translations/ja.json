@@ -351,6 +351,7 @@
     "markets": "マーケット",
     "primeCalculator": "Prime計算機",
     "proposal": "提案 #{{proposalId}}",
+    "spokeMarket": "{{poolName}} の {{tokenSymbol}}",
     "spokePools": "Spoke",
     "swap": "スワップ",
     "vai": "VAI",
@@ -1895,6 +1896,54 @@
   "spokeCollateralGroup": {
     "asset": "資産",
     "maxLtv": "最大LTV"
+  },
+  "spokeMarket": {
+    "borrowCapThreshold": {
+      "title": "借入総額",
+      "tooltip": "現在の借入可能額は {{amountDollars}}（{{amountTokens}}）です<LineBreak />借入上限：{{capTokens}}"
+    },
+    "borrowInfo": {
+      "currentApy": "現在のAPY",
+      "title": "借入情報"
+    },
+    "header": {
+      "collateral": "担保",
+      "liquidity": "流動性",
+      "price": "価格",
+      "supply": "供給量"
+    },
+    "loanInfo": {
+      "borrowerCount": "借入者数",
+      "dailyBorrowInterests": "1日あたりの借入利息",
+      "marketContract": "マーケットコントラクト",
+      "reserveFactor": "準備率",
+      "suppliable": "供給可否",
+      "suppliableNo": "不可",
+      "suppliableYes": "可能",
+      "title": "ローン情報"
+    },
+    "periodOption": {
+      "all": "すべて",
+      "oneMonth": "1M",
+      "oneWeek": "1W",
+      "oneYear": "1Y",
+      "threeMonths": "3M"
+    },
+    "supportedCollateral": {
+      "capacity": "{{supplied}}/{{cap}}",
+      "columns": {
+        "capacityFilled": "容量使用率",
+        "collateral": "担保",
+        "liquidationThreshold": "清算しきい値",
+        "maxLtv": "最大LTV",
+        "penalty": "清算ペナルティ",
+        "supplied": "供給済み"
+      },
+      "columnTooltips": {
+        "liquidationThreshold": "清算閾値"
+      },
+      "title": "対応担保"
+    }
   },
   "spokePools": {
     "description": "専用マーケットに預けた担保を使って資産を借り入れます。",

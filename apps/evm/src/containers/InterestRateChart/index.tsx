@@ -1,5 +1,5 @@
 import { cn, theme } from '@venusprotocol/ui';
-import { useGetVTokenApySimulations } from 'clients/api';
+import { type GetVTokenApySimulationsOutput, useGetVTokenApySimulations } from 'clients/api';
 import {
   ChartTooltipContent,
   ChartYAxisTick,
@@ -20,8 +20,8 @@ import {
 } from 'recharts';
 import type { Asset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
-import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 export interface InterestRateItem {
   utilizationRatePercentage: number;
@@ -33,26 +33,27 @@ export interface InterestRateChartProps {
   className?: string;
   asset: Asset;
   isIsolatedPoolMarket: boolean;
+  // Lets a caller without a deployed market supply the curve instead of reading it on-chain
+  simulations?: GetVTokenApySimulationsOutput;
 }
 
 export const InterestRateChart: React.FC<InterestRateChartProps> = ({
   asset,
   className,
   isIsolatedPoolMarket,
+  simulations,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const {
-    isLoading: isInterestRateChartDataLoading,
-    data: interestRateChartData = {
-      apySimulations: [],
-      currentUtilizationRatePercentage: 0,
-    },
-  } = useGetVTokenApySimulations({
+  const { isLoading: isFetchedDataLoading, data: fetchedData } = useGetVTokenApySimulations({
     isIsolatedPoolMarket,
     asset,
   });
+
+  const isInterestRateChartDataLoading = !simulations && isFetchedDataLoading;
+  const interestRateChartData = simulations ??
+    fetchedData ?? { apySimulations: [], currentUtilizationRatePercentage: 0 };
 
   const legends: MarketCardProps['legends'] = [
     {

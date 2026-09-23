@@ -13,6 +13,7 @@ export interface BuildSpokeAssetInput {
   borrowApyPercentage?: number;
   supplyApyPercentage?: number;
   supplyBalanceTokens?: number;
+  hubSupplyBalanceTokens?: number;
   borrowBalanceTokens?: number;
   cashTokens?: number;
   supplyCapTokens?: number;
@@ -33,6 +34,7 @@ export const buildSpokeAsset = ({
   borrowApyPercentage = 0,
   supplyApyPercentage = 0,
   supplyBalanceTokens = 0,
+  hubSupplyBalanceTokens = 0,
   borrowBalanceTokens = 0,
   cashTokens = 0,
   supplyCapTokens = 0,
@@ -69,6 +71,7 @@ export const buildSpokeAsset = ({
     supplyApyPercentage: new BigNumber(supplyApyPercentage),
     supplyBalanceTokens: new BigNumber(supplyBalanceTokens),
     supplyBalanceCents: new BigNumber(supplyBalanceTokens).multipliedBy(price),
+    hubSupplyBalanceCents: new BigNumber(hubSupplyBalanceTokens).multipliedBy(price),
     borrowBalanceTokens: new BigNumber(borrowBalanceTokens),
     borrowBalanceCents: new BigNumber(borrowBalanceTokens).multipliedBy(price),
     supplyTokenDistributions: [],
