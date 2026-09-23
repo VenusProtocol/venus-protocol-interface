@@ -7,7 +7,6 @@ export interface BuildSpokeAssetInput {
   vToken: VToken;
   tokenPriceCents: number;
   isBorrowable: boolean;
-  isSupplyAllowlistEnabled?: boolean;
   collateralFactor?: number;
   liquidationThresholdPercentage?: number;
   liquidationPenaltyPercentage?: number;
@@ -28,7 +27,6 @@ export const buildSpokeAsset = ({
   vToken,
   tokenPriceCents,
   isBorrowable,
-  isSupplyAllowlistEnabled = false,
   collateralFactor = 0,
   liquidationThresholdPercentage = 0,
   liquidationPenaltyPercentage = 10,
@@ -54,7 +52,8 @@ export const buildSpokeAsset = ({
     tokenPriceOracleAddress: NULL_ADDRESS,
     isProtectionModeEnabled: false,
     isBorrowable,
-    isSupplyAllowlistEnabled,
+    // Mirrors the API, which derives it from the market's side
+    isSuppliable: !isBorrowable,
     reserveFactor: 0.1,
     collateralFactor,
     liquidationThresholdPercentage,
