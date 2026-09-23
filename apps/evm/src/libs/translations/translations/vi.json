@@ -351,6 +351,7 @@
     "markets": "Thị trường",
     "primeCalculator": "Máy tính Prime",
     "proposal": "Đề xuất #{{proposalId}}",
+    "spokePools": "Spoke",
     "swap": "Hoán đổi",
     "vai": "VAI",
     "vaults": "Kho"
@@ -920,6 +921,10 @@
         "venusFlux": {
           "description": "Cho vay và vay hiệu quả về vốn để tối ưu lợi suất.",
           "label": "Venus Flux"
+        },
+        "venusSpoke": {
+          "description": "Vay tài sản từ thị trường chuyên biệt bằng tài sản thế chấp bạn đã cung cấp.",
+          "label": "Venus Spoke"
         }
       }
     }
@@ -1886,6 +1891,56 @@
   "spendingLimit": {
     "label": "Hạn mức chi tiêu",
     "labelTooltip": "Đây là hạn mức chi tiêu hiện tại của bạn cho tài sản này. Để chi tiêu nhiều hơn, hãy hủy hạn mức và đặt lại."
+  },
+  "spokeCollateralGroup": {
+    "asset": "Tài sản",
+    "maxLtv": "LTV tối đa"
+  },
+  "spokePools": {
+    "description": "Vay tài sản bằng tài sản thế chấp bạn đã cung cấp trong các thị trường chuyên biệt.",
+    "filter": {
+      "allCollaterals": "Tất cả tài sản thế chấp",
+      "allLoanAssets": "Tất cả tài sản vay",
+      "allPools": "Tất cả nhóm",
+      "nCollaterals_one": "{{count}} tài sản thế chấp",
+      "nCollaterals_other": "{{count}} tài sản thế chấp",
+      "nLoanAssets_one": "{{count}} tài sản vay",
+      "nLoanAssets_other": "{{count}} tài sản vay",
+      "noResults": "Không có thị trường nào khớp bộ lọc của bạn",
+      "nPools_one": "{{count}} nhóm",
+      "nPools_other": "{{count}} nhóm",
+      "reset": "Đặt lại",
+      "resetFilters": "Đặt lại bộ lọc",
+      "searchPlaceholder": "Tìm tài sản",
+      "selectCollaterals": "Chọn tài sản thế chấp",
+      "selectLoanAssets": "Chọn tài sản vay",
+      "selectPools": "Chọn nhóm"
+    },
+    "header": "Venus Spoke",
+    "stats": {
+      "availableLiquidity": "Thanh khoản khả dụng",
+      "pools": "Nhóm",
+      "totalBorrow": "Tổng vay"
+    },
+    "table": {
+      "columns": {
+        "borrowApy": {
+          "selectOptionLabel": "APY vay",
+          "title": "APY vay <InfoIcon/>",
+          "tooltip": "Chi phí vay tài sản này theo năm."
+        },
+        "borrowed": "Đã vay",
+        "collateral": {
+          "selectOptionLabel": "Tài sản thế chấp",
+          "title": "Tài sản thế chấp <InfoIcon/>",
+          "tooltip": "Các tài sản nhóm này chấp nhận làm thế chấp, kèm LTV tối đa."
+        },
+        "liquidity": "Thanh khoản",
+        "loanAsset": "Tài sản vay",
+        "totalBorrow": "Tổng vay"
+      },
+      "paused": "Tạm dừng"
+    }
   },
   "statsPage": {
     "illustrationAlt": "Hình minh họa thống kê",

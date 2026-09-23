@@ -351,6 +351,7 @@
     "markets": "市場",
     "primeCalculator": "Prime 計算器",
     "proposal": "提案 #{{proposalId}}",
+    "spokePools": "Spoke",
     "swap": "兌換",
     "vai": "VAI",
     "vaults": "金庫"
@@ -920,6 +921,10 @@
         "venusFlux": {
           "description": "高資本效率的借貸，追求最佳收益。",
           "label": "Venus Flux"
+        },
+        "venusSpoke": {
+          "description": "以你供應的抵押品，從專屬市場借出資產。",
+          "label": "Venus Spoke"
         }
       }
     }
@@ -1886,6 +1891,56 @@
   "spendingLimit": {
     "label": "支出限額",
     "labelTooltip": "這是你當前對該資產的支出上限。如需更多支出，請撤銷上限並重新設置。"
+  },
+  "spokeCollateralGroup": {
+    "asset": "資產",
+    "maxLtv": "最高抵押率"
+  },
+  "spokePools": {
+    "description": "使用您在專屬市場中提供的抵押品借出資產。",
+    "filter": {
+      "allCollaterals": "全部抵押品",
+      "allLoanAssets": "全部借貸資產",
+      "allPools": "全部資金池",
+      "nCollaterals_one": "{{count}} 個抵押品",
+      "nCollaterals_other": "{{count}} 個抵押品",
+      "nLoanAssets_one": "{{count}} 個借貸資產",
+      "nLoanAssets_other": "{{count}} 個借貸資產",
+      "noResults": "沒有符合篩選條件的市場",
+      "nPools_one": "{{count}} 個資金池",
+      "nPools_other": "{{count}} 個資金池",
+      "reset": "重設",
+      "resetFilters": "重設篩選",
+      "searchPlaceholder": "搜尋資產",
+      "selectCollaterals": "選擇抵押品",
+      "selectLoanAssets": "選擇借貸資產",
+      "selectPools": "選擇資金池"
+    },
+    "header": "Venus Spoke",
+    "stats": {
+      "availableLiquidity": "可用流動性",
+      "pools": "資金池",
+      "totalBorrow": "總借款"
+    },
+    "table": {
+      "columns": {
+        "borrowApy": {
+          "selectOptionLabel": "借款 APY",
+          "title": "借款 APY <InfoIcon/>",
+          "tooltip": "借入該資產的年化成本。"
+        },
+        "borrowed": "已借",
+        "collateral": {
+          "selectOptionLabel": "抵押品",
+          "title": "抵押品 <InfoIcon/>",
+          "tooltip": "該資金池接受的抵押品及其最高抵押率。"
+        },
+        "liquidity": "流動性",
+        "loanAsset": "借貸資產",
+        "totalBorrow": "總借款"
+      },
+      "paused": "已暫停"
+    }
   },
   "statsPage": {
     "illustrationAlt": "統計插圖",

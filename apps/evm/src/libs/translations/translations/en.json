@@ -351,6 +351,7 @@
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
+    "spokePools": "Spoke",
     "swap": "Swap",
     "vai": "VAI",
     "vaults": "Vaults"
@@ -921,6 +922,10 @@
         "venusFlux": {
           "description": "Capital-efficient lending and borrowing for optimal yield.",
           "label": "Venus Flux"
+        },
+        "venusSpoke": {
+          "description": "Borrow assets against your supplied collateral from dedicated market.",
+          "label": "Venus Spoke"
         }
       }
     }
@@ -1887,6 +1892,56 @@
   "spendingLimit": {
     "label": "Spending limit",
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
+  },
+  "spokeCollateralGroup": {
+    "asset": "Asset",
+    "maxLtv": "Max LTV"
+  },
+  "spokePools": {
+    "description": "Borrow assets against your supplied collateral from dedicated markets.",
+    "filter": {
+      "allCollaterals": "All collaterals",
+      "allLoanAssets": "All loan assets",
+      "allPools": "All pools",
+      "nCollaterals_one": "{{count}} collateral",
+      "nCollaterals_other": "{{count}} collaterals",
+      "nLoanAssets_one": "{{count}} loan asset",
+      "nLoanAssets_other": "{{count}} loan assets",
+      "noResults": "No markets match your filters",
+      "nPools_one": "{{count}} pool",
+      "nPools_other": "{{count}} pools",
+      "reset": "Reset",
+      "resetFilters": "Reset filters",
+      "searchPlaceholder": "Search asset",
+      "selectCollaterals": "Select collaterals",
+      "selectLoanAssets": "Select loan",
+      "selectPools": "Select pools"
+    },
+    "header": "Venus Spoke",
+    "stats": {
+      "availableLiquidity": "Available liquidity",
+      "pools": "Pools",
+      "totalBorrow": "Total borrow"
+    },
+    "table": {
+      "columns": {
+        "borrowApy": {
+          "selectOptionLabel": "Borrow APY",
+          "title": "Borrow APY <InfoIcon/>",
+          "tooltip": "The annual cost of borrowing this asset."
+        },
+        "borrowed": "Borrowed",
+        "collateral": {
+          "selectOptionLabel": "Collateral",
+          "title": "Collateral <InfoIcon/>",
+          "tooltip": "The assets this pool accepts as collateral, with their maximum LTV."
+        },
+        "liquidity": "Liquidity",
+        "loanAsset": "Loan asset",
+        "totalBorrow": "Total borrow"
+      },
+      "paused": "Paused"
+    }
   },
   "statsPage": {
     "illustrationAlt": "Stats illustration",

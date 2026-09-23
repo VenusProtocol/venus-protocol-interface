@@ -269,6 +269,15 @@ export interface Pool {
   userEModeGroup?: EModeGroup;
 }
 
+export interface SpokeAsset extends Asset {
+  isSuppliable: boolean;
+}
+
+export interface SpokePool extends Omit<Pool, 'assets'> {
+  description: string;
+  assets: SpokeAsset[];
+}
+
 export interface LiquidityHubSourceCollateral {
   token: Token;
   liquidationThresholdPercentage: BigNumber;
