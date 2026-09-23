@@ -4,6 +4,7 @@ import { HealthFactorPill, Table, type TableProps, TableRowControl } from 'compo
 import { routes } from 'constants/routing';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import type { SpokeAsset, SpokePool } from 'types';
 
 import { useColumns } from './useColumns';
@@ -22,6 +23,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
+  const { accountAddress } = useAccountAddress();
   const columns = useColumns({ collaterals });
   const [selectedAsset, setSelectedAsset] = useState<SpokeAsset>();
 
@@ -60,7 +62,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
               <p className="text-b1r text-grey">{spokePool.description}</p>
             </div>
 
-            {spokePool.userHealthFactor !== undefined && (
+            {!!accountAddress && spokePool.userHealthFactor !== undefined && (
               <HealthFactorPill factor={spokePool.userHealthFactor} showLabel />
             )}
           </div>
