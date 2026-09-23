@@ -49,7 +49,6 @@ export const SpokeMarketInfo: React.FC = () => {
   return (
     <TokenInfo
       token={asset?.vToken.underlyingToken}
-      tokenPriceOracleAddress={asset?.tokenPriceOracleAddress}
       relatedTokens={asset && [asset.vToken.underlyingToken, asset.vToken]}
       cells={cells}
     />

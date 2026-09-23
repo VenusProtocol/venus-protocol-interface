@@ -83,18 +83,17 @@ describe('getSpokePools', () => {
     });
   });
 
-  it('keeps the pools usable when positions are unavailable', async () => {
+  it('throws when positions are unavailable', async () => {
     mockResponses({ positions: { error: 'No snapshot available' } });
 
-    const { spokePools } = await getSpokePools({
-      chainId: ChainId.BSC_TESTNET,
-      tokens: [usdc, usdt],
-      publicClient: fakePublicClient,
-      accountAddress: fakeAccountAddress,
-    });
-
-    expect(spokePools[0].assets).toHaveLength(2);
-    expect(spokePools[0].assets[0].userSupplyBalanceTokens.toFixed()).toBe('0');
+    await expect(
+      getSpokePools({
+        chainId: ChainId.BSC_TESTNET,
+        tokens: [usdc, usdt],
+        publicClient: fakePublicClient,
+        accountAddress: fakeAccountAddress,
+      }),
+    ).rejects.toThrow('somethingWentWrong');
   });
 
   it('skips markets whose underlying token is unknown', async () => {

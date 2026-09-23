@@ -13,7 +13,6 @@ import { liquidityHubSnapshots } from '__mocks__/models/liquidityHubSnapshots';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
-import { spokePools } from '__mocks__/models/spokePools';
 import { usdc, xvs } from '__mocks__/models/tokens';
 import { tradePositions } from '__mocks__/models/trade';
 import { transactions } from '__mocks__/models/transactions';
@@ -293,13 +292,13 @@ export const useGetLiquidityHubHistory = vi.fn(() => ({
 }));
 
 export const getSpokePools = vi.fn(async () => ({
-  spokePools,
+  spokePools: [],
 }));
 
 export const useGetSpokePools = vi.fn(() => ({
   isLoading: false,
   data: {
-    spokePools,
+    spokePools: [],
   },
 }));
 

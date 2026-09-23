@@ -1,3 +1,4 @@
+import { VError } from 'libs/errors';
 import type { ChainId } from 'types';
 import { restService } from 'utilities';
 import type { Address } from 'viem';
@@ -24,9 +25,16 @@ export const getSpokeAccountPools = async ({
 
   const payload = response.data;
 
-  // Positions only enrich the markets, so missing ones leave the pools usable without user data
-  if (!payload || 'error' in payload) {
-    return [];
+  if (payload && 'error' in payload) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: { exception: payload.error },
+    });
+  }
+
+  if (!payload) {
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
   return payload.result ?? [];
