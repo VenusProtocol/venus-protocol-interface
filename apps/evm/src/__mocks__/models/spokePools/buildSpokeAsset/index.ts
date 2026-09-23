@@ -7,12 +7,10 @@ export interface BuildSpokeAssetInput {
   vToken: VToken;
   tokenPriceCents: number;
   isBorrowable: boolean;
-  isSupplyAllowlistEnabled?: boolean;
   collateralFactor?: number;
   liquidationThresholdPercentage?: number;
   liquidationPenaltyPercentage?: number;
   borrowApyPercentage?: number;
-  averageBorrowApyPercentage?: number;
   supplyApyPercentage?: number;
   supplyBalanceTokens?: number;
   hubSupplyBalanceTokens?: number;
@@ -30,12 +28,10 @@ export const buildSpokeAsset = ({
   vToken,
   tokenPriceCents,
   isBorrowable,
-  isSupplyAllowlistEnabled = false,
   collateralFactor = 0,
   liquidationThresholdPercentage = 0,
   liquidationPenaltyPercentage = 10,
   borrowApyPercentage = 0,
-  averageBorrowApyPercentage = 0,
   supplyApyPercentage = 0,
   supplyBalanceTokens = 0,
   hubSupplyBalanceTokens = 0,
@@ -58,7 +54,8 @@ export const buildSpokeAsset = ({
     tokenPriceOracleAddress: NULL_ADDRESS,
     isProtectionModeEnabled: false,
     isBorrowable,
-    isSupplyAllowlistEnabled,
+    // Mirrors the API, which derives it from the market's side
+    isSuppliable: !isBorrowable,
     reserveFactor: 0.1,
     collateralFactor,
     liquidationThresholdPercentage,
@@ -71,7 +68,6 @@ export const buildSpokeAsset = ({
     supplierCount: 0,
     borrowerCount: 352,
     borrowApyPercentage: new BigNumber(borrowApyPercentage),
-    averageBorrowApyPercentage: new BigNumber(averageBorrowApyPercentage),
     supplyApyPercentage: new BigNumber(supplyApyPercentage),
     supplyBalanceTokens: new BigNumber(supplyBalanceTokens),
     supplyBalanceCents: new BigNumber(supplyBalanceTokens).multipliedBy(price),
