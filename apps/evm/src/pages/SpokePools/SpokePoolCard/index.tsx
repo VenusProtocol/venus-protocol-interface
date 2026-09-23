@@ -23,6 +23,9 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
 }) => {
   const { t } = useTranslation();
   const columns = useColumns({ collaterals });
+  const hasUserPosition =
+    !!spokePool.userSupplyBalanceCents?.isGreaterThan(0) ||
+    !!spokePool.userBorrowBalanceCents?.isGreaterThan(0);
   const [selectedAsset, setSelectedAsset] = useState<SpokeAsset>();
 
   const getRowHref = (asset: SpokeAsset) =>
@@ -60,7 +63,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
               <p className="text-b1r text-grey">{spokePool.description}</p>
             </div>
 
-            {spokePool.userHealthFactor !== undefined && (
+            {hasUserPosition && spokePool.userHealthFactor !== undefined && (
               <HealthFactorPill factor={spokePool.userHealthFactor} showLabel />
             )}
           </div>

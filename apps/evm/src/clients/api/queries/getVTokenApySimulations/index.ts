@@ -7,8 +7,6 @@ import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';
 import formatToApySnapshots from './formatToApySnapshots';
 import type { GetVTokenApySimulationsInput, GetVTokenApySimulationsOutput } from './types';
 
-export type { GetVTokenApySimulationsOutput } from './types';
-
 const REFERENCE_AMOUNT_MANTISSA = 10000;
 const REFERENCE_BAD_DEBT_MANTISSA = 0n;
 

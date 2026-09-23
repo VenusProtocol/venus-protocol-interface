@@ -108,6 +108,12 @@ export * from './queries/getLiquidityHub/useGetLiquidityHub';
 export * from './queries/getLiquidityHubHistory';
 export * from './queries/getLiquidityHubHistory/useGetLiquidityHubHistory';
 
+export * from './queries/getSpokePools';
+export * from './queries/getSpokePools/useGetSpokePools';
+
+export * from './queries/getSpokeMarketHistory';
+export * from './queries/getSpokeMarketHistory/useGetSpokeMarketHistory';
+
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';
 

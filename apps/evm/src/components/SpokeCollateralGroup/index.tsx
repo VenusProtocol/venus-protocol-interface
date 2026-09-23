@@ -1,4 +1,7 @@
+import { cn } from '@venusprotocol/ui';
+
 import { ImgGroupTooltip } from 'components/ImgGroupTooltip';
+import { InfoIcon } from 'components/InfoIcon';
 import type { TableColumn } from 'components/Table';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
@@ -23,14 +26,30 @@ export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
       key: 'asset',
       label: t('spokeCollateralGroup.asset'),
       selectOptionLabel: t('spokeCollateralGroup.asset'),
-      renderCell: collateral => <TokenIconWithSymbol token={collateral.vToken.underlyingToken} />,
+      renderCell: collateral => (
+        <div className="flex items-center gap-x-2">
+          <TokenIconWithSymbol token={collateral.vToken.underlyingToken} />
+
+          {collateral.isInactive && (
+            <InfoIcon
+              iconClassName="text-orange"
+              iconName="attention"
+              tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
+            />
+          )}
+        </div>
+      ),
     },
     {
       key: 'maxLtv',
       label: t('spokeCollateralGroup.maxLtv'),
       selectOptionLabel: t('spokeCollateralGroup.maxLtv'),
       align: 'right',
-      renderCell: collateral => formatPercentageToReadableValue(collateral.collateralFactor * 100),
+      renderCell: collateral => (
+        <span className={cn(collateral.isInactive && 'text-grey')}>
+          {formatPercentageToReadableValue(collateral.collateralFactor * 100)}
+        </span>
+      ),
     },
   ];
 

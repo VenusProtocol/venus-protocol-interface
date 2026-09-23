@@ -8,7 +8,7 @@ import { SpokeForm } from '..';
 
 const spokePool = spokePools[0];
 const loanAsset = spokePool.assets.find(({ isBorrowable }) => isBorrowable)!;
-const pausedLoanAsset = spokePools[1].assets.find(({ disabledTokenActions }) =>
+const pausedLoanAsset = spokePool.assets.find(({ disabledTokenActions }) =>
   disabledTokenActions.includes('borrow'),
 )!;
 
@@ -29,7 +29,7 @@ describe('SpokeForm', () => {
   });
 
   it('replaces the borrow form with a notice when borrowing is paused', () => {
-    renderComponent(<SpokeForm spokePool={spokePools[1]} asset={pausedLoanAsset} />);
+    renderComponent(<SpokeForm spokePool={spokePool} asset={pausedLoanAsset} />);
 
     expect(screen.getByText(en.assetAccessor.disabledActionNotice.borrow)).toBeInTheDocument();
     expect(screen.queryByText(en.spokeForm.safeMaxButtonLabel)).not.toBeInTheDocument();
@@ -37,7 +37,7 @@ describe('SpokeForm', () => {
 
   it('keeps repay reachable on a paused market, since exiting is never gated', () => {
     renderComponent(
-      <SpokeForm spokePool={spokePools[1]} asset={pausedLoanAsset} initialLoanTabId="repay" />,
+      <SpokeForm spokePool={spokePool} asset={pausedLoanAsset} initialLoanTabId="repay" />,
     );
 
     expect(screen.getByText(en.spokeForm.repay.submitButtonLabel)).toBeInTheDocument();

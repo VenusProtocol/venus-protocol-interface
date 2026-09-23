@@ -15,7 +15,7 @@ describe('SpokePositions', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    fireEvent.click(screen.getAllByText('XVS')[0]);
+    fireEvent.click(screen.getAllByText('USDC')[0]);
 
     expect(
       screen.getByText(en.spokeForm.collateralModalTitle.replace('{{poolName}}', spokePool.name)),

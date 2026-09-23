@@ -1,14 +1,14 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
-// TODO: fetch from API (VPD-2071)
-import { spokePools } from '__mocks__/models/spokePools';
-import { type CellProps, MultiSelect, Page, PageStatHeader } from 'components';
+import { useGetSpokePools } from 'clients/api';
+import { type CellProps, MultiSelect, Page, PageStatHeader, Spinner } from 'components';
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import type { SpokeAsset } from 'types';
-import { formatCentsToReadableValue, isAssetPaused } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { NoResults } from './NoResults';
 import { SpokePoolCard } from './SpokePoolCard';
@@ -20,6 +20,11 @@ const SpokePools: React.FC = () => {
   const { t } = useTranslation();
   const [userChainSettings] = useUserChainSettings();
   const [searchValue, setSearchValue] = useState('');
+  const { accountAddress } = useAccountAddress();
+  const { data: getSpokePoolsData, isLoading: isGetSpokePoolsLoading } = useGetSpokePools({
+    accountAddress,
+  });
+  const spokePools = getSpokePoolsData?.spokePools ?? [];
 
   const {
     loanAssets: selectedLoanAssets,
@@ -80,9 +85,7 @@ const SpokePools: React.FC = () => {
   const matchesSearch = (asset: SpokeAsset) =>
     asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase());
 
-  const isVisible = (asset: SpokeAsset) =>
-    userChainSettings.showPausedAssets ||
-    !isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
+  const isVisible = (asset: SpokeAsset) => userChainSettings.showPausedAssets || !asset.isInactive;
 
   // An empty group means no constraint: values are OR-ed within a group, and groups are
   // AND-ed together
@@ -179,6 +182,23 @@ const SpokePools: React.FC = () => {
     </div>
   );
 
+  let poolsDom: React.ReactNode = filteredSpokePools.map(
+    ({ spokePool, loanAssets, collaterals }) => (
+      <SpokePoolCard
+        key={spokePool.comptrollerAddress}
+        spokePool={spokePool}
+        loanAssets={loanAssets}
+        collaterals={collaterals}
+      />
+    ),
+  );
+
+  if (isGetSpokePoolsLoading) {
+    poolsDom = <Spinner />;
+  } else if (filteredSpokePools.length === 0) {
+    poolsDom = <NoResults onReset={handleResetAll} />;
+  }
+
   return (
     <Page>
       <div className="space-y-5 sm:space-y-12">
@@ -197,18 +217,7 @@ const SpokePools: React.FC = () => {
             filters={filters}
           />
 
-          {filteredSpokePools.length === 0 ? (
-            <NoResults onReset={handleResetAll} />
-          ) : (
-            filteredSpokePools.map(({ spokePool, loanAssets, collaterals }) => (
-              <SpokePoolCard
-                key={spokePool.comptrollerAddress}
-                spokePool={spokePool}
-                loanAssets={loanAssets}
-                collaterals={collaterals}
-              />
-            ))
-          )}
+          {poolsDom}
         </div>
       </div>
     </Page>

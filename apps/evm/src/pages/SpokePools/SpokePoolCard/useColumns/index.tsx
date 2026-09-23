@@ -1,8 +1,9 @@
+import { cn } from '@venusprotocol/ui';
+
 import {
   Apy,
   InfoIcon,
   LayeredValues,
-  Pill,
   SpokeCollateralGroup,
   type TableColumn,
   TokenIconWithSymbol,
@@ -14,7 +15,6 @@ import {
   compareBigNumbers,
   formatCentsToReadableValue,
   formatTokensToReadableValue,
-  isAssetPaused,
 } from 'utilities';
 
 export interface UseColumnsInput {
@@ -33,8 +33,12 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
         <div className="flex items-center gap-x-2">
           <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
 
-          {isAssetPaused({ disabledTokenActions: asset.disabledTokenActions }) && (
-            <Pill>{t('spokePools.table.paused')}</Pill>
+          {asset.isInactive && (
+            <InfoIcon
+              iconClassName="text-orange"
+              iconName="attention"
+              tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
+            />
           )}
         </div>
       ),
@@ -49,6 +53,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
       renderCell: asset =>
         asset.userBorrowBalanceTokens.isGreaterThan(0) ? (
           <LayeredValues
+            className={cn(asset.isInactive && 'text-grey')}
             topValue={formatTokensToReadableValue({
               value: asset.userBorrowBalanceTokens,
               token: asset.vToken.underlyingToken,
@@ -81,6 +86,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
         compareBigNumbers(rowA.borrowApyPercentage, rowB.borrowApyPercentage, direction),
       renderCell: asset => (
         <Apy
+          className={cn(asset.isInactive && 'text-grey')}
           type="borrow"
           token={asset.vToken.underlyingToken}
           baseApyPercentage={asset.borrowApyPercentage}
@@ -98,6 +104,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
         compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction),
       renderCell: asset => (
         <LayeredValues
+          className={cn(asset.isInactive && 'text-grey')}
           topValue={formatTokensToReadableValue({
             value: asset.cashTokens,
             token: asset.vToken.underlyingToken,
@@ -135,6 +142,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
         compareBigNumbers(rowA.borrowBalanceCents, rowB.borrowBalanceCents, direction),
       renderCell: asset => (
         <LayeredValues
+          className={cn(asset.isInactive && 'text-grey')}
           topValue={formatTokensToReadableValue({
             value: asset.borrowBalanceTokens,
             token: asset.vToken.underlyingToken,

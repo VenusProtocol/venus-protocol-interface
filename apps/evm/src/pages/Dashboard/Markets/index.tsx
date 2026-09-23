@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import type { Pool } from 'types';
 
-// TODO: fetch from API (VPD-2071)
-import { spokePools } from '__mocks__/models/spokePools';
+import { useGetSpokePools } from 'clients/api';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
@@ -33,9 +32,14 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
       asset.isCollateralOfUser,
   );
 
+  const { data: getSpokePoolsData } = useGetSpokePools(
+    { accountAddress },
+    { enabled: !!accountAddress },
+  );
+
   const spokePoolsWithPositions =
     isSpokeEnabled && accountAddress
-      ? spokePools.filter(spokePool =>
+      ? (getSpokePoolsData?.spokePools ?? []).filter(spokePool =>
           spokePool.assets.some(
             asset =>
               asset.userSupplyBalanceTokens.isGreaterThan(0) ||

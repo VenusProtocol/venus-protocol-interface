@@ -2049,8 +2049,7 @@
         "liquidity": "流动性",
         "loanAsset": "借贷资产",
         "totalBorrow": "总借款"
-      },
-      "paused": "已暂停"
+      }
     }
   },
   "statsPage": {

@@ -1,6 +1,7 @@
-// TODO: fetch from API (VPD-2071)
-import { spokePools } from '__mocks__/models/spokePools';
+import { useGetSpokePools } from 'clients/api';
+import { useAccountAddress } from 'libs/wallet';
 import type { SpokeAsset, SpokePool } from 'types';
+import { areAddressesEqual } from 'utilities';
 import type { Address } from 'viem';
 
 export interface UseGetSpokeMarketInput {
@@ -9,6 +10,7 @@ export interface UseGetSpokeMarketInput {
 }
 
 export interface UseGetSpokeMarketOutput {
+  isLoading: boolean;
   spokePool?: SpokePool;
   asset?: SpokeAsset;
 }
@@ -17,13 +19,18 @@ export const useGetSpokeMarket = ({
   spokePoolComptrollerAddress,
   spokeVTokenAddress,
 }: UseGetSpokeMarketInput): UseGetSpokeMarketOutput => {
-  const spokePool = spokePools.find(
-    pool => pool.comptrollerAddress.toLowerCase() === spokePoolComptrollerAddress?.toLowerCase(),
+  const { accountAddress } = useAccountAddress();
+  const { data, isLoading } = useGetSpokePools({ accountAddress });
+
+  const spokePool = data?.spokePools.find(
+    pool =>
+      !!spokePoolComptrollerAddress &&
+      areAddressesEqual(pool.comptrollerAddress, spokePoolComptrollerAddress),
   );
 
   const asset = spokePool?.assets.find(
-    ({ vToken }) => vToken.address.toLowerCase() === spokeVTokenAddress?.toLowerCase(),
+    ({ vToken }) => !!spokeVTokenAddress && areAddressesEqual(vToken.address, spokeVTokenAddress),
   );
 
-  return { spokePool, asset };
+  return { isLoading, spokePool, asset };
 };

@@ -2050,8 +2050,7 @@
         "liquidity": "Liquidity",
         "loanAsset": "Loan asset",
         "totalBorrow": "Total borrow"
-      },
-      "paused": "Paused"
+      }
     }
   },
   "statsPage": {

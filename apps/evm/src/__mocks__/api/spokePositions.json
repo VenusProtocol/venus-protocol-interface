@@ -1,0 +1,37 @@
+{
+  "chainId": "97",
+  "blockNumber": "132684088",
+  "blockTimestamp": 1790154764,
+  "result": [
+    {
+      "comptrollerAddress": "0x11960c84d6c4F2a978a12372721C3A6A88C78f4c",
+      "healthFactorMantissa": "8800000000000000000",
+      "totalSupplyUsdCents": "100000",
+      "totalBorrowUsdCents": "10000",
+      "totalCollateralUsdCents": "100000",
+      "liquidityUsdCents": "78000",
+      "shortfallUsdCents": "0",
+      "badDebtUsdCents": "0",
+      "positions": [
+        {
+          "marketAddress": "0xD05514217FD359659aE7da7740e79C11947eBB32",
+          "vTokenBalanceMantissa": "100000000000",
+          "borrowBalanceMantissa": "0",
+          "underlyingBalanceMantissa": "1000000000",
+          "isCollateral": true,
+          "supplyUsdCents": "100000",
+          "borrowUsdCents": "0"
+        },
+        {
+          "marketAddress": "0xC88bAF0bA49a98F15A00182752f6d10bd3932F6a",
+          "vTokenBalanceMantissa": "0",
+          "borrowBalanceMantissa": "100000000",
+          "underlyingBalanceMantissa": "0",
+          "isCollateral": false,
+          "supplyUsdCents": "0",
+          "borrowUsdCents": "10000"
+        }
+      ]
+    }
+  ]
+}

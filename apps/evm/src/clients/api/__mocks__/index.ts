@@ -291,6 +291,28 @@ export const useGetLiquidityHubHistory = vi.fn(() => ({
   },
 }));
 
+export const getSpokePools = vi.fn(async () => ({
+  spokePools: [],
+}));
+
+export const useGetSpokePools = vi.fn(() => ({
+  isLoading: false,
+  data: {
+    spokePools: [],
+  },
+}));
+
+export const getSpokeMarketHistory = vi.fn(async () => ({
+  marketSnapshots: [],
+}));
+
+export const useGetSpokeMarketHistory = vi.fn(() => ({
+  isLoading: false,
+  data: {
+    marketSnapshots: [],
+  },
+}));
+
 export const useGetSimulatedPool = vi.fn(() => ({
   isLoading: false,
   data: {
