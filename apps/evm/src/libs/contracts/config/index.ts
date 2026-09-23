@@ -135,6 +135,8 @@ import primeLeaderboardAbi from './externalAbis/PrimeLeaderboard.json';
 import primeV2Abi from './externalAbis/PrimeV2.json';
 import primeV2LensAbi from './externalAbis/PrimeV2Lens.json';
 import relativePositionManagerAbi from './externalAbis/RelativePositionManager.json';
+import spokeComptrollerAbi from './externalAbis/SpokeComptroller.json';
+import spokeVTokenAbi from './externalAbis/SpokeVToken.json';
 import swapRouterV2Abi from './externalAbis/SwapRouterV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import zyFiVaultAbi from './externalAbis/ZyFiVault.json';
@@ -743,6 +745,14 @@ export const contracts: ContractConfig[] = [
   {
     name: 'IsolatedPoolComptroller',
     abi: IsolatedPoolComptrollerAbi as Abi,
+  },
+  {
+    name: 'SpokeComptroller',
+    abi: spokeComptrollerAbi as Abi,
+  },
+  {
+    name: 'SpokeVToken',
+    abi: spokeVTokenAbi as Abi,
   },
   {
     name: 'JumpRateModel',
