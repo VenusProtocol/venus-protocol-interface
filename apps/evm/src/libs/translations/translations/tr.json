@@ -454,6 +454,7 @@
       "showRawError": "Ham hatayı göster"
     },
     "supplyCapExceeded": "Bu pazar için arz üst sınırına ulaşıldı.",
+    "supplyNotAllowed": "Bu pazar yalnızca onaylı sağlayıcılardan yatırma kabul eder.",
     "swapDeadlineExpire": "Takas süresi doldu. Lütfen tekrar deneyin.",
     "tooMuchRepay": "Geri ödeme tutarı bekleyen borç bakiyenizi aşıyor."
   },
@@ -1897,6 +1898,38 @@
   "spokeCollateralGroup": {
     "asset": "Varlık",
     "maxLtv": "Azami LTV"
+  },
+  "spokeForm": {
+    "borrow": {
+      "submitButtonLabel": "Borç al",
+      "tabTitle": "Borç al",
+      "zeroCollateralNotice": "Bu havuzdan {{tokenSymbol}} borç alabilmek için önce teminat <SupplyLink>arz etmelisiniz</SupplyLink>."
+    },
+    "borrowModalTitle": "{{poolName}} havuzundan {{tokenSymbol}} borç al",
+    "collateralTabTitle": "Teminat",
+    "dailyBorrowInterest": "Günlük borç faizi",
+    "enterValidAmountButtonLabel": "Geçerli bir tutar girin",
+    "error": {
+      "higherThanAvailableAmount": "Tutar kullanılabilir bakiyeyi aşıyor",
+      "supplyDisabled": "Bu teminatın arzı şu anda duraklatıldı"
+    },
+    "loanTabTitle": "Kredi",
+    "repay": {
+      "submitButtonLabel": "Geri öde",
+      "tabTitle": "Geri öde",
+      "walletBalanceLabel": "Cüzdan bakiyesi"
+    },
+    "rightMaxButtonLabel": "AZAMİ",
+    "safeMaxButtonLabel": "GÜVENLİ AZAMİ",
+    "supply": {
+      "submitButtonLabel": "Arz et",
+      "tabTitle": "Arz",
+      "walletBalanceLabel": "Cüzdan bakiyesi"
+    },
+    "withdraw": {
+      "submitButtonLabel": "Çek",
+      "tabTitle": "Çek"
+    }
   },
   "spokeMarket": {
     "borrowCapThreshold": {

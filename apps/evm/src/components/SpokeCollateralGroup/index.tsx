@@ -7,11 +7,13 @@ import { formatPercentageToReadableValue } from 'utilities';
 
 export interface SpokeCollateralGroupProps {
   collaterals: SpokeAsset[];
+  onRowClick?: (collateral: SpokeAsset) => void;
   className?: string;
 }
 
 export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
   collaterals,
+  onRowClick,
   className,
 }) => {
   const { t } = useTranslation();
@@ -40,6 +42,8 @@ export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
       }))}
       data={collaterals}
       rowKeyExtractor={row => row.vToken.address}
+      rowOnClick={onRowClick && ((_event, collateral) => onRowClick(collateral))}
+      getRowClassName={onRowClick && (() => 'cursor-pointer')}
       columns={columns}
       tableLayout="auto"
       removeDuplicates

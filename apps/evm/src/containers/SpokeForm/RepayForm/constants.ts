@@ -1,0 +1,1 @@
+export const PRESET_REPAY_PERCENTAGES = [25, 50, 75, 100];
