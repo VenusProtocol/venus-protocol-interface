@@ -271,7 +271,7 @@ export interface Pool {
 
 export interface SpokeAsset extends Asset {
   isSuppliable: boolean;
-  hubSupplyBalanceCents: BigNumber;
+  hubSupplyBalanceCents?: BigNumber;
 }
 
 export interface SpokePool extends Omit<Pool, 'assets'> {
