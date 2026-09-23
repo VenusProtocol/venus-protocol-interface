@@ -4,7 +4,6 @@ import { HealthFactorPill, Table, type TableProps, TableRowControl } from 'compo
 import { routes } from 'constants/routing';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
 import type { SpokeAsset, SpokePool } from 'types';
 
 import { useColumns } from './useColumns';
@@ -23,8 +22,10 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
-  const { accountAddress } = useAccountAddress();
   const columns = useColumns({ collaterals });
+  const hasUserPosition =
+    !!spokePool.userSupplyBalanceCents?.isGreaterThan(0) ||
+    !!spokePool.userBorrowBalanceCents?.isGreaterThan(0);
   const [selectedAsset, setSelectedAsset] = useState<SpokeAsset>();
 
   const getRowHref = (asset: SpokeAsset) =>
@@ -62,7 +63,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
               <p className="text-b1r text-grey">{spokePool.description}</p>
             </div>
 
-            {!!accountAddress && spokePool.userHealthFactor !== undefined && (
+            {hasUserPosition && spokePool.userHealthFactor !== undefined && (
               <HealthFactorPill factor={spokePool.userHealthFactor} showLabel />
             )}
           </div>
