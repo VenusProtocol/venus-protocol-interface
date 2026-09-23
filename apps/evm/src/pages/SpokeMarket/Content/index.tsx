@@ -8,9 +8,6 @@ import { BorrowInfo } from '../BorrowInfo';
 import { LoanInfo } from '../LoanInfo';
 import { SupportedCollateral } from '../SupportedCollateral';
 
-// TODO: fetch from API (VPD-2071)
-import { getSpokeIrmSimulations } from '__mocks__/models/spokeIrm';
-
 export interface ContentProps {
   spokePool: SpokePool;
   asset: SpokeAsset;
@@ -40,11 +37,7 @@ export const Content: React.FC<ContentProps> = ({ spokePool, asset }) => {
 
           <SupportedCollateral collaterals={collaterals} onRowClick={selectCollateral} />
 
-          <InterestRateChart
-            asset={asset}
-            isIsolatedPoolMarket
-            simulations={getSpokeIrmSimulations({ asset })}
-          />
+          <InterestRateChart asset={asset} isIsolatedPoolMarket />
 
           <LoanInfo asset={asset} />
         </div>

@@ -1,3 +1,4 @@
+import { Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { Redirect } from 'containers/Redirect';
 import { useGetSpokeMarket } from 'hooks/useGetSpokeMarket';
@@ -15,10 +16,14 @@ export const SpokeMarketLoader: React.FC<SpokeMarketLoaderProps> = ({
   spokePoolComptrollerAddress,
   spokeVTokenAddress,
 }) => {
-  const { spokePool, asset } = useGetSpokeMarket({
+  const { isLoading, spokePool, asset } = useGetSpokeMarket({
     spokePoolComptrollerAddress,
     spokeVTokenAddress,
   });
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   if (!spokePool || !asset || !asset.isBorrowable) {
     return <Redirect to={routes.spokePools.path} />;

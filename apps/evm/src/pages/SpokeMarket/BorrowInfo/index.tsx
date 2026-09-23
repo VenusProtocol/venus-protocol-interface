@@ -1,13 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
-import type { LiquidityHubHistoryPeriod } from 'clients/api';
+import { type LiquidityHubHistoryPeriod, useGetSpokeMarketHistory } from 'clients/api';
 import { MarketHistoryCard, type MarketHistoryCardPeriodOption } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 
-// TODO: fetch from API (VPD-2071)
-import { getSpokeMarketHistory } from '__mocks__/models/spokeMarketHistory';
 import {
   clampToZero,
   formatCentsToReadableValue,
@@ -31,10 +29,8 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
     { label: t('spokeMarket.periodOption.all'), value: 'all' },
   ];
 
-  const history = useMemo(
-    () => getSpokeMarketHistory({ asset, period: selectedPeriod }),
-    [asset, selectedPeriod],
-  );
+  const { data: getSpokeMarketHistoryData, isLoading: isGetSpokeMarketHistoryLoading } =
+    useGetSpokeMarketHistory({ vTokenAddress: asset.vToken.address, period: selectedPeriod });
 
   const reachableBorrowCapTokens = BigNumber.min(
     asset.borrowCapTokens,
@@ -86,8 +82,8 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
       }}
       history={{
         type: 'borrow',
-        data: history,
-        isLoading: false,
+        data: getSpokeMarketHistoryData?.marketSnapshots ?? [],
+        isLoading: isGetSpokeMarketHistoryLoading,
         selectedPeriod,
         setSelectedPeriod,
         periodOptions,
