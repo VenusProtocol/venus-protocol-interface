@@ -53,7 +53,47 @@ describe('getSpokePools', () => {
     expect(loanAsset.borrowApyPercentage.toFixed()).toBe('4.55');
     expect(loanAsset.disabledTokenActions).toContain('borrow');
     expect(loanAsset.hubSupplyBalanceCents).toBeUndefined();
+    expect(collateral.isInactive).toBe(false);
+    expect(loanAsset.isInactive).toBe(false);
     expect(restService).toHaveBeenCalledTimes(1);
+  });
+
+  it('flags inactive markets and keeps them on the side their liquidation threshold points to', async () => {
+    const [apiPool] = spokePoolsResponse.result;
+
+    (restService as Mock).mockImplementation(async () => ({
+      data: {
+        ...spokePoolsResponse,
+        result: [
+          {
+            ...apiPool,
+            markets: apiPool.markets.map(market => ({
+              ...market,
+              side: 'inactive',
+              borrowCapsMantissa: '0',
+              collateralFactorMantissa: '0',
+              liquidationThresholdMantissa: market.symbol.startsWith('vUSDC')
+                ? market.liquidationThresholdMantissa
+                : '0',
+            })),
+          },
+        ],
+      },
+    }));
+
+    const { spokePools } = await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: fakePublicClient,
+    });
+
+    const [inactiveCollateral, inactiveLoanAsset] = spokePools[0].assets;
+
+    expect(inactiveCollateral.isInactive).toBe(true);
+    expect(inactiveCollateral.isBorrowable).toBe(false);
+    expect(inactiveLoanAsset.isInactive).toBe(true);
+    expect(inactiveLoanAsset.isBorrowable).toBe(true);
+    expect(inactiveLoanAsset.isBorrowableByUser).toBe(false);
   });
 
   it('adds user balances and pool health when an account is passed', async () => {

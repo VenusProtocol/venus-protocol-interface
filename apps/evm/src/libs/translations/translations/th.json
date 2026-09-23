@@ -2049,8 +2049,7 @@
         "liquidity": "สภาพคล่อง",
         "loanAsset": "สินทรัพย์กู้",
         "totalBorrow": "ยอดกู้รวม"
-      },
-      "paused": "หยุดชั่วคราว"
+      }
     }
   },
   "statsPage": {

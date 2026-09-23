@@ -2050,8 +2050,7 @@
         "liquidity": "Likidite",
         "loanAsset": "Borç varlığı",
         "totalBorrow": "Toplam borç"
-      },
-      "paused": "Duraklatıldı"
+      }
     }
   },
   "statsPage": {

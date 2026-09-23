@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-export type ApiSpokeMarketSide = 'liquidity' | 'collateral';
+export type ApiSpokeMarketSide = 'liquidity' | 'collateral' | 'inactive';
 
 export interface ApiSpokeMarket {
   address: Address;
@@ -9,7 +9,7 @@ export interface ApiSpokeMarket {
   underlyingAddress: Address | null;
   vTokenDecimals: number;
   isListed: boolean;
-  side: ApiSpokeMarketSide | null;
+  side: ApiSpokeMarketSide;
   suppliable: boolean;
   hubSupplied: string | null;
   supplyAllowlistEnabled: boolean;

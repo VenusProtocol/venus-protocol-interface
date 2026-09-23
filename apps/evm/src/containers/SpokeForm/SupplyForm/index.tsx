@@ -51,7 +51,7 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
   ];
 
   const tokenBalances: OptionalTokenBalance[] = collaterals
-    .filter(asset => !asset.disabledTokenActions.includes('supply'))
+    .filter(asset => !asset.isInactive && !asset.disabledTokenActions.includes('supply'))
     .map(asset => ({
       token: asset.vToken.underlyingToken,
       balanceTokens: asset.userWalletBalanceTokens,

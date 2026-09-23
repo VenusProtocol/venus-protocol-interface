@@ -14,6 +14,7 @@ import {
 } from 'utilities';
 
 import type { ApiSpokeMarket, ApiSpokePosition } from '../types';
+import { getMarketRole } from './getMarketRole';
 
 export interface FormatToSpokeAssetInput {
   apiMarket: ApiSpokeMarket;
@@ -98,7 +99,7 @@ export const formatToSpokeAsset = ({
     ? convertMantissaToTokens({ value: userTokenBalance.balanceMantissa, token: underlyingToken })
     : new BigNumber(0);
 
-  const isBorrowable = apiMarket.side === 'liquidity';
+  const { isLiquiditySide, isInactive } = getMarketRole(apiMarket);
 
   const spokeAsset: SpokeAsset = {
     vToken,
@@ -107,8 +108,9 @@ export const formatToSpokeAsset = ({
     tokenBorrowPriceCents: tokenPriceCents,
     isProtectionModeEnabled: false,
     tokenPriceOracleAddress: NULL_ADDRESS,
-    isBorrowable,
+    isBorrowable: isLiquiditySide,
     isSuppliable: apiMarket.suppliable,
+    isInactive,
     reserveFactor: convertFactorFromSmartContract({
       factor: new BigNumber(apiMarket.reserveFactorMantissa),
     }),
@@ -157,7 +159,7 @@ export const formatToSpokeAsset = ({
     userCollateralFactor: isUserConnected ? collateralFactor : 0,
     userLiquidationThresholdPercentage: isUserConnected ? liquidationThresholdPercentage : 0,
     userBorrowLimitSharePercentage: 0,
-    isBorrowableByUser: isBorrowable,
+    isBorrowableByUser: isLiquiditySide && !isInactive,
     isCollateralOfUser: !!userPosition?.isCollateral,
   };
 
