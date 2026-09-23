@@ -61,6 +61,34 @@
         "switchLabel": "{{chainName}}でガスレス取引を有効にする"
       }
     },
+    "spoke": {
+      "borrowed": {
+        "columns": {
+          "apy": "APY",
+          "asset": "資産",
+          "balance": "残高",
+          "limitShare": "上限比率"
+        },
+        "title": "借入済み"
+      },
+      "corePoolPill": "コアプール",
+      "summary": {
+        "borrowApy": "借入APY",
+        "dailyBorrowInterest": "日次借入利息",
+        "healthFactor": "ヘルスファクター",
+        "totalBorrow": "総借入",
+        "totalSupply": "総供給"
+      },
+      "supplied": {
+        "columns": {
+          "asset": "資産",
+          "balance": "残高",
+          "liquidationThreshold": "清算しきい値",
+          "maxLtv": "最大LTV"
+        },
+        "title": "供給済み"
+      }
+    },
     "summary": {
       "cellGroup": {
         "dailyEarnings": "日次収益",
@@ -1905,6 +1933,7 @@
       "zeroCollateralNotice": "このプールから {{tokenSymbol}} を借りるには、先に担保を<SupplyLink>供給</SupplyLink>してください。"
     },
     "borrowModalTitle": "{{poolName}} プールから {{tokenSymbol}} を借りる",
+    "collateralModalTitle": "{{poolName}} プールの担保を管理",
     "collateralTabTitle": "担保",
     "dailyBorrowInterest": "1日あたりの借入利息",
     "enterValidAmountButtonLabel": "有効な金額を入力してください",
@@ -1947,7 +1976,7 @@
     },
     "loanInfo": {
       "borrowerCount": "借入者数",
-      "dailyBorrowInterests": "1日あたりの借入利息",
+      "dailyBorrowInterests": "日次借入利息",
       "marketContract": "マーケットコントラクト",
       "reserveFactor": "準備率",
       "suppliable": "供給可否",

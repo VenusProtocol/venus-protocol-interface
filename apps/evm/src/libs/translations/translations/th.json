@@ -61,6 +61,34 @@
         "switchLabel": "เปิดใช้ธุรกรรมแบบไม่ต้องจ่ายแก๊สบน {{chainName}}"
       }
     },
+    "spoke": {
+      "borrowed": {
+        "columns": {
+          "apy": "APY",
+          "asset": "สินทรัพย์",
+          "balance": "ยอดคงเหลือ",
+          "limitShare": "% ของวงเงิน"
+        },
+        "title": "กู้แล้ว"
+      },
+      "corePoolPill": "พูลหลัก",
+      "summary": {
+        "borrowApy": "APY การกู้",
+        "dailyBorrowInterest": "ดอกเบี้ยการยืมรายวัน",
+        "healthFactor": "ค่าสุขภาพ",
+        "totalBorrow": "ยอดกู้รวม",
+        "totalSupply": "ยอดฝากรวม"
+      },
+      "supplied": {
+        "columns": {
+          "asset": "สินทรัพย์",
+          "balance": "ยอดคงเหลือ",
+          "liquidationThreshold": "เกณฑ์ชำระบัญชี",
+          "maxLtv": "LTV สูงสุด"
+        },
+        "title": "ฝากแล้ว"
+      }
+    },
     "summary": {
       "cellGroup": {
         "dailyEarnings": "รายได้รายวัน",
@@ -1905,6 +1933,7 @@
       "zeroCollateralNotice": "คุณต้อง<SupplyLink>ฝาก</SupplyLink>หลักประกันก่อนจึงจะกู้ {{tokenSymbol}} จากพูลนี้ได้"
     },
     "borrowModalTitle": "กู้ {{tokenSymbol}} จากพูล {{poolName}}",
+    "collateralModalTitle": "จัดการหลักประกันในพูล {{poolName}}",
     "collateralTabTitle": "หลักประกัน",
     "dailyBorrowInterest": "ดอกเบี้ยกู้ต่อวัน",
     "enterValidAmountButtonLabel": "กรอกจำนวนที่ถูกต้อง",
@@ -1947,7 +1976,7 @@
     },
     "loanInfo": {
       "borrowerCount": "จำนวนผู้กู้",
-      "dailyBorrowInterests": "ดอกเบี้ยกู้ต่อวัน",
+      "dailyBorrowInterests": "ดอกเบี้ยการยืมรายวัน",
       "marketContract": "สัญญาตลาด",
       "reserveFactor": "อัตราสำรอง",
       "suppliable": "ฝากได้",
