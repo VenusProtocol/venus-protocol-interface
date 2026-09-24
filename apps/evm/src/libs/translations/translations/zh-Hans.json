@@ -654,7 +654,8 @@
     "walletNotConnected": "钱包未连接"
   },
   "errorState": {
-    "defaultMessage": "发生错误"
+    "defaultMessage": "发生错误",
+    "buttonLabel": "重试"
   },
   "footer": {
     "links": {

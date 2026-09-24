@@ -60,12 +60,14 @@ export const getAccountPerformanceHistory = async ({
     dataPoints: performanceHistory.data.performanceDataPoints,
   });
 
-  const formattedNetWorthToday = formatDataPoints({
+  const [startOfDayDataPoint, currentDataPoint] = formatDataPoints({
     dataPoints: netWorthToday.data.performanceDataPoints,
   });
 
   return {
-    performanceHistory: [...formattedPerformanceHistory, formattedNetWorthToday[1]],
-    startOfDayNetWorthCents: formattedNetWorthToday[0].netWorthCents,
+    performanceHistory: currentDataPoint
+      ? [...formattedPerformanceHistory, currentDataPoint]
+      : formattedPerformanceHistory,
+    startOfDayNetWorthCents: startOfDayDataPoint?.netWorthCents,
   };
 };

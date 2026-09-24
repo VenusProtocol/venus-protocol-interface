@@ -655,7 +655,8 @@
     "walletNotConnected": "Cüzdan bağlı değil"
   },
   "errorState": {
-    "defaultMessage": "Bir hata oluştu"
+    "defaultMessage": "Bir hata oluştu",
+    "buttonLabel": "Yeniden dene"
   },
   "footer": {
     "links": {
