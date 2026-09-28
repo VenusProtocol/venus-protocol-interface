@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { type ApyBreakdownItem, AvailableBalance, NoticeWarning } from 'components';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool } from 'types';
 import { clampToZero, formatTokensToReadableValue } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
@@ -24,6 +25,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   onSubmitSuccess,
 }) => {
   const { t } = useTranslation();
+  const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState(initialFormValues);
 
   const hasCollateralSupplied = spokePool.assets.some(
@@ -105,7 +107,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
       showDailyBorrowInterest
       validateForm={validateForm}
       belowAmountInput={
-        hasCollateralSupplied ? undefined : (
+        !accountAddress || hasCollateralSupplied ? undefined : (
           <ZeroCollateralNotice
             tokenSymbol={asset.vToken.underlyingToken.symbol}
             onSupplyClick={onSupplyCollateralClick}

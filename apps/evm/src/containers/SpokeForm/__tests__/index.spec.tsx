@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react';
 
+import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -11,6 +12,16 @@ const loanAsset = spokePool.assets.find(({ isBorrowable }) => isBorrowable)!;
 const pausedLoanAsset = spokePool.assets.find(({ disabledTokenActions }) =>
   disabledTokenActions.includes('borrow'),
 )!;
+
+const activeLoanAsset = { ...loanAsset, disabledTokenActions: [] };
+
+const poolWithoutCollateral = {
+  ...spokePool,
+  assets: spokePool.assets.map(asset => ({
+    ...asset,
+    userSupplyBalanceTokens: asset.userSupplyBalanceTokens.multipliedBy(0),
+  })),
+};
 
 describe('SpokeForm', () => {
   it('renders both sides by default', () => {
@@ -41,5 +52,19 @@ describe('SpokeForm', () => {
     );
 
     expect(screen.getByText(en.spokeForm.repay.submitButtonLabel)).toBeInTheDocument();
+  });
+
+  it('hides the zero-collateral notice until a wallet is connected', () => {
+    renderComponent(<SpokeForm spokePool={poolWithoutCollateral} asset={activeLoanAsset} />);
+
+    expect(screen.queryByText(/before you can borrow/)).not.toBeInTheDocument();
+  });
+
+  it('shows the zero-collateral notice to a connected user without collateral', () => {
+    renderComponent(<SpokeForm spokePool={poolWithoutCollateral} asset={activeLoanAsset} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(screen.getByText(/before you can borrow/)).toBeInTheDocument();
   });
 });
