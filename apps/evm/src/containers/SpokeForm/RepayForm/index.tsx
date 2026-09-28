@@ -2,12 +2,12 @@ import { QuaternaryButton } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
+import { useRepayToSpoke } from 'clients/api';
 import { type ApyBreakdownItem, AvailableBalance } from 'components';
-import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
+import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
 import { PRESET_REPAY_PERCENTAGES } from './constants';
 
@@ -21,6 +21,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState(initialFormValues);
+  const { mutateAsync: repay, isPending: isSubmitting } = useRepayToSpoke();
 
   const { decimals } = asset.vToken.underlyingToken;
 
@@ -95,16 +96,25 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
     </div>
   );
 
-  // Throws until VPD-2072 wires the contracts, so a submission is never reported as a success
-  const handleSubmit = async (_submittedFormValues: FormValues) => {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+  const handleSubmit = (submittedFormValues: FormValues) => {
+    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+
+    return repay({
+      vToken: asset.vToken,
+      poolName: spokePool.name,
+      amountMantissa: convertTokensToMantissa({
+        value: amountTokens,
+        token: asset.vToken.underlyingToken,
+      }),
+      repayFullLoan: amountTokens.isEqualTo(asset.userBorrowBalanceTokens.dp(decimals)),
+    });
   };
 
   return (
     <Form
       spokePool={spokePool}
       token={asset.vToken.underlyingToken}
-      isSubmitting={false}
+      isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       onSubmitSuccess={onSubmitSuccess}
       balanceMutations={balanceMutations}

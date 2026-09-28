@@ -1127,6 +1127,27 @@ export const useWithdrawFromLiquidityHub = vi.fn((options?: MutationObserverOpti
   }),
 );
 
+export const useBorrowFromSpoke = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useRepayToSpoke = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useWithdrawFromSpoke = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
 export const useMigrateCoreSupplyToLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),
