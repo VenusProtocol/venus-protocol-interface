@@ -32,11 +32,17 @@ describe('getSpokePools', () => {
   it('formats pools and markets without an account', async () => {
     mockResponses({ positions: spokePositionsResponse });
 
-    const { spokePools } = await getSpokePools({
+    const { spokePools, totals } = await getSpokePools({
       chainId: ChainId.BSC_TESTNET,
       tokens: [usdc, usdt],
       publicClient: fakePublicClient,
     });
+
+    expect(totals.poolCount).toBe(spokePoolsResponse.totals.poolCount);
+    expect(totals.totalBorrowCents.toFixed()).toBe(spokePoolsResponse.totals.totalBorrowsUsdCents);
+    expect(totals.availableLiquidityCents.toFixed()).toBe(
+      spokePoolsResponse.totals.availableLiquidityUsdCents,
+    );
 
     const [spokePool] = spokePools;
     const [collateral, loanAsset] = spokePool.assets;

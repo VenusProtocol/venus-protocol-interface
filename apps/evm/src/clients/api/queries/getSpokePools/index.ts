@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 import { VError } from 'libs/errors';
 import type { ChainId, SpokePool, Token } from 'types';
 import { areAddressesEqual, restService } from 'utilities';
@@ -17,8 +19,15 @@ export interface GetSpokePoolsInput {
   accountAddress?: Address;
 }
 
+export interface SpokePoolsTotals {
+  poolCount: number;
+  totalBorrowCents: BigNumber;
+  availableLiquidityCents: BigNumber;
+}
+
 export interface GetSpokePoolsOutput {
   spokePools: SpokePool[];
+  totals: SpokePoolsTotals;
 }
 
 export const getSpokePools = async ({
@@ -83,5 +92,12 @@ export const getSpokePools = async ({
     }),
   );
 
-  return { spokePools };
+  return {
+    spokePools,
+    totals: {
+      poolCount: payload.totals.poolCount,
+      totalBorrowCents: new BigNumber(payload.totals.totalBorrowsUsdCents),
+      availableLiquidityCents: new BigNumber(payload.totals.availableLiquidityUsdCents),
+    },
+  };
 };

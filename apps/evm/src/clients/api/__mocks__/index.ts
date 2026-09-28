@@ -293,12 +293,22 @@ export const useGetLiquidityHubHistory = vi.fn(() => ({
 
 export const getSpokePools = vi.fn(async () => ({
   spokePools: [],
+  totals: {
+    poolCount: 0,
+    totalBorrowCents: new BigNumber(0),
+    availableLiquidityCents: new BigNumber(0),
+  },
 }));
 
 export const useGetSpokePools = vi.fn(() => ({
   isLoading: false,
   data: {
     spokePools: [],
+    totals: {
+      poolCount: 0,
+      totalBorrowCents: new BigNumber(0),
+      availableLiquidityCents: new BigNumber(0),
+    },
   },
 }));
 

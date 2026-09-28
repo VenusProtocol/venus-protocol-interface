@@ -43,8 +43,15 @@ export interface ApiSpokePool {
   markets: ApiSpokeMarket[];
 }
 
+export interface ApiSpokeTotals {
+  poolCount: number;
+  totalBorrowsUsdCents: string;
+  availableLiquidityUsdCents: string;
+}
+
 export interface GetSpokePoolsResponse {
   result?: ApiSpokePool[];
+  totals: ApiSpokeTotals;
 }
 
 export interface ApiSpokePosition {

@@ -1,8 +1,8 @@
-import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
 import { useGetSpokePools } from 'clients/api';
 import { type CellProps, MultiSelect, Page, PageStatHeader, Spinner } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
@@ -25,6 +25,7 @@ const SpokePools: React.FC = () => {
     accountAddress,
   });
   const spokePools = getSpokePoolsData?.spokePools ?? [];
+  const totals = getSpokePoolsData?.totals;
 
   const {
     loanAssets: selectedLoanAssets,
@@ -44,41 +45,18 @@ const SpokePools: React.FC = () => {
     setSearchValue('');
   };
 
-  // Collateral in a spoke pool is not borrowable, so its cash is not available liquidity
-  const { totalBorrowCents, availableLiquidityCents } = spokePools.reduce(
-    (acc, spokePool) => {
-      const poolLoanAssets = spokePool.assets.filter(({ isBorrowable }) => isBorrowable);
-
-      return {
-        totalBorrowCents: acc.totalBorrowCents.plus(
-          poolLoanAssets.reduce(
-            (assetAcc, asset) => assetAcc.plus(asset.borrowBalanceCents),
-            new BigNumber(0),
-          ),
-        ),
-        availableLiquidityCents: acc.availableLiquidityCents.plus(
-          poolLoanAssets.reduce(
-            (assetAcc, asset) => assetAcc.plus(asset.liquidityCents),
-            new BigNumber(0),
-          ),
-        ),
-      };
-    },
-    { totalBorrowCents: new BigNumber(0), availableLiquidityCents: new BigNumber(0) },
-  );
-
   const cells: CellProps[] = [
     {
       label: t('spokePools.stats.totalBorrow'),
-      value: formatCentsToReadableValue({ value: totalBorrowCents }),
+      value: formatCentsToReadableValue({ value: totals?.totalBorrowCents }),
     },
     {
       label: t('spokePools.stats.availableLiquidity'),
-      value: formatCentsToReadableValue({ value: availableLiquidityCents }),
+      value: formatCentsToReadableValue({ value: totals?.availableLiquidityCents }),
     },
     {
       label: t('spokePools.stats.pools'),
-      value: spokePools.length,
+      value: totals?.poolCount ?? PLACEHOLDER_KEY,
     },
   ];
 
