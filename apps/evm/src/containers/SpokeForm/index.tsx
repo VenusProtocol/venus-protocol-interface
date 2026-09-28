@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Tabs } from 'components';
+import { NoticeWarning, Tabs } from 'components';
 import { TAB_PARAM_KEY, type Tab, type TabNavType } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useSearchParams } from 'react-router';
@@ -42,8 +42,12 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const [stateActiveTabId, setStateActiveTabId] = useState<SpokeFormTabId>(initialActiveTabId);
 
-  const collaterals = spokePool.assets.filter(({ isBorrowable }) => !isBorrowable);
-  const initialCollateral = preselectedCollateral ?? collaterals[0];
+  const poolCollaterals = spokePool.assets.filter(({ isBorrowable }) => !isBorrowable);
+  const collaterals = poolCollaterals.filter(({ isRestricted }) => !isRestricted);
+  const initialCollateral =
+    (preselectedCollateral?.isRestricted ? undefined : preselectedCollateral) ?? collaterals[0];
+
+  const restrictedNotice = <NoticeWarning description={t('assetAccessor.assetNotAvailable')} />;
 
   const tabParamValue = searchParams.get(TAB_PARAM_KEY);
   const activeTabId =
@@ -72,6 +76,14 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
   const handleSupplySuccess =
     asset && !collateralOnly ? () => setActiveTabId('loan') : onSubmitSuccess;
 
+  const restrictedCollateralTabs: Tab[] =
+    poolCollaterals.length > 0
+      ? [
+          { id: 'supply', title: t('spokeForm.supply.tabTitle'), content: restrictedNotice },
+          { id: 'withdraw', title: t('spokeForm.withdraw.tabTitle'), content: restrictedNotice },
+        ]
+      : [];
+
   const collateralTabs: Tab[] = initialCollateral
     ? [
         {
@@ -99,31 +111,39 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
           ),
         },
       ]
-    : [];
+    : restrictedCollateralTabs;
 
-  const loanTabs: Tab[] = asset
+  const restrictedLoanTabs: Tab[] = asset
     ? [
-        {
-          id: 'borrow',
-          title: t('spokeForm.borrow.tabTitle'),
-          content: (
-            <BorrowForm
-              spokePool={spokePool}
-              asset={asset}
-              onSupplyCollateralClick={() => setActiveTabId('collateral')}
-              onSubmitSuccess={onSubmitSuccess}
-            />
-          ),
-        },
-        {
-          id: 'repay',
-          title: t('spokeForm.repay.tabTitle'),
-          content: (
-            <RepayForm spokePool={spokePool} asset={asset} onSubmitSuccess={onSubmitSuccess} />
-          ),
-        },
+        { id: 'borrow', title: t('spokeForm.borrow.tabTitle'), content: restrictedNotice },
+        { id: 'repay', title: t('spokeForm.repay.tabTitle'), content: restrictedNotice },
       ]
     : [];
+
+  const loanTabs: Tab[] =
+    asset && !asset.isRestricted
+      ? [
+          {
+            id: 'borrow',
+            title: t('spokeForm.borrow.tabTitle'),
+            content: (
+              <BorrowForm
+                spokePool={spokePool}
+                asset={asset}
+                onSupplyCollateralClick={() => setActiveTabId('collateral')}
+                onSubmitSuccess={onSubmitSuccess}
+              />
+            ),
+          },
+          {
+            id: 'repay',
+            title: t('spokeForm.repay.tabTitle'),
+            content: (
+              <RepayForm spokePool={spokePool} asset={asset} onSubmitSuccess={onSubmitSuccess} />
+            ),
+          },
+        ]
+      : restrictedLoanTabs;
 
   const collateralTabsDom = (
     <Tabs

@@ -1,6 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 import type { Address } from 'viem';
 
+import { useGetIpLocation } from 'clients/api/queries/useGetIpLocation';
+import { applyCountryCodeToPools } from 'clients/api/queries/useGetPools/applyCountryCodeToPools';
+import { useGetPoolsQuery } from 'clients/api/queries/useGetPools/useGetPoolsQuery';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetTokens } from 'libs/tokens';
@@ -35,11 +39,40 @@ export const useGetSpokePools = (input?: UseGetSpokePoolsInput, options?: Partia
   const tokens = useGetTokens({ chainId });
   const isSpokeEnabled = useIsFeatureEnabled({ name: 'spoke' });
 
-  return useQuery({
+  const isEnabled = (options?.enabled === undefined || options?.enabled) && isSpokeEnabled;
+
+  const spokePoolsQuery = useQuery({
     queryKey: [FunctionKey.GET_SPOKE_POOLS, { chainId, ...input }],
     queryFn: () => getSpokePools({ chainId, tokens, publicClient, ...input }),
     refetchInterval,
     ...options,
-    enabled: (options?.enabled === undefined || options?.enabled) && isSpokeEnabled,
+    enabled: isEnabled,
   });
+
+  const { data: getPoolsData } = useGetPoolsQuery(
+    { accountAddress: input?.accountAddress },
+    { enabled: isEnabled },
+  );
+
+  const { data: getIpLocationData } = useGetIpLocation({ enabled: isEnabled });
+
+  const data = useMemo<GetSpokePoolsOutput | undefined>(() => {
+    if (!spokePoolsQuery.data) {
+      return undefined;
+    }
+
+    return {
+      ...spokePoolsQuery.data,
+      spokePools: applyCountryCodeToPools({
+        countryCode: getIpLocationData?.countryCode,
+        pools: spokePoolsQuery.data.spokePools,
+        tokenMetadataMapping: getPoolsData?.tokenMetadataMapping ?? {},
+      }),
+    };
+  }, [spokePoolsQuery.data, getIpLocationData?.countryCode, getPoolsData?.tokenMetadataMapping]);
+
+  return {
+    ...spokePoolsQuery,
+    data,
+  };
 };

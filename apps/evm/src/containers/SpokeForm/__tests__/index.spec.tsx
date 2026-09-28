@@ -67,4 +67,37 @@ describe('SpokeForm', () => {
 
     expect(screen.getByText(/before you can borrow/)).toBeInTheDocument();
   });
+
+  it('replaces the loan forms with a notice when the loan asset is restricted in the country', () => {
+    renderComponent(
+      <SpokeForm
+        spokePool={spokePool}
+        asset={{ ...activeLoanAsset, isRestricted: true }}
+        initialLoanTabId="repay"
+      />,
+    );
+
+    expect(screen.getByText(en.assetAccessor.assetNotAvailable)).toBeInTheDocument();
+    expect(document.querySelector('input[name="amountTokens"]')).toBeNull();
+  });
+
+  it('replaces the collateral forms with a notice when every collateral is restricted', () => {
+    const poolWithRestrictedCollaterals = {
+      ...spokePool,
+      assets: spokePool.assets.map(asset =>
+        asset.isBorrowable ? asset : { ...asset, isRestricted: true },
+      ),
+    };
+
+    renderComponent(
+      <SpokeForm
+        spokePool={poolWithRestrictedCollaterals}
+        asset={activeLoanAsset}
+        collateralOnly
+      />,
+    );
+
+    expect(screen.getByText(en.assetAccessor.assetNotAvailable)).toBeInTheDocument();
+    expect(document.querySelector('input[name="amountTokens"]')).toBeNull();
+  });
 });

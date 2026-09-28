@@ -93,6 +93,7 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
   const tokenBalances: OptionalTokenBalance[] = collaterals.filter(isSuppliable).map(asset => ({
     token: asset.vToken.underlyingToken,
     balanceTokens: asset.userWalletBalanceTokens,
+    isGated: asset.isGated,
   }));
 
   const handleChangeSelectedToken = (token: Token) => {
