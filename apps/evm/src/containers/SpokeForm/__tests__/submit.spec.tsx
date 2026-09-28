@@ -11,6 +11,7 @@ import {
   useSupplyToSpoke,
   useWithdrawFromSpoke,
 } from 'clients/api';
+import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 
 import { SpokeForm } from '..';
@@ -229,5 +230,46 @@ describe('SpokeForm submission', () => {
       poolName: pool.name,
       amountMantissa: new BigNumber(10).shiftedBy(collateral.vToken.underlyingToken.decimals),
     });
+  });
+
+  it('blocks supplying an inactive collateral', async () => {
+    const mockSupply = vi.fn();
+    (useSupplyToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockSupply,
+      isPending: false,
+    }));
+
+    const inactiveCollateral = {
+      ...collateral,
+      isInactive: true,
+      disabledTokenActions: [],
+      userWalletBalanceTokens: new BigNumber(1000),
+    };
+
+    const poolWithInactiveCollateral = {
+      ...pool,
+      assets: pool.assets.map(asset =>
+        asset.vToken.address === collateral.vToken.address ? inactiveCollateral : asset,
+      ),
+    };
+
+    const { getByText } = renderComponent(
+      <SpokeForm
+        spokePool={poolWithInactiveCollateral}
+        asset={loanAsset}
+        preselectedCollateral={inactiveCollateral}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="supply"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await enterAmount('10');
+
+    await waitFor(() => expect(getByText(en.spokeForm.error.supplyDisabled)).toBeInTheDocument());
+    expect(document.querySelector('button[type="submit"]')).toBeDisabled();
+    expect(mockSupply).not.toHaveBeenCalled();
   });
 });

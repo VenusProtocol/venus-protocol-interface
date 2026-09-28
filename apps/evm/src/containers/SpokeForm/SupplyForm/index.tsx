@@ -100,7 +100,7 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
     : undefined;
 
   const validateForm: UseFormValidationInput['validate'] = ({ formValues: { amountTokens } }) => {
-    if (selectedAsset.disabledTokenActions.includes('supply')) {
+    if (selectedAsset.isInactive || selectedAsset.disabledTokenActions.includes('supply')) {
       return { code: 'ACTION_DISABLED', message: t('spokeForm.error.supplyDisabled') };
     }
 
