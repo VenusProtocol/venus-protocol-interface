@@ -4,7 +4,12 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
-import { useBorrowFromSpoke, useRepayToSpoke, useWithdrawFromSpoke } from 'clients/api';
+import {
+  useBorrowFromSpoke,
+  useGetVTokenBalance,
+  useRepayToSpoke,
+  useWithdrawFromSpoke,
+} from 'clients/api';
 import { renderComponent } from 'testUtils/render';
 
 import { SpokeForm } from '..';
@@ -135,6 +140,53 @@ describe('SpokeForm submission', () => {
         poolName: pool.name,
         amountMantissa: new BigNumber(10).shiftedBy(collateral.vToken.underlyingToken.decimals),
         withdrawFullSupply: false,
+      }),
+    );
+  });
+
+  it('waits for the vToken balance before withdrawing the full supply', async () => {
+    const mockWithdraw = vi.fn();
+    (useWithdrawFromSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockWithdraw,
+      isPending: false,
+    }));
+
+    const vTokenBalanceMantissa = new BigNumber('100000000000');
+    (useGetVTokenBalance as Mock).mockImplementation(() => ({
+      data: undefined,
+      refetch: async () => ({ data: { balanceMantissa: vTokenBalanceMantissa } }),
+    }));
+
+    const poolWithoutDebt = {
+      ...pool,
+      userBorrowBalanceCents: new BigNumber(0),
+      assets: pool.assets.map(asset => ({
+        ...asset,
+        userBorrowBalanceTokens: new BigNumber(0),
+        userBorrowBalanceCents: new BigNumber(0),
+      })),
+    };
+
+    renderComponent(
+      <SpokeForm
+        spokePool={poolWithoutDebt}
+        asset={loanAsset}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="withdraw"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await enterAmount(collateral.userSupplyBalanceTokens.toFixed());
+    await submit();
+
+    await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
+    expect(mockWithdraw).toHaveBeenCalledWith(
+      expect.objectContaining({
+        withdrawFullSupply: true,
+        vTokenBalanceMantissa,
       }),
     );
   });

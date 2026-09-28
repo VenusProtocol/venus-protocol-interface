@@ -34,7 +34,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
   const { accountAddress } = useAccountAddress();
   const { mutateAsync: withdraw, isPending: isSubmitting } = useWithdrawFromSpoke();
 
-  const { data: getVTokenBalanceData } = useGetVTokenBalance(
+  const { data: getVTokenBalanceData, refetch: refetchVTokenBalance } = useGetVTokenBalance(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
       vTokenAddress: selectedAsset.vToken.address,
@@ -96,8 +96,13 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
     />
   );
 
-  const handleSubmit = (submittedFormValues: FormValues) => {
+  const handleSubmit = async (submittedFormValues: FormValues) => {
     const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+    const withdrawFullSupply = amountTokens.isEqualTo(selectedAsset.userSupplyBalanceTokens);
+
+    const vTokenBalanceMantissa =
+      getVTokenBalanceData?.balanceMantissa ??
+      (withdrawFullSupply ? (await refetchVTokenBalance()).data?.balanceMantissa : undefined);
 
     return withdraw({
       vToken: selectedAsset.vToken,
@@ -106,8 +111,8 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
         value: amountTokens,
         token: selectedAsset.vToken.underlyingToken,
       }),
-      withdrawFullSupply: amountTokens.isEqualTo(selectedAsset.userSupplyBalanceTokens),
-      vTokenBalanceMantissa: getVTokenBalanceData?.balanceMantissa,
+      withdrawFullSupply,
+      vTokenBalanceMantissa,
     });
   };
 
