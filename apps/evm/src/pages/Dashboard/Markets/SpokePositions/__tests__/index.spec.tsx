@@ -35,4 +35,19 @@ describe('SpokePositions', () => {
     expect(screen.getByText(en.spokeForm.loanTabTitle)).toBeInTheDocument();
     expect(screen.getByText(en.spokeForm.collateralTabTitle)).toBeInTheDocument();
   });
+
+  it('still lists a debt on a market that is not on the loan side', () => {
+    const misclassifiedPool = {
+      ...spokePool,
+      assets: spokePool.assets.map(asset =>
+        asset.vToken.underlyingToken.symbol === 'USDT' ? { ...asset, isBorrowable: false } : asset,
+      ),
+    };
+
+    renderComponent(<SpokePositions spokePool={misclassifiedPool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(screen.getAllByText('USDT').length).toBeGreaterThan(0);
+  });
 });
