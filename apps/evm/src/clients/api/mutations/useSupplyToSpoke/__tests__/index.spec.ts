@@ -59,6 +59,16 @@ describe('useSupplyToSpoke', () => {
     });
     expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
       queryKey: [
+        FunctionKey.GET_V_TOKEN_BALANCE,
+        {
+          chainId: ChainId.BSC_TESTNET,
+          accountAddress: fakeAccountAddress,
+          vTokenAddress: vToken.address,
+        },
+      ],
+    });
+    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+      queryKey: [
         FunctionKey.GET_TOKEN_ALLOWANCE,
         {
           chainId: ChainId.BSC_TESTNET,

@@ -69,6 +69,9 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
     }
   };
 
+  const handleSupplySuccess =
+    asset && !collateralOnly ? () => setActiveTabId('loan') : onSubmitSuccess;
+
   const collateralTabs: Tab[] = initialCollateral
     ? [
         {
@@ -79,7 +82,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
               spokePool={spokePool}
               collaterals={collaterals}
               initialCollateral={initialCollateral}
-              onSubmitSuccess={onSubmitSuccess}
+              onSubmitSuccess={handleSupplySuccess}
             />
           ),
         },

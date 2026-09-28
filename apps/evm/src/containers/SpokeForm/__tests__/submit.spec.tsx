@@ -272,4 +272,163 @@ describe('SpokeForm submission', () => {
     expect(document.querySelector('button[type="submit"]')).toBeDisabled();
     expect(mockSupply).not.toHaveBeenCalled();
   });
+
+  it('uses a freshly fetched vToken balance for a full withdrawal even when one is cached', async () => {
+    const mockWithdraw = vi.fn();
+    (useWithdrawFromSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockWithdraw,
+      isPending: false,
+    }));
+
+    const freshVTokenBalanceMantissa = new BigNumber('200000000000');
+    (useGetVTokenBalance as Mock).mockImplementation(() => ({
+      data: { balanceMantissa: new BigNumber('100000000000') },
+      refetch: async () => ({ data: { balanceMantissa: freshVTokenBalanceMantissa } }),
+    }));
+
+    const poolWithoutDebt = {
+      ...pool,
+      userBorrowBalanceCents: new BigNumber(0),
+      assets: pool.assets.map(asset => ({
+        ...asset,
+        userBorrowBalanceTokens: new BigNumber(0),
+        userBorrowBalanceCents: new BigNumber(0),
+      })),
+    };
+
+    renderComponent(
+      <SpokeForm
+        spokePool={poolWithoutDebt}
+        asset={loanAsset}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="withdraw"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await enterAmount(collateral.userSupplyBalanceTokens.toFixed());
+    await submit();
+
+    await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
+    expect(mockWithdraw).toHaveBeenCalledWith(
+      expect.objectContaining({
+        withdrawFullSupply: true,
+        vTokenBalanceMantissa: freshVTokenBalanceMantissa,
+      }),
+    );
+  });
+
+  it('moves on to the loan side after supplying collateral', async () => {
+    (useSupplyToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: vi.fn(),
+      isPending: false,
+    }));
+    const onSubmitSuccess = vi.fn();
+
+    const poolWithWalletBalance = {
+      ...pool,
+      assets: pool.assets.map(asset =>
+        asset.vToken.address === collateral.vToken.address
+          ? { ...asset, userWalletBalanceTokens: new BigNumber(1000) }
+          : asset,
+      ),
+    };
+
+    const { queryByText } = renderComponent(
+      <SpokeForm
+        spokePool={poolWithWalletBalance}
+        asset={loanAsset}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="supply"
+        onSubmitSuccess={onSubmitSuccess}
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(queryByText(en.spokeForm.repay.tabTitle)).not.toBeInTheDocument();
+
+    await enterAmount('10');
+    await submit();
+
+    await waitFor(() => expect(queryByText(en.spokeForm.repay.tabTitle)).toBeInTheDocument());
+    expect(onSubmitSuccess).not.toHaveBeenCalled();
+  });
+
+  it('closes a collateral-only form after supplying', async () => {
+    (useSupplyToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: vi.fn(),
+      isPending: false,
+    }));
+    const onSubmitSuccess = vi.fn();
+
+    const poolWithWalletBalance = {
+      ...pool,
+      assets: pool.assets.map(asset =>
+        asset.vToken.address === collateral.vToken.address
+          ? { ...asset, userWalletBalanceTokens: new BigNumber(1000) }
+          : asset,
+      ),
+    };
+
+    renderComponent(
+      <SpokeForm
+        spokePool={poolWithWalletBalance}
+        asset={loanAsset}
+        collateralOnly
+        onSubmitSuccess={onSubmitSuccess}
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await enterAmount('10');
+    await submit();
+
+    await waitFor(() => expect(onSubmitSuccess).toHaveBeenCalledTimes(1));
+  });
+
+  it('follows refreshed pool data for the selected collateral', async () => {
+    const withWalletBalance = (walletBalanceTokens: number) => ({
+      ...pool,
+      assets: pool.assets.map(asset =>
+        asset.vToken.address === collateral.vToken.address
+          ? { ...asset, userWalletBalanceTokens: new BigNumber(walletBalanceTokens) }
+          : asset,
+      ),
+    });
+
+    const { rerender, getByText } = renderComponent(
+      <SpokeForm
+        spokePool={withWalletBalance(1000)}
+        asset={loanAsset}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="supply"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    rerender(
+      <SpokeForm
+        spokePool={withWalletBalance(5)}
+        asset={loanAsset}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="supply"
+      />,
+    );
+
+    fireEvent.click(getByText(en.spokeForm.rightMaxButtonLabel));
+
+    await waitFor(() =>
+      expect(document.querySelector<HTMLInputElement>('input[name="amountTokens"]')!.value).toBe(
+        '5',
+      ),
+    );
+  });
 });

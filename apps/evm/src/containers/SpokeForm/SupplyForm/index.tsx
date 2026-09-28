@@ -9,7 +9,12 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool, Token } from 'types';
-import { clampToZero, convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
+import {
+  areAddressesEqual,
+  clampToZero,
+  convertTokensToMantissa,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
 import type { UseFormValidationInput } from '../Form/useForm/useFormValidation';
 
@@ -29,7 +34,13 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState(initialFormValues);
-  const [selectedAsset, setSelectedAsset] = useState(initialCollateral);
+  const [selectedTokenAddress, setSelectedTokenAddress] = useState(
+    initialCollateral.vToken.underlyingToken.address,
+  );
+  const selectedAsset =
+    collaterals.find(asset =>
+      areAddressesEqual(asset.vToken.underlyingToken.address, selectedTokenAddress),
+    ) ?? initialCollateral;
   const { mutateAsync: supply, isPending: isSubmitting } = useSupplyToSpoke();
   const { address: collateralGatewayAddress } = useGetContractAddress({
     name: 'CollateralGateway',
@@ -81,14 +92,8 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
     }));
 
   const handleChangeSelectedToken = (token: Token) => {
-    const newAsset = collaterals.find(
-      asset => asset.vToken.underlyingToken.address === token.address,
-    );
-
-    if (newAsset) {
-      setSelectedAsset(newAsset);
-      setFormValues(initialFormValues);
-    }
+    setSelectedTokenAddress(token.address);
+    setFormValues(initialFormValues);
   };
 
   const handleLimitClick = limitTokens.isGreaterThan(0)

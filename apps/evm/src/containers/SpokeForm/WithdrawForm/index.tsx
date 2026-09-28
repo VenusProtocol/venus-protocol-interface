@@ -9,6 +9,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool, Token } from 'types';
 import {
+  areAddressesEqual,
   calculateCollateralWithdrawLimits,
   convertTokensToMantissa,
   formatTokensToReadableValue,
@@ -30,11 +31,18 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState(initialFormValues);
-  const [selectedAsset, setSelectedAsset] = useState(initialCollateral);
+  const [selectedTokenAddress, setSelectedTokenAddress] = useState(
+    initialCollateral.vToken.underlyingToken.address,
+  );
   const { accountAddress } = useAccountAddress();
   const { mutateAsync: withdraw, isPending: isSubmitting } = useWithdrawFromSpoke();
 
-  const { data: getVTokenBalanceData, refetch: refetchVTokenBalance } = useGetVTokenBalance(
+  const selectedAsset =
+    collaterals.find(asset =>
+      areAddressesEqual(asset.vToken.underlyingToken.address, selectedTokenAddress),
+    ) ?? initialCollateral;
+
+  const { refetch: refetchVTokenBalance } = useGetVTokenBalance(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
       vTokenAddress: selectedAsset.vToken.address,
@@ -68,14 +76,8 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
   }));
 
   const handleChangeSelectedToken = (token: Token) => {
-    const newAsset = collaterals.find(
-      asset => asset.vToken.underlyingToken.address === token.address,
-    );
-
-    if (newAsset) {
-      setSelectedAsset(newAsset);
-      setFormValues(initialFormValues);
-    }
+    setSelectedTokenAddress(token.address);
+    setFormValues(initialFormValues);
   };
 
   const handleLimitClick = limitTokens.isGreaterThan(0)
@@ -100,9 +102,9 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
     const amountTokens = new BigNumber(submittedFormValues.amountTokens);
     const withdrawFullSupply = amountTokens.isEqualTo(selectedAsset.userSupplyBalanceTokens);
 
-    const vTokenBalanceMantissa =
-      getVTokenBalanceData?.balanceMantissa ??
-      (withdrawFullSupply ? (await refetchVTokenBalance()).data?.balanceMantissa : undefined);
+    const vTokenBalanceMantissa = withdrawFullSupply
+      ? (await refetchVTokenBalance()).data?.balanceMantissa
+      : undefined;
 
     return withdraw({
       vToken: selectedAsset.vToken,

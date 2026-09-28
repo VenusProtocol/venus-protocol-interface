@@ -87,6 +87,17 @@ export const useSupplyToSpoke = (options?: Partial<Options>) => {
 
       queryClient.invalidateQueries({
         queryKey: [
+          FunctionKey.GET_V_TOKEN_BALANCE,
+          {
+            chainId,
+            accountAddress,
+            vTokenAddress: input.vToken.address,
+          },
+        ],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [
           FunctionKey.GET_TOKEN_ALLOWANCE,
           {
             chainId,
