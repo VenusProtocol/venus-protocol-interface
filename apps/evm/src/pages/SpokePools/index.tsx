@@ -73,9 +73,9 @@ const SpokePools: React.FC = () => {
       const loanAssets = visibleAssets.filter(asset => asset.isBorrowable);
       const collaterals = visibleAssets.filter(asset => !asset.isBorrowable);
 
-      return { spokePool, visibleAssets, loanAssets, collaterals };
+      return { spokePool, loanAssets, collaterals };
     })
-    .filter(({ spokePool, visibleAssets, loanAssets, collaterals }) => {
+    .filter(({ spokePool, loanAssets, collaterals }) => {
       if (selectedPools.length > 0 && !selectedPools.includes(spokePool.name)) {
         return false;
       }
@@ -91,11 +91,11 @@ const SpokePools: React.FC = () => {
 
       if (
         userChainSettings.showUserAssetsOnly &&
-        !visibleAssets.some(
+        !spokePool.assets.some(
           asset =>
-            asset.userSupplyBalanceTokens.isGreaterThan(0) ||
-            asset.userBorrowBalanceTokens.isGreaterThan(0) ||
-            asset.userWalletBalanceTokens.isGreaterThan(0),
+            !asset.isBorrowable &&
+            (asset.userSupplyBalanceTokens.isGreaterThan(0) ||
+              asset.userWalletBalanceTokens.isGreaterThan(0)),
         )
       ) {
         return false;

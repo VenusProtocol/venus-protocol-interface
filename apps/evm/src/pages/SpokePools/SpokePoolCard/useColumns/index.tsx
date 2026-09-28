@@ -19,9 +19,10 @@ import {
 
 export interface UseColumnsInput {
   collaterals: SpokeAsset[];
+  onCollateralClick: (collateral: SpokeAsset) => void;
 }
 
-export const useColumns = ({ collaterals }: UseColumnsInput) => {
+export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) => {
   const { t, Trans } = useTranslation();
 
   const columns: TableColumn<SpokeAsset>[] = [
@@ -131,7 +132,9 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
       ),
       selectOptionLabel: t('spokePools.table.columns.collateral.selectOptionLabel'),
       align: 'right',
-      renderCell: () => <SpokeCollateralGroup collaterals={collaterals} />,
+      renderCell: () => (
+        <SpokeCollateralGroup collaterals={collaterals} onRowClick={onCollateralClick} />
+      ),
     },
     {
       key: 'totalBorrow',

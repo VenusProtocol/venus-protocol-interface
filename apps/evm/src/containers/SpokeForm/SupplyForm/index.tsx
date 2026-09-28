@@ -34,8 +34,14 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState(initialFormValues);
+  const isSuppliable = (asset: SpokeAsset) =>
+    !asset.isInactive && !asset.disabledTokenActions.includes('supply');
+
   const [selectedTokenAddress, setSelectedTokenAddress] = useState(
-    initialCollateral.vToken.underlyingToken.address,
+    (isSuppliable(initialCollateral)
+      ? initialCollateral
+      : collaterals.find(isSuppliable) ?? initialCollateral
+    ).vToken.underlyingToken.address,
   );
   const selectedAsset =
     collaterals.find(asset =>
@@ -84,12 +90,10 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
     },
   ];
 
-  const tokenBalances: OptionalTokenBalance[] = collaterals
-    .filter(asset => !asset.isInactive && !asset.disabledTokenActions.includes('supply'))
-    .map(asset => ({
-      token: asset.vToken.underlyingToken,
-      balanceTokens: asset.userWalletBalanceTokens,
-    }));
+  const tokenBalances: OptionalTokenBalance[] = collaterals.filter(isSuppliable).map(asset => ({
+    token: asset.vToken.underlyingToken,
+    balanceTokens: asset.userWalletBalanceTokens,
+  }));
 
   const handleChangeSelectedToken = (token: Token) => {
     setSelectedTokenAddress(token.address);

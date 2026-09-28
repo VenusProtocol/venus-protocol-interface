@@ -22,7 +22,8 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
-  const columns = useColumns({ collaterals });
+  const [selectedCollateral, setSelectedCollateral] = useState<SpokeAsset>();
+  const columns = useColumns({ collaterals, onCollateralClick: setSelectedCollateral });
   const hasUserPosition =
     !!spokePool.userSupplyBalanceCents?.isGreaterThan(0) ||
     !!spokePool.userBorrowBalanceCents?.isGreaterThan(0);
@@ -83,6 +84,18 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
             selectedAsset.disabledTokenActions.includes('borrow') ? 'repay' : 'borrow'
           }
           handleClose={() => setSelectedAsset(undefined)}
+        />
+      )}
+
+      {selectedCollateral && (
+        <SpokeFormModal
+          title={t('spokeForm.collateralModalTitle', { poolName: spokePool.name })}
+          spokePool={spokePool}
+          asset={loanAssets[0]}
+          collateralOnly
+          initialActiveTabId="collateral"
+          preselectedCollateral={selectedCollateral}
+          handleClose={() => setSelectedCollateral(undefined)}
         />
       )}
     </>

@@ -4,6 +4,7 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
+import { xvs } from '__mocks__/models/tokens';
 import {
   useBorrowFromSpoke,
   useGetVTokenBalance,
@@ -429,6 +430,63 @@ describe('SpokeForm submission', () => {
       expect(document.querySelector<HTMLInputElement>('input[name="amountTokens"]')!.value).toBe(
         '5',
       ),
+    );
+  });
+
+  it('preselects the first collateral that can be supplied', async () => {
+    const mockSupply = vi.fn();
+    (useSupplyToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockSupply,
+      isPending: false,
+    }));
+
+    const pausedCollateral = {
+      ...collateral,
+      disabledTokenActions: ['supply' as const],
+      userWalletBalanceTokens: new BigNumber(1000),
+    };
+    const suppliableCollateral = {
+      ...collateral,
+      disabledTokenActions: [],
+      userWalletBalanceTokens: new BigNumber(1000),
+      vToken: {
+        ...collateral.vToken,
+        address: '0x0000000000000000000000000000000000000002' as const,
+        underlyingToken: xvs,
+      },
+    };
+
+    const poolWithPausedFirstCollateral = {
+      ...pool,
+      assets: [
+        ...pool.assets.map(asset =>
+          asset.vToken.address === collateral.vToken.address ? pausedCollateral : asset,
+        ),
+        suppliableCollateral,
+      ],
+    };
+
+    const { queryByText } = renderComponent(
+      <SpokeForm
+        spokePool={poolWithPausedFirstCollateral}
+        asset={loanAsset}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="supply"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await enterAmount('10');
+
+    expect(queryByText(en.spokeForm.error.supplyDisabled)).not.toBeInTheDocument();
+
+    await submit();
+
+    await waitFor(() => expect(mockSupply).toHaveBeenCalledTimes(1));
+    expect(mockSupply).toHaveBeenCalledWith(
+      expect.objectContaining({ vToken: suppliableCollateral.vToken }),
     );
   });
 });
