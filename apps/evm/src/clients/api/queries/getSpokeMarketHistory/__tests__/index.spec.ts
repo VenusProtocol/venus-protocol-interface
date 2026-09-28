@@ -16,12 +16,15 @@ describe('getSpokeMarketHistory', () => {
   });
 
   it('converts seconds, decimals and cent strings into chart points', async () => {
-    const { marketSnapshots } = await getSpokeMarketHistory({
+    const { marketSnapshots, averageBorrowApyPercentage } = await getSpokeMarketHistory({
       chainId: ChainId.BSC_TESTNET,
       vTokenAddress: fakeVTokenAddress,
       period: '1w',
     });
 
+    expect(averageBorrowApyPercentage).toBe(
+      spokeMarketHistoryResponse.averageBorrowApyDecimal * 100,
+    );
     expect(marketSnapshots[1]).toEqual({
       blockTimestamp: 1790154764000,
       borrowApyPercentage: 4.55,

@@ -20,12 +20,13 @@ export interface ApiSpokeMarketHistoryPoint {
 }
 
 export interface GetSpokeMarketHistoryResponse {
-  averageBorrowApyDecimal?: number;
+  averageBorrowApyDecimal: number;
   result?: ApiSpokeMarketHistoryPoint[];
 }
 
 export interface GetSpokeMarketHistoryOutput {
   marketSnapshots: MarketHistoryDataPoint[];
+  averageBorrowApyPercentage: number;
 }
 
 export const getSpokeMarketHistory = async ({
@@ -58,5 +59,6 @@ export const getSpokeMarketHistory = async ({
 
   return {
     marketSnapshots: formatApiSpokeMarketHistory(payload),
+    averageBorrowApyPercentage: payload.averageBorrowApyDecimal * 100,
   };
 };

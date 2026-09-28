@@ -314,12 +314,14 @@ export const useGetSpokePools = vi.fn(() => ({
 
 export const getSpokeMarketHistory = vi.fn(async () => ({
   marketSnapshots: [],
+  averageBorrowApyPercentage: 0,
 }));
 
 export const useGetSpokeMarketHistory = vi.fn(() => ({
   isLoading: false,
   data: {
     marketSnapshots: [],
+    averageBorrowApyPercentage: 0,
   },
 }));
 

@@ -66,6 +66,7 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
   return (
     <MarketHistoryCard
       title={t('spokeMarket.borrowInfo.title')}
+      averageApyPercentage={getSpokeMarketHistoryData?.averageBorrowApyPercentage}
       cells={[
         {
           label: t('spokeMarket.borrowInfo.currentApy'),

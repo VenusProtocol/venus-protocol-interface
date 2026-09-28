@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 import type { ChainId, SpokeAsset, SpokePool, Token, TokenBalance } from 'types';
 import { addUserBorrowLimitShares, areAddressesEqual, calculateUserPoolValues } from 'utilities';
 
@@ -45,6 +47,10 @@ export const formatToSpokePool = ({
 
   const spokePool: SpokePool = {
     ...userPoolValues,
+    ...(userAccountPool && {
+      userSupplyBalanceCents: new BigNumber(userAccountPool.totalSupplyUsdCents),
+      userBorrowBalanceCents: new BigNumber(userAccountPool.totalBorrowUsdCents),
+    }),
     comptrollerAddress: apiPool.address,
     name: apiPool.name ?? '',
     description: apiPool.description ?? '',
