@@ -157,6 +157,22 @@ describe('getSpokePools', () => {
     expect(spokePools[0].isUserDataUnavailable).toBe(false);
   });
 
+  it('requests every pool in one page instead of the default page size', async () => {
+    mockResponses({ positions: spokePositionsResponse });
+
+    await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: fakePublicClient,
+    });
+
+    expect(restService).toHaveBeenCalledWith({
+      endpoint: '/spoke/pools',
+      method: 'GET',
+      params: { chainId: ChainId.BSC_TESTNET, limit: 500 },
+    });
+  });
+
   it('skips markets whose underlying token is unknown', async () => {
     mockResponses({ positions: spokePositionsResponse });
 

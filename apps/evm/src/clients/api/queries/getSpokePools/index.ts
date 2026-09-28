@@ -12,6 +12,8 @@ import type { GetSpokePoolsResponse } from './types';
 
 export * from './types';
 
+const MAX_POOLS_LIMIT = 500;
+
 export interface GetSpokePoolsInput {
   chainId: ChainId;
   tokens: Token[];
@@ -41,6 +43,7 @@ export const getSpokePools = async ({
     method: 'GET',
     params: {
       chainId,
+      limit: MAX_POOLS_LIMIT,
     },
   });
 

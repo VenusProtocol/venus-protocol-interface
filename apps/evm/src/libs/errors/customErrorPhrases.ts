@@ -3,6 +3,8 @@ import { t } from 'libs/translations';
 export const customErrorPhrases: Record<string, string> = {
   ActionPaused: t('contractErrors.actionPaused'),
   InsufficientLiquidity: t('contractErrors.insufficientLiquidity'),
+  BorrowCashNotAvailable: t('contractErrors.insufficientLiquidity'),
+  RedeemTransferOutNotPossible: t('contractErrors.insufficientLiquidity'),
   InsufficientCollateral: t('contractErrors.insufficientCollateral'),
   SupplyNotAllowed: t('contractErrors.supplyNotAllowed'),
   SupplyCapExceeded: t('contractErrors.supplyCapExceeded'),
