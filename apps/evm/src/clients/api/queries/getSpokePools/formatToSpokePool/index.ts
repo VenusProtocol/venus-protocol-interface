@@ -11,6 +11,7 @@ export interface FormatToSpokePoolInput {
   chainId: ChainId;
   tokens: Token[];
   isUserConnected: boolean;
+  isUserDataUnavailable: boolean;
   userAccountPool?: ApiSpokeAccountPool;
   userTokenBalances: TokenBalance[];
 }
@@ -20,6 +21,7 @@ export const formatToSpokePool = ({
   chainId,
   tokens,
   isUserConnected,
+  isUserDataUnavailable,
   userAccountPool,
   userTokenBalances,
 }: FormatToSpokePoolInput): SpokePool => {
@@ -54,6 +56,7 @@ export const formatToSpokePool = ({
     comptrollerAddress: apiPool.address,
     name: apiPool.name ?? '',
     description: apiPool.description ?? '',
+    isUserDataUnavailable,
     isIsolated: true,
     eModeGroups: [],
     assets: assetsWithShares,

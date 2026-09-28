@@ -645,6 +645,7 @@
     "noTargetsKey": "Dosyada hedef listesi yok",
     "noTypeKey": "Dosyada teklifin türü belirtilmemiş",
     "proposalNotFound": "Teklif bulunamadı",
+    "serviceIssue": "Hizmet geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
     "somethingWentWrong": "Bir şeyler ters gitti",
     "somethingWentWrongRetrievingTransactions": "İşlemleri alırken bir sorun oluştu",
     "somethingWentWrongRetrievingVoterAccounts": "Oy veren hesaplar alınırken bir sorun oluştu",

@@ -18,6 +18,7 @@ export const spokePools: SpokePool[] = apiPools.map(apiPool =>
     chainId: ChainId.BSC_TESTNET,
     tokens: [usdc, usdt],
     isUserConnected: true,
+    isUserDataUnavailable: false,
     userAccountPool: apiAccountPools.find(accountPool =>
       areAddressesEqual(accountPool.comptrollerAddress, apiPool.address),
     ),

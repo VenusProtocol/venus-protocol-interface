@@ -644,6 +644,7 @@
     "noTargetsKey": "ไฟล์ไม่มีรายการเป้าหมาย",
     "noTypeKey": "ไฟล์ไม่ได้ระบุประเภทของข้อเสนอ",
     "proposalNotFound": "ไม่พบข้อเสนอ",
+    "serviceIssue": "บริการไม่พร้อมใช้งานชั่วคราว โปรดลองอีกครั้งในภายหลัง",
     "somethingWentWrong": "เกิดข้อผิดพลาดบางอย่าง",
     "somethingWentWrongRetrievingTransactions": "เกิดข้อผิดพลาดในการดึงธุรกรรม",
     "somethingWentWrongRetrievingVoterAccounts": "เกิดข้อผิดพลาดในการดึงบัญชีผู้โหวต",

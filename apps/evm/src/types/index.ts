@@ -277,6 +277,7 @@ export interface SpokeAsset extends Asset {
 
 export interface SpokePool extends Omit<Pool, 'assets'> {
   description: string;
+  isUserDataUnavailable: boolean;
   assets: SpokeAsset[];
 }
 

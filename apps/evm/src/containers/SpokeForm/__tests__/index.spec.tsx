@@ -100,4 +100,17 @@ describe('SpokeForm', () => {
     expect(screen.getByText(en.assetAccessor.assetNotAvailable)).toBeInTheDocument();
     expect(document.querySelector('input[name="amountTokens"]')).toBeNull();
   });
+
+  it('disables the form and hides the zero-collateral notice when user data is unavailable', () => {
+    renderComponent(
+      <SpokeForm
+        spokePool={{ ...poolWithoutCollateral, isUserDataUnavailable: true }}
+        asset={activeLoanAsset}
+      />,
+      { accountAddress: fakeAccountAddress },
+    );
+
+    expect(document.querySelector('input[name="amountTokens"]')).toBeDisabled();
+    expect(screen.queryByText(/before you can borrow/)).not.toBeInTheDocument();
+  });
 });

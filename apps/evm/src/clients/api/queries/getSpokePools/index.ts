@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { VError } from 'libs/errors';
+import { VError, logError } from 'libs/errors';
 import type { ChainId, SpokePool, Token } from 'types';
 import { areAddressesEqual, restService } from 'utilities';
 import type { Address, PublicClient } from 'viem';
@@ -72,20 +72,27 @@ export const getSpokePools = async ({
 
   const [userAccountPools, userTokenBalances] = accountAddress
     ? await Promise.all([
-        getSpokeAccountPools({ chainId, accountAddress }),
+        getSpokeAccountPools({ chainId, accountAddress }).catch(error => {
+          logError(error);
+
+          return undefined;
+        }),
         getTokenBalances({ publicClient, accountAddress, tokens: underlyingTokens }).then(
           ({ tokenBalances }) => tokenBalances,
         ),
       ])
     : [[], []];
 
+  const isUserDataUnavailable = !!accountAddress && !userAccountPools;
+
   const spokePools = apiPools.map(apiPool =>
     formatToSpokePool({
       apiPool,
       chainId,
       tokens,
-      isUserConnected: !!accountAddress,
-      userAccountPool: userAccountPools.find(accountPool =>
+      isUserConnected: !!accountAddress && !isUserDataUnavailable,
+      isUserDataUnavailable,
+      userAccountPool: userAccountPools?.find(accountPool =>
         areAddressesEqual(accountPool.comptrollerAddress, apiPool.address),
       ),
       userTokenBalances,

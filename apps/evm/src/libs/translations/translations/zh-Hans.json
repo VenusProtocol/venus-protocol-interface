@@ -644,6 +644,7 @@
     "noTargetsKey": "文件中没有目标列表",
     "noTypeKey": "文件中未指明提案类型",
     "proposalNotFound": "未找到提案",
+    "serviceIssue": "服务暂时不可用，请稍后再试。",
     "somethingWentWrong": "出了点问题",
     "somethingWentWrongRetrievingTransactions": "获取交易时出错",
     "somethingWentWrongRetrievingVoterAccounts": "获取投票账户时出错",

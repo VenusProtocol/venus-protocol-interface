@@ -129,17 +129,32 @@ describe('getSpokePools', () => {
     });
   });
 
-  it('throws when positions are unavailable', async () => {
+  it('keeps the pools and flags the user data as unavailable when positions fail', async () => {
     mockResponses({ positions: { error: 'No snapshot available' } });
 
-    await expect(
-      getSpokePools({
-        chainId: ChainId.BSC_TESTNET,
-        tokens: [usdc, usdt],
-        publicClient: fakePublicClient,
-        accountAddress: fakeAccountAddress,
-      }),
-    ).rejects.toThrow('somethingWentWrong');
+    const { spokePools } = await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: fakePublicClient,
+      accountAddress: fakeAccountAddress,
+    });
+
+    const [spokePool] = spokePools;
+
+    expect(spokePool.isUserDataUnavailable).toBe(true);
+    expect(spokePool.assets.every(asset => asset.userSupplyBalanceTokens.isEqualTo(0))).toBe(true);
+  });
+
+  it('does not flag the user data as unavailable when no account is passed', async () => {
+    mockResponses({ positions: { error: 'No snapshot available' } });
+
+    const { spokePools } = await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: fakePublicClient,
+    });
+
+    expect(spokePools[0].isUserDataUnavailable).toBe(false);
   });
 
   it('skips markets whose underlying token is unknown', async () => {

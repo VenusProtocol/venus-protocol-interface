@@ -113,7 +113,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
       showDailyBorrowInterest
       validateForm={validateForm}
       belowAmountInput={
-        !accountAddress || hasCollateralSupplied ? undefined : (
+        !accountAddress || spokePool.isUserDataUnavailable || hasCollateralSupplied ? undefined : (
           <ZeroCollateralNotice
             tokenSymbol={asset.vToken.underlyingToken.symbol}
             onSupplyClick={onSupplyCollateralClick}
