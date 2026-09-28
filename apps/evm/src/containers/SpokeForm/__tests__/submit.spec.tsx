@@ -8,6 +8,7 @@ import {
   useBorrowFromSpoke,
   useGetVTokenBalance,
   useRepayToSpoke,
+  useSupplyToSpoke,
   useWithdrawFromSpoke,
 } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
@@ -189,5 +190,44 @@ describe('SpokeForm submission', () => {
         vTokenBalanceMantissa,
       }),
     );
+  });
+
+  it('supplies the entered amount of the selected collateral', async () => {
+    const mockSupply = vi.fn();
+    (useSupplyToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockSupply,
+      isPending: false,
+    }));
+
+    const poolWithWalletBalance = {
+      ...pool,
+      assets: pool.assets.map(asset =>
+        asset.vToken.address === collateral.vToken.address
+          ? { ...asset, userWalletBalanceTokens: new BigNumber(1000) }
+          : asset,
+      ),
+    };
+
+    renderComponent(
+      <SpokeForm
+        spokePool={poolWithWalletBalance}
+        asset={loanAsset}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="supply"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await enterAmount('10');
+    await submit();
+
+    await waitFor(() => expect(mockSupply).toHaveBeenCalledTimes(1));
+    expect(mockSupply).toHaveBeenCalledWith({
+      vToken: collateral.vToken,
+      poolName: pool.name,
+      amountMantissa: new BigNumber(10).shiftedBy(collateral.vToken.underlyingToken.decimals),
+    });
   });
 });

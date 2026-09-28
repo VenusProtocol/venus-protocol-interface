@@ -121,6 +121,7 @@ import type { Address } from 'viem';
 import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvider.json';
 import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
+import collateralGatewayAbi from './externalAbis/CollateralGateway.json';
 import erc20Abi from './externalAbis/Erc20.json';
 import liquidityHubAbi from './externalAbis/LiquidityHub.json';
 import liquidityHubMigratorAbi from './externalAbis/LiquidityHubMigrator.json';
@@ -739,6 +740,13 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_MAINNET]: liquidityHubBscMainnetDeployments.addresses.Migrator as Address,
       [ChainId.BSC_TESTNET]: liquidityHubBscTestnetDeployments.addresses.Migrator as Address,
+    },
+  },
+  {
+    name: 'CollateralGateway',
+    abi: collateralGatewayAbi as Abi,
+    address: {
+      [ChainId.BSC_TESTNET]: '0xbB3304B6a1eB1d48E1d2EE78eadDadD4024DF358', // TODO: get from venus-periphery package (VPD-2072)
     },
   },
   // Generic Contracts

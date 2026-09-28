@@ -29,6 +29,7 @@ export * from './mutations/useSwapTokens';
 export * from './mutations/useWithdraw';
 export * from './mutations/useSupplyToLiquidityHub';
 export * from './mutations/useWithdrawFromLiquidityHub';
+export * from './mutations/useSupplyToSpoke';
 export * from './mutations/useBorrowFromSpoke';
 export * from './mutations/useRepayToSpoke';
 export * from './mutations/useWithdrawFromSpoke';

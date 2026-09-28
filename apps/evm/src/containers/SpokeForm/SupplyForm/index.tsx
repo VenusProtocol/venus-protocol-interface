@@ -1,12 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
+import { useSupplyToSpoke } from 'clients/api';
 import { AvailableBalance } from 'components';
 import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
-import { VError } from 'libs/errors';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useTranslation } from 'libs/translations';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool, Token } from 'types';
-import { clampToZero, formatTokensToReadableValue } from 'utilities';
+import { clampToZero, convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
 
 export interface SupplyFormProps {
@@ -25,6 +26,10 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState(initialFormValues);
   const [selectedAsset, setSelectedAsset] = useState(initialCollateral);
+  const { mutateAsync: supply, isPending: isSubmitting } = useSupplyToSpoke();
+  const { address: collateralGatewayAddress } = useGetContractAddress({
+    name: 'CollateralGateway',
+  });
 
   const { decimals } = selectedAsset.vToken.underlyingToken;
 
@@ -92,17 +97,21 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
     />
   );
 
-  // Supply approves the CollateralGateway rather than the market, so the approval step waits for
-  // that contract's address in VPD-2072 along with the transaction itself
-  const handleSubmit = async (_submittedFormValues: FormValues) => {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-  };
+  const handleSubmit = (submittedFormValues: FormValues) =>
+    supply({
+      vToken: selectedAsset.vToken,
+      poolName: spokePool.name,
+      amountMantissa: convertTokensToMantissa({
+        value: new BigNumber(submittedFormValues.amountTokens),
+        token: selectedAsset.vToken.underlyingToken,
+      }),
+    });
 
   return (
     <Form
       spokePool={spokePool}
       token={selectedAsset.vToken.underlyingToken}
-      isSubmitting={false}
+      isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       onSubmitSuccess={onSubmitSuccess}
       balanceMutations={balanceMutations}
@@ -114,6 +123,13 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
       tokenBalances={tokenBalances}
       onChangeSelectedToken={handleChangeSelectedToken}
       validateForm={validateForm}
+      approval={
+        collateralGatewayAddress && {
+          type: 'token',
+          token: selectedAsset.vToken.underlyingToken,
+          spenderAddress: collateralGatewayAddress,
+        }
+      }
     />
   );
 };

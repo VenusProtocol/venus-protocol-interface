@@ -1139,6 +1139,13 @@ export const useWithdrawFromLiquidityHub = vi.fn((options?: MutationObserverOpti
   }),
 );
 
+export const useSupplyToSpoke = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
 export const useBorrowFromSpoke = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),
