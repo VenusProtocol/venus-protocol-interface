@@ -93,9 +93,9 @@ const SpokePools: React.FC = () => {
         userChainSettings.showUserAssetsOnly &&
         !spokePool.assets.some(
           asset =>
-            !asset.isBorrowable &&
-            (asset.userSupplyBalanceTokens.isGreaterThan(0) ||
-              asset.userWalletBalanceTokens.isGreaterThan(0)),
+            asset.userSupplyBalanceTokens.isGreaterThan(0) ||
+            asset.userBorrowBalanceTokens.isGreaterThan(0) ||
+            (!asset.isBorrowable && asset.userWalletBalanceTokens.isGreaterThan(0)),
         )
       ) {
         return false;

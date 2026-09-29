@@ -117,10 +117,14 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
         ))}
       </div>
 
-      <CellGroup
-        cells={cells}
-        className={cn('hidden xl:flex xl:bg-transparent xl:p-0', className)}
-      />
+      <div className={cn('hidden xl:flex xl:items-center xl:justify-between', className)}>
+        <CellGroup
+          cells={cells.slice(0, cells.length - 1)}
+          className="w-full xl:bg-transparent xl:p-0"
+        />
+
+        <div className="shrink-0 min-w-96">{cells[cells.length - 1].value}</div>
+      </div>
     </>
   );
 };

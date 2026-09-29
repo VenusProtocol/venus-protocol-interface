@@ -71,6 +71,25 @@ describe('SpokePools', () => {
     expect(screen.getByText(spokePool.name)).toBeInTheDocument();
   });
 
+  it('keeps a pool where the user only has a debt when showing their assets only', () => {
+    showUserAssetsOnly();
+    mockSpokePools([
+      {
+        ...spokePool,
+        assets: spokePool.assets.map(asset => ({
+          ...asset,
+          userSupplyBalanceTokens: new BigNumber(0),
+          userWalletBalanceTokens: new BigNumber(0),
+          userBorrowBalanceTokens: new BigNumber(asset.isBorrowable ? 10 : 0),
+        })),
+      },
+    ]);
+
+    renderComponent(<SpokePools />, { accountAddress: fakeAccountAddress });
+
+    expect(screen.getByText(spokePool.name)).toBeInTheDocument();
+  });
+
   it('opens the collateral modal when clicking a collateral in the popover', async () => {
     (useUserChainSettings as Mock).mockImplementation(() => [defaultUserChainSettings, vi.fn()]);
     const secondCollateral = {
