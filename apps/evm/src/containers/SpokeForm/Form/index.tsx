@@ -71,7 +71,7 @@ export const Form: React.FC<FormProps> = ({
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
 
-  const isUserConnected = !!accountAddress;
+  const isUserConnected = !!accountAddress && !spokePool.isUserDataUnavailable;
 
   const { data: getSimulatedPoolData, isLoading: isGetSimulatedPoolLoading } =
     useSimulatePoolMutations({

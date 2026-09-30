@@ -1,0 +1,102 @@
+{
+  "chainId": "97",
+  "page": 1,
+  "limit": 50,
+  "blockNumber": "132684088",
+  "blockTimestamp": 1790154764,
+  "total": 1,
+  "totals": {
+    "poolCount": 1,
+    "totalBorrowsUsdCents": "0",
+    "availableLiquidityUsdCents": "1500000"
+  },
+  "result": [
+    {
+      "address": "0x11960c84d6c4F2a978a12372721C3A6A88C78f4c",
+      "chainId": "97",
+      "name": "Hub-funded spoke",
+      "description": "Borrow against hub-funded liquidity.",
+      "category": null,
+      "markets": [
+        {
+          "address": "0xD05514217FD359659aE7da7740e79C11947eBB32",
+          "symbol": "vUSDC_HubSpoke",
+          "name": "Venus USDC (Hub-funded spoke)",
+          "underlyingAddress": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+          "vTokenDecimals": 8,
+          "isListed": true,
+          "side": "collateral",
+          "suppliable": true,
+          "hubSupplied": null,
+          "supplyAllowlistEnabled": false,
+          "underlyingPriceMantissa": "1000000000000000000000000000000",
+          "exchangeRateMantissa": "10000000000000000",
+          "totalSupplyMantissa": "1000000000000",
+          "totalBorrowsMantissa": "0",
+          "totalReservesMantissa": "0",
+          "cashMantissa": "10000000000",
+          "totalSupplyUsdCents": "1000000",
+          "totalBorrowsUsdCents": "0",
+          "supplyRatePerBlockMantissa": "0",
+          "borrowRatePerBlockMantissa": "0",
+          "supplyApyDecimal": 0,
+          "borrowApyDecimal": 0,
+          "collateralFactorMantissa": "800000000000000000",
+          "reserveFactorMantissa": "100000000000000000",
+          "liquidationThresholdMantissa": "880000000000000000",
+          "liquidationIncentiveMantissa": "1100000000000000000",
+          "supplyCapsMantissa": "1000000000000",
+          "borrowCapsMantissa": "0",
+          "pausedActionsBitmap": 0
+        },
+        {
+          "address": "0xC88bAF0bA49a98F15A00182752f6d10bd3932F6a",
+          "symbol": "vUSDT_HubSpoke",
+          "name": "Venus USDT (Hub-funded spoke)",
+          "underlyingAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+          "vTokenDecimals": 8,
+          "isListed": true,
+          "side": "liquidity",
+          "suppliable": false,
+          "hubSupplied": null,
+          "supplyAllowlistEnabled": true,
+          "underlyingPriceMantissa": "1000000000000000000000000000000",
+          "exchangeRateMantissa": "10000000000000000",
+          "totalSupplyMantissa": "1000000000000",
+          "totalBorrowsMantissa": "2000000000",
+          "totalReservesMantissa": "0",
+          "cashMantissa": "10000000000",
+          "totalSupplyUsdCents": "500000",
+          "totalBorrowsUsdCents": "200000",
+          "supplyRatePerBlockMantissa": "0",
+          "borrowRatePerBlockMantissa": "0",
+          "supplyApyDecimal": 0.031,
+          "borrowApyDecimal": 0.0455,
+          "collateralFactorMantissa": "800000000000000000",
+          "reserveFactorMantissa": "100000000000000000",
+          "liquidationThresholdMantissa": "880000000000000000",
+          "liquidationIncentiveMantissa": "1100000000000000000",
+          "supplyCapsMantissa": "1000000000000",
+          "borrowCapsMantissa": "400000000000",
+          "pausedActionsBitmap": 4
+        }
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+      "symbol": "USDC",
+      "name": "USDC",
+      "decimals": 6,
+      "priceMantissa": "1000000000000000000000000000000"
+    },
+    {
+      "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+      "symbol": "USDT",
+      "name": "USDT",
+      "decimals": 6,
+      "priceMantissa": "500000000000000000000000000000"
+    }
+  ]
+}

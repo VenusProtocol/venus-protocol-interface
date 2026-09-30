@@ -4,6 +4,7 @@ import {
   aavePoolAddressesProviderAbi,
   aaveUiPoolDataProviderAbi,
   aaveV3PoolAbi,
+  collateralGatewayAbi,
   erc20Abi,
   governorBravoDelegateAbi,
   isolatedPoolComptrollerAbi,
@@ -26,6 +27,8 @@ import {
   relativePositionManagerAbi,
   resilientOracleAbi,
   rewardsDistributorAbi,
+  spokeComptrollerAbi,
+  spokeVTokenAbi,
   swapRouterAbi,
   swapRouterV2Abi,
   vBep20Abi,
@@ -60,6 +63,10 @@ export const CONTRACT_ERROR_ABIS: Abi[] = [
   poolLensAbi,
   poolRegistryAbi,
   venusLensAbi,
+  // Venus — spoke pools
+  spokeComptrollerAbi,
+  spokeVTokenAbi,
+  collateralGatewayAbi,
   // Venus — extras
   primeAbi,
   nativeTokenGatewayAbi,

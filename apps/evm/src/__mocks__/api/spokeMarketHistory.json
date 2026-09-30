@@ -1,0 +1,19 @@
+{
+  "chainId": 97,
+  "range": "1w",
+  "averageBorrowApyDecimal": 0.04,
+  "result": [
+    {
+      "blockNumber": "132600000",
+      "blockTimestamp": 1790000000,
+      "borrowApyDecimal": 0.035,
+      "totalBorrowsUsdCents": "150000"
+    },
+    {
+      "blockNumber": "132684088",
+      "blockTimestamp": 1790154764,
+      "borrowApyDecimal": 0.0455,
+      "totalBorrowsUsdCents": "200000"
+    }
+  ]
+}

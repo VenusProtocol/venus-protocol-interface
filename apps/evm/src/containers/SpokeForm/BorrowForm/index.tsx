@@ -1,11 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
+import { useBorrowFromSpoke } from 'clients/api';
 import { type ApyBreakdownItem, AvailableBalance, NoticeWarning } from 'components';
-import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool } from 'types';
-import { clampToZero, formatTokensToReadableValue } from 'utilities';
+import { clampToZero, convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
 import { ZeroCollateralNotice } from './ZeroCollateralNotice';
 import { getBorrowLimits } from './getBorrowLimits';
@@ -24,7 +25,9 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   onSubmitSuccess,
 }) => {
   const { t } = useTranslation();
+  const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState(initialFormValues);
+  const { mutateAsync: borrow, isPending: isSubmitting } = useBorrowFromSpoke();
 
   const hasCollateralSupplied = spokePool.assets.some(
     poolAsset => !poolAsset.isBorrowable && poolAsset.userSupplyBalanceTokens.isGreaterThan(0),
@@ -81,16 +84,21 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
     />
   );
 
-  // Throws until VPD-2072 wires the contracts, so a submission is never reported as a success
-  const handleSubmit = async (_submittedFormValues: FormValues) => {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-  };
+  const handleSubmit = (submittedFormValues: FormValues) =>
+    borrow({
+      vToken: asset.vToken,
+      poolName: spokePool.name,
+      amountMantissa: convertTokensToMantissa({
+        value: new BigNumber(submittedFormValues.amountTokens),
+        token: asset.vToken.underlyingToken,
+      }),
+    });
 
   return (
     <Form
       spokePool={spokePool}
       token={asset.vToken.underlyingToken}
-      isSubmitting={false}
+      isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       onSubmitSuccess={onSubmitSuccess}
       balanceMutations={balanceMutations}
@@ -105,7 +113,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
       showDailyBorrowInterest
       validateForm={validateForm}
       belowAmountInput={
-        hasCollateralSupplied ? undefined : (
+        !accountAddress || spokePool.isUserDataUnavailable || hasCollateralSupplied ? undefined : (
           <ZeroCollateralNotice
             tokenSymbol={asset.vToken.underlyingToken.symbol}
             onSupplyClick={onSupplyCollateralClick}

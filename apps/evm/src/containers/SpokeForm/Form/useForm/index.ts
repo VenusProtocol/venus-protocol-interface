@@ -15,7 +15,8 @@ export type FormErrorCode =
   | PoolBalanceMutationsErrorCode
   | CommonCasesErrorCode
   | 'ACTION_DISABLED'
-  | 'NO_COLLATERAL_SUPPLIED';
+  | 'NO_COLLATERAL_SUPPLIED'
+  | 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
 
 export const initialFormValues: FormValues = {
   amountTokens: '',

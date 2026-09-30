@@ -271,11 +271,13 @@ export interface Pool {
 
 export interface SpokeAsset extends Asset {
   isSuppliable: boolean;
-  hubSupplyBalanceCents: BigNumber;
+  isInactive: boolean;
+  hubSupplyBalanceCents?: BigNumber;
 }
 
 export interface SpokePool extends Omit<Pool, 'assets'> {
   description: string;
+  isUserDataUnavailable: boolean;
   assets: SpokeAsset[];
 }
 

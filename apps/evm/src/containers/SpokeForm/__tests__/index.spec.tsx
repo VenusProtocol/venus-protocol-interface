@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react';
 
+import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -8,9 +9,19 @@ import { SpokeForm } from '..';
 
 const spokePool = spokePools[0];
 const loanAsset = spokePool.assets.find(({ isBorrowable }) => isBorrowable)!;
-const pausedLoanAsset = spokePools[1].assets.find(({ disabledTokenActions }) =>
+const pausedLoanAsset = spokePool.assets.find(({ disabledTokenActions }) =>
   disabledTokenActions.includes('borrow'),
 )!;
+
+const activeLoanAsset = { ...loanAsset, disabledTokenActions: [] };
+
+const poolWithoutCollateral = {
+  ...spokePool,
+  assets: spokePool.assets.map(asset => ({
+    ...asset,
+    userSupplyBalanceTokens: asset.userSupplyBalanceTokens.multipliedBy(0),
+  })),
+};
 
 describe('SpokeForm', () => {
   it('renders both sides by default', () => {
@@ -29,7 +40,7 @@ describe('SpokeForm', () => {
   });
 
   it('replaces the borrow form with a notice when borrowing is paused', () => {
-    renderComponent(<SpokeForm spokePool={spokePools[1]} asset={pausedLoanAsset} />);
+    renderComponent(<SpokeForm spokePool={spokePool} asset={pausedLoanAsset} />);
 
     expect(screen.getByText(en.assetAccessor.disabledActionNotice.borrow)).toBeInTheDocument();
     expect(screen.queryByText(en.spokeForm.safeMaxButtonLabel)).not.toBeInTheDocument();
@@ -37,9 +48,69 @@ describe('SpokeForm', () => {
 
   it('keeps repay reachable on a paused market, since exiting is never gated', () => {
     renderComponent(
-      <SpokeForm spokePool={spokePools[1]} asset={pausedLoanAsset} initialLoanTabId="repay" />,
+      <SpokeForm spokePool={spokePool} asset={pausedLoanAsset} initialLoanTabId="repay" />,
     );
 
     expect(screen.getByText(en.spokeForm.repay.submitButtonLabel)).toBeInTheDocument();
+  });
+
+  it('hides the zero-collateral notice until a wallet is connected', () => {
+    renderComponent(<SpokeForm spokePool={poolWithoutCollateral} asset={activeLoanAsset} />);
+
+    expect(screen.queryByText(/before you can borrow/)).not.toBeInTheDocument();
+  });
+
+  it('shows the zero-collateral notice to a connected user without collateral', () => {
+    renderComponent(<SpokeForm spokePool={poolWithoutCollateral} asset={activeLoanAsset} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(screen.getByText(/before you can borrow/)).toBeInTheDocument();
+  });
+
+  it('replaces the loan forms with a notice when the loan asset is restricted in the country', () => {
+    renderComponent(
+      <SpokeForm
+        spokePool={spokePool}
+        asset={{ ...activeLoanAsset, isRestricted: true }}
+        initialLoanTabId="repay"
+      />,
+    );
+
+    expect(screen.getByText(en.assetAccessor.assetNotAvailable)).toBeInTheDocument();
+    expect(document.querySelector('input[name="amountTokens"]')).toBeNull();
+  });
+
+  it('replaces the collateral forms with a notice when every collateral is restricted', () => {
+    const poolWithRestrictedCollaterals = {
+      ...spokePool,
+      assets: spokePool.assets.map(asset =>
+        asset.isBorrowable ? asset : { ...asset, isRestricted: true },
+      ),
+    };
+
+    renderComponent(
+      <SpokeForm
+        spokePool={poolWithRestrictedCollaterals}
+        asset={activeLoanAsset}
+        collateralOnly
+      />,
+    );
+
+    expect(screen.getByText(en.assetAccessor.assetNotAvailable)).toBeInTheDocument();
+    expect(document.querySelector('input[name="amountTokens"]')).toBeNull();
+  });
+
+  it('disables the form and hides the zero-collateral notice when user data is unavailable', () => {
+    renderComponent(
+      <SpokeForm
+        spokePool={{ ...poolWithoutCollateral, isUserDataUnavailable: true }}
+        asset={activeLoanAsset}
+      />,
+      { accountAddress: fakeAccountAddress },
+    );
+
+    expect(document.querySelector('input[name="amountTokens"]')).toBeDisabled();
+    expect(screen.queryByText(/before you can borrow/)).not.toBeInTheDocument();
   });
 });

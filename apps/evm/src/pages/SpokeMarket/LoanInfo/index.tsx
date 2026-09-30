@@ -1,4 +1,5 @@
 import { MarketInfo, type MarketInfoProps } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useTranslation } from 'libs/translations';
@@ -22,7 +23,7 @@ export const LoanInfo: React.FC<LoanInfoProps> = ({ asset }) => {
   const items: MarketInfoProps['items'] = [
     {
       label: t('spokeMarket.loanInfo.borrowerCount'),
-      children: asset.borrowerCount,
+      children: PLACEHOLDER_KEY,
     },
     {
       label: t('spokeMarket.loanInfo.marketContract'),

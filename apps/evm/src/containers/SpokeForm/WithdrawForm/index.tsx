@@ -1,12 +1,19 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
+import { useGetVTokenBalance, useWithdrawFromSpoke } from 'clients/api';
 import { AvailableBalance } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
-import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool, Token } from 'types';
-import { calculateCollateralWithdrawLimits, formatTokensToReadableValue } from 'utilities';
+import {
+  areAddressesEqual,
+  calculateCollateralWithdrawLimits,
+  convertTokensToMantissa,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
 
 export interface WithdrawFormProps {
@@ -24,7 +31,26 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState(initialFormValues);
-  const [selectedAsset, setSelectedAsset] = useState(initialCollateral);
+  const [selectedTokenAddress, setSelectedTokenAddress] = useState(
+    initialCollateral.vToken.underlyingToken.address,
+  );
+  const { accountAddress } = useAccountAddress();
+  const { mutateAsync: withdraw, isPending: isSubmitting } = useWithdrawFromSpoke();
+
+  const selectedAsset =
+    collaterals.find(asset =>
+      areAddressesEqual(asset.vToken.underlyingToken.address, selectedTokenAddress),
+    ) ?? initialCollateral;
+
+  const { refetch: refetchVTokenBalance } = useGetVTokenBalance(
+    {
+      accountAddress: accountAddress || NULL_ADDRESS,
+      vTokenAddress: selectedAsset.vToken.address,
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
 
   const { decimals } = selectedAsset.vToken.underlyingToken;
 
@@ -50,14 +76,8 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
   }));
 
   const handleChangeSelectedToken = (token: Token) => {
-    const newAsset = collaterals.find(
-      asset => asset.vToken.underlyingToken.address === token.address,
-    );
-
-    if (newAsset) {
-      setSelectedAsset(newAsset);
-      setFormValues(initialFormValues);
-    }
+    setSelectedTokenAddress(token.address);
+    setFormValues(initialFormValues);
   };
 
   const handleLimitClick = limitTokens.isGreaterThan(0)
@@ -78,16 +98,31 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
     />
   );
 
-  // Throws until VPD-2072 wires the contracts, so a submission is never reported as a success
-  const handleSubmit = async (_submittedFormValues: FormValues) => {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+  const handleSubmit = async (submittedFormValues: FormValues) => {
+    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+    const withdrawFullSupply = amountTokens.isEqualTo(selectedAsset.userSupplyBalanceTokens);
+
+    const vTokenBalanceMantissa = withdrawFullSupply
+      ? (await refetchVTokenBalance()).data?.balanceMantissa
+      : undefined;
+
+    return withdraw({
+      vToken: selectedAsset.vToken,
+      poolName: spokePool.name,
+      amountMantissa: convertTokensToMantissa({
+        value: amountTokens,
+        token: selectedAsset.vToken.underlyingToken,
+      }),
+      withdrawFullSupply,
+      vTokenBalanceMantissa,
+    });
   };
 
   return (
     <Form
       spokePool={spokePool}
       token={selectedAsset.vToken.underlyingToken}
-      isSubmitting={false}
+      isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       onSubmitSuccess={onSubmitSuccess}
       balanceMutations={balanceMutations}

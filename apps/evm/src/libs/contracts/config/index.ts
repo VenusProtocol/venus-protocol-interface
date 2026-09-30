@@ -121,6 +121,7 @@ import type { Address } from 'viem';
 import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvider.json';
 import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
+import collateralGatewayAbi from './externalAbis/CollateralGateway.json';
 import erc20Abi from './externalAbis/Erc20.json';
 import liquidityHubAbi from './externalAbis/LiquidityHub.json';
 import liquidityHubMigratorAbi from './externalAbis/LiquidityHubMigrator.json';
@@ -135,6 +136,8 @@ import primeLeaderboardAbi from './externalAbis/PrimeLeaderboard.json';
 import primeV2Abi from './externalAbis/PrimeV2.json';
 import primeV2LensAbi from './externalAbis/PrimeV2Lens.json';
 import relativePositionManagerAbi from './externalAbis/RelativePositionManager.json';
+import spokeComptrollerAbi from './externalAbis/SpokeComptroller.json';
+import spokeVTokenAbi from './externalAbis/SpokeVToken.json';
 import swapRouterV2Abi from './externalAbis/SwapRouterV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import zyFiVaultAbi from './externalAbis/ZyFiVault.json';
@@ -739,10 +742,25 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: liquidityHubBscTestnetDeployments.addresses.Migrator as Address,
     },
   },
+  {
+    name: 'CollateralGateway',
+    abi: collateralGatewayAbi as Abi,
+    address: {
+      [ChainId.BSC_TESTNET]: '0xbB3304B6a1eB1d48E1d2EE78eadDadD4024DF358', // TODO: get from venus-periphery package (VPD-2072)
+    },
+  },
   // Generic Contracts
   {
     name: 'IsolatedPoolComptroller',
     abi: IsolatedPoolComptrollerAbi as Abi,
+  },
+  {
+    name: 'SpokeComptroller',
+    abi: spokeComptrollerAbi as Abi,
+  },
+  {
+    name: 'SpokeVToken',
+    abi: spokeVTokenAbi as Abi,
   },
   {
     name: 'JumpRateModel',

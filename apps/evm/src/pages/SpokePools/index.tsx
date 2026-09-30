@@ -1,14 +1,14 @@
-import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
-// TODO: fetch from API (VPD-2071)
-import { spokePools } from '__mocks__/models/spokePools';
-import { type CellProps, MultiSelect, Page, PageStatHeader } from 'components';
+import { useGetSpokePools } from 'clients/api';
+import { type CellProps, MultiSelect, Page, PageStatHeader, Spinner } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import type { SpokeAsset } from 'types';
-import { formatCentsToReadableValue, isAssetPaused } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { NoResults } from './NoResults';
 import { SpokePoolCard } from './SpokePoolCard';
@@ -20,6 +20,12 @@ const SpokePools: React.FC = () => {
   const { t } = useTranslation();
   const [userChainSettings] = useUserChainSettings();
   const [searchValue, setSearchValue] = useState('');
+  const { accountAddress } = useAccountAddress();
+  const { data: getSpokePoolsData, isLoading: isGetSpokePoolsLoading } = useGetSpokePools({
+    accountAddress,
+  });
+  const spokePools = getSpokePoolsData?.spokePools ?? [];
+  const totals = getSpokePoolsData?.totals;
 
   const {
     loanAssets: selectedLoanAssets,
@@ -39,50 +45,25 @@ const SpokePools: React.FC = () => {
     setSearchValue('');
   };
 
-  // Collateral in a spoke pool is not borrowable, so its cash is not available liquidity
-  const { totalBorrowCents, availableLiquidityCents } = spokePools.reduce(
-    (acc, spokePool) => {
-      const poolLoanAssets = spokePool.assets.filter(({ isBorrowable }) => isBorrowable);
-
-      return {
-        totalBorrowCents: acc.totalBorrowCents.plus(
-          poolLoanAssets.reduce(
-            (assetAcc, asset) => assetAcc.plus(asset.borrowBalanceCents),
-            new BigNumber(0),
-          ),
-        ),
-        availableLiquidityCents: acc.availableLiquidityCents.plus(
-          poolLoanAssets.reduce(
-            (assetAcc, asset) => assetAcc.plus(asset.liquidityCents),
-            new BigNumber(0),
-          ),
-        ),
-      };
-    },
-    { totalBorrowCents: new BigNumber(0), availableLiquidityCents: new BigNumber(0) },
-  );
-
   const cells: CellProps[] = [
     {
       label: t('spokePools.stats.totalBorrow'),
-      value: formatCentsToReadableValue({ value: totalBorrowCents }),
+      value: formatCentsToReadableValue({ value: totals?.totalBorrowCents }),
     },
     {
       label: t('spokePools.stats.availableLiquidity'),
-      value: formatCentsToReadableValue({ value: availableLiquidityCents }),
+      value: formatCentsToReadableValue({ value: totals?.availableLiquidityCents }),
     },
     {
       label: t('spokePools.stats.pools'),
-      value: spokePools.length,
+      value: totals?.poolCount ?? PLACEHOLDER_KEY,
     },
   ];
 
   const matchesSearch = (asset: SpokeAsset) =>
     asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase());
 
-  const isVisible = (asset: SpokeAsset) =>
-    userChainSettings.showPausedAssets ||
-    !isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
+  const isVisible = (asset: SpokeAsset) => userChainSettings.showPausedAssets || !asset.isInactive;
 
   // An empty group means no constraint: values are OR-ed within a group, and groups are
   // AND-ed together
@@ -92,9 +73,9 @@ const SpokePools: React.FC = () => {
       const loanAssets = visibleAssets.filter(asset => asset.isBorrowable);
       const collaterals = visibleAssets.filter(asset => !asset.isBorrowable);
 
-      return { spokePool, visibleAssets, loanAssets, collaterals };
+      return { spokePool, loanAssets, collaterals };
     })
-    .filter(({ spokePool, visibleAssets, loanAssets, collaterals }) => {
+    .filter(({ spokePool, loanAssets, collaterals }) => {
       if (selectedPools.length > 0 && !selectedPools.includes(spokePool.name)) {
         return false;
       }
@@ -110,11 +91,11 @@ const SpokePools: React.FC = () => {
 
       if (
         userChainSettings.showUserAssetsOnly &&
-        !visibleAssets.some(
+        !spokePool.assets.some(
           asset =>
             asset.userSupplyBalanceTokens.isGreaterThan(0) ||
             asset.userBorrowBalanceTokens.isGreaterThan(0) ||
-            asset.userWalletBalanceTokens.isGreaterThan(0),
+            (!asset.isBorrowable && asset.userWalletBalanceTokens.isGreaterThan(0)),
         )
       ) {
         return false;
@@ -179,6 +160,23 @@ const SpokePools: React.FC = () => {
     </div>
   );
 
+  let poolsDom: React.ReactNode = filteredSpokePools.map(
+    ({ spokePool, loanAssets, collaterals }) => (
+      <SpokePoolCard
+        key={spokePool.comptrollerAddress}
+        spokePool={spokePool}
+        loanAssets={loanAssets}
+        collaterals={collaterals}
+      />
+    ),
+  );
+
+  if (isGetSpokePoolsLoading) {
+    poolsDom = <Spinner />;
+  } else if (filteredSpokePools.length === 0) {
+    poolsDom = <NoResults onReset={handleResetAll} />;
+  }
+
   return (
     <Page>
       <div className="space-y-5 sm:space-y-12">
@@ -197,18 +195,7 @@ const SpokePools: React.FC = () => {
             filters={filters}
           />
 
-          {filteredSpokePools.length === 0 ? (
-            <NoResults onReset={handleResetAll} />
-          ) : (
-            filteredSpokePools.map(({ spokePool, loanAssets, collaterals }) => (
-              <SpokePoolCard
-                key={spokePool.comptrollerAddress}
-                spokePool={spokePool}
-                loanAssets={loanAssets}
-                collaterals={collaterals}
-              />
-            ))
-          )}
+          {poolsDom}
         </div>
       </div>
     </Page>

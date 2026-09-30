@@ -2,13 +2,15 @@ import { QuaternaryButton } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
-import { type ApyBreakdownItem, AvailableBalance } from 'components';
-import { VError } from 'libs/errors';
+import { useRepayToSpoke } from 'clients/api';
+import { type ApyBreakdownItem, AvailableBalance, SpendingLimit } from 'components';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
+import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
+import type { UseFormValidationInput } from '../Form/useForm/useFormValidation';
 import { PRESET_REPAY_PERCENTAGES } from './constants';
 
 export interface RepayFormProps {
@@ -21,13 +23,41 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState(initialFormValues);
+  const { mutateAsync: repay, isPending: isSubmitting } = useRepayToSpoke();
 
   const { decimals } = asset.vToken.underlyingToken;
 
-  const limitTokens = BigNumber.min(
+  const {
+    walletSpendingLimitTokens,
+    revokeWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading,
+  } = useTokenApproval({
+    token: asset.vToken.underlyingToken,
+    spenderAddress: asset.vToken.address,
+    accountAddress,
+  });
+
+  const availableTokens = BigNumber.min(
     asset.userBorrowBalanceTokens,
     asset.userWalletBalanceTokens,
   ).dp(decimals);
+
+  const limitTokens = walletSpendingLimitTokens?.isGreaterThan(0)
+    ? BigNumber.min(availableTokens, walletSpendingLimitTokens)
+    : availableTokens;
+
+  const validateForm: UseFormValidationInput['validate'] = ({ formValues: { amountTokens } }) => {
+    if (
+      walletSpendingLimitTokens?.isGreaterThan(0) &&
+      new BigNumber(amountTokens).isGreaterThan(walletSpendingLimitTokens) &&
+      new BigNumber(amountTokens).isLessThanOrEqualTo(availableTokens)
+    ) {
+      return {
+        code: 'HIGHER_THAN_WALLET_SPENDING_LIMIT',
+        message: t('marketForm.error.higherThanWalletSpendingLimit'),
+      };
+    }
+  };
 
   const balanceMutations: AssetBalanceMutation[] = [
     {
@@ -58,14 +88,24 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
     : undefined;
 
   const availableBalanceDom = (
-    <AvailableBalance
-      label={t('spokeForm.repay.walletBalanceLabel')}
-      readableBalance={formatTokensToReadableValue({
-        value: asset.userWalletBalanceTokens,
-        token: asset.vToken.underlyingToken,
-      })}
-      onClick={handleLimitClick}
-    />
+    <div className="space-y-2">
+      <AvailableBalance
+        label={t('spokeForm.repay.walletBalanceLabel')}
+        readableBalance={formatTokensToReadableValue({
+          value: asset.userWalletBalanceTokens,
+          token: asset.vToken.underlyingToken,
+        })}
+        onClick={handleLimitClick}
+      />
+
+      <SpendingLimit
+        token={asset.vToken.underlyingToken}
+        walletBalanceTokens={asset.userWalletBalanceTokens}
+        walletSpendingLimitTokens={walletSpendingLimitTokens}
+        onRevoke={revokeWalletSpendingLimit}
+        isRevokeLoading={isRevokeWalletSpendingLimitLoading}
+      />
+    </div>
   );
 
   const isRepayDisabled = !accountAddress || asset.userBorrowBalanceTokens.isEqualTo(0);
@@ -95,16 +135,25 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
     </div>
   );
 
-  // Throws until VPD-2072 wires the contracts, so a submission is never reported as a success
-  const handleSubmit = async (_submittedFormValues: FormValues) => {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+  const handleSubmit = (submittedFormValues: FormValues) => {
+    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+
+    return repay({
+      vToken: asset.vToken,
+      poolName: spokePool.name,
+      amountMantissa: convertTokensToMantissa({
+        value: amountTokens,
+        token: asset.vToken.underlyingToken,
+      }),
+      repayFullLoan: amountTokens.isEqualTo(asset.userBorrowBalanceTokens.dp(decimals)),
+    });
   };
 
   return (
     <Form
       spokePool={spokePool}
       token={asset.vToken.underlyingToken}
-      isSubmitting={false}
+      isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       onSubmitSuccess={onSubmitSuccess}
       balanceMutations={balanceMutations}
@@ -116,6 +165,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
       apyBreakdownItems={apyBreakdownItems}
       showDailyBorrowInterest
       belowAmountInput={percentageChips}
+      validateForm={validateForm}
       approval={{
         type: 'token',
         token: asset.vToken.underlyingToken,

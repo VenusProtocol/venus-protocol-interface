@@ -21,11 +21,11 @@ export const SpokePositions: React.FC<SpokePositionsProps> = ({ spokePool }) => 
   const { t } = useTranslation();
   const [selectedRow, setSelectedRow] = useState<SelectedRow>();
 
-  const collaterals = spokePool.assets.filter(
-    asset => !asset.isBorrowable && asset.userSupplyBalanceTokens.isGreaterThan(0),
+  const collaterals = spokePool.assets.filter(asset =>
+    asset.userSupplyBalanceTokens.isGreaterThan(0),
   );
-  const loanAssets = spokePool.assets.filter(
-    asset => asset.isBorrowable && asset.userBorrowBalanceTokens.isGreaterThan(0),
+  const loanAssets = spokePool.assets.filter(asset =>
+    asset.userBorrowBalanceTokens.isGreaterThan(0),
   );
 
   const firstLoanAsset = spokePool.assets.find(({ isBorrowable }) => isBorrowable);

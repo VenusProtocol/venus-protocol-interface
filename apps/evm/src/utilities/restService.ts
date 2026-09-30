@@ -1,7 +1,9 @@
 import { isEmpty, set } from 'lodash-es';
 
 import config from 'config';
+import { SERVICE_ISSUE_ENDPOINTS } from 'constants/serviceIssueEndpoints';
 import { logError } from 'libs/errors';
+import { displayServiceIssueNotification } from 'libs/notifications';
 
 export interface RestServiceInput {
   baseUrl?: string;
@@ -80,9 +82,20 @@ export async function restService<D>({
     path = `${path}?${queryParams}`;
   }
 
+  const shouldNotifyServiceIssue =
+    basePath === config.apiUrl &&
+    SERVICE_ISSUE_ENDPOINTS.some(
+      serviceIssueEndpoint =>
+        serviceIssueEndpoint.method === method && serviceIssueEndpoint.endpoint === endpoint,
+    );
+
   return fetch(path, { headers })
     .then(async response => {
       const { status } = response;
+
+      if (shouldNotifyServiceIssue && status >= 400) {
+        displayServiceIssueNotification();
+      }
 
       let data: undefined;
 
@@ -94,10 +107,16 @@ export async function restService<D>({
 
       return { status, data };
     })
-    .catch(error => ({
-      status: error.status,
-      data: {
-        error,
-      },
-    }));
+    .catch(error => {
+      if (shouldNotifyServiceIssue) {
+        displayServiceIssueNotification();
+      }
+
+      return {
+        status: error.status,
+        data: {
+          error,
+        },
+      };
+    });
 }

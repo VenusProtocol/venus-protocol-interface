@@ -645,6 +645,7 @@
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
     "proposalNotFound": "Proposal not found",
+    "serviceIssue": "Service temporarily unavailable. Please try again later.",
     "somethingWentWrong": "Something went wrong",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
     "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",
@@ -2050,8 +2051,7 @@
         "liquidity": "Liquidity",
         "loanAsset": "Loan asset",
         "totalBorrow": "Total borrow"
-      },
-      "paused": "Paused"
+      }
     }
   },
   "statsPage": {

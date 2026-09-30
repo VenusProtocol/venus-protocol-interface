@@ -1,5 +1,7 @@
 import { Modal, type ModalProps } from 'components';
+import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
 import { SpokeForm, type SpokeFormProps } from 'containers/SpokeForm';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 
 export interface SpokeFormModalProps
   extends Omit<ModalProps, 'children' | 'isOpen'>,
@@ -15,17 +17,28 @@ export const SpokeFormModal: React.FC<SpokeFormModalProps> = ({
   collateralOnly,
   handleClose,
   ...otherProps
-}) => (
-  <Modal isOpen handleClose={handleClose} {...otherProps}>
-    <SpokeForm
-      spokePool={spokePool}
-      asset={asset}
-      initialActiveTabId={initialActiveTabId}
-      initialCollateralTabId={initialCollateralTabId}
-      initialLoanTabId={initialLoanTabId}
-      preselectedCollateral={preselectedCollateral}
-      collateralOnly={collateralOnly}
-      onSubmitSuccess={handleClose}
-    />
-  </Modal>
-);
+}) => {
+  const [userChainSettings] = useUserChainSettings();
+
+  if (
+    spokePool.assets.some(({ isGated }) => isGated) &&
+    !userChainSettings.doNotShowGatedAssetModal
+  ) {
+    return <GatedAssetAcknowledgementModal onReject={handleClose} />;
+  }
+
+  return (
+    <Modal isOpen handleClose={handleClose} {...otherProps}>
+      <SpokeForm
+        spokePool={spokePool}
+        asset={asset}
+        initialActiveTabId={initialActiveTabId}
+        initialCollateralTabId={initialCollateralTabId}
+        initialLoanTabId={initialLoanTabId}
+        preselectedCollateral={preselectedCollateral}
+        collateralOnly={collateralOnly}
+        onSubmitSuccess={handleClose}
+      />
+    </Modal>
+  );
+};

@@ -1,14 +1,14 @@
 import BigNumber from 'bignumber.js';
 import type { Asset } from 'types';
 
-export const addUserBorrowLimitShares = ({
+export const addUserBorrowLimitShares = <TAsset extends Asset>({
   assets,
   userBorrowLimitCents,
 }: {
-  assets: Asset[];
+  assets: TAsset[];
   userBorrowLimitCents: BigNumber;
 }) => {
-  const formattedAssets: Asset[] = assets.map(asset => ({
+  const formattedAssets: TAsset[] = assets.map(asset => ({
     ...asset,
     userBorrowLimitSharePercentage:
       asset.userBorrowBalanceCents.isGreaterThan(0) && userBorrowLimitCents.isGreaterThan(0)

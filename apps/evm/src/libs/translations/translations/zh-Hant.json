@@ -644,6 +644,7 @@
     "noTargetsKey": "文件中沒有目標列表",
     "noTypeKey": "文件中未指明提案類型",
     "proposalNotFound": "未找到提案",
+    "serviceIssue": "服務暫時無法使用，請稍後再試。",
     "somethingWentWrong": "出了點問題",
     "somethingWentWrongRetrievingTransactions": "獲取交易時出錯",
     "somethingWentWrongRetrievingVoterAccounts": "獲取投票賬戶時出錯",
@@ -2049,8 +2050,7 @@
         "liquidity": "流動性",
         "loanAsset": "借貸資產",
         "totalBorrow": "總借款"
-      },
-      "paused": "已暫停"
+      }
     }
   },
   "statsPage": {

@@ -644,6 +644,7 @@
     "noTargetsKey": "ファイルにターゲット一覧がありません",
     "noTypeKey": "ファイルに提案のタイプが示されていません",
     "proposalNotFound": "提案が見つかりません",
+    "serviceIssue": "サービスは一時的にご利用いただけません。しばらくしてから再度お試しください。",
     "somethingWentWrong": "問題が発生しました",
     "somethingWentWrongRetrievingTransactions": "取引の取得中に問題が発生しました",
     "somethingWentWrongRetrievingVoterAccounts": "投票者アカウントの取得中に問題が発生しました",
@@ -2049,8 +2050,7 @@
         "liquidity": "流動性",
         "loanAsset": "借入資産",
         "totalBorrow": "総借入額"
-      },
-      "paused": "停止中"
+      }
     }
   },
   "statsPage": {
