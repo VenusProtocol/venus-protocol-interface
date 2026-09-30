@@ -86,7 +86,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   } = useControls({
     assets,
     applyUserSettings: controls,
-    poolComptrollerAddress: poolComptrollerContractAddress,
+    categoryFilter,
   });
 
   const { chainId: currentChainId } = useChainId();
