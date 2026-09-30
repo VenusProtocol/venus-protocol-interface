@@ -102,11 +102,6 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // The category filter belongs to the markets tab, so its url parameter must not outlive
-  // a switch to another tab. This lives here rather than with the filter itself because
-  // the table unmounts on a tab switch, and clearing the parameter from a teardown would
-  // navigate while the route is already changing. Leaving the page needs no clean-up at
-  // all: internal links build their own search string, so the parameter never travels
   useEffect(() => {
     if (activeTab.id === MARKETS_TAB_ID || !searchParams.has(CATEGORY_PARAM_KEY)) {
       return;
