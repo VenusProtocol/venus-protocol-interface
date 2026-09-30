@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router';
+
 import { ButtonGroup, Select, type SelectOption } from 'components';
 import { VENUS_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
+import { CATEGORY_PARAM_KEY } from 'containers/MarketTable/constants';
 import { useFormatTo } from 'hooks/useFormatTo';
 import { type Tab, useTabs } from 'hooks/useTabs';
 import { useGetToken } from 'libs/tokens';
@@ -14,6 +18,8 @@ import type { ExtendedEModeGroup } from './types';
 export interface TabsProps {
   pool: Pool;
 }
+
+const MARKETS_TAB_ID = 'markets';
 
 const E_MODE_DOC_URL = `${VENUS_DOC_URL}/whats-new/e-mode`;
 const ISOLATION_MODE_DOC_URL = `${VENUS_DOC_URL}/whats-new/isolated-e-mode`;
@@ -42,7 +48,7 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
   const tabs: Tab[] = [
     {
       title: t('markets.tabs.markets.label'),
-      id: 'markets',
+      id: MARKETS_TAB_ID,
       content: <Markets pool={pool} />,
     },
   ];
@@ -93,6 +99,29 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
     tabs,
     navType: 'searchParam',
   });
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // The category filter belongs to the markets tab, so its url parameter must not outlive
+  // a switch to another tab. This lives here rather than with the filter itself because
+  // the table unmounts on a tab switch, and clearing the parameter from a teardown would
+  // navigate while the route is already changing. Leaving the page needs no clean-up at
+  // all: internal links build their own search string, so the parameter never travels
+  useEffect(() => {
+    if (activeTab.id === MARKETS_TAB_ID || !searchParams.has(CATEGORY_PARAM_KEY)) {
+      return;
+    }
+
+    setSearchParams(
+      currentSearchParams => {
+        const newSearchParams = new URLSearchParams(currentSearchParams);
+        newSearchParams.delete(CATEGORY_PARAM_KEY);
+
+        return newSearchParams;
+      },
+      { replace: true },
+    );
+  }, [activeTab.id, searchParams, setSearchParams]);
 
   const selectOptions: SelectOption[] = tabs.map(tab => ({
     label: tab.title,
