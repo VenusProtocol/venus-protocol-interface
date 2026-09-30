@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.35.0
+
+### Minor Changes
+
+- 77c2729: filter the markets page by category from a url parameter
+
 ## 5.34.0
 
 ### Minor Changes
