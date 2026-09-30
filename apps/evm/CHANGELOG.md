@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.35.1
+
+### Patch Changes
+
+- 1e2714e: remove unnecessary comments from the markets category filter
+
 ## 5.35.0
 
 ### Minor Changes
