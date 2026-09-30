@@ -18,9 +18,6 @@ const columns: ColumnKey[] = ['asset', 'supplyApy', 'borrowApy'];
 const bStocksCategory: MarketCategory = { tag: 'bstocks', label: 'bStocks', order: 0 };
 const stablecoinsCategory: MarketCategory = { tag: 'stablecoins', label: 'Stablecoins', order: 1 };
 
-// None of the assets is paused, so every one of them is rendered unless the category
-// filter removes it. The first is the only one in the bStocks category, so a working
-// filter leaves exactly one row behind
 const [bStocksAsset, ...stablecoinAssets] = poolData[0].assets.map(asset => ({
   ...asset,
   disabledTokenActions: [],
@@ -44,8 +41,6 @@ const LocationDisplay: React.FC = () => {
   return <div data-testid="location-search">{search}</div>;
 };
 
-// An open dropdown renders its options in both the desktop menu and the mobile modal. The
-// trigger is always the first button carrying the label, the modal copy of an option the last
 const getFilterTrigger = (label: string) => screen.getAllByRole('button', { name: label })[0];
 const getFilterOption = (label: string) =>
   screen.getAllByRole('button', { name: label }).slice(-1)[0];

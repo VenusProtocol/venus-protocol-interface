@@ -15,15 +15,11 @@ import { Markets } from '..';
 const bStocksCategory: MarketCategory = { tag: 'bstocks', label: 'bStocks', order: 0 };
 const stablecoinsCategory: MarketCategory = { tag: 'stablecoins', label: 'Stablecoins', order: 1 };
 
-// The first asset is the only one in the bStocks category, so a working filter leaves
-// exactly one row behind
 const [bStocksAsset, ...stablecoinAssets] = poolData[0].assets.map(asset => ({
   ...asset,
   disabledTokenActions: [],
 }));
 
-// poolData[0] carries the core pool Comptroller address of the chain the test renderer
-// defaults to, which is what turns the category filter on
 const fakePool: Pool = {
   ...poolData[0],
   assets: [
