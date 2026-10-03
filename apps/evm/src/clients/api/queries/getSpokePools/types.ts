@@ -1,3 +1,4 @@
+import type BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 export type ApiSpokeMarketSide = 'liquidity' | 'collateral' | 'inactive';
@@ -56,28 +57,9 @@ export interface GetSpokePoolsResponse {
   totals: ApiSpokeTotals;
 }
 
-export interface ApiSpokePosition {
-  marketAddress: Address;
-  vTokenBalanceMantissa: string;
-  borrowBalanceMantissa: string;
-  underlyingBalanceMantissa: string;
+export interface SpokeUserPosition {
+  vTokenAddress: Address;
+  supplyBalanceMantissa: BigNumber;
+  borrowBalanceMantissa: BigNumber;
   isCollateral: boolean;
-  supplyUsdCents: string;
-  borrowUsdCents: string;
-}
-
-export interface ApiSpokeAccountPool {
-  comptrollerAddress: Address;
-  healthFactorMantissa: string;
-  totalSupplyUsdCents: string;
-  totalBorrowUsdCents: string;
-  totalCollateralUsdCents: string;
-  liquidityUsdCents: string;
-  shortfallUsdCents: string;
-  badDebtUsdCents: string;
-  positions: ApiSpokePosition[];
-}
-
-export interface GetSpokePositionsResponse {
-  result?: ApiSpokeAccountPool[];
 }

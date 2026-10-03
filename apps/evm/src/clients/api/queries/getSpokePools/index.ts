@@ -7,7 +7,7 @@ import type { Address, PublicClient } from 'viem';
 
 import { getTokenBalances } from '../getTokenBalances';
 import { formatToSpokePool } from './formatToSpokePool';
-import { getSpokeAccountPools } from './getSpokeAccountPools';
+import { getSpokeUserPositions } from './getSpokeUserPositions';
 import type { GetSpokePoolsResponse } from './types';
 
 export * from './types';
@@ -18,6 +18,7 @@ export interface GetSpokePoolsInput {
   chainId: ChainId;
   tokens: Token[];
   publicClient: PublicClient;
+  poolLensContractAddress?: Address;
   accountAddress?: Address;
 }
 
@@ -36,6 +37,7 @@ export const getSpokePools = async ({
   chainId,
   tokens,
   publicClient,
+  poolLensContractAddress,
   accountAddress,
 }: GetSpokePoolsInput): Promise<GetSpokePoolsOutput> => {
   const response = await restService<GetSpokePoolsResponse>({
@@ -73,9 +75,22 @@ export const getSpokePools = async ({
     ),
   );
 
-  const [userAccountPools, userTokenBalances] = accountAddress
+  const fetchUserPositions = async (userAccountAddress: Address) => {
+    if (!poolLensContractAddress) {
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
+
+    return getSpokeUserPositions({
+      publicClient,
+      poolLensContractAddress,
+      apiPools,
+      accountAddress: userAccountAddress,
+    });
+  };
+
+  const [userPositions, userTokenBalances] = accountAddress
     ? await Promise.all([
-        getSpokeAccountPools({ chainId, accountAddress }).catch(error => {
+        fetchUserPositions(accountAddress).catch(error => {
           logError(error);
 
           return undefined;
@@ -86,7 +101,7 @@ export const getSpokePools = async ({
       ])
     : [[], []];
 
-  const isUserDataUnavailable = !!accountAddress && !userAccountPools;
+  const isUserDataUnavailable = !!accountAddress && !userPositions;
 
   const spokePools = apiPools.map(apiPool =>
     formatToSpokePool({
@@ -95,9 +110,7 @@ export const getSpokePools = async ({
       tokens,
       isUserConnected: !!accountAddress && !isUserDataUnavailable,
       isUserDataUnavailable,
-      userAccountPool: userAccountPools?.find(accountPool =>
-        areAddressesEqual(accountPool.comptrollerAddress, apiPool.address),
-      ),
+      userPositions: userPositions ?? [],
       userTokenBalances,
     }),
   );

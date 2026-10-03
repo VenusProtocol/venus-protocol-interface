@@ -26,7 +26,7 @@ describe('restService', () => {
   it('shows the service issue toast when a listed endpoint fails', async () => {
     mockFetch({ status: 503 });
 
-    await restService({ endpoint: '/spoke/positions', method: 'GET' });
+    await restService({ endpoint: '/spoke/pools', method: 'GET' });
 
     expect(displayServiceIssueNotification).toHaveBeenCalledTimes(1);
   });

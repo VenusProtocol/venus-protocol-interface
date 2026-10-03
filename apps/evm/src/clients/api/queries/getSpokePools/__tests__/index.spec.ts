@@ -15,12 +15,39 @@ import { getTokenBalances } from '../../getTokenBalances';
 vi.mock('utilities/restService');
 vi.mock('../../getTokenBalances');
 
-const fakePublicClient = {} as PublicClient;
+const fakePoolLensContractAddress = '0x00000000000000000000000000000000000000a1';
 
-const mockResponses = ({ positions }: { positions: unknown }) =>
-  (restService as Mock).mockImplementation(async ({ endpoint }: { endpoint: string }) => ({
-    data: endpoint === '/spoke/pools' ? spokePoolsResponse : positions,
-  }));
+const [fixtureAccountPool] = spokePositionsResponse.result;
+
+const fakeVTokenBalances = fixtureAccountPool.positions.map(position => ({
+  vToken: position.marketAddress,
+  balanceOf: BigInt(position.vTokenBalanceMantissa),
+  borrowBalanceCurrent: BigInt(position.borrowBalanceMantissa),
+  balanceOfUnderlying: BigInt(position.underlyingBalanceMantissa),
+  tokenBalance: 0n,
+  tokenAllowance: 0n,
+}));
+
+const fakeEnteredVTokenAddresses = fixtureAccountPool.positions
+  .filter(position => position.isCollateral)
+  .map(position => position.marketAddress);
+
+const buildPublicClient = ({ shouldFail = false }: { shouldFail?: boolean } = {}) =>
+  ({
+    simulateContract: vi.fn(async () => {
+      if (shouldFail) {
+        throw new Error('RPC unavailable');
+      }
+
+      return { result: fakeVTokenBalances };
+    }),
+    readContract: vi.fn(async () => fakeEnteredVTokenAddresses),
+  }) as unknown as PublicClient;
+
+const fakePublicClient = buildPublicClient();
+
+const mockResponses = () =>
+  (restService as Mock).mockImplementation(async () => ({ data: spokePoolsResponse }));
 
 describe('getSpokePools', () => {
   beforeEach(() => {
@@ -30,7 +57,7 @@ describe('getSpokePools', () => {
   });
 
   it('formats pools and markets without an account', async () => {
-    mockResponses({ positions: spokePositionsResponse });
+    mockResponses();
 
     const { spokePools, totals } = await getSpokePools({
       chainId: ChainId.BSC_TESTNET,
@@ -102,13 +129,15 @@ describe('getSpokePools', () => {
     expect(inactiveLoanAsset.isBorrowableByUser).toBe(false);
   });
 
-  it('adds user balances and pool health when an account is passed', async () => {
-    mockResponses({ positions: spokePositionsResponse });
+  it('reads user balances and collateral membership on chain when an account is passed', async () => {
+    mockResponses();
+    const publicClient = buildPublicClient();
 
     const { spokePools } = await getSpokePools({
       chainId: ChainId.BSC_TESTNET,
       tokens: [usdc, usdt],
-      publicClient: fakePublicClient,
+      publicClient,
+      poolLensContractAddress: fakePoolLensContractAddress,
       accountAddress: fakeAccountAddress,
     });
 
@@ -122,20 +151,38 @@ describe('getSpokePools', () => {
     expect(spokePool.userBorrowLimitCents?.toFixed()).toBe('80000');
     expect(spokePool.userLiquidationThresholdCents?.toFixed()).toBe('88000');
     expect(spokePool.userHealthFactor).toBe(8.8);
-    expect(restService).toHaveBeenCalledWith({
-      endpoint: '/spoke/positions',
-      method: 'GET',
-      params: { chainId: ChainId.BSC_TESTNET, account: fakeAccountAddress },
-    });
+    expect(spokePool.userSupplyBalanceCents?.toFixed()).toBe('100000');
+    expect(spokePool.userBorrowBalanceCents?.toFixed()).toBe('10000');
+    expect(publicClient.simulateContract).toHaveBeenCalledWith(
+      expect.objectContaining({
+        address: fakePoolLensContractAddress,
+        functionName: 'vTokenBalancesAll',
+        args: [
+          spokePoolsResponse.result.flatMap(apiPool =>
+            apiPool.markets.filter(market => market.isListed).map(market => market.address),
+          ),
+          fakeAccountAddress,
+        ],
+      }),
+    );
+    expect(publicClient.readContract).toHaveBeenCalledWith(
+      expect.objectContaining({
+        address: spokePoolsResponse.result[0].address,
+        functionName: 'getAssetsIn',
+        args: [fakeAccountAddress],
+      }),
+    );
+    expect(restService).toHaveBeenCalledTimes(1);
   });
 
-  it('keeps the pools and flags the user data as unavailable when positions fail', async () => {
-    mockResponses({ positions: { error: 'No snapshot available' } });
+  it('keeps the pools and flags the user data as unavailable when the on-chain read fails', async () => {
+    mockResponses();
 
     const { spokePools } = await getSpokePools({
       chainId: ChainId.BSC_TESTNET,
       tokens: [usdc, usdt],
-      publicClient: fakePublicClient,
+      publicClient: buildPublicClient({ shouldFail: true }),
+      poolLensContractAddress: fakePoolLensContractAddress,
       accountAddress: fakeAccountAddress,
     });
 
@@ -145,20 +192,23 @@ describe('getSpokePools', () => {
     expect(spokePool.assets.every(asset => asset.userSupplyBalanceTokens.isEqualTo(0))).toBe(true);
   });
 
-  it('does not flag the user data as unavailable when no account is passed', async () => {
-    mockResponses({ positions: { error: 'No snapshot available' } });
+  it('does not read anything on chain when no account is passed', async () => {
+    mockResponses();
+    const publicClient = buildPublicClient({ shouldFail: true });
 
     const { spokePools } = await getSpokePools({
       chainId: ChainId.BSC_TESTNET,
       tokens: [usdc, usdt],
-      publicClient: fakePublicClient,
+      publicClient,
+      poolLensContractAddress: fakePoolLensContractAddress,
     });
 
     expect(spokePools[0].isUserDataUnavailable).toBe(false);
+    expect(publicClient.simulateContract).not.toHaveBeenCalled();
   });
 
   it('requests every pool in one page instead of the default page size', async () => {
-    mockResponses({ positions: spokePositionsResponse });
+    mockResponses();
 
     await getSpokePools({
       chainId: ChainId.BSC_TESTNET,
@@ -174,7 +224,7 @@ describe('getSpokePools', () => {
   });
 
   it('skips markets whose underlying token is unknown', async () => {
-    mockResponses({ positions: spokePositionsResponse });
+    mockResponses();
 
     const { spokePools } = await getSpokePools({
       chainId: ChainId.BSC_TESTNET,

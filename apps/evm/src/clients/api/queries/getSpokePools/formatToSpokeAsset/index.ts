@@ -13,7 +13,7 @@ import {
   getDisabledTokenActions,
 } from 'utilities';
 
-import type { ApiSpokeMarket, ApiSpokePosition } from '../types';
+import type { ApiSpokeMarket, SpokeUserPosition } from '../types';
 import { getMarketRole } from './getMarketRole';
 
 export interface FormatToSpokeAssetInput {
@@ -21,7 +21,7 @@ export interface FormatToSpokeAssetInput {
   chainId: ChainId;
   tokens: Token[];
   isUserConnected: boolean;
-  userPosition?: ApiSpokePosition;
+  userPosition?: SpokeUserPosition;
   userTokenBalances: TokenBalance[];
 }
 
@@ -84,11 +84,11 @@ export const formatToSpokeAsset = ({
   const cashTokens = toTokens(apiMarket.cashMantissa);
 
   const userSupplyBalanceTokens = userPosition
-    ? toTokens(userPosition.underlyingBalanceMantissa)
+    ? convertMantissaToTokens({ value: userPosition.supplyBalanceMantissa, token: underlyingToken })
     : new BigNumber(0);
 
   const userBorrowBalanceTokens = userPosition
-    ? toTokens(userPosition.borrowBalanceMantissa)
+    ? convertMantissaToTokens({ value: userPosition.borrowBalanceMantissa, token: underlyingToken })
     : new BigNumber(0);
 
   const userTokenBalance = userTokenBalances.find(({ token }) =>
@@ -150,10 +150,10 @@ export const formatToSpokeAsset = ({
     isRestricted: false,
     isGated: false,
     userSupplyBalanceTokens,
-    userSupplyBalanceCents: new BigNumber(userPosition?.supplyUsdCents ?? 0),
+    userSupplyBalanceCents: userSupplyBalanceTokens.multipliedBy(tokenPriceCents),
     userSupplyBalanceProtectedCents: userSupplyBalanceTokens.multipliedBy(tokenPriceCents),
     userBorrowBalanceTokens,
-    userBorrowBalanceCents: new BigNumber(userPosition?.borrowUsdCents ?? 0),
+    userBorrowBalanceCents: userBorrowBalanceTokens.multipliedBy(tokenPriceCents),
     userBorrowBalanceProtectedCents: userBorrowBalanceTokens.multipliedBy(tokenPriceCents),
     userWalletBalanceTokens,
     userWalletBalanceCents: userWalletBalanceTokens.multipliedBy(tokenPriceCents),

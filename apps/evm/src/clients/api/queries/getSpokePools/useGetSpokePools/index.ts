@@ -6,6 +6,7 @@ import { useGetIpLocation } from 'clients/api/queries/useGetIpLocation';
 import { applyCountryCodeToPools } from 'clients/api/queries/useGetPools/applyCountryCodeToPools';
 import { useGetPoolsQuery } from 'clients/api/queries/useGetPools/useGetPoolsQuery';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
@@ -38,12 +39,14 @@ export const useGetSpokePools = (input?: UseGetSpokePoolsInput, options?: Partia
   const { publicClient } = usePublicClient();
   const tokens = useGetTokens({ chainId });
   const isSpokeEnabled = useIsFeatureEnabled({ name: 'spoke' });
+  const { address: poolLensContractAddress } = useGetContractAddress({ name: 'PoolLens' });
 
   const isEnabled = (options?.enabled === undefined || options?.enabled) && isSpokeEnabled;
 
   const spokePoolsQuery = useQuery({
     queryKey: [FunctionKey.GET_SPOKE_POOLS, { chainId, ...input }],
-    queryFn: () => getSpokePools({ chainId, tokens, publicClient, ...input }),
+    queryFn: () =>
+      getSpokePools({ chainId, tokens, publicClient, poolLensContractAddress, ...input }),
     refetchInterval,
     ...options,
     enabled: isEnabled,

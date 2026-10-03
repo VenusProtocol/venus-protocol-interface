@@ -4,8 +4,6 @@ import { HEALTH_FACTOR_SAFE_MAX_THRESHOLD } from 'constants/healthFactor';
 import type { SpokeAsset, SpokePool } from 'types';
 import { clampToZero } from 'utilities';
 
-const RESERVE_ACCRUAL_BUFFER_DAYS = 7;
-
 export interface GetBorrowLimitsInput {
   spokePool: SpokePool;
   asset: SpokeAsset;
@@ -38,15 +36,7 @@ export const getBorrowLimits = ({
     return { limitTokens: new BigNumber(0), safeLimitTokens: new BigNumber(0) };
   }
 
-  const unaccruedReservesTokens = asset.borrowBalanceTokens
-    .multipliedBy(asset.borrowApyPercentage.dividedBy(100))
-    .multipliedBy(asset.reserveFactor)
-    .multipliedBy(RESERVE_ACCRUAL_BUFFER_DAYS)
-    .dividedBy(365);
-
-  const assetLiquidityTokens = asset.cashTokens
-    .minus(asset.reserveTokens)
-    .minus(unaccruedReservesTokens);
+  const assetLiquidityTokens = asset.liquidityCents.dividedBy(asset.tokenPriceCents);
 
   // Protected prices on both sides, matching the comptroller and the Core borrow form
   const marginWithUserBorrowLimitTokens = (userBorrowLimitProtectedCents ?? userBorrowLimitCents)

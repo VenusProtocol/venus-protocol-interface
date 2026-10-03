@@ -1,10 +1,8 @@
-import BigNumber from 'bignumber.js';
-
 import type { ChainId, SpokeAsset, SpokePool, Token, TokenBalance } from 'types';
 import { addUserBorrowLimitShares, areAddressesEqual, calculateUserPoolValues } from 'utilities';
 
 import { formatToSpokeAsset } from '../formatToSpokeAsset';
-import type { ApiSpokeAccountPool, ApiSpokePool } from '../types';
+import type { ApiSpokePool, SpokeUserPosition } from '../types';
 
 export interface FormatToSpokePoolInput {
   apiPool: ApiSpokePool;
@@ -12,7 +10,7 @@ export interface FormatToSpokePoolInput {
   tokens: Token[];
   isUserConnected: boolean;
   isUserDataUnavailable: boolean;
-  userAccountPool?: ApiSpokeAccountPool;
+  userPositions: SpokeUserPosition[];
   userTokenBalances: TokenBalance[];
 }
 
@@ -22,7 +20,7 @@ export const formatToSpokePool = ({
   tokens,
   isUserConnected,
   isUserDataUnavailable,
-  userAccountPool,
+  userPositions,
   userTokenBalances,
 }: FormatToSpokePoolInput): SpokePool => {
   const assets = apiPool.markets.reduce<SpokeAsset[]>((acc, apiMarket) => {
@@ -31,8 +29,8 @@ export const formatToSpokePool = ({
       chainId,
       tokens,
       isUserConnected,
-      userPosition: userAccountPool?.positions.find(position =>
-        areAddressesEqual(position.marketAddress, apiMarket.address),
+      userPosition: userPositions.find(position =>
+        areAddressesEqual(position.vTokenAddress, apiMarket.address),
       ),
       userTokenBalances,
     });
@@ -49,10 +47,6 @@ export const formatToSpokePool = ({
 
   const spokePool: SpokePool = {
     ...userPoolValues,
-    ...(userAccountPool && {
-      userSupplyBalanceCents: new BigNumber(userAccountPool.totalSupplyUsdCents),
-      userBorrowBalanceCents: new BigNumber(userAccountPool.totalBorrowUsdCents),
-    }),
     comptrollerAddress: apiPool.address,
     name: apiPool.name ?? '',
     description: apiPool.description ?? '',
