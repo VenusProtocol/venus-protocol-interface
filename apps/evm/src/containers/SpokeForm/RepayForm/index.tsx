@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
 import { useRepayToSpoke } from 'clients/api';
-import { type ApyBreakdownItem, AvailableBalance, SpendingLimit } from 'components';
+import { type ApyBreakdownItem, AvailableBalance, NoticeWarning, SpendingLimit } from 'components';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -134,6 +134,10 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
       ))}
     </div>
   );
+
+  if (asset.disabledTokenActions.includes('repay')) {
+    return <NoticeWarning description={t('assetAccessor.disabledActionNotice.repay')} />;
+  }
 
   const handleSubmit = (submittedFormValues: FormValues) => {
     const amountTokens = new BigNumber(submittedFormValues.amountTokens);

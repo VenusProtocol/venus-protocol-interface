@@ -32,7 +32,7 @@ export const formatToMarketTransaction = ({
     return undefined;
   }
 
-  const { poolName, vToken } = asset;
+  const { poolName, vToken, isSpoke } = asset;
   const token = vToken.underlyingToken;
   const canCalculateUsdAmount = txType !== 'enterMarket' && txType !== 'exitMarket';
 
@@ -74,6 +74,7 @@ export const formatToMarketTransaction = ({
     poolName,
     vToken,
     amounts,
+    ...(isSpoke && { isSpoke }),
   };
 
   return transaction;

@@ -73,8 +73,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
     }
   };
 
-  const handleSupplySuccess =
-    asset && !collateralOnly ? () => setActiveTabId('loan') : onSubmitSuccess;
+  const shouldGuideToBorrow = !!asset && !collateralOnly;
 
   const restrictedCollateralTabs: Tab[] =
     poolCollaterals.length > 0
@@ -94,7 +93,8 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
               spokePool={spokePool}
               collaterals={collaterals}
               initialCollateral={initialCollateral}
-              onSubmitSuccess={handleSupplySuccess}
+              onSubmitSuccess={shouldGuideToBorrow ? undefined : onSubmitSuccess}
+              onSupplyConfirmed={shouldGuideToBorrow ? () => setActiveTabId('loan') : undefined}
             />
           ),
         },

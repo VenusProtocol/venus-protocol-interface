@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "Trung tâm thanh khoản",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "<Styled>Đã bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
@@ -1940,6 +1941,7 @@
     "enterValidAmountButtonLabel": "Nhập số tiền hợp lệ",
     "error": {
       "higherThanAvailableAmount": "Số tiền vượt quá số dư khả dụng",
+      "lowerThanMinAmount": "Số lượng thấp hơn mức tối thiểu {{minAmount}}",
       "supplyDisabled": "Việc cung cấp tài sản thế chấp này hiện đang tạm dừng"
     },
     "loanTabTitle": "Khoản vay",

@@ -272,6 +272,7 @@ export interface Pool {
 export interface SpokeAsset extends Asset {
   isSuppliable: boolean;
   isInactive: boolean;
+  isParticipantCountUnavailable: boolean;
   hubSupplyBalanceCents?: BigNumber;
 }
 
@@ -892,6 +893,7 @@ export interface MarketTx extends BaseTx {
   txType: MarketTxType;
   poolName: string;
   vToken: VToken;
+  isSpoke?: boolean;
 }
 
 export interface LiquidityHubTx extends BaseTx {

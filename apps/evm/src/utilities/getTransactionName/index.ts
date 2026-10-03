@@ -4,9 +4,10 @@ import type { TxType } from 'types';
 export interface GetTransactionNameInput {
   type: TxType;
   t: TFunction;
+  isSpoke?: boolean;
 }
 
-export const getTransactionName = ({ type, t }: GetTransactionNameInput) => {
+export const getTransactionName = ({ type, t, isSpoke = false }: GetTransactionNameInput) => {
   let name = '';
   let suffix = '';
 
@@ -17,7 +18,9 @@ export const getTransactionName = ({ type, t }: GetTransactionNameInput) => {
     case 'withdraw':
     case 'exitMarket':
     case 'enterMarket':
-      suffix = t('account.transactions.txSource.venusCore');
+      suffix = isSpoke
+        ? t('account.transactions.txSource.venusSpoke')
+        : t('account.transactions.txSource.venusCore');
       break;
     case 'hubSupply':
     case 'hubSupplyFromCollateral':

@@ -1,4 +1,9 @@
-import { useGetAccountTransactionHistory, useGetLiquidityHubs, useGetPools } from 'clients/api';
+import {
+  useGetAccountTransactionHistory,
+  useGetLiquidityHubs,
+  useGetPools,
+  useGetSpokePools,
+} from 'clients/api';
 import {
   Pagination,
   Select,
@@ -118,6 +123,8 @@ export const Transactions: React.FC = () => {
   });
   const { liquidityHubs } = getLiquidityHubsData;
 
+  const { data: getSpokePoolsData } = useGetSpokePools();
+
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(
       {
@@ -151,13 +158,15 @@ export const Transactions: React.FC = () => {
       value: ALL_OPTION_VALUE,
     };
 
-    const allAssets =
-      poolData?.pools.flatMap(p =>
-        p.assets.map(a => ({
-          ...a,
-          poolName: p.name,
-        })),
-      ) || [];
+    const allAssets = [
+      ...(poolData?.pools ?? []),
+      ...(getSpokePoolsData?.spokePools ?? []),
+    ].flatMap(p =>
+      p.assets.map(a => ({
+        ...a,
+        poolName: p.name,
+      })),
+    );
 
     const otherOptions: SelectOption<string>[] = [];
     const tokenOptions: Token[] = allAssets
@@ -196,7 +205,7 @@ export const Transactions: React.FC = () => {
     }
 
     return [allOption, ...otherOptions];
-  }, [t, poolData, liquidityHubs, isLiquidityHubFeatureEnabled]);
+  }, [t, poolData, getSpokePoolsData, liquidityHubs, isLiquidityHubFeatureEnabled]);
 
   // Reset contract address filter if the value in the URL is incorrect
   useEffect(() => {

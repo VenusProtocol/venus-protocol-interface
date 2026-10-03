@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
@@ -321,11 +321,16 @@ describe('SpokeForm submission', () => {
     );
   });
 
-  it('moves on to the loan side after supplying collateral', async () => {
-    (useSupplyToSpoke as Mock).mockImplementation(() => ({
-      mutateAsync: vi.fn(),
-      isPending: false,
-    }));
+  it('moves on to the loan side once the supply is confirmed, not when it is signed', async () => {
+    let confirmSupply: (() => unknown) | undefined;
+    (useSupplyToSpoke as Mock).mockImplementation((options?: { onConfirmed?: () => unknown }) => {
+      confirmSupply = options?.onConfirmed;
+
+      return {
+        mutateAsync: vi.fn(),
+        isPending: false,
+      };
+    });
     const onSubmitSuccess = vi.fn();
 
     const poolWithWalletBalance = {
@@ -354,6 +359,17 @@ describe('SpokeForm submission', () => {
 
     await enterAmount('10');
     await submit();
+
+    await waitFor(() =>
+      expect((document.querySelector('input[name="amountTokens"]') as HTMLInputElement).value).toBe(
+        '',
+      ),
+    );
+    expect(queryByText(en.spokeForm.repay.tabTitle)).not.toBeInTheDocument();
+
+    act(() => {
+      confirmSupply?.();
+    });
 
     await waitFor(() => expect(queryByText(en.spokeForm.repay.tabTitle)).toBeInTheDocument());
     expect(onSubmitSuccess).not.toHaveBeenCalled();

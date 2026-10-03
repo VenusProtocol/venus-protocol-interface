@@ -88,4 +88,26 @@ describe('Controls', () => {
     expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
     expect(mockSetUserChainSettings).toHaveBeenCalledWith({ showPausedAssets: true });
   });
+
+  it('reads and writes the setting it is given for paused assets', () => {
+    (useUserChainSettings as Mock).mockReturnValue([
+      { ...defaultUserChainSettings, showPausedAssets: true, showPausedSpokeAssets: false },
+      mockSetUserChainSettings,
+    ]);
+
+    renderComponent(
+      <Controls
+        {...baseProps}
+        showPausedAssetsToggle
+        pausedAssetsSettingKey="showPausedSpokeAssets"
+      />,
+    );
+
+    const [toggle] = screen.getAllByRole('checkbox');
+    expect(toggle).not.toBeChecked();
+
+    fireEvent.click(toggle);
+
+    expect(mockSetUserChainSettings).toHaveBeenLastCalledWith({ showPausedSpokeAssets: true });
+  });
 });

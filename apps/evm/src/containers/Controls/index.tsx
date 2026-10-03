@@ -16,6 +16,7 @@ export interface ControlsProps {
   selectedCategories?: string[];
   onSelectedCategoriesChange?: (selectedTags: string[]) => void;
   filters?: ReactNode;
+  pausedAssetsSettingKey?: 'showPausedAssets' | 'showPausedSpokeAssets';
 }
 
 export const Controls: React.FC<ControlsProps> = ({
@@ -27,6 +28,7 @@ export const Controls: React.FC<ControlsProps> = ({
   selectedCategories = [],
   onSelectedCategoriesChange,
   filters,
+  pausedAssetsSettingKey = 'showPausedAssets',
 }) => {
   const { t } = useTranslation();
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
@@ -35,7 +37,8 @@ export const Controls: React.FC<ControlsProps> = ({
   const setShowUserAssetsOnly = (value: boolean) =>
     setUserChainSettings({ showUserAssetsOnly: value });
 
-  const setShowPausedAssets = (value: boolean) => setUserChainSettings({ showPausedAssets: value });
+  const setShowPausedAssets = (value: boolean) =>
+    setUserChainSettings({ [pausedAssetsSettingKey]: value });
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchValueChange(changeEvent.currentTarget.value);
@@ -87,8 +90,8 @@ export const Controls: React.FC<ControlsProps> = ({
 
             {showPausedAssetsToggle && (
               <Toggle
-                onChange={() => setShowPausedAssets(!userChainSettings.showPausedAssets)}
-                value={userChainSettings.showPausedAssets}
+                onChange={() => setShowPausedAssets(!userChainSettings[pausedAssetsSettingKey])}
+                value={userChainSettings[pausedAssetsSettingKey]}
                 label={t('controls.pausedAssetsToggle.label')}
               />
             )}

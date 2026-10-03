@@ -13,6 +13,7 @@ import { immer } from 'zustand/middleware/immer';
 export interface UserChainSettings {
   gaslessTransactions: boolean;
   showPausedAssets: boolean;
+  showPausedSpokeAssets: boolean;
   showUserAssetsOnly: boolean;
   doNotShowImportPositionsModal: boolean;
   slippageTolerancePercentage: string;

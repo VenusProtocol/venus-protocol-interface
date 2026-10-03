@@ -1,5 +1,5 @@
 import type { ChainId } from '@venusprotocol/chains';
-import type { Asset, LiquidityHub, Pool, Tx, TxType, VhToken } from 'types';
+import type { Asset, LiquidityHub, Pool, SpokePool, Tx, TxType, VhToken } from 'types';
 import type { Address } from 'viem';
 
 export type ApiTxType =
@@ -69,6 +69,7 @@ export interface GetAccountTransactionHistoryInput {
   accountAddress: string;
   chainId: ChainId;
   pools: Pool[];
+  spokePools?: SpokePool[];
   liquidityHubs: LiquidityHub[];
   positionAccountAddress?: Address;
   contractAddress?: Address;
@@ -85,6 +86,7 @@ export type VTokenAssetMapping = Record<
   Address,
   Asset & {
     poolName: string;
+    isSpoke?: boolean;
   }
 >;
 

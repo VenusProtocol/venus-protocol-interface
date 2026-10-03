@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "Liquidity Hub",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
@@ -1941,6 +1942,7 @@
     "enterValidAmountButtonLabel": "Enter valid amount",
     "error": {
       "higherThanAvailableAmount": "Amount exceeds the available balance",
+      "lowerThanMinAmount": "Amount is below the minimum of {{minAmount}}",
       "supplyDisabled": "Supplying is currently paused for this collateral"
     },
     "loanTabTitle": "Loan",

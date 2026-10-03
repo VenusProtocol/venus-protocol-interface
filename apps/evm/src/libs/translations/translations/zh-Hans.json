@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "流动性中心",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
@@ -1940,6 +1941,7 @@
     "enterValidAmountButtonLabel": "请输入有效金额",
     "error": {
       "higherThanAvailableAmount": "金额超出可用余额",
+      "lowerThanMinAmount": "金额低于最小值 {{minAmount}}",
       "supplyDisabled": "该抵押品的供应当前已暂停"
     },
     "loanTabTitle": "借贷",

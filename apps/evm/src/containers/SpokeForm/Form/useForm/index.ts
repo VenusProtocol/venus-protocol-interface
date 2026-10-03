@@ -16,6 +16,7 @@ export type FormErrorCode =
   | CommonCasesErrorCode
   | 'ACTION_DISABLED'
   | 'NO_COLLATERAL_SUPPLIED'
+  | 'LOWER_THAN_MIN_AMOUNT'
   | 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
 
 export const initialFormValues: FormValues = {

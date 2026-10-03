@@ -17,12 +17,14 @@ import {
 } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
 import type { UseFormValidationInput } from '../Form/useForm/useFormValidation';
+import { getMinAmountTokens } from '../getMinAmountTokens';
 
 export interface SupplyFormProps {
   spokePool: SpokePool;
   collaterals: SpokeAsset[];
   initialCollateral: SpokeAsset;
   onSubmitSuccess?: () => void;
+  onSupplyConfirmed?: () => void;
 }
 
 export const SupplyForm: React.FC<SupplyFormProps> = ({
@@ -30,6 +32,7 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
   collaterals,
   initialCollateral,
   onSubmitSuccess,
+  onSupplyConfirmed,
 }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
@@ -47,7 +50,9 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
     collaterals.find(asset =>
       areAddressesEqual(asset.vToken.underlyingToken.address, selectedTokenAddress),
     ) ?? initialCollateral;
-  const { mutateAsync: supply, isPending: isSubmitting } = useSupplyToSpoke();
+  const { mutateAsync: supply, isPending: isSubmitting } = useSupplyToSpoke({
+    onConfirmed: onSupplyConfirmed,
+  });
   const { address: collateralGatewayAddress } = useGetContractAddress({
     name: 'CollateralGateway',
   });
@@ -112,6 +117,20 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
   const validateForm: UseFormValidationInput['validate'] = ({ formValues: { amountTokens } }) => {
     if (selectedAsset.isInactive || selectedAsset.disabledTokenActions.includes('supply')) {
       return { code: 'ACTION_DISABLED', message: t('spokeForm.error.supplyDisabled') };
+    }
+
+    const minAmountTokens = getMinAmountTokens({ asset: selectedAsset });
+
+    if (
+      new BigNumber(amountTokens).isGreaterThan(0) &&
+      new BigNumber(amountTokens).isLessThan(minAmountTokens)
+    ) {
+      return {
+        code: 'LOWER_THAN_MIN_AMOUNT',
+        message: t('spokeForm.error.lowerThanMinAmount', {
+          minAmount: `${minAmountTokens.toFixed()} ${selectedAsset.vToken.underlyingToken.symbol}`,
+        }),
+      };
     }
 
     if (

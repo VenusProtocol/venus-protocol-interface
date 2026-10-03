@@ -17,7 +17,9 @@ export type SupplyToSpokeInput = {
   amountMantissa: BigNumber;
 };
 
-type Options = UseSendTransactionOptions<SupplyToSpokeInput>;
+type Options = UseSendTransactionOptions<SupplyToSpokeInput> & {
+  onConfirmed?: () => unknown;
+};
 
 export const useSupplyToSpoke = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
@@ -26,6 +28,8 @@ export const useSupplyToSpoke = (options?: Partial<Options>) => {
   const { address: collateralGatewayAddress } = useGetContractAddress({
     name: 'CollateralGateway',
   });
+
+  const { onConfirmed, ...otherOptions } = options || {};
 
   return useSendTransaction({
     fn: (input: SupplyToSpokeInput) => {
@@ -107,7 +111,9 @@ export const useSupplyToSpoke = (options?: Partial<Options>) => {
           },
         ],
       });
+
+      onConfirmed?.();
     },
-    options,
+    options: otherOptions,
   });
 };

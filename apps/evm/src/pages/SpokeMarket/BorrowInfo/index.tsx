@@ -77,7 +77,7 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
         token: asset.vToken.underlyingToken,
         title: t('spokeMarket.borrowCapThreshold.title'),
         tokenPriceCents: asset.tokenPriceCents,
-        limitTokens: reachableBorrowCapTokens,
+        limitTokens: asset.supplyBalanceTokens,
         valueTokens: asset.borrowBalanceTokens,
         tooltip: <span className="whitespace-pre-line">{borrowCapThresholdTooltip}</span>,
       }}

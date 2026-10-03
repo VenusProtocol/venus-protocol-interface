@@ -15,6 +15,8 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
+import type { UseFormValidationInput } from '../Form/useForm/useFormValidation';
+import { getMinAmountTokens } from '../getMinAmountTokens';
 
 export interface WithdrawFormProps {
   spokePool: SpokePool;
@@ -88,6 +90,29 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
         }))
     : undefined;
 
+  const validateForm: UseFormValidationInput['validate'] = ({ formValues: { amountTokens } }) => {
+    if (selectedAsset.disabledTokenActions.includes('withdraw')) {
+      return {
+        code: 'ACTION_DISABLED',
+        message: t('assetAccessor.disabledActionNotice.withdraw'),
+      };
+    }
+
+    const minAmountTokens = getMinAmountTokens({ asset: selectedAsset });
+
+    if (
+      new BigNumber(amountTokens).isGreaterThan(0) &&
+      new BigNumber(amountTokens).isLessThan(minAmountTokens)
+    ) {
+      return {
+        code: 'LOWER_THAN_MIN_AMOUNT',
+        message: t('spokeForm.error.lowerThanMinAmount', {
+          minAmount: `${minAmountTokens.toFixed()} ${selectedAsset.vToken.underlyingToken.symbol}`,
+        }),
+      };
+    }
+  };
+
   const availableBalanceDom = (
     <AvailableBalance
       readableBalance={formatTokensToReadableValue({
@@ -135,6 +160,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
       availableBalance={availableBalanceDom}
       tokenBalances={tokenBalances}
       onChangeSelectedToken={handleChangeSelectedToken}
+      validateForm={validateForm}
     />
   );
 };

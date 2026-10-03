@@ -30,10 +30,15 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   const { mutateAsync: borrow, isPending: isSubmitting } = useBorrowFromSpoke();
 
   const hasCollateralSupplied = spokePool.assets.some(
-    poolAsset => !poolAsset.isBorrowable && poolAsset.userSupplyBalanceTokens.isGreaterThan(0),
+    poolAsset =>
+      !poolAsset.isBorrowable &&
+      poolAsset.isCollateralOfUser &&
+      poolAsset.userSupplyBalanceTokens.isGreaterThan(0),
   );
 
-  const isBorrowDisabled = asset.disabledTokenActions.includes('borrow');
+  const isBorrowDisabled =
+    asset.disabledTokenActions.includes('borrow') ||
+    (asset.disabledTokenActions.includes('enterMarket') && !asset.isCollateralOfUser);
 
   const { limitTokens, safeLimitTokens } = getBorrowLimits({ spokePool, asset });
 

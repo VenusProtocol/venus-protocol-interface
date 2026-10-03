@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "ศูนย์สภาพคล่อง",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "<Styled>เปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน",
@@ -1940,6 +1941,7 @@
     "enterValidAmountButtonLabel": "กรอกจำนวนที่ถูกต้อง",
     "error": {
       "higherThanAvailableAmount": "จำนวนเกินยอดคงเหลือที่ใช้ได้",
+      "lowerThanMinAmount": "จำนวนต่ำกว่าขั้นต่ำ {{minAmount}}",
       "supplyDisabled": "การฝากหลักประกันนี้ถูกหยุดชั่วคราว"
     },
     "loanTabTitle": "สินเชื่อ",

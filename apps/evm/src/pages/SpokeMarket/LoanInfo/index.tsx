@@ -23,7 +23,7 @@ export const LoanInfo: React.FC<LoanInfoProps> = ({ asset }) => {
   const items: MarketInfoProps['items'] = [
     {
       label: t('spokeMarket.loanInfo.borrowerCount'),
-      children: PLACEHOLDER_KEY,
+      children: asset.isParticipantCountUnavailable ? PLACEHOLDER_KEY : asset.borrowerCount,
     },
     {
       label: t('spokeMarket.loanInfo.marketContract'),

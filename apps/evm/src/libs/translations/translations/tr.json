@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "Likidite Merkezi",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
@@ -1941,6 +1942,7 @@
     "enterValidAmountButtonLabel": "Geçerli bir tutar girin",
     "error": {
       "higherThanAvailableAmount": "Tutar kullanılabilir bakiyeyi aşıyor",
+      "lowerThanMinAmount": "Miktar minimum değer olan {{minAmount}} altında",
       "supplyDisabled": "Bu teminatın arzı şu anda duraklatıldı"
     },
     "loanTabTitle": "Kredi",

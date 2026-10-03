@@ -117,6 +117,8 @@ export const Form: React.FC<FormProps> = ({
       amountTokens,
     }));
 
+  const isAwaitingRiskAcknowledgement = formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT';
+
   const amountInputProps = {
     name: 'amountTokens',
     value: formValues.amountTokens,
@@ -127,7 +129,11 @@ export const Form: React.FC<FormProps> = ({
       onClick: handleRightMaxButtonClick,
     },
     hasError:
-      isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0,
+      isUserConnected &&
+      !isSubmitting &&
+      !!formError &&
+      !isAwaitingRiskAcknowledgement &&
+      Number(formValues.amountTokens) > 0,
     description:
       isUserConnected && !isSubmitting && !!formError?.message ? (
         <p className="text-red">{formError.message}</p>
@@ -183,7 +189,9 @@ export const Form: React.FC<FormProps> = ({
       <TxFormSubmitButton
         approval={approval}
         submitButtonLabel={
-          isFormValid ? submitButtonLabel : t('spokeForm.enterValidAmountButtonLabel')
+          isFormValid || isAwaitingRiskAcknowledgement
+            ? submitButtonLabel
+            : t('spokeForm.enterValidAmountButtonLabel')
         }
         isFormValid={isFormValid}
         isLoading={isSubmitting || isGetSimulatedPoolLoading}

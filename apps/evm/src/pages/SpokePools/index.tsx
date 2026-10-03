@@ -63,7 +63,8 @@ const SpokePools: React.FC = () => {
   const matchesSearch = (asset: SpokeAsset) =>
     asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase());
 
-  const isVisible = (asset: SpokeAsset) => userChainSettings.showPausedAssets || !asset.isInactive;
+  const isVisible = (asset: SpokeAsset) =>
+    userChainSettings.showPausedSpokeAssets || !asset.isInactive;
 
   // An empty group means no constraint: values are OR-ed within a group, and groups are
   // AND-ed together
@@ -192,6 +193,7 @@ const SpokePools: React.FC = () => {
             onSearchValueChange={setSearchValue}
             searchInputPlaceholder={t('spokePools.filter.searchPlaceholder')}
             showPausedAssetsToggle
+            pausedAssetsSettingKey="showPausedSpokeAssets"
             filters={filters}
           />
 

@@ -21,6 +21,8 @@ export interface ApiSpokeMarket {
   cashMantissa: string;
   totalSupplyUsdCents: string;
   totalBorrowsUsdCents: string;
+  supplierCount?: number;
+  borrowerCount?: number;
   supplyRatePerBlockMantissa: string;
   borrowRatePerBlockMantissa: string;
   supplyApyDecimal: number;
