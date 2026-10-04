@@ -36,7 +36,7 @@ export const getBorrowLimits = ({
     return { limitTokens: new BigNumber(0), safeLimitTokens: new BigNumber(0) };
   }
 
-  const assetLiquidityTokens = asset.liquidityCents.dividedBy(asset.tokenPriceCents);
+  const assetLiquidityTokens = asset.cashTokens.minus(asset.reserveTokens);
 
   // Protected prices on both sides, matching the comptroller and the Core borrow form
   const marginWithUserBorrowLimitTokens = (userBorrowLimitProtectedCents ?? userBorrowLimitCents)
