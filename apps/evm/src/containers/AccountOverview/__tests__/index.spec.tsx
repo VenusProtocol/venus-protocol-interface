@@ -1,6 +1,10 @@
 import { fireEvent, waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { spokePools } from '__mocks__/models/spokePools';
+import { useGetSpokePools } from 'clients/api';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import * as storeModule from 'store';
@@ -28,6 +32,32 @@ describe('AccountOverview', () => {
     await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
 
     expect(container.textContent).toMatchSnapshot();
+  });
+
+  it('adds Spoke positions to the net worth', async () => {
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        spokePools: [
+          {
+            ...spokePools[0],
+            userSupplyBalanceCents: new BigNumber(1_200_000_000_000),
+            userBorrowBalanceCents: new BigNumber(200_000_000_000),
+          },
+        ],
+      },
+    }));
+
+    const { container, queryByTestId } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}$10B`);
   });
 
   it('displays correctly when user is connected and accordion is expanded', async () => {

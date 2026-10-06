@@ -156,6 +156,24 @@ describe('formatToLiquidityHub', () => {
     expect(result?.yieldGroups[0]?.supplyCapCents.isEqualTo(100000)).toBe(true);
   });
 
+  it('keeps a Spoke yield group with its own name', () => {
+    const [apiYieldGroup] = (liquidityHubsResponse.result[0] as ApiLiquidityHub).yieldGroups;
+
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...(liquidityHubsResponse.result[0] as ApiLiquidityHub),
+        yieldGroups: [{ ...apiYieldGroup, kind: 'spoke' }],
+      },
+      tokens: [usdc, xvs],
+    });
+
+    expect(result?.yieldGroups).toHaveLength(1);
+    expect(result?.yieldGroups[0]?.type).toBe('spoke');
+    expect(result?.yieldGroups[0]?.nameTranslationKey).toBe(
+      'liquidityHub.allocationDetails.yieldGroup.names.spoke',
+    );
+  });
+
   it('maps agency ratings onto the fund sources of a yield group', () => {
     const [apiYieldGroup] = (liquidityHubsResponse.result[0] as ApiLiquidityHub).yieldGroups;
 

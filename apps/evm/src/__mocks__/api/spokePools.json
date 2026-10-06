@@ -17,6 +17,7 @@
       "name": "Hub-funded spoke",
       "description": "Borrow against hub-funded liquidity.",
       "category": null,
+      "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
       "markets": [
         {
           "address": "0xD05514217FD359659aE7da7740e79C11947eBB32",

@@ -309,7 +309,7 @@ export interface LiquidityHubSource {
   lockEndDate?: Date;
 }
 
-export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv' | 'centrifuge';
+export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv' | 'centrifuge' | 'spoke';
 
 export interface LiquidityHubYieldGroup {
   address: Address;

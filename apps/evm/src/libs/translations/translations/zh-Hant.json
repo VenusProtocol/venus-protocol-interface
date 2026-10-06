@@ -1023,7 +1023,8 @@
           "centrifuge": "Centrifuge 基金",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "固定利率金庫"
+          "frv": "固定利率金庫",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {

@@ -1024,7 +1024,8 @@
           "centrifuge": "Centrifuge funds",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "Fixed rate vault"
+          "frv": "Fixed rate vault",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {

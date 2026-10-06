@@ -1023,7 +1023,8 @@
           "centrifuge": "กองทุน Centrifuge",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "คลังอัตราคงที่"
+          "frv": "คลังอัตราคงที่",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {

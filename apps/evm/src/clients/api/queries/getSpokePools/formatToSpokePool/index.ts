@@ -29,6 +29,7 @@ export const formatToSpokePool = ({
       chainId,
       tokens,
       isUserConnected,
+      priceOracleAddress: apiPool.priceOracleAddress ?? undefined,
       userPosition: userPositions.find(position =>
         areAddressesEqual(position.vTokenAddress, apiMarket.address),
       ),

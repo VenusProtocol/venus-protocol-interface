@@ -7,6 +7,7 @@ import {
   type AccountPerformanceHistoryPeriod,
   useGetAccountPerformanceHistory,
   useGetPool,
+  useGetSpokePools,
   useGetTokenUsdPrice,
   useGetVaults,
 } from 'clients/api';
@@ -102,6 +103,17 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const { data: getVaultsData } = useGetVaults({
     accountAddress,
   });
+
+  const { data: getSpokePoolsData } = useGetSpokePools(
+    { accountAddress },
+    { enabled: !!accountAddress },
+  );
+
+  const spokeNetWorthCents = (getSpokePoolsData?.spokePools ?? []).reduce(
+    (acc, spokePool) =>
+      acc.plus(spokePool.userSupplyBalanceCents || 0).minus(spokePool.userBorrowBalanceCents || 0),
+    new BigNumber(0),
+  );
   const vaults = getVaultsData || [];
 
   const xvs = useGetToken({
@@ -150,6 +162,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     pool && accountAddress
       ? new BigNumber(pool.userSupplyBalanceCents || 0)
           .plus(userTotalVaultStakeCents || 0)
+          .plus(spokeNetWorthCents)
           .minus(pool.userBorrowBalanceCents || 0)
           .minus(pool.vai?.userBorrowBalanceCents || 0)
           .toNumber()

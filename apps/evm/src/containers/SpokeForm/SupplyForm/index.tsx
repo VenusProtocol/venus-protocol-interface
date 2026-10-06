@@ -38,7 +38,9 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
   const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState(initialFormValues);
   const isSuppliable = (asset: SpokeAsset) =>
-    !asset.isInactive && !asset.disabledTokenActions.includes('supply');
+    !asset.isInactive &&
+    !asset.disabledTokenActions.includes('supply') &&
+    !asset.disabledTokenActions.includes('enterMarket');
 
   const [selectedTokenAddress, setSelectedTokenAddress] = useState(
     (isSuppliable(initialCollateral)
@@ -115,7 +117,7 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
     : undefined;
 
   const validateForm: UseFormValidationInput['validate'] = ({ formValues: { amountTokens } }) => {
-    if (selectedAsset.isInactive || selectedAsset.disabledTokenActions.includes('supply')) {
+    if (!isSuppliable(selectedAsset)) {
       return { code: 'ACTION_DISABLED', message: t('spokeForm.error.supplyDisabled') };
     }
 

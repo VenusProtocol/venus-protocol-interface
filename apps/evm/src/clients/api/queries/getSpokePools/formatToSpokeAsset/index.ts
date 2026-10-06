@@ -12,6 +12,7 @@ import {
   convertPriceMantissaToDollars,
   getDisabledTokenActions,
 } from 'utilities';
+import type { Address } from 'viem';
 
 import type { ApiSpokeMarket, SpokeUserPosition } from '../types';
 import { getMarketRole } from './getMarketRole';
@@ -21,6 +22,7 @@ export interface FormatToSpokeAssetInput {
   chainId: ChainId;
   tokens: Token[];
   isUserConnected: boolean;
+  priceOracleAddress?: Address;
   userPosition?: SpokeUserPosition;
   userTokenBalances: TokenBalance[];
 }
@@ -30,6 +32,7 @@ export const formatToSpokeAsset = ({
   chainId,
   tokens,
   isUserConnected,
+  priceOracleAddress,
   userPosition,
   userTokenBalances,
 }: FormatToSpokeAssetInput): SpokeAsset | undefined => {
@@ -107,7 +110,7 @@ export const formatToSpokeAsset = ({
     tokenSupplyPriceCents: tokenPriceCents,
     tokenBorrowPriceCents: tokenPriceCents,
     isProtectionModeEnabled: false,
-    tokenPriceOracleAddress: NULL_ADDRESS,
+    tokenPriceOracleAddress: priceOracleAddress ?? NULL_ADDRESS,
     isBorrowable: isLiquiditySide,
     isSuppliable: apiMarket.suppliable,
     isInactive,

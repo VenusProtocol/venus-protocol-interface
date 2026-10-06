@@ -274,6 +274,47 @@ describe('SpokeForm submission', () => {
     expect(mockSupply).not.toHaveBeenCalled();
   });
 
+  it('blocks supplying a collateral whose enter market is paused', async () => {
+    const mockSupply = vi.fn();
+    (useSupplyToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockSupply,
+      isPending: false,
+    }));
+
+    const enterMarketPausedCollateral = {
+      ...collateral,
+      isInactive: false,
+      disabledTokenActions: ['enterMarket' as const],
+      userWalletBalanceTokens: new BigNumber(1000),
+    };
+
+    const poolWithEnterMarketPaused = {
+      ...pool,
+      assets: pool.assets.map(asset =>
+        asset.vToken.address === collateral.vToken.address ? enterMarketPausedCollateral : asset,
+      ),
+    };
+
+    const { getByText } = renderComponent(
+      <SpokeForm
+        spokePool={poolWithEnterMarketPaused}
+        asset={loanAsset}
+        preselectedCollateral={enterMarketPausedCollateral}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="supply"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await enterAmount('10');
+
+    await waitFor(() => expect(getByText(en.spokeForm.error.supplyDisabled)).toBeInTheDocument());
+    expect(document.querySelector('button[type="submit"]')).toBeDisabled();
+    expect(mockSupply).not.toHaveBeenCalled();
+  });
+
   it('uses a freshly fetched vToken balance for a full withdrawal even when one is cached', async () => {
     const mockWithdraw = vi.fn();
     (useWithdrawFromSpoke as Mock).mockImplementation(() => ({

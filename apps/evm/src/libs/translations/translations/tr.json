@@ -1024,7 +1024,8 @@
           "centrifuge": "Centrifuge fonları",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "Sabit oran kasası"
+          "frv": "Sabit oran kasası",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {

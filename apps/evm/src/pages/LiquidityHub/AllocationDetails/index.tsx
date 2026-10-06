@@ -12,6 +12,7 @@ import { YieldGroupName } from './YieldGroupName';
 // t('liquidityHub.allocationDetails.yieldGroup.names.flux')
 // t('liquidityHub.allocationDetails.yieldGroup.names.frv')
 // t('liquidityHub.allocationDetails.yieldGroup.names.centrifuge')
+// t('liquidityHub.allocationDetails.yieldGroup.names.spoke')
 
 interface Allocation {
   nameTranslationKey: string;

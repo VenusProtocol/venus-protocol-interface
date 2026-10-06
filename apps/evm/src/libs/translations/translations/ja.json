@@ -1023,7 +1023,8 @@
           "centrifuge": "Centrifuge ファンド",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "固定利率ボールト"
+          "frv": "固定利率ボールト",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {

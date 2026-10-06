@@ -43,6 +43,7 @@ export interface ApiSpokePool {
   name: string | null;
   description: string | null;
   category: string | null;
+  priceOracleAddress?: Address | null;
   markets: ApiSpokeMarket[];
 }
 

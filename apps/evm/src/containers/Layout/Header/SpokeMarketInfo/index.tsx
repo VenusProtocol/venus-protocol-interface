@@ -2,6 +2,7 @@ import { useParams } from 'react-router';
 import type { Address } from 'viem';
 
 import { type CellProps, SpokeCollateralGroup } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { useGetSpokeMarket } from 'hooks/useGetSpokeMarket';
 import { useSelectedSpokeCollateral } from 'hooks/useSelectedSpokeCollateral';
 import { useTranslation } from 'libs/translations';
@@ -50,6 +51,11 @@ export const SpokeMarketInfo: React.FC = () => {
     <TokenInfo
       token={asset?.vToken.underlyingToken}
       relatedTokens={asset && [asset.vToken.underlyingToken, asset.vToken]}
+      tokenPriceOracleAddress={
+        asset && asset.tokenPriceOracleAddress !== NULL_ADDRESS
+          ? asset.tokenPriceOracleAddress
+          : undefined
+      }
       cells={cells}
     />
   );

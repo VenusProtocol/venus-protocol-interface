@@ -86,6 +86,7 @@ describe('getSpokePools', () => {
     expect(loanAsset.borrowApyPercentage.toFixed()).toBe('4.55');
     expect(loanAsset.disabledTokenActions).toContain('borrow');
     expect(loanAsset.hubSupplyBalanceCents).toBeUndefined();
+    expect(loanAsset.tokenPriceOracleAddress).toBe('0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823');
     expect(collateral.isInactive).toBe(false);
     expect(loanAsset.isInactive).toBe(false);
     expect(restService).toHaveBeenCalledTimes(1);
