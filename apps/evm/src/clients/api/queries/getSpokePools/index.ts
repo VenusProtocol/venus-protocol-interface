@@ -112,6 +112,7 @@ export const getSpokePools = async ({
       isUserDataUnavailable,
       userPositions: userPositions ?? [],
       userTokenBalances,
+      apiTokens: payload.tokens ?? [],
     }),
   );
 

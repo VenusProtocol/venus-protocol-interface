@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import type { ChainId, SpokeAsset, Token, TokenBalance, VToken } from 'types';
+import type { ApiTokenPrice, ChainId, SpokeAsset, Token, TokenBalance, VToken } from 'types';
 import {
   areAddressesEqual,
   convertDollarsToCents,
@@ -23,6 +23,7 @@ export interface FormatToSpokeAssetInput {
   tokens: Token[];
   isUserConnected: boolean;
   priceOracleAddress?: Address;
+  oraclePrice?: ApiTokenPrice;
   userPosition?: SpokeUserPosition;
   userTokenBalances: TokenBalance[];
 }
@@ -33,6 +34,7 @@ export const formatToSpokeAsset = ({
   tokens,
   isUserConnected,
   priceOracleAddress,
+  oraclePrice,
   userPosition,
   userTokenBalances,
 }: FormatToSpokeAssetInput): SpokeAsset | undefined => {
@@ -60,6 +62,18 @@ export const formatToSpokeAsset = ({
       decimals: underlyingToken.decimals,
     }),
   );
+
+  const isProtectionModeEnabled = oraclePrice?.isPriceProtected ?? false;
+
+  const toProtectedPriceCents = (priceMantissa?: string | null) =>
+    isProtectionModeEnabled && priceMantissa
+      ? convertDollarsToCents(
+          convertPriceMantissaToDollars({ priceMantissa, decimals: underlyingToken.decimals }),
+        )
+      : tokenPriceCents;
+
+  const tokenSupplyPriceCents = toProtectedPriceCents(oraclePrice?.supplyPriceMantissa);
+  const tokenBorrowPriceCents = toProtectedPriceCents(oraclePrice?.borrowPriceMantissa);
 
   const toTokens = (mantissa: string) =>
     convertMantissaToTokens({ value: new BigNumber(mantissa), token: underlyingToken });
@@ -107,9 +121,9 @@ export const formatToSpokeAsset = ({
   const spokeAsset: SpokeAsset = {
     vToken,
     tokenPriceCents,
-    tokenSupplyPriceCents: tokenPriceCents,
-    tokenBorrowPriceCents: tokenPriceCents,
-    isProtectionModeEnabled: false,
+    tokenSupplyPriceCents,
+    tokenBorrowPriceCents,
+    isProtectionModeEnabled,
     tokenPriceOracleAddress: priceOracleAddress ?? NULL_ADDRESS,
     isBorrowable: isLiquiditySide,
     isSuppliable: apiMarket.suppliable,
@@ -154,10 +168,10 @@ export const formatToSpokeAsset = ({
     isGated: false,
     userSupplyBalanceTokens,
     userSupplyBalanceCents: userSupplyBalanceTokens.multipliedBy(tokenPriceCents),
-    userSupplyBalanceProtectedCents: userSupplyBalanceTokens.multipliedBy(tokenPriceCents),
+    userSupplyBalanceProtectedCents: userSupplyBalanceTokens.multipliedBy(tokenSupplyPriceCents),
     userBorrowBalanceTokens,
     userBorrowBalanceCents: userBorrowBalanceTokens.multipliedBy(tokenPriceCents),
-    userBorrowBalanceProtectedCents: userBorrowBalanceTokens.multipliedBy(tokenPriceCents),
+    userBorrowBalanceProtectedCents: userBorrowBalanceTokens.multipliedBy(tokenBorrowPriceCents),
     userWalletBalanceTokens,
     userWalletBalanceCents: userWalletBalanceTokens.multipliedBy(tokenPriceCents),
     userCollateralFactor: isUserConnected ? collateralFactor : 0,

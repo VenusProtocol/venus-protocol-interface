@@ -74,6 +74,7 @@ export interface GetAccountTransactionHistoryInput {
   positionAccountAddress?: Address;
   contractAddress?: Address;
   types: readonly TxType[];
+  poolType?: 'core' | 'spoke';
   page?: number;
 }
 

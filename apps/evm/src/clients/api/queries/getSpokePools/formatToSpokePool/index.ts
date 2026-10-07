@@ -2,7 +2,7 @@ import type { ChainId, SpokeAsset, SpokePool, Token, TokenBalance } from 'types'
 import { addUserBorrowLimitShares, areAddressesEqual, calculateUserPoolValues } from 'utilities';
 
 import { formatToSpokeAsset } from '../formatToSpokeAsset';
-import type { ApiSpokePool, SpokeUserPosition } from '../types';
+import type { ApiSpokePool, ApiSpokeToken, SpokeUserPosition } from '../types';
 
 export interface FormatToSpokePoolInput {
   apiPool: ApiSpokePool;
@@ -12,6 +12,7 @@ export interface FormatToSpokePoolInput {
   isUserDataUnavailable: boolean;
   userPositions: SpokeUserPosition[];
   userTokenBalances: TokenBalance[];
+  apiTokens: ApiSpokeToken[];
 }
 
 export const formatToSpokePool = ({
@@ -22,6 +23,7 @@ export const formatToSpokePool = ({
   isUserDataUnavailable,
   userPositions,
   userTokenBalances,
+  apiTokens,
 }: FormatToSpokePoolInput): SpokePool => {
   const assets = apiPool.markets.reduce<SpokeAsset[]>((acc, apiMarket) => {
     const spokeAsset = formatToSpokeAsset({
@@ -30,6 +32,18 @@ export const formatToSpokePool = ({
       tokens,
       isUserConnected,
       priceOracleAddress: apiPool.priceOracleAddress ?? undefined,
+      oraclePrice: apiTokens
+        .find(
+          apiToken =>
+            !!apiMarket.underlyingAddress &&
+            areAddressesEqual(apiToken.address, apiMarket.underlyingAddress),
+        )
+        ?.tokenPrices?.find(
+          tokenPrice =>
+            !!tokenPrice.priceOracleAddress &&
+            !!apiPool.priceOracleAddress &&
+            areAddressesEqual(tokenPrice.priceOracleAddress, apiPool.priceOracleAddress),
+        ),
       userPosition: userPositions.find(position =>
         areAddressesEqual(position.vTokenAddress, apiMarket.address),
       ),

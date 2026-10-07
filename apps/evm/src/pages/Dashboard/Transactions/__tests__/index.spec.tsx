@@ -105,6 +105,39 @@ describe('Transactions', () => {
     expect(container.textContent).toMatchSnapshot();
   });
 
+  it.each([
+    ['borrow', ['borrow'], 'core'],
+    ['spoke-borrow', ['borrow'], 'spoke'],
+    ['hubSupply', ['hubSupply'], undefined],
+  ])('filters %s by pool type when Spoke is enabled', (txType, types, poolType) => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabledInput) =>
+        name === 'transactionHistory' || name === 'liquidityHub' || name === 'spoke',
+    );
+
+    renderComponent(<Transactions />, {
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: [`/?txType=${txType}`],
+    });
+
+    expect(useGetAccountTransactionHistory).toHaveBeenLastCalledWith(
+      expect.objectContaining({ types, poolType }),
+      expect.any(Object),
+    );
+  });
+
+  it('does not filter by pool type when Spoke is disabled', () => {
+    renderComponent(<Transactions />, {
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: ['/?txType=borrow'],
+    });
+
+    expect(useGetAccountTransactionHistory).toHaveBeenLastCalledWith(
+      expect.objectContaining({ types: ['borrow'], poolType: undefined }),
+      expect.any(Object),
+    );
+  });
+
   it('accepts a Spoke market as the source filter', async () => {
     (useGetSpokePools as Mock).mockImplementation(() => ({
       data: { spokePools },

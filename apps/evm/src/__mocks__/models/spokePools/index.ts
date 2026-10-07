@@ -28,5 +28,6 @@ export const spokePools: SpokePool[] = apiPools.map(apiPool =>
     isUserDataUnavailable: false,
     userPositions,
     userTokenBalances: [],
+    apiTokens: [],
   }),
 );

@@ -1,4 +1,5 @@
 import type BigNumber from 'bignumber.js';
+import type { ApiTokenPrice } from 'types';
 import type { Address } from 'viem';
 
 export type ApiSpokeMarketSide = 'liquidity' | 'collateral' | 'inactive';
@@ -53,8 +54,14 @@ export interface ApiSpokeTotals {
   availableLiquidityUsdCents: string;
 }
 
+export interface ApiSpokeToken {
+  address: Address;
+  tokenPrices?: ApiTokenPrice[];
+}
+
 export interface GetSpokePoolsResponse {
   result?: ApiSpokePool[];
+  tokens?: ApiSpokeToken[];
   totals: ApiSpokeTotals;
 }
 

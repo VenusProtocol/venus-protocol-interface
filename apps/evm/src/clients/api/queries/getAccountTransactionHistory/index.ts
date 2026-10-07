@@ -43,6 +43,7 @@ export const getAccountTransactionHistory = async ({
   spokePools = [],
   liquidityHubs,
   types,
+  poolType,
   page,
 }: GetAccountTransactionHistoryInput): Promise<GetAccountTransactionHistoryOutput> => {
   const apiTypes = types.map(type => TX_TYPE_TO_API_FILTER[type]);
@@ -55,6 +56,7 @@ export const getAccountTransactionHistory = async ({
       types: apiTypes,
       contractAddress: contractAddress && isAddress(contractAddress) ? contractAddress : undefined,
       positionAccountAddress,
+      poolType,
       page,
     },
   });

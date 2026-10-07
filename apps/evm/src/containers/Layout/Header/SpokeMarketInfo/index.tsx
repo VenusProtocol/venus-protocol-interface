@@ -56,6 +56,14 @@ export const SpokeMarketInfo: React.FC = () => {
           ? asset.tokenPriceOracleAddress
           : undefined
       }
+      protectionModeIndicator={
+        asset?.isProtectionModeEnabled
+          ? {
+              tokenSupplyPriceCents: asset.tokenSupplyPriceCents,
+              tokenBorrowPriceCents: asset.tokenBorrowPriceCents,
+            }
+          : undefined
+      }
       cells={cells}
     />
   );

@@ -130,6 +130,69 @@ describe('getSpokePools', () => {
     expect(inactiveLoanAsset.isBorrowableByUser).toBe(false);
   });
 
+  it('uses the bounded prices of the pool oracle while price protection is on', async () => {
+    const oracleAddress = spokePoolsResponse.result[0].priceOracleAddress;
+    const tokenPrice = {
+      tokenWrappedAddress: null,
+      priceSource: 'oracle',
+      priceOracleAddress: oracleAddress,
+      isPriceInvalid: false,
+      hasErrorFetchingPrice: false,
+      isPriceProtected: true,
+    };
+
+    (restService as Mock).mockImplementation(async () => ({
+      data: {
+        ...spokePoolsResponse,
+        tokens: [
+          {
+            ...spokePoolsResponse.tokens[0],
+            tokenPrices: [
+              {
+                ...tokenPrice,
+                priceMantissa: '1000000000000000000000000000000',
+                supplyPriceMantissa: '900000000000000000000000000000',
+                borrowPriceMantissa: '1100000000000000000000000000000',
+              },
+            ],
+          },
+          {
+            ...spokePoolsResponse.tokens[1],
+            tokenPrices: [
+              {
+                ...tokenPrice,
+                priceOracleAddress: '0x0000000000000000000000000000000000000001',
+                priceMantissa: '500000000000000000000000000000',
+                supplyPriceMantissa: '400000000000000000000000000000',
+                borrowPriceMantissa: '600000000000000000000000000000',
+              },
+            ],
+          },
+        ],
+      },
+    }));
+
+    const { spokePools } = await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: buildPublicClient(),
+      poolLensContractAddress: fakePoolLensContractAddress,
+      accountAddress: fakeAccountAddress,
+    });
+
+    const [collateral, loanAsset] = spokePools[0].assets;
+
+    expect(spokePools[0].userBorrowLimitCents?.toFixed()).toBe('80000');
+    expect(spokePools[0].userBorrowLimitProtectedCents?.toFixed()).toBe('72000');
+    expect(collateral.isProtectionModeEnabled).toBe(true);
+    expect(collateral.tokenPriceCents.toFixed()).toBe('100');
+    expect(collateral.tokenSupplyPriceCents.toFixed()).toBe('90');
+    expect(collateral.tokenBorrowPriceCents.toFixed()).toBe('110');
+    expect(loanAsset.isProtectionModeEnabled).toBe(false);
+    expect(loanAsset.tokenSupplyPriceCents.isEqualTo(loanAsset.tokenPriceCents)).toBe(true);
+    expect(loanAsset.tokenBorrowPriceCents.isEqualTo(loanAsset.tokenPriceCents)).toBe(true);
+  });
+
   it('reads user balances and collateral membership on chain when an account is passed', async () => {
     mockResponses();
     const publicClient = buildPublicClient();
