@@ -15,6 +15,8 @@ export interface UserChainSettings {
   showPausedAssets: boolean;
   showPausedSpokeAssets: boolean;
   showUserAssetsOnly: boolean;
+  showUserLiquidityHubAssetsOnly: boolean;
+  showUserSpokeAssetsOnly: boolean;
   doNotShowImportPositionsModal: boolean;
   slippageTolerancePercentage: string;
   doNotShowUserBalances: boolean;

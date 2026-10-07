@@ -48,7 +48,7 @@ const mockSpokePools = (pools: (typeof spokePools)[number][]) =>
 
 const showUserAssetsOnly = () =>
   (useUserChainSettings as Mock).mockImplementation(() => [
-    { ...defaultUserChainSettings, showUserAssetsOnly: true },
+    { ...defaultUserChainSettings, showUserSpokeAssetsOnly: true },
     vi.fn(),
   ]);
 

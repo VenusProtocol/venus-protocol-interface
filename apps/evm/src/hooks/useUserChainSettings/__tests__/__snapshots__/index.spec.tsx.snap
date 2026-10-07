@@ -12,6 +12,8 @@ exports[`useUserChainSettings > returns correct settings from the store 1`] = `
   "showPausedAssets": false,
   "showPausedSpokeAssets": false,
   "showUserAssetsOnly": false,
+  "showUserLiquidityHubAssetsOnly": false,
+  "showUserSpokeAssetsOnly": false,
   "slippageTolerancePercentage": "0.5",
 }
 `;

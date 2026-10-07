@@ -91,7 +91,7 @@ const SpokePools: React.FC = () => {
       }
 
       if (
-        userChainSettings.showUserAssetsOnly &&
+        userChainSettings.showUserSpokeAssetsOnly &&
         !spokePool.assets.some(
           asset =>
             asset.userSupplyBalanceTokens.isGreaterThan(0) ||
@@ -194,6 +194,7 @@ const SpokePools: React.FC = () => {
             searchInputPlaceholder={t('spokePools.filter.searchPlaceholder')}
             showPausedAssetsToggle
             pausedAssetsSettingKey="showPausedSpokeAssets"
+            userAssetsSettingKey="showUserSpokeAssetsOnly"
             filters={filters}
           />
 
