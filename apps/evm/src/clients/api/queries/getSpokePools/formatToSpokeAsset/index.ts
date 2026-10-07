@@ -148,8 +148,8 @@ export const formatToSpokeAsset = ({
     supplyApyPercentage: new BigNumber(apiMarket.supplyApyDecimal).multipliedBy(100),
     supplyBalanceTokens,
     supplyBalanceCents: new BigNumber(apiMarket.totalSupplyUsdCents),
-    hubSupplyBalanceCents: apiMarket.hubSupplied
-      ? toTokens(apiMarket.hubSupplied).multipliedBy(tokenPriceCents)
+    hubSupplyBalanceCents: apiMarket.hubSuppliedMantissa
+      ? toTokens(apiMarket.hubSuppliedMantissa).multipliedBy(tokenPriceCents)
       : undefined,
     borrowBalanceTokens,
     borrowBalanceCents: new BigNumber(apiMarket.totalBorrowsUsdCents),

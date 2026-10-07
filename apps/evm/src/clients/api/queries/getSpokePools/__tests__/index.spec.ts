@@ -193,6 +193,38 @@ describe('getSpokePools', () => {
     expect(loanAsset.tokenBorrowPriceCents.isEqualTo(loanAsset.tokenPriceCents)).toBe(true);
   });
 
+  it('shows the Hub supply of a loan market, including zero', async () => {
+    const [apiPool] = spokePoolsResponse.result;
+
+    (restService as Mock).mockImplementation(async () => ({
+      data: {
+        ...spokePoolsResponse,
+        result: [
+          {
+            ...apiPool,
+            markets: apiPool.markets.map((market, index) => ({
+              ...market,
+              hubSuppliedMantissa: index === 0 ? '0' : '2000000000',
+            })),
+          },
+        ],
+      },
+    }));
+
+    const { spokePools } = await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: fakePublicClient,
+    });
+
+    const [collateral, loanAsset] = spokePools[0].assets;
+
+    expect(collateral.hubSupplyBalanceCents?.toFixed()).toBe('0');
+    expect(loanAsset.hubSupplyBalanceCents?.isEqualTo(loanAsset.tokenPriceCents.times(2000))).toBe(
+      true,
+    );
+  });
+
   it('reads user balances and collateral membership on chain when an account is passed', async () => {
     mockResponses();
     const publicClient = buildPublicClient();
