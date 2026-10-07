@@ -136,7 +136,7 @@ export const formatToSpokeAsset = ({
     liquidationPenaltyPercentage: convertPercentageFromSmartContract(
       new BigNumber(apiMarket.liquidationIncentiveMantissa).minus(COMPOUND_MANTISSA),
     ),
-    badDebtMantissa: 0n,
+    badDebtMantissa: BigInt(apiMarket.badDebtMantissa),
     cashTokens,
     liquidityCents: cashTokens.multipliedBy(tokenPriceCents),
     reserveTokens: toTokens(apiMarket.totalReservesMantissa),
@@ -148,9 +148,6 @@ export const formatToSpokeAsset = ({
     supplyApyPercentage: new BigNumber(apiMarket.supplyApyDecimal).multipliedBy(100),
     supplyBalanceTokens,
     supplyBalanceCents: new BigNumber(apiMarket.totalSupplyUsdCents),
-    hubSupplyBalanceCents: apiMarket.hubSuppliedMantissa
-      ? toTokens(apiMarket.hubSuppliedMantissa).multipliedBy(tokenPriceCents)
-      : undefined,
     borrowBalanceTokens,
     borrowBalanceCents: new BigNumber(apiMarket.totalBorrowsUsdCents),
     supplyTokenDistributions: [],

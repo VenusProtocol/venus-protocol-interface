@@ -85,7 +85,8 @@ describe('getSpokePools', () => {
     expect(loanAsset.borrowBalanceTokens.toFixed()).toBe('2000');
     expect(loanAsset.borrowApyPercentage.toFixed()).toBe('4.55');
     expect(loanAsset.disabledTokenActions).toContain('borrow');
-    expect(loanAsset.hubSupplyBalanceCents).toBeUndefined();
+    expect(collateral.badDebtMantissa).toBe(0n);
+    expect(loanAsset.badDebtMantissa).toBe(26363648n);
     expect(loanAsset.tokenPriceOracleAddress).toBe('0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823');
     expect(collateral.isInactive).toBe(false);
     expect(loanAsset.isInactive).toBe(false);
@@ -191,38 +192,6 @@ describe('getSpokePools', () => {
     expect(loanAsset.isProtectionModeEnabled).toBe(false);
     expect(loanAsset.tokenSupplyPriceCents.isEqualTo(loanAsset.tokenPriceCents)).toBe(true);
     expect(loanAsset.tokenBorrowPriceCents.isEqualTo(loanAsset.tokenPriceCents)).toBe(true);
-  });
-
-  it('shows the Hub supply of a loan market, including zero', async () => {
-    const [apiPool] = spokePoolsResponse.result;
-
-    (restService as Mock).mockImplementation(async () => ({
-      data: {
-        ...spokePoolsResponse,
-        result: [
-          {
-            ...apiPool,
-            markets: apiPool.markets.map((market, index) => ({
-              ...market,
-              hubSuppliedMantissa: index === 0 ? '0' : '2000000000',
-            })),
-          },
-        ],
-      },
-    }));
-
-    const { spokePools } = await getSpokePools({
-      chainId: ChainId.BSC_TESTNET,
-      tokens: [usdc, usdt],
-      publicClient: fakePublicClient,
-    });
-
-    const [collateral, loanAsset] = spokePools[0].assets;
-
-    expect(collateral.hubSupplyBalanceCents?.toFixed()).toBe('0');
-    expect(loanAsset.hubSupplyBalanceCents?.isEqualTo(loanAsset.tokenPriceCents.times(2000))).toBe(
-      true,
-    );
   });
 
   it('reads user balances and collateral membership on chain when an account is passed', async () => {

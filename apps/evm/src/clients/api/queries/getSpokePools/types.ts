@@ -13,13 +13,13 @@ export interface ApiSpokeMarket {
   isListed: boolean;
   side: ApiSpokeMarketSide;
   suppliable: boolean;
-  hubSuppliedMantissa: string | null;
   supplyAllowlistEnabled: boolean;
   underlyingPriceMantissa: string;
   exchangeRateMantissa: string;
   totalSupplyMantissa: string;
   totalBorrowsMantissa: string;
   totalReservesMantissa: string;
+  badDebtMantissa: string;
   cashMantissa: string;
   totalSupplyUsdCents: string;
   totalBorrowsUsdCents: string;

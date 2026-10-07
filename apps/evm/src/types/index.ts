@@ -273,7 +273,6 @@ export interface SpokeAsset extends Asset {
   isSuppliable: boolean;
   isInactive: boolean;
   isParticipantCountUnavailable: boolean;
-  hubSupplyBalanceCents?: BigNumber;
 }
 
 export interface SpokePool extends Omit<Pool, 'assets'> {

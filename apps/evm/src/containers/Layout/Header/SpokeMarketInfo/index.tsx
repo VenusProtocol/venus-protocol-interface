@@ -27,7 +27,7 @@ export const SpokeMarketInfo: React.FC = () => {
   const cells: CellProps[] = [
     {
       label: t('spokeMarket.header.supply'),
-      value: formatCentsToReadableValue({ value: asset?.hubSupplyBalanceCents }),
+      value: formatCentsToReadableValue({ value: asset?.supplyBalanceCents }),
     },
     {
       label: t('spokeMarket.header.liquidity'),
