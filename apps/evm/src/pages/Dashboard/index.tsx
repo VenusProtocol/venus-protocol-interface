@@ -1,4 +1,4 @@
-import { useGetLiquidityHubs, useGetPool, useGetVaults } from 'clients/api';
+import { useGetLiquidityHubs, useGetPool, useGetSpokePools, useGetVaults } from 'clients/api';
 import { Page, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
 import { useChain } from 'hooks/useChain';
@@ -66,6 +66,9 @@ export const Dashboard: React.FC = () => {
   });
   const { liquidityHubs } = getLiquidityHubsData;
 
+  const { isLoading: isGetSpokePoolsLoading, errorUpdateCount: getSpokePoolsErrorCount } =
+    useGetSpokePools({ accountAddress }, { enabled: !!accountAddress });
+
   const tabs: Tab[] = [
     {
       title: t('account.tabs.markets'),
@@ -103,7 +106,11 @@ export const Dashboard: React.FC = () => {
     });
   }
 
-  const isFetching = isGetPoolLoading || isGetVaultsLoading || isGetLiquidityHubsLoading;
+  const isFetching =
+    isGetPoolLoading ||
+    isGetVaultsLoading ||
+    isGetLiquidityHubsLoading ||
+    (isGetSpokePoolsLoading && getSpokePoolsErrorCount === 0);
 
   if (isFetching) {
     return <Spinner />;

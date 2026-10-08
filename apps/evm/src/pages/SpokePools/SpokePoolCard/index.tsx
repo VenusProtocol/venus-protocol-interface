@@ -53,7 +53,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
         rowKeyExtractor={asset => asset.vToken.address}
         controls
         tableLayout="auto"
-        breakpoint="md"
+        breakpoint="lg"
         hideCardDelimiter
         getRowHref={getRowHref}
         renderRowControl={renderRowControl}

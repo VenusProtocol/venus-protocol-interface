@@ -55,6 +55,9 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const isVaiFeatureEnabled = useIsFeatureEnabled({
     name: 'vaiRoute',
   });
+  const isSpokeFeatureEnabled = useIsFeatureEnabled({
+    name: 'spoke',
+  });
 
   const [userChainSettings] = useUserChainSettings();
   const setUserSettings = useStore(state => state.setUserSettings);
@@ -159,7 +162,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   );
 
   const netWorthCents =
-    pool && accountAddress
+    pool && accountAddress && (!isSpokeFeatureEnabled || getSpokePoolsData)
       ? new BigNumber(pool.userSupplyBalanceCents || 0)
           .plus(userTotalVaultStakeCents || 0)
           .plus(spokeNetWorthCents)

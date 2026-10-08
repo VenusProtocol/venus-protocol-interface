@@ -54,7 +54,12 @@ export const Controls: React.FC<ControlsProps> = ({
 
   return (
     <div className="@container/controls">
-      <div className="flex flex-col gap-y-3 @2xl:items-center @2xl:flex-row @2xl:justify-between">
+      <div
+        className={cn(
+          'flex flex-col gap-y-3 @2xl:items-center @2xl:flex-row @2xl:justify-between',
+          filters && '@2xl:flex-wrap @2xl:gap-x-6',
+        )}
+      >
         <div
           className={cn('flex flex-col gap-3 sm:flex-row @2xl:grow', !filters && '@2xl:max-w-142')}
         >

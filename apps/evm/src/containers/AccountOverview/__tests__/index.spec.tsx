@@ -5,6 +5,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
 import { useGetSpokePools } from 'clients/api';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import * as storeModule from 'store';
@@ -58,6 +59,27 @@ describe('AccountOverview', () => {
     await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
 
     expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}$10B`);
+  });
+
+  it('waits for the Spoke positions before showing the net worth', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke',
+    );
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: true,
+      data: undefined,
+    }));
+
+    const { container, queryByTestId } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}-`);
   });
 
   it('displays correctly when user is connected and accordion is expanded', async () => {
