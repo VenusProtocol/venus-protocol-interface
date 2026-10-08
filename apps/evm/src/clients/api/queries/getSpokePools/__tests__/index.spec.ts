@@ -131,6 +131,36 @@ describe('getSpokePools', () => {
     expect(inactiveLoanAsset.isBorrowableByUser).toBe(false);
   });
 
+  it('flags a market as paused only when both supply and borrow are paused', async () => {
+    const [apiPool] = spokePoolsResponse.result;
+
+    (restService as Mock).mockImplementation(async () => ({
+      data: {
+        ...spokePoolsResponse,
+        result: [
+          {
+            ...apiPool,
+            markets: apiPool.markets.map((market, index) => ({
+              ...market,
+              pausedActionsBitmap: index === 0 ? 4 : 5,
+            })),
+          },
+        ],
+      },
+    }));
+
+    const { spokePools } = await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: fakePublicClient,
+    });
+
+    const [borrowPausedCollateral, fullyPausedLoanAsset] = spokePools[0].assets;
+
+    expect(borrowPausedCollateral.isPaused).toBe(false);
+    expect(fullyPausedLoanAsset.isPaused).toBe(true);
+  });
+
   it('uses the bounded prices of the pool oracle while price protection is on', async () => {
     const oracleAddress = spokePoolsResponse.result[0].priceOracleAddress;
     const tokenPrice = {

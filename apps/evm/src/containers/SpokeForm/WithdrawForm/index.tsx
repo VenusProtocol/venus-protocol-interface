@@ -54,8 +54,6 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
     },
   );
 
-  const { decimals } = selectedAsset.vToken.underlyingToken;
-
   const { limitTokens, safeLimitTokens } = calculateCollateralWithdrawLimits({
     asset: selectedAsset,
     pool: spokePool,
@@ -81,14 +79,6 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
     setSelectedTokenAddress(token.address);
     setFormValues(initialFormValues);
   };
-
-  const handleLimitClick = limitTokens.isGreaterThan(0)
-    ? () =>
-        setFormValues(values => ({
-          ...values,
-          amountTokens: safeLimitTokens.dp(decimals).toFixed(),
-        }))
-    : undefined;
 
   const validateForm: UseFormValidationInput['validate'] = ({ formValues: { amountTokens } }) => {
     if (selectedAsset.disabledTokenActions.includes('withdraw')) {
@@ -119,7 +109,6 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
         value: limitTokens,
         token: selectedAsset.vToken.underlyingToken,
       })}
-      onClick={handleLimitClick}
     />
   );
 

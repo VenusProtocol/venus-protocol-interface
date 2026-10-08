@@ -43,7 +43,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
             />
           )}
 
-          {asset.isInactive && (
+          {asset.isPaused && (
             <InfoIcon
               iconClassName="text-orange"
               iconName="attention"
@@ -63,7 +63,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
       renderCell: asset =>
         asset.userBorrowBalanceTokens.isGreaterThan(0) ? (
           <LayeredValues
-            className={cn(asset.isInactive && 'text-grey')}
+            className={cn(asset.isPaused && 'text-grey')}
             topValue={formatTokensToReadableValue({
               value: asset.userBorrowBalanceTokens,
               token: asset.vToken.underlyingToken,
@@ -96,7 +96,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
         compareBigNumbers(rowA.borrowApyPercentage, rowB.borrowApyPercentage, direction),
       renderCell: asset => (
         <Apy
-          className={cn(asset.isInactive && 'text-grey')}
+          className={cn(asset.isPaused && 'text-grey')}
           type="borrow"
           token={asset.vToken.underlyingToken}
           baseApyPercentage={asset.borrowApyPercentage}
@@ -114,7 +114,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
         compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction),
       renderCell: asset => (
         <LayeredValues
-          className={cn(asset.isInactive && 'text-grey')}
+          className={cn(asset.isPaused && 'text-grey')}
           topValue={formatTokensToReadableValue({
             value: asset.cashTokens,
             token: asset.vToken.underlyingToken,
@@ -154,7 +154,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
         compareBigNumbers(rowA.borrowBalanceCents, rowB.borrowBalanceCents, direction),
       renderCell: asset => (
         <LayeredValues
-          className={cn(asset.isInactive && 'text-grey')}
+          className={cn(asset.isPaused && 'text-grey')}
           topValue={formatTokensToReadableValue({
             value: asset.borrowBalanceTokens,
             token: asset.vToken.underlyingToken,

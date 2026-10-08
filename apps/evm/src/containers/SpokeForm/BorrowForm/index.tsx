@@ -67,14 +67,6 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
     },
   ];
 
-  const handleLimitClick = limitTokens.isGreaterThan(0)
-    ? () =>
-        setFormValues(values => ({
-          ...values,
-          amountTokens: safeLimitTokens.dp(asset.vToken.underlyingToken.decimals).toFixed(),
-        }))
-    : undefined;
-
   const validateForm = hasCollateralSupplied
     ? undefined
     : () => ({ code: 'NO_COLLATERAL_SUPPLIED' as const });
@@ -85,7 +77,6 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
         value: clampToZero({ value: limitTokens }),
         token: asset.vToken.underlyingToken,
       })}
-      onClick={handleLimitClick}
     />
   );
 

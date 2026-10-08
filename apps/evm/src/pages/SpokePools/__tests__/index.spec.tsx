@@ -119,4 +119,30 @@ describe('SpokePools', () => {
       ).toBeInTheDocument(),
     );
   });
+
+  it('hides a paused loan asset unless paused assets are shown', () => {
+    const pausedPool = {
+      ...spokePool,
+      assets: spokePool.assets.map(asset =>
+        asset.isBorrowable ? { ...asset, isPaused: true } : asset,
+      ),
+    };
+    const loanSymbol = spokePool.assets.find(({ isBorrowable }) => isBorrowable)!.vToken
+      .underlyingToken.symbol;
+    mockSpokePools([pausedPool]);
+
+    const { unmount } = renderComponent(<SpokePools />);
+
+    expect(screen.queryByText(spokePool.name)).not.toBeInTheDocument();
+
+    unmount();
+    (useUserChainSettings as Mock).mockImplementation(() => [
+      { ...defaultUserChainSettings, showPausedSpokeAssets: true },
+      vi.fn(),
+    ]);
+
+    renderComponent(<SpokePools />);
+
+    expect(screen.getAllByText(loanSymbol).length).toBeGreaterThan(0);
+  });
 });

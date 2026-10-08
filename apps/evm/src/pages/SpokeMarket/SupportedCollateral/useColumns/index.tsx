@@ -38,7 +38,7 @@ export const useColumns = () => {
             />
           )}
 
-          {asset.isInactive && (
+          {asset.isPaused && (
             <InfoIcon
               iconClassName="text-orange"
               iconName="attention"
@@ -58,7 +58,7 @@ export const useColumns = () => {
       renderCell: asset =>
         asset.userSupplyBalanceTokens.isGreaterThan(0) ? (
           <LayeredValues
-            className={cn(asset.isInactive && 'text-grey')}
+            className={cn(asset.isPaused && 'text-grey')}
             topValue={formatTokensToReadableValue({
               value: asset.userSupplyBalanceTokens,
               token: asset.vToken.underlyingToken,
@@ -76,7 +76,7 @@ export const useColumns = () => {
       selectOptionLabel: t('spokeMarket.supportedCollateral.columns.maxLtv'),
       align: 'right',
       renderCell: asset => (
-        <span className={cn(asset.isInactive && 'text-grey')}>
+        <span className={cn(asset.isPaused && 'text-grey')}>
           {formatPercentageToReadableValue(asset.collateralFactor * 100)}
         </span>
       ),
@@ -99,7 +99,7 @@ export const useColumns = () => {
       selectOptionLabel: t('spokeMarket.supportedCollateral.columnTooltips.liquidationThreshold'),
       align: 'right',
       renderCell: asset => (
-        <span className={cn(asset.isInactive && 'text-grey')}>
+        <span className={cn(asset.isPaused && 'text-grey')}>
           {formatPercentageToReadableValue(asset.liquidationThresholdPercentage)}
         </span>
       ),
@@ -110,7 +110,7 @@ export const useColumns = () => {
       selectOptionLabel: t('spokeMarket.supportedCollateral.columns.penalty'),
       align: 'right',
       renderCell: asset => (
-        <span className={cn(asset.isInactive && 'text-grey')}>
+        <span className={cn(asset.isPaused && 'text-grey')}>
           {formatPercentageToReadableValue(asset.liquidationPenaltyPercentage)}
         </span>
       ),
@@ -128,7 +128,7 @@ export const useColumns = () => {
         ),
       renderCell: asset => (
         <div className="space-y-1">
-          <p className={cn('text-b1r', asset.isInactive && 'text-grey')}>
+          <p className={cn('text-b1r', asset.isPaused && 'text-grey')}>
             {t('spokeMarket.supportedCollateral.capacity', {
               supplied: formatTokensToReadableValue({
                 value: asset.supplyBalanceTokens,

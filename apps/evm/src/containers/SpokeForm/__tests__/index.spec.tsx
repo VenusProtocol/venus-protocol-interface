@@ -279,4 +279,17 @@ describe('SpokeForm', () => {
 
     expect(screen.queryByText(en.protectionModeIndicator.label)).not.toBeInTheDocument();
   });
+
+  it('shows the borrow Available amount as plain text, like Core', () => {
+    renderComponent(<SpokeForm spokePool={spokePool} asset={activeLoanAsset} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const availableButton = screen
+      .getByText(en.availableBalance.label)
+      .closest('.justify-between')
+      ?.querySelector('button');
+
+    expect(availableButton).toBeDisabled();
+  });
 });
