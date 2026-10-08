@@ -8,6 +8,16 @@ import { renderComponent } from 'testUtils/render';
 
 import { SpokePositions } from '..';
 
+vi.mock('components/ProtectionModeIndicator', () => ({
+  ProtectionModeIndicator: ({
+    tokenName,
+    tooltipType,
+  }: {
+    tokenName: string;
+    tooltipType: string;
+  }) => <span>{`protected-${tokenName}-${tooltipType}`}</span>,
+}));
+
 const spokePool = spokePools[0];
 
 describe('SpokePositions', () => {
@@ -79,5 +89,19 @@ describe('SpokePositions', () => {
     expect(screen.queryByText(en.account.spoke.summary.healthFactor)).not.toBeInTheDocument();
     expect(screen.queryByText(en.accountHealth.liquidationThreshold)).not.toBeInTheDocument();
     expect(screen.queryByText(en.accountHealth.liquidationThresholdShort)).not.toBeInTheDocument();
+  });
+
+  it('marks protected supplied and borrowed assets', () => {
+    const protectedPool = {
+      ...spokePool,
+      assets: spokePool.assets.map(asset => ({ ...asset, isProtectionModeEnabled: true })),
+    };
+
+    renderComponent(<SpokePositions spokePool={protectedPool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(screen.getAllByText('protected-USDC-supply').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('protected-USDT-borrow').length).toBeGreaterThan(0);
   });
 });

@@ -10,12 +10,13 @@ const makeItems = (count: number) =>
   }));
 
 describe('SubMenuContent', () => {
-  it('lays two secondary items side by side', () => {
+  it('stacks two secondary items in one column', () => {
     const { container } = renderComponent(
       <SubMenuContent label="Earn" variant="secondary" items={makeItems(2)} />,
     );
 
-    expect(container.querySelector('.sm\\:grid-cols-2')).not.toBeNull();
+    expect(container.querySelector('.sm\\:grid-cols-2')).toBeNull();
+    expect(container.querySelector('.sm\\:min-w-79')).not.toBeNull();
   });
 
   it('stacks more than two secondary items in one column', () => {

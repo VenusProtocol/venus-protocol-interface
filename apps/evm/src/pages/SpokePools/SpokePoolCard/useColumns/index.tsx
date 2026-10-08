@@ -4,6 +4,7 @@ import {
   Apy,
   InfoIcon,
   LayeredValues,
+  ProtectionModeIndicator,
   SpokeCollateralGroup,
   type TableColumn,
   TokenIconWithSymbol,
@@ -33,6 +34,14 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
       renderCell: asset => (
         <div className="flex items-center gap-x-2">
           <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+
+          {asset.isProtectionModeEnabled && (
+            <ProtectionModeIndicator
+              variant="icon"
+              tooltipType="list"
+              tokenName={asset.vToken.underlyingToken.symbol}
+            />
+          )}
 
           {asset.isInactive && (
             <InfoIcon

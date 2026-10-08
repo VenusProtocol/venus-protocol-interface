@@ -2,6 +2,7 @@ import { cn } from '@venusprotocol/ui';
 
 import { ImgGroupTooltip } from 'components/ImgGroupTooltip';
 import { InfoIcon } from 'components/InfoIcon';
+import { ProtectionModeIndicator } from 'components/ProtectionModeIndicator';
 import type { TableColumn } from 'components/Table';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
@@ -29,6 +30,14 @@ export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
       renderCell: collateral => (
         <div className="flex items-center gap-x-2">
           <TokenIconWithSymbol token={collateral.vToken.underlyingToken} />
+
+          {collateral.isProtectionModeEnabled && (
+            <ProtectionModeIndicator
+              variant="icon"
+              tooltipType="list"
+              tokenName={collateral.vToken.underlyingToken.symbol}
+            />
+          )}
 
           {collateral.isInactive && (
             <InfoIcon

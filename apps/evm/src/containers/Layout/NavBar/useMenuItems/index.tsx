@@ -58,6 +58,7 @@ export const useMenuItems = () => {
   };
 
   if (spokeEnabled) {
+    borrowSubMenu.tagLabel = t('layout.menu.new');
     borrowSubMenu.items.splice(1, 0, {
       to: routes.spokePools.path,
       imgSrc: spokeIconSrc,
@@ -72,7 +73,6 @@ export const useMenuItems = () => {
       {
         label: t('layout.menu.earn.label'),
         variant: 'secondary',
-        tagLabel: t('layout.menu.new'),
         items: [
           {
             to: routes.liquidityHubs.path,

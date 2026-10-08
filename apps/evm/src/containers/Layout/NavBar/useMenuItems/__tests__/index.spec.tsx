@@ -1,5 +1,6 @@
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAnalytics } from 'libs/analytics';
+import { en } from 'libs/translations';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useMenuItems } from '..';
@@ -28,5 +29,19 @@ describe('useMenuItems', () => {
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('hub_navigation', {
       variant: 'topbar_earn_dropdown',
     });
+  });
+
+  it('tags the Borrow menu as new instead of the Earn menu when Spoke is enabled', () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }) => name === 'spoke' || name === 'liquidityHub',
+    );
+
+    const { result } = renderHook(() => useMenuItems());
+
+    const earnMenu = result.current.find(item => item.label === en.layout.menu.earn.label);
+    const borrowMenu = result.current.find(item => item.label === en.layout.menu.borrow.label);
+
+    expect(earnMenu?.tagLabel).toBeUndefined();
+    expect(borrowMenu?.tagLabel).toBe(en.layout.menu.new);
   });
 });

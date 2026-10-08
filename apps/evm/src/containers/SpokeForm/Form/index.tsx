@@ -6,6 +6,7 @@ import {
   type ApyBreakdownItem,
   BalanceUpdates,
   Delimiter,
+  ProtectionModeIndicator,
   SelectTokenTextField,
   TokenTextField,
 } from 'components';
@@ -16,7 +17,7 @@ import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokePool, Token } from 'types';
-import { shouldShowAccountHealth } from 'utilities';
+import { areAddressesEqual, shouldShowAccountHealth } from 'utilities';
 import { DailyBorrowInterest } from './DailyBorrowInterest';
 import { type FormValues, initialFormValues, useForm } from './useForm';
 import type { UseFormValidationInput } from './useForm/useFormValidation';
@@ -117,6 +118,10 @@ export const Form: React.FC<FormProps> = ({
       amountTokens,
     }));
 
+  const asset = spokePool.assets.find(({ vToken }) =>
+    areAddressesEqual(vToken.underlyingToken.address, token.address),
+  );
+
   const isAwaitingRiskAcknowledgement = formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT';
 
   const amountInputProps = {
@@ -142,6 +147,15 @@ export const Form: React.FC<FormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {asset?.isProtectionModeEnabled && (
+        <ProtectionModeIndicator
+          variant="label"
+          tokenName={asset.vToken.underlyingToken.symbol}
+          tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+          tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+        />
+      )}
+
       {tokenBalances && onChangeSelectedToken ? (
         <SelectTokenTextField
           {...amountInputProps}

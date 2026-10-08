@@ -4,6 +4,7 @@ import {
   InfoIcon,
   LayeredValues,
   ProgressBar,
+  ProtectionModeIndicator,
   type TableColumn,
   TokenIconWithSymbol,
 } from 'components';
@@ -28,6 +29,14 @@ export const useColumns = () => {
       renderCell: asset => (
         <div className="flex items-center gap-x-2">
           <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+
+          {asset.isProtectionModeEnabled && (
+            <ProtectionModeIndicator
+              variant="icon"
+              tooltipType="list"
+              tokenName={asset.vToken.underlyingToken.symbol}
+            />
+          )}
 
           {asset.isInactive && (
             <InfoIcon

@@ -256,4 +256,27 @@ describe('SpokeForm', () => {
     expect(await screen.findByText(/Amount is below the minimum/)).toBeInTheDocument();
     expect(document.querySelector('button[type="submit"]')).toBeDisabled();
   });
+
+  it('labels the selected collateral as protected while price protection is on', () => {
+    const protectedPool = {
+      ...spokePool,
+      assets: spokePool.assets.map(asset =>
+        asset.isBorrowable ? asset : { ...asset, isProtectionModeEnabled: true },
+      ),
+    };
+
+    renderComponent(
+      <SpokeForm spokePool={protectedPool} asset={loanAsset} initialActiveTabId="collateral" />,
+    );
+
+    expect(screen.getByText(en.protectionModeIndicator.label)).toBeInTheDocument();
+  });
+
+  it('does not label an asset that is not protected', () => {
+    renderComponent(
+      <SpokeForm spokePool={spokePool} asset={loanAsset} initialActiveTabId="collateral" />,
+    );
+
+    expect(screen.queryByText(en.protectionModeIndicator.label)).not.toBeInTheDocument();
+  });
 });
