@@ -82,6 +82,27 @@ describe('AccountOverview', () => {
     expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}-`);
   });
 
+  it('does not show a net worth when the Spoke positions could not be read', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke',
+    );
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: { spokePools: [{ ...spokePools[0], isUserDataUnavailable: true }] },
+    }));
+
+    const { container, queryByTestId } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}-`);
+  });
+
   it('displays correctly when user is connected and accordion is expanded', async () => {
     const { container, queryByTestId, getByText } = renderComponent(
       <AccountOverview accountAddress={fakeAccountAddress} />,

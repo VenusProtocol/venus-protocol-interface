@@ -122,9 +122,11 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
   return (
     <>
       <div className={cn('space-y-4 md:space-y-6 xl:hidden', className)}>
-        {cells.map(cell => (
-          <Cell key={`spoke-summary-cell-${cell.label}`} {...cell} />
-        ))}
+        <CellGroup
+          cells={cells}
+          grid
+          className={cn(accountHealthCell ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
+        />
 
         {accountHealthCell && <Cell {...accountHealthCell} />}
       </div>

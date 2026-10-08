@@ -112,6 +112,10 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     { enabled: !!accountAddress },
   );
 
+  const isSpokeUserDataAvailable =
+    !!getSpokePoolsData &&
+    !getSpokePoolsData.spokePools.some(spokePool => spokePool.isUserDataUnavailable);
+
   const spokeNetWorthCents = (getSpokePoolsData?.spokePools ?? []).reduce(
     (acc, spokePool) =>
       acc.plus(spokePool.userSupplyBalanceCents || 0).minus(spokePool.userBorrowBalanceCents || 0),
@@ -162,7 +166,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   );
 
   const netWorthCents =
-    pool && accountAddress && (!isSpokeFeatureEnabled || getSpokePoolsData)
+    pool && accountAddress && (!isSpokeFeatureEnabled || isSpokeUserDataAvailable)
       ? new BigNumber(pool.userSupplyBalanceCents || 0)
           .plus(userTotalVaultStakeCents || 0)
           .plus(spokeNetWorthCents)

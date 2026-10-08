@@ -104,4 +104,12 @@ describe('SpokePositions', () => {
     expect(screen.getAllByText('protected-USDC-supply').length).toBeGreaterThan(0);
     expect(screen.getAllByText('protected-USDT-borrow').length).toBeGreaterThan(0);
   });
+
+  it('lays the summary out in a grid below xl, like Core', () => {
+    const { container } = renderComponent(<SpokePositions spokePool={spokePool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(container.querySelector('.sm\\:grid-cols-3, .sm\\:grid-cols-2')).not.toBeNull();
+  });
 });
