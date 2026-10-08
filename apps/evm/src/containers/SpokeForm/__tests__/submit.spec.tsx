@@ -114,6 +114,65 @@ describe('SpokeForm submission', () => {
     expect(mockRepay).toHaveBeenCalledWith(expect.objectContaining({ repayFullLoan: true }));
   });
 
+  it('repays the full loan after clicking 100%, even once the borrow balance has refreshed', async () => {
+    const mockRepay = vi.fn();
+    (useRepayToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockRepay,
+      isPending: false,
+    }));
+
+    const { rerender, getByText } = renderComponent(
+      <SpokeForm spokePool={pool} asset={loanAsset} initialLoanTabId="repay" />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    fireEvent.click(getByText('100%'));
+
+    const refreshedLoanAsset = {
+      ...loanAsset,
+      userBorrowBalanceTokens: loanAsset.userBorrowBalanceTokens.plus(0.0002),
+    };
+    const refreshedPool = {
+      ...pool,
+      assets: pool.assets.map(asset =>
+        asset.vToken.address === loanAsset.vToken.address ? refreshedLoanAsset : asset,
+      ),
+    };
+
+    rerender(
+      <SpokeForm spokePool={refreshedPool} asset={refreshedLoanAsset} initialLoanTabId="repay" />,
+    );
+
+    await submit();
+
+    await waitFor(() => expect(mockRepay).toHaveBeenCalledTimes(1));
+    expect(mockRepay).toHaveBeenCalledWith(expect.objectContaining({ repayFullLoan: true }));
+  });
+
+  it('does not repay the full loan when the amount is edited after clicking 100%', async () => {
+    const mockRepay = vi.fn();
+    (useRepayToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockRepay,
+      isPending: false,
+    }));
+
+    const { getByText } = renderComponent(
+      <SpokeForm spokePool={pool} asset={loanAsset} initialLoanTabId="repay" />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    fireEvent.click(getByText('100%'));
+    await enterAmount('10');
+    await submit();
+
+    await waitFor(() => expect(mockRepay).toHaveBeenCalledTimes(1));
+    expect(mockRepay).toHaveBeenCalledWith(expect.objectContaining({ repayFullLoan: false }));
+  });
+
   it('withdraws the entered amount from the collateral market', async () => {
     const mockWithdraw = vi.fn();
     (useWithdrawFromSpoke as Mock).mockImplementation(() => ({

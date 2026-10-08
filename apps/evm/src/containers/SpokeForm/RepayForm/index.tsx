@@ -23,6 +23,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState(initialFormValues);
+  const [fullRepayAmountTokens, setFullRepayAmountTokens] = useState<string>();
   const { mutateAsync: repay, isPending: isSubmitting } = useRepayToSpoke();
 
   const { decimals } = asset.vToken.underlyingToken;
@@ -80,12 +81,24 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
   ];
 
   const handleLimitClick = limitTokens.isGreaterThan(0)
-    ? () =>
+    ? () => {
+        setFullRepayAmountTokens(undefined);
         setFormValues(values => ({
           ...values,
           amountTokens: limitTokens.toFixed(),
-        }))
+        }));
+      }
     : undefined;
+
+  const handlePercentageClick = (percentage: number) => {
+    const amountTokens = asset.userBorrowBalanceTokens
+      .multipliedBy(percentage / 100)
+      .dp(decimals)
+      .toFixed();
+
+    setFullRepayAmountTokens(percentage === 100 ? amountTokens : undefined);
+    setFormValues(values => ({ ...values, amountTokens }));
+  };
 
   const availableBalanceDom = (
     <div className="space-y-2">
@@ -119,15 +132,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
           size="xs"
           rounded
           disabled={isRepayDisabled}
-          onClick={() =>
-            setFormValues(values => ({
-              ...values,
-              amountTokens: asset.userBorrowBalanceTokens
-                .multipliedBy(percentage / 100)
-                .dp(decimals)
-                .toFixed(),
-            }))
-          }
+          onClick={() => handlePercentageClick(percentage)}
         >
           {percentage}%
         </QuaternaryButton>
@@ -149,7 +154,9 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
         value: amountTokens,
         token: asset.vToken.underlyingToken,
       }),
-      repayFullLoan: amountTokens.isEqualTo(asset.userBorrowBalanceTokens.dp(decimals)),
+      repayFullLoan:
+        submittedFormValues.amountTokens === fullRepayAmountTokens ||
+        amountTokens.isEqualTo(asset.userBorrowBalanceTokens.dp(decimals)),
     });
   };
 
