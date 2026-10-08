@@ -272,7 +272,6 @@ export interface Pool {
 export interface SpokeAsset extends Asset {
   isSuppliable: boolean;
   isInactive: boolean;
-  isPaused: boolean;
   isParticipantCountUnavailable: boolean;
 }
 

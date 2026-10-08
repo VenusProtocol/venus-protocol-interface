@@ -11,7 +11,6 @@ import {
   convertPercentageFromSmartContract,
   convertPriceMantissaToDollars,
   getDisabledTokenActions,
-  isAssetPaused,
 } from 'utilities';
 import type { Address } from 'viem';
 
@@ -119,12 +118,6 @@ export const formatToSpokeAsset = ({
 
   const { isLiquiditySide, isInactive } = getMarketRole(apiMarket);
 
-  const disabledTokenActions = getDisabledTokenActions({
-    bitmask: apiMarket.pausedActionsBitmap,
-    tokenAddresses: [vToken.address, underlyingToken.address],
-    chainId,
-  });
-
   const spokeAsset: SpokeAsset = {
     vToken,
     tokenPriceCents,
@@ -135,7 +128,6 @@ export const formatToSpokeAsset = ({
     isBorrowable: isLiquiditySide,
     isSuppliable: apiMarket.suppliable,
     isInactive,
-    isPaused: isInactive || isAssetPaused({ disabledTokenActions }),
     reserveFactor: convertFactorFromSmartContract({
       factor: new BigNumber(apiMarket.reserveFactorMantissa),
     }),
@@ -162,7 +154,11 @@ export const formatToSpokeAsset = ({
     borrowTokenDistributions: [],
     supplyPointDistributions: [],
     borrowPointDistributions: [],
-    disabledTokenActions,
+    disabledTokenActions: getDisabledTokenActions({
+      bitmask: apiMarket.pausedActionsBitmap,
+      tokenAddresses: [vToken.address, underlyingToken.address],
+      chainId,
+    }),
     borrowCapTokens: toTokens(apiMarket.borrowCapsMantissa),
     supplyCapTokens: toTokens(apiMarket.supplyCapsMantissa),
     isRestricted: false,

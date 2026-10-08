@@ -39,7 +39,7 @@ export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
             />
           )}
 
-          {collateral.isPaused && (
+          {collateral.isInactive && (
             <InfoIcon
               iconClassName="text-orange"
               iconName="attention"
@@ -55,7 +55,7 @@ export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
       selectOptionLabel: t('spokeCollateralGroup.maxLtv'),
       align: 'right',
       renderCell: collateral => (
-        <span className={cn(collateral.isPaused && 'text-grey')}>
+        <span className={cn(collateral.isInactive && 'text-grey')}>
           {formatPercentageToReadableValue(collateral.collateralFactor * 100)}
         </span>
       ),

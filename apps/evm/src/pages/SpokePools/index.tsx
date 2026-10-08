@@ -64,7 +64,7 @@ const SpokePools: React.FC = () => {
     asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase());
 
   const isVisible = (asset: SpokeAsset) =>
-    userChainSettings.showPausedSpokeAssets || !asset.isPaused;
+    userChainSettings.showPausedSpokeAssets || !asset.isInactive;
 
   // An empty group means no constraint: values are OR-ed within a group, and groups are
   // AND-ed together
