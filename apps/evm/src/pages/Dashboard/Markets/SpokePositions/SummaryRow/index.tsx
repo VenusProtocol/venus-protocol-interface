@@ -72,7 +72,10 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
           {formatPercentageToReadableValue(weightedBorrowApyPercentage)}
         </HidableUserBalance>
       ),
-      className: cellClassName,
+      className: cn(
+        weightedBorrowApyPercentage.isLessThan(0) ? 'text-red' : 'text-green',
+        cellClassName,
+      ),
     },
     {
       label: t('account.spoke.summary.dailyBorrowInterest'),

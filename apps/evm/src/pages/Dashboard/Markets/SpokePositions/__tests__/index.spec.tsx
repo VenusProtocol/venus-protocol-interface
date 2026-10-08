@@ -112,4 +112,16 @@ describe('SpokePositions', () => {
 
     expect(container.querySelector('.sm\\:grid-cols-3, .sm\\:grid-cols-2')).not.toBeNull();
   });
+
+  it('colours the borrow APY like the Core net APY', () => {
+    renderComponent(<SpokePositions spokePool={spokePool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const borrowApyCell = screen
+      .getAllByText(en.account.spoke.summary.borrowApy)[0]
+      .closest('.text-green, .text-red');
+
+    expect(borrowApyCell).toHaveClass('text-green');
+  });
 });
