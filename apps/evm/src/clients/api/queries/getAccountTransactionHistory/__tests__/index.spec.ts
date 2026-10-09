@@ -2,6 +2,7 @@ import { ChainId } from '@venusprotocol/chains';
 import fakeAddress from '__mocks__/models/address';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
+import { spokePools } from '__mocks__/models/spokePools';
 import { TX_TYPES } from 'constants/marketTxTypes';
 import { restService } from 'utilities';
 import type { Address } from 'viem';
@@ -361,6 +362,45 @@ describe('getAccountTransactionHistory', () => {
     const response = await getAccountTransactionHistory(fakeInput);
 
     expect(response.transactions).toHaveLength(0);
+  });
+
+  it('formats a Spoke market transaction and marks it as Spoke', async () => {
+    const spokeAsset = spokePools[0].assets[0];
+
+    (restService as Mock).mockResolvedValue({
+      data: {
+        count: '1',
+        results: [
+          {
+            id: 'spoke-borrow',
+            txHash: '0x3',
+            txIndex: 3,
+            txTimestamp: new Date('2024-08-25T04:17:09.000Z'),
+            blockNumber: '41604853',
+            txType: 'borrow',
+            accountAddress: fakeAddress,
+            contractAddress: spokeAsset.vToken.address,
+            amountVTokenMantissa: null,
+            amountUnderlyingMantissa: '1000000',
+            chainId: ChainId.BSC_TESTNET,
+            underlyingAddress: spokeAsset.vToken.underlyingToken.address,
+            underlyingTokenPriceMantissa: '1000000000000000000000000000000',
+            migrationVTokenAddress: null,
+            migrationVTokenAmountMantissa: null,
+            ...fakeYieldPlusFields,
+          },
+        ] satisfies ApiAccountHistoricalTransaction[],
+      },
+    });
+
+    const response = await getAccountTransactionHistory({ ...fakeInput, spokePools });
+
+    expect(response.transactions).toHaveLength(1);
+    expect(response.transactions[0]).toMatchObject({
+      txType: 'borrow',
+      poolName: spokePools[0].name,
+      isSpoke: true,
+    });
   });
 
   it('throws on error in payload', async () => {

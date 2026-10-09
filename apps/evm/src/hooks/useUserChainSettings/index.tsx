@@ -5,7 +5,10 @@ import { type State, type UserChainSettings, useStore } from 'store';
 export const defaultUserChainSettings: UserChainSettings = {
   gaslessTransactions: false,
   showPausedAssets: false,
+  showPausedSpokeAssets: false,
   showUserAssetsOnly: false,
+  showUserLiquidityHubAssetsOnly: false,
+  showUserSpokeAssetsOnly: false,
   doNotShowImportPositionsModal: false,
   slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
   doNotShowUserBalances: false,
@@ -24,6 +27,9 @@ export const useUserChainSettings = () => {
     ...defaultUserChainSettings,
     ...userSettings[chainId],
     showUserAssetsOnly: !!accountAddress && !!userSettings[chainId]?.showUserAssetsOnly,
+    showUserLiquidityHubAssetsOnly:
+      !!accountAddress && !!userSettings[chainId]?.showUserLiquidityHubAssetsOnly,
+    showUserSpokeAssetsOnly: !!accountAddress && !!userSettings[chainId]?.showUserSpokeAssetsOnly,
   };
 
   const setUserSettings = useStore(state => state.setUserSettings);

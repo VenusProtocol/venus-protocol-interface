@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "ศูนย์สภาพคล่อง",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "<Styled>เปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน",
@@ -644,6 +645,7 @@
     "noTargetsKey": "ไฟล์ไม่มีรายการเป้าหมาย",
     "noTypeKey": "ไฟล์ไม่ได้ระบุประเภทของข้อเสนอ",
     "proposalNotFound": "ไม่พบข้อเสนอ",
+    "serviceIssue": "บริการไม่พร้อมใช้งานชั่วคราว โปรดลองอีกครั้งในภายหลัง",
     "somethingWentWrong": "เกิดข้อผิดพลาดบางอย่าง",
     "somethingWentWrongRetrievingTransactions": "เกิดข้อผิดพลาดในการดึงธุรกรรม",
     "somethingWentWrongRetrievingVoterAccounts": "เกิดข้อผิดพลาดในการดึงบัญชีผู้โหวต",
@@ -1021,7 +1023,8 @@
           "centrifuge": "กองทุน Centrifuge",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "คลังอัตราคงที่"
+          "frv": "คลังอัตราคงที่",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1939,6 +1942,7 @@
     "enterValidAmountButtonLabel": "กรอกจำนวนที่ถูกต้อง",
     "error": {
       "higherThanAvailableAmount": "จำนวนเกินยอดคงเหลือที่ใช้ได้",
+      "lowerThanMinAmount": "จำนวนต่ำกว่าขั้นต่ำ {{minAmount}}",
       "supplyDisabled": "การฝากหลักประกันนี้ถูกหยุดชั่วคราว"
     },
     "loanTabTitle": "สินเชื่อ",
@@ -2049,8 +2053,7 @@
         "liquidity": "สภาพคล่อง",
         "loanAsset": "สินทรัพย์กู้",
         "totalBorrow": "ยอดกู้รวม"
-      },
-      "paused": "หยุดชั่วคราว"
+      }
     }
   },
   "statsPage": {

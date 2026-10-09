@@ -30,4 +30,17 @@ describe('getTransactionName', () => {
       }),
     ).toBe(expectedName);
   });
+
+  it.each([
+    ['supply', 'Supply • Venus Spoke'],
+    ['borrow', 'Borrow • Venus Spoke'],
+    ['repay', 'Repay • Venus Spoke'],
+    ['withdraw', 'Withdraw • Venus Spoke'],
+    ['enterMarket', 'Enable collateral • Venus Spoke'],
+  ] satisfies [TxType, string][])(
+    'names %s on a Spoke market after Venus Spoke',
+    (type, expectedName) => {
+      expect(getTransactionName({ type, t, isSpoke: true })).toBe(expectedName);
+    },
+  );
 });

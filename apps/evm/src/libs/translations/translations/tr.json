@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "Likidite Merkezi",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
@@ -645,6 +646,7 @@
     "noTargetsKey": "Dosyada hedef listesi yok",
     "noTypeKey": "Dosyada teklifin türü belirtilmemiş",
     "proposalNotFound": "Teklif bulunamadı",
+    "serviceIssue": "Hizmet geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
     "somethingWentWrong": "Bir şeyler ters gitti",
     "somethingWentWrongRetrievingTransactions": "İşlemleri alırken bir sorun oluştu",
     "somethingWentWrongRetrievingVoterAccounts": "Oy veren hesaplar alınırken bir sorun oluştu",
@@ -1022,7 +1024,8 @@
           "centrifuge": "Centrifuge fonları",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "Sabit oran kasası"
+          "frv": "Sabit oran kasası",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1940,6 +1943,7 @@
     "enterValidAmountButtonLabel": "Geçerli bir tutar girin",
     "error": {
       "higherThanAvailableAmount": "Tutar kullanılabilir bakiyeyi aşıyor",
+      "lowerThanMinAmount": "Miktar minimum değer olan {{minAmount}} altında",
       "supplyDisabled": "Bu teminatın arzı şu anda duraklatıldı"
     },
     "loanTabTitle": "Kredi",
@@ -2050,8 +2054,7 @@
         "liquidity": "Likidite",
         "loanAsset": "Borç varlığı",
         "totalBorrow": "Toplam borç"
-      },
-      "paused": "Duraklatıldı"
+      }
     }
   },
   "statsPage": {

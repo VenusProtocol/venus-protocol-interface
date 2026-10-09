@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "流動性中心",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "<Styled>啟用</Styled> {{vTokenSymbol}} 作為抵押",
@@ -644,6 +645,7 @@
     "noTargetsKey": "文件中沒有目標列表",
     "noTypeKey": "文件中未指明提案類型",
     "proposalNotFound": "未找到提案",
+    "serviceIssue": "服務暫時無法使用，請稍後再試。",
     "somethingWentWrong": "出了點問題",
     "somethingWentWrongRetrievingTransactions": "獲取交易時出錯",
     "somethingWentWrongRetrievingVoterAccounts": "獲取投票賬戶時出錯",
@@ -1021,7 +1023,8 @@
           "centrifuge": "Centrifuge 基金",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "固定利率金庫"
+          "frv": "固定利率金庫",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1939,6 +1942,7 @@
     "enterValidAmountButtonLabel": "請輸入有效金額",
     "error": {
       "higherThanAvailableAmount": "金額超出可用餘額",
+      "lowerThanMinAmount": "金額低於最小值 {{minAmount}}",
       "supplyDisabled": "該抵押品的供應目前已暫停"
     },
     "loanTabTitle": "借貸",
@@ -2049,8 +2053,7 @@
         "liquidity": "流動性",
         "loanAsset": "借貸資產",
         "totalBorrow": "總借款"
-      },
-      "paused": "已暫停"
+      }
     }
   },
   "statsPage": {

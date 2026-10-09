@@ -291,6 +291,40 @@ export const useGetLiquidityHubHistory = vi.fn(() => ({
   },
 }));
 
+export const getSpokePools = vi.fn(async () => ({
+  spokePools: [],
+  totals: {
+    poolCount: 0,
+    totalBorrowCents: new BigNumber(0),
+    availableLiquidityCents: new BigNumber(0),
+  },
+}));
+
+export const useGetSpokePools = vi.fn(() => ({
+  isLoading: false,
+  data: {
+    spokePools: [],
+    totals: {
+      poolCount: 0,
+      totalBorrowCents: new BigNumber(0),
+      availableLiquidityCents: new BigNumber(0),
+    },
+  },
+}));
+
+export const getSpokeMarketHistory = vi.fn(async () => ({
+  marketSnapshots: [],
+  averageBorrowApyPercentage: 0,
+}));
+
+export const useGetSpokeMarketHistory = vi.fn(() => ({
+  isLoading: false,
+  data: {
+    marketSnapshots: [],
+    averageBorrowApyPercentage: 0,
+  },
+}));
+
 export const useGetSimulatedPool = vi.fn(() => ({
   isLoading: false,
   data: {
@@ -1099,6 +1133,34 @@ export const useSupplyToLiquidityHub = vi.fn((options?: MutationObserverOptions)
 );
 
 export const useWithdrawFromLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useSupplyToSpoke = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useBorrowFromSpoke = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useRepayToSpoke = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useWithdrawFromSpoke = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),
     ...options,

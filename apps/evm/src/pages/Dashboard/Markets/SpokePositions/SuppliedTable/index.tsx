@@ -1,4 +1,10 @@
-import { LayeredValues, Table, type TableColumn, TokenIconWithSymbol } from 'components';
+import {
+  LayeredValues,
+  ProtectionModeIndicator,
+  Table,
+  type TableColumn,
+  TokenIconWithSymbol,
+} from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 import {
@@ -21,7 +27,20 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
       key: 'asset',
       label: t('account.spoke.supplied.columns.asset'),
       selectOptionLabel: t('account.spoke.supplied.columns.asset'),
-      renderCell: asset => <TokenIconWithSymbol token={asset.vToken.underlyingToken} />,
+      renderCell: asset => (
+        <div className="flex items-center gap-x-2">
+          <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+
+          {asset.isProtectionModeEnabled && (
+            <ProtectionModeIndicator
+              variant="icon"
+              tooltipType="supply"
+              tokenName={asset.vToken.underlyingToken.symbol}
+              userSupplyBalanceCents={asset.userSupplyBalanceProtectedCents}
+            />
+          )}
+        </div>
+      ),
     },
     {
       key: 'maxLtv',

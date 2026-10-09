@@ -7,6 +7,7 @@ import {
   type AccountPerformanceHistoryPeriod,
   useGetAccountPerformanceHistory,
   useGetPool,
+  useGetSpokePools,
   useGetTokenUsdPrice,
   useGetVaults,
 } from 'clients/api';
@@ -53,6 +54,9 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
 
   const isVaiFeatureEnabled = useIsFeatureEnabled({
     name: 'vaiRoute',
+  });
+  const isSpokeFeatureEnabled = useIsFeatureEnabled({
+    name: 'spoke',
   });
 
   const [userChainSettings] = useUserChainSettings();
@@ -102,6 +106,30 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const { data: getVaultsData } = useGetVaults({
     accountAddress,
   });
+
+  const { data: getSpokePoolsData } = useGetSpokePools(
+    { accountAddress },
+    { enabled: !!accountAddress },
+  );
+
+  const isSpokeUserDataAvailable =
+    !!getSpokePoolsData &&
+    !getSpokePoolsData.spokePools.some(spokePool => spokePool.isUserDataUnavailable);
+
+  const spokePools = isSpokeFeatureEnabled ? getSpokePoolsData?.spokePools ?? [] : [];
+
+  const isAccountDataAvailable =
+    !!pool && !!accountAddress && (!isSpokeFeatureEnabled || isSpokeUserDataAvailable);
+
+  const totalSupplyCents = spokePools.reduce(
+    (acc, spokePool) => acc.plus(spokePool.userSupplyBalanceCents || 0),
+    new BigNumber(pool?.userSupplyBalanceCents || 0),
+  );
+
+  const totalBorrowCents = spokePools.reduce(
+    (acc, spokePool) => acc.plus(spokePool.userBorrowBalanceCents || 0),
+    new BigNumber(pool?.userBorrowBalanceCents || 0),
+  );
   const vaults = getVaultsData || [];
 
   const xvs = useGetToken({
@@ -141,19 +169,19 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     {
       pool,
       vaults,
+      spokePools,
       xvsPriceCents,
       vaiPriceCents,
     },
   );
 
-  const netWorthCents =
-    pool && accountAddress
-      ? new BigNumber(pool.userSupplyBalanceCents || 0)
-          .plus(userTotalVaultStakeCents || 0)
-          .minus(pool.userBorrowBalanceCents || 0)
-          .minus(pool.vai?.userBorrowBalanceCents || 0)
-          .toNumber()
-      : undefined;
+  const netWorthCents = isAccountDataAvailable
+    ? totalSupplyCents
+        .plus(userTotalVaultStakeCents || 0)
+        .minus(totalBorrowCents)
+        .minus(pool?.vai?.userBorrowBalanceCents || 0)
+        .toNumber()
+    : undefined;
 
   const startOfDayNetWorthCents =
     getAccountPerformanceHistoryData?.startOfDayNetWorthCents !== undefined
@@ -228,7 +256,9 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const summaryCells: CellProps[] = [
     {
       label: t('dashboard.overview.summary.cellGroup.netApy'),
-      value: formatPercentageToReadableValue(userNetApyPercentage),
+      value: formatPercentageToReadableValue(
+        isAccountDataAvailable ? userNetApyPercentage : undefined,
+      ),
       tooltip: vaults
         ? t('dashboard.overview.summary.cellGroup.netApyWithVaultStakeTooltip')
         : t('dashboard.overview.summary.cellGroup.netApyTooltip'),
@@ -239,15 +269,21 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     },
     {
       label: t('dashboard.overview.summary.cellGroup.dailyEarnings'),
-      value: formatCentsToReadableValue({ value: userDailyEarningsCents }),
+      value: formatCentsToReadableValue({
+        value: isAccountDataAvailable ? userDailyEarningsCents : undefined,
+      }),
     },
     {
       label: t('dashboard.overview.summary.cellGroup.totalSupply'),
-      value: formatCentsToReadableValue({ value: pool?.userSupplyBalanceCents }),
+      value: formatCentsToReadableValue({
+        value: isAccountDataAvailable ? totalSupplyCents : undefined,
+      }),
     },
     {
       label: t('dashboard.overview.summary.cellGroup.totalBorrow'),
-      value: formatCentsToReadableValue({ value: pool?.userBorrowBalanceCents }),
+      value: formatCentsToReadableValue({
+        value: isAccountDataAvailable ? totalBorrowCents : undefined,
+      }),
     },
   ];
 

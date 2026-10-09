@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { HEALTH_FACTOR_SAFE_MAX_THRESHOLD } from 'constants/healthFactor';
 import type { SpokeAsset, SpokePool } from 'types';
-import { clampToZero } from 'utilities';
+import { clampToZero, convertMantissaToTokens } from 'utilities';
 
 export interface GetBorrowLimitsInput {
   spokePool: SpokePool;
@@ -26,17 +26,24 @@ export const getBorrowLimits = ({
     userLiquidationThresholdCents,
   } = spokePool;
 
+  const borrowedTokens = asset.borrowBalanceTokens.plus(
+    convertMantissaToTokens({
+      value: new BigNumber(asset.badDebtMantissa.toString()),
+      token: asset.vToken.underlyingToken,
+    }),
+  );
+
   if (
     !userBorrowLimitCents ||
     !userBorrowBalanceCents ||
     !userLiquidationThresholdCents ||
     userBorrowBalanceProtectedCents?.isGreaterThanOrEqualTo(userBorrowLimitProtectedCents ?? 0) ||
-    asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
+    borrowedTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
   ) {
     return { limitTokens: new BigNumber(0), safeLimitTokens: new BigNumber(0) };
   }
 
-  const assetLiquidityTokens = asset.liquidityCents.dividedBy(asset.tokenPriceCents);
+  const assetLiquidityTokens = asset.cashTokens.minus(asset.reserveTokens);
 
   // Protected prices on both sides, matching the comptroller and the Core borrow form
   const marginWithUserBorrowLimitTokens = (userBorrowLimitProtectedCents ?? userBorrowLimitCents)
@@ -52,7 +59,7 @@ export const getBorrowLimits = ({
       .dividedBy(asset.tokenPriceCents),
   });
 
-  const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.borrowBalanceTokens);
+  const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(borrowedTokens);
 
   const limitTokens = clampToZero({
     value: BigNumber.min(

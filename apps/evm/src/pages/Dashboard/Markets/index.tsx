@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import type { Pool } from 'types';
 
-// TODO: fetch from API (VPD-2071)
-import { spokePools } from '__mocks__/models/spokePools';
+import { useGetSpokePools } from 'clients/api';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
@@ -24,7 +23,7 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
   const { marketsPagePath } = useGetMarketsPagePath();
   const isSpokeEnabled = useIsFeatureEnabled({ name: 'spoke' });
   const { accountAddress } = useAccountAddress();
-  const [selectedPoolId, setSelectedPoolId] = useState(CORE_POOL_PILL_ID);
+  const [selectedPoolId, setSelectedPoolId] = useState<string>();
 
   const userHasPositions = pool.assets.some(
     asset =>
@@ -33,9 +32,14 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
       asset.isCollateralOfUser,
   );
 
+  const { data: getSpokePoolsData } = useGetSpokePools(
+    { accountAddress },
+    { enabled: !!accountAddress },
+  );
+
   const spokePoolsWithPositions =
     isSpokeEnabled && accountAddress
-      ? spokePools.filter(spokePool =>
+      ? (getSpokePoolsData?.spokePools ?? []).filter(spokePool =>
           spokePool.assets.some(
             asset =>
               asset.userSupplyBalanceTokens.isGreaterThan(0) ||
@@ -44,8 +48,19 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
         )
       : [];
 
+  const isSelectedPoolListed =
+    selectedPoolId === CORE_POOL_PILL_ID ||
+    spokePoolsWithPositions.some(spokePool => spokePool.comptrollerAddress === selectedPoolId);
+
+  const activePoolId =
+    selectedPoolId && isSelectedPoolListed
+      ? selectedPoolId
+      : userHasPositions || spokePoolsWithPositions.length === 0
+        ? CORE_POOL_PILL_ID
+        : spokePoolsWithPositions[0].comptrollerAddress;
+
   const selectedSpokePool = spokePoolsWithPositions.find(
-    spokePool => spokePool.comptrollerAddress === selectedPoolId,
+    spokePool => spokePool.comptrollerAddress === activePoolId,
   );
 
   if (!userHasPositions && spokePoolsWithPositions.length === 0) {
@@ -70,7 +85,7 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
       {spokePoolsWithPositions.length > 0 && (
         <PoolPills
           className="mb-6"
-          selectedPoolId={selectedPoolId}
+          selectedPoolId={activePoolId}
           onChange={setSelectedPoolId}
           pools={[
             { id: CORE_POOL_PILL_ID, name: t('account.spoke.corePoolPill') },

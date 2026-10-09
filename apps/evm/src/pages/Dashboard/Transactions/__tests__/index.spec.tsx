@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/dom';
 import fakeAccountAddress from '__mocks__/models/address';
-import { useGetAccountTransactionHistory } from 'clients/api';
+import { spokePools } from '__mocks__/models/spokePools';
+import { useGetAccountTransactionHistory, useGetSpokePools } from 'clients/api';
 import { TX_TYPES } from 'constants/marketTxTypes';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
@@ -28,6 +29,10 @@ vi.mock('clients/api', async () => {
       data: {
         pools: poolData,
       },
+      isLoading: false,
+    })),
+    useGetSpokePools: vi.fn(() => ({
+      data: undefined,
       isLoading: false,
     })),
   };
@@ -98,5 +103,60 @@ describe('Transactions', () => {
     });
 
     expect(container.textContent).toMatchSnapshot();
+  });
+
+  it.each([
+    ['borrow', ['borrow'], 'core'],
+    ['spoke-borrow', ['borrow'], 'spoke'],
+    ['hubSupply', ['hubSupply'], undefined],
+  ])('filters %s by pool type when Spoke is enabled', (txType, types, poolType) => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabledInput) =>
+        name === 'transactionHistory' || name === 'liquidityHub' || name === 'spoke',
+    );
+
+    renderComponent(<Transactions />, {
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: [`/?txType=${txType}`],
+    });
+
+    expect(useGetAccountTransactionHistory).toHaveBeenLastCalledWith(
+      expect.objectContaining({ types, poolType }),
+      expect.any(Object),
+    );
+  });
+
+  it('does not filter by pool type when Spoke is disabled', () => {
+    renderComponent(<Transactions />, {
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: ['/?txType=borrow'],
+    });
+
+    expect(useGetAccountTransactionHistory).toHaveBeenLastCalledWith(
+      expect.objectContaining({ types: ['borrow'], poolType: undefined }),
+      expect.any(Object),
+    );
+  });
+
+  it('accepts a Spoke market as the source filter', async () => {
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      data: { spokePools },
+      isLoading: false,
+    }));
+    const spokeVTokenAddress = spokePools[0].assets[0].vToken.address;
+
+    renderComponent(<Transactions />, {
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: [`/?contractAddress=${spokeVTokenAddress}`],
+    });
+
+    await waitFor(() =>
+      expect(useGetAccountTransactionHistory).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          contractAddress: spokeVTokenAddress,
+        }),
+        expect.any(Object),
+      ),
+    );
   });
 });

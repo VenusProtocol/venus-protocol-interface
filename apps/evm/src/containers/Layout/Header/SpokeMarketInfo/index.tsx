@@ -2,6 +2,7 @@ import { useParams } from 'react-router';
 import type { Address } from 'viem';
 
 import { type CellProps, SpokeCollateralGroup } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { useGetSpokeMarket } from 'hooks/useGetSpokeMarket';
 import { useSelectedSpokeCollateral } from 'hooks/useSelectedSpokeCollateral';
 import { useTranslation } from 'libs/translations';
@@ -26,7 +27,7 @@ export const SpokeMarketInfo: React.FC = () => {
   const cells: CellProps[] = [
     {
       label: t('spokeMarket.header.supply'),
-      value: formatCentsToReadableValue({ value: asset?.hubSupplyBalanceCents }),
+      value: formatCentsToReadableValue({ value: asset?.supplyBalanceCents }),
     },
     {
       label: t('spokeMarket.header.liquidity'),
@@ -49,8 +50,20 @@ export const SpokeMarketInfo: React.FC = () => {
   return (
     <TokenInfo
       token={asset?.vToken.underlyingToken}
-      tokenPriceOracleAddress={asset?.tokenPriceOracleAddress}
       relatedTokens={asset && [asset.vToken.underlyingToken, asset.vToken]}
+      tokenPriceOracleAddress={
+        asset && asset.tokenPriceOracleAddress !== NULL_ADDRESS
+          ? asset.tokenPriceOracleAddress
+          : undefined
+      }
+      protectionModeIndicator={
+        asset?.isProtectionModeEnabled
+          ? {
+              tokenSupplyPriceCents: asset.tokenSupplyPriceCents,
+              tokenBorrowPriceCents: asset.tokenBorrowPriceCents,
+            }
+          : undefined
+      }
       cells={cells}
     />
   );

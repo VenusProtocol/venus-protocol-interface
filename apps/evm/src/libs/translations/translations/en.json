@@ -132,7 +132,8 @@
       "txSource": {
         "liquidityHub": "Liquidity Hub",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
@@ -645,6 +646,7 @@
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
     "proposalNotFound": "Proposal not found",
+    "serviceIssue": "Service temporarily unavailable. Please try again later.",
     "somethingWentWrong": "Something went wrong",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
     "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",
@@ -1022,7 +1024,8 @@
           "centrifuge": "Centrifuge funds",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "Fixed rate vault"
+          "frv": "Fixed rate vault",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1940,6 +1943,7 @@
     "enterValidAmountButtonLabel": "Enter valid amount",
     "error": {
       "higherThanAvailableAmount": "Amount exceeds the available balance",
+      "lowerThanMinAmount": "Amount is below the minimum of {{minAmount}}",
       "supplyDisabled": "Supplying is currently paused for this collateral"
     },
     "loanTabTitle": "Loan",
@@ -2050,8 +2054,7 @@
         "liquidity": "Liquidity",
         "loanAsset": "Loan asset",
         "totalBorrow": "Total borrow"
-      },
-      "paused": "Paused"
+      }
     }
   },
   "statsPage": {

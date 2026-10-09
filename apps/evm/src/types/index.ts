@@ -271,11 +271,13 @@ export interface Pool {
 
 export interface SpokeAsset extends Asset {
   isSuppliable: boolean;
-  hubSupplyBalanceCents: BigNumber;
+  isInactive: boolean;
+  isParticipantCountUnavailable: boolean;
 }
 
 export interface SpokePool extends Omit<Pool, 'assets'> {
   description: string;
+  isUserDataUnavailable: boolean;
   assets: SpokeAsset[];
 }
 
@@ -306,7 +308,7 @@ export interface LiquidityHubSource {
   lockEndDate?: Date;
 }
 
-export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv' | 'centrifuge';
+export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv' | 'centrifuge' | 'spoke';
 
 export interface LiquidityHubYieldGroup {
   address: Address;
@@ -890,6 +892,7 @@ export interface MarketTx extends BaseTx {
   txType: MarketTxType;
   poolName: string;
   vToken: VToken;
+  isSpoke?: boolean;
 }
 
 export interface LiquidityHubTx extends BaseTx {

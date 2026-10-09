@@ -16,6 +16,11 @@ export interface ControlsProps {
   selectedCategories?: string[];
   onSelectedCategoriesChange?: (selectedTags: string[]) => void;
   filters?: ReactNode;
+  pausedAssetsSettingKey?: 'showPausedAssets' | 'showPausedSpokeAssets';
+  userAssetsSettingKey?:
+    | 'showUserAssetsOnly'
+    | 'showUserLiquidityHubAssetsOnly'
+    | 'showUserSpokeAssetsOnly';
 }
 
 export const Controls: React.FC<ControlsProps> = ({
@@ -27,15 +32,18 @@ export const Controls: React.FC<ControlsProps> = ({
   selectedCategories = [],
   onSelectedCategoriesChange,
   filters,
+  pausedAssetsSettingKey = 'showPausedAssets',
+  userAssetsSettingKey = 'showUserAssetsOnly',
 }) => {
   const { t } = useTranslation();
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
   const { accountAddress } = useAccountAddress();
 
   const setShowUserAssetsOnly = (value: boolean) =>
-    setUserChainSettings({ showUserAssetsOnly: value });
+    setUserChainSettings({ [userAssetsSettingKey]: value });
 
-  const setShowPausedAssets = (value: boolean) => setUserChainSettings({ showPausedAssets: value });
+  const setShowPausedAssets = (value: boolean) =>
+    setUserChainSettings({ [pausedAssetsSettingKey]: value });
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchValueChange(changeEvent.currentTarget.value);
@@ -46,7 +54,12 @@ export const Controls: React.FC<ControlsProps> = ({
 
   return (
     <div className="@container/controls">
-      <div className="flex flex-col gap-y-3 @2xl:items-center @2xl:flex-row @2xl:justify-between">
+      <div
+        className={cn(
+          'flex flex-col gap-y-3 @2xl:items-center @2xl:flex-row @2xl:justify-between',
+          filters && '@2xl:flex-wrap @2xl:gap-x-6',
+        )}
+      >
         <div
           className={cn('flex flex-col gap-3 sm:flex-row @2xl:grow', !filters && '@2xl:max-w-142')}
         >
@@ -79,16 +92,16 @@ export const Controls: React.FC<ControlsProps> = ({
           <div className="flex items-center justify-between gap-x-6 sm:justify-start">
             {!!accountAddress && (
               <Toggle
-                onChange={() => setShowUserAssetsOnly(!userChainSettings.showUserAssetsOnly)}
-                value={userChainSettings.showUserAssetsOnly}
+                onChange={() => setShowUserAssetsOnly(!userChainSettings[userAssetsSettingKey])}
+                value={userChainSettings[userAssetsSettingKey]}
                 label={t('controls.userAssetsOnlyToggle.label')}
               />
             )}
 
             {showPausedAssetsToggle && (
               <Toggle
-                onChange={() => setShowPausedAssets(!userChainSettings.showPausedAssets)}
-                value={userChainSettings.showPausedAssets}
+                onChange={() => setShowPausedAssets(!userChainSettings[pausedAssetsSettingKey])}
+                value={userChainSettings[pausedAssetsSettingKey]}
                 label={t('controls.pausedAssetsToggle.label')}
               />
             )}

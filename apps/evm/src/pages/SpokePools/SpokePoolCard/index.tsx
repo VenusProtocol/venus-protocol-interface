@@ -22,7 +22,11 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
-  const columns = useColumns({ collaterals });
+  const [selectedCollateral, setSelectedCollateral] = useState<SpokeAsset>();
+  const columns = useColumns({ collaterals, onCollateralClick: setSelectedCollateral });
+  const hasUserPosition =
+    !!spokePool.userSupplyBalanceCents?.isGreaterThan(0) ||
+    !!spokePool.userBorrowBalanceCents?.isGreaterThan(0);
   const [selectedAsset, setSelectedAsset] = useState<SpokeAsset>();
 
   const getRowHref = (asset: SpokeAsset) =>
@@ -49,7 +53,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
         rowKeyExtractor={asset => asset.vToken.address}
         controls
         tableLayout="auto"
-        breakpoint="md"
+        breakpoint="lg"
         hideCardDelimiter
         getRowHref={getRowHref}
         renderRowControl={renderRowControl}
@@ -60,7 +64,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
               <p className="text-b1r text-grey">{spokePool.description}</p>
             </div>
 
-            {spokePool.userHealthFactor !== undefined && (
+            {hasUserPosition && spokePool.userHealthFactor !== undefined && (
               <HealthFactorPill factor={spokePool.userHealthFactor} showLabel />
             )}
           </div>
@@ -80,6 +84,18 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
             selectedAsset.disabledTokenActions.includes('borrow') ? 'repay' : 'borrow'
           }
           handleClose={() => setSelectedAsset(undefined)}
+        />
+      )}
+
+      {selectedCollateral && (
+        <SpokeFormModal
+          title={t('spokeForm.collateralModalTitle', { poolName: spokePool.name })}
+          spokePool={spokePool}
+          asset={loanAssets[0]}
+          collateralOnly
+          initialActiveTabId="collateral"
+          preselectedCollateral={selectedCollateral}
+          handleClose={() => setSelectedCollateral(undefined)}
         />
       )}
     </>

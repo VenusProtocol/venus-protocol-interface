@@ -52,12 +52,19 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
 
   const dailyBorrowInterestsCents = calculateDailyBorrowInterestCents({ assets: spokePool.assets });
 
-  const cells: CellProps[] = [
-    {
-      label: t('account.spoke.summary.healthFactor'),
-      value: <HealthFactorPill factor={spokePool.userHealthFactor ?? 0} showLabel />,
-      className: cellClassName,
-    },
+  const hasBorrowBalance = !!spokePool.userBorrowBalanceCents?.isGreaterThan(0);
+
+  const cells: CellProps[] = hasBorrowBalance
+    ? [
+        {
+          label: t('account.spoke.summary.healthFactor'),
+          value: <HealthFactorPill factor={spokePool.userHealthFactor ?? 0} showLabel />,
+          className: cellClassName,
+        },
+      ]
+    : [];
+
+  cells.push(
     {
       label: t('account.spoke.summary.borrowApy'),
       value: (
@@ -65,7 +72,10 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
           {formatPercentageToReadableValue(weightedBorrowApyPercentage)}
         </HidableUserBalance>
       ),
-      className: cellClassName,
+      className: cn(
+        weightedBorrowApyPercentage.isLessThan(0) ? 'text-red' : 'text-green',
+        cellClassName,
+      ),
     },
     {
       label: t('account.spoke.summary.dailyBorrowInterest'),
@@ -94,33 +104,41 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
       ),
       className: cellClassName,
     },
-    {
-      value: (
-        <AccountHealthBar
-          borrowBalanceCents={spokePool.userBorrowBalanceCents?.toNumber() ?? 0}
-          borrowBalanceProtectedCents={spokePool.userBorrowBalanceProtectedCents?.toNumber()}
-          borrowLimitCents={spokePool.userBorrowLimitCents?.toNumber() ?? 0}
-          borrowLimitProtectedCents={spokePool.userBorrowLimitProtectedCents?.toNumber()}
-          liquidationThresholdCents={spokePool.userLiquidationThresholdCents?.toNumber()}
-          hideUserBalances={shouldHideBalances ? HIDDEN_BALANCE_KEY : undefined}
-        />
-      ),
-      className: cellClassName,
-    },
-  ];
+  );
+
+  const accountHealthCell: CellProps | undefined = hasBorrowBalance
+    ? {
+        value: (
+          <AccountHealthBar
+            borrowBalanceCents={spokePool.userBorrowBalanceCents?.toNumber() ?? 0}
+            borrowBalanceProtectedCents={spokePool.userBorrowBalanceProtectedCents?.toNumber()}
+            borrowLimitCents={spokePool.userBorrowLimitCents?.toNumber() ?? 0}
+            borrowLimitProtectedCents={spokePool.userBorrowLimitProtectedCents?.toNumber()}
+            liquidationThresholdCents={spokePool.userLiquidationThresholdCents?.toNumber()}
+            hideUserBalances={shouldHideBalances ? HIDDEN_BALANCE_KEY : undefined}
+          />
+        ),
+        className: cellClassName,
+      }
+    : undefined;
 
   return (
     <>
       <div className={cn('space-y-4 md:space-y-6 xl:hidden', className)}>
-        {cells.map(cell => (
-          <Cell key={`spoke-summary-cell-${cell.label}`} {...cell} />
-        ))}
+        <CellGroup
+          cells={cells}
+          grid
+          className={cn(accountHealthCell ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
+        />
+
+        {accountHealthCell && <Cell {...accountHealthCell} />}
       </div>
 
-      <CellGroup
-        cells={cells}
-        className={cn('hidden xl:flex xl:bg-transparent xl:p-0', className)}
-      />
+      <div className={cn('hidden xl:flex xl:items-center xl:justify-between', className)}>
+        <CellGroup cells={cells} className="w-full xl:bg-transparent xl:p-0" />
+
+        {accountHealthCell && <div className="shrink-0 min-w-96">{accountHealthCell.value}</div>}
+      </div>
     </>
   );
 };

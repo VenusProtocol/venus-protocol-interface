@@ -36,6 +36,7 @@ export interface MarketHistoryCardProps<TPeriod extends ChartHistoryPeriod = Cha
   cells: CellProps[];
   cap: CapProgressCircleProps;
   history?: MarketHistoryCardHistory<TPeriod>;
+  averageApyPercentage?: number;
 }
 
 export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHistoryPeriod>({
@@ -43,14 +44,15 @@ export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHist
   cells,
   cap,
   history,
+  averageApyPercentage,
   ...otherProps
 }: MarketHistoryCardProps<TPeriod>) => {
   const { t } = useTranslation();
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
 
-  let averageApy: number | undefined;
+  let averageApy = averageApyPercentage;
 
-  if (history && history.data.length > 0) {
+  if (averageApy === undefined && history && history.data.length > 0) {
     const apyDataKey = history.type === 'supply' ? 'supplyApyPercentage' : 'borrowApyPercentage';
     averageApy =
       history.data.reduce((acc, item) => acc + (item[apyDataKey] ?? 0), 0) / history.data.length;

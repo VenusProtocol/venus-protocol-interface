@@ -6,6 +6,7 @@ import {
   type ApyBreakdownItem,
   BalanceUpdates,
   Delimiter,
+  ProtectionModeIndicator,
   SelectTokenTextField,
   TokenTextField,
 } from 'components';
@@ -16,7 +17,7 @@ import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokePool, Token } from 'types';
-import { shouldShowAccountHealth } from 'utilities';
+import { areAddressesEqual, shouldShowAccountHealth } from 'utilities';
 import { DailyBorrowInterest } from './DailyBorrowInterest';
 import { type FormValues, initialFormValues, useForm } from './useForm';
 import type { UseFormValidationInput } from './useForm/useFormValidation';
@@ -71,7 +72,7 @@ export const Form: React.FC<FormProps> = ({
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
 
-  const isUserConnected = !!accountAddress;
+  const isUserConnected = !!accountAddress && !spokePool.isUserDataUnavailable;
 
   const { data: getSimulatedPoolData, isLoading: isGetSimulatedPoolLoading } =
     useSimulatePoolMutations({
@@ -117,6 +118,12 @@ export const Form: React.FC<FormProps> = ({
       amountTokens,
     }));
 
+  const asset = spokePool.assets.find(({ vToken }) =>
+    areAddressesEqual(vToken.underlyingToken.address, token.address),
+  );
+
+  const isAwaitingRiskAcknowledgement = formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT';
+
   const amountInputProps = {
     name: 'amountTokens',
     value: formValues.amountTokens,
@@ -127,7 +134,11 @@ export const Form: React.FC<FormProps> = ({
       onClick: handleRightMaxButtonClick,
     },
     hasError:
-      isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0,
+      isUserConnected &&
+      !isSubmitting &&
+      !!formError &&
+      !isAwaitingRiskAcknowledgement &&
+      Number(formValues.amountTokens) > 0,
     description:
       isUserConnected && !isSubmitting && !!formError?.message ? (
         <p className="text-red">{formError.message}</p>
@@ -136,6 +147,15 @@ export const Form: React.FC<FormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {asset?.isProtectionModeEnabled && (
+        <ProtectionModeIndicator
+          variant="label"
+          tokenName={asset.vToken.underlyingToken.symbol}
+          tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+          tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+        />
+      )}
+
       {tokenBalances && onChangeSelectedToken ? (
         <SelectTokenTextField
           {...amountInputProps}
@@ -183,7 +203,9 @@ export const Form: React.FC<FormProps> = ({
       <TxFormSubmitButton
         approval={approval}
         submitButtonLabel={
-          isFormValid ? submitButtonLabel : t('spokeForm.enterValidAmountButtonLabel')
+          isFormValid || isAwaitingRiskAcknowledgement
+            ? submitButtonLabel
+            : t('spokeForm.enterValidAmountButtonLabel')
         }
         isFormValid={isFormValid}
         isLoading={isSubmitting || isGetSimulatedPoolLoading}

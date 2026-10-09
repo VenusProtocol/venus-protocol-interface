@@ -29,6 +29,10 @@ export * from './mutations/useSwapTokens';
 export * from './mutations/useWithdraw';
 export * from './mutations/useSupplyToLiquidityHub';
 export * from './mutations/useWithdrawFromLiquidityHub';
+export * from './mutations/useSupplyToSpoke';
+export * from './mutations/useBorrowFromSpoke';
+export * from './mutations/useRepayToSpoke';
+export * from './mutations/useWithdrawFromSpoke';
 export * from './mutations/useMigrateCoreSupplyToLiquidityHub';
 export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
@@ -107,6 +111,12 @@ export * from './queries/getLiquidityHub/useGetLiquidityHub';
 
 export * from './queries/getLiquidityHubHistory';
 export * from './queries/getLiquidityHubHistory/useGetLiquidityHubHistory';
+
+export * from './queries/getSpokePools';
+export * from './queries/getSpokePools/useGetSpokePools';
+
+export * from './queries/getSpokeMarketHistory';
+export * from './queries/getSpokeMarketHistory/useGetSpokeMarketHistory';
 
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';

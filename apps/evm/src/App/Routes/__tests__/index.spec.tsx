@@ -205,6 +205,16 @@ describe('AppRoutes', () => {
     pageContainer.remove();
   });
 
+  it('redirects a Spoke pool link without a market to the Spoke pools page', () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }) => enabledFeatureNames.includes(name) || name === 'spoke',
+    );
+
+    renderRoutes('/spoke/0x0000000000000000000000000000000000000001');
+
+    expect(screen.getByTestId('redirect')).toHaveTextContent(routes.spokePools.path);
+  });
+
   it('redirects discord URLs to the Discord server', async () => {
     const originalLocation = window.location;
     const replace = vi.fn();

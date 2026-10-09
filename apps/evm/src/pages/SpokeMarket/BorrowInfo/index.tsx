@@ -1,15 +1,14 @@
 import BigNumber from 'bignumber.js';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
-import type { LiquidityHubHistoryPeriod } from 'clients/api';
+import { type LiquidityHubHistoryPeriod, useGetSpokeMarketHistory } from 'clients/api';
 import { MarketHistoryCard, type MarketHistoryCardPeriodOption } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 
-// TODO: fetch from API (VPD-2071)
-import { getSpokeMarketHistory } from '__mocks__/models/spokeMarketHistory';
 import {
   clampToZero,
+  convertMantissaToTokens,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
@@ -31,18 +30,19 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
     { label: t('spokeMarket.periodOption.all'), value: 'all' },
   ];
 
-  const history = useMemo(
-    () => getSpokeMarketHistory({ asset, period: selectedPeriod }),
-    [asset, selectedPeriod],
-  );
+  const { data: getSpokeMarketHistoryData, isLoading: isGetSpokeMarketHistoryLoading } =
+    useGetSpokeMarketHistory({ vTokenAddress: asset.vToken.address, period: selectedPeriod });
 
-  const reachableBorrowCapTokens = BigNumber.min(
-    asset.borrowCapTokens,
-    asset.borrowBalanceTokens.plus(asset.cashTokens),
-  );
+  const badDebtTokens = convertMantissaToTokens({
+    value: new BigNumber(asset.badDebtMantissa.toString()),
+    token: asset.vToken.underlyingToken,
+  });
 
   const availableBorrowTokens = clampToZero({
-    value: reachableBorrowCapTokens.minus(asset.borrowBalanceTokens),
+    value: BigNumber.min(
+      asset.borrowCapTokens.minus(asset.borrowBalanceTokens).minus(badDebtTokens),
+      asset.cashTokens,
+    ),
   });
 
   const borrowCapThresholdTooltip = (
@@ -70,6 +70,7 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
   return (
     <MarketHistoryCard
       title={t('spokeMarket.borrowInfo.title')}
+      averageApyPercentage={getSpokeMarketHistoryData?.averageBorrowApyPercentage}
       cells={[
         {
           label: t('spokeMarket.borrowInfo.currentApy'),
@@ -80,14 +81,14 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
         token: asset.vToken.underlyingToken,
         title: t('spokeMarket.borrowCapThreshold.title'),
         tokenPriceCents: asset.tokenPriceCents,
-        limitTokens: reachableBorrowCapTokens,
+        limitTokens: asset.supplyBalanceTokens,
         valueTokens: asset.borrowBalanceTokens,
         tooltip: <span className="whitespace-pre-line">{borrowCapThresholdTooltip}</span>,
       }}
       history={{
         type: 'borrow',
-        data: history,
-        isLoading: false,
+        data: getSpokeMarketHistoryData?.marketSnapshots ?? [],
+        isLoading: isGetSpokeMarketHistoryLoading,
         selectedPeriod,
         setSelectedPeriod,
         periodOptions,

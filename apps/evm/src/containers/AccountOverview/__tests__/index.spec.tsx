@@ -1,6 +1,11 @@
 import { fireEvent, waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { spokePools } from '__mocks__/models/spokePools';
+import { useGetSpokePools } from 'clients/api';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import * as storeModule from 'store';
@@ -28,6 +33,113 @@ describe('AccountOverview', () => {
     await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
 
     expect(container.textContent).toMatchSnapshot();
+  });
+
+  it('adds Spoke positions to the net worth', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke',
+    );
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        spokePools: [
+          {
+            ...spokePools[0],
+            userSupplyBalanceCents: new BigNumber(1_200_000_000_000),
+            userBorrowBalanceCents: new BigNumber(200_000_000_000),
+          },
+        ],
+      },
+    }));
+
+    const { container, queryByTestId } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}$10B`);
+  });
+
+  it('adds Spoke positions to the account summary', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke',
+    );
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        spokePools: [
+          {
+            ...spokePools[0],
+            userSupplyBalanceCents: new BigNumber(1_200_000_000_000),
+            userBorrowBalanceCents: new BigNumber(200_000_000_000),
+            userYearlyEarningsCents: new BigNumber(-36_500_000_000),
+          },
+        ],
+      },
+    }));
+
+    const { container, queryByTestId, getByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    fireEvent.click(getByText(en.dashboard.overview.absolutePerformance).closest('button')!);
+
+    const { cellGroup } = en.dashboard.overview.summary;
+    expect(container.textContent).toContain(`${cellGroup.totalSupply}$12B`);
+    expect(container.textContent).toContain(`${cellGroup.totalBorrow}$2B`);
+    expect(container.textContent).toContain(`${cellGroup.dailyEarnings}-$999.99K`);
+    expect(container.textContent).toContain(`${cellGroup.netApy}-3.04%`);
+  });
+
+  it('waits for the Spoke positions before showing the net worth', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke',
+    );
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: true,
+      data: undefined,
+    }));
+
+    const { container, queryByTestId } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}-`);
+  });
+
+  it('does not show a net worth when the Spoke positions could not be read', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke',
+    );
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: { spokePools: [{ ...spokePools[0], isUserDataUnavailable: true }] },
+    }));
+
+    const { container, queryByTestId } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}-`);
   });
 
   it('displays correctly when user is connected and accordion is expanded', async () => {

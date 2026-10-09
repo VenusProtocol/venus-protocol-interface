@@ -40,8 +40,10 @@ export const getAccountTransactionHistory = async ({
   contractAddress,
   positionAccountAddress,
   pools,
+  spokePools = [],
   liquidityHubs,
   types,
+  poolType,
   page,
 }: GetAccountTransactionHistoryInput): Promise<GetAccountTransactionHistoryOutput> => {
   const apiTypes = types.map(type => TX_TYPE_TO_API_FILTER[type]);
@@ -54,6 +56,7 @@ export const getAccountTransactionHistory = async ({
       types: apiTypes,
       contractAddress: contractAddress && isAddress(contractAddress) ? contractAddress : undefined,
       positionAccountAddress,
+      poolType,
       page,
     },
   });
@@ -80,6 +83,16 @@ export const getAccountTransactionHistory = async ({
 
     return acc;
   }, {});
+
+  spokePools.forEach(spokePool => {
+    spokePool.assets.forEach(asset => {
+      vTokenAssetMapping[asset.vToken.address.toLowerCase() as Address] = {
+        ...asset,
+        poolName: spokePool.name,
+        isSpoke: true,
+      };
+    });
+  });
 
   const vhTokenMapping = liquidityHubs.reduce<VhTokenMapping>((acc, liquidityHub) => {
     acc[liquidityHub.vhToken.address.toLowerCase() as Address] = liquidityHub.vhToken;

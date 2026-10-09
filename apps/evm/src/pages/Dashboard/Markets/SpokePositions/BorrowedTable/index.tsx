@@ -2,6 +2,7 @@ import {
   Apy,
   LayeredValues,
   ProgressBar,
+  ProtectionModeIndicator,
   Table,
   type TableColumn,
   TokenIconWithSymbol,
@@ -40,7 +41,20 @@ export const BorrowedTable: React.FC<BorrowedTableProps> = ({
       key: 'asset',
       label: t('account.spoke.borrowed.columns.asset'),
       selectOptionLabel: t('account.spoke.borrowed.columns.asset'),
-      renderCell: asset => <TokenIconWithSymbol token={asset.vToken.underlyingToken} />,
+      renderCell: asset => (
+        <div className="flex items-center gap-x-2">
+          <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+
+          {asset.isProtectionModeEnabled && (
+            <ProtectionModeIndicator
+              variant="icon"
+              tooltipType="borrow"
+              tokenName={asset.vToken.underlyingToken.symbol}
+              userBorrowBalanceCents={asset.userBorrowBalanceProtectedCents}
+            />
+          )}
+        </div>
+      ),
     },
     {
       key: 'apy',

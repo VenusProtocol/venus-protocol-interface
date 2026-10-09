@@ -67,6 +67,28 @@ describe('Controls', () => {
     expect(mockSetUserChainSettings).toHaveBeenCalledWith({ showUserAssetsOnly: false });
   });
 
+  it.each(['showUserLiquidityHubAssetsOnly', 'showUserSpokeAssetsOnly'] as const)(
+    'reads and writes %s instead of the Core setting',
+    userAssetsSettingKey => {
+      mockSetUserChainSettings.mockClear();
+      (useUserChainSettings as Mock).mockReturnValue([
+        { ...defaultUserChainSettings, showUserAssetsOnly: true, [userAssetsSettingKey]: false },
+        mockSetUserChainSettings,
+      ]);
+
+      renderComponent(<Controls {...baseProps} userAssetsSettingKey={userAssetsSettingKey} />, {
+        accountAddress: fakeAccountAddress,
+      });
+
+      const [toggle] = screen.getAllByRole('checkbox');
+      expect(toggle).not.toBeChecked();
+
+      fireEvent.click(toggle);
+
+      expect(mockSetUserChainSettings).toHaveBeenCalledWith({ [userAssetsSettingKey]: true });
+    },
+  );
+
   it('lets user toggle paused assets when paused assets toggle is enabled', () => {
     const fakeUserChainSettings: UserChainSettings = {
       ...defaultUserChainSettings,
@@ -87,5 +109,27 @@ describe('Controls', () => {
 
     expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
     expect(mockSetUserChainSettings).toHaveBeenCalledWith({ showPausedAssets: true });
+  });
+
+  it('reads and writes the setting it is given for paused assets', () => {
+    (useUserChainSettings as Mock).mockReturnValue([
+      { ...defaultUserChainSettings, showPausedAssets: true, showPausedSpokeAssets: false },
+      mockSetUserChainSettings,
+    ]);
+
+    renderComponent(
+      <Controls
+        {...baseProps}
+        showPausedAssetsToggle
+        pausedAssetsSettingKey="showPausedSpokeAssets"
+      />,
+    );
+
+    const [toggle] = screen.getAllByRole('checkbox');
+    expect(toggle).not.toBeChecked();
+
+    fireEvent.click(toggle);
+
+    expect(mockSetUserChainSettings).toHaveBeenLastCalledWith({ showPausedSpokeAssets: true });
   });
 });

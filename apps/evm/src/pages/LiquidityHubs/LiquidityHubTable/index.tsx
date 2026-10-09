@@ -64,7 +64,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const filteredData = data.filter(row => {
     // Handle user settings
     if (
-      userChainSettings.showUserAssetsOnly &&
+      userChainSettings.showUserLiquidityHubAssetsOnly &&
       !row.userSupplyBalanceCents?.isGreaterThan(0) &&
       !row.userWalletBalanceCents?.isGreaterThan(0)
     ) {
@@ -211,6 +211,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
             searchValue={searchValue}
             onSearchValueChange={setSearchValue}
             showPausedAssetsToggle={false}
+            userAssetsSettingKey="showUserLiquidityHubAssetsOnly"
             searchInputPlaceholder={t('liquidityHubs.table.search.placeholder')}
           />
         }

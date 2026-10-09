@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import type { Pool, Vault } from 'types';
+import type { Pool, SpokePool, Vault } from 'types';
 import {
   calculateDailyInterests,
   calculateYearlyInterests,
@@ -13,11 +13,13 @@ interface UseExtractDataInput {
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
   vaults?: Vault[];
+  spokePools?: SpokePool[];
 }
 
 export const useExtractData = ({
   pool,
   vaults,
+  spokePools = [],
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
 }: UseExtractDataInput) => {
@@ -49,12 +51,14 @@ export const useExtractData = ({
     });
   }
 
-  const supplyBalanceCents = new BigNumber(pool?.userSupplyBalanceCents || 0)?.plus(
-    userTotalVaultStakeCents || 0,
+  const supplyBalanceCents = spokePools.reduce(
+    (acc, spokePool) => acc.plus(spokePool.userSupplyBalanceCents || 0),
+    new BigNumber(pool?.userSupplyBalanceCents || 0).plus(userTotalVaultStakeCents || 0),
   );
 
-  const yearlyEarningsCents = new BigNumber(pool?.userYearlyEarningsCents || 0)?.plus(
-    yearlyVaultEarningsCents || 0,
+  const yearlyEarningsCents = spokePools.reduce(
+    (acc, spokePool) => acc.plus(spokePool.userYearlyEarningsCents || 0),
+    new BigNumber(pool?.userYearlyEarningsCents || 0).plus(yearlyVaultEarningsCents || 0),
   );
 
   const userNetApyPercentage = calculateNetApy({

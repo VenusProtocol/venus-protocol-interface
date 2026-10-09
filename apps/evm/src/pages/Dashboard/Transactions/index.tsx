@@ -1,4 +1,9 @@
-import { useGetAccountTransactionHistory, useGetLiquidityHubs, useGetPools } from 'clients/api';
+import {
+  useGetAccountTransactionHistory,
+  useGetLiquidityHubs,
+  useGetPools,
+  useGetSpokePools,
+} from 'clients/api';
 import {
   Pagination,
   Select,
@@ -7,7 +12,7 @@ import {
   TransactionsList,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import { TX_TYPES } from 'constants/marketTxTypes';
+import { MARKET_TX_TYPES, TX_TYPES } from 'constants/marketTxTypes';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -23,10 +28,12 @@ const ALL_OPTION_VALUE = 'all';
 const PAGE_PARAM_KEY = 'page';
 const TX_TYPE_PARAM_KEY = 'txType';
 const CONTRACT_ADDRESS_PARAM_KEY = 'contractAddress';
+const SPOKE_TX_TYPE_PREFIX = 'spoke-';
 
 export const Transactions: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { chainId } = useChainId();
+  const isSpokeFeatureEnabled = useIsFeatureEnabled({ name: 'spoke' });
 
   // The URL page is 1-based and user-editable, so we guard against invalid values
   // (non-numeric, non-integer, below 1) and fall back to the first page. The upper
@@ -38,9 +45,19 @@ export const Transactions: React.FC = () => {
   const page = isValidPage ? parsedPage : FIRST_PAGE;
 
   const txTypeStr = searchParams.get(TX_TYPE_PARAM_KEY) ?? ALL_OPTION_VALUE;
-  const txType = TX_TYPES.find(type => type === txTypeStr);
-  const selectedTxType = txType ?? ALL_OPTION_VALUE;
+  const spokeTxType = isSpokeFeatureEnabled
+    ? MARKET_TX_TYPES.find(type => `${SPOKE_TX_TYPE_PREFIX}${type}` === txTypeStr)
+    : undefined;
+  const txType = spokeTxType ?? TX_TYPES.find(type => type === txTypeStr);
+  const selectedTxType = txType ? txTypeStr : ALL_OPTION_VALUE;
   const selectedTransactionTypes = txType ? [txType] : TX_TYPES;
+  const isMarketTxType = MARKET_TX_TYPES.some(type => type === txType);
+
+  let poolType: 'core' | 'spoke' | undefined;
+
+  if (isSpokeFeatureEnabled && isMarketTxType) {
+    poolType = spokeTxType ? 'spoke' : 'core';
+  }
 
   const selectedContractAddress = searchParams.get(CONTRACT_ADDRESS_PARAM_KEY)
     ? (searchParams.get(CONTRACT_ADDRESS_PARAM_KEY) as Address)
@@ -118,6 +135,8 @@ export const Transactions: React.FC = () => {
   });
   const { liquidityHubs } = getLiquidityHubsData;
 
+  const { data: getSpokePoolsData } = useGetSpokePools();
+
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(
       {
@@ -125,6 +144,7 @@ export const Transactions: React.FC = () => {
         page,
         contractAddress: isAddress(selectedContractAddress) ? selectedContractAddress : undefined,
         types: selectedTransactionTypes,
+        poolType,
       },
       {
         enabled: !!accountAddress && isTransactionHistoryFeatureEnabled,
@@ -136,13 +156,22 @@ export const Transactions: React.FC = () => {
       label: t('account.transactions.selects.txType.all'),
       value: ALL_OPTION_VALUE,
     },
-    ...TX_TYPES.map(type => ({
-      label: getTransactionName({
-        type,
-        t,
-      }),
+    ...MARKET_TX_TYPES.map(type => ({
+      label: getTransactionName({ type, t }),
       value: type,
     })),
+    ...(isSpokeFeatureEnabled
+      ? MARKET_TX_TYPES.map(type => ({
+          label: getTransactionName({ type, t, isSpoke: true }),
+          value: `${SPOKE_TX_TYPE_PREFIX}${type}`,
+        }))
+      : []),
+    ...TX_TYPES.filter(type => !MARKET_TX_TYPES.some(marketType => marketType === type)).map(
+      type => ({
+        label: getTransactionName({ type, t }),
+        value: type,
+      }),
+    ),
   ];
 
   const sourceSelectOptions = useMemo(() => {
@@ -151,13 +180,15 @@ export const Transactions: React.FC = () => {
       value: ALL_OPTION_VALUE,
     };
 
-    const allAssets =
-      poolData?.pools.flatMap(p =>
-        p.assets.map(a => ({
-          ...a,
-          poolName: p.name,
-        })),
-      ) || [];
+    const allAssets = [
+      ...(poolData?.pools ?? []),
+      ...(getSpokePoolsData?.spokePools ?? []),
+    ].flatMap(p =>
+      p.assets.map(a => ({
+        ...a,
+        poolName: p.name,
+      })),
+    );
 
     const otherOptions: SelectOption<string>[] = [];
     const tokenOptions: Token[] = allAssets
@@ -196,7 +227,7 @@ export const Transactions: React.FC = () => {
     }
 
     return [allOption, ...otherOptions];
-  }, [t, poolData, liquidityHubs, isLiquidityHubFeatureEnabled]);
+  }, [t, poolData, getSpokePoolsData, liquidityHubs, isLiquidityHubFeatureEnabled]);
 
   // Reset contract address filter if the value in the URL is incorrect
   useEffect(() => {

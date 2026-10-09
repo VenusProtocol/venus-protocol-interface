@@ -1,13 +1,22 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
+import { useGetVTokenBalance, useWithdrawFromSpoke } from 'clients/api';
 import { AvailableBalance } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
-import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, SpokeAsset, SpokePool, Token } from 'types';
-import { calculateCollateralWithdrawLimits, formatTokensToReadableValue } from 'utilities';
+import {
+  areAddressesEqual,
+  calculateCollateralWithdrawLimits,
+  convertTokensToMantissa,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { Form, type FormValues, initialFormValues } from '../Form';
+import type { UseFormValidationInput } from '../Form/useForm/useFormValidation';
+import { getMinAmountTokens } from '../getMinAmountTokens';
 
 export interface WithdrawFormProps {
   spokePool: SpokePool;
@@ -24,9 +33,26 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState(initialFormValues);
-  const [selectedAsset, setSelectedAsset] = useState(initialCollateral);
+  const [selectedTokenAddress, setSelectedTokenAddress] = useState(
+    initialCollateral.vToken.underlyingToken.address,
+  );
+  const { accountAddress } = useAccountAddress();
+  const { mutateAsync: withdraw, isPending: isSubmitting } = useWithdrawFromSpoke();
 
-  const { decimals } = selectedAsset.vToken.underlyingToken;
+  const selectedAsset =
+    collaterals.find(asset =>
+      areAddressesEqual(asset.vToken.underlyingToken.address, selectedTokenAddress),
+    ) ?? initialCollateral;
+
+  const { refetch: refetchVTokenBalance } = useGetVTokenBalance(
+    {
+      accountAddress: accountAddress || NULL_ADDRESS,
+      vTokenAddress: selectedAsset.vToken.address,
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
 
   const { limitTokens, safeLimitTokens } = calculateCollateralWithdrawLimits({
     asset: selectedAsset,
@@ -50,23 +76,33 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
   }));
 
   const handleChangeSelectedToken = (token: Token) => {
-    const newAsset = collaterals.find(
-      asset => asset.vToken.underlyingToken.address === token.address,
-    );
-
-    if (newAsset) {
-      setSelectedAsset(newAsset);
-      setFormValues(initialFormValues);
-    }
+    setSelectedTokenAddress(token.address);
+    setFormValues(initialFormValues);
   };
 
-  const handleLimitClick = limitTokens.isGreaterThan(0)
-    ? () =>
-        setFormValues(values => ({
-          ...values,
-          amountTokens: safeLimitTokens.dp(decimals).toFixed(),
-        }))
-    : undefined;
+  const validateForm: UseFormValidationInput['validate'] = ({ formValues: { amountTokens } }) => {
+    if (selectedAsset.disabledTokenActions.includes('withdraw')) {
+      return {
+        code: 'ACTION_DISABLED',
+        message: t('assetAccessor.disabledActionNotice.withdraw'),
+      };
+    }
+
+    const minAmountTokens = getMinAmountTokens({ asset: selectedAsset });
+
+    if (
+      new BigNumber(amountTokens).isGreaterThan(0) &&
+      new BigNumber(amountTokens).isLessThan(minAmountTokens) &&
+      !new BigNumber(amountTokens).isEqualTo(selectedAsset.userSupplyBalanceTokens)
+    ) {
+      return {
+        code: 'LOWER_THAN_MIN_AMOUNT',
+        message: t('spokeForm.error.lowerThanMinAmount', {
+          minAmount: `${minAmountTokens.toFixed()} ${selectedAsset.vToken.underlyingToken.symbol}`,
+        }),
+      };
+    }
+  };
 
   const availableBalanceDom = (
     <AvailableBalance
@@ -74,20 +110,34 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
         value: limitTokens,
         token: selectedAsset.vToken.underlyingToken,
       })}
-      onClick={handleLimitClick}
     />
   );
 
-  // Throws until VPD-2072 wires the contracts, so a submission is never reported as a success
-  const handleSubmit = async (_submittedFormValues: FormValues) => {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+  const handleSubmit = async (submittedFormValues: FormValues) => {
+    const amountTokens = new BigNumber(submittedFormValues.amountTokens);
+    const withdrawFullSupply = amountTokens.isEqualTo(selectedAsset.userSupplyBalanceTokens);
+
+    const vTokenBalanceMantissa = withdrawFullSupply
+      ? (await refetchVTokenBalance()).data?.balanceMantissa
+      : undefined;
+
+    return withdraw({
+      vToken: selectedAsset.vToken,
+      poolName: spokePool.name,
+      amountMantissa: convertTokensToMantissa({
+        value: amountTokens,
+        token: selectedAsset.vToken.underlyingToken,
+      }),
+      withdrawFullSupply,
+      vTokenBalanceMantissa,
+    });
   };
 
   return (
     <Form
       spokePool={spokePool}
       token={selectedAsset.vToken.underlyingToken}
-      isSubmitting={false}
+      isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       onSubmitSuccess={onSubmitSuccess}
       balanceMutations={balanceMutations}
@@ -100,6 +150,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
       availableBalance={availableBalanceDom}
       tokenBalances={tokenBalances}
       onChangeSelectedToken={handleChangeSelectedToken}
+      validateForm={validateForm}
     />
   );
 };

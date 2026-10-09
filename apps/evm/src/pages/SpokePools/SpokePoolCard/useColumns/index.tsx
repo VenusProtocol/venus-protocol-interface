@@ -1,8 +1,10 @@
+import { cn } from '@venusprotocol/ui';
+
 import {
   Apy,
   InfoIcon,
   LayeredValues,
-  Pill,
+  ProtectionModeIndicator,
   SpokeCollateralGroup,
   type TableColumn,
   TokenIconWithSymbol,
@@ -14,14 +16,14 @@ import {
   compareBigNumbers,
   formatCentsToReadableValue,
   formatTokensToReadableValue,
-  isAssetPaused,
 } from 'utilities';
 
 export interface UseColumnsInput {
   collaterals: SpokeAsset[];
+  onCollateralClick: (collateral: SpokeAsset) => void;
 }
 
-export const useColumns = ({ collaterals }: UseColumnsInput) => {
+export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) => {
   const { t, Trans } = useTranslation();
 
   const columns: TableColumn<SpokeAsset>[] = [
@@ -33,8 +35,20 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
         <div className="flex items-center gap-x-2">
           <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
 
-          {isAssetPaused({ disabledTokenActions: asset.disabledTokenActions }) && (
-            <Pill>{t('spokePools.table.paused')}</Pill>
+          {asset.isProtectionModeEnabled && (
+            <ProtectionModeIndicator
+              variant="icon"
+              tooltipType="list"
+              tokenName={asset.vToken.underlyingToken.symbol}
+            />
+          )}
+
+          {asset.isInactive && (
+            <InfoIcon
+              iconClassName="text-orange"
+              iconName="attention"
+              tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
+            />
           )}
         </div>
       ),
@@ -49,6 +63,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
       renderCell: asset =>
         asset.userBorrowBalanceTokens.isGreaterThan(0) ? (
           <LayeredValues
+            className={cn(asset.isInactive && 'text-grey')}
             topValue={formatTokensToReadableValue({
               value: asset.userBorrowBalanceTokens,
               token: asset.vToken.underlyingToken,
@@ -81,6 +96,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
         compareBigNumbers(rowA.borrowApyPercentage, rowB.borrowApyPercentage, direction),
       renderCell: asset => (
         <Apy
+          className={cn(asset.isInactive && 'text-grey')}
           type="borrow"
           token={asset.vToken.underlyingToken}
           baseApyPercentage={asset.borrowApyPercentage}
@@ -98,6 +114,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
         compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction),
       renderCell: asset => (
         <LayeredValues
+          className={cn(asset.isInactive && 'text-grey')}
           topValue={formatTokensToReadableValue({
             value: asset.cashTokens,
             token: asset.vToken.underlyingToken,
@@ -124,7 +141,9 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
       ),
       selectOptionLabel: t('spokePools.table.columns.collateral.selectOptionLabel'),
       align: 'right',
-      renderCell: () => <SpokeCollateralGroup collaterals={collaterals} />,
+      renderCell: () => (
+        <SpokeCollateralGroup collaterals={collaterals} onRowClick={onCollateralClick} />
+      ),
     },
     {
       key: 'totalBorrow',
@@ -135,6 +154,7 @@ export const useColumns = ({ collaterals }: UseColumnsInput) => {
         compareBigNumbers(rowA.borrowBalanceCents, rowB.borrowBalanceCents, direction),
       renderCell: asset => (
         <LayeredValues
+          className={cn(asset.isInactive && 'text-grey')}
           topValue={formatTokensToReadableValue({
             value: asset.borrowBalanceTokens,
             token: asset.vToken.underlyingToken,
