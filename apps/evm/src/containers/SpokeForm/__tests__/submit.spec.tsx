@@ -198,6 +198,66 @@ describe('SpokeForm submission', () => {
     },
   );
 
+  it('blocks a full repayment once the debt grows past the wallet balance', async () => {
+    const mockRepay = vi.fn();
+    (useRepayToSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockRepay,
+      isPending: false,
+    }));
+
+    const walletCoversDebtAsset = {
+      ...loanAsset,
+      userWalletBalanceTokens: loanAsset.userBorrowBalanceTokens.plus(0.0001),
+    };
+    const walletCoversDebtPool = {
+      ...pool,
+      assets: pool.assets.map(asset =>
+        asset.vToken.address === loanAsset.vToken.address ? walletCoversDebtAsset : asset,
+      ),
+    };
+
+    const { rerender, getByText } = renderComponent(
+      <SpokeForm
+        spokePool={walletCoversDebtPool}
+        asset={walletCoversDebtAsset}
+        initialLoanTabId="repay"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    fireEvent.click(getByText('100%'));
+
+    const refreshedLoanAsset = {
+      ...walletCoversDebtAsset,
+      userBorrowBalanceTokens: walletCoversDebtAsset.userBorrowBalanceTokens.plus(0.0002),
+    };
+    const refreshedPool = {
+      ...walletCoversDebtPool,
+      assets: walletCoversDebtPool.assets.map(asset =>
+        asset.vToken.address === loanAsset.vToken.address ? refreshedLoanAsset : asset,
+      ),
+    };
+
+    rerender(
+      <SpokeForm spokePool={refreshedPool} asset={refreshedLoanAsset} initialLoanTabId="repay" />,
+    );
+
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.marketForm.error.higherThanWalletBalance.replace(
+            '{{tokenSymbol}}',
+            loanAsset.vToken.underlyingToken.symbol,
+          ),
+        ),
+      ).toBeInTheDocument(),
+    );
+    expect(document.querySelector('button[type="submit"]')).toBeDisabled();
+    expect(mockRepay).not.toHaveBeenCalled();
+  });
+
   it('does not repay the full loan when the amount is edited after clicking 100%', async () => {
     const mockRepay = vi.fn();
     (useRepayToSpoke as Mock).mockImplementation(() => ({

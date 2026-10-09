@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { useRepayToSpoke } from 'clients/api';
 import { type ApyBreakdownItem, AvailableBalance, NoticeWarning, SpendingLimit } from 'components';
+import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -48,6 +49,21 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
     : availableTokens;
 
   const validateForm: UseFormValidationInput['validate'] = ({ formValues: { amountTokens } }) => {
+    if (
+      !!amountTokens &&
+      amountTokens === fullRepayAmountTokens &&
+      asset.userWalletBalanceTokens.isLessThan(
+        asset.userBorrowBalanceTokens.multipliedBy(1 + TRANSACTION_BUFFER_PERCENTAGE / 100),
+      )
+    ) {
+      return {
+        code: 'HIGHER_THAN_WALLET_BALANCE',
+        message: t('marketForm.error.higherThanWalletBalance', {
+          tokenSymbol: asset.vToken.underlyingToken.symbol,
+        }),
+      };
+    }
+
     if (
       walletSpendingLimitTokens?.isGreaterThan(0) &&
       new BigNumber(amountTokens).isGreaterThan(walletSpendingLimitTokens) &&

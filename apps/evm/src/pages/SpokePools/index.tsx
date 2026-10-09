@@ -174,7 +174,13 @@ const SpokePools: React.FC = () => {
 
   if (isGetSpokePoolsLoading) {
     poolsDom = <Spinner />;
-  } else if (filteredSpokePools.length === 0) {
+  } else if (
+    filteredSpokePools.length === 0 &&
+    (selectedLoanAssets.length > 0 ||
+      selectedCollaterals.length > 0 ||
+      selectedPools.length > 0 ||
+      !!searchValue)
+  ) {
     poolsDom = <NoResults onReset={handleResetAll} />;
   }
 

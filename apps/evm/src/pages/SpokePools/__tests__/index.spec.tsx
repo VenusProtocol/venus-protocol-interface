@@ -62,6 +62,16 @@ describe('SpokePools', () => {
     expect(screen.queryByText(spokePool.name)).not.toBeInTheDocument();
   });
 
+  it('does not offer to reset filters when only the user assets toggle hides every pool', () => {
+    showUserAssetsOnly();
+    mockSpokePools([withBalances({ collateralWalletTokens: 0, loanWalletTokens: 0 })]);
+
+    renderComponent(<SpokePools />, { accountAddress: fakeAccountAddress });
+
+    expect(screen.queryByText(spokePool.name)).not.toBeInTheDocument();
+    expect(screen.queryByText(en.spokePools.filter.noResults)).not.toBeInTheDocument();
+  });
+
   it('keeps a pool where the user holds its collateral when showing their assets only', () => {
     showUserAssetsOnly();
     mockSpokePools([withBalances({ collateralWalletTokens: 10, loanWalletTokens: 0 })]);
