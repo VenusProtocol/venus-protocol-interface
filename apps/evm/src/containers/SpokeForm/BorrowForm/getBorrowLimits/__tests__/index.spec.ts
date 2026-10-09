@@ -38,4 +38,33 @@ describe('getBorrowLimits', () => {
 
     expect(limitTokens.toFixed()).toBe('9900');
   });
+
+  it('counts the bad debt as borrowed against the borrow cap, as the Spoke comptroller does', () => {
+    const toMantissa = (tokens: number) =>
+      BigInt(new BigNumber(tokens).shiftedBy(asset.vToken.underlyingToken.decimals).toFixed());
+
+    const { limitTokens } = getBorrowLimits({
+      spokePool,
+      asset: {
+        ...asset,
+        borrowBalanceTokens: new BigNumber(900),
+        borrowCapTokens: new BigNumber(1_000),
+        badDebtMantissa: toMantissa(60),
+      },
+    });
+
+    expect(limitTokens.toFixed()).toBe('40');
+
+    const { limitTokens: cappedLimitTokens } = getBorrowLimits({
+      spokePool,
+      asset: {
+        ...asset,
+        borrowBalanceTokens: new BigNumber(950),
+        borrowCapTokens: new BigNumber(1_000),
+        badDebtMantissa: toMantissa(60),
+      },
+    });
+
+    expect(cappedLimitTokens.toFixed()).toBe('0');
+  });
 });

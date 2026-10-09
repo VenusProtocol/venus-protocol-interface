@@ -49,9 +49,8 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
       : [];
 
   const isSelectedPoolListed =
-    selectedPoolId === CORE_POOL_PILL_ID
-      ? userHasPositions
-      : spokePoolsWithPositions.some(spokePool => spokePool.comptrollerAddress === selectedPoolId);
+    selectedPoolId === CORE_POOL_PILL_ID ||
+    spokePoolsWithPositions.some(spokePool => spokePool.comptrollerAddress === selectedPoolId);
 
   const activePoolId =
     selectedPoolId && isSelectedPoolListed

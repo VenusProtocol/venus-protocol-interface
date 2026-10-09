@@ -8,6 +8,7 @@ import type { SpokeAsset } from 'types';
 
 import {
   clampToZero,
+  convertMantissaToTokens,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
@@ -32,13 +33,16 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
   const { data: getSpokeMarketHistoryData, isLoading: isGetSpokeMarketHistoryLoading } =
     useGetSpokeMarketHistory({ vTokenAddress: asset.vToken.address, period: selectedPeriod });
 
-  const reachableBorrowCapTokens = BigNumber.min(
-    asset.borrowCapTokens,
-    asset.borrowBalanceTokens.plus(asset.cashTokens),
-  );
+  const badDebtTokens = convertMantissaToTokens({
+    value: new BigNumber(asset.badDebtMantissa.toString()),
+    token: asset.vToken.underlyingToken,
+  });
 
   const availableBorrowTokens = clampToZero({
-    value: reachableBorrowCapTokens.minus(asset.borrowBalanceTokens),
+    value: BigNumber.min(
+      asset.borrowCapTokens.minus(asset.borrowBalanceTokens).minus(badDebtTokens),
+      asset.cashTokens,
+    ),
   });
 
   const borrowCapThresholdTooltip = (

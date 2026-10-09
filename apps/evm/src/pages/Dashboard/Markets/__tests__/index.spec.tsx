@@ -76,6 +76,19 @@ describe('Markets', () => {
       expect(isPillActive(spokePools[0].name)).toBe(true);
     });
 
+    it('switches to the Core pool when clicked, even without a Core position', () => {
+      mockSpokePools([withSpokeDebt(spokePools[0], 10)]);
+
+      renderComponent(<Markets pool={poolWithNoPositions} />, {
+        accountAddress: fakeAccountAddress,
+      });
+
+      fireEvent.click(screen.getByText(en.account.spoke.corePoolPill));
+
+      expect(isPillActive(en.account.spoke.corePoolPill)).toBe(true);
+      expect(screen.getByText(en.account.pools.placeholder.title)).toBeInTheDocument();
+    });
+
     it('opens on the Core pool when the user has a Core position', () => {
       mockSpokePools([withSpokeDebt(spokePools[0], 10)]);
 
