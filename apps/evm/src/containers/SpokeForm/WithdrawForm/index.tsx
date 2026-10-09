@@ -92,7 +92,8 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
 
     if (
       new BigNumber(amountTokens).isGreaterThan(0) &&
-      new BigNumber(amountTokens).isLessThan(minAmountTokens)
+      new BigNumber(amountTokens).isLessThan(minAmountTokens) &&
+      !new BigNumber(amountTokens).isEqualTo(selectedAsset.userSupplyBalanceTokens)
     ) {
       return {
         code: 'LOWER_THAN_MIN_AMOUNT',

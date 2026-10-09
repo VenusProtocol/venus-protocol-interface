@@ -16,6 +16,7 @@ import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 
 import { SpokeForm } from '..';
+import { getMinAmountTokens } from '../getMinAmountTokens';
 
 const spokePool = spokePools[0];
 const fixtureLoanAsset = spokePool.assets.find(({ isBorrowable }) => isBorrowable)!;
@@ -151,6 +152,52 @@ describe('SpokeForm submission', () => {
     expect(mockRepay).toHaveBeenCalledWith(expect.objectContaining({ repayFullLoan: true }));
   });
 
+  it.each([['MAX'], ['wallet balance']])(
+    'repays the full loan after clicking %s, even once the borrow balance has refreshed',
+    async trigger => {
+      const mockRepay = vi.fn();
+      (useRepayToSpoke as Mock).mockImplementation(() => ({
+        mutateAsync: mockRepay,
+        isPending: false,
+      }));
+
+      const { rerender, getByText } = renderComponent(
+        <SpokeForm spokePool={pool} asset={loanAsset} initialLoanTabId="repay" />,
+        {
+          accountAddress: fakeAccountAddress,
+        },
+      );
+
+      fireEvent.click(
+        trigger === 'MAX'
+          ? getByText(en.spokeForm.rightMaxButtonLabel)
+          : getByText(en.spokeForm.repay.walletBalanceLabel)
+              .closest('.justify-between')!
+              .querySelector('button')!,
+      );
+
+      const refreshedLoanAsset = {
+        ...loanAsset,
+        userBorrowBalanceTokens: loanAsset.userBorrowBalanceTokens.plus(0.0002),
+      };
+      const refreshedPool = {
+        ...pool,
+        assets: pool.assets.map(asset =>
+          asset.vToken.address === loanAsset.vToken.address ? refreshedLoanAsset : asset,
+        ),
+      };
+
+      rerender(
+        <SpokeForm spokePool={refreshedPool} asset={refreshedLoanAsset} initialLoanTabId="repay" />,
+      );
+
+      await submit();
+
+      await waitFor(() => expect(mockRepay).toHaveBeenCalledTimes(1));
+      expect(mockRepay).toHaveBeenCalledWith(expect.objectContaining({ repayFullLoan: true }));
+    },
+  );
+
   it('does not repay the full loan when the amount is edited after clicking 100%', async () => {
     const mockRepay = vi.fn();
     (useRepayToSpoke as Mock).mockImplementation(() => ({
@@ -250,6 +297,54 @@ describe('SpokeForm submission', () => {
         withdrawFullSupply: true,
         vTokenBalanceMantissa,
       }),
+    );
+  });
+
+  it('withdraws a full supply that is below the minimum partial amount', async () => {
+    const mockWithdraw = vi.fn();
+    (useWithdrawFromSpoke as Mock).mockImplementation(() => ({
+      mutateAsync: mockWithdraw,
+      isPending: false,
+    }));
+    (useGetVTokenBalance as Mock).mockImplementation(() => ({
+      data: undefined,
+      refetch: async () => ({ data: { balanceMantissa: new BigNumber(1) } }),
+    }));
+
+    const dustCollateral = { ...collateral, exchangeRateVTokens: new BigNumber(0.000001) };
+    const dustSupplyTokens = getMinAmountTokens({ asset: dustCollateral }).dividedBy(2);
+    const dustPool = {
+      ...pool,
+      userBorrowBalanceCents: new BigNumber(0),
+      assets: pool.assets.map(asset => ({
+        ...asset,
+        userBorrowBalanceTokens: new BigNumber(0),
+        userBorrowBalanceCents: new BigNumber(0),
+        ...(asset.vToken.address === collateral.vToken.address && {
+          exchangeRateVTokens: dustCollateral.exchangeRateVTokens,
+          userSupplyBalanceTokens: dustSupplyTokens,
+        }),
+      })),
+    };
+
+    renderComponent(
+      <SpokeForm
+        spokePool={dustPool}
+        asset={loanAsset}
+        initialActiveTabId="collateral"
+        initialCollateralTabId="withdraw"
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await enterAmount(dustSupplyTokens.toFixed());
+    await submit();
+
+    await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
+    expect(mockWithdraw).toHaveBeenCalledWith(
+      expect.objectContaining({ withdrawFullSupply: true }),
     );
   });
 

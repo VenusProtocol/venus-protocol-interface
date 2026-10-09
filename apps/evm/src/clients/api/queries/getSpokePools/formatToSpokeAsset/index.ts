@@ -88,7 +88,7 @@ export const formatToSpokeAsset = ({
 
   const exchangeRateVTokens = new BigNumber(1).div(
     new BigNumber(apiMarket.exchangeRateMantissa).div(
-      10 ** (COMPOUND_DECIMALS + underlyingToken.decimals - vToken.decimals),
+      new BigNumber(10).pow(COMPOUND_DECIMALS + underlyingToken.decimals - vToken.decimals),
     ),
   );
 

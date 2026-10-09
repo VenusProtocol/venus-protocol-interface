@@ -1,6 +1,6 @@
 import { QuaternaryButton } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRepayToSpoke } from 'clients/api';
 import { type ApyBreakdownItem, AvailableBalance, NoticeWarning, SpendingLimit } from 'components';
@@ -60,13 +60,27 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
     }
   };
 
+  useEffect(() => {
+    if (
+      formValues.amountTokens &&
+      new BigNumber(formValues.amountTokens).isGreaterThanOrEqualTo(
+        asset.userBorrowBalanceTokens.dp(decimals),
+      )
+    ) {
+      setFullRepayAmountTokens(formValues.amountTokens);
+    }
+  }, [formValues.amountTokens, asset.userBorrowBalanceTokens, decimals]);
+
+  const isFullRepay =
+    !!formValues.amountTokens && formValues.amountTokens === fullRepayAmountTokens;
+
   const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
       vTokenAddress: asset.vToken.address,
-      amountTokens: formValues.amountTokens
-        ? new BigNumber(formValues.amountTokens)
-        : new BigNumber(0),
+      amountTokens: isFullRepay
+        ? BigNumber.max(formValues.amountTokens, asset.userBorrowBalanceTokens)
+        : new BigNumber(formValues.amountTokens || 0),
       action: 'repay',
     },
   ];
@@ -81,24 +95,21 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
   ];
 
   const handleLimitClick = limitTokens.isGreaterThan(0)
-    ? () => {
-        setFullRepayAmountTokens(undefined);
+    ? () =>
         setFormValues(values => ({
           ...values,
           amountTokens: limitTokens.toFixed(),
-        }));
-      }
+        }))
     : undefined;
 
-  const handlePercentageClick = (percentage: number) => {
-    const amountTokens = asset.userBorrowBalanceTokens
-      .multipliedBy(percentage / 100)
-      .dp(decimals)
-      .toFixed();
-
-    setFullRepayAmountTokens(percentage === 100 ? amountTokens : undefined);
-    setFormValues(values => ({ ...values, amountTokens }));
-  };
+  const handlePercentageClick = (percentage: number) =>
+    setFormValues(values => ({
+      ...values,
+      amountTokens: asset.userBorrowBalanceTokens
+        .multipliedBy(percentage / 100)
+        .dp(decimals)
+        .toFixed(),
+    }));
 
   const availableBalanceDom = (
     <div className="space-y-2">
@@ -156,7 +167,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
       }),
       repayFullLoan:
         submittedFormValues.amountTokens === fullRepayAmountTokens ||
-        amountTokens.isEqualTo(asset.userBorrowBalanceTokens.dp(decimals)),
+        amountTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens.dp(decimals)),
     });
   };
 
