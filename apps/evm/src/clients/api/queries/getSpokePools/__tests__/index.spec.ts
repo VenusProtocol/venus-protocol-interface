@@ -5,6 +5,7 @@ import spokePoolsResponse from '__mocks__/api/spokePools.json';
 import spokePositionsResponse from '__mocks__/api/spokePositions.json';
 import fakeAccountAddress from '__mocks__/models/address';
 import { usdc, usdt } from '__mocks__/models/tokens';
+import { displayServiceIssueNotification } from 'libs/notifications';
 import { ChainId } from 'types';
 import { restService } from 'utilities';
 import type { PublicClient } from 'viem';
@@ -14,6 +15,7 @@ import { getTokenBalances } from '../../getTokenBalances';
 
 vi.mock('utilities/restService');
 vi.mock('../../getTokenBalances');
+vi.mock('libs/notifications');
 
 const fakePoolLensContractAddress = '0x00000000000000000000000000000000000000a1';
 
@@ -255,6 +257,7 @@ describe('getSpokePools', () => {
 
     expect(spokePool.isUserDataUnavailable).toBe(true);
     expect(spokePool.assets.every(asset => asset.userSupplyBalanceTokens.isEqualTo(0))).toBe(true);
+    expect(displayServiceIssueNotification).toHaveBeenCalledTimes(1);
   });
 
   it('does not read anything on chain when no account is passed', async () => {

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { VError, logError } from 'libs/errors';
+import { displayServiceIssueNotification } from 'libs/notifications';
 import type { ChainId, SpokePool, Token } from 'types';
 import { areAddressesEqual, restService } from 'utilities';
 import type { Address, PublicClient } from 'viem';
@@ -92,6 +93,7 @@ export const getSpokePools = async ({
     ? await Promise.all([
         fetchUserPositions(accountAddress).catch(error => {
           logError(error);
+          displayServiceIssueNotification();
 
           return undefined;
         }),

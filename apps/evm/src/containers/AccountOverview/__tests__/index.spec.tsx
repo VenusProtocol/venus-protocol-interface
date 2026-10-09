@@ -36,6 +36,9 @@ describe('AccountOverview', () => {
   });
 
   it('adds Spoke positions to the net worth', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke',
+    );
     (useGetSpokePools as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
@@ -59,6 +62,42 @@ describe('AccountOverview', () => {
     await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
 
     expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}$10B`);
+  });
+
+  it('adds Spoke positions to the account summary', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke',
+    );
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        spokePools: [
+          {
+            ...spokePools[0],
+            userSupplyBalanceCents: new BigNumber(1_200_000_000_000),
+            userBorrowBalanceCents: new BigNumber(200_000_000_000),
+            userYearlyEarningsCents: new BigNumber(-36_500_000_000),
+          },
+        ],
+      },
+    }));
+
+    const { container, queryByTestId, getByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    fireEvent.click(getByText(en.dashboard.overview.absolutePerformance).closest('button')!);
+
+    const { cellGroup } = en.dashboard.overview.summary;
+    expect(container.textContent).toContain(`${cellGroup.totalSupply}$12B`);
+    expect(container.textContent).toContain(`${cellGroup.totalBorrow}$2B`);
+    expect(container.textContent).toContain(`${cellGroup.dailyEarnings}-$999.99K`);
+    expect(container.textContent).toContain(`${cellGroup.netApy}-3.04%`);
   });
 
   it('waits for the Spoke positions before showing the net worth', async () => {
