@@ -873,6 +873,9 @@
       "earn": {
         "label": "獲得"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "メニュー",
       "new": "新規",
       "others": {
@@ -916,11 +919,6 @@
           "label": "言語 (ベータ版)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "開始する"
-        }
-      },
       "vaults": {
         "label": "ボールト"
       },
@@ -944,15 +942,11 @@
         },
         "vaults": {
           "description": "目標報酬に向けた単一戦略の供給ボールト。",
-          "label": "ボールト"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "最適化されたレバレッジを簡単に利用できるクラシックな貸借。",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "最適な利回りのための資本効率の高い貸借。",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "供給した担保を使って、専用マーケットから資産を借り入れます。",

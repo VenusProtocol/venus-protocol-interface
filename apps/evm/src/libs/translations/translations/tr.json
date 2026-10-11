@@ -874,6 +874,9 @@
       "earn": {
         "label": "Kazan"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "Menü",
       "new": "Yeni",
       "others": {
@@ -917,11 +920,6 @@
           "label": "Dil (beta)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "Başlayın"
-        }
-      },
       "vaults": {
         "label": "Kasalar"
       },
@@ -945,15 +943,11 @@
         },
         "vaults": {
           "description": "Hedef ödüller için tek stratejili sağlama kasası.",
-          "label": "Kasalar"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "Kolay ve optimize edilmiş kaldıraçla klasik borç verme ve borç alma.",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "En iyi getiri için sermaye verimli borç verme ve borç alma.",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "Sağladığınız teminatla özel piyasadan varlık ödünç alın.",

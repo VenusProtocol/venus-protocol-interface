@@ -78,7 +78,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       {/* XL and up dropdown */}
       <Dropdown
         className="hidden lg:block"
-        menuClassName="mt-5 shadow-none border-0 bg-background-active"
+        menuClassName={cn(
+          'mt-5',
+          item.variant === 'secondary'
+            ? 'border-white/12 bg-background-active shadow-[0_12px_32px_0_rgb(0_0_0/18%)]'
+            : 'shadow-none border-0 bg-background-active',
+        )}
         triggerOnHover
         optionsDom={({ setIsDropdownOpen }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({
@@ -100,18 +105,16 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           <button
             className={cn(
               sharedContainerClassName,
-              'relative flex items-center justify-between cursor-pointer lg:gap-x-2',
+              'flex items-center justify-between cursor-pointer lg:gap-x-2',
               isDropdownOpen && 'lg:text-white lg:bg-dark-blue-active',
             )}
             type="button"
           >
             <span>{item.label}</span>
 
-            <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
+            {!!item.tagLabel && <Tag>{item.tagLabel}</Tag>}
 
-            {!!item.tagLabel && (
-              <Tag className="absolute z-1 -top-2 -right-3 xl:-right-1">{item.tagLabel}</Tag>
-            )}
+            <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
           </button>
         )}
       </Dropdown>

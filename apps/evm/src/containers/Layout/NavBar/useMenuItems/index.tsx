@@ -1,3 +1,6 @@
+import BigNumber from 'bignumber.js';
+
+import { useGetLiquidityHubs } from 'clients/api';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
@@ -6,11 +9,11 @@ import liquidityHubIconSrc from 'assets/img/liquidityHubIcon.svg';
 import spokeIconSrc from 'assets/img/spokeIcon.svg';
 import vaultsIconSrc from 'assets/img/vaultsIcon.svg';
 import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
-import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
 import { VENUS_FLUX_URL } from 'constants/production';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
+import { formatPercentageToReadableValue, getCombinedApy } from 'utilities';
 import type { MenuItem, SubMenu } from '../types';
 
 export const useDashboardMenuItem = (): MenuItem => {
@@ -36,6 +39,27 @@ export const useMenuItems = () => {
   const spokeEnabled = useIsFeatureEnabled({ name: 'spoke' });
   const { marketsPagePath } = useGetMarketsPagePath();
 
+  const { data: getLiquidityHubsData } = useGetLiquidityHubs({ accountAddress });
+
+  const liquidityHubMaxApyPercentage = (getLiquidityHubsData?.liquidityHubs ?? [])
+    .filter(liquidityHub => !liquidityHub.isPaused)
+    .reduce(
+      (maxApyPercentage, liquidityHub) =>
+        BigNumber.max(
+          maxApyPercentage,
+          getCombinedApy({
+            type: 'supply',
+            baseApyPercentage: liquidityHub.supplyApyPercentage,
+            tokenDistributions: liquidityHub.supplyTokenDistributions,
+          }).totalApyPercentage,
+        ),
+      new BigNumber(0),
+    );
+
+  const liquidityHubTagLabel = liquidityHubMaxApyPercentage.isGreaterThan(0)
+    ? formatPercentageToReadableValue(liquidityHubMaxApyPercentage)
+    : undefined;
+
   const menu: Array<MenuItem | SubMenu> = [];
 
   const borrowSubMenu: SubMenu = {
@@ -48,18 +72,11 @@ export const useMenuItems = () => {
         label: t('layouts.menu.markets.venusCore.label'),
         description: t('layouts.menu.markets.venusCore.description'),
       },
-      {
-        href: VENUS_FLUX_URL,
-        imgSrc: venusFluxIconSrc,
-        label: t('layouts.menu.markets.venusFlux.label'),
-        description: t('layouts.menu.markets.venusFlux.description'),
-      },
     ],
   };
 
   if (spokeEnabled) {
-    borrowSubMenu.tagLabel = t('layout.menu.new');
-    borrowSubMenu.items.splice(1, 0, {
+    borrowSubMenu.items.push({
       to: routes.spokePools.path,
       imgSrc: spokeIconSrc,
       label: t('layouts.menu.markets.venusSpoke.label'),
@@ -73,12 +90,13 @@ export const useMenuItems = () => {
       {
         label: t('layout.menu.earn.label'),
         variant: 'secondary',
+        tagLabel: liquidityHubTagLabel,
         items: [
           {
             to: routes.liquidityHubs.path,
             imgSrc: liquidityHubIconSrc,
             label: t('layouts.menu.markets.liquidityHub.label'),
-            tagLabel: t('layout.menu.new'),
+            tagLabel: liquidityHubTagLabel,
             description: t('layouts.menu.markets.liquidityHub.description'),
             onClick: () =>
               captureAnalyticEvent('hub_navigation', {
@@ -172,10 +190,16 @@ export const useMenuItems = () => {
     });
   }
 
-  menu.push({
-    label: t('layout.menu.others.label'),
-    items: othersSubMenuItems,
-  });
+  menu.push(
+    {
+      href: VENUS_FLUX_URL,
+      label: t('layout.menu.flux.label'),
+    },
+    {
+      label: t('layout.menu.others.label'),
+      items: othersSubMenuItems,
+    },
+  );
 
   return menu;
 };

@@ -874,6 +874,9 @@
       "earn": {
         "label": "Earn"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "Menu",
       "new": "New",
       "others": {
@@ -917,11 +920,6 @@
           "label": "Language (beta)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "Get started"
-        }
-      },
       "vaults": {
         "label": "Vaults"
       },
@@ -945,15 +943,11 @@
         },
         "vaults": {
           "description": "Single-strategy supply vault for target rewards.",
-          "label": "Vaults"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "Classic lending and borrowing with easy, optimized leverage.",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "Capital-efficient lending and borrowing for optimal yield.",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "Borrow assets against your supplied collateral from dedicated market.",

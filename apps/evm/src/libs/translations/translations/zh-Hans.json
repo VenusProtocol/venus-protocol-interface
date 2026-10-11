@@ -873,6 +873,9 @@
       "earn": {
         "label": "赚取"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "菜单",
       "new": "新",
       "others": {
@@ -916,11 +919,6 @@
           "label": "语言（测试版）"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "开始使用"
-        }
-      },
       "vaults": {
         "label": "金库"
       },
@@ -944,15 +942,11 @@
         },
         "vaults": {
           "description": "面向目标奖励的单策略供应金库。",
-          "label": "金库"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "经典借贷，轻松使用优化杠杆。",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "高资本效率的借贷，以获得最佳收益。",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "以你供应的抵押品，从专属市场借出资产。",

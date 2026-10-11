@@ -873,6 +873,9 @@
       "earn": {
         "label": "Kiếm lợi nhuận"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "Trình đơn",
       "new": "Mới",
       "others": {
@@ -916,11 +919,6 @@
           "label": "Ngôn ngữ (beta)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "Bắt đầu"
-        }
-      },
       "vaults": {
         "label": "Kho"
       },
@@ -944,15 +942,11 @@
         },
         "vaults": {
           "description": "Kho cung cấp một chiến lược cho phần thưởng mục tiêu.",
-          "label": "Kho"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "Cho vay và vay theo cách truyền thống với đòn bẩy dễ dùng, tối ưu.",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "Cho vay và vay hiệu quả về vốn để tối ưu lợi suất.",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "Vay tài sản từ thị trường chuyên biệt bằng tài sản thế chấp bạn đã cung cấp.",

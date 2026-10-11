@@ -342,6 +342,7 @@ export interface LiquidityHub {
   redeemFeePercentage: BigNumber;
   pricePerShare: BigNumber;
   supplierCount: number;
+  isPaused: boolean;
   supplyTokenDistributions: TokenDistribution[];
   yieldGroups: LiquidityHubYieldGroup[];
   tokenPriceOracleAddress?: Address;

@@ -1,5 +1,6 @@
 import { renderComponent } from 'testUtils/render';
 
+import { en } from 'libs/translations';
 import { SubMenuContent } from '..';
 
 const makeItems = (count: number) =>
@@ -10,21 +11,21 @@ const makeItems = (count: number) =>
   }));
 
 describe('SubMenuContent', () => {
-  it('stacks two secondary items in one column', () => {
+  it('lays secondary items out in two columns on tablet and one column on desktop', () => {
     const { container } = renderComponent(
       <SubMenuContent label="Earn" variant="secondary" items={makeItems(2)} />,
     );
 
-    expect(container.querySelector('.sm\\:grid-cols-2')).toBeNull();
-    expect(container.querySelector('.sm\\:min-w-79')).not.toBeNull();
+    expect(container.querySelector('.sm\\:grid-cols-2.lg\\:grid-cols-1')).not.toBeNull();
   });
 
-  it('stacks more than two secondary items in one column', () => {
-    const { container } = renderComponent(
-      <SubMenuContent label="Borrow" variant="secondary" items={makeItems(3)} />,
+  it('makes each whole secondary item the link, without a Get started button', () => {
+    const { container, getAllByRole } = renderComponent(
+      <SubMenuContent label="Borrow" variant="secondary" items={makeItems(2)} />,
     );
 
-    expect(container.querySelector('.sm\\:grid-cols-2')).toBeNull();
-    expect(container.querySelector('.sm\\:min-w-79')).not.toBeNull();
+    expect(getAllByRole('link')).toHaveLength(2);
+    expect(container.textContent).not.toContain('Get started');
+    expect(Object.keys(en.layout.menu)).not.toContain('subMenuItem');
   });
 });
