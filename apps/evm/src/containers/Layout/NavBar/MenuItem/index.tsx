@@ -105,16 +105,18 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           <button
             className={cn(
               sharedContainerClassName,
-              'flex items-center justify-between cursor-pointer lg:gap-x-2',
+              'relative flex items-center justify-between cursor-pointer lg:gap-x-2',
               isDropdownOpen && 'lg:text-white lg:bg-dark-blue-active',
             )}
             type="button"
           >
             <span>{item.label}</span>
 
-            {!!item.tagLabel && <Tag>{item.tagLabel}</Tag>}
-
             <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
+
+            {!!item.tagLabel && (
+              <Tag className="absolute z-1 -top-2 -right-3 xl:-right-1">{item.tagLabel}</Tag>
+            )}
           </button>
         )}
       </Dropdown>
@@ -127,9 +129,16 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
         item.onClick?.();
         onClick();
       }}
-      className={cn(sharedContainerClassName, 'flex items-center gap-x-2')}
+      className={cn(sharedContainerClassName, 'group/menu-link flex items-center gap-x-2')}
     >
       <span>{item.label}</span>
+
+      {!!item.href && (
+        <Icon
+          name="externalLink"
+          className="size-3 shrink-0 text-inherit motion-safe:transition-transform motion-safe:duration-[220ms] motion-safe:ease-out motion-safe:group-hover/menu-link:translate-x-0.5 motion-safe:group-hover/menu-link:-translate-y-0.5 motion-safe:group-focus-visible/menu-link:translate-x-0.5 motion-safe:group-focus-visible/menu-link:-translate-y-0.5"
+        />
+      )}
 
       {item.tagLabel && (
         <Tag className="inline-block lg:hidden xl:inline-block">{item.tagLabel}</Tag>

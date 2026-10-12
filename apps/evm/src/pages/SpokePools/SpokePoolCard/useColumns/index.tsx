@@ -33,7 +33,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
       selectOptionLabel: t('spokePools.table.columns.loanAsset'),
       renderCell: asset => (
         <div className="flex items-center gap-x-2">
-          <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+          <TokenIconWithSymbol token={asset.vToken.underlyingToken} size="xl" />
 
           {asset.isProtectionModeEnabled && (
             <ProtectionModeIndicator
