@@ -9,6 +9,8 @@ export const useGetMarketChartData = ({
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
   const {
     isLoading,
+    error,
+    refetch,
     data: marketSnapshotsData = {
       marketSnapshots: [],
     },
@@ -27,6 +29,8 @@ export const useGetMarketChartData = ({
 
   return {
     isLoading,
+    error,
+    refetch,
     data: {
       supplyChartData,
       borrowChartData,

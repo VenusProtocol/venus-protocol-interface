@@ -30,6 +30,8 @@ export const LiquidityHubHistory: React.FC<LiquidityHubHistoryProps> = ({ liquid
       liquidityHubSnapshots: [],
     },
     isLoading,
+    error,
+    refetch,
   } = useGetLiquidityHubHistory(
     {
       vhTokenAddress: liquidityHub.vhToken.address,
@@ -116,6 +118,8 @@ export const LiquidityHubHistory: React.FC<LiquidityHubHistoryProps> = ({ liquid
           type: 'supply',
           data: liquidityHubSnapshots,
           isLoading,
+          error,
+          refetch,
           selectedPeriod,
           setSelectedPeriod,
           periodOptions,
