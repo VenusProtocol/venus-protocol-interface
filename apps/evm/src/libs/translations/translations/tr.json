@@ -2806,7 +2806,7 @@
     },
     "redelegate": "Yeniden delege et",
     "redelegateVoting": "Yeniden delege oylaması",
-    "requiredVotingPower": "Bir teklif oluşturmak için 300k oy gücüne sahip olmanız gerekir",
+    "requiredVotingPower": "Bir teklif oluşturmak için {{votingPower}} oy gücüne sahip olmanız gerekir",
     "searchInput": {
       "placeholder": "Teklif ara"
     },

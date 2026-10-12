@@ -1,24 +1,27 @@
 import { useGetCurrentVotes, useGetProposalThreshold } from 'clients/api';
-import { ProposalState } from 'types';
+import { ProposalState, type ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 import type { Address } from 'viem';
 
 export type UseIsProposalCancelableByUserProps = {
   state: ProposalState;
+  proposalType: ProposalType;
   proposerAddress: Address;
   accountAddress?: Address;
 };
 
 export const useIsProposalCancelableByUser = ({
   state,
+  proposalType,
   proposerAddress,
   accountAddress,
 }: UseIsProposalCancelableByUserProps) => {
   const hasCorrectState = state === ProposalState.Pending || state === ProposalState.Active;
 
-  const { data: proposalThresholdData } = useGetProposalThreshold({
-    enabled: hasCorrectState,
-  });
+  const { data: proposalThresholdData } = useGetProposalThreshold(
+    { proposalType },
+    { enabled: hasCorrectState },
+  );
   const proposalThresholdMantissa = proposalThresholdData?.thresholdMantissa;
 
   const { data: proposerVotesData } = useGetCurrentVotes(

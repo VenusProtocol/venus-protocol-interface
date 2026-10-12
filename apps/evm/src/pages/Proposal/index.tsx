@@ -6,7 +6,6 @@ import {
   type CastVoteInput,
   useGetCurrentVotes,
   useGetProposal,
-  useGetProposalThreshold,
   useGetVoteReceipt,
   useVote,
 } from 'clients/api';
@@ -54,8 +53,6 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
-  useGetProposalThreshold();
 
   const { switchChain } = useSwitchChain();
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);

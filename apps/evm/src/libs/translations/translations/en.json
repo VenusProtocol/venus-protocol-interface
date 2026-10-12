@@ -2807,7 +2807,7 @@
     },
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
-    "requiredVotingPower": "You need to have 300k voting power to create a proposal",
+    "requiredVotingPower": "You need to have {{votingPower}} voting power to create a proposal",
     "searchInput": {
       "placeholder": "Search proposal"
     },

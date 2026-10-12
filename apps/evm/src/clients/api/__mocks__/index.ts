@@ -455,7 +455,9 @@ export const useGetVoterAccounts = vi.fn(() =>
   }),
 );
 
-export const getProposalThreshold = vi.fn(async () => new BigNumber('10000000000000000000000'));
+export const getProposalThreshold = vi.fn(async () => ({
+  thresholdMantissa: new BigNumber('1000000000000000000000000'),
+}));
 export const useGetProposalThreshold = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_PROPOSAL_THRESHOLD],
