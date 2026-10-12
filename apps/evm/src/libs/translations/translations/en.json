@@ -430,6 +430,9 @@
       "label": "Wallet balance"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "Statistics"
+  },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
   },
