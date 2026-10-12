@@ -1,7 +1,7 @@
 import { isEmpty, set } from 'lodash-es';
 
 import config from 'config';
-import { SERVICE_ISSUE_ENDPOINTS } from 'constants/serviceIssueEndpoints';
+import { SERVICE_ISSUE_EXEMPT_ENDPOINTS } from 'constants/serviceIssueEndpoints';
 import { logError } from 'libs/errors';
 import { displayServiceIssueNotification } from 'libs/notifications';
 
@@ -28,6 +28,25 @@ export type ApiResponse<D> =
       data: D | undefined;
     }
   | ApiErrorResponse;
+
+const isServiceIssueExempt = ({
+  method,
+  endpoint,
+}: Pick<RestServiceInput, 'method' | 'endpoint'>) => {
+  const segments = endpoint.split('?')[0].split('/');
+
+  return SERVICE_ISSUE_EXEMPT_ENDPOINTS.some(exemptEndpoint => {
+    const exemptSegments = exemptEndpoint.endpoint.split('/');
+
+    return (
+      exemptEndpoint.method === method &&
+      exemptSegments.length === segments.length &&
+      exemptSegments.every(
+        (segment, index) => segment.startsWith(':') || segment === segments[index],
+      )
+    );
+  });
+};
 
 export const createQueryParams = (params: Record<string, unknown>) => {
   const paramArray = Object.entries(params).map(([key, value]) => {
@@ -83,19 +102,11 @@ export async function restService<D>({
   }
 
   const shouldNotifyServiceIssue =
-    basePath === config.apiUrl &&
-    SERVICE_ISSUE_ENDPOINTS.some(
-      serviceIssueEndpoint =>
-        serviceIssueEndpoint.method === method && serviceIssueEndpoint.endpoint === endpoint,
-    );
+    basePath === config.apiUrl && !isServiceIssueExempt({ method, endpoint });
 
   return fetch(path, { headers })
     .then(async response => {
       const { status } = response;
-
-      if (shouldNotifyServiceIssue && status >= 400) {
-        displayServiceIssueNotification();
-      }
 
       let data: undefined;
 
@@ -105,18 +116,23 @@ export async function restService<D>({
         logError(err);
       }
 
-      return { status, data };
-    })
-    .catch(error => {
-      if (shouldNotifyServiceIssue) {
-        displayServiceIssueNotification();
+      if (shouldNotifyServiceIssue && status >= 500 && status < 600) {
+        const apiError = (data as { error?: unknown } | undefined)?.error;
+
+        displayServiceIssueNotification({
+          method,
+          endpoint,
+          status,
+          error: typeof apiError === 'string' ? apiError : undefined,
+        });
       }
 
-      return {
-        status: error.status,
-        data: {
-          error,
-        },
-      };
-    });
+      return { status, data };
+    })
+    .catch(error => ({
+      status: error.status,
+      data: {
+        error,
+      },
+    }));
 }

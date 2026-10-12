@@ -646,6 +646,8 @@
     "noTypeKey": "ไฟล์ไม่ได้ระบุประเภทของข้อเสนอ",
     "proposalNotFound": "ไม่พบข้อเสนอ",
     "serviceIssue": "บริการไม่พร้อมใช้งานชั่วคราว โปรดลองอีกครั้งในภายหลัง",
+    "serviceIssueDetails": "รายละเอียด",
+    "serviceIssueTitle": "ปัญหาเซิร์ฟเวอร์",
     "somethingWentWrong": "เกิดข้อผิดพลาดบางอย่าง",
     "somethingWentWrongRetrievingTransactions": "เกิดข้อผิดพลาดในการดึงธุรกรรม",
     "somethingWentWrongRetrievingVoterAccounts": "เกิดข้อผิดพลาดในการดึงบัญชีผู้โหวต",

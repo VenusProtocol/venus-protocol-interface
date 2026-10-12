@@ -647,6 +647,8 @@
     "noTypeKey": "File does not indicate the proposal's type",
     "proposalNotFound": "Proposal not found",
     "serviceIssue": "Service temporarily unavailable. Please try again later.",
+    "serviceIssueDetails": "Details",
+    "serviceIssueTitle": "Server issue",
     "somethingWentWrong": "Something went wrong",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
     "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",

@@ -646,6 +646,8 @@
     "noTypeKey": "Tệp không chỉ ra loại đề xuất",
     "proposalNotFound": "Không tìm thấy đề xuất",
     "serviceIssue": "Dịch vụ tạm thời không khả dụng. Vui lòng thử lại sau.",
+    "serviceIssueDetails": "Chi tiết",
+    "serviceIssueTitle": "Sự cố máy chủ",
     "somethingWentWrong": "Đã xảy ra lỗi",
     "somethingWentWrongRetrievingTransactions": "Đã xảy ra lỗi khi lấy giao dịch",
     "somethingWentWrongRetrievingVoterAccounts": "Đã xảy ra lỗi khi lấy tài khoản cử tri",
