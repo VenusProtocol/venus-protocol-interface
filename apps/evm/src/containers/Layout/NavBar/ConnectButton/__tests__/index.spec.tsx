@@ -85,4 +85,26 @@ describe('ConnectButton', () => {
 
     expect(useStore.getState().openModal).toBeUndefined();
   });
+
+  it('closes the account modal when the user presses Escape, keeping the wallet connected', async () => {
+    const { container, findByRole, queryByRole } = renderComponent(<ConnectButton />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const accountButton = container.querySelector('button.group') as HTMLButtonElement;
+
+    fireEvent.click(accountButton);
+
+    expect(
+      await findByRole('button', {
+        name: 'Disconnect',
+      }),
+    ).toBeInTheDocument();
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(useStore.getState().openModal).toBeUndefined();
+    expect(queryByRole('button', { name: 'Disconnect' })).toBeNull();
+    expect(accountButton).toBeInTheDocument();
+  });
 });

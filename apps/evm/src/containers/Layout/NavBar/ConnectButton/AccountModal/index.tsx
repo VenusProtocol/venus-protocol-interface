@@ -1,4 +1,5 @@
 import { Button } from '@venusprotocol/ui';
+import { useEffect } from 'react';
 import type { Address } from 'viem';
 import { useDisconnect } from 'wagmi';
 
@@ -28,6 +29,18 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
   };
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose?.();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   return (
     <>
