@@ -59,15 +59,13 @@ export const formatToPendleVault = ({
     return undefined;
   }
 
-  const maturityDate = new Date(vaultData.maturityDate);
-  const maturityTimestampMs = maturityDate.getTime();
+  const maturityTimestampMs = Date.parse(vaultData.maturityDate);
+  const maturityDate = Number.isNaN(maturityTimestampMs)
+    ? undefined
+    : new Date(maturityTimestampMs);
 
-  let status = VaultStatus.Deposit;
-  if (nowMs >= maturityTimestampMs) {
-    status = VaultStatus.Claim;
-  } else if (nowMs < maturityTimestampMs && asset.userSupplyBalanceCents.gt(0)) {
-    status = VaultStatus.Deposit;
-  }
+  const status =
+    maturityDate && nowMs >= maturityTimestampMs ? VaultStatus.Claim : VaultStatus.Deposit;
 
   const result: PendleVault = {
     key: vaultData.id,
