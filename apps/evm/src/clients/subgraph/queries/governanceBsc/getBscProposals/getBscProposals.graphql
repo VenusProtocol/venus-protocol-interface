@@ -1,9 +1,9 @@
-query Proposals($limit: Int = 10, $skip: Int = 0, $where: Proposal_filter) {
+query Proposals($limit: Int = 10, $skip: Int = 0, $totalLimit: Int = 1000, $where: Proposal_filter) {
   proposals(first: $limit, skip: $skip, where: $where, orderBy: startBlock, orderDirection: desc) {
     ...BscProposal
   }
 
-  total: proposals(where: $where) {
+  total: proposals(first: $totalLimit, where: $where) {
     id
   }
 }
