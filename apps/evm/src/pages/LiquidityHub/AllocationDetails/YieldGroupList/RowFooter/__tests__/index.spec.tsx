@@ -1,4 +1,5 @@
 import { screen } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { t } from 'libs/translations';
@@ -57,6 +58,32 @@ describe('RowFooter', () => {
       'Lock end date',
       'Collateral',
     ]);
+  });
+
+  // The API returns sources in no particular order, so the group has to order them itself when it
+  // opens, in both the table and the card list it swaps to on narrower viewports
+  it('sorts sources by descending APY', () => {
+    const [sourceA, sourceB] = coreYieldGroup.sources;
+
+    renderRowFooter({
+      ...coreYieldGroup,
+      sources: [
+        { ...sourceA, name: 'Lowest APY', supplyApyPercentage: new BigNumber(1.1) },
+        { ...sourceB, name: 'Highest APY', supplyApyPercentage: new BigNumber(9.9) },
+      ],
+    });
+
+    // Both views are in the DOM at once, so this reads as one pair of names per view
+    const renderedNames = screen
+      .getAllByText(/^(Highest|Lowest) APY$/)
+      .map(sourceNameDom => sourceNameDom.textContent);
+
+    expect(renderedNames.length).toBeGreaterThan(0);
+    expect(renderedNames.length % 2).toBe(0);
+
+    for (let index = 0; index < renderedNames.length; index += 2) {
+      expect(renderedNames.slice(index, index + 2)).toEqual(['Highest APY', 'Lowest APY']);
+    }
   });
 
   it('renders the lock end date above its time', () => {
