@@ -1,6 +1,7 @@
 import assetoIconSrc from './asseto.png';
 import cactusIconSrc from './cactus.svg';
 import ceffuIconSrc from './ceffu.svg';
+import hashGlobalIconSrc from './hashGlobal.svg';
 import matrixdockIconSrc from './matrixdock.svg';
 import pendleIconSrc from './pendle.svg';
 import solvIconSrc from './solv.svg';
@@ -14,6 +15,7 @@ export enum VenueName {
   Cactus = 'Cactus',
   Solv = 'Solv(Ceffu custody)',
   Asseto = 'Asseto',
+  HashGlobal = 'Hash Global',
 }
 
 export interface VenueConfig {
@@ -30,6 +32,7 @@ const iconSrcByVenueName: Record<VenueName, string> = {
   [VenueName.Cactus]: cactusIconSrc,
   [VenueName.Solv]: solvIconSrc,
   [VenueName.Asseto]: assetoIconSrc,
+  [VenueName.HashGlobal]: hashGlobalIconSrc,
 };
 
 const urlByVenueName: Record<VenueName, string> = {
@@ -40,6 +43,7 @@ const urlByVenueName: Record<VenueName, string> = {
   [VenueName.Cactus]: 'https://www.cactuscustody.com/',
   [VenueName.Solv]: 'https://www.solv.finance',
   [VenueName.Asseto]: 'https://asseto.finance/',
+  [VenueName.HashGlobal]: 'https://www.hashglobal.io/',
 };
 
 export const DEFAULT_VENUE_NAME = VenueName.Venus;
