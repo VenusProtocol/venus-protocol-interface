@@ -1,4 +1,4 @@
-import { formatIconSrc } from '../formatIconSrc';
+import { formatIconSrc } from '..';
 
 describe('formatIconSrc', () => {
   it('leaves an inlined data: URI untouched', () => {
