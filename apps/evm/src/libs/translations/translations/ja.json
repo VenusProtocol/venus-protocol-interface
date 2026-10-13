@@ -1144,6 +1144,13 @@
         }
       }
     },
+    "history": {
+      "emptyState": "この期間の履歴はありません",
+      "errorState": {
+        "failedToFetchMessage": "マーケット履歴を取得できませんでした",
+        "refetchButtonLabel": "再試行"
+      }
+    },
     "interestRateModel": {
       "title": "金利モデル"
     },

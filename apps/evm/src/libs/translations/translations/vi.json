@@ -1144,6 +1144,13 @@
         }
       }
     },
+    "history": {
+      "emptyState": "Không có lịch sử cho khoảng thời gian này",
+      "errorState": {
+        "failedToFetchMessage": "Không thể lấy lịch sử thị trường",
+        "refetchButtonLabel": "Thử lại"
+      }
+    },
     "interestRateModel": {
       "title": "Mô hình lãi suất"
     },

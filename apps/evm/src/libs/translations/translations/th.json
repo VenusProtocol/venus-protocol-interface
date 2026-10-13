@@ -1144,6 +1144,13 @@
         }
       }
     },
+    "history": {
+      "emptyState": "ไม่มีประวัติสำหรับช่วงเวลานี้",
+      "errorState": {
+        "failedToFetchMessage": "ไม่สามารถดึงประวัติตลาดได้",
+        "refetchButtonLabel": "ลองอีกครั้ง"
+      }
+    },
     "interestRateModel": {
       "title": "โมเดลอัตราดอกเบี้ย"
     },
