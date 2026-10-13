@@ -10,6 +10,7 @@ import {
 import { COLUMN_WIDTHS } from '../../../columnWidths';
 import { CollateralGroup } from './CollateralGroup';
 import { RatingGroup } from './RatingGroup';
+import { getTotalSupplyApy } from './getTotalSupplyApy';
 
 export const useColumns = ({
   yieldGroup,
@@ -80,7 +81,7 @@ export const useColumns = ({
       label: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
       selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
       sortRows: (rowA, rowB, direction) =>
-        compareBigNumbers(rowA.supplyApyPercentage, rowB.supplyApyPercentage, direction),
+        compareBigNumbers(getTotalSupplyApy(rowA), getTotalSupplyApy(rowB), direction),
       align: 'right',
       renderCell: ({ supplyApyPercentage, supplyTokenDistributions }) => (
         <Apy

@@ -86,6 +86,50 @@ describe('RowFooter', () => {
     }
   });
 
+  it('sorts by the APY the user sees, so rewards can outrank a higher base APY', () => {
+    const [sourceA, sourceB] = coreYieldGroup.sources;
+
+    renderRowFooter({
+      ...coreYieldGroup,
+      sources: [
+        {
+          ...sourceA,
+          name: 'Higher base APY',
+          supplyApyPercentage: new BigNumber(5),
+          supplyTokenDistributions: [],
+        },
+        {
+          ...sourceB,
+          name: 'Lower base APY with rewards',
+          supplyApyPercentage: new BigNumber(4),
+          supplyTokenDistributions: [
+            {
+              type: 'venus',
+              token: underlyingToken,
+              apyPercentage: new BigNumber(2),
+              dailyDistributedTokens: new BigNumber(1),
+              isActive: true,
+            },
+          ],
+        },
+      ],
+    });
+
+    const renderedNames = screen
+      .getAllByText(/^(Higher base APY|Lower base APY with rewards)$/)
+      .map(sourceNameDom => sourceNameDom.textContent);
+
+    expect(renderedNames.length).toBeGreaterThan(0);
+    expect(renderedNames.length % 2).toBe(0);
+
+    for (let index = 0; index < renderedNames.length; index += 2) {
+      expect(renderedNames.slice(index, index + 2)).toEqual([
+        'Lower base APY with rewards',
+        'Higher base APY',
+      ]);
+    }
+  });
+
   it('renders the lock end date above its time', () => {
     renderRowFooter({
       ...coreYieldGroup,
