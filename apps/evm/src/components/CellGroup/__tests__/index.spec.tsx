@@ -28,4 +28,10 @@ describe('CellGroup', () => {
 
     expect(queryByRole('group')).toBeNull();
   });
+
+  it('lets a caller nested inside a button opt out of the tab stop', () => {
+    const { queryByRole } = renderComponent(<CellGroup cells={cells} focusable={false} />);
+
+    expect(queryByRole('group')).toBeNull();
+  });
 });

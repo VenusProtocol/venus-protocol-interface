@@ -13,6 +13,7 @@ export interface CellGroupProps {
   variant?: CellVariant;
   className?: string;
   ariaLabel?: string;
+  focusable?: boolean;
 }
 
 export const CellGroup: React.FC<CellGroupProps> = ({
@@ -21,6 +22,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
   grid = false,
   className,
   ariaLabel,
+  focusable = true,
   ...containerProps
 }) => {
   const { t } = useTranslation();
@@ -34,7 +36,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
           : 'flex overflow-x-auto overflow-y-hidden scrollbar-hidden bg-transparent',
         className,
       )}
-      {...(grid
+      {...(grid || !focusable
         ? undefined
         : {
             role: 'group',
