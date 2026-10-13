@@ -60,7 +60,7 @@ export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHist
 
   const marketCardCells: CellProps[] = [];
 
-  if (averageApy && history) {
+  if (averageApy !== undefined && history) {
     marketCardCells.push({
       label: t('market.stats.averageApy'),
       value: formatPercentageToReadableValue(averageApy),
