@@ -80,4 +80,24 @@ describe('SectionErrorBoundary', () => {
     expect(queryByText(message)).toBeInTheDocument();
     expect(queryByText(en.errorState.defaultMessage)).not.toBeInTheDocument();
   });
+
+  it('recovers when it is re-keyed, which is how the layout clears a crash on route change', () => {
+    const { queryByText, rerender } = renderComponent(
+      <SectionErrorBoundary key="/markets">
+        <Boom shouldThrow />
+      </SectionErrorBoundary>,
+    );
+
+    expect(queryByText(en.errorState.defaultMessage)).toBeInTheDocument();
+
+    // Navigating to a sibling route changes the key, so the boundary remounts
+    rerender(
+      <SectionErrorBoundary key="/dashboard">
+        <Boom shouldThrow={false} />
+      </SectionErrorBoundary>,
+    );
+
+    expect(queryByText('subtree content')).toBeInTheDocument();
+    expect(queryByText(en.errorState.defaultMessage)).not.toBeInTheDocument();
+  });
 });

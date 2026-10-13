@@ -61,7 +61,8 @@ export const Layout: React.FC = () => {
   const noWrapper = NO_WRAPPER_PATHNAMES.some(noWrapperPath => matchPath(noWrapperPath, pathname));
   const contentDom = (
     <>
-      <SectionErrorBoundary className="my-20">
+      {/* Keyed on the route so a page that throws does not keep the next page from rendering */}
+      <SectionErrorBoundary className="my-20" key={pathname}>
         <Outlet />
       </SectionErrorBoundary>
 

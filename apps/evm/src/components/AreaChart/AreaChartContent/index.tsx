@@ -1,0 +1,123 @@
+import { cn, theme } from '@venusprotocol/ui';
+import { ChartTooltipContent, ChartYAxisTick } from 'components';
+import { useUID } from 'react-uid';
+import {
+  Area,
+  AreaChart as RCAreaChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
+
+import type { AreaChartProps } from '..';
+import { getXAxisTicks } from '../getXAxisTicks';
+
+export const AreaChartContent = <T extends Record<string, any>>({
+  className,
+  data,
+  chartColor,
+  interval,
+  xAxisDataKey,
+  yAxisDataKey,
+  yAxisTickCount = 6,
+  formatXAxisValue,
+  formatYAxisValue,
+  formatTooltipItems,
+  onDataPointHover,
+  onMouseLeave,
+  displayAxes = true,
+  displayToolTip = true,
+  areaChartMargin,
+}: AreaChartProps<T>) => {
+  // Generate base ID that won't change between renders but will be incremented
+  // automatically every time it is used (so multiple charts can be rendered
+  // using unique ids)
+  const baseId = useUID();
+  const gradientId = `gradient-${baseId}`;
+  const xAxisTicks = getXAxisTicks({ data, interval, xAxisDataKey });
+
+  return (
+    <div className={cn('w-full h-62', className)}>
+      <ResponsiveContainer>
+        <RCAreaChart
+          margin={{
+            top: 20,
+            left: -14,
+            right: 4,
+            ...areaChartMargin,
+          }}
+          data={data}
+          onMouseLeave={onMouseLeave}
+          onMouseMove={e => {
+            if (e.activePayload) {
+              onDataPointHover?.(e.activePayload[0].payload);
+            }
+          }}
+        >
+          {/* Gradient used as filler */}
+          <defs>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={chartColor} stopOpacity={0.2} />
+              <stop offset="100%" stopColor={chartColor} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+
+          {displayAxes && (
+            <XAxis
+              dataKey={xAxisDataKey}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={formatXAxisValue}
+              stroke={theme.colors.grey}
+              tickMargin={8}
+              tickCount={xAxisTicks?.length ?? data.length}
+              ticks={xAxisTicks}
+              interval={xAxisTicks ? 0 : undefined}
+              padding={{ left: 0, right: 24 }}
+              className="text-xs"
+            />
+          )}
+
+          {displayAxes && (
+            <YAxis
+              dataKey={yAxisDataKey}
+              axisLine={false}
+              tickLine={false}
+              tickMargin={8}
+              tick={({ payload, y }) => (
+                <ChartYAxisTick value={formatYAxisValue(payload.value)} y={y} />
+              )}
+              tickCount={yAxisTickCount}
+              stroke={theme.colors.grey}
+              className="text-xs text-left"
+              domain={['auto', 'auto']}
+            />
+          )}
+
+          {displayToolTip && (
+            <Tooltip
+              isAnimationActive={false}
+              cursor={{ strokeDasharray: '4px 4px', stroke: theme.colors.grey }}
+              content={({ payload }) =>
+                formatTooltipItems && payload?.[0]?.payload ? (
+                  <ChartTooltipContent items={formatTooltipItems(payload[0].payload)} />
+                ) : null
+              }
+            />
+          )}
+
+          <Area
+            isAnimationActive={false}
+            dataKey={yAxisDataKey}
+            stroke={chartColor}
+            strokeWidth={2}
+            fillOpacity={1}
+            fill={`url(#${gradientId})`}
+            activeDot={{ r: 8, strokeWidth: 4 }}
+          />
+        </RCAreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
