@@ -117,21 +117,21 @@ export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHist
 
       {isHistoryEnabled && !hasHistoryData && (
         <div className="w-full h-62 flex items-center justify-center">
-          {history.error ? (
+          {!!history.error && (
             <ErrorState
               message={t('market.history.errorState.failedToFetchMessage')}
               button={
-                history.refetch
-                  ? {
-                      label: t('market.history.errorState.refetchButtonLabel'),
-                      onClick: history.refetch,
-                    }
-                  : undefined
+                history.refetch && {
+                  label: t('market.history.errorState.refetchButtonLabel'),
+                  onClick: history.refetch,
+                }
               }
             />
-          ) : history.isLoading ? (
-            <Spinner />
-          ) : (
+          )}
+
+          {!history.error && history.isLoading && <Spinner />}
+
+          {!history.error && !history.isLoading && (
             <p className="text-sm text-grey">{t('market.history.emptyState')}</p>
           )}
         </div>
