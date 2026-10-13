@@ -623,8 +623,8 @@
     "walletNotConnected": "ไม่ได้เชื่อมต่อกระเป๋า"
   },
   "errorState": {
-    "defaultMessage": "เกิดข้อผิดพลาด",
-    "buttonLabel": "ลองอีกครั้ง"
+    "buttonLabel": "ลองอีกครั้ง",
+    "defaultMessage": "เกิดข้อผิดพลาด"
   },
   "footer": {
     "links": {

@@ -623,8 +623,8 @@
     "walletNotConnected": "錢包未連接"
   },
   "errorState": {
-    "defaultMessage": "發生錯誤",
-    "buttonLabel": "重試"
+    "buttonLabel": "重試",
+    "defaultMessage": "發生錯誤"
   },
   "footer": {
     "links": {

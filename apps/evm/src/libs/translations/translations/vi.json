@@ -623,8 +623,8 @@
     "walletNotConnected": "Ví chưa được kết nối"
   },
   "errorState": {
-    "defaultMessage": "Đã xảy ra lỗi",
-    "buttonLabel": "Thử lại"
+    "buttonLabel": "Thử lại",
+    "defaultMessage": "Đã xảy ra lỗi"
   },
   "footer": {
     "links": {
