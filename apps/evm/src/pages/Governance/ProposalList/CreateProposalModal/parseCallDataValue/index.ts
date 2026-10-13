@@ -1,4 +1,4 @@
-import { safeJsonParse } from './safeJsonParse';
+import { safeJsonParse } from '../safeJsonParse';
 
 export const parseCallDataValue = (value: string) => {
   const parsedValue = safeJsonParse(value);
