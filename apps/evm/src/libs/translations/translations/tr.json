@@ -430,6 +430,9 @@
       "label": "Cüzdan bakiyesi"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "İstatistikler"
+  },
   "chainExplorerLink": {
     "content": "{{domainName}} üzerinde görüntüle"
   },

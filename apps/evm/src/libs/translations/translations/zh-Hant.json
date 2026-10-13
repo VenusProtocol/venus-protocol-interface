@@ -430,6 +430,9 @@
       "label": "錢包餘額"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "統計數據"
+  },
   "chainExplorerLink": {
     "content": "在 {{domainName}} 上查看"
   },
