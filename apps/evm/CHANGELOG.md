@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.35.2
+
+### Patch Changes
+
+- e9e9936: show the Hash Global logo and website on its vaults
+
 ## 5.35.1
 
 ### Patch Changes
