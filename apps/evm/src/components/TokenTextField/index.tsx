@@ -75,7 +75,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
         max={max}
         step={step}
         onChange={handleChange}
-        type="number"
+        isDecimal
         value={value}
         leftIconSrc={displayTokenIcon ? token : undefined}
         topRightAdornment={

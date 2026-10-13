@@ -457,8 +457,8 @@ describe('Trade PositionForm Form', () => {
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
 
     await waitFor(() => {
-      expect(getDsaAmountInput(container)).toHaveValue(null);
-      expect(getShortAmountInput(container)).toHaveValue(null);
+      expect(getDsaAmountInput(container)).toHaveValue('');
+      expect(getShortAmountInput(container)).toHaveValue('');
       expect(screen.getByRole('checkbox')).not.toBeChecked();
     });
   });
@@ -581,8 +581,8 @@ describe('Trade PositionForm Form', () => {
     );
 
     await waitFor(() => {
-      expect(getDsaAmountInput(container)).toHaveValue(null);
-      expect(getShortAmountInput(container)).toHaveValue(null);
+      expect(getDsaAmountInput(container)).toHaveValue('');
+      expect(getShortAmountInput(container)).toHaveValue('');
     });
   });
 

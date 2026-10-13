@@ -5,6 +5,8 @@ import { Icon, type IconName } from 'components/Icon';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import type { Token } from 'types';
 
+const DECIMAL_REGEX = /^\d*\.?\d*$/;
+
 export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   ref?: React.Ref<HTMLInputElement>;
   className?: string;
@@ -18,6 +20,11 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   topRightAdornment?: React.ReactElement;
   size?: 'xs' | 'sm' | 'md';
   variant?: 'primary' | 'secondary';
+  /**
+   * Renders a text input restricted to decimal numbers. Unlike type="number", it keeps the value
+   * the user typed, so a decimal comma can be read as a decimal point instead of being dropped.
+   */
+  isDecimal?: boolean;
 }
 
 export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -39,34 +46,55 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
       disabled,
       size = 'md',
       variant = 'primary',
+      isDecimal = false,
       ...inputProps
     },
     ref,
   ) => {
+    const isNumeric = type === 'number' || isDecimal;
+
     const handleChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = e => {
       let safeValue = e.currentTarget.value;
-      const safeNumericValue = Number(safeValue);
 
-      if (type === 'number' && safeValue.startsWith('.')) {
+      if (isDecimal) {
+        // Locale keyboards send a comma for the decimal separator
+        safeValue = safeValue.replace(',', '.');
+
+        // Refuse anything that is not a plain decimal, which also keeps out the exponent notation
+        // a number input would silently accept
+        if (safeValue && !DECIMAL_REGEX.test(safeValue)) {
+          return;
+        }
+      }
+
+      if (isNumeric && safeValue.startsWith('.')) {
         safeValue = `0${safeValue}`;
       }
+
+      const safeNumericValue = Number(safeValue);
 
       // Prevent value from being updated if it does not follow the rules
       const followsMaxRule =
         !safeValue ||
         max === undefined ||
-        type !== 'number' ||
+        !isNumeric ||
         (!Number.isNaN(safeNumericValue) && safeNumericValue <= +max);
 
       const followsMinRule =
         !safeValue ||
         min === undefined ||
-        type !== 'number' ||
+        !isNumeric ||
         (!Number.isNaN(safeNumericValue) && safeNumericValue >= +min);
 
-      if (onChange && followsMaxRule && followsMinRule) {
-        onChange(e);
+      if (!onChange || !followsMaxRule || !followsMinRule) {
+        return;
       }
+
+      if (safeValue !== e.currentTarget.value) {
+        e.currentTarget.value = safeValue;
+      }
+
+      onChange(e);
     };
 
     return (
@@ -115,14 +143,15 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
             <input
               className={cn(
                 'bg-transparent w-full h-full font-semibold leading-6 placeholder:text-grey  placeholder:font-normal outline-hidden',
-                type === 'number' && 'text-right',
+                isNumeric && 'text-right',
                 size === 'xs' && 'text-sm',
                 size === 'sm' && 'text-sm',
               )}
               max={max}
               min={min}
               onChange={handleChange}
-              type={type}
+              type={isDecimal ? 'text' : type}
+              inputMode={isDecimal ? 'decimal' : undefined}
               disabled={disabled}
               ref={ref}
               {...inputProps}

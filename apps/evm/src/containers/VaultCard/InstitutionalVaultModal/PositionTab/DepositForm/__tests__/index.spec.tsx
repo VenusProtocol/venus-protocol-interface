@@ -62,7 +62,7 @@ describe('DepositForm', () => {
     await waitFor(() =>
       expect(screen.getByText(en.vault.modals.connectWalletMessage)).toBeInTheDocument(),
     );
-    expect(screen.queryByRole('spinbutton')).not.toBeInTheDocument();
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
 
     expect(useGetBalanceOf).toHaveBeenCalledWith(
       {
@@ -99,7 +99,7 @@ describe('DepositForm', () => {
       expect.stringContaining(routes.fixedTermVaultTermsOfUse.path),
     );
 
-    fireEvent.change(screen.getByRole('spinbutton'), {
+    fireEvent.change(screen.getByRole('textbox'), {
       target: {
         value: '0.5',
       },
@@ -118,7 +118,7 @@ describe('DepositForm', () => {
       }),
     );
 
-    await waitFor(() => expect(screen.getByRole('spinbutton')).toHaveValue(3));
+    await waitFor(() => expect(screen.getByRole('textbox')).toHaveValue('3'));
   });
 
   it('submits the deposit amount and closes the modal on success', async () => {

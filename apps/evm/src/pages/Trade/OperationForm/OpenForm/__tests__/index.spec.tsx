@@ -398,8 +398,8 @@ describe('OpenForm', () => {
 
     // CHeck form is reset after a successful submission
     await waitFor(() => {
-      expect(dsaAmountInput).toHaveValue(null);
-      expect(shortAmountInput).toHaveValue(null);
+      expect(dsaAmountInput).toHaveValue('');
+      expect(shortAmountInput).toHaveValue('');
     });
   });
 

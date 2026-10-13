@@ -142,7 +142,7 @@ describe('DsaTokenTextField', () => {
       initialValue: '1',
     });
 
-    expect(screen.getByTestId(dsaTokenTextFieldTestId)).toHaveValue(1);
+    expect(screen.getByTestId(dsaTokenTextFieldTestId)).toHaveValue('1');
     expect(screen.getByText(en.availableBalance.label)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: readableBalance })).toBeInTheDocument();
     expect(screen.getByText(en.spendingLimit.label)).toBeInTheDocument();
@@ -175,7 +175,7 @@ describe('DsaTokenTextField', () => {
       expect(onChange).toHaveBeenCalledWith(baseAsset.userWalletBalanceTokens.toFixed()),
     );
     expect(screen.getByTestId(dsaTokenTextFieldTestId)).toHaveValue(
-      Number(baseAsset.userWalletBalanceTokens.toFixed()),
+      baseAsset.userWalletBalanceTokens.toFixed(),
     );
   });
 

@@ -214,7 +214,7 @@ describe('IncreaseForm', () => {
     });
 
     await waitFor(() => {
-      expect(shortAmountInput).toHaveValue(null);
+      expect(shortAmountInput).toHaveValue('');
     });
   });
 
