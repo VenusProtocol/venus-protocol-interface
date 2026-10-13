@@ -52,12 +52,12 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
     selectedPoolId === CORE_POOL_PILL_ID ||
     spokePoolsWithPositions.some(spokePool => spokePool.comptrollerAddress === selectedPoolId);
 
-  const activePoolId =
-    selectedPoolId && isSelectedPoolListed
-      ? selectedPoolId
-      : userHasPositions || spokePoolsWithPositions.length === 0
-        ? CORE_POOL_PILL_ID
-        : spokePoolsWithPositions[0].comptrollerAddress;
+  const defaultPoolId =
+    userHasPositions || spokePoolsWithPositions.length === 0
+      ? CORE_POOL_PILL_ID
+      : spokePoolsWithPositions[0].comptrollerAddress;
+
+  const activePoolId = selectedPoolId && isSelectedPoolListed ? selectedPoolId : defaultPoolId;
 
   const selectedSpokePool = spokePoolsWithPositions.find(
     spokePool => spokePool.comptrollerAddress === activePoolId,

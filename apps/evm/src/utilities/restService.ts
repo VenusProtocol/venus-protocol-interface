@@ -1,9 +1,10 @@
 import { isEmpty, set } from 'lodash-es';
 
 import config from 'config';
-import { SERVICE_ISSUE_EXEMPT_ENDPOINTS } from 'constants/serviceIssueEndpoints';
 import { logError } from 'libs/errors';
 import { displayServiceIssueNotification } from 'libs/notifications';
+
+import { isServiceIssueExempt } from './isServiceIssueExempt';
 
 export interface RestServiceInput {
   baseUrl?: string;
@@ -28,25 +29,6 @@ export type ApiResponse<D> =
       data: D | undefined;
     }
   | ApiErrorResponse;
-
-const isServiceIssueExempt = ({
-  method,
-  endpoint,
-}: Pick<RestServiceInput, 'method' | 'endpoint'>) => {
-  const segments = endpoint.split('?')[0].split('/');
-
-  return SERVICE_ISSUE_EXEMPT_ENDPOINTS.some(exemptEndpoint => {
-    const exemptSegments = exemptEndpoint.endpoint.split('/');
-
-    return (
-      exemptEndpoint.method === method &&
-      exemptSegments.length === segments.length &&
-      exemptSegments.every(
-        (segment, index) => segment.startsWith(':') || segment === segments[index],
-      )
-    );
-  });
-};
 
 export const createQueryParams = (params: Record<string, unknown>) => {
   const paramArray = Object.entries(params).map(([key, value]) => {

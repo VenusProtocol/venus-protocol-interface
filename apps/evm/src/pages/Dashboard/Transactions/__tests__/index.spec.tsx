@@ -138,6 +138,34 @@ describe('Transactions', () => {
     );
   });
 
+  it('keeps a Spoke market source filter while Spoke pools are loading', async () => {
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      data: undefined,
+      isLoading: true,
+    }));
+    const spokeVTokenAddress = spokePools[0].assets[0].vToken.address;
+
+    const { rerender } = renderComponent(<Transactions />, {
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: [`/?contractAddress=${spokeVTokenAddress}`],
+    });
+
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      data: { spokePools },
+      isLoading: false,
+    }));
+    rerender(<Transactions />);
+
+    await waitFor(() =>
+      expect(useGetAccountTransactionHistory).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          contractAddress: spokeVTokenAddress,
+        }),
+        expect.any(Object),
+      ),
+    );
+  });
+
   it('accepts a Spoke market as the source filter', async () => {
     (useGetSpokePools as Mock).mockImplementation(() => ({
       data: { spokePools },

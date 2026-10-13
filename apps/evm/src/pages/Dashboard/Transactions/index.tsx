@@ -115,7 +115,7 @@ export const Transactions: React.FC = () => {
 
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
-  const { data: poolData } = useGetPools({
+  const { data: poolData, isLoading: arePoolsLoading } = useGetPools({
     accountAddress,
     includeIsolatedPools: true,
   });
@@ -130,12 +130,13 @@ export const Transactions: React.FC = () => {
     data: getLiquidityHubsData = {
       liquidityHubs: [],
     },
+    isLoading: areLiquidityHubsLoading,
   } = useGetLiquidityHubs({
     accountAddress,
   });
   const { liquidityHubs } = getLiquidityHubsData;
 
-  const { data: getSpokePoolsData } = useGetSpokePools();
+  const { data: getSpokePoolsData, isLoading: areSpokePoolsLoading } = useGetSpokePools();
 
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(
@@ -229,16 +230,29 @@ export const Transactions: React.FC = () => {
     return [allOption, ...otherOptions];
   }, [t, poolData, getSpokePoolsData, liquidityHubs, isLiquidityHubFeatureEnabled]);
 
+  const areSourceSelectOptionsLoading =
+    arePoolsLoading ||
+    areSpokePoolsLoading ||
+    (isLiquidityHubFeatureEnabled && areLiquidityHubsLoading);
+
   // Reset contract address filter if the value in the URL is incorrect
   useEffect(() => {
-    if (!sourceSelectOptions.find(option => option.value === selectedContractAddress)) {
+    if (
+      !areSourceSelectOptionsLoading &&
+      !sourceSelectOptions.find(option => option.value === selectedContractAddress)
+    ) {
       setSearchParams(currentSearchParams => {
         currentSearchParams.delete(CONTRACT_ADDRESS_PARAM_KEY);
 
         return Object.fromEntries(currentSearchParams);
       });
     }
-  }, [selectedContractAddress, sourceSelectOptions, setSearchParams]);
+  }, [
+    areSourceSelectOptionsLoading,
+    selectedContractAddress,
+    sourceSelectOptions,
+    setSearchParams,
+  ]);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
