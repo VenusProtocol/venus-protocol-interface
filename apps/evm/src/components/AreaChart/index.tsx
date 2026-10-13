@@ -54,7 +54,7 @@ export const AreaChart = <T extends Record<string, any>>({
   // using unique ids)
   const baseId = useUID();
   const gradientId = `gradient-${baseId}`;
-  const xAxisTicks = getXAxisTicks({ data, interval, xAxisDataKey });
+  const xAxisTicks = getXAxisTicks({ data, interval, xAxisDataKey, formatValue: formatXAxisValue });
 
   return (
     <div className={cn('w-full h-62', className)}>
