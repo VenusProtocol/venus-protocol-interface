@@ -92,7 +92,9 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
             ...spokePoolsWithPositions.map(spokePool => ({
               id: spokePool.comptrollerAddress,
               name: spokePool.name,
-              healthFactor: spokePool.userHealthFactor,
+              healthFactor: spokePool.userBorrowBalanceCents?.isGreaterThan(0)
+                ? spokePool.userHealthFactor
+                : undefined,
             })),
           ]}
         />

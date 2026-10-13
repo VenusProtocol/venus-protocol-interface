@@ -115,5 +115,29 @@ describe('Markets', () => {
       expect(screen.queryByText(otherSpokePool.name)).not.toBeInTheDocument();
       expect(isPillActive(spokePools[0].name)).toBe(true);
     });
+
+    it('shows the health factor on a Spoke pool pill only when the user borrows there', () => {
+      const supplyOnlySpokePool = {
+        ...otherSpokePool,
+        userBorrowBalanceCents: new BigNumber(0),
+        assets: otherSpokePool.assets.map(asset => ({
+          ...asset,
+          userSupplyBalanceTokens: new BigNumber(asset.isBorrowable ? 0 : 10),
+          userBorrowBalanceTokens: new BigNumber(0),
+        })),
+      };
+      mockSpokePools([withSpokeDebt(spokePools[0], 10), supplyOnlySpokePool]);
+
+      renderComponent(<Markets pool={poolWithNoPositions} />, {
+        accountAddress: fakeAccountAddress,
+      });
+
+      expect(screen.getByText(spokePools[0].name).closest('button')?.textContent).not.toBe(
+        spokePools[0].name,
+      );
+      expect(screen.getByText(supplyOnlySpokePool.name).closest('button')?.textContent).toBe(
+        supplyOnlySpokePool.name,
+      );
+    });
   });
 });

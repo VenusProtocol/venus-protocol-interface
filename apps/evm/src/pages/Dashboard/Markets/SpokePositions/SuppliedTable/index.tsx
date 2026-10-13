@@ -5,6 +5,7 @@ import {
   type TableColumn,
   TokenIconWithSymbol,
 } from 'components';
+import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 import {
@@ -64,14 +65,16 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
       sortRows: (rowA, rowB, direction) =>
         compareBigNumbers(rowA.userSupplyBalanceCents, rowB.userSupplyBalanceCents, direction),
       renderCell: asset => (
-        <LayeredValues
-          topValue={formatTokensToReadableValue({
-            value: asset.userSupplyBalanceTokens,
-            token: asset.vToken.underlyingToken,
-            addSymbol: false,
-          })}
-          bottomValue={formatCentsToReadableValue({ value: asset.userSupplyBalanceCents })}
-        />
+        <HidableUserBalance>
+          <LayeredValues
+            topValue={formatTokensToReadableValue({
+              value: asset.userSupplyBalanceTokens,
+              token: asset.vToken.underlyingToken,
+              addSymbol: false,
+            })}
+            bottomValue={formatCentsToReadableValue({ value: asset.userSupplyBalanceCents })}
+          />
+        </HidableUserBalance>
       ),
     },
   ];

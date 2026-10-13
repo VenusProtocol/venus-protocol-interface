@@ -1,5 +1,6 @@
 ---
 "@venusprotocol/evm": minor
+"@venusprotocol/chains": patch
 ---
 
-connect Venus Spoke to API
+connect Venus Spoke to the API, wire up its transactions and replace the bStock token icons with vector SVGs

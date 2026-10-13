@@ -1,10 +1,14 @@
 import { fireEvent, screen } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
+import { HIDDEN_BALANCE_KEY } from 'constants/placeholders';
+import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
+import { formatTokensToReadableValue } from 'utilities';
 
 import { SpokePositions } from '..';
 
@@ -123,5 +127,43 @@ describe('SpokePositions', () => {
       .closest('.text-green, .text-red');
 
     expect(borrowApyCell).toHaveClass('text-green');
+  });
+
+  it('hides the supplied and borrowed balances in hide mode', () => {
+    (useUserChainSettings as Mock).mockReturnValue([
+      { ...defaultUserChainSettings, doNotShowUserBalances: true },
+      vi.fn(),
+    ]);
+
+    const [suppliedAsset] = spokePool.assets.filter(asset =>
+      asset.userSupplyBalanceTokens.isGreaterThan(0),
+    );
+    const [borrowedAsset] = spokePool.assets.filter(asset =>
+      asset.userBorrowBalanceTokens.isGreaterThan(0),
+    );
+
+    renderComponent(<SpokePositions spokePool={spokePool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(
+      screen.queryByText(
+        formatTokensToReadableValue({
+          value: suppliedAsset.userSupplyBalanceTokens,
+          token: suppliedAsset.vToken.underlyingToken,
+          addSymbol: false,
+        }),
+      ),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        formatTokensToReadableValue({
+          value: borrowedAsset.userBorrowBalanceTokens,
+          token: borrowedAsset.vToken.underlyingToken,
+          addSymbol: false,
+        }),
+      ),
+    ).not.toBeInTheDocument();
+    expect(screen.getAllByText(HIDDEN_BALANCE_KEY).length).toBeGreaterThanOrEqual(3);
   });
 });
