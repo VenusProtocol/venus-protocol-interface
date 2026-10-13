@@ -1,12 +1,13 @@
-import { MultiSelect, TextField, type TextFieldProps, cn } from 'components';
+import { InfoIcon, MultiSelect, TextField, type TextFieldProps, Toggle, cn } from 'components';
 import { VaultCard } from 'containers/VaultCard';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useState } from 'react';
 import type { Vault } from 'types';
 
 import { NoResults } from './NoResults';
-import bannerVault from './asset/banner-vault.png';
 import { useFilterOptions } from './hooks/useFilterOptions';
+import { isVaultArchived } from './isVaultArchived';
 
 const multiSelectClassName = 'sm:flex-1/3 sm:min-w-45 xl:flex-none';
 
@@ -29,6 +30,9 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
     reset: resetFilters,
   } = useFilterOptions();
 
+  const [{ showArchivedVaults }, setUserChainSettings] = useUserChainSettings();
+  const [nowMs] = useState(() => Date.now());
+
   const [search, setSearch] = useState('');
   const onChange: TextFieldProps['onChange'] = e => {
     setSearch(e.currentTarget?.value);
@@ -46,20 +50,14 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
       (filterCategories.length === 0 || filterCategories.includes(vault.category)) &&
       (filterVenues.length === 0 || filterVenues.includes(vault.venue)) &&
       (filterStatuses.length === 0 || filterStatuses.includes(vault.status)) &&
+      (showArchivedVaults || !isVaultArchived({ vault, nowMs })) &&
       (!search || vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()))
     );
   });
 
   return (
     <div className="flex flex-col">
-      <div className="relative pb-6">
-        <img
-          src={bannerVault}
-          alt={t('vault.overview.bannerVaultIllustration')}
-          className="pointer-events-none absolute right-6 -bottom-[3px] hidden h-38 xl:block 2xl:h-42"
-          loading="lazy"
-        />
-
+      <div className="pb-6">
         <div className="mb-3">
           <h1 className="text-p1s sm:text-h6">{t('vault.header')}</h1>
           <p className="text-1br">{t('vault.description')}</p>
@@ -105,6 +103,19 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
               renderCount={count => t('vault.filter.nStates', { count })}
               title={t('vault.filter.selectStates')}
               resetLabel={t('vault.filter.reset')}
+            />
+          </div>
+
+          <div className="flex shrink-0 items-center gap-2 xl:ml-auto">
+            <span className="text-b1r whitespace-nowrap">
+              {t('vault.filter.archivedVaultsToggle.label')}
+            </span>
+
+            <InfoIcon tooltip={t('vault.filter.archivedVaultsToggle.tooltip')} />
+
+            <Toggle
+              value={showArchivedVaults}
+              onChange={() => setUserChainSettings({ showArchivedVaults: !showArchivedVaults })}
             />
           </div>
         </div>

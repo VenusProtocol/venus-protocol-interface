@@ -1,8 +1,10 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 import { useLocation, useNavigate, useNavigationType, useSearchParams } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { institutionalVault, pendleBnbVault, vaults as venusVaults } from '__mocks__/models/vaults';
+import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en, t } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
@@ -541,5 +543,78 @@ describe('Vaults', () => {
         { selector: titleSelector },
       ),
     ).toBeInTheDocument();
+  });
+
+  describe('archived vaults toggle', () => {
+    const closedVault: InstitutionalVault = {
+      ...institutionalVault,
+      status: VaultStatus.Inactive,
+      userStakeBalanceMantissa: new BigNumber(0),
+    };
+    const closedVaultTitle = t('vault.card.header.fixedTermTitle', {
+      tokenSymbol: closedVault.stakedToken.symbol,
+    });
+
+    const mockSetUserChainSettings = vi.fn();
+
+    beforeEach(() => {
+      (useUserChainSettings as Mock).mockReturnValue([
+        defaultUserChainSettings,
+        mockSetUserChainSettings,
+      ]);
+
+      (useGetVaults as Mock).mockImplementation(() => ({
+        data: [closedVault, ...venusVaults],
+        isLoading: false,
+      }));
+    });
+
+    it('hides archived vaults by default and saves the toggle when switched on', () => {
+      const { getByRole, getByText, queryByText } = renderComponent(<VaultsPage />);
+
+      expect(getByText(en.vault.filter.archivedVaultsToggle.label)).toBeInTheDocument();
+      expect(queryByText(closedVaultTitle, { selector: titleSelector })).not.toBeInTheDocument();
+      expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+
+      fireEvent.click(getByRole('checkbox'));
+
+      expect(mockSetUserChainSettings).toHaveBeenCalledWith({ showArchivedVaults: true });
+    });
+
+    it('shows an archived vault the user still has funds in', () => {
+      (useGetVaults as Mock).mockImplementation(() => ({
+        data: [{ ...closedVault, userStakeBalanceMantissa: new BigNumber(1) }, ...venusVaults],
+        isLoading: false,
+      }));
+
+      const { getByText } = renderComponent(<VaultsPage />);
+
+      expect(getByText(closedVaultTitle, { selector: titleSelector })).toBeInTheDocument();
+    });
+
+    it('shows archived vaults when the saved setting is on', () => {
+      (useUserChainSettings as Mock).mockReturnValue([
+        { ...defaultUserChainSettings, showArchivedVaults: true },
+        mockSetUserChainSettings,
+      ]);
+
+      const { getByRole, getByText } = renderComponent(<VaultsPage />);
+
+      expect(getByRole('checkbox')).toBeChecked();
+      expect(getByText(closedVaultTitle, { selector: titleSelector })).toBeInTheDocument();
+    });
+
+    it('combines with the state filter and keeps its value when filters are reset', () => {
+      const { getByRole, getByText } = renderComponent(<VaultsPage />, {
+        routerInitialEntries: [`/?status=${VaultStatus.Inactive}`],
+      });
+
+      expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
+
+      fireEvent.click(getByText(en.vault.filter.resetFilters));
+
+      expect(getByRole('checkbox')).not.toBeChecked();
+      expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    });
   });
 });
