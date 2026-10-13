@@ -5,9 +5,15 @@ export interface GetTransactionNameInput {
   type: TxType;
   t: TFunction;
   isSpoke?: boolean;
+  isSpokeLoanMarket?: boolean;
 }
 
-export const getTransactionName = ({ type, t, isSpoke = false }: GetTransactionNameInput) => {
+export const getTransactionName = ({
+  type,
+  t,
+  isSpoke = false,
+  isSpokeLoanMarket = false,
+}: GetTransactionNameInput) => {
   let name = '';
   let suffix = '';
 
@@ -59,10 +65,14 @@ export const getTransactionName = ({ type, t, isSpoke = false }: GetTransactionN
       name = t('account.transactions.txType.redeem');
       break;
     case 'exitMarket':
-      name = t('account.transactions.txType.exitMarket');
+      name = isSpokeLoanMarket
+        ? t('account.transactions.txType.exitLoanMarket')
+        : t('account.transactions.txType.exitMarket');
       break;
     case 'enterMarket':
-      name = t('account.transactions.txType.enterMarket');
+      name = isSpokeLoanMarket
+        ? t('account.transactions.txType.enterLoanMarket')
+        : t('account.transactions.txType.enterMarket');
       break;
     case 'principalSupplied':
       name = t('account.transactions.txType.principalSupplied');

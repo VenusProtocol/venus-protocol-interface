@@ -74,7 +74,7 @@ export const formatToMarketTransaction = ({
     poolName,
     vToken,
     amounts,
-    ...(isSpoke && { isSpoke }),
+    ...(isSpoke && { isSpoke, isSpokeLoanMarket: asset.isBorrowable }),
   };
 
   return transaction;

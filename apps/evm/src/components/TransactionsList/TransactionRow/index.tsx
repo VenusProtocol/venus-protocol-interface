@@ -21,6 +21,7 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ transaction, cla
     type: transaction.txType,
     t,
     isSpoke: 'isSpoke' in transaction && transaction.isSpoke,
+    isSpokeLoanMarket: 'isSpokeLoanMarket' in transaction && transaction.isSpokeLoanMarket,
   });
 
   return (

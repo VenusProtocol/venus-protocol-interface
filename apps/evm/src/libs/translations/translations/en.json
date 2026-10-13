@@ -136,12 +136,16 @@
         "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "<Styled>Entered</Styled> {{vTokenSymbol}} market",
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
+        "exitLoanMarket": "<Styled>Exited</Styled> {{vTokenSymbol}} market",
         "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
       },
       "txType": {
         "borrow": "Borrow",
+        "enterLoanMarket": "Enter market",
         "enterMarket": "Enable collateral",
+        "exitLoanMarket": "Exit market",
         "exitMarket": "Disable collateral",
         "mint": "Supply",
         "mintFromCollateral": "Migrate",

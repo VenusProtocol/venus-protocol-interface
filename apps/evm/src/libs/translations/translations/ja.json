@@ -136,12 +136,16 @@
         "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "{{vTokenSymbol}}市場に<Styled>参加</Styled>",
         "enterMarket": "{{vTokenSymbol}}を担保として<Styled>有効化</Styled>",
+        "exitLoanMarket": "{{vTokenSymbol}}市場から<Styled>退出</Styled>",
         "exitMarket": "{{vTokenSymbol}}を担保として<Styled>無効化</Styled>"
       },
       "txType": {
         "borrow": "借入",
+        "enterLoanMarket": "市場に参加",
         "enterMarket": "担保を有効化",
+        "exitLoanMarket": "市場から退出",
         "exitMarket": "担保を無効化",
         "mint": "供給",
         "mintFromCollateral": "移行",

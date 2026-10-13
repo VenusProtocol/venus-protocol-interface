@@ -136,12 +136,16 @@
         "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "{{vTokenSymbol}} piyasasına <Styled>girildi</Styled>",
         "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
+        "exitLoanMarket": "{{vTokenSymbol}} piyasasından <Styled>çıkıldı</Styled>",
         "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
       },
       "txType": {
         "borrow": "Borç al",
+        "enterLoanMarket": "Piyasaya gir",
         "enterMarket": "Teminatı etkinleştir",
+        "exitLoanMarket": "Piyasadan çık",
         "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
         "mintFromCollateral": "Taşı",

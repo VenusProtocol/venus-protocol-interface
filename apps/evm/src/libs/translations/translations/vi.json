@@ -136,12 +136,16 @@
         "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "<Styled>Đã tham gia</Styled> thị trường {{vTokenSymbol}}",
         "enterMarket": "<Styled>Đã bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
+        "exitLoanMarket": "<Styled>Đã rời</Styled> thị trường {{vTokenSymbol}}",
         "exitMarket": "<Styled>Đã tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
       },
       "txType": {
         "borrow": "Vay",
+        "enterLoanMarket": "Tham gia thị trường",
         "enterMarket": "Bật tài sản thế chấp",
+        "exitLoanMarket": "Rời thị trường",
         "exitMarket": "Tắt tài sản thế chấp",
         "mint": "Cung cấp",
         "mintFromCollateral": "Di chuyển",

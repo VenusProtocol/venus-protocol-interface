@@ -894,6 +894,7 @@ export interface MarketTx extends BaseTx {
   poolName: string;
   vToken: VToken;
   isSpoke?: boolean;
+  isSpokeLoanMarket?: boolean;
 }
 
 export interface LiquidityHubTx extends BaseTx {

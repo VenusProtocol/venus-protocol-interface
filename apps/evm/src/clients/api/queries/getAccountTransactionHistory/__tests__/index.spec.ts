@@ -403,6 +403,44 @@ describe('getAccountTransactionHistory', () => {
     });
   });
 
+  it('flags enter_market on a Spoke loan market but not on a Spoke collateral', async () => {
+    const loanAsset = { ...spokePools[0].assets[0], isBorrowable: true };
+    const collateralAsset = { ...spokePools[0].assets[1], isBorrowable: false };
+    const testSpokePools = [{ ...spokePools[0], assets: [loanAsset, collateralAsset] }];
+
+    const buildTx = (id: string, asset: typeof loanAsset): ApiAccountHistoricalTransaction => ({
+      id,
+      txHash: `0x${id}`,
+      txIndex: 0,
+      txTimestamp: new Date('2024-08-25T04:17:09.000Z'),
+      blockNumber: '41604853',
+      txType: 'enter_market',
+      accountAddress: fakeAddress,
+      contractAddress: asset.vToken.address,
+      amountVTokenMantissa: null,
+      amountUnderlyingMantissa: null,
+      chainId: ChainId.BSC_TESTNET,
+      underlyingAddress: asset.vToken.underlyingToken.address,
+      underlyingTokenPriceMantissa: null,
+      migrationVTokenAddress: null,
+      migrationVTokenAmountMantissa: null,
+      ...fakeYieldPlusFields,
+    });
+
+    (restService as Mock).mockResolvedValue({
+      data: { count: '2', results: [buildTx('1', loanAsset), buildTx('2', collateralAsset)] },
+    });
+
+    const response = await getAccountTransactionHistory({
+      ...fakeInput,
+      spokePools: testSpokePools,
+    });
+
+    expect(
+      response.transactions.map(tx => 'isSpokeLoanMarket' in tx && tx.isSpokeLoanMarket),
+    ).toEqual([true, false]);
+  });
+
   it('throws on error in payload', async () => {
     (restService as Mock).mockResolvedValue({ data: { error: 'Some error' } });
 

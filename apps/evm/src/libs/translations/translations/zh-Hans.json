@@ -136,12 +136,16 @@
         "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "<Styled>进入</Styled> {{vTokenSymbol}} 市场",
         "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
+        "exitLoanMarket": "<Styled>退出</Styled> {{vTokenSymbol}} 市场",
         "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为可抵押"
       },
       "txType": {
         "borrow": "借款",
+        "enterLoanMarket": "进入市场",
         "enterMarket": "启用抵押",
+        "exitLoanMarket": "退出市场",
         "exitMarket": "禁用抵押",
         "mint": "存款",
         "mintFromCollateral": "迁移",

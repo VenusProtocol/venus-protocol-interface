@@ -43,4 +43,16 @@ describe('getTransactionName', () => {
       expect(getTransactionName({ type, t, isSpoke: true })).toBe(expectedName);
     },
   );
+
+  it.each([
+    ['enterMarket', 'Enter market • Venus Spoke'],
+    ['exitMarket', 'Exit market • Venus Spoke'],
+  ] satisfies [TxType, string][])(
+    'names %s on a Spoke loan market as entering or leaving the market',
+    (type, expectedName) => {
+      expect(getTransactionName({ type, t, isSpoke: true, isSpokeLoanMarket: true })).toBe(
+        expectedName,
+      );
+    },
+  );
 });
