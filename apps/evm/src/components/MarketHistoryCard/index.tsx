@@ -3,6 +3,7 @@ import {
   CapProgressCircle,
   type CapProgressCircleProps,
   type CellProps,
+  ErrorState,
   MarketCard,
   Spinner,
 } from 'components';
@@ -28,6 +29,8 @@ export interface MarketHistoryCardHistory<TPeriod extends ChartHistoryPeriod = C
   selectedPeriod: TPeriod;
   setSelectedPeriod: (period: TPeriod) => void;
   periodOptions: MarketHistoryCardPeriodOption<TPeriod>[];
+  error?: unknown;
+  refetch?: () => void;
 }
 
 export interface MarketHistoryCardProps<TPeriod extends ChartHistoryPeriod = ChartHistoryPeriod>
@@ -67,10 +70,11 @@ export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHist
 
   marketCardCells.push(...cells);
 
-  const shouldDisplayHistory = isApyChartsFeatureEnabled && !!history && history.data.length > 0;
+  const isHistoryEnabled = isApyChartsFeatureEnabled && !!history;
+  const hasHistoryData = isHistoryEnabled && history.data.length > 0;
   const legends: { label: string; color: 'green' | 'red' }[] = [];
 
-  if (shouldDisplayHistory && history) {
+  if (hasHistoryData && history) {
     const isSupplyHistory = history.type === 'supply';
 
     legends.push({
@@ -88,7 +92,7 @@ export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHist
       legends={marketCardLegends}
       topContent={<CapProgressCircle {...cap} />}
       rightContent={
-        shouldDisplayHistory ? (
+        isHistoryEnabled ? (
           <ButtonGroup
             buttonSize="xs"
             buttonLabels={history.periodOptions.map(periodOption => periodOption.label)}
@@ -107,10 +111,30 @@ export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHist
       }
       {...otherProps}
     >
-      {history?.isLoading && history.data.length === 0 && <Spinner />}
-
-      {shouldDisplayHistory && (
+      {hasHistoryData && (
         <ApyChart data={history.data} type={history.type} selectedPeriod={history.selectedPeriod} />
+      )}
+
+      {isHistoryEnabled && !hasHistoryData && (
+        <div className="w-full h-62 flex items-center justify-center">
+          {!!history.error && (
+            <ErrorState
+              message={t('market.history.errorState.failedToFetchMessage')}
+              button={
+                history.refetch && {
+                  label: t('market.history.errorState.refetchButtonLabel'),
+                  onClick: history.refetch,
+                }
+              }
+            />
+          )}
+
+          {!history.error && history.isLoading && <Spinner />}
+
+          {!history.error && !history.isLoading && (
+            <p className="text-sm text-grey">{t('market.history.emptyState')}</p>
+          )}
+        </div>
       )}
     </MarketCard>
   );

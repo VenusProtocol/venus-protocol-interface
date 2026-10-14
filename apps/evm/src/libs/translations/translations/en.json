@@ -1148,6 +1148,13 @@
         }
       }
     },
+    "history": {
+      "emptyState": "No history available for this period",
+      "errorState": {
+        "failedToFetchMessage": "Could not fetch market history",
+        "refetchButtonLabel": "Retry"
+      }
+    },
     "interestRateModel": {
       "title": "Interest Rate Model"
     },

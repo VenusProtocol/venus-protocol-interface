@@ -1148,6 +1148,13 @@
         }
       }
     },
+    "history": {
+      "emptyState": "Bu dönem için geçmiş verisi yok",
+      "errorState": {
+        "failedToFetchMessage": "Piyasa geçmişi alınamadı",
+        "refetchButtonLabel": "Yeniden dene"
+      }
+    },
     "interestRateModel": {
       "title": "Faiz Oranı Modeli"
     },

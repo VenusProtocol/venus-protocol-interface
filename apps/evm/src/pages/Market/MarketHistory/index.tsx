@@ -25,6 +25,8 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({ asset }) => {
   const {
     data: { supplyChartData, borrowChartData },
     isLoading: isChartDataLoading,
+    error: chartDataError,
+    refetch: refetchChartData,
   } = useGetMarketChartData({
     vToken: asset.vToken,
     period: selectedPeriod,
@@ -113,6 +115,8 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({ asset }) => {
           type: 'supply',
           data: supplyChartData ?? [],
           isLoading: isChartDataLoading,
+          error: chartDataError,
+          refetch: refetchChartData,
           selectedPeriod,
           setSelectedPeriod,
           periodOptions,
@@ -148,6 +152,8 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({ asset }) => {
           type: 'borrow',
           data: borrowChartData ?? [],
           isLoading: isChartDataLoading,
+          error: chartDataError,
+          refetch: refetchChartData,
           selectedPeriod,
           setSelectedPeriod,
           periodOptions,
