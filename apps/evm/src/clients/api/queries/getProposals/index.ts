@@ -52,22 +52,25 @@ export const getProposals = async ({
     case ProposalState.Canceled:
       where = { canceled_not: null };
       break;
-    case ProposalState.Defeated:
+    case ProposalState.Defeated: {
+      const notDecidedElsewhere = {
+        canceled: null,
+        queued: null,
+        executed: null,
+        endBlock_lt: currentBlockNumber,
+      };
+
       where = {
         or: [
-          { canceled: null, passing: false, endBlock_lt: currentBlockNumber },
+          { ...notDecidedElsewhere, passing: false },
           {
-            or: [
-              {
-                canceled: null,
-                endBlock_lt: currentBlockNumber,
-                forVotes_lt: proposalMinQuorumVotesMantissa.toFixed(),
-              },
-            ],
+            ...notDecidedElsewhere,
+            forVotes_lt: proposalMinQuorumVotesMantissa.toFixed(),
           },
         ],
       };
       break;
+    }
     case ProposalState.Succeeded:
       where = {
         passing: true,

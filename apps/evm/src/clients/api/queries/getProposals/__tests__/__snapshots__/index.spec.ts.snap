@@ -1549,16 +1549,16 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
         {
           "canceled": null,
           "endBlock_lt": 1,
+          "executed": null,
           "passing": false,
+          "queued": null,
         },
         {
-          "or": [
-            {
-              "canceled": null,
-              "endBlock_lt": 1,
-              "forVotes_lt": "10",
-            },
-          ],
+          "canceled": null,
+          "endBlock_lt": 1,
+          "executed": null,
+          "forVotes_lt": "10",
+          "queued": null,
         },
       ],
     },
