@@ -126,8 +126,6 @@ export const featureFlags = {
     ChainId.ZKSYNC_SEPOLIA,
     ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
-    ChainId.UNICHAIN_MAINNET,
-    ChainId.UNICHAIN_SEPOLIA,
   ],
   eMode: [
     ChainId.BSC_MAINNET,
