@@ -2810,7 +2810,7 @@
     },
     "redelegate": "再委任",
     "redelegateVoting": "再委任投票",
-    "requiredVotingPower": "提案を作成するには30万の投票パワーが必要です",
+    "requiredVotingPower": "提案を作成するには{{votingPower}}の投票パワーが必要です",
     "searchInput": {
       "placeholder": "提案を検索"
     },

@@ -2810,7 +2810,7 @@
     },
     "redelegate": "Ủy quyền lại",
     "redelegateVoting": "Bỏ phiếu ủy quyền lại",
-    "requiredVotingPower": "Bạn cần có 300k sức mạnh bỏ phiếu để tạo đề xuất",
+    "requiredVotingPower": "Bạn cần có {{votingPower}} sức mạnh bỏ phiếu để tạo đề xuất",
     "searchInput": {
       "placeholder": "Tìm đề xuất"
     },

@@ -2810,7 +2810,7 @@
     },
     "redelegate": "มอบสิทธิ์ใหม่",
     "redelegateVoting": "การโหวตแบบมอบสิทธิ์ใหม่",
-    "requiredVotingPower": "คุณต้องมีพลังโหวต 300k เพื่อสร้างข้อเสนอ",
+    "requiredVotingPower": "คุณต้องมีพลังโหวต {{votingPower}} เพื่อสร้างข้อเสนอ",
     "searchInput": {
       "placeholder": "ค้นหาข้อเสนอ"
     },

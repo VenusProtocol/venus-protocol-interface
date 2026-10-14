@@ -31,6 +31,7 @@ export const BscCommand: React.FC<BscCommandProps> = ({ proposal, ...otherProps 
 
   const { isCancelable } = useIsProposalCancelableByUser({
     state: proposal.state,
+    proposalType: proposal.proposalType,
     proposerAddress: proposal.proposerAddress,
     accountAddress,
   });
@@ -76,6 +77,7 @@ export const BscCommand: React.FC<BscCommandProps> = ({ proposal, ...otherProps 
             className="hidden lg:block"
             proposalId={proposal.proposalId}
             state={proposal.state}
+            proposalType={proposal.proposalType}
             executionEtaDate={proposal.executionEtaDate}
             proposerAddress={proposal.proposerAddress}
           />
@@ -89,6 +91,7 @@ export const BscCommand: React.FC<BscCommandProps> = ({ proposal, ...otherProps 
             className="mt-3 w-full lg:hidden"
             proposalId={proposal.proposalId}
             state={proposal.state}
+            proposalType={proposal.proposalType}
             executionEtaDate={proposal.executionEtaDate}
             proposerAddress={proposal.proposerAddress}
           />

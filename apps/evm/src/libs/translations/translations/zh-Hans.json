@@ -2810,7 +2810,7 @@
     },
     "redelegate": "重新委托",
     "redelegateVoting": "重新委托投票",
-    "requiredVotingPower": "你需要拥有 300k 投票权才能创建提案",
+    "requiredVotingPower": "你需要拥有 {{votingPower}} 投票权才能创建提案",
     "searchInput": {
       "placeholder": "搜索提案"
     },
