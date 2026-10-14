@@ -931,6 +931,10 @@
     "settingsModal": {
       "title": "Ayarlar"
     },
+    "sunsetModal": {
+      "description": "Bu zincir kapatıldı. Lütfen tüm borçlarınızı geri ödeyin ve mevduatınızı çekin.",
+      "title": "Kapatıldı"
+    },
     "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>"
   },
   "layouts": {

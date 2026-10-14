@@ -99,6 +99,7 @@ export { default as stats } from './stats';
 export { default as diagramArrowDown } from './diagramArrowDown';
 export { default as protectionShield } from './protectionShield';
 export { default as resilientOracle } from './resilientOracle';
+export { default as sunset } from './sunset';
 export { default as fullScreen } from './fullScreen';
 export { default as barChart } from './barChart';
 export { default as trade } from './trade';
