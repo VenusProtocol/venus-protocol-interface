@@ -23,7 +23,6 @@ import FunctionKey from 'constants/functionKey';
 
 import { proposals } from '__mocks__/models/proposals';
 import type { ProposalType, Token, VToken } from 'types';
-import type { Address } from 'viem';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 import type { GetTokenBalancesInput } from '../queries/getTokenBalances';
 import type { GetVTokenBalancesInput } from '../queries/getVTokenBalances';
@@ -33,14 +32,6 @@ export const queryClient = {
 };
 
 // Queries
-export const getIsAddressAuthorized = vi.fn(async accountAddress => fakeAddress !== accountAddress);
-export const useGetIsAddressAuthorized = vi.fn((accountAddress: Address) =>
-  useQuery({
-    queryKey: [FunctionKey.GET_IS_ADDRESS_AUTHORIZED],
-    queryFn: () => getIsAddressAuthorized(accountAddress),
-  }),
-);
-
 export const getBlockNumber = vi.fn(async () => 51236217);
 export const useGetBlockNumber = vi.fn(() =>
   useQuery({
