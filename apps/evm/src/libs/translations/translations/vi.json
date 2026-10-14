@@ -430,6 +430,9 @@
       "label": "Số dư ví"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "Thống kê"
+  },
   "chainExplorerLink": {
     "content": "Xem trên {{domainName}}"
   },

@@ -430,6 +430,9 @@
       "label": "ยอดคงเหลือในกระเป๋า"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "สถิติ"
+  },
   "chainExplorerLink": {
     "content": "ดูบน {{domainName}}"
   },
