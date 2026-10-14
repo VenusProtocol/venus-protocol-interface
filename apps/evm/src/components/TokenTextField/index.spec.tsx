@@ -1,6 +1,7 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
+import { useState } from 'react';
 
 import { xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
@@ -164,5 +165,25 @@ describe('TokenTextField', () => {
     );
 
     expect(getByTestId(testId)).toHaveAttribute('inputmode', 'decimal');
+  });
+
+  it('keeps the caret where the user was when a comma is converted mid-amount', async () => {
+    // Mirrors the real sequence: the field holds "12", the caret sits after the 1, and the
+    // browser hands us "1,2" with the caret right after the comma it just inserted.
+    const Controlled = () => {
+      const [value, setValue] = useState('12');
+
+      return <TokenTextField token={xvs} onChange={setValue} value={value} data-testid={testId} />;
+    };
+
+    const { getByTestId } = renderComponent(<Controlled />);
+
+    const input = getByTestId(testId) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '1,2', selectionStart: 2 } });
+
+    await waitFor(() => expect(input).toHaveValue('1.2'));
+    // Without restoring it after the controlled re-render, the caret would sit at the end (3)
+    expect(input.selectionStart).toBe(2);
   });
 });

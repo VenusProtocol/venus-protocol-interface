@@ -1,5 +1,5 @@
 import { cn } from '@venusprotocol/ui';
-import { type InputHTMLAttributes, forwardRef } from 'react';
+import { type InputHTMLAttributes, forwardRef, useLayoutEffect, useRef } from 'react';
 
 import { Icon, type IconName } from 'components/Icon';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
@@ -52,6 +52,19 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
     ref,
   ) => {
     const isNumeric = type === 'number' || isDecimal;
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const pendingCaretPositionRef = useRef<number | undefined>(undefined);
+
+    // The parent owns the value, so its re-render rewrites the input and sends the caret to the
+    // end. Putting the caret back here runs after that write, before the browser paints.
+    useLayoutEffect(() => {
+      const caretPosition = pendingCaretPositionRef.current;
+      pendingCaretPositionRef.current = undefined;
+
+      if (caretPosition !== undefined) {
+        inputRef.current?.setSelectionRange(caretPosition, caretPosition);
+      }
+    });
 
     const handleChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = e => {
       let safeValue = e.currentTarget.value;
@@ -90,7 +103,16 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
         return;
       }
 
-      if (safeValue !== e.currentTarget.value) {
+      const typedValue = e.currentTarget.value;
+
+      if (safeValue !== typedValue) {
+        const caretPosition = e.currentTarget.selectionStart ?? safeValue.length;
+
+        pendingCaretPositionRef.current = Math.max(
+          0,
+          caretPosition + safeValue.length - typedValue.length,
+        );
+
         e.currentTarget.value = safeValue;
       }
 
@@ -153,7 +175,15 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
               type={isDecimal ? 'text' : type}
               inputMode={isDecimal ? 'decimal' : undefined}
               disabled={disabled}
-              ref={ref}
+              ref={node => {
+                inputRef.current = node;
+
+                if (typeof ref === 'function') {
+                  ref(node);
+                } else if (ref) {
+                  ref.current = node;
+                }
+              }}
               {...inputProps}
             />
 
