@@ -5,6 +5,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { institutionalVault, vaults } from '__mocks__/models/vaults';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useNow } from 'hooks/useNow';
 import { en, t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -176,5 +177,14 @@ describe('pages/Dashboard/Vaults/VaultCard', () => {
         vault: depositVault,
       }),
     );
+  });
+
+  it('falls back to a placeholder when the Pendle vault has no maturity date', () => {
+    renderComponent(<VaultCard vault={{ ...pendleVault, maturityDate: undefined }} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(screen.getByText(en.vault.card.maturityDatePendle)).toBeInTheDocument();
+    expect(screen.getByText(PLACEHOLDER_KEY)).toBeInTheDocument();
   });
 });
