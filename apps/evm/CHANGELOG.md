@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 5.35.3
+
+### Patch Changes
+
+- a2d6ac2: accept integers above the safe range as proposal call data parameters
+- dd0db30: make the horizontally scrollable stats row reachable by keyboard
+- 84e2049: keep the market history period buttons when a period has no data or fails to load
+- 8ac3635: read the proposal creation threshold from the governor instead of hard-coding it
+- b6654a3: count every proposal in the governance list instead of stopping at 100
+
 ## 5.35.2
 
 ### Patch Changes
