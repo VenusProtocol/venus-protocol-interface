@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 5.35.4
+
+### Patch Changes
+
+- 191277f: stop listing executed and queued proposals under the Defeated filter
+- 6a569eb: sort the sources of an expanded Liquidity Hub allocation group by APY
+- 6a8219b: stop listing Unichain under the Aave position import feature flag
+- 6ae4d65: keep the Vaults list and dashboard rendering when a Pendle vault has no maturity date
+- 2145f7b: send a valid token image URL when adding a token to the wallet
+
 ## 5.35.3
 
 ### Patch Changes
