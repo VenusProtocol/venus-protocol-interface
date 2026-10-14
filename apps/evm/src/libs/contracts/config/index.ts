@@ -746,7 +746,7 @@ export const contracts: ContractConfig[] = [
     name: 'CollateralGateway',
     abi: collateralGatewayAbi as Abi,
     address: {
-      [ChainId.BSC_TESTNET]: '0x26837e144898D2C5c673FE880e21f83469Ad1Bf4', // TODO: get from venus-periphery package (VPD-2072)
+      [ChainId.BSC_TESTNET]: '0x1B6D1ff76beb57CF7C9B2e05BE16cb9529DCa2F9', // TODO: get from venus-periphery package (VPD-2072)
     },
   },
   // Generic Contracts
