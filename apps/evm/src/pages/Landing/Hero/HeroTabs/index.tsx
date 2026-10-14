@@ -5,10 +5,9 @@ import { ButtonGroup } from 'components';
 import { useChain } from 'hooks/useChain';
 import { type Tab, useTabs } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 import type { Asset } from 'types';
 import { getBestDistributionApys } from 'utilities';
-import { isSunsetChain } from 'utilities/isSunsetChain';
 import { GlassCard } from './GlassCard';
 import { TabContent } from './TabContent';
 
@@ -16,8 +15,6 @@ export const HeroTabs: React.FC = () => {
   const { t } = useTranslation();
 
   const { corePoolComptrollerContractAddress } = useChain();
-  const { chainId } = useChainId();
-  const ignoreDisabledActions = isSunsetChain(chainId);
 
   // TODO: update to fetch top markets across chains
   const { accountAddress } = useAccountAddress();
@@ -38,7 +35,7 @@ export const HeroTabs: React.FC = () => {
     const assetApys = getBestDistributionApys({ asset });
 
     if (
-      (ignoreDisabledActions || !asset.disabledTokenActions.includes('supply')) &&
+      !asset.disabledTokenActions.includes('supply') &&
       assetApys.totalSupplyApyPercentage.isGreaterThan(
         topSupplyAssetApys?.totalSupplyApyPercentage || Number.NEGATIVE_INFINITY,
       )
@@ -49,7 +46,7 @@ export const HeroTabs: React.FC = () => {
 
     if (
       asset.isBorrowable &&
-      (ignoreDisabledActions || !asset.disabledTokenActions.includes('borrow')) &&
+      !asset.disabledTokenActions.includes('borrow') &&
       assetApys.totalBorrowApyPercentage.isLessThan(
         topBorrowAssetApys?.totalBorrowApyPercentage || Number.POSITIVE_INFINITY,
       )
