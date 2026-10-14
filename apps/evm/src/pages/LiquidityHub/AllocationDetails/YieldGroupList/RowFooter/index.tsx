@@ -16,11 +16,18 @@ export const RowFooter: React.FC<RowFooterProps> = ({ row, underlyingToken, isOp
     underlyingToken,
   });
 
-  const orderByColumn = columns.find(column => column.key === 'averageApy');
+  const orderByColumn = columns.find(column => column.key === 'apy');
   const initialOrder = orderByColumn && {
     orderBy: orderByColumn,
     orderDirection: 'desc' as const,
   };
+
+  // The card list renders sources in the order it receives them, so they arrive sorted the same
+  // way the table orders them through initialOrder
+  const sortRows = orderByColumn?.sortRows;
+  const sources = sortRows
+    ? [...row.sources].sort((sourceA, sourceB) => sortRows(sourceA, sourceB, 'desc'))
+    : row.sources;
 
   const rowKeyExtractor = (row: LiquidityHubSource) => row.address;
 
@@ -29,7 +36,7 @@ export const RowFooter: React.FC<RowFooterProps> = ({ row, underlyingToken, isOp
       <CardList
         className="space-y-4 md:hidden lg:block 2xl:hidden"
         rowKeyExtractor={rowKeyExtractor}
-        sources={row.sources}
+        sources={sources}
         columns={columns}
       />
 
@@ -37,7 +44,7 @@ export const RowFooter: React.FC<RowFooterProps> = ({ row, underlyingToken, isOp
         <Table
           columns={columns}
           columnWidths={COLUMN_WIDTHS}
-          data={row.sources}
+          data={sources}
           rowKeyExtractor={rowKeyExtractor}
           initialOrder={initialOrder}
           variant="primary"

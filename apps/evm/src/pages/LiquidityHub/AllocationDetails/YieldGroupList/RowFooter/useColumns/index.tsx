@@ -2,10 +2,15 @@ import { Apy, InfoIcon, LayeredValues, type TableColumn } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubSource, LiquidityHubYieldGroup, Token } from 'types';
-import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
+import {
+  compareBigNumbers,
+  formatCentsToReadableValue,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { COLUMN_WIDTHS } from '../../../columnWidths';
 import { CollateralGroup } from './CollateralGroup';
 import { RatingGroup } from './RatingGroup';
+import { getTotalSupplyApy } from './getTotalSupplyApy';
 
 export const useColumns = ({
   yieldGroup,
@@ -75,6 +80,8 @@ export const useColumns = ({
       key: 'apy',
       label: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
       selectOptionLabel: t('liquidityHub.allocationDetails.yieldGroup.apyColumn.title'),
+      sortRows: (rowA, rowB, direction) =>
+        compareBigNumbers(getTotalSupplyApy(rowA), getTotalSupplyApy(rowB), direction),
       align: 'right',
       renderCell: ({ supplyApyPercentage, supplyTokenDistributions }) => (
         <Apy
