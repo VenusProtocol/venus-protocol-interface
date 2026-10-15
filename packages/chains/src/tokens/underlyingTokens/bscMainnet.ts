@@ -572,4 +572,18 @@ export const bscMainnet: Token[] = [
     symbol: 'vhU',
     iconSrc: iconSrcs.vhU,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x205812CdBed920aFf76C6580abD681a46D11efc7',
+    decimals: 18,
+    symbol: 'QQQB',
+    iconSrc: iconSrcs.qqqb,
+  },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x7138b48df7D98D7e3cc221BfE7192D0a178182D8',
+    decimals: 18,
+    symbol: 'SPYB',
+    iconSrc: iconSrcs.spyb,
+  },
 ];
