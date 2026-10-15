@@ -28,4 +28,26 @@ describe('SubMenuContent', () => {
     expect(container.textContent).not.toContain('Get started');
     expect(Object.keys(en.layout.menu)).not.toContain('subMenuItem');
   });
+
+  it.each([
+    ['core', 'Venus Core', 'core-end'],
+    ['liquidityHub', 'Liquidity Hub', 'hub-center'],
+    ['vault', 'Venus Vault', 'vault-dial'],
+    ['spoke', 'Venus Spoke', 'spoke-up'],
+  ] as const)(
+    'renders the %s menu icon inline so its parts animate on hover',
+    (menuIconName, label, animatedPart) => {
+      const { container, getByRole } = renderComponent(
+        <SubMenuContent
+          label="Earn"
+          variant="secondary"
+          items={[{ to: '/item', label, menuIconName }]}
+        />,
+      );
+
+      expect(getByRole('img', { name: label }).tagName.toLowerCase()).toBe('svg');
+      expect(getByRole('link')).toHaveAttribute('data-nav-item');
+      expect(container.querySelector(`[data-nav-part="${animatedPart}"]`)).not.toBeNull();
+    },
+  );
 });

@@ -1,3 +1,4 @@
+import { fireEvent } from '@testing-library/react';
 import { renderComponent } from 'testUtils/render';
 
 import { MenuItem } from '..';
@@ -20,5 +21,32 @@ describe('MenuItem', () => {
     );
 
     expect(container.querySelector(externalLinkIconSelector)).toBeNull();
+  });
+
+  it('exposes the submenu open state so the tag effect also plays while it is expanded', () => {
+    const { getAllByRole } = renderComponent(
+      <MenuItem
+        item={{
+          label: 'Earn',
+          tagLabel: '3.74%',
+          items: [{ to: '/vaults', label: 'Venus Vault' }],
+        }}
+        onClick={vi.fn()}
+      />,
+    );
+
+    const [accordionTrigger, dropdownTrigger] = getAllByRole('button', { name: /Earn/ });
+
+    expect(accordionTrigger).toHaveAttribute('data-nav-item');
+    expect(dropdownTrigger).toHaveAttribute('data-nav-item');
+    expect(dropdownTrigger).toHaveAttribute('aria-expanded', 'false');
+
+    const initialExpandedState = accordionTrigger.getAttribute('aria-expanded');
+    fireEvent.click(accordionTrigger);
+
+    expect(accordionTrigger).toHaveAttribute(
+      'aria-expanded',
+      String(initialExpandedState !== 'true'),
+    );
   });
 });

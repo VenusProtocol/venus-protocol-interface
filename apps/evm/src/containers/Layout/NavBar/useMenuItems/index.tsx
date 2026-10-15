@@ -5,10 +5,6 @@ import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
-import liquidityHubIconSrc from 'assets/img/liquidityHubIcon.svg';
-import spokeIconSrc from 'assets/img/spokeIcon.svg';
-import vaultsIconSrc from 'assets/img/vaultsIcon.svg';
-import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
 import { VENUS_FLUX_URL } from 'constants/production';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useAnalytics } from 'libs/analytics';
@@ -68,7 +64,7 @@ export const useMenuItems = () => {
     items: [
       {
         to: marketsPagePath,
-        imgSrc: venusCoreIconSrc,
+        menuIconName: 'core',
         label: t('layouts.menu.markets.venusCore.label'),
         description: t('layouts.menu.markets.venusCore.description'),
       },
@@ -78,7 +74,7 @@ export const useMenuItems = () => {
   if (spokeEnabled) {
     borrowSubMenu.items.push({
       to: routes.spokePools.path,
-      imgSrc: spokeIconSrc,
+      menuIconName: 'spoke',
       label: t('layouts.menu.markets.venusSpoke.label'),
       tagLabel: t('layout.menu.new'),
       description: t('layouts.menu.markets.venusSpoke.description'),
@@ -94,7 +90,7 @@ export const useMenuItems = () => {
         items: [
           {
             to: routes.liquidityHubs.path,
-            imgSrc: liquidityHubIconSrc,
+            menuIconName: 'liquidityHub',
             label: t('layouts.menu.markets.liquidityHub.label'),
             tagLabel: liquidityHubTagLabel,
             description: t('layouts.menu.markets.liquidityHub.description'),
@@ -105,7 +101,7 @@ export const useMenuItems = () => {
           },
           {
             to: routes.vaults.path,
-            imgSrc: vaultsIconSrc,
+            menuIconName: 'vault',
             label: t('layouts.menu.markets.vaults.label'),
             description: t('layouts.menu.markets.vaults.description'),
           },

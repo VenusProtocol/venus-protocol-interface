@@ -47,6 +47,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             'flex items-center justify-between cursor-pointer lg:gap-x-2',
           )}
           type="button"
+          data-nav-item
+          aria-expanded={isSubMenuOpen}
           onClick={onAccordionTriggerClick}
         >
           <div className="flex items-center gap-x-2">
@@ -109,6 +111,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
               isDropdownOpen && 'lg:text-white lg:bg-dark-blue-active',
             )}
             type="button"
+            data-nav-item
+            aria-expanded={isDropdownOpen}
           >
             <span>{item.label}</span>
 
@@ -129,6 +133,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
         item.onClick?.();
         onClick();
       }}
+      data-nav-item
       className={cn(sharedContainerClassName, 'group/menu-link flex items-center gap-x-2')}
     >
       <span>{item.label}</span>

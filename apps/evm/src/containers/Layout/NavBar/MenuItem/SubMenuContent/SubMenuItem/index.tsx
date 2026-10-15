@@ -3,6 +3,7 @@ import { cn } from '@venusprotocol/ui';
 import { Icon } from 'components';
 import { Link } from 'containers/Link';
 import { matchPath, useLocation } from 'react-router';
+import { MenuIcon } from '../../../MenuIcon';
 import { Tag } from '../../../Tag';
 import type { MenuItem, SubMenu } from '../../../types';
 
@@ -18,6 +19,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
   description,
   imgSrc,
   iconName,
+  menuIconName,
   tagLabel,
   onClick,
   variant,
@@ -32,6 +34,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
     <Link
       {...linkNavProps}
       onClick={onClick}
+      data-nav-item
       className={cn(
         'block rounded-lg group transition-colors hover:no-underline',
         variant === 'secondary'
@@ -41,15 +44,23 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
       )}
     >
       <div className="flex gap-x-3">
-        {(iconName || imgSrc) && (
+        {(iconName || imgSrc || menuIconName) && (
           <div
             className={cn(
               'rounded-lg shrink-0 flex items-center justify-center',
               variant === 'secondary' ? 'size-10' : 'size-12',
               !!iconName && 'bg-dark-blue',
+              !!menuIconName && menuIconName !== 'core' && 'nav-icon-glint',
             )}
           >
-            {iconName ? (
+            {menuIconName ? (
+              <MenuIcon
+                name={menuIconName}
+                aria-label={label}
+                role="img"
+                className={variant === 'secondary' ? 'size-10' : 'size-12'}
+              />
+            ) : iconName ? (
               <Icon
                 name={iconName}
                 className={cn(
