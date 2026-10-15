@@ -1,4 +1,5 @@
 import { screen, waitFor } from '@testing-library/react';
+import type { Mock } from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { useGetAsset } from 'clients/api';
@@ -34,7 +35,7 @@ describe('MarketLoader', () => {
   it('offers a retry instead of redirecting when the pools request fails', async () => {
     const refetchMock = vi.fn();
 
-    (useGetAsset as Vi.Mock).mockImplementation(() => ({
+    (useGetAsset as Mock).mockImplementation(() => ({
       isLoading: false,
       isError: true,
       refetch: refetchMock,
@@ -53,7 +54,7 @@ describe('MarketLoader', () => {
   });
 
   it('redirects when the pools load but the market is unknown', async () => {
-    (useGetAsset as Vi.Mock).mockImplementation(() => ({
+    (useGetAsset as Mock).mockImplementation(() => ({
       isLoading: false,
       isError: false,
       refetch: vi.fn(),
