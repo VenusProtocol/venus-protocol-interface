@@ -12,11 +12,11 @@ import {
   getCurrentVotes,
   getLatestProposalIdByProposer,
   getProposalState,
+  getProposalThreshold,
   useGetProposals,
   useGetVestingVaults,
   useSetVoteDelegate,
 } from 'clients/api';
-import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
@@ -34,7 +34,8 @@ vi.mock('hooks/useNow');
 
 const fakeNow = new Date('2023-10-14T16:11:35.000Z');
 
-const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_MANTISSA;
+const fakeProposalThresholdMantissa = new BigNumber('300000000000000000000000');
+const fakeUserVotingWeight = fakeProposalThresholdMantissa;
 
 describe('Governance', () => {
   beforeEach(() => {
@@ -45,6 +46,10 @@ describe('Governance', () => {
 
     (getCurrentVotes as Mock).mockImplementation(() => ({
       votesMantissa: fakeUserVotingWeight,
+    }));
+
+    (getProposalThreshold as Mock).mockImplementation(async () => ({
+      thresholdMantissa: fakeProposalThresholdMantissa,
     }));
 
     (useNow as Mock).mockImplementation(() => fakeNow);

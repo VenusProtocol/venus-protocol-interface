@@ -1,5 +1,43 @@
 # @venusprotocol/evm
 
+## 5.35.4
+
+### Patch Changes
+
+- 191277f: stop listing executed and queued proposals under the Defeated filter
+- 6a569eb: sort the sources of an expanded Liquidity Hub allocation group by APY
+- 6a8219b: stop listing Unichain under the Aave position import feature flag
+- 6ae4d65: keep the Vaults list and dashboard rendering when a Pendle vault has no maturity date
+- 2145f7b: send a valid token image URL when adding a token to the wallet
+
+## 5.35.3
+
+### Patch Changes
+
+- a2d6ac2: accept integers above the safe range as proposal call data parameters
+- dd0db30: make the horizontally scrollable stats row reachable by keyboard
+- 84e2049: keep the market history period buttons when a period has no data or fails to load
+- 8ac3635: read the proposal creation threshold from the governor instead of hard-coding it
+- b6654a3: count every proposal in the governance list instead of stopping at 100
+
+## 5.35.2
+
+### Patch Changes
+
+- e9e9936: show the Hash Global logo and website on its vaults
+
+## 5.35.1
+
+### Patch Changes
+
+- 1e2714e: remove unnecessary comments from the markets category filter
+
+## 5.35.0
+
+### Minor Changes
+
+- 77c2729: filter the markets page by category from a url parameter
+
 ## 5.34.0
 
 ### Minor Changes

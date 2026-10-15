@@ -1,7 +1,7 @@
 import { parseFunctionSignature } from 'utilities';
 import { encodeAbiParameters } from 'viem';
 
-import { safeJsonParse } from './safeJsonParse';
+import { parseCallDataValue } from './parseCallDataValue';
 
 const encodeCallData = (signature: string, callData: (string | undefined)[]) => {
   const processedCallData = callData.reduce(
@@ -10,10 +10,7 @@ const encodeCallData = (signature: string, callData: (string | undefined)[]) => 
         return acc;
       }
 
-      const parsedCurr = safeJsonParse(curr);
-      // Output numbers as strings to prevent rounding issues numbers outside the safe integer range
-      const formattedCurr = typeof parsedCurr !== 'number' ? parsedCurr : curr.toString();
-      return [...acc, formattedCurr];
+      return [...acc, parseCallDataValue(curr)];
     },
     [] as (string | number | string[])[],
   );

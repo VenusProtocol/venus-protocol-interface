@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { parseFunctionSignature } from 'utilities';
 import { encodeAbiParameters, isAddress } from 'viem';
 
-import { safeJsonParse } from './safeJsonParse';
+import { parseCallDataValue } from './parseCallDataValue';
 
 export enum ErrorCode {
   ACTION_ADDRESS_NOT_VALID = 'ACTION_ADDRESS_NOT_VALID', // value must be a valid address
@@ -57,7 +57,7 @@ const proposalSchema = yup.object({
                     encodeAbiParameters(
                       // @ts-expect-error The yup type doesn't show this value exists but it does
                       [dataTypes[this.options.index]],
-                      [safeJsonParse(value || '')],
+                      [parseCallDataValue(value || '')],
                     );
                   } catch {
                     valid = false;

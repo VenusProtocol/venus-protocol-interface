@@ -22,7 +22,7 @@ import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
 import { proposals } from '__mocks__/models/proposals';
-import type { Token, VToken } from 'types';
+import type { ProposalType, Token, VToken } from 'types';
 import type { Address } from 'viem';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 import type { GetTokenBalancesInput } from '../queries/getTokenBalances';
@@ -489,12 +489,16 @@ export const useGetVoterAccounts = vi.fn(() =>
   }),
 );
 
-export const getProposalThreshold = vi.fn(async () => new BigNumber('10000000000000000000000'));
-export const useGetProposalThreshold = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_PROPOSAL_THRESHOLD],
-    queryFn: getProposalThreshold,
-  }),
+export const getProposalThreshold = vi.fn(async (_input?: { proposalType: ProposalType }) => ({
+  thresholdMantissa: new BigNumber('1000000000000000000000000'),
+}));
+export const useGetProposalThreshold = vi.fn(
+  ({ proposalType }: { proposalType: ProposalType }, options?: Partial<{ enabled: boolean }>) =>
+    useQuery({
+      queryKey: [FunctionKey.GET_PROPOSAL_THRESHOLD, { proposalType }],
+      queryFn: () => getProposalThreshold({ proposalType }),
+      ...options,
+    }),
 );
 
 export const getProposalState = vi.fn();

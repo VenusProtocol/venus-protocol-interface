@@ -8,7 +8,7 @@ import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { governanceChainId, useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
-import { ProposalState } from 'types';
+import { ProposalState, type ProposalType } from 'types';
 import type { Address } from 'viem';
 import { useIsProposalCancelableByUser } from '../../useIsProposalCancelableByUser';
 
@@ -16,12 +16,14 @@ export interface ActionButtonProps extends Omit<ConnectWalletProps, 'onClick'> {
   proposalId: number;
   proposerAddress: Address;
   state: ProposalState;
+  proposalType: ProposalType;
   executionEtaDate?: Date;
 }
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
   state,
   proposalId,
+  proposalType,
   proposerAddress,
   executionEtaDate,
   ...otherProps
@@ -36,6 +38,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 
   const { isCancelable } = useIsProposalCancelableByUser({
     state,
+    proposalType,
     proposerAddress,
     accountAddress,
   });

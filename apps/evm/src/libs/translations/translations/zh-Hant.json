@@ -435,6 +435,9 @@
       "label": "錢包餘額"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "統計數據"
+  },
   "chainExplorerLink": {
     "content": "在 {{domainName}} 上查看"
   },
@@ -1145,6 +1148,13 @@
           "liquidationThreshold": "閾值",
           "maxLtv": "最大 LTV"
         }
+      }
+    },
+    "history": {
+      "emptyState": "該時間段暫無歷史數據",
+      "errorState": {
+        "failedToFetchMessage": "無法獲取市場歷史",
+        "refetchButtonLabel": "重試"
       }
     },
     "interestRateModel": {
@@ -2803,7 +2813,7 @@
     },
     "redelegate": "重新委託",
     "redelegateVoting": "重新委託投票",
-    "requiredVotingPower": "你需要擁有 300k 投票權才能創建提案",
+    "requiredVotingPower": "你需要擁有 {{votingPower}} 投票權才能創建提案",
     "searchInput": {
       "placeholder": "搜索提案"
     },

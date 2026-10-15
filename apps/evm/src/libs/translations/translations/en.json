@@ -435,6 +435,9 @@
       "label": "Wallet balance"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "Statistics"
+  },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
   },
@@ -1146,6 +1149,13 @@
           "liquidationThreshold": "Threshold",
           "maxLtv": "Max LTV"
         }
+      }
+    },
+    "history": {
+      "emptyState": "No history available for this period",
+      "errorState": {
+        "failedToFetchMessage": "Could not fetch market history",
+        "refetchButtonLabel": "Retry"
       }
     },
     "interestRateModel": {
@@ -2810,7 +2820,7 @@
     },
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
-    "requiredVotingPower": "You need to have 300k voting power to create a proposal",
+    "requiredVotingPower": "You need to have {{votingPower}} voting power to create a proposal",
     "searchInput": {
       "placeholder": "Search proposal"
     },

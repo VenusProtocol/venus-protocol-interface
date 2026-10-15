@@ -7,6 +7,7 @@ import {
   useGetCurrentVotes,
   useGetLatestProposalIdByProposer,
   useGetProposalState,
+  useGetProposalThreshold,
   useGetProposals,
 } from 'clients/api';
 import {
@@ -19,16 +20,17 @@ import {
   TextButton,
   TextField,
 } from 'components';
-import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
 import { PAGE_PARAM_DEFAULT_KEY, PAGE_PARAM_DEFAULT_VALUE } from 'hooks/useUrlPagination';
 import type { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
+import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { ProposalState } from 'types';
+import { ProposalState, ProposalType } from 'types';
+import { convertMantissaToTokens } from 'utilities';
 import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -158,6 +160,22 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
     { enabled: !!latestProposalData?.proposalId && !!+latestProposalData?.proposalId },
   );
 
+  const { data: proposalThresholdData } = useGetProposalThreshold({
+    proposalType: ProposalType.NORMAL,
+  });
+
+  const xvs = useGetToken({ symbol: 'XVS' });
+
+  const readableProposalThreshold =
+    proposalThresholdData && xvs
+      ? convertMantissaToTokens({
+          value: proposalThresholdData.thresholdMantissa,
+          token: xvs,
+          returnInReadableFormat: true,
+          addSymbol: false,
+        })
+      : undefined;
+
   const createProposalEnabled = useIsFeatureEnabled({ name: 'createProposal' });
   const { navigate } = useNavigate();
   const { newProposalStep } = useParams<{
@@ -168,7 +186,10 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
   // User has enough voting weight to create proposal and doesn't currently have an active or
   // pending proposal
   const canCreateProposal =
-    currentVotesData?.votesMantissa.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_MANTISSA) &&
+    !!proposalThresholdData &&
+    !!currentVotesData?.votesMantissa.isGreaterThanOrEqualTo(
+      proposalThresholdData.thresholdMantissa,
+    ) &&
     latestProposalStateData?.state !== 0 &&
     latestProposalStateData?.state !== 1;
 
@@ -190,7 +211,13 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
               {t('vote.createProposalPlus')}
             </TextButton>
 
-            <InfoIcon tooltip={t('vote.requiredVotingPower')} />
+            {!!readableProposalThreshold && (
+              <InfoIcon
+                tooltip={t('vote.requiredVotingPower', {
+                  votingPower: readableProposalThreshold,
+                })}
+              />
+            )}
           </div>
         )}
       </div>

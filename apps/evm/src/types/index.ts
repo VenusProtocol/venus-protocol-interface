@@ -670,7 +670,7 @@ export type VenusVault = BaseVault & {
 
 export type PendleVault = BaseVault & {
   vaultAddress: Address;
-  maturityDate: Date;
+  maturityDate?: Date;
   liquidityCents: BigNumber;
   asset: Asset;
   poolComptrollerContractAddress: Address;

@@ -435,6 +435,9 @@
       "label": "钱包余额"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "统计数据"
+  },
   "chainExplorerLink": {
     "content": "在 {{domainName}} 上查看"
   },
@@ -1145,6 +1148,13 @@
           "liquidationThreshold": "阈值",
           "maxLtv": "最大 LTV"
         }
+      }
+    },
+    "history": {
+      "emptyState": "该时间段暂无历史数据",
+      "errorState": {
+        "failedToFetchMessage": "无法获取市场历史",
+        "refetchButtonLabel": "重试"
       }
     },
     "interestRateModel": {
@@ -2803,7 +2813,7 @@
     },
     "redelegate": "重新委托",
     "redelegateVoting": "重新委托投票",
-    "requiredVotingPower": "你需要拥有 300k 投票权才能创建提案",
+    "requiredVotingPower": "你需要拥有 {{votingPower}} 投票权才能创建提案",
     "searchInput": {
       "placeholder": "搜索提案"
     },

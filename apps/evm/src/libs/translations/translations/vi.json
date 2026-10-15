@@ -435,6 +435,9 @@
       "label": "Số dư ví"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "Thống kê"
+  },
   "chainExplorerLink": {
     "content": "Xem trên {{domainName}}"
   },
@@ -1145,6 +1148,13 @@
           "liquidationThreshold": "Ngưỡng",
           "maxLtv": "LTV tối đa"
         }
+      }
+    },
+    "history": {
+      "emptyState": "Không có lịch sử cho khoảng thời gian này",
+      "errorState": {
+        "failedToFetchMessage": "Không thể lấy lịch sử thị trường",
+        "refetchButtonLabel": "Thử lại"
       }
     },
     "interestRateModel": {
@@ -2803,7 +2813,7 @@
     },
     "redelegate": "Ủy quyền lại",
     "redelegateVoting": "Bỏ phiếu ủy quyền lại",
-    "requiredVotingPower": "Bạn cần có 300k sức mạnh bỏ phiếu để tạo đề xuất",
+    "requiredVotingPower": "Bạn cần có {{votingPower}} sức mạnh bỏ phiếu để tạo đề xuất",
     "searchInput": {
       "placeholder": "Tìm đề xuất"
     },

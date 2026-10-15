@@ -1501,6 +1501,7 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "startBlock_gt": 1,
     },
@@ -1514,6 +1515,7 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "endBlock_gt": 1,
     },
@@ -1527,6 +1529,7 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "canceled_not": null,
     },
@@ -1540,21 +1543,22 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "or": [
         {
           "canceled": null,
           "endBlock_lt": 1,
+          "executed": null,
           "passing": false,
+          "queued": null,
         },
         {
-          "or": [
-            {
-              "canceled": null,
-              "endBlock_lt": 1,
-              "forVotes_lt": "10",
-            },
-          ],
+          "canceled": null,
+          "endBlock_lt": 1,
+          "executed": null,
+          "forVotes_lt": "10",
+          "queued": null,
         },
       ],
     },
@@ -1568,6 +1572,7 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "canceled": null,
       "endBlock_lt": 1,
@@ -1586,6 +1591,7 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "canceled": null,
       "executed": null,
@@ -1602,6 +1608,7 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "canceled": null,
       "executed": null,
@@ -1618,6 +1625,7 @@ exports[`getProposals > sets "where" parameter correctly based on passed "propos
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "executed_not": null,
     },
@@ -1631,6 +1639,7 @@ exports[`getProposals > sets "where" parameter correctly based on passed "search
   "variables": {
     "limit": 10,
     "skip": 0,
+    "totalLimit": 1000,
     "where": {
       "description_contains_nocase": "fake search",
     },

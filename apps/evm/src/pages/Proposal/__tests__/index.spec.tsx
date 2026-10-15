@@ -24,7 +24,6 @@ import {
   useQueueProposal,
   useVote,
 } from 'clients/api';
-import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
@@ -96,7 +95,7 @@ describe('ProposalComp page', () => {
 
     (useGetProposalThreshold as Mock).mockImplementation(() => ({
       data: {
-        thresholdMantissa: CREATE_PROPOSAL_THRESHOLD_MANTISSA,
+        thresholdMantissa: new BigNumber('1000000000000000000000000'),
       },
     }));
 
@@ -569,7 +568,7 @@ describe('ProposalComp page', () => {
   it('does not let user cancel the BSC proposal if voting power of the proposer is greater than or equals threshold', async () => {
     (useGetCurrentVotes as Mock).mockImplementation(() => ({
       data: {
-        votesMantissa: CREATE_PROPOSAL_THRESHOLD_MANTISSA,
+        votesMantissa: new BigNumber('1000000000000000000000000'),
       },
     }));
 

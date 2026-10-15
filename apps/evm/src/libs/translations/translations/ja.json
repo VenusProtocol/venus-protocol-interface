@@ -435,6 +435,9 @@
       "label": "ウォレット残高"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "統計"
+  },
   "chainExplorerLink": {
     "content": "{{domainName}}で表示"
   },
@@ -1145,6 +1148,13 @@
           "liquidationThreshold": "しきい値",
           "maxLtv": "最大LTV"
         }
+      }
+    },
+    "history": {
+      "emptyState": "この期間の履歴はありません",
+      "errorState": {
+        "failedToFetchMessage": "マーケット履歴を取得できませんでした",
+        "refetchButtonLabel": "再試行"
       }
     },
     "interestRateModel": {
@@ -2803,7 +2813,7 @@
     },
     "redelegate": "再委任",
     "redelegateVoting": "再委任投票",
-    "requiredVotingPower": "提案を作成するには30万の投票パワーが必要です",
+    "requiredVotingPower": "提案を作成するには{{votingPower}}の投票パワーが必要です",
     "searchInput": {
       "placeholder": "提案を検索"
     },

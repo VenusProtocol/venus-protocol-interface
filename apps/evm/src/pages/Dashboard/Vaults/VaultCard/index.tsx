@@ -3,6 +3,7 @@ import { type ReactNode, useState } from 'react';
 import type { To } from 'react-router';
 
 import { type CellProps, StatusLabel, TokenIcon, TokenIconWithSymbol } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { InstitutionalVaultModal } from 'containers/VaultCard/InstitutionalVaultModal';
 import { PendleVaultModal } from 'containers/VaultCard/PendleVaultModal';
@@ -100,7 +101,9 @@ export const VaultCard: React.FC<VaultCardProps> = ({ vault, className, to }) =>
 
   if (isPendleVault(vault)) {
     stateEndTitle = t('vault.card.maturityDatePendle');
-    stateEndContent = t('vault.modals.textualDate', { date: vault.maturityDate });
+    stateEndContent = vault.maturityDate
+      ? t('vault.modals.textualDate', { date: vault.maturityDate })
+      : PLACEHOLDER_KEY;
   } else if (isInstitutionalVault(vault)) {
     let label = t('vault.card.maturityDate');
     let date = vault.maturityDate;

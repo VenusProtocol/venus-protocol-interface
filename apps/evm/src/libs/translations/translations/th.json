@@ -435,6 +435,9 @@
       "label": "ยอดคงเหลือในกระเป๋า"
     }
   },
+  "cellGroup": {
+    "ariaLabel": "สถิติ"
+  },
   "chainExplorerLink": {
     "content": "ดูบน {{domainName}}"
   },
@@ -1145,6 +1148,13 @@
           "liquidationThreshold": "เกณฑ์",
           "maxLtv": "LTV สูงสุด"
         }
+      }
+    },
+    "history": {
+      "emptyState": "ไม่มีประวัติสำหรับช่วงเวลานี้",
+      "errorState": {
+        "failedToFetchMessage": "ไม่สามารถดึงประวัติตลาดได้",
+        "refetchButtonLabel": "ลองอีกครั้ง"
       }
     },
     "interestRateModel": {
@@ -2803,7 +2813,7 @@
     },
     "redelegate": "มอบสิทธิ์ใหม่",
     "redelegateVoting": "การโหวตแบบมอบสิทธิ์ใหม่",
-    "requiredVotingPower": "คุณต้องมีพลังโหวต 300k เพื่อสร้างข้อเสนอ",
+    "requiredVotingPower": "คุณต้องมีพลังโหวต {{votingPower}} เพื่อสร้างข้อเสนอ",
     "searchInput": {
       "placeholder": "ค้นหาข้อเสนอ"
     },
