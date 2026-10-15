@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 
-import { useGetAsset, useGetPool } from 'clients/api';
 import { poolData } from '__mocks__/models/pools';
+import { useGetAsset } from 'clients/api';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 
@@ -16,7 +16,10 @@ const asset = pool.assets[0];
 
 const renderMarketLoader = () =>
   renderComponent(
-    <MarketLoader poolComptrollerAddress={pool.comptrollerAddress} vTokenAddress={asset.vToken.address}>
+    <MarketLoader
+      poolComptrollerAddress={pool.comptrollerAddress}
+      vTokenAddress={asset.vToken.address}
+    >
       {() => <div>MARKET CONTENT</div>}
     </MarketLoader>,
   );
