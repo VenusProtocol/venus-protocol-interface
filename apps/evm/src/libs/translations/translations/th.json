@@ -657,6 +657,7 @@
     "walletNotConnected": "ไม่ได้เชื่อมต่อกระเป๋า"
   },
   "errorState": {
+    "buttonLabel": "ลองใหม่",
     "defaultMessage": "เกิดข้อผิดพลาด"
   },
   "footer": {

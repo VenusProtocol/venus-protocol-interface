@@ -657,6 +657,7 @@
     "walletNotConnected": "Ví chưa được kết nối"
   },
   "errorState": {
+    "buttonLabel": "Thử lại",
     "defaultMessage": "Đã xảy ra lỗi"
   },
   "footer": {
