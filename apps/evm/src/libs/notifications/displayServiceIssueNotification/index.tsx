@@ -3,9 +3,7 @@ import type { RestServiceInput } from 'utilities/restService';
 
 import { displayNotification } from '../utilities';
 
-const COOLDOWN_MS = 60000;
-
-let lastDisplayedAtMs: number | undefined;
+let lastDisplayedPagePath: string | undefined;
 
 export interface ServiceIssueDetails extends Pick<RestServiceInput, 'method' | 'endpoint'> {
   status: number;
@@ -13,13 +11,13 @@ export interface ServiceIssueDetails extends Pick<RestServiceInput, 'method' | '
 }
 
 export const displayServiceIssueNotification = (details?: ServiceIssueDetails) => {
-  const nowMs = Date.now();
+  const [pagePath] = window.location.hash.split('?');
 
-  if (lastDisplayedAtMs !== undefined && nowMs - lastDisplayedAtMs < COOLDOWN_MS) {
+  if (pagePath === lastDisplayedPagePath) {
     return;
   }
 
-  lastDisplayedAtMs = nowMs;
+  lastDisplayedPagePath = pagePath;
 
   displayNotification({
     variant: 'error',

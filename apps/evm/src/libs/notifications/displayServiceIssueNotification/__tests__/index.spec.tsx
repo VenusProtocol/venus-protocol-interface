@@ -17,35 +17,44 @@ const details = {
   error: 'Upstream timeout',
 };
 
-let testStartMs = new Date('2026-01-01T00:00:00Z').getTime();
+let testIndex = 0;
 
 describe('displayServiceIssueNotification', () => {
   beforeEach(() => {
-    vi.useFakeTimers();
-    testStartMs += 3600000;
-    vi.setSystemTime(testStartMs);
+    testIndex += 1;
+    window.location.hash = `#/page-${testIndex}`;
     (displayNotification as Mock).mockClear();
   });
 
-  afterEach(() => {
+  it('shows the service issue toast at most once per page, however long the API keeps failing', () => {
+    vi.useFakeTimers();
+
+    displayServiceIssueNotification(details);
+    vi.advanceTimersByTime(3600000);
+    displayServiceIssueNotification(details);
+
+    expect(displayNotification).toHaveBeenCalledTimes(1);
+
     vi.useRealTimers();
   });
 
-  it('shows the service issue toast at most once per minute', () => {
-    displayServiceIssueNotification(details);
-    displayServiceIssueNotification(details);
-
-    expect(displayNotification).toHaveBeenCalledTimes(1);
-
-    vi.advanceTimersByTime(59000);
+  it('shows the service issue toast again after navigating to another page', () => {
     displayServiceIssueNotification(details);
 
-    expect(displayNotification).toHaveBeenCalledTimes(1);
-
-    vi.advanceTimersByTime(1000);
+    window.location.hash = `#/page-${testIndex}-other`;
     displayServiceIssueNotification(details);
 
     expect(displayNotification).toHaveBeenCalledTimes(2);
+  });
+
+  it('treats a search parameter change as the same page', () => {
+    window.location.hash = `#/page-${testIndex}?chainId=56`;
+    displayServiceIssueNotification(details);
+
+    window.location.hash = `#/page-${testIndex}?chainId=56&tab=supply`;
+    displayServiceIssueNotification(details);
+
+    expect(displayNotification).toHaveBeenCalledTimes(1);
   });
 
   it('titles the toast and keeps the request details in a collapsed section', () => {
