@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.36.1
+
+### Patch Changes
+
+- 36f1c52: drop repeated chart axis labels on both axes
+
 ## 5.36.0
 
 ### Minor Changes
