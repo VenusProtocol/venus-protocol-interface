@@ -1,3 +1,4 @@
+import { useGetFixedRatedVaults } from 'clients/api';
 import { InfoIcon, MultiSelect, TextField, type TextFieldProps, Toggle, cn } from 'components';
 import { VaultCard } from 'containers/VaultCard';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -13,9 +14,15 @@ const multiSelectClassName = 'sm:flex-1/3 sm:min-w-45 xl:flex-none';
 
 interface VaultListProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];
+  isUserDataUnavailable?: boolean;
 }
 
-export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) => {
+export const VaultList: FC<VaultListProps> = ({
+  vaults,
+  isUserDataUnavailable = false,
+  className,
+  ...props
+}) => {
   const { t } = useTranslation();
   const {
     categories: filterCategories,
@@ -31,7 +38,7 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
   } = useFilterOptions();
 
   const [{ showArchivedVaults }, setUserChainSettings] = useUserChainSettings();
-  const [nowMs] = useState(() => Date.now());
+  const { dataUpdatedAt } = useGetFixedRatedVaults();
 
   const [search, setSearch] = useState('');
   const onChange: TextFieldProps['onChange'] = e => {
@@ -50,7 +57,8 @@ export const VaultList: FC<VaultListProps> = ({ vaults, className, ...props }) =
       (filterCategories.length === 0 || filterCategories.includes(vault.category)) &&
       (filterVenues.length === 0 || filterVenues.includes(vault.venue)) &&
       (filterStatuses.length === 0 || filterStatuses.includes(vault.status)) &&
-      (showArchivedVaults || !isVaultArchived({ vault, nowMs })) &&
+      (showArchivedVaults ||
+        !isVaultArchived({ vault, nowMs: dataUpdatedAt, isUserDataUnavailable })) &&
       (!search || vault.stakedToken.symbol?.toLowerCase().includes(search?.toLowerCase()))
     );
   });

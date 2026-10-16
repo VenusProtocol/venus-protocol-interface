@@ -154,4 +154,35 @@ describe('isVaultArchived', () => {
       }),
     ).toBe(false);
   });
+
+  it('keeps institutional vaults when the user balances could not be loaded', () => {
+    expect(
+      isVaultArchived({
+        vault: { ...fakeInstitutionalVault, status: VaultStatus.Inactive },
+        nowMs,
+        isUserDataUnavailable: true,
+      }),
+    ).toBe(false);
+    expect(
+      isVaultArchived({
+        vault: {
+          ...fakeInstitutionalVault,
+          status: VaultStatus.Claim,
+          settlementDate: overNinetyDaysAgo,
+        },
+        nowMs,
+        isUserDataUnavailable: true,
+      }),
+    ).toBe(false);
+  });
+
+  it('still archives a long-matured Pendle vault when institutional balances could not be loaded', () => {
+    expect(
+      isVaultArchived({
+        vault: { ...fakePendleVault, status: VaultStatus.Claim, maturityDate: overNinetyDaysAgo },
+        nowMs,
+        isUserDataUnavailable: true,
+      }),
+    ).toBe(true);
+  });
 });

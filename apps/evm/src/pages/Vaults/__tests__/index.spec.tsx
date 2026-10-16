@@ -11,7 +11,7 @@ import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { renderComponent } from 'testUtils/render';
 import { ChainId, type InstitutionalVault, VaultStatus } from 'types';
 
-import { useGetVaults } from 'clients/api';
+import { useGetFixedRatedVaults, useGetVaults } from 'clients/api';
 
 import VaultsPage from '..';
 
@@ -54,6 +54,12 @@ describe('Vaults', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2026-04-05T00:00:00.000Z'));
+
+    (useGetFixedRatedVaults as Mock).mockImplementation(() => ({
+      data: [],
+      isLoading: false,
+      dataUpdatedAt: Date.now(),
+    }));
 
     (useGetVaults as Mock).mockImplementation(() => ({
       data: fakeVaults,
@@ -602,6 +608,51 @@ describe('Vaults', () => {
 
       expect(getByRole('checkbox')).toBeChecked();
       expect(getByText(closedVaultTitle, { selector: titleSelector })).toBeInTheDocument();
+    });
+
+    it('keeps a closed vault visible when the user balances could not be loaded', () => {
+      (useGetVaults as Mock).mockImplementation(() => ({
+        data: [closedVault, ...venusVaults],
+        isLoading: false,
+        isUserDataUnavailable: true,
+      }));
+
+      const { getByText } = renderComponent(<VaultsPage />);
+
+      expect(getByText(closedVaultTitle, { selector: titleSelector })).toBeInTheDocument();
+    });
+
+    it('re-evaluates the 90-day cutoff when the vault list data refreshes', () => {
+      const claimSince = new Date('2026-01-01T00:00:00.000Z');
+      const claimVault: InstitutionalVault = {
+        ...closedVault,
+        status: VaultStatus.Claim,
+        settlementDate: claimSince,
+      };
+      const ninetyDaysMs = 90 * 24 * 60 * 60 * 1000;
+
+      (useGetVaults as Mock).mockImplementation(() => ({
+        data: [claimVault, ...venusVaults],
+        isLoading: false,
+      }));
+      (useGetFixedRatedVaults as Mock).mockImplementation(() => ({
+        data: [],
+        isLoading: false,
+        dataUpdatedAt: claimSince.getTime() + ninetyDaysMs - 1000,
+      }));
+
+      const { queryByText, rerender } = renderComponent(<VaultsPage />);
+
+      expect(queryByText(closedVaultTitle, { selector: titleSelector })).toBeInTheDocument();
+
+      (useGetFixedRatedVaults as Mock).mockImplementation(() => ({
+        data: [],
+        isLoading: false,
+        dataUpdatedAt: claimSince.getTime() + ninetyDaysMs + 1000,
+      }));
+      rerender(<VaultsPage />);
+
+      expect(queryByText(closedVaultTitle, { selector: titleSelector })).not.toBeInTheDocument();
     });
 
     it('combines with the state filter and keeps its value when filters are reset', () => {

@@ -26,8 +26,16 @@ const userHasFunds = (vault: Vault) =>
   (isInstitutionalVault(vault) &&
     (vault.userRedeemLimitMantissa.gt(0) || vault.userWithdrawLimitMantissa.gt(0)));
 
-export const isVaultArchived = ({ vault, nowMs }: { vault: Vault; nowMs: number }) => {
-  if (userHasFunds(vault)) {
+export const isVaultArchived = ({
+  vault,
+  nowMs,
+  isUserDataUnavailable = false,
+}: {
+  vault: Vault;
+  nowMs: number;
+  isUserDataUnavailable?: boolean;
+}) => {
+  if (userHasFunds(vault) || (isUserDataUnavailable && isInstitutionalVault(vault))) {
     return false;
   }
 
