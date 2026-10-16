@@ -77,7 +77,7 @@ describe('SectionErrorBoundary', () => {
     expect(queryByText(en.errorState.defaultMessage)).not.toBeInTheDocument();
   });
 
-  it('recovers when it is re-keyed, which is how the layout clears a crash on route change', () => {
+  it('recovers when it is re-keyed', () => {
     const { queryByText, rerender } = renderComponent(
       <SectionErrorBoundary key="/markets">
         <Boom shouldThrow />
