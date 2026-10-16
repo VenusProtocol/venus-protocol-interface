@@ -536,6 +536,7 @@
         "tooltipWithVai": "Net available assets after accounting for vault supply, borrowings, and minted VAI"
       },
       "performanceChart": {
+        "emptyState": "No account history yet",
         "errorState": {
           "failedToFetchMessage": "Could not fetch account history",
           "refetchButtonLabel": "Retry"
@@ -658,6 +659,7 @@
     "walletNotConnected": "Wallet not connected"
   },
   "errorState": {
+    "buttonLabel": "Retry",
     "defaultMessage": "An error occurred"
   },
   "footer": {

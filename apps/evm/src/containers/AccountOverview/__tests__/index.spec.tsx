@@ -1,10 +1,13 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { vaults } from '__mocks__/models/vaults';
+import { useGetVaults } from 'clients/api';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import * as storeModule from 'store';
 import { renderComponent } from 'testUtils/render';
+import type { Mock } from 'vitest';
 import { AccountOverview } from '..';
 import { testIds } from '../testIds';
 
@@ -90,5 +93,25 @@ describe('AccountOverview', () => {
         },
       ]
     `);
+  });
+
+  it('holds back the account figures until both balance queries have settled', async () => {
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: true, data: undefined }));
+
+    const { queryByText, rerender } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      { accountAddress: fakeAccountAddress },
+    );
+
+    await waitFor(() =>
+      expect(queryByText(en.dashboard.overview.netWorth.label)).toBeInTheDocument(),
+    );
+    expect(queryByText('$1.23M')).not.toBeInTheDocument();
+
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: vaults }));
+
+    rerender(<AccountOverview accountAddress={fakeAccountAddress} />);
+
+    await waitFor(() => expect(queryByText('$1.23M')).toBeInTheDocument());
   });
 });

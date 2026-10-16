@@ -535,6 +535,7 @@
         "tooltipWithVai": "在计入金库供应、借款和已铸 VAI 后可用的净资产"
       },
       "performanceChart": {
+        "emptyState": "暂无账户历史",
         "errorState": {
           "failedToFetchMessage": "无法获取账户历史记录",
           "refetchButtonLabel": "重试"
@@ -657,6 +658,7 @@
     "walletNotConnected": "钱包未连接"
   },
   "errorState": {
+    "buttonLabel": "重试",
     "defaultMessage": "发生错误"
   },
   "footer": {
