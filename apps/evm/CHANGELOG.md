@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.36.0
+
+### Minor Changes
+
+- aedae04: stop calling the retired address authentication endpoint
+
 ## 5.35.4
 
 ### Patch Changes
