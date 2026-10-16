@@ -6,8 +6,7 @@ const isSafeInteger = (literal: string) => {
   return parsedLiteral <= MAX_SAFE_INTEGER && parsedLiteral >= -MAX_SAFE_INTEGER;
 };
 
-// JSON.parse turns every number into a float, so integers wider than 2^53 come
-// back rounded. Quoting them before parsing keeps their digits intact.
+// Quoted so JSON.parse cannot round them to a float
 export const quoteUnsafeIntegers = (value: string) => {
   let output = '';
   let index = 0;
