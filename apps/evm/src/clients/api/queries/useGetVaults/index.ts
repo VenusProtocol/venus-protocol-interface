@@ -8,6 +8,7 @@ import { useGetVestingVaults } from './useGetVestingVaults';
 export interface UseGetVaultsOutput {
   isLoading: boolean;
   data: Vault[];
+  isUserDataUnavailable: boolean;
 }
 
 export const useGetVaults = ({
@@ -21,8 +22,11 @@ export const useGetVaults = ({
     accountAddress,
   });
 
-  const { data: fixedRatedVaults, isLoading: isVaultProductsLoading } =
-    useGetFormattedFixedRatedVaults();
+  const {
+    data: fixedRatedVaults,
+    isLoading: isVaultProductsLoading,
+    isUserDataUnavailable,
+  } = useGetFormattedFixedRatedVaults();
 
   const data = [
     ...(fixedRatedVaults ?? []),
@@ -35,5 +39,6 @@ export const useGetVaults = ({
   return {
     data,
     isLoading,
+    isUserDataUnavailable,
   };
 };

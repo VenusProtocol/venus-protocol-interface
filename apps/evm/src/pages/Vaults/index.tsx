@@ -9,7 +9,11 @@ import { useResetFiltersOnChainChange } from './hooks/useResetFiltersOnChainChan
 const VaultsPage: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
-  const { data: vaults, isLoading: isGetVaultsLoading } = useGetVaults({
+  const {
+    data: vaults,
+    isLoading: isGetVaultsLoading,
+    isUserDataUnavailable,
+  } = useGetVaults({
     accountAddress,
   });
 
@@ -27,7 +31,11 @@ const VaultsPage: React.FC = () => {
   return (
     <Page>
       {/* Remounting on chain change also clears the search field, which VaultList owns */}
-      <VaultList key={chainId} vaults={sortedVaults} />
+      <VaultList
+        key={chainId}
+        vaults={sortedVaults}
+        isUserDataUnavailable={isUserDataUnavailable}
+      />
     </Page>
   );
 };
