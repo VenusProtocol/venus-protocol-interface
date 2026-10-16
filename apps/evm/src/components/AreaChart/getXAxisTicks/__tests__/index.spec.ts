@@ -2,7 +2,6 @@ import { getXAxisTicks } from '..';
 
 describe('getXAxisTicks', () => {
   it('drops ticks that would repeat the label of an earlier one', () => {
-    // A short history puts several ticks on the same day
     const data = [{ t: 1 }, { t: 2 }, { t: 3 }, { t: 4 }, { t: 5 }];
     const formatValue = (t: number) => `day-${Math.ceil(t / 2)}`;
 
