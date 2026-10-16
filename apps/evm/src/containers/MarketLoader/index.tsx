@@ -49,8 +49,7 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
     return <Redirect to={marketsPagePath} />;
   }
 
-  // Markets failing to load is not the same as an unknown market, so offer a
-  // retry instead of redirecting away from the page
+  // A failed request is not an unknown market
   if (hasAssetError) {
     return (
       <ErrorState
