@@ -535,6 +535,7 @@
         "tooltipWithVai": "สินทรัพย์สุทธิที่พร้อมใช้งานหลังจากคำนึงถึงการฝากในวอลต์ การยืม และการมินต์ VAI"
       },
       "performanceChart": {
+        "emptyState": "ยังไม่มีประวัติบัญชี",
         "errorState": {
           "failedToFetchMessage": "ไม่สามารถดึงประวัติบัญชีได้",
           "refetchButtonLabel": "ลองอีกครั้ง"

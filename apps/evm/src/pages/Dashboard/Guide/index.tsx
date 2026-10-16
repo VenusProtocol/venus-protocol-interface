@@ -7,7 +7,7 @@ import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useStore } from 'store';
 import { StepCard, type StepCardProps } from './StepCard';
 
@@ -39,14 +39,24 @@ export const Guide: React.FC = () => {
   const [userChainSettings] = useUserChainSettings();
   const setUserSettings = useStore(state => state.setUserSettings);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  const isLoading = isGetPoolLoading || isGetVaultsLoading;
+  const hasStoredInitialSetting = useRef(false);
+
+  // The positions are only known once both queries settle, so the initial setting waits for them.
+  // It is stored once, otherwise a refetch would undo the user collapsing or expanding the guide.
   useEffect(() => {
+    if (isLoading || hasStoredInitialSetting.current) {
+      return;
+    }
+
+    hasStoredInitialSetting.current = true;
+
     setUserSettings({
       settings: {
         doNotExpandGuide: isUserSupplying || isUserBorrowing || isUserStakingInXvsVault,
       },
     });
-  }, []);
+  }, [isLoading, isUserSupplying, isUserBorrowing, isUserStakingInXvsVault, setUserSettings]);
 
   const toggleCollapseItems = () =>
     setUserSettings({
@@ -75,8 +85,6 @@ export const Guide: React.FC = () => {
       to: routes.vaults.path,
     },
   ];
-
-  const isLoading = isGetPoolLoading || isGetVaultsLoading;
 
   // Render nothing if user has already completed all the steps
   if (isLoading || !steps.some(step => !step.isCompleted) || !accountAddress) {

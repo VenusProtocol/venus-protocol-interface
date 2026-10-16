@@ -76,7 +76,8 @@ export const Dashboard: React.FC = () => {
       title: t('account.tabs.markets'),
       id: 'pools',
       content: (
-        <SectionErrorBoundary className="my-10">
+        // Keyed on the tab so a tab that throws does not keep the next one from rendering
+        <SectionErrorBoundary className="my-10" key="pools">
           {isGetPoolLoading ? <Spinner /> : pool && <Markets pool={pool} />}
         </SectionErrorBoundary>
       ),
@@ -85,7 +86,7 @@ export const Dashboard: React.FC = () => {
       title: t('account.tabs.vaults'),
       id: 'vaults',
       content: (
-        <SectionErrorBoundary className="my-10">
+        <SectionErrorBoundary className="my-10" key="vaults">
           {isGetVaultsLoading ? <Spinner /> : <Vaults vaults={vaults} />}
         </SectionErrorBoundary>
       ),
@@ -97,7 +98,7 @@ export const Dashboard: React.FC = () => {
       title: t('account.tabs.hubs'),
       id: 'hub',
       content: (
-        <SectionErrorBoundary className="my-10">
+        <SectionErrorBoundary className="my-10" key="hub">
           {isGetLiquidityHubsLoading ? <Spinner /> : <Hubs liquidityHubs={liquidityHubs} />}
         </SectionErrorBoundary>
       ),
@@ -109,7 +110,7 @@ export const Dashboard: React.FC = () => {
       title: t('account.tabs.transactions'),
       id: 'transactions',
       content: (
-        <SectionErrorBoundary className="my-10">
+        <SectionErrorBoundary className="my-10" key="transactions">
           <Transactions />
         </SectionErrorBoundary>
       ),

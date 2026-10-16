@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
@@ -6,6 +7,7 @@ import { poolData } from '__mocks__/models/pools';
 import { xvs } from '__mocks__/models/tokens';
 import { vaults } from '__mocks__/models/vaults';
 import { useGetPool, useGetVaults } from 'clients/api';
+import { useStore } from 'store';
 import { renderComponent } from 'testUtils/render';
 import type { Pool, Vault } from 'types';
 import { Guide } from '..';
@@ -79,5 +81,58 @@ describe('Guide', () => {
     });
 
     expect(container.textContent).toMatchSnapshot();
+  });
+
+  it('waits for both queries before storing the initial collapsed setting', async () => {
+    const setUserSettingsMock = vi.spyOn(useStore.getState(), 'setUserSettings');
+    setUserSettingsMock.mockClear();
+
+    // Both queries still loading: the positions are unknown, so nothing may be stored yet
+    (useGetPool as Mock).mockImplementation(() => ({ isLoading: true, data: undefined }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: true, data: undefined }));
+
+    const { rerender } = renderComponent(<Guide />, { accountAddress: fakeAccountAddress });
+
+    expect(setUserSettingsMock).not.toHaveBeenCalled();
+
+    // The data arrives and shows the user does hold a position
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: {
+          ...poolData[0],
+          userSupplyBalanceCents: new BigNumber(2000),
+          userBorrowBalanceCents: new BigNumber(0),
+        },
+      },
+    }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
+
+    rerender(<Guide />);
+
+    await waitFor(() => expect(setUserSettingsMock).toHaveBeenCalledTimes(1));
+    expect(setUserSettingsMock).toHaveBeenCalledWith({
+      settings: { doNotExpandGuide: true },
+    });
+  });
+
+  it('stores the setting only once, so a refetch does not undo the user collapsing the guide', async () => {
+    const setUserSettingsMock = vi.spyOn(useStore.getState(), 'setUserSettings');
+    setUserSettingsMock.mockClear();
+
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: { pool: { ...poolData[0], userSupplyBalanceCents: new BigNumber(0) } },
+    }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
+
+    const { rerender } = renderComponent(<Guide />, { accountAddress: fakeAccountAddress });
+
+    await waitFor(() => expect(setUserSettingsMock).toHaveBeenCalledTimes(1));
+
+    rerender(<Guide />);
+    rerender(<Guide />);
+
+    expect(setUserSettingsMock).toHaveBeenCalledTimes(1);
   });
 });

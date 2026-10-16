@@ -2,6 +2,7 @@ import { startOfDay } from 'date-fns/startOfDay';
 import { VError } from 'libs/errors';
 import { restService } from 'utilities';
 import { formatDataPoints } from './formatDataPoints';
+import { isStartOfDayDataPoint } from './isStartOfDayDataPoint';
 import type {
   AccountPerformanceHistoryApiResponse,
   GetAccountPerformanceHistoryInput,
@@ -65,14 +66,12 @@ export const getAccountPerformanceHistory = async ({
     dataPoints: netWorthToday.data.performanceDataPoints,
   });
 
-  // The endpoint is asked for the start of the day and for now, but it drops either point when it
-  // cannot read that part of the history. Matching on the timestamp rather than on the position
-  // keeps a lone "now" point from being read as the start of the day.
-  const isStartOfDayDataPoint = ({ blockTimestampMs }: (typeof netWorthDataPoints)[number]) =>
-    Math.abs(blockTimestampMs - startOfDayMs) < Math.abs(blockTimestampMs - nowMs);
-
-  const startOfDayDataPoint = netWorthDataPoints.find(isStartOfDayDataPoint);
-  const currentDataPoint = netWorthDataPoints.find(dataPoint => !isStartOfDayDataPoint(dataPoint));
+  const startOfDayDataPoint = netWorthDataPoints.find(dataPoint =>
+    isStartOfDayDataPoint({ dataPoint, startOfDayMs, nowMs }),
+  );
+  const currentDataPoint = netWorthDataPoints.find(
+    dataPoint => !isStartOfDayDataPoint({ dataPoint, startOfDayMs, nowMs }),
+  );
 
   return {
     performanceHistory: currentDataPoint

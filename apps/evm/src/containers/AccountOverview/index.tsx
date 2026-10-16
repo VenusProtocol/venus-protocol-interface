@@ -126,6 +126,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     data: getAccountPerformanceHistoryData,
     refetch: refetchAccountPerformanceHistoryData,
     error: getAccountPerformanceHistoryError,
+    isLoading: isGetAccountPerformanceHistoryLoading,
   } = useGetAccountPerformanceHistory(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
@@ -363,6 +364,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
                 accountPerformanceHistory={accountPerformanceHistory}
                 onRefetch={refetchAccountPerformanceHistoryData}
                 error={getAccountPerformanceHistoryError ?? undefined}
+                isLoading={isGetAccountPerformanceHistoryLoading}
                 className="shrink-0"
               />
             </div>

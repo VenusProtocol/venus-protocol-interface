@@ -535,6 +535,7 @@
         "tooltipWithVai": "ボールト供給、借入、ミント済みVAIを考慮した利用可能な純資産"
       },
       "performanceChart": {
+        "emptyState": "アカウント履歴はまだありません",
         "errorState": {
           "failedToFetchMessage": "アカウント履歴を取得できませんでした",
           "refetchButtonLabel": "再試行"

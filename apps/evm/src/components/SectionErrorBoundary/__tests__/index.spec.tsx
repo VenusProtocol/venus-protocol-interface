@@ -100,4 +100,28 @@ describe('SectionErrorBoundary', () => {
     expect(queryByText('subtree content')).toBeInTheDocument();
     expect(queryByText(en.errorState.defaultMessage)).not.toBeInTheDocument();
   });
+
+  it('does not carry its error into a sibling that takes its place, when each is keyed', () => {
+    // Mirrors the dashboard tabs: one slot, one boundary element per tab
+    const renderTab = (tabId: string) =>
+      tabId === 'broken' ? (
+        <SectionErrorBoundary key="broken">
+          <Boom shouldThrow />
+        </SectionErrorBoundary>
+      ) : (
+        <SectionErrorBoundary key="healthy">
+          <Boom shouldThrow={false} />
+        </SectionErrorBoundary>
+      );
+
+    const { queryByText, rerender } = renderComponent(<div>{renderTab('broken')}</div>);
+
+    expect(queryByText(en.errorState.defaultMessage)).toBeInTheDocument();
+
+    // Switching tabs must show the healthy tab, not the previous tab's error
+    rerender(<div>{renderTab('healthy')}</div>);
+
+    expect(queryByText('subtree content')).toBeInTheDocument();
+    expect(queryByText(en.errorState.defaultMessage)).not.toBeInTheDocument();
+  });
 });
