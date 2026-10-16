@@ -42,7 +42,7 @@ describe('WithdrawFromVaiVaultForm', () => {
     expect(
       screen.getByRole('button', { name: en.connectWallet.connectButton }),
     ).toBeInTheDocument();
-    expect(screen.queryByRole('spinbutton')).not.toBeInTheDocument();
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
 
     expect(useGetVaiVaultUserInfo).toHaveBeenCalledWith(
       {

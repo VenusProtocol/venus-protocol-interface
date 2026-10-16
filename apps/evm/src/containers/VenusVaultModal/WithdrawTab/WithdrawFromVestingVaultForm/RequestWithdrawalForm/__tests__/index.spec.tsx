@@ -164,7 +164,7 @@ describe('RequestWithdrawalForm', () => {
 
     renderRequestWithdrawalForm();
 
-    fireEvent.change(screen.getByRole('spinbutton'), {
+    fireEvent.change(screen.getByRole('textbox'), {
       target: { value: '40' },
     });
 
@@ -184,7 +184,7 @@ describe('RequestWithdrawalForm', () => {
       displayWithdrawalRequestList,
     });
 
-    fireEvent.change(screen.getByRole('spinbutton'), {
+    fireEvent.change(screen.getByRole('textbox'), {
       target: { value: '25' },
     });
 

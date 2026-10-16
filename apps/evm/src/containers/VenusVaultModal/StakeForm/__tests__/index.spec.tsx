@@ -58,7 +58,7 @@ describe('StakeForm', () => {
         name: en.connectWallet.connectButton,
       }),
     ).toBeInTheDocument();
-    expect(queryByRole('spinbutton')).not.toBeInTheDocument();
+    expect(queryByRole('textbox')).not.toBeInTheDocument();
 
     expect(useGetBalanceOf).toHaveBeenCalledWith(
       {
@@ -111,7 +111,7 @@ describe('StakeForm', () => {
       },
     );
 
-    fireEvent.change(getByRole('spinbutton'), {
+    fireEvent.change(getByRole('textbox'), {
       target: { value: '101' },
     });
 
@@ -133,7 +133,7 @@ describe('StakeForm', () => {
       },
     );
 
-    fireEvent.change(getByRole('spinbutton'), {
+    fireEvent.change(getByRole('textbox'), {
       target: { value: '11' },
     });
 

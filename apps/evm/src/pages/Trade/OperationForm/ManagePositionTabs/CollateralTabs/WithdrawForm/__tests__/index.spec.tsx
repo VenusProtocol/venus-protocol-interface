@@ -195,7 +195,7 @@ describe('WithdrawForm', () => {
     });
 
     await waitFor(() => {
-      expect(dsaAmountInput).toHaveValue(null);
+      expect(dsaAmountInput).toHaveValue('');
     });
   });
 

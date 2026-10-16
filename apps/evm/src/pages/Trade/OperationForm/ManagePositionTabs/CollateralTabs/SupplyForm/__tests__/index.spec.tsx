@@ -180,7 +180,7 @@ describe('SupplyForm', () => {
     });
 
     await waitFor(() => {
-      expect(dsaAmountInput).toHaveValue(null);
+      expect(dsaAmountInput).toHaveValue('');
     });
   });
 });

@@ -1,6 +1,7 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
+import { useState } from 'react';
 
 import { xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
@@ -102,5 +103,83 @@ describe('TokenTextField', () => {
 
     // Check onClick prop of max button was called
     expect(onMaxButtonClickMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('reads a decimal comma as a decimal point instead of dropping it', async () => {
+    const onChangeMock = vi.fn();
+    const { getByTestId } = renderComponent(
+      <TokenTextField token={xvs} onChange={onChangeMock} value="" data-testid={testId} />,
+    );
+
+    const input = getByTestId(testId) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '1,5' } });
+
+    expect(onChangeMock).toHaveBeenCalledWith('1.5');
+  });
+
+  it.each(['1e3', '1e', 'abc', '1.2.3', '1+3', '-1'])(
+    'refuses %s, which a number input would have accepted or mangled',
+    async invalidValue => {
+      const onChangeMock = vi.fn();
+      const { getByTestId } = renderComponent(
+        <TokenTextField token={xvs} onChange={onChangeMock} value="" data-testid={testId} />,
+      );
+
+      fireEvent.change(getByTestId(testId), { target: { value: invalidValue } });
+
+      expect(onChangeMock).not.toHaveBeenCalled();
+    },
+  );
+
+  it('still prefixes a leading decimal point with a zero', async () => {
+    const onChangeMock = vi.fn();
+    const { getByTestId } = renderComponent(
+      <TokenTextField token={xvs} onChange={onChangeMock} value="" data-testid={testId} />,
+    );
+
+    fireEvent.change(getByTestId(testId), { target: { value: '.5' } });
+
+    expect(onChangeMock).toHaveBeenCalledWith('0.5');
+  });
+
+  it('still refuses a value above max', async () => {
+    const onChangeMock = vi.fn();
+    const { getByTestId } = renderComponent(
+      <TokenTextField token={xvs} onChange={onChangeMock} value="" max="10" data-testid={testId} />,
+    );
+
+    const input = getByTestId(testId);
+
+    fireEvent.change(input, { target: { value: '11' } });
+    expect(onChangeMock).not.toHaveBeenCalled();
+
+    fireEvent.change(input, { target: { value: '9' } });
+    expect(onChangeMock).toHaveBeenCalledWith('9');
+  });
+
+  it('shows a decimal keypad on mobile', async () => {
+    const { getByTestId } = renderComponent(
+      <TokenTextField token={xvs} onChange={noop} value="" data-testid={testId} />,
+    );
+
+    expect(getByTestId(testId)).toHaveAttribute('inputmode', 'decimal');
+  });
+
+  it('keeps the caret where the user was when a comma is converted mid-amount', async () => {
+    const Controlled = () => {
+      const [value, setValue] = useState('12');
+
+      return <TokenTextField token={xvs} onChange={setValue} value={value} data-testid={testId} />;
+    };
+
+    const { getByTestId } = renderComponent(<Controlled />);
+
+    const input = getByTestId(testId) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '1,2', selectionStart: 2 } });
+
+    await waitFor(() => expect(input).toHaveValue('1.2'));
+    expect(input.selectionStart).toBe(2);
   });
 });
