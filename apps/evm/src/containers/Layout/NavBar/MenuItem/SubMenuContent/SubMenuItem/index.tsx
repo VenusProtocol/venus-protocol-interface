@@ -2,8 +2,8 @@ import { cn } from '@venusprotocol/ui';
 
 import { Icon } from 'components';
 import { Link } from 'containers/Link';
-import { useTranslation } from 'libs/translations';
 import { matchPath, useLocation } from 'react-router';
+import { MenuIcon } from '../../../MenuIcon';
 import { Tag } from '../../../Tag';
 import type { MenuItem, SubMenu } from '../../../types';
 
@@ -19,12 +19,11 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
   description,
   imgSrc,
   iconName,
+  menuIconName,
   tagLabel,
   onClick,
   variant,
 }) => {
-  const { t } = useTranslation();
-
   const { pathname } = useLocation();
 
   const isActive = to && !!matchPath(to, pathname);
@@ -35,21 +34,33 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
     <Link
       {...linkNavProps}
       onClick={onClick}
+      data-nav-item
       className={cn(
-        'block py-3 space-y-6 rounded-lg group transition-colors hover:no-underline',
-        variant === 'secondary' ? 'px-6' : 'px-4 bg-background-active hover:bg-background-hover',
-        isActive && variant === 'primary' && 'bg-background-hover',
+        'block rounded-lg group transition-colors hover:no-underline',
+        variant === 'secondary'
+          ? 'p-2 hover:bg-dark-blue-active focus-visible:bg-dark-blue-active'
+          : 'py-3 px-4 bg-background-active hover:bg-background-hover',
+        isActive && (variant === 'secondary' ? 'bg-dark-blue-active' : 'bg-background-hover'),
       )}
     >
       <div className="flex gap-x-3">
-        {(iconName || imgSrc) && (
+        {(iconName || imgSrc || menuIconName) && (
           <div
             className={cn(
-              'rounded-lg size-12 shrink-0 flex items-center justify-center',
+              'rounded-lg shrink-0 flex items-center justify-center',
+              variant === 'secondary' ? 'size-10' : 'size-12',
               !!iconName && 'bg-dark-blue',
+              !!menuIconName && menuIconName !== 'core' && 'nav-icon-glint',
             )}
           >
-            {iconName ? (
+            {menuIconName ? (
+              <MenuIcon
+                name={menuIconName}
+                aria-label={label}
+                role="img"
+                className={variant === 'secondary' ? 'size-10' : 'size-12'}
+              />
+            ) : iconName ? (
               <Icon
                 name={iconName}
                 className={cn(
@@ -58,16 +69,20 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
                 )}
               />
             ) : (
-              <img src={imgSrc} alt={label} className="size-12" />
+              <img
+                src={imgSrc}
+                alt={label}
+                className={variant === 'secondary' ? 'size-10' : 'size-12'}
+              />
             )}
           </div>
         )}
 
-        <div className="flex flex-col">
+        <div className={cn('flex flex-col', variant === 'secondary' && 'w-52 shrink-0')}>
           <div className="flex items-center gap-x-2">
             <p
               className={cn(
-                'font-semibold',
+                variant === 'secondary' ? 'text-p3s' : 'font-semibold',
                 iconName
                   ? 'text-light-grey transition-colors group-hover:text-white'
                   : 'text-white',
@@ -80,20 +95,13 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
             {!!tagLabel && <Tag>{tagLabel}</Tag>}
           </div>
 
-          {!!description && <p className="text-light-grey text-xs">{description}</p>}
+          {!!description && (
+            <p className={cn('text-light-grey', variant === 'secondary' ? 'text-b2r' : 'text-xs')}>
+              {description}
+            </p>
+          )}
         </div>
       </div>
-
-      {variant === 'secondary' && (
-        <div
-          className={cn(
-            'rounded-lg border border-dark-blue-active text-white inline-block px-3 py-2 transition-colors group-hover:bg-dark-blue-active',
-            isActive && 'bg-dark-blue-active',
-          )}
-        >
-          {t('layout.menu.subMenuItem.button.label')}
-        </div>
-      )}
     </Link>
   );
 };

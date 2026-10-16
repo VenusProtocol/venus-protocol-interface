@@ -9,14 +9,20 @@ export const formatToMarketTxEvents = ({
   transaction,
   Trans,
 }: { transaction: MarketTx; Trans: TransComponent }) => {
-  const { amounts, txType, poolName, vToken } = transaction;
+  const { amounts, txType, poolName, vToken, isSpokeLoanMarket } = transaction;
   const primaryAmount = amounts?.[0];
   const token = primaryAmount?.token || vToken.underlyingToken;
 
   const title = (() => {
     switch (txType) {
       case 'enterMarket':
-        return (
+        return isSpokeLoanMarket ? (
+          <Trans
+            i18nKey="account.transactions.txText.enterLoanMarket"
+            components={{ Styled: <span className="text-green" /> }}
+            values={{ vTokenSymbol: token.symbol }}
+          />
+        ) : (
           <Trans
             i18nKey="account.transactions.txText.enterMarket"
             components={{ Styled: <span className="text-green" /> }}
@@ -24,7 +30,13 @@ export const formatToMarketTxEvents = ({
           />
         );
       case 'exitMarket':
-        return (
+        return isSpokeLoanMarket ? (
+          <Trans
+            i18nKey="account.transactions.txText.exitLoanMarket"
+            components={{ Styled: <span className="text-red" /> }}
+            values={{ vTokenSymbol: token.symbol }}
+          />
+        ) : (
           <Trans
             i18nKey="account.transactions.txText.exitMarket"
             components={{ Styled: <span className="text-red" /> }}

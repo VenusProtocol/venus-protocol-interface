@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { useTranslation } from 'libs/translations';
-import type { SpokeAsset, SpokePool } from 'types';
+import type { SpokeAsset, SpokePool, TokenAction } from 'types';
 
 import { BorrowedTable } from './BorrowedTable';
 import { SummaryRow } from './SummaryRow';
@@ -21,11 +21,11 @@ export const SpokePositions: React.FC<SpokePositionsProps> = ({ spokePool }) => 
   const { t } = useTranslation();
   const [selectedRow, setSelectedRow] = useState<SelectedRow>();
 
-  const collaterals = spokePool.assets.filter(
-    asset => !asset.isBorrowable && asset.userSupplyBalanceTokens.isGreaterThan(0),
+  const collaterals = spokePool.assets.filter(asset =>
+    asset.userSupplyBalanceTokens.isGreaterThan(0),
   );
-  const loanAssets = spokePool.assets.filter(
-    asset => asset.isBorrowable && asset.userBorrowBalanceTokens.isGreaterThan(0),
+  const loanAssets = spokePool.assets.filter(asset =>
+    asset.userBorrowBalanceTokens.isGreaterThan(0),
   );
 
   const firstLoanAsset = spokePool.assets.find(({ isBorrowable }) => isBorrowable);
@@ -33,9 +33,13 @@ export const SpokePositions: React.FC<SpokePositionsProps> = ({ spokePool }) => 
   const handleClose = () => setSelectedRow(undefined);
 
   // The flow asks whether that side is paused, not whether the whole market is
+  const pausedActions: TokenAction[] = selectedRow?.isCollateral
+    ? ['supply', 'enterMarket']
+    : ['borrow'];
+
   const isSelectedRowPaused =
     !!selectedRow &&
-    selectedRow.asset.disabledTokenActions.includes(selectedRow.isCollateral ? 'supply' : 'borrow');
+    pausedActions.some(action => selectedRow.asset.disabledTokenActions.includes(action));
 
   return (
     <div className="space-y-6">

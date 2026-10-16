@@ -33,6 +33,7 @@ export const liquidityHubs: LiquidityHub[] = [
     redeemFeePercentage: new BigNumber(1),
     pricePerShare: new BigNumber(1.06),
     supplierCount: 124,
+    isPaused: false,
     yieldGroups: [xvsCoreYieldGroup, xvsFluxYieldGroup],
     supplyTokenDistributions: [
       {
@@ -66,6 +67,7 @@ export const liquidityHubs: LiquidityHub[] = [
     redeemFeePercentage: new BigNumber(0),
     pricePerShare: new BigNumber(1.02),
     supplierCount: 289,
+    isPaused: false,
     yieldGroups: [usdcCoreYieldGroup, usdcFluxYieldGroup],
     supplyTokenDistributions: [
       {
@@ -99,6 +101,7 @@ export const liquidityHubs: LiquidityHub[] = [
     redeemFeePercentage: new BigNumber(1.2),
     pricePerShare: new BigNumber(1.03),
     supplierCount: 198,
+    isPaused: false,
     yieldGroups: [usdtCoreYieldGroup, usdtFluxYieldGroup, usdtCentrifugeYieldGroup],
     supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(1800),
@@ -124,6 +127,7 @@ export const liquidityHubs: LiquidityHub[] = [
     redeemFeePercentage: new BigNumber(0),
     pricePerShare: new BigNumber(1.01),
     supplierCount: 164,
+    isPaused: false,
     yieldGroups: [busdCoreYieldGroup, busdFluxYieldGroup],
     supplyTokenDistributions: [],
     userWalletBalanceTokens: new BigNumber(3200),

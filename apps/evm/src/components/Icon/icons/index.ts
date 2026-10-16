@@ -112,3 +112,4 @@ export { default as hub } from './hub';
 export { default as vaultArrowUp } from './vaultArrowUp';
 export { default as vaultArrowDown } from './vaultArrowDown';
 export { default as vaultArrowUpDown } from './vaultArrowUpDown';
+export { default as externalLink } from './externalLink';

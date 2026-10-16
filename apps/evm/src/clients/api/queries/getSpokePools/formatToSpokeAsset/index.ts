@@ -1,0 +1,182 @@
+import BigNumber from 'bignumber.js';
+
+import { NULL_ADDRESS } from 'constants/address';
+import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
+import type { ApiTokenPrice, ChainId, SpokeAsset, Token, TokenBalance, VToken } from 'types';
+import {
+  areAddressesEqual,
+  convertDollarsToCents,
+  convertFactorFromSmartContract,
+  convertMantissaToTokens,
+  convertPercentageFromSmartContract,
+  convertPriceMantissaToDollars,
+  getDisabledTokenActions,
+} from 'utilities';
+import type { Address } from 'viem';
+
+import type { ApiSpokeMarket, SpokeUserPosition } from '../types';
+import { getMarketRole } from './getMarketRole';
+
+export interface FormatToSpokeAssetInput {
+  apiMarket: ApiSpokeMarket;
+  chainId: ChainId;
+  tokens: Token[];
+  isUserConnected: boolean;
+  priceOracleAddress?: Address;
+  oraclePrice?: ApiTokenPrice;
+  userPosition?: SpokeUserPosition;
+  userTokenBalances: TokenBalance[];
+}
+
+export const formatToSpokeAsset = ({
+  apiMarket,
+  chainId,
+  tokens,
+  isUserConnected,
+  priceOracleAddress,
+  oraclePrice,
+  userPosition,
+  userTokenBalances,
+}: FormatToSpokeAssetInput): SpokeAsset | undefined => {
+  const underlyingToken = tokens.find(
+    token =>
+      !!apiMarket.underlyingAddress &&
+      areAddressesEqual(token.address, apiMarket.underlyingAddress),
+  );
+
+  if (!apiMarket.isListed || !underlyingToken) {
+    return undefined;
+  }
+
+  const vToken: VToken = {
+    address: apiMarket.address,
+    chainId: underlyingToken.chainId,
+    decimals: 8,
+    symbol: apiMarket.symbol ?? `v${underlyingToken.symbol}`,
+    underlyingToken,
+  };
+
+  const tokenPriceCents = convertDollarsToCents(
+    convertPriceMantissaToDollars({
+      priceMantissa: apiMarket.underlyingPriceMantissa,
+      decimals: underlyingToken.decimals,
+    }),
+  );
+
+  const isProtectionModeEnabled = oraclePrice?.isPriceProtected ?? false;
+
+  const toProtectedPriceCents = (priceMantissa?: string | null) =>
+    isProtectionModeEnabled && priceMantissa
+      ? convertDollarsToCents(
+          convertPriceMantissaToDollars({ priceMantissa, decimals: underlyingToken.decimals }),
+        )
+      : tokenPriceCents;
+
+  const tokenSupplyPriceCents = toProtectedPriceCents(oraclePrice?.supplyPriceMantissa);
+  const tokenBorrowPriceCents = toProtectedPriceCents(oraclePrice?.borrowPriceMantissa);
+
+  const toTokens = (mantissa: string) =>
+    convertMantissaToTokens({ value: new BigNumber(mantissa), token: underlyingToken });
+
+  const collateralFactor = convertFactorFromSmartContract({
+    factor: new BigNumber(apiMarket.collateralFactorMantissa),
+  });
+
+  const liquidationThresholdPercentage = convertPercentageFromSmartContract(
+    apiMarket.liquidationThresholdMantissa,
+  );
+
+  const exchangeRateVTokens = new BigNumber(1).div(
+    new BigNumber(apiMarket.exchangeRateMantissa).div(
+      new BigNumber(10).pow(COMPOUND_DECIMALS + underlyingToken.decimals - vToken.decimals),
+    ),
+  );
+
+  const supplyBalanceTokens = convertMantissaToTokens({
+    value: new BigNumber(apiMarket.totalSupplyMantissa),
+    token: vToken,
+  }).div(exchangeRateVTokens);
+
+  const borrowBalanceTokens = toTokens(apiMarket.totalBorrowsMantissa);
+  const cashTokens = toTokens(apiMarket.cashMantissa);
+
+  const userSupplyBalanceTokens = userPosition
+    ? convertMantissaToTokens({ value: userPosition.supplyBalanceMantissa, token: underlyingToken })
+    : new BigNumber(0);
+
+  const userBorrowBalanceTokens = userPosition
+    ? convertMantissaToTokens({ value: userPosition.borrowBalanceMantissa, token: underlyingToken })
+    : new BigNumber(0);
+
+  const userTokenBalance = userTokenBalances.find(({ token }) =>
+    areAddressesEqual(token.address, underlyingToken.address),
+  );
+
+  const userWalletBalanceTokens = userTokenBalance
+    ? convertMantissaToTokens({ value: userTokenBalance.balanceMantissa, token: underlyingToken })
+    : new BigNumber(0);
+
+  const { isLiquiditySide, isInactive } = getMarketRole(apiMarket);
+
+  const spokeAsset: SpokeAsset = {
+    vToken,
+    tokenPriceCents,
+    tokenSupplyPriceCents,
+    tokenBorrowPriceCents,
+    isProtectionModeEnabled,
+    tokenPriceOracleAddress: priceOracleAddress ?? NULL_ADDRESS,
+    isBorrowable: isLiquiditySide,
+    isSuppliable: apiMarket.suppliable,
+    isInactive,
+    reserveFactor: convertFactorFromSmartContract({
+      factor: new BigNumber(apiMarket.reserveFactorMantissa),
+    }),
+    collateralFactor,
+    liquidationThresholdPercentage,
+    liquidationPenaltyPercentage: convertPercentageFromSmartContract(
+      new BigNumber(apiMarket.liquidationIncentiveMantissa).minus(COMPOUND_MANTISSA),
+    ),
+    badDebtMantissa: BigInt(apiMarket.badDebtMantissa),
+    cashTokens,
+    liquidityCents: cashTokens.multipliedBy(tokenPriceCents),
+    reserveTokens: toTokens(apiMarket.totalReservesMantissa),
+    exchangeRateVTokens,
+    supplierCount: apiMarket.supplierCount ?? 0,
+    borrowerCount: apiMarket.borrowerCount ?? 0,
+    isParticipantCountUnavailable: apiMarket.borrowerCount === undefined,
+    borrowApyPercentage: new BigNumber(apiMarket.borrowApyDecimal).multipliedBy(100),
+    supplyApyPercentage: new BigNumber(apiMarket.supplyApyDecimal).multipliedBy(100),
+    supplyBalanceTokens,
+    supplyBalanceCents: new BigNumber(apiMarket.totalSupplyUsdCents),
+    borrowBalanceTokens,
+    borrowBalanceCents: new BigNumber(apiMarket.totalBorrowsUsdCents),
+    supplyTokenDistributions: [],
+    borrowTokenDistributions: [],
+    supplyPointDistributions: [],
+    borrowPointDistributions: [],
+    disabledTokenActions: getDisabledTokenActions({
+      bitmask: apiMarket.pausedActionsBitmap,
+      tokenAddresses: [vToken.address, underlyingToken.address],
+      chainId,
+    }),
+    borrowCapTokens: toTokens(apiMarket.borrowCapsMantissa),
+    supplyCapTokens: toTokens(apiMarket.supplyCapsMantissa),
+    isRestricted: false,
+    isGated: false,
+    userSupplyBalanceTokens,
+    userSupplyBalanceCents: userSupplyBalanceTokens.multipliedBy(tokenPriceCents),
+    userSupplyBalanceProtectedCents: userSupplyBalanceTokens.multipliedBy(tokenSupplyPriceCents),
+    userBorrowBalanceTokens,
+    userBorrowBalanceCents: userBorrowBalanceTokens.multipliedBy(tokenPriceCents),
+    userBorrowBalanceProtectedCents: userBorrowBalanceTokens.multipliedBy(tokenBorrowPriceCents),
+    userWalletBalanceTokens,
+    userWalletBalanceCents: userWalletBalanceTokens.multipliedBy(tokenPriceCents),
+    userCollateralFactor: isUserConnected ? collateralFactor : 0,
+    userLiquidationThresholdPercentage: isUserConnected ? liquidationThresholdPercentage : 0,
+    userBorrowLimitSharePercentage: 0,
+    isBorrowableByUser: isLiquiditySide && !isInactive,
+    isCollateralOfUser: !!userPosition?.isCollateral,
+  };
+
+  return spokeAsset;
+};
