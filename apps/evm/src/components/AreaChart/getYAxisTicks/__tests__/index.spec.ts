@@ -4,7 +4,6 @@ const formatPercentage = (value: number) => `${value.toFixed(2)}%`;
 
 describe('getYAxisTicks', () => {
   it('drops ticks that would repeat the label of an earlier one', () => {
-    // A week of rates between 1.1065% and 1.1067% rounds to the same label
     const data = [{ apy: 1.1065 }, { apy: 1.1066 }, { apy: 1.1067 }];
 
     const ticks = getYAxisTicks({

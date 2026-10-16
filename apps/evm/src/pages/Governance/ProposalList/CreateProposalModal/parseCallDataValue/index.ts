@@ -3,6 +3,6 @@ import { safeJsonParse } from '../safeJsonParse';
 export const parseCallDataValue = (value: string) => {
   const parsedValue = safeJsonParse(value);
 
-  // Integers outside the safe range lose precision once parsed, so they are kept as strings
+  // Large integers lose precision when parsed, so keep strings
   return typeof parsedValue === 'number' ? value : parsedValue;
 };
