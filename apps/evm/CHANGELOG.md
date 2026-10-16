@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.36.3
+
+### Patch Changes
+
+- dcebd8a: stop remounting the page on every in-app navigation
+
 ## 5.36.2
 
 ### Patch Changes
