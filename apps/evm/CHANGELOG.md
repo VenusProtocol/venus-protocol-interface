@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.36.2
+
+### Patch Changes
+
+- 4fb746b: keep the dashboard up when the net worth endpoint drops a data point
+
 ## 5.36.1
 
 ### Patch Changes
