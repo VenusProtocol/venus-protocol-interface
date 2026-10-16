@@ -55,8 +55,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const pendingCaretPositionRef = useRef<number | undefined>(undefined);
 
-    // The parent owns the value, so its re-render rewrites the input and sends the caret to the
-    // end. Putting the caret back here runs after that write, before the browser paints.
+    // Restores the caret after the controlled re-render
     useLayoutEffect(() => {
       const caretPosition = pendingCaretPositionRef.current;
       pendingCaretPositionRef.current = undefined;
@@ -73,8 +72,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
         // Locale keyboards send a comma for the decimal separator
         safeValue = safeValue.replace(',', '.');
 
-        // Refuse anything that is not a plain decimal, which also keeps out the exponent notation
-        // a number input would silently accept
+        // Plain decimals only, so no exponent notation
         if (safeValue && !DECIMAL_REGEX.test(safeValue)) {
           return;
         }
