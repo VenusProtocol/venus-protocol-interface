@@ -7,10 +7,20 @@ import { poolData } from '__mocks__/models/pools';
 import { xvs } from '__mocks__/models/tokens';
 import { vaults } from '__mocks__/models/vaults';
 import { useGetPool, useGetVaults } from 'clients/api';
+import { useAccountAddress } from 'libs/wallet';
 import { useStore } from 'store';
 import { renderComponent } from 'testUtils/render';
 import type { Pool, Vault } from 'types';
 import { Guide } from '..';
+
+const otherAccountAddress = '0x1111111111111111111111111111111111111111' as const;
+
+const emptyPool: Pool = {
+  ...poolData[0],
+  userSupplyBalanceCents: new BigNumber(0),
+  userBorrowBalanceCents: new BigNumber(0),
+  vai: undefined,
+};
 
 describe('Guide', () => {
   it('renders nothing if user has already completed all the steps', () => {
@@ -120,7 +130,7 @@ describe('Guide', () => {
 
     (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
-      data: { pool: { ...poolData[0], userSupplyBalanceCents: new BigNumber(0) } },
+      data: { pool: emptyPool },
     }));
     (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
 
@@ -132,5 +142,41 @@ describe('Guide', () => {
     rerender(<Guide />);
 
     expect(setUserSettingsMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('stores the setting again when the connected account changes', async () => {
+    const setUserSettingsMock = vi.spyOn(useStore.getState(), 'setUserSettings');
+    setUserSettingsMock.mockClear();
+
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: { pool: emptyPool },
+    }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
+
+    // Set here rather than through renderComponent, whose wrapper resets it on every render
+    (useAccountAddress as Mock).mockImplementation(() => ({
+      accountAddress: fakeAccountAddress,
+    }));
+
+    const { rerender } = renderComponent(<Guide />);
+
+    await waitFor(() => expect(setUserSettingsMock).toHaveBeenCalledTimes(1));
+    expect(setUserSettingsMock).toHaveBeenLastCalledWith({
+      settings: { doNotExpandGuide: false },
+    });
+
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: { pool: { ...emptyPool, userSupplyBalanceCents: new BigNumber(2000) } },
+    }));
+    (useAccountAddress as Mock).mockImplementation(() => ({ accountAddress: otherAccountAddress }));
+
+    rerender(<Guide />);
+
+    await waitFor(() => expect(setUserSettingsMock).toHaveBeenCalledTimes(2));
+    expect(setUserSettingsMock).toHaveBeenLastCalledWith({
+      settings: { doNotExpandGuide: true },
+    });
   });
 });

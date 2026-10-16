@@ -93,16 +93,17 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const toggleAccordion = () => setIsAccordionOpen(current => !current);
 
-  const { data: getPoolData } = useGetPool({
+  const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
     accountAddress,
   });
   const pool = getPoolData?.pool;
 
-  const { data: getVaultsData } = useGetVaults({
+  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress,
   });
   const vaults = getVaultsData || [];
+  const areBalancesLoading = isGetPoolLoading || isGetVaultsLoading;
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -147,8 +148,9 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     },
   );
 
+  // Partial balances would understate the total
   const netWorthCents =
-    pool && accountAddress
+    pool && accountAddress && !areBalancesLoading
       ? new BigNumber(pool.userSupplyBalanceCents || 0)
           .plus(userTotalVaultStakeCents || 0)
           .minus(pool.userBorrowBalanceCents || 0)

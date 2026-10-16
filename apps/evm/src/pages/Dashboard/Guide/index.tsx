@@ -6,7 +6,7 @@ import { useChain } from 'hooks/useChain';
 import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'store';
 import { StepCard, type StepCardProps } from './StepCard';
@@ -18,6 +18,7 @@ export const Guide: React.FC = () => {
 
   const { corePoolComptrollerContractAddress } = useChain();
   const { accountAddress } = useAccountAddress();
+  const { chainId } = useChainId();
 
   const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
@@ -40,22 +41,30 @@ export const Guide: React.FC = () => {
   const setUserSettings = useStore(state => state.setUserSettings);
 
   const isLoading = isGetPoolLoading || isGetVaultsLoading;
-  const hasStoredInitialSetting = useRef(false);
+  const storedSettingKey = `${chainId}-${accountAddress}`;
+  const storedSettingKeyRef = useRef<string | undefined>(undefined);
 
-  // Stored once, after the positions are known
+  // Stored once per account, after the positions are known
   useEffect(() => {
-    if (isLoading || hasStoredInitialSetting.current) {
+    if (isLoading || storedSettingKeyRef.current === storedSettingKey) {
       return;
     }
 
-    hasStoredInitialSetting.current = true;
+    storedSettingKeyRef.current = storedSettingKey;
 
     setUserSettings({
       settings: {
         doNotExpandGuide: isUserSupplying || isUserBorrowing || isUserStakingInXvsVault,
       },
     });
-  }, [isLoading, isUserSupplying, isUserBorrowing, isUserStakingInXvsVault, setUserSettings]);
+  }, [
+    isLoading,
+    storedSettingKey,
+    isUserSupplying,
+    isUserBorrowing,
+    isUserStakingInXvsVault,
+    setUserSettings,
+  ]);
 
   const toggleCollapseItems = () =>
     setUserSettings({
