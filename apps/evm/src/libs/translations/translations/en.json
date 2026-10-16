@@ -1148,6 +1148,10 @@
         }
       }
     },
+    "errorState": {
+      "failedToFetchMessage": "Could not fetch market data",
+      "refetchButtonLabel": "Retry"
+    },
     "history": {
       "emptyState": "No history available for this period",
       "errorState": {

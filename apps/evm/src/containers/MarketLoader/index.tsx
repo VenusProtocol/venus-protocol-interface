@@ -1,8 +1,9 @@
 import { useGetAsset, useGetPool } from 'clients/api';
-import { Spinner } from 'components';
+import { ErrorState, Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
 import type { Address } from 'viem';
@@ -21,15 +22,21 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   vTokenAddress,
   children,
 }) => {
+  const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const { marketsPagePath } = useGetMarketsPagePath();
 
-  const { data: getAssetData, isLoading: isGetAssetLoading } = useGetAsset({
+  const {
+    data: getAssetData,
+    isLoading: isGetAssetLoading,
+    isError: hasAssetError,
+    refetch: refetchAsset,
+  } = useGetAsset({
     vTokenAddress,
     accountAddress,
   });
   const asset = getAssetData?.asset;
-  const isVTokenAddressInvalid = !isGetAssetLoading && !asset;
+  const isVTokenAddressInvalid = !isGetAssetLoading && !hasAssetError && !asset;
 
   const { data: getPools } = useGetPool({
     poolComptrollerAddress: poolComptrollerAddress || NULL_ADDRESS,
@@ -38,8 +45,22 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   const pool = getPools?.pool;
 
   // Redirect to home page if params are invalid
-  if (isVTokenAddressInvalid || !poolComptrollerAddress) {
+  if (!poolComptrollerAddress || isVTokenAddressInvalid) {
     return <Redirect to={marketsPagePath} />;
+  }
+
+  // A failed request is not an unknown market
+  if (hasAssetError) {
+    return (
+      <ErrorState
+        className="my-20"
+        message={t('market.errorState.failedToFetchMessage')}
+        button={{
+          label: t('market.errorState.refetchButtonLabel'),
+          onClick: refetchAsset,
+        }}
+      />
+    );
   }
 
   if (!asset || !pool) {

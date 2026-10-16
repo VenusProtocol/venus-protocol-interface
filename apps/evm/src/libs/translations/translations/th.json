@@ -1147,6 +1147,10 @@
         }
       }
     },
+    "errorState": {
+      "failedToFetchMessage": "ไม่สามารถดึงข้อมูลตลาดได้",
+      "refetchButtonLabel": "ลองใหม่"
+    },
     "history": {
       "emptyState": "ไม่มีประวัติสำหรับช่วงเวลานี้",
       "errorState": {

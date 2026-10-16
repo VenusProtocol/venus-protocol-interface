@@ -1147,6 +1147,10 @@
         }
       }
     },
+    "errorState": {
+      "failedToFetchMessage": "Không thể tải dữ liệu thị trường",
+      "refetchButtonLabel": "Thử lại"
+    },
     "history": {
       "emptyState": "Không có lịch sử cho khoảng thời gian này",
       "errorState": {
