@@ -69,8 +69,6 @@ describe('getAccountPerformanceHistory', () => {
       }
 
       if (endpointType === 'net-worth') {
-        // The endpoint is asked for the start of the day and for now, so the fixture uses those
-        // two moments rather than arbitrary timestamps
         const performanceDataPoints: ApiAccountPerformanceHistoryDataPoint[] = [
           {
             blockNumber: 6,
@@ -132,11 +130,8 @@ describe('getAccountPerformanceHistory', () => {
 
     const response = await getAccountPerformanceHistory(fakeInput);
 
-    // The point still joins the chart
     expect(response.performanceHistory).toHaveLength(2);
     expect(response.performanceHistory.every(dataPoint => !!dataPoint)).toBe(true);
-    // but it must not stand in for the start of the day, otherwise "Today's change"
-    // compares the current net worth against itself
     expect(response.startOfDayNetWorthCents).toBeUndefined();
   });
 

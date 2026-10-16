@@ -76,7 +76,6 @@ export const Dashboard: React.FC = () => {
       title: t('account.tabs.markets'),
       id: 'pools',
       content: (
-        // Keyed on the tab so a tab that throws does not keep the next one from rendering
         <SectionErrorBoundary className="my-10" key="pools">
           {isGetPoolLoading ? <Spinner /> : pool && <Markets pool={pool} />}
         </SectionErrorBoundary>

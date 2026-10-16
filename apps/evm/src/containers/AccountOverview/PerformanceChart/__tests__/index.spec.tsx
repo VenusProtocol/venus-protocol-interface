@@ -18,7 +18,6 @@ describe('PerformanceChart', () => {
       <PerformanceChart accountPerformanceHistory={[]} onRefetch={() => {}} isLoading={false} />,
     );
 
-    // The request is done, so the chart must stop pretending it is still loading
     expect(queryByText(en.dashboard.overview.performanceChart.emptyState)).toBeInTheDocument();
     expect(
       queryByText(en.dashboard.overview.performanceChart.placeholderText),

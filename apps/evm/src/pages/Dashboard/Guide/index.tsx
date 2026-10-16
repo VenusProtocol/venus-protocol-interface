@@ -42,8 +42,7 @@ export const Guide: React.FC = () => {
   const isLoading = isGetPoolLoading || isGetVaultsLoading;
   const hasStoredInitialSetting = useRef(false);
 
-  // The positions are only known once both queries settle, so the initial setting waits for them.
-  // It is stored once, otherwise a refetch would undo the user collapsing or expanding the guide.
+  // Stored once, after the positions are known
   useEffect(() => {
     if (isLoading || hasStoredInitialSetting.current) {
       return;

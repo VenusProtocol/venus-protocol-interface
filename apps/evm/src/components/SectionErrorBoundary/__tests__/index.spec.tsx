@@ -15,7 +15,6 @@ const Boom = ({ shouldThrow }: { shouldThrow: boolean }) => {
 
 describe('SectionErrorBoundary', () => {
   beforeEach(() => {
-    // React logs caught render errors through console.error
     vi.spyOn(console, 'error').mockImplementation(() => undefined);
   });
 
@@ -41,15 +40,12 @@ describe('SectionErrorBoundary', () => {
       </div>,
     );
 
-    // The rest of the tree keeps rendering
     expect(queryByText('sibling content')).toBeInTheDocument();
-    // The failing section is replaced by the error state
     expect(queryByText(en.errorState.defaultMessage)).toBeInTheDocument();
     expect(queryByText('subtree content')).not.toBeInTheDocument();
   });
 
   it('renders a retry button that resets the boundary', () => {
-    // Read through a mutable holder so the component picks up the new value when it re-renders
     const holder = { shouldThrow: true };
     const ConditionalBoom = () => <Boom shouldThrow={holder.shouldThrow} />;
 
@@ -90,7 +86,6 @@ describe('SectionErrorBoundary', () => {
 
     expect(queryByText(en.errorState.defaultMessage)).toBeInTheDocument();
 
-    // Navigating to a sibling route changes the key, so the boundary remounts
     rerender(
       <SectionErrorBoundary key="/dashboard">
         <Boom shouldThrow={false} />
@@ -102,7 +97,6 @@ describe('SectionErrorBoundary', () => {
   });
 
   it('does not carry its error into a sibling that takes its place, when each is keyed', () => {
-    // Mirrors the dashboard tabs: one slot, one boundary element per tab
     const renderTab = (tabId: string) =>
       tabId === 'broken' ? (
         <SectionErrorBoundary key="broken">
@@ -118,7 +112,6 @@ describe('SectionErrorBoundary', () => {
 
     expect(queryByText(en.errorState.defaultMessage)).toBeInTheDocument();
 
-    // Switching tabs must show the healthy tab, not the previous tab's error
     rerender(<div>{renderTab('healthy')}</div>);
 
     expect(queryByText('subtree content')).toBeInTheDocument();

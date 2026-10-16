@@ -87,7 +87,6 @@ describe('Guide', () => {
     const setUserSettingsMock = vi.spyOn(useStore.getState(), 'setUserSettings');
     setUserSettingsMock.mockClear();
 
-    // Both queries still loading: the positions are unknown, so nothing may be stored yet
     (useGetPool as Mock).mockImplementation(() => ({ isLoading: true, data: undefined }));
     (useGetVaults as Mock).mockImplementation(() => ({ isLoading: true, data: undefined }));
 
@@ -95,7 +94,6 @@ describe('Guide', () => {
 
     expect(setUserSettingsMock).not.toHaveBeenCalled();
 
-    // The data arrives and shows the user does hold a position
     (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {

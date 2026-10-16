@@ -9,10 +9,7 @@ export interface SectionErrorBoundaryProps {
   className?: string;
 }
 
-// Isolates a section of the page: when its subtree throws, only that section is replaced by an
-// error state with a retry button, leaving the rest of the page usable.
-// It relies on Sentry's boundary directly rather than on the app-level one, so that it can be
-// dropped anywhere without requiring a QueryClient to be set up above it.
+// Replaces only its own subtree when a child throws
 export const SectionErrorBoundary: React.FC<SectionErrorBoundaryProps> = ({
   children,
   message,
