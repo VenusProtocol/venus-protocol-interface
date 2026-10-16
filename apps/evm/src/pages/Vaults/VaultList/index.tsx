@@ -3,7 +3,7 @@ import { InfoIcon, MultiSelect, TextField, type TextFieldProps, Toggle, cn } fro
 import { VaultCard } from 'containers/VaultCard';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
-import { type FC, type HTMLAttributes, useState } from 'react';
+import { type FC, type HTMLAttributes, useId, useState } from 'react';
 import type { Vault } from 'types';
 
 import { NoResults } from './NoResults';
@@ -39,6 +39,7 @@ export const VaultList: FC<VaultListProps> = ({
 
   const [{ showArchivedVaults }, setUserChainSettings] = useUserChainSettings();
   const { dataUpdatedAt } = useGetFixedRatedVaults();
+  const archivedVaultsToggleLabelId = useId();
 
   const [search, setSearch] = useState('');
   const onChange: TextFieldProps['onChange'] = e => {
@@ -115,13 +116,14 @@ export const VaultList: FC<VaultListProps> = ({
           </div>
 
           <div className="flex shrink-0 items-center gap-2 xl:ml-auto">
-            <span className="text-b1r whitespace-nowrap">
+            <span id={archivedVaultsToggleLabelId} className="text-b1r whitespace-nowrap">
               {t('vault.filter.archivedVaultsToggle.label')}
             </span>
 
             <InfoIcon tooltip={t('vault.filter.archivedVaultsToggle.tooltip')} />
 
             <Toggle
+              aria-labelledby={archivedVaultsToggleLabelId}
               value={showArchivedVaults}
               onChange={() => setUserChainSettings({ showArchivedVaults: !showArchivedVaults })}
             />

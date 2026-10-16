@@ -582,7 +582,7 @@ describe('Vaults', () => {
       expect(queryByText(closedVaultTitle, { selector: titleSelector })).not.toBeInTheDocument();
       expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
 
-      fireEvent.click(getByRole('checkbox'));
+      fireEvent.click(getByRole('checkbox', { name: en.vault.filter.archivedVaultsToggle.label }));
 
       expect(mockSetUserChainSettings).toHaveBeenCalledWith({ showArchivedVaults: true });
     });
@@ -606,7 +606,9 @@ describe('Vaults', () => {
 
       const { getByRole, getByText } = renderComponent(<VaultsPage />);
 
-      expect(getByRole('checkbox')).toBeChecked();
+      expect(
+        getByRole('checkbox', { name: en.vault.filter.archivedVaultsToggle.label }),
+      ).toBeChecked();
       expect(getByText(closedVaultTitle, { selector: titleSelector })).toBeInTheDocument();
     });
 
@@ -664,7 +666,9 @@ describe('Vaults', () => {
 
       fireEvent.click(getByText(en.vault.filter.resetFilters));
 
-      expect(getByRole('checkbox')).not.toBeChecked();
+      expect(
+        getByRole('checkbox', { name: en.vault.filter.archivedVaultsToggle.label }),
+      ).not.toBeChecked();
       expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
     });
   });
