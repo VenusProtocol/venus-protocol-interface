@@ -109,6 +109,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const {
     data: getLiquidityHubsData = { liquidityHubs: [] },
     isLoading: isGetLiquidityHubsLoading,
+    isLoadingError: isGetLiquidityHubsLoadingError,
   } = useGetLiquidityHubs(
     {
       accountAddress,
@@ -169,7 +170,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
 
   // Partial balances would understate the total
   const netWorthCents =
-    pool && accountAddress && !areBalancesLoading
+    pool && accountAddress && !areBalancesLoading && !isGetLiquidityHubsLoadingError
       ? new BigNumber(pool.userSupplyBalanceCents || 0)
           .plus(userTotalVaultStakeCents || 0)
           .plus(userLiquidityHubSupplyBalanceCents)

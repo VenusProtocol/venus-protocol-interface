@@ -147,4 +147,44 @@ describe('AccountOverview', () => {
 
     await waitFor(() => expect(queryByText('$500')).toBeInTheDocument());
   });
+
+  it('holds back the account figures when the Hub balances fail to load', async () => {
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      isLoadingError: true,
+      data: undefined,
+    }));
+
+    const { queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() =>
+      expect(queryByText(en.dashboard.overview.netWorth.label)).toBeInTheDocument(),
+    );
+
+    expect(queryByText('$1.24M')).not.toBeInTheDocument();
+    expect(queryByText('$1.23M')).not.toBeInTheDocument();
+  });
+
+  it('keeps showing the net worth when a refetch fails but balances are cached', async () => {
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      isLoadingError: false,
+      isError: true,
+      data: { liquidityHubs },
+    }));
+
+    const { queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByText('$1.24M')).toBeInTheDocument());
+  });
 });
