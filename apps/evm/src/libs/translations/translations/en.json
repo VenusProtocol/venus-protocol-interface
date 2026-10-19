@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "Net worth",
         "tooltip": "Net available assets after accounting for vault supply and borrowings",
-        "tooltipWithVai": "Net available assets after accounting for vault supply, borrowings, and minted VAI"
+        "tooltipWithVai": "Net available assets after accounting for vault supply, Liquidity Hub deposits, borrowings, and minted VAI"
       },
       "periodOption": {
         "oneYear": "1Y",
@@ -533,7 +533,7 @@
       "netWorth": {
         "label": "Net worth",
         "tooltip": "Net available assets after accounting for vault supply and borrowings",
-        "tooltipWithVai": "Net available assets after accounting for vault supply, borrowings, and minted VAI"
+        "tooltipWithVai": "Net available assets after accounting for vault supply, Liquidity Hub deposits, borrowings, and minted VAI"
       },
       "performanceChart": {
         "emptyState": "No account history yet",

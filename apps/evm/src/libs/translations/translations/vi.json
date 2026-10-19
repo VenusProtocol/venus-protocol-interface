@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "Giá trị ròng",
         "tooltip": "Tài sản ròng khả dụng sau khi tính đến lượng cung cấp trong vault và các khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến lượng cung cấp trong vault, các khoản vay và VAI đã đúc"
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến lượng cung cấp trong vault, khoản gửi vào Trung tâm thanh khoản, các khoản vay và VAI đã đúc"
       },
       "periodOption": {
         "oneYear": "1N",
@@ -532,7 +532,7 @@
       "netWorth": {
         "label": "Giá trị ròng",
         "tooltip": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault và khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault, khoản vay và VAI đã mint"
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault, khoản gửi vào Trung tâm thanh khoản, khoản vay và VAI đã mint"
       },
       "performanceChart": {
         "emptyState": "Chưa có lịch sử tài khoản",
