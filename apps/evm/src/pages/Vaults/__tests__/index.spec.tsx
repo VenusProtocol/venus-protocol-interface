@@ -55,15 +55,10 @@ describe('Vaults', () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2026-04-05T00:00:00.000Z'));
 
-    (useGetFixedRatedVaults as Mock).mockImplementation(() => ({
-      data: [],
-      isLoading: false,
-      dataUpdatedAt: Date.now(),
-    }));
-
     (useGetVaults as Mock).mockImplementation(() => ({
       data: fakeVaults,
       isLoading: false,
+      dataUpdatedAt: Date.now(),
     }));
   });
 
@@ -88,6 +83,7 @@ describe('Vaults', () => {
     (useGetVaults as Mock).mockImplementation(() => ({
       data: [xvsVault, vaiVault, institutionalVault, pendleBnbVault],
       isLoading: false,
+      dataUpdatedAt: Date.now(),
     }));
 
     const { container } = renderComponent(<VaultsPage />);
@@ -158,6 +154,7 @@ describe('Vaults', () => {
     (useGetVaults as Mock).mockImplementation(() => ({
       data: [institutionalVault, pausedVenusVault],
       isLoading: false,
+      dataUpdatedAt: Date.now(),
     }));
 
     const { getByText } = renderComponent(<VaultsPage />, {
@@ -206,6 +203,7 @@ describe('Vaults', () => {
     (useGetVaults as Mock).mockImplementation(() => ({
       data: [liquidatedInstitutionalVault, ...venusVaults],
       isLoading: false,
+      dataUpdatedAt: Date.now(),
     }));
 
     const { getAllByText, queryByText } = renderComponent(<VaultsPage />, {
@@ -572,6 +570,7 @@ describe('Vaults', () => {
       (useGetVaults as Mock).mockImplementation(() => ({
         data: [closedVault, ...venusVaults],
         isLoading: false,
+        dataUpdatedAt: Date.now(),
       }));
     });
 
@@ -591,6 +590,7 @@ describe('Vaults', () => {
       (useGetVaults as Mock).mockImplementation(() => ({
         data: [{ ...closedVault, userStakeBalanceMantissa: new BigNumber(1) }, ...venusVaults],
         isLoading: false,
+        dataUpdatedAt: Date.now(),
       }));
 
       const { getByText } = renderComponent(<VaultsPage />);
@@ -616,6 +616,7 @@ describe('Vaults', () => {
       (useGetVaults as Mock).mockImplementation(() => ({
         data: [closedVault, ...venusVaults],
         isLoading: false,
+        dataUpdatedAt: Date.now(),
         isUserDataUnavailable: true,
       }));
 
@@ -636,10 +637,6 @@ describe('Vaults', () => {
       (useGetVaults as Mock).mockImplementation(() => ({
         data: [claimVault, ...venusVaults],
         isLoading: false,
-      }));
-      (useGetFixedRatedVaults as Mock).mockImplementation(() => ({
-        data: [],
-        isLoading: false,
         dataUpdatedAt: claimSince.getTime() + ninetyDaysMs - 1000,
       }));
 
@@ -647,14 +644,20 @@ describe('Vaults', () => {
 
       expect(queryByText(closedVaultTitle, { selector: titleSelector })).toBeInTheDocument();
 
-      (useGetFixedRatedVaults as Mock).mockImplementation(() => ({
-        data: [],
+      (useGetVaults as Mock).mockImplementation(() => ({
+        data: [claimVault, ...venusVaults],
         isLoading: false,
         dataUpdatedAt: claimSince.getTime() + ninetyDaysMs + 1000,
       }));
       rerender(<VaultsPage />);
 
       expect(queryByText(closedVaultTitle, { selector: titleSelector })).not.toBeInTheDocument();
+    });
+
+    it('does not subscribe the vault list to the vault products query', () => {
+      renderComponent(<VaultsPage />);
+
+      expect(useGetFixedRatedVaults).not.toHaveBeenCalled();
     });
 
     it('combines with the state filter and keeps its value when filters are reset', () => {

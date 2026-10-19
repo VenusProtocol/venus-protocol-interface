@@ -1,4 +1,3 @@
-import { useGetFixedRatedVaults } from 'clients/api';
 import { InfoIcon, MultiSelect, TextField, type TextFieldProps, Toggle, cn } from 'components';
 import { VaultCard } from 'containers/VaultCard';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -14,11 +13,13 @@ const multiSelectClassName = 'sm:flex-1/3 sm:min-w-45 xl:flex-none';
 
 interface VaultListProps extends HTMLAttributes<HTMLDivElement> {
   vaults: Vault[];
+  dataUpdatedAt: number;
   isUserDataUnavailable?: boolean;
 }
 
 export const VaultList: FC<VaultListProps> = ({
   vaults,
+  dataUpdatedAt,
   isUserDataUnavailable = false,
   className,
   ...props
@@ -38,7 +39,6 @@ export const VaultList: FC<VaultListProps> = ({
   } = useFilterOptions();
 
   const [{ showArchivedVaults }, setUserChainSettings] = useUserChainSettings();
-  const { dataUpdatedAt } = useGetFixedRatedVaults();
   const archivedVaultsToggleLabelId = useId();
 
   const [search, setSearch] = useState('');

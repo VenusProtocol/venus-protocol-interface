@@ -10,12 +10,17 @@ import { formatVaults } from './formatVaults';
 export interface UseGetPendleVaultsOutput {
   isLoading: boolean;
   data: Vault[] | undefined;
+  dataUpdatedAt: number;
   isUserDataUnavailable: boolean;
 }
 
 export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
   const { accountAddress } = useAccountAddress();
-  const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetFixedRatedVaults();
+  const {
+    data: vaultProducts,
+    isLoading: isVaultProductsLoading,
+    dataUpdatedAt,
+  } = useGetFixedRatedVaults();
 
   const { data: poolsData, isLoading: isPoolsLoading } = useGetPools({ accountAddress });
 
@@ -51,6 +56,7 @@ export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
   return {
     data,
     isLoading,
+    dataUpdatedAt,
     isUserDataUnavailable: !!accountAddress && isInstitutionalVaultUserDataError,
   };
 };

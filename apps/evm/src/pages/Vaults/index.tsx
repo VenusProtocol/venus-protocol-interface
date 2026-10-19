@@ -12,6 +12,7 @@ const VaultsPage: React.FC = () => {
   const {
     data: vaults,
     isLoading: isGetVaultsLoading,
+    dataUpdatedAt,
     isUserDataUnavailable,
   } = useGetVaults({
     accountAddress,
@@ -34,6 +35,7 @@ const VaultsPage: React.FC = () => {
       <VaultList
         key={chainId}
         vaults={sortedVaults}
+        dataUpdatedAt={dataUpdatedAt}
         isUserDataUnavailable={isUserDataUnavailable}
       />
     </Page>
