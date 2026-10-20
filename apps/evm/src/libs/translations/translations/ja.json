@@ -2568,6 +2568,10 @@
       "allCategories": "全カテゴリ",
       "allStates": "すべての状態",
       "allVenues": "全プラットフォーム",
+      "archivedVaultsToggle": {
+        "label": "アーカイブ済みボールト",
+        "tooltip": "満期または返金から 90 日以上経過したボールトと、終了したボールトは、オンにしない限り非表示になります。資金が残っているボールトは常に表示されます。"
+      },
       "claim": "請求",
       "deposit": "供給",
       "inactive": "非アクティブ",
@@ -2665,9 +2669,6 @@
       "totalTargetRewards": "目標報酬合計",
       "withdraw": "引き出し",
       "withdrawTab": "引き出し"
-    },
-    "overview": {
-      "bannerVaultIllustration": "ボールトのイラスト"
     },
     "timeline": {
       "description": {

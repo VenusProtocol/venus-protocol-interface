@@ -14,6 +14,7 @@ export interface UserChainSettings {
   gaslessTransactions: boolean;
   showPausedAssets: boolean;
   showPausedSpokeAssets: boolean;
+  showArchivedVaults: boolean;
   showUserAssetsOnly: boolean;
   showUserLiquidityHubAssetsOnly: boolean;
   showUserSpokeAssetsOnly: boolean;

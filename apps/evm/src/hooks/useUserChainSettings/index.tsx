@@ -6,6 +6,7 @@ export const defaultUserChainSettings: UserChainSettings = {
   gaslessTransactions: false,
   showPausedAssets: false,
   showPausedSpokeAssets: false,
+  showArchivedVaults: false,
   showUserAssetsOnly: false,
   showUserLiquidityHubAssetsOnly: false,
   showUserSpokeAssetsOnly: false,

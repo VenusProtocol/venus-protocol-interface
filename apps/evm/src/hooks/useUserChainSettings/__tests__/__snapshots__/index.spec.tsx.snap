@@ -9,6 +9,7 @@ exports[`useUserChainSettings > returns correct settings from the store 1`] = `
   "doNotShowUserBalances": false,
   "doNotShowVipModal": false,
   "gaslessTransactions": true,
+  "showArchivedVaults": false,
   "showPausedAssets": false,
   "showPausedSpokeAssets": false,
   "showUserAssetsOnly": false,

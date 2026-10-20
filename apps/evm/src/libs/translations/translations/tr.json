@@ -2571,6 +2571,10 @@
       "allCategories": "Tüm kategoriler",
       "allStates": "Tüm durumlar",
       "allVenues": "Tüm platformlar",
+      "archivedVaultsToggle": {
+        "label": "Arşivlenmiş kasalar",
+        "tooltip": "Vadesi dolan veya iadesi yapılan üzerinden 90 günden fazla geçmiş kasalar ve kapatılmış kasalar, bu açık değilse gizlenir. Hâlâ fonunuz bulunan kasalar her zaman gösterilir."
+      },
       "claim": "Talep et",
       "deposit": "Sağla",
       "inactive": "Aktif değil",
@@ -2671,9 +2675,6 @@
       "totalTargetRewards": "Toplam hedef ödüller",
       "withdraw": "Çek",
       "withdrawTab": "Çek"
-    },
-    "overview": {
-      "bannerVaultIllustration": "Kasa görseli"
     },
     "timeline": {
       "description": {

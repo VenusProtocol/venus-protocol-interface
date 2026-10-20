@@ -2568,6 +2568,10 @@
       "allCategories": "所有類別",
       "allStates": "所有狀態",
       "allVenues": "所有平台",
+      "archivedVaultsToggle": {
+        "label": "已封存金庫",
+        "tooltip": "到期或退款已超過 90 天的金庫以及已關閉的金庫預設隱藏，開啟後顯示。您仍有資金的金庫始終顯示。"
+      },
       "claim": "領取",
       "deposit": "供應",
       "inactive": "非活躍",
@@ -2665,9 +2669,6 @@
       "totalTargetRewards": "目標獎勵總額",
       "withdraw": "提取",
       "withdrawTab": "提取"
-    },
-    "overview": {
-      "bannerVaultIllustration": "金庫插圖"
     },
     "timeline": {
       "description": {
