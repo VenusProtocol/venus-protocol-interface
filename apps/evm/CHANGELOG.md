@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.37.0
+
+### Minor Changes
+
+- 3d01f2d: add an archived vaults toggle to the vault page
+
 ## 5.36.3
 
 ### Patch Changes
