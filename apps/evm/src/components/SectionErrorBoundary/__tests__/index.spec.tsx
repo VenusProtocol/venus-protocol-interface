@@ -1,4 +1,5 @@
 import { fireEvent } from '@testing-library/react';
+import { useLocation, useNavigate } from 'react-router';
 
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -7,6 +8,26 @@ import { SectionErrorBoundary } from '..';
 
 const Boom = ({ shouldThrow }: { shouldThrow: boolean }) => {
   if (shouldThrow) {
+    throw new Error('Boom');
+  }
+
+  return <div>subtree content</div>;
+};
+
+const LinkToOther = () => {
+  const navigate = useNavigate();
+
+  return (
+    <button type="button" onClick={() => navigate('/other')}>
+      go
+    </button>
+  );
+};
+
+const ThrowOnRoot = () => {
+  const { pathname } = useLocation();
+
+  if (pathname === '/') {
     throw new Error('Boom');
   }
 
@@ -113,6 +134,26 @@ describe('SectionErrorBoundary', () => {
     expect(queryByText(en.errorState.defaultMessage)).toBeInTheDocument();
 
     rerender(<div>{renderTab('healthy')}</div>);
+
+    expect(queryByText('subtree content')).toBeInTheDocument();
+    expect(queryByText(en.errorState.defaultMessage)).not.toBeInTheDocument();
+  });
+
+  it('clears the error when the route changes', () => {
+    const { queryByText, getByText } = renderComponent(
+      <>
+        <LinkToOther />
+
+        <SectionErrorBoundary>
+          <ThrowOnRoot />
+        </SectionErrorBoundary>
+      </>,
+      { routerInitialEntries: ['/'], routePath: '*' },
+    );
+
+    expect(queryByText(en.errorState.defaultMessage)).toBeInTheDocument();
+
+    fireEvent.click(getByText('go'));
 
     expect(queryByText('subtree content')).toBeInTheDocument();
     expect(queryByText(en.errorState.defaultMessage)).not.toBeInTheDocument();
