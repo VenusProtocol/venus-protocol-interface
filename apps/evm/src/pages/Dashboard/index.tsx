@@ -1,5 +1,5 @@
 import { useGetLiquidityHubs, useGetPool, useGetSpokePools, useGetVaults } from 'clients/api';
-import { Page, Spinner, Tabs } from 'components';
+import { Page, SectionErrorBoundary, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
 import { useChain } from 'hooks/useChain';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -61,9 +61,14 @@ export const Dashboard: React.FC = () => {
       liquidityHubs: [],
     },
     isLoading: isGetLiquidityHubsLoading,
-  } = useGetLiquidityHubs({
-    accountAddress,
-  });
+  } = useGetLiquidityHubs(
+    {
+      accountAddress,
+    },
+    {
+      enabled: isLiquidityHubFeatureEnabled,
+    },
+  );
   const { liquidityHubs } = getLiquidityHubsData;
 
   const { isLoading: isGetSpokePoolsLoading, errorUpdateCount: getSpokePoolsErrorCount } =
@@ -73,12 +78,24 @@ export const Dashboard: React.FC = () => {
     {
       title: t('account.tabs.markets'),
       id: 'pools',
-      content: pool && <Markets pool={pool} />,
+      content: (
+        <SectionErrorBoundary className="my-10" key="pools">
+          {isGetPoolLoading || (isGetSpokePoolsLoading && getSpokePoolsErrorCount === 0) ? (
+            <Spinner />
+          ) : (
+            pool && <Markets pool={pool} />
+          )}
+        </SectionErrorBoundary>
+      ),
     },
     {
       title: t('account.tabs.vaults'),
       id: 'vaults',
-      content: <Vaults vaults={vaults} />,
+      content: (
+        <SectionErrorBoundary className="my-10" key="vaults">
+          {isGetVaultsLoading ? <Spinner /> : <Vaults vaults={vaults} />}
+        </SectionErrorBoundary>
+      ),
     },
   ];
 
@@ -86,7 +103,11 @@ export const Dashboard: React.FC = () => {
     tabs.push({
       title: t('account.tabs.hubs'),
       id: 'hub',
-      content: <Hubs liquidityHubs={liquidityHubs} />,
+      content: (
+        <SectionErrorBoundary className="my-10" key="hub">
+          {isGetLiquidityHubsLoading ? <Spinner /> : <Hubs liquidityHubs={liquidityHubs} />}
+        </SectionErrorBoundary>
+      ),
     });
   }
 
@@ -94,7 +115,11 @@ export const Dashboard: React.FC = () => {
     tabs.push({
       title: t('account.tabs.transactions'),
       id: 'transactions',
-      content: <Transactions />,
+      content: (
+        <SectionErrorBoundary className="my-10" key="transactions">
+          <Transactions />
+        </SectionErrorBoundary>
+      ),
     });
   }
 
@@ -106,16 +131,6 @@ export const Dashboard: React.FC = () => {
     });
   }
 
-  const isFetching =
-    isGetPoolLoading ||
-    isGetVaultsLoading ||
-    isGetLiquidityHubsLoading ||
-    (isGetSpokePoolsLoading && getSpokePoolsErrorCount === 0);
-
-  if (isFetching) {
-    return <Spinner />;
-  }
-
   return (
     <Page>
       <div className="mt-2 mb-12">
@@ -123,7 +138,9 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="space-y-12 mb-12">
-        <AccountOverview className="w-full" accountAddress={accountAddress} />
+        <SectionErrorBoundary>
+          <AccountOverview className="w-full" accountAddress={accountAddress} />
+        </SectionErrorBoundary>
 
         <Guide />
       </div>

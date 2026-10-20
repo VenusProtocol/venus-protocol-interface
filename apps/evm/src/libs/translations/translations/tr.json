@@ -541,6 +541,7 @@
         "tooltipWithVai": "Kasa arzı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "performanceChart": {
+        "emptyState": "Henüz hesap geçmişi yok",
         "errorState": {
           "failedToFetchMessage": "Hesap geçmişi alınamadı",
           "refetchButtonLabel": "Tekrar dene"
@@ -666,6 +667,7 @@
     "walletNotConnected": "Cüzdan bağlı değil"
   },
   "errorState": {
+    "buttonLabel": "Yeniden dene",
     "defaultMessage": "Bir hata oluştu"
   },
   "footer": {

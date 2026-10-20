@@ -540,6 +540,7 @@
         "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault, khoản vay và VAI đã mint"
       },
       "performanceChart": {
+        "emptyState": "Chưa có lịch sử tài khoản",
         "errorState": {
           "failedToFetchMessage": "Không thể tải lịch sử tài khoản",
           "refetchButtonLabel": "Thử lại"
@@ -665,6 +666,7 @@
     "walletNotConnected": "Ví chưa được kết nối"
   },
   "errorState": {
+    "buttonLabel": "Thử lại",
     "defaultMessage": "Đã xảy ra lỗi"
   },
   "footer": {

@@ -35,20 +35,19 @@ describe('Dashboard', () => {
     await waitFor(() => expect(getByText(en.account.tabs.hubs)).toBeInTheDocument());
   });
 
-  it('shows the spinner until the Spoke positions are loaded', async () => {
+  it('shows the Markets tab spinner until the Spoke positions are loaded', async () => {
     (useGetSpokePools as Mock).mockImplementation(() => ({
       isLoading: true,
       errorUpdateCount: 0,
       data: undefined,
     }));
 
-    const { queryByText } = renderComponent(<Dashboard />, {
+    const { getByAltText, queryByText } = renderComponent(<Dashboard />, {
       accountAddress: fakeAccountAddress,
     });
 
-    await waitFor(() => expect(useGetSpokePools).toHaveBeenCalled());
-
-    expect(queryByText(en.dashboard.overview.netWorth.label)).not.toBeInTheDocument();
+    await waitFor(() => expect(getByAltText('Spinner')).toBeInTheDocument());
+    expect(queryByText(en.account.marketBreakdown.tables.supplyTableTitle)).not.toBeInTheDocument();
   });
 
   it('shows the page once the Spoke positions have failed, even while retrying', async () => {

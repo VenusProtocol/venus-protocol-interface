@@ -12,6 +12,7 @@ import {
 import type { DataKey, Margin } from 'recharts/types/util/types';
 
 import { getXAxisTicks } from './getXAxisTicks';
+import { getYAxisTicks } from './getYAxisTicks';
 
 export interface AreaChartProps<T extends Record<string, any>> {
   data: T[];
@@ -54,7 +55,13 @@ export const AreaChart = <T extends Record<string, any>>({
   // using unique ids)
   const baseId = useUID();
   const gradientId = `gradient-${baseId}`;
-  const xAxisTicks = getXAxisTicks({ data, interval, xAxisDataKey });
+  const xAxisTicks = getXAxisTicks({ data, interval, xAxisDataKey, formatValue: formatXAxisValue });
+  const yAxisTicks = getYAxisTicks({
+    data,
+    tickCount: yAxisTickCount,
+    yAxisDataKey,
+    formatValue: formatYAxisValue,
+  });
 
   return (
     <div className={cn('w-full h-62', className)}>
@@ -107,10 +114,11 @@ export const AreaChart = <T extends Record<string, any>>({
               tick={({ payload, y }) => (
                 <ChartYAxisTick value={formatYAxisValue(payload.value)} y={y} />
               )}
+              ticks={yAxisTicks}
               tickCount={yAxisTickCount}
               stroke={theme.colors.grey}
               className="text-xs text-left"
-              domain={['auto', 'auto']}
+              domain={yAxisTicks ? ['dataMin', 'dataMax'] : ['auto', 'auto']}
             />
           )}
 

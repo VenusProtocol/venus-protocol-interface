@@ -1,5 +1,29 @@
 # @venusprotocol/evm
 
+## 5.36.3
+
+### Patch Changes
+
+- dcebd8a: stop remounting the page on every in-app navigation
+
+## 5.36.2
+
+### Patch Changes
+
+- 4fb746b: keep the dashboard up when the net worth endpoint drops a data point
+
+## 5.36.1
+
+### Patch Changes
+
+- 36f1c52: drop repeated chart axis labels on both axes
+
+## 5.36.0
+
+### Minor Changes
+
+- aedae04: stop calling the retired address authentication endpoint
+
 ## 5.35.4
 
 ### Patch Changes

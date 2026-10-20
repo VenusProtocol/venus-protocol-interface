@@ -97,13 +97,13 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const toggleAccordion = () => setIsAccordionOpen(current => !current);
 
-  const { data: getPoolData } = useGetPool({
+  const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
     accountAddress,
   });
   const pool = getPoolData?.pool;
 
-  const { data: getVaultsData } = useGetVaults({
+  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress,
   });
 
@@ -131,6 +131,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     new BigNumber(pool?.userBorrowBalanceCents || 0),
   );
   const vaults = getVaultsData || [];
+  const areBalancesLoading = isGetPoolLoading || isGetVaultsLoading;
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -154,6 +155,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     data: getAccountPerformanceHistoryData,
     refetch: refetchAccountPerformanceHistoryData,
     error: getAccountPerformanceHistoryError,
+    isLoading: isGetAccountPerformanceHistoryLoading,
   } = useGetAccountPerformanceHistory(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
@@ -175,13 +177,15 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     },
   );
 
-  const netWorthCents = isAccountDataAvailable
-    ? totalSupplyCents
-        .plus(userTotalVaultStakeCents || 0)
-        .minus(totalBorrowCents)
-        .minus(pool?.vai?.userBorrowBalanceCents || 0)
-        .toNumber()
-    : undefined;
+  // Partial balances would understate the total
+  const netWorthCents =
+    isAccountDataAvailable && !areBalancesLoading
+      ? totalSupplyCents
+          .plus(userTotalVaultStakeCents || 0)
+          .minus(totalBorrowCents)
+          .minus(pool?.vai?.userBorrowBalanceCents || 0)
+          .toNumber()
+      : undefined;
 
   const startOfDayNetWorthCents =
     getAccountPerformanceHistoryData?.startOfDayNetWorthCents !== undefined
@@ -399,6 +403,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
                 accountPerformanceHistory={accountPerformanceHistory}
                 onRefetch={refetchAccountPerformanceHistoryData}
                 error={getAccountPerformanceHistoryError ?? undefined}
+                isLoading={isGetAccountPerformanceHistoryLoading}
                 className="shrink-0"
               />
             </div>

@@ -540,6 +540,7 @@
         "tooltipWithVai": "計入金庫供應、借款與已鑄 VAI 後的可用淨資產"
       },
       "performanceChart": {
+        "emptyState": "暫無帳戶歷史",
         "errorState": {
           "failedToFetchMessage": "無法取得帳戶歷史紀錄",
           "refetchButtonLabel": "重試"
@@ -665,6 +666,7 @@
     "walletNotConnected": "錢包未連接"
   },
   "errorState": {
+    "buttonLabel": "重試",
     "defaultMessage": "發生錯誤"
   },
   "footer": {
