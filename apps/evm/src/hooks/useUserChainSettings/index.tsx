@@ -5,6 +5,7 @@ import { type State, type UserChainSettings, useStore } from 'store';
 export const defaultUserChainSettings: UserChainSettings = {
   gaslessTransactions: false,
   showPausedAssets: false,
+  showArchivedVaults: false,
   showUserAssetsOnly: false,
   doNotShowImportPositionsModal: false,
   slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),

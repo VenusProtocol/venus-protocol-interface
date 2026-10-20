@@ -2569,6 +2569,10 @@
       "allCategories": "All categories",
       "allStates": "All states",
       "allVenues": "All venues",
+      "archivedVaultsToggle": {
+        "label": "Archived vaults",
+        "tooltip": "Vaults that matured or were refunded more than 90 days ago, and closed vaults, are hidden unless this is on. Vaults you still have funds in are always shown."
+      },
       "claim": "Claim",
       "deposit": "Supply",
       "inactive": "Inactive",
@@ -2669,9 +2673,6 @@
       "totalTargetRewards": "Total target rewards",
       "withdraw": "Withdraw",
       "withdrawTab": "Withdraw"
-    },
-    "overview": {
-      "bannerVaultIllustration": "Vault illustration"
     },
     "timeline": {
       "description": {
