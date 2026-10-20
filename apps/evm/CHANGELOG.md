@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.37.1
+
+### Patch Changes
+
+- 174879f: clear a section error when the route changes
+
 ## 5.37.0
 
 ### Minor Changes
