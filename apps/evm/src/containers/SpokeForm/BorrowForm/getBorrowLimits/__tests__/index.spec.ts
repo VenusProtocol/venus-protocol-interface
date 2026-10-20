@@ -67,4 +67,43 @@ describe('getBorrowLimits', () => {
 
     expect(cappedLimitTokens.toFixed()).toBe('0');
   });
+
+  it('holds back the reserves that accrue before the borrow is executed', () => {
+    // vUSDT_HubSpoke on BSC testnet, where SAFE MAX used to overshoot the cash
+    const { limitTokens } = getBorrowLimits({
+      spokePool,
+      asset: {
+        ...asset,
+        cashTokens: new BigNumber('4868.741969'),
+        borrowBalanceTokens: new BigNumber('12090.775314'),
+        borrowRatePerBlockMantissa: new BigNumber('1017930013'),
+        reserveFactor: 0.1,
+      },
+    });
+
+    // 12090.775314 x 1017930013e-18 x 0.1 x 1000 blocks
+    const pendingReservesTokens = new BigNumber('0.0012307563072560099082');
+
+    expect(limitTokens.isLessThan('4868.741969')).toBe(true);
+    expect(
+      new BigNumber('4868.741969')
+        .minus(limitTokens)
+        .minus(pendingReservesTokens)
+        .abs()
+        .isLessThan(1e-12),
+    ).toBe(true);
+  });
+
+  it('does not hold anything back when nothing is borrowed', () => {
+    const { limitTokens } = getBorrowLimits({
+      spokePool,
+      asset: {
+        ...asset,
+        borrowRatePerBlockMantissa: new BigNumber('1017930013'),
+        reserveFactor: 0.1,
+      },
+    });
+
+    expect(limitTokens.toFixed()).toBe('10000');
+  });
 });

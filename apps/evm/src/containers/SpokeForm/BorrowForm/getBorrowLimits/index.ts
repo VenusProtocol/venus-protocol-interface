@@ -1,8 +1,11 @@
 import BigNumber from 'bignumber.js';
 
+import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import { HEALTH_FACTOR_SAFE_MAX_THRESHOLD } from 'constants/healthFactor';
 import type { SpokeAsset, SpokePool } from 'types';
 import { clampToZero, convertMantissaToTokens } from 'utilities';
+
+const PENDING_RESERVES_BLOCK_COUNT = 1000;
 
 export interface GetBorrowLimitsInput {
   spokePool: SpokePool;
@@ -43,7 +46,16 @@ export const getBorrowLimits = ({
     return { limitTokens: new BigNumber(0), safeLimitTokens: new BigNumber(0) };
   }
 
-  const assetLiquidityTokens = asset.cashTokens.minus(asset.reserveTokens);
+  // Accrued reserves get swept from cash before the borrow
+  const pendingReservesTokens = asset.borrowBalanceTokens
+    .multipliedBy(asset.borrowRatePerBlockMantissa)
+    .div(COMPOUND_MANTISSA)
+    .multipliedBy(asset.reserveFactor)
+    .multipliedBy(PENDING_RESERVES_BLOCK_COUNT);
+
+  const assetLiquidityTokens = asset.cashTokens
+    .minus(asset.reserveTokens)
+    .minus(pendingReservesTokens);
 
   // Protected prices on both sides, matching the comptroller and the Core borrow form
   const marginWithUserBorrowLimitTokens = (userBorrowLimitProtectedCents ?? userBorrowLimitCents)

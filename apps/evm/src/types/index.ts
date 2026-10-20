@@ -270,6 +270,7 @@ export interface Pool {
 }
 
 export interface SpokeAsset extends Asset {
+  borrowRatePerBlockMantissa: BigNumber;
   isSuppliable: boolean;
   isInactive: boolean;
   isParticipantCountUnavailable: boolean;

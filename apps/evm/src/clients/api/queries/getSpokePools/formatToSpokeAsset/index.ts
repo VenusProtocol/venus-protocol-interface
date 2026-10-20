@@ -92,10 +92,14 @@ export const formatToSpokeAsset = ({
     ),
   );
 
+  // Same truncated math as the comptroller supply cap check
   const supplyBalanceTokens = convertMantissaToTokens({
-    value: new BigNumber(apiMarket.totalSupplyMantissa),
-    token: vToken,
-  }).div(exchangeRateVTokens);
+    value: new BigNumber(apiMarket.totalSupplyMantissa)
+      .multipliedBy(apiMarket.exchangeRateMantissa)
+      .div(COMPOUND_MANTISSA)
+      .integerValue(BigNumber.ROUND_DOWN),
+    token: underlyingToken,
+  });
 
   const borrowBalanceTokens = toTokens(apiMarket.totalBorrowsMantissa);
   const cashTokens = toTokens(apiMarket.cashMantissa);
@@ -127,6 +131,7 @@ export const formatToSpokeAsset = ({
     tokenPriceOracleAddress: priceOracleAddress ?? NULL_ADDRESS,
     isBorrowable: isLiquiditySide,
     isSuppliable: apiMarket.suppliable,
+    borrowRatePerBlockMantissa: new BigNumber(apiMarket.borrowRatePerBlockMantissa),
     isInactive,
     reserveFactor: convertFactorFromSmartContract({
       factor: new BigNumber(apiMarket.reserveFactorMantissa),
