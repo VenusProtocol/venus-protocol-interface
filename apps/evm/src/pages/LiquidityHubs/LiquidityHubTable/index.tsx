@@ -155,6 +155,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
           baseApyPercentage={supplyApyPercentage}
           tokenDistributions={supplyTokenDistributions}
           userBalanceTokens={userSupplyBalanceTokens}
+          isLiquidityHub
         />
       ),
     },

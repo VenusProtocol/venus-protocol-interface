@@ -2,7 +2,13 @@ import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
-import { useGetSwapQuote, useSupply, useSwapTokensAndSupply } from 'clients/api';
+import {
+  useGetLiquidityHubs,
+  useGetSwapQuote,
+  useSupply,
+  useSupplyFromWalletToLiquidityHub,
+  useSwapTokensAndSupply,
+} from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -76,19 +82,55 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
     name: 'SwapRouterV2',
   });
 
+  const { address: collateralGatewayContractAddress } = useGetContractAddress({
+    name: 'CollateralGateway',
+  });
+
+  const isLiquidityHubAutoResupplyEnabled =
+    useIsFeatureEnabled({ name: 'liquidityHubAutoResupply' }) && !!collateralGatewayContractAddress;
+
+  const { data: getLiquidityHubsData } = useGetLiquidityHubs(
+    {
+      accountAddress,
+    },
+    {
+      enabled: isLiquidityHubAutoResupplyEnabled,
+    },
+  );
+
+  const liquidityHub = isLiquidityHubAutoResupplyEnabled
+    ? getLiquidityHubsData?.liquidityHubs.find(hub =>
+        areTokensEqual(hub.vhToken, asset.vToken.underlyingToken),
+      )
+    : undefined;
+
   const { toggleCollateral } = useCollateral();
 
   const canWrapNativeToken =
     isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped;
 
-  const { tokenBalances, userWalletNativeTokenBalanceTokens } = useGetOperationFormTokenBalances({
-    poolComptrollerContractAddress: pool.comptrollerAddress,
-    accountAddress,
-    underlyingToken: asset.vToken.underlyingToken,
-    isIntegratedSwapFeatureEnabled,
-    canWrapNativeToken,
-    action: 'supply',
-  });
+  const { tokenBalances: operationFormTokenBalances, userWalletNativeTokenBalanceTokens } =
+    useGetOperationFormTokenBalances({
+      poolComptrollerContractAddress: pool.comptrollerAddress,
+      accountAddress,
+      underlyingToken: asset.vToken.underlyingToken,
+      isIntegratedSwapFeatureEnabled,
+      canWrapNativeToken,
+      action: 'supply',
+    });
+
+  const tokenBalances = liquidityHub
+    ? [
+        ...operationFormTokenBalances,
+        {
+          token: liquidityHub.vhToken.underlyingToken,
+          balanceMantissa: convertTokensToMantissa({
+            token: liquidityHub.vhToken.underlyingToken,
+            value: liquidityHub.userWalletBalanceTokens ?? new BigNumber(0),
+          }),
+        },
+      ]
+    : operationFormTokenBalances;
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
@@ -125,9 +167,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
   // 3) the market's underlying token wraps the native token
   const isWrappingNativeToken = canWrapNativeToken && !!formValues.fromToken.isNative;
 
+  const isSupplyingLiquidityHubUnderlying =
+    !!liquidityHub && areTokensEqual(liquidityHub.vhToken.underlyingToken, formValues.fromToken);
+
   const isUsingSwap =
     isIntegratedSwapFeatureEnabled &&
     !isWrappingNativeToken &&
+    !isSupplyingLiquidityHubUnderlying &&
     !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken);
 
   let spenderAddress: undefined | Address = asset.vToken.address;
@@ -136,6 +182,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
     spenderAddress = nativeTokenGatewayContractAddress;
   } else if (isUsingSwap) {
     spenderAddress = swapRouterV2ContractAddress;
+  } else if (isSupplyingLiquidityHubUnderlying) {
+    spenderAddress = collateralGatewayContractAddress;
   }
 
   const {
@@ -160,13 +208,27 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
       isSwappingNative: !!formValues.fromToken.isNative,
     });
 
-  const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading;
+  const {
+    mutateAsync: supplyFromWalletToLiquidityHub,
+    isPending: isSupplyFromWalletToLiquidityHubLoading,
+  } = useSupplyFromWalletToLiquidityHub();
+
+  const isSubmitting =
+    isSupplyLoading || isSwapAndSupplyLoading || isSupplyFromWalletToLiquidityHubLoading;
 
   const onSubmit = async () => {
     const amountMantissa = convertTokensToMantissa({
       value: new BigNumber(formValues.amountTokens.trim()),
       token: formValues.fromToken,
     });
+
+    if (liquidityHub && isSupplyingLiquidityHubUnderlying) {
+      return supplyFromWalletToLiquidityHub({
+        liquidityHub,
+        vhMarketVToken: asset.vToken,
+        amountMantissa,
+      });
+    }
 
     // Handle supply flow
     if (!isUsingSwap && !isWrappingNativeToken) {
@@ -258,6 +320,18 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
       amountTokens = BigNumber.min(amountTokens, fromTokenWalletSpendingLimitTokens);
     }
 
+    if (liquidityHub && isSupplyingLiquidityHubUnderlying) {
+      const coreMarginWithSupplyCapTokens = asset.supplyCapTokens
+        .minus(asset.supplyBalanceTokens)
+        .multipliedBy(liquidityHub.pricePerShare);
+
+      return BigNumber.min(
+        amountTokens,
+        coreMarginWithSupplyCapTokens,
+        liquidityHub.supplyCapTokens.minus(liquidityHub.supplyBalanceTokens),
+      ).dp(liquidityHub.vhToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
+    }
+
     // Take supply cap in consideration, if user is not swapping
     if (!isUsingSwap) {
       const marginWithSupplyCapTokens = asset.supplyCapTokens.isEqualTo(0)
@@ -273,6 +347,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
 
     return amountTokens;
   }, [
+    liquidityHub,
+    isSupplyingLiquidityHubUnderlying,
     isUsingSwap,
     asset.supplyBalanceTokens,
     fromTokenUserWalletBalanceTokens,
@@ -285,12 +361,19 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
     isUsingSwap && swapQuote ? getSwapToTokenAmount(swapQuote) : debouncedFormAmountTokens;
   toTokenAmountTokens = new BigNumber(toTokenAmountTokens || 0);
 
+  if (liquidityHub && isSupplyingLiquidityHubUnderlying) {
+    toTokenAmountTokens = toTokenAmountTokens
+      .dividedBy(liquidityHub.pricePerShare)
+      .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
+  }
+
   const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
       vTokenAddress: asset.vToken.address,
       action: 'supply',
       amountTokens: toTokenAmountTokens,
+      enableAsCollateralOfUser: isSupplyingLiquidityHubUnderlying || undefined,
     },
   ];
 
@@ -397,7 +480,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
           />
         </LabeledInlineContent>
 
-        {isIntegratedSwapFeatureEnabled || canWrapNativeToken ? (
+        {isIntegratedSwapFeatureEnabled || canWrapNativeToken || liquidityHub ? (
           <SelectTokenTextField
             data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formValues.fromToken}

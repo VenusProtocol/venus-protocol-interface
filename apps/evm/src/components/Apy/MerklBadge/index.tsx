@@ -24,6 +24,7 @@ export const MerklBadge: React.FC<MerklBadgeProps> = ({
   tokenDistributions,
   pointDistributions,
   vTokenAddress,
+  isLiquidityHub,
   className,
   ...otherProps
 }) => {
@@ -50,6 +51,7 @@ export const MerklBadge: React.FC<MerklBadgeProps> = ({
             tokenDistributions={tokenDistributions}
             pointDistributions={pointDistributions}
             vTokenAddress={vTokenAddress}
+            isLiquidityHub={isLiquidityHub}
             showEstimatedRewards
           />
         </div>

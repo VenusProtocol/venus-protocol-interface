@@ -248,6 +248,13 @@
           "description": "Lợi suất nội tại nhận được khi cung cấp tài sản cơ sở vào <AppLink>Trung tâm thanh khoản của Venus</AppLink>. vhToken tích lũy lợi suất này thông qua tỷ lệ quy đổi tăng dần thay vì phần thưởng có thể nhận — bạn nhận được tự động khi rút.",
           "name": "APY nội tại của Trung tâm thanh khoản"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "APY Prime bạn thực sự nhận được, tính theo tỷ trọng vhToken bạn đã cung cấp vào Core pool. Phần thưởng này đến từ Core pool và không được trả hai lần. Venus Prime thưởng cho người dùng tận tâm bằng phần thưởng được boost. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+          "name": "APY Prime thực tế"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "Lợi suất cơ bản khi cung cấp vào Trung tâm thanh khoản Venus, không bao gồm Prime và các phần thưởng khác."
+        },
         "offChainApy": {
           "description": "Lợi suất bổ sung từ các hoạt động off-chain như airdrop hoặc chiến dịch khuyến mãi do bên thứ ba quản lý. Lợi suất này không được Venus Protocol đảm bảo.",
           "name": "APY off-chain"
@@ -283,6 +290,7 @@
       "logoAlt": "Logo Prime",
       "tooltip": {
         "calculatorLink": "Tính phần thưởng Prime của bạn",
+        "liquidityHubCorePoolBoost": "Khoản boost này đến từ Core pool và không được trả hai lần.",
         "primeBorrowSimulation": "APY được boost bởi Prime dựa trên mức vay trung bình của người dùng {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}}.",
         "primeDocLink": "Tìm hiểu thêm",
         "primeMarket": "APY được boost bởi Prime.",

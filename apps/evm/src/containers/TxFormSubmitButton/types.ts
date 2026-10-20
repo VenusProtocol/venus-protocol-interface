@@ -25,7 +25,7 @@ export interface TxFormSubmitButtonProps {
   isFormValid: boolean;
   balanceMutations?: BalanceMutation[];
   simulatedPool?: Pool;
-  approval?: Approval;
+  approval?: Approval | Approval[];
   isUserAcknowledgingRisk?: boolean;
   setAcknowledgeRisk?: (checked: boolean) => void;
   isUserAcknowledgingHighPriceImpact?: boolean;

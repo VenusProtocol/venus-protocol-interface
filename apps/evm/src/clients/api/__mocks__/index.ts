@@ -1093,7 +1093,28 @@ export const useSupplyToLiquidityHub = vi.fn((options?: MutationObserverOptions)
   }),
 );
 
+export const useSupplyFromWalletToLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
 export const useWithdrawFromLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useSupplyFromCollateralToLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);
+
+export const useWithdrawPositionFromLiquidityHub = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),
     ...options,

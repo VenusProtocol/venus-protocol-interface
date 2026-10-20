@@ -248,6 +248,13 @@
           "description": "<AppLink>Venus流動性ハブ</AppLink>に原資産を供給することで得られるネイティブ利回りです。vhTokenは請求可能な報酬ではなく、上昇する償還レートを通じてこの利回りを蓄積します——出金時に自動的に受け取れます。",
           "name": "流動性ハブ内在APY"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "Coreプールに供給したvhTokenの割合で加重した、実際に獲得できるPrime APYです。この報酬はCoreプールから支払われ、二重には支払われません。Venus Primeは専用ユーザーにブースト報酬を付与します。Venusプロトコルはこれらの報酬を保証せず、責任を負いません。",
+          "name": "実効Prime APY"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "Venus流動性ハブへの供給で得られる基本利回りです。Primeやその他の報酬は含まれません。"
+        },
         "offChainApy": {
           "description": "エアドロップやプロモーションなど第三者によるオフチェーン活動からの追加利回りです。この利回りはVenusプロトコルによって保証されません。",
           "name": "オフチェーンAPY"
@@ -283,6 +290,7 @@
       "logoAlt": "Primeロゴ",
       "tooltip": {
         "calculatorLink": "Prime報酬を計算",
+        "liquidityHubCorePoolBoost": "このブーストはCoreプールから支払われ、二重には支払われません。",
         "primeBorrowSimulation": "Primeにより、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
         "primeDocLink": "詳細を見る",
         "primeMarket": "PrimeによりAPYがブーストされます。",

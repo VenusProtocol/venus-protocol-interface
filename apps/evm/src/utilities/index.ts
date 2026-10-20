@@ -76,6 +76,8 @@ export * from './getVaultCategoryName';
 export * from './getTransactionName';
 export * from './formatToTradePosition';
 export * from './calculateUserMaxBorrowTokens';
+export * from './calculateCollateralMigrationLimits';
+export * from './appendCorePrimeDistributionsToLiquidityHub';
 export * from './calculateCollateralWithdrawLimits';
 export * from './calculateDailyBorrowInterestCents';
 export * from './formatToCandle';

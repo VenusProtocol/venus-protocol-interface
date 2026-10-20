@@ -248,6 +248,13 @@
           "description": "透過向 <AppLink>Venus 流動性中心</AppLink>提供標的資產而獲得的原生收益。vhToken 透過不斷上升的贖回率累積該收益，而非可領取的獎勵——您在提取時會自動獲得。",
           "name": "流動性中心內在 APY"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "按您供應至 Core 池的 vhToken 佔比加權後，您實際獲得的 Prime APY。該獎勵來自 Core 池，不會重複發放。Venus Prime 為忠實用戶提供加成獎勵。Venus 協議不作任何保證且不承擔責任。",
+          "name": "實際 Prime APY"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "向 Venus 流動性中心供應獲得的基礎收益，不含 Prime 及其他獎勵。"
+        },
         "offChainApy": {
           "description": "來自空投或推廣活動等第三方管理的鏈下活動的額外收益。該收益不由 Venus 協議保證。",
           "name": "鏈下 APY"
@@ -283,6 +290,7 @@
       "logoAlt": "Prime 標誌",
       "tooltip": {
         "calculatorLink": "計算你的 Prime 獎勵",
+        "liquidityHubCorePoolBoost": "該加成來自 Core 池，不會重複發放。",
         "primeBorrowSimulation": "Prime 加成基於用戶借款平均值 {{borrowBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。",
         "primeDocLink": "瞭解更多",
         "primeMarket": "Prime 提升 APY。",

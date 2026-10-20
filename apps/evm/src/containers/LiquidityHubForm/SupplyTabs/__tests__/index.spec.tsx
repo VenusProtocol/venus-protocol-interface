@@ -8,6 +8,7 @@ import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { useGetBalanceOf, useGetPool } from 'clients/api';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
@@ -203,4 +204,45 @@ describe('SupplyTabs', () => {
       accountAddress: fakeAccountAddress,
     });
   });
+
+  it.each([
+    [true, '0xfakeCollateralGatewayContractAddress'],
+    [false, liquidityHub.vhToken.address],
+  ])(
+    'routes wallet supplies through the collateral gateway only when auto-resupply is enabled (%s)',
+    (isAutoResupplyEnabled, expectedSpenderAddress) => {
+      const corePoolVhAsset = {
+        ...assetData[1],
+        vToken: {
+          ...assetData[1].vToken,
+          underlyingToken: liquidityHub.vhToken,
+        },
+      };
+
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...corePool,
+            assets: [...corePool.assets, corePoolVhAsset],
+          },
+        },
+        isLoading: false,
+      });
+      mockUseGetContractAddress.mockImplementation(({ name }: { name: string }) => ({
+        address: `0xfake${name}ContractAddress`,
+      }));
+      (useIsFeatureEnabled as Mock).mockImplementation(
+        ({ name }: { name: string }) =>
+          name === 'liquidityHubAutoResupply' && isAutoResupplyEnabled,
+      );
+
+      renderSupplyTabs();
+
+      expect(mockUseTokenApproval).toHaveBeenCalledWith({
+        token: liquidityHub.vhToken.underlyingToken,
+        spenderAddress: expectedSpenderAddress,
+        accountAddress: fakeAccountAddress,
+      });
+    },
+  );
 });
