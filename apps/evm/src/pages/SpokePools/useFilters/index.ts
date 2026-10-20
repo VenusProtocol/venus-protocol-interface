@@ -64,8 +64,7 @@ export const useFilters = ({ spokePools }: UseFiltersInput) => {
     selectableValues: selectablePools,
   });
 
-  // Filter changes replace the current history entry rather than pushing a new one, so
-  // going back leaves the page instead of stepping through every option that was toggled
+  // Replace history so going back leaves the page
   const setParamValues = (key: string, newValues: string[], selectableValues: string[]) =>
     setSearchParams(
       currentSearchParams => {

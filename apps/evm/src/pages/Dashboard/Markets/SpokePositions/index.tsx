@@ -32,7 +32,7 @@ export const SpokePositions: React.FC<SpokePositionsProps> = ({ spokePool }) => 
 
   const handleClose = () => setSelectedRow(undefined);
 
-  // The flow asks whether that side is paused, not whether the whole market is
+  // Checks whether that side is paused, not the whole market
   const pausedActions: TokenAction[] = selectedRow?.isCollateral
     ? ['supply', 'enterMarket']
     : ['borrow'];
@@ -70,10 +70,10 @@ export const SpokePositions: React.FC<SpokePositionsProps> = ({ spokePool }) => 
           }
           spokePool={spokePool}
           asset={selectedRow.isCollateral ? firstLoanAsset : selectedRow.asset}
-          // The PRD packages the collateral side as a standalone modal, with no top tabs
+          // PRD shows the collateral side as a standalone modal
           collateralOnly={selectedRow.isCollateral}
           initialActiveTabId={selectedRow.isCollateral ? 'collateral' : 'loan'}
-          // Exiting is never gated, so a paused market opens straight on the way out
+          // Exiting is never gated, so paused markets open on exit
           initialCollateralTabId={isSelectedRowPaused ? 'withdraw' : 'supply'}
           initialLoanTabId={isSelectedRowPaused ? 'repay' : 'borrow'}
           preselectedCollateral={selectedRow.isCollateral ? selectedRow.asset : undefined}

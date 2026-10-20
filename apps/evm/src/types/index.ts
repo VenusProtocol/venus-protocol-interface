@@ -1122,3 +1122,8 @@ export interface ApiLiquidityHub {
   userMaxRedeemMantissa?: string | null;
   userMaxWithdrawMantissa?: string | null;
 }
+
+export enum TransactionPoolType {
+  Core = 'core',
+  Spoke = 'spoke',
+}

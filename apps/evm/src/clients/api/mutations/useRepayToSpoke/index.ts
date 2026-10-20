@@ -4,12 +4,11 @@ import FunctionKey from 'constants/functionKey';
 import MAX_UINT256 from 'constants/maxUint256';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import spokeVTokenAbi from 'libs/contracts/config/externalAbis/SpokeVToken.json';
+import { spokeVTokenAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
-import type { Account, Chain, WriteContractParameters } from 'viem';
 
 export type RepayToSpokeInput = {
   vToken: VToken;
@@ -39,13 +38,7 @@ export const useRepayToSpoke = (options?: Partial<Options>) => {
         address: input.vToken.address,
         functionName: 'repayBorrow',
         args: [BigInt((input.repayFullLoan ? MAX_UINT256 : input.amountMantissa).toFixed())],
-      } as WriteContractParameters<
-        typeof spokeVTokenAbi,
-        'repayBorrow',
-        readonly [bigint],
-        Chain,
-        Account
-      >;
+      };
     },
     onConfirmed: ({ input }) => {
       captureAnalyticEvent('Tokens repaid', {

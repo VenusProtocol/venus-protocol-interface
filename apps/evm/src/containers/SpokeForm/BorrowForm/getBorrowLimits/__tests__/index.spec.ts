@@ -69,7 +69,7 @@ describe('getBorrowLimits', () => {
   });
 
   it('holds back the reserves that accrue before the borrow is executed', () => {
-    // vUSDT_HubSpoke on BSC testnet, where SAFE MAX used to overshoot the cash
+    // Testnet vUSDT_HubSpoke, where SAFE MAX overshot the cash
     const { limitTokens } = getBorrowLimits({
       spokePool,
       asset: {

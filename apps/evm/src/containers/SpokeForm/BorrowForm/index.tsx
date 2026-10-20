@@ -42,7 +42,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 
   const { limitTokens, safeLimitTokens } = getBorrowLimits({ spokePool, asset });
 
-  // Borrowing being paused leaves nothing to fill in, so the notice stands in for the form
+  // Paused borrowing shows a notice instead of the form
   if (isBorrowDisabled) {
     return <NoticeWarning description={t('assetAccessor.disabledActionNotice.borrow')} />;
   }

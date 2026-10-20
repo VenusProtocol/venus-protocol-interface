@@ -18,7 +18,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router';
-import type { Token } from 'types';
+import { type Token, TransactionPoolType } from 'types';
 import { getTransactionName } from 'utilities';
 import { type Address, isAddress } from 'viem';
 
@@ -53,10 +53,10 @@ export const Transactions: React.FC = () => {
   const selectedTransactionTypes = txType ? [txType] : TX_TYPES;
   const isMarketTxType = MARKET_TX_TYPES.some(type => type === txType);
 
-  let poolType: 'core' | 'spoke' | undefined;
+  let poolType: TransactionPoolType | undefined;
 
   if (isSpokeFeatureEnabled && isMarketTxType) {
-    poolType = spokeTxType ? 'spoke' : 'core';
+    poolType = spokeTxType ? TransactionPoolType.Spoke : TransactionPoolType.Core;
   }
 
   const selectedContractAddress = searchParams.get(CONTRACT_ADDRESS_PARAM_KEY)

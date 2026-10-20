@@ -30,6 +30,33 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
 
   const linkNavProps = to ? { to } : { href };
 
+  let iconDom = (
+    <img src={imgSrc} alt={label} className={variant === 'secondary' ? 'size-10' : 'size-12'} />
+  );
+
+  if (iconName) {
+    iconDom = (
+      <Icon
+        name={iconName}
+        className={cn(
+          'text-light-grey size-6 transition-colors group-hover:text-white',
+          isActive && 'text-white',
+        )}
+      />
+    );
+  }
+
+  if (menuIconName) {
+    iconDom = (
+      <MenuIcon
+        name={menuIconName}
+        aria-label={label}
+        role="img"
+        className={variant === 'secondary' ? 'size-10' : 'size-12'}
+      />
+    );
+  }
+
   return (
     <Link
       {...linkNavProps}
@@ -53,28 +80,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
               !!menuIconName && menuIconName !== 'core' && 'nav-icon-glint',
             )}
           >
-            {menuIconName ? (
-              <MenuIcon
-                name={menuIconName}
-                aria-label={label}
-                role="img"
-                className={variant === 'secondary' ? 'size-10' : 'size-12'}
-              />
-            ) : iconName ? (
-              <Icon
-                name={iconName}
-                className={cn(
-                  'text-light-grey size-6 transition-colors group-hover:text-white',
-                  isActive && 'text-white',
-                )}
-              />
-            ) : (
-              <img
-                src={imgSrc}
-                alt={label}
-                className={variant === 'secondary' ? 'size-10' : 'size-12'}
-              />
-            )}
+            {iconDom}
           </div>
         )}
 

@@ -26,7 +26,7 @@ const format = (overrides: Partial<typeof apiMarket>, token: Token) =>
 
 describe('formatToSpokeAsset', () => {
   it('computes the total supply exactly as the comptroller supply cap check does', () => {
-    // vTSLAB_HubSpoke on BSC testnet, where MAX used to overshoot the cap by 28 wei
+    // Testnet vTSLAB_HubSpoke, where MAX overshot the cap
     const asset = format(
       {
         totalSupplyMantissa: '301598374995',

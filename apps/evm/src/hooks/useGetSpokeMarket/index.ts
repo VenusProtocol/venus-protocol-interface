@@ -20,7 +20,7 @@ export const useGetSpokeMarket = ({
   spokeVTokenAddress,
 }: UseGetSpokeMarketInput): UseGetSpokeMarketOutput => {
   const { accountAddress } = useAccountAddress();
-  const { data, isLoading } = useGetSpokePools({ accountAddress });
+  const { data, isLoading, isError } = useGetSpokePools({ accountAddress });
 
   const spokePool = data?.spokePools.find(
     pool =>
@@ -32,5 +32,5 @@ export const useGetSpokeMarket = ({
     ({ vToken }) => !!spokeVTokenAddress && areAddressesEqual(vToken.address, spokeVTokenAddress),
   );
 
-  return { isLoading, spokePool, asset };
+  return { isLoading: isLoading || (isError && !data), spokePool, asset };
 };

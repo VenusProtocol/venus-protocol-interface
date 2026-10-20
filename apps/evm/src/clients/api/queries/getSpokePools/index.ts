@@ -93,17 +93,24 @@ export const getSpokePools = async ({
     ? await Promise.all([
         fetchUserPositions(accountAddress).catch(error => {
           logError(error);
-          displayServiceIssueNotification();
 
           return undefined;
         }),
-        getTokenBalances({ publicClient, accountAddress, tokens: underlyingTokens }).then(
-          ({ tokenBalances }) => tokenBalances,
-        ),
+        getTokenBalances({ publicClient, accountAddress, tokens: underlyingTokens })
+          .then(({ tokenBalances }) => tokenBalances)
+          .catch(error => {
+            logError(error);
+
+            return undefined;
+          }),
       ])
     : [[], []];
 
-  const isUserDataUnavailable = !!accountAddress && !userPositions;
+  const isUserDataUnavailable = !!accountAddress && (!userPositions || !userTokenBalances);
+
+  if (isUserDataUnavailable) {
+    displayServiceIssueNotification();
+  }
 
   const spokePools = apiPools.map(apiPool =>
     formatToSpokePool({
@@ -113,7 +120,7 @@ export const getSpokePools = async ({
       isUserConnected: !!accountAddress && !isUserDataUnavailable,
       isUserDataUnavailable,
       userPositions: userPositions ?? [],
-      userTokenBalances,
+      userTokenBalances: userTokenBalances ?? [],
       apiTokens: payload.tokens ?? [],
     }),
   );

@@ -66,8 +66,7 @@ const SpokePools: React.FC = () => {
   const isVisible = (asset: SpokeAsset) =>
     userChainSettings.showPausedSpokeAssets || !asset.isInactive;
 
-  // An empty group means no constraint: values are OR-ed within a group, and groups are
-  // AND-ed together
+  // Empty group means no constraint; OR within, AND across groups
   const filteredSpokePools = spokePools
     .map(spokePool => {
       const visibleAssets = spokePool.assets.filter(isVisible);

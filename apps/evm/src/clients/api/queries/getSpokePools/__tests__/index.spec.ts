@@ -260,6 +260,30 @@ describe('getSpokePools', () => {
     expect(displayServiceIssueNotification).toHaveBeenCalledTimes(1);
   });
 
+  it('keeps the pools and flags the user data as unavailable when the wallet balance read fails', async () => {
+    mockResponses();
+    (getTokenBalances as Mock).mockImplementation(async () => {
+      throw new Error('RPC unavailable');
+    });
+
+    const { spokePools } = await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: fakePublicClient,
+      poolLensContractAddress: fakePoolLensContractAddress,
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(spokePools).toHaveLength(spokePoolsResponse.result.length);
+    expect(spokePools.every(spokePool => spokePool.isUserDataUnavailable)).toBe(true);
+    expect(
+      spokePools.every(spokePool =>
+        spokePool.assets.every(asset => asset.userWalletBalanceTokens.isEqualTo(0)),
+      ),
+    ).toBe(true);
+    expect(displayServiceIssueNotification).toHaveBeenCalledTimes(1);
+  });
+
   it('does not read anything on chain when no account is passed', async () => {
     mockResponses();
     const publicClient = buildPublicClient({ shouldFail: true });

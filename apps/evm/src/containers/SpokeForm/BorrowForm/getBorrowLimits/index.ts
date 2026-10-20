@@ -57,13 +57,12 @@ export const getBorrowLimits = ({
     .minus(asset.reserveTokens)
     .minus(pendingReservesTokens);
 
-  // Protected prices on both sides, matching the comptroller and the Core borrow form
+  // Protected prices on both sides, like the comptroller
   const marginWithUserBorrowLimitTokens = (userBorrowLimitProtectedCents ?? userBorrowLimitCents)
     .minus(userBorrowBalanceProtectedCents ?? userBorrowBalanceCents)
     .dividedBy(asset.tokenBorrowPriceCents);
 
-  // The safe limit is based on the liquidation threshold because that is what the health
-  // factor is computed from
+  // Health factor uses liquidation threshold, so the safe limit does
   const marginWithUserSafeBorrowLimitTokens = clampToZero({
     value: userLiquidationThresholdCents
       .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)

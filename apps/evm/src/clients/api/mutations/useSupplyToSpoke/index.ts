@@ -4,12 +4,11 @@ import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import collateralGatewayAbi from 'libs/contracts/config/externalAbis/CollateralGateway.json';
+import { collateralGatewayAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
-import type { Account, Address, Chain, WriteContractParameters } from 'viem';
 
 export type SupplyToSpokeInput = {
   vToken: VToken;
@@ -45,13 +44,7 @@ export const useSupplyToSpoke = (options?: Partial<Options>) => {
         address: collateralGatewayAddress,
         functionName: 'supplyAndEnterSpokeMarkets',
         args: [[input.vToken.address], [BigInt(input.amountMantissa.toFixed())]],
-      } as WriteContractParameters<
-        typeof collateralGatewayAbi,
-        'supplyAndEnterSpokeMarkets',
-        readonly [readonly Address[], readonly bigint[]],
-        Chain,
-        Account
-      >;
+      };
     },
     onConfirmed: ({ input }) => {
       captureAnalyticEvent('Tokens supplied', {

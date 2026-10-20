@@ -3,12 +3,11 @@ import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import spokeVTokenAbi from 'libs/contracts/config/externalAbis/SpokeVToken.json';
+import { spokeVTokenAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
-import type { Account, Chain, WriteContractParameters } from 'viem';
 
 export type BorrowFromSpokeInput = {
   vToken: VToken;
@@ -37,13 +36,7 @@ export const useBorrowFromSpoke = (options?: Partial<Options>) => {
         address: input.vToken.address,
         functionName: 'borrow',
         args: [BigInt(input.amountMantissa.toFixed())],
-      } as WriteContractParameters<
-        typeof spokeVTokenAbi,
-        'borrow',
-        readonly [bigint],
-        Chain,
-        Account
-      >;
+      };
     },
     onConfirmed: ({ input }) => {
       captureAnalyticEvent('Tokens borrowed', {

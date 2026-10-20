@@ -14,14 +14,13 @@ export type SpokeFormTabId = 'collateral' | 'loan';
 
 export interface SpokeFormProps {
   spokePool: SpokePool;
-  // Absent for a pool with no loan asset, where only the collateral side is offered
+  // Absent when the pool has no loan asset
   asset?: SpokeAsset;
   initialActiveTabId?: SpokeFormTabId;
   initialCollateralTabId?: 'supply' | 'withdraw';
   initialLoanTabId?: 'borrow' | 'repay';
   preselectedCollateral?: SpokeAsset;
-  // Renders the collateral side on its own, without the Collateral / Loan tabs, which is how
-  // the PRD packages the "Manage collateral" modal
+  // Collateral side only, without tabs, as the PRD modal
   collateralOnly?: boolean;
   onSubmitSuccess?: () => void;
   navType?: TabNavType;
@@ -55,8 +54,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
       ? tabParamValue
       : stateActiveTabId;
 
-  // The outer tab is owned here so the guided supply link can switch it, which the URL-driven
-  // mode of useTabs would otherwise ignore
+  // Owned here so the guided supply link can switch it
   const setActiveTabId = (newTabId: SpokeFormTabId) => {
     setStateActiveTabId(newTabId);
 
@@ -147,8 +145,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
 
   const collateralTabsDom = (
     <Tabs
-      // Remounts on a new preselection so the leaf forms pick it up, which their initial state
-      // alone would not do
+      // Remount on new preselection so the forms pick it up
       key={initialCollateral?.vToken.address}
       tabs={collateralTabs}
       initialActiveTabId={initialCollateralTabId}
@@ -160,7 +157,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
     <Tabs tabs={loanTabs} initialActiveTabId={initialLoanTabId} variant="primary" />
   );
 
-  // A pool missing one of the two sides offers the other on its own rather than an empty tab
+  // A pool missing one side shows only the other
   if (collateralTabs.length === 0) {
     return loanTabsDom;
   }

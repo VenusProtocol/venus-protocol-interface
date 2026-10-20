@@ -65,15 +65,19 @@ export const formatToSpokeAsset = ({
 
   const isProtectionModeEnabled = oraclePrice?.isPriceProtected ?? false;
 
-  const toProtectedPriceCents = (priceMantissa?: string | null) =>
+  const toProtectedPriceCents = (priceMantissa?: string) =>
     isProtectionModeEnabled && priceMantissa
       ? convertDollarsToCents(
           convertPriceMantissaToDollars({ priceMantissa, decimals: underlyingToken.decimals }),
         )
       : tokenPriceCents;
 
-  const tokenSupplyPriceCents = toProtectedPriceCents(oraclePrice?.supplyPriceMantissa);
-  const tokenBorrowPriceCents = toProtectedPriceCents(oraclePrice?.borrowPriceMantissa);
+  const tokenSupplyPriceCents = toProtectedPriceCents(
+    oraclePrice?.supplyPriceMantissa ?? undefined,
+  );
+  const tokenBorrowPriceCents = toProtectedPriceCents(
+    oraclePrice?.borrowPriceMantissa ?? undefined,
+  );
 
   const toTokens = (mantissa: string) =>
     convertMantissaToTokens({ value: new BigNumber(mantissa), token: underlyingToken });
