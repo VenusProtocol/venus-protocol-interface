@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.39.0
+
+### Minor Changes
+
+- 0ce78ec: fix: read the viewer country from ipwho.is
+
 ## 5.38.2
 
 ### Patch Changes
