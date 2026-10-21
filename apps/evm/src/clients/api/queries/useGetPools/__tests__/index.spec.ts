@@ -256,4 +256,42 @@ describe('useGetPools', () => {
     expect(restrictedAsset?.isRestricted).toBe(true);
     expect(gatedAsset?.isGated).toBe(true);
   });
+
+  it('leaves the same room under the supply cap as the comptroller', async () => {
+    // Real sUSDe values from BSC mainnet; the comptroller refused 2640430882205840391496313
+    // and allowed 2640430882205840391486593 at block 128776805
+    (restService as Mock).mockImplementation(async () => ({
+      status: 200,
+      data: {
+        ...apiPoolsResponse,
+        result: apiPoolsResponse.result.map(pool => ({
+          ...pool,
+          markets: pool.markets.map(market =>
+            market.symbol === 'vUSDT'
+              ? {
+                  ...market,
+                  supplyCapsMantissa: '4000000000000000000000000',
+                  totalSupplyMantissa: '135956911777877',
+                  exchangeRateMantissa: '10000000000113194749072788276',
+                }
+              : market,
+          ),
+        })),
+      },
+    }));
+
+    const { result } = renderHook(() => useGetPools({ includeIsolatedPools: true }));
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+
+    const asset = result.current.data?.pools
+      .flatMap(pool => pool.assets)
+      .find(({ vToken }) => vToken.symbol === 'vUSDT');
+
+    const roomMantissa = asset?.supplyCapTokens
+      .minus(asset.supplyBalanceTokens)
+      .multipliedBy(10 ** asset.vToken.underlyingToken.decimals);
+
+    expect(roomMantissa?.toFixed()).toBe('2640430882205840391486593');
+  });
 });
