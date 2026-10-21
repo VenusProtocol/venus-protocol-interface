@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.38.2
+
+### Patch Changes
+
+- 546a3f2: count Liquidity Hub deposits in the dashboard net worth
+
 ## 5.38.1
 
 ### Patch Changes
