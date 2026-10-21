@@ -57,6 +57,8 @@ export interface ApiSpokeTotals {
 export interface ApiSpokeToken {
   address: Address;
   tokenPrices?: ApiTokenPrice[];
+  restrictedCountries?: string[];
+  gatedCountries?: string[];
 }
 
 export interface GetSpokePoolsResponse {

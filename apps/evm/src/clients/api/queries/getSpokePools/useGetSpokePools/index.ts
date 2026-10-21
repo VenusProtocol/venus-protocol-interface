@@ -4,7 +4,6 @@ import type { Address } from 'viem';
 
 import { useGetIpLocation } from 'clients/api/queries/useGetIpLocation';
 import { applyCountryCodeToPools } from 'clients/api/queries/useGetPools/applyCountryCodeToPools';
-import { useGetPoolsQuery } from 'clients/api/queries/useGetPools/useGetPoolsQuery';
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -52,11 +51,6 @@ export const useGetSpokePools = (input?: UseGetSpokePoolsInput, options?: Partia
     enabled: isEnabled,
   });
 
-  const { data: getPoolsData } = useGetPoolsQuery(
-    { accountAddress: input?.accountAddress },
-    { enabled: isEnabled },
-  );
-
   const { data: getIpLocationData } = useGetIpLocation({ enabled: isEnabled });
 
   const data = useMemo<GetSpokePoolsOutput | undefined>(() => {
@@ -69,10 +63,10 @@ export const useGetSpokePools = (input?: UseGetSpokePoolsInput, options?: Partia
       spokePools: applyCountryCodeToPools({
         countryCode: getIpLocationData?.countryCode,
         pools: spokePoolsQuery.data.spokePools,
-        tokenMetadataMapping: getPoolsData?.tokenMetadataMapping ?? {},
+        tokenMetadataMapping: spokePoolsQuery.data.tokenMetadataMapping,
       }),
     };
-  }, [spokePoolsQuery.data, getIpLocationData?.countryCode, getPoolsData?.tokenMetadataMapping]);
+  }, [spokePoolsQuery.data, getIpLocationData?.countryCode]);
 
   return {
     ...spokePoolsQuery,

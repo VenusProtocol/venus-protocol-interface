@@ -260,6 +260,33 @@ describe('getSpokePools', () => {
     expect(displayServiceIssueNotification).toHaveBeenCalledTimes(1);
   });
 
+  it('returns the country rules of each token keyed by lowercase address', async () => {
+    const [firstToken, secondToken] = spokePoolsResponse.tokens;
+
+    (restService as Mock).mockImplementation(async () => ({
+      data: {
+        ...spokePoolsResponse,
+        tokens: [
+          { ...firstToken, restrictedCountries: ['US'], gatedCountries: ['GB'] },
+          secondToken,
+        ],
+      },
+    }));
+
+    const { tokenMetadataMapping } = await getSpokePools({
+      chainId: ChainId.BSC_TESTNET,
+      tokens: [usdc, usdt],
+      publicClient: fakePublicClient,
+      poolLensContractAddress: fakePoolLensContractAddress,
+    });
+
+    expect(tokenMetadataMapping[firstToken.address.toLowerCase()]).toMatchObject({
+      restrictedCountries: ['US'],
+      gatedCountries: ['GB'],
+    });
+    expect(tokenMetadataMapping[secondToken.address.toLowerCase()]).toBeDefined();
+  });
+
   it('keeps the pools and flags the user data as unavailable when the wallet balance read fails', async () => {
     mockResponses();
     (getTokenBalances as Mock).mockImplementation(async () => {

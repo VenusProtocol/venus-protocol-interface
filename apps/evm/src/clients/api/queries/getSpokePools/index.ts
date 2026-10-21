@@ -9,7 +9,7 @@ import type { Address, PublicClient } from 'viem';
 import { getTokenBalances } from '../getTokenBalances';
 import { formatToSpokePool } from './formatToSpokePool';
 import { getSpokeUserPositions } from './getSpokeUserPositions';
-import type { GetSpokePoolsResponse } from './types';
+import type { ApiSpokeToken, GetSpokePoolsResponse } from './types';
 
 export * from './types';
 
@@ -32,6 +32,7 @@ export interface SpokePoolsTotals {
 export interface GetSpokePoolsOutput {
   spokePools: SpokePool[];
   totals: SpokePoolsTotals;
+  tokenMetadataMapping: Record<string, ApiSpokeToken>;
 }
 
 export const getSpokePools = async ({
@@ -125,8 +126,14 @@ export const getSpokePools = async ({
     }),
   );
 
+  const tokenMetadataMapping = (payload.tokens ?? []).reduce<Record<string, ApiSpokeToken>>(
+    (acc, token) => ({ ...acc, [token.address.toLowerCase()]: token }),
+    {},
+  );
+
   return {
     spokePools,
+    tokenMetadataMapping,
     totals: {
       poolCount: payload.totals.poolCount,
       totalBorrowCents: new BigNumber(payload.totals.totalBorrowsUsdCents),

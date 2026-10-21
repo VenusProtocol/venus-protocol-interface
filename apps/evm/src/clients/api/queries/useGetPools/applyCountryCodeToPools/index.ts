@@ -14,7 +14,10 @@ export const applyCountryCodeToPools = <TPool extends { assets: CountryGatedAsse
 }: {
   countryCode?: string;
   pools: TPool[];
-  tokenMetadataMapping: Record<string, ApiTokenMetadata>;
+  tokenMetadataMapping: Record<
+    string,
+    Pick<ApiTokenMetadata, 'restrictedCountries' | 'gatedCountries'>
+  >;
 }): TPool[] => {
   if (!countryCode) {
     return pools;
