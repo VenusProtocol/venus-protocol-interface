@@ -29,14 +29,14 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   const {
     data: getAssetData,
     isLoading: isGetAssetLoading,
-    isError: hasAssetError,
+    isLoadingError: hasAssetLoadingError,
     refetch: refetchAsset,
   } = useGetAsset({
     vTokenAddress,
     accountAddress,
   });
   const asset = getAssetData?.asset;
-  const isVTokenAddressInvalid = !isGetAssetLoading && !hasAssetError && !asset;
+  const isVTokenAddressInvalid = !isGetAssetLoading && !hasAssetLoadingError && !asset;
 
   const { data: getPools } = useGetPool({
     poolComptrollerAddress: poolComptrollerAddress || NULL_ADDRESS,
@@ -49,8 +49,8 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
     return <Redirect to={marketsPagePath} />;
   }
 
-  // A failed request is not an unknown market
-  if (hasAssetError) {
+  // A failed refresh keeps the cached market on screen
+  if (hasAssetLoadingError) {
     return (
       <ErrorState
         className="my-20"

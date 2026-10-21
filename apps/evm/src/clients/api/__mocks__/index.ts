@@ -296,7 +296,7 @@ export const useGetPrimeVaultConfig = vi.fn(() => ({
 
 export const useGetAsset = vi.fn(() => ({
   isLoading: false,
-  isError: false,
+  isLoadingError: false,
   refetch: vi.fn(),
   data: {
     asset: assetData[0],

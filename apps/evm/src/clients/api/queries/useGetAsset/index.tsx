@@ -11,7 +11,7 @@ export interface UseGetAssetInput {
 
 export interface UseGetAssetOutput {
   isLoading: boolean;
-  isError: boolean;
+  isLoadingError: boolean;
   refetch: () => void;
   data?: {
     asset?: Asset;
@@ -25,7 +25,7 @@ export const useGetAsset = ({
   const {
     data: getPoolsData,
     isLoading,
-    isError,
+    isLoadingError,
     refetch,
   } = useGetPools(
     {
@@ -40,7 +40,7 @@ export const useGetAsset = ({
 
   return {
     isLoading,
-    isError,
+    isLoadingError,
     refetch,
     data: getPoolsData?.pools && {
       asset,

@@ -37,7 +37,7 @@ describe('MarketLoader', () => {
 
     (useGetAsset as Mock).mockImplementation(() => ({
       isLoading: false,
-      isError: true,
+      isLoadingError: true,
       refetch: refetchMock,
       data: undefined,
     }));
@@ -56,7 +56,7 @@ describe('MarketLoader', () => {
   it('redirects when the pools load but the market is unknown', async () => {
     (useGetAsset as Mock).mockImplementation(() => ({
       isLoading: false,
-      isError: false,
+      isLoadingError: false,
       refetch: vi.fn(),
       data: { asset: undefined },
     }));
@@ -64,5 +64,20 @@ describe('MarketLoader', () => {
     renderMarketLoader();
 
     await waitFor(() => expect(screen.getByText('REDIRECTED')).toBeInTheDocument());
+  });
+
+  it('keeps the market on screen when a refresh fails but the market is cached', async () => {
+    (useGetAsset as Mock).mockImplementation(() => ({
+      isLoading: false,
+      isError: true,
+      isLoadingError: false,
+      refetch: vi.fn(),
+      data: { asset },
+    }));
+
+    renderMarketLoader();
+
+    await waitFor(() => expect(screen.getByText('MARKET CONTENT')).toBeInTheDocument());
+    expect(screen.queryByText(en.market.errorState.failedToFetchMessage)).not.toBeInTheDocument();
   });
 });
