@@ -204,11 +204,10 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
       ? (dailyChangeCents * 100) / startOfDayNetWorthCents
       : undefined;
 
-  let readableDailyChangePercentage = formatPercentageToReadableValue(dailyChangePercentage);
-  // Remove "-" sign
-  if (readableDailyChangePercentage[0] === '-') {
-    readableDailyChangePercentage = readableDailyChangePercentage.substring(1);
-  }
+  // The arrow already carries the direction, so the percentage is shown unsigned
+  const readableDailyChangePercentage = formatPercentageToReadableValue(
+    dailyChangePercentage === undefined ? undefined : Math.abs(dailyChangePercentage),
+  );
 
   const graphCells: CellProps[] = [
     {
