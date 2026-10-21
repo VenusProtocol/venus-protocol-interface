@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "Net worth",
         "tooltip": "Net available assets after accounting for vault supply and borrowings",
-        "tooltipWithVai": "Net available assets after accounting for vault supply, borrowings, and minted VAI"
+        "tooltipWithVai": "Net available assets after accounting for vault supply, Liquidity Hub deposits, borrowings, and minted VAI"
       },
       "periodOption": {
         "oneYear": "1Y",
@@ -533,9 +533,10 @@
       "netWorth": {
         "label": "Net worth",
         "tooltip": "Net available assets after accounting for vault supply and borrowings",
-        "tooltipWithVai": "Net available assets after accounting for vault supply, borrowings, and minted VAI"
+        "tooltipWithVai": "Net available assets after accounting for vault supply, Liquidity Hub deposits, borrowings, and minted VAI"
       },
       "performanceChart": {
+        "emptyState": "No account history yet",
         "errorState": {
           "failedToFetchMessage": "Could not fetch account history",
           "refetchButtonLabel": "Retry"
@@ -658,6 +659,7 @@
     "walletNotConnected": "Wallet not connected"
   },
   "errorState": {
+    "buttonLabel": "Retry",
     "defaultMessage": "An error occurred"
   },
   "footer": {
@@ -2567,6 +2569,10 @@
       "allCategories": "All categories",
       "allStates": "All states",
       "allVenues": "All venues",
+      "archivedVaultsToggle": {
+        "label": "Archived vaults",
+        "tooltip": "Vaults that matured or were refunded more than 90 days ago, and closed vaults, are hidden unless this is on. Vaults you still have funds in are always shown."
+      },
       "claim": "Claim",
       "deposit": "Supply",
       "inactive": "Inactive",
@@ -2667,9 +2673,6 @@
       "totalTargetRewards": "Total target rewards",
       "withdraw": "Withdraw",
       "withdrawTab": "Withdraw"
-    },
-    "overview": {
-      "bannerVaultIllustration": "Vault illustration"
     },
     "timeline": {
       "description": {

@@ -86,10 +86,6 @@ const seedSharedQueryData = ({
     return;
   }
 
-  queryClient.setQueryData([FunctionKey.GET_IS_ADDRESS_AUTHORIZED, { accountAddress }], {
-    authorized: true,
-  });
-
   queryClient.setQueryData(
     [
       FunctionKey.GET_PENDING_REWARDS,

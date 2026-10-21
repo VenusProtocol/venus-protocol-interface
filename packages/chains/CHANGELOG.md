@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.32.0
+
+### Minor Changes
+
+- e816ac6: remove opBNB, Optimism and Unichain support
+
 ## 0.31.2
 
 ### Patch Changes

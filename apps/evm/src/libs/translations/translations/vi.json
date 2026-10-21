@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "Giá trị ròng",
         "tooltip": "Tài sản ròng khả dụng sau khi tính đến lượng cung cấp trong vault và các khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến lượng cung cấp trong vault, các khoản vay và VAI đã đúc"
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến lượng cung cấp trong vault, khoản gửi vào Trung tâm thanh khoản, các khoản vay và VAI đã đúc"
       },
       "periodOption": {
         "oneYear": "1N",
@@ -532,9 +532,10 @@
       "netWorth": {
         "label": "Giá trị ròng",
         "tooltip": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault và khoản vay",
-        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault, khoản vay và VAI đã mint"
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính lượng cung cấp trong vault, khoản gửi vào Trung tâm thanh khoản, khoản vay và VAI đã mint"
       },
       "performanceChart": {
+        "emptyState": "Chưa có lịch sử tài khoản",
         "errorState": {
           "failedToFetchMessage": "Không thể tải lịch sử tài khoản",
           "refetchButtonLabel": "Thử lại"
@@ -657,6 +658,7 @@
     "walletNotConnected": "Ví chưa được kết nối"
   },
   "errorState": {
+    "buttonLabel": "Thử lại",
     "defaultMessage": "Đã xảy ra lỗi"
   },
   "footer": {
@@ -2563,6 +2565,10 @@
       "allCategories": "Tất cả danh mục",
       "allStates": "Tất cả trạng thái",
       "allVenues": "Tất cả nền tảng",
+      "archivedVaultsToggle": {
+        "label": "Kho đã lưu trữ",
+        "tooltip": "Các kho đã đáo hạn hoặc hoàn tiền hơn 90 ngày trước và các kho đã đóng sẽ bị ẩn trừ khi bật tùy chọn này. Các kho bạn vẫn còn tiền luôn được hiển thị."
+      },
       "claim": "Nhận thưởng",
       "deposit": "Cung cấp",
       "inactive": "Không hoạt động",
@@ -2660,9 +2666,6 @@
       "totalTargetRewards": "Tổng phần thưởng mục tiêu",
       "withdraw": "Rút",
       "withdrawTab": "Rút"
-    },
-    "overview": {
-      "bannerVaultIllustration": "Hình minh họa kho"
     },
     "timeline": {
       "description": {
