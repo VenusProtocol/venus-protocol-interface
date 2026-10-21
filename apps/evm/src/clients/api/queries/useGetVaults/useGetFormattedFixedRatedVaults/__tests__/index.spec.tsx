@@ -618,4 +618,29 @@ describe('useGetFormattedFixedRatedVaults', () => {
     expect(institutionalVault?.status).toBe(VaultStatus.Claim);
     expect(institutionalVault?.isSettled).toBe(false);
   });
+
+  it.each([
+    ['a connected wallet', fakeAddress, true],
+    ['no wallet', undefined, false],
+  ])(
+    'flags the user data as unavailable when its read fails with %s',
+    (_label, accountAddress, expected) => {
+      (useGetInstitutionalVaultUserData as Mock).mockReturnValue({
+        data: undefined,
+        isLoading: false,
+        isError: true,
+      });
+
+      let isUserDataUnavailable = false;
+
+      const Wrapper = () => {
+        ({ isUserDataUnavailable } = useGetFormattedFixedRatedVaults());
+        return <div />;
+      };
+
+      renderComponent(<Wrapper />, { accountAddress });
+
+      expect(isUserDataUnavailable).toBe(expected);
+    },
+  );
 });

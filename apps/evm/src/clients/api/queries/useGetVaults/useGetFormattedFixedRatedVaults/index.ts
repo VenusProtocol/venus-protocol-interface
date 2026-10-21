@@ -10,11 +10,17 @@ import { formatVaults } from './formatVaults';
 export interface UseGetPendleVaultsOutput {
   isLoading: boolean;
   data: Vault[] | undefined;
+  dataUpdatedAt: number;
+  isUserDataUnavailable: boolean;
 }
 
 export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
   const { accountAddress } = useAccountAddress();
-  const { data: vaultProducts, isLoading: isVaultProductsLoading } = useGetFixedRatedVaults();
+  const {
+    data: vaultProducts,
+    isLoading: isVaultProductsLoading,
+    dataUpdatedAt,
+  } = useGetFixedRatedVaults();
 
   const { data: poolsData, isLoading: isPoolsLoading } = useGetPools({ accountAddress });
 
@@ -22,10 +28,13 @@ export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
     .filter(vaultProduct => vaultProduct.protocol === 'institutional-vault')
     .map(vaultProduct => vaultProduct.vaultAddress);
 
-  const { data: institutionalVaultUserData, isLoading: isInstitutionalVaultUserDataLoading } =
-    useGetInstitutionalVaultUserData({
-      vaultAddresses: institutionalVaultAddresses,
-    });
+  const {
+    data: institutionalVaultUserData,
+    isLoading: isInstitutionalVaultUserDataLoading,
+    isError: isInstitutionalVaultUserDataError,
+  } = useGetInstitutionalVaultUserData({
+    vaultAddresses: institutionalVaultAddresses,
+  });
 
   const tokens = useGetTokens();
 
@@ -47,5 +56,7 @@ export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
   return {
     data,
     isLoading,
+    dataUpdatedAt,
+    isUserDataUnavailable: !!accountAddress && isInstitutionalVaultUserDataError,
   };
 };
