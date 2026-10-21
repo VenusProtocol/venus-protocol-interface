@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "Net değer",
         "tooltip": "Vault arzı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Vault arzı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+        "tooltipWithVai": "Vault arzı, Likidite Merkezi yatırımları, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "periodOption": {
         "oneYear": "1Y",
@@ -533,7 +533,7 @@
       "netWorth": {
         "label": "Net değer",
         "tooltip": "Kasa arzı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Kasa arzı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+        "tooltipWithVai": "Kasa arzı, Likidite Merkezi yatırımları, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "performanceChart": {
         "emptyState": "Henüz hesap geçmişi yok",
