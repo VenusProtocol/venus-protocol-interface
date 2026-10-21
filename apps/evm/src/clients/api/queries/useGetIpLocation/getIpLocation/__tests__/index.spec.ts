@@ -10,7 +10,8 @@ describe('getIpLocation', () => {
     mockFetch.mockResolvedValue({
       ok: true,
       json: async () => ({
-        countryCode: 'FR',
+        success: true,
+        country_code: 'FR',
       }),
     } satisfies Partial<Response>);
 
@@ -50,6 +51,23 @@ describe('getIpLocation', () => {
             json: expect.any(Function),
           },
         },
+      }),
+    );
+  });
+
+  it('throws a VError when the provider reports a failure with a 200', async () => {
+    const payload = { success: false, message: '404 not found' };
+
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: async () => payload,
+    } satisfies Partial<Response>);
+
+    await expect(getIpLocation()).rejects.toEqual(
+      new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+        data: { exception: payload },
       }),
     );
   });

@@ -1,14 +1,16 @@
 import { VError } from 'libs/errors';
 
 type GetIpLocationApiResponse = {
-  countryCode?: string;
+  // This provider reports failures with a 200, so the flag has to be checked alongside the code
+  success?: boolean;
+  country_code?: string;
 };
 
 export interface GetIpLocationOutput {
   countryCode: string;
 }
 
-export const IP_API_URL = 'https://free.freeipapi.com/api/json';
+export const IP_API_URL = 'https://ipwho.is/';
 
 export const getIpLocation = async (): Promise<GetIpLocationOutput> => {
   let response: Response;
@@ -43,7 +45,7 @@ export const getIpLocation = async (): Promise<GetIpLocationOutput> => {
     });
   }
 
-  if (!payload.countryCode) {
+  if (payload.success === false || !payload.country_code) {
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
@@ -52,6 +54,6 @@ export const getIpLocation = async (): Promise<GetIpLocationOutput> => {
   }
 
   return {
-    countryCode: payload.countryCode,
+    countryCode: payload.country_code,
   };
 };
