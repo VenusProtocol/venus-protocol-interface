@@ -140,4 +140,59 @@ describe('SupplyForm - Liquidity Hub underlying option', () => {
     );
     expect(mockSupply).not.toHaveBeenCalled();
   });
+
+  it('blocks amounts above the Liquidity Hub remaining capacity', async () => {
+    (useGetLiquidityHubs as Mock).mockReturnValue({
+      data: {
+        liquidityHubs: [
+          {
+            ...liquidityHub,
+            supplyCapTokens: new BigNumber(50),
+            supplyBalanceTokens: new BigNumber(45),
+            userSupplyCapTokens: undefined,
+          },
+        ],
+      },
+    });
+
+    const { container, getByTestId, getByText, queryByTestId } = renderSupplyForm();
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible());
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: hubUnderlyingToken,
+    });
+
+    const input = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '10' } });
+
+    await waitFor(() =>
+      expect(getByText(en.marketForm.error.higherThanAvailableAmount)).toBeInTheDocument(),
+    );
+    expect(mockSupplyFromWalletToLiquidityHub).not.toHaveBeenCalled();
+  });
+
+  it('locks the collateral toggle on when supplying the underlying token', async () => {
+    const { container, getByRole, queryByTestId } = renderSupplyForm();
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible());
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: hubUnderlyingToken,
+    });
+
+    const collateralSwitch = getByRole('checkbox') as HTMLInputElement;
+
+    await waitFor(() => expect(collateralSwitch).toBeChecked());
+    expect(collateralSwitch).toBeDisabled();
+  });
 });

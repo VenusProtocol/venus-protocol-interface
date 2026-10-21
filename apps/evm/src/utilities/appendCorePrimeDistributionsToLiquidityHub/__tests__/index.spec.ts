@@ -66,6 +66,22 @@ describe('appendCorePrimeDistributionsToLiquidityHub', () => {
     expect(primeSimulation?.apyPercentage.toFixed()).toBe('10');
   });
 
+  it('converts the Prime reference balance from vhTokens to the underlying token', () => {
+    const result = appendCorePrimeDistributionsToLiquidityHub({
+      liquidityHub: { ...liquidityHub, pricePerShare: new BigNumber(1.5) },
+      corePool,
+    });
+
+    const primeSimulation = result.supplyTokenDistributions.find(
+      distribution => distribution.type === 'primeSimulation',
+    );
+
+    expect(
+      primeSimulation?.type === 'primeSimulation' &&
+        primeSimulation.referenceValues.userSupplyBalanceTokens.toFixed(),
+    ).toBe('1.5');
+  });
+
   it('returns a 0% effective Prime APY when nothing is supplied', () => {
     const result = appendCorePrimeDistributionsToLiquidityHub({
       liquidityHub: { ...liquidityHub, userVhTokenBalanceTokens: undefined },

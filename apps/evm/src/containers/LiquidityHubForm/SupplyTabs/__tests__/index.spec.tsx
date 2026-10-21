@@ -217,6 +217,7 @@ describe('SupplyTabs', () => {
           ...assetData[1].vToken,
           underlyingToken: liquidityHub.vhToken,
         },
+        disabledTokenActions: [],
       };
 
       mockUseGetPool.mockReturnValue({
@@ -245,4 +246,99 @@ describe('SupplyTabs', () => {
       });
     },
   );
+
+  describe('auto-resupply', () => {
+    const collateralGatewayContractAddress = '0xfakeCollateralGatewayContractAddress';
+    const coreVhAsset = {
+      ...corePoolAsset,
+      vToken: {
+        ...corePoolAsset.vToken,
+        address: '0xfakeVhMarketAddress' as const,
+        underlyingToken: liquidityHub.vhToken,
+      },
+    };
+
+    const renderWithCoreVhAsset = (
+      disabledTokenActions: typeof coreVhAsset.disabledTokenActions,
+    ) => {
+      (useIsFeatureEnabled as Mock).mockReturnValue(true);
+      mockUseGetContractAddress.mockImplementation(({ name }: { name: string }) => ({
+        address:
+          name === 'CollateralGateway'
+            ? collateralGatewayContractAddress
+            : liquidityHubMigratorContractAddress,
+      }));
+      mockUseGetPool.mockImplementation(() => ({
+        data: {
+          pool: {
+            ...corePool,
+            assets: [...corePool.assets, { ...coreVhAsset, disabledTokenActions }],
+          },
+        },
+        isLoading: false,
+      }));
+
+      renderSupplyTabs();
+    };
+
+    it('supplies through the collateral gateway when the Core vhToken market is active', () => {
+      renderWithCoreVhAsset([]);
+
+      expect(mockUseTokenApproval).toHaveBeenCalledWith(
+        expect.objectContaining({ spenderAddress: collateralGatewayContractAddress }),
+      );
+    });
+
+    it('falls back to the plain Hub supply when the Core vhToken market has supply paused', () => {
+      renderWithCoreVhAsset(['supply']);
+
+      expect(mockUseTokenApproval).not.toHaveBeenCalledWith(
+        expect.objectContaining({ spenderAddress: collateralGatewayContractAddress }),
+      );
+      expect(mockUseTokenApproval).toHaveBeenCalledWith(
+        expect.objectContaining({ spenderAddress: liquidityHub.vhToken.address }),
+      );
+    });
+
+    it('uses an active Core vhToken market when another one has supply paused', () => {
+      (useIsFeatureEnabled as Mock).mockReturnValue(true);
+      mockUseGetContractAddress.mockImplementation(({ name }: { name: string }) => ({
+        address:
+          name === 'CollateralGateway'
+            ? collateralGatewayContractAddress
+            : liquidityHubMigratorContractAddress,
+      }));
+      mockUseGetPool.mockImplementation(() => ({
+        data: {
+          pool: {
+            ...corePool,
+            assets: [
+              ...corePool.assets,
+              { ...coreVhAsset, disabledTokenActions: ['supply'] },
+              {
+                ...coreVhAsset,
+                vToken: { ...coreVhAsset.vToken, address: '0xfakeActiveVhMarketAddress' },
+                disabledTokenActions: [],
+              },
+            ],
+          },
+        },
+        isLoading: false,
+      }));
+
+      renderSupplyTabs();
+
+      expect(mockUseTokenApproval).toHaveBeenCalledWith(
+        expect.objectContaining({ spenderAddress: collateralGatewayContractAddress }),
+      );
+    });
+
+    it('falls back to the plain Hub supply when entering the Core vhToken market is paused', () => {
+      renderWithCoreVhAsset(['enterMarket']);
+
+      expect(mockUseTokenApproval).not.toHaveBeenCalledWith(
+        expect.objectContaining({ spenderAddress: collateralGatewayContractAddress }),
+      );
+    });
+  });
 });

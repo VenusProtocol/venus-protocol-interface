@@ -14,6 +14,7 @@ interface UseFormValidationInput {
   fromTokenUserWalletBalanceTokens?: BigNumber;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
+  liquidityHubLimitTokens?: BigNumber;
   simulatedPool?: Pool;
   swapQuote?: SwapQuote;
   swapQuoteErrorCode?: string;
@@ -31,6 +32,7 @@ const useFormValidation = ({
   formValues,
   balanceMutations,
   isFromTokenApproved,
+  liquidityHubLimitTokens,
   simulatedPool,
   fromTokenUserWalletBalanceTokens,
   fromTokenWalletSpendingLimitTokens,
@@ -74,6 +76,13 @@ const useFormValidation = ({
       };
     }
 
+    if (liquidityHubLimitTokens && fromTokenAmountTokens.isGreaterThan(liquidityHubLimitTokens)) {
+      return {
+        code: 'HIGHER_THAN_AVAILABLE_AMOUNT',
+        message: t('marketForm.error.higherThanAvailableAmount'),
+      };
+    }
+
     if (
       isFromTokenApproved &&
       fromTokenWalletSpendingLimitTokens &&
@@ -88,6 +97,7 @@ const useFormValidation = ({
     fromTokenUserWalletBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
+    liquidityHubLimitTokens,
     formValues.fromToken.symbol,
     formValues.amountTokens,
     t,

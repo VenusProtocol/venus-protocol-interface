@@ -18,6 +18,7 @@ import {
   TokenTextField,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
+import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useCollateral } from 'hooks/useCollateral';
 import useDebounceValue from 'hooks/useDebounceValue';
@@ -169,6 +170,21 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
 
   const isSupplyingLiquidityHubUnderlying =
     !!liquidityHub && areTokensEqual(liquidityHub.vhToken.underlyingToken, formValues.fromToken);
+
+  let liquidityHubLimitTokens: BigNumber | undefined;
+
+  if (liquidityHub && isSupplyingLiquidityHubUnderlying) {
+    liquidityHubLimitTokens = liquidityHub.supplyCapTokens.minus(liquidityHub.supplyBalanceTokens);
+
+    const userSupplyCapTokens = formatUserMaxTokenValue({
+      value: liquidityHub.userSupplyCapTokens,
+      decimals: liquidityHub.vhToken.underlyingToken.decimals,
+    });
+
+    if (userSupplyCapTokens) {
+      liquidityHubLimitTokens = BigNumber.min(liquidityHubLimitTokens, userSupplyCapTokens);
+    }
+  }
 
   const isUsingSwap =
     isIntegratedSwapFeatureEnabled &&
@@ -328,7 +344,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
       return BigNumber.min(
         amountTokens,
         coreMarginWithSupplyCapTokens,
-        liquidityHub.supplyCapTokens.minus(liquidityHub.supplyBalanceTokens),
+        liquidityHubLimitTokens ?? amountTokens,
       ).dp(liquidityHub.vhToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
     }
 
@@ -348,6 +364,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
     return amountTokens;
   }, [
     liquidityHub,
+    liquidityHubLimitTokens,
     isSupplyingLiquidityHubUnderlying,
     isUsingSwap,
     asset.supplyBalanceTokens,
@@ -391,6 +408,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
     pool,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
+    liquidityHubLimitTokens,
     swapQuote,
     swapQuoteErrorCode: getSwapQuoteError?.code,
     onSubmit,
@@ -469,12 +487,14 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
           <Toggle
             onChange={handleToggleCollateral}
             value={
-              asset.isCollateralOfUser && (!pool.userEModeGroup || asset.userCollateralFactor > 0)
+              isSupplyingLiquidityHubUnderlying ||
+              (asset.isCollateralOfUser && (!pool.userEModeGroup || asset.userCollateralFactor > 0))
             }
             disabled={
               !isUserConnected ||
               isAccountOnWrongChain ||
               isCollateralToggleDisabled ||
+              isSupplyingLiquidityHubUnderlying ||
               (pool.userEModeGroup && asset.userCollateralFactor === 0)
             }
           />

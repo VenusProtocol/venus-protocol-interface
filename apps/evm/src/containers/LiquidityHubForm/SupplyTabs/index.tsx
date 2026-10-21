@@ -44,9 +44,13 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
     areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken.underlyingToken),
   );
 
+  // Paused Core markets fall back to the plain Hub flows
   const corePoolVhAsset = isAutoResupplyEnabled
-    ? corePool?.assets.find(asset =>
-        areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken),
+    ? corePool?.assets.find(
+        asset =>
+          areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken) &&
+          !asset.disabledTokenActions.includes('supply') &&
+          !asset.disabledTokenActions.includes('enterMarket'),
       )
     : undefined;
 

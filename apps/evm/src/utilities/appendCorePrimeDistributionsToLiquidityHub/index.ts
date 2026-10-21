@@ -27,7 +27,18 @@ export const appendCorePrimeDistributionsToLiquidityHub = ({
   const primeDistributions = vhAsset.supplyTokenDistributions.reduce<TokenDistribution[]>(
     (acc, distribution) => {
       if (distribution.type === 'primeSimulation') {
-        return [...acc, distribution];
+        return [
+          ...acc,
+          {
+            ...distribution,
+            referenceValues: {
+              ...distribution.referenceValues,
+              userSupplyBalanceTokens: distribution.referenceValues.userSupplyBalanceTokens
+                .multipliedBy(liquidityHub.pricePerShare)
+                .dp(liquidityHub.vhToken.underlyingToken.decimals),
+            },
+          },
+        ];
       }
 
       if (distribution.type === 'prime') {
