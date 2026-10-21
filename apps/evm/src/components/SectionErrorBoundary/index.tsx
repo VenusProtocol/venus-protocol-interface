@@ -1,7 +1,6 @@
 import * as Sentry from '@sentry/react';
-import { useTranslation } from 'libs/translations';
 
-import { ErrorState } from '../ErrorState';
+import { SectionErrorState } from './SectionErrorState';
 
 export interface SectionErrorBoundaryProps {
   children?: React.ReactNode;
@@ -14,20 +13,12 @@ export const SectionErrorBoundary: React.FC<SectionErrorBoundaryProps> = ({
   children,
   message,
   className,
-}) => {
-  const { t } = useTranslation();
-
-  return (
-    <Sentry.ErrorBoundary
-      fallback={({ resetError }) => (
-        <ErrorState
-          className={className}
-          message={message}
-          button={{ label: t('errorState.buttonLabel'), onClick: () => resetError() }}
-        />
-      )}
-    >
-      {children}
-    </Sentry.ErrorBoundary>
-  );
-};
+}) => (
+  <Sentry.ErrorBoundary
+    fallback={({ resetError }) => (
+      <SectionErrorState resetError={resetError} message={message} className={className} />
+    )}
+  >
+    {children}
+  </Sentry.ErrorBoundary>
+);

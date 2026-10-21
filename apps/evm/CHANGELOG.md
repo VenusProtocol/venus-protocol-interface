@@ -1,5 +1,28 @@
 # @venusprotocol/evm
 
+## 5.38.1
+
+### Patch Changes
+
+- c88c5d8: serve the favicons and touch icons from the app instead of the removed landing site
+
+## 5.38.0
+
+### Minor Changes
+
+- e816ac6: remove opBNB, Optimism and Unichain support
+
+### Patch Changes
+
+- Updated dependencies [e816ac6]
+  - @venusprotocol/chains@0.32.0
+
+## 5.37.1
+
+### Patch Changes
+
+- 174879f: clear a section error when the route changes
+
 ## 5.37.0
 
 ### Minor Changes

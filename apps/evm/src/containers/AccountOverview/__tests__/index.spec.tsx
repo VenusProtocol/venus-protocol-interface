@@ -2,9 +2,11 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { liquidityHubs } from '__mocks__/models/liquidityHubs';
+import { poolData } from '__mocks__/models/pools';
 import { spokePools } from '__mocks__/models/spokePools';
 import { vaults } from '__mocks__/models/vaults';
-import { useGetSpokePools, useGetVaults } from 'clients/api';
+import { useGetLiquidityHubs, useGetPool, useGetSpokePools, useGetVaults } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
@@ -216,12 +218,127 @@ describe('AccountOverview', () => {
     await waitFor(() =>
       expect(queryByText(en.dashboard.overview.netWorth.label)).toBeInTheDocument(),
     );
-    expect(queryByText('$1.23M')).not.toBeInTheDocument();
+    expect(queryByText('$1.24M')).not.toBeInTheDocument();
 
     (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: vaults }));
 
     rerender(<AccountOverview accountAddress={fakeAccountAddress} />);
 
-    await waitFor(() => expect(queryByText('$1.23M')).toBeInTheDocument());
+    await waitFor(() => expect(queryByText('$1.24M')).toBeInTheDocument());
+  });
+
+  it('counts Liquidity Hub deposits in the net worth figure', async () => {
+    const hubSupplyCents = new BigNumber(50000);
+
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: {
+          ...poolData[0],
+          userSupplyBalanceCents: new BigNumber(0),
+          userBorrowBalanceCents: new BigNumber(0),
+          vai: undefined,
+        },
+      },
+    }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        liquidityHubs: [{ ...liquidityHubs[0], userSupplyBalanceCents: hubSupplyCents }],
+      },
+    }));
+
+    const { queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      { accountAddress: fakeAccountAddress },
+    );
+
+    await waitFor(() => expect(queryByText('$500')).toBeInTheDocument());
+  });
+
+  it('counts Liquidity Hub deposits and Spoke positions together in the net worth', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: { name: string }) => name === 'spoke' || name === 'liquidityHub',
+    );
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: {
+          ...poolData[0],
+          userSupplyBalanceCents: new BigNumber(0),
+          userBorrowBalanceCents: new BigNumber(0),
+          vai: undefined,
+        },
+      },
+    }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        liquidityHubs: [{ ...liquidityHubs[0], userSupplyBalanceCents: new BigNumber(50000) }],
+      },
+    }));
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        spokePools: [
+          {
+            ...spokePools[0],
+            userSupplyBalanceCents: new BigNumber(100000),
+            userBorrowBalanceCents: new BigNumber(20000),
+          },
+        ],
+      },
+    }));
+
+    const { container, queryByTestId } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      { accountAddress: fakeAccountAddress },
+    );
+
+    await waitFor(() => expect(queryByTestId(testIds.performanceChartPreview)).toBeInTheDocument());
+
+    expect(container.textContent).toContain(`${en.dashboard.overview.netWorth.label}$1.3K`);
+  });
+
+  it('holds back the account figures when the Hub balances fail to load', async () => {
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      isLoadingError: true,
+      data: undefined,
+    }));
+
+    const { queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() =>
+      expect(queryByText(en.dashboard.overview.netWorth.label)).toBeInTheDocument(),
+    );
+
+    expect(queryByText('$1.24M')).not.toBeInTheDocument();
+    expect(queryByText('$1.23M')).not.toBeInTheDocument();
+  });
+
+  it('keeps showing the net worth when a refetch fails but balances are cached', async () => {
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      isLoadingError: false,
+      isError: true,
+      data: { liquidityHubs },
+    }));
+
+    const { queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByText('$1.24M')).toBeInTheDocument());
   });
 });

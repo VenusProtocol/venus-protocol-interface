@@ -6,6 +6,7 @@ import {
   type AccountPerformanceHistoryDataPoint,
   type AccountPerformanceHistoryPeriod,
   useGetAccountPerformanceHistory,
+  useGetLiquidityHubs,
   useGetPool,
   useGetSpokePools,
   useGetTokenUsdPrice,
@@ -131,7 +132,26 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     new BigNumber(pool?.userBorrowBalanceCents || 0),
   );
   const vaults = getVaultsData || [];
-  const areBalancesLoading = isGetPoolLoading || isGetVaultsLoading;
+
+  const isLiquidityHubFeatureEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
+  const {
+    data: getLiquidityHubsData = { liquidityHubs: [] },
+    isLoading: isGetLiquidityHubsLoading,
+    isLoadingError: isGetLiquidityHubsLoadingError,
+  } = useGetLiquidityHubs(
+    {
+      accountAddress,
+    },
+    {
+      enabled: isLiquidityHubFeatureEnabled,
+    },
+  );
+  const userLiquidityHubSupplyBalanceCents = getLiquidityHubsData.liquidityHubs.reduce(
+    (acc, liquidityHub) => acc.plus(liquidityHub.userSupplyBalanceCents || 0),
+    new BigNumber(0),
+  );
+
+  const areBalancesLoading = isGetPoolLoading || isGetVaultsLoading || isGetLiquidityHubsLoading;
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -179,9 +199,10 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
 
   // Partial balances would understate the total
   const netWorthCents =
-    isAccountDataAvailable && !areBalancesLoading
+    isAccountDataAvailable && !areBalancesLoading && !isGetLiquidityHubsLoadingError
       ? totalSupplyCents
           .plus(userTotalVaultStakeCents || 0)
+          .plus(userLiquidityHubSupplyBalanceCents)
           .minus(totalBorrowCents)
           .minus(pool?.vai?.userBorrowBalanceCents || 0)
           .toNumber()

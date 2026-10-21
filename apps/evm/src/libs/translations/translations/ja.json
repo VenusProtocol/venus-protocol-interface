@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "純資産",
         "tooltip": "ボールトの供給と借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールトの供給、借入、ミント済みVAIを考慮した利用可能な純資産"
+        "tooltipWithVai": "ボールトの供給、流動性ハブへの預入、借入、ミント済みVAIを考慮した利用可能な純資産"
       },
       "periodOption": {
         "oneYear": "1年",
@@ -537,7 +537,7 @@
       "netWorth": {
         "label": "純資産",
         "tooltip": "ボールト供給と借入を考慮した利用可能な純資産",
-        "tooltipWithVai": "ボールト供給、借入、ミント済みVAIを考慮した利用可能な純資産"
+        "tooltipWithVai": "ボールト供給、流動性ハブへの預入、借入、ミント済みVAIを考慮した利用可能な純資産"
       },
       "performanceChart": {
         "emptyState": "アカウント履歴はまだありません",

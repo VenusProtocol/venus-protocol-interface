@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "淨值",
         "tooltip": "在考慮金庫供應和借貸後可用的淨資產",
-        "tooltipWithVai": "在考慮金庫供應、借貸和已鑄造 VAI 後可用的淨資產"
+        "tooltipWithVai": "在考慮金庫供應、流動性中心存款、借貸和已鑄造 VAI 後可用的淨資產"
       },
       "periodOption": {
         "oneYear": "1年",
@@ -537,7 +537,7 @@
       "netWorth": {
         "label": "淨值",
         "tooltip": "計入金庫供應與借款後的可用淨資產",
-        "tooltipWithVai": "計入金庫供應、借款與已鑄 VAI 後的可用淨資產"
+        "tooltipWithVai": "計入金庫供應、流動性中心存款、借款與已鑄 VAI 後的可用淨資產"
       },
       "performanceChart": {
         "emptyState": "暫無帳戶歷史",
