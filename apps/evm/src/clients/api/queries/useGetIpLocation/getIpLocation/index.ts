@@ -1,57 +1,70 @@
 import { VError } from 'libs/errors';
 
-type GetIpLocationApiResponse = {
-  countryCode?: string;
-};
+type IpLocationApiResponse = Record<string, unknown>;
 
 export interface GetIpLocationOutput {
   countryCode: string;
 }
 
-export const IP_API_URL = 'https://free.freeipapi.com/api/json';
+export const PROVIDER_TIMEOUT_MS = 3000;
+
+interface IpLocationProvider {
+  url: string;
+  getCountryCode: (payload: IpLocationApiResponse) => unknown;
+}
+
+export const IP_LOCATION_PROVIDERS: IpLocationProvider[] = [
+  {
+    url: 'https://ipwho.is/',
+    // This provider reports failures with a 200
+    getCountryCode: payload => (payload.success === false ? undefined : payload.country_code),
+  },
+  {
+    url: 'https://api.country.is/',
+    getCountryCode: payload => payload.country,
+  },
+  {
+    url: 'https://get.geojs.io/v1/ip/country.json',
+    getCountryCode: payload => payload.country,
+  },
+];
+
+const fetchCountryCode = async ({ url, getCountryCode }: IpLocationProvider) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), PROVIDER_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+
+    if (!response.ok) {
+      return undefined;
+    }
+
+    const payload: IpLocationApiResponse = await response.json();
+    const countryCode = getCountryCode(payload);
+
+    return typeof countryCode === 'string' && countryCode.length > 0 ? countryCode : undefined;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+};
 
 export const getIpLocation = async (): Promise<GetIpLocationOutput> => {
-  let response: Response;
+  for (const provider of IP_LOCATION_PROVIDERS) {
+    try {
+      const countryCode = await fetchCountryCode(provider);
 
-  try {
-    response = await fetch(IP_API_URL);
-  } catch (error) {
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-      data: { exception: error },
-    });
+      if (countryCode) {
+        return { countryCode };
+      }
+    } catch {
+      // The next provider is the fallback
+    }
   }
 
-  if (!response.ok) {
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-      data: { exception: response },
-    });
-  }
-
-  let payload: GetIpLocationApiResponse;
-
-  try {
-    payload = await response.json();
-  } catch (error) {
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-      data: { exception: error },
-    });
-  }
-
-  if (!payload.countryCode) {
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-      data: { exception: payload },
-    });
-  }
-
-  return {
-    countryCode: payload.countryCode,
-  };
+  throw new VError({
+    type: 'unexpected',
+    code: 'somethingWentWrong',
+    data: { exception: 'No IP location provider returned a country code' },
+  });
 };
