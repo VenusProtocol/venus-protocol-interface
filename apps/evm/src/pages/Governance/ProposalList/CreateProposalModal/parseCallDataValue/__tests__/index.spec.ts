@@ -15,12 +15,28 @@ describe('parseCallDataValue', () => {
     expect(parseCallDataValue('[1, 2, 9007199254740991]')).toEqual([1, 2, 9007199254740991]);
   });
 
-  it('leaves decimals untouched', () => {
-    expect(parseCallDataValue('[1.5, 0.001]')).toEqual([1.5, 0.001]);
+  it('quotes decimals so the encoder can reject them', () => {
+    expect(parseCallDataValue('[1.5, 0.001]')).toEqual(['1.5', '0.001']);
+  });
+
+  it('quotes exponent notation so the encoder can reject it', () => {
+    expect(parseCallDataValue('[1e24]')).toEqual(['1e24']);
+  });
+
+  it('quotes a large integer written with a trailing zero decimal', () => {
+    expect(parseCallDataValue('[12345678901234567890123.0]')).toEqual([
+      '12345678901234567890123.0',
+    ]);
   });
 
   it('does not quote digits that are part of a string', () => {
     expect(parseCallDataValue('["12345678901234567890123"]')).toEqual(['12345678901234567890123']);
+  });
+
+  it('does not touch digit runs that look like exponents inside a bare address', () => {
+    expect(parseCallDataValue('0x213c446ec11e45b15a6E29C1C1b402B8897f606d')).toBe(
+      '0x213c446ec11e45b15a6E29C1C1b402B8897f606d',
+    );
   });
 
   it('does not touch digits inside an address', () => {

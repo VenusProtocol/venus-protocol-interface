@@ -1,12 +1,31 @@
-const INTEGER_LITERAL_REGEX = /^-?\d+(?![\d.eE])/;
+const NUMBER_LITERAL_REGEX = /^-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(?=$|[\s,\]}])/;
 const MAX_SAFE_INTEGER = BigInt(Number.MAX_SAFE_INTEGER);
 
 const isSafeInteger = (literal: string) => {
+  if (!/^-?\d+$/.test(literal)) {
+    return false;
+  }
+
   const parsedLiteral = BigInt(literal);
   return parsedLiteral <= MAX_SAFE_INTEGER && parsedLiteral >= -MAX_SAFE_INTEGER;
 };
 
-// Quoted so JSON.parse cannot round them to a float
+// Digits inside a bare address are not a value, so only read them where one can start
+const startsValue = (value: string, index: number) => {
+  for (let position = index - 1; position >= 0; position -= 1) {
+    const character = value[position];
+
+    if (character === ' ' || character === '\n' || character === '\t' || character === '\r') {
+      continue;
+    }
+
+    return character === '[' || character === '{' || character === ',' || character === ':';
+  }
+
+  return true;
+};
+
+// Quoted so JSON.parse cannot round them, leaving the encoder to reject non-integers
 export const quoteUnsafeIntegers = (value: string) => {
   let output = '';
   let index = 0;
@@ -39,11 +58,13 @@ export const quoteUnsafeIntegers = (value: string) => {
       continue;
     }
 
-    const [integerLiteral] = INTEGER_LITERAL_REGEX.exec(value.slice(index)) ?? [];
+    const [numberLiteral] = startsValue(value, index)
+      ? NUMBER_LITERAL_REGEX.exec(value.slice(index)) ?? []
+      : [];
 
-    if (integerLiteral) {
-      output += isSafeInteger(integerLiteral) ? integerLiteral : `"${integerLiteral}"`;
-      index += integerLiteral.length;
+    if (numberLiteral) {
+      output += isSafeInteger(numberLiteral) ? numberLiteral : `"${numberLiteral}"`;
+      index += numberLiteral.length;
       continue;
     }
 
