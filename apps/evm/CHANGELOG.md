@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 5.38.0
+
+### Minor Changes
+
+- e816ac6: remove opBNB, Optimism and Unichain support
+
+### Patch Changes
+
+- Updated dependencies [e816ac6]
+  - @venusprotocol/chains@0.32.0
+
 ## 5.37.1
 
 ### Patch Changes
