@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.38.1
+
+### Patch Changes
+
+- c88c5d8: serve the favicons and touch icons from the app instead of the removed landing site
+
 ## 5.38.0
 
 ### Minor Changes
