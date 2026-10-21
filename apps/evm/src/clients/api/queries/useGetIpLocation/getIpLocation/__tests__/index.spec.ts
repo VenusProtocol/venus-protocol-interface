@@ -44,7 +44,7 @@ describe('getIpLocation', () => {
   });
 
   it('queries the next provider when one reports a failure with a 200', async () => {
-    // The country code is present so that only the success flag can reject this payload
+    // Only the success flag can reject this payload
     mockFetch
       .mockResolvedValueOnce(okResponse({ success: false, country_code: 'FR' }))
       .mockResolvedValueOnce(okResponse({ country: 'DE' }));
@@ -89,7 +89,7 @@ describe('getIpLocation', () => {
   it('gives up on a provider that hangs and queries the next one', async () => {
     vi.useFakeTimers();
 
-    // Never settles on its own, so only the abort can end it
+    // Only the abort can end this
     mockFetch.mockImplementationOnce(
       (_url: string, { signal }: { signal: AbortSignal }) =>
         new Promise((_resolve, reject) =>

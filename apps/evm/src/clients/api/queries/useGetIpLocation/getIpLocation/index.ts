@@ -6,9 +6,6 @@ export interface GetIpLocationOutput {
   countryCode: string;
 }
 
-// Country restrictions stay off until a provider answers, so a hanging one is given up on rather
-// than allowed to hold that window open. AbortController rather than AbortSignal.timeout, which
-// the oldest browsers in the production browserslist do not have
 export const PROVIDER_TIMEOUT_MS = 3000;
 
 interface IpLocationProvider {
@@ -16,13 +13,10 @@ interface IpLocationProvider {
   getCountryCode: (payload: IpLocationApiResponse) => unknown;
 }
 
-// Each provider names the country field differently, so they carry their own reader. They are
-// queried one after the other until one answers, because a single source means any outage on its
-// side silently turns country restrictions off for everyone.
 export const IP_LOCATION_PROVIDERS: IpLocationProvider[] = [
   {
     url: 'https://ipwho.is/',
-    // This provider reports failures with a 200, so the flag guards the country code
+    // This provider reports failures with a 200
     getCountryCode: payload => (payload.success === false ? undefined : payload.country_code),
   },
   {
@@ -56,7 +50,6 @@ const fetchCountryCode = async ({ url, getCountryCode }: IpLocationProvider) => 
 };
 
 export const getIpLocation = async (): Promise<GetIpLocationOutput> => {
-  // Sequential on purpose: the next provider is only called when the previous one came up empty
   for (const provider of IP_LOCATION_PROVIDERS) {
     try {
       const countryCode = await fetchCountryCode(provider);
@@ -65,7 +58,7 @@ export const getIpLocation = async (): Promise<GetIpLocationOutput> => {
         return { countryCode };
       }
     } catch {
-      // Moving on to the next provider is the point, so a failure is not worth rethrowing
+      // The next provider is the fallback
     }
   }
 
