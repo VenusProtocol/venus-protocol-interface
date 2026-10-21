@@ -59,7 +59,7 @@ export const useGetLiquidityHub = (input: UseGetLiquidityHubInput, options?: Par
       accountAddress: input.accountAddress,
     },
     {
-      enabled: isAutoResupplyEnabled,
+      enabled: isAutoResupplyEnabled && options?.enabled !== false,
     },
   );
 

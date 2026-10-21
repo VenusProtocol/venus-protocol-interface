@@ -41,6 +41,8 @@ export const useGetLiquidityHubs = (
   const isLiquidityHubFeatureEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
   const isAutoResupplyEnabled = useIsFeatureEnabled({ name: 'liquidityHubAutoResupply' });
   const { corePoolComptrollerContractAddress } = useChain();
+  const isQueryEnabled =
+    (options?.enabled === undefined || options?.enabled) && isLiquidityHubFeatureEnabled;
 
   const { data: getCorePoolData } = useGetPool(
     {
@@ -48,7 +50,7 @@ export const useGetLiquidityHubs = (
       accountAddress: input?.accountAddress,
     },
     {
-      enabled: isAutoResupplyEnabled,
+      enabled: isAutoResupplyEnabled && isQueryEnabled,
     },
   );
 
@@ -57,7 +59,7 @@ export const useGetLiquidityHubs = (
     queryFn: () => getLiquidityHubs({ chainId, tokens, ...input }),
     refetchInterval,
     ...options,
-    enabled: (options?.enabled === undefined || options?.enabled) && isLiquidityHubFeatureEnabled,
+    enabled: isQueryEnabled,
   });
 
   const corePool = isAutoResupplyEnabled ? getCorePoolData?.pool : undefined;
