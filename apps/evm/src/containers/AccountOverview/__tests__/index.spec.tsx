@@ -5,7 +5,12 @@ import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { vaults } from '__mocks__/models/vaults';
 import BigNumber from 'bignumber.js';
-import { useGetLiquidityHubs, useGetPool, useGetVaults } from 'clients/api';
+import {
+  useGetAccountPerformanceHistory,
+  useGetLiquidityHubs,
+  useGetPool,
+  useGetVaults,
+} from 'clients/api';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import * as storeModule from 'store';
@@ -186,5 +191,41 @@ describe('AccountOverview', () => {
     );
 
     await waitFor(() => expect(queryByText('$1.24M')).toBeInTheDocument());
+  });
+
+  it('works out the daily change percentage against the start-of-day net worth', async () => {
+    (useGetAccountPerformanceHistory as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        accountPerformanceHistory: [],
+        startOfDayNetWorthCents: 58500,
+      },
+    }));
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: {
+          ...poolData[0],
+          userSupplyBalanceCents: new BigNumber(70000),
+          userBorrowBalanceCents: new BigNumber(0),
+          vai: undefined,
+        },
+      },
+    }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: { liquidityHubs: [] },
+    }));
+
+    const { queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByText('19.65%')).toBeInTheDocument());
+    expect(queryByText('16.42%')).not.toBeInTheDocument();
   });
 });

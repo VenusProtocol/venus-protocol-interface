@@ -200,8 +200,8 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
       : undefined;
 
   const dailyChangePercentage =
-    dailyChangeCents !== undefined && netWorthCents !== undefined && netWorthCents !== 0
-      ? (dailyChangeCents * 100) / netWorthCents
+    dailyChangeCents !== undefined && startOfDayNetWorthCents
+      ? (dailyChangeCents * 100) / startOfDayNetWorthCents
       : undefined;
 
   let readableDailyChangePercentage = formatPercentageToReadableValue(dailyChangePercentage);
