@@ -30,7 +30,7 @@ exports[`getAccountPerformanceHistory > returns correct sum for multiple destina
     },
     {
       "blockNumber": 10,
-      "blockTimestampMs": 1714828700000,
+      "blockTimestampMs": 1792078200000,
       "netWorthCents": 21000,
     },
   ],

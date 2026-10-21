@@ -2,7 +2,7 @@ import { Outlet, matchPath, useLocation } from 'react-router';
 
 import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
-import { Wrapper, cn } from 'components';
+import { SectionErrorBoundary, Wrapper, cn } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
 import { useRef } from 'react';
 import { Footer } from './Footer';
@@ -61,7 +61,10 @@ export const Layout: React.FC = () => {
   const noWrapper = NO_WRAPPER_PATHNAMES.some(noWrapperPath => matchPath(noWrapperPath, pathname));
   const contentDom = (
     <>
-      <Outlet />
+      <SectionErrorBoundary className="my-20">
+        <Outlet />
+      </SectionErrorBoundary>
+
       <ScrollToTop ref={scrollToTopRef} />
     </>
   );

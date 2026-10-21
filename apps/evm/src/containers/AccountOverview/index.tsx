@@ -6,6 +6,7 @@ import {
   type AccountPerformanceHistoryDataPoint,
   type AccountPerformanceHistoryPeriod,
   useGetAccountPerformanceHistory,
+  useGetLiquidityHubs,
   useGetPool,
   useGetTokenUsdPrice,
   useGetVaults,
@@ -93,16 +94,36 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const toggleAccordion = () => setIsAccordionOpen(current => !current);
 
-  const { data: getPoolData } = useGetPool({
+  const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
     accountAddress,
   });
   const pool = getPoolData?.pool;
 
-  const { data: getVaultsData } = useGetVaults({
+  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress,
   });
   const vaults = getVaultsData || [];
+
+  const isLiquidityHubFeatureEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
+  const {
+    data: getLiquidityHubsData = { liquidityHubs: [] },
+    isLoading: isGetLiquidityHubsLoading,
+    isLoadingError: isGetLiquidityHubsLoadingError,
+  } = useGetLiquidityHubs(
+    {
+      accountAddress,
+    },
+    {
+      enabled: isLiquidityHubFeatureEnabled,
+    },
+  );
+  const userLiquidityHubSupplyBalanceCents = getLiquidityHubsData.liquidityHubs.reduce(
+    (acc, liquidityHub) => acc.plus(liquidityHub.userSupplyBalanceCents || 0),
+    new BigNumber(0),
+  );
+
+  const areBalancesLoading = isGetPoolLoading || isGetVaultsLoading || isGetLiquidityHubsLoading;
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -126,6 +147,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     data: getAccountPerformanceHistoryData,
     refetch: refetchAccountPerformanceHistoryData,
     error: getAccountPerformanceHistoryError,
+    isLoading: isGetAccountPerformanceHistoryLoading,
   } = useGetAccountPerformanceHistory(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
@@ -146,10 +168,12 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     },
   );
 
+  // Partial balances would understate the total
   const netWorthCents =
-    pool && accountAddress
+    pool && accountAddress && !areBalancesLoading && !isGetLiquidityHubsLoadingError
       ? new BigNumber(pool.userSupplyBalanceCents || 0)
           .plus(userTotalVaultStakeCents || 0)
+          .plus(userLiquidityHubSupplyBalanceCents)
           .minus(pool.userBorrowBalanceCents || 0)
           .minus(pool.vai?.userBorrowBalanceCents || 0)
           .toNumber()
@@ -363,6 +387,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
                 accountPerformanceHistory={accountPerformanceHistory}
                 onRefetch={refetchAccountPerformanceHistoryData}
                 error={getAccountPerformanceHistoryError ?? undefined}
+                isLoading={isGetAccountPerformanceHistoryLoading}
                 className="shrink-0"
               />
             </div>

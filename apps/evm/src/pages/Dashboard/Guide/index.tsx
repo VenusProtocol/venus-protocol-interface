@@ -6,8 +6,8 @@ import { useChain } from 'hooks/useChain';
 import { useMarketsPagePath } from 'hooks/useMarketsPagePath';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
-import { useEffect } from 'react';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useEffect, useRef } from 'react';
 import { useStore } from 'store';
 import { StepCard, type StepCardProps } from './StepCard';
 
@@ -18,6 +18,7 @@ export const Guide: React.FC = () => {
 
   const { corePoolComptrollerContractAddress } = useChain();
   const { accountAddress } = useAccountAddress();
+  const { chainId } = useChainId();
 
   const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
@@ -39,14 +40,31 @@ export const Guide: React.FC = () => {
   const [userChainSettings] = useUserChainSettings();
   const setUserSettings = useStore(state => state.setUserSettings);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  const isLoading = isGetPoolLoading || isGetVaultsLoading;
+  const storedSettingKey = `${chainId}-${accountAddress}`;
+  const storedSettingKeyRef = useRef<string | undefined>(undefined);
+
+  // Stored once per account, after the positions are known
   useEffect(() => {
+    if (isLoading || storedSettingKeyRef.current === storedSettingKey) {
+      return;
+    }
+
+    storedSettingKeyRef.current = storedSettingKey;
+
     setUserSettings({
       settings: {
         doNotExpandGuide: isUserSupplying || isUserBorrowing || isUserStakingInXvsVault,
       },
     });
-  }, []);
+  }, [
+    isLoading,
+    storedSettingKey,
+    isUserSupplying,
+    isUserBorrowing,
+    isUserStakingInXvsVault,
+    setUserSettings,
+  ]);
 
   const toggleCollapseItems = () =>
     setUserSettings({
@@ -75,8 +93,6 @@ export const Guide: React.FC = () => {
       to: routes.vaults.path,
     },
   ];
-
-  const isLoading = isGetPoolLoading || isGetVaultsLoading;
 
   // Render nothing if user has already completed all the steps
   if (isLoading || !steps.some(step => !step.isCompleted) || !accountAddress) {

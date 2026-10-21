@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "Net değer",
         "tooltip": "Vault arzı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Vault arzı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+        "tooltipWithVai": "Vault arzı, Likidite Merkezi yatırımları, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "periodOption": {
         "oneYear": "1Y",
@@ -533,9 +533,10 @@
       "netWorth": {
         "label": "Net değer",
         "tooltip": "Kasa arzı ve borçlanmalar dikkate alındıktan sonra kullanılabilir net varlıklar",
-        "tooltipWithVai": "Kasa arzı, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
+        "tooltipWithVai": "Kasa arzı, Likidite Merkezi yatırımları, borçlanmalar ve basılmış VAI dikkate alındıktan sonra kullanılabilir net varlıklar"
       },
       "performanceChart": {
+        "emptyState": "Henüz hesap geçmişi yok",
         "errorState": {
           "failedToFetchMessage": "Hesap geçmişi alınamadı",
           "refetchButtonLabel": "Tekrar dene"
@@ -658,6 +659,7 @@
     "walletNotConnected": "Cüzdan bağlı değil"
   },
   "errorState": {
+    "buttonLabel": "Yeniden dene",
     "defaultMessage": "Bir hata oluştu"
   },
   "footer": {
@@ -2570,6 +2572,10 @@
       "allCategories": "Tüm kategoriler",
       "allStates": "Tüm durumlar",
       "allVenues": "Tüm platformlar",
+      "archivedVaultsToggle": {
+        "label": "Arşivlenmiş kasalar",
+        "tooltip": "Vadesi dolan veya iadesi yapılan üzerinden 90 günden fazla geçmiş kasalar ve kapatılmış kasalar, bu açık değilse gizlenir. Hâlâ fonunuz bulunan kasalar her zaman gösterilir."
+      },
       "claim": "Talep et",
       "deposit": "Sağla",
       "inactive": "Aktif değil",
@@ -2670,9 +2676,6 @@
       "totalTargetRewards": "Toplam hedef ödüller",
       "withdraw": "Çek",
       "withdrawTab": "Çek"
-    },
-    "overview": {
-      "bannerVaultIllustration": "Kasa görseli"
     },
     "timeline": {
       "description": {

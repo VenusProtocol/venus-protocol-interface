@@ -37,7 +37,7 @@
       "netWorth": {
         "label": "净值",
         "tooltip": "在考虑金库供应和借贷后可用的净资产",
-        "tooltipWithVai": "在考虑金库供应、借贷和已铸造 VAI 后可用的净资产"
+        "tooltipWithVai": "在考虑金库供应、流动性中心存款、借贷和已铸造 VAI 后可用的净资产"
       },
       "periodOption": {
         "oneYear": "1年",
@@ -532,9 +532,10 @@
       "netWorth": {
         "label": "净值",
         "tooltip": "在计入金库供应和借款后可用的净资产",
-        "tooltipWithVai": "在计入金库供应、借款和已铸 VAI 后可用的净资产"
+        "tooltipWithVai": "在计入金库供应、流动性中心存款、借款和已铸 VAI 后可用的净资产"
       },
       "performanceChart": {
+        "emptyState": "暂无账户历史",
         "errorState": {
           "failedToFetchMessage": "无法获取账户历史记录",
           "refetchButtonLabel": "重试"
@@ -657,6 +658,7 @@
     "walletNotConnected": "钱包未连接"
   },
   "errorState": {
+    "buttonLabel": "重试",
     "defaultMessage": "发生错误"
   },
   "footer": {
@@ -2567,6 +2569,10 @@
       "allCategories": "所有类别",
       "allStates": "所有状态",
       "allVenues": "所有平台",
+      "archivedVaultsToggle": {
+        "label": "已归档金库",
+        "tooltip": "到期或退款已超过 90 天的金库以及已关闭的金库默认隐藏，开启后显示。您仍有资金的金库始终显示。"
+      },
       "claim": "领取",
       "deposit": "供应",
       "inactive": "非活跃",
@@ -2664,9 +2670,6 @@
       "totalTargetRewards": "目标奖励总额",
       "withdraw": "取款",
       "withdrawTab": "取款"
-    },
-    "overview": {
-      "bannerVaultIllustration": "金库插图"
     },
     "timeline": {
       "description": {

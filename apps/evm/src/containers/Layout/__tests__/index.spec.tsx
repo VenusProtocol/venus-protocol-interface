@@ -1,7 +1,8 @@
 vi.unmock('zustand');
 
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { useState } from 'react';
+import { MemoryRouter, Route, Routes, useNavigate } from 'react-router';
 
 import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 import { Layout } from '..';
@@ -38,6 +39,28 @@ vi.mock('../ScrollToTop', async () => {
   };
 });
 
+// Mirrors the proposal wizard: open state is set, then the route changes
+const WizardLikePage = () => {
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <main>
+      {isOpen && <span>wizard open</span>}
+
+      <button
+        type="button"
+        onClick={() => {
+          setIsOpen(true);
+          navigate('/governance/proposal-create');
+        }}
+      >
+        open wizard
+      </button>
+    </main>
+  );
+};
+
 describe('Layout', () => {
   it('renders the outlet, header, footer, and portal structure', () => {
     render(
@@ -58,5 +81,21 @@ describe('Layout', () => {
     expect(screen.getByText('Footer')).toBeInTheDocument();
     expect(document.getElementById(PAGE_CONTAINER_ID)).toBeInTheDocument();
     expect(document.getElementById(BODY_PORTAL_ID)).toBeInTheDocument();
+  });
+
+  it('keeps a page mounted when the route changes within the paths it serves', () => {
+    render(
+      <MemoryRouter initialEntries={['/governance']}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/governance/*" element={<WizardLikePage />} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByText('open wizard'));
+
+    expect(screen.getByText('wizard open')).toBeInTheDocument();
   });
 });

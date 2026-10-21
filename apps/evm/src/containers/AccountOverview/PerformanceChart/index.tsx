@@ -13,6 +13,7 @@ export interface PerformanceChartProps
   onSelectedDataPointChange?: (dataPoint: AccountPerformanceHistoryDataPoint | undefined) => void;
   onRefetch?: () => void;
   error?: Error;
+  isLoading?: boolean;
 }
 
 export const PerformanceChart: React.FC<PerformanceChartProps> = ({
@@ -21,6 +22,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
   onRefetch,
   accountPerformanceHistory,
   error,
+  isLoading = false,
   ...areaChartProps
 }) => {
   const { t } = useTranslation();
@@ -53,7 +55,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
 
       {accountPerformanceHistory.length === 0 && onRefetch && (
         <div className="w-full h-full flex flex-col items-center justify-center gap-y-3">
-          {error ? (
+          {!!error && (
             <ErrorState
               message={t('dashboard.overview.performanceChart.errorState.failedToFetchMessage')}
               button={{
@@ -61,7 +63,9 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
                 onClick: onRefetch,
               }}
             />
-          ) : (
+          )}
+
+          {!error && isLoading && (
             <>
               <Spinner className="h-auto" />
 
@@ -69,6 +73,12 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
                 {t('dashboard.overview.performanceChart.placeholderText')}
               </p>
             </>
+          )}
+
+          {!error && !isLoading && (
+            <p className="text-sm text-grey">
+              {t('dashboard.overview.performanceChart.emptyState')}
+            </p>
           )}
         </div>
       )}
