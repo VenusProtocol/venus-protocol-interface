@@ -136,18 +136,18 @@ describe('Bridge', () => {
 
     // Change from chain ID
     fireEvent.change(getByTestId(TEST_IDS.fromChainIdSelect), {
-      target: { value: ChainId.OPBNB_TESTNET },
+      target: { value: ChainId.ARBITRUM_SEPOLIA },
     });
 
     await waitFor(() => expect(switchChainMock).toHaveBeenCalledTimes(1));
     expect(switchChainMock).toHaveBeenCalledWith({
-      chainId: ChainId.OPBNB_TESTNET,
+      chainId: ChainId.ARBITRUM_SEPOLIA,
       callback: expect.any(Function),
     });
 
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.fromChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.OPBNB_TESTNET),
+        String(ChainId.ARBITRUM_SEPOLIA),
       ),
     );
   });
