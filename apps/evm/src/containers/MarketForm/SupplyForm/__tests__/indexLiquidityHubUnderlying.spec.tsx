@@ -179,6 +179,36 @@ describe('SupplyForm - Liquidity Hub underlying option', () => {
     expect(mockSupplyFromWalletToLiquidityHub).not.toHaveBeenCalled();
   });
 
+  it('blocks amounts above the Liquidity Hub user supply cap', async () => {
+    (useGetLiquidityHubs as Mock).mockReturnValue({
+      data: {
+        liquidityHubs: [{ ...liquidityHub, userSupplyCapTokens: new BigNumber(3) }],
+      },
+    });
+
+    const { container, getByTestId, getByText, queryByTestId } = renderSupplyForm();
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible());
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: hubUnderlyingToken,
+    });
+
+    const input = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '5' } });
+
+    await waitFor(() =>
+      expect(getByText(en.marketForm.error.higherThanAvailableAmount)).toBeInTheDocument(),
+    );
+  });
+
   it('locks the collateral toggle on when supplying the underlying token', async () => {
     const { container, getByRole, queryByTestId } = renderSupplyForm();
 

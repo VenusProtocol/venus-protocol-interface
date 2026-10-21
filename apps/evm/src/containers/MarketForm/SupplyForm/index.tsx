@@ -174,16 +174,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
   let liquidityHubLimitTokens: BigNumber | undefined;
 
   if (liquidityHub && isSupplyingLiquidityHubUnderlying) {
-    liquidityHubLimitTokens = liquidityHub.supplyCapTokens.minus(liquidityHub.supplyBalanceTokens);
-
-    const userSupplyCapTokens = formatUserMaxTokenValue({
-      value: liquidityHub.userSupplyCapTokens,
-      decimals: liquidityHub.vhToken.underlyingToken.decimals,
-    });
-
-    if (userSupplyCapTokens) {
-      liquidityHubLimitTokens = BigNumber.min(liquidityHubLimitTokens, userSupplyCapTokens);
-    }
+    liquidityHubLimitTokens = BigNumber.min(
+      liquidityHub.supplyCapTokens.minus(liquidityHub.supplyBalanceTokens),
+      formatUserMaxTokenValue({
+        value: liquidityHub.userSupplyCapTokens,
+        decimals: liquidityHub.vhToken.underlyingToken.decimals,
+      }) ?? Number.POSITIVE_INFINITY,
+    );
   }
 
   const isUsingSwap =
