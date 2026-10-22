@@ -15,7 +15,7 @@ interface IpLocationProvider {
 
 export const IP_LOCATION_PROVIDERS: IpLocationProvider[] = [
   {
-    url: 'https://free.freeipapi.com/api/v1/json',
+    url: 'https://sgp.freeipapi.com/api/json',
     getCountryCode: payload => payload.countryCode,
   },
   {
