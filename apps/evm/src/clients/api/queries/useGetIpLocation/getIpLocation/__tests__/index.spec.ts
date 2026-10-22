@@ -10,7 +10,7 @@ const okResponse = (payload: unknown) =>
 
 describe('getIpLocation', () => {
   it('returns the country code of the first provider', async () => {
-    mockFetch.mockResolvedValue(okResponse({ success: true, country_code: 'FR' }));
+    mockFetch.mockResolvedValue(okResponse({ countryCode: 'FR' }));
 
     await expect(getIpLocation()).resolves.toEqual({ countryCode: 'FR' });
 
@@ -23,7 +23,7 @@ describe('getIpLocation', () => {
   it('queries the next provider when one throws', async () => {
     mockFetch
       .mockRejectedValueOnce(new Error('Network error'))
-      .mockResolvedValueOnce(okResponse({ country: 'DE' }));
+      .mockResolvedValueOnce(okResponse({ country_code: 'DE' }));
 
     await expect(getIpLocation()).resolves.toEqual({ countryCode: 'DE' });
 
@@ -36,7 +36,7 @@ describe('getIpLocation', () => {
   it('queries the next provider when one responds with an error status', async () => {
     mockFetch
       .mockResolvedValueOnce({ ok: false, json: async () => ({}) } satisfies Partial<Response>)
-      .mockResolvedValueOnce(okResponse({ country: 'DE' }));
+      .mockResolvedValueOnce(okResponse({ country_code: 'DE' }));
 
     await expect(getIpLocation()).resolves.toEqual({ countryCode: 'DE' });
 
@@ -46,18 +46,19 @@ describe('getIpLocation', () => {
   it('queries the next provider when one reports a failure with a 200', async () => {
     // Only the success flag can reject this payload
     mockFetch
+      .mockResolvedValueOnce(okResponse({}))
       .mockResolvedValueOnce(okResponse({ success: false, country_code: 'FR' }))
       .mockResolvedValueOnce(okResponse({ country: 'DE' }));
 
     await expect(getIpLocation()).resolves.toEqual({ countryCode: 'DE' });
 
-    expect(mockFetch).toHaveBeenCalledTimes(2);
+    expect(mockFetch).toHaveBeenCalledTimes(3);
   });
 
   it('queries the next provider when one omits the country code', async () => {
     mockFetch
       .mockResolvedValueOnce(okResponse({}))
-      .mockResolvedValueOnce(okResponse({ country: 'DE' }));
+      .mockResolvedValueOnce(okResponse({ country_code: 'DE' }));
 
     await expect(getIpLocation()).resolves.toEqual({ countryCode: 'DE' });
 
@@ -68,18 +69,19 @@ describe('getIpLocation', () => {
     mockFetch
       .mockResolvedValueOnce(okResponse({}))
       .mockResolvedValueOnce(okResponse({}))
+      .mockResolvedValueOnce(okResponse({}))
       .mockResolvedValueOnce(okResponse({ country: 'ES' }));
 
     await expect(getIpLocation()).resolves.toEqual({ countryCode: 'ES' });
 
-    expect(mockFetch).toHaveBeenCalledTimes(3);
-    expect(mockFetch).toHaveBeenNthCalledWith(3, IP_LOCATION_PROVIDERS[2].url, {
+    expect(mockFetch).toHaveBeenCalledTimes(4);
+    expect(mockFetch).toHaveBeenNthCalledWith(4, IP_LOCATION_PROVIDERS[3].url, {
       signal: expect.any(AbortSignal),
     });
   });
 
   it('does not query the next provider once one has answered', async () => {
-    mockFetch.mockResolvedValue(okResponse({ success: true, country_code: 'FR' }));
+    mockFetch.mockResolvedValue(okResponse({ countryCode: 'FR' }));
 
     await getIpLocation();
 
@@ -96,7 +98,7 @@ describe('getIpLocation', () => {
           signal.addEventListener('abort', () => reject(new Error('Aborted'))),
         ),
     );
-    mockFetch.mockResolvedValueOnce(okResponse({ country: 'DE' }));
+    mockFetch.mockResolvedValueOnce(okResponse({ country_code: 'DE' }));
 
     const promise = getIpLocation();
     await vi.advanceTimersByTimeAsync(PROVIDER_TIMEOUT_MS);
