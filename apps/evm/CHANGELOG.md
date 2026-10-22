@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.41.0
+
+### Minor Changes
+
+- 2451c50: fix: read the viewer country from freeipapi first
+
 ## 5.40.0
 
 ### Minor Changes
