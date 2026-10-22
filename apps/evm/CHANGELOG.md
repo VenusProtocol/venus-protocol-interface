@@ -1,5 +1,29 @@
 # @venusprotocol/evm
 
+## 5.41.0
+
+### Minor Changes
+
+- 2451c50: fix: read the viewer country from freeipapi first
+
+## 5.40.0
+
+### Minor Changes
+
+- 5b0d4b1: chore: build on the patched Node.js 22.23.4
+
+## 5.39.0
+
+### Minor Changes
+
+- 0ce78ec: fix: read the viewer country from ipwho.is
+
+## 5.38.2
+
+### Patch Changes
+
+- 546a3f2: count Liquidity Hub deposits in the dashboard net worth
+
 ## 5.38.1
 
 ### Patch Changes
