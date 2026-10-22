@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.40.0
+
+### Minor Changes
+
+- 5b0d4b1: chore: build on the patched Node.js 22.23.4
+
 ## 5.39.0
 
 ### Minor Changes
