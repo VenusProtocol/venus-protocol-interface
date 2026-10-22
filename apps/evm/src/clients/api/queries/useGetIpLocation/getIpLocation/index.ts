@@ -15,6 +15,10 @@ interface IpLocationProvider {
 
 export const IP_LOCATION_PROVIDERS: IpLocationProvider[] = [
   {
+    url: 'https://free.freeipapi.com/api/v1/json',
+    getCountryCode: payload => payload.countryCode,
+  },
+  {
     url: 'https://ipwho.is/',
     // This provider reports failures with a 200
     getCountryCode: payload => (payload.success === false ? undefined : payload.country_code),
