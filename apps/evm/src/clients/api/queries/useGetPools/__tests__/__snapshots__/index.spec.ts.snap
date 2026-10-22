@@ -39,8 +39,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0",
           "supplierCount": 933,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "9.998358810514914373486745948575749945095746768204e+22",
-          "supplyBalanceTokens": "1.00000000105166403645033682413715238395883e+21",
+          "supplyBalanceCents": "9.9983588105149143780480889126794653426234077356e+22",
+          "supplyBalanceTokens": "1.000000001051664036906545993596415577987e+21",
           "supplyCapTokens": "0",
           "supplyPointDistributions": [
             {
@@ -124,8 +124,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "21.269535066688975633",
           "supplierCount": 25,
           "supplyApyPercentage": "11.401000590716290067",
-          "supplyBalanceCents": "3926957214.81667552145310224977756",
-          "supplyBalanceTokens": "15115.4767135290690422233",
+          "supplyBalanceCents": "3926957214.8166755227236919913048",
+          "supplyBalanceTokens": "15115.476713529069047114",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
           "supplyPointDistributions": [
             {
@@ -225,8 +225,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "187487.447405339178551222",
           "supplierCount": 923,
           "supplyApyPercentage": "156.911092632839993416",
-          "supplyBalanceCents": "55857886146.73633926826645676166316368",
-          "supplyBalanceTokens": "844923.83256419589412162352",
+          "supplyBalanceCents": "55857886146.736339269768573040089855",
+          "supplyBalanceTokens": "844923.832564195894144345",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
           "supplyPointDistributions": [
             {
@@ -311,8 +311,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0",
           "supplierCount": 274,
           "supplyApyPercentage": "1.830999347346963073",
-          "supplyBalanceCents": "1577866864.44951582900255226164962487",
-          "supplyBalanceTokens": "2676541.43946341921611527123",
+          "supplyBalanceCents": "1577866864.449515829141653394627801",
+          "supplyBalanceTokens": "2676541.439463419216351229",
           "supplyCapTokens": "3750000",
           "supplyPointDistributions": [
             {
@@ -396,8 +396,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0",
           "supplierCount": 670,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "1.00000365823065718484005004185532498353042604172702282217335e+36",
-          "supplyBalanceTokens": "1.000073663387094281439750824413033895903139261475326095e+34",
+          "supplyBalanceCents": "1.000003658230657184839939048665240588202602597e+36",
+          "supplyBalanceTokens": "1.0000736633870942814396398234528822899629e+34",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71",
           "supplyPointDistributions": [
             {
@@ -496,8 +496,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0",
           "supplierCount": 534,
           "supplyApyPercentage": "2.7256320003e-8",
-          "supplyBalanceCents": "1.0101768105485677124688775601109811743217932734472e+23",
-          "supplyBalanceTokens": "1.01017682065033591897223674983334867265528e+21",
+          "supplyBalanceCents": "1.0101768105485677124686714302796938e+23",
+          "supplyBalanceTokens": "1.01017682065033591897203062e+21",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71",
           "supplyPointDistributions": [
             {
@@ -750,8 +750,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0",
           "supplierCount": 7,
           "supplyApyPercentage": "0.000104360310305731",
-          "supplyBalanceCents": "264920894.68326890820099709771992",
-          "supplyBalanceTokens": "2649394.40444099995200661144",
+          "supplyBalanceCents": "264920894.68316892",
+          "supplyBalanceTokens": "2649394.40444",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [
             {
@@ -845,8 +845,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0.000131",
           "supplierCount": 6,
           "supplyApyPercentage": "0.326746289860669541",
-          "supplyBalanceCents": "11147989.87247995118961100320096",
-          "supplyBalanceTokens": "111487.70286399999189554272",
+          "supplyBalanceCents": "11147989.872379959",
+          "supplyBalanceTokens": "111487.702863",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [],
@@ -925,8 +925,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0",
           "supplierCount": 3,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "1103022783.00039988250626518098733",
-          "supplyBalanceTokens": "11031000.00000399910500000181",
+          "supplyBalanceCents": "1103022783.000299979",
+          "supplyBalanceTokens": "11031000.000003",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [
             {
@@ -1002,8 +1002,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0",
           "supplierCount": 5,
           "supplyApyPercentage": "232.211474860496839891",
-          "supplyBalanceCents": "17699.65572720252309431025559941",
-          "supplyBalanceTokens": "0.26773052085803925699",
+          "supplyBalanceCents": "17699.655727202523028861388904",
+          "supplyBalanceTokens": "0.267730520858039256",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [],
@@ -1177,8 +1177,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0.000166728600388574",
           "supplierCount": 1,
           "supplyApyPercentage": "0.963756279976176856",
-          "supplyBalanceCents": "4287055.476159846231009819",
-          "supplyBalanceTokens": "42870.55476159846231009819",
+          "supplyBalanceCents": "4287055.4761598462310125",
+          "supplyBalanceTokens": "42870.554761598462310125",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
@@ -1254,8 +1254,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "reserveTokens": "0.000002",
           "supplierCount": 1,
           "supplyApyPercentage": "0.001812471504422768",
-          "supplyBalanceCents": "99910924.08661613367941531619987",
-          "supplyBalanceTokens": "999179.18340899996679182859",
+          "supplyBalanceCents": "99910924.086516144",
+          "supplyBalanceTokens": "999179.183408",
           "supplyCapTokens": "1000000",
           "supplyPointDistributions": [
             {
@@ -1442,8 +1442,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0",
           "supplierCount": 933,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "9.998358810514914373486745948575749945095746768204e+22",
-          "supplyBalanceTokens": "1.00000000105166403645033682413715238395883e+21",
+          "supplyBalanceCents": "9.9983588105149143780480889126794653426234077356e+22",
+          "supplyBalanceTokens": "1.000000001051664036906545993596415577987e+21",
           "supplyCapTokens": "0",
           "supplyPointDistributions": [
             {
@@ -1527,8 +1527,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "21.269535066688975633",
           "supplierCount": 25,
           "supplyApyPercentage": "11.401000590716290067",
-          "supplyBalanceCents": "3926957214.81667552145310224977756",
-          "supplyBalanceTokens": "15115.4767135290690422233",
+          "supplyBalanceCents": "3926957214.8166755227236919913048",
+          "supplyBalanceTokens": "15115.476713529069047114",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
           "supplyPointDistributions": [
             {
@@ -1628,8 +1628,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "187487.447405339178551222",
           "supplierCount": 923,
           "supplyApyPercentage": "156.911092632839993416",
-          "supplyBalanceCents": "55857886146.73633926826645676166316368",
-          "supplyBalanceTokens": "844923.83256419589412162352",
+          "supplyBalanceCents": "55857886146.736339269768573040089855",
+          "supplyBalanceTokens": "844923.832564195894144345",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
           "supplyPointDistributions": [
             {
@@ -1714,8 +1714,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0",
           "supplierCount": 274,
           "supplyApyPercentage": "1.830999347346963073",
-          "supplyBalanceCents": "1577866864.44951582900255226164962487",
-          "supplyBalanceTokens": "2676541.43946341921611527123",
+          "supplyBalanceCents": "1577866864.449515829141653394627801",
+          "supplyBalanceTokens": "2676541.439463419216351229",
           "supplyCapTokens": "3750000",
           "supplyPointDistributions": [
             {
@@ -1799,8 +1799,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0",
           "supplierCount": 670,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "1.00000365823065718484005004185532498353042604172702282217335e+36",
-          "supplyBalanceTokens": "1.000073663387094281439750824413033895903139261475326095e+34",
+          "supplyBalanceCents": "1.000003658230657184839939048665240588202602597e+36",
+          "supplyBalanceTokens": "1.0000736633870942814396398234528822899629e+34",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71",
           "supplyPointDistributions": [
             {
@@ -1899,8 +1899,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0",
           "supplierCount": 534,
           "supplyApyPercentage": "2.7256320003e-8",
-          "supplyBalanceCents": "1.0101768105485677124688775601109811743217932734472e+23",
-          "supplyBalanceTokens": "1.01017682065033591897223674983334867265528e+21",
+          "supplyBalanceCents": "1.0101768105485677124686714302796938e+23",
+          "supplyBalanceTokens": "1.01017682065033591897203062e+21",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71",
           "supplyPointDistributions": [
             {
@@ -2143,8 +2143,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0",
           "supplierCount": 7,
           "supplyApyPercentage": "0.000104360310305731",
-          "supplyBalanceCents": "264920894.68326890820099709771992",
-          "supplyBalanceTokens": "2649394.40444099995200661144",
+          "supplyBalanceCents": "264920894.68316892",
+          "supplyBalanceTokens": "2649394.40444",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [
             {
@@ -2238,8 +2238,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0.000131",
           "supplierCount": 6,
           "supplyApyPercentage": "0.326746289860669541",
-          "supplyBalanceCents": "11147989.87247995118961100320096",
-          "supplyBalanceTokens": "111487.70286399999189554272",
+          "supplyBalanceCents": "11147989.872379959",
+          "supplyBalanceTokens": "111487.702863",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [],
@@ -2318,8 +2318,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0",
           "supplierCount": 3,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "1103022783.00039988250626518098733",
-          "supplyBalanceTokens": "11031000.00000399910500000181",
+          "supplyBalanceCents": "1103022783.000299979",
+          "supplyBalanceTokens": "11031000.000003",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [
             {
@@ -2395,8 +2395,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0",
           "supplierCount": 5,
           "supplyApyPercentage": "232.211474860496839891",
-          "supplyBalanceCents": "17699.65572720252309431025559941",
-          "supplyBalanceTokens": "0.26773052085803925699",
+          "supplyBalanceCents": "17699.655727202523028861388904",
+          "supplyBalanceTokens": "0.267730520858039256",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [],
@@ -2570,8 +2570,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0.000166728600388574",
           "supplierCount": 1,
           "supplyApyPercentage": "0.963756279976176856",
-          "supplyBalanceCents": "4287055.476159846231009819",
-          "supplyBalanceTokens": "42870.55476159846231009819",
+          "supplyBalanceCents": "4287055.4761598462310125",
+          "supplyBalanceTokens": "42870.554761598462310125",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
@@ -2647,8 +2647,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "reserveTokens": "0.000002",
           "supplierCount": 1,
           "supplyApyPercentage": "0.001812471504422768",
-          "supplyBalanceCents": "99910924.08661613367941531619987",
-          "supplyBalanceTokens": "999179.18340899996679182859",
+          "supplyBalanceCents": "99910924.086516144",
+          "supplyBalanceTokens": "999179.183408",
           "supplyCapTokens": "1000000",
           "supplyPointDistributions": [
             {
@@ -2835,8 +2835,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0",
           "supplierCount": 933,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "9.998358810514914373486745948575749945095746768204e+22",
-          "supplyBalanceTokens": "1.00000000105166403645033682413715238395883e+21",
+          "supplyBalanceCents": "9.9983588105149143780480889126794653426234077356e+22",
+          "supplyBalanceTokens": "1.000000001051664036906545993596415577987e+21",
           "supplyCapTokens": "0",
           "supplyPointDistributions": [
             {
@@ -2920,8 +2920,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "21.269535066688975633",
           "supplierCount": 25,
           "supplyApyPercentage": "11.401000590716290067",
-          "supplyBalanceCents": "3926957214.81667552145310224977756",
-          "supplyBalanceTokens": "15115.4767135290690422233",
+          "supplyBalanceCents": "3926957214.8166755227236919913048",
+          "supplyBalanceTokens": "15115.476713529069047114",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
           "supplyPointDistributions": [
             {
@@ -3021,8 +3021,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "187487.447405339178551222",
           "supplierCount": 923,
           "supplyApyPercentage": "156.911092632839993416",
-          "supplyBalanceCents": "55857886146.73633926826645676166316368",
-          "supplyBalanceTokens": "844923.83256419589412162352",
+          "supplyBalanceCents": "55857886146.736339269768573040089855",
+          "supplyBalanceTokens": "844923.832564195894144345",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
           "supplyPointDistributions": [
             {
@@ -3107,8 +3107,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0",
           "supplierCount": 274,
           "supplyApyPercentage": "1.830999347346963073",
-          "supplyBalanceCents": "1577866864.44951582900255226164962487",
-          "supplyBalanceTokens": "2676541.43946341921611527123",
+          "supplyBalanceCents": "1577866864.449515829141653394627801",
+          "supplyBalanceTokens": "2676541.439463419216351229",
           "supplyCapTokens": "3750000",
           "supplyPointDistributions": [
             {
@@ -3192,8 +3192,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0",
           "supplierCount": 670,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "1.00000365823065718484005004185532498353042604172702282217335e+36",
-          "supplyBalanceTokens": "1.000073663387094281439750824413033895903139261475326095e+34",
+          "supplyBalanceCents": "1.000003658230657184839939048665240588202602597e+36",
+          "supplyBalanceTokens": "1.0000736633870942814396398234528822899629e+34",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71",
           "supplyPointDistributions": [
             {
@@ -3292,8 +3292,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0",
           "supplierCount": 534,
           "supplyApyPercentage": "2.7256320003e-8",
-          "supplyBalanceCents": "1.0101768105485677124688775601109811743217932734472e+23",
-          "supplyBalanceTokens": "1.01017682065033591897223674983334867265528e+21",
+          "supplyBalanceCents": "1.0101768105485677124686714302796938e+23",
+          "supplyBalanceTokens": "1.01017682065033591897203062e+21",
           "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71",
           "supplyPointDistributions": [
             {
@@ -3548,8 +3548,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0",
           "supplierCount": 7,
           "supplyApyPercentage": "0.000104360310305731",
-          "supplyBalanceCents": "264920894.68326890820099709771992",
-          "supplyBalanceTokens": "2649394.40444099995200661144",
+          "supplyBalanceCents": "264920894.68316892",
+          "supplyBalanceTokens": "2649394.40444",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [
             {
@@ -3643,8 +3643,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0.000131",
           "supplierCount": 6,
           "supplyApyPercentage": "0.326746289860669541",
-          "supplyBalanceCents": "11147989.87247995118961100320096",
-          "supplyBalanceTokens": "111487.70286399999189554272",
+          "supplyBalanceCents": "11147989.872379959",
+          "supplyBalanceTokens": "111487.702863",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [],
@@ -3723,8 +3723,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0",
           "supplierCount": 3,
           "supplyApyPercentage": "0",
-          "supplyBalanceCents": "1103022783.00039988250626518098733",
-          "supplyBalanceTokens": "11031000.00000399910500000181",
+          "supplyBalanceCents": "1103022783.000299979",
+          "supplyBalanceTokens": "11031000.000003",
           "supplyCapTokens": "18600000",
           "supplyPointDistributions": [
             {
@@ -3800,8 +3800,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0",
           "supplierCount": 5,
           "supplyApyPercentage": "232.211474860496839891",
-          "supplyBalanceCents": "17699.65572720252309431025559941",
-          "supplyBalanceTokens": "0.26773052085803925699",
+          "supplyBalanceCents": "17699.655727202523028861388904",
+          "supplyBalanceTokens": "0.267730520858039256",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [],
@@ -3975,8 +3975,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0.000166728600388574",
           "supplierCount": 1,
           "supplyApyPercentage": "0.963756279976176856",
-          "supplyBalanceCents": "4287055.476159846231009819",
-          "supplyBalanceTokens": "42870.55476159846231009819",
+          "supplyBalanceCents": "4287055.4761598462310125",
+          "supplyBalanceTokens": "42870.554761598462310125",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
@@ -4052,8 +4052,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "reserveTokens": "0.000002",
           "supplierCount": 1,
           "supplyApyPercentage": "0.001812471504422768",
-          "supplyBalanceCents": "99910924.08661613367941531619987",
-          "supplyBalanceTokens": "999179.18340899996679182859",
+          "supplyBalanceCents": "99910924.086516144",
+          "supplyBalanceTokens": "999179.183408",
           "supplyCapTokens": "1000000",
           "supplyPointDistributions": [
             {
