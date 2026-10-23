@@ -132,15 +132,20 @@
       "txSource": {
         "liquidityHub": "Likidite Merkezi",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "{{vTokenSymbol}} piyasasına <Styled>girildi</Styled>",
         "enterMarket": "{{vTokenSymbol}} teminat olarak <Styled>etkinleştirildi</Styled>",
+        "exitLoanMarket": "{{vTokenSymbol}} piyasasından <Styled>çıkıldı</Styled>",
         "exitMarket": "{{vTokenSymbol}} teminat olarak <Styled>devre dışı bırakıldı</Styled>"
       },
       "txType": {
         "borrow": "Borç al",
+        "enterLoanMarket": "Piyasaya gir",
         "enterMarket": "Teminatı etkinleştir",
+        "exitLoanMarket": "Piyasadan çık",
         "exitMarket": "Teminatı devre dışı bırak",
         "mint": "Sağla",
         "mintFromCollateral": "Taşı",
@@ -657,6 +662,9 @@
     "noTargetsKey": "Dosyada hedef listesi yok",
     "noTypeKey": "Dosyada teklifin türü belirtilmemiş",
     "proposalNotFound": "Teklif bulunamadı",
+    "serviceIssue": "Hizmet geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+    "serviceIssueDetails": "Ayrıntılar",
+    "serviceIssueTitle": "Sunucu sorunu",
     "somethingWentWrong": "Bir şeyler ters gitti",
     "somethingWentWrongRetrievingTransactions": "İşlemleri alırken bir sorun oluştu",
     "somethingWentWrongRetrievingVoterAccounts": "Oy veren hesaplar alınırken bir sorun oluştu",
@@ -885,6 +893,9 @@
       "earn": {
         "label": "Kazan"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "Menü",
       "new": "Yeni",
       "others": {
@@ -928,11 +939,6 @@
           "label": "Dil (beta)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "Başlayın"
-        }
-      },
       "vaults": {
         "label": "Kasalar"
       },
@@ -956,15 +962,11 @@
         },
         "vaults": {
           "description": "Hedef ödüller için tek stratejili sağlama kasası.",
-          "label": "Kasalar"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "Kolay ve optimize edilmiş kaldıraçla klasik borç verme ve borç alma.",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "En iyi getiri için sermaye verimli borç verme ve borç alma.",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "Sağladığınız teminatla özel piyasadan varlık ödünç alın.",
@@ -1035,7 +1037,8 @@
           "centrifuge": "Centrifuge fonları",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "Sabit oran kasası"
+          "frv": "Sabit oran kasası",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1960,6 +1963,7 @@
     "enterValidAmountButtonLabel": "Geçerli bir tutar girin",
     "error": {
       "higherThanAvailableAmount": "Tutar kullanılabilir bakiyeyi aşıyor",
+      "lowerThanMinAmount": "Miktar minimum değer olan {{minAmount}} altında",
       "supplyDisabled": "Bu teminatın arzı şu anda duraklatıldı"
     },
     "loanTabTitle": "Kredi",
@@ -2070,8 +2074,7 @@
         "liquidity": "Likidite",
         "loanAsset": "Borç varlığı",
         "totalBorrow": "Toplam borç"
-      },
-      "paused": "Duraklatıldı"
+      }
     }
   },
   "statsPage": {

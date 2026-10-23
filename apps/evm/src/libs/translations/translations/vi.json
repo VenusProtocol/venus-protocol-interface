@@ -132,15 +132,20 @@
       "txSource": {
         "liquidityHub": "Trung tâm thanh khoản",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "<Styled>Đã tham gia</Styled> thị trường {{vTokenSymbol}}",
         "enterMarket": "<Styled>Đã bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
+        "exitLoanMarket": "<Styled>Đã rời</Styled> thị trường {{vTokenSymbol}}",
         "exitMarket": "<Styled>Đã tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
       },
       "txType": {
         "borrow": "Vay",
+        "enterLoanMarket": "Tham gia thị trường",
         "enterMarket": "Bật tài sản thế chấp",
+        "exitLoanMarket": "Rời thị trường",
         "exitMarket": "Tắt tài sản thế chấp",
         "mint": "Cung cấp",
         "mintFromCollateral": "Di chuyển",
@@ -656,6 +661,9 @@
     "noTargetsKey": "Tệp không chứa danh sách mục tiêu",
     "noTypeKey": "Tệp không chỉ ra loại đề xuất",
     "proposalNotFound": "Không tìm thấy đề xuất",
+    "serviceIssue": "Dịch vụ tạm thời không khả dụng. Vui lòng thử lại sau.",
+    "serviceIssueDetails": "Chi tiết",
+    "serviceIssueTitle": "Sự cố máy chủ",
     "somethingWentWrong": "Đã xảy ra lỗi",
     "somethingWentWrongRetrievingTransactions": "Đã xảy ra lỗi khi lấy giao dịch",
     "somethingWentWrongRetrievingVoterAccounts": "Đã xảy ra lỗi khi lấy tài khoản cử tri",
@@ -884,6 +892,9 @@
       "earn": {
         "label": "Kiếm lợi nhuận"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "Trình đơn",
       "new": "Mới",
       "others": {
@@ -927,11 +938,6 @@
           "label": "Ngôn ngữ (beta)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "Bắt đầu"
-        }
-      },
       "vaults": {
         "label": "Kho"
       },
@@ -955,15 +961,11 @@
         },
         "vaults": {
           "description": "Kho cung cấp một chiến lược cho phần thưởng mục tiêu.",
-          "label": "Kho"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "Cho vay và vay theo cách truyền thống với đòn bẩy dễ dùng, tối ưu.",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "Cho vay và vay hiệu quả về vốn để tối ưu lợi suất.",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "Vay tài sản từ thị trường chuyên biệt bằng tài sản thế chấp bạn đã cung cấp.",
@@ -1034,7 +1036,8 @@
           "centrifuge": "Các quỹ Centrifuge",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "Kho lãi suất cố định"
+          "frv": "Kho lãi suất cố định",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1959,6 +1962,7 @@
     "enterValidAmountButtonLabel": "Nhập số tiền hợp lệ",
     "error": {
       "higherThanAvailableAmount": "Số tiền vượt quá số dư khả dụng",
+      "lowerThanMinAmount": "Số lượng thấp hơn mức tối thiểu {{minAmount}}",
       "supplyDisabled": "Việc cung cấp tài sản thế chấp này hiện đang tạm dừng"
     },
     "loanTabTitle": "Khoản vay",
@@ -2069,8 +2073,7 @@
         "liquidity": "Thanh khoản",
         "loanAsset": "Tài sản vay",
         "totalBorrow": "Tổng vay"
-      },
-      "paused": "Tạm dừng"
+      }
     }
   },
   "statsPage": {

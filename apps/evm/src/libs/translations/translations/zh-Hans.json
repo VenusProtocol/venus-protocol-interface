@@ -132,15 +132,20 @@
       "txSource": {
         "liquidityHub": "流动性中心",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "<Styled>进入</Styled> {{vTokenSymbol}} 市场",
         "enterMarket": "<Styled>启用</Styled> {{vTokenSymbol}} 作为可抵押",
+        "exitLoanMarket": "<Styled>退出</Styled> {{vTokenSymbol}} 市场",
         "exitMarket": "<Styled>禁用</Styled> {{vTokenSymbol}} 作为可抵押"
       },
       "txType": {
         "borrow": "借款",
+        "enterLoanMarket": "进入市场",
         "enterMarket": "启用抵押",
+        "exitLoanMarket": "退出市场",
         "exitMarket": "禁用抵押",
         "mint": "存款",
         "mintFromCollateral": "迁移",
@@ -656,6 +661,9 @@
     "noTargetsKey": "文件中没有目标列表",
     "noTypeKey": "文件中未指明提案类型",
     "proposalNotFound": "未找到提案",
+    "serviceIssue": "服务暂时不可用，请稍后再试。",
+    "serviceIssueDetails": "详情",
+    "serviceIssueTitle": "服务器问题",
     "somethingWentWrong": "出了点问题",
     "somethingWentWrongRetrievingTransactions": "获取交易时出错",
     "somethingWentWrongRetrievingVoterAccounts": "获取投票账户时出错",
@@ -884,6 +892,9 @@
       "earn": {
         "label": "赚取"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "菜单",
       "new": "新",
       "others": {
@@ -927,11 +938,6 @@
           "label": "语言（测试版）"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "开始使用"
-        }
-      },
       "vaults": {
         "label": "金库"
       },
@@ -955,15 +961,11 @@
         },
         "vaults": {
           "description": "面向目标奖励的单策略供应金库。",
-          "label": "金库"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "经典借贷，轻松使用优化杠杆。",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "高资本效率的借贷，以获得最佳收益。",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "以你供应的抵押品，从专属市场借出资产。",
@@ -1034,7 +1036,8 @@
           "centrifuge": "Centrifuge 基金",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "固定利率金库"
+          "frv": "固定利率金库",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1959,6 +1962,7 @@
     "enterValidAmountButtonLabel": "请输入有效金额",
     "error": {
       "higherThanAvailableAmount": "金额超出可用余额",
+      "lowerThanMinAmount": "金额低于最小值 {{minAmount}}",
       "supplyDisabled": "该抵押品的供应当前已暂停"
     },
     "loanTabTitle": "借贷",
@@ -2069,8 +2073,7 @@
         "liquidity": "流动性",
         "loanAsset": "借贷资产",
         "totalBorrow": "总借款"
-      },
-      "paused": "已暂停"
+      }
     }
   },
   "statsPage": {

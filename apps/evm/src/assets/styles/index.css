@@ -9,6 +9,8 @@
 @import '@venusprotocol/ui/fonts/proximaNova' layer(base);
 @import '@venusprotocol/ui/theme' layer(theme);
 
+@import './navigation.css';
+
 @layer base {
   body {
     font-family: var(--font-proxima-nova), sans-serif;

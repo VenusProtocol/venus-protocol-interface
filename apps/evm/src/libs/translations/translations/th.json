@@ -132,15 +132,20 @@
       "txSource": {
         "liquidityHub": "ศูนย์สภาพคล่อง",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "<Styled>เข้าสู่</Styled>ตลาด {{vTokenSymbol}}",
         "enterMarket": "<Styled>เปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน",
+        "exitLoanMarket": "<Styled>ออกจาก</Styled>ตลาด {{vTokenSymbol}}",
         "exitMarket": "<Styled>ปิดใช้</Styled> {{vTokenSymbol}} เป็นหลักประกัน"
       },
       "txType": {
         "borrow": "ยืม",
+        "enterLoanMarket": "เข้าสู่ตลาด",
         "enterMarket": "เปิดใช้หลักประกัน",
+        "exitLoanMarket": "ออกจากตลาด",
         "exitMarket": "ปิดใช้หลักประกัน",
         "mint": "ฝาก",
         "mintFromCollateral": "ย้าย",
@@ -656,6 +661,9 @@
     "noTargetsKey": "ไฟล์ไม่มีรายการเป้าหมาย",
     "noTypeKey": "ไฟล์ไม่ได้ระบุประเภทของข้อเสนอ",
     "proposalNotFound": "ไม่พบข้อเสนอ",
+    "serviceIssue": "บริการไม่พร้อมใช้งานชั่วคราว โปรดลองอีกครั้งในภายหลัง",
+    "serviceIssueDetails": "รายละเอียด",
+    "serviceIssueTitle": "ปัญหาเซิร์ฟเวอร์",
     "somethingWentWrong": "เกิดข้อผิดพลาดบางอย่าง",
     "somethingWentWrongRetrievingTransactions": "เกิดข้อผิดพลาดในการดึงธุรกรรม",
     "somethingWentWrongRetrievingVoterAccounts": "เกิดข้อผิดพลาดในการดึงบัญชีผู้โหวต",
@@ -884,6 +892,9 @@
       "earn": {
         "label": "รับผลตอบแทน"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "เมนู",
       "new": "ใหม่",
       "others": {
@@ -927,11 +938,6 @@
           "label": "ภาษา (เบต้า)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "เริ่มต้นใช้งาน"
-        }
-      },
       "vaults": {
         "label": "คลัง"
       },
@@ -955,15 +961,11 @@
         },
         "vaults": {
           "description": "วอลต์ฝากแบบกลยุทธ์เดียวสำหรับรางวัลเป้าหมาย",
-          "label": "คลัง"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "การให้ยืมและการยืมแบบคลาสสิก พร้อมเลเวอเรจที่ใช้งานง่ายและปรับให้เหมาะสม",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "การให้ยืมและการยืมที่ใช้ทุนอย่างมีประสิทธิภาพเพื่อผลตอบแทนที่ดีที่สุด",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "กู้ยืมสินทรัพย์จากตลาดเฉพาะโดยใช้หลักประกันที่คุณฝากไว้",
@@ -1034,7 +1036,8 @@
           "centrifuge": "กองทุน Centrifuge",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "คลังอัตราคงที่"
+          "frv": "คลังอัตราคงที่",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1959,6 +1962,7 @@
     "enterValidAmountButtonLabel": "กรอกจำนวนที่ถูกต้อง",
     "error": {
       "higherThanAvailableAmount": "จำนวนเกินยอดคงเหลือที่ใช้ได้",
+      "lowerThanMinAmount": "จำนวนต่ำกว่าขั้นต่ำ {{minAmount}}",
       "supplyDisabled": "การฝากหลักประกันนี้ถูกหยุดชั่วคราว"
     },
     "loanTabTitle": "สินเชื่อ",
@@ -2069,8 +2073,7 @@
         "liquidity": "สภาพคล่อง",
         "loanAsset": "สินทรัพย์กู้",
         "totalBorrow": "ยอดกู้รวม"
-      },
-      "paused": "หยุดชั่วคราว"
+      }
     }
   },
   "statsPage": {

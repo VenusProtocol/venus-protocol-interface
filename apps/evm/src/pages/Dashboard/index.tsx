@@ -1,4 +1,4 @@
-import { useGetLiquidityHubs, useGetPool, useGetVaults } from 'clients/api';
+import { useGetLiquidityHubs, useGetPool, useGetSpokePools, useGetVaults } from 'clients/api';
 import { Page, SectionErrorBoundary, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
 import { useChain } from 'hooks/useChain';
@@ -71,13 +71,20 @@ export const Dashboard: React.FC = () => {
   );
   const { liquidityHubs } = getLiquidityHubsData;
 
+  const { isLoading: isGetSpokePoolsLoading, errorUpdateCount: getSpokePoolsErrorCount } =
+    useGetSpokePools({ accountAddress }, { enabled: !!accountAddress });
+
   const tabs: Tab[] = [
     {
       title: t('account.tabs.markets'),
       id: 'pools',
       content: (
         <SectionErrorBoundary className="my-10" key="pools">
-          {isGetPoolLoading ? <Spinner /> : pool && <Markets pool={pool} />}
+          {isGetPoolLoading || (isGetSpokePoolsLoading && getSpokePoolsErrorCount === 0) ? (
+            <Spinner />
+          ) : (
+            pool && <Markets pool={pool} />
+          )}
         </SectionErrorBoundary>
       ),
     },

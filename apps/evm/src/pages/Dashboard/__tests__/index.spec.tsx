@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { useGetSpokePools } from 'clients/api';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -32,5 +33,36 @@ describe('Dashboard', () => {
     });
 
     await waitFor(() => expect(getByText(en.account.tabs.hubs)).toBeInTheDocument());
+  });
+
+  it('shows the Markets tab spinner until the Spoke positions are loaded', async () => {
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: true,
+      errorUpdateCount: 0,
+      data: undefined,
+    }));
+
+    const { getByAltText, queryByText } = renderComponent(<Dashboard />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    await waitFor(() => expect(getByAltText('Spinner')).toBeInTheDocument());
+    expect(queryByText(en.account.marketBreakdown.tables.supplyTableTitle)).not.toBeInTheDocument();
+  });
+
+  it('shows the page once the Spoke positions have failed, even while retrying', async () => {
+    (useGetSpokePools as Mock).mockImplementation(() => ({
+      isLoading: true,
+      errorUpdateCount: 1,
+      data: undefined,
+    }));
+
+    const { getByText } = renderComponent(<Dashboard />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    await waitFor(() =>
+      expect(getByText(en.dashboard.overview.netWorth.label)).toBeInTheDocument(),
+    );
   });
 });

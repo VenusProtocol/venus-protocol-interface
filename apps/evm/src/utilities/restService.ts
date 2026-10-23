@@ -2,6 +2,9 @@ import { isEmpty, set } from 'lodash-es';
 
 import config from 'config';
 import { logError } from 'libs/errors';
+import { displayServiceIssueNotification } from 'libs/notifications';
+
+import { isServiceIssueExempt } from './isServiceIssueExempt';
 
 export interface RestServiceInput {
   baseUrl?: string;
@@ -80,6 +83,9 @@ export async function restService<D>({
     path = `${path}?${queryParams}`;
   }
 
+  const shouldNotifyServiceIssue =
+    basePath === config.apiUrl && !isServiceIssueExempt({ method, endpoint });
+
   return fetch(path, { headers })
     .then(async response => {
       const { status } = response;
@@ -90,6 +96,17 @@ export async function restService<D>({
         data = await response.json();
       } catch (err) {
         logError(err);
+      }
+
+      if (shouldNotifyServiceIssue && status >= 500 && status < 600) {
+        const apiError = (data as { error?: unknown } | undefined)?.error;
+
+        displayServiceIssueNotification({
+          method,
+          endpoint,
+          status,
+          error: typeof apiError === 'string' ? apiError : undefined,
+        });
       }
 
       return { status, data };

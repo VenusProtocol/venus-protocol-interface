@@ -1,4 +1,11 @@
-import { LayeredValues, Table, type TableColumn, TokenIconWithSymbol } from 'components';
+import {
+  LayeredValues,
+  ProtectionModeIndicator,
+  Table,
+  type TableColumn,
+  TokenIconWithSymbol,
+} from 'components';
+import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 import {
@@ -21,7 +28,20 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
       key: 'asset',
       label: t('account.spoke.supplied.columns.asset'),
       selectOptionLabel: t('account.spoke.supplied.columns.asset'),
-      renderCell: asset => <TokenIconWithSymbol token={asset.vToken.underlyingToken} />,
+      renderCell: asset => (
+        <div className="flex items-center gap-x-2">
+          <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+
+          {asset.isProtectionModeEnabled && (
+            <ProtectionModeIndicator
+              variant="icon"
+              tooltipType="supply"
+              tokenName={asset.vToken.underlyingToken.symbol}
+              userSupplyBalanceCents={asset.userSupplyBalanceProtectedCents}
+            />
+          )}
+        </div>
+      ),
     },
     {
       key: 'maxLtv',
@@ -45,14 +65,16 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
       sortRows: (rowA, rowB, direction) =>
         compareBigNumbers(rowA.userSupplyBalanceCents, rowB.userSupplyBalanceCents, direction),
       renderCell: asset => (
-        <LayeredValues
-          topValue={formatTokensToReadableValue({
-            value: asset.userSupplyBalanceTokens,
-            token: asset.vToken.underlyingToken,
-            addSymbol: false,
-          })}
-          bottomValue={formatCentsToReadableValue({ value: asset.userSupplyBalanceCents })}
-        />
+        <HidableUserBalance>
+          <LayeredValues
+            topValue={formatTokensToReadableValue({
+              value: asset.userSupplyBalanceTokens,
+              token: asset.vToken.underlyingToken,
+              addSymbol: false,
+            })}
+            bottomValue={formatCentsToReadableValue({ value: asset.userSupplyBalanceCents })}
+          />
+        </HidableUserBalance>
       ),
     },
   ];

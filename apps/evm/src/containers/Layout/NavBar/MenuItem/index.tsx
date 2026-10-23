@@ -47,6 +47,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             'flex items-center justify-between cursor-pointer lg:gap-x-2',
           )}
           type="button"
+          data-nav-item
+          aria-expanded={isSubMenuOpen}
           onClick={onAccordionTriggerClick}
         >
           <div className="flex items-center gap-x-2">
@@ -78,7 +80,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       {/* XL and up dropdown */}
       <Dropdown
         className="hidden lg:block"
-        menuClassName="mt-5 shadow-none border-0 bg-background-active"
+        menuClassName={cn(
+          'mt-5',
+          item.variant === 'secondary'
+            ? 'border-white/12 bg-background-active shadow-[0_12px_32px_0_rgb(0_0_0/18%)]'
+            : 'shadow-none border-0 bg-background-active',
+        )}
         triggerOnHover
         optionsDom={({ setIsDropdownOpen }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({
@@ -104,6 +111,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
               isDropdownOpen && 'lg:text-white lg:bg-dark-blue-active',
             )}
             type="button"
+            data-nav-item
+            aria-expanded={isDropdownOpen}
           >
             <span>{item.label}</span>
 
@@ -124,9 +133,17 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
         item.onClick?.();
         onClick();
       }}
-      className={cn(sharedContainerClassName, 'flex items-center gap-x-2')}
+      data-nav-item
+      className={cn(sharedContainerClassName, 'group/menu-link flex items-center gap-x-2')}
     >
       <span>{item.label}</span>
+
+      {!!item.href && (
+        <Icon
+          name="externalLink"
+          className="size-3 shrink-0 text-inherit motion-safe:transition-transform motion-safe:duration-[220ms] motion-safe:ease-out motion-safe:group-hover/menu-link:translate-x-0.5 motion-safe:group-hover/menu-link:-translate-y-0.5 motion-safe:group-focus-visible/menu-link:translate-x-0.5 motion-safe:group-focus-visible/menu-link:-translate-y-0.5"
+        />
+      )}
 
       {item.tagLabel && (
         <Tag className="inline-block lg:hidden xl:inline-block">{item.tagLabel}</Tag>

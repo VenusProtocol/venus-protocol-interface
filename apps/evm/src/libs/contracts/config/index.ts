@@ -136,6 +136,8 @@ import primeLeaderboardAbi from './externalAbis/PrimeLeaderboard.json';
 import primeV2Abi from './externalAbis/PrimeV2.json';
 import primeV2LensAbi from './externalAbis/PrimeV2Lens.json';
 import relativePositionManagerAbi from './externalAbis/RelativePositionManager.json';
+import spokeComptrollerAbi from './externalAbis/SpokeComptroller.json';
+import spokeVTokenAbi from './externalAbis/SpokeVToken.json';
 import swapRouterV2Abi from './externalAbis/SwapRouterV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import zyFiVaultAbi from './externalAbis/ZyFiVault.json';
@@ -744,13 +746,24 @@ export const contracts: ContractConfig[] = [
     name: 'CollateralGateway',
     abi: collateralGatewayAbi as Abi,
     address: {
-      [ChainId.BSC_TESTNET]: '0x1B6D1ff76beb57CF7C9B2e05BE16cb9529DCa2F9', // TODO: get from venus-periphery package (VPD-2072)
+      [ChainId.BSC_MAINNET]: venusPeripheryBscMainnetDeployments.addresses
+        .CollateralGateway as Address,
+      [ChainId.BSC_TESTNET]: venusPeripheryBscTestnetDeployments.addresses
+        .CollateralGateway as Address,
     },
   },
   // Generic Contracts
   {
     name: 'IsolatedPoolComptroller',
     abi: IsolatedPoolComptrollerAbi as Abi,
+  },
+  {
+    name: 'SpokeComptroller',
+    abi: spokeComptrollerAbi as Abi,
+  },
+  {
+    name: 'SpokeVToken',
+    abi: spokeVTokenAbi as Abi,
   },
   {
     name: 'JumpRateModel',
@@ -871,14 +884,14 @@ export const contracts: ContractConfig[] = [
           isolatedPoolsBscTestnetDeployments.addresses
             .NativeTokenGateway_vWBNB_LiquidStakedBNB as Address,
         [venusProtocolBscTestnetDeployments.addresses.Unitroller_Proxy.toLowerCase() as Address]:
-          '0xF34AAfc540Adc827A84736553BD29DE87a117558', // TODO: get from venus-periphery package,
+          venusPeripheryBscTestnetDeployments.addresses.NativeTokenGateway_vWBNB_Core as Address,
       },
       [ChainId.BSC_MAINNET]: {
         [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:
           isolatedPoolsBscMainnetDeployments.addresses
             .NativeTokenGateway_vWBNB_LiquidStakedBNB as Address,
         [venusProtocolBscMainnetDeployments.addresses.Unitroller_Proxy.toLowerCase() as Address]:
-          '0x5143eb18aA057Cd8BC9734cCfD2651823e71585f', // TODO: get from venus-periphery package,
+          venusPeripheryBscMainnetDeployments.addresses.NativeTokenGateway_vWBNB_Core as Address,
       },
       [ChainId.OPBNB_MAINNET]: {
         [isolatedPoolsOpBnbMainnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:

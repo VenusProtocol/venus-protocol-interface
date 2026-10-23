@@ -132,15 +132,20 @@
       "txSource": {
         "liquidityHub": "Liquidity Hub",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "<Styled>Entered</Styled> {{vTokenSymbol}} market",
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
+        "exitLoanMarket": "<Styled>Exited</Styled> {{vTokenSymbol}} market",
         "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
       },
       "txType": {
         "borrow": "Borrow",
+        "enterLoanMarket": "Enter market",
         "enterMarket": "Enable collateral",
+        "exitLoanMarket": "Exit market",
         "exitMarket": "Disable collateral",
         "mint": "Supply",
         "mintFromCollateral": "Migrate",
@@ -657,6 +662,9 @@
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
     "proposalNotFound": "Proposal not found",
+    "serviceIssue": "Service temporarily unavailable. Please try again later.",
+    "serviceIssueDetails": "Details",
+    "serviceIssueTitle": "Server issue",
     "somethingWentWrong": "Something went wrong",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
     "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",
@@ -885,6 +893,9 @@
       "earn": {
         "label": "Earn"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "Menu",
       "new": "New",
       "others": {
@@ -928,11 +939,6 @@
           "label": "Language (beta)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "Get started"
-        }
-      },
       "vaults": {
         "label": "Vaults"
       },
@@ -956,15 +962,11 @@
         },
         "vaults": {
           "description": "Single-strategy supply vault for target rewards.",
-          "label": "Vaults"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "Classic lending and borrowing with easy, optimized leverage.",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "Capital-efficient lending and borrowing for optimal yield.",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "Borrow assets against your supplied collateral from dedicated market.",
@@ -1035,7 +1037,8 @@
           "centrifuge": "Centrifuge funds",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "Fixed rate vault"
+          "frv": "Fixed rate vault",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1960,6 +1963,7 @@
     "enterValidAmountButtonLabel": "Enter valid amount",
     "error": {
       "higherThanAvailableAmount": "Amount exceeds the available balance",
+      "lowerThanMinAmount": "Amount is below the minimum of {{minAmount}}",
       "supplyDisabled": "Supplying is currently paused for this collateral"
     },
     "loanTabTitle": "Loan",
@@ -2070,8 +2074,7 @@
         "liquidity": "Liquidity",
         "loanAsset": "Loan asset",
         "totalBorrow": "Total borrow"
-      },
-      "paused": "Paused"
+      }
     }
   },
   "statsPage": {
