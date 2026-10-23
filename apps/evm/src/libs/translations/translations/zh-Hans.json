@@ -1152,6 +1152,10 @@
         }
       }
     },
+    "errorState": {
+      "failedToFetchMessage": "无法获取市场数据",
+      "refetchButtonLabel": "重试"
+    },
     "history": {
       "emptyState": "该时间段暂无历史数据",
       "errorState": {

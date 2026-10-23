@@ -1152,6 +1152,10 @@
         }
       }
     },
+    "errorState": {
+      "failedToFetchMessage": "マーケットデータを取得できませんでした",
+      "refetchButtonLabel": "再試行"
+    },
     "history": {
       "emptyState": "この期間の履歴はありません",
       "errorState": {
