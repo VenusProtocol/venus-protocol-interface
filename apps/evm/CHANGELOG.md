@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.42.2
+
+### Patch Changes
+
+- ed7205d: work out the daily change percentage against the start-of-day net worth
+
 ## 5.42.1
 
 ### Patch Changes
