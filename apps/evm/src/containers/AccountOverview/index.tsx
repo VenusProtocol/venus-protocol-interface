@@ -147,7 +147,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     },
   );
   const userLiquidityHubSupplyBalanceCents = getLiquidityHubsData.liquidityHubs.reduce(
-    (acc, liquidityHub) => acc.plus(liquidityHub.userSupplyBalanceCents || 0),
+    (acc, liquidityHub) => acc.plus(liquidityHub.userVhTokenBalanceCents || 0),
     new BigNumber(0),
   );
 
