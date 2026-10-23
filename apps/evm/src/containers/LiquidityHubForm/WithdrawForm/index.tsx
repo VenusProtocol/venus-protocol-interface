@@ -1,13 +1,29 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
-import { useWithdrawFromLiquidityHub } from 'clients/api';
+import {
+  useGetPool,
+  useWithdrawFromLiquidityHub,
+  useWithdrawPositionFromLiquidityHub,
+} from 'clients/api';
 import { AvailableBalance } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
+import type { Approval } from 'containers/TxFormSubmitButton';
+import { useChain } from 'hooks/useChain';
+import useDelegateApproval from 'hooks/useDelegateApproval';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAnalytics } from 'libs/analytics';
 import { isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import type { LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
+import { useAccountAddress } from 'libs/wallet';
+import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
+import {
+  areTokensEqual,
+  calculateCollateralWithdrawLimits,
+  convertTokensToMantissa,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { calculateAmountDollars } from '../../MarketForm/calculateAmountDollars';
 import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../Form';
 
@@ -20,6 +36,33 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
+  const { accountAddress } = useAccountAddress();
+  const { corePoolComptrollerContractAddress } = useChain();
+
+  const { address: collateralGatewayContractAddress } = useGetContractAddress({
+    name: 'CollateralGateway',
+  });
+
+  const isAutoResupplyEnabled =
+    useIsFeatureEnabled({ name: 'liquidityHubAutoResupply' }) && !!collateralGatewayContractAddress;
+
+  const { data: getPoolData } = useGetPool(
+    {
+      poolComptrollerAddress: corePoolComptrollerContractAddress,
+      accountAddress,
+    },
+    {
+      enabled: isAutoResupplyEnabled,
+    },
+  );
+
+  const corePool = isAutoResupplyEnabled ? getPoolData?.pool : undefined;
+
+  const corePoolVhAsset = corePool?.assets.find(
+    asset =>
+      areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken) &&
+      !asset.disabledTokenActions.includes('withdraw'),
+  );
 
   const { decimals } = liquidityHub.vhToken.underlyingToken;
 
@@ -32,14 +75,94 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     BigNumber.ROUND_DOWN,
   );
 
-  const limitTokens = BigNumber.min(userWithdrawCapTokens ?? 0, userMaxRedeemTokens ?? 0);
+  const walletLimitTokens = BigNumber.min(userWithdrawCapTokens ?? 0, userMaxRedeemTokens ?? 0);
+
+  const walletVhTokenBalanceTokens = liquidityHub.userVhTokenBalanceTokens ?? new BigNumber(0);
+  const walletSupplyBalanceTokens = walletVhTokenBalanceTokens.multipliedBy(
+    liquidityHub.pricePerShare,
+  );
+
+  const coreLimits =
+    corePool && corePoolVhAsset
+      ? calculateCollateralWithdrawLimits({ asset: corePoolVhAsset, pool: corePool })
+      : undefined;
+
+  const hubLimitTokens = BigNumber.min(
+    liquidityHub.liquidityTokens,
+    liquidityHub.withdrawCapTokens,
+  );
+
+  const getPositionLimitTokens = (coreLimitVhTokens: BigNumber) =>
+    BigNumber.min(
+      walletSupplyBalanceTokens.plus(coreLimitVhTokens.multipliedBy(liquidityHub.pricePerShare)),
+      hubLimitTokens,
+    ).dp(decimals, BigNumber.ROUND_DOWN);
+
+  const limitTokens = coreLimits
+    ? getPositionLimitTokens(coreLimits.limitTokens)
+    : walletLimitTokens;
+
+  const safeLimitTokens = coreLimits
+    ? getPositionLimitTokens(coreLimits.safeLimitTokens)
+    : undefined;
 
   const fromAmountTokens = formValues.amountTokens
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
-  const { mutateAsync: withdrawFromLiquidityHub, isPending: isSubmitting } =
+  const amountVhTokens = (fromAmountTokens ?? new BigNumber(0)).dividedBy(
+    liquidityHub.pricePerShare,
+  );
+
+  const coreWithdrawalVhTokens = corePoolVhAsset
+    ? BigNumber.max(amountVhTokens.minus(walletVhTokenBalanceTokens), 0).dp(
+        liquidityHub.vhToken.decimals,
+        BigNumber.ROUND_UP,
+      )
+    : new BigNumber(0);
+
+  const isWithdrawingFromCore = coreWithdrawalVhTokens.isGreaterThan(0);
+
+  const approvals: Approval[] = [];
+
+  if (
+    isWithdrawingFromCore &&
+    collateralGatewayContractAddress &&
+    walletVhTokenBalanceTokens.isGreaterThan(0)
+  ) {
+    approvals.push({
+      type: 'token',
+      token: {
+        ...liquidityHub.vhToken,
+        iconSrc: liquidityHub.vhToken.underlyingToken.iconSrc,
+      },
+      spenderAddress: collateralGatewayContractAddress,
+    });
+  }
+
+  if (isWithdrawingFromCore && collateralGatewayContractAddress) {
+    approvals.push({
+      type: 'delegate',
+      delegateeAddress: collateralGatewayContractAddress,
+      poolComptrollerContractAddress: corePoolComptrollerContractAddress,
+    });
+  }
+
+  // Without the grant, the gateway silently skips the Core leg
+  const { isDelegateApprovedLoading } = useDelegateApproval({
+    delegateeAddress: collateralGatewayContractAddress ?? NULL_ADDRESS,
+    poolComptrollerAddress: corePoolComptrollerContractAddress,
+    enabled: isWithdrawingFromCore && !!collateralGatewayContractAddress,
+  });
+
+  const { mutateAsync: withdrawFromLiquidityHub, isPending: isWithdrawFromLiquidityHubLoading } =
     useWithdrawFromLiquidityHub();
+  const {
+    mutateAsync: withdrawPositionFromLiquidityHub,
+    isPending: isWithdrawPositionFromLiquidityHubLoading,
+  } = useWithdrawPositionFromLiquidityHub();
+  const isSubmitting =
+    isWithdrawFromLiquidityHubLoading || isWithdrawPositionFromLiquidityHubLoading;
 
   const getAnalyticData = (amountTokens: BigNumber | string) => ({
     poolName: 'liquidity_hub',
@@ -87,15 +210,38 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
     const analyticData = getAnalyticData(amountTokens);
 
+    const positionBalanceTokens = walletSupplyBalanceTokens.plus(
+      (corePoolVhAsset?.userSupplyBalanceTokens ?? new BigNumber(0)).multipliedBy(
+        liquidityHub.pricePerShare,
+      ),
+    );
+
     try {
       captureAnalyticEvent('withdraw_initiated', analyticData);
 
-      await withdrawFromLiquidityHub({
-        liquidityHub,
-        amountMantissa,
-        withdrawFullSupply,
-        userVhTokenBalanceMantissa,
-      });
+      if (corePoolVhAsset && isWithdrawingFromCore) {
+        await withdrawPositionFromLiquidityHub({
+          liquidityHub,
+          vhMarketVToken: corePoolVhAsset.vToken,
+          amountMantissa,
+          sharesMantissa: convertTokensToMantissa({
+            token: liquidityHub.vhToken,
+            value: amountTokens
+              .dividedBy(liquidityHub.pricePerShare)
+              .dp(liquidityHub.vhToken.decimals, BigNumber.ROUND_UP),
+          }),
+          withdrawFullPosition: amountTokens.isGreaterThanOrEqualTo(
+            positionBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN),
+          ),
+        });
+      } else {
+        await withdrawFromLiquidityHub({
+          liquidityHub,
+          amountMantissa,
+          withdrawFullSupply,
+          userVhTokenBalanceMantissa,
+        });
+      }
 
       captureAnalyticEvent('withdraw_signed', analyticData);
     } catch (error) {
@@ -107,7 +253,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     }
   };
 
-  const balanceMutations: LiquidityHubBalanceMutation[] = [
+  const balanceMutations: Array<AssetBalanceMutation | LiquidityHubBalanceMutation> = [
     {
       type: 'liquidityHub',
       vhTokenAddress: liquidityHub.vhToken.address,
@@ -115,6 +261,15 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       action: 'withdraw',
     },
   ];
+
+  if (corePoolVhAsset && isWithdrawingFromCore) {
+    balanceMutations.push({
+      type: 'asset',
+      vTokenAddress: corePoolVhAsset.vToken.address,
+      action: 'withdraw',
+      amountTokens: coreWithdrawalVhTokens,
+    });
+  }
 
   const handleLimitClick = limitTokens.isGreaterThan(0)
     ? () => {
@@ -154,6 +309,12 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       setFormValues={setFormValues}
       submitButtonLabel={t('liquidityHubForm.withdrawSubmitButtonLabel')}
       limitTokens={limitTokens}
+      safeLimitTokens={safeLimitTokens}
+      rightMaxButtonLabel={
+        safeLimitTokens ? t('liquidityHubForm.rightSafeMaxButtonLabel') : undefined
+      }
+      approval={approvals}
+      isApprovalLoading={isWithdrawingFromCore && isDelegateApprovedLoading}
       availableBalance={availableBalanceDom}
       onAmountSet={captureAmountSetAnalyticEvent}
     />

@@ -10,7 +10,7 @@ import {
 } from 'components';
 import { AccountLiquidityHubDailyEarnings } from 'containers/AccountLiquidityHubDailyEarnings';
 import { AccountPoolHealth } from 'containers/AccountPoolHealth';
-import { type TokenApproval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
+import { type Approval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
 import { useChain } from 'hooks/useChain';
 import { useSimulateLiquidityHubMutations } from 'hooks/useSimulateLiquidityHubMutations';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
@@ -18,7 +18,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { shouldShowAccountHealth } from 'utilities';
+import { areAddressesEqual, areTokensEqual, shouldShowAccountHealth } from 'utilities';
 import { type FormValues, initialFormValues, useForm } from './useForm';
 import type { UseFormValidationInput } from './useForm/useFormValidation';
 
@@ -42,7 +42,8 @@ export interface FormProps {
   safeLimitTokens?: BigNumber;
   rightMaxButtonLabel?: string;
   onSubmitSuccess?: () => void;
-  approval?: TokenApproval;
+  approval?: Approval | Approval[];
+  isApprovalLoading?: boolean;
   validateForm?: UseFormValidationInput['validate'];
   onAmountSet?: (input: AmountSetInput) => void;
 }
@@ -61,6 +62,7 @@ export const Form: React.FC<FormProps> = ({
   submitButtonLabel,
   isSubmitting,
   approval,
+  isApprovalLoading = false,
   validateForm,
   onAmountSet,
 }) => {
@@ -93,6 +95,17 @@ export const Form: React.FC<FormProps> = ({
       balanceMutations,
     });
   const simulatedPool = getSimulatedPoolData?.pool;
+
+  const vhMarketVTokenAddress = pool?.assets.find(asset =>
+    areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken),
+  )?.vToken.address;
+
+  const displayedBalanceMutations = balanceMutations.filter(
+    balanceMutation =>
+      balanceMutation.type !== 'asset' ||
+      !vhMarketVTokenAddress ||
+      !areAddressesEqual(balanceMutation.vTokenAddress, vhMarketVTokenAddress),
+  );
 
   const { data: getLiquidityHubsData, isLoading: isGetLiquidityHubsLoading } = useGetLiquidityHubs({
     accountAddress,
@@ -157,7 +170,11 @@ export const Form: React.FC<FormProps> = ({
   };
 
   const isLoading =
-    isSubmitting || isGetLiquidityHubsLoading || isGetPoolLoading || isGetSimulatedPoolLoading;
+    isSubmitting ||
+    isApprovalLoading ||
+    isGetLiquidityHubsLoading ||
+    isGetPoolLoading ||
+    isGetSimulatedPoolLoading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -202,7 +219,7 @@ export const Form: React.FC<FormProps> = ({
           <BalanceUpdates
             pool={pool}
             liquidityHubs={liquidityHubs}
-            balanceMutations={balanceMutations}
+            balanceMutations={displayedBalanceMutations}
           />
 
           <Delimiter />

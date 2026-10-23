@@ -9,7 +9,7 @@ import type { Approval } from '../types';
 export interface SubmitButtonProps {
   label: string;
   isFormValid: boolean;
-  approval?: Approval;
+  approval?: Approval | Approval[];
   isRisky?: boolean;
   isLoading?: boolean;
 }
@@ -21,7 +21,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
   label,
   approval,
 }) => {
-  let dom = (
+  const submitButtonDom = (
     <PrimaryButton
       type="submit"
       loading={isLoading}
@@ -32,28 +32,30 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
     </PrimaryButton>
   );
 
-  // Only display approval steps if one is required and form is valid
-  if (isFormValid && approval?.type === 'token') {
-    dom = (
-      <ApproveToken
-        token={approval.token}
-        spenderAddress={approval.spenderAddress}
-        secondStepButtonLabel={label}
-      >
-        {dom}
-      </ApproveToken>
-    );
-  } else if (isFormValid && approval?.type === 'delegate') {
-    dom = (
-      <ApproveDelegate
-        poolComptrollerContractAddress={approval.poolComptrollerContractAddress}
-        delegateeAddress={approval.delegateeAddress}
-        secondStepButtonLabel={label}
-      >
-        {dom}
-      </ApproveDelegate>
-    );
-  }
+  // Only display approval steps, in order, if form is valid
+  const approvals = isFormValid ? ([] as Approval[]).concat(approval ?? []) : [];
+
+  const dom = approvals.reduceRight<React.ReactNode>(
+    (childrenDom, currentApproval) =>
+      currentApproval.type === 'token' ? (
+        <ApproveToken
+          token={currentApproval.token}
+          spenderAddress={currentApproval.spenderAddress}
+          secondStepButtonLabel={label}
+        >
+          {childrenDom}
+        </ApproveToken>
+      ) : (
+        <ApproveDelegate
+          poolComptrollerContractAddress={currentApproval.poolComptrollerContractAddress}
+          delegateeAddress={currentApproval.delegateeAddress}
+          secondStepButtonLabel={label}
+        >
+          {childrenDom}
+        </ApproveDelegate>
+      ),
+    submitButtonDom,
+  );
 
   return <SwitchChain>{dom}</SwitchChain>;
 };

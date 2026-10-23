@@ -3,14 +3,28 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetPool, useWithdrawFromLiquidityHub } from 'clients/api';
+import {
+  useGetPool,
+  useGetPoolDelegateApprovalStatus,
+  useWithdrawFromLiquidityHub,
+  useWithdrawPositionFromLiquidityHub,
+} from 'clients/api';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { BalanceMutation, LiquidityHubBalanceMutation, Pool } from 'types';
+import type {
+  Asset,
+  AssetBalanceMutation,
+  BalanceMutation,
+  LiquidityHubBalanceMutation,
+  Pool,
+} from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 
 import { WithdrawForm, type WithdrawFormProps } from '..';
@@ -352,6 +366,192 @@ describe('WithdrawForm', () => {
         vhTokenAddress: liquidityHub.vhToken.address,
       });
       expect(liquidityHubMutation?.amountTokens.isEqualTo(10)).toBe(true);
+    });
+  });
+
+  describe('when the position is partly resupplied to Core', () => {
+    const corePoolVhAsset: Asset = {
+      ...assetData[0],
+      vToken: {
+        ...assetData[0].vToken,
+        underlyingToken: {
+          ...liquidityHub.vhToken,
+          iconSrc: assetData[0].vToken.underlyingToken.iconSrc,
+        },
+      },
+      userSupplyBalanceTokens: new BigNumber(10),
+      isCollateralOfUser: true,
+    };
+
+    const resuppliedLiquidityHub = {
+      ...liquidityHub,
+      pricePerShare: new BigNumber(2),
+      userVhTokenBalanceTokens: new BigNumber(5),
+      userSupplyBalanceTokens: new BigNumber(30),
+      liquidityTokens: new BigNumber(1000),
+      withdrawCapTokens: new BigNumber(1000),
+    };
+
+    const withdrawFromLiquidityHub = vi.fn().mockResolvedValue(undefined);
+    const withdrawPositionFromLiquidityHub = vi.fn().mockResolvedValue(undefined);
+
+    beforeEach(() => {
+      withdrawFromLiquidityHub.mockClear();
+      withdrawPositionFromLiquidityHub.mockClear();
+
+      (useIsFeatureEnabled as Mock).mockImplementation(
+        ({ name }: { name: string }) => name === 'liquidityHubAutoResupply',
+      );
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [corePoolVhAsset],
+            userBorrowBalanceCents: new BigNumber(0),
+          },
+        },
+        isLoading: false,
+      });
+      mockUseWithdrawFromLiquidityHub.mockReturnValue({
+        mutateAsync: withdrawFromLiquidityHub,
+        isPending: false,
+      });
+      (useWithdrawPositionFromLiquidityHub as Mock).mockReturnValue({
+        mutateAsync: withdrawPositionFromLiquidityHub,
+        isPending: false,
+      });
+      (useGetPoolDelegateApprovalStatus as Mock).mockReturnValue({
+        data: { isDelegateeApproved: true },
+        isLoading: false,
+      });
+    });
+
+    const submitAmount = (value: string) => {
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value,
+        },
+      });
+      fireEvent.click(
+        screen.getByRole('button', {
+          name: en.liquidityHubForm.withdrawSubmitButtonLabel,
+        }),
+      );
+    };
+
+    it('makes both the wallet and the Core parts of the position available', () => {
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      expect(
+        screen.getByText(
+          formatTokensToReadableValue({
+            value: new BigNumber(30),
+            token: underlyingToken,
+          }),
+        ),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      ).toBeInTheDocument();
+    });
+
+    it('redeems from the Hub directly when wallet vhTokens cover the amount', async () => {
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      submitAmount('8');
+
+      await waitFor(() => expect(withdrawFromLiquidityHub).toHaveBeenCalledTimes(1));
+      expect(withdrawPositionFromLiquidityHub).not.toHaveBeenCalled();
+    });
+
+    it('withdraws through the collateral gateway when Core vhTokens are needed', async () => {
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      submitAmount('16');
+
+      await waitFor(() =>
+        expect(withdrawPositionFromLiquidityHub).toHaveBeenCalledWith({
+          liquidityHub: resuppliedLiquidityHub,
+          vhMarketVToken: corePoolVhAsset.vToken,
+          amountMantissa: new BigNumber('16000000000000000000'),
+          sharesMantissa: new BigNumber('8000000000000000000'),
+          withdrawFullPosition: false,
+        }),
+      );
+      expect(withdrawFromLiquidityHub).not.toHaveBeenCalled();
+      expect(useTokenApproval).toHaveBeenCalledWith(
+        expect.objectContaining({
+          spenderAddress: '0xfakeCollateralGatewayContractAddress',
+          token: expect.objectContaining({ address: liquidityHub.vhToken.address }),
+        }),
+      );
+    });
+
+    it('keeps the submit button loading until the delegate approval status is known', async () => {
+      (useGetPoolDelegateApprovalStatus as Mock).mockReturnValue({
+        data: undefined,
+        isLoading: true,
+      });
+
+      const { container } = renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '16',
+        },
+      });
+
+      await waitFor(() => expect(container.querySelector('button[type="submit"]')).toBeDisabled());
+    });
+
+    it('only offers the wallet part when Core withdrawals are paused', async () => {
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [{ ...corePoolVhAsset, disabledTokenActions: ['withdraw'] }],
+            userBorrowBalanceCents: new BigNumber(0),
+          },
+        },
+        isLoading: false,
+      });
+
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      expect(
+        screen.queryByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      ).not.toBeInTheDocument();
+
+      submitAmount('8');
+
+      await waitFor(() => expect(withdrawFromLiquidityHub).toHaveBeenCalledTimes(1));
+      expect(withdrawPositionFromLiquidityHub).not.toHaveBeenCalled();
+    });
+
+    it('simulates the Core part of the withdrawal in vhTokens', async () => {
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '16',
+        },
+      });
+
+      await waitFor(() => {
+        const lastCallInput = mockUseSimulatePoolMutations.mock.calls.at(-1)?.[0] as
+          | { balanceMutations: BalanceMutation[] }
+          | undefined;
+        const coreMutation = lastCallInput?.balanceMutations.find(
+          (balanceMutation): balanceMutation is AssetBalanceMutation =>
+            balanceMutation.type === 'asset',
+        );
+
+        expect(coreMutation).toMatchObject({
+          action: 'withdraw',
+          vTokenAddress: corePoolVhAsset.vToken.address,
+        });
+        expect(coreMutation?.amountTokens.toFixed()).toBe('3');
+      });
     });
   });
 });

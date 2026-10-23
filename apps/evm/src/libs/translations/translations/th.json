@@ -253,6 +253,13 @@
           "description": "ผลตอบแทนพื้นฐานที่ได้จากการจัดหาสินทรัพย์อ้างอิงให้กับ <AppLink>Venus Liquidity Hub</AppLink> vhToken สะสมผลตอบแทนนี้ผ่านอัตราการไถ่ถอนที่เพิ่มขึ้น แทนที่จะเป็นรางวัลที่เรียกรับได้ — คุณจะได้รับโดยอัตโนมัติเมื่อถอน",
           "name": "APY พื้นฐานของ Liquidity Hub"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "APY Prime ที่คุณได้รับจริง ถ่วงน้ำหนักตาม vhToken ที่คุณฝากไว้ใน Core pool รางวัลนี้มาจาก Core pool และไม่จ่ายซ้ำสองครั้ง รางวัล Venus Prime มอบรางวัลที่ถูกบูสต์ให้ผู้ใช้ที่ทุ่มเท โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+          "name": "APY Prime ที่แท้จริง"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "ผลตอบแทนพื้นฐานจากการฝากเข้าสู่ Venus Liquidity Hub ไม่รวม Prime และรางวัลอื่น ๆ"
+        },
         "offChainApy": {
           "description": "ผลตอบแทนเพิ่มเติมจากกิจกรรมนอกเชน เช่น airdrop หรือแคมเปญโปรโมชัน ที่จัดการโดยบุคคลที่สาม ผลตอบแทนนี้ไม่รับประกันโดย Venus Protocol.",
           "name": "APY นอกเชน"
@@ -288,6 +295,7 @@
       "logoAlt": "โลโก้ Prime",
       "tooltip": {
         "calculatorLink": "คำนวณรางวัล Prime ของคุณ",
+        "liquidityHubCorePoolBoost": "การบูสต์นี้มาจาก Core pool และไม่จ่ายซ้ำสองครั้ง",
         "primeBorrowSimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากการยืมค่าเฉลี่ยของผู้ใช้ {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
         "primeDocLink": "เรียนรู้เพิ่มเติม",
         "primeMarket": "APY ถูกบูสต์ด้วย Prime.",

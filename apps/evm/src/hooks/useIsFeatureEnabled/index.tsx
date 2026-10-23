@@ -113,6 +113,7 @@ export const featureFlags = {
   trade: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   primeLeaderboard: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   liquidityHub: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  liquidityHubAutoResupply: [ChainId.BSC_TESTNET],
   spoke: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
 };
 

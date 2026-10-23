@@ -253,6 +253,13 @@
           "description": "Dayanak varlığı <AppLink>Venus Likidite Merkezi</AppLink>'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
           "name": "Likidite Merkezi içsel APY"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "Core havuzuna sağladığınız vhToken oranına göre ağırlıklandırılmış, gerçekte kazandığınız Prime APY. Bu ödüller Core havuzundan gelir ve iki kez ödenmez. Venus Prime, özel kullanıcılara artırılmış ödüller sunar. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+          "name": "Efektif Prime APY"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "Venus Likidite Merkezi'ne sağlamadan elde edilen temel getiri; Prime ve diğer ödüller hariçtir."
+        },
         "offChainApy": {
           "description": "Airdrop veya promosyon kampanyaları gibi üçüncü taraflarca yönetilen zincir dışı faaliyetlerden ek getiri. Bu getiri Venus Protokolü tarafından garanti edilmez.",
           "name": "Zincir dışı APY"
@@ -288,6 +295,7 @@
       "logoAlt": "Prime logosu",
       "tooltip": {
         "calculatorLink": "Prime ödüllerinizi hesaplayın",
+        "liquidityHubCorePoolBoost": "Bu artış Core havuzundan gelir ve iki kez ödenmez.",
         "primeBorrowSimulation": "Prime ile APY, kullanıcıların ortalama {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
         "primeDocLink": "Daha fazla bilgi",
         "primeMarket": "Prime ile APY artırılır.",

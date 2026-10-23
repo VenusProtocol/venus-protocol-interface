@@ -19,6 +19,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
   tokenDistributions,
   pointDistributions,
   vTokenAddress,
+  isLiquidityHub,
   children,
   ...otherProps
 }) => {
@@ -38,6 +39,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
           tokenDistributions={tokenDistributions}
           pointDistributions={pointDistributions}
           vTokenAddress={vTokenAddress}
+          isLiquidityHub={isLiquidityHub}
         />
       }
       {...otherProps}

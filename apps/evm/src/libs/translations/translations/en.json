@@ -253,6 +253,13 @@
           "description": "The native yield earned by supplying the underlying asset to the <AppLink>Venus Liquidity Hub</AppLink>. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
           "name": "Liquidity Hub intrinsic APY"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "The Prime APY you actually earn, weighted by your vhTokens supplied to the Core pool. These rewards come from the Core pool and are not paid twice. Venus Prime rewards dedicated users with boosted rewards; the Venus protocol does not guarantee them and accepts no liability.",
+          "name": "Effective Prime APY"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "The base yield from supplying to the Venus Liquidity Hub, excluding Prime and other rewards."
+        },
         "offChainApy": {
           "description": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. This yield is not guaranteed by Venus Protocol.",
           "name": "Off-chain APY"
@@ -288,6 +295,7 @@
       "logoAlt": "Prime logo",
       "tooltip": {
         "calculatorLink": "Calculate your Prime rewards",
+        "liquidityHubCorePoolBoost": "This boost comes from the Core pool and is not paid twice.",
         "primeBorrowSimulation": "APY boosted by Prime based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",

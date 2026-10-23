@@ -355,6 +355,7 @@ export interface LiquidityHub {
   userSupplyBalanceCents?: BigNumber;
   userYearlyEarningsCents?: BigNumber;
   userVhTokenBalanceTokens?: BigNumber;
+  userVhTokenBalanceCents?: BigNumber;
   userVhTokenMaxRedeemTokens?: BigNumber;
   userWithdrawCapTokens?: BigNumber;
   userSupplyCapTokens?: BigNumber;
@@ -1118,6 +1119,8 @@ export interface ApiLiquidityHub {
   userHubTokenBalanceMantissa?: string | null;
   userUnderlyingBalanceMantissa?: string | null;
   userUnderlyingBalanceUsdMantissa?: string | null;
+  userTotalUnderlyingBalanceMantissa?: string | null;
+  userTotalUnderlyingBalanceUsdMantissa?: string | null;
   userMaxDepositMantissa?: string | null;
   userMaxRedeemMantissa?: string | null;
   userMaxWithdrawMantissa?: string | null;

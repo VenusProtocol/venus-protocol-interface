@@ -300,4 +300,54 @@ describe('formatToLiquidityHub', () => {
 
     expect(result).toMatchSnapshot();
   });
+
+  it('uses the wallet and Core balance as the user supply balance', () => {
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...apiLiquidityHub,
+        userUnderlyingBalanceMantissa: '100000000',
+        userUnderlyingBalanceUsdMantissa: '100000000000000000000',
+        userTotalUnderlyingBalanceMantissa: '300000000',
+        userTotalUnderlyingBalanceUsdMantissa: '300000000000000000000',
+      },
+      tokens: [usdc],
+    });
+
+    expect(result?.userSupplyBalanceTokens?.toFixed()).toBe('300');
+    expect(result?.userSupplyBalanceCents?.toFixed()).toBe('30000');
+    expect(result?.userVhTokenBalanceCents?.toFixed()).toBe('10000');
+    expect(result?.userYearlyEarningsCents?.toFixed()).toBe('1500');
+  });
+
+  it('uses the wallet balance when the API does not report the total balance', () => {
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...apiLiquidityHub,
+        userUnderlyingBalanceMantissa: '100000000',
+        userUnderlyingBalanceUsdMantissa: '100000000000000000000',
+      },
+      tokens: [usdc],
+    });
+
+    expect(result?.userSupplyBalanceTokens?.toFixed()).toBe('100');
+    expect(result?.userSupplyBalanceCents?.toFixed()).toBe('10000');
+    expect(result?.userVhTokenBalanceCents?.toFixed()).toBe('10000');
+  });
+
+  it('leaves the user supply balance undefined when the total balance is unavailable', () => {
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...apiLiquidityHub,
+        userUnderlyingBalanceMantissa: '100000000',
+        userUnderlyingBalanceUsdMantissa: '100000000000000000000',
+        userTotalUnderlyingBalanceMantissa: null,
+        userTotalUnderlyingBalanceUsdMantissa: null,
+      },
+      tokens: [usdc],
+    });
+
+    expect(result?.userSupplyBalanceTokens).toBeUndefined();
+    expect(result?.userSupplyBalanceCents).toBeUndefined();
+    expect(result?.userVhTokenBalanceCents?.toFixed()).toBe('10000');
+  });
 });
