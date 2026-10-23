@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Tabs } from 'components';
+import { NoticeWarning, Tabs } from 'components';
 import { TAB_PARAM_KEY, type Tab, type TabNavType } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useSearchParams } from 'react-router';
@@ -14,14 +14,13 @@ export type SpokeFormTabId = 'collateral' | 'loan';
 
 export interface SpokeFormProps {
   spokePool: SpokePool;
-  // Absent for a pool with no loan asset, where only the collateral side is offered
+  // Absent when the pool has no loan asset
   asset?: SpokeAsset;
   initialActiveTabId?: SpokeFormTabId;
   initialCollateralTabId?: 'supply' | 'withdraw';
   initialLoanTabId?: 'borrow' | 'repay';
   preselectedCollateral?: SpokeAsset;
-  // Renders the collateral side on its own, without the Collateral / Loan tabs, which is how
-  // the PRD packages the "Manage collateral" modal
+  // Collateral side only, without tabs, as the PRD modal
   collateralOnly?: boolean;
   onSubmitSuccess?: () => void;
   navType?: TabNavType;
@@ -42,8 +41,12 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const [stateActiveTabId, setStateActiveTabId] = useState<SpokeFormTabId>(initialActiveTabId);
 
-  const collaterals = spokePool.assets.filter(({ isBorrowable }) => !isBorrowable);
-  const initialCollateral = preselectedCollateral ?? collaterals[0];
+  const poolCollaterals = spokePool.assets.filter(({ isBorrowable }) => !isBorrowable);
+  const collaterals = poolCollaterals.filter(({ isRestricted }) => !isRestricted);
+  const initialCollateral =
+    (preselectedCollateral?.isRestricted ? undefined : preselectedCollateral) ?? collaterals[0];
+
+  const restrictedNotice = <NoticeWarning description={t('assetAccessor.assetNotAvailable')} />;
 
   const tabParamValue = searchParams.get(TAB_PARAM_KEY);
   const activeTabId =
@@ -51,8 +54,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
       ? tabParamValue
       : stateActiveTabId;
 
-  // The outer tab is owned here so the guided supply link can switch it, which the URL-driven
-  // mode of useTabs would otherwise ignore
+  // Owned here so the guided supply link can switch it
   const setActiveTabId = (newTabId: SpokeFormTabId) => {
     setStateActiveTabId(newTabId);
 
@@ -69,6 +71,16 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
     }
   };
 
+  const shouldGuideToBorrow = !!asset && !collateralOnly;
+
+  const restrictedCollateralTabs: Tab[] =
+    poolCollaterals.length > 0
+      ? [
+          { id: 'supply', title: t('spokeForm.supply.tabTitle'), content: restrictedNotice },
+          { id: 'withdraw', title: t('spokeForm.withdraw.tabTitle'), content: restrictedNotice },
+        ]
+      : [];
+
   const collateralTabs: Tab[] = initialCollateral
     ? [
         {
@@ -79,7 +91,8 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
               spokePool={spokePool}
               collaterals={collaterals}
               initialCollateral={initialCollateral}
-              onSubmitSuccess={onSubmitSuccess}
+              onSubmitSuccess={shouldGuideToBorrow ? undefined : onSubmitSuccess}
+              onSupplyConfirmed={shouldGuideToBorrow ? () => setActiveTabId('loan') : undefined}
             />
           ),
         },
@@ -96,36 +109,43 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
           ),
         },
       ]
-    : [];
+    : restrictedCollateralTabs;
 
-  const loanTabs: Tab[] = asset
+  const restrictedLoanTabs: Tab[] = asset
     ? [
-        {
-          id: 'borrow',
-          title: t('spokeForm.borrow.tabTitle'),
-          content: (
-            <BorrowForm
-              spokePool={spokePool}
-              asset={asset}
-              onSupplyCollateralClick={() => setActiveTabId('collateral')}
-              onSubmitSuccess={onSubmitSuccess}
-            />
-          ),
-        },
-        {
-          id: 'repay',
-          title: t('spokeForm.repay.tabTitle'),
-          content: (
-            <RepayForm spokePool={spokePool} asset={asset} onSubmitSuccess={onSubmitSuccess} />
-          ),
-        },
+        { id: 'borrow', title: t('spokeForm.borrow.tabTitle'), content: restrictedNotice },
+        { id: 'repay', title: t('spokeForm.repay.tabTitle'), content: restrictedNotice },
       ]
     : [];
 
+  const loanTabs: Tab[] =
+    asset && !asset.isRestricted
+      ? [
+          {
+            id: 'borrow',
+            title: t('spokeForm.borrow.tabTitle'),
+            content: (
+              <BorrowForm
+                spokePool={spokePool}
+                asset={asset}
+                onSupplyCollateralClick={() => setActiveTabId('collateral')}
+                onSubmitSuccess={onSubmitSuccess}
+              />
+            ),
+          },
+          {
+            id: 'repay',
+            title: t('spokeForm.repay.tabTitle'),
+            content: (
+              <RepayForm spokePool={spokePool} asset={asset} onSubmitSuccess={onSubmitSuccess} />
+            ),
+          },
+        ]
+      : restrictedLoanTabs;
+
   const collateralTabsDom = (
     <Tabs
-      // Remounts on a new preselection so the leaf forms pick it up, which their initial state
-      // alone would not do
+      // Remount on new preselection so the forms pick it up
       key={initialCollateral?.vToken.address}
       tabs={collateralTabs}
       initialActiveTabId={initialCollateralTabId}
@@ -137,7 +157,7 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
     <Tabs tabs={loanTabs} initialActiveTabId={initialLoanTabId} variant="primary" />
   );
 
-  // A pool missing one of the two sides offers the other on its own rather than an empty tab
+  // A pool missing one side shows only the other
   if (collateralTabs.length === 0) {
     return loanTabsDom;
   }

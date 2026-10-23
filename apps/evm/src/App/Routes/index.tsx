@@ -277,6 +277,8 @@ const AppRoutes = () => {
             />
 
             <Route path={Subdirectory.SPOKE_POOL}>
+              <Route index element={<Redirect to={routes.spokePools.path} />} />
+
               <Route
                 path={Subdirectory.SPOKE_MARKET}
                 element={

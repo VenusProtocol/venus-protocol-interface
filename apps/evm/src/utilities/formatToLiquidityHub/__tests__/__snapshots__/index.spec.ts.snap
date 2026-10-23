@@ -2,6 +2,7 @@
 
 exports[`formatToLiquidityHub > calculates user yearly earnings from the user supply balance USD mantissa 1`] = `
 {
+  "isPaused": false,
   "liquidityCents": "10000",
   "liquidityTokens": "100",
   "operatorAddress": "0x4000000000000000000000000000000000000001",
@@ -45,6 +46,7 @@ exports[`formatToLiquidityHub > calculates user yearly earnings from the user su
 
 exports[`formatToLiquidityHub > does not calculate user yearly earnings without a user supply balance 1`] = `
 {
+  "isPaused": false,
   "liquidityCents": "10000",
   "liquidityTokens": "100",
   "operatorAddress": "0x4000000000000000000000000000000000000001",
@@ -88,6 +90,7 @@ exports[`formatToLiquidityHub > does not calculate user yearly earnings without 
 
 exports[`formatToLiquidityHub > falls back to the token balance and token price 1`] = `
 {
+  "isPaused": false,
   "liquidityCents": "10000",
   "liquidityTokens": "100",
   "operatorAddress": "0x4000000000000000000000000000000000000001",
@@ -131,6 +134,7 @@ exports[`formatToLiquidityHub > falls back to the token balance and token price 
 
 exports[`formatToLiquidityHub > formats a Liquidity Hub 1`] = `
 {
+  "isPaused": false,
   "liquidityCents": "10000",
   "liquidityTokens": "100",
   "operatorAddress": "0x4000000000000000000000000000000000000001",
@@ -174,6 +178,7 @@ exports[`formatToLiquidityHub > formats a Liquidity Hub 1`] = `
 
 exports[`formatToLiquidityHub > formats user-specific supply and withdrawal caps 1`] = `
 {
+  "isPaused": false,
   "liquidityCents": "10000",
   "liquidityTokens": "100",
   "operatorAddress": "0x4000000000000000000000000000000000000001",
@@ -217,6 +222,7 @@ exports[`formatToLiquidityHub > formats user-specific supply and withdrawal caps
 
 exports[`formatToLiquidityHub > formats yield groups 1`] = `
 {
+  "isPaused": false,
   "liquidityCents": "125000",
   "liquidityTokens": "500",
   "operatorAddress": "0x5000000000000000000000000000000000000001",
@@ -319,6 +325,7 @@ exports[`formatToLiquidityHub > formats yield groups 1`] = `
 
 exports[`formatToLiquidityHub > includes active supply reward APYs 1`] = `
 {
+  "isPaused": false,
   "liquidityCents": "10000",
   "liquidityTokens": "100",
   "operatorAddress": "0x4000000000000000000000000000000000000001",
@@ -377,6 +384,7 @@ exports[`formatToLiquidityHub > includes active supply reward APYs 1`] = `
 
 exports[`formatToLiquidityHub > returns zero yearly earnings for an explicit zero user supply balance 1`] = `
 {
+  "isPaused": false,
   "liquidityCents": "10000",
   "liquidityTokens": "100",
   "operatorAddress": "0x4000000000000000000000000000000000000001",

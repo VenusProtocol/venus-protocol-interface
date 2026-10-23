@@ -270,12 +270,15 @@ export interface Pool {
 }
 
 export interface SpokeAsset extends Asset {
+  borrowRatePerBlockMantissa: BigNumber;
   isSuppliable: boolean;
-  hubSupplyBalanceCents: BigNumber;
+  isInactive: boolean;
+  isParticipantCountUnavailable: boolean;
 }
 
 export interface SpokePool extends Omit<Pool, 'assets'> {
   description: string;
+  isUserDataUnavailable: boolean;
   assets: SpokeAsset[];
 }
 
@@ -306,7 +309,7 @@ export interface LiquidityHubSource {
   lockEndDate?: Date;
 }
 
-export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv' | 'centrifuge';
+export type LiquidityHubYieldGroupType = 'core' | 'flux' | 'frv' | 'centrifuge' | 'spoke';
 
 export interface LiquidityHubYieldGroup {
   address: Address;
@@ -340,6 +343,7 @@ export interface LiquidityHub {
   redeemFeePercentage: BigNumber;
   pricePerShare: BigNumber;
   supplierCount: number;
+  isPaused: boolean;
   supplyTokenDistributions: TokenDistribution[];
   yieldGroups: LiquidityHubYieldGroup[];
   tokenPriceOracleAddress?: Address;
@@ -890,6 +894,8 @@ export interface MarketTx extends BaseTx {
   txType: MarketTxType;
   poolName: string;
   vToken: VToken;
+  isSpoke?: boolean;
+  isSpokeLoanMarket?: boolean;
 }
 
 export interface LiquidityHubTx extends BaseTx {
@@ -1115,4 +1121,9 @@ export interface ApiLiquidityHub {
   userMaxDepositMantissa?: string | null;
   userMaxRedeemMantissa?: string | null;
   userMaxWithdrawMantissa?: string | null;
+}
+
+export enum TransactionPoolType {
+  Core = 'core',
+  Spoke = 'spoke',
 }

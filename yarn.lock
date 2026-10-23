@@ -9875,7 +9875,7 @@ __metadata:
     "@venusprotocol/token-bridge": "npm:2.8.0-slim-dev.1"
     "@venusprotocol/typescript-config": "npm:*"
     "@venusprotocol/ui": "npm:*"
-    "@venusprotocol/venus-periphery": "npm:1.2.0-slim"
+    "@venusprotocol/venus-periphery": "npm:1.3.0-slim"
     "@venusprotocol/venus-protocol": "npm:10.3.0-slim"
     "@vitejs/plugin-react": "npm:^6.0.2"
     "@vitest/coverage-v8": "npm:^3.1.1"
@@ -10032,10 +10032,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@venusprotocol/venus-periphery@npm:1.2.0-slim":
-  version: 1.2.0-slim
-  resolution: "@venusprotocol/venus-periphery@npm:1.2.0-slim"
-  checksum: 10c0/7ca83f431b43146064ba9cbc09218410da874d7aacc0a76ff521a745bfe80059e64908a1e2143b2bc0b657db50dbf0e3cfc6f3961968f3ecb63940b97fff5688
+"@venusprotocol/venus-periphery@npm:1.3.0-slim":
+  version: 1.3.0-slim
+  resolution: "@venusprotocol/venus-periphery@npm:1.3.0-slim"
+  checksum: 10c0/948803a2d0a54c3ae672c5c22f4892a9d0eda3c91f379dafbb9b1869bd8d38eb96c236afa6a47c083dc8910266959475481a57ad7db73ee3b0b7358d4ad093f0
   languageName: node
   linkType: hard
 
