@@ -6,7 +6,13 @@ import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import { spokePools } from '__mocks__/models/spokePools';
 import { vaults } from '__mocks__/models/vaults';
-import { useGetLiquidityHubs, useGetPool, useGetSpokePools, useGetVaults } from 'clients/api';
+import {
+  useGetAccountPerformanceHistory,
+  useGetLiquidityHubs,
+  useGetPool,
+  useGetSpokePools,
+  useGetVaults,
+} from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
@@ -340,5 +346,81 @@ describe('AccountOverview', () => {
     );
 
     await waitFor(() => expect(queryByText('$1.24M')).toBeInTheDocument());
+  });
+
+  it('works out the daily change percentage against the start-of-day net worth', async () => {
+    (useGetAccountPerformanceHistory as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        accountPerformanceHistory: [],
+        startOfDayNetWorthCents: 58500,
+      },
+    }));
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: {
+          ...poolData[0],
+          userSupplyBalanceCents: new BigNumber(70000),
+          userBorrowBalanceCents: new BigNumber(0),
+          vai: undefined,
+        },
+      },
+    }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: { liquidityHubs: [] },
+    }));
+
+    const { queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByText('19.65%')).toBeInTheDocument());
+    expect(queryByText('16.42%')).not.toBeInTheDocument();
+  });
+
+  it('shows a placeholder instead of a blank percentage when the day started at zero', async () => {
+    (useGetAccountPerformanceHistory as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        accountPerformanceHistory: [],
+        startOfDayNetWorthCents: 0,
+      },
+    }));
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: {
+          ...poolData[0],
+          userSupplyBalanceCents: new BigNumber(70000),
+          userBorrowBalanceCents: new BigNumber(0),
+          vai: undefined,
+        },
+      },
+    }));
+    (useGetVaults as Mock).mockImplementation(() => ({ isLoading: false, data: [] }));
+    (useGetLiquidityHubs as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: { liquidityHubs: [] },
+    }));
+
+    const { container, queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() =>
+      expect(queryByText(en.dashboard.overview.todaysChange)).toBeInTheDocument(),
+    );
+
+    const arrow = container.querySelector('.text-green svg, .text-red svg');
+    expect(arrow?.parentElement?.textContent).toBe('-');
   });
 });
