@@ -1161,6 +1161,10 @@
         }
       }
     },
+    "errorState": {
+      "failedToFetchMessage": "Piyasa verileri alınamadı",
+      "refetchButtonLabel": "Yeniden dene"
+    },
     "history": {
       "emptyState": "Bu dönem için geçmiş verisi yok",
       "errorState": {

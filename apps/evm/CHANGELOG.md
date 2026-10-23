@@ -1,5 +1,14 @@
 # @venusprotocol/evm
 
+## 5.42.1
+
+### Patch Changes
+
+- 2ad016a: show a retry on market pages when the pools request fails
+- d09b7b7: use the official Liquidity Hub Migrator from @venusprotocol/liquidity-hub 2.0.0
+- 6296a87: stop the slippage box from submitting the form it is rendered in
+- ac4d25b: keep large integers typed inside proposal arrays from being rounded
+
 ## 5.42.0
 
 ### Minor Changes

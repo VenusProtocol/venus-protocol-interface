@@ -11,6 +11,8 @@ export interface UseGetAssetInput {
 
 export interface UseGetAssetOutput {
   isLoading: boolean;
+  isLoadingError: boolean;
+  refetch: () => void;
   data?: {
     asset?: Asset;
   };
@@ -20,7 +22,12 @@ export const useGetAsset = ({
   vTokenAddress,
   accountAddress,
 }: UseGetAssetInput): UseGetAssetOutput => {
-  const { data: getPoolsData, isLoading } = useGetPools(
+  const {
+    data: getPoolsData,
+    isLoading,
+    isLoadingError,
+    refetch,
+  } = useGetPools(
     {
       accountAddress,
     },
@@ -33,6 +40,8 @@ export const useGetAsset = ({
 
   return {
     isLoading,
+    isLoadingError,
+    refetch,
     data: getPoolsData?.pools && {
       asset,
     },
