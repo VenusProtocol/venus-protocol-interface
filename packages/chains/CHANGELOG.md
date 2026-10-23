@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.32.1
+
+### Patch Changes
+
+- 948e3af: connect Venus Spoke to the API, wire up its transactions and replace the bStock token icons with vector SVGs, and add the QQQB and SPYB tokens
+
 ## 0.32.0
 
 ### Minor Changes

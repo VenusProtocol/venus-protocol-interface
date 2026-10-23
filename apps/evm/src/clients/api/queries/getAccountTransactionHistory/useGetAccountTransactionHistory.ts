@@ -10,11 +10,12 @@ import {
   getAccountTransactionHistory,
 } from '.';
 import { useGetLiquidityHubs } from '../getLiquidityHubs/useGetLiquidityHubs';
+import { useGetSpokePools } from '../getSpokePools/useGetSpokePools';
 import { useGetPools } from '../useGetPools';
 
 type TrimmedGetAccountTransactionHistoryInput = Omit<
   GetAccountTransactionHistoryInput,
-  'chainId' | 'getPoolsData' | 'liquidityHubs' | 'pools' | 'liquidityHubs'
+  'chainId' | 'getPoolsData' | 'liquidityHubs' | 'pools' | 'spokePools' | 'liquidityHubs'
 >;
 
 type Options = QueryObserverOptions<
@@ -27,6 +28,7 @@ type Options = QueryObserverOptions<
     TrimmedGetAccountTransactionHistoryInput & {
       chainId: ChainId;
       poolAddresses: Address[];
+      spokePoolAddresses: Address[];
       liquidityHubAddresses: Address[];
     },
   ]
@@ -38,13 +40,16 @@ export const useGetAccountTransactionHistory = (
 ) => {
   const { chainId } = useChainId();
   const { data: getPoolsData } = useGetPools({ includeIsolatedPools: true });
+  const { data: getSpokePoolsData } = useGetSpokePools();
   const pools = getPoolsData?.pools ?? [];
+  const spokePools = getSpokePoolsData?.spokePools ?? [];
 
   const { data: getLiquidityHubsData } = useGetLiquidityHubs();
   const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
 
   // Sort addresses alphabetically to prevent unnecessary re-renders
   const sortedPoolComptrollerAddresses = [...pools].map(pool => pool.comptrollerAddress).sort();
+  const sortedSpokePoolAddresses = spokePools.map(spokePool => spokePool.comptrollerAddress).sort();
   const sortedLiquidityHubAddresses = [...liquidityHubs]
     .map(liquidityHub => liquidityHub.vhToken.address)
     .sort();
@@ -52,6 +57,7 @@ export const useGetAccountTransactionHistory = (
   const extendedParams = {
     ...params,
     pools,
+    spokePools,
     liquidityHubs,
     chainId,
   };
@@ -63,6 +69,7 @@ export const useGetAccountTransactionHistory = (
         ...params,
         chainId,
         poolAddresses: sortedPoolComptrollerAddresses,
+        spokePoolAddresses: sortedSpokePoolAddresses,
         liquidityHubAddresses: sortedLiquidityHubAddresses,
       },
     ],

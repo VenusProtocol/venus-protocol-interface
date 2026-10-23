@@ -11,7 +11,8 @@ describe('useGetIpLocation', () => {
     mockFetch.mockResolvedValue({
       ok: true,
       json: async () => ({
-        countryCode: 'FR',
+        success: true,
+        country_code: 'FR',
       }),
     } satisfies Partial<Response>);
 

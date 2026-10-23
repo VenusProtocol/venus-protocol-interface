@@ -13,8 +13,7 @@ export interface UseSelectedSpokeCollateralOutput {
   selectCollateral: (collateral: SpokeAsset) => void;
 }
 
-// The selection lives in the URL so the page and the header icon stack, which sit in separate
-// trees, can both drive the operate widget
+// Kept in the URL so page and header share it
 export const useSelectedSpokeCollateral = ({
   collaterals,
 }: UseSelectedSpokeCollateralInput): UseSelectedSpokeCollateralOutput => {

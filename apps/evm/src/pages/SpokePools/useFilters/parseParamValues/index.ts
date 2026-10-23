@@ -6,8 +6,7 @@ export interface ParseParamValuesInput {
   selectableValues: string[];
 }
 
-// Selecting from the option list rather than from the URL keeps unknown values out,
-// deduplicates, and orders the selection the way the options are displayed
+// Pick from the options to drop unknowns, dedupe and order
 export const parseParamValues = ({
   searchParams,
   key,

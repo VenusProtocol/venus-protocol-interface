@@ -9868,14 +9868,14 @@ __metadata:
     "@venusprotocol/chains": "npm:*"
     "@venusprotocol/governance-contracts": "npm:2.15.0-slim"
     "@venusprotocol/isolated-pools": "npm:4.4.0-slim"
-    "@venusprotocol/liquidity-hub": "npm:1.0.0"
+    "@venusprotocol/liquidity-hub": "npm:2.0.0"
     "@venusprotocol/oracle": "npm:2.16.0-slim"
     "@venusprotocol/protocol-reserve": "npm:3.5.0-slim"
     "@venusprotocol/stylelint-config": "npm:*"
     "@venusprotocol/token-bridge": "npm:2.8.0-slim-dev.1"
     "@venusprotocol/typescript-config": "npm:*"
     "@venusprotocol/ui": "npm:*"
-    "@venusprotocol/venus-periphery": "npm:1.2.0-slim"
+    "@venusprotocol/venus-periphery": "npm:1.3.0-slim"
     "@venusprotocol/venus-protocol": "npm:10.3.0-slim"
     "@vitejs/plugin-react": "npm:^6.0.2"
     "@vitest/coverage-v8": "npm:^3.1.1"
@@ -9964,9 +9964,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@venusprotocol/liquidity-hub@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@venusprotocol/liquidity-hub@npm:1.0.0"
+"@venusprotocol/liquidity-hub@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@venusprotocol/liquidity-hub@npm:2.0.0"
   dependencies:
     "@openzeppelin/contracts": "npm:^4.9.6"
     "@openzeppelin/contracts-upgradeable": "npm:^4.9.6"
@@ -9975,7 +9975,7 @@ __metadata:
   peerDependenciesMeta:
     "@venusprotocol/governance-contracts":
       optional: true
-  checksum: 10c0/4131f2cc3c641a16384e0149843512f3ac601e29f32608b2d760d279076fb33c16dc36ae9225b6240c4f3cc75650ad7aa0f1e1035fac11339ed217afe55bb1d6
+  checksum: 10c0/2b150163ada32238a3cd5c6dff1334955d80fdcb37e61988eeac3086d76ddbb788bc9f47eb536093ad91c690962a91ebd75e092b0826d0cecff4d22a46752f59
   languageName: node
   linkType: hard
 
@@ -10032,10 +10032,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@venusprotocol/venus-periphery@npm:1.2.0-slim":
-  version: 1.2.0-slim
-  resolution: "@venusprotocol/venus-periphery@npm:1.2.0-slim"
-  checksum: 10c0/7ca83f431b43146064ba9cbc09218410da874d7aacc0a76ff521a745bfe80059e64908a1e2143b2bc0b657db50dbf0e3cfc6f3961968f3ecb63940b97fff5688
+"@venusprotocol/venus-periphery@npm:1.3.0-slim":
+  version: 1.3.0-slim
+  resolution: "@venusprotocol/venus-periphery@npm:1.3.0-slim"
+  checksum: 10c0/948803a2d0a54c3ae672c5c22f4892a9d0eda3c91f379dafbb9b1869bd8d38eb96c236afa6a47c083dc8910266959475481a57ad7db73ee3b0b7358d4ad093f0
   languageName: node
   linkType: hard
 

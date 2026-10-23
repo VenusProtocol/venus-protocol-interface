@@ -20,6 +20,8 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ transaction, cla
   const transactionTitle = getTransactionName({
     type: transaction.txType,
     t,
+    isSpoke: 'isSpoke' in transaction && transaction.isSpoke,
+    isSpokeLoanMarket: 'isSpokeLoanMarket' in transaction && transaction.isSpokeLoanMarket,
   });
 
   return (
