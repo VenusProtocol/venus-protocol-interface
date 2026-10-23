@@ -101,4 +101,22 @@ describe('SwapDetails', () => {
     });
     await waitFor(() => expect(input.parentElement?.parentElement).not.toHaveClass('border-red'));
   });
+
+  it('does not submit the form it is rendered in', async () => {
+    const onEnclosingSubmit = vi.fn();
+
+    const { getByRole, container } = renderComponent(
+      <form onSubmit={onEnclosingSubmit}>
+        <SwapDetails {...props} />
+      </form>,
+    );
+
+    fireEvent.click(getByRole('button'));
+
+    const [, slippageForm] = container.ownerDocument.querySelectorAll('form');
+
+    fireEvent.submit(slippageForm);
+
+    await waitFor(() => expect(onEnclosingSubmit).not.toHaveBeenCalled());
+  });
 });
