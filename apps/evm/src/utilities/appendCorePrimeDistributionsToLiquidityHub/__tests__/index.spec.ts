@@ -115,4 +115,32 @@ describe('appendCorePrimeDistributionsToLiquidityHub', () => {
       }),
     ).toBe(liquidityHub);
   });
+
+  it('includes the effective Prime APY in the user yearly earnings', () => {
+    const result = appendCorePrimeDistributionsToLiquidityHub({
+      liquidityHub: {
+        ...liquidityHub,
+        supplyApyPercentage: new BigNumber(3),
+        userSupplyBalanceCents: new BigNumber(100000),
+        userYearlyEarningsCents: new BigNumber(3000),
+      },
+      corePool,
+    });
+
+    // (3% base + 4% effective Prime) x $1,000
+    expect(result.userYearlyEarningsCents?.toFixed()).toBe('7000');
+  });
+
+  it('keeps the yearly earnings when the user supply balance is unknown', () => {
+    const result = appendCorePrimeDistributionsToLiquidityHub({
+      liquidityHub: {
+        ...liquidityHub,
+        userSupplyBalanceCents: undefined,
+        userYearlyEarningsCents: undefined,
+      },
+      corePool,
+    });
+
+    expect(result.userYearlyEarningsCents).toBeUndefined();
+  });
 });

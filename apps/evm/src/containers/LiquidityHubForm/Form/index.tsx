@@ -43,6 +43,7 @@ export interface FormProps {
   rightMaxButtonLabel?: string;
   onSubmitSuccess?: () => void;
   approval?: Approval | Approval[];
+  isApprovalLoading?: boolean;
   validateForm?: UseFormValidationInput['validate'];
   onAmountSet?: (input: AmountSetInput) => void;
 }
@@ -61,6 +62,7 @@ export const Form: React.FC<FormProps> = ({
   submitButtonLabel,
   isSubmitting,
   approval,
+  isApprovalLoading = false,
   validateForm,
   onAmountSet,
 }) => {
@@ -168,7 +170,11 @@ export const Form: React.FC<FormProps> = ({
   };
 
   const isLoading =
-    isSubmitting || isGetLiquidityHubsLoading || isGetPoolLoading || isGetSimulatedPoolLoading;
+    isSubmitting ||
+    isApprovalLoading ||
+    isGetLiquidityHubsLoading ||
+    isGetPoolLoading ||
+    isGetSimulatedPoolLoading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

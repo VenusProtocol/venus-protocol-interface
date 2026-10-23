@@ -8,6 +8,7 @@ import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import {
   useGetPool,
+  useGetPoolDelegateApprovalStatus,
   useWithdrawFromLiquidityHub,
   useWithdrawPositionFromLiquidityHub,
 } from 'clients/api';
@@ -419,6 +420,10 @@ describe('WithdrawForm', () => {
         mutateAsync: withdrawPositionFromLiquidityHub,
         isPending: false,
       });
+      (useGetPoolDelegateApprovalStatus as Mock).mockReturnValue({
+        data: { isDelegateeApproved: true },
+        isLoading: false,
+      });
     });
 
     const submitAmount = (value: string) => {
@@ -480,6 +485,47 @@ describe('WithdrawForm', () => {
           token: expect.objectContaining({ address: liquidityHub.vhToken.address }),
         }),
       );
+    });
+
+    it('keeps the submit button loading until the delegate approval status is known', async () => {
+      (useGetPoolDelegateApprovalStatus as Mock).mockReturnValue({
+        data: undefined,
+        isLoading: true,
+      });
+
+      const { container } = renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '16',
+        },
+      });
+
+      await waitFor(() => expect(container.querySelector('button[type="submit"]')).toBeDisabled());
+    });
+
+    it('only offers the wallet part when Core withdrawals are paused', async () => {
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [{ ...corePoolVhAsset, disabledTokenActions: ['withdraw'] }],
+            userBorrowBalanceCents: new BigNumber(0),
+          },
+        },
+        isLoading: false,
+      });
+
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      expect(
+        screen.queryByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      ).not.toBeInTheDocument();
+
+      submitAmount('8');
+
+      await waitFor(() => expect(withdrawFromLiquidityHub).toHaveBeenCalledTimes(1));
+      expect(withdrawPositionFromLiquidityHub).not.toHaveBeenCalled();
     });
 
     it('simulates the Core part of the withdrawal in vhTokens', async () => {

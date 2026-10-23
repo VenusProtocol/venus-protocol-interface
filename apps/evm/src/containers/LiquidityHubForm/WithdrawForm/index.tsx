@@ -7,8 +7,10 @@ import {
   useWithdrawPositionFromLiquidityHub,
 } from 'clients/api';
 import { AvailableBalance } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import type { Approval } from 'containers/TxFormSubmitButton';
 import { useChain } from 'hooks/useChain';
+import useDelegateApproval from 'hooks/useDelegateApproval';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAnalytics } from 'libs/analytics';
@@ -56,8 +58,10 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
   const corePool = isAutoResupplyEnabled ? getPoolData?.pool : undefined;
 
-  const corePoolVhAsset = corePool?.assets.find(asset =>
-    areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken),
+  const corePoolVhAsset = corePool?.assets.find(
+    asset =>
+      areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken) &&
+      !asset.disabledTokenActions.includes('withdraw'),
   );
 
   const { decimals } = liquidityHub.vhToken.underlyingToken;
@@ -143,6 +147,13 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       poolComptrollerContractAddress: corePoolComptrollerContractAddress,
     });
   }
+
+  // Without the grant, the gateway silently skips the Core leg
+  const { isDelegateApprovedLoading } = useDelegateApproval({
+    delegateeAddress: collateralGatewayContractAddress ?? NULL_ADDRESS,
+    poolComptrollerAddress: corePoolComptrollerContractAddress,
+    enabled: isWithdrawingFromCore && !!collateralGatewayContractAddress,
+  });
 
   const { mutateAsync: withdrawFromLiquidityHub, isPending: isWithdrawFromLiquidityHubLoading } =
     useWithdrawFromLiquidityHub();
@@ -303,6 +314,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
         safeLimitTokens ? t('liquidityHubForm.rightSafeMaxButtonLabel') : undefined
       }
       approval={approvals}
+      isApprovalLoading={isWithdrawingFromCore && isDelegateApprovedLoading}
       availableBalance={availableBalanceDom}
       onAmountSet={captureAmountSetAnalyticEvent}
     />

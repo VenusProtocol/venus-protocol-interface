@@ -7,6 +7,7 @@ import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
+import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useSupplyFromWalletToLiquidityHub } from '..';
@@ -28,16 +29,27 @@ const fakeOptions = {
 
 const collateralGatewayAddress = '0xfakeCollateralGatewayContractAddress';
 const mockCaptureAnalyticEvent = vi.fn();
+const mockReadContract = vi.fn();
+
+const mockContractReads = (values: Record<string, bigint>) =>
+  mockReadContract.mockImplementation(
+    async ({ functionName }: { functionName: string }) => values[functionName],
+  );
 
 describe('useSupplyFromWalletToLiquidityHub', () => {
   beforeEach(() => {
     mockCaptureAnalyticEvent.mockClear();
+    mockReadContract.mockReset();
+    mockContractReads({ previewDeposit: 1000000000000000000000000n });
+    (usePublicClient as Mock).mockReturnValue({
+      publicClient: { readContract: mockReadContract },
+    });
     (useAnalytics as Mock).mockReturnValue({
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     });
   });
 
-  it('supplies to the Hub and its Core market through the collateral gateway', () => {
+  it('supplies to the Hub and its Core market through the collateral gateway', async () => {
     renderHook(() => useSupplyFromWalletToLiquidityHub(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
@@ -50,11 +62,11 @@ describe('useSupplyFromWalletToLiquidityHub', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(fn(fakeInput)).toEqual({
+    expect(await fn(fakeInput)).toEqual({
       abi: expect.any(Array),
       address: collateralGatewayAddress,
       functionName: 'supplyFromWallet',
-      args: [1000000000000000000n, vhMarketVToken.address, 0n],
+      args: [1000000000000000000n, vhMarketVToken.address, 995000000000000000000000n],
     });
 
     onConfirmed({ input: fakeInput });
@@ -94,11 +106,29 @@ describe('useSupplyFromWalletToLiquidityHub', () => {
     });
   });
 
-  it('throws when no account is connected', () => {
+  it('throws when no account is connected', async () => {
     renderHook(() => useSupplyFromWalletToLiquidityHub(fakeOptions));
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(() => fn(fakeInput)).toThrow();
+    await expect(fn(fakeInput)).rejects.toThrow();
+  });
+
+  it('previews the deposit of the supplied amount', async () => {
+    renderHook(() => useSupplyFromWalletToLiquidityHub(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    await fn(fakeInput);
+
+    expect(mockReadContract).toHaveBeenCalledWith(
+      expect.objectContaining({
+        address: liquidityHub.vhToken.address,
+        functionName: 'previewDeposit',
+        args: [1000000000000000000n],
+      }),
+    );
   });
 });

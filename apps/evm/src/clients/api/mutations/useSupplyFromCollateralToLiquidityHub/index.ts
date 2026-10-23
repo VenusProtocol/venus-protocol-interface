@@ -1,14 +1,18 @@
 import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
+import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import FunctionKey from 'constants/functionKey';
+import { useChain } from 'hooks/useChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { collateralGatewayAbi } from 'libs/contracts';
+import { collateralGatewayAbi, legacyPoolComptrollerAbi } from 'libs/contracts';
+import liquidityHubAbi from 'libs/contracts/config/externalAbis/LiquidityHub.json';
 import { VError } from 'libs/errors';
-import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useAccountAddress, useChainId, usePublicClient } from 'libs/wallet';
 import type { LiquidityHub, VToken } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens, subtractSlippageTolerance } from 'utilities';
 import {
   type Account,
   type Address,
@@ -28,16 +32,31 @@ export type SupplyFromCollateralToLiquidityHubInput = {
 
 type Options = UseSendTransactionOptions<SupplyFromCollateralToLiquidityHubInput>;
 
+const EXP_SCALE = BigInt(COMPOUND_MANTISSA);
+
+const flashLoanFeeAbi = [
+  {
+    inputs: [],
+    name: 'flashLoanFeeMantissa',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+] as const;
+
 export const useSupplyFromCollateralToLiquidityHub = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
+  const { publicClient } = usePublicClient();
+  const { corePoolComptrollerContractAddress } = useChain();
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const { address: collateralGatewayAddress } = useGetContractAddress({
     name: 'CollateralGateway',
   });
 
   return useSendTransaction({
-    fn: (input: SupplyFromCollateralToLiquidityHubInput) => {
+    fn: async (input: SupplyFromCollateralToLiquidityHubInput) => {
       if (!accountAddress || !collateralGatewayAddress) {
         throw new VError({
           type: 'unexpected',
@@ -49,11 +68,43 @@ export const useSupplyFromCollateralToLiquidityHub = (options?: Partial<Options>
         ? maxUint256
         : BigInt(input.vTokenAmountMantissa.toFixed());
 
+      const [treasuryPercent, flashLoanFee] = await Promise.all([
+        publicClient.readContract({
+          abi: legacyPoolComptrollerAbi,
+          address: corePoolComptrollerContractAddress,
+          functionName: 'treasuryPercent',
+        }),
+        publicClient.readContract({
+          abi: flashLoanFeeAbi,
+          address: input.vToken.address,
+          functionName: 'flashLoanFeeMantissa',
+        }),
+      ]);
+
+      // The flash-loan path deposits the redeem proceeds net of both fees
+      const depositFloorMantissa =
+        (((BigInt(input.underlyingAmountMantissa.toFixed()) * (EXP_SCALE - treasuryPercent)) /
+          EXP_SCALE) *
+          EXP_SCALE) /
+        (EXP_SCALE + flashLoanFee);
+
+      const previewShares = (await publicClient.readContract({
+        abi: liquidityHubAbi,
+        address: input.liquidityHub.vhToken.address,
+        functionName: 'previewDeposit',
+        args: [depositFloorMantissa],
+      })) as bigint;
+
+      const minShares = subtractSlippageTolerance({
+        valueMantissa: previewShares,
+        slippageTolerancePercentage: userSlippageTolerancePercentage,
+      });
+
       return {
         abi: collateralGatewayAbi,
         address: collateralGatewayAddress,
         functionName: 'supplyFromCollateral',
-        args: [input.vToken.address, vTokenAmount, input.vhMarketVToken.address, 0n],
+        args: [input.vToken.address, vTokenAmount, input.vhMarketVToken.address, minShares],
       } as WriteContractParameters<
         typeof collateralGatewayAbi,
         'supplyFromCollateral',

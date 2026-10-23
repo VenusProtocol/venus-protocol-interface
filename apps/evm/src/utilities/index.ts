@@ -85,3 +85,4 @@ export * from './validateLiquidityHubBalanceMutations';
 export * from './validatePoolBalanceMutations';
 export * from './formatApiRewardDistributors';
 export * from './shouldShowAccountHealth';
+export * from './subtractSlippageTolerance';

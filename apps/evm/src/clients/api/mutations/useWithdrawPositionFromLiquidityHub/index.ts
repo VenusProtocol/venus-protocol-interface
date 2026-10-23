@@ -1,14 +1,18 @@
 import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api/queryClient';
+import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import FunctionKey from 'constants/functionKey';
+import { useChain } from 'hooks/useChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { collateralGatewayAbi } from 'libs/contracts';
+import { collateralGatewayAbi, legacyPoolComptrollerAbi } from 'libs/contracts';
+import liquidityHubAbi from 'libs/contracts/config/externalAbis/LiquidityHub.json';
 import { VError } from 'libs/errors';
-import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useAccountAddress, useChainId, usePublicClient } from 'libs/wallet';
 import type { LiquidityHub, VToken } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens, subtractSlippageTolerance } from 'utilities';
 import {
   type Account,
   type Address,
@@ -27,16 +31,21 @@ export type WithdrawPositionFromLiquidityHubInput = {
 
 type Options = UseSendTransactionOptions<WithdrawPositionFromLiquidityHubInput>;
 
+const EXP_SCALE = BigInt(COMPOUND_MANTISSA);
+
 export const useWithdrawPositionFromLiquidityHub = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
+  const { publicClient } = usePublicClient();
+  const { corePoolComptrollerContractAddress } = useChain();
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const { address: collateralGatewayAddress } = useGetContractAddress({
     name: 'CollateralGateway',
   });
 
   return useSendTransaction({
-    fn: (input: WithdrawPositionFromLiquidityHubInput) => {
+    fn: async (input: WithdrawPositionFromLiquidityHubInput) => {
       if (!accountAddress || !collateralGatewayAddress) {
         throw new VError({
           type: 'unexpected',
@@ -48,11 +57,31 @@ export const useWithdrawPositionFromLiquidityHub = (options?: Partial<Options>) 
         ? maxUint256
         : BigInt(input.sharesMantissa.toFixed());
 
+      const [previewAssets, treasuryPercent] = await Promise.all([
+        publicClient.readContract({
+          abi: liquidityHubAbi,
+          address: input.liquidityHub.vhToken.address,
+          functionName: 'previewRedeem',
+          args: [BigInt(input.sharesMantissa.toFixed())],
+        }) as Promise<bigint>,
+        publicClient.readContract({
+          abi: legacyPoolComptrollerAbi,
+          address: corePoolComptrollerContractAddress,
+          functionName: 'treasuryPercent',
+        }),
+      ]);
+
+      // Core charges its redeem fee on the Core leg
+      const minAssets = subtractSlippageTolerance({
+        valueMantissa: (previewAssets * (EXP_SCALE - treasuryPercent)) / EXP_SCALE,
+        slippageTolerancePercentage: userSlippageTolerancePercentage,
+      });
+
       return {
         abi: collateralGatewayAbi,
         address: collateralGatewayAddress,
         functionName: 'withdrawPosition',
-        args: [input.vhMarketVToken.address, shares, 0n],
+        args: [input.vhMarketVToken.address, shares, minAssets],
       } as WriteContractParameters<
         typeof collateralGatewayAbi,
         'withdrawPosition',

@@ -7,6 +7,7 @@ import { queryClient } from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
+import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import { maxUint256 } from 'viem';
 import type { Mock } from 'vitest';
@@ -27,27 +28,38 @@ const fakeOptions = {
 
 const collateralGatewayAddress = '0xfakeCollateralGatewayContractAddress';
 const mockCaptureAnalyticEvent = vi.fn();
+const mockReadContract = vi.fn();
+
+const mockContractReads = (values: Record<string, bigint>) =>
+  mockReadContract.mockImplementation(
+    async ({ functionName }: { functionName: string }) => values[functionName],
+  );
 
 describe('useWithdrawPositionFromLiquidityHub', () => {
   beforeEach(() => {
     mockCaptureAnalyticEvent.mockClear();
+    mockReadContract.mockReset();
+    mockContractReads({ previewRedeem: 2000000000000000000n, treasuryPercent: 0n });
+    (usePublicClient as Mock).mockReturnValue({
+      publicClient: { readContract: mockReadContract },
+    });
     (useAnalytics as Mock).mockReturnValue({
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     });
   });
 
-  it('withdraws the position through the collateral gateway', () => {
+  it('withdraws the position through the collateral gateway', async () => {
     renderHook(() => useWithdrawPositionFromLiquidityHub(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(fn(fakeInput)).toEqual({
+    expect(await fn(fakeInput)).toEqual({
       abi: expect.any(Array),
       address: collateralGatewayAddress,
       functionName: 'withdrawPosition',
-      args: [vhMarketVToken.address, 1000000000000000000000000n, 0n],
+      args: [vhMarketVToken.address, 1000000000000000000000000n, 1990000000000000000n],
     });
 
     onConfirmed({ input: fakeInput });
@@ -74,25 +86,47 @@ describe('useWithdrawPositionFromLiquidityHub', () => {
     });
   });
 
-  it('withdraws the whole position when requested', () => {
+  it('withdraws the whole position when requested', async () => {
     renderHook(() => useWithdrawPositionFromLiquidityHub(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(fn({ ...fakeInput, withdrawFullPosition: true }).args).toEqual([
+    expect((await fn({ ...fakeInput, withdrawFullPosition: true })).args).toEqual([
       vhMarketVToken.address,
       maxUint256,
-      0n,
+      1990000000000000000n,
     ]);
   });
 
-  it('throws when no account is connected', () => {
+  it('throws when no account is connected', async () => {
     renderHook(() => useWithdrawPositionFromLiquidityHub(fakeOptions));
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(() => fn(fakeInput)).toThrow();
+    await expect(fn(fakeInput)).rejects.toThrow();
+  });
+
+  it('sets the payout floor from the Hub preview, the Core redeem fee and the slippage tolerance', async () => {
+    mockContractReads({
+      previewRedeem: 2000000000000000000n,
+      treasuryPercent: 100000000000000000n,
+    });
+
+    renderHook(() => useWithdrawPositionFromLiquidityHub(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect((await fn(fakeInput)).args[2]).toBe(1791000000000000000n);
+    expect(mockReadContract).toHaveBeenCalledWith(
+      expect.objectContaining({
+        address: liquidityHub.vhToken.address,
+        functionName: 'previewRedeem',
+        args: [1000000000000000000000000n],
+      }),
+    );
   });
 });

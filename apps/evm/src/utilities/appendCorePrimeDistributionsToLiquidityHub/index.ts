@@ -2,6 +2,8 @@ import BigNumber from 'bignumber.js';
 
 import type { LiquidityHub, Pool, TokenDistribution } from 'types';
 import areTokensEqual from 'utilities/areTokensEqual';
+import { calculateYearlyInterests } from 'utilities/calculateYearlyEarnings';
+import getCombinedApy from 'utilities/getCombinedApy';
 
 export const appendCorePrimeDistributionsToLiquidityHub = ({
   liquidityHub,
@@ -60,8 +62,25 @@ export const appendCorePrimeDistributionsToLiquidityHub = ({
     return liquidityHub;
   }
 
+  const supplyTokenDistributions = [
+    ...liquidityHub.supplyTokenDistributions,
+    ...primeDistributions,
+  ];
+
+  const { totalApyPercentage } = getCombinedApy({
+    type: 'supply',
+    baseApyPercentage: liquidityHub.supplyApyPercentage,
+    tokenDistributions: supplyTokenDistributions,
+  });
+
   return {
     ...liquidityHub,
-    supplyTokenDistributions: [...liquidityHub.supplyTokenDistributions, ...primeDistributions],
+    supplyTokenDistributions,
+    userYearlyEarningsCents: liquidityHub.userSupplyBalanceCents
+      ? calculateYearlyInterests({
+          balance: liquidityHub.userSupplyBalanceCents,
+          interestPercentage: totalApyPercentage,
+        })
+      : liquidityHub.userYearlyEarningsCents,
   };
 };
