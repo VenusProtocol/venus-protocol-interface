@@ -253,9 +253,11 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       value: amountTokens,
     });
 
-    const withdrawFullSupply = amountTokens.isGreaterThanOrEqualTo(
-      userMaxRedeemTokens ?? Number.POSITIVE_INFINITY,
-    );
+    // Redeem every wallet share only when the amount covers the live balance
+    const withdrawFullSupply =
+      walletRedeemableTokens.isGreaterThan(0) &&
+      amountTokens.isGreaterThanOrEqualTo(walletRedeemableTokens) &&
+      (!userMaxRedeemTokens || walletRedeemableTokens.isLessThanOrEqualTo(userMaxRedeemTokens));
 
     const userVhTokenBalanceMantissa = convertTokensToMantissa({
       token: liquidityHub.vhToken,

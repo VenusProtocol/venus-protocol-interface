@@ -311,6 +311,32 @@ describe('WithdrawForm', () => {
     );
   });
 
+  it('does not redeem the whole wallet when the live balance grew past the indexed max redeem', async () => {
+    const withdrawFromLiquidityHub = vi.fn().mockResolvedValue(undefined);
+
+    mockUseWithdrawFromLiquidityHub.mockReturnValue({
+      mutateAsync: withdrawFromLiquidityHub,
+      isPending: false,
+    });
+    (useGetBalanceOf as Mock).mockReturnValue({
+      data: { balanceMantissa: new BigNumber('60000000000000000000') },
+    });
+
+    renderTransactionForm();
+
+    // The indexed max redeem is still 42, the wallet now holds 60 shares
+    fireEvent.change(getAmountInput(), { target: { value: '42' } });
+    fireEvent.click(
+      screen.getByRole('button', { name: en.liquidityHubForm.withdrawSubmitButtonLabel }),
+    );
+
+    await waitFor(() =>
+      expect(withdrawFromLiquidityHub).toHaveBeenCalledWith(
+        expect.objectContaining({ withdrawFullSupply: false }),
+      ),
+    );
+  });
+
   it('shows a validation error when the amount exceeds hub liquidity', async () => {
     renderTransactionForm({
       liquidityHub: {
