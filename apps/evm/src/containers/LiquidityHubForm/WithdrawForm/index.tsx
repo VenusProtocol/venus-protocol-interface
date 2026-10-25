@@ -315,6 +315,10 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       }
       approval={approvals}
       isApprovalLoading={isWithdrawingFromCore && isDelegateApprovedLoading}
+      includeCorePool={
+        !!corePoolVhAsset?.isCollateralOfUser &&
+        corePoolVhAsset.userSupplyBalanceTokens.isGreaterThan(0)
+      }
       availableBalance={availableBalanceDom}
       onAmountSet={captureAmountSetAnalyticEvent}
     />

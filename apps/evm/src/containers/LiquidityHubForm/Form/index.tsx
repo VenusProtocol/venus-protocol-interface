@@ -44,6 +44,7 @@ export interface FormProps {
   onSubmitSuccess?: () => void;
   approval?: Approval | Approval[];
   isApprovalLoading?: boolean;
+  includeCorePool?: boolean;
   validateForm?: UseFormValidationInput['validate'];
   onAmountSet?: (input: AmountSetInput) => void;
 }
@@ -63,6 +64,7 @@ export const Form: React.FC<FormProps> = ({
   isSubmitting,
   approval,
   isApprovalLoading = false,
+  includeCorePool = false,
   validateForm,
   onAmountSet,
 }) => {
@@ -73,9 +75,8 @@ export const Form: React.FC<FormProps> = ({
 
   const { t } = useTranslation();
 
-  const affectsCorePool = balanceMutations.some(
-    balanceMutation => balanceMutation.type === 'asset',
-  );
+  const affectsCorePool =
+    includeCorePool || balanceMutations.some(balanceMutation => balanceMutation.type === 'asset');
 
   const { data: getPools, isLoading: isGetPoolLoading } = useGetPool(
     {

@@ -487,6 +487,61 @@ describe('WithdrawForm', () => {
       );
     });
 
+    it('shows the unchanged health factor when wallet vhTokens cover a withdrawal with a loan', async () => {
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [corePoolVhAsset],
+            userBorrowBalanceCents: new BigNumber(1000),
+            userHealthFactor: 2,
+          },
+        },
+        isLoading: false,
+      });
+
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '8',
+        },
+      });
+
+      await waitFor(() =>
+        expect(screen.getByText(en.accountHealth.healthFactor.label)).toBeInTheDocument(),
+      );
+    });
+
+    it('does not show the health factor when the Core position is not collateral', async () => {
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [{ ...corePoolVhAsset, isCollateralOfUser: false }],
+            userBorrowBalanceCents: new BigNumber(1000),
+            userHealthFactor: 2,
+          },
+        },
+        isLoading: false,
+      });
+
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '8',
+        },
+      });
+
+      await waitFor(() =>
+        expect(
+          screen.getByRole('button', { name: en.liquidityHubForm.withdrawSubmitButtonLabel }),
+        ).toBeEnabled(),
+      );
+      expect(screen.queryByText(en.accountHealth.healthFactor.label)).not.toBeInTheDocument();
+    });
+
     it('keeps the submit button loading until the delegate approval status is known', async () => {
       (useGetPoolDelegateApprovalStatus as Mock).mockReturnValue({
         data: undefined,
