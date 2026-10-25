@@ -2,19 +2,14 @@ import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 import type { To } from 'react-router';
 
-import { type CellProps, StatusLabel, TokenIcon, TokenIconWithSymbol } from 'components';
+import { Apy, type CellProps, StatusLabel, TokenIcon, TokenIconWithSymbol } from 'components';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
 import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHub } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-  getCombinedApy,
-} from 'utilities';
+import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
 import { PreviewCard, type PreviewCardProps } from '../../PreviewCard';
 
 export interface LiquidityHubCardProps {
@@ -54,12 +49,6 @@ export const LiquidityHubCard: React.FC<LiquidityHubCardProps> = ({
 
   const hideModal = () => setShouldShowModal(false);
 
-  const { totalApyPercentage } = getCombinedApy({
-    type: 'supply',
-    baseApyPercentage: liquidityHub.supplyApyPercentage,
-    tokenDistributions: liquidityHub.supplyTokenDistributions,
-  });
-
   const totalSuppliedReadableValue = (
     <div className="flex items-center justify-end gap-2 min-w-0">
       <TokenIcon token={underlyingToken} displayChain={false} size="md" className="shrink-0" />
@@ -76,7 +65,16 @@ export const LiquidityHubCard: React.FC<LiquidityHubCardProps> = ({
   const cells: CellProps[] = [
     {
       label: t('dashboard.hubs.apy'),
-      value: formatPercentageToReadableValue(totalApyPercentage),
+      value: (
+        <Apy
+          type="supply"
+          token={underlyingToken}
+          baseApyPercentage={liquidityHub.supplyApyPercentage}
+          tokenDistributions={liquidityHub.supplyTokenDistributions}
+          userBalanceTokens={liquidityHub.userSupplyBalanceTokens}
+          isLiquidityHub
+        />
+      ),
     },
   ];
 
