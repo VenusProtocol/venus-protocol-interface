@@ -6,11 +6,12 @@ import {
   useWithdrawFromLiquidityHub,
   useWithdrawPositionFromLiquidityHub,
 } from 'clients/api';
-import { AvailableBalance } from 'components';
+import { AvailableBalance, SpendingLimit } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import type { Approval } from 'containers/TxFormSubmitButton';
 import { useChain } from 'hooks/useChain';
 import useDelegateApproval from 'hooks/useDelegateApproval';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAnalytics } from 'libs/analytics';
@@ -26,6 +27,7 @@ import {
 } from 'utilities';
 import { calculateAmountDollars } from '../../MarketForm/calculateAmountDollars';
 import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../Form';
+import type { UseFormValidationInput } from '../Form/useForm/useFormValidation';
 
 export interface WithdrawFormProps {
   liquidityHub: LiquidityHub;
@@ -125,20 +127,48 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
   const approvals: Approval[] = [];
 
-  if (
+  const walletVhTokenApprovalToken = {
+    ...liquidityHub.vhToken,
+    iconSrc: liquidityHub.vhToken.underlyingToken.iconSrc,
+  };
+
+  const isPullingWalletVhTokens =
     isWithdrawingFromCore &&
-    collateralGatewayContractAddress &&
-    walletVhTokenBalanceTokens.isGreaterThan(0)
-  ) {
+    !!collateralGatewayContractAddress &&
+    walletVhTokenBalanceTokens.isGreaterThan(0);
+
+  if (isPullingWalletVhTokens && collateralGatewayContractAddress) {
     approvals.push({
       type: 'token',
-      token: {
-        ...liquidityHub.vhToken,
-        iconSrc: liquidityHub.vhToken.underlyingToken.iconSrc,
-      },
+      token: walletVhTokenApprovalToken,
       spenderAddress: collateralGatewayContractAddress,
     });
   }
+
+  const {
+    walletSpendingLimitTokens: walletVhTokenSpendingLimitTokens,
+    revokeWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading,
+  } = useTokenApproval({
+    token: walletVhTokenApprovalToken,
+    spenderAddress: collateralGatewayContractAddress ?? NULL_ADDRESS,
+    accountAddress,
+  });
+
+  // A partial allowance skips the approval step
+  const isAboveWalletVhTokenSpendingLimit =
+    isPullingWalletVhTokens &&
+    !!walletVhTokenSpendingLimitTokens?.isGreaterThan(0) &&
+    walletVhTokenSpendingLimitTokens.isLessThan(walletVhTokenBalanceTokens);
+
+  const validateForm: UseFormValidationInput['validate'] = () => {
+    if (isAboveWalletVhTokenSpendingLimit) {
+      return {
+        code: 'HIGHER_THAN_WALLET_SPENDING_LIMIT',
+        message: t('liquidityHubForm.error.higherThanWalletSpendingLimit'),
+      };
+    }
+  };
 
   if (isWithdrawingFromCore && collateralGatewayContractAddress) {
     approvals.push({
@@ -295,7 +325,21 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   });
 
   const availableBalanceDom = (
-    <AvailableBalance readableBalance={readableLimit} onClick={handleLimitClick} />
+    <div className="space-y-2">
+      <AvailableBalance readableBalance={readableLimit} onClick={handleLimitClick} />
+
+      {isPullingWalletVhTokens && (
+        <SpendingLimit
+          token={liquidityHub.vhToken.underlyingToken}
+          walletBalanceTokens={walletSupplyBalanceTokens}
+          walletSpendingLimitTokens={walletVhTokenSpendingLimitTokens?.multipliedBy(
+            liquidityHub.pricePerShare,
+          )}
+          onRevoke={revokeWalletSpendingLimit}
+          isRevokeLoading={isRevokeWalletSpendingLimitLoading}
+        />
+      )}
+    </div>
   );
 
   return (
@@ -320,6 +364,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
         corePoolVhAsset.userSupplyBalanceTokens.isGreaterThan(0)
       }
       availableBalance={availableBalanceDom}
+      validateForm={validateForm}
       onAmountSet={captureAmountSetAnalyticEvent}
     />
   );

@@ -542,6 +542,29 @@ describe('WithdrawForm', () => {
       expect(screen.queryByText(en.accountHealth.healthFactor.label)).not.toBeInTheDocument();
     });
 
+    it('blocks a withdrawal that would pull more wallet vhTokens than the gateway allowance', async () => {
+      (useTokenApproval as Mock).mockReturnValue({
+        isTokenApproved: true,
+        isWalletSpendingLimitLoading: false,
+        isApproveTokenLoading: false,
+        isRevokeWalletSpendingLimitLoading: false,
+        walletSpendingLimitTokens: new BigNumber(1),
+        approveToken: vi.fn(),
+        revokeWalletSpendingLimit: vi.fn(),
+      });
+
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      submitAmount('16');
+
+      await waitFor(() =>
+        expect(
+          screen.getByText(en.liquidityHubForm.error.higherThanWalletSpendingLimit),
+        ).toBeInTheDocument(),
+      );
+      expect(withdrawPositionFromLiquidityHub).not.toHaveBeenCalled();
+    });
+
     it('keeps the submit button loading until the delegate approval status is known', async () => {
       (useGetPoolDelegateApprovalStatus as Mock).mockReturnValue({
         data: undefined,
