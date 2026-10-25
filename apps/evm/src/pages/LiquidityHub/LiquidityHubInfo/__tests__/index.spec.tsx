@@ -1,4 +1,5 @@
 import { screen } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
@@ -51,5 +52,24 @@ describe('LiquidityHubInfo', () => {
 
     expect(screen.getByText(en.liquidityHub.info.stats.operatorAddress)).toBeInTheDocument();
     expect(screen.getByText(PLACEHOLDER_KEY)).toBeInTheDocument();
+  });
+
+  it('leaves the connected user Prime APY out of the Hub daily supplying interests', () => {
+    renderLiquidityHubInfo({
+      ...liquidityHub,
+      supplyBalanceCents: new BigNumber(36_500_000),
+      supplyApyPercentage: new BigNumber(10),
+      supplyTokenDistributions: [
+        {
+          type: 'prime',
+          token: liquidityHub.vhToken.underlyingToken,
+          apyPercentage: new BigNumber(1000),
+          isActive: true,
+        },
+      ],
+    });
+
+    // $365,000 x 10% / 365 days
+    expect(screen.getByText('$100')).toBeInTheDocument();
   });
 });

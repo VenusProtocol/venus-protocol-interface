@@ -23,10 +23,13 @@ export const LiquidityHubInfo: React.FC<LiquidityHubInfoProps> = ({ liquidityHub
   const { t, Trans } = useTranslation();
   const { chainId } = useChainId();
 
+  // Prime is specific to the connected user
   const { totalApyPercentage } = getCombinedApy({
     type: 'supply',
     baseApyPercentage: liquidityHub.supplyApyPercentage,
-    tokenDistributions: liquidityHub.supplyTokenDistributions,
+    tokenDistributions: liquidityHub.supplyTokenDistributions.filter(
+      distribution => distribution.type !== 'prime',
+    ),
   });
 
   const readableDailySupplyingInterests = formatCentsToReadableValue({
