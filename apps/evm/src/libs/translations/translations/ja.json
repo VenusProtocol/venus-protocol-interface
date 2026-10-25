@@ -254,7 +254,7 @@
           "name": "流動性ハブ内在APY"
         },
         "liquidityHubPrimeDistribution": {
-          "description": "Coreプールに供給したvhTokenの割合で加重した、実際に獲得できるPrime APYです。この報酬はCoreプールから支払われ、二重には支払われません。Venus Primeは専用ユーザーにブースト報酬を付与します。Venusプロトコルはこれらの報酬を保証せず、責任を負いません。",
+          "description": "Hubポジションで実際に獲得できるPrime APYで、そのうちCoreプールに供給されている割合で加重されています。この報酬はCoreプールから支払われ、二重には支払われません。Venus Primeは専用ユーザーにブースト報酬を付与します。Venusプロトコルはこれらの報酬を保証せず、責任を負いません。",
           "name": "実効Prime APY"
         },
         "liquidityHubSupplyApy": {

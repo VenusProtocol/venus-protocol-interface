@@ -254,7 +254,7 @@
           "name": "APY nội tại của Trung tâm thanh khoản"
         },
         "liquidityHubPrimeDistribution": {
-          "description": "APY Prime bạn thực sự nhận được, tính theo tỷ trọng vhToken bạn đã cung cấp vào Core pool. Phần thưởng này đến từ Core pool và không được trả hai lần. Venus Prime thưởng cho người dùng tận tâm bằng phần thưởng được boost. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+          "description": "APY Prime bạn thực sự nhận được trên vị thế Hub, tính theo tỷ trọng phần đã cung cấp vào Core pool. Phần thưởng này đến từ Core pool và không được trả hai lần. Venus Prime thưởng cho người dùng tận tâm bằng phần thưởng được boost. Venus protocol không đảm bảo và không chịu trách nhiệm.",
           "name": "APY Prime thực tế"
         },
         "liquidityHubSupplyApy": {

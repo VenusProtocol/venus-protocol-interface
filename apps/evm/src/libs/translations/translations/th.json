@@ -254,7 +254,7 @@
           "name": "APY พื้นฐานของ Liquidity Hub"
         },
         "liquidityHubPrimeDistribution": {
-          "description": "APY Prime ที่คุณได้รับจริง ถ่วงน้ำหนักตาม vhToken ที่คุณฝากไว้ใน Core pool รางวัลนี้มาจาก Core pool และไม่จ่ายซ้ำสองครั้ง รางวัล Venus Prime มอบรางวัลที่ถูกบูสต์ให้ผู้ใช้ที่ทุ่มเท โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
+          "description": "APY Prime ที่คุณได้รับจริงจากสถานะใน Hub ถ่วงน้ำหนักตามสัดส่วนที่ฝากไว้ใน Core pool รางวัลนี้มาจาก Core pool และไม่จ่ายซ้ำสองครั้ง รางวัล Venus Prime มอบรางวัลที่ถูกบูสต์ให้ผู้ใช้ที่ทุ่มเท โปรโตคอล Venus ไม่รับประกันและไม่รับผิดชอบ",
           "name": "APY Prime ที่แท้จริง"
         },
         "liquidityHubSupplyApy": {

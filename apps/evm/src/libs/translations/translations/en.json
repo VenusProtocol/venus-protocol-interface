@@ -254,7 +254,7 @@
           "name": "Liquidity Hub intrinsic APY"
         },
         "liquidityHubPrimeDistribution": {
-          "description": "The Prime APY you actually earn, weighted by your vhTokens supplied to the Core pool. These rewards come from the Core pool and are not paid twice. Venus Prime rewards dedicated users with boosted rewards; the Venus protocol does not guarantee them and accepts no liability.",
+          "description": "The Prime APY you actually earn on your Hub position, weighted by how much of it is supplied to the Core pool. These rewards come from the Core pool and are not paid twice. Venus Prime rewards dedicated users with boosted rewards; the Venus protocol does not guarantee them and accepts no liability.",
           "name": "Effective Prime APY"
         },
         "liquidityHubSupplyApy": {

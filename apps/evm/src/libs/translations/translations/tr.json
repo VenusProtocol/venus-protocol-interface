@@ -254,7 +254,7 @@
           "name": "Likidite Merkezi içsel APY"
         },
         "liquidityHubPrimeDistribution": {
-          "description": "Core havuzuna sağladığınız vhToken oranına göre ağırlıklandırılmış, gerçekte kazandığınız Prime APY. Bu ödüller Core havuzundan gelir ve iki kez ödenmez. Venus Prime, özel kullanıcılara artırılmış ödüller sunar. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+          "description": "Hub pozisyonunuzda gerçekte kazandığınız Prime APY; bunun ne kadarının Core havuzuna sağlandığına göre ağırlıklandırılır. Bu ödüller Core havuzundan gelir ve iki kez ödenmez. Venus Prime, özel kullanıcılara artırılmış ödüller sunar. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
           "name": "Efektif Prime APY"
         },
         "liquidityHubSupplyApy": {

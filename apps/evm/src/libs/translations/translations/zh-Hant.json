@@ -254,7 +254,7 @@
           "name": "流動性中心內在 APY"
         },
         "liquidityHubPrimeDistribution": {
-          "description": "按您供應至 Core 池的 vhToken 佔比加權後，您實際獲得的 Prime APY。該獎勵來自 Core 池，不會重複發放。Venus Prime 為忠實用戶提供加成獎勵。Venus 協議不作任何保證且不承擔責任。",
+          "description": "您的 Hub 倉位實際獲得的 Prime APY，按其中供應至 Core 池的比例加權。該獎勵來自 Core 池，不會重複發放。Venus Prime 為忠實用戶提供加成獎勵。Venus 協議不作任何保證且不承擔責任。",
           "name": "實際 Prime APY"
         },
         "liquidityHubSupplyApy": {
