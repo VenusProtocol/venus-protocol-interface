@@ -7,6 +7,7 @@ import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import {
+  useGetBalanceOf,
   useGetPool,
   useGetPoolDelegateApprovalStatus,
   useWithdrawFromLiquidityHub,
@@ -35,6 +36,7 @@ const liquidityHub = {
   ...baseLiquidityHub,
   pricePerShare: new BigNumber(1),
   redeemFeePercentage: new BigNumber(0),
+  userVhTokenBalanceTokens: defaultWithdrawLimitTokens,
   userWithdrawCapTokens: defaultWithdrawLimitTokens,
   userVhTokenMaxRedeemTokens: defaultWithdrawLimitTokens,
 };
@@ -144,6 +146,7 @@ describe('WithdrawForm', () => {
         ...liquidityHub,
         pricePerShare: new BigNumber(2),
         redeemFeePercentage: new BigNumber(0.5),
+        userVhTokenBalanceTokens: new BigNumber(100),
         userWithdrawCapTokens: new BigNumber(1000),
         userVhTokenMaxRedeemTokens: new BigNumber(100),
       },
@@ -216,7 +219,7 @@ describe('WithdrawForm', () => {
       liquidityHub,
       amountMantissa: new BigNumber('10000000000000000000'),
       withdrawFullSupply: false,
-      userVhTokenBalanceMantissa: new BigNumber('39622641509433962264'),
+      userVhTokenBalanceMantissa: new BigNumber('42000000000000000000'),
     });
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(
       'withdraw_amount_set',
@@ -303,7 +306,7 @@ describe('WithdrawForm', () => {
         liquidityHub,
         amountMantissa: new BigNumber('42000000000000000000'),
         withdrawFullSupply: true,
-        userVhTokenBalanceMantissa: new BigNumber('39622641509433962264'),
+        userVhTokenBalanceMantissa: new BigNumber('42000000000000000000'),
       }),
     );
   });
@@ -641,6 +644,20 @@ describe('WithdrawForm', () => {
           }),
         ),
       );
+    });
+
+    it('routes the withdrawal from the on-chain wallet balance rather than the indexed one', async () => {
+      (useGetBalanceOf as Mock).mockReturnValue({
+        data: { balanceMantissa: new BigNumber('2000000000000000000') },
+      });
+
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      // The API reports 5 wallet vhTokens (10 underlying), the chain only 2 (4 underlying)
+      submitAmount('8');
+
+      await waitFor(() => expect(withdrawPositionFromLiquidityHub).toHaveBeenCalledTimes(1));
+      expect(withdrawFromLiquidityHub).not.toHaveBeenCalled();
     });
 
     it('simulates the Core part of the withdrawal in vhTokens', async () => {

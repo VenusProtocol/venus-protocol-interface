@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
 import {
+  useGetBalanceOf,
   useGetPool,
   useWithdrawFromLiquidityHub,
   useWithdrawPositionFromLiquidityHub,
@@ -22,6 +23,7 @@ import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } 
 import {
   areTokensEqual,
   calculateCollateralWithdrawLimits,
+  convertMantissaToTokens,
   convertTokensToMantissa,
   formatTokensToReadableValue,
 } from 'utilities';
@@ -82,10 +84,38 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     BigNumber.ROUND_DOWN,
   );
 
-  const walletLimitTokens = BigNumber.min(userWithdrawCapTokens ?? 0, userMaxRedeemTokens ?? 0);
+  const walletVhTokenApprovalToken = {
+    ...liquidityHub.vhToken,
+    iconSrc: liquidityHub.vhToken.underlyingToken.iconSrc,
+  };
 
-  const walletVhTokenBalanceTokens = liquidityHub.userVhTokenBalanceTokens ?? new BigNumber(0);
+  const { data: getWalletVhTokenBalanceData } = useGetBalanceOf(
+    {
+      accountAddress: accountAddress || NULL_ADDRESS,
+      token: walletVhTokenApprovalToken,
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
+
+  // The indexed balance can lag behind the chain
+  const walletVhTokenBalanceTokens = getWalletVhTokenBalanceData
+    ? convertMantissaToTokens({
+        value: getWalletVhTokenBalanceData.balanceMantissa,
+        token: liquidityHub.vhToken,
+      })
+    : liquidityHub.userVhTokenBalanceTokens ?? new BigNumber(0);
+
   const walletSupplyBalanceTokens = walletVhTokenBalanceTokens.multipliedBy(redeemPricePerShare);
+
+  const walletRedeemableTokens = walletSupplyBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN);
+
+  const walletLimitTokens = BigNumber.min(
+    userWithdrawCapTokens ?? walletRedeemableTokens,
+    userMaxRedeemTokens ?? walletRedeemableTokens,
+    walletRedeemableTokens,
+  );
 
   const coreLimits =
     corePool && corePoolVhAsset
@@ -127,11 +157,6 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const isWithdrawingFromCore = coreWithdrawalVhTokens.isGreaterThan(0);
 
   const approvals: Approval[] = [];
-
-  const walletVhTokenApprovalToken = {
-    ...liquidityHub.vhToken,
-    iconSrc: liquidityHub.vhToken.underlyingToken.iconSrc,
-  };
 
   const isPullingWalletVhTokens =
     isWithdrawingFromCore &&
@@ -232,12 +257,10 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       userMaxRedeemTokens ?? Number.POSITIVE_INFINITY,
     );
 
-    const userVhTokenBalanceMantissa = liquidityHub.userVhTokenBalanceTokens
-      ? convertTokensToMantissa({
-          token: liquidityHub.vhToken,
-          value: liquidityHub.userVhTokenBalanceTokens,
-        })
-      : undefined;
+    const userVhTokenBalanceMantissa = convertTokensToMantissa({
+      token: liquidityHub.vhToken,
+      value: walletVhTokenBalanceTokens,
+    });
 
     const analyticData = getAnalyticData(amountTokens);
 
