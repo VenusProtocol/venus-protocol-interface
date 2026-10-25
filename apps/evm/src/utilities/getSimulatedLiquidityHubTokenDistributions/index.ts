@@ -47,10 +47,18 @@ export const getSimulatedLiquidityHubTokenDistributions = ({
     return undefined;
   }
 
-  const hubVhTokenDelta = hubBalanceMutations.reduce((acc, balanceMutation) => {
-    const vhTokens = balanceMutation.amountTokens.dividedBy(liquidityHub.pricePerShare);
-    return balanceMutation.action === 'supply' ? acc.plus(vhTokens) : acc.minus(vhTokens);
-  }, new BigNumber(0));
+  // Withdrawals burn extra shares to cover the redeem fee
+  const redeemPricePerShare = liquidityHub.pricePerShare.multipliedBy(
+    new BigNumber(1).minus(liquidityHub.redeemFeePercentage.dividedBy(100)),
+  );
+
+  const hubVhTokenDelta = hubBalanceMutations.reduce(
+    (acc, balanceMutation) =>
+      balanceMutation.action === 'supply'
+        ? acc.plus(balanceMutation.amountTokens.dividedBy(liquidityHub.pricePerShare))
+        : acc.minus(balanceMutation.amountTokens.dividedBy(redeemPricePerShare)),
+    new BigNumber(0),
+  );
 
   const coreVhTokenDelta = resultingVhAsset.userSupplyBalanceTokens.minus(
     vhAsset.userSupplyBalanceTokens,

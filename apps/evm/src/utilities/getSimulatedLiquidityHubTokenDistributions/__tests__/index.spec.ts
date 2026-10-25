@@ -12,6 +12,7 @@ const primeToken = assetData[0].vToken.underlyingToken;
 const liquidityHub: LiquidityHub = {
   ...liquidityHubs[0],
   pricePerShare: new BigNumber(1),
+  redeemFeePercentage: new BigNumber(0),
   userVhTokenBalanceTokens: new BigNumber(100),
   supplyTokenDistributions: [
     { type: 'prime', token: primeToken, apyPercentage: new BigNumber(8.015), isActive: true },
@@ -86,6 +87,24 @@ describe('getSimulatedLiquidityHubTokenDistributions', () => {
     });
 
     // 16.03% x 100 / 150
+    expect(getPrimeApy(distributions)).toBe('10.69');
+  });
+
+  it('burns the extra shares the redeem fee takes when re-weighting a withdrawal', () => {
+    const distributions = getSimulatedLiquidityHubTokenDistributions({
+      liquidityHub: { ...liquidityHub, redeemFeePercentage: new BigNumber(1) },
+      corePool,
+      balanceMutations: [
+        {
+          type: 'liquidityHub',
+          vhTokenAddress: liquidityHub.vhToken.address,
+          action: 'withdraw',
+          amountTokens: new BigNumber(49.5),
+        },
+      ],
+    });
+
+    // 49.5 / 0.99 = 50 shares leave the wallet: 16.03% x 100 / 150
     expect(getPrimeApy(distributions)).toBe('10.69');
   });
 
