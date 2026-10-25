@@ -12,7 +12,7 @@ import { isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 import { calculateAmountDollars } from '../../../MarketForm/calculateAmountDollars';
 import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../../Form';
 import type { UseFormValidationInput } from '../../Form/useForm/useFormValidation';
@@ -74,6 +74,27 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     limitTokens = BigNumber.min(limitTokens, userSupplyCapTokens);
   }
 
+  const { underlyingToken } = liquidityHub.vhToken;
+
+  const convertVhTokensToUnderlying = (value: BigNumber) =>
+    value
+      .multipliedBy(liquidityHub.pricePerShare)
+      .dp(underlyingToken.decimals, BigNumber.ROUND_DOWN);
+
+  const coreSupplyCapMarginTokens =
+    resupplyVToken && corePoolVhAsset
+      ? convertVhTokensToUnderlying(
+          BigNumber.max(
+            corePoolVhAsset.supplyCapTokens.minus(corePoolVhAsset.supplyBalanceTokens),
+            0,
+          ),
+        )
+      : undefined;
+
+  if (coreSupplyCapMarginTokens) {
+    limitTokens = BigNumber.min(limitTokens, coreSupplyCapMarginTokens);
+  }
+
   const fromAmountTokens = formValues.amountTokens
     ? new BigNumber(formValues.amountTokens)
     : undefined;
@@ -87,6 +108,30 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
         code: 'HIGHER_THAN_WALLET_BALANCE',
         message: t('marketForm.error.higherThanWalletBalance', {
           tokenSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+        }),
+      };
+    }
+
+    if (
+      corePoolVhAsset &&
+      coreSupplyCapMarginTokens &&
+      fromAmountTokens?.isGreaterThan(coreSupplyCapMarginTokens)
+    ) {
+      return {
+        code: 'HIGHER_THAN_SUPPLY_CAP',
+        message: t('marketForm.error.higherThanSupplyCap', {
+          userMaxSupplyAmount: formatTokensToReadableValue({
+            value: coreSupplyCapMarginTokens,
+            token: underlyingToken,
+          }),
+          assetSupplyCap: formatTokensToReadableValue({
+            value: convertVhTokensToUnderlying(corePoolVhAsset.supplyCapTokens),
+            token: underlyingToken,
+          }),
+          assetSupplyBalance: formatTokensToReadableValue({
+            value: convertVhTokensToUnderlying(corePoolVhAsset.supplyBalanceTokens),
+            token: underlyingToken,
+          }),
         }),
       };
     }

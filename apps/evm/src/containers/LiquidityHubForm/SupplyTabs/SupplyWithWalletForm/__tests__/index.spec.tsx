@@ -427,6 +427,64 @@ describe('SupplyWithWalletForm', () => {
       },
     };
 
+    const cappedCorePoolVhAsset: Asset = {
+      ...corePoolVhAsset,
+      supplyBalanceTokens: new BigNumber(95),
+      supplyCapTokens: new BigNumber(100),
+    };
+
+    const liquidityHubWithRoom = {
+      ...liquidityHub,
+      pricePerShare: new BigNumber(2),
+      userWalletBalanceTokens: new BigNumber(100),
+      supplyCapTokens: new BigNumber(Number.POSITIVE_INFINITY),
+      userSupplyCapTokens: undefined,
+    };
+
+    it('limits MAX to the room left under the Core market supply cap', async () => {
+      mockUseTokenApproval.mockReturnValue(
+        makeUseTokenApprovalOutput({ walletSpendingLimitTokens: new BigNumber(100) }),
+      );
+
+      renderTransactionForm({
+        liquidityHub: liquidityHubWithRoom,
+        corePoolVhAsset: cappedCorePoolVhAsset,
+      });
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightMaxButtonLabel }),
+      );
+
+      // 5 vhTokens of room at 2 underlying per share
+      await waitFor(() => expect(getAmountInput().value).toBe('10'));
+    });
+
+    it('states the Core market supply cap in the underlying token', async () => {
+      mockUseTokenApproval.mockReturnValue(
+        makeUseTokenApprovalOutput({ walletSpendingLimitTokens: new BigNumber(100) }),
+      );
+
+      renderTransactionForm({
+        liquidityHub: liquidityHubWithRoom,
+        corePoolVhAsset: cappedCorePoolVhAsset,
+      });
+
+      fireEvent.change(getAmountInput(), { target: { value: '11' } });
+
+      await waitFor(() =>
+        expect(
+          screen.getByText(
+            new RegExp(
+              `more than ${formatTokensToReadableValue({
+                value: new BigNumber(10),
+                token: underlyingToken,
+              })}`,
+            ),
+          ),
+        ).toBeInTheDocument(),
+      );
+    });
+
     it('asks for the underlying token approval to the collateral gateway', () => {
       renderTransactionForm({ corePoolVhAsset });
 
