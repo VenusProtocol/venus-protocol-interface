@@ -1,4 +1,4 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 
 import { useGetLiquidityHubs, useGetPool } from 'clients/api';
 import {
@@ -18,7 +18,14 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { areAddressesEqual, areTokensEqual, shouldShowAccountHealth } from 'utilities';
+import {
+  areAddressesEqual,
+  areTokensEqual,
+  calculateYearlyInterests,
+  getCombinedApy,
+  getSimulatedLiquidityHubTokenDistributions,
+  shouldShowAccountHealth,
+} from 'utilities';
 import { type FormValues, initialFormValues, useForm } from './useForm';
 import type { UseFormValidationInput } from './useForm/useFormValidation';
 
@@ -78,13 +85,17 @@ export const Form: React.FC<FormProps> = ({
   const affectsCorePool =
     includeCorePool || balanceMutations.some(balanceMutation => balanceMutation.type === 'asset');
 
+  const earnsCorePrime = liquidityHub.supplyTokenDistributions.some(
+    distribution => distribution.type === 'prime' || distribution.type === 'primeSimulation',
+  );
+
   const { data: getPools, isLoading: isGetPoolLoading } = useGetPool(
     {
       poolComptrollerAddress: corePoolComptrollerContractAddress,
       accountAddress,
     },
     {
-      enabled: affectsCorePool,
+      enabled: affectsCorePool || earnsCorePrime,
     },
   );
 
@@ -114,10 +125,43 @@ export const Form: React.FC<FormProps> = ({
 
   const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
 
-  const { liquidityHubs: simulatedLiquidityHubs } = useSimulateLiquidityHubMutations({
+  const { liquidityHubs: hubSimulatedLiquidityHubs } = useSimulateLiquidityHubMutations({
     liquidityHubs,
     balanceMutations,
   });
+
+  const simulatedTokenDistributions = getSimulatedLiquidityHubTokenDistributions({
+    liquidityHub,
+    corePool: getPools?.pool,
+    simulatedCorePool: simulatedPool,
+    balanceMutations,
+  });
+
+  // The Prime share follows the Core balance after the transaction
+  const simulatedLiquidityHubs = simulatedTokenDistributions
+    ? hubSimulatedLiquidityHubs.map(simulatedLiquidityHub => {
+        if (
+          !areAddressesEqual(simulatedLiquidityHub.vhToken.address, liquidityHub.vhToken.address)
+        ) {
+          return simulatedLiquidityHub;
+        }
+
+        const { totalApyPercentage } = getCombinedApy({
+          type: 'supply',
+          baseApyPercentage: simulatedLiquidityHub.supplyApyPercentage,
+          tokenDistributions: simulatedTokenDistributions,
+        });
+
+        return {
+          ...simulatedLiquidityHub,
+          supplyTokenDistributions: simulatedTokenDistributions,
+          userYearlyEarningsCents: calculateYearlyInterests({
+            balance: simulatedLiquidityHub.userSupplyBalanceCents ?? new BigNumber(0),
+            interestPercentage: totalApyPercentage,
+          }),
+        };
+      })
+    : hubSimulatedLiquidityHubs;
 
   const apyBreakdownItems: ApyBreakdownItem[] = [
     {
@@ -125,6 +169,7 @@ export const Form: React.FC<FormProps> = ({
       token: liquidityHub.vhToken.underlyingToken,
       baseApyPercentage: liquidityHub.supplyApyPercentage,
       tokenDistributions: liquidityHub.supplyTokenDistributions,
+      simulatedTokenDistributions,
     },
   ];
 
