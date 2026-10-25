@@ -12,7 +12,11 @@ import { isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
+import {
+  convertTokensToMantissa,
+  convertVhTokensToUnderlying,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { calculateAmountDollars } from '../../../MarketForm/calculateAmountDollars';
 import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../../Form';
 import type { UseFormValidationInput } from '../../Form/useForm/useFormValidation';
@@ -76,19 +80,15 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
 
   const { underlyingToken } = liquidityHub.vhToken;
 
-  const convertVhTokensToUnderlying = (value: BigNumber) =>
-    value
-      .multipliedBy(liquidityHub.pricePerShare)
-      .dp(underlyingToken.decimals, BigNumber.ROUND_DOWN);
-
   const coreSupplyCapMarginTokens =
     resupplyVToken && corePoolVhAsset
-      ? convertVhTokensToUnderlying(
-          BigNumber.max(
+      ? convertVhTokensToUnderlying({
+          vhTokens: BigNumber.max(
             corePoolVhAsset.supplyCapTokens.minus(corePoolVhAsset.supplyBalanceTokens),
             0,
           ),
-        )
+          liquidityHub,
+        })
       : undefined;
 
   if (coreSupplyCapMarginTokens) {
@@ -125,11 +125,17 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
             token: underlyingToken,
           }),
           assetSupplyCap: formatTokensToReadableValue({
-            value: convertVhTokensToUnderlying(corePoolVhAsset.supplyCapTokens),
+            value: convertVhTokensToUnderlying({
+              vhTokens: corePoolVhAsset.supplyCapTokens,
+              liquidityHub,
+            }),
             token: underlyingToken,
           }),
           assetSupplyBalance: formatTokensToReadableValue({
-            value: convertVhTokensToUnderlying(corePoolVhAsset.supplyBalanceTokens),
+            value: convertVhTokensToUnderlying({
+              vhTokens: corePoolVhAsset.supplyBalanceTokens,
+              liquidityHub,
+            }),
             token: underlyingToken,
           }),
         }),

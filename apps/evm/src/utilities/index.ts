@@ -87,3 +87,6 @@ export * from './formatApiRewardDistributors';
 export * from './shouldShowAccountHealth';
 export * from './subtractSlippageTolerance';
 export * from './getSimulatedLiquidityHubTokenDistributions';
+export * from './isPrimeDistribution';
+export * from './findLiquidityHubCoreAsset';
+export * from './convertVhTokensToUnderlying';

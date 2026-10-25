@@ -24,6 +24,7 @@ import {
   calculateYearlyInterests,
   getCombinedApy,
   getSimulatedLiquidityHubTokenDistributions,
+  isPrimeDistribution,
   shouldShowAccountHealth,
 } from 'utilities';
 import { type FormValues, initialFormValues, useForm } from './useForm';
@@ -85,9 +86,7 @@ export const Form: React.FC<FormProps> = ({
   const affectsCorePool =
     includeCorePool || balanceMutations.some(balanceMutation => balanceMutation.type === 'asset');
 
-  const earnsCorePrime = liquidityHub.supplyTokenDistributions.some(
-    distribution => distribution.type === 'prime' || distribution.type === 'primeSimulation',
-  );
+  const earnsCorePrime = liquidityHub.supplyTokenDistributions.some(isPrimeDistribution);
 
   const { data: getPools, isLoading: isGetPoolLoading } = useGetPool(
     {

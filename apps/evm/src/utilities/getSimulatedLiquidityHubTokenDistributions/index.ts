@@ -3,10 +3,8 @@ import BigNumber from 'bignumber.js';
 import type { BalanceMutation, LiquidityHub, Pool, TokenDistribution } from 'types';
 import { appendCorePrimeDistributionsToLiquidityHub } from 'utilities/appendCorePrimeDistributionsToLiquidityHub';
 import areAddressesEqual from 'utilities/areAddressesEqual';
-import areTokensEqual from 'utilities/areTokensEqual';
-
-const isPrimeDistribution = (distribution: TokenDistribution) =>
-  distribution.type === 'prime' || distribution.type === 'primeSimulation';
+import { findLiquidityHubCoreAsset } from 'utilities/findLiquidityHubCoreAsset';
+import { isPrimeDistribution } from 'utilities/isPrimeDistribution';
 
 export const getSimulatedLiquidityHubTokenDistributions = ({
   liquidityHub,
@@ -37,11 +35,8 @@ export const getSimulatedLiquidityHubTokenDistributions = ({
 
   const resultingCorePool = simulatedCorePool ?? corePool;
 
-  const findVhAsset = (pool: Pool) =>
-    pool.assets.find(asset => areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken));
-
-  const vhAsset = findVhAsset(corePool);
-  const resultingVhAsset = findVhAsset(resultingCorePool);
+  const vhAsset = findLiquidityHubCoreAsset({ pool: corePool, liquidityHub });
+  const resultingVhAsset = findLiquidityHubCoreAsset({ pool: resultingCorePool, liquidityHub });
 
   if (!vhAsset || !resultingVhAsset) {
     return undefined;
