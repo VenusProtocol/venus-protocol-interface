@@ -11,9 +11,9 @@ import { NULL_ADDRESS } from 'constants/address';
 import type { Approval } from 'containers/TxFormSubmitButton';
 import { useChain } from 'hooks/useChain';
 import useDelegateApproval from 'hooks/useDelegateApproval';
-import useTokenApproval from 'hooks/useTokenApproval';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
@@ -68,8 +68,13 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
   const { decimals } = liquidityHub.vhToken.underlyingToken;
 
+  // What a share pays out once the Hub redeem fee is taken
+  const redeemPricePerShare = liquidityHub.pricePerShare.multipliedBy(
+    new BigNumber(1).minus(liquidityHub.redeemFeePercentage.dividedBy(100)),
+  );
+
   const userMaxRedeemTokens = liquidityHub.userVhTokenMaxRedeemTokens
-    ?.multipliedBy(liquidityHub.pricePerShare)
+    ?.multipliedBy(redeemPricePerShare)
     .dp(decimals, BigNumber.ROUND_DOWN);
 
   const userWithdrawCapTokens = liquidityHub.userWithdrawCapTokens?.dp(
@@ -80,9 +85,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const walletLimitTokens = BigNumber.min(userWithdrawCapTokens ?? 0, userMaxRedeemTokens ?? 0);
 
   const walletVhTokenBalanceTokens = liquidityHub.userVhTokenBalanceTokens ?? new BigNumber(0);
-  const walletSupplyBalanceTokens = walletVhTokenBalanceTokens.multipliedBy(
-    liquidityHub.pricePerShare,
-  );
+  const walletSupplyBalanceTokens = walletVhTokenBalanceTokens.multipliedBy(redeemPricePerShare);
 
   const coreLimits =
     corePool && corePoolVhAsset
@@ -96,7 +99,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
   const getPositionLimitTokens = (coreLimitVhTokens: BigNumber) =>
     BigNumber.min(
-      walletSupplyBalanceTokens.plus(coreLimitVhTokens.multipliedBy(liquidityHub.pricePerShare)),
+      walletSupplyBalanceTokens.plus(coreLimitVhTokens.multipliedBy(redeemPricePerShare)),
       hubLimitTokens,
     ).dp(decimals, BigNumber.ROUND_DOWN);
 
@@ -112,9 +115,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
-  const amountVhTokens = (fromAmountTokens ?? new BigNumber(0)).dividedBy(
-    liquidityHub.pricePerShare,
-  );
+  const amountVhTokens = (fromAmountTokens ?? new BigNumber(0)).dividedBy(redeemPricePerShare);
 
   const coreWithdrawalVhTokens = corePoolVhAsset
     ? BigNumber.max(amountVhTokens.minus(walletVhTokenBalanceTokens), 0).dp(
@@ -242,7 +243,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
     const positionBalanceTokens = walletSupplyBalanceTokens.plus(
       (corePoolVhAsset?.userSupplyBalanceTokens ?? new BigNumber(0)).multipliedBy(
-        liquidityHub.pricePerShare,
+        redeemPricePerShare,
       ),
     );
 
@@ -257,7 +258,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
           sharesMantissa: convertTokensToMantissa({
             token: liquidityHub.vhToken,
             value: amountTokens
-              .dividedBy(liquidityHub.pricePerShare)
+              .dividedBy(redeemPricePerShare)
               .dp(liquidityHub.vhToken.decimals, BigNumber.ROUND_UP),
           }),
           withdrawFullPosition: amountTokens.isGreaterThanOrEqualTo(

@@ -34,6 +34,7 @@ const defaultWithdrawLimitTokens = baseLiquidityHub.userSupplyBalanceTokens ?? n
 const liquidityHub = {
   ...baseLiquidityHub,
   pricePerShare: new BigNumber(1),
+  redeemFeePercentage: new BigNumber(0),
   userWithdrawCapTokens: defaultWithdrawLimitTokens,
   userVhTokenMaxRedeemTokens: defaultWithdrawLimitTokens,
 };
@@ -133,6 +134,25 @@ describe('WithdrawForm', () => {
     expect(
       screen.getByRole('button', {
         name: readableWithdrawalLimit,
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('takes the Hub redeem fee out of the max redeem limit', () => {
+    renderTransactionForm({
+      liquidityHub: {
+        ...liquidityHub,
+        pricePerShare: new BigNumber(2),
+        redeemFeePercentage: new BigNumber(0.5),
+        userWithdrawCapTokens: new BigNumber(1000),
+        userVhTokenMaxRedeemTokens: new BigNumber(100),
+      },
+    });
+
+    // 100 shares x 2 x (1 - 0.5%)
+    expect(
+      screen.getByRole('button', {
+        name: formatTokensToReadableValue({ value: new BigNumber(199), token: underlyingToken }),
       }),
     ).toBeInTheDocument();
   });
@@ -604,6 +624,23 @@ describe('WithdrawForm', () => {
 
       await waitFor(() => expect(withdrawFromLiquidityHub).toHaveBeenCalledTimes(1));
       expect(withdrawPositionFromLiquidityHub).not.toHaveBeenCalled();
+    });
+
+    it('asks the gateway for enough shares to pay out the amount after the redeem fee', async () => {
+      renderTransactionForm({
+        liquidityHub: { ...resuppliedLiquidityHub, redeemFeePercentage: new BigNumber(0.5) },
+      });
+
+      submitAmount('15.92');
+
+      // 15.92 / (2 x 0.995) = 8 shares
+      await waitFor(() =>
+        expect(withdrawPositionFromLiquidityHub).toHaveBeenCalledWith(
+          expect.objectContaining({
+            sharesMantissa: new BigNumber('8000000000000000000'),
+          }),
+        ),
+      );
     });
 
     it('simulates the Core part of the withdrawal in vhTokens', async () => {
