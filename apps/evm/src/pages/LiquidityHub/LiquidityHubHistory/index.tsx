@@ -102,6 +102,7 @@ export const LiquidityHubHistory: React.FC<LiquidityHubHistoryProps> = ({ liquid
                 baseApyPercentage={liquidityHub.supplyApyPercentage}
                 tokenDistributions={liquidityHub.supplyTokenDistributions}
                 userBalanceTokens={liquidityHub.userSupplyBalanceTokens}
+                vTokenAddress={liquidityHub.vhMarketVTokenAddress}
                 isLiquidityHub
               />
             ),

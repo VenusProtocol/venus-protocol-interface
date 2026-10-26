@@ -51,6 +51,12 @@ const corePool: Pool = {
 };
 
 describe('appendCorePrimeDistributionsToLiquidityHub', () => {
+  it('records the vh Core market so Prime links can point to it', () => {
+    const result = appendCorePrimeDistributionsToLiquidityHub({ liquidityHub, corePool });
+
+    expect(result.vhMarketVTokenAddress).toBe(vhAsset.vToken.address);
+  });
+
   it('weights the Prime APY by the share of the position supplied to Core', () => {
     const result = appendCorePrimeDistributionsToLiquidityHub({ liquidityHub, corePool });
 

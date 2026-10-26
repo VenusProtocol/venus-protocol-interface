@@ -72,6 +72,7 @@ export const LiquidityHubCard: React.FC<LiquidityHubCardProps> = ({
           baseApyPercentage={liquidityHub.supplyApyPercentage}
           tokenDistributions={liquidityHub.supplyTokenDistributions}
           userBalanceTokens={liquidityHub.userSupplyBalanceTokens}
+          vTokenAddress={liquidityHub.vhMarketVTokenAddress}
           isLiquidityHub
         />
       ),

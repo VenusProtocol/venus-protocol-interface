@@ -148,6 +148,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
         supplyApyPercentage,
         supplyTokenDistributions,
         userSupplyBalanceTokens,
+        vhMarketVTokenAddress,
       }) => (
         <Apy
           type="supply"
@@ -155,6 +156,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
           baseApyPercentage={supplyApyPercentage}
           tokenDistributions={supplyTokenDistributions}
           userBalanceTokens={userSupplyBalanceTokens}
+          vTokenAddress={vhMarketVTokenAddress}
           isLiquidityHub
         />
       ),

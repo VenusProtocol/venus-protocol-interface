@@ -359,6 +359,7 @@ export interface LiquidityHub {
   userVhTokenMaxRedeemTokens?: BigNumber;
   userWithdrawCapTokens?: BigNumber;
   userSupplyCapTokens?: BigNumber;
+  vhMarketVTokenAddress?: Address;
 }
 
 export enum RemoteProposalState {

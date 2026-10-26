@@ -76,6 +76,7 @@ export const appendCorePrimeDistributionsToLiquidityHub = ({
   return {
     ...liquidityHub,
     supplyTokenDistributions,
+    vhMarketVTokenAddress: vhAsset.vToken.address,
     userYearlyEarningsCents: liquidityHub.userSupplyBalanceCents
       ? calculateYearlyInterests({
           balance: liquidityHub.userSupplyBalanceCents,
