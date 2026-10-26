@@ -11,7 +11,6 @@ export const customErrorPhrases: Record<string, string> = {
   HubCapacityExceeded: t('contractErrors.hubCapacityExceeded'),
   InsufficientShares: t('contractErrors.slippageExceeded'),
   InsufficientAssets: t('contractErrors.slippageExceeded'),
-  LiquidityCheckFailed: t('contractErrors.liquidityCheckFailed'),
   BorrowCapExceeded: t('contractErrors.borrowCapExceeded'),
   TooMuchRepay: t('contractErrors.tooMuchRepay'),
   SwapDeadlineExpire: t('contractErrors.swapDeadlineExpire'),

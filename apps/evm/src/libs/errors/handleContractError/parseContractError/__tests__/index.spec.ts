@@ -66,7 +66,6 @@ describe('parseContractError', () => {
   it.each([
     ['InsufficientShares', [2n, 1n]],
     ['InsufficientAssets', [2n, 1n]],
-    ['LiquidityCheckFailed', [3n]],
   ] as const)('gives the collateral gateway %s revert a readable message', (errorName, args) => {
     const rawData = encodeErrorResult({ abi: collateralGatewayAbi, errorName, args });
 
