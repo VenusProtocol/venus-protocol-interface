@@ -513,8 +513,7 @@ export const contracts: ContractConfig[] = [
     name: 'PrimeV2Lens',
     abi: primeV2LensAbi as Abi,
     address: {
-      // TODO: read from venus-protocol 10.4.0 (VPD-2462)
-      [ChainId.BSC_TESTNET]: '0x71B429fCE1b2449a9EAE9c7Fc8896BE918F0D12D',
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.PrimeLens as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.PrimeLens as Address,
     },
   },
