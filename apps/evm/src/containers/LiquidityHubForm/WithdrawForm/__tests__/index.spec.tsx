@@ -8,6 +8,7 @@ import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
 import {
   useGetBalanceOf,
+  useGetLiquidityHubs,
   useGetPool,
   useGetPoolDelegateApprovalStatus,
   useWithdrawFromLiquidityHub,
@@ -687,6 +688,10 @@ describe('WithdrawForm', () => {
     });
 
     it('shows the Supply balance from on-chain shares rather than the indexed total', async () => {
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: false,
+        data: { liquidityHubs: [resuppliedLiquidityHub] },
+      });
       (useGetBalanceOf as Mock).mockReturnValue({
         data: { balanceMantissa: new BigNumber('2000000000000000000') },
       });

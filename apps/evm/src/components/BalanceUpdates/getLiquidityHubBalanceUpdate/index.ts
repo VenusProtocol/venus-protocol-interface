@@ -29,9 +29,17 @@ export const getLiquidityHubBalanceUpdate = ({
     return undefined;
   }
 
+  // A withdrawal also burns the shares that pay the redeem fee
+  const amountTokens =
+    balanceMutation.action === 'withdraw'
+      ? balanceMutation.amountTokens.dividedBy(
+          new BigNumber(1).minus(liquidityHub.redeemFeePercentage.dividedBy(100)),
+        )
+      : balanceMutation.amountTokens;
+
   return {
     action: balanceMutation.action,
-    amountTokens: balanceMutation.amountTokens,
+    amountTokens,
     balanceTokens: liquidityHub.userSupplyBalanceTokens ?? new BigNumber(0),
     description: balanceMutation.description,
     label: balanceMutation.label ?? t('accountData.balanceUpdate.supplyBalance'),
