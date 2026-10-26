@@ -63,6 +63,22 @@ describe('parseContractError', () => {
     expect(customErrorPhrases[parsed?.errorName ?? '']).toBeDefined();
   });
 
+  it.each([
+    ['InsufficientShares', [2n, 1n]],
+    ['InsufficientAssets', [2n, 1n]],
+    ['LiquidityCheckFailed', [3n]],
+  ] as const)('gives the collateral gateway %s revert a readable message', (errorName, args) => {
+    const rawData = encodeErrorResult({ abi: collateralGatewayAbi, errorName, args });
+
+    const error = new BaseError('execution reverted', {
+      cause: { data: rawData } as unknown as Error,
+    });
+
+    const parsed = parseContractError(error);
+    expect(parsed?.errorName).toBe(errorName);
+    expect(customErrorPhrases[errorName]).toBeDefined();
+  });
+
   it('decodes a Spoke comptroller revert raised through the collateral gateway', () => {
     const rawData = encodeErrorResult({
       abi: spokeComptrollerAbi,

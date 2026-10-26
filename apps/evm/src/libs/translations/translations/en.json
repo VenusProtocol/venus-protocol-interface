@@ -491,6 +491,7 @@
     "hubCapacityExceeded": "This Liquidity Hub is full. You can't supply more until withdrawals are made or its supply cap is increased.",
     "insufficientCollateral": "Not enough collateral for this operation.",
     "insufficientLiquidity": "Not enough liquidity available for this operation.",
+    "liquidityCheckFailed": "Your position could not be checked right now. Please try again later.",
     "notice": {
       "copyDetails": "Copy details",
       "errorLabel": "Error",
@@ -498,6 +499,7 @@
       "hideRawError": "Hide raw error",
       "showRawError": "Show raw error"
     },
+    "slippageExceeded": "Price moved beyond your slippage tolerance. Please try again.",
     "supplyCapExceeded": "Supply cap reached for this market.",
     "supplyNotAllowed": "This market only accepts deposits from approved suppliers.",
     "swapDeadlineExpire": "Swap deadline expired. Please try again.",
