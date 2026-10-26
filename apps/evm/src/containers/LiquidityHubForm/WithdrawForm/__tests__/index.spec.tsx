@@ -713,6 +713,35 @@ describe('WithdrawForm', () => {
       expect(screen.queryAllByText(hasText('3026'))).toHaveLength(0);
     });
 
+    it('bases the current daily earnings on the on-chain balance rather than the indexed one', async () => {
+      const staleLiquidityHub = {
+        ...resuppliedLiquidityHub,
+        userYearlyEarningsCents: new BigNumber(365_000),
+      };
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: false,
+        data: { liquidityHubs: [staleLiquidityHub] },
+      });
+      (useGetBalanceOf as Mock).mockReturnValue({
+        data: { balanceMantissa: new BigNumber('2000000000000000000') },
+      });
+
+      renderTransactionForm({ liquidityHub: staleLiquidityHub });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '4',
+        },
+      });
+
+      // The API's yearly earnings come to $10 a day, the 24 on-chain tokens to $0.03
+      await waitFor(() =>
+        expect(document.querySelector('form')).toHaveTextContent(
+          `${en.accountLiquidityHubDailyEarnings.label}$0.03$0.02`,
+        ),
+      );
+    });
+
     it('lets the user withdraw on-chain shares the indexed total has not caught up with', async () => {
       (useGetBalanceOf as Mock).mockReturnValue({
         data: { balanceMantissa: new BigNumber('2000000000000000000') },

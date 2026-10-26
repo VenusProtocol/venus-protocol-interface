@@ -23,9 +23,11 @@ import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } 
 import {
   areTokensEqual,
   calculateCollateralWithdrawLimits,
+  calculateYearlyInterests,
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatTokensToReadableValue,
+  getCombinedApy,
 } from 'utilities';
 import { calculateAmountDollars } from '../../MarketForm/calculateAmountDollars';
 import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../Form';
@@ -121,13 +123,27 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
         .multipliedBy(liquidityHub.pricePerShare)
     : undefined;
 
+  const userSupplyBalanceCents = userSupplyBalanceTokens?.multipliedBy(
+    liquidityHub.tokenPriceCents,
+  );
+
   // The position is read on chain once part of it sits in Core
   const formLiquidityHub: LiquidityHub = isAutoResupplyEnabled
     ? {
         ...liquidityHub,
         userVhTokenBalanceTokens: walletVhTokenBalanceTokens,
         userSupplyBalanceTokens,
-        userSupplyBalanceCents: userSupplyBalanceTokens?.multipliedBy(liquidityHub.tokenPriceCents),
+        userSupplyBalanceCents,
+        userYearlyEarningsCents:
+          userSupplyBalanceCents &&
+          calculateYearlyInterests({
+            balance: userSupplyBalanceCents,
+            interestPercentage: getCombinedApy({
+              type: 'supply',
+              baseApyPercentage: liquidityHub.supplyApyPercentage,
+              tokenDistributions: liquidityHub.supplyTokenDistributions,
+            }).totalApyPercentage,
+          }),
       }
     : liquidityHub;
 

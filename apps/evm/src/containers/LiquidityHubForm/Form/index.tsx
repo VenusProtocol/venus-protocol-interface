@@ -130,6 +130,7 @@ export const Form: React.FC<FormProps> = ({
           userVhTokenBalanceTokens: liquidityHub.userVhTokenBalanceTokens,
           userSupplyBalanceTokens: liquidityHub.userSupplyBalanceTokens,
           userSupplyBalanceCents: liquidityHub.userSupplyBalanceCents,
+          userYearlyEarningsCents: liquidityHub.userYearlyEarningsCents,
         }
       : hub,
   );
