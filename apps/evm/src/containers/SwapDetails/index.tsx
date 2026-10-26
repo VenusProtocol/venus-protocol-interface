@@ -145,7 +145,14 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
           handleClose={closeSlippageToleranceModal}
           title={t('swapDetails.slippageToleranceModal.title')}
         >
-          <form className="space-y-6" onSubmit={handleSubmit(closeSlippageToleranceModal)}>
+          <form
+            className="space-y-6"
+            // React bubbles submit up the tree, into the form that sends the transaction
+            onSubmit={event => {
+              event.stopPropagation();
+              handleSubmit(closeSlippageToleranceModal)(event);
+            }}
+          >
             <p className="text-grey">{t('swapDetails.slippageToleranceModal.description')}</p>
 
             <div className="flex items-center justify-between gap-x-4">

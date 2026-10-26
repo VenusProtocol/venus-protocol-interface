@@ -1,15 +1,24 @@
-import type { GetPoolsOutput } from '../types';
+import type { VToken } from 'types';
 import type { ApiTokenMetadata } from '../useGetPoolsQuery/getPools/getApiPools';
 
-export const applyCountryCodeToPools = ({
+interface CountryGatedAsset {
+  vToken: VToken;
+  isRestricted: boolean;
+  isGated: boolean;
+}
+
+export const applyCountryCodeToPools = <TPool extends { assets: CountryGatedAsset[] }>({
   countryCode,
   pools,
   tokenMetadataMapping,
 }: {
   countryCode?: string;
-  pools: GetPoolsOutput['pools'];
-  tokenMetadataMapping: Record<string, ApiTokenMetadata>;
-}): GetPoolsOutput['pools'] => {
+  pools: TPool[];
+  tokenMetadataMapping: Record<
+    string,
+    Pick<ApiTokenMetadata, 'restrictedCountries' | 'gatedCountries'>
+  >;
+}): TPool[] => {
   if (!countryCode) {
     return pools;
   }

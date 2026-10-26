@@ -32,6 +32,16 @@ describe('proposalSchema', () => {
     ).resolves.toBeDefined();
   });
 
+  it('rejects exponent notation instead of rounding it', async () => {
+    await expect(proposalSchema.validate(buildFormValues('1e24'))).rejects.toThrow();
+  });
+
+  it('rejects a large integer written with a trailing zero decimal', async () => {
+    await expect(
+      proposalSchema.validate(buildFormValues('12345678901234567890123.0')),
+    ).rejects.toThrow();
+  });
+
   it('still rejects a value that overflows uint256', async () => {
     await expect(
       proposalSchema.validate(

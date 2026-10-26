@@ -1,5 +1,5 @@
 import { cn, theme } from '@venusprotocol/ui';
-import { type GetVTokenApySimulationsOutput, useGetVTokenApySimulations } from 'clients/api';
+import { useGetVTokenApySimulations } from 'clients/api';
 import {
   ChartTooltipContent,
   ChartYAxisTick,
@@ -33,27 +33,26 @@ export interface InterestRateChartProps {
   className?: string;
   asset: Asset;
   isIsolatedPoolMarket: boolean;
-  // Lets a caller without a deployed market supply the curve instead of reading it on-chain
-  simulations?: GetVTokenApySimulationsOutput;
 }
 
 export const InterestRateChart: React.FC<InterestRateChartProps> = ({
   asset,
   className,
   isIsolatedPoolMarket,
-  simulations,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const { isLoading: isFetchedDataLoading, data: fetchedData } = useGetVTokenApySimulations({
+  const {
+    isLoading: isInterestRateChartDataLoading,
+    data: interestRateChartData = {
+      apySimulations: [],
+      currentUtilizationRatePercentage: 0,
+    },
+  } = useGetVTokenApySimulations({
     isIsolatedPoolMarket,
     asset,
   });
-
-  const isInterestRateChartDataLoading = !simulations && isFetchedDataLoading;
-  const interestRateChartData = simulations ??
-    fetchedData ?? { apySimulations: [], currentUtilizationRatePercentage: 0 };
 
   const legends: MarketCardProps['legends'] = [
     {

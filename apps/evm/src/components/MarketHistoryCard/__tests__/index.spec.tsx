@@ -111,4 +111,44 @@ describe('MarketHistoryCard', () => {
     expect(queryByText(en.market.history.emptyState)).toBeNull();
     expect(queryByText(en.market.legends.borrowApy)).toBeInTheDocument();
   });
+
+  describe('average APY', () => {
+    const zeroHistory = {
+      ...baseHistory,
+      data: [
+        { blockTimestamp: 1, borrowApyPercentage: 0 },
+        { blockTimestamp: 2, borrowApyPercentage: 0 },
+      ],
+    };
+
+    it('shows an average APY of 0% given by the API', () => {
+      const { container } = renderComponent(
+        <MarketHistoryCard
+          title="Borrow info"
+          cells={[]}
+          cap={cap}
+          history={zeroHistory}
+          averageApyPercentage={0}
+        />,
+      );
+
+      expect(container.textContent).toContain(`${en.market.stats.averageApy}0%`);
+    });
+
+    it('shows an average APY of 0% computed from a history of zeros', () => {
+      const { container } = renderComponent(
+        <MarketHistoryCard title="Borrow info" cells={[]} cap={cap} history={zeroHistory} />,
+      );
+
+      expect(container.textContent).toContain(`${en.market.stats.averageApy}0%`);
+    });
+
+    it('hides the average APY when there is no history', () => {
+      const { container } = renderComponent(
+        <MarketHistoryCard title="Borrow info" cells={[]} cap={cap} />,
+      );
+
+      expect(container.textContent).not.toContain(en.market.stats.averageApy);
+    });
+  });
 });

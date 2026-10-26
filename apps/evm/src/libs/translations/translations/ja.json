@@ -132,15 +132,20 @@
       "txSource": {
         "liquidityHub": "流動性ハブ",
         "trade": "Trade",
-        "venusCore": "Venus Core"
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
       },
       "txText": {
+        "enterLoanMarket": "{{vTokenSymbol}}市場に<Styled>参加</Styled>",
         "enterMarket": "{{vTokenSymbol}}を担保として<Styled>有効化</Styled>",
+        "exitLoanMarket": "{{vTokenSymbol}}市場から<Styled>退出</Styled>",
         "exitMarket": "{{vTokenSymbol}}を担保として<Styled>無効化</Styled>"
       },
       "txType": {
         "borrow": "借入",
+        "enterLoanMarket": "市場に参加",
         "enterMarket": "担保を有効化",
+        "exitLoanMarket": "市場から退出",
         "exitMarket": "担保を無効化",
         "mint": "供給",
         "mintFromCollateral": "移行",
@@ -648,6 +653,9 @@
     "noTargetsKey": "ファイルにターゲット一覧がありません",
     "noTypeKey": "ファイルに提案のタイプが示されていません",
     "proposalNotFound": "提案が見つかりません",
+    "serviceIssue": "サービスは一時的にご利用いただけません。しばらくしてから再度お試しください。",
+    "serviceIssueDetails": "詳細",
+    "serviceIssueTitle": "サーバーの問題",
     "somethingWentWrong": "問題が発生しました",
     "somethingWentWrongRetrievingTransactions": "取引の取得中に問題が発生しました",
     "somethingWentWrongRetrievingVoterAccounts": "投票者アカウントの取得中に問題が発生しました",
@@ -876,6 +884,9 @@
       "earn": {
         "label": "獲得"
       },
+      "flux": {
+        "label": "Flux"
+      },
       "label": "メニュー",
       "new": "新規",
       "others": {
@@ -919,11 +930,6 @@
           "label": "言語 (ベータ版)"
         }
       },
-      "subMenuItem": {
-        "button": {
-          "label": "開始する"
-        }
-      },
       "vaults": {
         "label": "ボールト"
       },
@@ -947,15 +953,11 @@
         },
         "vaults": {
           "description": "目標報酬に向けた単一戦略の供給ボールト。",
-          "label": "ボールト"
+          "label": "Venus Vault"
         },
         "venusCore": {
           "description": "最適化されたレバレッジを簡単に利用できるクラシックな貸借。",
           "label": "Venus Core"
-        },
-        "venusFlux": {
-          "description": "最適な利回りのための資本効率の高い貸借。",
-          "label": "Venus Flux"
         },
         "venusSpoke": {
           "description": "供給した担保を使って、専用マーケットから資産を借り入れます。",
@@ -1026,7 +1028,8 @@
           "centrifuge": "Centrifuge ファンド",
           "core": "Venus Core",
           "flux": "Venus Flux",
-          "frv": "固定利率ボールト"
+          "frv": "固定利率ボールト",
+          "spoke": "Venus Spoke"
         },
         "ratingColumn": {
           "group": {
@@ -1148,6 +1151,10 @@
           "maxLtv": "最大LTV"
         }
       }
+    },
+    "errorState": {
+      "failedToFetchMessage": "マーケットデータを取得できませんでした",
+      "refetchButtonLabel": "再試行"
     },
     "history": {
       "emptyState": "この期間の履歴はありません",
@@ -1951,6 +1958,7 @@
     "enterValidAmountButtonLabel": "有効な金額を入力してください",
     "error": {
       "higherThanAvailableAmount": "金額が利用可能残高を超えています",
+      "lowerThanMinAmount": "金額が最小値 {{minAmount}} を下回っています",
       "supplyDisabled": "この担保の供給は現在停止中です"
     },
     "loanTabTitle": "ローン",
@@ -2061,8 +2069,7 @@
         "liquidity": "流動性",
         "loanAsset": "借入資産",
         "totalBorrow": "総借入額"
-      },
-      "paused": "停止中"
+      }
     }
   },
   "statsPage": {

@@ -1,8 +1,11 @@
 import BigNumber from 'bignumber.js';
 
+import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import { HEALTH_FACTOR_SAFE_MAX_THRESHOLD } from 'constants/healthFactor';
 import type { SpokeAsset, SpokePool } from 'types';
-import { clampToZero } from 'utilities';
+import { clampToZero, convertMantissaToTokens } from 'utilities';
+
+const PENDING_RESERVES_BLOCK_COUNT = 1000;
 
 export interface GetBorrowLimitsInput {
   spokePool: SpokePool;
@@ -26,25 +29,40 @@ export const getBorrowLimits = ({
     userLiquidationThresholdCents,
   } = spokePool;
 
+  const borrowedTokens = asset.borrowBalanceTokens.plus(
+    convertMantissaToTokens({
+      value: new BigNumber(asset.badDebtMantissa.toString()),
+      token: asset.vToken.underlyingToken,
+    }),
+  );
+
   if (
     !userBorrowLimitCents ||
     !userBorrowBalanceCents ||
     !userLiquidationThresholdCents ||
     userBorrowBalanceProtectedCents?.isGreaterThanOrEqualTo(userBorrowLimitProtectedCents ?? 0) ||
-    asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
+    borrowedTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
   ) {
     return { limitTokens: new BigNumber(0), safeLimitTokens: new BigNumber(0) };
   }
 
-  const assetLiquidityTokens = asset.liquidityCents.dividedBy(asset.tokenPriceCents);
+  // Accrued reserves get swept from cash before the borrow
+  const pendingReservesTokens = asset.borrowBalanceTokens
+    .multipliedBy(asset.borrowRatePerBlockMantissa)
+    .div(COMPOUND_MANTISSA)
+    .multipliedBy(asset.reserveFactor)
+    .multipliedBy(PENDING_RESERVES_BLOCK_COUNT);
 
-  // Protected prices on both sides, matching the comptroller and the Core borrow form
+  const assetLiquidityTokens = asset.cashTokens
+    .minus(asset.reserveTokens)
+    .minus(pendingReservesTokens);
+
+  // Protected prices on both sides, like the comptroller
   const marginWithUserBorrowLimitTokens = (userBorrowLimitProtectedCents ?? userBorrowLimitCents)
     .minus(userBorrowBalanceProtectedCents ?? userBorrowBalanceCents)
     .dividedBy(asset.tokenBorrowPriceCents);
 
-  // The safe limit is based on the liquidation threshold because that is what the health
-  // factor is computed from
+  // Health factor uses liquidation threshold, so the safe limit does
   const marginWithUserSafeBorrowLimitTokens = clampToZero({
     value: userLiquidationThresholdCents
       .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)
@@ -52,7 +70,7 @@ export const getBorrowLimits = ({
       .dividedBy(asset.tokenPriceCents),
   });
 
-  const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.borrowBalanceTokens);
+  const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(borrowedTokens);
 
   const limitTokens = clampToZero({
     value: BigNumber.min(

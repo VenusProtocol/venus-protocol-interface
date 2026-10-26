@@ -1,5 +1,49 @@
 # @venusprotocol/evm
 
+## 5.42.2
+
+### Patch Changes
+
+- ed7205d: work out the daily change percentage against the start-of-day net worth
+
+## 5.42.1
+
+### Patch Changes
+
+- 2ad016a: show a retry on market pages when the pools request fails
+- d09b7b7: use the official Liquidity Hub Migrator from @venusprotocol/liquidity-hub 2.0.0
+- 6296a87: stop the slippage box from submitting the form it is rendered in
+- ac4d25b: keep large integers typed inside proposal arrays from being rounded
+
+## 5.42.0
+
+### Minor Changes
+
+- 948e3af: connect Venus Spoke to the API, wire up its transactions and replace the bStock token icons with vector SVGs, and add the QQQB and SPYB tokens
+
+### Patch Changes
+
+- Updated dependencies [948e3af]
+  - @venusprotocol/chains@0.32.1
+
+## 5.41.0
+
+### Minor Changes
+
+- 2451c50: fix: read the viewer country from freeipapi first
+
+## 5.40.0
+
+### Minor Changes
+
+- 5b0d4b1: chore: build on the patched Node.js 22.23.4
+
+## 5.39.0
+
+### Minor Changes
+
+- 0ce78ec: fix: read the viewer country from ipwho.is
+
 ## 5.38.2
 
 ### Patch Changes

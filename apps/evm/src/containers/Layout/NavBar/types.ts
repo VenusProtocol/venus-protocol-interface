@@ -1,11 +1,14 @@
 import type { IconName } from 'components';
 
+import type { MenuIconName } from './MenuIcon';
+
 export interface MenuItem {
   label: string;
   to?: string;
   href?: string;
   imgSrc?: string;
   iconName?: IconName;
+  menuIconName?: MenuIconName;
   description?: string;
   tagLabel?: string;
   onClick?: () => void;
