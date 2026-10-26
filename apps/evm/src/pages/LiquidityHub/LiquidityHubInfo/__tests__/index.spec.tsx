@@ -47,6 +47,18 @@ describe('LiquidityHubInfo', () => {
     ).toBeInTheDocument();
   });
 
+  it('discloses that each supply puts the vhTokens in Venus Core as collateral', () => {
+    renderLiquidityHubInfo();
+
+    expect(
+      screen.getByText(
+        `automatically supplies your ${liquidityHub.vhToken.symbol} to Venus Core as collateral`,
+        { exact: false },
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByText('does not grant borrowing power', { exact: false })).toBeNull();
+  });
+
   it('renders a placeholder when the API returns no operator address', () => {
     renderLiquidityHubInfo({ ...liquidityHub, operatorAddress: undefined });
 

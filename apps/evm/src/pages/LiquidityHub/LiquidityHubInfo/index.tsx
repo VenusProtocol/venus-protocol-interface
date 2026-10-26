@@ -93,6 +93,7 @@ export const LiquidityHubInfo: React.FC<LiquidityHubInfoProps> = ({ liquidityHub
       children: (
         <Trans
           i18nKey="liquidityHub.info.stats.riskDisclosures.value"
+          values={{ vhTokenSymbol: liquidityHub.vhToken.symbol }}
           components={{
             Span: <span className="text-b1r" />,
             Ul: <ul className="list-disc ml-5" />,
