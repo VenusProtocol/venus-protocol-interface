@@ -488,6 +488,7 @@
   "contractErrors": {
     "actionPaused": "This action is currently paused on this market.",
     "borrowCapExceeded": "Borrow cap reached for this market.",
+    "hubCapacityExceeded": "This Liquidity Hub is full. You can't supply more until withdrawals are made or its supply cap is increased.",
     "insufficientCollateral": "Not enough collateral for this operation.",
     "insufficientLiquidity": "Not enough liquidity available for this operation.",
     "notice": {
