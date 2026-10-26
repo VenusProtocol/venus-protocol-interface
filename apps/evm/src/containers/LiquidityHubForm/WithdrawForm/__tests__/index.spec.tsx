@@ -686,6 +686,42 @@ describe('WithdrawForm', () => {
       expect(withdrawFromLiquidityHub).not.toHaveBeenCalled();
     });
 
+    it('shows the Supply balance from on-chain shares rather than the indexed total', async () => {
+      (useGetBalanceOf as Mock).mockReturnValue({
+        data: { balanceMantissa: new BigNumber('2000000000000000000') },
+      });
+
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '4',
+        },
+      });
+
+      // (2 wallet + 10 Core vhTokens) x 2 = 24, while the API reports 30
+      const hasText = (text: string) => (_: string, element: Element | null) =>
+        element?.textContent?.trim() === text;
+
+      // Before and after values render side by side
+      await waitFor(() => expect(screen.getAllByText(hasText('2420')).length).toBeGreaterThan(0));
+      expect(screen.queryAllByText(hasText('3026'))).toHaveLength(0);
+    });
+
+    it('lets the user withdraw on-chain shares the indexed total has not caught up with', async () => {
+      (useGetBalanceOf as Mock).mockReturnValue({
+        data: { balanceMantissa: new BigNumber('2000000000000000000') },
+      });
+
+      renderTransactionForm({
+        liquidityHub: { ...resuppliedLiquidityHub, userSupplyBalanceTokens: new BigNumber(10) },
+      });
+
+      submitAmount('20');
+
+      await waitFor(() => expect(withdrawPositionFromLiquidityHub).toHaveBeenCalledTimes(1));
+    });
+
     it('simulates the Core part of the withdrawal in vhTokens', async () => {
       renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
 

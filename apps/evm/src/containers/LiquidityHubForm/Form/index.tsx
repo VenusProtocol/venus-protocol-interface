@@ -122,7 +122,17 @@ export const Form: React.FC<FormProps> = ({
     accountAddress,
   });
 
-  const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
+  // The form's balances can be fresher than the indexed ones
+  const liquidityHubs = (getLiquidityHubsData?.liquidityHubs ?? []).map(hub =>
+    areAddressesEqual(hub.vhToken.address, liquidityHub.vhToken.address)
+      ? {
+          ...hub,
+          userVhTokenBalanceTokens: liquidityHub.userVhTokenBalanceTokens,
+          userSupplyBalanceTokens: liquidityHub.userSupplyBalanceTokens,
+          userSupplyBalanceCents: liquidityHub.userSupplyBalanceCents,
+        }
+      : hub,
+  );
 
   const { liquidityHubs: hubSimulatedLiquidityHubs } = useSimulateLiquidityHubMutations({
     liquidityHubs,

@@ -111,6 +111,26 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
   const walletRedeemableTokens = walletSupplyBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN);
 
+  const userSupplyBalanceTokens = corePool
+    ? walletVhTokenBalanceTokens
+        .plus(
+          corePool.assets.find(asset =>
+            areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken),
+          )?.userSupplyBalanceTokens ?? 0,
+        )
+        .multipliedBy(liquidityHub.pricePerShare)
+    : undefined;
+
+  // The position is read on chain once part of it sits in Core
+  const formLiquidityHub: LiquidityHub = isAutoResupplyEnabled
+    ? {
+        ...liquidityHub,
+        userVhTokenBalanceTokens: walletVhTokenBalanceTokens,
+        userSupplyBalanceTokens,
+        userSupplyBalanceCents: userSupplyBalanceTokens?.multipliedBy(liquidityHub.tokenPriceCents),
+      }
+    : liquidityHub;
+
   const walletLimitTokens = BigNumber.min(
     userWithdrawCapTokens ?? walletRedeemableTokens,
     userMaxRedeemTokens ?? walletRedeemableTokens,
@@ -371,7 +391,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   return (
     <Form
       isSubmitting={isSubmitting}
-      liquidityHub={liquidityHub}
+      liquidityHub={formLiquidityHub}
       onSubmit={handleSubmit}
       onSubmitSuccess={onSubmitSuccess}
       balanceMutations={balanceMutations}
