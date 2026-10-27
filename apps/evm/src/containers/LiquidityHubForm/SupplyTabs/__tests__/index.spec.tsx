@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
@@ -246,6 +246,23 @@ describe('SupplyTabs', () => {
       });
     },
   );
+
+  it('shows no minimum amount error when the collateral amount is 0', async () => {
+    renderSupplyTabs();
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.supplyTab.collateralTabTitle,
+      }),
+    );
+    fireEvent.change(document.querySelector('input[name="amountTokens"]') as HTMLInputElement, {
+      target: { value: '0' },
+    });
+
+    await waitFor(() =>
+      expect(screen.queryByText(/You can not migrate less than/)).not.toBeInTheDocument(),
+    );
+  });
 
   describe('auto-resupply', () => {
     const collateralGatewayContractAddress = '0xfakeCollateralGatewayContractAddress';

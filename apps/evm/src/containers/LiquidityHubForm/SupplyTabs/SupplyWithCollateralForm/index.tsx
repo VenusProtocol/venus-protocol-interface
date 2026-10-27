@@ -155,7 +155,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   }).dividedBy(corePoolAsset.exchangeRateVTokens);
 
   const handleValidateForm: UseFormValidationInput['validate'] = () => {
-    if (fromAmountTokens?.isLessThan(minFromAmountTokens)) {
+    if (fromAmountTokens?.isGreaterThan(0) && fromAmountTokens.isLessThan(minFromAmountTokens)) {
       return {
         code: 'SMALLER_THAN_MINIMUM_AMOUNT',
         message: t('liquidityHubForm.error.smallerThanMinimumAmount', {
