@@ -824,6 +824,61 @@ describe('WithdrawForm', () => {
       expect(document.querySelector('form')).not.toHaveTextContent('< 0.000001');
     });
 
+    it('previews an empty position after a SAFE MAX on a 24-decimal Hub', async () => {
+      // Values read from the testnet TUSD Hub
+      const vhToken = { ...liquidityHub.vhToken, decimals: 24 };
+      const tusdLiquidityHub = {
+        ...resuppliedLiquidityHub,
+        vhToken,
+        pricePerShare: new BigNumber('1.000000045753466242'),
+        userVhTokenBalanceTokens: new BigNumber(0),
+      };
+      const tusdVhAsset: Asset = {
+        ...corePoolVhAsset,
+        vToken: {
+          ...corePoolVhAsset.vToken,
+          underlyingToken: { ...corePoolVhAsset.vToken.underlyingToken, decimals: 24 },
+        },
+        userSupplyBalanceTokens: new BigNumber('99.999995424825617629274711'),
+      };
+
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [tusdVhAsset],
+            userBorrowBalanceCents: new BigNumber(0),
+          },
+        },
+        isLoading: false,
+      });
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: false,
+        data: { liquidityHubs: [tusdLiquidityHub] },
+      });
+      (useGetBalanceOf as Mock).mockReturnValue({ data: { balanceMantissa: new BigNumber(0) } });
+
+      renderTransactionForm({ liquidityHub: tusdLiquidityHub });
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      );
+
+      await waitFor(() => expect(getAmountInput().value).not.toBe(''));
+      expect(document.querySelector('form')).not.toHaveTextContent('< 0.000001');
+
+      const lastCallInput = mockUseSimulatePoolMutations.mock.calls.at(-1)?.[0] as
+        | { balanceMutations: BalanceMutation[] }
+        | undefined;
+      const coreMutation = lastCallInput?.balanceMutations.find(
+        (balanceMutation): balanceMutation is AssetBalanceMutation =>
+          balanceMutation.type === 'asset',
+      );
+
+      // The whole Core position leaves, so no dust is left to weight Prime with
+      expect(coreMutation?.amountTokens.toFixed()).toBe('99.999995424825617629274711');
+    });
+
     it('lets the user withdraw on-chain shares the indexed total has not caught up with', async () => {
       (useGetBalanceOf as Mock).mockReturnValue({
         data: { balanceMantissa: new BigNumber('2000000000000000000') },

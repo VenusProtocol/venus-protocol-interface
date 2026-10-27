@@ -213,12 +213,17 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       positionBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN),
     );
 
-  const coreWithdrawalVhTokens = corePoolVhAsset
-    ? BigNumber.max(amountVhTokens.minus(walletVhTokenBalanceTokens), 0).dp(
-        liquidityHub.vhToken.decimals,
-        BigNumber.ROUND_UP,
-      )
-    : new BigNumber(0);
+  let coreWithdrawalVhTokens = new BigNumber(0);
+
+  if (corePoolVhAsset && isAutoResupplyEnabled && isWithdrawingFullPosition) {
+    // Clears the Core position the share conversion would leave dust in
+    coreWithdrawalVhTokens = corePoolVhAsset.userSupplyBalanceTokens;
+  } else if (corePoolVhAsset) {
+    coreWithdrawalVhTokens = BigNumber.max(amountVhTokens.minus(walletVhTokenBalanceTokens), 0).dp(
+      liquidityHub.vhToken.decimals,
+      BigNumber.ROUND_UP,
+    );
+  }
 
   const isWithdrawingFromCore = coreWithdrawalVhTokens.isGreaterThan(0);
 
