@@ -20,6 +20,7 @@
 .lite-panel {
   flex: 1 1 auto;
   max-height: calc(var(--spacing) * 122);
+  min-height: min(calc(var(--spacing) * 122), 100%);
   border: 1px solid var(--color-border-glass);
   border-radius: calc(var(--spacing) * 2);
   background: var(--color-surface-glass);
@@ -109,6 +110,15 @@
 
   .lite-panel .lite-table :is(th, td) {
     padding-inline: calc(var(--spacing) * 6);
+  }
+
+  /* The spinner row has a single cell, so it spans the whole grid instead of one column. */
+  .lite-panel .lite-table tbody tr:has(> td[colspan]) {
+    height: auto;
+  }
+
+  .lite-panel .lite-table tbody td[colspan] {
+    grid-column: 1 / -1;
   }
 
   .lite-panel .lite-table tbody tr,

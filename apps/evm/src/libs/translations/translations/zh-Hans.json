@@ -777,80 +777,6 @@
     "0": "0%",
     "100": "100%"
   },
-  "landing": {
-    "benefits": {
-      "text1": "直接在链上访问不可篡改的货币市场。",
-      "text2": "所有 Venus Protocol 资产均符合 BEP-20 和 ERC-20 标准。",
-      "text3": "构建于兼容 EVM 的链上，实现快速、安全、低成本交易。",
-      "title1": "去中心化",
-      "title2": "BEP-20/ERC-20",
-      "title3": "全链"
-    },
-    "governance": {
-      "backgroundGradientAlt": "背景插图",
-      "buttonLabel": "治理论坛",
-      "description": "Venus 是由社区驱动的去中心化协议，为加密货币市场提供一流功能。",
-      "proposalCountLegend": "Venus 改进提案已执行并持续增加",
-      "title": "由社区治理的<br />货币市场"
-    },
-    "hero": {
-      "1Year": "1年",
-      "30Day": "30天",
-      "6Month": "6个月",
-      "assets": "资产",
-      "borrow": "借款",
-      "earned": "已赚取",
-      "earnedAmount": "已赚取 {{amount}}",
-      "earnNow": "立即赚取",
-      "from": "来自 {{percentage}}",
-      "highestApy": "最高 APY",
-      "monthNo": "第 {{number}} 个月",
-      "startNow": "立即开始",
-      "subtitle": "适用于任何 DeFi 收益策略的简单而强大的借贷。",
-      "supply": "存款",
-      "supplyTips": "基于 10,000 美元的初始存款，收益/利息按区块复利计算。<Link>了解更多</Link>",
-      "title": "通用<br /><hl>货币市场</hl>",
-      "totalApy": "总 APY",
-      "upToPercentage": "最高 {{percentage}}",
-      "venusTvl": "Venus TVL",
-      "yearlyEarnings": "年收益",
-      "yearlyInterests": "年利息"
-    },
-    "markets": {
-      "button": {
-        "label": "查看更多"
-      },
-      "title": "Venus 顶级市场"
-    },
-    "protection": {
-      "bugBountyAlt": "漏洞赏金插图",
-      "challengeText": "在我们的代码中寻找并报告漏洞即可获得奖励资格。了解更多请阅读我们的漏洞赏金计划。",
-      "challengeTitle": "挑战我们的代码并获得奖励",
-      "protectionAlt": "保护插图",
-      "protectionText": "安全审计、7x24 监控以及强健的风险基金可在异常市场事件中保障协议安全。",
-      "protectionTitle": "安全保障优先"
-    },
-    "safety": {
-      "audit_one": "审计",
-      "audit_other": "审计",
-      "otherAuditors": "+14 次审计，来自 <br />Fairyproof、Hacken 和 HashEx",
-      "scoreAlt": "评分插图",
-      "securityScore": "安全评分",
-      "text": "放心交易，Venus 将您的资产安全置于首位",
-      "title": "安全第一",
-      "venusScored": "Venus 在 Certik 的评估中于 BNB Chain 安全性排名 <Link>第 3</Link>（2021 年 6 月）"
-    },
-    "venusPrime": {
-      "illustrationAlt": "Venus Prime 插图",
-      "imageAlt": "Venus Prime 插图",
-      "learnMore": "了解更多",
-      "text": "Venus Protocol 的高阶用户可铸造 Venus Prime 代币，在 Venus core 池的部分市场享受更优费率。",
-      "title": "<hl>Venus Prime</hl> <br />提升您的回报"
-    },
-    "wallets": {
-      "title": "深受众多用户信赖"
-    }
-  },
   "layout": {
     "chainSelect": {
       "label": "选择链"
@@ -872,6 +798,11 @@
       "suppliers": "存款人",
       "supply": "存款",
       "utilizationRate": "利用率"
+    },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "切换到 {{mode}}"
     },
     "menu": {
       "beta": "beta",
@@ -942,12 +873,7 @@
       "description": "该链已下线。请偿还您的借款并提取已存入的资金。",
       "title": "已下线"
     },
-    "testEnvWarning": "这是测试环境。除测试外请勿进行任何交互。<Link>前往 Venus Protocol 官方网站</Link>",
-    "interfaceMode": {
-      "lite": "Lite",
-      "pro": "Pro",
-      "switchTo": "切换到 {{mode}}"
-    }
+    "testEnvWarning": "这是测试环境。除测试外请勿进行任何交互。<Link>前往 Venus Protocol 官方网站</Link>"
   },
   "layouts": {
     "menu": {
@@ -1121,6 +1047,62 @@
       "search": {
         "placeholder": "搜索资产"
       }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "比较 {{symbol}} 的各个市场",
+    "breadcrumb": {
+      "backToAssets": "返回{{mode}}资产列表",
+      "backToMarkets": "返回 {{symbol}} 市场列表"
+    },
+    "columns": {
+      "apy": "APY",
+      "asset": "资产",
+      "collateral": "可抵押",
+      "liquidity": "流动性",
+      "loan": "借款资产",
+      "market": "市场",
+      "totalBorrow": "总借款",
+      "totalSupply": "总存款"
+    },
+    "description": "简单而强大的存借服务，适配任意 DeFi 收益策略。",
+    "filters": {
+      "allCategories": "全部类别",
+      "allLoanAssets": "全部借款资产",
+      "category": "类别",
+      "categoryCount_other": "{{count}} 个类别",
+      "loanAssetCount_other": "{{count}} 个借款资产",
+      "loanAssets": "借款资产",
+      "reset": "重置",
+      "searchAsset": "搜索资产",
+      "searchAssetAriaLabel": "搜索资产"
+    },
+    "markets": {
+      "corePool": "核心池",
+      "liquidityHub": "流动性中心"
+    },
+    "modes": {
+      "borrow": "借款",
+      "earn": "赚取",
+      "label": "市场模式"
+    },
+    "placeholders": {
+      "noAssets": "未找到资产，换个代号试试。",
+      "noBorrowableAssets": "没有可借款的资产。",
+      "noMarkets": "没有符合当前筛选条件的市场。",
+      "unavailable": "市场数据暂不可用，请刷新后重试。"
+    },
+    "planets": {
+      "earnNow": "立即赚取",
+      "label": "查看赚取 APY",
+      "market": "市场",
+      "openAriaLabel": "查看 {{symbol}} 的存款 APY",
+      "supplyApy": "存款 APY"
+    },
+    "title": "通用货币市场",
+    "totals": {
+      "availableLiquidity": "可用流动性",
+      "totalSupply": "总供应量"
     }
   },
   "markdownEditor": {
@@ -2962,63 +2944,5 @@
   },
   "yieldsGroups": {
     "protocol": "协议"
-  },
-  "lite": {
-    "title": "通用货币市场",
-    "description": "简单而强大的存借服务，适配任意 DeFi 收益策略。",
-    "totals": {
-      "totalSupply": "总供应量",
-      "availableLiquidity": "可用流动性"
-    },
-    "modes": {
-      "label": "市场模式",
-      "earn": "赚取",
-      "borrow": "借款"
-    },
-    "filters": {
-      "searchAsset": "搜索资产",
-      "searchAssetAriaLabel": "搜索资产",
-      "searchMarket": "搜索市场",
-      "searchMarketAriaLabel": "搜索市场",
-      "allCategories": "全部类别",
-      "category": "类别",
-      "reset": "重置",
-      "categoryCount": "{{count}} 个类别",
-      "allLoanAssets": "全部借款资产",
-      "loanAssets": "借款资产",
-      "loanAssetCount": "{{count}} 个借款资产"
-    },
-    "columns": {
-      "asset": "资产",
-      "apy": "APY",
-      "liquidity": "流动性",
-      "totalSupply": "总存款",
-      "totalBorrow": "总借款",
-      "loan": "借款资产",
-      "market": "市场",
-      "collateral": "可抵押"
-    },
-    "markets": {
-      "corePool": "核心池",
-      "liquidityHub": "流动性中心"
-    },
-    "placeholders": {
-      "unavailable": "市场数据暂不可用，请刷新后重试。",
-      "noAssets": "未找到资产，换个代号试试。",
-      "noBorrowableAssets": "没有可借款的资产。",
-      "noMarkets": "没有符合当前筛选条件的市场。"
-    },
-    "breadcrumb": {
-      "backToAssets": "返回{{mode}}资产列表",
-      "backToMarkets": "返回 {{symbol}} 市场列表"
-    },
-    "assetAriaLabel": "比较 {{symbol}} 的各个市场",
-    "planets": {
-      "label": "查看赚取 APY",
-      "openAriaLabel": "查看 {{symbol}} 的存款 APY",
-      "market": "市场",
-      "supplyApy": "存款 APY",
-      "earnNow": "立即赚取"
-    }
   }
 }

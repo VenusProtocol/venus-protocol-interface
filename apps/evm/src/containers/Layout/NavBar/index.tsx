@@ -68,14 +68,14 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
     <nav className="venus-navigation relative z-50 isolate">
       <div
         className={cn(
-          'group/navbar bg-background-active h-20 pr-5 flex items-center justify-between',
+          'group/navbar bg-background-active h-20 pr-2 flex items-center justify-between sm:pr-5',
           className,
         )}
         {...containerProps}
       >
-        <div className="flex items-center xl:gap-x-1">
+        <div className="flex items-center gap-x-0">
           <Link
-            className="flex h-full flex-none items-center justify-center px-5 py-6"
+            className="flex h-full flex-none items-center justify-center py-6 pl-2 pr-0 sm:pl-5"
             to={routes.landing.path}
             onClick={closeMobileMenu}
           >
@@ -103,7 +103,10 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           )}
         </div>
 
-        <div className="flex items-center gap-x-3 h-9 sm:h-12" data-testid={TEST_IDS.navBarActions}>
+        <div
+          className="flex items-center gap-x-2 h-9 sm:h-12 sm:gap-x-3"
+          data-testid={TEST_IDS.navBarActions}
+        >
           {/* Sits to the left of the reward claim button, and only from the breakpoint the desktop
               menu appears at: below that, the dashboard is reachable from the mobile menu */}
           {!isLite && (

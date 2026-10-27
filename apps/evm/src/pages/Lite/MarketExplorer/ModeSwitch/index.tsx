@@ -8,10 +8,13 @@ export interface ModeSwitchProps {
   onChange: (mode: MarketMode) => void;
 }
 
-const MODES: MarketMode[] = ['earn', 'borrow'];
-
 export const ModeSwitch: React.FC<ModeSwitchProps> = ({ mode, onChange }) => {
   const { t } = useTranslation();
+
+  const modes: { id: MarketMode; label: string }[] = [
+    { id: 'earn', label: t('lite.modes.earn') },
+    { id: 'borrow', label: t('lite.modes.borrow') },
+  ];
 
   return (
     <div
@@ -19,20 +22,20 @@ export const ModeSwitch: React.FC<ModeSwitchProps> = ({ mode, onChange }) => {
       aria-label={t('lite.modes.label')}
       className="flex h-9 shrink-0 gap-0 rounded-lg border border-border-raised bg-dark-blue p-1 shadow-raised"
     >
-      {MODES.map(item => (
+      {modes.map(item => (
         <button
-          key={item}
+          key={item.id}
           type="button"
-          aria-pressed={mode === item}
-          onClick={() => onChange(item)}
+          aria-pressed={mode === item.id}
+          onClick={() => onChange(item.id)}
           className={cn(
             'w-20 cursor-pointer rounded-md border border-transparent text-b1r transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue',
-            mode === item
+            mode === item.id
               ? 'bg-action border-border-action font-semibold text-white shadow-action-selected'
               : 'text-light-grey',
           )}
         >
-          {t(`lite.modes.${item}`)}
+          {item.label}
         </button>
       ))}
     </div>

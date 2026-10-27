@@ -56,7 +56,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
     setSelectedBorrowMarket(undefined);
   };
 
-  const modeLabel = t(`lite.modes.${mode}`);
+  const modeLabel = mode === 'earn' ? t('lite.modes.earn') : t('lite.modes.borrow');
   const selectedMarket = mode === 'earn' ? selectedEarnMarket : selectedBorrowMarket;
   const selectedAsset = mode === 'earn' ? selectedEarnAsset : selectedBorrowAsset;
 
