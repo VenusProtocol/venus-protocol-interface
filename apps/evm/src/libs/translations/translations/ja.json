@@ -488,6 +488,7 @@
   "contractErrors": {
     "actionPaused": "このマーケットでは現在この操作が一時停止されています。",
     "borrowCapExceeded": "このマーケットの借入上限に達しました。",
+    "hubCapacityExceeded": "この流動性ハブは上限に達しています。引き出しが行われるか供給上限が引き上げられるまで、これ以上供給できません。",
     "insufficientCollateral": "この操作に必要な担保が不足しています。",
     "insufficientLiquidity": "この操作に必要な流動性が不足しています。",
     "notice": {
@@ -497,6 +498,7 @@
       "hideRawError": "元のエラーを非表示",
       "showRawError": "元のエラーを表示"
     },
+    "slippageExceeded": "価格がスリッページ許容度を超えて変動しました。もう一度お試しください。",
     "supplyCapExceeded": "このマーケットの供給上限に達しました。",
     "supplyNotAllowed": "このマーケットは許可された供給者からの預け入れのみ受け付けます。",
     "swapDeadlineExpire": "スワップの有効期限が切れました。もう一度お試しください。",

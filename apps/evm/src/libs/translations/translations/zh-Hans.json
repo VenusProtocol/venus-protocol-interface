@@ -488,6 +488,7 @@
   "contractErrors": {
     "actionPaused": "该市场暂时禁用此操作。",
     "borrowCapExceeded": "该市场已达到借款上限。",
+    "hubCapacityExceeded": "该流动性中心已满。在有用户提取或存款上限提高之前，您无法继续供应。",
     "insufficientCollateral": "抵押品不足以完成此操作。",
     "insufficientLiquidity": "可用流动性不足以完成此操作。",
     "notice": {
@@ -497,6 +498,7 @@
       "hideRawError": "隐藏原始错误",
       "showRawError": "显示原始错误"
     },
+    "slippageExceeded": "价格变动超出了您的滑点容忍度，请重试。",
     "supplyCapExceeded": "该市场已达到存款上限。",
     "supplyNotAllowed": "该市场只接受白名单地址存入。",
     "swapDeadlineExpire": "兑换已超时，请重试。",

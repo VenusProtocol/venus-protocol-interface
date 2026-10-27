@@ -488,6 +488,7 @@
   "contractErrors": {
     "actionPaused": "Bu işlem şu anda bu pazarda duraklatıldı.",
     "borrowCapExceeded": "Bu pazar için borçlanma üst sınırına ulaşıldı.",
+    "hubCapacityExceeded": "Bu Likidite Merkezi dolu. Çekimler yapılana veya arz üst sınırı artırılana kadar daha fazla arz sağlayamazsınız.",
     "insufficientCollateral": "Bu işlem için yeterli teminat yok.",
     "insufficientLiquidity": "Bu işlem için yeterli likidite mevcut değil.",
     "notice": {
@@ -497,6 +498,7 @@
       "hideRawError": "Ham hatayı gizle",
       "showRawError": "Ham hatayı göster"
     },
+    "slippageExceeded": "Fiyat, kayma toleransınızın ötesinde değişti. Lütfen tekrar deneyin.",
     "supplyCapExceeded": "Bu pazar için arz üst sınırına ulaşıldı.",
     "supplyNotAllowed": "Bu pazar yalnızca onaylı sağlayıcılardan yatırma kabul eder.",
     "swapDeadlineExpire": "Takas süresi doldu. Lütfen tekrar deneyin.",

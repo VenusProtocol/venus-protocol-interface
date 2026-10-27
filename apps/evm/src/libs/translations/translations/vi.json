@@ -488,6 +488,7 @@
   "contractErrors": {
     "actionPaused": "Thao tác này hiện đang bị tạm dừng trên thị trường này.",
     "borrowCapExceeded": "Đã đạt giới hạn vay cho thị trường này.",
+    "hubCapacityExceeded": "Liquidity Hub này đã đầy. Bạn không thể cung cấp thêm cho đến khi có người rút hoặc giới hạn cung cấp được nâng lên.",
     "insufficientCollateral": "Không đủ tài sản thế chấp cho thao tác này.",
     "insufficientLiquidity": "Không đủ thanh khoản cho thao tác này.",
     "notice": {
@@ -497,6 +498,7 @@
       "hideRawError": "Ẩn lỗi thô",
       "showRawError": "Hiện lỗi thô"
     },
+    "slippageExceeded": "Giá đã biến động vượt quá độ trượt giá bạn cho phép. Vui lòng thử lại.",
     "supplyCapExceeded": "Đã đạt giới hạn cung cấp cho thị trường này.",
     "supplyNotAllowed": "Thị trường này chỉ nhận tiền gửi từ các địa chỉ được phê duyệt.",
     "swapDeadlineExpire": "Phiên hoán đổi đã hết hạn. Vui lòng thử lại.",
