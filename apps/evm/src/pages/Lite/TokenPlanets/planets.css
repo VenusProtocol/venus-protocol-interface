@@ -251,14 +251,16 @@
   font-size: var(--text-sm);
 }
 
-.lite-planet:nth-child(even) .lite-planet-detail {
-  left: auto;
-  right: 0;
-}
+@media (min-width: 768px) {
+  .lite-planet:nth-child(even) .lite-planet-detail {
+    left: auto;
+    right: 0;
+  }
 
-.lite-planet:nth-child(n + 3) .lite-planet-detail {
-  top: auto;
-  bottom: 100%;
+  .lite-planet:nth-child(n + 3) .lite-planet-detail {
+    top: auto;
+    bottom: 100%;
+  }
 }
 
 .lite-planet-detail__title {

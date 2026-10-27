@@ -1,43 +1,11 @@
 import BigNumber from 'bignumber.js';
 import type { Asset, SpokePool, Token } from 'types';
-import getCombinedApy from 'utilities/getCombinedApy';
-import { isAssetPaused } from 'utilities/isAssetPaused';
-import type { LiteBorrowAsset, LiteBorrowMarket, LiteBorrowSource } from '../types';
-
-const getBorrowApyPercentage = (asset: Asset) =>
-  getCombinedApy({
-    type: 'borrow',
-    baseApyPercentage: asset.borrowApyPercentage,
-    tokenDistributions: asset.borrowTokenDistributions,
-  }).totalApyPercentage;
+import { getTokenKey } from '../getTokenKey';
+import type { LiteBorrowAsset, LiteBorrowMarket } from '../types';
+import { isBorrowableAsset } from './isBorrowableAsset';
+import { toBorrowMarket } from './toBorrowMarket';
 
 const TOTAL_FIELDS = ['borrowTokens', 'borrowCents', 'liquidityTokens', 'liquidityCents'] as const;
-
-const isBorrowableAsset = (asset: Asset) =>
-  asset.isBorrowable &&
-  !asset.disabledTokenActions.includes('borrow') &&
-  !isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
-
-const toBorrowMarket = ({
-  id,
-  source,
-  asset,
-  collateralTokens,
-}: {
-  id: string;
-  source: LiteBorrowSource;
-  asset: Asset;
-  collateralTokens: Token[];
-}): LiteBorrowMarket => ({
-  id,
-  source,
-  collateralTokens,
-  apyPercentage: getBorrowApyPercentage(asset),
-  borrowTokens: asset.borrowBalanceTokens,
-  borrowCents: asset.borrowBalanceCents,
-  liquidityTokens: asset.cashTokens,
-  liquidityCents: asset.liquidityCents,
-});
 
 export const aggregateBorrowAssets = ({
   assets,
@@ -49,7 +17,7 @@ export const aggregateBorrowAssets = ({
   const assetsByToken = new Map<string, LiteBorrowAsset>();
 
   const addMarket = ({ token, market }: { token: Token; market: LiteBorrowMarket }) => {
-    const key = `${token.chainId}:${token.address.toLowerCase()}`;
+    const key = getTokenKey(token);
     const borrowAsset = assetsByToken.get(key) ?? {
       key,
       token,

@@ -1,43 +1,11 @@
 import BigNumber from 'bignumber.js';
 import type { Asset, LiquidityHub, Token } from 'types';
-import getCombinedApy from 'utilities/getCombinedApy';
+import { getSupplyApyPercentage } from '../getSupplyApyPercentage';
+import { getTokenKey } from '../getTokenKey';
 import type { LiteEarnAsset, LiteEarnMarket } from '../types';
-
-const getSupplyApyPercentage = (source: Asset | LiquidityHub) =>
-  getCombinedApy({
-    type: 'supply',
-    baseApyPercentage: source.supplyApyPercentage,
-    tokenDistributions: source.supplyTokenDistributions,
-  }).totalApyPercentage;
+import { getCoreOverlap } from './getCoreOverlap';
 
 const TOTAL_FIELDS = ['supplyTokens', 'supplyCents', 'liquidityTokens', 'liquidityCents'] as const;
-
-const getTokenKey = (token: Token) => `${token.chainId}:${token.address.toLowerCase()}`;
-
-const getHighestApyPercentage = (asset: LiteEarnAsset) =>
-  BigNumber.maximum(...asset.markets.map(market => market.apyPercentage));
-
-// Hub deposits routed into core markets are counted once.
-const getCoreOverlap = (hub: LiquidityHub, coreAssets: Asset[]) =>
-  hub.yieldGroups
-    .flatMap(yieldGroup => yieldGroup.sources)
-    .filter(source =>
-      coreAssets.some(asset => asset.vToken.address.toLowerCase() === source.address.toLowerCase()),
-    )
-    .reduce(
-      (acc, source) => ({
-        supplyTokens: acc.supplyTokens.plus(source.allocationTokens),
-        supplyCents: acc.supplyCents.plus(source.allocationCents),
-        liquidityTokens: acc.liquidityTokens.plus(source.liquidityTokens),
-        liquidityCents: acc.liquidityCents.plus(source.liquidityCents),
-      }),
-      {
-        supplyTokens: new BigNumber(0),
-        supplyCents: new BigNumber(0),
-        liquidityTokens: new BigNumber(0),
-        liquidityCents: new BigNumber(0),
-      },
-    );
 
 export const aggregateEarnAssets = ({
   assets,
@@ -94,8 +62,8 @@ export const aggregateEarnAssets = ({
     }),
   );
 
-  liquidityHubs.forEach(hub => {
-    const token = hub.vhToken.underlyingToken;
+  liquidityHubs.forEach(liquidityHub => {
+    const token = liquidityHub.vhToken.underlyingToken;
     const coreAssets = assets.filter(
       asset =>
         asset.vToken.underlyingToken.chainId === token.chainId &&
@@ -105,22 +73,26 @@ export const aggregateEarnAssets = ({
     addMarket({
       token,
       market: {
-        id: hub.vhToken.address,
-        source: { type: 'hub', hub },
-        apyPercentage: getSupplyApyPercentage(hub),
-        supplyTokens: hub.supplyBalanceTokens,
-        supplyCents: hub.supplyBalanceCents,
-        liquidityTokens: hub.liquidityTokens,
-        liquidityCents: hub.liquidityCents,
+        id: liquidityHub.vhToken.address,
+        source: { type: 'hub', hub: liquidityHub },
+        apyPercentage: getSupplyApyPercentage(liquidityHub),
+        supplyTokens: liquidityHub.supplyBalanceTokens,
+        supplyCents: liquidityHub.supplyBalanceCents,
+        liquidityTokens: liquidityHub.liquidityTokens,
+        liquidityCents: liquidityHub.liquidityCents,
       },
-      overlap: getCoreOverlap(hub, coreAssets),
+      overlap: getCoreOverlap({ liquidityHub, coreAssets }),
     });
   });
 
-  return [...assetsByToken.values()].sort(
-    (a, b) =>
-      getHighestApyPercentage(b).comparedTo(getHighestApyPercentage(a)) ||
+  return [...assetsByToken.values()].sort((a, b) => {
+    const highestA = BigNumber.maximum(...a.markets.map(market => market.apyPercentage));
+    const highestB = BigNumber.maximum(...b.markets.map(market => market.apyPercentage));
+
+    return (
+      highestB.comparedTo(highestA) ||
       b.supplyCents.comparedTo(a.supplyCents) ||
-      a.key.localeCompare(b.key),
-  );
+      a.key.localeCompare(b.key)
+    );
+  });
 };

@@ -1,16 +1,13 @@
 import { cn } from '@venusprotocol/ui';
-import BigNumber from 'bignumber.js';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import type { LiteEarnAsset } from '../types';
+import { sumCents } from './sumCents';
 
 export interface ProtocolTotalsProps {
   earnAssets: LiteEarnAsset[];
   isReady: boolean;
 }
-
-const sumCents = (earnAssets: LiteEarnAsset[], field: 'supplyCents' | 'liquidityCents') =>
-  earnAssets.reduce((total, earnAsset) => total.plus(earnAsset[field]), new BigNumber(0));
 
 export const ProtocolTotals: React.FC<ProtocolTotalsProps> = ({ earnAssets, isReady }) => {
   const { t } = useTranslation();
@@ -19,13 +16,13 @@ export const ProtocolTotals: React.FC<ProtocolTotalsProps> = ({ earnAssets, isRe
     {
       key: 'supply' as const,
       label: t('lite.totals.totalSupply'),
-      valueCents: sumCents(earnAssets, 'supplyCents'),
+      valueCents: sumCents({ earnAssets, field: 'supplyCents' }),
       dotClassName: 'bg-green',
     },
     {
       key: 'liquidity' as const,
       label: t('lite.totals.availableLiquidity'),
-      valueCents: sumCents(earnAssets, 'liquidityCents'),
+      valueCents: sumCents({ earnAssets, field: 'liquidityCents' }),
       dotClassName: 'bg-yellow',
     },
   ];
@@ -35,7 +32,7 @@ export const ProtocolTotals: React.FC<ProtocolTotalsProps> = ({ earnAssets, isRe
       {totals.map(total => (
         <div
           key={total.key}
-          className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-lg border border-border-raised bg-cards/78 px-3 py-1 shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]"
+          className="flex min-h-9 flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-lg border border-border-raised bg-cards/78 px-3 py-1 shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]"
         >
           <p className="flex items-center gap-2 text-b1r text-light-grey">
             <span aria-hidden="true" className={cn('size-1.5 rounded-full', total.dotClassName)} />

@@ -51,7 +51,7 @@ export const Filters: React.FC<FiltersProps> = ({
         resetLabel={t('lite.filters.reset')}
         renderCount={renderOptionCount}
         className="w-full shrink-0 sm:w-45"
-        buttonClassName="h-9 px-3 font-normal"
+        buttonClassName="h-9 px-3 py-1"
       />
     </div>
   );

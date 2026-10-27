@@ -1,7 +1,7 @@
 import type { MultiSelectOption } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
-import type { LiteBorrowAsset, LiteBorrowMarket, LiteEarnAsset, LiteEarnMarket } from '../types';
+import type { LiteEarnAsset } from '../types';
 import { useBorrowAssets } from '../useBorrowAssets';
 import type { useEarnAssets } from '../useEarnAssets';
 import { useMarketName } from '../useMarketName';
@@ -20,8 +20,10 @@ export interface MarketExplorerProps {
   categories: ReturnType<typeof useEarnAssets>['categories'];
   isEarnLoading: boolean;
   isEarnReady: boolean;
-  selectedEarnAsset?: LiteEarnAsset;
-  onSelectEarnAsset: (earnAsset: LiteEarnAsset | undefined) => void;
+  mode: MarketMode;
+  onModeChange: (mode: MarketMode) => void;
+  selectedEarnAssetKey?: string;
+  onSelectEarnAssetKey: (key: string | undefined) => void;
 }
 
 export const MarketExplorer: React.FC<MarketExplorerProps> = ({
@@ -29,31 +31,48 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   categories,
   isEarnLoading,
   isEarnReady,
-  selectedEarnAsset,
-  onSelectEarnAsset,
+  mode,
+  onModeChange,
+  selectedEarnAssetKey,
+  onSelectEarnAssetKey,
 }) => {
   const { t } = useTranslation();
   const getMarketName = useMarketName();
-  const [mode, setMode] = useState<MarketMode>('earn');
   const [searchValue, setSearchValue] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedEarnMarket, setSelectedEarnMarket] = useState<LiteEarnMarket>();
-  const [selectedBorrowAsset, setSelectedBorrowAsset] = useState<LiteBorrowAsset>();
-  const [selectedBorrowMarket, setSelectedBorrowMarket] = useState<LiteBorrowMarket>();
   const [selectedLoanTokens, setSelectedLoanTokens] = useState<string[]>([]);
+  // Selections hold ids, so each render resolves them against the latest query results
+  const [selectedEarnMarketId, setSelectedEarnMarketId] = useState<string>();
+  const [selectedBorrowAssetKey, setSelectedBorrowAssetKey] = useState<string>();
+  const [selectedBorrowMarketId, setSelectedBorrowMarketId] = useState<string>();
 
   const { borrowAssets, isLoading: isBorrowLoading, isReady: isBorrowReady } = useBorrowAssets();
 
-  const changeMode = (newMode: MarketMode) => {
-    setMode(newMode);
-    setSearchValue('');
+  const selectedEarnAsset = earnAssets.find(earnAsset => earnAsset.key === selectedEarnAssetKey);
+  const selectedEarnMarket = selectedEarnAsset?.markets.find(
+    market => market.id === selectedEarnMarketId,
+  );
+  const selectedBorrowAsset = borrowAssets.find(
+    borrowAsset => borrowAsset.key === selectedBorrowAssetKey,
+  );
+  const selectedBorrowMarket = selectedBorrowAsset?.markets.find(
+    market => market.id === selectedBorrowMarketId,
+  );
+
+  const clearSelectedMarket = () => {
+    setSelectedEarnMarketId(undefined);
+    setSelectedBorrowMarketId(undefined);
   };
 
   const backToAssets = () => {
-    onSelectEarnAsset(undefined);
-    setSelectedEarnMarket(undefined);
-    setSelectedBorrowAsset(undefined);
-    setSelectedBorrowMarket(undefined);
+    onSelectEarnAssetKey(undefined);
+    setSelectedBorrowAssetKey(undefined);
+    clearSelectedMarket();
+  };
+
+  const changeMode = (newMode: MarketMode) => {
+    onModeChange(newMode);
+    setSearchValue('');
   };
 
   const modeLabel = mode === 'earn' ? t('lite.modes.earn') : t('lite.modes.borrow');
@@ -117,7 +136,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
     return (
       <section
         aria-label={modeLabel}
-        className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden"
+        className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden backdrop-blur-glass"
       >
         <div className="flex shrink-0 items-center justify-between gap-3 p-4">
           <Breadcrumb
@@ -125,23 +144,13 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
             token={selectedAsset.token}
             marketName={getMarketName(selectedMarket)}
             onBackToAssets={backToAssets}
-            onBackToMarkets={() => {
-              setSelectedEarnMarket(undefined);
-              setSelectedBorrowMarket(undefined);
-            }}
+            onBackToMarkets={clearSelectedMarket}
           />
         </div>
 
         <div className="min-h-0 grow overflow-auto px-6 pb-4">
           <div className="mx-auto w-full max-w-140">
-            <MarketForm
-              mode={mode}
-              market={selectedMarket}
-              onClose={() => {
-                setSelectedEarnMarket(undefined);
-                setSelectedBorrowMarket(undefined);
-              }}
-            />
+            <MarketForm mode={mode} market={selectedMarket} onClose={clearSelectedMarket} />
           </div>
         </div>
       </section>
@@ -163,14 +172,14 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   return (
     <section
       aria-label={modeLabel}
-      className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden"
+      className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden backdrop-blur-glass"
     >
       {mode === 'earn' && !selectedEarnAsset && (
         <EarnAssetTable
           earnAssets={visibleEarnAssets}
           isFetching={isEarnLoading}
           isReady={isEarnReady}
-          onSelect={onSelectEarnAsset}
+          onSelect={earnAsset => onSelectEarnAssetKey(earnAsset.key)}
           header={header}
         />
       )}
@@ -178,7 +187,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {mode === 'earn' && selectedEarnAsset && (
         <EarnMarketTable
           earnAsset={selectedEarnAsset}
-          onSelect={setSelectedEarnMarket}
+          onSelect={market => setSelectedEarnMarketId(market.id)}
           header={header}
         />
       )}
@@ -188,7 +197,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           borrowAssets={visibleBorrowAssets}
           isFetching={isBorrowLoading}
           isReady={isBorrowReady}
-          onSelect={setSelectedBorrowAsset}
+          onSelect={borrowAsset => setSelectedBorrowAssetKey(borrowAsset.key)}
           header={header}
         />
       )}
@@ -196,7 +205,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {mode === 'borrow' && selectedBorrowAsset && (
         <BorrowMarketTable
           borrowAsset={selectedBorrowAsset}
-          onSelect={setSelectedBorrowMarket}
+          onSelect={market => setSelectedBorrowMarketId(market.id)}
           header={header}
         />
       )}

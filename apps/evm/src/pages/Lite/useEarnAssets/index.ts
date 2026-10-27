@@ -1,5 +1,6 @@
 import { useGetLiquidityHubs, useGetPool } from 'clients/api';
 import { useChain } from 'hooks/useChain';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 import type { MarketCategory } from 'types';
 import { aggregateEarnAssets } from '../aggregateEarnAssets';
@@ -8,6 +9,7 @@ import { isVisibleEarnAsset } from '../isVisibleEarnAsset';
 export const useEarnAssets = () => {
   const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useChain();
+  const isLiquidityHubEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
 
   const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
@@ -37,7 +39,8 @@ export const useEarnAssets = () => {
   return {
     earnAssets,
     categories: [...categoriesByTag.values()].sort((a, b) => a.order - b.order),
-    isLoading: isGetPoolLoading || isGetLiquidityHubsLoading,
-    isReady: !!getPoolData?.pool && !!getLiquidityHubsData,
+    // Hubs only exist on some chains, so elsewhere the core market alone makes the list ready
+    isLoading: isGetPoolLoading || (isLiquidityHubEnabled && isGetLiquidityHubsLoading),
+    isReady: !!getPoolData?.pool && (!isLiquidityHubEnabled || !!getLiquidityHubsData),
   };
 };

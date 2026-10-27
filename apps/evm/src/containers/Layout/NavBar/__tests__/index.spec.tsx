@@ -21,6 +21,7 @@ import type { ChainId } from 'types';
 
 import { useStore } from 'containers/Layout/store';
 import TEST_IDS from 'containers/Layout/testIds';
+import { useStore as useInterfaceModeStore } from 'hooks/useInterfaceMode/store';
 import { NavBar } from '..';
 
 const defaultChainId = walletConfig.chains[0]?.id as ChainId;
@@ -139,6 +140,8 @@ describe('NavBar', () => {
       isScrollToTopVisible: false,
       openModal: undefined,
     });
+    // These assertions cover the Pro navigation; Lite has a test of its own
+    useInterfaceModeStore.setState({ mode: 'pro' });
     document.body.className = '';
 
     const pageContainer = document.createElement('div');
@@ -147,6 +150,7 @@ describe('NavBar', () => {
   });
 
   afterEach(() => {
+    useInterfaceModeStore.setState({ mode: 'lite' });
     document.getElementById(PAGE_CONTAINER_ID)?.remove();
     document.body.className = '';
     useStore.setState({
@@ -246,5 +250,17 @@ describe('NavBar', () => {
 
     expect(useStore.getState().openModal).toBe('mobileMenu');
     expect(mobileMenu).toHaveClass('fixed');
+  });
+
+  it('hides the Pro navigation in Lite mode and offers the switch', () => {
+    useInterfaceModeStore.setState({ mode: 'lite' });
+    renderNavBar();
+
+    // The mobile drawer keeps its markup and is hidden with CSS, so only the desktop
+    // navigation and the right hand group are checked here
+    expect(screen.queryByTestId(TEST_IDS.navBarMenu)).not.toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.navBarActions).textContent).not.toContain('Dashboard');
+    expect(screen.getByText('Lite')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Switch to Pro' })).toBeInTheDocument();
   });
 });

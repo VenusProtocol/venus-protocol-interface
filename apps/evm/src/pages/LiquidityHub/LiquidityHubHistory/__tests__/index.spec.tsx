@@ -45,11 +45,17 @@ describe('LiquidityHubHistory', () => {
 
     expect(thirtyDayButtons).toHaveLength(2);
     expect(threeMonthButtons).toHaveLength(2);
-    thirtyDayButtons.forEach(button => expect(button).toHaveClass('bg-blue'));
+    thirtyDayButtons.forEach(button =>
+      expect(button).toHaveAttribute('data-venus-button-active', 'true'),
+    );
 
     fireEvent.click(threeMonthButtons[1]);
 
-    thirtyDayButtons.forEach(button => expect(button).not.toHaveClass('bg-blue'));
-    threeMonthButtons.forEach(button => expect(button).toHaveClass('bg-blue'));
+    thirtyDayButtons.forEach(button =>
+      expect(button).not.toHaveAttribute('data-venus-button-active'),
+    );
+    threeMonthButtons.forEach(button =>
+      expect(button).toHaveAttribute('data-venus-button-active', 'true'),
+    );
   });
 });

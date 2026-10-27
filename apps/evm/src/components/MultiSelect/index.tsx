@@ -49,7 +49,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       menuPosition="right"
       // Clip the options to the menu's rounded corners, so the hover highlight of the last
       // option does not bleed past the border
-      menuClassName="bg-surface-menu border-border-raised shadow-menu backdrop-blur-raised backdrop-saturate-[1.2] overflow-hidden"
+      menuClassName="venus-multiselect-menu bg-surface-menu border-border-raised shadow-menu backdrop-blur-raised backdrop-saturate-[1.2] overflow-hidden"
       optionsDom={() => (
         <div className="min-w-full">
           <div className="flex h-12 items-center justify-between gap-3 px-4 py-3">
@@ -88,7 +88,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           onClick={handleToggleDropdown}
           contentClassName="text-b1s w-full justify-center"
           className={cn(
-            'border-dark-blue-hover hover:border-light-grey active:bg-dark-blue relative h-12 w-full rounded-lg bg-none bg-transparent px-4 shadow-none backdrop-blur-none hover:bg-transparent',
+            'border-dark-blue-hover hover:border-light-grey active:bg-dark-blue relative h-12 w-full rounded-lg bg-none bg-transparent px-4 shadow-none backdrop-blur-none backdrop-saturate-100 hover:bg-transparent',
             isDropdownOpen && 'bg-dark-blue-active border-blue',
             value.length > 0 && 'border-blue',
             buttonClassName,

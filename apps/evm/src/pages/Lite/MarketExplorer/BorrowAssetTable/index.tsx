@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js';
 import { Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
+import { getLowestBorrowApyPercentage } from '../../getLowestBorrowApyPercentage';
 import type { LiteBorrowAsset } from '../../types';
 import { useMarketColumns } from '../useMarketColumns';
 
@@ -11,9 +11,6 @@ export interface BorrowAssetTableProps {
   onSelect: (borrowAsset: LiteBorrowAsset) => void;
   header: React.ReactNode;
 }
-
-const getLowestApyPercentage = (borrowAsset: LiteBorrowAsset) =>
-  BigNumber.minimum(...borrowAsset.markets.map(market => market.apyPercentage));
 
 export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
   borrowAssets,
@@ -51,10 +48,12 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
     },
     buildApyColumn<LiteBorrowAsset>({
       renderCell: borrowAsset => (
-        <span className="tabular-nums">{getLowestApyPercentage(borrowAsset).toFixed(2)}%</span>
+        <span className="tabular-nums">
+          {getLowestBorrowApyPercentage(borrowAsset).toFixed(2)}%
+        </span>
       ),
       sortRows: (rowA, rowB, direction) =>
-        (getLowestApyPercentage(rowA).comparedTo(getLowestApyPercentage(rowB)) ?? 0) *
+        (getLowestBorrowApyPercentage(rowA).comparedTo(getLowestBorrowApyPercentage(rowB)) ?? 0) *
         (direction === 'asc' ? 1 : -1),
     }),
     buildAmountColumn<LiteBorrowAsset>({

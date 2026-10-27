@@ -96,7 +96,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
 
   return (
     <Table
-      className="lite-table"
+      className="lite-table lite-table--wide"
       data={borrowAsset.markets}
       columns={columns}
       rowKeyExtractor={market => market.id}

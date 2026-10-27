@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import { MarketApy } from '../../MarketApy';
+import { getHighestApyMarket } from '../../getHighestApyMarket';
 import type { LiteEarnAsset } from '../../types';
 import { useMarketColumns } from '../useMarketColumns';
 
@@ -12,14 +13,6 @@ export interface EarnAssetTableProps {
   onSelect: (earnAsset: LiteEarnAsset) => void;
   header: React.ReactNode;
 }
-
-const getHighestApyMarket = (earnAsset: LiteEarnAsset) =>
-  earnAsset.markets.reduce((best, market) =>
-    market.apyPercentage.gt(best.apyPercentage) ? market : best,
-  );
-
-const getHighestApyPercentage = (earnAsset: LiteEarnAsset) =>
-  BigNumber.maximum(...earnAsset.markets.map(market => market.apyPercentage));
 
 export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
   earnAssets,
@@ -56,8 +49,9 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
     buildApyColumn<LiteEarnAsset>({
       renderCell: earnAsset => <MarketApy source={getHighestApyMarket(earnAsset).source} />,
       sortRows: (rowA, rowB, direction) =>
-        (getHighestApyPercentage(rowA).comparedTo(getHighestApyPercentage(rowB)) ?? 0) *
-        (direction === 'desc' ? -1 : 1),
+        (BigNumber.maximum(...rowA.markets.map(market => market.apyPercentage)).comparedTo(
+          BigNumber.maximum(...rowB.markets.map(market => market.apyPercentage)),
+        ) ?? 0) * (direction === 'desc' ? -1 : 1),
     }),
     buildAmountColumn<LiteEarnAsset>({
       key: 'liquidity',

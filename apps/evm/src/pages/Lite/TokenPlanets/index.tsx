@@ -5,7 +5,8 @@ import { createPortal } from 'react-dom';
 import type { LiteEarnAsset } from '../types';
 import { PlanetDetail } from './PlanetDetail';
 import { PlanetSurface } from './PlanetSurface';
-import { PLANET_SYMBOL_ORDER, RINGED_PLANET_SYMBOLS } from './palettes';
+import { getPlanetRank } from './getPlanetRank';
+import { RINGED_PLANET_SYMBOLS } from './palettes';
 import './planets.css';
 import wbethPlanetMarkSrc from './wbethPlanetMark.svg';
 
@@ -17,18 +18,13 @@ export interface TokenPlanetsProps {
   onSelect: (earnAsset: LiteEarnAsset) => void;
 }
 
-const getRank = (symbol: string) => {
-  const index = PLANET_SYMBOL_ORDER.indexOf(symbol);
-  return index === -1 ? PLANET_SYMBOL_ORDER.length : index;
-};
-
 export const TokenPlanets: React.FC<TokenPlanetsProps> = ({ earnAssets, onSelect }) => {
   const { t } = useTranslation();
   const isCompact = useIsMdDown();
   const [openKey, setOpenKey] = useState<string>();
 
   const planets = [...earnAssets]
-    .sort((a, b) => getRank(a.token.symbol) - getRank(b.token.symbol))
+    .sort((a, b) => getPlanetRank(a.token.symbol) - getPlanetRank(b.token.symbol))
     .slice(0, isCompact ? COMPACT_PLANET_COUNT : PLANET_COUNT);
 
   if (planets.length === 0) {
