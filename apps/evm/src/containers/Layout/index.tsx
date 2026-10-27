@@ -4,11 +4,13 @@ import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { SectionErrorBoundary, Wrapper, cn } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
+import { usePointerLight } from 'hooks/usePointerLight';
 import { useRef } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { NavBar } from './NavBar';
 import ScrollToTop from './ScrollToTop';
+import { Starfield } from './Starfield';
 import { TestEnvWarning } from './TestEnvWarning';
 import { useStore } from './store';
 
@@ -19,6 +21,8 @@ export const Layout: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
 
   const { pathname } = useLocation();
+
+  usePointerLight();
 
   const isCloseToBottomState = useStore(state => state.isCloseToBottom);
   const setIsCloseToBottom = useStore(state => state.setIsCloseToBottom);
@@ -73,13 +77,15 @@ export const Layout: React.FC = () => {
 
   return (
     <>
-      <div className="h-dvh flex flex-col">
-        <NavBar className="shrink-0" />
+      <div className="h-dvh flex flex-col bg-background-active">
+        <Starfield />
 
-        <TestEnvWarning className="shrink-0" />
+        <NavBar className="relative z-10 shrink-0" />
+
+        <TestEnvWarning className="relative z-10 shrink-0" />
 
         <div
-          className="flex flex-col grow overflow-x-hidden"
+          className="venus-page-container relative z-10 flex flex-col grow overflow-x-hidden"
           id={PAGE_CONTAINER_ID}
           onScroll={handleScroll}
         >

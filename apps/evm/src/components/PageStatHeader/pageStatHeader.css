@@ -1,0 +1,17 @@
+.venus-page-title {
+  background-image: var(--background-image-page-title);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(36px, 3.33vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+@media (forced-colors: active) {
+  .venus-page-title {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}

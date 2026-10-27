@@ -942,7 +942,12 @@
       "description": "Chain này đã ngừng hoạt động. Vui lòng hoàn trả các khoản vay và rút tiền đã gửi của bạn.",
       "title": "Ngừng hoạt động"
     },
-    "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>"
+    "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>",
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "Chuyển sang {{mode}}"
+    }
   },
   "layouts": {
     "menu": {
@@ -2957,5 +2962,63 @@
   },
   "yieldsGroups": {
     "protocol": "Giao thức"
+  },
+  "lite": {
+    "title": "Thị trường tiền tệ toàn cầu",
+    "description": "Cho vay và đi vay đơn giản nhưng mạnh mẽ cho mọi chiến lược lợi nhuận DeFi.",
+    "totals": {
+      "totalSupply": "Tổng cung cấp",
+      "availableLiquidity": "Thanh khoản khả dụng"
+    },
+    "modes": {
+      "label": "Chế độ thị trường",
+      "earn": "Kiếm lợi nhuận",
+      "borrow": "Vay"
+    },
+    "filters": {
+      "searchAsset": "Tìm tài sản",
+      "searchAssetAriaLabel": "Tìm tài sản",
+      "searchMarket": "Tìm thị trường",
+      "searchMarketAriaLabel": "Tìm thị trường",
+      "allCategories": "Tất cả danh mục",
+      "category": "Danh mục",
+      "reset": "Đặt lại",
+      "categoryCount": "{{count}} danh mục",
+      "allLoanAssets": "Tất cả tài sản vay",
+      "loanAssets": "Tài sản vay",
+      "loanAssetCount": "{{count}} tài sản vay"
+    },
+    "columns": {
+      "asset": "Tài sản",
+      "apy": "APY",
+      "liquidity": "Thanh khoản",
+      "totalSupply": "Tổng cung cấp",
+      "totalBorrow": "Tổng vay",
+      "loan": "Khoản vay",
+      "market": "Thị trường",
+      "collateral": "Tài sản thế chấp"
+    },
+    "markets": {
+      "corePool": "Nhóm Core",
+      "liquidityHub": "Trung tâm thanh khoản"
+    },
+    "placeholders": {
+      "unavailable": "Không tải được dữ liệu thị trường. Vui lòng làm mới và thử lại.",
+      "noAssets": "Không tìm thấy tài sản. Hãy thử ký hiệu khác.",
+      "noBorrowableAssets": "Không có tài sản nào có thể vay.",
+      "noMarkets": "Không có thị trường nào khớp với bộ lọc này."
+    },
+    "breadcrumb": {
+      "backToAssets": "Quay lại tài sản {{mode}}",
+      "backToMarkets": "Quay lại thị trường {{symbol}}"
+    },
+    "assetAriaLabel": "So sánh các thị trường {{symbol}}",
+    "planets": {
+      "label": "Khám phá APY kiếm lợi nhuận",
+      "openAriaLabel": "Xem APY cung cấp của {{symbol}}",
+      "market": "Thị trường",
+      "supplyApy": "APY cung cấp",
+      "earnNow": "Kiếm lợi nhuận ngay"
+    }
   }
 }

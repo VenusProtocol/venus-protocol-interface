@@ -942,7 +942,12 @@
       "description": "該鏈已下線。請償還您的借款並提取已存入的資金。",
       "title": "已下線"
     },
-    "testEnvWarning": "這是測試環境。除測試外請勿進行任何交互。<Link>前往 Venus Protocol 官方網站</Link>"
+    "testEnvWarning": "這是測試環境。除測試外請勿進行任何交互。<Link>前往 Venus Protocol 官方網站</Link>",
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "切換至 {{mode}}"
+    }
   },
   "layouts": {
     "menu": {
@@ -2957,5 +2962,63 @@
   },
   "yieldsGroups": {
     "protocol": "協議"
+  },
+  "lite": {
+    "title": "通用貨幣市場",
+    "description": "簡單而強大的供應與借款服務，適配任何 DeFi 收益策略。",
+    "totals": {
+      "totalSupply": "總供應量",
+      "availableLiquidity": "可用流動性"
+    },
+    "modes": {
+      "label": "市場模式",
+      "earn": "賺取",
+      "borrow": "借款"
+    },
+    "filters": {
+      "searchAsset": "搜尋資產",
+      "searchAssetAriaLabel": "搜尋資產",
+      "searchMarket": "搜尋市場",
+      "searchMarketAriaLabel": "搜尋市場",
+      "allCategories": "全部類別",
+      "category": "類別",
+      "reset": "重置",
+      "categoryCount": "{{count}} 個類別",
+      "allLoanAssets": "全部借款資產",
+      "loanAssets": "借款資產",
+      "loanAssetCount": "{{count}} 個借款資產"
+    },
+    "columns": {
+      "asset": "資產",
+      "apy": "APY",
+      "liquidity": "流動性",
+      "totalSupply": "總供應",
+      "totalBorrow": "總借款",
+      "loan": "借款資產",
+      "market": "市場",
+      "collateral": "抵押"
+    },
+    "markets": {
+      "corePool": "核心池",
+      "liquidityHub": "流動性中心"
+    },
+    "placeholders": {
+      "unavailable": "市場資料暫時無法取得，請重新整理後再試。",
+      "noAssets": "找不到資產，請換個代號試試。",
+      "noBorrowableAssets": "沒有可借款的資產。",
+      "noMarkets": "沒有符合目前篩選條件的市場。"
+    },
+    "breadcrumb": {
+      "backToAssets": "返回{{mode}}資產列表",
+      "backToMarkets": "返回 {{symbol}} 市場列表"
+    },
+    "assetAriaLabel": "比較 {{symbol}} 的各個市場",
+    "planets": {
+      "label": "查看賺取 APY",
+      "openAriaLabel": "查看 {{symbol}} 的供應 APY",
+      "market": "市場",
+      "supplyApy": "供應 APY",
+      "earnNow": "立即賺取"
+    }
   }
 }

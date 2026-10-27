@@ -942,7 +942,12 @@
       "description": "このチェーンは終了しました。借入金を返済し、預け入れ資金を引き出してください。",
       "title": "終了"
     },
-    "testEnvWarning": "これはテスト環境です。テスト目的以外では操作しないでください。<Link>Venus Protocol公式サイトへ</Link>"
+    "testEnvWarning": "これはテスト環境です。テスト目的以外では操作しないでください。<Link>Venus Protocol公式サイトへ</Link>",
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "{{mode}} に切り替える"
+    }
   },
   "layouts": {
     "menu": {
@@ -2957,5 +2962,63 @@
   },
   "yieldsGroups": {
     "protocol": "プロトコル"
+  },
+  "lite": {
+    "title": "ユニバーサル・マネーマーケット",
+    "description": "あらゆる DeFi 利回り戦略に対応する、シンプルかつ強力なレンディングとボローイング。",
+    "totals": {
+      "totalSupply": "総供給量",
+      "availableLiquidity": "利用可能な流動性"
+    },
+    "modes": {
+      "label": "マーケットモード",
+      "earn": "獲得",
+      "borrow": "借入"
+    },
+    "filters": {
+      "searchAsset": "資産を検索",
+      "searchAssetAriaLabel": "資産を検索",
+      "searchMarket": "マーケットを検索",
+      "searchMarketAriaLabel": "マーケットを検索",
+      "allCategories": "すべてのカテゴリー",
+      "category": "カテゴリー",
+      "reset": "リセット",
+      "categoryCount": "{{count}} 件のカテゴリー",
+      "allLoanAssets": "すべての借入資産",
+      "loanAssets": "借入資産",
+      "loanAssetCount": "{{count}} 件の借入資産"
+    },
+    "columns": {
+      "asset": "資産",
+      "apy": "APY",
+      "liquidity": "流動性",
+      "totalSupply": "総供給",
+      "totalBorrow": "総借入",
+      "loan": "借入",
+      "market": "マーケット",
+      "collateral": "担保"
+    },
+    "markets": {
+      "corePool": "コアプール",
+      "liquidityHub": "流動性ハブ"
+    },
+    "placeholders": {
+      "unavailable": "マーケットデータを取得できません。ページを再読み込みしてください。",
+      "noAssets": "該当する資産がありません。別のシンボルをお試しください。",
+      "noBorrowableAssets": "借入可能な資産がありません。",
+      "noMarkets": "条件に一致するマーケットがありません。"
+    },
+    "breadcrumb": {
+      "backToAssets": "{{mode}} の資産一覧に戻る",
+      "backToMarkets": "{{symbol}} のマーケット一覧に戻る"
+    },
+    "assetAriaLabel": "{{symbol}} のマーケットを比較",
+    "planets": {
+      "label": "獲得 APY を見る",
+      "openAriaLabel": "{{symbol}} の供給 APY を見る",
+      "market": "マーケット",
+      "supplyApy": "供給 APY",
+      "earnNow": "今すぐ獲得"
+    }
   }
 }

@@ -942,7 +942,12 @@
       "description": "เชนนี้ได้ปิดให้บริการแล้ว โปรดชำระคืนเงินกู้และถอนเงินฝากของคุณ",
       "title": "ปิดให้บริการ"
     },
-    "testEnvWarning": "นี่คือสภาพแวดล้อมทดสอบ ห้ามโต้ตอบเพื่อวัตถุประสงค์อื่นนอกเหนือจากการทดสอบ <Link>ไปยังเว็บไซต์ Venus Protocol อย่างเป็นทางการ</Link>"
+    "testEnvWarning": "นี่คือสภาพแวดล้อมทดสอบ ห้ามโต้ตอบเพื่อวัตถุประสงค์อื่นนอกเหนือจากการทดสอบ <Link>ไปยังเว็บไซต์ Venus Protocol อย่างเป็นทางการ</Link>",
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "สลับไปที่ {{mode}}"
+    }
   },
   "layouts": {
     "menu": {
@@ -2957,5 +2962,63 @@
   },
   "yieldsGroups": {
     "protocol": "โปรโตคอล"
+  },
+  "lite": {
+    "title": "ตลาดเงินสากล",
+    "description": "การฝากและกู้ยืมที่เรียบง่ายแต่ทรงพลัง สำหรับทุกกลยุทธ์ผลตอบแทน DeFi",
+    "totals": {
+      "totalSupply": "ยอดฝากรวม",
+      "availableLiquidity": "สภาพคล่องที่ใช้ได้"
+    },
+    "modes": {
+      "label": "โหมดตลาด",
+      "earn": "รับผลตอบแทน",
+      "borrow": "ยืม"
+    },
+    "filters": {
+      "searchAsset": "ค้นหาสินทรัพย์",
+      "searchAssetAriaLabel": "ค้นหาสินทรัพย์",
+      "searchMarket": "ค้นหาตลาด",
+      "searchMarketAriaLabel": "ค้นหาตลาด",
+      "allCategories": "ทุกหมวดหมู่",
+      "category": "หมวดหมู่",
+      "reset": "รีเซ็ต",
+      "categoryCount": "{{count}} หมวดหมู่",
+      "allLoanAssets": "สินทรัพย์ที่ยืมได้ทั้งหมด",
+      "loanAssets": "สินทรัพย์ที่ยืมได้",
+      "loanAssetCount": "{{count}} สินทรัพย์ที่ยืมได้"
+    },
+    "columns": {
+      "asset": "สินทรัพย์",
+      "apy": "APY",
+      "liquidity": "สภาพคล่อง",
+      "totalSupply": "ยอดฝากรวม",
+      "totalBorrow": "ยอดยืมรวม",
+      "loan": "สินทรัพย์ที่ยืม",
+      "market": "ตลาด",
+      "collateral": "หลักประกัน"
+    },
+    "markets": {
+      "corePool": "พูลหลัก",
+      "liquidityHub": "ศูนย์สภาพคล่อง"
+    },
+    "placeholders": {
+      "unavailable": "ไม่สามารถโหลดข้อมูลตลาดได้ กรุณารีเฟรชแล้วลองใหม่อีกครั้ง",
+      "noAssets": "ไม่พบสินทรัพย์ ลองค้นหาด้วยสัญลักษณ์อื่น",
+      "noBorrowableAssets": "ไม่พบสินทรัพย์ที่ยืมได้",
+      "noMarkets": "ไม่มีตลาดที่ตรงกับตัวกรองเหล่านี้"
+    },
+    "breadcrumb": {
+      "backToAssets": "กลับไปที่สินทรัพย์ {{mode}}",
+      "backToMarkets": "กลับไปที่ตลาดของ {{symbol}}"
+    },
+    "assetAriaLabel": "เปรียบเทียบตลาดของ {{symbol}}",
+    "planets": {
+      "label": "สำรวจ APY สำหรับการรับผลตอบแทน",
+      "openAriaLabel": "ดู APY การฝากของ {{symbol}}",
+      "market": "ตลาด",
+      "supplyApy": "APY การฝาก",
+      "earnNow": "รับผลตอบแทนเลย"
+    }
   }
 }

@@ -14,55 +14,44 @@ export type ButtonVariant =
   | 'text'
   | 'select';
 
+const NEUTRAL_MATERIAL_CLASSES =
+  'bg-none bg-surface-raised border-transparent text-white shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]';
+
+const ACTION_MATERIAL_CLASSES =
+  'bg-action hover:bg-action-hover text-white shadow-action backdrop-blur-raised backdrop-saturate-[1.3]';
+
+const POINTER_LIGHT_CLASSES =
+  'relative isolate before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-pointer-light before:opacity-0 before:transition-opacity before:duration-[260ms] before:ease-out hover:before:opacity-65 focus-visible:before:opacity-65 active:before:opacity-100';
+
+const PRESSED_CLASSES =
+  'active:scale-[0.965_0.94] active:shadow-action-pressed active:duration-100 motion-reduce:active:scale-100';
+
+const DISABLED_CLASSES =
+  'disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:opacity-45 aria-disabled:shadow-none';
+
 const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active: boolean }) => {
-  switch (variant) {
-    case 'secondary':
-      return cn(
-        'bg-dark-blue-disabled text-light-grey',
-        active
-          ? 'border-blue bg-blue text-white'
-          : 'hover:border-blue-hover hover:text-blue active:border-blue active:bg-blue active:text-white',
-      );
-    case 'tertiary':
-      return cn(
-        'border-dark-blue-active bg-dark-blue-active disabled:bg-lightGrey disabled:border-transparent',
-        active
-          ? 'bg-blue border-blue'
-          : 'hover:text-blue hover:border-blue hover:bg-dark-blue-disabled active:bg-blue active:text-white',
-      );
-    case 'quaternary':
-      return cn(
-        'bg-dark-blue-active border-dark-blue-active',
-        active
-          ? 'bg-dark-blue-active border-blue'
-          : 'hover:bg-dark-blue-hover hover:border-dark-blue-hover active:bg-dark-blue-active active:border-blue',
-      );
-    case 'quinary':
-      return cn(
-        'border-cards border-lightGrey bg-cards active:border-blue active:bg-blue disabled:border-background disabled:bg-background h-8 rounded-full px-5 py-1',
-        active ? 'border-blue bg-blue' : 'hover:border-lightGrey hover:bg-lightGrey',
-      );
-    case 'senary':
-      return cn(
-        'border-lightGrey bg-cards hover:border-blue hover:border-blue hover:bg-lightGrey disabled:border-lightGrey disabled:bg-cards h-8 px-2 py-1',
-        active && 'border-blue bg-lightGrey',
-      );
-    case 'text':
-      return cn(
-        'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 disabled:bg-transparent disabled:border-transparent',
-        active && 'text-mediumBlue',
-      );
-    case 'select':
-      return cn('px-4 border-dark-blue-hover hover:bg-dark-blue-active', active && 'border-blue');
-    // primary
-    default:
-      return cn(
-        'border-blue bg-blue text-white',
-        active
-          ? 'bg-blue-active'
-          : 'hover:bg-blue-hover hover:text-inherit active:bg-blue-active active:text-inherit active:border-blue-active',
-      );
+  if (variant === 'text') {
+    return cn(
+      'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 disabled:bg-transparent disabled:border-transparent',
+      active && 'text-mediumBlue',
+    );
   }
+
+  const geometryClasses = cn(
+    variant === 'quinary' && 'h-8 rounded-full px-5 py-1',
+    variant === 'senary' && 'h-8 px-2 py-1',
+    variant === 'select' && 'px-4',
+  );
+
+  if (active) {
+    return cn(geometryClasses, ACTION_MATERIAL_CLASSES, 'border-white');
+  }
+
+  return cn(
+    geometryClasses,
+    variant === 'primary' ? ACTION_MATERIAL_CLASSES : NEUTRAL_MATERIAL_CLASSES,
+    variant !== 'primary' && 'border-transparent',
+  );
 };
 
 export interface ButtonWrapperProps
@@ -93,7 +82,9 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   return (
     <Comp
       className={cn(
-        'text-sm inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-all duration-250 disabled:cursor-default disabled:bg-dark-grey-disabled disabled:border-dark-grey-hover disabled:text-light-grey',
+        'text-sm inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-[background,border-color,box-shadow,color,transform] duration-300 ease-out',
+        variant !== 'text' && cn(POINTER_LIGHT_CLASSES, PRESSED_CLASSES),
+        DISABLED_CLASSES,
         size === 'xs' && 'py-1 px-5',
         size === 'sm' && 'py-2 px-6',
         size === 'md' && 'py-3 px-12',
@@ -101,6 +92,8 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
         getVariantClasses({ variant, active }),
         className,
       )}
+      data-venus-button-variant={variant}
+      data-venus-button-active={active || undefined}
       type={type}
       {...otherProps}
     />
@@ -125,11 +118,12 @@ export const Button = ({
     disabled={loading || disabled}
     type="button"
     variant={variant}
+    aria-busy={loading || undefined}
     className={cn(variant !== 'primary' && variant !== 'secondary' && 'text-sm', className)}
     {...otherProps}
   >
     {loading && (
-      <div className="mr-2">
+      <div className="mr-2" role="status" aria-label="Loading">
         <Spinner variant="small" />
       </div>
     )}

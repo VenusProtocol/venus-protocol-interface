@@ -943,7 +943,12 @@
       "description": "This chain has been sunsetted. Please repay any borrows and withdraw your deposited funds.",
       "title": "Sunset"
     },
-    "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
+    "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>",
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "Switch to {{mode}}"
+    }
   },
   "layouts": {
     "menu": {
@@ -2964,5 +2969,63 @@
   },
   "yieldsGroups": {
     "protocol": "Protocol"
+  },
+  "lite": {
+    "title": "Universal Money Markets",
+    "description": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
+    "totals": {
+      "totalSupply": "Total Supply",
+      "availableLiquidity": "Available Liquidity"
+    },
+    "modes": {
+      "label": "Market mode",
+      "earn": "Earn",
+      "borrow": "Borrow"
+    },
+    "filters": {
+      "searchAsset": "Search asset",
+      "searchAssetAriaLabel": "Search assets",
+      "searchMarket": "Search market",
+      "searchMarketAriaLabel": "Search markets",
+      "allCategories": "All Categories",
+      "category": "Category",
+      "reset": "Reset",
+      "categoryCount": "{{count}} categories",
+      "allLoanAssets": "All loan assets",
+      "loanAssets": "Loan assets",
+      "loanAssetCount": "{{count}} loan assets"
+    },
+    "columns": {
+      "asset": "Asset",
+      "apy": "APY",
+      "liquidity": "Liquidity",
+      "totalSupply": "Total Supply",
+      "totalBorrow": "Total Borrow",
+      "loan": "Loan",
+      "market": "Market",
+      "collateral": "Collateral"
+    },
+    "markets": {
+      "corePool": "Core Pool",
+      "liquidityHub": "Liquidity Hub"
+    },
+    "placeholders": {
+      "unavailable": "Market data is unavailable. Please refresh to try again.",
+      "noAssets": "No assets found. Try another symbol.",
+      "noBorrowableAssets": "No borrowable assets found.",
+      "noMarkets": "No markets match these filters."
+    },
+    "breadcrumb": {
+      "backToAssets": "Back to {{mode}} assets",
+      "backToMarkets": "Back to {{symbol}} markets"
+    },
+    "assetAriaLabel": "Compare {{symbol}} markets",
+    "planets": {
+      "label": "Explore Earn APYs",
+      "openAriaLabel": "View {{symbol}} supply APY",
+      "market": "Market",
+      "supplyApy": "Supply APY",
+      "earnNow": "Earn now"
+    }
   }
 }

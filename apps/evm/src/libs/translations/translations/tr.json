@@ -943,7 +943,12 @@
       "description": "Bu zincir kapatıldı. Lütfen tüm borçlarınızı geri ödeyin ve mevduatınızı çekin.",
       "title": "Kapatıldı"
     },
-    "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>"
+    "testEnvWarning": "Bu bir test ortamıdır. Test dışında herhangi bir amaçla etkileşime girmeyin. <Link>Resmi Venus Protocol web sitesine gidin</Link>",
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "{{mode}} moduna geç"
+    }
   },
   "layouts": {
     "menu": {
@@ -2963,5 +2968,63 @@
   },
   "yieldsGroups": {
     "protocol": "Protokol"
+  },
+  "lite": {
+    "title": "Evrensel Para Piyasaları",
+    "description": "Her DeFi getiri stratejisi için basit ama güçlü borç verme ve borç alma.",
+    "totals": {
+      "totalSupply": "Toplam arz",
+      "availableLiquidity": "Kullanılabilir likidite"
+    },
+    "modes": {
+      "label": "Piyasa modu",
+      "earn": "Kazan",
+      "borrow": "Borç al"
+    },
+    "filters": {
+      "searchAsset": "Varlık ara",
+      "searchAssetAriaLabel": "Varlık ara",
+      "searchMarket": "Piyasa ara",
+      "searchMarketAriaLabel": "Piyasa ara",
+      "allCategories": "Tüm Kategoriler",
+      "category": "Kategori",
+      "reset": "Sıfırla",
+      "categoryCount": "{{count}} kategori",
+      "allLoanAssets": "Tüm borç varlıkları",
+      "loanAssets": "Borç varlıkları",
+      "loanAssetCount": "{{count}} borç varlığı"
+    },
+    "columns": {
+      "asset": "Varlık",
+      "apy": "APY",
+      "liquidity": "Likidite",
+      "totalSupply": "Toplam arz",
+      "totalBorrow": "Toplam borç",
+      "loan": "Borç",
+      "market": "Piyasa",
+      "collateral": "Teminat"
+    },
+    "markets": {
+      "corePool": "Çekirdek Havuz",
+      "liquidityHub": "Likidite Merkezi"
+    },
+    "placeholders": {
+      "unavailable": "Piyasa verileri alınamıyor. Lütfen sayfayı yenileyip tekrar deneyin.",
+      "noAssets": "Varlık bulunamadı. Başka bir sembol deneyin.",
+      "noBorrowableAssets": "Borç alınabilecek varlık bulunamadı.",
+      "noMarkets": "Bu filtrelerle eşleşen piyasa yok."
+    },
+    "breadcrumb": {
+      "backToAssets": "{{mode}} varlıklarına dön",
+      "backToMarkets": "{{symbol}} piyasalarına dön"
+    },
+    "assetAriaLabel": "{{symbol}} piyasalarını karşılaştır",
+    "planets": {
+      "label": "Kazanç APY’lerini keşfet",
+      "openAriaLabel": "{{symbol}} arz APY’sini gör",
+      "market": "Piyasa",
+      "supplyApy": "Arz APY",
+      "earnNow": "Hemen kazan"
+    }
   }
 }
