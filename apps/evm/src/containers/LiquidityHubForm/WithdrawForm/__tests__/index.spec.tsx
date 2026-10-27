@@ -879,6 +879,93 @@ describe('WithdrawForm', () => {
       expect(coreMutation?.amountTokens.toFixed()).toBe('99.999995424825617629274711');
     });
 
+    const accrueCoreInterest = () =>
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [
+              {
+                ...corePoolVhAsset,
+                userSupplyBalanceTokens: new BigNumber('10.0001'),
+                cashTokens: new BigNumber(1000),
+              },
+            ],
+            userBorrowBalanceCents: new BigNumber(0),
+          },
+        },
+        isLoading: false,
+      });
+
+    const clickWithdraw = () =>
+      fireEvent.click(
+        screen.getByRole('button', {
+          name: en.liquidityHubForm.withdrawSubmitButtonLabel,
+        }),
+      );
+
+    it('withdraws the whole position after SAFE MAX even if interest accrued before submitting', async () => {
+      const { rerender } = renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      );
+      await waitFor(() => expect(getAmountInput().value).toBe('30'));
+
+      accrueCoreInterest();
+      rerender(<WithdrawForm liquidityHub={resuppliedLiquidityHub} />);
+      clickWithdraw();
+
+      await waitFor(() =>
+        expect(withdrawPositionFromLiquidityHub).toHaveBeenCalledWith(
+          expect.objectContaining({ withdrawFullPosition: true }),
+        ),
+      );
+    });
+
+    it('keeps a SAFE MAX partial when a loan caps it below the whole position', async () => {
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [{ ...corePoolVhAsset, cashTokens: new BigNumber(1000) }],
+            userBorrowBalanceCents: new BigNumber(1000),
+          },
+        },
+        isLoading: false,
+      });
+
+      renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      );
+      await waitFor(() => expect(getAmountInput().value).not.toBe(''));
+      expect(Number(getAmountInput().value)).toBeLessThan(30);
+
+      clickWithdraw();
+
+      // The loan keeps the Core part in place
+      await waitFor(() => expect(withdrawFromLiquidityHub).toHaveBeenCalledTimes(1));
+      expect(withdrawPositionFromLiquidityHub).not.toHaveBeenCalled();
+    });
+
+    it('keeps a typed amount partial once interest has accrued', async () => {
+      const { rerender } = renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
+
+      fireEvent.change(getAmountInput(), { target: { value: '30' } });
+
+      accrueCoreInterest();
+      rerender(<WithdrawForm liquidityHub={resuppliedLiquidityHub} />);
+      clickWithdraw();
+
+      await waitFor(() =>
+        expect(withdrawPositionFromLiquidityHub).toHaveBeenCalledWith(
+          expect.objectContaining({ withdrawFullPosition: false }),
+        ),
+      );
+    });
+
     it('lets the user withdraw on-chain shares the indexed total has not caught up with', async () => {
       (useGetBalanceOf as Mock).mockReturnValue({
         data: { balanceMantissa: new BigNumber('2000000000000000000') },

@@ -44,6 +44,8 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
+  // Which limit the amount was filled with, re-read against the live balance at submit
+  const [selectedLimit, setSelectedLimit] = useState<'rightMax' | 'available'>();
   const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useChain();
 
@@ -206,10 +208,18 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     ),
   );
 
+  let selectedLimitTokens = new BigNumber(0);
+
+  if (selectedLimit === 'rightMax') {
+    selectedLimitTokens = safeLimitTokens ?? limitTokens;
+  } else if (selectedLimit === 'available') {
+    selectedLimitTokens = limitTokens;
+  }
+
   const isWithdrawingFullPosition =
     !!fromAmountTokens &&
     positionBalanceTokens.isGreaterThan(0) &&
-    fromAmountTokens.isGreaterThanOrEqualTo(
+    BigNumber.max(fromAmountTokens, selectedLimitTokens).isGreaterThanOrEqualTo(
       positionBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN),
     );
 
@@ -327,7 +337,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     // Redeem every wallet share only when the amount covers the live balance
     const withdrawFullSupply =
       walletRedeemableTokens.isGreaterThan(0) &&
-      amountTokens.isGreaterThanOrEqualTo(walletRedeemableTokens) &&
+      (amountTokens.isGreaterThanOrEqualTo(walletRedeemableTokens) || isWithdrawingFullPosition) &&
       (!userMaxRedeemTokens || walletRedeemableTokens.isLessThanOrEqualTo(userMaxRedeemTokens));
 
     const userVhTokenBalanceMantissa = convertTokensToMantissa({
@@ -351,9 +361,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
               .dividedBy(redeemPricePerShare)
               .dp(liquidityHub.vhToken.decimals, BigNumber.ROUND_UP),
           }),
-          withdrawFullPosition: amountTokens.isGreaterThanOrEqualTo(
-            positionBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN),
-          ),
+          withdrawFullPosition: isWithdrawingFullPosition,
         });
       } else {
         await withdrawFromLiquidityHub({
@@ -406,6 +414,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
           amountTokens,
           maxSelected: true,
         });
+        setSelectedLimit('available');
 
         setFormValues(values => ({
           ...values,
@@ -460,7 +469,10 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       }
       availableBalance={availableBalanceDom}
       validateForm={validateForm}
-      onAmountSet={captureAmountSetAnalyticEvent}
+      onAmountSet={input => {
+        setSelectedLimit(input.maxSelected ? 'rightMax' : undefined);
+        captureAmountSetAnalyticEvent(input);
+      }}
     />
   );
 };
