@@ -1,5 +1,6 @@
 import { useGetPool } from 'clients/api';
 import { Spinner, Tabs } from 'components';
+import DisabledActionNotice from 'containers/AssetAccessor/DisabledActionNotice';
 import { useChain } from 'hooks/useChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -81,7 +82,10 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
     {
       id: 'collateral',
       title: t('liquidityHubForm.supplyTab.collateralTabTitle'),
-      content: (
+      // Moving collateral withdraws it from its Core market first
+      content: corePoolAsset.disabledTokenActions.includes('withdraw') ? (
+        <DisabledActionNotice token={corePoolAsset.vToken.underlyingToken} action="withdraw" />
+      ) : (
         <SupplyWithCollateralForm
           liquidityHub={liquidityHub}
           onSubmitSuccess={onSubmitSuccess}

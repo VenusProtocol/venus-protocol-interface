@@ -264,6 +264,35 @@ describe('SupplyTabs', () => {
     );
   });
 
+  it('shows the paused notice instead of the collateral form when the Core market withdraw is paused', () => {
+    mockUseGetPool.mockImplementation(() => ({
+      data: {
+        pool: {
+          ...corePool,
+          assets: corePool.assets.map(asset =>
+            asset.vToken.address === corePoolAsset.vToken.address
+              ? { ...asset, disabledTokenActions: ['withdraw'] }
+              : asset,
+          ),
+        },
+      },
+      isLoading: false,
+    }));
+
+    renderSupplyTabs();
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.supplyTab.collateralTabTitle,
+      }),
+    );
+
+    expect(screen.getByText(en.assetAccessor.disabledActionNotice.withdraw)).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+    ).not.toBeInTheDocument();
+  });
+
   describe('auto-resupply', () => {
     const collateralGatewayContractAddress = '0xfakeCollateralGatewayContractAddress';
     const coreVhAsset = {
