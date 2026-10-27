@@ -342,7 +342,7 @@ export interface LiquidityHub {
   performanceFeePercentage: BigNumber;
   redeemFeePercentage: BigNumber;
   pricePerShare: BigNumber;
-  supplierCount: number;
+  supplierCount?: number;
   isPaused: boolean;
   supplyTokenDistributions: TokenDistribution[];
   yieldGroups: LiquidityHubYieldGroup[];

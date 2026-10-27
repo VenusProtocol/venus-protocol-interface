@@ -184,7 +184,7 @@ export const formatToLiquidityHub = ({
     performanceFeePercentage: new BigNumber(apiLiquidityHub.performanceFeeRatio).multipliedBy(100),
     redeemFeePercentage: new BigNumber(apiLiquidityHub.redeemFeeRatio).multipliedBy(100),
     pricePerShare,
-    supplierCount: apiLiquidityHub.suppliersCount ?? 0,
+    supplierCount: apiLiquidityHub.suppliersCount ?? undefined,
     isPaused: apiLiquidityHub.isPaused,
     yieldGroups,
     supplyTokenDistributions,

@@ -77,6 +77,18 @@ describe('formatToLiquidityHub', () => {
     expect(result?.operatorAddress).toBeUndefined();
   });
 
+  it('leaves the supplier count undefined when the API could not count it', () => {
+    const result = formatToLiquidityHub({
+      apiLiquidityHub: {
+        ...apiLiquidityHub,
+        suppliersCount: null,
+      },
+      tokens: [usdc],
+    });
+
+    expect(result?.supplierCount).toBeUndefined();
+  });
+
   it('formats user-specific supply and withdrawal caps', () => {
     const result = formatToLiquidityHub({
       apiLiquidityHub: {

@@ -3,6 +3,7 @@ import type { Mock } from 'vitest';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { useGetLiquidityHub } from 'clients/api';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { routes } from 'constants/routing';
 import { renderComponent } from 'testUtils/render';
 import { LiquidityHubInfo } from '..';
@@ -39,6 +40,22 @@ describe('LiquidityHubInfo', () => {
     expect(screen.getByText('Suppliers')).toBeInTheDocument();
     expect(screen.getByText('Price')).toBeInTheDocument();
     expect(screen.getByText('Exposures')).toBeInTheDocument();
-    expect(screen.getByText(fakeLiquidityHub.supplierCount)).toBeInTheDocument();
+    expect(screen.getByText(String(fakeLiquidityHub.supplierCount))).toBeInTheDocument();
+  });
+
+  it('shows a placeholder when the API could not count the suppliers', () => {
+    (useGetLiquidityHub as Mock).mockReturnValue({
+      data: {
+        liquidityHub: { ...fakeLiquidityHub, supplierCount: undefined },
+      },
+    });
+
+    renderComponent(<LiquidityHubInfo />, {
+      routePath: routes.liquidityHub.path,
+      routerInitialEntries: [`/liquidity-hubs/${fakeLiquidityHub.vhToken.address}`],
+    });
+
+    expect(screen.getByText(PLACEHOLDER_KEY)).toBeInTheDocument();
+    expect(screen.queryByText('0')).not.toBeInTheDocument();
   });
 });

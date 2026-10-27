@@ -4,6 +4,7 @@ import type { Address } from 'viem';
 import { useGetLiquidityHub } from 'clients/api';
 import { type CellProps, YieldGroups } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
@@ -38,7 +39,7 @@ export const LiquidityHubInfo = () => {
     },
     {
       label: t('layout.header.suppliers'),
-      value: liquidityHub?.supplierCount,
+      value: liquidityHub?.supplierCount ?? PLACEHOLDER_KEY,
     },
     {
       label: t('layout.header.price'),
