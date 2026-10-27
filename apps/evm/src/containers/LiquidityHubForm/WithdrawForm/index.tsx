@@ -200,6 +200,19 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
   const amountVhTokens = (fromAmountTokens ?? new BigNumber(0)).dividedBy(redeemPricePerShare);
 
+  const positionBalanceTokens = walletSupplyBalanceTokens.plus(
+    (corePoolVhAsset?.userSupplyBalanceTokens ?? new BigNumber(0)).multipliedBy(
+      redeemPricePerShare,
+    ),
+  );
+
+  const isWithdrawingFullPosition =
+    !!fromAmountTokens &&
+    positionBalanceTokens.isGreaterThan(0) &&
+    fromAmountTokens.isGreaterThanOrEqualTo(
+      positionBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN),
+    );
+
   const coreWithdrawalVhTokens = corePoolVhAsset
     ? BigNumber.max(amountVhTokens.minus(walletVhTokenBalanceTokens), 0).dp(
         liquidityHub.vhToken.decimals,
@@ -319,12 +332,6 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
 
     const analyticData = getAnalyticData(amountTokens);
 
-    const positionBalanceTokens = walletSupplyBalanceTokens.plus(
-      (corePoolVhAsset?.userSupplyBalanceTokens ?? new BigNumber(0)).multipliedBy(
-        redeemPricePerShare,
-      ),
-    );
-
     try {
       captureAnalyticEvent('withdraw_initiated', analyticData);
 
@@ -366,7 +373,11 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     {
       type: 'liquidityHub',
       vhTokenAddress: liquidityHub.vhToken.address,
-      amountTokens: fromAmountTokens || new BigNumber(0),
+      // A full withdrawal leaves nothing, whatever the input precision drops
+      amountTokens:
+        isAutoResupplyEnabled && isWithdrawingFullPosition
+          ? positionBalanceTokens
+          : fromAmountTokens || new BigNumber(0),
       action: 'withdraw',
     },
   ];

@@ -804,6 +804,26 @@ describe('WithdrawForm', () => {
       );
     });
 
+    it('previews an empty position after withdrawing all of it with SAFE MAX', async () => {
+      const thirdPricedLiquidityHub = {
+        ...resuppliedLiquidityHub,
+        pricePerShare: new BigNumber(1).dividedBy(3),
+      };
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: false,
+        data: { liquidityHubs: [thirdPricedLiquidityHub] },
+      });
+
+      renderTransactionForm({ liquidityHub: thirdPricedLiquidityHub });
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      );
+
+      await waitFor(() => expect(getAmountInput().value).not.toBe(''));
+      expect(document.querySelector('form')).not.toHaveTextContent('< 0.000001');
+    });
+
     it('lets the user withdraw on-chain shares the indexed total has not caught up with', async () => {
       (useGetBalanceOf as Mock).mockReturnValue({
         data: { balanceMantissa: new BigNumber('2000000000000000000') },
