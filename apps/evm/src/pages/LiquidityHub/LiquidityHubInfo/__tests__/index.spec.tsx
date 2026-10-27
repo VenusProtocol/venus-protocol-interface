@@ -4,6 +4,12 @@ import BigNumber from 'bignumber.js';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { en } from 'libs/translations';
+import ja from 'libs/translations/translations/ja.json';
+import th from 'libs/translations/translations/th.json';
+import tr from 'libs/translations/translations/tr.json';
+import vi from 'libs/translations/translations/vi.json';
+import zhHans from 'libs/translations/translations/zh-Hans.json';
+import zhHant from 'libs/translations/translations/zh-Hant.json';
 import { renderComponent } from 'testUtils/render';
 import { ChainId, type LiquidityHub } from 'types';
 import { generateExplorerUrl, truncateAddress } from 'utilities';
@@ -57,6 +63,19 @@ describe('LiquidityHubInfo', () => {
       ),
     ).toBeInTheDocument();
     expect(screen.queryByText('does not grant borrowing power', { exact: false })).toBeNull();
+  });
+
+  it.each([
+    ['ja', ja],
+    ['th', th],
+    ['tr', tr],
+    ['vi', vi],
+    ['zh-Hans', zhHans],
+    ['zh-Hant', zhHant],
+  ])('discloses the Core resupply in %s too', (_, translations) => {
+    expect(translations.liquidityHub.info.stats.riskDisclosures.value).toContain(
+      '{{vhTokenSymbol}}',
+    );
   });
 
   it('renders a placeholder when the API returns no operator address', () => {
