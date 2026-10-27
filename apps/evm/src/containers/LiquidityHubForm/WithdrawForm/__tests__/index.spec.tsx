@@ -742,6 +742,68 @@ describe('WithdrawForm', () => {
       );
     });
 
+    it('weights the current Prime APY by the on-chain wallet shares rather than the indexed ones', async () => {
+      const primeToken = assetData[0].vToken.underlyingToken;
+      const primeVhAsset: Asset = {
+        ...corePoolVhAsset,
+        userSupplyBalanceTokens: new BigNumber(100),
+        supplyTokenDistributions: [
+          { type: 'prime', token: primeToken, apyPercentage: new BigNumber(8), isActive: true },
+        ],
+      };
+      // The API still counts 200 wallet shares, so Prime is weighted by 100 / 300
+      const staleLiquidityHub = {
+        ...liquidityHub,
+        pricePerShare: new BigNumber(1),
+        tokenPriceCents: new BigNumber(100),
+        supplyApyPercentage: new BigNumber(0),
+        liquidityTokens: new BigNumber(1000),
+        withdrawCapTokens: new BigNumber(1000),
+        userVhTokenBalanceTokens: new BigNumber(200),
+        supplyTokenDistributions: [
+          {
+            type: 'prime' as const,
+            token: primeToken,
+            apyPercentage: new BigNumber(8).dividedBy(3),
+            isActive: true,
+          },
+        ],
+      };
+
+      mockUseGetPool.mockReturnValue({
+        data: {
+          pool: {
+            ...poolData[0],
+            assets: [primeVhAsset],
+            userBorrowBalanceCents: new BigNumber(0),
+          },
+        },
+        isLoading: false,
+      });
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: false,
+        data: { liquidityHubs: [staleLiquidityHub] },
+      });
+      (useGetBalanceOf as Mock).mockReturnValue({
+        data: { balanceMantissa: new BigNumber('100000000000000000000') },
+      });
+
+      renderTransactionForm({ liquidityHub: staleLiquidityHub });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '1',
+        },
+      });
+
+      // 200 tokens at 8% x 100 / 200 earn $0.02 a day, before and after a 1 token withdrawal
+      await waitFor(() =>
+        expect(document.querySelector('form')).toHaveTextContent(
+          `${en.accountLiquidityHubDailyEarnings.label}$0.02$0.02`,
+        ),
+      );
+    });
+
     it('lets the user withdraw on-chain shares the indexed total has not caught up with', async () => {
       (useGetBalanceOf as Mock).mockReturnValue({
         data: { balanceMantissa: new BigNumber('2000000000000000000') },

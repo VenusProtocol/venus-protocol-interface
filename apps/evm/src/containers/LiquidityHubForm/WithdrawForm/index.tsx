@@ -21,6 +21,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
 import {
+  appendCorePrimeDistributionsToLiquidityHub,
   areTokensEqual,
   calculateCollateralWithdrawLimits,
   calculateYearlyInterests,
@@ -28,6 +29,7 @@ import {
   convertTokensToMantissa,
   formatTokensToReadableValue,
   getCombinedApy,
+  isPrimeDistribution,
 } from 'utilities';
 import { calculateAmountDollars } from '../../MarketForm/calculateAmountDollars';
 import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../Form';
@@ -127,10 +129,25 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     liquidityHub.tokenPriceCents,
   );
 
+  // Prime follows the on-chain split between the wallet and Core
+  const supplyTokenDistributions = corePool
+    ? appendCorePrimeDistributionsToLiquidityHub({
+        liquidityHub: {
+          ...liquidityHub,
+          userVhTokenBalanceTokens: walletVhTokenBalanceTokens,
+          supplyTokenDistributions: liquidityHub.supplyTokenDistributions.filter(
+            distribution => !isPrimeDistribution(distribution),
+          ),
+        },
+        corePool,
+      }).supplyTokenDistributions
+    : liquidityHub.supplyTokenDistributions;
+
   // The position is read on chain once part of it sits in Core
   const formLiquidityHub: LiquidityHub = isAutoResupplyEnabled
     ? {
         ...liquidityHub,
+        supplyTokenDistributions,
         userVhTokenBalanceTokens: walletVhTokenBalanceTokens,
         userSupplyBalanceTokens,
         userSupplyBalanceCents,
@@ -141,7 +158,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
             interestPercentage: getCombinedApy({
               type: 'supply',
               baseApyPercentage: liquidityHub.supplyApyPercentage,
-              tokenDistributions: liquidityHub.supplyTokenDistributions,
+              tokenDistributions: supplyTokenDistributions,
             }).totalApyPercentage,
           }),
       }
