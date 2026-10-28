@@ -1,7 +1,10 @@
 import { t } from 'libs/translations';
 import type { RestServiceInput } from 'utilities/restService';
 
+import { useStore } from '../store';
 import { displayNotification } from '../utilities';
+
+const SERVICE_ISSUE_NOTIFICATION_ID = 'service-issue';
 
 let lastDisplayedPagePath: string | undefined;
 
@@ -12,14 +15,20 @@ export interface ServiceIssueDetails extends Pick<RestServiceInput, 'method' | '
 
 export const displayServiceIssueNotification = (details?: ServiceIssueDetails) => {
   const [pagePath] = window.location.hash.split('?');
+  const { notifications } = useStore.getState();
+  // A redirect changes the page while the first toast is still up
+  const isAlreadyDisplayed = notifications.some(
+    notification => notification.id === SERVICE_ISSUE_NOTIFICATION_ID,
+  );
 
-  if (pagePath === lastDisplayedPagePath) {
+  if (pagePath === lastDisplayedPagePath || isAlreadyDisplayed) {
     return;
   }
 
   lastDisplayedPagePath = pagePath;
 
   displayNotification({
+    id: SERVICE_ISSUE_NOTIFICATION_ID,
     variant: 'error',
     title: t('errors.serviceIssueTitle'),
     description: details ? (
