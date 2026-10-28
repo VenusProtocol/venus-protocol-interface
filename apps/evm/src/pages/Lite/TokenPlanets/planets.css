@@ -261,6 +261,12 @@
     top: auto;
     bottom: 100%;
   }
+
+  /* Planets near the top keep their details below the orb, clear of the viewport edge. */
+  .lite-planet.lite-planet--5 .lite-planet-detail {
+    top: 100%;
+    bottom: auto;
+  }
 }
 
 .lite-planet-detail__title {
@@ -351,6 +357,11 @@
   }
   .lite-planet--1 .lite-planet-detail {
     left: calc(var(--spacing) * 8);
+  }
+
+  .lite-planet.lite-planet--6 .lite-planet-detail {
+    top: 100%;
+    bottom: auto;
   }
   .lite-planet--2 .lite-planet-detail {
     top: auto;
