@@ -64,6 +64,8 @@
   overflow: hidden;
 }
 
+/* A meteor only animates while it is on screen. The rest of its cycle is idle time,
+   which lets the whole page stop compositing between streaks. */
 .venus-starfield__meteor {
   position: absolute;
   top: 12%;
@@ -74,7 +76,10 @@
   background: linear-gradient(90deg, transparent, #b8d8ff 85%, #fff);
   opacity: 0;
   transform: rotate(135deg);
-  animation: venus-starfield-meteor 9s linear infinite;
+}
+
+.venus-starfield__meteor[data-streaking] {
+  animation: venus-starfield-meteor 1.08s linear;
 }
 
 .venus-starfield__meteor:nth-child(2) {
@@ -82,7 +87,6 @@
   left: 95%;
   width: 70px;
   height: 1px;
-  animation-delay: 3s;
 }
 
 .venus-starfield__meteor:nth-child(3) {
@@ -90,21 +94,16 @@
   left: 28%;
   width: 210px;
   height: 3px;
-  animation-delay: 6s;
 }
 
 @keyframes venus-starfield-meteor {
   0%,
-  3% {
+  25% {
     opacity: 0;
     transform: translate(0, 0) rotate(135deg);
   }
-  5% {
+  42% {
     opacity: 1;
-  }
-  12% {
-    opacity: 0;
-    transform: translate(-260px, 260px) rotate(135deg);
   }
   100% {
     opacity: 0;

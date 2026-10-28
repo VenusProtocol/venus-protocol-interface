@@ -70,8 +70,9 @@ const FRAGMENT_SHADER = `
 
 // A defocused backdrop reads the same at one device pixel per CSS pixel.
 const PIXEL_RATIO = 1;
-// The sky drifts a few pixels a second, so it is drawn well below the display's rate.
-const FRAME_INTERVAL_MS = 1000 / 30;
+// The sky drifts a few pixels a second, so a sixth of the display's rate is already
+// finer than the eye can follow.
+const FRAME_INTERVAL_MS = 1000 / 15;
 // Keeps the time uniform small enough for float precision in the shader.
 const TIME_WRAP_SECONDS = 3600;
 

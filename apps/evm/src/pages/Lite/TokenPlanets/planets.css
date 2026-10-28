@@ -11,7 +11,7 @@
   pointer-events: auto;
   --drift-x: calc(var(--spacing) * 3);
   --drift-y: calc(var(--spacing) * 2);
-  animation: lite-planet-orbit 32s ease-in-out infinite;
+  animation: lite-planet-orbit 32s steps(200, end) infinite;
 }
 
 .lite-planet:nth-child(even) {

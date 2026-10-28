@@ -1,5 +1,6 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useIsMdDown } from 'hooks/responsive';
+import { Meteors } from './Meteors';
 import { StarCanvas } from './StarCanvas';
 import { StillStars } from './StillStars';
 import './starfield.css';
@@ -21,13 +22,7 @@ export const Starfield: React.FC = () => {
         </div>
       )}
 
-      {!prefersReducedMotion && (
-        <div className="venus-starfield__meteors">
-          <span className="venus-starfield__meteor" />
-          <span className="venus-starfield__meteor" />
-          <span className="venus-starfield__meteor" />
-        </div>
-      )}
+      {!prefersReducedMotion && <Meteors />}
     </div>
   );
 };
