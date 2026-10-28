@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
-const CONTROL_SELECTOR =
-  '[data-venus-button-variant]:not([data-venus-button-variant="text"]):not(:disabled):not([aria-disabled="true"])';
+const CONTROL_SELECTOR = '[data-pointer-light]:not(:disabled):not([aria-disabled="true"])';
 
 export const usePointerLight = () => {
   useEffect(() => {

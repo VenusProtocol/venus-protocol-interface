@@ -277,11 +277,6 @@
       var(--accent-hover) 46%,
       var(--accent-deep-hover) 100%
     );
-  --background-image-pointer-light: radial-gradient(
-    circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-    rgb(var(--elevation-tint-rgb) / 22%),
-    transparent 70%
-  );
   --background-image-hero-text: linear-gradient(180deg, #d9edff 0%, #99c8ff 50%, #598eff 100%);
   --background-image-page-title: linear-gradient(
     180deg,

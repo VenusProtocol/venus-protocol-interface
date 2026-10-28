@@ -1,4 +1,4 @@
-import { cn } from '@venusprotocol/ui';
+import { cn, pointerLightClassNames } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 import type { LiteEarnAsset } from '../types';
@@ -32,7 +32,11 @@ export const ProtocolTotals: React.FC<ProtocolTotalsProps> = ({ earnAssets, isRe
       {totals.map(total => (
         <div
           key={total.key}
-          className="flex min-h-9 flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-lg border border-border-raised bg-cards/78 px-3 py-1 shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]"
+          data-pointer-light=""
+          className={cn(
+            'flex min-h-9 flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-lg border border-border-raised bg-cards/78 px-3 py-1 shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]',
+            pointerLightClassNames,
+          )}
         >
           <p className="flex items-center gap-2 text-b1r text-light-grey">
             <span aria-hidden="true" className={cn('size-1.5 rounded-full', total.dotClassName)} />

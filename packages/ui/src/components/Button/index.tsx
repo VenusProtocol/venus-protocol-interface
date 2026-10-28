@@ -1,6 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from '../../utilities/cn';
+import { pointerLightClassNames } from '../../utilities/pointerLight';
 
 import { Spinner } from '@venusprotocol/ui';
 
@@ -19,9 +20,6 @@ const NEUTRAL_MATERIAL_CLASSES =
 
 const ACTION_MATERIAL_CLASSES =
   'bg-action hover:bg-action-hover text-white shadow-action backdrop-blur-raised backdrop-saturate-[1.3]';
-
-const POINTER_LIGHT_CLASSES =
-  'relative isolate before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-pointer-light before:opacity-0 before:transition-opacity before:duration-[260ms] before:ease-out hover:before:opacity-65 focus-visible:before:opacity-65 active:before:opacity-100';
 
 const PRESSED_CLASSES =
   'active:scale-[0.965_0.94] active:shadow-action-pressed active:duration-100 motion-reduce:active:scale-100';
@@ -83,7 +81,8 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
     <Comp
       className={cn(
         'text-sm inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-[background,border-color,box-shadow,color,transform] duration-300 ease-out',
-        variant !== 'text' && cn(POINTER_LIGHT_CLASSES, PRESSED_CLASSES),
+        variant !== 'text' &&
+          cn(pointerLightClassNames, 'active:before:opacity-100', PRESSED_CLASSES),
         DISABLED_CLASSES,
         size === 'xs' && 'py-1 px-5',
         size === 'sm' && 'py-2 px-6',
@@ -92,6 +91,7 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
         getVariantClasses({ variant, active }),
         className,
       )}
+      data-pointer-light={variant === 'text' ? undefined : ''}
       data-venus-button-variant={variant}
       data-venus-button-active={active || undefined}
       type={type}

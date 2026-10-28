@@ -68,7 +68,9 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
     <nav className="venus-navigation relative z-50 isolate">
       <div
         className={cn(
-          'group/navbar bg-background-active h-20 pr-2 flex items-center justify-between sm:pr-5',
+          'group/navbar h-20 pr-2 flex items-center justify-between sm:pr-5',
+          // Lite lets the page canvas run behind the header, so nothing covers the token popovers
+          isLite ? 'bg-transparent' : 'bg-background-active',
           className,
         )}
         {...containerProps}
