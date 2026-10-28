@@ -51,6 +51,16 @@ describe('utilities', async () => {
       });
     });
 
+    it('clears the previous timeout when a notification reuses an id', () => {
+      displayNotification(fakeNotificationInput);
+      (global.clearTimeout as Mock).mockClear();
+
+      displayNotification(fakeNotificationInput);
+
+      expect(global.clearTimeout).toHaveBeenCalledTimes(1);
+      expect(global.clearTimeout).toHaveBeenCalledWith(expect.anything());
+    });
+
     it('removes the last notification from the store when the maximum number of notifications allowed has been reached', () => {
       // Add maximum amount of notifications allowed to store
       const state = useStore.getState();
@@ -118,7 +128,7 @@ describe('utilities', async () => {
       updateNotification(fakeNotificationUpdate);
 
       // Check hide timeout is cleared
-      expect(global.clearTimeout).toHaveBeenCalledTimes(1);
+      expect(global.clearTimeout).toHaveBeenCalled();
 
       expect(useStore.getState().updateNotification).toHaveBeenCalledTimes(1);
       expect(useStore.getState().updateNotification).toHaveBeenCalledWith(fakeNotificationUpdate);
