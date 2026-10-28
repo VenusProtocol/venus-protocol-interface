@@ -13,6 +13,7 @@ import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { usePositionForm } from 'pages/Trade/OperationForm/usePositionForm';
 import { PositionForm } from 'pages/Trade/PositionForm';
 import type { AssetBalanceMutation, TradePosition } from 'types';
@@ -26,6 +27,7 @@ export interface ReduceFormProps {
 
 export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition = false }) => {
   const { t } = useTranslation();
+  const { accountAddress } = useAccountAddress();
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const { formValues, setFormValues } = usePositionForm({ position });
 
@@ -91,6 +93,7 @@ export const ReduceForm: React.FC<ReduceFormProps> = ({ position, closePosition 
       closeFractionPercentage,
       isPositionShortBalanceZero: position.shortBalanceTokens.isZero(),
       slippagePercentage: userSlippageTolerancePercentage,
+      refundAddress: accountAddress,
     },
     {
       enabled: longAmountTokens?.isGreaterThan(0) || debouncedShortAmountTokens.isGreaterThan(0),

@@ -188,6 +188,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     fromToken: collateralAsset.vToken.underlyingToken,
     toToken: repaidAsset.vToken.underlyingToken,
     recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+    refundAddress: accountAddress,
     slippagePercentage: userSlippageTolerancePercentage,
   };
 

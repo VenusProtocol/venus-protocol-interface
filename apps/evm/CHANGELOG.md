@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.42.3
+
+### Patch Changes
+
+- e3ccb14: return a two-step swap's leftover to the wallet that made it
+
 ## 5.42.2
 
 ### Patch Changes

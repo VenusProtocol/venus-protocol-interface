@@ -11,6 +11,7 @@ import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useGetTradeAssets } from 'pages/Trade/useGetTradeAssets';
 import { useEffect } from 'react';
 import type { AssetBalanceMutation, TradePosition } from 'types';
@@ -25,6 +26,7 @@ export interface FormProps {
 
 export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
   const { t } = useTranslation();
+  const { accountAddress } = useAccountAddress();
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const { formValues, setFormValues } = usePositionForm({ position: newPosition });
 
@@ -77,6 +79,7 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
       toToken: position.longAsset.vToken.underlyingToken,
       direction: 'exact-in',
       recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+      refundAddress: accountAddress,
       slippagePercentage: userSlippageTolerancePercentage,
     },
     {
