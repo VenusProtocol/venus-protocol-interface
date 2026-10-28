@@ -98,6 +98,22 @@ describe('displayServiceIssueNotification', () => {
     expect(displayNotification).toHaveBeenCalledTimes(1);
   });
 
+  it('does not show a second toast on the redirect target once the first one closes', () => {
+    (displayNotification as Mock).mockImplementation(({ id }) =>
+      useStore.getState().addNotification({ id, variant: 'error', description: '' }),
+    );
+
+    displayServiceIssueNotification(details);
+
+    window.location.hash = `#/page-${testIndex}-redirected`;
+    displayServiceIssueNotification(details);
+
+    useStore.setState({ notifications: [] });
+    displayServiceIssueNotification(details);
+
+    expect(displayNotification).toHaveBeenCalledTimes(1);
+  });
+
   it('shows the toast again on another page once the previous one is gone', () => {
     (displayNotification as Mock).mockImplementation(({ id }) =>
       useStore.getState().addNotification({ id, variant: 'error', description: '' }),

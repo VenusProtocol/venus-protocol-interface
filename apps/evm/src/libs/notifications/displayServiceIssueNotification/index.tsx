@@ -16,16 +16,17 @@ export interface ServiceIssueDetails extends Pick<RestServiceInput, 'method' | '
 export const displayServiceIssueNotification = (details?: ServiceIssueDetails) => {
   const [pagePath] = window.location.hash.split('?');
   const { notifications } = useStore.getState();
-  // A redirect changes the page while the first toast is still up
   const isAlreadyDisplayed = notifications.some(
     notification => notification.id === SERVICE_ISSUE_NOTIFICATION_ID,
   );
+  const isSamePage = pagePath === lastDisplayedPagePath;
 
-  if (pagePath === lastDisplayedPagePath || isAlreadyDisplayed) {
+  // Pages reached while the toast is up count as shown
+  lastDisplayedPagePath = pagePath;
+
+  if (isSamePage || isAlreadyDisplayed) {
     return;
   }
-
-  lastDisplayedPagePath = pagePath;
 
   displayNotification({
     id: SERVICE_ISSUE_NOTIFICATION_ID,
