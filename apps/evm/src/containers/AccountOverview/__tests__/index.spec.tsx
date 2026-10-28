@@ -13,9 +13,9 @@ import {
   useGetSpokePools,
   useGetVaults,
 } from 'clients/api';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
-import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { en } from 'libs/translations';
 import * as storeModule from 'store';
 import { renderComponent } from 'testUtils/render';
