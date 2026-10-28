@@ -15,6 +15,7 @@ import {
 } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { en } from 'libs/translations';
 import * as storeModule from 'store';
 import { renderComponent } from 'testUtils/render';
@@ -442,7 +443,12 @@ describe('AccountOverview', () => {
       expect(queryByText(en.dashboard.overview.netWorth.label)).toBeInTheDocument(),
     );
 
+    const readFigure = (label: string) =>
+      queryByText(label)?.closest('div')?.parentElement?.textContent?.replace(label, '');
+
+    expect(readFigure(en.dashboard.overview.netWorth.label)).toContain(PLACEHOLDER_KEY);
+    expect(readFigure(en.dashboard.overview.todaysChange)).toContain(PLACEHOLDER_KEY);
+    expect(readFigure(en.dashboard.overview.absolutePerformance)).toContain(PLACEHOLDER_KEY);
     expect(queryByText('$1.24M')).not.toBeInTheDocument();
-    expect(queryByText('$0')).not.toBeInTheDocument();
   });
 });
