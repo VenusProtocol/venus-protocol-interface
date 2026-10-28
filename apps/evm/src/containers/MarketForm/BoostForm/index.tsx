@@ -189,6 +189,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
       toToken: formValues.suppliedToken,
       direction: 'exact-in',
       recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+      refundAddress: accountAddress,
       slippagePercentage: userSlippageTolerancePercentage,
     },
     {

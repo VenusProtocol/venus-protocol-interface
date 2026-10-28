@@ -11,6 +11,7 @@ export const getSwapQuote = async ({
   toToken,
   slippagePercentage,
   recipientAddress,
+  refundAddress,
   ...swapSpecificProps
 }: GetSwapQuoteInput): Promise<GetSwapQuoteOutput> => {
   const transactionDeadline = generateTransactionDeadline();
@@ -25,6 +26,10 @@ export const getSwapQuote = async ({
     type: swapSpecificProps.direction,
     shouldTransferToReceiver: true,
   };
+
+  if (refundAddress) {
+    params.refundAddress = refundAddress;
+  }
 
   if (swapSpecificProps.direction === 'exact-in') {
     params.exactAmountInMantissa = convertTokensToMantissa({
