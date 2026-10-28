@@ -398,6 +398,22 @@ describe('SupplyTabs', () => {
       );
     });
 
+    it('blocks a supply too small to mint a Core receipt', async () => {
+      renderWithCoreVhAsset([]);
+
+      const input = document.querySelector('input[name="amountTokens"]') as HTMLInputElement;
+
+      fireEvent.change(input, { target: { value: '0.000000000000000001' } });
+      await waitFor(() =>
+        expect(screen.getByText(/You cannot supply less than/)).toBeInTheDocument(),
+      );
+
+      fireEvent.change(input, { target: { value: '1' } });
+      await waitFor(() =>
+        expect(screen.queryByText(/You cannot supply less than/)).not.toBeInTheDocument(),
+      );
+    });
+
     it('supplies through the collateral gateway when the Core vhToken market is active', () => {
       renderWithCoreVhAsset([]);
 

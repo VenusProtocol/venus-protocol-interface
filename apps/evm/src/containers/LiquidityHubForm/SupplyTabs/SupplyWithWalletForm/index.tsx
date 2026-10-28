@@ -99,7 +99,31 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
+  // Two Core receipts plus one unit absorb the rounding of each conversion step
+  const minFromAmountTokens =
+    resupplyVToken && corePoolVhAsset
+      ? new BigNumber(2)
+          .shiftedBy(-corePoolVhAsset.vToken.decimals)
+          .dividedBy(corePoolVhAsset.exchangeRateVTokens)
+          .multipliedBy(liquidityHub.pricePerShare)
+          .plus(new BigNumber(1).shiftedBy(-underlyingToken.decimals))
+          .dp(underlyingToken.decimals, BigNumber.ROUND_UP)
+      : undefined;
+
   const handleValidateForm: UseFormValidationInput['validate'] = () => {
+    if (
+      minFromAmountTokens &&
+      fromAmountTokens?.isGreaterThan(0) &&
+      fromAmountTokens.isLessThan(minFromAmountTokens)
+    ) {
+      return {
+        code: 'SMALLER_THAN_MINIMUM_AMOUNT',
+        message: t('marketForm.error.smallerThanMinimumAmount', {
+          minAmount: `${minFromAmountTokens.toFixed()} ${underlyingToken.symbol}`,
+        }),
+      };
+    }
+
     if (
       liquidityHub.userWalletBalanceTokens &&
       fromAmountTokens?.isGreaterThan(liquidityHub.userWalletBalanceTokens)
