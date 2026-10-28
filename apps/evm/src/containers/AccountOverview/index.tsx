@@ -104,7 +104,11 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   });
   const pool = getPoolData?.pool;
 
-  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
+  const {
+    data: getVaultsData,
+    isLoading: isGetVaultsLoading,
+    isUserDataUnavailable: isVaultUserDataUnavailable,
+  } = useGetVaults({
     accountAddress,
   });
 
@@ -120,7 +124,10 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
   const spokePools = isSpokeFeatureEnabled ? getSpokePoolsData?.spokePools ?? [] : [];
 
   const isAccountDataAvailable =
-    !!pool && !!accountAddress && (!isSpokeFeatureEnabled || isSpokeUserDataAvailable);
+    !!pool &&
+    !!accountAddress &&
+    !isVaultUserDataUnavailable &&
+    (!isSpokeFeatureEnabled || isSpokeUserDataAvailable);
 
   const totalSupplyCents = spokePools.reduce(
     (acc, spokePool) => acc.plus(spokePool.userSupplyBalanceCents || 0),

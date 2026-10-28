@@ -423,4 +423,26 @@ describe('AccountOverview', () => {
     const arrow = container.querySelector('.text-green svg, .text-red svg');
     expect(arrow?.parentElement?.textContent).toBe('-');
   });
+
+  it('holds back the account figures when the vault balances cannot be read', async () => {
+    (useGetVaults as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: vaults,
+      isUserDataUnavailable: true,
+    }));
+
+    const { queryByText } = renderComponent(
+      <AccountOverview accountAddress={fakeAccountAddress} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() =>
+      expect(queryByText(en.dashboard.overview.netWorth.label)).toBeInTheDocument(),
+    );
+
+    expect(queryByText('$1.24M')).not.toBeInTheDocument();
+    expect(queryByText('$0')).not.toBeInTheDocument();
+  });
 });
