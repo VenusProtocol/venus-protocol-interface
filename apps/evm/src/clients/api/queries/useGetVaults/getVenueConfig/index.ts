@@ -3,6 +3,7 @@ import cactusIconSrc from './cactus.svg';
 import ceffuIconSrc from './ceffu.svg';
 import hashGlobalIconSrc from './hashGlobal.svg';
 import matrixdockIconSrc from './matrixdock.svg';
+import octagonIconSrc from './octagon.png';
 import pendleIconSrc from './pendle.svg';
 import solvIconSrc from './solv.svg';
 import venusIconSrc from './venus.svg';
@@ -14,6 +15,7 @@ export enum VenueName {
   Ceffu = 'Ceffu',
   Cactus = 'Cactus',
   Solv = 'Solv(Ceffu custody)',
+  SolvOctagon = 'Solv(Octagon)',
   Asseto = 'Asseto',
   HashGlobal = 'Hash Global',
 }
@@ -31,6 +33,7 @@ const iconSrcByVenueName: Record<VenueName, string> = {
   [VenueName.Ceffu]: ceffuIconSrc,
   [VenueName.Cactus]: cactusIconSrc,
   [VenueName.Solv]: solvIconSrc,
+  [VenueName.SolvOctagon]: octagonIconSrc,
   [VenueName.Asseto]: assetoIconSrc,
   [VenueName.HashGlobal]: hashGlobalIconSrc,
 };
@@ -42,6 +45,7 @@ const urlByVenueName: Record<VenueName, string> = {
   [VenueName.Ceffu]: 'https://www.ceffu.com/',
   [VenueName.Cactus]: 'https://www.cactuscustody.com/',
   [VenueName.Solv]: 'https://www.solv.finance',
+  [VenueName.SolvOctagon]: 'https://example.com',
   [VenueName.Asseto]: 'https://asseto.finance/',
   [VenueName.HashGlobal]: 'https://www.hashglobal.io/',
 };
