@@ -11,6 +11,7 @@ import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { calculateMaxBorrowShortTokens } from 'pages/Trade/OperationForm/calculateMaxBorrowShortTokens';
 import { usePositionForm } from 'pages/Trade/OperationForm/usePositionForm';
 import { type FormValues, PositionForm } from 'pages/Trade/PositionForm';
@@ -24,6 +25,7 @@ export interface IncreaseFormProps {
 
 export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
   const { t } = useTranslation();
+  const { accountAddress } = useAccountAddress();
   const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
   const { formValues, setFormValues } = usePositionForm({ position });
 
@@ -57,6 +59,7 @@ export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
       toToken: position.longAsset.vToken.underlyingToken,
       direction: 'exact-in',
       recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+      refundAddress: accountAddress,
       slippagePercentage: userSlippageTolerancePercentage,
     },
     {

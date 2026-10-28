@@ -215,6 +215,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
       toToken: asset.vToken.underlyingToken,
       direction: 'exact-in',
       recipientAddress: swapRouterV2ContractAddress || NULL_ADDRESS,
+      refundAddress: accountAddress,
       slippagePercentage: userSlippageTolerancePercentage,
     },
     {

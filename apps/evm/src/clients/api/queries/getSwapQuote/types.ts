@@ -24,6 +24,8 @@ export interface SwapApiResponse {
 interface GetSwapQuoteBase {
   chainId: ChainId;
   recipientAddress: Address;
+  // Where a two-step swap returns the leftover of its intermediate token
+  refundAddress?: Address;
   fromToken: Token;
   toToken: Token;
   direction: SwapQuote['direction'];
