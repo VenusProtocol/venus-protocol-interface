@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40" fill="none"><defs><clipPath id="clip1_1_4937">
+<rect width="40" height="40" fill="white"/>
+</clipPath><clipPath id="clip2_1_4937">
+<rect width="40" height="40" fill="white"/>
+</clipPath><clipPath id="clip3_1_4937">
+<rect width="30" height="16" fill="white" transform="translate(5 12)"/>
+</clipPath><linearGradient id="paint0_linear_1_4937" x1="33.7544" y1="2.13266e-07" x2="6.24563" y2="40" gradientUnits="userSpaceOnUse">
+<stop stop-color="#5B0271"/>
+<stop offset="1" stop-color="#15161B"/>
+</linearGradient></defs><g id="Type=MUB" clip-path="url(#clip1_1_4937)">
+<g id="stETH_ug10fg 1" clip-path="url(#clip2_1_4937)">
+<g id="Group 1321315247">
+<circle id="Ellipse 1113" cx="20" cy="20" r="20" fill="url(#paint0_linear_1_4937)"/>
+<g id="Layer 2" opacity="0.2">
+<g id="Layer 1-2">
+<path id="Vector" d="M13.785 17.4462L20 11.2319L26.2168 17.4487L29.8331 13.8331L20 4L10.1694 13.83L13.785 17.4456M4 20L7.61625 16.3831L11.2319 20L7.61562 23.6144L4 20ZM13.785 22.5531L20 28.7669L26.2168 22.55L29.835 26.1637L20 36L10.1694 26.1688L10.1644 26.1631L13.785 22.5525M28.7668 20L32.3825 16.3844L36 20L32.3843 23.6156L28.7668 20Z" fill="white"/>
+<path id="Vector_2" d="M23.6658 20L19.9995 16.3281L17.287 19.0394L16.9745 19.3519L16.3326 19.9937L16.3276 19.9987L16.3326 20.0037L19.9995 23.67L23.6683 20.0012H23.6651" fill="white"/>
+</g>
+</g>
+</g>
+<g id="MUB 1" clip-path="url(#clip3_1_4937)">
+<path id="Vector_3" d="M5 24.9919H9.61315C10.9903 24.9919 11.6267 24.4377 11.6267 22.8533V19.5417C11.6267 14.5987 13.9168 12.0156 18.2824 12.0156C20.5648 12.0156 22.2979 12.8421 23.3269 14.4244C24.4023 12.8421 26.0542 12.0156 28.3366 12.0156C32.7021 12.0156 34.9923 14.5987 34.9923 19.5417V27.998H31.7427V19.5417C31.7427 16.4945 30.5377 15.0217 28.3366 15.0217C26.1431 15.0217 24.9381 16.4945 24.9381 19.5417V27.998H21.6828V19.5417C21.6828 16.4945 20.4758 15.0217 18.2824 15.0217C16.0832 15.0217 14.8762 16.4945 14.8762 19.5417V22.8533C14.8762 26.5547 13.1219 27.998 9.61315 27.998H5V24.9919Z" fill="white"/>
+</g>
+</g>
+</g></svg>
