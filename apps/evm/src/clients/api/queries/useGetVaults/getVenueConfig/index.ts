@@ -38,14 +38,13 @@ const iconSrcByVenueName: Record<VenueName, string> = {
   [VenueName.HashGlobal]: hashGlobalIconSrc,
 };
 
-const urlByVenueName: Record<VenueName, string> = {
+const urlByVenueName: Partial<Record<VenueName, string>> = {
   [VenueName.Venus]: 'https://venus.io',
   [VenueName.Pendle]: 'https://pendle.finance',
   [VenueName.Matrixdock]: 'https://www.matrixdock.com/',
   [VenueName.Ceffu]: 'https://www.ceffu.com/',
   [VenueName.Cactus]: 'https://www.cactuscustody.com/',
   [VenueName.Solv]: 'https://www.solv.finance',
-  [VenueName.SolvOctagon]: 'https://example.com',
   [VenueName.Asseto]: 'https://asseto.finance/',
   [VenueName.HashGlobal]: 'https://www.hashglobal.io/',
 };
