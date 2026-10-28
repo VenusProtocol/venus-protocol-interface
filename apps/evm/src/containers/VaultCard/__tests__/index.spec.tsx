@@ -3,6 +3,7 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { institutionalVault, pendleVault, vaults as venusVaults } from '__mocks__/models/vaults';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useNow } from 'hooks/useNow';
 import { en, t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -70,6 +71,19 @@ describe('VaultCard', () => {
 
     expect(getByText(en.vault.card.youDeposited)).toBeInTheDocument();
     expect(getByText(readableUserStakedTokens)).toBeInTheDocument();
+  });
+
+  it('shows a placeholder for the user deposit when the balance is unavailable', () => {
+    const { getByText, queryByText } = renderComponent(
+      <VaultCard vault={{ ...baseVault, userStakeBalanceMantissa: undefined }} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(getByText(en.vault.card.youDeposited)).toBeInTheDocument();
+    expect(getByText(PLACEHOLDER_KEY)).toBeInTheDocument();
+    expect(queryByText('0 USDC')).not.toBeInTheDocument();
   });
 
   it('renders Pendle liquidity and maturity date rows', () => {
