@@ -123,3 +123,8 @@
     display: none;
   }
 }
+
+/* Nothing needs to keep compositing while the window is in the background. */
+body:not(.venus-window-focused) .venus-starfield__meteor {
+  animation-play-state: paused;
+}

@@ -7,18 +7,48 @@ import { hashSeed } from '../hashSeed';
 import { isBehindContent } from '../isBehindContent';
 import { sampleRange } from '../sampleRange';
 
+// Drift and twinkle are derived from elapsed time on the GPU, so a frame costs one
+// uniform write and one draw call rather than a pass over every star.
 const VERTEX_SHADER = `
   attribute float aSize;
-  attribute float aIntensity;
+  attribute float aBaseIntensity;
   attribute vec3 aColor;
+  attribute vec2 aTwinkle;
+  attribute vec4 aDrift;
+
   uniform float uPixelRatio;
+  uniform float uTime;
+  uniform float uMotion;
+  uniform float uSpan;
+  uniform float uMargin;
+  uniform float uDriftScale;
+  uniform float uTwinkleMidpoint;
+  uniform float uTwinkleAmplitude;
+
   varying float vIntensity;
   varying vec3 vColor;
 
+  const float TAU = 6.283185307179586;
+
   void main() {
-    vIntensity = aIntensity;
     vColor = aColor;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+    float twinkleRate = aTwinkle.x;
+    float twinklePhase = aTwinkle.y;
+    float twinkle = uTwinkleMidpoint + uTwinkleAmplitude * sin((uTime * twinkleRate + twinklePhase) * TAU);
+    vIntensity = aBaseIntensity * mix(1.0, twinkle, step(0.0001, twinkleRate) * uMotion);
+
+    float velocity = aDrift.x;
+    float verticalAmplitude = aDrift.y;
+    float verticalWavelength = aDrift.z;
+    float driftPhase = aDrift.w;
+
+    float travel = mod(uTime * velocity * uDriftScale, uSpan) * uMotion;
+    float x = mod(position.x + travel + uMargin, uSpan) - uMargin;
+    float y = position.y + verticalAmplitude *
+      (sin((travel / verticalWavelength) * TAU + driftPhase) - sin(driftPhase)) * uMotion;
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(x, y, position.z, 1.0);
     gl_PointSize = aSize * uPixelRatio;
   }
 `;
@@ -38,6 +68,13 @@ const FRAGMENT_SHADER = `
   }
 `;
 
+// A defocused backdrop reads the same at one device pixel per CSS pixel.
+const PIXEL_RATIO = 1;
+// The sky drifts a few pixels a second, so it is drawn well below the display's rate.
+const FRAME_INTERVAL_MS = 1000 / 30;
+// Keeps the time uniform small enough for float precision in the shader.
+const TIME_WRAP_SECONDS = 3600;
+
 export const StarCanvas: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
@@ -53,15 +90,14 @@ export const StarCanvas: React.FC = () => {
     try {
       renderer = new THREE.WebGLRenderer({
         alpha: true,
-        antialias: true,
+        antialias: false,
         powerPreference: 'low-power',
       });
     } catch {
       return;
     }
 
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
-    renderer.setPixelRatio(pixelRatio);
+    renderer.setPixelRatio(PIXEL_RATIO);
     renderer.setClearAlpha(0);
     mount.appendChild(renderer.domElement);
 
@@ -69,8 +105,20 @@ export const StarCanvas: React.FC = () => {
     const camera = new THREE.OrthographicCamera(0, 1, 0, 1, 0.1, 2000);
     camera.position.z = 1000;
 
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const { minimumBrightness } = STAR_FIELD.twinkle;
+
     const material = new THREE.ShaderMaterial({
-      uniforms: { uPixelRatio: { value: pixelRatio } },
+      uniforms: {
+        uPixelRatio: { value: PIXEL_RATIO },
+        uTime: { value: 0 },
+        uMotion: { value: motionQuery.matches ? 0 : 1 },
+        uSpan: { value: 1 },
+        uMargin: { value: STAR_FIELD.drift.wrapMarginPixels },
+        uDriftScale: { value: STAR_TUNING.drift },
+        uTwinkleMidpoint: { value: (1 + minimumBrightness) / 2 },
+        uTwinkleAmplitude: { value: (1 - minimumBrightness) / 2 },
+      },
       vertexShader: VERTEX_SHADER,
       fragmentShader: FRAGMENT_SHADER,
       transparent: true,
@@ -82,23 +130,10 @@ export const StarCanvas: React.FC = () => {
     let width = Math.max(mount.clientWidth, 1);
     let height = Math.max(mount.clientHeight, 1);
     let mesh: THREE.Points | undefined;
-    let intensities = new Float32Array(0);
-    let baseIntensities = new Float32Array(0);
-    let twinkleRates = new Float32Array(0);
-    let twinklePhases = new Float32Array(0);
-    let basePositions = new Float32Array(0);
-    let driftPhases = new Float32Array(0);
-    let driftVelocities = new Float32Array(0);
-    let verticalAmplitudes = new Float32Array(0);
-    let verticalWavelengths = new Float32Array(0);
-    let travel = new Float32Array(0);
     let elapsedSeconds = 0;
-    let lastFrameSeconds = 0;
     let lastTimeMs = 0;
     let frame = 0;
     let isVisible = false;
-
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const buildStars = () => {
       if (mesh) {
@@ -121,15 +156,9 @@ export const StarCanvas: React.FC = () => {
       const positions = new Float32Array(starCount * 3);
       const sizes = new Float32Array(starCount);
       const starColors = new Float32Array(starCount * 3);
-      intensities = new Float32Array(starCount);
-      baseIntensities = new Float32Array(starCount);
-      twinkleRates = new Float32Array(starCount);
-      twinklePhases = new Float32Array(starCount);
-      driftPhases = new Float32Array(starCount);
-      driftVelocities = new Float32Array(starCount);
-      verticalAmplitudes = new Float32Array(starCount);
-      verticalWavelengths = new Float32Array(starCount);
-      travel = new Float32Array(starCount);
+      const baseIntensities = new Float32Array(starCount);
+      const twinkles = new Float32Array(starCount * 2);
+      const drifts = new Float32Array(starCount * 4);
 
       for (let index = 0; index < starCount; index++) {
         const isUpperRight = hashSeed(index, 15) < distribution.upperRightShare;
@@ -153,97 +182,61 @@ export const StarCanvas: React.FC = () => {
         const dimmed = isBehindContent({ x, y })
           ? baseIntensity * distribution.contentDim
           : baseIntensity;
-        const intensity = dimmed * STAR_TUNING.brightness;
+        baseIntensities[index] = dimmed * STAR_TUNING.brightness;
 
-        intensities[index] = intensity;
-        baseIntensities[index] = intensity;
-        twinkleRates[index] =
+        const twinkleRate =
           hashSeed(index, 16) < STAR_TUNING.twinkle
             ? sampleRange(STAR_FIELD.twinkle.cyclesPerSecond, hashSeed(index, 17))
             : 0;
-        twinklePhases[index] = hashSeed(index, 18);
-        driftPhases[index] = hashSeed(index, 22) * Math.PI * 2;
-        driftVelocities[index] = sampleRange(STAR_FIELD.drift.pixelsPerSecond, hashSeed(index, 23));
-        verticalAmplitudes[index] = sampleRange(
-          STAR_FIELD.drift.verticalAmplitudePixels,
-          hashSeed(index, 24),
-        );
-        verticalWavelengths[index] = sampleRange(
-          STAR_FIELD.drift.verticalWavelengthPixels,
-          hashSeed(index, 25),
+        twinkles.set([twinkleRate, hashSeed(index, 18)], index * 2);
+
+        drifts.set(
+          [
+            sampleRange(STAR_FIELD.drift.pixelsPerSecond, hashSeed(index, 23)),
+            sampleRange(STAR_FIELD.drift.verticalAmplitudePixels, hashSeed(index, 24)),
+            sampleRange(STAR_FIELD.drift.verticalWavelengthPixels, hashSeed(index, 25)),
+            hashSeed(index, 22) * Math.PI * 2,
+          ],
+          index * 4,
         );
 
         starColors.set(getStarColor({ tier, isWarm, blueSeed: hashSeed(index, 21) }), index * 3);
       }
 
-      basePositions = new Float32Array(positions);
-
       const geometry = new THREE.BufferGeometry();
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
       geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
-      geometry.setAttribute('aIntensity', new THREE.BufferAttribute(intensities, 1));
       geometry.setAttribute('aColor', new THREE.BufferAttribute(starColors, 3));
+      geometry.setAttribute('aBaseIntensity', new THREE.BufferAttribute(baseIntensities, 1));
+      geometry.setAttribute('aTwinkle', new THREE.BufferAttribute(twinkles, 2));
+      geometry.setAttribute('aDrift', new THREE.BufferAttribute(drifts, 4));
+
+      material.uniforms.uSpan.value = width + STAR_FIELD.drift.wrapMarginPixels * 2;
 
       mesh = new THREE.Points(geometry, material);
       mesh.renderOrder = -1;
       scene.add(mesh);
     };
 
-    const updateStars = () => {
-      if (!mesh) {
-        return;
-      }
-
-      const { minimumBrightness } = STAR_FIELD.twinkle;
-      const midpoint = (1 + minimumBrightness) / 2;
-      const amplitude = (1 - minimumBrightness) / 2;
-
-      for (let index = 0; index < intensities.length; index++) {
-        const rate = twinkleRates[index];
-        intensities[index] =
-          rate && !motionQuery.matches
-            ? baseIntensities[index] *
-              (midpoint +
-                amplitude * Math.sin((elapsedSeconds * rate + twinklePhases[index]) * Math.PI * 2))
-            : baseIntensities[index];
-      }
-
-      mesh.geometry.attributes.aIntensity.needsUpdate = true;
-
-      if (motionQuery.matches) {
-        return;
-      }
-
-      const positions = mesh.geometry.attributes.position.array as Float32Array;
-      const margin = STAR_FIELD.drift.wrapMarginPixels;
-      const span = width + margin * 2;
-
-      for (let index = 0; index < intensities.length; index++) {
-        travel[index] =
-          (travel[index] + lastFrameSeconds * driftVelocities[index] * STAR_TUNING.drift) % span;
-        const distance = travel[index];
-        positions[index * 3] = ((basePositions[index * 3] + distance + margin) % span) - margin;
-        positions[index * 3 + 1] =
-          basePositions[index * 3 + 1] +
-          verticalAmplitudes[index] *
-            (Math.sin((distance / verticalWavelengths[index]) * Math.PI * 2 + driftPhases[index]) -
-              Math.sin(driftPhases[index]));
-      }
-
-      mesh.geometry.attributes.position.needsUpdate = true;
-    };
-
     const tick = (timeMs: number) => {
       frame = window.requestAnimationFrame(tick);
-      lastFrameSeconds = lastTimeMs ? Math.min((timeMs - lastTimeMs) / 1000, 0.05) : 0;
+
+      const sinceLastDraw = timeMs - lastTimeMs;
+
+      if (lastTimeMs && sinceLastDraw < FRAME_INTERVAL_MS) {
+        return;
+      }
+
+      elapsedSeconds =
+        (elapsedSeconds + (lastTimeMs ? Math.min(sinceLastDraw / 1000, 0.05) : 0)) %
+        TIME_WRAP_SECONDS;
       lastTimeMs = timeMs;
-      elapsedSeconds += lastFrameSeconds;
-      updateStars();
+      material.uniforms.uTime.value = elapsedSeconds;
       renderer.render(scene, camera);
     };
 
     const syncLoop = () => {
-      const shouldAnimate = isVisible && !document.hidden;
+      const shouldAnimate = isVisible && !document.hidden && document.hasFocus();
 
       if (shouldAnimate && !frame) {
         lastTimeMs = 0;
@@ -255,6 +248,11 @@ export const StarCanvas: React.FC = () => {
         window.cancelAnimationFrame(frame);
         frame = 0;
       }
+    };
+
+    const syncMotion = () => {
+      material.uniforms.uMotion.value = motionQuery.matches ? 0 : 1;
+      renderer.render(scene, camera);
     };
 
     const resize = () => {
@@ -280,7 +278,9 @@ export const StarCanvas: React.FC = () => {
     intersectionObserver.observe(mount);
 
     document.addEventListener('visibilitychange', syncLoop);
-    motionQuery.addEventListener('change', syncLoop);
+    window.addEventListener('focus', syncLoop);
+    window.addEventListener('blur', syncLoop);
+    motionQuery.addEventListener('change', syncMotion);
 
     resize();
     syncLoop();
@@ -290,7 +290,9 @@ export const StarCanvas: React.FC = () => {
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener('visibilitychange', syncLoop);
-      motionQuery.removeEventListener('change', syncLoop);
+      window.removeEventListener('focus', syncLoop);
+      window.removeEventListener('blur', syncLoop);
+      motionQuery.removeEventListener('change', syncMotion);
       mesh?.geometry.dispose();
       material.dispose();
       renderer.dispose();

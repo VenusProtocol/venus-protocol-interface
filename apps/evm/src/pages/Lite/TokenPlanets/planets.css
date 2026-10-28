@@ -430,6 +430,10 @@
   }
 }
 
+body:not(.venus-window-focused) .lite-planet {
+  animation-play-state: paused;
+}
+
 @keyframes lite-planet-orbit {
   0%,
   100% {
