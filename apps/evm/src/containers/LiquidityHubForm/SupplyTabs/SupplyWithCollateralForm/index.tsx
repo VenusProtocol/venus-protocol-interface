@@ -56,6 +56,8 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
+  // Which limit the amount was filled with, re-read against the live balance at submit
+  const [selectedLimit, setSelectedLimit] = useState<'rightMax' | 'available'>();
   const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useChain();
 
@@ -123,9 +125,23 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
-  const isMigratingFullCoreSupply = !!fromAmountTokens?.isEqualTo(
-    corePoolAsset.userSupplyBalanceTokens,
-  );
+  let selectedLimitTokens = new BigNumber(0);
+
+  if (selectedLimit === 'rightMax') {
+    selectedLimitTokens = safeLimitTokens ?? limitTokens;
+  } else if (selectedLimit === 'available') {
+    selectedLimitTokens = limitTokens;
+  }
+
+  const isMigratingFullCoreSupply =
+    !!fromAmountTokens?.isGreaterThan(0) &&
+    corePoolAsset.userSupplyBalanceTokens.isGreaterThan(0) &&
+    BigNumber.max(fromAmountTokens, selectedLimitTokens).isGreaterThanOrEqualTo(
+      corePoolAsset.userSupplyBalanceTokens.dp(
+        corePoolAsset.vToken.underlyingToken.decimals,
+        BigNumber.ROUND_DOWN,
+      ),
+    );
 
   const { data: getVTokenBalanceData } = useGetVTokenBalance(
     {
@@ -306,6 +322,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
           amountTokens,
           maxSelected: true,
         });
+        setSelectedLimit('available');
 
         setFormValues(values => ({
           ...values,
@@ -351,7 +368,10 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
       safeLimitTokens={safeLimitTokens}
       availableBalance={availableBalanceDom}
       validateForm={handleValidateForm}
-      onAmountSet={captureAmountSetAnalyticEvent}
+      onAmountSet={input => {
+        setSelectedLimit(input.maxSelected ? 'rightMax' : undefined);
+        captureAmountSetAnalyticEvent(input);
+      }}
     />
   );
 };

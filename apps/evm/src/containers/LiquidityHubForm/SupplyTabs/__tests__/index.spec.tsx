@@ -6,7 +6,13 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetBalanceOf, useGetPool } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetPool,
+  useGetPoolDelegateApprovalStatus,
+  useGetVTokenBalance,
+  useSupplyFromCollateralToLiquidityHub,
+} from 'clients/api';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
@@ -326,6 +332,71 @@ describe('SupplyTabs', () => {
 
       renderSupplyTabs();
     };
+
+    it('migrates the whole Core position after SAFE MAX even if interest accrued before submitting', async () => {
+      const supplyFromCollateral = vi.fn().mockResolvedValue(undefined);
+      (useSupplyFromCollateralToLiquidityHub as Mock).mockReturnValue({
+        mutateAsync: supplyFromCollateral,
+        isPending: false,
+      });
+      (useGetPoolDelegateApprovalStatus as Mock).mockReturnValue({
+        data: { isDelegateeApproved: true },
+        isLoading: false,
+      });
+      (useGetVTokenBalance as Mock).mockReturnValue({
+        data: { balanceMantissa: new BigNumber('100000000000') },
+      });
+
+      const makePool = (userSupplyBalanceTokens: BigNumber) => ({
+        ...corePool,
+        userBorrowBalanceCents: new BigNumber(0),
+        assets: [
+          ...corePool.assets.filter(asset => asset.vToken.address !== corePoolAsset.vToken.address),
+          { ...corePoolAsset, userSupplyBalanceTokens, cashTokens: new BigNumber(1_000_000) },
+          { ...coreVhAsset, disabledTokenActions: [] },
+        ],
+      });
+
+      (useIsFeatureEnabled as Mock).mockReturnValue(true);
+      mockUseGetContractAddress.mockImplementation(({ name }: { name: string }) => ({
+        address:
+          name === 'CollateralGateway'
+            ? collateralGatewayContractAddress
+            : liquidityHubMigratorContractAddress,
+      }));
+      mockUseGetPool.mockImplementation(() => ({
+        data: { pool: makePool(new BigNumber(10)) },
+        isLoading: false,
+      }));
+
+      const { rerender } = renderSupplyTabs();
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.supplyTab.collateralTabTitle }),
+      );
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      );
+
+      const input = document.querySelector('input[name="amountTokens"]') as HTMLInputElement;
+      await waitFor(() => expect(input.value).toBe('10'));
+
+      mockUseGetPool.mockImplementation(() => ({
+        data: { pool: makePool(new BigNumber('10.0001')) },
+        isLoading: false,
+      }));
+      rerender(<SupplyTabs liquidityHub={liquidityHub} />);
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.supplySubmitButtonLabel }),
+      );
+
+      await waitFor(() =>
+        expect(supplyFromCollateral).toHaveBeenCalledWith(
+          expect.objectContaining({ migrateFullSupply: true }),
+        ),
+      );
+    });
 
     it('supplies through the collateral gateway when the Core vhToken market is active', () => {
       renderWithCoreVhAsset([]);
