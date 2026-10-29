@@ -111,7 +111,13 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
     document.addEventListener('visibilitychange', syncLoop);
     window.addEventListener('focus', syncLoop);
     window.addEventListener('blur', syncLoop);
-    motionQuery.addEventListener('change', syncLoop);
+    // Stopping for reduced motion leaves the last scrambled frame, so redraw once.
+    const syncMotion = () => {
+      syncLoop();
+      draw();
+    };
+
+    motionQuery.addEventListener('change', syncMotion);
 
     draw();
 
@@ -121,7 +127,7 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
       document.removeEventListener('visibilitychange', syncLoop);
       window.removeEventListener('focus', syncLoop);
       window.removeEventListener('blur', syncLoop);
-      motionQuery.removeEventListener('change', syncLoop);
+      motionQuery.removeEventListener('change', syncMotion);
     };
   }, [symbol]);
 

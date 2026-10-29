@@ -78,7 +78,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
 
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    if (!isOpen || motionQuery.matches) {
+    if (!isOpen) {
       draw(Number.POSITIVE_INFINITY);
       return;
     }
@@ -86,6 +86,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
     const startedAtMs = performance.now();
     let frame = 0;
     let lastTimeMs = 0;
+    let isVisible = false;
 
     const tick = (timeMs: number) => {
       frame = window.requestAnimationFrame(tick);
@@ -98,10 +99,43 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
       draw(timeMs - startedAtMs);
     };
 
-    frame = window.requestAnimationFrame(tick);
+    const syncLoop = () => {
+      const shouldAnimate =
+        isVisible && !document.hidden && document.hasFocus() && !motionQuery.matches;
+
+      if (shouldAnimate && !frame) {
+        frame = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      if (!shouldAnimate && frame) {
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+        // Leaving the loop mid-scramble would freeze digits in place.
+        draw(Number.POSITIVE_INFINITY);
+      }
+    };
+
+    const intersectionObserver = new IntersectionObserver(entries => {
+      isVisible = entries[0]?.isIntersecting ?? false;
+      syncLoop();
+    });
+    intersectionObserver.observe(canvas);
+
+    document.addEventListener('visibilitychange', syncLoop);
+    window.addEventListener('focus', syncLoop);
+    window.addEventListener('blur', syncLoop);
+    motionQuery.addEventListener('change', syncLoop);
+
+    draw(Number.POSITIVE_INFINITY);
 
     return () => {
       window.cancelAnimationFrame(frame);
+      intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', syncLoop);
+      window.removeEventListener('focus', syncLoop);
+      window.removeEventListener('blur', syncLoop);
+      motionQuery.removeEventListener('change', syncLoop);
       draw(Number.POSITIVE_INFINITY);
     };
   }, [glyphs, symbol, isOpen, replayToken]);

@@ -73,8 +73,12 @@ const PIXEL_RATIO = 1;
 // The sky drifts a few pixels a second, so a sixth of the display's rate is already
 // finer than the eye can follow.
 const FRAME_INTERVAL_MS = 1000 / 15;
-// Keeps the time uniform small enough for float precision in the shader.
-const TIME_WRAP_SECONDS = 3600;
+// Stars do not share a period, so wrapping jumps the sky. Keep the uniform
+// precise enough for the shader while pushing the wrap past any session.
+const TIME_WRAP_SECONDS = 86400;
+// Only guards against a long stall; must stay above the frame interval so a
+// normal frame advances by the time it actually took.
+const MAX_STEP_SECONDS = 0.25;
 
 export const StarCanvas: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -229,7 +233,7 @@ export const StarCanvas: React.FC = () => {
       }
 
       elapsedSeconds =
-        (elapsedSeconds + (lastTimeMs ? Math.min(sinceLastDraw / 1000, 0.05) : 0)) %
+        (elapsedSeconds + (lastTimeMs ? Math.min(sinceLastDraw / 1000, MAX_STEP_SECONDS) : 0)) %
         TIME_WRAP_SECONDS;
       lastTimeMs = timeMs;
       material.uniforms.uTime.value = elapsedSeconds;
