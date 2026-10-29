@@ -74,41 +74,63 @@ export const LitePositions: React.FC<LitePositionsProps> = ({
     />
   );
 
-  const choices = [
-    {
+  const hubsWithPositions = liquidityHubs.filter(liquidityHub =>
+    liquidityHub.userSupplyBalanceTokens?.isGreaterThan(0),
+  );
+  const vaultsWithPositions = vaults.filter(vault =>
+    vault.userStakeBalanceMantissa?.isGreaterThan(0),
+  );
+
+  const choices = [];
+
+  if (isLiquidityHubEnabled && (isHubsLoading || hubsWithPositions.length > 0)) {
+    choices.push({
+      id: HUB_CHOICE_ID,
+      name: t('account.tabs.hubs'),
+      healthFactor: undefined,
+      content: isHubsLoading ? <Spinner /> : <Hubs liquidityHubs={hubsWithPositions} />,
+    });
+  }
+
+  if (hasCorePositions && pool) {
+    choices.push({
       id: CORE_CHOICE_ID,
       name: t('account.spoke.corePoolPill'),
-      healthFactor:
-        hasCorePositions && pool?.userBorrowBalanceCents?.isGreaterThan(0)
-          ? pool.userHealthFactor
-          : undefined,
-      content: hasCorePositions && pool ? <Positions pools={[pool]} /> : placeholder,
-    },
-    ...spokePoolsWithPositions.map(spokePool => ({
+      healthFactor: pool.userBorrowBalanceCents?.isGreaterThan(0)
+        ? pool.userHealthFactor
+        : undefined,
+      content: <Positions pools={[pool]} />,
+    });
+  }
+
+  spokePoolsWithPositions.forEach(spokePool =>
+    choices.push({
       id: spokePool.comptrollerAddress,
       name: spokePool.name,
       healthFactor: spokePool.userBorrowBalanceCents?.isGreaterThan(0)
         ? spokePool.userHealthFactor
         : undefined,
       content: <SpokePositions spokePool={spokePool} />,
-    })),
-  ];
+    }),
+  );
 
-  if (isLiquidityHubEnabled) {
+  if (isVaultsLoading || vaultsWithPositions.length > 0) {
     choices.push({
-      id: HUB_CHOICE_ID,
-      name: t('account.tabs.hubs'),
+      id: VAULTS_CHOICE_ID,
+      name: t('account.tabs.vaults'),
       healthFactor: undefined,
-      content: isHubsLoading ? <Spinner /> : <Hubs liquidityHubs={liquidityHubs} />,
+      content: isVaultsLoading ? <Spinner /> : <Vaults vaults={vaultsWithPositions} />,
     });
   }
 
-  choices.push({
-    id: VAULTS_CHOICE_ID,
-    name: t('account.tabs.vaults'),
-    healthFactor: undefined,
-    content: isVaultsLoading ? <Spinner /> : <Vaults vaults={vaults} />,
-  });
+  if (choices.length === 0) {
+    choices.push({
+      id: CORE_CHOICE_ID,
+      name: t('account.spoke.corePoolPill'),
+      healthFactor: undefined,
+      content: placeholder,
+    });
+  }
 
   const active = choices.find(choice => choice.id === selectedId) ?? choices[0];
 

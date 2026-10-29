@@ -11,7 +11,6 @@ export interface MarketFormModalProps {
   poolComptrollerAddress: Address;
   initialActiveTabId?: string;
   visibleTabIds?: string[];
-  tabsVariant?: 'primary' | 'secondary';
   title?: ModalProps['title'];
   onClose: ModalProps['handleClose'];
 }
@@ -21,7 +20,6 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
   poolComptrollerAddress,
   initialActiveTabId,
   visibleTabIds,
-  tabsVariant,
   title,
   onClose,
 }) => {
@@ -56,7 +54,6 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
         poolComptrollerAddress={poolComptrollerAddress}
         initialActiveTabId={initialActiveTabId}
         visibleTabIds={visibleTabIds}
-        tabsVariant={tabsVariant}
         onSubmitSuccess={onClose}
       />
     </Modal>

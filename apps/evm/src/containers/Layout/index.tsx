@@ -82,12 +82,12 @@ export const Layout: React.FC = () => {
       <div className="h-dvh flex flex-col bg-background-active">
         <Starfield />
 
-        <NavBar className="relative z-10 shrink-0" />
+        <NavBar className="relative shrink-0" />
 
-        <TestEnvWarning className="relative z-10 shrink-0" />
+        <TestEnvWarning className="relative shrink-0" />
 
         <div
-          className="relative z-10 flex flex-col grow overflow-x-hidden"
+          className="relative flex flex-col grow overflow-x-hidden"
           id={PAGE_CONTAINER_ID}
           onScroll={handleScroll}
         >

@@ -59,8 +59,9 @@ export const TokenPlanets: React.FC<TokenPlanetsProps> = ({ earnAssets, onSelect
             aria-controls={`lite-planet-${index}`}
             onFocus={() => setOpenKey(earnAsset.key)}
             onClick={() => {
-              setOpenKey(earnAsset.key);
               setReplay(previous => ({ key: earnAsset.key, count: previous.count + 1 }));
+              setOpenKey(undefined);
+              onSelect(earnAsset);
             }}
           >
             <AsciiPlanet

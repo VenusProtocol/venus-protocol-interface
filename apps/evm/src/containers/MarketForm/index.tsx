@@ -14,7 +14,6 @@ import WithdrawForm from './WithdrawForm';
 import rocketIconSrc from './rocket.svg';
 
 export interface MarketFormProps {
-  tabsVariant?: 'primary' | 'secondary';
   vToken: VToken;
   poolComptrollerAddress: Address;
   initialActiveTabId?: string;
@@ -29,7 +28,6 @@ export const MarketForm: React.FC<MarketFormProps> = ({
   poolComptrollerAddress,
   initialActiveTabId,
   navType,
-  tabsVariant = 'secondary',
   visibleTabIds,
 }) => {
   const { t } = useTranslation();
@@ -125,7 +123,7 @@ export const MarketForm: React.FC<MarketFormProps> = ({
       tabs={visibleTabIds ? tabs.filter(tab => visibleTabIds.includes(tab.id)) : tabs}
       initialActiveTabId={initialActiveTabId}
       navType={navType}
-      variant={tabsVariant}
+      variant="secondary"
     />
   );
 };

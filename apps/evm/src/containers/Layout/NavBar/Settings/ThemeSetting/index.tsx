@@ -3,8 +3,8 @@ import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 
 const THEMES = [
-  { id: 'dark', iconName: 'moon' },
-  { id: 'light', iconName: 'sun' },
+  { id: 'dark', iconName: 'moon', isActive: true },
+  { id: 'light', iconName: 'sun', isActive: false },
 ] as const;
 
 export const ThemeSetting: React.FC = () => {
@@ -24,11 +24,15 @@ export const ThemeSetting: React.FC = () => {
             key={theme.id}
             type="button"
             disabled
-            aria-pressed={theme.id === 'dark'}
-            aria-label={t(`layout.menu.settings.theme.${theme.id}`)}
+            aria-pressed={theme.isActive}
+            aria-label={
+              theme.isActive
+                ? t('layout.menu.settings.theme.dark')
+                : t('layout.menu.settings.theme.light')
+            }
             className={cn(
               'flex size-9 items-center justify-center rounded-md disabled:cursor-not-allowed',
-              theme.id === 'dark' ? 'bg-blue text-white' : 'text-light-grey opacity-45',
+              theme.isActive ? 'bg-blue text-white' : 'text-light-grey opacity-45',
             )}
           >
             <Icon name={theme.iconName} className="size-5 text-inherit" />

@@ -7,7 +7,6 @@ import { SupplyTabs } from './SupplyTabs';
 import { WithdrawForm } from './WithdrawForm';
 
 export interface LiquidityHubFormProps {
-  tabsVariant?: 'primary' | 'secondary';
   vhToken: VhToken;
   initialActiveTabId?: string;
   onSubmitSuccess?: () => void;
@@ -19,7 +18,6 @@ export const LiquidityHubForm: React.FC<LiquidityHubFormProps> = ({
   vhToken,
   initialActiveTabId,
   navType,
-  tabsVariant = 'secondary',
 }) => {
   const { t } = useTranslation();
 
@@ -53,7 +51,7 @@ export const LiquidityHubForm: React.FC<LiquidityHubFormProps> = ({
       tabs={tabs}
       initialActiveTabId={initialActiveTabId}
       navType={navType}
-      variant={tabsVariant}
+      variant="secondary"
     />
   );
 };

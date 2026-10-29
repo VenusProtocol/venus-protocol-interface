@@ -1,9 +1,11 @@
+import { TokenIcon } from 'components';
 import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
 import { MarketFormModal as CoreMarketFormModal } from 'containers/MarketFormModal';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { VenusVaultModal } from 'containers/VenusVaultModal';
 import { useChain } from 'hooks/useChain';
 import { useTranslation } from 'libs/translations';
+import type { Token } from 'types';
 import type { LiteBorrowMarket, LiteEarnMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
 
@@ -19,26 +21,26 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({ market, mode, 
   const getMarketName = useMarketName();
   const { source } = market;
 
-  let symbol = '';
+  let token: Token;
 
   if (source.type === 'hub') {
-    symbol = source.hub.vhToken.underlyingToken.symbol;
+    token = source.hub.vhToken.underlyingToken;
   } else if (source.type === 'vault') {
-    symbol = source.vault.stakedToken.symbol;
+    token = source.vault.stakedToken;
   } else {
-    symbol = source.asset.vToken.underlyingToken.symbol;
+    token = source.asset.vToken.underlyingToken;
   }
 
-  const title = t('lite.formTitle', { symbol, marketName: getMarketName(market) });
+  const title = (
+    <span className="inline-flex items-center gap-x-2">
+      <TokenIcon token={token} />
+      {t('lite.formTitle', { symbol: token.symbol, marketName: getMarketName(market) })}
+    </span>
+  );
 
   if (source.type === 'hub') {
     return (
-      <LiquidityHubFormModal
-        title={title}
-        vhToken={source.hub.vhToken}
-        tabsVariant="primary"
-        handleClose={onClose}
-      />
+      <LiquidityHubFormModal title={title} vhToken={source.hub.vhToken} handleClose={onClose} />
     );
   }
 
@@ -66,7 +68,6 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({ market, mode, 
       poolComptrollerAddress={corePoolComptrollerContractAddress}
       initialActiveTabId={mode === 'earn' ? 'supply' : 'borrow'}
       visibleTabIds={mode === 'earn' ? ['supply', 'withdraw'] : ['borrow', 'repay']}
-      tabsVariant="primary"
       onClose={onClose}
     />
   );
