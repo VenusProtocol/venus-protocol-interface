@@ -47,6 +47,21 @@ Object.defineProperty(globalThis, 'localStorage', {
   value: window.localStorage,
 });
 
+// jsdom ships no media query support
+Object.defineProperty(window, 'matchMedia', {
+  configurable: true,
+  value: (query: string) => ({
+    matches: false,
+    media: query,
+    addEventListener: () => undefined,
+    removeEventListener: () => undefined,
+    addListener: () => undefined,
+    removeListener: () => undefined,
+    onchange: undefined,
+    dispatchEvent: () => false,
+  }),
+});
+
 // Mock config
 vi.mock('config', async () => {
   const actual = await vi.importActual('config');
