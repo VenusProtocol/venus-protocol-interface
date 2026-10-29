@@ -70,7 +70,7 @@ export const Modal: FC<ModalProps> = ({
       <div className={cn('pointer-events-none fixed inset-0 z-99999', rootClassName)}>
         <div
           className={cn(
-            'pointer-events-auto absolute top-1/2 left-1/2 flex max-h-[calc(100%-2rem)] w-[calc(100%-2rem)] max-w-136 -translate-x-1/2 -translate-y-1/2 flex-col overflow-auto rounded-xl border border-blue bg-dark-blue outline-hidden',
+            'pointer-events-auto absolute top-1/2 left-1/2 flex max-h-[calc(100%-2rem)] w-[calc(100%-2rem)] max-w-136 -translate-x-1/2 -translate-y-1/2 flex-col overflow-auto rounded-xl border border-border-raised bg-surface-popup shadow-popup backdrop-blur-popup backdrop-saturate-[1.2] outline-hidden',
             !hasHeader && 'pt-4 md:pt-6',
             className,
           )}

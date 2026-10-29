@@ -7,14 +7,13 @@ import type { LiteBorrowMarket, LiteEarnAsset } from '../types';
 import { useBorrowAssets } from '../useBorrowAssets';
 import type { useEarnAssets } from '../useEarnAssets';
 import type { useLiteNavigation } from '../useLiteNavigation';
-import { useMarketName } from '../useMarketName';
 import { BorrowAssetTable } from './BorrowAssetTable';
 import { BorrowMarketTable } from './BorrowMarketTable';
 import { Breadcrumb } from './Breadcrumb';
 import { EarnAssetTable } from './EarnAssetTable';
 import { EarnMarketTable } from './EarnMarketTable';
 import { Filters } from './Filters';
-import { MarketForm } from './MarketForm';
+import { MarketFormModal } from './MarketFormModal';
 import { type MarketMode, ModeSwitch } from './ModeSwitch';
 import { matchesCategories } from './matchesCategories';
 
@@ -35,7 +34,6 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
 }) => {
   const { mode, assetSymbol, marketId, setMode, selectAsset, selectMarket } = navigation;
   const { t } = useTranslation();
-  const getMarketName = useMarketName();
   const [searchValue, setSearchValue] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedLoanTokens, setSelectedLoanTokens] = useState<string[]>([]);
@@ -157,33 +155,6 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       />
     ) : undefined;
 
-  if (selectedMarket && selectedAsset) {
-    return (
-      <section
-        aria-label={modeLabel}
-        className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden"
-      >
-        <div className="flex shrink-0 items-center justify-between gap-3 p-4">
-          <Breadcrumb
-            modeLabel={modeLabel}
-            token={selectedAsset.token}
-            marketName={getMarketName(selectedMarket)}
-            onBackToAssets={backToAssets}
-            onBackToMarkets={
-              hasSingleMarket(selectedAsset.markets.length) ? undefined : clearSelectedMarket
-            }
-          />
-        </div>
-
-        <div className="min-h-0 grow overflow-auto px-6 pb-4">
-          <div className="mx-auto w-full max-w-140">
-            <MarketForm mode={mode} market={selectedMarket} onClose={clearSelectedMarket} />
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   const header = selectedAsset ? (
     <div className="flex items-center justify-between gap-3">
       <Breadcrumb modeLabel={modeLabel} token={selectedAsset.token} onBackToAssets={backToAssets} />
@@ -239,6 +210,10 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       )}
 
       {collateralModal}
+
+      {selectedMarket && selectedAsset && (
+        <MarketFormModal mode={mode} market={selectedMarket} onClose={clearSelectedMarket} />
+      )}
     </section>
   );
 };

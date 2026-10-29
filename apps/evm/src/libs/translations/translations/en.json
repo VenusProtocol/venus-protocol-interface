@@ -1091,6 +1091,7 @@
       "searchAsset": "Search asset",
       "searchAssetAriaLabel": "Search assets"
     },
+    "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
       "corePool": "Core Pool",
       "liquidityHub": "Liquidity Hub",

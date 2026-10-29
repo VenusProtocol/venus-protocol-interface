@@ -1091,6 +1091,7 @@
       "searchAsset": "Varlık ara",
       "searchAssetAriaLabel": "Varlık ara"
     },
+    "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
       "corePool": "Çekirdek Havuz",
       "liquidityHub": "Likidite Merkezi",

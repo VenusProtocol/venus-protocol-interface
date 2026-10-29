@@ -87,7 +87,7 @@ export const Layout: React.FC = () => {
         <TestEnvWarning className="relative z-10 shrink-0" />
 
         <div
-          className="venus-page-container relative z-10 flex flex-col grow overflow-x-hidden"
+          className="relative z-10 flex flex-col grow overflow-x-hidden"
           id={PAGE_CONTAINER_ID}
           onScroll={handleScroll}
         >

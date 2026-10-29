@@ -1088,6 +1088,7 @@
       "searchAsset": "Tìm tài sản",
       "searchAssetAriaLabel": "Tìm tài sản"
     },
+    "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
       "corePool": "Nhóm Core",
       "liquidityHub": "Trung tâm thanh khoản",

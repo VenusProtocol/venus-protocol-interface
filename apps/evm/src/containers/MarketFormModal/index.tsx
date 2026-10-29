@@ -10,6 +10,8 @@ export interface MarketFormModalProps {
   asset: Asset;
   poolComptrollerAddress: Address;
   initialActiveTabId?: string;
+  visibleTabIds?: string[];
+  tabsVariant?: 'primary' | 'secondary';
   onClose: ModalProps['handleClose'];
 }
 
@@ -17,6 +19,8 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
   asset,
   poolComptrollerAddress,
   initialActiveTabId,
+  visibleTabIds,
+  tabsVariant,
   onClose,
 }) => {
   const [userChainSettings] = useUserChainSettings();
@@ -47,6 +51,8 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
         vToken={asset.vToken}
         poolComptrollerAddress={poolComptrollerAddress}
         initialActiveTabId={initialActiveTabId}
+        visibleTabIds={visibleTabIds}
+        tabsVariant={tabsVariant}
         onSubmitSuccess={onClose}
       />
     </Modal>

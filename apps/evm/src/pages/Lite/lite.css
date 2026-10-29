@@ -1,7 +1,3 @@
-.lite-page {
-  isolation: isolate;
-}
-
 .lite-hero-title {
   display: inline-block;
   background-image: var(--background-image-hero-text);

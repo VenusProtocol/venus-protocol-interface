@@ -1088,6 +1088,7 @@
       "searchAsset": "搜尋資產",
       "searchAssetAriaLabel": "搜尋資產"
     },
+    "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
       "corePool": "核心池",
       "liquidityHub": "流動性中心",

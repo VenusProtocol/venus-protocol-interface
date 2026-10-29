@@ -1088,6 +1088,7 @@
       "searchAsset": "資産を検索",
       "searchAssetAriaLabel": "資産を検索"
     },
+    "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
       "corePool": "コアプール",
       "liquidityHub": "流動性ハブ",

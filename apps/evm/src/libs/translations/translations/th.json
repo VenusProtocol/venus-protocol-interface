@@ -1088,6 +1088,7 @@
       "searchAsset": "ค้นหาสินทรัพย์",
       "searchAssetAriaLabel": "ค้นหาสินทรัพย์"
     },
+    "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
       "corePool": "พูลหลัก",
       "liquidityHub": "ศูนย์สภาพคล่อง",
