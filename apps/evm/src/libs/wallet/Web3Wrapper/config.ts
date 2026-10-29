@@ -15,6 +15,7 @@ import localConfig from 'config';
 import type { ChainId } from 'types';
 import { chains } from '../chains';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants';
+import { oathWallet } from '../wallets/oathWallet';
 
 const connectors = connectorsForWallets(
   [
@@ -24,6 +25,7 @@ const connectors = connectorsForWallets(
         binanceWallet,
         okxWallet,
         trustWallet,
+        ...(localConfig.network === 'mainnet' ? [oathWallet] : []),
         walletConnectWallet,
         rabbyWallet,
         metaMaskWallet,
