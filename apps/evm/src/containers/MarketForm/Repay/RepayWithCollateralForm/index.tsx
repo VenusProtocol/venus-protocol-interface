@@ -192,33 +192,41 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     slippagePercentage: userSlippageTolerancePercentage,
   };
 
+  const fullRepayAmountTokens = convertMantissaToTokens({
+    value:
+      // Buff amount if we're repaying full loan to account for accrued interests while
+      // transaction is being mined
+      buffer({
+        amountMantissa: BigInt(
+          convertTokensToMantissa({
+            value: repaidAsset.userBorrowBalanceTokens,
+            token: repaidAsset.vToken.underlyingToken,
+          }).toFixed(),
+        ),
+      }),
+    token: repaidAsset.vToken.underlyingToken,
+  });
+
+  // The quote is fetched with debounced amounts, so gate it on the same values
+  const swapQuoteAmountTokens =
+    formValues.direction === 'exact-in'
+      ? debouncedInputCollateralAmountTokens
+      : formValues.repayFullLoan
+        ? fullRepayAmountTokens
+        : debouncedInputRepaidAmountTokens;
+
   const swapQuoteInput:
     | Omit<GetExactInSwapQuoteInput, 'chainId'>
     | Omit<GetApproximateOutSwapQuoteInput, 'chainId'> =
     formValues.direction === 'exact-in'
       ? {
           ...sharedSwapQuoteProps,
-          fromTokenAmountTokens: debouncedInputCollateralAmountTokens,
+          fromTokenAmountTokens: swapQuoteAmountTokens,
           direction: 'exact-in',
         }
       : {
           ...sharedSwapQuoteProps,
-          minToTokenAmountTokens: formValues.repayFullLoan
-            ? convertMantissaToTokens({
-                value:
-                  // Buff amount if we're repaying full loan to account for accrued interests while
-                  // transaction is being mined
-                  buffer({
-                    amountMantissa: BigInt(
-                      convertTokensToMantissa({
-                        value: repaidAsset.userBorrowBalanceTokens,
-                        token: repaidAsset.vToken.underlyingToken,
-                      }).toFixed(),
-                    ),
-                  }),
-                token: repaidAsset.vToken.underlyingToken,
-              })
-            : debouncedInputRepaidAmountTokens,
+          minToTokenAmountTokens: swapQuoteAmountTokens,
           direction: 'approximate-out',
         };
 
@@ -228,13 +236,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     isLoading: isGetSwapQuoteLoading,
   } = useGetSwapQuote(swapQuoteInput, {
     enabled:
-      isUsingSwap &&
-      !!leverageManagerContractAddress &&
-      Number(
-        formValues.direction === 'exact-in'
-          ? formValues.collateralAmountTokens
-          : formValues.repaidAmountTokens,
-      ) > 0,
+      isUsingSwap && !!leverageManagerContractAddress && swapQuoteAmountTokens.isGreaterThan(0),
   });
   const swapQuote = getSwapQuoteData?.swapQuote;
 
