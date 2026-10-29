@@ -161,7 +161,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {modeSwitch}
     </div>
   ) : (
-    <div className="flex min-h-9 items-center justify-between gap-3">
+    <div className="flex min-h-9 flex-wrap items-center justify-between gap-3">
       {modeSwitch}
       {filters}
     </div>

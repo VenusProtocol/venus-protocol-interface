@@ -5,7 +5,7 @@ export const Hero: React.FC = () => {
 
   return (
     <div className="lite-enter flex flex-col items-center text-center">
-      <h1 className="lite-hero-title text-h3 font-medium leading-[1.2] tracking-[-0.6px] text-balance">
+      <h1 className="lite-hero-title text-h7 font-medium leading-[1.2] tracking-[-0.6px] text-balance md:text-h3">
         {t('lite.title')}
       </h1>
 

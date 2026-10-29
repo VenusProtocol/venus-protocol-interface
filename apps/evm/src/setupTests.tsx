@@ -49,6 +49,7 @@ Object.defineProperty(globalThis, 'localStorage', {
 
 Object.defineProperty(window, 'matchMedia', {
   configurable: true,
+  writable: true,
   value: (query: string) => ({
     matches: false,
     media: query,

@@ -20,7 +20,7 @@ export const ModeSwitch: React.FC<ModeSwitchProps> = ({ mode, onChange }) => {
     <div
       role="group"
       aria-label={t('lite.modes.label')}
-      className="flex h-9 shrink-0 gap-0 rounded-lg border border-border-raised bg-dark-blue p-1 shadow-raised"
+      className="flex h-9 w-full shrink-0 gap-0 rounded-lg border border-border-raised bg-dark-blue p-1 shadow-raised sm:w-auto"
     >
       {modes.map(item => (
         <button
@@ -29,7 +29,7 @@ export const ModeSwitch: React.FC<ModeSwitchProps> = ({ mode, onChange }) => {
           aria-pressed={mode === item.id}
           onClick={() => onChange(item.id)}
           className={cn(
-            'w-20 cursor-pointer rounded-md border border-transparent text-b1r transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue',
+            'flex-1 cursor-pointer rounded-md border border-transparent text-b1r transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue sm:w-20 sm:flex-none',
             mode === item.id
               ? 'bg-action border-border-action font-semibold text-white shadow-action-selected'
               : 'text-light-grey',

@@ -1,4 +1,5 @@
 import { Button } from '@venusprotocol/ui';
+import { useNavigate } from 'react-router';
 import type { Address } from 'viem';
 import { useDisconnect } from 'wagmi';
 
@@ -7,7 +8,6 @@ import config from 'config';
 import { routes } from 'constants/routing';
 import { AccountOverview } from 'containers/AccountOverview';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
-import { Link } from 'containers/Link';
 import { VipTelegramGroupButton } from 'containers/VipTelegramGroupButton';
 import { useTranslation } from 'libs/translations';
 import { ClaimRewardsButton } from '../../ClaimRewardsButton';
@@ -30,6 +30,12 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
   };
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleViewDashboard = () => {
+    navigate(routes.dashboard.path);
+    onClose?.();
+  };
 
   return (
     <>
@@ -69,11 +75,9 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
             <Settings />
 
             <div className="flex flex-col gap-y-3">
-              <Link to={routes.dashboard.path} onClick={onClose} className="w-full">
-                <Button variant="secondary" className="w-full">
-                  {t('accountModal.dashboardButtonLabel')}
-                </Button>
-              </Link>
+              <Button variant="secondary" className="w-full" onClick={handleViewDashboard}>
+                {t('accountModal.dashboardButtonLabel')}
+              </Button>
 
               {isVip && <VipTelegramGroupButton />}
 
