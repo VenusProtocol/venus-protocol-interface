@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.42.5
+
+### Patch Changes
+
+- c0b5611: add the Solv(Octagon) venue to the institutional vault config
+
 ## 5.42.4
 
 ### Patch Changes
