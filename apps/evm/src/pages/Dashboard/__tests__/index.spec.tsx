@@ -2,8 +2,8 @@ import { waitFor } from '@testing-library/react';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { useGetSpokePools } from 'clients/api';
-import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useStore as useInterfaceModeStore } from 'hooks/useInterfaceMode/store';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
