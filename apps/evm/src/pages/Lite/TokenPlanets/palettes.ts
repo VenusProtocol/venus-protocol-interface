@@ -11,5 +11,3 @@ export const PLANET_PALETTES: Record<string, [string, string, string]> = {
 };
 
 export const PLANET_SYMBOL_ORDER = ['USDT', 'USDC', 'sUSDe', 'DAI', 'BTCB', 'WBNB', 'ETH', 'WBETH'];
-
-export const RINGED_PLANET_SYMBOLS = ['USDC', 'DAI'];
