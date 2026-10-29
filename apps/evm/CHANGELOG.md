@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 5.42.4
+
+### Patch Changes
+
+- 04efe73: show one service issue toast when a failing page redirects to another
+- b3f1141: show a placeholder instead of $0 when the vault balances cannot be read
+
 ## 5.42.3
 
 ### Patch Changes
