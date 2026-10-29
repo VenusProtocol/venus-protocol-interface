@@ -43,7 +43,7 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({ market, mode, 
   }
 
   if (source.type === 'vault') {
-    return <VenusVaultModal isOpen vault={source.vault} handleClose={onClose} />;
+    return <VenusVaultModal isOpen title={title} vault={source.vault} handleClose={onClose} />;
   }
 
   if (source.type === 'spoke') {
@@ -61,6 +61,7 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({ market, mode, 
 
   return (
     <CoreMarketFormModal
+      title={title}
       asset={source.asset}
       poolComptrollerAddress={corePoolComptrollerContractAddress}
       initialActiveTabId={mode === 'earn' ? 'supply' : 'borrow'}
