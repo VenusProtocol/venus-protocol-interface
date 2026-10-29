@@ -9,47 +9,10 @@
 .lite-planet {
   position: absolute;
   pointer-events: auto;
-  --drift-x: calc(var(--spacing) * 3);
-  --drift-y: calc(var(--spacing) * 2);
-  animation: lite-planet-orbit 32s ease-in-out infinite;
-}
-
-.lite-planet:nth-child(even) {
-  --drift-x: calc(var(--spacing) * -3);
-  animation-duration: 39s;
-  animation-delay: -11s;
-}
-
-.lite-planet:nth-child(3n) {
-  --drift-y: calc(var(--spacing) * -2);
-  animation-duration: 28s;
-  animation-delay: -19s;
-}
-
-.lite-planet:nth-child(n + 5) {
-  --drift-x: var(--spacing);
-  --drift-y: calc(var(--spacing) * -1);
-  animation-duration: 45s;
-  animation-delay: -23s;
-}
-
-.lite-planet--4 {
-  animation-duration: 35s;
-  animation-delay: -7s;
-}
-.lite-planet--6 {
-  animation-delay: -9s;
-}
-.lite-planet--7 {
-  animation-delay: -31s;
-}
-.lite-planet--8 {
-  animation-delay: -16s;
 }
 
 .lite-planet[data-open='true'] {
   z-index: 2;
-  animation-play-state: paused;
 }
 
 .lite-planet--1 {
@@ -61,69 +24,75 @@
   right: 12%;
   top: 28%;
   --planet-size: 20;
+  --breath-slot: 4;
 }
 .lite-planet--3 {
   left: 23%;
   top: 72%;
   --planet-size: 16;
+  --ascii-depth: 1;
+  --breath-slot: 2;
 }
 .lite-planet--4 {
   right: 21%;
   top: 68%;
   --planet-size: 18;
+  --ascii-depth: 0.625;
+  --breath-slot: 6;
 }
 .lite-planet--5 {
   left: 6%;
   top: 19%;
   --planet-size: 12;
+  --ascii-depth: 1.25;
+  --breath-slot: 1;
 }
 .lite-planet--6 {
   right: 6%;
   top: 82%;
   --planet-size: 14;
+  --breath-slot: 5;
 }
 .lite-planet--7 {
   left: 32%;
   top: 86%;
   --planet-size: 10;
+  --ascii-depth: 1.75;
+  --breath-slot: 3;
 }
 .lite-planet--8 {
   right: 29%;
   top: 13%;
   --planet-size: 11;
+  --ascii-depth: 1.125;
+  --breath-slot: 7;
 }
 
 .lite-planet__orb {
   position: relative;
   display: grid;
   place-items: center;
-  isolation: isolate;
   width: calc(var(--spacing) * var(--planet-size));
   height: calc(var(--spacing) * var(--planet-size));
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
-  scale: 1;
-  opacity: 0.68;
-  filter: blur(calc(var(--spacing) * 1.5));
-  box-shadow:
-    -4px -3px 12px rgb(130 210 231 / 26%),
-    16px 24px 52px rgb(23 49 80 / 16%);
+  opacity: 0.82;
+  filter: blur(calc(var(--spacing) * var(--ascii-depth, 0.75))) saturate(1.2);
+  animation: lite-planet-breathe 48s ease-in-out infinite;
+  animation-delay: calc(var(--breath-slot, 0) * 6s);
   transition:
     filter 0.4s ease,
-    opacity 0.4s ease,
-    scale 0.4s ease;
+    opacity 0.4s ease;
 }
 
-.lite-planet:nth-child(n + 5) .lite-planet__orb {
-  filter: blur(calc(var(--spacing) * 2));
-  opacity: 0.48;
+.lite-planet:nth-child(-n + 2) .lite-planet__orb {
+  opacity: 0.96;
 }
 
 .lite-planet[data-open='true'] .lite-planet__orb {
-  filter: blur(0);
-  opacity: 0.95;
-  scale: 1.06;
+  filter: blur(0) saturate(1.25) contrast(1.18);
+  opacity: 1;
   outline: none;
 }
 
@@ -132,108 +101,41 @@
   outline-offset: calc(var(--spacing) * 2);
 }
 
-.lite-planet__orb::after {
-  content: '';
+/* The glyph sphere overflows its orb so the ring stays whole. */
+.lite-planet__ascii {
   position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: inherit;
+  left: -25%;
+  top: -25%;
+  width: 150%;
+  height: 150%;
   pointer-events: none;
-  background: radial-gradient(
-    circle at 30% 25%,
-    rgb(222 250 255 / 12%),
-    transparent 45%,
-    rgb(9 25 53 / 24%)
-  );
-  box-shadow: inset 1px 1px 3px rgb(206 244 255 / 65%);
 }
 
-.lite-planet__orb img {
+.lite-planet__mark {
+  position: absolute;
+  left: 18%;
+  top: 18%;
+  z-index: 1;
+  width: 64%;
+  height: 64%;
+  pointer-events: none;
+}
+
+.lite-planet__mark-fallback {
   position: relative;
   z-index: 1;
-  width: 46%;
-  height: 46%;
-  opacity: 0.65;
-  object-fit: contain;
-  border-radius: 50%;
-  mix-blend-mode: screen;
-  filter: grayscale(1) brightness(0.78) contrast(8);
-  transform: perspective(180px) rotateY(-18deg) rotateZ(-10deg) translate(-5%, -5%);
-  mask-image: radial-gradient(ellipse, black 35%, rgb(0 0 0 / 65%) 70%, transparent 100%);
-  transition:
-    transform 0.4s ease 0.08s,
-    opacity 0.4s ease 0.08s;
-}
-
-.lite-planet[data-token='sUSDe'] .lite-planet__orb img,
-.lite-planet[data-token='ETH'] .lite-planet__orb img {
-  filter: grayscale(1) invert(1) brightness(0.78) contrast(8);
-}
-
-/* Gold disks need a higher luminance threshold than blue or green ones. */
-.lite-planet:is([data-token='DAI'], [data-token='BTCB'], [data-token='WBNB'], [data-token='WBETH'])
-  .lite-planet__orb
-  img {
-  filter: grayscale(1) brightness(0.56) contrast(18);
-}
-
-.lite-planet[data-open='true'] .lite-planet__orb img {
+  width: 28%;
+  height: 28%;
   opacity: 0.95;
-  transform: perspective(180px) rotateY(-5deg) rotateZ(-3deg) scale(1.4);
+  object-fit: contain;
 }
 
-.lite-planet-sphere {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 28% 23%,
-    var(--planet-light) 0%,
-    var(--planet-mid) 39%,
-    var(--planet-dark) 83%,
-    var(--planet-mid) 100%
-  );
-  box-shadow:
-    inset 2px 2px 5px rgb(255 255 255 / 50%),
-    inset -5px -6px 12px rgb(10 25 50 / 15%);
-}
-
-.lite-planet__ring {
-  position: absolute;
-  left: -34%;
-  top: 26%;
-  width: 168%;
-  height: 48%;
-  border-radius: 50%;
-  border: 1px solid rgb(159 186 208 / 48%);
-  opacity: 0;
-  pointer-events: none;
-  transform: rotate(-12deg) scale(0.88);
-  transition:
-    opacity 0.4s ease,
-    transform 0.6s ease;
-}
-
-.lite-planet__ring--back {
-  z-index: -1;
-}
-
-.lite-planet__ring--front {
-  z-index: 3;
-  clip-path: inset(50% -10% -15% -10%);
-}
-
-.lite-planet[data-open='true'] .lite-planet__ring {
-  opacity: 0.8;
-  transform: rotate(-24deg) scale(1);
-  transition-delay: 0.15s;
-}
-
-.lite-planet[data-token='DAI'] .lite-planet__ring {
-  border-color: rgb(196 172 129 / 45%);
+/* The BNB emblem carries its asset identity, not just the sphere. */
+.lite-planet[data-token='WBNB'] .lite-planet__mark {
+  left: 10%;
+  top: 10%;
+  width: 80%;
+  height: 80%;
 }
 
 .lite-planet-detail {
@@ -251,22 +153,20 @@
   font-size: var(--text-sm);
 }
 
-@media (min-width: 768px) {
-  .lite-planet:nth-child(even) .lite-planet-detail {
-    left: auto;
-    right: 0;
-  }
+.lite-planet:nth-child(even) .lite-planet-detail {
+  left: auto;
+  right: 0;
+}
 
-  .lite-planet:nth-child(n + 3) .lite-planet-detail {
-    top: auto;
-    bottom: 100%;
-  }
+.lite-planet:nth-child(n + 3) .lite-planet-detail {
+  top: auto;
+  bottom: 100%;
+}
 
-  /* Planets near the top keep their details below the orb, clear of the viewport edge. */
-  .lite-planet.lite-planet--5 .lite-planet-detail {
-    top: 100%;
-    bottom: auto;
-  }
+/* Planets near the top keep their details below the orb. */
+.lite-planet.lite-planet--5 .lite-planet-detail {
+  top: 100%;
+  bottom: auto;
 }
 
 .lite-planet-detail__title {
@@ -314,6 +214,26 @@
   margin-top: calc(var(--spacing) * 2);
 }
 
+/* Satellites need room for their glyphs to stay legible. */
+@media (min-width: 1101px) {
+  .lite-planet[data-token='BTCB'] {
+    --planet-size: 25;
+  }
+  .lite-planet[data-token='WBNB'] {
+    --planet-size: 32;
+    --ascii-depth: 0.75;
+  }
+  .lite-planet[data-token='ETH'] {
+    --planet-size: 12;
+  }
+  .lite-planet[data-token='WBETH'] {
+    --planet-size: 16;
+  }
+  .lite-planet[data-token='USDT'] .lite-planet__orb {
+    translate: 0 calc(var(--spacing) * -4);
+  }
+}
+
 @media (min-width: 1600px) {
   .lite-planet--1 {
     left: 8%;
@@ -338,22 +258,18 @@
   .lite-planet--5 {
     left: 17%;
     top: 26%;
-    --planet-size: 20;
   }
   .lite-planet--6 {
     right: 12%;
     top: 19%;
-    --planet-size: 12;
   }
   .lite-planet--7 {
     left: 33%;
     top: 86%;
-    --planet-size: 8;
   }
   .lite-planet--8 {
     right: 29%;
     top: 81%;
-    --planet-size: 10;
   }
   .lite-planet--1 .lite-planet-detail {
     left: calc(var(--spacing) * 8);
@@ -395,7 +311,7 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1100px) {
+@media (max-width: 1100px) {
   .lite-planet:nth-child(odd) {
     left: 3%;
   }
@@ -407,61 +323,24 @@
   }
 }
 
-@media (max-width: 767px) {
-  .lite-planets {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    gap: calc(var(--spacing) * 4);
-    z-index: 5;
-  }
-
-  .lite-planet {
-    position: relative;
-    inset: auto;
-    animation: none;
-  }
-
-  .lite-planet__orb {
-    --planet-size: 12;
-    filter: blur(calc(var(--spacing) * 0.5));
-  }
-
-  .lite-planet-detail {
-    position: fixed;
-    top: auto;
-    bottom: calc(var(--spacing) * 6);
-    left: calc(var(--spacing) * 4);
-    right: calc(var(--spacing) * 4);
-    width: auto;
-  }
-
-  .lite-planet[data-ring='true'] .lite-planet__ring {
-    border-width: 2px;
-  }
+.lite-planets:has([data-open='true']) .lite-planet__orb,
+body:not(.venus-window-focused) .lite-planet__orb {
+  animation-play-state: paused;
 }
 
-@keyframes lite-planet-orbit {
+@keyframes lite-planet-breathe {
   0%,
+  12.5%,
   100% {
-    transform: translate(0, calc(var(--drift-y) * -1));
+    transform: scale(1);
   }
-  25% {
-    transform: translate(var(--drift-x), 0);
-  }
-  50% {
-    transform: translate(0, var(--drift-y));
-  }
-  75% {
-    transform: translate(calc(var(--drift-x) * -1), 0);
+  6.25% {
+    transform: scale(1.045);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lite-planet,
-  .lite-planet__orb,
-  .lite-planet__orb img,
-  .lite-planet__ring {
+  .lite-planet__orb {
     animation: none;
     transition: none;
   }

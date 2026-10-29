@@ -5,6 +5,7 @@ import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 import { SectionErrorBoundary, Wrapper, cn } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
 import { usePointerLight } from 'hooks/usePointerLight';
+import { useWindowFocusFlag } from 'hooks/useWindowFocusFlag';
 import { useRef } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -23,6 +24,7 @@ export const Layout: React.FC = () => {
   const { pathname } = useLocation();
 
   usePointerLight();
+  useWindowFocusFlag();
 
   const isCloseToBottomState = useStore(state => state.isCloseToBottom);
   const setIsCloseToBottom = useStore(state => state.setIsCloseToBottom);
