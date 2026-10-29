@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.42.6
+
+### Patch Changes
+
+- b48e936: stop requesting a swap quote for a zero amount in the repay with collateral form
+
 ## 5.42.5
 
 ### Patch Changes
