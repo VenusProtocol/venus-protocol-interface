@@ -459,6 +459,59 @@ describe('useGetFormattedFixedRatedVaults', () => {
     expect(institutionalVault?.userYieldTokens).toBeUndefined();
   });
 
+  it('leaves the user balance undefined when the vault user data read fails', () => {
+    (useGetInstitutionalVaultUserData as Mock).mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isError: true,
+    });
+
+    let output: UseGetPendleVaultsOutput | undefined;
+
+    const Wrapper = () => {
+      output = useGetFormattedFixedRatedVaults();
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const institutionalVault = output?.data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(output?.isUserDataUnavailable).toBe(true);
+    expect(institutionalVault).toBeDefined();
+    expect(institutionalVault?.userStakeBalanceMantissa).toBeUndefined();
+    expect(institutionalVault?.userStakeBalanceCents).toBeUndefined();
+  });
+
+  it('keeps a zero user balance when the read succeeds with no position', () => {
+    (useGetInstitutionalVaultUserData as Mock).mockReturnValue({
+      data: [],
+      isLoading: false,
+    });
+
+    let data: UseGetPendleVaultsOutput['data'] | undefined;
+
+    const Wrapper = () => {
+      ({ data } = useGetFormattedFixedRatedVaults());
+      return <div />;
+    };
+
+    renderComponent(<Wrapper />, {
+      accountAddress: fakeAddress,
+    });
+
+    const institutionalVault = data?.find(
+      (vault): vault is InstitutionalVault => vault.vaultType === VaultType.Institutional,
+    );
+
+    expect(institutionalVault?.userStakeBalanceMantissa?.toFixed()).toBe('0');
+    expect(institutionalVault?.userStakeBalanceCents).toBe(0);
+  });
+
   it('derives userYieldTokens from on-chain withdrawable assets for liquidated vaults', () => {
     (useGetFixedRatedVaults as Mock).mockReturnValue({
       data: [

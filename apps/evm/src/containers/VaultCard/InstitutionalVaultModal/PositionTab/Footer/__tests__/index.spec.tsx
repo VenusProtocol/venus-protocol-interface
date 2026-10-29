@@ -4,6 +4,7 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { usdc } from '__mocks__/models/tokens';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useNow } from 'hooks/useNow';
 import { en, t } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -99,6 +100,17 @@ describe('InstitutionalVaultModal Footer', () => {
 
     expect(queryByText(en.vault.modals.currentDeposited)).not.toBeInTheDocument();
     expect(queryByText(en.vault.modals.totalTargetRewards)).not.toBeInTheDocument();
+  });
+
+  it('shows a placeholder for the current deposit when the balance is unavailable', () => {
+    const { getByText } = renderComponent(
+      <Footer {...baseProps} vault={{ ...baseVault, userStakeBalanceMantissa: undefined }} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(getRow(getByText, en.vault.modals.currentDeposited)).toHaveTextContent(PLACEHOLDER_KEY);
   });
 
   it('renders the current deposited and total yields rows for connected accounts', () => {
