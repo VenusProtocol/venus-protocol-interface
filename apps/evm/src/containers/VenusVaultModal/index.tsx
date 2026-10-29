@@ -1,4 +1,4 @@
-import { Modal, Tabs } from 'components';
+import { Modal, type ModalProps, Tabs } from 'components';
 import { VaultName } from 'containers/VaultCard/VaultName';
 import { useTranslation } from 'libs/translations';
 import type { VenusVault } from 'types';
@@ -11,6 +11,7 @@ export interface VenusVaultModalProps {
   initialMode?: 'deposit' | 'withdraw';
   isOpen: boolean;
   hidePrimeLeaderboardLink?: boolean;
+  title?: ModalProps['title'];
 }
 
 export const VenusVaultModal: React.FC<VenusVaultModalProps> = ({
@@ -18,6 +19,7 @@ export const VenusVaultModal: React.FC<VenusVaultModalProps> = ({
   handleClose,
   isOpen,
   hidePrimeLeaderboardLink,
+  title,
 }) => {
   const { t } = useTranslation();
 
@@ -41,7 +43,7 @@ export const VenusVaultModal: React.FC<VenusVaultModalProps> = ({
   ];
 
   return (
-    <Modal isOpen={isOpen} handleClose={handleClose} title={<VaultName vault={vault} />}>
+    <Modal isOpen={isOpen} handleClose={handleClose} title={title ?? <VaultName vault={vault} />}>
       <Tabs tabs={tabs} />
     </Modal>
   );

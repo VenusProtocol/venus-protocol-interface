@@ -1,0 +1,31 @@
+.venus-mode-label {
+  display: inline-block;
+  background: var(--background-image-pearl-text) 0 0 / 100% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: venus-mode-label-flow 4.5s linear infinite;
+}
+
+@keyframes venus-mode-label-flow {
+  from {
+    background-position: 0 100%;
+  }
+  to {
+    background-position: 0 0%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venus-mode-label {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .venus-mode-label {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    animation: none;
+  }
+}

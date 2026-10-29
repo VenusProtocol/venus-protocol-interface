@@ -19,7 +19,7 @@ vi.mock('containers/Layout', async () => {
   };
 });
 
-vi.mock('pages/Landing', () => ({ default: () => <div>Landing page</div> }));
+vi.mock('pages/Lite', () => ({ default: () => <div>Lite page</div> }));
 vi.mock('pages/Dashboard', () => ({ default: () => <div>Dashboard page</div> }));
 
 const unsupportedChainId = 999999999;
@@ -59,7 +59,7 @@ describe('AppRoutes with an unsupported chain ID', () => {
   it('redirects to the landing page when the route does not exist', async () => {
     renderApp(`${removedPageRoute}?${CHAIN_ID_SEARCH_PARAM}=${unsupportedChainId}`);
 
-    expect(await screen.findByText('Landing page')).toBeInTheDocument();
+    expect(await screen.findByText('Lite page')).toBeInTheDocument();
 
     // routes.landing.path is "/", so the pathname is matched exactly to make sure the user is
     // not left on the route that does not exist anymore

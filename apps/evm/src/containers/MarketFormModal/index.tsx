@@ -10,6 +10,8 @@ export interface MarketFormModalProps {
   asset: Asset;
   poolComptrollerAddress: Address;
   initialActiveTabId?: string;
+  visibleTabIds?: string[];
+  title?: ModalProps['title'];
   onClose: ModalProps['handleClose'];
 }
 
@@ -17,6 +19,8 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
   asset,
   poolComptrollerAddress,
   initialActiveTabId,
+  visibleTabIds,
+  title,
   onClose,
 }) => {
   const [userChainSettings] = useUserChainSettings();
@@ -29,17 +33,19 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
     <Modal
       isOpen
       title={
-        <span className="inline-flex items-center gap-x-2">
-          {asset.isProtectionModeEnabled && (
-            <ProtectionModeIndicator
-              variant="icon"
-              tokenName={asset.vToken.underlyingToken.symbol}
-              tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
-              tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
-            />
-          )}
-          {asset.vToken.underlyingToken.symbol}
-        </span>
+        title ?? (
+          <span className="inline-flex items-center gap-x-2">
+            {asset.isProtectionModeEnabled && (
+              <ProtectionModeIndicator
+                variant="icon"
+                tokenName={asset.vToken.underlyingToken.symbol}
+                tokenSupplyPriceCents={asset.tokenSupplyPriceCents}
+                tokenBorrowPriceCents={asset.tokenBorrowPriceCents}
+              />
+            )}
+            {asset.vToken.underlyingToken.symbol}
+          </span>
+        )
       }
       handleClose={onClose}
     >
@@ -47,6 +53,7 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
         vToken={asset.vToken}
         poolComptrollerAddress={poolComptrollerAddress}
         initialActiveTabId={initialActiveTabId}
+        visibleTabIds={visibleTabIds}
         onSubmitSuccess={onClose}
       />
     </Modal>

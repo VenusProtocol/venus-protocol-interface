@@ -1,9 +1,11 @@
 import { Button } from '@venusprotocol/ui';
+import { useLocation, useNavigate } from 'react-router';
 import type { Address } from 'viem';
 import { useDisconnect } from 'wagmi';
 
 import { BodyBackdrop, Icon } from 'components';
 import config from 'config';
+import { routes } from 'constants/routing';
 import { AccountOverview } from 'containers/AccountOverview';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { VipTelegramGroupButton } from 'containers/VipTelegramGroupButton';
@@ -28,6 +30,13 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
   };
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { search } = useLocation();
+
+  const handleViewDashboard = () => {
+    navigate({ pathname: routes.dashboard.path, search });
+    onClose?.();
+  };
 
   return (
     <>
@@ -67,6 +76,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
             <Settings />
 
             <div className="flex flex-col gap-y-3">
+              <Button variant="secondary" className="w-full" onClick={handleViewDashboard}>
+                {t('accountModal.dashboardButtonLabel')}
+              </Button>
+
               {isVip && <VipTelegramGroupButton />}
 
               {/* When running in Safe Wallet app, user's wallet should be kept connected at all time */}

@@ -1,0 +1,343 @@
+.lite-planets {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  color: var(--color-white);
+}
+
+.lite-planet {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.lite-planet[data-open='true'] {
+  z-index: 2;
+}
+
+.lite-planet--1 {
+  left: 12%;
+  top: 43%;
+  --planet-size: 24;
+}
+.lite-planet--2 {
+  right: 12%;
+  top: 28%;
+  --planet-size: 20;
+  --breath-slot: 4;
+}
+.lite-planet--3 {
+  left: 23%;
+  top: 72%;
+  --planet-size: 16;
+  --ascii-depth: 1;
+  --breath-slot: 2;
+}
+.lite-planet--4 {
+  right: 21%;
+  top: 68%;
+  --planet-size: 18;
+  --ascii-depth: 0.625;
+  --breath-slot: 6;
+}
+.lite-planet--5 {
+  left: 6%;
+  top: 19%;
+  --planet-size: 12;
+  --ascii-depth: 1.25;
+  --breath-slot: 1;
+}
+.lite-planet--6 {
+  right: 6%;
+  top: 82%;
+  --planet-size: 14;
+  --breath-slot: 5;
+}
+.lite-planet--7 {
+  left: 32%;
+  top: 86%;
+  --planet-size: 10;
+  --ascii-depth: 1.75;
+  --breath-slot: 3;
+}
+.lite-planet--8 {
+  right: 29%;
+  top: 13%;
+  --planet-size: 11;
+  --ascii-depth: 1.125;
+  --breath-slot: 7;
+}
+
+.lite-planet__orb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(var(--spacing) * var(--planet-size));
+  height: calc(var(--spacing) * var(--planet-size));
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.82;
+  filter: blur(calc(var(--spacing) * var(--ascii-depth, 0.75))) saturate(1.2);
+  animation: lite-planet-breathe 48s ease-in-out infinite;
+  animation-delay: calc(var(--breath-slot, 0) * 6s);
+  transition:
+    filter 0.4s ease,
+    opacity 0.4s ease;
+}
+
+.lite-planet:nth-child(-n + 2) .lite-planet__orb {
+  opacity: 0.96;
+}
+
+.lite-planet[data-open='true'] .lite-planet__orb {
+  filter: blur(0) saturate(1.25) contrast(1.18);
+  opacity: 1;
+  outline: none;
+}
+
+.lite-planet__orb:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: calc(var(--spacing) * 2);
+}
+
+.lite-planet__ascii {
+  position: absolute;
+  left: -25%;
+  top: -25%;
+  width: 150%;
+  height: 150%;
+  pointer-events: none;
+}
+
+.lite-planet__mark {
+  position: absolute;
+  left: 18%;
+  top: 18%;
+  z-index: 1;
+  width: 64%;
+  height: 64%;
+  pointer-events: none;
+}
+
+.lite-planet__mark-fallback {
+  position: relative;
+  z-index: 1;
+  width: 28%;
+  height: 28%;
+  opacity: 0.95;
+  object-fit: contain;
+}
+
+.lite-planet[data-token='WBNB'] .lite-planet__mark {
+  left: 10%;
+  top: 10%;
+  width: 80%;
+  height: 80%;
+}
+
+.lite-planet-detail {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: grid;
+  gap: 0;
+  width: calc(var(--spacing) * 64);
+  padding: calc(var(--spacing) * 3);
+  border: 1px solid var(--color-dark-blue-hover);
+  border-radius: var(--radius-lg);
+  background: var(--color-background-active);
+  box-shadow: 0 12px 32px rgb(20 45 80 / 18%);
+  font-size: var(--text-sm);
+}
+
+.lite-planet:nth-child(even) .lite-planet-detail {
+  left: auto;
+  right: 0;
+}
+
+.lite-planet:nth-child(n + 3) .lite-planet-detail {
+  top: auto;
+  bottom: 100%;
+}
+
+.lite-planet.lite-planet--5 .lite-planet-detail {
+  top: 100%;
+  bottom: auto;
+}
+
+.lite-planet-detail__title {
+  padding: var(--spacing) calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.lite-planet-detail__columns {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 calc(var(--spacing) * 2) var(--spacing);
+  color: var(--color-light-grey);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.lite-planet-detail__market {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 3);
+  min-height: calc(var(--spacing) * 11);
+  padding: calc(var(--spacing) * 2);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  transition: background-color 0.15s ease;
+}
+
+.lite-planet-detail__rate {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+}
+
+.lite-planet-detail__rate strong {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.lite-planet-detail__action {
+  margin-top: calc(var(--spacing) * 2);
+}
+
+@media (min-width: 1101px) {
+  .lite-planet[data-token='BTCB'] {
+    --planet-size: 25;
+  }
+  .lite-planet[data-token='WBNB'] {
+    --planet-size: 32;
+    --ascii-depth: 0.75;
+  }
+  .lite-planet[data-token='ETH'] {
+    --planet-size: 12;
+  }
+  .lite-planet[data-token='WBETH'] {
+    --planet-size: 16;
+  }
+  .lite-planet[data-token='USDT'] .lite-planet__orb {
+    translate: 0 calc(var(--spacing) * -4);
+  }
+}
+
+@media (min-width: 1600px) {
+  .lite-planet--1 {
+    left: 8%;
+    top: 49%;
+    --planet-size: 56;
+  }
+  .lite-planet--2 {
+    right: 8%;
+    top: 72%;
+    --planet-size: 46;
+  }
+  .lite-planet--3 {
+    left: 23%;
+    top: 75%;
+    --planet-size: 24;
+  }
+  .lite-planet--4 {
+    right: 20%;
+    top: 38%;
+    --planet-size: 28;
+  }
+  .lite-planet--5 {
+    left: 17%;
+    top: 26%;
+  }
+  .lite-planet--6 {
+    right: 12%;
+    top: 19%;
+  }
+  .lite-planet--7 {
+    left: 33%;
+    top: 86%;
+  }
+  .lite-planet--8 {
+    right: 29%;
+    top: 81%;
+  }
+  .lite-planet--1 .lite-planet-detail {
+    left: calc(var(--spacing) * 8);
+  }
+
+  .lite-planet.lite-planet--6 .lite-planet-detail {
+    top: 100%;
+    bottom: auto;
+  }
+  .lite-planet--2 .lite-planet-detail {
+    top: auto;
+    bottom: 100%;
+    right: calc(var(--spacing) * 16);
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1599px) {
+  .lite-planet--1 {
+    left: 6%;
+    --planet-size: 36;
+  }
+  .lite-planet--2 {
+    right: 3%;
+    --planet-size: 32;
+  }
+  .lite-planet--3 {
+    left: 12%;
+    --planet-size: 20;
+  }
+  .lite-planet--4 {
+    right: 12%;
+    --planet-size: 22;
+  }
+}
+
+@media (max-width: 1919px) {
+  .lite-planet:nth-child(n + 7) {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .lite-planet:nth-child(odd) {
+    left: 3%;
+  }
+  .lite-planet:nth-child(even) {
+    right: 3%;
+  }
+  .lite-planet__orb {
+    --planet-size: 12;
+  }
+}
+
+.lite-planets:has([data-open='true']) .lite-planet__orb,
+body:not(.venus-window-focused) .lite-planet__orb {
+  animation-play-state: paused;
+}
+
+@keyframes lite-planet-breathe {
+  0%,
+  12.5%,
+  100% {
+    transform: scale(1);
+  }
+  6.25% {
+    transform: scale(1.045);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lite-planet__orb {
+    animation: none;
+    transition: none;
+  }
+}

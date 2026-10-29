@@ -7,9 +7,9 @@ import { Icon, type IconName } from 'components';
 import {
   VENUS_DISCORD_URL,
   VENUS_DOC_URL,
-  VENUS_FLUX_URL,
   VENUS_GITHUB_URL,
   VENUS_TELEGRAM_URL,
+  VENUS_X_URL,
 } from 'constants/production';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
@@ -55,7 +55,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
     },
     {
       iconName: 'x',
-      href: VENUS_FLUX_URL,
+      href: VENUS_X_URL,
     },
     {
       iconName: 'github',
@@ -85,7 +85,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <footer
       ref={ref}
-      className="bg-background-active mt-10 p-5 space-y-4 sm:flex sm:justify-between sm:items-center sm:space-y-0 md:px-6 xl:px-10"
+      className="mt-10 p-5 space-y-4 sm:flex sm:justify-between sm:items-center sm:space-y-0 md:px-6 xl:px-10"
     >
       <div className="flex items-center gap-4 flex-wrap">
         {footerLinks.map(footerLink => {

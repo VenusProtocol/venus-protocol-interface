@@ -56,6 +56,18 @@
     --color-mediumBlue-rgb: 38 90 204;
     --color-darkBlue-rgb: 27 67 152;
     --color-greyBlue-rgb: 42 52 77;
+
+    --accent-highlight: #398cfa;
+    --accent-strong: #2469d8;
+    --accent: #307fee;
+    --accent-deep: #2168d6;
+    --accent-highlight-hover: #529dff;
+    --accent-strong-hover: #2a77eb;
+    --accent-hover: #398cfa;
+    --accent-deep-hover: #2875e6;
+
+    --elevation-tint-rgb: 255 255 255;
+    --elevation-shade-rgb: 0 0 0;
   }
 }
 
@@ -229,8 +241,82 @@
   --text-b3r--font-weight: 400;
   --text-b3r--line-height: 1.5;
   
+  --color-surface-glass: rgb(var(--elevation-shade-rgb) / 10%);
+  --color-surface-raised: rgb(var(--elevation-tint-rgb) / 7%);
+  --color-surface-well: rgb(var(--elevation-shade-rgb) / 22%);
+  --color-surface-popup: rgb(25 30 40 / 75%);
+  --color-surface-backdrop: rgb(var(--elevation-shade-rgb) / 18%);
+  --color-surface-row-hover: rgb(var(--elevation-tint-rgb) / 4%);
+
+  --color-border-glass: rgb(var(--elevation-tint-rgb) / 16%);
+  --color-border-raised: rgb(var(--elevation-tint-rgb) / 12%);
+  --color-border-well: rgb(var(--elevation-tint-rgb) / 8%);
+  --color-border-action: rgb(var(--elevation-tint-rgb) / 20%);
+
+  --background-image-menu: linear-gradient(125deg, rgb(255 255 255 / 8%), transparent 65%),
+    linear-gradient(rgb(20 24 31) 0 100%);
+
+  --background-image-action: radial-gradient(
+      ellipse at 48% 12%,
+      var(--accent-highlight) 0%,
+      transparent 65%
+    ),
+    linear-gradient(115deg, var(--accent-strong) 0%, var(--accent) 46%, var(--accent-deep) 100%);
+  --background-image-action-hover: radial-gradient(
+      ellipse at 48% 12%,
+      var(--accent-highlight-hover) 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      115deg,
+      var(--accent-strong-hover) 0%,
+      var(--accent-hover) 46%,
+      var(--accent-deep-hover) 100%
+    );
+  --background-image-hero-text: linear-gradient(180deg, #d9edff 0%, #99c8ff 50%, #598eff 100%);
+  --background-image-page-title: linear-gradient(
+    180deg,
+    #4b89ff 0%,
+    #76a8ff 25%,
+    #4b89ff 50%,
+    #76a8ff 75%,
+    #4b89ff 100%
+  );
+  --background-image-pearl-text: linear-gradient(
+    180deg,
+    #c5d8ed 0%,
+    #edf5ff 20%,
+    #ffffff 30%,
+    #edf5ff 40%,
+    #c5d8ed 50%,
+    #edf5ff 70%,
+    #ffffff 80%,
+    #edf5ff 90%,
+    #c5d8ed 100%
+  );
+
+  --blur-glass: 50px;
+  --blur-raised: 12px;
+  --blur-popup: 20px;
+
   /* boxShadow: */
   --shadow: 0px 4px 15px 0px #0D1017;
+  --shadow-glass: 0 4px 12px -4px rgb(var(--elevation-shade-rgb) / 18%);
+  --shadow-raised: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 27%),
+    inset 0 -1px 1px rgb(var(--elevation-tint-rgb) / 9%),
+    0 4px 10px rgb(var(--elevation-shade-rgb) / 12%);
+  --shadow-action: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 25%),
+    inset 0 -1px 1px rgb(var(--elevation-tint-rgb) / 9%),
+    0 3px 8px rgb(var(--elevation-shade-rgb) / 10%);
+  --shadow-action-selected: inset 0 1px 2px rgb(var(--elevation-tint-rgb) / 20%),
+    0 2px 4px rgb(var(--elevation-shade-rgb) / 16%);
+  --shadow-action-pressed: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 40%),
+    0 2px 5px rgb(var(--elevation-shade-rgb) / 8%);
+  --shadow-well: inset 0 2px 4px rgb(var(--elevation-shade-rgb) / 28%);
+  --shadow-popup: inset 0 1px 0 rgb(var(--elevation-tint-rgb) / 18%),
+    0 24px 64px rgb(var(--elevation-shade-rgb) / 28%);
+  --shadow-menu: inset 0 1px 0 rgb(var(--elevation-tint-rgb) / 14%),
+    0 12px 32px rgb(var(--elevation-shade-rgb) / 18%);
 
   /* spacing: */
   --spacing: 0.25rem;

@@ -2,6 +2,7 @@ import { cn } from '@venusprotocol/ui';
 
 import type { CellProps } from 'components/Cell';
 import { CellGroup } from 'components/CellGroup';
+import './pageStatHeader.css';
 
 export interface PageStatHeaderProps {
   title: string;
@@ -23,9 +24,11 @@ export const PageStatHeader: React.FC<PageStatHeaderProps> = ({
     )}
   >
     <div className="xl:max-w-140">
-      <h1 className="text-p1s sm:text-h6">{title}</h1>
+      <h1 className="venus-page-title">{title}</h1>
 
-      {description && <p className="hidden sm:block text-p3r">{description}</p>}
+      {description && (
+        <p className="hidden sm:block mt-4 text-p3r text-light-grey">{description}</p>
+      )}
     </div>
 
     <CellGroup cells={cells} className="xl:w-auto" variant="secondary" />

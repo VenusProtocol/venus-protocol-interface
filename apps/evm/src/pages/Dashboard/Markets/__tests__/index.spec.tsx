@@ -43,7 +43,7 @@ const otherSpokePool = {
 };
 
 const isPillActive = (name: string) =>
-  screen.getByText(name).closest('button')?.classList.contains('border-blue');
+  screen.getByText(name).closest('button')?.dataset.venusButtonActive === 'true';
 
 describe('Markets', () => {
   it('displays content correctly', async () => {

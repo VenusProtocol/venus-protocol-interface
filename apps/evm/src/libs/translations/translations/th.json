@@ -56,6 +56,9 @@
         "title": "ยังไม่มีตำแหน่งในตลาด"
       }
     },
+    "positions": {
+      "label": "สถานะ"
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "เปิดใช้ธุรกรรมแบบไม่ต้องจ่ายแก๊สบน {{chainName}}"
@@ -192,6 +195,7 @@
     "label": "รายได้รายวัน"
   },
   "accountModal": {
+    "dashboardButtonLabel": "ดูแดชบอร์ด",
     "disconnectButtonLabel": "ตัดการเชื่อมต่อ"
   },
   "accountPoolDailyEarnings": {
@@ -777,80 +781,6 @@
     "0": "0%",
     "100": "100%"
   },
-  "landing": {
-    "benefits": {
-      "text1": "เข้าถึงตลาดเงินที่ไม่สามารถเปลี่ยนแปลงได้โดยตรงบนเชน",
-      "text2": "สินทรัพย์ทั้งหมดของ Venus Protocol อยู่ภายใต้มาตรฐาน BEP-20 และ ERC-20",
-      "text3": "สร้างบนเชนที่รองรับ EVM เพื่อธุรกรรมที่รวดเร็ว ปลอดภัย และต้นทุนต่ำ",
-      "title1": "กระจายอำนาจ",
-      "title2": "BEP-20/ERC-20",
-      "title3": "ออมนิเชน"
-    },
-    "governance": {
-      "backgroundGradientAlt": "ภาพประกอบพื้นหลัง",
-      "buttonLabel": "ฟอรัมการกำกับดูแล",
-      "description": "Venus เป็นโปรโตคอลกระจายอำนาจที่ขับเคลื่อนโดยชุมชน มอบฟังก์ชันระดับแนวหน้าสำหรับตลาดเงินคริปโต",
-      "proposalCountLegend": "ข้อเสนอปรับปรุง Venus ที่ดำเนินการแล้วและยังเพิ่มขึ้นเรื่อยๆ",
-      "title": "ตลาดเงินที่ถูกกำกับดูแล<br />โดยชุมชน"
-    },
-    "hero": {
-      "1Year": "1ปี",
-      "30Day": "30ด",
-      "6Month": "6ด",
-      "assets": "สินทรัพย์",
-      "borrow": "ยืม",
-      "earned": "ได้รับ",
-      "earnedAmount": "ได้รับ {{amount}}",
-      "earnNow": "รับผลตอบแทนตอนนี้",
-      "from": "จาก {{percentage}}",
-      "highestApy": "APY สูงสุด",
-      "monthNo": "เดือน {{number}}",
-      "startNow": "เริ่มตอนนี้",
-      "subtitle": "การฝากและยืมที่เรียบง่ายแต่ทรงพลัง สำหรับทุกกลยุทธ์ผลตอบแทน DeFi",
-      "supply": "ฝาก",
-      "supplyTips": "คำนวณจากเงินฝากเริ่มต้น 10,000 ดอลลาร์ โดยผลตอบแทน/ดอกเบี้ยทบต้นต่อบล็อก <Link>เรียนรู้เพิ่มเติม</Link>",
-      "title": "ตลาดเงินสากล<br /><hl>Money Markets</hl>",
-      "totalApy": "APY รวม",
-      "upToPercentage": "สูงสุด {{percentage}}",
-      "venusTvl": "TVL ของ Venus",
-      "yearlyEarnings": "รายได้ต่อปี",
-      "yearlyInterests": "ดอกเบี้ยต่อปี"
-    },
-    "markets": {
-      "button": {
-        "label": "สำรวจเพิ่มเติม"
-      },
-      "title": "ตลาดยอดนิยมบน Venus"
-    },
-    "protection": {
-      "bugBountyAlt": "ภาพประกอบ Bug Bounty",
-      "challengeText": "ค้นหาและรายงานช่องโหว่ในโค้ดของเราเพื่อมีสิทธิ์รับรางวัล อ่านเกี่ยวกับโปรแกรมบั๊กบาวน์ตีเพื่อเรียนรู้เพิ่มเติม",
-      "challengeTitle": "ท้าทายโค้ดของเราและรับรางวัล",
-      "protectionAlt": "ภาพประกอบการปกป้อง",
-      "protectionText": "การตรวจสอบความปลอดภัย การเฝ้าระวังตลอด 24/7 และกองทุนความเสี่ยงที่แข็งแกร่งช่วยให้โปรโตคอลปลอดภัยในกรณีเหตุการณ์ตลาดผิดปกติ",
-      "protectionTitle": "ให้ความสำคัญกับการปกป้อง"
-    },
-    "safety": {
-      "audit_one": "การตรวจสอบ",
-      "audit_other": "การตรวจสอบ",
-      "otherAuditors": "+14 การตรวจสอบโดย <br />Fairyproof, Hacken และ HashEx",
-      "scoreAlt": "ภาพประกอบคะแนน",
-      "securityScore": "คะแนนความปลอดภัย",
-      "text": "ทำธุรกรรมอย่างมั่นใจ โดยรู้ว่า Venus ให้ความสำคัญกับความปลอดภัยของสินทรัพย์ของคุณเป็นอันดับแรก",
-      "title": "ความปลอดภัยมาก่อน",
-      "venusScored": "Venus ได้คะแนนความปลอดภัย <Link>อันดับ 3</Link> บน BNB Chain ตามการประเมินของ Certik (มิถุนายน 2021)"
-    },
-    "venusPrime": {
-      "illustrationAlt": "ภาพประกอบ Venus Prime",
-      "imageAlt": "ภาพประกอบ Venus Prime",
-      "learnMore": "เรียนรู้เพิ่มเติม",
-      "text": "ผู้ใช้ขั้นสูงของ Venus Protocol สามารถมินต์โทเคน Venus Prime เพื่อรับอัตราที่เหนือกว่าสำหรับบางตลาดในพูล Venus core",
-      "title": "<hl>Venus Prime</hl> <br />เพิ่มผลตอบแทนของคุณ"
-    },
-    "wallets": {
-      "title": "ได้รับความไว้วางใจจากผู้ใช้จำนวนมาก"
-    }
-  },
   "layout": {
     "chainSelect": {
       "label": "เลือกเชน"
@@ -872,6 +802,11 @@
       "suppliers": "ผู้ฝาก",
       "supply": "ฝาก",
       "utilizationRate": "อัตราการใช้งาน"
+    },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "สลับไปที่ {{mode}}"
     },
     "menu": {
       "beta": "beta",
@@ -928,6 +863,11 @@
         },
         "language": {
           "label": "ภาษา (เบต้า)"
+        },
+        "theme": {
+          "dark": "มืด",
+          "label": "ธีม",
+          "light": "สว่าง"
         }
       },
       "vaults": {
@@ -1116,6 +1056,66 @@
       "search": {
         "placeholder": "ค้นหาสินทรัพย์"
       }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "เปรียบเทียบตลาดของ {{symbol}}",
+    "breadcrumb": {
+      "backToAssets": "กลับไปที่สินทรัพย์ {{mode}}",
+      "backToMarkets": "กลับไปที่ตลาดของ {{symbol}}"
+    },
+    "collateralAriaLabel": "เปิดฟอร์มหลักประกัน {{symbol}}",
+    "columns": {
+      "apy": "APY",
+      "asset": "สินทรัพย์",
+      "collateral": "หลักประกัน",
+      "liquidity": "สภาพคล่อง",
+      "loan": "สินทรัพย์ที่ยืม",
+      "market": "ตลาด",
+      "pool": "พูล",
+      "totalBorrow": "ยอดยืมรวม",
+      "totalSupply": "ยอดฝากรวม"
+    },
+    "description": "การฝากและกู้ยืมที่เรียบง่ายแต่ทรงพลัง สำหรับทุกกลยุทธ์ผลตอบแทน DeFi",
+    "filters": {
+      "allCategories": "ทุกหมวดหมู่",
+      "allLoanAssets": "สินทรัพย์ที่ยืมได้ทั้งหมด",
+      "category": "หมวดหมู่",
+      "categoryCount_other": "{{count}} หมวดหมู่",
+      "loanAssetCount_other": "{{count}} สินทรัพย์ที่ยืมได้",
+      "loanAssets": "สินทรัพย์ที่ยืมได้",
+      "reset": "รีเซ็ต",
+      "searchAsset": "ค้นหาสินทรัพย์",
+      "searchAssetAriaLabel": "ค้นหาสินทรัพย์"
+    },
+    "formTitle": "{{symbol}} / {{marketName}}",
+    "markets": {
+      "corePool": "พูลหลัก",
+      "liquidityHub": "ศูนย์สภาพคล่อง",
+      "xvsVault": "ห้องนิรภัย XVS"
+    },
+    "modes": {
+      "borrow": "ยืม",
+      "earn": "รับผลตอบแทน",
+      "label": "โหมดตลาด"
+    },
+    "placeholders": {
+      "noAssets": "ไม่พบสินทรัพย์ ลองค้นหาด้วยสัญลักษณ์อื่น",
+      "noBorrowableAssets": "ไม่พบสินทรัพย์ที่ยืมได้",
+      "noMarkets": "ไม่มีตลาดที่ตรงกับตัวกรองเหล่านี้",
+      "unavailable": "ไม่สามารถโหลดข้อมูลตลาดได้ กรุณารีเฟรชแล้วลองใหม่อีกครั้ง"
+    },
+    "planets": {
+      "earnNow": "รับผลตอบแทนเลย",
+      "label": "สำรวจ APY สำหรับการรับผลตอบแทน",
+      "market": "ตลาด",
+      "openAriaLabel": "ดู APY การฝากของ {{symbol}}",
+      "supplyApy": "APY การฝาก"
+    },
+    "title": "ตลาดเงินสากล",
+    "totals": {
+      "availableLiquidity": "สภาพคล่องที่ใช้ได้",
+      "totalSupply": "ยอดฝากรวม"
     }
   },
   "markdownEditor": {

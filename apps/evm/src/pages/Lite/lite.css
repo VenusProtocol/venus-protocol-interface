@@ -1,0 +1,211 @@
+.lite-hero-title {
+  display: inline-block;
+  background-image: var(--background-image-hero-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (forced-colors: active) {
+  .lite-hero-title {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+.lite-panel {
+  position: relative;
+  flex: 1 1 auto;
+  border: 1px solid var(--color-border-glass);
+  border-radius: calc(var(--spacing) * 2);
+  background: transparent;
+  box-shadow: var(--shadow-glass);
+}
+
+.lite-panel::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+}
+
+.lite-panel .lite-table {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+@media (min-width: 768px) {
+  .lite-panel {
+    max-height: calc(var(--spacing) * 122);
+    min-height: min(calc(var(--spacing) * 122), 100%);
+  }
+
+  .lite-panel .lite-table > :first-child {
+    flex-shrink: 0;
+  }
+
+  .lite-panel .lite-table > .relative {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .lite-panel .lite-table table {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .lite-panel .lite-table thead {
+    display: block;
+    flex-shrink: 0;
+    height: calc(var(--spacing) * 10);
+    padding-right: calc(var(--spacing) * 2);
+  }
+
+  .lite-panel .lite-table thead tr {
+    height: 100%;
+  }
+
+  .lite-panel .lite-table th {
+    display: flex;
+    align-items: center;
+  }
+
+  .lite-panel .lite-table th.text-right {
+    justify-content: flex-end;
+  }
+
+  .lite-panel .lite-table tbody {
+    display: block;
+    min-height: 0;
+    max-height: calc(var(--spacing) * 90);
+    margin-right: var(--spacing);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-grey) transparent;
+  }
+
+  .lite-panel .lite-table tbody::-webkit-scrollbar {
+    width: var(--spacing);
+  }
+
+  .lite-panel .lite-table tbody::-webkit-scrollbar-thumb {
+    background: var(--color-grey);
+    border-radius: var(--radius-lg);
+  }
+
+  .lite-panel .lite-table tr {
+    display: grid;
+    grid-template-columns: 22% 32% 23% 23%;
+    align-items: center;
+  }
+
+  .lite-panel .lite-table--wide tr {
+    grid-template-columns: 25% 15% 22% 16% 22%;
+  }
+
+  .lite-panel .lite-table tbody tr {
+    height: calc(var(--spacing) * 15);
+  }
+
+  .lite-panel .lite-table :is(th, td) {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+
+  .lite-panel .lite-table tbody tr:has(> td[colspan]) {
+    height: auto;
+  }
+
+  .lite-panel .lite-table tbody td[colspan] {
+    grid-column: 1 / -1;
+  }
+
+  .lite-panel .lite-table tbody tr,
+  .lite-panel .lite-table tbody tr:hover {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+  }
+
+  .lite-panel .lite-table tbody tr::before {
+    content: '';
+    position: absolute;
+    inset: var(--spacing) calc(var(--spacing) * 2);
+    z-index: -1;
+    border-radius: var(--radius-lg);
+    background: transparent;
+    box-shadow: inset 0 0 0 1px transparent;
+    transition:
+      background-color 150ms ease,
+      box-shadow 150ms ease;
+    pointer-events: none;
+  }
+
+  .lite-panel .lite-table tbody tr:is(:hover, :focus-visible)::before {
+    background: var(--color-surface-row-hover);
+    box-shadow: inset 0 0 0 1px var(--color-border-raised);
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: reduce) {
+  .lite-panel .lite-table tbody tr::before {
+    transition: none;
+  }
+}
+
+.lite-enter {
+  animation: lite-content-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.lite-enter--subtitle {
+  animation-delay: 0.08s;
+}
+
+.lite-enter--totals {
+  animation-delay: 0.14s;
+}
+
+.lite-enter--markets {
+  animation-name: lite-content-rise;
+  animation-delay: 0.22s;
+}
+
+@keyframes lite-content-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes lite-content-rise {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lite-enter {
+    animation: none;
+  }
+}

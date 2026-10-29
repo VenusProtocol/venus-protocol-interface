@@ -9,6 +9,7 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   ref?: React.Ref<HTMLInputElement>;
   className?: string;
   inputContainerClassName?: string;
+  inputClassName?: string;
   label?: string;
   description?: string | React.ReactElement;
   hasError?: boolean;
@@ -25,6 +26,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
     {
       className,
       inputContainerClassName,
+      inputClassName,
       label,
       description,
       hasError = false,
@@ -118,6 +120,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
                 type === 'number' && 'text-right',
                 size === 'xs' && 'text-sm',
                 size === 'sm' && 'text-sm',
+                inputClassName,
               )}
               max={max}
               min={min}

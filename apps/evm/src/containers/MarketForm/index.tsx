@@ -19,6 +19,7 @@ export interface MarketFormProps {
   initialActiveTabId?: string;
   onSubmitSuccess?: ModalProps['handleClose'];
   navType?: TabNavType;
+  visibleTabIds?: string[];
 }
 
 export const MarketForm: React.FC<MarketFormProps> = ({
@@ -27,6 +28,7 @@ export const MarketForm: React.FC<MarketFormProps> = ({
   poolComptrollerAddress,
   initialActiveTabId,
   navType,
+  visibleTabIds,
 }) => {
   const { t } = useTranslation();
 
@@ -118,7 +120,7 @@ export const MarketForm: React.FC<MarketFormProps> = ({
 
   return (
     <Tabs
-      tabs={tabs}
+      tabs={visibleTabIds ? tabs.filter(tab => visibleTabIds.includes(tab.id)) : tabs}
       initialActiveTabId={initialActiveTabId}
       navType={navType}
       variant="secondary"

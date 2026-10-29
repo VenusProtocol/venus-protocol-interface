@@ -1,5 +1,6 @@
 export const MAIN_PRODUCTION_HOST = 'app.venus.io';
 export const VENUS_FLUX_URL = 'https://flux.venus.io';
+export const VENUS_X_URL = 'https://x.com/venusprotocol';
 export const VENUS_DOC_URL = 'https://docs-v4.venus.io';
 export const VENUS_PRIME_DOC_URL = `${VENUS_DOC_URL}/whats-new/prime-yield`;
 export const VENUS_PROTECTION_MODE_DOC_URL = `${VENUS_DOC_URL}/risk/protection-mode`;

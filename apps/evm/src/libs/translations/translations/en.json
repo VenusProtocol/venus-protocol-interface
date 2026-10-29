@@ -56,6 +56,9 @@
         "title": "No market positions yet"
       }
     },
+    "positions": {
+      "label": "Positions"
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "Enable gasless transactions on {{chainName}}"
@@ -192,6 +195,7 @@
     "label": "Daily earnings"
   },
   "accountModal": {
+    "dashboardButtonLabel": "View Dashboard",
     "disconnectButtonLabel": "Disconnect"
   },
   "accountPoolDailyEarnings": {
@@ -778,80 +782,6 @@
     "0": "0%",
     "100": "100%"
   },
-  "landing": {
-    "benefits": {
-      "text1": "Access an immutable money market directly on-chain.",
-      "text2": "All Venus Protocol assets are bound by the BEP-20 and ERC-20 standards.",
-      "text3": "Built on EVM-compatible chains for fast, secure, and low cost transactions.",
-      "title1": "Decentralized",
-      "title2": "BEP-20/ERC-20",
-      "title3": "Omnichain"
-    },
-    "governance": {
-      "backgroundGradientAlt": "Background illustration",
-      "buttonLabel": "Governance forum",
-      "description": "Venus is a community-driven decentralized protocol delivering best-in-class functionality for crypto money markets.",
-      "proposalCountLegend": "Venus Improvement Proposals Executed and counting",
-      "title": "Money Markets governed <br/> by community"
-    },
-    "hero": {
-      "1Year": "1Y",
-      "30Day": "30D",
-      "6Month": "6M",
-      "assets": "Assets",
-      "borrow": "Borrow",
-      "earned": "Earned",
-      "earnedAmount": "Earned {{amount}}",
-      "earnNow": "Earn now",
-      "from": "From {{percentage}}",
-      "highestApy": "Highest APY",
-      "monthNo": "Month {{number}}",
-      "startNow": "Start now",
-      "subtitle": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
-      "supply": "Supply",
-      "supplyTips": "Based on a $10,000 initial deposit, with earnings/interest compounded per block. <Link>Learn more</Link>",
-      "title": "Universal <br /><hl>Money Markets</hl>",
-      "totalApy": "Total APY",
-      "upToPercentage": "Up to {{percentage}}",
-      "venusTvl": "Venus TVL",
-      "yearlyEarnings": "Yearly earnings",
-      "yearlyInterests": "Yearly interests"
-    },
-    "markets": {
-      "button": {
-        "label": "Explore more"
-      },
-      "title": "Top markets on Venus"
-    },
-    "protection": {
-      "bugBountyAlt": "Bug Bounty Illustration",
-      "challengeText": "Find and report vulnerabilities in our code to be eligible for rewards. Read about our bug bounty program to learn more.",
-      "challengeTitle": "Challenge our code and be rewarded",
-      "protectionAlt": "Protection Illustration",
-      "protectionText": "Security audits, 24/7 monitoring, and a robust risk fund keeps the protocol safe in the case of outlier market events.",
-      "protectionTitle": "Protection prioritized"
-    },
-    "safety": {
-      "audit_one": "Audit",
-      "audit_other": "Audits",
-      "otherAuditors": "+14 audits with Fairyproof, Hacken and HashEx",
-      "scoreAlt": "Score Illustration",
-      "securityScore": "Security Score",
-      "text": "Transact with confidence, knowing Venus places nothing before the security of your assets",
-      "title": "Safety before all",
-      "venusScored": "Venus scored <Link>3rd highest</Link> for security on BNB Chain as assessed by Certik (June, 2021)"
-    },
-    "venusPrime": {
-      "illustrationAlt": "Venus Prime illustration",
-      "imageAlt": "Venus Prime Illustration",
-      "learnMore": "Learn more",
-      "text": "Power users of Venus Protocol may mint a Venus Prime Token to enjoy superior rates for select markets in the Venus core pool.",
-      "title": "<hl>Venus Prime</hl> <br />amplifies your returns"
-    },
-    "wallets": {
-      "title": "Trusted by many"
-    }
-  },
   "layout": {
     "chainSelect": {
       "label": "Select chain"
@@ -873,6 +803,11 @@
       "suppliers": "Suppliers",
       "supply": "Supply",
       "utilizationRate": "Utilization rate"
+    },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "Switch to {{mode}}"
     },
     "menu": {
       "beta": "beta",
@@ -929,6 +864,11 @@
         },
         "language": {
           "label": "Language (beta)"
+        },
+        "theme": {
+          "dark": "Dark",
+          "label": "Theme",
+          "light": "Light"
         }
       },
       "vaults": {
@@ -1117,6 +1057,68 @@
       "search": {
         "placeholder": "Search asset"
       }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "Compare {{symbol}} markets",
+    "breadcrumb": {
+      "backToAssets": "Back to {{mode}} assets",
+      "backToMarkets": "Back to {{symbol}} markets"
+    },
+    "collateralAriaLabel": "Open the {{symbol}} collateral form",
+    "columns": {
+      "apy": "APY",
+      "asset": "Asset",
+      "collateral": "Collateral",
+      "liquidity": "Liquidity",
+      "loan": "Loan",
+      "market": "Market",
+      "pool": "Pool",
+      "totalBorrow": "Total Borrow",
+      "totalSupply": "Total Supply"
+    },
+    "description": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
+    "filters": {
+      "allCategories": "All Categories",
+      "allLoanAssets": "All loan assets",
+      "category": "Category",
+      "categoryCount_one": "{{count}} category",
+      "categoryCount_other": "{{count}} categories",
+      "loanAssetCount_one": "{{count}} loan asset",
+      "loanAssetCount_other": "{{count}} loan assets",
+      "loanAssets": "Loan assets",
+      "reset": "Reset",
+      "searchAsset": "Search asset",
+      "searchAssetAriaLabel": "Search assets"
+    },
+    "formTitle": "{{symbol}} / {{marketName}}",
+    "markets": {
+      "corePool": "Core Pool",
+      "liquidityHub": "Liquidity Hub",
+      "xvsVault": "XVS Vault"
+    },
+    "modes": {
+      "borrow": "Borrow",
+      "earn": "Earn",
+      "label": "Market mode"
+    },
+    "placeholders": {
+      "noAssets": "No assets found. Try another symbol.",
+      "noBorrowableAssets": "No borrowable assets found.",
+      "noMarkets": "No markets match these filters.",
+      "unavailable": "Market data is unavailable. Please refresh to try again."
+    },
+    "planets": {
+      "earnNow": "Earn now",
+      "label": "Explore Earn APYs",
+      "market": "Market",
+      "openAriaLabel": "View {{symbol}} supply APY",
+      "supplyApy": "Supply APY"
+    },
+    "title": "Universal Money Markets",
+    "totals": {
+      "availableLiquidity": "Available Liquidity",
+      "totalSupply": "Total Supply"
     }
   },
   "markdownEditor": {
