@@ -1,5 +1,5 @@
 import { Button } from '@venusprotocol/ui';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import type { Address } from 'viem';
 import { useDisconnect } from 'wagmi';
 
@@ -31,9 +31,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
 
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { search } = useLocation();
 
   const handleViewDashboard = () => {
-    navigate(routes.dashboard.path);
+    navigate({ pathname: routes.dashboard.path, search });
     onClose?.();
   };
 

@@ -1,4 +1,5 @@
 import { getScrambledGlyph } from '../getScrambledGlyph';
+import { drawAsciiRing } from './drawAsciiRing';
 
 export const ASCII_PLANET_SIZE = 360;
 
@@ -6,7 +7,6 @@ const CENTER = ASCII_PLANET_SIZE / 2;
 const SPHERE_RADIUS = 120;
 const GRID_LIMIT = 119;
 const GLYPH_RAMP = '.:+*oO#@';
-const RING_GLYPH_COUNT = 150;
 const RING_RADIUS_X = 170;
 const RING_RADIUS_Y = 43;
 const RING_TILT_COS = 0.94;
@@ -33,35 +33,13 @@ export const drawAsciiPlanet = ({
   interaction,
   scrambleElapsedMs,
 }: DrawAsciiPlanetInput) => {
-  const toGlyph = (glyph: string, index: number) =>
-    getScrambledGlyph({ glyph, index, elapsedMs: scrambleElapsedMs });
-
-  const drawRing = (isFront: boolean) => {
-    for (let index = 0; index < RING_GLYPH_COUNT; index++) {
-      const angle = (index / RING_GLYPH_COUNT) * Math.PI * 2 + phase * 0.35;
-      const x = Math.cos(angle) * RING_RADIUS_X;
-      const y = Math.sin(angle) * RING_RADIUS_Y;
-
-      if (Math.sin(angle) > 0 !== isFront) {
-        continue;
-      }
-
-      ctx.globalAlpha = 0.7 + interaction * 0.15;
-      ctx.fillText(
-        toGlyph(index % 5 === 0 ? '+' : '.', index + 2000),
-        CENTER + x * RING_TILT_COS + y * RING_TILT_SIN,
-        CENTER - x * RING_TILT_SIN + y * RING_TILT_COS,
-      );
-    }
-  };
-
   ctx.clearRect(0, 0, ASCII_PLANET_SIZE, ASCII_PLANET_SIZE);
   ctx.font = `${9 * glyphScale}px monospace`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
   ctx.fillStyle = glyphColor;
-  drawRing(false);
+  drawAsciiRing({ ctx, center: CENTER, phase, interaction, scrambleElapsedMs, isFront: false });
 
   ctx.fillStyle = surfaceGradient;
 
@@ -86,7 +64,11 @@ export const drawAsciiPlanet = ({
 
       ctx.globalAlpha = 0.18 + density * 0.82;
       ctx.fillText(
-        toGlyph(GLYPH_RAMP[Math.min(7, Math.floor(density * 8))], glyphIndex),
+        getScrambledGlyph({
+          glyph: GLYPH_RAMP[Math.min(7, Math.floor(density * 8))],
+          index: glyphIndex,
+          elapsedMs: scrambleElapsedMs,
+        }),
         CENTER + x,
         CENTER + y,
       );
@@ -95,7 +77,7 @@ export const drawAsciiPlanet = ({
   }
 
   ctx.fillStyle = glyphColor;
-  drawRing(true);
+  drawAsciiRing({ ctx, center: CENTER, phase, interaction, scrambleElapsedMs, isFront: true });
 
   for (let star = 0; star < PARTICLE_COUNT; star++) {
     for (let tail = 0; tail < PARTICLE_TAIL_LENGTH; tail++) {
@@ -109,7 +91,11 @@ export const drawAsciiPlanet = ({
 
       ctx.globalAlpha = (1 - tail / PARTICLE_TAIL_LENGTH) * (0.65 + interaction * 0.3);
       ctx.fillText(
-        toGlyph(tail === 0 ? '+' : '.', star * PARTICLE_TAIL_LENGTH + tail + 3000),
+        getScrambledGlyph({
+          glyph: tail === 0 ? '+' : '.',
+          index: star * PARTICLE_TAIL_LENGTH + tail + 3000,
+          elapsedMs: scrambleElapsedMs,
+        }),
         CENTER + x * RING_TILT_COS + y * RING_TILT_SIN,
         CENTER - x * RING_TILT_SIN + y * RING_TILT_COS,
       );

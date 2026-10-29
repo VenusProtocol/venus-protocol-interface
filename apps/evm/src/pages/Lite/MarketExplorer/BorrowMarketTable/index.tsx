@@ -68,17 +68,21 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
           <div className="flex items-center -space-x-2">
             {market.collateralTokens.slice(0, VISIBLE_COLLATERAL_COUNT).map(token => (
               <Tooltip key={token.address} content={token.symbol}>
-                <button
-                  type="button"
-                  aria-label={t('lite.collateralAriaLabel', { symbol: token.symbol })}
-                  className="cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-blue"
-                  onClick={event => {
-                    event.stopPropagation();
-                    onSelectCollateral({ market, token });
-                  }}
-                >
+                {market.source.type === 'spoke' ? (
+                  <button
+                    type="button"
+                    aria-label={t('lite.collateralAriaLabel', { symbol: token.symbol })}
+                    className="cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-blue"
+                    onClick={event => {
+                      event.stopPropagation();
+                      onSelectCollateral({ market, token });
+                    }}
+                  >
+                    <TokenIcon token={token} size="lg" className="shrink-0" />
+                  </button>
+                ) : (
                   <TokenIcon token={token} size="lg" className="shrink-0" />
-                </button>
+                )}
               </Tooltip>
             ))}
           </div>
