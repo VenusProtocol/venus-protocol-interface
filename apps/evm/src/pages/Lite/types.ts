@@ -1,9 +1,10 @@
 import type BigNumber from 'bignumber.js';
-import type { Asset, LiquidityHub, SpokeAsset, SpokePool, Token } from 'types';
+import type { Asset, LiquidityHub, SpokeAsset, SpokePool, Token, VenusVault } from 'types';
 
 export type LiteEarnMarketSource =
   | { type: 'core'; asset: Asset }
-  | { type: 'hub'; hub: LiquidityHub };
+  | { type: 'hub'; hub: LiquidityHub }
+  | { type: 'vault'; vault: VenusVault };
 
 export interface LiteEarnMarket {
   id: string;

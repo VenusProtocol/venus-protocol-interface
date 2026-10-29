@@ -1082,7 +1082,8 @@
     },
     "markets": {
       "corePool": "Çekirdek Havuz",
-      "liquidityHub": "Likidite Merkezi"
+      "liquidityHub": "Likidite Merkezi",
+      "xvsVault": "XVS Kasası"
     },
     "modes": {
       "borrow": "Borç al",

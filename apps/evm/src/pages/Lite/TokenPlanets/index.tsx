@@ -1,16 +1,14 @@
-import { useIsMdDown } from 'hooks/responsive';
+import { useIsLgDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { WIDE_BACKGROUND_ASSET_SYMBOLS } from '../constants';
 import type { LiteEarnAsset } from '../types';
 import { AsciiPlanet } from './AsciiPlanet';
 import { AsciiTokenMark } from './AsciiTokenMark';
 import { PlanetDetail } from './PlanetDetail';
 import { getPlanetRank } from './getPlanetRank';
 import './planets.css';
-import wbethPlanetMarkSrc from './wbethPlanetMark.svg';
-
-const PLANET_COUNT = 8;
 
 export interface TokenPlanetsProps {
   earnAssets: LiteEarnAsset[];
@@ -19,13 +17,13 @@ export interface TokenPlanetsProps {
 
 export const TokenPlanets: React.FC<TokenPlanetsProps> = ({ earnAssets, onSelect }) => {
   const { t } = useTranslation();
-  const isCompact = useIsMdDown();
+  const isCompact = useIsLgDown();
   const [openKey, setOpenKey] = useState<string>();
   const [replay, setReplay] = useState({ key: '', count: 0 });
 
-  const planets = [...earnAssets]
-    .sort((a, b) => getPlanetRank(a.token.symbol) - getPlanetRank(b.token.symbol))
-    .slice(0, PLANET_COUNT);
+  const planets = earnAssets
+    .filter(earnAsset => WIDE_BACKGROUND_ASSET_SYMBOLS.includes(earnAsset.token.symbol))
+    .sort((a, b) => getPlanetRank(a.token.symbol) - getPlanetRank(b.token.symbol));
 
   if (isCompact || planets.length === 0) {
     return null;
@@ -73,9 +71,7 @@ export const TokenPlanets: React.FC<TokenPlanetsProps> = ({ earnAssets, onSelect
 
             <AsciiTokenMark
               symbol={earnAsset.token.symbol}
-              src={
-                earnAsset.token.symbol === 'WBETH' ? wbethPlanetMarkSrc : earnAsset.token.iconSrc
-              }
+              src={earnAsset.token.iconSrc}
               isOpen={openKey === earnAsset.key}
               replayToken={replay.key === earnAsset.key ? replay.count : 0}
             />

@@ -2,6 +2,7 @@ import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledge
 import { LiquidityHubForm } from 'containers/LiquidityHubForm';
 import { MarketForm as CoreMarketForm } from 'containers/MarketForm';
 import { SpokeForm } from 'containers/SpokeForm';
+import { StakeForm } from 'containers/VenusVaultModal/StakeForm';
 import { useChain } from 'hooks/useChain';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import type { LiteBorrowMarket, LiteEarnMarket } from '../../types';
@@ -25,6 +26,10 @@ export const MarketForm: React.FC<MarketFormProps> = ({ market, mode, onClose })
         onSubmitSuccess={onClose}
       />
     );
+  }
+
+  if (source.type === 'vault') {
+    return <StakeForm vault={source.vault} onClose={onClose} />;
   }
 
   if (source.type === 'spoke') {

@@ -1,6 +1,7 @@
-import { PLANET_SYMBOL_ORDER } from '../palettes';
+import { WIDE_BACKGROUND_ASSET_SYMBOLS } from '../../constants';
 
 export const getPlanetRank = (symbol: string) => {
-  const index = PLANET_SYMBOL_ORDER.indexOf(symbol);
-  return index === -1 ? PLANET_SYMBOL_ORDER.length : index;
+  const rank = WIDE_BACKGROUND_ASSET_SYMBOLS.indexOf(symbol);
+
+  return rank === -1 ? WIDE_BACKGROUND_ASSET_SYMBOLS.length : rank;
 };

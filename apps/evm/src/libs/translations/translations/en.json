@@ -1082,7 +1082,8 @@
     },
     "markets": {
       "corePool": "Core Pool",
-      "liquidityHub": "Liquidity Hub"
+      "liquidityHub": "Liquidity Hub",
+      "xvsVault": "XVS Vault"
     },
     "modes": {
       "borrow": "Borrow",

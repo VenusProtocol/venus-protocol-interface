@@ -305,7 +305,8 @@
   }
 }
 
-@media (max-width: 1599px) {
+/* The last two orbs only appear once the layout has room for them. */
+@media (max-width: 1919px) {
   .lite-planet:nth-child(n + 7) {
     display: none;
   }

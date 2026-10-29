@@ -1079,7 +1079,8 @@
     },
     "markets": {
       "corePool": "核心池",
-      "liquidityHub": "流动性中心"
+      "liquidityHub": "流动性中心",
+      "xvsVault": "XVS 金库"
     },
     "modes": {
       "borrow": "借款",

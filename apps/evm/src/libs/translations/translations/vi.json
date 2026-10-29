@@ -1079,7 +1079,8 @@
     },
     "markets": {
       "corePool": "Nhóm Core",
-      "liquidityHub": "Trung tâm thanh khoản"
+      "liquidityHub": "Trung tâm thanh khoản",
+      "xvsVault": "Kho XVS"
     },
     "modes": {
       "borrow": "Vay",

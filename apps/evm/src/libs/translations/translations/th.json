@@ -1079,7 +1079,8 @@
     },
     "markets": {
       "corePool": "พูลหลัก",
-      "liquidityHub": "ศูนย์สภาพคล่อง"
+      "liquidityHub": "ศูนย์สภาพคล่อง",
+      "xvsVault": "ห้องนิรภัย XVS"
     },
     "modes": {
       "borrow": "ยืม",

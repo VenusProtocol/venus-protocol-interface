@@ -1079,7 +1079,8 @@
     },
     "markets": {
       "corePool": "コアプール",
-      "liquidityHub": "流動性ハブ"
+      "liquidityHub": "流動性ハブ",
+      "xvsVault": "XVS ボールト"
     },
     "modes": {
       "borrow": "借入",

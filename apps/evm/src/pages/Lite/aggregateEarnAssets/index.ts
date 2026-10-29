@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
-import type { Asset, LiquidityHub, Token } from 'types';
+import type { Asset, LiquidityHub, Token, VenusVault } from 'types';
+import { convertMantissaToTokens } from 'utilities';
 import { getSupplyApyPercentage } from '../getSupplyApyPercentage';
 import { getTokenKey } from '../getTokenKey';
 import type { LiteEarnAsset, LiteEarnMarket } from '../types';
@@ -10,9 +11,11 @@ const TOTAL_FIELDS = ['supplyTokens', 'supplyCents', 'liquidityTokens', 'liquidi
 export const aggregateEarnAssets = ({
   assets,
   liquidityHubs,
+  vaults,
 }: {
   assets: Asset[];
   liquidityHubs: LiquidityHub[];
+  vaults: VenusVault[];
 }) => {
   const assetsByToken = new Map<string, LiteEarnAsset>();
 
@@ -84,6 +87,25 @@ export const aggregateEarnAssets = ({
       overlap: getCoreOverlap({ liquidityHub, coreAssets }),
     });
   });
+
+  vaults.forEach(vault =>
+    addMarket({
+      token: vault.stakedToken,
+      market: {
+        id: `vault-${vault.key}`,
+        source: { type: 'vault', vault },
+        apyPercentage: getSupplyApyPercentage(vault),
+        supplyTokens: convertMantissaToTokens({
+          value: vault.stakeBalanceMantissa,
+          token: vault.stakedToken,
+        }),
+        supplyCents: new BigNumber(vault.stakeBalanceCents),
+        // Staked XVS is locked in the vault, so none of it is lendable liquidity
+        liquidityTokens: new BigNumber(0),
+        liquidityCents: new BigNumber(0),
+      },
+    }),
+  );
 
   return [...assetsByToken.values()].sort((a, b) => {
     const highestA = BigNumber.maximum(...a.markets.map(market => market.apyPercentage));

@@ -13,6 +13,10 @@ export const useMarketName = () => {
       return t('lite.markets.liquidityHub');
     }
 
+    if (market.source.type === 'vault') {
+      return t('lite.markets.xvsVault');
+    }
+
     return t('lite.markets.corePool');
   };
 };
