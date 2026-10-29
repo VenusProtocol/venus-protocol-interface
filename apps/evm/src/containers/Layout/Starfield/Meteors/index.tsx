@@ -14,7 +14,7 @@ export const Meteors: React.FC = () => {
       return;
     }
 
-    const meteors = [...host.children] as HTMLElement[];
+    const meteors = [...host.querySelectorAll<HTMLElement>('.venus-starfield__meteor')];
     let index = 0;
     let streakTimer = 0;
     let gapTimer = 0;
