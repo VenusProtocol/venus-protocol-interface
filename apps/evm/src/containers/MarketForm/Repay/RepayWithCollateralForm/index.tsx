@@ -207,13 +207,15 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     token: repaidAsset.vToken.underlyingToken,
   });
 
+  const approximateOutAmountTokens = formValues.repayFullLoan
+    ? fullRepayAmountTokens
+    : debouncedInputRepaidAmountTokens;
+
   // The quote is fetched with debounced amounts, so gate it on the same values
   const swapQuoteAmountTokens =
     formValues.direction === 'exact-in'
       ? debouncedInputCollateralAmountTokens
-      : formValues.repayFullLoan
-        ? fullRepayAmountTokens
-        : debouncedInputRepaidAmountTokens;
+      : approximateOutAmountTokens;
 
   const swapQuoteInput:
     | Omit<GetExactInSwapQuoteInput, 'chainId'>

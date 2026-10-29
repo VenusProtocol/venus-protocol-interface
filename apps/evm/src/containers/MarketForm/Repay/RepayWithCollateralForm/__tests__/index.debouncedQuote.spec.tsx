@@ -71,12 +71,7 @@ describe('RepayWithCollateralForm debounced swap quote', () => {
 
     const enabledZeroAmountCalls = (useGetSwapQuote as Mock).mock.calls.filter(
       ([input, options]) => {
-        const amountTokens =
-          'fromTokenAmountTokens' in input
-            ? input.fromTokenAmountTokens
-            : 'minToTokenAmountTokens' in input
-              ? input.minToTokenAmountTokens
-              : undefined;
+        const amountTokens = input.fromTokenAmountTokens ?? input.minToTokenAmountTokens;
 
         return !!options?.enabled && !!amountTokens?.isLessThanOrEqualTo(0);
       },
