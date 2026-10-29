@@ -4,6 +4,7 @@ import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 
 import { displayServiceIssueNotification } from '..';
+import { useStore } from '../../store';
 import { displayNotification } from '../../utilities';
 
 vi.mock('../../utilities', () => ({
@@ -23,6 +24,7 @@ describe('displayServiceIssueNotification', () => {
   beforeEach(() => {
     testIndex += 1;
     window.location.hash = `#/page-${testIndex}`;
+    useStore.setState({ notifications: [] });
     (displayNotification as Mock).mockClear();
   });
 
@@ -76,9 +78,53 @@ describe('displayServiceIssueNotification', () => {
     displayServiceIssueNotification();
 
     expect(displayNotification).toHaveBeenCalledWith({
+      id: 'service-issue',
       variant: 'error',
       title: en.errors.serviceIssueTitle,
       description: en.errors.serviceIssue,
     });
+  });
+
+  it('shows one toast when a failing page redirects to another one', () => {
+    (displayNotification as Mock).mockImplementation(({ id }) =>
+      useStore.getState().addNotification({ id, variant: 'error', description: '' }),
+    );
+
+    displayServiceIssueNotification(details);
+
+    window.location.hash = `#/page-${testIndex}-redirected`;
+    displayServiceIssueNotification(details);
+
+    expect(displayNotification).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not show a second toast on the redirect target once the first one closes', () => {
+    (displayNotification as Mock).mockImplementation(({ id }) =>
+      useStore.getState().addNotification({ id, variant: 'error', description: '' }),
+    );
+
+    displayServiceIssueNotification(details);
+
+    window.location.hash = `#/page-${testIndex}-redirected`;
+    displayServiceIssueNotification(details);
+
+    useStore.setState({ notifications: [] });
+    displayServiceIssueNotification(details);
+
+    expect(displayNotification).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows the toast again on another page once the previous one is gone', () => {
+    (displayNotification as Mock).mockImplementation(({ id }) =>
+      useStore.getState().addNotification({ id, variant: 'error', description: '' }),
+    );
+
+    displayServiceIssueNotification(details);
+    useStore.setState({ notifications: [] });
+
+    window.location.hash = `#/page-${testIndex}-later`;
+    displayServiceIssueNotification(details);
+
+    expect(displayNotification).toHaveBeenCalledTimes(2);
   });
 });
