@@ -7,6 +7,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { useState } from 'react';
 import type { LiquidityHub, Pool, Vault } from 'types';
 import { Hubs } from '../Hubs';
+import { IsolatedPoolsDeprecationNotice } from '../Markets/IsolatedPoolsDeprecationNotice';
 import { PoolPills } from '../Markets/PoolPills';
 import { Positions } from '../Markets/Positions';
 import { SpokePositions } from '../Markets/SpokePositions';
@@ -113,6 +114,8 @@ export const LitePositions: React.FC<LitePositionsProps> = ({
 
   return (
     <section aria-label={t('account.positions.label')} className="flex flex-col gap-6">
+      <IsolatedPoolsDeprecationNotice />
+
       <h2 className="text-p1s">{t('account.positions.label')}</h2>
 
       <PoolPills
