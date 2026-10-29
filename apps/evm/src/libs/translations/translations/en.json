@@ -56,6 +56,9 @@
         "title": "No market positions yet"
       }
     },
+    "positions": {
+      "label": "Positions"
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "Enable gasless transactions on {{chainName}}"
@@ -192,6 +195,7 @@
     "label": "Daily earnings"
   },
   "accountModal": {
+    "dashboardButtonLabel": "View Dashboard",
     "disconnectButtonLabel": "Disconnect"
   },
   "accountPoolDailyEarnings": {
@@ -860,6 +864,11 @@
         },
         "language": {
           "label": "Language (beta)"
+        },
+        "theme": {
+          "dark": "Dark",
+          "label": "Theme",
+          "light": "Light"
         }
       },
       "vaults": {

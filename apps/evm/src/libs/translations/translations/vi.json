@@ -56,6 +56,9 @@
         "title": "Chưa có vị thế thị trường"
       }
     },
+    "positions": {
+      "label": "Vị thế"
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "Bật giao dịch không gas trên {{chainName}}"
@@ -192,6 +195,7 @@
     "label": "Thu nhập hằng ngày"
   },
   "accountModal": {
+    "dashboardButtonLabel": "Xem bảng điều khiển",
     "disconnectButtonLabel": "Ngắt kết nối"
   },
   "accountPoolDailyEarnings": {
@@ -859,6 +863,11 @@
         },
         "language": {
           "label": "Ngôn ngữ (beta)"
+        },
+        "theme": {
+          "dark": "Tối",
+          "label": "Giao diện",
+          "light": "Sáng"
         }
       },
       "vaults": {

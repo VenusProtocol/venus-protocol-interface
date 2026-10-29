@@ -24,9 +24,14 @@ export const InterfaceModeSwitch: React.FC<InterfaceModeSwitchProps> = ({
   const label = isLite ? t('layout.interfaceMode.pro') : t('layout.interfaceMode.lite');
 
   const handleClick = () => {
+    const chainId = new URLSearchParams(search).get('chainId');
+
     onSwitch?.();
     setMode(targetMode);
-    navigate({ pathname: targetMode === 'pro' ? proHomePath : '/', search });
+    navigate({
+      pathname: targetMode === 'pro' ? proHomePath : '/',
+      search: chainId ? `?chainId=${chainId}` : '',
+    });
   };
 
   return (

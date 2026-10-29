@@ -56,6 +56,9 @@
         "title": "暫無市場持倉"
       }
     },
+    "positions": {
+      "label": "持倉"
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "在 {{chainName}} 上啟用免 gas 交易"
@@ -192,6 +195,7 @@
     "label": "每日收益"
   },
   "accountModal": {
+    "dashboardButtonLabel": "檢視儀表板",
     "disconnectButtonLabel": "斷開連接"
   },
   "accountPoolDailyEarnings": {
@@ -859,6 +863,11 @@
         },
         "language": {
           "label": "語言（測試版）"
+        },
+        "theme": {
+          "dark": "深色",
+          "label": "主題",
+          "light": "淺色"
         }
       },
       "vaults": {

@@ -56,6 +56,9 @@
         "title": "Henüz piyasa pozisyonu yok"
       }
     },
+    "positions": {
+      "label": "Pozisyonlar"
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "{{chainName}} üzerinde gas'siz işlemleri etkinleştir"
@@ -192,6 +195,7 @@
     "label": "Günlük kazanç"
   },
   "accountModal": {
+    "dashboardButtonLabel": "Panoyu görüntüle",
     "disconnectButtonLabel": "Bağlantıyı kes"
   },
   "accountPoolDailyEarnings": {
@@ -860,6 +864,11 @@
         },
         "language": {
           "label": "Dil (beta)"
+        },
+        "theme": {
+          "dark": "Koyu",
+          "label": "Tema",
+          "light": "Açık"
         }
       },
       "vaults": {

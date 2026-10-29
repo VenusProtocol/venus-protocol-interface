@@ -56,6 +56,9 @@
         "title": "ยังไม่มีตำแหน่งในตลาด"
       }
     },
+    "positions": {
+      "label": "สถานะ"
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "เปิดใช้ธุรกรรมแบบไม่ต้องจ่ายแก๊สบน {{chainName}}"
@@ -192,6 +195,7 @@
     "label": "รายได้รายวัน"
   },
   "accountModal": {
+    "dashboardButtonLabel": "ดูแดชบอร์ด",
     "disconnectButtonLabel": "ตัดการเชื่อมต่อ"
   },
   "accountPoolDailyEarnings": {
@@ -859,6 +863,11 @@
         },
         "language": {
           "label": "ภาษา (เบต้า)"
+        },
+        "theme": {
+          "dark": "มืด",
+          "label": "ธีม",
+          "light": "สว่าง"
         }
       },
       "vaults": {

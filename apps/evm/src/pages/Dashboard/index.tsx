@@ -2,6 +2,7 @@ import { useGetLiquidityHubs, useGetPool, useGetSpokePools, useGetVaults } from 
 import { Page, SectionErrorBoundary, Spinner, Tabs } from 'components';
 import { AdBanner } from 'containers/AdBanner';
 import { useChain } from 'hooks/useChain';
+import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
@@ -12,6 +13,7 @@ import { useSearchParams } from 'react-router';
 import { AccountOverview } from '../../containers/AccountOverview';
 import { Guide } from './Guide';
 import { Hubs } from './Hubs';
+import { LitePositions } from './LitePositions';
 import { Markets } from './Markets';
 import { Settings } from './Settings';
 import { Transactions } from './Transactions';
@@ -19,6 +21,7 @@ import { Vaults } from './Vaults';
 
 export const Dashboard: React.FC = () => {
   const { t } = useTranslation();
+  const { isLite } = useInterfaceMode();
   const { corePoolComptrollerContractAddress } = useChain();
   const { chainId } = useChainId();
   const [, setSearchParams] = useSearchParams();
@@ -129,6 +132,43 @@ export const Dashboard: React.FC = () => {
       id: 'settings',
       content: <Settings />,
     });
+  }
+
+  if (isLite) {
+    return (
+      <Page>
+        <div className="mb-6 space-y-6">
+          <SectionErrorBoundary>
+            <AccountOverview className="w-full" accountAddress={accountAddress} />
+          </SectionErrorBoundary>
+
+          <Guide />
+        </div>
+
+        <SectionErrorBoundary className="my-10">
+          <LitePositions
+            pool={pool}
+            liquidityHubs={liquidityHubs}
+            vaults={vaults}
+            isHubsLoading={isGetLiquidityHubsLoading}
+            isVaultsLoading={isGetVaultsLoading}
+          />
+        </SectionErrorBoundary>
+
+        {isHistoricalTransactionsFeatureEnabled && (
+          <section
+            aria-label={t('account.tabs.transactions')}
+            className="mt-12 flex flex-col gap-6"
+          >
+            <h2 className="text-p1s">{t('account.tabs.transactions')}</h2>
+
+            <SectionErrorBoundary>
+              <Transactions />
+            </SectionErrorBoundary>
+          </section>
+        )}
+      </Page>
+    );
   }
 
   return (

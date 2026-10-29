@@ -56,6 +56,9 @@
         "title": "マーケットポジションはまだありません"
       }
     },
+    "positions": {
+      "label": "ポジション"
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "{{chainName}}でガスレス取引を有効にする"
@@ -192,6 +195,7 @@
     "label": "日次収益"
   },
   "accountModal": {
+    "dashboardButtonLabel": "ダッシュボードを表示",
     "disconnectButtonLabel": "切断"
   },
   "accountPoolDailyEarnings": {
@@ -859,6 +863,11 @@
         },
         "language": {
           "label": "言語 (ベータ版)"
+        },
+        "theme": {
+          "dark": "ダーク",
+          "label": "テーマ",
+          "light": "ライト"
         }
       },
       "vaults": {
