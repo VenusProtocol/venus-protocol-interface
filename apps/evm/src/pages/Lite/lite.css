@@ -18,11 +18,24 @@
 }
 
 .lite-panel {
+  position: relative;
   flex: 1 1 auto;
   border: 1px solid var(--color-border-glass);
   border-radius: calc(var(--spacing) * 2);
   background: var(--color-surface-glass);
   box-shadow: var(--shadow-glass);
+}
+
+/* The blur sits on its own layer: on the panel it would become the containing
+   block for the fixed overlays dropdowns render inside it. */
+.lite-panel::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
 }
 
 /* The panel owns the frame, so the table inside it draws none. */
