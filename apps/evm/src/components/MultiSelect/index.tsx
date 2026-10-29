@@ -49,7 +49,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       menuPosition="right"
       // Clip the options to the menu's rounded corners, so the hover highlight of the last
       // option does not bleed past the border
-      menuClassName="venus-multiselect-menu bg-surface-menu border-border-raised shadow-menu backdrop-blur-raised backdrop-saturate-[1.2] overflow-hidden"
+      menuClassName="venus-multiselect-menu overflow-hidden"
       optionsDom={() => (
         <div className="min-w-full">
           <div className="flex h-12 items-center justify-between gap-3 px-4 py-3">

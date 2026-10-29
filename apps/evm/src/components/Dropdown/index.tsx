@@ -60,7 +60,7 @@ export const Dropdown = ({
               >
                 <div
                   className={cn(
-                    'border-lightGrey bg-cards overflow-visible border shadow',
+                    'border-border-raised bg-menu shadow-menu overflow-visible border',
                     variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
                     menuClassName,
                   )}

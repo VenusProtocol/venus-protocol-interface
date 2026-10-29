@@ -80,12 +80,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       {/* XL and up dropdown */}
       <Dropdown
         className="hidden lg:block"
-        menuClassName={cn(
-          'mt-5',
-          item.variant === 'secondary'
-            ? 'border-white/12 bg-background-active shadow-[0_12px_32px_0_rgb(0_0_0/18%)]'
-            : 'shadow-none border-0 bg-background-active',
-        )}
+        menuClassName={cn('mt-5', item.variant !== 'secondary' && 'shadow-none border-0')}
         triggerOnHover
         optionsDom={({ setIsDropdownOpen }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({

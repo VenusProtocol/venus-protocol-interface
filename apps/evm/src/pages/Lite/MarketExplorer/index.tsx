@@ -136,7 +136,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
     return (
       <section
         aria-label={modeLabel}
-        className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden backdrop-blur-glass"
+        className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden"
       >
         <div className="flex shrink-0 items-center justify-between gap-3 p-4">
           <Breadcrumb
@@ -172,7 +172,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   return (
     <section
       aria-label={modeLabel}
-      className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden backdrop-blur-glass"
+      className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden"
     >
       {mode === 'earn' && !selectedEarnAsset && (
         <EarnAssetTable
