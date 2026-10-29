@@ -1055,6 +1055,7 @@
       "backToAssets": "กลับไปที่สินทรัพย์ {{mode}}",
       "backToMarkets": "กลับไปที่ตลาดของ {{symbol}}"
     },
+    "collateralAriaLabel": "เปิดฟอร์มหลักประกัน {{symbol}}",
     "columns": {
       "apy": "APY",
       "asset": "สินทรัพย์",
@@ -1062,6 +1063,7 @@
       "liquidity": "สภาพคล่อง",
       "loan": "สินทรัพย์ที่ยืม",
       "market": "ตลาด",
+      "pool": "พูล",
       "totalBorrow": "ยอดยืมรวม",
       "totalSupply": "ยอดฝากรวม"
     },

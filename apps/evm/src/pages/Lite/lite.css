@@ -22,23 +22,21 @@
   flex: 1 1 auto;
   border: 1px solid var(--color-border-glass);
   border-radius: calc(var(--spacing) * 2);
-  background: var(--color-surface-glass);
+  background: transparent;
   box-shadow: var(--shadow-glass);
 }
 
-/* The blur sits on its own layer: on the panel it would become the containing
-   block for the fixed overlays dropdowns render inside it. */
 .lite-panel::before {
   content: '';
   position: absolute;
   z-index: -1;
   inset: 0;
   border-radius: inherit;
+  background: var(--color-surface-glass);
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
 }
 
-/* The panel owns the frame, so the table inside it draws none. */
 .lite-panel .lite-table {
   display: flex;
   flex-direction: column;
@@ -130,7 +128,6 @@
     padding-inline: calc(var(--spacing) * 6);
   }
 
-  /* The spinner row has a single cell, so it spans the whole grid instead of one column. */
   .lite-panel .lite-table tbody tr:has(> td[colspan]) {
     height: auto;
   }
@@ -202,7 +199,6 @@
   }
 }
 
-/* The panel keeps its backdrop-filter, so it only rises. */
 @keyframes lite-content-rise {
   from {
     transform: translateY(12px);

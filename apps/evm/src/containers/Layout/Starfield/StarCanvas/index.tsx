@@ -7,8 +7,6 @@ import { hashSeed } from '../hashSeed';
 import { isBehindContent } from '../isBehindContent';
 import { sampleRange } from '../sampleRange';
 
-// Drift and twinkle are derived from elapsed time on the GPU, so a frame costs one
-// uniform write and one draw call rather than a pass over every star.
 const VERTEX_SHADER = `
   attribute float aSize;
   attribute float aBaseIntensity;
@@ -68,16 +66,9 @@ const FRAGMENT_SHADER = `
   }
 `;
 
-// A defocused backdrop reads the same at one device pixel per CSS pixel.
 const PIXEL_RATIO = 1;
-// The sky drifts a few pixels a second, so a sixth of the display's rate is already
-// finer than the eye can follow.
 const FRAME_INTERVAL_MS = 1000 / 15;
-// Stars do not share a period, so wrapping jumps the sky. Keep the uniform
-// precise enough for the shader while pushing the wrap past any session.
 const TIME_WRAP_SECONDS = 86400;
-// Only guards against a long stall; must stay above the frame interval so a
-// normal frame advances by the time it actually took.
 const MAX_STEP_SECONDS = 0.25;
 
 export const StarCanvas: React.FC = () => {

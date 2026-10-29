@@ -57,11 +57,6 @@
     --color-darkBlue-rgb: 27 67 152;
     --color-greyBlue-rgb: 42 52 77;
 
-    /* ---------------------------------------------------------------------
-       A colour scheme only redefines this block under its own root selector
-       (e.g. :root[data-theme='light']). Everything below is composed from it
-       in @theme, and components only ever use the generated utilities.
-       --------------------------------------------------------------------- */
     --accent-highlight: #398cfa;
     --accent-strong: #2469d8;
     --accent: #307fee;
@@ -71,7 +66,6 @@
     --accent-hover: #398cfa;
     --accent-deep-hover: #2875e6;
 
-    /* Light lifts a surface, shade recedes it. */
     --elevation-tint-rgb: 255 255 255;
     --elevation-shade-rgb: 0 0 0;
   }
@@ -247,7 +241,6 @@
   --text-b3r--font-weight: 400;
   --text-b3r--line-height: 1.5;
   
-  /* surfaces: */
   --color-surface-glass: rgb(var(--elevation-shade-rgb) / 10%);
   --color-surface-raised: rgb(var(--elevation-tint-rgb) / 7%);
   --color-surface-well: rgb(var(--elevation-shade-rgb) / 22%);
@@ -260,8 +253,6 @@
   --color-border-well: rgb(var(--elevation-tint-rgb) / 8%);
   --color-border-action: rgb(var(--elevation-tint-rgb) / 20%);
 
-  /* Sheen over an opaque tint: menus sit inside a blurred panel, which is its own
-     backdrop root, so their own backdrop filter cannot reach the content behind. */
   --background-image-menu: linear-gradient(125deg, rgb(255 255 255 / 8%), transparent 65%),
     linear-gradient(rgb(20 24 31) 0 100%);
 

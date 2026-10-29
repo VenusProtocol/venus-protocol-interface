@@ -123,7 +123,7 @@ export const Button = ({
     {...otherProps}
   >
     {loading && (
-      <div className="mr-2" role="status" aria-label="Loading">
+      <div className="mr-2" aria-hidden="true">
         <Spinner variant="small" />
       </div>
     )}

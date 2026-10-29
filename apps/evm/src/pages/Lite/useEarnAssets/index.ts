@@ -26,7 +26,6 @@ export const useEarnAssets = () => {
 
   const hubShareTokenAddresses = liquidityHubs.map(liquidityHub => liquidityHub.vhToken.address);
 
-  // Lite surfaces the XVS vault only; the other vaults stay in Pro
   const xvsVaults = vaults.filter(
     (vault): vault is VenusVault =>
       vault.vaultType === VaultType.Venus && vault.stakedToken.symbol === 'XVS',
@@ -46,7 +45,6 @@ export const useEarnAssets = () => {
   return {
     earnAssets,
     categories: [...categoriesByTag.values()].sort((a, b) => a.order - b.order),
-    // Hubs only exist on some chains, so elsewhere the core market alone makes the list ready
     isLoading:
       isGetPoolLoading ||
       isGetVaultsLoading ||

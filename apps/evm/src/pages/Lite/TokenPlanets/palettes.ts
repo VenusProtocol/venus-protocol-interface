@@ -1,4 +1,3 @@
-/** Illustration palettes for the planet surfaces, separate from interface tokens. */
 export const PLANET_PALETTES: Record<string, [string, string, string]> = {
   BTCB: ['#ffe3bb', '#d99b58', '#754235'],
   BNB: ['#fff2bc', '#d4b44b', '#665432'],

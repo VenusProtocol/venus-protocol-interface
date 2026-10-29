@@ -17,7 +17,6 @@ export const useStore = create<State>()(
     }),
     {
       name: 'venus-interface-mode',
-      // Deep linking past the home page commits Pro.
       onRehydrateStorage: () => state => {
         if (state && getEntryPathname() !== '/') {
           state.setMode('pro');

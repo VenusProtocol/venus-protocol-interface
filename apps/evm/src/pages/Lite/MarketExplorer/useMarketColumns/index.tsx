@@ -13,7 +13,6 @@ interface AmountColumnInput<R> {
   getToken: (row: R) => Token;
 }
 
-/** Builds the two right-aligned "<amount> / <value>" columns every Lite table shares. */
 export const useMarketColumns = () => {
   const { t } = useTranslation();
 

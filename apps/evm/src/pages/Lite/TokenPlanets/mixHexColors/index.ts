@@ -1,6 +1,5 @@
 const CHANNEL_OFFSETS = [1, 3, 5];
 
-/** Blends two hex colors into a canvas-ready rgb() string. */
 export const mixHexColors = ({ from, to, ratio }: { from: string; to: string; ratio: number }) => {
   const channels = CHANNEL_OFFSETS.map(offset =>
     Math.round(

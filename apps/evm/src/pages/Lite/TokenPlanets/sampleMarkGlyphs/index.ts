@@ -5,7 +5,6 @@ const OPAQUE_THRESHOLD = 100;
 const STRENGTH_THRESHOLD = 0.82;
 const MAX_LUMINANCE = 765;
 
-// These marks read as dark artwork, so their luminance is inverted.
 const INVERTED_SYMBOLS = ['sUSDe', 'ETH'];
 
 export interface MarkGlyph {
@@ -15,7 +14,6 @@ export interface MarkGlyph {
   glyph: string;
 }
 
-/** Samples the token artwork so its distinctive shape stays recognizable. */
 export const sampleMarkGlyphs = ({
   image,
   symbol,
@@ -63,7 +61,6 @@ export const sampleMarkGlyphs = ({
       }
     }
   } catch {
-    // A non-readable image keeps its original artwork instead.
     return [];
   }
 

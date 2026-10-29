@@ -140,7 +140,6 @@ describe('NavBar', () => {
       isScrollToTopVisible: false,
       openModal: undefined,
     });
-    // These assertions cover the Pro navigation; Lite has a test of its own
     useInterfaceModeStore.setState({ mode: 'pro' });
     document.body.className = '';
 
@@ -256,8 +255,6 @@ describe('NavBar', () => {
     useInterfaceModeStore.setState({ mode: 'lite' });
     renderNavBar();
 
-    // The mobile drawer keeps its markup and is hidden with CSS, so only the desktop
-    // navigation and the right hand group are checked here
     expect(screen.queryByTestId(TEST_IDS.navBarMenu)).not.toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.navBarActions).textContent).not.toContain('Dashboard');
     expect(screen.getByText('Lite')).toBeInTheDocument();

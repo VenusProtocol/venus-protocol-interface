@@ -100,7 +100,6 @@ export const aggregateEarnAssets = ({
           token: vault.stakedToken,
         }),
         supplyCents: new BigNumber(vault.stakeBalanceCents),
-        // Staked XVS is locked in the vault, so none of it is lendable liquidity
         liquidityTokens: new BigNumber(0),
         liquidityCents: new BigNumber(0),
       },

@@ -41,7 +41,6 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
     canvas.height = ASCII_PLANET_SIZE * pixelRatio;
     ctx.scale(pixelRatio, pixelRatio);
 
-    // Keeps each token's hue rather than its pale highlight.
     const glyphColor = mixHexColors({ from: color, to: highlight, ratio: 0.3 });
     const rimAmbient = mixHexColors({ from: shadow, to: color, ratio: 0.3 });
 
@@ -111,7 +110,6 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
     document.addEventListener('visibilitychange', syncLoop);
     window.addEventListener('focus', syncLoop);
     window.addEventListener('blur', syncLoop);
-    // Stopping for reduced motion leaves the last scrambled frame, so redraw once.
     const syncMotion = () => {
       syncLoop();
       draw();

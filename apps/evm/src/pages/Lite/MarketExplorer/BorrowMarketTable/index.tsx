@@ -1,5 +1,6 @@
 import { Table, type TableColumn, TokenIcon, Tooltip } from 'components';
 import { useTranslation } from 'libs/translations';
+import type { Token } from 'types';
 import type { LiteBorrowAsset, LiteBorrowMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
 import { useMarketColumns } from '../useMarketColumns';
@@ -7,6 +8,7 @@ import { useMarketColumns } from '../useMarketColumns';
 export interface BorrowMarketTableProps {
   borrowAsset: LiteBorrowAsset;
   onSelect: (market: LiteBorrowMarket) => void;
+  onSelectCollateral: (input: { market: LiteBorrowMarket; token: Token }) => void;
   header: React.ReactNode;
 }
 
@@ -15,6 +17,7 @@ const VISIBLE_COLLATERAL_COUNT = 3;
 export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   borrowAsset,
   onSelect,
+  onSelectCollateral,
   header,
 }) => {
   const { t } = useTranslation();
@@ -23,9 +26,9 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
 
   const columns: TableColumn<LiteBorrowMarket>[] = [
     {
-      key: 'market',
-      label: t('lite.columns.market'),
-      selectOptionLabel: t('lite.columns.market'),
+      key: 'pool',
+      label: t('lite.columns.pool'),
+      selectOptionLabel: t('lite.columns.pool'),
       sortRows: (rowA, rowB, direction) =>
         getMarketName(rowA).localeCompare(getMarketName(rowB)) * (direction === 'asc' ? 1 : -1),
       renderCell: market => (
@@ -65,7 +68,17 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
           <div className="flex items-center -space-x-2">
             {market.collateralTokens.slice(0, VISIBLE_COLLATERAL_COUNT).map(token => (
               <Tooltip key={token.address} content={token.symbol}>
-                <TokenIcon token={token} size="lg" className="shrink-0" />
+                <button
+                  type="button"
+                  aria-label={t('lite.collateralAriaLabel', { symbol: token.symbol })}
+                  className="cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-blue"
+                  onClick={event => {
+                    event.stopPropagation();
+                    onSelectCollateral({ market, token });
+                  }}
+                >
+                  <TokenIcon token={token} size="lg" className="shrink-0" />
+                </button>
               </Tooltip>
             ))}
           </div>
@@ -101,7 +114,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       columns={columns}
       rowKeyExtractor={market => market.id}
       rowOnClick={(_event, market) => onSelect(market)}
-      initialOrder={{ orderBy: columns[4], orderDirection: 'desc' }}
+      initialOrder={{ orderBy: columns[1], orderDirection: 'asc' }}
       tableLayout="auto"
       breakpoint="md"
       hideCardDelimiter

@@ -1,9 +1,12 @@
 import type { MultiSelectOption } from 'components';
+import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
-import type { LiteEarnAsset } from '../types';
+import type { Token } from 'types';
+import type { LiteBorrowMarket, LiteEarnAsset } from '../types';
 import { useBorrowAssets } from '../useBorrowAssets';
 import type { useEarnAssets } from '../useEarnAssets';
+import type { useLiteNavigation } from '../useLiteNavigation';
 import { useMarketName } from '../useMarketName';
 import { BorrowAssetTable } from './BorrowAssetTable';
 import { BorrowMarketTable } from './BorrowMarketTable';
@@ -20,10 +23,7 @@ export interface MarketExplorerProps {
   categories: ReturnType<typeof useEarnAssets>['categories'];
   isEarnLoading: boolean;
   isEarnReady: boolean;
-  mode: MarketMode;
-  onModeChange: (mode: MarketMode) => void;
-  selectedEarnAssetKey?: string;
-  onSelectEarnAssetKey: (key: string | undefined) => void;
+  navigation: ReturnType<typeof useLiteNavigation>;
 }
 
 export const MarketExplorer: React.FC<MarketExplorerProps> = ({
@@ -31,53 +31,56 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   categories,
   isEarnLoading,
   isEarnReady,
-  mode,
-  onModeChange,
-  selectedEarnAssetKey,
-  onSelectEarnAssetKey,
+  navigation,
 }) => {
+  const { mode, assetSymbol, marketId, setMode, selectAsset, selectMarket } = navigation;
   const { t } = useTranslation();
   const getMarketName = useMarketName();
   const [searchValue, setSearchValue] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedLoanTokens, setSelectedLoanTokens] = useState<string[]>([]);
-  // Selections hold ids, so each render resolves them against the latest query results
-  const [selectedEarnMarketId, setSelectedEarnMarketId] = useState<string>();
-  const [selectedBorrowAssetKey, setSelectedBorrowAssetKey] = useState<string>();
-  const [selectedBorrowMarketId, setSelectedBorrowMarketId] = useState<string>();
+  const [selectedCollateral, setSelectedCollateral] = useState<{
+    market: LiteBorrowMarket;
+    token: Token;
+  }>();
 
   const { borrowAssets, isLoading: isBorrowLoading, isReady: isBorrowReady } = useBorrowAssets();
 
-  const selectedEarnAsset = earnAssets.find(earnAsset => earnAsset.key === selectedEarnAssetKey);
-  const selectedEarnMarket = selectedEarnAsset?.markets.find(
-    market => market.id === selectedEarnMarketId,
-  );
-  const selectedBorrowAsset = borrowAssets.find(
-    borrowAsset => borrowAsset.key === selectedBorrowAssetKey,
-  );
-  const selectedBorrowMarket = selectedBorrowAsset?.markets.find(
-    market => market.id === selectedBorrowMarketId,
-  );
+  // One source skips the list and opens its form
+  const getOnlyMarket = <TMarket,>(markets: TMarket[]) =>
+    markets.length === 1 ? markets[0] : undefined;
 
-  const clearSelectedMarket = () => {
-    setSelectedEarnMarketId(undefined);
-    setSelectedBorrowMarketId(undefined);
-  };
-
-  const backToAssets = () => {
-    onSelectEarnAssetKey(undefined);
-    setSelectedBorrowAssetKey(undefined);
-    clearSelectedMarket();
-  };
-
-  const changeMode = (newMode: MarketMode) => {
-    onModeChange(newMode);
-    setSearchValue('');
-  };
+  const selectedEarnAsset =
+    mode === 'earn'
+      ? earnAssets.find(earnAsset => earnAsset.token.symbol === assetSymbol)
+      : undefined;
+  const selectedEarnMarket =
+    selectedEarnAsset?.markets.find(market => market.id === marketId) ??
+    getOnlyMarket(selectedEarnAsset?.markets ?? []);
+  const selectedBorrowAsset =
+    mode === 'borrow'
+      ? borrowAssets.find(borrowAsset => borrowAsset.token.symbol === assetSymbol)
+      : undefined;
+  const selectedBorrowMarket =
+    selectedBorrowAsset?.markets.find(market => market.id === marketId) ??
+    getOnlyMarket(selectedBorrowAsset?.markets ?? []);
+  const hasSingleMarket = (selectedAssetMarketCount: number) => selectedAssetMarketCount === 1;
 
   const modeLabel = mode === 'earn' ? t('lite.modes.earn') : t('lite.modes.borrow');
   const selectedMarket = mode === 'earn' ? selectedEarnMarket : selectedBorrowMarket;
   const selectedAsset = mode === 'earn' ? selectedEarnAsset : selectedBorrowAsset;
+
+  const clearSelectedMarket = () =>
+    hasSingleMarket(selectedAsset?.markets.length ?? 0)
+      ? selectAsset(undefined)
+      : selectMarket(undefined);
+
+  const backToAssets = () => selectAsset(undefined);
+
+  const changeMode = (newMode: MarketMode) => {
+    setMode(newMode);
+    setSearchValue('');
+  };
 
   const categoryOptions: MultiSelectOption[] = categories.map(category => ({
     value: category.tag,
@@ -132,6 +135,28 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
 
   const modeSwitch = <ModeSwitch mode={mode} onChange={changeMode} />;
 
+  const collateralSource = selectedCollateral?.market.source;
+  const collateralAsset =
+    collateralSource?.type === 'spoke'
+      ? collateralSource.pool.assets.find(
+          poolAsset =>
+            poolAsset.vToken.underlyingToken.address === selectedCollateral?.token.address,
+        )
+      : undefined;
+
+  const collateralModal =
+    collateralSource?.type === 'spoke' && collateralAsset ? (
+      <SpokeFormModal
+        title={t('spokeForm.collateralModalTitle', { poolName: collateralSource.pool.name })}
+        spokePool={collateralSource.pool}
+        asset={collateralSource.asset}
+        collateralOnly
+        initialActiveTabId="collateral"
+        preselectedCollateral={collateralAsset}
+        handleClose={() => setSelectedCollateral(undefined)}
+      />
+    ) : undefined;
+
   if (selectedMarket && selectedAsset) {
     return (
       <section
@@ -144,7 +169,9 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
             token={selectedAsset.token}
             marketName={getMarketName(selectedMarket)}
             onBackToAssets={backToAssets}
-            onBackToMarkets={clearSelectedMarket}
+            onBackToMarkets={
+              hasSingleMarket(selectedAsset.markets.length) ? undefined : clearSelectedMarket
+            }
           />
         </div>
 
@@ -179,7 +206,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           earnAssets={visibleEarnAssets}
           isFetching={isEarnLoading}
           isReady={isEarnReady}
-          onSelect={earnAsset => onSelectEarnAssetKey(earnAsset.key)}
+          onSelect={earnAsset => selectAsset(earnAsset.token.symbol)}
           header={header}
         />
       )}
@@ -187,7 +214,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {mode === 'earn' && selectedEarnAsset && (
         <EarnMarketTable
           earnAsset={selectedEarnAsset}
-          onSelect={market => setSelectedEarnMarketId(market.id)}
+          onSelect={market => selectMarket(market.id)}
           header={header}
         />
       )}
@@ -197,7 +224,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           borrowAssets={visibleBorrowAssets}
           isFetching={isBorrowLoading}
           isReady={isBorrowReady}
-          onSelect={borrowAsset => setSelectedBorrowAssetKey(borrowAsset.key)}
+          onSelect={borrowAsset => selectAsset(borrowAsset.token.symbol)}
           header={header}
         />
       )}
@@ -205,10 +232,13 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {mode === 'borrow' && selectedBorrowAsset && (
         <BorrowMarketTable
           borrowAsset={selectedBorrowAsset}
-          onSelect={market => setSelectedBorrowMarketId(market.id)}
+          onSelect={market => selectMarket(market.id)}
+          onSelectCollateral={setSelectedCollateral}
           header={header}
         />
       )}
+
+      {collateralModal}
     </section>
   );
 };

@@ -100,11 +100,11 @@ export const Layout: React.FC = () => {
               {contentDom}
             </WrapperComp>
 
-            <div id={BODY_PORTAL_ID} />
-
             <Footer ref={footerRef} />
           </div>
         </div>
+
+        <div id={BODY_PORTAL_ID} />
       </div>
     </>
   );

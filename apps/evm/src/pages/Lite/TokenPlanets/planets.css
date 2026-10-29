@@ -101,7 +101,6 @@
   outline-offset: calc(var(--spacing) * 2);
 }
 
-/* The glyph sphere overflows its orb so the ring stays whole. */
 .lite-planet__ascii {
   position: absolute;
   left: -25%;
@@ -130,7 +129,6 @@
   object-fit: contain;
 }
 
-/* The BNB emblem carries its asset identity, not just the sphere. */
 .lite-planet[data-token='WBNB'] .lite-planet__mark {
   left: 10%;
   top: 10%;
@@ -163,7 +161,6 @@
   bottom: 100%;
 }
 
-/* Planets near the top keep their details below the orb. */
 .lite-planet.lite-planet--5 .lite-planet-detail {
   top: 100%;
   bottom: auto;
@@ -214,7 +211,6 @@
   margin-top: calc(var(--spacing) * 2);
 }
 
-/* Satellites need room for their glyphs to stay legible. */
 @media (min-width: 1101px) {
   .lite-planet[data-token='BTCB'] {
     --planet-size: 25;
@@ -305,7 +301,6 @@
   }
 }
 
-/* The last two orbs only appear once the layout has room for them. */
 @media (max-width: 1919px) {
   .lite-planet:nth-child(n + 7) {
     display: none;

@@ -47,7 +47,6 @@ Object.defineProperty(globalThis, 'localStorage', {
   value: window.localStorage,
 });
 
-// jsdom ships no media query support
 Object.defineProperty(window, 'matchMedia', {
   configurable: true,
   value: (query: string) => ({

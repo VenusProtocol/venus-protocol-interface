@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import type { Asset, LiquidityHub } from 'types';
 
-/** Hub deposits routed into core markets are reported twice, so they are counted once. */
 export const getCoreOverlap = ({
   liquidityHub,
   coreAssets,

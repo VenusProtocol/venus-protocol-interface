@@ -24,7 +24,6 @@ export interface DrawAsciiPlanetInput {
   scrambleElapsedMs: number;
 }
 
-/** Character renderer for one planet. Geometry is illustration data. */
 export const drawAsciiPlanet = ({
   ctx,
   surfaceGradient,
@@ -66,7 +65,6 @@ export const drawAsciiPlanet = ({
 
   ctx.fillStyle = surfaceGradient;
 
-  // Centers the grid so both sides share the same curved outline.
   const stepX = 6 * glyphScale;
   const stepY = 7 * glyphScale;
   let glyphIndex = 0;
@@ -99,7 +97,6 @@ export const drawAsciiPlanet = ({
   ctx.fillStyle = glyphColor;
   drawRing(true);
 
-  // Bright particles share the orbital plane, trailing a short wake.
   for (let star = 0; star < PARTICLE_COUNT; star++) {
     for (let tail = 0; tail < PARTICLE_TAIL_LENGTH; tail++) {
       const angle = phase * 0.65 + (star * Math.PI * 2) / PARTICLE_COUNT - tail * 0.045;

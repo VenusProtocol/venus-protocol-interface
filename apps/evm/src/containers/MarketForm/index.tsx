@@ -19,7 +19,6 @@ export interface MarketFormProps {
   initialActiveTabId?: string;
   onSubmitSuccess?: ModalProps['handleClose'];
   navType?: TabNavType;
-  // Restricts the form to a subset of its tabs, keeping their original order
   visibleTabIds?: string[];
 }
 

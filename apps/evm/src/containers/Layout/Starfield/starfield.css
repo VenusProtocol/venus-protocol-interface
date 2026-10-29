@@ -64,8 +64,6 @@
   overflow: hidden;
 }
 
-/* A meteor only animates while it is on screen. The rest of its cycle is idle time,
-   which lets the whole page stop compositing between streaks. */
 .venus-starfield__meteor {
   position: absolute;
   top: 12%;
@@ -123,7 +121,6 @@
   }
 }
 
-/* Nothing needs to keep compositing while the window is in the background. */
 body:not(.venus-window-focused) .venus-starfield__meteor {
   animation-play-state: paused;
 }

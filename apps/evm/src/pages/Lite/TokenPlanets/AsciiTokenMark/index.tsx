@@ -111,7 +111,6 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
       if (!shouldAnimate && frame) {
         window.cancelAnimationFrame(frame);
         frame = 0;
-        // Leaving the loop mid-scramble would freeze digits in place.
         draw(Number.POSITIVE_INFINITY);
       }
     };

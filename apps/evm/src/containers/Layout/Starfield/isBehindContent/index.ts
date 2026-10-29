@@ -1,4 +1,3 @@
-// Keeps the sky quieter behind the page's reading areas.
 export const isBehindContent = ({ x, y }: { x: number; y: number }) =>
   (x > 0.25 && x < 0.76 && y > 0.08 && y < 0.35) ||
   (x > 0.68 && y > 0.66) ||

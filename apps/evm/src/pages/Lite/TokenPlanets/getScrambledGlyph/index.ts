@@ -1,4 +1,3 @@
-/** Engaged planets cycle their glyphs through digits. */
 export const SCRAMBLE_STEP_MS = 160;
 
 export const getScrambledGlyph = ({

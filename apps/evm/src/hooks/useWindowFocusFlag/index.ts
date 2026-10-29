@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 const FOCUSED_CLASS_NAME = 'venus-window-focused';
 
-/** Lets CSS pause decorative animations while the window sits in the background. */
 export const useWindowFocusFlag = () => {
   useEffect(() => {
     const sync = () => {

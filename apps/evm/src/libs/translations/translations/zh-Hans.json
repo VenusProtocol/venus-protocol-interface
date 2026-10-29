@@ -1055,6 +1055,7 @@
       "backToAssets": "返回{{mode}}资产列表",
       "backToMarkets": "返回 {{symbol}} 市场列表"
     },
+    "collateralAriaLabel": "打开 {{symbol}} 抵押品表单",
     "columns": {
       "apy": "APY",
       "asset": "资产",
@@ -1062,6 +1063,7 @@
       "liquidity": "流动性",
       "loan": "借款资产",
       "market": "市场",
+      "pool": "资金池",
       "totalBorrow": "总借款",
       "totalSupply": "总存款"
     },

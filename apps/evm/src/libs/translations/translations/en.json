@@ -1056,6 +1056,7 @@
       "backToAssets": "Back to {{mode}} assets",
       "backToMarkets": "Back to {{symbol}} markets"
     },
+    "collateralAriaLabel": "Open the {{symbol}} collateral form",
     "columns": {
       "apy": "APY",
       "asset": "Asset",
@@ -1063,6 +1064,7 @@
       "liquidity": "Liquidity",
       "loan": "Loan",
       "market": "Market",
+      "pool": "Pool",
       "totalBorrow": "Total Borrow",
       "totalSupply": "Total Supply"
     },

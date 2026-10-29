@@ -3,7 +3,6 @@ import { areAddressesEqual, areTokensEqual } from 'utilities';
 import { isAssetPaused } from 'utilities/isAssetPaused';
 import type { LiteEarnAsset } from '../types';
 
-// Assets the Pro table flags as paused or isolated.
 const isRestrictedAsset = ({
   asset,
   eModeGroups,
@@ -37,7 +36,6 @@ export const isVisibleEarnAsset = ({
   eModeGroups: EModeGroup[];
   hubShareTokenAddresses: string[];
 }) => {
-  // Hub share tokens duplicate the hub already listed.
   const isHubShareToken = hubShareTokenAddresses.some(address =>
     areAddressesEqual(address, earnAsset.token.address),
   );
