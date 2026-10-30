@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.43.0
+
+### Minor Changes
+
+- 8dcc615: resupply Liquidity Hub deposits to their Core vhToken market and show the effective Prime APY on Hubs
+
 ## 5.42.6
 
 ### Patch Changes
