@@ -212,11 +212,14 @@ export const formatOutput = ({
         ),
       );
 
-      const supplyBalanceVTokens = convertMantissaToTokens({
-        value: new BigNumber(market.totalSupplyMantissa),
-        token: vToken,
+      // Same truncated math as the comptroller supply cap check
+      const supplyBalanceTokens = convertMantissaToTokens({
+        value: new BigNumber(market.totalSupplyMantissa)
+          .multipliedBy(market.exchangeRateMantissa)
+          .div(COMPOUND_MANTISSA)
+          .integerValue(BigNumber.ROUND_DOWN),
+        token: vToken.underlyingToken,
       });
-      const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
       const supplyBalanceCents = supplyBalanceTokens.multipliedBy(tokenPriceCents);
 
       const borrowBalanceTokens = convertMantissaToTokens({
