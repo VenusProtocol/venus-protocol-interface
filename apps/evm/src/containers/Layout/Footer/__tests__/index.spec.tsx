@@ -38,12 +38,7 @@ describe('Footer', () => {
       link.getAttribute('href'),
     );
 
-    expect(hrefs).toEqual([
-      VENUS_COMMUNITY_URL,
-      VENUS_TELEGRAM_URL,
-      VENUS_X_URL,
-      VENUS_GITHUB_URL,
-    ]);
+    expect(hrefs).toEqual([VENUS_COMMUNITY_URL, VENUS_TELEGRAM_URL, VENUS_X_URL, VENUS_GITHUB_URL]);
     expect(hrefs).not.toContain(VENUS_FLUX_URL);
     expect(hrefs.some(href => href?.includes('discord'))).toBe(false);
   });
