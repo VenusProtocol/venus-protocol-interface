@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 5.43.1
+
+### Patch Changes
+
+- 14342f9: point the footer social icons at their own destinations and drop the Discord one
+- b66156d: keep a partial SAFE MAX partial when the Hub limits rise before submitting
+
 ## 5.43.0
 
 ### Minor Changes
