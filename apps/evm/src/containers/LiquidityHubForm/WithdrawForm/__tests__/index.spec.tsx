@@ -950,6 +950,29 @@ describe('WithdrawForm', () => {
       expect(withdrawPositionFromLiquidityHub).not.toHaveBeenCalled();
     });
 
+    it('keeps a SAFE MAX partial when it did not cover the whole position on click', async () => {
+      const liquidityCappedHub = {
+        ...resuppliedLiquidityHub,
+        liquidityTokens: new BigNumber(15),
+      };
+      const { rerender } = renderTransactionForm({ liquidityHub: liquidityCappedHub });
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      );
+      await waitFor(() => expect(getAmountInput().value).toBe('15'));
+
+      // Liquidity now covers the whole 30 position
+      rerender(<WithdrawForm liquidityHub={resuppliedLiquidityHub} />);
+      clickWithdraw();
+
+      await waitFor(() =>
+        expect(withdrawPositionFromLiquidityHub).toHaveBeenCalledWith(
+          expect.objectContaining({ withdrawFullPosition: false }),
+        ),
+      );
+    });
+
     it('keeps a typed amount partial once interest has accrued', async () => {
       const { rerender } = renderTransactionForm({ liquidityHub: resuppliedLiquidityHub });
 
