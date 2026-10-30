@@ -3,16 +3,28 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetBalanceOf, useGetPool, useSupplyToLiquidityHub } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetPool,
+  useSupplyFromWalletToLiquidityHub,
+  useSupplyToLiquidityHub,
+} from 'clients/api';
 import { TRANSACTION_BUFFER_PERCENTAGE } from 'constants/fullRepaymentBuffer';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { BalanceMutation, LiquidityHubBalanceMutation, Pool } from 'types';
+import type {
+  Asset,
+  AssetBalanceMutation,
+  BalanceMutation,
+  LiquidityHubBalanceMutation,
+  Pool,
+} from 'types';
 import { convertTokensToMantissa, formatTokensToReadableValue } from 'utilities';
 
 import { SupplyWithWalletForm, type SupplyWithWalletFormProps } from '..';
@@ -400,6 +412,156 @@ describe('SupplyWithWalletForm', () => {
         vhTokenAddress: liquidityHub.vhToken.address,
       });
       expect(liquidityHubMutation?.amountTokens.isEqualTo(10)).toBe(true);
+    });
+  });
+
+  describe('when the Hub deposit is resupplied to Core', () => {
+    const corePoolVhAsset: Asset = {
+      ...assetData[0],
+      vToken: {
+        ...assetData[0].vToken,
+        underlyingToken: {
+          ...liquidityHub.vhToken,
+          iconSrc: assetData[0].vToken.underlyingToken.iconSrc,
+        },
+      },
+    };
+
+    const cappedCorePoolVhAsset: Asset = {
+      ...corePoolVhAsset,
+      supplyBalanceTokens: new BigNumber(95),
+      supplyCapTokens: new BigNumber(100),
+    };
+
+    const liquidityHubWithRoom = {
+      ...liquidityHub,
+      pricePerShare: new BigNumber(2),
+      userWalletBalanceTokens: new BigNumber(100),
+      supplyCapTokens: new BigNumber(Number.POSITIVE_INFINITY),
+      userSupplyCapTokens: undefined,
+    };
+
+    it('limits MAX to the room left under the Core market supply cap', async () => {
+      mockUseTokenApproval.mockReturnValue(
+        makeUseTokenApprovalOutput({ walletSpendingLimitTokens: new BigNumber(100) }),
+      );
+
+      renderTransactionForm({
+        liquidityHub: liquidityHubWithRoom,
+        corePoolVhAsset: cappedCorePoolVhAsset,
+      });
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightMaxButtonLabel }),
+      );
+
+      // 5 vhTokens of room at 2 underlying per share
+      await waitFor(() => expect(getAmountInput().value).toBe('10'));
+    });
+
+    it('states the Core market supply cap in the underlying token', async () => {
+      mockUseTokenApproval.mockReturnValue(
+        makeUseTokenApprovalOutput({ walletSpendingLimitTokens: new BigNumber(100) }),
+      );
+
+      renderTransactionForm({
+        liquidityHub: liquidityHubWithRoom,
+        corePoolVhAsset: cappedCorePoolVhAsset,
+      });
+
+      fireEvent.change(getAmountInput(), { target: { value: '11' } });
+
+      await waitFor(() =>
+        expect(
+          screen.getByText(
+            new RegExp(
+              `more than ${formatTokensToReadableValue({
+                value: new BigNumber(10),
+                token: underlyingToken,
+              })}`,
+            ),
+          ),
+        ).toBeInTheDocument(),
+      );
+    });
+
+    it('asks for the underlying token approval to the collateral gateway', () => {
+      renderTransactionForm({ corePoolVhAsset });
+
+      expect(mockUseTokenApproval).toHaveBeenCalledWith({
+        token: underlyingToken,
+        spenderAddress: '0xfakeCollateralGatewayContractAddress',
+        accountAddress: fakeAccountAddress,
+      });
+    });
+
+    it('supplies through the collateral gateway', async () => {
+      const supplyFromWalletToLiquidityHub = vi.fn().mockResolvedValue(undefined);
+      const supplyToLiquidityHub = vi.fn().mockResolvedValue(undefined);
+
+      (useSupplyFromWalletToLiquidityHub as Mock).mockReturnValue({
+        mutateAsync: supplyFromWalletToLiquidityHub,
+        isPending: false,
+      });
+      mockUseSupplyToLiquidityHub.mockReturnValue({
+        mutateAsync: supplyToLiquidityHub,
+        isPending: false,
+      });
+
+      renderTransactionForm({ corePoolVhAsset });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '10',
+        },
+      });
+      fireEvent.click(
+        screen.getByRole('button', {
+          name: en.liquidityHubForm.supplySubmitButtonLabel,
+        }),
+      );
+
+      await waitFor(() =>
+        expect(supplyFromWalletToLiquidityHub).toHaveBeenCalledWith({
+          liquidityHub,
+          vhMarketVToken: corePoolVhAsset.vToken,
+          amountMantissa: new BigNumber('10000000000000000000'),
+        }),
+      );
+      expect(supplyToLiquidityHub).not.toHaveBeenCalled();
+    });
+
+    it('simulates the vhToken supply to Core as collateral', async () => {
+      renderTransactionForm({
+        corePoolVhAsset,
+        liquidityHub: {
+          ...liquidityHub,
+          pricePerShare: new BigNumber(2),
+        },
+      });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '10',
+        },
+      });
+
+      await waitFor(() => {
+        const lastCallInput = mockUseSimulatePoolMutations.mock.calls.at(-1)?.[0] as
+          | { balanceMutations: BalanceMutation[] }
+          | undefined;
+        const assetMutation = lastCallInput?.balanceMutations.find(
+          (balanceMutation): balanceMutation is AssetBalanceMutation =>
+            balanceMutation.type === 'asset',
+        );
+
+        expect(assetMutation).toMatchObject({
+          action: 'supply',
+          vTokenAddress: corePoolVhAsset.vToken.address,
+          enableAsCollateralOfUser: true,
+        });
+        expect(assetMutation?.amountTokens.toFixed()).toBe('5');
+      });
     });
   });
 });

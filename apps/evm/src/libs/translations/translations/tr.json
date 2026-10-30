@@ -253,6 +253,13 @@
           "description": "Dayanak varlığı <AppLink>Venus Likidite Merkezi</AppLink>'ne sağlayarak kazanılan doğal getiri. vhToken'lar bu getiriyi talep edilebilir ödüller yerine yükselen bir itfa oranı aracılığıyla biriktirir — çekim yaptığınızda otomatik olarak alırsınız.",
           "name": "Likidite Merkezi içsel APY"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "Hub pozisyonunuzda gerçekte kazandığınız Prime APY; bunun ne kadarının Core havuzuna sağlandığına göre ağırlıklandırılır. Bu ödüller Core havuzundan gelir ve iki kez ödenmez. Venus Prime, özel kullanıcılara artırılmış ödüller sunar. Venus protokolü bu ödülleri garanti etmez ve sorumluluk kabul etmez.",
+          "name": "Efektif Prime APY"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "Venus Likidite Merkezi'ne sağlamadan elde edilen temel getiri; Prime ve diğer ödüller hariçtir."
+        },
         "offChainApy": {
           "description": "Airdrop veya promosyon kampanyaları gibi üçüncü taraflarca yönetilen zincir dışı faaliyetlerden ek getiri. Bu getiri Venus Protokolü tarafından garanti edilmez.",
           "name": "Zincir dışı APY"
@@ -288,6 +295,7 @@
       "logoAlt": "Prime logosu",
       "tooltip": {
         "calculatorLink": "Prime ödüllerinizi hesaplayın",
+        "liquidityHubCorePoolBoost": "Bu artış Core havuzundan gelir ve iki kez ödenmez.",
         "primeBorrowSimulation": "Prime ile APY, kullanıcıların ortalama {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
         "primeDocLink": "Daha fazla bilgi",
         "primeMarket": "Prime ile APY artırılır.",
@@ -480,6 +488,7 @@
   "contractErrors": {
     "actionPaused": "Bu işlem şu anda bu pazarda duraklatıldı.",
     "borrowCapExceeded": "Bu pazar için borçlanma üst sınırına ulaşıldı.",
+    "hubCapacityExceeded": "Bu Likidite Merkezi dolu. Çekimler yapılana veya arz üst sınırı artırılana kadar daha fazla arz sağlayamazsınız.",
     "insufficientCollateral": "Bu işlem için yeterli teminat yok.",
     "insufficientLiquidity": "Bu işlem için yeterli likidite mevcut değil.",
     "notice": {
@@ -489,6 +498,7 @@
       "hideRawError": "Ham hatayı gizle",
       "showRawError": "Ham hatayı göster"
     },
+    "slippageExceeded": "Fiyat, kayma toleransınızın ötesinde değişti. Lütfen tekrar deneyin.",
     "supplyCapExceeded": "Bu pazar için arz üst sınırına ulaşıldı.",
     "supplyNotAllowed": "Bu pazar yalnızca onaylı sağlayıcılardan yatırma kabul eder.",
     "swapDeadlineExpire": "Takas süresi doldu. Lütfen tekrar deneyin.",
@@ -1056,7 +1066,7 @@
         "redeemFee": "İtfa ücreti",
         "riskDisclosures": {
           "title": "Risk açıklamaları",
-          "value": "<Span>Venus Likidite Merkezi'ne varlık sağlayarak, buradan çekim yaparak veya başka şekillerde etkileşim kurarak aşağıdakileri kabul etmiş ve onaylamış olursunuz:</Span><Ul><Li>Otonom akıllı sözleşmelerle etkileşim kuruyorsunuz. Venus ve bağlı kuruluşları, Likidite Merkezi'nin veya ilgili herhangi bir yazılımın, akıllı sözleşmenin, blokzincir ağının ya da üçüncü taraf entegrasyonunun performansını, güvenliğini veya kullanılabilirliğini garanti etmez.</Li><Li>Likidite Merkezi'ne varlık sağlamak borçlanma gücü vermez ve bir mevduat, kredi veya yatırım ürünü teşkil etmez. Her zaman çekim yapamayabilirsiniz ve varsa getiriler garanti edilmez.</Li><Li>Likidite Merkezi kullanımınızla ilişkili tüm riskleri üstlenirsiniz ve bunun mali durumunuz, risk toleransınız ve teknik yetkinlikleriniz açısından uygun olup olmadığını belirlemekten yalnızca siz sorumlusunuz. İlgili kaynak kodunu ve zincir üstü yapılandırmayı incelemek dahil kendi bağımsız değerlendirmenizi yapmakla yükümlüsünüz.</Li><Li>Venus yalnızca bir teknoloji sağlayıcısıdır; yatırım, danışmanlık, vekalet veya saklama hizmeti sunmaz ve varlıklarınızı yönetmez ya da elinde tutmaz.</Li></Ul><Span>Likidite Merkezi ile etkileşiminiz <Link>Kullanım Koşulları</Link>'na tabidir.</Span>"
+          "value": "<Span>Venus Likidite Merkezi'ne varlık sağlayarak, buradan çekim yaparak veya başka şekillerde etkileşim kurarak aşağıdakileri kabul etmiş ve onaylamış olursunuz:</Span><Ul><Li>Otonom akıllı sözleşmelerle etkileşim kuruyorsunuz. Venus ve bağlı kuruluşları, Likidite Merkezi'nin veya ilgili herhangi bir yazılımın, akıllı sözleşmenin, blokzincir ağının ya da üçüncü taraf entegrasyonunun performansını, güvenliğini veya kullanılabilirliğini garanti etmez.</Li><Li>Likidite Merkezi'ne arz sağlamak bir mevduat, kredi veya yatırım ürünü teşkil etmez. Bu sayfadan yapılan her arz, {{vhTokenSymbol}} varlığınızı otomatik olarak Venus Core'a teminat olarak sağlar (bunu Venus Core'da devre dışı bırakabilirsiniz) ve tasfiye dahil Venus Core'un risk parametrelerine tabidir. Her zaman çekim yapamayabilirsiniz ve varsa getiriler garanti edilmez.</Li><Li>Likidite Merkezi kullanımınızla ilişkili tüm riskleri üstlenirsiniz ve bunun mali durumunuz, risk toleransınız ve teknik yetkinlikleriniz açısından uygun olup olmadığını belirlemekten yalnızca siz sorumlusunuz. İlgili kaynak kodunu ve zincir üstü yapılandırmayı incelemek dahil kendi bağımsız değerlendirmenizi yapmakla yükümlüsünüz.</Li><Li>Venus yalnızca bir teknoloji sağlayıcısıdır; yatırım, danışmanlık, vekalet veya saklama hizmeti sunmaz ve varlıklarınızı yönetmez ya da elinde tutmaz.</Li></Ul><Span>Likidite Merkezi ile etkileşiminiz <Link>Kullanım Koşulları</Link>'na tabidir.</Span>"
         },
         "vhTokenContract": "{{ vhTokenSymbol }} sözleşmesi"
       },

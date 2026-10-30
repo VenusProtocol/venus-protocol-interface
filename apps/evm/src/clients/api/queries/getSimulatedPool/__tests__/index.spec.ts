@@ -206,4 +206,31 @@ describe('getSimulatedPool', () => {
 
     expect(result).toMatchSnapshot();
   });
+
+  it('keeps the current Prime APY when the Prime estimate fails', async () => {
+    const fakePublicClient = {
+      readContract: vi.fn(async () => {
+        throw new Error('arithmetic underflow or overflow');
+      }),
+    } as unknown as PublicClient;
+
+    const result = await getSimulatedPool({
+      publicClient: fakePublicClient,
+      accountAddress: fakeAccountAddress,
+      primeAprContractAddress: fakePrimeContractAddress,
+      primeVersion: 2,
+      isUserPrime: true,
+      userXvsStakedMantissa: new BigNumber(1000),
+      pool: poolData[0],
+      balanceMutations: generateAssetBalanceMutations({ asset: fakePrimeAsset }),
+    });
+
+    const simulatedPrimeAsset = result.pool?.assets.find(
+      asset => asset.vToken.address === fakePrimeAsset.vToken.address,
+    );
+
+    expect(simulatedPrimeAsset?.supplyTokenDistributions).toEqual(
+      fakePrimeAsset.supplyTokenDistributions,
+    );
+  });
 });

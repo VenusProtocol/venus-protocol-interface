@@ -4,8 +4,10 @@ import { describe, expect, it } from 'vitest';
 import {
   collateralGatewayAbi,
   isolatedPoolComptrollerAbi,
+  liquidityHubAbi,
   spokeComptrollerAbi,
 } from 'libs/contracts';
+import { customErrorPhrases } from 'libs/errors/customErrorPhrases';
 
 import { parseContractError } from '..';
 
@@ -42,6 +44,38 @@ describe('parseContractError', () => {
     const parsed = parseContractError(error);
     expect(parsed?.errorName).toBe('BorrowCapExceeded');
     expect(parsed?.args?.[1]).toBe(1000n);
+  });
+
+  it('decodes a full Liquidity Hub refusing a deposit into a readable error', () => {
+    const rawData = encodeErrorResult({
+      abi: liquidityHubAbi,
+      errorName: 'HubCapacityExceeded',
+      args: [5474802528432003083620n, 4773560000000000000000n],
+    });
+
+    const error = new BaseError('execution reverted', {
+      cause: { data: rawData } as unknown as Error,
+    });
+
+    const parsed = parseContractError(error);
+    expect(parsed?.errorName).toBe('HubCapacityExceeded');
+    expect(parsed?.signature).toBe('0x8138f887');
+    expect(customErrorPhrases[parsed?.errorName ?? '']).toBeDefined();
+  });
+
+  it.each([
+    ['InsufficientShares', [2n, 1n]],
+    ['InsufficientAssets', [2n, 1n]],
+  ] as const)('gives the collateral gateway %s revert a readable message', (errorName, args) => {
+    const rawData = encodeErrorResult({ abi: collateralGatewayAbi, errorName, args });
+
+    const error = new BaseError('execution reverted', {
+      cause: { data: rawData } as unknown as Error,
+    });
+
+    const parsed = parseContractError(error);
+    expect(parsed?.errorName).toBe(errorName);
+    expect(customErrorPhrases[errorName]).toBeDefined();
   });
 
   it('decodes a Spoke comptroller revert raised through the collateral gateway', () => {

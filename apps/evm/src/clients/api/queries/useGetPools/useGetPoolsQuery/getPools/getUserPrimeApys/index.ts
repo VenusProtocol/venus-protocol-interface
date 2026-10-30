@@ -1,4 +1,5 @@
 import { primeAbi, primeV2LensAbi } from 'libs/contracts';
+import { logError } from 'libs/errors';
 import type { PrimeVersion } from 'types';
 import { convertAprBipsToApy } from 'utilities';
 import type { Address, PublicClient } from 'viem';
@@ -17,19 +18,29 @@ export const getUserPrimeApys = async ({
   primeVTokenAddresses: readonly Address[];
   primeVersion: PrimeVersion;
 }) => {
+  // One failing market must not fail the whole pool
   const primeAprs = await Promise.all(
-    primeVTokenAddresses.map(primeVTokenAddress =>
-      publicClient.readContract({
-        address: primeContractAddress,
-        abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
-        functionName: 'calculateAPR',
-        args: [primeVTokenAddress, accountAddress],
-      }),
-    ),
+    primeVTokenAddresses.map(async primeVTokenAddress => {
+      try {
+        return await publicClient.readContract({
+          address: primeContractAddress,
+          abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
+          functionName: 'calculateAPR',
+          args: [primeVTokenAddress, accountAddress],
+        });
+      } catch (error) {
+        logError(error);
+        return undefined;
+      }
+    }),
   );
 
   const userPrimeApyMap = new Map<string, PrimeApy>();
   primeAprs.forEach((primeApr, index) => {
+    if (!primeApr) {
+      return;
+    }
+
     const apys: PrimeApy = {
       borrowApy: convertAprBipsToApy({ aprBips: primeApr.borrowAPR.toString() || '0' }),
       supplyApy: convertAprBipsToApy({ aprBips: primeApr.supplyAPR.toString() || '0' }),

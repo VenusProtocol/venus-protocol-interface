@@ -253,6 +253,13 @@
           "description": "透過向 <AppLink>Venus 流動性中心</AppLink>提供標的資產而獲得的原生收益。vhToken 透過不斷上升的贖回率累積該收益，而非可領取的獎勵——您在提取時會自動獲得。",
           "name": "流動性中心內在 APY"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "您的 Hub 倉位實際獲得的 Prime APY，按其中供應至 Core 池的比例加權。該獎勵來自 Core 池，不會重複發放。Venus Prime 為忠實用戶提供加成獎勵。Venus 協議不作任何保證且不承擔責任。",
+          "name": "實際 Prime APY"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "向 Venus 流動性中心供應獲得的基礎收益，不含 Prime 及其他獎勵。"
+        },
         "offChainApy": {
           "description": "來自空投或推廣活動等第三方管理的鏈下活動的額外收益。該收益不由 Venus 協議保證。",
           "name": "鏈下 APY"
@@ -288,6 +295,7 @@
       "logoAlt": "Prime 標誌",
       "tooltip": {
         "calculatorLink": "計算你的 Prime 獎勵",
+        "liquidityHubCorePoolBoost": "該加成來自 Core 池，不會重複發放。",
         "primeBorrowSimulation": "Prime 加成基於用戶借款平均值 {{borrowBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。",
         "primeDocLink": "瞭解更多",
         "primeMarket": "Prime 提升 APY。",
@@ -480,6 +488,7 @@
   "contractErrors": {
     "actionPaused": "該市場暫時禁用此操作。",
     "borrowCapExceeded": "該市場已達到借款上限。",
+    "hubCapacityExceeded": "該流動性中心已滿。在有用戶提取或存款上限提高之前，您無法繼續供應。",
     "insufficientCollateral": "抵押品不足以完成此操作。",
     "insufficientLiquidity": "可用流動性不足以完成此操作。",
     "notice": {
@@ -489,6 +498,7 @@
       "hideRawError": "隱藏原始錯誤",
       "showRawError": "顯示原始錯誤"
     },
+    "slippageExceeded": "價格變動超出了您的滑點容忍度，請重試。",
     "supplyCapExceeded": "該市場已達到存款上限。",
     "supplyNotAllowed": "該市場只接受白名單地址存入。",
     "swapDeadlineExpire": "兌換已超時，請重試。",
@@ -1055,7 +1065,7 @@
         "redeemFee": "贖回費",
         "riskDisclosures": {
           "title": "風險披露",
-          "value": "<Span>當您向 Venus 流動性中心供應資產、從中提取資產或以其他方式與其互動時，即表示您確認並同意：</Span><Ul><Li>您正在與自治運行的智能合約進行互動。Venus 及其關聯方不保證流動性中心或任何相關軟體、智能合約、區塊鏈網路或第三方整合的性能、安全性或可用性。</Li><Li>向流動性中心供應資產不會賦予借款能力，也不構成存款、貸款或投資產品。您可能無法隨時提取資產，且任何回報（如有）均不作保證。</Li><Li>您承擔與使用流動性中心相關的全部風險，並且僅由您自行判斷其是否適合您的財務狀況、風險承受能力和技術能力。您有責任自行進行獨立評估，包括審查相關原始碼和鏈上配置。</Li><Li>Venus 僅為技術提供方，不提供投資、顧問、受託或託管服務，也不管理或持有您的資產。</Li></Ul><Span>您與流動性中心的互動受 <Link>使用條款</Link> 約束。</Span>"
+          "value": "<Span>當您向 Venus 流動性中心供應資產、從中提取資產或以其他方式與其互動時，即表示您確認並同意：</Span><Ul><Li>您正在與自治運行的智能合約進行互動。Venus 及其關聯方不保證流動性中心或任何相關軟體、智能合約、區塊鏈網路或第三方整合的性能、安全性或可用性。</Li><Li>向流動性中心供應不構成存款、貸款或投資產品。從本頁面進行的每筆供應都會自動將您的 {{vhTokenSymbol}} 作為抵押品供應到 Venus Core（您可以在 Venus Core 中關閉），並受 Venus Core 風險參數約束，包括清算。您可能無法隨時提取資產，且任何回報（如有）均不作保證。</Li><Li>您承擔與使用流動性中心相關的全部風險，並且僅由您自行判斷其是否適合您的財務狀況、風險承受能力和技術能力。您有責任自行進行獨立評估，包括審查相關原始碼和鏈上配置。</Li><Li>Venus 僅為技術提供方，不提供投資、顧問、受託或託管服務，也不管理或持有您的資產。</Li></Ul><Span>您與流動性中心的互動受 <Link>使用條款</Link> 約束。</Span>"
         },
         "vhTokenContract": "{{ vhTokenSymbol }} 合約"
       },

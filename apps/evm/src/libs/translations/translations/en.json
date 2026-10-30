@@ -253,6 +253,13 @@
           "description": "The native yield earned by supplying the underlying asset to the <AppLink>Venus Liquidity Hub</AppLink>. vhTokens accrue this yield through a rising redemption rate rather than claimable rewards — you receive it automatically when you withdraw.",
           "name": "Liquidity Hub intrinsic APY"
         },
+        "liquidityHubPrimeDistribution": {
+          "description": "The Prime APY you actually earn on your Hub position, weighted by how much of it is supplied to the Core pool. These rewards come from the Core pool and are not paid twice. Venus Prime rewards dedicated users with boosted rewards; the Venus protocol does not guarantee them and accepts no liability.",
+          "name": "Effective Prime APY"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "The base yield from supplying to the Venus Liquidity Hub, excluding Prime and other rewards."
+        },
         "offChainApy": {
           "description": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. This yield is not guaranteed by Venus Protocol.",
           "name": "Off-chain APY"
@@ -288,6 +295,7 @@
       "logoAlt": "Prime logo",
       "tooltip": {
         "calculatorLink": "Calculate your Prime rewards",
+        "liquidityHubCorePoolBoost": "This boost comes from the Core pool and is not paid twice.",
         "primeBorrowSimulation": "APY boosted by Prime based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",
@@ -480,6 +488,7 @@
   "contractErrors": {
     "actionPaused": "This action is currently paused on this market.",
     "borrowCapExceeded": "Borrow cap reached for this market.",
+    "hubCapacityExceeded": "This Liquidity Hub is full. You can't supply more until withdrawals are made or its supply cap is increased.",
     "insufficientCollateral": "Not enough collateral for this operation.",
     "insufficientLiquidity": "Not enough liquidity available for this operation.",
     "notice": {
@@ -489,6 +498,7 @@
       "hideRawError": "Hide raw error",
       "showRawError": "Show raw error"
     },
+    "slippageExceeded": "Price moved beyond your slippage tolerance. Please try again.",
     "supplyCapExceeded": "Supply cap reached for this market.",
     "supplyNotAllowed": "This market only accepts deposits from approved suppliers.",
     "swapDeadlineExpire": "Swap deadline expired. Please try again.",
@@ -1055,8 +1065,8 @@
         "performanceFee": "Performance fee",
         "redeemFee": "Redeem fee",
         "riskDisclosures": {
-          "title": "Risk disclosures",
-          "value": "<Span>By supplying to, withdrawing from, or otherwise interacting with the Venus Liquidity Hub, you acknowledge and agree that:</Span><Ul><Li>You are interacting with autonomous smart contracts. Venus and its affiliates do not guarantee the performance, security, or availability of the Liquidity Hub or any related software, smart contracts, blockchain networks, or third-party integrations.</Li><Li>Supplying assets to the Liquidity Hub does not grant borrowing power and does not constitute a deposit, loan, or investment product. You may not be able to withdraw at all times, and returns, if any, are not guaranteed.</Li><Li>You assume all risks associated with your use of the Liquidity Hub and are solely responsible for determining whether it is appropriate for your financial circumstances, risk tolerance, and technical capabilities. You are responsible for conducting your own independent evaluation, including reviewing the relevant source code and on-chain configuration.</Li><Li>Venus is a technology provider only and does not provide investment, advisory, fiduciary, or custodial services, and does not manage or hold your assets.</Li></Ul><Span>Your interaction with the Liquidity Hub is governed by the <Link>Terms of Use</Link>.</Span>"
+          "title": "Risk Disclosures",
+          "value": "<Span>By supplying to, withdrawing from, or otherwise interacting with the Venus Liquidity Hub, you acknowledge and agree that:</Span><Ul><Li>You are interacting with autonomous smart contracts. Venus and its affiliates do not guarantee the performance, security, or availability of the Liquidity Hub or any related software, smart contracts, blockchain networks, or third-party integrations.</Li><Li>Supplying to the Liquidity Hub does not constitute a deposit, loan, or investment product. Each supply from this page automatically supplies your {{vhTokenSymbol}} to Venus Core as collateral (which you may disable in Venus Core), subject to its risk parameters, including liquidation. You may not be able to withdraw at all times, and returns, if any, are not guaranteed.</Li><Li>You assume all risks associated with your use of the Liquidity Hub and are solely responsible for determining whether it is appropriate for your financial circumstances, risk tolerance, and technical capabilities. You are responsible for conducting your own independent evaluation, including reviewing the relevant source code and on-chain configuration.</Li><Li>Venus is a technology provider only and does not provide investment, advisory, fiduciary, or custodial services, and does not manage or hold your assets.</Li></Ul><Span>Your interaction with the Liquidity Hub is governed by the <Link>Terms of Use</Link>.</Span>"
         },
         "vhTokenContract": "{{ vhTokenSymbol }} contract"
       },

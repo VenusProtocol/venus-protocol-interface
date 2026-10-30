@@ -4,6 +4,7 @@ import type { Mock } from 'vitest';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { vhXvs } from '__mocks__/models/vhTokens';
 import { useGetLiquidityHub } from 'clients/api';
+import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { VhToken } from 'types';
 
@@ -56,5 +57,20 @@ describe('LiquidityHubAccessor', () => {
 
     expect(screen.getByAltText('Spinner')).toBeInTheDocument();
     expect(children).not.toHaveBeenCalled();
+  });
+
+  it('renders a paused notice instead of the forms when the Liquidity Hub is paused', () => {
+    (useGetLiquidityHub as Mock).mockImplementation(() => ({
+      data: {
+        liquidityHub: { ...liquidityHubs[0], isPaused: true },
+      },
+    }));
+
+    const { queryByText, getByText } = renderComponent(
+      <LiquidityHubAccessor vhToken={vhXvs}>{() => <>Content</>}</LiquidityHubAccessor>,
+    );
+
+    expect(getByText(en.contractErrors.actionPaused)).toBeInTheDocument();
+    expect(queryByText('Content')).not.toBeInTheDocument();
   });
 });

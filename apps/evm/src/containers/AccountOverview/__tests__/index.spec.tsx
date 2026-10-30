@@ -234,7 +234,7 @@ describe('AccountOverview', () => {
     await waitFor(() => expect(queryByText('$1.24M')).toBeInTheDocument());
   });
 
-  it('counts Liquidity Hub deposits in the net worth figure', async () => {
+  it('counts only the wallet part of Liquidity Hub deposits in the net worth figure', async () => {
     const hubSupplyCents = new BigNumber(50000);
 
     (useGetPool as Mock).mockImplementation(() => ({
@@ -252,7 +252,13 @@ describe('AccountOverview', () => {
     (useGetLiquidityHubs as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
-        liquidityHubs: [{ ...liquidityHubs[0], userSupplyBalanceCents: hubSupplyCents }],
+        liquidityHubs: [
+          {
+            ...liquidityHubs[0],
+            userSupplyBalanceCents: hubSupplyCents.multipliedBy(3),
+            userVhTokenBalanceCents: hubSupplyCents,
+          },
+        ],
       },
     }));
 
@@ -283,7 +289,7 @@ describe('AccountOverview', () => {
     (useGetLiquidityHubs as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
-        liquidityHubs: [{ ...liquidityHubs[0], userSupplyBalanceCents: new BigNumber(50000) }],
+        liquidityHubs: [{ ...liquidityHubs[0], userVhTokenBalanceCents: new BigNumber(50000) }],
       },
     }));
     (useGetSpokePools as Mock).mockImplementation(() => ({

@@ -7,9 +7,15 @@ export interface SimulationTextProps {
   token: Token;
   type: 'supply' | 'borrow';
   referenceValues: PrimeSimulationDistribution['referenceValues'];
+  isLiquidityHub?: boolean;
 }
 
-export const SimulationText: React.FC<SimulationTextProps> = ({ token, type, referenceValues }) => {
+export const SimulationText: React.FC<SimulationTextProps> = ({
+  token,
+  type,
+  referenceValues,
+  isLiquidityHub = false,
+}) => {
   const { t } = useTranslation();
 
   const xvs = useGetToken({
@@ -29,10 +35,14 @@ export const SimulationText: React.FC<SimulationTextProps> = ({ token, type, ref
       addSymbol: true,
     });
 
-    return t('apy.primeBadge.tooltip.primeSupplySimulation', {
+    const simulationText = t('apy.primeBadge.tooltip.primeSupplySimulation', {
       supplyBalance: readableReferenceSupplyBalance,
       xvsStaked: readableReferenceXvsStaked,
     });
+
+    return isLiquidityHub
+      ? `${simulationText} ${t('apy.primeBadge.tooltip.liquidityHubCorePoolBoost')}`
+      : simulationText;
   }
 
   const readableReferenceBorrowBalance = formatTokensToReadableValue({

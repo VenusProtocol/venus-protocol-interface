@@ -43,7 +43,7 @@
     "@types/semver": "^7.5.8",
     "@venusprotocol/isolated-pools": "4.4.0-slim",
     "@venusprotocol/typescript-config": "*",
-    "@venusprotocol/venus-protocol": "10.3.0-slim",
+    "@venusprotocol/venus-protocol": "10.4.0-slim",
     "@vercel/blob": "^2.0.0",
     "commander": "^14.0.1",
     "genversion": "^3.2.0",

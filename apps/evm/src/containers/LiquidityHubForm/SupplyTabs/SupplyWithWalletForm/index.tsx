@@ -1,28 +1,35 @@
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
-import { useSupplyToLiquidityHub } from 'clients/api';
+import { useSupplyFromWalletToLiquidityHub, useSupplyToLiquidityHub } from 'clients/api';
 import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
 import type { TokenApproval } from 'containers/TxFormSubmitButton';
 import { WalletBalance } from 'containers/WalletBalance';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import type { Asset, AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
+import {
+  convertTokensToMantissa,
+  convertVhTokensToUnderlying,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { calculateAmountDollars } from '../../../MarketForm/calculateAmountDollars';
 import { type AmountSetInput, Form, type FormValues, initialFormValues } from '../../Form';
 import type { UseFormValidationInput } from '../../Form/useForm/useFormValidation';
 
 export interface SupplyWithWalletFormProps {
   liquidityHub: LiquidityHub;
+  corePoolVhAsset?: Asset;
   onSubmitSuccess?: () => void;
 }
 
 export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
   liquidityHub,
+  corePoolVhAsset,
   onSubmitSuccess,
 }) => {
   const { t } = useTranslation();
@@ -30,10 +37,17 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
   const [formValues, setFormValues] = useState(initialFormValues);
   const { accountAddress } = useAccountAddress();
 
+  const { address: collateralGatewayContractAddress } = useGetContractAddress({
+    name: 'CollateralGateway',
+  });
+
+  const resupplyVToken = collateralGatewayContractAddress ? corePoolVhAsset?.vToken : undefined;
+
   const approval: TokenApproval = {
     type: 'token',
     token: liquidityHub.vhToken.underlyingToken,
-    spenderAddress: liquidityHub.vhToken.address,
+    spenderAddress:
+      (resupplyVToken && collateralGatewayContractAddress) || liquidityHub.vhToken.address,
   };
 
   const { walletSpendingLimitTokens } = useTokenApproval({
@@ -64,11 +78,52 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     limitTokens = BigNumber.min(limitTokens, userSupplyCapTokens);
   }
 
+  const { underlyingToken } = liquidityHub.vhToken;
+
+  const coreSupplyCapMarginTokens =
+    resupplyVToken && corePoolVhAsset
+      ? convertVhTokensToUnderlying({
+          vhTokens: BigNumber.max(
+            corePoolVhAsset.supplyCapTokens.minus(corePoolVhAsset.supplyBalanceTokens),
+            0,
+          ),
+          liquidityHub,
+        })
+      : undefined;
+
+  if (coreSupplyCapMarginTokens) {
+    limitTokens = BigNumber.min(limitTokens, coreSupplyCapMarginTokens);
+  }
+
   const fromAmountTokens = formValues.amountTokens
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
+  // Two Core receipts plus one unit absorb the rounding of each conversion step
+  const minFromAmountTokens =
+    resupplyVToken && corePoolVhAsset
+      ? new BigNumber(2)
+          .shiftedBy(-corePoolVhAsset.vToken.decimals)
+          .dividedBy(corePoolVhAsset.exchangeRateVTokens)
+          .multipliedBy(liquidityHub.pricePerShare)
+          .plus(new BigNumber(1).shiftedBy(-underlyingToken.decimals))
+          .dp(underlyingToken.decimals, BigNumber.ROUND_UP)
+      : undefined;
+
   const handleValidateForm: UseFormValidationInput['validate'] = () => {
+    if (
+      minFromAmountTokens &&
+      fromAmountTokens?.isGreaterThan(0) &&
+      fromAmountTokens.isLessThan(minFromAmountTokens)
+    ) {
+      return {
+        code: 'SMALLER_THAN_MINIMUM_AMOUNT',
+        message: t('marketForm.error.smallerThanMinimumAmount', {
+          minAmount: `${minFromAmountTokens.toFixed()} ${underlyingToken.symbol}`,
+        }),
+      };
+    }
+
     if (
       liquidityHub.userWalletBalanceTokens &&
       fromAmountTokens?.isGreaterThan(liquidityHub.userWalletBalanceTokens)
@@ -77,6 +132,36 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
         code: 'HIGHER_THAN_WALLET_BALANCE',
         message: t('marketForm.error.higherThanWalletBalance', {
           tokenSymbol: liquidityHub.vhToken.underlyingToken.symbol,
+        }),
+      };
+    }
+
+    if (
+      corePoolVhAsset &&
+      coreSupplyCapMarginTokens &&
+      fromAmountTokens?.isGreaterThan(coreSupplyCapMarginTokens)
+    ) {
+      return {
+        code: 'HIGHER_THAN_SUPPLY_CAP',
+        message: t('marketForm.error.higherThanSupplyCap', {
+          userMaxSupplyAmount: formatTokensToReadableValue({
+            value: coreSupplyCapMarginTokens,
+            token: underlyingToken,
+          }),
+          assetSupplyCap: formatTokensToReadableValue({
+            value: convertVhTokensToUnderlying({
+              vhTokens: corePoolVhAsset.supplyCapTokens,
+              liquidityHub,
+            }),
+            token: underlyingToken,
+          }),
+          assetSupplyBalance: formatTokensToReadableValue({
+            value: convertVhTokensToUnderlying({
+              vhTokens: corePoolVhAsset.supplyBalanceTokens,
+              liquidityHub,
+            }),
+            token: underlyingToken,
+          }),
         }),
       };
     }
@@ -92,7 +177,13 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     }
   };
 
-  const { mutateAsync: supplyToLiquidityHub, isPending: isSubmitting } = useSupplyToLiquidityHub();
+  const { mutateAsync: supplyToLiquidityHub, isPending: isSupplyToLiquidityHubLoading } =
+    useSupplyToLiquidityHub();
+  const {
+    mutateAsync: supplyFromWalletToLiquidityHub,
+    isPending: isSupplyFromWalletToLiquidityHubLoading,
+  } = useSupplyFromWalletToLiquidityHub();
+  const isSubmitting = isSupplyToLiquidityHubLoading || isSupplyFromWalletToLiquidityHubLoading;
 
   const getAnalyticData = (amountTokens: BigNumber | string) => ({
     poolName: 'liquidity_hub',
@@ -132,10 +223,18 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     try {
       captureAnalyticEvent('supply_initiated', analyticData);
 
-      await supplyToLiquidityHub({
-        liquidityHub,
-        amountMantissa,
-      });
+      if (resupplyVToken) {
+        await supplyFromWalletToLiquidityHub({
+          liquidityHub,
+          vhMarketVToken: resupplyVToken,
+          amountMantissa,
+        });
+      } else {
+        await supplyToLiquidityHub({
+          liquidityHub,
+          amountMantissa,
+        });
+      }
 
       captureAnalyticEvent('supply_signed', analyticData);
     } catch (error) {
@@ -147,7 +246,7 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     }
   };
 
-  const balanceMutations: LiquidityHubBalanceMutation[] = [
+  const balanceMutations: Array<AssetBalanceMutation | LiquidityHubBalanceMutation> = [
     {
       type: 'liquidityHub',
       vhTokenAddress: liquidityHub.vhToken.address,
@@ -156,10 +255,22 @@ export const SupplyWithWalletForm: React.FC<SupplyWithWalletFormProps> = ({
     },
   ];
 
+  if (resupplyVToken) {
+    balanceMutations.push({
+      type: 'asset',
+      vTokenAddress: resupplyVToken.address,
+      action: 'supply',
+      amountTokens: (fromAmountTokens || new BigNumber(0))
+        .div(liquidityHub.pricePerShare)
+        .dp(liquidityHub.vhToken.decimals, BigNumber.ROUND_DOWN),
+      enableAsCollateralOfUser: true,
+    });
+  }
+
   const availableBalanceDom = (
     <WalletBalance
       token={liquidityHub.vhToken.underlyingToken}
-      spenderAddress={liquidityHub.vhToken.address}
+      spenderAddress={approval.spenderAddress}
       onBalanceClick={walletBalanceTokens => {
         captureAmountSetAnalyticEvent({
           amountTokens: walletBalanceTokens,

@@ -1,4 +1,4 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 
 import { useGetLiquidityHubs, useGetPool } from 'clients/api';
 import {
@@ -10,7 +10,7 @@ import {
 } from 'components';
 import { AccountLiquidityHubDailyEarnings } from 'containers/AccountLiquidityHubDailyEarnings';
 import { AccountPoolHealth } from 'containers/AccountPoolHealth';
-import { type TokenApproval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
+import { type Approval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
 import { useChain } from 'hooks/useChain';
 import { useSimulateLiquidityHubMutations } from 'hooks/useSimulateLiquidityHubMutations';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
@@ -18,7 +18,15 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import type { AssetBalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 'types';
-import { shouldShowAccountHealth } from 'utilities';
+import {
+  areAddressesEqual,
+  areTokensEqual,
+  calculateYearlyInterests,
+  getCombinedApy,
+  getSimulatedLiquidityHubTokenDistributions,
+  isPrimeDistribution,
+  shouldShowAccountHealth,
+} from 'utilities';
 import { type FormValues, initialFormValues, useForm } from './useForm';
 import type { UseFormValidationInput } from './useForm/useFormValidation';
 
@@ -42,7 +50,9 @@ export interface FormProps {
   safeLimitTokens?: BigNumber;
   rightMaxButtonLabel?: string;
   onSubmitSuccess?: () => void;
-  approval?: TokenApproval;
+  approval?: Approval | Approval[];
+  isApprovalLoading?: boolean;
+  includeCorePool?: boolean;
   validateForm?: UseFormValidationInput['validate'];
   onAmountSet?: (input: AmountSetInput) => void;
 }
@@ -61,6 +71,8 @@ export const Form: React.FC<FormProps> = ({
   submitButtonLabel,
   isSubmitting,
   approval,
+  isApprovalLoading = false,
+  includeCorePool = false,
   validateForm,
   onAmountSet,
 }) => {
@@ -71,9 +83,10 @@ export const Form: React.FC<FormProps> = ({
 
   const { t } = useTranslation();
 
-  const affectsCorePool = balanceMutations.some(
-    balanceMutation => balanceMutation.type === 'asset',
-  );
+  const affectsCorePool =
+    includeCorePool || balanceMutations.some(balanceMutation => balanceMutation.type === 'asset');
+
+  const earnsCorePrime = liquidityHub.supplyTokenDistributions.some(isPrimeDistribution);
 
   const { data: getPools, isLoading: isGetPoolLoading } = useGetPool(
     {
@@ -81,7 +94,7 @@ export const Form: React.FC<FormProps> = ({
       accountAddress,
     },
     {
-      enabled: affectsCorePool,
+      enabled: affectsCorePool || earnsCorePrime,
     },
   );
 
@@ -94,16 +107,71 @@ export const Form: React.FC<FormProps> = ({
     });
   const simulatedPool = getSimulatedPoolData?.pool;
 
+  const vhMarketVTokenAddress = pool?.assets.find(asset =>
+    areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken),
+  )?.vToken.address;
+
+  const displayedBalanceMutations = balanceMutations.filter(
+    balanceMutation =>
+      balanceMutation.type !== 'asset' ||
+      !vhMarketVTokenAddress ||
+      !areAddressesEqual(balanceMutation.vTokenAddress, vhMarketVTokenAddress),
+  );
+
   const { data: getLiquidityHubsData, isLoading: isGetLiquidityHubsLoading } = useGetLiquidityHubs({
     accountAddress,
   });
 
-  const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
+  // The form's balances can be fresher than the indexed ones
+  const liquidityHubs = (getLiquidityHubsData?.liquidityHubs ?? []).map(hub =>
+    areAddressesEqual(hub.vhToken.address, liquidityHub.vhToken.address)
+      ? {
+          ...hub,
+          userVhTokenBalanceTokens: liquidityHub.userVhTokenBalanceTokens,
+          userSupplyBalanceTokens: liquidityHub.userSupplyBalanceTokens,
+          userSupplyBalanceCents: liquidityHub.userSupplyBalanceCents,
+          userYearlyEarningsCents: liquidityHub.userYearlyEarningsCents,
+        }
+      : hub,
+  );
 
-  const { liquidityHubs: simulatedLiquidityHubs } = useSimulateLiquidityHubMutations({
+  const { liquidityHubs: hubSimulatedLiquidityHubs } = useSimulateLiquidityHubMutations({
     liquidityHubs,
     balanceMutations,
   });
+
+  const simulatedTokenDistributions = getSimulatedLiquidityHubTokenDistributions({
+    liquidityHub,
+    corePool: getPools?.pool,
+    simulatedCorePool: simulatedPool,
+    balanceMutations,
+  });
+
+  // The Prime share follows the Core balance after the transaction
+  const simulatedLiquidityHubs = simulatedTokenDistributions
+    ? hubSimulatedLiquidityHubs.map(simulatedLiquidityHub => {
+        if (
+          !areAddressesEqual(simulatedLiquidityHub.vhToken.address, liquidityHub.vhToken.address)
+        ) {
+          return simulatedLiquidityHub;
+        }
+
+        const { totalApyPercentage } = getCombinedApy({
+          type: 'supply',
+          baseApyPercentage: simulatedLiquidityHub.supplyApyPercentage,
+          tokenDistributions: simulatedTokenDistributions,
+        });
+
+        return {
+          ...simulatedLiquidityHub,
+          supplyTokenDistributions: simulatedTokenDistributions,
+          userYearlyEarningsCents: calculateYearlyInterests({
+            balance: simulatedLiquidityHub.userSupplyBalanceCents ?? new BigNumber(0),
+            interestPercentage: totalApyPercentage,
+          }),
+        };
+      })
+    : hubSimulatedLiquidityHubs;
 
   const apyBreakdownItems: ApyBreakdownItem[] = [
     {
@@ -111,6 +179,7 @@ export const Form: React.FC<FormProps> = ({
       token: liquidityHub.vhToken.underlyingToken,
       baseApyPercentage: liquidityHub.supplyApyPercentage,
       tokenDistributions: liquidityHub.supplyTokenDistributions,
+      simulatedTokenDistributions,
     },
   ];
 
@@ -157,7 +226,11 @@ export const Form: React.FC<FormProps> = ({
   };
 
   const isLoading =
-    isSubmitting || isGetLiquidityHubsLoading || isGetPoolLoading || isGetSimulatedPoolLoading;
+    isSubmitting ||
+    isApprovalLoading ||
+    isGetLiquidityHubsLoading ||
+    isGetPoolLoading ||
+    isGetSimulatedPoolLoading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -202,7 +275,7 @@ export const Form: React.FC<FormProps> = ({
           <BalanceUpdates
             pool={pool}
             liquidityHubs={liquidityHubs}
-            balanceMutations={balanceMutations}
+            balanceMutations={displayedBalanceMutations}
           />
 
           <Delimiter />

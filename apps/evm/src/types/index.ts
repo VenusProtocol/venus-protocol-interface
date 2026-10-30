@@ -342,7 +342,7 @@ export interface LiquidityHub {
   performanceFeePercentage: BigNumber;
   redeemFeePercentage: BigNumber;
   pricePerShare: BigNumber;
-  supplierCount: number;
+  supplierCount?: number;
   isPaused: boolean;
   supplyTokenDistributions: TokenDistribution[];
   yieldGroups: LiquidityHubYieldGroup[];
@@ -355,9 +355,11 @@ export interface LiquidityHub {
   userSupplyBalanceCents?: BigNumber;
   userYearlyEarningsCents?: BigNumber;
   userVhTokenBalanceTokens?: BigNumber;
+  userVhTokenBalanceCents?: BigNumber;
   userVhTokenMaxRedeemTokens?: BigNumber;
   userWithdrawCapTokens?: BigNumber;
   userSupplyCapTokens?: BigNumber;
+  vhMarketVTokenAddress?: Address;
 }
 
 export enum RemoteProposalState {
@@ -1118,6 +1120,8 @@ export interface ApiLiquidityHub {
   userHubTokenBalanceMantissa?: string | null;
   userUnderlyingBalanceMantissa?: string | null;
   userUnderlyingBalanceUsdMantissa?: string | null;
+  userTotalUnderlyingBalanceMantissa?: string | null;
+  userTotalUnderlyingBalanceUsdMantissa?: string | null;
   userMaxDepositMantissa?: string | null;
   userMaxRedeemMantissa?: string | null;
   userMaxWithdrawMantissa?: string | null;

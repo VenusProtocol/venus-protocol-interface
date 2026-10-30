@@ -6,6 +6,7 @@ import type { BalanceMutation, LiquidityHub, LiquidityHubBalanceMutation } from 
 import { useSimulateLiquidityHubMutations } from '..';
 
 const [xvsLiquidityHub, usdcLiquidityHub] = liquidityHubs;
+const feeFreeXvsLiquidityHub = { ...xvsLiquidityHub, redeemFeePercentage: new BigNumber(0) };
 
 const createLiquidityHubBalanceMutation = (
   overrides: Partial<LiquidityHubBalanceMutation> = {},
@@ -84,6 +85,7 @@ describe('useSimulateLiquidityHubMutations', () => {
 
   it('simulates withdraw mutations', () => {
     const { result } = renderUseSimulateLiquidityHubMutations({
+      customLiquidityHubs: [feeFreeXvsLiquidityHub, usdcLiquidityHub],
       balanceMutations: [
         createLiquidityHubBalanceMutation({
           action: 'withdraw',
@@ -102,6 +104,20 @@ describe('useSimulateLiquidityHubMutations', () => {
     expect(simulatedLiquidityHub.userVhTokenBalanceTokens?.toFixed()).toBe(
       new BigNumber(32).dividedBy(xvsLiquidityHub.pricePerShare).toFixed(),
     );
+  });
+
+  it('takes the shares burned for the redeem fee out of the user supply balance', () => {
+    const { result } = renderUseSimulateLiquidityHubMutations({
+      balanceMutations: [
+        createLiquidityHubBalanceMutation({
+          action: 'withdraw',
+          amountTokens: new BigNumber(9.9),
+        }),
+      ],
+    });
+
+    // 9.9 paid out at a 1% redeem fee burns shares worth 10
+    expect(result.current.liquidityHubs[0].userSupplyBalanceTokens?.toFixed()).toBe('32');
   });
 
   it('clamps withdrawn liquidity hub and user balances at zero', () => {
@@ -126,6 +142,7 @@ describe('useSimulateLiquidityHubMutations', () => {
 
   it('applies multiple liquidity hub mutations in order', () => {
     const { result } = renderUseSimulateLiquidityHubMutations({
+      customLiquidityHubs: [feeFreeXvsLiquidityHub, usdcLiquidityHub],
       balanceMutations: [
         createLiquidityHubBalanceMutation({
           action: 'supply',
