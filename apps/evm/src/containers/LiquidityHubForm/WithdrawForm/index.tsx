@@ -44,7 +44,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
-  // Which limit the amount was filled with, re-read against the live balance at submit
+  // Set only when the clicked limit covered the whole position
   const [selectedLimit, setSelectedLimit] = useState<'rightMax' | 'available'>();
   const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useChain();
@@ -208,6 +208,8 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
     ),
   );
 
+  const fullPositionTokens = positionBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN);
+
   let selectedLimitTokens = new BigNumber(0);
 
   if (selectedLimit === 'rightMax') {
@@ -219,9 +221,7 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
   const isWithdrawingFullPosition =
     !!fromAmountTokens &&
     positionBalanceTokens.isGreaterThan(0) &&
-    BigNumber.max(fromAmountTokens, selectedLimitTokens).isGreaterThanOrEqualTo(
-      positionBalanceTokens.dp(decimals, BigNumber.ROUND_DOWN),
-    );
+    BigNumber.max(fromAmountTokens, selectedLimitTokens).isGreaterThanOrEqualTo(fullPositionTokens);
 
   let coreWithdrawalVhTokens = new BigNumber(0);
 
@@ -414,7 +414,11 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
           amountTokens,
           maxSelected: true,
         });
-        setSelectedLimit('available');
+        setSelectedLimit(
+          new BigNumber(amountTokens).isGreaterThanOrEqualTo(fullPositionTokens)
+            ? 'available'
+            : undefined,
+        );
 
         setFormValues(values => ({
           ...values,
@@ -470,7 +474,12 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({ liquidityHub, onSubm
       availableBalance={availableBalanceDom}
       validateForm={validateForm}
       onAmountSet={input => {
-        setSelectedLimit(input.maxSelected ? 'rightMax' : undefined);
+        setSelectedLimit(
+          input.maxSelected &&
+            new BigNumber(input.amountTokens).isGreaterThanOrEqualTo(fullPositionTokens)
+            ? 'rightMax'
+            : undefined,
+        );
         captureAmountSetAnalyticEvent(input);
       }}
     />

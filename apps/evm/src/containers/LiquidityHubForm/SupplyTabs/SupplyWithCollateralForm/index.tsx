@@ -56,7 +56,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
-  // Which limit the amount was filled with, re-read against the live balance at submit
+  // Set only when the clicked limit covered the whole position
   const [selectedLimit, setSelectedLimit] = useState<'rightMax' | 'available'>();
   const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useChain();
@@ -125,6 +125,11 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
+  const fullCoreSupplyTokens = corePoolAsset.userSupplyBalanceTokens.dp(
+    corePoolAsset.vToken.underlyingToken.decimals,
+    BigNumber.ROUND_DOWN,
+  );
+
   let selectedLimitTokens = new BigNumber(0);
 
   if (selectedLimit === 'rightMax') {
@@ -137,10 +142,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     !!fromAmountTokens?.isGreaterThan(0) &&
     corePoolAsset.userSupplyBalanceTokens.isGreaterThan(0) &&
     BigNumber.max(fromAmountTokens, selectedLimitTokens).isGreaterThanOrEqualTo(
-      corePoolAsset.userSupplyBalanceTokens.dp(
-        corePoolAsset.vToken.underlyingToken.decimals,
-        BigNumber.ROUND_DOWN,
-      ),
+      fullCoreSupplyTokens,
     );
 
   const { data: getVTokenBalanceData } = useGetVTokenBalance(
@@ -322,7 +324,11 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
           amountTokens,
           maxSelected: true,
         });
-        setSelectedLimit('available');
+        setSelectedLimit(
+          new BigNumber(amountTokens).isGreaterThanOrEqualTo(fullCoreSupplyTokens)
+            ? 'available'
+            : undefined,
+        );
 
         setFormValues(values => ({
           ...values,
@@ -369,7 +375,12 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
       availableBalance={availableBalanceDom}
       validateForm={handleValidateForm}
       onAmountSet={input => {
-        setSelectedLimit(input.maxSelected ? 'rightMax' : undefined);
+        setSelectedLimit(
+          input.maxSelected &&
+            new BigNumber(input.amountTokens).isGreaterThanOrEqualTo(fullCoreSupplyTokens)
+            ? 'rightMax'
+            : undefined,
+        );
         captureAmountSetAnalyticEvent(input);
       }}
     />

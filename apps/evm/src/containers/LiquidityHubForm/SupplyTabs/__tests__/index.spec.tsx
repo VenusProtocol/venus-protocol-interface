@@ -414,6 +414,80 @@ describe('SupplyTabs', () => {
       );
     });
 
+    it('keeps a SAFE MAX partial when it did not cover the whole Core position on click', async () => {
+      const supplyFromCollateral = vi.fn().mockResolvedValue(undefined);
+      (useSupplyFromCollateralToLiquidityHub as Mock).mockReturnValue({
+        mutateAsync: supplyFromCollateral,
+        isPending: false,
+      });
+      (useGetPoolDelegateApprovalStatus as Mock).mockReturnValue({
+        data: { isDelegateeApproved: true },
+        isLoading: false,
+      });
+      (useGetVTokenBalance as Mock).mockReturnValue({
+        data: { balanceMantissa: new BigNumber('100000000000') },
+      });
+      (useIsFeatureEnabled as Mock).mockReturnValue(true);
+      mockUseGetContractAddress.mockImplementation(({ name }: { name: string }) => ({
+        address:
+          name === 'CollateralGateway'
+            ? collateralGatewayContractAddress
+            : liquidityHubMigratorContractAddress,
+      }));
+      mockUseGetPool.mockImplementation(() => ({
+        data: {
+          pool: {
+            ...corePool,
+            userBorrowBalanceCents: new BigNumber(0),
+            assets: [
+              ...corePool.assets.filter(
+                asset => asset.vToken.address !== corePoolAsset.vToken.address,
+              ),
+              {
+                ...corePoolAsset,
+                userSupplyBalanceTokens: new BigNumber(10),
+                cashTokens: new BigNumber(1_000_000),
+              },
+              { ...coreVhAsset, disabledTokenActions: [] },
+            ],
+          },
+        },
+        isLoading: false,
+      }));
+
+      // The user supply cap limits SAFE MAX to 4 of the 10 in Core
+      const cappedLiquidityHub = {
+        ...liquidityHub,
+        userSupplyCapTokens: new BigNumber(4),
+      };
+      const { rerender } = renderSupplyTabs({ liquidityHub: cappedLiquidityHub });
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.supplyTab.collateralTabTitle }),
+      );
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.rightSafeMaxButtonLabel }),
+      );
+
+      const input = document.querySelector('input[name="amountTokens"]') as HTMLInputElement;
+      await waitFor(() => expect(Number(input.value)).toBeGreaterThan(0));
+      expect(Number(input.value)).toBeLessThan(10);
+
+      rerender(
+        <SupplyTabs liquidityHub={{ ...liquidityHub, userSupplyCapTokens: new BigNumber(100) }} />,
+      );
+
+      fireEvent.click(
+        screen.getByRole('button', { name: en.liquidityHubForm.supplySubmitButtonLabel }),
+      );
+
+      await waitFor(() =>
+        expect(supplyFromCollateral).toHaveBeenCalledWith(
+          expect.objectContaining({ migrateFullSupply: false }),
+        ),
+      );
+    });
+
     it('supplies through the collateral gateway when the Core vhToken market is active', () => {
       renderWithCoreVhAsset([]);
 
