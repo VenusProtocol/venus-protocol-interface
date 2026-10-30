@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40" fill="none"><defs><clipPath id="clip1_1_4937">
+<rect width="40" height="40" fill="white"/>
+</clipPath><clipPath id="clip2_1_4937">
+<rect width="40" height="40" fill="white"/>
+</clipPath><clipPath id="clip3_1_4937">
+<rect width="24" height="24" fill="white" transform="translate(8 8)"/>
+</clipPath></defs><g id="Type=COINB" clip-path="url(#clip1_1_4937)">
+<g id="Collaborate icons" clip-path="url(#clip2_1_4937)">
+<g id="Group 1321315248">
+<circle id="Ellipse 1113" cx="20" cy="20" r="20" fill="#0052FF"/>
+<g id="Layer 2" opacity="0.2">
+<g id="Layer 1-2">
+<path id="Vector" d="M13.785 17.4462L20 11.2319L26.2168 17.4487L29.8331 13.8331L20 4L10.1694 13.83L13.785 17.4456M4 20L7.61625 16.3831L11.2319 20L7.61562 23.6144L4 20ZM13.785 22.5531L20 28.7669L26.2168 22.55L29.835 26.1637L20 36L10.1694 26.1688L10.1644 26.1631L13.785 22.5525M28.7668 20L32.3825 16.3844L36 20L32.3843 23.6156L28.7668 20Z" fill="#DADADA"/>
+<path id="Vector_2" d="M23.6658 20L19.9995 16.3281L17.287 19.0394L16.9745 19.3519L16.3326 19.9937L16.3276 19.9987L16.3326 20.0037L19.9995 23.67L23.6683 20.0012H23.6651" fill="#DADADA"/>
+</g>
+</g>
+</g>
+<g id="COINB 1" clip-path="url(#clip3_1_4937)">
+<path id="Vector_3" d="M20.0225 26C16.7013 26 14.0113 23.315 14.0113 20C14.0113 16.685 16.7013 14 20.0225 14C22.9981 14 25.4678 16.165 25.9436 19H32C31.489 12.84 26.3244 8 20.0225 8C13.3851 8 8 13.375 8 20C8 26.625 13.3851 32 20.0225 32C26.3244 32 31.489 27.16 32 21H25.9436C25.4678 23.835 22.9981 26 20.0225 26Z" fill="white"/>
+</g>
+</g>
+</g></svg>
