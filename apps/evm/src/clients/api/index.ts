@@ -102,6 +102,8 @@ export * from './queries/useGetPool';
 
 export * from './queries/getLiquidityHubs';
 export * from './queries/getLiquidityHubs/useGetLiquidityHubs';
+export * from './queries/getLiteTotals';
+export * from './queries/getLiteTotals/useGetLiteTotals';
 
 export * from './queries/getLiquidityHub';
 export * from './queries/getLiquidityHub/useGetLiquidityHub';

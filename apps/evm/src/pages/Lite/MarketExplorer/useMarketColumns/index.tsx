@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 import type { TableColumn } from 'components';
+import { useIsMdDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
@@ -15,6 +16,7 @@ interface AmountColumnInput<R> {
 
 export const useMarketColumns = () => {
   const { t } = useTranslation();
+  const isMobile = useIsMdDown();
 
   const buildAmountColumn = <R,>({
     key,
@@ -47,18 +49,29 @@ export const useMarketColumns = () => {
   const buildApyColumn = <R,>({
     renderCell,
     sortRows,
-  }: Pick<TableColumn<R>, 'renderCell' | 'sortRows'>): TableColumn<R> => ({
+    secondary,
+  }: Pick<TableColumn<R>, 'renderCell' | 'sortRows'> & {
+    secondary?: { label: string; getCents: (row: R) => BigNumber };
+  }): TableColumn<R> => ({
     key: 'apy',
     label: t('lite.columns.apy'),
     selectOptionLabel: t('lite.columns.apy'),
     align: 'right',
     renderCell: (row, index) => (
-      <div className={cn('flex flex-wrap items-center justify-end gap-2 whitespace-nowrap')}>
-        {renderCell?.(row, index)}
+      <div>
+        <div className={cn('flex flex-wrap items-center justify-end gap-2 whitespace-nowrap')}>
+          {renderCell?.(row, index)}
+        </div>
+
+        {isMobile && secondary && (
+          <p className="lite-mobile-secondary">
+            {formatCentsToReadableValue({ value: secondary.getCents(row) })} {secondary.label}
+          </p>
+        )}
       </div>
     ),
     sortRows,
   });
 
-  return { buildAmountColumn, buildApyColumn };
+  return { buildAmountColumn, buildApyColumn, isMobile };
 };

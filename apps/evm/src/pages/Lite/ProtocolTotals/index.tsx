@@ -1,34 +1,29 @@
 import { cn, pointerLightClassNames } from '@venusprotocol/ui';
+import { useGetLiteTotals } from 'clients/api';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
-import type { LiteEarnAsset } from '../types';
-import { sumCents } from './sumCents';
 
-export interface ProtocolTotalsProps {
-  earnAssets: LiteEarnAsset[];
-  isReady: boolean;
-}
-
-export const ProtocolTotals: React.FC<ProtocolTotalsProps> = ({ earnAssets, isReady }) => {
+export const ProtocolTotals: React.FC = () => {
   const { t } = useTranslation();
+  const { data } = useGetLiteTotals();
 
   const totals = [
     {
       key: 'supply' as const,
       label: t('lite.totals.totalSupply'),
-      valueCents: sumCents({ earnAssets, field: 'supplyCents' }),
+      valueCents: data?.totalSupplyCents,
       dotClassName: 'bg-green',
     },
     {
       key: 'liquidity' as const,
       label: t('lite.totals.availableLiquidity'),
-      valueCents: sumCents({ earnAssets, field: 'liquidityCents' }),
+      valueCents: data?.availableLiquidityCents,
       dotClassName: 'bg-yellow',
     },
   ];
 
   return (
-    <div className="lite-enter lite-enter--totals grid w-full max-w-192 grid-cols-1 gap-2 sm:grid-cols-2">
+    <div className="lite-enter lite-enter--totals grid w-full max-w-192 grid-cols-2 gap-2">
       {totals.map(total => (
         <div
           key={total.key}
@@ -44,7 +39,7 @@ export const ProtocolTotals: React.FC<ProtocolTotalsProps> = ({ earnAssets, isRe
           </p>
 
           <p className="text-p3s tabular-nums">
-            {isReady
+            {total.valueCents
               ? formatCentsToReadableValue({
                   value: total.valueCents,
                   shorten: false,

@@ -49,6 +49,9 @@ export const useEarnAssets = () => {
       isGetPoolLoading ||
       isGetVaultsLoading ||
       (isLiquidityHubEnabled && isGetLiquidityHubsLoading),
-    isReady: !!getPoolData?.pool && (!isLiquidityHubEnabled || !!getLiquidityHubsData),
+    isReady:
+      !!getPoolData?.pool &&
+      !isGetVaultsLoading &&
+      (!isLiquidityHubEnabled || !!getLiquidityHubsData),
   };
 };

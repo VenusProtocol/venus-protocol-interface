@@ -20,7 +20,7 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
   header,
 }) => {
   const { t } = useTranslation();
-  const { buildAmountColumn, buildApyColumn } = useMarketColumns();
+  const { buildAmountColumn, buildApyColumn, isMobile } = useMarketColumns();
 
   let placeholder: string | undefined;
 
@@ -52,6 +52,10 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
           {getLowestBorrowApyPercentage(borrowAsset).toFixed(2)}%
         </span>
       ),
+      secondary: {
+        label: t('lite.columns.totalBorrow'),
+        getCents: borrowAsset => borrowAsset.borrowCents,
+      },
       sortRows: (rowA, rowB, direction) =>
         (getLowestBorrowApyPercentage(rowA).comparedTo(getLowestBorrowApyPercentage(rowB)) ?? 0) *
         (direction === 'asc' ? 1 : -1),
@@ -76,13 +80,13 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
     <Table
       className="lite-table"
       data={isReady ? borrowAssets : []}
-      columns={columns}
+      columns={isMobile ? columns.slice(0, 2) : columns}
       rowKeyExtractor={borrowAsset => borrowAsset.key}
       rowOnClick={(_event, borrowAsset) => onSelect(borrowAsset)}
       initialOrder={{ orderBy: columns[3], orderDirection: 'desc' }}
       isFetching={isFetching}
       tableLayout="auto"
-      breakpoint="md"
+      breakpoint={isMobile ? undefined : 'md'}
       hideCardDelimiter
       header={header}
       placeholder={placeholder}

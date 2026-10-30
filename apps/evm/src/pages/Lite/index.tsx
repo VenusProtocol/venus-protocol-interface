@@ -23,7 +23,7 @@ const Lite: React.FC = () => {
           <Hero />
 
           <div className="flex min-h-0 grow flex-col items-center gap-3">
-            <ProtocolTotals earnAssets={earnAssets} isReady={isReady} />
+            <ProtocolTotals />
 
             <div className="flex w-full min-h-0 max-w-192 grow flex-col">
               <MarketExplorer

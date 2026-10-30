@@ -45,8 +45,11 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   const { borrowAssets, isLoading: isBorrowLoading, isReady: isBorrowReady } = useBorrowAssets();
 
   // One source skips the list and opens its form
-  const getOnlyMarket = <TMarket,>(markets: TMarket[]) =>
-    markets.length === 1 ? markets[0] : undefined;
+  const getOnlyMarket = <TMarket,>({
+    markets,
+    isReady,
+  }: { markets: TMarket[]; isReady: boolean }) =>
+    isReady && markets.length === 1 ? markets[0] : undefined;
 
   const selectedEarnAsset =
     mode === 'earn'
@@ -54,14 +57,14 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       : undefined;
   const selectedEarnMarket =
     selectedEarnAsset?.markets.find(market => market.id === marketId) ??
-    getOnlyMarket(selectedEarnAsset?.markets ?? []);
+    getOnlyMarket({ markets: selectedEarnAsset?.markets ?? [], isReady: isEarnReady });
   const selectedBorrowAsset =
     mode === 'borrow'
       ? borrowAssets.find(borrowAsset => borrowAsset.token.symbol === assetSymbol)
       : undefined;
   const selectedBorrowMarket =
     selectedBorrowAsset?.markets.find(market => market.id === marketId) ??
-    getOnlyMarket(selectedBorrowAsset?.markets ?? []);
+    getOnlyMarket({ markets: selectedBorrowAsset?.markets ?? [], isReady: isBorrowReady });
   const hasSingleMarket = (selectedAssetMarketCount: number) => selectedAssetMarketCount === 1;
 
   const modeLabel = mode === 'earn' ? t('lite.modes.earn') : t('lite.modes.borrow');
@@ -156,12 +159,12 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
     ) : undefined;
 
   const header = selectedAsset ? (
-    <div className="flex items-center justify-between gap-3">
+    <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
       <Breadcrumb modeLabel={modeLabel} token={selectedAsset.token} onBackToAssets={backToAssets} />
       {modeSwitch}
     </div>
   ) : (
-    <div className="flex min-h-9 flex-wrap items-center justify-between gap-3">
+    <div className="flex min-h-9 flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
       {modeSwitch}
       {filters}
     </div>

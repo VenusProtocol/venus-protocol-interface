@@ -21,6 +21,6 @@ export const useBorrowAssets = () => {
       spokePools: getSpokePoolsData?.spokePools ?? [],
     }),
     isLoading: isGetPoolLoading || isGetSpokePoolsLoading,
-    isReady: !!getPoolData?.pool,
+    isReady: !!getPoolData?.pool && !!getSpokePoolsData,
   };
 };

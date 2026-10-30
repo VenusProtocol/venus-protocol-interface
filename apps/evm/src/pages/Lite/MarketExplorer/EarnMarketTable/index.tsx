@@ -17,7 +17,7 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
   header,
 }) => {
   const { t } = useTranslation();
-  const { buildAmountColumn, buildApyColumn } = useMarketColumns();
+  const { buildAmountColumn, buildApyColumn, isMobile } = useMarketColumns();
   const getMarketName = useMarketName();
 
   const columns: TableColumn<LiteEarnMarket>[] = [
@@ -39,6 +39,7 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
     },
     buildApyColumn<LiteEarnMarket>({
       renderCell: market => <MarketApy source={market.source} />,
+      secondary: { label: t('lite.columns.totalSupply'), getCents: market => market.supplyCents },
       sortRows: (rowA, rowB, direction) =>
         (rowA.apyPercentage.comparedTo(rowB.apyPercentage) ?? 0) * (direction === 'desc' ? -1 : 1),
     }),
@@ -62,12 +63,12 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
     <Table
       className="lite-table"
       data={earnAsset.markets}
-      columns={columns}
+      columns={isMobile ? columns.slice(0, 2) : columns}
       rowKeyExtractor={market => market.id}
       rowOnClick={(_event, market) => onSelect(market)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'desc' }}
       tableLayout="auto"
-      breakpoint="md"
+      breakpoint={isMobile ? undefined : 'md'}
       hideCardDelimiter
       header={header}
       placeholder={t('lite.placeholders.noMarkets')}

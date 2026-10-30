@@ -241,7 +241,7 @@
   --text-b3r--font-weight: 400;
   --text-b3r--line-height: 1.5;
   
-  --color-surface-glass: rgb(var(--elevation-shade-rgb) / 10%);
+  --color-surface-glass: rgb(var(--color-background-active-rgb) / 72%);
   --color-surface-raised: rgb(var(--elevation-tint-rgb) / 7%);
   --color-surface-well: rgb(var(--elevation-shade-rgb) / 22%);
   --color-surface-popup: rgb(25 30 40 / 75%);

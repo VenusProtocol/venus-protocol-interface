@@ -1,9 +1,10 @@
-import { Table, type TableColumn, TokenIcon, Tooltip } from 'components';
+import { Table, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 import type { LiteBorrowAsset, LiteBorrowMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
 import { useMarketColumns } from '../useMarketColumns';
+import { CollateralIcons } from './CollateralIcons';
 
 export interface BorrowMarketTableProps {
   borrowAsset: LiteBorrowAsset;
@@ -12,8 +13,6 @@ export interface BorrowMarketTableProps {
   header: React.ReactNode;
 }
 
-const VISIBLE_COLLATERAL_COUNT = 3;
-
 export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   borrowAsset,
   onSelect,
@@ -21,7 +20,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   header,
 }) => {
   const { t } = useTranslation();
-  const { buildAmountColumn, buildApyColumn } = useMarketColumns();
+  const { buildAmountColumn, buildApyColumn, isMobile } = useMarketColumns();
   const getMarketName = useMarketName();
 
   const columns: TableColumn<LiteBorrowMarket>[] = [
@@ -32,19 +31,34 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       sortRows: (rowA, rowB, direction) =>
         getMarketName(rowA).localeCompare(getMarketName(rowB)) * (direction === 'asc' ? 1 : -1),
       renderCell: market => (
-        <button
-          type="button"
-          onClick={() => onSelect(market)}
-          className="cursor-pointer text-left font-normal text-white hover:text-blue focus-visible:outline-2 focus-visible:outline-blue"
-        >
-          {getMarketName(market)}
-        </button>
+        <div>
+          <button
+            type="button"
+            onClick={() => onSelect(market)}
+            className="cursor-pointer text-left font-normal text-white hover:text-blue focus-visible:outline-2 focus-visible:outline-blue"
+          >
+            {getMarketName(market)}
+          </button>
+
+          {isMobile && (
+            <div className="lite-mobile-collateral-trigger">
+              <span>{t('lite.columns.collateral')}</span>
+
+              <CollateralIcons
+                market={market}
+                onSelect={onSelectCollateral}
+                className="flex items-center gap-1"
+              />
+            </div>
+          )}
+        </div>
       ),
     },
     buildApyColumn<LiteBorrowMarket>({
       renderCell: market => (
         <span className="tabular-nums">{market.apyPercentage.toFixed(2)}%</span>
       ),
+      secondary: { label: t('lite.columns.liquidity'), getCents: market => market.liquidityCents },
       sortRows: (rowA, rowB, direction) =>
         (rowA.apyPercentage.comparedTo(rowB.apyPercentage) ?? 0) * (direction === 'asc' ? 1 : -1),
     }),
@@ -64,42 +78,11 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
         (rowA.collateralTokens.length - rowB.collateralTokens.length) *
         (direction === 'asc' ? 1 : -1),
       renderCell: market => (
-        <div className="flex items-center justify-end gap-1">
-          <div className="flex items-center -space-x-2">
-            {market.collateralTokens.slice(0, VISIBLE_COLLATERAL_COUNT).map(token => (
-              <Tooltip key={token.address} content={token.symbol}>
-                {market.source.type === 'spoke' ? (
-                  <button
-                    type="button"
-                    aria-label={t('lite.collateralAriaLabel', { symbol: token.symbol })}
-                    className="cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-blue"
-                    onClick={event => {
-                      event.stopPropagation();
-                      onSelectCollateral({ market, token });
-                    }}
-                  >
-                    <TokenIcon token={token} size="lg" className="shrink-0" />
-                  </button>
-                ) : (
-                  <TokenIcon token={token} size="lg" className="shrink-0" />
-                )}
-              </Tooltip>
-            ))}
-          </div>
-
-          {market.collateralTokens.length > VISIBLE_COLLATERAL_COUNT && (
-            <Tooltip
-              content={market.collateralTokens
-                .slice(VISIBLE_COLLATERAL_COUNT)
-                .map(token => token.symbol)
-                .join(', ')}
-            >
-              <span className="text-b2r text-light-grey">
-                +{market.collateralTokens.length - VISIBLE_COLLATERAL_COUNT}
-              </span>
-            </Tooltip>
-          )}
-        </div>
+        <CollateralIcons
+          market={market}
+          onSelect={onSelectCollateral}
+          className="flex items-center justify-end gap-1"
+        />
       ),
     },
     buildAmountColumn<LiteBorrowMarket>({
@@ -115,12 +98,12 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
     <Table
       className="lite-table lite-table--wide"
       data={borrowAsset.markets}
-      columns={columns}
+      columns={isMobile ? columns.slice(0, 2) : columns}
       rowKeyExtractor={market => market.id}
       rowOnClick={(_event, market) => onSelect(market)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'asc' }}
       tableLayout="auto"
-      breakpoint="md"
+      breakpoint={isMobile ? undefined : 'md'}
       hideCardDelimiter
       header={header}
       placeholder={t('lite.placeholders.noMarkets')}

@@ -22,7 +22,7 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
   header,
 }) => {
   const { t } = useTranslation();
-  const { buildAmountColumn, buildApyColumn } = useMarketColumns();
+  const { buildAmountColumn, buildApyColumn, isMobile } = useMarketColumns();
 
   let placeholder: string | undefined;
 
@@ -48,6 +48,10 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
     },
     buildApyColumn<LiteEarnAsset>({
       renderCell: earnAsset => <MarketApy source={getHighestApyMarket(earnAsset).source} />,
+      secondary: {
+        label: t('lite.columns.totalSupply'),
+        getCents: earnAsset => earnAsset.supplyCents,
+      },
       sortRows: (rowA, rowB, direction) =>
         (BigNumber.maximum(...rowA.markets.map(market => market.apyPercentage)).comparedTo(
           BigNumber.maximum(...rowB.markets.map(market => market.apyPercentage)),
@@ -73,13 +77,13 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
     <Table
       className="lite-table"
       data={isReady ? earnAssets : []}
-      columns={columns}
+      columns={isMobile ? columns.slice(0, 2) : columns}
       rowKeyExtractor={earnAsset => earnAsset.key}
       rowOnClick={(_event, earnAsset) => onSelect(earnAsset)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'desc' }}
       isFetching={isFetching}
       tableLayout="auto"
-      breakpoint="md"
+      breakpoint={isMobile ? undefined : 'md'}
       hideCardDelimiter
       header={header}
       placeholder={placeholder}
