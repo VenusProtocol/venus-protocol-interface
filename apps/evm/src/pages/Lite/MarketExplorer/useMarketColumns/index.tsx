@@ -99,7 +99,7 @@ export const useMarketColumns = () => {
     hideCardDelimiter: true,
     className: 'rounded-none border-0 md:border-0',
     tableContainerClassName:
-      'overscroll-contain scrollbar-thin scrollbar-track-transparent scrollbar-thumb-grey md:max-h-100',
+      'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-grey md:max-h-100 md:overscroll-contain',
   });
 
   return { buildAmountColumn, buildApyColumn, getTableProps, isMobile };
