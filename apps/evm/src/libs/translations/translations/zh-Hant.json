@@ -1041,13 +1041,8 @@
     "withdrawTabTitle": "提取"
   },
   "liquidityHubs": {
-    "description": "根據治理制定的政策，在 Venus 協議的多個收益來源之間進行路由。收益會自動累積。",
+    "description": "一次供應，自動分配到 Venus 的多個收益來源。",
     "header": "流動性中心",
-    "stats": {
-      "hubs": "中心數",
-      "totalLiquidity": "總流動性",
-      "totalSupply": "總供應量"
-    },
     "table": {
       "columns": {
         "asset": "資產",

@@ -1041,13 +1041,8 @@
     "withdrawTabTitle": "提取"
   },
   "liquidityHubs": {
-    "description": "根据治理制定的政策，在 Venus 协议的多个收益来源之间进行路由。收益会自动累积。",
+    "description": "一次供应，自动分配到 Venus 的多个收益来源。",
     "header": "流动性中心",
-    "stats": {
-      "hubs": "中心数",
-      "totalLiquidity": "总流动性",
-      "totalSupply": "总供应量"
-    },
     "table": {
       "columns": {
         "asset": "资产",

@@ -1042,13 +1042,8 @@
     "withdrawTabTitle": "Withdraw"
   },
   "liquidityHubs": {
-    "description": "Routed across Venus protocol yield sources under a governance-curated policy. Yield accrues automatically.",
+    "description": "One supply, auto-routed across Venus yield sources.",
     "header": "Liquidity Hub",
-    "stats": {
-      "hubs": "Hubs",
-      "totalLiquidity": "Total liquidity",
-      "totalSupply": "Total supply"
-    },
     "table": {
       "columns": {
         "asset": "Asset",

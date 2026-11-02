@@ -1041,13 +1041,8 @@
     "withdrawTabTitle": "引き出し"
   },
   "liquidityHubs": {
-    "description": "ガバナンスが策定した方針のもとで、Venus Protocol の複数の利回りソースへルーティングされます。利回りは自動で積み上がります。",
+    "description": "一度の供給で、Venus の各利回りソースへ自動的にルーティングされます。",
     "header": "流動性ハブ",
-    "stats": {
-      "hubs": "ハブ数",
-      "totalLiquidity": "総流動性",
-      "totalSupply": "総供給量"
-    },
     "table": {
       "columns": {
         "asset": "資産",

@@ -1042,13 +1042,8 @@
     "withdrawTabTitle": "Çek"
   },
   "liquidityHubs": {
-    "description": "Yönetişim tarafından belirlenen bir politika altında Venus Protocol getiri kaynakları arasında yönlendirilir. Getiri otomatik olarak birikir.",
+    "description": "Tek bir arz, Venus getiri kaynakları arasında otomatik olarak yönlendirilir.",
     "header": "Likidite Merkezi",
-    "stats": {
-      "hubs": "Merkezler",
-      "totalLiquidity": "Toplam likidite",
-      "totalSupply": "Toplam arz"
-    },
     "table": {
       "columns": {
         "asset": "Varlık",

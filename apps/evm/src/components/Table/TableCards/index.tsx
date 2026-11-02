@@ -109,6 +109,7 @@ export function TableCards<R>({
             <Card
               key={rowKey}
               className={cn(
+                'bg-background-active',
                 !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-cards',
                 cardClassName,
               )}
