@@ -85,6 +85,7 @@ const enabledFeatureNames = [
   'statsRoute',
   'primeLeaderboard',
   'liquidityHub',
+  'liteMode',
 ];
 
 const renderRoutes = (path: string) =>

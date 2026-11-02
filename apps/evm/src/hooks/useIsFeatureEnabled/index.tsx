@@ -115,6 +115,7 @@ export const featureFlags = {
   liquidityHub: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   liquidityHubAutoResupply: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   spoke: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  liteMode: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

@@ -53,7 +53,7 @@ const renderApp = (path: string) =>
 describe('AppRoutes with an unsupported chain ID', () => {
   beforeEach(() => {
     (useChainId as Mock).mockImplementation(() => ({ chainId: defaultChain.id }));
-    (useIsFeatureEnabled as Mock).mockImplementation(() => false);
+    (useIsFeatureEnabled as Mock).mockImplementation(({ name }) => name === 'liteMode');
   });
 
   it('redirects to the landing page when the route does not exist', async () => {
