@@ -482,8 +482,7 @@
     }
   },
   "connectButton": {
-    "connect": "Cüzdan bağla",
-    "vipLogoAlt": "VIP logosu"
+    "connect": "Cüzdan bağla"
   },
   "connectWallet": {
     "connectButton": "Cüzdan bağla"

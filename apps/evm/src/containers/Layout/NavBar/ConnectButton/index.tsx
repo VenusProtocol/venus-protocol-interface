@@ -44,7 +44,6 @@ export const ConnectButton: React.FC = () => {
           onClick={handleToggleAccountModal}
           address={accountAddress}
           isPrime={isAccountPrime}
-          isVip={isConnectedAccountVip}
         />
 
         {isModalOpen && (

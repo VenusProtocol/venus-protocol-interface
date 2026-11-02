@@ -109,7 +109,10 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           <ClaimRewardsButton className="h-full hidden sm:flex" data-rewards-button="true" />
 
           {!isLite && (
-            <ChainSelect buttonClassName="h-10 px-3 py-0 bg-dark-blue border-dark-blue-disabled/50 hover:bg-dark-blue-hover hover:border-dark-blue-disabled/50 hover:no-underline active:bg-dark-blue-hover sm:h-12" />
+            <ChainSelect
+              className="hidden sm:block"
+              buttonClassName="h-10 px-3 py-0 bg-dark-blue border-dark-blue-disabled/50 hover:bg-dark-blue-hover hover:border-dark-blue-disabled/50 hover:no-underline active:bg-dark-blue-hover sm:h-12"
+            />
           )}
 
           <ConnectButton />
@@ -138,7 +141,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
       <div
         className={cn(
           !isLite && isMobileMenuOpen ? 'fixed' : 'hidden',
-          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-[#000000] overflow-y-auto lg:hidden',
+          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-background-active bg-linear-to-b from-background/50 to-background/50 overflow-y-auto lg:hidden',
         )}
       >
         <div className="flex items-center justify-between mb-5">
@@ -150,6 +153,14 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
             <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
           ))}
         </div>
+
+        {isMobileMenuOpen && (
+          <div className="mb-6 sm:hidden">
+            <p className="mb-2 text-sm text-light-grey">{t('layout.chainSelect.label')}</p>
+
+            <ChainSelect buttonClassName="h-12 px-3" />
+          </div>
+        )}
 
         <Delimiter className="mb-6" />
 

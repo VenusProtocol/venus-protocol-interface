@@ -482,8 +482,7 @@
     }
   },
   "connectButton": {
-    "connect": "Kết nối ví",
-    "vipLogoAlt": "Logo VIP"
+    "connect": "Kết nối ví"
   },
   "connectWallet": {
     "connectButton": "Kết nối ví"

@@ -4,18 +4,15 @@ import primeLogoSrc from 'assets/img/primeLogo.svg';
 import { Icon, Username } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { Address } from 'viem';
-import vipLogoSrc from './vipLogo.svg';
 
 export interface UserButtonProps extends Pick<ButtonProps, 'onClick' | 'disabled' | 'className'> {
   address: Address;
   isPrime: boolean;
-  isVip: boolean;
 }
 
 export const UserButton: React.FC<UserButtonProps> = ({
   address,
   isPrime,
-  isVip,
   disabled,
   className,
   ...otherProps
@@ -53,9 +50,7 @@ export const UserButton: React.FC<UserButtonProps> = ({
           shouldEllipseAddress
         />
 
-        {isVip && <img src={vipLogoSrc} alt={t('connectButton.vipLogoAlt')} className="size-4.5" />}
-
-        {!isVip && !disabled && <Icon name="expand" className="text-light-grey" />}
+        {!disabled && <Icon name="expand" className="text-light-grey" />}
       </div>
     </button>
   );

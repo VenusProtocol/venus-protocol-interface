@@ -48,13 +48,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
             <div className="flex flex-col gap-y-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-x-3">
-                  <UserButton
-                    address={address}
-                    isVip={isVip}
-                    isPrime={isPrime}
-                    disabled
-                    className="h-12"
-                  />
+                  <UserButton address={address} isPrime={isPrime} disabled className="h-12" />
 
                   <CopyAddressButton className="shrink-0 text-light-grey" address={address} />
                 </div>

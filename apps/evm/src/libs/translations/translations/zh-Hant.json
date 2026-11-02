@@ -482,8 +482,7 @@
     }
   },
   "connectButton": {
-    "connect": "連接錢包",
-    "vipLogoAlt": "VIP 標誌"
+    "connect": "連接錢包"
   },
   "connectWallet": {
     "connectButton": "連接錢包"

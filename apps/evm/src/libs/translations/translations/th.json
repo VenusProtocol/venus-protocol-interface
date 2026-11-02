@@ -482,8 +482,7 @@
     }
   },
   "connectButton": {
-    "connect": "เชื่อมต่อกระเป๋า",
-    "vipLogoAlt": "โลโก้ VIP"
+    "connect": "เชื่อมต่อกระเป๋า"
   },
   "connectWallet": {
     "connectButton": "เชื่อมต่อกระเป๋า"
