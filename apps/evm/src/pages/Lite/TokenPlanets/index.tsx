@@ -26,7 +26,7 @@ export const TokenPlanets: React.FC<TokenPlanetsProps> = ({ earnAssets, onSelect
     .sort((a, b) => getPlanetRank(a.token.symbol) - getPlanetRank(b.token.symbol));
 
   if (isCompact || planets.length === 0) {
-    return null;
+    return undefined;
   }
 
   const content = (

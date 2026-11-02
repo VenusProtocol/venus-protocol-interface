@@ -1,11 +1,13 @@
 import { useGetPool, useGetSpokePools } from 'clients/api';
 import { useChain } from 'hooks/useChain';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 import { aggregateBorrowAssets } from '../aggregateBorrowAssets';
 
 export const useBorrowAssets = () => {
   const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useChain();
+  const isSpokeEnabled = useIsFeatureEnabled({ name: 'spoke' });
 
   const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
@@ -21,6 +23,6 @@ export const useBorrowAssets = () => {
       spokePools: getSpokePoolsData?.spokePools ?? [],
     }),
     isLoading: isGetPoolLoading || isGetSpokePoolsLoading,
-    isReady: !!getPoolData?.pool && !!getSpokePoolsData,
+    isReady: !!getPoolData?.pool && (!isSpokeEnabled || !!getSpokePoolsData),
   };
 };

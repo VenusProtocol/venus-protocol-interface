@@ -1,31 +1,7 @@
-import type { Asset, EModeGroup } from 'types';
-import { areAddressesEqual, areTokensEqual } from 'utilities';
-import { isAssetPaused } from 'utilities/isAssetPaused';
+import type { EModeGroup } from 'types';
+import { areAddressesEqual } from 'utilities';
 import type { LiteEarnAsset } from '../types';
-
-const isRestrictedAsset = ({
-  asset,
-  eModeGroups,
-}: {
-  asset: Asset;
-  eModeGroups: EModeGroup[];
-}) => {
-  if (isAssetPaused({ disabledTokenActions: asset.disabledTokenActions })) {
-    return true;
-  }
-
-  if (asset.collateralFactor > 0 || asset.isBorrowable) {
-    return false;
-  }
-
-  return eModeGroups.some(
-    eModeGroup =>
-      eModeGroup.isIsolated &&
-      eModeGroup.assetSettings.some(assetSettings =>
-        areTokensEqual(assetSettings.vToken, asset.vToken),
-      ),
-  );
-};
+import { isRestrictedAsset } from './isRestrictedAsset';
 
 export const isVisibleEarnAsset = ({
   earnAsset,

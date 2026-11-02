@@ -1,12 +1,11 @@
 import { useSearchParams } from 'react-router';
 import type { MarketMode } from '../types';
 import { applyParamChanges } from './applyParamChanges';
+import { toModeParam } from './toModeParam';
 
 const MODE_PARAM = 'tab';
 const ASSET_PARAM = 'asset';
 const MARKET_PARAM = 'market';
-
-const toModeParam = (mode: MarketMode) => (mode === 'earn' ? undefined : mode);
 
 export const useLiteNavigation = () => {
   const [searchParams, setSearchParams] = useSearchParams();
