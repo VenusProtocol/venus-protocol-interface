@@ -143,6 +143,7 @@ export function Table<R>({
         <div
           className={cn(
             'mb-4',
+            size === 'compact' && 'mb-0 p-3',
             breakpoint === 'xs' && 'xs:mb-0 xs:p-4',
             breakpoint === 'sm' && 'sm:mb-0 sm:p-4',
             breakpoint === 'md' && 'md:mb-0 md:p-4',

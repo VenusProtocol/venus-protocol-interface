@@ -71,8 +71,8 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
         // primary
         default:
           return cn(
-            'rounded-lg border-dark-blue-hover bg-transparent hover:bg-transparent hover:border-light-grey active:bg-dark-blue',
-            isDropdownOpen && 'bg-dark-blue-active border-blue',
+            'rounded-lg border-transparent bg-none bg-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-surface-raised active:bg-surface-raised',
+            isDropdownOpen && 'border-blue hover:border-blue',
           );
       }
     };

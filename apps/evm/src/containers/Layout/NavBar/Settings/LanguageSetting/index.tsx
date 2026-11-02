@@ -20,7 +20,7 @@ export const LanguageSetting: React.FC = () => {
         dropdownClassName="lg:overflow-auto lg:max-h-48"
         menuPosition="right"
         className="w-40"
-        buttonClassName="border-transparent bg-none bg-surface-raised text-light-grey shadow-none! hover:border-transparent hover:bg-surface-raised"
+        buttonClassName="text-light-grey"
       />
     </div>
   );
