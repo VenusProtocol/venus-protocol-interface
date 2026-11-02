@@ -1,5 +1,9 @@
 import type { Asset } from 'types';
-import { getBestDistributionApys } from 'utilities';
+import { getRankingApyPercentage } from '../getRankingApyPercentage';
 
 export const getBorrowApyPercentage = (asset: Asset) =>
-  getBestDistributionApys({ asset }).totalBorrowApyPercentage;
+  getRankingApyPercentage({
+    type: 'borrow',
+    baseApyPercentage: asset.borrowApyPercentage,
+    tokenDistributions: asset.borrowTokenDistributions,
+  });
