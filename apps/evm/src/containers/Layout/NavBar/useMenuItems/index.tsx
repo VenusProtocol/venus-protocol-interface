@@ -12,15 +12,6 @@ import { useTranslation } from 'libs/translations';
 import { formatPercentageToReadableValue, getCombinedApy } from 'utilities';
 import type { MenuItem, SubMenu } from '../types';
 
-export const useDashboardMenuItem = (): MenuItem => {
-  const { t } = useTranslation();
-
-  return {
-    to: routes.dashboard.path,
-    label: t('layout.menu.dashboard.label'),
-  };
-};
-
 export const useMenuItems = () => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();

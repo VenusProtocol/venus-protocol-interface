@@ -21,7 +21,7 @@ import { MenuItem } from './MenuItem';
 import { NavButtonWrapper } from './NavButtonWrapper';
 import { Settings } from './Settings';
 import { SettingsButton } from './SettingsButton';
-import { useDashboardMenuItem, useMenuItems } from './useMenuItems';
+import { useMenuItems } from './useMenuItems';
 
 export type NavBarProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -62,7 +62,6 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
   }, [isMobileMenuOpen]);
 
   const menuItems = useMenuItems();
-  const dashboardMenuItem = useDashboardMenuItem();
 
   return (
     <nav className="relative">
@@ -107,14 +106,6 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           className="flex items-center gap-x-2 h-9 sm:h-12 sm:gap-x-3"
           data-testid={TEST_IDS.navBarActions}
         >
-          {/* Sits to the left of the reward claim button, and only from the breakpoint the desktop
-              menu appears at: below that, the dashboard is reachable from the mobile menu */}
-          {!isLite && (
-            <div className="hidden items-center lg:flex">
-              <MenuItem item={dashboardMenuItem} onClick={closeMobileMenu} />
-            </div>
-          )}
-
           <ClaimRewardsButton className="h-full hidden sm:flex" data-rewards-button="true" />
 
           {!isLite && (
@@ -155,7 +146,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         </div>
 
         <div className="mb-2">
-          {[dashboardMenuItem, ...menuItems].map(item => (
+          {menuItems.map(item => (
             <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
           ))}
         </div>
