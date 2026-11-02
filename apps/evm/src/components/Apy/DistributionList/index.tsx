@@ -31,6 +31,7 @@ export interface DistributionListProps {
   vTokenAddress?: Address;
   // Also lists the rewards the user has not qualified for yet, at their advertised rate
   showEstimatedRewards?: boolean;
+  isLiquidityHub?: boolean;
 }
 
 export const DistributionList: React.FC<DistributionListProps> = ({
@@ -44,6 +45,7 @@ export const DistributionList: React.FC<DistributionListProps> = ({
   pointDistributions,
   vTokenAddress,
   showEstimatedRewards = false,
+  isLiquidityHub = false,
 }) => {
   const { t, Trans } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
@@ -60,6 +62,14 @@ export const DistributionList: React.FC<DistributionListProps> = ({
     />
   );
 
+  let baseDescription = t('apy.boost.tooltip.borrowApy.description');
+
+  if (type === 'supply') {
+    baseDescription = isLiquidityHub
+      ? t('apy.boost.tooltip.liquidityHubSupplyApy.description')
+      : t('apy.boost.tooltip.supplyApy.description');
+  }
+
   // A market can run several campaigns at once, so rows carry their own key
   const listItems: (DistributionProps & { key: string })[] = [
     {
@@ -70,10 +80,7 @@ export const DistributionList: React.FC<DistributionListProps> = ({
           : t('apy.boost.tooltip.borrowApy.name'),
       value: formatPercentageToReadableValue(baseApyPercentage),
       logoSrc: token.iconSrc,
-      description:
-        type === 'supply'
-          ? t('apy.boost.tooltip.supplyApy.description')
-          : t('apy.boost.tooltip.borrowApy.description'),
+      description: baseDescription,
     },
   ];
 
@@ -191,8 +198,12 @@ export const DistributionList: React.FC<DistributionListProps> = ({
   if (primeApyPercentage && userBalanceTokens?.isGreaterThan(0)) {
     listItems.push({
       key: 'prime',
-      name: t('apy.boost.tooltip.primeDistribution.name'),
-      description: t('apy.boost.tooltip.primeDistribution.description'),
+      name: isLiquidityHub
+        ? t('apy.boost.tooltip.liquidityHubPrimeDistribution.name')
+        : t('apy.boost.tooltip.primeDistribution.name'),
+      description: isLiquidityHub
+        ? t('apy.boost.tooltip.liquidityHubPrimeDistribution.description')
+        : t('apy.boost.tooltip.primeDistribution.description'),
       value: formatDistributionApy(primeApyPercentage),
       logoSrc: token.iconSrc,
     });

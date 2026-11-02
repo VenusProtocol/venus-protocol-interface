@@ -18,11 +18,13 @@ export const formatToInstitutionalVault = ({
   tokens,
   userData,
   nowMs,
+  isUserDataUnavailable,
 }: {
   tokens: Token[];
   nowMs: number;
   vaultData: GetFixedRatedVaultsOutput[number];
   userData?: GetInstitutionalVaultUserDataOutput[number];
+  isUserDataUnavailable?: boolean;
 }): InstitutionalVault | undefined => {
   const loanVaultDetail = vaultData.loanVaultDetail;
   const stakedToken = findTokenByAddress({
@@ -43,7 +45,9 @@ export const formatToInstitutionalVault = ({
 
   const venue = getVenueConfig(loanVaultDetail.institutionName ?? undefined);
 
-  const userStakeBalanceMantissa = userData?.tokensMantissa ?? new BigNumber(0);
+  const userStakeBalanceMantissa = isUserDataUnavailable
+    ? undefined
+    : userData?.tokensMantissa ?? new BigNumber(0);
   const stakeBalanceMantissa = new BigNumber(loanVaultDetail.totalRaisedMantissa);
   const stakeLimitMantissa = new BigNumber(loanVaultDetail.maxBorrowCapMantissa);
   const stakeMinMantissa = new BigNumber(loanVaultDetail.minBorrowCapMantissa);
@@ -65,7 +69,7 @@ export const formatToInstitutionalVault = ({
   }
 
   const userStakedTokens = convertMantissaToTokens({
-    value: userStakeBalanceMantissa,
+    value: userStakeBalanceMantissa ?? new BigNumber(0),
     token: stakedToken,
   });
 
@@ -145,7 +149,9 @@ export const formatToInstitutionalVault = ({
     stakeBalanceMantissa,
     stakeBalanceCents: stakeBalanceTokens.times(stakedTokenPriceCents).toNumber(),
     userStakeBalanceMantissa,
-    userStakeBalanceCents: userStakedTokens.times(stakedTokenPriceCents).toNumber(),
+    userStakeBalanceCents: isUserDataUnavailable
+      ? undefined
+      : userStakedTokens.times(stakedTokenPriceCents).toNumber(),
     userMinIndividualStakeMantissa,
     vaultAddress: vaultData.vaultAddress,
     vaultDeploymentDate: loanVaultDetail.deployedAtTimestamp

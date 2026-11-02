@@ -16,6 +16,7 @@ export interface PrimeBadgeProps extends Omit<TooltipProps, 'content' | 'childre
   simulationReferenceValues?: PrimeSimulationDistribution['referenceValues'];
   simulatedApyPercentage?: BigNumber;
   vTokenAddress?: Address;
+  isLiquidityHub?: boolean;
   className?: string;
 }
 
@@ -25,6 +26,7 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
   simulatedApyPercentage,
   type,
   vTokenAddress,
+  isLiquidityHub,
   className,
   ...otherProps
 }) => {
@@ -41,6 +43,7 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
                 token={token}
                 referenceValues={simulationReferenceValues}
                 type={type}
+                isLiquidityHub={isLiquidityHub}
               />
             ) : (
               t('apy.primeBadge.tooltip.primeMarket')

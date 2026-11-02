@@ -12,6 +12,7 @@ import {
   jumpRateModelV2Abi,
   legacyPoolComptrollerAbi,
   leverageManagerAbi,
+  liquidityHubAbi,
   maximillionAbi,
   multicall3Abi,
   nativeTokenGatewayAbi,
@@ -67,6 +68,8 @@ export const CONTRACT_ERROR_ABIS: Abi[] = [
   spokeComptrollerAbi,
   spokeVTokenAbi,
   collateralGatewayAbi,
+  // Venus — liquidity hubs
+  liquidityHubAbi,
   // Venus — extras
   primeAbi,
   nativeTokenGatewayAbi,

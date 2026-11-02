@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { useAnalytics } from 'libs/analytics';
+import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { LiquidityHubCard } from '..';
@@ -86,5 +87,27 @@ describe('LiquidityHubCard', () => {
       assetSymbol: liquidityHub.vhToken.underlyingToken.symbol,
       variant: 'dashboard_hubs_tab_preview_card',
     });
+  });
+
+  it('renders the APY with its Prime breakdown, as in the Liquidity Hub list', () => {
+    renderComponent(
+      <LiquidityHubCard
+        liquidityHub={{
+          ...liquidityHub,
+          supplyApyPercentage: new BigNumber(2),
+          supplyTokenDistributions: [
+            {
+              type: 'prime',
+              token: liquidityHub.vhToken.underlyingToken,
+              apyPercentage: new BigNumber(1),
+              isActive: true,
+            },
+          ],
+        }}
+      />,
+    );
+
+    expect(screen.getByText('3%')).toBeInTheDocument();
+    expect(screen.getByAltText(en.apy.primeBadge.logoAlt)).toBeInTheDocument();
   });
 });

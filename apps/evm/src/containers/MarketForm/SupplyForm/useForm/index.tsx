@@ -23,6 +23,7 @@ export interface UseFormInput {
   isFromTokenApproved?: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
+  liquidityHubLimitTokens?: BigNumber;
   swapError?: SwapQuoteError;
   swapQuote?: SwapQuote;
   swapQuoteErrorCode?: string;
@@ -42,6 +43,7 @@ const useForm = ({
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
   fromTokenWalletSpendingLimitTokens,
   isFromTokenApproved,
+  liquidityHubLimitTokens,
   swapQuote,
   swapQuoteErrorCode,
   formValues,
@@ -57,6 +59,7 @@ const useForm = ({
     swapQuote,
     swapQuoteErrorCode,
     isFromTokenApproved,
+    liquidityHubLimitTokens,
     fromTokenWalletSpendingLimitTokens,
     fromTokenUserWalletBalanceTokens,
   });

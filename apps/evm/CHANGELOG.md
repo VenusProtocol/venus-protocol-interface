@@ -1,5 +1,43 @@
 # @venusprotocol/evm
 
+## 5.43.1
+
+### Patch Changes
+
+- 14342f9: point the footer social icons at their own destinations and drop the Discord one
+- b66156d: keep a partial SAFE MAX partial when the Hub limits rise before submitting
+
+## 5.43.0
+
+### Minor Changes
+
+- 8dcc615: resupply Liquidity Hub deposits to their Core vhToken market and show the effective Prime APY on Hubs
+
+## 5.42.6
+
+### Patch Changes
+
+- b48e936: stop requesting a swap quote for a zero amount in the repay with collateral form
+
+## 5.42.5
+
+### Patch Changes
+
+- c0b5611: add the Solv(Octagon) venue to the institutional vault config
+
+## 5.42.4
+
+### Patch Changes
+
+- 04efe73: show one service issue toast when a failing page redirects to another
+- b3f1141: show a placeholder instead of $0 when the vault balances cannot be read
+
+## 5.42.3
+
+### Patch Changes
+
+- e3ccb14: return a two-step swap's leftover to the wallet that made it
+
 ## 5.42.2
 
 ### Patch Changes

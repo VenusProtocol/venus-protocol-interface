@@ -13,6 +13,7 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { useAuthModal, useSwitchChain } from 'libs/wallet';
 import { renderComponent } from 'testUtils/render';
@@ -20,6 +21,12 @@ import type { Pool } from 'types';
 import { TxFormSubmitButton, type TxFormSubmitButtonProps } from '..';
 
 const swapDetailsMock = vi.fn();
+
+const mockUseDelegateApproval = vi.fn();
+
+vi.mock('hooks/useDelegateApproval', () => ({
+  default: (input: unknown) => mockUseDelegateApproval(input),
+}));
 
 vi.mock('containers/SwapDetails', () => ({
   SwapDetails: (props: unknown) => {
@@ -209,5 +216,67 @@ describe('TxFormSubmitButton', () => {
 
     expect(screen.queryByTestId('swap-details')).not.toBeInTheDocument();
     expect(swapDetailsMock).not.toHaveBeenCalled();
+  });
+
+  describe('with several approvals', () => {
+    const approvals: TxFormSubmitButtonProps['approval'] = [
+      {
+        type: 'token',
+        token: xvs,
+        spenderAddress: '0xfakeSpenderAddress',
+      },
+      {
+        type: 'delegate',
+        delegateeAddress: '0xfakeDelegateeAddress',
+        poolComptrollerContractAddress: '0xfakeComptrollerAddress',
+      },
+    ];
+
+    const mockApprovals = ({
+      isTokenApproved,
+      isDelegateApproved,
+    }: { isTokenApproved: boolean; isDelegateApproved: boolean }) => {
+      (useTokenApproval as Mock).mockReturnValue({
+        isTokenApproved,
+        isWalletSpendingLimitLoading: false,
+        isApproveTokenLoading: false,
+        approveToken: vi.fn(),
+      });
+      mockUseDelegateApproval.mockReturnValue({
+        isDelegateApproved,
+        isDelegateApprovedLoading: false,
+        isUpdateDelegateStatusLoading: false,
+        updatePoolDelegateStatus: vi.fn(),
+      });
+    };
+
+    const tokenApprovalLabel = en.approveTokenSteps.approveTokenButton.text.replace(
+      '{{tokenSymbol}}',
+      xvs.symbol,
+    );
+    const delegateApprovalLabel = en.approveDelegateSteps.approveDelegateButton.text;
+
+    it('asks for the approvals one after the other before enabling the submit button', () => {
+      mockApprovals({ isTokenApproved: false, isDelegateApproved: false });
+
+      const { rerender } = renderTxFormSubmitButton({ approval: approvals });
+
+      expect(screen.getByRole('button', { name: tokenApprovalLabel })).toBeEnabled();
+      expect(screen.queryByRole('button', { name: delegateApprovalLabel })).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Submit' })).toBeDisabled();
+
+      mockApprovals({ isTokenApproved: true, isDelegateApproved: false });
+      rerender(<TxFormSubmitButton {...baseProps} approval={approvals} />);
+
+      expect(screen.queryByRole('button', { name: tokenApprovalLabel })).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: delegateApprovalLabel })).toBeEnabled();
+      expect(screen.getByRole('button', { name: 'Submit' })).toBeDisabled();
+
+      mockApprovals({ isTokenApproved: true, isDelegateApproved: true });
+      rerender(<TxFormSubmitButton {...baseProps} approval={approvals} />);
+
+      expect(screen.queryByRole('button', { name: delegateApprovalLabel })).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Submit' })).toBeEnabled();
+    });
   });
 });

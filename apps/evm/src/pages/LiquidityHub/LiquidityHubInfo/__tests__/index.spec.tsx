@@ -1,8 +1,15 @@
 import { screen } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { en } from 'libs/translations';
+import ja from 'libs/translations/translations/ja.json';
+import th from 'libs/translations/translations/th.json';
+import tr from 'libs/translations/translations/tr.json';
+import vi from 'libs/translations/translations/vi.json';
+import zhHans from 'libs/translations/translations/zh-Hans.json';
+import zhHant from 'libs/translations/translations/zh-Hant.json';
 import { renderComponent } from 'testUtils/render';
 import { ChainId, type LiquidityHub } from 'types';
 import { generateExplorerUrl, truncateAddress } from 'utilities';
@@ -46,10 +53,54 @@ describe('LiquidityHubInfo', () => {
     ).toBeInTheDocument();
   });
 
+  it('discloses that each supply puts the vhTokens in Venus Core as collateral', () => {
+    renderLiquidityHubInfo();
+
+    expect(
+      screen.getByText(
+        `automatically supplies your ${liquidityHub.vhToken.symbol} to Venus Core as collateral`,
+        { exact: false },
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByText('does not grant borrowing power', { exact: false })).toBeNull();
+  });
+
+  it.each([
+    ['ja', ja],
+    ['th', th],
+    ['tr', tr],
+    ['vi', vi],
+    ['zh-Hans', zhHans],
+    ['zh-Hant', zhHant],
+  ])('discloses the Core resupply in %s too', (_, translations) => {
+    expect(translations.liquidityHub.info.stats.riskDisclosures.value).toContain(
+      '{{vhTokenSymbol}}',
+    );
+  });
+
   it('renders a placeholder when the API returns no operator address', () => {
     renderLiquidityHubInfo({ ...liquidityHub, operatorAddress: undefined });
 
     expect(screen.getByText(en.liquidityHub.info.stats.operatorAddress)).toBeInTheDocument();
     expect(screen.getByText(PLACEHOLDER_KEY)).toBeInTheDocument();
+  });
+
+  it('leaves the connected user Prime APY out of the Hub daily supplying interests', () => {
+    renderLiquidityHubInfo({
+      ...liquidityHub,
+      supplyBalanceCents: new BigNumber(36_500_000),
+      supplyApyPercentage: new BigNumber(10),
+      supplyTokenDistributions: [
+        {
+          type: 'prime',
+          token: liquidityHub.vhToken.underlyingToken,
+          apyPercentage: new BigNumber(1000),
+          isActive: true,
+        },
+      ],
+    });
+
+    // $365,000 x 10% / 365 days
+    expect(screen.getByText('$100')).toBeInTheDocument();
   });
 });

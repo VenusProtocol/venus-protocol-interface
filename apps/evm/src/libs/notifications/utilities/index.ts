@@ -16,6 +16,9 @@ const timeoutsMapping: {
 const setHideTimeout = ({ id }: { id: Notification['id'] }) => {
   const { removeNotification } = useStore.getState();
 
+  // A reused id would otherwise be hidden by the timeout of the notification it replaces
+  clearTimeout(timeoutsMapping[id]);
+
   // Automatically hide notification after a certain time
   timeoutsMapping[id] = setTimeout(() => removeNotification({ id }), DISPLAY_TIME_MS);
 };

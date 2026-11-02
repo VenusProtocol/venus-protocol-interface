@@ -9,6 +9,7 @@ interface FormatToPendleVaultsInput {
   nowMs: number;
   vaultProducts: GetFixedRatedVaultsOutput;
   institutionalVaultUserData?: GetInstitutionalVaultUserDataOutput;
+  isUserDataUnavailable?: boolean;
 }
 
 export const formatVaults = ({
@@ -17,6 +18,7 @@ export const formatVaults = ({
   tokens,
   nowMs,
   institutionalVaultUserData,
+  isUserDataUnavailable,
 }: FormatToPendleVaultsInput): Vault[] => {
   const institutionalVaultUserDataByVaultAddress = new Map(
     institutionalVaultUserData?.map(userData => [userData.vaultAddress, userData]),
@@ -33,6 +35,7 @@ export const formatVaults = ({
         tokens,
         nowMs,
         userData: institutionalVaultUserDataByVaultAddress.get(vaultData.vaultAddress),
+        isUserDataUnavailable,
       });
     }
 

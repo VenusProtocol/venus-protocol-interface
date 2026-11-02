@@ -27,6 +27,7 @@ export interface ApyProps {
   // Trade positions are out of the campaigns' scope, so that page leaves them out entirely
   showCampaignRewards?: boolean;
   vTokenAddress?: Address;
+  isLiquidityHub?: boolean;
   className?: string;
 }
 
@@ -42,6 +43,7 @@ export const Apy: React.FC<ApyProps> = ({
   showPrimeIcon = true,
   showCampaignRewards = true,
   vTokenAddress,
+  isLiquidityHub,
   className,
 }) => {
   const shownDistributions = showCampaignRewards
@@ -103,6 +105,7 @@ export const Apy: React.FC<ApyProps> = ({
     primeApyPercentage: primeDistribution?.apyPercentage,
     primeSimulationDistribution: shownPrimeSimulationDistribution,
     vTokenAddress,
+    isLiquidityHub,
   };
 
   // Only one badge fits: the campaign takes the slot until the user qualifies for it
@@ -130,6 +133,7 @@ export const Apy: React.FC<ApyProps> = ({
         simulationReferenceValues={primeSimulationDistribution?.referenceValues}
         simulatedApyPercentage={simulatedApyPercentage}
         vTokenAddress={vTokenAddress}
+        isLiquidityHub={isLiquidityHub}
       />
     );
   }

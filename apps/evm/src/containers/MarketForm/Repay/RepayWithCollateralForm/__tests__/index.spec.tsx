@@ -642,6 +642,7 @@ describe('RepayWithCollateralForm', () => {
           },
           "fromTokenAmountTokens": "1",
           "recipientAddress": "0xfakeLeverageManagerContractAddress",
+          "refundAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "slippagePercentage": 0.5,
           "toToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -684,6 +685,7 @@ describe('RepayWithCollateralForm', () => {
           },
           "minToTokenAmountTokens": "1",
           "recipientAddress": "0xfakeLeverageManagerContractAddress",
+          "refundAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "slippagePercentage": 0.5,
           "toToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",

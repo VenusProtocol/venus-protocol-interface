@@ -231,6 +231,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
     toToken: asset.vToken.underlyingToken,
     toTokenAmountTokens: fixedRepayBorrowBalanceTokens || new BigNumber(0),
     recipientAddress: swapRouterContractAddress || NULL_ADDRESS,
+    refundAddress: accountAddress,
     slippagePercentage: userSlippageTolerancePercentage,
   };
 

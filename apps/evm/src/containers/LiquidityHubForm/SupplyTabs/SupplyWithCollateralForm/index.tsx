@@ -2,11 +2,17 @@ import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 import type { Address } from 'viem';
 
-import { useGetVTokenBalance, useMigrateCoreSupplyToLiquidityHub } from 'clients/api';
+import {
+  useGetVTokenBalance,
+  useMigrateCoreSupplyToLiquidityHub,
+  useSupplyFromCollateralToLiquidityHub,
+} from 'clients/api';
 import { AvailableBalance, SpendingLimit } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
-import type { TokenApproval } from 'containers/TxFormSubmitButton';
+import type { Approval } from 'containers/TxFormSubmitButton';
+import { useChain } from 'hooks/useChain';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { VError, isUserRejectedTxError } from 'libs/errors';
@@ -20,6 +26,7 @@ import type {
   Pool,
 } from 'types';
 import {
+  calculateCollateralMigrationLimits,
   calculateCollateralWithdrawLimits,
   convertMantissaToTokens,
   convertTokensToMantissa,
@@ -30,8 +37,9 @@ import { type AmountSetInput, Form, type FormValues, initialFormValues } from '.
 import type { UseFormValidationInput } from '../../Form/useForm/useFormValidation';
 
 export interface SupplyWithCollateralFormProps {
-  liquidityHubMigratorContractAddress: Address;
+  liquidityHubMigratorContractAddress?: Address;
   corePoolAsset: Asset;
+  corePoolVhAsset?: Asset;
   corePool: Pool;
   liquidityHub: LiquidityHub;
   onSubmitSuccess?: () => void;
@@ -42,17 +50,33 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   onSubmitSuccess,
   liquidityHubMigratorContractAddress,
   corePoolAsset,
+  corePoolVhAsset,
   corePool,
 }) => {
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
   const [formValues, setFormValues] = useState(initialFormValues);
+  // Set only when the clicked limit covered the whole position
+  const [selectedLimit, setSelectedLimit] = useState<'rightMax' | 'available'>();
   const { accountAddress } = useAccountAddress();
+  const { corePoolComptrollerContractAddress } = useChain();
 
-  let { limitTokens, safeLimitTokens } = calculateCollateralWithdrawLimits({
-    asset: corePoolAsset,
-    pool: corePool,
+  const { address: collateralGatewayContractAddress } = useGetContractAddress({
+    name: 'CollateralGateway',
   });
+
+  const resupplyVhAsset = collateralGatewayContractAddress ? corePoolVhAsset : undefined;
+
+  let { limitTokens, safeLimitTokens } = resupplyVhAsset
+    ? calculateCollateralMigrationLimits({
+        asset: corePoolAsset,
+        vhAsset: resupplyVhAsset,
+        pool: corePool,
+      })
+    : calculateCollateralWithdrawLimits({
+        asset: corePoolAsset,
+        pool: corePool,
+      });
 
   const userSupplyCapTokens = formatUserMaxTokenValue({
     value: liquidityHub.userSupplyCapTokens,
@@ -64,21 +88,33 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     limitTokens = BigNumber.min(limitTokens, userSupplyCapTokens);
   }
 
-  const approval: TokenApproval = {
-    type: 'token',
-    token: corePoolAsset.vToken,
-    spenderAddress: liquidityHubMigratorContractAddress,
-  };
-
   const {
-    walletSpendingLimitTokens: walletSpendingLimitVTokens,
+    walletSpendingLimitTokens: migratorSpendingLimitVTokens,
     revokeWalletSpendingLimit,
     isRevokeWalletSpendingLimitLoading,
   } = useTokenApproval({
-    token: approval.token,
-    spenderAddress: approval.spenderAddress,
+    token: corePoolAsset.vToken,
+    spenderAddress: liquidityHubMigratorContractAddress || NULL_ADDRESS,
     accountAddress,
   });
+
+  const walletSpendingLimitVTokens = resupplyVhAsset ? undefined : migratorSpendingLimitVTokens;
+
+  let approval: Approval | undefined;
+
+  if (resupplyVhAsset && collateralGatewayContractAddress) {
+    approval = {
+      type: 'delegate',
+      delegateeAddress: collateralGatewayContractAddress,
+      poolComptrollerContractAddress: corePoolComptrollerContractAddress,
+    };
+  } else if (liquidityHubMigratorContractAddress) {
+    approval = {
+      type: 'token',
+      token: corePoolAsset.vToken,
+      spenderAddress: liquidityHubMigratorContractAddress,
+    };
+  }
 
   // Convert vToken spending limit to underlying tokens
   const walletSpendingLimitTokens = walletSpendingLimitVTokens?.div(
@@ -89,9 +125,25 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     ? new BigNumber(formValues.amountTokens)
     : undefined;
 
-  const isMigratingFullCoreSupply = !!fromAmountTokens?.isEqualTo(
-    corePoolAsset.userSupplyBalanceTokens,
+  const fullCoreSupplyTokens = corePoolAsset.userSupplyBalanceTokens.dp(
+    corePoolAsset.vToken.underlyingToken.decimals,
+    BigNumber.ROUND_DOWN,
   );
+
+  let selectedLimitTokens = new BigNumber(0);
+
+  if (selectedLimit === 'rightMax') {
+    selectedLimitTokens = safeLimitTokens ?? limitTokens;
+  } else if (selectedLimit === 'available') {
+    selectedLimitTokens = limitTokens;
+  }
+
+  const isMigratingFullCoreSupply =
+    !!fromAmountTokens?.isGreaterThan(0) &&
+    corePoolAsset.userSupplyBalanceTokens.isGreaterThan(0) &&
+    BigNumber.max(fromAmountTokens, selectedLimitTokens).isGreaterThanOrEqualTo(
+      fullCoreSupplyTokens,
+    );
 
   const { data: getVTokenBalanceData } = useGetVTokenBalance(
     {
@@ -121,7 +173,7 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
   }).dividedBy(corePoolAsset.exchangeRateVTokens);
 
   const handleValidateForm: UseFormValidationInput['validate'] = () => {
-    if (fromAmountTokens?.isLessThan(minFromAmountTokens)) {
+    if (fromAmountTokens?.isGreaterThan(0) && fromAmountTokens.isLessThan(minFromAmountTokens)) {
       return {
         code: 'SMALLER_THAN_MINIMUM_AMOUNT',
         message: t('liquidityHubForm.error.smallerThanMinimumAmount', {
@@ -143,8 +195,13 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     }
   };
 
-  const { mutateAsync: migrateCoreSupplyToLiquidityHub, isPending: isSubmitting } =
+  const { mutateAsync: migrateCoreSupplyToLiquidityHub, isPending: isMigrateLoading } =
     useMigrateCoreSupplyToLiquidityHub();
+  const {
+    mutateAsync: supplyFromCollateralToLiquidityHub,
+    isPending: isSupplyFromCollateralLoading,
+  } = useSupplyFromCollateralToLiquidityHub();
+  const isSubmitting = isMigrateLoading || isSupplyFromCollateralLoading;
 
   const getAnalyticData = (amountTokens: BigNumber | string) => ({
     poolName: 'liquidity_hub',
@@ -195,15 +252,28 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     try {
       captureAnalyticEvent('supply_initiated', analyticData);
 
-      await migrateCoreSupplyToLiquidityHub({
-        vhToken: liquidityHub.vhToken,
-        vToken: corePoolAsset.vToken,
-        vTokenAmountMantissa,
-        underlyingAmountMantissa: convertTokensToMantissa({
-          token: liquidityHub.vhToken.underlyingToken,
-          value: amountTokens,
-        }),
+      const underlyingAmountMantissa = convertTokensToMantissa({
+        token: liquidityHub.vhToken.underlyingToken,
+        value: amountTokens,
       });
+
+      if (resupplyVhAsset) {
+        await supplyFromCollateralToLiquidityHub({
+          liquidityHub,
+          vToken: corePoolAsset.vToken,
+          vhMarketVToken: resupplyVhAsset.vToken,
+          vTokenAmountMantissa,
+          underlyingAmountMantissa,
+          migrateFullSupply: isMigratingFullCoreSupply,
+        });
+      } else {
+        await migrateCoreSupplyToLiquidityHub({
+          vhToken: liquidityHub.vhToken,
+          vToken: corePoolAsset.vToken,
+          vTokenAmountMantissa,
+          underlyingAmountMantissa,
+        });
+      }
 
       captureAnalyticEvent('supply_signed', analyticData);
     } catch (error) {
@@ -232,6 +302,18 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     },
   ];
 
+  if (resupplyVhAsset) {
+    balanceMutations.push({
+      type: 'asset',
+      vTokenAddress: resupplyVhAsset.vToken.address,
+      action: 'supply',
+      amountTokens: (fromAmountTokens || new BigNumber(0))
+        .div(liquidityHub.pricePerShare)
+        .dp(liquidityHub.vhToken.decimals, BigNumber.ROUND_DOWN),
+      enableAsCollateralOfUser: true,
+    });
+  }
+
   const handleLimitClick = limitTokens.isGreaterThan(0)
     ? () => {
         const amountTokens = limitTokens
@@ -242,6 +324,11 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
           amountTokens,
           maxSelected: true,
         });
+        setSelectedLimit(
+          new BigNumber(amountTokens).isGreaterThanOrEqualTo(fullCoreSupplyTokens)
+            ? 'available'
+            : undefined,
+        );
 
         setFormValues(values => ({
           ...values,
@@ -259,13 +346,15 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
     <div className="space-y-2">
       <AvailableBalance readableBalance={readableLimit} onClick={handleLimitClick} />
 
-      <SpendingLimit
-        token={corePoolAsset.vToken.underlyingToken}
-        walletBalanceTokens={corePoolAsset.userWalletBalanceTokens}
-        walletSpendingLimitTokens={walletSpendingLimitTokens}
-        onRevoke={revokeWalletSpendingLimit}
-        isRevokeLoading={isRevokeWalletSpendingLimitLoading}
-      />
+      {!resupplyVhAsset && (
+        <SpendingLimit
+          token={corePoolAsset.vToken.underlyingToken}
+          walletBalanceTokens={corePoolAsset.userWalletBalanceTokens}
+          walletSpendingLimitTokens={walletSpendingLimitTokens}
+          onRevoke={revokeWalletSpendingLimit}
+          isRevokeLoading={isRevokeWalletSpendingLimitLoading}
+        />
+      )}
     </div>
   );
 
@@ -285,7 +374,15 @@ export const SupplyWithCollateralForm: React.FC<SupplyWithCollateralFormProps> =
       safeLimitTokens={safeLimitTokens}
       availableBalance={availableBalanceDom}
       validateForm={handleValidateForm}
-      onAmountSet={captureAmountSetAnalyticEvent}
+      onAmountSet={input => {
+        setSelectedLimit(
+          input.maxSelected &&
+            new BigNumber(input.amountTokens).isGreaterThanOrEqualTo(fullCoreSupplyTokens)
+            ? 'rightMax'
+            : undefined,
+        );
+        captureAmountSetAnalyticEvent(input);
+      }}
     />
   );
 };

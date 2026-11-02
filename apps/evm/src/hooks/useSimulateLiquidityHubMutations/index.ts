@@ -56,8 +56,13 @@ export const useSimulateLiquidityHubMutations = ({
         supplyBalanceCents = clampToZero({
           value: supplyBalanceCents.minus(amountCents),
         });
+        // A withdrawal also burns the shares that pay the redeem fee
         userSupplyBalanceTokens = clampToZero({
-          value: userSupplyBalanceTokens.minus(balanceMutation.amountTokens),
+          value: userSupplyBalanceTokens.minus(
+            balanceMutation.amountTokens
+              .dividedBy(new BigNumber(1).minus(liquidityHub.redeemFeePercentage.dividedBy(100)))
+              .dp(liquidityHub.vhToken.underlyingToken.decimals, BigNumber.ROUND_UP),
+          ),
         });
       }
     });

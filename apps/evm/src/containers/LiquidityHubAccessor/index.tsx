@@ -1,5 +1,6 @@
 import { useGetLiquidityHub } from 'clients/api';
-import { Spinner } from 'components';
+import { NoticeWarning, Spinner } from 'components';
+import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { LiquidityHub, VhToken } from 'types';
 
@@ -10,6 +11,7 @@ export interface LiquidityHubAccessorProps {
 
 const LiquidityHubAccessor: React.FC<LiquidityHubAccessorProps> = ({ vhToken, children }) => {
   const { accountAddress } = useAccountAddress();
+  const { t } = useTranslation();
 
   const { data: getLiquidityHubData } = useGetLiquidityHub({
     vhTokenAddress: vhToken.address,
@@ -19,6 +21,10 @@ const LiquidityHubAccessor: React.FC<LiquidityHubAccessorProps> = ({ vhToken, ch
 
   if (!liquidityHub) {
     return <Spinner />;
+  }
+
+  if (liquidityHub.isPaused) {
+    return <NoticeWarning description={t('contractErrors.actionPaused')} />;
   }
 
   return children({ liquidityHub });

@@ -55,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({ vault, fromAmountTokens }) => {
         >
           <ValueUpdate
             original={formatTokensToReadableValue({
-              value: userStakedTokens,
+              value: vault.userStakeBalanceMantissa && userStakedTokens,
               token: vault.stakedToken,
             })}
             update={

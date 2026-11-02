@@ -18,6 +18,7 @@ export interface GetTradeReduceSwapQuotesInput {
   closeFractionPercentage: number;
   isPositionShortBalanceZero: boolean;
   slippagePercentage: number;
+  refundAddress?: Address;
 }
 
 export type GetTradeReduceSwapQuotesOutput = {
@@ -40,10 +41,12 @@ export const getTradeReduceSwapQuotes = async ({
   slippagePercentage,
   leverageManagerContractAddress,
   relativePositionManagerContractAddress,
+  refundAddress,
 }: GetTradeReduceSwapQuotesInput): Promise<GetTradeReduceSwapQuotesOutput> => {
   const shareSwapQuoteInput = {
     chainId,
     recipientAddress: leverageManagerContractAddress,
+    refundAddress,
     slippagePercentage,
   };
 

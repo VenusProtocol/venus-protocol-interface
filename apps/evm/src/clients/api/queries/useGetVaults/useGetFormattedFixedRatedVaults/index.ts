@@ -40,6 +40,8 @@ export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
 
   const now = useNow();
 
+  const isUserDataUnavailable = !!accountAddress && isInstitutionalVaultUserDataError;
+
   const isLoading = isVaultProductsLoading || isPoolsLoading || isInstitutionalVaultUserDataLoading;
 
   const data =
@@ -50,6 +52,7 @@ export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
           tokens,
           nowMs: now.getTime(),
           institutionalVaultUserData,
+          isUserDataUnavailable,
         })
       : undefined;
 
@@ -57,6 +60,6 @@ export const useGetFormattedFixedRatedVaults = (): UseGetPendleVaultsOutput => {
     data,
     isLoading,
     dataUpdatedAt,
-    isUserDataUnavailable: !!accountAddress && isInstitutionalVaultUserDataError,
+    isUserDataUnavailable,
   };
 };

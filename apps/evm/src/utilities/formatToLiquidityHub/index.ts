@@ -65,7 +65,25 @@ export const formatToLiquidityHub = ({
     token: underlyingToken,
   });
 
-  const userSupplyBalanceTokens = apiLiquidityHub.userUnderlyingBalanceMantissa
+  // Older API responses only report the wallet balance
+  const hasTotalBalance = apiLiquidityHub.userTotalUnderlyingBalanceMantissa !== undefined;
+
+  const userTotalUnderlyingBalanceMantissa = hasTotalBalance
+    ? apiLiquidityHub.userTotalUnderlyingBalanceMantissa
+    : apiLiquidityHub.userUnderlyingBalanceMantissa;
+
+  const userTotalUnderlyingBalanceUsdMantissa = hasTotalBalance
+    ? apiLiquidityHub.userTotalUnderlyingBalanceUsdMantissa
+    : apiLiquidityHub.userUnderlyingBalanceUsdMantissa;
+
+  const userSupplyBalanceTokens = userTotalUnderlyingBalanceMantissa
+    ? convertMantissaToTokens({
+        value: new BigNumber(userTotalUnderlyingBalanceMantissa),
+        token: underlyingToken,
+      })
+    : undefined;
+
+  const userVhTokenSupplyBalanceTokens = apiLiquidityHub.userUnderlyingBalanceMantissa
     ? convertMantissaToTokens({
         value: new BigNumber(apiLiquidityHub.userUnderlyingBalanceMantissa),
         token: underlyingToken,
@@ -90,9 +108,13 @@ export const formatToLiquidityHub = ({
     ? convertUsdMantissaToCents(apiLiquidityHub.userWalletBalanceUsdMantissa)
     : userWalletBalanceTokens?.multipliedBy(tokenPriceCents);
 
-  const userSupplyBalanceCents = apiLiquidityHub.userUnderlyingBalanceUsdMantissa
-    ? convertUsdMantissaToCents(apiLiquidityHub.userUnderlyingBalanceUsdMantissa)
+  const userSupplyBalanceCents = userTotalUnderlyingBalanceUsdMantissa
+    ? convertUsdMantissaToCents(userTotalUnderlyingBalanceUsdMantissa)
     : userSupplyBalanceTokens?.multipliedBy(tokenPriceCents);
+
+  const userVhTokenBalanceCents = apiLiquidityHub.userUnderlyingBalanceUsdMantissa
+    ? convertUsdMantissaToCents(apiLiquidityHub.userUnderlyingBalanceUsdMantissa)
+    : userVhTokenSupplyBalanceTokens?.multipliedBy(tokenPriceCents);
 
   const userSupplyCapTokens = apiLiquidityHub.userMaxDepositMantissa
     ? convertMantissaToTokens({
@@ -162,7 +184,7 @@ export const formatToLiquidityHub = ({
     performanceFeePercentage: new BigNumber(apiLiquidityHub.performanceFeeRatio).multipliedBy(100),
     redeemFeePercentage: new BigNumber(apiLiquidityHub.redeemFeeRatio).multipliedBy(100),
     pricePerShare,
-    supplierCount: apiLiquidityHub.suppliersCount ?? 0,
+    supplierCount: apiLiquidityHub.suppliersCount ?? undefined,
     isPaused: apiLiquidityHub.isPaused,
     yieldGroups,
     supplyTokenDistributions,
@@ -172,6 +194,7 @@ export const formatToLiquidityHub = ({
     userSupplyBalanceCents,
     userYearlyEarningsCents,
     userVhTokenBalanceTokens,
+    userVhTokenBalanceCents,
     userSupplyCapTokens,
     userWithdrawCapTokens,
     userVhTokenMaxRedeemTokens,

@@ -59,12 +59,36 @@ describe('BalanceUpdates', () => {
     };
 
     renderComponent(
-      <BalanceUpdates liquidityHubs={liquidityHubs} balanceMutations={[balanceMutation]} />,
+      <BalanceUpdates
+        liquidityHubs={[{ ...liquidityHub, redeemFeePercentage: new BigNumber(0) }]}
+        balanceMutations={[balanceMutation]}
+      />,
     );
 
     const row = screen.getByText('Venus Liquidity Hub').closest('.flex.w-full');
 
     expect(row).toHaveTextContent('Supply balance');
+    expect(row).toHaveTextContent('42');
+    expect(row).toHaveTextContent('41');
+    expect(row?.parentElement).toHaveTextContent('- $7.15');
+  });
+
+  it('takes the shares burned for the redeem fee out of a liquidity hub withdrawal', () => {
+    const balanceMutation: BalanceMutation = {
+      type: 'liquidityHub',
+      action: 'withdraw',
+      amountTokens: new BigNumber(0.99),
+      vhTokenAddress: liquidityHub.vhToken.address,
+      label: 'Liquidity Hub balance',
+    };
+
+    renderComponent(
+      <BalanceUpdates liquidityHubs={liquidityHubs} balanceMutations={[balanceMutation]} />,
+    );
+
+    const row = screen.getByText('Liquidity Hub balance').closest('.flex.w-full');
+
+    // 0.99 paid out at a 1% redeem fee burns shares worth 1
     expect(row).toHaveTextContent('42');
     expect(row).toHaveTextContent('41');
     expect(row?.parentElement).toHaveTextContent('- $7.15');

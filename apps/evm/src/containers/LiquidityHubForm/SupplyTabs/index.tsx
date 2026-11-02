@@ -1,7 +1,9 @@
 import { useGetPool } from 'clients/api';
 import { Spinner, Tabs } from 'components';
+import DisabledActionNotice from 'containers/AssetAccessor/DisabledActionNotice';
 import { useChain } from 'hooks/useChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -25,6 +27,13 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
     name: 'LiquidityHubMigrator',
   });
 
+  const { address: collateralGatewayContractAddress } = useGetContractAddress({
+    name: 'CollateralGateway',
+  });
+
+  const isAutoResupplyEnabled =
+    useIsFeatureEnabled({ name: 'liquidityHubAutoResupply' }) && !!collateralGatewayContractAddress;
+
   const { data: getPools, isLoading: isGetPoolLoading } = useGetPool({
     poolComptrollerAddress: corePoolComptrollerContractAddress,
     accountAddress,
@@ -36,18 +45,31 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
     areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken.underlyingToken),
   );
 
+  // Paused Core markets fall back to the plain Hub flows
+  const corePoolVhAsset = isAutoResupplyEnabled
+    ? corePool?.assets.find(
+        asset =>
+          areTokensEqual(asset.vToken.underlyingToken, liquidityHub.vhToken) &&
+          !asset.disabledTokenActions.includes('supply') &&
+          !asset.disabledTokenActions.includes('enterMarket'),
+      )
+    : undefined;
+
   if (isGetPoolLoading) {
     return <Spinner />;
   }
 
-  // TODO: add content
   const walletTabDom = (
-    <SupplyWithWalletForm liquidityHub={liquidityHub} onSubmitSuccess={onSubmitSuccess} />
+    <SupplyWithWalletForm
+      liquidityHub={liquidityHub}
+      corePoolVhAsset={corePoolVhAsset}
+      onSubmitSuccess={onSubmitSuccess}
+    />
   );
 
   // Only render the "Supply with wallet balance" tab if there's no corresponding Core pool market
   // or the Liquidity Hub Migrator contract isn't supported on this chain
-  if (!corePool || !corePoolAsset || !liquidityHubMigratorContractAddress) {
+  if (!corePool || !corePoolAsset || (!liquidityHubMigratorContractAddress && !corePoolVhAsset)) {
     return walletTabDom;
   }
 
@@ -60,13 +82,17 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
     {
       id: 'collateral',
       title: t('liquidityHubForm.supplyTab.collateralTabTitle'),
-      content: (
+      // Moving collateral withdraws it from its Core market first
+      content: corePoolAsset.disabledTokenActions.includes('withdraw') ? (
+        <DisabledActionNotice token={corePoolAsset.vToken.underlyingToken} action="withdraw" />
+      ) : (
         <SupplyWithCollateralForm
           liquidityHub={liquidityHub}
           onSubmitSuccess={onSubmitSuccess}
           liquidityHubMigratorContractAddress={liquidityHubMigratorContractAddress}
           corePool={corePool}
           corePoolAsset={corePoolAsset}
+          corePoolVhAsset={corePoolVhAsset}
         />
       ),
     },

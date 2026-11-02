@@ -200,4 +200,26 @@ describe('DistributionList', () => {
     expect(getByText(en.apy.boost.tooltip.primeDistribution.description)).toBeInTheDocument();
     expect(getByText('-3%')).toBeInTheDocument();
   });
+
+  it('describes the Liquidity Hub base and effective Prime rates', () => {
+    const { getByText, queryByText } = renderComponent(
+      <DistributionList
+        type="supply"
+        token={token}
+        baseApyPercentage={new BigNumber(2)}
+        tokenDistributions={[]}
+        primeApyPercentage={new BigNumber(4)}
+        userBalanceTokens={new BigNumber(1)}
+        pointDistributions={[]}
+        isLiquidityHub
+      />,
+    );
+
+    expect(getByText(en.apy.boost.tooltip.liquidityHubSupplyApy.description)).toBeInTheDocument();
+    expect(getByText(en.apy.boost.tooltip.liquidityHubPrimeDistribution.name)).toBeInTheDocument();
+    expect(
+      getByText(en.apy.boost.tooltip.liquidityHubPrimeDistribution.description),
+    ).toBeInTheDocument();
+    expect(queryByText(en.apy.boost.tooltip.supplyApy.description)).not.toBeInTheDocument();
+  });
 });

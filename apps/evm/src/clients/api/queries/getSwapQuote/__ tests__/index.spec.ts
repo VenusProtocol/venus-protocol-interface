@@ -251,4 +251,29 @@ describe('getSwapQuote', () => {
       code: 'noSwapQuoteFound',
     });
   });
+
+  it('sends the refund address when one is given', async () => {
+    (restService as Mock).mockImplementation(async () => ({ data: fakeApiResponse }));
+
+    await getSwapQuote({
+      ...sharedProps,
+      refundAddress: fakeAddress as Address,
+      direction: 'exact-in',
+      fromTokenAmountTokens: new BigNumber(1),
+    });
+
+    expect((restService as Mock).mock.calls[0][0].params.refundAddress).toBe(fakeAddress);
+  });
+
+  it('omits the refund address when none is given', async () => {
+    (restService as Mock).mockImplementation(async () => ({ data: fakeApiResponse }));
+
+    await getSwapQuote({
+      ...sharedProps,
+      direction: 'exact-in',
+      fromTokenAmountTokens: new BigNumber(1),
+    });
+
+    expect((restService as Mock).mock.calls[0][0].params).not.toHaveProperty('refundAddress');
+  });
 });

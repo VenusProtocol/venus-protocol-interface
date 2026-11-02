@@ -6,14 +6,19 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { liquidityHubs } from '__mocks__/models/liquidityHubs';
 import { poolData } from '__mocks__/models/pools';
-import { useGetPool, useGetVTokenBalance, useMigrateCoreSupplyToLiquidityHub } from 'clients/api';
+import {
+  useGetPool,
+  useGetVTokenBalance,
+  useMigrateCoreSupplyToLiquidityHub,
+  useSupplyFromCollateralToLiquidityHub,
+} from 'clients/api';
 import { formatUserMaxTokenValue } from 'containers/LiquidityHubForm/formatUserMaxTokenValue';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAnalytics } from 'libs/analytics';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { AssetBalanceMutation, LiquidityHubBalanceMutation } from 'types';
+import type { Asset, AssetBalanceMutation, LiquidityHubBalanceMutation } from 'types';
 import {
   calculateCollateralWithdrawLimits,
   convertMantissaToTokens,
@@ -607,6 +612,106 @@ describe('SupplyWithCollateralForm', () => {
         vhTokenAddress: liquidityHub.vhToken.address,
       });
       expect(liquidityHubMutation?.amountTokens.isEqualTo('0.5')).toBe(true);
+    });
+  });
+
+  describe('when the Hub deposit is resupplied to Core', () => {
+    const corePoolVhAsset: Asset = {
+      ...assetData[1],
+      vToken: {
+        ...assetData[1].vToken,
+        underlyingToken: {
+          ...liquidityHub.vhToken,
+          iconSrc: assetData[1].vToken.underlyingToken.iconSrc,
+        },
+      },
+    };
+
+    const submitAmount = (value: string) => {
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value,
+        },
+      });
+      fireEvent.click(
+        screen.getByRole('button', {
+          name: en.liquidityHubForm.supplySubmitButtonLabel,
+        }),
+      );
+    };
+
+    it('does not show the Migrator spending limit', () => {
+      renderTransactionForm({ corePoolVhAsset });
+
+      expect(screen.queryByText(en.spendingLimit.label)).not.toBeInTheDocument();
+    });
+
+    it('supplies through the collateral gateway', async () => {
+      const supplyFromCollateralToLiquidityHub = vi.fn().mockResolvedValue(undefined);
+      const migrateCoreSupplyToLiquidityHub = vi.fn().mockResolvedValue(undefined);
+
+      (useSupplyFromCollateralToLiquidityHub as Mock).mockReturnValue({
+        mutateAsync: supplyFromCollateralToLiquidityHub,
+        isPending: false,
+      });
+      mockUseMigrateCoreSupplyToLiquidityHub.mockReturnValue({
+        mutateAsync: migrateCoreSupplyToLiquidityHub,
+        isPending: false,
+      });
+
+      renderTransactionForm({ corePool: clickableLimitPool, corePoolVhAsset });
+
+      submitAmount('0.5');
+
+      await waitFor(() =>
+        expect(supplyFromCollateralToLiquidityHub).toHaveBeenCalledWith(
+          expect.objectContaining({
+            liquidityHub,
+            vToken: corePoolAsset.vToken,
+            vhMarketVToken: corePoolVhAsset.vToken,
+            vTokenAmountMantissa: convertTokensToMantissa({
+              token: corePoolAsset.vToken,
+              value: new BigNumber('0.5').times(corePoolAsset.exchangeRateVTokens),
+            }),
+            migrateFullSupply: false,
+          }),
+        ),
+      );
+      expect(migrateCoreSupplyToLiquidityHub).not.toHaveBeenCalled();
+    });
+
+    it('simulates the vhToken supply to Core as collateral', async () => {
+      renderTransactionForm({
+        corePool: clickableLimitPool,
+        corePoolVhAsset,
+        liquidityHub: {
+          ...liquidityHub,
+          pricePerShare: new BigNumber(2),
+        },
+      });
+
+      fireEvent.change(getAmountInput(), {
+        target: {
+          value: '0.5',
+        },
+      });
+
+      await waitFor(() => {
+        const lastCallInput = mockUseSimulatePoolMutations.mock.calls.at(-1)?.[0] as
+          | { balanceMutations: AssetBalanceMutation[] }
+          | undefined;
+        const vhMutation = lastCallInput?.balanceMutations.find(
+          balanceMutation =>
+            balanceMutation.type === 'asset' &&
+            balanceMutation.vTokenAddress === corePoolVhAsset.vToken.address,
+        );
+
+        expect(vhMutation).toMatchObject({
+          action: 'supply',
+          enableAsCollateralOfUser: true,
+        });
+        expect(vhMutation?.amountTokens.toFixed()).toBe('0.25');
+      });
     });
   });
 });

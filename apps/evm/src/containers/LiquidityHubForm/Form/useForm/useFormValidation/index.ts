@@ -50,6 +50,7 @@ export const useFormValidation = ({
       pool,
       simulatedPool,
       balanceMutations,
+      userAcknowledgesRisk: formValues.acknowledgeRisk,
       t,
     });
   }

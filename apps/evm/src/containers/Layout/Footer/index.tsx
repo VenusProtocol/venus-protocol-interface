@@ -1,11 +1,8 @@
-import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { useChainId } from 'libs/wallet';
-import { generateExplorerUrl } from 'utilities';
 
 import { Icon, type IconName } from 'components';
 import {
-  VENUS_DISCORD_URL,
+  VENUS_COMMUNITY_URL,
   VENUS_DOC_URL,
   VENUS_GITHUB_URL,
   VENUS_TELEGRAM_URL,
@@ -27,27 +24,12 @@ interface LinkConfig {
 }
 
 export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
-  const { chainId } = useChainId();
   const { t } = useTranslation();
-
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
 
   const socialLinks: SocialLink[] = [
     {
       iconName: 'venus',
-      href:
-        xvs &&
-        generateExplorerUrl({
-          hash: xvs.address,
-          urlType: 'token',
-          chainId,
-        }),
-    },
-    {
-      iconName: 'discord',
-      href: VENUS_DISCORD_URL,
+      href: VENUS_COMMUNITY_URL,
     },
     {
       iconName: 'telegram',

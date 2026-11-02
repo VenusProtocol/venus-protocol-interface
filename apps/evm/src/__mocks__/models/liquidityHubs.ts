@@ -50,6 +50,7 @@ export const liquidityHubs: LiquidityHub[] = [
     userSupplyBalanceCents: new BigNumber(30030),
     userYearlyEarningsCents: new BigNumber('1861.86'),
     userVhTokenBalanceTokens: new BigNumber('39.62264150943396226415'),
+    userVhTokenBalanceCents: new BigNumber(30030),
   },
   {
     vhToken: vhUsdc,
@@ -84,6 +85,7 @@ export const liquidityHubs: LiquidityHub[] = [
     userSupplyBalanceCents: new BigNumber(120000),
     userYearlyEarningsCents: new BigNumber(4920),
     userVhTokenBalanceTokens: new BigNumber('1176.47058823529411764706'),
+    userVhTokenBalanceCents: new BigNumber(120000),
   },
   {
     vhToken: vhUsdt,
@@ -110,6 +112,7 @@ export const liquidityHubs: LiquidityHub[] = [
     userSupplyBalanceCents: new BigNumber(85000),
     userYearlyEarningsCents: new BigNumber('4122.5'),
     userVhTokenBalanceTokens: new BigNumber('825.24271844660194174757'),
+    userVhTokenBalanceCents: new BigNumber(85000),
   },
   {
     vhToken: vhBusd,
@@ -136,5 +139,6 @@ export const liquidityHubs: LiquidityHub[] = [
     userSupplyBalanceCents: new BigNumber(140000),
     userYearlyEarningsCents: new BigNumber(5530),
     userVhTokenBalanceTokens: new BigNumber('1386.13861386138613861386'),
+    userVhTokenBalanceCents: new BigNumber(140000),
   },
 ];

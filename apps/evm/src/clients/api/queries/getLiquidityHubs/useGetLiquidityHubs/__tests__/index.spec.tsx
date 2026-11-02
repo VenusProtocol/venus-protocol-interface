@@ -3,6 +3,7 @@ import { waitFor } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { useGetPool } from 'clients/api/queries/useGetPool';
 import FunctionKey from 'constants/functionKey';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { renderHook } from 'testUtils/render';
@@ -10,6 +11,10 @@ import { ChainId } from 'types';
 
 import { useGetLiquidityHubs } from '..';
 import * as getLiquidityHubsQueries from '../..';
+
+vi.mock('clients/api/queries/useGetPool', () => ({
+  useGetPool: vi.fn(() => ({ data: undefined })),
+}));
 
 const fakeOutput: getLiquidityHubsQueries.GetLiquidityHubsOutput = {
   liquidityHubs: [],
@@ -115,5 +120,36 @@ describe('useGetLiquidityHubs', () => {
 
     expect(getLiquidityHubsSpy).not.toHaveBeenCalled();
     expect(result.current.data).toBeUndefined();
+  });
+
+  it('does not fetch the Core pool when the Liquidity Hub feature is disabled', () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabledInput) => name !== 'liquidityHub',
+    );
+
+    renderHook(() => useGetLiquidityHubs({ accountAddress: fakeAccountAddress }));
+
+    expect(useGetPool).toHaveBeenCalledWith(expect.anything(), { enabled: false });
+  });
+
+  it('does not fetch the Core pool when the caller disables the query', () => {
+    (useIsFeatureEnabled as Mock).mockReturnValue(true);
+
+    renderHook(() =>
+      useGetLiquidityHubs({ accountAddress: fakeAccountAddress }, { enabled: false }),
+    );
+
+    expect(useGetPool).toHaveBeenCalledWith(expect.anything(), { enabled: false });
+  });
+
+  it('fetches the Core pool when auto-resupply and the Hub query are both enabled', () => {
+    (useIsFeatureEnabled as Mock).mockReturnValue(true);
+    vi.spyOn(getLiquidityHubsQueries, 'getLiquidityHubs').mockResolvedValue(fakeOutput);
+
+    renderHook(() => useGetLiquidityHubs({ accountAddress: fakeAccountAddress }), {
+      chainId: ChainId.BSC_MAINNET,
+    });
+
+    expect(useGetPool).toHaveBeenCalledWith(expect.anything(), { enabled: true });
   });
 });

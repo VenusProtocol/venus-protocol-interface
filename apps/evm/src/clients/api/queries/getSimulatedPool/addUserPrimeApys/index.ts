@@ -2,6 +2,7 @@ import type BigNumber from 'bignumber.js';
 import type { Address, PublicClient } from 'viem';
 
 import { primeAbi, primeV2LensAbi } from 'libs/contracts';
+import { logError } from 'libs/errors';
 import type { Asset, PrimeVersion, Token, TokenDistribution } from 'types';
 import { convertAprBipsToApy, convertTokensToMantissa } from 'utilities';
 
@@ -45,44 +46,50 @@ export const addUserPrimeApys = async ({
         return asset;
       }
 
-      const simulatedPrimeAprs = await publicClient.readContract({
-        abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
-        address: primeAprContractAddress,
-        functionName: 'estimateAPR',
-        args: [
-          asset.vToken.address,
-          accountAddress,
-          toMantissa({
-            value: asset.userBorrowBalanceTokens,
-            token: asset.vToken.underlyingToken,
+      // A failed estimate keeps the current Prime APY
+      try {
+        const simulatedPrimeAprs = await publicClient.readContract({
+          abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
+          address: primeAprContractAddress,
+          functionName: 'estimateAPR',
+          args: [
+            asset.vToken.address,
+            accountAddress,
+            toMantissa({
+              value: asset.userBorrowBalanceTokens,
+              token: asset.vToken.underlyingToken,
+            }),
+            toMantissa({
+              value: asset.userSupplyBalanceTokens,
+              token: asset.vToken.underlyingToken,
+            }),
+            BigInt(userXvsStakedMantissa.toFixed()),
+          ],
+        });
+
+        const supplyApyPercentage = convertAprBipsToApy({
+          aprBips: simulatedPrimeAprs.supplyAPR.toString(),
+        });
+
+        const borrowApyPercentage = convertAprBipsToApy({
+          aprBips: simulatedPrimeAprs.borrowAPR.toString(),
+        });
+
+        return {
+          ...asset,
+          supplyTokenDistributions: updatePrimeDistribution({
+            distributions: asset.supplyTokenDistributions,
+            primeApyPercentage: supplyApyPercentage,
           }),
-          toMantissa({
-            value: asset.userSupplyBalanceTokens,
-            token: asset.vToken.underlyingToken,
+          borrowTokenDistributions: updatePrimeDistribution({
+            distributions: asset.borrowTokenDistributions,
+            primeApyPercentage: borrowApyPercentage,
           }),
-          BigInt(userXvsStakedMantissa.toFixed()),
-        ],
-      });
-
-      const supplyApyPercentage = convertAprBipsToApy({
-        aprBips: simulatedPrimeAprs.supplyAPR.toString(),
-      });
-
-      const borrowApyPercentage = convertAprBipsToApy({
-        aprBips: simulatedPrimeAprs.borrowAPR.toString(),
-      });
-
-      return {
-        ...asset,
-        supplyTokenDistributions: updatePrimeDistribution({
-          distributions: asset.supplyTokenDistributions,
-          primeApyPercentage: supplyApyPercentage,
-        }),
-        borrowTokenDistributions: updatePrimeDistribution({
-          distributions: asset.borrowTokenDistributions,
-          primeApyPercentage: borrowApyPercentage,
-        }),
-      };
+        };
+      } catch (error) {
+        logError(error);
+        return asset;
+      }
     }),
   );
 
