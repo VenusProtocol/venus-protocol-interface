@@ -299,10 +299,10 @@
       "tooltip": {
         "calculatorLink": "Prime ödüllerinizi hesaplayın",
         "liquidityHubCorePoolBoost": "Bu artış Core havuzundan gelir ve iki kez ödenmez.",
-        "primeBorrowSimulation": "Prime ile APY, kullanıcıların ortalama {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
+        "primeBorrowSimulation": "<PrimeLink>Prime</PrimeLink> ile APY, kullanıcıların ortalama {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
         "primeDocLink": "Daha fazla bilgi",
         "primeMarket": "Prime ile APY artırılır.",
-        "primeSupplySimulation": "Prime ile APY, kullanıcıların ortalama {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır."
+        "primeSupplySimulation": "<PrimeLink>Prime</PrimeLink> ile APY, kullanıcıların ortalama {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır."
       }
     }
   },
@@ -1090,7 +1090,7 @@
     },
     "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
-      "corePool": "Çekirdek Havuz",
+      "corePool": "Venus Core",
       "liquidityHub": "Likidite Merkezi",
       "xvsVault": "XVS Kasası"
     },
@@ -1551,6 +1551,7 @@
     },
     "rankCutoffNote": "<Rank/>. sıra şu anda <Staked/> stake ederek <Score/> Prime puanına sahip.",
     "rankFooter": {
+      "connectPrompt": "Sıralamanızı görmek için cüzdanınızı bağlayın.",
       "learnMore": "<LeaderboardLink>Prime Leaderboard</LeaderboardLink> üzerinden daha fazla bilgi edinin"
     },
     "rankTable": {

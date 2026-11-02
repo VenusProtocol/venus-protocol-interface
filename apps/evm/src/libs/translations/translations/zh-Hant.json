@@ -299,10 +299,10 @@
       "tooltip": {
         "calculatorLink": "計算你的 Prime 獎勵",
         "liquidityHubCorePoolBoost": "該加成來自 Core 池，不會重複發放。",
-        "primeBorrowSimulation": "Prime 加成基於用戶借款平均值 {{borrowBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。",
+        "primeBorrowSimulation": "<PrimeLink>Prime</PrimeLink> 加成基於用戶借款平均值 {{borrowBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。",
         "primeDocLink": "瞭解更多",
         "primeMarket": "Prime 提升 APY。",
-        "primeSupplySimulation": "Prime 加成基於用戶供應平均值 {{supplyBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。"
+        "primeSupplySimulation": "<PrimeLink>Prime</PrimeLink> 加成基於用戶供應平均值 {{supplyBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。"
       }
     }
   },
@@ -1088,7 +1088,7 @@
     },
     "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
-      "corePool": "核心池",
+      "corePool": "Venus Core",
       "liquidityHub": "流動性中心",
       "xvsVault": "XVS 金庫"
     },
@@ -1549,6 +1549,7 @@
     },
     "rankCutoffNote": "排名 <Rank/> 目前持有 <Score/> Prime 分數，質押了 <Staked/>。",
     "rankFooter": {
+      "connectPrompt": "連接錢包查看你的排名。",
       "learnMore": "從 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
     },
     "rankTable": {

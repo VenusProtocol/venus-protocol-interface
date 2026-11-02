@@ -299,10 +299,10 @@
       "tooltip": {
         "calculatorLink": "Prime報酬を計算",
         "liquidityHubCorePoolBoost": "このブーストはCoreプールから支払われ、二重には支払われません。",
-        "primeBorrowSimulation": "Primeにより、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeBorrowSimulation": "<PrimeLink>Prime</PrimeLink>により、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
         "primeDocLink": "詳細を見る",
         "primeMarket": "PrimeによりAPYがブーストされます。",
-        "primeSupplySimulation": "Primeにより、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
+        "primeSupplySimulation": "<PrimeLink>Prime</PrimeLink>により、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
       }
     }
   },
@@ -1088,7 +1088,7 @@
     },
     "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
-      "corePool": "コアプール",
+      "corePool": "Venus Core",
       "liquidityHub": "流動性ハブ",
       "xvsVault": "XVS ボールト"
     },
@@ -1549,6 +1549,7 @@
     },
     "rankCutoffNote": "ランク<Rank/>は現在、<Staked/>をステークし、<Score/>のPrimeスコアを保有しています。",
     "rankFooter": {
+      "connectPrompt": "ウォレットを接続してランクを確認してください。",
       "learnMore": "<LeaderboardLink>Prime リーダーボード</LeaderboardLink> で詳しく見る"
     },
     "rankTable": {

@@ -70,6 +70,8 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
 
   const modeLabel = mode === 'earn' ? t('lite.modes.earn') : t('lite.modes.borrow');
   const selectedMarket = mode === 'earn' ? selectedEarnMarket : selectedBorrowMarket;
+  const isSingleEarnMarket = hasSingleMarket(selectedEarnAsset?.markets.length ?? 0);
+  const isSingleBorrowMarket = hasSingleMarket(selectedBorrowAsset?.markets.length ?? 0);
   const selectedAsset = mode === 'earn' ? selectedEarnAsset : selectedBorrowAsset;
 
   const clearSelectedMarket = () =>
@@ -143,24 +145,31 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       />
     ) : undefined;
 
-  const header = selectedAsset ? (
-    <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <Breadcrumb modeLabel={modeLabel} token={selectedAsset.token} onBackToAssets={backToAssets} />
-      {modeSwitch}
-    </div>
-  ) : (
-    <div className="flex min-h-9 flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-      {modeSwitch}
-      {filters}
-    </div>
-  );
+  const isSingleMarket = mode === 'earn' ? isSingleEarnMarket : isSingleBorrowMarket;
+
+  const header =
+    selectedAsset && !isSingleMarket ? (
+      <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <Breadcrumb
+          modeLabel={modeLabel}
+          token={selectedAsset.token}
+          onBackToAssets={backToAssets}
+        />
+        {modeSwitch}
+      </div>
+    ) : (
+      <div className="flex min-h-9 flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        {modeSwitch}
+        {filters}
+      </div>
+    );
 
   return (
     <section
       aria-label={modeLabel}
       className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden backdrop-blur-glass"
     >
-      {mode === 'earn' && !selectedEarnAsset && (
+      {mode === 'earn' && (!selectedEarnAsset || isSingleEarnMarket) && (
         <EarnAssetTable
           earnAssets={visibleEarnAssets}
           isFetching={isEarnLoading}
@@ -170,7 +179,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
         />
       )}
 
-      {mode === 'earn' && selectedEarnAsset && (
+      {mode === 'earn' && selectedEarnAsset && !isSingleEarnMarket && (
         <EarnMarketTable
           earnAsset={selectedEarnAsset}
           onSelect={market => selectMarket(getMarketSlug(market))}
@@ -178,7 +187,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
         />
       )}
 
-      {mode === 'borrow' && !selectedBorrowAsset && (
+      {mode === 'borrow' && (!selectedBorrowAsset || isSingleBorrowMarket) && (
         <BorrowAssetTable
           borrowAssets={visibleBorrowAssets}
           isFetching={isBorrowLoading}
@@ -188,7 +197,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
         />
       )}
 
-      {mode === 'borrow' && selectedBorrowAsset && (
+      {mode === 'borrow' && selectedBorrowAsset && !isSingleBorrowMarket && (
         <BorrowMarketTable
           borrowAsset={selectedBorrowAsset}
           onSelect={market => selectMarket(getMarketSlug(market))}

@@ -299,10 +299,10 @@
       "tooltip": {
         "calculatorLink": "Calculate your Prime rewards",
         "liquidityHubCorePoolBoost": "This boost comes from the Core pool and is not paid twice.",
-        "primeBorrowSimulation": "APY boosted by Prime based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
+        "primeBorrowSimulation": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",
-        "primeSupplySimulation": "APY boosted by Prime based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
+        "primeSupplySimulation": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
       }
     }
   },
@@ -1090,7 +1090,7 @@
     },
     "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
-      "corePool": "Core Pool",
+      "corePool": "Venus Core",
       "liquidityHub": "Liquidity Hub",
       "xvsVault": "XVS Vault"
     },
@@ -1551,6 +1551,7 @@
     },
     "rankCutoffNote": "Rank <Rank/> currently holds a <Score/> Prime score with <Staked/> staked.",
     "rankFooter": {
+      "connectPrompt": "Connect wallet to see your rank.",
       "learnMore": "Learn more about the <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
