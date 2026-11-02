@@ -90,7 +90,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           onClick={handleToggleDropdown}
           contentClassName="text-b1s w-full justify-center"
           className={cn(
-            'relative w-full rounded-lg border-transparent bg-none bg-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-surface-raised active:bg-surface-raised',
+            'relative w-full rounded-lg border-transparent bg-background-active bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-background-active active:bg-background-active',
             size === 'xs' ? 'h-10 px-3' : 'h-12 px-4',
             isDropdownOpen && 'border-blue hover:border-blue',
             value.length > 0 && 'border-blue',
