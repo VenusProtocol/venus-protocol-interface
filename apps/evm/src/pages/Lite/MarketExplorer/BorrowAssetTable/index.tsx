@@ -1,5 +1,7 @@
 import { Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
+import { BorrowMarketApy } from '../../BorrowMarketApy';
+import { getLowestApyMarket } from '../../getLowestApyMarket';
 import { getLowestBorrowApyPercentage } from '../../getLowestBorrowApyPercentage';
 import type { LiteBorrowAsset } from '../../types';
 import { useMarketColumns } from '../useMarketColumns';
@@ -52,9 +54,7 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
     },
     buildApyColumn<LiteBorrowAsset>({
       renderCell: borrowAsset => (
-        <span className="tabular-nums">
-          {getLowestBorrowApyPercentage(borrowAsset).toFixed(2)}%
-        </span>
+        <BorrowMarketApy source={getLowestApyMarket(borrowAsset).source} />
       ),
       secondary: {
         label: t('lite.columns.totalBorrow'),

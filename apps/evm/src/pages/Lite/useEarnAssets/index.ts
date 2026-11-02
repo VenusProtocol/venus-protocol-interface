@@ -4,7 +4,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 import { type MarketCategory, VaultType, type VenusVault } from 'types';
 import { aggregateEarnAssets } from '../aggregateEarnAssets';
-import { isVisibleEarnAsset } from '../isVisibleEarnAsset';
+import { isRestrictedAsset } from '../isRestrictedAsset';
 
 export const useEarnAssets = () => {
   const { accountAddress } = useAccountAddress();
@@ -24,16 +24,16 @@ export const useEarnAssets = () => {
   const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
   const eModeGroups = getPoolData?.pool.eModeGroups ?? [];
 
-  const hubShareTokenAddresses = liquidityHubs.map(liquidityHub => liquidityHub.vhToken.address);
-
   const xvsVaults = vaults.filter(
     (vault): vault is VenusVault =>
       vault.vaultType === VaultType.Venus && vault.stakedToken.symbol === 'XVS',
   );
 
-  const earnAssets = aggregateEarnAssets({ assets, liquidityHubs, vaults: xvsVaults }).filter(
-    earnAsset => isVisibleEarnAsset({ earnAsset, eModeGroups, hubShareTokenAddresses }),
-  );
+  const earnAssets = aggregateEarnAssets({
+    assets: assets.filter(asset => !isRestrictedAsset({ asset, eModeGroups })),
+    liquidityHubs,
+    vaults: xvsVaults,
+  });
 
   const categoriesByTag = new Map<string, MarketCategory>();
   assets.forEach(asset => {

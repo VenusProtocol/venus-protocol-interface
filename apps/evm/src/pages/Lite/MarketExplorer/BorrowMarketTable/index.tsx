@@ -1,6 +1,7 @@
 import { SpokeCollateralGroup, Table, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
+import { BorrowMarketApy } from '../../BorrowMarketApy';
 import type { LiteBorrowAsset, LiteBorrowMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
 import { useMarketColumns } from '../useMarketColumns';
@@ -60,9 +61,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       ),
     },
     buildApyColumn<LiteBorrowMarket>({
-      renderCell: market => (
-        <span className="tabular-nums">{market.apyPercentage.toFixed(2)}%</span>
-      ),
+      renderCell: market => <BorrowMarketApy source={market.source} />,
       secondary: { label: t('lite.columns.liquidity'), getCents: market => market.liquidityCents },
       sortRows: (rowA, rowB, direction) =>
         (rowA.apyPercentage.comparedTo(rowB.apyPercentage) ?? 0) * (direction === 'asc' ? 1 : -1),
