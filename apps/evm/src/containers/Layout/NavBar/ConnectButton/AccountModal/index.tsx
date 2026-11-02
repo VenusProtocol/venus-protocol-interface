@@ -10,7 +10,6 @@ import { AccountOverview } from 'containers/AccountOverview';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { VipTelegramGroupButton } from 'containers/VipTelegramGroupButton';
 import { useTranslation } from 'libs/translations';
-import { ClaimRewardsButton } from '../../ClaimRewardsButton';
 import { Settings } from '../../Settings';
 import { UserButton } from '../UserButton';
 
@@ -61,8 +60,6 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
                   <Icon name="close" className="size-5 text-inherit transition-colors" />
                 </button>
               </div>
-
-              <ClaimRewardsButton className="h-12 bg-dark-blue-active sm:hidden" />
             </div>
 
             <AccountOverview accountAddress={address} showGraph={false} />

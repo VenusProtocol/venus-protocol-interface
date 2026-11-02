@@ -74,7 +74,7 @@
         },
         "title": "กู้แล้ว"
       },
-      "corePoolPill": "พูลหลัก",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "APY การกู้",
         "dailyBorrowInterest": "ดอกเบี้ยการยืมรายวัน",
@@ -108,7 +108,7 @@
       "title": "สรุป"
     },
     "tabs": {
-      "hubs": "ศูนย์",
+      "hubs": "ศูนย์สภาพคล่อง",
       "settings": "การตั้งค่า",
       "transactions": "ธุรกรรม",
       "vaults": "คลัง"

@@ -74,7 +74,7 @@
         },
         "title": "Đã vay"
       },
-      "corePoolPill": "Nhóm Core",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "APY vay",
         "dailyBorrowInterest": "Lãi vay hằng ngày",
@@ -108,7 +108,7 @@
       "title": "Tóm tắt"
     },
     "tabs": {
-      "hubs": "Trung tâm",
+      "hubs": "Trung tâm thanh khoản",
       "settings": "Cài đặt",
       "transactions": "Giao dịch",
       "vaults": "Kho"

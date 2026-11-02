@@ -259,9 +259,9 @@ export const Transactions: React.FC = () => {
   return (
     <div ref={containerRef} className="grid grid-cols-1 gap-4">
       {accountAddress && (
-        <div className="flex flex-row gap-3 md:gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row md:gap-4">
           <Select
-            className="flex-1 md:flex-none"
+            className="w-full sm:w-60"
             size="small"
             variant="tertiary"
             placeLabelToLeft
@@ -274,7 +274,7 @@ export const Transactions: React.FC = () => {
           />
 
           <Select
-            className="flex-1 md:flex-none"
+            className="w-full sm:w-60"
             size="small"
             variant="tertiary"
             placeLabelToLeft

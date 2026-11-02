@@ -74,7 +74,7 @@
         },
         "title": "已借款"
       },
-      "corePoolPill": "核心池",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "借款 APY",
         "dailyBorrowInterest": "每日借款利息",
@@ -108,7 +108,7 @@
       "title": "概览"
     },
     "tabs": {
-      "hubs": "中心",
+      "hubs": "流动性中心",
       "settings": "设置",
       "transactions": "交易",
       "vaults": "金库"

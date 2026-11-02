@@ -74,7 +74,7 @@
         },
         "title": "借入済み"
       },
-      "corePoolPill": "コアプール",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "借入APY",
         "dailyBorrowInterest": "日次借入利息",
@@ -108,7 +108,7 @@
       "title": "サマリー"
     },
     "tabs": {
-      "hubs": "ハブ",
+      "hubs": "流動性ハブ",
       "settings": "設定",
       "transactions": "取引",
       "vaults": "ボールト"

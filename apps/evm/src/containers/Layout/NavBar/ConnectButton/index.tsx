@@ -41,6 +41,7 @@ export const ConnectButton: React.FC = () => {
     return (
       <div>
         <UserButton
+          className="max-sm:[&_img]:hidden max-sm:[&_svg]:hidden max-sm:[&>div]:px-2"
           onClick={handleToggleAccountModal}
           address={accountAddress}
           isPrime={isAccountPrime}

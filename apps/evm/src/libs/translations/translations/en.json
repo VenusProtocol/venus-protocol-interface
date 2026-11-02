@@ -74,7 +74,7 @@
         },
         "title": "Borrowed"
       },
-      "corePoolPill": "Core Pool",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "Borrow APY",
         "dailyBorrowInterest": "Daily borrowing interests",
@@ -108,7 +108,7 @@
       "title": "Summary"
     },
     "tabs": {
-      "hubs": "Hubs",
+      "hubs": "Liquidity Hub",
       "settings": "Settings",
       "transactions": "Transactions",
       "vaults": "Vaults"

@@ -27,12 +27,11 @@ export type NavBarProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) => {
   const { t } = useTranslation();
-  const { accountAddress } = useAccountAddress();
   const { isLite } = useInterfaceMode();
   const openModal = useStore(state => state.openModal);
-  const isMobileMenuOpen = openModal === 'mobileMenu';
-
+  const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
+  const isMobileMenuOpen = openModal === 'mobileMenu';
 
   const closeMobileMenu = () => {
     useStore.setState({ openModal: undefined });
@@ -87,7 +86,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
             />
           </Link>
 
-          <InterfaceModeLabel className="ml-2" />
+          <InterfaceModeLabel className="ml-2 max-xs:hidden" />
 
           {/* LG and up menu */}
           {!isLite && (
@@ -103,10 +102,10 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         </div>
 
         <div
-          className="flex items-center gap-x-2 h-9 sm:h-12 sm:gap-x-3"
+          className="flex items-center gap-x-1.5 h-9 sm:h-12 sm:gap-x-3"
           data-testid={TEST_IDS.navBarActions}
         >
-          <ClaimRewardsButton className="h-full hidden sm:flex" data-rewards-button="true" />
+          <ClaimRewardsButton className="h-full max-sm:px-2" data-rewards-button="true" />
 
           {!isLite && (
             <ChainSelect

@@ -74,7 +74,7 @@
         },
         "title": "Borç alınan"
       },
-      "corePoolPill": "Çekirdek Havuz",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "Borç APY",
         "dailyBorrowInterest": "Günlük borç faizi",
@@ -108,7 +108,7 @@
       "title": "Özet"
     },
     "tabs": {
-      "hubs": "Merkezler",
+      "hubs": "Likidite Merkezi",
       "settings": "Ayarlar",
       "transactions": "İşlemler",
       "vaults": "Kasalar"

@@ -71,7 +71,7 @@ export const TransactionsList: React.FC<TransactionsListProps> = ({
 
   return (
     <div className="w-full @container/transactionList">
-      <ul className="flex flex-col items-center justify-evenly space-y-6 @2xl:border @2xl:border-dark-blue-hover @2xl:py-4 @2xl:rounded-xl @2xl:space-y-4 lg:py-6">
+      <ul className="flex flex-col items-center justify-evenly space-y-6 @2xl:border @2xl:border-dark-blue-hover @2xl:bg-background-active @2xl:py-4 @2xl:rounded-xl @2xl:space-y-4 lg:py-6">
         {Object.entries(transactionsGroupedByDate).map(([day, dayTransactions]) => (
           <li key={day} className="flex flex-col w-full space-y-3 @2xl:space-y-0">
             <span className="text-base font-semibold @2xl:px-6 @2xl:mb-2">{day}</span>
