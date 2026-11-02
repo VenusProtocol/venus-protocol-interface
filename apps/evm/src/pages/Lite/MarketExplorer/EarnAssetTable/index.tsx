@@ -22,7 +22,7 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
   header,
 }) => {
   const { t } = useTranslation();
-  const { buildAmountColumn, buildApyColumn, isMobile } = useMarketColumns();
+  const { buildAmountColumn, buildApyColumn, getTableProps } = useMarketColumns();
 
   let placeholder: string | undefined;
 
@@ -40,9 +40,13 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
           type="button"
           onClick={() => onSelect(earnAsset)}
           aria-label={t('lite.assetAriaLabel', { symbol: earnAsset.token.symbol })}
-          className="cursor-pointer hover:text-blue focus-visible:outline-2 focus-visible:outline-blue"
+          className="cursor-pointer hover:text-blue focus-visible:outline-2 focus-visible:outline-blue max-md:min-h-11"
         >
-          <TokenIconWithSymbol token={earnAsset.token} size="xl" />
+          <TokenIconWithSymbol
+            token={earnAsset.token}
+            size="xl"
+            symbolClassName="font-normal group-hover:font-bold"
+          />
         </button>
       ),
     },
@@ -75,16 +79,12 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
 
   return (
     <Table
-      className="lite-table"
       data={isReady ? earnAssets : []}
-      columns={isMobile ? columns.slice(0, 2) : columns}
+      {...getTableProps({ columns, columnWidths: ['25%', '25%', '25%', '25%'] })}
       rowKeyExtractor={earnAsset => earnAsset.key}
       rowOnClick={(_event, earnAsset) => onSelect(earnAsset)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'desc' }}
       isFetching={isFetching}
-      tableLayout="auto"
-      breakpoint={isMobile ? undefined : 'md'}
-      hideCardDelimiter
       header={header}
       placeholder={placeholder}
     />

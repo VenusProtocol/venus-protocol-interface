@@ -20,7 +20,7 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
   header,
 }) => {
   const { t } = useTranslation();
-  const { buildAmountColumn, buildApyColumn, isMobile } = useMarketColumns();
+  const { buildAmountColumn, buildApyColumn, getTableProps } = useMarketColumns();
 
   let placeholder: string | undefined;
 
@@ -42,7 +42,11 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
           aria-label={t('lite.assetAriaLabel', { symbol: borrowAsset.token.symbol })}
           className="cursor-pointer text-left hover:text-blue focus-visible:outline-2 focus-visible:outline-blue"
         >
-          <TokenIconWithSymbol token={borrowAsset.token} size="xl" />
+          <TokenIconWithSymbol
+            token={borrowAsset.token}
+            size="xl"
+            symbolClassName="font-normal group-hover:font-bold"
+          />
         </button>
       ),
     },
@@ -78,16 +82,12 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
 
   return (
     <Table
-      className="lite-table"
       data={isReady ? borrowAssets : []}
-      columns={isMobile ? columns.slice(0, 2) : columns}
+      {...getTableProps({ columns, columnWidths: ['25%', '25%', '25%', '25%'] })}
       rowKeyExtractor={borrowAsset => borrowAsset.key}
       rowOnClick={(_event, borrowAsset) => onSelect(borrowAsset)}
       initialOrder={{ orderBy: columns[3], orderDirection: 'desc' }}
       isFetching={isFetching}
-      tableLayout="auto"
-      breakpoint={isMobile ? undefined : 'md'}
-      hideCardDelimiter
       header={header}
       placeholder={placeholder}
     />

@@ -241,18 +241,20 @@
   --text-b3r--font-weight: 400;
   --text-b3r--line-height: 1.5;
   
-  --color-surface-glass: rgb(var(--color-background-active-rgb) / 72%);
+  --color-surface-glass: rgb(var(--elevation-shade-rgb) / 10%);
   --color-surface-raised: rgb(var(--elevation-tint-rgb) / 7%);
-  --color-surface-well: rgb(var(--elevation-shade-rgb) / 22%);
   --color-surface-popup: rgb(25 30 40 / 75%);
-  --color-surface-backdrop: rgb(var(--elevation-shade-rgb) / 18%);
   --color-surface-row-hover: rgb(var(--elevation-tint-rgb) / 4%);
+  --color-surface-segment-hover: rgb(var(--elevation-tint-rgb) / 6%);
 
   --color-border-glass: rgb(var(--elevation-tint-rgb) / 16%);
   --color-border-raised: rgb(var(--elevation-tint-rgb) / 12%);
-  --color-border-well: rgb(var(--elevation-tint-rgb) / 8%);
-  --color-border-action: rgb(var(--elevation-tint-rgb) / 20%);
+  --color-border-segment-active: rgb(13 136 224);
 
+  --background-image-row-hover: linear-gradient(
+    rgb(var(--elevation-tint-rgb) / 5%),
+    var(--color-surface-row-hover)
+  );
   --background-image-menu: linear-gradient(125deg, rgb(255 255 255 / 8%), transparent 65%),
     linear-gradient(rgb(20 24 31) 0 100%);
 
@@ -308,11 +310,12 @@
   --shadow-action: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 25%),
     inset 0 -1px 1px rgb(var(--elevation-tint-rgb) / 9%),
     0 3px 8px rgb(var(--elevation-shade-rgb) / 10%);
-  --shadow-action-selected: inset 0 1px 2px rgb(var(--elevation-tint-rgb) / 20%),
-    0 2px 4px rgb(var(--elevation-shade-rgb) / 16%);
   --shadow-action-pressed: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 40%),
     0 2px 5px rgb(var(--elevation-shade-rgb) / 8%);
-  --shadow-well: inset 0 2px 4px rgb(var(--elevation-shade-rgb) / 28%);
+  --shadow-segment-track: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 27%),
+    inset 0 -1px 1px rgb(var(--elevation-tint-rgb) / 9%);
+  --shadow-segment-active: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 25%),
+    0 2px 4px rgb(var(--elevation-shade-rgb) / 16%);
   --shadow-popup: inset 0 1px 0 rgb(var(--elevation-tint-rgb) / 18%),
     0 24px 64px rgb(var(--elevation-shade-rgb) / 28%);
   --shadow-menu: inset 0 1px 0 rgb(var(--elevation-tint-rgb) / 14%),

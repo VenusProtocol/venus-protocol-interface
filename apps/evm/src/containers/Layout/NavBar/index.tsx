@@ -137,7 +137,9 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
             </NavButtonWrapper>
           )}
 
-          {!isLite && !isUserConnected && <SettingsButton className="h-full px-0 hidden lg:flex" />}
+          {!isUserConnected && (
+            <SettingsButton className={cn('h-full px-0 lg:flex', !isLite && 'hidden')} />
+          )}
         </div>
       </div>
 

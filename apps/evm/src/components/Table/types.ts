@@ -56,7 +56,8 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   placeholder?: React.ReactNode;
   selectVariant?: SelectProps['variant'];
   cellHeight?: CSSProperties['height'];
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'compact';
+  stickyHeader?: boolean;
   controls?: boolean;
 }
 

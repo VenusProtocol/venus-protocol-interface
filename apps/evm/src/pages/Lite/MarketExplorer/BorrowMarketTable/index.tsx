@@ -1,15 +1,14 @@
-import { Table, type TableColumn } from 'components';
+import { SpokeCollateralGroup, Table, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { Token } from 'types';
+import type { SpokeAsset } from 'types';
 import type { LiteBorrowAsset, LiteBorrowMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
 import { useMarketColumns } from '../useMarketColumns';
-import { CollateralIcons } from './CollateralIcons';
 
 export interface BorrowMarketTableProps {
   borrowAsset: LiteBorrowAsset;
   onSelect: (market: LiteBorrowMarket) => void;
-  onSelectCollateral: (input: { market: LiteBorrowMarket; token: Token }) => void;
+  onSelectCollateral: (input: { market: LiteBorrowMarket; asset: SpokeAsset }) => void;
   header: React.ReactNode;
 }
 
@@ -20,8 +19,18 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   header,
 }) => {
   const { t } = useTranslation();
-  const { buildAmountColumn, buildApyColumn, isMobile } = useMarketColumns();
+  const { buildAmountColumn, buildApyColumn, getTableProps, isMobile } = useMarketColumns();
   const getMarketName = useMarketName();
+
+  const renderCollaterals = (market: LiteBorrowMarket) =>
+    market.source.type === 'spoke' ? (
+      <SpokeCollateralGroup
+        collaterals={market.source.collaterals}
+        onRowClick={asset => onSelectCollateral({ market, asset })}
+      />
+    ) : (
+      <SpokeCollateralGroup collaterals={market.source.collaterals} />
+    );
 
   const columns: TableColumn<LiteBorrowMarket>[] = [
     {
@@ -35,20 +44,16 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
           <button
             type="button"
             onClick={() => onSelect(market)}
-            className="cursor-pointer text-left font-normal text-white hover:text-blue focus-visible:outline-2 focus-visible:outline-blue"
+            className="cursor-pointer text-left font-normal text-white group-hover:font-bold hover:text-blue focus-visible:outline-2 focus-visible:outline-blue max-md:min-h-11"
           >
             {getMarketName(market)}
           </button>
 
           {isMobile && (
-            <div className="lite-mobile-collateral-trigger">
+            <div className="mt-1 flex flex-wrap items-center gap-1 text-xs text-grey">
               <span>{t('lite.columns.collateral')}</span>
 
-              <CollateralIcons
-                market={market}
-                onSelect={onSelectCollateral}
-                className="flex items-center gap-1"
-              />
+              {renderCollaterals(market)}
             </div>
           )}
         </div>
@@ -75,15 +80,9 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       selectOptionLabel: t('lite.columns.collateral'),
       align: 'right',
       sortRows: (rowA, rowB, direction) =>
-        (rowA.collateralTokens.length - rowB.collateralTokens.length) *
+        (rowA.source.collaterals.length - rowB.source.collaterals.length) *
         (direction === 'asc' ? 1 : -1),
-      renderCell: market => (
-        <CollateralIcons
-          market={market}
-          onSelect={onSelectCollateral}
-          className="flex items-center justify-end gap-1"
-        />
-      ),
+      renderCell: renderCollaterals,
     },
     buildAmountColumn<LiteBorrowMarket>({
       key: 'borrow',
@@ -96,15 +95,11 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
 
   return (
     <Table
-      className="lite-table lite-table--wide"
       data={borrowAsset.markets}
-      columns={isMobile ? columns.slice(0, 2) : columns}
+      {...getTableProps({ columns, columnWidths: ['25%', '15%', '22%', '16%', '22%'] })}
       rowKeyExtractor={market => market.id}
       rowOnClick={(_event, market) => onSelect(market)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'asc' }}
-      tableLayout="auto"
-      breakpoint={isMobile ? undefined : 'md'}
-      hideCardDelimiter
       header={header}
       placeholder={t('lite.placeholders.noMarkets')}
     />

@@ -79,8 +79,9 @@ export const Modal: FC<ModalProps> = ({
           {hasHeader && (
             <div
               className={cn(
-                'sticky top-0 z-10 flex items-center justify-center rounded-t-2xl px-6 pt-6',
-                title ? 'mb-4 bg-dark-blue pb-6 md:mb-0' : 'pb-0',
+                'sticky top-0 z-10 flex items-center rounded-t-2xl px-6 pt-6',
+                handleBackAction ? 'justify-center' : 'justify-start',
+                title ? 'mb-4 pb-6 md:mb-0' : 'pb-0',
               )}
             >
               {!!handleBackAction && (
@@ -98,7 +99,12 @@ export const Modal: FC<ModalProps> = ({
 
               {title ? (
                 <h2
-                  className="m-0 flex min-h-6 items-center justify-center px-6 text-center text-lg"
+                  className={cn(
+                    'm-0 flex min-h-6 items-center text-lg',
+                    handleBackAction
+                      ? 'justify-center px-6 text-center'
+                      : 'justify-start pr-8 text-left',
+                  )}
                   id={titleId}
                 >
                   {title}

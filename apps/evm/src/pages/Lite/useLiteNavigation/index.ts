@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router';
-import type { MarketMode } from '../MarketExplorer/ModeSwitch';
+import type { MarketMode } from '../types';
 import { applyParamChanges } from './applyParamChanges';
 
 const MODE_PARAM = 'tab';
@@ -19,7 +19,7 @@ export const useLiteNavigation = () => {
   return {
     mode,
     assetSymbol: searchParams.get(ASSET_PARAM) ?? undefined,
-    marketId: searchParams.get(MARKET_PARAM) ?? undefined,
+    marketSlug: searchParams.get(MARKET_PARAM) ?? undefined,
     setMode: (nextMode: MarketMode) =>
       update({
         [MODE_PARAM]: toModeParam(nextMode),
@@ -32,6 +32,6 @@ export const useLiteNavigation = () => {
         [ASSET_PARAM]: symbol,
         [MARKET_PARAM]: undefined,
       }),
-    selectMarket: (marketId: string | undefined) => update({ [MARKET_PARAM]: marketId }),
+    selectMarket: (marketSlug: string | undefined) => update({ [MARKET_PARAM]: marketSlug }),
   };
 };

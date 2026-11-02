@@ -1,10 +1,11 @@
-import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
-import type { TableColumn } from 'components';
+import type { TableColumn, TableProps } from 'components';
 import { useIsMdDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
+
+const MOBILE_COLUMN_WIDTHS = ['58%', '42%'];
 
 interface AmountColumnInput<R> {
   key: string;
@@ -59,12 +60,12 @@ export const useMarketColumns = () => {
     align: 'right',
     renderCell: (row, index) => (
       <div>
-        <div className={cn('flex flex-wrap items-center justify-end gap-2 whitespace-nowrap')}>
+        <div className="flex flex-wrap items-center justify-end gap-2 whitespace-nowrap font-semibold">
           {renderCell?.(row, index)}
         </div>
 
         {isMobile && secondary && (
-          <p className="lite-mobile-secondary">
+          <p className="mt-1 text-xs text-grey">
             {formatCentsToReadableValue({ value: secondary.getCents(row) })} {secondary.label}
           </p>
         )}
@@ -73,5 +74,33 @@ export const useMarketColumns = () => {
     sortRows,
   });
 
-  return { buildAmountColumn, buildApyColumn, isMobile };
+  const getTableProps = <R,>({
+    columns,
+    columnWidths,
+  }: {
+    columns: TableColumn<R>[];
+    columnWidths: string[];
+  }): Pick<
+    TableProps<R>,
+    | 'columns'
+    | 'columnWidths'
+    | 'breakpoint'
+    | 'size'
+    | 'stickyHeader'
+    | 'hideCardDelimiter'
+    | 'className'
+    | 'tableContainerClassName'
+  > => ({
+    columns: isMobile ? columns.slice(0, 2) : columns,
+    columnWidths: isMobile ? MOBILE_COLUMN_WIDTHS : columnWidths,
+    breakpoint: isMobile ? undefined : 'md',
+    size: 'compact',
+    stickyHeader: true,
+    hideCardDelimiter: true,
+    className: 'rounded-none border-0 md:border-0',
+    tableContainerClassName:
+      'overscroll-contain scrollbar-thin scrollbar-track-transparent scrollbar-thumb-grey md:max-h-100',
+  });
+
+  return { buildAmountColumn, buildApyColumn, getTableProps, isMobile };
 };

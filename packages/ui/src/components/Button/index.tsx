@@ -19,7 +19,7 @@ const NEUTRAL_MATERIAL_CLASSES =
   'bg-none bg-surface-raised border-transparent text-white shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]';
 
 const ACTION_MATERIAL_CLASSES =
-  'bg-action hover:bg-action-hover text-white shadow-action backdrop-blur-raised backdrop-saturate-[1.3]';
+  'bg-action hover:bg-action-hover text-white shadow-action backdrop-blur-raised backdrop-saturate-[1.3] disabled:bg-none disabled:bg-surface-raised disabled:border-transparent aria-disabled:bg-none aria-disabled:bg-surface-raised aria-disabled:border-transparent';
 
 const PRESSED_CLASSES =
   'active:scale-[0.965_0.94] active:shadow-action-pressed active:duration-100 motion-reduce:active:scale-100';

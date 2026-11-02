@@ -52,7 +52,7 @@ export const Tabs = ({
         <ButtonGroup
           buttonLabels={tabs.map(({ title }) => title)}
           className={headerClassName}
-          buttonClassName={cn('px-2', buttonClassName)}
+          buttonClassName={buttonClassName}
           activeButtonIndex={tabs.findIndex(tab => activeTab.id === tab.id)}
           onButtonClick={handleChange}
           fullWidth

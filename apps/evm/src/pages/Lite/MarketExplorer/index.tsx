@@ -1,9 +1,11 @@
-import type { MultiSelectOption } from 'components';
+import { ButtonGroup, type MultiSelectOption } from 'components';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
+import { useIsSmDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
-import type { Token } from 'types';
-import type { LiteBorrowMarket, LiteEarnAsset } from '../types';
+import type { SpokeAsset } from 'types';
+import { getMarketSlug } from '../getMarketSlug';
+import type { LiteBorrowMarket, LiteEarnAsset, MarketMode } from '../types';
 import { useBorrowAssets } from '../useBorrowAssets';
 import type { useEarnAssets } from '../useEarnAssets';
 import type { useLiteNavigation } from '../useLiteNavigation';
@@ -14,7 +16,6 @@ import { EarnAssetTable } from './EarnAssetTable';
 import { EarnMarketTable } from './EarnMarketTable';
 import { Filters } from './Filters';
 import { MarketFormModal } from './MarketFormModal';
-import { type MarketMode, ModeSwitch } from './ModeSwitch';
 import { matchesCategories } from './matchesCategories';
 
 export interface MarketExplorerProps {
@@ -32,14 +33,14 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   isEarnReady,
   navigation,
 }) => {
-  const { mode, assetSymbol, marketId, setMode, selectAsset, selectMarket } = navigation;
+  const { mode, assetSymbol, marketSlug, setMode, selectAsset, selectMarket } = navigation;
   const { t } = useTranslation();
+  const isSmDown = useIsSmDown();
   const [searchValue, setSearchValue] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedLoanTokens, setSelectedLoanTokens] = useState<string[]>([]);
   const [selectedCollateral, setSelectedCollateral] = useState<{
     market: LiteBorrowMarket;
-    token: Token;
+    asset: SpokeAsset;
   }>();
 
   const { borrowAssets, isLoading: isBorrowLoading, isReady: isBorrowReady } = useBorrowAssets();
@@ -56,14 +57,14 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       ? earnAssets.find(earnAsset => earnAsset.token.symbol === assetSymbol)
       : undefined;
   const selectedEarnMarket =
-    selectedEarnAsset?.markets.find(market => market.id === marketId) ??
+    selectedEarnAsset?.markets.find(market => getMarketSlug(market) === marketSlug) ??
     getOnlyMarket({ markets: selectedEarnAsset?.markets ?? [], isReady: isEarnReady });
   const selectedBorrowAsset =
     mode === 'borrow'
       ? borrowAssets.find(borrowAsset => borrowAsset.token.symbol === assetSymbol)
       : undefined;
   const selectedBorrowMarket =
-    selectedBorrowAsset?.markets.find(market => market.id === marketId) ??
+    selectedBorrowAsset?.markets.find(market => getMarketSlug(market) === marketSlug) ??
     getOnlyMarket({ markets: selectedBorrowAsset?.markets ?? [], isReady: isBorrowReady });
   const hasSingleMarket = (selectedAssetMarketCount: number) => selectedAssetMarketCount === 1;
 
@@ -88,72 +89,56 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
     label: category.label,
   }));
 
-  const loanTokenOptions: MultiSelectOption[] = borrowAssets.map(borrowAsset => ({
-    value: borrowAsset.key,
-    label: borrowAsset.token.symbol,
-  }));
-
   const visibleEarnAssets = earnAssets.filter(
     earnAsset =>
-      matchesCategories({ earnAsset, selectedCategories }) &&
+      matchesCategories({ markets: earnAsset.markets, selectedCategories }) &&
       earnAsset.token.symbol.toLowerCase().includes(searchValue.trim().toLowerCase()),
   );
 
   const visibleBorrowAssets = borrowAssets.filter(
     borrowAsset =>
-      (selectedLoanTokens.length === 0 || selectedLoanTokens.includes(borrowAsset.key)) &&
+      matchesCategories({ markets: borrowAsset.markets, selectedCategories }) &&
       borrowAsset.token.symbol.toLowerCase().includes(searchValue.trim().toLowerCase()),
   );
 
-  const filters =
-    mode === 'earn' ? (
-      <Filters
-        searchValue={searchValue}
-        onSearchValueChange={setSearchValue}
-        searchPlaceholder={t('lite.filters.searchAsset')}
-        searchAriaLabel={t('lite.filters.searchAssetAriaLabel')}
-        options={categoryOptions}
-        selectedValues={selectedCategories}
-        onSelectedValuesChange={setSelectedCategories}
-        optionsPlaceholder={t('lite.filters.allCategories')}
-        optionsTitle={t('lite.filters.category')}
-        renderOptionCount={count => t('lite.filters.categoryCount', { count })}
-      />
-    ) : (
-      <Filters
-        searchValue={searchValue}
-        onSearchValueChange={setSearchValue}
-        searchPlaceholder={t('lite.filters.searchAsset')}
-        searchAriaLabel={t('lite.filters.searchAssetAriaLabel')}
-        options={loanTokenOptions}
-        selectedValues={selectedLoanTokens}
-        onSelectedValuesChange={setSelectedLoanTokens}
-        optionsPlaceholder={t('lite.filters.allLoanAssets')}
-        optionsTitle={t('lite.filters.loanAssets')}
-        renderOptionCount={count => t('lite.filters.loanAssetCount', { count })}
-      />
-    );
+  const filters = (
+    <Filters
+      searchValue={searchValue}
+      onSearchValueChange={setSearchValue}
+      searchPlaceholder={t('lite.filters.searchAsset')}
+      searchAriaLabel={t('lite.filters.searchAssetAriaLabel')}
+      options={categoryOptions}
+      selectedValues={selectedCategories}
+      onSelectedValuesChange={setSelectedCategories}
+      optionsPlaceholder={t('lite.filters.allCategories')}
+      optionsTitle={t('lite.filters.category')}
+      renderOptionCount={count => t('lite.filters.categoryCount', { count })}
+    />
+  );
 
-  const modeSwitch = <ModeSwitch mode={mode} onChange={changeMode} />;
+  const modeSwitch = (
+    <ButtonGroup
+      ariaLabel={t('lite.modes.label')}
+      buttonLabels={[t('lite.modes.earn'), t('lite.modes.borrow')]}
+      activeButtonIndex={mode === 'earn' ? 0 : 1}
+      onButtonClick={index => changeMode(index === 0 ? 'earn' : 'borrow')}
+      fullWidth={isSmDown}
+      buttonSize="sm"
+      buttonClassName="sm:w-20"
+    />
+  );
 
   const collateralSource = selectedCollateral?.market.source;
-  const collateralAsset =
-    collateralSource?.type === 'spoke'
-      ? collateralSource.pool.assets.find(
-          poolAsset =>
-            poolAsset.vToken.underlyingToken.address === selectedCollateral?.token.address,
-        )
-      : undefined;
 
   const collateralModal =
-    collateralSource?.type === 'spoke' && collateralAsset ? (
+    collateralSource?.type === 'spoke' && selectedCollateral ? (
       <SpokeFormModal
         title={t('spokeForm.collateralModalTitle', { poolName: collateralSource.pool.name })}
         spokePool={collateralSource.pool}
         asset={collateralSource.asset}
         collateralOnly
         initialActiveTabId="collateral"
-        preselectedCollateral={collateralAsset}
+        preselectedCollateral={selectedCollateral.asset}
         handleClose={() => setSelectedCollateral(undefined)}
       />
     ) : undefined;
@@ -173,7 +158,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   return (
     <section
       aria-label={modeLabel}
-      className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden"
+      className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden backdrop-blur-glass"
     >
       {mode === 'earn' && !selectedEarnAsset && (
         <EarnAssetTable
@@ -188,7 +173,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {mode === 'earn' && selectedEarnAsset && (
         <EarnMarketTable
           earnAsset={selectedEarnAsset}
-          onSelect={market => selectMarket(market.id)}
+          onSelect={market => selectMarket(getMarketSlug(market))}
           header={header}
         />
       )}
@@ -206,7 +191,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {mode === 'borrow' && selectedBorrowAsset && (
         <BorrowMarketTable
           borrowAsset={selectedBorrowAsset}
-          onSelect={market => selectMarket(market.id)}
+          onSelect={market => selectMarket(getMarketSlug(market))}
           onSelectCollateral={setSelectedCollateral}
           header={header}
         />

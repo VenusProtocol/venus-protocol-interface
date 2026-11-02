@@ -1064,7 +1064,6 @@
       "backToAssets": "กลับไปที่สินทรัพย์ {{mode}}",
       "backToMarkets": "กลับไปที่ตลาดของ {{symbol}}"
     },
-    "collateralAriaLabel": "เปิดฟอร์มหลักประกัน {{symbol}}",
     "columns": {
       "apy": "APY",
       "asset": "สินทรัพย์",
@@ -1079,11 +1078,8 @@
     "description": "การฝากและกู้ยืมที่เรียบง่ายแต่ทรงพลัง สำหรับทุกกลยุทธ์ผลตอบแทน DeFi",
     "filters": {
       "allCategories": "ทุกหมวดหมู่",
-      "allLoanAssets": "สินทรัพย์ที่ยืมได้ทั้งหมด",
       "category": "หมวดหมู่",
       "categoryCount_other": "{{count}} หมวดหมู่",
-      "loanAssetCount_other": "{{count}} สินทรัพย์ที่ยืมได้",
-      "loanAssets": "สินทรัพย์ที่ยืมได้",
       "reset": "รีเซ็ต",
       "searchAsset": "ค้นหาสินทรัพย์",
       "searchAssetAriaLabel": "ค้นหาสินทรัพย์"

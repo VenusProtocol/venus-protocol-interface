@@ -1064,7 +1064,6 @@
       "backToAssets": "Quay lại tài sản {{mode}}",
       "backToMarkets": "Quay lại thị trường {{symbol}}"
     },
-    "collateralAriaLabel": "Mở biểu mẫu tài sản thế chấp {{symbol}}",
     "columns": {
       "apy": "APY",
       "asset": "Tài sản",
@@ -1079,11 +1078,8 @@
     "description": "Cho vay và đi vay đơn giản nhưng mạnh mẽ cho mọi chiến lược lợi nhuận DeFi.",
     "filters": {
       "allCategories": "Tất cả danh mục",
-      "allLoanAssets": "Tất cả tài sản vay",
       "category": "Danh mục",
       "categoryCount_other": "{{count}} danh mục",
-      "loanAssetCount_other": "{{count}} tài sản vay",
-      "loanAssets": "Tài sản vay",
       "reset": "Đặt lại",
       "searchAsset": "Tìm tài sản",
       "searchAssetAriaLabel": "Tìm tài sản"

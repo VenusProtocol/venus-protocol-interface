@@ -36,9 +36,7 @@ export const aggregateBorrowAssets = ({
     assetsByToken.set(key, borrowAsset);
   };
 
-  const coreCollateralTokens = assets
-    .filter(asset => asset.collateralFactor > 0)
-    .map(asset => asset.vToken.underlyingToken);
+  const coreCollaterals = assets.filter(asset => asset.collateralFactor > 0);
 
   assets.filter(isBorrowableAsset).forEach(asset =>
     addMarket({
@@ -46,25 +44,21 @@ export const aggregateBorrowAssets = ({
       market: toBorrowMarket({
         asset,
         id: asset.vToken.address,
-        source: { type: 'core', asset },
-        collateralTokens: coreCollateralTokens,
+        source: { type: 'core', asset, collaterals: coreCollaterals },
       }),
     }),
   );
 
   spokePools.forEach(spokePool => {
-    const collateralTokens = spokePool.assets
-      .filter(spokeAsset => !spokeAsset.isBorrowable)
-      .map(spokeAsset => spokeAsset.vToken.underlyingToken);
+    const collaterals = spokePool.assets.filter(spokeAsset => !spokeAsset.isBorrowable);
 
     spokePool.assets.filter(isBorrowableAsset).forEach(spokeAsset =>
       addMarket({
         token: spokeAsset.vToken.underlyingToken,
         market: toBorrowMarket({
-          collateralTokens,
           asset: spokeAsset,
           id: `${spokePool.comptrollerAddress}:${spokeAsset.vToken.address}`,
-          source: { type: 'spoke', pool: spokePool, asset: spokeAsset },
+          source: { type: 'spoke', pool: spokePool, asset: spokeAsset, collaterals },
         }),
       }),
     );

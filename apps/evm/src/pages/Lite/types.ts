@@ -27,8 +27,8 @@ export interface LiteEarnAsset {
 }
 
 export type LiteBorrowSource =
-  | { type: 'core'; asset: Asset }
-  | { type: 'spoke'; pool: SpokePool; asset: SpokeAsset };
+  | { type: 'core'; asset: Asset; collaterals: Asset[] }
+  | { type: 'spoke'; pool: SpokePool; asset: SpokeAsset; collaterals: SpokeAsset[] };
 
 export interface LiteBorrowMarket {
   id: string;
@@ -38,7 +38,6 @@ export interface LiteBorrowMarket {
   borrowCents: BigNumber;
   liquidityTokens: BigNumber;
   liquidityCents: BigNumber;
-  collateralTokens: Token[];
 }
 
 export interface LiteBorrowAsset {
@@ -50,3 +49,5 @@ export interface LiteBorrowAsset {
   liquidityTokens: BigNumber;
   liquidityCents: BigNumber;
 }
+
+export type MarketMode = 'earn' | 'borrow';

@@ -1065,7 +1065,6 @@
       "backToAssets": "Back to {{mode}} assets",
       "backToMarkets": "Back to {{symbol}} markets"
     },
-    "collateralAriaLabel": "Open the {{symbol}} collateral form",
     "columns": {
       "apy": "APY",
       "asset": "Asset",
@@ -1079,14 +1078,10 @@
     },
     "description": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
     "filters": {
-      "allCategories": "All Categories",
-      "allLoanAssets": "All loan assets",
+      "allCategories": "All categories",
       "category": "Category",
       "categoryCount_one": "{{count}} category",
       "categoryCount_other": "{{count}} categories",
-      "loanAssetCount_one": "{{count}} loan asset",
-      "loanAssetCount_other": "{{count}} loan assets",
-      "loanAssets": "Loan assets",
       "reset": "Reset",
       "searchAsset": "Search asset",
       "searchAssetAriaLabel": "Search assets"

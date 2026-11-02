@@ -35,6 +35,7 @@ export function Table<R>({
   breakpoint,
   isFetching,
   size = 'md',
+  stickyHeader = false,
   header,
   placeholder,
   selectVariant,
@@ -91,13 +92,32 @@ export function Table<R>({
     <Card
       className={cn(
         'p-0',
+        variant === 'primary' && 'bg-background-active',
         breakpoint && 'border-0 bg-transparent',
-        breakpoint === 'xs' && 'xs:border xs:border-dark-blue-hover',
-        breakpoint === 'sm' && 'sm:border sm:border-dark-blue-hover',
-        breakpoint === 'md' && 'md:border md:border-dark-blue-hover',
-        breakpoint === 'lg' && 'lg:border lg:border-dark-blue-hover',
-        breakpoint === 'xl' && 'xl:border xl:border-dark-blue-hover',
-        breakpoint === '2xl' && '2xl:border 2xl:border-dark-blue-hover',
+        breakpoint === 'xs' && [
+          'xs:border xs:border-dark-blue-hover',
+          variant === 'primary' && 'xs:bg-background-active',
+        ],
+        breakpoint === 'sm' && [
+          'sm:border sm:border-dark-blue-hover',
+          variant === 'primary' && 'sm:bg-background-active',
+        ],
+        breakpoint === 'md' && [
+          'md:border md:border-dark-blue-hover',
+          variant === 'primary' && 'md:bg-background-active',
+        ],
+        breakpoint === 'lg' && [
+          'lg:border lg:border-dark-blue-hover',
+          variant === 'primary' && 'lg:bg-background-active',
+        ],
+        breakpoint === 'xl' && [
+          'xl:border xl:border-dark-blue-hover',
+          variant === 'primary' && 'xl:bg-background-active',
+        ],
+        breakpoint === '2xl' && [
+          '2xl:border 2xl:border-dark-blue-hover',
+          variant === 'primary' && '2xl:bg-background-active',
+        ],
         className,
       )}
       {...otherProps}
@@ -165,6 +185,8 @@ export function Table<R>({
                 )}
                 controls={controls}
                 columns={columns}
+                isCompact={size === 'compact'}
+                isSticky={stickyHeader}
                 orderBy={order?.orderBy}
                 orderDirection={order?.orderDirection}
                 onRequestOrder={onRequestOrder}
@@ -194,7 +216,8 @@ export function Table<R>({
                     <Fragment key={rowKey}>
                       <TableRow
                         className={cn(
-                          'h-18 text-white hover:bg-background-hover hover:no-underline',
+                          'text-white hover:no-underline',
+                          size === 'compact' ? 'group h-15' : 'h-18 hover:bg-background-hover',
                           isRowClickable && 'cursor-pointer',
                           tableRowClassName,
                           getRowClassName?.(row),
@@ -228,6 +251,8 @@ export function Table<R>({
                             <TableCell
                               className={cn(
                                 'overflow-hidden text-ellipsis',
+                                size === 'compact' &&
+                                  'bg-size-[100%_calc(100%-8px)] bg-center bg-no-repeat px-3 py-2 group-hover:bg-row-hover max-md:text-base md:px-6 md:py-0',
                                 variant === 'secondary' && column === columns[0] && 'rounded-l-lg',
                                 variant === 'secondary' &&
                                   !renderRowControl &&

@@ -17,7 +17,7 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
   header,
 }) => {
   const { t } = useTranslation();
-  const { buildAmountColumn, buildApyColumn, isMobile } = useMarketColumns();
+  const { buildAmountColumn, buildApyColumn, getTableProps } = useMarketColumns();
   const getMarketName = useMarketName();
 
   const columns: TableColumn<LiteEarnMarket>[] = [
@@ -31,7 +31,7 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
         <button
           type="button"
           onClick={() => onSelect(market)}
-          className="cursor-pointer text-left font-normal text-white hover:text-blue focus-visible:outline-2 focus-visible:outline-blue"
+          className="cursor-pointer text-left font-normal text-white group-hover:font-bold hover:text-blue focus-visible:outline-2 focus-visible:outline-blue max-md:min-h-11"
         >
           {getMarketName(market)}
         </button>
@@ -61,15 +61,11 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
 
   return (
     <Table
-      className="lite-table"
       data={earnAsset.markets}
-      columns={isMobile ? columns.slice(0, 2) : columns}
+      {...getTableProps({ columns, columnWidths: ['25%', '25%', '25%', '25%'] })}
       rowKeyExtractor={market => market.id}
       rowOnClick={(_event, market) => onSelect(market)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'desc' }}
-      tableLayout="auto"
-      breakpoint={isMobile ? undefined : 'md'}
-      hideCardDelimiter
       header={header}
       placeholder={t('lite.placeholders.noMarkets')}
     />

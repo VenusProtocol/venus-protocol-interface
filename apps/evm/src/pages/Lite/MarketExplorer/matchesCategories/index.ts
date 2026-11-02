@@ -1,19 +1,19 @@
-import type { LiteEarnAsset } from '../../types';
+import type { LiteBorrowSource, LiteEarnMarketSource } from '../../types';
 
 const OTHERS_CATEGORY_TAG = 'others';
 
 export const matchesCategories = ({
-  earnAsset,
+  markets,
   selectedCategories,
 }: {
-  earnAsset: LiteEarnAsset;
+  markets: { source: LiteEarnMarketSource | LiteBorrowSource }[];
   selectedCategories: string[];
 }) => {
   if (selectedCategories.length === 0) {
     return true;
   }
 
-  const tags = earnAsset.markets.flatMap(market =>
+  const tags = markets.flatMap(market =>
     market.source.type === 'core' && market.source.asset.marketCategory
       ? [market.source.asset.marketCategory.tag]
       : [],

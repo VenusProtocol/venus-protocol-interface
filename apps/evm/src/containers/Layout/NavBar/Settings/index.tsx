@@ -9,7 +9,7 @@ const gasLessTransactionsChainIds = featureFlags.gaslessTransactions.filter(chai
 );
 
 export const Settings: React.FC = () => (
-  <div className="space-y-6">
+  <div className="flex flex-col gap-y-3 [&>*]:min-h-12">
     <ThemeSetting />
 
     <LanguageSetting />

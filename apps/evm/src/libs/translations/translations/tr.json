@@ -1065,7 +1065,6 @@
       "backToAssets": "{{mode}} varlıklarına dön",
       "backToMarkets": "{{symbol}} piyasalarına dön"
     },
-    "collateralAriaLabel": "{{symbol}} teminat formunu aç",
     "columns": {
       "apy": "APY",
       "asset": "Varlık",
@@ -1080,13 +1079,9 @@
     "description": "Her DeFi getiri stratejisi için basit ama güçlü borç verme ve borç alma.",
     "filters": {
       "allCategories": "Tüm Kategoriler",
-      "allLoanAssets": "Tüm borç varlıkları",
       "category": "Kategori",
       "categoryCount_one": "{{count}} kategori",
       "categoryCount_other": "{{count}} kategori",
-      "loanAssetCount_one": "{{count}} borç varlığı",
-      "loanAssetCount_other": "{{count}} borç varlığı",
-      "loanAssets": "Borç varlıkları",
       "reset": "Sıfırla",
       "searchAsset": "Varlık ara",
       "searchAssetAriaLabel": "Varlık ara"

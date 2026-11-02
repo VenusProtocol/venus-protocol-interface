@@ -1064,7 +1064,6 @@
       "backToAssets": "{{mode}} の資産一覧に戻る",
       "backToMarkets": "{{symbol}} のマーケット一覧に戻る"
     },
-    "collateralAriaLabel": "{{symbol}} の担保フォームを開く",
     "columns": {
       "apy": "APY",
       "asset": "資産",
@@ -1079,11 +1078,8 @@
     "description": "あらゆる DeFi 利回り戦略に対応する、シンプルかつ強力なレンディングとボローイング。",
     "filters": {
       "allCategories": "すべてのカテゴリー",
-      "allLoanAssets": "すべての借入資産",
       "category": "カテゴリー",
       "categoryCount_other": "{{count}} 件のカテゴリー",
-      "loanAssetCount_other": "{{count}} 件の借入資産",
-      "loanAssets": "借入資産",
       "reset": "リセット",
       "searchAsset": "資産を検索",
       "searchAssetAriaLabel": "資産を検索"
