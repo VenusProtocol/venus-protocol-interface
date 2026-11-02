@@ -109,7 +109,6 @@
     },
     "tabs": {
       "hubs": "Trung tâm",
-      "markets": "Thị trường",
       "settings": "Cài đặt",
       "transactions": "Giao dịch",
       "vaults": "Kho"
@@ -582,6 +581,8 @@
       "todaysChange": "Biến động hôm nay"
     },
     "performanceChart": {
+      "balancesHidden": "Số dư đã được ẩn",
+      "connectWallet": "Kết nối ví để xem hiệu suất",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },

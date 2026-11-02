@@ -109,7 +109,6 @@
     },
     "tabs": {
       "hubs": "中心",
-      "markets": "市場",
       "settings": "設定",
       "transactions": "交易",
       "vaults": "金庫"
@@ -582,6 +581,8 @@
       "todaysChange": "今日變化"
     },
     "performanceChart": {
+      "balancesHidden": "餘額已隱藏",
+      "connectWallet": "連接錢包以查看收益表現",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },

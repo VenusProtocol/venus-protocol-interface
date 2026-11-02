@@ -18,18 +18,20 @@ const CORE_CHOICE_ID = 'core';
 const HUB_CHOICE_ID = 'hub';
 const VAULTS_CHOICE_ID = 'vaults';
 
-export interface LitePositionsProps {
+export interface PoolPositionsProps {
   pool?: Pool;
   liquidityHubs: LiquidityHub[];
   vaults: Vault[];
+  isPoolLoading: boolean;
   isHubsLoading: boolean;
   isVaultsLoading: boolean;
 }
 
-export const LitePositions: React.FC<LitePositionsProps> = ({
+export const PoolPositions: React.FC<PoolPositionsProps> = ({
   pool,
   liquidityHubs,
   vaults,
+  isPoolLoading,
   isHubsLoading,
   isVaultsLoading,
 }) => {
@@ -40,10 +42,13 @@ export const LitePositions: React.FC<LitePositionsProps> = ({
   const isLiquidityHubEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
   const [selectedId, setSelectedId] = useState<string>();
 
-  const { data: getSpokePoolsData } = useGetSpokePools(
-    { accountAddress },
-    { enabled: !!accountAddress },
-  );
+  const {
+    data: getSpokePoolsData,
+    isLoading: isGetSpokePoolsLoading,
+    errorUpdateCount: getSpokePoolsErrorCount,
+  } = useGetSpokePools({ accountAddress }, { enabled: !!accountAddress });
+
+  const isLoading = isPoolLoading || (isGetSpokePoolsLoading && getSpokePoolsErrorCount === 0);
 
   const spokePoolsWithPositions =
     isSpokeEnabled && accountAddress
@@ -138,15 +143,19 @@ export const LitePositions: React.FC<LitePositionsProps> = ({
     <section aria-label={t('account.positions.label')} className="flex flex-col gap-6">
       <IsolatedPoolsDeprecationNotice />
 
-      <h2 className="text-p1s">{t('account.positions.label')}</h2>
+      <div className="flex flex-col gap-3">
+        <h2 className="text-p1s">{t('account.positions.label')}</h2>
 
-      <PoolPills
-        pools={choices.map(({ id, name, healthFactor }) => ({ id, name, healthFactor }))}
-        selectedPoolId={active.id}
-        onChange={setSelectedId}
-      />
+        {!isLoading && (
+          <PoolPills
+            pools={choices.map(({ id, name, healthFactor }) => ({ id, name, healthFactor }))}
+            selectedPoolId={active.id}
+            onChange={setSelectedId}
+          />
+        )}
+      </div>
 
-      {active.content}
+      {isLoading ? <Spinner /> : active.content}
     </section>
   );
 };

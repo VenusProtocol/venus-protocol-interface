@@ -109,7 +109,6 @@
     },
     "tabs": {
       "hubs": "ศูนย์",
-      "markets": "ตลาด",
       "settings": "การตั้งค่า",
       "transactions": "ธุรกรรม",
       "vaults": "คลัง"
@@ -582,6 +581,8 @@
       "todaysChange": "การเปลี่ยนแปลงวันนี้"
     },
     "performanceChart": {
+      "balancesHidden": "ซ่อนยอดคงเหลือแล้ว",
+      "connectWallet": "เชื่อมต่อวอลเล็ตเพื่อดูผลการดำเนินงาน",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },

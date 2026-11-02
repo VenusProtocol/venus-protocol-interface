@@ -109,7 +109,6 @@
     },
     "tabs": {
       "hubs": "Merkezler",
-      "markets": "Piyasalar",
       "settings": "Ayarlar",
       "transactions": "İşlemler",
       "vaults": "Kasalar"
@@ -583,6 +582,8 @@
       "todaysChange": "Bugünün değişimi"
     },
     "performanceChart": {
+      "balancesHidden": "Bakiyeler gizli",
+      "connectWallet": "Performansı görmek için cüzdanınızı bağlayın",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },

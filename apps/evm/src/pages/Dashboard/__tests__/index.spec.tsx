@@ -1,4 +1,4 @@
-import { waitFor } from '@testing-library/react';
+import { waitFor, within } from '@testing-library/react';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { useGetSpokePools } from 'clients/api';
@@ -30,11 +30,17 @@ describe('Dashboard', () => {
       ({ name }: UseIsFeatureEnabledInput) => name === 'liquidityHub',
     );
 
-    const { getByText } = renderComponent(<Dashboard />, {
+    const { getByRole } = renderComponent(<Dashboard />, {
       accountAddress: fakeAccountAddress,
     });
 
-    await waitFor(() => expect(getByText(en.account.tabs.hubs)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(
+        within(getByRole('group', { name: en.account.positions.label })).getByText(
+          en.account.tabs.hubs,
+        ),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('shows the Markets tab spinner until the Spoke positions are loaded', async () => {

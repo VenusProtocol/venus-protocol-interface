@@ -109,7 +109,6 @@
     },
     "tabs": {
       "hubs": "Hubs",
-      "markets": "Markets",
       "settings": "Settings",
       "transactions": "Transactions",
       "vaults": "Vaults"
@@ -583,6 +582,8 @@
       "todaysChange": "Today's change"
     },
     "performanceChart": {
+      "balancesHidden": "Balances hidden",
+      "connectWallet": "Connect wallet to view performance",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },

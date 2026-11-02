@@ -109,7 +109,6 @@
     },
     "tabs": {
       "hubs": "ハブ",
-      "markets": "マーケット",
       "settings": "設定",
       "transactions": "取引",
       "vaults": "ボールト"
@@ -582,6 +581,8 @@
       "todaysChange": "本日の変化"
     },
     "performanceChart": {
+      "balancesHidden": "残高は非表示です",
+      "connectWallet": "ウォレットを接続してパフォーマンスを表示",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
