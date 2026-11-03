@@ -19,17 +19,6 @@ export const getAccountPerformanceHistory = async ({
   const nowMs = Date.now();
   const startOfDayMs = startOfDay(new Date(nowMs)).getTime();
 
-  const getNetWorth = (timestampMs: number | 'now') =>
-    restService<AccountPerformanceHistoryApiResponse>({
-      endpoint: `/account/${accountAddress}/net-worth`,
-      method: 'GET',
-      params: {
-        chainId,
-        timestampsMs: JSON.stringify([timestampMs]),
-      },
-    });
-
-  // The past point is requested on its own so the browser can cache it
   const [performanceHistory, netWorthStartOfDay, netWorthNow] = await Promise.all([
     restService<AccountPerformanceHistoryApiResponse>({
       endpoint: `/account/${accountAddress}/performance`,
@@ -39,8 +28,23 @@ export const getAccountPerformanceHistory = async ({
         period,
       },
     }),
-    getNetWorth(startOfDayMs),
-    getNetWorth('now'),
+    // Requested alone so the browser can cache it
+    restService<AccountPerformanceHistoryApiResponse>({
+      endpoint: `/account/${accountAddress}/net-worth`,
+      method: 'GET',
+      params: {
+        chainId,
+        timestampsMs: JSON.stringify([startOfDayMs]),
+      },
+    }),
+    restService<AccountPerformanceHistoryApiResponse>({
+      endpoint: `/account/${accountAddress}/net-worth`,
+      method: 'GET',
+      params: {
+        chainId,
+        timestampsMs: JSON.stringify(['now']),
+      },
+    }),
   ]);
 
   if (performanceHistory.data && 'error' in performanceHistory.data) {
