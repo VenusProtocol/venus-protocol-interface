@@ -174,6 +174,21 @@ describe('getAccountPerformanceHistory', () => {
     expect(response.startOfDayNetWorthCents).toBeUndefined();
   });
 
+  it('requests the start of day point on its own, so the response can be cached', async () => {
+    (restService as Mock).mockResolvedValue({ data: { performanceDataPoints: [] } });
+
+    await getAccountPerformanceHistory(fakeInput);
+
+    const netWorthTimestamps = (restService as Mock).mock.calls
+      .filter(([{ endpoint }]) => endpoint.endsWith('/net-worth'))
+      .map(([{ params }]) => params.timestampsMs);
+
+    expect(netWorthTimestamps).toEqual([
+      JSON.stringify([startOfDay(FAKE_NOW).getTime()]),
+      JSON.stringify(['now']),
+    ]);
+  });
+
   it('throws on error in payload', async () => {
     (restService as Mock).mockResolvedValue({ data: { error: 'Some error' } });
 

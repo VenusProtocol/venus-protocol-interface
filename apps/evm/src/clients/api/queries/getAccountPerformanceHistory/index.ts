@@ -19,7 +19,18 @@ export const getAccountPerformanceHistory = async ({
   const nowMs = Date.now();
   const startOfDayMs = startOfDay(new Date(nowMs)).getTime();
 
-  const [performanceHistory, netWorthToday] = await Promise.all([
+  const getNetWorth = (timestampMs: number | 'now') =>
+    restService<AccountPerformanceHistoryApiResponse>({
+      endpoint: `/account/${accountAddress}/net-worth`,
+      method: 'GET',
+      params: {
+        chainId,
+        timestampsMs: JSON.stringify([timestampMs]),
+      },
+    });
+
+  // The past point is requested on its own so the browser can cache it
+  const [performanceHistory, netWorthStartOfDay, netWorthNow] = await Promise.all([
     restService<AccountPerformanceHistoryApiResponse>({
       endpoint: `/account/${accountAddress}/performance`,
       method: 'GET',
@@ -28,14 +39,8 @@ export const getAccountPerformanceHistory = async ({
         period,
       },
     }),
-    restService<AccountPerformanceHistoryApiResponse>({
-      endpoint: `/account/${accountAddress}/net-worth`,
-      method: 'GET',
-      params: {
-        chainId,
-        timestampsMs: JSON.stringify([startOfDayMs, 'now']),
-      },
-    }),
+    getNetWorth(startOfDayMs),
+    getNetWorth('now'),
   ]);
 
   if (performanceHistory.data && 'error' in performanceHistory.data) {
@@ -46,15 +51,23 @@ export const getAccountPerformanceHistory = async ({
     });
   }
 
-  if (netWorthToday.data && 'error' in netWorthToday.data) {
+  if (netWorthStartOfDay.data && 'error' in netWorthStartOfDay.data) {
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
-      data: { exception: netWorthToday.data.error },
+      data: { exception: netWorthStartOfDay.data.error },
     });
   }
 
-  if (!performanceHistory.data || !netWorthToday.data) {
+  if (netWorthNow.data && 'error' in netWorthNow.data) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: { exception: netWorthNow.data.error },
+    });
+  }
+
+  if (!performanceHistory.data || !netWorthStartOfDay.data || !netWorthNow.data) {
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
@@ -63,7 +76,10 @@ export const getAccountPerformanceHistory = async ({
   });
 
   const netWorthDataPoints = formatDataPoints({
-    dataPoints: netWorthToday.data.performanceDataPoints,
+    dataPoints: [
+      ...netWorthStartOfDay.data.performanceDataPoints,
+      ...netWorthNow.data.performanceDataPoints,
+    ],
   });
 
   const startOfDayDataPoint = netWorthDataPoints.find(dataPoint =>
