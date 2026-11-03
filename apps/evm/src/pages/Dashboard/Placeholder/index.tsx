@@ -36,7 +36,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
         {!!to && (
           <ConnectWallet buttonSize={buttonSize} className="mt-5 w-fit">
             <ButtonWrapper className="text-white hover:no-underline" size={buttonSize} asChild>
-              <Link to={to} onClick={onButtonClick}>
+              <Link noStyle to={to} onClick={onButtonClick}>
                 {t('account.placeholder.buttonLabel')}
               </Link>
             </ButtonWrapper>

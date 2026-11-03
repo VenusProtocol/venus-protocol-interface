@@ -10,7 +10,10 @@ export const Card: React.FC<CardProps> = ({ className, asChild = false, ...other
 
   return (
     <Comp
-      className={cn('block w-full rounded-lg p-4 border border-dark-blue-hover', className)}
+      className={cn(
+        'block w-full rounded-lg p-4 border border-dark-blue-hover bg-background-active',
+        className,
+      )}
       {...otherProps}
     />
   );
