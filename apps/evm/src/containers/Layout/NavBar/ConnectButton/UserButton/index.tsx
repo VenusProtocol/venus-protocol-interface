@@ -18,6 +18,7 @@ export const UserButton: React.FC<UserButtonProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
+  const compactAddress = `${address.slice(0, 2)}...${address.slice(-2)}`;
 
   return (
     <button
@@ -56,9 +57,7 @@ export const UserButton: React.FC<UserButtonProps> = ({
             : ({ innerContent }) => (
                 <>
                   <span className="max-sm:hidden">{innerContent}</span>
-                  <span className="sm:hidden">{`${address.slice(0, 2)}...${address.slice(
-                    -2,
-                  )}`}</span>
+                  <span className="sm:hidden">{compactAddress}</span>
                 </>
               )}
         </Username>

@@ -110,10 +110,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           <ClaimRewardsButton className="h-full max-sm:px-2" data-rewards-button="true" />
 
           {!isLite && (
-            <ChainSelect
-              className="hidden md:block"
-              buttonClassName="h-10 px-3 py-0 bg-dark-blue border-dark-blue-disabled/50 hover:bg-dark-blue-hover hover:border-dark-blue-disabled/50 hover:no-underline active:bg-dark-blue-hover sm:h-12"
-            />
+            <ChainSelect className="hidden md:block" buttonClassName="h-10 px-3 py-0 sm:h-12" />
           )}
 
           <ConnectButton />

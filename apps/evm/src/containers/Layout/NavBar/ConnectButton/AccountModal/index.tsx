@@ -51,10 +51,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-x-2 md:gap-x-3">
                   {!isLite && (
-                    <ChainSelect
-                      className="md:hidden"
-                      buttonClassName="h-12 px-3 py-0 bg-dark-blue border-dark-blue-disabled/50 hover:bg-dark-blue-hover hover:border-dark-blue-disabled/50 hover:no-underline active:bg-dark-blue-hover"
-                    />
+                    <ChainSelect className="md:hidden" buttonClassName="h-12 px-3 py-0" />
                   )}
 
                   <UserButton address={address} isPrime={isPrime} disabled className="h-12" />
