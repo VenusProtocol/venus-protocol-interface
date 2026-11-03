@@ -7,7 +7,7 @@ export const useProModeOnProRoutes = () => {
   const setMode = useStore(state => state.setMode);
 
   useEffect(() => {
-    if (!SHARED_PATHNAMES.includes(pathname)) {
+    if (!SHARED_PATHNAMES.includes(pathname.replace(/\/$/, '') || '/')) {
       setMode('pro');
     }
   }, [pathname, setMode]);

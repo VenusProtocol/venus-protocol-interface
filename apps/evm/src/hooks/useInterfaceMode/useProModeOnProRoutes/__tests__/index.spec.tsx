@@ -11,14 +11,17 @@ describe('useProModeOnProRoutes', () => {
     act(() => useStore.getState().setMode('lite'));
   });
 
-  it.each(['/', routes.dashboard.path])('keeps Lite on %s', pathname => {
-    renderHook(() => useProModeOnProRoutes(), {
-      routerInitialEntries: [pathname],
-      routePath: '*',
-    });
+  it.each(['/', routes.dashboard.path, `${routes.dashboard.path}/`])(
+    'keeps Lite on %s',
+    pathname => {
+      renderHook(() => useProModeOnProRoutes(), {
+        routerInitialEntries: [pathname],
+        routePath: '*',
+      });
 
-    expect(useStore.getState().mode).toBe('lite');
-  });
+      expect(useStore.getState().mode).toBe('lite');
+    },
+  );
 
   it.each([routes.primeLeaderboard.path, '/markets/0x94d1820b2D1c7c7452A163983Dc888CEC546b77D'])(
     'switches to Pro on %s',

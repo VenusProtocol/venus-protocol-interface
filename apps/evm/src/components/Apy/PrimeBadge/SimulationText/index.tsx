@@ -1,5 +1,6 @@
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { PrimeSimulationDistribution, Token } from 'types';
@@ -19,6 +20,7 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
   isLiquidityHub = false,
 }) => {
   const { t, Trans } = useTranslation();
+  const isPrimeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -31,7 +33,11 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
   });
 
   const components = {
-    PrimeLink: <Link to={routes.primeLeaderboard.path} onClick={e => e.stopPropagation()} />,
+    PrimeLink: isPrimeLeaderboardEnabled ? (
+      <Link to={routes.primeLeaderboard.path} onClick={e => e.stopPropagation()} />
+    ) : (
+      <span />
+    ),
   };
 
   if (type === 'supply') {
