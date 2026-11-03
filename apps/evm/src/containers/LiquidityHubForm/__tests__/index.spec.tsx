@@ -126,6 +126,27 @@ describe('LiquidityHubForm', () => {
     expect(getAmountInput().value).toBe('');
   });
 
+  it('clears the withdrawn amount and keeps the withdraw tab when another Hub is opened', () => {
+    const { rerender } = renderLiquidityHubForm();
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: en.liquidityHubForm.withdrawTabTitle,
+      }),
+    );
+
+    const getAmountInput = () =>
+      document.querySelector('input[name="amountTokens"]') as HTMLInputElement;
+
+    fireEvent.change(getAmountInput(), { target: { value: '9' } });
+    expect(getAmountInput().value).toBe('9');
+
+    rerender(<LiquidityHubForm vhToken={liquidityHubs[1].vhToken} />);
+
+    expect(getAmountInput().value).toBe('');
+    expectWithdrawFormToBeRendered();
+  });
+
   it('renders the withdraw form after switching to the withdraw tab', () => {
     renderLiquidityHubForm();
 
