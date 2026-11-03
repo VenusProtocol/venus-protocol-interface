@@ -3,10 +3,9 @@ import { fireEvent } from '@testing-library/react';
 import { PrimaryButton } from 'components';
 import { renderComponent } from 'testUtils/render';
 
-const clickAt = (element: HTMLElement, timeStamp: number) => {
-  const event = new MouseEvent('click', { bubbles: true, cancelable: true });
-  Object.defineProperty(event, 'timeStamp', { value: timeStamp });
-  fireEvent(element, event);
+const clickAt = (element: HTMLElement, nowMs: number) => {
+  vi.spyOn(performance, 'now').mockReturnValue(nowMs);
+  fireEvent.click(element);
 };
 
 const renderSubmitButton = () => {
@@ -22,6 +21,10 @@ const renderSubmitButton = () => {
 };
 
 describe('submit button', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it('submits the form on a single click', () => {
     const { onSubmit, button } = renderSubmitButton();
 
@@ -47,6 +50,25 @@ describe('submit button', () => {
     clickAt(button, 1600);
 
     expect(onSubmit).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps submitting when the clock goes backwards', () => {
+    const { onSubmit, button } = renderSubmitButton();
+
+    clickAt(button, 1000);
+    clickAt(button, 900);
+
+    expect(onSubmit).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps submitting when the clock cannot be read', () => {
+    const { onSubmit, button } = renderSubmitButton();
+
+    clickAt(button, Number.NaN);
+    clickAt(button, Number.NaN);
+    clickAt(button, Number.NaN);
+
+    expect(onSubmit).toHaveBeenCalledTimes(3);
   });
 
   it('does not limit clicks on buttons that do not submit a form', () => {

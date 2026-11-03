@@ -94,22 +94,20 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
 }) => {
   const Comp = asChild ? Slot : 'button';
 
-  const lastSubmitClickTimestampRef = useRef<number>(undefined);
+  const lastSubmitClickMsRef = useRef<number>(undefined);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (type === 'submit') {
-      const lastSubmitClickTimestamp = lastSubmitClickTimestampRef.current;
+      const nowMs = performance.now();
+      const elapsedMs = nowMs - (lastSubmitClickMsRef.current ?? Number.NEGATIVE_INFINITY);
 
       // A second click lands before the form's pending state disables the button
-      if (
-        lastSubmitClickTimestamp !== undefined &&
-        event.timeStamp - lastSubmitClickTimestamp < SUBMIT_REPEAT_CLICK_WINDOW_MS
-      ) {
+      if (elapsedMs >= 0 && elapsedMs < SUBMIT_REPEAT_CLICK_WINDOW_MS) {
         event.preventDefault();
         return;
       }
 
-      lastSubmitClickTimestampRef.current = event.timeStamp;
+      lastSubmitClickMsRef.current = nowMs;
     }
 
     onClick?.(event);
