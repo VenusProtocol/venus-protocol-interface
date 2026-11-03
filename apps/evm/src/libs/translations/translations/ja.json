@@ -299,10 +299,10 @@
       "tooltip": {
         "calculatorLink": "Prime報酬を計算",
         "liquidityHubCorePoolBoost": "このブーストはCoreプールから支払われ、二重には支払われません。",
-        "primeBorrowSimulation": "<PrimeLink>Prime</PrimeLink>により、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeBorrowSimulation": "<PrimeLink>Primeプログラム</PrimeLink>により、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
         "primeDocLink": "詳細を見る",
         "primeMarket": "PrimeによりAPYがブーストされます。",
-        "primeSupplySimulation": "<PrimeLink>Prime</PrimeLink>により、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
+        "primeSupplySimulation": "<PrimeLink>Primeプログラム</PrimeLink>により、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
       }
     }
   },

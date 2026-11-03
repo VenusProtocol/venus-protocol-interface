@@ -299,10 +299,10 @@
       "tooltip": {
         "calculatorLink": "คำนวณรางวัล Prime ของคุณ",
         "liquidityHubCorePoolBoost": "การบูสต์นี้มาจาก Core pool และไม่จ่ายซ้ำสองครั้ง",
-        "primeBorrowSimulation": "APY ถูกบูสต์ด้วย <PrimeLink>Prime</PrimeLink> โดยอิงจากการยืมค่าเฉลี่ยของผู้ใช้ {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
+        "primeBorrowSimulation": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากการยืมค่าเฉลี่ยของผู้ใช้ {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
         "primeDocLink": "เรียนรู้เพิ่มเติม",
         "primeMarket": "APY ถูกบูสต์ด้วย Prime.",
-        "primeSupplySimulation": "APY ถูกบูสต์ด้วย <PrimeLink>Prime</PrimeLink> โดยอิงจากยอดฝากค่าเฉลี่ยของผู้ใช้ {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}}."
+        "primeSupplySimulation": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากยอดฝากค่าเฉลี่ยของผู้ใช้ {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}}."
       }
     }
   },

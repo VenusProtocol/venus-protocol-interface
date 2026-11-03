@@ -299,10 +299,10 @@
       "tooltip": {
         "calculatorLink": "計算你的 Prime 獎勵",
         "liquidityHubCorePoolBoost": "該加成來自 Core 池，不會重複發放。",
-        "primeBorrowSimulation": "<PrimeLink>Prime</PrimeLink> 加成基於用戶借款平均值 {{borrowBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。",
+        "primeBorrowSimulation": "<PrimeLink>Prime 計劃</PrimeLink> 加成基於用戶借款平均值 {{borrowBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。",
         "primeDocLink": "瞭解更多",
         "primeMarket": "Prime 提升 APY。",
-        "primeSupplySimulation": "<PrimeLink>Prime</PrimeLink> 加成基於用戶供應平均值 {{supplyBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。"
+        "primeSupplySimulation": "<PrimeLink>Prime 計劃</PrimeLink> 加成基於用戶供應平均值 {{supplyBalance}} 與金庫存入 {{xvsStaked}} 提升 APY。"
       }
     }
   },
