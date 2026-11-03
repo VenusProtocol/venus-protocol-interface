@@ -1,8 +1,11 @@
 import { Slot } from '@radix-ui/react-slot';
+import { useRef } from 'react';
 
 import { cn } from '../../utilities/cn';
 
 import { Spinner } from '@venusprotocol/ui';
+
+const SUBMIT_REPEAT_CLICK_WINDOW_MS = 500;
 
 export type ButtonVariant =
   | 'primary'
@@ -86,9 +89,31 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   rounded = false,
   className,
   type = 'button',
+  onClick,
   ...otherProps
 }) => {
   const Comp = asChild ? Slot : 'button';
+
+  const lastSubmitClickTimestampRef = useRef<number>(undefined);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (type === 'submit') {
+      const lastSubmitClickTimestamp = lastSubmitClickTimestampRef.current;
+
+      // A second click lands before the form's pending state disables the button
+      if (
+        lastSubmitClickTimestamp !== undefined &&
+        event.timeStamp - lastSubmitClickTimestamp < SUBMIT_REPEAT_CLICK_WINDOW_MS
+      ) {
+        event.preventDefault();
+        return;
+      }
+
+      lastSubmitClickTimestampRef.current = event.timeStamp;
+    }
+
+    onClick?.(event);
+  };
 
   return (
     <Comp
@@ -102,6 +127,7 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
         className,
       )}
       type={type}
+      onClick={handleClick}
       {...otherProps}
     />
   );
