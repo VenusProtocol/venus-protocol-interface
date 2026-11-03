@@ -2,6 +2,8 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useEffect } from 'react';
 import { useStore } from './store';
 
+export { useProModeOnProRoutes } from './useProModeOnProRoutes';
+
 export const useInterfaceMode = () => {
   const storedMode = useStore(state => state.mode);
   const setMode = useStore(state => state.setMode);

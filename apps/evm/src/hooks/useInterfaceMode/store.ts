@@ -5,7 +5,7 @@ import { getEntryPathname } from './getEntryPathname';
 
 export type InterfaceMode = 'lite' | 'pro';
 
-const SHARED_PATHNAMES = ['/', routes.dashboard.path];
+export const SHARED_PATHNAMES = ['/', routes.dashboard.path];
 
 interface State {
   mode: InterfaceMode;

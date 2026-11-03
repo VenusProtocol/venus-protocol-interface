@@ -1,4 +1,4 @@
-import { TokenIcon } from 'components';
+import { ProtectionModeIndicator, TokenIcon } from 'components';
 import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
 import { MarketFormModal as CoreMarketFormModal } from 'containers/MarketFormModal';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
@@ -33,6 +33,14 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({ market, mode, 
 
   const title = (
     <span className="inline-flex items-center gap-x-2">
+      {source.type === 'core' && source.asset.isProtectionModeEnabled && (
+        <ProtectionModeIndicator
+          variant="icon"
+          tokenName={token.symbol}
+          tokenSupplyPriceCents={source.asset.tokenSupplyPriceCents}
+          tokenBorrowPriceCents={source.asset.tokenBorrowPriceCents}
+        />
+      )}
       <TokenIcon token={token} />
       {t('lite.formTitle', { symbol: token.symbol, marketName: getMarketName(market) })}
     </span>

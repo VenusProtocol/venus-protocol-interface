@@ -1,6 +1,5 @@
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { PrimeSimulationDistribution, Token } from 'types';
@@ -20,7 +19,6 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
   isLiquidityHub = false,
 }) => {
   const { t, Trans } = useTranslation();
-  const { setMode } = useInterfaceMode();
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -33,15 +31,7 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
   });
 
   const components = {
-    PrimeLink: (
-      <Link
-        to={routes.primeLeaderboard.path}
-        onClick={e => {
-          e.stopPropagation();
-          setMode('pro');
-        }}
-      />
-    ),
+    PrimeLink: <Link to={routes.primeLeaderboard.path} onClick={e => e.stopPropagation()} />,
   };
 
   if (type === 'supply') {
