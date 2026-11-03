@@ -111,7 +111,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
 
           {!isLite && (
             <ChainSelect
-              className="hidden sm:block"
+              className="hidden md:block"
               buttonClassName="h-10 px-3 py-0 bg-dark-blue border-dark-blue-disabled/50 hover:bg-dark-blue-hover hover:border-dark-blue-disabled/50 hover:no-underline active:bg-dark-blue-hover sm:h-12"
             />
           )}
@@ -126,8 +126,8 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
               onClick={toggleMobileMenu}
             >
               <Icon
-                name={isMobileMenuOpen ? 'closeRounded' : 'burger'}
-                className={cn(isMobileMenuOpen ? 'text-light-grey size-3' : 'text-white')}
+                name={isMobileMenuOpen ? 'close' : 'burger'}
+                className={cn(isMobileMenuOpen ? 'text-light-grey size-5' : 'text-white w-4.5 h-3')}
               />
             </NavButtonWrapper>
           )}
@@ -155,17 +155,21 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           ))}
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="mb-6 sm:hidden">
-            <p className="mb-2 text-sm text-light-grey">{t('layout.chainSelect.label')}</p>
+        {!isUserConnected && (
+          <>
+            {isMobileMenuOpen && (
+              <div className="mb-6 md:hidden">
+                <p className="mb-2 text-sm text-light-grey">{t('layout.chainSelect.label')}</p>
 
-            <ChainSelect buttonClassName="h-12 px-3" />
-          </div>
+                <ChainSelect buttonClassName="h-12 px-3" />
+              </div>
+            )}
+
+            <Delimiter className="mb-6" />
+
+            <Settings />
+          </>
         )}
-
-        <Delimiter className="mb-6" />
-
-        <Settings />
       </div>
     </nav>
   );

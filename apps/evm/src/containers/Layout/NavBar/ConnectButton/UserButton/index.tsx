@@ -23,8 +23,10 @@ export const UserButton: React.FC<UserButtonProps> = ({
     <button
       type="button"
       className={cn(
-        'group h-10 text-b1s rounded-lg p-px sm:h-12',
+        'group h-10 text-b1s text-white rounded-lg p-px sm:h-12',
+        disabled && (isPrime ? 'md:min-w-36.75' : 'md:min-w-36.25'),
         !disabled && 'cursor-pointer',
+        !disabled && (isPrime ? 'min-w-21.25 sm:min-w-36.75' : 'min-w-20.75 sm:min-w-36.25'),
         isPrime ? 'bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)]' : 'bg-dark-blue-hover',
         className,
       )}
@@ -33,7 +35,7 @@ export const UserButton: React.FC<UserButtonProps> = ({
       <div
         className={cn(
           'relative px-3 flex items-center gap-x-3 bg-background-active h-full rounded-[7px] transition-colors',
-          !disabled && 'group-hover:bg-dark-blue-hover',
+          !disabled && 'max-sm:px-2 max-sm:gap-x-2 group-hover:bg-dark-blue-hover',
         )}
       >
         {isPrime ? (
@@ -48,9 +50,20 @@ export const UserButton: React.FC<UserButtonProps> = ({
           showTooltip={false}
           address={address}
           shouldEllipseAddress
-        />
+        >
+          {disabled
+            ? undefined
+            : ({ innerContent }) => (
+                <>
+                  <span className="max-sm:hidden">{innerContent}</span>
+                  <span className="sm:hidden">{`${address.slice(0, 2)}...${address.slice(
+                    -2,
+                  )}`}</span>
+                </>
+              )}
+        </Username>
 
-        {!disabled && <Icon name="expand" className="text-light-grey" />}
+        {!disabled && <Icon name="expand" className="text-light-grey max-sm:hidden" />}
       </div>
     </button>
   );

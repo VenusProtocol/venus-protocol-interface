@@ -9,7 +9,9 @@ import { routes } from 'constants/routing';
 import { AccountOverview } from 'containers/AccountOverview';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { VipTelegramGroupButton } from 'containers/VipTelegramGroupButton';
+import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useTranslation } from 'libs/translations';
+import { ChainSelect } from '../../ChainSelect';
 import { Settings } from '../../Settings';
 import { UserButton } from '../UserButton';
 
@@ -29,6 +31,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
   };
 
   const { t } = useTranslation();
+  const { isLite } = useInterfaceMode();
   const navigate = useNavigate();
   const { search } = useLocation();
 
@@ -46,7 +49,14 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
           <div className="w-full h-full bg-background-active p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:overflow-visible sm:rounded-lg sm:border sm:border-blue">
             <div className="flex flex-col gap-y-3">
               <div className="flex items-start justify-between">
-                <div className="flex items-center gap-x-3">
+                <div className="flex items-center gap-x-2 md:gap-x-3">
+                  {!isLite && (
+                    <ChainSelect
+                      className="md:hidden"
+                      buttonClassName="h-12 px-3 py-0 bg-dark-blue border-dark-blue-disabled/50 hover:bg-dark-blue-hover hover:border-dark-blue-disabled/50 hover:no-underline active:bg-dark-blue-hover"
+                    />
+                  )}
+
                   <UserButton address={address} isPrime={isPrime} disabled className="h-12" />
 
                   <CopyAddressButton className="shrink-0 text-light-grey" address={address} />
