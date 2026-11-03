@@ -112,6 +112,20 @@ describe('LiquidityHubForm', () => {
     ).toBeInTheDocument();
   });
 
+  it('clears the typed amount when another Hub is opened', () => {
+    const { rerender } = renderLiquidityHubForm();
+
+    const getAmountInput = () =>
+      document.querySelector('input[name="amountTokens"]') as HTMLInputElement;
+
+    fireEvent.change(getAmountInput(), { target: { value: '9' } });
+    expect(getAmountInput().value).toBe('9');
+
+    rerender(<LiquidityHubForm vhToken={liquidityHubs[1].vhToken} />);
+
+    expect(getAmountInput().value).toBe('');
+  });
+
   it('renders the withdraw form after switching to the withdraw tab', () => {
     renderLiquidityHubForm();
 
