@@ -22,6 +22,18 @@
   box-shadow: var(--shadow-glass);
 }
 
+.lite-panel .venus-multiselect-menu {
+  max-height: calc(var(--spacing) * 80);
+  overflow-y: auto;
+}
+
+.lite-panel .venus-multiselect-menu > div > div:first-child {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-image: var(--background-image-menu);
+}
+
 .lite-panel::before {
   content: '';
   position: absolute;
