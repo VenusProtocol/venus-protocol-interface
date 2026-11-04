@@ -5,7 +5,7 @@ import { cn } from '../../utilities/cn';
 
 import { Spinner } from '@venusprotocol/ui';
 
-const REPEAT_CLICK_WINDOW_MS = 500;
+const REPEAT_CLICK_WINDOW_MS = 300;
 
 export type ButtonVariant =
   | 'primary'

@@ -38,7 +38,7 @@ describe('submit button', () => {
 
     clickAt(button, 1000);
     clickAt(button, 1008);
-    clickAt(button, 1400);
+    clickAt(button, 1250);
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
