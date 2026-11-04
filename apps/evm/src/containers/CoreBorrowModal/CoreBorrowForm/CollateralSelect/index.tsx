@@ -39,7 +39,7 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
             </span>
           </div>
 
-          <div className="max-h-80 overflow-y-auto">
+          <div className="max-h-64 overflow-y-auto">
             {options.map(option => {
               const { asset, token } = option;
               const isSelected =
