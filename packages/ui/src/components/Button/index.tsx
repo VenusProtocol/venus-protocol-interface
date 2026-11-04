@@ -5,7 +5,7 @@ import { cn } from '../../utilities/cn';
 
 import { Spinner } from '@venusprotocol/ui';
 
-const SUBMIT_REPEAT_CLICK_WINDOW_MS = 500;
+const REPEAT_CLICK_WINDOW_MS = 500;
 
 export type ButtonVariant =
   | 'primary'
@@ -94,24 +94,19 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
 }) => {
   const Comp = asChild ? Slot : 'button';
 
-  const lastSubmitClickMsRef = useRef<number>(undefined);
+  const lastClickMsRef = useRef<number>(undefined);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (type !== 'submit') {
-      onClick?.(event);
-      return;
-    }
-
     const nowMs = performance.now();
-    const elapsedMs = nowMs - (lastSubmitClickMsRef.current ?? Number.NEGATIVE_INFINITY);
+    const elapsedMs = nowMs - (lastClickMsRef.current ?? Number.NEGATIVE_INFINITY);
 
-    // A second click lands before the form's pending state disables the button
-    if (elapsedMs >= 0 && elapsedMs < SUBMIT_REPEAT_CLICK_WINDOW_MS) {
+    // A second click lands before the pending state of the action disables the button
+    if (elapsedMs >= 0 && elapsedMs < REPEAT_CLICK_WINDOW_MS) {
       event.preventDefault();
       return;
     }
 
-    lastSubmitClickMsRef.current = nowMs;
+    lastClickMsRef.current = nowMs;
     onClick?.(event);
   };
 

@@ -3,4 +3,4 @@
 "@venusprotocol/evm": patch
 ---
 
-ignore a repeated click on a submit button within a double-click
+ignore a repeated click on a button within a double-click, so Approve buttons open a single wallet prompt too

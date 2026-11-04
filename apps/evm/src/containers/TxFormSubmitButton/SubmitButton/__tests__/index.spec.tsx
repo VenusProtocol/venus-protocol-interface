@@ -71,16 +71,34 @@ describe('submit button', () => {
     expect(onSubmit).toHaveBeenCalledTimes(3);
   });
 
-  it('does not limit clicks on buttons that do not submit a form', () => {
+  it('ignores a repeated click on a button that does not submit a form', () => {
     const onClick = vi.fn();
 
-    const { getByRole } = renderComponent(<PrimaryButton onClick={onClick}>MAX</PrimaryButton>);
-    const button = getByRole('button', { name: 'MAX' });
+    const { getByRole } = renderComponent(<PrimaryButton onClick={onClick}>Approve</PrimaryButton>);
+    const button = getByRole('button', { name: 'Approve' });
 
     clickAt(button, 1000);
     clickAt(button, 1008);
-    clickAt(button, 1016);
+    clickAt(button, 1600);
 
-    expect(onClick).toHaveBeenCalledTimes(3);
+    expect(onClick).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not limit clicks on different buttons', () => {
+    const onMaxClick = vi.fn();
+    const onHalfClick = vi.fn();
+
+    const { getByRole } = renderComponent(
+      <>
+        <PrimaryButton onClick={onMaxClick}>MAX</PrimaryButton>
+        <PrimaryButton onClick={onHalfClick}>50%</PrimaryButton>
+      </>,
+    );
+
+    clickAt(getByRole('button', { name: 'MAX' }), 1000);
+    clickAt(getByRole('button', { name: '50%' }), 1008);
+
+    expect(onMaxClick).toHaveBeenCalledTimes(1);
+    expect(onHalfClick).toHaveBeenCalledTimes(1);
   });
 });
