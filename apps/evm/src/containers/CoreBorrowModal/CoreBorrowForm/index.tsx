@@ -91,7 +91,12 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
           action="borrow"
         >
           {({ asset: loanAsset, pool }) => (
-            <BorrowForm asset={loanAsset} pool={pool} onSubmitSuccess={onSubmitSuccess} />
+            <BorrowForm
+              asset={loanAsset}
+              pool={pool}
+              hideEModeBanner
+              onSubmitSuccess={onSubmitSuccess}
+            />
           )}
         </AssetAccessor>
       ),

@@ -8,7 +8,6 @@ import {
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
 import { useChain } from 'hooks/useChain';
-import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import type { Asset, AssetBalanceMutation, Pool } from 'types';
@@ -31,9 +30,15 @@ export interface BorrowFormProps {
   asset: Asset;
   pool: Pool;
   onSubmitSuccess?: () => void;
+  hideEModeBanner?: boolean;
 }
 
-const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess }) => {
+const BorrowForm: React.FC<BorrowFormProps> = ({
+  asset,
+  pool,
+  onSubmitSuccess,
+  hideEModeBanner = false,
+}) => {
   const { t } = useTranslation();
   const { nativeToken } = useChain();
   const { captureAnalyticEvent } = useAnalytics();
@@ -41,7 +46,6 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
 
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const isEModeFeatureEnabled = useIsFeatureEnabled({ name: 'eMode' });
-  const { isLite } = useInterfaceMode();
 
   const initialFormValues: FormValues = useMemo(
     () => ({
@@ -282,7 +286,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
-        {!isLite &&
+        {!hideEModeBanner &&
           isEModeFeatureEnabled &&
           pool.eModeGroups.length > 0 &&
           !pool.userEModeGroup && (
