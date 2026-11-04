@@ -79,7 +79,7 @@ export const Modal: FC<ModalProps> = ({
           {hasHeader && (
             <div
               className={cn(
-                'sticky top-0 z-10 flex items-center rounded-t-2xl px-6 pt-6',
+                'sticky top-0 z-10 flex items-center rounded-t-2xl bg-surface-popup px-6 pt-6 backdrop-blur-popup',
                 handleBackAction ? 'justify-center' : 'justify-start',
                 title ? 'mb-4 pb-6 md:mb-0' : 'pb-0',
               )}

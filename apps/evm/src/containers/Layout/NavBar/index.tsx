@@ -13,6 +13,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import { useStore } from '../store';
 import TEST_IDS from '../testIds';
+import { ChainBadge } from './ChainBadge';
 import { ChainSelect } from './ChainSelect';
 import { ClaimRewardsButton } from './ClaimRewardsButton';
 import { ConnectButton } from './ConnectButton';
@@ -112,6 +113,8 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           {!isLite && (
             <ChainSelect className="hidden md:block" buttonClassName="h-10 px-3 py-0 sm:h-12" />
           )}
+
+          {isLite && <ChainBadge />}
 
           <ConnectButton />
 
