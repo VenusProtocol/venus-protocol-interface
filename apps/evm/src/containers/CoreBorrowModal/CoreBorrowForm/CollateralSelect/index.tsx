@@ -2,20 +2,16 @@ import { Button, cn } from '@venusprotocol/ui';
 import { Dropdown, Icon, InfoIcon, TokenIcon } from 'components';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
-import type { Asset } from 'types';
-import { formatPercentageToReadableValue } from 'utilities';
+import { areTokensEqual, formatPercentageToReadableValue } from 'utilities';
+import type { CollateralOption } from '../useCollateralOptions';
 
 export interface CollateralSelectProps {
-  collaterals: Asset[];
-  value: Asset;
-  onChange: (collateral: Asset) => void;
+  options: CollateralOption[];
+  value: CollateralOption;
+  onChange: (option: CollateralOption) => void;
 }
 
-export const CollateralSelect: React.FC<CollateralSelectProps> = ({
-  collaterals,
-  value,
-  onChange,
-}) => {
+export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, value, onChange }) => {
   const { t } = useTranslation();
   const isMdOrUp = useBreakpointUp('md');
 
@@ -44,15 +40,18 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({
           </div>
 
           <div className="max-h-80 overflow-y-auto">
-            {collaterals.map(collateral => {
-              const isSelected = collateral.vToken.address === value.vToken.address;
+            {options.map(option => {
+              const { asset, token } = option;
+              const isSelected =
+                asset.vToken.address === value.asset.vToken.address &&
+                areTokensEqual(token, value.token);
 
               return (
                 <button
-                  key={collateral.vToken.address}
+                  key={`${asset.vToken.address}-${token.address}`}
                   type="button"
                   onClick={() => {
-                    onChange(collateral);
+                    onChange(option);
                     setIsDropdownOpen(false);
                   }}
                   className={cn(
@@ -61,16 +60,16 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({
                   )}
                 >
                   <span className="flex min-w-0 items-center gap-x-2">
-                    <TokenIcon token={collateral.vToken.underlyingToken} />
-                    <span className="truncate">{collateral.vToken.underlyingToken.symbol}</span>
+                    <TokenIcon token={token} />
+                    <span className="truncate">{token.symbol}</span>
                   </span>
 
                   <span className="text-right">
-                    {formatPercentageToReadableValue(collateral.collateralFactor * 100)}
+                    {formatPercentageToReadableValue(asset.collateralFactor * 100)}
                   </span>
 
                   <span className="flex items-center justify-end gap-x-1">
-                    {formatPercentageToReadableValue(collateral.liquidationThresholdPercentage)}
+                    {formatPercentageToReadableValue(asset.liquidationThresholdPercentage)}
                     <Icon
                       name="mark"
                       className={cn('size-4 shrink-0 text-green', !isSelected && 'invisible')}
@@ -91,8 +90,8 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({
           className={cn('h-9 px-3', isDropdownOpen && 'border-blue')}
           contentClassName="gap-x-2 text-b1s"
         >
-          <TokenIcon token={value.vToken.underlyingToken} />
-          <span>{value.vToken.underlyingToken.symbol}</span>
+          <TokenIcon token={value.token} />
+          <span>{value.token.symbol}</span>
           <Icon
             name="chevronDown"
             className={cn('size-3 text-grey', isDropdownOpen && 'rotate-180')}

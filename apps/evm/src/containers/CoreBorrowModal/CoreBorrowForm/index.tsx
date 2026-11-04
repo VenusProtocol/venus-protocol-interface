@@ -9,7 +9,9 @@ import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { Asset } from 'types';
+import { areTokensEqual } from 'utilities';
 import { CollateralSelect } from './CollateralSelect';
+import { useCollateralOptions } from './useCollateralOptions';
 
 export interface CoreBorrowFormProps {
   asset: Asset;
@@ -26,10 +28,23 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { corePoolComptrollerContractAddress } = useChain();
-  const [collateral, setCollateral] = useState(preselectedCollateral ?? collaterals[0]);
+  const { options, getDefaultOption } = useCollateralOptions({ collaterals });
+  const initialCollateral = preselectedCollateral ?? collaterals[0];
+  const [option, setOption] = useState(initialCollateral && getDefaultOption(initialCollateral));
+  const collateral = option?.asset;
 
-  const collateralSelect = collateral && (
-    <CollateralSelect collaterals={collaterals} value={collateral} onChange={setCollateral} />
+  const supplyCollateralSelect = option && (
+    <CollateralSelect options={options} value={option} onChange={setOption} />
+  );
+
+  const withdrawCollateralSelect = option && (
+    <CollateralSelect
+      options={options.filter(item =>
+        areTokensEqual(item.token, item.asset.vToken.underlyingToken),
+      )}
+      value={{ asset: option.asset, token: option.asset.vToken.underlyingToken }}
+      onChange={setOption}
+    />
   );
 
   const collateralTabs: Tab[] = collateral
@@ -45,10 +60,11 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
             >
               {({ asset: collateralAsset, pool }) => (
                 <SupplyForm
-                  key={collateralAsset.vToken.address}
+                  key={`${collateralAsset.vToken.address}-${option.token.address}`}
                   asset={collateralAsset}
                   pool={pool}
-                  collateralSelectorSlot={collateralSelect}
+                  fromToken={option.token}
+                  collateralSelectorSlot={supplyCollateralSelect}
                   disableIntegratedSwap
                   onSubmitSuccess={onSubmitSuccess}
                 />
@@ -70,7 +86,7 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
                   key={collateralAsset.vToken.address}
                   asset={collateralAsset}
                   pool={pool}
-                  collateralSelectorSlot={collateralSelect}
+                  collateralSelectorSlot={withdrawCollateralSelect}
                   onSubmitSuccess={onSubmitSuccess}
                 />
               )}
