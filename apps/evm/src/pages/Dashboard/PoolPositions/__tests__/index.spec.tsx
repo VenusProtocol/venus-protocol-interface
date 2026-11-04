@@ -79,12 +79,13 @@ describe('PoolPositions', () => {
     mockSpokePools([]);
   });
 
-  it('shows only the Core pool with a placeholder when the user has no position', () => {
+  it('shows the title and placeholder without any pill when the user has no position', () => {
     render({ pool: poolWithNoPositions });
 
-    expect(isPillActive(en.account.spoke.corePoolPill)).toBe(true);
-    expect(pills().queryByText(en.account.tabs.vaults)).not.toBeInTheDocument();
-    expect(pills().queryByText(en.account.tabs.hubs)).not.toBeInTheDocument();
+    expect(screen.getByText(en.account.positions.label)).toBeInTheDocument();
+    expect(screen.queryByText(en.account.spoke.corePoolPill)).not.toBeInTheDocument();
+    expect(screen.queryByText(en.account.tabs.vaults)).not.toBeInTheDocument();
+    expect(screen.queryByText(en.account.tabs.hubs)).not.toBeInTheDocument();
     expect(screen.getByText(en.account.pools.placeholder.title)).toBeInTheDocument();
   });
 

@@ -128,15 +128,6 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
     });
   }
 
-  if (choices.length === 0) {
-    choices.push({
-      id: CORE_CHOICE_ID,
-      name: t('account.spoke.corePoolPill'),
-      healthFactor: undefined,
-      content: placeholder,
-    });
-  }
-
   const active = choices.find(choice => choice.id === selectedId) ?? choices[0];
 
   return (
@@ -146,7 +137,7 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
       <div className="flex flex-col gap-3">
         <h2 className="text-p1s">{t('account.positions.label')}</h2>
 
-        {!isLoading && (
+        {!isLoading && active && (
           <PoolPills
             pools={choices.map(({ id, name, healthFactor }) => ({ id, name, healthFactor }))}
             selectedPoolId={active.id}
@@ -155,7 +146,7 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
         )}
       </div>
 
-      {isLoading ? <Spinner /> : active.content}
+      {isLoading ? <Spinner /> : active?.content ?? placeholder}
     </section>
   );
 };
