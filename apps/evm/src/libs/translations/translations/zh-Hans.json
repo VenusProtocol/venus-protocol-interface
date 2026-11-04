@@ -1067,6 +1067,15 @@
       "backToAssets": "返回{{mode}}资产列表",
       "backToMarkets": "返回 {{symbol}} 市场列表"
     },
+    "collateralSelect": {
+      "title": "选择抵押品",
+      "asset": "资产",
+      "maxLtv": "最大 LTV",
+      "maxLtvTooltip": "以该资产价值为基准，你最多可借出的比例。",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "清算阈值：当你的债务达到抵押品价值的这一比例时，仓位可能被清算。",
+      "ariaLabel": "选择抵押品"
+    },
     "columns": {
       "apy": "APY",
       "asset": "资产",

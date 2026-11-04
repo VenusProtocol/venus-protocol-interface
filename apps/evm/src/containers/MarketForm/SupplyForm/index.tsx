@@ -51,9 +51,15 @@ export interface SupplyFormProps {
   asset: Asset;
   pool: Pool;
   onSubmitSuccess?: () => void;
+  collateralSelectorSlot?: React.ReactElement;
 }
 
-const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess }) => {
+const SupplyForm: React.FC<SupplyFormProps> = ({
+  asset,
+  pool,
+  onSubmitSuccess,
+  collateralSelectorSlot,
+}) => {
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
 
@@ -498,7 +504,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
           />
         </LabeledInlineContent>
 
-        {isIntegratedSwapFeatureEnabled || canWrapNativeToken || liquidityHub ? (
+        {!collateralSelectorSlot &&
+        (isIntegratedSwapFeatureEnabled || canWrapNativeToken || liquidityHub) ? (
           <SelectTokenTextField
             data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formValues.fromToken}
@@ -544,6 +551,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onSubmitSuccess })
             data-testid={TEST_IDS.tokenTextField}
             name="amountTokens"
             token={asset.vToken.underlyingToken}
+            leftAdornment={collateralSelectorSlot}
+            displayTokenIcon={!collateralSelectorSlot}
             value={formValues.amountTokens}
             onChange={amountTokens => {
               captureAmountSetAnalyticEvent({

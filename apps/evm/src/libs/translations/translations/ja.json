@@ -1067,6 +1067,15 @@
       "backToAssets": "{{mode}} の資産一覧に戻る",
       "backToMarkets": "{{symbol}} のマーケット一覧に戻る"
     },
+    "collateralSelect": {
+      "title": "担保を選択",
+      "asset": "資産",
+      "maxLtv": "最大 LTV",
+      "maxLtvTooltip": "この資産の価値に対して借りられる最大の割合です。",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "清算しきい値：債務が担保価値のこの割合に達すると、ポジションが清算される可能性があります。",
+      "ariaLabel": "担保を選択"
+    },
     "columns": {
       "apy": "APY",
       "asset": "資産",

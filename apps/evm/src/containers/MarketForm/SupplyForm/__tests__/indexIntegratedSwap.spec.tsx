@@ -122,6 +122,31 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     }));
   });
 
+  it('shows the token selector when no collateral selector slot is passed', () => {
+    const { queryByTestId } = renderComponent(<Supply asset={fakeAsset} pool={fakePool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(queryByTestId(SUPPLY_FORM_TEST_IDS.selectTokenTextField)).not.toBeNull();
+  });
+
+  it('renders the collateral selector slot in place of the token selector', () => {
+    const { getByText, queryByTestId } = renderComponent(
+      <Supply
+        asset={fakeAsset}
+        pool={fakePool}
+        collateralSelectorSlot={<span>Collateral selector</span>}
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(queryByTestId(SUPPLY_FORM_TEST_IDS.selectTokenTextField)).toBeNull();
+    expect(queryByTestId(SUPPLY_FORM_TEST_IDS.tokenTextField)).not.toBeNull();
+    expect(getByText('Collateral selector')).toBeInTheDocument();
+  });
+
   it('disables swap feature when swapAndSupply action of asset is disabled', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,

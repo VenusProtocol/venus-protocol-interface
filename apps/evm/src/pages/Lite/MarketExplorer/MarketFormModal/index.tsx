@@ -1,22 +1,32 @@
-import { ProtectionModeIndicator, TokenIcon } from 'components';
+import { Modal, ProtectionModeIndicator, TokenIcon } from 'components';
+import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
 import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
 import { MarketFormModal as CoreMarketFormModal } from 'containers/MarketFormModal';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { VenusVaultModal } from 'containers/VenusVaultModal';
 import { useChain } from 'hooks/useChain';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
-import type { Token } from 'types';
+import type { Asset, Token } from 'types';
 import type { LiteBorrowMarket, LiteEarnMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
+import { CoreBorrowForm } from './CoreBorrowForm';
 
 export interface MarketFormModalProps {
   market: LiteEarnMarket | LiteBorrowMarket;
   mode: 'earn' | 'borrow';
+  preselectedCollateral?: Asset;
   onClose: () => void;
 }
 
-export const MarketFormModal: React.FC<MarketFormModalProps> = ({ market, mode, onClose }) => {
+export const MarketFormModal: React.FC<MarketFormModalProps> = ({
+  market,
+  mode,
+  preselectedCollateral,
+  onClose,
+}) => {
   const { t } = useTranslation();
+  const [userChainSettings] = useUserChainSettings();
   const { corePoolComptrollerContractAddress } = useChain();
   const getMarketName = useMarketName();
   const { source } = market;
@@ -66,6 +76,23 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({ market, mode, 
         initialLoanTabId="borrow"
         handleClose={onClose}
       />
+    );
+  }
+
+  if (mode === 'borrow' && 'collaterals' in source) {
+    if (source.asset.isGated && !userChainSettings.doNotShowGatedAssetModal) {
+      return <GatedAssetAcknowledgementModal onReject={onClose} />;
+    }
+
+    return (
+      <Modal isOpen title={title} handleClose={onClose}>
+        <CoreBorrowForm
+          asset={source.asset}
+          collaterals={source.collaterals}
+          preselectedCollateral={preselectedCollateral}
+          onSubmitSuccess={onClose}
+        />
+      </Modal>
     );
   }
 

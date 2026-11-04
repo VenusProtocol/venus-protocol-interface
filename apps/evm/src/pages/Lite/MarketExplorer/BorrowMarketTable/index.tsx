@@ -1,6 +1,6 @@
 import { SpokeCollateralGroup, Table, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { SpokeAsset } from 'types';
+import type { Asset, SpokeAsset } from 'types';
 import { BorrowMarketApy } from '../../BorrowMarketApy';
 import type { LiteBorrowAsset, LiteBorrowMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
@@ -11,6 +11,7 @@ export interface BorrowMarketTableProps {
   markets: LiteBorrowMarket[];
   onSelect: (market: LiteBorrowMarket) => void;
   onSelectCollateral: (input: { market: LiteBorrowMarket; asset: SpokeAsset }) => void;
+  onSelectCoreCollateral: (input: { market: LiteBorrowMarket; asset: Asset }) => void;
   header: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   markets,
   onSelect,
   onSelectCollateral,
+  onSelectCoreCollateral,
   header,
 }) => {
   const { t } = useTranslation();
@@ -32,7 +34,10 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
         onRowClick={asset => onSelectCollateral({ market, asset })}
       />
     ) : (
-      <SpokeCollateralGroup collaterals={market.source.collaterals} />
+      <SpokeCollateralGroup
+        collaterals={market.source.collaterals}
+        onRowClick={asset => onSelectCoreCollateral({ market, asset })}
+      />
     );
 
   const columns: TableColumn<LiteBorrowMarket>[] = [

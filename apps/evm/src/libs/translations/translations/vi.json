@@ -1067,6 +1067,15 @@
       "backToAssets": "Quay lại tài sản {{mode}}",
       "backToMarkets": "Quay lại thị trường {{symbol}}"
     },
+    "collateralSelect": {
+      "title": "Chọn tài sản thế chấp",
+      "asset": "Tài sản",
+      "maxLtv": "LTV tối đa",
+      "maxLtvTooltip": "Tỷ lệ tối đa bạn có thể vay so với giá trị của tài sản này.",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "Ngưỡng thanh lý: khi khoản nợ đạt tỷ lệ này so với giá trị tài sản thế chấp, vị thế có thể bị thanh lý.",
+      "ariaLabel": "Chọn tài sản thế chấp"
+    },
     "columns": {
       "apy": "APY",
       "asset": "Tài sản",

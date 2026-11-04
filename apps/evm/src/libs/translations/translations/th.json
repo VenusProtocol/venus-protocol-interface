@@ -1067,6 +1067,15 @@
       "backToAssets": "กลับไปที่สินทรัพย์ {{mode}}",
       "backToMarkets": "กลับไปที่ตลาดของ {{symbol}}"
     },
+    "collateralSelect": {
+      "title": "เลือกหลักประกัน",
+      "asset": "สินทรัพย์",
+      "maxLtv": "LTV สูงสุด",
+      "maxLtvTooltip": "สัดส่วนสูงสุดของมูลค่าสินทรัพย์นี้ที่คุณสามารถยืมได้",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "เกณฑ์การชำระบัญชี: เมื่อหนี้ของคุณถึงสัดส่วนนี้ของมูลค่าหลักประกัน สถานะอาจถูกชำระบัญชี",
+      "ariaLabel": "เลือกหลักประกัน"
+    },
     "columns": {
       "apy": "APY",
       "asset": "สินทรัพย์",

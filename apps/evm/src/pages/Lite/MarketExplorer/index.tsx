@@ -3,7 +3,7 @@ import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { useIsSmDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
-import type { SpokeAsset } from 'types';
+import type { Asset, SpokeAsset } from 'types';
 import { getMarketSlug } from '../getMarketSlug';
 import type { LiteBorrowMarket, LiteEarnAsset, MarketMode } from '../types';
 import { useBorrowAssets } from '../useBorrowAssets';
@@ -44,6 +44,10 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   const [selectedCollateral, setSelectedCollateral] = useState<{
     market: LiteBorrowMarket;
     asset: SpokeAsset;
+  }>();
+  const [selectedCoreCollateral, setSelectedCoreCollateral] = useState<{
+    market: LiteBorrowMarket;
+    asset: Asset;
   }>();
 
   const { borrowAssets, isLoading: isBorrowLoading, isReady: isBorrowReady } = useBorrowAssets();
@@ -241,12 +245,21 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           markets={visibleBorrowMarkets}
           onSelect={market => selectMarket(getMarketSlug(market))}
           onSelectCollateral={setSelectedCollateral}
+          onSelectCoreCollateral={setSelectedCoreCollateral}
           header={header}
         />
       )}
 
       {collateralModal}
 
+      {selectedCoreCollateral && (
+        <MarketFormModal
+          mode="borrow"
+          market={selectedCoreCollateral.market}
+          preselectedCollateral={selectedCoreCollateral.asset}
+          onClose={() => setSelectedCoreCollateral(undefined)}
+        />
+      )}
 
       {selectedMarket && selectedAsset && (
         <MarketFormModal mode={mode} market={selectedMarket} onClose={clearSelectedMarket} />
