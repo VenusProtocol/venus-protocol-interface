@@ -1074,7 +1074,8 @@
       "maxLtvTooltip": "以該資產價值為基準，你最多可借出的比例。",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "清算閾值：當你的債務達到抵押品價值的這一比例時，倉位可能被清算。",
-      "ariaLabel": "選擇抵押品"
+      "ariaLabel": "選擇抵押品",
+      "optionLabel": "{{symbol}}（{{marketSymbol}} 市場）"
     },
     "columns": {
       "apy": "APY",

@@ -27,7 +27,7 @@ describe('CollateralSelect', () => {
     renderComponent(<CollateralSelect options={options} value={options[2]} onChange={vi.fn()} />);
 
     const trigger = screen.getByRole('button', { name: en.lite.collateralSelect.ariaLabel });
-    expect(trigger).toHaveTextContent('ETH (WETH)');
+    expect(trigger).toHaveTextContent('ETH (WETH market)');
 
     fireEvent.click(trigger);
 
@@ -37,6 +37,6 @@ describe('CollateralSelect', () => {
         .flatMap(button => button.querySelector('.truncate')?.textContent ?? []),
     );
 
-    expect(rowLabels).toEqual(new Set(['ETH', 'WETH', 'ETH (WETH)']));
+    expect(rowLabels).toEqual(new Set(['ETH', 'WETH', 'ETH (WETH market)']));
   });
 });

@@ -11,17 +11,20 @@ export interface CollateralSelectProps {
   onChange: (option: CollateralOption) => void;
 }
 
-const getOptionLabel = ({ asset, token }: CollateralOption) => {
-  const { underlyingToken } = asset.vToken;
-
-  return areTokensEqual(token, underlyingToken)
-    ? token.symbol
-    : `${token.symbol} (${underlyingToken.symbol})`;
-};
-
 export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, value, onChange }) => {
   const { t } = useTranslation();
   const isMdOrUp = useBreakpointUp('md');
+
+  const getOptionLabel = ({ asset, token }: CollateralOption) => {
+    const { underlyingToken } = asset.vToken;
+
+    return areTokensEqual(token, underlyingToken)
+      ? token.symbol
+      : t('lite.collateralSelect.optionLabel', {
+          symbol: token.symbol,
+          marketSymbol: underlyingToken.symbol,
+        });
+  };
 
   return (
     <Dropdown

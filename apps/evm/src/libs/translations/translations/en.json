@@ -1075,7 +1075,8 @@
       "maxLtvTooltip": "The maximum you can borrow against this asset, as a share of its value.",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "Liquidation threshold: when your debt reaches this share of the collateral value, the position can be liquidated.",
-      "ariaLabel": "Choose collateral"
+      "ariaLabel": "Choose collateral",
+      "optionLabel": "{{symbol}} ({{marketSymbol}} market)"
     },
     "columns": {
       "apy": "APY",

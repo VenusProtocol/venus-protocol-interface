@@ -1074,7 +1074,8 @@
       "maxLtvTooltip": "以该资产价值为基准，你最多可借出的比例。",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "清算阈值：当你的债务达到抵押品价值的这一比例时，仓位可能被清算。",
-      "ariaLabel": "选择抵押品"
+      "ariaLabel": "选择抵押品",
+      "optionLabel": "{{symbol}}（{{marketSymbol}} 市场）"
     },
     "columns": {
       "apy": "APY",

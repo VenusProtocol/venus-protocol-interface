@@ -1075,7 +1075,8 @@
       "maxLtvTooltip": "Bu varlığın değerine oranla borç alabileceğiniz en yüksek pay.",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "Tasfiye eşiği: borcunuz teminat değerinin bu payına ulaştığında pozisyon tasfiye edilebilir.",
-      "ariaLabel": "Teminat seçin"
+      "ariaLabel": "Teminat seçin",
+      "optionLabel": "{{symbol}} ({{marketSymbol}} piyasası)"
     },
     "columns": {
       "apy": "APY",

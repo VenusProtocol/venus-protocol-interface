@@ -1074,7 +1074,8 @@
       "maxLtvTooltip": "สัดส่วนสูงสุดของมูลค่าสินทรัพย์นี้ที่คุณสามารถยืมได้",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "เกณฑ์การชำระบัญชี: เมื่อหนี้ของคุณถึงสัดส่วนนี้ของมูลค่าหลักประกัน สถานะอาจถูกชำระบัญชี",
-      "ariaLabel": "เลือกหลักประกัน"
+      "ariaLabel": "เลือกหลักประกัน",
+      "optionLabel": "{{symbol}} (ตลาด {{marketSymbol}})"
     },
     "columns": {
       "apy": "APY",

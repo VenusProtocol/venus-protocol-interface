@@ -1074,7 +1074,8 @@
       "maxLtvTooltip": "この資産の価値に対して借りられる最大の割合です。",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "清算しきい値：債務が担保価値のこの割合に達すると、ポジションが清算される可能性があります。",
-      "ariaLabel": "担保を選択"
+      "ariaLabel": "担保を選択",
+      "optionLabel": "{{symbol}}（{{marketSymbol}} マーケット）"
     },
     "columns": {
       "apy": "APY",
