@@ -17,6 +17,7 @@ import { EarnMarketTable } from './EarnMarketTable';
 import { Filters } from './Filters';
 import { MarketFormModal } from './MarketFormModal';
 import { matchesCategories } from './matchesCategories';
+import { matchesCollaterals } from './matchesCollaterals';
 
 export interface MarketExplorerProps {
   earnAssets: LiteEarnAsset[];
@@ -38,6 +39,8 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   const isSmDown = useIsSmDown();
   const [searchValue, setSearchValue] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [collateralSearchValue, setCollateralSearchValue] = useState('');
+  const [selectedCollaterals, setSelectedCollaterals] = useState<string[]>([]);
   const [selectedCollateral, setSelectedCollateral] = useState<{
     market: LiteBorrowMarket;
     asset: SpokeAsset;
@@ -79,7 +82,11 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       ? selectAsset(undefined)
       : selectMarket(undefined);
 
-  const backToAssets = () => selectAsset(undefined);
+  const backToAssets = () => {
+    selectAsset(undefined);
+    setCollateralSearchValue('');
+    setSelectedCollaterals([]);
+  };
 
   const changeMode = (newMode: MarketMode) => {
     setMode(newMode);
@@ -115,6 +122,37 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       optionsPlaceholder={t('lite.filters.allCategories')}
       optionsTitle={t('lite.filters.category')}
       renderOptionCount={count => t('lite.filters.categoryCount', { count })}
+    />
+  );
+
+  const collateralOptions: MultiSelectOption[] = [
+    ...new Set(
+      (selectedBorrowAsset?.markets ?? []).flatMap(market =>
+        market.source.collaterals.map(collateral => collateral.vToken.underlyingToken.symbol),
+      ),
+    ),
+  ].map(symbol => ({ value: symbol, label: symbol }));
+
+  const visibleBorrowMarkets = (selectedBorrowAsset?.markets ?? []).filter(market =>
+    matchesCollaterals({
+      market,
+      searchValue: collateralSearchValue,
+      selectedCollaterals,
+    }),
+  );
+
+  const collateralFilters = (
+    <Filters
+      searchValue={collateralSearchValue}
+      onSearchValueChange={setCollateralSearchValue}
+      searchPlaceholder={t('lite.filters.searchCollateral')}
+      searchAriaLabel={t('lite.filters.searchCollateralAriaLabel')}
+      options={collateralOptions}
+      selectedValues={selectedCollaterals}
+      onSelectedValuesChange={setSelectedCollaterals}
+      optionsPlaceholder={t('spokePools.filter.allCollaterals')}
+      optionsTitle={t('lite.columns.collateral')}
+      renderOptionCount={count => t('spokePools.filter.nCollaterals', { count })}
     />
   );
 
@@ -155,7 +193,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           token={selectedAsset.token}
           onBackToAssets={backToAssets}
         />
-        {mode === 'borrow' && modeSwitch}
+        {mode === 'borrow' && collateralFilters}
       </div>
     ) : (
       <div className="flex min-h-9 flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
@@ -200,6 +238,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {mode === 'borrow' && selectedBorrowAsset && !isSingleBorrowMarket && (
         <BorrowMarketTable
           borrowAsset={selectedBorrowAsset}
+          markets={visibleBorrowMarkets}
           onSelect={market => selectMarket(getMarketSlug(market))}
           onSelectCollateral={setSelectedCollateral}
           header={header}
@@ -207,6 +246,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       )}
 
       {collateralModal}
+
 
       {selectedMarket && selectedAsset && (
         <MarketFormModal mode={mode} market={selectedMarket} onClose={clearSelectedMarket} />

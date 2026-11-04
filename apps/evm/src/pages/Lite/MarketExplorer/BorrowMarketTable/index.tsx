@@ -8,6 +8,7 @@ import { useMarketColumns } from '../useMarketColumns';
 
 export interface BorrowMarketTableProps {
   borrowAsset: LiteBorrowAsset;
+  markets: LiteBorrowMarket[];
   onSelect: (market: LiteBorrowMarket) => void;
   onSelectCollateral: (input: { market: LiteBorrowMarket; asset: SpokeAsset }) => void;
   header: React.ReactNode;
@@ -15,6 +16,7 @@ export interface BorrowMarketTableProps {
 
 export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   borrowAsset,
+  markets,
   onSelect,
   onSelectCollateral,
   header,
@@ -94,7 +96,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
 
   return (
     <Table
-      data={borrowAsset.markets}
+      data={markets}
       {...getTableProps({ columns, columnWidths: ['25%', '15%', '22%', '16%', '22%'] })}
       rowKeyExtractor={market => market.id}
       rowOnClick={(_event, market) => onSelect(market)}

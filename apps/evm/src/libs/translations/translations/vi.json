@@ -1085,7 +1085,9 @@
       "categoryCount_other": "{{count}} danh mục",
       "reset": "Đặt lại",
       "searchAsset": "Tìm tài sản",
-      "searchAssetAriaLabel": "Tìm tài sản"
+      "searchAssetAriaLabel": "Tìm tài sản",
+      "searchCollateral": "Tìm tài sản thế chấp",
+      "searchCollateralAriaLabel": "Tìm tài sản thế chấp"
     },
     "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {

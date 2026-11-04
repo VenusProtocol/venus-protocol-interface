@@ -1087,7 +1087,9 @@
       "categoryCount_other": "{{count}} categories",
       "reset": "Reset",
       "searchAsset": "Search asset",
-      "searchAssetAriaLabel": "Search assets"
+      "searchAssetAriaLabel": "Search assets",
+      "searchCollateral": "Search collateral",
+      "searchCollateralAriaLabel": "Search collaterals"
     },
     "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {

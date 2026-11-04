@@ -1087,7 +1087,9 @@
       "categoryCount_other": "{{count}} kategori",
       "reset": "Sıfırla",
       "searchAsset": "Varlık ara",
-      "searchAssetAriaLabel": "Varlık ara"
+      "searchAssetAriaLabel": "Varlık ara",
+      "searchCollateral": "Teminat ara",
+      "searchCollateralAriaLabel": "Teminat ara"
     },
     "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {

@@ -1085,7 +1085,9 @@
       "categoryCount_other": "{{count}} 个类别",
       "reset": "重置",
       "searchAsset": "搜索资产",
-      "searchAssetAriaLabel": "搜索资产"
+      "searchAssetAriaLabel": "搜索资产",
+      "searchCollateral": "搜索抵押品",
+      "searchCollateralAriaLabel": "搜索抵押品"
     },
     "formTitle": "{{symbol}} / {{marketName}}",
     "markets": {
