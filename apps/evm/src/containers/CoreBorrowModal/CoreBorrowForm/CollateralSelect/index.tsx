@@ -11,6 +11,14 @@ export interface CollateralSelectProps {
   onChange: (option: CollateralOption) => void;
 }
 
+const getOptionLabel = ({ asset, token }: CollateralOption) => {
+  const { underlyingToken } = asset.vToken;
+
+  return areTokensEqual(token, underlyingToken)
+    ? token.symbol
+    : `${token.symbol} (${underlyingToken.symbol})`;
+};
+
 export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, value, onChange }) => {
   const { t } = useTranslation();
   const isMdOrUp = useBreakpointUp('md');
@@ -61,7 +69,7 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
                 >
                   <span className="flex min-w-0 items-center gap-x-2">
                     <TokenIcon token={token} />
-                    <span className="truncate">{token.symbol}</span>
+                    <span className="truncate">{getOptionLabel(option)}</span>
                   </span>
 
                   <span className="text-right">
@@ -91,7 +99,7 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
           contentClassName="gap-x-2 text-b1s"
         >
           <TokenIcon token={value.token} />
-          <span>{value.token.symbol}</span>
+          <span>{getOptionLabel(value)}</span>
           <Icon
             name="chevronDown"
             className={cn('size-3 text-grey', isDropdownOpen && 'rotate-180')}
