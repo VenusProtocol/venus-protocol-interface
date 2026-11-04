@@ -188,7 +188,7 @@ describe('NavBar', () => {
 
     const pageContainer = document.getElementById(PAGE_CONTAINER_ID) as HTMLDivElement;
     const mobileMenu = screen.getByText('Menu').closest('div')?.parentElement as HTMLDivElement;
-    const mobileMenuToggle = container.querySelector('button.size-10') as HTMLButtonElement;
+    const mobileMenuToggle = container.querySelector('button.size-9') as HTMLButtonElement;
     const logoLink = screen.getAllByAltText('Venus logo')[0].closest('a') as HTMLAnchorElement;
 
     expect(mobileMenu).toHaveClass('hidden');
@@ -215,7 +215,7 @@ describe('NavBar', () => {
     });
 
     const mobileMenu = screen.getByText('Menu').closest('div')?.parentElement as HTMLDivElement;
-    const mobileMenuToggle = container.querySelector('button.size-10') as HTMLButtonElement;
+    const mobileMenuToggle = container.querySelector('button.size-9') as HTMLButtonElement;
 
     act(() => {
       useStore.setState({

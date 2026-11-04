@@ -27,7 +27,7 @@ export const UserButton: React.FC<UserButtonProps> = ({
     <button
       type="button"
       className={cn(
-        'group h-10 text-b1s text-white rounded-lg p-px sm:h-12',
+        'group h-9 text-b1s text-white rounded-lg p-px sm:h-12',
         disabled && (isPrime ? 'md:min-w-36.75' : 'md:min-w-36.25'),
         !disabled && 'cursor-pointer',
         !disabled && (isPrime ? 'min-w-21.25 sm:min-w-36.75' : 'min-w-20.75 sm:min-w-36.25'),

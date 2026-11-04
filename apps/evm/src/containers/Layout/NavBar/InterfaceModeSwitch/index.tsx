@@ -40,7 +40,7 @@ export const InterfaceModeSwitch: React.FC<InterfaceModeSwitchProps> = ({
       aria-label={t('layout.interfaceMode.switchTo', { mode: label })}
       onClick={handleClick}
       className={cn(
-        'venus-mode-switch relative flex h-full shrink-0 cursor-pointer items-center justify-center rounded-lg border border-dark-blue-hover bg-background-active px-3 text-sm text-white focus-visible:outline-2 focus-visible:outline-blue sm:px-4',
+        'venus-mode-switch relative flex h-full shrink-0 cursor-pointer items-center justify-center rounded-lg border border-dark-blue-hover bg-background-active px-2.5 text-sm text-white focus-visible:outline-2 focus-visible:outline-blue sm:px-4',
         className,
       )}
     >

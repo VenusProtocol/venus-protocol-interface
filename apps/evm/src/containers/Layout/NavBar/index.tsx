@@ -104,7 +104,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         </div>
 
         <div
-          className="flex items-center gap-x-1.5 h-9 sm:h-12 sm:gap-x-3"
+          className="flex items-center gap-x-1 h-9 sm:h-12 sm:gap-x-3"
           data-testid={TEST_IDS.navBarActions}
         >
           <ClaimRewardsButton className="h-full max-sm:px-2" data-rewards-button="true" />
@@ -119,7 +119,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
 
           {!isLite && (
             <NavButtonWrapper
-              className="size-10 px-0 sm:size-12 lg:hidden"
+              className="size-9 px-0 sm:size-12 lg:hidden"
               onClick={toggleMobileMenu}
             >
               <Icon
