@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.43.2
+
+### Patch Changes
+
+- 420907b: clear the Liquidity Hub form when another Hub is opened
+
 ## 5.43.1
 
 ### Patch Changes
