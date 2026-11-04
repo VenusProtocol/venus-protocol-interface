@@ -1071,9 +1071,9 @@
       "title": "担保を選択",
       "asset": "資産",
       "maxLtv": "最大 LTV",
-      "maxLtvTooltip": "この資産の価値に対して借りられる最大の割合です。",
+      "maxLtvTooltip": "この担保の価値に対して借りられる最大の割合です。",
       "liquidationThreshold": "LT",
-      "liquidationThresholdTooltip": "清算しきい値：債務が担保価値のこの割合に達すると、ポジションが清算される可能性があります。",
+      "liquidationThresholdTooltip": "借入額が担保価値のこの割合に達すると、ポジションが清算される可能性があります。",
       "ariaLabel": "担保を選択",
       "optionLabel": "{{symbol}}（{{marketSymbol}} マーケット）"
     },

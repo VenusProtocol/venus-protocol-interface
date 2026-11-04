@@ -1072,9 +1072,9 @@
       "title": "Teminat seçin",
       "asset": "Varlık",
       "maxLtv": "Maks. LTV",
-      "maxLtvTooltip": "Bu varlığın değerine oranla borç alabileceğiniz en yüksek pay.",
+      "maxLtvTooltip": "Bu teminata karşılık, değerinin yüzdesi olarak borç alabileceğiniz en yüksek tutar.",
       "liquidationThreshold": "LT",
-      "liquidationThresholdTooltip": "Tasfiye eşiği: borcunuz teminat değerinin bu payına ulaştığında pozisyon tasfiye edilebilir.",
+      "liquidationThresholdTooltip": "Borç tutarınız teminat değerinizin bu yüzdesine ulaşırsa pozisyonunuz tasfiye edilebilir.",
       "ariaLabel": "Teminat seçin",
       "optionLabel": "{{symbol}} ({{marketSymbol}} piyasası)"
     },

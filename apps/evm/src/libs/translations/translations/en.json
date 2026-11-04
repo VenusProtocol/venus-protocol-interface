@@ -1072,9 +1072,9 @@
       "title": "Select collateral",
       "asset": "Asset",
       "maxLtv": "Max LTV",
-      "maxLtvTooltip": "The maximum you can borrow against this asset, as a share of its value.",
+      "maxLtvTooltip": "The maximum you can borrow against this collateral, as a percentage of its value.",
       "liquidationThreshold": "LT",
-      "liquidationThresholdTooltip": "Liquidation threshold: when your debt reaches this share of the collateral value, the position can be liquidated.",
+      "liquidationThresholdTooltip": "If your borrowed amount reaches this percentage of your collateral value, your position can be liquidated.",
       "ariaLabel": "Choose collateral",
       "optionLabel": "{{symbol}} ({{marketSymbol}} market)"
     },

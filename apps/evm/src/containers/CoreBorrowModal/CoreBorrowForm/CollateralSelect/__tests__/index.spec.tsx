@@ -23,11 +23,11 @@ const options = [
 ];
 
 describe('CollateralSelect', () => {
-  it('names a row after its market when the token differs from it', () => {
+  it('names a row after its market only in the list when the token differs from it', () => {
     renderComponent(<CollateralSelect options={options} value={options[2]} onChange={vi.fn()} />);
 
     const trigger = screen.getByRole('button', { name: en.lite.collateralSelect.ariaLabel });
-    expect(trigger).toHaveTextContent('ETH (WETH market)');
+    expect(trigger).toHaveTextContent(/^ETH$/);
 
     fireEvent.click(trigger);
 

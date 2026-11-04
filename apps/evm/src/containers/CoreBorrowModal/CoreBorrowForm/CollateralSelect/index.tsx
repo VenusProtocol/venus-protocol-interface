@@ -102,7 +102,7 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
           contentClassName="gap-x-2 text-b1s"
         >
           <TokenIcon token={value.token} />
-          <span>{getOptionLabel(value)}</span>
+          <span>{value.token.symbol}</span>
           <Icon
             name="chevronDown"
             className={cn('size-3 text-grey', isDropdownOpen && 'rotate-180')}
