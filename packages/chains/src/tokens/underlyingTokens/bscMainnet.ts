@@ -217,7 +217,7 @@ export const bscMainnet: Token[] = [
   {
     chainId: ChainId.BSC_MAINNET,
     address: '0x20eE7B720f4E4c4FFcB00C4065cdae55271aECCa',
-    decimals: 18,
+    decimals: 6,
     symbol: 'NFT',
     iconSrc: iconSrcs.nft,
   },
@@ -492,8 +492,8 @@ export const bscMainnet: Token[] = [
     chainId: ChainId.BSC_MAINNET,
     address: '0xe052823b4aefc6e230FAf46231A57d0905E30AE0',
     decimals: 18,
-    symbol: 'PT-clisBNBx-25JUN2026',
-    iconSrc: iconSrcs.slisBnbX,
+    symbol: 'PT-clisBNB-25JUN2026',
+    iconSrc: iconSrcs.ptClisBNB,
   },
   {
     chainId: ChainId.BSC_MAINNET,
