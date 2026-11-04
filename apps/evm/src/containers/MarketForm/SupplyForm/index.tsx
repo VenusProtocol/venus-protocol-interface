@@ -52,6 +52,7 @@ export interface SupplyFormProps {
   pool: Pool;
   onSubmitSuccess?: () => void;
   collateralSelectorSlot?: React.ReactElement;
+  disableIntegratedSwap?: boolean;
 }
 
 const SupplyForm: React.FC<SupplyFormProps> = ({
@@ -59,6 +60,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   pool,
   onSubmitSuccess,
   collateralSelectorSlot,
+  disableIntegratedSwap = false,
 }) => {
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
@@ -77,6 +79,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   });
   const isIntegratedSwapFeatureEnabled =
     isIntegratedSwapEnabled &&
+    !disableIntegratedSwap &&
     // Check swap and supply action is enabled for underlying token
     !asset.disabledTokenActions.includes('swapAndSupply');
 

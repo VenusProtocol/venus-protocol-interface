@@ -130,6 +130,18 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     expect(queryByTestId(SUPPLY_FORM_TEST_IDS.selectTokenTextField)).not.toBeNull();
   });
 
+  it('hides the token selector when integrated swap is disabled', () => {
+    const { queryByTestId } = renderComponent(
+      <Supply asset={fakeAsset} pool={fakePool} disableIntegratedSwap />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(queryByTestId(SUPPLY_FORM_TEST_IDS.selectTokenTextField)).toBeNull();
+    expect(queryByTestId(SUPPLY_FORM_TEST_IDS.tokenTextField)).not.toBeNull();
+  });
+
   it('renders the collateral selector slot in place of the token selector', () => {
     const { getByText, queryByTestId } = renderComponent(
       <Supply

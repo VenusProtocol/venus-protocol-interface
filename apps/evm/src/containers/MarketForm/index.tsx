@@ -20,6 +20,7 @@ export interface MarketFormProps {
   onSubmitSuccess?: ModalProps['handleClose'];
   navType?: TabNavType;
   visibleTabIds?: string[];
+  disableIntegratedSwap?: boolean;
 }
 
 export const MarketForm: React.FC<MarketFormProps> = ({
@@ -29,6 +30,7 @@ export const MarketForm: React.FC<MarketFormProps> = ({
   initialActiveTabId,
   navType,
   visibleTabIds,
+  disableIntegratedSwap,
 }) => {
   const { t } = useTranslation();
 
@@ -47,7 +49,12 @@ export const MarketForm: React.FC<MarketFormProps> = ({
           action="supply"
         >
           {({ asset, pool }) => (
-            <SupplyForm asset={asset} pool={pool} onSubmitSuccess={onSubmitSuccess} />
+            <SupplyForm
+              asset={asset}
+              pool={pool}
+              disableIntegratedSwap={disableIntegratedSwap}
+              onSubmitSuccess={onSubmitSuccess}
+            />
           )}
         </AssetAccessor>
       ),

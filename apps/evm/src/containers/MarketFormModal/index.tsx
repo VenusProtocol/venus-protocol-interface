@@ -12,6 +12,7 @@ export interface MarketFormModalProps {
   initialActiveTabId?: string;
   visibleTabIds?: string[];
   title?: ModalProps['title'];
+  disableIntegratedSwap?: boolean;
   onClose: ModalProps['handleClose'];
 }
 
@@ -21,6 +22,7 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
   initialActiveTabId,
   visibleTabIds,
   title,
+  disableIntegratedSwap,
   onClose,
 }) => {
   const [userChainSettings] = useUserChainSettings();
@@ -54,6 +56,7 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
         poolComptrollerAddress={poolComptrollerAddress}
         initialActiveTabId={initialActiveTabId}
         visibleTabIds={visibleTabIds}
+        disableIntegratedSwap={disableIntegratedSwap}
         onSubmitSuccess={onClose}
       />
     </Modal>

@@ -49,6 +49,7 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
                   asset={collateralAsset}
                   pool={pool}
                   collateralSelectorSlot={collateralSelect}
+                  disableIntegratedSwap
                   onSubmitSuccess={onSubmitSuccess}
                 />
               )}
@@ -108,6 +109,7 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
             <RepayWithWalletBalanceForm
               asset={loanAsset}
               pool={pool}
+              disableIntegratedSwap
               onSubmitSuccess={onSubmitSuccess}
             />
           )}

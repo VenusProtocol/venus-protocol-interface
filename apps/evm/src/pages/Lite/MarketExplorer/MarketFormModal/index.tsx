@@ -103,6 +103,7 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
       poolComptrollerAddress={corePoolComptrollerContractAddress}
       initialActiveTabId={mode === 'earn' ? 'supply' : 'borrow'}
       visibleTabIds={mode === 'earn' ? ['supply', 'withdraw'] : ['borrow', 'repay']}
+      disableIntegratedSwap
       onClose={onClose}
     />
   );

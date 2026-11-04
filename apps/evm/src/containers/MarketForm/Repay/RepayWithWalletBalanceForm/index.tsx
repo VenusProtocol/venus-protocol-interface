@@ -46,12 +46,14 @@ export interface RepayWithWalletBalanceFormProps {
   asset: Asset;
   pool: Pool;
   onSubmitSuccess?: () => void;
+  disableIntegratedSwap?: boolean;
 }
 
 const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   asset,
   pool,
   onSubmitSuccess,
+  disableIntegratedSwap = false,
 }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({
     name: 'wrapUnwrapNativeToken',
@@ -62,6 +64,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
 
   const isIntegratedSwapFeatureEnabled =
     isIntegratedSwapEnabled &&
+    !disableIntegratedSwap &&
     // Check swap and supply action is enabled for underlying token
     !asset.disabledTokenActions.includes('swapAndRepay');
 
