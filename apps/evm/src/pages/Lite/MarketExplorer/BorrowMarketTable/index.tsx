@@ -68,7 +68,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       ),
     },
     buildApyColumn<LiteBorrowMarket>({
-      renderCell: market => <BorrowMarketApy source={market.source} />,
+      renderCell: market => <BorrowMarketApy source={market.source} className="flex-nowrap" />,
       secondary: { label: t('lite.columns.liquidity'), getCents: market => market.liquidityCents },
       sortRows: (rowA, rowB, direction) =>
         (rowA.apyPercentage.comparedTo(rowB.apyPercentage) ?? 0) * (direction === 'asc' ? 1 : -1),
@@ -102,7 +102,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   return (
     <Table
       data={markets}
-      {...getTableProps({ columns, columnWidths: ['25%', '15%', '22%', '16%', '22%'] })}
+      {...getTableProps({ columns, columnWidths: ['20%', '22%', '20%', '16%', '22%'] })}
       rowKeyExtractor={market => market.id}
       rowOnClick={(_event, market) => onSelect(market)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'asc' }}

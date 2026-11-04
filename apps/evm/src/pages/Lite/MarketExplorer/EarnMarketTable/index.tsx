@@ -38,7 +38,7 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
       ),
     },
     buildApyColumn<LiteEarnMarket>({
-      renderCell: market => <MarketApy source={market.source} />,
+      renderCell: market => <MarketApy source={market.source} className="flex-nowrap" />,
       secondary: { label: t('lite.columns.totalSupply'), getCents: market => market.supplyCents },
       sortRows: (rowA, rowB, direction) =>
         (rowA.apyPercentage.comparedTo(rowB.apyPercentage) ?? 0) * (direction === 'desc' ? -1 : 1),
