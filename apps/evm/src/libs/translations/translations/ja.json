@@ -482,7 +482,8 @@
     }
   },
   "connectButton": {
-    "connect": "ウォレットを接続"
+    "connect": "ウォレットを接続",
+    "vipLogoAlt": "VIP ロゴ"
   },
   "connectWallet": {
     "connectButton": "ウォレットを接続"

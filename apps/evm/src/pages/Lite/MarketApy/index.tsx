@@ -4,12 +4,20 @@ import type { LiteEarnMarketSource } from '../types';
 
 export interface MarketApyProps {
   source: LiteEarnMarketSource;
+  showBadgeOnly?: boolean;
   className?: string;
 }
 
-export const MarketApy: React.FC<MarketApyProps> = ({ source, className }) => {
+export const MarketApy: React.FC<MarketApyProps> = ({ source, showBadgeOnly, className }) => {
   if (source.type === 'core') {
-    return <AssetApy asset={source.asset} type="supply" className={className} />;
+    return (
+      <AssetApy
+        asset={source.asset}
+        type="supply"
+        showBadgeOnly={showBadgeOnly}
+        className={className}
+      />
+    );
   }
 
   if (source.type === 'hub') {
@@ -21,6 +29,7 @@ export const MarketApy: React.FC<MarketApyProps> = ({ source, className }) => {
         baseApyPercentage={source.hub.supplyApyPercentage}
         tokenDistributions={source.hub.supplyTokenDistributions}
         userBalanceTokens={source.hub.userSupplyBalanceTokens}
+        showBadgeOnly={showBadgeOnly}
       />
     );
   }
@@ -32,6 +41,7 @@ export const MarketApy: React.FC<MarketApyProps> = ({ source, className }) => {
       token={source.vault.stakedToken}
       baseApyPercentage={new BigNumber(source.vault.stakeAprPercentage)}
       tokenDistributions={[]}
+      showBadgeOnly={showBadgeOnly}
     />
   );
 };

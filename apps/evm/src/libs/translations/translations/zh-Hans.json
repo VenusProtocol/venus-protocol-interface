@@ -482,7 +482,8 @@
     }
   },
   "connectButton": {
-    "connect": "连接钱包"
+    "connect": "连接钱包",
+    "vipLogoAlt": "VIP 标志"
   },
   "connectWallet": {
     "connectButton": "连接钱包"

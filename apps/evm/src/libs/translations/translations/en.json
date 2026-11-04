@@ -482,7 +482,8 @@
     }
   },
   "connectButton": {
-    "connect": "Connect wallet"
+    "connect": "Connect wallet",
+    "vipLogoAlt": "VIP logo"
   },
   "connectWallet": {
     "connectButton": "Connect wallet"

@@ -1,4 +1,3 @@
-import { cn, pointerLightClassNames } from '@venusprotocol/ui';
 import { useGetLiteTotals } from 'clients/api';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
@@ -12,13 +11,11 @@ export const ProtocolTotals: React.FC = () => {
       key: 'supply' as const,
       label: t('lite.totals.totalSupply'),
       valueCents: data?.totalSupplyCents,
-      dotClassName: 'bg-green',
     },
     {
       key: 'liquidity' as const,
       label: t('lite.totals.availableLiquidity'),
       valueCents: data?.availableLiquidityCents,
-      dotClassName: 'bg-yellow',
     },
   ];
 
@@ -27,16 +24,9 @@ export const ProtocolTotals: React.FC = () => {
       {totals.map(total => (
         <div
           key={total.key}
-          data-pointer-light=""
-          className={cn(
-            'flex min-h-9 flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-lg border border-border-raised bg-cards/78 px-3 py-1 shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]',
-            pointerLightClassNames,
-          )}
+          className="flex min-h-9 flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-lg border border-border-raised bg-cards/78 px-3 py-1 shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]"
         >
-          <p className="flex items-center gap-2 text-b1r text-light-grey">
-            <span aria-hidden="true" className={cn('size-1.5 rounded-full', total.dotClassName)} />
-            {total.label}
-          </p>
+          <p className="text-b1r text-light-grey">{total.label}</p>
 
           <p className="text-p3s tabular-nums">
             {total.valueCents

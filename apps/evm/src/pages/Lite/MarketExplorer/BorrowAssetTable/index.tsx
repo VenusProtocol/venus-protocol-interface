@@ -54,7 +54,7 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
     },
     buildApyColumn<LiteBorrowAsset>({
       renderCell: borrowAsset => (
-        <BorrowMarketApy source={getLowestApyMarket(borrowAsset).source} />
+        <BorrowMarketApy source={getLowestApyMarket(borrowAsset).source} showBadgeOnly />
       ),
       secondary: {
         label: t('lite.columns.totalBorrow'),

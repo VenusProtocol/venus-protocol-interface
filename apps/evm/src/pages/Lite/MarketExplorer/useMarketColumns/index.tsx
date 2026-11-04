@@ -60,7 +60,7 @@ export const useMarketColumns = () => {
     align: 'right',
     renderCell: (row, index) => (
       <div>
-        <div className="flex flex-wrap items-center justify-end gap-2 whitespace-nowrap font-semibold">
+        <div className="flex flex-wrap items-center justify-end gap-2 whitespace-nowrap font-semibold [&>*]:justify-end">
           {renderCell?.(row, index)}
         </div>
 
@@ -97,9 +97,9 @@ export const useMarketColumns = () => {
     size: 'compact',
     stickyHeader: true,
     hideCardDelimiter: true,
-    className: 'rounded-none border-0 md:border-0',
+    className: 'rounded-[7px] border-0 md:border-0',
     tableContainerClassName:
-      'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-grey md:max-h-100 md:overscroll-contain',
+      'rounded-b-[7px] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-grey md:max-h-100 md:overscroll-contain',
   });
 
   return { buildAmountColumn, buildApyColumn, getTableProps, isMobile };

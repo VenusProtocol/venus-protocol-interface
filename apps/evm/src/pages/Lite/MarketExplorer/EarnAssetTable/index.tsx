@@ -51,7 +51,9 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
       ),
     },
     buildApyColumn<LiteEarnAsset>({
-      renderCell: earnAsset => <MarketApy source={getHighestApyMarket(earnAsset).source} />,
+      renderCell: earnAsset => (
+        <MarketApy source={getHighestApyMarket(earnAsset).source} showBadgeOnly />
+      ),
       secondary: {
         label: t('lite.columns.totalSupply'),
         getCents: earnAsset => earnAsset.supplyCents,

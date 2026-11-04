@@ -1,5 +1,6 @@
 import { PrimaryButton } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
+import { MarketApy } from '../../MarketApy';
 import type { LiteEarnAsset } from '../../types';
 import { useMarketName } from '../../useMarketName';
 
@@ -31,11 +32,7 @@ export const PlanetDetail: React.FC<PlanetDetailProps> = ({ id, earnAsset, onEar
         <div key={market.id} className="lite-planet-detail__market">
           <span>{getMarketName(market)}</span>
 
-          <span className="lite-planet-detail__rate">
-            <strong>
-              {market.apyPercentage.isFinite() ? `${market.apyPercentage.toFixed(2)}%` : '—'}
-            </strong>
-          </span>
+          <MarketApy source={market.source} className="lite-planet-detail__rate" />
         </div>
       ))}
 

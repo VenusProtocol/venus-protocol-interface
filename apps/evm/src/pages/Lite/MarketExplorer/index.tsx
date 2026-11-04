@@ -155,7 +155,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           token={selectedAsset.token}
           onBackToAssets={backToAssets}
         />
-        {modeSwitch}
+        {mode === 'borrow' && modeSwitch}
       </div>
     ) : (
       <div className="flex min-h-9 flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
@@ -167,7 +167,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
   return (
     <section
       aria-label={modeLabel}
-      className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col overflow-hidden backdrop-blur-glass"
+      className="lite-panel lite-enter lite-enter--markets flex min-h-0 flex-col"
     >
       {mode === 'earn' && (!selectedEarnAsset || isSingleEarnMarket) && (
         <EarnAssetTable

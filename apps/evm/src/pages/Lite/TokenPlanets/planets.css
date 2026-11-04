@@ -202,7 +202,7 @@
   gap: calc(var(--spacing) * 3);
 }
 
-.lite-planet-detail__rate strong {
+.lite-planet-detail__rate {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }

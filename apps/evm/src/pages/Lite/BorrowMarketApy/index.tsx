@@ -3,12 +3,24 @@ import type { LiteBorrowSource } from '../types';
 
 export interface BorrowMarketApyProps {
   source: LiteBorrowSource;
+  showBadgeOnly?: boolean;
   className?: string;
 }
 
-export const BorrowMarketApy: React.FC<BorrowMarketApyProps> = ({ source, className }) => {
+export const BorrowMarketApy: React.FC<BorrowMarketApyProps> = ({
+  source,
+  showBadgeOnly,
+  className,
+}) => {
   if (source.type === 'core') {
-    return <AssetApy asset={source.asset} type="borrow" className={className} />;
+    return (
+      <AssetApy
+        asset={source.asset}
+        type="borrow"
+        showBadgeOnly={showBadgeOnly}
+        className={className}
+      />
+    );
   }
 
   return (
@@ -19,6 +31,7 @@ export const BorrowMarketApy: React.FC<BorrowMarketApyProps> = ({ source, classN
       baseApyPercentage={source.asset.borrowApyPercentage}
       tokenDistributions={source.asset.borrowTokenDistributions}
       userBalanceTokens={source.asset.userBorrowBalanceTokens}
+      showBadgeOnly={showBadgeOnly}
     />
   );
 };

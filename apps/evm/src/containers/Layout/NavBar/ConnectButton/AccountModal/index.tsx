@@ -23,17 +23,21 @@ export interface AccountModalProps {
 }
 
 export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPrime, onClose }) => {
-  const { disconnect } = useDisconnect();
-  const handleDisconnect = () => {
-    disconnect();
-
-    onClose?.();
-  };
-
   const { t } = useTranslation();
   const { isLite } = useInterfaceMode();
   const navigate = useNavigate();
-  const { search } = useLocation();
+  const { pathname, search } = useLocation();
+  const { disconnect } = useDisconnect();
+
+  const handleDisconnect = () => {
+    disconnect();
+
+    if (pathname === routes.dashboard.path) {
+      navigate({ pathname: routes.landing.path, search });
+    }
+
+    onClose?.();
+  };
 
   const handleViewDashboard = () => {
     navigate({ pathname: routes.dashboard.path, search });
@@ -54,7 +58,13 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
                     <ChainSelect className="md:hidden" buttonClassName="h-12 px-3 py-0" />
                   )}
 
-                  <UserButton address={address} isPrime={isPrime} disabled className="h-12" />
+                  <UserButton
+                    address={address}
+                    isPrime={isPrime}
+                    isVip={isVip}
+                    disabled
+                    className="h-12"
+                  />
 
                   <CopyAddressButton className="shrink-0 text-light-grey" address={address} />
                 </div>

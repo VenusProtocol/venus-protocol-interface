@@ -22,6 +22,16 @@
   box-shadow: var(--shadow-glass);
 }
 
+.lite-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+}
+
 @media (min-width: 768px) {
   .lite-panel {
     max-height: calc(var(--spacing) * 122);

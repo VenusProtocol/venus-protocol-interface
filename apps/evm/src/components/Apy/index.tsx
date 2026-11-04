@@ -26,6 +26,7 @@ export interface ApyProps {
   showPrimeIcon?: boolean;
   // Trade positions are out of the campaigns' scope, so that page leaves them out entirely
   showCampaignRewards?: boolean;
+  showBadgeOnly?: boolean;
   vTokenAddress?: Address;
   isLiquidityHub?: boolean;
   className?: string;
@@ -42,6 +43,7 @@ export const Apy: React.FC<ApyProps> = ({
   showPrimeSimulation = true,
   showPrimeIcon = true,
   showCampaignRewards = true,
+  showBadgeOnly = false,
   vTokenAddress,
   isLiquidityHub,
   className,
@@ -136,6 +138,10 @@ export const Apy: React.FC<ApyProps> = ({
         isLiquidityHub={isLiquidityHub}
       />
     );
+  }
+
+  if (showBadgeOnly && badgeDom) {
+    return <div className={cn('inline-flex items-center', className)}>{badgeDom}</div>;
   }
 
   return (

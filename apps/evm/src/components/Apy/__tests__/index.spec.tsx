@@ -209,6 +209,52 @@ describe('Apy', () => {
     expect(getByAltText(en.apy.primeBadge.logoAlt)).toBeInTheDocument();
   });
 
+  it('renders only the Prime badge when asked to show the badge only', () => {
+    const { getByAltText, getByText, queryByText } = renderComponent(
+      <Apy
+        type="supply"
+        token={token}
+        baseApyPercentage={new BigNumber(2)}
+        tokenDistributions={[primeSimulationDistribution]}
+        showBadgeOnly
+      />,
+    );
+
+    expect(queryByText('2%')).not.toBeInTheDocument();
+    expect(getByText('3%')).toBeInTheDocument();
+    expect(getByAltText(en.apy.primeBadge.logoAlt)).toBeInTheDocument();
+  });
+
+  it('renders only the Merkl badge when asked to show the badge only', () => {
+    const { getByAltText, getByText, queryByText } = renderComponent(
+      <Apy
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[buildGatedMerklDistribution(false)]}
+        showBadgeOnly
+      />,
+    );
+
+    expect(queryByText('-2%')).not.toBeInTheDocument();
+    expect(getByText('-9%')).toBeInTheDocument();
+    expect(getByAltText(en.apy.merklBadge.logoAlt)).toBeInTheDocument();
+  });
+
+  it('keeps the APY when asked to show the badge only but there is no badge', () => {
+    const { getByText } = renderComponent(
+      <Apy
+        type="supply"
+        token={token}
+        baseApyPercentage={new BigNumber(2)}
+        tokenDistributions={[]}
+        showBadgeOnly
+      />,
+    );
+
+    expect(getByText('2%')).toBeInTheDocument();
+  });
+
   it('renders the base borrow APY plus a Merkl badge when the user is missing the required collateral', () => {
     const { getByAltText, getByText, queryByAltText } = renderComponent(
       <Apy
