@@ -31,7 +31,7 @@ import { useAnalytics } from 'libs/analytics';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, AssetBalanceMutation, Pool } from 'types';
+import type { Asset, AssetBalanceMutation, Pool, Token } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
@@ -53,6 +53,7 @@ export interface SupplyFormProps {
   onSubmitSuccess?: () => void;
   collateralSelectorSlot?: React.ReactElement;
   disableIntegratedSwap?: boolean;
+  fromToken?: Token;
 }
 
 const SupplyForm: React.FC<SupplyFormProps> = ({
@@ -61,6 +62,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   onSubmitSuccess,
   collateralSelectorSlot,
   disableIntegratedSwap = false,
+  fromToken,
 }) => {
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
@@ -149,12 +151,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     () => ({
       amountTokens: '',
       fromToken:
-        shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
+        fromToken ??
+        (shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
           ? asset.vToken.underlyingToken.tokenWrapped
-          : asset.vToken.underlyingToken,
+          : asset.vToken.underlyingToken),
       acknowledgeHighPriceImpact: false,
     }),
-    [asset.vToken.underlyingToken, shouldSelectNativeToken],
+    [asset.vToken.underlyingToken, shouldSelectNativeToken, fromToken],
   );
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -553,7 +556,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
           <TokenTextField
             data-testid={TEST_IDS.tokenTextField}
             name="amountTokens"
-            token={asset.vToken.underlyingToken}
+            token={formValues.fromToken}
             leftAdornment={collateralSelectorSlot}
             displayTokenIcon={!collateralSelectorSlot}
             value={formValues.amountTokens}
