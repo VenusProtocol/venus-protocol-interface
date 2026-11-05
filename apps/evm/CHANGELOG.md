@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 5.44.2
+
+### Patch Changes
+
+- c3b1744: ignore a repeated click on a button within a double-click, so Approve buttons open a single wallet prompt too
+- Updated dependencies [c3b1744]
+  - @venusprotocol/ui@0.11.1
+
 ## 5.44.1
 
 ### Patch Changes
