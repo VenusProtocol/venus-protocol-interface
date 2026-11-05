@@ -1,6 +1,6 @@
 import { useGetSpokePools } from 'clients/api';
 import { Spinner } from 'components';
-import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -37,7 +37,6 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
 }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
-  const { marketsPagePath } = useGetMarketsPagePath();
   const isSpokeEnabled = useIsFeatureEnabled({ name: 'spoke' });
   const isLiquidityHubEnabled = useIsFeatureEnabled({ name: 'liquidityHub' });
   const [selectedId, setSelectedId] = useState<string>();
@@ -74,7 +73,7 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
     <Placeholder
       title={t('account.pools.placeholder.title')}
       buttonLabel={t('account.pools.placeholder.buttonLabel')}
-      to={marketsPagePath}
+      to={routes.landing.path}
     />
   );
 

@@ -1,4 +1,5 @@
 import { Icon } from 'components';
+import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
@@ -161,6 +162,8 @@ export const useFilterOptions = () => {
         } else {
           newSearchParams.set(key, orderedValues.join(PARAM_VALUE_SEPARATOR));
         }
+
+        newSearchParams.delete(PAGE_PARAM_DEFAULT_KEY);
 
         return newSearchParams;
       },

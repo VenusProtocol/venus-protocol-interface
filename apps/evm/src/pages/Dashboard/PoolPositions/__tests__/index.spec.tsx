@@ -89,6 +89,14 @@ describe('PoolPositions', () => {
     expect(screen.getByText(en.account.pools.placeholder.title)).toBeInTheDocument();
   });
 
+  it('links the empty state to the home page of the current mode', () => {
+    render({ pool: poolWithNoPositions });
+
+    const link = screen.getByRole('link', { name: en.account.pools.placeholder.buttonLabel });
+
+    expect(new URL(link.getAttribute('href') ?? '', 'http://localhost').pathname).toBe('/');
+  });
+
   it('shows a spinner instead of the placeholder while the Core pool loads', () => {
     render({ pool: poolWithNoPositions, isPoolLoading: true });
 

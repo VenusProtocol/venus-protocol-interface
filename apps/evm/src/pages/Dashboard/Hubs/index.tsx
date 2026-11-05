@@ -67,6 +67,7 @@ export const Hubs: React.FC<HubsProps> = ({ liquidityHubs }) => {
       summaryCells={summaryCells}
       placeholderTitle={t('account.hubs.placeholder.title')}
       placeholderRoute={routes.liquidityHubs.path}
+      paginationParamKey="hubsPage"
       placeholderOnClick={() =>
         captureAnalyticEvent('hub_navigation', {
           variant: 'dashboard_cta',

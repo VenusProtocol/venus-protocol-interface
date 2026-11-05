@@ -73,6 +73,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
         <VaultCard vault={vault} to={isPreview ? routes.vaults.path : undefined} />
       )}
       getKey={vault => vault.key}
+      paginationParamKey="vaultsPage"
     />
   );
 };
