@@ -81,7 +81,7 @@ export const Username: React.FC<UsernameProps> = ({
                   {t('web3DomainNames.tooltip.address', { address: truncateAddress(address) })}
                 </span>
 
-                <span className="hidden md:block">
+                <span className="hidden break-all md:block">
                   {t('web3DomainNames.tooltip.address', { address })}
                 </span>
               </div>
