@@ -70,7 +70,7 @@ export function TableCards<R>({
     >
       {controls && selectOptions.length > 0 && (
         <Select
-          className="mb-4 hidden w-56 sm:block"
+          className="mb-4 hidden w-56 md:block"
           label={t('table.cardsSelect.label')}
           placeLabelToLeft
           options={selectOptions}

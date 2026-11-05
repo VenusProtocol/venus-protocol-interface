@@ -4,7 +4,6 @@ import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { SectionErrorBoundary, Wrapper, cn } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
-import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { usePointerLight } from 'hooks/usePointerLight';
 import { useWindowFocusFlag } from 'hooks/useWindowFocusFlag';
 import { useRef, useState } from 'react';
@@ -23,7 +22,6 @@ export const Layout: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
 
   const { pathname } = useLocation();
-  const { isLite } = useInterfaceMode();
   const [isPageScrolled, setIsPageScrolled] = useState(false);
 
   usePointerLight();
@@ -86,26 +84,18 @@ export const Layout: React.FC = () => {
       <div className="h-dvh flex flex-col bg-background-active">
         <Starfield />
 
-        {isLite && <TestEnvWarning className="relative shrink-0" />}
+        <TestEnvWarning className="relative shrink-0" />
 
         <div className="relative flex min-h-0 grow flex-col">
           <NavBar
             className={cn(
-              'shrink-0',
-              isLite
-                ? 'absolute inset-x-0 top-0 z-10000 bg-transparent before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:transition-colors'
-                : 'relative',
-              isLite && isPageScrolled && 'before:bg-background-active/20 before:backdrop-blur-xs',
+              'absolute inset-x-0 top-0 z-10000 shrink-0 bg-transparent before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:transition-colors',
+              isPageScrolled && 'before:bg-background-active/20 before:backdrop-blur-xs',
             )}
           />
 
-          {!isLite && <TestEnvWarning className="relative shrink-0" />}
-
           <div
-            className={cn(
-              'relative flex flex-col grow overflow-x-hidden',
-              isLite && 'scroll-pt-20 pt-20',
-            )}
+            className="relative flex grow scroll-pt-20 flex-col overflow-x-hidden pt-20"
             id={PAGE_CONTAINER_ID}
             onScroll={handleScroll}
           >
