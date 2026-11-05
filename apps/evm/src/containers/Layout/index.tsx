@@ -4,7 +4,7 @@ import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { SectionErrorBoundary, Wrapper, cn } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
-import { useInterfaceMode, useProModeOnProRoutes } from 'hooks/useInterfaceMode';
+import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { usePointerLight } from 'hooks/usePointerLight';
 import { useWindowFocusFlag } from 'hooks/useWindowFocusFlag';
 import { useRef, useState } from 'react';
@@ -27,7 +27,6 @@ export const Layout: React.FC = () => {
   const [isPageScrolled, setIsPageScrolled] = useState(false);
 
   usePointerLight();
-  useProModeOnProRoutes();
   useWindowFocusFlag();
 
   const isCloseToBottomState = useStore(state => state.isCloseToBottom);

@@ -1,11 +1,20 @@
 import { routes } from 'constants/routing';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { getEntryPathname } from './getEntryPathname';
 
 export type InterfaceMode = 'lite' | 'pro';
 
-export const SHARED_PATHNAMES = ['/', routes.dashboard.path];
+const MODE_AGNOSTIC_PATHNAMES = [
+  '/',
+  routes.dashboard.path,
+  routes.skills.path,
+  routes.termsOfUse.path,
+  routes.fixedTermVaultTermsOfUse.path,
+  routes.privacyPolicy.path,
+];
+
+export const isProOnlyPathname = (pathname: string) =>
+  !MODE_AGNOSTIC_PATHNAMES.includes(pathname.replace(/\/$/, '') || '/');
 
 interface State {
   mode: InterfaceMode;
@@ -20,11 +29,6 @@ export const useStore = create<State>()(
     }),
     {
       name: 'venus-interface-mode',
-      onRehydrateStorage: () => state => {
-        if (state && !SHARED_PATHNAMES.includes(getEntryPathname())) {
-          state.setMode('pro');
-        }
-      },
     },
   ),
 );

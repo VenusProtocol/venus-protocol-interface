@@ -136,7 +136,9 @@ export const Transactions: React.FC = () => {
   });
   const { liquidityHubs } = getLiquidityHubsData;
 
-  const { data: getSpokePoolsData, isLoading: areSpokePoolsLoading } = useGetSpokePools();
+  const { data: getSpokePoolsData, isLoading: areSpokePoolsLoading } = useGetSpokePools({
+    accountAddress,
+  });
 
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(

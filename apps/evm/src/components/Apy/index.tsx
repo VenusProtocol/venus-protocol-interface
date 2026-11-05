@@ -80,7 +80,11 @@ export const Apy: React.FC<ApyProps> = ({
 
   const isPrimeAsset = !!(primeDistribution || primeSimulationDistribution);
   let simulatedApyPercentage: BigNumber | undefined;
-  const isApyBoostedByPrime = !!primeDistribution && !!userBalanceTokens?.isGreaterThan(0);
+  const isApyBoostedByPrime =
+    !!primeDistribution &&
+    !primeDistribution.apyPercentage.isZero() &&
+    !!userBalanceTokens?.isGreaterThan(0);
+  const isPrimeBoostAvailable = !combinedApy.apyPrimeSimulationPercentage.isZero();
 
   const isApyBoosted =
     isApyBoostedByPrime ||
@@ -126,7 +130,7 @@ export const Apy: React.FC<ApyProps> = ({
         {...distributionListProps}
       />
     );
-  } else if (showPrimeSimulation && isPrimeAsset && !isApyBoostedByPrime) {
+  } else if (showPrimeSimulation && isPrimeAsset && isPrimeBoostAvailable && !isApyBoostedByPrime) {
     badgeDom = (
       <PrimeBadge
         className="shrink-0"
@@ -153,7 +157,7 @@ export const Apy: React.FC<ApyProps> = ({
       )}
 
       {isApyBoosted ? (
-        <BoostTooltip {...distributionListProps}>
+        <BoostTooltip className="shrink-0" {...distributionListProps}>
           <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
         </BoostTooltip>
       ) : (

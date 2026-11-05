@@ -1,21 +1,14 @@
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useEffect } from 'react';
-import { useStore } from './store';
-
-export { useProModeOnProRoutes } from './useProModeOnProRoutes';
+import { useLocation } from 'react-router';
+import { isProOnlyPathname, useStore } from './store';
 
 export const useInterfaceMode = () => {
   const storedMode = useStore(state => state.mode);
   const setMode = useStore(state => state.setMode);
+  const { pathname } = useLocation();
   const isLiteModeEnabled = useIsFeatureEnabled({ name: 'liteMode' });
 
-  useEffect(() => {
-    if (!isLiteModeEnabled && storedMode === 'lite') {
-      setMode('pro');
-    }
-  }, [isLiteModeEnabled, storedMode, setMode]);
-
-  const mode = isLiteModeEnabled ? storedMode : 'pro';
+  const mode = isLiteModeEnabled && !isProOnlyPathname(pathname) ? storedMode : 'pro';
 
   return { mode, isLite: mode === 'lite', setMode };
 };

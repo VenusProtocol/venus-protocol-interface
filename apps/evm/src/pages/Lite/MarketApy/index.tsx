@@ -29,6 +29,8 @@ export const MarketApy: React.FC<MarketApyProps> = ({ source, showBadgeOnly, cla
         baseApyPercentage={source.hub.supplyApyPercentage}
         tokenDistributions={source.hub.supplyTokenDistributions}
         userBalanceTokens={source.hub.userSupplyBalanceTokens}
+        vTokenAddress={source.hub.vhMarketVTokenAddress}
+        isLiquidityHub
         showBadgeOnly={showBadgeOnly}
       />
     );

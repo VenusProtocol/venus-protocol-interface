@@ -425,7 +425,7 @@ describe('Apy', () => {
         type="borrow"
         token={token}
         baseApyPercentage={new BigNumber(-2)}
-        tokenDistributions={[buildGatedMerklDistribution(false), buildPrimeDistribution(0)]}
+        tokenDistributions={[buildGatedMerklDistribution(false), buildPrimeDistribution(1)]}
         userBalanceTokens={new BigNumber(1)}
       />,
     );
@@ -433,5 +433,36 @@ describe('Apy', () => {
     expect(getByAltText(en.apy.boost.iconAlt)).toBeInTheDocument();
     expect(getByAltText(en.apy.primeBadge.logoAlt)).toBeInTheDocument();
     expect(getByAltText(en.apy.merklBadge.logoAlt)).toBeInTheDocument();
+  });
+
+  it('hides the Prime icon when the Prime APY is zero', () => {
+    const { getByText, queryByAltText } = renderComponent(
+      <Apy
+        type="supply"
+        token={token}
+        baseApyPercentage={new BigNumber(5.6)}
+        tokenDistributions={[buildPrimeDistribution(0)]}
+        userBalanceTokens={new BigNumber(1)}
+      />,
+    );
+
+    expect(getByText('5.6%')).toBeInTheDocument();
+    expect(queryByAltText(en.apy.primeBadge.logoAlt)).not.toBeInTheDocument();
+    expect(queryByAltText(en.apy.boost.iconAlt)).not.toBeInTheDocument();
+  });
+
+  it('hides the Prime badge when there is no Prime boost to simulate', () => {
+    const { getByText, queryByAltText } = renderComponent(
+      <Apy
+        type="borrow"
+        token={token}
+        baseApyPercentage={new BigNumber(-2)}
+        tokenDistributions={[buildPrimeDistribution(0)]}
+        userBalanceTokens={new BigNumber(0)}
+      />,
+    );
+
+    expect(getByText('-2%')).toBeInTheDocument();
+    expect(queryByAltText(en.apy.primeBadge.logoAlt)).not.toBeInTheDocument();
   });
 });
