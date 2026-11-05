@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.44.0
+
+### Minor Changes
+
+- 49c9364: add a tooltip explaining that the Prime END OF CYCLE countdown is for eligibility
+
 ## 5.43.3
 
 ### Patch Changes
