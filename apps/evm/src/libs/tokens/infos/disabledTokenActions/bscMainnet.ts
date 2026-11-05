@@ -10,7 +10,7 @@ export const disabledTokenActions: DisabledTokenAction[] = [
     disabledActions: ['borrow', 'supply', 'boost', 'swapAndSupply'],
   },
   {
-    address: '0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e', // PT-clisBNBx-25JUN2026
+    address: '0x6d3BD68E90B42615cb5abF4B8DE92b154ADc435e', // PT-clisBNB-25JUN2026
     disabledActions: ['swapAndSupply', 'swapAndRepay', 'boost'],
   },
   {
