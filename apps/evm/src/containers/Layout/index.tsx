@@ -94,9 +94,9 @@ export const Layout: React.FC = () => {
             className={cn(
               'shrink-0',
               isLite
-                ? 'absolute inset-x-0 top-0 z-50 bg-transparent transition-colors'
+                ? 'absolute inset-x-0 top-0 z-10000 bg-transparent before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:transition-colors'
                 : 'relative',
-              isLite && isPageScrolled && 'bg-background-active/20 backdrop-blur-xs',
+              isLite && isPageScrolled && 'before:bg-background-active/20 before:backdrop-blur-xs',
             )}
           />
 
