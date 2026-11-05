@@ -1535,7 +1535,8 @@
       "hours": "时",
       "mins": "分",
       "sec": "秒",
-      "title": "周期结束"
+      "title": "周期结束",
+      "tooltip": "此倒计时仅用于 Prime 资格判定：倒计时结束时位列前 {{limit}} 名的账户将在下个周期获得 Prime 奖励。Prime 奖励基于当前显示的 APY 计算。"
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime 分数",

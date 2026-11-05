@@ -1535,7 +1535,8 @@
       "hours": "Giờ",
       "mins": "Phút",
       "sec": "Giây",
-      "title": "Kết thúc chu kỳ"
+      "title": "Kết thúc chu kỳ",
+      "tooltip": "Bộ đếm ngược này chỉ dành cho điều kiện đủ Prime: {{limit}} tài khoản hàng đầu khi kết thúc sẽ nhận thưởng Prime trong chu kỳ tiếp theo. Thưởng Prime dựa trên APY đang hiển thị."
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Điểm Prime",
