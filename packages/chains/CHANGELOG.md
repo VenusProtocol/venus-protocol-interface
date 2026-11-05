@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.32.2
+
+### Patch Changes
+
+- 4bbc603: correct the NFT decimals and the PT-clisBNB-25JUN2026 symbol and icon on BSC
+
 ## 0.32.1
 
 ### Patch Changes

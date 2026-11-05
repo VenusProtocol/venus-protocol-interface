@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 5.43.3
+
+### Patch Changes
+
+- 4bbc603: correct the NFT decimals and the PT-clisBNB-25JUN2026 symbol and icon on BSC
+- Updated dependencies [4bbc603]
+  - @venusprotocol/chains@0.32.2
+
 ## 5.43.2
 
 ### Patch Changes
