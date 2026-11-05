@@ -7,6 +7,7 @@ export interface PlaceholderProps {
   title: string;
   description?: string;
   to?: string;
+  buttonLabel?: string;
   onButtonClick?: () => void;
 }
 
@@ -14,6 +15,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
   title,
   description,
   to,
+  buttonLabel,
   onButtonClick,
 }) => {
   const { t } = useTranslation();
@@ -28,7 +30,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
         <ConnectWallet className="w-fit">
           <ButtonWrapper className="text-white hover:no-underline" asChild>
             <Link noStyle to={to} onClick={onButtonClick}>
-              {t('account.placeholder.buttonLabel')}
+              {buttonLabel ?? t('account.placeholder.buttonLabel')}
             </Link>
           </ButtonWrapper>
         </ConnectWallet>

@@ -1,9 +1,9 @@
 import { useAccount } from 'wagmi';
 
 export const useAccountAddress = () => {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, isConnecting, isReconnecting } = useAccount();
 
   const accountAddress = !!address && isConnected ? address : undefined;
 
-  return { accountAddress };
+  return { accountAddress, isAccountPending: isConnecting || isReconnecting };
 };

@@ -420,7 +420,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
                   {...cell}
                   key={cell.label}
                   className={cn(
-                    'relative min-w-0 before:absolute before:top-1/2 before:-left-2.5 before:h-10 before:w-px before:-translate-y-1/2 before:bg-lightGrey sm:before:-left-5',
+                    'relative min-w-0 before:absolute before:top-1/2 before:-left-2.5 before:h-10 before:w-px before:-translate-y-1/2 before:bg-border-subtle sm:before:-left-5',
                     index % 2 === 0 && 'before:hidden',
                     isPerformanceHistoryEmpty && index === 2 && 'sm:before:block',
                     cell.className,
@@ -468,7 +468,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
         </div>
 
         {splitLayout && showGraph && !isPerformanceHistoryEmpty && (
-          <div className="min-w-0 space-y-4">
+          <div className="min-w-0 space-y-3">
             <ButtonGroup
               buttonLabels={periodOptions.map(p => p.label)}
               className="ml-auto"

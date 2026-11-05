@@ -26,4 +26,5 @@ export interface SelectProps<TValue extends string | number = string | number>
   menuTitle?: string;
   menuPosition?: 'left' | 'right';
   disabled?: boolean;
+  wrapLabels?: boolean;
 }

@@ -5,7 +5,6 @@ import { useMemo } from 'react';
 import type { GetAccountTransactionHistoryOutput } from 'clients/api';
 import { useTranslation } from 'libs/translations';
 import { Card } from '../Card';
-import { Icon } from '../Icon';
 import { TransactionRow } from './TransactionRow';
 
 export interface TransactionsListProps {
@@ -55,16 +54,10 @@ export const TransactionsList: React.FC<TransactionsListProps> = ({
 
   if (transactions.length === 0) {
     return (
-      <Card className="flex items-center justify-center h-72">
-        <div className="text-center">
-          <div className="w-10 h-10 rounded-lg bg-lightGrey flex items-center justify-center mb-4 mx-auto">
-            <Icon name="transactionFile" className="w-6 h-6 text-grey" />
-          </div>
+      <Card className="flex min-h-60.5 flex-col items-center justify-center gap-3 p-3 text-center">
+        <h2 className="text-b1r">{t('account.transactions.placeholder.title')}</h2>
 
-          <h2 className="mb-1 font-semibold">{t('account.transactions.placeholder.title')}</h2>
-
-          <p className="text-grey text-sm">{t('account.transactions.placeholder.description')}</p>
-        </div>
+        <p className="text-b1r text-grey">{t('account.transactions.placeholder.description')}</p>
       </Card>
     );
   }

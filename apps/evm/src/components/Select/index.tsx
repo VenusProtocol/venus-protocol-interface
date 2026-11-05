@@ -27,6 +27,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       menuTitle,
       menuPosition,
       triggerOnHover,
+      wrapLabels = false,
       ...otherProps
     }: SelectProps,
     ref: React.Ref<HTMLInputElement>,
@@ -95,7 +96,12 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                   optionClassName,
                 )}
               >
-                <span className={cn('grow whitespace-nowrap')}>
+                <span
+                  className={cn(
+                    'grow',
+                    wrapLabels ? 'whitespace-normal [overflow-wrap:anywhere]' : 'whitespace-nowrap',
+                  )}
+                >
                   {renderLabel({ label: option.label })}
                 </span>
 
@@ -111,7 +117,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           </div>
         );
       },
-      [onChange, options, optionClassName, dropdownClassName, value],
+      [onChange, options, optionClassName, dropdownClassName, value, wrapLabels],
     );
 
     return (
@@ -154,7 +160,14 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               {...otherProps}
             />
 
-            <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
+            <span
+              className={cn(
+                'grow text-left',
+                wrapLabels
+                  ? 'whitespace-normal [overflow-wrap:anywhere]'
+                  : 'overflow-hidden text-ellipsis whitespace-nowrap',
+              )}
+            >
               {selectedOption &&
                 renderLabel({ label: selectedOption.label, isRenderedInButton: true })}
             </span>

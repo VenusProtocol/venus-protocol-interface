@@ -53,7 +53,8 @@
     },
     "pools": {
       "placeholder": {
-        "title": "暫無市場持倉"
+        "buttonLabel": "探索市場",
+        "title": "暫無持倉"
       }
     },
     "positions": {

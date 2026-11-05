@@ -1,6 +1,6 @@
 import { useTranslation } from 'libs/translations';
 
-import { Icon, type IconName } from 'components';
+import { Icon, type IconName, cn } from 'components';
 import {
   VENUS_COMMUNITY_URL,
   VENUS_DOC_URL,
@@ -11,6 +11,7 @@ import {
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { forwardRef } from 'react';
+import { matchPath, useLocation } from 'react-router';
 
 interface SocialLink {
   iconName: IconName;
@@ -25,6 +26,8 @@ interface LinkConfig {
 
 export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
+  const isDashboard = !!matchPath(routes.dashboard.path, pathname);
 
   const socialLinks: SocialLink[] = [
     {
@@ -71,7 +74,10 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <footer
       ref={ref}
-      className="mt-10 flex flex-col items-center gap-4 px-5 pt-2 pb-5 md:flex-row md:flex-wrap md:justify-between md:p-5 md:px-6 xl:px-10"
+      className={cn(
+        'mt-10 flex flex-col items-center gap-4 px-5 pt-2 pb-5 md:flex-row md:flex-wrap md:justify-between md:p-5 md:px-6 xl:px-10',
+        isDashboard && 'mt-0 pt-12 md:pt-12',
+      )}
     >
       <nav className="flex flex-col items-center gap-4 md:flex-row md:flex-wrap">
         {footerLinkGroups.map(footerLinks => (

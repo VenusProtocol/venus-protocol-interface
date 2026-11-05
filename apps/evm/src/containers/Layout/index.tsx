@@ -4,10 +4,10 @@ import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { SectionErrorBoundary, Wrapper, cn } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
-import { useProModeOnProRoutes } from 'hooks/useInterfaceMode';
+import { useInterfaceMode, useProModeOnProRoutes } from 'hooks/useInterfaceMode';
 import { usePointerLight } from 'hooks/usePointerLight';
 import { useWindowFocusFlag } from 'hooks/useWindowFocusFlag';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { NavBar } from './NavBar';
@@ -23,6 +23,8 @@ export const Layout: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
 
   const { pathname } = useLocation();
+  const { isLite } = useInterfaceMode();
+  const [isPageScrolled, setIsPageScrolled] = useState(false);
 
   usePointerLight();
   useProModeOnProRoutes();
@@ -36,6 +38,7 @@ export const Layout: React.FC = () => {
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const scrollElem = event.currentTarget;
+    setIsPageScrolled(scrollElem.scrollTop > 0);
     const shouldShowScrollToTopVisible =
       scrollElem?.scrollTop && scrollElem.scrollTop > viewportHeight;
 
@@ -84,25 +87,40 @@ export const Layout: React.FC = () => {
       <div className="h-dvh flex flex-col bg-background-active">
         <Starfield />
 
-        <NavBar className="relative shrink-0" />
+        {isLite && <TestEnvWarning className="relative shrink-0" />}
 
-        <TestEnvWarning className="relative shrink-0" />
+        <div className="relative flex min-h-0 grow flex-col">
+          <NavBar
+            className={cn(
+              'shrink-0',
+              isLite
+                ? 'absolute inset-x-0 top-0 z-50 bg-transparent transition-colors'
+                : 'relative',
+              isLite && isPageScrolled && 'bg-background-active/20 backdrop-blur-xs',
+            )}
+          />
 
-        <div
-          className="relative flex flex-col grow overflow-x-hidden"
-          id={PAGE_CONTAINER_ID}
-          onScroll={handleScroll}
-        >
-          <Header />
+          {!isLite && <TestEnvWarning className="relative shrink-0" />}
 
-          <div className="relative flex grow flex-col">
-            <WrapperComp
-              className={cn('relative w-full shrink-0 grow', !noWrapper && 'pt-5 sm:pt-10')}
-            >
-              {contentDom}
-            </WrapperComp>
+          <div
+            className={cn(
+              'relative flex flex-col grow overflow-x-hidden',
+              isLite && 'scroll-pt-20 pt-20',
+            )}
+            id={PAGE_CONTAINER_ID}
+            onScroll={handleScroll}
+          >
+            <Header />
 
-            <Footer ref={footerRef} />
+            <div className="relative flex grow flex-col">
+              <WrapperComp
+                className={cn('relative w-full shrink-0 grow', !noWrapper && 'pt-5 sm:pt-10')}
+              >
+                {contentDom}
+              </WrapperComp>
+
+              <Footer ref={footerRef} />
+            </div>
           </div>
         </div>
 

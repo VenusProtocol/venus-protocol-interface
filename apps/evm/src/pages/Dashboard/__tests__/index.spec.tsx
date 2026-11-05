@@ -2,12 +2,16 @@ import { waitFor, within } from '@testing-library/react';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { useGetSpokePools } from 'clients/api';
+import { REDIRECT_TEST_CONTENT } from 'containers/Redirect/__mocks__';
 import { useStore as useInterfaceModeStore } from 'hooks/useInterfaceMode/store';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { Dashboard } from '..';
+
+vi.mock('containers/Redirect');
 
 describe('Dashboard', () => {
   beforeEach(() => {
@@ -72,5 +76,29 @@ describe('Dashboard', () => {
     await waitFor(() =>
       expect(getByText(en.dashboard.overview.netWorth.label)).toBeInTheDocument(),
     );
+  });
+
+  it('redirects to the home page when no wallet is connected', async () => {
+    (useAccountAddress as Mock).mockImplementation(() => ({
+      accountAddress: undefined,
+      isAccountPending: false,
+    }));
+
+    const { getByText, queryByText } = renderComponent(<Dashboard />);
+
+    await waitFor(() => expect(getByText(REDIRECT_TEST_CONTENT)).toBeInTheDocument());
+    expect(queryByText(en.dashboard.overview.summary.title)).not.toBeInTheDocument();
+  });
+
+  it('waits for the wallet to reconnect before redirecting', async () => {
+    (useAccountAddress as Mock).mockImplementation(() => ({
+      accountAddress: undefined,
+      isAccountPending: true,
+    }));
+
+    const { getByAltText, queryByText } = renderComponent(<Dashboard />);
+
+    await waitFor(() => expect(getByAltText('Spinner')).toBeInTheDocument());
+    expect(queryByText(REDIRECT_TEST_CONTENT)).not.toBeInTheDocument();
   });
 });

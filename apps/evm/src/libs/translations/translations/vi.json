@@ -53,7 +53,8 @@
     },
     "pools": {
       "placeholder": {
-        "title": "Chưa có vị thế thị trường"
+        "buttonLabel": "Khám phá thị trường",
+        "title": "Chưa có vị thế nào"
       }
     },
     "positions": {

@@ -53,7 +53,8 @@
     },
     "pools": {
       "placeholder": {
-        "title": "Henüz piyasa pozisyonu yok"
+        "buttonLabel": "Piyasaları keşfet",
+        "title": "Henüz pozisyon yok"
       }
     },
     "positions": {

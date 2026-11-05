@@ -53,7 +53,8 @@
     },
     "pools": {
       "placeholder": {
-        "title": "No market positions yet"
+        "buttonLabel": "Explore markets",
+        "title": "No positions yet"
       }
     },
     "positions": {

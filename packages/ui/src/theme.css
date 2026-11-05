@@ -249,6 +249,7 @@
 
   --color-border-glass: rgb(var(--elevation-tint-rgb) / 16%);
   --color-border-raised: rgb(var(--elevation-tint-rgb) / 12%);
+  --color-border-subtle: rgb(var(--elevation-tint-rgb) / 8%);
   --color-border-segment-active: rgb(13 136 224);
 
   --background-image-row-hover: linear-gradient(

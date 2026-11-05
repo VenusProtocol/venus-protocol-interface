@@ -90,7 +90,8 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
       columns={columns}
       rowKeyExtractor={asset => asset.vToken.address}
       rowOnClick={(_event, asset) => onRowClick(asset)}
-      tableLayout="auto"
+      columnWidths={['24%', '32%', '20%', '24%']}
+      tableHeaderClassName="border-border-subtle"
       tableRowClassName="h-15 hover:bg-surface-row-hover"
       breakpoint="md"
       hideCardDelimiter

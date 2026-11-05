@@ -1,5 +1,7 @@
 import { useGetLiquidityHubs, useGetPool, useGetVaults } from 'clients/api';
-import { Delimiter, Page, SectionErrorBoundary } from 'components';
+import { Delimiter, Page, SectionErrorBoundary, Spinner } from 'components';
+import { routes } from 'constants/routing';
+import { Redirect } from 'containers/Redirect';
 import { useChain } from 'hooks/useChain';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
@@ -13,6 +15,16 @@ import { Settings } from './Settings';
 import { Transactions } from './Transactions';
 
 export const Dashboard: React.FC = () => {
+  const { accountAddress, isAccountPending } = useAccountAddress();
+
+  if (accountAddress) {
+    return <ConnectedDashboard />;
+  }
+
+  return isAccountPending ? <Spinner /> : <Redirect to={routes.landing.path} />;
+};
+
+const ConnectedDashboard: React.FC = () => {
   const { t } = useTranslation();
   const { corePoolComptrollerContractAddress } = useChain();
   const { chainId } = useChainId();
@@ -77,7 +89,7 @@ export const Dashboard: React.FC = () => {
           </SectionErrorBoundary>
         </section>
 
-        <Delimiter className="hidden sm:my-6 sm:block" />
+        <Delimiter className="hidden border-border-subtle sm:my-6 sm:block" />
 
         <SectionErrorBoundary>
           <PoolPositions
@@ -92,7 +104,7 @@ export const Dashboard: React.FC = () => {
 
         {isHistoricalTransactionsFeatureEnabled && (
           <>
-            <Delimiter className="hidden sm:my-6 sm:block" />
+            <Delimiter className="hidden border-border-subtle sm:my-6 sm:block" />
 
             <SectionErrorBoundary>
               <Transactions />
