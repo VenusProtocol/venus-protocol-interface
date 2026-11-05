@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.44.1
+
+### Patch Changes
+
+- 09a3666: request the start of day net worth on its own so it can be cached
+
 ## 5.44.0
 
 ### Minor Changes
